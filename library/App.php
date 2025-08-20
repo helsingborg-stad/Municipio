@@ -39,6 +39,7 @@ use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\DisableStandardFieldsOnPostsWithSchemaType\DisableStandardFieldsOnPostsWithSchemaType;
@@ -340,7 +341,15 @@ class App
         /**
          * Apply schema.org data to posts
          */
-        $this->setupSchemaDataFeature();
+        (new SchemaDataFeature(
+            $this->wpService,
+            $this->acfService,
+            $this->hooksRegistrar,
+            $this->acfFieldContentModifierRegistrar,
+            $this->schemaDataConfig,
+            $this->wpdb,
+            [$this, 'setupExternalContent']
+        ))->enable();
 
         /**
          * Image convert
@@ -810,106 +819,6 @@ class App
     }
 
     /**
-     * Sets up the schema data feature.
-     *
-     * This method initializes the schema data feature by adding necessary filters,
-     * actions, and registering schema types and properties.
-     *
-     * @return void
-     */
-    private function setupSchemaDataFeature(): void
-    {
-        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
-            $autoExportIds['post-type-schema-settings'] = 'group_66d94a4867cec';
-            return $autoExportIds;
-        });
-
-        $this->wpService->addAction('init', function () {
-            $this->acfService->addOptionsSubPage([
-                'page_title'  => 'Post type schema settings',
-                'menu_title'  => 'Post type schema settings',
-                'menu_slug'   => 'mun-post-type-schema-settings',
-                'capability'  => 'manage_options',
-                'parent_slug' => 'options-general.php',
-            ]);
-        });
-
-        /**
-         * Register schema types in acf select.
-         */
-        $getAllSchemaTypes = new \Municipio\SchemaData\Utils\SchemaTypes();
-        $allSchemaTypes    = array_combine($getAllSchemaTypes->getSchemaTypes(), $getAllSchemaTypes->getSchemaTypes());
-        $this->acfFieldContentModifierRegistrar->registerModifier(
-            'field_66da9e4dffa66',
-            new ModifyFieldChoices($allSchemaTypes)
-        );
-
-        /**
-         * Output schemadata in head of single posts.
-         */
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead(
-            $this->getSchemaObjectFromPostFactory(),
-            $this->wpService
-        ));
-
-        /**
-         * Register form for schema properties on posts.
-         */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\Register(
-            $this->acfService,
-            $this->wpService,
-            $this->schemaDataConfig,
-            new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService),
-            $this->getPostObjectFromWpPostFactory(),
-        ))->addHooks();
-
-        /**
-         * Disable standard fields like title, content etc on post types connected to certain schema types.
-         */
-        (new DisableStandardFieldsOnPostsWithSchemaType(
-            ['ExhibitionEvent'],
-            ['title', 'editor'],
-            $this->schemaDataConfig,
-            $this->wpService
-        ))->addHooks();
-
-        /**
-         * Set post title from schema title.
-         */
-        (new SetPostTitleFromSchemaTitle($this->getSchemaObjectFromPostFactory(), $this->wpService))->addHooks();
-
-        /**
-         * Store form field values.
-         */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues(
-            $this->wpService,
-            $this->schemaDataConfig,
-            new UpdatePostNonceValidatorService($this->wpService),
-            new FieldMapper($this->acfService),
-            (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create(),
-            $this->getPostObjectFromWpPostFactory()
-        ))->addHooks();
-
-        /**
-         * Register taxonomies for active schema types and add terms to posts when updating schemaData.
-         */
-        $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)), new SchemaTypesInUse($this->wpdb));
-        (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomies($taxonomiesFactory, $this->wpService))->addHooks();
-        (new \Municipio\SchemaData\Taxonomy\AddTermsToPostFromSchema($taxonomiesFactory, new TermFactory(), $this->wpService))->addHooks();
-
-        /**
-         * Clean up unused terms from external content taxonomies.
-         */
-        $cleanupUnusedTerms = new \Municipio\SchemaData\Taxonomy\CleanupUnusedTerms($taxonomiesFactory, $this->wpService);
-        (new WpCronJobManager('municipio_schemadata_', $this->wpService))->register(new WpCronJob('cleanup_unused_terms', time(), 'hourly', [$cleanupUnusedTerms, 'cleanupUnusedTerms'], []));
-
-        /**
-         * External content
-         */
-        $this->setupExternalContent();
-    }
-
-    /**
      * Sets up external content.
      *
      * This method initializes the external content feature by registering taxonomies,
@@ -918,7 +827,7 @@ class App
      *
      * @return void
      */
-    private function setupExternalContent(): void
+    public function setupExternalContent(): void
     {
         $postTypeSyncInProgress = new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService);
         $sourceConfigs          = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
