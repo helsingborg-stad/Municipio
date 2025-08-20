@@ -22,11 +22,6 @@ use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
-use Municipio\ExternalContent\Cron\AllowCronToEditPosts;
-use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
-use Municipio\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
-use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
@@ -36,7 +31,7 @@ use wpdb;
 use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
-use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
+use Municipio\SchemaData\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\SchemaData\SchemaDataFeature;
@@ -347,8 +342,7 @@ class App
             $this->hooksRegistrar,
             $this->acfFieldContentModifierRegistrar,
             $this->schemaDataConfig,
-            $this->wpdb,
-            [$this, 'setupExternalContent']
+            $this->wpdb
         ))->enable();
 
         /**
@@ -816,119 +810,6 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
-    }
-
-    /**
-     * Sets up external content.
-     *
-     * This method initializes the external content feature by registering taxonomies,
-     * setting up cron jobs, disabling editing of post types using external content sources,
-     * and starting the sync process if the event is triggered.
-     *
-     * @return void
-     */
-    public function setupExternalContent(): void
-    {
-        $postTypeSyncInProgress = new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService);
-        $sourceConfigs          = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
-
-        /**
-         * Allow cron to edit posts.
-         */
-        (new AllowCronToEditPosts($this->wpService))->addHooks();
-
-        /**
-         * Setup cron jobs on config change.
-         */
-        (new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange($sourceConfigs, new WpCronJobManager('municipio_external_content_sync_', $this->wpService), $this->wpService))->addHooks();
-
-        /**
-         * Disable editing of post type using external content source.
-         */
-        (new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService))->addHooks();
-
-        /**
-         * Sync external content.
-         */
-        (new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceConfigs, $this->wpService, new \Municipio\ProgressReporter\NullProgressReporterService()))->addHooks();
-
-        /**
-         * Ajax sync.
-         */
-        (new \Municipio\ExternalContent\Rest\AjaxSync($sourceConfigs, $postTypeSyncInProgress, $this->wpService))->addHooks();
-
-        /**
-         * Only run the following if user is admin.
-         * This is to prevent the following from running on the front end and affecting performance.
-         */
-        if (!$this->wpService->isAdmin()) {
-            return;
-        }
-
-        /**
-         * Register field group for external content settings.
-         */
-        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
-            $autoExportIds['external-content-settings'] = 'group_66d94ae935cfb';
-            return $autoExportIds;
-        });
-
-        /**
-         * Register options page
-         */
-        $this->wpService->addAction('init', function () {
-            $this->acfService->addOptionsSubPage([
-                'page_title'  => 'External Content Settings',
-                'menu_title'  => 'External Content',
-                'menu_slug'   => 'mun-external-content-settings',
-                'capability'  => 'manage_options',
-                'parent_slug' => 'options-general.php',
-            ]);
-        });
-
-        /**
-         * Populate post type field options.
-         */
-        $postTypesAsOptions = array_combine(
-            $this->schemaDataConfig->getEnabledPostTypes(),
-            $this->schemaDataConfig->getEnabledPostTypes()
-        );
-        $this->acfFieldContentModifierRegistrar->registerModifier(
-            'field_66da926c03553',
-            new ModifyFieldChoices($postTypesAsOptions)
-        );
-
-        /**
-         * Populate cron_schedule field options.
-         */
-        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->wpGetSchedules());
-        array_unshift($scheduleOptions, __('Never', 'municipio'));
-        $this->acfFieldContentModifierRegistrar->registerModifier(
-            'field_66da9961f781e',
-            new ModifyFieldChoices($scheduleOptions)
-        );
-
-        /**
-         * Add sync button to post list.
-         */
-        (new \Municipio\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService))->addHooks();
-
-        /**
-         * Add sync button to post row.
-         */
-        (new \Municipio\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService))->addHooks();
-
-        /**
-         * Trigger sync of external content.
-         */
-        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSync($this->wpService);
-        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncIfNotInProgress($postTypeSyncInProgress, $triggerSync);
-        (new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams($this->wpService, $triggerSync))->addHooks();
-
-        /**
-         * Hide synced media from media library in admin.
-         */
-        (new HideSyncedMediaFromAdminMediaLibrary(ThumbnailDecorator::META_KEY, $this->wpService))->addHooks();
     }
 
     /**

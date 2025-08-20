@@ -26,6 +26,7 @@ use Municipio\SchemaData\Utils\SchemaTypesInUse;
 use wpdb;
 use WpCronService\WpCronJob\WpCronJob;
 use WpCronService\WpCronJobManager;
+use Municipio\SchemaData\ExternalContent\ExternalContentFeature;
 use WpService\WpService;
 
 /**
@@ -42,7 +43,6 @@ class SchemaDataFeature
      * @param AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar The ACF field content modifier registrar.
      * @param SchemaDataConfigInterface $schemaDataConfig The schema data config.
      * @param wpdb $wpdb The WordPress database instance.
-     * @param callable|null $externalContentSetupCallback Optional callback for external content setup.
      */
     public function __construct(
         private WpService $wpService,
@@ -50,8 +50,7 @@ class SchemaDataFeature
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
         private SchemaDataConfigInterface $schemaDataConfig,
-        private wpdb $wpdb,
-        private $externalContentSetupCallback = null
+        private wpdb $wpdb
     ) {
     }
 
@@ -208,13 +207,15 @@ class SchemaDataFeature
 
     /**
      * Setup external content feature.
-     * This will be replaced when ExternalContent is moved into SchemaData.
      */
     private function setupExternalContent(): void
     {
-        if ($this->externalContentSetupCallback !== null) {
-            call_user_func($this->externalContentSetupCallback);
-        }
+        (new ExternalContentFeature(
+            $this->wpService,
+            $this->acfService,
+            $this->acfFieldContentModifierRegistrar,
+            $this->schemaDataConfig
+        ))->enable();
     }
 
     /**
