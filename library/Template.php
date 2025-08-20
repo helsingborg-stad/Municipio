@@ -7,7 +7,6 @@ use AcfService\AcfService;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Admin\Private\MainQueryUserGroupRestriction;
-use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
@@ -29,18 +28,12 @@ class Template
 
     /**
      * Template constructor.
-     * @param MenuBuilderInterface $menuBuilder
-     * @param MenuDirector $menuDirector
-     * @param AcfService $acfService
-     * @param WpService $wpService
-     * @param SchemaDataConfigInterface $schemaDataConfig
      */
     public function __construct(
         private MenuBuilderInterface $menuBuilder,
         private MenuDirector $menuDirector,
         private AcfService $acfService,
         private WpService $wpService,
-        private SchemaDataConfigInterface $schemaDataConfig,
         private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction,
         private SiteSwitcher $siteSwitcher,
         private PostObjectFromWpPostFactoryInterface $postObjectFromWpPost,
@@ -470,7 +463,7 @@ class Template
         if ($this->bladeEngine === null) {
             $this->initializeBlade();
         }
-        
+
         try {
             $markup = $this->bladeEngine
                 ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
@@ -740,7 +733,7 @@ class Template
         if ($this->bladeEngine !== null) {
             return;
         }
-        
+
         $this->viewPaths   = $this->registerViewPaths();
         $componentLibrary  = new Init($this->viewPaths);
         $this->bladeEngine = $componentLibrary->getEngine();
