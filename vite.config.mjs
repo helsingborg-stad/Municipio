@@ -5,8 +5,8 @@ import copy from 'rollup-plugin-copy'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 const entries = {
-  'css/styleguide': '', // will be filled by plugin
-  'js/styleguide': '', // will be filled by plugin
+  'css/styleguide': './node_modules/@helsingborg-stad/styleguide/source/sass/main.scss',
+  'js/styleguide': './node_modules/@helsingborg-stad/styleguide/source/js/app.js',
 
   'css/municipio': './assets/source/sass/main.scss',
   'css/mce': './assets/source/sass/mce.scss',
@@ -53,10 +53,10 @@ function iconGeneratorPlugin() {
     name: 'icon-generator',
     buildStart() {
       const filePath = path.resolve(process.cwd(), 'node_modules', 'material-symbols', 'index.d.ts');
-      
+
       try {
         const data = fs.readFileSync(filePath, 'utf8');
-        
+
         const [startIndex, endIndex] = [
           data.indexOf('['),
           data.indexOf(']')
@@ -103,13 +103,13 @@ function rawPlugin() {
       if (id.includes('!!raw-loader!') && id.endsWith('?raw')) {
         // Extract the actual file path from !!raw-loader!./file.css?raw
         const filePath = id.replace('!!raw-loader!', '').replace('?raw', '');
-        
+
         // If it's a relative path, resolve it relative to the importer
         if (filePath.startsWith('./') && importer) {
           const resolvedPath = path.resolve(path.dirname(importer), filePath);
           return resolvedPath + '?raw';
         }
-        
+
         return filePath + '?raw';
       }
       if (id.endsWith('?raw')) {
@@ -120,7 +120,7 @@ function rawPlugin() {
       if (id.endsWith('?raw')) {
         // Remove the ?raw suffix to get the actual file path
         const filePath = id.replace('?raw', '');
-        
+
         try {
           const content = fs.readFileSync(filePath, 'utf8');
           return `export default ${JSON.stringify(content)};`;
@@ -128,45 +128,6 @@ function rawPlugin() {
           console.warn(`Could not load raw file: ${filePath}`, err.message);
           return `export default "";`;
         }
-      }
-    }
-  }
-}
-
-function styleguideEntryResolver(entries) {
-  return {
-    name: 'styleguide-entry-resolver',
-    buildStart() {
-      try {
-        const styleguideJsDir = 'node_modules/@helsingborg-stad/styleguide/dist/js';
-        const styleguideCssDir = 'node_modules/@helsingborg-stad/styleguide/dist/css';
-        
-        // Check if styleguide package exists
-        if (fs.existsSync(styleguideJsDir) && fs.existsSync(styleguideCssDir)) {
-          // Resolve JS
-          const jsFiles = fs.readdirSync(styleguideJsDir);
-          const jsFile = jsFiles.find(f => f.startsWith('styleguide-js') && f.endsWith('.js'));
-          if (jsFile) {
-            entries['js/styleguide'] = path.resolve(styleguideJsDir, jsFile);
-          }
-
-          // Resolve CSS
-          const cssFiles = fs.readdirSync(styleguideCssDir);
-          const cssFile = cssFiles.find(f => f.startsWith('styleguide-css') && f.endsWith('.css'));
-          if (cssFile) {
-            entries['css/styleguide'] = path.resolve(styleguideCssDir, cssFile);
-          }
-        } else {
-          console.warn('Styleguide package not found, skipping styleguide entries');
-          // Remove styleguide entries when package is not available
-          delete entries['js/styleguide'];
-          delete entries['css/styleguide'];
-        }
-      } catch (err) {
-        console.warn('Error resolving styleguide entries:', err.message);
-        // Remove empty styleguide entries if they can't be resolved
-        delete entries['js/styleguide'];
-        delete entries['css/styleguide'];
       }
     }
   }
@@ -203,11 +164,11 @@ export default defineConfig(({ mode }) => {
               if (name.includes('material-symbols')) {
                 // Extract weight information from source path context  
                 const source = assetInfo.source || '';
-                
+
                 // Extract weight and style from filename
                 let weight = 'medium'; // default
                 let style = 'sharp'; // default
-                
+
                 if (name.includes('-200') || this.facadeModuleId?.includes('font-200')) {
                   weight = 'light';
                 } else if (name.includes('-400') || this.facadeModuleId?.includes('font-400')) {
@@ -215,13 +176,13 @@ export default defineConfig(({ mode }) => {
                 } else if (name.includes('-600') || this.facadeModuleId?.includes('font-600')) {
                   weight = 'bold';
                 }
-                
+
                 if (name.includes('outlined')) {
                   style = 'outlined';
                 } else if (name.includes('rounded')) {
                   style = 'rounded';
                 }
-                
+
                 const ext = name.split('.').pop();
                 return `fonts/material/${weight}/${style}.[hash].${ext}`;
               }
@@ -269,7 +230,7 @@ export default defineConfig(({ mode }) => {
       manifestPlugin('manifest.json'),
       iconGeneratorPlugin(),
       rawPlugin(),
-      styleguideEntryResolver(entries),
+      // styleguideEntryResolver(entries),
       // Plugin to copy material symbol fonts to avoid resolution issues
       copy({
         targets: [
@@ -278,7 +239,7 @@ export default defineConfig(({ mode }) => {
             dest: 'assets/dist/fonts/material/light/'
           },
           {
-            src: 'node_modules/@material-symbols/font-400/*.woff2', 
+            src: 'node_modules/@material-symbols/font-400/*.woff2',
             dest: 'assets/dist/fonts/material/medium/'
           },
           {
