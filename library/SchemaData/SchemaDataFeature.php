@@ -184,7 +184,7 @@ class SchemaDataFeature
             new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)),
             new SchemaTypesInUse($this->wpdb)
         );
-        
+
         (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomies($taxonomiesFactory, $this->wpService))->addHooks();
         (new \Municipio\SchemaData\Taxonomy\AddTermsToPostFromSchema($taxonomiesFactory, new TermFactory(), $this->wpService))->addHooks();
     }
@@ -198,7 +198,7 @@ class SchemaDataFeature
             new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)),
             new SchemaTypesInUse($this->wpdb)
         );
-        
+
         $cleanupUnusedTerms = new \Municipio\SchemaData\Taxonomy\CleanupUnusedTerms($taxonomiesFactory, $this->wpService);
         (new WpCronJobManager('municipio_schemadata_', $this->wpService))->register(
             new WpCronJob('cleanup_unused_terms', time(), 'hourly', [$cleanupUnusedTerms, 'cleanupUnusedTerms'], [])

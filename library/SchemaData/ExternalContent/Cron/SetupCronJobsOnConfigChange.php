@@ -9,6 +9,11 @@ use WpCronService\WpCronJobManagerInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 
+/**
+ * Sets up WP Cron jobs when external content configuration changes.
+ *
+ * Registers cron jobs based on provided source configs and hooks into WordPress actions.
+ */
 class SetupCronJobsOnConfigChange implements Hookable
 {
     /**
@@ -23,11 +28,17 @@ class SetupCronJobsOnConfigChange implements Hookable
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'setupCronJobs']);
     }
 
+    /**
+     * Setup cron jobs based on source configs.
+     */
     public function setupCronJobs(): void
     {
         foreach ($this->sourceConfigs as $sourceConfig) {

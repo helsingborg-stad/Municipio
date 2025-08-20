@@ -70,7 +70,7 @@ class ExternalContentFeature
             return;
         }
 
-        $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
+        $sourceConfigs          = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
         $postTypeSyncInProgress = new \Municipio\SchemaData\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService);
 
         $this->setupAcfExport();
