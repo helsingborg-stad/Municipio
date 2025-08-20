@@ -198,6 +198,10 @@ export default defineConfig(({ mode }) => {
       minify: isProduction ? 'esbuild' : false,
       sourcemap: true
     },
+    // Ensure core-js is included for dependency optimization
+    optimizeDeps: {
+      include: ['core-js']
+    },
     esbuild: {
       keepNames: true,
       minifyIdentifiers: false
@@ -233,7 +237,23 @@ export default defineConfig(({ mode }) => {
       rawPlugin(),
       babel({
         babelConfig: {
-          presets: ['@babel/preset-env'],
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                // Example: cover older browsers, including IE 11
+                targets: {
+                  ie: '11',
+                  edge: '18',
+                  firefox: '60',
+                  chrome: '49',
+                  safari: '11'
+                },
+                useBuiltIns: 'usage', // adds only the needed polyfills
+                corejs: 3             // make sure core-js@3 is installed
+              }
+            ]
+          ],
           plugins: []
         }
       }),

@@ -67,5 +67,8 @@
     },
     "browser": {
         "child_process": false
+    },
+    "dependencies": {
+        "core-js": "^3.45.0"
     }
 }
