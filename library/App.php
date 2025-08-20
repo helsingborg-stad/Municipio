@@ -120,7 +120,12 @@ class App
             new CreatePostObjectFromWpPost(
                 $this->wpService,
                 $this->acfService,
-                $this->getSchemaObjectFromPostFactory()
+                (new SchemaObjectFromPostFactory(
+                    $this->schemaDataConfig,
+                    $this->wpService,
+                    new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes(),
+                    new SchemaPropertyValueSanitizer()
+                ))->create()
             ),
             $userHelper
         );
@@ -801,22 +806,5 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
-    }
-
-    /**
-     * Get the schema object from post factory.
-     *
-     * @return SchemaObjectFromPostInterface
-     */
-    private function getSchemaObjectFromPostFactory(): SchemaObjectFromPostInterface
-    {
-        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-
-        return (new SchemaObjectFromPostFactory(
-            $this->schemaDataConfig,
-            $this->wpService,
-            $getSchemaPropertiesWithParamTypes,
-            new SchemaPropertyValueSanitizer()
-        ))->create();
     }
 }
