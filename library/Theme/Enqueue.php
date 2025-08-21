@@ -303,7 +303,7 @@ class Enqueue
         wp_enqueue_script_module('styleguide-js');
 
         // Load local municipio js
-        wp_register_script_module('municipio-js', self::getAsset('js/municipio.js'), array('wp-api-request'));
+        wp_register_script_module('municipio-js', self::getAsset('js/municipio.js'), array('wp-api', 'wp-api-request'));
         wp_enqueue_script_module('municipio-js');
 
         // Load instant page
