@@ -35,6 +35,9 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getPermalink(): string
     {
+        // Temporary fix to disable permalinks adding information about the original blog.
+        return $this->withSwitchedBlog(fn() => $this->postObject->getPermalink());
+
         $seoRedirectMetaUrl = $this->withSwitchedBlog(fn() => $this->wpService->getPostMeta($this->postObject->getId(), 'redirect', true));
 
         if (filter_var($seoRedirectMetaUrl, FILTER_VALIDATE_URL)) {
