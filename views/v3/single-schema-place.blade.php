@@ -56,7 +56,7 @@
 
                     @if (!empty($post->bookingLink))
                         @button([
-                            'text' => $lang->bookHere,
+                            'text' => $lang->bookHere ?? 'Book here',
                             'color' => 'primary',
                             'style' => 'filled',
                             'href' => $post->bookingLink,

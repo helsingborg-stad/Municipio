@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
-use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Event;
 use Municipio\Schema\Thing;

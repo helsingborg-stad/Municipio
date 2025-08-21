@@ -45,7 +45,7 @@ $acfService = new NativeAcfService();
 /**
  * Dependencies.
  */
-$schemaDataConfigService = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService);
+$schemaDataConfigService = new \Municipio\SchemaData\Config\SchemaDataConfigService($wpService);
 $schemaObjectFromPost    = (new SchemaObjectFromPostFactory(
     $schemaDataConfigService,
     $wpService,
@@ -138,6 +138,8 @@ add_action('init', function () use ($wpService) {
         'post-status-conditional'                    => 'group_671241997f07d',
         'common-field-groups'                        => 'group_678e65a73edb3',
         'global-notices'                             => 'group_6798e1aebe3c6',
+        'a11y-statement'                             => 'group_6874ffb12b42d',
+        'a11y-statement-url'                         => 'group_689c4def19f8e',
     ));
 
     $acfExportManager->autoExport($autoExportIds);

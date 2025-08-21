@@ -70,6 +70,7 @@ class Images
             }
             $linkedImage = $link->firstChild;
             if (self::isSelfLinked($link, $linkedImage)) {
+                $linkedImage->setAttribute('parsed', '1');
                 $captionText = self::extractCaption($link->parentNode);
                 $altText     = $linkedImage->getAttribute('alt') ?: $captionText;
                 self::replaceWithBladeTemplate($dom, $link, $linkedImage, $altText, $captionText);
@@ -163,6 +164,9 @@ class Images
         $url          = self::sanitizeRequestUrl($image->getAttribute('src'));
         $attachmentId = attachment_url_to_postid($url);
 
+        $classes = $image->parentNode instanceof \DOMElement ? explode(' ', $image->parentNode->getAttribute('class') ?? []) : [];
+
+
         //Handle as know local image (in wp database)
         if (is_numeric($attachmentId) && !empty($attachmentId)) {
             //Width
@@ -181,7 +185,7 @@ class Images
                 $html = render_blade_view('partials.content.image', [
                     'src'              => $imageSrc[0],
                     'caption'          => $captionText,
-                    'classList'        => explode(' ', $image->getAttribute('class') ?? []),
+                    'classList'        => $classes,
                     'imgAttributeList' => [
                         'parsed' => true,
                     ],
@@ -201,7 +205,7 @@ class Images
                 'src'              => $url,
                 'alt'              => $altText,
                 'caption'          => $captionText,
-                'classList'        => explode(' ', $image->getAttribute('class') ?? []),
+                'classList'        => $classes,
                 'imgAttributeList' => [
                     'parsed' => true
                 ],
@@ -216,12 +220,13 @@ class Images
 
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-            if ($newNode instanceof \DOMElement && $element->parentNode instanceof \DOMElement) {
-                while ($element->firstChild) {
-                    $element->removeChild($element->firstChild);
-                }
 
-                $element->appendChild($newNode);
+            if (
+                $newNode instanceof \DOMElement &&
+                $element->parentNode instanceof \DOMElement &&
+                $element->parentNode->parentNode instanceof \DOMElement
+            ) {
+                $element->parentNode->parentNode->replaceChild($newNode, $element->parentNode);
             }
         }
     }
