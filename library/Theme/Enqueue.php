@@ -10,29 +10,128 @@ use Throwable;
  */
 class Enqueue
 {
-    private const ASSETS_DIST_PATH = '/assets/dist/';
+    private const ENQUEUE = [
+        'frontend' => [
+            ['handle' => 'municipio', 'src' => 'js/municipio.js', 'deps' => ['jquery'], 'in_footer' => true, 'module' => true],
+            ['handle' => 'pre-styleguide-js', 'src' => 'js/pre-styleguide.js', 'deps' => [], 'in_footer' => true, 'localize' => [
+                'object_name' => 'localizedData',
+                'callback' => 'getPreStyleguideLocalization'
+            ]],
+            ['handle' => 'municipio-js', 'src' => 'js/municipio.js', 'deps' => ['wp-api-request'], 'in_footer' => true, 'module' => true, 'localize' => [
+                'object_name' => 'MunicipioLang',
+                'callback' => 'getMunicipioTranslations'
+            ]],
+            ['handle' => 'styleguide-js', 'src' => 'js/styleguide.js', 'deps' => [], 'in_footer' => true],
+            ['handle' => 'instantpage-js', 'src' => 'js/instantpage.js', 'deps' => [], 'in_footer' => true],
+            ['handle' => 'pdf-js', 'src' => 'js/pdf.js', 'deps' => [], 'in_footer' => true, 'module' => true],
+            ['handle' => 'nav-js', 'src' => 'js/nav.js', 'deps' => [], 'in_footer' => true, 'module' => true],
+        ],
+        'admin' => [
+            ['handle' => 'options-reading', 'src' => 'js/options-reading.js', 'deps' => ['jquery'], 'in_footer' => true],
+            ['handle' => 'user-group-visibility', 'src' => 'js/user-group-visibility.js', 'deps' => [], 'in_footer' => true],
+            ['handle' => 'hidden-post-status-conditional', 'src' => 'js/hidden-post-status-conditional.js', 'deps' => ['acf-input', 'jquery'], 'in_footer' => true],
+            ['handle' => 'event-source-progress', 'src' => 'js/event-source-progress.js', 'deps' => [], 'in_footer' => true],
+        ],
+        'customizer' => [
+            ['handle' => 'design-share-js', 'src' => 'js/design-share.js', 'deps' => ['jquery', 'customize-controls'], 'in_footer' => true],
+            ['handle' => 'customizer-flexible-header', 'src' => 'js/customizer-flexible-header.js', 'deps' => ['jquery', 'customize-controls'], 'in_footer' => true, 'localize' => [
+                'object_name' => 'flexibleHeader',
+                'callback' => 'getCustomizerFlexibleHeaderLocalization'
+            ]],
+            ['handle' => 'customizer-error-handling', 'src' => 'js/customizer-error-handling.js', 'deps' => ['jquery', 'customize-controls'], 'in_footer' => true],
+        ],
+        'styles' => [
+            ['handle' => 'styleguide-css', 'src' => 'css/styleguide.css'],
+            ['handle' => 'municipio-css', 'src' => 'css/municipio.css'],
+            ['handle' => 'acf-css', 'src' => 'css/acf.css', 'admin' => true],
+            ['handle' => 'general-css', 'src' => 'css/general.css', 'admin' => true],
+            ['handle' => 'a11y-css', 'src' => 'css/a11y.css', 'admin' => true],
+            ['handle' => 'header-flexible', 'src' => 'css/header-flexible.css', 'customizer' => true],
+        ]
+    ];
+
+    /**
+     * Translations and localization callbacks
+     */
+    private static function getMunicipioTranslations(): array
+    {
+        return [
+            'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
+            'messages'   => [
+                'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
+                'onError'       => __('Something went wrong, please try again later', 'municipio'),
+            ]
+        ];
+    }
+
+    private static function getPreStyleguideLocalization(): array
+    {
+        return [
+            'months' => [
+                ucFirst(__('January')),
+                ucFirst(__('February')),
+                ucFirst(__('March')),
+                ucFirst(__('April')),
+                ucFirst(__('May')),
+                ucFirst(__('June')),
+                ucFirst(__('July')),
+                ucFirst(__('August')),
+                ucFirst(__('September')),
+                ucFirst(__('October')),
+                ucFirst(__('November')),
+                ucFirst(__('December'))
+            ],
+            'days' => [
+                ucFirst(__('Su', 'municipio')),
+                ucFirst(__('Mo', 'municipio')),
+                ucFirst(__('Tu', 'municipio')),
+                ucFirst(__('We', 'municipio')),
+                ucFirst(__('Th', 'municipio')),
+                ucFirst(__('Fr', 'municipio')),
+                ucFirst(__('Sa', 'municipio'))
+            ]
+        ];
+    }
+
+    private static function getCustomizerFlexibleHeaderLocalization(): array
+    {
+        return [
+            'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
+            'lang'        => [
+                'alignment' => __('Alignment', 'municipio'),
+                'margin'    => __('Margin', 'municipio'),
+                'left'      => __('Left', 'municipio'),
+                'right'     => __('Right', 'municipio'),
+                'both'      => __('Both', 'municipio'),
+                'none'      => __('None', 'municipio'),
+            ]
+        ];
+    }
 
     /**
      * Enqueue constructor.
      */
     public function __construct()
     {
+        if (!defined('ASSETS_DIST_PATH')) {
+            define('ASSETS_DIST_PATH', '/assets/dist/');
+        }
+  
         // Enqueue scripts and styles
-        add_action('wp_enqueue_scripts', array($this, 'style'), 5);
+        add_action('wp_enqueue_scripts', function () {
+            $this->enqueueFromConfig(self::ENQUEUE['frontend'], 'frontend');
+            $this->enqueueStyles('frontend');
+        }, 5);
+        add_action('admin_enqueue_scripts', function () {
+            $this->enqueueFromConfig(self::ENQUEUE['admin'], 'admin');
+            $this->enqueueStyles('admin');
+        }, 999);
+        add_action('customize_controls_enqueue_scripts', function () {
+            $this->enqueueFromConfig(self::ENQUEUE['customizer'], 'customizer');
+            $this->enqueueStyles('customizer');
+        }, 999);
         add_action('wp_enqueue_scripts', array($this, 'icons'), 5);
-        add_action('wp_enqueue_scripts', array($this, 'script'), 5);
-
-        // Enqueue customizer scripts and styles
-        add_action('customize_controls_enqueue_scripts', array($this, 'customizeScript'));
-
-        // Admin style
-        add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
         add_action('admin_enqueue_scripts', array($this, 'icons'), 5);
-
-        // Admin scripts
-        add_action('admin_enqueue_scripts', array($this, 'adminScripts'), 999);
-        // Customizer specific
-        add_action('customize_controls_enqueue_scripts', array($this, 'customizerScripts'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -62,162 +161,82 @@ class Enqueue
         // Do not load Gravity Forms scripts in the footer unless you want to work the weekend
         add_filter('gform_init_scripts_footer', '__return_false');
 
-        // Removed ad-hoc type="module" filter; handled via script registration array.
+        // Add module type to script tags if module flag is set
+        add_filter('script_loader_tag', [$this, 'addModuleTag'], 10, 3);
+    }
+
+    /**
+     * Adds a module type attribute to script tags.
+     */
+    public function addModuleTag(string $tag, string $handle, string $src): string
+    {
+        // Only set type="module" if module flag is set in ENQUEUE
+        foreach (self::ENQUEUE as $context => $entries) {
+            if (!is_array($entries)) {
+                continue;
+            }
+            foreach ($entries as $entry) {
+                if (isset($entry['handle']) && $entry['handle'] === $handle && !empty($entry['module'])) {
+                    $tag = str_replace(' src=', ' type="module" src=', $tag);
+                    break 2;
+                }
+            }
+        }
+        return $tag;
     }
 
     /**
      * Get cache-busted asset file url.
      */
-    private static function getAsset(string $file): string
+    private static function getAssetWithCacheBust(string $file): string
     {
-        return get_template_directory_uri() . self::ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
-            $file
-        );
+        return get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name($file);
     }
 
     /**
-     * Enqueue customizer scripts
-     * @return void
+     * Unified enqueue from config
      */
-    public function customizeScript()
+    private function enqueueFromConfig(array $config, string $context): void
     {
-        wp_enqueue_script(
-            'design-share-js',
-            self::getAsset('js/design-share.js'),
-            array('jquery', 'customize-controls'),
-            false,
-            true
-        );
+        foreach ($config as $entry) {
+            $handle = $entry['handle'];
+            $src = self::getAssetWithCacheBust($entry['src']);
 
-        wp_enqueue_script(
-            'customizer-flexible-header',
-            self::getAsset('js/customizer-flexible-header.js'),
-            array('jquery', 'customize-controls'),
-            false,
-            true
-        );
+            if (str_ends_with($entry['src'], '.js')) {
+                $deps = $entry['deps'] ?? [];
+                $in_footer = $entry['in_footer'] ?? true;
+                wp_register_script($handle, $src, $deps, null, $in_footer);
+                wp_enqueue_script($handle);
 
-        wp_localize_script(
-            'customizer-flexible-header',
-            'flexibleHeader',
-            [
-                'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
-                'lang'        => [
-                    'alignment' => __('Alignment', 'municipio'),
-                    'margin'    => __('Margin', 'municipio'),
-                    'left'      => __('Left', 'municipio'),
-                    'right'     => __('Right', 'municipio'),
-                    'both'      => __('Both', 'municipio'),
-                    'none'      => __('None', 'municipio'),
-                ]
-            ]
-        );
-
-        wp_enqueue_script(
-            'customizer-error-handling',
-            self::getAsset('js/customizer-error-handling.js'),
-            array('jquery', 'customize-controls'),
-            false,
-            true
-        );
-    }
-
-    /**
-     * Enqueue admin style
-     * @return void
-     */
-    public function adminStyle()
-    {
-        wp_register_style('acf-css', self::getAsset('css/acf.css'));
-        wp_enqueue_style('acf-css');
-
-        wp_register_style('general-css', self::getAsset('css/general.css'));
-        wp_enqueue_style('general-css');
-
-        wp_register_style('a11y-css', self::getAsset('css/a11y.css'));
-        wp_enqueue_style('a11y-css');
-    }
-
-    /**
-     * Enqueue admin style
-     * @return void
-     */
-    public function customizerScripts()
-    {
-        wp_register_style('header-flexible', self::getAsset('css/header-flexible.css'));
-        wp_enqueue_style('header-flexible');
-    }
-
-     /**
-     * Enqueue admin script
-     * @return void
-     */
-    public function adminScripts(): void
-    {
-        global $pagenow;
-        if ($pagenow == 'options-reading.php') {
-            wp_enqueue_script(
-                'options-reading',
-                self::getAsset('js/options-reading.js'),
-                array('jquery'),
-                null,
-                true
-            );
+                if (!empty($entry['localize'])) {
+                    $objectName = $entry['localize']['object_name'];
+                    $callback   = $entry['localize']['callback'];
+                    if (method_exists(self::class, $callback)) {
+                        $data = forward_static_call([self::class, $callback]);
+                        wp_localize_script($handle, $objectName, $data);
+                    }
+                }
+            } elseif (str_ends_with($entry['src'], '.css')) {
+                wp_register_style($handle, $src);
+                wp_enqueue_style($handle);
+            }
         }
-
-        wp_enqueue_script(
-            'user-group-visibility',
-            self::getAsset('js/user-group-visibility.js'),
-            array(),
-            false,
-            true
-        );
-
-        wp_enqueue_script(
-            'hidden-post-status-conditional',
-            self::getAsset('js/hidden-post-status-conditional.js'),
-            array('acf-input', 'jquery'),
-            false,
-            true
-        );
-
-        wp_enqueue_script(
-            'event-source-progress',
-            self::getAsset('js/event-source-progress.js'),
-            array(),
-            false,
-            true
-        );
     }
 
-     /**
-     * Enqueue gutenberg style
-     * @return void
-     */
-    public function gutenbergStyle()
+    private function enqueueStyles(string $context): void
     {
-        // Load styleguide css
-        wp_register_style('styleguide-css', self::getAsset('css/styleguide.css'));
-        wp_enqueue_style('styleguide-css');
-
-        // Load local municipio css
-        wp_register_style('municipio-css', self::getAsset('css/municipio.css'));
-        wp_enqueue_style('municipio-css');
-    }
-
-    /**
-     * Enqueue styles
-     * @return void
-     */
-    public function style()
-    {
-        // Load styleguide css
-        wp_register_style('styleguide-css', self::getAsset('css/styleguide.css'));
-        wp_enqueue_style('styleguide-css');
-
-        // Load local municipio css
-        wp_register_style('municipio-css', self::getAsset('css/municipio.css'));
-        wp_enqueue_style('municipio-css');
+        foreach (self::ENQUEUE['styles'] as $style) {
+            if (!empty($style['admin']) && $context === 'admin') {
+                wp_register_style($style['handle'], self::getAssetWithCacheBust($style['src']));
+                wp_enqueue_style($style['handle']);
+            } elseif (!empty($style['customizer']) && $context === 'customizer') {
+                wp_register_style($style['handle'], self::getAssetWithCacheBust($style['src']));
+                wp_enqueue_style($style['handle']);
+            } elseif (empty($style['admin']) && empty($style['customizer']) && $context === 'frontend') {
+                wp_register_style($style['handle'], self::getAssetWithCacheBust($style['src']));
+                wp_enqueue_style($style['handle']);
+            }
+        }
     }
 
     /**
@@ -237,7 +256,7 @@ class Enqueue
             '600' => 'bold',
         ];
 
-        wp_register_style('material-symbols', self::getAsset(
+        wp_register_style('material-symbols', self::getAssetWithCacheBust(
             sprintf(
                 'fonts/material/%s/%s.css',
                 $weightTranslationTable[$weight] ?? 'medium',
@@ -245,78 +264,6 @@ class Enqueue
             )
         ));
         wp_enqueue_style('material-symbols');
-    }
-
-    /**
-     * Enqueue scripts
-     * @return void
-     */
-    public function script()
-    {
-        //Language & parameters
-        wp_localize_script('municipio', 'MunicipioLang', array(
-            'printbreak' => array(
-                'tooltip' => __('Insert Print Page Break tag', 'municipio')
-            ),
-            'messages'   => array(
-                'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                'onError'       => __('Something went wrong, please try again later', 'municipio'),
-            )
-        ));
-
-        //Comment reply
-        if (is_singular() && get_option('thread_comments')) {
-            wp_enqueue_script('comment-reply');
-        }
-
-        wp_register_script('pre-styleguide-js', false, false, false, true);
-
-        wp_localize_script('pre-styleguide-js', 'localizedMonths', array(
-            ucFirst(__('January')),
-            ucFirst(__('February')),
-            ucFirst(__('March')),
-            ucFirst(__('April')),
-            ucFirst(__('May')),
-            ucFirst(__('June')),
-            ucFirst(__('July')),
-            ucFirst(__('August')),
-            ucFirst(__('September')),
-            ucFirst(__('October')),
-            ucFirst(__('November')),
-            ucFirst(__('December'))
-        ));
-
-        wp_localize_script('pre-styleguide-js', 'localizedDays', array(
-            ucFirst(__('Su', 'municipio')),
-            ucFirst(__('Mo', 'municipio')),
-            ucFirst(__('Tu', 'municipio')),
-            ucFirst(__('We', 'municipio')),
-            ucFirst(__('Th', 'municipio')),
-            ucFirst(__('Fr', 'municipio')),
-            ucFirst(__('Sa', 'municipio'))
-        ));
-
-        wp_enqueue_script('pre-styleguide-js');
-
-        // Load local styleguide js
-        wp_register_script_module('styleguide-js', self::getAsset('js/styleguide.js'));
-        wp_enqueue_script_module('styleguide-js');
-
-        // Load local municipio js
-        wp_register_script_module('municipio-js', self::getAsset('js/municipio.js'), array('wp-api-request'));
-        wp_enqueue_script_module('municipio-js');
-
-        // Load instant page
-        wp_register_script_module('instantpage-js', self::getAsset('js/instantpage.js'));
-        wp_enqueue_script_module('instantpage-js');
-
-        // Load pdf generator
-        wp_register_script_module('pdf-js', self::getAsset('js/pdf.js'));
-        wp_enqueue_script_module('pdf-js');
-
-        //Nav js
-        wp_register_script_module('nav-js', self::getAsset('js/nav.js'));
-        wp_enqueue_script_module('nav-js');
     }
 
     /**
