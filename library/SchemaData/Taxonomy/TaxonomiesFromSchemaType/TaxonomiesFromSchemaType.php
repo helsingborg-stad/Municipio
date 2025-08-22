@@ -49,8 +49,8 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     private function getJobPostingTaxonomies(): array
     {
         return [
-            $this->createTaxonomy('JobPosting', 'relevantOccupation', $this->wpService->__('Job Categories', 'municipio'), __('Job Category', 'municipio')),
-            $this->createTaxonomy('JobPosting', 'validThrough', $this->wpService->__('Latest Application Dates', 'municipio'), __('Latest Application Date', 'municipio')),
+            $this->createTaxonomy('JobPosting', 'relevantOccupation', $this->wpService->__('Job Categories', 'municipio'), $this->wpService->__('Job Category', 'municipio')),
+            $this->createTaxonomy('JobPosting', 'validThrough', $this->wpService->__('Latest Application Dates', 'municipio'), $this->wpService->__('Latest Application Date', 'municipio')),
         ];
     }
 
