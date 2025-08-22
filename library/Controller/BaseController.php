@@ -500,6 +500,7 @@ class BaseController
     {
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
         if (in_array('component.image.placeholder.icon', $contexts)) {
+            $data['label'] = __('Emblem', 'municipio');
             $data['icon'] = $this->getEmblem();
         }
         return $data;
