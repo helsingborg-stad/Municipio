@@ -3,6 +3,7 @@
 namespace Municipio\Theme;
 
 use Throwable;
+use Municipio\Helper\Enqueue as EnqueueHelper;
 
 /**
  * Class Enqueue
@@ -10,104 +11,6 @@ use Throwable;
  */
 class Enqueue
 {
-    private const ENQUEUE = [
-        'frontend' => [
-            ['handle' => 'municipio', 'src' => 'js/municipio.js', 'deps' => ['jquery'], 'in_footer' => true, 'module' => true],
-            ['handle' => 'pre-styleguide-js', 'src' => 'js/pre-styleguide.js', 'deps' => [], 'in_footer' => true, 'localize' => [
-                'object_name' => 'localizedData',
-                'callback' => 'getPreStyleguideLocalization'
-            ]],
-            ['handle' => 'municipio-js', 'src' => 'js/municipio.js', 'deps' => ['wp-api-request'], 'in_footer' => true, 'module' => true, 'localize' => [
-                'object_name' => 'MunicipioLang',
-                'callback' => 'getMunicipioTranslations'
-            ]],
-            ['handle' => 'styleguide-js', 'src' => 'js/styleguide.js', 'deps' => [], 'in_footer' => true],
-            ['handle' => 'instantpage-js', 'src' => 'js/instantpage.js', 'deps' => [], 'in_footer' => true],
-            ['handle' => 'pdf-js', 'src' => 'js/pdf.js', 'deps' => [], 'in_footer' => true, 'module' => true],
-            ['handle' => 'nav-js', 'src' => 'js/nav.js', 'deps' => [], 'in_footer' => true, 'module' => true],
-        ],
-        'admin' => [
-            ['handle' => 'options-reading', 'src' => 'js/options-reading.js', 'deps' => ['jquery'], 'in_footer' => true],
-            ['handle' => 'user-group-visibility', 'src' => 'js/user-group-visibility.js', 'deps' => [], 'in_footer' => true],
-            ['handle' => 'hidden-post-status-conditional', 'src' => 'js/hidden-post-status-conditional.js', 'deps' => ['acf-input', 'jquery'], 'in_footer' => true],
-            ['handle' => 'event-source-progress', 'src' => 'js/event-source-progress.js', 'deps' => [], 'in_footer' => true],
-        ],
-        'customizer' => [
-            ['handle' => 'design-share-js', 'src' => 'js/design-share.js', 'deps' => ['jquery', 'customize-controls'], 'in_footer' => true],
-            ['handle' => 'customizer-flexible-header', 'src' => 'js/customizer-flexible-header.js', 'deps' => ['jquery', 'customize-controls'], 'in_footer' => true, 'localize' => [
-                'object_name' => 'flexibleHeader',
-                'callback' => 'getCustomizerFlexibleHeaderLocalization'
-            ]],
-            ['handle' => 'customizer-error-handling', 'src' => 'js/customizer-error-handling.js', 'deps' => ['jquery', 'customize-controls'], 'in_footer' => true],
-        ],
-        'styles' => [
-            ['handle' => 'styleguide-css', 'src' => 'css/styleguide.css'],
-            ['handle' => 'municipio-css', 'src' => 'css/municipio.css'],
-            ['handle' => 'acf-css', 'src' => 'css/acf.css', 'admin' => true],
-            ['handle' => 'general-css', 'src' => 'css/general.css', 'admin' => true],
-            ['handle' => 'a11y-css', 'src' => 'css/a11y.css', 'admin' => true],
-            ['handle' => 'header-flexible', 'src' => 'css/header-flexible.css', 'customizer' => true],
-        ]
-    ];
-
-    /**
-     * Translations and localization callbacks
-     */
-    private static function getMunicipioTranslations(): array
-    {
-        return [
-            'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
-            'messages'   => [
-                'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                'onError'       => __('Something went wrong, please try again later', 'municipio'),
-            ]
-        ];
-    }
-
-    private static function getPreStyleguideLocalization(): array
-    {
-        return [
-            'months' => [
-                ucFirst(__('January')),
-                ucFirst(__('February')),
-                ucFirst(__('March')),
-                ucFirst(__('April')),
-                ucFirst(__('May')),
-                ucFirst(__('June')),
-                ucFirst(__('July')),
-                ucFirst(__('August')),
-                ucFirst(__('September')),
-                ucFirst(__('October')),
-                ucFirst(__('November')),
-                ucFirst(__('December'))
-            ],
-            'days' => [
-                ucFirst(__('Su', 'municipio')),
-                ucFirst(__('Mo', 'municipio')),
-                ucFirst(__('Tu', 'municipio')),
-                ucFirst(__('We', 'municipio')),
-                ucFirst(__('Th', 'municipio')),
-                ucFirst(__('Fr', 'municipio')),
-                ucFirst(__('Sa', 'municipio'))
-            ]
-        ];
-    }
-
-    private static function getCustomizerFlexibleHeaderLocalization(): array
-    {
-        return [
-            'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
-            'lang'        => [
-                'alignment' => __('Alignment', 'municipio'),
-                'margin'    => __('Margin', 'municipio'),
-                'left'      => __('Left', 'municipio'),
-                'right'     => __('Right', 'municipio'),
-                'both'      => __('Both', 'municipio'),
-                'none'      => __('None', 'municipio'),
-            ]
-        ];
-    }
-
     /**
      * Enqueue constructor.
      */
@@ -117,19 +20,41 @@ class Enqueue
             define('ASSETS_DIST_PATH', '/assets/dist/');
         }
   
-        // Enqueue scripts and styles
+        // Enqueue frontend scripts and styles
         add_action('wp_enqueue_scripts', function () {
-            $this->enqueueFromConfig(self::ENQUEUE['frontend'], 'frontend');
-            $this->enqueueStyles('frontend');
+            EnqueueHelper::enqueue('municipio', 'js/municipio.js', ['jquery'], true);
+            EnqueueHelper::enqueue('pre-styleguide-js', 'js/pre-styleguide.js', [], true, [self::class, 'getPreStyleguideLocalization']);
+            EnqueueHelper::enqueue('municipio-js', 'js/municipio.js', ['wp-api-request'], true, [self::class, 'getMunicipioTranslations']);
+            EnqueueHelper::enqueue('styleguide-js', 'js/styleguide.js', [], false);
+            EnqueueHelper::enqueue('instantpage-js', 'js/instantpage.js', [], false);
+            EnqueueHelper::enqueue('pdf-js', 'js/pdf.js', [], true);
+            EnqueueHelper::enqueue('nav-js', 'js/nav.js', [], true);
+            
+            EnqueueHelper::enqueue('styleguide-css', 'css/styleguide.css', [], false, null, 'frontend');
+            EnqueueHelper::enqueue('municipio-css', 'css/municipio.css', [], false, null, 'frontend');
         }, 5);
+
+        // Enqueue admin scripts and styles
         add_action('admin_enqueue_scripts', function () {
-            $this->enqueueFromConfig(self::ENQUEUE['admin'], 'admin');
-            $this->enqueueStyles('admin');
+            EnqueueHelper::enqueue('options-reading', 'js/options-reading.js', ['jquery'], false);
+            EnqueueHelper::enqueue('user-group-visibility', 'js/user-group-visibility.js', [], false);
+            EnqueueHelper::enqueue('hidden-post-status-conditional', 'js/hidden-post-status-conditional.js', ['acf-input', 'jquery'], false);
+            EnqueueHelper::enqueue('event-source-progress', 'js/event-source-progress.js', [], false);
+
+            EnqueueHelper::enqueue('acf-css', 'css/acf.css', [], false, null, 'admin');
+            EnqueueHelper::enqueue('general-css', 'css/general.css', [], false, null, 'admin');
+            EnqueueHelper::enqueue('a11y-css', 'css/a11y.css', [], false, null, 'admin');
         }, 999);
+
+        // Enqueue customizer scripts and styles
         add_action('customize_controls_enqueue_scripts', function () {
-            $this->enqueueFromConfig(self::ENQUEUE['customizer'], 'customizer');
-            $this->enqueueStyles('customizer');
+            EnqueueHelper::enqueue('design-share-js', 'js/design-share.js', ['jquery', 'customize-controls'], false);
+            EnqueueHelper::enqueue('customizer-flexible-header', 'js/customizer-flexible-header.js', ['jquery', 'customize-controls'], false, [self::class, 'getCustomizerFlexibleHeaderLocalization']);
+            EnqueueHelper::enqueue('customizer-error-handling', 'js/customizer-error-handling.js', ['jquery', 'customize-controls'], false);
+
+            EnqueueHelper::enqueue('header-flexible', 'css/header-flexible.css', [], false, null, 'customizer');
         }, 999);
+
         add_action('wp_enqueue_scripts', array($this, 'icons'), 5);
         add_action('admin_enqueue_scripts', array($this, 'icons'), 5);
 
@@ -171,72 +96,18 @@ class Enqueue
     public function addModuleTag(string $tag, string $handle, string $src): string
     {
         // Only set type="module" if module flag is set in ENQUEUE
-        foreach (self::ENQUEUE as $context => $entries) {
-            if (!is_array($entries)) {
-                continue;
-            }
-            foreach ($entries as $entry) {
-                if (isset($entry['handle']) && $entry['handle'] === $handle && !empty($entry['module'])) {
-                    $tag = str_replace(' src=', ' type="module" src=', $tag);
-                    break 2;
-                }
-            }
+        $moduleHandles = [
+            'municipio',
+            'municipio-js',
+            'pdf-js',
+            'nav-js',
+        ];
+
+        if (in_array($handle, $moduleHandles, true)) {
+            $tag = str_replace(' src=', ' type="module" src=', $tag);
         }
+
         return $tag;
-    }
-
-    /**
-     * Get cache-busted asset file url.
-     */
-    private static function getAssetWithCacheBust(string $file): string
-    {
-        return get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name($file);
-    }
-
-    /**
-     * Unified enqueue from config
-     */
-    private function enqueueFromConfig(array $config, string $context): void
-    {
-        foreach ($config as $entry) {
-            $handle = $entry['handle'];
-            $src = self::getAssetWithCacheBust($entry['src']);
-
-            if (str_ends_with($entry['src'], '.js')) {
-                $deps = $entry['deps'] ?? [];
-                $in_footer = $entry['in_footer'] ?? true;
-                wp_register_script($handle, $src, $deps, null, $in_footer);
-                wp_enqueue_script($handle);
-
-                if (!empty($entry['localize'])) {
-                    $objectName = $entry['localize']['object_name'];
-                    $callback   = $entry['localize']['callback'];
-                    if (method_exists(self::class, $callback)) {
-                        $data = forward_static_call([self::class, $callback]);
-                        wp_localize_script($handle, $objectName, $data);
-                    }
-                }
-            } elseif (str_ends_with($entry['src'], '.css')) {
-                wp_register_style($handle, $src);
-                wp_enqueue_style($handle);
-            }
-        }
-    }
-
-    private function enqueueStyles(string $context): void
-    {
-        foreach (self::ENQUEUE['styles'] as $style) {
-            if (!empty($style['admin']) && $context === 'admin') {
-                wp_register_style($style['handle'], self::getAssetWithCacheBust($style['src']));
-                wp_enqueue_style($style['handle']);
-            } elseif (!empty($style['customizer']) && $context === 'customizer') {
-                wp_register_style($style['handle'], self::getAssetWithCacheBust($style['src']));
-                wp_enqueue_style($style['handle']);
-            } elseif (empty($style['admin']) && empty($style['customizer']) && $context === 'frontend') {
-                wp_register_style($style['handle'], self::getAssetWithCacheBust($style['src']));
-                wp_enqueue_style($style['handle']);
-            }
-        }
     }
 
     /**
@@ -331,5 +202,71 @@ class Enqueue
         }
 
         return array_unique($dependencies);
+    }
+
+    /**
+     * Translations and localization callbacks
+     */
+    private static function getMunicipioTranslations(): array
+    {
+        return [
+            'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
+            'messages'   => [
+                'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
+                'onError'       => __('Something went wrong, please try again later', 'municipio'),
+            ]
+        ];
+    }
+
+    private static function getPreStyleguideLocalization(): array
+    {
+        return [
+            'months' => [
+                ucFirst(__('January')),
+                ucFirst(__('February')),
+                ucFirst(__('March')),
+                ucFirst(__('April')),
+                ucFirst(__('May')),
+                ucFirst(__('June')),
+                ucFirst(__('July')),
+                ucFirst(__('August')),
+                ucFirst(__('September')),
+                ucFirst(__('October')),
+                ucFirst(__('November')),
+                ucFirst(__('December'))
+            ],
+            'days' => [
+                ucFirst(__('Su', 'municipio')),
+                ucFirst(__('Mo', 'municipio')),
+                ucFirst(__('Tu', 'municipio')),
+                ucFirst(__('We', 'municipio')),
+                ucFirst(__('Th', 'municipio')),
+                ucFirst(__('Fr', 'municipio')),
+                ucFirst(__('Sa', 'municipio'))
+            ]
+        ];
+    }
+
+    private static function getCustomizerFlexibleHeaderLocalization(): array
+    {
+        return [
+            'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
+            'lang'        => [
+                'alignment' => __('Alignment', 'municipio'),
+                'margin'    => __('Margin', 'municipio'),
+                'left'      => __('Left', 'municipio'),
+                'right'     => __('Right', 'municipio'),
+                'both'      => __('Both', 'municipio'),
+                'none'      => __('None', 'municipio'),
+            ]
+        ];
+    }
+
+    /**
+     * Get cache-busted asset file url.
+     */
+    private static function getAssetWithCacheBust(string $file): string
+    {
+        return get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name($file);
     }
 }

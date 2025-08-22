@@ -20,6 +20,8 @@ class Enqueue {
      */
     public static function enqueue(string $handle, string $src, array $deps = [], bool $module = false, $localize = []) {
 
+        $src = self::getAssetUrl($src);
+
         $registerFunctions = self::getRegisterEnqeueFunctions(self::getFileType($src));
 
         $registerFunctions['register']($handle, $src, $deps);
@@ -97,4 +99,17 @@ class Enqueue {
       }
       return $ext;
     }
-}
+
+    /**
+     * Get the URL of an asset with cache busting.
+     *
+     * @param string $file The file name to get the URL for.
+     * @return string The URL of the asset.
+     */
+    private static function getAssetUrl(string $src): string {
+        return get_template_directory_uri() .
+         ASSETS_DIST_PATH . 
+         \Municipio\Helper\CacheBust::name($src);
+    }
+
+  }
