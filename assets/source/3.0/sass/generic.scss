@@ -6,12 +6,6 @@ p {
     max-width: 95ch;
 }
 
-img:is([sizes="auto" i], [sizes^="auto," i]) {
-    contain-intrinsic-size: auto !important;
-    contain-intrinsic-width: 100% !important;
-    contain-intrinsic-height: auto !important;
-}
-
 p.form-submit {
     max-width: unset;
 }
