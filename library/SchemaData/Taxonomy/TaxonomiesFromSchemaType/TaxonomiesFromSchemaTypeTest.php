@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\__;
 
 class TaxonomiesFromSchemaTypeTest extends TestCase
 {
@@ -14,7 +15,8 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     {
         $this->instance = new TaxonomiesFromSchemaType(
             $this->getTaxonomyFactory(),
-            $this->getSchemaToPostTypeResolver()
+            $this->getSchemaToPostTypeResolver(),
+            $this->getWpService()
         );
     }
 
@@ -65,5 +67,15 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     private function getSchemaToPostTypeResolver(): SchemaToPostTypeResolverInterface|MockObject
     {
         return $this->createMock(SchemaToPostTypeResolverInterface::class);
+    }
+
+    private function getWpService(): __
+    {
+        return new class implements __ {
+            public function __($text, ...$args): string
+            {
+                return $text;
+            }
+        };
     }
 }
