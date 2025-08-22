@@ -16,8 +16,10 @@ use Municipio\HooksRegistrar\Hookable;
 class FontUploads implements Hookable
 {
     public $allowedMimes = array(
-        'woff'  => 'application/font-woff',
-        'woff2' => 'application/font-woff2',
+        'application/font-woff',
+        'application/font-woff2',
+        'font/woff',
+        'font/woff2'
     );
 
     /**
