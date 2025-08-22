@@ -30,10 +30,9 @@ class Images
     {
         $encoding = '<?xml encoding="utf-8" ?>';
 
-        if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
+        if (!has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument();
             $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
-
             $xpath = new \DOMXPath($dom);
 
             $links  = $dom->getElementsByTagName('a');
