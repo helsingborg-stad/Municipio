@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
+use WpService\Contracts\__;
 
 /**
  * Class TaxonomiesFromSchemaType
@@ -20,7 +21,8 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      */
     public function __construct(
         private TaxonomyFactoryInterface $taxonomyFactory,
-        private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver
+        private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver,
+        private __ $wpService
     ) {
     }
 
@@ -47,8 +49,8 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     private function getJobPostingTaxonomies(): array
     {
         return [
-            $this->createTaxonomy('JobPosting', 'relevantOccupation', 'Job Categories', 'Job Category'),
-            $this->createTaxonomy('JobPosting', 'validThrough', 'Latest Application Dates', 'Latest Application Date'),
+            $this->createTaxonomy('JobPosting', 'relevantOccupation', $this->wpService->__('Job Categories', 'municipio'), __('Job Category', 'municipio')),
+            $this->createTaxonomy('JobPosting', 'validThrough', $this->wpService->__('Latest Application Dates', 'municipio'), __('Latest Application Date', 'municipio')),
         ];
     }
 
@@ -60,8 +62,8 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     private function getEventTaxonomies(): array
     {
         return [
-            $this->createTaxonomy('Event', 'keywords.name', 'Event Tags', 'Event Tag'),
-            $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', 'Physical Accessibility Features', 'Physical Accessibility Feature'),
+            $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio')),
+            $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $this->wpService->__('Physical Accessibility Feature', 'municipio')),
         ];
     }
 
@@ -73,10 +75,10 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     private function getProjectTaxonomies(): array
     {
         return [
-            $this->createTaxonomy('Project', 'department', 'Project Departments', 'Project Department'),
-            $this->createTaxonomy('Project', '@meta.category', 'Project Categories', 'Project Category'),
-            $this->createTaxonomy('Project', '@meta.technology', 'Project Technologies', 'Project Technology'),
-            $this->createTaxonomy('Project', 'status', 'Project Statuses', 'Project Status'),
+            $this->createTaxonomy('Project', 'department', $this->wpService->__('Project Departments', 'municipio'), $this->wpService->__('Project Department', 'municipio')),
+            $this->createTaxonomy('Project', '@meta.category', $this->wpService->__('Project Categories', 'municipio'), $this->wpService->__('Project Category', 'municipio')),
+            $this->createTaxonomy('Project', '@meta.technology', $this->wpService->__('Project Technologies', 'municipio'), $this->wpService->__('Project Technology', 'municipio')),
+            $this->createTaxonomy('Project', 'status', $this->wpService->__('Project Statuses', 'municipio'), $this->wpService->__('Project Status', 'municipio')),
         ];
     }
 

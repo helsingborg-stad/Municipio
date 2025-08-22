@@ -181,7 +181,7 @@ class SchemaDataFeature
     private function setupTaxonomies(): void
     {
         $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(
-            new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)),
+            new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService), $this->wpService),
             new SchemaTypesInUse($this->wpdb)
         );
 
@@ -195,7 +195,7 @@ class SchemaDataFeature
     private function setupCronJobs(): void
     {
         $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(
-            new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)),
+            new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService), $this->wpService),
             new SchemaTypesInUse($this->wpdb)
         );
 
