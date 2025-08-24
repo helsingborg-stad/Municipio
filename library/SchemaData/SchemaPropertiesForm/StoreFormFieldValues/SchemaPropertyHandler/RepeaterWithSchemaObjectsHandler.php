@@ -92,13 +92,19 @@ class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
     public function handle(BaseType $schemaObject, string $propertyName, mixed $value): BaseType
     {
         $schemaPropertiesFromMappedFields = $this->schemaPropertiesFromMappedFieldsFactory->create();
+        $propertyValue                    = [];
 
-        return $schemaObject->setProperty($propertyName, array_map(
-            fn ($row) => $schemaPropertiesFromMappedFields->apply(
-                Schema::{lcfirst($this->getTypeFromRows([$row]))}(),
-                $row
-            ),
-            $value
-        ));
+        foreach ($value as $row) {
+            $type = $this->getTypeFromRows([$row]);
+
+            if ($type === null) {
+                continue; // Skip if no type is found
+            }
+
+            $schemaInstance  = Schema::{lcfirst($type)}();
+            $propertyValue[] = $schemaPropertiesFromMappedFields->apply($schemaInstance, $row);
+        }
+
+        return $schemaObject->setProperty($propertyName, $propertyValue);
     }
 }
