@@ -353,6 +353,11 @@ class App
         $this->setupStickyPosts();
 
         /**
+         * Trash page
+         */
+        $this->setupMediaTrashPage();
+
+        /**
          * Login screen
          */
         $this->setupLoginLogout();
@@ -484,7 +489,6 @@ class App
      *
      * @return void
      */
-
     private function setUpBrokenLinksIntegration(): void
     {
         $config = new \Municipio\Integrations\BrokenLinks\Config\BrokenLinksConfig();
@@ -494,6 +498,20 @@ class App
 
         $redirect = new \Municipio\Integrations\BrokenLinks\RedirectToLoginWhenInternalContext($this->wpService, $config);
         $redirect->addHooks();
+    }
+
+    /**
+     * Sets up the MiniOrange integration.
+     *
+     * This method initializes the MiniOrange integration by creating an instance of the
+     * RegisterMiniOrangeAdminPage class and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setupMediaTrashPage(): void
+    {
+        (new \Municipio\Controller\Media\TrashPage($this->wpService))->addHooks();
+        (new \Municipio\Controller\Media\MoveToTrash($this->wpService))->addHooks();
     }
 
     /**

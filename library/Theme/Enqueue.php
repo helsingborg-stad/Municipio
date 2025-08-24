@@ -134,6 +134,9 @@ class Enqueue
 
         wp_register_style('a11y-css', self::getAssetWithCacheBust('css/a11y.css'));
         wp_enqueue_style('a11y-css');
+
+        wp_register_style('trash-page-css', self::getAssetWithCacheBust('css/trash-page.css'));
+        wp_enqueue_style('trash-page-css');
     }
 
     /**
