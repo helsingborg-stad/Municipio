@@ -20,24 +20,23 @@ class Enqueue {
      */
     public static function enqueue(string $handle, string $src, array $deps = [], bool $module = false, $localize = []) {
 
-        $src = self::getAssetUrl($src);
+        $func = self::getRegisterEnqeueFunctions(self::getFileType($src));
+        $src  = self::getAssetUrl($src);
 
-        $registerFunctions = self::getRegisterEnqeueFunctions(self::getFileType($src));
+        $func['register']($handle, $src, $deps);
 
-        $registerFunctions['register']($handle, $src, $deps);
-
-        if (!empty($localize) && isset($registerFunction['localize'])) {
+        if (!empty($localize) && isset($func['localize'])) {
             if (!is_array($localize) || !isset($localize['object_name']) || !isset($localize['data'])) {
                 throw new \InvalidArgumentException('Localize data must be an array with "object_name" and "data" keys.');
             }
-            $registerFunctions['localize']($handle, $localize['object_name'], $localize['data']);
+            $func['localize']($handle, $localize['object_name'], $localize['data']);
         }
 
         if ($module === true) {
           self::addAttributesToScriptTag($handle, ['type' => 'module']);
         }
 
-        $registerFunctions['enqueue']($handle);
+        $func['enqueue']($handle);
     }
 
     /**
@@ -51,16 +50,16 @@ class Enqueue {
         
       if ($type === 'js') {
             return [
-              'register' => fn($handle, $src, $deps) => wp_register_script($handle, $src, $deps, false, true), 
-              'enqueue' => fn($handle) => wp_enqueue_script($handle),
-              'localize' => fn($handle, $object_name, $data) => wp_localize_script($handle, $object_name, $data)
+              'register'  => fn($handle, $src, $deps) => wp_register_script($handle, $src, $deps, false, true), 
+              'enqueue'   => fn($handle) => wp_enqueue_script($handle),
+              'localize'  => fn($handle, $object_name, $data) => wp_localize_script($handle, $object_name, $data)
             ];
         }
 
         if ($type === 'css') {
             return [
-              'register' => fn($handle, $src, $deps) => wp_register_style($handle, $src, $deps, false), 
-              'enqueue' => fn($handle) => wp_enqueue_style($handle)
+              'register'  => fn($handle, $src, $deps) => wp_register_style($handle, $src, $deps, false), 
+              'enqueue'   => fn($handle) => wp_enqueue_style($handle)
             ];
         }
         

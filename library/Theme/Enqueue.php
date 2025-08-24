@@ -85,29 +85,6 @@ class Enqueue
 
         // Do not load Gravity Forms scripts in the footer unless you want to work the weekend
         add_filter('gform_init_scripts_footer', '__return_false');
-
-        // Add module type to script tags if module flag is set
-        add_filter('script_loader_tag', [$this, 'addModuleTag'], 10, 3);
-    }
-
-    /**
-     * Adds a module type attribute to script tags.
-     */
-    public function addModuleTag(string $tag, string $handle, string $src): string
-    {
-        // Only set type="module" if module flag is set in ENQUEUE
-        $moduleHandles = [
-            'municipio',
-            'municipio-js',
-            'pdf-js',
-            'nav-js',
-        ];
-
-        if (in_array($handle, $moduleHandles, true)) {
-            $tag = str_replace(' src=', ' type="module" src=', $tag);
-        }
-
-        return $tag;
     }
 
     /**
