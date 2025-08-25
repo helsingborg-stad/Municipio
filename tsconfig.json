@@ -1,25 +1,21 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "checkJs": false,
-    "target": "es6",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "lib": [
-      "ES2021",
-      "DOM",
-      "DOM.Iterable",
-    ]
+ "compilerOptions": {
+      "allowJs": true,
+      "checkJs": false,
+      "target": "es6",
+      "module": "commonjs",
+      "useDefineForClassFields": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "lib": [
+        "ES2021",
+        "DOM",
+        "DOM.Iterable",
+      ]
   },
   "include": [
-    "assets/source/**/*",
-    "node_modules/@helsingborg-stad/styleguide/source/js/**/*",
-  ],
-  "exclude": [
-    "node_modules/@helsingborg-stad/styleguide/**/*.test.ts",
-    "node_modules/@helsingborg-stad/styleguide/**/*.test.js",
+    "source/js/**/*",
   ]
 }

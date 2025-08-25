@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+.c-comment + .comment-respond {
+    position: relative;
+    margin-left: map.get(variables.$spacers, "8");
+}
+
+.comment-respond .cancel-comment-reply-link {
+    position: absolute;
+    top: calc(var(--base, 8px) * 3); 
+    right: calc(var(--base, 8px) * 1);
+    z-index: variables.$level-1;
+    display: none;
+}
+
+.comment__conversation {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base, 8px) * 2);
+    margin-top: map.get(variables.$spacers, "4");
+}
+
+.comment__conversation .comment-respond .cancel-comment-reply-link {
+    display: flex;
+}

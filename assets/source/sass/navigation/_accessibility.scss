@@ -1,0 +1,18 @@
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+.nav-accessibility.nav-horizontal {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: calc(variables.$base * 2);
+    row-gap: calc(variables.$base * 1);
+
+    li {
+        overflow-wrap: break-word;
+    }
+
+    /* Dropdown accessibility menu items */
+    li ul li {
+        margin-left: 0;
+    }
+}

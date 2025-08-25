@@ -1,0 +1,80 @@
+@use "sass:map";
+@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+.t-block-container {
+
+    &.t-block-button {
+        flex-wrap: wrap;
+        gap: calc(#{variables.$base}*2);
+        margin: auto;
+        display: flex;
+
+        .c-button + .c-button {
+            margin-left: unset;
+        }
+    }
+
+    &.t-block-align {
+
+        &-left,
+        &-center,
+        &-right {
+            display: flex;
+        }
+
+        &-left {
+            justify-content: left;
+        }
+
+        &-center {
+            justify-content: center;
+        }
+
+        &-right {
+            justify-content: right;
+        }
+
+        &-full {
+            position: relative;
+            width: calc(100vw - var(--scrollbar, 15px));
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+    }
+}
+
+.alignfull {
+    margin-left: calc( -100vw / 2 + 100% / 2 );
+    margin-right: calc( -100vw / 2 + 100% / 2 );
+    max-width: 100vw;
+    width: 100vw;
+
+    img {
+        height: auto;
+        width: 100%;
+    }
+
+    .c-image__caption {
+        text-align: center;
+    }
+}
+
+
+
+.o-grid-column-block {
+
+    &.is-vertically-aligned-center {
+        align-self: center;
+    }
+    
+    &.is-vertically-aligned-bottom {
+        align-self: flex-end;
+    }
+
+    @include mq.mq(map.get(variables.$breakpoints-map, "xs"), map.get(variables.$breakpoints-map, "md")) {
+        flex-basis: 100% !important; // Override inline style.
+    }
+}

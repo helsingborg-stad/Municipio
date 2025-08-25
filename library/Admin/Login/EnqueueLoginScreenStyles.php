@@ -8,6 +8,8 @@ use WpService\WpService;
 
 class EnqueueLoginScreenStyles implements Hookable
 {
+    private const ASSETS_DIST_PATH = '/assets/dist/';
+
     public function __construct(private WpService $wpService)
     {
     }
@@ -91,7 +93,7 @@ class EnqueueLoginScreenStyles implements Hookable
     {
         return implode([
             get_template_directory_uri(),
-            ASSETS_DIST_PATH,
+            self::ASSETS_DIST_PATH,
             \Municipio\Helper\CacheBust::name($file)
         ]);
     }

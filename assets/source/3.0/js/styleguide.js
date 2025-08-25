@@ -1,1 +1,0 @@
-import Styleguide from '@helsingborg-stad/styleguide/source/js/app';

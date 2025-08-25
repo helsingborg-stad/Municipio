@@ -1,0 +1,25 @@
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+.c-logotype--emblem {
+  position: absolute;
+  height: calc(#{variables.$base} * 10);
+  bottom: calc(#{variables.$base} * 3);
+  right: calc(#{variables.$base} * 3);
+  text-align: right;
+  z-index: variables.$level-2;
+
+  animation: emblem-fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+}
+
+.c-logotype--emblem-small {
+  height: calc(#{variables.$base} * 5);
+}
+
+@keyframes emblem-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
