@@ -219,13 +219,8 @@ class Images
 
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-
-            if (
-                $newNode instanceof \DOMElement &&
-                $element->parentNode instanceof \DOMElement &&
-                $element->parentNode->parentNode instanceof \DOMElement
-            ) {
-                $element->parentNode->parentNode->replaceChild($newNode, $element->parentNode);
+            if ($image) {
+                $image->replaceWith($newNode);
             }
         }
     }
