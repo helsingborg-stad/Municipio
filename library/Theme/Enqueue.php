@@ -155,7 +155,7 @@ class Enqueue implements Hookable
      *
      * @return string      The source path without any querystring
      */
-    public function removeScriptVersion($src)
+    public function removeScriptVersion($src): string
     {
         $siteUrlComponents = parse_url($this->wpService->getSiteUrl());
         $urlComponents     = parse_url($src);
@@ -177,7 +177,7 @@ class Enqueue implements Hookable
     /**
      * Removes generator tag
      */
-    public function removeGeneratorTag($a, $b)
+    public function removeGeneratorTag($a, $b): string
     {
         return '';
     }
@@ -187,7 +187,7 @@ class Enqueue implements Hookable
      *
      * @return void
      */
-    public function moveScriptsToFooter()
+    public function moveScriptsToFooter(): void
     {
         global $wp_scripts;
         $notInFooter           = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
@@ -197,9 +197,9 @@ class Enqueue implements Hookable
     /**
      * Remove jquery migrate from default scripts
      */
-    public function removeJqueryMigrate($scripts)
+    public function removeJqueryMigrate($scripts): void
     {
-        if (is_admin()) {
+        if ($this->wpService->isAdmin()) {
             return;
         }
         if (!empty($scripts->registered['jquery'])) {
@@ -213,7 +213,7 @@ class Enqueue implements Hookable
     /**
      * Do not load Gravity Forms scripts in the footer unless you want to work the weekend
      */
-    public function forceGravityFormsScriptsNotInFooter()
+    public function forceGravityFormsScriptsNotInFooter(): bool
     {
         return false;
     }
@@ -238,9 +238,7 @@ class Enqueue implements Hookable
             if (!empty($wp_scripts->registered[$dependency]->deps)) {
                 try {
                     $dependencies = array_merge($dependencies, $this->getScriptDependencies($dependency));
-                } catch (\Exception $e) {
-                    // Do nothing
-                }
+                } catch (\Exception $e) {}
             }
         }
 
