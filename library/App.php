@@ -141,7 +141,9 @@ class App
         /**
          * Theme
          */
-        new \Municipio\Theme\Enqueue();
+        new \Municipio\Theme\Enqueue(
+            new \Municipio\Helper\Enqueue($this->wpService)
+        );
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
