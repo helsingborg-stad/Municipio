@@ -72,34 +72,32 @@ class Enqueue implements Hookable
                 ]
             ]
         ));
-        $this->enqueueHelper->add('styleguide-js', 'js/styleguide.js', [], new EnqueueTranslation(
-            'StyleguideLocale',
-            [
-                'months' => [
-                    ucFirst(__('January')),
-                    ucFirst(__('February')),
-                    ucFirst(__('March')),
-                    ucFirst(__('April')),
-                    ucFirst(__('May')),
-                    ucFirst(__('June')),
-                    ucFirst(__('July')),
-                    ucFirst(__('August')),
-                    ucFirst(__('September')),
-                    ucFirst(__('October')),
-                    ucFirst(__('November')),
-                    ucFirst(__('December'))
-                ],
-                'days' => [
-                    ucFirst(__('Su', 'municipio')),
-                    ucFirst(__('Mo', 'municipio')),
-                    ucFirst(__('Tu', 'municipio')),
-                    ucFirst(__('We', 'municipio')),
-                    ucFirst(__('Th', 'municipio')),
-                    ucFirst(__('Fr', 'municipio')),
-                    ucFirst(__('Sa', 'municipio'))
-                ]
-            ]
-        ));
+        $this->enqueueHelper->add('styleguide-js', 'js/styleguide.js', [], [
+            new EnqueueTranslation('localizedMonths', [
+                ucFirst(__('January')),
+                ucFirst(__('February')),
+                ucFirst(__('March')),
+                ucFirst(__('April')),
+                ucFirst(__('May')),
+                ucFirst(__('June')),
+                ucFirst(__('July')),
+                ucFirst(__('August')),
+                ucFirst(__('September')),
+                ucFirst(__('October')),
+                ucFirst(__('November')),
+                ucFirst(__('December'))
+            ]),
+            new EnqueueTranslation('localizedDays', [
+                ucFirst(__('Su', 'municipio')),
+                ucFirst(__('Mo', 'municipio')),
+                ucFirst(__('Tu', 'municipio')),
+                ucFirst(__('We', 'municipio')),
+                ucFirst(__('Th', 'municipio')),
+                ucFirst(__('Fr', 'municipio')),
+                ucFirst(__('Sa', 'municipio'))
+            ])
+        ]);
+
         $this->enqueueHelper->add('instantpage-js', 'js/instantpage.js');
         $this->enqueueHelper->add('pdf-js', 'js/pdf.js');
         $this->enqueueHelper->add('nav-js', 'js/nav.js');
