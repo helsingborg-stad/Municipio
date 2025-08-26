@@ -52,8 +52,6 @@ class TrashPage implements Hookable
             echo '<p>' . $lang['noTrashedMedia'] . '</p>';
         }
 
-        echo '</div>';
-
         $this->wpService->wpResetPostdata();
     }
 }
