@@ -82,7 +82,7 @@ class SingularExhibitionEvent extends Singular
             return null;
         }
 
-        $converter    = new OpeningHoursSpecificationToString();
+        $converter    = new OpeningHoursSpecificationToString($this->wpService);
         $openingHours = array_map(
             fn($item) => Schema::openingHoursSpecification()
                 ->setProperty('name', $item['name'] ?? null)
@@ -236,6 +236,10 @@ class SingularExhibitionEvent extends Singular
      */
     private function getImageAttributes(ImageObject $image): array
     {
+        if (empty($image->getProperty('@id'))) {
+            return [];
+        }
+
         $smallContract = ImageComponentContract::factory($image->getProperty('@id'), [450, 280], new ImageResolver());
         $largeContract = ImageComponentContract::factory($image->getProperty('@id'), [768, 432], new ImageResolver());
 

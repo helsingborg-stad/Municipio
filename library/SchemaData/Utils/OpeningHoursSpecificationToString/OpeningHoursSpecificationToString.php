@@ -4,12 +4,20 @@ namespace Municipio\SchemaData\Utils\OpeningHoursSpecificationToString;
 
 use Municipio\Schema\DayOfWeek;
 use Municipio\Schema\OpeningHoursSpecification;
+use WpService\Contracts\_x;
 
 /**
  * Converts OpeningHoursSpecification objects to array of string representations.
  */
 class OpeningHoursSpecificationToString implements OpeningHoursSpecificationToStringInterface
 {
+    /**
+     * Constructor.
+     */
+    public function __construct(private _x $wpService)
+    {
+    }
+
     private const DAY_MAP = [
         DayOfWeek::Monday    => 'Monday',
         DayOfWeek::Tuesday   => 'Tuesday',
@@ -39,6 +47,10 @@ class OpeningHoursSpecificationToString implements OpeningHoursSpecificationToSt
 
         $opens  = $this->formatTime($opens);
         $closes = $this->formatTime($closes);
+
+        if (empty($opens) && empty($closes)) {
+            return [sprintf('%s: %s', $name, $this->wpService->_x('closed', 'Schema OpeningHoursSpecification', 'municipio'))];
+        }
 
         // Handle custom days (e.g., holidays) using 'name' property
         if ($name) {

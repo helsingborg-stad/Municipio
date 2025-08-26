@@ -7,6 +7,8 @@ namespace Municipio\SchemaData\Utils\OpeningHoursSpecificationToString;
 use Municipio\Schema\DayOfWeek;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\MockObject\MockObject;
+use WpService\Contracts\_x;
 
 /**
  * @covers \Municipio\Schema\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString
@@ -23,7 +25,7 @@ class OpeningHoursSpecificationToStringTest extends TestCase
 
     private function convertSpecification($spec): array
     {
-        $converter = new OpeningHoursSpecificationToString();
+        $converter = new OpeningHoursSpecificationToString($this->getWpService());
         return $converter->convert($spec);
     }
 
@@ -83,5 +85,10 @@ class OpeningHoursSpecificationToStringTest extends TestCase
         $actual   = $this->convertSpecification($spec);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    private function getWpService(): _x|MockObject
+    {
+        return $this->createMock(_x::class);
     }
 }
