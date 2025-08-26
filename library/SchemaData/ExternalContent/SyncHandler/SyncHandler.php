@@ -17,7 +17,7 @@ use WpService\WpService;
 /**
  * Class SyncHandler
  */
-class SyncHandler implements Hookable
+class SyncHandler implements Hookable, SyncHandlerInterface
 {
     public const FILTER_BEFORE = 'Municipio/ExternalContent/Sync/Filter/Before';
     public const ACTION_AFTER  = 'Municipio/ExternalContent/Sync/After';
@@ -26,11 +26,15 @@ class SyncHandler implements Hookable
      * Constructor for the SyncHandler class.
      *
      * @param SourceConfigInterface[] $sourceConfigs
+     * @param WpService $wpService
+     * @param ProgressReporterInterface $progressService
+     * @param SchemaObjectProcessorInterface[] $schemaObjectsProcessors
      */
     public function __construct(
         private array $sourceConfigs,
         private WpService $wpService,
-        private ProgressReporterInterface $progressService
+        private ProgressReporterInterface $progressService,
+        private array $schemaObjectProcessors = []
     ) {
     }
 
@@ -68,7 +72,16 @@ class SyncHandler implements Hookable
         $this->progressService->setMessage($this->wpService->__('Fetching source data...', 'municipio'));
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
         $schemaObjects = array_values($schemaObjects); // Reset array keys to avoid issues with missing keys.
-        $count         = count($schemaObjects);
+
+        // Apply processors to schema objects
+        foreach ($schemaObjects as $index => $schemaObject) {
+            foreach ($this->schemaObjectProcessors as $processor) {
+                $schemaObject = $processor->process($schemaObject);
+            }
+            $schemaObjects[$index] = $schemaObject;
+        }
+
+        $count = count($schemaObjects);
 
         $this->progressService->setMessage(sprintf($this->wpService->__("Converting %s schema objects to WP_Post objects.", 'municipio'), $count));
 

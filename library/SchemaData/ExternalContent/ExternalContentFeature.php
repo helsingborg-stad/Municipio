@@ -5,10 +5,13 @@ namespace Municipio\SchemaData\ExternalContent;
 use AcfService\AcfService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
+use Municipio\ProgressReporter\HttpHeader\HttpHeader;
+use Municipio\ProgressReporter\OutputBuffer\OutputBuffer;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\SchemaData\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\SchemaData\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
+use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\SchemaData\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use WpCronService\WpCronJobManager;
@@ -117,7 +120,8 @@ class ExternalContentFeature
         (new \Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler(
             $sourceConfigs,
             $this->wpService,
-            new \Municipio\ProgressReporter\NullProgressReporterService()
+            new \Municipio\ProgressReporter\NullProgressReporterService(),
+            $this->getSchemaObjectProcessors()
         ))->addHooks();
     }
 
@@ -126,7 +130,27 @@ class ExternalContentFeature
      */
     private function setupAjaxSync(array $sourceConfigs, $postTypeSyncInProgress): void
     {
-        (new \Municipio\SchemaData\ExternalContent\Rest\AjaxSync($sourceConfigs, $postTypeSyncInProgress, $this->wpService))->addHooks();
+        $progressReporter = new \Municipio\ProgressReporter\SseProgressReporterService(new HttpHeader(), new OutputBuffer());
+
+        (new \Municipio\SchemaData\ExternalContent\Rest\AjaxSync(
+            $sourceConfigs,
+            $postTypeSyncInProgress,
+            $progressReporter,
+            new SyncHandler($sourceConfigs, $this->wpService, $progressReporter, $this->getSchemaObjectProcessors()),
+            $this->wpService
+        ))->addHooks();
+    }
+
+    /**
+     * Get the schema object processors.
+     *
+     * @return \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\SchemaObjectProcessorInterface[]
+     */
+    private function getSchemaObjectProcessors(): array
+    {
+        return [
+            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\NoOpSchemaObjectProcessor()
+        ];
     }
 
     /**
