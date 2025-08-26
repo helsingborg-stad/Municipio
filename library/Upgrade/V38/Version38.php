@@ -2,7 +2,7 @@
 
 namespace Municipio\Upgrade\V38;
 
-use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\Schema\Thing;

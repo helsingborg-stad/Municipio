@@ -7,10 +7,200 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-28T09:29:26+00:00\n"
+"POT-Creation-Date: 2025-08-22T10:51:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
+
+#: A11yStatement/A11yStatement.php:42
+#: A11yStatement/A11yStatement.php:56
+#: A11yStatement/A11yStatement.php:57
+#: AcfFields/php/a11y-statement.php:8
+#: Controller/A11y.php:280
+msgid "Accessibility Statement"
+msgstr ""
+
+#: A11yStatement/A11yStatement.php:43
+msgid "This is the accessibility statement for our website."
+msgstr ""
+
+#: A11yStatement/A11yStatement.php:61
+msgid "Update"
+msgstr ""
+
+#: A11yStatement/A11yStatement.php:62
+msgid "The accessibility statement has been updated."
+msgstr ""
+
+#: A11yStatement/A11yStatement.php:91
+msgid "accessibility-statement"
+msgstr ""
+
+#: AcfFields/php/a11y-statement-url.php:8
+msgid "Accessibility Statement Url"
+msgstr ""
+
+#: AcfFields/php/a11y-statement-url.php:12
+msgid "View Accessibility Statement"
+msgstr ""
+
+#: AcfFields/php/a11y-statement-url.php:24
+msgid "<a href=\"{{a11y_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">View Accessibility Statement</a>"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:12
+#: AcfFields/php/options-theme-author.php:24
+#: AcfFields/php/options-theme-author.php:43
+#: AcfFields/php/options-theme-author.php:62
+#: AcfFields/php/options-theme-google-translate.php:120
+#: Helper/KirkiConditional.php:48
+msgid "Enable"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:24
+msgid "By enabling this; The page will be accessible for visitors."
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:32
+#: Controller/Archive.php:610
+msgid "Title"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:52
+#: Admin/Options/Theme.php:39
+#: Admin/Options/Theme.php:40
+#: Customizer/Sections/Component/FooterSub.php:188
+#: Customizer/Sections/Width.php:26
+msgid "Content"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:56
+msgid "Use {{website_name}} to display the currentwebsites name. Use {{website_domain}} to display the current websites domain."
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:72
+#: Controller/A11y.php:130
+msgid "Accessibility Compliance"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:85
+#: Controller/A11y.php:58
+#: Controller/A11y.php:131
+msgid "Compliant"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:86
+msgid "Partially Compliant"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:87
+#: Controller/A11y.php:60
+#: Controller/A11y.php:133
+msgid "Not compliant"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:89
+msgid "not_compliant"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:98
+msgid "Accessibility Reference"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:111
+msgid "WCAG A"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:112
+msgid "WCAG AA"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:113
+msgid "WCAG AAA"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:115
+msgid "wcagaa"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:124
+msgid "Accessibility Reference Version"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:137
+msgid "1.0 (1999)"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:138
+msgid "2.0 (2008)"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:139
+msgid "2.1 (2018)"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:140
+msgid "2.2 (2023)"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:141
+msgid "3.0 (Unreleased)"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:143
+msgid "2.1"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:152
+msgid "Review Date"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:170
+msgid "Known Issues"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:174
+msgid "Add all known issues on this website."
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:188
+msgid "Add known issue"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:193
+#: AcfFields/php/block-button.php:23
+#: AcfFields/php/options-theme-custom-taxonomy.php:33
+msgid "Label"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:214
+#: AcfFields/php/options-menu-icon.php:196
+msgid "category"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:227
+msgid "Low Vision or Blindness"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:228
+msgid "Color Vision Deficiency"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:229
+msgid "Mobility Impairment"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:230
+msgid "Fine Motor or Strength Impairment"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:231
+msgid "Hearing Loss or Deafness"
+msgstr ""
+
+#: AcfFields/php/a11y-statement.php:232
+msgid "Cognitive or Learning Impairment"
+msgstr ""
 
 #: AcfFields/php/block-button.php:8
 msgid "Button Block"
@@ -20,13 +210,7 @@ msgstr ""
 #: AcfFields/php/options-theme-google-translate.php:96
 #: AcfFields/php/widget-header-links.php:48
 #: AcfFields/php/widget-header-links.php:135
-#: Customizer/PanelsRegistry.php:211
 msgid "Text"
-msgstr ""
-
-#: AcfFields/php/block-button.php:23
-#: AcfFields/php/options-theme-custom-taxonomy.php:33
-msgid "Label"
 msgstr ""
 
 #: AcfFields/php/block-button.php:31
@@ -35,15 +219,15 @@ msgid "Link"
 msgstr ""
 
 #: AcfFields/php/block-button.php:53
-#: AcfFields/php/block-container.php:227
+#: AcfFields/php/block-container.php:283
 #: AcfFields/php/post-icon.php:177
 msgid "Color"
 msgstr ""
 
 #: AcfFields/php/block-button.php:65
-#: Customizer/Sections/Button.php:23
-#: Customizer/Sections/FooterMain.php:62
-#: Customizer/Sections/FooterSub.php:57
+#: Customizer/Sections/Component/Button.php:23
+#: Customizer/Sections/Component/FooterMain.php:62
+#: Customizer/Sections/Component/FooterSub.php:57
 #: Customizer/Sections/Header/Appearance.php:21
 #: Customizer/Sections/Header/Logotype.php:39
 #: Customizer/Sections/Menu/Drawer.php:24
@@ -55,14 +239,14 @@ msgstr ""
 #: Customizer/Sections/Menu/Siteselector.php:82
 #: Customizer/Sections/Menu/Tabmenu.php:20
 #: Customizer/Sections/Menu/Tabmenu.php:54
-#: Customizer/Sections/Search.php:147
+#: Customizer/Sections/Search.php:149
 msgid "Primary"
 msgstr ""
 
 #: AcfFields/php/block-button.php:66
 #: Customizer/Sections/Colors.php:171
-#: Customizer/Sections/FooterMain.php:63
-#: Customizer/Sections/FooterSub.php:58
+#: Customizer/Sections/Component/FooterMain.php:63
+#: Customizer/Sections/Component/FooterSub.php:58
 #: Customizer/Sections/Header/Appearance.php:22
 #: Customizer/Sections/Header/Logotype.php:40
 #: Customizer/Sections/Menu/Drawer.php:25
@@ -74,12 +258,12 @@ msgstr ""
 #: Customizer/Sections/Menu/Siteselector.php:83
 #: Customizer/Sections/Menu/Tabmenu.php:21
 #: Customizer/Sections/Menu/Tabmenu.php:55
-#: Customizer/Sections/Search.php:148
+#: Customizer/Sections/Search.php:150
 msgid "Secondary"
 msgstr ""
 
 #: AcfFields/php/block-button.php:67
-#: AcfFields/php/block-container.php:100
+#: AcfFields/php/block-container.php:152
 #: AcfFields/php/navigation-widget.php:352
 #: AcfFields/php/options-menu-style.php:24
 #: AcfFields/php/options-page-quicklinks-placement.php:25
@@ -87,7 +271,10 @@ msgstr ""
 #: AcfFields/php/widget-header-menu.php:50
 #: Api/Pdf/PdfGenerator.php:374
 #: Api/Pdf/PdfGenerator.php:472
-#: Customizer/Sections/Field.php:36
+#: Customizer/Sections/Component/Field.php:36
+#: Customizer/Sections/Component/OpenStreetMap.php:20
+#: Customizer/Sections/Component/Tags.php:20
+#: Customizer/Sections/Component/Tags.php:46
 #: Customizer/Sections/Header/Appearance.php:20
 #: Customizer/Sections/Header/Appearance.php:69
 #: Customizer/Sections/Header/Layout.php:199
@@ -99,11 +286,8 @@ msgstr ""
 #: Customizer/Sections/Menu/Quicklinks.php:238
 #: Customizer/Sections/Menu/Tabmenu.php:19
 #: Customizer/Sections/Menu/Tabmenu.php:53
-#: Customizer/Sections/OpenStreetMap.php:20
-#: Customizer/Sections/Search.php:146
-#: Customizer/Sections/Search.php:155
-#: Customizer/Sections/Tags.php:20
-#: Customizer/Sections/Tags.php:46
+#: Customizer/Sections/Search.php:148
+#: Customizer/Sections/Search.php:157
 msgid "Default"
 msgstr ""
 
@@ -122,8 +306,8 @@ msgid "Style"
 msgstr ""
 
 #: AcfFields/php/block-button.php:96
-#: AcfFields/php/block-container.php:157
-#: Customizer/Sections/FooterMain.php:22
+#: AcfFields/php/block-container.php:211
+#: Customizer/Sections/Component/FooterMain.php:22
 #: Customizer/Sections/Menu/Drawer.php:23
 #: Customizer/Sections/Menu/Drawer.php:46
 #: Customizer/Sections/Menu/Tabmenu.php:36
@@ -154,6 +338,7 @@ msgid "Size"
 msgstr ""
 
 #: AcfFields/php/block-button.php:127
+#: AcfFields/php/block-container.php:46
 #: AcfFields/php/navigation-widget.php:353
 #: AcfFields/php/options-theme-editor-formats.php:25
 #: AcfFields/php/widget-header-common.php:132
@@ -167,6 +352,7 @@ msgid "Small"
 msgstr ""
 
 #: AcfFields/php/block-button.php:128
+#: AcfFields/php/block-container.php:47
 #: Customizer/Sections/Icons.php:35
 #: Customizer/Sections/Menu/Behaviour.php:119
 #: Customizer/Sections/Menu/Siteselector.php:117
@@ -176,6 +362,7 @@ msgid "Medium"
 msgstr ""
 
 #: AcfFields/php/block-button.php:129
+#: AcfFields/php/block-container.php:48
 #: AcfFields/php/navigation-widget.php:354
 #: AcfFields/php/options-theme-editor-formats.php:26
 #: AcfFields/php/widget-header-common.php:133
@@ -203,88 +390,104 @@ msgid "Amount of padding"
 msgstr ""
 
 #: AcfFields/php/block-container.php:33
-msgid "Content width"
-msgstr ""
-
-#: AcfFields/php/block-container.php:46
-#: Customizer/PanelsRegistry.php:312
-#: Customizer/Sections/Button.php:148
-#: Customizer/Sections/Colors.php:518
-msgid "Standard"
-msgstr ""
-
-#: AcfFields/php/block-container.php:47
-msgid "Article"
+msgid "Amount of rounded corners"
 msgstr ""
 
 #: AcfFields/php/block-container.php:49
+msgid "X-Large"
+msgstr ""
+
+#: AcfFields/php/block-container.php:63
+msgid "Amount of shadow"
+msgstr ""
+
+#: AcfFields/php/block-container.php:79
+msgid "Level"
+msgstr ""
+
+#: AcfFields/php/block-container.php:84
+msgid "Content width"
+msgstr ""
+
+#: AcfFields/php/block-container.php:97
+#: Customizer/PanelsRegistry.php:249
+#: Customizer/Sections/Colors.php:518
+#: Customizer/Sections/Component/Button.php:148
+msgid "Standard"
+msgstr ""
+
+#: AcfFields/php/block-container.php:98
+msgid "Article"
+msgstr ""
+
+#: AcfFields/php/block-container.php:100
 msgid "standard"
 msgstr ""
 
-#: AcfFields/php/block-container.php:61
+#: AcfFields/php/block-container.php:112
 msgid "Background image"
 msgstr ""
 
-#: AcfFields/php/block-container.php:88
+#: AcfFields/php/block-container.php:139
 msgid "Background color type"
 msgstr ""
 
-#: AcfFields/php/block-container.php:101
+#: AcfFields/php/block-container.php:153
 msgid "Gradient"
 msgstr ""
 
-#: AcfFields/php/block-container.php:103
+#: AcfFields/php/block-container.php:155
 #: AcfFields/php/options-page-quicklinks-placement.php:29
 #: Api/Pdf/PdfGenerator.php:476
 msgid "default"
 msgstr ""
 
-#: AcfFields/php/block-container.php:112
-#: Customizer/Sections/Divider.php:198
-#: Customizer/Sections/Field.php:66
+#: AcfFields/php/block-container.php:164
+#: Customizer/Sections/Component/Divider.php:198
+#: Customizer/Sections/Component/Field.php:66
 #: Customizer/Sections/Header/Appearance.php:14
 #: Customizer/Sections/Menu/Quicklinks.php:41
 msgid "Background color"
 msgstr ""
 
-#: AcfFields/php/block-container.php:137
+#: AcfFields/php/block-container.php:190
 msgid "Gradient settings"
 msgstr ""
 
-#: AcfFields/php/block-container.php:158
+#: AcfFields/php/block-container.php:212
 msgid "Advanced"
 msgstr ""
 
-#: AcfFields/php/block-container.php:160
+#: AcfFields/php/block-container.php:214
 msgid "basic"
 msgstr ""
 
-#: AcfFields/php/block-container.php:169
+#: AcfFields/php/block-container.php:223
 msgid "Gradient angle"
 msgstr ""
 
-#: AcfFields/php/block-container.php:197
+#: AcfFields/php/block-container.php:252
 msgid "Gradient background color"
 msgstr ""
 
-#: AcfFields/php/block-container.php:200
+#: AcfFields/php/block-container.php:256
 msgid "The color with the lowest stop will always be shown first."
 msgstr ""
 
-#: AcfFields/php/block-container.php:222
+#: AcfFields/php/block-container.php:278
 #: AcfFields/php/options-api-resources-apis.php:30
 #: AcfFields/php/post-type-schema-settings.php:30
 #: AcfFields/php/user-author-image.php:131
 msgid "Add Row"
 msgstr ""
 
-#: AcfFields/php/block-container.php:245
+#: AcfFields/php/block-container.php:302
 msgid "Stop"
 msgstr ""
 
-#: AcfFields/php/block-container.php:276
-#: Customizer/Sections/Divider.php:109
-#: Customizer/Sections/FooterMain.php:267
+#: AcfFields/php/block-container.php:334
+#: Customizer/Sections/Component/Divider.php:109
+#: Customizer/Sections/Component/FooterMain.php:267
 #: Customizer/Sections/Menu/Quicklinks.php:43
 msgid "Text color"
 msgstr ""
@@ -416,7 +619,7 @@ msgid "API key"
 msgstr ""
 
 #: AcfFields/php/external-content-settings.php:308
-#: Admin/Options/Theme.php:79
+#: Admin/Options/Theme.php:80
 msgid "Taxonomies"
 msgstr ""
 
@@ -495,6 +698,8 @@ msgstr ""
 #: AcfFields/php/global-notices.php:35
 #: AcfFields/php/options-theme-custom-js.php:71
 #: Customizer/Sections/Menu/Quicklinks.php:199
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:62
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:54
 msgid "Location"
 msgstr ""
 
@@ -730,10 +935,11 @@ msgstr ""
 #: AcfFields/php/options-theme-features.php:27
 #: AcfFields/php/user-group-url.php:47
 #: Customizer/Sections/Colors.php:172
-#: Customizer/Sections/Divider.php:90
-#: Customizer/Sections/Divider.php:166
+#: Customizer/Sections/Component/Divider.php:90
+#: Customizer/Sections/Component/Divider.php:166
 #: Customizer/Sections/Menu/Behaviour.php:86
 #: Customizer/Sections/Menu/MegaMenu.php:367
+#: Customizer/Sections/Menu/Vertical.php:49
 msgid "Disabled"
 msgstr ""
 
@@ -789,6 +995,19 @@ msgstr ""
 
 #: AcfFields/php/options-customize-footer.php:31
 #: AcfFields/php/options-customize-header.php:31
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:43
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:70
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:83
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:46
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:57
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:86
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:97
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:51
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:73
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:38
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:46
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:62
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 msgid "Name"
 msgstr ""
 
@@ -798,7 +1017,7 @@ msgid "ID"
 msgstr ""
 
 #: AcfFields/php/options-customize-footer.php:69
-#: Customizer/Sections/FooterMain.php:23
+#: Customizer/Sections/Component/FooterMain.php:23
 msgid "Columns"
 msgstr ""
 
@@ -839,10 +1058,11 @@ msgstr ""
 #: AcfFields/php/options-login-logout.php:26
 #: AcfFields/php/options-login-redirect.php:26
 #: AcfFields/php/options-theme-features.php:26
-#: Customizer/Sections/Divider.php:89
-#: Customizer/Sections/Divider.php:165
+#: Customizer/Sections/Component/Divider.php:89
+#: Customizer/Sections/Component/Divider.php:165
 #: Customizer/Sections/Menu/Behaviour.php:85
 #: Customizer/Sections/Menu/MegaMenu.php:366
+#: Customizer/Sections/Menu/Vertical.php:48
 msgid "Enabled"
 msgstr ""
 
@@ -1581,10 +1801,6 @@ msgstr ""
 
 #: AcfFields/php/options-menu-icon.php:195
 msgid "cast_connected"
-msgstr ""
-
-#: AcfFields/php/options-menu-icon.php:196
-msgid "category"
 msgstr ""
 
 #: AcfFields/php/options-menu-icon.php:197
@@ -4732,7 +4948,7 @@ msgid "toc"
 msgstr ""
 
 #: AcfFields/php/options-menu-icon.php:985
-#: Controller/SingularJobPosting.php:64
+#: Controller/SingularJobPosting.php:65
 msgid "today"
 msgstr ""
 
@@ -5125,30 +5341,38 @@ msgstr ""
 msgid "Number of Menu Items"
 msgstr ""
 
-#: AcfFields/php/options-menu-language.php:23
+#: AcfFields/php/options-menu-language.php:24
 msgid "We recommend limiting preselected translations to four"
 msgstr ""
 
-#: AcfFields/php/options-menu-language.php:29
+#: AcfFields/php/options-menu-language.php:30
 msgid "Disclaimer"
 msgstr ""
 
-#: AcfFields/php/options-menu-language.php:32
+#: AcfFields/php/options-menu-language.php:34
 msgid "A disclaimer to be shown below language options"
 msgstr ""
 
-#: AcfFields/php/options-menu-language.php:48
+#: AcfFields/php/options-menu-language.php:51
 msgid "More Languages Link"
 msgstr ""
 
-#: AcfFields/php/options-menu-language.php:51
+#: AcfFields/php/options-menu-language.php:55
 msgid "A link to the translation service where user can select translation language themself"
+msgstr ""
+
+#: AcfFields/php/options-menu-language.php:68
+msgid "Display current language in list"
+msgstr ""
+
+#: AcfFields/php/options-menu-language.php:80
+msgid "Yes"
 msgstr ""
 
 #: AcfFields/php/options-menu-mega.php:8
 #: AcfFields/php/options-theme-google-translate.php:59
-#: Customizer/PanelsRegistry.php:442
-#: Customizer/Sections/Search.php:138
+#: Customizer/PanelsRegistry.php:409
+#: Customizer/Sections/Search.php:140
 #: Helper/TranslatedLabels.php:49
 #: Theme/Navigation.php:35
 msgid "Mega menu"
@@ -5195,24 +5419,16 @@ msgstr ""
 msgid "Featured image"
 msgstr ""
 
-#: AcfFields/php/options-page-display.php:25
-msgid "Show featured image in single template"
-msgstr ""
-
 #: AcfFields/php/options-page-display.php:32
-msgid "Show image caption"
-msgstr ""
-
-#: AcfFields/php/options-page-display.php:52
-msgid "Show image caption in single template"
+msgid "Image caption"
 msgstr ""
 
 #: AcfFields/php/options-page-display.php:60
-msgid "Show title"
+msgid "Title (onepage)"
 msgstr ""
 
-#: AcfFields/php/options-page-display.php:72
-msgid "Show title in One Page template"
+#: AcfFields/php/options-page-display.php:80
+msgid "Table of contents"
 msgstr ""
 
 #: AcfFields/php/options-page-exclude-from-google-translate.php:8
@@ -5238,6 +5454,7 @@ msgstr ""
 #: Customizer/Sections/Archive.php:175
 #: Customizer/Sections/Archive.php:200
 #: Customizer/Sections/Archive.php:413
+#: Customizer/Sections/ErrorPages.php:75
 msgid "Hide"
 msgstr ""
 
@@ -5266,20 +5483,12 @@ msgid "Below page content"
 msgstr ""
 
 #: AcfFields/php/options-theme-author.php:8
-#: Controller/Singular.php:157
+#: Controller/Singular.php:212
 msgid "Author"
 msgstr ""
 
 #: AcfFields/php/options-theme-author.php:12
 msgid "Show author"
-msgstr ""
-
-#: AcfFields/php/options-theme-author.php:24
-#: AcfFields/php/options-theme-author.php:43
-#: AcfFields/php/options-theme-author.php:62
-#: AcfFields/php/options-theme-google-translate.php:120
-#: Helper/KirkiConditional.php:48
-msgid "Enable"
 msgstr ""
 
 #: AcfFields/php/options-theme-author.php:31
@@ -5475,8 +5684,8 @@ msgid "Post type functions"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-post-type.php:319
-#: Admin/Options/Theme.php:62
 #: Admin/Options/Theme.php:63
+#: Admin/Options/Theme.php:64
 msgid "Content editor"
 msgstr ""
 
@@ -5562,7 +5771,7 @@ msgid "Type of taxonomy"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-taxonomy.php:109
-#: Customizer/PanelsRegistry.php:404
+#: Customizer/PanelsRegistry.php:347
 msgid "Tags"
 msgstr ""
 
@@ -5901,18 +6110,7 @@ msgstr ""
 
 #: AcfFields/php/options-theme-editor-formats.php:32
 #: Customizer/Sections/Borders.php:37
-#: Customizer/Sections/Module/Contacts.php:20
-#: Customizer/Sections/Module/Contacts.php:41
-#: Customizer/Sections/Module/Index.php:20
-#: Customizer/Sections/Module/Inlay.php:22
-#: Customizer/Sections/Module/Map.php:24
-#: Customizer/Sections/Module/Posts.php:22
-#: Customizer/Sections/Module/Posts.php:45
-#: Customizer/Sections/Module/Posts.php:69
-#: Customizer/Sections/Module/Script.php:24
-#: Customizer/Sections/Module/SectionsSplit.php:20
-#: Customizer/Sections/Module/Text.php:22
-#: Customizer/Sections/Module/Video.php:24
+#: Customizer/Sections/Component/Card.php:23
 msgid "Highlight"
 msgstr ""
 
@@ -6123,8 +6321,8 @@ msgid "Language menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:63
-#: Customizer/PanelsRegistry.php:448
-#: Customizer/Sections/Search.php:139
+#: Customizer/PanelsRegistry.php:415
+#: Customizer/Sections/Search.php:141
 #: Theme/Navigation.php:39
 msgid "Quicklinks menu"
 msgstr ""
@@ -6256,7 +6454,12 @@ msgstr ""
 
 #: AcfFields/php/post-icon.php:147
 #: AcfFields/php/term-icon-and-colour.php:143
-#: Controller/SingularEvent.php:53
+#: Controller/SingularEvent.php:58
+#: Customizer/Sections/ErrorPages.php:27
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:39
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:34
 msgid "Description"
 msgstr ""
 
@@ -6604,11 +6807,14 @@ msgid "Landline"
 msgstr ""
 
 #: AcfFields/php/user-author-image.php:165
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:65
 msgid "Number"
 msgstr ""
 
 #: AcfFields/php/user-author-image.php:188
 #: AcfFields/php/widget-contact.php:100
+#: Controller/BaseController.php:411
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 msgid "Address"
 msgstr ""
 
@@ -6616,11 +6822,20 @@ msgstr ""
 msgid "Visiting Address"
 msgstr ""
 
+#: AcfFields/php/user-group-shortname.php:8
+msgid "User Group Shortname"
+msgstr ""
+
+#: AcfFields/php/user-group-shortname.php:12
+msgid "Short version of name"
+msgstr ""
+
 #: AcfFields/php/user-group-url.php:8
 msgid "User Group Home Url"
 msgstr ""
 
 #: AcfFields/php/user-group-url.php:12
+#: Customizer/Sections/Header/Layout.php:317
 msgid "User Group URL"
 msgstr ""
 
@@ -6690,6 +6905,9 @@ msgid "Phone numer"
 msgstr ""
 
 #: AcfFields/php/widget-contact.php:81
+#: Controller/BaseController.php:409
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
 msgstr ""
 
@@ -6734,29 +6952,29 @@ msgid "Margins"
 msgstr ""
 
 #: AcfFields/php/widget-header-common.php:92
-#: Customizer/Sections/FooterSub.php:129
+#: Customizer/Sections/Component/FooterSub.php:129
 msgid "Direction"
 msgstr ""
 
 #: AcfFields/php/widget-header-common.php:104
-#: Customizer/Sections/Divider.php:139
-#: Customizer/Sections/FooterSub.php:163
+#: Customizer/Sections/Component/Divider.php:139
+#: Customizer/Sections/Component/FooterSub.php:163
+#: Customizer/Sections/Component/Hero.php:45
+#: Customizer/Sections/Component/Hero.php:97
 #: Customizer/Sections/Header/Layout.php:225
 #: Customizer/Sections/Header/Layout.php:254
-#: Customizer/Sections/Hero.php:45
-#: Customizer/Sections/Hero.php:97
 #: Customizer/Sections/Width.php:68
 #: Theme/Enqueue.php:106
 msgid "Left"
 msgstr ""
 
 #: AcfFields/php/widget-header-common.php:105
-#: Customizer/Sections/Divider.php:141
-#: Customizer/Sections/FooterSub.php:165
+#: Customizer/Sections/Component/Divider.php:141
+#: Customizer/Sections/Component/FooterSub.php:165
+#: Customizer/Sections/Component/Hero.php:47
+#: Customizer/Sections/Component/Hero.php:99
 #: Customizer/Sections/Header/Layout.php:227
 #: Customizer/Sections/Header/Layout.php:255
-#: Customizer/Sections/Hero.php:47
-#: Customizer/Sections/Hero.php:99
 #: Customizer/Sections/Width.php:84
 #: Theme/Enqueue.php:107
 msgid "Right"
@@ -6780,22 +6998,10 @@ msgstr ""
 #: AcfFields/php/widget-header-common.php:134
 #: Admin/Acf/PrefillIconChoice.php:78
 #: Api/Pdf/PdfGenerator.php:473
-#: Customizer/Sections/FooterMain.php:61
-#: Customizer/Sections/FooterSub.php:56
+#: Customizer/Sections/Component/Card.php:20
+#: Customizer/Sections/Component/FooterMain.php:61
+#: Customizer/Sections/Component/FooterSub.php:56
 #: Customizer/Sections/Header/Appearance.php:46
-#: Customizer/Sections/Module/Contacts.php:19
-#: Customizer/Sections/Module/Contacts.php:38
-#: Customizer/Sections/Module/Index.php:19
-#: Customizer/Sections/Module/Inlay.php:19
-#: Customizer/Sections/Module/LocalEvent.php:19
-#: Customizer/Sections/Module/Map.php:21
-#: Customizer/Sections/Module/Posts.php:19
-#: Customizer/Sections/Module/Posts.php:42
-#: Customizer/Sections/Module/Posts.php:66
-#: Customizer/Sections/Module/Script.php:21
-#: Customizer/Sections/Module/SectionsSplit.php:19
-#: Customizer/Sections/Module/Text.php:19
-#: Customizer/Sections/Module/Video.php:21
 #: Theme/Enqueue.php:109
 msgid "None"
 msgstr ""
@@ -6846,6 +7052,8 @@ msgstr ""
 
 #: AcfFields/php/widget-header-links.php:86
 #: AcfFields/php/widget-header-links.php:173
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 msgid "URL"
 msgstr ""
 
@@ -6945,7 +7153,7 @@ msgid "A container block"
 msgstr ""
 
 #: Admin/Gutenberg/Blocks/BlockManager.php:138
-#: Admin/Gutenberg/Blocks/BlockManager.php:207
+#: Admin/Gutenberg/Blocks/BlockManager.php:228
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -6967,6 +7175,7 @@ msgstr ""
 
 #: Admin/Login/AddLoginAndLogoutNotices.php:145
 #: Admin/Login/AddLoginAndLogoutNotices.php:218
+#, php-format
 msgid "Go to %s"
 msgstr ""
 
@@ -6988,7 +7197,7 @@ msgid "Login/Logout Options"
 msgstr ""
 
 #: Admin/Login/RegisterLoginLogoutOptionsPage.php:24
-#: Customizer/PanelsRegistry.php:331
+#: Customizer/PanelsRegistry.php:268
 #: Customizer/Sections/Header/Layout.php:316
 msgid "Login/Logout"
 msgstr ""
@@ -7016,23 +7225,16 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: Admin/Options/Theme.php:27
 #: Admin/Options/Theme.php:28
+#: Admin/Options/Theme.php:29
 msgid "Customizer"
 msgstr ""
 
-#: Admin/Options/Theme.php:38
-#: Admin/Options/Theme.php:39
-#: Customizer/Sections/FooterSub.php:188
-#: Customizer/Sections/Width.php:26
-msgid "Content"
-msgstr ""
-
-#: Admin/Options/Theme.php:46
 #: Admin/Options/Theme.php:47
-#: Customizer/PanelsRegistry.php:277
+#: Admin/Options/Theme.php:48
+#: Customizer/PanelsRegistry.php:214
 #: Helper/TranslatedLabels.php:44
-#: Helper/TranslatedLabels.php:82
+#: Helper/TranslatedLabels.php:83
 #: Search/General.php:49
 #: Search/General.php:56
 #: Search/General.php:61
@@ -7040,28 +7242,28 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: Admin/Options/Theme.php:70
+#: Admin/Options/Theme.php:71
 msgid "Custom Post Types"
 msgstr ""
 
-#: Admin/Options/Theme.php:71
+#: Admin/Options/Theme.php:72
 msgid "Post Types"
 msgstr ""
 
-#: Admin/Options/Theme.php:78
+#: Admin/Options/Theme.php:79
 msgid "Custom Taxonomies"
 msgstr ""
 
-#: Admin/Options/Theme.php:86
+#: Admin/Options/Theme.php:87
 msgid "Custom CSS/JS Editor"
 msgstr ""
 
-#: Admin/Options/Theme.php:87
+#: Admin/Options/Theme.php:88
 msgid "Custom CSS/JS"
 msgstr ""
 
-#: Admin/Options/Theme.php:94
 #: Admin/Options/Theme.php:95
+#: Admin/Options/Theme.php:96
 msgid "PDF Generator Settings"
 msgstr ""
 
@@ -7106,6 +7308,10 @@ msgstr ""
 
 #: Api/Media/Sideload.php:43
 msgid "Return type from sideloaded image."
+msgstr ""
+
+#: Api/Navigation/ChildrenRender.php:100
+msgid "An error occurred while rendering the menu."
 msgstr ""
 
 #: Api/Pdf/CreatePdf.php:73
@@ -7165,6 +7371,7 @@ msgid "General cover settings"
 msgstr ""
 
 #: Api/Pdf/PdfGenerator.php:256
+#: Controller/BaseController.php:503
 #: Customizer/Sections/Header/Logotype.php:41
 #: Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -7175,10 +7382,10 @@ msgid "Specific cover settings"
 msgstr ""
 
 #: Api/Pdf/PdfGenerator.php:398
+#: Customizer/Sections/Component/SliderHero.php:140
 #: Customizer/Sections/Menu/MegaMenu.php:36
 #: Customizer/Sections/Menu/MegaMenu.php:81
 #: Customizer/Sections/Menu/Quicklinks.php:133
-#: Customizer/Sections/SliderHero.php:140
 msgid "Heading"
 msgstr ""
 
@@ -7200,7 +7407,7 @@ msgid "If there is no data attached. Which frontpage should it use?"
 msgstr ""
 
 #: Api/Pdf/PdfGenerator.php:474
-#: Customizer/Sections/FooterSub.php:59
+#: Customizer/Sections/Component/FooterSub.php:59
 msgid "Custom"
 msgstr ""
 
@@ -7208,16 +7415,40 @@ msgstr ""
 msgid "Choose another frontpage"
 msgstr ""
 
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:45
+msgid "The provider name."
+msgstr ""
+
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:50
+msgid "The query to search for."
+msgstr ""
+
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:55
+msgid "Whether to perform reverse geocoding."
+msgstr ""
+
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:60
+msgid "Latitude for reverse geocoding."
+msgstr ""
+
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:65
+msgid "Longitude for reverse geocoding."
+msgstr ""
+
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:113
+msgid "Missing q or reverse parameter"
+msgstr ""
+
+#: Api/PlaceSearch/PlaceSearchEndpoint.php:117
+msgid "Missing lat/lng for reverse geocoding"
+msgstr ""
+
 #: Api/View/Render.php:37
 msgid "View data."
 msgstr ""
 
-#: App.php:984
-#: Customizer/Sections/Header/LoginLogout.php:22
-msgid "Never"
-msgstr ""
-
 #: BrandedEmails/HtmlTemplate/DefaultHtmlTemplate.php:54
+#, php-format
 msgid "This email was sent from %s."
 msgstr ""
 
@@ -7281,38 +7512,47 @@ msgid "Add new"
 msgstr ""
 
 #: Content/CustomPostType.php:56
+#, php-format
 msgid "Add new %s"
 msgstr ""
 
 #: Content/CustomPostType.php:57
+#, php-format
 msgid "New %s"
 msgstr ""
 
 #: Content/CustomPostType.php:58
+#, php-format
 msgid "Edit %s"
 msgstr ""
 
 #: Content/CustomPostType.php:59
+#, php-format
 msgid "View %s"
 msgstr ""
 
 #: Content/CustomPostType.php:60
+#, php-format
 msgid "All %s"
 msgstr ""
 
 #: Content/CustomPostType.php:61
+#, php-format
 msgid "Search %s"
 msgstr ""
 
 #: Content/CustomPostType.php:62
+#, php-format
 msgid "Parent %s"
 msgstr ""
 
 #: Content/CustomPostType.php:63
+#, php-format
 msgid "No %s found"
 msgstr ""
 
 #: Content/CustomPostType.php:64
+#, php-format
 msgid "No %s found in trash"
 msgstr ""
 
@@ -7321,6 +7561,7 @@ msgid "Auto generated cpt from user iterface."
 msgstr ""
 
 #: Content/RelatedPosts.php:40
+#, php-format
 msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr ""
@@ -7333,65 +7574,79 @@ msgstr ""
 msgid "API Resource"
 msgstr ""
 
+#: Controller/A11y.php:31
+msgid "Recently reviewed"
+msgstr ""
+
+#: Controller/A11y.php:32
+msgid "Review due soon"
+msgstr ""
+
+#: Controller/A11y.php:33
+msgid "Review overdue"
+msgstr ""
+
+#: Controller/A11y.php:59
+#: Controller/A11y.php:132
+msgid "Partially compliant"
+msgstr ""
+
+#: Controller/A11y.php:134
+msgid "No accessibility statement available."
+msgstr ""
+
+#: Controller/A11y.php:135
+msgid "Last reviewed"
+msgstr ""
+
 #: Controller/Archive.php:504
 msgid "Select"
 msgstr ""
 
 #: Controller/Archive.php:610
-msgid "Title"
-msgstr ""
-
-#: Controller/Archive.php:610
 #: Helper/TranslatedLabels.php:65
-#: Helper/TranslatedLabels.php:76
+#: Helper/TranslatedLabels.php:77
 msgid "Published"
 msgstr ""
 
-#: Controller/BaseController.php:387
+#: Controller/BaseController.php:396
 msgid "Search for content"
 msgstr ""
 
-#: Controller/BaseController.php:388
+#: Controller/BaseController.php:397
 msgid "No items found at this query."
 msgstr ""
 
-#: Controller/BaseController.php:389
+#: Controller/BaseController.php:398
 #: Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr ""
 
-#: Controller/BaseController.php:390
+#: Controller/BaseController.php:399
 msgid "Login"
 msgstr ""
 
-#: Controller/BaseController.php:391
+#: Controller/BaseController.php:400
 #: Helper/TranslatedLabels.php:54
 msgid "Close"
 msgstr ""
 
-#: Controller/BaseController.php:399
+#: Controller/BaseController.php:408
 msgid "Visit"
 msgstr ""
 
-#: Controller/E401.php:82
-msgid "This post is password protected, please log in to view this post."
+#: Controller/BaseController.php:410
+msgid "Call"
 msgstr ""
 
-#: Controller/E403.php:79
-msgid "Your user group do not have access to view this post."
+#: Controller/BaseController.php:412
+#: Controller/Utils/SingularSchoolData.php:542
+msgid "Visiting address"
 msgstr ""
 
-#: Controller/E404.php:34
+#: Controller/E404.php:37
 #: Helper/TranslatedLabels.php:61
 msgid "Show all"
-msgstr ""
-
-#: Controller/E404.php:49
-msgid "Oops! The page you requested cannot be found."
-msgstr ""
-
-#: Controller/E404.php:58
-msgid "The %s you are looking for is either moved or removed."
 msgstr ""
 
 #: Controller/Error/Buttons.php:21
@@ -7409,9 +7664,9 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: Controller/Navigation/Decorators/Breadcrumb/AppendArchiveMenuItem.php:39
+#: Controller/Navigation/Decorators/Breadcrumb/AppendArchiveMenuItem.php:44
 #: Controller/Navigation/Decorators/Breadcrumb/AppendPageTreeAncestorsMenuItems.php:50
-#: Controller/Navigation/Decorators/Menu/PageTreeAppendMenuItemsCustomTitle.php:49
+#: Controller/Navigation/Decorators/Menu/PageTreeAppendMenuItemsCustomTitle.php:50
 #: Helper/Navigation.php:654
 #: Helper/Navigation.php:777
 #: Helper/Navigation.php:780
@@ -7443,103 +7698,107 @@ msgstr ""
 msgid "View page"
 msgstr ""
 
-#: Controller/Singular.php:295
+#: Controller/Singular.php:351
+#, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: Controller/SingularEvent.php:54
+#: Controller/SingularEvent.php:59
 msgid "Add to calendar"
 msgstr ""
 
-#: Controller/SingularEvent.php:55
+#: Controller/SingularEvent.php:60
 msgid "Tickets & registration"
 msgstr ""
 
-#: Controller/SingularEvent.php:56
+#: Controller/SingularEvent.php:61
 msgid "Go to booking page"
 msgstr ""
 
-#: Controller/SingularEvent.php:57
+#: Controller/SingularEvent.php:62
 msgid "Tickets are sold according to the reseller."
 msgstr ""
 
-#: Controller/SingularEvent.php:58
+#: Controller/SingularEvent.php:63
 msgid "Date and time"
 msgstr ""
 
-#: Controller/SingularEvent.php:59
+#: Controller/SingularEvent.php:64
 msgid "Other occassions"
 msgstr ""
 
-#: Controller/SingularEvent.php:60
+#: Controller/SingularEvent.php:65
 msgid "Place"
 msgstr ""
 
-#: Controller/SingularEvent.php:61
+#: Controller/SingularEvent.php:66
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:98
 msgid "Price"
 msgstr ""
 
-#: Controller/SingularEvent.php:62
+#: Controller/SingularEvent.php:67
 msgid "Organizers"
 msgstr ""
 
-#: Controller/SingularEvent.php:63
+#: Controller/SingularEvent.php:68
 msgid "Accessibility"
 msgstr ""
 
-#: Controller/SingularEvent.php:64
+#: Controller/SingularEvent.php:69
 msgid "This event has already taken place."
 msgstr ""
 
-#: Controller/SingularEvent.php:148
+#: Controller/SingularEvent.php:158
 msgid "Price not available"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:55
-#: Controller/SingularProject.php:70
+#: Controller/SingularJobPosting.php:56
+#: Controller/SingularProject.php:74
 msgid "Contact"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:56
+#: Controller/SingularJobPosting.php:57
 msgid "Administration"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:57
+#: Controller/SingularJobPosting.php:58
 msgid "City"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:58
+#: Controller/SingularJobPosting.php:59
 msgid "Date posted"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:59
+#: Controller/SingularJobPosting.php:60
 msgid "Employment type"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:60
+#: Controller/SingularJobPosting.php:61
 msgid "Valid through"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:61
+#: Controller/SingularJobPosting.php:62
 msgid "Apply"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:62
+#: Controller/SingularJobPosting.php:63
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:63
+#: Controller/SingularJobPosting.php:64
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:42
 msgid "Reference"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:65
+#: Controller/SingularJobPosting.php:66
 msgid "tomorrow"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:66
+#: Controller/SingularJobPosting.php:67
 msgid "expired"
 msgstr ""
 
@@ -7548,23 +7807,25 @@ msgstr ""
 msgid "Visit website"
 msgstr ""
 
-#: Controller/SingularProject.php:66
+#: Controller/SingularProject.php:70
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:59
 msgid "Status"
 msgstr ""
 
-#: Controller/SingularProject.php:67
+#: Controller/SingularProject.php:71
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:43
 msgid "Department"
 msgstr ""
 
-#: Controller/SingularProject.php:68
+#: Controller/SingularProject.php:72
 msgid "Transition"
 msgstr ""
 
-#: Controller/SingularProject.php:69
+#: Controller/SingularProject.php:73
 msgid "Categories"
 msgstr ""
 
-#: Controller/SingularProject.php:71
+#: Controller/SingularProject.php:75
 msgid "Estimated budget"
 msgstr ""
 
@@ -7573,26 +7834,32 @@ msgid "Contact us"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:192
+#, php-format
 msgid "Ca %d children"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:193
+#, php-format
 msgid "Ca %d students"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:194
+#, php-format
 msgid "%d units"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:196
+#, php-format
 msgid "%s profiles"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:197
+#, php-format
 msgid "Opening hours: %s"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:198
+#, php-format
 msgid "Leisure center: %s"
 msgstr ""
 
@@ -7609,11 +7876,13 @@ msgid "Visit us"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:397
+#, php-format
 msgctxt "Shown on pre-schools"
 msgid "Do you want to join %s?"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:404
+#, php-format
 msgid "Do you want to apply to %s?"
 msgstr ""
 
@@ -7642,17 +7911,13 @@ msgstr ""
 msgid "Find directions"
 msgstr ""
 
-#: Controller/Utils/SingularSchoolData.php:542
-msgid "Visiting address"
-msgstr ""
-
 #: Controller/Utils/SingularSchoolData.php:544
 msgid "Visiting addresses"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:597
 #: Helper/TranslatedLabels.php:62
-#: Helper/TranslatedLabels.php:78
+#: Helper/TranslatedLabels.php:79
 msgid "Read more"
 msgstr ""
 
@@ -7661,6 +7926,7 @@ msgid "Follow us in social media"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:774
+#, php-format
 msgid "Date and time: %s at %s"
 msgstr ""
 
@@ -7672,7 +7938,7 @@ msgstr ""
 msgid "Install plugin"
 msgstr ""
 
-#: Customizer/FontUploads/FontUploads.php:58
+#: Customizer/FontUploads/FontUploads.php:66
 msgid "Untitled Font"
 msgstr ""
 
@@ -7711,233 +7977,218 @@ msgid "Manage apperance options on archives."
 msgstr ""
 
 #: Customizer/PanelsRegistry.php:159
-msgid "Module Apperance"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:163
-msgid "Contacts"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:169
-#: Customizer/Sections/Module/Index.php:14
-#: Customizer/Sections/Module/Posts.php:14
-msgid "Index"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:175
-#: Customizer/Sections/Module/Inlay.php:14
-msgid "Inlay list"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:181
-#: Customizer/Sections/Module/LocalEvent.php:14
-msgid "Local Event"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:187
-msgid "Maps"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:193
-msgid "Posts"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:199
-#: Customizer/Sections/Module/Script.php:16
-msgid "Script"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:205
-msgid "Sections Split"
-msgstr ""
-
-#: Customizer/PanelsRegistry.php:222
 msgid "General Apperance"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:223
+#: Customizer/PanelsRegistry.php:160
 msgid "Manage site general design options."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:228
+#: Customizer/PanelsRegistry.php:165
 #: Customizer/Sections/PostType.php:35
 msgid "Logotypes"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:233
+#: Customizer/PanelsRegistry.php:170
 msgid "General settings"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:239
-#: Customizer/PanelsRegistry.php:424
-#: Customizer/Sections/Divider.php:61
-#: Customizer/Sections/FooterSub.php:14
+#: Customizer/PanelsRegistry.php:176
+#: Customizer/PanelsRegistry.php:391
+#: Customizer/Sections/Component/Divider.php:61
+#: Customizer/Sections/Component/FooterSub.php:14
 #: Customizer/Sections/PostType.php:34
 msgid "Colors"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:244
+#: Customizer/PanelsRegistry.php:181
 msgid "Typography"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:245
+#: Customizer/PanelsRegistry.php:182
 msgid "Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:250
+#: Customizer/PanelsRegistry.php:187
 msgid "Page Widths"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:251
+#: Customizer/PanelsRegistry.php:188
 msgid "Set the maximum page withs of different page types."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:256
+#: Customizer/PanelsRegistry.php:193
 msgid "Borders"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:261
+#: Customizer/PanelsRegistry.php:198
 #: Customizer/Sections/Menu/Siteselector.php:109
 msgid "Rounded corners"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:262
+#: Customizer/PanelsRegistry.php:199
 msgid "Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:267
-#: Customizer/Sections/FooterMain.php:36
-#: Customizer/Sections/FooterSub.php:109
+#: Customizer/PanelsRegistry.php:204
+#: Customizer/Sections/Component/FooterMain.php:36
+#: Customizer/Sections/Component/FooterSub.php:109
 msgid "Padding"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:272
+#: Customizer/PanelsRegistry.php:209
 msgid "Drop Shadows"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:282
+#: Customizer/PanelsRegistry.php:219
 msgid "Icons"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:292
+#: Customizer/PanelsRegistry.php:229
 msgid "Component Apperance"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:293
+#: Customizer/PanelsRegistry.php:230
 msgid "Manage design options on component level."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:298
+#: Customizer/PanelsRegistry.php:235
 msgid "Header"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:302
+#: Customizer/PanelsRegistry.php:239
 msgid "Layout"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:306
+#: Customizer/PanelsRegistry.php:243
 msgid "General"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:309
+#: Customizer/PanelsRegistry.php:246
 #: Customizer/Sections/Header/Layout.php:182
 msgid "Flexible"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:319
-#: Customizer/Sections/Field.php:16
+#: Customizer/PanelsRegistry.php:256
+#: Customizer/Sections/Component/Field.php:16
 #: Customizer/Sections/Header/LoginLogout.php:48
 #: Customizer/Sections/Menu/MegaMenu.php:17
 #: Customizer/Sections/Menu/Quicklinks.php:15
 msgid "Appearance"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:325
-#: Customizer/Sections/FooterMain.php:56
-#: Customizer/Sections/FooterSub.php:51
+#: Customizer/PanelsRegistry.php:262
+#: Customizer/Sections/Component/FooterMain.php:56
+#: Customizer/Sections/Component/FooterSub.php:51
 #: Customizer/Sections/Header/Layout.php:314
 msgid "Logotype"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:338
+#: Customizer/PanelsRegistry.php:275
+#: Customizer/Sections/ErrorPages.php:54
 msgid "Buttons"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:344
+#: Customizer/PanelsRegistry.php:281
+#: Customizer/Sections/Archive.php:428
+msgid "Cards"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:287
 msgid "Open Street Map"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:345
+#: Customizer/PanelsRegistry.php:288
 msgid "Settings for Open Street Maps."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:351
+#: Customizer/PanelsRegistry.php:294
 msgid "Slider"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:355
+#: Customizer/PanelsRegistry.php:298
 msgid "Regular Slider"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:361
+#: Customizer/PanelsRegistry.php:304
 msgid "Hero slider"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:362
+#: Customizer/PanelsRegistry.php:305
 msgid "Settings for the slider in the hero area."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:369
+#: Customizer/PanelsRegistry.php:312
 msgid "Footer"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:373
+#: Customizer/PanelsRegistry.php:316
 msgid "Main footer"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:379
+#: Customizer/PanelsRegistry.php:322
 msgid "Sub footer"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:386
+#: Customizer/PanelsRegistry.php:329
 #: Customizer/Sections/Borders.php:16
 #: Customizer/Sections/Colors.php:207
-#: Customizer/Sections/Divider.php:67
+#: Customizer/Sections/Component/Divider.php:67
 #: Customizer/Sections/Menu/Colors.php:200
 msgid "Divider"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:392
+#: Customizer/PanelsRegistry.php:335
 #: Theme/Sidebars.php:137
 msgid "Hero"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:398
+#: Customizer/PanelsRegistry.php:341
 msgid "Field"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:417
+#: Customizer/PanelsRegistry.php:357
+msgid "Error Pages"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:361
+msgid "401 Unauthorized"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:366
+msgid "403 Forbidden"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:371
+msgid "404 Not found"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:384
 msgid "Behaviour"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:418
+#: Customizer/PanelsRegistry.php:385
 msgid "Menu behaviour settings."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:430
+#: Customizer/PanelsRegistry.php:397
 msgid "Breadcrumbs"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:436
+#: Customizer/PanelsRegistry.php:403
 msgid "Drawer"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:454
+#: Customizer/PanelsRegistry.php:421
 msgid "Siteselector menu"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:460
+#: Customizer/PanelsRegistry.php:427
 msgid "Tab menu"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:432
+msgid "General: Menu Settings (vertical)"
 msgstr ""
 
 #: Customizer/Sections/Archive.php:16
@@ -7969,6 +8220,7 @@ msgstr ""
 #: Customizer/Sections/Archive.php:174
 #: Customizer/Sections/Archive.php:199
 #: Customizer/Sections/Archive.php:412
+#: Customizer/Sections/ErrorPages.php:74
 msgid "Show"
 msgstr ""
 
@@ -7981,7 +8233,7 @@ msgid "How many posts that should be displayed on each page."
 msgstr ""
 
 #: Customizer/Sections/Archive.php:123
-#: Customizer/Sections/FooterMain.php:240
+#: Customizer/Sections/Component/FooterMain.php:240
 msgid "Number of columns to display"
 msgstr ""
 
@@ -8030,6 +8282,7 @@ msgid "Date range"
 msgstr ""
 
 #: Customizer/Sections/Archive.php:246
+#, php-format
 msgid "What field type to use for the %s filter."
 msgstr ""
 
@@ -8130,20 +8383,11 @@ msgstr ""
 msgid "Compressed"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:428
-msgid "Cards"
-msgstr ""
-
 #: Customizer/Sections/Archive.php:429
 msgid "News"
 msgstr ""
 
 #: Customizer/Sections/Archive.php:430
-#: Customizer/Sections/Module/Contacts.php:33
-#: Customizer/Sections/Module/Map.php:16
-#: Customizer/Sections/Module/Posts.php:37
-#: Customizer/Sections/Module/Text.php:14
-#: Customizer/Sections/Module/Video.php:16
 msgid "List"
 msgstr ""
 
@@ -8156,7 +8400,7 @@ msgid "Schema"
 msgstr ""
 
 #: Customizer/Sections/Borders.php:58
-#: Customizer/Sections/Module/Contacts.php:14
+#: Customizer/Sections/Component/Card.php:14
 msgid "Card"
 msgstr ""
 
@@ -8167,65 +8411,6 @@ msgstr ""
 
 #: Customizer/Sections/Borders.php:123
 msgid "Input"
-msgstr ""
-
-#: Customizer/Sections/Button.php:18
-msgid "Primary button colors"
-msgstr ""
-
-#: Customizer/Sections/Button.php:24
-msgid "Primary Contrasting"
-msgstr ""
-
-#: Customizer/Sections/Button.php:42
-msgid "Tailor Color: Primary"
-msgstr ""
-
-#: Customizer/Sections/Button.php:50
-msgid "Secondary button colors"
-msgstr ""
-
-#: Customizer/Sections/Button.php:55
-msgid "Secondary "
-msgstr ""
-
-#: Customizer/Sections/Button.php:56
-msgid "Secondary Contrasting"
-msgstr ""
-
-#: Customizer/Sections/Button.php:74
-msgid "Tailor Color: Secondary"
-msgstr ""
-
-#: Customizer/Sections/Button.php:82
-msgid "Default button colors"
-msgstr ""
-
-#: Customizer/Sections/Button.php:87
-msgid "Default "
-msgstr ""
-
-#: Customizer/Sections/Button.php:88
-msgid "Default Contrasting"
-msgstr ""
-
-#: Customizer/Sections/Button.php:106
-msgid "Tailor Color: Default"
-msgstr ""
-
-#: Customizer/Sections/Button.php:116
-msgid "Button shape"
-msgstr ""
-
-#: Customizer/Sections/Button.php:117
-msgid "Choose the shape of the buttons."
-msgstr ""
-
-#: Customizer/Sections/Button.php:149
-#: Customizer/Sections/Menu/Siteselector.php:119
-#: Customizer/Sections/Search.php:156
-#: Customizer/Sections/Tags.php:21
-msgid "Pill"
 msgstr ""
 
 #: Customizer/Sections/Colors.php:15
@@ -8240,7 +8425,7 @@ msgstr ""
 #: Customizer/Sections/Colors.php:386
 #: Customizer/Sections/Colors.php:430
 #: Customizer/Sections/Colors.php:474
-#: Customizer/Sections/SliderHero.php:115
+#: Customizer/Sections/Component/SliderHero.php:115
 #: Customizer/Sections/Typography.php:33
 msgid "Base"
 msgstr ""
@@ -8252,8 +8437,8 @@ msgstr ""
 #: Customizer/Sections/Colors.php:431
 #: Customizer/Sections/Colors.php:475
 #: Customizer/Sections/Colors.php:565
+#: Customizer/Sections/Component/OpenStreetMap.php:22
 #: Customizer/Sections/Header/LoginLogout.php:68
-#: Customizer/Sections/OpenStreetMap.php:22
 msgid "Dark"
 msgstr ""
 
@@ -8289,7 +8474,7 @@ msgstr ""
 
 #: Customizer/Sections/Colors.php:110
 #: Customizer/Sections/Colors.php:140
-#: Customizer/Sections/FooterSub.php:20
+#: Customizer/Sections/Component/FooterSub.php:20
 #: Customizer/Sections/Menu/MegaMenu.php:38
 #: Customizer/Sections/Menu/Siteselector.php:45
 msgid "Background"
@@ -8345,7 +8530,7 @@ msgid "Alpha colors"
 msgstr ""
 
 #: Customizer/Sections/Colors.php:313
-#: Customizer/Sections/FooterSub.php:21
+#: Customizer/Sections/Component/FooterSub.php:21
 msgid "Base Contrasting"
 msgstr ""
 
@@ -8402,211 +8587,512 @@ msgstr ""
 msgid "White"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:14
+#: Customizer/Sections/Colors.php:634
+msgid "Additional colors"
+msgstr ""
+
+#: Customizer/Sections/Colors.php:635
+msgid "These colors are used by various color pickers throughout the theme."
+msgstr ""
+
+#: Customizer/Sections/Colors.php:641
+msgid "Color #1"
+msgstr ""
+
+#: Customizer/Sections/Colors.php:642
+msgid "Color #2"
+msgstr ""
+
+#: Customizer/Sections/Colors.php:643
+msgid "Color #3"
+msgstr ""
+
+#: Customizer/Sections/Colors.php:644
+msgid "Color #4"
+msgstr ""
+
+#: Customizer/Sections/Colors.php:645
+msgid "Color #5"
+msgstr ""
+
+#: Customizer/Sections/Colors.php:646
+msgid "Color #6"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:18
+msgid "Primary button colors"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:24
+msgid "Primary Contrasting"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:42
+msgid "Tailor Color: Primary"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:50
+msgid "Secondary button colors"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:55
+msgid "Secondary "
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:56
+msgid "Secondary Contrasting"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:74
+msgid "Tailor Color: Secondary"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:82
+msgid "Default button colors"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:87
+msgid "Default "
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:88
+msgid "Default Contrasting"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:106
+msgid "Tailor Color: Default"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:116
+msgid "Button shape"
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:117
+msgid "Choose the shape of the buttons."
+msgstr ""
+
+#: Customizer/Sections/Component/Button.php:149
+#: Customizer/Sections/Component/Tags.php:21
+#: Customizer/Sections/Menu/Siteselector.php:119
+#: Customizer/Sections/Search.php:158
+msgid "Pill"
+msgstr ""
+
+#: Customizer/Sections/Component/Card.php:21
+msgid "Panel"
+msgstr ""
+
+#: Customizer/Sections/Component/Card.php:22
+#: Customizer/Sections/Header/Appearance.php:47
+msgid "Accented"
+msgstr ""
+
+#: Customizer/Sections/Component/Divider.php:14
 msgid "Divider thickness"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:35
+#: Customizer/Sections/Component/Divider.php:35
 msgid "Border style"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:40
+#: Customizer/Sections/Component/Divider.php:40
 msgid "Solid"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:41
+#: Customizer/Sections/Component/Divider.php:41
 msgid "Dotted"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:42
+#: Customizer/Sections/Component/Divider.php:42
 msgid "Dashed"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:84
+#: Customizer/Sections/Component/Divider.php:84
 msgid "Customize text color"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:134
-#: Customizer/Sections/FooterMain.php:113
-#: Customizer/Sections/Hero.php:40
-#: Customizer/Sections/SliderDefault.php:111
-#: Customizer/Sections/SliderHero.php:66
+#: Customizer/Sections/Component/Divider.php:134
+#: Customizer/Sections/Component/FooterMain.php:113
+#: Customizer/Sections/Component/Hero.php:40
+#: Customizer/Sections/Component/SliderDefault.php:111
+#: Customizer/Sections/Component/SliderHero.php:66
 msgid "Text alignment"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:140
-#: Customizer/Sections/FooterSub.php:164
+#: Customizer/Sections/Component/Divider.php:140
+#: Customizer/Sections/Component/FooterSub.php:164
+#: Customizer/Sections/Component/Hero.php:46
+#: Customizer/Sections/Component/Hero.php:72
+#: Customizer/Sections/Component/Hero.php:98
 #: Customizer/Sections/Header/Layout.php:226
-#: Customizer/Sections/Hero.php:46
-#: Customizer/Sections/Hero.php:72
-#: Customizer/Sections/Hero.php:98
 msgid "Center"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:160
+#: Customizer/Sections/Component/Divider.php:160
 msgid "Wrap title in frame"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:185
+#: Customizer/Sections/Component/Divider.php:185
 msgid "Frame colors"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:199
-#: Customizer/Sections/Field.php:67
+#: Customizer/Sections/Component/Divider.php:199
+#: Customizer/Sections/Component/Field.php:67
 msgid "Border color"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:222
+#: Customizer/Sections/Component/Divider.php:222
 msgid "Frame border radius"
 msgstr ""
 
-#: Customizer/Sections/Divider.php:250
+#: Customizer/Sections/Component/Divider.php:250
 msgid "Frame border width"
 msgstr ""
 
-#: Customizer/Sections/Field.php:17
+#: Customizer/Sections/Component/Field.php:17
 #: Customizer/Sections/Header/LoginLogout.php:49
 #: Customizer/Sections/Menu/MegaMenu.php:18
 #: Customizer/Sections/Menu/Quicklinks.php:16
 msgid "Select if you want to use one of the predefined appearance, or customize freely."
 msgstr ""
 
-#: Customizer/Sections/Field.php:22
+#: Customizer/Sections/Component/Field.php:22
 #: Customizer/Sections/Header/LoginLogout.php:54
 #: Customizer/Sections/Menu/MegaMenu.php:23
 #: Customizer/Sections/Menu/Quicklinks.php:21
 msgid "Predefined appearance"
 msgstr ""
 
-#: Customizer/Sections/Field.php:23
+#: Customizer/Sections/Component/Field.php:23
 #: Customizer/Sections/Header/LoginLogout.php:55
 #: Customizer/Sections/Menu/MegaMenu.php:24
 #: Customizer/Sections/Menu/Quicklinks.php:22
 msgid "Custom appearance"
 msgstr ""
 
-#: Customizer/Sections/Field.php:30
+#: Customizer/Sections/Component/Field.php:30
 msgid "Field style"
 msgstr ""
 
-#: Customizer/Sections/Field.php:31
+#: Customizer/Sections/Component/Field.php:31
 msgid "Which styling the input field use."
 msgstr ""
 
-#: Customizer/Sections/Field.php:37
+#: Customizer/Sections/Component/Field.php:37
 #: Customizer/Sections/Icons.php:20
 msgid "Rounded"
 msgstr ""
 
-#: Customizer/Sections/Field.php:61
+#: Customizer/Sections/Component/Field.php:61
 #: Customizer/Sections/Menu/MegaMenu.php:31
 #: Customizer/Sections/Menu/Quicklinks.php:36
 #: Customizer/Sections/Menu/Siteselector.php:40
 msgid "Custom colors"
 msgstr ""
 
-#: Customizer/Sections/Field.php:98
+#: Customizer/Sections/Component/Field.php:98
 msgid "Select border radius"
 msgstr ""
 
-#: Customizer/Sections/Field.php:129
+#: Customizer/Sections/Component/Field.php:129
 msgid "Field shadow"
 msgstr ""
 
-#: Customizer/Sections/Field.php:130
+#: Customizer/Sections/Component/Field.php:130
 msgid "If fields should apply shadows"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:17
+#: Customizer/Sections/Component/FooterMain.php:17
 msgid "Footer style"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:18
+#: Customizer/Sections/Component/FooterMain.php:18
 msgid "Which style of footer to use."
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:73
-#: Customizer/Sections/FooterSub.php:89
+#: Customizer/Sections/Component/FooterMain.php:73
+#: Customizer/Sections/Component/FooterSub.php:89
 #: Customizer/Sections/Header/Logotype.php:14
 msgid "Logotype height"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:93
+#: Customizer/Sections/Component/FooterMain.php:93
 msgid "Logotype alignment"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:94
+#: Customizer/Sections/Component/FooterMain.php:94
 msgid "How to align the logo in the footer."
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:114
+#: Customizer/Sections/Component/FooterMain.php:114
 msgid "How to align the text in the columns."
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:140
+#: Customizer/Sections/Component/FooterMain.php:140
 msgid "Pre-footer Text alignment"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:141
+#: Customizer/Sections/Component/FooterMain.php:141
 msgid "How to align the text in the pre-footer."
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:166
+#: Customizer/Sections/Component/FooterMain.php:166
 msgid "Footer header border"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:167
+#: Customizer/Sections/Component/FooterMain.php:167
 msgid "Add a bottom border for the footer header"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:188
+#: Customizer/Sections/Component/FooterMain.php:188
 msgid "Footer header border size"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:189
+#: Customizer/Sections/Component/FooterMain.php:189
 msgid "The size of the footer header's bottom border"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:217
+#: Customizer/Sections/Component/FooterMain.php:217
 msgid "Footer header border color"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:218
+#: Customizer/Sections/Component/FooterMain.php:218
 msgid "The color of the footer header's bottom border"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:241
+#: Customizer/Sections/Component/FooterMain.php:241
 msgid "How many columns that the footer should be divided in."
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:283
+#: Customizer/Sections/Component/FooterMain.php:283
 msgid "Footer background"
 msgstr ""
 
-#: Customizer/Sections/FooterMain.php:284
+#: Customizer/Sections/Component/FooterMain.php:284
 msgid "Background settings for the footer."
 msgstr ""
 
-#: Customizer/Sections/FooterSub.php:22
+#: Customizer/Sections/Component/FooterSub.php:22
 msgid "Text separator"
 msgstr ""
 
-#: Customizer/Sections/FooterSub.php:69
+#: Customizer/Sections/Component/FooterSub.php:69
 msgid "Upload SVG logo"
 msgstr ""
 
-#: Customizer/Sections/FooterSub.php:134
+#: Customizer/Sections/Component/FooterSub.php:134
 #: Customizer/Sections/Menu/Colors.php:95
 msgid "Horizontal"
 msgstr ""
 
-#: Customizer/Sections/FooterSub.php:135
+#: Customizer/Sections/Component/FooterSub.php:135
 #: Customizer/Sections/Menu/Colors.php:99
 msgid "Vertical"
 msgstr ""
 
-#: Customizer/Sections/FooterSub.php:158
+#: Customizer/Sections/Component/FooterSub.php:158
 msgid "Content alignment"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:14
+msgid "Choose animation type"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:15
+msgid "Choose an animation for your hero"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:20
+msgid "No animation"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:21
+msgid "Ken Burns"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:66
+msgid "Content vertical alignment"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:71
+#: Customizer/Sections/Search.php:124
+msgid "Top"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:73
+#: Customizer/Sections/Search.php:126
+msgid "Bottom"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:92
+msgid "Content horizontal alignment"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:118
+msgid "Content background"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:119
+msgid "Choose a background color for hero content."
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:143
+msgid "Contrast color"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:144
+msgid "Choose a contrast color that will be applied to all elements in the content area."
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:166
+msgid "Apply shadows to content"
+msgstr ""
+
+#: Customizer/Sections/Component/Hero.php:188
+msgid "Apply rounded corners to content"
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:14
+msgid "Map style"
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:15
+msgid "Which style to use for Open Street Maps."
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:21
+msgid "Pale"
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:23
+msgid "Colorful"
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:42
+msgid "Map start center"
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:43
+msgid "Which latitude and longitude to center Open Street Maps on as default."
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:63
+msgid "Map start zoom"
+msgstr ""
+
+#: Customizer/Sections/Component/OpenStreetMap.php:64
+msgid "Which zoom level to use on Open Street Maps on as default."
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:17
+msgid "Gap between slides"
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:50
+msgid "Amount of preview"
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:51
+msgid "If set to 0, no preview will be show. If preview of previous and next slide is wanted. Choose a value higher than the gap."
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:84
+#: Customizer/Sections/Component/SliderHero.php:41
+msgid "Container colour"
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:138
+#: Customizer/Sections/Component/SliderHero.php:91
+msgid "Slide overlay"
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:165
+msgid "Arrow button style"
+msgstr ""
+
+#: Customizer/Sections/Component/SliderDefault.php:192
+msgid "Arrow button color"
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:14
+msgid "Tag styling"
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:15
+msgid "Which styling to use for tags."
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:40
+msgid "Tag icon"
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:41
+msgid "Icon to prepend tags with."
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:47
+msgid "Dot"
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:66
+msgid "Compress tags"
+msgstr ""
+
+#: Customizer/Sections/Component/Tags.php:67
+msgid "If set to 0, no compression will take place. Any other value will only show selected amount of tags."
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:14
+msgid "Page heading"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:40
+msgid "Image"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:41
+msgid "Displays above the heading"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:55
+msgid "What actions button to display"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:69
+msgid "Error code backdrop"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:70
+msgid "Display a faint backdrop with error code "
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:89
+msgid "This post is password protected, please log in to view this post."
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:91
+msgid "Your user group do not have access to view this post."
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:93
+msgid "Oops! The page you requested cannot be found."
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:103
+#, php-format
+msgid "The %s you are looking for is either moved or removed."
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:112
+msgid "Previous page"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:113
+msgid "To front page"
+msgstr ""
+
+#: Customizer/Sections/ErrorPages.php:114
+msgid "Login button"
 msgstr ""
 
 #: Customizer/Sections/General.php:14
@@ -8623,20 +9109,6 @@ msgstr ""
 
 #: Customizer/Sections/Header/Appearance.php:41
 msgid "Select a alternative style of this header."
-msgstr ""
-
-#: Customizer/Sections/Header/Appearance.php:47
-#: Customizer/Sections/Module/Contacts.php:40
-#: Customizer/Sections/Module/Inlay.php:21
-#: Customizer/Sections/Module/LocalEvent.php:21
-#: Customizer/Sections/Module/Map.php:23
-#: Customizer/Sections/Module/Posts.php:21
-#: Customizer/Sections/Module/Posts.php:44
-#: Customizer/Sections/Module/Posts.php:68
-#: Customizer/Sections/Module/Script.php:23
-#: Customizer/Sections/Module/Text.php:21
-#: Customizer/Sections/Module/Video.php:23
-msgid "Accented"
 msgstr ""
 
 #: Customizer/Sections/Header/Appearance.php:64
@@ -8752,6 +9224,11 @@ msgstr ""
 msgid "Select when the login/logout button should be visible"
 msgstr ""
 
+#: Customizer/Sections/Header/LoginLogout.php:22
+#: SchemaData/ExternalContent/ExternalContentFeature.php:176
+msgid "Never"
+msgstr ""
+
 #: Customizer/Sections/Header/LoginLogout.php:24
 msgid "Login and Logout"
 msgstr ""
@@ -8809,64 +9286,6 @@ msgstr ""
 
 #: Customizer/Sections/Header/Logotype.php:101
 msgid "Header LogoType Text: Font Settings "
-msgstr ""
-
-#: Customizer/Sections/Hero.php:14
-msgid "Choose animation type"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:15
-msgid "Choose an animation for your hero"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:20
-msgid "No animation"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:21
-msgid "Ken Burns"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:66
-msgid "Content vertical alignment"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:71
-#: Customizer/Sections/Search.php:124
-msgid "Top"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:73
-#: Customizer/Sections/Search.php:126
-msgid "Bottom"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:92
-msgid "Content horizontal alignment"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:118
-msgid "Content background"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:119
-msgid "Choose a background color for hero content."
-msgstr ""
-
-#: Customizer/Sections/Hero.php:143
-msgid "Contrast color"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:144
-msgid "Choose a contrast color that will be applied to all elements in the content area."
-msgstr ""
-
-#: Customizer/Sections/Hero.php:166
-msgid "Apply shadows to content"
-msgstr ""
-
-#: Customizer/Sections/Hero.php:188
-msgid "Apply rounded corners to content"
 msgstr ""
 
 #: Customizer/Sections/Icons.php:21
@@ -8970,6 +9389,14 @@ msgstr ""
 
 #: Customizer/Sections/Menu/Breadcrumbs.php:18
 msgid "The actual text will still be shown in a tooltip when hovered."
+msgstr ""
+
+#: Customizer/Sections/Menu/Breadcrumbs.php:43
+msgid "Show home icon"
+msgstr ""
+
+#: Customizer/Sections/Menu/Breadcrumbs.php:59
+msgid "Show prefix usually used for screen readers only (eg. you are here)"
 msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:13
@@ -9216,57 +9643,28 @@ msgstr ""
 msgid "Trigger button size"
 msgstr ""
 
-#: Customizer/Sections/Module/Contacts.php:39
-#: Customizer/Sections/Module/Inlay.php:20
-#: Customizer/Sections/Module/LocalEvent.php:20
-#: Customizer/Sections/Module/Map.php:22
-#: Customizer/Sections/Module/Posts.php:20
-#: Customizer/Sections/Module/Posts.php:43
-#: Customizer/Sections/Module/Posts.php:67
-#: Customizer/Sections/Module/Script.php:22
-#: Customizer/Sections/Module/Text.php:20
-#: Customizer/Sections/Module/Video.php:22
-msgid "Panel"
+#: Customizer/Sections/Menu/Vertical.php:17
+msgid "Submenu expand icon"
 msgstr ""
 
-#: Customizer/Sections/Module/Posts.php:61
-msgid "Expandable List"
+#: Customizer/Sections/Menu/Vertical.php:18
+msgid "The icon that will indicate that a submenu can be expanded"
 msgstr ""
 
-#: Customizer/Sections/Module/SectionsSplit.php:14
-msgid "Section Split"
+#: Customizer/Sections/Menu/Vertical.php:23
+msgid "Directional Caret"
 msgstr ""
 
-#: Customizer/Sections/OpenStreetMap.php:14
-msgid "Map style"
+#: Customizer/Sections/Menu/Vertical.php:24
+msgid "Plus/Minus"
 msgstr ""
 
-#: Customizer/Sections/OpenStreetMap.php:15
-msgid "Which style to use for Open Street Maps."
+#: Customizer/Sections/Menu/Vertical.php:43
+msgid "Indent each level"
 msgstr ""
 
-#: Customizer/Sections/OpenStreetMap.php:21
-msgid "Pale"
-msgstr ""
-
-#: Customizer/Sections/OpenStreetMap.php:23
-msgid "Colorful"
-msgstr ""
-
-#: Customizer/Sections/OpenStreetMap.php:42
-msgid "Map start center"
-msgstr ""
-
-#: Customizer/Sections/OpenStreetMap.php:43
-msgid "Which latitude and longitude to center Open Street Maps on as default."
-msgstr ""
-
-#: Customizer/Sections/OpenStreetMap.php:63
-msgid "Map start zoom"
-msgstr ""
-
-#: Customizer/Sections/OpenStreetMap.php:64
-msgid "Which zoom level to use on Open Street Maps on as default."
+#: Customizer/Sections/Menu/Vertical.php:44
+msgid "Submenus will indent one step for every level down"
 msgstr ""
 
 #: Customizer/Sections/Padding.php:14
@@ -9347,18 +9745,23 @@ msgid "Hero on frontpage"
 msgstr ""
 
 #: Customizer/Sections/Search.php:134
-msgid "Header on sub pages"
+msgid "Header on sub pages (desktop)"
 msgstr ""
 
 #: Customizer/Sections/Search.php:135
-msgid "Header on frontpage"
+msgid "Header on frontpage (desktop)"
 msgstr ""
 
 #: Customizer/Sections/Search.php:136
+#: Customizer/Sections/Search.php:137
+msgid "Header on frontpage (mobile)"
+msgstr ""
+
+#: Customizer/Sections/Search.php:138
 msgid "Option in main menu"
 msgstr ""
 
-#: Customizer/Sections/Search.php:137
+#: Customizer/Sections/Search.php:139
 msgid "Option in mobile menu"
 msgstr ""
 
@@ -9384,64 +9787,6 @@ msgstr ""
 
 #: Customizer/Sections/Shadow.php:57
 msgid "What color to use for shadows."
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:17
-msgid "Gap between slides"
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:50
-msgid "Amount of preview"
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:51
-msgid "If set to 0, no preview will be show. If preview of previous and next slide is wanted. Choose a value higher than the gap."
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:84
-#: Customizer/Sections/SliderHero.php:41
-msgid "Container colour"
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:138
-#: Customizer/Sections/SliderHero.php:91
-msgid "Slide overlay"
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:165
-msgid "Arrow button style"
-msgstr ""
-
-#: Customizer/Sections/SliderDefault.php:192
-msgid "Arrow button color"
-msgstr ""
-
-#: Customizer/Sections/Tags.php:14
-msgid "Tag styling"
-msgstr ""
-
-#: Customizer/Sections/Tags.php:15
-msgid "Which styling to use for tags."
-msgstr ""
-
-#: Customizer/Sections/Tags.php:40
-msgid "Tag icon"
-msgstr ""
-
-#: Customizer/Sections/Tags.php:41
-msgid "Icon to prepend tags with."
-msgstr ""
-
-#: Customizer/Sections/Tags.php:47
-msgid "Dot"
-msgstr ""
-
-#: Customizer/Sections/Tags.php:66
-msgid "Compress tags"
-msgstr ""
-
-#: Customizer/Sections/Tags.php:67
-msgid "If set to 0, no compression will take place. Any other value will only show selected amount of tags."
 msgstr ""
 
 #: Customizer/Sections/Typography.php:76
@@ -9473,46 +9818,6 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: ExternalContent/Rest/AjaxSync.php:51
-msgid "Missing post_type parameter"
-msgstr ""
-
-#: ExternalContent/Rest/AjaxSync.php:63
-msgid "Sync already in progress"
-msgstr ""
-
-#: ExternalContent/Rest/AjaxSync.php:73
-msgid "Sync completed. Reload page to see changes."
-msgstr ""
-
-#: ExternalContent/SyncHandler/SyncHandler.php:68
-msgid "Fetching source data..."
-msgstr ""
-
-#: ExternalContent/SyncHandler/SyncHandler.php:73
-msgid "Converting %s schema objects to WP_Post objects."
-msgstr ""
-
-#: ExternalContent/SyncHandler/SyncHandler.php:79
-msgid "Converting post %s of %s..."
-msgstr ""
-
-#: ExternalContent/SyncHandler/SyncHandler.php:93
-msgid "Inserting posts..."
-msgstr ""
-
-#: ExternalContent/SyncHandler/SyncHandler.php:102
-msgid "Cleaning up..."
-msgstr ""
-
-#: ExternalContent/UI/PageRowActionsSyncButton.php:68
-msgid "Sync this post from remote source"
-msgstr ""
-
-#: ExternalContent/UI/PostTableSyncButton.php:60
-msgid "Sync all posts from remote source"
-msgstr ""
-
 #: GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:29
 msgid "Global notices has been saved."
 msgstr ""
@@ -9525,7 +9830,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: Helper/Post.php:286
+#: Helper/Post.php:214
 msgid "Item is missing content"
 msgstr ""
 
@@ -9680,7 +9985,7 @@ msgid "Book here"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:64
-#: Helper/TranslatedLabels.php:77
+#: Helper/TranslatedLabels.php:78
 msgid "Updated"
 msgstr ""
 
@@ -9697,68 +10002,81 @@ msgid "of"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:69
-#: Helper/TranslatedLabels.php:83
-msgid "Filter"
+msgid "with"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:70
-#: Helper/TranslatedLabels.php:85
-msgid "Reset filter"
+#: Helper/TranslatedLabels.php:84
+msgid "Filter"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:71
-msgid "No items found."
+#: Helper/TranslatedLabels.php:86
+msgid "Reset filter"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:72
-msgid "Sort by"
+msgid "No items found."
 msgstr ""
 
 #: Helper/TranslatedLabels.php:73
-msgid "Random"
+msgid "Sort by"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:74
-msgid "Name (A-Z)"
+msgid "Random"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:75
+msgid "Name (A-Z)"
+msgstr ""
+
+#: Helper/TranslatedLabels.php:76
 msgid "Publish Date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:79
+#: Helper/TranslatedLabels.php:80
 msgid "Choose a from date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:80
+#: Helper/TranslatedLabels.php:81
 msgid "Choose a to date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:81
+#: Helper/TranslatedLabels.php:82
 msgid "Select a valid date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:84
+#: Helper/TranslatedLabels.php:85
 msgid "Reset search"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:86
+#: Helper/TranslatedLabels.php:87
 msgid "Archive navigation"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:87
+#: Helper/TranslatedLabels.php:88
 msgid "Reset"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:88
+#: Helper/TranslatedLabels.php:89
 msgid "Password"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:89
+#: Helper/TranslatedLabels.php:90
 msgid "Username or Email Address"
 msgstr ""
 
+#: Helper/TranslatedLabels.php:91
+msgid "Find on page"
+msgstr ""
+
+#: Helper/TranslatedLabels.php:92
+msgid "Unknown"
+msgstr ""
+
 #: ImageConvert/ImageConvertFilter.php:137
+#, php-format
 msgid "Image files must be smaller than %s"
 msgstr ""
 
@@ -9768,6 +10086,7 @@ msgid "We need your consent to continue"
 msgstr ""
 
 #: Oembed/OembedFilters.php:40
+#, php-format
 msgid "This part of the website shows content from %s. By continuing, <a href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 
@@ -9777,11 +10096,346 @@ msgid "I understand, continue."
 msgstr ""
 
 #: Oembed/OembedFilters.php:46
+#, php-format
 msgid "This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy."
 msgstr ""
 
 #: Oembed/OembedFilters.php:50
 msgid "Handling of personal data"
+msgstr ""
+
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:51
+msgid "Missing post_type parameter"
+msgstr ""
+
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:63
+msgid "Sync already in progress"
+msgstr ""
+
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:73
+msgid "Sync completed. Reload page to see changes."
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:68
+msgid "Fetching source data..."
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:73
+#, php-format
+msgid "Converting %s schema objects to WP_Post objects."
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
+#, php-format
+msgid "Converting post %s of %s..."
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:93
+msgid "Inserting posts..."
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:102
+msgid "Cleaning up..."
+msgstr ""
+
+#: SchemaData/ExternalContent/UI/PageRowActionsSyncButton.php:68
+msgid "Sync this post from remote source"
+msgstr ""
+
+#: SchemaData/ExternalContent/UI/PostTableSyncButton.php:60
+msgid "Sync all posts from remote source"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:42
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:45
+msgid "General Information"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:45
+msgid "Event Status"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:46
+msgid "Event Scheduled"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:47
+msgid "Event Postponed"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:48
+msgid "Event Cancelled"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:49
+msgid "Event Moved Online"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:50
+msgid "Event Rescheduled"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:52
+msgid "Event Attendance Mode"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:53
+msgid "Offline Event Attendance Mode"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:54
+msgid "Online Event Attendance Mode"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:55
+msgid "Mixed Event Attendance Mode"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:57
+msgid "URL for more information"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:58
+msgid "Typical Age Range"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:59
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:49
+msgid "Time & Location"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:60
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:50
+msgid "Start Date"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:61
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:51
+msgid "End Date"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:63
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:66
+msgid "Organizer"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:72
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:75
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:34
+msgid "Telephone"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:76
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:79
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:93
+msgid "Offers"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:85
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:99
+msgid "Currency"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:86
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:100
+msgid "Booking URL"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:47
+msgid "About the exhibition"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:48
+msgid "Gallery"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:58
+msgid "Geo"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:62
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:65
+msgid "Opening Hours"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
+msgid "Day of the week"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
+msgid "Monday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
+msgid "Tuesday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
+msgid "Wednesday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:73
+msgid "Thursday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:74
+msgid "Friday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:75
+msgid "Saturday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:76
+msgid "Sunday"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:78
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:87
+msgid "Opens"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:79
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
+msgid "Closes"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:80
+msgid "Valid From"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:81
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
+msgid "Valid Through"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:84
+msgid "Special Opening Hours"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:39
+msgid "Application URL"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:40
+msgid "Date Posted"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:44
+msgid "Employer Overview"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:45
+msgid "Employment Type"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:48
+msgid "Employment Unit"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:57
+msgid "Address Region"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:58
+msgid "Address Locality"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:63
+msgid "Hiring Organization"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:65
+msgid "Ethics Policy"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:69
+msgid "Application Contact"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:76
+msgid "Contact Type"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:36
+msgid "Geo Location"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:40
+msgid "Founding Date"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:51
+msgid "Funding"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:54
+msgid "Amount"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:52
+msgid "Job Categories"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:52
+msgid "Job Category"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:53
+msgid "Latest Application Dates"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:53
+msgid "Latest Application Date"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:65
+msgid "Event Tags"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:65
+msgid "Event Tag"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+msgid "Physical Accessibility Features"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+msgid "Physical Accessibility Feature"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+msgid "Project Departments"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+msgid "Project Department"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:79
+msgid "Project Categories"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:79
+msgid "Project Category"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:80
+msgid "Project Technologies"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:80
+msgid "Project Technology"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
+msgid "Project Statuses"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
+msgid "Project Status"
 msgstr ""
 
 #: Search/Algolia.php:56
@@ -9812,43 +10466,43 @@ msgstr ""
 msgid "Both"
 msgstr ""
 
-#: Theme/Enqueue.php:254
+#: Theme/Enqueue.php:257
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: Theme/Enqueue.php:257
+#: Theme/Enqueue.php:260
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: Theme/Enqueue.php:258
+#: Theme/Enqueue.php:261
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: Theme/Enqueue.php:285
+#: Theme/Enqueue.php:288
 msgid "Su"
 msgstr ""
 
-#: Theme/Enqueue.php:286
+#: Theme/Enqueue.php:289
 msgid "Mo"
 msgstr ""
 
-#: Theme/Enqueue.php:287
+#: Theme/Enqueue.php:290
 msgid "Tu"
 msgstr ""
 
-#: Theme/Enqueue.php:288
+#: Theme/Enqueue.php:291
 msgid "We"
 msgstr ""
 
-#: Theme/Enqueue.php:289
+#: Theme/Enqueue.php:292
 msgid "Th"
 msgstr ""
 
-#: Theme/Enqueue.php:290
+#: Theme/Enqueue.php:293
 msgid "Fr"
 msgstr ""
 
-#: Theme/Enqueue.php:291
+#: Theme/Enqueue.php:294
 msgid "Sa"
 msgstr ""
 
@@ -10144,8 +10798,9 @@ msgstr ""
 msgid "(sidebar)"
 msgstr ""
 
-#: Theme/Navigation.php:150
-msgid "Content type - %s (sidebar)"
+#: Theme/Navigation.php:151
+#, php-format
+msgid "Schema type - %s (above archive posts)"
 msgstr ""
 
 #: Theme/Sidebars.php:80
@@ -10256,15 +10911,15 @@ msgstr ""
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: Upgrade.php:933
+#: Upgrade.php:1007
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: Upgrade.php:937
+#: Upgrade.php:1011
 msgid "Current database version must be a number."
 msgstr ""
 
-#: Upgrade.php:942
+#: Upgrade.php:1016
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 

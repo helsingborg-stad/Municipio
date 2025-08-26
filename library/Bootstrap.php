@@ -45,7 +45,7 @@ $acfService = new NativeAcfService();
 /**
  * Dependencies.
  */
-$schemaDataConfigService = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService);
+$schemaDataConfigService = new \Municipio\SchemaData\Config\SchemaDataConfigService($wpService);
 $schemaObjectFromPost    = (new SchemaObjectFromPostFactory(
     $schemaDataConfigService,
     $wpService,

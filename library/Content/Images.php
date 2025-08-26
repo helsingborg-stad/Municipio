@@ -30,10 +30,9 @@ class Images
     {
         $encoding = '<?xml encoding="utf-8" ?>';
 
-        if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
+        if (!has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument();
             $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
-
             $xpath = new \DOMXPath($dom);
 
             $links  = $dom->getElementsByTagName('a');
@@ -70,6 +69,7 @@ class Images
             }
             $linkedImage = $link->firstChild;
             if (self::isSelfLinked($link, $linkedImage)) {
+                $linkedImage->setAttribute('parsed', '1');
                 $captionText = self::extractCaption($link->parentNode);
                 $altText     = $linkedImage->getAttribute('alt') ?: $captionText;
                 self::replaceWithBladeTemplate($dom, $link, $linkedImage, $altText, $captionText);
@@ -219,9 +219,8 @@ class Images
 
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-
-            if ($newNode instanceof \DOMElement) {
-                $element->parentNode->parentNode->replaceChild($newNode, $element->parentNode);
+            if ($image) {
+                $image->replaceWith($newNode);
             }
         }
     }
