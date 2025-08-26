@@ -102,26 +102,16 @@ class SingularExhibitionEvent extends Singular
     private function populateLanguageObject(): void
     {
         $lang = $this->data['lang'];
-        $wp   = $this->wpService;
 
-        $translations = [
-            'bookingTitleLabel'        => ['Tickets & registration', 'municipio'],
-            'bookingButtonLabel'       => ['Go to booking page', 'municipio'],
-            'bookingDisclaimerLabel'   => ['Tickets are sold according to the reseller.', 'municipio'],
-            'placeTitle'               => ['Place', 'municipio'],
-            'expiredEventNoticeLabel'  => ['This event has already taken place.', 'municipio'],
-            'dateLabel'                => ['Date', 'municipio'],
-            'openingHoursLabel'        => ['Opening hours', 'municipio'],
-            'specialOpeningHoursLabel' => ['Special opening hours', 'municipio'],
-            'entranceLabel'            => ['Entrance', 'municipio'],
-            'accessibilityLabel'       => ['Accessibility', 'municipio'],
-            'directionsLabel'          => ['Directions', 'municipio'],
-            'galleryLabel'             => ['Gallery', 'municipio'],
-        ];
-
-        foreach ($translations as $key => [$text, $domain]) {
-            $lang->$key = $wp->__($text, $domain);
-        }
+        $lang->placeTitle               = $this->wpService->_x('Place', 'ExhibitionEvent', 'municipio');
+        $lang->expiredEventNoticeLabel  = $this->wpService->_x('This event has already taken place.', 'ExhibitionEvent', 'municipio');
+        $lang->dateLabel                = $this->wpService->_x('Date', 'ExhibitionEvent', 'municipio');
+        $lang->openingHoursLabel        = $this->wpService->_x('Opening hours', 'ExhibitionEvent', 'municipio');
+        $lang->specialOpeningHoursLabel = $this->wpService->_x('Special opening hours', 'ExhibitionEvent', 'municipio');
+        $lang->entranceLabel            = $this->wpService->_x('Entrance', 'ExhibitionEvent', 'municipio');
+        $lang->accessibilityLabel       = $this->wpService->_x('Accessibility', 'ExhibitionEvent', 'municipio');
+        $lang->directionsLabel          = $this->wpService->_x('Directions', 'ExhibitionEvent', 'municipio');
+        $lang->galleryLabel             = $this->wpService->_x('Gallery', 'ExhibitionEvent', 'municipio');
     }
 
     /**
@@ -173,6 +163,10 @@ class SingularExhibitionEvent extends Singular
         $currency           = $offer['priceCurrency'] ?? '';
 
         $price = $this->resolvePrice($offer, $priceSpecification, $currency);
+
+        if ($offer['price'] === 0) {
+            $price = $this->wpService->_x('Free entrance', 'ExhibitionEvent', 'municipio');
+        }
 
         return new \Municipio\Controller\SingularEvent\PriceListItem($name, $price);
     }

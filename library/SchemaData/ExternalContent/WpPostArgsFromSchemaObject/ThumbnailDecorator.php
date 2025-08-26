@@ -93,6 +93,10 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
             return $image->getProperty('url');
         }
 
+        if (is_array($image) && isset($image[0]) && $image[0] instanceof ImageObject && filter_var($image[0]->getProperty('url'), FILTER_VALIDATE_URL)) {
+            return $image[0]->getProperty('url');
+        }
+
         return null;
     }
 }

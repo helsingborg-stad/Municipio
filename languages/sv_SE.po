@@ -1002,8 +1002,8 @@ msgstr "Sidfotssektioner"
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:83
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:46
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:57
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:86
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:97
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:82
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:101
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:51
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:73
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:38
@@ -7745,7 +7745,7 @@ msgstr "Plats"
 
 #: Controller/SingularEvent.php:66
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:98
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr "Pris"
 
@@ -7762,6 +7762,7 @@ msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
 #: Controller/SingularEvent.php:158
+#: Controller/SingularExhibitionEvent.php:192
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
@@ -7953,7 +7954,7 @@ msgstr "Evenemang"
 msgid "Install plugin"
 msgstr "Installera tillägg"
 
-#: Customizer/FontUploads/FontUploads.php:66
+#: Customizer/FontUploads/FontUploads.php:68
 msgid "Untitled Font"
 msgstr "Namnlöst typsnitt"
 
@@ -10248,18 +10249,18 @@ msgstr "Mobiltelefon"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:76
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:79
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:93
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:94
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:97
 msgid "Offers"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:85
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:99
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:103
 msgid "Currency"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:86
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:100
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:104
 msgid "Booking URL"
 msgstr ""
 
@@ -10278,69 +10279,68 @@ msgstr "mod-gallery"
 msgid "Geo"
 msgstr "eco"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:62
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:65
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:61
 #, fuzzy
 msgid "Opening Hours"
 msgstr "Öppettider: %s"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:65
 msgid "Day of the week"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:66
 #, fuzzy
 msgid "Monday"
 msgstr "Sekundär"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:67
 msgid "Tuesday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:68
 msgid "Wednesday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:73
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
 msgid "Thursday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:74
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
 msgid "Friday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:75
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
 msgid "Saturday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:76
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
 msgid "Sunday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:78
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:87
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:74
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:83
 #, fuzzy
 msgid "Opens"
 msgstr "Öppnar"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:79
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:75
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:84
 #, fuzzy
 msgid "Closes"
 msgstr "Stäng"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:80
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:76
 #, fuzzy
 msgid "Valid From"
 msgstr "Sista ansökningsdag"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:81
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:77
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
 #, fuzzy
 msgid "Valid Through"
 msgstr "Sista ansökningsdag"
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:84
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:80
 #, fuzzy
 msgid "Special Opening Hours"
 msgstr "Öppettider: %s"
@@ -10961,6 +10961,7 @@ msgstr "Eventtaggar"
 msgid "Event Tag"
 msgstr "Eventtagg"
 
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
 msgid "Physical Accessibility Features"
 msgstr "Tillgänglighet"
@@ -11000,3 +11001,74 @@ msgstr "Statusar"
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
 msgid "Project Status"
 msgstr "Status"
+
+#: Controller/SingularExhibitionEvent.php:169
+msgctxt "ExhibitionEvent"
+msgid "Free entrance"
+msgstr "Fri entré"
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:89
+msgid "Accessible Entrance"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
+msgid "Accessible Parking"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:91
+msgid "Wheelchair Accessible"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:92
+msgid "Braille Signage"
+msgstr ""
+
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:52
+msgctxt "Schema OpeningHoursSpecification"
+msgid "closed"
+msgstr "stängt"
+
+#: Controller/SingularExhibitionEvent.php:107
+msgctxt "ExhibitionEvent"
+msgid "Place"
+msgstr "Plats"
+
+#: Controller/SingularExhibitionEvent.php:108
+msgctxt "ExhibitionEvent"
+msgid "This event has already taken place."
+msgstr "Detta evenemang har redan ägt rum."
+
+#: Controller/SingularExhibitionEvent.php:109
+msgctxt "ExhibitionEvent"
+msgid "Date"
+msgstr "Datum"
+
+#: Controller/SingularExhibitionEvent.php:110
+msgctxt "ExhibitionEvent"
+msgid "Opening hours"
+msgstr "Öppettider"
+
+#: Controller/SingularExhibitionEvent.php:111
+msgctxt "ExhibitionEvent"
+msgid "Special opening hours"
+msgstr "Avvikande öppettider"
+
+#: Controller/SingularExhibitionEvent.php:112
+msgctxt "ExhibitionEvent"
+msgid "Entrance"
+msgstr "Entré"
+
+#: Controller/SingularExhibitionEvent.php:113
+msgctxt "ExhibitionEvent"
+msgid "Accessibility"
+msgstr "Tillgänglighet"
+
+#: Controller/SingularExhibitionEvent.php:114
+msgctxt "ExhibitionEvent"
+msgid "Directions"
+msgstr "Vägbeskrivning"
+
+#: Controller/SingularExhibitionEvent.php:115
+msgctxt "ExhibitionEvent"
+msgid "Gallery"
+msgstr "Galleri"
