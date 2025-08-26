@@ -183,6 +183,7 @@ class Images
             if ($imageSrc && isset($imageSrc[0])) {
                 $html = render_blade_view('partials.content.image', [
                     'src'              => $imageSrc[0],
+                    'alt'              => $altText,
                     'caption'          => $captionText,
                     'classList'        => $classes,
                     'imgAttributeList' => [
