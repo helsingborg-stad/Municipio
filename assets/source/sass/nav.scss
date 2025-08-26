@@ -1,0 +1,29 @@
+@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+.nav-helper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: calc(#{variables.$base} * 2);
+    margin-bottom: calc(#{variables.$base} * 2);
+    align-items: start;
+    flex-direction: column;
+    gap: calc(#{variables.$base} * 2);
+
+    @include mq.mq('md') {
+        margin-top: calc(#{variables.$base} * 4);
+        margin-bottom: calc(#{variables.$base} * 4);
+    } 
+
+    @include mq.mq('sm') {
+        flex-direction: row;
+        gap: 0;
+    }
+}
+
+@media print {
+    .nav-helper {
+        display:none;
+    }
+}
