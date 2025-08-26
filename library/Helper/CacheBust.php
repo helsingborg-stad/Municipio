@@ -4,86 +4,46 @@ namespace Municipio\Helper;
 
 class CacheBust
 {
+    private static $manifestPath = '/assets/dist/manifest.json';
+
     /**
-     * Returns the revved/cache-busted file name of an asset.
-     * TODO: Generalize this method so it fits plugin/themes/childthemes etc and remove old
+     * Return the manifest array from manifest.json file.
+     * Caches the manifest in a static variable and in WP object cache.
      */
-    public static function getFilename($name)
+    public static function getManifest(): ?array
     {
         static $revManifest;
         if (!isset($revManifest)) {
-            //Ty to get cached value
             $revManifest = wp_cache_get('municipio-rev-manifest', false);
+            if ($revManifest === false) {
+                $revManifestPath = get_stylesheet_directory() . self::$manifestPath;
 
-            //If not found, get rev manifest from file
-            if ($revManifest !== false) {
-                $revManifestPath = get_stylesheet_directory() . '/assets/dist/manifest.json';
                 if (file_exists($revManifestPath)) {
-                    $revManifest = json_decode(
-                        file_get_contents($revManifestPath),
-                        true
-                    );
+                    $revManifest = json_decode(file_get_contents($revManifestPath), true);
                     wp_cache_set('municipio-rev-manifest', $revManifest);
                 } elseif (WP_DEBUG) {
-                    echo '<div style="color:red">Error: Assets not built. Go to ' .
-                        get_stylesheet_directory() .
-                        ' and run "npm run build". See ' .
-                        get_stylesheet_directory() .
-                        '/README.md for more info.</div>';
+                    echo sprintf(
+                        'Error: Assets not built. Go to %s and run "npm run build". See %s/README.md for more info.',
+                        get_stylesheet_directory(),
+                        get_stylesheet_directory()
+                    );
                 }
             }
         }
-        return $revManifest[$name];
+
+        return $revManifest ?: null;
     }
 
     /**
      * Returns the revved/cache-busted file name of an asset.
      * @param string $name Asset name (array key) from rev-mainfest.json
-     * @param boolean $childTheme Set child or parent theme path (defaults to parent)
-     * @param boolean $returnName Returns $name if set to true while in dev mode
-     * @return string filename of the asset (including directory above)
      */
-    public static function name($name, $childTheme = false, $returnName = false)
+    public static function name(string $name): string
     {
-        if ($returnName == true && defined('DEV_MODE') && DEV_MODE == true) {
-            return $name;
+        $manifest = self::getManifest();
+        if(isset($manifest[$name])) {
+            return $manifest[$name];
         }
-
-        static $revManifestParent;
-        static $revManifestChild;
-
-        $themePath = ($childTheme == true) ? get_stylesheet_directory() : get_template_directory();
-
-        if ($childTheme == true && !isset($revManifestChild[$name])) {
-            $revManifestChild = self::getRevManifest($childTheme);
-        } elseif ($childTheme == false && !isset($revManifestParent[$name])) {
-            $revManifestParent = self::getRevManifest($childTheme);
-        }
-
-        $revManifest = ($childTheme == true) ? $revManifestChild : $revManifestParent;
-
-        if (!isset($revManifest[$name])) {
-            return;
-        }
-
-        return $revManifest[$name];
-    }
-
-    /**
-     * Decode assets json to array
-     * @param boolean $childTheme Set child or parent theme path (defaults to parent)
-     * @return array containg assets filenames
-     */
-    public static function getRevManifest($childTheme = false)
-    {
-        $themePath = ($childTheme == true) ? get_stylesheet_directory() :
-        get_template_directory();
-        $jsonPath  = $themePath . apply_filters('Municipio/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
-
-        if (file_exists($jsonPath)) {
-            return json_decode(file_get_contents($jsonPath), true);
-        } elseif (WP_DEBUG) {
-            echo '<div style="color:red">Error: Assets not built. Go to ' . $themePath . ' and run gulp. See ' . $themePath . '/README.md for more info.</div>';
-        }
+        return $name;
     }
 }

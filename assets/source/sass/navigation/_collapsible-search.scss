@@ -1,0 +1,179 @@
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+.site-header {
+  .collapsible-search-form {
+    $parent: &;
+
+    position: relative;
+
+    &__form {
+      position: absolute;
+      width: 0;
+      top: calc(var(--base, 8px) * -0.5);
+      right: 0;
+      left: auto;
+      transition: all 0.2s ease-in-out;
+      transform-origin: center right;
+      display: flex;
+      padding: calc(var(--base, 8px) * .5);
+      overflow: hidden;
+      z-index: variables.$level-7;
+      opacity: 0;
+
+      @media (max-width: 799px) {
+        position: fixed;
+        top: calc(var(--base, 8px) * 1.5);
+      }
+      
+      &.open {
+        width: calc(100% - (var(--base, 8px) * 1.6));
+        opacity: 1;
+
+        @media (min-width: 800px) {
+          width: calc(var(--base, 8px) * 40);
+        }
+
+        @media (min-width: 1000px) {
+          width: calc(var(--base, 8px) * 50);
+        }
+
+        @media (max-width: 799px) {
+          right: calc(var(--base, 8px) * 0.8);
+
+          #{$parent}__group {
+            width: 100%;
+          }
+        }
+      }
+      
+      &.closing {
+        width: 0;
+      }
+    }
+
+    &__group {
+      position: relative;
+      flex: 1;
+      
+      .c-field {
+        flex: 1;
+        min-width: 0;
+
+        @media (min-width: 800px) {
+          min-width: calc(var(--base, 8px) * 30);
+        }
+
+        @media (min-width: 1000px) {
+          min-width: calc(var(--base, 8px) * 44);
+        }
+
+        .c-field_focus-styler {
+          outline-color: var(--c-button-primary-color);
+          border-radius: calc(var(--base, 8px) * 6);
+          outline-width: 3px;
+        }
+
+        input {
+          font-size: 16px;
+          padding-right: calc(var(--base, 8px) * 5);
+          border-radius: calc(var(--base, 8px) * 6);
+
+          &:focus {
+            outline-style: none;
+          }
+        }
+
+        &__inner {
+          background-color: variables.$color-white;
+          border-radius: calc(var(--base, 8px) * 6);
+          background-color: variables.$color-white;
+          border: 2px solid var(--c-button-primary-color);
+        }
+      }
+    }
+
+    &__submit-icon {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      position: absolute;
+      inset: 50% 5px auto auto;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      outline-width: 3px;
+      cursor: pointer;
+      height: calc(100% - 10px);
+      width: calc(var(--base, 8px)* 5);
+
+      &:disabled {
+        background: transparent;
+      }
+
+      .c-icon {
+        color: var(--c-button-primary-color);
+      }
+    }
+
+    &__close-button {
+      appearance: none;
+      background: transparent;
+      border: none;
+      background-color: variables.$color-secondary-light;
+      outline-width: 3px;
+      border-top-right-radius: calc(var(--base, 8px) * 6);
+      border-bottom-right-radius: calc(var(--base, 8px) * 6);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      color: variables.$color-black;
+      position: relative;
+      cursor: pointer;
+      z-index: -1;
+
+      &::before {
+        content: "";
+
+        width: calc(var(--base, 8px) * 4);
+        height: 100%;
+        display: block;
+        position: absolute;
+        background-color: variables.$color-secondary-light;
+        inset: 0 100% 0 auto;
+        z-index: -1;
+      }
+    }
+  }
+
+  .c-header__upper-left {
+    .collapsible-search-form {
+      &__form {
+        transform-origin: center left;
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  .c-header__upper-center {
+    .collapsible-search-form {
+      &__form {
+        transform-origin: center center;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
+.admin-bar {
+  .collapsible-search-form {
+    position: relative;
+  
+    &__form {
+      @media (max-width: 799px) {
+        top: calc(var(--wp-admin--admin-bar--height, 32px) + 10px);
+      }
+    }
+  }
+}
