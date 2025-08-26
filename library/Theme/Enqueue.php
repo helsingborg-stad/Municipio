@@ -119,6 +119,7 @@ class Enqueue implements Hookable
         $this->enqueueHelper->add('acf-css', 'css/acf.css');
         $this->enqueueHelper->add('general-css', 'css/general.css');
         $this->enqueueHelper->add('a11y-css', 'css/a11y.css');
+        $this->enqueueHelper->add('trash-page-css', 'css/trash-page.css');
     }
 
     /**

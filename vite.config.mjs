@@ -17,6 +17,7 @@ const entries = {
   'css/general': './assets/source/sass/admin/general.scss',
   'css/a11y': './assets/source/sass/admin/a11y.scss',
   'css/login': './assets/source/sass/admin/login.scss',
+  'css/trash-page': './assets/source/sass/admin/trash-page.scss',
 
   'fonts/material/light/sharp': './assets/source/sass/icons/light/sharp.scss',
   'fonts/material/light/outlined': './assets/source/sass/icons/light/outlined.scss',
