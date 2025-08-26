@@ -94,44 +94,6 @@ function convertIconManifestPlugin() {
   }
 }
 
-// Custom plugin to handle raw imports (replaces raw-loader)
-function rawPlugin() {
-  return {
-    name: 'raw',
-    resolveId(id, importer) {
-      if (id.includes('!!raw-loader!') && id.endsWith('?raw')) {
-        // Extract the actual file path from !!raw-loader!./file.css?raw
-        const filePath = id.replace('!!raw-loader!', '').replace('?raw', '');
-
-        // If it's a relative path, resolve it relative to the importer
-        if (filePath.startsWith('./') && importer) {
-          const resolvedPath = path.resolve(path.dirname(importer), filePath);
-          return resolvedPath + '?raw';
-        }
-
-        return filePath + '?raw';
-      }
-      if (id.endsWith('?raw')) {
-        return id;
-      }
-    },
-    load(id) {
-      if (id.endsWith('?raw')) {
-        // Remove the ?raw suffix to get the actual file path
-        const filePath = id.replace('?raw', '');
-
-        try {
-          const content = fs.readFileSync(filePath, 'utf8');
-          return `export default ${JSON.stringify(content)};`;
-        } catch (err) {
-          console.warn(`Could not load raw file: ${filePath}`, err.message);
-          return `export default "";`;
-        }
-      }
-    }
-  }
-}
-
 export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production'
   return {
@@ -232,7 +194,6 @@ export default defineConfig(({ mode }) => {
     plugins: [
       manifestPlugin('manifest.json'),
       convertIconManifestPlugin(),
-      rawPlugin(),
       copy({
         targets: [
           {

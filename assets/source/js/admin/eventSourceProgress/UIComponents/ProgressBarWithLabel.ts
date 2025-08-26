@@ -1,5 +1,3 @@
-import styles from "!!raw-loader!./ProgressBarWithLabel.css?raw";
-
 export default class ProgressBarWithLabel extends HTMLElement {
     private progressElement: HTMLElement;
     private labelElement: HTMLElement;
@@ -16,7 +14,31 @@ export default class ProgressBarWithLabel extends HTMLElement {
         this.root = this.attachShadow({ mode: 'open' });
 
         this.root.innerHTML = `
-            <style> ${styles} </style>
+            <style> 
+                progress {
+                    border: none;
+                    border-radius: 3px;
+                    background-color: #f3f3f3;
+                    margin-right: 8px;
+                    min-width: 192px;
+                }
+
+                ::-webkit-progress-bar {
+                    background-color: rgba(0, 0, 0, 0.15);
+                    border-radius: 3px;
+                    border: none;
+                }
+
+                ::-webkit-progress-value {
+                    background-color: #2271b1;
+                    border-radius: 3px;
+                    transition: width 1s;
+                }
+
+                label {
+                    font-style: italic;
+                } 
+            </style>
             <progress part="progress-bar" id="${this.uniqueId}"></progress>
             <label part="label" for="${this.uniqueId}"></label>
         `;
