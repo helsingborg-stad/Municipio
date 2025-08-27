@@ -57,7 +57,10 @@
         "fix:changed": "vendor/bin/phpcbf-changed origin/main",
         "post-update-cmd": [],
         "unused": "vendor/bin/class-leak check library",
-        "phpstan": "phpstan analyse --memory-limit=2G"
+        "phpstan": "phpstan analyse --memory-limit=2G",
+        "make-pot": "wp i18n make-pot library languages/municipio.pot --domain=municipio --allow-root",
+        "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
+        "make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root"
     },
     "config": {
         "allow-plugins": {
@@ -92,5 +95,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "5.161.8"
+    "version": "5.162.1"
 }

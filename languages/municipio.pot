@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-22T10:51:28+00:00\n"
+"POT-Creation-Date: 2025-08-26T05:51:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -1000,8 +1000,8 @@ msgstr ""
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:83
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:46
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:57
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:86
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:97
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:82
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:101
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:51
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:73
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:38
@@ -7735,7 +7735,7 @@ msgstr ""
 
 #: Controller/SingularEvent.php:66
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:98
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr ""
 
@@ -7752,7 +7752,58 @@ msgid "This event has already taken place."
 msgstr ""
 
 #: Controller/SingularEvent.php:158
+#: Controller/SingularExhibitionEvent.php:192
 msgid "Price not available"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:107
+msgctxt "ExhibitionEvent"
+msgid "Place"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:108
+msgctxt "ExhibitionEvent"
+msgid "This event has already taken place."
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:109
+msgctxt "ExhibitionEvent"
+msgid "Date"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:110
+msgctxt "ExhibitionEvent"
+msgid "Opening hours"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:111
+msgctxt "ExhibitionEvent"
+msgid "Special opening hours"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:112
+msgctxt "ExhibitionEvent"
+msgid "Entrance"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:113
+msgctxt "ExhibitionEvent"
+msgid "Accessibility"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:114
+msgctxt "ExhibitionEvent"
+msgid "Directions"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:115
+msgctxt "ExhibitionEvent"
+msgid "Gallery"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:169
+msgctxt "ExhibitionEvent"
+msgid "Free entrance"
 msgstr ""
 
 #: Controller/SingularJobPosting.php:56
@@ -7938,7 +7989,7 @@ msgstr ""
 msgid "Install plugin"
 msgstr ""
 
-#: Customizer/FontUploads/FontUploads.php:66
+#: Customizer/FontUploads/FontUploads.php:68
 msgid "Untitled Font"
 msgstr ""
 
@@ -10227,18 +10278,18 @@ msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:76
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:79
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:93
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:94
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:97
 msgid "Offers"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:85
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:99
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:103
 msgid "Currency"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:86
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:100
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:104
 msgid "Booking URL"
 msgstr ""
 
@@ -10254,64 +10305,84 @@ msgstr ""
 msgid "Geo"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:62
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:65
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:61
 msgid "Opening Hours"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:65
 msgid "Day of the week"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:66
 msgid "Monday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:67
 msgid "Tuesday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:68
 msgid "Wednesday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:73
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
 msgid "Thursday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:74
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
 msgid "Friday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:75
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
 msgid "Saturday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:76
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
 msgid "Sunday"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:78
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:87
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:74
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:83
 msgid "Opens"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:79
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:75
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:84
 msgid "Closes"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:80
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:76
 msgid "Valid From"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:81
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:77
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
 msgid "Valid Through"
 msgstr ""
 
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:84
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:80
 msgid "Special Opening Hours"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+msgid "Physical Accessibility Features"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:89
+msgid "Accessible Entrance"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
+msgid "Accessible Parking"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:91
+msgid "Wheelchair Accessible"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:92
+msgid "Braille Signage"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:39
@@ -10399,10 +10470,6 @@ msgid "Event Tag"
 msgstr ""
 
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
-msgid "Physical Accessibility Features"
-msgstr ""
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
 msgid "Physical Accessibility Feature"
 msgstr ""
 
@@ -10436,6 +10503,11 @@ msgstr ""
 
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
 msgid "Project Status"
+msgstr ""
+
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:52
+msgctxt "Schema OpeningHoursSpecification"
+msgid "closed"
 msgstr ""
 
 #: Search/Algolia.php:56

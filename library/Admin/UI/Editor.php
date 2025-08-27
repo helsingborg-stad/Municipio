@@ -19,9 +19,6 @@ class Editor
             echo '<style type="text/css">.acf-postbox table thead th { background-color: #FFF; }</style>';
         });
 
-        // Custom plugins
-        $this->metaData();
-
         // Filters
         add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
     }
@@ -374,57 +371,5 @@ class Editor
                 ),
             )
         ));
-    }
-
-    /**
-     * Metadata plugin
-     * @return void
-     */
-    public function metaData()
-    {
-        add_action('admin_footer', function () {
-            global $pagenow;
-
-            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-                return;
-            }
-
-            global $post;
-            $metakeys = \Municipio\Helper\Post::getPostMetaKeys($post->ID);
-
-            echo '<script>
-                    var metadata_button = [
-            ';
-
-            $count = 0;
-            foreach ($metakeys as $key => $value) {
-                echo "{text: '{$value->meta_key}', value: '[meta key=\"{$value->meta_key}\"]'},";
-                $count++;
-            }
-
-            echo '];</script>';
-        });
-
-        add_filter('mce_external_plugins', function ($plugins) {
-            global $pagenow;
-
-            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-                return $plugins;
-            }
-
-            $plugins['metadata'] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-metadata.js');
-            return $plugins;
-        });
-
-        add_filter('mce_buttons_2', function ($buttons) {
-            global $pagenow;
-
-            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-                return $buttons;
-            }
-
-            array_splice($buttons, 2, 0, array('metadata'));
-            return $buttons;
-        });
     }
 }
