@@ -42,7 +42,6 @@
         "@material-symbols/font-200": "^0.34.1",
         "@material-symbols/font-400": "^0.34.1",
         "@material-symbols/font-600": "^0.34.1",
-        "@splidejs/splide": "^4.1.4",
         "@types/jest": "^29.5.14",
         "autoprefixer": "^10.4.20",
         "babel-jest": "^30.0.5",
