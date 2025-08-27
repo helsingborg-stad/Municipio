@@ -17,7 +17,7 @@ use WpService\WpService;
 /**
  * Class SyncHandler
  */
-class SyncHandler implements Hookable
+class SyncHandler implements Hookable, SyncHandlerInterface
 {
     public const FILTER_BEFORE = 'Municipio/ExternalContent/Sync/Filter/Before';
     public const ACTION_AFTER  = 'Municipio/ExternalContent/Sync/After';
@@ -26,11 +26,15 @@ class SyncHandler implements Hookable
      * Constructor for the SyncHandler class.
      *
      * @param SourceConfigInterface[] $sourceConfigs
+     * @param WpService $wpService
+     * @param ProgressReporterInterface $progressService
+     * @param SchemaObjectProcessorInterface[] $schemaObjectsProcessors
      */
     public function __construct(
         private array $sourceConfigs,
         private WpService $wpService,
-        private ProgressReporterInterface $progressService
+        private ProgressReporterInterface $progressService,
+        private array $schemaObjectProcessors = []
     ) {
     }
 
@@ -64,39 +68,30 @@ class SyncHandler implements Hookable
         // Apply filters before sync.
         $this->applyFiltersBeforeSync($sourceConfig);
 
-
         $this->progressService->setMessage($this->wpService->__('Fetching source data...', 'municipio'));
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
-        $schemaObjects = array_values($schemaObjects); // Reset array keys to avoid issues with missing keys.
-        $count         = count($schemaObjects);
+        $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
+        $schemaObjects = array_values($schemaObjects);
+        $totalObjects  = count($schemaObjects);
 
-        $this->progressService->setMessage(sprintf($this->wpService->__("Converting %s schema objects to WP_Post objects.", 'municipio'), $count));
-
-        $wpPostArgsArray = [];
-        $totalObjects    = count($schemaObjects);
-        for ($i = 0; $i < count($schemaObjects); $i++) {
+        foreach ($schemaObjects as $i => $schemaObject) {
             $iPlusOne = $i + 1;
-            $this->progressService->setMessage(sprintf($this->wpService->__("Converting post %s of %s...", 'municipio'), $iPlusOne, $totalObjects));
+            $this->progressService->setMessage(sprintf($this->wpService->__("Processing %s of %s...", 'municipio'), $iPlusOne, $totalObjects));
             $this->progressService->setPercentage(($iPlusOne / $totalObjects) * 100);
-            if ($schemaObjects[$i] === null) {
+            if ($schemaObject === null) {
                 continue;
             }
 
-            if (!empty($schemaObjects[$i])) {
-                $wpPostArgsArray[] = $this->getPostFactory($sourceConfig)->transform($schemaObjects[$i]);
+            foreach ($this->schemaObjectProcessors as $processor) {
+                $schemaObject = $processor->process($schemaObject);
             }
-        }
 
+            if (empty($schemaObject)) {
+                continue;
+            }
 
-        $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
-
-        $this->progressService->setMessage($this->wpService->__("Inserting posts...", 'municipio'));
-        $this->progressService->setPercentage(0);
-
-        for ($i = 0; $i < count($wpPostArgsArray); $i++) {
-            $this->wpService->wpInsertPost($wpPostArgsArray[$i]);
-            $iPlusOne = $i + 1;
-            $this->progressService->setPercentage(($iPlusOne / $count) * 100);
+            $wpPostArgs = $this->getPostFactory($sourceConfig)->transform($schemaObject);
+            $this->wpService->wpInsertPost($wpPostArgs);
         }
 
         $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));

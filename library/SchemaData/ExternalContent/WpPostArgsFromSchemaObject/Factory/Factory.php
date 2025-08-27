@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\Factor
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\{
     AddChecksum,
+    ConnectUploadedImagesToPost,
     DateDecorator,
     EventDatesDecorator,
     IdDecorator,
@@ -20,6 +21,7 @@ use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\{
     WpPostArgsFromSchemaObjectInterface,
 };
 use Municipio\Helper\WpService;
+use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGenerator;
 
 /**
  * Factory for creating WpPostArgsFromSchemaObject instances.
@@ -47,7 +49,8 @@ class Factory implements FactoryInterface
         $postArgsFromSchemaObject = new JobPostingDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new SchemaDataDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new OriginIdDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject, WpService::get());
+        $postArgsFromSchemaObject = new ConnectUploadedImagesToPost(new LocalImageObjectIdGenerator(), $postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new SourceIdDecorator($this->sourceConfig->getId(), $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new EventDatesDecorator($postArgsFromSchemaObject);

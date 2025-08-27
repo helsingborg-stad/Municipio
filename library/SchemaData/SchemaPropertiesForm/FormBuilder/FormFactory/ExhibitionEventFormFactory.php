@@ -56,36 +56,40 @@ class ExhibitionEventFormFactory implements FormFactoryInterface
                     new TypeField('Place'),
                     new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('location')?->getProperty('name') ?? null),
                     new GoogleMapField('geo', $this->wpService->__('Geo', 'municipio'), $schema->getProperty('location')?->getProperty('geo')),
-                ]
-            ),
-            // TODO: Add description for location.
-            new TabField('', $this->wpService->__('Opening Hours', 'municipio')),
-            new RepeaterField(
-                'openingHoursSpecification',
-                $this->wpService->__('Opening Hours', 'municipio'),
-                is_array($schema->getProperty('openingHoursSpecification')) ? $schema->getProperty('openingHoursSpecification') : [],
-                [
-                    new TypeField('OpeningHoursSpecification'),
-                    new MultiSelectField('dayOfWeek', $this->wpService->__('Day of the week', 'municipio'), null, [
-                        DayOfWeek::Monday    => $this->wpService->__('Monday', 'municipio'),
-                        DayOfWeek::Tuesday   => $this->wpService->__('Tuesday', 'municipio'),
-                        DayOfWeek::Wednesday => $this->wpService->__('Wednesday', 'municipio'),
-                        DayOfWeek::Thursday  => $this->wpService->__('Thursday', 'municipio'),
-                        DayOfWeek::Friday    => $this->wpService->__('Friday', 'municipio'),
-                        DayOfWeek::Saturday  => $this->wpService->__('Saturday', 'municipio'),
-                        DayOfWeek::Sunday    => $this->wpService->__('Sunday', 'municipio'),
+                    new RepeaterField(
+                        'openingHoursSpecification',
+                        $this->wpService->__('Opening Hours', 'municipio'),
+                        is_array($schema->getProperty('openingHoursSpecification')) ? $schema->getProperty('openingHoursSpecification') : [],
+                        [
+                            new TypeField('OpeningHoursSpecification'),
+                            new MultiSelectField('dayOfWeek', $this->wpService->__('Day of the week', 'municipio'), null, [
+                                DayOfWeek::Monday    => $this->wpService->__('Monday', 'municipio'),
+                                DayOfWeek::Tuesday   => $this->wpService->__('Tuesday', 'municipio'),
+                                DayOfWeek::Wednesday => $this->wpService->__('Wednesday', 'municipio'),
+                                DayOfWeek::Thursday  => $this->wpService->__('Thursday', 'municipio'),
+                                DayOfWeek::Friday    => $this->wpService->__('Friday', 'municipio'),
+                                DayOfWeek::Saturday  => $this->wpService->__('Saturday', 'municipio'),
+                                DayOfWeek::Sunday    => $this->wpService->__('Sunday', 'municipio'),
+                            ]),
+                            new TimeField('opens', $this->wpService->__('Opens', 'municipio')),
+                            new TimeField('closes', $this->wpService->__('Closes', 'municipio')),
+                            new DateField('validFrom', $this->wpService->__('Valid From', 'municipio')),
+                            new DateField('validThrough', $this->wpService->__('Valid Through', 'municipio')),
+                        ]
+                    ),
+                    new RepeaterField('specialOpeningHoursSpecification', $this->wpService->__('Special Opening Hours', 'municipio'), is_array($schema->getProperty('specialOpeningHoursSpecification')) ? $schema->getProperty('specialOpeningHoursSpecification') : [], [
+                        new TypeField('OpeningHoursSpecification'),
+                        new StringField('name', $this->wpService->__('Name', 'municipio')),
+                        new TimeField('opens', $this->wpService->__('Opens', 'municipio')),
+                        new TimeField('closes', $this->wpService->__('Closes', 'municipio')),
                     ]),
-                    new TimeField('opens', $this->wpService->__('Opens', 'municipio')),
-                    new TimeField('closes', $this->wpService->__('Closes', 'municipio')),
-                    new DateField('validFrom', $this->wpService->__('Valid From', 'municipio')),
-                    new DateField('validThrough', $this->wpService->__('Valid Through', 'municipio')),
                 ]
             ),
-            new RepeaterField('specialOpeningHoursSpecification', $this->wpService->__('Special Opening Hours', 'municipio'), is_array($schema->getProperty('specialOpeningHoursSpecification')) ? $schema->getProperty('specialOpeningHoursSpecification') : [], [
-                new TypeField('SpecialOpeningHoursSpecification'),
-                new StringField('name', $this->wpService->__('Name', 'municipio')),
-                new DateTimeField('opens', $this->wpService->__('Opens', 'municipio')),
-                new DateTimeField('closes', $this->wpService->__('Closes', 'municipio')),
+            new MultiSelectField('physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $schema->getProperty('physicalAccessibilityFeatures') ?? [], [
+                'AccessibleEntrance'   => $this->wpService->__('Accessible Entrance', 'municipio'),
+                'AccessibleParking'    => $this->wpService->__('Accessible Parking', 'municipio'),
+                'WheelchairAccessible' => $this->wpService->__('Wheelchair Accessible', 'municipio'),
+                'BrailleSignage'       => $this->wpService->__('Braille Signage', 'municipio'),
             ]),
             new TabField('', $this->wpService->__('Offers', 'municipio')),
             new RepeaterField(

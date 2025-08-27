@@ -3,12 +3,10 @@
 namespace Municipio\SchemaData\ExternalContent\Rest;
 
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgressInterface;
-use Municipio\Helper\WpService;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\ProgressReporter\HttpHeader\HttpHeader;
-use Municipio\ProgressReporter\OutputBuffer\OutputBuffer;
+use Municipio\ProgressReporter\ProgressReporterInterface;
+use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandlerInterface;
 use WpService\Contracts\__;
 
 /**
@@ -23,8 +21,13 @@ class AjaxSync implements Hookable
      *
      * @param SourceConfigInterface[] $sourceConfigs
      */
-    public function __construct(private array $sourceConfigs, private PostTypeSyncInProgressInterface $inProgress, private __ $wpService)
-    {
+    public function __construct(
+        private array $sourceConfigs,
+        private PostTypeSyncInProgressInterface $inProgress,
+        private ProgressReporterInterface $progressReporter,
+        private SyncHandlerInterface $syncHandler,
+        private __ $wpService,
+    ) {
     }
 
     /**
@@ -55,21 +58,16 @@ class AjaxSync implements Hookable
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-        $progressReporter = new \Municipio\ProgressReporter\SseProgressReporterService(new HttpHeader(), new OutputBuffer());
-        $syncHandler      = new SyncHandler($this->sourceConfigs, WpService::get(), $progressReporter);
-        $progressReporter->start();
+        $this->progressReporter->start();
 
         if ($this->inProgress->isInProgress($postType)) {
-            $progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
+            $this->progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
             return;
         }
 
         $this->inProgress->setInProgress($postType, true);
-
-        $syncHandler->sync($postType, $postId);
-
+        $this->syncHandler->sync($postType, $postId);
         $this->inProgress->setInProgress($postType, false);
-
-        $progressReporter->finish($this->wpService->__('Sync completed. Reload page to see changes.', 'municipio'));
+        $this->progressReporter->finish($this->wpService->__('Sync completed. Reload page to see changes.', 'municipio'));
     }
 }
