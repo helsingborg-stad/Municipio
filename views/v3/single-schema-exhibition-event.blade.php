@@ -135,7 +135,7 @@
         {!! $lang->galleryLabel !!}
     @endtypography
     @if(!empty($galleryComponentAttributes))
-        @gallery($galleryComponentAttributes)@endgallery
+        @gallery([...$galleryComponentAttributes, 'classList' => ['u-margin__bottom--6', 'u-margin__top--4']])@endgallery
     @endif
     @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
 @stop

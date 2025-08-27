@@ -17,6 +17,8 @@ use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpe
  */
 class SingularExhibitionEvent extends Singular
 {
+    private const GALLERY_THUMBNAIL_SIZE = [450, 280];
+    private const GALLERY_LARGE_SIZE     = [768, 432];
     protected object $postMeta;
     public string $view = 'single-schema-exhibition-event';
 
@@ -234,8 +236,8 @@ class SingularExhibitionEvent extends Singular
             return [];
         }
 
-        $smallContract = ImageComponentContract::factory($image->getProperty('@id'), [450, 280], new ImageResolver());
-        $largeContract = ImageComponentContract::factory($image->getProperty('@id'), [768, 432], new ImageResolver());
+        $smallContract = ImageComponentContract::factory($image->getProperty('@id'), self::GALLERY_THUMBNAIL_SIZE, new ImageResolver());
+        $largeContract = ImageComponentContract::factory($image->getProperty('@id'), self::GALLERY_LARGE_SIZE, new ImageResolver());
 
         return [
             'largeImage' => $largeContract->getUrl(),

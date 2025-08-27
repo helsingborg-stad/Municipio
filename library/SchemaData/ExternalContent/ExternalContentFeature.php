@@ -149,7 +149,8 @@ class ExternalContentFeature
     private function getSchemaObjectProcessors(): array
     {
         return [
-            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\NoOpSchemaObjectProcessor()
+            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\NoOpSchemaObjectProcessor(),
+            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor($this->wpService)
         ];
     }
 
