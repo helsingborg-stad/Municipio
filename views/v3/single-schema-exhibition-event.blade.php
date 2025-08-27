@@ -37,7 +37,7 @@
                     {!! $lang->dateLabel !!}
                 @endtypography
                 @typography([])
-                    {!!$occassion!!}
+                    {!!$occasion!!}
                 @endtypography
             @endcollection__item
         @endcollection
