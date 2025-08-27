@@ -4,18 +4,20 @@ namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\Schema\BaseType;
 use Municipio\Schema\ImageObject;
+use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGeneratorInterface;
 
 /**
  * Decorator for adding thumbnail to post args.
  */
-class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
+class ConnectUploadedImagesToPost implements WpPostArgsFromSchemaObjectInterface
 {
-    public const META_KEY = 'synced_from_external_source';
+    public const META_KEY = '_local_image_objects';
 
     /**
      * Constructor.
      */
     public function __construct(
+        private LocalImageObjectIdGeneratorInterface $localImageIdGenerator,
         private WpPostArgsFromSchemaObjectInterface $inner
     ) {
     }
@@ -25,17 +27,17 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function transform(BaseType $schemaObject): array
     {
-        $postArgs = $this->inner->transform($schemaObject);
-
+        $postArgs     = $this->inner->transform($schemaObject);
         $imageObjects = $this->extractImageObjects($schemaObject->getProperty('image'));
-        $thumbnailId  = $this->getThumbnailId($imageObjects);
 
-        if ($thumbnailId === null) {
+        if (empty($imageObjects)) {
             return $postArgs;
         }
 
-        $postArgs['meta_input']                ??= [];
-        $postArgs['meta_input']['_thumbnail_id'] = $thumbnailId;
+        $localImageObjectIds = array_map(fn($imageObject) => $this->localImageIdGenerator->generateId($schemaObject, $imageObject), $imageObjects);
+
+        $postArgs['meta_input']                       ??= [];
+        $postArgs['meta_input']['_local_image_objects'] = $localImageObjectIds;
 
         return $postArgs;
     }
@@ -50,22 +52,5 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
     {
         $images = is_array($imageProperty) ? $imageProperty : [$imageProperty];
         return array_filter($images, fn($img) => $img instanceof ImageObject);
-    }
-
-    /**
-     * Gets the thumbnail ID from the first ImageObject.
-     *
-     * @param ImageObject[] $imageObjects
-     * @return string|null
-     */
-    private function getThumbnailId(array $imageObjects): ?string
-    {
-        if (empty($imageObjects)) {
-            return null;
-        }
-
-        $firstImage = reset($imageObjects);
-        $id         = $firstImage->getProperty('@id');
-        return !empty($id) ? $id : null;
     }
 }

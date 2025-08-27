@@ -24,16 +24,16 @@
             ])@endnotice
         @endif
     @stop
-    
-    {!!$post->getSchemaProperty('description')!!}
+
+    {!! wpautop( nl2br(e($post->getSchemaProperty('description')))) !!}
     
 @stop
 
 @section('sidebar.right-sidebar.before')
-    @paper(['padding' => 2])
+    @paper(['classList' => ['u-margin__bottom--4']])
         @collection()
             @collection__item([])
-                @typography(['element' => 'h4'])
+                @typography(['element' => 'h4', 'variant' => 'h4'])
                     {!! $lang->dateLabel !!}
                 @endtypography
                 @typography([])
@@ -45,7 +45,7 @@
         @if(!empty($openingHours))
             @collection()
                 @collection__item([])
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'h4', 'variant' => 'h4'])
                         {!! $lang->openingHoursLabel !!}
                     @endtypography
                     @typography([])
@@ -60,7 +60,7 @@
         @if(!empty($specialOpeningHours))
             @collection()
                 @collection__item([])
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'h4', 'variant' => 'h4'])
                         {!! $lang->specialOpeningHoursLabel !!}
                     @endtypography
                     @typography([])
@@ -74,11 +74,12 @@
 
         @collection(['classList' => ['u-display--flex']])
             @collection__item()
-                @typography(['element' => 'h4'])
+                @typography(['element' => 'h4', 'variant' => 'h4'])
                     {!!$lang->placeTitle!!}
                 @endtypography
                 @typography([])
-                    {!!$placeName!!}
+                    {!!$placeName!!}<br>
+                    {!!$placeAddress!!}
                 @endtypography
             @endcollection__item
         @endcollection
@@ -87,7 +88,7 @@
         @if(!empty($priceListItems))
             @collection()
                     @collection__item([])
-                        @typography(['element' => 'h4'])
+                        @typography(['element' => 'h4', 'variant' => 'h4'])
                             {!! $lang->entranceLabel !!}
                         @endtypography
                         @foreach ($priceListItems as $priceListItem)
@@ -99,42 +100,16 @@
                     @endcollection__item
             @endcollection
         @endif
-        
-        @if(!empty($physicalAccessibilityFeatures))
-            @collection()
-                    @collection__item([])
-                        @typography(['element' => 'h4'])
-                            {!! $lang->accessibilityLabel !!}
-                        @endtypography
-                        @typography([])
-                            {!! $physicalAccessibilityFeatures !!}
-                        @endtypography
-                    @endcollection__item
-            @endcollection
-        @endif
-        
-        @if(!empty($placeUrl) && !empty($placeAddress))
-            @collection()
-                    @collection__item([])
-                        @typography(['element' => 'h4'])
-                            {!! $lang->directionsLabel !!}
-                        @endtypography
-                        @link(['href' => $placeUrl, 'target' => '_blank'])
-                            {!!$placeAddress!!}
-                        @endlink
-                    @endcollection__item
-            @endcollection
-        @endif
     
     @endpaper
 
 @stop
 
 @section('below')
-    @typography(['element' => 'h3'])
-        {!! $lang->galleryLabel !!}
-    @endtypography
     @if(!empty($galleryComponentAttributes))
+        @typography(['element' => 'h3'])
+            {!! $lang->galleryLabel !!}
+        @endtypography
         @gallery([...$galleryComponentAttributes, 'classList' => ['u-margin__bottom--6', 'u-margin__top--4']])@endgallery
     @endif
     @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])

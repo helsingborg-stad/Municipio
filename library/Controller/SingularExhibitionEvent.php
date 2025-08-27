@@ -64,7 +64,7 @@ class SingularExhibitionEvent extends Singular
      */
     private function getPlaceAddress(?Place $place): ?string
     {
-        return $place?->getProperty('geo')?->getProperty('address') ?? null;
+        return $place?->getProperty('address') ?? null;
     }
 
     /**
@@ -219,7 +219,7 @@ class SingularExhibitionEvent extends Singular
     private function getGalleryComponentAttributes(): ?array
     {
         $imageProperty = $this->post->getSchemaProperty('image');
-        if (!is_array($imageProperty)) {
+        if (!is_array($imageProperty) || count($imageProperty) < 2) {
             return null;
         }
         return [
