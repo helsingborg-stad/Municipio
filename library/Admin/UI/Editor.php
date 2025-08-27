@@ -19,9 +19,6 @@ class Editor
             echo '<style type="text/css">.acf-postbox table thead th { background-color: #FFF; }</style>';
         });
 
-        // Custom plugins
-        $this->metaData();
-
         // Filters
         add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
     }
