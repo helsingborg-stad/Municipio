@@ -16,12 +16,12 @@ class LocalImageObjectIdGeneratorTest extends TestCase
     }
 
     /**
-     * @testdox generates id from schema object id and image object url.
+     * @testdox generates id from schema object id and image object "sameAs" property.
      */
-    public function testGeneratesIdFromSchemaObjectIdAndImageObjectUrl(): void
+    public function testGeneratesIdFromSchemaObjectIdAndImageObjectSameAs(): void
     {
         $schemaObject = Schema::thing()->setProperty('@id', 'schema-object-id');
-        $imageObject  = Schema::imageObject()->url('https://example.com/image.jpg');
+        $imageObject  = Schema::imageObject()->setProperty('sameAs', 'https://example.com/image.jpg');
 
         $generator = new LocalImageObjectIdGenerator();
         $id        = $generator->generateId($schemaObject, $imageObject);

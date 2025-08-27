@@ -134,6 +134,12 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
         return $mediaId;
     }
 
+    /**
+     * Get the image ID from a previous sideload based on the image URL.
+     *
+     * @param string $url
+     * @return int|null
+     */
     private function getImageIdFromPreviousSideload(string $url): ?int
     {
         // get post by media hash on post meta
