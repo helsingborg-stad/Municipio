@@ -21,7 +21,6 @@ class Editor
 
         // Custom plugins
         $this->metaData();
-        $this->pricons();
 
         // Filters
         add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
@@ -375,35 +374,6 @@ class Editor
                 ),
             )
         ));
-    }
-
-    /**
-     * Add pricons button to editor
-     * @return void
-     */
-    public function pricons()
-    {
-        add_filter('mce_external_plugins', function ($plugins) {
-            global $pagenow;
-
-            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-                return $plugins;
-            }
-
-            $plugins['pricons'] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-pricons.js');
-            return $plugins;
-        });
-
-        add_filter('mce_buttons_2', function ($buttons) {
-            global $pagenow;
-
-            if (!current_user_can('edit_posts') || !current_user_can('edit_pages') || $pagenow != 'post.php') {
-                return $buttons;
-            }
-
-            $buttons[] = 'pricons';
-            return $buttons;
-        });
     }
 
     /**
