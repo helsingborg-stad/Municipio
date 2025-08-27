@@ -71,7 +71,7 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
         }
 
         if (is_string($img)) {
-            Schema::imageObject()->url($img);
+            return Schema::imageObject()->url($img);
         }
 
         return Schema::imageObject();
