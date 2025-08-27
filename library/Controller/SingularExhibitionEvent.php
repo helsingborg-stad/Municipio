@@ -38,7 +38,7 @@ class SingularExhibitionEvent extends Singular
         $this->data['placeName']                     = $this->getPlaceName($event->getProperty('location'));
         $this->data['placeAddress']                  = $this->getPlaceAddress($event->getProperty('location'));
         $this->data['priceListItems']                = $this->getPriceList();
-        $this->data['occassion']                     = $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate'));
+        $this->data['occasion']                      = $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate'));
         $this->data['physicalAccessibilityFeatures'] = $this->getPhysicalAccessibilityFeaturesList($this->post->getSchemaProperty('physicalAccessibilityFeatures'));
         $this->data['eventIsInThePast']              = $this->eventIsInThePast();
         $this->data['galleryComponentAttributes']    = $this->getGalleryComponentAttributes();
