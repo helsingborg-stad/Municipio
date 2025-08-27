@@ -242,7 +242,7 @@ class SingularExhibitionEvent extends Singular
         return [
             'largeImage' => $largeContract->getUrl(),
             'smallImage' => $smallContract->getUrl(),
-            'alt'        => 'foo',
+            'alt'        => $image->getProperty('description') ?: '',
             'caption'    => null
         ];
     }
