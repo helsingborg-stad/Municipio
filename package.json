@@ -68,6 +68,8 @@
         "child_process": false
     },
     "dependencies": {
-        "core-js": "^3.45.0"
+        "core-js": "^3.45.0",
+        "leaflet": "^1.9.4",
+        "leaflet.markercluster": "^1.5.3"
     }
 }
