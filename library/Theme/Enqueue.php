@@ -24,6 +24,7 @@ class Enqueue implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('wp_enqueue_scripts', array($this, 'enqueueMaterialSymbols'));
+        $this->wpService->addAction('admin_enqueue_scripts', array($this, 'enqueueMaterialSymbols'), 999);
         $this->wpService->addAction('wp_enqueue_scripts', array($this, 'enqueueFrontendScriptsAndStyles'), 5);
         $this->wpService->addAction('admin_enqueue_scripts', array($this, 'enqueueAdminScriptsAndStyles'), 999);
         $this->wpService->addAction('customize_controls_enqueue_scripts', array($this, 'enqueueCustomizerScriptsAndStyles'), 999);
