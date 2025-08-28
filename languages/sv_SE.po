@@ -6976,7 +6976,7 @@ msgstr "Riktning"
 #: Customizer/Sections/Header/Layout.php:225
 #: Customizer/Sections/Header/Layout.php:254
 #: Customizer/Sections/Width.php:68
-#: Theme/Enqueue.php:106
+#: Theme/Enqueue.php:140
 msgid "Left"
 msgstr "Vänster"
 
@@ -6988,7 +6988,7 @@ msgstr "Vänster"
 #: Customizer/Sections/Header/Layout.php:227
 #: Customizer/Sections/Header/Layout.php:255
 #: Customizer/Sections/Width.php:84
-#: Theme/Enqueue.php:107
+#: Theme/Enqueue.php:141
 msgid "Right"
 msgstr "Höger"
 
@@ -6999,7 +6999,7 @@ msgstr "Vänster & höger"
 #: AcfFields/php/widget-header-common.php:119
 #: Admin/Gutenberg/Blocks/BlockManager.php:89
 #: Customizer/Sections/Header/Appearance.php:86
-#: Theme/Enqueue.php:105
+#: Theme/Enqueue.php:139
 msgid "Margin"
 msgstr "Marginal"
 
@@ -7014,7 +7014,7 @@ msgstr "Automatisk"
 #: Customizer/Sections/Component/FooterMain.php:61
 #: Customizer/Sections/Component/FooterSub.php:56
 #: Customizer/Sections/Header/Appearance.php:46
-#: Theme/Enqueue.php:109
+#: Theme/Enqueue.php:143
 msgid "None"
 msgstr "Ingen"
 
@@ -7462,7 +7462,7 @@ msgid "View data."
 msgstr "Visa data."
 
 #: Customizer/Sections/Header/LoginLogout.php:22
-#: SchemaData/ExternalContent/ExternalContentFeature.php:176
+#: SchemaData/ExternalContent/ExternalContentFeature.php:202
 msgid "Never"
 msgstr "Aldrig"
 
@@ -7762,7 +7762,7 @@ msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
 #: Controller/SingularEvent.php:158
-#: Controller/SingularExhibitionEvent.php:192
+#: Controller/SingularExhibitionEvent.php:193
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
@@ -9838,37 +9838,23 @@ msgstr "Ställ in önskad bredd på höger och vänster kolumn. Innehållsytan a
 msgid "Normal"
 msgstr "Normal"
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:51
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:54
 msgid "Missing post_type parameter"
 msgstr ""
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:63
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:64
 msgid "Sync already in progress"
 msgstr "Synkronisering pågår redan"
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:73
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:71
 msgid "Sync completed. Reload page to see changes."
 msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
 
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:68
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:71
 msgid "Fetching source data..."
 msgstr "Hämtar data från källa..."
 
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:73
-#, php-format
-msgid "Converting %s schema objects to WP_Post objects."
-msgstr "Konverterar %s schemaobjekt till WP_Post-objekt."
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
-#, php-format
-msgid "Converting post %s of %s..."
-msgstr "Konverterar inlägg %s av %s..."
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:93
-msgid "Inserting posts..."
-msgstr "Lagrar inlägg..."
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:102
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:97
 msgid "Cleaning up..."
 msgstr "Städar upp..."
 
@@ -10289,33 +10275,47 @@ msgid "Day of the week"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:66
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:77
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:90
 #, fuzzy
 msgid "Monday"
-msgstr "Sekundär"
+msgstr "Måndag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:67
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:78
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:91
 msgid "Tuesday"
-msgstr ""
+msgstr "Tisdag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:68
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:79
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:92
 msgid "Wednesday"
-msgstr ""
+msgstr "Onsdag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:80
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:93
 msgid "Thursday"
-msgstr ""
+msgstr "Torsdag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:81
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:94
 msgid "Friday"
-msgstr ""
+msgstr "Fredag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:82
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:95
 msgid "Saturday"
-msgstr ""
+msgstr "Lördag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:83
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:96
 msgid "Sunday"
-msgstr ""
+msgstr "Söndag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:74
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:83
@@ -10435,51 +10435,51 @@ msgstr "One Page"
 msgid "Page (centered)"
 msgstr "Centrerad sida"
 
-#: Theme/Enqueue.php:104
+#: Theme/Enqueue.php:138
 msgid "Alignment"
 msgstr "Justering"
 
-#: Theme/Enqueue.php:108
+#: Theme/Enqueue.php:142
 msgid "Both"
 msgstr "Båda"
 
-#: Theme/Enqueue.php:257
+#: Theme/Enqueue.php:69
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: Theme/Enqueue.php:260
+#: Theme/Enqueue.php:71
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: Theme/Enqueue.php:261
+#: Theme/Enqueue.php:72
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: Theme/Enqueue.php:288
+#: Theme/Enqueue.php:92
 msgid "Su"
 msgstr "Sö"
 
-#: Theme/Enqueue.php:289
+#: Theme/Enqueue.php:93
 msgid "Mo"
 msgstr "Må"
 
-#: Theme/Enqueue.php:290
+#: Theme/Enqueue.php:94
 msgid "Tu"
 msgstr "Ti"
 
-#: Theme/Enqueue.php:291
+#: Theme/Enqueue.php:95
 msgid "We"
 msgstr "On"
 
-#: Theme/Enqueue.php:292
+#: Theme/Enqueue.php:96
 msgid "Th"
 msgstr "To"
 
-#: Theme/Enqueue.php:293
+#: Theme/Enqueue.php:97
 msgid "Fr"
 msgstr "Fr"
 
-#: Theme/Enqueue.php:294
+#: Theme/Enqueue.php:98
 msgid "Sa"
 msgstr "Lö"
 
@@ -11002,7 +11002,7 @@ msgstr "Statusar"
 msgid "Project Status"
 msgstr "Status"
 
-#: Controller/SingularExhibitionEvent.php:169
+#: Controller/SingularExhibitionEvent.php:170
 msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr "Fri entré"
@@ -11023,52 +11023,69 @@ msgstr ""
 msgid "Braille Signage"
 msgstr ""
 
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:52
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:37
 msgctxt "Schema OpeningHoursSpecification"
 msgid "closed"
 msgstr "stängt"
 
-#: Controller/SingularExhibitionEvent.php:107
+#: Controller/SingularExhibitionEvent.php:108
 msgctxt "ExhibitionEvent"
 msgid "Place"
 msgstr "Plats"
 
-#: Controller/SingularExhibitionEvent.php:108
+#: Controller/SingularExhibitionEvent.php:109
 msgctxt "ExhibitionEvent"
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
-#: Controller/SingularExhibitionEvent.php:109
+#: Controller/SingularExhibitionEvent.php:110
 msgctxt "ExhibitionEvent"
 msgid "Date"
 msgstr "Datum"
 
-#: Controller/SingularExhibitionEvent.php:110
+#: Controller/SingularExhibitionEvent.php:111
 msgctxt "ExhibitionEvent"
 msgid "Opening hours"
 msgstr "Öppettider"
 
-#: Controller/SingularExhibitionEvent.php:111
+#: Controller/SingularExhibitionEvent.php:112
 msgctxt "ExhibitionEvent"
 msgid "Special opening hours"
 msgstr "Avvikande öppettider"
 
-#: Controller/SingularExhibitionEvent.php:112
+#: Controller/SingularExhibitionEvent.php:113
 msgctxt "ExhibitionEvent"
 msgid "Entrance"
 msgstr "Entré"
 
-#: Controller/SingularExhibitionEvent.php:113
+#: Controller/SingularExhibitionEvent.php:114
 msgctxt "ExhibitionEvent"
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: Controller/SingularExhibitionEvent.php:114
+#: Controller/SingularExhibitionEvent.php:115
 msgctxt "ExhibitionEvent"
 msgid "Directions"
 msgstr "Vägbeskrivning"
 
-#: Controller/SingularExhibitionEvent.php:115
+#: Controller/SingularExhibitionEvent.php:116
 msgctxt "ExhibitionEvent"
 msgid "Gallery"
 msgstr "Galleri"
+
+#: Controller/Media/TrashPage.php:33
+msgid "Trashed media"
+msgstr ""
+
+#: Controller/Media/TrashPage.php:34
+msgid "No trashed media."
+msgstr ""
+
+#: Controller/Media/TrashPage.php:35
+msgid "Are you sure you want to permanently delete this post?"
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
+#, php-format
+msgid "Processing %s of %s..."
+msgstr "Behandlar %s av %s..."

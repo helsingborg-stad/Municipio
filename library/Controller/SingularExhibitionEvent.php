@@ -78,7 +78,7 @@ class SingularExhibitionEvent extends Singular
     /**
      * Get the opening hours from the event schema.
      */
-    private function getOpeningHours(array $openingHours): ?array
+    private function getOpeningHours(array $openingHours): ?string
     {
         if (empty($openingHours)) {
             return null;
@@ -95,7 +95,7 @@ class SingularExhibitionEvent extends Singular
         );
 
         $formatted = array_map(fn($spec) => $converter->convert($spec), $openingHours);
-        return array_merge(...$formatted);
+        return implode(', <br>', array_merge(...$formatted));
     }
 
     /**

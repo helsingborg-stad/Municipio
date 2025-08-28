@@ -8,7 +8,9 @@ use Municipio\Schema\DayOfWeek;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\MockObject\MockObject;
+use WpService\Contracts\__;
 use WpService\Contracts\_x;
+use WpService\Implementations\FakeWpService;
 
 /**
  * @covers \Municipio\Schema\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString
@@ -87,8 +89,21 @@ class OpeningHoursSpecificationToStringTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    private function getWpService(): _x|MockObject
+    public function testClosedConsecutiveDays(): void
     {
-        return $this->createMock(_x::class);
+        $spec = Schema::openingHoursSpecification()->dayOfWeek([DayOfWeek::Monday, DayOfWeek::Tuesday]);
+
+        $expected = ['Monday-Tuesday: closed'];
+        $actual   = $this->convertSpecification($spec);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    private function getWpService(): _x&__
+    {
+        return new FakeWpService([
+            '__' => fn($text, $domain) => $text,
+            '_x' => fn($text, $context, $domain) => $text,
+        ]);
     }
 }
