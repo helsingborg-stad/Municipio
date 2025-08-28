@@ -71,6 +71,11 @@ class OpeningHoursSpecificationToString implements OpeningHoursSpecificationToSt
         return $this->getDayMap()[$dayUrl] ?? $dayUrl;
     }
 
+    /**
+     * Get day map from schema.org URLs to human-readable names.
+     *
+     * @return array<string>
+     */
     private function getDayMap(): array
     {
         return [
@@ -84,6 +89,11 @@ class OpeningHoursSpecificationToString implements OpeningHoursSpecificationToSt
         ];
     }
 
+    /**
+     * Get human-readable day names.
+     *
+     * @return array<string>
+     */
     private function getDayNames(): array
     {
         return [
