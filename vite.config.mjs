@@ -162,7 +162,7 @@ export default defineConfig(({ mode }) => {
     },
     // Ensure core-js is included for dependency optimization
     optimizeDeps: {
-      include: ['core-js', 'leaflet', 'leaflet.markercluster']
+      include: ['core-js']
     },
     esbuild: {
       keepNames: true,
