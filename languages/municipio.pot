@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-26T05:51:44+00:00\n"
+"POT-Creation-Date: 2025-08-28T05:23:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -6964,7 +6964,7 @@ msgstr ""
 #: Customizer/Sections/Header/Layout.php:225
 #: Customizer/Sections/Header/Layout.php:254
 #: Customizer/Sections/Width.php:68
-#: Theme/Enqueue.php:106
+#: Theme/Enqueue.php:140
 msgid "Left"
 msgstr ""
 
@@ -6976,7 +6976,7 @@ msgstr ""
 #: Customizer/Sections/Header/Layout.php:227
 #: Customizer/Sections/Header/Layout.php:255
 #: Customizer/Sections/Width.php:84
-#: Theme/Enqueue.php:107
+#: Theme/Enqueue.php:141
 msgid "Right"
 msgstr ""
 
@@ -6987,7 +6987,7 @@ msgstr ""
 #: AcfFields/php/widget-header-common.php:119
 #: Admin/Gutenberg/Blocks/BlockManager.php:89
 #: Customizer/Sections/Header/Appearance.php:86
-#: Theme/Enqueue.php:105
+#: Theme/Enqueue.php:139
 msgid "Margin"
 msgstr ""
 
@@ -7002,7 +7002,7 @@ msgstr ""
 #: Customizer/Sections/Component/FooterMain.php:61
 #: Customizer/Sections/Component/FooterSub.php:56
 #: Customizer/Sections/Header/Appearance.php:46
-#: Theme/Enqueue.php:109
+#: Theme/Enqueue.php:143
 msgid "None"
 msgstr ""
 
@@ -7664,6 +7664,18 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
+#: Controller/Media/TrashPage.php:33
+msgid "Trashed media"
+msgstr ""
+
+#: Controller/Media/TrashPage.php:34
+msgid "No trashed media."
+msgstr ""
+
+#: Controller/Media/TrashPage.php:35
+msgid "Are you sure you want to permanently delete this post?"
+msgstr ""
+
 #: Controller/Navigation/Decorators/Breadcrumb/AppendArchiveMenuItem.php:44
 #: Controller/Navigation/Decorators/Breadcrumb/AppendPageTreeAncestorsMenuItems.php:50
 #: Controller/Navigation/Decorators/Menu/PageTreeAppendMenuItemsCustomTitle.php:50
@@ -7752,56 +7764,56 @@ msgid "This event has already taken place."
 msgstr ""
 
 #: Controller/SingularEvent.php:158
-#: Controller/SingularExhibitionEvent.php:192
+#: Controller/SingularExhibitionEvent.php:193
 msgid "Price not available"
-msgstr ""
-
-#: Controller/SingularExhibitionEvent.php:107
-msgctxt "ExhibitionEvent"
-msgid "Place"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:108
 msgctxt "ExhibitionEvent"
-msgid "This event has already taken place."
+msgid "Place"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:109
 msgctxt "ExhibitionEvent"
-msgid "Date"
+msgid "This event has already taken place."
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:110
 msgctxt "ExhibitionEvent"
-msgid "Opening hours"
+msgid "Date"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:111
 msgctxt "ExhibitionEvent"
-msgid "Special opening hours"
+msgid "Opening hours"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:112
 msgctxt "ExhibitionEvent"
-msgid "Entrance"
+msgid "Special opening hours"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:113
 msgctxt "ExhibitionEvent"
-msgid "Accessibility"
+msgid "Entrance"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:114
 msgctxt "ExhibitionEvent"
-msgid "Directions"
+msgid "Accessibility"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:115
 msgctxt "ExhibitionEvent"
+msgid "Directions"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:116
+msgctxt "ExhibitionEvent"
 msgid "Gallery"
 msgstr ""
 
-#: Controller/SingularExhibitionEvent.php:169
+#: Controller/SingularExhibitionEvent.php:170
 msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr ""
@@ -9276,7 +9288,7 @@ msgid "Select when the login/logout button should be visible"
 msgstr ""
 
 #: Customizer/Sections/Header/LoginLogout.php:22
-#: SchemaData/ExternalContent/ExternalContentFeature.php:176
+#: SchemaData/ExternalContent/ExternalContentFeature.php:202
 msgid "Never"
 msgstr ""
 
@@ -10155,37 +10167,28 @@ msgstr ""
 msgid "Handling of personal data"
 msgstr ""
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:51
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:54
 msgid "Missing post_type parameter"
 msgstr ""
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:63
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:64
 msgid "Sync already in progress"
 msgstr ""
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:73
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:71
 msgid "Sync completed. Reload page to see changes."
 msgstr ""
 
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:68
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:71
 msgid "Fetching source data..."
-msgstr ""
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:73
-#, php-format
-msgid "Converting %s schema objects to WP_Post objects."
 msgstr ""
 
 #: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
 #, php-format
-msgid "Converting post %s of %s..."
+msgid "Processing %s of %s..."
 msgstr ""
 
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:93
-msgid "Inserting posts..."
-msgstr ""
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:102
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:97
 msgid "Cleaning up..."
 msgstr ""
 
@@ -10314,30 +10317,44 @@ msgid "Day of the week"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:66
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:77
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:90
 msgid "Monday"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:67
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:78
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:91
 msgid "Tuesday"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:68
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:79
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:92
 msgid "Wednesday"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:80
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:93
 msgid "Thursday"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:81
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:94
 msgid "Friday"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:82
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:95
 msgid "Saturday"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:83
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:96
 msgid "Sunday"
 msgstr ""
 
@@ -10505,7 +10522,7 @@ msgstr ""
 msgid "Project Status"
 msgstr ""
 
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:52
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:37
 msgctxt "Schema OpeningHoursSpecification"
 msgid "closed"
 msgstr ""
@@ -10530,52 +10547,52 @@ msgstr ""
 msgid "Page (centered)"
 msgstr ""
 
-#: Theme/Enqueue.php:104
-msgid "Alignment"
-msgstr ""
-
-#: Theme/Enqueue.php:108
-msgid "Both"
-msgstr ""
-
-#: Theme/Enqueue.php:257
+#: Theme/Enqueue.php:69
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: Theme/Enqueue.php:260
+#: Theme/Enqueue.php:71
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: Theme/Enqueue.php:261
+#: Theme/Enqueue.php:72
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: Theme/Enqueue.php:288
+#: Theme/Enqueue.php:92
 msgid "Su"
 msgstr ""
 
-#: Theme/Enqueue.php:289
+#: Theme/Enqueue.php:93
 msgid "Mo"
 msgstr ""
 
-#: Theme/Enqueue.php:290
+#: Theme/Enqueue.php:94
 msgid "Tu"
 msgstr ""
 
-#: Theme/Enqueue.php:291
+#: Theme/Enqueue.php:95
 msgid "We"
 msgstr ""
 
-#: Theme/Enqueue.php:292
+#: Theme/Enqueue.php:96
 msgid "Th"
 msgstr ""
 
-#: Theme/Enqueue.php:293
+#: Theme/Enqueue.php:97
 msgid "Fr"
 msgstr ""
 
-#: Theme/Enqueue.php:294
+#: Theme/Enqueue.php:98
 msgid "Sa"
+msgstr ""
+
+#: Theme/Enqueue.php:138
+msgid "Alignment"
+msgstr ""
+
+#: Theme/Enqueue.php:142
+msgid "Both"
 msgstr ""
 
 #: Theme/Forms.php:43

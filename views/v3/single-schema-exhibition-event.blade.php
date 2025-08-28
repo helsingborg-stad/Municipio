@@ -49,9 +49,7 @@
                         {!! $lang->openingHoursLabel !!}
                     @endtypography
                     @typography([])
-                        @foreach ($openingHours as $line)
-                            {!! $line !!}
-                        @endforeach
+                        {!! $openingHours !!}
                     @endtypography
                 @endcollection__item
             @endcollection
