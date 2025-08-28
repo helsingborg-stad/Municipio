@@ -3,7 +3,6 @@
 namespace Municipio\MirroredPost\Utils;
 
 use Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogIdInterface;
-use Municipio\MirroredPost\Utils\IsMirroredPost\IsMirroredPostInterface;
 use Municipio\MirroredPost\Utils\MirroredPostUtilsInterface;
 
 /**
@@ -17,21 +16,11 @@ class MirroredPostUtils implements MirroredPostUtilsInterface, GetOtherBlogIdInt
     /**
      * Constructor.
      *
-     * @param IsMirroredPostInterface $isMirroredPost The service to check if a post is mirrored.
      * @param GetOtherBlogIdInterface $getOtherBlogId The service to get the ID of the other blog.
      */
     public function __construct(
-        private IsMirroredPostInterface $isMirroredPost,
         private GetOtherBlogIdInterface $getOtherBlogId
     ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function isMirrored(): bool
-    {
-        return $this->isMirroredPost->isMirrored();
     }
 
     /**

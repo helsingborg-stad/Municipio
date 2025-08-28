@@ -395,7 +395,10 @@ class App
         /**
          * Setup Mirrored Post
          */
-        (new \Municipio\MirroredPost\MirroredPostFeature($this->wpService))->enable();
+        (new \Municipio\MirroredPost\MirroredPostFeature(
+            new \Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogId($this->wpService),
+            $this->wpService
+        ))->enable();
 
         /**
          * Setup Table of Contents

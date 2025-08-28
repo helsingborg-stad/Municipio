@@ -2,6 +2,8 @@
 
 namespace Municipio\MirroredPost;
 
+use Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogIdInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -12,9 +14,7 @@ class MirroredPostFeatureTest extends TestCase
      */
     public function testClassCanBeInstantiated(): void
     {
-        $mirroredPostFeature = new MirroredPostFeature($this->getWpService());
-
-        $this->assertInstanceOf(MirroredPostFeature::class, $mirroredPostFeature);
+        $this->assertInstanceOf(MirroredPostFeature::class, $this->getInstance());
     }
 
     /**
@@ -22,7 +22,7 @@ class MirroredPostFeatureTest extends TestCase
      */
     public function testEnableMethodDoesNotThrowException(): void
     {
-        $mirroredPostFeature = new MirroredPostFeature($this->getWpService());
+        $mirroredPostFeature = $this->getInstance();
 
         try {
             $mirroredPostFeature->enable();
@@ -32,8 +32,18 @@ class MirroredPostFeatureTest extends TestCase
         }
     }
 
+    private function getInstance(): MirroredPostFeature
+    {
+        return new MirroredPostFeature($this->getBlogIdGetter(), $this->getWpService());
+    }
+
     private function getWpService(): FakeWpService
     {
         return new FakeWpService([ 'addFilter' => true, 'addAction' => true ]);
+    }
+
+    private function getBlogIdGetter(): GetOtherBlogIdInterface|MockObject
+    {
+        return $this->createMock(GetOtherBlogIdInterface::class);
     }
 }
