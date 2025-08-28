@@ -6,7 +6,7 @@ import copy from 'rollup-plugin-copy'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 const entries = {
-  'css/splide': './node_modules/@splidejs/splide/dist/css/splide-core.min.css',
+ // 'css/splide': './node_modules/@splidejs/splide/dist/css/splide-core.min.css',
   'css/styleguide': './node_modules/@helsingborg-stad/styleguide/source/sass/main.scss',
   'js/styleguide': './node_modules/@helsingborg-stad/styleguide/source/js/app.js',
 
@@ -162,7 +162,7 @@ export default defineConfig(({ mode }) => {
     },
     // Ensure core-js is included for dependency optimization
     optimizeDeps: {
-      include: ['core-js']
+      include: ['core-js', 'leaflet', 'leaflet.markercluster']
     },
     esbuild: {
       keepNames: true,
@@ -191,7 +191,8 @@ export default defineConfig(({ mode }) => {
       extensions: ['.tsx', '.ts', '.js', '.scss', '.css'],
       alias: {
         '~': path.resolve(process.cwd(), 'node_modules')
-      }
+      },
+      dedupe: ['leaflet']
     },
     plugins: [
       manifestPlugin('manifest.json'),
