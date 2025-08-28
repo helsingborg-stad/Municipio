@@ -219,9 +219,12 @@ class SingularExhibitionEvent extends Singular
     private function getGalleryComponentAttributes(): ?array
     {
         $imageProperty = $this->post->getSchemaProperty('image');
-        if (!is_array($imageProperty) || count($imageProperty) < 2) {
-            return null;
+
+        // Remove first image from property, this is the featured image.
+        if (is_array($imageProperty) && !empty($imageProperty)) {
+            array_shift($imageProperty);
         }
+
         return [
             'list' => array_map([$this, 'getImageAttributes'], $imageProperty)
         ];
