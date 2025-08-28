@@ -173,8 +173,8 @@ class ExternalContentFeature
     {
         $this->wpService->addAction('init', function () {
             $this->acfService->addOptionsSubPage([
-                'page_title'  => 'External Content Settings',
-                'menu_title'  => 'External Content',
+                'page_title'  => $this->wpService->__('External Content Settings', 'municipio'),
+                'menu_title'  => $this->wpService->__('External Content', 'municipio'),
                 'menu_slug'   => 'mun-external-content-settings',
                 'capability'  => 'manage_options',
                 'parent_slug' => 'options-general.php',
