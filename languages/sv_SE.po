@@ -555,6 +555,7 @@ msgid "Report settings"
 msgstr "Rapportinställningar"
 
 #: AcfFields/php/external-content-settings.php:8
+#: SchemaData/ExternalContent/ExternalContentFeature.php:177
 msgid "External Content"
 msgstr "Externt innehåll"
 
@@ -567,122 +568,96 @@ msgstr "Lägg till källa"
 msgid "Post type"
 msgstr "Posttyp"
 
-#: AcfFields/php/external-content-settings.php:63
+#: AcfFields/php/external-content-settings.php:65
 msgid "Source type"
 msgstr "Källtyp"
 
-#: AcfFields/php/external-content-settings.php:76
-#: AcfFields/php/external-content-settings.php:79
+#: AcfFields/php/external-content-settings.php:78
+#: AcfFields/php/external-content-settings.php:81
 msgid "json"
 msgstr "json"
 
-#: AcfFields/php/external-content-settings.php:77
+#: AcfFields/php/external-content-settings.php:79
 msgid "typesense"
 msgstr "typesense"
 
-#: AcfFields/php/external-content-settings.php:93
+#: AcfFields/php/external-content-settings.php:97
 msgid "Automatic import schedule"
 msgstr "Automatiskt schema för import"
 
-#: AcfFields/php/external-content-settings.php:121
+#: AcfFields/php/external-content-settings.php:127
 msgid "File path"
 msgstr "Filsökväg"
 
-#: AcfFields/php/external-content-settings.php:150
+#: AcfFields/php/external-content-settings.php:156
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: AcfFields/php/external-content-settings.php:171
-#: AcfFields/php/external-content-settings.php:174
+#: AcfFields/php/external-content-settings.php:177
+#: AcfFields/php/external-content-settings.php:180
 #: AcfFields/php/options-menu-icon.php:487
 msgid "https"
 msgstr "https"
 
-#: AcfFields/php/external-content-settings.php:172
+#: AcfFields/php/external-content-settings.php:178
 #: AcfFields/php/options-menu-icon.php:486
 msgid "http"
 msgstr "http"
 
-#: AcfFields/php/external-content-settings.php:188
+#: AcfFields/php/external-content-settings.php:196
 msgid "Host"
 msgstr "Värdnamn"
 
-#: AcfFields/php/external-content-settings.php:218
+#: AcfFields/php/external-content-settings.php:226
 msgid "Port"
 msgstr "Port"
 
-#: AcfFields/php/external-content-settings.php:248
+#: AcfFields/php/external-content-settings.php:256
 #: Customizer/Sections/Archive.php:432
 msgid "Collection"
 msgstr "Samlingar"
 
-#: AcfFields/php/external-content-settings.php:278
+#: AcfFields/php/external-content-settings.php:286
 msgid "API key"
 msgstr "API Nyckel"
 
-#: AcfFields/php/external-content-settings.php:308
 #: Admin/Options/Theme.php:80
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: AcfFields/php/external-content-settings.php:325
-msgid "Add Taxonomy"
-msgstr "Lägg till Taxonomi"
-
-#: AcfFields/php/external-content-settings.php:331
-msgid "Create terms from schema property"
-msgstr "Skapa termer från schemaattribut"
-
-#: AcfFields/php/external-content-settings.php:335
-msgid "Name of the schema property to use as a taxonomy. Ex. for using the <code>director</code> property on the <code>Event</code> schema type, supply <code>director</code> as value. If you wish to use a nested object value you can nest like this: <code>director.email</code>. Should the property contain an object of the type <a href=\"https://schema.org/PropertyValue\" target=\"_blank\">PropertyValue</a> the <code>value</code> property will be used by default when creating terms."
-msgstr "Namn på schemaegenskapen som ska användas som en taxonomi. Exempelvis, för att använda egenskapen <code>director</code> på schema-typen <code>Event</code>, ange <code>director</code> som värde. Om du vill använda ett värde från ett nestat objekt kan du nästlat det så här: <code>director.email</code>. Om egenskapen innehåller ett objekt av typen <a href=\"https://schema.org/PropertyValue\" target=\"_blank\">PropertyValue</a>, kommer egenskapen <code>value</code> att användas som standard när termer skapas."
-
-#: AcfFields/php/external-content-settings.php:345
-msgid "ex. director"
-msgstr "Ex. Director"
-
-#: AcfFields/php/external-content-settings.php:352
-msgid "Name (plural)"
-msgstr "Namn (plural)"
-
-#: AcfFields/php/external-content-settings.php:373
-msgid "Name (singular)"
-msgstr "Namn (Singular)"
-
-#: AcfFields/php/external-content-settings.php:394
 #: AcfFields/php/options-theme-custom-post-type.php:228
 msgid "Hierarchical"
 msgstr "Hierarkisk"
 
-#: AcfFields/php/external-content-settings.php:418
+#: AcfFields/php/external-content-settings.php:316
 msgid "Filters rules"
 msgstr "Filterregler"
 
-#: AcfFields/php/external-content-settings.php:435
+#: AcfFields/php/external-content-settings.php:333
 msgid "Add filter rule"
 msgstr "Lägg till regel"
 
-#: AcfFields/php/external-content-settings.php:440
+#: AcfFields/php/external-content-settings.php:339
 msgid "Property path"
 msgstr "Sökväg till egenskap"
 
-#: AcfFields/php/external-content-settings.php:462
+#: AcfFields/php/external-content-settings.php:361
 msgid "Operator"
 msgstr "Jämförelse"
 
-#: AcfFields/php/external-content-settings.php:475
+#: AcfFields/php/external-content-settings.php:374
 msgid "is equal to"
 msgstr "är lika med"
 
-#: AcfFields/php/external-content-settings.php:476
+#: AcfFields/php/external-content-settings.php:375
 msgid "is not equal to"
 msgstr "är ej lika med"
 
-#: AcfFields/php/external-content-settings.php:478
+#: AcfFields/php/external-content-settings.php:377
 msgid "EQUALS"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:492
+#: AcfFields/php/external-content-settings.php:393
 msgid "value"
 msgstr ""
 
@@ -10275,45 +10250,45 @@ msgid "Day of the week"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:66
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:77
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:90
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:82
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:100
 #, fuzzy
 msgid "Monday"
 msgstr "Måndag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:67
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:78
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:91
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:83
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:101
 msgid "Tuesday"
 msgstr "Tisdag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:68
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:79
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:92
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:84
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:102
 msgid "Wednesday"
 msgstr "Onsdag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:69
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:80
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:93
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:85
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:103
 msgid "Thursday"
 msgstr "Torsdag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:70
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:81
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:94
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:86
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:104
 msgid "Friday"
 msgstr "Fredag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:71
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:82
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:95
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:87
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:105
 msgid "Saturday"
 msgstr "Lördag"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:72
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:83
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:96
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:88
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:106
 msgid "Sunday"
 msgstr "Söndag"
 
@@ -11089,3 +11064,7 @@ msgstr "Är du säker på att du vill radera denna post permanent?"
 #, php-format
 msgid "Processing %s of %s..."
 msgstr "Behandlar %s av %s..."
+
+#: SchemaData/ExternalContent/ExternalContentFeature.php:176
+msgid "External Content Settings"
+msgstr "Inställningar för Externt innehåll"

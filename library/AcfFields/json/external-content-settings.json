@@ -50,7 +50,9 @@
                     "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
-                    "parent_repeater": "field_66da923803552"
+                    "parent_repeater": "field_66da923803552",
+                    "create_options": 0,
+                    "save_options": 0
                 },
                 {
                     "key": "field_66da92a003554",
@@ -80,7 +82,9 @@
                     "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
-                    "parent_repeater": "field_66da923803552"
+                    "parent_repeater": "field_66da923803552",
+                    "create_options": 0,
+                    "save_options": 0
                 },
                 {
                     "key": "field_66da9961f781e",
@@ -107,7 +111,9 @@
                     "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
-                    "parent_repeater": "field_66da923803552"
+                    "parent_repeater": "field_66da923803552",
+                    "create_options": 0,
+                    "save_options": 0
                 },
                 {
                     "key": "field_66da92db03555",
@@ -174,7 +180,9 @@
                     "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
-                    "parent_repeater": "field_66da923803552"
+                    "parent_repeater": "field_66da923803552",
+                    "create_options": 0,
+                    "save_options": 0
                 },
                 {
                     "key": "field_66da93a44c9a5",
@@ -297,116 +305,6 @@
                     "parent_repeater": "field_66da923803552"
                 },
                 {
-                    "key": "field_66da99ce96264",
-                    "label": "Taxonomies",
-                    "name": "taxonomies",
-                    "aria-label": "",
-                    "type": "repeater",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "acfe_repeater_stylised_button": 0,
-                    "layout": "table",
-                    "min": 0,
-                    "max": 0,
-                    "collapsed": "",
-                    "button_label": "Add Taxonomy",
-                    "rows_per_page": 20,
-                    "parent_repeater": "field_66da923803552",
-                    "sub_fields": [
-                        {
-                            "key": "field_66da99ea96265",
-                            "label": "Create terms from schema property",
-                            "name": "from_schema_property",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "Name of the schema property to use as a taxonomy. Ex. for using the <code>director<\/code> property on the <code>Event<\/code> schema type, supply <code>director<\/code> as value. If you wish to use a nested object value you can nest like this: <code>director.email<\/code>. Should the property contain an object of the type <a href=\"https:\/\/schema.org\/PropertyValue\" target=\"_blank\">PropertyValue<\/a> the <code>value<\/code> property will be used by default when creating terms.",
-                            "required": 1,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "ex. director",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_66da99ce96264"
-                        },
-                        {
-                            "key": "field_66da9bc696266",
-                            "label": "Name (plural)",
-                            "name": "name",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 1,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_66da99ce96264"
-                        },
-                        {
-                            "key": "field_66da9be796267",
-                            "label": "Name (singular)",
-                            "name": "singular_name",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 1,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_66da99ce96264"
-                        },
-                        {
-                            "key": "field_672b0a32bd0e0",
-                            "label": "Hierarchical",
-                            "name": "hierarchical",
-                            "aria-label": "",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 0,
-                            "allow_in_bindings": 1,
-                            "ui": 0,
-                            "ui_on_text": "",
-                            "ui_off_text": "",
-                            "parent_repeater": "field_66da99ce96264"
-                        }
-                    ]
-                },
-                {
                     "key": "field_67c940e8a3f5d",
                     "label": "Filters rules",
                     "name": "rules",
@@ -427,6 +325,7 @@
                     "collapsed": "",
                     "button_label": "Add filter rule",
                     "rows_per_page": 20,
+                    "parent_repeater": "field_66da923803552",
                     "sub_fields": [
                         {
                             "key": "field_67c9411ba3f5e",
@@ -478,7 +377,9 @@
                             "placeholder": "",
                             "allow_custom": 0,
                             "search_placeholder": "",
-                            "parent_repeater": "field_67c940e8a3f5d"
+                            "parent_repeater": "field_67c940e8a3f5d",
+                            "create_options": 0,
+                            "save_options": 0
                         },
                         {
                             "key": "field_67c941a5a3f60",
@@ -502,8 +403,7 @@
                             "append": "",
                             "parent_repeater": "field_67c940e8a3f5d"
                         }
-                    ],
-                    "parent_repeater": "field_66da923803552"
+                    ]
                 }
             ]
         }
@@ -525,13 +425,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
+    "show_in_rest": 0
 }]
 
