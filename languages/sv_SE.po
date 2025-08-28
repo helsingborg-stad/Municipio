@@ -11083,7 +11083,7 @@ msgstr ""
 
 #: Controller/Media/TrashPage.php:35
 msgid "Are you sure you want to permanently delete this post?"
-msgstr ""
+msgstr "Är du säker på att du vill radera denna post permanent?"
 
 #: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
 #, php-format
