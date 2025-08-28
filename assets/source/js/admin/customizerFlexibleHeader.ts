@@ -7,15 +7,15 @@ import { initializeEdit } from "./flexibleHeader/edit";
 import { SettingsStorage } from "./flexibleHeader/interfaces";
 import Storage from "./flexibleHeader/storage";
 
-declare const flexibleHeader: any;
+declare const FlexibleHeaderSettings: any;
 
 wp.customize.bind('ready', function() {
-    if (!flexibleHeader) {
+    if (!FlexibleHeaderSettings) {
         return;
     }
 
     const { flexibleAreaNames, hiddenName, responsiveNameKey, kirkiAttributeName }: FlexibleHeaderFieldKeys  = getSettingsKeys();
-    const hiddenSettingInstance = new HiddenSetting(flexibleHeader.hiddenValue, hiddenName, kirkiAttributeName);
+    const hiddenSettingInstance = new HiddenSetting(FlexibleHeaderSettings.hiddenValue, hiddenName, kirkiAttributeName);
 
     // Using interval since the fields might not be loaded yet.
     const intervalId = setInterval(() => {
@@ -47,7 +47,7 @@ wp.customize.bind('ready', function() {
                 storageInstance, 
                 getSortableItemsInstance.getSortableItems(), 
                 areaKey,
-                flexibleHeader.lang
+                FlexibleHeaderSettings.lang
             );
         });
     }, 1000);
