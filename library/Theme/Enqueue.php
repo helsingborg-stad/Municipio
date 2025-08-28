@@ -113,7 +113,6 @@ class Enqueue implements Hookable
      */
     public function enqueueAdminScriptsAndStyles()
     {
-        $this->enqueueHelper->add('options-reading', 'js/options-reading.js', ['jquery']);
         $this->enqueueHelper->add('user-group-visibility', 'js/user-group-visibility.js');
         $this->enqueueHelper->add('hidden-post-status-conditional', 'js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
         $this->enqueueHelper->add('event-source-progress', 'js/event-source-progress.js');
