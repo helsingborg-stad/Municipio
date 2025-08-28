@@ -130,7 +130,7 @@ class Enqueue implements Hookable
     {
         $this->enqueueHelper->add('design-share-js', 'js/design-share.js', ['jquery', 'customize-controls']);
         $this->enqueueHelper->add('customizer-flexible-header', 'js/customizer-flexible-header.js', ['jquery', 'customize-controls'], new EnqueueTranslation(
-            'HeaderLocale',
+            'FlexibleHeaderSettings',
             [
                 'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
                 'lang'        => [
