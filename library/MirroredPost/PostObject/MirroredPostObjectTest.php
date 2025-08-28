@@ -2,7 +2,6 @@
 
 namespace Municipio\MirroredPost\PostObject;
 
-use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -32,23 +31,6 @@ class MirroredPostObjectTest extends TestCase
     }
 
     /**
-     * @testdox getPermalink returns the permalink with extra query vars indicating the blog id and the original post id.
-     */
-    public function testGetPermalinkAppendsBlogAndPostId(): void
-    {
-        $postObject = $this->createPostObjectStub([
-            'getId'        => 123,
-            'getPermalink' => 'http://example.com/hello-world/',
-        ]);
-        $decorator  = new MirroredPostObject($postObject, $this->createWpService(), 2);
-
-        $permalink = $decorator->getPermalink();
-
-        $this->assertStringContainsString(BlogIdQueryVar::BLOG_ID_QUERY_VAR . '=2', $permalink);
-        $this->assertStringContainsString('p=123', $permalink);
-    }
-
-    /**
      * @testdox getPermalink replaces the original site url with the current site url
      */
     public function testGetPermalinkReplacesSiteUrl(): void
@@ -56,18 +38,14 @@ class MirroredPostObjectTest extends TestCase
         $postObject = $this->createPostObjectStub([
             'getPermalink' => 'http://other-site.com/hello-world/',
         ]);
-        $wpService  = new FakeWpService([
-            'switchToBlog'       => true,
-            'restoreCurrentBlog' => true,
-            'getSiteUrl'         => fn($blogId = null) => $blogId === 2 ? 'http://other-site.com' : 'http://current-site.com',
-            'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
-            'getCurrentBlogId'   => 1,
-        ]);
+        $wpService  = $this->createWpService();
         $decorator  = new MirroredPostObject($postObject, $wpService, 2);
 
-        $permalink = $decorator->getPermalink();
+        $permaLink = $decorator->getPermalink();
 
-        $this->assertStringContainsString('http://current-site.com/hello-world/', $permalink);
+        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        $this->assertEquals(1, $wpService->methodCalls['switchToBlog'][1][0]);
+        $this->assertEquals('http://other-site.com/hello-world/', $permaLink);
     }
 
     /**

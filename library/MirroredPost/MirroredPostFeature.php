@@ -2,12 +2,8 @@
 
 namespace Municipio\MirroredPost;
 
-use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use Municipio\MirroredPost\PostObject\MirroredPostObject;
-use Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogId;
-use Municipio\MirroredPost\Utils\IsMirroredPost\IsMirroredPost;
-use Municipio\MirroredPost\Utils\MirroredPostUtils;
-use Municipio\MirroredPost\Utils\MirroredPostUtilsInterface;
+use Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogIdInterface;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\WpService;
@@ -17,16 +13,13 @@ use WpService\WpService;
  */
 class MirroredPostFeature
 {
-    private MirroredPostUtilsInterface $mirroredPostUtils;
-
     /**
      * Constructor.
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService)
+    public function __construct(private GetOtherBlogIdInterface $getOtherBlogId, private WpService $wpService)
     {
-        $this->mirroredPostUtils = $this->createMirroredPostUtils();
     }
 
     /**
@@ -36,30 +29,7 @@ class MirroredPostFeature
      */
     public function enable(): void
     {
-        $this->addBlogIdQueryVarHook();
-        $this->enableSingleMirroredPostInWpQuery();
         $this->decoratePostObject();
-        $this->outputCanonicalForMirroredPost();
-    }
-
-    /**
-     * Add the blog ID query variable hook.
-     *
-     * This method adds a query variable for the blog ID to the WordPress query.
-     */
-    private function addBlogIdQueryVarHook(): void
-    {
-        (new BlogIdQueryVar($this->wpService))->addHooks();
-    }
-
-    /**
-     * Enable single mirrored post in WP_Query.
-     *
-     * This method sets up the necessary hooks to enable single mirrored post functionality in WP_Query.
-     */
-    private function enableSingleMirroredPostInWpQuery(): void
-    {
-        (new EnableSingleMirroredPostInWpQuery($this->wpService, $this->mirroredPostUtils))->addHooks();
     }
 
     /**
@@ -83,37 +53,11 @@ class MirroredPostFeature
      */
     private function maybeDecorateMirroredPost(PostObjectInterface $postObject): PostObjectInterface
     {
-        $otherBlogId = $this->mirroredPostUtils->getOtherBlogId();
+        $otherBlogId = $this->getOtherBlogId->getOtherBlogId();
         if ($otherBlogId === null) {
             return $postObject;
         }
 
         return new MirroredPostObject($postObject, $this->wpService, $otherBlogId);
-    }
-
-    /**
-     * Output canonical URL for mirrored posts.
-     *
-     * This method sets up the necessary hooks to output the canonical URL for mirrored posts.
-     */
-    private function outputCanonicalForMirroredPost(): void
-    {
-        (new OutputCanonicalForMirroredPost(
-            $this->wpService,
-            $this->mirroredPostUtils
-        ))->addHooks();
-    }
-
-    /**
-     * Create an instance of MirroredPostUtils.
-     *
-     * @return MirroredPostUtils The MirroredPostUtils instance.
-     */
-    private function createMirroredPostUtils(): MirroredPostUtils
-    {
-        return new MirroredPostUtils(
-            new IsMirroredPost($this->wpService),
-            new GetOtherBlogId($this->wpService)
-        );
     }
 }
