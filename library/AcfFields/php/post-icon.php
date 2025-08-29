@@ -1,9 +1,7 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_6784bb5c51d70',
     'title' => __('Post Icon', 'municipio'),
     'fields' => array(
@@ -24,6 +22,9 @@ if (function_exists('acf_add_local_field_group')) {
             'layout' => 'block',
             'acfe_seamless_style' => 0,
             'acfe_group_modal' => 0,
+            'acfe_group_modal_close' => 0,
+            'acfe_group_modal_button' => '',
+            'acfe_group_modal_size' => 'large',
             'sub_fields' => array(
                 0 => array(
                     'key' => 'field_63e603e03afc8',
@@ -79,7 +80,7 @@ if (function_exists('acf_add_local_field_group')) {
                             'label' => __('Icon', 'municipio'),
                             'name' => 'material_icon',
                             'aria-label' => '',
-                            'type' => 'select',
+                            'type' => 'icon',
                             'instructions' => '',
                             'required' => 0,
                             'conditional_logic' => array(
@@ -96,15 +97,7 @@ if (function_exists('acf_add_local_field_group')) {
                                 'class' => '',
                                 'id' => '',
                             ),
-                            'choices' => array(),
-                            'default_value' => false,
-                            'return_format' => 'value',
-                            'multiple' => 0,
-                            'allow_custom' => 0,
-                            'search_placeholder' => '',
-                            'allow_null' => 0,
-                            'ui' => 1,
-                            'ajax' => 1,
+                            'default_value' => '',
                             'placeholder' => '',
                         ),
                         2 => array(
@@ -192,9 +185,6 @@ if (function_exists('acf_add_local_field_group')) {
                     'allow_in_bindings' => 1,
                 ),
             ),
-            'acfe_group_modal_close' => 0,
-            'acfe_group_modal_button' => '',
-            'acfe_group_modal_size' => 'large',
         ),
     ),
     'location' => array(
@@ -226,5 +216,4 @@ if (function_exists('acf_add_local_field_group')) {
     ),
     'acfe_note' => '',
 ));
-
-}
+}
