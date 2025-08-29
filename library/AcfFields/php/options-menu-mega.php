@@ -1,9 +1,7 @@
 <?php 
 
-
-if (function_exists('acf_add_local_field_group')) {
-
-    acf_add_local_field_group(array(
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
     'key' => 'group_6502be085ee3b',
     'title' => __('Mega menu', 'municipio'),
     'fields' => array(
@@ -11,6 +9,7 @@ if (function_exists('acf_add_local_field_group')) {
             'key' => 'field_6502be0a752a8',
             'label' => __('Button label', 'municipio'),
             'name' => 'mega_menu_button_label',
+            'aria-label' => '',
             'type' => 'text',
             'instructions' => '',
             'required' => 0,
@@ -30,7 +29,8 @@ if (function_exists('acf_add_local_field_group')) {
             'key' => 'field_6502be35752a9',
             'label' => __('Button icon', 'municipio'),
             'name' => 'mega_menu_button_icon',
-            'type' => 'select',
+            'aria-label' => '',
+            'type' => 'icon',
             'instructions' => '',
             'required' => 0,
             'conditional_logic' => 0,
@@ -39,22 +39,14 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => array(
-            ),
-            'default_value' => 'menu',
-            'return_format' => 'value',
-            'multiple' => 0,
-            'allow_custom' => 0,
-            'search_placeholder' => '',
-            'allow_null' => 0,
-            'ui' => 1,
-            'ajax' => 0,
+            'default_value' => '',
             'placeholder' => '',
         ),
         2 => array(
             'key' => 'field_651bcec5c166e',
             'label' => __('Icon position', 'municipio'),
             'name' => 'mega_menu_icon_after_label',
+            'aria-label' => '',
             'type' => 'true_false',
             'instructions' => '',
             'required' => 0,
@@ -97,5 +89,4 @@ if (function_exists('acf_add_local_field_group')) {
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-
-}
+}
