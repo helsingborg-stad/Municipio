@@ -25,6 +25,30 @@
         @endif
     @stop
 
+    @section('article.title.after')
+
+        @collection(['classList' => ['u-display--flex']])
+            @collection__item([ 'icon' => 'event', ])
+                @typography(['element' => 'h4', 'variant' => 'h2'])
+                    {!! $lang->dateLabel !!}
+                @endtypography
+                @typography([])
+                    {!! $occasion !!}
+                @endtypography
+            @endcollection__item
+            @collection__item([ 'icon' => 'location_on' ])
+                @typography(['element' => 'h4', 'variant' => 'h2'])
+                    {!! $lang->placeTitle !!}
+                @endtypography
+                @typography([])
+                    {!! $placeName !!}<br>
+                    {!! $placeAddress !!}
+                @endtypography
+            @endcollection__item
+        @endcollection
+
+    @stop
+
     {!! wpautop( nl2br(e($post->getSchemaProperty('description')))) !!}
 
     @if(!empty($galleryComponentAttributes))
@@ -38,16 +62,6 @@
 
 @section('sidebar.right-sidebar.before')
     @paper(['classList' => ['u-margin__bottom--4']])
-        @collection()
-            @collection__item([])
-                @typography(['element' => 'h4', 'variant' => 'h4'])
-                    {!! $lang->dateLabel !!}
-                @endtypography
-                @typography([])
-                    {!!$occasion!!}
-                @endtypography
-            @endcollection__item
-        @endcollection
 
         @if(!empty($openingHours))
             @collection()
@@ -76,19 +90,6 @@
                 @endcollection__item
             @endcollection
         @endif
-
-        @collection(['classList' => ['u-display--flex']])
-            @collection__item()
-                @typography(['element' => 'h4', 'variant' => 'h4'])
-                    {!!$lang->placeTitle!!}
-                @endtypography
-                @typography([])
-                    {!!$placeName!!}<br>
-                    {!!$placeAddress!!}
-                @endtypography
-            @endcollection__item
-        @endcollection
-
 
         @if(!empty($priceListItems))
             @collection()
