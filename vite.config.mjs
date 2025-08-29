@@ -50,52 +50,6 @@ const entries = {
   'js/event-source-progress': './assets/source/js/admin/eventSourceProgress/index.ts'
 }
 
-function convertIconManifestPlugin() {
-  return {
-    name: 'icon-generator',
-    buildStart() {
-      try {
-        const rawData = readData();
-        const validData = validateData(rawData);
-        const transformedData = transformData(validData);
-        writeData(transformedData);
-        console.log('Generated icon.json successfully');
-      } catch (err) {
-        if (err.code !== 'ENOENT') console.error('Error generating icons:', err);
-      }
-    }
-  }
-
-  function readData() {
-    const sourcePath = path.resolve(process.cwd(), 'node_modules/material-symbols/index.d.ts');
-    return fs.readFileSync(sourcePath, 'utf8');
-  }
-
-  function validateData(data) {
-    // Match only the first array assigned to a variable (typical in d.ts files)
-    const match = data.match(/=\s*(\[[^\]]*\])/s);
-    if (!match) throw new Error('Could not parse icon data. Source file malformed.');
-
-    try {
-      return JSON.parse(match[1]); // Use only the captured array
-    } catch (err) {
-      throw new Error(`Error parsing icon data: ${err.message}`);
-    }
-  }
-
-  function transformData(icons) {
-    // Example: we could filter, sort, or restructure icons here
-    return icons.sort(); // simple alphabetical sort
-  }
-
-  function writeData(icons) {
-    const outputDir = path.resolve(process.cwd(), 'assets/generated');
-    fs.mkdirSync(outputDir, { recursive: true });
-    const outputPath = path.resolve(outputDir, 'icon.json');
-    fs.writeFileSync(outputPath, JSON.stringify(icons, null, 2));
-  }
-}
-
 export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production'
   return {
@@ -196,7 +150,6 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       manifestPlugin('manifest.json'),
-      convertIconManifestPlugin(),
       copy({
         targets: [
           {
