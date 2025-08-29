@@ -26,6 +26,13 @@
     @stop
 
     {!! wpautop( nl2br(e($post->getSchemaProperty('description')))) !!}
+
+    @if(!empty($galleryComponentAttributes))
+        @typography(['element' => 'h3'])
+            {!! $lang->galleryLabel !!}
+        @endtypography
+        @gallery([...$galleryComponentAttributes, 'classList' => ['u-margin__bottom--6', 'u-margin__top--4']])@endgallery
+    @endif
     
 @stop
 
@@ -104,11 +111,5 @@
 @stop
 
 @section('below')
-    @if(!empty($galleryComponentAttributes))
-        @typography(['element' => 'h3'])
-            {!! $lang->galleryLabel !!}
-        @endtypography
-        @gallery([...$galleryComponentAttributes, 'classList' => ['u-margin__bottom--6', 'u-margin__top--4']])@endgallery
-    @endif
     @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
 @stop
