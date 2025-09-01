@@ -6,6 +6,7 @@ use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolve
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\__;
+use WpService\Contracts\_x;
 
 class TaxonomiesFromSchemaTypeTest extends TestCase
 {
@@ -69,10 +70,14 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         return $this->createMock(SchemaToPostTypeResolverInterface::class);
     }
 
-    private function getWpService(): __
+    private function getWpService(): __|_x
     {
-        return new class implements __ {
+        return new class implements __, _x {
             public function __($text, ...$args): string
+            {
+                return $text;
+            }
+            public function _x($text, $context, ...$args): string
             {
                 return $text;
             }
