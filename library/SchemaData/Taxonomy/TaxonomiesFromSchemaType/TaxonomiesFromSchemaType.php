@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 use WpService\Contracts\__;
+use WpService\Contracts\_x;
 
 /**
  * Class TaxonomiesFromSchemaType
@@ -22,7 +23,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     public function __construct(
         private TaxonomyFactoryInterface $taxonomyFactory,
         private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver,
-        private __ $wpService
+        private __&_x $wpService
     ) {
     }
 
@@ -35,10 +36,29 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     public function create(string $schemaType): array
     {
         return [
-            'JobPosting' => $this->getJobPostingTaxonomies(),
-            'Event'      => $this->getEventTaxonomies(),
-            'Project'    => $this->getProjectTaxonomies(),
+            'JobPosting'      => $this->getJobPostingTaxonomies(),
+            'Event'           => $this->getEventTaxonomies(),
+            'Project'         => $this->getProjectTaxonomies(),
+            'ExhibitionEvent' => $this->getExhibitionEventTaxonomies(),
         ][$schemaType] ?? [];
+    }
+
+    /**
+     * Get taxonomies for ExhibitionEvent schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for ExhibitionEvent.
+     */
+    private function getExhibitionEventTaxonomies(): array
+    {
+        return [
+            new EventStatusFromDatesTaxonomy($this->wpService, $this->createTaxonomy(
+                'ExhibitionEvent',
+                'endDate',
+                $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name (plural)', 'municipio'),
+                $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name', 'municipio'),
+                ['show_admin_column' => true]
+            )),
+        ];
     }
 
     /**
@@ -96,13 +116,15 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         string $schemaProperty,
         string $label,
         string $singularLabel,
+        array $args = []
     ): TaxonomyInterface {
         return $this->taxonomyFactory->create(
             $schemaType,
             $schemaProperty,
             $this->schemaToPostTypeResolver->resolve($schemaType),
             $label,
-            $singularLabel
+            $singularLabel,
+            $args
         );
     }
 }

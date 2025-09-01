@@ -53,4 +53,13 @@ interface TaxonomyInterface
      * @return string
      */
     public function getSingularLabel(): string;
+
+    /**
+     * Format the value used for term creation. Allows custom logic per taxonomy/property.
+     *
+     * @param mixed $value The raw value extracted from the schema property.
+     * @param array $schema The full schema data for context.
+     * @return string|array|null The formatted value(s) for term creation.
+     */
+    public function formatTermValue(mixed $value, array $schema): string|array|null;
 }

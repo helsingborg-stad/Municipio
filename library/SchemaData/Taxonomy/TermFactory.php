@@ -25,7 +25,7 @@ class TermFactory implements TermFactoryInterface
             return [];
         }
 
-        return $this->createTermsFromValues(array_filter(is_array($values) ? $values : [$values]), $taxonomy);
+        return $this->createTermsFromValues(array_filter(is_array($values) ? $values : [$values]), $taxonomy, $schema);
     }
 
     /**
@@ -36,18 +36,28 @@ class TermFactory implements TermFactoryInterface
      *
      * @return WP_Term[] An array of WP_Term objects.
      */
-    private function createTermsFromValues(array $values, TaxonomyInterface $taxonomy): array
+    private function createTermsFromValues(array $values, TaxonomyInterface $taxonomy, array $schema = []): array
     {
-        return array_map(
-            function ($value) use ($taxonomy) {
-                $term           = new WP_Term(new \stdClass());
-                $term->name     = $value;
-                $term->taxonomy = $taxonomy->getName();
+        $terms = [];
+        foreach ($values as $value) {
+            $formatted = $taxonomy->formatTermValue($value, $schema);
+            if (is_array($formatted)) {
+                foreach ($formatted as $f) {
+                    $terms[] = $this->makeTerm($f, $taxonomy);
+                }
+            } elseif ($formatted !== null) {
+                $terms[] = $this->makeTerm($formatted, $taxonomy);
+            }
+        }
+        return $terms;
+    }
 
-                return $term;
-            },
-            $values
-        );
+    private function makeTerm($value, TaxonomyInterface $taxonomy): WP_Term
+    {
+        $term           = new WP_Term(new \stdClass());
+        $term->name     = $value;
+        $term->taxonomy = $taxonomy->getName();
+        return $term;
     }
 
     /**

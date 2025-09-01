@@ -6951,7 +6951,7 @@ msgstr "Riktning"
 #: Customizer/Sections/Header/Layout.php:225
 #: Customizer/Sections/Header/Layout.php:254
 #: Customizer/Sections/Width.php:68
-#: Theme/Enqueue.php:140
+#: Theme/Enqueue.php:139
 msgid "Left"
 msgstr "Vänster"
 
@@ -6963,7 +6963,7 @@ msgstr "Vänster"
 #: Customizer/Sections/Header/Layout.php:227
 #: Customizer/Sections/Header/Layout.php:255
 #: Customizer/Sections/Width.php:84
-#: Theme/Enqueue.php:141
+#: Theme/Enqueue.php:140
 msgid "Right"
 msgstr "Höger"
 
@@ -6974,7 +6974,7 @@ msgstr "Vänster & höger"
 #: AcfFields/php/widget-header-common.php:119
 #: Admin/Gutenberg/Blocks/BlockManager.php:89
 #: Customizer/Sections/Header/Appearance.php:86
-#: Theme/Enqueue.php:139
+#: Theme/Enqueue.php:138
 msgid "Margin"
 msgstr "Marginal"
 
@@ -6989,7 +6989,7 @@ msgstr "Automatisk"
 #: Customizer/Sections/Component/FooterMain.php:61
 #: Customizer/Sections/Component/FooterSub.php:56
 #: Customizer/Sections/Header/Appearance.php:46
-#: Theme/Enqueue.php:143
+#: Theme/Enqueue.php:142
 msgid "None"
 msgstr "Ingen"
 
@@ -10410,11 +10410,11 @@ msgstr "One Page"
 msgid "Page (centered)"
 msgstr "Centrerad sida"
 
-#: Theme/Enqueue.php:138
+#: Theme/Enqueue.php:137
 msgid "Alignment"
 msgstr "Justering"
 
-#: Theme/Enqueue.php:142
+#: Theme/Enqueue.php:141
 msgid "Both"
 msgstr "Båda"
 
@@ -10912,68 +10912,68 @@ msgstr ""
 msgid "Call"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:52
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
 msgid "Job Categories"
 msgstr "Kategorier"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:52
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
 msgid "Job Category"
 msgstr "Kategori"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:53
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgid "Latest Application Dates"
 msgstr "Ansök senast"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:53
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgid "Latest Application Date"
 msgstr "Ansök senast"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:65
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
 msgid "Event Tags"
 msgstr "Eventtaggar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:65
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
 msgid "Event Tag"
 msgstr "Eventtagg"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
 msgid "Physical Accessibility Features"
 msgstr "Tillgänglighet"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
 msgid "Physical Accessibility Feature"
 msgstr "Tillgänglighet"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
 msgid "Project Departments"
 msgstr "Organisationer"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
 msgid "Project Department"
 msgstr "Organisation"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:79
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
 msgid "Project Categories"
 msgstr "Kategorier"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:79
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
 msgid "Project Category"
 msgstr "Kategori"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:80
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Technologies"
 msgstr "Omställningar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:80
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Technology"
 msgstr "Omställning"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Statuses"
 msgstr "Statusar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Status"
 msgstr "Status"
 
@@ -11068,3 +11068,28 @@ msgstr "Behandlar %s av %s..."
 #: SchemaData/ExternalContent/ExternalContentFeature.php:176
 msgid "External Content Settings"
 msgstr "Inställningar för Externt innehåll"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:58
+msgctxt "ExhibitionEvent taxonomy name"
+msgid "Status"
+msgstr "Status"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:57
+msgctxt "ExhibitionEvent taxonomy name (plural)"
+msgid "Status"
+msgstr "Status"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:39
+msgctxt "Event schema status"
+msgid "Closed"
+msgstr "Avslutad"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:41
+msgctxt "Event schema status"
+msgid "Planned"
+msgstr "Kommande"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:43
+msgctxt "Event schema status"
+msgid "Ongoing"
+msgstr "Aktuell"

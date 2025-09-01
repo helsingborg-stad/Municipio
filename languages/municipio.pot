@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-28T06:45:32+00:00\n"
+"POT-Creation-Date: 2025-09-01T08:09:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -6935,7 +6935,7 @@ msgstr ""
 #: Customizer/Sections/Header/Layout.php:225
 #: Customizer/Sections/Header/Layout.php:254
 #: Customizer/Sections/Width.php:68
-#: Theme/Enqueue.php:140
+#: Theme/Enqueue.php:139
 msgid "Left"
 msgstr ""
 
@@ -6947,7 +6947,7 @@ msgstr ""
 #: Customizer/Sections/Header/Layout.php:227
 #: Customizer/Sections/Header/Layout.php:255
 #: Customizer/Sections/Width.php:84
-#: Theme/Enqueue.php:141
+#: Theme/Enqueue.php:140
 msgid "Right"
 msgstr ""
 
@@ -6958,7 +6958,7 @@ msgstr ""
 #: AcfFields/php/widget-header-common.php:119
 #: Admin/Gutenberg/Blocks/BlockManager.php:89
 #: Customizer/Sections/Header/Appearance.php:86
-#: Theme/Enqueue.php:139
+#: Theme/Enqueue.php:138
 msgid "Margin"
 msgstr ""
 
@@ -6973,7 +6973,7 @@ msgstr ""
 #: Customizer/Sections/Component/FooterMain.php:61
 #: Customizer/Sections/Component/FooterSub.php:56
 #: Customizer/Sections/Header/Appearance.php:46
-#: Theme/Enqueue.php:143
+#: Theme/Enqueue.php:142
 msgid "None"
 msgstr ""
 
@@ -10361,7 +10361,7 @@ msgid "Special Opening Hours"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
 msgid "Physical Accessibility Features"
 msgstr ""
 
@@ -10441,63 +10441,88 @@ msgstr ""
 msgid "Amount"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:52
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:39
+msgctxt "Event schema status"
+msgid "Closed"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:41
+msgctxt "Event schema status"
+msgid "Planned"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:43
+msgctxt "Event schema status"
+msgid "Ongoing"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:57
+msgctxt "ExhibitionEvent taxonomy name (plural)"
+msgid "Status"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:58
+msgctxt "ExhibitionEvent taxonomy name"
+msgid "Status"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
 msgid "Job Categories"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:52
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
 msgid "Job Category"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:53
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgid "Latest Application Dates"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:53
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgid "Latest Application Date"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:65
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
 msgid "Event Tags"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:65
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
 msgid "Event Tag"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:66
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
 msgid "Physical Accessibility Feature"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
 msgid "Project Departments"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
 msgid "Project Department"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:79
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
 msgid "Project Categories"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:79
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
 msgid "Project Category"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:80
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Technologies"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:80
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Technology"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Statuses"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:81
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Status"
 msgstr ""
 
@@ -10566,11 +10591,11 @@ msgstr ""
 msgid "Sa"
 msgstr ""
 
-#: Theme/Enqueue.php:138
+#: Theme/Enqueue.php:137
 msgid "Alignment"
 msgstr ""
 
-#: Theme/Enqueue.php:142
+#: Theme/Enqueue.php:141
 msgid "Both"
 msgstr ""
 
