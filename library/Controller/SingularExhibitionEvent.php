@@ -114,6 +114,7 @@ class SingularExhibitionEvent extends Singular
         $lang->accessibilityLabel       = $this->wpService->_x('Accessibility', 'ExhibitionEvent', 'municipio');
         $lang->directionsLabel          = $this->wpService->_x('Directions', 'ExhibitionEvent', 'municipio');
         $lang->galleryLabel             = $this->wpService->_x('Gallery', 'ExhibitionEvent', 'municipio');
+        $lang->expiredDateNotice        = $this->wpService->_x('This exhibition has already taken place.', 'ExhibitionEvent', 'municipio');
     }
 
     /**

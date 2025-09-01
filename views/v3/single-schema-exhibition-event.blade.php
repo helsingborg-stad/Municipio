@@ -16,7 +16,7 @@
             @notice([
                 'type' => 'warning',
                 'message' => [
-                    'text' => $lang->expiredEventNotice,
+                    'text' => $lang->expiredDateNotice,
                 ],
                 'icon' => [
                     'icon' => 'schedule'
