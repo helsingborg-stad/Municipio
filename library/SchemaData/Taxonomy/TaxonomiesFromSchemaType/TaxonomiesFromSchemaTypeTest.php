@@ -77,6 +77,7 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
             {
                 return $text;
             }
+            // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
             public function _x($text, $context, ...$args): string
             {
                 return $text;

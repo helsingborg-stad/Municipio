@@ -52,6 +52,14 @@ class TermFactory implements TermFactoryInterface
         return $terms;
     }
 
+    /**
+     * Create a WP_Term object from a value.
+     *
+     * @param mixed $value The value to create the term from.
+     * @param TaxonomyInterface $taxonomy The taxonomy the term belongs to.
+     *
+     * @return WP_Term The created WP_Term object.
+     */
     private function makeTerm($value, TaxonomyInterface $taxonomy): WP_Term
     {
         $term           = new WP_Term(new \stdClass());
