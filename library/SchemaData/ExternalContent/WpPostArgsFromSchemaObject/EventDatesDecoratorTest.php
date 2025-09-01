@@ -6,6 +6,7 @@ use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFr
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class EventDatesDecoratorTest extends TestCase
 {
@@ -14,7 +15,7 @@ class EventDatesDecoratorTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $decorator = new EventDatesDecorator($this->createMock(WpPostArgsFromSchemaObjectInterface::class));
+        $decorator = new EventDatesDecorator($this->getInnerMock());
         $this->assertInstanceOf(EventDatesDecorator::class, $decorator);
     }
 
@@ -23,12 +24,12 @@ class EventDatesDecoratorTest extends TestCase
      */
     public function testReturnsSamePostArgsIfNotEvent()
     {
-        $mockInner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
+        $mockInner = $this->getInnerMock();
         $mockInner->method('transform')->willReturn(['meta_input' => []]);
 
         $decorator = new EventDatesDecorator($mockInner);
 
-        $schemaObject = $this->createMock(BaseType::class);
+        $schemaObject = $this->getSchemaMock();
         $schemaObject->method('getType')->willReturn('Article');
 
         $result = $decorator->transform($schemaObject);
@@ -41,7 +42,24 @@ class EventDatesDecoratorTest extends TestCase
      */
     public function testAddsStartDateAndEndDateIfEvent()
     {
-        $mockInner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
+        $mockInner = $this->getInnerMock();
+        $mockInner->method('transform')->willReturn(['meta_input' => []]);
+
+        $decorator = new EventDatesDecorator($mockInner);
+
+        $schemaObject = Schema::exhibitionEvent()->startDate('2021-01-01')->endDate('2021-01-02');
+
+        $result = $decorator->transform($schemaObject);
+
+        $this->assertEquals(['meta_input' => ['startDate' => '2021-01-01', 'endDate' => '2021-01-02']], $result);
+    }
+
+    /**
+     * @testdox accepts subtypes of Event
+     */
+    public function testAcceptsSubtypesOfEvent()
+    {
+        $mockInner = $this->getInnerMock();
         $mockInner->method('transform')->willReturn(['meta_input' => []]);
 
         $decorator = new EventDatesDecorator($mockInner);
@@ -51,5 +69,15 @@ class EventDatesDecoratorTest extends TestCase
         $result = $decorator->transform($schemaObject);
 
         $this->assertEquals(['meta_input' => ['startDate' => '2021-01-01', 'endDate' => '2021-01-02']], $result);
+    }
+
+    private function getInnerMock(): WpPostArgsFromSchemaObjectInterface|MockObject
+    {
+        return $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
+    }
+
+    private function getSchemaMock(): BaseType|MockObject
+    {
+        return $this->createMock(BaseType::class);
     }
 }
