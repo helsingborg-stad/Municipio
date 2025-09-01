@@ -26,7 +26,7 @@ class EventDatesDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function transform(BaseType $schemaObject): array
     {
-        if (!in_array('Municipio\Schema\Contracts\EventContract', class_implements($schemaObject))) {
+        if (!$this->shouldAddEventDates($schemaObject)) {
             return $this->inner->transform($schemaObject);
         }
 
@@ -38,5 +38,16 @@ class EventDatesDecorator implements WpPostArgsFromSchemaObjectInterface
         $post['meta_input']['endDate']   = $endDate;
 
         return $post;
+    }
+
+    /**
+     * Determines if event dates should be added to the post args.
+     *
+     * @param BaseType $schemaObject
+     * @return bool
+     */
+    private function shouldAddEventDates(BaseType $schemaObject): bool
+    {
+        return in_array('Municipio\Schema\Contracts\EventContract', class_implements($schemaObject));
     }
 }
