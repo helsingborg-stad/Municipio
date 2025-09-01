@@ -143,6 +143,11 @@ class TermFactoryTest extends TestCase
 
     private function getTaxonomy(): MockObject|TaxonomyInterface
     {
-        return $this->createMock(TaxonomyInterface::class);
+        $mock = $this->createMock(TaxonomyInterface::class);
+        $mock->method('formatTermValue')->willReturnCallback(function ($value, $schema) {
+            return $value;
+        });
+
+        return $mock;
     }
 }

@@ -125,4 +125,12 @@ class Taxonomy implements TaxonomyInterface
     {
         return $this->schemaProperty;
     }
+
+    /**
+     * Default implementation: return value as-is.
+     */
+    public function formatTermValue(mixed $value, array $schema): string|array|null
+    {
+        return $value;
+    }
 }
