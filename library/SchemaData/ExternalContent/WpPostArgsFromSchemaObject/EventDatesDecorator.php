@@ -4,8 +4,6 @@ namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Municipio\Schema\BaseType;
-use Municipio\Schema\Contracts\EventContract;
-use Municipio\Schema\Event;
 
 /**
  * Class EventDatesDecorator
