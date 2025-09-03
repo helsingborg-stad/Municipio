@@ -6,6 +6,7 @@ use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
 use WP_Post_Type;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\IsAdmin;
 use WpService\Contracts\RegisterPostType;
 use WpService\Contracts\UnregisterPostType;
 
@@ -22,13 +23,13 @@ class DisableStandardFieldsOnPostsWithSchemaType implements Hookable
      * @param string[] $schemaTypes The schema types for which to disable standard fields.
      * @param string[] $postTypeFeaturesToDisable The post type features to disable. E.g ['editor', 'thumbnail'].
      * @param TryGetSchemaTypeFromPostType $schemaDataConfigService The service to retrieve schema types from post types.
-     * @param AddAction&UnregisterPostType&RegisterPostType $wpService The WordPress service for adding actions and managing post types.
+     * @param AddAction&UnregisterPostType&RegisterPostType&IsAdmin $wpService The WordPress service for adding actions and managing post types.
      */
     public function __construct(
         private array $schemaTypes,
         private array $postTypeFeaturesToDisable,
         private TryGetSchemaTypeFromPostType $schemaDataConfigService,
-        private AddAction&UnregisterPostType&RegisterPostType $wpService
+        private AddAction&UnregisterPostType&RegisterPostType&IsAdmin $wpService
     ) {
     }
 
@@ -37,6 +38,10 @@ class DisableStandardFieldsOnPostsWithSchemaType implements Hookable
      */
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin() === false) {
+            return;
+        }
+
         $this->wpService->addAction('registered_post_type', [$this, 'disableStandardFields'], 10, 2);
     }
 
