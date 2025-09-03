@@ -25,6 +25,7 @@ class DisableStandardFieldsOnPostsWithSchemaTypeTest extends TestCase
             'addAction'          => true,
             'unregisterPostType' => true,
             'registerPostType'   => new WP_Post_Type([]),
+            'isAdmin'            => true,
         ]);
 
         $this->instance = new DisableStandardFieldsOnPostsWithSchemaType(
