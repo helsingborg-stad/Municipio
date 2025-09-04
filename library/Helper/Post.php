@@ -460,7 +460,6 @@ class Post
             $lead = $replace . $lead . '</p>';
         }
 
-
         return self::removeEmptyPTag($lead);
     }
 
