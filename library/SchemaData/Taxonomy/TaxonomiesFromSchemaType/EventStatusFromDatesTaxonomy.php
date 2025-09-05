@@ -30,13 +30,13 @@ class EventStatusFromDatesTaxonomy implements TaxonomyInterface
         $startTimestamp = is_null($startDate) ? null : strtotime($startDate);
         $endTimestamp   = is_null($endDate) ? null : strtotime($endDate);
 
-        if (empty($startTimestamp) || empty($endTimestamp)) {
+        if (empty($startTimestamp)) {
             return '';
         }
 
-        if ($startTimestamp < time() && $endTimestamp < time()) {
+        if (!empty($endTimestamp) && $endTimestamp < time()) {
             return $this->wpService->_x('Closed', 'Event schema status', 'municipio');
-        } elseif ($startTimestamp > time() && $endTimestamp > time()) {
+        } elseif ($startTimestamp > time()) {
             return $this->wpService->_x('Planned', 'Event schema status', 'municipio');
         } else {
             return $this->wpService->_x('Ongoing', 'Event schema status', 'municipio');

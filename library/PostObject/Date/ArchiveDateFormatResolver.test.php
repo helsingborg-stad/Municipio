@@ -31,6 +31,6 @@ class ArchiveDateFormatResolverTest extends TestCase
 
         $result = $resolver->resolve();
 
-        $this->assertEquals('date-time', $result);
+        $this->assertEquals('Y-m-d H:i', $result);
     }
 }
