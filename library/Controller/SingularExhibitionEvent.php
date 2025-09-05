@@ -231,8 +231,9 @@ class SingularExhibitionEvent extends Singular
         if (is_array($imageProperty) && !empty($imageProperty)) {
             array_shift($imageProperty);
         }
+        $imageAttributes = array_map([$this, 'getImageAttributes'], $imageProperty);
 
-        return [
+        return empty($imageAttributes) ? null : [
             'list' => array_map([$this, 'getImageAttributes'], $imageProperty)
         ];
     }
