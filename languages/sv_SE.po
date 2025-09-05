@@ -3539,7 +3539,7 @@ msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
 #: Controller/SingularEvent.php:158
-#: Controller/SingularExhibitionEvent.php:194
+#: Controller/SingularExhibitionEvent.php:200
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
@@ -6779,7 +6779,7 @@ msgstr "Statusar"
 msgid "Project Status"
 msgstr "Status"
 
-#: Controller/SingularExhibitionEvent.php:171
+#: Controller/SingularExhibitionEvent.php:177
 msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr "Fri entré"
@@ -6900,3 +6900,8 @@ msgstr "Aktuell"
 msgctxt "ExhibitionEvent"
 msgid "This exhibition has already taken place."
 msgstr "Denna utställning har redan ägt rum."
+
+#: Controller/SingularExhibitionEvent.php:147
+msgctxt "ExhibitionEvent"
+msgid "until further notice"
+msgstr "tills vidare"

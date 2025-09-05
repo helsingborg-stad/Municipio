@@ -134,12 +134,18 @@ class SingularExhibitionEvent extends Singular
      */
     public function getOccasionText(?DateTime $startDate, ?DateTime $endDate): string
     {
-        if (!$startDate || !$endDate) {
+        if (!$startDate) {
             return '';
         }
 
+        if (!$endDate) {
+        } else {
+        }
+
         $start = ucfirst($this->wpService->dateI18n('j M', $startDate->getTimestamp()));
-        $end   = ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
+        $end   = !$endDate
+            ? $this->wpService->_x('until further notice', 'ExhibitionEvent', 'municipio')
+            : ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
 
         return "{$start} - {$end}";
     }
