@@ -2,6 +2,8 @@
 
 namespace Municipio\PostObject\Date;
 
+use DateTime;
+use Municipio\Helper\DateFormat;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetThemeMod;
 
@@ -20,12 +22,14 @@ class ArchiveDateFormatResolver implements ArchiveDateFormatResolverInterface
     }
 
     /**
-     * Resolve the archive date format setting.
+     * Returns the formatted archive date string for the current post type.
      */
     public function resolve(): string
     {
-        $dateFormat = $this->wpService->getThemeMod('archive_' . $this->postObject->getPostType() . '_date_format', 'date-time');
+        $postType          = $this->postObject->getPostType();
+        $themeModKey       = sprintf('archive_%s_date_format', $postType);
+        $dateFormatSetting = $this->wpService->getThemeMod($themeModKey, 'date-time');
 
-        return $dateFormat;
+        return DateFormat::getDateFormat($dateFormatSetting);
     }
 }
