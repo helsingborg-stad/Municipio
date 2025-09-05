@@ -19,6 +19,7 @@ class SingularExhibitionEvent extends Singular
 {
     private const GALLERY_THUMBNAIL_SIZE = [450, 280];
     private const GALLERY_LARGE_SIZE     = [768, 432];
+
     protected object $postMeta;
     public string $view = 'single-schema-exhibition-event';
 
@@ -33,24 +34,21 @@ class SingularExhibitionEvent extends Singular
 
         $event = $this->post->getSchema();
 
-        $this->data['displayFeaturedImage']          = false;
-        $this->data['placeUrl']                      = $this->getPlaceUrl($event->getProperty('location'));
-        $this->data['placeName']                     = $this->getPlaceName($event->getProperty('location'));
-        $this->data['placeAddress']                  = $this->getPlaceAddress($event->getProperty('location'));
-        $this->data['priceListItems']                = $this->getPriceList();
-        $this->data['occasion']                      = $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate'));
-        $this->data['physicalAccessibilityFeatures'] = $this->getPhysicalAccessibilityFeaturesList($this->post->getSchemaProperty('physicalAccessibilityFeatures'));
-        $this->data['eventIsInThePast']              = $this->eventIsInThePast();
-        $this->data['galleryComponentAttributes']    = $this->getGalleryComponentAttributes();
-        $this->data['openingHours']                  = $this->getOpeningHours($event->getProperty('location')?->getProperty('openingHoursSpecification') ?? []);
-        $this->data['specialOpeningHours']           = $this->getOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? []);
-
-        $this->setHttpStatusHeaderIfPastEvent($event);
+        $this->data = array_merge($this->data, [
+            'displayFeaturedImage'          => false,
+            'placeUrl'                      => $this->getPlaceUrl($event->getProperty('location')),
+            'placeName'                     => $this->getPlaceName($event->getProperty('location')),
+            'placeAddress'                  => $this->getPlaceAddress($event->getProperty('location')),
+            'priceListItems'                => $this->getPriceList(),
+            'occasion'                      => $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate')),
+            'physicalAccessibilityFeatures' => $this->formatAccessibilityFeatures($this->post->getSchemaProperty('physicalAccessibilityFeatures')),
+            'eventIsInThePast'              => $this->eventIsInThePast(),
+            'galleryComponentAttributes'    => $this->getGalleryComponentAttributes(),
+            'openingHours'                  => $this->formatOpeningHours($event->getProperty('location')?->getProperty('openingHoursSpecification') ?? []),
+            'specialOpeningHours'           => $this->formatOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? [])
+        ]);
     }
 
-    /**
-     * Get the name of the place from the Place schema.
-     */
     private function getPlaceName(?Place $place): ?string
     {
         if (!$place) {
@@ -59,67 +57,58 @@ class SingularExhibitionEvent extends Singular
         return $place['name'] ?? $place['address'] ?? null;
     }
 
-    /**
-     * Get the address of the place from the Place schema.
-     */
     private function getPlaceAddress(?Place $place): ?string
     {
         return $place?->getProperty('address') ?? null;
     }
 
-    /**
-     * Get the physical accessibility features from the event schema.
-     */
-    private function getPhysicalAccessibilityFeaturesList(?array $features): ?string
+    private function formatAccessibilityFeatures(?array $features): ?string
     {
         return empty($features) ? null : implode(', ', $features);
     }
 
-    /**
-     * Get the opening hours from the event schema.
-     */
-    private function getOpeningHours(array $openingHours): ?string
+    private function formatOpeningHours(array $openingHours): ?string
     {
         if (empty($openingHours)) {
             return null;
         }
 
-        $converter    = new OpeningHoursSpecificationToString($this->wpService);
-        $openingHours = array_map(
-            fn($item) => Schema::openingHoursSpecification()
-                ->setProperty('name', $item['name'] ?? null)
-                ->setProperty('dayOfWeek', $item['dayOfWeek'] ?? null)
-                ->setProperty('opens', $item['opens'] ?? null)
-                ->setProperty('closes', $item['closes'] ?? null),
-            $openingHours
-        );
+        $converter = new OpeningHoursSpecificationToString($this->wpService);
+        $specs     = array_map([$this, 'createOpeningHoursSpecification'], $openingHours);
 
-        $formatted = array_map(fn($spec) => $converter->convert($spec), $openingHours);
+        $formatted = array_map([$converter, 'convert'], $specs);
         return implode(', <br>', array_merge(...$formatted));
     }
 
-    /**
-     * Populate the language object with translated strings.
-     */
-    private function populateLanguageObject(): void
+    private function createOpeningHoursSpecification(array $item)
     {
-        $lang = $this->data['lang'];
-
-        $lang->placeTitle               = $this->wpService->_x('Place', 'ExhibitionEvent', 'municipio');
-        $lang->expiredEventNoticeLabel  = $this->wpService->_x('This event has already taken place.', 'ExhibitionEvent', 'municipio');
-        $lang->dateLabel                = $this->wpService->_x('Date', 'ExhibitionEvent', 'municipio');
-        $lang->openingHoursLabel        = $this->wpService->_x('Opening hours', 'ExhibitionEvent', 'municipio');
-        $lang->specialOpeningHoursLabel = $this->wpService->_x('Special opening hours', 'ExhibitionEvent', 'municipio');
-        $lang->entranceLabel            = $this->wpService->_x('Entrance', 'ExhibitionEvent', 'municipio');
-        $lang->accessibilityLabel       = $this->wpService->_x('Accessibility', 'ExhibitionEvent', 'municipio');
-        $lang->directionsLabel          = $this->wpService->_x('Directions', 'ExhibitionEvent', 'municipio');
-        $lang->galleryLabel             = $this->wpService->_x('Gallery', 'ExhibitionEvent', 'municipio');
-        $lang->expiredDateNotice        = $this->wpService->_x('This exhibition has already taken place.', 'ExhibitionEvent', 'municipio');
+        return Schema::openingHoursSpecification()
+            ->setProperty('name', $item['name'] ?? null)
+            ->setProperty('dayOfWeek', $item['dayOfWeek'] ?? null)
+            ->setProperty('opens', $item['opens'] ?? null)
+            ->setProperty('closes', $item['closes'] ?? null);
     }
 
-    /**
-     * Get the URL of the place from the Place schema.
-     */
+    private function populateLanguageObject(): void
+    {
+        foreach (
+            [
+            'placeTitle'               => $this->wpService->_x('Place', 'ExhibitionEvent', 'municipio'),
+            'expiredEventNoticeLabel'  => $this->wpService->_x('This event has already taken place.', 'ExhibitionEvent', 'municipio'),
+            'dateLabel'                => $this->wpService->_x('Date', 'ExhibitionEvent', 'municipio'),
+            'openingHoursLabel'        => $this->wpService->_x('Opening hours', 'ExhibitionEvent', 'municipio'),
+            'specialOpeningHoursLabel' => $this->wpService->_x('Special opening hours', 'ExhibitionEvent', 'municipio'),
+            'entranceLabel'            => $this->wpService->_x('Entrance', 'ExhibitionEvent', 'municipio'),
+            'accessibilityLabel'       => $this->wpService->_x('Accessibility', 'ExhibitionEvent', 'municipio'),
+            'directionsLabel'          => $this->wpService->_x('Directions', 'ExhibitionEvent', 'municipio'),
+            'galleryLabel'             => $this->wpService->_x('Gallery', 'ExhibitionEvent', 'municipio'),
+            'expiredDateNotice'        => $this->wpService->_x('This exhibition has already taken place.', 'ExhibitionEvent', 'municipio')
+            ] as $key => $text
+        ) {
+            $this->data['lang']->{$key} = $text;
+        }
+    }
+
     public function getPlaceUrl(?Place $place = null): ?string
     {
         if (!$place || !isset($place['geo']['address'])) {
@@ -129,43 +118,30 @@ class SingularExhibitionEvent extends Singular
         return $googleMapsUrl . urlencode($place['geo']['address']);
     }
 
-    /**
-     * Get the occasion text from the event schema.
-     */
     public function getOccasionText(?DateTime $startDate, ?DateTime $endDate): string
     {
         if (!$startDate) {
             return '';
         }
 
-        if (!$endDate) {
-        } else {
-        }
-
         $start = ucfirst($this->wpService->dateI18n('j M', $startDate->getTimestamp()));
         $end   = !$endDate
-            ? $this->wpService->_x('until further notice', 'ExhibitionEvent', 'municipio')
-            : ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
+        ? $this->wpService->_x('until further notice', 'ExhibitionEvent', 'municipio')
+        : ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
 
         return "{$start} - {$end}";
     }
 
-    /**
-     * Get the price list from the event schema.
-     */
     public function getPriceList(): array
     {
         $offers = $this->post->getSchemaProperty('offers');
         if (!$offers) {
             return [];
         }
-        return array_map([$this, 'getPriceListItemFromOffer'], $offers);
+        return array_map([$this, 'createPriceListItem'], $offers);
     }
 
-    /**
-     * Get a price list item from an offer.
-     */
-    public function getPriceListItemFromOffer(array $offer): PriceListItemInterface
+    private function createPriceListItem(array $offer): PriceListItemInterface
     {
         $priceSpecification = $offer['priceSpecification'] ?? [];
         $name               = $offer['name'] ?? '';
@@ -173,16 +149,13 @@ class SingularExhibitionEvent extends Singular
 
         $price = $this->resolvePrice($offer, $priceSpecification, $currency);
 
-        if ($offer['price'] === 0) {
+        if (isset($offer['price']) && $offer['price'] === 0) {
             $price = $this->wpService->_x('Free entrance', 'ExhibitionEvent', 'municipio');
         }
 
         return new \Municipio\Controller\SingularEvent\PriceListItem($name, $price);
     }
 
-    /**
-     * Resolve the price from an offer.
-     */
     private function resolvePrice(array $offer, array $priceSpecification, string $currency): string
     {
         if (isset($priceSpecification['minPrice'], $priceSpecification['maxPrice'])) {
@@ -200,9 +173,6 @@ class SingularExhibitionEvent extends Singular
         return $this->wpService->__('Price not available', 'municipio');
     }
 
-    /**
-     * Check if the event is in the past.
-     */
     public function eventIsInThePast(): bool
     {
         $event   = $this->post->getSchema();
@@ -210,50 +180,36 @@ class SingularExhibitionEvent extends Singular
         return $endDate instanceof DateTime && $endDate->getTimestamp() < time();
     }
 
-    /**
-     * Set the HTTP status header if the event is in the past.
-     */
-    private function setHttpStatusHeaderIfPastEvent(BaseType $event): void
-    {
-        if ($this->eventIsInThePast()) {
-            $this->wpService->statusHeader(410);
-        }
-    }
-
-    /**
-     * Get the gallery component attributes from the event schema.
-     */
     private function getGalleryComponentAttributes(): ?array
     {
         $imageProperty = $this->post->getSchemaProperty('image');
 
-        // Remove first image from property, this is the featured image.
         if (is_array($imageProperty) && !empty($imageProperty)) {
             array_shift($imageProperty);
         }
 
-        return [
-            'list' => array_map([$this, 'getImageAttributes'], $imageProperty)
+        $imageAttributes = array_map([$this, 'getImageAttributes'], $imageProperty);
+
+        return empty($imageAttributes) ? null : [
+        'list' => $imageAttributes
         ];
     }
 
-    /**
-     * Get the image attributes from an ImageObject.
-     */
     private function getImageAttributes(ImageObject $image): array
     {
-        if (empty($image->getProperty('@id'))) {
+        $imageId = $image->getProperty('@id');
+        if (empty($imageId)) {
             return [];
         }
 
-        $smallContract = ImageComponentContract::factory($image->getProperty('@id'), self::GALLERY_THUMBNAIL_SIZE, new ImageResolver());
-        $largeContract = ImageComponentContract::factory($image->getProperty('@id'), self::GALLERY_LARGE_SIZE, new ImageResolver());
+        $smallContract = ImageComponentContract::factory($imageId, self::GALLERY_THUMBNAIL_SIZE, new ImageResolver());
+        $largeContract = ImageComponentContract::factory($imageId, self::GALLERY_LARGE_SIZE, new ImageResolver());
 
         return [
-            'largeImage' => $largeContract->getUrl(),
-            'smallImage' => $smallContract->getUrl(),
-            'alt'        => $image->getProperty('description') ?: '',
-            'caption'    => null
+        'largeImage' => $largeContract->getUrl(),
+        'smallImage' => $smallContract->getUrl(),
+        'alt'        => $image->getProperty('description') ?: '',
+        'caption'    => null
         ];
     }
 }
