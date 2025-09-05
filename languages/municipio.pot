@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-01T10:37:42+00:00\n"
+"POT-Creation-Date: 2025-09-05T05:21:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -3537,7 +3537,7 @@ msgid "This event has already taken place."
 msgstr ""
 
 #: Controller/SingularEvent.php:158
-#: Controller/SingularExhibitionEvent.php:194
+#: Controller/SingularExhibitionEvent.php:200
 msgid "Price not available"
 msgstr ""
 
@@ -3591,7 +3591,12 @@ msgctxt "ExhibitionEvent"
 msgid "This exhibition has already taken place."
 msgstr ""
 
-#: Controller/SingularExhibitionEvent.php:171
+#: Controller/SingularExhibitionEvent.php:147
+msgctxt "ExhibitionEvent"
+msgid "until further notice"
+msgstr ""
+
+#: Controller/SingularExhibitionEvent.php:177
 msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr ""
