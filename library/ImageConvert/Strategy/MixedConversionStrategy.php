@@ -34,24 +34,25 @@ class MixedConversionStrategy implements ConversionStrategyInterface
     ) {
     }
 
+    /**
+     * Process the image using either runtime or background strategy based on context
+     * 
+     * @param ImageContract $image The image to process
+     * @return ImageContract|false The processed image or false on failure
+     */
     public function process(ImageContract $image): ImageContract|false
     {
-        // Check if this should be processed immediately based on editor context
         if ($this->shouldProcessImmediately($image)) {
-            // Use runtime strategy for immediate processing
             return $this->runtimeStrategy->process($image);
         }
-
-        // Use background strategy for deferred processing
         return $this->backgroundStrategy->process($image);
     }
 
-    public function canHandle(ImageContract $image): bool
-    {
-        // Mixed strategy can handle any image resize request
-        return true;
-    }
-
+    /**
+     * Get the strategy name/identifier
+     * 
+     * @return string
+     */
     public function getName(): string
     {
         return 'mixed';
@@ -65,90 +66,39 @@ class MixedConversionStrategy implements ConversionStrategyInterface
      */
     private function shouldProcessImmediately(ImageContract $image): bool
     {
-        // Get current user
         $currentUserId = $this->wpService->getCurrentUserId();
-        
-        // Check if user is logged in
-        if (!$currentUserId) {
+
+        if (!$currentUserId || !$this->wpService->userCan($currentUserId, 'edit_posts')) {
             return false;
         }
 
-        // Check if user has editor capabilities
-        if (!$this->wpService->userCan($currentUserId, 'edit_posts')) {
+        $postId = $this->getCurrentPostId();
+        if (!$postId) {
             return false;
         }
 
-        // Get the attachment post to check recent modifications
-        $attachment = $this->wpService->getPost($image->getId());
-        if (!$attachment) {
-            return false;
-        }
-
-        // Check if the current user modified this attachment recently (within last hour)
-        if ($this->hasUserModifiedImageRecently($image->getId(), $currentUserId)) {
-            return true;
-        }
-
-        // Check if the current user modified the parent post recently
-        if ($attachment->post_parent && $this->hasUserModifiedPostRecently($attachment->post_parent, $currentUserId)) {
-            return true;
-        }
-
-        return false;
+        return (time() - $this->getCurrentPostModifiedTime()) < $this->config->mixedStrategyEditorTimeframeSeconds();
     }
 
     /**
-     * Check if the current user modified the image recently
+     * Get the current post ID if available
      * 
-     * @param int $imageId
-     * @param int $userId
-     * @return bool
+     * @return int|null
      */
-    private function hasUserModifiedImageRecently(int $imageId, int $userId): bool
+    private function getCurrentPostId(): int|null
     {
-        $attachment = $this->wpService->getPost($imageId);
-        if (!$attachment) {
-            return false;
-        }
-
-        // Check if this user was the last to modify the attachment
-        if ((int) $attachment->post_author !== $userId) {
-            return false;
-        }
-
-        // Check if modification was within the last hour
-        $modifiedTime = strtotime($attachment->post_modified_gmt);
-        $oneHourAgo = time() - 3600;
-
-        return $modifiedTime > $oneHourAgo;
+        $post = $this->wpService->getPost(get_the_ID());
+        return $post ? $post->ID : null;
     }
 
     /**
-     * Check if the current user modified the parent post recently
+     * Get the current post modified time if available
      * 
-     * @param int $postId
-     * @param int $userId
-     * @return bool
+     * @return int|null
      */
-    private function hasUserModifiedPostRecently(int $postId, int $userId): bool
+    private function getCurrentPostModifiedTime(): int|null
     {
-        $post = $this->wpService->getPost($postId);
-        if (!$post) {
-            return false;
-        }
-
-        // Check if this user was the last to modify the post
-        if ((int) $post->post_author !== $userId) {
-            // Also check if user has edit permission for this specific post
-            if (!$this->wpService->userCan($userId, 'edit_post', $postId)) {
-                return false;
-            }
-        }
-
-        // Check if modification was within the last hour
-        $modifiedTime = strtotime($post->post_modified_gmt);
-        $oneHourAgo = time() - 3600;
-
-        return $modifiedTime > $oneHourAgo;
+        $post = $this->wpService->getPost(get_the_ID());
+        return $post ? strtotime($post->post_modified_gmt) : null;
     }
 }

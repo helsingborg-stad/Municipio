@@ -63,6 +63,7 @@ class StrategyFactory
             ),
             ConversionStrategy::BACKGROUND => new BackgroundConversionStrategy(
                 $this->wpService,
+                $this->config,
                 $this->conversionCache
             ),
             ConversionStrategy::MIXED => new MixedConversionStrategy(
