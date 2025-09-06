@@ -5,6 +5,7 @@ namespace Municipio\ImageConvert\Strategy;
 use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use Municipio\ImageConvert\Strategy\RuntimeConversionStrategy;
 use Municipio\ImageConvert\Strategy\BackgroundConversionStrategy;
+use Municipio\ImageConvert\Strategy\WpCliConversionStrategy;
 use Municipio\ImageConvert\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\WpGetImageEditor;
@@ -25,6 +26,7 @@ class StrategyFactory
     // Strategy constants
     public const STRATEGY_RUNTIME = 'runtime';
     public const STRATEGY_BACKGROUND = 'background';
+    public const STRATEGY_WPCLI = 'wpcli';
     
     // Default strategy if not specified
     private const DEFAULT_STRATEGY = self::STRATEGY_RUNTIME;
@@ -54,6 +56,11 @@ class StrategyFactory
             ),
             self::STRATEGY_BACKGROUND => new BackgroundConversionStrategy(
                 $this->wpService,
+                $this->conversionCache
+            ),
+            self::STRATEGY_WPCLI => new WpCliConversionStrategy(
+                $this->wpService,
+                $this->config,
                 $this->conversionCache
             ),
             default => throw new \InvalidArgumentException(
@@ -98,7 +105,8 @@ class StrategyFactory
     {
         return [
             self::STRATEGY_RUNTIME,
-            self::STRATEGY_BACKGROUND
+            self::STRATEGY_BACKGROUND,
+            self::STRATEGY_WPCLI
         ];
     }
 

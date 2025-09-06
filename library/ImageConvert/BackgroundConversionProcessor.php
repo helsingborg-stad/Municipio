@@ -23,15 +23,15 @@ class BackgroundConversionProcessor implements Hookable
 
     public function addHooks(): void
     {
-        // Hook into WordPress cron for background processing
-        $this->wpService->addAction('municipio_process_image_queue', [$this, 'processQueuedConversions']);
+        // Hook into WordPress cron for background processing using namespace
+        $this->wpService->addAction('Municipio/ImageConvert/ProcessQueue', [$this, 'processQueuedConversions']);
         
         // Hook into the conversion action namespace as specified
         $this->wpService->addAction('Municipio/ImageConvert/Convert', [$this, 'handleConversionRequest']);
         
         // Schedule processing if not already scheduled
-        if (!wp_next_scheduled('municipio_process_image_queue')) {
-            wp_schedule_event(time(), 'hourly', 'municipio_process_image_queue');
+        if (!wp_next_scheduled('Municipio/ImageConvert/ProcessQueue')) {
+            wp_schedule_event(time(), 'hourly', 'Municipio/ImageConvert/ProcessQueue');
         }
     }
 
@@ -98,6 +98,6 @@ class BackgroundConversionProcessor implements Hookable
      */
     public function triggerQueueProcessing(): void
     {
-        $this->wpService->doAction('municipio_process_image_queue');
+        $this->wpService->doAction('Municipio/ImageConvert/ProcessQueue');
     }
 }

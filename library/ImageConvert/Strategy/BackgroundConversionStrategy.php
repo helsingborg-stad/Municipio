@@ -77,8 +77,8 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
     private function scheduleBackgroundProcessing(): void
     {
         // Only schedule if not already scheduled
-        if (!wp_next_scheduled('municipio_process_image_queue')) {
-            wp_schedule_single_event(time() + 60, 'municipio_process_image_queue');
+        if (!wp_next_scheduled('Municipio/ImageConvert/ProcessQueue')) {
+            wp_schedule_single_event(time() + 60, 'Municipio/ImageConvert/ProcessQueue');
         }
     }
 }
