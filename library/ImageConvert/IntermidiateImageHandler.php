@@ -13,6 +13,7 @@ use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\WpUploadDir;
 use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpAttachmentIs;
+use WP_Error;
 
 class IntermidiateImageHandler implements Hookable
 {
@@ -75,8 +76,10 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|false
     {
-        if (!$this->canConvertImage($image, $this->config)) {
-            $this->imageConversionError('Image conversion is not possible from the source file. The image may not exist, be too large, or lacking the relevant metadata', $image);
+        //Check if the image can be converted
+        $canConvert = $this->canConvertImage($image, $this->config);
+        if ($canConvert instanceof \WP_Error) {
+            $this->imageConversionError('Image conversion is not possible: ' . $canConvert->get_error_message(), $image);
             return false;
         }
 
@@ -177,9 +180,9 @@ class IntermidiateImageHandler implements Hookable
      *
      * @param ImageContract $image
      * @param ImageConvertConfig $config
-     * @return bool
+     * @return true|\WP_Error
      */
-    private function canConvertImage(ImageContract $image, ImageConvertConfig $config): bool
+    private function canConvertImage(ImageContract $image, ImageConvertConfig $config): true|\WP_Error
     {
         //Get image details
         $sourceFilePath = $image->getPath();
@@ -187,23 +190,27 @@ class IntermidiateImageHandler implements Hookable
 
         //The id cannot be empty or negative
         if (empty($sourceFileId) || $sourceFileId < 0) {
-            return false;
+            return new \WP_Error('invalid_id', 'The image ID is empty or invalid.');
         }
 
         // The Source file must exist
         if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
-            return false;
+            return new \WP_Error('file_not_found', 'The source image file does not exist at path: ' . $sourceFilePath);
         }
 
         // The image must exist in database, and be a image
         if (!$this->wpService->wpAttachmentIs('image', $sourceFileId)) {
-            return false;
+            return new \WP_Error('not_image', 'The attachment is not recognized as an image.');
         }
 
-        //Get attachment filesize, if exceeds max size, return false
+        //Get attachment filesize, if exceeds max size, return error
         $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
-        if (!$sourceFileSize || ($sourceFileSize > $config->maxSourceFileSize())) {
-            return false;
+        if (!$sourceFileSize) {
+            return new \WP_Error('filesize_unavailable', 'Unable to determine the file size of the source image.');
+        }
+
+        if ($sourceFileSize > $config->maxSourceFileSize()) {
+            return new \WP_Error('file_too_large', 'The source image exceeds the maximum allowed file size of ' . $config->maxSourceFileSize() . ' bytes.');
         }
 
         return true;
@@ -235,6 +242,18 @@ class IntermidiateImageHandler implements Hookable
      */
     private function imageConversionError(string $message, ImageContract $image): void
     {
-        error_log('Image conversion error for Image ID: ' . $image->getId() . '. Message: ' . $message);
+        $page = $_SERVER['REQUEST_URI'] ?? 'CLI or unknown';
+
+        // Prevent log injection by removing control characters
+        $page = str_replace(["\n", "\r"], ['%0A', '%0D'], $page);
+
+        // Mask sensitive query parameters
+        $page = preg_replace('/(token|password)=([^&]+)/i', '$1=***', $page);
+
+        error_log(
+            'Image conversion error for Image ID: ' . $image->getId() .
+            '. Page: ' . $page .
+            '. Message: ' . $message
+        );
     }
 }
