@@ -26,10 +26,29 @@ class BackgroundConversionProcessor implements Hookable
         // Hook into WordPress cron for background processing
         $this->wpService->addAction('municipio_process_image_queue', [$this, 'processQueuedConversions']);
         
+        // Hook into the conversion action namespace as specified
+        $this->wpService->addAction('Municipio/ImageConvert/Convert', [$this, 'handleConversionRequest']);
+        
         // Schedule processing if not already scheduled
         if (!wp_next_scheduled('municipio_process_image_queue')) {
             wp_schedule_event(time(), 'hourly', 'municipio_process_image_queue');
         }
+    }
+
+    /**
+     * Handle conversion request from the action namespace
+     * 
+     * @param array $conversionData
+     */
+    public function handleConversionRequest(array $conversionData): void
+    {
+        // Log the conversion request for monitoring
+        error_log("Background conversion requested for Image ID: {$conversionData['image_id']}, " .
+                 "{$conversionData['width']}x{$conversionData['height']}, format: {$conversionData['format']}");
+        
+        // The actual conversion will be handled by the cron job
+        // This action just logs and potentially schedules immediate processing
+        // if needed for high-priority conversions
     }
 
     /**

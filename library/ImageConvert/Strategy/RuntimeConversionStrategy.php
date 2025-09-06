@@ -1,0 +1,222 @@
+<?php
+
+namespace Municipio\ImageConvert\Strategy;
+
+use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\ConversionCache;
+use Municipio\ImageConvert\Config\ImageConvertConfig;
+use Municipio\Helper\File;
+use WpService\Contracts\WpGetImageEditor;
+use WpService\Contracts\IsWpError;
+use WpService\Contracts\WpGetAttachmentMetadata;
+use WpService\Contracts\WpAttachmentIs;
+use WpService\Contracts\AddFilter;
+
+/**
+ * Runtime Conversion Strategy
+ * 
+ * Performs image conversion immediately during the request.
+ * This is the traditional synchronous approach.
+ */
+class RuntimeConversionStrategy implements ConversionStrategyInterface
+{
+    public function __construct(
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter $wpService,
+        private ImageConvertConfig $config,
+        private ConversionCache $conversionCache
+    ) {
+    }
+
+    public function convert(ImageContract $image, string $format): ImageContract|false
+    {
+        $imageId = $image->getId();
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+
+        // Try to acquire conversion lock to prevent duplicate processing
+        if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
+            // Another process is already converting this image, return original
+            return $image;
+        }
+
+        try {
+            // Check if the image can be converted
+            $canConvert = $this->canConvertImage($image);
+            if ($canConvert instanceof \WP_Error) {
+                $this->imageConversionError('Image conversion is not possible: ' . $canConvert->get_error_message(), $image);
+                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                return false;
+            }
+
+            // Set processing limits for better resource management
+            $this->increaseAllowedProcessingTime();
+            $this->increaseAllowedMemoryLimit();
+
+            // Switch to the preferred image editor based on file type
+            $this->setPreferedImageEditorByFiletype($image);
+
+            $intermediateLocation = $image->getIntermidiateLocation($format);
+
+            $imageEditor = $this->wpService->wpGetImageEditor($image->getPath());
+
+            if (!$this->wpService->isWpError($imageEditor)) {
+                // Get the original image dimensions
+                $originalSize = $imageEditor->get_size();
+
+                // Determine target dimensions using min() to avoid upscaling
+                $targetWidth  = min($image->getWidth(), $originalSize['width']);
+                $targetHeight = min($image->getHeight(), $originalSize['height']);
+
+                // Resize the image
+                $imageEditor->resize($targetWidth, $targetHeight, true);
+
+                // Attempt to save the image in the target format and size
+                $savedImage = $imageEditor->save($intermediateLocation['path']);
+
+                if (!$this->wpService->isWpError($savedImage)) {
+                    $image->setUrl($intermediateLocation['url']);
+                    $image->setPath($intermediateLocation['path']);
+                    
+                    // Mark conversion as successful
+                    $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+                    
+                    return $image;
+                } else {
+                    $this->imageConversionError('Error saving image: ' . $savedImage->get_error_message(), $image);
+                    $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                }
+            } else {
+                $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
+                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+            }
+
+            return false;
+        } finally {
+            // Always release the lock, even if conversion failed
+            $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
+        }
+    }
+
+    public function canHandle(ImageContract $image, string $format): bool
+    {
+        // Runtime strategy can handle any image conversion
+        return true;
+    }
+
+    public function getName(): string
+    {
+        return 'runtime';
+    }
+
+    /**
+     * Check if the image can be converted based on its existence, type, and size.
+     */
+    private function canConvertImage(ImageContract $image): true|\WP_Error
+    {
+        $sourceFilePath = $image->getPath();
+        $sourceFileId   = $image->getId();
+
+        // The id cannot be empty or negative
+        if (empty($sourceFileId) || $sourceFileId < 0) {
+            return new \WP_Error('invalid_id', 'The image ID is empty or invalid.');
+        }
+
+        // The Source file must exist
+        if (!File::fileExists($sourceFilePath)) {
+            return new \WP_Error('file_not_found', 'The source image file does not exist at path: ' . $sourceFilePath);
+        }
+
+        // The image must exist in database, and be a image
+        if (!$this->wpService->wpAttachmentIs('image', $sourceFileId)) {
+            return new \WP_Error('not_image', 'The attachment is not recognized as an image.');
+        }
+
+        // Get attachment filesize, if exceeds max size, return error
+        $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
+        if (!$sourceFileSize) {
+            return new \WP_Error('filesize_unavailable', 'Unable to determine the file size of the source image.');
+        }
+
+        if ($sourceFileSize > $this->config->maxSourceFileSize()) {
+            return new \WP_Error('file_too_large', 'The source image exceeds the maximum allowed file size of ' . $this->config->maxSourceFileSize() . ' bytes.');
+        }
+
+        return true;
+    }
+
+    /**
+     * Get the size of an attachment from its metadata, with a fallback to the filesystem.
+     */
+    private function getSourceFileSize(int $attachmentId, string $sourceFilePath): int|false
+    {
+        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, 'filesize');
+        if ($size) {
+            return intval($size);
+        }
+        return filesize($sourceFilePath);
+    }
+
+    /**
+     * Set the preferred image editor based on the file type.
+     */
+    private function setPreferedImageEditorByFiletype(ImageContract $image): void
+    {
+        $filePath       = $image->getPath();
+        $fileNameSuffix = pathinfo($filePath, PATHINFO_EXTENSION);
+        $fileTypeMime   = match (strtolower($fileNameSuffix)) {
+            'png' => 'image/png',
+            default => false
+        };
+
+        $availableEditors = (
+            ($fileTypeMime === 'image/png') ?
+            ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] :
+            ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD']
+        );
+
+        $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
+    }
+
+    /**
+     * Increase the allowed processing time for image conversion.
+     */
+    private function increaseAllowedProcessingTime(): void
+    {
+        $maxExecutionTime = ini_get('max_execution_time');
+        if ($maxExecutionTime < 300) {
+            ini_set('max_execution_time', '300');
+        }
+    }
+
+    /**
+     * Increase the allowed memory limit for image processing.
+     */
+    private function increaseAllowedMemoryLimit(): void
+    {
+        $memoryLimit = ini_get('memory_limit');
+        if ($memoryLimit < '2048M') {
+            ini_set('memory_limit', '2048M');
+        }
+    }
+
+    /**
+     * Logs an image conversion error with detailed info.
+     */
+    private function imageConversionError(string $message, ImageContract $image): void
+    {
+        $page = $_SERVER['REQUEST_URI'] ?? 'CLI or unknown';
+
+        // Prevent log injection by removing control characters
+        $page = str_replace(["\n", "\r"], ['%0A', '%0D'], $page);
+
+        // Mask sensitive query parameters
+        $page = preg_replace('/(token|password)=([^&]+)/i', '$1=***', $page);
+
+        error_log(
+            'Image conversion error for Image ID: ' . $image->getId() .
+            '. Page: ' . $page .
+            '. Strategy: ' . $this->getName() .
+            '. Message: ' . $message
+        );
+    }
+}

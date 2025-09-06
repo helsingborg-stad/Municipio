@@ -187,6 +187,17 @@ class ConversionCache
     }
 
     /**
+     * Check if a conversion is queued for background processing
+     */
+    public function isQueuedForConversion(int $imageId, int $width, int $height, string $format): bool
+    {
+        $cacheKey = self::QUEUE_PREFIX . $this->getCacheKey($imageId, $width, $height, $format);
+        $queueData = $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
+        
+        return $queueData !== false;
+    }
+
+    /**
      * Clear all conversion cache for a specific image
      */
     public function clearImageCache(int $imageId): bool
