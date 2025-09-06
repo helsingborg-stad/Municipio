@@ -320,17 +320,11 @@ class ConversionCache
      */
     public function clearImageCache(int $imageId): bool
     {
-        // Clear runtime cache entries for this image
         foreach (self::$runtimeCache as $key => $value) {
             if (strpos($key, (string)$imageId . '_') !== false) {
                 unset(self::$runtimeCache[$key]);
             }
         }
-        
-        // Note: WordPress cache doesn't provide a wildcard delete function
-        // In a real implementation, you might want to track cache keys
-        // or use a different caching solution that supports pattern deletion
-        
         return true;
     }
 }
