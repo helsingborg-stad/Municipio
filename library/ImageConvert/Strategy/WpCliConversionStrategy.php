@@ -22,6 +22,8 @@ use WpService\Contracts\DoAction;
  */
 class WpCliConversionStrategy implements ConversionStrategyInterface
 {
+    use WpCliHelperTrait;
+    use BaseConversionTrait;
     public function __construct(
         private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction $wpService,
         private ImageConvertConfig $config,
@@ -36,8 +38,8 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         $height = $image->getHeight();
 
         // Check if already converted and cached
-        if ($this->conversionCache->hasSuccessfulConversion($imageId, $width, $height, $format)) {
-            $cachedImage = $this->conversionCache->getCachedConversion($imageId, $width, $height, $format);
+        if ($this->hasSuccessfulConversion($imageId, $width, $height, $format)) {
+            $cachedImage = $this->getCachedConversion($imageId, $width, $height, $format);
             if ($cachedImage) {
                 return $cachedImage;
             }
@@ -46,16 +48,12 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         // Check if conversion failed recently
         if ($this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
             // For CLI, we might want to retry even recent failures with verbose output
-            if (defined('WP_CLI') && WP_CLI) {
-                \WP_CLI::warning("Retrying recently failed conversion for image {$imageId}");
-            }
+            $this->wpCliWarning("Retrying recently failed conversion for image {$imageId}");
         }
 
         // Lock conversion to prevent duplicates
-        if (!$this->conversionCache->lockConversion($imageId, $width, $height, $format)) {
-            if (defined('WP_CLI') && WP_CLI) {
-                \WP_CLI::warning("Conversion already in progress for image {$imageId}");
-            }
+        if (!$this->lockConversion($imageId, $width, $height, $format)) {
+            $this->wpCliWarning("Conversion already in progress for image {$imageId}");
             return false;
         }
 
@@ -82,38 +80,32 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
 
             if ($convertedImage) {
                 // Cache successful conversion
-                $this->conversionCache->cacheSuccessfulConversion($imageId, $width, $height, $format, $convertedImage);
+                $this->cacheSuccessfulConversion($imageId, $width, $height, $format, $convertedImage);
                 
-                if (defined('WP_CLI') && WP_CLI) {
-                    \WP_CLI::success("Successfully converted image {$imageId} to {$format}");
-                }
+                $this->wpCliSuccess("Successfully converted image {$imageId} to {$format}");
                 
                 return $convertedImage;
             } else {
                 // Cache failed conversion
-                $this->conversionCache->cacheFailedConversion($imageId, $width, $height, $format);
+                $this->cacheFailedConversion($imageId, $width, $height, $format);
                 
-                if (defined('WP_CLI') && WP_CLI) {
-                    \WP_CLI::error("Failed to convert image {$imageId} to {$format}");
-                }
+                $this->wpCliError("Failed to convert image {$imageId} to {$format}");
                 
                 return false;
             }
 
         } catch (\Throwable $e) {
             // Cache failed conversion
-            $this->conversionCache->cacheFailedConversion($imageId, $width, $height, $format);
+            $this->cacheFailedConversion($imageId, $width, $height, $format);
             
-            if (defined('WP_CLI') && WP_CLI) {
-                \WP_CLI::error("Exception during conversion of image {$imageId}: " . $e->getMessage());
-            }
+            $this->wpCliError("Exception during conversion of image {$imageId}: " . $e->getMessage());
             
             error_log("WP CLI image conversion error: " . $e->getMessage());
             return false;
 
         } finally {
             // Always unlock conversion
-            $this->conversionCache->unlockConversion($imageId, $width, $height, $format);
+            $this->unlockConversion($imageId, $width, $height, $format);
         }
     }
 
@@ -169,24 +161,7 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         }
 
         // Create new ImageContract for converted image
-        return $image->withNewPath($outputPath);
-    }
-
-    /**
-     * Get MIME type for format
-     * 
-     * @param string $format
-     * @return string
-     */
-    private function getMimeType(string $format): string
-    {
-        return match (strtolower($format)) {
-            'webp' => 'image/webp',
-            'avif' => 'image/avif',
-            'jpeg', 'jpg' => 'image/jpeg',
-            'png' => 'image/png',
-            default => 'image/jpeg'
-        };
+        return $this->createImageWithNewPath($image, $outputPath);
     }
 
     /**
