@@ -52,6 +52,11 @@ class IntermidiateImageHandler implements Hookable
             $this->config->intermidiateImageFormat()['suffix']
         );
 
+        //Fallback if no intermediate location could be determined
+        if (empty($intermediateLocation['path']) || empty($intermediateLocation['url'])) {
+            return $image;
+        }
+
         //Check if the intermediate image already exists, if so return it
         //This is to avoid unnecessary image conversions
         //but will affect perfomance in environments connected
@@ -62,7 +67,7 @@ class IntermidiateImageHandler implements Hookable
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
             return $image;
-        }
+        } 
 
         //Create the intermediate image replacement if not exists
         return $this->convertImage($image);
