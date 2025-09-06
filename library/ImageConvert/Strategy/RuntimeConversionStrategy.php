@@ -30,15 +30,11 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
     public function process(ImageContract $image): ImageContract|false
     {
         $imageId = $image->getId();
-        $width = $image->getWidth();
-        $height = $image->getHeight();
-        
-        // Determine format from config - this is about the intermediate image format, not conversion
-        $format = $this->config->intermidiateImageFormat()['suffix'];
+        $width   = $image->getWidth();
+        $height  = $image->getHeight();
+        $format  = $this->config->intermidiateImageFormat()['suffix'];
 
-        // Try to acquire conversion lock to prevent duplicate processing
         if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
-            // Another process is already resizing this image, return original
             return $image;
         }
 
@@ -99,13 +95,7 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
             $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
         }
     }
-
-    public function canHandle(ImageContract $image): bool
-    {
-        // Runtime strategy can handle any image resize request
-        return true;
-    }
-
+    
     public function getName(): string
     {
         return 'runtime';

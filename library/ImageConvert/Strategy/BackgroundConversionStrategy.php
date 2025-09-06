@@ -5,6 +5,7 @@ namespace Municipio\ImageConvert\Strategy;
 use Municipio\ImageConvert\Contract\ImageContract;
 use Municipio\ImageConvert\ConversionCache;
 use WpService\Contracts\DoAction;
+use Municipio\ImageConvert\Config\ImageConvertConfig;
 
 /**
  * Background Conversion Strategy
@@ -17,6 +18,7 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
 {
     public function __construct(
         private DoAction $wpService,
+        private ImageConvertConfig $config,
         private ConversionCache $conversionCache
     ) {
     }
@@ -24,16 +26,14 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
     public function process(ImageContract $image): ImageContract|false
     {
         $imageId = $image->getId();
-        $width = $image->getWidth();
-        $height = $image->getHeight();
-        
-        // Use the configured intermediate image format for consistency
-        $format = 'webp'; // Should be from config but keeping simple for now
+        $width   = $image->getWidth();
+        $height  = $image->getHeight();
+        $format  = $this->config->intermidiateImageFormat()['suffix'];
 
-        // Check if resizing is already in progress or queued
-        if ($this->conversionCache->isConversionLocked($imageId, $width, $height, $format) ||
-            $this->conversionCache->isQueuedForConversion($imageId, $width, $height, $format)) {
-            // Already being processed or queued, return original image
+        $isAlreadyProcessing            = $this->conversionCache->isConversionLocked($imageId, $width, $height, $format);
+        $isAlreadyQueuedForProcessing   = $this->conversionCache->isQueuedForConversion($imageId, $width, $height, $format);
+
+        if ($isAlreadyProcessing || $isAlreadyQueuedForProcessing) {
             return $image;
         }
 
@@ -62,13 +62,7 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
         // Return original image immediately - resizing will happen in background
         return $image;
     }
-
-    public function canHandle(ImageContract $image): bool
-    {
-        // Background strategy can handle any image resize request
-        return true;
-    }
-
+    
     public function getName(): string
     {
         return 'background';

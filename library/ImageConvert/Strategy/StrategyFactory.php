@@ -20,6 +20,13 @@ use WpService\Contracts\UserCan;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPost;
 
+enum ConversionStrategy: string
+{
+    case RUNTIME = 'runtime';
+    case BACKGROUND = 'background';
+    case MIXED = 'mixed';
+}
+
 /**
  * Strategy Factory
  * 
@@ -28,14 +35,8 @@ use WpService\Contracts\GetPost;
  */
 class StrategyFactory
 {
-    // Strategy constants
-    public const STRATEGY_RUNTIME = 'runtime';
-    public const STRATEGY_BACKGROUND = 'background';
-    public const STRATEGY_WPCLI = 'wpcli';
-    public const STRATEGY_MIXED = 'mixed';
-    
     // Default strategy if not specified
-    private const DEFAULT_STRATEGY = self::STRATEGY_RUNTIME;
+    private const DEFAULT_STRATEGY = ConversionStrategy::RUNTIME;
 
     public function __construct(
         private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&GetPost $wpService,
@@ -52,24 +53,19 @@ class StrategyFactory
      */
     public function createStrategy(): ConversionStrategyInterface
     {
-        $strategyName = $this->getSelectedStrategy();
+        $strategy = $this->getSelectedStrategy();
         
-        return match ($strategyName) {
-            self::STRATEGY_RUNTIME => new RuntimeConversionStrategy(
+        return match ($strategy) {
+            ConversionStrategy::RUNTIME => new RuntimeConversionStrategy(
                 $this->wpService,
                 $this->config,
                 $this->conversionCache
             ),
-            self::STRATEGY_BACKGROUND => new BackgroundConversionStrategy(
+            ConversionStrategy::BACKGROUND => new BackgroundConversionStrategy(
                 $this->wpService,
                 $this->conversionCache
             ),
-            self::STRATEGY_WPCLI => new WpCliConversionStrategy(
-                $this->wpService,
-                $this->config,
-                $this->conversionCache
-            ),
-            self::STRATEGY_MIXED => new MixedConversionStrategy(
+            ConversionStrategy::MIXED => new MixedConversionStrategy(
                 $this->wpService,
                 $this->config,
                 $this->conversionCache,
@@ -80,36 +76,34 @@ class StrategyFactory
                 ),
                 new BackgroundConversionStrategy(
                     $this->wpService,
+                    $this->config,
                     $this->conversionCache
                 )
             ),
-            default => throw new \InvalidArgumentException(
-                "Unsupported conversion strategy: {$strategyName}. " .
-                "Supported strategies: " . implode(', ', $this->getSupportedStrategies())
-            )
         };
     }
 
     /**
-     * Get the selected strategy name from configuration
+     * Get the selected strategy from configuration
      * 
-     * @return string
+     * @return ConversionStrategy
      */
-    public function getSelectedStrategy(): string
+    public function getSelectedStrategy(): ConversionStrategy
     {
         // Check if constant is defined
         if (defined('MUNICIPIO_IMAGE_CONVERT_STRATEGY')) {
             $strategy = constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY');
             
             // Validate the strategy
-            if (in_array($strategy, $this->getSupportedStrategies(), true)) {
-                return $strategy;
+            $enumStrategy = ConversionStrategy::tryFrom($strategy);
+            if ($enumStrategy !== null) {
+                return $enumStrategy;
             }
             
             // Log warning for invalid strategy
             error_log(
                 "Invalid MUNICIPIO_IMAGE_CONVERT_STRATEGY value: {$strategy}. " .
-                "Falling back to default strategy: " . self::DEFAULT_STRATEGY
+                "Falling back to default strategy: " . self::DEFAULT_STRATEGY->value
             );
         }
         
@@ -119,26 +113,21 @@ class StrategyFactory
     /**
      * Get list of supported strategies
      * 
-     * @return array
+     * @return array<ConversionStrategy>
      */
     public function getSupportedStrategies(): array
     {
-        return [
-            self::STRATEGY_RUNTIME,
-            self::STRATEGY_BACKGROUND,
-            self::STRATEGY_WPCLI,
-            self::STRATEGY_MIXED
-        ];
+        return ConversionStrategy::cases();
     }
 
     /**
      * Check if a strategy is supported
      * 
-     * @param string $strategyName
+     * @param ConversionStrategy $strategy
      * @return bool
      */
-    public function isStrategySupported(string $strategyName): bool
+    public function isStrategySupported(ConversionStrategy $strategy): bool
     {
-        return in_array($strategyName, $this->getSupportedStrategies(), true);
+        return in_array($strategy, ConversionStrategy::cases(), true);
     }
 }

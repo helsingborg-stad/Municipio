@@ -21,14 +21,6 @@ interface ConversionStrategyInterface
     public function process(ImageContract $image): ImageContract|false;
 
     /**
-     * Check if the strategy can handle the image resize request
-     *
-     * @param ImageContract $image The image to check
-     * @return bool True if the strategy can handle the request
-     */
-    public function canHandle(ImageContract $image): bool;
-
-    /**
      * Get the strategy name/identifier
      *
      * @return string
