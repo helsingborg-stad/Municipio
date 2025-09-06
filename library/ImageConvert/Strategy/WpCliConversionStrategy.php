@@ -31,27 +31,30 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
     ) {
     }
 
-    public function convert(ImageContract $image, string $format): ImageContract|false
+    public function process(ImageContract $image): ImageContract|false
     {
         $imageId = $image->getId();
         $width = $image->getWidth();
         $height = $image->getHeight();
+        
+        // Use the configured intermediate image format for consistency
+        $format = 'webp'; // Should be from config but keeping simple for now
 
-        // Check if already converted and cached
+        // Check if already resized and cached
         if ($this->hasSuccessfulConversion($imageId, $width, $height, $format)) {
-            // Return original image since conversion was already successful
+            // Return original image since resizing was already successful
             return $image;
         }
 
         // Check if conversion failed recently
         if ($this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
             // For CLI, we might want to retry even recent failures with verbose output
-            $this->wpCliWarning("Retrying recently failed conversion for image {$imageId}");
+            $this->wpCliWarning("Retrying recently failed resize for image {$imageId}");
         }
 
         // Lock conversion to prevent duplicates
         if (!$this->lockConversion($imageId, $width, $height, $format)) {
-            $this->wpCliWarning("Conversion already in progress for image {$imageId}");
+            $this->wpCliWarning("Resize already in progress for image {$imageId}");
             return false;
         }
 
@@ -107,9 +110,9 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         }
     }
 
-    public function canHandle(ImageContract $image, string $format): bool
+    public function canHandle(ImageContract $image): bool
     {
-        // WP CLI strategy can handle any image conversion
+        // WP CLI strategy can handle any image resize request
         // It's particularly good for batch operations
         return true;
     }

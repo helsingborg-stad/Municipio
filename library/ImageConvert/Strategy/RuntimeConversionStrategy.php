@@ -27,23 +27,26 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
     ) {
     }
 
-    public function convert(ImageContract $image, string $format): ImageContract|false
+    public function process(ImageContract $image): ImageContract|false
     {
         $imageId = $image->getId();
         $width = $image->getWidth();
         $height = $image->getHeight();
+        
+        // Determine format from config - this is about the intermediate image format, not conversion
+        $format = $this->config->intermidiateImageFormat()['suffix'];
 
         // Try to acquire conversion lock to prevent duplicate processing
         if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
-            // Another process is already converting this image, return original
+            // Another process is already resizing this image, return original
             return $image;
         }
 
         try {
-            // Check if the image can be converted
+            // Check if the image can be resized
             $canConvert = $this->canConvertImage($image);
             if ($canConvert instanceof \WP_Error) {
-                $this->imageConversionError('Image conversion is not possible: ' . $canConvert->get_error_message(), $image);
+                $this->imageConversionError('Image resizing is not possible: ' . $canConvert->get_error_message(), $image);
                 $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
                 return false;
             }
@@ -70,7 +73,7 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
                 // Resize the image
                 $imageEditor->resize($targetWidth, $targetHeight, true);
 
-                // Attempt to save the image in the target format and size
+                // Attempt to save the resized image
                 $savedImage = $imageEditor->save($intermediateLocation['path']);
 
                 if (!$this->wpService->isWpError($savedImage)) {
@@ -82,7 +85,7 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
                     
                     return $image;
                 } else {
-                    $this->imageConversionError('Error saving image: ' . $savedImage->get_error_message(), $image);
+                    $this->imageConversionError('Error saving resized image: ' . $savedImage->get_error_message(), $image);
                     $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
                 }
             } else {
@@ -92,14 +95,14 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
 
             return false;
         } finally {
-            // Always release the lock, even if conversion failed
+            // Always release the lock, even if resizing failed
             $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
         }
     }
 
-    public function canHandle(ImageContract $image, string $format): bool
+    public function canHandle(ImageContract $image): bool
     {
-        // Runtime strategy can handle any image conversion
+        // Runtime strategy can handle any image resize request
         return true;
     }
 

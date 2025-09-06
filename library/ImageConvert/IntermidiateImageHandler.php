@@ -120,7 +120,7 @@ class IntermidiateImageHandler implements Hookable
         $this->pageLoadCache->markProcessedInCurrentRequest($imageId, $width, $height, $format);
 
         // Use the selected conversion strategy
-        return $this->conversionStrategy->convert($image, $format);
+        return $this->conversionStrategy->process($image);
     }
 
     /**

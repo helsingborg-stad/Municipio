@@ -5,27 +5,28 @@ namespace Municipio\ImageConvert\Strategy;
 use Municipio\ImageConvert\Contract\ImageContract;
 
 /**
- * Interface for image conversion strategies
+ * Interface for image resizing strategies
+ * 
+ * Defines how and when images should be resized to requested dimensions.
+ * Strategies determine the processing approach: immediate, background, mixed, or CLI.
  */
 interface ConversionStrategyInterface
 {
     /**
-     * Convert an image using the specific strategy
+     * Process an image resize request using the specific strategy
      *
-     * @param ImageContract $image The image to convert
-     * @param string $format The target format (e.g., 'webp')
-     * @return ImageContract|false The converted image contract or false on failure
+     * @param ImageContract $image The image to resize
+     * @return ImageContract|false The resized image contract or false if strategy queues for later
      */
-    public function convert(ImageContract $image, string $format): ImageContract|false;
+    public function process(ImageContract $image): ImageContract|false;
 
     /**
-     * Check if the strategy can handle the conversion
+     * Check if the strategy can handle the image resize request
      *
      * @param ImageContract $image The image to check
-     * @param string $format The target format
-     * @return bool True if the strategy can handle the conversion
+     * @return bool True if the strategy can handle the request
      */
-    public function canHandle(ImageContract $image, string $format): bool;
+    public function canHandle(ImageContract $image): bool;
 
     /**
      * Get the strategy name/identifier

@@ -1,52 +1,78 @@
-# Image Conversion Strategy Setup Guide
+# Image Resize Strategy Setup
 
-This guide provides comprehensive setup instructions for Municipio's image conversion strategies. The system supports four different strategies, each optimized for specific use cases and performance requirements.
+Municipio's ImageConvert system creates images on-demand by pixel size rather than using pre-generated named sizes. This documentation covers the four processing strategies available.
 
-## Overview
+## Core Functionality
 
-The ImageConvert system uses a **strategy pattern** to provide flexible image conversion approaches. Each strategy handles image processing differently, allowing you to optimize for your specific needs:
-
-- **Runtime Strategy**: Immediate processing during page requests
-- **Background Strategy**: Asynchronous processing via WordPress cron (every 5 minutes)
-- **Mixed Strategy**: Intelligent hybrid of runtime and background processing
-- **WP CLI Strategy**: Batch processing via command line interface
-
-## Why Multiple Strategies?
-
-Different strategies address different performance and operational requirements:
-
-| Strategy | Use Case | Performance Impact | Best For |
-|----------|----------|-------------------|-----------|
-| Runtime | Small sites, immediate results needed | Direct page load impact | Development, small traffic sites |
-| Background | Production sites, user experience priority | Minimal page load impact | High traffic sites, production |
-| Mixed | Editor-focused immediate results + background fallback | Smart page load impact | Editorial workflows, content teams |
-| WP CLI | Maintenance, bulk operations | No page load impact | Migrations, batch processing |
-
----
+Use `wp_get_attachment_img_src($id, [100,100])` to create a 100x100 pixel version of any image. The system handles resizing automatically based on the selected strategy.
 
 ## Strategy Configuration
 
-### Strategy Selection
-
-Configure your preferred strategy by defining a constant in your `wp-config.php` or theme's `functions.php`:
+Set your strategy in `wp-config.php`:
 
 ```php
-// Runtime Strategy (Default)
+// Runtime (default) - immediate processing during page load
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'runtime');
 
-// Background Strategy  
+// Background - queue for cron processing  
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'background');
 
-// Mixed Strategy
+// Mixed - runtime for editors, background for visitors
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
 
-// WP CLI Strategy
+// CLI - for batch operations
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'wpcli');
 ```
 
----
+## Strategies
 
-## Runtime Strategy
+### Runtime (Default)
+- **When**: Image resized during page load
+- **Best for**: Low traffic sites, development environments
+- **Performance**: Direct impact on page load time
+
+### Background  
+- **When**: Images queued for cron processing (every 5 minutes)
+- **Best for**: High traffic production sites
+- **Performance**: No page load impact, delayed image availability
+
+### Mixed
+- **When**: Runtime for editors who modified content within last hour, background for others
+- **Best for**: Editorial workflows where editors need immediate feedback
+- **Performance**: Smart balancing of editor experience vs visitor performance
+
+### CLI
+- **When**: Manual batch processing via WP CLI commands
+- **Best for**: Migrations, bulk operations, maintenance
+- **Performance**: No page load impact, controlled processing
+
+## Performance Features
+
+### Failure Suspension
+Failed image conversions are suspended for 24 hours to prevent repeated processing failures.
+
+### Caching Requirements
+The system uses WordPress object cache. Redis or Memcached is strongly recommended for production environments.
+
+### Configuration Filters
+
+```php
+// Adjust batch size for background processing
+add_filter('Municipio/ImageConvert/Config/BatchSize', function($size) {
+    return 10; // Process 10 images per 5-minute interval
+});
+
+// Modify failure suspension time  
+add_filter('Municipio/ImageConvert/Config/FailedCacheExpiry', function($expiry) {
+    return 86400; // 24 hours (default)
+});
+```
+
+## Requirements
+
+- WordPress object caching (Redis/Memcached recommended)
+- Sufficient memory and processing time for image operations
+- WordPress cron enabled (for background/mixed strategies)
 
 ### Purpose
 Processes images immediately during page requests, providing instant results but potentially impacting page load times.
