@@ -15,7 +15,6 @@ use WpService\Contracts\GetCurrentUserId;
 use WpService\Contracts\GetPost;
 use WpService\Contracts\UserCan;
 use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\getPost;
 
 /**
  * Mixed Conversion Strategy
