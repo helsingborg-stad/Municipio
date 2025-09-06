@@ -12,9 +12,10 @@ use WpService\Contracts\WpAttachmentIs;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetCurrentUserId;
+use WpService\Contracts\GetPost;
 use WpService\Contracts\UserCan;
 use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\WpGetPost;
+use WpService\Contracts\getPost;
 
 /**
  * Mixed Conversion Strategy
@@ -26,7 +27,7 @@ use WpService\Contracts\WpGetPost;
 class MixedConversionStrategy implements ConversionStrategyInterface
 {
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&WpGetPost $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&GetPost $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache,
         private RuntimeConversionStrategy $runtimeStrategy,
@@ -79,7 +80,7 @@ class MixedConversionStrategy implements ConversionStrategyInterface
         }
 
         // Get the attachment post to check recent modifications
-        $attachment = $this->wpService->wpGetPost($image->getId());
+        $attachment = $this->wpService->getPost($image->getId());
         if (!$attachment) {
             return false;
         }
@@ -106,7 +107,7 @@ class MixedConversionStrategy implements ConversionStrategyInterface
      */
     private function hasUserModifiedImageRecently(int $imageId, int $userId): bool
     {
-        $attachment = $this->wpService->wpGetPost($imageId);
+        $attachment = $this->wpService->getPost($imageId);
         if (!$attachment) {
             return false;
         }
@@ -132,7 +133,7 @@ class MixedConversionStrategy implements ConversionStrategyInterface
      */
     private function hasUserModifiedPostRecently(int $postId, int $userId): bool
     {
-        $post = $this->wpService->wpGetPost($postId);
+        $post = $this->wpService->getPost($postId);
         if (!$post) {
             return false;
         }

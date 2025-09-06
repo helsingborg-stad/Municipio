@@ -18,7 +18,7 @@ use WpService\Contracts\DoAction;
 use WpService\Contracts\GetCurrentUserId;
 use WpService\Contracts\UserCan;
 use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\WpGetPost;
+use WpService\Contracts\GetPost;
 
 /**
  * Strategy Factory
@@ -38,7 +38,7 @@ class StrategyFactory
     private const DEFAULT_STRATEGY = self::STRATEGY_RUNTIME;
 
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&WpGetPost $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&GetPost $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache
     ) {
