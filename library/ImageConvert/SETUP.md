@@ -1,13 +1,14 @@
 # Image Conversion Strategy Setup Guide
 
-This guide provides comprehensive setup instructions for Municipio's image conversion strategies. The system supports three different strategies, each optimized for specific use cases and performance requirements.
+This guide provides comprehensive setup instructions for Municipio's image conversion strategies. The system supports four different strategies, each optimized for specific use cases and performance requirements.
 
 ## Overview
 
 The ImageConvert system uses a **strategy pattern** to provide flexible image conversion approaches. Each strategy handles image processing differently, allowing you to optimize for your specific needs:
 
 - **Runtime Strategy**: Immediate processing during page requests
-- **Background Strategy**: Asynchronous processing via WordPress cron
+- **Background Strategy**: Asynchronous processing via WordPress cron (every 5 minutes)
+- **Mixed Strategy**: Intelligent hybrid of runtime and background processing
 - **WP CLI Strategy**: Batch processing via command line interface
 
 ## Why Multiple Strategies?
@@ -18,6 +19,7 @@ Different strategies address different performance and operational requirements:
 |----------|----------|-------------------|-----------|
 | Runtime | Small sites, immediate results needed | Direct page load impact | Development, small traffic sites |
 | Background | Production sites, user experience priority | Minimal page load impact | High traffic sites, production |
+| Mixed | Editor-focused immediate results + background fallback | Smart page load impact | Editorial workflows, content teams |
 | WP CLI | Maintenance, bulk operations | No page load impact | Migrations, batch processing |
 
 ---
@@ -34,6 +36,9 @@ define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'runtime');
 
 // Background Strategy  
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'background');
+
+// Mixed Strategy
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
 
 // WP CLI Strategy
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'wpcli');
@@ -126,15 +131,21 @@ define('DISABLE_WP_CRON', true);
 ```
 
 ### Queue Processing
-The background processor runs hourly and processes conversions via the action namespace:
+The background processor runs every 5 minutes and processes conversions via the action namespace:
 - `Municipio/ImageConvert/Convert` - Triggers conversion requests
 - `Municipio/ImageConvert/ProcessQueue` - Processes queued conversions
+
+**Improved Cron Scheduling:**
+- Processes queue every 5 minutes instead of hourly for faster results
+- Single conversion events scheduled 30 seconds in the future for immediate needs
+- Parallel execution protection prevents multiple cron jobs from running simultaneously
+- Automatic cleanup of expired or redundant scheduled events
 
 ### Example Usage
 ```php
 // Images are queued for conversion, original returned immediately
 $image = wp_get_attachment_image($id, [800, 600]);
-// User sees original image, conversion happens in background
+// User sees original image, conversion happens in background within 5 minutes
 ```
 
 ### Monitoring
@@ -148,6 +159,86 @@ add_action('Municipio/ImageConvert/Convert', function($data) {
 add_action('Municipio/ImageConvert/ProcessQueue', function() {
     error_log("Background processing started");
 });
+```
+
+---
+
+## Mixed Strategy
+
+### Purpose
+Intelligently combines runtime and background processing based on editor context. Provides immediate results for editors working on content while maintaining background processing for regular users.
+
+### When to Use
+- Editorial teams and content creation workflows
+- Sites where editors need immediate feedback
+- CMS environments with active content management
+- Balancing user experience with editor productivity
+
+### Configuration
+```php
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
+
+// Optional: Configure editor detection timeframe
+add_filter('Municipio/ImageConvert/Config/EditorRecentActivityWindow', function($seconds) {
+    return 7200; // 2 hours instead of default 1 hour
+});
+```
+
+### How It Works
+
+**Immediate Processing (Runtime) When:**
+- Current user has `edit_posts` capability
+- Current user modified the image within the last hour
+- Current user modified the parent post within the last hour
+
+**Background Processing When:**
+- User is not logged in
+- User doesn't have editor capabilities
+- No recent activity by current user on the content
+
+### Performance Characteristics
+- **Pros**: Best of both worlds - editor efficiency + user experience
+- **Cons**: More complex logic, requires user context
+- **Page Load Impact**: Variable (immediate for editors, zero for users)
+- **Resource Usage**: Optimized based on user role and activity
+
+### Editorial Workflow Benefits
+```php
+// Editor uploads image and sees immediate conversion
+// 1. Editor uploads new image to post
+// 2. Views post preview immediately 
+// 3. Image converts in real-time during preview
+// 4. Editor sees final result without waiting
+
+// Regular visitor experiences no delay
+// 1. Visitor views same post
+// 2. Original image served immediately
+// 3. Conversion happens in background
+// 4. Converted image available on next visit
+```
+
+### Example Usage
+```php
+// Behavior varies based on user context
+$image = wp_get_attachment_image($id, [800, 600]);
+
+// If current user is editor who recently modified content:
+//   -> Processes immediately (runtime behavior)
+// If regular user or no recent editor activity:
+//   -> Queues for background processing
+```
+
+### Monitoring
+```php
+// Monitor strategy decisions
+add_action('Municipio/ImageConvert/StrategySelected', function($strategy, $imageId, $userId) {
+    error_log("Mixed strategy selected {$strategy} for image {$imageId} by user {$userId}");
+}, 10, 3);
+
+// Monitor editor activity detection
+add_action('Municipio/ImageConvert/EditorActivityDetected', function($userId, $imageId) {
+    error_log("Editor activity detected: User {$userId} for image {$imageId}");
+}, 10, 2);
 ```
 
 ---
@@ -295,9 +386,15 @@ add_action('Municipio/ImageConvert/Error', function($error, $imageId, $format) {
 - **Timeout errors**: Reduce batch sizes or switch strategies
 
 **Background Strategy**
-- **Images not converting**: Check WordPress cron setup
-- **Queue backing up**: Increase cron frequency or batch size
+- **Images not converting**: Check WordPress cron setup and ensure 5-minute intervals are working
+- **Queue backing up**: Increase batch size or check for parallel execution issues
 - **Conversions not running**: Verify action hooks are properly registered
+- **Multiple cron jobs**: Check logs for parallel execution warnings - system prevents this automatically
+
+**Mixed Strategy**
+- **Editor not getting immediate processing**: Check user capabilities and recent activity detection
+- **Background processing not working**: Verify background strategy components are functioning
+- **Inconsistent behavior**: Monitor strategy selection logs to understand decision logic
 
 **WP CLI Strategy**
 - **Command not found**: Ensure WP CLI is properly installed
@@ -333,6 +430,22 @@ define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'background');
 
 // Optionally clear failed conversion cache to retry with new strategy
 wp_cache_flush();
+```
+
+### From Background to Mixed
+```php
+// Update strategy for editorial workflow optimization
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
+
+// Test editor detection by logging in as editor and modifying content
+```
+
+### From Runtime to Mixed
+```php
+// Transition to intelligent processing
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
+
+// Editors continue to get immediate results, regular users get background processing
 ```
 
 ### From Background to WP CLI

@@ -5,6 +5,8 @@ namespace Municipio\ImageConvert;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * BackgroundConversionProcessor
@@ -15,7 +17,7 @@ use WpService\Contracts\DoAction;
 class BackgroundConversionProcessor implements Hookable
 {
     public function __construct(
-        private AddAction&DoAction $wpService,
+        private AddAction&DoAction&AddFilter&ApplyFilters $wpService,
         private ConversionCache $conversionCache,
         private IntermidiateImageHandler $imageHandler
     ) {
@@ -29,10 +31,13 @@ class BackgroundConversionProcessor implements Hookable
         // Hook into the conversion action namespace as specified
         $this->wpService->addAction('Municipio/ImageConvert/Convert', [$this, 'handleConversionRequest']);
         
-        // Schedule processing if not already scheduled
+        // Schedule processing if not already scheduled - run every 5 minutes for faster processing
         if (!wp_next_scheduled('Municipio/ImageConvert/ProcessQueue')) {
-            wp_schedule_event(time(), 'hourly', 'Municipio/ImageConvert/ProcessQueue');
+            wp_schedule_event(time(), 'five_minutes', 'Municipio/ImageConvert/ProcessQueue');
         }
+        
+        // Add custom cron interval for 5 minutes
+        $this->wpService->addFilter('cron_schedules', [$this, 'addCustomCronInterval']);
     }
 
     /**
@@ -52,14 +57,58 @@ class BackgroundConversionProcessor implements Hookable
     }
 
     /**
-     * Process queued image conversions in background
+     * Add custom cron interval for 5 minutes
+     * 
+     * @param array $schedules
+     * @return array
+     */
+    public function addCustomCronInterval(array $schedules): array
+    {
+        if (!isset($schedules['five_minutes'])) {
+            $schedules['five_minutes'] = [
+                'interval' => 300, // 5 minutes in seconds
+                'display'  => __('Every 5 Minutes', 'municipio')
+            ];
+        }
+        return $schedules;
+    }
+
+    /**
+     * Process queued image conversions in background with parallel execution protection
      */
     public function processQueuedConversions(): void
     {
-        $queuedConversions = $this->conversionCache->getQueuedConversions(5); // Process 5 at a time
+        // Prevent parallel execution of queue processing
+        $lockKey = 'municipio_queue_processing_lock';
+        $lockExpiry = 300; // 5 minutes
         
-        foreach ($queuedConversions as $conversion) {
-            $this->processQueuedConversion($conversion);
+        // Try to acquire a lock
+        if (!wp_cache_add($lockKey, time(), 'municipio_image_convert', $lockExpiry)) {
+            // Lock exists, check if it's expired
+            $lockTime = wp_cache_get($lockKey, 'municipio_image_convert');
+            if ($lockTime && (time() - $lockTime) < $lockExpiry) {
+                // Lock is still valid, another process is running
+                error_log("Queue processing already in progress, skipping this run");
+                return;
+            }
+            // Lock expired, force update
+            wp_cache_set($lockKey, time(), 'municipio_image_convert', $lockExpiry);
+        }
+        
+        try {
+            $batchSize = (int) $this->wpService->applyFilters(
+                'Municipio/ImageConvert/Config/BatchSize',
+                5
+            );
+            
+            $queuedConversions = $this->conversionCache->getQueuedConversions($batchSize);
+            
+            foreach ($queuedConversions as $conversion) {
+                $this->processQueuedConversion($conversion);
+            }
+        } finally {
+            // Always release the lock
+            wp_cache_delete($lockKey, 'municipio_image_convert');
         }
     }
 

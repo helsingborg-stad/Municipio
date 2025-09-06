@@ -72,13 +72,23 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
     }
 
     /**
-     * Schedule background processing via WordPress cron
+     * Schedule background processing via WordPress cron with improved frequency
      */
     private function scheduleBackgroundProcessing(): void
     {
-        // Only schedule if not already scheduled
-        if (!wp_next_scheduled('Municipio/ImageConvert/ProcessQueue')) {
-            wp_schedule_single_event(time() + 60, 'Municipio/ImageConvert/ProcessQueue');
+        // Check if a single event is already scheduled soon
+        $nextScheduled = wp_next_scheduled('Municipio/ImageConvert/ProcessQueue');
+        $timeNow = time();
+        
+        // Only schedule if not already scheduled or if the next scheduled time is more than 5 minutes away
+        if (!$nextScheduled || ($nextScheduled - $timeNow) > 300) {
+            // Clear any existing single event that's too far in the future
+            if ($nextScheduled && ($nextScheduled - $timeNow) > 300) {
+                wp_unschedule_event($nextScheduled, 'Municipio/ImageConvert/ProcessQueue');
+            }
+            
+            // Schedule for processing in the next 30 seconds for faster response
+            wp_schedule_single_event($timeNow + 30, 'Municipio/ImageConvert/ProcessQueue');
         }
     }
 }

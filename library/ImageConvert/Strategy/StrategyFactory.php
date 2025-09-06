@@ -6,6 +6,7 @@ use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use Municipio\ImageConvert\Strategy\RuntimeConversionStrategy;
 use Municipio\ImageConvert\Strategy\BackgroundConversionStrategy;
 use Municipio\ImageConvert\Strategy\WpCliConversionStrategy;
+use Municipio\ImageConvert\Strategy\MixedConversionStrategy;
 use Municipio\ImageConvert\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\WpGetImageEditor;
@@ -14,6 +15,10 @@ use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpAttachmentIs;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\DoAction;
+use WpService\Contracts\GetCurrentUserId;
+use WpService\Contracts\UserCan;
+use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\WpGetPost;
 
 /**
  * Strategy Factory
@@ -27,12 +32,13 @@ class StrategyFactory
     public const STRATEGY_RUNTIME = 'runtime';
     public const STRATEGY_BACKGROUND = 'background';
     public const STRATEGY_WPCLI = 'wpcli';
+    public const STRATEGY_MIXED = 'mixed';
     
     // Default strategy if not specified
     private const DEFAULT_STRATEGY = self::STRATEGY_RUNTIME;
 
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&WpGetPost $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache
     ) {
@@ -62,6 +68,20 @@ class StrategyFactory
                 $this->wpService,
                 $this->config,
                 $this->conversionCache
+            ),
+            self::STRATEGY_MIXED => new MixedConversionStrategy(
+                $this->wpService,
+                $this->config,
+                $this->conversionCache,
+                new RuntimeConversionStrategy(
+                    $this->wpService,
+                    $this->config,
+                    $this->conversionCache
+                ),
+                new BackgroundConversionStrategy(
+                    $this->wpService,
+                    $this->conversionCache
+                )
             ),
             default => throw new \InvalidArgumentException(
                 "Unsupported conversion strategy: {$strategyName}. " .
@@ -106,7 +126,8 @@ class StrategyFactory
         return [
             self::STRATEGY_RUNTIME,
             self::STRATEGY_BACKGROUND,
-            self::STRATEGY_WPCLI
+            self::STRATEGY_WPCLI,
+            self::STRATEGY_MIXED
         ];
     }
 
