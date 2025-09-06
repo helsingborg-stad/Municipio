@@ -3,6 +3,7 @@
 namespace Municipio\ImageConvert;
 
 use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\ConversionCache;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\IsAdmin;
@@ -13,12 +14,18 @@ use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\WpUploadDir;
 use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpAttachmentIs;
+use WpService\Contracts\WpCacheGet;
+use WpService\Contracts\WpCacheSet;
+use WpService\Contracts\WpCacheDelete;
 use WP_Error;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs $wpService, private ImageConvertConfig $config)
+    private ConversionCache $conversionCache;
+
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete $wpService, private ImageConvertConfig $config)
     {
+        $this->conversionCache = new ConversionCache($wpService);
     }
 
     public function addHooks(): void
@@ -33,6 +40,10 @@ class IntermidiateImageHandler implements Hookable
             $this->config->internalFilterPriority()->intermidiateImageConvert,
             1
         );
+
+        // Clear conversion cache when attachments are deleted or updated
+        $this->wpService->addFilter('delete_attachment', [$this, 'clearAttachmentCache'], 10, 1);
+        $this->wpService->addFilter('wp_update_attachment_metadata', [$this, 'clearAttachmentCacheOnUpdate'], 10, 2);
     }
 
     /**
@@ -47,10 +58,18 @@ class IntermidiateImageHandler implements Hookable
             return $image; // Fallback to original if not an instance of ImageContract
         }
 
+        $format = $this->config->intermidiateImageFormat()['suffix'];
+        $imageId = $image->getId();
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+
+        // Check if this conversion recently failed - skip to avoid repeated failures
+        if ($this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
+            return $image; // Return original image to avoid blocking page load
+        }
+
         //Deliver the image if it already exists
-        $intermediateLocation = $image->getIntermidiateLocation(
-            $this->config->intermidiateImageFormat()['suffix']
-        );
+        $intermediateLocation = $image->getIntermidiateLocation($format);
 
         //Fallback if no intermediate location could be determined
         if (empty($intermediateLocation['path']) || empty($intermediateLocation['url'])) {
@@ -66,8 +85,22 @@ class IntermidiateImageHandler implements Hookable
         if (File::fileExists($intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
+            
+            // Mark as successful for future reference
+            $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+            
             return $image;
-        } 
+        }
+
+        // Check if conversion is already in progress by another request
+        if ($this->conversionCache->isConversionLocked($imageId, $width, $height, $format)) {
+            // Queue for background processing and return original
+            $this->conversionCache->queueForBackgroundConversion($imageId, $width, $height, $format, [
+                'url' => $image->getUrl(),
+                'path' => $image->getPath()
+            ]);
+            return $image;
+        }
 
         //Create the intermediate image replacement if not exists
         return $this->convertImage($image);
@@ -81,54 +114,80 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|false
     {
-        //Check if the image can be converted
-        $canConvert = $this->canConvertImage($image, $this->config);
-        if ($canConvert instanceof \WP_Error) {
-            $this->imageConversionError('Image conversion is not possible: ' . $canConvert->get_error_message(), $image);
-            return false;
+        $format = $this->config->intermidiateImageFormat()['suffix'];
+        $imageId = $image->getId();
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+
+        // Try to acquire conversion lock to prevent duplicate processing
+        if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
+            // Another process is already converting this image
+            // Queue for background processing and return original
+            $this->conversionCache->queueForBackgroundConversion($imageId, $width, $height, $format, [
+                'url' => $image->getUrl(),
+                'path' => $image->getPath()
+            ]);
+            return $image; // Return original image to avoid blocking
         }
 
-        //Set in image processing limits
-        $this->increaseAllowedProcessingTime();
-        $this->increaseAllowedMemoryLimit();
-
-        //Switch to the preferred image editor based on file type
-        $this->setPreferedImageEditorByFiletype($image);
-
-        $intermediateLocation = $image->getIntermidiateLocation(
-            $this->config->intermidiateImageFormat()['suffix']
-        );
-
-        $imageEditor = $this->wpService->wpGetImageEditor(
-            $image->getPath()
-        );
-
-        if (!$this->wpService->isWpError($imageEditor)) {
-            // Get the original image dimensions
-            $originalSize = $imageEditor->get_size();
-
-            // Determine target dimensions using min() to avoid upscaling
-            $targetWidth  = min($image->getWidth(), $originalSize['width']);
-            $targetHeight = min($image->getHeight(), $originalSize['height']);
-
-            // Resize the image
-            $imageEditor->resize($targetWidth, $targetHeight, true);
-
-            // Attempt to save the image in the target format and size
-            $savedImage = $imageEditor->save($intermediateLocation['path']);
-
-            if (!$this->wpService->isWpError($savedImage)) {
-                $image->setUrl($intermediateLocation['url']);
-                $image->setPath($intermediateLocation['path']);
-                return $image;
-            } else {
-                $this->imageConversionError('Error saving image: ' . $savedImage->get_error_message(), $image);
+        try {
+            //Check if the image can be converted
+            $canConvert = $this->canConvertImage($image, $this->config);
+            if ($canConvert instanceof \WP_Error) {
+                $this->imageConversionError('Image conversion is not possible: ' . $canConvert->get_error_message(), $image);
+                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                return false;
             }
-        } else {
-            $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
-        }
 
-        return false;
+            //Set in image processing limits
+            $this->increaseAllowedProcessingTime();
+            $this->increaseAllowedMemoryLimit();
+
+            //Switch to the preferred image editor based on file type
+            $this->setPreferedImageEditorByFiletype($image);
+
+            $intermediateLocation = $image->getIntermidiateLocation($format);
+
+            $imageEditor = $this->wpService->wpGetImageEditor(
+                $image->getPath()
+            );
+
+            if (!$this->wpService->isWpError($imageEditor)) {
+                // Get the original image dimensions
+                $originalSize = $imageEditor->get_size();
+
+                // Determine target dimensions using min() to avoid upscaling
+                $targetWidth  = min($image->getWidth(), $originalSize['width']);
+                $targetHeight = min($image->getHeight(), $originalSize['height']);
+
+                // Resize the image
+                $imageEditor->resize($targetWidth, $targetHeight, true);
+
+                // Attempt to save the image in the target format and size
+                $savedImage = $imageEditor->save($intermediateLocation['path']);
+
+                if (!$this->wpService->isWpError($savedImage)) {
+                    $image->setUrl($intermediateLocation['url']);
+                    $image->setPath($intermediateLocation['path']);
+                    
+                    // Mark conversion as successful
+                    $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+                    
+                    return $image;
+                } else {
+                    $this->imageConversionError('Error saving image: ' . $savedImage->get_error_message(), $image);
+                    $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                }
+            } else {
+                $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
+                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+            }
+
+            return false;
+        } finally {
+            // Always release the lock, even if conversion failed
+            $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
+        }
     }
 
     /**
@@ -260,5 +319,28 @@ class IntermidiateImageHandler implements Hookable
             '. Page: ' . $page .
             '. Message: ' . $message
         );
+    }
+
+    /**
+     * Clear conversion cache when an attachment is deleted
+     *
+     * @param int $attachmentId
+     */
+    public function clearAttachmentCache(int $attachmentId): void
+    {
+        $this->conversionCache->clearImageCache($attachmentId);
+    }
+
+    /**
+     * Clear conversion cache when attachment metadata is updated
+     *
+     * @param array $data
+     * @param int $attachmentId
+     * @return array
+     */
+    public function clearAttachmentCacheOnUpdate(array $data, int $attachmentId): array
+    {
+        $this->conversionCache->clearImageCache($attachmentId);
+        return $data;
     }
 }
