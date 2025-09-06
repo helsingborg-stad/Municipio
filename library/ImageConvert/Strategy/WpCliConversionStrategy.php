@@ -39,10 +39,8 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
 
         // Check if already converted and cached
         if ($this->hasSuccessfulConversion($imageId, $width, $height, $format)) {
-            $cachedImage = $this->getCachedConversion($imageId, $width, $height, $format);
-            if ($cachedImage) {
-                return $cachedImage;
-            }
+            // Return original image since conversion was already successful
+            return $image;
         }
 
         // Check if conversion failed recently
@@ -164,19 +162,5 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         return $this->createImageWithNewPath($image, $outputPath);
     }
 
-    /**
-     * Provide batch conversion statistics for CLI reporting
-     * 
-     * @return array
-     */
-    public function getBatchStats(): array
-    {
-        return [
-            'strategy' => $this->getName(),
-            'processed' => 0, // Would be tracked during batch operations
-            'successful' => 0,
-            'failed' => 0,
-            'skipped' => 0
-        ];
-    }
+
 }

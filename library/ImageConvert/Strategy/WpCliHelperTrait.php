@@ -20,15 +20,7 @@ trait WpCliHelperTrait
         return defined('WP_CLI') && WP_CLI;
     }
 
-    /**
-     * Get WP CLI instance if available
-     * 
-     * @return \WP_CLI|null
-     */
-    protected function getWpCli(): ?\WP_CLI
-    {
-        return $this->isWpCli() ? \WP_CLI::class : null;
-    }
+
 
     /**
      * Output a warning message via WP CLI if available

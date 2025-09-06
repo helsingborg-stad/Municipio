@@ -143,14 +143,27 @@ class BackgroundConversionProcessor implements Hookable
                 // Mark as processing
                 $this->conversionCache->setConversionStatus($imageId, $width, $height, $format, ConversionCache::STATUS_PROCESSING);
                 
-                // Create ImageContract for processing
-                // Note: In real implementation, you would need to reconstruct the ImageContract
-                // from the queued data or fetch it from the database
+                // Create ImageContract for processing from attachment ID
+                $attachment = get_post($imageId);
+                if (!$attachment) {
+                    throw new \Exception("Attachment not found for ID: $imageId");
+                }
                 
-                error_log("Background processing image conversion for ID: $imageId, ${width}x${height}, format: $format");
+                // Get the attachment file path
+                $attachmentPath = get_attached_file($imageId);
+                if (!$attachmentPath || !file_exists($attachmentPath)) {
+                    throw new \Exception("Attachment file not found for ID: $imageId");
+                }
                 
-                // Simulate successful processing - in real implementation, call the actual conversion
-                $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+                // Use the existing image handler to perform the conversion
+                $result = $this->imageHandler->convert($attachmentPath, $width, $height, $format);
+                
+                if ($result) {
+                    $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+                    error_log("Successfully processed background conversion for Image ID: $imageId");
+                } else {
+                    throw new \Exception("Image conversion failed");
+                }
                 
                 // Remove from queue after successful processing
                 $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);

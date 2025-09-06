@@ -27,24 +27,7 @@ trait BaseConversionTrait
         return $status === $this->conversionCache::STATUS_SUCCESS;
     }
 
-    /**
-     * Get cached conversion result if available
-     * 
-     * @param int $imageId
-     * @param int $width
-     * @param int $height
-     * @param string $format
-     * @return ImageContract|null
-     */
-    protected function getCachedConversion(int $imageId, int $width, int $height, string $format): ?ImageContract
-    {
-        if ($this->hasSuccessfulConversion($imageId, $width, $height, $format)) {
-            // For now, we don't cache the actual ImageContract objects, just the status
-            // This could be enhanced in the future to cache the full converted image data
-            return null;
-        }
-        return null;
-    }
+
 
     /**
      * Acquire a conversion lock to prevent duplicate processing
