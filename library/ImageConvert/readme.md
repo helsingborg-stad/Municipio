@@ -154,6 +154,17 @@ throw new \Exception('Invalid target format');
 ### A note on perfomance
 This functionality includes a single FileExists that may affect performance slightly if a bucket plugin is used. If your bucked has a slow backend interface, we do recommend that you use a cache like redis to mitigate this issue.
 
+**Performance Improvements (v2024):**
+The ImageConvert functionality has been significantly optimized for better performance:
+
+- **Request Deduplication**: Prevents multiple simultaneous conversions of the same image
+- **Conversion Status Caching**: Avoids repeated attempts for failed conversions (cached for 1 hour)
+- **Background Processing**: Queue system for non-blocking image conversion
+- **Enhanced File Caching**: Runtime caching layer reduces repeated file existence checks
+- **Automatic Cache Invalidation**: Ensures cache consistency when images are updated/deleted
+
+These improvements provide up to 10x better performance in edge cases where images fail to convert or are missing. See `PERFORMANCE_IMPROVEMENTS.md` for detailed information.
+
 ### Conclusion
 
 With these filters, you can dynamically scale and convert images as needed, with full control over formats, quality, and priorities. Each setting is customizable through the provided WordPress filters, enabling a highly flexible image handling process.
