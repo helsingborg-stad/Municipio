@@ -26,7 +26,8 @@ class StrategyFactoryTest extends TestCase
             'isWpError' => false,
             'wpGetImageEditor' => $this->createMockImageEditor(),
             'wpGetAttachmentMetadata' => 1024000,
-            'wpAttachmentIs' => true
+            'wpAttachmentIs' => true,
+            'applyFilters' => function($hook, $value) { return $value; }
         ]);
         
         $this->config = new ImageConvertConfig($this->wpService);

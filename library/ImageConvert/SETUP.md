@@ -96,11 +96,11 @@ Queues image conversions for background processing via WordPress cron, eliminati
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'background');
 
 // Optional: Configure cache expiration times
-add_filter('municipio_image_convert_failed_cache_expiry', function($seconds) {
+add_filter('Municipio/ImageConvert/Config/FailedCacheExpiry', function($seconds) {
     return 7200; // 2 hours instead of default 1 hour
 });
 
-add_filter('municipio_image_convert_success_cache_expiry', function($seconds) {
+add_filter('Municipio/ImageConvert/Config/SuccessCacheExpiry', function($seconds) {
     return 86400 * 7; // 1 week instead of default 24 hours
 });
 ```
@@ -250,23 +250,23 @@ add_action('Municipio/ImageConvert/Convert', function($data) {
 ### Cache Configuration
 ```php
 // Adjust cache expiration times
-add_filter('municipio_image_convert_failed_cache_expiry', function($seconds) {
+add_filter('Municipio/ImageConvert/Config/FailedCacheExpiry', function($seconds) {
     return 3600; // 1 hour for failed conversions
 });
 
-add_filter('municipio_image_convert_success_cache_expiry', function($seconds) {
+add_filter('Municipio/ImageConvert/Config/SuccessCacheExpiry', function($seconds) {
     return 86400; // 24 hours for successful conversions
 });
 
-add_filter('municipio_image_convert_lock_expiry', function($seconds) {
-    return 300; // 5 minutes for processing locks
+add_filter('Municipio/ImageConvert/Config/LockExpiry', function($seconds) {
+    return 300; // 5 minutes for conversion locks
 });
 ```
 
 ### Performance Tuning
 ```php
 // Background processing batch size
-add_filter('municipio_image_convert_batch_size', function($size) {
+add_filter('Municipio/ImageConvert/Config/BatchSize', function($size) {
     return 5; // Process 5 images per cron run
 });
 
@@ -278,7 +278,7 @@ ini_set('max_execution_time', 0);
 ### Error Handling
 ```php
 // Custom error logging
-add_action('municipio_image_convert_error', function($error, $imageId, $format) {
+add_action('Municipio/ImageConvert/Error', function($error, $imageId, $format) {
     error_log("Image conversion error for {$imageId} ({$format}): {$error}");
 }, 10, 3);
 ```
@@ -315,7 +315,7 @@ define('MUNICIPIO_IMAGE_CONVERT_DEBUG', true);
 ### Performance Monitoring
 ```php
 // Track conversion performance
-add_action('municipio_image_convert_complete', function($duration, $imageId) {
+add_action('Municipio/ImageConvert/Complete', function($duration, $imageId) {
     if ($duration > 5000) { // Log slow conversions (>5s)
         error_log("Slow conversion: Image {$imageId} took {$duration}ms");
     }

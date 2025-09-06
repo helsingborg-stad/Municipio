@@ -5,6 +5,7 @@ namespace Municipio\ImageConvert;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpService\Contracts\WpCacheDelete;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * ConversionCache
@@ -33,7 +34,7 @@ class ConversionCache
     private static array $runtimeCache = [];
 
     public function __construct(
-        private WpCacheGet&WpCacheSet&WpCacheDelete $wpService
+        private WpCacheGet&WpCacheSet&WpCacheDelete&ApplyFilters $wpService
     ) {
     }
 
@@ -43,6 +44,39 @@ class ConversionCache
     private function getCacheKey(int $imageId, int $width, int $height, string $format): string
     {
         return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
+    }
+
+    /**
+     * Get filterable cache expiry time for failed conversions
+     */
+    private function getFailedCacheExpiry(): int
+    {
+        return (int) $this->wpService->applyFilters(
+            'Municipio/ImageConvert/Config/FailedCacheExpiry',
+            self::FAILED_CACHE_EXPIRY
+        );
+    }
+
+    /**
+     * Get filterable cache expiry time for successful conversions
+     */
+    private function getSuccessCacheExpiry(): int
+    {
+        return (int) $this->wpService->applyFilters(
+            'Municipio/ImageConvert/Config/SuccessCacheExpiry',
+            self::SUCCESS_CACHE_EXPIRY
+        );
+    }
+
+    /**
+     * Get filterable cache expiry time for conversion locks
+     */
+    private function getLockExpiry(): int
+    {
+        return (int) $this->wpService->applyFilters(
+            'Municipio/ImageConvert/Config/LockExpiry',
+            self::LOCK_EXPIRY
+        );
     }
 
     /**
@@ -71,7 +105,7 @@ class ConversionCache
         $cacheKey = self::LOCK_PREFIX . $this->getCacheKey($imageId, $width, $height, $format);
         
         // Try to acquire lock
-        $acquired = $this->wpService->wpCacheSet($cacheKey, time(), self::CACHE_GROUP, self::LOCK_EXPIRY);
+        $acquired = $this->wpService->wpCacheSet($cacheKey, time(), self::CACHE_GROUP, $this->getLockExpiry());
         
         if ($acquired) {
             self::$runtimeCache[$cacheKey] = true;
@@ -122,8 +156,8 @@ class ConversionCache
         
         // Determine cache expiry based on status
         $expiry = match ($status) {
-            self::STATUS_FAILED => self::FAILED_CACHE_EXPIRY,
-            self::STATUS_SUCCESS => self::SUCCESS_CACHE_EXPIRY,
+            self::STATUS_FAILED => $this->getFailedCacheExpiry(),
+            self::STATUS_SUCCESS => $this->getSuccessCacheExpiry(),
             default => 300 // 5 minutes for pending/processing
         };
         

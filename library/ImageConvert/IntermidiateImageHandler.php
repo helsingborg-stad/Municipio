@@ -11,6 +11,7 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\IsAdmin;
 use WpService\Contracts\DoAction;
+use WpService\Contracts\ApplyFilters;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
@@ -29,7 +30,7 @@ class IntermidiateImageHandler implements Hookable
     private PageLoadCache $pageLoadCache;
     private ConversionStrategyInterface $conversionStrategy;
 
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService, private ImageConvertConfig $config)
     {
         $this->conversionCache = new ConversionCache($wpService);
         $this->pageLoadCache = new PageLoadCache($wpService);

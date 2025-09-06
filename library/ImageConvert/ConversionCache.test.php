@@ -15,7 +15,8 @@ class ConversionCacheTest extends TestCase
         $this->wpService = new FakeWpService([
             'wpCacheGet' => false,
             'wpCacheSet' => true,
-            'wpCacheDelete' => true
+            'wpCacheDelete' => true,
+            'applyFilters' => function($hook, $value) { return $value; }
         ]);
         $this->conversionCache = new ConversionCache($this->wpService);
     }
