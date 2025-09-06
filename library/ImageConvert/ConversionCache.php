@@ -19,6 +19,7 @@ class ConversionCache
     private const STATUS_PREFIX = 'status_';
     private const LOCK_PREFIX = 'lock_';
     private const QUEUE_PREFIX = 'queue_';
+    private const QUEUE_INDEX_KEY = 'queue_index';
     
     // Cache expiration times
     private const FAILED_CACHE_EXPIRY = 3600; // 1 hour for failed conversions
@@ -207,7 +208,15 @@ class ConversionCache
             'data' => $conversionData
         ];
         
-        return $this->wpService->wpCacheSet($cacheKey, $queueData, self::CACHE_GROUP, 3600);
+        // Store the queue item
+        $stored = $this->wpService->wpCacheSet($cacheKey, $queueData, self::CACHE_GROUP, 3600);
+        
+        if ($stored) {
+            // Add to queue index for retrieval
+            $this->addToQueueIndex($cacheKey);
+        }
+        
+        return $stored;
     }
 
     /**
@@ -215,9 +224,34 @@ class ConversionCache
      */
     public function getQueuedConversions(int $limit = 10): array
     {
-        // This is a simplified implementation - in a real scenario,
-        // you might want to use a proper queue system
-        return [];
+        // Get the queue index
+        $queueIndex = $this->getQueueIndex();
+        
+        if (empty($queueIndex)) {
+            return [];
+        }
+        
+        $conversions = [];
+        $processed = 0;
+        
+        foreach ($queueIndex as $cacheKey) {
+            if ($processed >= $limit) {
+                break;
+            }
+            
+            // Get the queue data for this key
+            $queueData = $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
+            
+            if ($queueData !== false) {
+                $conversions[] = $queueData;
+                $processed++;
+            } else {
+                // Queue item expired or was deleted, remove from index
+                $this->removeFromQueueIndex($cacheKey);
+            }
+        }
+        
+        return $conversions;
     }
 
     /**
@@ -229,6 +263,56 @@ class ConversionCache
         $queueData = $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
         
         return $queueData !== false;
+    }
+
+    /**
+     * Remove a conversion from the queue after processing
+     */
+    public function removeFromQueue(int $imageId, int $width, int $height, string $format): bool
+    {
+        $cacheKey = self::QUEUE_PREFIX . $this->getCacheKey($imageId, $width, $height, $format);
+        
+        // Remove from queue index
+        $this->removeFromQueueIndex($cacheKey);
+        
+        // Remove the actual queue data
+        return $this->wpService->wpCacheDelete($cacheKey, self::CACHE_GROUP);
+    }
+
+    /**
+     * Get the queue index containing all queued conversion keys
+     */
+    private function getQueueIndex(): array
+    {
+        $index = $this->wpService->wpCacheGet(self::QUEUE_INDEX_KEY, self::CACHE_GROUP);
+        return is_array($index) ? $index : [];
+    }
+
+    /**
+     * Add a queue key to the index
+     */
+    private function addToQueueIndex(string $cacheKey): void
+    {
+        $index = $this->getQueueIndex();
+        
+        if (!in_array($cacheKey, $index, true)) {
+            $index[] = $cacheKey;
+            $this->wpService->wpCacheSet(self::QUEUE_INDEX_KEY, $index, self::CACHE_GROUP, 3600);
+        }
+    }
+
+    /**
+     * Remove a queue key from the index
+     */
+    private function removeFromQueueIndex(string $cacheKey): void
+    {
+        $index = $this->getQueueIndex();
+        $newIndex = array_filter($index, fn($key) => $key !== $cacheKey);
+        
+        // Re-index the array to maintain sequential indices
+        $newIndex = array_values($newIndex);
+        
+        $this->wpService->wpCacheSet(self::QUEUE_INDEX_KEY, $newIndex, self::CACHE_GROUP, 3600);
     }
 
     /**

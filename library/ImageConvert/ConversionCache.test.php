@@ -118,9 +118,30 @@ class ConversionCacheTest extends TestCase
         // Should be able to queue for background conversion
         $this->assertTrue($this->conversionCache->queueForBackgroundConversion($imageId, $width, $height, $format, $conversionData));
 
-        // Queued conversions should return empty array in this implementation
+        // Should be marked as queued
+        $this->assertTrue($this->conversionCache->isQueuedForConversion($imageId, $width, $height, $format));
+
+        // Queued conversions should now return the queued item
         $queued = $this->conversionCache->getQueuedConversions();
         $this->assertIsArray($queued);
+        $this->assertCount(1, $queued);
+        
+        $queuedItem = $queued[0];
+        $this->assertEquals($imageId, $queuedItem['image_id']);
+        $this->assertEquals($width, $queuedItem['width']);
+        $this->assertEquals($height, $queuedItem['height']);
+        $this->assertEquals($format, $queuedItem['format']);
+        $this->assertEquals($conversionData, $queuedItem['data']);
+        
+        // Should be able to remove from queue
+        $this->assertTrue($this->conversionCache->removeFromQueue($imageId, $width, $height, $format));
+        
+        // Should no longer be queued
+        $this->assertFalse($this->conversionCache->isQueuedForConversion($imageId, $width, $height, $format));
+        
+        // Queue should be empty again
+        $queued = $this->conversionCache->getQueuedConversions();
+        $this->assertCount(0, $queued);
     }
 
     /**
@@ -151,6 +172,29 @@ class ConversionCacheTest extends TestCase
         // Should have different statuses
         $this->assertEquals(ConversionCache::STATUS_SUCCESS, $this->conversionCache->getConversionStatus($imageId, 800, 600, $format));
         $this->assertEquals(ConversionCache::STATUS_FAILED, $this->conversionCache->getConversionStatus($imageId, 400, 300, $format));
+    }
+
+    /**
+     * @testdox Queue limit functionality works correctly
+     */
+    public function testQueueLimitFunctionality(): void
+    {
+        // Queue multiple items
+        for ($i = 1; $i <= 15; $i++) {
+            $this->assertTrue($this->conversionCache->queueForBackgroundConversion($i, 800, 600, 'webp'));
+        }
+        
+        // Get limited number of queued conversions
+        $queued = $this->conversionCache->getQueuedConversions(5);
+        $this->assertCount(5, $queued);
+        
+        // Get all queued conversions
+        $allQueued = $this->conversionCache->getQueuedConversions(20);
+        $this->assertCount(15, $allQueued);
+        
+        // Verify correct order (should be in queue order)
+        $this->assertEquals(1, $allQueued[0]['image_id']);
+        $this->assertEquals(2, $allQueued[1]['image_id']);
     }
 
     /**

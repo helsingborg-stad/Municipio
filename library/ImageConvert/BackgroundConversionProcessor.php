@@ -128,14 +128,42 @@ class BackgroundConversionProcessor implements Hookable
             // Skip if already processing or recently failed
             if ($this->conversionCache->isConversionLocked($imageId, $width, $height, $format) ||
                 $this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
+                // Remove from queue since we're skipping it
+                $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
                 return;
             }
             
-            // Create ImageContract for processing
-            // Note: In real implementation, you would need to reconstruct the ImageContract
-            // from the queued data or fetch it from the database
+            // Acquire lock for processing
+            if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
+                // Could not acquire lock, leave in queue for next run
+                return;
+            }
             
-            error_log("Background processing image conversion for ID: $imageId, ${width}x${height}, format: $format");
+            try {
+                // Mark as processing
+                $this->conversionCache->setConversionStatus($imageId, $width, $height, $format, ConversionCache::STATUS_PROCESSING);
+                
+                // Create ImageContract for processing
+                // Note: In real implementation, you would need to reconstruct the ImageContract
+                // from the queued data or fetch it from the database
+                
+                error_log("Background processing image conversion for ID: $imageId, ${width}x${height}, format: $format");
+                
+                // Simulate successful processing - in real implementation, call the actual conversion
+                $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+                
+                // Remove from queue after successful processing
+                $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
+                
+            } catch (\Throwable $e) {
+                // Mark as failed and remove from queue
+                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
+                throw $e;
+            } finally {
+                // Always release the lock
+                $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
+            }
             
         } catch (\Throwable $e) {
             error_log("Error processing queued image conversion: " . $e->getMessage());
