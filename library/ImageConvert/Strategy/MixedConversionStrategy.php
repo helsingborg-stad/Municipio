@@ -34,21 +34,21 @@ class MixedConversionStrategy implements ConversionStrategyInterface
     ) {
     }
 
-    public function convert(ImageContract $image, string $format): ImageContract|false
+    public function process(ImageContract $image): ImageContract|false
     {
         // Check if this should be processed immediately based on editor context
         if ($this->shouldProcessImmediately($image)) {
             // Use runtime strategy for immediate processing
-            return $this->runtimeStrategy->convert($image, $format);
+            return $this->runtimeStrategy->process($image);
         }
 
         // Use background strategy for deferred processing
-        return $this->backgroundStrategy->convert($image, $format);
+        return $this->backgroundStrategy->process($image);
     }
 
-    public function canHandle(ImageContract $image, string $format): bool
+    public function canHandle(ImageContract $image): bool
     {
-        // Mixed strategy can handle any image conversion
+        // Mixed strategy can handle any image resize request
         return true;
     }
 

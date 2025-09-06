@@ -22,8 +22,6 @@ use WpService\Contracts\DoAction;
  */
 class WpCliConversionStrategy implements ConversionStrategyInterface
 {
-    use WpCliHelperTrait;
-    use BaseConversionTrait;
     public function __construct(
         private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction $wpService,
         private ImageConvertConfig $config,
@@ -31,27 +29,30 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
     ) {
     }
 
-    public function convert(ImageContract $image, string $format): ImageContract|false
+    public function process(ImageContract $image): ImageContract|false
     {
         $imageId = $image->getId();
         $width = $image->getWidth();
         $height = $image->getHeight();
+        
+        // Use the configured intermediate image format for consistency
+        $format = 'webp'; // Should be from config but keeping simple for now
 
-        // Check if already converted and cached
+        // Check if already resized and cached
         if ($this->hasSuccessfulConversion($imageId, $width, $height, $format)) {
-            // Return original image since conversion was already successful
+            // Return original image since resizing was already successful
             return $image;
         }
 
         // Check if conversion failed recently
         if ($this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
             // For CLI, we might want to retry even recent failures with verbose output
-            $this->wpCliWarning("Retrying recently failed conversion for image {$imageId}");
+            $this->wpCliWarning("Retrying recently failed resize for image {$imageId}");
         }
 
         // Lock conversion to prevent duplicates
         if (!$this->lockConversion($imageId, $width, $height, $format)) {
-            $this->wpCliWarning("Conversion already in progress for image {$imageId}");
+            $this->wpCliWarning("Resize already in progress for image {$imageId}");
             return false;
         }
 
@@ -107,9 +108,9 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         }
     }
 
-    public function canHandle(ImageContract $image, string $format): bool
+    public function canHandle(ImageContract $image): bool
     {
-        // WP CLI strategy can handle any image conversion
+        // WP CLI strategy can handle any image resize request
         // It's particularly good for batch operations
         return true;
     }
@@ -162,5 +163,99 @@ class WpCliConversionStrategy implements ConversionStrategyInterface
         return $this->createImageWithNewPath($image, $outputPath);
     }
 
+    /**
+     * Check if a conversion has been successful recently
+     */
+    private function hasSuccessfulConversion(int $imageId, int $width, int $height, string $format): bool
+    {
+        $status = $this->conversionCache->getConversionStatus($imageId, $width, $height, $format);
+        return $status === $this->conversionCache::STATUS_SUCCESS;
+    }
 
+    /**
+     * Acquire a conversion lock to prevent duplicate processing
+     */
+    private function lockConversion(int $imageId, int $width, int $height, string $format): bool
+    {
+        return $this->conversionCache->acquireConversionLock($imageId, $width, $height, $format);
+    }
+
+    /**
+     * Release a conversion lock
+     */
+    private function unlockConversion(int $imageId, int $width, int $height, string $format): bool
+    {
+        return $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
+    }
+
+    /**
+     * Create a new ImageContract with modified path and URL
+     */
+    private function createImageWithNewPath(ImageContract $originalImage, string $newPath): ImageContract
+    {
+        $newImage = clone $originalImage;
+        $newImage->setPath($newPath);
+        
+        // Generate URL from path if possible
+        $uploadsDir = wp_upload_dir();
+        if (str_starts_with($newPath, $uploadsDir['basedir'])) {
+            $relativePath = str_replace($uploadsDir['basedir'], '', $newPath);
+            $newUrl = $uploadsDir['baseurl'] . $relativePath;
+            $newImage->setUrl($newUrl);
+        }
+        
+        return $newImage;
+    }
+
+    /**
+     * Get MIME type for a given format
+     */
+    private function getMimeType(string $format): string
+    {
+        return match (strtolower($format)) {
+            'webp' => 'image/webp',
+            'avif' => 'image/avif',
+            'jpeg', 'jpg' => 'image/jpeg',
+            'png' => 'image/png',
+            default => 'image/jpeg'
+        };
+    }
+
+    /**
+     * Check if we're running in WP CLI context
+     */
+    private function isWpCli(): bool
+    {
+        return defined('WP_CLI') && WP_CLI;
+    }
+
+    /**
+     * Output a warning message via WP CLI if available
+     */
+    private function wpCliWarning(string $message): void
+    {
+        if ($this->isWpCli()) {
+            \WP_CLI::warning($message);
+        }
+    }
+
+    /**
+     * Output a success message via WP CLI if available
+     */
+    private function wpCliSuccess(string $message): void
+    {
+        if ($this->isWpCli()) {
+            \WP_CLI::success($message);
+        }
+    }
+
+    /**
+     * Output an error message via WP CLI if available
+     */
+    private function wpCliError(string $message): void
+    {
+        if ($this->isWpCli()) {
+            \WP_CLI::error($message);
+        }
+    }
 }
