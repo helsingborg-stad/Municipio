@@ -3,18 +3,11 @@
 namespace Municipio\ImageConvert\Strategy;
 
 use Municipio\ImageConvert\Contract\ImageContract;
-use Municipio\ImageConvert\ConversionCache;
-use Municipio\ImageConvert\Config\ImageConvertConfig;
-use WpService\Contracts\WpGetImageEditor;
-use WpService\Contracts\IsWpError;
-use WpService\Contracts\WpGetAttachmentMetadata;
-use WpService\Contracts\WpAttachmentIs;
-use WpService\Contracts\AddFilter;
-use WpService\Contracts\DoAction;
+use Municipio\ImageConvert\ImageProcessor;
 use WpService\Contracts\GetCurrentUserId;
 use WpService\Contracts\GetPost;
 use WpService\Contracts\UserCan;
-use WpService\Contracts\GetPostMeta;
+use Municipio\ImageConvert\Config\ImageConvertConfig;
 
 /**
  * Mixed Conversion Strategy
@@ -26,16 +19,15 @@ use WpService\Contracts\GetPostMeta;
 class MixedConversionStrategy implements ConversionStrategyInterface
 {
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&GetPost $wpService,
+        private GetCurrentUserId&UserCan&GetPost $wpService,
         private ImageConvertConfig $config,
-        private ConversionCache $conversionCache,
-        private RuntimeConversionStrategy $runtimeStrategy,
+        private ImageProcessor $imageProcessor,
         private BackgroundConversionStrategy $backgroundStrategy
     ) {
     }
 
     /**
-     * Process the image using either runtime or background strategy based on context
+     * Process the image using either immediate processing or background strategy based on context
      * 
      * @param ImageContract $image The image to process
      * @return ImageContract|false The processed image or false on failure
@@ -43,7 +35,7 @@ class MixedConversionStrategy implements ConversionStrategyInterface
     public function process(ImageContract $image): ImageContract|false
     {
         if ($this->shouldProcessImmediately($image)) {
-            return $this->runtimeStrategy->process($image);
+            return $this->imageProcessor->process($image);
         }
         return $this->backgroundStrategy->process($image);
     }

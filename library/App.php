@@ -776,6 +776,20 @@ class App
             $imageConvertConfig
         );
         $resolveToWpImageContract->addHooks();
+
+        // Setup background processing for image conversions
+        $conversionCache = new \Municipio\ImageConvert\ConversionCache($this->wpService);
+        $imageProcessor = new \Municipio\ImageConvert\ImageProcessor(
+            $this->wpService,
+            $imageConvertConfig,
+            $conversionCache
+        );
+        $backgroundProcessor = new \Municipio\ImageConvert\BackgroundConversionProcessor(
+            $this->wpService,
+            $conversionCache,
+            $imageProcessor
+        );
+        $backgroundProcessor->addHooks();
     }
 
     /**

@@ -19,7 +19,7 @@ class BackgroundConversionProcessor implements Hookable
     public function __construct(
         private AddAction&DoAction&AddFilter&ApplyFilters $wpService,
         private ConversionCache $conversionCache,
-        private IntermidiateImageHandler $imageHandler
+        private ImageProcessor $imageProcessor
     ) {
     }
 
@@ -133,53 +133,24 @@ class BackgroundConversionProcessor implements Hookable
                 return;
             }
             
-            // Acquire lock for processing
-            if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
-                // Could not acquire lock, leave in queue for next run
-                return;
+            // Use the shared image processor to handle the conversion
+            $result = $this->imageProcessor->convertByAttachmentId($imageId, $width, $height, $format);
+            
+            if ($result) {
+                error_log("Successfully processed background conversion for Image ID: $imageId");
+            } else {
+                error_log("Failed to process background conversion for Image ID: $imageId");
             }
             
-            try {
-                // Mark as processing
-                $this->conversionCache->setConversionStatus($imageId, $width, $height, $format, ConversionCache::STATUS_PROCESSING);
-                
-                // Create ImageContract for processing from attachment ID
-                $attachment = get_post($imageId);
-                if (!$attachment) {
-                    throw new \Exception("Attachment not found for ID: $imageId");
-                }
-                
-                // Get the attachment file path
-                $attachmentPath = get_attached_file($imageId);
-                if (!$attachmentPath || !file_exists($attachmentPath)) {
-                    throw new \Exception("Attachment file not found for ID: $imageId");
-                }
-                
-                // Use the existing image handler to perform the conversion
-                $result = $this->imageHandler->convert($attachmentPath, $width, $height, $format);
-                
-                if ($result) {
-                    $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
-                    error_log("Successfully processed background conversion for Image ID: $imageId");
-                } else {
-                    throw new \Exception("Image conversion failed");
-                }
-                
-                // Remove from queue after successful processing
-                $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
-                
-            } catch (\Throwable $e) {
-                // Mark as failed and remove from queue
-                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
-                $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
-                throw $e;
-            } finally {
-                // Always release the lock
-                $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
-            }
+            // Remove from queue after processing attempt
+            $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
             
         } catch (\Throwable $e) {
             error_log("Error processing queued image conversion: " . $e->getMessage());
+            // Remove from queue on error to prevent infinite retries
+            if (isset($imageId, $width, $height, $format)) {
+                $this->conversionCache->removeFromQueue($imageId, $width, $height, $format);
+            }
         }
     }
 

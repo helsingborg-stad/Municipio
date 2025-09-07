@@ -5,10 +5,10 @@ namespace Municipio\ImageConvert\Strategy;
 use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use Municipio\ImageConvert\Strategy\RuntimeConversionStrategy;
 use Municipio\ImageConvert\Strategy\BackgroundConversionStrategy;
-use Municipio\ImageConvert\Strategy\WpCliConversionStrategy;
 use Municipio\ImageConvert\Strategy\MixedConversionStrategy;
 use Municipio\ImageConvert\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
+use Municipio\ImageConvert\ImageProcessor;
 use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpGetAttachmentMetadata;
@@ -17,7 +17,6 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetCurrentUserId;
 use WpService\Contracts\UserCan;
-use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPost;
 
 enum ConversionStrategy: string
@@ -39,7 +38,7 @@ class StrategyFactory
     private const DEFAULT_STRATEGY = ConversionStrategy::RUNTIME;
 
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPostMeta&GetPost $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPost $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache
     ) {
@@ -55,11 +54,16 @@ class StrategyFactory
     {
         $strategy = $this->getSelectedStrategy();
         
+        // Create shared image processor
+        $imageProcessor = new ImageProcessor(
+            $this->wpService,
+            $this->config,
+            $this->conversionCache
+        );
+        
         return match ($strategy) {
             ConversionStrategy::RUNTIME => new RuntimeConversionStrategy(
-                $this->wpService,
-                $this->config,
-                $this->conversionCache
+                $imageProcessor
             ),
             ConversionStrategy::BACKGROUND => new BackgroundConversionStrategy(
                 $this->wpService,
@@ -69,12 +73,7 @@ class StrategyFactory
             ConversionStrategy::MIXED => new MixedConversionStrategy(
                 $this->wpService,
                 $this->config,
-                $this->conversionCache,
-                new RuntimeConversionStrategy(
-                    $this->wpService,
-                    $this->config,
-                    $this->conversionCache
-                ),
+                $imageProcessor,
                 new BackgroundConversionStrategy(
                     $this->wpService,
                     $this->config,
