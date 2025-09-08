@@ -1,6 +1,6 @@
 # Image Resize Strategy Setup
 
-Municipio's ImageConvert system creates images on-demand by pixel size rather than using pre-generated named sizes. This documentation covers the four processing strategies available.
+Municipio's ImageConvert system creates images on-demand by pixel size rather than using pre-generated named sizes. This documentation covers the five processing strategies available.
 
 ## Core Functionality
 
@@ -19,6 +19,9 @@ define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'background');
 
 // Mixed - runtime for editors, background for visitors
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
+
+// Async - immediate parallel processing using child processes
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'async');
 
 // CLI - for batch operations
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'wpcli');
@@ -40,6 +43,11 @@ define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'wpcli');
 - **When**: Runtime for editors who modified content within last hour, background for others
 - **Best for**: Editorial workflows where editors need immediate feedback
 - **Performance**: Smart balancing of editor experience vs visitor performance
+
+### Async
+- **When**: Image resized immediately using parallel child processes
+- **Best for**: Sites needing immediate results without blocking requests
+- **Performance**: Parallel processing eliminates blocking, moderate resource usage
 
 ### CLI
 - **When**: Manual batch processing via WP CLI commands
@@ -186,6 +194,67 @@ add_action('Municipio/ImageConvert/ProcessQueue', function() {
     error_log("Background processing started");
 });
 ```
+
+---
+
+## Async Strategy
+
+### Purpose
+Performs image conversion immediately using parallel child processes, providing instant results without blocking the main request thread.
+
+### When to Use
+- Sites requiring immediate image availability without page load blocking
+- Applications with concurrent image processing needs
+- When you need real-time results but want to avoid request blocking
+- Development/testing environments requiring immediate feedback
+
+### Configuration
+```php
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'async');
+```
+
+### Performance Characteristics
+- **Pros**: Immediate results, non-blocking processing, parallel execution
+- **Cons**: Higher memory usage, requires child process support
+- **Page Load Impact**: Minimal (processing happens in parallel)
+- **Resource Usage**: Moderate CPU and memory per conversion
+
+### Requirements
+- PHP with pcntl extension support (for process control)
+- Sufficient system resources for child processes
+- spatie/async package (automatically included)
+
+### How It Works
+The async strategy uses the spatie/async library to:
+1. Create child processes for image conversion
+2. Process images in parallel to the main request
+3. Return results immediately when processing completes
+4. Handle errors gracefully with fallback options
+
+### Example Usage
+```php
+// Image converts immediately in parallel process
+$image = wp_get_attachment_image($id, [800, 600]);
+// User receives converted image without request blocking
+```
+
+### Monitoring
+```php
+// Monitor async processing
+add_action('Municipio/ImageConvert/Convert', function($data) {
+    error_log("Async conversion: Image {$data['image_id']} - {$data['format']}");
+});
+
+// Monitor processing errors
+add_action('Municipio/ImageConvert/Error', function($error, $imageId) {
+    error_log("Async conversion failed for image {$imageId}: {$error}");
+}, 10, 2);
+```
+
+### Troubleshooting
+- **Process spawn errors**: Check pcntl extension availability
+- **Memory issues**: Monitor child process memory usage
+- **Permission errors**: Verify process creation permissions
 
 ---
 
@@ -422,6 +491,12 @@ add_action('Municipio/ImageConvert/Error', function($error, $imageId, $format) {
 - **Background processing not working**: Verify background strategy components are functioning
 - **Inconsistent behavior**: Monitor strategy selection logs to understand decision logic
 
+**Async Strategy**
+- **Process spawn errors**: Check pcntl extension availability and system support for child processes
+- **Memory issues**: Monitor child process memory usage and adjust limits if needed
+- **Permission errors**: Verify process creation permissions and file system access
+- **Slow processing**: Check system load and concurrent process limits
+
 **WP CLI Strategy**
 - **Command not found**: Ensure WP CLI is properly installed
 - **Memory errors**: Increase PHP memory limits for CLI
@@ -472,6 +547,23 @@ define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
 define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'mixed');
 
 // Editors continue to get immediate results, regular users get background processing
+```
+
+### From Runtime to Async
+```php
+// Switch to parallel processing for non-blocking immediate results
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'async');
+
+// Test by checking that page loads aren't blocked during image conversion
+```
+
+### From Background to Async
+```php
+// Switch from cron-based to immediate parallel processing
+define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'async');
+
+// Clear any pending background queue
+wp_cache_flush();
 ```
 
 ### From Background to WP CLI

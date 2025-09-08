@@ -6,6 +6,7 @@ use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use Municipio\ImageConvert\Strategy\RuntimeConversionStrategy;
 use Municipio\ImageConvert\Strategy\BackgroundConversionStrategy;
 use Municipio\ImageConvert\Strategy\MixedConversionStrategy;
+use Municipio\ImageConvert\Strategy\AsyncConversionStrategy;
 use Municipio\ImageConvert\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\ImageProcessor;
@@ -24,6 +25,7 @@ enum ConversionStrategy: string
     case RUNTIME = 'runtime';
     case BACKGROUND = 'background';
     case MIXED = 'mixed';
+    case ASYNC = 'async';
 }
 
 /**
@@ -79,6 +81,9 @@ class StrategyFactory
                     $this->config,
                     $this->conversionCache
                 )
+            ),
+            ConversionStrategy::ASYNC => new AsyncConversionStrategy(
+                $imageProcessor
             ),
         };
     }
