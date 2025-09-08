@@ -22,9 +22,9 @@ class ConversionCache
     private const QUEUE_INDEX_KEY = 'queue_index';
     
     // Cache expiration times
-    private const FAILED_CACHE_EXPIRY = 86400; // 24 hours for failed conversions (as per feature spec)
-    private const SUCCESS_CACHE_EXPIRY = 86400; // 24 hours for successful conversions
-    private const LOCK_EXPIRY = 300; // 5 minutes for conversion locks
+    private const FAILED_CACHE_EXPIRY = 86400;
+    private const SUCCESS_CACHE_EXPIRY = 86400;
+    private const LOCK_EXPIRY = 300;
     
     // Status constants
     public const STATUS_PENDING = 'pending';

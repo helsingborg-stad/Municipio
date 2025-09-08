@@ -5,7 +5,10 @@ namespace Municipio\ImageConvert\Strategy;
 use Municipio\ImageConvert\Contract\ImageContract;
 use Municipio\ImageConvert\ConversionCache;
 use WpService\Contracts\DoAction;
+use WpService\Contracts\WpScheduleSingleEvent;
+use WpService\Contracts\WpUnscheduleEvent;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
+use WpService\Contracts\WpNextScheduled;
 
 /**
  * Background Conversion Strategy
@@ -17,7 +20,7 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 class BackgroundConversionStrategy implements ConversionStrategyInterface
 {
     public function __construct(
-        private DoAction $wpService,
+        private DoAction&WpUnscheduleEvent&WpScheduleSingleEvent&WpNextScheduled $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache
     ) {
@@ -39,12 +42,12 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
 
         // Queue for background processing
         $conversionData = [
-            'image_id' => $imageId,
-            'width' => $width,
-            'height' => $height,
-            'format' => $format,
-            'original_url' => $image->getUrl(),
-            'original_path' => $image->getPath(),
+            'image_id'              => $imageId,
+            'width'                 => $width,
+            'height'                => $height,
+            'format'                => $format,
+            'original_url'          => $image->getUrl(),
+            'original_path'         => $image->getPath(),
             'intermediate_location' => $image->getIntermidiateLocation($format)
         ];
 
@@ -62,30 +65,32 @@ class BackgroundConversionStrategy implements ConversionStrategyInterface
         // Return original image immediately - resizing will happen in background
         return $image;
     }
-    
+
+    /**
+     * Get the strategy name/identifier
+     * 
+     * @return string
+     */
     public function getName(): string
     {
         return 'background';
     }
 
     /**
-     * Schedule background processing via WordPress cron with improved frequency
+     * Schedule background processing via WordPress cron
+     * Ensures processing is scheduled within a short timeframe
+     * to handle queued conversions promptly.
      */
     private function scheduleBackgroundProcessing(): void
     {
-        // Check if a single event is already scheduled soon
-        $nextScheduled = wp_next_scheduled('Municipio/ImageConvert/ProcessQueue');
+        $nextScheduled = $this->wpService->wpNextScheduled('Municipio/ImageConvert/ProcessQueue');
         $timeNow = time();
-        
-        // Only schedule if not already scheduled or if the next scheduled time is more than 5 minutes away
+    
         if (!$nextScheduled || ($nextScheduled - $timeNow) > 300) {
-            // Clear any existing single event that's too far in the future
             if ($nextScheduled && ($nextScheduled - $timeNow) > 300) {
-                wp_unschedule_event($nextScheduled, 'Municipio/ImageConvert/ProcessQueue');
+                $this->wpService->wpUnscheduleEvent($nextScheduled, 'Municipio/ImageConvert/ProcessQueue');
             }
-            
-            // Schedule for processing in the next 30 seconds for faster response
-            wp_schedule_single_event($timeNow + 30, 'Municipio/ImageConvert/ProcessQueue');
+            $this->wpService->wpScheduleSingleEvent($timeNow + 30, 'Municipio/ImageConvert/ProcessQueue');
         }
     }
 }
