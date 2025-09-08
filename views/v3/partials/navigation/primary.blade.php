@@ -21,7 +21,8 @@
         'context' => ['site.header.nav', 'site.header.casual.nav'],
         'height' => 'lg',
         'expandLabel' => $lang->expand,
-        'includeToggle' => $customizer->primaryMenuDropdown ?? false
+        'includeToggle' => $customizer->primaryMenuDropdown ?? false,
+        'isExtendedDropdown' => $customizer->primaryMenuDropdown && $customizer->primaryMenuDropdownExtended
     ])
     @endnav
 </nav>
