@@ -70,36 +70,27 @@ class IntermidiateImageHandler implements Hookable
             return $image; // Fallback to original if not an instance of ImageContract
         }
 
+        // Collect data
         $format = $this->config->intermidiateImageFormat()['suffix'];
         $imageId = $image->getId();
         $width = $image->getWidth();
         $height = $image->getHeight();
 
-        // Check if this conversion was already processed in the current request
-        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($imageId, $width, $height, $format)) {
-            return $image; // Avoid processing the same image multiple times in one request
-        }
-
-        // Check if this conversion recently failed - skip to avoid repeated failures
         if ($this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
-            return $image; // Return original image to avoid blocking page load
+            return $image;
         }
-
-        // Check if page was loaded after last save to prevent multiple generations
-        $lastModified = $this->getImageLastModified($imageId);
-        if ($lastModified && $this->pageLoadCache->hasPageLoadedAfterLastSave($imageId, $lastModified)) {
-            return $image; // Skip generation if page was already loaded after last save
-        }
-
-        // Mark page as loaded for this image
-        $this->pageLoadCache->markPageLoaded($imageId);
-
-        // Get intermediate location
-        $intermediateLocation = $image->getIntermidiateLocation($format);
 
         // Fallback if no intermediate location could be determined
+        $intermediateLocation = $image->getIntermidiateLocation($format);
         if (empty($intermediateLocation['path']) || empty($intermediateLocation['url'])) {
             return $image;
+        }
+
+        //If already processed in this request, return the intermediate image, it will exist anyway
+        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($imageId, $width, $height, $format)) {
+            $image->setUrl($intermediateLocation['url']);
+            $image->setPath($intermediateLocation['path']);
+            return $image; 
         }
 
         // Check if the intermediate image already exists, if so return it
