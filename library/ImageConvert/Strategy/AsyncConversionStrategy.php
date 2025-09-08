@@ -12,6 +12,8 @@ use Spatie\Async\Pool;
  * Performs image conversion asynchronously using parallel child processes.
  * Uses spatie/async to process images in parallel without blocking the main request.
  * This strategy provides immediate parallel processing rather than deferred processing.
+ * 
+ * TODO: Must paralellize conversions. If pool exists, new should join existing pool.
  */
 class AsyncConversionStrategy implements ConversionStrategyInterface
 {
