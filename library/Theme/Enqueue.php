@@ -105,7 +105,7 @@ class Enqueue implements Hookable
 
         $this->enqueueHelper->add('styleguide-css', 'css/styleguide.css');
         $this->enqueueHelper->add('municipio-css', 'css/municipio.css');
-        // $this->enqueueHelper->add('splide-css', 'css/splide.css');
+        $this->enqueueHelper->add('splide-css', 'css/splide.css');
     }
 
     /**
