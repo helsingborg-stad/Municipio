@@ -37,9 +37,6 @@ class ImageProcessor
      */
     public function process(ImageContract $image): ImageContract|false
     {
-        $imageId = $image->getId();
-        $width   = $image->getWidth();
-        $height  = $image->getHeight();
         $format  = $this->config->intermidiateImageFormat()['suffix'];
 
         if (!$this->conversionCache->acquireConversionLock($image)) {
@@ -106,7 +103,7 @@ class ImageProcessor
                     $this->log->log(
                         $this,
                         'Cannot convert image: ' . $savedImage->get_error_message(),
-                        'info',
+                        'warning',
                         ['image' => $image, 'format' => $format, 'reason' => $savedImage->get_error_code()]
                     );
 
@@ -116,7 +113,7 @@ class ImageProcessor
                 $this->log->log(
                     $this,
                     'Cannot convert image: ' . $imageEditor->get_error_message(),
-                    'info',
+                    'warning',
                     ['image' => $image, 'format' => $format, 'reason' => $imageEditor->get_error_code()]
                 );
 
