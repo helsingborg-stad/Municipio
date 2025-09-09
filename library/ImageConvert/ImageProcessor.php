@@ -113,8 +113,6 @@ class ImageProcessor
                     $this->conversionCache->markConversionFailed($image);
                 }
             } else {
-                $this->logConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
-
                 $this->log->log(
                     $this,
                     'Cannot convert image: ' . $imageEditor->get_error_message(),
@@ -221,31 +219,5 @@ class ImageProcessor
         if ($memoryLimit < '2048M') {
             ini_set('memory_limit', '2048M');
         }
-    }
-
-    /**
-     * Logs an image conversion error with detailed info.
-     */
-    private function logConversionError(string $message, ImageContract $image): void
-    {
-        $page = $_SERVER['REQUEST_URI'] ?? 'CLI or unknown';
-
-        // Prevent log injection by removing control characters
-        $page = str_replace(["\n", "\r"], ['%0A', '%0D'], $page);
-
-        // Mask sensitive query parameters
-        $page = preg_replace('/(token|password)=([^&]+)/i', '$1=***', $page);
-
-        error_log(
-            'Municipio ImageConvert Error. Image ID: ' . $image->getId() . '. Page: ' . $page . '. Message: ' . $message
-        );
-    }
-
-    /**
-     * Log general errors
-     */
-    private function logError(string $message): void
-    {
-        error_log('Municipio ImageConvert Error: ' . $message);
     }
 }
