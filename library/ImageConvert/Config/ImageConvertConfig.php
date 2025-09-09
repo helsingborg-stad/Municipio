@@ -233,6 +233,28 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     }
 
     /**
+     * Get the selected image conversion strategy.
+     */
+    public function getImageConversionStrategy(): ?string
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            (defined('MUNICIPIO_IMAGE_CONVERT_STRATEGY') && constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY')) ?? null
+        );
+    }
+
+    /**
+     * Get the default logger for image conversion.
+     */
+    public function getDefaultImageConversionLogWriter(): ?string
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            (defined('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER') && constant('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER')) ?? null
+        );
+    }
+
+    /**
      * Create a prefix for image conversion filter.
      *
      * @return string

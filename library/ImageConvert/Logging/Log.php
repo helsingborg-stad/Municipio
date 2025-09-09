@@ -2,19 +2,30 @@
 
 namespace Municipio\ImageConvert\Logging;
 
+use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 use Municipio\ImageConvert\Logging\Writers\ErrorLogWriter;
 use Municipio\ImageConvert\Logging\Writers\LogWriterInterface;
 use Municipio\ImageConvert\Logging\Formatters\DefaultFormatter;
 use Municipio\ImageConvert\Logging\Formatters\LogFormatterInterface;
+use Municipio\ImageConvert\Logging\Writers\LogWriterDatabase;
 
 class Log
 {
     protected LogFormatterInterface $formatter;
     protected LogWriterInterface $writer;
 
-    public function __construct(?LogFormatterInterface $formatter, ?LogWriterInterface $writer){
+    public function __construct(?LogFormatterInterface $formatter, ?LogWriterInterface $writer, ImageConvertConfigInterface $config){
         $this->formatter = $formatter ?? new DefaultFormatter();
-        $this->writer = $writer ?? new ErrorLogWriter();
+
+        if(is_null($writer)) {
+            if($config->getDefaultImageConversionLogWriter() === 'database'){
+                $this->writer = new LogWriterDatabase();
+            } else {
+                $this->writer = new ErrorLogWriter();
+            }
+        } else {
+            $this->writer = $writer;
+        }
     }
 
     /**

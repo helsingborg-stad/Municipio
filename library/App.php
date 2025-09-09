@@ -767,7 +767,7 @@ class App
         $intermidiateImageHandler = new \Municipio\ImageConvert\IntermidiateImageHandler(
             $this->wpService,
             $imageConvertConfig,
-            new \Municipio\ImageConvert\Logging\Log(null, null)
+            new \Municipio\ImageConvert\Logging\Log(null, null, $imageConvertConfig)
         );
         $intermidiateImageHandler->addHooks();
 

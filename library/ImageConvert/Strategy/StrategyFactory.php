@@ -74,8 +74,9 @@ class StrategyFactory
      */
     public function getSelectedStrategy(): ConversionStrategy
     {
-        if (defined('MUNICIPIO_IMAGE_CONVERT_STRATEGY')) {
-            $strategy       = constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY');
+        $strategy = $this->config->getImageConversionStrategy();
+
+        if ($strategy !== null) {
             $enumStrategy   = ConversionStrategy::tryFrom($strategy);
 
             if ($enumStrategy !== null) {

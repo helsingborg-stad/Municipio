@@ -18,4 +18,6 @@ interface ImageConvertConfigInterface
     public function lockExpiry(): int;
     public function defaultCacheExpiry(): int;
     public function pageCacheExpiry(): int;
+    public function getImageConversionStrategy(): ?string;
+    public function getDefaultImageConversionLogWriter(): ?string;
 }
