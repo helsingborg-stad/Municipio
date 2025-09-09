@@ -7,6 +7,7 @@ use Municipio\ImageConvert\Cache\ConversionCache;
 use Municipio\ImageConvert\Cache\PageLoadCache;
 use Municipio\ImageConvert\Strategy\StrategyFactory;
 use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
+use Municipio\ImageConvert\Logging\Log;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\IsAdmin;
@@ -30,7 +31,11 @@ class IntermidiateImageHandler implements Hookable
     private PageLoadCache $pageLoadCache;
     private ConversionStrategyInterface $conversionStrategy;
 
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService, private ImageConvertConfig $config)
+    public function __construct(
+        private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService, 
+        private ImageConvertConfig $config,
+        private Log $log
+    )
     {
         $this->conversionCache  = new ConversionCache($wpService, $config);
         $this->pageLoadCache    = new PageLoadCache($wpService, $config);
@@ -80,12 +85,28 @@ class IntermidiateImageHandler implements Hookable
 
         // If conversion has recently failed, return original image
         if ($this->conversionCache->hasRecentFailure($image, $format)) {
+
+            $this->log->log(
+                $this,
+                'Recent conversion failure detected, skipping conversion.',
+                'info',
+                ['image' => $image, 'format' => $format, 'reason' => 'recent_failure']
+            );
+
             return $image;
         }
 
         // Fallback if no intermediate location could be determined
         $intermediateLocation = $image->getIntermidiateLocation($format);
         if (empty($intermediateLocation['path']) || empty($intermediateLocation['url'])) {
+
+            $this->log->log(
+                $this,
+                'Could not determine intermediate image location, skipping conversion.',
+                'info',
+                ['image' => $image, 'format' => $format, 'reason' => 'no_intermediate_location']
+            );
+
             return $image;
         }
 

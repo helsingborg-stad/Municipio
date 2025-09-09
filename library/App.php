@@ -766,7 +766,8 @@ class App
         //Create the missing intermidiate image
         $intermidiateImageHandler = new \Municipio\ImageConvert\IntermidiateImageHandler(
             $this->wpService,
-            $imageConvertConfig
+            $imageConvertConfig,
+            new \Municipio\ImageConvert\Logging\Log(null, null)
         );
         $intermidiateImageHandler->addHooks();
 
