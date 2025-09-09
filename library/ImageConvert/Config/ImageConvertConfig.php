@@ -160,21 +160,6 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         );
     }
 
-    /**
-     * This is the time to use to consider a post recently touched.
-     * This is used when using the mixed strategy to determine if the image should 
-     * be converted immediately or passed for background processing.
-     *
-     * @return int Time limit in seconds.
-     */
-    public function mixedStrategyEditorTimeframeSeconds(): int
-    {
-        return $this->wpService->applyFilters(
-            $this->createFilterKey(__FUNCTION__),
-            3600
-        );
-    }
-
   /**
    * The internal filter priority for image conversion.
    *

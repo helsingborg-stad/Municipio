@@ -76,7 +76,7 @@ class IntermidiateImageHandler implements Hookable
         }
 
         // Collect data
-        $format     = $this->config->intermidiateImageFormat()['suffix'];
+        $format = $this->config->intermidiateImageFormat()['suffix'];
 
         // If conversion has recently failed, return original image
         if ($this->conversionCache->hasRecentFailure($image, $format)) {
