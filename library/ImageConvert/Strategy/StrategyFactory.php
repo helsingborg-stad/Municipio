@@ -74,20 +74,19 @@ class StrategyFactory
      */
     public function getSelectedStrategy(): ConversionStrategy
     {
-        // Check if constant is defined
         if (defined('MUNICIPIO_IMAGE_CONVERT_STRATEGY')) {
-            $strategy = constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY');
-            
-            // Validate the strategy
-            $enumStrategy = ConversionStrategy::tryFrom($strategy);
+            $strategy       = constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY');
+            $enumStrategy   = ConversionStrategy::tryFrom($strategy);
+
             if ($enumStrategy !== null) {
                 return $enumStrategy;
             }
             
-            // Log warning for invalid strategy
-            error_log(
-                "Invalid MUNICIPIO_IMAGE_CONVERT_STRATEGY value: {$strategy}. " .
-                "Falling back to default strategy: " . self::DEFAULT_STRATEGY->value
+            $this->log->log(
+                $this,
+                "Invalid MUNICIPIO_IMAGE_CONVERT_STRATEGY value: {$strategy}. Falling back to default strategy: " . self::DEFAULT_STRATEGY->value,
+                'warning',
+                ['provided_value' => $strategy]
             );
         }
         
