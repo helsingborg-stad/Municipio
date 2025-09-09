@@ -43,7 +43,8 @@ class IntermidiateImageHandler implements Hookable
         $strategyFactory = new StrategyFactory(
             $wpService, 
             $config, 
-            $this->conversionCache
+            $this->conversionCache,
+            $this->log
         );
         $this->conversionStrategy = $strategyFactory->createStrategy();
     }

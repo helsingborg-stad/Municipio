@@ -3,6 +3,8 @@
 namespace Municipio\ImageConvert\Logging;
 
 use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\Logging\Writers\ErrorLogWriter;
+use Municipio\ImageConvert\Logging\Writers\LogWriterInterface;
 
 class Log
 {

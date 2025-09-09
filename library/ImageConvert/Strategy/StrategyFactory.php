@@ -4,10 +4,10 @@ namespace Municipio\ImageConvert\Strategy;
 
 use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use Municipio\ImageConvert\Strategy\RuntimeConversionStrategy;
-use Municipio\ImageConvert\Strategy\AsyncConversionStrategy;
 use Municipio\ImageConvert\Cache\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\ImageProcessor;
+use Municipio\ImageConvert\Logging\Log;
 use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpGetAttachmentMetadata;
@@ -37,7 +37,8 @@ class StrategyFactory
     public function __construct(
         private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&DoAction&GetCurrentUserId&UserCan&GetPost $wpService,
         private ImageConvertConfig $config,
-        private ConversionCache $conversionCache
+        private ConversionCache $conversionCache,
+        private Log $log
     ) {
     }
 
@@ -55,7 +56,8 @@ class StrategyFactory
         $imageProcessor = new ImageProcessor(
             $this->wpService,
             $this->config,
-            $this->conversionCache
+            $this->conversionCache,
+            $this->log
         );
         
         return match ($strategy) {

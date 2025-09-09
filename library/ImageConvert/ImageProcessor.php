@@ -11,6 +11,7 @@ use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpAttachmentIs;
 use WpService\Contracts\AddFilter;
 use Municipio\ImageConvert\Cache\ConversionCache;
+use Municipio\ImageConvert\Logging\Log;
 
 /**
  * ImageProcessor
@@ -23,7 +24,8 @@ class ImageProcessor
     public function __construct(
         private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter $wpService,
         private ImageConvertConfig $config,
-        private ConversionCache $conversionCache
+        private ConversionCache $conversionCache,
+        private Log $log
     ) {
     }
 
@@ -48,7 +50,14 @@ class ImageProcessor
             // Check if the image can be resized
             $canConvert = $this->canConvertImage($image);
             if ($canConvert instanceof \WP_Error) {
-                $this->logConversionError('Image resizing is not possible: ' . $canConvert->get_error_message(), $image);
+
+                $this->log->log(
+                    $this,
+                    'Cannot convert image: ' . $canConvert->get_error_message(),
+                    'warning',
+                    ['image' => $image, 'format' => $format, 'reason' => $canConvert->get_error_code()]
+                );
+
                 $this->conversionCache->markConversionFailed($image);
                 return false;
             }
@@ -84,14 +93,35 @@ class ImageProcessor
                     
                     // Mark conversion as successful
                     $this->conversionCache->markConversionSuccess($image);
+
+                    $this->log->log(
+                        $this,
+                        'Successfully converted image.',
+                        'info',
+                        ['image' => $image, 'format' => $format]
+                    );
                     
                     return $image;
                 } else {
-                    $this->logConversionError('Error saving resized image: ' . $savedImage->get_error_message(), $image);
+                    $this->log->log(
+                        $this,
+                        'Cannot convert image: ' . $savedImage->get_error_message(),
+                        'info',
+                        ['image' => $image, 'format' => $format, 'reason' => $savedImage->get_error_code()]
+                    );
+
                     $this->conversionCache->markConversionFailed($image);
                 }
             } else {
                 $this->logConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
+
+                $this->log->log(
+                    $this,
+                    'Cannot convert image: ' . $imageEditor->get_error_message(),
+                    'info',
+                    ['image' => $image, 'format' => $format, 'reason' => $imageEditor->get_error_code()]
+                );
+
                 $this->conversionCache->markConversionFailed($image);
             }
 

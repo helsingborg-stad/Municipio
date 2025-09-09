@@ -1,6 +1,9 @@
 <?php
 
-namespace Municipio\ImageConvert\Logging;
+namespace Municipio\ImageConvert\Logging\Writers;
+
+use Municipio\ImageConvert\Logging\LogEntry;
+use Municipio\ImageConvert\Logging\Writers\LogWriterInterface;
 
 class ErrorLogWriter implements LogWriterInterface
 {
