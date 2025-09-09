@@ -40,7 +40,7 @@ class ImageProcessor
         $height  = $image->getHeight();
         $format  = $this->config->intermidiateImageFormat()['suffix'];
 
-        if (!$this->conversionCache->acquireConversionLock($imageId, $width, $height, $format)) {
+        if (!$this->conversionCache->acquireConversionLock($image)) {
             return $image;
         }
 
@@ -49,7 +49,7 @@ class ImageProcessor
             $canConvert = $this->canConvertImage($image);
             if ($canConvert instanceof \WP_Error) {
                 $this->logConversionError('Image resizing is not possible: ' . $canConvert->get_error_message(), $image);
-                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                $this->conversionCache->markConversionFailed($image);
                 return false;
             }
 
@@ -83,22 +83,22 @@ class ImageProcessor
                     $image->setPath($intermediateLocation['path']);
                     
                     // Mark conversion as successful
-                    $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+                    $this->conversionCache->markConversionSuccess($image);
                     
                     return $image;
                 } else {
                     $this->logConversionError('Error saving resized image: ' . $savedImage->get_error_message(), $image);
-                    $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                    $this->conversionCache->markConversionFailed($image);
                 }
             } else {
                 $this->logConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
-                $this->conversionCache->markConversionFailed($imageId, $width, $height, $format);
+                $this->conversionCache->markConversionFailed($image);
             }
 
             return false;
         } finally {
             // Always release the lock, even if resizing failed
-            $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
+            $this->conversionCache->releaseConversionLock($image);
         }
     }
 

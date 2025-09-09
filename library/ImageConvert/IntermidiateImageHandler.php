@@ -43,6 +43,9 @@ class IntermidiateImageHandler implements Hookable
         $this->conversionStrategy = $strategyFactory->createStrategy();
     }
 
+    /**
+     * Register hooks
+     */
     public function addHooks(): void
     {
         if ($this->wpService->isAdmin()) {
@@ -58,7 +61,6 @@ class IntermidiateImageHandler implements Hookable
 
         // Clear conversion cache when attachments are deleted or updated
         $this->wpService->addFilter('delete_attachment', [$this, 'clearAttachmentCache'], 10, 1);
-        $this->wpService->addFilter('wp_update_attachment_metadata', [$this, 'clearAttachmentCacheOnUpdate'], 10, 2);
     }
 
     /**
@@ -70,16 +72,14 @@ class IntermidiateImageHandler implements Hookable
     public function createIntermidiateImage($image): ImageContract|bool
     {
         if (!$image instanceof ImageContract) {
-            return $image; // Fallback to original if not an instance of ImageContract
+            return $image;
         }
 
         // Collect data
-        $format = $this->config->intermidiateImageFormat()['suffix'];
-        $imageId = $image->getId();
-        $width = $image->getWidth();
-        $height = $image->getHeight();
+        $format     = $this->config->intermidiateImageFormat()['suffix'];
 
-        if ($this->conversionCache->hasRecentFailure($imageId, $width, $height, $format)) {
+        // If conversion has recently failed, return original image
+        if ($this->conversionCache->hasRecentFailure($image, $format)) {
             return $image;
         }
 
@@ -90,7 +90,7 @@ class IntermidiateImageHandler implements Hookable
         }
 
         //If already processed in this request, return the intermediate image, it will exist anyway
-        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($imageId, $width, $height, $format)) {
+        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image, $format)) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
             return $image; 
@@ -102,16 +102,16 @@ class IntermidiateImageHandler implements Hookable
             $image->setPath($intermediateLocation['path']);
             
             // Mark as successful for future reference
-            $this->conversionCache->markConversionSuccess($imageId, $width, $height, $format);
+            $this->conversionCache->markConversionSuccess($image, $format);
             
             // Mark as processed in current request
-            $this->pageLoadCache->markProcessedInCurrentRequest($imageId, $width, $height, $format);
+            $this->pageLoadCache->markProcessedInCurrentRequest($image, $format);
             
             return $image;
         }
 
         // Mark as processed in current request to prevent duplicate processing
-        $this->pageLoadCache->markProcessedInCurrentRequest($imageId, $width, $height, $format);
+        $this->pageLoadCache->markProcessedInCurrentRequest($image, $format);
 
         // Use the selected conversion strategy
         return $this->conversionStrategy->process($image);
@@ -126,18 +126,5 @@ class IntermidiateImageHandler implements Hookable
     {
         $this->conversionCache->clearImageCache($attachmentId);
         $this->pageLoadCache->clearImageCache($attachmentId);
-    }
-
-    /**
-     * Clear conversion cache when attachment metadata is updated
-     *
-     * @param array $data
-     * @param int $attachmentId
-     * @return array
-     */
-    public function clearAttachmentCacheOnUpdate(array $data, int $attachmentId): array
-    {
-        $this->clearAttachmentCache($attachmentId);
-        return $data;
     }
 }

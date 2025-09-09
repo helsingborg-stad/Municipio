@@ -6,6 +6,7 @@ use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpService\Contracts\WpCacheDelete;
 use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
+use Municipio\ImageConvert\Contract\ImageContract;
 
 /**
  * PageLoadCache
@@ -33,46 +34,35 @@ class PageLoadCache
 
     /**
      * Check if an image conversion has been processed in the current request
-     * 
-     * @param int $imageId
-     * @param int $width
-     * @param int $height
-     * @param string $format
+     *
+     * @param ImageContract $image
      * @return bool
      */
-    public function hasBeenProcessedInCurrentRequest(int $imageId, int $width, int $height, string $format): bool
+    public function hasBeenProcessedInCurrentRequest(ImageContract $image): bool
     {
-        $requestKey = $this->getRequestCacheKey($imageId, $width, $height, $format);
+        $requestKey = $this->getRequestCacheKey($image);
         
-        // Check runtime cache first (fastest)
         if (isset(self::$requestCache[$requestKey])) {
             return true;
         }
         
-        // Check persistent cache
-        $requestCacheKey = self::REQUEST_PREFIX . self::$currentRequestId . '_' . $requestKey;
-        return (bool) $this->wpService->wpCacheGet($requestCacheKey, self::CACHE_GROUP);
+        return (bool) $this->wpService->wpCacheGet(
+            self::REQUEST_PREFIX . self::$currentRequestId . '_' . $requestKey
+        , self::CACHE_GROUP);
     }
 
     /**
      * Mark that an image conversion has been processed in the current request
-     * 
-     * @param int $imageId
-     * @param int $width
-     * @param int $height
-     * @param string $format
+     *
+     * @param ImageContract $image
      */
-    public function markProcessedInCurrentRequest(int $imageId, int $width, int $height, string $format): void
+    public function markProcessedInCurrentRequest(ImageContract $image): void
     {
-        $requestKey = $this->getRequestCacheKey($imageId, $width, $height, $format);
-        
-        // Set in runtime cache
+        $requestKey = $this->getRequestCacheKey($image);
+
         self::$requestCache[$requestKey] = true;
-        
-        // Set in persistent cache for cross-process safety
-        $requestCacheKey = self::REQUEST_PREFIX . self::$currentRequestId . '_' . $requestKey;
         $this->wpService->wpCacheSet(
-            $requestCacheKey,
+            self::REQUEST_PREFIX . self::$currentRequestId . '_' . $requestKey,
             true,
             self::CACHE_GROUP,
             $this->config->pageCacheExpiry()
@@ -108,9 +98,16 @@ class PageLoadCache
 
     /**
      * Get the cache key for request-level tracking
+     *
+     * @param ImageContract $image
+     * @return string
      */
-    private function getRequestCacheKey(int $imageId, int $width, int $height, string $format): string
+    private function getRequestCacheKey(ImageContract $image): string
     {
+        $imageId = $image->getId();
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+        $format = $this->config->intermidiateImageFormat()['suffix'];
         return sprintf('image_%d_%dx%d_%s', $imageId, $width, $height, $format);
     }
 
