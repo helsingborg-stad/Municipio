@@ -115,28 +115,6 @@ class IntermidiateImageHandler implements Hookable
     }
 
     /**
-     * Get the last modified timestamp for an image
-     *
-     * @param int $imageId
-     * @return int|null Unix timestamp or null if not available
-     */
-    private function getImageLastModified(int $imageId): ?int
-    {
-        $metadata = $this->wpService->wpGetAttachmentMetadata($imageId);
-        
-        if (is_array($metadata) && isset($metadata['file'])) {
-            $uploadDir = $this->wpService->wpUploadDir();
-            $filePath = $uploadDir['basedir'] . '/' . $metadata['file'];
-            
-            if (File::fileExists($filePath)) {
-                return filemtime($filePath) ?: null;
-            }
-        }
-        
-        return null;
-    }
-
-    /**
      * Clear conversion cache when an attachment is deleted
      *
      * @param int $attachmentId
@@ -156,8 +134,7 @@ class IntermidiateImageHandler implements Hookable
      */
     public function clearAttachmentCacheOnUpdate(array $data, int $attachmentId): array
     {
-        $this->conversionCache->clearImageCache($attachmentId);
-        $this->pageLoadCache->clearImageCache($attachmentId);
+        $this->clearAttachmentCache($attachmentId);
         return $data;
     }
 }

@@ -269,9 +269,7 @@ class ImageProcessor
         $page = preg_replace('/(token|password)=([^&]+)/i', '$1=***', $page);
 
         error_log(
-            'Image conversion error for Image ID: ' . $image->getId() .
-            '. Page: ' . $page .
-            '. Message: ' . $message
+            'Municipio ImageConvert Error. Image ID: ' . $image->getId() . '. Page: ' . $page . '. Message: ' . $message
         );
     }
 
@@ -280,6 +278,6 @@ class ImageProcessor
      */
     private function logError(string $message): void
     {
-        error_log('ImageProcessor error: ' . $message);
+        error_log('Municipio ImageConvert Error: ' . $message);
     }
 }
