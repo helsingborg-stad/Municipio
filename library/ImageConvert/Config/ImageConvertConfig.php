@@ -195,11 +195,63 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         );
     }
 
-  /**
-   * Create a prefix for image conversion filter.
-   *
-   * @return string
-   */
+    /**
+     * Page cache expiry time in seconds.
+     */
+    public function pageCacheExpiry(): int
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            3600
+        );
+    }
+
+    /**
+     * The cache expiry time for failed conversions.
+     */
+    public function failedCacheExpiry(): int
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            86400
+        );
+    }
+
+    /**
+     * The cache expiry time for successful conversions.
+     */
+    public function successCacheExpiry(): int
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            86400
+        );
+    }
+
+    /**
+     * The cache expiry time for conversion locks.
+     */
+    public function lockExpiry(): int
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            300
+        );
+    }
+
+    /**
+     * Default cache expiry time for various caches.
+     */
+    public function defaultCacheExpiry(): int
+    {
+        return 300;
+    }
+
+    /**
+     * Create a prefix for image conversion filter.
+     *
+     * @return string
+     */
     public function createFilterKey(string $filter = ""): string
     {
         return $this->filterPrefix . "/" . ucfirst($filter);

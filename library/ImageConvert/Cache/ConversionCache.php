@@ -2,10 +2,12 @@
 
 namespace Municipio\ImageConvert\Cache;
 
+use Municipio\Helper\Image;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpService\Contracts\WpCacheDelete;
 use WpService\Contracts\ApplyFilters;
+use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 
 enum ConversionStatus: string
 {
@@ -27,15 +29,12 @@ class ConversionCache
     private const STATUS_PREFIX = 'status_';
     private const LOCK_PREFIX = 'lock_';
     
-    // Cache expiration times
-    private const FAILED_CACHE_EXPIRY = 86400;
-    private const SUCCESS_CACHE_EXPIRY = 86400;
-    private const LOCK_EXPIRY = 300;
     
     private static array $runtimeCache = [];
 
     public function __construct(
-        private WpCacheGet&WpCacheSet&WpCacheDelete&ApplyFilters $wpService
+        private WpCacheGet&WpCacheSet&WpCacheDelete&ApplyFilters $wpService,
+        private ImageConvertConfigInterface $config
     ) {
     }
 
@@ -45,39 +44,6 @@ class ConversionCache
     private function getCacheKey(int $imageId, int $width, int $height, string $format): string
     {
         return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
-    }
-
-    /**
-     * Get filterable cache expiry time for failed conversions
-     */
-    private function getFailedCacheExpiry(): int
-    {
-        return (int) $this->wpService->applyFilters(
-            'Municipio/ImageConvert/Config/FailedCacheExpiry',
-            self::FAILED_CACHE_EXPIRY
-        );
-    }
-
-    /**
-     * Get filterable cache expiry time for successful conversions
-     */
-    private function getSuccessCacheExpiry(): int
-    {
-        return (int) $this->wpService->applyFilters(
-            'Municipio/ImageConvert/Config/SuccessCacheExpiry',
-            self::SUCCESS_CACHE_EXPIRY
-        );
-    }
-
-    /**
-     * Get filterable cache expiry time for conversion locks
-     */
-    private function getLockExpiry(): int
-    {
-        return (int) $this->wpService->applyFilters(
-            'Municipio/ImageConvert/Config/LockExpiry',
-            self::LOCK_EXPIRY
-        );
     }
 
     /**
@@ -106,7 +72,7 @@ class ConversionCache
         $cacheKey = self::LOCK_PREFIX . $this->getCacheKey($imageId, $width, $height, $format);
         
         // Try to acquire lock
-        $acquired = $this->wpService->wpCacheSet($cacheKey, time(), self::CACHE_GROUP, $this->getLockExpiry());
+        $acquired = $this->wpService->wpCacheSet($cacheKey, time(), self::CACHE_GROUP, $this->config->lockExpiry());
         
         if ($acquired) {
             self::$runtimeCache[$cacheKey] = true;
@@ -129,6 +95,13 @@ class ConversionCache
 
     /**
      * Get the conversion status for an image
+     * 
+     * @param int $imageId
+     * @param int $width
+     * @param int $height
+     * @param string $format
+     * @return ConversionStatus|null Null if no status is set
+     * 
      */
     public function getConversionStatus(int $imageId, int $width, int $height, string $format): ?ConversionStatus
     {
@@ -152,16 +125,25 @@ class ConversionCache
 
     /**
      * Set the conversion status for an image
+     * 
+     * @param int $imageId
+     * @param int $width
+     * @param int $height
+     * @param string $format
+     * @param ConversionStatus $status
+     * 
+     * @return bool True on success, false on failure
      */
     public function setConversionStatus(int $imageId, int $width, int $height, string $format, ConversionStatus $status): bool
     {
         $cacheKey = self::STATUS_PREFIX . $this->getCacheKey($imageId, $width, $height, $format);
         
-        // Determine cache expiry based on status
         $expiry = match ($status) {
-            ConversionStatus::Failed => $this->getFailedCacheExpiry(),
-            ConversionStatus::Success => $this->getSuccessCacheExpiry(),
-            default => 300 // 5 minutes for pending/processing
+            ConversionStatus::Failed        => $this->config->failedCacheExpiry(),
+            ConversionStatus::Success       => $this->config->successCacheExpiry(),
+            ConversionStatus::Pending       => $this->config->defaultCacheExpiry(),
+            ConversionStatus::Processing    => $this->config->defaultCacheExpiry(),
+            default                         => $this->config->defaultCacheExpiry(),
         };
         
         self::$runtimeCache[$cacheKey] = $status;
@@ -170,7 +152,14 @@ class ConversionCache
     }
 
     /**
-     * Check if a conversion recently failed and should be skipped
+     * Check if a conversion recently failed
+     * 
+     * @param int $imageId
+     * @param int $width
+     * @param int $height
+     * @param string $format
+     * 
+     * @return bool
      */
     public function hasRecentFailure(int $imageId, int $width, int $height, string $format): bool
     {
@@ -180,6 +169,13 @@ class ConversionCache
 
     /**
      * Mark a conversion as successful
+     * 
+     * @param int $imageId
+     * @param int $width
+     * @param int $height
+     * @param string $format
+     * 
+     * @return bool
      */
     public function markConversionSuccess(int $imageId, int $width, int $height, string $format): bool
     {
@@ -188,6 +184,13 @@ class ConversionCache
 
     /**
      * Mark a conversion as failed
+     * 
+     * @param int $imageId
+     * @param int $width
+     * @param int $height
+     * @param string $format
+     * 
+     * @return bool
      */
     public function markConversionFailed(int $imageId, int $width, int $height, string $format): bool
     {

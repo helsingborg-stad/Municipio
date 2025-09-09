@@ -14,4 +14,9 @@ interface ImageConvertConfigInterface
     public function intermidiateImageQuality(): int;
     public function maxSourceFileSize(): int;
     public function mixedStrategyEditorTimeframeSeconds(): int;
+    public function failedCacheExpiry(): int;
+    public function successCacheExpiry(): int;
+    public function lockExpiry(): int;
+    public function defaultCacheExpiry(): int;
+    public function pageCacheExpiry(): int;
 }

@@ -21,7 +21,6 @@ use WpService\Contracts\GetPost;
 enum ConversionStrategy: string
 {
     case RUNTIME = 'runtime';
-    case ASYNC   = 'async';
 }
 
 /**
@@ -62,10 +61,7 @@ class StrategyFactory
         return match ($strategy) {
             ConversionStrategy::RUNTIME => new RuntimeConversionStrategy(
                 $imageProcessor
-            ),
-            ConversionStrategy::ASYNC => new AsyncConversionStrategy(
-                $imageProcessor
-            ),
+            )
         };
     }
 

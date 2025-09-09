@@ -5,6 +5,7 @@ namespace Municipio\ImageConvert\Cache;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpService\Contracts\WpCacheDelete;
+use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 
 /**
  * PageLoadCache
@@ -18,54 +19,16 @@ class PageLoadCache
     private const PAGE_LOAD_PREFIX = 'page_load_';
     private const REQUEST_PREFIX = 'request_';
     
-    // Cache expiration times
-    private const PAGE_LOAD_EXPIRY = 300; // 5 minutes for page load tracking
-    private const REQUEST_EXPIRY = 3600; // 1 hour for request tracking
-    
     private static array $requestCache = [];
     private static ?string $currentRequestId = null;
 
     public function __construct(
-        private WpCacheGet&WpCacheSet&WpCacheDelete $wpService
+        private WpCacheGet&WpCacheSet&WpCacheDelete $wpService,
+        private ImageConvertConfigInterface $config
     ) {
         if (self::$currentRequestId === null) {
             self::$currentRequestId = $this->generateRequestId();
         }
-    }
-
-    /**
-     * Check if a page has been loaded after the last save for a specific image
-     * 
-     * @param int $imageId The image ID
-     * @param int $lastModified Unix timestamp of when the image was last modified
-     * @return bool True if page was loaded after last save, false otherwise
-     */
-    public function hasPageLoadedAfterLastSave(int $imageId, int $lastModified): bool
-    {
-        $pageLoadKey = $this->getPageLoadCacheKey($imageId);
-        $lastPageLoad = $this->wpService->wpCacheGet($pageLoadKey, self::CACHE_GROUP);
-        
-        if (!$lastPageLoad) {
-            return false;
-        }
-        
-        return $lastPageLoad > $lastModified;
-    }
-
-    /**
-     * Mark that a page has been loaded for a specific image
-     * 
-     * @param int $imageId The image ID
-     */
-    public function markPageLoaded(int $imageId): void
-    {
-        $pageLoadKey = $this->getPageLoadCacheKey($imageId);
-        $this->wpService->wpCacheSet(
-            $pageLoadKey,
-            time(),
-            self::CACHE_GROUP,
-            self::PAGE_LOAD_EXPIRY
-        );
     }
 
     /**
@@ -112,7 +75,7 @@ class PageLoadCache
             $requestCacheKey,
             true,
             self::CACHE_GROUP,
-            self::REQUEST_EXPIRY
+            $this->config->pageCacheExpiry()
         );
     }
 

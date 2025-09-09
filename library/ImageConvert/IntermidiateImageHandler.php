@@ -32,11 +32,14 @@ class IntermidiateImageHandler implements Hookable
 
     public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService, private ImageConvertConfig $config)
     {
-        $this->conversionCache = new ConversionCache($wpService);
-        $this->pageLoadCache = new PageLoadCache($wpService);
+        $this->conversionCache  = new ConversionCache($wpService, $config);
+        $this->pageLoadCache    = new PageLoadCache($wpService);
         
-        // Create conversion strategy based on configuration
-        $strategyFactory = new StrategyFactory($wpService, $config, $this->conversionCache);
+        $strategyFactory = new StrategyFactory(
+            $wpService, 
+            $config, 
+            $this->conversionCache
+        );
         $this->conversionStrategy = $strategyFactory->createStrategy();
     }
 
