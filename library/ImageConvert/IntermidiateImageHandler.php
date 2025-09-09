@@ -3,8 +3,8 @@
 namespace Municipio\ImageConvert;
 
 use Municipio\ImageConvert\Contract\ImageContract;
-use Municipio\ImageConvert\ConversionCache;
-use Municipio\ImageConvert\PageLoadCache;
+use Municipio\ImageConvert\Cache\ConversionCache;
+use Municipio\ImageConvert\Cache\PageLoadCache;
 use Municipio\ImageConvert\Strategy\StrategyFactory;
 use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use WpService\Contracts\AddFilter;

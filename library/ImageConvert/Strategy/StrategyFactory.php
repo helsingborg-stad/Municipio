@@ -4,10 +4,8 @@ namespace Municipio\ImageConvert\Strategy;
 
 use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
 use Municipio\ImageConvert\Strategy\RuntimeConversionStrategy;
-use Municipio\ImageConvert\Strategy\BackgroundConversionStrategy;
-use Municipio\ImageConvert\Strategy\MixedConversionStrategy;
 use Municipio\ImageConvert\Strategy\AsyncConversionStrategy;
-use Municipio\ImageConvert\ConversionCache;
+use Municipio\ImageConvert\Cache\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\ImageProcessor;
 use WpService\Contracts\WpGetImageEditor;
@@ -23,9 +21,7 @@ use WpService\Contracts\GetPost;
 enum ConversionStrategy: string
 {
     case RUNTIME = 'runtime';
-    case BACKGROUND = 'background';
-    case MIXED = 'mixed';
-    case ASYNC = 'async';
+    case ASYNC   = 'async';
 }
 
 /**
@@ -66,21 +62,6 @@ class StrategyFactory
         return match ($strategy) {
             ConversionStrategy::RUNTIME => new RuntimeConversionStrategy(
                 $imageProcessor
-            ),
-            ConversionStrategy::BACKGROUND => new BackgroundConversionStrategy(
-                $this->wpService,
-                $this->config,
-                $this->conversionCache
-            ),
-            ConversionStrategy::MIXED => new MixedConversionStrategy(
-                $this->wpService,
-                $this->config,
-                $imageProcessor,
-                new BackgroundConversionStrategy(
-                    $this->wpService,
-                    $this->config,
-                    $this->conversionCache
-                )
             ),
             ConversionStrategy::ASYNC => new AsyncConversionStrategy(
                 $imageProcessor

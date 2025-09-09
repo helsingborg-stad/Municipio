@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ImageConvert;
+namespace Municipio\ImageConvert\Cache;
 
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;

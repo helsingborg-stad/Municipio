@@ -10,6 +10,7 @@ use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpAttachmentIs;
 use WpService\Contracts\AddFilter;
+use Municipio\ImageConvert\Cache\ConversionCache;
 
 /**
  * ImageProcessor
@@ -99,69 +100,6 @@ class ImageProcessor
             // Always release the lock, even if resizing failed
             $this->conversionCache->releaseConversionLock($imageId, $width, $height, $format);
         }
-    }
-
-    /**
-     * Convert an image by attachment ID and dimensions
-     * Used by background processing
-     *
-     * @param int $attachmentId
-     * @param int $width
-     * @param int $height
-     * @param string $format
-     * @return bool
-     */
-    public function convertByAttachmentId(int $attachmentId, int $width, int $height, string $format): bool
-    {
-        // Get the attachment file path
-        $attachmentPath = get_attached_file($attachmentId);
-        if (!$attachmentPath || !file_exists($attachmentPath)) {
-            $this->logError("Attachment file not found for ID: $attachmentId");
-            return false;
-        }
-
-        // Get attachment URL
-        $attachmentUrl = wp_get_attachment_url($attachmentId);
-        if (!$attachmentUrl) {
-            $this->logError("Could not get attachment URL for ID: $attachmentId");
-            return false;
-        }
-
-        // Create a temporary ImageContract for processing
-        $imageContract = new class($attachmentId, $width, $height, $attachmentUrl, $attachmentPath) implements ImageContract {
-            public function __construct(
-                private int $id,
-                private int $width,
-                private int $height,
-                private string $url,
-                private string $path
-            ) {}
-
-            public function getId(): int { return $this->id; }
-            public function getWidth(): int { return $this->width; }
-            public function getHeight(): int { return $this->height; }
-            public function getUrl(): string { return $this->url; }
-            public function getPath(): string { return $this->path; }
-            public function setUrl(string $url): void { $this->url = $url; }
-            public function setPath(string $path): void { $this->path = $path; }
-            
-            public function getIntermidiateLocation(string $format): array
-            {
-                $uploadDir = wp_upload_dir();
-                $pathinfo = pathinfo($this->path);
-                $filename = $pathinfo['filename'] . '-' . $this->width . 'x' . $this->height . '.' . $format;
-                $intermediatePath = $pathinfo['dirname'] . '/' . $filename;
-                $intermediateUrl = str_replace($uploadDir['basedir'], $uploadDir['baseurl'], $intermediatePath);
-                
-                return [
-                    'path' => $intermediatePath,
-                    'url' => $intermediateUrl
-                ];
-            }
-        };
-
-        $result = $this->process($imageContract);
-        return $result !== false;
     }
 
     /**
