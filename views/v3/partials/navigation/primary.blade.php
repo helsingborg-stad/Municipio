@@ -18,6 +18,7 @@
             (array) $classList,
             ['s-nav-primary']
         ),
+        'depth' => $depth ?? 1,
         'context' => ['site.header.nav', 'site.header.casual.nav'],
         'height' => 'lg',
         'expandLabel' => $lang->expand,
