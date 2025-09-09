@@ -2,7 +2,6 @@
 
 namespace Municipio\ImageConvert\Logging;
 
-use Municipio\ImageConvert\Contract\ImageContract;
 use Municipio\ImageConvert\Logging\Writers\ErrorLogWriter;
 use Municipio\ImageConvert\Logging\Writers\LogWriterInterface;
 
@@ -32,20 +31,6 @@ class Log
             ->message($message);
 
         $this->writeEntry($entry);
-    }
-
-    /**
-     * Specialized logging helper for logging messages related to a specific image.
-     */
-    public function logImage(
-        object $context,
-        string $message,
-        ImageContract $image,
-        LogLevel|string $level = LogLevel::INFO,
-        array $metadata = []
-    ): void {
-        $metadata['image'] = $image;
-        $this->log($context, $message, $level, $metadata);
     }
 
     /**
