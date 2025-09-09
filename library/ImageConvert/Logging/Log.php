@@ -4,6 +4,8 @@ namespace Municipio\ImageConvert\Logging;
 
 use Municipio\ImageConvert\Logging\Writers\ErrorLogWriter;
 use Municipio\ImageConvert\Logging\Writers\LogWriterInterface;
+use Municipio\ImageConvert\Logging\Formatters\DefaultFormatter;
+use Municipio\ImageConvert\Logging\Formatters\LogFormatterInterface;
 
 class Log
 {

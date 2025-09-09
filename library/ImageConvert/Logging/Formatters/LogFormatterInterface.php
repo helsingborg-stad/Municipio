@@ -1,6 +1,8 @@
 <?php
 
-namespace Municipio\ImageConvert\Logging;
+namespace Municipio\ImageConvert\Logging\Formatters;
+
+use Municipio\ImageConvert\Logging\LogEntry;
 
 interface LogFormatterInterface
 {

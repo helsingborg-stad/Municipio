@@ -1,8 +1,9 @@
 <?php
 
-namespace Municipio\ImageConvert\Logging;
+namespace Municipio\ImageConvert\Logging\Formatters;
 
 use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\Logging\LogEntry;
 
 class DefaultFormatter implements LogFormatterInterface
 {
