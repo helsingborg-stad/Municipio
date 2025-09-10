@@ -15,17 +15,8 @@ class Log
     protected LogWriterInterface $writer;
 
     public function __construct(?LogFormatterInterface $formatter, ?LogWriterInterface $writer, ImageConvertConfigInterface $config){
-        $this->formatter = $formatter ?? new DefaultFormatter();
-
-        if(is_null($writer)) {
-            if($config->getDefaultImageConversionLogWriter() === 'database'){
-                $this->writer = new LogWriterDatabase();
-            } else {
-                $this->writer = new ErrorLogWriter();
-            }
-        } else {
-            $this->writer = $writer;
-        }
+        $this->formatter  = $formatter ?? new DefaultFormatter();
+        $this->writer     = LogWriterFactory::create($config, $writer);
     }
 
     /**
