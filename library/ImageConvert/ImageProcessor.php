@@ -64,7 +64,7 @@ class ImageProcessor
             $this->increaseAllowedMemoryLimit();
 
             // Switch to the preferred image editor based on file type
-            $this->setPreferedImageEditorByFiletype($image);
+            $this->setPreferredImageEditorByFiletype($image);
 
             $intermediateLocation = $image->getIntermidiateLocation($format);
 
@@ -178,7 +178,7 @@ class ImageProcessor
     /**
      * Set the preferred image editor based on the file type.
      */
-    private function setPreferedImageEditorByFiletype(ImageContract $image): void
+    private function setPreferredImageEditorByFiletype(ImageContract $image): void
     {
         $filePath       = $image->getPath();
         $fileNameSuffix = pathinfo($filePath, PATHINFO_EXTENSION);
@@ -201,7 +201,7 @@ class ImageProcessor
      */
     private function increaseAllowedProcessingTime(): void
     {
-        $maxExecutionTime = ini_get('max_execution_time');
+        $maxExecutionTime = (int) ini_get('max_execution_time');
         if ($maxExecutionTime < 300) {
             ini_set('max_execution_time', '300');
         }

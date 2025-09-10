@@ -46,10 +46,10 @@ class ConversionCache
      */
     private function getCacheKey(ImageContract $image): string
     {
-        $imageId = $image->getId();
-        $width = $image->getWidth();
-        $height = $image->getHeight();
-        $format = $this->config->intermidiateImageFormat()['suffix'];
+        $imageId    = $image->getId();
+        $width      = $image->getWidth();
+        $height     = $image->getHeight();
+        $format     = $this->config->intermidiateImageFormat()['suffix'];
         return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
     }
 
