@@ -36,10 +36,11 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     public function create(string $schemaType): array
     {
         return [
-            'JobPosting'      => $this->getJobPostingTaxonomies(),
-            'Event'           => $this->getEventTaxonomies(),
-            'Project'         => $this->getProjectTaxonomies(),
-            'ExhibitionEvent' => $this->getExhibitionEventTaxonomies(),
+            'JobPosting'       => $this->getJobPostingTaxonomies(),
+            'Event'            => $this->getEventTaxonomies(),
+            'Project'          => $this->getProjectTaxonomies(),
+            'ExhibitionEvent'  => $this->getExhibitionEventTaxonomies(),
+            'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
         ][$schemaType] ?? [];
     }
 
@@ -99,6 +100,13 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             $this->createTaxonomy('Project', '@meta.category', $this->wpService->__('Project Categories', 'municipio'), $this->wpService->__('Project Category', 'municipio')),
             $this->createTaxonomy('Project', '@meta.technology', $this->wpService->__('Project Technologies', 'municipio'), $this->wpService->__('Project Technology', 'municipio')),
             $this->createTaxonomy('Project', 'status', $this->wpService->__('Project Statuses', 'municipio'), $this->wpService->__('Project Status', 'municipio')),
+        ];
+    }
+
+    private function getElementarySchoolTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('ElementarySchool', 'keywords.name', $this->wpService->__('Unique selling points', 'municipio'), $this->wpService->__('Unique selling point', 'municipio'), ['show_admin_column' => true]),
         ];
     }
 
