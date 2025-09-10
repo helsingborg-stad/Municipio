@@ -90,7 +90,7 @@ class IntermidiateImageHandler implements Hookable
             $this->log->log(
                 $this,
                 'Recent conversion failure detected, skipping conversion.',
-                'info',
+                'warning',
                 ['image' => $image, 'format' => $format, 'reason' => 'recent_failure']
             );
 
@@ -104,7 +104,7 @@ class IntermidiateImageHandler implements Hookable
             $this->log->log(
                 $this,
                 'Could not determine intermediate image location, skipping conversion.',
-                'info',
+                'warning',
                 ['image' => $image, 'format' => $format, 'reason' => 'no_intermediate_location']
             );
 
