@@ -52,26 +52,64 @@ class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
      */
     private function generateSchemaObject(array $schemaData): ?BaseType
     {
-        try {
-            $schema = call_user_func(array(new Schema(), $schemaData['@type']));
-        } catch (\Error $e) {
-            $schema = Schema::thing();
-        }
+        $schema = $this->getSchemaInstance($schemaData['@type'] ?? null);
 
         foreach ($schemaData as $propertyName => $propertyValue) {
-            $allowedTypes           = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);
-            $sanitizedPropertyValue = $this->maybeUnserialize($propertyValue);
-            $sanitizedPropertyValue = $this->schemaPropertyValueSanitizer->sanitize($sanitizedPropertyValue, $allowedTypes[$propertyName] ?? []);
-
-            $schema->setProperty(
-                $propertyName,
-                $this->propertyValueIsSchemaObject($sanitizedPropertyValue)
-                    ? $this->generateSchemaObject($sanitizedPropertyValue)
-                    : $sanitizedPropertyValue
-            );
+            // Fix: handle arrays of values (e.g., array of strings or schema objects)
+            if (is_array($propertyValue) && !$this->propertyValueIsSchemaObject($propertyValue)) {
+                $processedArray = [];
+                foreach ($propertyValue as $item) {
+                    $processedItem    = $this->processPropertyValue($schema, $propertyName, $item);
+                    $processedArray[] = $processedItem;
+                }
+                $schema->setProperty($propertyName, $processedArray);
+            } else {
+                $processedValue = $this->processPropertyValue($schema, $propertyName, $propertyValue);
+                $schema->setProperty($propertyName, $processedValue);
+            }
         }
 
         return $schema;
+    }
+
+    /**
+     * Get schema instance by type.
+     *
+     * @param string|null $type
+     * @return BaseType
+     */
+    private function getSchemaInstance(?string $type): BaseType
+    {
+        if (!$type) {
+            return Schema::thing();
+        }
+
+        try {
+            return call_user_func([new Schema(), $type]);
+        } catch (\Error $e) {
+            return Schema::thing();
+        }
+    }
+
+    /**
+     * Process and sanitize property value.
+     *
+     * @param BaseType $schema
+     * @param string $propertyName
+     * @param mixed $propertyValue
+     * @return mixed
+     */
+    private function processPropertyValue(BaseType $schema, string $propertyName, mixed $propertyValue): mixed
+    {
+        $allowedTypes = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);
+        $value        = $this->maybeUnserialize($propertyValue);
+        $value        = $this->schemaPropertyValueSanitizer->sanitize($value, $allowedTypes[$propertyName] ?? []);
+
+        if ($this->propertyValueIsSchemaObject($value)) {
+            return $this->generateSchemaObject($value);
+        }
+
+        return $value;
     }
 
     /**
