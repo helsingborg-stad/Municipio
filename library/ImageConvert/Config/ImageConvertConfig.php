@@ -237,9 +237,13 @@ class ImageConvertConfig implements ImageConvertConfigInterface
      */
     public function getImageConversionStrategy(): ?string
     {
+        $strategy = (defined('MUNICIPIO_IMAGE_CONVERT_STRATEGY') && !empty(constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY')))
+            ? constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY')
+            : null;
+
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            (defined('MUNICIPIO_IMAGE_CONVERT_STRATEGY') && constant('MUNICIPIO_IMAGE_CONVERT_STRATEGY')) ?? null
+            $strategy
         );
     }
 
@@ -248,9 +252,13 @@ class ImageConvertConfig implements ImageConvertConfigInterface
      */
     public function getDefaultImageConversionLogWriter(): ?string
     {
+        $defaultLogWriter = (defined('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER') && !empty(constant('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER')))
+            ? constant('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER')
+            : null;
+
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            (defined('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER') && constant('MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER')) ?? null
+            $defaultLogWriter
         );
     }
 
