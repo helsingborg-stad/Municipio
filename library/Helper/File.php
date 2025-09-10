@@ -11,6 +11,11 @@ namespace Municipio\Helper;
 class File
 {
     /**
+     * Runtime cache for file existence checks to avoid repeated cache lookups within same request
+     */
+    private static array $runtimeFileExistsCache = [];
+
+    /**
      * It takes a filename and returns the URL of the file if it exists in the media library
      *
      * @param string filename The name of the file you want to get the URL for.
@@ -45,27 +50,39 @@ class File
      */
     public static function fileExists($filePath, $expireFound = 0, $expireNotFound = 86400)
     {
+        // Check runtime cache first to avoid repeated database/cache calls within same request
+        if (array_key_exists($filePath, self::$runtimeFileExistsCache)) {
+            return self::$runtimeFileExistsCache[$filePath];
+        }
+
         //Unique cache value
         $wpService = WpService::get();
         $uid       = "municipio_file_exists_cache_" . md5($filePath);
 
         //If in cahce, found
         if ($cachedValue = $wpService->wpCacheGet($uid)) {
-            if ($cachedValue === 'found') {
-                return true;
-            } elseif ($cachedValue === 'not_found') {
-                return false;
+            $result = match ($cachedValue) {
+                'found' => true,
+                'not_found' => false,
+                default => null
+            };
+
+            if ($result !== null) {
+                self::$runtimeFileExistsCache[$filePath] = $result;
+                return $result;
             }
         }
 
         //If not in cache, look for it, if found cache.
         if (file_exists($filePath)) {
             $wpService->wpCacheSet($uid, 'found', '', $expireFound);
+            self::$runtimeFileExistsCache[$filePath] = true;
             return true;
         }
 
         //Opsie, file not found
         $wpService->wpCacheSet($uid, 'not_found', '', $expireNotFound);
+        self::$runtimeFileExistsCache[$filePath] = false;
         return false;
     }
 
@@ -140,5 +157,13 @@ class File
 
         //Opsie, file not found
         return false;
+    }
+
+    /**
+     * Clear runtime cache for file existence checks (useful for testing)
+     */
+    public static function clearRuntimeCache(): void
+    {
+        self::$runtimeFileExistsCache = [];
     }
 }
