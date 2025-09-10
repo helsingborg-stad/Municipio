@@ -59,6 +59,14 @@ class ImageProcessor
                 return false;
             }
 
+            // Add log entry to indicate that we are starting conversion
+            $this->log->log(
+                $this,
+                'Starting image conversion.',
+                'info',
+                ['image' => $image, 'format' => $format]
+            );
+
             // Set processing limits for better resource management
             $this->increaseAllowedProcessingTime();
             $this->increaseAllowedMemoryLimit();
