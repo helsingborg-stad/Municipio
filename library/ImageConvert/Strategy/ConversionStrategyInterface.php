@@ -6,7 +6,7 @@ use Municipio\ImageConvert\Contract\ImageContract;
 
 /**
  * Interface for image resizing strategies
- * 
+ *
  * Defines how and when images should be resized to requested dimensions.
  * Strategies determine the processing approach: immediate, background, mixed, or CLI.
  */

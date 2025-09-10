@@ -14,9 +14,10 @@ class Log
     protected LogFormatterInterface $formatter;
     protected LogWriterInterface $writer;
 
-    public function __construct(?LogFormatterInterface $formatter, ?LogWriterInterface $writer, ImageConvertConfigInterface $config){
-        $this->formatter  = $formatter ?? new DefaultFormatter();
-        $this->writer     = LogWriterFactory::create($config, $writer);
+    public function __construct(?LogFormatterInterface $formatter, ?LogWriterInterface $writer, ImageConvertConfigInterface $config)
+    {
+        $this->formatter = $formatter ?? new DefaultFormatter();
+        $this->writer    = LogWriterFactory::create($config, $writer);
     }
 
     /**

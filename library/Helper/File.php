@@ -66,7 +66,7 @@ class File
                 'not_found' => false,
                 default => null
             };
-            
+
             if ($result !== null) {
                 self::$runtimeFileExistsCache[$filePath] = $result;
                 return $result;

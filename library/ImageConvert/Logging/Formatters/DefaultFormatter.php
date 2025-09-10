@@ -10,11 +10,11 @@ class DefaultFormatter implements LogFormatterInterface
     public function formatEntry(LogEntry $entry): string
     {
         $contextClass = $entry->getContext() ? get_class($entry->getContext()) : 'unknown';
-        $metadata = $entry->getMetadata();
+        $metadata     = $entry->getMetadata();
 
         $imagePart = '';
         if (isset($metadata['image']) && $metadata['image'] instanceof ImageContract) {
-            $image = $metadata['image'];
+            $image     = $metadata['image'];
             $imagePart = sprintf(
                 ' | Image ID: %s | Dimensions: %s x %s',
                 $image->getId(),

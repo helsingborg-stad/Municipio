@@ -11,25 +11,25 @@ use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 
 enum ConversionStatus: string
 {
-    case Pending = 'pending';
+    case Pending    = 'pending';
     case Processing = 'processing';
-    case Success = 'success';
-    case Failed = 'failed';
+    case Success    = 'success';
+    case Failed     = 'failed';
 }
 
 /**
  * ConversionCache
- * 
+ *
  * Manages caching and deduplication for image conversion operations.
  * Provides mechanisms to prevent duplicate processing and cache conversion results.
  */
 class ConversionCache
 {
-    private const CACHE_GROUP = 'municipio_image_convert';
+    private const CACHE_GROUP   = 'municipio_image_convert';
     private const STATUS_PREFIX = 'status_';
-    private const LOCK_PREFIX = 'lock_';
-    
-    
+    private const LOCK_PREFIX   = 'lock_';
+
+
     private static array $runtimeCache = [];
 
     public function __construct(
@@ -46,10 +46,10 @@ class ConversionCache
      */
     private function getCacheKey(ImageContract $image): string
     {
-        $imageId    = $image->getId();
-        $width      = $image->getWidth();
-        $height     = $image->getHeight();
-        $format     = $this->config->intermidiateImageFormat()['suffix'];
+        $imageId = $image->getId();
+        $width   = $image->getWidth();
+        $height  = $image->getHeight();
+        $format  = $this->config->intermidiateImageFormat()['suffix'];
         return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
     }
 
@@ -66,7 +66,7 @@ class ConversionCache
         if (isset(self::$runtimeCache[$cacheKey])) {
             return self::$runtimeCache[$cacheKey];
         }
-        $isLocked = (bool) $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
+        $isLocked                      = (bool) $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
         self::$runtimeCache[$cacheKey] = $isLocked;
         return $isLocked;
     }
@@ -116,7 +116,7 @@ class ConversionCache
         }
         $status = $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
         if ($status) {
-            $enumStatus = ConversionStatus::from($status);
+            $enumStatus                    = ConversionStatus::from($status);
             self::$runtimeCache[$cacheKey] = $enumStatus;
             return $enumStatus;
         }
@@ -133,7 +133,7 @@ class ConversionCache
     public function setConversionStatus(ImageContract $image, ConversionStatus $status): bool
     {
         $cacheKey = self::STATUS_PREFIX . $this->getCacheKey($image);
-        $expiry = match ($status) {
+        $expiry   = match ($status) {
             ConversionStatus::Failed        => $this->config->failedCacheExpiry(),
             ConversionStatus::Success       => $this->config->successCacheExpiry(),
             ConversionStatus::Pending       => $this->config->defaultCacheExpiry(),

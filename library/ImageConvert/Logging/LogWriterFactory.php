@@ -16,16 +16,16 @@ class LogWriterFactory
    * @param LogWriterInterface|null $writer Optional custom writer instance
    * @return LogWriterInterface Log writer instance
    */
-  public static function create(ImageConvertConfigInterface $config, ?LogWriterInterface $writer = null): LogWriterInterface
-  {
-    if ($writer !== null) {
-      return $writer;
-    }
+    public static function create(ImageConvertConfigInterface $config, ?LogWriterInterface $writer = null): LogWriterInterface
+    {
+        if ($writer !== null) {
+            return $writer;
+        }
 
-    if ($config->getDefaultImageConversionLogWriter() === 'database') {
-      return new LogWriterDatabase();
-    }
+        if ($config->getDefaultImageConversionLogWriter() === 'database') {
+            return new LogWriterDatabase();
+        }
 
-    return new ErrorLogWriter();
-  }
+        return new ErrorLogWriter();
+    }
 }

@@ -15,7 +15,7 @@ use Municipio\ImageConvert\Logging\Log;
 
 /**
  * ImageProcessor
- * 
+ *
  * Handles the actual image resizing and conversion logic.
  * This is the shared component used by all conversion strategies.
  */
@@ -37,7 +37,7 @@ class ImageProcessor
      */
     public function process(ImageContract $image): ImageContract|false
     {
-        $format  = $this->config->intermidiateImageFormat()['suffix'];
+        $format = $this->config->intermidiateImageFormat()['suffix'];
 
         if (!$this->conversionCache->acquireConversionLock($image)) {
             return $image;
@@ -47,7 +47,6 @@ class ImageProcessor
             // Check if the image can be resized
             $canConvert = $this->canConvertImage($image);
             if ($canConvert instanceof \WP_Error) {
-
                 $this->log->log(
                     $this,
                     'Cannot convert image: ' . $canConvert->get_error_message(),
@@ -95,7 +94,7 @@ class ImageProcessor
                 if (!$this->wpService->isWpError($savedImage)) {
                     $image->setUrl($intermediateLocation['url']);
                     $image->setPath($intermediateLocation['path']);
-                    
+
                     // Mark conversion as successful
                     $this->conversionCache->markConversionSuccess($image);
 
@@ -105,7 +104,7 @@ class ImageProcessor
                         'info',
                         ['image' => $image, 'format' => $format]
                     );
-                    
+
                     return $image;
                 } else {
                     $this->log->log(

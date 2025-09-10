@@ -10,17 +10,17 @@ use Municipio\ImageConvert\Contract\ImageContract;
 
 /**
  * PageLoadCache
- * 
- * Manages page load caching to prevent multiple image generations 
+ *
+ * Manages page load caching to prevent multiple image generations
  * within the same page load or request lifecycle.
  */
 class PageLoadCache
 {
-    private const CACHE_GROUP = 'municipio_page_load';
+    private const CACHE_GROUP      = 'municipio_page_load';
     private const PAGE_LOAD_PREFIX = 'page_load_';
-    private const REQUEST_PREFIX = 'request_';
-    
-    private static array $requestCache = [];
+    private const REQUEST_PREFIX   = 'request_';
+
+    private static array $requestCache       = [];
     private static ?string $currentRequestId = null;
 
     public function __construct(
@@ -41,14 +41,15 @@ class PageLoadCache
     public function hasBeenProcessedInCurrentRequest(ImageContract $image): bool
     {
         $requestKey = $this->getRequestCacheKey($image);
-        
+
         if (isset(self::$requestCache[$requestKey])) {
             return true;
         }
-        
+
         return (bool) $this->wpService->wpCacheGet(
-            self::REQUEST_PREFIX . self::$currentRequestId . '_' . $requestKey
-        , self::CACHE_GROUP);
+            self::REQUEST_PREFIX . self::$currentRequestId . '_' . $requestKey,
+            self::CACHE_GROUP
+        );
     }
 
     /**
@@ -71,14 +72,14 @@ class PageLoadCache
 
     /**
      * Clear page load cache for a specific image (e.g., when image is updated)
-     * 
+     *
      * @param int $imageId
      */
     public function clearImageCache(int $imageId): void
     {
         $pageLoadKey = $this->getPageLoadCacheKey($imageId);
         $this->wpService->wpCacheDelete($pageLoadKey, self::CACHE_GROUP);
-        
+
         // Clear from runtime cache as well
         $pattern = "image_{$imageId}_";
         foreach (array_keys(self::$requestCache) as $key) {
@@ -105,9 +106,9 @@ class PageLoadCache
     private function getRequestCacheKey(ImageContract $image): string
     {
         $imageId = $image->getId();
-        $width = $image->getWidth();
-        $height = $image->getHeight();
-        $format = $this->config->intermidiateImageFormat()['suffix'];
+        $width   = $image->getWidth();
+        $height  = $image->getHeight();
+        $format  = $this->config->intermidiateImageFormat()['suffix'];
         return sprintf('image_%d_%dx%d_%s', $imageId, $width, $height, $format);
     }
 
@@ -124,7 +125,7 @@ class PageLoadCache
             getmypid(), // Process ID
             uniqid('', true)
         ];
-        
+
         return hash('crc32b', implode('|', $factors));
     }
 }

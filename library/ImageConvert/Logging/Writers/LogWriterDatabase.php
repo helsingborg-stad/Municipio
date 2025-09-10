@@ -14,7 +14,7 @@ class LogWriterDatabase implements LogWriterInterface
     public function __construct(string $table = 'imageconvert_log')
     {
         global $wpdb;
-        $this->wpdb = $wpdb;
+        $this->wpdb  = $wpdb;
         $this->table = $this->wpdb->prefix . $table;
 
         if (!self::$checkedTable) {

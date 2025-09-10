@@ -4,12 +4,14 @@ namespace Municipio\ImageConvert\Logging;
 
 class LogEntry
 {
-    private string $message = '';
-    private LogLevel $level = LogLevel::INFO;
-    private array $metadata = [];
+    private string $message  = '';
+    private LogLevel $level  = LogLevel::INFO;
+    private array $metadata  = [];
     private ?object $context = null;
 
-    public function __construct(private Log $logger) {}
+    public function __construct(private Log $logger)
+    {
+    }
 
     public function setLevel(LogLevel|string $level): self
     {
@@ -41,8 +43,20 @@ class LogEntry
     }
 
     // Getters
-    public function getMessage(): string { return $this->message; }
-    public function getLevel(): LogLevel { return $this->level; }
-    public function getMetadata(): array { return $this->metadata; }
-    public function getContext(): ?object { return $this->context; }
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+    public function getLevel(): LogLevel
+    {
+        return $this->level;
+    }
+    public function getMetadata(): array
+    {
+        return $this->metadata;
+    }
+    public function getContext(): ?object
+    {
+        return $this->context;
+    }
 }

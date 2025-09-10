@@ -32,17 +32,16 @@ class IntermidiateImageHandler implements Hookable
     private ConversionStrategyInterface $conversionStrategy;
 
     public function __construct(
-        private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService, 
+        private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService,
         private ImageConvertConfig $config,
         private Log $log
-    )
-    {
-        $this->conversionCache  = new ConversionCache($wpService, $config);
-        $this->pageLoadCache    = new PageLoadCache($wpService, $config);
-        
-        $strategyFactory = new StrategyFactory(
-            $wpService, 
-            $config, 
+    ) {
+        $this->conversionCache = new ConversionCache($wpService, $config);
+        $this->pageLoadCache   = new PageLoadCache($wpService, $config);
+
+        $strategyFactory          = new StrategyFactory(
+            $wpService,
+            $config,
             $this->conversionCache,
             $this->log
         );
@@ -86,7 +85,6 @@ class IntermidiateImageHandler implements Hookable
 
         // If conversion has recently failed, return original image
         if ($this->conversionCache->hasRecentFailure($image)) {
-
             $this->log->log(
                 $this,
                 'Recent conversion failure detected, skipping conversion.',
@@ -100,7 +98,6 @@ class IntermidiateImageHandler implements Hookable
         // Fallback if no intermediate location could be determined
         $intermediateLocation = $image->getIntermidiateLocation($format);
         if (empty($intermediateLocation['path']) || empty($intermediateLocation['url'])) {
-
             $this->log->log(
                 $this,
                 'Could not determine intermediate image location, skipping conversion.',
@@ -115,20 +112,20 @@ class IntermidiateImageHandler implements Hookable
         if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image)) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
-            return $image; 
+            return $image;
         }
 
         // Check if the intermediate image already exists, if so return it
         if (File::fileExists($intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
-            
+
             // Mark as successful for future reference
             $this->conversionCache->markConversionSuccess($image);
-            
+
             // Mark as processed in current request
             $this->pageLoadCache->markProcessedInCurrentRequest($image);
-            
+
             return $image;
         }
 
