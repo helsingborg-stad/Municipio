@@ -85,7 +85,7 @@ class IntermidiateImageHandler implements Hookable
         $format = $this->config->intermidiateImageFormat()['suffix'];
 
         // If conversion has recently failed, return original image
-        if ($this->conversionCache->hasRecentFailure($image, $format)) {
+        if ($this->conversionCache->hasRecentFailure($image)) {
 
             $this->log->log(
                 $this,
@@ -112,7 +112,7 @@ class IntermidiateImageHandler implements Hookable
         }
 
         //If already processed in this request, return the intermediate image, it will exist anyway
-        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image, $format)) {
+        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image)) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
             return $image; 
@@ -124,16 +124,16 @@ class IntermidiateImageHandler implements Hookable
             $image->setPath($intermediateLocation['path']);
             
             // Mark as successful for future reference
-            $this->conversionCache->markConversionSuccess($image, $format);
+            $this->conversionCache->markConversionSuccess($image);
             
             // Mark as processed in current request
-            $this->pageLoadCache->markProcessedInCurrentRequest($image, $format);
+            $this->pageLoadCache->markProcessedInCurrentRequest($image);
             
             return $image;
         }
 
         // Mark as processed in current request to prevent duplicate processing
-        $this->pageLoadCache->markProcessedInCurrentRequest($image, $format);
+        $this->pageLoadCache->markProcessedInCurrentRequest($image);
 
         // Use the selected conversion strategy
         return $this->conversionStrategy->process($image);
