@@ -90,6 +90,29 @@ class Behaviour
             ]
         ]);
 
+        KirkiField::addField([
+            'type'     => 'switch',
+            'settings' => 'primary_menu_dropdown_extended',
+            'label'    => esc_html__('Extends the dropdown behavior making it more complete', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => false,
+            'priority' => 10,
+            'choices'  => [
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'primary_menu_dropdown',
+                    'operator' => '==',
+                    'value'    => true,
+                ],
+            ],
+            'output'   => [
+                ['type' => 'controller']
+            ]
+        ]);
+
         KirkiField::addField($this->getDrawerScreenSizesFieldArguments($sectionID));
     }
 

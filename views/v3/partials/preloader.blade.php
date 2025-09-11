@@ -1,5 +1,6 @@
 @nav([
     'classList' => ['preloader'],
+    'depth' => $depth ? $depth + 1 : 2,
     'items' => [
         [
             'href' => '#',
