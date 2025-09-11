@@ -147,14 +147,14 @@ class ImageProcessor
             return new \WP_Error('invalid_id', 'The image ID is empty or invalid.');
         }
 
-        // The Source file must exist
-        if (!File::fileExists($sourceFilePath)) {
-            return new \WP_Error('file_not_found', 'The source image file does not exist at path: ' . $sourceFilePath);
-        }
-
         // The image must exist in database, and be a image
         if (!$this->wpService->wpAttachmentIs('image', $sourceFileId)) {
             return new \WP_Error('not_image', 'The attachment is not recognized as an image.');
+        }
+
+        // The Source file must exist
+        if (!File::fileExists($sourceFilePath)) {
+            return new \WP_Error('file_not_found', 'The source image file does not exist at path: ' . $sourceFilePath);
         }
 
         // Get attachment filesize, if exceeds max size, return error
