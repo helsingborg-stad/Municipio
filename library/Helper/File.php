@@ -48,7 +48,7 @@ class File
      *
      * @return  bool    If the file exists or not.
      */
-    public static function fileExists($filePath, $expireFound = 0, $expireNotFound = 86400)
+    public static function fileExists($filePath, $expireFound = 86400, $expireNotFound = 86400)
     {
         // Check runtime cache first to avoid repeated database/cache calls within same request
         if (array_key_exists($filePath, self::$runtimeFileExistsCache)) {
