@@ -62,7 +62,8 @@
                         'site-nav-mobile__secondary',
                         's-nav-drawer',
                         's-nav-drawer-secondary',
-                        !empty($customizer->drawerDivider) ? 'c-nav--bordered' : ''
+                        !empty($customizer->drawerDivider) ? 'c-nav--bordered' : '',
+                        !empty($customizer->drawerDividerTopLevelOnly) ? 'c-nav--bordered-top-level' : ''
                     ],
                     'items' => $mobileSecondaryMenu['items'],
                     'direction' => 'vertical',
