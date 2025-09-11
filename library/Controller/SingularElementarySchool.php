@@ -28,6 +28,7 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             'address'            => new SingularElementarySchool\AddressGenerator($this->post->getSchema()),
             'mapAttributes'      => new SingularElementarySchool\MapComponentAttributesGenerator($this->post->getSchema()),
             'usps'               => new SingularElementarySchool\UspsGenerator($this->post->getSchema(), $this->post->getId(), $this->wpService),
+            'actions'            => new SingularElementarySchool\ActionsGenerator($this->post->getSchema()),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();

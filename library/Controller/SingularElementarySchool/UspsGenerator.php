@@ -3,6 +3,7 @@
 namespace Municipio\Controller\SingularElementarySchool;
 
 use Municipio\Schema\ElementarySchool;
+use Municipio\Schema\OpeningHoursSpecification;
 use WpService\Contracts\_x;
 use WpService\Contracts\GetTheTerms;
 
@@ -20,28 +21,48 @@ class UspsGenerator implements ViewDataGeneratorInterface
         return $this->splitArrayIntoColumns(array_merge(
             $this->getTerms(),
             $this->getAreaServed(),
-            $this->getNumberOfStudents()
+            $this->getNumberOfStudents(),
+            $this->getAfterSchoolCareOpeningHours()
         ), 3);
+    }
+
+    private function getAfterSchoolCareOpeningHours(): array
+    {
+        $afterSchoolCare = $this->elementarySchool->getProperty('afterSchoolCare');
+        $openingHours    = $afterSchoolCare?->getProperty('hoursAvailable');
+
+        if (!is_a($openingHours, OpeningHoursSpecification::class)) {
+            return [];
+        }
+
+        /**
+         * @var DateTime|null $opens
+         */
+        $opens = $openingHours->getProperty('opens');
+        /**
+         * @var DateTime|null $closes
+         */
+        $closes = $openingHours->getProperty('closes');
+
+        if (empty($opens) || empty($closes)) {
+            return [];
+        }
+
+        $opens            = $opens->format('H:i');
+        $closes           = $closes->format('H:i');
+        $openingHoursText = "{$opens}-{$closes}";
+        $label            = $this->wpService->_x('After school care opening hours: %s', 'ElementarySchool', 'municipio');
+        $label            = sprintf($label, $openingHoursText);
+        return [$label];
     }
 
     private function getNumberOfStudents(): array
     {
-        if (is_array($this->elementarySchool->getProperty('additionalProperty'))) {
-            foreach ($this->elementarySchool->getProperty('additionalProperty') as $property) {
-                if (
-                    is_a($property, \Municipio\Schema\PropertyValue::class) &&
-                    $property->getProperty('name') === 'number_of_students' &&
-                    is_numeric($property->getProperty('value')) &&
-                    !empty($property->getProperty('value'))
-                ) {
-                    return [
-                        sprintf($this->wpService->_x('Ca. %s students', 'ElementarySchool', 'municipio'), $property->getProperty('value'))
-                    ];
-                }
-            }
+        if (!is_numeric($this->elementarySchool->getProperty('numberOfStudents'))) {
+            return [];
         }
 
-        return [];
+        return [sprintf($this->wpService->_x('Ca. %s students', 'ElementarySchool', 'municipio'), $this->elementarySchool->getProperty('numberOfStudents'))];
     }
 
     private function getAreaServed(): array
