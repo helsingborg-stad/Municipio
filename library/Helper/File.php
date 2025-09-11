@@ -40,48 +40,51 @@ class File
     }
 
     /**
-     * Check if a file exists, cache in redis.
+     * Check if a file exists, cache in Redis (or other wp_cache backend).
      *
-     * @param   string  The file path
-     * @param   integer Time to store positive result
-     * @param   integer Time to store negative result
+     * @param string  $filePath       The file path
+     * @param integer $expireFound    TTL for positive result
+     * @param integer $expireNotFound TTL for negative result
      *
-     * @return  bool    If the file exists or not.
+     * @return bool If the file exists or not
      */
     public static function fileExists($filePath, $expireFound = 86400, $expireNotFound = 86400)
     {
-        // Check runtime cache first to avoid repeated database/cache calls within same request
-        if (array_key_exists($filePath, self::$runtimeFileExistsCache)) {
+        // Runtime cache (per-request)
+        if (isset(self::$runtimeFileExistsCache[$filePath])) {
             return self::$runtimeFileExistsCache[$filePath];
         }
 
-        //Unique cache value
+        // Build cache key + group
+        $key   = md5($filePath);
+        $group = 'municipio_file_exists_cache';
+
         $wpService = WpService::get();
-        $uid       = "municipio_file_exists_cache_" . md5($filePath);
 
-        //If in cahce, found
-        if ($cachedValue = $wpService->wpCacheGet($uid)) {
-            $result = match ($cachedValue) {
-                'found' => true,
-                'not_found' => false,
-                default => null
-            };
+        // Check persistent cache
+        $cachedValue = $wpService->wpCacheGet($key, $group);
 
-            if ($result !== null) {
-                self::$runtimeFileExistsCache[$filePath] = $result;
-                return $result;
+        if ($cachedValue !== false) {
+            if ($cachedValue === 'found') {
+                self::$runtimeFileExistsCache[$filePath] = true;
+                return true;
             }
+            if ($cachedValue === 'not_found') {
+                self::$runtimeFileExistsCache[$filePath] = false;
+                return false;
+            }
+            // If unexpected value, fall through and re-check filesystem
         }
 
-        //If not in cache, look for it, if found cache.
+        // Not in cache → check filesystem
         if (file_exists($filePath)) {
-            $wpService->wpCacheSet($uid, 'found', '', $expireFound);
+            $wpService->wpCacheSet($key, 'found', $group, $expireFound);
             self::$runtimeFileExistsCache[$filePath] = true;
             return true;
         }
 
-        //Opsie, file not found
-        $wpService->wpCacheSet($uid, 'not_found', '', $expireNotFound);
+        // File not found
+        $wpService->wpCacheSet($key, 'not_found', $group, $expireNotFound);
         self::$runtimeFileExistsCache[$filePath] = false;
         return false;
     }
