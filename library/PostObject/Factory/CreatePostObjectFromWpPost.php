@@ -5,7 +5,17 @@ namespace Municipio\PostObject\Factory;
 use AcfService\AcfService;
 use Municipio\Helper\StringToTime;
 use Municipio\Helper\Term\Term;
-use Municipio\PostObject\Date\{ArchiveDateFormatResolver, ArchiveDateFormatResolverInterface, ArchiveDateSourceResolver, ArchiveDateSourceResolverInterface, CachedArchiveDateFormatResolver, CachedArchiveDateSourceResolver, CachedTimestampResolver, TimestampResolver, TimestampResolverInterface};
+use Municipio\PostObject\Date\{
+    ArchiveDateFormatResolver,
+    ArchiveDateFormatResolverInterface,
+    ArchiveDateSourceResolver,
+    ArchiveDateSourceResolverInterface,
+    CachedArchiveDateSourceResolver,
+    CachedTimestampResolver,
+    ExhibitionEventArchiveDateFormatResolver,
+    TimestampResolver,
+    TimestampResolverInterface
+};
 use Municipio\PostObject\Icon\Resolvers\{CachedIconResolver, IconResolverInterface, NullIconResolver, PostIconResolver, TermIconResolver};
 use Municipio\PostObject\{PostObject, PostObjectInterface};
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
@@ -51,10 +61,10 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
         $postObject = new PostObjectFromWpPost($postObject, $post, $this->wpService);
         $postObject = new PostObjectWithFilteredContent($postObject, $this->wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $this->wpService);
+        $postObject = new PostObjectWithSchemaObject($postObject, $this->schemaObjectFromPost);
         $postObject = new PostObjectArchiveDateFormat($postObject, $this->getArchiveDateFormatResolver($postObject));
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $this->getTimestampResolver($postObject));
         $postObject = new IconResolvingPostObject($postObject, $this->getIconResolver($postObject));
-        $postObject = new PostObjectWithSchemaObject($postObject, $this->schemaObjectFromPost);
 
         $postObject = $this->wpService->applyFilters(self::DECORATE_FILTER_NAME, $postObject);
 
@@ -72,9 +82,7 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
     private function getArchiveDateFormatResolver(PostObjectInterface $postObject): ArchiveDateFormatResolverInterface
     {
         $archiveDateFormatResolver = new ArchiveDateFormatResolver($postObject, $this->wpService);
-        $archiveDateFormatResolver = new CachedArchiveDateFormatResolver($postObject, $archiveDateFormatResolver);
-
-        return $archiveDateFormatResolver;
+        return new ExhibitionEventArchiveDateFormatResolver($postObject, $this->wpService, $archiveDateFormatResolver);
     }
 
     /**

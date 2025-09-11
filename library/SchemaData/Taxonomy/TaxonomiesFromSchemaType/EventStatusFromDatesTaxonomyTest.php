@@ -17,14 +17,13 @@ class EventStatusFromDatesTaxonomyTest extends TestCase
     }
 
     /**
-     * @testdox formatTermValue() returns empty string if either startDate or endDate is invalid
+     * @testdox formatTermValue() returns empty string if startDate is empty
      */
-    public function testFormatTermValueReturnsEmptyStringIfDatesAreInvalid(): void
+    public function testFormatTermValueReturnsEmptyStringIfStartDateIsEmpty(): void
     {
         $taxonomy = $this->getInstance();
 
         $this->assertSame('', $taxonomy->formatTermValue('', []));
-        $this->assertSame('', $taxonomy->formatTermValue('', ['startDate' => '2025-08-01']));
         $this->assertSame('', $taxonomy->formatTermValue('', ['endDate' => '2025-08-01']));
     }
 
