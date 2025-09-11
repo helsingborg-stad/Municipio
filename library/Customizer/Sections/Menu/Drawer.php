@@ -86,7 +86,14 @@ class Drawer
             ],
             'output'   => [
                 ['type' => 'controller']
-            ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'drawer_divider',
+                    'operator' => '==',
+                    'value'    => true,
+                ],
+            ],
         ]);
     }
 }
