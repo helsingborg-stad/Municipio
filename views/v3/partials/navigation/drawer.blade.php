@@ -45,7 +45,10 @@
                         'c-nav--drawer',
                         'site-nav-mobile__primary',
                         's-nav-drawer',
-                        's-nav-drawer-primary'
+                        's-nav-drawer-primary',
+                        !empty($customizer->drawerDivider) ? 'c-nav--bordered' : '',
+                        !empty($customizer->drawerDividerTopLevelOnly) ? 'c-nav--bordered-top-level' : ''
+                        
                     ]
                 ]
             )
@@ -58,7 +61,9 @@
                         'c-nav--drawer',
                         'site-nav-mobile__secondary',
                         's-nav-drawer',
-                        's-nav-drawer-secondary'
+                        's-nav-drawer-secondary',
+                        !empty($customizer->drawerDivider) ? 'c-nav--bordered' : '',
+                        !empty($customizer->drawerDividerTopLevelOnly) ? 'c-nav--bordered-top-level' : ''
                     ],
                     'items' => $mobileSecondaryMenu['items'],
                     'direction' => 'vertical',

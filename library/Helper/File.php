@@ -11,6 +11,11 @@ namespace Municipio\Helper;
 class File
 {
     /**
+     * Runtime cache for file existence checks to avoid repeated cache lookups within same request
+     */
+    private static array $runtimeFileExistsCache = [];
+
+    /**
      * It takes a filename and returns the URL of the file if it exists in the media library
      *
      * @param string filename The name of the file you want to get the URL for.
@@ -35,37 +40,52 @@ class File
     }
 
     /**
-     * Check if a file exists, cache in redis.
+     * Check if a file exists, cache in Redis (or other wp_cache backend).
      *
-     * @param   string  The file path
-     * @param   integer Time to store positive result
-     * @param   integer Time to store negative result
+     * @param string  $filePath       The file path
+     * @param integer $expireFound    TTL for positive result
+     * @param integer $expireNotFound TTL for negative result
      *
-     * @return  bool    If the file exists or not.
+     * @return bool If the file exists or not
      */
-    public static function fileExists($filePath, $expireFound = 0, $expireNotFound = 86400)
+    public static function fileExists($filePath, $expireFound = 86400, $expireNotFound = 86400)
     {
-        //Unique cache value
-        $wpService = WpService::get();
-        $uid       = "municipio_file_exists_cache_" . md5($filePath);
-
-        //If in cahce, found
-        if ($cachedValue = $wpService->wpCacheGet($uid)) {
-            if ($cachedValue === 'found') {
-                return true;
-            } elseif ($cachedValue === 'not_found') {
-                return false;
-            }
+        // Runtime cache (per-request)
+        if (isset(self::$runtimeFileExistsCache[$filePath])) {
+            return self::$runtimeFileExistsCache[$filePath];
         }
 
-        //If not in cache, look for it, if found cache.
+        // Build cache key + group
+        $key   = md5($filePath);
+        $group = 'municipio_file_exists_cache';
+
+        $wpService = WpService::get();
+
+        // Check persistent cache
+        $cachedValue = $wpService->wpCacheGet($key, $group);
+
+        if ($cachedValue !== false) {
+            if ($cachedValue === 'found') {
+                self::$runtimeFileExistsCache[$filePath] = true;
+                return true;
+            }
+            if ($cachedValue === 'not_found') {
+                self::$runtimeFileExistsCache[$filePath] = false;
+                return false;
+            }
+            // If unexpected value, fall through and re-check filesystem
+        }
+
+        // Not in cache → check filesystem
         if (file_exists($filePath)) {
-            $wpService->wpCacheSet($uid, 'found', '', $expireFound);
+            $wpService->wpCacheSet($key, 'found', $group, $expireFound);
+            self::$runtimeFileExistsCache[$filePath] = true;
             return true;
         }
 
-        //Opsie, file not found
-        $wpService->wpCacheSet($uid, 'not_found', '', $expireNotFound);
+        // File not found
+        $wpService->wpCacheSet($key, 'not_found', $group, $expireNotFound);
+        self::$runtimeFileExistsCache[$filePath] = false;
         return false;
     }
 
@@ -140,5 +160,13 @@ class File
 
         //Opsie, file not found
         return false;
+    }
+
+    /**
+     * Clear runtime cache for file existence checks (useful for testing)
+     */
+    public static function clearRuntimeCache(): void
+    {
+        self::$runtimeFileExistsCache = [];
     }
 }

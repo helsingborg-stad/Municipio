@@ -56,5 +56,44 @@ class Drawer
                 ]
             ],
         ]);
+
+        KirkiField::addField([
+            'type'     => 'switch',
+            'settings' => 'drawer_divider',
+            'label'    => esc_html__('Drawer divider', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => false,
+            'priority' => 10,
+            'choices'  => [
+                true  => esc_html__('Enabled', 'kirki'),
+                false => esc_html__('Disabled', 'kirki'),
+            ],
+            'output'   => [
+                ['type' => 'controller']
+            ]
+        ]);
+
+        KirkiField::addField([
+            'type'     => 'switch',
+            'settings' => 'drawer_divider_top_level_only',
+            'label'    => esc_html__('Drawer divider (top level only)', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => true,
+            'priority' => 10,
+            'choices'  => [
+                true  => esc_html__('Enabled', 'kirki'),
+                false => esc_html__('Disabled', 'kirki'),
+            ],
+            'output'   => [
+                ['type' => 'controller']
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'drawer_divider',
+                    'operator' => '==',
+                    'value'    => true,
+                ],
+            ],
+        ]);
     }
 }

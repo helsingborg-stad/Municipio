@@ -12,6 +12,7 @@ class Forms
 
     public function thePasswordForm(string $output, $post): string
     {
+        remove_filter( 'the_content', 'wpautop' );
         return render_blade_view(
             'partials.forms.password',
             [

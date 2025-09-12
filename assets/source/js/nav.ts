@@ -41,19 +41,24 @@ const getPlaceholderMarkup = async ():Promise<HTMLElement|null> => {
     })
 }
 
-const appendPlaceholder = async (parentElement:Element) => {
-    if( placeholderMarkup === null ) return
-    parentElement.insertAdjacentElement('beforeend', placeholderMarkup)
+const appendPlaceholder = async (placementElement: Element) => {
+    if( placeholderMarkup === null ) return;
+    const clone = placeholderMarkup.cloneNode(true) as HTMLElement;
+    placementElement.insertAdjacentElement('beforeend', clone);
 }
 
-const removePlaceholder = (parentElement:Element) => {
-    const placeholder = parentElement.querySelector('.placeholder')
-    
+const removePlaceholder = (placementElement: Element) => {
+    const placeholder = placementElement.querySelector('.preloader')
+
     if( placeholder === null ) {
         return
     }
     
-    parentElement.removeChild(placeholder)
+    placeholder.remove();
+}
+
+const insertSubMenu = (placementElement: Element, markup: string) => {
+    placementElement.insertAdjacentHTML('beforeend', markup);
 }
 
 const subscribeOnClick = (element:Element) => {
@@ -70,7 +75,7 @@ const subscribeOnClick = (element:Element) => {
         // States
         const hasFetched = parentClassNames.includes('has-fetched');
         const isFetching = parentClassNames.includes('is-fetching');
-
+        
         // Bye
         if (isFetching || hasFetched) {
             return;
@@ -84,18 +89,26 @@ const subscribeOnClick = (element:Element) => {
             return;   
         }
         
+        const customPlacement = parentElement.querySelector('[data-js-async-children]');
+        const placement = customPlacement && customPlacement.parentElement ? customPlacement.parentElement : parentElement;
+
         // Set states before fetching
-        appendPlaceholder(parentElement)
+        appendPlaceholder(placement);
         parentElement.classList.add('is-fetching');
         parentElement.classList.add('is-loading');
 
         fetchMarkup(fetchUrl)
         .then(markup => {
             // Remove placeholder
-            removePlaceholder(parentElement)
+            removePlaceholder(placement);
             
             // Render sub-menu
-            parentElement.insertAdjacentHTML('beforeend', markup);
+            insertSubMenu(placement, markup);
+
+            // Make sure submenu is rendered before removing it from DOM
+            requestAnimationFrame(() => {
+                customPlacement?.remove();
+            });
 
             // Set states
             parentElement.classList.remove('is-fetching');

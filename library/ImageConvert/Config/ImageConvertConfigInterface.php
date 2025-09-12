@@ -13,4 +13,11 @@ interface ImageConvertConfigInterface
     public function intermidiateImageFormat(): array;
     public function intermidiateImageQuality(): int;
     public function maxSourceFileSize(): int;
+    public function failedCacheExpiry(): int;
+    public function successCacheExpiry(): int;
+    public function lockExpiry(): int;
+    public function defaultCacheExpiry(): int;
+    public function pageCacheExpiry(): int;
+    public function getImageConversionStrategy(): ?string;
+    public function getDefaultImageConversionLogWriter(): ?string;
 }

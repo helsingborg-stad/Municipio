@@ -28,16 +28,19 @@ class PageTreeAppendMenuItemsFetchUrl implements MenuInterface
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
-
         $targetMenuIdentifiers = [
             'mobile'  => 'mobile',
             'sidebar' => 'sidebar',
+            'primary' => 'extended-dropdown-children',
+            'extended-dropdown-children' => 'extended-dropdown-children',
         ];
 
+        
         $identifier = $this->getConfig()->getIdentifier();
+
         if (empty($menu['items']) || !array_key_exists($identifier, $targetMenuIdentifiers)) {
             return $menu;
-        }
+        }   
 
         $homeUrl = $this->wpService->applyFilters('Municipio/homeUrl', $this->wpService->escUrl($this->wpService->getHomeUrl()));
 
