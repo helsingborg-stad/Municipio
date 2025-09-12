@@ -12,6 +12,7 @@ class Forms
 
     public function thePasswordForm(string $output, $post): string
     {
+        remove_filter( 'the_content', 'wpautop' );
         return render_blade_view(
             'partials.forms.password',
             [
@@ -36,6 +37,8 @@ class Forms
         if (!wp_get_raw_referer() == get_permalink()) {
             return $output;
         }
+
+        remove_filter( 'the_content', 'wpautop' );
 
         return render_blade_view(
             'partials.forms.password-error',
