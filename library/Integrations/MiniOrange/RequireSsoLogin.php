@@ -15,7 +15,7 @@ use WpService\WpService;
  */
 class RequireSsoLogin implements Hookable
 {
-    private const ACTIONS_TO_EXCLUDE = ['logout', 'log-out'];
+    private const ACTIONS_TO_EXCLUDE = ['logout', 'log-out', 'postpass'];
     private const ALLOWED_PROTOCOLS  = ['http', 'https'];
 
     public function __construct(private WpService $wpService, private MiniOrangeConfig $config)
