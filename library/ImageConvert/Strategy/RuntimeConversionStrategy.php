@@ -2,8 +2,10 @@
 
 namespace Municipio\ImageConvert\Strategy;
 
+use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 use Municipio\ImageConvert\Contract\ImageContract;
 use Municipio\ImageConvert\ImageProcessor;
+use WpService\WpService;
 
 /**
  * Runtime Conversion Strategy
@@ -19,7 +21,9 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
      * @inheritDoc
      */
     public function __construct(
-        private ImageProcessor $imageProcessor
+        private ImageProcessor $imageProcessor,
+        private WpService $wpService,
+        private ImageConvertConfigInterface $config
     ) {
     }
 
@@ -28,11 +32,12 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
      */
     public function process(ImageContract $image): ImageContract|false
     {
-        if (!$this->shouldRunImageConvert()) {
+        if ($this->shouldRunImageConvert() === false) {
             return $image;
         }
         $processedImage = $this->imageProcessor->process($image);
-        $this->hasRanImageConvert();
+        $this->markAsRanImageConvert();
+
         return $processedImage;
     }
 
@@ -52,8 +57,22 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
      */
     public function shouldRunImageConvert(): bool
     {
-        $lastConversionMade = (int) get_post_meta(get_the_ID(), self::META_KEY_LAST_CONVERSION, true);
-        $lastPostUpdate     = (int) get_post_modified_time('U', true, get_the_ID());
+        if ($this->config->useReducedModeForImageConversionRuntimeStrategy() === false) {
+            return true;
+        }
+
+        //Always run if we are logged in
+        if ($this->wpService->isUserLoggedIn()) {
+            return true;
+        }
+
+        $lastConversionMade = (int) $this->wpService->getPostMeta(
+            $this->wpService->getTheID(),
+            self::META_KEY_LAST_CONVERSION,
+            true
+        );
+        $lastPostUpdate     = (int) $this->wpService->getPostModifiedTime('U', true, $this->wpService->getTheID());
+
         if ($lastConversionMade < (time() - 86400)) {
             return true;
         }
@@ -65,8 +84,16 @@ class RuntimeConversionStrategy implements ConversionStrategyInterface
      *
      * This sets a meta field on the current post with the current timestamp.
      */
-    public function hasRanImageConvert(): void
+    public function markAsRanImageConvert(): void
     {
-        update_post_meta(get_the_ID(), self::META_KEY_LAST_CONVERSION, time());
+        if ($this->config->useReducedModeForImageConversionRuntimeStrategy() === false) {
+            return;
+        }
+
+        $this->wpService->updatePostMeta(
+            $this->wpService->getTheID(),
+            self::META_KEY_LAST_CONVERSION,
+            time()
+        );
     }
 }

@@ -233,6 +233,23 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     }
 
     /**
+     * If a reduced mode should be used for image runtime conversion.
+     * This will reduce the number of conversions triggered by looking at last
+     * update time of the post.
+     */
+    public function useReducedModeForImageConversionRuntimeStrategy(): bool
+    {
+        $reducedMode = (defined('MUNICIPIO_IMAGE_CONVERT_USE_REDUCED_MODE') && constant('MUNICIPIO_IMAGE_CONVERT_USE_REDUCED_MODE') === true)
+            ? true
+            : false;
+            
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            $reducedMode
+        );
+    }
+
+    /**
      * Get the selected image conversion strategy.
      */
     public function getImageConversionStrategy(): ?string
