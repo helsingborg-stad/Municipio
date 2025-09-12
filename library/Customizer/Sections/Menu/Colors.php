@@ -184,7 +184,7 @@ class Colors
 
     private function addVerticalColorConfiguration($key, $scope, $sectionID, $orientationLabel)
     {
-        KirkiField::addField([
+        $config = [
             'type'      => 'multicolor',
             'settings'  => 'nav_v_color_' . $key,
             'label'     => $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel,
@@ -197,7 +197,7 @@ class Colors
                 'background_active'   => esc_html__('Background (Active)', 'municipio'),
                 'contrasting_active'  => esc_html__('Contrasting (Active)', 'municipio'),
                 'background_expanded' => esc_html__('Background (Expanded)', 'municipio'),
-                'divider_color'       => esc_html__('Divider', 'municipio'),
+                'divider_color'       => esc_html__('Divider', 'municipio')
             ],
             'default'   => (array) $scope->default,
             'output'    => [
@@ -206,7 +206,6 @@ class Colors
                     'element'  => $scope->scopeClass,
                     'property' => '--c-nav-v-color-contrasting',
                 ],
-                $this->drawerCloseColor($scope->scopeClass),
                 [
                     'choice'   => 'background_active',
                     'element'  => $scope->scopeClass,
@@ -228,7 +227,12 @@ class Colors
                     'property' => '--c-nav-v-divider-color',
                 ],
             ]
-        ]);
+        ];
+
+        $config = $this->addDropdownBackgroundColor($config, $key, $scope);
+        $config = $this->addDrawerCloseColor($config, $key, $scope);
+
+        KirkiField::addField($config);
     }
 
     private function addHorizontalColorConfiguration($key, $scope, $sectionID, $orientationLabel)
@@ -267,16 +271,31 @@ class Colors
         ]);
     }
 
-    private function drawerCloseColor($scopeClass)
+    private function addDropdownBackgroundColor($config, $key, $scope)
     {
-        if ($scopeClass == '.s-nav-drawer') {
-            return [
-                    'choice'   => 'contrasting',
-                    'element'  => '.s-drawer-menu',
-                    'property' => '--c-button-default-color',
+        if ($key === 'primary') {
+            $config['choices']['background_color']  = esc_html__('Background color', 'municipio');
+            $config['output'][] = [
+                'choice'   => 'background_color',
+                'element'  => $scope->scopeClass,
+                'property' => '--c-nav-v-background-color',
             ];
-        } else {
-            return [];
         }
+
+        return $config;
+    }
+
+    private function addDrawerCloseColor($config, $key, $scope)
+    {
+        if ($scope->scopeClass === '.s-nav-drawer') {
+            $config['output'][] = [
+                'choice'   => 'contrasting',
+                'element'  => '.s-drawer-menu',
+                'property' => '--c-button-default-color',
+            ];
+        }
+
+        return $config;
     }
 }
+
