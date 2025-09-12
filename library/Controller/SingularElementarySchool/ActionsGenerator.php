@@ -12,9 +12,18 @@ class ActionsGenerator implements ViewDataGeneratorInterface
 
     public function generate(): mixed
     {
-        echo '<pre>' . print_r($this->elementarySchool, true) . '</pre>';
-        die;
+        if (!is_array($this->elementarySchool->getProperty('potentialAction'))) {
+            return [];
+        }
 
-        return [];
+        $actions = array_filter($this->elementarySchool->getProperty('potentialAction'), fn($fn) => is_a($fn, \Municipio\Schema\Action::class));
+        return [
+            'description' => $actions[0]?->getProperty('description') ?? null,
+            'buttonsArgs' => array_map(fn($action, $index) => [
+                'text'  => $action->getProperty('title'),
+                'href'  => $action->getProperty('url'),
+                'color' => $index === 0  ? 'primary' : 'secondary',
+            ], $actions, array_keys($actions)),
+        ];
     }
 }

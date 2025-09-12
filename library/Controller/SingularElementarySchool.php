@@ -17,18 +17,20 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
     public function init()
     {
         parent::init();
+        $schema = $this->post->getSchema();
 
         // Setup view data
         foreach (
             [
-            'preamble'           => new SingularElementarySchool\PreambleGenerator($this->post->getSchema()),
-            'accordionListItems' => new SingularElementarySchool\AccordionListItemsGenerator($this->post->getSchema()),
-            'sliderImages'       => new SingularElementarySchool\SliderImagesGenerator($this->post->getSchema()),
-            'personsAttributes'  => new SingularElementarySchool\PersonComponentsAttributesGenerator($this->post->getSchema()),
-            'address'            => new SingularElementarySchool\AddressGenerator($this->post->getSchema()),
-            'mapAttributes'      => new SingularElementarySchool\MapComponentAttributesGenerator($this->post->getSchema()),
-            'usps'               => new SingularElementarySchool\UspsGenerator($this->post->getSchema(), $this->post->getId(), $this->wpService),
-            'actions'            => new SingularElementarySchool\ActionsGenerator($this->post->getSchema()),
+            'preamble'           => new SingularElementarySchool\PreambleGenerator($schema),
+            'accordionListItems' => new SingularElementarySchool\AccordionListItemsGenerator($schema),
+            'sliderImages'       => new SingularElementarySchool\SliderImagesGenerator($schema),
+            'personsAttributes'  => new SingularElementarySchool\PersonComponentsAttributesGenerator($schema),
+            'address'            => new SingularElementarySchool\AddressGenerator($schema, $this->wpService),
+            'mapAttributes'      => new SingularElementarySchool\MapComponentAttributesGenerator($schema, $this->wpService),
+            'usps'               => new SingularElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
+            'actions'            => new SingularElementarySchool\ActionsGenerator($schema),
+            'contactPoints'      => new SingularElementarySchool\ContactpointsGenerator($schema),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();
@@ -37,9 +39,11 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
         // Setup view labels
         foreach (
             [
-            'uspsLabel'    => $this->wpService->_x('Quick facts', 'ElementarySchool', 'municipio'),
-            'contactLabel' => $this->wpService->_x('Contact us', 'ElementarySchool', 'municipio'),
-            'addressLabel' => $this->wpService->_x('Address', 'ElementarySchool', 'municipio'),
+            'uspsLabel'          => $this->wpService->_x('Quick facts', 'ElementarySchool', 'municipio'),
+            'contactLabel'       => $this->wpService->_x('Contact us', 'ElementarySchool', 'municipio'),
+            'addressLabel'       => $this->wpService->_x('Address', 'ElementarySchool', 'municipio'),
+            'actionsLabel'       => sprintf($this->wpService->_x('Do you wish to apply to %s?', 'ElementarySchool', 'municipio'), $this->post->getTitle()),
+            'contactPointsLabel' => $this->wpService->_x('Follow us on social media', 'ElementarySchool', 'municipio'),
             ] as $labelKey => $labelText
         ) {
             $this->data['lang']->{$labelKey} = $labelText;

@@ -1,4 +1,4 @@
-@extends('templates.single', ['showSidebars' => false, 'centerContent' => true])
+@extends('templates.single', ['showSidebars' => true, 'centerContent' => true])
 
 @section('article.content')
 
@@ -8,7 +8,7 @@
 
     @section('article.title.after')
 
-        @element()
+        @element(['classList' => ['lead']])
             {!! $preamble !!}
         @endelement
 
@@ -37,12 +37,30 @@
                 </div>
             @endpaper
         @endif
+
+        @if (!empty($actions))
+            @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
+                @typography(['element' => 'h2'])
+                    {!! $lang->actionsLabel !!}
+                @endtypography
+                @if(!empty($actions['description']))
+                    @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
+                        {!! $actions['description'] !!}
+                    @endtypography
+                @endif
+                @element(['classList' => ['o-grid', 'o-grid--half-gutter']])
+                    @foreach ($actions['buttonsArgs'] as $buttonArgs)
+                        @element(['classList' => ['o-grid-12@sm', 'o-grid-6@md']])
+                            @button([...$buttonArgs, 'classList' => ['u-width--100']])@endbutton
+                        @endelement
+                    @endforeach
+                @endelement
+            @endpaper
+        @endif
         
         @if(!empty($accordionListItems))
-            @paper()
-                @accordion(['list' => $accordionListItems])
-                @endaccordion
-            @endpaper
+            @accordion(['list' => $accordionListItems, 'spacedSections' => true])
+            @endaccordion
         @endif
 
         @if(!empty($sliderImages))
@@ -54,6 +72,26 @@
                     @endslider__item
                 @endforeach
             @endslider
+        @endif
+
+        @if(!empty($contactPoints))
+            @paper(['classList' => ['u-padding--2']])
+                @typography(['element' => 'h2', 'classList' => ['u-margin__bottom--2']])
+                    {!! $lang->contactPointsLabel !!}
+                @endtypography
+                @foreach($contactPoints['items'] as $item)
+                    @button([
+                        'text' => $item['name'],
+                        'color' => 'primary',
+                        'size' => 'lg',
+                        'href' => $item['url'],
+                        'icon' => $item['icon'],
+                        'reversePositions' => 'true',
+                        'classList' => ['u-margin__right--1'],
+                    ])
+                    @endbutton
+                @endforeach
+            @endpaper
         @endif
 
         @if(!empty($personsAttributes))
@@ -70,20 +108,29 @@
         @endif
 
         @if(!empty($address))
-            @element()
-                @typography(['element' => 'h2'])
-                    {!! $lang->addressLabel !!}
-                @endtypography
-                @typography()
-                    {!! $address !!}
-                @endtypography
-                @openStreetMap([
-                    ...$mapAttributes,
-                    'height' => '400px',
-                    'classList' => ['u-margin__top--2']
-                ])
-                @endopenStreetMap
-            @endelement
+            @paper(['classList' => ['u-padding--2']])
+                @element()
+                    @typography(['element' => 'h2'])
+                        {!! $lang->addressLabel !!}
+                    @endtypography
+                    @if(!empty($address['address']))
+                        @typography()
+                            {!! $address['address'] !!}
+                        @endtypography
+                    @endif
+                    @if(!empty($address['directionsLink']))
+                        @link(['href' => $address['directionsLink']['href']])
+                            {!! $address['directionsLink']['label'] !!}
+                        @endlink
+                    @endif
+                    @openStreetMap([
+                        ...$mapAttributes,
+                        'height' => '400px',
+                        'classList' => ['u-margin__top--2']
+                    ])
+                    @endopenStreetMap
+                @endelement
+            @endpaper
         @endif
 
     @stop

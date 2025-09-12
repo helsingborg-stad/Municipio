@@ -3539,7 +3539,7 @@ msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
 #: Controller/SingularEvent.php:158
-#: Controller/SingularExhibitionEvent.php:200
+#: Controller/SingularExhibitionEvent.php:173
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
@@ -6712,74 +6712,74 @@ msgstr ""
 
 #: Controller/BaseController.php:410
 msgid "Call"
-msgstr ""
+msgstr "Ring"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgid "Job Categories"
 msgstr "Kategorier"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgid "Job Category"
 msgstr "Kategori"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgid "Latest Application Dates"
 msgstr "Ansök senast"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgid "Latest Application Date"
 msgstr "Ansök senast"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
 msgid "Event Tags"
 msgstr "Eventtaggar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
 msgid "Event Tag"
 msgstr "Eventtagg"
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
 msgid "Physical Accessibility Features"
 msgstr "Tillgänglighet"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
 msgid "Physical Accessibility Feature"
 msgstr "Tillgänglighet"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
 msgid "Project Departments"
 msgstr "Organisationer"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
 msgid "Project Department"
 msgstr "Organisation"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Categories"
 msgstr "Kategorier"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Category"
 msgstr "Kategori"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Technologies"
 msgstr "Omställningar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Technology"
 msgstr "Omställning"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Statuses"
 msgstr "Statusar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Status"
 msgstr "Status"
 
-#: Controller/SingularExhibitionEvent.php:177
+#: Controller/SingularExhibitionEvent.php:153
 msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr "Fri entré"
@@ -6805,47 +6805,47 @@ msgctxt "Schema OpeningHoursSpecification"
 msgid "closed"
 msgstr "stängt"
 
-#: Controller/SingularExhibitionEvent.php:108
+#: Controller/SingularExhibitionEvent.php:96
 msgctxt "ExhibitionEvent"
 msgid "Place"
 msgstr "Plats"
 
-#: Controller/SingularExhibitionEvent.php:109
+#: Controller/SingularExhibitionEvent.php:97
 msgctxt "ExhibitionEvent"
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
-#: Controller/SingularExhibitionEvent.php:110
+#: Controller/SingularExhibitionEvent.php:98
 msgctxt "ExhibitionEvent"
 msgid "Date"
 msgstr "Datum"
 
-#: Controller/SingularExhibitionEvent.php:111
+#: Controller/SingularExhibitionEvent.php:99
 msgctxt "ExhibitionEvent"
 msgid "Opening hours"
 msgstr "Öppettider"
 
-#: Controller/SingularExhibitionEvent.php:112
+#: Controller/SingularExhibitionEvent.php:100
 msgctxt "ExhibitionEvent"
 msgid "Special opening hours"
 msgstr "Avvikande öppettider"
 
-#: Controller/SingularExhibitionEvent.php:113
+#: Controller/SingularExhibitionEvent.php:101
 msgctxt "ExhibitionEvent"
 msgid "Entrance"
 msgstr "Entré"
 
-#: Controller/SingularExhibitionEvent.php:114
+#: Controller/SingularExhibitionEvent.php:102
 msgctxt "ExhibitionEvent"
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: Controller/SingularExhibitionEvent.php:115
+#: Controller/SingularExhibitionEvent.php:103
 msgctxt "ExhibitionEvent"
 msgid "Directions"
 msgstr "Vägbeskrivning"
 
-#: Controller/SingularExhibitionEvent.php:116
+#: Controller/SingularExhibitionEvent.php:104
 msgctxt "ExhibitionEvent"
 msgid "Gallery"
 msgstr "Galleri"
@@ -6871,12 +6871,12 @@ msgstr "Behandlar %s av %s..."
 msgid "External Content Settings"
 msgstr "Inställningar för Externt innehåll"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:58
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:59
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr "Status"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:57
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:58
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr "Status"
@@ -6896,12 +6896,71 @@ msgctxt "Event schema status"
 msgid "Ongoing"
 msgstr "Aktuell"
 
-#: Controller/SingularExhibitionEvent.php:117
+#: Controller/SingularExhibitionEvent.php:105
 msgctxt "ExhibitionEvent"
 msgid "This exhibition has already taken place."
 msgstr "Denna utställning har redan ägt rum."
 
-#: Controller/SingularExhibitionEvent.php:147
+#: Controller/SingularExhibitionEvent.php:129
 msgctxt "ExhibitionEvent"
 msgid "until further notice"
 msgstr "tills vidare"
+
+#: Controller/SingularElementarySchool.php:42
+msgctxt "ElementarySchool"
+msgid "Quick facts"
+msgstr "Snabba fakta"
+
+#: Controller/SingularElementarySchool.php:43
+msgctxt "ElementarySchool"
+msgid "Contact us"
+msgstr "Kontakta oss"
+
+#: Controller/SingularElementarySchool.php:44
+msgctxt "ElementarySchool"
+msgid "Address"
+msgstr "Adress"
+
+#: Controller/SingularElementarySchool.php:45
+#, php-format
+msgctxt "ElementarySchool"
+msgid "Do you wish to apply to %s?"
+msgstr "Vill söka plats på %s?"
+
+#: Controller/SingularElementarySchool/UspsGenerator.php:54
+#, php-format
+msgctxt "ElementarySchool"
+msgid "After school care opening hours: %s"
+msgstr "Fritids öppet: %s"
+
+#: Controller/SingularElementarySchool/UspsGenerator.php:65
+#, php-format
+msgctxt "ElementarySchool"
+msgid "Ca. %s students"
+msgstr "Ca. %s elever"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:109
+msgid "Unique selling points"
+msgstr "Särskilda erbjudanden"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:109
+msgid "Unique selling point"
+msgstr "Särskilt erbjudande"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+msgid "Areas served"
+msgstr "Områden"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+msgid "Area served"
+msgstr "Område"
+
+#: Controller/SingularElementarySchool/AddressGenerator.php:40
+msgctxt "ElementarySchool"
+msgid "Get directions"
+msgstr "Hitta hit"
+
+#: Controller/SingularElementarySchool.php:46
+msgctxt "ElementarySchool"
+msgid "Follow us on social media"
+msgstr "Följ oss på sociala medier"
