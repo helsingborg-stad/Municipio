@@ -26,10 +26,14 @@ class PostObjectWithCachedContent extends AbstractPostObjectDecorator implements
      */
     public function getContent(): string
     {
-        $postId = $this->postObject->getId();
-        if (!isset(self::$runtimeCache[$postId])) {
-            self::$runtimeCache[$postId] = $this->postObject->getContent();
+        $blogId   = get_current_blog_id();
+        $postId   = $this->postObject->getId();
+        $cacheKey = $blogId . '-' . $postId;
+
+        if (!isset(self::$runtimeCache[$cacheKey])) {
+            self::$runtimeCache[$cacheKey] = $this->postObject->getContent();
         }
-        return self::$runtimeCache[$postId];
+
+        return self::$runtimeCache[$cacheKey];
     }
 }
