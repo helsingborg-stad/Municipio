@@ -225,6 +225,19 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     }
 
     /**
+     * The time window to consider requests as duplicates.
+     * This is used to prevent a image to be processed multiple times
+     * over a longer period of time (known to have been converted before).
+     */
+    public function requestDeduplicationWindow(): int
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            60 * 60 * 12
+        );
+    }
+
+    /**
      * Default cache expiry time for various caches.
      */
     public function defaultCacheExpiry(): int
