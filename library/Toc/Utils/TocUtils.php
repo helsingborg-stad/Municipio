@@ -30,25 +30,38 @@ class TocUtils implements TocUtilsInterface
      */
     public function shouldEnableToc(PostObjectInterface $postObject): bool
     {
+        //Cache
+        static $runtimeCache = [];
+
+        $postId = $postObject->getId();
+        if (isset($runtimeCache[$postId])) {
+            return $runtimeCache[$postId];
+        }
+
         // Enable TOC for single posts/pages with content
         if (!$this->wpService->isSingular()) {
-            return false;
+            return $runtimeCache[$postId] = false;
+        }
+
+        //Check if this is the main post
+        if ($postObject->getId() !== $this->wpService->getQueriedObjectId()) {
+            return $runtimeCache[$postId] = false;
         }
 
         // Check if post has content
         $content = $postObject->getContent();
         if (empty($content)) {
-            return false;
+            return $runtimeCache[$postId] = false;
         }
 
         //Check if get field 'toc' is set to true
         $isEnabledOnPost = $this->acfService->getField('post_table_of_contents', $postObject->getId(), false) ?? false;
         if (empty($isEnabledOnPost)) {
-            return false;
+            return $runtimeCache[$postId] = false;
         }
 
         // Check if content has headings
-        return $this->hasHeadings($content, self::MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE);
+        return $runtimeCache[$postId] = $this->hasHeadings($content, self::MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE);
     }
 
     /**
