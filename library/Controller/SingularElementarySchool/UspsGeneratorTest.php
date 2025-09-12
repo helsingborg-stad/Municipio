@@ -5,6 +5,7 @@ namespace Municipio\Controller\SingularElementarySchool;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\GetTheTerms;
+use WpService\Implementations\FakeWpService;
 
 class UspsGeneratorTest extends TestCase
 {
@@ -13,15 +14,7 @@ class UspsGeneratorTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $elementarySchool = Schema::elementarySchool();
-        $wpService        = new class implements GetTheTerms {
-            public function getTheTerms(int|\WP_Post $post, string $taxonomy): array|false|\WP_Error
-            {
-                return [];
-            }
-        };
-
-        $generator = new UspsGenerator($elementarySchool, 1, $wpService);
+        $generator = new UspsGenerator(Schema::elementarySchool(), 1, new FakeWpService());
         $this->assertInstanceOf(UspsGenerator::class, $generator);
     }
 }
