@@ -38,8 +38,6 @@ class Forms
             return $output;
         }
 
-        remove_filter( 'the_content', 'wpautop' );
-
         return render_blade_view(
             'partials.forms.password-error',
             [
