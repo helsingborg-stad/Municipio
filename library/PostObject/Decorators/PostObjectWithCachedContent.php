@@ -3,6 +3,7 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;
+use WpService\WpService;
 
 /**
  * PostObjectWithCachedContent class.
@@ -16,8 +17,10 @@ class PostObjectWithCachedContent extends AbstractPostObjectDecorator implements
     /**
      * Constructor.
      */
-    public function __construct(PostObjectInterface $postObject)
-    {
+    public function __construct(
+        PostObjectInterface $postObject,
+        private WpService $wpService
+    ) {
         parent::__construct($postObject);
     }
 
@@ -26,7 +29,7 @@ class PostObjectWithCachedContent extends AbstractPostObjectDecorator implements
      */
     public function getContent(): string
     {
-        $blogId   = get_current_blog_id();
+        $blogId   = $this->wpService->getCurrentBlogId();
         $postId   = $this->postObject->getId();
         $cacheKey = $blogId . '-' . $postId;
 
