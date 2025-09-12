@@ -8,17 +8,16 @@ use Municipio\Schema\BaseType;
 class WpArgsFromSchemaObjectTest extends TestCase
 {
     /**
-     * @testdox array is created with title and content
+     * @testdox array is created with title
      */
     public function testCreate()
     {
-        $schemaObject  = $this->getBaseTypeInstance([ 'name' => 'Title', 'description' => 'Content', ]);
+        $schemaObject  = $this->getBaseTypeInstance([ 'name' => 'Title' ]);
         $wpPostFactory = new WpPostArgsFromSchemaObject();
 
         $wpPost = $wpPostFactory->transform($schemaObject);
 
         $this->assertEquals('Title', $wpPost['post_title']);
-        $this->assertEquals('Content', $wpPost['post_content']);
     }
 
     /**
