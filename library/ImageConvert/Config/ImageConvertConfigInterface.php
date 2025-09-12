@@ -16,6 +16,7 @@ interface ImageConvertConfigInterface
     public function failedCacheExpiry(): int;
     public function successCacheExpiry(): int;
     public function lockExpiry(): int;
+    public function requestDeduplicationWindow(): int;
     public function defaultCacheExpiry(): int;
     public function pageCacheExpiry(): int;
     public function getImageConversionStrategy(): ?string;

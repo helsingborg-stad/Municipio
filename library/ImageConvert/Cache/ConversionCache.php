@@ -28,6 +28,7 @@ class ConversionCache
     private const CACHE_GROUP   = 'municipio_image_convert';
     private const STATUS_PREFIX = 'status_';
     private const LOCK_PREFIX   = 'lock_';
+    private const DEDUPLICATION_PREFIX = 'dedup_';
 
 
     private static array $runtimeCache = [];
@@ -51,6 +52,23 @@ class ConversionCache
         $height  = $image->getHeight();
         $format  = $this->config->intermidiateImageFormat()['suffix'];
         return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
+    }
+
+    /**
+     * Check if a similar request has been seen recently to prevent duplicate processing
+     *
+     * @param ImageContract $image
+     * @return bool
+     */
+    public function hasSeenRequestRecently(ImageContract $image): bool
+    {
+        $cacheKey = self::DEDUPLICATION_PREFIX . $this->getCacheKey($image);
+        $lastSeen = $this->wpService->wpCacheGet($cacheKey, self::CACHE_GROUP);
+        if ($lastSeen && (time() - $lastSeen) < $this->config->requestDeduplicationWindow()) {
+            return true;
+        }
+        $this->wpService->wpCacheSet($cacheKey, time(), self::CACHE_GROUP, $this->config->requestDeduplicationWindow());
+        return false;
     }
 
     /**
