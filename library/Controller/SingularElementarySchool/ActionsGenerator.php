@@ -12,11 +12,12 @@ class ActionsGenerator implements ViewDataGeneratorInterface
 
     public function generate(): mixed
     {
-        if (!is_array($this->elementarySchool->getProperty('potentialAction'))) {
+        $potentialAction = $this->elementarySchool->getProperty('potentialAction');
+        if (!is_array($potentialAction) || empty($potentialAction)) {
             return [];
         }
 
-        $actions = array_filter($this->elementarySchool->getProperty('potentialAction'), fn($fn) => is_a($fn, \Municipio\Schema\Action::class));
+        $actions = array_filter($potentialAction, fn($fn) => is_a($fn, \Municipio\Schema\Action::class));
         return [
             'description' => $actions[0]?->getProperty('description') ?? null,
             'buttonsArgs' => array_map(fn($action, $index) => [
@@ -24,6 +25,7 @@ class ActionsGenerator implements ViewDataGeneratorInterface
                 'href'  => $action->getProperty('url'),
                 'color' => $index === 0  ? 'primary' : 'secondary',
             ], $actions, array_keys($actions)),
+
         ];
     }
 }
