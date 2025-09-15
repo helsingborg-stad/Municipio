@@ -38,33 +38,41 @@ class StructureMenuItems implements MenuInterface
      *
      * @param array $menuItems The menu items.
      * @param int $parentId The parent ID.
+     * @param array $visited The visited menu item IDs to prevent circular references.
      *
      * @return array The structured menu items.
      */
-    private function structureMenuItems(array $menuItems, int $parentId = 0): array
+    private function structureMenuItems(array $menuItems, int $parentId = 0, array $visited = []): array
     {
         $structuredMenuItems = [];
-        if (is_array($menuItems) && !empty($menuItems)) {
-            foreach ($menuItems as $menuItem) {
-                if (!isset($menuItem['post_parent']) || !isset($menuItem['id'])) {
-                    continue;
-                }
-                if ($menuItem['post_parent'] == $parentId) {
-                    if ($menuItem['id'] != $menuItem['post_parent']) {
-                        $children = $this->structureMenuItems($menuItems, $menuItem['id']);
 
-                        if ($children) {
-                            $menuItem['children'] = $children;
-                        }
-                    }
+        foreach ($menuItems as $menuItem) {
+            if (!isset($menuItem['post_parent']) || !isset($menuItem['id'])) {
+                continue;
+            }
 
-                    $structuredMenuItems[] = $menuItem;
+            if (in_array($menuItem['id'], $visited, true)) {
+                continue;
+            }
+
+            if ($menuItem['post_parent'] == $parentId) {
+                $children = $this->structureMenuItems(
+                    $menuItems,
+                    $menuItem['id'],
+                    array_merge($visited, [$menuItem['id']])
+                );
+
+                if ($children) {
+                    $menuItem['children'] = $children;
                 }
+
+                $structuredMenuItems[] = $menuItem;
             }
         }
 
         return $structuredMenuItems;
     }
+
 
     /**
      * Retrieves the menu configuration.
