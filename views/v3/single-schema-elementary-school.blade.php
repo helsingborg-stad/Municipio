@@ -26,7 +26,7 @@
                     {!! $lang->uspsLabel !!}
                 @endtypography
 
-                <div class="o-grid o-grid--no-gutter">
+                @element(['classList' => ['o-grid', 'o-grid--no-gutter']])
                     @foreach ($usps as $uspColumn)
                         <ul class="o-grid-4@md u-margin__top--0">
                             @foreach ($uspColumn as $uspItem)
@@ -34,7 +34,7 @@
                             @endforeach
                         </ul>
                     @endforeach
-                </div>
+                @endelement
             @endpaper
         @endif
 
@@ -135,6 +135,6 @@
 
     @stop
 
-    </div>
+    </div>{{-- Closes div opened above in article.title.before --}}
     
 @stop
