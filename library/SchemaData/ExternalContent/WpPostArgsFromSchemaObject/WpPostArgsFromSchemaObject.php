@@ -26,16 +26,13 @@ class WpPostArgsFromSchemaObject implements WpPostArgsFromSchemaObjectInterface
      */
     public function transform(BaseType $schemaObject): array
     {
-        $title   = html_entity_decode($schemaObject['name'] ?? '');
-        $title   = urldecode($title);
-        $content = html_entity_decode($schemaObject['description'] ?? '');
-        $content = urldecode($content);
+        $title = html_entity_decode($schemaObject['name'] ?? '');
+        $title = urldecode($title);
 
         return [
-            'post_title'   => $title,
-            'post_content' => $content,
-            'post_status'  => 'publish',
-            'meta_input'   => []
+            'post_title'  => $title,
+            'post_status' => 'publish',
+            'meta_input'  => []
         ];
     }
 }
