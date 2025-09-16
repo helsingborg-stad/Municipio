@@ -59,12 +59,10 @@
             @endaccordion
         @endif
 
-        @if(!empty($sliderImages))
+        @if(!empty($sliderItems))
             @slider(['repeatSlide' => true, 'autoSlide' => false,'padding' => 11, 'showStepper' => false])
-                @foreach($sliderImages as $image)
-                    @slider__item([
-                        'image' => $image,  
-                    ])
+                @foreach($sliderItems as $item)
+                    @slider__item($item)
                     @endslider__item
                 @endforeach
             @endslider
