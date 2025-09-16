@@ -305,6 +305,34 @@ class Archive
             ]);
         }
 
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'archive_' . $archive->name . '_post_properties_to_display',
+            'label'           => esc_html__('Post properties to display', 'municipio'),
+            'description'     => esc_html__('Select which post properties to display in the archive (only applies to list view).', 'municipio'),
+            'section'         => $sectionID,
+            'multiple'        => true,
+            'transport'       => 'refresh',
+            'default'         => ['post_title', 'post_date'],
+            'choices'         => [
+                'post_title' => 'Title',
+                'post_date'  => 'Date',
+            ],
+            'output'          => [
+                [
+                    'type'      => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_style',
+                    'operator' => '==',
+                    'value'    => 'list',
+                ]
+            ],
+        ]);
+
         if (!empty($archive->orderBy)) {
             KirkiField::addField([
                 'type'        => 'select',
