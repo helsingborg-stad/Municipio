@@ -497,6 +497,11 @@ class Archive extends \Municipio\Controller\BaseController
                     }
                 }
 
+                if (!empty($options) && count(array_filter($options, 'is_numeric', ARRAY_FILTER_USE_KEY)) === count($options)) {
+                    // If all labels are numeric, we need to sort them as numbers
+                    asort($options, SORT_NUMERIC);
+                }
+
                 $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
 
                 //Data
