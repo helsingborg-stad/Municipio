@@ -32,6 +32,7 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             'usps'                       => new School\ElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
             'actions'                    => new School\ActionsGenerator($schema),
             'contactPoints'              => new School\ContactpointsGenerator($schema),
+            'events'                     => new School\EventsGenerator($schema),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();
@@ -45,6 +46,7 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             'addressLabel'       => $this->wpService->_x('Address', 'ElementarySchool', 'municipio'),
             'actionsLabel'       => sprintf($this->wpService->_x('Do you wish to apply to %s?', 'ElementarySchool', 'municipio'), $this->post->getTitle()),
             'contactPointsLabel' => $this->wpService->_x('Follow us on social media', 'ElementarySchool', 'municipio'),
+            'eventsLabel'        => $this->wpService->_x('Events', 'ElementarySchool', 'municipio'),
             ] as $labelKey => $labelText
         ) {
             $this->data['lang']->{$labelKey} = $labelText;

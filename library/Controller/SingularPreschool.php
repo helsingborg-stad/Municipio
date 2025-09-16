@@ -29,6 +29,7 @@ class SingularPreschool extends \Municipio\Controller\Singular
             'usps'                       => new School\Preschool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
             'actions'                    => new School\ActionsGenerator($schema),
             'contactPoints'              => new School\ContactpointsGenerator($schema),
+            'events'                     => new School\EventsGenerator($schema),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();
