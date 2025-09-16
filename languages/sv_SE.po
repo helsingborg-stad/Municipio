@@ -6930,40 +6930,39 @@ msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr "Vill söka plats på %s?"
 
-#: Controller/SingularElementarySchool/UspsGenerator.php:54
+#: Controller/School/ElementarySchool/UspsGenerator.php:56
 #, php-format
 msgctxt "ElementarySchool"
 msgid "After school care opening hours: %s"
 msgstr "Fritidshem: %s"
 
-#: Controller/SingularElementarySchool/UspsGenerator.php:65
+#: Controller/School/ElementarySchool/UspsGenerator.php:67
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Ca. %s students"
 msgstr "Ca. %s elever"
 
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
 msgid "Unique selling points"
 msgstr "Särskilda erbjudanden"
 
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
 msgid "Unique selling point"
 msgstr "Särskilt erbjudande"
 
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
 msgid "Areas served"
 msgstr "Områden"
 
 #: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
 msgid "Area served"
 msgstr "Område"
 
-#: Controller/SingularElementarySchool/AddressGenerator.php:40
-#: Controller/SingularPreschool/AddressGenerator.php:40
+#: Controller/School/AddressGenerator.php:41
 msgctxt "ElementarySchool"
 msgid "Get directions"
 msgstr "Hitta hit"
@@ -7011,19 +7010,19 @@ msgstr ""
 msgid "Drawer divider (top level only)"
 msgstr ""
 
-#: Controller/SingularPreschool/UspsGenerator.php:55
+#: Controller/School/Preschool/UspsGenerator.php:56
 #, php-format
 msgctxt "Preschool"
 msgid "Opening hours: %s"
 msgstr "Öppettider: %s"
 
-#: Controller/SingularPreschool/UspsGenerator.php:66
+#: Controller/School/Preschool/UspsGenerator.php:67
 #, php-format
 msgctxt "Preschool"
 msgid "Ca. %s children"
 msgstr "Ca. %s barn"
 
-#: Controller/SingularPreschool/UspsGenerator.php:76
+#: Controller/School/Preschool/UspsGenerator.php:77
 #, php-format
 msgctxt "Preschool"
 msgid "%s group"
@@ -7031,7 +7030,15 @@ msgid_plural "%s groups"
 msgstr[0] "%s avdelning"
 msgstr[1] "%s avdelningar"
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:121
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr "Antal avdelningar"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Grades"
+msgstr "Årskurser"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Grade"
+msgstr "Årskurs"
