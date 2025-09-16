@@ -23,7 +23,8 @@ class UspsGenerator implements ViewDataGeneratorInterface
             $this->getTerms(),
             $this->getAreaServed(),
             $this->getNumberOfStudents(),
-            $this->getAfterSchoolCareOpeningHours()
+            $this->getAfterSchoolCareOpeningHours(),
+            $this->getGrades()
         ), 3);
     }
 
@@ -87,6 +88,50 @@ class UspsGenerator implements ViewDataGeneratorInterface
 
         $terms = array_filter($terms, fn ($term) => is_a($term, \WP_Term::class));
         return array_map(fn ($term) => $term->name, $terms);
+    }
+
+    private function getGrades(): array
+    {
+        $offerCatalog = $this->elementarySchool->getProperty('hasOfferCatalog');
+
+        if (!is_array($offerCatalog)) {
+            return [];
+        }
+
+        $validCatalogs = $this->filterOfferCatalogs($offerCatalog);
+
+        $grades = [];
+        foreach ($validCatalogs as $catalog) {
+            $grades = array_merge($grades, $this->extractGradesFromCatalog($catalog));
+        }
+
+        // Remove duplicates and empty values
+        $grades = array_unique(array_filter($grades, fn($grade) => is_string($grade) && !empty($grade)));
+
+        return $grades;
+    }
+
+    private function filterOfferCatalogs(array $offerCatalog): array
+    {
+        return array_filter($offerCatalog, fn ($item) => is_a($item, \Municipio\Schema\OfferCatalog::class));
+    }
+
+    private function extractGradesFromCatalog($catalog): array
+    {
+        $itemList = $catalog->getProperty('itemListElement');
+        if (!is_array($itemList)) {
+            return [];
+        }
+
+        $validItems = array_filter($itemList, fn ($item) => is_a($item, \Municipio\Schema\ListItem::class));
+        $grades     = [];
+        foreach ($validItems as $item) {
+            $name = $item->getProperty('name');
+            if (is_string($name) && !empty($name)) {
+                $grades[] = $name;
+            }
+        }
+        return $grades;
     }
 
     public function splitArrayIntoColumns(array $array, int $columns): array
