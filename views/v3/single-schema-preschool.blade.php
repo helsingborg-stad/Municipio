@@ -11,9 +11,10 @@
         @element(['classList' => ['lead']])
             {!! $preamble !!}
         @endelement
-
+        
         @if(!empty($getFeaturedImageAttributes))
-            @image([ ...$getFeaturedImageAttributes, 'fullWidth' => true, ])@endimage
+            @image([ ...$getFeaturedImageAttributes, 'fullWidth' => true, ])
+            @endimage
         @endif
 
         @if ($usps)
@@ -34,9 +35,22 @@
             @endpaper
         @endif
 
+        @if(!empty($visitUs))
+            @element()
+                @if(!empty($visitUs['heading']))
+                    @typography(['element' => 'h2'])
+                        {!! $visitUs['heading'] !!}
+                    @endtypography
+                @endif
+                @if(!empty($visitUs['content']))
+                    {!! $visitUs['content'] !!}
+                @endif
+            @endelement
+        @endif
+
         @if (!empty($actions))
             @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
-                @typography(['element' => 'h2'])
+                @typography(['element' => 'h2', 'classList' => ['u-margin__bottom--2']])
                     {!! $lang->actionsLabel !!}
                 @endtypography
                 @if(!empty($actions['description']))
@@ -59,12 +73,10 @@
             @endaccordion
         @endif
 
-        @if(!empty($sliderImages))
+        @if(!empty($sliderItems))
             @slider(['repeatSlide' => true, 'autoSlide' => false,'padding' => 11, 'showStepper' => false])
-                @foreach($sliderImages as $image)
-                    @slider__item([
-                        'image' => $image,  
-                    ])
+                @foreach($sliderItems as $sliderItem)
+                    @slider__item($sliderItem)
                     @endslider__item
                 @endforeach
             @endslider

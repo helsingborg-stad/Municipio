@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-12T10:56:21+00:00\n"
+"POT-Creation-Date: 2025-09-15T12:19:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -343,7 +343,7 @@ msgstr ""
 #: AcfFields/php/widget-header-common.php:132
 #: AcfFields/php/widget-header-links.php:361
 #: AcfFields/php/widget-header-menu.php:51
-#: Customizer/Sections/Menu/Behaviour.php:118
+#: Customizer/Sections/Menu/Behaviour.php:141
 #: Customizer/Sections/Menu/Siteselector.php:116
 #: Customizer/Sections/Menu/Tabmenu.php:87
 #: Customizer/Sections/Radius.php:35
@@ -353,7 +353,7 @@ msgstr ""
 #: AcfFields/php/block-button.php:128
 #: AcfFields/php/block-container.php:47
 #: Customizer/Sections/Icons.php:35
-#: Customizer/Sections/Menu/Behaviour.php:119
+#: Customizer/Sections/Menu/Behaviour.php:142
 #: Customizer/Sections/Menu/Siteselector.php:117
 #: Customizer/Sections/Menu/Tabmenu.php:88
 #: Customizer/Sections/Radius.php:56
@@ -367,7 +367,7 @@ msgstr ""
 #: AcfFields/php/widget-header-common.php:133
 #: AcfFields/php/widget-header-links.php:362
 #: AcfFields/php/widget-header-menu.php:52
-#: Customizer/Sections/Menu/Behaviour.php:120
+#: Customizer/Sections/Menu/Behaviour.php:143
 #: Customizer/Sections/Menu/Siteselector.php:118
 #: Customizer/Sections/Menu/Tabmenu.php:89
 #: Customizer/Sections/Radius.php:77
@@ -902,6 +902,7 @@ msgstr ""
 #: Customizer/Sections/Component/Divider.php:90
 #: Customizer/Sections/Component/Divider.php:166
 #: Customizer/Sections/Menu/Behaviour.php:86
+#: Customizer/Sections/Menu/Behaviour.php:102
 #: Customizer/Sections/Menu/MegaMenu.php:367
 #: Customizer/Sections/Menu/Vertical.php:49
 msgid "Disabled"
@@ -1025,6 +1026,7 @@ msgstr ""
 #: Customizer/Sections/Component/Divider.php:89
 #: Customizer/Sections/Component/Divider.php:165
 #: Customizer/Sections/Menu/Behaviour.php:85
+#: Customizer/Sections/Menu/Behaviour.php:101
 #: Customizer/Sections/Menu/MegaMenu.php:366
 #: Customizer/Sections/Menu/Vertical.php:48
 msgid "Enabled"
@@ -1849,7 +1851,7 @@ msgid "Check the formats you would like to enable"
 msgstr ""
 
 #: AcfFields/php/options-theme-editor-formats.php:27
-#: Customizer/Sections/Menu/Behaviour.php:121
+#: Customizer/Sections/Menu/Behaviour.php:144
 msgid "Extra large"
 msgstr ""
 
@@ -3083,7 +3085,7 @@ msgstr ""
 msgid "Return type from sideloaded image."
 msgstr ""
 
-#: Api/Navigation/ChildrenRender.php:100
+#: Api/Navigation/ChildrenRender.php:113
 msgid "An error occurred while rendering the menu."
 msgstr ""
 
@@ -3490,33 +3492,34 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: Controller/SingularElementarySchool.php:42
+#: Controller/SingularElementarySchool.php:43
 msgctxt "ElementarySchool"
 msgid "Quick facts"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:43
+#: Controller/SingularElementarySchool.php:44
 msgctxt "ElementarySchool"
 msgid "Contact us"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:44
+#: Controller/SingularElementarySchool.php:45
 msgctxt "ElementarySchool"
 msgid "Address"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:45
+#: Controller/SingularElementarySchool.php:46
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:46
+#: Controller/SingularElementarySchool.php:47
 msgctxt "ElementarySchool"
 msgid "Follow us on social media"
 msgstr ""
 
 #: Controller/SingularElementarySchool/AddressGenerator.php:40
+#: Controller/SingularPreschool/AddressGenerator.php:40
 msgctxt "ElementarySchool"
 msgid "Get directions"
 msgstr ""
@@ -3635,6 +3638,7 @@ msgid "This exhibition has already taken place."
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:129
+#: PostObject/Date/ExhibitionEventArchiveDateFormatResolver.php:73
 msgctxt "ExhibitionEvent"
 msgid "until further notice"
 msgstr ""
@@ -3699,6 +3703,52 @@ msgstr ""
 #: PostDecorators/ApplyInfoListToPlace.php:35
 msgid "Visit website"
 msgstr ""
+
+#: Controller/SingularPreschool.php:40
+msgctxt "Preschool"
+msgid "Quick facts"
+msgstr ""
+
+#: Controller/SingularPreschool.php:41
+msgctxt "Preschool"
+msgid "Contact us"
+msgstr ""
+
+#: Controller/SingularPreschool.php:42
+msgctxt "Preschool"
+msgid "Address"
+msgstr ""
+
+#: Controller/SingularPreschool.php:43
+#, php-format
+msgctxt "Preschool"
+msgid "Do you wish to apply to %s?"
+msgstr ""
+
+#: Controller/SingularPreschool.php:44
+msgctxt "Preschool"
+msgid "Follow us on social media"
+msgstr ""
+
+#: Controller/SingularPreschool/UspsGenerator.php:55
+#, php-format
+msgctxt "Preschool"
+msgid "Opening hours: %s"
+msgstr ""
+
+#: Controller/SingularPreschool/UspsGenerator.php:66
+#, php-format
+msgctxt "Preschool"
+msgid "Ca. %s children"
+msgstr ""
+
+#: Controller/SingularPreschool/UspsGenerator.php:76
+#, php-format
+msgctxt "Preschool"
+msgid "%s group"
+msgid_plural "%s groups"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Controller/SingularProject.php:70
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:59
@@ -5262,15 +5312,19 @@ msgstr ""
 msgid "Show subitems as dropdown in main menu"
 msgstr ""
 
-#: Customizer/Sections/Menu/Behaviour.php:101
+#: Customizer/Sections/Menu/Behaviour.php:96
+msgid "Extends the dropdown behavior making it more complete"
+msgstr ""
+
+#: Customizer/Sections/Menu/Behaviour.php:124
 msgid "Drawer screen sizes"
 msgstr ""
 
-#: Customizer/Sections/Menu/Behaviour.php:102
+#: Customizer/Sections/Menu/Behaviour.php:125
 msgid "Select which screen sizes the drawer menu should be visible on."
 msgstr ""
 
-#: Customizer/Sections/Menu/Behaviour.php:117
+#: Customizer/Sections/Menu/Behaviour.php:140
 #: Customizer/Sections/Menu/Siteselector.php:115
 #: Customizer/Sections/Radius.php:14
 msgid "Extra small"
@@ -5363,6 +5417,14 @@ msgstr ""
 
 #: Customizer/Sections/Menu/Drawer.php:41
 msgid "If using both the areas in the drawer menu this will decide the bottom area"
+msgstr ""
+
+#: Customizer/Sections/Menu/Drawer.php:63
+msgid "Drawer divider"
+msgstr ""
+
+#: Customizer/Sections/Menu/Drawer.php:79
+msgid "Drawer divider (top level only)"
 msgstr ""
 
 #: Customizer/Sections/Menu/MegaMenu.php:37
@@ -6216,7 +6278,7 @@ msgid "Special Opening Hours"
 msgstr ""
 
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Physical Accessibility Features"
 msgstr ""
 
@@ -6311,90 +6373,99 @@ msgctxt "Event schema status"
 msgid "Ongoing"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:58
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:59
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:59
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:60
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgid "Job Categories"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgid "Job Category"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
 msgid "Latest Application Dates"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
 msgid "Latest Application Date"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
 msgid "Event Tags"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
 msgid "Event Tag"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Physical Accessibility Feature"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Departments"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
 msgid "Project Department"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Categories"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Category"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Technologies"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Technology"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Statuses"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Status"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:109
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Unique selling points"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:109
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Unique selling point"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
 msgid "Areas served"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
 msgid "Area served"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+msgctxt "Preschool"
+msgid "Number of groups"
 msgstr ""
 
 #: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:37
@@ -6470,7 +6541,7 @@ msgstr ""
 msgid "Both"
 msgstr ""
 
-#: Theme/Forms.php:43
+#: Theme/Forms.php:44
 msgid "The password entered is not correct."
 msgstr ""
 

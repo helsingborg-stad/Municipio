@@ -41,6 +41,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             'Project'          => $this->getProjectTaxonomies(),
             'ExhibitionEvent'  => $this->getExhibitionEventTaxonomies(),
             'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
+            'Preschool'        => $this->getPreschoolTaxonomies(),
         ][$schemaType] ?? [];
     }
 
@@ -108,6 +109,15 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('ElementarySchool', 'keywords.name', $this->wpService->__('Unique selling points', 'municipio'), $this->wpService->__('Unique selling point', 'municipio'), ['show_admin_column' => true]),
             $this->createTaxonomy('ElementarySchool', 'areaServed', $this->wpService->__('Areas served', 'municipio'), $this->wpService->__('Area served', 'municipio'), ['show_admin_column' => true]),
+        ];
+    }
+
+    private function getPreschoolTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('Preschool', 'keywords.name', $this->wpService->__('Unique selling points', 'municipio'), $this->wpService->__('Unique selling point', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('Preschool', 'areaServed', $this->wpService->__('Areas served', 'municipio'), $this->wpService->__('Area served', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('Preschool', 'numberOfGroups', $this->wpService->_x('Number of groups', 'Preschool', 'municipio'), $this->wpService->_x('Number of groups', 'Preschool', 'municipio'), ['show_admin_column' => true]),
         ];
     }
 

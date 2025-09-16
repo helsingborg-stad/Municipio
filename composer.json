@@ -34,7 +34,7 @@
         "dompdf/dompdf": "^2.0.4",
         "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "^1.0.0",
-        "helsingborg-stad/schema-library": "^0.4"
+        "helsingborg-stad/schema-library": "^0.5"
     },
     "extra": {
         "installer-paths": {

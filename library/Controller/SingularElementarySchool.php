@@ -22,15 +22,16 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
         // Setup view data
         foreach (
             [
-            'preamble'           => new SingularElementarySchool\PreambleGenerator($schema),
-            'accordionListItems' => new SingularElementarySchool\AccordionListItemsGenerator($schema),
-            'sliderImages'       => new SingularElementarySchool\SliderImagesGenerator($schema),
-            'personsAttributes'  => new SingularElementarySchool\PersonComponentsAttributesGenerator($schema),
-            'address'            => new SingularElementarySchool\AddressGenerator($schema, $this->wpService),
-            'mapAttributes'      => new SingularElementarySchool\MapComponentAttributesGenerator($schema),
-            'usps'               => new SingularElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
-            'actions'            => new SingularElementarySchool\ActionsGenerator($schema),
-            'contactPoints'      => new SingularElementarySchool\ContactpointsGenerator($schema),
+            'preamble'                   => new SingularElementarySchool\PreambleGenerator($schema),
+            'getFeaturedImageAttributes' => new SingularElementarySchool\FeaturedImageAttributesGenerator($schema),
+            'accordionListItems'         => new SingularElementarySchool\AccordionListItemsGenerator($schema, $this->wpService),
+            'sliderImages'               => new SingularElementarySchool\SliderImagesGenerator($schema),
+            'personsAttributes'          => new SingularElementarySchool\PersonComponentsAttributesGenerator($schema),
+            'address'                    => new SingularElementarySchool\AddressGenerator($schema, $this->wpService),
+            'mapAttributes'              => new SingularElementarySchool\MapComponentAttributesGenerator($schema),
+            'usps'                       => new SingularElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
+            'actions'                    => new SingularElementarySchool\ActionsGenerator($schema),
+            'contactPoints'              => new SingularElementarySchool\ContactpointsGenerator($schema),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c79160563848646d3a1ef24410f646b3",
+    "content-hash": "b3f6549f5eda659204b099965e20447c",
     "packages": [
         {
             "name": "composer/installers",
@@ -301,16 +301,16 @@
         },
         {
             "name": "helsingborg-stad/schema-library",
-            "version": "0.4.0",
+            "version": "0.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/schema-library.git",
-                "reference": "4934a690cd7b00b49c0af4357c00af1665f8697a"
+                "reference": "6b434cdc24bdf5f5dc9594d43939c9dd389608c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/4934a690cd7b00b49c0af4357c00af1665f8697a",
-                "reference": "4934a690cd7b00b49c0af4357c00af1665f8697a",
+                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/6b434cdc24bdf5f5dc9594d43939c9dd389608c0",
+                "reference": "6b434cdc24bdf5f5dc9594d43939c9dd389608c0",
                 "shasum": ""
             },
             "require-dev": {
@@ -332,9 +332,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/schema-library/issues",
-                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.4.0"
+                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.2"
             },
-            "time": "2025-09-11T12:17:42+00:00"
+            "time": "2025-09-15T10:41:44+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
