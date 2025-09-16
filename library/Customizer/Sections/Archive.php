@@ -315,8 +315,8 @@ class Archive
             'transport'       => 'refresh',
             'default'         => ['post_title', 'post_date'],
             'choices'         => [
-                'post_title' => 'Title',
-                'post_date'  => 'Date',
+                'post_title' => __('Title', 'municipio'),
+                'post_date'  => __('Published', 'municipio'),
             ],
             'output'          => [
                 [
