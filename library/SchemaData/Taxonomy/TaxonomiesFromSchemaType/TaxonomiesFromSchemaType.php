@@ -109,6 +109,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('ElementarySchool', 'keywords.name', $this->wpService->__('Unique selling points', 'municipio'), $this->wpService->__('Unique selling point', 'municipio'), ['show_admin_column' => true]),
             $this->createTaxonomy('ElementarySchool', 'areaServed', $this->wpService->__('Areas served', 'municipio'), $this->wpService->__('Area served', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('ElementarySchool', 'hasOfferCatalog.itemListElement', $this->wpService->__('Grades', 'municipio'), $this->wpService->__('Grade', 'municipio'), ['show_admin_column' => true]),
         ];
     }
 
