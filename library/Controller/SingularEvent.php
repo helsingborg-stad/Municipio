@@ -9,6 +9,7 @@ use Municipio\Helper\Post;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Contracts\EventContract;
 use Municipio\Schema\Event;
+use Municipio\Schema\Offer;
 use Municipio\Schema\Place;
 
 /**
@@ -125,7 +126,7 @@ class SingularEvent extends \Municipio\Controller\Singular
     {
         $offers = $this->post->getSchemaProperty('offers');
 
-        if (!$offers) {
+        if (!$offers || !is_array($offers)) {
             return [];
         }
 
@@ -135,25 +136,29 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get price list item from offer
      *
-     * @param array $offer
+     * @param Offer $offer
      * @return PriceListItemInterface
      */
-    public function getPriceListItemFromOffer(array $offer): PriceListItemInterface
+    public function getPriceListItemFromOffer(Offer $offer): PriceListItemInterface
     {
-        $priceSpecification = $offer['priceSpecification'] ?? [];
-        $name               = $offer['name'] ?? '';
-        $currency           = $offer['priceCurrency'] ?? '';
+        $priceSpecification      = $offer->getProperty('priceSpecification');
+        $name                    = $offer->getProperty('name');
+        $currency                = $offer->getProperty('priceCurrency') ?? 'SEK';
+        $minPrice                = $priceSpecification?->getProperty('minPrice');
+        $maxPrice                = $priceSpecification?->getProperty('maxPrice');
+        $price                   = $offer->getProperty('price');
+        $priceSpecificationPrice = $priceSpecification?->getProperty('price');
 
-        if (isset($priceSpecification['minPrice']) && isset($priceSpecification['maxPrice'])) {
-            if ($priceSpecification['minPrice'] === $priceSpecification['maxPrice']) {
-                $price = $priceSpecification['minPrice'] . ' ' . $currency;
+        if (!empty($minPrice) || !empty($maxPrice)) {
+            if ($minPrice === $maxPrice) {
+                $price = $minPrice . ' ' . $currency;
             } else {
-                $price = $priceSpecification['minPrice'] . ' - ' . $priceSpecification['maxPrice'] . ' ' . $currency;
+                $price = $minPrice . ' - ' . $maxPrice . ' ' . $currency;
             }
-        } elseif (isset($priceSpecification['price'])) {
-            $price = $priceSpecification['price'] . ' ' . $currency;
-        } elseif (isset($offer['price'])) {
-            $price = $offer['price'] . ' ' . $currency;
+        } elseif (!empty($priceSpecification) && !empty($priceSpecificationPrice)) {
+            $price = $priceSpecificationPrice . ' ' . $currency;
+        } elseif (!empty($price)) {
+            $price = $price . ' ' . $currency;
         } else {
             $price = $this->wpService->__('Price not available', 'municipio');
         }
