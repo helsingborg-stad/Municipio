@@ -151,7 +151,7 @@ class ExternalContentFeature
     {
         return [
             new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\NoOpSchemaObjectProcessor(),
-            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor(new LocalImageObjectIdGenerator(), $this->wpService)
+            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor($this->wpService)
         ];
     }
 

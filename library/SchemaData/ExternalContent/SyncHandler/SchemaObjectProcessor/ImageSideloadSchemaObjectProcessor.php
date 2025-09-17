@@ -18,75 +18,60 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      * Constructor
      */
     public function __construct(
-        private LocalImageObjectIdGeneratorInterface $localImageIdGenerator,
         private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService
     ) {
     }
 
     /**
-     * Process a schema object, sideloading images and updating references.
+     * Process a schema object, sideloading images and updating references recursively.
      *
      * @param BaseType $schemaObject
      * @return BaseType
      */
     public function process(BaseType $schemaObject): BaseType
     {
-        if (empty($imageObjects = $this->normalizeImages($schemaObject->getProperty('image')))) {
-            return $schemaObject;
-        }
-
-        $imageObjects = array_map(fn($img) => $this->processImage($schemaObject, $img), $imageObjects);
-        $imageObjects = array_filter($imageObjects);
-
-        return $schemaObject->setProperty('image', $imageObjects);
+        return $this->processImagesRecursively($schemaObject, $schemaObject);
     }
 
     /**
-     * Normalize image property to an array of ImageObject.
+     * Recursively process all properties for ImageObject instances.
      *
-     * @param mixed $images
-     * @return ImageObject[]
+     * @param mixed $value
+     * @return mixed
      */
-    private function normalizeImages($images): array
+    private function processImagesRecursively(BaseType $schemaObject, mixed $value)
     {
-        if (empty($images)) {
-            return [];
+        if (is_array($value)) {
+            return array_map(fn($item) => $this->processImagesRecursively($schemaObject, $item), $value);
         }
 
-        $imageObjects = array_map(fn($img) => $this->extractImageData($img), is_array($images) ? $images : [$images]);
-
-        return array_filter($imageObjects, fn($img) => !empty($img->getProperty('url')));
-    }
-
-    /**
-     * Extract image data from string or ImageObject.
-     *
-     * @param mixed $img
-     * @return ImageObject
-     */
-    private function extractImageData($img): ImageObject
-    {
-        if (is_a($img, ImageObject::class)) {
-            return $img;
+        if ($value instanceof ImageObject) {
+            $processed = $this->processImage($schemaObject, $value);
+            return $processed ?? $value;
         }
 
-        if (is_string($img)) {
-            return Schema::imageObject()->url($img);
+        if ($value instanceof BaseType) {
+            foreach ($value->getProperties() as $key => $prop) {
+                $processedProp = $this->processImagesRecursively($schemaObject, $prop);
+                $value         = $value->setProperty($key, $processedProp);
+            }
+            return $value;
         }
 
-        return Schema::imageObject();
+        return $value;
     }
 
     /**
      * Process a single image, sideloading and returning media info.
      *
-     * @param mixed $img
+     * @param BaseType|null $schemaObject
+     * @param ImageObject $imageObject
      * @return ImageObject|null
      */
-    private function processImage(BaseType $schemaObject, ImageObject $imageObject): ?ImageObject
+    private function processImage(?BaseType $schemaObject, ImageObject $imageObject): ?ImageObject
     {
         $imageObject->sameAs($imageObject->getProperty('url')); // Used to create identifier.
-        $mediaId = $this->sideloadImage($schemaObject, $imageObject);
+        $mediaId = $this->sideloadImage($schemaObject ?? $imageObject, $imageObject);
 
         if ($this->wpService->isWpError($mediaId)) {
             return null;
@@ -108,8 +93,7 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
     {
         $this->loadSideloadDependencies();
 
-        $localImageId = $this->localImageIdGenerator->generateId($schemaObject, $imageObject);
-        $mediaId      = $this->getImageIdFromPreviousSideload($localImageId);
+        $mediaId = $this->getImageIdFromPreviousSideload($schemaObject, $imageObject);
 
         if (is_null($mediaId)) {
             $mediaId = $this->wpService->mediaSideloadImage($imageObject->getProperty('url'), 0, $imageObject->getProperty('caption'), 'id');
@@ -119,15 +103,15 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
             return $mediaId;
         }
 
-        if ($imageObject->getProperty('description')) {
-            $this->wpService->updatePostMeta($mediaId, '_wp_attachment_image_alt', $imageObject->getProperty('description'));
-        }
+        $this->wpService->updatePostMeta($mediaId, self::META_KEY_IMAGE_ID, $imageObject->getProperty('sameAs'));
 
         $this->wpService->wpUpdatePost([
-            'ID'         => $mediaId,
-            'post_title' => $imageObject->getProperty('name') ?? '',
-            'meta_input' => [
-                self::META_KEY_IMAGE_ID => $localImageId,
+            'ID'          => $mediaId,
+            'post_title'  => $imageObject->getProperty('name') ?? '',
+            'post_parent' => $schemaObject->getProperty('@id') ?? 0,
+            'meta_input'  => [
+                self::META_KEY_IMAGE_ID    => $imageObject->getProperty('sameAs'),
+                '_wp_attachment_image_alt' => $imageObject->getProperty('description') ?? '',
             ]
         ]);
 
@@ -137,15 +121,17 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
     /**
      * Get the image ID from a previous sideload based on the image URL.
      *
-     * @param string $url
+     * @param BaseType $schemaObject
+     * @param ImageObject $imageObject
      * @return int|null
      */
-    private function getImageIdFromPreviousSideload(string $url): ?int
+    private function getImageIdFromPreviousSideload(BaseType $schemaObject, ImageObject $imageObject): ?int
     {
         // get post by media hash on post meta
         $posts = get_posts([
             'meta_key'    => self::META_KEY_IMAGE_ID,
-            'meta_value'  => $url,
+            'meta_value'  => $imageObject->getProperty('sameAs'),
+            'post_parent' => $schemaObject->getProperty('@id') ?? 0,
             'post_type'   => 'attachment',
             'numberposts' => 1
         ]);
@@ -158,8 +144,18 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      */
     private function loadSideloadDependencies(): void
     {
-        require_once ABSPATH . 'wp-admin/includes/image.php';
-        require_once ABSPATH . 'wp-admin/includes/file.php';
-        require_once ABSPATH . 'wp-admin/includes/media.php';
+        $files = [
+            ABSPATH . 'wp-admin/includes/image.php',
+            ABSPATH . 'wp-admin/includes/file.php',
+            ABSPATH . 'wp-admin/includes/media.php',
+        ];
+
+        foreach ($files as $file) {
+            if (!file_exists($file)) {
+                return;
+            }
+
+            require_once $file;
+        }
     }
 }

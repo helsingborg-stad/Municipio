@@ -6,6 +6,8 @@ use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Preschool;
 use Municipio\Schema\ImageObject;
 use Municipio\Schema\Person;
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Integrations\Component\ImageResolver;
 
 class PersonComponentsAttributesGenerator
 {
@@ -36,7 +38,16 @@ class PersonComponentsAttributesGenerator
             'jobTitle'  => $person->getProperty('jobTitle') ?? '',
             'telephone' => [['number' => $person->getProperty('telephone')]],
             'email'     => $person->getProperty('email') ?? '',
-            'image'     => is_a($person->getProperty('image'), ImageObject::class) ? $person->getProperty('image')->getProperty('url') : null,
+            'image'     => is_a($person->getProperty('image'), ImageObject::class) ? $this->getImageFromImageObject($person->getProperty('image')) : null,
         ];
+    }
+
+    private function getImageFromImageObject(ImageObject $imageObject)
+    {
+        if (empty($imageObject->getProperty('@id'))) {
+            return null;
+        }
+
+        return ImageComponentContract::factory($imageObject->getProperty('@id'), [72, 72], new ImageResolver());
     }
 }
