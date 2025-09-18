@@ -62,7 +62,9 @@ class StrategyFactory
 
         return match ($strategy) {
             ConversionStrategy::RUNTIME => new RuntimeConversionStrategy(
-                $imageProcessor
+                $imageProcessor,
+                $this->wpService,
+                $this->config
             )
         };
     }

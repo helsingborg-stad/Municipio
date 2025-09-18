@@ -35,6 +35,13 @@ define('MUNICIPIO_IMAGE_CONVERT_STRATEGY', 'runtime');
 **Available strategies:**
 - `runtime` (default) - Process images immediately during page load
 
+### MUNICIPIO_IMAGE_CONVERT_USE_REDUCED_MODE
+Check if the page has been updated lately before running the image conversion strategy for logged out users. 
+
+```php
+define('MUNICIPIO_IMAGE_CONVERT_USE_REDUCED_MODE', true); 
+````
+
 #### MUNICIPIO_IMAGE_CONVERT_DEFAULT_LOG_WRITER
 Configures the default log writer for debugging and monitoring.
 
