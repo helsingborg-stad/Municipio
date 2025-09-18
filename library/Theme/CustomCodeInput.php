@@ -2,6 +2,8 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Helper\CookieConsent;
+
 class CustomCodeInput
 {
     public function __construct()
@@ -59,6 +61,11 @@ class CustomCodeInput
                 if ($tag['custom_js_tags_disabled'] || $tag['custom_js_tags_location'] !== 'head') {
                     continue;
                 }
+
+                if (is_array($tag['custom_js_tags_cookie_consents']) && !CookieConsent::hasConsents($tag['custom_js_tags_cookie_consents'])) {
+                    continue;
+                }
+                
                 echo $tag['custom_js_tags_input'];
             }
         }
@@ -71,6 +78,11 @@ class CustomCodeInput
                 if ($tag['custom_js_tags_disabled'] || $tag['custom_js_tags_location'] !== 'footer') {
                     continue;
                 }
+
+                if (is_array($tag['custom_js_tags_cookie_consents']) && !CookieConsent::hasConsents($tag['custom_js_tags_cookie_consents'])) {
+                    continue;
+                }
+                
                 echo $tag['custom_js_tags_input'];
             }
         }
