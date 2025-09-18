@@ -123,7 +123,8 @@ class App
                     new SchemaPropertyValueSanitizer()
                 ))->create()
             ),
-            $userHelper
+            $userHelper,
+            $this->schemaDataConfig
         );
 
         /**
