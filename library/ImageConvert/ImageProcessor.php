@@ -37,9 +37,29 @@ class ImageProcessor
      */
     public function process(ImageContract $image): ImageContract|false
     {
+        //Get format from config
         $format = $this->config->intermidiateImageFormat()['suffix'];
 
+        // Check if a similar request has been seen recently to prevent duplicate processing
+        if ($this->conversionCache->hasSeenRequestRecently($image)) {
+            $this->log->log(
+                $this,
+                'Skipping request due to recent similar request.',
+                'info',
+                ['image' => $image, 'format' => $format]
+            );
+            return $image;
+        }
+
+        // Could not acquire lock, another process is likely handling this image
         if (!$this->conversionCache->acquireConversionLock($image)) {
+            $this->log->log(
+                $this,
+                'Skipping request due to existing processing lock.',
+                'info',
+                ['image' => $image, 'format' => $format]
+            );
+
             return $image;
         }
 
