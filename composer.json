@@ -34,7 +34,7 @@
         "dompdf/dompdf": "^2.0.4",
         "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "^1.0.0",
-        "helsingborg-stad/schema-library": "^0.2"
+        "helsingborg-stad/schema-library": "^0.5"
     },
     "extra": {
         "installer-paths": {
@@ -95,5 +95,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "5.169.7"
+    "version": "5.172.8"
 }

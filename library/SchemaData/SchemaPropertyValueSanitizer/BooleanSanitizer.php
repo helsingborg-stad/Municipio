@@ -55,10 +55,6 @@ class BooleanSanitizer implements SchemaPropertyValueSanitizerInterface
             return false;
         }
 
-        if (is_numeric($value)) {
-            return (bool) $value;
-        }
-
         return $value;
     }
 }

@@ -497,6 +497,11 @@ class Archive extends \Municipio\Controller\BaseController
                     }
                 }
 
+                if (!empty($options) && count(array_filter($options, 'is_numeric', ARRAY_FILTER_USE_KEY)) === count($options)) {
+                    // If all labels are numeric, we need to sort them as numbers
+                    asort($options, SORT_NUMERIC);
+                }
+
                 $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
 
                 //Data
@@ -607,8 +612,19 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $preparedPosts = [
             'items'    => [],
-            'headings' => [__('Title', 'municipio'), __('Published', 'municipio')]
+            'headings' => []
         ];
+
+        $preparedPosts['headings'] = array_map(
+            function ($item) {
+                return match ($item) {
+                    'post_title' => __('Title', 'municipio'),
+                    'post_date' => __('Published', 'municipio'),
+                    default => ucfirst(str_replace('_', ' ', $item)),
+                };
+            },
+            $this->data['archiveProps']->postPropertiesToDisplay
+        );
 
         if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
             $allTaxonomies = get_taxonomies([], 'objects');
@@ -625,10 +641,11 @@ class Archive extends \Municipio\Controller\BaseController
                     [
                         'id'      => $post->id,
                         'href'    => WP::getPermalink($post->id),
-                        'columns' => [
-                            $post->postTitle,
-                            $post->post_date = wp_date(get_option('date_format'), $post->getArchiveDateTimestamp())
-                        ]
+                        'columns' => array_map(fn($item) => match ($item) {
+                            'post_title' => $post->postTitle,
+                            'post_date' => !empty($post->postDate) ? wp_date(get_option('date_format'), strtotime($post->postDate)) : '',
+                            default => $post->{$item} ?? ''
+                        }, $this->data['archiveProps']->postPropertiesToDisplay)
                     ];
 
                 $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);

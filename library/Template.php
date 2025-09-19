@@ -16,6 +16,7 @@ use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use WP_Post;
 use WP_Post_Type;
 use Municipio\Helper\User\User;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 
 /**
  * Class Template
@@ -37,7 +38,8 @@ class Template
         private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction,
         private SiteSwitcher $siteSwitcher,
         private PostObjectFromWpPostFactoryInterface $postObjectFromWpPost,
-        private User $userHelper
+        private User $userHelper,
+        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType
     ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -418,9 +420,7 @@ class Template
             return null;
         }
 
-        $schema = $this->postObjectFromWpPost->create($post)->getSchema();
-
-        return $schema->getType() !== 'Thing' ? $schema->getType() : null;
+        return $this->tryGetSchemaTypeFromPostType->tryGetSchemaTypeFromPostType($post->post_type);
     }
     /**
      * It loads a controller class and returns an instance of it

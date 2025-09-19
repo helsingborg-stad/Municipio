@@ -7,12 +7,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-14 12:36+0200\n"
-"PO-Revision-Date: 2025-08-14 13:56+0200\n"
+"POT-Creation-Date: 2025-09-18 14:25+0200\n"
+"PO-Revision-Date: 2025-09-18 14:25+0200\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -59,8 +59,22 @@ msgstr "Visa tillgänglighetsredogörelse"
 msgid "<a href=\"{{a11y_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">View Accessibility Statement</a>"
 msgstr "<a href=\"{{a11y_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">Visa tillgänglighetsredogörelse</a>"
 
+#: AcfFields/php/a11y-statement.php:12
+#: AcfFields/php/options-theme-author.php:24
+#: AcfFields/php/options-theme-author.php:43
+#: AcfFields/php/options-theme-author.php:62
+#: AcfFields/php/options-theme-google-translate.php:120
+#: Helper/KirkiConditional.php:48
+msgid "Enable"
+msgstr "Aktivera"
+
+#: AcfFields/php/a11y-statement.php:24
+msgid "By enabling this; The page will be accessible for visitors."
+msgstr ""
+
 #: AcfFields/php/a11y-statement.php:32
-#: Controller/Archive.php:610
+#: Controller/Archive.php:621
+#: Customizer/Sections/Archive.php:318
 msgid "Title"
 msgstr "Rubrik"
 
@@ -341,7 +355,7 @@ msgstr "Storlek"
 #: AcfFields/php/widget-header-common.php:132
 #: AcfFields/php/widget-header-links.php:361
 #: AcfFields/php/widget-header-menu.php:51
-#: Customizer/Sections/Menu/Behaviour.php:118
+#: Customizer/Sections/Menu/Behaviour.php:141
 #: Customizer/Sections/Menu/Siteselector.php:116
 #: Customizer/Sections/Menu/Tabmenu.php:87
 #: Customizer/Sections/Radius.php:35
@@ -351,7 +365,7 @@ msgstr "Liten"
 #: AcfFields/php/block-button.php:128
 #: AcfFields/php/block-container.php:47
 #: Customizer/Sections/Icons.php:35
-#: Customizer/Sections/Menu/Behaviour.php:119
+#: Customizer/Sections/Menu/Behaviour.php:142
 #: Customizer/Sections/Menu/Siteselector.php:117
 #: Customizer/Sections/Menu/Tabmenu.php:88
 #: Customizer/Sections/Radius.php:56
@@ -365,7 +379,7 @@ msgstr "Mellan"
 #: AcfFields/php/widget-header-common.php:133
 #: AcfFields/php/widget-header-links.php:362
 #: AcfFields/php/widget-header-menu.php:52
-#: Customizer/Sections/Menu/Behaviour.php:120
+#: Customizer/Sections/Menu/Behaviour.php:143
 #: Customizer/Sections/Menu/Siteselector.php:118
 #: Customizer/Sections/Menu/Tabmenu.php:89
 #: Customizer/Sections/Radius.php:77
@@ -610,21 +624,13 @@ msgid "Port"
 msgstr "Port"
 
 #: AcfFields/php/external-content-settings.php:256
-#: Customizer/Sections/Archive.php:432
+#: Customizer/Sections/Archive.php:460
 msgid "Collection"
 msgstr "Samlingar"
 
 #: AcfFields/php/external-content-settings.php:286
 msgid "API key"
 msgstr "API Nyckel"
-
-#: Admin/Options/Theme.php:80
-msgid "Taxonomies"
-msgstr "Taxonomies"
-
-#: AcfFields/php/options-theme-custom-post-type.php:228
-msgid "Hierarchical"
-msgstr "Hierarkisk"
 
 #: AcfFields/php/external-content-settings.php:316
 msgid "Filters rules"
@@ -912,6 +918,7 @@ msgstr "Aktivera Gutenberg redigerare"
 #: Customizer/Sections/Component/Divider.php:90
 #: Customizer/Sections/Component/Divider.php:166
 #: Customizer/Sections/Menu/Behaviour.php:86
+#: Customizer/Sections/Menu/Behaviour.php:102
 #: Customizer/Sections/Menu/MegaMenu.php:367
 #: Customizer/Sections/Menu/Vertical.php:49
 msgid "Disabled"
@@ -1035,6 +1042,7 @@ msgstr "* MiniOrange måste vara aktiverat"
 #: Customizer/Sections/Component/Divider.php:89
 #: Customizer/Sections/Component/Divider.php:165
 #: Customizer/Sections/Menu/Behaviour.php:85
+#: Customizer/Sections/Menu/Behaviour.php:101
 #: Customizer/Sections/Menu/MegaMenu.php:366
 #: Customizer/Sections/Menu/Vertical.php:48
 msgid "Enabled"
@@ -1090,27 +1098,6 @@ msgstr "Popuprubrik"
 #: AcfFields/php/options-theme-custom-post-type.php:97
 msgid "Menu icon"
 msgstr "Menyikon"
-
-#: AcfFields/php/options-theme-custom-taxonomy.php:138
-msgid "attachment"
-msgstr "attachment"
-
-#: Admin/Login/AddLoginAndLogoutNotices.php:146
-#: Admin/Login/AddLoginAndLogoutNotices.php:219
-msgid "home"
-msgstr "hem"
-
-#: AcfFields/php/options-theme-custom-taxonomy.php:196
-msgid "person"
-msgstr "person"
-
-#: AcfFields/php/user-author-image.php:152
-msgid "smartphone"
-msgstr "smartphone"
-
-#: Controller/SingularJobPosting.php:65
-msgid "today"
-msgstr "idag"
 
 #: AcfFields/php/options-menu-language.php:8
 #: Customizer/Sections/Header/Layout.php:305
@@ -1233,7 +1220,7 @@ msgstr "Dölj i meny"
 #: Customizer/Sections/Archive.php:157
 #: Customizer/Sections/Archive.php:175
 #: Customizer/Sections/Archive.php:200
-#: Customizer/Sections/Archive.php:413
+#: Customizer/Sections/Archive.php:441
 #: Customizer/Sections/ErrorPages.php:75
 msgid "Hide"
 msgstr "Dölj"
@@ -1270,15 +1257,6 @@ msgstr "Författare"
 #: AcfFields/php/options-theme-author.php:12
 msgid "Show author"
 msgstr "Visa författare"
-
-#: AcfFields/php/a11y-statement.php:12
-#: AcfFields/php/options-theme-author.php:24
-#: AcfFields/php/options-theme-author.php:43
-#: AcfFields/php/options-theme-author.php:62
-#: AcfFields/php/options-theme-google-translate.php:120
-#: Helper/KirkiConditional.php:48
-msgid "Enable"
-msgstr "Aktivera"
 
 #: AcfFields/php/options-theme-author.php:31
 msgid "Show author image"
@@ -1448,6 +1426,10 @@ msgstr "Tillgänglig i menyer?"
 msgid "Make post type available for selection in navigation menus."
 msgstr "Tillåt inläggstypen att kunna visas i menyer."
 
+#: AcfFields/php/options-theme-custom-post-type.php:228
+msgid "Hierarchical"
+msgstr "Hierarkisk"
+
 #: AcfFields/php/options-theme-custom-post-type.php:240
 msgid "Whether the post type is hierarchical (e.g. page). Allows Parent to be specified."
 msgstr "Om inläggstypen är hierarkisk. Tillåter parent/child förhållande mellan inlägg."
@@ -1579,6 +1561,10 @@ msgstr "post"
 #: AcfFields/php/options-theme-custom-taxonomy.php:137
 msgid "page"
 msgstr "page"
+
+#: AcfFields/php/options-theme-custom-taxonomy.php:138
+msgid "attachment"
+msgstr "attachment"
 
 #: AcfFields/php/options-theme-custom-taxonomy.php:139
 msgid "custom_css"
@@ -1809,6 +1795,10 @@ msgstr "news"
 msgid "pre-school"
 msgstr "pre-school"
 
+#: AcfFields/php/options-theme-custom-taxonomy.php:196
+msgid "person"
+msgstr "person"
+
 #: AcfFields/php/options-theme-custom-taxonomy.php:197
 #: AcfFields/php/resource-fields.php:1184
 msgid "elementary-school"
@@ -1877,7 +1867,7 @@ msgid "Check the formats you would like to enable"
 msgstr "Välj de format som du vill aktivera"
 
 #: AcfFields/php/options-theme-editor-formats.php:27
-#: Customizer/Sections/Menu/Behaviour.php:121
+#: Customizer/Sections/Menu/Behaviour.php:144
 msgid "Extra large"
 msgstr "Extra stor"
 
@@ -2243,7 +2233,7 @@ msgstr "ikon"
 
 #: AcfFields/php/post-icon.php:142
 #: AcfFields/php/term-icon-and-colour.php:139
-#: Controller/SingularEvent.php:58
+#: Controller/SingularEvent.php:59
 #: Customizer/Sections/ErrorPages.php:27
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -2594,6 +2584,10 @@ msgstr "Mobiltelefon"
 #: AcfFields/php/user-author-image.php:150
 msgid "Landline"
 msgstr "Fast telefon"
+
+#: AcfFields/php/user-author-image.php:152
+msgid "smartphone"
+msgstr "smartphone"
 
 #: AcfFields/php/user-author-image.php:165
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:65
@@ -2968,6 +2962,11 @@ msgstr "Inloggad, välkommen tillbaka!"
 msgid "Go to %s"
 msgstr "Gå till %s"
 
+#: Admin/Login/AddLoginAndLogoutNotices.php:146
+#: Admin/Login/AddLoginAndLogoutNotices.php:219
+msgid "home"
+msgstr "hem"
+
 #: Admin/Login/AddLoginAndLogoutNotices.php:197
 msgid "Go to default home"
 msgstr "Gå till gemensamma sidor"
@@ -3043,6 +3042,10 @@ msgstr "Posttyper"
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
+#: Admin/Options/Theme.php:80
+msgid "Taxonomies"
+msgstr "Taxonomies"
+
 #: Admin/Options/Theme.php:87
 msgid "Custom CSS/JS Editor"
 msgstr "Egen CSS/JS"
@@ -3099,7 +3102,7 @@ msgstr "Beskrivning."
 msgid "Return type from sideloaded image."
 msgstr "Returtyp från nedladdad bild."
 
-#: Api/Navigation/ChildrenRender.php:100
+#: Api/Navigation/ChildrenRender.php:113
 msgid "An error occurred while rendering the menu."
 msgstr ""
 
@@ -3237,11 +3240,6 @@ msgstr ""
 #: Api/View/Render.php:37
 msgid "View data."
 msgstr "Visa data."
-
-#: Customizer/Sections/Header/LoginLogout.php:22
-#: SchemaData/ExternalContent/ExternalContentFeature.php:202
-msgid "Never"
-msgstr "Aldrig"
 
 #: BrandedEmails/HtmlTemplate/DefaultHtmlTemplate.php:54
 #, php-format
@@ -3395,11 +3393,12 @@ msgstr "Tillgänglighetsredogörelse saknas. "
 msgid "Last reviewed"
 msgstr "Senaste bedömningen gjord"
 
-#: Controller/Archive.php:504
+#: Controller/Archive.php:509
 msgid "Select"
 msgstr "Välj"
 
-#: Controller/Archive.php:610
+#: Controller/Archive.php:622
+#: Customizer/Sections/Archive.php:319
 #: Helper/TranslatedLabels.php:65
 #: Helper/TranslatedLabels.php:77
 msgid "Published"
@@ -3431,6 +3430,15 @@ msgstr "Stäng"
 msgid "Visit"
 msgstr "Besök"
 
+#: Controller/BaseController.php:410
+msgid "Call"
+msgstr "Ring"
+
+#: Controller/BaseController.php:412
+#: Controller/Utils/SingularSchoolData.php:542
+msgid "Visiting address"
+msgstr "Adress"
+
 #: Controller/E404.php:37
 #: Helper/TranslatedLabels.php:61
 msgid "Show all"
@@ -3451,6 +3459,18 @@ msgstr "Gå bakåt"
 msgid "Log in"
 msgstr "Logga in"
 
+#: Controller/Media/TrashPage.php:33
+msgid "Trashed media"
+msgstr "Papperskorg"
+
+#: Controller/Media/TrashPage.php:34
+msgid "No trashed media."
+msgstr "Papperskorgen är tom."
+
+#: Controller/Media/TrashPage.php:35
+msgid "Are you sure you want to permanently delete this post?"
+msgstr "Är du säker på att du vill radera denna post permanent?"
+
 #: Controller/Navigation/Decorators/Breadcrumb/AppendArchiveMenuItem.php:44
 #: Controller/Navigation/Decorators/Breadcrumb/AppendPageTreeAncestorsMenuItems.php:50
 #: Controller/Navigation/Decorators/Menu/PageTreeAppendMenuItemsCustomTitle.php:50
@@ -3464,6 +3484,43 @@ msgstr "Namnlös sida"
 #: Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:35
 msgid "Home"
 msgstr "Hem"
+
+#: Controller/School/AddressGenerator.php:41
+msgctxt "ElementarySchool"
+msgid "Get directions"
+msgstr "Hitta hit"
+
+#: Controller/School/ElementarySchool/UspsGenerator.php:56
+#, php-format
+msgctxt "ElementarySchool"
+msgid "After school care opening hours: %s"
+msgstr "Fritidshem: %s"
+
+#: Controller/School/ElementarySchool/UspsGenerator.php:67
+#, php-format
+msgctxt "ElementarySchool"
+msgid "Ca. %s students"
+msgstr "Ca. %s elever"
+
+#: Controller/School/Preschool/UspsGenerator.php:56
+#, php-format
+msgctxt "Preschool"
+msgid "Opening hours: %s"
+msgstr "Öppettider: %s"
+
+#: Controller/School/Preschool/UspsGenerator.php:67
+#, php-format
+msgctxt "Preschool"
+msgid "Ca. %s children"
+msgstr "Ca. %s barn"
+
+#: Controller/School/Preschool/UspsGenerator.php:77
+#, php-format
+msgctxt "Preschool"
+msgid "%s group"
+msgid_plural "%s groups"
+msgstr[0] "%s avdelning"
+msgstr[1] "%s avdelningar"
 
 #: Controller/Search.php:13
 msgid "The searchquery did not match any content."
@@ -3492,56 +3549,149 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] "Detta innehåll är äldre än %s dag."
 msgstr[1] "Detta innehåll är äldre än %s dagar."
 
-#: Controller/SingularEvent.php:59
+#: Controller/SingularElementarySchool.php:44
+msgctxt "ElementarySchool"
+msgid "Quick facts"
+msgstr "Snabba fakta"
+
+#: Controller/SingularElementarySchool.php:45
+msgctxt "ElementarySchool"
+msgid "Contact us"
+msgstr "Kontakta oss"
+
+#: Controller/SingularElementarySchool.php:46
+msgctxt "ElementarySchool"
+msgid "Address"
+msgstr "Adress"
+
+#: Controller/SingularElementarySchool.php:47
+#, php-format
+msgctxt "ElementarySchool"
+msgid "Do you wish to apply to %s?"
+msgstr "Vill söka plats på %s?"
+
+#: Controller/SingularElementarySchool.php:48
+msgctxt "ElementarySchool"
+msgid "Follow us on social media"
+msgstr "Följ oss på sociala medier"
+
+#: Controller/SingularElementarySchool.php:49
+#, fuzzy
+msgctxt "ElementarySchool"
+msgid "Events"
+msgstr "Evenemang"
+
+#: Controller/SingularEvent.php:60
 msgid "Add to calendar"
 msgstr "Lägg till i kalender"
 
-#: Controller/SingularEvent.php:60
+#: Controller/SingularEvent.php:61
 msgid "Tickets & registration"
 msgstr "Biljetter & bokning"
 
-#: Controller/SingularEvent.php:61
+#: Controller/SingularEvent.php:62
 msgid "Go to booking page"
 msgstr "Gå till bokninssida"
 
-#: Controller/SingularEvent.php:62
+#: Controller/SingularEvent.php:63
 msgid "Tickets are sold according to the reseller."
 msgstr "Biljetter säljs enligt återförsäljare."
 
-#: Controller/SingularEvent.php:63
+#: Controller/SingularEvent.php:64
 msgid "Date and time"
 msgstr "Datum & tid"
 
-#: Controller/SingularEvent.php:64
+#: Controller/SingularEvent.php:65
 msgid "Other occassions"
 msgstr "Fler tillfällen"
 
-#: Controller/SingularEvent.php:65
+#: Controller/SingularEvent.php:66
 msgid "Place"
 msgstr "Plats"
 
-#: Controller/SingularEvent.php:66
+#: Controller/SingularEvent.php:67
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr "Pris"
 
-#: Controller/SingularEvent.php:67
+#: Controller/SingularEvent.php:68
 msgid "Organizers"
 msgstr "Organisatörer"
 
-#: Controller/SingularEvent.php:68
+#: Controller/SingularEvent.php:69
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: Controller/SingularEvent.php:69
+#: Controller/SingularEvent.php:70
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
-#: Controller/SingularEvent.php:158
-#: Controller/SingularExhibitionEvent.php:200
+#: Controller/SingularEvent.php:163
+#: Controller/SingularExhibitionEvent.php:173
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
+
+#: Controller/SingularExhibitionEvent.php:96
+msgctxt "ExhibitionEvent"
+msgid "Place"
+msgstr "Plats"
+
+#: Controller/SingularExhibitionEvent.php:97
+msgctxt "ExhibitionEvent"
+msgid "This event has already taken place."
+msgstr "Detta evenemang har redan ägt rum."
+
+#: Controller/SingularExhibitionEvent.php:98
+msgctxt "ExhibitionEvent"
+msgid "Date"
+msgstr "Datum"
+
+#: Controller/SingularExhibitionEvent.php:99
+msgctxt "ExhibitionEvent"
+msgid "Opening hours"
+msgstr "Öppettider"
+
+#: Controller/SingularExhibitionEvent.php:100
+msgctxt "ExhibitionEvent"
+msgid "Special opening hours"
+msgstr "Avvikande öppettider"
+
+#: Controller/SingularExhibitionEvent.php:101
+msgctxt "ExhibitionEvent"
+msgid "Entrance"
+msgstr "Entré"
+
+#: Controller/SingularExhibitionEvent.php:102
+msgctxt "ExhibitionEvent"
+msgid "Accessibility"
+msgstr "Tillgänglighet"
+
+#: Controller/SingularExhibitionEvent.php:103
+msgctxt "ExhibitionEvent"
+msgid "Directions"
+msgstr "Vägbeskrivning"
+
+#: Controller/SingularExhibitionEvent.php:104
+msgctxt "ExhibitionEvent"
+msgid "Gallery"
+msgstr "Galleri"
+
+#: Controller/SingularExhibitionEvent.php:105
+msgctxt "ExhibitionEvent"
+msgid "This exhibition has already taken place."
+msgstr "Denna utställning har redan ägt rum."
+
+#: Controller/SingularExhibitionEvent.php:129
+#: PostObject/Date/ExhibitionEventArchiveDateFormatResolver.php:73
+msgctxt "ExhibitionEvent"
+msgid "until further notice"
+msgstr "tills vidare"
+
+#: Controller/SingularExhibitionEvent.php:153
+msgctxt "ExhibitionEvent"
+msgid "Free entrance"
+msgstr "Fri entré"
 
 #: Controller/SingularJobPosting.php:56
 #: Controller/SingularProject.php:74
@@ -3582,6 +3732,10 @@ msgstr "Information"
 msgid "Reference"
 msgstr "Referens"
 
+#: Controller/SingularJobPosting.php:65
+msgid "today"
+msgstr "idag"
+
 #: Controller/SingularJobPosting.php:66
 msgid "tomorrow"
 msgstr "imorgon"
@@ -3594,6 +3748,32 @@ msgstr "stängd"
 #: PostDecorators/ApplyInfoListToPlace.php:35
 msgid "Visit website"
 msgstr "Gå till webbplats"
+
+#: Controller/SingularPreschool.php:41
+msgctxt "Preschool"
+msgid "Quick facts"
+msgstr "Snabba fakta"
+
+#: Controller/SingularPreschool.php:42
+msgctxt "Preschool"
+msgid "Contact us"
+msgstr "Kontakta oss"
+
+#: Controller/SingularPreschool.php:43
+msgctxt "Preschool"
+msgid "Address"
+msgstr "Adress"
+
+#: Controller/SingularPreschool.php:44
+#, php-format
+msgctxt "Preschool"
+msgid "Do you wish to apply to %s?"
+msgstr "Vill du söka plats på %s?"
+
+#: Controller/SingularPreschool.php:45
+msgctxt "Preschool"
+msgid "Follow us on social media"
+msgstr "Följ oss på sociala medier"
 
 #: Controller/SingularProject.php:70
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:59
@@ -3698,11 +3878,6 @@ msgstr "Vårt fritidshem"
 #: Controller/Utils/SingularSchoolData.php:531
 msgid "Find directions"
 msgstr "Hitta hit"
-
-#: Controller/BaseController.php:412
-#: Controller/Utils/SingularSchoolData.php:542
-msgid "Visiting address"
-msgstr "Adress"
 
 #: Controller/Utils/SingularSchoolData.php:544
 msgid "Visiting addresses"
@@ -3883,7 +4058,7 @@ msgid "Buttons"
 msgstr "Knappar"
 
 #: Customizer/PanelsRegistry.php:281
-#: Customizer/Sections/Archive.php:428
+#: Customizer/Sections/Archive.php:456
 msgid "Cards"
 msgstr "Kort"
 
@@ -4012,7 +4187,7 @@ msgstr "Visa utvald bild"
 #: Customizer/Sections/Archive.php:156
 #: Customizer/Sections/Archive.php:174
 #: Customizer/Sections/Archive.php:199
-#: Customizer/Sections/Archive.php:412
+#: Customizer/Sections/Archive.php:440
 #: Customizer/Sections/ErrorPages.php:74
 msgid "Show"
 msgstr "Visa"
@@ -4111,84 +4286,93 @@ msgstr "Visning av taxonomier"
 msgid "What taxonomies should be displayed?"
 msgstr "Vilka taxonomier ska visas?"
 
+#: Customizer/Sections/Archive.php:311
+#, fuzzy
+msgid "Post properties to display"
+msgstr "Antalet inlägg på en sida"
+
 #: Customizer/Sections/Archive.php:312
+msgid "Select which post properties to display in the archive (only applies to list view)."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:340
 msgid "Order By"
 msgstr "Ordna efter"
 
-#: Customizer/Sections/Archive.php:313
+#: Customizer/Sections/Archive.php:341
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: Customizer/Sections/Archive.php:328
+#: Customizer/Sections/Archive.php:356
 msgid "Order direction"
 msgstr "Riktning"
 
-#: Customizer/Sections/Archive.php:329
+#: Customizer/Sections/Archive.php:357
 msgid "Select decending or ascending order."
 msgstr "Välj om inläggen ska sorteras fallande eller stigande."
 
-#: Customizer/Sections/Archive.php:333
+#: Customizer/Sections/Archive.php:361
 msgid "Ascending"
 msgstr "Stigande"
 
-#: Customizer/Sections/Archive.php:334
+#: Customizer/Sections/Archive.php:362
 msgid "Decending"
 msgstr "Fallande"
 
-#: Customizer/Sections/Archive.php:349
-#: Customizer/Sections/Archive.php:380
+#: Customizer/Sections/Archive.php:377
+#: Customizer/Sections/Archive.php:408
 msgid "Date"
 msgstr "Datum"
 
-#: Customizer/Sections/Archive.php:350
+#: Customizer/Sections/Archive.php:378
 msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
-#: Customizer/Sections/Archive.php:354
+#: Customizer/Sections/Archive.php:382
 msgid "Hide date"
 msgstr "Dölj datum"
 
-#: Customizer/Sections/Archive.php:375
+#: Customizer/Sections/Archive.php:403
 msgid "Date format"
 msgstr "Datumformat"
 
-#: Customizer/Sections/Archive.php:376
+#: Customizer/Sections/Archive.php:404
 msgid "In what format to display date"
 msgstr "Format för datum"
 
-#: Customizer/Sections/Archive.php:381
+#: Customizer/Sections/Archive.php:409
 msgid "Date, Time"
 msgstr "Datum, Tid"
 
-#: Customizer/Sections/Archive.php:382
+#: Customizer/Sections/Archive.php:410
 msgid "Date badge"
 msgstr "Datummärke"
 
-#: Customizer/Sections/Archive.php:407
+#: Customizer/Sections/Archive.php:435
 msgid "Display reading time"
 msgstr "Visa uppskattad lästid"
 
-#: Customizer/Sections/Archive.php:408
+#: Customizer/Sections/Archive.php:436
 msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
-#: Customizer/Sections/Archive.php:427
+#: Customizer/Sections/Archive.php:455
 msgid "Compressed"
 msgstr "Komprimerad"
 
-#: Customizer/Sections/Archive.php:429
+#: Customizer/Sections/Archive.php:457
 msgid "News"
 msgstr "Nyheter"
 
-#: Customizer/Sections/Archive.php:430
+#: Customizer/Sections/Archive.php:458
 msgid "List"
 msgstr "Lista"
 
-#: Customizer/Sections/Archive.php:431
+#: Customizer/Sections/Archive.php:459
 msgid "Blocks"
 msgstr "Block"
 
-#: Customizer/Sections/Archive.php:438
+#: Customizer/Sections/Archive.php:466
 msgid "Schema"
 msgstr "Schema"
 
@@ -5021,6 +5205,11 @@ msgstr "Visa logga in/ut"
 msgid "Select when the login/logout button should be visible"
 msgstr "Välj när logga in/ut knapp ska vara synlig"
 
+#: Customizer/Sections/Header/LoginLogout.php:22
+#: SchemaData/ExternalContent/ExternalContentFeature.php:202
+msgid "Never"
+msgstr "Aldrig"
+
 #: Customizer/Sections/Header/LoginLogout.php:24
 msgid "Login and Logout"
 msgstr "Logga in och logga ut"
@@ -5166,15 +5355,19 @@ msgstr "Använd sidträd som reserv för megameny"
 msgid "Show subitems as dropdown in main menu"
 msgstr "Visa undermenyalternativ i en dropdown"
 
-#: Customizer/Sections/Menu/Behaviour.php:101
+#: Customizer/Sections/Menu/Behaviour.php:96
+msgid "Extends the dropdown behavior making it more complete"
+msgstr ""
+
+#: Customizer/Sections/Menu/Behaviour.php:124
 msgid "Drawer screen sizes"
 msgstr "Utfällbar meny (drawer)"
 
-#: Customizer/Sections/Menu/Behaviour.php:102
+#: Customizer/Sections/Menu/Behaviour.php:125
 msgid "Select which screen sizes the drawer menu should be visible on."
 msgstr "Välj på vilka skärmstorlekar den utfällbara menyn ska visas."
 
-#: Customizer/Sections/Menu/Behaviour.php:117
+#: Customizer/Sections/Menu/Behaviour.php:140
 #: Customizer/Sections/Menu/Siteselector.php:115
 #: Customizer/Sections/Radius.php:14
 msgid "Extra small"
@@ -5268,6 +5461,14 @@ msgstr "Mobilmeny; Sekundär yta"
 #: Customizer/Sections/Menu/Drawer.php:41
 msgid "If using both the areas in the drawer menu this will decide the bottom area"
 msgstr "Om båda ytorna används i mobilmenyn, bestämmer om en sekundär yta visas. "
+
+#: Customizer/Sections/Menu/Drawer.php:63
+msgid "Drawer divider"
+msgstr ""
+
+#: Customizer/Sections/Menu/Drawer.php:79
+msgid "Drawer divider (top level only)"
+msgstr ""
 
 #: Customizer/Sections/Menu/MegaMenu.php:37
 msgid "Subitem"
@@ -5615,34 +5816,6 @@ msgstr "Ställ in önskad bredd på höger och vänster kolumn. Innehållsytan a
 msgid "Normal"
 msgstr "Normal"
 
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:54
-msgid "Missing post_type parameter"
-msgstr ""
-
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:64
-msgid "Sync already in progress"
-msgstr "Synkronisering pågår redan"
-
-#: SchemaData/ExternalContent/Rest/AjaxSync.php:71
-msgid "Sync completed. Reload page to see changes."
-msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:71
-msgid "Fetching source data..."
-msgstr "Hämtar data från källa..."
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:97
-msgid "Cleaning up..."
-msgstr "Städar upp..."
-
-#: SchemaData/ExternalContent/UI/PageRowActionsSyncButton.php:68
-msgid "Sync this post from remote source"
-msgstr "Synka denna post från extern källa"
-
-#: SchemaData/ExternalContent/UI/PostTableSyncButton.php:60
-msgid "Sync all posts from remote source"
-msgstr "Synka alla poster från extern källa"
-
 #: GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:29
 msgid "Global notices has been saved."
 msgstr "Globala notiser har sparats."
@@ -5926,6 +6099,43 @@ msgstr "Den här delen av hemsidan visar innehåll från en annan webbplats (%s)
 msgid "Handling of personal data"
 msgstr "Hantering av personlig data"
 
+#: SchemaData/ExternalContent/ExternalContentFeature.php:176
+msgid "External Content Settings"
+msgstr "Inställningar för Externt innehåll"
+
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:54
+msgid "Missing post_type parameter"
+msgstr ""
+
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:64
+msgid "Sync already in progress"
+msgstr "Synkronisering pågår redan"
+
+#: SchemaData/ExternalContent/Rest/AjaxSync.php:71
+msgid "Sync completed. Reload page to see changes."
+msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:71
+msgid "Fetching source data..."
+msgstr "Hämtar data från källa..."
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
+#, php-format
+msgid "Processing %s of %s..."
+msgstr "Behandlar %s av %s..."
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:97
+msgid "Cleaning up..."
+msgstr "Städar upp..."
+
+#: SchemaData/ExternalContent/UI/PageRowActionsSyncButton.php:68
+msgid "Sync this post from remote source"
+msgstr "Synka denna post från extern källa"
+
+#: SchemaData/ExternalContent/UI/PostTableSyncButton.php:60
+msgid "Sync all posts from remote source"
+msgstr "Synka alla poster från extern källa"
+
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:42
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:45
 msgid "General Information"
@@ -6122,6 +6332,27 @@ msgstr "Sista ansökningsdag"
 msgid "Special Opening Hours"
 msgstr "Öppettider: %s"
 
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
+msgid "Physical Accessibility Features"
+msgstr "Tillgänglighet"
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:89
+msgid "Accessible Entrance"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
+msgid "Accessible Parking"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:91
+msgid "Wheelchair Accessible"
+msgstr ""
+
+#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:92
+msgid "Braille Signage"
+msgstr ""
+
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:39
 msgid "Application URL"
 msgstr ""
@@ -6192,6 +6423,129 @@ msgstr "Stigande"
 msgid "Amount"
 msgstr ""
 
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:38
+msgctxt "Event schema status"
+msgid "Closed"
+msgstr "Avslutad"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:40
+msgctxt "Event schema status"
+msgid "Planned"
+msgstr "Kommande"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:42
+msgctxt "Event schema status"
+msgid "Ongoing"
+msgstr "Aktuell"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:59
+msgctxt "ExhibitionEvent taxonomy name (plural)"
+msgid "Status"
+msgstr "Status"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:60
+msgctxt "ExhibitionEvent taxonomy name"
+msgid "Status"
+msgstr "Status"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+msgid "Job Categories"
+msgstr "Kategorier"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+msgid "Job Category"
+msgstr "Kategori"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
+msgid "Latest Application Dates"
+msgstr "Ansök senast"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
+msgid "Latest Application Date"
+msgstr "Ansök senast"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
+msgid "Event Tags"
+msgstr "Eventtaggar"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
+msgid "Event Tag"
+msgstr "Eventtagg"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
+msgid "Physical Accessibility Feature"
+msgstr "Tillgänglighet"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+msgid "Project Departments"
+msgstr "Organisationer"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+msgid "Project Department"
+msgstr "Organisation"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+msgid "Project Categories"
+msgstr "Kategorier"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+msgid "Project Category"
+msgstr "Kategori"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+msgid "Project Technologies"
+msgstr "Omställningar"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+msgid "Project Technology"
+msgstr "Omställning"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+msgid "Project Statuses"
+msgstr "Statusar"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+msgid "Project Status"
+msgstr "Status"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+msgid "Unique selling points"
+msgstr "Särskilda erbjudanden"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+msgid "Unique selling point"
+msgstr "Särskilt erbjudande"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+msgid "Areas served"
+msgstr "Områden"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+msgid "Area served"
+msgstr "Område"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Grades"
+msgstr "Årskurser"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Grade"
+msgstr "Årskurs"
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:121
+msgctxt "Preschool"
+msgid "Number of groups"
+msgstr "Antal avdelningar"
+
+#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:37
+msgctxt "Schema OpeningHoursSpecification"
+msgid "closed"
+msgstr "stängt"
+
 #: Search/Algolia.php:56
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
@@ -6211,14 +6565,6 @@ msgstr "One Page"
 #: Theme/CustomTemplates.php:36
 msgid "Page (centered)"
 msgstr "Centrerad sida"
-
-#: Theme/Enqueue.php:137
-msgid "Alignment"
-msgstr "Justering"
-
-#: Theme/Enqueue.php:141
-msgid "Both"
-msgstr "Båda"
 
 #: Theme/Enqueue.php:69
 msgid "Insert Print Page Break tag"
@@ -6260,7 +6606,15 @@ msgstr "Fr"
 msgid "Sa"
 msgstr "Lö"
 
-#: Theme/Forms.php:43
+#: Theme/Enqueue.php:137
+msgid "Alignment"
+msgstr "Justering"
+
+#: Theme/Enqueue.php:141
+msgid "Both"
+msgstr "Båda"
+
+#: Theme/Forms.php:44
 msgid "The password entered is not correct."
 msgstr "Lösenordet är inte korrekt."
 
@@ -6706,202 +7060,7 @@ msgstr "Översätt"
 msgid "New title"
 msgstr "Ny titel"
 
-#: AcfFields/php/a11y-statement.php:24
-msgid "By enabling this; The page will be accessible for visitors."
-msgstr ""
-
-#: Controller/BaseController.php:410
-msgid "Call"
-msgstr ""
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
-msgid "Job Categories"
-msgstr "Kategorier"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:72
-msgid "Job Category"
-msgstr "Kategori"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
-msgid "Latest Application Dates"
-msgstr "Ansök senast"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
-msgid "Latest Application Date"
-msgstr "Ansök senast"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
-msgid "Event Tags"
-msgstr "Eventtaggar"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:85
-msgid "Event Tag"
-msgstr "Eventtagg"
-
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
-msgid "Physical Accessibility Features"
-msgstr "Tillgänglighet"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:86
-msgid "Physical Accessibility Feature"
-msgstr "Tillgänglighet"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
-msgid "Project Departments"
-msgstr "Organisationer"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:98
-msgid "Project Department"
-msgstr "Organisation"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
-msgid "Project Categories"
-msgstr "Kategorier"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:99
-msgid "Project Category"
-msgstr "Kategori"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
-msgid "Project Technologies"
-msgstr "Omställningar"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
-msgid "Project Technology"
-msgstr "Omställning"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
-msgid "Project Statuses"
-msgstr "Statusar"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
-msgid "Project Status"
-msgstr "Status"
-
-#: Controller/SingularExhibitionEvent.php:177
-msgctxt "ExhibitionEvent"
-msgid "Free entrance"
-msgstr "Fri entré"
-
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:89
-msgid "Accessible Entrance"
-msgstr ""
-
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:90
-msgid "Accessible Parking"
-msgstr ""
-
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:91
-msgid "Wheelchair Accessible"
-msgstr ""
-
-#: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:92
-msgid "Braille Signage"
-msgstr ""
-
-#: SchemaData/Utils/OpeningHoursSpecificationToString/OpeningHoursSpecificationToString.php:37
-msgctxt "Schema OpeningHoursSpecification"
-msgid "closed"
-msgstr "stängt"
-
-#: Controller/SingularExhibitionEvent.php:108
-msgctxt "ExhibitionEvent"
-msgid "Place"
-msgstr "Plats"
-
-#: Controller/SingularExhibitionEvent.php:109
-msgctxt "ExhibitionEvent"
-msgid "This event has already taken place."
-msgstr "Detta evenemang har redan ägt rum."
-
-#: Controller/SingularExhibitionEvent.php:110
-msgctxt "ExhibitionEvent"
-msgid "Date"
-msgstr "Datum"
-
-#: Controller/SingularExhibitionEvent.php:111
-msgctxt "ExhibitionEvent"
-msgid "Opening hours"
-msgstr "Öppettider"
-
-#: Controller/SingularExhibitionEvent.php:112
-msgctxt "ExhibitionEvent"
-msgid "Special opening hours"
-msgstr "Avvikande öppettider"
-
-#: Controller/SingularExhibitionEvent.php:113
-msgctxt "ExhibitionEvent"
-msgid "Entrance"
-msgstr "Entré"
-
-#: Controller/SingularExhibitionEvent.php:114
-msgctxt "ExhibitionEvent"
-msgid "Accessibility"
-msgstr "Tillgänglighet"
-
-#: Controller/SingularExhibitionEvent.php:115
-msgctxt "ExhibitionEvent"
-msgid "Directions"
-msgstr "Vägbeskrivning"
-
-#: Controller/SingularExhibitionEvent.php:116
-msgctxt "ExhibitionEvent"
-msgid "Gallery"
-msgstr "Galleri"
-
-#: Controller/Media/TrashPage.php:33
-msgid "Trashed media"
-msgstr ""
-
-#: Controller/Media/TrashPage.php:34
-msgid "No trashed media."
-msgstr ""
-
-#: Controller/Media/TrashPage.php:35
-msgid "Are you sure you want to permanently delete this post?"
-msgstr "Är du säker på att du vill radera denna post permanent?"
-
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
-#, php-format
-msgid "Processing %s of %s..."
-msgstr "Behandlar %s av %s..."
-
-#: SchemaData/ExternalContent/ExternalContentFeature.php:176
-msgid "External Content Settings"
-msgstr "Inställningar för Externt innehåll"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:58
-msgctxt "ExhibitionEvent taxonomy name"
-msgid "Status"
-msgstr "Status"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:57
-msgctxt "ExhibitionEvent taxonomy name (plural)"
-msgid "Status"
-msgstr "Status"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:38
-msgctxt "Event schema status"
-msgid "Closed"
-msgstr "Avslutad"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:40
-msgctxt "Event schema status"
-msgid "Planned"
-msgstr "Kommande"
-
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:42
-msgctxt "Event schema status"
-msgid "Ongoing"
-msgstr "Aktuell"
-
-#: Controller/SingularExhibitionEvent.php:117
-msgctxt "ExhibitionEvent"
-msgid "This exhibition has already taken place."
-msgstr "Denna utställning har redan ägt rum."
-
-#: Controller/SingularExhibitionEvent.php:147
-msgctxt "ExhibitionEvent"
-msgid "until further notice"
-msgstr "tills vidare"
+#: Controller/SingularPreschool.php:46
+msgctxt "Preschool"
+msgid "Events"
+msgstr "Evenemang"
