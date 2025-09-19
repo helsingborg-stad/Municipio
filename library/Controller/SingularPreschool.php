@@ -43,6 +43,7 @@ class SingularPreschool extends \Municipio\Controller\Singular
             'addressLabel'       => $this->wpService->_x('Address', 'Preschool', 'municipio'),
             'actionsLabel'       => sprintf($this->wpService->_x('Do you wish to apply to %s?', 'Preschool', 'municipio'), $this->post->getTitle()),
             'contactPointsLabel' => $this->wpService->_x('Follow us on social media', 'Preschool', 'municipio'),
+            'eventsLabel'        => $this->wpService->_x('Events', 'Preschool', 'municipio'),
             ] as $labelKey => $labelText
         ) {
             $this->data['lang']->{$labelKey} = $labelText;
