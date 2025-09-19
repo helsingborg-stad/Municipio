@@ -48,6 +48,13 @@ class Images
         return $content;
     }
 
+    /**
+     * Get images and links from content
+     *
+     * @param string $content
+     *
+     * @return array
+     */
     private static function getImagesAndLinks($content): array
     {
         $htmlDom = \DOM\HTMLDocument::createFromString(
@@ -62,6 +69,13 @@ class Images
         return [$htmlDom, $images, $links, ''];
     }
 
+    /**
+     * Get images and links from content (deprecated way)
+     *
+     * @param string $content
+     *
+     * @return array
+     */
     private static function getImagesAndLinksDeprecated($content)
     {
         $encoding = '<?xml encoding="utf-8" ?>';
