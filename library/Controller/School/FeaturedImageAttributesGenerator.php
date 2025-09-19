@@ -21,11 +21,15 @@ class FeaturedImageAttributesGenerator
 
     private function getGalleryImages(array|ImageObject|null $image): ?array
     {
-        if (!is_array($image) || !is_a($image[0], ImageObject::class)) {
+        if (!is_array($image) || empty($image) || !is_a($image[0], ImageObject::class)) {
             return null;
         }
 
-        $imageObject = $image[0];
+        $imageObject = $image[0] ?? null;
+
+        if (!$imageObject instanceof ImageObject || empty($imageObject->getProperty('@id'))) {
+            return null;
+        }
 
         return [
             'src'     => ImageComponentContract::factory($imageObject->getProperty('@id'), [760, false], new ImageResolver()),
