@@ -28,25 +28,65 @@ class Images
      */
     public static function normalizeImages($content)
     {
-        $encoding = '<?xml encoding="utf-8" ?>';
-
-        if (!has_blocks($content) && str_contains($content, '<img')) {
-            $dom = new \DOMDocument();
-            $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
-            $xpath = new \DOMXPath($dom);
-
-            $links  = $dom->getElementsByTagName('a');
-            $images = $xpath->query('//img[contains(@class, "wp-image-")]');
-
-            self::processLinks($dom, $links);
-            self::processImages($dom, $images);
-
-            $content = $dom->saveHTML();
-
-            return str_replace([$encoding, '<html>', '</html>', '<body>', '</body>'], '', \Municipio\Helper\Post::replaceBuiltinClasses($content));
+        if (has_blocks($content) || !str_contains($content, '<img')) {
+            return $content;
         }
 
+        if (class_exists('\DOM\HTMLDocument')) {
+            [$dom, $images, $links, $encoding] = self::getImagesAndLinks($content);
+        } else {
+            [$dom, $images, $links, $encoding] = self::getImagesAndLinksDeprecated($content);
+        }
+
+        self::processLinks($dom, $links);
+        self::processImages($dom, $images);
+
+        $content = $dom->saveHTML();
+
+        return str_replace([$encoding, '<html>', '</html>', '<body>', '</body>'], '', \Municipio\Helper\Post::replaceBuiltinClasses($content));
+
         return $content;
+    }
+
+    /**
+     * Get images and links from content
+     *
+     * @param string $content
+     *
+     * @return array
+     */
+    private static function getImagesAndLinks($content): array
+    {
+        $htmlDom = \DOM\HTMLDocument::createFromString(
+            '<!DOCTYPE html><html><body>' . $content . '</body></html>',
+            0,
+            'UTF-8'
+        );
+
+        $images = $htmlDom->querySelectorAll('img.wp-image-');
+        $links  = $htmlDom->getElementsByTagName('a');
+
+        return [$htmlDom, $images, $links, ''];
+    }
+
+    /**
+     * Get images and links from content (deprecated way)
+     *
+     * @param string $content
+     *
+     * @return array
+     */
+    private static function getImagesAndLinksDeprecated($content)
+    {
+        $encoding = '<?xml encoding="utf-8" ?>';
+        $dom = new \DOMDocument();
+        $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
+        $xpath = new \DOMXPath($dom);
+
+        $links  = $dom->getElementsByTagName('a');
+        $images = $xpath->query('//img[contains(@class, "wp-image-")]');
+
+        return [$dom, $images, $links, $encoding];
     }
 
     /**
