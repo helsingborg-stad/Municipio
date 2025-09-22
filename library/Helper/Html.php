@@ -15,7 +15,7 @@ class Html
      * @param string  $mediaQuery       Target size
      * @return string
      */
-    public static function createGridClass(float $numberOfColumns = 1, string $mediaQuery = null): string
+    public static function createGridClass(float $numberOfColumns = 1, ?string $mediaQuery = null): string
     {
         $baseColumns = 12;
 
