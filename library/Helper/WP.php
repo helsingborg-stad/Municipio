@@ -52,7 +52,7 @@ class WP
      * @param array|null $wpTermQueryArgs The WordPress term query arguments.
      * @return array The terms.
      */
-    public static function getTerms(array $wpTermQueryArgs = null): array
+    public static function getTerms(?array $wpTermQueryArgs = null): array
     {
         $terms = get_terms($wpTermQueryArgs);
 
