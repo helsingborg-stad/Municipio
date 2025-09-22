@@ -35,7 +35,7 @@ class Images implements ImagesInterface
             'UTF-8'
         );
 
-        $this->processImages($htmlDom->querySelectorAll('img'));
+        $this->processImages($htmlDom->querySelectorAll('figure'));
         $content = $htmlDom->saveHTML();
 
         return str_replace(
@@ -48,21 +48,24 @@ class Images implements ImagesInterface
     /**
      * Process images
      */
-    private function processImages($images): void
+    private function processImages($figures): void
     {
-        if (!is_object($images) || empty($images)) {
+        if (!is_object($figures) || empty($figures)) {
             return;
         }
 
-        foreach ($images as $image) {
-            if (apply_filters('Municipio/Content/ImageNormalized', false, $image)) {
+        foreach ($figures as $figure) {
+            if (apply_filters('Municipio/Content/ImageNormalized', false, $figure)) {
                 continue;
             }
 
-            $captionText = $this->extractCaption($image->parentNode);
-            $altText     = $image->getAttribute('alt') ?: $captionText;
+            $image       = $figure->querySelector('img');
+            
+            if (!$image) {
+                continue;
+            }
 
-            $this->replaceWithBladeTemplate($image, $altText, $captionText);
+            $this->replaceWithBladeTemplate($image, $figure);
         }
     }
 
@@ -72,17 +75,28 @@ class Images implements ImagesInterface
      * @param \Dom\HTMLElement $parentNode The parent node of the image
      * @return string The extracted caption text
      */
-    private function extractCaption(\Dom\HTMLElement $parentNode): string
+    private function extractCaption($figure): string
     {
         $captionText = '';
-        $caption = $parentNode->querySelector('figcaption');
+        $caption = $figure->querySelector('figcaption');
 
         if ($caption) {
             $captionText = wp_strip_all_tags($caption->textContent);
-            $parentNode->removeChild($caption);
+            $figure->removeChild($caption);
         }
 
         return $captionText;
+    }
+
+    private function extractLink($figure): ?string
+    {
+        $link = $figure->querySelector('a');
+
+        if ($link) {
+            return $link->getAttribute('href');
+        }
+
+        return null;
     }
 
     /**
@@ -92,14 +106,15 @@ class Images implements ImagesInterface
      * @param string $altText The alt text for the image
      * @param string $captionText The caption text for the image
      */
-    private function replaceWithBladeTemplate($image, $altText, $captionText): void
+    private function replaceWithBladeTemplate($image, $figure): void
     {
         $url          = $this->sanitizeRequestUrl($image->getAttribute('src'));
+        $captionText  = $this->extractCaption($figure);
+        $link         = $this->extractLink($figure);
+        $altText      = $image->getAttribute('alt') ?: $captionText;
         $attachmentId = attachment_url_to_postid($url);
 
-        $classes = $image->parentNode instanceof \DOMElement
-            ? explode(' ', $image->parentNode->getAttribute('class') ?? [])
-            : [];
+        $classes = explode(' ', $figure->getAttribute('class')) ?: [];
 
         $html = '';
 
@@ -146,22 +161,36 @@ class Images implements ImagesInterface
         }
 
         if (is_string($html) && !empty($html) && $image && get_class($image) === 'Dom\\HTMLElement') {
-            $replaceNode = $image;
+            $doc = $figure->ownerDocument;
+            $wrapper = $this->createAlignmentDiv($doc);
+            $placement = $wrapper;
+            $figure->replaceWith($wrapper);
+            $convertedHtml = $this->convertHtmlStringToDomFragment($doc, $wrapper, $html);
 
-            if ($image->parentNode && $image->parentNode->tagName === 'A') {
-                $replaceNode = $image->parentNode;
+            if ($link) {
+                $linkElement = $doc->createElement('a');
+                $linkElement->setAttribute('href', esc_url($link));
+                $placement->appendChild($linkElement);
+                $placement = $linkElement;
             }
 
-            if ($replaceNode->parentNode && $replaceNode->parentNode->tagName === 'FIGURE') {
-                $replaceNode->parentNode->replaceWith($replaceNode);
-            }
+            $placement->appendChild($convertedHtml);
 
-            if ($replaceNode->parentNode && $replaceNode->parentNode->tagName === 'P') {
-                $this->splitParagraphAroundNode($replaceNode);
-            }
-
-            $this->replaceNodeWithHTML5($image, $html);
+            // $this->replaceNodeWithHTML5($image, $html);
         }
+    }
+
+    /**
+     * Create alignment classes on figure element based on image classes
+     * 
+     * @param \Dom\HTMLElement $figure The figure element to add alignment classes to
+     */
+    private function createAlignmentDiv(\Dom\Document $doc): \Dom\HTMLElement
+    {
+        $wrapper = $doc->createElement('div');
+        $wrapper->setAttribute('class', 'test');
+
+        return $wrapper;
     }
 
     /**
@@ -170,10 +199,10 @@ class Images implements ImagesInterface
      * @param \Dom\HTMLElement $node The node to replace
      * @param string $html The HTML content to insert
      */
-    private function replaceNodeWithHTML5(\Dom\HTMLElement $node, string $html): void
+    private function convertHtmlStringToDomFragment(\Dom\Document $doc, \Dom\HTMLElement $node, string $html): \Dom\DocumentFragment|\Dom\HTMLElement
     {
         if (empty($html)) {
-            return;
+            return $node;
         }
 
         $doc = $node->ownerDocument;
@@ -191,57 +220,8 @@ class Images implements ImagesInterface
             $fragment->appendChild($doc->importNode($child, true));
         }
 
-        // Replace the original node with the fragment
-        $node->replaceWith($fragment);
+        return $fragment;
     }
-
-    /**
-     * Split a <p> element if a node inside it is a block-level element
-     * 
-     * @param \Dom\HTMLElement $node The node to check and split around if necessary
-     */
-    private function splitParagraphAroundNode(\Dom\HTMLElement $node): void
-    {
-        $doc    = $node->ownerDocument;
-        $parent = $node->parentNode;
-
-        if (!$parent || $parent->tagName !== 'P') {
-            return;
-        }
-
-        $beforeFragment = $doc->createDocumentFragment();
-        $afterFragment  = $doc->createDocumentFragment();
-        $found          = false;
-
-        foreach ($parent->childNodes as $child) {
-            if ($child->isSameNode($node)) {
-                $found = true;
-                continue;
-            }
-            if ($found) {
-                $afterFragment->appendChild($child->cloneNode(true));
-            } else {
-                $beforeFragment->appendChild($child->cloneNode(true));
-            }
-        }
-
-        if ($beforeFragment->childNodes->length) {
-            $newP = $doc->createElement('p');
-            $newP->appendChild($beforeFragment);
-            $parent->parentNode->insertBefore($newP, $parent);
-        }
-
-        $parent->parentNode->insertBefore($node, $parent);
-
-        if ($afterFragment->childNodes->length) {
-            $newP = $doc->createElement('p');
-            $newP->appendChild($afterFragment);
-            $parent->parentNode->insertBefore($newP, $node->nextSibling);
-        }
-
-        $parent->parentNode->removeChild($parent);
-    }
-
 
     /**
      * Check if image has been normalized
