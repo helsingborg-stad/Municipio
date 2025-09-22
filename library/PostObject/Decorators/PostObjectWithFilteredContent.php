@@ -101,7 +101,7 @@ class PostObjectWithFilteredContent extends AbstractPostObjectDecorator implemen
     private function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">'): string
     {
         if (str_contains($lead, '<img')) {
-            $lead = \Municipio\Content\Images::normalizeImages($lead);
+            $lead = \Municipio\Content\Images\Images::normalizeImages($lead);
         }
         $pos = strpos($lead, $search);
 
