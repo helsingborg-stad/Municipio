@@ -35,12 +35,7 @@ class Images implements ImagesInterface
             'UTF-8'
         );
 
-        $images = $htmlDom->querySelectorAll('img');
-        $links  = $htmlDom->querySelectorAll('a');
-
-        $this->processLinks($htmlDom, $links);
-        $this->processImages($htmlDom, $images);
-
+        $this->processImages($htmlDom->querySelectorAll('img'));
         $content = $htmlDom->saveHTML();
 
         return str_replace(
@@ -51,32 +46,9 @@ class Images implements ImagesInterface
     }
 
     /**
-     * Process links
-     */
-    private function processLinks($htmlDom, $links): void
-    {
-        if (!is_object($links) || empty($links)) {
-            return;
-        }
-
-        foreach ($links as $link) {
-            if (!isset($link->firstChild) || $link->firstChild->nodeName !== 'img') {
-                continue;
-            }
-            $linkedImage = $link->firstChild;
-            if ($this->isSelfLinked($link, $linkedImage)) {
-                $linkedImage->setAttribute('parsed', '1');
-                $captionText = $this->extractCaption($link->parentNode);
-                $altText     = $linkedImage->getAttribute('alt') ?: $captionText;
-                $this->replaceWithBladeTemplate($linkedImage, $altText, $captionText);
-            }
-        }
-    }
-
-    /**
      * Process images
      */
-    private function processImages($htmlDom, $images): void
+    private function processImages($images): void
     {
         if (!is_object($images) || empty($images)) {
             return;
@@ -95,27 +67,19 @@ class Images implements ImagesInterface
     }
 
     /**
-     * Check if the link is self linked
-     */
-    private function isSelfLinked($link, $image): bool
-    {
-        $imgDir  = pathinfo($image->getAttribute('src'), PATHINFO_DIRNAME);
-        $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
-        return $linkDir === $imgDir;
-    }
-
-    /**
      * Extract the caption from the parent node
+     * 
+     * @param \Dom\HTMLElement $parentNode The parent node of the image
+     * @return string The extracted caption text
      */
-    private function extractCaption($parentNode): string
+    private function extractCaption(\Dom\HTMLElement $parentNode): string
     {
         $captionText = '';
+        $caption = $parentNode->querySelector('figcaption');
 
-        if ($parentNode instanceof \DOMElement && $parentNode->getElementsByTagName('figcaption')->length > 0) {
-            foreach ($parentNode->getElementsByTagName('figcaption') as $caption) {
-                $captionText = wp_strip_all_tags($caption->textContent);
-                $parentNode->removeChild($caption);
-            }
+        if ($caption) {
+            $captionText = wp_strip_all_tags($caption->textContent);
+            $parentNode->removeChild($caption);
         }
 
         return $captionText;
@@ -186,9 +150,13 @@ class Images implements ImagesInterface
             // Determine the node to replace
             $replaceNode = $image;
 
-            // If parent is a <figure>, replace the figure instead
-            if ($image->parentNode && $image->parentNode->tagName === 'FIGURE') {
+            if ($image->parentNode && $image->parentNode->tagName === 'A') {
                 $replaceNode = $image->parentNode;
+            }
+
+            // If parent is a <figure>, replace the figure instead
+            if ($replaceNode->parentNode && $replaceNode->parentNode->tagName === 'FIGURE') {
+                $replaceNode = $replaceNode->parentNode;
             }
 
             // If the node is inside a <p>, split the paragraph
