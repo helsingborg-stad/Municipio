@@ -335,8 +335,7 @@ class Typography
                     'font-size'      => '18px',
                     'font-family'    => 'Roboto',
                     'variant'        => '500',
-                    'line-height'    => '1.625',
-                    'text-transform' => 'none',
+                    'line-height'    => '1.625'
                 ],
                 'output'  => [
                     [
@@ -358,130 +357,34 @@ class Typography
                         'choice'   => 'line-height',
                         'element'  => ':root',
                         'property' => '--lead-line-height',
-                    ],
-                    [
-                        'choice'   => 'line-height',
-                        'element'  => ':root',
-                        'property' => '--lead-text-transform',
                     ]
                 ]
             ],
-            'body'    => [
-                'default' => [
-                    'font-size'   => '16px',
-                    'font-family' => 'Roboto',
-                    'variant'     => '',
-                    'line-height' => '1.625',
-                ],
-                'output'  => [
-                    [
-                        'choice'   => 'font-size',
-                        'element'  => ':root',
-                        'property' => '--body-font-size',
-                    ],
-                    [
-                        'choice'   => 'variant',
-                        'element'  => ':root',
-                        'property' => '--body-font-weight',
-                    ],
-                    [
-                        'choice'   => 'line-height',
-                        'element'  => ':root',
-                        'property' => '--body-line-height',
-                    ]
-                ]
-            ],
-
             'button'  => [
                 'default' => [
-                    'font-size'      => '1em',
                     'font-family'    => 'Roboto',
                     'variant'        => '',
-                    'line-height'    => '1',
                     'text-transform' => 'none',
                 ],
                 'output'  => [
                     [
-                        'choice'   => 'font-size',
+                        'choice'   => 'font-family',
                         'element'  => ':root',
-                        'property' => '--button-font-size',
+                        'property' => '--font-family-button',
                     ],
                     [
                         'choice'   => 'variant',
                         'element'  => ':root',
-                        'property' => '--button-font-weight',
-                    ],
-                    [
-                        'choice'   => 'line-height',
-                        'element'  => ':root',
-                        'property' => '--button-line-height',
+                        'property' => '--font-weight-button',
                     ],
                     [
                         'choice'   => 'text-transform',
                         'element'  => ':root',
-                        'property' => '--button-text-transform',
+                        'property' => '--text-transform-button',
                     ]
                 ]
-            ],
-            'caption' => [
-                'default' => [
-                    'font-size'   => '14px',
-                    'font-family' => 'Roboto',
-                    'variant'     => '',
-                    'line-height' => '1.25',
-                ],
-                'output'  => [
-                    [
-                        'choice'   => 'font-size',
-                        'element'  => ':root',
-                        'property' => '--caption-font-size',
-                    ],
-                    [
-                        'choice'   => 'variant',
-                        'element'  => ':root',
-                        'property' => '--caption-font-weight',
-                    ],
-                    [
-                        'choice'   => 'line-height',
-                        'element'  => ':root',
-                        'property' => '--caption-line-height',
-                    ]
-                ]
-            ],
-            'meta'    => [
-                'default' => [
-                    'font-size'      => '12px',
-                    'font-family'    => 'Roboto',
-                    'variant'        => '',
-                    'line-height'    => '1.625',
-                    'text-transform' => 'none',
-                ],
-                'output'  => [
-                    [
-                        'choice'   => 'font-size',
-                        'element'  => ':root',
-                        'property' => '--meta-font-size',
-                    ],
-                    [
-                        'choice'   => 'variant',
-                        'element'  => ':root',
-                        'property' => '--meta-font-weight',
-                    ],
-                    [
-                        'choice'   => 'line-height',
-                        'element'  => ':root',
-                        'property' => '--meta-line-height',
-                    ],
-                    [
-                        'choice'   => 'line-height',
-                        'element'  => ':root',
-                        'property' => '--meta-text-transform',
-                    ]
-                ]
-            ],
+            ]
         ];
-
-
 
         return $elements;
     }
