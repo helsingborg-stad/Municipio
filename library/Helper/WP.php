@@ -179,7 +179,7 @@ class WP
      * @param array|null $wpQueryArgs The WP query arguments.
      * @return array The array of posts.
      */
-    public static function getPosts(array $wpQueryArgs = null): array
+    public static function getPosts(?array $wpQueryArgs = null): array
     {
         return self::mapPosts(get_posts($wpQueryArgs));
     }
