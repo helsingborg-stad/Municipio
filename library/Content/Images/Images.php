@@ -146,26 +146,21 @@ class Images implements ImagesInterface
         }
 
         if (is_string($html) && !empty($html) && $image && get_class($image) === 'Dom\\HTMLElement') {
-
-            // Determine the node to replace
             $replaceNode = $image;
 
             if ($image->parentNode && $image->parentNode->tagName === 'A') {
                 $replaceNode = $image->parentNode;
             }
 
-            // If parent is a <figure>, replace the figure instead
             if ($replaceNode->parentNode && $replaceNode->parentNode->tagName === 'FIGURE') {
-                $replaceNode = $replaceNode->parentNode;
+                $replaceNode->parentNode->replaceWith($replaceNode);
             }
 
-            // If the node is inside a <p>, split the paragraph
             if ($replaceNode->parentNode && $replaceNode->parentNode->tagName === 'P') {
                 $this->splitParagraphAroundNode($replaceNode);
             }
 
-
-            $this->replaceNodeWithHTML5($replaceNode, $html);
+            $this->replaceNodeWithHTML5($image, $html);
         }
     }
 
