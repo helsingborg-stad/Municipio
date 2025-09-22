@@ -116,68 +116,44 @@ class Images implements ImagesInterface
 
         $classes = explode(' ', $figure->getAttribute('class')) ?: [];
 
-        $html = '';
+        $html = $this->renderBladeImage($image, $attachmentId, $url, $altText, $captionText, $classes);
 
         if (is_numeric($attachmentId) && !empty($attachmentId)) {
             $conentContainerWidth = $this->getPageWidth();
-
             $imageSrc = wp_get_attachment_image_src($attachmentId, [$conentContainerWidth, false]);
 
             if ($imageSrc && isset($imageSrc[0])) {
-                $html = render_blade_view('partials.content.image', [
-                    'src'              => $imageSrc[0],
-                    'alt'              => $altText,
-                    'caption'          => $captionText,
-                    'classList'        => $classes,
-                    'imgAttributeList' => [
-                        'parsed' => true,
-                    ],
-                    'attributeList'    => [
-                        'style' => sprintf(
-                            'width: min(%s, 100%%); height: auto;',
-                            ($image->getAttribute('width') ?? 1920) . 'px'
-                        )
-                    ]
-                ]);
+                $html = $this->renderBladeImage($image, $attachmentId, $imageSrc[0], $altText, $captionText, $classes);
             }
         }
 
         if (empty($attachmentId)) {
-            $html = render_blade_view('partials.content.image', [
-                'src'              => $url,
-                'alt'              => $altText,
-                'caption'          => $captionText,
-                'classList'        => $classes,
-                'imgAttributeList' => [
-                    'parsed' => true
-                ],
-                'attributeList'    => [
-                    'style' => sprintf(
-                        'width: min(%s, 100%%); height: auto;',
-                        ($image->getAttribute('width') ?? 1920) . 'px'
-                    )
-                ]
-            ]);
+            $html = $this->renderBladeImage($image, $attachmentId, $url, $altText, $captionText, $classes);
         }
 
-        if (is_string($html) && !empty($html) && $image && get_class($image) === 'Dom\\HTMLElement') {
-            $doc = $figure->ownerDocument;
-            $wrapper = $this->createAlignmentDiv($doc);
-            $placement = $wrapper;
-            $figure->replaceWith($wrapper);
-            $convertedHtml = $this->convertHtmlStringToDomFragment($doc, $wrapper, $html);
-
-            if ($link) {
-                $linkElement = $doc->createElement('a');
-                $linkElement->setAttribute('href', esc_url($link));
-                $placement->appendChild($linkElement);
-                $placement = $linkElement;
-            }
-
-            $placement->appendChild($convertedHtml);
-
-            // $this->replaceNodeWithHTML5($image, $html);
+        if (!is_string($html) || empty($html)) {
+            return;
         }
+
+        $doc = $figure->ownerDocument;
+        $wrapper = $this->createAlignmentDiv($doc, $figure);
+        $figure->replaceWith($wrapper);
+        $content = $this->convertHtmlStringToDomFragment($doc, $wrapper, $html);
+
+        if ($link) {
+            $linkElement = $doc->createElement('a');
+            $linkElement->setAttribute('href', esc_url($link));
+            $linkElement->appendChild($content);
+            $content = $linkElement;
+        }
+
+        if ($wrapper->firstChild) {
+            $wrapper->insertBefore($content, $wrapper->firstChild);
+        } else {
+            $wrapper->appendChild($content);
+        }
+        // $wrapper->appendChild($content);
+        // $this->replaceNodeWithHTML5($image, $html);
     }
 
     /**
@@ -185,12 +161,54 @@ class Images implements ImagesInterface
      * 
      * @param \Dom\HTMLElement $figure The figure element to add alignment classes to
      */
-    private function createAlignmentDiv(\Dom\Document $doc): \Dom\HTMLElement
+    private function createAlignmentDiv(\Dom\Document $doc, \Dom\HTMLElement $figure): \Dom\HTMLElement
     {
         $wrapper = $doc->createElement('div');
-        $wrapper->setAttribute('class', 'test');
+        $wrapper->setAttribute('class', 'municipio-image-wrapper');
+
+        if (!strpos($figure->getAttribute('class'), 'alignnone') !== false) {
+            if ($figure->nextElementSibling && $figure->nextElementSibling->tagName === 'P') {
+                $pTag = $figure->nextElementSibling;
+                $pTag->remove();
+                $wrapper->appendChild($pTag);
+            }
+        }
 
         return $wrapper;
+    }
+
+    /**
+     * Render the blade image template
+     * 
+     * @param \Dom\HTMLElement $image The image element
+     * @param int|string|null $attachmentId The attachment ID of the image
+     * @param string $url The URL of the image
+     * @param string $altText The alt text for the image
+     * @param string $captionText The caption text for the image
+     * @param array $classes The classes to add to the image wrapper
+     * @return string The rendered HTML from the blade template
+     */
+    private function renderBladeImage($image, $attachmentId, $url, $altText, $captionText, $classes)
+    {
+        $html = '';
+
+        $html = render_blade_view('partials.content.image', [
+            'src'              => $url,
+            'alt'              => $altText,
+            'caption'          => $captionText,
+            'classList'        => $classes,
+            'imgAttributeList' => [
+                'parsed' => true
+            ],
+            'attributeList'    => [
+                'style' => sprintf(
+                    'width: min(%s, 100%%); height: auto;',
+                    ($image->getAttribute('width') ?? 1920) . 'px'
+                )
+            ]
+        ]);
+
+        return $html;
     }
 
     /**
