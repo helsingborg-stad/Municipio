@@ -159,7 +159,7 @@ class App
         new \Municipio\Content\PostFilters();
         (new \Municipio\Content\PostFilters\RemoveExpiredEventsFromMainArchiveQuery($this->wpService, $this->schemaDataConfig))->addHooks();
         new \Municipio\Content\ShortCode();
-        new \Municipio\Content\Images();
+        $imageNormalizer = \Municipio\Content\Images\Images::GetImageNormalizer();
         new \Municipio\Content\Cache();
         new \Municipio\Content\IframePosterImage();
 
