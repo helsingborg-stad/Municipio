@@ -5,6 +5,7 @@
  */
 
 use AcfService\Implementations\NativeAcfService;
+use Municipio\Cache\GlobalCache;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
@@ -41,6 +42,12 @@ require_once MUNICIPIO_PATH . 'library/Public.php';
  */
 $wpService  = new NativeWpService();
 $acfService = new NativeAcfService();
+
+/**
+ * Cache
+ */
+$cacheService = new \Municipio\Cache\CacheResolver($wpService);
+GlobalCache::setCache($cacheService->resolve());
 
 /**
  * Dependencies.
