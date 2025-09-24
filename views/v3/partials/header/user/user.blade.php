@@ -33,7 +33,7 @@
                     'user__name'
                 ]
             ])
-                {{ $user->display_name ?? '' }}
+                {{ trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')) ?: $user->user_login }}
         @endtypography
 
         @link([
