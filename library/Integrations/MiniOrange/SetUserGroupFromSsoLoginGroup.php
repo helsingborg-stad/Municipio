@@ -41,7 +41,7 @@ class SetUserGroupFromSsoLoginGroup implements Hookable
     {
         $groupName = $this->getGroupNameFromMixed($groupName);
 
-        if (!$groupName || is_numeric($groupName)) {
+        if (is_null($groupName)) {
             return;
         }
 
@@ -59,9 +59,22 @@ class SetUserGroupFromSsoLoginGroup implements Hookable
         if (empty($groupName)) {
             return null;
         }
-        if (is_array($groupName)) {
-            $groupName = $groupName[0] ?? null;
+
+        if (is_string($groupName)) {
+            return trim($groupName);
         }
-        return $groupName;
+
+        if (is_array($groupName)) {
+            foreach ($groupName as $name) {
+                if (is_string($name)) {
+                    $trimmed = trim($name);
+                    if ($trimmed !== '') {
+                        return $trimmed;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 }
