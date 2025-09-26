@@ -6,38 +6,52 @@ class LoginTracking
 {
     public function __construct()
     {
+        //Create login timestamp
+        add_action('set_logged_in_cookie', array($this, 'setTimeStamp'), 5, 4);
 
-      //Create login timestamp
-        add_action('wp_login', array($this, 'setTimeStamp'), 20, 2);
-
-      //Add timestamp column
+        //Add timestamp column
         add_filter('manage_users_columns', array($this, 'addColumn'));
         add_filter('manage_users_custom_column', array($this, 'addColumnData'), 10, 3);
 
-      //Add sorting ability
+        //Add sorting ability
         add_filter('manage_users_sortable_columns', array($this, 'addSortableColumn'));
         add_action('pre_get_users', array($this, 'performColumnSort'));
     }
 
-    public function setTimeStamp($user_login, $user)
+    /**
+     * Set the login timestamp
+     * @param string $loggedInCookie
+     * @param int $expire
+     * @param int $expiration
+     * @param int $userId
+     * @return void
+     */
+    public function setTimeStamp(string $loggedInCookie, int $expire, int $expiration, int $userId)
     {
-        update_user_meta($user->ID, 'last_login', time());
+        update_user_meta($userId, 'last_login', time());
     }
 
+    /**
+     * Add the column to the user list
+     * @param array $columns
+     * @return array
+     */
     public function addColumn($columns)
     {
-
         if (!is_array($columns)) {
             return $columns;
         }
-
-      //add
         $columns['last_login'] = __('Last Login', 'municipio');
-
-      //Retuern updated
         return $columns;
     }
 
+    /**
+     * Add data to the column
+     * @param string $output
+     * @param string $columnId
+     * @param int $userId
+     * @return string
+     */
     public function addColumnData($output, $columnId, $userId)
     {
 
@@ -49,6 +63,11 @@ class LoginTracking
         return $output;
     }
 
+    /**
+     * Make the column sortable
+     * @param array $columns
+     * @return array
+     */
     public function addSortableColumn($columns)
     {
         return wp_parse_args(array(
@@ -56,6 +75,14 @@ class LoginTracking
         ), $columns);
     }
 
+    /**
+     * Perform the actual sorting of the column
+     * 
+     * @param \WP_User_Query $query
+     * @return \WP_User_Query
+     * 
+     * @see https://developer.wordpress.org/reference/classes/wp_user_query/__construct/
+     */
     public function performColumnSort($query)
     {
 
