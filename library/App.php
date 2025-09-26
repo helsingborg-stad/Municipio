@@ -570,6 +570,9 @@ class App
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
+        $setDefaultRoleIfNoneDefined = new \Municipio\Admin\Login\SetDefaultRoleIfNone($this->wpService, new UserConfig());
+        $setDefaultRoleIfNoneDefined->addHooks();
+
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
 

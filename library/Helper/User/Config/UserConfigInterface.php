@@ -10,4 +10,11 @@ interface UserConfigInterface
    * @return string
    */
     public function getUserPrefersGroupUrlMetaKey(): string;
+
+    /**
+     * Get the default role for new users.
+     *
+     * @return string
+     */
+    public function getDefaultRole(): string;
 }
