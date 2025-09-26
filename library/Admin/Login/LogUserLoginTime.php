@@ -13,38 +13,38 @@ class LogUserLoginTime implements Hookable
 
     public function addHooks(): void
     {
-      // Track time
-        $this->wpService->addAction('wp_login', [$this, 'setTimeStamp'], 20, 2);
+        // Track time
+        $this->wpService->addAction('set_logged_in_cookie', array($this, 'setTimeStamp'), 5, 4);
 
-      // Columns
+        // Columns
         $this->wpService->addFilter('manage_users_columns', [$this, 'addColumn']);
         $this->wpService->addFilter('manage_users_custom_column', [$this, 'addColumnData'], 10, 3);
 
-      // Sorting
+        // Sorting
         $this->wpService->addFilter('manage_users_sortable_columns', [$this, 'addSortableColumn']);
         $this->wpService->addAction('pre_get_users', [$this, 'performColumnSort']);
     }
 
-  /**
-   * Create login timestamp
-   *
-   * @param string $userLogin
-   * @param object $user
-   *
-   * @return void
-   */
-    public function setTimeStamp($userLogin, $user)
+    /**
+     * Set the login timestamp
+     * @param string $loggedInCookie
+     * @param int $expire
+     * @param int $expiration
+     * @param int $userId
+     * @return void
+     */
+    public function setTimeStamp(string $loggedInCookie, int $expire, int $expiration, int $userId)
     {
-        $this->wpService->updateUserMeta($user->ID, 'last_login', time());
+        update_user_meta($userId, 'last_login', time());
     }
 
-  /**
-   * Add column
-   *
-   * @param array $columns
-   *
-   * @return array
-   */
+    /**
+     * Add column
+     *
+     * @param array $columns
+     *
+     * @return array
+     */
     public function addColumn($columns)
     {
         if (!is_array($columns)) {
@@ -54,15 +54,15 @@ class LogUserLoginTime implements Hookable
         return $columns;
     }
 
-  /**
-   * Add column data
-   *
-   * @param string $output
-   * @param string $columnId
-   * @param int $userId
-   *
-   * @return string
-   */
+    /**
+     * Add column data
+     *
+     * @param string $output
+     * @param string $columnId
+     * @param int $userId
+     *
+     * @return string
+     */
     public function addColumnData($output, $columnId, $userId)
     {
         if ($columnId == 'last_login') {
@@ -72,13 +72,13 @@ class LogUserLoginTime implements Hookable
         return $output;
     }
 
-  /**
-   * Add sortable column
-   *
-   * @param array $columns
-   *
-   * @return array
-   */
+    /**
+     * Add sortable column
+     *
+     * @param array $columns
+     *
+     * @return array
+     */
     public function addSortableColumn($columns)
     {
         return $this->wpService->wpParseArgs(array(
@@ -86,13 +86,13 @@ class LogUserLoginTime implements Hookable
         ), $columns);
     }
 
-  /**
-   * Perform column sort
-   *
-   * @param object $query
-   *
-   * @return object
-   */
+    /**
+     * Perform column sort
+     *
+     * @param object $query
+     *
+     * @return object
+     */
     public function performColumnSort($query)
     {
         if (!$this->wpService->isAdmin()) {
