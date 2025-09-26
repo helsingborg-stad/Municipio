@@ -378,6 +378,11 @@ class App
         $this->setUpMiniOrangeIntegration();
 
         /**
+         * ActiveDirectoryApiWpI integration
+         */
+        $this->setUpActiveDirectoryApiWpIntegration();
+
+        /**
          * Broken links
          */
         $this->setUpBrokenLinksIntegration();
@@ -670,7 +675,6 @@ class App
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
-        $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
 
@@ -698,6 +702,33 @@ class App
 
         // Set group as taxonomy
         $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetUserGroupFromSsoLoginGroup($this->wpService, $userHelper);
+        $setGroupAsTaxonomy->addHooks();
+    }
+
+    /**
+     * Set up the MiniOrange integration.
+     *
+     * This method is responsible for setting up the MiniOrange integration.
+     *
+     * @return void
+     */
+    private function setUpActiveDirectoryApiWpIntegration(): void
+    {
+        $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
+
+        if ($userGroupConfig->isEnabled() === false) {
+            return;
+        }
+
+        $userHelper = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            new \Municipio\Helper\User\Config\UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+        $setGroupAsTaxonomy = new \Municipio\Integrations\ActiveDirectoryApiWpIntegration\SetUserGroupFromCompany($this->wpService, $userHelper);
         $setGroupAsTaxonomy->addHooks();
     }
 
