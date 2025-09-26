@@ -35,7 +35,7 @@ class LogUserLoginTime implements Hookable
      */
     public function setTimeStamp(string $loggedInCookie, int $expire, int $expiration, int $userId)
     {
-        update_user_meta($userId, 'last_login', time());
+        $this->wpService->updateUserMeta($userId, 'last_login', time());
     }
 
     /**
