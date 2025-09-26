@@ -347,6 +347,11 @@ class BlockManager
             $classList[] = "t-block-align-" . $block['align'];
         }
 
+        // Add WordPress' extra classes
+        if (isset($block['className']) && !empty($block['className'])) {
+            $classList[] = $block['className'];
+        }
+
         return implode(' ', $classList);
     }
 
