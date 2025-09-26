@@ -6,20 +6,21 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\{
     AddAction,
     AddMediaPage,
-    WpResetPostdata
+    WpResetPostdata,
+    __
 };
 use WP_Query;
 
 class TrashPage implements Hookable
 {
-    public function __construct(public AddAction&AddMediaPage&WpResetPostdata $wpService) {}
+    public function __construct(public AddAction&AddMediaPage&WpResetPostdata&__ $wpService) {}
 
     public function addHooks(): void
     {
         $this->wpService->addAction('admin_menu', function () {
             $this->wpService->addMediaPage(
-                'Media Trash',
-                'Media Trash',
+                $this->wpService->__('Media Trash', 'municipio'),
+                $this->wpService->__('Media Trash', 'municipio'),
                 'manage_options',
                 'media-trash',
                 array($this, 'customMediaTrashPage')
