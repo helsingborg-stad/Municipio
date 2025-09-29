@@ -33,7 +33,7 @@ class OptionalDisableDiscussionFeature implements Hookable
      * 
      * @return void
      */
-    private function addCommentReplyScript(): void
+    public function addCommentReplyScript(): void
     {
         if (
             $this->isDisabled() ||
