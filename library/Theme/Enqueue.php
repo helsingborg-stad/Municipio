@@ -2,7 +2,6 @@
 
 namespace Municipio\Theme;
 
-use Municipio\Comment\OptionalDisableDiscussionFeature;
 use Municipio\Helper\Enqueue as EnqueueHelper;
 use Municipio\Helper\EnqueueTranslation;
 use Municipio\HooksRegistrar\Hookable;
