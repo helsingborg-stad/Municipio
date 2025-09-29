@@ -4,12 +4,12 @@
     <div class="o-grid-12">
       @paper()
         <div class="u-display--flex u-flex--gridgap-col u-flex-direction--column@xs u-flex-direction--column@sm u-align-content--center u-justify-content--space-between">
-          <nav aria-label="{{$lang->archiveNav}}">
+          <nav aria-label="{{$lang->archiveNav}}" class="u-display--flex">
             @nav([
                 'items' => $archiveMenuItems,
                 'direction' => 'horizontal',
                 'allowStyle' => false,
-                'classList' => ['u-flex-wrap', 's-nav-archive', 'u-padding__x--2'],
+                'classList' => ['u-flex-wrap', 's-nav-archive', 'u-padding__x--2', 'u-margin__y--auto'],
                 'context' => ['site.archive.nav'],
                 'height' => 'md',
                 'expandLabel' => $lang->expand
