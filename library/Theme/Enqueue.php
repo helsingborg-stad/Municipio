@@ -18,8 +18,9 @@ class Enqueue implements Hookable
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueHelper $enqueueHelper)
-    {}
+        private EnqueueHelper $enqueueHelper
+    ) {
+    }
 
     public function addHooks(): void
     {
