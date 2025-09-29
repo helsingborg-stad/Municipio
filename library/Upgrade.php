@@ -180,13 +180,8 @@ class Upgrade
         $overlays = get_theme_mod('hero');
 
         $defaultColor   = $overlays['field_614c713ae73ea']['field_614c7189e73eb'];
-        $defaultOpacity = $overlays['field_614c713ae73ea']['field_614c7197e73ec'];
 
         $vibrantColor   = $overlays['field_614c720fb65a4']['field_614c720fb65a5'];
-        $vibrantOpacity = $overlays['field_614c720fb65a4']['field_614c720fb65a6'];
-
-        $defaultOverlay = $this->hex2rgba($defaultColor, "0." . (int)$defaultOpacity);
-        $vibrantOverlay = $this->hex2rgba($vibrantColor, "0." . (int)$vibrantOpacity);
 
         if ($vibrantColor || $defaultColor) {
             if ($vibrantColor == 'rgb(0,0,0)' && $defaultColor == 'rgb(0,0,0)') {
@@ -197,8 +192,6 @@ class Upgrade
         } else {
             set_theme_mod('hero_overlay_enable', 0);
         }
-
-
 
         $this->deleteThemeMod('hero');
 
@@ -925,6 +918,7 @@ class Upgrade
                 $errorMessage = "Failed to migrate setting (" . $key . "." . $property . ").
                 The specified setting already exists and is not an associative array.";
                 $this->logError($errorMessage);
+
                 return false;
             }
 
@@ -1040,6 +1034,95 @@ class Upgrade
                     delete_transient($lockKey);
                 }
             }
+        }
+    }
+
+     /**
+     * Run upgrade functions
+     *
+     * @return void
+     */
+    public function upgrade()
+    {
+        if (empty(get_option($this->dbVersionKey))) {
+            update_option($this->dbVersionKey, 0);
+        }
+        
+        $currentDbVersion = is_numeric(get_option($this->dbVersionKey)) ? (int) get_option($this->dbVersionKey) : 0;
+        if ($this->dbVersion != $currentDbVersion) {
+            if (!is_numeric($this->dbVersion)) {
+                wp_die(__('To be installed database version must be a number.', 'municipio'));
+                return;
+            }
+
+            if (!is_numeric($currentDbVersion)) {
+                $this->logError(__('Current database version must be a number.', 'municipio'));
+                return; 
+            }
+
+            if ($currentDbVersion > $this->dbVersion) {
+                $this->logError(
+                    __(
+                        'Database cannot be lower than currently installed (cannot downgrade).',
+                        'municipio'
+                    )
+                );
+                return; 
+            }
+            
+            //Fetch global wpdb object, save to $db
+            $this->globalToLocal('wpdb', 'db');
+
+            $currentDbVersion   = $currentDbVersion + 1;
+
+            for ($currentDbVersion; $currentDbVersion <= $this->dbVersion; $currentDbVersion++) {
+                $class = 'Municipio\Upgrade\Version\V' . $currentDbVersion;
+
+                if (class_exists($class) && $this->db) {
+
+                    WP_CLI::line(
+                        sprintf(
+                            __('Initializing database migration to %s.', 'municipio'),
+                            $currentDbVersion
+                        )
+                    );
+
+                    for($halt = 3; $halt > 0; $halt--) {
+                        WP_CLI::line(
+                            sprintf(
+                                __('Upgrade will start in %s seconds.', 'municipio'),
+                                $halt
+                            )
+                        );
+
+                        sleep(1);
+                    }
+                    
+                    $version = new $class($this->db);
+                    $version->upgrade();
+
+                    WP_CLI::line(
+                        sprintf(
+                            __('Locking database to version %s.', 'municipio'),
+                            $currentDbVersion
+                        )
+                    );
+
+                    update_option($this->dbVersionKey, $currentDbVersion);
+
+                    WP_CLI::line("Flushing cache.");
+                    wp_cache_flush();
+                }
+            }
+
+            WP_CLI::success(
+                sprintf(
+                    __('Database migration complete; upgraded to version %s.', 'municipio'),
+                    $this->dbVersion
+                )
+            );
+        } else {
+            WP_CLI::line(__('Database is already up to date.', 'municipio'));
         }
     }
 
