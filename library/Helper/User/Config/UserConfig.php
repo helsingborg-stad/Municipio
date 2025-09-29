@@ -16,4 +16,14 @@ class UserConfig implements UserConfigInterface
     {
         return 'user_prefers_group_url';
     }
+
+    /**
+     * Get the default role for new users.
+     *
+     * @return string
+     */
+    public function getDefaultRole(): string
+    {
+        return 'subscriber';
+    }
 }
