@@ -107,7 +107,7 @@ class PostObjectWithFilteredContent extends AbstractPostObjectDecorator implemen
 
         if ($pos !== false) {
             $lead = substr_replace($lead, $replace, $pos, strlen($search));
-        } elseif ($pos === false && $lead === strip_tags($lead)) {
+        } else {
             $lead = $replace . $lead . '</p>';
         }
 
