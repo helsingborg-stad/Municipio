@@ -25,6 +25,26 @@ class OptionalDisableDiscussionFeature implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'addHooksConditional'], 1);
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'addCommentReplyScript'], 1);
+    }
+
+    /**
+     * Enqueue comment-reply script if needed
+     * 
+     * @return void
+     */
+    public function addCommentReplyScript(): void
+    {
+        if (
+            $this->isDisabled() ||
+            !$this->wpService->isSingular() ||
+            !$this->wpService->commentsOpen() ||
+            !$this->wpService->getOption('thread_comments')
+        ) {
+            return;
+        }
+
+        $this->wpService->wpEnqueueScript('comment-reply');
     }
 
     /**

@@ -132,8 +132,7 @@ class App
          */
         $enqueue = new \Municipio\Theme\Enqueue(
             $this->wpService,
-            new \Municipio\Helper\Enqueue($this->wpService),
-            $optionalDisabledDiscussionFeature
+            new \Municipio\Helper\Enqueue($this->wpService)
         );
         $enqueue->addHooks();
 
@@ -255,8 +254,7 @@ class App
         new \Municipio\Comment\Likes();
         new \Municipio\Comment\Filters();
         new \Municipio\Comment\Form();
-        $optionalDisabledDiscussionFeature = new OptionalDisableDiscussionFeature($this->wpService, $this->acfService);
-        $this->hooksRegistrar->register($optionalDisabledDiscussionFeature);
+        $this->hooksRegistrar->register(new OptionalDisableDiscussionFeature($this->wpService, $this->acfService));
         $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
 
         /**

@@ -19,8 +19,7 @@ class Enqueue implements Hookable
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueHelper $enqueueHelper,
-        private OptionalDisableDiscussionFeature $optionalDisableDiscussionFeature
+        private EnqueueHelper $enqueueHelper
     ) {
     }
 
@@ -101,15 +100,6 @@ class Enqueue implements Hookable
                 ucFirst(__('Sa', 'municipio'))
             ])
         ]);
-
-        if (
-            !$this->optionalDisableDiscussionFeature->isDisabled() &&
-            $this->wpService->isSingular() &&
-            $this->wpService->commentsOpen() &&
-            $this->wpService->getOption('thread_comments')
-        ) {
-            $this->wpService->wpEnqueueScript('comment-reply');
-        }
 
         $this->enqueueHelper->add('instantpage-js', 'js/instantpage.js');
         $this->enqueueHelper->add('pdf-js', 'js/pdf.js');
