@@ -450,7 +450,7 @@ class Post
     private static function createLeadElement($lead, $search = '<p>', $replace = '<p class="lead">')
     {
         if (str_contains($lead, '<img')) {
-            $lead = \Municipio\Content\Images::normalizeImages($lead);
+            $lead = \Municipio\Content\Images\Images::GetImageNormalizer()->normalizeImages($lead);
         }
         $pos = strpos($lead, $search);
 
