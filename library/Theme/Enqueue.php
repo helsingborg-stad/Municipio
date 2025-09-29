@@ -2,6 +2,7 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Comment\OptionalDisableDiscussionFeature;
 use Municipio\Helper\Enqueue as EnqueueHelper;
 use Municipio\Helper\EnqueueTranslation;
 use Municipio\HooksRegistrar\Hookable;
@@ -18,8 +19,10 @@ class Enqueue implements Hookable
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueHelper $enqueueHelper)
-    {}
+        private EnqueueHelper $enqueueHelper,
+        private OptionalDisableDiscussionFeature $optionalDisableDiscussionFeature
+    ) {
+    }
 
     public function addHooks(): void
     {
@@ -98,6 +101,15 @@ class Enqueue implements Hookable
                 ucFirst(__('Sa', 'municipio'))
             ])
         ]);
+
+        if (
+            !$this->optionalDisableDiscussionFeature->isDisabled() &&
+            $this->wpService->isSingular() &&
+            $this->wpService->commentsOpen() &&
+            $this->wpService->getOption('thread_comments')
+        ) {
+            $this->wpService->wpEnqueueScript('comment-reply');
+        }
 
         $this->enqueueHelper->add('instantpage-js', 'js/instantpage.js');
         $this->enqueueHelper->add('pdf-js', 'js/pdf.js');

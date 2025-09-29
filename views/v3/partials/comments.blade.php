@@ -20,9 +20,8 @@
                         'date_suffix' => $lang->ago,
                         'date' => date("Y-m-d H:i:s", strtotime($comment->comment_date)),
                         'classList' => [
-                            'comment-'.$comment->comment_ID, 
-                            'c-comment--level-1',
-                            'comment-reply-link',
+                            'comment-'. $comment->comment_ID, 
+                            'c-comment--level-1'
                         ],
                         'dateLabels' => [
                             'year' => $lang->year,
@@ -53,10 +52,10 @@
                                         'color' => '',
                                         'style' => 'basic',
                                         'type' => 'button',
-                                        'classList' => [
-                                            'comment--likes-icon', 
+                                        'classList' => array_merge(
+                                            ['comment--likes-icon'],
                                             \Municipio\Comment\Likes::likeButton($comment->comment_ID)['classList']
-                                        ],
+                                        ),
                                         'attributeList' => [
                                             'data-commentid' => $comment->comment_ID,
                                         ],
@@ -139,7 +138,7 @@
                                                 'color' => '',
                                                 'style' => 'basic',
                                                 'type' => 'button',
-                                                'classList' => ['comment--likes-icon', \Municipio\Comment\Likes::likeButton($answer->comment_ID)['classList']],
+                                                'classList' => array_merge(['comment--likes-icon'], \Municipio\Comment\Likes::likeButton($answer->comment_ID)['classList']),
                                                 'attributeList' => [
                                                     'data-commentid' => $answer->comment_ID,
                                                 ],

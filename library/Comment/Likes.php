@@ -73,17 +73,18 @@ class Likes extends \Municipio\Helper\Ajax
             $count = count($likes);
         }
 
-        $classes = array('like-button');
+        $classes = ['like-button'];
 
-        if (is_array($likes) == true && in_array(get_current_user_id(), $likes)) {
+        if (is_array($likes) && in_array(get_current_user_id(), $likes)) {
             $classes[] = 'active';
         }
 
-        $output['classList'] = implode(' ', $classes);
-        $output['icon']      = (strpos($output['classList'], 'active')) ? 'thumb_down'
-            : 'thumb_up';
-        $output['text']      =  (strpos($output['classList'], 'active')) ? __('Dislike ', 'municipio')
+        $output['classList'] = $classes;
+        $output['icon']      = in_array('active', $classes) ? 'thumb_down' : 'thumb_up';
+        $output['text']      = in_array('active', $classes)
+            ? __('Dislike ', 'municipio')
             : __('Like ', 'municipio');
+
         $output['count']     = $count;
 
         return $output;
