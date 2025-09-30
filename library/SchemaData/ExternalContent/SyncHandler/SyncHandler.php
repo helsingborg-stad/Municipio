@@ -168,6 +168,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
     private function applyFiltersBeforeSync(): void
     {
         (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
+        (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->addHooks();
     }
 
     /**
