@@ -12,6 +12,7 @@ use Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory as ConfigSou
 use Municipio\SchemaData\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\SchemaData\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGenerator;
+use Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\SchemaData\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
@@ -230,6 +231,6 @@ class ExternalContentFeature
      */
     private function setupMediaHiding(): void
     {
-        (new HideSyncedMediaFromAdminMediaLibrary(ThumbnailDecorator::META_KEY, $this->wpService))->addHooks();
+        (new HideSyncedMediaFromAdminMediaLibrary(ImageSideloadSchemaObjectProcessor::META_KEY_IMAGE_ID, $this->wpService))->addHooks();
     }
 }
