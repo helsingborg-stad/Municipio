@@ -2,10 +2,6 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Controller\SingularElementarySchool\ViewDataGeneratorInterface;
-use Municipio\Schema\BaseType;
-use Municipio\Schema\ElementarySchool;
-
 /**
  * Class SingularElementarySchool
  */

@@ -3,14 +3,7 @@
 namespace Municipio\Controller;
 
 use DateTime;
-use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
-use Municipio\Controller\SingularEvent\PriceListItem;
 use Municipio\Helper\Post;
-use Municipio\Schema\BaseType;
-use Municipio\Schema\Contracts\EventContract;
-use Municipio\Schema\Event;
-use Municipio\Schema\Offer;
-use Municipio\Schema\Place;
 
 /**
  * Class SingularEvent
@@ -31,24 +24,30 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $event = $this->post->getSchema();
 
-        $this->data['displayFeaturedImage']          = false;
-        $this->data['placeUrl']                      = $this->getPlaceUrl($event->getProperty('location'));
-        $this->data['placeName']                     = $event->getProperty('location')['name'] ?? $event->getProperty('location')['address'] ?? null;
-        $this->data['placeAddress']                  = $event->getProperty('location')['address'] ?? null;
-        $this->data['priceListItems']                = $this->getPriceList();
-        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->post->getSchema());
-        $this->data['eventsInTheSameSeries']         = $this->getEventsInTheSameSeries();
-        $this->data['occassion']                     = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
-        $this->data['bookingLink']                   = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
-        $this->data['organizers']                    = $this->post->getSchemaProperty('organizer') ?? [];
-        $this->data['organizers']                    = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
-        $this->data['physicalAccessibilityFeatures'] = $this->post->getSchemaProperty('physicalAccessibilityFeatures') ?? null;
-        $this->data['eventIsInThePast']              = $this->eventIsInThePast();
-        $this->data['occassions']                    = array_map(function ($postObject) {
+        $mappers = [
+            'description'           => new SingularEvent\Mappers\MapDescription($this->wpService),
+            'priceListItems'        => new SingularEvent\Mappers\MapPriceList($this->wpService),
+            'organizers'            => new SingularEvent\Mappers\MapOrganizers($this->wpService),
+            'icsUrl'                => new SingularEvent\Mappers\MapIcsUrl(),
+            'eventIsInThePast'      => new SingularEvent\Mappers\MapEventIsInthePast(),
+            'accessibilityFeatures' => new SingularEvent\Mappers\MapPhysicalAccessibilityFeatures(),
+        ];
+
+        $this->data['placeUrl']              = $this->getPlaceUrl($event->getProperty('location'));
+        $this->data['placeName']             = $this->getPlaceName($event->getProperty('location'));
+        $this->data['placeAddress']          = $event->getProperty('location')['address'] ?? null;
+        $this->data['eventsInTheSameSeries'] = $this->getEventsInTheSameSeries();
+        $this->data['occassion']             = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
+        $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
+        $this->data['occassions']            = array_map(function ($postObject) {
             return $this->getOccassionText($postObject->getSchemaProperty('startDate'), $postObject->getSchemaProperty('endDate'));
         }, $this->data['eventsInTheSameSeries']);
 
-        $this->trySetHttpStatusHeader($event);
+        foreach ($mappers as $key => $mapper) {
+            $this->data[$key] = $mapper->map($event);
+        }
+
+        $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
     }
 
     /**
@@ -75,19 +74,28 @@ class SingularEvent extends \Municipio\Controller\Singular
      *
      * @return array
      */
-    public function getPlaceUrl(?Place $place = null): string
+    public function getPlaceUrl(?array $places = []): string
     {
-        if (!$place) {
+        if (empty($places)) {
             return '';
         }
 
-        $placeName    = $place['name'] ?? $place['address'] ?? '';
-        $placeAddress = $place['address'] ?? '';
+        $placeName    = $places[0]['name'] ?? $places[0]['address'] ?? '';
+        $placeAddress = $places[0]['address'] ?? '';
 
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
         $placeLink     = $googleMapsUrl . urlencode($placeName . ', ' . $placeAddress);
 
         return $placeLink;
+    }
+
+    public function getPlaceName(?array $places = []): string
+    {
+        if (empty($places)) {
+            return '';
+        }
+
+        return $places[0]['name'] ?? $places[0]['address'] ?? '';
     }
 
     /**
@@ -115,104 +123,6 @@ class SingularEvent extends \Municipio\Controller\Singular
             : ucfirst($this->wpService->dateI18n('H:i', $endDateTimestamp));
 
         return "{$start} - {$end}";
-    }
-
-    /**
-     * Get price list
-     *
-     * @return PriceListItemInterface[]
-     */
-    public function getPriceList(): array
-    {
-        $offers = $this->post->getSchemaProperty('offers');
-
-        if (!$offers || !is_array($offers)) {
-            return [];
-        }
-
-        return array_map([$this, 'getPriceListItemFromOffer'], $offers);
-    }
-
-    /**
-     * Get price list item from offer
-     *
-     * @param Offer $offer
-     * @return PriceListItemInterface
-     */
-    public function getPriceListItemFromOffer(Offer $offer): PriceListItemInterface
-    {
-        $priceSpecification      = $offer->getProperty('priceSpecification');
-        $name                    = $offer->getProperty('name');
-        $currency                = $offer->getProperty('priceCurrency') ?? 'SEK';
-        $minPrice                = $priceSpecification?->getProperty('minPrice');
-        $maxPrice                = $priceSpecification?->getProperty('maxPrice');
-        $price                   = $offer->getProperty('price');
-        $priceSpecificationPrice = $priceSpecification?->getProperty('price');
-
-        if (!empty($minPrice) || !empty($maxPrice)) {
-            if ($minPrice === $maxPrice) {
-                $price = $minPrice . ' ' . $currency;
-            } else {
-                $price = $minPrice . ' - ' . $maxPrice . ' ' . $currency;
-            }
-        } elseif (!empty($priceSpecification) && !empty($priceSpecificationPrice)) {
-            $price = $priceSpecificationPrice . ' ' . $currency;
-        } elseif (!empty($price)) {
-            $price = $price . ' ' . $currency;
-        } else {
-            $price = $this->wpService->__('Price not available', 'municipio');
-        }
-
-        return new PriceListItem($name, $price);
-    }
-
-    /**
-     * Get ICS download link
-     *
-     * @return string
-     */
-    private function getIcsDownloadLink(Event $event): string
-    {
-        /** @var DateTime|null $startDate */
-        $startDate = $event->getProperty('startDate');
-        /** @var DateTime|null $endDate */
-        $endDate = $event->getProperty('endDate');
-        $name    = $event->getProperty('name');
-
-        if (!$startDate || !$endDate || !$name) {
-            return '';
-        }
-
-        if (is_string($startDate)) {
-            $startDate = date_create($startDate);
-
-            if (!$startDate) {
-                return '';
-            }
-        }
-
-        if (is_string($endDate)) {
-            $endDate = date_create($endDate);
-
-            if (!$endDate) {
-                return '';
-            }
-        }
-
-        $icsData = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'BEGIN:VEVENT',
-        'DTSTART:' . $startDate->format('Ymd\THis\Z'),
-        'DTEND:' . $endDate->format('Ymd\THis\Z'),
-        'SUMMARY:' . $name,
-        'END:VEVENT',
-        'END:VCALENDAR',
-        ];
-
-        $icsData = implode("\n", $icsData);
-
-        return $icsData = 'data:text/calendar;charset=utf8,' . $icsData;
     }
 
     /**
@@ -247,24 +157,10 @@ class SingularEvent extends \Municipio\Controller\Singular
      * Try to set HTTP status header
      * If the event is in the past, set 410 Gone
      */
-    private function trySetHttpStatusHeader(Event $event): void
+    private function trySetHttpStatusHeader(bool $eventIsInThePast): void
     {
-        if ($this->eventIsInThePast($event->getProperty('startDate'))) {
+        if ($eventIsInThePast) {
             $this->wpService->statusHeader(410);
         }
-    }
-
-    /**
-     * Check if the event is in the past
-     */
-    private function eventIsInThePast(): bool
-    {
-        $startDate = $this->post->getSchemaProperty('startDate');
-
-        if (!is_a($startDate, DateTime::class)) {
-            return false;
-        }
-
-        return $startDate->getTimestamp() < time() ? true : false;
     }
 }
