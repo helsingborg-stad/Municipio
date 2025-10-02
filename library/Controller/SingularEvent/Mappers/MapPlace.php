@@ -9,26 +9,14 @@ class MapPlace implements EventDataMapperInterface
 {
     public function map(Event $event): array
     {
-        $place = $event->getProperty('location');
-
-        if (!is_array($place) || empty($place)) {
-            return [
-                'url'     => '',
-                'address' => '',
-                'name'    => ''
-            ];
-        }
+        $place = $event->getProperty('location') ?? [] ?: [];
 
         $place = array_filter($place, function ($item) {
             return is_a($item, Place::class);
         });
 
         if (empty($place)) {
-            return [
-                'url'     => '',
-                'address' => '',
-                'name'    => ''
-            ];
+            return $this->getEmptyResponse();
         }
 
         $place = $place[0];
@@ -36,7 +24,6 @@ class MapPlace implements EventDataMapperInterface
         return [
             'url'     => $this->getUrl($place),
             'address' => $this->getAddress($place),
-            'name'    => $this->getName($place)
         ];
     }
 
@@ -51,13 +38,19 @@ class MapPlace implements EventDataMapperInterface
         return $placeLink;
     }
 
-    private function getAddress(Place $place): string
+    private function getAddress(Place $place): ?string
     {
-        return $place->getProperty('address') ?? '';
+        return implode("<br>", [
+            $place->getProperty('name') ?? null,
+            $place->getProperty('address') ?? null,
+        ]) ?: null;
     }
 
-    private function getName(Place $place): string
+    private function getEmptyResponse(): array
     {
-        return $place->getProperty('name') ?? $place->getProperty('address') ?? '';
+        return [
+            'url'     => null,
+            'address' => null,
+        ];
     }
 }
