@@ -8,6 +8,11 @@ class MapPhysicalAccessibilityFeatures implements EventDataMapperInterface
 {
     public function map(Event $event): array
     {
-        return $event->getProperty('physicalAccessibilityFeatures') ?? [];
+        return $this->ensureArray($event->getProperty('physicalAccessibilityFeatures'));
+    }
+
+    private function ensureArray($data): array
+    {
+        return is_array($data) ? $data : [$data];
     }
 }
