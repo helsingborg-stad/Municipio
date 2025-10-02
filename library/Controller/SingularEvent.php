@@ -31,11 +31,9 @@ class SingularEvent extends \Municipio\Controller\Singular
             'icsUrl'                => new SingularEvent\Mappers\MapIcsUrl(),
             'eventIsInThePast'      => new SingularEvent\Mappers\MapEventIsInthePast(),
             'accessibilityFeatures' => new SingularEvent\Mappers\MapPhysicalAccessibilityFeatures(),
+            'place'                 => new SingularEvent\Mappers\MapPlace(),
         ];
 
-        $this->data['placeUrl']              = $this->getPlaceUrl($event->getProperty('location'));
-        $this->data['placeName']             = $this->getPlaceName($event->getProperty('location'));
-        $this->data['placeAddress']          = $event->getProperty('location')['address'] ?? null;
         $this->data['eventsInTheSameSeries'] = $this->getEventsInTheSameSeries();
         $this->data['occassion']             = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
         $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
@@ -67,35 +65,6 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->organizersTitle    = $this->wpService->__('Organizers', 'municipio');
         $this->data['lang']->accessibilityTitle = $this->wpService->__('Accessibility', 'municipio');
         $this->data['lang']->expiredEventNotice = $this->wpService->__('This event has already taken place.', 'municipio');
-    }
-
-    /**
-     * Get place link attributes
-     *
-     * @return array
-     */
-    public function getPlaceUrl(?array $places = []): string
-    {
-        if (empty($places)) {
-            return '';
-        }
-
-        $placeName    = $places[0]['name'] ?? $places[0]['address'] ?? '';
-        $placeAddress = $places[0]['address'] ?? '';
-
-        $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
-        $placeLink     = $googleMapsUrl . urlencode($placeName . ', ' . $placeAddress);
-
-        return $placeLink;
-    }
-
-    public function getPlaceName(?array $places = []): string
-    {
-        if (empty($places)) {
-            return '';
-        }
-
-        return $places[0]['name'] ?? $places[0]['address'] ?? '';
     }
 
     /**
