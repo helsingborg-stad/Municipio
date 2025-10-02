@@ -86,6 +86,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio')),
             $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $this->wpService->__('Physical Accessibility Feature', 'municipio')),
+            $this->createTaxonomy('Event', 'eventSchedule.startDate', $this->wpService->__('Occasions', 'municipio'), $this->wpService->__('Occasion', 'municipio')),
         ];
     }
 
@@ -104,6 +105,11 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         ];
     }
 
+    /**
+     * Get taxonomies for ElementarySchool schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for ElementarySchool.
+     */
     private function getElementarySchoolTaxonomies(): array
     {
         return [
@@ -113,6 +119,11 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         ];
     }
 
+    /**
+     * Get taxonomies for Preschool schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for Preschool.
+     */
     private function getPreschoolTaxonomies(): array
     {
         return [
