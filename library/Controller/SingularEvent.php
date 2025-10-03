@@ -3,7 +3,6 @@
 namespace Municipio\Controller;
 
 use DateTime;
-use Municipio\Helper\Post;
 
 /**
  * Class SingularEvent
@@ -36,6 +35,8 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['occasions']             = (new SingularEvent\Mappers\MapOccasions($this->post->getPermalink(), $this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['currentOccasion']       = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
+
+        (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion($this->tryGetCurrentDateFromGetParam(), ...$this->data['occasions']))->ensureVisitingSingularOccasion();
 
         $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
     }
