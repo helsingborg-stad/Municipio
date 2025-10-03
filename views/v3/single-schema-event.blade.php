@@ -11,7 +11,6 @@
 
 @section('article.content')
 
-
     @section('article.title.before')
         @if($eventIsInThePast)
             @notice([
@@ -20,7 +19,7 @@
                     'text' => $lang->expiredEventNotice,
                 ],
                 'icon' => [
-                    'name' => 'schedule'
+                    'icon' => 'schedule'
                 ]
             ])@endnotice
         @endif
@@ -29,31 +28,40 @@
     @section('article.title.after')
 
         @collection(['classList' => ['u-display--flex']])
-            @collection__item([ 'icon' => 'event', ])
-                @typography(['element' => 'h4', 'variant' => 'h2'])
-                    {!!$lang->occassionsTitle!!}
-                @endtypography
-                @typography([])
-                    {!!$occassion!!}
-                @endtypography
-            @endcollection__item
-            @collection__item([ 'icon' => 'location_on' ])
+            @if(!empty($currentOccasion))
+                @collection__item([ 'icon' => 'event', 'classList' => ['u-width--50'] ])
+                    @typography(['element' => 'h4', 'variant' => 'h2'])
+                        {!!$lang->occassionsTitle!!}
+                    @endtypography
+                    @typography([])
+                        {!!$currentOccasion->getDateTime()!!}
+                    @endtypography
+                @endcollection__item
+            @endif
+            @collection__item([ 'icon' => 'location_on', 'classList' => ['u-width--50'] ])
                 @typography(['element' => 'h4', 'variant' => 'h2'])
                     {!!$lang->placeTitle!!}
                 @endtypography
                 @typography([])
-                    {!!$placeName!!}
+                    {!!$place['address']!!}
+                    @if(!empty($place['url']))
+                        @link(['href' => $place['url']])
+                            {{$lang->directionsLabel}}
+                        @endlink
+                    @endif
                 @endtypography
             @endcollection__item
         @endcollection
 
     @stop
     
-    {!!$post->getSchemaProperty('description')!!}
+    @if(!empty($description))
+        {!!$description!!}
+    @endif
 
     @if(!$eventIsInThePast)
         @button([
-            'href' => $icsDownloadLink,
+            'href' => $icsUrl,
             'color' => 'primary',
             'style' => 'filled',
             'size' => 'md',
@@ -112,16 +120,21 @@
             @endiconSection__item
         @endif  
 
-        @if(!empty($occassions))
+        @if(!empty($occasions) && count($occasions) > 1)
             @iconSection__item(['icon' => ['icon' => 'calendar_month', 'size' => 'md']])
                 @include('partials.post.schema.event.icon-section-header', ['header' => $lang->moreOccassions])
-                @element(['componentElement' => 'ul'])
-                    @foreach($occassions as $occassion)
-                        @element(['componentElement' => 'li'])
-                            @typography(){!!$occassion!!}@endtypography
-                        @endelement
+                @collection(['compact' => true])
+                    @foreach($occasions as $occasion)
+                        @collection__item([
+                            'icon' => $occasion->isCurrent() ? 'arrow_forward' : 'event',
+                            'link' => $occasion->getUrl()
+                        ])
+                            @typography(['classList' => [$occasion->isCurrent() ? 'u-bold' : '']])
+                                {!! $occasion->getDateTime() !!}
+                            @endtypography
+                        @endcollection__item
                     @endforeach
-                @endelement
+                @endcollection
             @endiconSection__item
         @endif
 
@@ -142,12 +155,12 @@
             @endiconSection__item
         @endif
 
-        @if(!empty($physicalAccessibilityFeatures))
+        @if(!empty($accessibilityFeatures))
 
             @iconSection__item(['icon' => ['icon' => 'accessibility', 'size' => 'md']])
                 @include('partials.post.schema.event.icon-section-header', ['header' => $lang->accessibilityTitle])
                 @element(['componentElement' => 'ul'])
-                    @foreach($physicalAccessibilityFeatures as $feature)
+                    @foreach($accessibilityFeatures as $feature)
                         @element(['componentElement' => 'li']){!! $feature !!}@endelement
                     @endforeach
                 @endelement

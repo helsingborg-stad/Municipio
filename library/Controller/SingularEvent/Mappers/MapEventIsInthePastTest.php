@@ -13,9 +13,8 @@ class MapEventIsInthePastTest extends TestCase
      */
     public function testReturnsTrueIfEventIsInThePast()
     {
-        $event  = Schema::event()->startDate((new DateTime())->modify('-1 day'));
-        $mapper = new MapEventIsInthePast();
-        $this->assertTrue($mapper->map($event));
+        $mapper = new MapEventIsInthePast((new DateTime())->modify('-1 day'));
+        $this->assertTrue($mapper->map(Schema::event()));
     }
 
     /**
@@ -23,9 +22,8 @@ class MapEventIsInthePastTest extends TestCase
      */
     public function testReturnsFalseIfEventIsInTheFuture()
     {
-        $event  = Schema::event()->startDate((new DateTime())->modify('+1 day'));
-        $mapper = new MapEventIsInthePast();
-        $this->assertFalse($mapper->map($event));
+        $mapper = new MapEventIsInthePast((new DateTime())->modify('+1 day'));
+        $this->assertFalse($mapper->map(Schema::event()));
     }
 
     /**
@@ -33,8 +31,7 @@ class MapEventIsInthePastTest extends TestCase
      */
     public function testReturnsFalseIfEventStartDateIsNotDateTime()
     {
-        $event  = Schema::event()->startDate('not-a-date-time');
         $mapper = new MapEventIsInthePast();
-        $this->assertFalse($mapper->map($event));
+        $this->assertFalse($mapper->map(Schema::event()));
     }
 }
