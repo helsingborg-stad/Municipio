@@ -4,7 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\JsonToSchemaObjects;
 
 use PHPUnit\Framework\TestCase;
 
-class SimpleJsonConverterTest extends TestCase {
+class JsonToSchemaObjectsTest extends TestCase {
     
     /**
      * @testdox returns a Thing when given a valid JSON string containgin a Thing
@@ -19,7 +19,7 @@ class SimpleJsonConverterTest extends TestCase {
             }
         ]';
 
-        $converter = new SimpleJsonConverter();
+        $converter = new JsonToSchemaObjects();
         $schemaObjects = $converter->transform($json);
 
         $this->assertEquals('Thing', $schemaObjects[0]->getProperty('@type'));
@@ -37,7 +37,7 @@ class SimpleJsonConverterTest extends TestCase {
             }
         ]';
 
-        $converter = new SimpleJsonConverter();
+        $converter = new JsonToSchemaObjects();
         $schemaObjects = $converter->transform($json);
 
         $this->assertInstanceOf('Municipio\Schema\Event', $schemaObjects[0]);
@@ -57,7 +57,7 @@ class SimpleJsonConverterTest extends TestCase {
             }
         ]';
 
-        $converter = new SimpleJsonConverter();
+        $converter = new JsonToSchemaObjects();
         $schemaObjects = $converter->transform($json);
 
         $this->assertInstanceOf('Municipio\Schema\Thing', $schemaObjects[0]);
@@ -84,7 +84,7 @@ class SimpleJsonConverterTest extends TestCase {
             }
         ]';
 
-        $converter = new SimpleJsonConverter();
+        $converter = new JsonToSchemaObjects();
         $schemaObjects = $converter->transform($json);
 
         $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image')[0]);

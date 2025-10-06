@@ -61,8 +61,8 @@ class AjaxSync implements Hookable
         $this->progressReporter->start();
 
         if ($this->inProgress->isInProgress($postType)) {
-            $this->progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
-            return;
+            // $this->progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
+            // return;
         }
 
         $this->inProgress->setInProgress($postType, true);

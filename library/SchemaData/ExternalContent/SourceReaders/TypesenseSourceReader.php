@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
-use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiGET;
 
 /**
@@ -20,7 +20,7 @@ class TypesenseSourceReader implements SourceReaderInterface
     public function __construct(
         private ApiGET $api,
         private string $getParamsString,
-        private JsonToSchemaObjects $jsonConverter
+        private JsonToSchemaObjectsInterface $jsonConverter
     ) {
     }
 

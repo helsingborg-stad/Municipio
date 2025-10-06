@@ -3,13 +3,10 @@
 namespace Municipio\SchemaData\ExternalContent\SourceReaders\Factories;
 
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
-use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiGET;
 use Municipio\SchemaData\ExternalContent\SourceReaders\JsonFileSourceReader;
 use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReaderInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use WpService\FileSystem\FileSystem;
 
 class SourceReaderFromConfigTest extends TestCase
 {

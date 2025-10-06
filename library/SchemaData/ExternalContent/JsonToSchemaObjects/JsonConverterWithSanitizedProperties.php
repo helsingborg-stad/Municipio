@@ -5,11 +5,11 @@ namespace Municipio\SchemaData\ExternalContent\JsonToSchemaObjects;
 use Municipio\Schema\BaseType;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\SchemaSanitizer\SchemaSanitizerInterface;
 
-class JsonConverterWithSanitizedProperties implements JsonToSchemaObjects {
+class JsonConverterWithSanitizedProperties implements JsonToSchemaObjectsInterface {
     
     public function __construct(
         private SchemaSanitizerInterface $sanitizer, 
-        private JsonToSchemaObjects $innerConverter)
+        private JsonToSchemaObjectsInterface $innerConverter)
     {
     }
 

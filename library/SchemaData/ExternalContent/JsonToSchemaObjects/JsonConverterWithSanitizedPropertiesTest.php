@@ -12,7 +12,7 @@ class JsonConverterWithSanitizedPropertiesTest extends TestCase {
      * @testdox applies sanitizer to result of inner converter
      */
     public function testAppliesSanitizerToResultOfInnerConverter(): void {
-        $inner = new class implements JsonToSchemaObjects {
+        $inner = new class implements JsonToSchemaObjectsInterface {
             public function transform(string $json): array
             {
                 return [Schema::thing()->name('Original name')];

@@ -4,7 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\SourceReaders\Factories;
 
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\SchemaObjectsFilter\SchemaObjectsFilterFromFilterDefinition;
-use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\SchemaData\ExternalContent\Filter\Transforms\FilterDefinitionToTypesenseParams;
 use Municipio\SchemaData\ExternalContent\SourceReaders\FileSystem\FileSystem;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\TypesenseApi\TypesenseApi;
@@ -56,7 +56,7 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
         $schemaObjectsFilter = new SchemaObjectsFilterFromFilterDefinition($config->getFilterDefinition());
         return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), new JsonConverterWithSanitizedProperties(
             new SchemaSanitizer(new SchemaPropertyValueSanitizer(), new GetSchemaPropertiesWithParamTypes()),
-            new SimpleJsonConverter()
+            new JsonToSchemaObjects()
         ));
     }
 
@@ -75,7 +75,7 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
 
         return new TypesenseSourceReader($api, $getParamsString, new JsonConverterWithSanitizedProperties(
             new SchemaSanitizer(new SchemaPropertyValueSanitizer(), new GetSchemaPropertiesWithParamTypes()),
-            new SimpleJsonConverter()
+            new JsonToSchemaObjects()
         ));
     }
 }

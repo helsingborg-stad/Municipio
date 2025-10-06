@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
-use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiGET;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiResponse;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -15,7 +15,7 @@ class TypesenseSourceReaderTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $typesenseSourceReader = new TypesenseSourceReader($this->getApiMock(), 'end/point', new SimpleJsonConverter());
+        $typesenseSourceReader = new TypesenseSourceReader($this->getApiMock(), 'end/point', new JsonToSchemaObjects());
         $this->assertInstanceOf(TypesenseSourceReader::class, $typesenseSourceReader);
     }
 
@@ -25,7 +25,7 @@ class TypesenseSourceReaderTest extends TestCase
     public function testGetSourceDataCallsApiForDataUntillItGetsANullResponse()
     {
         $api                   = $this->getApiMock([ $this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 404) ]);
-        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new SimpleJsonConverter());
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
 
@@ -39,7 +39,7 @@ class TypesenseSourceReaderTest extends TestCase
     public function testPageNumberIsAppendedCorrectlyToEndpointWithAlreadyDefinedGetParameters()
     {
         $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 404)]);
-        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point?param=value', new SimpleJsonConverter());
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point?param=value', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
 
@@ -53,7 +53,7 @@ class TypesenseSourceReaderTest extends TestCase
     public function testPerPageParamIsAppendedToEndpoint()
     {
         $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
-        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new SimpleJsonConverter());
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
 
@@ -66,7 +66,7 @@ class TypesenseSourceReaderTest extends TestCase
     public function testQueryParamIsAppendedToEndpoint()
     {
         $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
-        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new SimpleJsonConverter());
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
 
