@@ -36,7 +36,12 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['currentOccasion']       = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
 
-        (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion($this->tryGetCurrentDateFromGetParam(), ...$this->data['occasions']))->ensureVisitingSingularOccasion();
+        // Ensure we are visiting a singular occasion if occasions exist
+        (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion(
+            new SingularEvent\EnsureVisitingSingularOccasion\Redirect\Redirect($this->wpService),
+            $this->tryGetCurrentDateFromGetParam(),
+            ...$this->data['occasions']
+        ))->ensureVisitingSingularOccasion();
 
         $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
     }

@@ -13,6 +13,11 @@ use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReader;
 use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReaderInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\TypesenseSourceReader;
 use Municipio\Helper\WpService;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonConverterWithSanitizedProperties;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\SchemaSanitizer\SchemaSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
+use PHPUnit\Util\Json;
 
 /**
  * Class SourceReaderFromConfig
@@ -49,7 +54,10 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
     private function getJsonFileSourceReader(SourceConfigInterface $config): JsonFileSourceReader
     {
         $schemaObjectsFilter = new SchemaObjectsFilterFromFilterDefinition($config->getFilterDefinition());
-        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), new SimpleJsonConverter());
+        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), new JsonConverterWithSanitizedProperties(
+            new SchemaSanitizer(new SchemaPropertyValueSanitizer(), new GetSchemaPropertiesWithParamTypes()),
+            new SimpleJsonConverter()
+        ));
     }
 
     /**
@@ -65,6 +73,9 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
         $getParamsString                   = $filterDefinitionToTypesenseParams->transform($config->getFilterDefinition());
         $getParamsString                   = !empty($getParamsString) ? '?' . $getParamsString : ''; // Add '?' if there are any parameters
 
-        return new TypesenseSourceReader($api, $getParamsString, new SimpleJsonConverter());
+        return new TypesenseSourceReader($api, $getParamsString, new JsonConverterWithSanitizedProperties(
+            new SchemaSanitizer(new SchemaPropertyValueSanitizer(), new GetSchemaPropertiesWithParamTypes()),
+            new SimpleJsonConverter()
+        ));
     }
 }
