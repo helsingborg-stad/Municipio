@@ -7,7 +7,7 @@ interface JsonToSchemaObjectsInterface {
     /**
      * @param string $json
      * 
-     * @return Municipio\Schema\BaseType[]
+     * @return \Municipio\Schema\BaseType[]
      */
     public function transform(string $json): array;
 }

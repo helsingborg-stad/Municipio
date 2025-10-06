@@ -47,7 +47,7 @@ class SchemaSanitizer implements SchemaSanitizerInterface
 
             // If the value is an array of BaseType, we need to sanitize each item in the array
             if (is_array($value) && !empty($value) && $value[0] instanceof BaseType) {
-                $sanitizedArray = array_map(fn ($item) => $this->sanitizeProperties($item), $value);
+                $sanitizedArray = array_map([$this, 'sanitizeProperties'], $value);
                 $schema->{$property}($sanitizedArray);
                 continue;
             }

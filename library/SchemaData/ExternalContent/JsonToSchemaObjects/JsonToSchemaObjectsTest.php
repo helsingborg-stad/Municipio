@@ -5,6 +5,42 @@ namespace Municipio\SchemaData\ExternalContent\JsonToSchemaObjects;
 use PHPUnit\Framework\TestCase;
 
 class JsonToSchemaObjectsTest extends TestCase {
+
+    /**
+     * @testdox returns empty array when given an invalid JSON string
+     */
+    public function testTransformInvalid() {
+        $json = '{ invalid json [';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertEmpty($schemaObjects);
+    }
+
+    /**
+     * @testdox returns empty array when given an empty JSON string
+     */
+    public function testTransformEmpty() {
+        $json = '';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertEmpty($schemaObjects);
+    }
+
+    /**
+     * @testdox allows non-array JSON input
+     */
+    public function testTransformNonArray() {
+        $json = '{"@type": "Thing", "name": "Test"}';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertEquals('Test', $schemaObjects[0]->getProperty('name'));
+    }
     
     /**
      * @testdox returns a Thing when given a valid JSON string containgin a Thing

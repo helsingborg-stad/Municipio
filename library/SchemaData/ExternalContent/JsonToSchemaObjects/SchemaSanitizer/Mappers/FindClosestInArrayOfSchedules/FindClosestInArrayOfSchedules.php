@@ -7,8 +7,6 @@ use Municipio\Schema\Schedule;
 class FindClosestInArrayOfSchedules {
     /**
      * Finds the closest future schedule, or the closest past schedule if no future exists.
-     * @param Schedule[] $schedules
-     * @return Schedule|null
      */
     public function find(Schedule ...$schedules):?Schedule 
     {
