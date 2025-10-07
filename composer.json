@@ -73,7 +73,7 @@
         "phpstan/phpstan": "^2.1",
         "tomasvotruba/unused-public": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "phpunit/phpunit": "^12.4",
+        "phpunit/phpunit": "^12.4|^11.5",
         "php-stubs/acf-pro-stubs": "^6.5"
     },
     "autoload": {
