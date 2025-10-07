@@ -17,18 +17,14 @@ class GalleryHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $handler = new GalleryHandler($this->getWpServiceMock());
         $this->assertInstanceOf(GalleryHandler::class, $handler);
     }
 
-    /**
-     * @testdox supports method returns true for gallery field type
-     */
+    #[TestDox('supports method returns true for gallery field type')]
     public function testSupportsMethodReturnsTrueForGalleryFieldType(): void
     {
         $handler = new GalleryHandler($this->getWpServiceMock());
@@ -36,9 +32,7 @@ class GalleryHandlerTest extends TestCase
         $this->assertTrue($result);
     }
 
-    /**
-     * @testdox supports method returns false for non-gallery field type
-     */
+    #[TestDox('supports method returns false for non-gallery field type')]
     public function testSupportsMethodReturnsFalseForNonGalleryFieldType(): void
     {
         $handler = new GalleryHandler($this->getWpServiceMock());
@@ -46,9 +40,7 @@ class GalleryHandlerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox supports method returns false for non-array value
-     */
+    #[TestDox('supports method returns false for non-array value')]
     public function testSupportsMethodReturnsFalseForNonArrayValue(): void
     {
         $handler = new GalleryHandler($this->getWpServiceMock());
@@ -56,9 +48,7 @@ class GalleryHandlerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox supports method returns false for empty value
-     */
+    #[TestDox('supports method returns false for empty value')]
     public function testSupportsMethodReturnsFalseForEmptyValue(): void
     {
         $handler = new GalleryHandler($this->getWpServiceMock());
@@ -66,9 +56,7 @@ class GalleryHandlerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox handle method sets property on schema object
-     */
+    #[TestDox('handle method sets property on schema object')]
     public function testHandleMethodSetsPropertyOnSchemaObject(): void
     {
         $wpPost             = new WP_Post([]);
@@ -88,9 +76,7 @@ class GalleryHandlerTest extends TestCase
         $this->assertEquals('http://example.com/image.jpg', $schemaObject->getProperty('image')[0]->getProperty('url'));
     }
 
-    /**
-     * @testdox handle method does not set property if value is not numeric
-     */
+    #[TestDox('handle method does not set property if value is not numeric')]
     public function testHandleMethodDoesNotSetPropertyIfValueIsNotNumeric(): void
     {
         $wpService    = $this->getWpServiceMock();

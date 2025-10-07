@@ -6,18 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 class OccasionTest extends TestCase
 {
-    /**
-     * @testdox getDateTime returns the provided DateTime as string
-     */
+    #[TestDox('getDateTime returns the provided DateTime as string')]
     public function testGetDateTime()
     {
         $occasion = new Occasion('2025-12-24 18:00', false, '');
         $this->assertSame('2025-12-24 18:00', $occasion->getDateTime());
     }
 
-    /**
-     * @testdox isCurrent returns the provided boolean value
-     */
+    #[TestDox('isCurrent returns the provided boolean value')]
     public function testIsCurrent()
     {
         $occasion = new Occasion('2025-12-24 18:00', true, '');
@@ -27,9 +23,7 @@ class OccasionTest extends TestCase
         $this->assertFalse($occasion->isCurrent());
     }
 
-    /**
-     * @testdox getUrl returns the provided URL string
-     */
+    #[TestDox('getUrl returns the provided URL string')]
     public function testGetUrl()
     {
         $occasion = new Occasion('2025-12-24 18:00', false, 'https://example.com/event');

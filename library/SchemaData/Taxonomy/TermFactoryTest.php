@@ -16,9 +16,7 @@ class TermFactoryTest extends TestCase
         $this->instance = new TermFactory();
     }
 
-    /**
-     * @testdox returns an array from property that contains a string
-     */
+    #[TestDox('returns an array from property that contains a string')]
     public function testCreateReturnsArray(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -28,9 +26,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('wheelchairAccessible', $this->instance->create($taxonomy, $schema)[0]->name);
     }
 
-    /**
-     * @testdox returns an array from property that contains an array of strings
-     */
+    #[TestDox('returns an array from property that contains an array of strings')]
     public function testCreateReturnsArrayOfStrings(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -42,9 +38,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('wheelchairAccessible', $result[0]->name);
     }
 
-    /**
-     * @testdox returns name from property if target property contains a schema with name
-     */
+    #[TestDox('returns name from property if target property contains a schema with name')]
     public function testCreateReturnsNameFromProperty(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -56,9 +50,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('John Doe', $result[0]->name);
     }
 
-    /**
-     * @testdox returns a names from property if target property contains an array of schemas with names
-     */
+    #[TestDox('returns a names from property if target property contains an array of schemas with names')]
     public function testCreateReturnsNamesFromProperty(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -71,9 +63,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('Jane Smith', $result[1]->name);
     }
 
-    /**
-     * @testdox returns an empty array if target property is not found
-     */
+    #[TestDox('returns an empty array if target property is not found')]
     public function testCreateReturnsEmptyArrayIfTargetPropertyNotFound(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -85,9 +75,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals([], $result);
     }
 
-    /**
-     * @testdox converts values of float to string
-     */
+    #[TestDox('converts values of float to string')]
     public function testCreateConvertsFloatToString(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -99,9 +87,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('4.5', $result[0]->name);
     }
 
-    /**
-     * @testdox converts values of int to string
-     */
+    #[TestDox('converts values of int to string')]
     public function testCreateConvertsIntToString(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -113,9 +99,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('4', $result[0]->name);
     }
 
-    /**
-     * @testdox converts an array of int to an array of strings
-     */
+    #[TestDox('converts an array of int to an array of strings')]
     public function testCreateConvertsArrayOfIntToArrayOfStrings(): void
     {
         $taxonomy = $this->getTaxonomy();
@@ -127,9 +111,7 @@ class TermFactoryTest extends TestCase
         $this->assertEquals(['4', '5'], [$result[0]->name, $result[1]->name]);
     }
 
-    /**
-     * @testdox allows for nested properties inside arrays
-     */
+    #[TestDox('allows for nested properties inside arrays')]
     public function testCreateHandlesNestedPropertiesInArrays(): void
     {
         $taxonomy = $this->getTaxonomy();

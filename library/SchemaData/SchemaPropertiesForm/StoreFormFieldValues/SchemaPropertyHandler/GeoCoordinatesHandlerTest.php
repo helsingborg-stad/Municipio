@@ -8,18 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class GeoCoordinatesHandlerTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $geoCoordinatesHandler = new GeoCoordinatesHandler();
         $this->assertInstanceOf(GeoCoordinatesHandler::class, $geoCoordinatesHandler);
     }
 
-    /**
-     * @testdox supports method returns true for valid place value
-     */
+    #[TestDox('supports method returns true for valid place value')]
     public function testSupportsMethodReturnsTrueForValidPlaceValue(): void
     {
         $geoCoordinatesHandler = new GeoCoordinatesHandler();
@@ -34,9 +30,7 @@ class GeoCoordinatesHandlerTest extends TestCase
         $this->assertTrue($geoCoordinatesHandler->supports($propertyName, $fieldType, $value, ['GeoCoordinates']));
     }
 
-    /**
-     * @testdox supports method returns false for invalid place value
-     */
+    #[TestDox('supports method returns false for invalid place value')]
     public function testSupportsMethodReturnsFalseForInvalidPlaceValue(): void
     {
         $geoCoordinatesHandler = new GeoCoordinatesHandler();
@@ -50,9 +44,7 @@ class GeoCoordinatesHandlerTest extends TestCase
         $this->assertFalse($geoCoordinatesHandler->supports($propertyName, $fieldType, $value, ['Place']));
     }
 
-    /**
-     * @testdox handle method sets the place property on the schema object
-     */
+    #[TestDox('handle method sets the place property on the schema object')]
     public function testHandleMethodSetsThePlacePropertyOnTheSchemaObject(): void
     {
         $geoCoordinatesHandler = new GeoCoordinatesHandler();

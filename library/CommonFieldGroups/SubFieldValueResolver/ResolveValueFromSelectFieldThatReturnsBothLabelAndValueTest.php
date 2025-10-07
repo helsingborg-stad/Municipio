@@ -8,18 +8,14 @@ use WpService\Contracts\GetOption;
 
 class ResolveValueFromSelectFieldThatReturnsBothLabelAndValueTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanInstantiate(): void
     {
         $resolver = new ResolveValueFromSelectFieldThatReturnsBothLabelAndValue($this->createGetOptionMock());
         $this->assertInstanceOf(ResolveValueFromSelectFieldThatReturnsBothLabelAndValue::class, $resolver);
     }
 
-    /**
-     * @testdox resolves both label and value if is select field with array return
-     */
+    #[TestDox('resolves both label and value if is select field with array return')]
     public function testResolvesBothLabelAndValue(): void
     {
         $fieldChoices  = ['choiceOne' => 'Label for Choice One'];

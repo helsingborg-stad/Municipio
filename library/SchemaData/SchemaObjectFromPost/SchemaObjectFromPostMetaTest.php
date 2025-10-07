@@ -15,9 +15,7 @@ use WpService\Implementations\FakeWpService;
 
 class SchemaObjectFromPostMetaTest extends TestCase
 {
-    /**
-     * @testdox Sets schema property if schemaData is not empty and allowed schema types and properties are set.
-     */
+    #[TestDox('Sets schema property if schemaData is not empty and allowed schema types and properties are set.')]
     public function testSetsSchemaProperty()
     {
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'JobPosting', 'name' => 'TestSchema']]);
@@ -37,9 +35,7 @@ class SchemaObjectFromPostMetaTest extends TestCase
         $this->assertEquals('TestSchema', $schema->getProperty('name'));
     }
 
-    /**
-     * @testdox Returns result from inner if schemaData is empty.
-     */
+    #[TestDox('Returns result from inner if schemaData is empty.')]
     public function testDoesNotSetSchemaPropertyIfSchemaDataIsEmpty()
     {
         $wpService = new FakeWpService(['getPostMeta' => []]);
@@ -59,9 +55,7 @@ class SchemaObjectFromPostMetaTest extends TestCase
         $this->assertNull($schema->getProperty('name'));
     }
 
-    /**
-     * @testdox sanitizes nested schemaData properties from array
-     */
+    #[TestDox('sanitizes nested schemaData properties from array')]
     public function testSanitizesNestedSchemaDataPropertiesFromArray()
     {
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'Place', 'geo' => ['@type' => 'GeoCoordinates', 'latitude' => 0, 'longitude' => 0]]]);
@@ -80,9 +74,7 @@ class SchemaObjectFromPostMetaTest extends TestCase
         $this->assertInstanceOf(GeoCoordinatesContract::class, $schema->getProperty('geo'));
     }
 
-    /**
-     * @testdox sanitizes nested schemaData properties from serialized array
-     */
+    #[TestDox('sanitizes nested schemaData properties from serialized array')]
     public function testSanitizesNestedSchemaDataPropertiesFromSerializedArray()
     {
         $geoCoordinates = serialize([ '@type' => 'GeoCoordinates', 'latitude' => 0, 'longitude' => 0, ]);
@@ -102,9 +94,7 @@ class SchemaObjectFromPostMetaTest extends TestCase
         $this->assertInstanceOf(GeoCoordinatesContract::class, $schema->getProperty('geo'));
     }
 
-    /**
-     * @testdox array of description strings or TextObjects are sanitized correctly
-     */
+    #[TestDox('array of description strings or TextObjects are sanitized correctly')]
     public function testSanitizesArrayOfDescriptionStringsOrTextObjects()
     {
         $description = [

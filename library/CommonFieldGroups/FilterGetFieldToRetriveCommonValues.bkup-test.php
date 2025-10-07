@@ -87,9 +87,7 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
 
 
 
-    /**
-     * @testdox filterFieldValue should return value from main blog if option key exists in fields to filter and blog id is 1
-     */
+    #[TestDox('filterFieldValue should return value from main blog if option key exists in fields to filter and blog id is 1')]
     public function testfilterFieldValueReturnsMainBlogValueIfOptionKeyIsListed(): void
     {
         $this->instance->fieldsToFilter = ['field_1', 'field_2'];

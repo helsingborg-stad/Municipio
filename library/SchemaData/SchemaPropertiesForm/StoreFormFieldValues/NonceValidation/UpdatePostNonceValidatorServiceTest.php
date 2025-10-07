@@ -8,9 +8,7 @@ use WpService\Contracts\WpVerifyNonce;
 
 class UpdatePostNonceValidatorServiceTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $postNonceValidatorService = new UpdatePostNonceValidatorService($this->getWpVerifyNonceMock(true));
@@ -18,9 +16,7 @@ class UpdatePostNonceValidatorServiceTest extends TestCase
         $this->assertInstanceOf(UpdatePostNonceValidatorService::class, $postNonceValidatorService);
     }
 
-    /**
-     * @testdox isValid() returns true when nonce is valid
-     */
+    #[TestDox('isValid() returns true when nonce is valid')]
     public function testIsValidReturnsTrueWhenNonceIsValid(): void
     {
         $postId = 123;
@@ -35,9 +31,7 @@ class UpdatePostNonceValidatorServiceTest extends TestCase
         $this->assertEquals(true, $result);
     }
 
-    /**
-     * @testdox isValid() returns false when nonce is invalid
-     */
+    #[TestDox('isValid() returns false when nonce is invalid')]
     public function testIsValidReturnsFalseWhenNonceIsInvalid(): void
     {
         $postId = 123;

@@ -9,18 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class SchemaToPostTypeResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated(): void
     {
         $resolver = $this->createResolver();
         $this->assertInstanceOf(SchemaToPostTypeResolver::class, $resolver);
     }
 
-    /**
-     * @testdox resolve method returns an empty array for any schema type
-     */
+    #[TestDox('resolve method returns an empty array for any schema type')]
     public function testResolveReturnsEmptyArray(): void
     {
         $resolver = $this->createResolver();
@@ -28,9 +24,7 @@ class SchemaToPostTypeResolverTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    /**
-     * @testdox resolve method returns an array of post types connected to the schema type
-     */
+    #[TestDox('resolve method returns an array of post types connected to the schema type')]
     public function testResolveReturnsPostTypes(): void
     {
         $acfServiceMock = $this->getAcfServiceMock();

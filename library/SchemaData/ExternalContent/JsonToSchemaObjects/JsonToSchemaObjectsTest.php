@@ -6,9 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class JsonToSchemaObjectsTest extends TestCase {
 
-    /**
-     * @testdox returns empty array when given an invalid JSON string
-     */
+    #[TestDox('returns empty array when given an invalid JSON string')]
     public function testTransformInvalid() {
         $json = '{ invalid json [';
 
@@ -18,9 +16,7 @@ class JsonToSchemaObjectsTest extends TestCase {
         $this->assertEmpty($schemaObjects);
     }
 
-    /**
-     * @testdox returns empty array when given an empty JSON string
-     */
+    #[TestDox('returns empty array when given an empty JSON string')]
     public function testTransformEmpty() {
         $json = '';
 
@@ -30,9 +26,7 @@ class JsonToSchemaObjectsTest extends TestCase {
         $this->assertEmpty($schemaObjects);
     }
 
-    /**
-     * @testdox allows non-array JSON input
-     */
+    #[TestDox('allows non-array JSON input')]
     public function testTransformNonArray() {
         $json = '{"@type": "Thing", "name": "Test"}';
 
@@ -42,9 +36,7 @@ class JsonToSchemaObjectsTest extends TestCase {
         $this->assertEquals('Test', $schemaObjects[0]->getProperty('name'));
     }
     
-    /**
-     * @testdox returns a Thing when given a valid JSON string containgin a Thing
-     */
+    #[TestDox('returns a Thing when given a valid JSON string containgin a Thing')]
     public function testTransformSuccess() {
         $json = '[
             {
@@ -63,9 +55,7 @@ class JsonToSchemaObjectsTest extends TestCase {
         $this->assertEquals(123, $schemaObjects[0]->getProperty('@id'));
     }
 
-    /**
-     * @testdox returns correct type of object when given a valid JSON string containing a different type
-     */
+    #[TestDox('returns correct type of object when given a valid JSON string containing a different type')]
     public function testTransformType() {
         $json = '[
             {
@@ -79,9 +69,7 @@ class JsonToSchemaObjectsTest extends TestCase {
         $this->assertInstanceOf('Municipio\Schema\Event', $schemaObjects[0]);
     }
 
-    /**
-     * @testdox returns nested types
-     */
+    #[TestDox('returns nested types')]
     public function testTransformNestedTypes() {
         $json = '[
             {
@@ -100,9 +88,7 @@ class JsonToSchemaObjectsTest extends TestCase {
         $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image'));
     }
 
-    /**
-     * @testdox returns nested array types
-     */
+    #[TestDox('returns nested array types')]
     public function testTransformNestedArrayTypes() {
         $json = '[
             {

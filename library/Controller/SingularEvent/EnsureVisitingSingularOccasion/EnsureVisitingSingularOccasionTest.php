@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class EnsureVisitingSingularOccasionTest extends TestCase
 {
-    /**
-     * @testdox redirects to the first future occasion if no current date is set and future occasions exist
-     */
+    #[TestDox('redirects to the first future occasion if no current date is set and future occasions exist')]
     public function testRedirectsToFirstFutureOccasion(): void
     {
         $occasion1 = $this->getOccasion((new DateTime('-2 days'))->format('Y-m-d H:i:s'), 'http://example.com/past-occasion');
@@ -30,9 +28,7 @@ class EnsureVisitingSingularOccasionTest extends TestCase
         $this->expectOutputString('redirected to: http://example.com/future-occasion');
     }
 
-    /**
-     * @testdox redirects to the last past occasion if no current date is set and no future occasions exist
-     */
+    #[TestDox('redirects to the last past occasion if no current date is set and no future occasions exist')]
     public function testRedirectsToLastPastOccasion(): void
     {
         $occasion1 = $this->getOccasion((new DateTime('-2 days'))->format('Y-m-d H:i:s'), 'http://example.com/past-occasion');

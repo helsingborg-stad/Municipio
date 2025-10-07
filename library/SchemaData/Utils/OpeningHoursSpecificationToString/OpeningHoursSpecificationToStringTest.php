@@ -7,14 +7,13 @@ namespace Municipio\SchemaData\Utils\OpeningHoursSpecificationToString;
 use Municipio\Schema\DayOfWeek;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use WpService\Contracts\__;
 use WpService\Contracts\_x;
 use WpService\Implementations\FakeWpService;
 
-/**
- * @covers \Municipio\Schema\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString
- */
+#[CoversClass(OpeningHoursSpecificationToString::class)]
 class OpeningHoursSpecificationToStringTest extends TestCase
 {
     private function createSpecification(array|string $days, string $opens, string $closes)

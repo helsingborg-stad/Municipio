@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class MapPhysicalAccessibilityFeaturesTest extends TestCase
 {
-    /**
-     * @testdox returns an array of physical accessibility features
-     */
+    #[TestDox('returns an array of physical accessibility features')]
     public function testMapReturnsArrayOfPhysicalAccessibilityFeatures(): void
     {
         $event  = Schema::event()->physicalAccessibilityFeatures(['Wheelchair accessible', 'Braille signage']);
@@ -19,9 +17,7 @@ class MapPhysicalAccessibilityFeaturesTest extends TestCase
         $this->assertEquals(['Wheelchair accessible', 'Braille signage'], $result);
     }
 
-    /**
-     * @testdox converts string to array
-     */
+    #[TestDox('converts string to array')]
     public function testMapConvertsStringToArray(): void
     {
         $event  = Schema::event()->physicalAccessibilityFeatures('Wheelchair accessible');

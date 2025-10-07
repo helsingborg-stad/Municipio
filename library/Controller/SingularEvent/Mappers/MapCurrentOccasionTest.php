@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class MapCurrentOccasionTest extends TestCase
 {
-    /**
-     * @testdox returns null when no occasions are provided
-     */
+    #[TestDox('returns null when no occasions are provided')]
     public function testReturnsNullWhenNoOccasionsProvided()
     {
         $mapper = new MapCurrentOccasion();
@@ -23,9 +21,7 @@ class MapCurrentOccasionTest extends TestCase
         $this->assertNull($result);
     }
 
-    /**
-     * @testdox returns the correct current occasion based on provided DateTime
-     */
+    #[TestDox('returns the correct current occasion based on provided DateTime')]
     public function testReturnsCorrectCurrentOccasion()
     {
         $occasion1 = new Occasion('', false, '');
@@ -38,9 +34,7 @@ class MapCurrentOccasionTest extends TestCase
         $this->assertSame($occasion2, $result);
     }
 
-    /**
-     * @testdox returns null when no occasion is marked as current
-     */
+    #[TestDox('returns null when no occasion is marked as current')]
     public function testReturnsNullWhenNoCurrentOccasion()
     {
         $occasion1 = new Occasion('', false, '');

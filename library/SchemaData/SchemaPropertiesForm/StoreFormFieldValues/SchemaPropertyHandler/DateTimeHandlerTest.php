@@ -3,22 +3,19 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler;
 
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateTimeHandlerTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $handler = new DateTimeHandler();
         $this->assertInstanceOf(DateTimeHandler::class, $handler);
     }
 
-    /**
-     * @testdox supports() returns true for date_time_picker field type and valid DateTimeInterface value
-     */
+    #[TestDox('supports() returns true for date_time_picker field type and valid DateTimeInterface value')]
     public function testSupportsReturnsTrueForDateTimePickerFieldTypeAndValidDateTimeInterfaceValue(): void
     {
         $handler = new DateTimeHandler();
@@ -26,11 +23,8 @@ class DateTimeHandlerTest extends TestCase
 
         $this->assertTrue($result);
     }
-
-    /**
-     * @testdox supports() returns false for invalid field types or values
-     * @dataProvider supportsDataProvider
-     */
+    #[TestDox("supports() returns false for invalid field types or values")]
+    #[DataProvider("supportsDataProvider")]
     public function testSupportsReturnsFalseForInvalidFieldTypesOrValues(string $fieldType, mixed $value, array $propertyTypes): void
     {
         $handler = new DateTimeHandler();
@@ -39,7 +33,7 @@ class DateTimeHandlerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             ['text', '2025-06-19', ['\DateTimeInterface']],
@@ -51,9 +45,7 @@ class DateTimeHandlerTest extends TestCase
         ];
     }
 
-    /**
-     * @testdox handle() sets the property on the schema object
-     */
+    #[TestDox('handle() sets the property on the schema object')]
     public function testHandleSetsPropertyOnSchemaObject(): void
     {
         $handler      = new DateTimeHandler();

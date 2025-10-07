@@ -7,18 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class TextHandlerTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $textHandler = new TextHandler();
         $this->assertInstanceOf(TextHandler::class, $textHandler);
     }
 
-    /**
-     * @testdox supports method returns true for valid text and string field type
-     */
+    #[TestDox('supports method returns true for valid text and string field type')]
     public function testSupportsMethodReturnsTrueForValidText(): void
     {
         $textHandler  = new TextHandler();
@@ -29,9 +25,7 @@ class TextHandlerTest extends TestCase
         $this->assertTrue($textHandler->supports($propertyName, $fieldType, $value, ['string']));
     }
 
-    /**
-     * @testdox supports method returns false for invalid text
-     */
+    #[TestDox('supports method returns false for invalid text')]
     public function testSupportsMethodReturnsFalseForInvalidText(): void
     {
         $textHandler  = new TextHandler();
@@ -42,9 +36,7 @@ class TextHandlerTest extends TestCase
         $this->assertFalse($textHandler->supports($propertyName, $fieldType, $value, ['string']));
     }
 
-    /**
-     * @testdox handle method sets the text property on the schema object
-     */
+    #[TestDox('handle method sets the text property on the schema object')]
     public function testHandleMethodSetsTextPropertyOnSchemaObject(): void
     {
         $schemaObject = Schema::thing();

@@ -3,14 +3,13 @@
 namespace Municipio\Toc\Utils;
 
 use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 class TocUtilsTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $wpService = new FakeWpService([]);
@@ -19,9 +18,7 @@ class TocUtilsTest extends TestCase
         $this->assertInstanceOf(TocUtils::class, $tocUtils);
     }
 
-    /**
-     * @testdox shouldEnableToc returns false when not on singular page
-     */
+    #[TestDox('shouldEnableToc returns false when not on singular page')]
     public function testShouldEnableTocReturnsFalseWhenNotOnSingularPage(): void
     {
         $wpService  = new FakeWpService(['isSingular' => false]);
@@ -33,9 +30,7 @@ class TocUtilsTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox shouldEnableToc returns false when content is empty
-     */
+    #[TestDox('shouldEnableToc returns false when content is empty')]
     public function testShouldEnableTocReturnsFalseWhenContentIsEmpty(): void
     {
         $wpService  = new FakeWpService(['isSingular' => true]);
@@ -48,9 +43,7 @@ class TocUtilsTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox shouldEnableToc returns false when content has no headings
-     */
+    #[TestDox('shouldEnableToc returns false when content has no headings')]
     public function testShouldEnableTocReturnsFalseWhenContentHasNoHeadings(): void
     {
         $wpService  = new FakeWpService(['isSingular' => true]);
@@ -63,13 +56,13 @@ class TocUtilsTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox shouldEnableToc returns true when content has minimum reqired headings
-     */
+    #[TestDox('shouldEnableToc returns true when content has minimum reqired headings')]
     public function testShouldEnableTocReturnsTrueWhenContentHasHeadings(): void
     {
-        $wpService  = new FakeWpService(['isSingular' => true]);
+        $postId     = 123;
+        $wpService  = new FakeWpService(['isSingular' => true, 'getQueriedObjectId' => $postId]);
         $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getId')->willReturn($postId);
         $postObject->method('getContent')->willReturn('<h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><p>Some content</p>');
 
         $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
@@ -80,9 +73,7 @@ class TocUtilsTest extends TestCase
         $this->assertTrue($result);
     }
 
-    /**
-     * @testdox getTableOfContents returns empty array for empty content
-     */
+    #[TestDox('getTableOfContents returns empty array for empty content')]
     public function testGetTableOfContentsReturnsEmptyArrayForEmptyContent(): void
     {
         $wpService = new FakeWpService([]);
@@ -93,9 +84,7 @@ class TocUtilsTest extends TestCase
         $this->assertEquals([], $result);
     }
 
-    /**
-     * @testdox getContentWithAnchors returns original content when empty
-     */
+    #[TestDox('getContentWithAnchors returns original content when empty')]
     public function testGetContentWithAnchorsReturnsOriginalContentWhenEmpty(): void
     {
         $wpService = new FakeWpService([]);

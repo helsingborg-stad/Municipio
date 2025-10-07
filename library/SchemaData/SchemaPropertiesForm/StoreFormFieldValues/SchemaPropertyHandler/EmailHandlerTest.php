@@ -7,18 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class EmailHandlerTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $emailHandler = new EmailHandler();
         $this->assertInstanceOf(EmailHandler::class, $emailHandler);
     }
 
-    /**
-     * @testdox supports method returns true for valid email and email field type
-     */
+    #[TestDox('supports method returns true for valid email and email field type')]
     public function testSupportsMethodReturnsTrueForValidEmail(): void
     {
         $emailHandler = new EmailHandler();
@@ -29,9 +25,7 @@ class EmailHandlerTest extends TestCase
         $this->assertTrue($emailHandler->supports($propertyName, $fieldType, $value, ['string']));
     }
 
-    /**
-     * @testdox supports method returns false for invalid email
-     */
+    #[TestDox('supports method returns false for invalid email')]
     public function testSupportsMethodReturnsFalseForInvalidEmail(): void
     {
         $emailHandler = new EmailHandler();
@@ -42,9 +36,7 @@ class EmailHandlerTest extends TestCase
         $this->assertFalse($emailHandler->supports($propertyName, $fieldType, $value, ['string']));
     }
 
-    /**
-     * @testdox supports method returns false for non-email field type
-     */
+    #[TestDox('supports method returns false for non-email field type')]
     public function testSupportsMethodReturnsFalseForNonEmailFieldType(): void
     {
         $emailHandler = new EmailHandler();
@@ -55,9 +47,7 @@ class EmailHandlerTest extends TestCase
         $this->assertFalse($emailHandler->supports($propertyName, $fieldType, $value, ['string']));
     }
 
-    /**
-     * @testdox handle method sets the email property on the schema object
-     */
+    #[TestDox('handle method sets the email property on the schema object')]
     public function testHandleMethodSetsEmailProperty(): void
     {
         $emailHandler = new EmailHandler();

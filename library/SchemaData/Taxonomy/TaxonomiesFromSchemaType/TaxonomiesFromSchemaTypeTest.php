@@ -3,6 +3,8 @@
 namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\__;
@@ -21,20 +23,15 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         );
     }
 
-    /**
-     * @testdox Returns an empty array for any unknown schema type
-     */
+    #[TestDox('Returns an empty array for any unknown schema type')]
     public function testReturnsEmptyArrayForUnknownSchemaType(): void
     {
         $taxonomies = $this->instance->create('UnknownSchemaType');
         $this->assertIsArray($taxonomies);
         $this->assertEmpty($taxonomies);
     }
-
-    /**
-     * @testdox Returns array containing taxonomies for known schema types
-     * @dataProvider knownSchemaTypesProvider
-     */
+    #[TestDox("Returns array containing taxonomies for known schema types")]
+    #[DataProvider("knownSchemaTypesProvider")]
     public function testReturnsTaxonomiesForKnownSchemaTypes(string $schemaType): void
     {
         // Assert array contains only instances of TaxonomyInterface
@@ -44,7 +41,7 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         );
     }
 
-    public function knownSchemaTypesProvider(): array
+    public static function knownSchemaTypesProvider(): array
     {
         return [
             'JobPosting' => ['JobPosting'],

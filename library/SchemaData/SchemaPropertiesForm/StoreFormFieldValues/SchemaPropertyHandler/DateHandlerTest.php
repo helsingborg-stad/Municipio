@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler;
 
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateHandlerTest extends TestCase
@@ -13,9 +14,7 @@ class DateHandlerTest extends TestCase
         $this->assertInstanceOf(DateHandler::class, $handler);
     }
 
-    /**
-     * @testdox supports() returns true for date_picker field type and valid DateTimeInterface value
-     */
+    #[TestDox('supports() returns true for date_picker field type and valid DateTimeInterface value')]
     public function testSupportsReturnsTrueForDatePickerFieldTypeAndValidDateTimeInterfaceValue(): void
     {
         $handler = new DateHandler();
@@ -23,11 +22,8 @@ class DateHandlerTest extends TestCase
 
         $this->assertTrue($result);
     }
-
-    /**
-     * @testdox supports() returns false for invalid field types or values
-     * @dataProvider supportsDataProvider
-     */
+    #[TestDox("supports() returns false for invalid field types or values")]
+    #[DataProvider("supportsDataProvider")]
     public function testSupportsReturnsFalseForInvalidFieldTypesOrValues(string $fieldType, mixed $value, array $propertyTypes): void
     {
         $handler = new DateHandler();
@@ -36,7 +32,7 @@ class DateHandlerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             ['text', '2025-06-19', ['\DateTimeInterface']],
@@ -48,9 +44,7 @@ class DateHandlerTest extends TestCase
         ];
     }
 
-    /**
-     * @testdox handle() sets the property on the schema object
-     */
+    #[TestDox('handle() sets the property on the schema object')]
     public function testHandleSetsPropertyOnSchemaObject(): void
     {
         $handler      = new DateHandler();

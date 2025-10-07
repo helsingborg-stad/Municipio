@@ -6,9 +6,7 @@ use WpService\Implementations\FakeWpService;
 
 class GetOtherBlogIdTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $getOtherBlogId = new GetOtherBlogId(new FakeWpService());
@@ -16,9 +14,7 @@ class GetOtherBlogIdTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(GetOtherBlogId::class, $getOtherBlogId);
     }
 
-    /**
-     * @testdox getOtherBlogId method returns the correct blog ID when is in switched mode
-     */
+    #[TestDox('getOtherBlogId method returns the correct blog ID when is in switched mode')]
     public function testGetOtherBlogIdReturnsCorrectBlogIdInSwitchedMode(): void
     {
         $wpService      = new FakeWpService(['isMultisite' => true, 'msIsSwitched' => true, 'getCurrentBlogId' => 2]);
@@ -27,9 +23,7 @@ class GetOtherBlogIdTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(2, $getOtherBlogId->getOtherBlogId());
     }
 
-    /**
-     * @testdox getOtherBlogId method returns null when not in switched mode and no parameters are set
-     */
+    #[TestDox('getOtherBlogId method returns null when not in switched mode and no parameters are set')]
     public function testGetOtherBlogIdReturnsNullWhenNotInSwitchedModeAndNoParametersSet(): void
     {
         $wpService      = new FakeWpService(['isMultisite' => false, 'msIsSwitched' => false, 'getQueryVar' => $this->getQueryVarFake()]);
@@ -38,9 +32,7 @@ class GetOtherBlogIdTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($getOtherBlogId->getOtherBlogId());
     }
 
-    /**
-     * @testdox getOtherBlogId method returns null only post ID is set and no blog ID is provided
-     */
+    #[TestDox('getOtherBlogId method returns null only post ID is set and no blog ID is provided')]
     public function testGetOtherBlogIdReturnsNullWhenPostIdIsSetAndNoBlogIdIsProvided(): void
     {
         $wpService      = new FakeWpService(['isMultisite' => true, 'msIsSwitched' => false, 'getQueryVar' => $this->getQueryVarFake(null)]);

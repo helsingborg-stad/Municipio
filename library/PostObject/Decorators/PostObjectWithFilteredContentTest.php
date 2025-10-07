@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class PostObjectWithFilteredContentTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -21,9 +19,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         $this->assertInstanceOf(PostObjectWithFilteredContent::class, $decoratedPost);
     }
 
-    /**
-     * @testdox getContent applies WordPress content filters
-     */
+    #[TestDox('getContent applies WordPress content filters')]
     public function testGetContentAppliesWordPressContentFilters(): void
     {
         $rawContent      = '<p>Raw content</p>';
@@ -47,9 +43,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         $this->assertEquals($filteredContent, $result);
     }
 
-    /**
-     * @testdox getTitle applies WordPress title filters
-     */
+    #[TestDox('getTitle applies WordPress title filters')]
     public function testGetTitleAppliesWordPressTitleFilters(): void
     {
         $rawTitle      = 'Raw Title';
@@ -74,9 +68,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         $this->assertEquals($filteredTitle, $result);
     }
 
-    /**
-     * @testdox content with more tag is split correctly
-     */
+    #[TestDox('content with more tag is split correctly')]
     public function testContentWithMoreTagIsSplitCorrectly(): void
     {
         $rawContent = '<p>Excerpt content</p><!--more--><p>Full content</p>';
@@ -104,9 +96,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         $this->assertStringContainsString('<p class="content">Full content</p>', $result);
     }
 
-    /**
-     * @testdox passes through other PostObject methods
-     */
+    #[TestDox('passes through other PostObject methods')]
     public function testPassesThroughOtherPostObjectMethods(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);

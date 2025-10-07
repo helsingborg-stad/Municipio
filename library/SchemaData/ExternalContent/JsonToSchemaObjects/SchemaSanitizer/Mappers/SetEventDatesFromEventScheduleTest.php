@@ -7,9 +7,7 @@ use Municipio\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 class SetEventDatesFromEventScheduleTest extends TestCase {
-    /**
-     * @testdox sets Event startDate and endDate from eventSchedules property by using the first future startDate found
-     */
+    #[TestDox('sets Event startDate and endDate from eventSchedules property by using the first future startDate found')]
     public function testSetsEventStartDateFromEventSchedules(): void {
         $event = Schema::event()->eventSchedule([
             Schema::schedule()->startDate(new DateTime('-2 days')),
@@ -24,9 +22,7 @@ class SetEventDatesFromEventScheduleTest extends TestCase {
         $this->assertSame( $firstFutureEnd, $event->getProperty('endDate') );
     }
 
-    /**
-     * @testdox sets Event startDate and endDate from eventSchedules property by using the closest past startDate if no future startDate exists
-     */
+    #[TestDox('sets Event startDate and endDate from eventSchedules property by using the closest past startDate if no future startDate exists')]
     public function testSetsEventStartDateFromEventSchedulesWithNoFutureDates(): void {
         $event = Schema::event()->eventSchedule([
             Schema::schedule()->startDate(new DateTime('-2 days')),

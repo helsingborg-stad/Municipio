@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class SchemaSanitizerTest extends TestCase
 {
-    /**
-     * @testdox returns the same schema object that was passed in
-     */
+    #[TestDox('returns the same schema object that was passed in')]
     public function testReturnsTheSameSchemaObjectThatWasPassedIn(): void
     {
         $schema    = Schema::thing();
@@ -22,9 +20,7 @@ class SchemaSanitizerTest extends TestCase
         $this->assertInstanceOf(Thing::class, $sanitizer->sanitize($schema));
     }
 
-    /**
-     * @testdox converts string date to DateTime object
-     */
+    #[TestDox('converts string date to DateTime object')]
     public function testConvertsStringDateToDateTimeObject(): void
     {
         $schema    = Schema::event()->startDate('2024-01-01T12:00:00Z');

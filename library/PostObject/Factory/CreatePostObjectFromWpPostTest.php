@@ -13,17 +13,13 @@ use WpService\WpService;
 
 class CreatePostObjectFromWpPostTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $this->assertInstanceOf(CreatePostObjectFromWpPost::class, $this->getInstance());
     }
 
-    /**
-     * @testdox create() method returns a PostObjectInterface
-     */
+    #[TestDox('create() method returns a PostObjectInterface')]
     public function testCreateMethodReturnsPostObjectInterface(): void
     {
         $post       = $this->getWpPost();
@@ -33,9 +29,7 @@ class CreatePostObjectFromWpPostTest extends TestCase
         $this->assertInstanceOf(PostObjectInterface::class, $postObject);
     }
 
-    /**
-     * @testdox create() method applies filter that allows for adding custom decorators
-     */
+    #[TestDox('create() method applies filter that allows for adding custom decorators')]
     public function testCreateMethodAppliesFilterForCustomDecorators(): void
     {
         $post             = $this->getWpPost();

@@ -7,9 +7,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class SchemaPropertiesFromMappedFieldsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $schemaPropertiesFromMappedFields = new SchemaPropertiesFromMappedFields($this->getSchemaPropertiesWithParamTypesInterface(), []);

@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class PostObjectWithCachedContentTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -21,9 +19,7 @@ class PostObjectWithCachedContentTest extends TestCase
         $this->assertInstanceOf(PostObjectWithCachedContent::class, $decoratedPost);
     }
 
-    /**
-     * @testdox getContent caches content per blog and post ID
-     */
+    #[TestDox('getContent caches content per blog and post ID')]
     public function testGetContentCachesContentPerBlogAndPostId(): void
     {
         $rawContent = '<p>Raw content</p>';

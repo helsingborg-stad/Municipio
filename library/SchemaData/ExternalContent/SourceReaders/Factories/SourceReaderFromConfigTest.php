@@ -17,26 +17,20 @@ class SourceReaderFromConfigTest extends TestCase
         $this->sourceReaderFromConfig = new SourceReaderFromConfig();
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $this->assertInstanceOf(SourceReaderFromConfig::class, $this->sourceReaderFromConfig);
     }
 
-    /**
-     * @testdox create() returns an implementation of SourceReaderInterface
-     */
+    #[TestDox('create() returns an implementation of SourceReaderInterface')]
     public function testCreateReturnsSourceReaderInterface()
     {
         $sourceConfig = $this->getSourceConfigMock();
         $this->assertInstanceOf(SourceReaderInterface::class, $this->sourceReaderFromConfig->create($sourceConfig));
     }
 
-    /**
-     * @testdox create() returns a JsonFileSourceReader when the config
-     */
+    #[TestDox('create() returns a JsonFileSourceReader when the config')]
     public function testCreateReturnsJsonFileSourceReader()
     {
         $sourceConfig = $this->getSourceConfigMock();

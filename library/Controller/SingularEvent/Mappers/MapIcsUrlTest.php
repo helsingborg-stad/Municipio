@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MapIcsUrlTest extends TestCase
 {
-    /**
-     * @testdox returns calendar url if startDatee, endDate and name are present
-     */
+    #[TestDox('returns calendar url if startDatee, endDate and name are present')]
     public function testReturnsCalendarUrlIfStartDateEndDateAndNameArePresent()
     {
         $event = Schema::event()
@@ -30,9 +28,7 @@ class MapIcsUrlTest extends TestCase
         $this->assertStringContainsString('DTEND:20250601T120000Z', $icsUrl);
     }
 
-    /**
-     * @testdox returns null if startDate is missing
-     */
+    #[TestDox('returns null if startDate is missing')]
     public function testReturnsEmptyStringIfStartDateIsMissing()
     {
         $event = Schema::event()
@@ -44,9 +40,7 @@ class MapIcsUrlTest extends TestCase
         $this->assertNull($mapper->map($event));
     }
 
-    /**
-     * @testdox returns null if endDate is missing
-     */
+    #[TestDox('returns null if endDate is missing')]
     public function testReturnsEmptyStringIfEndDateIsMissing()
     {
         $event = Schema::event()
@@ -58,9 +52,7 @@ class MapIcsUrlTest extends TestCase
         $this->assertNull($mapper->map($event));
     }
 
-    /**
-     * @testdox returns null if name is missing
-     */
+    #[TestDox('returns null if name is missing')]
     public function testReturnsEmptyStringIfNameIsMissing()
     {
         $event = Schema::event()

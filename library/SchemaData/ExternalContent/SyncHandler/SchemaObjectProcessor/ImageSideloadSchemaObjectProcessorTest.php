@@ -18,18 +18,14 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         }
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $processor = new ImageSideloadSchemaObjectProcessor($this->getWpService([]));
         $this->assertInstanceOf(ImageSideloadSchemaObjectProcessor::class, $processor);
     }
 
-    /**
-     * @testdox processes images on the "image" property
-     */
+    #[TestDox('processes images on the "image" property')]
     public function testProcessesImages()
     {
         $schemaObject = Schema::thing()->image([
@@ -49,9 +45,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         $this->assertEquals('Example Image', $processedImage->getProperty('name'));
     }
 
-    /**
-     * @testdox processes nested images
-     */
+    #[TestDox('processes nested images')]
     public function testProcessesNestedImages()
     {
         $schemaObject = Schema::preschool()
@@ -73,9 +67,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         $this->assertEquals('Nested Example Image', $processedImage->getProperty('name'));
     }
 
-    /**
-     * @testdox processes ImageObject that are not in an array.
-     */
+    #[TestDox('processes ImageObject that are not in an array.')]
     public function testProcessesBareImageObject()
     {
         $schemaObject = Schema::thing()->image(
@@ -95,9 +87,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         $this->assertEquals('Bare Image Object', $processedImage->getProperty('name'));
     }
 
-    /**
-     * @testdox processes bare ImageObject
-     */
+    #[TestDox('processes bare ImageObject')]
     public function testProcessesBareImageObjectDirectly()
     {
         $schemaObject = Schema::imageObject()

@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MapOccasionsTest extends TestCase
 {
-    /**
-     * @testdox returns an array of Occasion objects
-     */
+    #[TestDox('returns an array of Occasion objects')]
     public function testReturnsArrayOfOccasionObjects()
     {
         $event = Schema::event()->eventSchedule([
@@ -26,9 +24,7 @@ class MapOccasionsTest extends TestCase
         $this->assertInstanceOf(OccasionInterface::class, $occasions[0]);
     }
 
-    /**
-     * @testdox appends indicator to occasion url
-     */
+    #[TestDox('appends indicator to occasion url')]
     public function testAppendsIndicatorToOccasionUrl()
     {
         $event = Schema::event()->eventSchedule([
@@ -46,9 +42,7 @@ class MapOccasionsTest extends TestCase
         $this->assertNotEmpty(explode('=', $url)[1]);
     }
 
-    /**
-     * @testdox marks the correct occasion as current based on provided DateTime
-     */
+    #[TestDox('marks the correct occasion as current based on provided DateTime')]
     public function testMarksCorrectOccasionAsCurrent()
     {
         $event = Schema::event()->eventSchedule([
