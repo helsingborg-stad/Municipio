@@ -5,7 +5,7 @@ namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\BaseType;
 
-class WpArgsFromSchemaObjectTest extends TestCase
+class WpPostArgsFromSchemaObjectTest extends TestCase
 {
     /**
      * @testdox array is created with title

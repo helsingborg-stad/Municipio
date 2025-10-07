@@ -6,7 +6,7 @@ use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class ArchiveDateSsourceResolverTest extends TestCase
+class ArchiveDateSourceResolverTest extends TestCase
 {
     /**
      * @testdox class can be instantiated

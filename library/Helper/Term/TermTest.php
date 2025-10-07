@@ -8,7 +8,7 @@ use WP_Error;
 use WP_Term;
 use WpService\Implementations\FakeWpService;
 
-class TermTests extends TestCase
+class TermTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
