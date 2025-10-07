@@ -10,6 +10,7 @@ use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpGetAttachmentMetadata;
 use WpService\Contracts\WpAttachmentIs;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
 use Municipio\ImageConvert\Cache\ConversionCache;
 use Municipio\ImageConvert\Logging\Log;
 
@@ -22,7 +23,7 @@ use Municipio\ImageConvert\Logging\Log;
 class ImageProcessor
 {
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&ApplyFilters $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache,
         private Log $log
@@ -92,6 +93,14 @@ class ImageProcessor
                 $savedImage = $imageEditor->save($intermediateLocation['path']);
 
                 if (!$this->wpService->isWpError($savedImage)) {
+
+                    // Fire filter to allow modification of the final path
+                    $intermediateLocation['path'] = $this->wpService->applyFilters(
+                        'wp_create_file_in_uploads', 
+                        $intermediateLocation['path'],
+                        $image->getId() 
+                    );
+
                     $image->setUrl($intermediateLocation['url']);
                     $image->setPath($intermediateLocation['path']);
 
