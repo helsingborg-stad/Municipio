@@ -12,7 +12,7 @@ class MapOrganizers implements EventDataMapperInterface
     {
         return array_filter(
             $this->ensureArray($event->getProperty('organizer')),
-            fn ($organizer) => is_a($organizer, Organization::class)
+            fn ($organizer) => is_a($organizer, Organization::class) && !empty($organizer->getProperty('name'))
         );
     }
 
