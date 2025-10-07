@@ -41,7 +41,7 @@ class MapOccasionsTest extends TestCase
 
         $this->assertStringStartsWith('https://example.com/event', $url);
         // Ensure the URL contains the GET param for current occasion
-        $this->assertStringContainsString('?' . SingularEvent::CURRENT_OCCASSION_GET_PARAM, $url);
+        $this->assertStringContainsString('?' . SingularEvent::CURRENT_OCCASION_GET_PARAM, $url);
         // Ensure the date value is present
         $this->assertNotEmpty(explode('=', $url)[1]);
     }

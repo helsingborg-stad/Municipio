@@ -31,7 +31,7 @@
             @if(!empty($currentOccasion))
                 @collection__item([ 'icon' => 'event', 'classList' => ['u-width--50'] ])
                     @typography(['element' => 'h4', 'variant' => 'h2'])
-                        {!!$lang->occassionsTitle!!}
+                        {!!$lang->occasionsTitle!!}
                     @endtypography
                     @typography([])
                         {!!$currentOccasion->getDateTime()!!}
@@ -122,7 +122,7 @@
 
         @if(!empty($occasions) && count($occasions) > 1)
             @iconSection__item(['icon' => ['icon' => 'calendar_month', 'size' => 'md']])
-                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->moreOccassions])
+                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->moreOccasions])
                 @collection(['compact' => true])
                     @foreach($occasions as $occasion)
                         @collection__item([

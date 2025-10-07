@@ -59,6 +59,6 @@ class MapOccasions implements EventDataMapperInterface
     private function getUrlFromSchedule(Schedule $schedule): string
     {
         $separator = strpos($this->currentPostPermalink, '?') === false ? '?' : '&';
-        return $this->currentPostPermalink . $separator . SingularEvent::CURRENT_OCCASSION_GET_PARAM . '=' . $schedule->getProperty('startDate')?->format(SingularEvent::CURRENT_OCCASSION_DATE_FORMAT);
+        return $this->currentPostPermalink . $separator . SingularEvent::CURRENT_OCCASION_GET_PARAM . '=' . $schedule->getProperty('startDate')?->format(SingularEvent::CURRENT_OCCASION_DATE_FORMAT);
     }
 }

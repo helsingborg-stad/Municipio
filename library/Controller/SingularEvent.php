@@ -10,9 +10,9 @@ use DateTime;
 class SingularEvent extends \Municipio\Controller\Singular
 {
     protected object $postMeta;
-    public string $view                        = 'single-schema-event';
-    public const CURRENT_OCCASSION_GET_PARAM   = 'startDate';
-    public const CURRENT_OCCASSION_DATE_FORMAT = 'Y-m-d_H:i';
+    public string $view                       = 'single-schema-event';
+    public const CURRENT_OCCASION_GET_PARAM   = 'startDate';
+    public const CURRENT_OCCASION_DATE_FORMAT = 'Y-m-d_H:i';
 
     /**
      * @inheritDoc
@@ -56,8 +56,8 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->bookingTitle       = $this->wpService->__('Tickets & registration', 'municipio');
         $this->data['lang']->bookingButton      = $this->wpService->__('Go to booking page', 'municipio');
         $this->data['lang']->bookingDisclaimer  = $this->wpService->__('Tickets are sold according to the reseller.', 'municipio');
-        $this->data['lang']->occassionsTitle    = $this->wpService->__('Date and time', 'municipio');
-        $this->data['lang']->moreOccassions     = $this->wpService->__('All occasions', 'municipio');
+        $this->data['lang']->occasionsTitle     = $this->wpService->__('Date and time', 'municipio');
+        $this->data['lang']->moreOccasions      = $this->wpService->__('All occasions', 'municipio');
         $this->data['lang']->placeTitle         = $this->wpService->__('Place', 'municipio');
         $this->data['lang']->directionsLabel    = $this->wpService->__('Get directions', 'municipio');
         $this->data['lang']->priceTitle         = $this->wpService->__('Price', 'municipio');
@@ -79,12 +79,12 @@ class SingularEvent extends \Municipio\Controller\Singular
 
     private function tryGetCurrentDateFromGetParam(): ?DateTime
     {
-        $startDateParam = $_GET[self::CURRENT_OCCASSION_GET_PARAM] ?? null;
+        $startDateParam = $_GET[self::CURRENT_OCCASION_GET_PARAM] ?? null;
 
         if (empty($startDateParam)) {
             return null;
         }
 
-        return DateTime::createFromFormat(self::CURRENT_OCCASSION_DATE_FORMAT, $startDateParam) ?: null;
+        return DateTime::createFromFormat(self::CURRENT_OCCASION_DATE_FORMAT, $startDateParam) ?: null;
     }
 }
