@@ -8,9 +8,7 @@ use Municipio\Schema\JobPosting;
 
 class JobPostingDecoratorTest extends TestCase
 {
-    /**
-     * @testdox Sets title from schemaObject['title'] if is JobPosting
-     */
+    #[TestDox('Sets title from schemaObject[\'title\'] if is JobPosting')]
     public function testSetsTitleFromNameIfTitleIsMissing()
     {
         $factory      = new JobPostingDecorator(new WpPostArgsFromSchemaObject());

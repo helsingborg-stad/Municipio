@@ -7,18 +7,14 @@ use Municipio\Schema\Schema;
 
 class FilterOutDuplicateObjectByIdTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $filter = new FilterOutDuplicateObjectById();
         $this->assertInstanceOf(FilterOutDuplicateObjectById::class, $filter);
     }
 
-    /**
-     * @testdox filters out duplicate objects from a collection based on their unique identifier
-     */
+    #[TestDox('filters out duplicate objects from a collection based on their unique identifier')]
     public function testFiltersOutDuplicateObjectsFromCollectionBasedOnUniqueIdentifier()
     {
         $filter        = new FilterOutDuplicateObjectById();

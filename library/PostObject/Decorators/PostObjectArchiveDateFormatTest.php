@@ -10,9 +10,7 @@ use WpService\Implementations\FakeWpService;
 
 class PostObjectArchiveDateFormatTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $resolver  = $this->createMock(ArchiveDateFormatResolver::class);
@@ -20,9 +18,7 @@ class PostObjectArchiveDateFormatTest extends TestCase
         $this->assertInstanceOf(PostObjectArchiveDateFormat::class, $decorator);
     }
 
-    /**
-     * @testdox getArchiveDateFormat returns format
-     */
+    #[TestDox('getArchiveDateFormat returns format')]
     public function testReturnsFormat()
     {
         $resolver = $this->createMock(ArchiveDateFormatResolver::class);

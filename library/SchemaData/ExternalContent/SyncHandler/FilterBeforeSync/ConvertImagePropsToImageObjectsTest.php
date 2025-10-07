@@ -9,9 +9,7 @@ use WpService\Contracts\AddFilter;
 
 class ConvertImagePropsToImageObjectsTest extends TestCase
 {
-    /**
-     * @testdox converts image properties to ImageObject instances
-     */
+    #[TestDox('converts image properties to ImageObject instances')]
     public function testConvertsImagePropertiesToImageObjectInstances(): void
     {
         $schemaObjects = [Schema::thing()->image('https://example.com/image.jpg')];
@@ -21,9 +19,7 @@ class ConvertImagePropsToImageObjectsTest extends TestCase
         $this->assertEquals('https://example.com/image.jpg', $result[0]->getProperty('image')->getProperty('url'));
     }
 
-    /**
-     * @testdox converts array of image URLs to array of ImageObject instances
-     */
+    #[TestDox('converts array of image URLs to array of ImageObject instances')]
     public function testConvertsArrayOfImageUrlsToArrayOfImageObjectInstances(): void
     {
         $schemaObjects = [Schema::thing()->image(['https://example.com/image1.jpg', 'https://example.com/image2.jpg'])];
@@ -36,9 +32,7 @@ class ConvertImagePropsToImageObjectsTest extends TestCase
         $this->assertEquals('https://example.com/image2.jpg', $result[0]->getProperty('image')[1]->getProperty('url'));
     }
 
-    /**
-     * @testdox converts nested image properties to ImageObject instances
-     */
+    #[TestDox('converts nested image properties to ImageObject instances')]
     public function testConvertsNestedImagePropertiesToImageObjectInstances(): void
     {
         $schemaObjects = [
@@ -52,9 +46,7 @@ class ConvertImagePropsToImageObjectsTest extends TestCase
         $this->assertEquals('https://example.com/nested-image.jpg', $result[0]->getProperty('actor')->getProperty('image')->getProperty('url'));
     }
 
-    /**
-     * @testdox converts nested array of image URLs to array of ImageObject instances
-     */
+    #[TestDox('converts nested array of image URLs to array of ImageObject instances')]
     public function testConvertsNestedArrayOfImageUrlsToArrayOfImageObjectInstances(): void
     {
         $schemaObjects = [
@@ -71,9 +63,7 @@ class ConvertImagePropsToImageObjectsTest extends TestCase
         $this->assertEquals('https://example.com/nested-image2.jpg', $result[0]->getProperty('actor')->getProperty('image')[1]->getProperty('url'));
     }
 
-    /**
-     * @testdox does not modify if image string is not a url
-     */
+    #[TestDox('does not modify if image string is not a url')]
     public function testDoesNotModifyIfImageStringIsNotAUrl(): void
     {
         $schemaObjects = [Schema::thing()->image('Not a URL')];

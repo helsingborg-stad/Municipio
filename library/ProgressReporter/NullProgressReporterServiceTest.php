@@ -6,18 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 class NullProgressReporterServiceTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $service = new NullProgressReporterService();
         $this->assertInstanceOf(NullProgressReporterService::class, $service);
     }
 
-    /**
-     * @testdox start() method does nothing
-     */
+    #[TestDox('start() method does nothing')]
     public function testStartMethodDoesNothing()
     {
         $service = new NullProgressReporterService();
@@ -25,9 +21,7 @@ class NullProgressReporterServiceTest extends TestCase
         $this->expectOutputString('');
     }
 
-    /**
-     * @testdox setMessage() method does nothing
-     */
+    #[TestDox('setMessage() method does nothing')]
     public function testSetMessageMethodDoesNothing()
     {
         $service = new NullProgressReporterService();
@@ -35,9 +29,7 @@ class NullProgressReporterServiceTest extends TestCase
         $this->expectOutputString('');
     }
 
-    /**
-     * @testdox setPercentage() method does nothing
-     */
+    #[TestDox('setPercentage() method does nothing')]
     public function testSetPercentageMethodDoesNothing()
     {
         $service = new NullProgressReporterService();
@@ -45,9 +37,7 @@ class NullProgressReporterServiceTest extends TestCase
         $this->expectOutputString('');
     }
 
-    /**
-     * @testdox finish() method does nothing
-     */
+    #[TestDox('finish() method does nothing')]
     public function testFinishMethodDoesNothing()
     {
         $service = new NullProgressReporterService();

@@ -7,18 +7,14 @@ use Municipio\Schema\Schema;
 
 class PostTypeDecoratorTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $factory = new PostTypeDecorator('test_post_type', new WpPostArgsFromSchemaObject());
         $this->assertInstanceOf(PostTypeDecorator::class, $factory);
     }
 
-    /**
-     * @testdox applies supplied post type
-     */
+    #[TestDox('applies supplied post type')]
     public function testCreate()
     {
         $schemaObject = Schema::thing();

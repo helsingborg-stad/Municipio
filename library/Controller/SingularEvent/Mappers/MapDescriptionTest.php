@@ -8,9 +8,7 @@ use WpService\Contracts\Wpautop;
 
 class MapDescriptionTest extends TestCase
 {
-    /**
-     * @testdox maps description containing TextObject to plain text
-     */
+    #[TestDox('maps description containing TextObject to plain text')]
     public function testMapDescriptionWithTextObject()
     {
         $mapper = new MapDescription($this->getNullWpService());
@@ -21,9 +19,7 @@ class MapDescriptionTest extends TestCase
         $this->assertEquals('This is a text object.', $mapper->map($event));
     }
 
-    /**
-     * @testdox maps description containing plain text to plain text
-     */
+    #[TestDox('maps description containing plain text to plain text')]
     public function testMapDescriptionWithPlainText()
     {
         $mapper = new MapDescription($this->getNullWpService());
@@ -34,9 +30,7 @@ class MapDescriptionTest extends TestCase
         $this->assertEquals('This is plain text.', $mapper->map($event));
     }
 
-    /**
-     * @testdox maps description containing both TextObject and plain text to plain text
-     */
+    #[TestDox('maps description containing both TextObject and plain text to plain text')]
     public function testMapDescriptionWithBoth()
     {
         $mapper = new MapDescription($this->getNullWpService());
@@ -49,9 +43,7 @@ class MapDescriptionTest extends TestCase
         $this->assertEquals('This is a text object. This is plain text. More text object.', $mapper->map($event));
     }
 
-    /**
-     * @testdox maps empty description to empty string
-     */
+    #[TestDox('maps empty description to empty string')]
     public function testMapEmptyDescription()
     {
         $mapper = new MapDescription($this->getNullWpService());
@@ -60,9 +52,7 @@ class MapDescriptionTest extends TestCase
         $this->assertEquals('', $mapper->map(Schema::event()->description(null)));
     }
 
-    /**
-     * @testdox maps description containing unexpected types to empty string
-     */
+    #[TestDox('maps description containing unexpected types to empty string')]
     public function testMapDescriptionWithUnexpectedTypes()
     {
         $mapper = new MapDescription($this->getNullWpService());
@@ -75,9 +65,7 @@ class MapDescriptionTest extends TestCase
         $this->assertEquals('', $mapper->map($event));
     }
 
-    /**
-     * @testdox applies wpautop to the final description
-     */
+    #[TestDox('applies wpautop to the final description')]
     public function testMapDescriptionAppliesWpautop()
     {
         $wpService = new class implements Wpautop {

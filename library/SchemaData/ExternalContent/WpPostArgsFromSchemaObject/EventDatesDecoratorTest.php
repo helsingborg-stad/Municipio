@@ -10,18 +10,14 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class EventDatesDecoratorTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $decorator = new EventDatesDecorator($this->getInnerMock());
         $this->assertInstanceOf(EventDatesDecorator::class, $decorator);
     }
 
-    /**
-     * @testdox returns the same post args as the inner decorator if the schema object is not an event
-     */
+    #[TestDox('returns the same post args as the inner decorator if the schema object is not an event')]
     public function testReturnsSamePostArgsIfNotEvent()
     {
         $mockInner = $this->getInnerMock();
@@ -37,9 +33,7 @@ class EventDatesDecoratorTest extends TestCase
         $this->assertEquals(['meta_input' => []], $result);
     }
 
-    /**
-     * @testdox adds startDate and endDate to meta_input if the schema object is an event
-     */
+    #[TestDox('adds startDate and endDate to meta_input if the schema object is an event')]
     public function testAddsStartDateAndEndDateIfEvent()
     {
         $mockInner = $this->getInnerMock();
@@ -54,9 +48,7 @@ class EventDatesDecoratorTest extends TestCase
         $this->assertEquals(['meta_input' => ['startDate' => '2021-01-01', 'endDate' => '2021-01-02']], $result);
     }
 
-    /**
-     * @testdox accepts subtypes of Event
-     */
+    #[TestDox('accepts subtypes of Event')]
     public function testAcceptsSubtypesOfEvent()
     {
         $mockInner = $this->getInnerMock();

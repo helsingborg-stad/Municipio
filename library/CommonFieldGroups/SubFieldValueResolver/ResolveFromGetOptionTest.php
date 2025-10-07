@@ -8,18 +8,14 @@ use WpService\Contracts\GetOption;
 
 class ResolveFromGetOptionTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanInstantiateResolveFromGetOption(): void
     {
         $resolver = new ResolveFromGetOption($this->createGetOptionMock());
         $this->assertInstanceOf(ResolveFromGetOption::class, $resolver);
     }
 
-    /**
-     * @testdox resolver returns value from getOption()
-     */
+    #[TestDox('resolver returns value from getOption()')]
     public function testResolveReturnsValueFromGetOption(): void
     {
         $wpServiceMock = $this->createGetOptionMock();

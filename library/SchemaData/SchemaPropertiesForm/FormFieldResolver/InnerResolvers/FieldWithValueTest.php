@@ -14,17 +14,13 @@ use PHPUnit\Framework\TestCase;
  */
 class FieldWithValueTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(FieldWithValue::class, new FieldWithValue(new FakeAcfService(), 'property_name', $this->getInner()));
     }
 
-    /**
-     * @testdox resolve() returns array with value
-     */
+    #[TestDox('resolve() returns array with value')]
     public function testResolveReturnsArrayWithValueAndInnerProperties()
     {
         $inner             = $this->getInner();
@@ -36,9 +32,7 @@ class FieldWithValueTest extends TestCase
         $this->assertEquals([ 'value' => 'value', ], $resolver->resolve());
     }
 
-    /**
-     * @testdox resolve() returns array with inner properties
-     */
+    #[TestDox('resolve() returns array with inner properties')]
     public function testResolveReturnsArrayWithInnerProperties()
     {
         $inner = $this->getInner();

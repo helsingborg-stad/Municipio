@@ -9,17 +9,13 @@ use WpService\Implementations\FakeWpService;
 
 class MirroredPostFeatureTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $this->assertInstanceOf(MirroredPostFeature::class, $this->getInstance());
     }
 
-    /**
-     * @testdox enable method does not throw an exception
-     */
+    #[TestDox('enable method does not throw an exception')]
     public function testEnableMethodDoesNotThrowException(): void
     {
         $mirroredPostFeature = $this->getInstance();

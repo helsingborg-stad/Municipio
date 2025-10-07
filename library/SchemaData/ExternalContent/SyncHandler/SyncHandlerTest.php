@@ -9,9 +9,7 @@ use WpService\Implementations\FakeWpService;
 
 class SyncHandlerTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $syncHandler = new SyncHandler([], new FakeWpService(), $this->getProgressReporter());

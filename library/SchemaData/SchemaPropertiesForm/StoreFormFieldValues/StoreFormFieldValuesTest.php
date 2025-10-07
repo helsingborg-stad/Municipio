@@ -24,9 +24,7 @@ class StoreFormFieldValuesTest extends TestCase
         parent::setUp();
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(StoreFormFieldValues::class, new StoreFormFieldValues(
@@ -39,9 +37,7 @@ class StoreFormFieldValuesTest extends TestCase
         ));
     }
 
-    /**
-     * @testdox attaches to the acf/update_value/name=schemaData hook
-     */
+    #[TestDox('attaches to the acf/update_value/name=schemaData hook')]
     public function testAddsHooks()
     {
         $wpService = new FakeWpService(['addFilter' => true]);
@@ -59,9 +55,7 @@ class StoreFormFieldValuesTest extends TestCase
         $this->assertEquals('acf/update_value/name=schemaData', $wpService->methodCalls['addFilter'][0][0]);
     }
 
-    /**
-     * @testdox saveSchemaData returns original value if nonce is invalid
-     */
+    #[TestDox('saveSchemaData returns original value if nonce is invalid')]
     public function testSaveSchemaDataReturnsOriginalValueIfNonceInvalid()
     {
         $wpService      = new FakeWpService();
@@ -85,9 +79,7 @@ class StoreFormFieldValuesTest extends TestCase
         $this->assertSame($originalValue, $result);
     }
 
-    /**
-     * @testdox saveSchemaData returns original value if schema type is not found
-     */
+    #[TestDox('saveSchemaData returns original value if schema type is not found')]
     public function testSaveSchemaDataReturnsOriginalValueIfSchemaTypeNotFound()
     {
         $wpService      = new FakeWpService(['getPostType' => 'post']);
@@ -114,9 +106,7 @@ class StoreFormFieldValuesTest extends TestCase
         $this->assertSame($originalValue, $result);
     }
 
-    /**
-     * @testdox saveSchemaData returns original value if posted data is empty
-     */
+    #[TestDox('saveSchemaData returns original value if posted data is empty')]
     public function testSaveSchemaDataReturnsOriginalValueIfPostedDataEmpty()
     {
         $wpService      = new FakeWpService(['getPostType' => 'post']);
@@ -141,9 +131,7 @@ class StoreFormFieldValuesTest extends TestCase
         $this->assertSame($originalValue, $result);
     }
 
-    /**
-     * @testdox saveSchemaData returns schema object if all conditions are met
-     */
+    #[TestDox('saveSchemaData returns schema object if all conditions are met')]
     public function testSaveSchemaDataReturnsSchemaObjectIfAllConditionsMet()
     {
         $wpService = new FakeWpService([

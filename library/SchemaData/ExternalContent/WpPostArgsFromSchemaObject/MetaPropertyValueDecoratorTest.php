@@ -9,9 +9,7 @@ use Municipio\Schema\Schema;
 
 class MetaPropertyValueDecoratorTest extends TestCase
 {
-    /**
-     * @testdox PropertyValue in @meta property gets added to post meta.
-     */
+    #[TestDox('PropertyValue in @meta property gets added to post meta.')]
     public function testCreate()
     {
         $schemaObject = $this->getSchemaObject();
@@ -23,9 +21,7 @@ class MetaPropertyValueDecoratorTest extends TestCase
         $this->assertEquals('bar', $postArgs['meta_input']['foo']);
     }
 
-    /**
-     * @testdox PropertyValue in @meta property with empty name gets ignored.
-     */
+    #[TestDox('PropertyValue in @meta property with empty name gets ignored.')]
     public function testCreateEmptyName()
     {
         $schemaObject = $this->getSchemaObject();
@@ -40,9 +36,7 @@ class MetaPropertyValueDecoratorTest extends TestCase
         $this->assertEmpty($postArgs['meta_input']);
     }
 
-    /**
-     * @testdox PropertyValue in @meta property with value other than PropertyValue gets ignored.
-     */
+    #[TestDox('PropertyValue in @meta property with value other than PropertyValue gets ignored.')]
     public function testCreateNonPropertyValue()
     {
         $schemaObject = $this->getSchemaObject();

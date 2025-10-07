@@ -9,18 +9,14 @@ use WpService\Implementations\FakeWpService;
 
 class CleanupAttachmentsNoLongerInUseTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $cleanup = new CleanupAttachmentsNoLongerInUse(new FakeWpService(), new wpdb('', '', '', ''));
         $this->assertInstanceOf(CleanupAttachmentsNoLongerInUse::class, $cleanup);
     }
 
-    /**
-     * @testdox addHook adds a hook for the cleanup method
-     */
+    #[TestDox('addHook adds a hook for the cleanup method')]
     public function testAddHookAddsHookForCleanupMethod()
     {
         $wpService = new FakeWpService(['addAction' => true]);

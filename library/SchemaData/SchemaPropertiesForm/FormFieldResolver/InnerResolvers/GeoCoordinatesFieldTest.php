@@ -8,18 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class GeoCoordinatesFieldTest extends TestCase
 {
-    /**
-     * @testdox field is a google map field
-     */
+    #[TestDox('field is a google map field')]
     public function testFieldIsAGoogleMapsField()
     {
         $field = new GeoCoordinatesField(['GeoCoordinates'], $this->getInnerResolver());
         $this->assertEquals('google_map', $field->resolve()['type']);
     }
 
-    /**
-     * @testdox field value gets sanitized from schema format to google maps format
-     */
+    #[TestDox('field value gets sanitized from schema format to google maps format')]
     public function testFieldValueGetsSanitized()
     {
         $inner = $this->getInnerResolver();
@@ -33,9 +29,7 @@ class GeoCoordinatesFieldTest extends TestCase
         ], $field->resolve()['value']);
     }
 
-    /**
-     * @testdox converts field value from json to array if needed
-     */
+    #[TestDox('converts field value from json to array if needed')]
     public function testConvertsFieldValueFromJsonToArrayIfNeeded()
     {
         $inner = $this->getInnerResolver();

@@ -2,6 +2,8 @@
 
 namespace Municipio\ProgressReporter\HttpHeader;
 
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class HttpHeaderTest extends TestCase
@@ -11,19 +13,15 @@ class HttpHeaderTest extends TestCase
         $this->mockHeaderFunction();
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $header = new HttpHeader();
         $this->assertInstanceOf(HttpHeader::class, $header);
     }
 
-    /**
-     * @testdox sendHeader() method sends headers
-     * @runInSeparateProcess
-     */
+    #[TestDox('sendHeader() method sends headers')]
+    #[RunInSeparateProcess]
     public function testSendHeaderMethodSendsHeaders()
     {
         ob_start();

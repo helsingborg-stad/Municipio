@@ -8,10 +8,8 @@ use WpService\Implementations\FakeWpService;
 
 class CachedTimestampResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     * @runInSeparateProcess
-     */
+    #[TestDox('class can be instantiated')]
+    #[RunInSeparateProcess]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
@@ -24,10 +22,8 @@ class CachedTimestampResolverTest extends TestCase
         );
     }
 
-    /**
-     * @testdox resolve() caches result from inner resolver
-     * @runInSeparateProcess
-     */
+    #[TestDox('resolve() caches result from inner resolver')]
+    #[RunInSeparateProcess]
     public function testResolveCachesResultFromInnerResolver()
     {
         $postObject = $this->createMock(PostObjectInterface::class);

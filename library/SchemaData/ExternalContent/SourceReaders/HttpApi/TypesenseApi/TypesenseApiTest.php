@@ -10,18 +10,14 @@ use WpService\Implementations\FakeWpService;
 
 class TypesenseApiTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $typesenseApi = new TypesenseApi($this->getConfigMock(), new FakeWpService());
         $this->assertInstanceOf(TypesenseApi::class, $typesenseApi);
     }
 
-    /**
-     * @testdox get() passes expected headers to the api request
-     */
+    #[TestDox('get() passes expected headers to the api request')]
     public function testHeadersAreAddedToGetRequest()
     {
         $config = $this->getConfigMock();
@@ -35,9 +31,7 @@ class TypesenseApiTest extends TestCase
         $this->assertEquals('application/json', $wpService->methodCalls['wpRemoteGet'][0][1]['headers']['Content-Type']);
     }
 
-    /**
-     * @testdox get() throw exception if remote call fails
-     */
+    #[TestDox('get() throw exception if remote call fails')]
     public function testGetThrowsExceptionIfWpErrorIsReturned()
     {
         $wpError = $this->createMock(WP_Error::class);
@@ -53,9 +47,7 @@ class TypesenseApiTest extends TestCase
         $typesenseApi->get('test-endpoint');
     }
 
-    /**
-     * @testdox get() returns ApiResponse object
-     */
+    #[TestDox('get() returns ApiResponse object')]
     public function testGetReturnsApiResponseObject()
     {
         $wpService = new FakeWpService([
@@ -71,9 +63,7 @@ class TypesenseApiTest extends TestCase
         $this->assertEquals(['test-header'], $apiResponse->getHeaders());
     }
 
-    /**
-     * @testdox get() constructs correct Typesense URL
-     */
+    #[TestDox('get() constructs correct Typesense URL')]
     public function testGetConstructsCorrectUrl()
     {
         $config = $this->getConfigMock();

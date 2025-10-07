@@ -6,17 +6,13 @@ use PHPUnit\Framework\TestCase;
 
 class NullIconResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(NullIconResolver::class, new NullIconResolver());
     }
 
-    /**
-     * @testdox resolve() returns null
-     */
+    #[TestDox('resolve() returns null')]
     public function testResolveReturnsNull()
     {
         $resolver = new NullIconResolver();

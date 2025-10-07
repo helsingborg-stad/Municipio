@@ -15,9 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class GetUserGroupTermsTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $getUserGroupTerms = new GetUserGroupTerms(
@@ -29,9 +27,7 @@ class GetUserGroupTermsTest extends TestCase
         $this->assertInstanceOf(GetUserGroupTerms::class, $getUserGroupTerms);
     }
 
-    /**
-     * @testdox get() returns user group terms
-     */
+    #[TestDox('get() returns user group terms')]
     public function testGetReturnsUserGroupTerms()
     {
 

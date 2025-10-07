@@ -6,17 +6,13 @@ use Municipio\Schema\Schema;
 
 class UrlHandlerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $urlHandler = new UrlHandler();
         $this->assertInstanceOf(UrlHandler::class, $urlHandler);
     }
-    /**
-     * @testdox supports method returns true for valid URL
-     */
+    #[TestDox('supports method returns true for valid URL')]
     public function testSupportsMethodReturnsTrueForValidUrl(): void
     {
         $urlHandler    = new UrlHandler();
@@ -27,9 +23,7 @@ class UrlHandlerTest extends \PHPUnit\Framework\TestCase
 
         $this->assertTrue($urlHandler->supports($propertyName, $fieldType, $value, $propertyTypes));
     }
-    /**
-     * @testdox supports method returns false for invalid URL
-     */
+    #[TestDox('supports method returns false for invalid URL')]
     public function testSupportsMethodReturnsFalseForInvalidUrl(): void
     {
         $urlHandler    = new UrlHandler();
@@ -40,9 +34,7 @@ class UrlHandlerTest extends \PHPUnit\Framework\TestCase
 
         $this->assertFalse($urlHandler->supports($propertyName, $fieldType, $value, $propertyTypes));
     }
-    /**
-     * @testdox handle method sets the URL property on the schema object
-     */
+    #[TestDox('handle method sets the URL property on the schema object')]
     public function testHandleMethodSetsTheUrlPropertyOnTheSchemaObject(): void
     {
         $urlHandler   = new UrlHandler();

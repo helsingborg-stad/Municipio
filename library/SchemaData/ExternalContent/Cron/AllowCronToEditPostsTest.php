@@ -11,9 +11,7 @@ use WpService\Implementations\FakeWpService;
 
 class AllowCronToEditPostsTest extends TestCase
 {
-    /**
-     * @testdox Does not add actions if cron is not a cron request
-     */
+    #[TestDox('Does not add actions if cron is not a cron request')]
     public function testDoesNotAddActionsIfCronIsNotRunning()
     {
         $wpService = new FakeWpService(['wpDoingCron' => false]);
@@ -24,9 +22,7 @@ class AllowCronToEditPostsTest extends TestCase
         $this->assertArrayNotHasKey('addAction', $wpService->methodCalls);
     }
 
-    /**
-     * @testdox Adds actions if cron is running
-     */
+    #[TestDox('Adds actions if cron is running')]
     public function testAddsActionsIfCronIsRunning()
     {
         $wpService = new FakeWpService(['wpDoingCron' => true, 'addAction' => true]);
@@ -38,9 +34,7 @@ class AllowCronToEditPostsTest extends TestCase
         $this->assertEquals('Municipio/ExternalContent/Sync', $wpService->methodCalls['addAction'][1][0]);
     }
 
-    /**
-     * @testdox Adds capabilities with first action and removes on second
-     */
+    #[TestDox('Adds capabilities with first action and removes on second')]
     public function testAddsCapabilitiesWithFirstActionAndRemovesOnSecond()
     {
         $wpService = new FakeWpService(['wpDoingCron' => true, 'addAction' => true]);
@@ -52,9 +46,7 @@ class AllowCronToEditPostsTest extends TestCase
         $this->assertEquals('removeCapabilitiesFilter', $wpService->methodCalls['addAction'][1][1][1]);
     }
 
-    /**
-     * @testdox Second call to addAction() has higher priority than first
-     */
+    #[TestDox('Second call to addAction() has higher priority than first')]
     public function testSecondCallToAddActionHasHigherPriorityThanFirst()
     {
         $wpService = new FakeWpService(['wpDoingCron' => true, 'addAction' => true]);
@@ -65,9 +57,7 @@ class AllowCronToEditPostsTest extends TestCase
         $this->assertGreaterThan($wpService->methodCalls['addAction'][0][2], $wpService->methodCalls['addAction'][1][2]);
     }
 
-    /**
-     * @testdox allowEditPosts() returns $allcaps with edit_posts set to true if $args[0] is 'edit_posts'
-     */
+    #[TestDox('allowEditPosts() returns $allcaps with edit_posts set to true if $args[0] is \'edit_posts\'')]
     public function testAllowEditPostsReturnsAllcapsWithEditPostsSetToTrueIfArgs0IsEditPosts()
     {
         $wpService = new FakeWpService(['doingCron' => true]);

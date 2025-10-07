@@ -12,9 +12,7 @@ use WpService\Implementations\FakeWpService;
  */
 class GetStickyOptionTest extends TestCase
 {
-    /**
-     * @testdox getOptionKey returns string
-     */
+    #[TestDox('getOptionKey returns string')]
     public function testGetOptionKeyReturnsString()
     {
         $stickyPostConfig  = new StickyPostConfig();
@@ -29,9 +27,7 @@ class GetStickyOptionTest extends TestCase
         $this->assertEquals($stickyPostConfig->getOptionKeyPrefix() . '_test', $key);
     }
 
-    /**
-     * @testdox getOptionKey returns empty array
-     */
+    #[TestDox('getOptionKey returns empty array')]
     public function testGetOptionReturnsEmptyArray()
     {
         $stickyPostConfig  = new StickyPostConfig();
@@ -46,9 +42,7 @@ class GetStickyOptionTest extends TestCase
         $this->assertEquals([], $result);
     }
 
-    /**
-     * @testdox getOptionKey returns array with sticky posts
-     */
+    #[TestDox('getOptionKey returns array with sticky posts')]
     public function testGetOptionReturnsArrayWithStickyPosts()
     {
         $stickyPostConfig  = new StickyPostConfig();

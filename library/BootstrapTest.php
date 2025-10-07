@@ -6,10 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class BootstrapTest extends TestCase
 {
-    /**
-     * @testdox file can be loaded
-     * @runInSeparateProcess
-     */
+    #[TestDox('file can be loaded')]
+    #[RunInSeparateProcess]
     public function testFileCanBeLoaded()
     {
         // Required constants for including the Bootstrap file

@@ -8,9 +8,7 @@ use wpdb;
 
 class CustomizerTest extends TestCase
 {
-    /**
-     * @testdox sanitizeKirkiDefaultArrayValue converts empty string value to array if default is array
-     */
+    #[TestDox('sanitizeKirkiDefaultArrayValue converts empty string value to array if default is array')]
     public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
     {
         $wpService = new FakeWpService([

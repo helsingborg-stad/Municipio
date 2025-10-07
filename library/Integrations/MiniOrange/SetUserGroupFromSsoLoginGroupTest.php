@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class SetUserGroupFromSsoLoginGroupTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $userHelper         = $this->createMock(SetUserGroup::class);
@@ -19,9 +17,7 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
         $this->assertInstanceOf(SetUserGroupFromSsoLoginGroup::class, $setGroupAsTaxonomy);
     }
 
-    /**
-     * @testdox setUserGroupFromSsoLoginGroup() does not connect user to term if groupName is numeric
-     */
+    #[TestDox('setUserGroupFromSsoLoginGroup() does not connect user to term if groupName is numeric')]
     public function testSetUserGroupFromSsoLoginGroupDoesNotConnectUserToTermIfGroupNameIsNumeric()
     {
         $wpService  = new FakeWpService();
@@ -33,9 +29,7 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
         $this->assertArrayNotHasKey('wpSetObjectTerms', $wpService->methodCalls);
     }
 
-    /**
-     * @testdox setUserGroupFromSsoLoginGroup() does not connect user to term if groupName is empty
-     */
+    #[TestDox('setUserGroupFromSsoLoginGroup() does not connect user to term if groupName is empty')]
     public function testSetUserGroupFromSsoLoginGroupDoesNotConnectUserToTermIfGroupNameIsEmpty()
     {
         $wpService  = new FakeWpService();
@@ -47,9 +41,7 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
         $this->assertArrayNotHasKey('wpSetObjectTerms', $wpService->methodCalls);
     }
 
-    /**
-     * @testdox setUserGroupFromSsoLoginGroup() does not connect user to term if userId is 0
-     */
+    #[TestDox('setUserGroupFromSsoLoginGroup() does not connect user to term if userId is 0')]
     public function testSetUserGroupFromSsoLoginGroupDoesNotConnectUserToTermIfUserIdIsEmpty()
     {
         $wpService  = new FakeWpService();
@@ -61,9 +53,7 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
         $this->assertArrayNotHasKey('wpSetObjectTerms', $wpService->methodCalls);
     }
 
-    /**
-     * @testdox setUserGroupFromSsoLoginGroup() connects user to term
-     */
+    #[TestDox('setUserGroupFromSsoLoginGroup() connects user to term')]
     public function testSetUserGroupFromSsoLoginGroupConnectsUserToTerm()
     {
         $wpService  = new FakeWpService(['wpSetObjectTerms' => []]);

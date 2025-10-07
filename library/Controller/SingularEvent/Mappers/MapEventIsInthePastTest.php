@@ -8,27 +8,21 @@ use PHPUnit\Framework\TestCase;
 
 class MapEventIsInthePastTest extends TestCase
 {
-    /**
-     * @testdox returns true if event startDate is in the past
-     */
+    #[TestDox('returns true if event startDate is in the past')]
     public function testReturnsTrueIfEventIsInThePast()
     {
         $mapper = new MapEventIsInthePast((new DateTime())->modify('-1 day'));
         $this->assertTrue($mapper->map(Schema::event()));
     }
 
-    /**
-     * @testdox returns false if event startDate is in the future
-     */
+    #[TestDox('returns false if event startDate is in the future')]
     public function testReturnsFalseIfEventIsInTheFuture()
     {
         $mapper = new MapEventIsInthePast((new DateTime())->modify('+1 day'));
         $this->assertFalse($mapper->map(Schema::event()));
     }
 
-    /**
-     * @testdox returns false if event startDate is not a DateTime object
-     */
+    #[TestDox('returns false if event startDate is not a DateTime object')]
     public function testReturnsFalseIfEventStartDateIsNotDateTime()
     {
         $mapper = new MapEventIsInthePast();

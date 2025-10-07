@@ -8,17 +8,13 @@ use WpService\Contracts\_x;
 
 class EventStatusFromDatesTaxonomyTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $this->assertInstanceOf(EventStatusFromDatesTaxonomy::class, $this->getInstance());
     }
 
-    /**
-     * @testdox formatTermValue() returns empty string if startDate is empty
-     */
+    #[TestDox('formatTermValue() returns empty string if startDate is empty')]
     public function testFormatTermValueReturnsEmptyStringIfStartDateIsEmpty(): void
     {
         $taxonomy = $this->getInstance();
@@ -27,9 +23,7 @@ class EventStatusFromDatesTaxonomyTest extends TestCase
         $this->assertSame('', $taxonomy->formatTermValue('', ['endDate' => '2025-08-01']));
     }
 
-    /**
-     * @testdox formatTermValue() returns "Ongoing" if startDate is in the past and endDate is in the future
-     */
+    #[TestDox('formatTermValue() returns "Ongoing" if startDate is in the past and endDate is in the future')]
     public function testFormatTermValueReturnsOngoingIfStartDateIsInThePastAndEndDateIsInTheFuture(): void
     {
         $taxonomy  = $this->getInstance();
@@ -39,9 +33,7 @@ class EventStatusFromDatesTaxonomyTest extends TestCase
         $this->assertSame('Ongoing', $taxonomy->formatTermValue('2025-08-01', ['startDate' => $startDate, 'endDate' => $endDate]));
     }
 
-    /**
-     * @testdox formatTermValue() returns "Closed" if both dates are in the past
-     */
+    #[TestDox('formatTermValue() returns "Closed" if both dates are in the past')]
     public function testFormatTermValueReturnsClosedIfBothDatesAreInThePast(): void
     {
         $taxonomy  = $this->getInstance();
@@ -51,9 +43,7 @@ class EventStatusFromDatesTaxonomyTest extends TestCase
         $this->assertSame('Closed', $taxonomy->formatTermValue('2025-08-01', ['startDate' => $startDate, 'endDate' => $endDate]));
     }
 
-    /**
-     * @testdox formatTermValue() returns "Planned" if both dates are in the future
-     */
+    #[TestDox('formatTermValue() returns "Planned" if both dates are in the future')]
     public function testFormatTermValueReturnsPlannedIfBothDatesAreInTheFuture(): void
     {
         $taxonomy  = $this->getInstance();

@@ -8,18 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class RuleSetTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $ruleSet = new RuleSet($this->getArrayOfRules());
         $this->assertInstanceOf(RuleSet::class, $ruleSet);
     }
 
-    /**
-     * @testdox getRules() returns provided rules
-     */
+    #[TestDox('getRules() returns provided rules')]
     public function testGetRulesReturnsRules()
     {
         $ruleSet = new RuleSet($this->getArrayOfRules(2));

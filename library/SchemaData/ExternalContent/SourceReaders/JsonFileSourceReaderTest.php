@@ -10,17 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class JsonFileSourceReaderTest extends TestCase {
     
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated() {
         $jsonFileSourceReader = new JsonFileSourceReader('', $this->getSchemaObjectsFilterMock(), $this->getFileSystemMock(), $this->getJsonToSchemaObjectsMock());
         $this->assertInstanceOf(JsonFileSourceReader::class, $jsonFileSourceReader);
     }
 
-    /**
-     * @testdox getSourceData() returns an array
-     */
+    #[TestDox('getSourceData() returns an array')]
     public function testGetSourceDataReturnsArrayOfSchemaObjects() {
         $fileSystem = $this->getFileSystemMock();
         $fileSystem->method('fileExists')->willReturn(true);
@@ -28,9 +24,7 @@ class JsonFileSourceReaderTest extends TestCase {
         $this->assertIsArray($jsonFileSourceReader->getSourceData());
     }
 
-    /**
-     * @testdox getSourceData() transforms json to schema objects
-     */
+    #[TestDox('getSourceData() transforms json to schema objects')]
     public function testGetSourceDataReturnsArrayOfSchemaObjectsFoundInJsonFile() {
         $fileSystem = $this->getFileSystemMock();
         $fileSystem->method('fileExists')->willReturn(true);
@@ -44,9 +38,7 @@ class JsonFileSourceReaderTest extends TestCase {
         $jsonFileSourceReader->getSourceData();
     }
 
-    /**
-     * @testdox getSourceData() throws if file does not exist
-     */
+    #[TestDox('getSourceData() throws if file does not exist')]
     public function testGetSourceDataThrowsIfFileDoesNotExist() {
         $fileSystem = $this->getFileSystemMock();
         $fileSystem->method('fileExists')->willReturn(false);
@@ -56,9 +48,7 @@ class JsonFileSourceReaderTest extends TestCase {
         $jsonFileSourceReader->getSourceData();
     }
 
-    /**
-     * @testdox getSourceData() returns filtered schema objects
-     */
+    #[TestDox('getSourceData() returns filtered schema objects')]
     public function testGetSourceDataFiltersSchemaObjects() {
         $fileSystem = $this->getFileSystemMock();
         $fileSystem->method('fileExists')->willReturn(true);

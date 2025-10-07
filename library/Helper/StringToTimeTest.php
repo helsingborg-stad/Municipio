@@ -16,17 +16,13 @@ class StringToTimeTest extends TestCase
         $this->assertIsInt((new StringToTime($this->getWpServiceWithTranslatedDateStrings()))->convert($dateString));
     }
 
-    /**
-     * @testdox tryFormatDateToUnixTimestamp() returns the same int as provided
-     */
+    #[TestDox('tryFormatDateToUnixTimestamp() returns the same int as provided')]
     public function testTryFormatDateToUnixTimestampReturnsSameIntAsProvided()
     {
         $this->assertEquals(1234567890, (new StringToTime(new FakeWpService(['__' => 'string'])))->convert(1234567890));
     }
 
-    /**
-     * @testdox tryFormatDateToUnixTimestamp() returns null on invalid date string
-     */
+    #[TestDox('tryFormatDateToUnixTimestamp() returns null on invalid date string')]
     public function testTryFormatDateToUnixTimestampReturnsNullOnInvalidString()
     {
         $this->assertNull((new StringToTime(new FakeWpService(['__' => 'not a valid string'])))->convert('invalid date string'));

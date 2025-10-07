@@ -10,9 +10,7 @@ use WpService\Implementations\FakeWpService;
 
 class GetFormFieldsBySchemaPropertiesTest extends TestCase
 {
-    /**
-     * @testdox applies filter Municipio/SchemaData/SchemaProperties to schema properties
-     */
+    #[TestDox('applies filter Municipio/SchemaData/SchemaProperties to schema properties')]
     public function testAppliesFilter()
     {
         $wpService = new FakeWpService(['applyFilters' => fn($hookName, $schemaProperties) => $schemaProperties]);

@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class ArchiveTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         WpService::set(new FakeWpService(['addAction' => true]));

@@ -7,9 +7,7 @@ use WpService\Implementations\FakeWpService;
 
 class UserGroupConfigTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $userGroupConfig = new UserGroupConfig(
@@ -21,9 +19,7 @@ class UserGroupConfigTest extends TestCase
         $this->assertInstanceOf(UserGroupConfig::class, $userGroupConfig);
     }
 
-    /**
-     * @testdox isEnabled returns true
-     */
+    #[TestDox('isEnabled returns true')]
     public function testIsEnabledReturnsTrue()
     {
         $userGroupConfig = new UserGroupConfig(
@@ -35,9 +31,7 @@ class UserGroupConfigTest extends TestCase
         $this->assertTrue($userGroupConfig->isEnabled());
     }
 
-    /**
-     * @testdox getUserGroupTaxonomy() returns expected taxonomy name
-     */
+    #[TestDox('getUserGroupTaxonomy() returns expected taxonomy name')]
     public function testGetUserGroupTaxonomyReturnsExpectedTaxonomyName()
     {
         $userGroupConfig = new UserGroupConfig(

@@ -6,18 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 class NullResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanInstantiateNullResolver(): void
     {
         $resolver = new NullResolver();
         $this->assertInstanceOf(NullResolver::class, $resolver);
     }
 
-    /**
-     * @testdox resolver returns null
-     */
+    #[TestDox('resolver returns null')]
     public function testResolveReturnsNull(): void
     {
         $resolver = new NullResolver();

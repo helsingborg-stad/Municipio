@@ -12,18 +12,14 @@ use WpService\Implementations\FakeWpService;
 
 class PostObjectWithSchemaObjectTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $decorator = new PostObjectWithSchemaObject($this->getPostObject(), $this->getSchemaObjectFromPostInstance());
         $this->assertInstanceOf(PostObjectWithSchemaObject::class, $decorator);
     }
 
-    /**
-     * @testdox apply() method applies schema object to post
-     */
+    #[TestDox('apply() method applies schema object to post')]
     public function testApplyMethodAppliesSchemaObjectToPost()
     {
         $schemaObject         = Schema::thing()->name('Foo');
@@ -38,9 +34,7 @@ class PostObjectWithSchemaObjectTest extends TestCase
         $this->assertSame('Foo', $postObject->getSchemaProperty('name'));
     }
 
-    /**
-     * @testdox caches schema object per post ID
-     */
+    #[TestDox('caches schema object per post ID')]
     public function testCachesSchemaObjectPerPostId()
     {
         // Arrange
@@ -58,9 +52,7 @@ class PostObjectWithSchemaObjectTest extends TestCase
         $postObject->getSchemaProperty('name');
     }
 
-    /**
-     * @testdox getSchema() returns the schema object
-     */
+    #[TestDox('getSchema() returns the schema object')]
     public function testGetSchemaReturnsTheSchemaObject()
     {
         // Arrange

@@ -7,9 +7,7 @@ use Municipio\Schema\BaseType;
 
 class WpPostArgsFromSchemaObjectTest extends TestCase
 {
-    /**
-     * @testdox array is created with title
-     */
+    #[TestDox('array is created with title')]
     public function testCreate()
     {
         $schemaObject  = $this->getBaseTypeInstance([ 'name' => 'Title' ]);
@@ -20,9 +18,7 @@ class WpPostArgsFromSchemaObjectTest extends TestCase
         $this->assertEquals('Title', $wpPost['post_title']);
     }
 
-    /**
-     * @testdox WP_Post is created with post_status publish
-     */
+    #[TestDox('WP_Post is created with post_status publish')]
     public function testCreateWithPublishStatus()
     {
         $schemaObject  = $this->getBaseTypeInstance();

@@ -7,9 +7,7 @@ use Municipio\Schema\BaseType;
 
 class OriginIdDecoratorTest extends TestCase
 {
-    /**
-     * @testdox returns an array with the @id from the schemaObject as originId
-     */
+    #[TestDox('returns an array with the @id from the schemaObject as originId')]
     public function testCreate()
     {
         $schemaObject = $this->getSchemaObject();

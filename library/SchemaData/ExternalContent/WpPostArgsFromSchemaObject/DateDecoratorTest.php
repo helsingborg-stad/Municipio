@@ -8,9 +8,7 @@ use Municipio\Schema\BaseType;
 
 class DateDecoratorTest extends TestCase
 {
-    /**
-     * @testdox Sets post_date and post_modified to datePublished and dateModified from schemaObject
-     */
+    #[TestDox('Sets post_date and post_modified to datePublished and dateModified from schemaObject')]
     public function testCreate()
     {
         $schemaObject = $this->getBaseTypeInstance([

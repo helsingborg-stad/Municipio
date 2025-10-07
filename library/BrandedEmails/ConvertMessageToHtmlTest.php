@@ -8,9 +8,7 @@ use WpService\Contracts\Wpautop;
 
 class ConvertMessageToHtmlTest extends TestCase
 {
-    /**
-     * @testdox applies autop to message
-     */
+    #[TestDox('applies autop to message')]
     public function testConvertMessageToHtml(): void
     {
         $convert = new ConvertMessageToHtml($this->getWpService());

@@ -7,19 +7,15 @@ use PHPUnit\Framework\TestCase;
 
 class CachedIconResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $resolver = new CachedIconResolver($this->createMock(PostObjectInterface::class), $this->createMock(IconResolverInterface::class));
         $this->assertInstanceOf(CachedIconResolver::class, $resolver);
     }
 
-    /**
-     * @testdox resolve() caches result from inner resolver
-     * @runInSeparateProcess
-     */
+    #[TestDox('resolve() caches result from inner resolver')]
+    #[RunInSeparateProcess]
     public function testResolveCachesResultFromInnerResolver()
     {
         $postObject = $this->createMock(PostObjectInterface::class);

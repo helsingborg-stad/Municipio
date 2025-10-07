@@ -7,18 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class SourceConfigWithUniqueIdTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $sourceConfig = new SourceConfigWithUniqueId($this->getInnerSourceConfigMock());
         $this->assertInstanceOf(SourceConfigWithUniqueId::class, $sourceConfig);
     }
 
-    /**
-     * @testdox getId() always returns unique id
-     */
+    #[TestDox('getId() always returns unique id')]
     public function testGetId()
     {
         $innerSourceConfig = $this->getInnerSourceConfigMock();
@@ -33,9 +29,7 @@ class SourceConfigWithUniqueIdTest extends TestCase
         $this->assertNotSame($sourceConfigTwo->getId(), $sourceConfigThree->getId());
     }
 
-    /**
-     * @testdox getId() returns same id for same instance
-     */
+    #[TestDox('getId() returns same id for same instance')]
     public function testGetIdReturnsSameIdForSameInstance()
     {
         $innerSourceConfig = $this->getInnerSourceConfigMock();

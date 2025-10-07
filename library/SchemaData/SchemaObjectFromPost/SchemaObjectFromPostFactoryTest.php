@@ -10,17 +10,13 @@ use WpService\Implementations\FakeWpService;
 
 class SchemaObjectFromPostFactoryTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(SchemaObjectFromPostFactory::class, $this->getSUT());
     }
 
-    /**
-     * @testdox create() returns an instance of SchemaObjectFromPostInterface
-     */
+    #[TestDox('create() returns an instance of SchemaObjectFromPostInterface')]
     public function testCreateReturnsInstanceOfSchemaObjectFromPostInterface()
     {
         $this->assertInstanceOf(SchemaObjectFromPostInterface::class, $this->getSUT()->create());

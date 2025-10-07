@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CachedArchiveDateSourceResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
@@ -21,9 +19,7 @@ class CachedArchiveDateSourceResolverTest extends TestCase
         );
     }
 
-    /**
-     * @testdox resolve() caches result from inner resolver
-     */
+    #[TestDox('resolve() caches result from inner resolver')]
     public function testResolveCachesResultFromInnerResolver()
     {
         $postObject = $this->createMock(PostObjectInterface::class);

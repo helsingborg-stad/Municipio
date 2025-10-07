@@ -33,9 +33,7 @@ class RegisterTest extends TestCase
         return $mock;
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $sut = new Register(
@@ -53,9 +51,7 @@ class RegisterTest extends TestCase
         return $this->createMock(PostObjectFromWpPostFactoryInterface::class);
     }
 
-    /**
-     * @testdox addHooks adds action to current_screen
-     */
+    #[TestDox('addHooks adds action to current_screen')]
     public function testAddHooksAddsAction()
     {
         $wpService = new FakeWpService(['addAction' => true]);
@@ -72,9 +68,7 @@ class RegisterTest extends TestCase
         $this->assertEquals('current_screen', $wpService->methodCalls['addAction'][0][0]);
     }
 
-    /**
-     * @testdox register does not call addLocalFieldGroup if shouldRegisterForm returns false
-     */
+    #[TestDox('register does not call addLocalFieldGroup if shouldRegisterForm returns false')]
     public function testRegisterDoesNotCallAddLocalFieldGroupIfShouldRegisterFormFalse()
     {
         $acfService = $this->getAcfService();
@@ -93,9 +87,7 @@ class RegisterTest extends TestCase
         $sut->register();
     }
 
-    /**
-     * @testdox register calls addLocalFieldGroup if shouldRegisterForm returns true
-     */
+    #[TestDox('register calls addLocalFieldGroup if shouldRegisterForm returns true')]
     public function testRegisterCallsAddLocalFieldGroupIfShouldRegisterFormTrue()
     {
         $acfService = $this->getAcfService();

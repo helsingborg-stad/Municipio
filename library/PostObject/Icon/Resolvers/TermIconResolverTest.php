@@ -12,9 +12,7 @@ use WpService\Implementations\FakeWpService;
 
 class TermIconResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
@@ -26,9 +24,7 @@ class TermIconResolverTest extends TestCase
         $this->assertInstanceOf(TermIconResolver::class, $resolver);
     }
 
-    /**
-     * @testdox resolve() calls inner resolver if postObject post type has no taxonomies
-     */
+    #[TestDox('resolve() calls inner resolver if postObject post type has no taxonomies')]
     public function testResolveCallsInnerResolverIfPostObjectPostTypeHasNoTaxonomies()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
@@ -41,9 +37,7 @@ class TermIconResolverTest extends TestCase
         $resolver->resolve();
     }
 
-    /**
-     * @testdox resolve() calls inner resolver if postObject has terms
-     */
+    #[TestDox('resolve() calls inner resolver if postObject has terms')]
     public function testResolveCallsInnerResolverIfPostObjectHasTerms()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
@@ -58,9 +52,7 @@ class TermIconResolverTest extends TestCase
         $resolver->resolve();
     }
 
-    /**
-     * @testdox resolve() calls inner resolver if term has no icon
-     */
+    #[TestDox('resolve() calls inner resolver if term has no icon')]
     public function testResolveReturnsNullIfTermHasNoIcon()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
@@ -77,9 +69,7 @@ class TermIconResolverTest extends TestCase
         $resolver->resolve();
     }
 
-    /**
-     * @testdox resolve() returns an IconInterface if postObject term has an icon
-     */
+    #[TestDox('resolve() returns an IconInterface if postObject term has an icon')]
     public function testResolveReturnsIconInterfaceIfTermHasIcon()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
@@ -101,9 +91,7 @@ class TermIconResolverTest extends TestCase
         $this->assertInstanceOf(IconInterface::class, $resolver->resolve());
     }
 
-    /**
-     * @testdox resolve() returns an IconInterface with correct values
-     */
+    #[TestDox('resolve() returns an IconInterface with correct values')]
     public function testResolveReturnsIconInterfaceWithCorrectValues()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);

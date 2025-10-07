@@ -6,18 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 class IconTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $icon = new Icon();
         $this->assertInstanceOf(Icon::class, $icon);
     }
 
-    /**
-     * @testdox allows setting properties from factory method
-     */
+    #[TestDox('allows setting properties from factory method')]
     public function testAllowsSettingPropertiesFromFactoryMethod()
     {
         $icon = Icon::create([

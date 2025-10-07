@@ -10,9 +10,7 @@ use WpService\Implementations\FakeWpService;
 
 class SetupCronJobsOnConfigChangeTest extends TestCase
 {
-    /**
-     * @testdox Calls setupCronJobs on config change
-     */
+    #[TestDox('Calls setupCronJobs on config change')]
     public function testAddHooks()
     {
         $wpService = new FakeWpService(['addAction' => true]);
@@ -24,9 +22,7 @@ class SetupCronJobsOnConfigChangeTest extends TestCase
         $this->assertEquals([$sut, 'setupCronJobs'], $wpService->methodCalls['addAction'][0][1]);
     }
 
-    /**
-     * @testdox Converts post type settings from config to cron jobs
-     */
+    #[TestDox('Converts post type settings from config to cron jobs')]
     public function testSetupCronJobs()
     {
         $wpService = new FakeWpService();

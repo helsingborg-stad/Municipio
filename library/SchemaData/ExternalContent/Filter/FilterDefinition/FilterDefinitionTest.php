@@ -7,18 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class FilterDefinitionTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $filterDefinition = new FilterDefinition($this->getArrayOfRuleSets());
         $this->assertInstanceOf(FilterDefinition::class, $filterDefinition);
     }
 
-    /**
-     * @testdox getRuleSets() returns provided ruleSets
-     */
+    #[TestDox('getRuleSets() returns provided ruleSets')]
     public function testGetRuleSetsReturnsRuleSets()
     {
         $ruleSets         = $this->getArrayOfRuleSets(2);

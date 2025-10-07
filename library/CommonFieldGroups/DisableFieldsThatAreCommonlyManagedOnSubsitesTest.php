@@ -78,17 +78,13 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
         );
     }
 
-    /**
-     * @testdox It should register the disableFieldGroups action on addHooks.
-     */
+    #[TestDox('It should register the disableFieldGroups action on addHooks.')]
     public function testAddHooks(): void
     {
         $this->instance->addHooks();
     }
 
-    /**
-     * @testdox It should disable field groups that are commonly managed on subsites.
-     */
+    #[TestDox('It should disable field groups that are commonly managed on subsites.')]
     public function testProcessFieldAddsNoticeForGroup(): void
     {
         $field  = ['parent' => 'group_1', 'id' => 'field_1'];
@@ -98,9 +94,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
         $this->assertEquals('acf_disabled_field', $result['_name']);
     }
 
-    /**
-     * @testdox It should return the field for an unmatched group.
-     */
+    #[TestDox('It should return the field for an unmatched group.')]
     public function testProcessFieldReturnsFieldForUnmatchedGroup(): void
     {
         $field  = ['parent' => 'group_2', 'id' => 'field_1'];
@@ -108,30 +102,4 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
 
         $this->assertEquals($field, $result);
     }
-
-    /**
-     * @testdox It should return a base site url when generating the notices
-     */
-    /*public function testProcessFieldReturnsNoticeWithCorrectUrl(): void
-    {
-        $field  = ['parent' => 'group_1', 'id' => 'field_1'];
-        $result = $this->instance->processField($field, 'group_1');
-
-        $this->assertStringContainsString('https://example.com/site-1', $result['message']);
-    }*/
-
-    /**
-     * @testdox It should return a base site url including query parameters when generating the notices
-     */
-    /*public function testProcessFieldReturnsNoticeWithCorrectUrlAndQueryParameters(): void
-    {
-        $_SERVER['PHP_SELF'] = '/wp-admin/post.php';
-        $_GET                = ['utm_source' => 'acf_field_notice', 'action' => 'edit'];
-
-        $field  = ['parent' => 'group_1', 'id' => 'field_1'];
-        $result = $this->instance->processField($field, 'group_1');
-
-        $this->assertStringContainsString('https://example.com/site-1', $result['message']);
-        $this->assertStringContainsString('utm_source=acf_field_notice', $result['message']);
-    }*/
 }

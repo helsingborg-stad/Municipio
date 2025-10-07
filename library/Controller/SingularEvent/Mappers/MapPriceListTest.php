@@ -9,9 +9,7 @@ use WpService\Contracts\__;
 
 class MapPriceListTest extends TestCase
 {
-    /**
-     * @testdox returns an empty array when no price list is set
-     */
+    #[TestDox('returns an empty array when no price list is set')]
     public function testReturnsEmptyArrayWhenNoPriceListIsSet()
     {
         $mapper = new MapPriceList($this->getWpService());
@@ -22,9 +20,7 @@ class MapPriceListTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    /**
-     * @testdox returns an array of PriceListItemInterface from offers
-     */
+    #[TestDox('returns an array of PriceListItemInterface from offers')]
     public function testReturnsArrayOfPriceListItemInterfaceWhenPriceListIsSet()
     {
         $mapper = new MapPriceList($this->getWpService());

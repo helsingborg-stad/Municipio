@@ -9,9 +9,7 @@ use WpService\Implementations\FakeWpService;
 
 class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $userHelper = $this->createMock(User::class);
@@ -19,9 +17,7 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
         $this->assertInstanceOf(RedirectToUserGroupUrlAfterSsoLogin::class, $sut);
     }
 
-    /**
-     * @testdox addHooks() adds a filter to the redirect URL
-     */
+    #[TestDox('addHooks() adds a filter to the redirect URL')]
     public function testAddHooksAddsFilterToRedirectUrl()
     {
         $userHelper = $this->createMock(User::class);
@@ -36,9 +32,7 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
         );
     }
 
-    /**
-     * @testdox getRedirectUrl() returns the URL from GetUserGroupUrl
-     */
+    #[TestDox('getRedirectUrl() returns the URL from GetUserGroupUrl')]
     public function testGetRedirectUrlReturnsUrlFromGetUserGroupUrl()
     {
         $userHelper = $this->createMock(User::class);
@@ -47,9 +41,7 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
         $this->assertEquals('http://example.org', $sut->getRedirectUrl('http://example.org'));
     }
 
-    /**
-     * @testdox getRedirectUrl() returns the original URL if GetUserGroupUrl returns null
-     */
+    #[TestDox('getRedirectUrl() returns the original URL if GetUserGroupUrl returns null')]
     public function testGetRedirectUrlReturnsOriginalUrlIfGetUserGroupUrlReturnsNull()
     {
         $userHelper = $this->createMock(User::class);

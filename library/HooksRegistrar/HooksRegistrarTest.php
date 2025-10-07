@@ -6,9 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class HooksRegistrarTest extends TestCase
 {
-    /**
-     * @testdox register() calls addHooks() on provided object
-     */
+    #[TestDox('register() calls addHooks() on provided object')]
     public function testRegisterCallsAddHooksOnProvidedObject()
     {
         $hookable       = $this->getHookableClass();

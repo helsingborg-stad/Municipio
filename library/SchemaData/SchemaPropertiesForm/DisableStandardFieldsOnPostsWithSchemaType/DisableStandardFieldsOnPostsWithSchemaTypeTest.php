@@ -36,18 +36,14 @@ class DisableStandardFieldsOnPostsWithSchemaTypeTest extends TestCase
         );
     }
 
-    /**
-     * @testdox addHooks registers the action 'registered_post_type'
-     */
+    #[TestDox('addHooks registers the action \'registered_post_type\'')]
     public function testAddHooksRegistersAction()
     {
         $this->instance->addHooks();
         $this->assertEquals('registered_post_type', $this->wpService->methodCalls['addAction'][0][0]);
     }
 
-    /**
-     * @testdox disableStandardFields re-registers post type with given features disabled
-     */
+    #[TestDox('disableStandardFields re-registers post type with given features disabled')]
     public function testDisableStandardFieldsReRegistersPostTypeWithDisabledFeatures()
     {
         global $_wp_post_type_features;
@@ -64,9 +60,7 @@ class DisableStandardFieldsOnPostsWithSchemaTypeTest extends TestCase
         $this->assertContains('title', $this->wpService->methodCalls['registerPostType'][0][1]['supports']);
     }
 
-    /**
-     * @testdox disableStandardFields does not re-register post type if schema type does not match
-     */
+    #[TestDox('disableStandardFields does not re-register post type if schema type does not match')]
     public function testDisableStandardFieldsDoesNotReRegistersPostTypeIfSchemaTypeDoesNotMatch()
     {
         global $_wp_post_type_features;

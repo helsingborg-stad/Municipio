@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class HideSyncedMediaFromAdminMediaLibraryTest extends TestCase
 {
-    /**
-     * @testdox modifies query if is admin and query is for attachments
-     */
+    #[TestDox('modifies query if is admin and query is for attachments')]
     public function testPreGetPostsModifiesQueryIfIsAdminAndQueryIsForAttachments()
     {
         $metaKey = 'some-meta-key';

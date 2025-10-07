@@ -9,26 +9,20 @@ use WpService\Implementations\FakeWpService;
 
 class SourceConfigFactoryTest extends TestCase
 {
-    /**
-     * @testdox Class exists
-     */
+    #[TestDox('Class exists')]
     public function testClassExists()
     {
         $this->assertTrue(class_exists('Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory'));
     }
 
-    /**
-     * @testdox create returns an array
-     */
+    #[TestDox('create returns an array')]
     public function testCreateReturnsAnArray()
     {
         $factory = new SourceConfigFactory($this->getSchemaDataConfig(), new FakeWpService());
         $this->assertIsArray($factory->create());
     }
 
-    /**
-     * @testdox ACF json file exists
-     */
+    #[TestDox('ACF json file exists')]
     public function testAcfConfig()
     {
         $acfJsonFile = __DIR__ . '/../../../AcfFields/json/external-content-settings.json';
@@ -36,9 +30,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertFileExists($acfJsonFile);
     }
 
-    /**
-     * @testdox ACF json file contains repeater field with expected name
-     */
+    #[TestDox('ACF json file contains repeater field with expected name')]
     public function testAcfConfigContainsRepeaterField()
     {
         $json = $this->getAcfFields();
@@ -49,9 +41,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals('repeater', $fields[0]['type']);
     }
 
-    /**
-     * @testdox ACF json repeater field contains expected sub fields
-     */
+    #[TestDox('ACF json repeater field contains expected sub fields')]
     public function testAcfConfigContainsExpectedSubFields()
     {
         $json = $this->getAcfFields();
@@ -72,9 +62,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertContains('rules', $subFieldNames);
     }
 
-    /**
-     * @testdox create returns an empty array if no rows are found
-     */
+    #[TestDox('create returns an empty array if no rows are found')]
     public function testCreateReturnsAnEmptyArrayIfNoRowsAreFound()
     {
         $getOption = fn($option, $default) => $option === 'external_content_sources' ? '0' : $default;
@@ -84,9 +72,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEmpty($factory->create());
     }
 
-    /**
-     * @testdox expected options are fetched
-     */
+    #[TestDox('expected options are fetched')]
     public function testExpectedOptionsAreFetched()
     {
         $getOption  = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
@@ -117,9 +103,7 @@ class SourceConfigFactoryTest extends TestCase
         ], $wpService->methodCalls['getOptions'][1][0]);
     }
 
-    /**
-     * @testdox array of SourceConfigInterface objects are returned
-     */
+    #[TestDox('array of SourceConfigInterface objects are returned')]
     public function testReturnsExpectedSourceConfigObjects()
     {
         $getOption = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
@@ -141,9 +125,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals('test_value', $sourceConfigs[0]->getFilterDefinition()->getRuleSets()[0]->getRules()[0]->getValue());
     }
 
-    /**
-     * @testdox returned $sourceConfig contains schema type
-     */
+    #[TestDox('returned $sourceConfig contains schema type')]
     public function testReturnedSourceConfigContainsSchemaType()
     {
         $getOption  = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;

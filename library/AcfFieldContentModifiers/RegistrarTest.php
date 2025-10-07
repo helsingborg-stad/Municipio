@@ -7,9 +7,7 @@ use WpService\Implementations\FakeWpService;
 
 class RegistrarTest extends TestCase
 {
-    /**
-     * @testdox Adds prepare_field filter for field key.
-     */
+    #[TestDox('Adds prepare_field filter for field key.')]
     public function testRegisterModifier()
     {
         $modifier  = $this->getFakeModifier();
@@ -21,9 +19,7 @@ class RegistrarTest extends TestCase
         $this->assertEquals('acf/prepare_field/key=field_123', $wpService->methodCalls['addFilter'][0][0]);
     }
 
-    /**
-     * @testdox Filter callback applies modifier to field.
-     */
+    #[TestDox('Filter callback applies modifier to field.')]
     public function testApplyModifier()
     {
         $modifier  = $this->getFakeModifier();
@@ -37,9 +33,7 @@ class RegistrarTest extends TestCase
         $this->assertEquals(1, $modifier->modifyFieldContentCalls);
     }
 
-    /**
-     * @testdox Does not apply modifier when on field group edit screen.
-     */
+    #[TestDox('Does not apply modifier when on field group edit screen.')]
     public function testApplyModifierOnFieldGroupEditScreen()
     {
         $modifier  = $this->getFakeModifier();

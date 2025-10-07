@@ -9,9 +9,7 @@ use WpService\Implementations\FakeWpService;
 
 class TocPostObjectTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -23,9 +21,7 @@ class TocPostObjectTest extends TestCase
         $this->assertInstanceOf(TocPostObject::class, $tocPostObject);
     }
 
-    /**
-     * @testdox getTableOfContents returns TOC data from utils
-     */
+    #[TestDox('getTableOfContents returns TOC data from utils')]
     public function testGetTableOfContentsReturnsTocDataFromUtils(): void
     {
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
@@ -44,9 +40,7 @@ class TocPostObjectTest extends TestCase
         $this->assertEquals($expectedToc, $result);
     }
 
-    /**
-     * @testdox hasTableOfContents returns true when TOC exists
-     */
+    #[TestDox('hasTableOfContents returns true when TOC exists')]
     public function testHasTableOfContentsReturnsTrueWhenTocExists(): void
     {
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
@@ -65,9 +59,7 @@ class TocPostObjectTest extends TestCase
         $this->assertTrue($result);
     }
 
-    /**
-     * @testdox hasTableOfContents returns false when no TOC exists
-     */
+    #[TestDox('hasTableOfContents returns false when no TOC exists')]
     public function testHasTableOfContentsReturnsFalseWhenNoTocExists(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -84,9 +76,7 @@ class TocPostObjectTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @testdox getContentHeadings returns same data as getTableOfContents
-     */
+    #[TestDox('getContentHeadings returns same data as getTableOfContents')]
     public function testGetContentHeadingsReturnsSameDataAsGetTableOfContents(): void
     {
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];

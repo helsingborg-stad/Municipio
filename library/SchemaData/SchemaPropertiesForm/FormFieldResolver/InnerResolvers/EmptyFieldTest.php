@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class EmptyFieldTest extends TestCase
 {
-    /**
-     * @testdox resolve() returns an empty array
-     */
+    #[TestDox('resolve() returns an empty array')]
     public function testResolveReturnsEmptyArray()
     {
         $emptyField = new EmptyField();

@@ -9,9 +9,7 @@ use WpService\Implementations\FakeWpService;
 
 class PostObjectFromWpPostTest extends TestCase
 {
-    /**
-     * @testdox getContent() returns content from WP_Post->post_content
-     */
+    #[TestDox('getContent() returns content from WP_Post->post_content')]
     public function testGetContentReturnsContentFromWpPostPostContent()
     {
         $wpPost               = new WP_Post([]);
@@ -21,9 +19,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals('Content', $instance->getContent());
     }
 
-    /**
-     * @testdox Get comment count returns amount of comments
-     */
+    #[TestDox('Get comment count returns amount of comments')]
     public function testGetCommentCountReturnsAmountOfComments()
     {
         $wpService  = new FakeWpService(['getCommentCount' => ['approved' => 2]]);
@@ -37,9 +33,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals(2, $result);
     }
 
-    /**
-     * @testdox getPermalink() returns permalink
-     */
+    #[TestDox('getPermalink() returns permalink')]
     public function testGetPermalinkReturnsPermalink()
     {
         $wpService  = new FakeWpService(['getPermalink' => 'http://example.com']);
@@ -53,9 +47,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals('http://example.com', $result);
     }
 
-    /**
-     * @testdox getTitle() returns title
-     */
+    #[TestDox('getTitle() returns title')]
     public function testGetTitleReturnsTitle()
     {
         $wpPost             = new WP_Post([]);
@@ -65,9 +57,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals('Title', $instance->getTitle());
     }
 
-    /**
-     * @testdox getPostType returns post type
-     */
+    #[TestDox('getPostType returns post type')]
     public function testGetPostTypeReturnsPostType()
     {
         $wpPost            = new WP_Post([]);
@@ -77,9 +67,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals('post', $instance->getPostType());
     }
 
-    /**
-     * @testdox getPublishedTime returns timestamp from the WP_Post->post_date
-     */
+    #[TestDox('getPublishedTime returns timestamp from the WP_Post->post_date')]
     public function testGetPublishedTimeReturnsTimestampFromTheWpPostPostDate()
     {
         $dateTimeString    = date('Y-m-d H:i:s', $now = time());
@@ -90,9 +78,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals($now, $instance->getPublishedTime());
     }
 
-    /**
-     * @testdox getPublishedTime returns gmt timestamp from the WP_Post->post_date_gmt
-     */
+    #[TestDox('getPublishedTime returns gmt timestamp from the WP_Post->post_date_gmt')]
     public function testGetPublishedTimeReturnsGmtTimestampFromTheWpPostPostDateGmt()
     {
         $dateTimeString        = date('Y-m-d H:i:s', $now = time());
@@ -103,9 +89,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals($now, $instance->getPublishedTime(true));
     }
 
-    /**
-     * @testdox getModifiedTime returns timestamp from the WP_Post->post_modified
-     */
+    #[TestDox('getModifiedTime returns timestamp from the WP_Post->post_modified')]
     public function testGetModifiedTimeReturnsTimestampFromTheWpPostPostModified()
     {
         $dateTimeString        = date('Y-m-d H:i:s', $now = time());
@@ -116,9 +100,7 @@ class PostObjectFromWpPostTest extends TestCase
         $this->assertEquals($now, $instance->getModifiedTime());
     }
 
-    /**
-     * @testdox getModifiedTime returns gmt timestamp from the WP_Post->post_modified_gmt
-     */
+    #[TestDox('getModifiedTime returns gmt timestamp from the WP_Post->post_modified_gmt')]
     public function testGetModifiedTimeReturnsGmtTimestampFromTheWpPostPostModifiedGmt()
     {
         $dateTimeString            = date('Y-m-d H:i:s', $now = time());

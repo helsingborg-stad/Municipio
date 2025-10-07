@@ -13,9 +13,7 @@ class DateHandlerTest extends TestCase
         $this->assertInstanceOf(DateHandler::class, $handler);
     }
 
-    /**
-     * @testdox supports() returns true for date_picker field type and valid DateTimeInterface value
-     */
+    #[TestDox('supports() returns true for date_picker field type and valid DateTimeInterface value')]
     public function testSupportsReturnsTrueForDatePickerFieldTypeAndValidDateTimeInterfaceValue(): void
     {
         $handler = new DateHandler();
@@ -48,9 +46,7 @@ class DateHandlerTest extends TestCase
         ];
     }
 
-    /**
-     * @testdox handle() sets the property on the schema object
-     */
+    #[TestDox('handle() sets the property on the schema object')]
     public function testHandleSetsPropertyOnSchemaObject(): void
     {
         $handler      = new DateHandler();

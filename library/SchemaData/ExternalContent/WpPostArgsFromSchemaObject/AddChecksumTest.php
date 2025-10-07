@@ -7,9 +7,7 @@ use Municipio\Schema\Thing;
 
 class AddChecksumTest extends TestCase
 {
-    /**
-     * @testdox Checksum is applied as meta input
-     */
+    #[TestDox('Checksum is applied as meta input')]
     public function testAppliesChecksum()
     {
         $schemaObject = new Thing();

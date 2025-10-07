@@ -84,17 +84,13 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
         $this->instance = new PopulateCommonFieldGroupSelect($this->wpService, $this->acfService, $this->config);
     }
 
-    /**
-     * @testdox It should register the populateFieldGroupSelect filter on addHooks.
-     */
+    #[TestDox('It should register the populateFieldGroupSelect filter on addHooks.')]
     public function testAddHooks(): void
     {
         $this->instance->addHooks();
     }
 
-    /**
-     * @testdox It should populate the field group select field with choices from option pages.
-     */
+    #[TestDox('It should populate the field group select field with choices from option pages.')]
     public function testPopulateFieldGroupSelect(): void
     {
         $field = ['choices' => []];
@@ -106,9 +102,7 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
         $this->assertArrayNotHasKey('group_2', $result['choices']);
     }
 
-    /**
-     * @testdox It should correctly filter field groups connected to options pages.
-     */
+    #[TestDox('It should correctly filter field groups connected to options pages.')]
     public function testFilterOptionPages(): void
     {
         $fieldGroupWithOptionPage = [

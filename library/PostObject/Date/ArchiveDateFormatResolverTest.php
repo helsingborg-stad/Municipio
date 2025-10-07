@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class ArchiveDateFormatResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
@@ -19,9 +17,7 @@ class ArchiveDateFormatResolverTest extends TestCase
         );
     }
 
-    /**
-     * @testdox resolve() returns archive post date setting
-     */
+    #[TestDox('resolve() returns archive post date setting')]
     public function testResolveReturnsFoundArchiveSetting()
     {
         $postObject = $this->createMock(PostObjectInterface::class);

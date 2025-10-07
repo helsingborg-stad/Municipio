@@ -17,18 +17,14 @@ class FactoryTest extends TestCase
         parent::setUp();
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $factory = new Factory($this->getSourceConfig(), new FakeWpService());
         $this->assertInstanceOf(Factory::class, $factory);
     }
 
-    /**
-     * @testdox create() returns a WpPostArgsFromSchemaObjectInterface
-     */
+    #[TestDox('create() returns a WpPostArgsFromSchemaObjectInterface')]
     public function testCreateReturnsAWpPostArgsFromSchemaObjectInterface()
     {
         $factory = new Factory($this->getSourceConfig(), new FakeWpService());

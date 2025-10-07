@@ -8,9 +8,7 @@ use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\SchemaSanitizer\Sch
 use PHPUnit\Framework\TestCase;
 
 class JsonConverterWithSanitizedPropertiesTest extends TestCase {
-    /**
-     * @testdox applies sanitizer to result of inner converter
-     */
+    #[TestDox('applies sanitizer to result of inner converter')]
     public function testAppliesSanitizerToResultOfInnerConverter(): void {
         $inner = new class implements JsonToSchemaObjectsInterface {
             public function transform(string $json): array

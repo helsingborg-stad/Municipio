@@ -13,9 +13,7 @@ use WpService\Contracts\GetPost;
 use WpService\Contracts\IsSingle;
 
 class OutputPostSchemaJsonInSingleHeadTest extends TestCase {
-    /**
-     * @testdox Runs print on wp_head hook.
-     */
+    #[TestDox('Runs print on wp_head hook.')]
     public function testHooks(): void {
         $wpService = $this->getWpService();
         $outputPostSchemaJsonInSingleHead = new OutputPostSchemaJsonInSingleHead($this->getSchemaObjectFromPost(), $wpService);

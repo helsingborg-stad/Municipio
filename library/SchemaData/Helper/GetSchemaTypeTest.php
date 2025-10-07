@@ -8,18 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class GetSchemaTypeTest extends TestCase
 {
-    /**
-     * @testdox getSchemaTypesInUse() throws an exception if the AcfService is not set.
-     */
+    #[TestDox('getSchemaTypesInUse() throws an exception if the AcfService is not set.')]
     public function testGetSchemaTypesInUseThrowsExceptionIfAcfServiceNotSet()
     {
         $this->expectException(\Exception::class);
         GetSchemaType::getSchemaTypesInUse();
     }
 
-    /**
-     * @testdox getSchemaTypesInUse() does not throw if the AcfService is set.
-     */
+    #[TestDox('getSchemaTypesInUse() does not throw if the AcfService is set.')]
     public function testGetSchemaTypesInUseDoesNotThrowIfAcfServiceSet()
     {
         GetSchemaType::setAcfService(new FakeAcfService());
@@ -28,9 +24,7 @@ class GetSchemaTypeTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @testdox getPostTypesFromSchemaType() returns an array of post types associated with the given schema type.
-     */
+    #[TestDox('getPostTypesFromSchemaType() returns an array of post types associated with the given schema type.')]
     public function testGetPostTypesFromSchemaType()
     {
         GetSchemaType::setAcfService(new FakeAcfService(['getField' => function ($key, $postId) {

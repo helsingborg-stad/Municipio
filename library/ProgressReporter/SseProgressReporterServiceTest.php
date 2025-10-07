@@ -9,18 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class SseProgressReporterServiceTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
         $this->assertInstanceOf(SseProgressReporterService::class, $service);
     }
 
-    /**
-     * @testdox start() method sets headers
-     */
+    #[TestDox('start() method sets headers')]
     public function testStartMethodSetsHeaders()
     {
         $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
@@ -32,9 +28,7 @@ class SseProgressReporterServiceTest extends TestCase
         $service->start();
     }
 
-    /**
-     * @testdox start() method sends start event
-     */
+    #[TestDox('start() method sends start event')]
     public function testStartMethodSendsStartEvent()
     {
         $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
@@ -44,9 +38,7 @@ class SseProgressReporterServiceTest extends TestCase
         $service->start();
     }
 
-    /**
-     * @testdox setMessage() method sends message event
-     */
+    #[TestDox('setMessage() method sends message event')]
     public function testSetMessageMethodSendsMessageEvent()
     {
         $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());

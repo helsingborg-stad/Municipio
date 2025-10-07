@@ -13,9 +13,7 @@ use WpService\Implementations\FakeWpService;
 
 class UserTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $user = new User(
@@ -30,9 +28,7 @@ class UserTest extends TestCase
         $this->assertInstanceOf(User::class, $user);
     }
 
-    /**
-     * @testdox getUser() returns same user as provided if user of type WP_User is provided and ID is not than 0
-     */
+    #[TestDox('getUser() returns same user as provided if user of type WP_User is provided and ID is not than 0')]
     public function testGetUserReturnsSameUserAsProvidedIfUserOfTypeWPUserIsProvidedAndIdIsNotThan0()
     {
         $user = new User(
@@ -50,9 +46,7 @@ class UserTest extends TestCase
         $this->assertEquals($wpUser, $user->getUser($wpUser));
     }
 
-    /**
-     * @testdox getUser() returns null if user of type WP_User is provided and ID is 0
-     */
+    #[TestDox('getUser() returns null if user of type WP_User is provided and ID is 0')]
     public function testGetUserReturnsNullIfUserOfTypeWPUserIsProvidedAndIdIs0()
     {
         $user = new User(
@@ -70,9 +64,7 @@ class UserTest extends TestCase
         $this->assertNull($user->getUser($wpUser));
     }
 
-    /**
-     * @testdox getUser() returns current user if no user is provided and user is logged in
-     */
+    #[TestDox('getUser() returns current user if no user is provided and user is logged in')]
     public function testGetUserReturnsCurrentUserIfNoUserIsProvidedAndUserIsLoggedIn()
     {
         $wpUser     = new WP_User();
@@ -91,9 +83,7 @@ class UserTest extends TestCase
         $this->assertEquals(123, $user->getUser()->ID);
     }
 
-    /**
-     * @testdox getUser() returns user from db if user ID is provided and user exists
-     */
+    #[TestDox('getUser() returns user from db if user ID is provided and user exists')]
     public function testGetUserReturnsUserFromDbIfUserIdIsProvidedAndUserExists()
     {
         $wpUser     = new WP_User();
@@ -114,9 +104,7 @@ class UserTest extends TestCase
         $this->assertEquals(123, $user->getUser(123)->ID);
     }
 
-    /**
-     * @testdox getUser() returns null if user ID is provided and user does not exist
-     */
+    #[TestDox('getUser() returns null if user ID is provided and user does not exist')]
     public function testGetUserReturnsNullIfUserIdIsProvidedAndUserDoesNotExist()
     {
         $wpService = new FakeWpService([

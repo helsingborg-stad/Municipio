@@ -22,9 +22,7 @@ class SiteSwitcherTest extends TestCase
         $blog_id = 1; // Reset to default
     }
 
-    /**
-     * @testdox runInSite() switches to the specified site and restores the original site after execution
-     */
+    #[TestDox('runInSite() switches to the specified site and restores the original site after execution')]
     public function testRunInSiteSwitchesToSpecifiedSiteAndRestoresOriginalSite()
     {
         global $blog_id;
@@ -75,9 +73,7 @@ class SiteSwitcherTest extends TestCase
         $this->assertEquals('Callable executed', $result);
     }
 
-    /**
-     * @testdox runInSite() restores the original site if an exception is thrown
-     */
+    #[TestDox('runInSite() restores the original site if an exception is thrown')]
     public function testRunInSiteRestoresOriginalSiteOnException()
     {
         global $blog_id;

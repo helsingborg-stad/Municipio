@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class BrandedEmailsConfigServiceTest extends TestCase
 {
-    /**
-     * @testdox ACF json file exists
-     */
+    #[TestDox('ACF json file exists')]
     public function testAcfConfig()
     {
         $acfJsonFile = __DIR__ . '/../../AcfFields/json/options-theme-features.json';
@@ -18,9 +16,7 @@ class BrandedEmailsConfigServiceTest extends TestCase
         $this->assertFileExists($acfJsonFile);
     }
 
-    /**
-     * @testdox ACF json file contains options for branded emails
-     */
+    #[TestDox('ACF json file contains options for branded emails')]
     public function testAcfConfigContainsOptions()
     {
         $jsonFileContents = file_get_contents(__DIR__ . '/../../AcfFields/json/options-theme-features.json');

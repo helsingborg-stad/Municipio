@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class UpgradeTest extends TestCase
 {
-    /**
-     * @testdox v_33 migrates post type schema settings
-     */
+    #[TestDox('v_33 migrates post type schema settings')]
     public function testV33()
     {
         $wpService  = new FakeWpService(['getPostTypes' => ['test_post_type'], 'addAction' => true]);

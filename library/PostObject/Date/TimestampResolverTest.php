@@ -9,9 +9,7 @@ use WpService\Implementations\FakeWpService;
 
 class TimestampResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
@@ -25,9 +23,7 @@ class TimestampResolverTest extends TestCase
         );
     }
 
-    /**
-     * @testdox resolve returns unix value from meta value
-     */
+    #[TestDox('resolve returns unix value from meta value')]
     public function testResolvesMetaKeyValueAndReturnUnix()
     {
         $dateString = '10 Januari 2000';
@@ -49,9 +45,7 @@ class TimestampResolverTest extends TestCase
         $this->assertEquals(968544000, $result);
     }
 
-    /**
-     * @testdox resolve returns post published date if meta key is post_date
-     */
+    #[TestDox('resolve returns post published date if meta key is post_date')]
     public function testResolvesMetaKeyValueAndReturnPostDatePublished()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -71,9 +65,7 @@ class TimestampResolverTest extends TestCase
         $this->assertEquals(123, $result);
     }
 
-    /**
-     * @testdox resolve returns post modified date if meta key is post_modified
-     */
+    #[TestDox('resolve returns post modified date if meta key is post_modified')]
     public function testResolvesMetaKeyValueAndReturnPostDateModified()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -93,9 +85,7 @@ class TimestampResolverTest extends TestCase
         $this->assertEquals(123, $result);
     }
 
-    /**
-     * @testdox resolve returns 0 if unable to resolve
-     */
+    #[TestDox('resolve returns 0 if unable to resolve')]
     public function testReturnsZeroIfUnableToConvertToUnix()
     {
         $postObject         = $this->createMock(PostObjectInterface::class);

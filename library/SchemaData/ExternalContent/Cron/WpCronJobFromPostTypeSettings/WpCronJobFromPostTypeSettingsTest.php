@@ -12,9 +12,7 @@ use WpService\Implementations\FakeWpService;
 
 class WpCronJobFromPostTypeSettingsTest extends TestCase
 {
-    /**
-     * @testdox Cron job uses post type as hook name.
-     */
+    #[TestDox('Cron job uses post type as hook name.')]
     public function testCreate()
     {
         $postTypeSetting = $this->getPostTypeSetting();
@@ -23,9 +21,7 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
         $this->assertEquals($postTypeSetting->getPostType(), $cronJob->getHookName());
     }
 
-    /**
-     * @testdox Cron job uses cron schedule as interval.
-     */
+    #[TestDox('Cron job uses cron schedule as interval.')]
     public function testInterval()
     {
         $postTypeSetting = $this->getPostTypeSetting();
@@ -34,9 +30,7 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
         $this->assertEquals($postTypeSetting->getAutomaticImportSchedule(), $cronJob->getSchedule());
     }
 
-    /**
-     * @testdox Cron job calls action with post type as argument.
-     */
+    #[TestDox('Cron job calls action with post type as argument.')]
     public function testCallback()
     {
         $postTypeSetting = $this->getPostTypeSetting();

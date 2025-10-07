@@ -24,26 +24,20 @@ class SetPostTitleFromSchemaTitleTest extends \PHPUnit\Framework\TestCase
         $this->instance             = new SetPostTitleFromSchemaTitle($this->schemaObjectFromPost, $this->wpService);
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $this->assertInstanceOf(SetPostTitleFromSchemaTitle::class, $this->instance);
     }
 
-    /**
-     * @testdox addHooks attaches to the 'save_post' action
-     */
+    #[TestDox('addHooks attaches to the \'save_post\' action')]
     public function testAddHooks()
     {
         $this->instance->addHooks();
         $this->assertEquals('save_post', $this->wpService->methodCalls['addAction'][0][0]);
     }
 
-    /**
-     * @testdox setPostTitleFromSchemaTitle() does not update post if schema name is empty
-     */
+    #[TestDox('setPostTitleFromSchemaTitle() does not update post if schema name is empty')]
     public function testSetPostTitleFromSchemaTitleDoesNotUpdatePostIfSchemaNameIsEmpty()
     {
         $post         = new WP_Post([]);
@@ -56,9 +50,7 @@ class SetPostTitleFromSchemaTitleTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayNotHasKey('wpUpdatePost', $this->wpService->methodCalls);
     }
 
-    /**
-     * @testdox setPostTitleFromSchemaTitle() updates post title using schema name if it is not empty and is not the same as the current post title.
-     */
+    #[TestDox('setPostTitleFromSchemaTitle() updates post title using schema name if it is not empty and is not the same as the current post title.')]
     public function testSetPostTitleFromSchemaTitleUpdatesPostIfSchemaNameIsNotEmpty()
     {
         $post             = new WP_Post([]);
@@ -74,9 +66,7 @@ class SetPostTitleFromSchemaTitleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('Title from Schema', $this->wpService->methodCalls['wpUpdatePost'][0][0]['post_title']);
     }
 
-    /**
-     * @testdox setPostTitleFromSchemaTitle() does not update post title if schema name is the same as the current post title.
-     */
+    #[TestDox('setPostTitleFromSchemaTitle() does not update post title if schema name is the same as the current post title.')]
     public function testSetPostTitleFromSchemaTitleDoesNotUpdatePostIfSchemaNameIsSameAsPostTitle()
     {
         $title            = 'Title from Post';

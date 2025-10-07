@@ -11,18 +11,14 @@ use WpService\WpService;
 
 class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(), $this->getTryGetSchemaTypeFromPostTypeMock());
         $this->assertInstanceOf(RemoveExpiredEventsFromMainArchiveQuery::class, $sut);
     }
 
-    /**
-     * @testdox addHooks() adds hook to pre_get_posts
-     */
+    #[TestDox('addHooks() adds hook to pre_get_posts')]
     public function testPreGetPostsHookIsUsedToModifyTheMainQuery()
     {
         $wpService = new FakeWpService(['addAction' => true]);
@@ -33,9 +29,7 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $this->assertEquals('pre_get_posts', $wpService->methodCalls['addAction'][0][0]);
     }
 
-    /**
-     * @testdox does nothing if the query is not the main query
-     */
+    #[TestDox('does nothing if the query is not the main query')]
     public function testRemoveExpiredEventsDoesNothingIfNotMainQuery()
     {
         $query = $this->getWpQueryMock();
@@ -48,9 +42,7 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $this->assertEquals($querySnapshot, $query);
     }
 
-    /**
-     * @testdox does nothing if the query is not an archive query
-     */
+    #[TestDox('does nothing if the query is not an archive query')]
     public function testRemoveExpiredEventsDoesNothingIfNotArchiveQuery()
     {
         $query = $this->getWpQueryMock();
@@ -64,9 +56,7 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $this->assertEquals($querySnapshot, $query);
     }
 
-    /**
-     * @testdox does nothing if the post type is not connected to the Event schema type
-     */
+    #[TestDox('does nothing if the post type is not connected to the Event schema type')]
     public function testRemoveExpiredEventsDoesNothingIfPostTypeIsNotEvent()
     {
         $query = $this->getWpQueryMock();
@@ -84,9 +74,7 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $this->assertEquals($querySnapshot, $query);
     }
 
-    /**
-     * @testdox filters out expired events
-     */
+    #[TestDox('filters out expired events')]
     public function testRemoveExpiredEventsFiltersOutExpiredEvents()
     {
         $querySetCalls                = [];

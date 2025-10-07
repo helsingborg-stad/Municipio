@@ -8,18 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class SourceConfigWithCustomFilterDefinitionTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $sourceConfig = new SourceConfigWithCustomFilterDefinition($this->getFilterDefinition(), $this->getSourceConfig());
         $this->assertInstanceOf(SourceConfigWithCustomFilterDefinition::class, $sourceConfig);
     }
 
-    /**
-     * @testdox getFilterDefinition() returns provided filterDefinition
-     */
+    #[TestDox('getFilterDefinition() returns provided filterDefinition')]
     public function testGetFilterDefinitionReturnsFilterDefinition()
     {
         $filterDefinition = $this->getFilterDefinition();

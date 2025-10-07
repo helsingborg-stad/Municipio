@@ -8,9 +8,7 @@ use Municipio\Schema\Schema;
 
 class SchemaDataDecoratorTest extends TestCase
 {
-    /**
-     * @testdox returns an array with schemaData key containing the schemaObject as an array
-     */
+    #[TestDox('returns an array with schemaData key containing the schemaObject as an array')]
     public function testCreate()
     {
         $schemaObject = Schema::thing()->setProperty('foo', 'bar');
@@ -20,9 +18,7 @@ class SchemaDataDecoratorTest extends TestCase
         $this->assertEquals($schemaObject->toArray(), $result['meta_input']['schemaData']);
     }
 
-    /**
-     * @testdox strips possible "id" key from schemaObject before adding it to the meta input
-     */
+    #[TestDox('strips possible "id" key from schemaObject before adding it to the meta input')]
     public function testCreateWithId()
     {
         $schemaObject = Schema::thing()->setProperty('foo', 'bar')->setProperty('id', '123');

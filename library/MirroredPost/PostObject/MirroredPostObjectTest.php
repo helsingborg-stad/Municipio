@@ -12,27 +12,21 @@ use WpService\Implementations\FakeWpService;
 
 class MirroredPostObjectTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated(): void
     {
         $decorator = $this->createMirroredPostObject(1);
         $this->assertInstanceOf(MirroredPostObject::class, $decorator);
     }
 
-    /**
-     * @testdox getBlogId returns the provided blog id
-     */
+    #[TestDox('getBlogId returns the provided blog id')]
     public function testGetBlogIdReturnsTheProvidedBlogId(): void
     {
         $decorator = $this->createMirroredPostObject(2);
         $this->assertEquals(2, $decorator->getBlogId());
     }
 
-    /**
-     * @testdox getPermalink replaces the original site url with the current site url
-     */
+    #[TestDox('getPermalink replaces the original site url with the current site url')]
     public function testGetPermalinkReplacesSiteUrl(): void
     {
         $postObject = $this->createPostObjectStub([
@@ -48,9 +42,7 @@ class MirroredPostObjectTest extends TestCase
         $this->assertEquals('http://other-site.com/hello-world/', $permaLink);
     }
 
-    /**
-     * @testdox getIcon() switches to the blog using the provided blog id when getting the value
-     */
+    #[TestDox('getIcon() switches to the blog using the provided blog id when getting the value')]
     public function testGetIconSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
         $postObject = $this->createPostObjectStub(['getIcon' => null]);
@@ -64,9 +56,7 @@ class MirroredPostObjectTest extends TestCase
         $this->assertNull($icon);
     }
 
-    /**
-     * @testdox getSchemaProperty() switches to the blog using the provided blog id when getting the value
-     */
+    #[TestDox('getSchemaProperty() switches to the blog using the provided blog id when getting the value')]
     public function testGetSchemaPropertySwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
         $postObject = $this->createPostObjectStub(['getSchemaProperty' => 'schema-value']);
@@ -80,9 +70,7 @@ class MirroredPostObjectTest extends TestCase
         $this->assertEquals('schema-value', $schemaValue);
     }
 
-    /**
-     * @testdox getSchema() switches to the blog using the provided blog id when getting the value
-     */
+    #[TestDox('getSchema() switches to the blog using the provided blog id when getting the value')]
     public function testGetSchemaSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
         $schema     = Schema::thing();

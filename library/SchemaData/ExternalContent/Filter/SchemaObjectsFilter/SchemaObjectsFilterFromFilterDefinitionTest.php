@@ -11,18 +11,14 @@ use Municipio\Schema\Schema;
 
 class SchemaObjectsFilterFromFilterDefinitionTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $schemaObjectsFilterFromFilterDefinition = new SchemaObjectsFilterFromFilterDefinition(new FilterDefinition([]));
         $this->assertInstanceOf(SchemaObjectsFilterFromFilterDefinition::class, $schemaObjectsFilterFromFilterDefinition);
     }
 
-    /**
-     * @testdox the transform result can be used to filter an array of schema objects
-     */
+    #[TestDox('the transform result can be used to filter an array of schema objects')]
     public function testTransformResultCanBeUsedToFilterAnArrayOfSchemaObjects()
     {
 

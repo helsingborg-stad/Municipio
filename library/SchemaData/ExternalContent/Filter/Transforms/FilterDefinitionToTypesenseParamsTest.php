@@ -12,27 +12,21 @@ use PHPUnit\Framework\TestCase;
 
 class FilterDefinitionToTypesenseParamsTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
         $this->assertInstanceOf(FilterDefinitionToTypesenseParams::class, $filterDefinitionToTypesenseParams);
     }
 
-    /**
-     * @testdox transform method returns string
-     */
+    #[TestDox('transform method returns string')]
     public function testTransformMethodReturnsString()
     {
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
         $this->assertIsString($filterDefinitionToTypesenseParams->transform($this->getFilterDefinitionMock()));
     }
 
-    /**
-     * @testdox transform applies equals filter
-     */
+    #[TestDox('transform applies equals filter')]
     public function testTransformAppliesBasicExactMatchFilter()
     {
         $rule             = new Rule('propertyName', 'propertyValue', Operator::EQUALS);
@@ -44,9 +38,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
         $this->assertEquals('filter_by=propertyName:=propertyValue', $filterDefinitionToTypesenseParams->transform($filterDefinition));
     }
 
-    /**
-     * @testdox transform applies not equals filter
-     */
+    #[TestDox('transform applies not equals filter')]
     public function testTransformAppliesBasicNotEqualFilter()
     {
         $rule             = new Rule('propertyName', 'propertyValue', Operator::NOT_EQUALS);
@@ -57,9 +49,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
         $this->assertEquals('filter_by=propertyName:!=propertyValue', $filterDefinitionToTypesenseParams->transform($filterDefinition));
     }
 
-    /**
-     * @testdox transform applies multiple exact match filters and separates them with "&&"
-     */
+    #[TestDox('transform applies multiple exact match filters and separates them with "&&"')]
     public function testTransformAppliesMultipleExactMatchFiltersAndSeparatesThemWithAnd()
     {
         $rule1            = new Rule('propertyName1', 'propertyValue1', Operator::EQUALS);
@@ -73,9 +63,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
         $this->assertEquals('filter_by=propertyName1:=propertyValue1&&propertyName2:=propertyValue2', $transformed);
     }
 
-    /**
-     * @testdox transform applies || match filters to separate ruleSets
-     */
+    #[TestDox('transform applies || match filters to separate ruleSets')]
     public function testTransformAppliesOrMatchFiltersToSeparateRuleSets()
     {
         $rule1            = new Rule('propertyName1', 'propertyValue1', Operator::EQUALS);

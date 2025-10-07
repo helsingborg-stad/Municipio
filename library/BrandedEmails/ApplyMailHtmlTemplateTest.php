@@ -8,9 +8,7 @@ use WpService\Contracts\AddFilter;
 
 class ApplyMailHtmlTemplateTest extends TestCase
 {
-    /**
-     * @testdox apply() applies html template
-     */
+    #[TestDox('apply() applies html template')]
     public function testApplyAppliesHtmlTemplate()
     {
         $applyMailHtmlTemplate = new ApplyMailHtmlTemplate($this->getHtmlTemplate(), $this->getWpService());

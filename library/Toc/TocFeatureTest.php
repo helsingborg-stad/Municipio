@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class TocFeatureTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
         $tocFeature = new TocFeature($this->getWpService(), $this->getAcfService());
@@ -18,9 +16,7 @@ class TocFeatureTest extends TestCase
         $this->assertInstanceOf(TocFeature::class, $tocFeature);
     }
 
-    /**
-     * @testdox enable method does not throw an exception
-     */
+    #[TestDox('enable method does not throw an exception')]
     public function testEnableMethodDoesNotThrowException(): void
     {
         $tocFeature = new TocFeature($this->getWpService(), $this->getAcfService());

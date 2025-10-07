@@ -8,18 +8,14 @@ use PHPUnit\Framework\TestCase;
 
 class NavigationTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $navigation = new Navigation($this->getSchemaTypesInUse());
         $this->assertInstanceOf(Navigation::class, $navigation);
     }
 
-    /**
-     * @testdox getSchemaTypeMenus() returns an array of menu locations for schema types in use
-     */
+    #[TestDox('getSchemaTypeMenus() returns an array of menu locations for schema types in use')]
     public function testGetSchemaTypeMenusReturnsArrayOfMenuLocations()
     {
         $schemaTypesInUse = $this->getSchemaTypesInUse();
@@ -30,9 +26,7 @@ class NavigationTest extends TestCase
         $this->assertArrayHasKey('event-secondary-menu', $schemaTypeMenus, 'Array does not contain expected key');
     }
 
-    /**
-     * @testdox getMenuLocations() returns an empty array if no schema types are in use
-     */
+    #[TestDox('getMenuLocations() returns an empty array if no schema types are in use')]
     public function testGetMenuLocationsReturnsEmptyArrayIfNoSchemaTypesInUse()
     {
         $schemaTypesInUse = $this->getSchemaTypesInUse();

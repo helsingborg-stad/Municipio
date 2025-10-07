@@ -9,9 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class PostIconResolverTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $resolver = new PostIconResolver($this->getMockPostObject(), new FakeAcfService(), $this->getMockIconResolver());
@@ -19,9 +17,7 @@ class PostIconResolverTest extends TestCase
         $this->assertInstanceOf(PostIconResolver::class, $resolver);
     }
 
-    /**
-     * @testdox calls inner resolver if no icon is found
-     */
+    #[TestDox('calls inner resolver if no icon is found')]
     public function testCallsInnerResolverIfNoIconIsFound()
     {
         $postObject    = $this->getMockPostObject();
@@ -35,9 +31,7 @@ class PostIconResolverTest extends TestCase
         $this->assertNull($icon);
     }
 
-    /**
-     * @testdox returns icon if found
-     */
+    #[TestDox('returns icon if found')]
     public function testReturnsIconIfFound()
     {
         $postObject = $this->getMockPostObject();
@@ -55,9 +49,7 @@ class PostIconResolverTest extends TestCase
         $this->assertSame('#8f32f2', $resolver->resolve()->getCustomColor());
     }
 
-    /**
-     * @testdox returns svg icon if found
-     */
+    #[TestDox('returns svg icon if found')]
     public function testReturnsSvgIconIfFound()
     {
         $postObject = $this->getMockPostObject();
@@ -77,9 +69,7 @@ class PostIconResolverTest extends TestCase
         $this->assertSame('#8f32f2', $resolver->resolve()->getCustomColor());
     }
 
-    /**
-     * @testdox calls inner resolver if icon is invalid
-     */
+    #[TestDox('calls inner resolver if icon is invalid')]
     public function testCallsInnerResolverIfIconIsInvalid()
     {
         $postObject = $this->getMockPostObject();

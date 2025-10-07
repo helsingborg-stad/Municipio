@@ -7,9 +7,7 @@ use Municipio\Schema\BaseType;
 
 class SourceIdDecoratorTest extends TestCase
 {
-    /**
-     * @testdox returns an array with the sourceId from the source
-     */
+    #[TestDox('returns an array with the sourceId from the source')]
     public function testAppliesSourceId()
     {
         $schemaObject = $this->getSchemaObject();

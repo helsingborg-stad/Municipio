@@ -11,18 +11,14 @@ use WpService\Implementations\FakeWpService;
 
 class IconResolvingPostObjectTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $decorator = new IconResolvingPostObject(new PostObject(1, new FakeWpService()), new NullIconResolver());
         $this->assertInstanceOf(IconResolvingPostObject::class, $decorator);
     }
 
-    /**
-     * @testdox getIcon() calls provided icon resolver
-     */
+    #[TestDox('getIcon() calls provided icon resolver')]
     public function testGetIconCallsProvidedIconResolver()
     {
         $icon         = $this->createMock(IconInterface::class);

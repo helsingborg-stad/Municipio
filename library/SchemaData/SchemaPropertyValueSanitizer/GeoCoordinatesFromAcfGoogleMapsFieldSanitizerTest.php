@@ -7,9 +7,7 @@ use Municipio\Schema\GeoCoordinates;
 
 class GeoCoordinatesFromAcfGoogleMapsFieldSanitizerTest extends TestCase
 {
-    /**
-     * @testdox Converts single ACF Google Maps field to postal address
-     */
+    #[TestDox('Converts single ACF Google Maps field to postal address')]
     public function testConvertsSingleToGeoCoordinates()
     {
         $sanitizer = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer();
@@ -24,9 +22,7 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizerTest extends TestCase
         $this->assertEquals('Sverige', $result['addressCountry']);
     }
 
-    /**
-     * @testdox Converts array of ACF Google Maps fields to array of postal addresses
-     */
+    #[TestDox('Converts array of ACF Google Maps fields to array of postal addresses')]
     public function testConvertsArrayOfGeoCoordinates()
     {
         $sanitizer = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer();

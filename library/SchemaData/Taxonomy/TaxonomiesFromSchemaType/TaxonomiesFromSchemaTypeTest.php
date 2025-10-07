@@ -21,9 +21,7 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         );
     }
 
-    /**
-     * @testdox Returns an empty array for any unknown schema type
-     */
+    #[TestDox('Returns an empty array for any unknown schema type')]
     public function testReturnsEmptyArrayForUnknownSchemaType(): void
     {
         $taxonomies = $this->instance->create('UnknownSchemaType');

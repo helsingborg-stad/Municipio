@@ -8,9 +8,7 @@ use WpService\Implementations\FakeWpService;
 
 class VerifyChecksumTest extends TestCase
 {
-    /**
-     * @testdox if the checksum is the same as before, the post should not be updated.
-     */
+    #[TestDox('if the checksum is the same as before, the post should not be updated.')]
     public function testCreate()
     {
         /**
@@ -25,9 +23,7 @@ class VerifyChecksumTest extends TestCase
         $this->assertEquals(-1, $postArgs['ID']);
     }
 
-    /**
-     * @testdox if the checksum is different from before, the post should be updated.
-     */
+    #[TestDox('if the checksum is different from before, the post should be updated.')]
     public function testCreateDifferentChecksum()
     {
         /**
@@ -42,9 +38,7 @@ class VerifyChecksumTest extends TestCase
         $this->assertEquals(123, $postArgs['ID']);
     }
 
-    /**
-     * @testdox if the checksum is not set, the post should be updated.
-     */
+    #[TestDox('if the checksum is not set, the post should be updated.')]
     public function testCreateNoChecksum()
     {
         /**
@@ -59,9 +53,7 @@ class VerifyChecksumTest extends TestCase
         $this->assertEquals(123, $postArgs['ID']);
     }
 
-    /**
-     * @testdox if the ID is not set, the post should be updated.
-     */
+    #[TestDox('if the ID is not set, the post should be updated.')]
     public function testCreateNoId()
     {
         /**

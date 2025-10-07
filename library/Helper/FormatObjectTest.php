@@ -48,9 +48,7 @@ class FormatObjectTest extends TestCase
     }
 
 
-    /**
-     * @testdox mapArrayKeys returns filtered array keys. Also skips certain keys.
-    */
+    #[TestDox('mapArrayKeys returns filtered array keys. Also skips certain keys.')]
     public function testMapArrayKeysReturnsFilteredArrayKeys()
     {
         // When
@@ -69,9 +67,7 @@ class FormatObjectTest extends TestCase
         $this->assertArrayNotHasKey('1test', $result['attributeList']);
     }
 
-    /**
-     * @testdox mapArrayKeys returns filtered array keys. Also skips certain keys.
-    */
+    #[TestDox('mapArrayKeys returns filtered array keys. Also skips certain keys.')]
     public function testCreateNodeFromString()
     {
         // Given

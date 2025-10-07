@@ -9,9 +9,7 @@ use WpService\Implementations\FakeWpService;
 
 class PostObjectArchiveDateTimestampTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $resolver  = $this->createMock(TimestampResolverInterface::class);
@@ -19,9 +17,7 @@ class PostObjectArchiveDateTimestampTest extends TestCase
         $this->assertInstanceOf(PostObjectArchiveDateTimestamp::class, $decorator);
     }
 
-    /**
-     * @testdox getDateTimestamp returns unix timestamp
-     */
+    #[TestDox('getDateTimestamp returns unix timestamp')]
     public function testReturnUnixTimestamp()
     {
         $resolver = $this->createMock(TimestampResolverInterface::class);

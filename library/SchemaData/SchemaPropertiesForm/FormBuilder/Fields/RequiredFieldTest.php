@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class RequiredFieldTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $requiredField = new RequiredField($this->createMockField());
@@ -17,9 +15,7 @@ class RequiredFieldTest extends TestCase
         $this->assertInstanceOf(RequiredField::class, $requiredField);
     }
 
-    /**
-     * @testdox toArray returns field settings with required flag
-     */
+    #[TestDox('toArray returns field settings with required flag')]
     public function testToArrayReturnsFieldSettingsWithRequiredFlag()
     {
         $field = $this->createMockField();

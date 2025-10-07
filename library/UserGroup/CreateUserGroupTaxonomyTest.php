@@ -11,9 +11,7 @@ use WpService\Implementations\FakeWpService;
 
 class CreateUserGroupTaxonomyTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $wpService               = new FakeWpService();
@@ -22,9 +20,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
         $this->assertInstanceOf(CreateUserGroupTaxonomy::class, $createUserGroupTaxonomy);
     }
 
-    /**
-     * @testdox addHooks method runs registerUserGroupTaxonomy on init hook with expected priority
-     */
+    #[TestDox('addHooks method runs registerUserGroupTaxonomy on init hook with expected priority')]
     public function testAddHooksMethodRunsRegisterUserGroupTaxonomyOnInitHook()
     {
         $wpService               = new FakeWpService(['addAction' => true]);
@@ -37,9 +33,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
         $this->assertEquals(5, $wpService->methodCalls['addAction'][0][2]);
     }
 
-    /**
-     * @testdox registerUserGroupTaxonomy() registers a taxonomy on main
-     */
+    #[TestDox('registerUserGroupTaxonomy() registers a taxonomy on main')]
     public function testRegisterUserGroupTaxonomyRegistersTaxonomyOnMain()
     {
         $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
@@ -54,9 +48,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
         $this->assertEquals('test_taxonomy', $wpService->methodCalls['registerTaxonomy'][0][0]);
     }
 
-    /**
-     * @testdox registerUserGroupTaxonomy() registers a taxonomy with name from config
-     */
+    #[TestDox('registerUserGroupTaxonomy() registers a taxonomy with name from config')]
     public function testRegisterUserGroupTaxonomyRegistersTaxonomy()
     {
         $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
@@ -71,9 +63,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
         $this->assertEquals('test_taxonomy', $wpService->methodCalls['registerTaxonomy'][0][0]);
     }
 
-    /**
-     * @testdox registerUserGroupTaxonomy() does not register a taxonomy if is multisite but not main site
-     */
+    #[TestDox('registerUserGroupTaxonomy() does not register a taxonomy if is multisite but not main site')]
     public function testRegisterUserGroupTaxonomyDoesNotRegisterTaxonomyIfNotMainSite()
     {
         $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => false]);

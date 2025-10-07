@@ -10,9 +10,7 @@ use WpService\Implementations\FakeWpService;
 
 class AddTermsToPostFromSchemaTest extends TestCase
 {
-    /**
-     * @testdox attaches to updated_postmeta action
-     */
+    #[TestDox('attaches to updated_postmeta action')]
     public function testCanBeInstantiated(): void
     {
         $wpService = new FakeWpService(['addAction' => true]);
@@ -23,9 +21,7 @@ class AddTermsToPostFromSchemaTest extends TestCase
         $this->assertEquals('updated_postmeta', $wpService->methodCalls['addAction'][0][0]);
     }
 
-    /**
-     * @testdox does nothing if metaKey is not schemaData
-     */
+    #[TestDox('does nothing if metaKey is not schemaData')]
     public function testDoesNothingIfMetaKeyIsNotSchemaData(): void
     {
         $taxonomiesFactory = $this->getTaxonomiesFactory();
@@ -39,9 +35,7 @@ class AddTermsToPostFromSchemaTest extends TestCase
         $this->assertEmpty($wpService->methodCalls);
     }
 
-    /**
-     * @testdox does nothing if schema cannot be unserialized
-     */
+    #[TestDox('does nothing if schema cannot be unserialized')]
     public function testDoesNothingIfSchemaCannotBeUnserialized(): void
     {
         $taxonomiesFactory = $this->getTaxonomiesFactory();
@@ -55,9 +49,7 @@ class AddTermsToPostFromSchemaTest extends TestCase
         $this->assertEmpty($wpService->methodCalls);
     }
 
-    /**
-     * @testdox does nothing if schema does not have @type
-     */
+    #[TestDox('does nothing if schema does not have @type')]
     public function testDoesNothingIfSchemaDoesNotHaveType(): void
     {
         $taxonomiesFactory = $this->getTaxonomiesFactory();
@@ -72,9 +64,7 @@ class AddTermsToPostFromSchemaTest extends TestCase
         $this->assertEmpty($wpService->methodCalls);
     }
 
-    /**
-     * @testdox creates and assigns terms to post for matching taxonomies
-     */
+    #[TestDox('creates and assigns terms to post for matching taxonomies')]
     public function testCreatesAndAssignsTermsToPostForMatchingTaxonomies(): void
     {
         $taxonomyMock = $this->createMock(TaxonomyInterface::class);
@@ -110,9 +100,7 @@ class AddTermsToPostFromSchemaTest extends TestCase
         $this->assertEquals('custom_tax', $wpService->methodCalls['wpSetPostTerms'][0][2]);
     }
 
-    /**
-     * @testdox does not insert term if it already exists
-     */
+    #[TestDox('does not insert term if it already exists')]
     public function testDoesNotInsertTermIfItAlreadyExists(): void
     {
         $taxonomyMock = $this->createMock(TaxonomyInterface::class);

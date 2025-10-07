@@ -13,17 +13,13 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $_POST = [];
     }
 
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $this->assertInstanceOf(AllowRedirectAfterSsoLogin::class, new AllowRedirectAfterSsoLogin(new FakeWpService()));
     }
 
-    /**
-     * @testdox addHooks() attaches method to 'set_logged_in_cookie' action
-     */
+    #[TestDox('addHooks() attaches method to \'set_logged_in_cookie\' action')]
     public function testAddHooksAttachesMethodToSetLoggedInCookieAction()
     {
         $wpService                  = new FakeWpService(['addAction' => true]);
@@ -34,9 +30,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertEquals('set_logged_in_cookie', $wpService->methodCalls['addAction'][0][0]);
     }
 
-    /**
-     * @testdox allowRedirectAfterSsoLogin() does nothing if not doing MiniOrange login
-     */
+    #[TestDox('allowRedirectAfterSsoLogin() does nothing if not doing MiniOrange login')]
     public function testAllowRedirectAfterSsoLoginDoesNothingIfNotDoingMiniOrangeLogin()
     {
         $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => '']);
@@ -54,9 +48,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertArrayNotHasKey('applyFilters', $wpService->methodCalls);
     }
 
-    /**
-     * @testdox allowRedirectAfterSsoLogin() applies filter to 'RelayState' if doing MiniOrange login
-     */
+    #[TestDox('allowRedirectAfterSsoLogin() applies filter to \'RelayState\' if doing MiniOrange login')]
     public function testAllowRedirectAfterSsoLoginAppliesFilterToRelayStateIfDoingMiniOrangeLogin()
     {
         $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => '']);
@@ -69,9 +61,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertEquals('', $wpService->methodCalls['applyFilters'][0][1]);
     }
 
-    /**
-     * @testdox allowRedirectAfterSsoLogin() redirect handler is applied to wp_redirect filter
-     */
+    #[TestDox('allowRedirectAfterSsoLogin() redirect handler is applied to wp_redirect filter')]
     public function testAllowRedirectAfterSsoLoginRedirectsToUrlIfFilterIsSet()
     {
         $redirectTo    = 'http://example.com';
@@ -95,9 +85,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertEquals($redirectTo, $redirectHandlerResult);
     }
 
-    /**
-     * @testdox allowRedirectAfterSsoLogin() does not redirect if RelayState does not match ongoing redirect
-     */
+    #[TestDox('allowRedirectAfterSsoLogin() does not redirect if RelayState does not match ongoing redirect')]
     public function testAllowRedirectAfterSsoLoginDoesNotRedirectIfRelayStateDoesNotMatchOngoingRedirect()
     {
         $redirectTo    = 'http://example.com';
@@ -121,9 +109,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertEquals('http://urlNotMatchingRelayStateUrl.com', $redirectHandlerResult);
     }
 
-    /**
-     * @testdox loginRequestOriginatesFromHomeUrl() returns true if relative location matches home URL
-     */
+    #[TestDox('loginRequestOriginatesFromHomeUrl() returns true if relative location matches home URL')]
     public function testLoginRequestOriginatesFromHomeUrlReturnsTrueForRelativeUrlMatchingHomeUrl()
     {
         $homeUrl      = 'https://example.com';
@@ -135,9 +121,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertTrue($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($relativePath));
     }
 
-    /**
-     * @testdox loginRequestOriginatesFromHomeUrl() returns false if relative location does not match home URL
-     */
+    #[TestDox('loginRequestOriginatesFromHomeUrl() returns false if relative location does not match home URL')]
     public function testLoginRequestOriginatesFromHomeUrlReturnsFalseForRelativeUrlNotMatchingHomeUrl()
     {
         $homeUrl      = 'https://example.com/somepath';
@@ -149,9 +133,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertFalse($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($relativePath));
     }
 
-    /**
-     * @testdox loginRequestOriginatesFromHomeUrl() returns true if absolute URL path matches home URL
-     */
+    #[TestDox('loginRequestOriginatesFromHomeUrl() returns true if absolute URL path matches home URL')]
     public function testLoginRequestOriginatesFromHomeUrlReturnsTrueForAbsoluteUrlMatchingHomeUrl()
     {
         $homeUrl     = 'https://example.com';
@@ -163,9 +145,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertTrue($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($absoluteUrl));
     }
 
-    /**
-     * @testdox loginRequestOriginatesFromHomeUrl() returns false if absolute URL path does not match home URL
-     */
+    #[TestDox('loginRequestOriginatesFromHomeUrl() returns false if absolute URL path does not match home URL')]
     public function testLoginRequestOriginatesFromHomeUrlReturnsFalseForAbsoluteUrlNotMatchingHomeUrl()
     {
         $homeUrl     = 'https://example.com';

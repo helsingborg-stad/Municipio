@@ -9,9 +9,7 @@ use WpService\Contracts\GetPostMeta;
 
 class PostObjectWithSeoRedirectTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -20,9 +18,7 @@ class PostObjectWithSeoRedirectTest extends TestCase
         $this->assertInstanceOf(PostObjectWithSeoRedirect::class, new PostObjectWithSeoRedirect($postObject, $wpService));
     }
 
-    /**
-     * @testdox getPermalink returns redirect url if set
-     */
+    #[TestDox('getPermalink returns redirect url if set')]
     public function testGetPermalinkReturnsRedirectUrlIfSet()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -38,9 +34,7 @@ class PostObjectWithSeoRedirectTest extends TestCase
         $this->assertEquals('http://example.com/redirect', $postObjectWithSeoRedirect->getPermalink());
     }
 
-    /**
-     * @testdox getPermalink returns original permalink if redirect url is not set
-     */
+    #[TestDox('getPermalink returns original permalink if redirect url is not set')]
     public function testGetPermalinkReturnsOriginalPermalinkIfRedirectUrlIsNotSet()
     {
         $postObject = $this->createMock(PostObjectInterface::class);

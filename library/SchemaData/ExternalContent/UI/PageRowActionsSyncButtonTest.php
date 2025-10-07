@@ -7,26 +7,20 @@ use WP_Post;
 
 class PageRowActionsSyncButtonTest extends TestCase
 {
-    /**
-     * @testdox Class exists
-     */
+    #[TestDox('Class exists')]
     public function testClassExists()
     {
         $this->assertTrue(class_exists(\Municipio\SchemaData\ExternalContent\UI\PageRowActionsSyncButton::class));
     }
 
-    /**
-     * @testdox addSyncButton returns an array
-     */
+    #[TestDox('addSyncButton returns an array')]
     public function testAddSyncButtonReturnsAnArray()
     {
         $pageRowActionsSyncButton = new \Municipio\SchemaData\ExternalContent\UI\PageRowActionsSyncButton([], new \WpService\Implementations\FakeWpService());
         $this->assertIsArray($pageRowActionsSyncButton->addSyncButton([], new WP_Post([])));
     }
 
-    /**
-     * @testdox filters are added for both page_row_actions and post_row_actions
-     */
+    #[TestDox('filters are added for both page_row_actions and post_row_actions')]
     public function testFiltersAreAddedForBothPageRowActionsAndPostRowActions()
     {
         $wpService                = new \WpService\Implementations\FakeWpService(['currentUserCan' => true, 'addFilter' => true]);

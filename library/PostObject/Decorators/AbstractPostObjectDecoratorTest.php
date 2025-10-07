@@ -8,17 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractPostObjectDecoratorTest extends TestCase
 {
-    /**
-     * @testdox class can be extended and instantiated
-     */
+    #[TestDox('class can be extended and instantiated')]
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(AbstractPostObjectDecorator::class, $this->getInstance());
     }
 
-    /**
-     * @testdox throws exception for non-existent methods
-     */
+    #[TestDox('throws exception for non-existent methods')]
     public function testThrowsExceptionForNonExistentMethods()
     {
         $this->expectException(\BadMethodCallException::class);

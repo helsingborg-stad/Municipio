@@ -10,18 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class TypesenseSourceReaderTest extends TestCase
 {
-    /**
-     * @testdox class can be instantiated
-     */
+    #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
         $typesenseSourceReader = new TypesenseSourceReader($this->getApiMock(), 'end/point', new JsonToSchemaObjects());
         $this->assertInstanceOf(TypesenseSourceReader::class, $typesenseSourceReader);
     }
 
-    /**
-     * @testdox getSourceData calls api for data untill it gets a empty response
-     */
+    #[TestDox('getSourceData calls api for data untill it gets a empty response')]
     public function testGetSourceDataCallsApiForDataUntillItGetsANullResponse()
     {
         $api                   = $this->getApiMock([ $this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 404) ]);
@@ -33,9 +29,7 @@ class TypesenseSourceReaderTest extends TestCase
         $this->assertStringContainsString('?page=2', $api->calls[1]);
     }
 
-    /**
-     * @testdox page number is appended correctly to endpoint with already defined GET parameters
-     */
+    #[TestDox('page number is appended correctly to endpoint with already defined GET parameters')]
     public function testPageNumberIsAppendedCorrectlyToEndpointWithAlreadyDefinedGetParameters()
     {
         $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 404)]);
@@ -47,9 +41,7 @@ class TypesenseSourceReaderTest extends TestCase
         $this->assertStringContainsString('&page=2', $api->calls[1]);
     }
 
-    /**
-     * @testdox per_page param is appended to endpoint
-     */
+    #[TestDox('per_page param is appended to endpoint')]
     public function testPerPageParamIsAppendedToEndpoint()
     {
         $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
@@ -60,9 +52,7 @@ class TypesenseSourceReaderTest extends TestCase
         $this->assertStringContainsString('&per_page=250', $api->calls[0]);
     }
 
-    /**
-     * @testdox query param is appended to endpoint
-     */
+    #[TestDox('query param is appended to endpoint')]
     public function testQueryParamIsAppendedToEndpoint()
     {
         $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
