@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Tests\Helper;
+namespace Municipio\Helper;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\Helper\FormatObject;

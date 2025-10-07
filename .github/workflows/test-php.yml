@@ -28,4 +28,4 @@ jobs:
         run: composer i
 
       - name: Run tests
-        run: composer run test:all
+        run: composer run test

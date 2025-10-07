@@ -44,13 +44,8 @@
         }
     },
     "scripts": {
-        "test:all": [
-            "@test",
-            "@test:wp_mock"
-        ],
-        "test:wp_mock": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
-        "test": "phpunit --testdox --no-coverage --exclude=wp_mock",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox --exclude=wp_mock",
+        "test": "phpunit --testdox --no-coverage",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
         "lint": "vendor/bin/phpcs",
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
         "fix": "vendor/bin/phpcbf",
@@ -72,14 +67,13 @@
     },
     "require-dev": {
         "helsingborg-stad/phpcs": "^0.3.1",
-        "10up/wp_mock": "dev-trunk#1.0.1",
-        "php-mock/php-mock-mockery": "^1.4",
         "php-stubs/wordpress-stubs": "^6.7",
         "dg/bypass-finals": "^1.9",
         "tomasvotruba/class-leak": "^2.0",
         "phpstan/phpstan": "^2.1",
         "tomasvotruba/unused-public": "^2.0",
-        "phpstan/extension-installer": "^1.4"
+        "phpstan/extension-installer": "^1.4",
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
