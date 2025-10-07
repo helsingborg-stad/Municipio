@@ -3,6 +3,7 @@
 namespace Municipio\Toc\Utils;
 
 use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -58,8 +59,10 @@ class TocUtilsTest extends TestCase
     #[TestDox('shouldEnableToc returns true when content has minimum reqired headings')]
     public function testShouldEnableTocReturnsTrueWhenContentHasHeadings(): void
     {
-        $wpService  = new FakeWpService(['isSingular' => true]);
+        $postId     = 123;
+        $wpService  = new FakeWpService(['isSingular' => true, 'getQueriedObjectId' => $postId]);
         $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getId')->willReturn($postId);
         $postObject->method('getContent')->willReturn('<h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><p>Some content</p>');
 
         $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(

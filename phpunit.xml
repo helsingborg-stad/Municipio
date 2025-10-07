@@ -9,10 +9,18 @@
   testdoxSummary="true">
 
   <testsuites>
-      <testsuite name="default">
-        <directory suffix="Test.php">./library</directory>
-      </testsuite>
+    <testsuite name="default">
+      <directory suffix="Test.php">library</directory>
+    </testsuite>
   </testsuites>
+  <source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
+    <include>
+      <directory>library</directory>
+    </include>
+    <exclude>
+      <directory suffix="Test.php">library</directory>
+    </exclude>
+  </source>
 
   <coverage pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="true">
     <report>
