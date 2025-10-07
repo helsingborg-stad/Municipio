@@ -73,7 +73,7 @@
         "phpstan/phpstan": "^2.1",
         "tomasvotruba/unused-public": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
