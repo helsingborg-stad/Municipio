@@ -22,10 +22,10 @@ class MapPriceList implements EventDataMapperInterface
             return [];
         }
 
-        return array_map([$this, 'getPriceListItemFromOffer'], $offers);
+        return array_filter(array_map([$this, 'getPriceListItemFromOffer'], $offers));
     }
 
-    public function getPriceListItemFromOffer(Offer $offer): PriceListItemInterface
+    public function getPriceListItemFromOffer(Offer $offer): ?PriceListItemInterface
     {
         $priceSpecification = $offer->getProperty('priceSpecification');
         $name               = $offer->getProperty('name');
@@ -37,6 +37,10 @@ class MapPriceList implements EventDataMapperInterface
         $specificationPrice = $priceSpecification?->getProperty('price');
 
         $price = $this->formatPrice($minPrice, $maxPrice, $specificationPrice, $offerPrice, $currency);
+
+        if (empty($name) || empty($price)) {
+            return null;
+        }
 
         return new PriceListItem($name, $price);
     }
