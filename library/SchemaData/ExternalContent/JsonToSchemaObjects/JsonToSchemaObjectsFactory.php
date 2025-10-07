@@ -7,7 +7,7 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitiz
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
 
 class JsonToSchemaObjectsFactory implements JsonToSchemaObjectsFactoryInterface {
-    public static function create(): JsonToSchemaObjectsInterface
+    public function create(): JsonToSchemaObjectsInterface
     {
         $jsonToSchemaObjects = new JsonToSchemaObjects();
         $jsonToSchemaObjects = new JsonConverterWithSanitizedProperties( new SchemaSanitizer(new SchemaPropertyValueSanitizer(), new GetSchemaPropertiesWithParamTypes()), $jsonToSchemaObjects );

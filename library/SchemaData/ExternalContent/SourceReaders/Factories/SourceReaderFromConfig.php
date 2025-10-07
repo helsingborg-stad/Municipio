@@ -51,7 +51,7 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
     private function getJsonFileSourceReader(SourceConfigInterface $config): JsonFileSourceReader
     {
         $schemaObjectsFilter = new SchemaObjectsFilterFromFilterDefinition($config->getFilterDefinition());
-        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), $this->jsonToSchemaObjectsFactory::create());
+        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), $this->jsonToSchemaObjectsFactory->create());
     }
 
     /**
@@ -67,6 +67,6 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
         $getParamsString                   = $filterDefinitionToTypesenseParams->transform($config->getFilterDefinition());
         $getParamsString                   = !empty($getParamsString) ? '?' . $getParamsString : ''; // Add '?' if there are any parameters
 
-        return new TypesenseSourceReader($api, $getParamsString, $this->jsonToSchemaObjectsFactory::create());
+        return new TypesenseSourceReader($api, $getParamsString, $this->jsonToSchemaObjectsFactory->create());
     }
 }
