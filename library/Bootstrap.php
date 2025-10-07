@@ -10,7 +10,7 @@ use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
-use WpService\Implementations\NativeWpService;
+use WpService\Implementations\{NativeWpService,WpServiceWithTypecastedReturns};
 
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
     require_once MUNICIPIO_PATH . 'vendor/autoload.php';
@@ -39,7 +39,7 @@ require_once MUNICIPIO_PATH . 'library/Public.php';
 /**
  * Services.
  */
-$wpService  = new NativeWpService();
+$wpService  = new WpServiceWithTypecastedReturns(new NativeWpService());
 $acfService = new NativeAcfService();
 
 /**
