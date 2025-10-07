@@ -78,7 +78,7 @@ class StringToTimeTest extends TestCase
         ]);
     }
 
-    public function provideValidDateStrings(): array
+    public static function provideValidDateStrings(): array
     {
         return [
             '2020-01-01'              => ['2020-01-01'],

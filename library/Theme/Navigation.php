@@ -2,6 +2,7 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Helper\WpService;
 use Municipio\SchemaData\Utils\Contracts\SchemaTypesInUseInterface;
 
 /**
@@ -148,7 +149,7 @@ class Navigation
         $schemaTypeMenus = array();
 
         foreach ($this->schemaTypesInUse->getSchemaTypesInUse() as $schemaType) {
-            $schemaTypeMenus[strtolower($schemaType) . '-secondary-menu'] = sprintf(__('Schema type - %s (above archive posts)', 'municipio'), $schemaType);
+            $schemaTypeMenus[strtolower($schemaType) . '-secondary-menu'] = sprintf(WpService::get()->__('Schema type - %s (above archive posts)', 'municipio'), $schemaType);
         }
 
         return $schemaTypeMenus;

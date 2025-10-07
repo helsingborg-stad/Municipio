@@ -36,7 +36,7 @@ class DateHandlerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             ['text', '2025-06-19', ['\DateTimeInterface']],

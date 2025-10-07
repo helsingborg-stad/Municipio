@@ -116,7 +116,7 @@ class FormatObjectTest extends TestCase
     /**
      * Provider for camelCase
     */
-    public function camelCaseArrayObjectProvider()
+    public static function camelCaseArrayObjectProvider()
     {
         return [
             [(object) ['key_1' => 'value_1', 'key_two' => 'value_2']],
@@ -129,7 +129,7 @@ class FormatObjectTest extends TestCase
     /**
      * Provider for camelCase
     */
-    public function camelCaseStringProvider()
+    public static function camelCaseStringProvider()
     {
         return [
             ['test_string'],

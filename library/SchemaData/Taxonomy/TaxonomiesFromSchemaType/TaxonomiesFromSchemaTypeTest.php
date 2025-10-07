@@ -44,7 +44,7 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         );
     }
 
-    public function knownSchemaTypesProvider(): array
+    public static function knownSchemaTypesProvider(): array
     {
         return [
             'JobPosting' => ['JobPosting'],

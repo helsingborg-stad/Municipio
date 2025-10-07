@@ -35,7 +35,7 @@ class ArchiveTest extends TestCase
         $this->assertEquals('ASC', $query->get('orderby')['ID']);
     }
 
-    public function provideOrderByMatch()
+    public static function provideOrderByMatch()
     {
         return [
             'date'                                       => ['date'],
@@ -64,7 +64,7 @@ class ArchiveTest extends TestCase
         $this->assertEquals($expected, $query->get('orderby'));
     }
 
-    public function provideOrderByWithExpectedOrder()
+    public static function provideOrderByWithExpectedOrder()
     {
         return [
             'date ASC'                                    => ['date', 'ASC', ['date' => 'ASC', 'ID' => 'ASC']],
@@ -98,7 +98,7 @@ class ArchiveTest extends TestCase
         $this->assertEquals($orderBy, $query->get('orderby'));
     }
 
-    public function provideOrderByMismatch()
+    public static function provideOrderByMismatch()
     {
         return [
             'null'                                       => [null],

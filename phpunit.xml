@@ -4,24 +4,8 @@
   bootstrap="./phpunit-bootstrap.php"
   backupGlobals="false"
   colors="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true">
-
-  <coverage processUncoveredFiles="false">
-    <include>
-      <directory suffix=".php">./library</directory>
-    </include>
-    <exclude>
-      <directory suffix=".php">./library/AcfFields</directory>
-      <directory suffix="Test.php">./library</directory>
-    </exclude>
-    <report>
-      <text outputFile="php://stdout" showUncoveredFiles="true"/>
-      <html outputDirectory="./.coverage"/>
-      <clover outputFile="./.coverage/clover.xml"/>
-    </report>
-  </coverage>
+  failOnAllIssues="true"
+  displayDetailsOnAllIssues="true">
 
   <testsuites>
       <testsuite name="default">
@@ -29,7 +13,12 @@
       </testsuite>
   </testsuites>
 
-  <php>
-    <ini name="error_reporting" value="E_ALL" />
-  </php>
+  <coverage pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="true">
+    <report>
+      <text outputFile=".coverage/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
+      <html outputDirectory=".coverage"/>
+      <xml outputDirectory=".coverage/xml"/>
+    </report>
+  </coverage>
+
 </phpunit>
