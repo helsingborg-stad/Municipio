@@ -4,16 +4,16 @@ namespace Municipio\Helper;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\Helper\FormatObject;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 
 /**
  * Class FormatObjectTest
  */
 class FormatObjectTest extends TestCase
 {
-    /**
-     * @testdox camelCase returns camelCased Object when array or object received.
-     * @dataProvider camelCaseArrayObjectProvider
-    */
+    #[TestDox("camelCase returns camelCased Object when array or object received.")]
+    #[DataProvider("camelCaseArrayObjectProvider")]
     public function testCamelCaseReturnsCamelCasedObjectWhenArrayOrObjectReceived($item)
     {
         // When
@@ -23,21 +23,15 @@ class FormatObjectTest extends TestCase
         $this->assertEquals((object) ['key1' => 'value_1', 'keyTwo' => 'value_2'], $result);
     }
 
-    /**
-     * @testdox camelCase throw an exception when not receiving an array, object, or string.
-     * @expectException Exception
-    */
+    #[TestDox('camelCase throw an exception when not receiving an array, object, or string.')]
     public function testCamelCaseTrowAnExceptionWhenFaultyValue()
     {
         // When
         $this->expectException(\Exception::class);
         FormatObject::camelCase(null);
     }
-
-    /**
-     * @testdox camelCase returns camelCased string when string received.
-     * @dataProvider camelCaseStringProvider
-    */
+    #[TestDox("camelCase returns camelCased string when string received.")]
+    #[DataProvider("camelCaseStringProvider")]
     public function testCamelCaseReturnsCamelCasedStringWhenStringReceived($string)
     {
         // When

@@ -3,6 +3,8 @@
 namespace Municipio\Theme;
 
 use Municipio\Helper\WpService;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -15,11 +17,8 @@ class ArchiveTest extends TestCase
         $archive = new Archive();
         $this->assertInstanceOf(Archive::class, $archive);
     }
-
-    /**
-     * @testdox addOrderByFallback() appends ID to orderby to avoid inconsistency in ordering
-     * @dataProvider provideOrderByMatch
-     */
+    #[TestDox("addOrderByFallback() appends ID to orderby to avoid inconsistency in ordering")]
+    #[DataProvider("provideOrderByMatch")]
     public function testAddOrderByFallbackAppendsIdToOrderbyToAvoidInconsistencyInOrdering($orderBy)
     {
         WpService::set(new FakeWpService(['addAction' => true]));
@@ -44,11 +43,8 @@ class ArchiveTest extends TestCase
             'array with key and value (modified => ASC)' => [['modified' => 'ASC']],
         ];
     }
-
-    /**
-     * @testdox addOrderByFallback() ensures that order is preserved when appending ID to orderby
-     * @dataProvider provideOrderByWithExpectedOrder
-     */
+    #[TestDox("addOrderByFallback() ensures that order is preserved when appending ID to orderby")]
+    #[DataProvider("provideOrderByWithExpectedOrder")]
     public function testAddOrderByFallbackEnsuresThatOrderIsPreservedWhenAppendingIdToOrderby($orderBy, $order, $expected)
     {
         WpService::set(new FakeWpService(['addAction' => true]));
@@ -79,11 +75,8 @@ class ArchiveTest extends TestCase
             'array with key and value (modified => DESC)' => [['modified' => 'DESC'], 'DESC', ['modified' => 'DESC', 'ID' => 'ASC']],
         ];
     }
-
-    /**
-     * @testdox addOrderByFallback() does not append ID to orderby if orderby is not date or modified
-     * @dataProvider provideOrderByMismatch
-     */
+    #[TestDox("addOrderByFallback() does not append ID to orderby if orderby is not date or modified")]
+    #[DataProvider("provideOrderByMismatch")]
     public function testAddOrderByFallbackDoesNotAppendIdToOrderbyIfOrderbyIsNotDateOrModified($orderBy)
     {
         WpService::set(new FakeWpService(['addAction' => true]));
@@ -106,11 +99,8 @@ class ArchiveTest extends TestCase
             'array with key and value (modified => ASC)' => [['modified' => 'ASC', 'ID' => 'DESC']],
         ];
     }
-
-    /**
-     * @testdox addOrderByFallback() does not append ID to orderby if query is not main query
-     * @dataProvider provideOrderByMatch
-     */
+    #[TestDox("addOrderByFallback() does not append ID to orderby if query is not main query")]
+    #[DataProvider("provideOrderByMatch")]
     public function testAddOrderByFallbackDoesNotAppendIdToOrderbyIfQueryIsNotMainQuery($orderBy)
     {
         WpService::set(new FakeWpService(['addAction' => true]));

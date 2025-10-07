@@ -3,6 +3,8 @@
 namespace Municipio\BrandedEmails\Config;
 
 use AcfService\Contracts\GetField;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -27,13 +29,10 @@ class BrandedEmailsConfigServiceTest extends TestCase
         $this->assertContains(BrandedEmailsConfigService::OPTION_ENABLED_KEY, $fieldNames);
     }
 
-    /**
-     * @testdox isEnabled() returns true if value is truthy
-     * @covers \Municipio\BrandedEmails\Config\BrandedEmailsConfigService::isEnabled
-     * @testWith [true]
-     *           ["1"]
-     *           [1]
-     */
+    #[TestDox('isEnabled() returns true if value is truthy')]
+    #[TestWith([true])]
+    #[TestWith(["1"])]
+    #[TestWith([1])]
     public function testIsEnabledReturnsTrueIfValueIsTruthy($getFieldValue)
     {
         $config = new BrandedEmailsConfigService(new FakeWpService(['getOption' => '1']));
@@ -41,13 +40,10 @@ class BrandedEmailsConfigServiceTest extends TestCase
         $this->assertTrue($config->isEnabled());
     }
 
-    /**
-     * @testdox isEnabled() returns false if value is falsy
-     * @covers \Municipio\BrandedEmails\Config\BrandedEmailsConfigService::isEnabled
-     * @testWith [false]
-     *           [""]
-     *           [0]
-     */
+    #[TestDox('isEnabled() returns false if value is falsy')]
+    #[TestWith([false])]
+    #[TestWith([""])]
+    #[TestWith([0])]
     public function testIsEnabledReturnsFalseIfValueIsFalsy($getFieldValue)
     {
 

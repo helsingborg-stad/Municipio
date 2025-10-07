@@ -29,10 +29,6 @@ class ActionsGeneratorTest extends TestCase
             ->url($url);
     }
 
-    /**
-     * @test
-     * It can be instantiated.
-     */
     public function testCanBeInstantiated(): void
     {
         // Arrange
@@ -45,10 +41,6 @@ class ActionsGeneratorTest extends TestCase
         $this->assertInstanceOf(ActionsGenerator::class, $generator);
     }
 
-    /**
-     * @test
-     * It returns empty array if potentialAction is not an array.
-     */
     public function testGenerateReturnsEmptyArrayIfPotentialActionIsNotArray(): void
     {
         // Arrange
@@ -61,10 +53,6 @@ class ActionsGeneratorTest extends TestCase
         $this->assertSame([], $generator->generate());
     }
 
-    /**
-     * @test
-     * It returns empty array if potentialAction is an empty array.
-     */
     public function testGenerateReturnsEmptyArrayIfPotentialActionIsEmptyArray(): void
     {
         // Arrange
@@ -77,10 +65,6 @@ class ActionsGeneratorTest extends TestCase
         $this->assertEquals([], $generator->generate());
     }
 
-    /**
-     * @test
-     * It returns correct data for valid actions.
-     */
     public function testGenerateReturnsCorrectDataForValidActions(): void
     {
         // Arrange

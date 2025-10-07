@@ -44,8 +44,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit --testdox --no-coverage",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
+        "test": "php -d memory_limit=512M vendor/bin/phpunit --testdox --no-coverage",
+        "test:coverage": "XDEBUG_MODE=coverage php -d memory_limit=512M vendor/bin/phpunit --testdox",
         "lint": "vendor/bin/phpcs",
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
         "fix": "vendor/bin/phpcbf",
@@ -73,7 +73,8 @@
         "phpstan/phpstan": "^2.1",
         "tomasvotruba/unused-public": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^12.4",
+        "php-stubs/acf-pro-stubs": "^6.5"
     },
     "autoload": {
         "psr-4": {

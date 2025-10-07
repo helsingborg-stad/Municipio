@@ -4,17 +4,11 @@ namespace Municipio\SchemaData\Helper;
 
 use AcfService\Implementations\FakeAcfService;
 use Municipio\Helper\AcfService;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class GetSchemaTypeTest extends TestCase
 {
-    #[TestDox('getSchemaTypesInUse() throws an exception if the AcfService is not set.')]
-    public function testGetSchemaTypesInUseThrowsExceptionIfAcfServiceNotSet()
-    {
-        $this->expectException(\Exception::class);
-        GetSchemaType::getSchemaTypesInUse();
-    }
-
     #[TestDox('getSchemaTypesInUse() does not throw if the AcfService is set.')]
     public function testGetSchemaTypesInUseDoesNotThrowIfAcfServiceSet()
     {

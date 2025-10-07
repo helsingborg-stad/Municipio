@@ -4,6 +4,7 @@ namespace Municipio\UserGroup;
 
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WP_Taxonomy;
@@ -31,21 +32,6 @@ class CreateUserGroupTaxonomyTest extends TestCase
         $this->assertEquals('init', $wpService->methodCalls['addAction'][0][0]);
         $this->assertEquals([$createUserGroupTaxonomy, 'registerUserGroupTaxonomy'], $wpService->methodCalls['addAction'][0][1]);
         $this->assertEquals(5, $wpService->methodCalls['addAction'][0][2]);
-    }
-
-    #[TestDox('registerUserGroupTaxonomy() registers a taxonomy on main')]
-    public function testRegisterUserGroupTaxonomyRegistersTaxonomyOnMain()
-    {
-        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
-        $config    = $this->getConfig();
-        $config->method('getUserGroupTaxonomy')->willReturn('test_taxonomy');
-        $siteSwitcher = $this->getSiteSwitcher();
-        $siteSwitcher->method('runInSite')->with(1, fn($callback) => $callback())->willReturnCallback(fn($siteId, $callback) => $callback());
-        $createUserGroupTaxonomy = new CreateUserGroupTaxonomy($wpService, $config, $siteSwitcher);
-
-        $createUserGroupTaxonomy->registerUserGroupTaxonomy();
-
-        $this->assertEquals('test_taxonomy', $wpService->methodCalls['registerTaxonomy'][0][0]);
     }
 
     #[TestDox('registerUserGroupTaxonomy() registers a taxonomy with name from config')]

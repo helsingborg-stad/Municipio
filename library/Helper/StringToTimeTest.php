@@ -2,15 +2,15 @@
 
 namespace Municipio\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 class StringToTimeTest extends TestCase
 {
-     /**
-     * @testdox tryFormatDateToUnixTimestamp() returns a unix timestamp when given a valid date string
-     * @dataProvider provideValidDateStrings
-     */
+    #[TestDox("tryFormatDateToUnixTimestamp() returns a unix timestamp when given a valid date string")]
+    #[DataProvider("provideValidDateStrings")]
     public function testTryFormatDateToUnixTimestampReturnsUnixTimestampFromString($dateString)
     {
         $this->assertIsInt((new StringToTime($this->getWpServiceWithTranslatedDateStrings()))->convert($dateString));

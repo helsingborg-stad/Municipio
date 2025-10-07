@@ -5,7 +5,8 @@
   backupGlobals="false"
   colors="true"
   failOnAllIssues="true"
-  displayDetailsOnAllIssues="true">
+  displayDetailsOnAllIssues="true"
+  testdoxSummary="true">
 
   <testsuites>
       <testsuite name="default">

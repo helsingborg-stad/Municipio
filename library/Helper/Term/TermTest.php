@@ -3,6 +3,7 @@
 namespace Municipio\Helper\Term;
 
 use AcfService\Implementations\FakeAcfService;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Error;
@@ -54,7 +55,7 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermColor() returns the colour of the term if it has one')]
-#[RunInSeparateProcess]
+    #[RunInSeparateProcess]
     public function testGetTermColorReturnsTheColourOfTheTermIfItHasOne()
     {
         $acfService     = new FakeAcfService(['getField' => '#000000']);
@@ -71,7 +72,7 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermColor() prepends a hash to the colour if it does not have one')]
-#[RunInSeparateProcess]
+    #[RunInSeparateProcess]
     public function testGetTermColorPrependsAHashToTheColourIfItDoesNotHaveOne()
     {
         $acfService     = new FakeAcfService(['getField' => '000000']);
@@ -129,7 +130,7 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermIcon() returns false if term can not be found by ID or slug')]
-#[RunInSeparateProcess]
+    #[RunInSeparateProcess]
     public function testGetTermIconReturnsFalseIfTermCanNotBeFoundByIdOrSlug()
     {
         $wpService  = new FakeWpService(['getTermBy' => false]);
@@ -140,7 +141,7 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermIcon() returns false if term has no icon')]
-#[RunInSeparateProcess]
+    #[RunInSeparateProcess]
     public function testGetTermIconReturnsFalseIfTermHasNoIcon()
     {
         $acfService     = new FakeAcfService(['getField' => null]);
@@ -157,7 +158,7 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermIcon() returns the icon of the term if it has one')]
-#[RunInSeparateProcess]
+    #[RunInSeparateProcess]
     public function testGetTermIconReturnsTheIconOfTheTermIfItHasOne()
     {
         $acfService     = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
@@ -174,7 +175,7 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermIcon() returns the SVG icon of the term if it has one')]
-#[RunInSeparateProcess]
+    #[RunInSeparateProcess]
     public function testGetTermIconReturnsTheSvgIconOfTheTermIfItHasOne()
     {
         $term           = new WP_Term([]);

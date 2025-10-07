@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler;
 
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateHandlerTest extends TestCase
@@ -21,11 +22,8 @@ class DateHandlerTest extends TestCase
 
         $this->assertTrue($result);
     }
-
-    /**
-     * @testdox supports() returns false for invalid field types or values
-     * @dataProvider supportsDataProvider
-     */
+    #[TestDox("supports() returns false for invalid field types or values")]
+    #[DataProvider("supportsDataProvider")]
     public function testSupportsReturnsFalseForInvalidFieldTypesOrValues(string $fieldType, mixed $value, array $propertyTypes): void
     {
         $handler = new DateHandler();

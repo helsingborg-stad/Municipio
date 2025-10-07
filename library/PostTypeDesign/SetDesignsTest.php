@@ -4,6 +4,7 @@ namespace Municipio\PostTypeDesign;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\PostTypeDesign\SetDesigns;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
@@ -64,9 +65,7 @@ class SetDesignsTest extends TestCase
         $this->assertEquals('value', $result);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testSetDesignReturnsOptionValueIfFound()
     {
         $wpService = $this->getWpService([
@@ -103,9 +102,7 @@ class SetDesignsTest extends TestCase
         $this->assertEmpty($output);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testInlineCssAddsIfNotEmpty()
     {
         $wpService = $this->getWpService([

@@ -2,9 +2,12 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Helper\WpService;
 use Municipio\SchemaData\Utils\Contracts\SchemaTypesInUseInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class NavigationTest extends TestCase
 {
@@ -18,6 +21,7 @@ class NavigationTest extends TestCase
     #[TestDox('getSchemaTypeMenus() returns an array of menu locations for schema types in use')]
     public function testGetSchemaTypeMenusReturnsArrayOfMenuLocations()
     {
+        WpService::set(new FakeWpService(['__' => fn($text) => $text]));
         $schemaTypesInUse = $this->getSchemaTypesInUse();
         $schemaTypesInUse->method('getSchemaTypesInUse')->willReturn(['Event']);
         $navigation      = new Navigation($schemaTypesInUse);
