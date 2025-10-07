@@ -17,6 +17,6 @@ class MapEventIsInthePast implements EventDataMapperInterface
             return false;
         }
 
-        return $this->eventStartDate->getTimestamp() < time() ? true : false;
+        return $this->eventStartDate->getTimestamp() < time();
     }
 }
