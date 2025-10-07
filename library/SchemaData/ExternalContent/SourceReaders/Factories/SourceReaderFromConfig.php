@@ -4,7 +4,6 @@ namespace Municipio\SchemaData\ExternalContent\SourceReaders\Factories;
 
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\SchemaObjectsFilter\SchemaObjectsFilterFromFilterDefinition;
-use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\SchemaData\ExternalContent\Filter\Transforms\FilterDefinitionToTypesenseParams;
 use Municipio\SchemaData\ExternalContent\SourceReaders\FileSystem\FileSystem;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\TypesenseApi\TypesenseApi;
@@ -13,6 +12,8 @@ use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReader;
 use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReaderInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\TypesenseSourceReader;
 use Municipio\Helper\WpService;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsFactory;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsFactoryInterface;
 
 /**
  * Class SourceReaderFromConfig
@@ -24,8 +25,9 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct(
+        private JsonToSchemaObjectsFactoryInterface $jsonToSchemaObjectsFactory = new JsonToSchemaObjectsFactory()
+    ) {
     }
 
     /**
@@ -49,7 +51,7 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
     private function getJsonFileSourceReader(SourceConfigInterface $config): JsonFileSourceReader
     {
         $schemaObjectsFilter = new SchemaObjectsFilterFromFilterDefinition($config->getFilterDefinition());
-        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), new SimpleJsonConverter());
+        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), $this->jsonToSchemaObjectsFactory->create());
     }
 
     /**
@@ -65,6 +67,6 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
         $getParamsString                   = $filterDefinitionToTypesenseParams->transform($config->getFilterDefinition());
         $getParamsString                   = !empty($getParamsString) ? '?' . $getParamsString : ''; // Add '?' if there are any parameters
 
-        return new TypesenseSourceReader($api, $getParamsString, new SimpleJsonConverter());
+        return new TypesenseSourceReader($api, $getParamsString, $this->jsonToSchemaObjectsFactory->create());
     }
 }

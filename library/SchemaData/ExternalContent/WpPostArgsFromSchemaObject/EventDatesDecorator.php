@@ -32,6 +32,14 @@ class EventDatesDecorator implements WpPostArgsFromSchemaObjectInterface
         $startDate = $schemaObject->getProperty('startDate');
         $endDate   = $schemaObject->getProperty('endDate');
 
+        if ($startDate instanceof \DateTime) {
+            $startDate = $startDate->format('Y-m-d H:i:s');
+        }
+
+        if ($endDate instanceof \DateTime) {
+            $endDate = $endDate->format('Y-m-d H:i:s');
+        }
+
         $post['meta_input']['startDate'] = $startDate;
         $post['meta_input']['endDate']   = $endDate;
 

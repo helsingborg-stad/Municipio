@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
 use Municipio\SchemaData\ExternalContent\Filter\SchemaObjectsFilter\SchemaObjectsFilterInterface;
-use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
+use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\FileSystem\FileSystem;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -78,8 +78,8 @@ class JsonFileSourceReaderTest extends TestCase {
         $this->assertEquals(['filteredResults'], $filteredSchemaObjects);
     }
 
-    private function getJsonToSchemaObjectsMock(): JsonToSchemaObjects|MockObject {
-        return $this->createMock(JsonToSchemaObjects::class);
+    private function getJsonToSchemaObjectsMock(): JsonToSchemaObjectsInterface|MockObject {
+        return $this->createMock(JsonToSchemaObjectsInterface::class);
     }
 
     private function getFileSystemMock(): FileSystem|MockObject {

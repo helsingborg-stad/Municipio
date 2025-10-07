@@ -3,7 +3,6 @@
 namespace Municipio\Controller;
 
 use DateTime;
-use Municipio\Helper\Post;
 
 /**
  * Class SingularEvent
@@ -11,7 +10,9 @@ use Municipio\Helper\Post;
 class SingularEvent extends \Municipio\Controller\Singular
 {
     protected object $postMeta;
-    public string $view = 'single-schema-event';
+    public string $view                       = 'single-schema-event';
+    public const CURRENT_OCCASION_GET_PARAM   = 'startDate';
+    public const CURRENT_OCCASION_DATE_FORMAT = 'Y-m-d_H:i';
 
     /**
      * @inheritDoc
@@ -24,26 +25,23 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $event = $this->post->getSchema();
 
-        $mappers = [
-            'description'           => new SingularEvent\Mappers\MapDescription($this->wpService),
-            'priceListItems'        => new SingularEvent\Mappers\MapPriceList($this->wpService),
-            'organizers'            => new SingularEvent\Mappers\MapOrganizers($this->wpService),
-            'icsUrl'                => new SingularEvent\Mappers\MapIcsUrl(),
-            'eventIsInThePast'      => new SingularEvent\Mappers\MapEventIsInthePast(),
-            'accessibilityFeatures' => new SingularEvent\Mappers\MapPhysicalAccessibilityFeatures(),
-            'place'                 => new SingularEvent\Mappers\MapPlace(),
-        ];
-
-        $this->data['eventsInTheSameSeries'] = $this->getEventsInTheSameSeries();
-        $this->data['occassion']             = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
+        $this->data['description']           = (new SingularEvent\Mappers\MapDescription($this->wpService))->map($event);
+        $this->data['priceListItems']        = (new SingularEvent\Mappers\MapPriceList($this->wpService))->map($event);
+        $this->data['organizers']            = (new SingularEvent\Mappers\MapOrganizers($this->wpService))->map($event);
+        $this->data['icsUrl']                = (new SingularEvent\Mappers\MapIcsUrl())->map($event);
+        $this->data['eventIsInThePast']      = (new SingularEvent\Mappers\MapEventIsInthePast($this->tryGetCurrentDateFromGetParam()))->map($event);
+        $this->data['accessibilityFeatures'] = (new SingularEvent\Mappers\MapPhysicalAccessibilityFeatures())->map($event);
+        $this->data['place']                 = (new SingularEvent\Mappers\MapPlace())->map($event);
+        $this->data['occasions']             = (new SingularEvent\Mappers\MapOccasions($this->post->getPermalink(), $this->tryGetCurrentDateFromGetParam()))->map($event);
+        $this->data['currentOccasion']       = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
-        $this->data['occassions']            = array_map(function ($postObject) {
-            return $this->getOccassionText($postObject->getSchemaProperty('startDate'), $postObject->getSchemaProperty('endDate'));
-        }, $this->data['eventsInTheSameSeries']);
 
-        foreach ($mappers as $key => $mapper) {
-            $this->data[$key] = $mapper->map($event);
-        }
+        // Ensure we are visiting a singular occasion if occasions exist
+        (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion(
+            new SingularEvent\EnsureVisitingSingularOccasion\Redirect\Redirect($this->wpService),
+            $this->tryGetCurrentDateFromGetParam(),
+            ...$this->data['occasions']
+        ))->ensureVisitingSingularOccasion();
 
         $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
     }
@@ -58,69 +56,14 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->bookingTitle       = $this->wpService->__('Tickets & registration', 'municipio');
         $this->data['lang']->bookingButton      = $this->wpService->__('Go to booking page', 'municipio');
         $this->data['lang']->bookingDisclaimer  = $this->wpService->__('Tickets are sold according to the reseller.', 'municipio');
-        $this->data['lang']->occassionsTitle    = $this->wpService->__('Date and time', 'municipio');
-        $this->data['lang']->moreOccassions     = $this->wpService->__('Other occassions', 'municipio');
+        $this->data['lang']->occasionsTitle     = $this->wpService->__('Date and time', 'municipio');
+        $this->data['lang']->moreOccasions      = $this->wpService->__('All occasions', 'municipio');
         $this->data['lang']->placeTitle         = $this->wpService->__('Place', 'municipio');
         $this->data['lang']->directionsLabel    = $this->wpService->__('Get directions', 'municipio');
         $this->data['lang']->priceTitle         = $this->wpService->__('Price', 'municipio');
         $this->data['lang']->organizersTitle    = $this->wpService->__('Organizers', 'municipio');
         $this->data['lang']->accessibilityTitle = $this->wpService->__('Accessibility', 'municipio');
         $this->data['lang']->expiredEventNotice = $this->wpService->__('This event has already taken place.', 'municipio');
-    }
-
-    /**
-     * Get date text
-     *
-     * @param DateTime|null $startDate
-     * @param DateTime|null $endDate
-     * @return string
-     */
-    public function getOccassionText(DateTime|null $startDate, DateTime|null $endDate): string
-    {
-        if (!$startDate || !$endDate) {
-            return '';
-        }
-
-        $startDateTimestamp = $startDate->getTimestamp();
-        $endDateTimestamp   = $endDate->getTimestamp();
-
-        $duration = $endDateTimestamp - $startDateTimestamp;
-        $days     = floor($duration / 86400);
-
-        $start = ucfirst($this->wpService->dateI18n('j F Y H:i', $startDateTimestamp));
-        $end   = $days > 0
-            ? ucfirst($this->wpService->dateI18n('j F Y H:i', $endDateTimestamp))
-            : ucfirst($this->wpService->dateI18n('H:i', $endDateTimestamp));
-
-        return "{$start} - {$end}";
-    }
-
-    /**
-     * Get events in the same series
-     *
-     * @return array
-     */
-    private function getEventsInTheSameSeries(): array
-    {
-        if (empty($this->post->getSchemaProperty('eventsInSameSeries'))) {
-            return [];
-        }
-
-        $eventIds = array_map(fn($eventInSerie) => $eventInSerie['@id'], $this->post->getSchemaProperty('eventsInSameSeries'));
-
-        $posts = $this->wpService->getPosts([
-        'post_type'    => $this->post->getPostType(),
-        'meta_query'   => [
-            [
-                'key'     => 'originId',
-                'value'   => $eventIds,
-                'compare' => 'IN'
-            ],
-        ],
-        'post__not_in' => [$this->data['post']->getId()],
-        ]);
-
-        return array_map(fn($post) => Post::preparePostObject($post), $posts);
     }
 
     /**
@@ -132,5 +75,16 @@ class SingularEvent extends \Municipio\Controller\Singular
         if ($eventIsInThePast) {
             $this->wpService->statusHeader(410);
         }
+    }
+
+    private function tryGetCurrentDateFromGetParam(): ?DateTime
+    {
+        $startDateParam = $_GET[self::CURRENT_OCCASION_GET_PARAM] ?? null;
+
+        if (empty($startDateParam)) {
+            return null;
+        }
+
+        return DateTime::createFromFormat(self::CURRENT_OCCASION_DATE_FORMAT, $startDateParam) ?: null;
     }
 }
