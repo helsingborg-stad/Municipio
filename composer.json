@@ -51,8 +51,6 @@
         "fix": "vendor/bin/phpcbf",
         "fix:changed": "vendor/bin/phpcbf-changed origin/main",
         "post-update-cmd": [],
-        "unused": "vendor/bin/class-leak check library",
-        "phpstan": "phpstan analyse --memory-limit=2G",
         "make-pot": "wp i18n make-pot library languages/municipio.pot --domain=municipio --allow-root",
         "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
         "make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root"
@@ -61,18 +59,12 @@
         "allow-plugins": {
             "composer/installers": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "php-http/discovery": true,
-            "phpstan/extension-installer": true
+            "php-http/discovery": true
         }
     },
     "require-dev": {
         "helsingborg-stad/phpcs": "^0.3.1",
         "php-stubs/wordpress-stubs": "^6.7",
-        "dg/bypass-finals": "^1.9",
-        "tomasvotruba/class-leak": "^2.0",
-        "phpstan/phpstan": "^2.1",
-        "tomasvotruba/unused-public": "^2.0",
-        "phpstan/extension-installer": "^1.4",
         "phpunit/phpunit": "^11.5",
         "php-stubs/acf-pro-stubs": "^6.5"
     },
