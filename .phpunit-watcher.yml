@@ -1,4 +1,0 @@
-watch:
-  directories:
-    - library
-  fileMask: '*.php'
