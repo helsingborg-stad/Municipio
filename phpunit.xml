@@ -14,7 +14,6 @@
     </include>
     <exclude>
       <directory suffix=".php">./library/AcfFields</directory>
-      <directory suffix=".test.php">./library</directory>
       <directory suffix="Test.php">./library</directory>
     </exclude>
     <report>
@@ -26,7 +25,6 @@
 
   <testsuites>
       <testsuite name="default">
-        <directory suffix=".test.php">./library</directory>
         <directory suffix="Test.php">./library</directory>
       </testsuite>
   </testsuites>
