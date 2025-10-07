@@ -30,6 +30,8 @@ class DateFormat
                 return $dateFormat;
             case 'time':
                 return $timeFormat;
+            case 'date-badge':
+                return 'date-badge';
             case 'date-time':
             default:
                 return $dateFormat . ' ' . $timeFormat;
