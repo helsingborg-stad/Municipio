@@ -14,7 +14,7 @@
                         'timestamp' => $post->getArchiveDateTimestamp(),
                         'format'    => $post->getArchiveDateFormat(),
                     ],
-                    'dateBadge' => $post->getArchiveDateFormat() == 'date-badge',
+                    'dateBadge' => $post->getArchiveDateFormat() == 'U',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src'])

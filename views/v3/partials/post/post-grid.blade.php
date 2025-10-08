@@ -20,7 +20,7 @@
                         'timestamp' => $post->getArchiveDateTimestamp(),
                         'format'    => $post->getArchiveDateFormat(),
                     ],
-                    'dateBadge' => $post->getArchiveDateFormat() == 'date-badge',
+                    'dateBadge' => $post->getArchiveDateFormat() == 'U',
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
                 ])
