@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-  bootstrap="./phpunit-bootstrap.php"
-  backupGlobals="false"
-  colors="true"
-  failOnAllIssues="true"
-  displayDetailsOnAllIssues="true"
-  testdoxSummary="true">
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+    bootstrap="./phpunit-bootstrap.php"
+    backupGlobals="false"
+    testdox="true"
+    testdoxSummary="true"
+    colors="true"
+    failOnAllIssues="true"
+    displayDetailsOnAllIssues="true">
 
-  <testsuites>
-    <testsuite name="default">
-      <directory suffix="Test.php">library</directory>
-    </testsuite>
-  </testsuites>
-  <source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
-    <include>
-      <directory>library</directory>
-    </include>
-    <exclude>
-      <directory suffix="Test.php">library</directory>
-    </exclude>
-  </source>
+    <testsuites>
+        <testsuite name="default">
+        <directory suffix="Test.php">library</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>library</directory>
+        </include>
+        <exclude>
+            <directory suffix="Test.php">library</directory>
+        </exclude>
+    </source>
 
-  <coverage pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="true">
-    <report>
-      <text outputFile=".coverage/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
-      <html outputDirectory=".coverage"/>
-      <xml outputDirectory=".coverage/xml"/>
-    </report>
-  </coverage>
+    <coverage pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="true">
+        <report>
+            <text outputFile=".coverage/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
+            <html outputDirectory=".coverage"/>
+            <xml outputDirectory=".coverage/xml"/>
+        </report>
+    </coverage>
 
 </phpunit>
