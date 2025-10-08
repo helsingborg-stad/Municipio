@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-19T05:08:44+00:00\n"
+"POT-Creation-Date: 2025-10-08T04:59:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -446,6 +446,7 @@ msgstr ""
 #: Customizer/Sections/Component/Divider.php:198
 #: Customizer/Sections/Component/Field.php:66
 #: Customizer/Sections/Header/Appearance.php:14
+#: Customizer/Sections/Menu/Colors.php:277
 #: Customizer/Sections/Menu/Quicklinks.php:41
 msgid "Background color"
 msgstr ""
@@ -553,7 +554,7 @@ msgid "Report settings"
 msgstr ""
 
 #: AcfFields/php/external-content-settings.php:8
-#: SchemaData/ExternalContent/ExternalContentFeature.php:177
+#: SchemaData/ExternalContent/ExternalContentFeature.php:178
 msgid "External Content"
 msgstr ""
 
@@ -1051,7 +1052,7 @@ msgstr ""
 
 #: AcfFields/php/options-menu-floating.php:8
 #: AcfFields/php/options-theme-google-translate.php:61
-#: Theme/Navigation.php:37
+#: Theme/Navigation.php:38
 msgid "Floating menu"
 msgstr ""
 
@@ -1126,7 +1127,7 @@ msgstr ""
 #: Customizer/PanelsRegistry.php:409
 #: Customizer/Sections/Search.php:140
 #: Helper/TranslatedLabels.php:49
-#: Theme/Navigation.php:35
+#: Theme/Navigation.php:36
 msgid "Mega menu"
 msgstr ""
 
@@ -2055,49 +2056,49 @@ msgid "Menu to show translate link in"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:55
-#: Theme/Navigation.php:31
+#: Theme/Navigation.php:32
 msgid "Help menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:56
-#: Theme/Navigation.php:32
+#: Theme/Navigation.php:33
 msgid "Header tabs menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:57
-#: Theme/Navigation.php:33
+#: Theme/Navigation.php:34
 msgid "Primary menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:58
-#: Theme/Navigation.php:34
+#: Theme/Navigation.php:35
 msgid "Secondary menu & drawer menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:60
-#: Theme/Navigation.php:36
+#: Theme/Navigation.php:37
 msgid "Dropdown menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:62
-#: Theme/Navigation.php:38
+#: Theme/Navigation.php:39
 msgid "Language menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:63
 #: Customizer/PanelsRegistry.php:415
 #: Customizer/Sections/Search.php:141
-#: Theme/Navigation.php:39
+#: Theme/Navigation.php:40
 msgid "Quicklinks menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:64
-#: Theme/Navigation.php:40
+#: Theme/Navigation.php:41
 msgid "Drawer (bottom)"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:65
-#: Theme/Navigation.php:41
+#: Theme/Navigation.php:42
 msgid "Siteselector"
 msgstr ""
 
@@ -2218,7 +2219,7 @@ msgstr ""
 
 #: AcfFields/php/post-icon.php:142
 #: AcfFields/php/term-icon-and-colour.php:139
-#: Controller/SingularEvent.php:59
+#: Controller/SingularEvent.php:54
 #: Customizer/Sections/ErrorPages.php:27
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -2732,7 +2733,7 @@ msgstr ""
 #: Customizer/Sections/Header/Layout.php:225
 #: Customizer/Sections/Header/Layout.php:254
 #: Customizer/Sections/Width.php:68
-#: Theme/Enqueue.php:139
+#: Theme/Enqueue.php:140
 msgid "Left"
 msgstr ""
 
@@ -2744,7 +2745,7 @@ msgstr ""
 #: Customizer/Sections/Header/Layout.php:227
 #: Customizer/Sections/Header/Layout.php:255
 #: Customizer/Sections/Width.php:84
-#: Theme/Enqueue.php:140
+#: Theme/Enqueue.php:141
 msgid "Right"
 msgstr ""
 
@@ -2755,7 +2756,7 @@ msgstr ""
 #: AcfFields/php/widget-header-common.php:119
 #: Admin/Gutenberg/Blocks/BlockManager.php:89
 #: Customizer/Sections/Header/Appearance.php:86
-#: Theme/Enqueue.php:138
+#: Theme/Enqueue.php:139
 msgid "Margin"
 msgstr ""
 
@@ -2769,7 +2770,7 @@ msgstr ""
 #: Customizer/Sections/Component/FooterMain.php:61
 #: Customizer/Sections/Component/FooterSub.php:56
 #: Customizer/Sections/Header/Appearance.php:46
-#: Theme/Enqueue.php:142
+#: Theme/Enqueue.php:143
 msgid "None"
 msgstr ""
 
@@ -2960,7 +2961,6 @@ msgid "Logout successful"
 msgstr ""
 
 #: Admin/Login/LogUserLoginTime.php:53
-#: Admin/LoginTracking.php:35
 msgid "Last Login"
 msgstr ""
 
@@ -3441,15 +3441,20 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: Controller/Media/TrashPage.php:33
-msgid "Trashed media"
+#: Controller/Media/TrashPage.php:22
+#: Controller/Media/TrashPage.php:23
+msgid "Media Trash"
 msgstr ""
 
 #: Controller/Media/TrashPage.php:34
-msgid "No trashed media."
+msgid "Trashed media"
 msgstr ""
 
 #: Controller/Media/TrashPage.php:35
+msgid "No trashed media."
+msgstr ""
+
+#: Controller/Media/TrashPage.php:36
 msgid "Are you sure you want to permanently delete this post?"
 msgstr ""
 
@@ -3531,84 +3536,88 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: Controller/SingularElementarySchool.php:44
+#: Controller/SingularElementarySchool.php:40
 msgctxt "ElementarySchool"
 msgid "Quick facts"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:45
+#: Controller/SingularElementarySchool.php:41
 msgctxt "ElementarySchool"
 msgid "Contact us"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:46
+#: Controller/SingularElementarySchool.php:42
 msgctxt "ElementarySchool"
 msgid "Address"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:47
+#: Controller/SingularElementarySchool.php:43
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:48
+#: Controller/SingularElementarySchool.php:44
 msgctxt "ElementarySchool"
 msgid "Follow us on social media"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:49
+#: Controller/SingularElementarySchool.php:45
 msgctxt "ElementarySchool"
 msgid "Events"
 msgstr ""
 
-#: Controller/SingularEvent.php:60
+#: Controller/SingularEvent.php:55
 msgid "Add to calendar"
 msgstr ""
 
-#: Controller/SingularEvent.php:61
+#: Controller/SingularEvent.php:56
 msgid "Tickets & registration"
 msgstr ""
 
-#: Controller/SingularEvent.php:62
+#: Controller/SingularEvent.php:57
 msgid "Go to booking page"
 msgstr ""
 
-#: Controller/SingularEvent.php:63
+#: Controller/SingularEvent.php:58
 msgid "Tickets are sold according to the reseller."
 msgstr ""
 
-#: Controller/SingularEvent.php:64
+#: Controller/SingularEvent.php:59
 msgid "Date and time"
 msgstr ""
 
-#: Controller/SingularEvent.php:65
-msgid "Other occassions"
+#: Controller/SingularEvent.php:60
+msgid "All occasions"
 msgstr ""
 
-#: Controller/SingularEvent.php:66
+#: Controller/SingularEvent.php:61
 msgid "Place"
 msgstr ""
 
-#: Controller/SingularEvent.php:67
+#: Controller/SingularEvent.php:62
+msgid "Get directions"
+msgstr ""
+
+#: Controller/SingularEvent.php:63
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr ""
 
-#: Controller/SingularEvent.php:68
+#: Controller/SingularEvent.php:64
 msgid "Organizers"
 msgstr ""
 
-#: Controller/SingularEvent.php:69
+#: Controller/SingularEvent.php:65
 msgid "Accessibility"
 msgstr ""
 
-#: Controller/SingularEvent.php:70
+#: Controller/SingularEvent.php:66
 msgid "This event has already taken place."
 msgstr ""
 
-#: Controller/SingularEvent.php:163
+#: Controller/SingularEvent/Mappers/MapPriceList.php:65
 #: Controller/SingularExhibitionEvent.php:173
 msgid "Price not available"
 msgstr ""
@@ -5187,7 +5196,7 @@ msgid "Select when the login/logout button should be visible"
 msgstr ""
 
 #: Customizer/Sections/Header/LoginLogout.php:22
-#: SchemaData/ExternalContent/ExternalContentFeature.php:202
+#: SchemaData/ExternalContent/ExternalContentFeature.php:203
 msgid "Never"
 msgstr ""
 
@@ -5397,24 +5406,24 @@ msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:160
 #: Customizer/Sections/Menu/Colors.php:190
-#: Customizer/Sections/Menu/Colors.php:239
+#: Customizer/Sections/Menu/Colors.php:243
 msgid "colors"
 msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:166
 #: Customizer/Sections/Menu/Colors.php:196
-#: Customizer/Sections/Menu/Colors.php:245
+#: Customizer/Sections/Menu/Colors.php:249
 msgid "Default Contrast"
 msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:167
 #: Customizer/Sections/Menu/Colors.php:198
-#: Customizer/Sections/Menu/Colors.php:247
+#: Customizer/Sections/Menu/Colors.php:251
 msgid "Contrasting (Active)"
 msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:197
-#: Customizer/Sections/Menu/Colors.php:246
+#: Customizer/Sections/Menu/Colors.php:250
 msgid "Background (Active)"
 msgstr ""
 
@@ -6078,7 +6087,7 @@ msgstr ""
 msgid "Handling of personal data"
 msgstr ""
 
-#: SchemaData/ExternalContent/ExternalContentFeature.php:176
+#: SchemaData/ExternalContent/ExternalContentFeature.php:177
 msgid "External Content Settings"
 msgstr ""
 
@@ -6430,67 +6439,75 @@ msgstr ""
 msgid "Physical Accessibility Feature"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
+msgid "Occasions"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
+msgid "Occasion"
+msgstr ""
+
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Departments"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:100
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Department"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Categories"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Category"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Technologies"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Technology"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Statuses"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Status"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
 msgid "Unique selling points"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:110
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
 msgid "Unique selling point"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Areas served"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:111
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Area served"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Grades"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Grade"
 msgstr ""
 
-#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:121
+#: SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr ""
@@ -6520,51 +6537,51 @@ msgstr ""
 msgid "Page (centered)"
 msgstr ""
 
-#: Theme/Enqueue.php:69
+#: Theme/Enqueue.php:70
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: Theme/Enqueue.php:71
+#: Theme/Enqueue.php:72
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: Theme/Enqueue.php:72
+#: Theme/Enqueue.php:73
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: Theme/Enqueue.php:92
+#: Theme/Enqueue.php:93
 msgid "Su"
 msgstr ""
 
-#: Theme/Enqueue.php:93
+#: Theme/Enqueue.php:94
 msgid "Mo"
 msgstr ""
 
-#: Theme/Enqueue.php:94
+#: Theme/Enqueue.php:95
 msgid "Tu"
 msgstr ""
 
-#: Theme/Enqueue.php:95
+#: Theme/Enqueue.php:96
 msgid "We"
 msgstr ""
 
-#: Theme/Enqueue.php:96
+#: Theme/Enqueue.php:97
 msgid "Th"
 msgstr ""
 
-#: Theme/Enqueue.php:97
+#: Theme/Enqueue.php:98
 msgid "Fr"
 msgstr ""
 
-#: Theme/Enqueue.php:98
+#: Theme/Enqueue.php:99
 msgid "Sa"
 msgstr ""
 
-#: Theme/Enqueue.php:137
+#: Theme/Enqueue.php:138
 msgid "Alignment"
 msgstr ""
 
-#: Theme/Enqueue.php:141
+#: Theme/Enqueue.php:142
 msgid "Both"
 msgstr ""
 
@@ -6852,15 +6869,15 @@ msgstr ""
 msgid "Undefined"
 msgstr ""
 
-#: Theme/Navigation.php:120
+#: Theme/Navigation.php:121
 msgid "(above archive posts)"
 msgstr ""
 
-#: Theme/Navigation.php:127
+#: Theme/Navigation.php:128
 msgid "(sidebar)"
 msgstr ""
 
-#: Theme/Navigation.php:151
+#: Theme/Navigation.php:152
 #, php-format
 msgid "Schema type - %s (above archive posts)"
 msgstr ""
