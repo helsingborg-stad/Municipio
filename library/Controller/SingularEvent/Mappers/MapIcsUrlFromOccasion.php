@@ -2,13 +2,19 @@
 
 namespace Municipio\Controller\SingularEvent\Mappers;
 
+use DateTime;
+use Municipio\Controller\SingularEvent\Mappers\Occasion\OccasionInterface;
 use Municipio\Schema\Event;
 
 /**
  * Maps Event data to an ICS URL string.
  */
-class MapIcsUrl implements EventDataMapperInterface
+class MapIcsUrlFromOccasion implements EventDataMapperInterface
 {
+    public function __construct(private ?OccasionInterface $occasion = null)
+    {
+    }
+
     /**
      * Maps the given Event to an ICS URL string.
      *
@@ -17,8 +23,12 @@ class MapIcsUrl implements EventDataMapperInterface
      */
     public function map(Event $event): ?string
     {
-        $startDate = $this->getStartDate($event);
-        $endDate   = $this->getEndDate($event);
+        if (!$this->occasion) {
+            return null;
+        }
+
+        $startDate = $this->getStartDate();
+        $endDate   = $this->getEndDate();
         $name      = $this->getName($event);
 
         if (empty($startDate) || empty($endDate) || empty($name)) {
@@ -38,25 +48,23 @@ class MapIcsUrl implements EventDataMapperInterface
     }
 
     /**
-     * Gets the start date from the Event.
+     * Gets the start date
      *
-     * @param Event $event
-     * @return \DateTime|null
+     * @return DateTime
      */
-    private function getStartDate(Event $event): ?\DateTime
+    private function getStartDate(): DateTime
     {
-        return is_a($event->getProperty('startDate'), \DateTime::class) ? $event->getProperty('startDate') : null;
+        return new DateTime($this->occasion->getStartDate());
     }
 
     /**
-     * Gets the end date from the Event.
+     * Gets the end date.
      *
-     * @param Event $event
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    private function getEndDate(Event $event): ?\DateTime
+    private function getEndDate(): ?DateTime
     {
-        return is_a($event->getProperty('endDate'), \DateTime::class) ? $event->getProperty('endDate') : null;
+        return new DateTime($this->occasion->getEndDate());
     }
 
     /**

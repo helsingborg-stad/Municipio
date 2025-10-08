@@ -5,6 +5,7 @@ namespace Municipio\Controller\SingularEvent\Mappers;
 use Municipio\Controller\SingularEvent;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\OccasionInterface;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class MapOccasionsTest extends TestCase
@@ -13,7 +14,7 @@ class MapOccasionsTest extends TestCase
     public function testReturnsArrayOfOccasionObjects()
     {
         $event = Schema::event()->eventSchedule([
-        Schema::schedule()->startDate(new \DateTime('2025-12-24 18:00')),
+            Schema::schedule()->startDate(new \DateTime('2025-12-24 18:00'))->endDate(new \DateTime('2025-12-24 20:00')),
         ]);
 
         $mapper    = new MapOccasions('', null);
@@ -28,7 +29,7 @@ class MapOccasionsTest extends TestCase
     public function testAppendsIndicatorToOccasionUrl()
     {
         $event = Schema::event()->eventSchedule([
-        Schema::schedule()->startDate(new \DateTime('2025-12-24 18:00')),
+        Schema::schedule()->startDate(new \DateTime('2025-12-24 18:00'))->endDate(new \DateTime('2025-12-24 20:00')),
         ]);
 
         $mapper    = new MapOccasions('https://example.com/event', null);
@@ -46,8 +47,8 @@ class MapOccasionsTest extends TestCase
     public function testMarksCorrectOccasionAsCurrent()
     {
         $event = Schema::event()->eventSchedule([
-            Schema::schedule()->startDate(new \DateTime('2025-12-24 18:00')),
-            Schema::schedule()->startDate(new \DateTime('2025-12-25 18:00')),
+            Schema::schedule()->startDate(new \DateTime('2025-12-24 18:00'))->endDate(new \DateTime('2025-12-24 20:00')),
+            Schema::schedule()->startDate(new \DateTime('2025-12-25 18:00'))->endDate(new \DateTime('2025-12-25 20:00')),
         ]);
 
         $currentlyViewing = new \DateTime('2025-12-25 18:00');

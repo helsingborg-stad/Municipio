@@ -34,7 +34,7 @@
                         {!!$lang->occasionsTitle!!}
                     @endtypography
                     @typography([])
-                        {!!$currentOccasion->getDateTime()!!}
+                        {!!$currentOccasion->getStartDate()!!}
                     @endtypography
                 @endcollection__item
             @endif
@@ -130,7 +130,7 @@
                             'link' => $occasion->getUrl()
                         ])
                             @typography(['classList' => [$occasion->isCurrent() ? 'u-bold' : '']])
-                                {!! $occasion->getDateTime() !!}
+                                {!! $occasion->getStartDate() !!}
                             @endtypography
                         @endcollection__item
                     @endforeach
