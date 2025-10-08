@@ -45,7 +45,7 @@ class EnsureVisitingSingularOccasion
     private function findFirstFutureOccasion(OccasionInterface ...$occasions): ?OccasionInterface
     {
         foreach ($occasions as $occasion) {
-            if (strtotime($occasion->getDateTime()) >= time()) {
+            if (strtotime($occasion->getStartDate()) >= time()) {
                 return $occasion;
             }
         }
@@ -57,7 +57,7 @@ class EnsureVisitingSingularOccasion
     {
         $reversedOccasions = array_reverse($occasions);
         foreach ($reversedOccasions as $occasion) {
-            if (strtotime($occasion->getDateTime()) < time()) {
+            if (strtotime($occasion->getStartDate()) < time()) {
                 return $occasion;
             }
         }

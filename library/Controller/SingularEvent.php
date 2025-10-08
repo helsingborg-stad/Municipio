@@ -28,12 +28,12 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['description']           = (new SingularEvent\Mappers\MapDescription($this->wpService))->map($event);
         $this->data['priceListItems']        = (new SingularEvent\Mappers\MapPriceList($this->wpService))->map($event);
         $this->data['organizers']            = (new SingularEvent\Mappers\MapOrganizers($this->wpService))->map($event);
-        $this->data['icsUrl']                = (new SingularEvent\Mappers\MapIcsUrl())->map($event);
         $this->data['eventIsInThePast']      = (new SingularEvent\Mappers\MapEventIsInthePast($this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['accessibilityFeatures'] = (new SingularEvent\Mappers\MapPhysicalAccessibilityFeatures())->map($event);
         $this->data['place']                 = (new SingularEvent\Mappers\MapPlace())->map($event);
         $this->data['occasions']             = (new SingularEvent\Mappers\MapOccasions($this->post->getPermalink(), $this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['currentOccasion']       = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
+        $this->data['icsUrl']                = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
         $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
 
         // Ensure we are visiting a singular occasion if occasions exist

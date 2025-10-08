@@ -33,18 +33,25 @@ class MapOccasions implements EventDataMapperInterface
 
     private function mapScheduleToOccasion(Schedule $schedule): ?OccasionInterface
     {
-        $dateTime = $this->getDateTimeAsStringFromSchedule($schedule);
+        $startDate = $this->getStartDateAsStringFromSchedule($schedule);
+        $endDate   = $this->getEndDateAsStringFromSchedule($schedule);
 
-        return $dateTime ? new Occasion(
-            $dateTime,
+        return !empty($startDate) && !empty($endDate) ? new Occasion(
+            $startDate,
+            $endDate,
             $this->isCurrentOccasion($schedule),
             $this->getUrlFromSchedule($schedule)
         ) : null;
     }
 
-    private function getDateTimeAsStringFromSchedule(Schedule $schedule): ?string
+    private function getStartDateAsStringFromSchedule(Schedule $schedule): ?string
     {
         return $schedule->getProperty('startDate')?->format('Y-m-d H:i');
+    }
+
+    private function getEndDateAsStringFromSchedule(Schedule $schedule): ?string
+    {
+        return $schedule->getProperty('endDate')?->format('Y-m-d H:i');
     }
 
     private function isCurrentOccasion(Schedule $schedule): bool

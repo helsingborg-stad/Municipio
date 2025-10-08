@@ -4,13 +4,18 @@ namespace Municipio\Controller\SingularEvent\Mappers\Occasion;
 
 class Occasion implements OccasionInterface
 {
-    public function __construct(private string $dateTime, private bool $isCurrent, private string $url)
+    public function __construct(private string $startDate, private string $endDate, private bool $isCurrent, private string $url)
     {
     }
 
-    public function getDateTime(): string
+    public function getStartDate(): string
     {
-        return $this->dateTime;
+        return $this->startDate;
+    }
+
+    public function getEndDate(): string
+    {
+        return $this->endDate;
     }
 
     public function isCurrent(): bool

@@ -5,6 +5,7 @@ namespace Municipio\Controller\SingularEvent\EnsureVisitingSingularOccasion;
 use DateTime;
 use Municipio\Controller\SingularEvent\EnsureVisitingSingularOccasion\Redirect\RedirectInterface;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\OccasionInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class EnsureVisitingSingularOccasionTest extends TestCase
@@ -47,15 +48,19 @@ class EnsureVisitingSingularOccasionTest extends TestCase
         $this->expectOutputString('redirected to: http://example.com/last-past-occasion');
     }
 
-    private function getOccasion(string $dateTime, string $url)
+    private function getOccasion(string $startDate, string $url)
     {
-        return new class ($dateTime, $url) implements OccasionInterface {
-            public function __construct(private string $dateTime, private string $url)
+        return new class ($startDate, $url) implements OccasionInterface {
+            public function __construct(private string $startDate, private string $url)
             {
             }
-            public function getDateTime(): string
+            public function getStartDate(): string
             {
-                return $this->dateTime;
+                return $this->startDate;
+            }
+            public function getEndDate(): string
+            {
+                return '';
             }
             public function getUrl(): string
             {

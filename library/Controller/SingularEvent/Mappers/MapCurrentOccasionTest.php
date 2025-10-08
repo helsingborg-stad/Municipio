@@ -2,12 +2,9 @@
 
 namespace Municipio\Controller\SingularEvent\Mappers;
 
-use DateTime;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\Occasion;
-use Municipio\Controller\SingularEvent\Mappers\Occasion\OccasionInterface;
-use Municipio\Schema\Event;
-use Municipio\Schema\Schedule;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class MapCurrentOccasionTest extends TestCase
@@ -24,9 +21,9 @@ class MapCurrentOccasionTest extends TestCase
     #[TestDox('returns the correct current occasion based on provided DateTime')]
     public function testReturnsCorrectCurrentOccasion()
     {
-        $occasion1 = new Occasion('', false, '');
-        $occasion2 = new Occasion('', true, '');
-        $occasion3 = new Occasion('', false, '');
+        $occasion1 = new Occasion('', '', false, '');
+        $occasion2 = new Occasion('', '', true, '');
+        $occasion3 = new Occasion('', '', false, '');
 
         $mapper = new MapCurrentOccasion($occasion1, $occasion2, $occasion3);
         $result = $mapper->map(Schema::event());
@@ -37,7 +34,7 @@ class MapCurrentOccasionTest extends TestCase
     #[TestDox('returns null when no occasion is marked as current')]
     public function testReturnsNullWhenNoCurrentOccasion()
     {
-        $occasion1 = new Occasion('', false, '');
+        $occasion1 = new Occasion('', '', false, '');
 
         $mapper = new MapCurrentOccasion($occasion1);
         $result = $mapper->map(Schema::event());

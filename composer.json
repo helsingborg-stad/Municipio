@@ -44,8 +44,8 @@
         }
     },
     "scripts": {
-        "test": "php -d memory_limit=512M vendor/bin/phpunit --testdox --no-coverage",
-        "test:coverage": "XDEBUG_MODE=coverage php -d memory_limit=512M vendor/bin/phpunit --testdox",
+        "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
+        "test:coverage": "XDEBUG_MODE=coverage php -d memory_limit=512M vendor/bin/phpunit",
         "lint": "vendor/bin/phpcs",
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
         "fix": "vendor/bin/phpcbf",
