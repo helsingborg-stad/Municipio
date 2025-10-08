@@ -116,7 +116,7 @@ class IntermidiateImageHandler implements Hookable
         }
 
         // Check if the intermediate image already exists, if so return it
-        if (File::fileExists($intermediateLocation['path'])) {
+        if (file_exists($intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
 

@@ -162,7 +162,7 @@ class ImageProcessor
         }
 
         // The Source file must exist
-        if (!File::fileExists($sourceFilePath)) {
+        if (!file_exists($sourceFilePath)) {
             return new \WP_Error('file_not_found', 'The source image file does not exist at path: ' . $sourceFilePath);
         }
 
