@@ -29,11 +29,11 @@ class Images implements ImagesInterface
             return $content;
         }
 
-         $htmlDom = \DOM\HTMLDocument::createFromString(
+         $htmlDom = @\DOM\HTMLDocument::createFromString(
             '<!DOCTYPE html><html><body>' . $content . '</body></html>',
             0,
             'UTF-8'
-        );
+         );
 
         $this->processImages($htmlDom->querySelectorAll('figure'));
         $content = $htmlDom->saveHTML();
