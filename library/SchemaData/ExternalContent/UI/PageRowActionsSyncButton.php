@@ -27,7 +27,7 @@ class PageRowActionsSyncButton implements Hookable
      */
     public function addHooks(): void
     {
-        if (!$this->wpService->currentUserCan('activate_plugins', null)) {
+        if (!$this->wpService->currentUserCan('administrator', null)) {
             return;
         }
 

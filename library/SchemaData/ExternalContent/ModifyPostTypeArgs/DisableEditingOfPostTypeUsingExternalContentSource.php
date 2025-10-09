@@ -27,7 +27,7 @@ class DisableEditingOfPostTypeUsingExternalContentSource extends ModifyPostTypeA
         if (
             empty($this->configs) ||
             $this->wpService->wpDoingCron() ||
-            $this->wpService->currentUserCan('activate_plugins', null)
+            $this->wpService->currentUserCan('administrator', null)
         ) {
             return $args;
         }
