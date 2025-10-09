@@ -23,7 +23,7 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             'accordionListItems'         => new School\ElementarySchool\AccordionListItemsGenerator($schema, $this->wpService),
             'sliderItems'                => new School\SliderItemsGenerator($schema),
             'personsAttributes'          => new School\PersonComponentsAttributesGenerator($schema),
-            'address'                    => new School\AddressGenerator($schema, $this->wpService),
+            'addresses'                  => new School\AddressGenerator($schema, $this->wpService),
             'mapAttributes'              => new School\MapComponentAttributesGenerator($schema),
             'usps'                       => new School\ElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
             'actions'                    => new School\ActionsGenerator($schema),

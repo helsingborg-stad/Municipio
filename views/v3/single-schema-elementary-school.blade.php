@@ -133,22 +133,25 @@
             @endelement
         @endif
 
-        @if(!empty($address))
+@if(!empty($addresses))
             @paper(['classList' => ['u-padding--2']])
                 @element()
                     @typography(['element' => 'h2'])
                         {!! $lang->addressLabel !!}
                     @endtypography
-                    @if(!empty($address['address']))
-                        @typography()
-                            {!! $address['address'] !!}
-                        @endtypography
-                    @endif
-                    @if(!empty($address['directionsLink']))
-                        @link(['href' => $address['directionsLink']['href']])
-                            {!! $address['directionsLink']['label'] !!}
-                        @endlink
-                    @endif
+                    @foreach ($addresses as $address)
+                        @if(!empty($address['address']))
+                            @typography()
+                                {!! $address['address'] !!}
+                            @endtypography
+                        @endif
+                        @if(!empty($address['directionsLink']))
+                            @link(['href' => $address['directionsLink']['href']])
+                                {!! $address['directionsLink']['label'] !!}
+                            @endlink
+                        @endif
+                    @endforeach
+                    
                     @openStreetMap([
                         ...$mapAttributes,
                         'height' => '400px',
