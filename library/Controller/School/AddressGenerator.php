@@ -3,6 +3,7 @@
 namespace Municipio\Controller\School;
 
 use Municipio\Schema\ElementarySchool;
+use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;
 use WpService\Contracts\_x;
 
@@ -14,24 +15,44 @@ class AddressGenerator implements ViewDataGeneratorInterface
 
     public function generate(): mixed
     {
+        $places = $this->ensureArrayOfPlaces($this->school->getProperty('location'));
+
+        if (empty($places)) {
+            return null;
+        }
+
+        return array_map(fn($place) => $this->mapPlaceToAddress($place), $places);
+    }
+
+    private function ensureArrayOfPlaces(mixed $location): array
+    {
+        if (!is_array($location)) {
+            $location = [ $location ];
+        }
+
+        return array_filter($location, fn($item) => is_a($item, Place::class) && !empty($item->getProperty('address')));
+    }
+
+    private function mapPlaceToAddress(Place $place): array
+    {
         return [
-            'address'        => $this->getAddress(),
-            'directionsLink' => $this->getDirectionsLinkAttributes(),
+            'address'        => $this->getAddress($place),
+            'directionsLink' => $this->getDirectionsLinkAttributes($place),
         ];
     }
 
-    private function getAddress(): ?string
+    private function getAddress(Place $place): ?string
     {
-        $address = $this->school->getProperty('address');
+        $address = $place->getProperty('address');
 
         return is_string($address) && !empty($address)
             ? $address
             : null;
     }
 
-    private function getDirectionsLinkAttributes(): ?array
+    private function getDirectionsLinkAttributes(Place $place): ?array
     {
-        $address = $this->school->getProperty('address');
+        $address = $place->getProperty('address');
 
         if (!is_string($address) || empty($address)) {
             return null;
