@@ -4,6 +4,7 @@ namespace Municipio\Helper;
 
 use DateTime;
 use DateTimeZone;
+use Municipio\PostObject\PostObjectInterface;
 
 /*
  * Returns format for date and time
@@ -35,6 +36,19 @@ class DateFormat
                 return $dateFormat . ' ' . $timeFormat;
         }
     }
+
+    public static function getUnresolvedDateFormat(PostObjectInterface $post): string
+    {
+        static $cache = [];
+        $postType = $post->getPostType();
+
+        if (isset($cache[$postType])) {
+            return $cache[$postType];
+        }
+
+        return $cache[$postType] = get_theme_mod(sprintf('archive_%s_date_format', $postType), 'date-time');
+    }
+
     /**
      * Strip the seconds from a time string.
      *
