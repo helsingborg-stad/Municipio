@@ -34,15 +34,19 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      * @return array An array of TaxonomyInterface objects.
      */
     public function create(string $schemaType): array
-    {
-        return [
+    { 
+        $map = [
             'JobPosting'       => $this->getJobPostingTaxonomies(),
             'Event'            => $this->getEventTaxonomies(),
             'Project'          => $this->getProjectTaxonomies(),
             'ExhibitionEvent'  => $this->getExhibitionEventTaxonomies(),
             'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
             'Preschool'        => $this->getPreschoolTaxonomies(),
-        ][$schemaType] ?? [];
+        ];
+
+        $taxonomies = \apply_filters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
+
+        return $taxonomies;
     }
 
     /**
@@ -73,6 +77,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('JobPosting', 'relevantOccupation', $this->wpService->__('Job Categories', 'municipio'), $this->wpService->__('Job Category', 'municipio')),
             $this->createTaxonomy('JobPosting', 'validThrough', $this->wpService->__('Latest Application Dates', 'municipio'), $this->wpService->__('Latest Application Date', 'municipio')),
+            $this->createTaxonomy('JobPosting', 'employmentType', $this->wpService->__('Employment Types', 'municipio'), $this->wpService->__('Employment Type', 'municipio')),
         ];
     }
 
