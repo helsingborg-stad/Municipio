@@ -815,6 +815,31 @@ class App
     }
 
     /**
+     * Sets up the image focus feature.
+     *
+     * This method initializes the image focus feature by creating an instance of the
+     * ImageFocus class and passing the WordPress service instance.
+     * @return void
+     */
+    public function setupImageFocus(): void
+    {
+        if (class_exists('Imagick') === false) {
+            echo 'Imagick is not installed.';
+            return;
+        }
+
+        if (class_exists('\FreshleafMedia\Autofocus\FocalPointDetector') === false) {
+            echo 'FreshleafMedia/Autofocus is not installed.';
+            return;
+        }
+
+        $focalPointDetector = new \FreshleafMedia\Autofocus\FocalPointDetector();
+
+        $imageFocus = new \Municipio\ImageFocus\ImageFocus($this->wpService, $focalPointDetector);
+        $imageFocus->addHooks();
+    }
+
+    /**
      * Sets up the post type design.
      *
      * This method initializes the post type design by creating instances of the

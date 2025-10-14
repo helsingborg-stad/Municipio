@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fff55aa108ca7b062d193c266bc581c1",
+    "content-hash": "da945457d82b25a8607aa6d549caea68",
     "packages": [
         {
             "name": "composer/installers",
@@ -218,6 +218,44 @@
                 "source": "https://github.com/dompdf/dompdf/tree/v2.0.8"
             },
             "time": "2024-04-29T13:06:17+00:00"
+        },
+        {
+            "name": "freshleafmedia/autofocus",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/freshleafmedia/autofocus.git",
+                "reference": "70d0b2b5c7bb0218245a23f4f110f6f6a18da77c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/freshleafmedia/autofocus/zipball/70d0b2b5c7bb0218245a23f4f110f6f6a18da77c",
+                "reference": "70d0b2b5c7bb0218245a23f4f110f6f6a18da77c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-imagick": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.22"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FreshleafMedia\\Autofocus\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Automatic image focal point detection",
+            "support": {
+                "issues": "https://github.com/freshleafmedia/autofocus/issues",
+                "source": "https://github.com/freshleafmedia/autofocus/tree/1.0.2"
+            },
+            "time": "2023-11-30T14:50:21+00:00"
         },
         {
             "name": "helsingborg-stad/acf-export-manager",
