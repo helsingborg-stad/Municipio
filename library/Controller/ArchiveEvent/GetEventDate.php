@@ -4,7 +4,7 @@ namespace Municipio\Controller\ArchiveEvent;
 
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;
-use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
 class GetEventDate
@@ -12,9 +12,9 @@ class GetEventDate
     /**
      * Get the date of the first upcoming event occurrence
      */
-    public static function getEventDate(PostObjectInterface $post): ?string
+    public static function getEventDate(Event $event): ?string
     {
-        $schedules             = EnsureArrayOf::ensureArrayOf($post->getSchemaProperty('eventSchedule'), Schedule::class);
+        $schedules             = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
         $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
         $lastUpcomingDateTime  = self::getLastUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
 

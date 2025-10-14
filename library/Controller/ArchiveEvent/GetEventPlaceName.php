@@ -2,19 +2,20 @@
 
 namespace Municipio\Controller\ArchiveEvent;
 
-use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\Event;
 use Municipio\Schema\Place;
 
 class GetEventPlaceName
 {
-    public static function getEventPlaceName(PostObjectInterface $post): ?string
+    public static function getEventPlaceName(Event $event): ?string
     {
-        $locations     = $post->getSchemaProperty('location');
-        $firstLocation = is_array($locations) ? reset($locations) : $locations;
+        $locations = EnsureArrayOf::ensureArrayOf($event->getProperty('location'), Place::class);
 
-        if (!is_a($firstLocation, Place::class)) {
+        if (empty($locations)) {
             return null;
         }
+
+        $firstLocation = reset($locations);
 
         return $firstLocation->getProperty('name')
             ?: $firstLocation->getProperty('address')
