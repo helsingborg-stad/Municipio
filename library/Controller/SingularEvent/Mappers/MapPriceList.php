@@ -21,7 +21,7 @@ class MapPriceList implements EventDataMapperInterface
         $offers         = $this->ensureArrayOf($event->getProperty('offers'), Offer::class);
         $priceListItems = array_map(fn(Offer $offer) => iterator_to_array($this->getPriceListItemFromOffer($offer)), $offers);
 
-        return array_filter($priceListItems[0]);
+        return array_filter($priceListItems[0] ?? []);
     }
 
     /**
