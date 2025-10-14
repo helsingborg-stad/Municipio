@@ -2,15 +2,15 @@
 
 namespace Municipio\Controller\ArchiveEvent;
 
-use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\Event;
 use Municipio\Schema\Offer;
 use Municipio\Schema\PriceSpecification;
 
 class GetEventPriceRange
 {
-    public static function getEventPriceRange(PostObjectInterface $post): ?string
+    public static function getEventPriceRange(Event $event): ?string
     {
-        $offers              = EnsureArrayOf::ensureArrayOf($post->getSchemaProperty('offers'), Offer::class);
+        $offers              = EnsureArrayOf::ensureArrayOf($event->getProperty('offers'), Offer::class);
         $priceSpecifications = array_map(fn($offer) => $offer->getProperty('priceSpecification'), $offers);
         $priceSpecifications = array_merge(...array_map(fn($spec) => EnsureArrayOf::ensureArrayOf($spec, PriceSpecification::class), $priceSpecifications));
         $prices              = array_map((fn(PriceSpecification $spec) => $spec->getProperty('price')), $priceSpecifications);

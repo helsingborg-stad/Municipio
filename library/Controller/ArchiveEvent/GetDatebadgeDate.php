@@ -4,14 +4,14 @@ namespace Municipio\Controller\ArchiveEvent;
 
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;
-use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
 class GetDatebadgeDate
 {
-    public static function getDatebadgeDate(PostObjectInterface $post): ?string
+    public static function getDatebadgeDate(Event $event): ?string
     {
-        $schedules             = EnsureArrayOf::ensureArrayOf($post->getSchemaProperty('eventSchedule'), Schedule::class);
+        $schedules             = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
         $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
 
         if ($firstUpcomingDateTime === null) {

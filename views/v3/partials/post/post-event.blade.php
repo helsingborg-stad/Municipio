@@ -1,8 +1,7 @@
 @if ($posts)
-
-    <div class="o-grid">
+    @element(['classList' => ['o-grid']])
         @foreach ($posts as $post)
-            <div class="{{ $gridColumnClass }}">
+            @element(['classList' => explode(' ', $gridColumnClass)])
                 @segment([
                     'layout'            => 'card',
                     'image'             => $post->getImage(),
@@ -19,22 +18,15 @@
                         @typography(['variant' => 'date', 'classList' => ['u-margin__top--0']]){{ $getEventDate($post) }}@endtypography
                         @if(!empty($getEventPriceRange($post)))
                             @element([
-                                'classList' => [
-                                    'u-margin__top--1',
-                                    'u-padding__x--1', 
-                                    'u-border--1',
-                                    'u-color__text--primary'
-                                ],
-                                'attributeList' => [
-                                    'style' => 'border-radius: 8px; display: inline-block;'
-                                ]
+                                'classList' => [ 'u-margin__top--1', 'u-padding__x--1', 'u-border--1', 'u-color__text--primary' ],
+                                'attributeList' => [ 'style' => 'border-radius: 8px; display: inline-block;' ]
                             ])
                                 {{ $getEventPriceRange($post) }}
                             @endelement
                         @endif
                     @endslot
                 @endsegment
-            </div>
+            @endelement
         @endforeach
-    </div>
+    @endelement
 @endif
