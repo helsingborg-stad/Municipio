@@ -5,20 +5,17 @@
             <div class="{{ $gridColumnClass }}">
                 @segment([
                     'layout'            => 'card',
-                    'image'             => $post->imageContract ?? $post->images['thumbnail16:9'],
+                    'image'             => $post->getImage(),
                     'textColor'         => 'dark',
-                    'link'              => $post->permalink,
+                    'link'              => $post->getPermalink(),
                     'textAlignment'     => 'center'
                 ])
                     @slot('floating')
-                        @datebadge([
-                            'date' => $getDatebadgeDate($post), 'size' => 'sm',
-                        ])
-                        @enddatebadge
+                        @datebadge([ 'date' => $getDatebadgeDate($post), 'size' => 'sm', ]) @enddatebadge
                     @endslot
                     @slot('aboveContent')
                         @typography(['variant' => 'h5', 'classList' => ['u-margin__bottom--0', 'u-color__text--primary']]){!! $getEventPlaceName($post) !!}@endtypography
-                        @typography(['element' => 'h3', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2', 'u-margin__top--0']]){!!$post->postTitle!!}@endtypography
+                        @typography(['element' => 'h3', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2', 'u-margin__top--0']]){!!$post->getTitle()!!}@endtypography
                         @typography(['variant' => 'date', 'classList' => ['u-margin__top--0']]){{ $getEventDate($post) }}@endtypography
                         @if(!empty($getEventPriceRange($post)))
                             @element([
