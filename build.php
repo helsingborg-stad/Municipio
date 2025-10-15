@@ -68,7 +68,17 @@ $removables = [
     './source/js/',
     'LICENSE',
     'babel.config.js',
-    'yarn.lock'
+    'yarn.lock',
+    'Modularity/.gitignore',
+    'Modularity/webpack.config.js',
+    'Modularity/package-lock.json',
+    'Modularity/package.json',
+    'Modularity/README.md',
+    'Modularity/node_modules/',
+    'Modularity/source/sass/',
+    'Modularity/source/js/',
+    'Modularity/LICENSE',
+    'Modularity/babel.config.js'
 ];
 
 $dirName = basename(dirname(__FILE__));
