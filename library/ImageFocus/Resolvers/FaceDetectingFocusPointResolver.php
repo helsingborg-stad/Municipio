@@ -73,7 +73,7 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
             ];
 
         } catch (\Throwable $e) {
-            error_log('DeepFace error: ' . $e->getMessage());
+            error_log('[ImageFocus][DeepFace]: ' . $e->getMessage());
             return null;
         }
     }
