@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\ArchiveEvent;
+namespace Municipio\Helper\EnsureArrayOf;
 
 class EnsureArrayOf
 {

@@ -3,9 +3,9 @@
 namespace Municipio\Controller\SingularEvent\Mappers;
 
 use Generator;
-use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Controller\SingularEvent\PriceListItem;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\Event;
 use Municipio\Schema\Offer;
 use Municipio\Schema\PriceSpecification;

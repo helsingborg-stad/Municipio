@@ -2,7 +2,8 @@
 
 namespace Municipio\Controller\School;
 
-use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf as EnsureArrayOfEnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;
@@ -15,7 +16,7 @@ class MapComponentAttributesGenerator
 
     public function generate(): mixed
     {
-        $places = EnsureArrayOf::ensureArrayOf($this->school->getProperty('location'), Place::class);
+        $places = EnsureArrayOfEnsureArrayOf::ensureArrayOf($this->school->getProperty('location'), Place::class);
         $places = array_filter($places, fn($place) => !empty($place->getProperty('latitude')) && !empty($place->getProperty('longitude')));
 
         if (empty($places)) {

@@ -5,6 +5,7 @@ namespace Municipio\Controller\ArchiveEvent;
 use DateTime;
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 

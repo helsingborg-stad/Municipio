@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\ArchiveEvent;
 
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\Event;
 use Municipio\Schema\Offer;
 use Municipio\Schema\PriceSpecification;

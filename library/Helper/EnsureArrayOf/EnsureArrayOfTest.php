@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\ArchiveEvent;
+namespace Municipio\Helper\EnsureArrayOf;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

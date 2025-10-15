@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\School;
 
-use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;

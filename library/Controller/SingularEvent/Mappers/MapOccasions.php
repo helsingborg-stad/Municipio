@@ -3,10 +3,10 @@
 namespace Municipio\Controller\SingularEvent\Mappers;
 
 use DateTime;
-use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
 use Municipio\Controller\SingularEvent;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\Occasion;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\OccasionInterface;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
