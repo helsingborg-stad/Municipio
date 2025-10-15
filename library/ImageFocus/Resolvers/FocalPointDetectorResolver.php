@@ -2,6 +2,7 @@
 
 namespace Municipio\ImageFocus\Resolvers;
 
+use FreshleafMedia\Autofocus\Point;
 use Imagick;
 
 class FocalPointDetectorResolver implements FocusPointResolverInterface
@@ -24,7 +25,7 @@ class FocalPointDetectorResolver implements FocusPointResolverInterface
         return $this->pixelToPercent($focusPoint, $width, $height);
     }
 
-    private function pixelToPercent(\stdClass $focusPoint, int $width, int $height): array
+    private function pixelToPercent(Point $focusPoint, int $width, int $height): array
     { 
         return [
             'left' => ($focusPoint->x / $width) * 100,
