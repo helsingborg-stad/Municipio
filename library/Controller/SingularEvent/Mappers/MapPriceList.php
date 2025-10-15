@@ -34,7 +34,7 @@ class MapPriceList implements EventDataMapperInterface
 
         foreach ($specs as $spec) {
             $name     = $spec->getProperty('name');
-            $currency = $this->getCurrencySymbol($offer->getProperty('priceCurrency') ?? 'SEK');
+            $currency = $this->getCurrencySymbol($spec->getProperty('priceCurrency') ?? $offer->getProperty('priceCurrency') ?? 'SEK');
             $minPrice = $spec->getProperty('minPrice');
             $maxPrice = $spec->getProperty('maxPrice');
             $price    = $spec->getProperty('price');
