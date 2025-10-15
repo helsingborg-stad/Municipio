@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\ArchiveEvent;
 
+use DateTime;
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;
 use Municipio\Schema\Event;
@@ -35,8 +36,9 @@ class GetDatebadgeDate
     private static function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): ?Schedule
     {
         usort($schedules, fn(Schedule $a, Schedule $b) => $a->getProperty('startDate') <=> $b->getProperty('startDate'));
+        $now = new DateTime();
         foreach ($schedules as $schedule) {
-            if ($schedule->getProperty('startDate') >= date('c')) {
+            if ($schedule->getProperty('startDate') >= $now) {
                 return $schedule;
             }
         }
