@@ -25,25 +25,27 @@ if (file_exists('composer.json')) {
 }
 
 //Run npm if package.json is found
-if (file_exists('package.json') && file_exists('package-lock.json')) {
-    if (is_array($argv) && !in_array('--install-npm', $argv)) {
-        $buildCommands[] = 'npm ci --no-progress --no-audit';
-    } else {
-        $npmPackage      = json_decode(file_get_contents('package.json'));
-        $buildCommands[] = "npm install $npmPackage->name --omit=dev";
-        $buildCommands[] = "rm -rf ./assets/dist";
-        $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
-    }
-} elseif (file_exists('package.json') && !file_exists('package-lock.json')) {
-    if (is_array($argv) && !in_array('--install-npm', $argv)) {
-        $buildCommands[] = 'npm install --no-progress --no-audit';
-    } else {
-        $npmPackage      = json_decode(file_get_contents('package.json'));
-        $buildCommands[] = "npm install $npmPackage->name --omit=dev";
-        $buildCommands[] = "rm -rf ./assets/dist";
-        $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
-    }
-}
+$buildCommands[] = 'npm ci --no-progress --no-audit';
+$buildCommands[] = 'npm run build';
+// if (file_exists('package.json') && file_exists('package-lock.json')) {
+//     if (is_array($argv) && !in_array('--install-npm', $argv)) {
+//         $buildCommands[] = 'npm ci --no-progress --no-audit';
+//     } else {
+//         $npmPackage      = json_decode(file_get_contents('package.json'));
+//         $buildCommands[] = "npm install $npmPackage->name --omit=dev";
+//         $buildCommands[] = "rm -rf ./assets/dist";
+//         $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
+//     }
+// } elseif (file_exists('package.json') && !file_exists('package-lock.json')) {
+//     if (is_array($argv) && !in_array('--install-npm', $argv)) {
+//         $buildCommands[] = 'npm install --no-progress --no-audit';
+//     } else {
+//         $npmPackage      = json_decode(file_get_contents('package.json'));
+//         $buildCommands[] = "npm install $npmPackage->name --omit=dev";
+//         $buildCommands[] = "rm -rf ./assets/dist";
+//         $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
+//     }
+// }
 
 // Files and directories not suitable for prod to be removed.
 $removables = [
@@ -66,7 +68,17 @@ $removables = [
     './source/js/',
     'LICENSE',
     'babel.config.js',
-    'yarn.lock'
+    'yarn.lock',
+    'Modularity/.gitignore',
+    'Modularity/webpack.config.js',
+    'Modularity/package-lock.json',
+    'Modularity/package.json',
+    'Modularity/README.md',
+    'Modularity/node_modules/',
+    'Modularity/source/sass/',
+    'Modularity/source/js/',
+    'Modularity/LICENSE',
+    'Modularity/babel.config.js'
 ];
 
 $dirName = basename(dirname(__FILE__));

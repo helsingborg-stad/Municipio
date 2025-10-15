@@ -1,0 +1,30 @@
+.embed__poster {
+  cursor: pointer;
+  width: 100%;
+
+  .embed__poster__image {
+    width: 100%;
+  }
+
+  &::before {
+    content: "";
+    direction: ltr;
+    font-family: Material Icons;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 8px;
+  }
+
+  &:hover::before {
+    opacity: 0.6;
+  }
+}
