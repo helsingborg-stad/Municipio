@@ -44,7 +44,8 @@
         "helsingborg-stad/acf-select-image-field": "1.6.1",
         "landrok/language-detector": "dev-master",
         "league/commonmark": "2.7.0",
-        "league/config": "1.1.1"
+        "league/config": "1.1.1",
+        "helsingborg-stad/component-library": "^4.62"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -63,6 +64,16 @@
             "composer/installers": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$vendor}/{$name}": [
+                "type:wordpress-muplugin",
+                "type:wordpress-theme",
+                "type:wordpress-plugin",
+                "type:acf-plugin"
+            ]
         }
     },
     "require-dev": {
@@ -84,7 +95,6 @@
         }
     },
     "suggest": {
-        "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
     "version": "5.175.0"
