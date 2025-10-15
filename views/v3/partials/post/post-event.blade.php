@@ -13,7 +13,7 @@
                     @endslot
                     @slot('aboveContent')
                         @typography(['variant' => 'h5', 'classList' => ['u-margin__bottom--0', 'u-color__text--primary']]){!! $getEventPlaceName($post) !!}@endtypography
-                        @typography(['element' => 'h3', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2', 'u-margin__top--0']]){!!$post->getTitle()!!}@endtypography
+                        @typography(['element' => 'h2', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2', 'u-margin__top--0']]){!!$post->getTitle()!!}@endtypography
                         @typography(['variant' => 'date', 'classList' => ['u-margin__top--0']]){{ $getEventDate($post) }}@endtypography
                         @if(!empty($getEventPriceRange($post)))
                             @element([
