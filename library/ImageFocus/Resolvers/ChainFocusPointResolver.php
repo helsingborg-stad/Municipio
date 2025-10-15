@@ -14,6 +14,11 @@ class ChainFocusPointResolver implements FocusPointResolverInterface
         $this->resolvers = $resolvers;
     }
 
+    public function isSupported(): bool
+    {
+        return true; // Always allowed to run, individual resolvers will check support
+    }
+
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
         foreach ($this->resolvers as $resolver) {
