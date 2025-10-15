@@ -35,7 +35,8 @@
         "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "^1.0.0",
         "helsingborg-stad/schema-library": "^0.5",
-        "freshleafmedia/autofocus": "^1.0"
+        "freshleafmedia/autofocus": "^1.0",
+        "astrotomic/php-deepface": "^0.4.0"
     },
     "extra": {
         "installer-paths": {

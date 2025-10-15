@@ -4,7 +4,7 @@ namespace Municipio\ImageFocus\Resolvers;
 
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 
-class ManualFocusPointResolver implements FocusPointResolverInterface
+class ManualInputFocusPointResolver implements FocusPointResolverInterface
 {
     public function __construct(private FocusPointStorage $storage) {}
 

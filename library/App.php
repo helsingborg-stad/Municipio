@@ -39,8 +39,9 @@ use Municipio\ImageFocus\ImageFocusManager;
 use Municipio\ImageFocus\Hooks\ImageFocusHooks;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 use Municipio\ImageFocus\Resolvers\{
-    ManualFocusPointResolver,
-    FocalPointDetectorResolver,
+    ManualInputFocusPointResolver,
+    FaceDetectingFocusPointResolver,
+    MostBusyAreaFocusPointResolver,
     ChainFocusPointResolver
 };
 
@@ -840,15 +841,17 @@ class App
         $focusStorage   = new FocusPointStorage($this->wpService);
 
         // Create resolvers
-        $manualResolver     = new ManualFocusPointResolver($focusStorage);
-        $detectorResolver   = new FocalPointDetectorResolver(
+        $manualInputFocusPointResolver  = new ManualInputFocusPointResolver($focusStorage);
+        $mostBusyAreaFocusPointResolver = new MostBusyAreaFocusPointResolver(
             new \FreshleafMedia\Autofocus\FocalPointDetector()
         );
-
+        $faceDetectingFocusPointResolver = new FaceDetectingFocusPointResolver();
+       
         // Chain handler
         $chainResolver = new ChainFocusPointResolver(
-            $manualResolver,
-            $detectorResolver
+            $manualInputFocusPointResolver,
+            $faceDetectingFocusPointResolver,
+            $mostBusyAreaFocusPointResolver,
         );
 
         // Manager

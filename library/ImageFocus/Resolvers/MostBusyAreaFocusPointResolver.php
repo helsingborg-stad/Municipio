@@ -5,7 +5,7 @@ namespace Municipio\ImageFocus\Resolvers;
 use FreshleafMedia\Autofocus\Point;
 use Imagick;
 
-class FocalPointDetectorResolver implements FocusPointResolverInterface
+class MostBusyAreaFocusPointResolver implements FocusPointResolverInterface
 {
     public function __construct(private $detector) {}
 
