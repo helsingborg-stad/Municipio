@@ -2,7 +2,7 @@
 
 @section('above')
     @hero([
-        "image" => $post->imageContract,
+        "image" => $post->getImage(),
         "size" => "normal",
         "classList" => ["u-margin__bottom--4"],
     ])

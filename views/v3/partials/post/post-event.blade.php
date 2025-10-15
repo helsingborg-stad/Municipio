@@ -5,9 +5,8 @@
                 @segment([
                     'layout'            => 'card',
                     'image'             => $post->getImage(),
-                    'textColor'         => 'dark',
                     'link'              => $post->getPermalink(),
-                    'textAlignment'     => 'center'
+                    'containerAware'    => true
                 ])
                     @slot('floating')
                         @datebadge([ 'date' => $getDatebadgeDate($post), 'size' => 'sm', ]) @enddatebadge
