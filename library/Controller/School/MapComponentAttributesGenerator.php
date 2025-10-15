@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\School;
 
+use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;
@@ -14,7 +15,8 @@ class MapComponentAttributesGenerator
 
     public function generate(): mixed
     {
-        $places = $this->ensureArrayOfPlaces($this->school->getProperty('location'));
+        $places = EnsureArrayOf::ensureArrayOf($this->school->getProperty('location'), Place::class);
+        $places = array_filter($places, fn($place) => !empty($place->getProperty('latitude')) && !empty($place->getProperty('longitude')));
 
         if (empty($places)) {
             return null;
@@ -43,16 +45,6 @@ class MapComponentAttributesGenerator
             ]
         ];
     }
-
-    private function ensureArrayOfPlaces(mixed $location): array
-    {
-        if (!is_array($location)) {
-            $location = [ $location ];
-        }
-
-        return array_filter($location, fn($item) => is_a($item, Place::class) && $item->getProperty('latitude') !== null && $item->getProperty('longitude') !== null);
-    }
-
 
     /**
      * Get the starting latitude by finding the center point between all places

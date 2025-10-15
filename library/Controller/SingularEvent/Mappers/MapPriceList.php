@@ -3,6 +3,7 @@
 namespace Municipio\Controller\SingularEvent\Mappers;
 
 use Generator;
+use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Controller\SingularEvent\PriceListItem;
 use Municipio\Schema\Event;
@@ -18,7 +19,7 @@ class MapPriceList implements EventDataMapperInterface
 
     public function map(Event $event): array
     {
-        $offers         = $this->ensureArrayOf($event->getProperty('offers'), Offer::class);
+        $offers         = EnsureArrayOf::ensureArrayOf($event->getProperty('offers'), Offer::class);
         $priceListItems = array_map(fn(Offer $offer) => iterator_to_array($this->getPriceListItemFromOffer($offer)), $offers);
 
         return array_filter(array_merge(...$priceListItems));
@@ -30,7 +31,7 @@ class MapPriceList implements EventDataMapperInterface
      */
     public function getPriceListItemFromOffer(Offer $offer): Generator
     {
-        $specs = $this->ensureArrayOf($offer->getProperty('priceSpecification'), PriceSpecification::class);
+        $specs = EnsureArrayOf::ensureArrayOf($offer->getProperty('priceSpecification'), PriceSpecification::class);
 
         foreach ($specs as $spec) {
             $name     = $spec->getProperty('name');
@@ -63,15 +64,6 @@ class MapPriceList implements EventDataMapperInterface
         }
 
         return null;
-    }
-
-    private function ensureArrayOf($value, $ensuredType): array
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        return array_filter($value, fn($item) => is_a($item, $ensuredType));
     }
 
     private function getCurrencySymbol(string $currency): string

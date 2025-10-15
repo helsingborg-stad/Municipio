@@ -3,6 +3,7 @@
 namespace Municipio\Controller\SingularEvent\Mappers;
 
 use DateTime;
+use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
 use Municipio\Controller\SingularEvent;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\Occasion;
 use Municipio\Controller\SingularEvent\Mappers\Occasion\OccasionInterface;
@@ -22,13 +23,8 @@ class MapOccasions implements EventDataMapperInterface
     {
         return array_filter(array_map(
             fn(Schedule $schedule) => $this->mapScheduleToOccasion($schedule),
-            $this->ensureArrayOfSchedules($event->getProperty('eventSchedule'))
+            EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class)
         ));
-    }
-
-    private function ensureArrayOfSchedules($data): array
-    {
-        return array_filter(is_array($data) ? $data : [], fn($item) => is_a($item, Schedule::class));
     }
 
     private function mapScheduleToOccasion(Schedule $schedule): ?OccasionInterface

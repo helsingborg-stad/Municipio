@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\School;
 
+use Municipio\Controller\ArchiveEvent\EnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;
@@ -15,22 +16,14 @@ class AddressGenerator implements ViewDataGeneratorInterface
 
     public function generate(): mixed
     {
-        $places = $this->ensureArrayOfPlaces($this->school->getProperty('location'));
+        $places = EnsureArrayOf::ensureArrayOf($this->school->getProperty('location'), Place::class);
+        $places = array_filter($places, fn($place) => !empty($place->getProperty('address')));
 
         if (empty($places)) {
             return null;
         }
 
         return array_map(fn($place) => $this->mapPlaceToAddress($place), $places);
-    }
-
-    private function ensureArrayOfPlaces(mixed $location): array
-    {
-        if (!is_array($location)) {
-            $location = [ $location ];
-        }
-
-        return array_filter($location, fn($item) => is_a($item, Place::class) && !empty($item->getProperty('address')));
     }
 
     private function mapPlaceToAddress(Place $place): array
