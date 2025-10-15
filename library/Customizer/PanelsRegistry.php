@@ -325,6 +325,12 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_datebadge')
+                    ->setTitle(esc_html__('Datebadge', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Datebadge('municipio_customizer_section_datebadge'))
+            )
+            ->addSection(
+                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_divider')
                     ->setTitle(esc_html__('Divider', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Divider('municipio_customizer_section_divider'))
