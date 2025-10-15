@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ImageFocus\Resolver;
+namespace Municipio\ImageFocus\Resolvers;
 
 use Psr\SimpleCache\CacheInterface;
 

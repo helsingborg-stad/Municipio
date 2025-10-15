@@ -1,7 +1,8 @@
 <?php
 
-namespace Municipio\ImageFocus\Resolver;
+namespace Municipio\ImageFocus\Resolvers;
 
+use Municipio\ImageFocus\Resolvers\FocusPointResolverInterface;
 use Imagick;
 
 class AIFocusPointResolver implements FocusPointResolverInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ImageFocus\Resolver;
+namespace Municipio\ImageFocus\Resolvers;
 
 class ChainFocusPointResolver implements FocusPointResolverInterface
 {

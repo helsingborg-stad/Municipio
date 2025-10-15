@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ImageFocus\Resolver;
+namespace Municipio\ImageFocus\Resolvers;
 
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 
@@ -14,6 +14,6 @@ class ManualFocusPointResolver implements FocusPointResolverInterface
             return null;
         }
 
-        return $this->storage->getManual($attachmentId);
+        return $this->storage->get($attachmentId);
     }
 }

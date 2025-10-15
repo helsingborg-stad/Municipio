@@ -1,10 +1,9 @@
 <?php
 
-namespace Municipio\ImageFocus\Resolver;
+namespace Municipio\ImageFocus\Resolvers;
 
 use Municipio\ImageFocus\Detector\FocalPointDetectorInterface;
 use Imagick;
-use \FreshleafMedia\Autofocus\FocalPointDetector;
 
 class FocalPointDetectorResolver implements FocusPointResolverInterface
 {
@@ -18,9 +17,14 @@ class FocalPointDetectorResolver implements FocusPointResolverInterface
             return null;
         }
 
+        return $this->pixelToPercent($focus, $width, $height);
+    }
+
+    private function pixelToPercent(\stdClass $focusPoint, int $width, int $height): array
+    { 
         return [
-            'left' => ($focus->x / $width) * 100,
-            'top'  => ($focus->y / $height) * 100,
+            'left' => ($focusPoint->x / $width) * 100,
+            'top'  => ($focusPoint->y / $height) * 100,
         ];
     }
 }

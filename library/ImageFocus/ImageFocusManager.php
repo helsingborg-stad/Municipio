@@ -2,14 +2,14 @@
 
 namespace Municipio\ImageFocus;
 
-use Municipio\ImageFocus\Resolver\FocusPointResolverInterface;
+use Municipio\ImageFocus\Resolvers\FocusPointResolverInterface;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 use WpService\WpService;
 
 class ImageFocusManager
 {
     public function __construct(
-        private WpService $wp,
+        private WpService $wpService,
         private FocusPointStorage $storage,
         private FocusPointResolverInterface $resolver
     ) {}
@@ -24,8 +24,8 @@ class ImageFocusManager
             return $metadata;
         }
 
-        $filePath = $this->wp->getAttachedFile($attachmentId);
-        if (!$filePath || !file_exists($filePath)) {
+        $filePath = $this->wpService->getAttachedFile($attachmentId);
+        if (!$this->fileExists($filePath)) {
             return $metadata;
         }
 
@@ -35,12 +35,21 @@ class ImageFocusManager
         }
 
         $this->storage->set($attachmentId, $focus);
+        
         return $metadata;
     }
 
     private function isImage(int $attachmentId): bool
     {
-        $mime = $this->wp->getPostMimeType($attachmentId);
+        $mime = $this->wpService->getPostMimeType($attachmentId);
         return strpos($mime, 'image/') === 0;
+    }
+
+    private function fileExists(string $filePath): bool
+    {
+        if(empty($filePath)) {
+          return false;
+        }
+        return file_exists($filePath);
     }
 }

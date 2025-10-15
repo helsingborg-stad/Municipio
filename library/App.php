@@ -38,7 +38,7 @@ use Municipio\SchemaData\Utils\SchemaTypesInUse;
 use Municipio\ImageFocus\ImageFocusManager;
 use Municipio\ImageFocus\Hooks\ImageFocusHooks;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
-use Municipio\ImageFocus\Resolver\{
+use Municipio\ImageFocus\Resolvers\{
     ManualFocusPointResolver,
     FocalPointDetectorResolver,
     ChainFocusPointResolver
@@ -842,12 +842,12 @@ class App
 
         // Create resolvers
         $manualResolver     = new ManualFocusPointResolver($focusStorage);
-        $detectorResolver   = new FocalPointDetectorResolver($detector);
+        //$detectorResolver   = new FocalPointDetectorResolver($detector);
 
         // Chain handler
         $chainResolver = new ChainFocusPointResolver(
             $manualResolver,
-            $detectorResolver
+ //           $detectorResolver
         );
 
         // Manager
