@@ -34,14 +34,17 @@
         "dompdf/dompdf": "^2.0.4",
         "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "^1.0.0",
-        "helsingborg-stad/schema-library": "^0.5"
-    },
-    "extra": {
-        "installer-paths": {
-            "vendor/{$name}/": [
-                "type:wordpress-plugin"
-            ]
-        }
+        "helsingborg-stad/schema-library": "^0.5",
+        "johannheyne/advanced-custom-fields-table-field": "dev-master",
+        "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
+        "jeradin/acf-website-field": "dev-master",
+        "ooksanen/acf-focuspoint": "^1.2.1",
+        "jeradin/acf-dynamic-table-field": "dev-master",
+        "enshrined/svg-sanitize": "dev-master",
+        "helsingborg-stad/acf-select-image-field": "1.6.1",
+        "landrok/language-detector": "dev-master",
+        "league/commonmark": "2.7.0",
+        "league/config": "1.1.1"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -66,11 +69,13 @@
         "helsingborg-stad/phpcs": "^0.3.1",
         "php-stubs/wordpress-stubs": "^6.7",
         "phpunit/phpunit": "^11.5",
-        "php-stubs/acf-pro-stubs": "^6.5"
+        "php-stubs/acf-pro-stubs": "^6.5",
+        "spatie/phpunit-snapshot-assertions": "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Municipio\\": "library/"
+            "Municipio\\": "library/",
+            "Modularity\\": "Modularity/source/php/"
         }
     },
     "autoload-dev": {

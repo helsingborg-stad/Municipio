@@ -1,0 +1,16 @@
+.modularity-nav-tab-wrapper + #wpbody {
+    margin-top: -17px;
+}
+
+.modularity-nav-tab-wrapper {
+    border-bottom: 1px solid #ccc;
+
+    .nav-tab {
+        display: inline-block;
+        float: none;
+    }
+}
+
+.nav-tab-wrapper + #wpbody {
+    margin-top: -17px;
+}
