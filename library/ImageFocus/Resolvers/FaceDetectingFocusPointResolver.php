@@ -24,6 +24,9 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
     public function __construct()
     {
         $this->deepFace = new DeepFace();
+
+        // Set cache directory for DeepFace models
+        putenv('DEEPFACE_HOME=/tmp/deepface_cache');
     }
 
     public function isSupported(): bool
