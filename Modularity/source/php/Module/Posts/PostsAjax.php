@@ -2,13 +2,15 @@
 
 namespace Modularity\Module\Posts;
 
-class PostsAjax {
+class PostsAjax
+{
     /**
      * @var Posts
      */
     private $posts;
 
-    public function __construct(Posts $posts) {
+    public function __construct(Posts $posts)
+    {
         $this->posts = $posts;
 
         add_action('wp_ajax_get_taxonomy_types_v2', array($this, 'getTaxonomyTypes'));
@@ -45,7 +47,7 @@ class PostsAjax {
 
         $result = [
             'types' => get_object_taxonomies($_POST['posttype'], 'objects'),
-            'curr' => get_field('posts_taxonomy_type', $post)
+            'curr'  => get_field('posts_taxonomy_type', $post)
         ];
 
         echo json_encode($result);
@@ -65,10 +67,10 @@ class PostsAjax {
         }
 
         $taxonomy = $_POST['tax'];
-        $post = $_POST['post'];
+        $post     = $_POST['post'];
 
         $result = [
-            'tax' => get_terms($taxonomy, [
+            'tax'  => get_terms($taxonomy, [
                 'hide_empty' => false,
             ]),
             'curr' => get_field('posts_taxonomy_value', $post)
@@ -93,8 +95,8 @@ class PostsAjax {
         $meta = \Municipio\Helper\Post::getPosttypeMetaKeys($_POST['posttype']);
 
         $response = [
-            'meta_keys' => $meta,
-            'sort_curr' => get_field('posts_sort_by', $_POST['post']),
+            'meta_keys'   => $meta,
+            'sort_curr'   => get_field('posts_sort_by', $_POST['post']),
             'filter_curr' => get_field('posts_meta_key', $_POST['post']),
         ];
 

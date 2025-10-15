@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Modularity\Module\Markdown\Filters;
 
@@ -8,8 +8,8 @@ namespace Modularity\Module\Markdown\Filters;
  * @package Modularity\Module\Markdown\Filters
  */
 
-interface FilterInterface {
-
+interface FilterInterface
+{
     public function __construct(array $fields);
 
     /**

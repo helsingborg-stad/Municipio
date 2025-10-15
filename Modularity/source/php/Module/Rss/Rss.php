@@ -4,18 +4,18 @@ namespace Modularity\Module\Rss;
 
 class Rss extends \Modularity\Module
 {
-    public $slug = 'rss';
-    public $supports = array();
+    public $slug              = 'rss';
+    public $supports          = array();
     public $isBlockCompatible = false;
 
     public function init()
     {
         $this->nameSingular = __("RSS", 'modularity');
-        $this->namePlural = __("RSS", 'modularity');
-        $this->description = __("Outputs a RSS feed", 'modularity');
+        $this->namePlural   = __("RSS", 'modularity');
+        $this->description  = __("Outputs a RSS feed", 'modularity');
     }
 
-    public function data() : array
+    public function data(): array
     {
         $fields          = json_decode(json_encode(get_fields($this->ID)));
         $show_fields     = (isset($fields->fields) && ! empty($fields->fields)) ? $fields->fields : array();
@@ -34,7 +34,7 @@ class Rss extends \Modularity\Module
      * @param  string  $order Sorting order, asc or desc
      * @return array          List of RSS entries
      */
-    public function getFeedContents($rss, $items = 10, $order = '') : array
+    public function getFeedContents($rss, $items = 10, $order = ''): array
     {
         $entries = array();
 
@@ -53,13 +53,13 @@ class Rss extends \Modularity\Module
         }
 
         if (!$rss->get_item_quantity()) {
-            $entries['error'] = __( 'An error has occurred, which probably means the feed is down. Try again later.', 'modularity');
+            $entries['error'] = __('An error has occurred, which probably means the feed is down. Try again later.', 'modularity');
             $rss->__destruct();
             unset($rss);
             return $entries;
         }
 
-        $items = ($items <= 0) ? 0 : (int) $items;
+        $items   = ($items <= 0) ? 0 : (int) $items;
         $entries = $rss->get_items(0, $items);
         if ($order == 'asc') {
             $entries = array_reverse($entries);

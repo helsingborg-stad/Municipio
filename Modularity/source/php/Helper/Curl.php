@@ -14,8 +14,8 @@ class Curl
      * @return string              The request response
      */
 
-    public $useCache = true;
-    public $cacheTTL = 15;
+    public $useCache     = true;
+    public $cacheTTL     = 15;
     private $curlOptions = [];
     private $cacheKey;
 
@@ -55,14 +55,14 @@ class Curl
 
                 // Set curl options for GET
                 $arguments = array(
-                    CURLOPT_RETURNTRANSFER      => true,
-                    CURLOPT_HEADER              => false,
-                    CURLOPT_FOLLOWLOCATION      => true,
-                    CURLOPT_SSL_VERIFYPEER      => false,
-                    CURLOPT_SSL_VERIFYHOST      => false,
-                    CURLOPT_URL                 => $url,
-                    CURLOPT_CONNECTTIMEOUT_MS  => 12000,
-                    CURLOPT_REFERER             =>  get_option('home_url')
+                    CURLOPT_RETURNTRANSFER    => true,
+                    CURLOPT_HEADER            => false,
+                    CURLOPT_FOLLOWLOCATION    => true,
+                    CURLOPT_SSL_VERIFYPEER    => false,
+                    CURLOPT_SSL_VERIFYHOST    => false,
+                    CURLOPT_URL               => $url,
+                    CURLOPT_CONNECTTIMEOUT_MS => 12000,
+                    CURLOPT_REFERER           =>  get_option('home_url')
                 );
 
                 break;
@@ -73,13 +73,13 @@ class Curl
             case 'POST':
                 // Set curl options for POST
                 $arguments = array(
-                    CURLOPT_RETURNTRANSFER      => 1,
-                    CURLOPT_URL                 => $url,
-                    CURLOPT_POST                => 1,
-                    CURLOPT_HEADER              => false,
-                    CURLOPT_POSTFIELDS          => http_build_query($data),
-                    CURLOPT_CONNECTTIMEOUT_MS  => 3000,
-                    CURLOPT_REFERER             =>  get_option('home_url')
+                    CURLOPT_RETURNTRANSFER    => 1,
+                    CURLOPT_URL               => $url,
+                    CURLOPT_POST              => 1,
+                    CURLOPT_HEADER            => false,
+                    CURLOPT_POSTFIELDS        => http_build_query($data),
+                    CURLOPT_CONNECTTIMEOUT_MS => 3000,
+                    CURLOPT_REFERER           =>  get_option('home_url')
                 );
 
                 break;
@@ -133,7 +133,7 @@ class Curl
 
     public function createCacheKey($type, $url, $data = null, $contentType = 'json', $headers = null)
     {
-        $this->cacheKey = "curl_cache_".md5($type.$url.(is_array($data) ? implode($data, "") : $data).$contentType.(is_array($headers) ? implode($headers, "") : $headers));
+        $this->cacheKey = "curl_cache_" . md5($type . $url . (is_array($data) ? implode($data, "") : $data) . $contentType . (is_array($headers) ? implode($headers, "") : $headers));
         return $this->cacheKey;
     }
 

@@ -14,23 +14,23 @@ class Cache
      */
 
     private $postId = null;
-    private $ttl = null;
-    private $hash = null;
+    private $ttl    = null;
+    private $hash   = null;
 
     public $keyGroup = 'modules';
 
-    public function __construct($postId, $module = '', $ttl = 3600*24, $cacheGroup = null)
+    public function __construct($postId, $module = '', $ttl = 3600 * 24, $cacheGroup = null)
     {
         // Create cache group hash
-        if(!is_null($cacheGroup)) {
+        if (!is_null($cacheGroup)) {
             $cacheGroup = $this->createShortHash($cacheGroup);
         } else {
             $cacheGroup = '';
         }
 
         // Set variables
-        $this->postId       = $postId;
-        $this->ttl          = $ttl;
+        $this->postId = $postId;
+        $this->ttl    = $ttl;
 
         //Alter keyGroup if ms
         if (function_exists('is_multisite') && is_multisite()) {
@@ -58,7 +58,7 @@ class Cache
             }
         }
 
-        if($cacheGroup != '') {
+        if ($cacheGroup != '') {
             $this->hash = $this->hash . "-" . $cacheGroup;
         }
 
@@ -164,7 +164,7 @@ class Cache
      */
     private function fragmentTag()
     {
-        return '<!-- Modularity Fragment Cache: (' . current_time("Y-m-d H:i:s", 1) .'|' .$this->hash. ') -->';
+        return '<!-- Modularity Fragment Cache: (' . current_time("Y-m-d H:i:s", 1) . '|' . $this->hash . ') -->';
     }
 
     /**
@@ -177,7 +177,7 @@ class Cache
             return false;
         }
 
-        if(empty($this->ttl)) {
+        if (empty($this->ttl)) {
             return false;
         }
 

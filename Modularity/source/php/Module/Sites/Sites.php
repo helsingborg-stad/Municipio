@@ -4,19 +4,19 @@ namespace Modularity\Module\Sites;
 
 class Sites extends \Modularity\Module
 {
-    public $slug = 'sites';
-    public $supports = array();
-    public $multisiteOnly = true;
+    public $slug              = 'sites';
+    public $supports          = array();
+    public $multisiteOnly     = true;
     public $isBlockCompatible = false;
 
     public function init()
     {
         $this->nameSingular = __('Sites', 'modularity');
-        $this->namePlural = __('Sites', 'modularity');
-        $this->description = __('Outputs a grid list with att sites in the network.', 'modularity');
+        $this->namePlural   = __('Sites', 'modularity');
+        $this->description  = __('Outputs a grid list with att sites in the network.', 'modularity');
     }
 
-    public function data() : array
+    public function data(): array
     {
         $data['sites'] = $this->getSites();
         return $data;
@@ -24,7 +24,7 @@ class Sites extends \Modularity\Module
 
     public function getSites()
     {
-        $sites = get_sites();
+        $sites           = get_sites();
         $includeMainSite = get_field('include_main_site', $this->ID);
 
         foreach ($sites as $key => &$site) {
@@ -39,7 +39,7 @@ class Sites extends \Modularity\Module
             $site->description = get_option('blogdescription', null);
             restore_current_blog();
 
-            $site->image = apply_filters('Modularity\Module\Sites\image', null, $site);
+            $site->image          = apply_filters('Modularity\Module\Sites\image', null, $site);
             $site->image_rendered = apply_filters('Modularity\Module\Sites\image_rendered', null, $site);
         }
 

@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace Modularity\Module\Markdown\Providers;
 
 use Modularity\Module\Markdown\Providers\ProviderInterface;
 
-class AzureDevOps extends BaseProvider implements ProviderInterface 
+class AzureDevOps extends BaseProvider implements ProviderInterface
 {
     public function isValidProviderUrl(string $url): bool
     {

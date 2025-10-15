@@ -6,7 +6,7 @@ use Modularity\Module\ManualInput\ManualInput;
 
 class PrivateController
 {
-    public static $index = 0;
+    public static $index        = 0;
     private string $userMetaKey = 'manualInputs';
     public function __construct(private ManualInput $manualInputInstance)
     {
@@ -38,21 +38,21 @@ class PrivateController
             return $data;
         }
 
-        $data['template'] = $this->manualInputInstance->template;
+        $data['template']                    = $this->manualInputInstance->template;
         $this->manualInputInstance->template = 'private';
 
-        $data['user'] = $user->ID;
-        $data['userMetaKey'] = $this->userMetaKey;
+        $data['user']                 = $user->ID;
+        $data['userMetaKey']          = $this->userMetaKey;
         $data['privateModuleMetaKey'] = $this->getPrivateMetaKey($fields);
 
         $data['lang'] = [
-            'save'        => __('Save', 'modularity'),
-            'cancel'      => __('Cancel', 'modularity'),
-            'description' => __('Description', 'modularity'),
-            'name'        => __('Name', 'modularity'),
-            'saving'      => __('Saving', 'modularity'),
-            'obligatory'  => __('This item is obligatory', 'modularity'),
-            'error'       => __('An error occurred and the data could not be saved. Please try again later', 'modularity'),
+            'save'          => __('Save', 'modularity'),
+            'cancel'        => __('Cancel', 'modularity'),
+            'description'   => __('Description', 'modularity'),
+            'name'          => __('Name', 'modularity'),
+            'saving'        => __('Saving', 'modularity'),
+            'obligatory'    => __('This item is obligatory', 'modularity'),
+            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'modularity'),
             'changeContent' => __('Change the lists content', 'modularity'),
         ];
 
@@ -85,25 +85,25 @@ class PrivateController
     private function getUserStructuredManualInputs(array $data): array
     {
         $userManualInputs = get_user_meta($data['user'], 'manualInputs', true);
-        $userManualInput = $userManualInputs[$this->manualInputInstance->ID] ?? null;
+        $userManualInput  = $userManualInputs[$this->manualInputInstance->ID] ?? null;
 
         $filteredManualInputs = [];
         foreach ($data['manualInputs'] as $manualInput) {
-            $manualInput['classList'] ??= [];
+            $manualInput['classList']     ??= [];
             $manualInput['attributeList'] ??= [];
 
             if (
-                empty($manualInput['obligatory']) && 
-                isset($userManualInput[$manualInput['uniqueId']]) && 
+                empty($manualInput['obligatory']) &&
+                isset($userManualInput[$manualInput['uniqueId']]) &&
                 !$userManualInput[$manualInput['uniqueId']]
             ) {
                 $manualInput['classList'][] = 'u-display--none';
-                $manualInput['checked'] = false;
+                $manualInput['checked']     = false;
             } else {
                 $manualInput['checked'] = true;
             }
 
-            $manualInput['attributeList']['data-js-item-id'] = $manualInput['uniqueId']; 
+            $manualInput['attributeList']['data-js-item-id'] = $manualInput['uniqueId'];
 
             $filteredManualInputs[] = $manualInput;
         }
@@ -114,13 +114,13 @@ class PrivateController
     private function registerMeta(): void
     {
         register_meta('user', 'manualInputs', array(
-            'type' => 'object',
+            'type'         => 'object',
             'show_in_rest' => array(
                 'schema' => array(
-                    'type' => 'object',
+                    'type'                 => 'object',
                     'additionalProperties' => array(
-                        'type' => 'object',
-                        'properties' => array(
+                        'type'                 => 'object',
+                        'properties'           => array(
                             'key' => array(
                                 'type' => 'bool',
                             ),
@@ -129,7 +129,7 @@ class PrivateController
                     ),
                 ),
             ),
-            'single' => true,
+            'single'       => true,
         ));
     }
 
@@ -152,7 +152,7 @@ class PrivateController
      * @param mixed $originalValue The original value of the meta key.
      * @return mixed The updated value of the meta key.
      */
-    public function checkForChangedMetaKeyValue($value, $postId, $field, $originalValue) 
+    public function checkForChangedMetaKeyValue($value, $postId, $field, $originalValue)
     {
         $oldKey = get_field($field['key'], $postId);
         $oldKey = sanitize_title(empty($oldKey) ? $postId : $oldKey);
@@ -191,7 +191,7 @@ class PrivateController
         if (!$user->caps || !in_array('administrator', $user->caps)) {
             $field['wrapper']['class'] = 'acf-hidden';
         }
-        
+
         return $field;
     }
 }

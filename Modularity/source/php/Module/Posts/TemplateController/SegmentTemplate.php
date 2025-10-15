@@ -8,7 +8,7 @@ namespace Modularity\Module\Posts\TemplateController;
  * Template controller for rendering posts as Segment.
  *
  * @package Modularity\Module\Posts\TemplateController
- * 
+ *
  */
 class SegmentTemplate extends AbstractController
 {

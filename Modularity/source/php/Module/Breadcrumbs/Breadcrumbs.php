@@ -6,16 +6,16 @@ use Modularity\Helper\Post as PostHelper;
 
 class Breadcrumbs extends \Modularity\Module
 {
-    public $slug = 'breadcrumbs';
-    public $supports = array();
+    public $slug            = 'breadcrumbs';
+    public $supports        = array();
     public $displaySettings = null;
 
 
     public function init()
     {
         $this->nameSingular = __('Breadcrumbs', 'modularity');
-        $this->namePlural = __('Breadcrumbs', 'modularity');
-        $this->description = __('Outputs the navigational breadcrumb trail to the current page.', 'modularity');
+        $this->namePlural   = __('Breadcrumbs', 'modularity');
+        $this->description  = __('Outputs the navigational breadcrumb trail to the current page.', 'modularity');
 
         add_filter('Municipio/Breadcrumbs/Items', array( $this, 'unsetMunicipioBreadcrumbs' ), 1, 3);
         add_filter('Municipio/Accessibility/Items', array( $this, 'unsetMunicipioAccessibilityItems' ));
@@ -48,14 +48,14 @@ class Breadcrumbs extends \Modularity\Module
 
         $theme = wp_get_theme('municipio');
         if ($theme->exists()) {
-            $breadcrumb = new \Municipio\Helper\Navigation(
+            $breadcrumb                 = new \Municipio\Helper\Navigation(
                 'breadcrumb',
                 'modularity'
             );
-            $data['breadcrumbItems'] = $breadcrumb->getBreadcrumbItems(
+            $data['breadcrumbItems']    = $breadcrumb->getBreadcrumbItems(
                 PostHelper::getPageID()
             );
-            $accessibility = new \Municipio\Helper\Navigation(
+            $accessibility              = new \Municipio\Helper\Navigation(
                 'accessibility',
                 'modularity'
             );

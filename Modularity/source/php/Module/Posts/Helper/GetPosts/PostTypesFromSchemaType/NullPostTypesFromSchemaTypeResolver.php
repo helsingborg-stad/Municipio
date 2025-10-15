@@ -11,7 +11,8 @@ class NullPostTypesFromSchemaTypeResolver implements PostTypesFromSchemaTypeReso
     /**
      * @inheritDoc
      */
-    public function resolve(string $schemaType): array {
+    public function resolve(string $schemaType): array
+    {
         return [];
     }
 }

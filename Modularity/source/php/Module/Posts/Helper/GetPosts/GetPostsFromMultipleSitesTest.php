@@ -37,7 +37,7 @@ class GetPostsFromMultipleSitesTest extends TestCase
     public function testReturnsEmptyResultIfNoSitesProvided(): void
     {
         $currentSite = $this->createSite(1);
-        $wpService = $this->getWpServiceMock();
+        $wpService   = $this->getWpServiceMock();
         $wpService->method('getBlogDetails')->willReturn($currentSite);
 
         $instance = $this->createInstance([], 1, [], $this->getWpdbMock(), $wpService);
@@ -54,7 +54,7 @@ class GetPostsFromMultipleSitesTest extends TestCase
     public function testReturnsPostsFromMultipleSites($fields): void
     {
         $fields = array_merge([
-            'posts_data_source' => 'posttype',
+            'posts_data_source'    => 'posttype',
             'posts_data_post_type' => 'custom_post_type',
         ], $fields);
 
@@ -64,25 +64,25 @@ class GetPostsFromMultipleSitesTest extends TestCase
         $wpdb = $this->getWpdbMock();
         $wpdb->method('get_results')->willReturn([
             (object)[
-                'blog_id' => 1,
-                'post_id' => $postFromBlog1->ID,
-                'post_title' => $postFromBlog1->post_title,
-                'post_date' => $postFromBlog1->post_date,
+                'blog_id'     => 1,
+                'post_id'     => $postFromBlog1->ID,
+                'post_title'  => $postFromBlog1->post_title,
+                'post_date'   => $postFromBlog1->post_date,
                 'post_status' => $postFromBlog1->post_status,
-                'is_sticky' => "0",
+                'is_sticky'   => "0",
             ],
             (object)[
-                'blog_id' => 2,
-                'post_id' => $postFromBlog2->ID,
-                'post_title' => $postFromBlog2->post_title,
-                'post_date' => $postFromBlog2->post_date,
+                'blog_id'     => 2,
+                'post_id'     => $postFromBlog2->ID,
+                'post_title'  => $postFromBlog2->post_title,
+                'post_date'   => $postFromBlog2->post_date,
                 'post_status' => $postFromBlog2->post_status,
-                'is_sticky' => "1",
+                'is_sticky'   => "1",
             ],
         ]);
 
         $currentSite = $this->createSite(1);
-        $wpService = $this->getWpServiceMock();
+        $wpService   = $this->getWpServiceMock();
         $wpService->method('getBlogDetails')->willReturn($currentSite);
         $wpService->method('getBlogPost')->willReturnOnConsecutiveCalls($postFromBlog1, $postFromBlog2);
 
@@ -99,13 +99,13 @@ class GetPostsFromMultipleSitesTest extends TestCase
     public static function fieldsProvider(): array
     {
         return [
-            'sort by date' => [['posts_sort_by' => 'date']],
-            'sort by title' => [['posts_sort_by' => 'title']],
-            'sort by modified' => [['posts_sort_by' => 'modified']],
-            'sort by menu order' => [['posts_sort_by' => 'menu_order']],
-            'sort by random' => [['posts_sort_by' => 'rand']],
+            'sort by date'          => [['posts_sort_by' => 'date']],
+            'sort by title'         => [['posts_sort_by' => 'title']],
+            'sort by modified'      => [['posts_sort_by' => 'modified']],
+            'sort by menu order'    => [['posts_sort_by' => 'menu_order']],
+            'sort by random'        => [['posts_sort_by' => 'rand']],
             'post type from schema' => [['posts_data_source' => 'schematype', 'posts_data_schema_type' => 'JobPosting']],
-            'custom count' => [['posts_count' => 5]],
+            'custom count'          => [['posts_count' => 5]],
         ];
     }
 
@@ -130,17 +130,17 @@ class GetPostsFromMultipleSitesTest extends TestCase
 
     private function createSite(int $blogId): WP_Site
     {
-        $site = new WP_Site([]);
+        $site          = new WP_Site([]);
         $site->blog_id = $blogId;
         return $site;
     }
 
     private function createPost(int $id, string $title, string $date): WP_Post
     {
-        $post = new WP_Post([]);
-        $post->ID = $id;
-        $post->post_title = $title;
-        $post->post_date = $date;
+        $post              = new WP_Post([]);
+        $post->ID          = $id;
+        $post->post_title  = $title;
+        $post->post_date   = $date;
         $post->post_status = 'publish';
         return $post;
     }
@@ -150,7 +150,7 @@ class GetPostsFromMultipleSitesTest extends TestCase
         if (!defined('OBJECT')) {
             define('OBJECT', 'object');
         }
-        $wpdb = $this->createMock(\wpdb::class);
+        $wpdb              = $this->createMock(\wpdb::class);
         $wpdb->base_prefix = 'mun_';
         return $wpdb;
     }

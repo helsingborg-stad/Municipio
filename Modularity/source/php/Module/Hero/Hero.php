@@ -8,8 +8,8 @@ use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 
 class Hero extends \Modularity\Module
 {
-    public $slug = 'hero';
-    public $supports = array();
+    public $slug          = 'hero';
+    public $supports      = array();
     public $blockSupports = array(
         'align' => ['full']
     );
@@ -17,11 +17,11 @@ class Hero extends \Modularity\Module
     public function init()
     {
         $this->nameSingular = __('Hero', 'modularity');
-        $this->namePlural = __('Heros', 'modularity');
-        $this->description = __('Outputs a hero', 'modularity');
+        $this->namePlural   = __('Heros', 'modularity');
+        $this->description  = __('Outputs a hero', 'modularity');
     }
 
-    public function data() : array
+    public function data(): array
     {
         //Get module data
         $fields = $this->getFields();
@@ -48,7 +48,7 @@ class Hero extends \Modularity\Module
             ];
         }
 
-        if(!isset($data['stretch'])) {
+        if (!isset($data['stretch'])) {
             $data['stretch'] = false;
         }
 
@@ -59,17 +59,17 @@ class Hero extends \Modularity\Module
         }
 
         //Common fields
-        $data['type']               = $type;
-        $data['size']               = $fields['mod_hero_size'];
-        $data['byline']             = $fields['mod_hero_byline'];
-        $data['paragraph']          = $fields['mod_hero_body'];
-        $data['backgroundType']     = $data['mod_hero_background_type'] ?? 'image';
-        $data['heroView']           = !empty($fields['mod_hero_display_as']) ? $fields['mod_hero_display_as'] : 'default';
-        $data['ariaLabel']          = __('Page hero section', 'modularity');
-        $data['meta']               = !empty($fields['mod_hero_meta']) ? $fields['mod_hero_meta'] : false;
-        $data['buttonArgs']         = $this->getButtonArgsFromFields($fields);
-        $data['poster']             = $fields['mod_hero_poster_image']['sizes']['large'] ?? false;
-        $data['customHeroData']     = $customHeroData;
+        $data['type']           = $type;
+        $data['size']           = $fields['mod_hero_size'];
+        $data['byline']         = $fields['mod_hero_byline'];
+        $data['paragraph']      = $fields['mod_hero_body'];
+        $data['backgroundType'] = $data['mod_hero_background_type'] ?? 'image';
+        $data['heroView']       = !empty($fields['mod_hero_display_as']) ? $fields['mod_hero_display_as'] : 'default';
+        $data['ariaLabel']      = __('Page hero section', 'modularity');
+        $data['meta']           = !empty($fields['mod_hero_meta']) ? $fields['mod_hero_meta'] : false;
+        $data['buttonArgs']     = $this->getButtonArgsFromFields($fields);
+        $data['poster']         = $fields['mod_hero_poster_image']['sizes']['large'] ?? false;
+        $data['customHeroData'] = $customHeroData;
 
         return $data;
     }
@@ -88,8 +88,8 @@ class Hero extends \Modularity\Module
             foreach ($fields['mod_hero_buttons'] as $button) {
                 if (is_array($button['link']) && !empty($button['link']['url']) && !empty($button['link']['title'])) {
                     $buttonArgs[] = [
-                        'href' => $button['link']['url'],
-                        'text' => $button['link']['title'],
+                        'href'  => $button['link']['url'],
+                        'text'  => $button['link']['title'],
                         'color' => $button['color'] ?? 'primary',
                         'style' => $button['type'] ?? 'filled',
                     ];

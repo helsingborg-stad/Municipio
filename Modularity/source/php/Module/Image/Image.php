@@ -8,8 +8,8 @@ use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 
 class Image extends \Modularity\Module
 {
-    public $slug = 'image';
-    public $supports = array();
+    public $slug              = 'image';
+    public $supports          = array();
     public $isBlockCompatible = false;
 
     /**
@@ -19,8 +19,8 @@ class Image extends \Modularity\Module
     public function init()
     {
         $this->nameSingular = __('Image', 'modularity');
-        $this->namePlural = __('Images', 'modularity');
-        $this->description = __('Outputs an image', 'modularity');
+        $this->namePlural   = __('Images', 'modularity');
+        $this->description  = __('Outputs an image', 'modularity');
         add_filter('acf/load_field/key=field_570770b8e2e61', [$this, 'filterImageField']);
     }
 
@@ -28,15 +28,15 @@ class Image extends \Modularity\Module
      * Setup data
      * @return array
      */
-    public function data() : array
+    public function data(): array
     {
 
         //Declare default data
         $data = [
-            'image' => false,
-            'link' => false,
+            'image'   => false,
+            'link'    => false,
             'caption' => false,
-            'byline' => false,
+            'byline'  => false,
         ];
 
         // Get field definition
@@ -44,11 +44,11 @@ class Image extends \Modularity\Module
 
         // If the image is set, get the image data
         $imageId = $fields['mod_image_image'] ?? null;
-        if(is_array($imageId)) {
+        if (is_array($imageId)) {
             $imageId = $imageId['ID'] ?? null;
         }
 
-        if(is_numeric($imageId) && wp_attachment_is_image($imageId)) {
+        if (is_numeric($imageId) && wp_attachment_is_image($imageId)) {
             $data['image'] = ImageComponentContract::factory(
                 $imageId,
                 [1920, false],
@@ -56,8 +56,8 @@ class Image extends \Modularity\Module
                 new ImageFocusResolver(['id' => $imageId])
             );
 
-            $data['caption']    = $this->getImageCaption($fields, $imageId);
-            $data['byline']     = $this->getImageByline($imageId);
+            $data['caption'] = $this->getImageCaption($fields, $imageId);
+            $data['byline']  = $this->getImageByline($imageId);
         }
 
         //Get image link, if image is set and link is set
@@ -68,12 +68,13 @@ class Image extends \Modularity\Module
 
     /**
      * If the image should be a link or not.
-     * 
+     *
      * @param array $fields All the acf fields
      * @param array $imageId The image id
      * @return string|false
      */
-    private function getImageCaption(array $fields, int $imageId) {
+    private function getImageCaption(array $fields, int $imageId)
+    {
         $caption = wp_get_attachment_caption($imageId);
         if (!empty($fields['mod_image_caption'])) {
             $caption = $fields['mod_image_caption'];
@@ -83,11 +84,12 @@ class Image extends \Modularity\Module
 
     /**
      * Get the byline for the image
-     * 
+     *
      * @param int $imageId The image id
      * @return string|false
      */
-    private function getImageByline($imageId) {
+    private function getImageByline($imageId)
+    {
         $meta = wp_get_attachment_metadata($imageId);
         if (isset($meta['image_meta']['byline'])) {
             return $meta['image_meta']['byline'];
@@ -97,11 +99,12 @@ class Image extends \Modularity\Module
 
     /**
      * If the image should be a link or not.
-     * 
+     *
      * @param array $fields All the acf fields
      * @return bool
      */
-    private function imageHasLink(array $fields) {
+    private function imageHasLink(array $fields)
+    {
         return !empty($fields['mod_image_link']) && $fields['mod_image_link'] != "false" && !empty($fields['mod_image_link_url']);
     }
 
@@ -110,10 +113,10 @@ class Image extends \Modularity\Module
      * @param array $field The acf field
      * @return array The modified acf field
      */
-     public function filterImageField($field)
+    public function filterImageField($field)
     {
-        $imageMimeTypes = $this->getAllowedImageMimeTypes();
-        $field['mime_types'] = $imageMimeTypes;
+        $imageMimeTypes        = $this->getAllowedImageMimeTypes();
+        $field['mime_types']   = $imageMimeTypes;
         $field['instructions'] = sprintf(
             __('Allowed file types: %s', 'modularity'),
             $imageMimeTypes
@@ -124,7 +127,7 @@ class Image extends \Modularity\Module
 
     /**
      * Get allowed image mime types
-     * 
+     *
      * @return string Comma separated list of allowed image mime types
      */
     private function getAllowedImageMimeTypes()
@@ -137,7 +140,7 @@ class Image extends \Modularity\Module
 
         $allAllowedMimeTypes = get_allowed_mime_types();
 
-        $allowedImageMimeTypes = array_filter($allAllowedMimeTypes, function($type) {
+        $allowedImageMimeTypes = array_filter($allAllowedMimeTypes, function ($type) {
             return strpos($type, 'image/') === 0;
         });
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Modularity\Module\Markdown\Filters;
 
@@ -9,7 +9,7 @@ class RelativeAssets implements FilterInterface
     private string $baseUrl;
 
     public function __construct(private array $fields)
-    {   
+    {
         $this->baseUrl = $this->getBaseUrl(
             $fields['mod_markdown_url'] ?? null
         );
@@ -51,7 +51,7 @@ class RelativeAssets implements FilterInterface
     public function filter(string $content): string
     {
         return preg_replace_callback('/<img src="([^"]+)"([^>]*)>/m', function ($matches) {
-            $src = $matches[1];
+            $src        = $matches[1];
             $attributes = $matches[2];
 
             // If the src is already an absolute URL, return the match as it is

@@ -4,10 +4,10 @@ namespace Modularity\Module\Markdown\Providers;
 
 use League\CommonMark\MarkdownConverter;
 
-Interface ProviderInterface
+interface ProviderInterface
 {
-  public function isValidProviderUrl(string $url): bool;
-  public function getExample(): string;
-  public function getName(): string;
-  public function implementation(): ?MarkdownConverter;
+    public function isValidProviderUrl(string $url): bool;
+    public function getExample(): string;
+    public function getName(): string;
+    public function implementation(): ?MarkdownConverter;
 }

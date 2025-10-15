@@ -48,17 +48,17 @@ class ExpandableListTemplate extends AbstractController
     {
         parent::__construct($module);
         $this->module = $module;
-        $this->args = $module->args;
-        $this->data = $module->data;
+        $this->args   = $module->args;
+        $this->data   = $module->data;
         $this->fields = $module->fields;
 
         $this->data['posts_list_column_titles'] = !empty($this->fields['posts_list_column_titles']) && is_array($this->fields['posts_list_column_titles']) ?
             $this->fields['posts_list_column_titles'] : null;
 
-        $this->data['posts_hide_title_column'] = ($this->fields['posts_hide_title_column']) ? true : false;
-        $this->data['title_column_label'] = $this->fields['title_column_label'] ?? null;
+        $this->data['posts_hide_title_column']  = ($this->fields['posts_hide_title_column']) ? true : false;
+        $this->data['title_column_label']       = $this->fields['title_column_label'] ?? null;
         $this->data['allow_freetext_filtering'] = $this->fields['allow_freetext_filtering'] ?? null;
-        $this->data['prepareAccordion'] = $this->prepareExpandableList();
+        $this->data['prepareAccordion']         = $this->prepareExpandableList();
     }
 
     /**
@@ -71,9 +71,9 @@ class ExpandableListTemplate extends AbstractController
         if (empty($this->data['posts_list_column_titles'])) {
             return [];
         }
-        
+
         $columnValues = [];
-        
+
         foreach ($this->data['posts'] as $colIndex => $post) {
             $columnValues[] = get_post_meta($post->getId(), 'modularity-mod-posts-expandable-list', true) ?? '';
         }
@@ -83,9 +83,9 @@ class ExpandableListTemplate extends AbstractController
 
     /**
      * Rewrite post content headings to fit into accordion structure
-     * 
+     *
      * @param array $preparedPosts Array of prepared posts
-     * 
+     *
      * @return array
      */
     private function rewritePostContent($preparedPosts): array
@@ -121,7 +121,7 @@ class ExpandableListTemplate extends AbstractController
      * Prepare Data for accordion
      * @param array $items Array of posts
      * @param array $this->data Array of settings
-     * 
+     *
      * @return array|null
      */
     public function prepareExpandableList(): ?array
@@ -160,9 +160,9 @@ class ExpandableListTemplate extends AbstractController
 
     /**
      * Get array dimension depth
-     * 
+     *
      * @param array $colArray
-     * 
+     *
      * @return int
      */
     public function arrayDepth(array $colArray): int
@@ -170,7 +170,7 @@ class ExpandableListTemplate extends AbstractController
         $maxDepth = 1;
         foreach ($colArray as $value) {
             if (is_array($value)) {
-                $depth = $this->arrayDepth($value) + 1;
+                $depth    = $this->arrayDepth($value) + 1;
                 $maxDepth = ($depth > $maxDepth) ? $depth : $maxDepth;
             }
         }

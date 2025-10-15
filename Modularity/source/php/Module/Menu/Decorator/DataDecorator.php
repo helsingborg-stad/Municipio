@@ -11,21 +11,20 @@ class DataDecorator implements DataDecoratorInterface
     public function __construct(private $fields)
     {
         $this->dataDecoratorInstance = $this->getDecoratorInstance($this->fields);
-
     }
 
     private function getDecoratorInstance(): DataDecoratorInterface
     {
         $displayAs = $this->fields['displayAs'] ?? 'listing';
 
-            switch ($displayAs) {
-                case 'listing':
-                    return new Listing($this->fields);
-                    break;
-                default:
-                    return new Listing($this->fields);
-                    break;
-            }
+        switch ($displayAs) {
+            case 'listing':
+                return new Listing($this->fields);
+                break;
+            default:
+                return new Listing($this->fields);
+                break;
+        }
     }
 
     public function decorate(array $data): array

@@ -41,7 +41,6 @@ class Ajax
         foreach ($postModules as $postModule) {
             if (!empty($postModule['modules'])) {
                 foreach ($postModule['modules'] as &$module) {
-                    
                     $incompability = apply_filters(
                         'Modularity/Editor/SidebarIncompability',
                         [],
@@ -49,8 +48,8 @@ class Ajax
                     );
 
                     $module->sidebar_incompability = (!empty($incompability['sidebar_incompability'])) ? $incompability['sidebar_incompability'] : array();
-                
-                    if($includeMeta) {
+
+                    if ($includeMeta) {
                         unset($module->meta);
                     }
                 }

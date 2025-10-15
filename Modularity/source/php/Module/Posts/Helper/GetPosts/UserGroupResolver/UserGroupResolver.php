@@ -24,9 +24,9 @@ class UserGroupResolver implements UserGroupResolverInterface
      */
     public function getUserGroup(): ?string
     {
-        $currentBlogId  = ((int) $this->wpService->getCurrentBlogId()) ?? null;
-        $mainBlogId     = ((int) $this->wpService->getMainSiteId()) ?? null;
-        $userGroupId    = null;
+        $currentBlogId = ((int) $this->wpService->getCurrentBlogId()) ?? null;
+        $mainBlogId    = ((int) $this->wpService->getMainSiteId()) ?? null;
+        $userGroupId   = null;
 
         if ($currentBlogId !== $mainBlogId) {
             $this->wpService->switchToBlog($mainBlogId);
@@ -39,7 +39,7 @@ class UserGroupResolver implements UserGroupResolverInterface
     }
 
     /**
-     * Get the user group. 
+     * Get the user group.
      *
      * @return string|null The user group slug or null if not found.
      */

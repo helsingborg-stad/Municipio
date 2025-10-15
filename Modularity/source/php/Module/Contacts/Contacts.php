@@ -4,32 +4,33 @@ namespace Modularity\Module\Contacts;
 
 use Modularity\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+
 class Contacts extends \Modularity\Module
 {
-    public $slug = 'contacts';
-    public $supports = array();
+    public $slug            = 'contacts';
+    public $supports        = array();
     public $displaySettings = null;
-    
+
     private $view = null;
     public function init()
     {
         $this->nameSingular = __('Contacts v2', 'modularity');
-        $this->namePlural = __('Contacts v2', 'modularity');
-        $this->description = __('Outputs one or more contacts', 'modularity');
+        $this->namePlural   = __('Contacts v2', 'modularity');
+        $this->description  = __('Outputs one or more contacts', 'modularity');
     }
 
-    public function data() : array
+    public function data(): array
     {
-        $data = $this->getFields();
+        $data       = $this->getFields();
         $data['ID'] = $this->ID;
 
-        $this->view = $data['view'] ?? 'extended';
+        $this->view   = $data['view'] ?? 'extended';
         $data['view'] = $this->view;
 
-        if(!empty($data['contacts'])) {
+        if (!empty($data['contacts'])) {
             $data['contacts'] = $this->prepareContacts($data['contacts']);
         }
-        
+
         if (!isset($data['columns'])) {
             $data['columns'] = 'o-grid-12@md';
         }
@@ -52,17 +53,17 @@ class Contacts extends \Modularity\Module
 
         foreach ($contacts as &$contact) {
             $info = array(
-                'image' => null,
-                'first_name' => null,
-                'last_name' => null,
-                'work_title' => null,
+                'image'               => null,
+                'first_name'          => null,
+                'last_name'           => null,
+                'work_title'          => null,
                 'administration_unit' => null,
-                'email' => null,
-                'phone' => null,
-                'social_media' => null,
-                'address' => null,
-                'visiting_address' => null,
-                'opening_hours' => null
+                'email'               => null,
+                'phone'               => null,
+                'social_media'        => null,
+                'address'             => null,
+                'visiting_address'    => null,
+                'opening_hours'       => null
             );
 
             switch ($contact['acf_fc_layout']) {
@@ -85,7 +86,7 @@ class Contacts extends \Modularity\Module
 
                 case 'user':
                     $fields = function_exists('get_fields') ? get_fields('user_' . $contact['user']['ID']) : [];
-                    $info = apply_filters('Modularity/mod-contacts/contact-info', array(
+                    $info   = apply_filters('Modularity/mod-contacts/contact-info', array(
                          'id'                  => !empty($contact['user']['ID']) ? $contact['user']['ID'] : '',
                          'image'               => $fields['user_profile_picture_id'] ?? null,
                          'first_name'          => $contact['user']['user_firstname'] ?? '',
@@ -128,22 +129,24 @@ class Contacts extends \Modularity\Module
             $info['full_name'] = trim($info['first_name'] . ' ' . $info['last_name']);
 
             //Create full title string
-            $titleProperties = ['administration_unit', 'work_title'];
-            $fullTitle = array_filter(array_map(function($key) use ($info) {
+            $titleProperties    = ['administration_unit', 'work_title'];
+            $fullTitle          = array_filter(array_map(function ($key) use ($info) {
                 return $info[$key] ?: false;
-            }, $titleProperties), function($item) {return $item;});
+            }, $titleProperties), function ($item) {
+                return $item;
+            });
             $info['full_title'] = is_array($fullTitle) ? implode(', ', $fullTitle) : '';
 
             //Sanitize social media
             if (!empty($info['social_media'])) {
-                $info['social_media'] = array_filter($info['social_media'], function($item) {
+                $info['social_media'] = array_filter($info['social_media'], function ($item) {
                     return !empty($item['url']);
                 });
             }
 
             //Add social media labels by ['media'] key
             if (!empty($info['social_media'])) {
-                $info['social_media'] = array_map(function($item) {
+                $info['social_media'] = array_map(function ($item) {
 
                     switch ($item['media']) {
                         case 'linkedin':
@@ -168,7 +171,7 @@ class Contacts extends \Modularity\Module
             if (isset($info['opening_hours']) && !empty($info['opening_hours'])) {
                 $info['custom_sections'] = [
                     [
-                        'title' => __('Opening hours', 'modularity'),
+                        'title'   => __('Opening hours', 'modularity'),
                         'content' => $info['opening_hours']
                     ]
                 ];
@@ -181,23 +184,24 @@ class Contacts extends \Modularity\Module
         return $retContacts;
     }
 
-    private function getUserSocialMedia(array $fields): ?array {
-        
+    private function getUserSocialMedia(array $fields): ?array
+    {
+
         $socialMedia = array();
 
-        if(!empty($fields['user_facebook_url'])) {
+        if (!empty($fields['user_facebook_url'])) {
             $socialMedia[] = ['media' => 'facebook', 'url' => $fields['user_facebook_url']];
         }
 
-        if(!empty($fields['user_twitter_username'])) {
+        if (!empty($fields['user_twitter_username'])) {
             $socialMedia[] = ['media' => 'twitter', 'url' => $fields['user_twitter_username']];
         }
 
-        if(!empty($fields['user_linkedin_url'])) {
+        if (!empty($fields['user_linkedin_url'])) {
             $socialMedia[] = ['media' => 'linkedin', 'url' => $fields['user_linkedin_url']];
         }
 
-        if(!empty($fields['user_instagram_username'])) {
+        if (!empty($fields['user_instagram_username'])) {
             $socialMedia[] = ['media' => 'instagram', 'url' => $fields['user_instagram_username']];
         }
 

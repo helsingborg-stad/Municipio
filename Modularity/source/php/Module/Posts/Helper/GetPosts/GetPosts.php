@@ -24,24 +24,23 @@ class GetPosts implements GetPostsInterface
         private IsUserLoggedIn&GetPermalink&GetPostType&IsArchive&GetTheID $wpService,
         private WpQueryFactoryInterface $wpQueryFactory,
         private PostTypesFromSchemaTypeResolverInterface $postTypesFromSchemaTypeResolver
-    )
-    {
+    ) {
     }
 
     /**
      * Get posts and pagination data
-     * 
+     *
      * @param array $fields
      * @param int $page
      * @return PostsResultInterface
      */
-    public function getPosts() :PostsResultInterface
+    public function getPosts(): PostsResultInterface
     {
-        $stickyPostIds       = $this->getStickyPostIds($this->fields, $this->page);
-        $stickyPosts         = $this->getStickyPostsForSite($this->fields, $this->page, $stickyPostIds);
-        $wpQuery     = $this->wpQueryFactory->create($this->getPostArgs($this->fields, $this->page, $stickyPostIds));
-        $stickyPosts = $this->sortPosts($stickyPosts, $this->fields['posts_sort_by'] ?? 'date', $this->fields['posts_sort_order'] ?? 'desc');
-        $posts = $wpQuery->get_posts();
+        $stickyPostIds = $this->getStickyPostIds($this->fields, $this->page);
+        $stickyPosts   = $this->getStickyPostsForSite($this->fields, $this->page, $stickyPostIds);
+        $wpQuery       = $this->wpQueryFactory->create($this->getPostArgs($this->fields, $this->page, $stickyPostIds));
+        $stickyPosts   = $this->sortPosts($stickyPosts, $this->fields['posts_sort_by'] ?? 'date', $this->fields['posts_sort_order'] ?? 'desc');
+        $posts         = $wpQuery->get_posts();
 
         return $this->formatResponse(
             $posts,
@@ -52,7 +51,7 @@ class GetPosts implements GetPostsInterface
 
     /**
      * Format the response
-     * 
+     *
      * @param array $posts
      * @param int $maxNumPages
      * @param array $stickyPosts
@@ -60,7 +59,7 @@ class GetPosts implements GetPostsInterface
      */
     private function formatResponse(array $posts, int $maxNumPages, array $stickyPosts): PostsResultInterface
     {
-        return new PostsResult( $posts, $maxNumPages, $stickyPosts );
+        return new PostsResult($posts, $maxNumPages, $stickyPosts);
     }
 
     /**
@@ -82,11 +81,11 @@ class GetPosts implements GetPostsInterface
             unset($stickyPostIds[$currentPostID]);
         }
 
-        $args = $this->getDefaultQueryArgs();
-        $args['post_type'] = $fields['posts_data_post_type'];
-        $args['post__in'] = array_values($stickyPostIds);
-        $args['orderby'] = 'date';
-        $args['order'] = 'DESC';
+        $args                   = $this->getDefaultQueryArgs();
+        $args['post_type']      = $fields['posts_data_post_type'];
+        $args['post__in']       = array_values($stickyPostIds);
+        $args['orderby']        = 'date';
+        $args['order']          = 'DESC';
         $args['posts_per_page'] = $this->getPostsPerPage($fields);
 
         $args['post_status'] = ['publish', 'inherit'];
@@ -102,7 +101,7 @@ class GetPosts implements GetPostsInterface
     /**
      * Get sticky post IDs
      */
-    private function getStickyPostIds(array $fields, int $page): array 
+    private function getStickyPostIds(array $fields, int $page): array
     {
         $stickyPosts = [];
         if (is_null($this->getStickyOption) || !empty($fields['posts_data_post_type'])) {
@@ -117,9 +116,9 @@ class GetPosts implements GetPostsInterface
      */
     private function getPostArgs(array $fields, int $page, array $stickyPostIds = [])
     {
-        $metaQuery        = false;
-        $orderby          = !empty($fields['posts_sort_by']) ? $fields['posts_sort_by'] : 'date';
-        $order            = !empty($fields['posts_sort_order']) ? $fields['posts_sort_order'] : 'desc';
+        $metaQuery = false;
+        $orderby   = !empty($fields['posts_sort_by']) ? $fields['posts_sort_by'] : 'date';
+        $order     = !empty($fields['posts_sort_order']) ? $fields['posts_sort_order'] : 'desc';
 
         // Get post args
         $getPostsArgs = $this->getDefaultQueryArgs();
@@ -127,16 +126,16 @@ class GetPosts implements GetPostsInterface
         // Sort by meta key
         if (strpos($orderby, '_metakey_') === 0) {
             $orderby_key = substr($orderby, strlen('_metakey_'));
-            $orderby = 'order_clause';
-            $metaQuery = [
+            $orderby     = 'order_clause';
+            $metaQuery   = [
                 [
-                    'relation' => 'OR',
+                    'relation'     => 'OR',
                     'order_clause' => [
-                        'key' => $orderby_key,
+                        'key'     => $orderby_key,
                         'compare' => 'EXISTS'
                     ],
                     [
-                        'key' => $orderby_key,
+                        'key'     => $orderby_key,
                         'compare' => 'NOT EXISTS'
                     ]
                 ]
@@ -144,7 +143,7 @@ class GetPosts implements GetPostsInterface
         }
 
         if ($orderby != 'false') {
-            $getPostsArgs['order'] = $order;
+            $getPostsArgs['order']   = $order;
             $getPostsArgs['orderby'] = $orderby;
         }
 
@@ -160,14 +159,14 @@ class GetPosts implements GetPostsInterface
             $fields['posts_taxonomy_filter'] === true &&
             !empty($fields['posts_taxonomy_type'])
         ) {
-            $taxType = $fields['posts_taxonomy_type'];
+            $taxType   = $fields['posts_taxonomy_type'];
             $taxValues = (array)$fields['posts_taxonomy_value'];
 
             foreach ($taxValues as $term) {
                 $getPostsArgs['tax_query'][] = [
                     'taxonomy' => $taxType,
-                    'field' => 'slug',
-                    'terms' => $term
+                    'field'    => 'slug',
+                    'terms'    => $term
                 ];
             }
         }
@@ -175,8 +174,8 @@ class GetPosts implements GetPostsInterface
         // Meta filter
         if (isset($fields['posts_meta_filter']) && $fields['posts_meta_filter'] === true) {
             $metaQuery[] = [
-                'key' => $fields['posts_meta_key'] ?? '',
-                'value' => [$fields['posts_meta_value'] ?? ''],
+                'key'     => $fields['posts_meta_key'] ?? '',
+                'value'   => [$fields['posts_meta_value'] ?? ''],
                 'compare' => 'IN',
             ];
         }
@@ -185,18 +184,18 @@ class GetPosts implements GetPostsInterface
         switch ($fields['posts_data_source'] ?? []) {
             case 'posttype':
                 $getPostsArgs['post_type'] = $fields['posts_data_post_type'];
-                $postsNotIn = [];
+                $postsNotIn                = [];
                 if ($currentPostID = $this->getCurrentPostID()) {
                     $postsNotIn[] = $currentPostID;
                 }
 
-                $postsNotIn = array_merge($postsNotIn, $stickyPostIds);
+                $postsNotIn                   = array_merge($postsNotIn, $stickyPostIds);
                 $getPostsArgs['post__not_in'] = $postsNotIn;
 
                 break;
 
             case 'children':
-                $getPostsArgs['post_type'] = $this->wpService->getPostType();
+                $getPostsArgs['post_type']   = $this->wpService->getPostType();
                 $getPostsArgs['post_parent'] = $fields['posts_data_child_of'];
                 break;
 
@@ -208,7 +207,7 @@ class GetPosts implements GetPostsInterface
                 break;
 
             case 'schematype':
-                if(empty($fields['posts_data_schema_type'])) {
+                if (empty($fields['posts_data_schema_type'])) {
                     break;
                 }
                 $getPostsArgs['post_type'] = $this->postTypesFromSchemaTypeResolver->resolve($fields['posts_data_schema_type']);
@@ -235,9 +234,9 @@ class GetPosts implements GetPostsInterface
     private function getDefaultQueryArgs()
     {
         return [
-            'post_type' => 'any',
-            'post_password' => false,
-            'suppress_filters' => false,
+            'post_type'           => 'any',
+            'post_password'       => false,
+            'suppress_filters'    => false,
             'ignore_sticky_posts' => true,
         ];
     }
@@ -245,7 +244,8 @@ class GetPosts implements GetPostsInterface
     /**
      * Get posts per page
      */
-    private function getPostsPerPage(array $fields): int {
+    private function getPostsPerPage(array $fields): int
+    {
         if (isset($fields['posts_count']) && is_numeric($fields['posts_count'])) {
             return ($fields['posts_count'] == -1 || $fields['posts_count'] > 100) ? 100 : $fields['posts_count'];
         }
@@ -256,7 +256,7 @@ class GetPosts implements GetPostsInterface
     /**
      * Get the current post ID
      */
-    public function getCurrentPostID():int|false
+    public function getCurrentPostID(): int|false
     {
         if ($this->wpService->isArchive()) {
             return false;
@@ -267,23 +267,22 @@ class GetPosts implements GetPostsInterface
 
     /**
      * Sort posts
-     * 
+     *
      * @param \WP_Post[] $posts
      * @param string $orderby Can be 'date', 'title', 'modified', 'menu_order', 'rand'. Default is 'date'.
      * @param string $order Can be 'asc' or 'desc'. Default is 'desc'. When 'rand' is used, this parameter is ignored.
      */
-    public function sortPosts(array $posts, string $orderby = 'date', string $order = 'desc') : array
+    public function sortPosts(array $posts, string $orderby = 'date', string $order = 'desc'): array
     {
         usort($posts, fn($a, $b) =>
-            match($orderby) {
+            match ($orderby) {
                 'date' => strtotime($a->post_date) > strtotime($b->post_date) ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
                 'title' => $a->post_title > $b->post_title ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
                 'modified' => strtotime($a->post_modified) > strtotime($b->post_modified) ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
                 'menu_order' => $a->menu_order > $b->menu_order ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
                 'rand' => rand(-1, 1),
                 default => 0,
-            }
-        );
+            });
 
         return $posts;
     }

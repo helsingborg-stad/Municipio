@@ -2,16 +2,18 @@
 
 namespace Modularity\Upgrade\Version;
 
-use \Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
-use \Modularity\Upgrade\Migrators\Module\AcfModuleMigration;
-use \Modularity\Upgrade\Version\Helper\GetPostsByPostType;
+use Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
+use Modularity\Upgrade\Migrators\Module\AcfModuleMigration;
+use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 
-class V4 implements versionInterface {
+class V4 implements versionInterface
+{
     private $db;
     private $name;
 
-    public function __construct(\wpdb $db) {
-        $this->db = $db;
+    public function __construct(\wpdb $db)
+    {
+        $this->db   = $db;
         $this->name = 'manualinput';
     }
 
@@ -23,7 +25,7 @@ class V4 implements versionInterface {
         return true;
     }
 
-    private function upgradeModules() 
+    private function upgradeModules()
     {
         $moduleMigrator = new AcfModuleMigration(
             $this->db,
@@ -34,7 +36,7 @@ class V4 implements versionInterface {
         $moduleMigrator->migrateModules();
     }
 
-    private function upgradeBlocks() 
+    private function upgradeBlocks()
     {
         $blockMigrator = new AcfBlockMigration(
             $this->db,
@@ -45,11 +47,11 @@ class V4 implements versionInterface {
         $blockMigrator->migrateBlocks();
     }
 
-    private function getFields() 
+    private function getFields()
     {
-        return 
+        return
         [
-            'index' => [
+            'index'         => [
                 'type' => 'removeField',
             ],
             'index_columns' => [

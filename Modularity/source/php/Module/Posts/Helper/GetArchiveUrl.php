@@ -17,9 +17,10 @@ class GetArchiveUrl
      *
      * @return string|false The archive URL if it exists, or false if it doesn't.
      */
-    public function getArchiveUrl($postType, $fields) {
+    public function getArchiveUrl($postType, $fields)
+    {
 
-        if(is_array($fields)) {
+        if (is_array($fields)) {
             $fields = (object) $fields;
         }
 
@@ -31,7 +32,7 @@ class GetArchiveUrl
             return $archiveUrl;
         }
 
-        if($archiveUrl = $this->getPostTypeArchiveUrl($postType)) {
+        if ($archiveUrl = $this->getPostTypeArchiveUrl($postType)) {
             return $archiveUrl;
         }
 
@@ -48,15 +49,16 @@ class GetArchiveUrl
      *
      * @return string|false The archive URL if it exists, or false if it doesn't.
      */
-    private function getPostsArchiveUrl() {
+    private function getPostsArchiveUrl()
+    {
         $pageForPosts = get_option('page_for_posts');
 
-        if(is_numeric($pageForPosts) && get_post_status($pageForPosts) == 'publish') {
-            return get_permalink($pageForPosts); 
+        if (is_numeric($pageForPosts) && get_post_status($pageForPosts) == 'publish') {
+            return get_permalink($pageForPosts);
         }
 
-        if(get_option('show_on_front') == 'posts') {
-            return get_home_url(); 
+        if (get_option('show_on_front') == 'posts') {
+            return get_home_url();
         }
 
         return false;
@@ -72,9 +74,10 @@ class GetArchiveUrl
      *
      * @return string|false The archive URL if it exists, or false if it doesn't.
      */
-    private function getPostTypeArchiveUrl($postType) {
-        if($postTypeObject = get_post_type_object($postType)) {
-            if(is_a($postTypeObject, 'WP_Post_Type') && $postTypeObject->has_archive) {
+    private function getPostTypeArchiveUrl($postType)
+    {
+        if ($postTypeObject = get_post_type_object($postType)) {
+            if (is_a($postTypeObject, 'WP_Post_Type') && $postTypeObject->has_archive) {
                 return get_post_type_archive_link($postType);
             }
         }

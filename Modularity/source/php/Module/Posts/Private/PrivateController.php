@@ -4,7 +4,8 @@ namespace Modularity\Module\Posts\Private;
 
 use Modularity\Module\Posts\Posts;
 
-class PrivateController {
+class PrivateController
+{
     private string $userMetaKey = 'privatePostsModule';
 
     public function __construct(private Posts $postsInstance)
@@ -18,9 +19,9 @@ class PrivateController {
         if ($this->postsInstance->postStatus === 'private') {
             $this->postsInstance->cacheTtl = 0;
             add_filter(
-                'Modularity/Module/Posts/template', 
-                array($this, 'checkIfModuleCanBeEditedByUser'), 
-                999, 
+                'Modularity/Module/Posts/template',
+                array($this, 'checkIfModuleCanBeEditedByUser'),
+                999,
                 4
             );
         }
@@ -40,15 +41,15 @@ class PrivateController {
         if (!$this->allowsUserModification($fields)) {
             return $data;
         }
-        
-        $user = wp_get_current_user();
+
+        $user                         = wp_get_current_user();
         $data['userMetaKey']          = $this->userMetaKey;
         $data['currentUser']          = $user->ID;
         $data['privateModuleMetaKey'] = $this->getPrivateMetaKey($fields);
         $data['userCanEditPosts']     = true;
         $data['filteredPosts']        = $this->getUserStructuredPosts(
-            $data['posts'], 
-            $data['currentUser'], 
+            $data['posts'],
+            $data['currentUser'],
             $data['privateModuleMetaKey']
         );
 
@@ -76,13 +77,13 @@ class PrivateController {
             if (
                 !empty($userPosts) &&
                 !empty($userPosts[$privateModuleMetaKey]) &&
-                isset($userPosts[$privateModuleMetaKey][$post->getId()]) && 
+                isset($userPosts[$privateModuleMetaKey][$post->getId()]) &&
                 empty($userPosts[$privateModuleMetaKey][$post->getId()])
             ) {
                 $post->checked     = false;
                 $post->classList[] = 'u-display--none';
             } else {
-                $post->checked     = true;
+                $post->checked = true;
             }
         }
 
@@ -91,22 +92,22 @@ class PrivateController {
 
     private function allowsUserModification(array $fields): bool
     {
-        return 
-            $this->postsInstance->postStatus === 'private' && 
-            !empty($fields['allow_user_modification']) && 
+        return
+            $this->postsInstance->postStatus === 'private' &&
+            !empty($fields['allow_user_modification']) &&
             is_user_logged_in();
     }
 
     private function registerMeta(): void
     {
         register_meta('user', $this->userMetaKey, array(
-            'type' => 'object',
+            'type'         => 'object',
             'show_in_rest' => array(
                 'schema' => array(
-                    'type' => 'object',
+                    'type'                 => 'object',
                     'additionalProperties' => array(
-                        'type' => 'object',
-                        'properties' => array(
+                        'type'                 => 'object',
+                        'properties'           => array(
                             'key' => array(
                                 'type' => 'bool',
                             ),
@@ -115,7 +116,7 @@ class PrivateController {
                     ),
                 ),
             ),
-            'single' => true,
+            'single'       => true,
         ));
     }
 
@@ -128,7 +129,7 @@ class PrivateController {
      * @param mixed $originalValue The original value of the meta key.
      * @return mixed The updated value of the meta key.
      */
-    public function checkForChangedMetaKeyValue($value, $postId, $field, $originalValue) 
+    public function checkForChangedMetaKeyValue($value, $postId, $field, $originalValue)
     {
         $oldKey = get_field($field['key'], $postId);
         $oldKey = sanitize_title(empty($oldKey) ? $postId : $oldKey);
@@ -167,7 +168,7 @@ class PrivateController {
         if (!$user->caps || !in_array('administrator', $user->caps)) {
             $field['wrapper']['class'] = 'acf-hidden';
         }
-        
+
         return $field;
     }
 }

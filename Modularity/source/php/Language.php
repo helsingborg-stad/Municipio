@@ -2,13 +2,13 @@
 
 /**
  * Language
- * This class handles the language of the modules, and adds 
- * the lang attribute to the HTML element if it differs from 
- * the site's language. 
- * 
- * It also detects the language of the module automatically 
+ * This class handles the language of the modules, and adds
+ * the lang attribute to the HTML element if it differs from
+ * the site's language.
+ *
+ * It also detects the language of the module automatically
  * and updates the language indicator in the module's settings.
- * 
+ *
  * @package Modularity
  */
 
@@ -51,12 +51,13 @@ class Language
      * @param array $update The update array
      * @param WP_Post $post_before The post object before the update
      *
-     * @return void 
+     * @return void
      */
-    public function autoDetectLanguage($post_id, $post, $update, $post_before): bool {
+    public function autoDetectLanguage($post_id, $post, $update, $post_before): bool
+    {
 
         if ($this->isModularityModule($post_id) === false) {
-          return false;
+            return false;
         }
 
         //Render by using the module's render method
@@ -68,8 +69,8 @@ class Language
 
         //Update the detected language of the module
         if ($langCode) {
-          update_post_meta($post_id, 'detected_lang', $langCode);
-          return true;
+            update_post_meta($post_id, 'detected_lang', $langCode);
+            return true;
         }
 
         //Delete the detected language if it's not set
@@ -89,18 +90,18 @@ class Language
      */
     public function addLangAttribute(string $beforeModule, array $args, string $moduleType, int $moduleId): string
     {
-        $pageId                 = \Modularity\Helper\Post::getPageID();
-        $siteLanguage           = get_bloginfo('language');
-        $moduleLanguage         = get_post_meta($moduleId, 'lang', true);
-        $pageLanguage           = get_post_meta($pageId, 'lang', true);
+        $pageId         = \Modularity\Helper\Post::getPageID();
+        $siteLanguage   = get_bloginfo('language');
+        $moduleLanguage = get_post_meta($moduleId, 'lang', true);
+        $pageLanguage   = get_post_meta($pageId, 'lang', true);
 
         //Get auto language
         if ($moduleLanguage == 'auto') {
             $moduleLanguage = get_post_meta($moduleId, 'detected_lang', true);
         }
 
-        $languageDiff   =   array_map('strtolower', [$siteLanguage, $moduleLanguage, $pageLanguage]);
-        $languageDiff   =   array_map(
+        $languageDiff =   array_map('strtolower', [$siteLanguage, $moduleLanguage, $pageLanguage]);
+        $languageDiff =   array_map(
             function ($value) use ($siteLanguage) {
                 return $value ?: strtolower($siteLanguage);
             },
@@ -111,7 +112,7 @@ class Language
             $moduleLanguage = substr($moduleLanguage, 0, 2);
 
             return $this->addLangAttributeToString(
-                $beforeModule, 
+                $beforeModule,
                 $moduleLanguage
             );
         }
@@ -129,29 +130,29 @@ class Language
      */
     function addLangAttributeToString($html, $lang): string
     {
-        $pattern        = '/(<div\s+id="mod-[^"]+")/';
-        $replacement    = '$1 lang="' . $lang . '"';
+        $pattern     = '/(<div\s+id="mod-[^"]+")/';
+        $replacement = '$1 lang="' . $lang . '"';
         return preg_replace($pattern, $replacement, $html);
     }
 
 
     /**
      * Check if a post is a modularity module
-     * 
+     *
      * @param int $postId The ID of the post
-     * 
+     *
      * @return bool
      */
     private function isModularityModule($postId): bool
     {
-      return substr(get_post_type($postId), 0, 4) == 'mod-';
+        return substr(get_post_type($postId), 0, 4) == 'mod-';
     }
 
     /**
      * Get the rendered module
-     * 
+     *
      * @param int $postId The ID of the post
-     * 
+     *
      * @return string
      */
     private function getRenderedModule($postId): string
@@ -162,5 +163,4 @@ class Language
         $module = preg_replace('/\s+/', ' ', $module);
         return $module;
     }
-
 }

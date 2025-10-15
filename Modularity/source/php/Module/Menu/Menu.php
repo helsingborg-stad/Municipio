@@ -4,22 +4,22 @@ namespace Modularity\Module\Menu;
 
 use Modularity\Module\Menu\Acf\Select;
 use Modularity\Module\Menu\Decorator\DataDecorator;
-use \Municipio\Controller\Navigation\MenuDirector;
-use \Municipio\Controller\Navigation\MenuBuilder;
-use \Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\Config\MenuConfig;
 
 class Menu extends \Modularity\Module
 {
-    public $slug = 'menu';
-    public $supports = array();
+    public $slug            = 'menu';
+    public $supports        = array();
     public $displaySettings = null;
-    public $cacheTtl = 0;
-    
+    public $cacheTtl        = 0;
+
     public function init()
     {
         $this->nameSingular = __('Menu', 'modularity');
-        $this->namePlural = __('Menus', 'modularity');
-        $this->description = __('Outputs a menu.', 'modularity');
+        $this->namePlural   = __('Menus', 'modularity');
+        $this->description  = __('Outputs a menu.', 'modularity');
 
         add_filter('Municipio/Navigation/Item', array($this, 'setMenuItemData'), 999, 3);
         new Select();
@@ -27,7 +27,7 @@ class Menu extends \Modularity\Module
 
     public function data(): array
     {
-        $data = [];
+        $data   = [];
         $fields = $this->getFields();
 
         $acfService = \Modularity\Helper\AcfService::get();
@@ -44,8 +44,8 @@ class Menu extends \Modularity\Module
         );
 
         $menuBuilder = new MenuBuilder(
-            $menuConfig, 
-            $acfService, 
+            $menuConfig,
+            $acfService,
             $wpService
         );
 
@@ -56,15 +56,15 @@ class Menu extends \Modularity\Module
 
         // Used to decorate the data based on view.
         $dataDecorator = new DataDecorator($fields);
-        
+
         return $dataDecorator->decorate($data);
     }
 
-    
+
     public function setMenuItemData($item, $identifier, $bool)
     {
         if ($identifier === 'mod-menu-listing' && !$item['top_level']) {
-            $item['icon'] = ['icon' => 'chevron_right', 'size' => 'md'];
+            $item['icon']        = ['icon' => 'chevron_right', 'size' => 'md'];
             $item['classList'][] = 'mod-menu__child';
         }
 

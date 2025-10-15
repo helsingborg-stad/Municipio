@@ -116,8 +116,8 @@ class Post
      */
     public static function getArchiveId(): string|bool
     {
-        if($archive = self::isArchive()) {
-            return $archive; 
+        if ($archive = self::isArchive()) {
+            return $archive;
         }
         return false;
     }
@@ -128,21 +128,22 @@ class Post
      * @param string $string    A string that may contain empty ptags
      * @return string           A string that not contain empty ptags
      */
-    private static function removeEmptyPTag($string) {
+    private static function removeEmptyPTag($string)
+    {
         return preg_replace("/<p[^>]*>(?:\s|&nbsp;)*<\/p>/", '', $string);
     }
 
     /**
      * Get the post featured image
      *
-     * @param integer   $postId         
+     * @param integer   $postId
      * @return array    $featuredImage  The post thumbnail image, with alt and title
      */
     public static function getFeaturedImage($postId, $size = 'full')
     {
         $featuredImageID = get_post_thumbnail_id($postId);
 
-        $featuredImageSRC = \get_the_post_thumbnail_url(
+        $featuredImageSRC   = \get_the_post_thumbnail_url(
             $postId,
             apply_filters('Modularity/Helper/Post/FeaturedImageSize', $size)
         );
@@ -150,8 +151,8 @@ class Post
         $featuredImageTitle = get_the_title($featuredImageID);
 
         $featuredImage = [
-            'src' => $featuredImageSRC ? $featuredImageSRC : null,
-            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
+            'src'   => $featuredImageSRC ? $featuredImageSRC : null,
+            'alt'   => $featuredImageAlt ? $featuredImageAlt : null,
             'title' => $featuredImageTitle ? $featuredImageTitle : null
         ];
 
@@ -177,7 +178,6 @@ class Post
 
                 if (!empty($terms)) {
                     foreach ($terms as $term) {
-
                         $item = [];
 
                         $item['label'] = $term->name ?? '';

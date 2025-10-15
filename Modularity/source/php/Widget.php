@@ -10,7 +10,7 @@ class Widget extends \WP_Widget
     public function __construct()
     {
         $widgetOptions = array(
-            'classname' => '%2$s',
+            'classname'   => '%2$s',
             'description' => 'Insert a Modularity module',
         );
 
@@ -45,7 +45,7 @@ class Widget extends \WP_Widget
         $module = \Modularity\Editor::getModule(
             $instance['module_id'],
             array(
-                'hidden' => false,
+                'hidden'      => false,
                 'columnWidth' => $columnWidth
             )
         );

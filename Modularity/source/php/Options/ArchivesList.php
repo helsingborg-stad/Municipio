@@ -21,7 +21,7 @@ class ArchivesList extends \WP_List_Table
     public function get_columns()
     {
         return array(
-            'archive' => __('Post Type Archive', 'modularity'),
+            'archive'     => __('Post Type Archive', 'modularity'),
             'has_modules' => __('Has modules', 'modularity')
         );
     }
@@ -31,16 +31,16 @@ class ArchivesList extends \WP_List_Table
         $items = \Modularity\Options\Archives::getArchives();
 
         // Columns
-        $columns = $this->get_columns();
-        $hidden = array();
-        $sortable = array();
+        $columns               = $this->get_columns();
+        $hidden                = array();
+        $sortable              = array();
         $this->_column_headers = array($columns, $hidden, $sortable);
 
         // Pagination
         $this->set_pagination_args(array(
             'total_items' => count($items),
             'per_page'    => 10,
-            'total_pages' => ceil(count($items)/10)
+            'total_pages' => ceil(count($items) / 10)
         ));
 
         // Items
@@ -49,7 +49,6 @@ class ArchivesList extends \WP_List_Table
 
     public function column_default($item, $columnName)
     {
-
     }
 
     public function column_archive($item)

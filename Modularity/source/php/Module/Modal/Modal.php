@@ -6,16 +6,16 @@ use Municipio\Helper\Post;
 
 class Modal extends \Modularity\Module
 {
-    public $slug = 'modal';
+    public $slug     = 'modal';
     public $supports = array();
     private $postType;
 
     public function init()
     {
         $this->nameSingular = __("Modal", 'modularity');
-        $this->namePlural = __("Modals", 'modularity');
-        $this->description = __("Outputs a button and the content of a selected Modal Content post into a modal, accessible by clicking on the button.", 'modularity');
-        $this->postType = 'modal-content';
+        $this->namePlural   = __("Modals", 'modularity');
+        $this->description  = __("Outputs a button and the content of a selected Modal Content post into a modal, accessible by clicking on the button.", 'modularity');
+        $this->postType     = 'modal-content';
 
         // Only run if module is enabled
         if (in_array('mod-' . $this->slug, \Modularity\ModuleManager::getEnabled())) {
@@ -46,7 +46,7 @@ class Modal extends \Modularity\Module
         $data['modalBorderRadius']    = $fields['modal']['border_radius'] = 'md';
 
         // Modal content
-        $modalContentPost = \Municipio\Helper\Post::preparePostObject(
+        $modalContentPost          = \Municipio\Helper\Post::preparePostObject(
             $fields['modal']['content']
         );
         $data['modalId']           = $modalContentPost->id ?? 0;
@@ -59,22 +59,22 @@ class Modal extends \Modularity\Module
     public function registerPostType()
     {
         $args = [
-            'supports'              => [ 'title', 'editor', 'revisions' ],
-            'hierarchical'          => false,
-            'public'                => true,
-            'show_ui'               => true,
-            'show_in_menu'          => true,
-            'menu_position'         => 40,
-            'show_in_admin_bar'     => true,
-            'show_in_nav_menus'     => false,
-            'can_export'            => true,
-            'exclude_from_search'   => true,
-            'publicly_queryable'    => true,
-            'has_archive'           => false,
-            'show_in_rest'          => true,
-            'publicly_queryable'    => false,
-            'capability_type'       => 'page',
-            'labels' => [
+            'supports'            => [ 'title', 'editor', 'revisions' ],
+            'hierarchical'        => false,
+            'public'              => true,
+            'show_ui'             => true,
+            'show_in_menu'        => true,
+            'menu_position'       => 40,
+            'show_in_admin_bar'   => true,
+            'show_in_nav_menus'   => false,
+            'can_export'          => true,
+            'exclude_from_search' => true,
+            'publicly_queryable'  => true,
+            'has_archive'         => false,
+            'show_in_rest'        => true,
+            'publicly_queryable'  => false,
+            'capability_type'     => 'page',
+            'labels'              => [
                 'all_items'    => __('All Modal Contents', 'modularity'),
                 'name'         => __('Modal Content', 'modularity'),
                 'menu_name'    => __('Modal Content', 'modularity'),
@@ -101,7 +101,7 @@ class Modal extends \Modularity\Module
      */
     public function disallowBlockType($allowedBlockTypes, $editorContext)
     {
-        if(isset($editorContext->post->post_type)) {
+        if (isset($editorContext->post->post_type)) {
             if ($this->postType === $editorContext->post->post_type) {
                 unset($allowedBlockTypes['acf/modal']);
             }

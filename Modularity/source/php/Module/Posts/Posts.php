@@ -22,9 +22,9 @@ use Modularity\Module\Posts\Helper\GetPosts\UserGroupResolver\UserGroupResolver;
  */
 class Posts extends \Modularity\Module
 {
-    public $slug = 'posts';
-    public $supports = [];
-    public array $fields = [];
+    public $slug          = 'posts';
+    public $supports      = [];
+    public array $fields  = [];
     public $blockSupports = array(
         'align' => ['full']
     );
@@ -38,34 +38,36 @@ class Posts extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular     = __('Posts', 'modularity');
-        $this->namePlural       = __('Posts', 'modularity');
-        $this->description      = __('Outputs selected posts in specified layout', 'modularity');
+        $this->nameSingular = __('Posts', 'modularity');
+        $this->namePlural   = __('Posts', 'modularity');
+        $this->description  = __('Outputs selected posts in specified layout', 'modularity');
 
         // Private controller
         $this->privateController = new PrivateController($this);
-        
+
         // Saves meta data to expandable list posts
         new \Modularity\Module\Posts\Helper\AddMetaToExpandableList();
 
         // Populate schema types field
         add_filter('acf/load_field/name=posts_data_schema_type', [$this, 'loadSchemaTypesField']);
-        
+
         // Populate schema types field
         add_filter('acf/load_field/name=posts_data_network_sources', [$this, 'loadNetworkSourcesField']);
 
         //Add full width data to view
         add_filter('Modularity/Block/Data', array($this, 'blockData'), 50, 3);
         add_filter(
-            'acf/fields/post_object/query/name=posts_data_posts', 
-            array($this, 'removeUnwantedPostTypesFromManuallyPicked'), 10, 3
+            'acf/fields/post_object/query/name=posts_data_posts',
+            array($this, 'removeUnwantedPostTypesFromManuallyPicked'),
+            10,
+            3
         );
 
         add_filter(
             'acf/load_field/name=taxonomy_display',
             array($this, 'loadTaxonomyDisplayField')
         );
-        
+
         // Helpers
         $this->archiveUrlHelper = new GetArchiveUrl();
         new PostsAjax($this);
@@ -77,8 +79,9 @@ class Posts extends \Modularity\Module
      * @param array $field
      * @return array
      */
-    public function loadSchemaTypesField(array $field = []):array {
-        if(get_post_type() === 'acf-field-group') {
+    public function loadSchemaTypesField(array $field = []): array
+    {
+        if (get_post_type() === 'acf-field-group') {
             return $field;
         }
 
@@ -86,7 +89,7 @@ class Posts extends \Modularity\Module
         $schemaTypesService = new \Municipio\SchemaData\Utils\SchemaTypesInUse($wpdb);
 
         // Set options. E.g. ["Event" => "Event", "Article" => "Article"]...
-        $field['choices'] = array_combine( $schemaTypes = $schemaTypesService->getSchemaTypesInUse(), $schemaTypes );
+        $field['choices'] = array_combine($schemaTypes = $schemaTypesService->getSchemaTypesInUse(), $schemaTypes);
         return $field;
     }
 
@@ -96,7 +99,7 @@ class Posts extends \Modularity\Module
      * @param array $field
      * @return array
      */
-    public function loadTaxonomyDisplayField(array $field = []): array 
+    public function loadTaxonomyDisplayField(array $field = []): array
     {
         $taxonomies = get_taxonomies([
             'public' => true
@@ -112,10 +115,10 @@ class Posts extends \Modularity\Module
         return $field;
     }
 
-    public function loadNetworkSourcesField(array $field = []) :array 
+    public function loadNetworkSourcesField(array $field = []): array
     {
-        
-        if(!is_multisite() || get_post_type() === 'acf-field-group') {
+
+        if (!is_multisite() || get_post_type() === 'acf-field-group') {
             return $field;
         }
 
@@ -135,11 +138,11 @@ class Posts extends \Modularity\Module
      */
     public function data(): array
     {
-        $data = [];
+        $data         = [];
         $this->fields = $this->getFields();
 
-        $this->domainChecker = new DomainChecker($this->fields);
-        $data['posts_display_as'] = $this->fields['posts_display_as'] ?? false;
+        $this->domainChecker          = new DomainChecker($this->fields);
+        $data['posts_display_as']     = $this->fields['posts_display_as'] ?? false;
         $data['display_reading_time'] = !empty($this->fields['posts_fields']) && in_array('reading_time', $this->fields['posts_fields']) ?? false;
 
         // Posts
@@ -153,18 +156,18 @@ class Posts extends \Modularity\Module
         $data['posts']          = $postsAndPaginationData->getPosts();
         $data['stickyPosts']    = $postsAndPaginationData->getStickyPosts();
 
-        if( !empty($this->fields['posts_pagination']) && $this->fields['posts_pagination'] === 'page_numbers' ) {
-            $data['maxNumPages'] = $postsAndPaginationData->getNumberOfPages();
+        if (!empty($this->fields['posts_pagination']) && $this->fields['posts_pagination'] === 'page_numbers') {
+            $data['maxNumPages']         = $postsAndPaginationData->getNumberOfPages();
             $data['paginationArguments'] = $this->getPaginationArguments($data['maxNumPages'], $this->getPageNumber());
         } else {
             $data['paginationArguments'] = null;
         }
 
         // Sorting
-        $data['sortBy'] = false;
+        $data['sortBy']  = false;
         $data['orderBy'] = false;
         if (isset($this->fields['posts_sort_by']) && substr($this->fields['posts_sort_by'], 0, 9) === '_metakey_') {
-            $data['sortBy'] = 'meta_key';
+            $data['sortBy']    = 'meta_key';
             $data['sortByKey'] = str_replace('_metakey_', '', $this->fields['posts_sort_by']);
         }
 
@@ -173,7 +176,7 @@ class Posts extends \Modularity\Module
         // Setup filters
         $filters = [
             'orderby' => sanitize_text_field($data['sortBy']),
-            'order' => sanitize_text_field($data['order'])
+            'order'   => sanitize_text_field($data['order'])
         ];
 
         if ($data['sortBy'] == 'meta_key') {
@@ -183,7 +186,7 @@ class Posts extends \Modularity\Module
         $data['filters'] = [];
 
         if (isset($this->fields['posts_taxonomy_filter']) && $this->fields['posts_taxonomy_filter'] === true && !empty($this->fields['posts_taxonomy_type'])) {
-            $taxType = $this->fields['posts_taxonomy_type'];
+            $taxType   = $this->fields['posts_taxonomy_type'];
             $taxValues = (array)$this->fields['posts_taxonomy_value'];
             $taxValues = implode('|', $taxValues);
 
@@ -203,7 +206,7 @@ class Posts extends \Modularity\Module
         $data['archiveLinkAbovePosts'] = $this->fields['archive_link_above_posts'] ?? false;
 
         //Add filters to archive link
-        if($data['archiveLinkUrl'] && is_array($data['filters']) && !empty($data['filters'])) {
+        if ($data['archiveLinkUrl'] && is_array($data['filters']) && !empty($data['filters'])) {
             $data['archiveLinkUrl'] .= "?" . http_build_query($data['filters']);
         }
 
@@ -216,20 +219,20 @@ class Posts extends \Modularity\Module
             $data['sliderId'] = $this->getID();
         } else {
             $data['sliderId'] = uniqid();
-            $data['ID'] = uniqid();
+            $data['ID']       = uniqid();
         }
 
         $data['classList'] = [];
 
         $data['lang'] = [
-            'showMore' => __('Show more', 'modularity'),
-            'readMore' => __('Read more', 'modularity'),
-            'save'        => __('Save', 'modularity'),
-            'cancel'      => __('Cancel', 'modularity'),
-            'description' => __('Description', 'modularity'),
-            'name'        => __('Name', 'modularity'),
-            'saving'      => __('Saving', 'modularity'),
-            'error'       => __('An error occurred and the data could not be saved. Please try again later', 'modularity'),
+            'showMore'      => __('Show more', 'modularity'),
+            'readMore'      => __('Read more', 'modularity'),
+            'save'          => __('Save', 'modularity'),
+            'cancel'        => __('Cancel', 'modularity'),
+            'description'   => __('Description', 'modularity'),
+            'name'          => __('Name', 'modularity'),
+            'saving'        => __('Saving', 'modularity'),
+            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'modularity'),
             'changeContent' => __('Change the lists content', 'modularity'),
         ];
 
@@ -238,50 +241,53 @@ class Posts extends \Modularity\Module
 
     /**
      * Get pagination query var name.
-     * 
+     *
      * @return string
      */
-    private function getPaginationQueryVarName():string {
+    private function getPaginationQueryVarName(): string
+    {
         return "mod-{$this->slug}-{$this->getID()}-page";
     }
 
     /**
      * Get current page number
-     * 
+     *
      * @return int Default is 1
      */
-    private function getPageNumber():int {
+    private function getPageNumber(): int
+    {
         return filter_input(INPUT_GET, $this->getPaginationQueryVarName(), FILTER_VALIDATE_INT) ?: 1;
     }
 
     /**
      * Get pagination arguments for page numbers.
-     * 
+     *
      * @param int $maxNumPages
      * @param int $currentPage
      * @return array
      */
-    private function getPaginationArguments(int $maxNumPages, int $currentPage):array {
+    private function getPaginationArguments(int $maxNumPages, int $currentPage): array
+    {
 
         if ($maxNumPages < 2) {
             return [];
         }
-        
+
         $listItemOne = [
-            'href' => remove_query_arg($this->getPaginationQueryVarName()),
+            'href'  => remove_query_arg($this->getPaginationQueryVarName()),
             'label' => __("First page", 'modularity')
         ];
 
-        $listItems = array_map(function($pageNumber) {
+        $listItems = array_map(function ($pageNumber) {
             return [
-                'href' => add_query_arg($this->getPaginationQueryVarName(), $pageNumber),
+                'href'  => add_query_arg($this->getPaginationQueryVarName(), $pageNumber),
                 'label' => sprintf(__("Page %d", 'modularity'), $pageNumber)
             ];
         }, range(2, $maxNumPages));
 
         return [
-            'list' => array_merge([$listItemOne], $listItems),
-            'current' => $currentPage,
+            'list'       => array_merge([$listItemOne], $listItems),
+            'current'    => $currentPage,
             'linkPrefix' => $this->getPaginationQueryVarName()
         ];
     }
@@ -315,11 +321,11 @@ class Posts extends \Modularity\Module
      * @param int $id The ID of the module.
      * @return array The modified arguments.
      */
-    public function removeUnwantedPostTypesFromManuallyPicked($args, $field, $id) 
+    public function removeUnwantedPostTypesFromManuallyPicked($args, $field, $id)
     {
         $skipablePostTypes = ['attachment'];
 
-        $args['post_type'] = array_filter($args['post_type'] ?? [], function($postType) use ($skipablePostTypes) {
+        $args['post_type'] = array_filter($args['post_type'] ?? [], function ($postType) use ($skipablePostTypes) {
             return !in_array($postType, $skipablePostTypes);
         });
 
@@ -330,13 +336,13 @@ class Posts extends \Modularity\Module
      * @return false|string
      */
     public function template()
-    { 
+    {
         $template = !empty($this->data['posts_display_as']) ? $this->data['posts_display_as'] : 'list';
 
         if (!empty($this->fields['show_as_slider']) && in_array($this->fields['posts_display_as'], $this->sliderCompatibleLayouts, true)) {
             $template = 'slider';
         }
-        
+
 
         $template = $this->replaceDeprecatedTemplate($template);
         $this->getTemplateData($template);
@@ -393,11 +399,11 @@ class Posts extends \Modularity\Module
      */
     public function arrayToObject($array)
     {
-        if(!is_array($array)) {
+        if (!is_array($array)) {
             return $array;
         }
 
-        return json_decode(json_encode($array)); 
+        return json_decode(json_encode($array));
     }
 
     /**
@@ -407,10 +413,10 @@ class Posts extends \Modularity\Module
      */
     public function getPostsResult(): PostsResultInterface
     {
-        $stickyPostHelper = new \Municipio\StickyPost\Helper\GetStickyOption( new \Municipio\StickyPost\Config\StickyPostConfig(), WpService::get() );
+        $stickyPostHelper                = new \Municipio\StickyPost\Helper\GetStickyOption(new \Municipio\StickyPost\Config\StickyPostConfig(), WpService::get());
         $postTypesFromSchemaTypeResolver = new PostTypesFromSchemaTypeResolver();
 
-        if(!empty($this->fields['posts_data_network_sources'])){
+        if (!empty($this->fields['posts_data_network_sources'])) {
             global $wpdb;
             $this->getPostsHelper = new GetPostsFromMultipleSites(
                 $this->fields,
@@ -423,11 +429,11 @@ class Posts extends \Modularity\Module
             );
         } else {
             $this->getPostsHelper = new GetPosts(
-                $this->fields, 
-                $this->getPageNumber(), 
-                $stickyPostHelper, 
-                WpService::get(), 
-                new WpQueryFactory(), 
+                $this->fields,
+                $this->getPageNumber(),
+                $stickyPostHelper,
+                WpService::get(),
+                new WpQueryFactory(),
                 $postTypesFromSchemaTypeResolver
             );
         }
@@ -454,9 +460,10 @@ class Posts extends \Modularity\Module
         return $templateSlug;
     }
 
-    public function adminEnqueue() {
+    public function adminEnqueue()
+    {
 
-        $wpService = WpService::get();
+        $wpService        = WpService::get();
         $getCurrentPostId = fn() => $wpService->isArchive() ? false : $wpService->getTheID();
 
         wp_register_script('mod-posts-taxonomy-filtering', MODULARITY_URL . '/dist/'

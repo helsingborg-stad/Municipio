@@ -21,7 +21,7 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
      */
     public function __construct()
     {
-        $options = get_option('modularity-options');
+        $options         = get_option('modularity-options');
         $this->postTypes = $options['enabled-post-types'] ?? [];
     }
 
@@ -43,9 +43,9 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
             $postTypeObject = get_post_type_object($postType);
 
             if ($this->postTypeAllowsArchiveModules($postTypeObject)) {
-                $postTypeUrlParam = $postType === 'post' ? '' : '?post_type=' . $postType;
+                $postTypeUrlParam    = $postType === 'post' ? '' : '?post_type=' . $postType;
                 $transcribedPostType = \Modularity\Editor::pageForPostTypeTranscribe('archive-' . $postType);
-                $editorLink = "options.php?page=modularity-editor&id={$transcribedPostType}";
+                $editorLink          = "options.php?page=modularity-editor&id={$transcribedPostType}";
                 add_submenu_page(
                     'edit.php' . $postTypeUrlParam,
                     __('Archive modules', 'modularity'),

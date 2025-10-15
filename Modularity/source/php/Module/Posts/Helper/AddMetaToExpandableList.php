@@ -26,8 +26,10 @@ class AddMetaToExpandableList
         $metaKey = "modularity-mod-posts-expandable-list";
 
         //Bail early if autosave, cron or post request
-        if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('DOING_CRON') && DOING_CRON) ||
-        !isset($_POST) || (is_array($_POST) && empty($_POST)) || !is_array($_POST)) {
+        if (
+            (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('DOING_CRON') && DOING_CRON) ||
+            !isset($_POST) || (is_array($_POST) && empty($_POST)) || !is_array($_POST)
+        ) {
             return false;
         }
 
@@ -50,7 +52,8 @@ class AddMetaToExpandableList
         }
     }
 
-    public function addModules($postId) {
+    public function addModules($postId)
+    {
         $modules = [];
         $modules = array_merge($modules, !empty($this->checkIfManuallyPicked($postId)) ? $this->checkIfManuallyPicked($postId) : []);
         $modules = array_merge($modules, !empty($this->checkIfPostType($postId)) ? $this->checkIfPostType($postId) : []);
@@ -66,7 +69,7 @@ class AddMetaToExpandableList
     {
         global $post;
         $screen = get_current_screen();
-        
+
         if (empty($post->post_type) || $screen->base != 'post') {
             return;
         }
@@ -104,12 +107,12 @@ class AddMetaToExpandableList
      */
     public function columnFieldsMetaBoxContent($post, $args)
     {
-        $fields = $args['args'][0];
+        $fields      = $args['args'][0];
         $fieldValues = get_post_meta($post->ID, 'modularity-mod-posts-expandable-list', true);
 
         foreach ($fields as $field) {
             $fieldSlug = sanitize_title($field);
-            $value = isset($fieldValues[$fieldSlug]) && !empty($fieldValues[$fieldSlug])
+            $value     = isset($fieldValues[$fieldSlug]) && !empty($fieldValues[$fieldSlug])
                 ? $fieldValues[$fieldSlug] : '';
             echo '
                 <p>
@@ -194,7 +197,7 @@ class AddMetaToExpandableList
         if (count($result) === 0) {
             return false;
         }
-        
+
         $posts = [];
         foreach ($result as $item) {
             $posts[] = $item->post_id;

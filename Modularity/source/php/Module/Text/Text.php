@@ -4,25 +4,25 @@ namespace Modularity\Module\Text;
 
 class Text extends \Modularity\Module
 {
-    public $slug = 'text';
+    public $slug     = 'text';
     public $supports = array('editor');
 
     public function init()
     {
         $this->nameSingular = __('Text', 'modularity');
-        $this->namePlural = __('Texts', 'modularity');
-        $this->description = __('Outputs text', 'modularity');
+        $this->namePlural   = __('Texts', 'modularity');
+        $this->description  = __('Outputs text', 'modularity');
     }
 
-    public function data() : array
+    public function data(): array
     {
-        $data = $this->getFields() ?? []; 
+        $data = $this->getFields() ?? [];
 
         // Post content [with multiple fallbacks]
         $data['postContent'] = $this->data['post_content'] ?? $data['post_content'] ?: $data['content'] ?? '';
 
         //Run relevant filters
-        foreach(['Modularity/Display/SanitizeContent', 'the_content'] as $filter) {
+        foreach (['Modularity/Display/SanitizeContent', 'the_content'] as $filter) {
             $data['postContent'] = apply_filters($filter, $data['postContent']);
         }
 
@@ -33,9 +33,9 @@ class Text extends \Modularity\Module
         $data['ID'] = $data['ID'] ?? uniqid();
 
         // Set default values
-        return $data ?? []; 
+        return $data ?? [];
     }
-    
+
     public function template()
     {
         if (!isset($this->data['hide_box_frame']) || !$this->data['hide_box_frame']) {

@@ -20,6 +20,6 @@ class CollectionTemplate extends AbstractController
      */
     public function __construct(\Modularity\Module\Posts\Posts $module)
     {
-        parent::__construct($module);  
+        parent::__construct($module);
     }
 }

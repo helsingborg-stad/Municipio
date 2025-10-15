@@ -6,7 +6,7 @@ interface GetPostsInterface
 {
     /**
      * Get posts
-     * 
+     *
      * @return PostsResultInterface
      */
     public function getPosts(): PostsResultInterface;

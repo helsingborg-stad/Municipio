@@ -22,13 +22,13 @@ class Template
 
         //General filter
         $paths = apply_filters(
-            'Modularity/Module/TemplatePath', 
+            'Modularity/Module/TemplatePath',
             $paths
         );
 
         //Specific filter
         $paths = apply_filters(
-            'Modularity/Module/' . $module->slug . '/TemplatePath', 
+            'Modularity/Module/' . $module->slug . '/TemplatePath',
             $paths
         );
 
@@ -38,7 +38,7 @@ class Template
 
             $fileWithSubfolder = trailingslashit($path) . trailingslashit($module->post_type) . $filename;
             if (\Modularity\Helper\File::fileExists($fileWithSubfolder)) {
-                if($sanitizeTemplateName) {
+                if ($sanitizeTemplateName) {
                     return self::santitizeTemplateName($fileWithSubfolder);
                 }
                 return $fileWithSubfolder;
@@ -46,7 +46,7 @@ class Template
 
             $fileWithoutSubfolder = trailingslashit($path) . $filename;
             if (\Modularity\Helper\File::fileExists($fileWithoutSubfolder)) {
-                if($sanitizeTemplateName) {
+                if ($sanitizeTemplateName) {
                     return self::santitizeTemplateName($fileWithoutSubfolder);
                 }
                 return $fileWithoutSubfolder;
@@ -65,9 +65,10 @@ class Template
      * @param string $template The template name to sanitize.
      * @return string The sanitized template name without file extensions.
      */
-    private static function santitizeTemplateName($template) {
-        $view       = basename($template, '.blade.php');
-        $view       = basename($view, '.php');
+    private static function santitizeTemplateName($template)
+    {
+        $view = basename($template, '.blade.php');
+        $view = basename($view, '.php');
         return $view;
     }
 }

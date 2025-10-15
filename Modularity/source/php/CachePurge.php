@@ -1,6 +1,7 @@
 <?php
 
 namespace Modularity;
+
 /**
  * Class CachePurge
  *
@@ -42,20 +43,19 @@ class CachePurge
 
         //Check if modularity, then send purge!
         if ($this->isModularityPost($postId)) {
-
             $moduleUsage = \Modularity\ModuleManager::getModuleUsage($postId);
 
-            if(is_array($moduleUsage) && !empty($moduleUsage)) {
-                foreach($moduleUsage as $modulePage) {
-                    if(!isset($modulePage->post_id)) {
+            if (is_array($moduleUsage) && !empty($moduleUsage)) {
+                foreach ($moduleUsage as $modulePage) {
+                    if (!isset($modulePage->post_id)) {
                         continue;
                     }
 
                     wp_remote_request(get_the_permalink($modulePage->post_id), array(
-                        'method' => 'PURGE',
-                        'timeout' => 2,
+                        'method'      => 'PURGE',
+                        'timeout'     => 2,
                         'redirection' => 0,
-                        'blocking' => false
+                        'blocking'    => false
                     ));
                 }
 
@@ -87,12 +87,12 @@ class CachePurge
 
         if (!$this->isModularityPost($postId) && !empty($postType)) {
             $args = [
-                'post_type' => 'mod-posts',
+                'post_type'      => 'mod-posts',
                 'posts_per_page' => -1,
-                'meta_query' => [
+                'meta_query'     => [
                     [
-                        'key' => 'posts_data_post_type',
-                        'value' => $postType,
+                        'key'     => 'posts_data_post_type',
+                        'value'   => $postType,
                         'compare' => '=',
                     ]
                 ]
@@ -100,13 +100,13 @@ class CachePurge
 
             // Flag to check if we purged any cache
             $purgedPostCache = false;
-        
+
             // Fetch posts using get_posts
             $posts = get_posts($args);
-            
+
             if (!empty($posts)) {
                 foreach ($posts as $post) {
-                    $moduleId = $post->ID;
+                    $moduleId        = $post->ID;
                     $purgedPostCache = true;
                     wp_cache_delete($moduleId, $this->keyGroup);
                 }

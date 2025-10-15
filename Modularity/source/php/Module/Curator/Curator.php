@@ -6,20 +6,20 @@ use Modularity\Helper\Block;
 
 class Curator extends \Modularity\Module
 {
-    public $slug = 'curator';
+    public $slug     = 'curator';
     public $supports = array();
     public $cacheTtl = (60 * 12); //Minutes (12 hours)
 
     public function init()
     {
         $this->nameSingular = __('Curator Social Media', 'modularity');
-        $this->namePlural = __('Curator Social Media', 'modularity');
-        $this->description = __("Output social media flow via curator.", 'modularity');
+        $this->namePlural   = __('Curator Social Media', 'modularity');
+        $this->description  = __("Output social media flow via curator.", 'modularity');
 
         $this->data['i18n'] = [
-        'loadMore' => __('Load More', 'modularity'),
+        'loadMore'         => __('Load More', 'modularity'),
         'goToOriginalPost' => __('Go to original post', 'modularity'),
-        'noMoreItems' => __('No more items to load.', 'modularity'),
+        'noMoreItems'      => __('No more items to load.', 'modularity'),
         ];
 
         add_action('wp_ajax_mod_curator_get_feed', [$this, 'getFeed'], 10, 4);
@@ -48,7 +48,7 @@ class Curator extends \Modularity\Module
         }
 
         $posts = self::parseSocialMediaPosts($posts);
-        $i18n = $this->data['i18n'];
+        $i18n  = $this->data['i18n'];
 
         $layout = empty($_POST['layout']) ? 'card' : $_POST['layout'];
 
@@ -56,8 +56,8 @@ class Curator extends \Modularity\Module
         echo render_blade_view(
             "partials/$layout",
             [
-            'posts' => $posts,
-            'i18n' => $i18n,
+            'posts'         => $posts,
+            'i18n'          => $i18n,
             'columnClasses' => $_POST['columnClasses']
             ],
             [
@@ -75,7 +75,7 @@ class Curator extends \Modularity\Module
         );
         $strings = array_merge($this->data['i18n'], [
         'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('mod-posts-load-more')
+        'nonce'   => wp_create_nonce('mod-posts-load-more')
         ]);
         wp_localize_script('mod-curator-load-more', 'curator', $strings);
         wp_enqueue_script('mod-curator-load-more');
@@ -97,12 +97,12 @@ class Curator extends \Modularity\Module
         //Get module fields
         $fields = $this->getFields();
 
-        //General fields 
-        $data['embedCode']      = $this->parseEmbedCode($fields['embed_code']);
-        $data['numberOfItems']  = $fields['number_of_posts'] ?: 12;
-        $data['layout']         = $fields['layout'] ?: 'card';
-        $data['columns']        = $fields['columns'] ?: 4;
-        $data['showPoweredBy']  = isset($fields['show_powered_by']) ? (bool) $fields['show_powered_by'] : false;
+        //General fields
+        $data['embedCode']     = $this->parseEmbedCode($fields['embed_code']);
+        $data['numberOfItems'] = $fields['number_of_posts'] ?: 12;
+        $data['layout']        = $fields['layout'] ?: 'card';
+        $data['columns']       = $fields['columns'] ?: 4;
+        $data['showPoweredBy'] = isset($fields['show_powered_by']) ? (bool) $fields['show_powered_by'] : false;
 
         //Exclusive fields for blocks
         if ($data['layout'] === 'block') {
@@ -115,9 +115,9 @@ class Curator extends \Modularity\Module
 
         //Fetch feed data
         $feed = $this->getFeed(
-            $data['embedCode'], 
+            $data['embedCode'],
             (int) $data['numberOfItems'] + 1,
-            0, 
+            0,
             (bool) !isset($_GET['flush'])
         );
 
@@ -148,12 +148,13 @@ class Curator extends \Modularity\Module
      * @param int $columns The number of columns.
      * @return string The grid class.
      */
-    private function getGridClass($columns) {
-        if($columns == 3) {
+    private function getGridClass($columns)
+    {
+        if ($columns == 3) {
             return 'o-grid-4@md o-grid-6@sm';
         }
-        return 'o-grid-3@xl o-grid-3@lg o-grid-4@md o-grid-6@sm'; 
-    } 
+        return 'o-grid-3@xl o-grid-3@lg o-grid-4@md o-grid-6@sm';
+    }
 
     /**
      * Parses the social media posts data to add additional properties and modify existing ones.
@@ -171,9 +172,9 @@ class Curator extends \Modularity\Module
                     continue;
                 }
 
-                $post->full_text            = $post->text ?? '';
-                $post->user_readable_name   = self::getUserName($post->user_screen_name);
-                $post->text                 = wp_trim_words($post->text, 20, "...") ?? '';
+                $post->full_text          = $post->text ?? '';
+                $post->user_readable_name = self::getUserName($post->user_screen_name);
+                $post->text               = wp_trim_words($post->text, 20, "...") ?? '';
 
                 // Prepare oembed
                 if (in_array($post->network_name, ['YouTube', 'Vimeo'], true)) {
@@ -271,7 +272,7 @@ class Curator extends \Modularity\Module
             'headers' => [
                 'Content-Type: application/json',
             ],
-            'body' => [
+            'body'    => [
                 'limit'        => $numberOfItems,
                 'offset'       => $offset,
                 'hasPoweredBy' => 1,

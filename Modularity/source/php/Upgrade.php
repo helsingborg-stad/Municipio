@@ -11,7 +11,7 @@ use WP_CLI;
  */
 class Upgrade
 {
-    private $dbVersion = 8;
+    private $dbVersion    = 8;
     private $dbVersionKey = 'modularity_db_version';
     private $db;
 
@@ -20,7 +20,7 @@ class Upgrade
         add_action('admin_notices', array($this, 'addAdminNotice'));
     }
 
-    public function addAdminNotice() 
+    public function addAdminNotice()
     {
         if (!is_super_admin()) {
             return;
@@ -32,7 +32,6 @@ class Upgrade
                 '<div class="notice notice-warning update-nag inline">%s</div>',
                 __('The database may need to be updated to accomodate new datatastructures. Run wp-cli "modularity upgrade" to upgrade.', 'modularity')
             );
-            
         }
     }
 
@@ -68,7 +67,7 @@ class Upgrade
         if (empty(get_option($this->dbVersionKey))) {
             update_option($this->dbVersionKey, 0);
         }
-        
+
         $currentDbVersion = is_numeric(get_option($this->dbVersionKey)) ? (int) get_option($this->dbVersionKey) : 0;
         if ($this->dbVersion != $currentDbVersion) {
             if (!is_numeric($this->dbVersion)) {
@@ -78,7 +77,7 @@ class Upgrade
 
             if (!is_numeric($currentDbVersion)) {
                 $this->logError(__('Current database version must be a number.', 'municipio'));
-                return; 
+                return;
             }
 
             if ($currentDbVersion > $this->dbVersion) {
@@ -88,19 +87,18 @@ class Upgrade
                         'municipio'
                     )
                 );
-                return; 
+                return;
             }
-            
+
             //Fetch global wpdb object, save to $db
             $this->globalToLocal('wpdb', 'db');
 
-            $currentDbVersion   = $currentDbVersion + 1;
+            $currentDbVersion = $currentDbVersion + 1;
 
             for ($currentDbVersion; $currentDbVersion <= $this->dbVersion; $currentDbVersion++) {
                 $class = 'Modularity\Upgrade\Version\V' . $currentDbVersion;
 
                 if (class_exists($class) && $this->db) {
-
                     WP_CLI::line(
                         sprintf(
                             __('Initializing database migration to %s.', 'municipio'),
@@ -108,7 +106,7 @@ class Upgrade
                         )
                     );
 
-                    for($halt = 3; $halt > 0; $halt--) {
+                    for ($halt = 3; $halt > 0; $halt--) {
                         WP_CLI::line(
                             sprintf(
                                 __('Upgrade will start in %s seconds.', 'municipio'),
@@ -118,7 +116,7 @@ class Upgrade
 
                         sleep(1);
                     }
-                    
+
                     $version = new $class($this->db);
                     $version->upgrade();
 

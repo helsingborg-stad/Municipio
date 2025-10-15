@@ -31,7 +31,7 @@ class Thickbox
     public function addFilterUrlParams($views)
     {
         foreach ($views as $index => $view) {
-            $views[$index] = preg_replace("/(?<=href=(\"|'))[^\"']+(?=(\"|'))/", '${0}&is_thickbox=true',  $views[$index]);
+            $views[$index] = preg_replace("/(?<=href=(\"|'))[^\"']+(?=(\"|'))/", '${0}&is_thickbox=true', $views[$index]);
         }
 
         return $views;
@@ -52,7 +52,7 @@ class Thickbox
         if (substr($current_screen->post_type, 0, 4) == 'mod-' && ($current_screen->action == 'add' || $current_screen->action == '')) {
             echo "
                 <script>
-                    var modularity_post_id = ". $id . ";
+                    var modularity_post_id = " . $id . ";
                     var modularity_post_action = '" . $current_screen->action . "';
                 </script>
             ";
@@ -67,7 +67,7 @@ class Thickbox
     {
         // Script
         wp_register_script(
-            'modularity-thickbox', 
+            'modularity-thickbox',
             MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('js/modularity-editor-modal.js'),
             [],
             '1.0.0',
@@ -77,7 +77,7 @@ class Thickbox
 
         // Style
         wp_register_style(
-            'modularity-thickbox', 
+            'modularity-thickbox',
             MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('css/modularity-thickbox-edit.css')
         );
         wp_enqueue_style('modularity-thickbox');

@@ -7,13 +7,13 @@ class General extends \Modularity\Options
     public function __construct()
     {
         $this->register(
-            $pageTitle = __("Modularity Options", "modularity"),
-            $menuTitle = __("Options", "modularity"),
+            $pageTitle  = __("Modularity Options", "modularity"),
+            $menuTitle  = __("Options", "modularity"),
             $capability = "administrator",
-            $menuSlug = "modularity-options",
-            $iconUrl =
+            $menuSlug   = "modularity-options",
+            $iconUrl    =
                 "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NC44NDkiIGhlaWdodD0iNTQuODQ5IiB2aWV3Qm94PSIwIDAgNTQuODQ5IDU0Ljg0OSI+PHBhdGggZD0iTTU0LjQ5NyAzOS42MTRsLTEwLjM2My00LjQ5LTE0LjkxNyA1Ljk2OGMtLjUzNy4yMTQtMS4xNjUuMzItMS43OTMuMzItLjYyNyAwLTEuMjU0LS4xMDUtMS43OS0uMzJsLTE0LjkyLTUuOTY3TC4zNSAzOS42MTVjLS40Ny4yMDItLjQ2Ni41MjMuMDEuNzE1bDI2LjIgMTAuNDhjLjQ3Ny4xOSAxLjI1LjE5IDEuNzMgMGwyNi4xOTgtMTAuNDhjLjQ3Ni0uMTkuNDgtLjUxMy4wMS0uNzE2eiIvPjxwYXRoIGQ9Ik01NC40OTcgMjcuNTEybC0xMC4zNjQtNC40OS0xNC45MTYgNS45NjVjLS41MzYuMjE1LTEuMTY1LjMyLTEuNzkyLjMyYTQuODk4IDQuODk4IDAgMCAxLTEuNzkzLS4zMkwxMC43MTQgMjMuMDIuMzUgMjcuNTEzYy0uNDcuMjAzLS40NjYuNTIzLjAxLjcxNmwyNi4yIDEwLjQ3OGMuNDc3LjE5IDEuMjUuMTkgMS43MyAwbDI2LjE5OC0xMC40OGMuNDc2LS4xOS40OC0uNTEuMDEtLjcxNHoiLz48cGF0aCBkPSJNLjM2IDE2LjEyNWwxMy42NjMgNS40NjUgMTIuNTM3IDUuMDE1Yy40NzcuMTkgMS4yNS4xOSAxLjczIDBsMTIuNTQtNS4wMTYgMTMuNjU4LTUuNDY0Yy40NzctLjE5LjQ4LS41MS4wMS0uNzE2TDI4LjI3OCA0LjA0OGMtLjQ3Mi0uMjA0LTEuMjM3LS4yMDQtMS43MSAwTC4zNTIgMTUuNDFjLS40Ny4yMDQtLjQ2Ni41MjUuMDEuNzE1eiIvPjwvc3ZnPg==",
-            $position = 1
+            $position   = 1
         );
 
         // Add search page modules link to Moduliarty
@@ -124,13 +124,13 @@ class General extends \Modularity\Options
             $wp_registered_sidebars
         );
 
-        $coreTemplates = \Modularity\Helper\Wp::getCoreTemplates();
-        $coreTemplates = apply_filters(
+        $coreTemplates   = \Modularity\Helper\Wp::getCoreTemplates();
+        $coreTemplates   = apply_filters(
             "Modularity/CoreTemplatesInTheme",
             $coreTemplates
         );
         $customTemplates = get_page_templates();
-        $templates = array_merge($coreTemplates, $customTemplates);
+        $templates       = array_merge($coreTemplates, $customTemplates);
 
         include MODULARITY_TEMPLATE_PATH .
             "options/partials/modularity-template-areas.php";

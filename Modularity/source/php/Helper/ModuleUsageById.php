@@ -4,15 +4,15 @@ namespace Modularity\Helper;
 
 class ModuleUsageById
 {
-    public static function getModuleUsageById($id, $limit = false) 
+    public static function getModuleUsageById($id, $limit = false)
     {
         global $wpdb;
 
-        $modules = self::getPagesFromModuleUsageById($id, $wpdb);
+        $modules    = self::getPagesFromModuleUsageById($id, $wpdb);
         $shortcodes = self::getPagesFromShortcodeUsageById($id, $wpdb);
 
         $result = array_merge($modules, $shortcodes);
-        
+
         if (is_numeric($limit)) {
             return self::limitedModuleUsagePages($result, $limit);
         }
@@ -20,7 +20,7 @@ class ModuleUsageById
         return $result;
     }
 
-    public static function getPagesFromShortcodeUsageById(string $id, \wpdb $wpdb) 
+    public static function getPagesFromShortcodeUsageById(string $id, \wpdb $wpdb)
     {
         $shortcodeQuery = "
         SELECT
@@ -37,7 +37,7 @@ class ModuleUsageById
         return $wpdb->get_results($shortcodeQuery, OBJECT);
     }
 
-    public static function getPagesFromModuleUsageById(string $id, \wpdb $wpdb) 
+    public static function getPagesFromModuleUsageById(string $id, \wpdb $wpdb)
     {
         $idLength = strlen($id);
 
@@ -79,7 +79,7 @@ class ModuleUsageById
                 $uniqueItems[$item->post_id] = $item;
             }
         }
-        
+
         return $uniqueItems;
     }
 
@@ -97,7 +97,7 @@ class ModuleUsageById
         if (count($uniqueItems) > 0 && count($sliced) > 0) {
             return count($uniqueItems) - count($sliced);
         }
-        
+
         return 0;
     }
 }

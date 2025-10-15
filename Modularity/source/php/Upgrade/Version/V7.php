@@ -2,19 +2,20 @@
 
 namespace Modularity\Upgrade\Version;
 
-use \Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
+use Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
 use Modularity\Upgrade\Version\Helper\GetPagesByBlockName;
-use \Modularity\Upgrade\Version\Helper\GetPostsByPostType;
+use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 use Modularity\Upgrade\Version\Helper\UpdatePageContent;
 use WP_CLI;
 
-class V7 implements versionInterface {
+class V7 implements versionInterface
+{
     private string $name      = 'posts';
     private string $fieldName = 'posts_display_as';
     private string $newValue  = 'index';
     private string $oldValue  = 'news';
 
-    public function __construct(private \wpdb $db) 
+    public function __construct(private \wpdb $db)
     {
     }
 
@@ -26,10 +27,10 @@ class V7 implements versionInterface {
         return true;
     }
 
-    private function upgradeModules() 
+    private function upgradeModules()
     {
         $postModules = GetPostsByPostType::getPostsByPostType('mod-' . $this->name);
-        
+
         foreach ($postModules as $module) {
             if (empty($module->ID)) {
                 continue;
@@ -51,7 +52,7 @@ class V7 implements versionInterface {
         }
     }
 
-    private function upgradeBlocks() 
+    private function upgradeBlocks()
     {
         $pages = GetPagesByBlockName::getPagesByBlockName($this->db, 'acf/' . $this->name);
 
@@ -60,7 +61,7 @@ class V7 implements versionInterface {
         }
 
         foreach ($pages as $page) {
-            $blocks = parse_blocks($page->post_content);
+            $blocks           = parse_blocks($page->post_content);
             $hasUpdatedBlocks = false;
             foreach ($blocks as &$block) {
                 if ($block['blockName'] !== 'acf/' . $this->name) {
@@ -68,14 +69,14 @@ class V7 implements versionInterface {
                 }
 
                 if (
-                    empty($block['attrs']['data'][$this->fieldName]) || 
+                    empty($block['attrs']['data'][$this->fieldName]) ||
                     $block['attrs']['data'][$this->fieldName] !== $this->oldValue
                 ) {
                     continue;
                 }
 
                 $block['attrs']['data'][$this->fieldName] = $this->newValue;
-                $hasUpdatedBlocks = true;
+                $hasUpdatedBlocks                         = true;
             }
 
             if ($hasUpdatedBlocks) {

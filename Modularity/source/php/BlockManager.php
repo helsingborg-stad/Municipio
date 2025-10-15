@@ -64,8 +64,8 @@ class BlockManager
                 }
                 if (!$innerBlock['attrs']['width']) {
                     //Calculate the missing width and format number to two decimal points
-                    $width = 100 / count($block['innerBlocks']);
-                    $width = (string) round($width, 0) . '%';
+                    $width                        = 100 / count($block['innerBlocks']);
+                    $width                        = (string) round($width, 0) . '%';
                     $innerBlock['attrs']['width'] = $width;
                 }
             }
@@ -94,7 +94,7 @@ class BlockManager
         ];
 
         if ('core/column' === $block['blockName']) {
-            $blockWidth = $widths[$block['attrs']['width'] ?? ''] ?? '';
+            $blockWidth   = $widths[$block['attrs']['width'] ?? ''] ?? '';
             $blockContent = '<div class="' . $blockWidth . '">' . $blockContent . '</div>';
         }
 
@@ -112,8 +112,8 @@ class BlockManager
      */
     public function renderLanguageAttribute($blockContent, array $block): string
     {
-        $siteLanguage = strtolower(get_bloginfo('language'));
-        $pageLanguage = strtolower(get_post_meta(get_the_ID(), 'lang', true)) ?: $siteLanguage;
+        $siteLanguage  = strtolower(get_bloginfo('language'));
+        $pageLanguage  = strtolower(get_post_meta(get_the_ID(), 'lang', true)) ?: $siteLanguage;
         $blockLanguage = !empty($block['attrs']['data']['lang']) ? strtolower($block['attrs']['data']['lang']) : $pageLanguage;
 
         if (!in_array($blockLanguage, [$siteLanguage, $pageLanguage]) && $blockLanguage != 'auto') {
@@ -137,9 +137,9 @@ class BlockManager
     public function renderAnchor($blockContent, array $block): string
     {
         if (!empty($block['attrs']['anchor'])) {
-            $pattern = '/(<[a-zA-Z0-9]+\s*)(id="[^"]*"|)(.*?>)/';
+            $pattern     = '/(<[a-zA-Z0-9]+\s*)(id="[^"]*"|)(.*?>)/';
             $replacement = function ($matches) use ($block) {
-                $replacement = $matches[1];
+                $replacement  = $matches[1];
                 $replacement .= 'id="' . htmlspecialchars($block['attrs']['anchor'], ENT_QUOTES, 'UTF-8') . '"';
                 if (!empty($matches[3])) {
                     $replacement .= $matches[3];
@@ -193,7 +193,7 @@ class BlockManager
         return array_merge(
             $categories,
             array([
-                'slug' => 'modules',
+                'slug'  => 'modules',
                 'title' => __('Modules', 'modularity')
             ])
         );
@@ -211,19 +211,19 @@ class BlockManager
             foreach ($this->classes as $class) {
                 if ($class->isBlockCompatible && in_array($class->moduleSlug, $enabledModules)) {
                     $blockSettings = [
-                        'name'              => str_replace('mod-', '', $class->moduleSlug),
-                        'title'             => $class->nameSingular,
-                        'icon'              => \Modularity\ModuleManager::getIcon($class),
-                        'description'       => $class->description,
-                        'render_callback'   => array($this, 'renderBlock'),
-                        'category'          => 'modules',
-                        'moduleName'        => $class->slug,
-                        'mode'              => 'edit',
-                        'supports'          => array_merge(
+                        'name'            => str_replace('mod-', '', $class->moduleSlug),
+                        'title'           => $class->nameSingular,
+                        'icon'            => \Modularity\ModuleManager::getIcon($class),
+                        'description'     => $class->description,
+                        'render_callback' => array($this, 'renderBlock'),
+                        'category'        => 'modules',
+                        'moduleName'      => $class->slug,
+                        'mode'            => 'edit',
+                        'supports'        => array_merge(
                             [
-                                'jsx' => true,
-                                'align' => false,
-                                'align_text' => false,
+                                'jsx'           => true,
+                                'align'         => false,
+                                'align_text'    => false,
                                 'align_content' => false
                             ],
                             $class->blockSupports
@@ -309,9 +309,9 @@ class BlockManager
                 if ($this->isModule($locationRule['value']) && $locationRule['operator'] === '==') {
                     $newGroup['location'][] = [
                         [
-                            'param' => 'block',
+                            'param'    => 'block',
                             'operator' => '==',
-                            'value' => \str_replace(
+                            'value'    => \str_replace(
                                 'mod-',
                                 'acf/',
                                 $locationRule['value']
@@ -331,9 +331,9 @@ class BlockManager
                 if ($moduleObject->expectsTitleField) {
                     $group['location'][] = [
                         [
-                            'param' => 'block',
+                            'param'    => 'block',
                             'operator' => '==',
-                            'value' => 'acf/' . $moduleName
+                            'value'    => 'acf/' . $moduleName
                         ]
                     ];
                 }
@@ -357,7 +357,7 @@ class BlockManager
                     if ($isSnakeCased) {
                         $dataPoint = $defaultValues['_' . $key] ?? null;
                     } else {
-                        $key = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $key));
+                        $key       = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $key));
                         $dataPoint = $defaultValues['_' . $key] ?? null;
                     }
                 }
@@ -401,7 +401,8 @@ class BlockManager
         $module = $this->classes[$block['moduleName']];
 
         $cache = new \Modularity\Helper\Cache(
-            $post->ID ?? null, [
+            $post->ID ?? null,
+            [
                 $block,
                 $module->ID
             ],
@@ -409,7 +410,6 @@ class BlockManager
         );
 
         if ($cache->start()) { //Start cache
-
             //Append module data, set default values
             $module->data = $this->setDefaultValues(
                 $module->data(),
@@ -424,7 +424,7 @@ class BlockManager
             $module->data['hideTitle'] = $module->data['postTitle'] ? false : true;
 
             //Set anchor
-            if(!empty($block['anchor'])) {
+            if (!empty($block['anchor'])) {
                 $block['data']['anchor'] = $block['anchor'];
             }
 
@@ -448,10 +448,10 @@ class BlockManager
 
             //Filter view data
             $viewData = apply_filters('Modularity/Block/Data', $viewData, $block, $module);
-            $viewData = apply_filters('Modularity/Block/'.  $block['name'] . '/Data', $viewData, $block, $module);
+            $viewData = apply_filters('Modularity/Block/' .  $block['name'] . '/Data', $viewData, $block, $module);
 
             if ($this->validateFields($viewData)) {
-                $display = new Display(false);
+                $display      = new Display(false);
                 $renderedView = $display->renderView(
                     $view,
                     $viewData
@@ -472,7 +472,7 @@ class BlockManager
                 );
             }
 
-            if(!$module->dataFetched) {
+            if (!$module->dataFetched) {
                 error_log('Class ' . get_class($module) . ' must use the getFields function to ensure block compability.');
             }
 
@@ -540,15 +540,15 @@ class BlockManager
     {
         acf_add_local_field_group(array(
             'menu_order' => -1,
-            'key' => 'group_block_specific',
-            'title' => __("Block settings", 'modularity'),
-            'location' => array(),
-            'fields' => array(
+            'key'        => 'group_block_specific',
+            'title'      => __("Block settings", 'modularity'),
+            'location'   => array(),
+            'fields'     => array(
                 array(
-                    'key' => 'field_block_title',
+                    'key'   => 'field_block_title',
                     'label' => __("Title", 'modularity'),
-                    'name' => 'custom_block_title',
-                    'type' => 'text',
+                    'name'  => 'custom_block_title',
+                    'type'  => 'text',
                 )
             )
         ));
@@ -562,16 +562,16 @@ class BlockManager
      */
     private function displayNotice($moduleName, $message)
     {
-        $display = new Display();
-        $view = 'notice';
+        $display    = new Display();
+        $view       = 'notice';
         $noticeData = array(
-            'hideTitle' => false,
-            'post_type' => 'mod-notice',
-            'postTitle' => $moduleName,
+            'hideTitle'   => false,
+            'post_type'   => 'mod-notice',
+            'postTitle'   => $moduleName,
             'notice_text' => $message,
             'notice_type' => 'info',
-            'icon' => array('name' => 'info'),
-            'postTitle' => $moduleName,
+            'icon'        => array('name' => 'info'),
+            'postTitle'   => $moduleName,
         );
 
         return $display->renderView($view, $noticeData);

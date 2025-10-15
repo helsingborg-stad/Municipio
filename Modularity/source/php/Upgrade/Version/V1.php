@@ -2,16 +2,18 @@
 
 namespace Modularity\Upgrade\Version;
 
-use \Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
-use \Modularity\Upgrade\Migrators\Module\AcfModuleMigration;
-use \Modularity\Upgrade\Version\Helper\GetPostsByPostType;
+use Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
+use Modularity\Upgrade\Migrators\Module\AcfModuleMigration;
+use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 
-class V1 implements versionInterface {
+class V1 implements versionInterface
+{
     private $db;
     private $name;
 
-    public function __construct(\wpdb $db) {
-        $this->db = $db;
+    public function __construct(\wpdb $db)
+    {
+        $this->db   = $db;
         $this->name = 'divider';
     }
 
@@ -24,7 +26,7 @@ class V1 implements versionInterface {
     }
 
     private function upgradeModules()
-    {     
+    {
         $dividers = GetPostsByPostType::getPostsByPostType('mod-' . $this->name);
 
         if (!empty($dividers)) {
@@ -34,7 +36,7 @@ class V1 implements versionInterface {
                 if (!empty($dividerTitleField) && is_string($dividerTitleField)) {
                     update_post_meta($divider->ID, 'modularity-module-hide-title', false);
                     wp_update_post([
-                        'ID' => $divider->ID,
+                        'ID'         => $divider->ID,
                         'post_title' => $dividerTitleField
                     ]);
                 }
@@ -42,7 +44,7 @@ class V1 implements versionInterface {
         }
     }
 
-    private function upgradeBlocks() 
+    private function upgradeBlocks()
     {
         $blockMigrator = new AcfBlockMigration(
             $this->db,
@@ -53,12 +55,12 @@ class V1 implements versionInterface {
         $blockMigrator->migrateBlocks();
     }
 
-    private function getBlockFields() 
+    private function getBlockFields()
     {
         return [
             'divider_title' => [
-                'name' => 'custom_block_title', 
-                'key' => 'field_block_title'
+                'name' => 'custom_block_title',
+                'key'  => 'field_block_title'
             ]
         ];
     }

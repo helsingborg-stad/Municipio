@@ -5,7 +5,8 @@ namespace Modularity;
 use Modularity\Upgrade;
 use WP_CLI;
 
-class WpCli {
+class WpCli
+{
     public function __construct(Upgrade $upgradeInstance)
     {
         add_action('cli_init', function () use ($upgradeInstance) {

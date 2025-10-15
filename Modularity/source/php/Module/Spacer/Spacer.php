@@ -4,17 +4,17 @@ namespace Modularity\Module\Spacer;
 
 class Spacer extends \Modularity\Module
 {
-    public $slug = 'spacer';
+    public $slug     = 'spacer';
     public $supports = array();
 
     public function init()
     {
         $this->nameSingular = __('Spacer', 'modularity');
-        $this->namePlural = __('Spacers', 'modularity');
-        $this->description = __("Outputs whitespace.", 'modularity');
+        $this->namePlural   = __('Spacers', 'modularity');
+        $this->description  = __("Outputs whitespace.", 'modularity');
     }
 
-    public function data() : array
+    public function data(): array
     {
         $fields = $this->getFields();
 

@@ -31,7 +31,7 @@ class Module
      * Example: image
      * @var string
      */
-    public $slug = '';
+    public $slug       = '';
     public $moduleSlug = '';
 
     /**
@@ -76,10 +76,10 @@ class Module
     public $blockSupports = array();
 
     /**
-     * If empty block notice should be used. 
+     * If empty block notice should be used.
      * @var bool
      */
-    public $useEmptyBlockNotice = false; 
+    public $useEmptyBlockNotice = false;
 
     /**
      * Any module plugins (path to file to include)
@@ -97,7 +97,7 @@ class Module
      * The initial setting for "hide title" of the module
      * @var boolean
      */
-    public $hideTitle  = false;
+    public $hideTitle = false;
 
     /**
      * Sidebar arguments
@@ -161,7 +161,7 @@ class Module
 
     /**
      * Data dataFetched.
-     * Keeps track if the current data is fetched by the native data fetch functionality. 
+     * Keeps track if the current data is fetched by the native data fetch functionality.
      * @var string
      */
     public $dataFetched = false; //May be either 'module' or 'block'.
@@ -183,11 +183,11 @@ class Module
     public function __construct(
         // Provided by WordPress
         ?\WP_Post $post = null,
-        $args = array())
-    {
+        $args = array()
+    ) {
         $this->args = $args;
 
-        $this->ID = $post->ID ?? null;
+        $this->ID   = $post->ID ?? null;
         $this->mode = $this->ID ? 'module' : 'block';
 
         $this->postStatus = $post->post_status ?? 'publish';
@@ -197,13 +197,13 @@ class Module
         // Defaults to the path of the class .php-file and subdir /views
         // Example: my-module/my-module.php (module class)
         //          my-module/views/        (views folder)
-        if(!$this->templateDir || !$this->assetDir) {
+        if (!$this->templateDir || !$this->assetDir) {
             $reflector = new \ReflectionClass(get_class($this));
 
             if (!$this->templateDir) {
                 $this->templateDir = trailingslashit(dirname($reflector->getFileName())) . 'views/';
             }
-    
+
             if (!$this->assetDir) {
                 $this->assetDir = trailingslashit(dirname($reflector->getFileName())) . 'assets/';
             }
@@ -234,7 +234,7 @@ class Module
             });
         }
 
-        WpService::get()->addAction('save_post', function($postID, $post, $update) {
+        WpService::get()->addAction('save_post', function ($postID, $post, $update) {
             WpService::get()->wpCacheDelete('modularity_has_modules_' . $postID);
         }, 1, 3);
     }
@@ -281,12 +281,12 @@ class Module
     {
         foreach ($post as $key => $value) {
             $this->extractedPostProperties[] = $key;
-            $this->data[$key] = $value;
+            $this->data[$key]                = $value;
 
             // Fix for PHP8, avoid creation of dynamic property.
             // https://www.php.net/manual/en/migration80.incompatible.php#migration80.incompatible.variable-handling.indirect
             // Variables that needs to be avabile, must be defined in class.
-            if(property_exists($this, $key)) {
+            if (property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
@@ -337,7 +337,7 @@ class Module
         if ($this->ID) {
             $id = $this->ID;
         } else {
-            $id = acf_get_valid_post_id( false );
+            $id = acf_get_valid_post_id(false);
         }
 
         return $this->ID = $id ?: null;
@@ -387,8 +387,8 @@ class Module
     {
         global $post;
 
-        $postId = null;
-        $modules = array();
+        $postId      = null;
+        $modules     = array();
         $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
 
         if ($archiveSlug) {
@@ -401,7 +401,7 @@ class Module
 
         //Get modules
         $modules = $this->getPresentModuleList($postId);
-        
+
         //Look for
         $moduleSlug = $this->moduleSlug;
         if (empty($moduleSlug)) {
@@ -416,7 +416,7 @@ class Module
     }
 
     /**
-     * Get a list of present modules in this context   
+     * Get a list of present modules in this context
      * @param  integer $postId
      * @return array
      */
@@ -424,27 +424,27 @@ class Module
     {
 
         //Return cached modules
-        if($cachedModules = WpService::get()->wpCacheGet('modularity_has_modules_' . $postId)) {
+        if ($cachedModules = WpService::get()->wpCacheGet('modularity_has_modules_' . $postId)) {
             return $cachedModules;
         }
 
-        $modules = []; 
+        $modules = [];
 
         //Get each module link type
         $modulesByLinkType = [
-            'meta'          => $this->getValueFromKeyRecursive(
-                                    \Modularity\Editor::getPostModules($postId), 
-                                    'post_type'
+            'meta'       => $this->getValueFromKeyRecursive(
+                \Modularity\Editor::getPostModules($postId),
+                'post_type'
             ),
-            'shortcodes'    => $this->getShortcodeModules($postId),
-            'blocks'        => $this->getBlockNamesFromPage(),
-            'widgets'       => $this->getWidgets(),
-        ];  
+            'shortcodes' => $this->getShortcodeModules($postId),
+            'blocks'     => $this->getBlockNamesFromPage(),
+            'widgets'    => $this->getWidgets(),
+        ];
 
         //Filter and merge all modules
-        foreach($modulesByLinkType as $modulesLinkType) {
+        foreach ($modulesByLinkType as $modulesLinkType) {
             $modules = array_merge(
-                $modules, 
+                $modules,
                 $modulesLinkType
             );
         }
@@ -467,7 +467,7 @@ class Module
      */
     private function getValueFromKeyRecursive(array $haystack, $needle): array
     {
-        $stack = [];
+        $stack     = [];
         $iterator  = new \RecursiveArrayIterator($haystack);
         $recursive = new \RecursiveIteratorIterator(
             $iterator,
@@ -487,14 +487,15 @@ class Module
      *
      * @return array An array containing module names extracted from widgets.
      */
-    private function getWidgets(): array{
+    private function getWidgets(): array
+    {
         $widgets = WpService::get()->getOption('widget_block');
 
         $modules = [];
         if (!empty($widgets) && is_array($widgets)) {
             foreach ($widgets as $widget) {
-                $moduleNames = $this->getWidgetNames($widget); 
-                
+                $moduleNames = $this->getWidgetNames($widget);
+
                 if (!empty($moduleNames) && is_array($moduleNames)) {
                     foreach ($moduleNames as $moduleName) {
                         $modules[] = $moduleName;
@@ -512,14 +513,15 @@ class Module
      * @param array $widget The widget data array.
      * @return array The extracted module name or false if not found.
      */
-    private function getWidgetNames($widget): array|false {
+    private function getWidgetNames($widget): array|false
+    {
 
         if (!is_array($widget) || empty($widget['content'])) {
             return false;
         }
-        
+
         $modules = [];
-        
+
         preg_match_all('/<!--\s*wp:acf\/(\S+).*?\s*-->/s', $widget['content'], $matches);
 
         if (!empty($matches[1]) && is_array($matches[1])) {
@@ -541,7 +543,7 @@ class Module
                 }
             }
         }
-        
+
         return $modules;
     }
 
@@ -552,12 +554,12 @@ class Module
      */
     public function getShortcodeModules($post_id): array
     {
-        if(is_numeric($post_id) === false || $post_id <= 0) {
+        if (is_numeric($post_id) === false || $post_id <= 0) {
             return [];
         }
 
         $post_id = intval($post_id);
-        $post = WpService::get()->getPost($post_id);
+        $post    = WpService::get()->getPost($post_id);
         $pattern = WpService::get()->getShortcodeRegex();
         $modules = array();
 

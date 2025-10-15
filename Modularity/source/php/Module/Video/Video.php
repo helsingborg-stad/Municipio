@@ -4,22 +4,22 @@ namespace Modularity\Module\Video;
 
 class Video extends \Modularity\Module
 {
-    public $slug = 'video';
-    public $supports = array();
+    public $slug            = 'video';
+    public $supports        = array();
     private $imageLocations = [
-        'youtube'   => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
-        'vimeo'     => 'https://vumbnail.com/%s.jpg'
+        'youtube' => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
+        'vimeo'   => 'https://vumbnail.com/%s.jpg'
     ];
 
     public function init()
     {
         $this->nameSingular = __("Video", 'modularity');
-        $this->namePlural = __("Video", 'modularity');
-        $this->description = __("Outputs an embedded Video.", 'modularity');
+        $this->namePlural   = __("Video", 'modularity');
+        $this->description  = __("Outputs an embedded Video.", 'modularity');
 
         //Cover images
         add_action('wp_after_insert_post', array($this, 'getVideoCover'), 10, 4);
-        
+
         add_action('Modularity/save_block', array($this, 'getVideoCoverForBlock'), 10, 3);
 
         //Add mime types
@@ -34,7 +34,7 @@ class Video extends \Modularity\Module
      */
     public function addVttFormatAsAllowedFiletype($mimes)
     {
-        $mimes['vtt']  = 'text/vtt';
+        $mimes['vtt'] = 'text/vtt';
         return $mimes;
     }
 
@@ -103,9 +103,9 @@ class Video extends \Modularity\Module
         $embedUrl   = get_field('embed_link', $postId);
 
         if ($coverImage === false && filter_var($embedUrl, FILTER_VALIDATE_URL) !== false) {
-            $videoService   = $this->detectVideoService($embedUrl);
-            $videoId        = $this->getVideoId($embedUrl, $videoService);
-            $coverImage     = $this->getCoverUrl($videoId, $videoService);
+            $videoService = $this->detectVideoService($embedUrl);
+            $videoId      = $this->getVideoId($embedUrl, $videoService);
+            $coverImage   = $this->getCoverUrl($videoId, $videoService);
 
             $filePath = $this->downloadCoverImage($coverImage, $videoId);
 
@@ -123,7 +123,7 @@ class Video extends \Modularity\Module
 
         return false;
     }
-    
+
     /**
      * It checks if the block is a video block, if it's an embed, if it has no cover
      * image and if it has a valid embed URL.
@@ -142,23 +142,23 @@ class Video extends \Modularity\Module
         if (!$this->shouldSave() || 'acf/video' !== $block['blockName']) {
             return false;
         }
-                
+
         $blockData = $block['attrs']['data'];
         $embedUrl  = $blockData['embed_link'];
-        
+
         if (empty($blockData['placeholder_image']) && filter_var($embedUrl, FILTER_VALIDATE_URL) !== false && $this->isEmbed($blockData['type'])) {
             $placeholderImageFieldKey = $blockData['_placeholder_image'];
 
-            $videoService   = $this->detectVideoService($embedUrl);
-            $videoId        = $this->getVideoId($embedUrl, $videoService);
-            $coverImage     = $this->getCoverUrl($videoId, $videoService);
-            
+            $videoService = $this->detectVideoService($embedUrl);
+            $videoId      = $this->getVideoId($embedUrl, $videoService);
+            $coverImage   = $this->getCoverUrl($videoId, $videoService);
+
             require_once(ABSPATH . 'wp-admin/includes/media.php');
             require_once(ABSPATH . 'wp-admin/includes/file.php');
             require_once(ABSPATH . 'wp-admin/includes/image.php');
 
             $attachmentId = \media_sideload_image($coverImage, $postId, sprintf(__('Automatically downloaded cover image for a video embedded in a post (post id: %s).', 'modularity'), $postId), 'id');
-            
+
             if ($attachmentId) {
                 $existingBlocks = parse_blocks($post->post_content);
                 foreach ($existingBlocks as &$existingBlock) {
@@ -166,20 +166,20 @@ class Video extends \Modularity\Module
                         $existingBlock['attrs']['data']['placeholder_image'] = $attachmentId;
                     }
                 }
-                   
+
                 $postData = array(
-                    'ID' => $postId,
+                    'ID'           => $postId,
                     'post_content' => serialize_blocks($existingBlocks),
                 );
-                
+
                 update_field($placeholderImageFieldKey, $attachmentId);
                 return wp_update_post($postData, true, false);
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Check if embed option is enabled
      *
@@ -237,10 +237,10 @@ class Video extends \Modularity\Module
      */
     private function storeImage($fileContent, $videoId)
     {
-        $uploadsDir     = $this->getUploadsDir();
-        $uploadsSubDir  = $this->getUploadsSubdir();
-        $fileSystem     = $this->initFileSystem();
-        $fileName       = $videoId . ".jpg";
+        $uploadsDir    = $this->getUploadsDir();
+        $uploadsSubDir = $this->getUploadsSubdir();
+        $fileSystem    = $this->initFileSystem();
+        $fileName      = $videoId . ".jpg";
 
         //Explicit path
         $fullPath = implode("/", [
@@ -395,12 +395,12 @@ class Video extends \Modularity\Module
      */
     public function data(): array
     {
-        $data = $this->getFields();
-        $data['id']         = uniqid('embed');
+        $data       = $this->getFields();
+        $data['id'] = uniqid('embed');
         if ($data['type'] == 'embed') {
             $data['embedCode'] = $this->getEmbedMarkup($data['embed_link']);
         }
-        
+
         // Image
         $data['image'] = false;
         if (isset($data['placeholder_image']) && !empty($data['placeholder_image'])) {
@@ -442,7 +442,7 @@ class Video extends \Modularity\Module
         return wp_oembed_get(
             $embedLink,
             array(
-                'width' => 1080,
+                'width'  => 1080,
                 'height' => 720
             )
         );
@@ -467,7 +467,7 @@ class Video extends \Modularity\Module
     private function accessProtected($obj, $prop)
     {
         $reflection = new ReflectionClass($obj);
-        $property = $reflection->getProperty($prop);
+        $property   = $reflection->getProperty($prop);
         $property->setAccessible(true);
         return $property->getValue($obj);
     }

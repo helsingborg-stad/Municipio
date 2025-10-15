@@ -127,7 +127,7 @@ class Wp
             MODULARITY_PATH . 'templates/',
         ));
 
-        $slug = apply_filters('Modularity/TemplatePathSlug', $slug ? $slug . '/' : '', $prefix);
+        $slug   = apply_filters('Modularity/TemplatePathSlug', $slug ? $slug . '/' : '', $prefix);
         $prefix = $prefix ? '-' . $prefix : '';
 
         foreach ($paths as $path) {
@@ -154,7 +154,7 @@ class Wp
     {
         $siteInfo = array(
             'name' => get_bloginfo('name'),
-            'url' => esc_url(home_url('/')),
+            'url'  => esc_url(home_url('/')),
         );
 
         return $siteInfo;
@@ -183,7 +183,7 @@ class Wp
         if (is_string($referer) && strpos($referer, 'is_thickbox=true') > -1) {
             return true;
         }
-        
+
         return false;
     }
 

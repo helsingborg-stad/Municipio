@@ -4,7 +4,6 @@ namespace Modularity;
 
 use enshrined\svgSanitize\Sanitizer as SVGSanitize;
 
-
 class ModuleManager
 {
     /**
@@ -94,7 +93,7 @@ class ModuleManager
     public function getRegistered($getBundled = true)
     {
         if ($getBundled) {
-            $bundeled   = $this->getBundeled();
+            $bundeled         = $this->getBundeled();
             self::$registered = array_merge(self::$registered, $bundeled);
         }
 
@@ -176,7 +175,7 @@ class ModuleManager
             return;
         }
 
-        $postTypeSlug           = self::prefixSlug($class->slug);
+        $postTypeSlug                 = self::prefixSlug($class->slug);
         self::$classes[$postTypeSlug] = $class;
 
         // Set labels
@@ -222,7 +221,7 @@ class ModuleManager
                 'read_private_posts' => 'read_private_posts',
                 'delete_post'        => 'delete_module'
             ),
-            'map_meta_cap' => true
+            'map_meta_cap'        => true
         );
 
         //Disable from search search pages (someone did a huge mistake designing this feature)
@@ -597,13 +596,14 @@ class ModuleManager
      * Possibly adds a notice nag if a module is used in more than one place
      * @return void
      */
-    public function maybeShowEditModuleUsageNoticeNag() {
+    public function maybeShowEditModuleUsageNoticeNag()
+    {
         $options = get_option('modularity-options');
 
         // Add admin notice about module usage if setting is enabled
         if (isset($options['show-modules-usage-edit-notice-nag']) && $options['show-modules-usage-edit-notice-nag'] == 'on') {
             $screen = get_current_screen();
-            $usage = sizeof(ModuleManager::getModuleUsage(get_the_ID()));
+            $usage  = sizeof(ModuleManager::getModuleUsage(get_the_ID()));
 
             if (strpos($screen->post_type, 'mod-') === 0 && $usage > 1) {
                 echo '<div class="notice notice-warning">';

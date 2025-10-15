@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Modularity\Module\Markdown\Filters;
 
@@ -7,7 +7,7 @@ use Modularity\Module\Markdown\Filters\FilterInterface;
 class DemoteTitles implements FilterInterface
 {
     public function __construct(private array $fields)
-    {   
+    {
     }
 
     /**

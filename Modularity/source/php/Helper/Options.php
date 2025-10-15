@@ -5,8 +5,8 @@ namespace Modularity\Helper;
 /**
  * Helper class for options
  */
-class Options {
-
+class Options
+{
     /**
      * Get list of currently available archives slugs that has a template
      * @return array
@@ -23,7 +23,7 @@ class Options {
         return self::getArchiveTemplatesFromPostTypeNames($postTypeNames);
     }
 
-    private static function getSingleTemplatesFromPostTypeNames(array $postTypeNames):array
+    private static function getSingleTemplatesFromPostTypeNames(array $postTypeNames): array
     {
         return self::getTemplatesFromPostTypeNames($postTypeNames, 'single');
     }
@@ -45,15 +45,17 @@ class Options {
         return array_unique($templates);
     }
 
-    private static function getPostTypesWithArchives() {
+    private static function getPostTypesWithArchives()
+    {
         return get_post_types(array(
             'has_archive' => true
         ), 'names');
     }
 
-    private static function getPublicPostTypeNames() {
+    private static function getPublicPostTypeNames()
+    {
         return get_post_types(array(
-            'public' => true,
+            'public'  => true,
             'show_ui' => true,
         ), 'names');
     }
