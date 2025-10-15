@@ -45,7 +45,7 @@
         "landrok/language-detector": "dev-master",
         "league/commonmark": "2.7.0",
         "league/config": "1.1.1",
-        "helsingborg-stad/component-library": "^4.62"
+        "helsingborg-stad/component-library": "^4.62.12"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
