@@ -15,13 +15,13 @@ class FocalPointDetectorResolver implements FocusPointResolverInterface
 
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
-        $focus = $this->detector->getPoint(new Imagick($filePath));
+        $focusPoint = $this->detector->getPoint(new Imagick($filePath));
 
-        if ($focus === null) {
+        if (!isset($focusPoint->x) || !isset($focusPoint->y)) {
             return null;
         }
 
-        return $this->pixelToPercent($focus, $width, $height);
+        return $this->pixelToPercent($focusPoint, $width, $height);
     }
 
     private function pixelToPercent(\stdClass $focusPoint, int $width, int $height): array
