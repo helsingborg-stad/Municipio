@@ -2,7 +2,7 @@
 
 @section('above')
     @hero([
-        "image" => $post->imageContract,
+        "image" => $post->getImage(),
         "size" => "normal",
         "classList" => ["u-margin__bottom--4"],
     ])
@@ -79,8 +79,8 @@
             @iconSection__item(['icon' => ['icon' => 'payments', 'size' => 'md']])
                 @include('partials.post.schema.event.icon-section-header', ['header' => $lang->priceTitle])
                 @foreach ($priceListItems as $priceListItem)
-                    @element([])
-                        @element(['componentElement' => 'strong']){!!$priceListItem->getName() !!}@endelement
+                    @element(['classList' => ['u-display--flex', 'u-justify-content--space-between']])
+                        @element(['componentElement' => 'strong']){!!$priceListItem->getName() !!}:@endelement
                         @element(['componentElement' => 'span']){!! $priceListItem->getPrice() !!}@endelement
                     @endelement
                 @endforeach

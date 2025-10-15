@@ -2,66 +2,90 @@
 
 namespace Municipio\Controller\SingularEvent\Mappers;
 
+use Generator;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Controller\SingularEvent\PriceListItem;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\Event;
 use Municipio\Schema\Offer;
+use Municipio\Schema\PriceSpecification;
 use WpService\Contracts\__;
 
+/**
+ * Maps event data to a price list format.
+ */
 class MapPriceList implements EventDataMapperInterface
 {
+    /**
+     * @param __ $wpService
+     */
     public function __construct(private __ $wpService)
     {
     }
 
+    /**
+     * Maps the event data to a price list format.
+     */
     public function map(Event $event): array
     {
-        $offers = $event->getProperty('offers');
+        $offers         = EnsureArrayOf::ensureArrayOf($event->getProperty('offers'), Offer::class);
+        $priceListItems = array_map(fn(Offer $offer) => iterator_to_array($this->getPriceListItemFromOffer($offer)), $offers);
 
-        if (!$offers || !is_array($offers)) {
-            return [];
-        }
-
-        return array_filter(array_map([$this, 'getPriceListItemFromOffer'], $offers));
+        return array_filter(array_merge(...$priceListItems));
     }
 
-    public function getPriceListItemFromOffer(Offer $offer): ?PriceListItemInterface
+    /**
+     * @param Offer $offer
+     * @return Generator<PriceListItemInterface>
+     */
+    public function getPriceListItemFromOffer(Offer $offer): Generator
     {
-        $priceSpecification = $offer->getProperty('priceSpecification');
-        $name               = $offer->getProperty('name');
-        $currency           = $offer->getProperty('priceCurrency') ?? 'SEK';
+        $specs = EnsureArrayOf::ensureArrayOf($offer->getProperty('priceSpecification'), PriceSpecification::class);
 
-        $minPrice           = $priceSpecification?->getProperty('minPrice');
-        $maxPrice           = $priceSpecification?->getProperty('maxPrice');
-        $offerPrice         = $offer->getProperty('price');
-        $specificationPrice = $priceSpecification?->getProperty('price');
+        foreach ($specs as $spec) {
+            $name     = $spec->getProperty('name');
+            $currency = $this->getCurrencySymbol($spec->getProperty('priceCurrency') ?? $offer->getProperty('priceCurrency') ?? 'SEK');
+            $minPrice = $spec->getProperty('minPrice');
+            $maxPrice = $spec->getProperty('maxPrice');
+            $price    = $spec->getProperty('price');
 
-        $price = $this->formatPrice($minPrice, $maxPrice, $specificationPrice, $offerPrice, $currency);
+            $formattedPrice = $this->formatPrice($minPrice, $maxPrice, $price, $currency);
 
-        if (empty($name) || empty($price)) {
-            return null;
+            if (!empty($name) && !empty($formattedPrice)) {
+                yield new PriceListItem($name, $formattedPrice);
+            }
         }
 
-        return new PriceListItem($name, $price);
+        // Removed bare yield to avoid yielding unnecessary null.
     }
 
-    private function formatPrice($minPrice, $maxPrice, $specificationPrice, $offerPrice, $currency): string
+    /**
+     * Formats the price information for display.
+     */
+    private function formatPrice($minPrice, $maxPrice, $price, $currency): ?string
     {
-        if (!empty($minPrice) || !empty($maxPrice)) {
+        if ($minPrice !== null || $maxPrice !== null) {
             if ($minPrice === $maxPrice) {
                 return "{$minPrice} {$currency}";
             }
             return "{$minPrice} - {$maxPrice} {$currency}";
         }
 
-        if (!empty($specificationPrice)) {
-            return "{$specificationPrice} {$currency}";
+        if (!is_null($price)) {
+            return "{$price} {$currency}";
         }
 
-        if (!empty($offerPrice)) {
-            return "{$offerPrice} {$currency}";
-        }
+        return null;
+    }
 
-        return $this->wpService->__('Price not available', 'municipio');
+    /**
+     * Gets the currency symbol for a given currency code.
+     */
+    private function getCurrencySymbol(string $currency): string
+    {
+        return match ($currency) {
+            'SEK' => 'kr',
+            default => $currency,
+        };
     }
 }
