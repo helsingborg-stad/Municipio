@@ -43,8 +43,6 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
             $xs = [];
             $ys = [];
 
-error_log(print_r($faces, true));
-
             foreach ($faces as $face) {
                 if (!isset($face->facial_area) || !is_object($face->facial_area)) {
                     continue;
