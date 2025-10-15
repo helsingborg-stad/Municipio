@@ -79,9 +79,9 @@
             @iconSection__item(['icon' => ['icon' => 'payments', 'size' => 'md']])
                 @include('partials.post.schema.event.icon-section-header', ['header' => $lang->priceTitle])
                 @foreach ($priceListItems as $priceListItem)
-                    @element([])
+                    @element(['classList' => ['u-display--flex', 'u-justify-content--space-between']])
                         @element(['componentElement' => 'strong']){!!$priceListItem->getName() !!}:@endelement
-                        @element(['componentElement' => 'span', 'classList' => ['u-float--right']]){!! $priceListItem->getPrice() !!}@endelement
+                        @element(['componentElement' => 'span']){!! $priceListItem->getPrice() !!}@endelement
                     @endelement
                 @endforeach
             @endiconSection__item
