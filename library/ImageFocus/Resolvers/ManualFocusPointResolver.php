@@ -8,6 +8,11 @@ class ManualFocusPointResolver implements FocusPointResolverInterface
 {
     public function __construct(private FocusPointStorage $storage) {}
 
+    public function isSupported(): bool
+    {
+        return true; // Always supported as it reads from storage
+    }
+
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
         if ($attachmentId === null) {

@@ -17,6 +17,9 @@ class ChainFocusPointResolver implements FocusPointResolverInterface
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
         foreach ($this->resolvers as $resolver) {
+            if (!$resolver->isSupported()) {
+                continue;
+            }
             $result = $resolver->resolve($filePath, $width, $height, $attachmentId);
             if ($result !== null) {
                 return $result;

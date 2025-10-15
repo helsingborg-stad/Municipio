@@ -8,6 +8,11 @@ class FocalPointDetectorResolver implements FocusPointResolverInterface
 {
     public function __construct(private $detector) {}
 
+    public function isSupported(): bool
+    {
+        return class_exists(\FreshleafMedia\Autofocus\FocalPointDetector::class) && extension_loaded('imagick');
+    }
+
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
         $focus = $this->detector->getPoint(new Imagick($filePath));
