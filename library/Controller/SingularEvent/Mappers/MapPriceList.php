@@ -46,7 +46,7 @@ class MapPriceList implements EventDataMapperInterface
             }
         }
 
-        yield;
+        // Removed bare yield to avoid yielding unnecessary null.
     }
 
     private function formatPrice($minPrice, $maxPrice, $price, $currency): ?string
