@@ -5,7 +5,7 @@
     "scripts": {
         "test": "jest --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
         "dev": "vite",
-        "build": "npm run build:municipio && npm run build:modularity",
+        "build": "npm run build:municipio && (npm run build:modularity)",
         "build:municipio": "vite build && mkdir -p ./assets/dist/data/",
         "build:modularity": "cd Modularity && npm install && npm run build",
         "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/",
