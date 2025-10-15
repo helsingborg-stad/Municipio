@@ -8,12 +8,25 @@ use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;
 
+/**
+ * Generates attributes for a map component based on school location data.
+ */
 class MapComponentAttributesGenerator
 {
+    /**
+     * Constructor.
+     *
+     * @param ElementarySchool|Preschool $school The school entity.
+     */
     public function __construct(private ElementarySchool|Preschool $school)
     {
     }
 
+    /**
+     * Generates the map component attributes including pins and start position.
+     *
+     * @return mixed Array of map attributes or null if no valid places found.
+     */
     public function generate(): mixed
     {
         $places = EnsureArrayOfEnsureArrayOf::ensureArrayOf($this->school->getProperty('location'), Place::class);
@@ -29,6 +42,12 @@ class MapComponentAttributesGenerator
         ];
     }
 
+    /**
+     * Maps a Place object to a pin array for the map.
+     *
+     * @param Place $place The place to map.
+     * @return array|null The pin data or null if coordinates are missing.
+     */
     private function mapPlaceToPin(Place $place): ?array
     {
         $latitude  = $place->getProperty('latitude');
@@ -48,7 +67,10 @@ class MapComponentAttributesGenerator
     }
 
     /**
-     * Get the starting latitude by finding the center point between all places
+     * Get the starting latitude by finding the center point between all places.
+     *
+     * @param array $places Array of Place objects.
+     * @return float|null The calculated latitude or null.
      */
     private function getStartLatitude(array $places): ?float
     {
@@ -56,6 +78,12 @@ class MapComponentAttributesGenerator
         return array_sum($latitudes) / count($latitudes);
     }
 
+    /**
+     * Get the starting longitude by finding the center point between all places.
+     *
+     * @param array $places Array of Place objects.
+     * @return float|null The calculated longitude or null.
+     */
     private function getStartLongitude(array $places): ?float
     {
         $longitudes = array_map(fn($place) => $place->getProperty('longitude'), $places);

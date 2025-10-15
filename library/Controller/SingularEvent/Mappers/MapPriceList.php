@@ -11,12 +11,21 @@ use Municipio\Schema\Offer;
 use Municipio\Schema\PriceSpecification;
 use WpService\Contracts\__;
 
+/**
+ * Maps event data to a price list format.
+ */
 class MapPriceList implements EventDataMapperInterface
 {
+    /**
+     * @param __ $wpService
+     */
     public function __construct(private __ $wpService)
     {
     }
 
+    /**
+     * Maps the event data to a price list format.
+     */
     public function map(Event $event): array
     {
         $offers         = EnsureArrayOf::ensureArrayOf($event->getProperty('offers'), Offer::class);
@@ -50,6 +59,9 @@ class MapPriceList implements EventDataMapperInterface
         // Removed bare yield to avoid yielding unnecessary null.
     }
 
+    /**
+     * Formats the price information for display.
+     */
     private function formatPrice($minPrice, $maxPrice, $price, $currency): ?string
     {
         if ($minPrice !== null || $maxPrice !== null) {
@@ -66,6 +78,9 @@ class MapPriceList implements EventDataMapperInterface
         return null;
     }
 
+    /**
+     * Gets the currency symbol for a given currency code.
+     */
     private function getCurrencySymbol(string $currency): string
     {
         return match ($currency) {

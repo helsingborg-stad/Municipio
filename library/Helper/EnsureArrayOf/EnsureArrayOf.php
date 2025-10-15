@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper\EnsureArrayOf;
 
+/**
+ * Helper class to ensure a value is an array of a specific object type.
+ */
 class EnsureArrayOf
 {
     /**
