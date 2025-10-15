@@ -3,6 +3,8 @@
 namespace Municipio\ImageFocus\Resolvers;
 
 use Astrotomic\DeepFace\DeepFace;
+use Astrotomic\DeepFace\Enums\Detector;
+use Error;
 use Municipio\ImageFocus\Resolvers\FocusPointResolverInterface;
 
 /**
@@ -32,8 +34,7 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
         try {
-            // DeepFace::analyze runs the python command and returns decoded JSON
-            $faces = $this->deepFace->extractFaces($filePath);
+            $faces = $this->deepFace->extractFaces($filePath, enforce_detection: true);
 
             if (empty($faces)) {
                 return null;
@@ -41,6 +42,8 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
 
             $xs = [];
             $ys = [];
+
+error_log(print_r($faces, true));
 
             foreach ($faces as $face) {
                 if (!isset($face->facial_area) || !is_object($face->facial_area)) {
@@ -67,13 +70,16 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
             $x = array_sum($xs) / count($xs);
             $y = array_sum($ys) / count($ys);
 
+            // Success
+            error_log('[ImageFocus][FaceDetectingFocusPointResolver]: Successfully resolved focus point.');
+
             return [
                 'left' => ($x / $width) * 100,
                 'top'  => ($y / $height) * 100,
             ];
 
         } catch (\Throwable $e) {
-            error_log('[ImageFocus][DeepFace]: ' . $e->getMessage());
+            error_log('[ImageFocus][FaceDetectingFocusPointResolver]: ' . $e->getMessage());
             return null;
         }
     }

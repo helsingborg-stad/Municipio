@@ -22,7 +22,12 @@ class MostBusyAreaFocusPointResolver implements FocusPointResolverInterface
             return null;
         }
 
-        return $this->pixelToPercent($focusPoint, $width, $height);
+        $result = $this->pixelToPercent($focusPoint, $width, $height);
+
+        // Success
+        error_log('[ImageFocus][MostBusyAreaFocusPointResolver]: Successfully resolved focus point.');
+
+        return $result;
     }
 
     private function pixelToPercent(Point $focusPoint, int $width, int $height): array
