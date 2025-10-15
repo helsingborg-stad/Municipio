@@ -51,7 +51,7 @@ class MapPriceList implements EventDataMapperInterface
 
     private function formatPrice($minPrice, $maxPrice, $price, $currency): ?string
     {
-        if (!empty($minPrice) || !empty($maxPrice)) {
+        if ($minPrice !== null || $maxPrice !== null) {
             if ($minPrice === $maxPrice) {
                 return "{$minPrice} {$currency}";
             }
