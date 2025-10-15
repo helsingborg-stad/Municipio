@@ -35,6 +35,15 @@ use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
+use Municipio\ImageFocus\ImageFocusManager;
+use Municipio\ImageFocus\Hooks\ImageFocusHooks;
+use Municipio\ImageFocus\Storage\FocusPointStorage;
+use Municipio\ImageFocus\Resolver\{
+    ManualFocusPointResolver,
+    FocalPointDetectorResolver,
+    ChainFocusPointResolver
+};
+
 /**
  * Class App
  * @package Municipio
@@ -346,6 +355,11 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
+
+        /**
+         * Setup image focus
+         */
+        $this->setupImageFocus();
 
         /**
          * Component Context filters
@@ -823,20 +837,25 @@ class App
      */
     public function setupImageFocus(): void
     {
-        if (class_exists('Imagick') === false) {
-            echo 'Imagick is not installed.';
-            return;
-        }
+        $focusStorage   = new FocusPointStorage($this->wpService);
+        $detector       = new \FreshleafMedia\Autofocus\FocalPointDetector();
 
-        if (class_exists('\FreshleafMedia\Autofocus\FocalPointDetector') === false) {
-            echo 'FreshleafMedia/Autofocus is not installed.';
-            return;
-        }
+        // Create resolvers
+        $manualResolver     = new ManualFocusPointResolver($focusStorage);
+        $detectorResolver   = new FocalPointDetectorResolver($detector);
 
-        $focalPointDetector = new \FreshleafMedia\Autofocus\FocalPointDetector();
+        // Chain handler
+        $chainResolver = new ChainFocusPointResolver(
+            $manualResolver,
+            $detectorResolver
+        );
 
-        $imageFocus = new \Municipio\ImageFocus\ImageFocus($this->wpService, $focalPointDetector);
-        $imageFocus->addHooks();
+        // Manager
+        $imageFocusManager = new ImageFocusManager($this->wpService, $focusStorage, $chainResolver);
+
+        // Hooks
+        $hooks = new ImageFocusHooks($this->wpService, $imageFocusManager);
+        $hooks->addHooks();
     }
 
     /**
