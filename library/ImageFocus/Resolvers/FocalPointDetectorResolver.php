@@ -2,12 +2,11 @@
 
 namespace Municipio\ImageFocus\Resolvers;
 
-use Municipio\ImageFocus\Detector\FocalPointDetectorInterface;
 use Imagick;
 
 class FocalPointDetectorResolver implements FocusPointResolverInterface
 {
-    public function __construct(private FocalPointDetectorInterface $detector) {}
+    public function __construct(private $detector) {}
 
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {

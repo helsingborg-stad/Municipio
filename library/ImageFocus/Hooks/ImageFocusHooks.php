@@ -17,6 +17,7 @@ class ImageFocusHooks implements Hookable
 
     public function handle($metadata, $attachmentId, $context)
     {
-        return $this->manager->calculate($attachmentId, $metadata, $context);
-    }
+        $this->manager->calculate($attachmentId, $metadata, $context);
+        return $metadata;
+      }
 }

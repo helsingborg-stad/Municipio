@@ -838,16 +838,17 @@ class App
     public function setupImageFocus(): void
     {
         $focusStorage   = new FocusPointStorage($this->wpService);
-        $detector       = new \FreshleafMedia\Autofocus\FocalPointDetector();
 
         // Create resolvers
         $manualResolver     = new ManualFocusPointResolver($focusStorage);
-        //$detectorResolver   = new FocalPointDetectorResolver($detector);
+        $detectorResolver   = new FocalPointDetectorResolver(
+            new \FreshleafMedia\Autofocus\FocalPointDetector()
+        );
 
         // Chain handler
         $chainResolver = new ChainFocusPointResolver(
             $manualResolver,
- //           $detectorResolver
+            $detectorResolver
         );
 
         // Manager
