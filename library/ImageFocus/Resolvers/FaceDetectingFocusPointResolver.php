@@ -36,6 +36,13 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
 
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
+        $tmpFile    = $this->createTmpFile($filePath);
+        if($tmpFile === null) {
+            return null;
+        }
+        $isTemp     = $tmpFile !== $filePath;
+        $filePath   = $isTemp ? $tmpFile : $filePath;
+
         try {
             $faces = $this->deepFace->extractFaces($filePath);
 
@@ -81,6 +88,48 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
         } catch (\Throwable $e) {
             error_log('[ImageFocus][FaceDetectingFocusPointResolver]: ' . $e->getMessage());
             return null;
+        } finally {
+            if ($isTemp && file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
+    }
+
+    /**
+     * If the file path is an S3 URI, download it to a temporary file and return the local path.
+     * Otherwise, return the original path.
+     *
+     * @param string $filePath
+     * @return string|null Local file path or null on failure
+     */
+    private function createTmpFile(string $filePath): ?string
+    {
+        if (str_starts_with($filePath, 's3://')) {
+            $tempFile = tempnam(sys_get_temp_dir(), 'imgfocus_');
+            if ($tempFile === false) {
+                error_log('[ImageFocus][FaceDetectingFocusPointResolver]: Failed to create temp file.');
+                return null;
+            }
+
+            $stream = fopen($filePath, 'rb');
+            if ($stream === false) {
+                error_log('[ImageFocus][FaceDetectingFocusPointResolver]: Failed to open S3 stream.');
+                unlink($tempFile);
+                return null;
+            }
+
+            $bytesWritten = file_put_contents($tempFile, stream_get_contents($stream));
+            fclose($stream);
+
+            if ($bytesWritten === false) {
+                error_log('[ImageFocus][FaceDetectingFocusPointResolver]: Failed to write S3 file to temp file.');
+                unlink($tempFile);
+                return null;
+            }
+
+            return $tempFile;
+        }
+
+        return $filePath;
     }
 }
