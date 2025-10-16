@@ -19,7 +19,6 @@ class SingularPreschool extends \Municipio\Controller\Singular
         foreach (
             [
             'preamble'                   => new School\PreambleGenerator($schema),
-            'getFeaturedImageAttributes' => new School\FeaturedImageAttributesGenerator($schema),
             'visitUs'                    => new School\Preschool\VisitUsGenerator($schema, $this->wpService),
             'accordionListItems'         => new School\Preschool\AccordionListItemsGenerator($schema, $this->wpService),
             'sliderItems'                => new School\SliderItemsGenerator($schema),

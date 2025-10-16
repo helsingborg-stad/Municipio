@@ -12,9 +12,13 @@
             {!! $preamble !!}
         @endelement
         
-        @if(!empty($getFeaturedImageAttributes))
-            @image([ ...$getFeaturedImageAttributes, 'fullWidth' => true, ])
-            @endimage
+        @if(!empty($sliderItems))
+            @slider(['repeatSlide' => true, 'autoSlide' => false,'padding' => 11, 'showStepper' => false])
+                @foreach($sliderItems as $sliderItem)
+                    @slider__item($sliderItem)
+                    @endslider__item
+                @endforeach
+            @endslider
         @endif
 
         @if ($usps)
@@ -102,15 +106,6 @@
         @if(!empty($accordionListItems))
             @accordion(['list' => $accordionListItems, 'spacedSections' => true])
             @endaccordion
-        @endif
-
-        @if(!empty($sliderItems))
-            @slider(['repeatSlide' => true, 'autoSlide' => false,'padding' => 11, 'showStepper' => false])
-                @foreach($sliderItems as $sliderItem)
-                    @slider__item($sliderItem)
-                    @endslider__item
-                @endforeach
-            @endslider
         @endif
 
         @if(!empty($contactPoints))
