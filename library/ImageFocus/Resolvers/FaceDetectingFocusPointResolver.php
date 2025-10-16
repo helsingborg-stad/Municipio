@@ -37,7 +37,7 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
     public function resolve(string $filePath, int $width, int $height, ?int $attachmentId = null): ?array
     {
         try {
-            $faces = $this->deepFace->extractFaces($filePath, enforce_detection: true);
+            $faces = $this->deepFace->extractFaces($filePath);
 
             if (empty($faces)) {
                 return null;
@@ -72,8 +72,7 @@ class FaceDetectingFocusPointResolver implements FocusPointResolverInterface
             $y = array_sum($ys) / count($ys);
 
             // Success
-            error_log('[ImageFocus][FaceDetectingFocusPointResolver]: Successfully resolved focus point.');
-
+            error_log('[ImageFocus][FaceDetectingFocusPointResolver]: Detected ' . count($faces) . ' face(s).');
             return [
                 'left' => ($x / $width) * 100,
                 'top'  => ($y / $height) * 100,
