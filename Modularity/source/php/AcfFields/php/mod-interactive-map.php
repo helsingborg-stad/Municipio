@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_67a6218f4b8a6',
-    'title'                 => __('Interactive Map', 'modularity'),
+    'title'                 => __('Interactive Map', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'                => 'field_67dd6e61f1d7d',
-           'label'              => __('Size', 'modularity'),
+           'label'              => __('Size', 'municipio'),
            'name'               => 'mod_interactive_map_size',
            'aria-label'         => '',
            'type'               => 'select',
@@ -20,11 +20,11 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'choices'            => array(
-               'small'  => __('Small', 'modularity'),
-               'medium' => __('Medium', 'modularity'),
-               'large'  => __('Large', 'modularity'),
+               'small'  => __('Small', 'municipio'),
+               'medium' => __('Medium', 'municipio'),
+               'large'  => __('Large', 'municipio'),
            ),
-           'default_value'      => __('medium', 'modularity'),
+           'default_value'      => __('medium', 'municipio'),
            'return_format'      => 'value',
            'multiple'           => 0,
            'allow_null'         => 0,
@@ -37,7 +37,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        1 => array(
            'key'               => 'field_67b44cbc181c6',
-           'label'             => __('Interactive Map', 'modularity'),
+           'label'             => __('Interactive Map', 'municipio'),
            'name'              => 'interactive-map',
            'aria-label'        => '',
            'type'              => 'openstreetmap',

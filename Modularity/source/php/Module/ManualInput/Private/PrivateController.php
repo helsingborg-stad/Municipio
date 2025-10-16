@@ -46,14 +46,14 @@ class PrivateController
         $data['privateModuleMetaKey'] = $this->getPrivateMetaKey($fields);
 
         $data['lang'] = [
-            'save'          => __('Save', 'modularity'),
-            'cancel'        => __('Cancel', 'modularity'),
-            'description'   => __('Description', 'modularity'),
-            'name'          => __('Name', 'modularity'),
-            'saving'        => __('Saving', 'modularity'),
-            'obligatory'    => __('This item is obligatory', 'modularity'),
-            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'modularity'),
-            'changeContent' => __('Change the lists content', 'modularity'),
+            'save'          => __('Save', 'municipio'),
+            'cancel'        => __('Cancel', 'municipio'),
+            'description'   => __('Description', 'municipio'),
+            'name'          => __('Name', 'municipio'),
+            'saving'        => __('Saving', 'municipio'),
+            'obligatory'    => __('This item is obligatory', 'municipio'),
+            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'municipio'),
+            'changeContent' => __('Change the lists content', 'municipio'),
         ];
 
         $data['filteredManualInputs'] = $this->getUserStructuredManualInputs($data, $user->ID);

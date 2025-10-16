@@ -3,16 +3,16 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_58ecb6b6330f4',
-    'title'                 => __('Sites', 'modularity'),
+    'title'                 => __('Sites', 'municipio'),
     'fields'                => array(
        0 => array(
            'default_value'     => 0,
-           'message'           => __(__('Include main site', 'modularity'), 'modularity'),
+           'message'           => __(__('Include main site', 'municipio'), 'modularity'),
            'ui'                => 0,
            'ui_on_text'        => '',
            'ui_off_text'       => '',
            'key'               => 'field_58ecb6bc4fcce',
-           'label'             => __(__('Include main site', 'modularity'), 'modularity'),
+           'label'             => __(__('Include main site', 'municipio'), 'modularity'),
            'name'              => 'include_main_site',
            'type'              => 'true_false',
            'instructions'      => '',

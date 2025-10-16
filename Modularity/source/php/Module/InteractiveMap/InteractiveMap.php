@@ -19,9 +19,9 @@ class InteractiveMap extends \Modularity\Module
     {
         $this->wpService = WpService::get();
 
-        $this->nameSingular = $this->wpService->__('Interactive map', 'modularity');
-        $this->namePlural   = $this->wpService->__('Interactive maps', 'modularity');
-        $this->description  = $this->wpService->__('Outputs an interactive map', 'modularity');
+        $this->nameSingular = $this->wpService->__('Interactive map', 'municipio');
+        $this->namePlural   = $this->wpService->__('Interactive maps', 'municipio');
+        $this->description  = $this->wpService->__('Outputs an interactive map', 'municipio');
 
         add_filter('WpSecurity/Csp', array($this, 'csp'), 10, 1);
         add_filter('Modularity/Block/acf/interactivemap/Data', array($this, 'blockData'), 50, 3);
@@ -166,10 +166,10 @@ class InteractiveMap extends \Modularity\Module
         }
 
         $lang = [
-            'no-filter'   => $this->wpService->__('No taxonomy filter', 'modularity'),
-            'filter'      => $this->wpService->__('Filter', 'modularity'),
-            'closeFilter' => $this->wpService->__('Close filtering panel', 'modularity'),
-            'closeMarker' => $this->wpService->__('Close marker info', 'modularity')
+            'no-filter'   => $this->wpService->__('No taxonomy filter', 'municipio'),
+            'filter'      => $this->wpService->__('Filter', 'municipio'),
+            'closeFilter' => $this->wpService->__('Close filtering panel', 'municipio'),
+            'closeMarker' => $this->wpService->__('Close marker info', 'municipio')
         ];
 
         return $lang;

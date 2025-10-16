@@ -164,13 +164,13 @@ class Markdown extends \Modularity\Module
     private function getLanguage(): object
     {
         return (object) [
-            'sourceUrl'         =>  __('Source Url', 'modularity'),
-            'nextUpdate'        => __('Next update', 'modularity'),
-            'lastUpdated'       => __('Last updated', 'modularity'),
-            'fetchError'        => __('We could not fetch any content at this moment. Please try again later.', 'modularity'),
-            'parseError'        => __('The url provided could not be parsed by any of the allowed providers.', 'modularity'),
-            'tableProviderHead' => __('Provider', 'modularity'),
-            'tableExampleHead'  => __('Example', 'modularity'),
+            'sourceUrl'         =>  __('Source Url', 'municipio'),
+            'nextUpdate'        => __('Next update', 'municipio'),
+            'lastUpdated'       => __('Last updated', 'municipio'),
+            'fetchError'        => __('We could not fetch any content at this moment. Please try again later.', 'municipio'),
+            'parseError'        => __('The url provided could not be parsed by any of the allowed providers.', 'municipio'),
+            'tableProviderHead' => __('Provider', 'municipio'),
+            'tableExampleHead'  => __('Example', 'municipio'),
         ];
     }
 
@@ -232,7 +232,7 @@ class Markdown extends \Modularity\Module
             }
             return $converter->convert($markdown)->getContent();
         } catch (\Exception $e) {
-            return new \WP_Error('parse_error', __('The url provided could not be parsed as markdown.', 'modularity'));
+            return new \WP_Error('parse_error', __('The url provided could not be parsed as markdown.', 'municipio'));
         }
     }
 
@@ -291,7 +291,7 @@ class Markdown extends \Modularity\Module
             if ($responseCode !== 200) {
                 return new \WP_Error('fetch_error', __('We could not fetch any content at this moment. Please try again later. Response Code ' . ($responseCode), 'modularity'));
             }
-            return new \WP_Error('fetch_error', __('We could not fetch any content at this moment. Please try again later.', 'modularity'));
+            return new \WP_Error('fetch_error', __('We could not fetch any content at this moment. Please try again later.', 'municipio'));
         }
 
         if ($data = wp_remote_retrieve_body($response)) {

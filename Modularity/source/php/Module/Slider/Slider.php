@@ -69,11 +69,11 @@ class Slider extends \Modularity\Module
         $data['title']         = isset($fields['post_title']) ? $fields['post_title'] : '';
         $data['slidesPerPage'] = isset($fields['slides_per_page']) ? $fields['slides_per_page'] : '1';
         $data['ariaLabels']    =  (object) [
-            'prev'   => __('Previous slide', 'modularity'),
-            'next'   => __('Next slide', 'modularity'),
-            'first'  => __('Go to first slide', 'modularity'),
-            'last'   => __('Go to last slide', 'modularity'),
-            'slideX' => __('Go to slide %s', 'modularity'),
+            'prev'   => __('Previous slide', 'municipio'),
+            'next'   => __('Next slide', 'municipio'),
+            'first'  => __('Go to first slide', 'municipio'),
+            'last'   => __('Go to last slide', 'municipio'),
+            'slideX' => __('Go to slide %s', 'municipio'),
         ];
 
         $imageSize = isset($this->imageSizes[$fields['slider_format']]) ?
@@ -91,8 +91,8 @@ class Slider extends \Modularity\Module
 
         //Translations
         $data['lang'] = (object) [
-            'noSlidesHeading' => __('Slider is empty', 'modularity'),
-            'noSlides'        => __('Please add something to slide.', 'modularity')
+            'noSlidesHeading' => __('Slider is empty', 'municipio'),
+            'noSlides'        => __('Please add something to slide.', 'municipio')
         ];
 
         return $data;
@@ -221,7 +221,7 @@ class Slider extends \Modularity\Module
 
         // Set link text
         if (empty($slide['link_text'])) {
-            $slide['link_text'] = __('Read more', 'modularity');
+            $slide['link_text'] = __('Read more', 'municipio');
         }
 
         $slide['call_to_action'] = false;

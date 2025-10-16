@@ -13,9 +13,9 @@ class Breadcrumbs extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Breadcrumbs', 'modularity');
-        $this->namePlural   = __('Breadcrumbs', 'modularity');
-        $this->description  = __('Outputs the navigational breadcrumb trail to the current page.', 'modularity');
+        $this->nameSingular = __('Breadcrumbs', 'municipio');
+        $this->namePlural   = __('Breadcrumbs', 'municipio');
+        $this->description  = __('Outputs the navigational breadcrumb trail to the current page.', 'municipio');
 
         add_filter('Municipio/Breadcrumbs/Items', array( $this, 'unsetMunicipioBreadcrumbs' ), 1, 3);
         add_filter('Municipio/Accessibility/Items', array( $this, 'unsetMunicipioAccessibilityItems' ));

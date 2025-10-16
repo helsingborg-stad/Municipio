@@ -89,7 +89,7 @@ class AddMetaToExpandableList
         if (!empty($fields)) {
             add_meta_box(
                 'modularity-mod-posts-expandable-list',
-                __('Modularity expandable list column values', 'modularity'),
+                __('Modularity expandable list column values', 'municipio'),
                 [$this, 'columnFieldsMetaBoxContent'],
                 null,
                 'normal',

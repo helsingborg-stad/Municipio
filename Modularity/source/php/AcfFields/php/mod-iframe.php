@@ -3,14 +3,14 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_56c47016ea9d5',
-    'title'                 => __('Iframe settings', 'modularity'),
+    'title'                 => __('Iframe settings', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_56c4701d32cb4',
-           'label'             => __('Iframe URL', 'modularity'),
+           'label'             => __('Iframe URL', 'municipio'),
            'name'              => 'iframe_url',
            'type'              => 'url',
-           'instructions'      => __('<span style="color: #f00;">Your iframe link must start with http<strong>s</strong>://. Links without this prefix will not display.</span>', 'modularity'),
+           'instructions'      => __('<span style="color: #f00;">Your iframe link must start with http<strong>s</strong>://. Links without this prefix will not display.</span>', 'municipio'),
            'required'          => 0,
            'conditional_logic' => 0,
            'wrapper'           => array(
@@ -19,11 +19,11 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'default_value'     => '',
-           'placeholder'       => __('Enter your embed url', 'modularity'),
+           'placeholder'       => __('Enter your embed url', 'municipio'),
        ),
        1 => array(
            'key'               => 'field_56c4704f32cb5',
-           'label'             => __('Iframe height', 'modularity'),
+           'label'             => __('Iframe height', 'municipio'),
            'name'              => 'iframe_height',
            'type'              => 'number',
            'instructions'      => '',
@@ -40,16 +40,16 @@ if (function_exists('acf_add_local_field_group')) {
            'step'              => 10,
            'placeholder'       => '',
            'prepend'           => '',
-           'append'            => __('pixels', 'modularity'),
+           'append'            => __('pixels', 'municipio'),
            'readonly'          => 0,
            'disabled'          => 0,
        ),
        2 => array(
            'key'               => 'field_60d9ccff3a64e',
-           'label'             => __('Description', 'modularity'),
+           'label'             => __('Description', 'municipio'),
            'name'              => 'iframe_description',
            'type'              => 'text',
-           'instructions'      => __('Describe the contents of this Iframe (not shown).', 'modularity'),
+           'instructions'      => __('Describe the contents of this Iframe (not shown).', 'municipio'),
            'required'          => 1,
            'conditional_logic' => 0,
            'wrapper'           => array(

@@ -10,8 +10,8 @@ class WpWidget extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Wordpress Widgets', 'modularity');
-        $this->namePlural   = __('Wordpress Widgets', 'modularity');
+        $this->nameSingular = __('Wordpress Widgets', 'municipio');
+        $this->namePlural   = __('Wordpress Widgets', 'municipio');
         $this->description  = __('Outputs a default widget in WordPress');
 
         // Add options to list of selectable widgets

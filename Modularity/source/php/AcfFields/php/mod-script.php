@@ -3,14 +3,14 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
         'key'                   => 'group_56a8b9eddfced',
-        'title'                 => __('Embed', 'modularity'),
+        'title'                 => __('Embed', 'municipio'),
         'fields'                => array(
             array(
                 'key'               => 'field_56a8b9f1902a6',
-                'label'             => __('Embed code', 'modularity'),
+                'label'             => __('Embed code', 'municipio'),
                 'name'              => 'embed_code',
                 'type'              => 'textarea',
-                'instructions'      => __('Paste your script code here (with &lt;style&gt; &lt;script&gt; tags if needed).', 'modularity'),
+                'instructions'      => __('Paste your script code here (with &lt;style&gt; &lt;script&gt; tags if needed).', 'municipio'),
                 'required'          => 1,
                 'conditional_logic' => 0,
                 'wrapper'           => array(
@@ -26,7 +26,7 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             array(
                 'key'               => 'field_62a05ea1e4147',
-                'label'             => __('Wrap with', 'modularity'),
+                'label'             => __('Wrap with', 'municipio'),
                 'name'              => 'script_wrap_with',
                 'type'              => 'radio',
                 'instructions'      => '',
@@ -38,8 +38,8 @@ if (function_exists('acf_add_local_field_group')) {
                     'id'    => '',
                 ),
                 'choices'           => array(
-                    'card'    => __('Card', 'modularity'),
-                    'nothing' => __('Nothing', 'modularity'),
+                    'card'    => __('Card', 'municipio'),
+                    'nothing' => __('Nothing', 'municipio'),
                 ),
                 'allow_null'        => 0,
                 'other_choice'      => 0,
@@ -50,10 +50,10 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             array(
                 'key'               => 'field_60097ea2942bb',
-                'label'             => __('Script embed padding', 'modularity'),
+                'label'             => __('Script embed padding', 'municipio'),
                 'name'              => 'embeded_card_padding',
                 'type'              => 'range',
-                'instructions'      => __('Add padding to script embed (default: 0, no padding)', 'modularity'),
+                'instructions'      => __('Add padding to script embed (default: 0, no padding)', 'municipio'),
                 'required'          => 0,
                 'conditional_logic' => 0,
                 'wrapper'           => array(
@@ -73,7 +73,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'label'             => 'Placeholder image',
                 'name'              => 'embedded_placeholder_image',
                 'type'              => 'image',
-                'instructions'      => __('Add a placeholder image to show where scripts cannot be rendered card', 'modularity'),
+                'instructions'      => __('Add a placeholder image to show where scripts cannot be rendered card', 'municipio'),
                 'required'          => 0,
                 'conditional_logic' => 0,
                 'wrapper'           => array(

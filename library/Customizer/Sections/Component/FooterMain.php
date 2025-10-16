@@ -95,9 +95,9 @@ class FooterMain
             'section'     => $sectionID,
             'default'     => 'align-left',
             'choices'     => array(
-                'align-left'   => __('Left', 'modularity'),
-                'align-center' => __('Center', 'modularity'),
-                'align-right'  => __('Right', 'modularity'),
+                'align-left'   => __('Left', 'municipio'),
+                'align-center' => __('Center', 'municipio'),
+                'align-right'  => __('Right', 'municipio'),
             ),
             'output'      => [
                 [
@@ -115,9 +115,9 @@ class FooterMain
             'section'         => $sectionID,
             'default'         => 'u-text-align--left',
             'choices'         => array(
-                'u-text-align--left'   => __('Left', 'modularity'),
-                'u-text-align--center' => __('Center', 'modularity'),
-                'u-text-align--right'  => __('Right', 'modularity'),
+                'u-text-align--left'   => __('Left', 'municipio'),
+                'u-text-align--center' => __('Center', 'municipio'),
+                'u-text-align--right'  => __('Right', 'municipio'),
             ),
             'active_callback' => [
                 [
@@ -142,9 +142,9 @@ class FooterMain
             'section'     => $sectionID,
             'default'     => 'u-text-align--left',
             'choices'     => array(
-                'u-text-align--left'   => __('Left', 'modularity'),
-                'u-text-align--center' => __('Center', 'modularity'),
-                'u-text-align--right'  => __('Right', 'modularity'),
+                'u-text-align--left'   => __('Left', 'municipio'),
+                'u-text-align--center' => __('Center', 'municipio'),
+                'u-text-align--right'  => __('Right', 'municipio'),
             ),
             'output'      => [
                 [

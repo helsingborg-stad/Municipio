@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_641c51b765f4b',
-    'title'                 => __('Email Subscribe', 'modularity'),
+    'title'                 => __('Email Subscribe', 'municipio'),
     'fields'                => array(
         0 => array(
             'key'                => 'field_641c51b7d5dff',
-            'label'              => __('Lead', 'modularity'),
+            'label'              => __('Lead', 'municipio'),
             'name'               => 'content',
             'type'               => 'textarea',
             'instructions'       => '',
@@ -27,7 +27,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         1 => array(
             'key'                => 'field_641c53ff5ed70',
-            'label'              => __('Consent message', 'modularity'),
+            'label'              => __('Consent message', 'municipio'),
             'name'               => 'consent_message',
             'type'               => 'textarea',
             'instructions'       => '',
@@ -38,7 +38,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id'    => '',
             ),
-            'default_value'      => __('I want to receive relevant information from this organization to my inbox. The information provided here will not be shared or sold. I can unsubscribe at any time.', 'modularity'),
+            'default_value'      => __('I want to receive relevant information from this organization to my inbox. The information provided here will not be shared or sold. I can unsubscribe at any time.', 'municipio'),
             'acfe_textarea_code' => 0,
             'maxlength'          => 400,
             'rows'               => 3,
@@ -47,10 +47,10 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         2 => array(
             'key'               => 'field_641c5206d0a1e',
-            'label'             => __('Service', 'modularity'),
+            'label'             => __('Service', 'municipio'),
             'name'              => 'service',
             'type'              => 'select',
-            'instructions'      => __('Select the email provider that you want to use for this subscription form. If your service of choise isen\'t selectable. It needs to be added by a developer.', 'modularity'),
+            'instructions'      => __('Select the email provider that you want to use for this subscription form. If your service of choise isen\'t selectable. It needs to be added by a developer.', 'municipio'),
             'required'          => 0,
             'conditional_logic' => 0,
             'wrapper'           => array(
@@ -59,7 +59,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'id'    => '',
             ),
             'choices'           => array(
-                'ungdp' => __('Ungapped (ungapped.se)', 'modularity'),
+                'ungdp' => __('Ungapped (ungapped.se)', 'municipio'),
             ),
             'default_value'     => false,
             'return_format'     => 'value',
@@ -71,7 +71,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         3 => array(
             'key'                 => 'field_641c527d5b8e0',
-            'label'               => __('Settings for Ungapped service', 'modularity'),
+            'label'               => __('Settings for Ungapped service', 'municipio'),
             'name'                => 'settings_for_ungapped_service',
             'type'                => 'group',
             'instructions'        => '',
@@ -96,7 +96,7 @@ if (function_exists('acf_add_local_field_group')) {
             'sub_fields'          => array(
                 0 => array(
                     'key'               => 'field_641c52955b8e1',
-                    'label'             => __('Account ID', 'modularity'),
+                    'label'             => __('Account ID', 'municipio'),
                     'name'              => 'account_id',
                     'type'              => 'text',
                     'instructions'      => '',
@@ -115,10 +115,10 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 1 => array(
                     'key'               => 'field_641c52955b8e2',
-                    'label'             => __('List IDs', 'modularity'),
+                    'label'             => __('List IDs', 'municipio'),
                     'name'              => 'list_ids',
                     'type'              => 'text',
-                    'instructions'      => __('Comma separated list of list IDs. One for each list you want to subscribe to.', 'modularity'),
+                    'instructions'      => __('Comma separated list of list IDs. One for each list you want to subscribe to.', 'municipio'),
                     'required'          => 1,
                     'conditional_logic' => 0,
                     'wrapper'           => array(
@@ -134,8 +134,8 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 2 => array(
                     'key'               => 'field_641c52125b8e2',
-                    'label'             => __('Confirmation E-mail ID', 'modularity'),
-                    'description'       => __('This is the e-mail that is sent to the subscriber to confirm their subscription.', 'modularity'),
+                    'label'             => __('Confirmation E-mail ID', 'municipio'),
+                    'description'       => __('This is the e-mail that is sent to the subscriber to confirm their subscription.', 'municipio'),
                     'name'              => 'double_opt_in_issue_id',
                     'type'              => 'text',
                     'required'          => 0,
@@ -153,8 +153,8 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 3 => array(
                     'key'               => 'field_641c52175b8e2',
-                    'label'             => __('Welcome E-mail ID', 'modularity'),
-                    'description'       => __('This is the e-mail that is sent to the subscriber when they have confirmed their subscription.', 'modularity'),
+                    'label'             => __('Welcome E-mail ID', 'municipio'),
+                    'description'       => __('This is the e-mail that is sent to the subscriber when they have confirmed their subscription.', 'municipio'),
                     'name'              => 'confirmation_issue_id',
                     'type'              => 'text',
                     'required'          => 0,
@@ -172,8 +172,8 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 4 => array(
                     'key'               => 'field_641c52135b8e2',
-                    'label'             => __('Subscription confirmed url', 'modularity'),
-                    'description'       => __('This is the url that the subscriber is redirected to when they have confirmed their subscription.', 'modularity'),
+                    'label'             => __('Subscription confirmed url', 'municipio'),
+                    'description'       => __('This is the url that the subscriber is redirected to when they have confirmed their subscription.', 'municipio'),
                     'name'              => 'subscription_confirmed_url',
                     'type'              => 'url',
                     'required'          => 0,
@@ -191,8 +191,8 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 5 => array(
                     'key'               => 'field_641c52145b8e2',
-                    'label'             => __('Subscription failed url', 'modularity'),
-                    'description'       => __('This is the url that the subscriber is redirected to when their subscription has failed.', 'modularity'),
+                    'label'             => __('Subscription failed url', 'municipio'),
+                    'description'       => __('This is the url that the subscriber is redirected to when their subscription has failed.', 'municipio'),
                     'name'              => 'subscription_failed_url',
                     'type'              => 'url',
                     'required'          => 0,

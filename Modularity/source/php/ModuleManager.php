@@ -185,15 +185,15 @@ class ModuleManager
             'menu_name'          => _x($class->namePlural, 'admin menu', 'modularity'),
             'name_admin_bar'     => _x($class->nameSingular, 'add new on admin bar', 'modularity'),
             'add_new'            => _x('Add New', 'add new button', 'modularity'),
-            'add_new_item'       => sprintf(__('Add new %s', 'modularity'), $class->nameSingular),
-            'new_item'           => sprintf(__('New %s', 'modularity'), $class->nameSingular),
-            'edit_item'          => sprintf(__('Edit %s', 'modularity'), $class->nameSingular),
-            'view_item'          => sprintf(__('View %s', 'modularity'), $class->nameSingular),
-            'all_items'          => sprintf(__('Edit %s', 'modularity'), $class->namePlural),
-            'search_items'       => sprintf(__('Search %s', 'modularity'), $class->namePlural),
-            'parent_item_colon'  => sprintf(__('Parent %s', 'modularity'), $class->namePlural),
-            'not_found'          => sprintf(__('No %s', 'modularity'), $class->namePlural),
-            'not_found_in_trash' => sprintf(__('No %s in trash', 'modularity'), $class->namePlural)
+            'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $class->nameSingular),
+            'new_item'           => sprintf(__('New %s', 'municipio'), $class->nameSingular),
+            'edit_item'          => sprintf(__('Edit %s', 'municipio'), $class->nameSingular),
+            'view_item'          => sprintf(__('View %s', 'municipio'), $class->nameSingular),
+            'all_items'          => sprintf(__('Edit %s', 'municipio'), $class->namePlural),
+            'search_items'       => sprintf(__('Search %s', 'municipio'), $class->namePlural),
+            'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $class->namePlural),
+            'not_found'          => sprintf(__('No %s', 'municipio'), $class->namePlural),
+            'not_found_in_trash' => sprintf(__('No %s in trash', 'municipio'), $class->namePlural)
         );
 
         // Set args
@@ -372,7 +372,7 @@ class ModuleManager
         echo '<div>
             <label style="cursor:pointer;">
             <input type="checkbox" name="modularity-module-hide-title" value="1" ' . $checked . '>
-                ' . __('Hide title', 'modularity') . '
+                ' . __('Hide title', 'municipio') . '
             </label>
         </div>';
     }
@@ -411,7 +411,7 @@ class ModuleManager
         add_meta_box('modularity-shortcode', 'Modularity Shortcode', function () {
             global $post;
             echo '<p>';
-            echo __('Copy and paste this shortcode to display the module inline.', 'modularity');
+            echo __('Copy and paste this shortcode to display the module inline.', 'municipio');
             echo '</p><p>';
             echo '<textarea style="margin-top:10px; overflow: hidden;width: 100%;height:30px;background:#f9f9f9;border:1px solid #ddd;padding:5px;">[modularity id="' . $post->ID . '"]</textarea>';
             echo '</p>';
@@ -439,11 +439,11 @@ class ModuleManager
 
         add_meta_box('modularity-usage', 'Module usage', function () use ($module, $usage) {
             if (count($usage) == 0) {
-                echo '<p>' . __('This modules is not used yet.', 'modularity')  . '</p>';
+                echo '<p>' . __('This modules is not used yet.', 'municipio')  . '</p>';
                 return;
             }
 
-            echo '<p>' . __('This module is used on the following places:', 'modularity') . '</p><p><ul class="modularity-usage-list">';
+            echo '<p>' . __('This module is used on the following places:', 'municipio') . '</p><p><ul class="modularity-usage-list">';
 
             foreach ($usage as $page) {
                 echo '<li><a href="' . get_permalink($page->post_id) . '">' . $page->post_title . '</a></li>';
@@ -485,7 +485,7 @@ class ModuleManager
 
         add_meta_box(
             'modularity-description',
-            __('Module description', 'modularity'),
+            __('Module description', 'municipio'),
             function () {
                 $description = get_post_meta(get_the_id(), 'module-description', true);
                 include MODULARITY_TEMPLATE_PATH . 'editor/modularity-module-description.php';
@@ -531,7 +531,7 @@ class ModuleManager
             'cb'          => '<input type="checkbox">',
             'title'       => __('Title'),
             'description' => __('Description'),
-            'usage'       => __('Usage', 'modularity'),
+            'usage'       => __('Usage', 'municipio'),
             'date'        => __('Date')
         );
 
@@ -556,7 +556,7 @@ class ModuleManager
                 $usage = self::getModuleUsage($postId, 3);
 
                 if (count($usage->data) == 0) {
-                    echo __('Not used', 'modularity');
+                    echo __('Not used', 'municipio');
                     break;
                 }
 
@@ -573,7 +573,7 @@ class ModuleManager
                 }
 
                 if ($usage->more > 0) {
-                    echo ' (' . $usage->more . ' ' . __('more', 'modularity') . ')';
+                    echo ' (' . $usage->more . ' ' . __('more', 'municipio') . ')';
                 }
 
                 break;
@@ -607,7 +607,7 @@ class ModuleManager
 
             if (strpos($screen->post_type, 'mod-') === 0 && $usage > 1) {
                 echo '<div class="notice notice-warning">';
-                echo '<p>' . __('<strong>Heads up:</strong> This module is used in several places', 'modularity') . '</p>';
+                echo '<p>' . __('<strong>Heads up:</strong> This module is used in several places', 'municipio') . '</p>';
                 echo '</div>';
             }
         }

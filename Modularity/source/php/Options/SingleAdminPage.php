@@ -42,8 +42,8 @@ class SingleAdminPage implements \Modularity\Options\AdminPageInterface
 
             add_submenu_page(
                 'edit.php' . $postTypeUrlParam,
-                __('Post type modules', 'modularity'),
-                __('Post type modules', 'modularity'),
+                __('Post type modules', 'municipio'),
+                __('Post type modules', 'municipio'),
                 'edit_posts',
                 $editorLink
             );

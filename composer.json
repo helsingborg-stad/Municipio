@@ -55,7 +55,7 @@
         "fix": "vendor/bin/phpcbf",
         "fix:changed": "vendor/bin/phpcbf-changed origin/main",
         "post-update-cmd": [],
-        "make-pot": "wp i18n make-pot library languages/municipio.pot --domain=municipio --allow-root",
+        "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,Modularity/source/php",
         "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
         "make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root"
     },

@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_602400d904b59',
-    'title'                 => __('Map', 'modularity'),
+    'title'                 => __('Map', 'municipio'),
     'fields'                => array(
        0  => array(
            'key'               => 'field_64ad64dacdb16',
-           'label'             => __('Map type', 'modularity'),
+           'label'             => __('Map type', 'municipio'),
            'name'              => 'map_type',
            'type'              => 'radio',
            'instructions'      => '',
@@ -19,10 +19,10 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'choices'           => array(
-               'default'       => __('Embedded', 'modularity'),
-               'openStreetMap' => __('Open Street Map', 'modularity'),
+               'default'       => __('Embedded', 'municipio'),
+               'openStreetMap' => __('Open Street Map', 'municipio'),
            ),
-           'default_value'     => __('default', 'modularity'),
+           'default_value'     => __('default', 'municipio'),
            'return_format'     => 'value',
            'allow_null'        => 0,
            'other_choice'      => 0,
@@ -31,10 +31,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        1  => array(
            'key'               => 'field_602400dda5195',
-           'label'             => __('Map URL', 'modularity'),
+           'label'             => __('Map URL', 'municipio'),
            'name'              => 'map_url',
            'type'              => 'url',
-           'instructions'      => __('<span style="color: #f00;">Din länk måste starta med http<strong>s</strong>:// för att kunna visas på webbplatsen.</span>', 'modularity'),
+           'instructions'      => __('<span style="color: #f00;">Din länk måste starta med http<strong>s</strong>:// för att kunna visas på webbplatsen.</span>', 'municipio'),
            'required'          => 1,
            'conditional_logic' => array(
                0 => array(
@@ -55,10 +55,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        2  => array(
            'key'                => 'field_602415a77f5da',
-           'label'              => __('Description', 'modularity'),
+           'label'              => __('Description', 'municipio'),
            'name'               => 'map_description',
            'type'               => 'textarea',
-           'instructions'       => __('Describe the contents of this map (not shown)', 'modularity'),
+           'instructions'       => __('Describe the contents of this map (not shown)', 'municipio'),
            'required'           => 1,
            'conditional_logic'  => array(
                0 => array(
@@ -83,10 +83,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        3  => array(
            'key'               => 'field_602401605c3f6',
-           'label'             => __('Miniumum Height', 'modularity'),
+           'label'             => __('Miniumum Height', 'municipio'),
            'name'              => 'height',
            'type'              => 'range',
-           'instructions'      => __('Set a minumum height', 'modularity'),
+           'instructions'      => __('Set a minumum height', 'municipio'),
            'required'          => 0,
            'conditional_logic' => 0,
            'wrapper'           => array(
@@ -99,11 +99,11 @@ if (function_exists('acf_add_local_field_group')) {
            'max'               => 720,
            'step'              => 16,
            'prepend'           => '',
-           'append'            => __('px', 'modularity'),
+           'append'            => __('px', 'municipio'),
        ),
        4  => array(
            'key'               => 'field_602459632b135',
-           'label'             => __('Show button', 'modularity'),
+           'label'             => __('Show button', 'municipio'),
            'name'              => 'show_button',
            'type'              => 'true_false',
            'instructions'      => '',
@@ -130,7 +130,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        5  => array(
            'key'               => 'field_602459d52b136',
-           'label'             => __('Button label', 'modularity'),
+           'label'             => __('Button label', 'municipio'),
            'name'              => 'button_label',
            'type'              => 'text',
            'instructions'      => '',
@@ -154,7 +154,7 @@ if (function_exists('acf_add_local_field_group')) {
                'class' => '',
                'id'    => '',
            ),
-           'default_value'     => __('Show large version', 'modularity'),
+           'default_value'     => __('Show large version', 'municipio'),
            'maxlength'         => '',
            'placeholder'       => '',
            'prepend'           => '',
@@ -162,7 +162,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        6  => array(
            'key'               => 'field_602459ee2b137',
-           'label'             => __('Button url', 'modularity'),
+           'label'             => __('Button url', 'municipio'),
            'name'              => 'button_url',
            'type'              => 'url',
            'instructions'      => '',
@@ -191,7 +191,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        7  => array(
            'key'               => 'field_60520ab40ffd7',
-           'label'             => __('Extra info', 'modularity'),
+           'label'             => __('Extra info', 'municipio'),
            'name'              => 'more_info_button',
            'type'              => 'true_false',
            'instructions'      => __('Do you want to add Extra info?
@@ -211,15 +211,15 @@ The information will be placed in a card on the right side of the map.', 'modula
                'class' => '',
                'id'    => '',
            ),
-           'message'           => __('The extra info card is disabled by default', 'modularity'),
+           'message'           => __('The extra info card is disabled by default', 'municipio'),
            'default_value'     => 0,
-           'ui_on_text'        => __('Enabled', 'modularity'),
-           'ui_off_text'       => __('Disabled', 'modularity'),
+           'ui_on_text'        => __('Enabled', 'municipio'),
+           'ui_off_text'       => __('Disabled', 'municipio'),
            'ui'                => 1,
        ),
        8  => array(
            'key'               => 'field_6052101f0ad06',
-           'label'             => __('Extra info title', 'modularity'),
+           'label'             => __('Extra info title', 'municipio'),
            'name'              => 'more_info_title',
            'type'              => 'text',
            'instructions'      => '',
@@ -251,10 +251,10 @@ The information will be placed in a card on the right side of the map.', 'modula
        ),
        9  => array(
            'key'               => 'field_6052087c0ffd6',
-           'label'             => __('Extra information', 'modularity'),
+           'label'             => __('Extra information', 'municipio'),
            'name'              => 'more_info',
            'type'              => 'wysiwyg',
-           'instructions'      => __('Add extra information such as opening hours or map location.', 'modularity'),
+           'instructions'      => __('Add extra information such as opening hours or map location.', 'municipio'),
            'required'          => 0,
            'conditional_logic' => array(
                0 => array(
@@ -283,10 +283,10 @@ The information will be placed in a card on the right side of the map.', 'modula
        ),
        10 => array(
            'key'               => 'field_64c77830c32aa',
-           'label'             => __('Start position', 'modularity'),
+           'label'             => __('Start position', 'municipio'),
            'name'              => 'osm_start_position',
            'type'              => 'google_map',
-           'instructions'      => __('Sets the start position of the map', 'modularity'),
+           'instructions'      => __('Sets the start position of the map', 'municipio'),
            'required'          => 1,
            'conditional_logic' => array(
                0 => array(
@@ -309,7 +309,7 @@ The information will be placed in a card on the right side of the map.', 'modula
        ),
        11 => array(
            'key'                           => 'field_64ad5fd710885',
-           'label'                         => __('Map markers', 'modularity'),
+           'label'                         => __('Map markers', 'municipio'),
            'name'                          => 'osm_markers',
            'type'                          => 'repeater',
            'instructions'                  => '',
@@ -334,12 +334,12 @@ The information will be placed in a card on the right side of the map.', 'modula
            'min'                           => 0,
            'max'                           => 0,
            'collapsed'                     => '',
-           'button_label'                  => __('Lägg till rad', 'modularity'),
+           'button_label'                  => __('Lägg till rad', 'municipio'),
            'rows_per_page'                 => 20,
            'sub_fields'                    => array(
                0 => array(
                    'key'               => 'field_64ad60190d5a5',
-                   'label'             => __('Title', 'modularity'),
+                   'label'             => __('Title', 'municipio'),
                    'name'              => 'title',
                    'type'              => 'text',
                    'instructions'      => '',
@@ -359,7 +359,7 @@ The information will be placed in a card on the right side of the map.', 'modula
                ),
                1 => array(
                    'key'                => 'field_64ad60b00d5a6',
-                   'label'              => __('Description', 'modularity'),
+                   'label'              => __('Description', 'municipio'),
                    'name'               => 'description',
                    'type'               => 'textarea',
                    'instructions'       => '',
@@ -380,7 +380,7 @@ The information will be placed in a card on the right side of the map.', 'modula
                ),
                2 => array(
                    'key'               => 'field_64ad60ed0d5a8',
-                   'label'             => __('Link text', 'modularity'),
+                   'label'             => __('Link text', 'municipio'),
                    'name'              => 'link_text',
                    'type'              => 'text',
                    'instructions'      => '',
@@ -400,7 +400,7 @@ The information will be placed in a card on the right side of the map.', 'modula
                ),
                3 => array(
                    'key'               => 'field_64ad60bd0d5a7',
-                   'label'             => __('Url', 'modularity'),
+                   'label'             => __('Url', 'municipio'),
                    'name'              => 'url',
                    'type'              => 'url',
                    'instructions'      => '',
@@ -417,7 +417,7 @@ The information will be placed in a card on the right side of the map.', 'modula
                ),
                4 => array(
                    'key'               => 'field_64ad61220d5a9',
-                   'label'             => __('Position', 'modularity'),
+                   'label'             => __('Position', 'municipio'),
                    'name'              => 'position',
                    'type'              => 'google_map',
                    'instructions'      => '',

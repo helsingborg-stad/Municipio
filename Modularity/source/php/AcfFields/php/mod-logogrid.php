@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_61bc951d73494',
-    'title'                 => __('Logotype grid', 'modularity'),
+    'title'                 => __('Logotype grid', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_61bc9525fdb75',
-           'label'             => __('Add some brands', 'modularity'),
+           'label'             => __('Add some brands', 'municipio'),
            'name'              => 'mod_logogrid',
            'type'              => 'repeater',
            'instructions'      => '',
@@ -22,11 +22,11 @@ if (function_exists('acf_add_local_field_group')) {
            'min'               => 2,
            'max'               => 99,
            'layout'            => 'table',
-           'button_label'      => __('Add new logotype', 'modularity'),
+           'button_label'      => __('Add new logotype', 'municipio'),
            'sub_fields'        => array(
                0 => array(
                    'key'               => 'field_61bc955cfdb77',
-                   'label'             => __('Image/logotype', 'modularity'),
+                   'label'             => __('Image/logotype', 'municipio'),
                    'name'              => 'mod_logogrid_image',
                    'type'              => 'image',
                    'instructions'      => '',
@@ -50,7 +50,7 @@ if (function_exists('acf_add_local_field_group')) {
                ),
                1 => array(
                    'key'               => 'field_61bc9533fdb76',
-                   'label'             => __('Name', 'modularity'),
+                   'label'             => __('Name', 'municipio'),
                    'name'              => 'mod_logogrid_name',
                    'type'              => 'text',
                    'instructions'      => '',
@@ -69,7 +69,7 @@ if (function_exists('acf_add_local_field_group')) {
                ),
                2 => array(
                    'key'               => 'field_61bc958ffdb78',
-                   'label'             => __('Link', 'modularity'),
+                   'label'             => __('Link', 'municipio'),
                    'name'              => 'mod_logogrid_link',
                    'type'              => 'url',
                    'instructions'      => '',

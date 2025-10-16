@@ -3,14 +3,14 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_609b788ad04bb',
-    'title'                 => __('Curator Social Media', 'modularity'),
+    'title'                 => __('Curator Social Media', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_609b7d2ba3004',
-           'label'             => __('Number of posts', 'modularity'),
+           'label'             => __('Number of posts', 'municipio'),
            'name'              => 'number_of_posts',
            'type'              => 'number',
-           'instructions'      => __('Set the number items to show.', 'modularity'),
+           'instructions'      => __('Set the number items to show.', 'municipio'),
            'required'          => 0,
            'conditional_logic' => 0,
            'wrapper'           => array(
@@ -29,7 +29,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        1 => array(
            'key'                => 'field_63edf811d3a68',
-           'label'              => __('Layout', 'modularity'),
+           'label'              => __('Layout', 'municipio'),
            'name'               => 'layout',
            'type'               => 'select',
            'instructions'       => '',
@@ -42,10 +42,10 @@ if (function_exists('acf_add_local_field_group')) {
            ),
            'aria-label'         => '',
            'choices'            => array(
-               'card'  => __('Card', 'modularity'),
-               'block' => __('Block', 'modularity'),
+               'card'  => __('Card', 'municipio'),
+               'block' => __('Block', 'municipio'),
            ),
-           'default_value'      => __('card', 'modularity'),
+           'default_value'      => __('card', 'municipio'),
            'return_format'      => 'value',
            'multiple'           => 0,
            'allow_null'         => 0,
@@ -57,7 +57,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        2 => array(
            'key'                => 'field_63ee10add6ed6',
-           'label'              => __('Columns', 'modularity'),
+           'label'              => __('Columns', 'municipio'),
            'name'               => 'columns',
            'type'               => 'select',
            'instructions'       => '',
@@ -70,8 +70,8 @@ if (function_exists('acf_add_local_field_group')) {
            ),
            'aria-label'         => '',
            'choices'            => array(
-               3 => __('3', 'modularity'),
-               4 => __('4', 'modularity'),
+               3 => __('3', 'municipio'),
+               4 => __('4', 'municipio'),
            ),
            'default_value'      => false,
            'return_format'      => 'value',
@@ -85,7 +85,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        3 => array(
            'key'               => 'field_63ff2bc5ce2c6',
-           'label'             => __('Grid gutter', 'modularity'),
+           'label'             => __('Grid gutter', 'municipio'),
            'name'              => 'gutter',
            'type'              => 'true_false',
            'instructions'      => '',
@@ -105,7 +105,7 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'aria-label'        => '',
-           'message'           => __('No space between the posts in the grid', 'modularity'),
+           'message'           => __('No space between the posts in the grid', 'municipio'),
            'default_value'     => 0,
            'ui'                => 0,
            'ui_on_text'        => '',
@@ -113,7 +113,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        4 => array(
            'key'                => 'field_63ee0a94197d1',
-           'label'              => __('Ratio', 'modularity'),
+           'label'              => __('Ratio', 'municipio'),
            'name'               => 'ratio',
            'type'               => 'select',
            'instructions'       => '',
@@ -134,11 +134,11 @@ if (function_exists('acf_add_local_field_group')) {
            ),
            'aria-label'         => '',
            'choices'            => array(
-               '1:1'  => __('1:1', 'modularity'),
-               '4:3'  => __('4:3', 'modularity'),
-               '12:6' => __('12:6', 'modularity'),
+               '1:1'  => __('1:1', 'municipio'),
+               '4:3'  => __('4:3', 'municipio'),
+               '12:6' => __('12:6', 'municipio'),
            ),
-           'default_value'      => __('1:1', 'modularity'),
+           'default_value'      => __('1:1', 'municipio'),
            'return_format'      => 'value',
            'multiple'           => 0,
            'allow_null'         => 0,
@@ -150,10 +150,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        5 => array(
            'key'                => 'field_609b7894869ce',
-           'label'              => __('Embed Code', 'modularity'),
+           'label'              => __('Embed Code', 'municipio'),
            'name'               => 'embed_code',
            'type'               => 'textarea',
-           'instructions'       => __('Add your curator embed code here. Thios should be the full javascript. Appeance settings in the javascript configurator will not apply.', 'modularity'),
+           'instructions'       => __('Add your curator embed code here. Thios should be the full javascript. Appeance settings in the javascript configurator will not apply.', 'municipio'),
            'required'           => 0,
            'conditional_logic'  => 0,
            'wrapper'            => array(
@@ -171,7 +171,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        6 => array(
            'key'               => 'field_609baae15568c',
-           'label'             => __('Usage of the curator social media integration', 'modularity'),
+           'label'             => __('Usage of the curator social media integration', 'municipio'),
            'name'              => '',
            'type'              => 'message',
            'instructions'      => '',
@@ -197,7 +197,7 @@ To integrate a feed, head over to <a href="https://curator.io" target="_blank">c
        ),
        7 => array(
            'key'               => 'field_643fcdc3b8269',
-           'label'             => __('Show powered by', 'modularity'),
+           'label'             => __('Show powered by', 'municipio'),
            'name'              => 'show_powered_by',
            'type'              => 'true_false',
            'instructions'      => '',
@@ -208,7 +208,7 @@ To integrate a feed, head over to <a href="https://curator.io" target="_blank">c
                'class' => '',
                'id'    => '',
            ),
-           'message'           => __('Uncheck to disable the powered by link. It is required to display this link, if free version is used.', 'modularity'),
+           'message'           => __('Uncheck to disable the powered by link. It is required to display this link, if free version is used.', 'municipio'),
            'default_value'     => 1,
            'ui'                => 0,
            'ui_on_text'        => '',

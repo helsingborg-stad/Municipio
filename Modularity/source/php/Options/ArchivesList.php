@@ -7,22 +7,22 @@ class ArchivesList extends \WP_List_Table
     public function __construct()
     {
         parent::__construct(array(
-            'singular' => __('Archive', 'modularity'),
-            'plural'   => __('Archives', 'modularity'),
+            'singular' => __('Archive', 'municipio'),
+            'plural'   => __('Archives', 'municipio'),
             'ajax'     => false
         ));
     }
 
     public function no_items()
     {
-        echo __('There\'s no archives to display', 'modularity');
+        echo __('There\'s no archives to display', 'municipio');
     }
 
     public function get_columns()
     {
         return array(
-            'archive'     => __('Post Type Archive', 'modularity'),
-            'has_modules' => __('Has modules', 'modularity')
+            'archive'     => __('Post Type Archive', 'municipio'),
+            'has_modules' => __('Has modules', 'municipio')
         );
     }
 
@@ -57,7 +57,7 @@ class ArchivesList extends \WP_List_Table
 
         $actions = array(
             'view' => sprintf('<a href="%s" target="_blank">' . __('View') . '</a>', get_post_type_archive_link($item->rewrite['slug'])),
-            'edit' => sprintf('<a href="' . $editorLink . '">' . __('Edit modules', 'modularity') . '</a>'),
+            'edit' => sprintf('<a href="' . $editorLink . '">' . __('Edit modules', 'municipio') . '</a>'),
         );
 
         return sprintf('%1$s %2$s', '<a href="' . $editorLink . '" class="row-title">' . $item->labels->name . '</a>', $this->row_actions($actions));

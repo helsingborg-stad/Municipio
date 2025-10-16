@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_571dffc63090c',
-    'title'                 => __('Data sorting', 'modularity'),
+    'title'                 => __('Data sorting', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'                => 'field_571dffca1d90b',
-           'label'              => __('Sort by', 'modularity'),
+           'label'              => __('Sort by', 'municipio'),
            'name'               => 'posts_sort_by',
            'aria-label'         => '',
            'type'               => 'select',
@@ -22,12 +22,12 @@ if (function_exists('acf_add_local_field_group')) {
            'multiple'           => 0,
            'allow_null'         => 0,
            'choices'            => array(
-               'false'      => __('Do not sort', 'modularity'),
-               'title'      => __('Titel', 'modularity'),
-               'date'       => __('Publiceringsdatum', 'modularity'),
-               'modified'   => __('Date modified', 'modularity'),
-               'rand'       => __('Random', 'modularity'),
-               'menu_order' => __('Menu order', 'modularity'),
+               'false'      => __('Do not sort', 'municipio'),
+               'title'      => __('Titel', 'municipio'),
+               'date'       => __('Publiceringsdatum', 'municipio'),
+               'modified'   => __('Date modified', 'municipio'),
+               'rand'       => __('Random', 'municipio'),
+               'menu_order' => __('Menu order', 'municipio'),
            ),
            'default_value'      => 'date',
            'ui'                 => 0,
@@ -41,7 +41,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        1 => array(
            'key'               => 'field_571e00241d90c',
-           'label'             => __('Order', 'modularity'),
+           'label'             => __('Order', 'municipio'),
            'name'              => 'posts_sort_order',
            'aria-label'        => '',
            'type'              => 'radio',
@@ -55,8 +55,8 @@ if (function_exists('acf_add_local_field_group')) {
            ),
            'layout'            => 'horizontal',
            'choices'           => array(
-               'asc'  => __('Ascending', 'modularity'),
-               'desc' => __('Descending', 'modularity'),
+               'asc'  => __('Ascending', 'municipio'),
+               'desc' => __('Descending', 'municipio'),
            ),
            'default_value'     => '',
            'other_choice'      => 0,

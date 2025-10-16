@@ -14,9 +14,9 @@ class Index extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Index', 'modularity');
-        $this->namePlural   = __('Indexes', 'modularity');
-        $this->description  = __('Index card to use as an entry point for a "content section".', 'modularity');
+        $this->nameSingular = __('Index', 'municipio');
+        $this->namePlural   = __('Indexes', 'municipio');
+        $this->description  = __('Index card to use as an entry point for a "content section".', 'municipio');
 
         add_filter('acf/fields/post_object/query/key=field_569cf1252cfc9', array($this, 'postObjectQuery'), 10, 3);
     }

@@ -1,10 +1,10 @@
 <p style="border: 1px solid #ddd; background: #f9f9f9; padding: 10px 15px;">
     <strong><?php _e('Selected module', 'modularity'); ?></strong><br>
 
-    ID:<span class="modularity-widget-module-id-span"><?php echo isset($instance['module_id']) && !empty($instance['module_id']) ? $instance['module_id'] : '<i>' . __('Not selected', 'modularity') . '</i>'; ?></span>
+    ID:<span class="modularity-widget-module-id-span"><?php echo isset($instance['module_id']) && !empty($instance['module_id']) ? $instance['module_id'] : '<i>' . __('Not selected', 'municipio') . '</i>'; ?></span>
     <input type="hidden" class="modularity-widget-module-id" name="<?php echo $this->get_field_name('module_id'); ?>" id="<?php echo $this->get_field_id('module_id'); ?>" value="<?php echo isset($instance['module_id']) && !empty($instance['module_id']) ? $instance['module_id'] : ''; ?>"><br>
 
-    Module title: <span class="modularity-widget-module-title-span"><?php echo isset($instance['title']) && !empty($instance['title']) ? $instance['title'] : '<i>' . __('Not selected', 'modularity') . '</i>'; ?></span>
+    Module title: <span class="modularity-widget-module-title-span"><?php echo isset($instance['title']) && !empty($instance['title']) ? $instance['title'] : '<i>' . __('Not selected', 'municipio') . '</i>'; ?></span>
     <input type="hidden" class="modularity-widget-module-title" name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo isset($instance['title']) && !empty($instance['title']) ? $instance['title'] : ''; ?>">
 </p>
 <p class="modularity-widget-module-type">

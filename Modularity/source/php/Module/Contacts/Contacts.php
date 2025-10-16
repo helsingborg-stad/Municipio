@@ -14,9 +14,9 @@ class Contacts extends \Modularity\Module
     private $view = null;
     public function init()
     {
-        $this->nameSingular = __('Contacts v2', 'modularity');
-        $this->namePlural   = __('Contacts v2', 'modularity');
-        $this->description  = __('Outputs one or more contacts', 'modularity');
+        $this->nameSingular = __('Contacts v2', 'municipio');
+        $this->namePlural   = __('Contacts v2', 'municipio');
+        $this->description  = __('Outputs one or more contacts', 'municipio');
     }
 
     public function data(): array
@@ -171,7 +171,7 @@ class Contacts extends \Modularity\Module
             if (isset($info['opening_hours']) && !empty($info['opening_hours'])) {
                 $info['custom_sections'] = [
                     [
-                        'title'   => __('Opening hours', 'modularity'),
+                        'title'   => __('Opening hours', 'municipio'),
                         'content' => $info['opening_hours']
                     ]
                 ];

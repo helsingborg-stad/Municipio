@@ -3,15 +3,15 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_67506ac21d132',
-    'title'                 => __('Markdown', 'modularity'),
+    'title'                 => __('Markdown', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_67506ac4f8055',
-           'label'             => __('Markdown URL', 'modularity'),
+           'label'             => __('Markdown URL', 'municipio'),
            'name'              => 'mod_markdown_url',
            'aria-label'        => '',
            'type'              => 'url',
-           'instructions'      => __('A link to a raw version of a md file, for example https://raw.githubusercontent.com/readme.md', 'modularity'),
+           'instructions'      => __('A link to a raw version of a md file, for example https://raw.githubusercontent.com/readme.md', 'municipio'),
            'required'          => 1,
            'conditional_logic' => 0,
            'wrapper'           => array(
@@ -20,11 +20,11 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'default_value'     => '',
-           'placeholder'       => __('https://raw.githubusercontent.com/readme.md', 'modularity'),
+           'placeholder'       => __('https://raw.githubusercontent.com/readme.md', 'municipio'),
        ),
        1 => array(
            'key'               => 'field_6750799d7e7a4',
-           'label'             => __('Show source', 'modularity'),
+           'label'             => __('Show source', 'municipio'),
            'name'              => 'mod_markdown_show_source',
            'aria-label'        => '',
            'type'              => 'true_false',
@@ -36,7 +36,7 @@ if (function_exists('acf_add_local_field_group')) {
                'class' => '',
                'id'    => '',
            ),
-           'message'           => __('Display the source url', 'modularity'),
+           'message'           => __('Display the source url', 'municipio'),
            'default_value'     => 1,
            'ui_on_text'        => '',
            'ui_off_text'       => '',
@@ -44,7 +44,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        2 => array(
            'key'               => 'field_67516aed46591',
-           'label'             => __('Wrap in container', 'modularity'),
+           'label'             => __('Wrap in container', 'municipio'),
            'name'              => 'mod_markdown_wrap_in_container',
            'aria-label'        => '',
            'type'              => 'true_false',
@@ -64,7 +64,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        3 => array(
            'key'               => 'field_67506eebcdbfd',
-           'label'             => __('Supported providers', 'modularity'),
+           'label'             => __('Supported providers', 'municipio'),
            'name'              => '',
            'aria-label'        => '',
            'type'              => 'message',
@@ -76,7 +76,7 @@ if (function_exists('acf_add_local_field_group')) {
                'class' => '',
                'id'    => '',
            ),
-           'message'           => __('ABC', 'modularity'),
+           'message'           => __('ABC', 'municipio'),
            'new_lines'         => 'wpautop',
            'esc_html'          => 0,
        ),

@@ -17,9 +17,9 @@ class Menu extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Menu', 'modularity');
-        $this->namePlural   = __('Menus', 'modularity');
-        $this->description  = __('Outputs a menu.', 'modularity');
+        $this->nameSingular = __('Menu', 'municipio');
+        $this->namePlural   = __('Menus', 'municipio');
+        $this->description  = __('Outputs a menu.', 'municipio');
 
         add_filter('Municipio/Navigation/Item', array($this, 'setMenuItemData'), 999, 3);
         new Select();

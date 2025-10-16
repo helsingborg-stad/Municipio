@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_62816d604ae46',
-    'title'                 => __('Divider', 'modularity'),
+    'title'                 => __('Divider', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_628b5b97810fc',
-           'label'             => __('Title variant', 'modularity'),
+           'label'             => __('Title variant', 'municipio'),
            'name'              => 'divider_title_variant',
            'type'              => 'select',
            'instructions'      => '',
@@ -19,12 +19,12 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'choices'           => array(
-               'h1' => __('H1', 'modularity'),
-               'h2' => __('H2', 'modularity'),
-               'h3' => __('H3', 'modularity'),
-               'h4' => __('H4', 'modularity'),
+               'h1' => __('H1', 'municipio'),
+               'h2' => __('H2', 'municipio'),
+               'h3' => __('H3', 'municipio'),
+               'h4' => __('H4', 'municipio'),
            ),
-           'default_value'     => __('h2', 'modularity'),
+           'default_value'     => __('h2', 'municipio'),
            'allow_null'        => 0,
            'multiple'          => 0,
            'ui'                => 0,

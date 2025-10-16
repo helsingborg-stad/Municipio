@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_571e045dd555d',
-    'title'                 => __('Data filtering', 'modularity'),
+    'title'                 => __('Data filtering', 'municipio'),
     'fields'                => array(
         0 => array(
             'key'               => 'field_571e046536f0f',
-            'label'             => __('Taxonomy filter', 'modularity'),
+            'label'             => __('Taxonomy filter', 'municipio'),
             'name'              => 'posts_taxonomy_filter',
             'type'              => 'true_false',
             'instructions'      => '',
@@ -19,14 +19,14 @@ if (function_exists('acf_add_local_field_group')) {
                 'id'    => '',
             ),
             'default_value'     => 0,
-            'message'           => __('Yes, filter posts based on taxonomy', 'modularity'),
+            'message'           => __('Yes, filter posts based on taxonomy', 'municipio'),
             'ui'                => 0,
             'ui_on_text'        => '',
             'ui_off_text'       => '',
         ),
         1 => array(
             'key'                => 'field_571e048136f10',
-            'label'              => __('Taxonomy type', 'modularity'),
+            'label'              => __('Taxonomy type', 'municipio'),
             'name'               => 'posts_taxonomy_type',
             'type'               => 'select',
             'instructions'       => '',
@@ -59,7 +59,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         2 => array(
             'key'                => 'field_571e049636f11',
-            'label'              => __('Taxonomy value', 'modularity'),
+            'label'              => __('Taxonomy value', 'municipio'),
             'name'               => 'posts_taxonomy_value',
             'type'               => 'select',
             'instructions'       => '',

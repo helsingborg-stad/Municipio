@@ -12,9 +12,9 @@ class Subscribe extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Email Subscribe', 'modularity');
-        $this->namePlural   = __('Email Subscribtions', 'modularity');
-        $this->description  = __('Outputs a simple form to subscribe to a email list.', 'modularity');
+        $this->nameSingular = __('Email Subscribe', 'municipio');
+        $this->namePlural   = __('Email Subscribtions', 'municipio');
+        $this->description  = __('Outputs a simple form to subscribe to a email list.', 'municipio');
     }
 
     public function data(): array
@@ -34,28 +34,28 @@ class Subscribe extends \Modularity\Module
         //Translations
         $data['lang'] = (object) [
             'email'      => (object) [
-                'label'       => __('Your email adress', 'modularity'),
-                'placeholder' => __('email@email.com', 'modularity'),
-                'error'       => __('Please enter a valid email address', 'modularity'),
+                'label'       => __('Your email adress', 'municipio'),
+                'placeholder' => __('email@email.com', 'municipio'),
+                'error'       => __('Please enter a valid email address', 'municipio'),
             ],
             'submit'     => (object) [
-                'label' => __('Subscribe', 'modularity'),
+                'label' => __('Subscribe', 'municipio'),
             ],
             'submitted'  => (object) [
-                'title' => __('Confirmation sent', 'modularity'),
+                'title' => __('Confirmation sent', 'municipio'),
                 'text'  =>
-                    __('You have received a confirmation e-mail. To confirm the subsription please click the confirmation link in the email.', 'modularity')
+                    __('You have received a confirmation e-mail. To confirm the subsription please click the confirmation link in the email.', 'municipio')
                     . '<br>' .
                     __("Can't find the e-mail? Please check your e-mail spam folder.", 'modularity')
 
             ],
             'incomplete' => (object) [
-                'title' => __('Select a provider', 'modularity'),
-                'text'  => __('No provider for this form is selected. Please select a provider available form the list.', 'modularity'),
+                'title' => __('Select a provider', 'municipio'),
+                'text'  => __('No provider for this form is selected. Please select a provider available form the list.', 'municipio'),
             ],
             'error'      => (object) [
-                'title' => __('Could not subscribe', 'modularity'),
-                'text'  => __('Sorry, we could not subscribe you to this list at the moment. Please try again later.', 'modularity'),
+                'title' => __('Could not subscribe', 'municipio'),
+                'text'  => __('Sorry, we could not subscribe you to this list at the moment. Please try again later.', 'municipio'),
             ]
         ];
 

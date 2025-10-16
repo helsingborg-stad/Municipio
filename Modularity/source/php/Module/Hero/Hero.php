@@ -16,9 +16,9 @@ class Hero extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Hero', 'modularity');
-        $this->namePlural   = __('Heros', 'modularity');
-        $this->description  = __('Outputs a hero', 'modularity');
+        $this->nameSingular = __('Hero', 'municipio');
+        $this->namePlural   = __('Heros', 'municipio');
+        $this->description  = __('Outputs a hero', 'municipio');
     }
 
     public function data(): array
@@ -65,7 +65,7 @@ class Hero extends \Modularity\Module
         $data['paragraph']      = $fields['mod_hero_body'];
         $data['backgroundType'] = $data['mod_hero_background_type'] ?? 'image';
         $data['heroView']       = !empty($fields['mod_hero_display_as']) ? $fields['mod_hero_display_as'] : 'default';
-        $data['ariaLabel']      = __('Page hero section', 'modularity');
+        $data['ariaLabel']      = __('Page hero section', 'municipio');
         $data['meta']           = !empty($fields['mod_hero_meta']) ? $fields['mod_hero_meta'] : false;
         $data['buttonArgs']     = $this->getButtonArgsFromFields($fields);
         $data['poster']         = $fields['mod_hero_poster_image']['sizes']['large'] ?? false;

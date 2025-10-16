@@ -7,7 +7,7 @@ if (function_exists('acf_add_local_field_group')) {
     'fields'                => array(
        0 => array(
            'key'               => 'field_56a8b505d4b00',
-           'label'             => __('Post or page', 'modularity'),
+           'label'             => __('Post or page', 'municipio'),
            'name'              => 'page',
            'type'              => 'post_object',
            'instructions'      => '',

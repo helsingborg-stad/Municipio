@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_5891b49127038',
-    'title'                 => __('Text options', 'modularity'),
+    'title'                 => __('Text options', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_5891b6038c120',
-           'label'             => __('Göm textbox', 'modularity'),
+           'label'             => __('Göm textbox', 'municipio'),
            'name'              => 'hide_box_frame',
            'type'              => 'true_false',
            'instructions'      => '',
@@ -19,7 +19,7 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'default_value'     => 0,
-           'message'           => __('Ja, göm textbox (visa text som artikel)', 'modularity'),
+           'message'           => __('Ja, göm textbox (visa text som artikel)', 'municipio'),
            'ui'                => 0,
            'ui_on_text'        => '',
            'ui_off_text'       => '',

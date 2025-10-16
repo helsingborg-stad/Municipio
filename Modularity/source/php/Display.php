@@ -733,7 +733,7 @@ class Display
         return '
             <div class="modularity-edit-module">
                 <a href="' . admin_url('post.php?' . http_build_query($linkParameters)) . '">
-                    ' . __('Edit module', 'modularity') . ': ' . $module->data['post_type_name'] .  '
+                    ' . __('Edit module', 'municipio') . ': ' . $module->data['post_type_name'] .  '
                 </a>
             </div>
         ';

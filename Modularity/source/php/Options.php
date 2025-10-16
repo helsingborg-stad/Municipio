@@ -98,7 +98,7 @@ abstract class Options
         do_action('Modularity/Options/Save');
 
         // All done, send notice
-        $this->notice(__('Options saved successfully', 'modularity'), ['updated']);
+        $this->notice(__('Options saved successfully', 'municipio'), ['updated']);
     }
 
     /**

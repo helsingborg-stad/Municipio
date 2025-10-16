@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_5666a2a71d806',
-    'title'                 => __('Table Editor', 'modularity'),
+    'title'                 => __('Table Editor', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'               => 'field_5731982808842',
-           'label'             => __('Datatyp', 'modularity'),
+           'label'             => __('Datatyp', 'municipio'),
            'name'              => 'mod_table_data_type',
            'type'              => 'radio',
            'instructions'      => '',
@@ -20,8 +20,8 @@ if (function_exists('acf_add_local_field_group')) {
            ),
            'layout'            => 'horizontal',
            'choices'           => array(
-               'manual' => __('Manual input', 'modularity'),
-               'csv'    => __('CSV Import', 'modularity'),
+               'manual' => __('Manual input', 'municipio'),
+               'csv'    => __('CSV Import', 'municipio'),
            ),
            'default_value'     => '',
            'other_choice'      => 0,
@@ -31,10 +31,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        1 => array(
            'key'               => 'field_57319c3b08843',
-           'label'             => __('CSV-fil', 'modularity'),
+           'label'             => __('CSV-fil', 'municipio'),
            'name'              => 'mod_table_csv_file',
            'type'              => 'file',
-           'instructions'      => __('CSV-formatterad fil', 'modularity'),
+           'instructions'      => __('CSV-formatterad fil', 'municipio'),
            'required'          => 1,
            'conditional_logic' => array(
                0 => array(
@@ -58,10 +58,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        2 => array(
            'key'               => 'field_5731a138b52aa',
-           'label'             => __('CSV-avgränsare', 'modularity'),
+           'label'             => __('CSV-avgränsare', 'municipio'),
            'name'              => 'mod_table_csv_delimiter',
            'type'              => 'text',
-           'instructions'      => __('Tecken som används i CSV-filen som avgränsare. Brukar vara kommatecken eller semikolon.', 'modularity'),
+           'instructions'      => __('Tecken som används i CSV-filen som avgränsare. Brukar vara kommatecken eller semikolon.', 'municipio'),
            'required'          => 1,
            'conditional_logic' => array(
                0 => array(
@@ -87,10 +87,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        3 => array(
            'key'               => 'field_5666a2ae23643',
-           'label'             => __('Table', 'modularity'),
+           'label'             => __('Table', 'municipio'),
            'name'              => 'mod_table',
            'type'              => 'dynamic_table',
-           'instructions'      => __('Enter your table contents, and select appearance and functionality options below.', 'modularity'),
+           'instructions'      => __('Enter your table contents, and select appearance and functionality options below.', 'municipio'),
            'required'          => 1,
            'conditional_logic' => array(
                0 => array(
@@ -119,7 +119,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        4 => array(
            'key'               => 'field_5666a459d2d2a',
-           'label'             => __('Aktivera sök', 'modularity'),
+           'label'             => __('Aktivera sök', 'municipio'),
            'name'              => 'mod_table_search',
            'type'              => 'true_false',
            'instructions'      => '',
@@ -131,14 +131,14 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'default_value'     => 1,
-           'message'           => __('Yes, use search on this table', 'modularity'),
+           'message'           => __('Yes, use search on this table', 'municipio'),
            'ui'                => 0,
            'ui_on_text'        => '',
            'ui_off_text'       => '',
        ),
        5 => array(
            'key'               => 'field_56e181adef7ac',
-           'label'             => __('Aktivera kolumnsortering', 'modularity'),
+           'label'             => __('Aktivera kolumnsortering', 'municipio'),
            'name'              => 'mod_table_ordering',
            'type'              => 'true_false',
            'instructions'      => '',
@@ -150,17 +150,17 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'default_value'     => 1,
-           'message'           => __('Yes, enable column sorting', 'modularity'),
+           'message'           => __('Yes, enable column sorting', 'municipio'),
            'ui'                => 0,
            'ui_on_text'        => '',
            'ui_off_text'       => '',
        ),
        6 => array(
            'key'               => 'field_6141aad011c4e',
-           'label'             => __('Multidimensional', 'modularity'),
+           'label'             => __('Multidimensional', 'municipio'),
            'name'              => 'mod_table_multidimensional',
            'type'              => 'true_false',
-           'instructions'      => __('Använd den första kolumnen som en andra dimension av tabellrubriker. Detta val låser också den första kolumnen vid scroll.', 'modularity'),
+           'instructions'      => __('Använd den första kolumnen som en andra dimension av tabellrubriker. Detta val låser också den första kolumnen vid scroll.', 'municipio'),
            'required'          => 0,
            'conditional_logic' => 0,
            'wrapper'           => array(
@@ -176,10 +176,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        7 => array(
            'key'               => 'field_6141b4af3a835',
-           'label'             => __('Sum', 'modularity'),
+           'label'             => __('Sum', 'municipio'),
            'name'              => 'mod_table_sum',
            'type'              => 'true_false',
-           'instructions'      => __('Lägger till en rad i slutet av tabellen som summerar varje kolumns celler.', 'modularity'),
+           'instructions'      => __('Lägger till en rad i slutet av tabellen som summerar varje kolumns celler.', 'municipio'),
            'required'          => 0,
            'conditional_logic' => 0,
            'wrapper'           => array(
@@ -195,10 +195,10 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        8 => array(
            'key'               => 'field_6141dc72e5dcd',
-           'label'             => __('Fullscreen', 'modularity'),
+           'label'             => __('Fullscreen', 'municipio'),
            'name'              => 'mod_table_fullscreen',
            'type'              => 'true_false',
-           'instructions'      => __('Renderar en ikon i högra hörnet som möjliggör helskärmsläge för tabellen.', 'modularity'),
+           'instructions'      => __('Renderar en ikon i högra hörnet som möjliggör helskärmsläge för tabellen.', 'municipio'),
            'required'          => 0,
            'conditional_logic' => 0,
            'wrapper'           => array(

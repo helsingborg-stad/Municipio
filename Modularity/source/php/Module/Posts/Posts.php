@@ -38,9 +38,9 @@ class Posts extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Posts', 'modularity');
-        $this->namePlural   = __('Posts', 'modularity');
-        $this->description  = __('Outputs selected posts in specified layout', 'modularity');
+        $this->nameSingular = __('Posts', 'municipio');
+        $this->namePlural   = __('Posts', 'municipio');
+        $this->description  = __('Outputs selected posts in specified layout', 'municipio');
 
         // Private controller
         $this->privateController = new PrivateController($this);
@@ -211,8 +211,8 @@ class Posts extends \Modularity\Module
         }
 
         $data['ariaLabels'] =  (object) [
-            'prev' => __('Previous slide', 'modularity'),
-            'next' => __('Next slide', 'modularity'),
+            'prev' => __('Previous slide', 'municipio'),
+            'next' => __('Next slide', 'municipio'),
         ];
 
         if ($this->getID()) {
@@ -225,15 +225,15 @@ class Posts extends \Modularity\Module
         $data['classList'] = [];
 
         $data['lang'] = [
-            'showMore'      => __('Show more', 'modularity'),
-            'readMore'      => __('Read more', 'modularity'),
-            'save'          => __('Save', 'modularity'),
-            'cancel'        => __('Cancel', 'modularity'),
-            'description'   => __('Description', 'modularity'),
-            'name'          => __('Name', 'modularity'),
-            'saving'        => __('Saving', 'modularity'),
-            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'modularity'),
-            'changeContent' => __('Change the lists content', 'modularity'),
+            'showMore'      => __('Show more', 'municipio'),
+            'readMore'      => __('Read more', 'municipio'),
+            'save'          => __('Save', 'municipio'),
+            'cancel'        => __('Cancel', 'municipio'),
+            'description'   => __('Description', 'municipio'),
+            'name'          => __('Name', 'municipio'),
+            'saving'        => __('Saving', 'municipio'),
+            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'municipio'),
+            'changeContent' => __('Change the lists content', 'municipio'),
         ];
 
         return $data;

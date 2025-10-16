@@ -123,8 +123,8 @@ class Editor extends \Modularity\Options
         }
 
         $tabs = new \Modularity\Editor\Tabs();
-        $tabs->add(__('Content', 'modularity'), admin_url('post.php?post=' . $thePostId . '&action=edit'));
-        $tabs->add(__('Modules', 'modularity'), admin_url('options.php?page=modularity-editor&id=' . $modulesEditorId));
+        $tabs->add(__('Content', 'municipio'), admin_url('post.php?post=' . $thePostId . '&action=edit'));
+        $tabs->add(__('Modules', 'municipio'), admin_url('options.php?page=modularity-editor&id=' . $modulesEditorId));
     }
 
     /**
@@ -171,7 +171,7 @@ class Editor extends \Modularity\Options
         // Publish
         add_meta_box(
             'modularity-mb-editor-publish',
-            __('Save modules', 'modularity'),
+            __('Save modules', 'municipio'),
             function () {
                 include MODULARITY_TEMPLATE_PATH . 'editor/modularity-publish.php';
             },
@@ -182,7 +182,7 @@ class Editor extends \Modularity\Options
         // Modules
         add_meta_box(
             'modularity-mb-modules',
-            __('Enabled modules', 'modularity'),
+            __('Enabled modules', 'municipio'),
             function () {
                 $enabled    = \Modularity\ModuleManager::$enabled;
                 $available  = \Modularity\ModuleManager::$available;
@@ -231,9 +231,9 @@ class Editor extends \Modularity\Options
         if (is_array($activeAreas) && count($activeAreas) === 0) {
             add_meta_box(
                 'no-sidebars',
-                __('No active sidebar areas', 'modularity'),
+                __('No active sidebar areas', 'municipio'),
                 function () {
-                    echo '<p>' . __('There\'s no active sidebars. Please activate sidebar areas in the Modularity Options to add modules.', 'modularity') . '</p>';
+                    echo '<p>' . __('There\'s no active sidebars. Please activate sidebar areas in the Modularity Options to add modules.', 'municipio') . '</p>';
                 },
                 $this->screenHook,
                 'normal',
@@ -578,13 +578,13 @@ class Editor extends \Modularity\Options
         }
 
         if (!$this->pageWasLoadedBeforeSave()) {
-            $this->notice(__('Page not loaded before saving changes.', 'modularity'), ['notice-error']);
+            $this->notice(__('Page not loaded before saving changes.', 'municipio'), ['notice-error']);
             return;
         }
 
         $postIdOrArchiveString = $this->getPostId();
         if (is_null($postIdOrArchiveString)) {
-            $this->notice(__('No post id found', 'modularity'), ['notice-error']);
+            $this->notice(__('No post id found', 'municipio'), ['notice-error']);
             return;
         }
 
@@ -596,7 +596,7 @@ class Editor extends \Modularity\Options
             wp_die();
         }
 
-        $this->notice(__('Modules saved', 'modularity'), ['updated']);
+        $this->notice(__('Modules saved', 'municipio'), ['updated']);
     }
 
     /**
@@ -685,7 +685,7 @@ class Editor extends \Modularity\Options
      */
     public function getWidthOptions()
     {
-        $markup = '<option value="">' . __('Inherit', 'modularity') . '</option>' . "\n";
+        $markup = '<option value="">' . __('Inherit', 'municipio') . '</option>' . "\n";
 
         foreach (self::widthOptions() as $key => $value) {
             $markup .= '<option value="' . $key . '">' . $value . '</option>' . "\n";
@@ -746,14 +746,14 @@ class Editor extends \Modularity\Options
 
         acf_add_local_field_group(array(
             'key'                   => 'group_' . substr(md5($postType . '_scope'), 0, 13),
-            'title'                 => __('Scope styling', 'modularity'),
+            'title'                 => __('Scope styling', 'municipio'),
             'fields'                => array(
                 array(
                     'key'               => 'field_' . substr(md5($postType . '_scope'), 0, 13),
-                    'label'             => __('Select an apperance for this instance of module', 'modularity'),
+                    'label'             => __('Select an apperance for this instance of module', 'municipio'),
                     'name'              => 'module_css_scope',
                     'type'              => 'select',
-                    'instructions'      => __('By selecting a scope for this class, they will appear in a different way than the standard layout.', 'modularity'),
+                    'instructions'      => __('By selecting a scope for this class, they will appear in a different way than the standard layout.', 'municipio'),
                     'required'          => 0,
                     'conditional_logic' => 0,
                     'wrapper'           => array(

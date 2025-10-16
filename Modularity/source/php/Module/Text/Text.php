@@ -9,9 +9,9 @@ class Text extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Text', 'modularity');
-        $this->namePlural   = __('Texts', 'modularity');
-        $this->description  = __('Outputs text', 'modularity');
+        $this->nameSingular = __('Text', 'municipio');
+        $this->namePlural   = __('Texts', 'municipio');
+        $this->description  = __('Outputs text', 'municipio');
     }
 
     public function data(): array

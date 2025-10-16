@@ -10,8 +10,8 @@ class Divider extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Divider', 'modularity');
-        $this->namePlural   = __('Dividers', 'modularity');
+        $this->nameSingular = __('Divider', 'municipio');
+        $this->namePlural   = __('Dividers', 'municipio');
         $this->description  = __("Add a content divider.", 'modularity');
     }
 

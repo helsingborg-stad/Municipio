@@ -11,9 +11,9 @@ class Sites extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Sites', 'modularity');
-        $this->namePlural   = __('Sites', 'modularity');
-        $this->description  = __('Outputs a grid list with att sites in the network.', 'modularity');
+        $this->nameSingular = __('Sites', 'municipio');
+        $this->namePlural   = __('Sites', 'municipio');
+        $this->description  = __('Outputs a grid list with att sites in the network.', 'municipio');
     }
 
     public function data(): array

@@ -157,7 +157,7 @@ class Video extends \Modularity\Module
             require_once(ABSPATH . 'wp-admin/includes/file.php');
             require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-            $attachmentId = \media_sideload_image($coverImage, $postId, sprintf(__('Automatically downloaded cover image for a video embedded in a post (post id: %s).', 'modularity'), $postId), 'id');
+            $attachmentId = \media_sideload_image($coverImage, $postId, sprintf(__('Automatically downloaded cover image for a video embedded in a post (post id: %s).', 'municipio'), $postId), 'id');
 
             if ($attachmentId) {
                 $existingBlocks = parse_blocks($post->post_content);
@@ -425,7 +425,7 @@ class Video extends \Modularity\Module
 
         //Lang
         $data['lang'] = (object) [
-            'embedFailed' => __('This video could not be embedded. <a href="%s" target="_blank">View the video by visiting embedded page.</a>', 'modularity'),
+            'embedFailed' => __('This video could not be embedded. <a href="%s" target="_blank">View the video by visiting embedded page.</a>', 'municipio'),
         ];
 
         return $data;

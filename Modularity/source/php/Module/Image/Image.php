@@ -18,9 +18,9 @@ class Image extends \Modularity\Module
      */
     public function init()
     {
-        $this->nameSingular = __('Image', 'modularity');
-        $this->namePlural   = __('Images', 'modularity');
-        $this->description  = __('Outputs an image', 'modularity');
+        $this->nameSingular = __('Image', 'municipio');
+        $this->namePlural   = __('Images', 'municipio');
+        $this->description  = __('Outputs an image', 'municipio');
         add_filter('acf/load_field/key=field_570770b8e2e61', [$this, 'filterImageField']);
     }
 
@@ -118,7 +118,7 @@ class Image extends \Modularity\Module
         $imageMimeTypes        = $this->getAllowedImageMimeTypes();
         $field['mime_types']   = $imageMimeTypes;
         $field['instructions'] = sprintf(
-            __('Allowed file types: %s', 'modularity'),
+            __('Allowed file types: %s', 'municipio'),
             $imageMimeTypes
         );
 

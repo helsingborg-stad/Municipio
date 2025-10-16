@@ -48,7 +48,7 @@ class ManualInput extends \Modularity\Module
         $imageSize                 = $this->getImageSize($displayAs);
         $data['freeTextFiltering'] = !empty($fields['free_text_filtering']) ? true : false;
         $data['lang']              = [
-            'search' => __('Search', 'modularity'),
+            'search' => __('Search', 'municipio'),
         ];
 
         $data['accordionColumnTitles'] = $this->createAccordionTitles(
@@ -150,7 +150,7 @@ class ManualInput extends \Modularity\Module
             'content'                 => null,
             'link'                    => null,
             'link_text'               => null,
-            'default_link_text'       => __('Read more', 'modularity'),
+            'default_link_text'       => __('Read more', 'municipio'),
             'image'                   => null,
             'accordion_column_values' => [],
             'box_icon'                => null,
@@ -305,7 +305,7 @@ class ManualInput extends \Modularity\Module
         $titles = [];
         if (!empty($accordionColumnTitles) || !empty($accordionColumnMarker)) {
             if (!empty($accordionColumnMarker)) {
-                $titles[] = is_string($accordionColumnMarker) ? $accordionColumnMarker : __('Title', 'Modularity');
+                $titles[] = is_string($accordionColumnMarker) ? $accordionColumnMarker : __('Title', 'municipio');
             }
 
             if (!empty($accordionColumnTitles) && is_array($accordionColumnTitles)) {

@@ -161,7 +161,7 @@ class App
 
             $wp_admin_bar->add_node(array(
                 'id'    => 'modularity_editor',
-                'title' => __('Edit', 'modularity') . ' ' . strtolower(__('Modules', 'modularity')),
+                'title' => __('Edit', 'modularity') . ' ' . strtolower(__('Modules', 'municipio')),
                 'href'  => $editorLink,
                 'meta'  => array(
                     'class' => 'modularity-editor-icon'
@@ -191,17 +191,17 @@ class App
             . \Modularity\Helper\CacheBust::name('js/modularity.js'), [], null, true);
 
         wp_localize_script('modularity', 'modularityAdminLanguage', array(
-            'langvisibility' => __('Toggle visibility', 'modularity'),
-            'langedit'       => __('Edit', 'modularity'),
-            'langimport'     => __('Import', 'modularity'),
-            'langremove'     => __('Remove', 'modularity'),
-            'langhide'       => __('Hide module', 'modularity'),
-            'actionRemove'   => __('Are you sure you want to remove this module?', 'modularity'),
-            'isSaving'       => __('Saving…', 'modularity'),
-            'close'          => __('Close', 'modularity'),
-            'width'          => __('Width', 'modularity'),
+            'langvisibility' => __('Toggle visibility', 'municipio'),
+            'langedit'       => __('Edit', 'municipio'),
+            'langimport'     => __('Import', 'municipio'),
+            'langremove'     => __('Remove', 'municipio'),
+            'langhide'       => __('Hide module', 'municipio'),
+            'actionRemove'   => __('Are you sure you want to remove this module?', 'municipio'),
+            'isSaving'       => __('Saving…', 'municipio'),
+            'close'          => __('Close', 'municipio'),
+            'width'          => __('Width', 'municipio'),
             'widthOptions'   => $this->editor->getWidthOptions(),
-            'deprecated'     => __('Deprecated', 'modularity')
+            'deprecated'     => __('Deprecated', 'municipio')
         ));
         wp_enqueue_script('modularity');
 
@@ -236,7 +236,7 @@ class App
             . \Modularity\Helper\CacheBust::name('js/block-validation.js'), [], null, ['in_footer' => true]);
 
             wp_localize_script('block-editor-edit-modules', 'modularityBlockEditor', array(
-                'editModulesLinkLabel' => __('Edit Modules', 'modularity'),
+                'editModulesLinkLabel' => __('Edit Modules', 'municipio'),
                 'editModulesLinkHref'  => admin_url('options.php?page=modularity-editor&id=' . $modulesEditorId)
             ));
 
@@ -262,17 +262,17 @@ class App
         wp_register_script('modularity', MODULARITY_URL . '/dist/'
         . \Modularity\Helper\CacheBust::name('js/modularity.js'), ['wp-api'], null, true);
         wp_localize_script('modularity', 'modularityAdminLanguage', array(
-            'langvisibility' => __('Toggle visibility', 'modularity'),
-            'langedit'       => __('Edit', 'modularity'),
-            'langimport'     => __('Import', 'modularity'),
-            'langremove'     => __('Remove', 'modularity'),
-            'langhide'       => __('Hide module', 'modularity'),
-            'actionRemove'   => __('Are you sure you want to remove this module?', 'modularity'),
-            'isSaving'       => __('Saving…', 'modularity'),
-            'close'          => __('Close', 'modularity'),
-            'width'          => __('Width', 'modularity'),
+            'langvisibility' => __('Toggle visibility', 'municipio'),
+            'langedit'       => __('Edit', 'municipio'),
+            'langimport'     => __('Import', 'municipio'),
+            'langremove'     => __('Remove', 'municipio'),
+            'langhide'       => __('Hide module', 'municipio'),
+            'actionRemove'   => __('Are you sure you want to remove this module?', 'municipio'),
+            'isSaving'       => __('Saving…', 'municipio'),
+            'close'          => __('Close', 'municipio'),
+            'width'          => __('Width', 'municipio'),
             'widthOptions'   => $this->editor->getWidthOptions(),
-            'deprecated'     => __('Deprecated', 'modularity')
+            'deprecated'     => __('Deprecated', 'municipio')
         ));
         wp_enqueue_script('modularity');
 

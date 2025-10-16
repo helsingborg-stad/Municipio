@@ -194,7 +194,7 @@ class BlockManager
             $categories,
             array([
                 'slug'  => 'modules',
-                'title' => __('Modules', 'modularity')
+                'title' => __('Modules', 'municipio')
             ])
         );
     }

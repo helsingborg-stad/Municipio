@@ -48,8 +48,8 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
                 $editorLink          = "options.php?page=modularity-editor&id={$transcribedPostType}";
                 add_submenu_page(
                     'edit.php' . $postTypeUrlParam,
-                    __('Archive modules', 'modularity'),
-                    __('Archive modules', 'modularity'),
+                    __('Archive modules', 'municipio'),
+                    __('Archive modules', 'municipio'),
                     'edit_posts',
                     $editorLink
                 );

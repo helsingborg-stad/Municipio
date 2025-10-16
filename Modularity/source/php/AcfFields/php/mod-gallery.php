@@ -18,7 +18,7 @@ if (function_exists('acf_add_local_field_group')) {
            'mime_types'        => '',
            'insert'            => 'append',
            'key'               => 'field_5666af72e3194',
-           'label'             => __('Images', 'modularity'),
+           'label'             => __('Images', 'municipio'),
            'name'              => 'mod_gallery_images',
            'type'              => 'gallery',
            'instructions'      => '',

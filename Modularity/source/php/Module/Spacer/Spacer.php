@@ -9,8 +9,8 @@ class Spacer extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Spacer', 'modularity');
-        $this->namePlural   = __('Spacers', 'modularity');
+        $this->nameSingular = __('Spacer', 'municipio');
+        $this->namePlural   = __('Spacers', 'municipio');
         $this->description  = __("Outputs whitespace.", 'modularity');
     }
 

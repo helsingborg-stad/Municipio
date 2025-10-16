@@ -1,17 +1,5 @@
 <?php
 
-/*
- * Plugin Name: Modularity
- * Plugin URI: -
- * Description: Modular component system for WordPress
- * Version: 6.90.35
- * Author: Kristoffer Svanmark, Sebastian Thulin
- * Author URI: -
- * Text domain: modularity
- *
- * Copyright (C) 2016
- */
-
 use AcfService\Implementations\NativeAcfService;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
@@ -24,10 +12,6 @@ define('MODULARITY_TEMPLATE_PATH', MODULARITY_PATH . 'templates/');
 define('MODULARITY_MODULE_PATH', MODULARITY_PATH . 'source/php/Module/');
 define('MODULARITY_MODULE_URL', MODULARITY_URL . '/source/php/Module/');
 
-add_action('init', function () {
-    load_plugin_textdomain('modularity', false, plugin_basename(dirname(__FILE__)) . '/languages');
-});
-
 require_once MODULARITY_PATH . 'Public.php';
 
 // Set services
@@ -37,7 +21,7 @@ AcfService::set(new NativeAcfService());
 // Acf auto import and export
 add_action('after_setup_theme', function () {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
-    $acfExportManager->setTextdomain('modularity');
+    $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MODULARITY_PATH . 'source/php/AcfFields/');
     $acfExportManager->autoExport(array(
         'mod-booking'               => 'group_56a89f42b432b',

@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_5756ce3e48783',
-    'title'                 => __('Files', 'modularity'),
+    'title'                 => __('Files', 'municipio'),
     'fields'                => array(
        0 => array(
            'key'                           => 'field_57fb41f2cb40e',
-           'label'                         => __('Filer', 'modularity'),
+           'label'                         => __('Filer', 'municipio'),
            'name'                          => 'file_list',
            'aria-label'                    => '',
            'type'                          => 'repeater',
@@ -22,14 +22,14 @@ if (function_exists('acf_add_local_field_group')) {
            'min'                           => 1,
            'max'                           => 0,
            'layout'                        => 'block',
-           'button_label'                  => __('Lägg till fil', 'modularity'),
+           'button_label'                  => __('Lägg till fil', 'municipio'),
            'collapsed'                     => '',
            'rows_per_page'                 => 20,
            'acfe_repeater_stylised_button' => 0,
            'sub_fields'                    => array(
                0 => array(
                    'key'               => 'field_57fb4218cb40f',
-                   'label'             => __('Fil', 'modularity'),
+                   'label'             => __('Fil', 'municipio'),
                    'name'              => 'file',
                    'aria-label'        => '',
                    'type'              => 'file',
@@ -53,7 +53,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        1 => array(
            'key'               => 'field_587600817ff7f',
-           'label'             => __('Filter', 'modularity'),
+           'label'             => __('Filter', 'municipio'),
            'name'              => 'show_filter',
            'aria-label'        => '',
            'type'              => 'true_false',
@@ -66,14 +66,14 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'default_value'     => 1,
-           'message'           => __('Tillåt filtrering', 'modularity'),
+           'message'           => __('Tillåt filtrering', 'municipio'),
            'ui'                => 0,
            'ui_on_text'        => '',
            'ui_off_text'       => '',
        ),
        2 => array(
            'key'               => 'field_67507dc1a8793',
-           'label'             => __('Filter above card', 'modularity'),
+           'label'             => __('Filter above card', 'municipio'),
            'name'              => 'filter_above_card',
            'aria-label'        => '',
            'type'              => 'true_false',
@@ -93,7 +93,7 @@ if (function_exists('acf_add_local_field_group')) {
                'class' => '',
                'id'    => '',
            ),
-           'message'           => __('Yes', 'modularity'),
+           'message'           => __('Yes', 'municipio'),
            'default_value'     => 0,
            'ui'                => 0,
            'ui_on_text'        => '',
@@ -101,7 +101,7 @@ if (function_exists('acf_add_local_field_group')) {
        ),
        3 => array(
            'key'                       => 'field_6750883f3caf7',
-           'label'                     => __('Settings', 'modularity'),
+           'label'                     => __('Settings', 'municipio'),
            'name'                      => 'settings',
            'aria-label'                => '',
            'type'                      => 'checkbox',
@@ -114,9 +114,9 @@ if (function_exists('acf_add_local_field_group')) {
                'id'    => '',
            ),
            'choices'                   => array(
-               'hide_filetype'      => __('Hide file type', 'modularity'),
-               'hide_filesize'      => __('Hide file size', 'modularity'),
-               'show_download_icon' => __('Show download icon', 'modularity'),
+               'hide_filetype'      => __('Hide file type', 'municipio'),
+               'hide_filesize'      => __('Hide file size', 'municipio'),
+               'show_download_icon' => __('Show download icon', 'municipio'),
            ),
            'default_value'             => array(
            ),

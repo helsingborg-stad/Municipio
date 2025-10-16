@@ -38,7 +38,7 @@ class Language
     public function appendAutoLangOption(array $field): array
     {
         $field['choices'] = array_merge([
-            'auto' => __('Auto detected language', 'modularity')
+            'auto' => __('Auto detected language', 'municipio')
         ], $field['choices']);
         return $field;
     }

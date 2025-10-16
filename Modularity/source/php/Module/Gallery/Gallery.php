@@ -12,9 +12,9 @@ class Gallery extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Gallery', 'modularity');
-        $this->namePlural   = __('Galleries', 'modularity');
-        $this->description  =  __('Outputs a gallery with images', 'modularity');
+        $this->nameSingular = __('Gallery', 'municipio');
+        $this->namePlural   = __('Galleries', 'municipio');
+        $this->description  =  __('Outputs a gallery with images', 'municipio');
 
         $this->acfFields();
     }
@@ -27,8 +27,8 @@ class Gallery extends \Modularity\Module
         $data = $this->getFields();
 
         $data['ariaLabels'] = (object) [
-            'prev' => __('Previous slide', 'modularity'),
-            'next' => __('Next slide', 'modularity'),
+            'prev' => __('Previous slide', 'municipio'),
+            'next' => __('Next slide', 'municipio'),
         ];
 
         if ($data['mod_gallery_images']) {

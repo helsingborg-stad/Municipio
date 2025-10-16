@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_630645d822841',
-    'title'                 => __('Taxonomies to display', 'modularity'),
+    'title'                 => __('Taxonomies to display', 'municipio'),
     'fields'                => array(
         0 => array(
             'key'                       => 'field_630645dcff161',
-            'label'                     => __('Taxonomies to display', 'modularity'),
+            'label'                     => __('Taxonomies to display', 'municipio'),
             'name'                      => 'taxonomy_display',
             'aria-label'                => '',
             'type'                      => 'checkbox',

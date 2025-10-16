@@ -12,14 +12,14 @@ class Curator extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Curator Social Media', 'modularity');
-        $this->namePlural   = __('Curator Social Media', 'modularity');
+        $this->nameSingular = __('Curator Social Media', 'municipio');
+        $this->namePlural   = __('Curator Social Media', 'municipio');
         $this->description  = __("Output social media flow via curator.", 'modularity');
 
         $this->data['i18n'] = [
-        'loadMore'         => __('Load More', 'modularity'),
-        'goToOriginalPost' => __('Go to original post', 'modularity'),
-        'noMoreItems'      => __('No more items to load.', 'modularity'),
+        'loadMore'         => __('Load More', 'municipio'),
+        'goToOriginalPost' => __('Go to original post', 'municipio'),
+        'noMoreItems'      => __('No more items to load.', 'municipio'),
         ];
 
         add_action('wp_ajax_mod_curator_get_feed', [$this, 'getFeed'], 10, 4);

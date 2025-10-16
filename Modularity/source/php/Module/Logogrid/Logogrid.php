@@ -9,9 +9,9 @@ class Logogrid extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Logotype grid', 'modularity');
-        $this->namePlural   = __('Logotype grids', 'modularity');
-        $this->description  = __('Outputs a grid of logotypes', 'modularity');
+        $this->nameSingular = __('Logotype grid', 'municipio');
+        $this->namePlural   = __('Logotype grids', 'municipio');
+        $this->description  = __('Outputs a grid of logotypes', 'municipio');
     }
 
     public function data(): array

@@ -30,7 +30,7 @@ class Upgrade
         if (empty($currentDbVersion) || $currentDbVersion < $this->dbVersion) {
             echo sprintf(
                 '<div class="notice notice-warning update-nag inline">%s</div>',
-                __('The database may need to be updated to accomodate new datatastructures. Run wp-cli "modularity upgrade" to upgrade.', 'modularity')
+                __('The database may need to be updated to accomodate new datatastructures. Run wp-cli "modularity upgrade" to upgrade.', 'municipio')
             );
         }
     }

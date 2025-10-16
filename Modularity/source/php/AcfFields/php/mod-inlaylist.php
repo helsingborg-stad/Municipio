@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_569e054a7f9c2',
-    'title'                 => __('List', 'modularity'),
+    'title'                 => __('List', 'municipio'),
     'fields'                => array(
         0 => array(
             'key'               => 'field_689f3c1fb7268',
-            'label'             => __('Icon to the right', 'modularity'),
+            'label'             => __('Icon to the right', 'municipio'),
             'name'              => 'icon_last',
             'aria-label'        => '',
             'type'              => 'true_false',
@@ -27,7 +27,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         1 => array(
             'key'                           => 'field_569e0559eb084',
-            'label'                         => __('Lista', 'modularity'),
+            'label'                         => __('Lista', 'municipio'),
             'name'                          => 'items',
             'aria-label'                    => '',
             'type'                          => 'repeater',
@@ -43,13 +43,13 @@ if (function_exists('acf_add_local_field_group')) {
             'min'                           => 1,
             'max'                           => 0,
             'layout'                        => 'block',
-            'button_label'                  => __('Lägg till rad', 'modularity'),
+            'button_label'                  => __('Lägg till rad', 'municipio'),
             'rows_per_page'                 => 20,
             'acfe_repeater_stylised_button' => 0,
             'sub_fields'                    => array(
                 0 => array(
                     'key'               => 'field_569e068b33f31',
-                    'label'             => __('Link type', 'modularity'),
+                    'label'             => __('Link type', 'municipio'),
                     'name'              => 'type',
                     'aria-label'        => '',
                     'type'              => 'radio',
@@ -63,10 +63,10 @@ if (function_exists('acf_add_local_field_group')) {
                     ),
                     'layout'            => 'horizontal',
                     'choices'           => array(
-                        'internal' => __('Internal link', 'modularity'),
-                        'external' => __('External link', 'modularity'),
+                        'internal' => __('Internal link', 'municipio'),
+                        'external' => __('External link', 'municipio'),
                     ),
-                    'default_value'     => __('internal', 'modularity'),
+                    'default_value'     => __('internal', 'municipio'),
                     'other_choice'      => 0,
                     'save_other_choice' => 0,
                     'allow_null'        => 0,
@@ -75,11 +75,11 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 1 => array(
                     'key'               => 'field_569e0567eb085',
-                    'label'             => __('Titel', 'modularity'),
+                    'label'             => __('Titel', 'municipio'),
                     'name'              => 'title',
                     'aria-label'        => '',
                     'type'              => 'text',
-                    'instructions'      => __('If empty, title will default to the linked post\'s/page\'s title on internal links.', 'modularity'),
+                    'instructions'      => __('If empty, title will default to the linked post\'s/page\'s title on internal links.', 'municipio'),
                     'required'          => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -104,7 +104,7 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 2 => array(
                     'key'               => 'field_608e69429b2f7',
-                    'label'             => __('Titel', 'modularity'),
+                    'label'             => __('Titel', 'municipio'),
                     'name'              => 'titel',
                     'aria-label'        => '',
                     'type'              => 'text',
@@ -133,7 +133,7 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 3 => array(
                     'key'                  => 'field_569e05bceb086',
-                    'label'                => __('Link', 'modularity'),
+                    'label'                => __('Link', 'municipio'),
                     'name'                 => 'link_internal',
                     'aria-label'           => '',
                     'type'                 => 'post_object',
@@ -170,11 +170,11 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 4 => array(
                     'key'               => 'field_569e05f8eb087',
-                    'label'             => __('Date', 'modularity'),
+                    'label'             => __('Date', 'municipio'),
                     'name'              => 'date',
                     'aria-label'        => '',
                     'type'              => 'true_false',
-                    'instructions'      => __('If checked, the publish/last modified date of the linked post will be displayed.', 'modularity'),
+                    'instructions'      => __('If checked, the publish/last modified date of the linked post will be displayed.', 'municipio'),
                     'required'          => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -191,7 +191,7 @@ if (function_exists('acf_add_local_field_group')) {
                         'id'    => '',
                     ),
                     'default_value'     => 0,
-                    'message'           => __('Show publish date', 'modularity'),
+                    'message'           => __('Show publish date', 'municipio'),
                     'ui'                => 0,
                     'ui_on_text'        => '',
                     'ui_off_text'       => '',
@@ -199,7 +199,7 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 5 => array(
                     'key'               => 'field_569e06f633f32',
-                    'label'             => __('Link', 'modularity'),
+                    'label'             => __('Link', 'municipio'),
                     'name'              => 'link_external',
                     'aria-label'        => '',
                     'type'              => 'url',

@@ -11,8 +11,8 @@ class Map extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __('Map', 'modularity');
-        $this->namePlural   = __('Maps', 'modularity');
+        $this->nameSingular = __('Map', 'municipio');
+        $this->namePlural   = __('Maps', 'municipio');
         $this->description  = __("Outputs an embedded map.", 'modularity');
 
         add_filter('acf/load_field/name=map_url', array($this,'sslNotice'));
@@ -140,15 +140,15 @@ class Map extends \Modularity\Module
 
         $data['lang'] = [
             'knownLabels'   => [
-                'title'  => __('We need your consent to continue', 'modularity'),
-                'info'   => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'modularity'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
-                'button' => __('I understand, continue.', 'modularity'),
+                'title'  => __('We need your consent to continue', 'municipio'),
+                'info'   => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'municipio'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
+                'button' => __('I understand, continue.', 'municipio'),
             ],
 
             'unknownLabels' => [
-                'title'  => __('We need your consent to continue', 'modularity'),
+                'title'  => __('We need your consent to continue', 'municipio'),
                 'info'   => sprintf(__('This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.', 'municipio'), '{SUPPLIER_WEBSITE}'),
-                'button' => __('I understand, continue.', 'modularity'),
+                'button' => __('I understand, continue.', 'municipio'),
             ],
         ];
 

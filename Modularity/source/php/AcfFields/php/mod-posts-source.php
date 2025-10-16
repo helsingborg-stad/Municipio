@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_571dfaabc3fc5',
-    'title'                 => __('Data source', 'modularity'),
+    'title'                 => __('Data source', 'municipio'),
     'fields'                => array(
         0  => array(
             'key'                => 'field_571dfaafe6984',
-            'label'              => __('Data source', 'modularity'),
+            'label'              => __('Data source', 'municipio'),
             'name'               => 'posts_data_source',
             'aria-label'         => '',
             'type'               => 'select',
@@ -20,10 +20,10 @@ if (function_exists('acf_add_local_field_group')) {
                 'id'    => '',
             ),
             'choices'            => array(
-                'posttype'   => __('Posttyper', 'modularity'),
-                'children'   => __('Child posts', 'modularity'),
-                'manual'     => __('Manually picked posts', 'modularity'),
-                'schematype' => __('Schema type', 'modularity'),
+                'posttype'   => __('Posttyper', 'municipio'),
+                'children'   => __('Child posts', 'municipio'),
+                'manual'     => __('Manually picked posts', 'municipio'),
+                'schematype' => __('Schema type', 'municipio'),
             ),
             'default_value'      => false,
             'return_format'      => 'value',
@@ -37,7 +37,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         1  => array(
             'key'                => 'field_670fb7fc4b05c',
-            'label'              => __('Schema Type', 'modularity'),
+            'label'              => __('Schema Type', 'municipio'),
             'name'               => 'posts_data_schema_type',
             'aria-label'         => '',
             'type'               => 'select',
@@ -71,7 +71,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         2  => array(
             'key'               => 'field_571dfc40f8114',
-            'label'             => __('Post Types', 'modularity'),
+            'label'             => __('Post Types', 'municipio'),
             'name'              => 'posts_data_post_type',
             'aria-label'        => '',
             'type'              => 'posttype_select',
@@ -100,7 +100,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         3  => array(
             'key'                  => 'field_571dfc6ff8115',
-            'label'                => __('Pick posts to display', 'modularity'),
+            'label'                => __('Pick posts to display', 'municipio'),
             'name'                 => 'posts_data_posts',
             'aria-label'           => '',
             'type'                 => 'post_object',
@@ -136,7 +136,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         4  => array(
             'key'                  => 'field_571dfcd6b5cf9',
-            'label'                => __('Childs of', 'modularity'),
+            'label'                => __('Childs of', 'municipio'),
             'name'                 => 'posts_data_child_of',
             'aria-label'           => '',
             'type'                 => 'post_object',
@@ -172,11 +172,11 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         5  => array(
             'key'               => 'field_571dff4eb46c3',
-            'label'             => __('Number of posts', 'modularity'),
+            'label'             => __('Number of posts', 'municipio'),
             'name'              => 'posts_count',
             'aria-label'        => '',
             'type'              => 'number',
-            'instructions'      => __('Amount of posts to show (Maximum of 100)', 'modularity'),
+            'instructions'      => __('Amount of posts to show (Maximum of 100)', 'municipio'),
             'required'          => 1,
             'conditional_logic' => 0,
             'wrapper'           => array(
@@ -196,7 +196,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         6  => array(
             'key'                => 'field_671b3d7e4e7ed',
-            'label'              => __('Pagination', 'modularity'),
+            'label'              => __('Pagination', 'municipio'),
             'name'               => 'posts_pagination',
             'aria-label'         => '',
             'type'               => 'select',
@@ -217,10 +217,10 @@ if (function_exists('acf_add_local_field_group')) {
                 'id'    => '',
             ),
             'choices'            => array(
-                'disabled'     => __('Disabled', 'modularity'),
-                'page_numbers' => __('Page numbers', 'modularity'),
+                'disabled'     => __('Disabled', 'municipio'),
+                'page_numbers' => __('Page numbers', 'municipio'),
             ),
-            'default_value'      => __('disabled', 'modularity'),
+            'default_value'      => __('disabled', 'municipio'),
             'return_format'      => 'value',
             'multiple'           => 0,
             'allow_null'         => 0,
@@ -233,7 +233,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         7  => array(
             'key'               => 'field_57ecf1007b749',
-            'label'             => __('Link to post type archive', 'modularity'),
+            'label'             => __('Link to post type archive', 'municipio'),
             'name'              => 'archive_link',
             'aria-label'        => '',
             'type'              => 'true_false',
@@ -254,14 +254,14 @@ if (function_exists('acf_add_local_field_group')) {
                 'id'    => '',
             ),
             'default_value'     => 0,
-            'message'           => __('Yes, link to post type archive', 'modularity'),
+            'message'           => __('Yes, link to post type archive', 'municipio'),
             'ui'                => 0,
             'ui_on_text'        => '',
             'ui_off_text'       => '',
         ),
         8  => array(
             'key'               => 'field_67e6e75d155eb',
-            'label'             => __('Link title', 'modularity'),
+            'label'             => __('Link title', 'municipio'),
             'name'              => 'archive_link_title',
             'aria-label'        => '',
             'type'              => 'text',
@@ -281,7 +281,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id'    => '',
             ),
-            'default_value'     => __('Show more', 'modularity'),
+            'default_value'     => __('Show more', 'municipio'),
             'maxlength'         => '',
             'placeholder'       => '',
             'prepend'           => '',
@@ -289,11 +289,11 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         9  => array(
             'key'               => 'field_67e6eed195ff6',
-            'label'             => __('Archive link above posts', 'modularity'),
+            'label'             => __('Archive link above posts', 'municipio'),
             'name'              => 'archive_link_above_posts',
             'aria-label'        => '',
             'type'              => 'true_false',
-            'instructions'      => __('Doesn\'t work in combination with slider turned on', 'modularity'),
+            'instructions'      => __('Doesn\'t work in combination with slider turned on', 'municipio'),
             'required'          => 0,
             'conditional_logic' => array(
                 0 => array(
@@ -318,11 +318,11 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         10 => array(
             'key'                => 'field_6710ff6562e8c',
-            'label'              => __('From network sites', 'modularity'),
+            'label'              => __('From network sites', 'municipio'),
             'name'               => 'posts_data_network_sources',
             'aria-label'         => '',
             'type'               => 'select',
-            'instructions'       => __('Get posts from other sites in the network. Leave empty to only show posts from this site. If you chose one or more from this list you must also choose this site to get posts from this site.', 'modularity'),
+            'instructions'       => __('Get posts from other sites in the network. Leave empty to only show posts from this site. If you chose one or more from this list you must also choose this site to get posts from this site.', 'municipio'),
             'required'           => 0,
             'conditional_logic'  => array(
                 0 => array(
