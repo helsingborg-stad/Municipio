@@ -12,8 +12,8 @@ use Municipio\ImageFocus\Resolvers\FocusPointResolverInterface;
  * 
  * Requirements:
  * - Composer: composer require astrotomic/php-deepface
- * - Python: pip install deepface, pip install tf-keras
- * - Libs: sudo apt install -y libgl1-mesa-glx libglib2.0-0
+ * - Python: pip install deepface tf-keras numpy pandas tensorflow
+ * - Libs: sudo apt install -y libgl1-mesa-glx libglib2.0-0 
  * 
  * DeepFace should be callable via CLI from PHP (ensure Python's deepface is in PATH).
  */
