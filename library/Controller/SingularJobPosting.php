@@ -154,20 +154,6 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             ];
         }
 
-        if ($this->post->getSchemaProperty('employmentType')) {
-            $this->data['informationList'][] = [
-                'label' => $this->data['lang']->employmentType,
-                'value' => $this->post->getSchemaProperty('employmentType')
-            ];
-        }
-
-        if ($this->post->getSchemaProperty('datePosted')) {
-            $this->data['informationList'][] = [
-                'label' => $this->data['lang']->datePosted,
-                'value' => $this->post->getSchemaProperty('datePosted')?->format('Y-m-d')
-            ];
-        }
-
         $addressRegion   = $this->post->getSchemaProperty('employmentUnit')['address']['addressRegion'] ?? null;
         $addressLocality = $this->post->getSchemaProperty('employmentUnit')['address']['addressLocality'] ?? null;
 
