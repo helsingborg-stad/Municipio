@@ -35,6 +35,16 @@ use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
+use Municipio\ImageFocus\ImageFocusManager;
+use Municipio\ImageFocus\Hooks\ImageFocusHooks;
+use Municipio\ImageFocus\Storage\FocusPointStorage;
+use Municipio\ImageFocus\Resolvers\{
+    ManualInputFocusPointResolver,
+    FaceDetectingFocusPointResolver,
+    MostBusyAreaFocusPointResolver,
+    ChainFocusPointResolver
+};
+
 /**
  * Class App
  * @package Municipio
@@ -346,6 +356,11 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
+
+        /**
+         * Setup image focus
+         */
+        $this->setupImageFocus();
 
         /**
          * Component Context filters
@@ -812,6 +827,39 @@ class App
             $imageConvertConfig
         );
         $resolveToWpImageContract->addHooks();
+    }
+
+    /**
+     * Sets up the image focus feature.
+     *
+     * This method initializes the image focus feature by creating an instance of the
+     * ImageFocus class and passing the WordPress service instance.
+     * @return void
+     */
+    public function setupImageFocus(): void
+    {
+        $focusStorage   = new FocusPointStorage($this->wpService);
+
+        // Create resolvers
+        $manualInputFocusPointResolver  = new ManualInputFocusPointResolver($focusStorage);
+        $mostBusyAreaFocusPointResolver = new MostBusyAreaFocusPointResolver(
+            new \FreshleafMedia\Autofocus\FocalPointDetector()
+        );
+        $faceDetectingFocusPointResolver = new FaceDetectingFocusPointResolver();
+       
+        // Chain handler
+        $chainResolver = new ChainFocusPointResolver(
+            $manualInputFocusPointResolver,
+            $faceDetectingFocusPointResolver,
+            $mostBusyAreaFocusPointResolver,
+        );
+
+        // Manager
+        $imageFocusManager = new ImageFocusManager($this->wpService, $focusStorage, $chainResolver);
+
+        // Hooks
+        $hooks = new ImageFocusHooks($this->wpService, $imageFocusManager);
+        $hooks->addHooks();
     }
 
     /**
