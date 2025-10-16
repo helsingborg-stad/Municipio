@@ -5,11 +5,11 @@ namespace Municipio\Controller;
 use Municipio\PostObject\PostObjectInterface;
 
 /**
- * Class ArchiveProject
+ * Class ArchiveSchemaProject
  *
  * Handles archive for posts using the Project schema type.
  */
-class ArchiveProject extends \Municipio\Controller\Archive
+class ArchiveSchemaProject extends \Municipio\Controller\Archive
 {
     /**
      * @inheritDoc

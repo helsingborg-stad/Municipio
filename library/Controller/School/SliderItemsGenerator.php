@@ -29,7 +29,7 @@ class SliderItemsGenerator
             return is_a($item, ImageObject::class)
                 ? $this->getImageFromImageObject($item)
                 : null;
-        }, array_slice($image, 1)); // Skip the first image as it's used as the main image
+        }, $image); // Skip the first image as it's used as the main image
 
         return array_filter($images) ?: null;
     }

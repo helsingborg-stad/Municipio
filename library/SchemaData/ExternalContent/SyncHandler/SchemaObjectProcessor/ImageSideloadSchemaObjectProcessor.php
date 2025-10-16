@@ -95,6 +95,10 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
 
         $mediaId = $this->getImageIdFromPreviousSideload($schemaObject, $imageObject);
 
+        if (empty($imageObject->getProperty('url'))) {
+            return new WP_Error('no_image_url', 'No image URL provided for sideloading.');
+        }
+
         if (is_null($mediaId)) {
             $mediaId = $this->wpService->mediaSideloadImage($imageObject->getProperty('url'), 0, $imageObject->getProperty('caption'), 'id');
         }
