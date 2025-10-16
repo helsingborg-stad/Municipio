@@ -28,6 +28,7 @@ The `deepface` library has the following requirements:
 
 - Python 3.8+ installed.
 - The following python packages must be installed: `deepface`, `numpy`, `pandas`, `tensorflow`.
+- Libs: sudo apt install -y libgl1-mesa-glx libglib2.0-0 
 
 You can install these packages using pip:
 
