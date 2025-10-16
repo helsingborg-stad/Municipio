@@ -37,7 +37,7 @@
         "@babel/core": "^7.28.3",
         "@babel/preset-env": "^7.28.3",
         "@babel/preset-typescript": "^7.27.1",
-        "@helsingborg-stad/styleguide": "0.11.1327",
+        "@helsingborg-stad/styleguide": "0.11.1332",
         "@jest/globals": "^29.7.0",
         "@material-symbols/font-200": "^0.34.1",
         "@material-symbols/font-400": "^0.34.1",
