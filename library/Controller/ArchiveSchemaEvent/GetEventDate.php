@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\ArchiveEvent;
+namespace Municipio\Controller\ArchiveSchemaEvent;
 
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;

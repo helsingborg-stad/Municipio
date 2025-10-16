@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\ArchiveEvent;
+namespace Municipio\Controller\ArchiveSchemaEvent;
 
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
