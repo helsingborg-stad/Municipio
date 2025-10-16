@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 use WpService\Contracts\__;
 use WpService\Contracts\_x;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * Class TaxonomiesFromSchemaType
@@ -23,7 +24,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     public function __construct(
         private TaxonomyFactoryInterface $taxonomyFactory,
         private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver,
-        private __&_x $wpService
+        private __&_x&ApplyFilters $wpService
     ) {
     }
 
@@ -44,7 +45,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             'Preschool'        => $this->getPreschoolTaxonomies(),
         ];
 
-        $taxonomies = \apply_filters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
+        $taxonomies = $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
 
         return $taxonomies;
     }
