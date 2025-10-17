@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor
 use WP_Error;
 use Municipio\Schema\{BaseType, ImageObject, Schema};
 use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGeneratorInterface;
+use wpdb;
 use WpService\Contracts\{IsWpError, MediaSideloadImage, UpdatePostMeta, WpGetAttachmentUrl, WpUpdatePost};
 
 /**
@@ -19,7 +20,8 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      * Constructor
      */
     public function __construct(
-        private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService
+        private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService,
+        private wpdb $wpdb,
     ) {
     }
 
@@ -136,18 +138,16 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      */
     private function getImageIdFromPreviousSideload(BaseType $schemaObject, ImageObject $imageObject): ?int
     {
-        global $wpdb;
-
         $imageIdMetaKey  = self::META_KEY_IMAGE_ID;
         $imageIdMetaVal  = $imageObject->getProperty('sameAs');
         $parentIdMetaKey = self::META_KEY_SCHEMA_PARENT_ID;
         $parentIdMetaVal = $schemaObject->getProperty('@id') ?? 0;
 
-        $query = $wpdb->prepare(
+        $query = $this->wpdb->prepare(
             "SELECT p.ID
-             FROM {$wpdb->posts} p
-             INNER JOIN {$wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = %s AND pm1.meta_value = %s
-             INNER JOIN {$wpdb->postmeta} pm2 ON p.ID = pm2.post_id AND pm2.meta_key = %s AND pm2.meta_value = %s
+             FROM {$this->wpdb->posts} p
+             INNER JOIN {$this->wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = %s AND pm1.meta_value = %s
+             INNER JOIN {$this->wpdb->postmeta} pm2 ON p.ID = pm2.post_id AND pm2.meta_key = %s AND pm2.meta_value = %s
              WHERE p.post_type = 'attachment'
              LIMIT 1",
             $imageIdMetaKey,
@@ -156,7 +156,7 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
             $parentIdMetaVal
         );
 
-        $result = $wpdb->get_var($query);
+        $result = $this->wpdb->get_var($query);
 
         return $result ? (int)$result : null;
     }
