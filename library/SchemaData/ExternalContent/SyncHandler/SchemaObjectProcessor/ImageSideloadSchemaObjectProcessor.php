@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor
 use WP_Error;
 use Municipio\Schema\{BaseType, ImageObject, Schema};
 use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGeneratorInterface;
+use wpdb;
 use WpService\Contracts\{IsWpError, MediaSideloadImage, UpdatePostMeta, WpGetAttachmentUrl, WpUpdatePost};
 
 /**
@@ -19,7 +20,8 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      * Constructor
      */
     public function __construct(
-        private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService
+        private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService,
+        private wpdb $wpdb,
     ) {
     }
 
@@ -136,25 +138,27 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      */
     private function getImageIdFromPreviousSideload(BaseType $schemaObject, ImageObject $imageObject): ?int
     {
-        // get post by media hash on post meta
-        $posts = get_posts([
-            'meta_query'  => [
-                [
-                    'key'     => self::META_KEY_IMAGE_ID,
-                    'value'   => $imageObject->getProperty('sameAs'),
-                    'compare' => '=',
-                ],
-                [
-                    'key'     => self::META_KEY_SCHEMA_PARENT_ID,
-                    'value'   => $schemaObject->getProperty('@id') ?? 0,
-                    'compare' => '=',
-                ],
-            ],
-            'post_type'   => 'attachment',
-            'numberposts' => 1
-        ]);
+        $imageIdMetaKey  = self::META_KEY_IMAGE_ID;
+        $imageIdMetaVal  = $imageObject->getProperty('sameAs');
+        $parentIdMetaKey = self::META_KEY_SCHEMA_PARENT_ID;
+        $parentIdMetaVal = $schemaObject->getProperty('@id') ?? 0;
 
-        return !empty($posts) ? (int)$posts[0]->ID : null;
+        $query = $this->wpdb->prepare(
+            "SELECT p.ID
+             FROM {$this->wpdb->posts} p
+             INNER JOIN {$this->wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = %s AND pm1.meta_value = %s
+             INNER JOIN {$this->wpdb->postmeta} pm2 ON p.ID = pm2.post_id AND pm2.meta_key = %s AND pm2.meta_value = %s
+             WHERE p.post_type = 'attachment'
+             LIMIT 1",
+            $imageIdMetaKey,
+            $imageIdMetaVal,
+            $parentIdMetaKey,
+            $parentIdMetaVal
+        );
+
+        $result = $this->wpdb->get_var($query);
+
+        return $result ? (int)$result : null;
     }
 
     /**

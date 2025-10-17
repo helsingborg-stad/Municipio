@@ -6,6 +6,7 @@ use Municipio\Schema\Schema;
 use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGeneratorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use wpdb;
 use WpService\Contracts\{IsWpError, MediaSideloadImage, UpdatePostMeta, WpGetAttachmentUrl, WpUpdatePost};
 use WpService\Implementations\FakeWpService;
 
@@ -21,7 +22,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated()
     {
-        $processor = new ImageSideloadSchemaObjectProcessor($this->getWpService([]));
+        $processor = new ImageSideloadSchemaObjectProcessor($this->getWpService([]), $this->getWpdb());
         $this->assertInstanceOf(ImageSideloadSchemaObjectProcessor::class, $processor);
     }
 
@@ -36,7 +37,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         ]);
 
         $wpService       = $this->getWpService(['mediaSideloadImage' => 123]);
-        $processor       = new ImageSideloadSchemaObjectProcessor($wpService);
+        $processor       = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdb());
         $processedObject = $processor->process($schemaObject);
         $processedImage  = $processedObject->getProperty('image')[0];
 
@@ -58,7 +59,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
             ]);
 
         $wpService       = $this->getWpService(['mediaSideloadImage' => 123]);
-        $processor       = new ImageSideloadSchemaObjectProcessor($wpService);
+        $processor       = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdb());
         $processedObject = $processor->process($schemaObject);
         $processedImage  = $processedObject->getProperty('employee')[0]->getProperty('image')[0];
 
@@ -78,7 +79,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         );
 
         $wpService       = $this->getWpService(['mediaSideloadImage' => 123]);
-        $processor       = new ImageSideloadSchemaObjectProcessor($wpService);
+        $processor       = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdb());
         $processedObject = $processor->process($schemaObject);
         $processedImage  = $processedObject->getProperty('image');
 
@@ -96,7 +97,7 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
             ->name('Bare Image Object');
 
         $wpService       = $this->getWpService(['mediaSideloadImage' => 123]);
-        $processor       = new ImageSideloadSchemaObjectProcessor($wpService);
+        $processor       = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdb());
         $processedObject = $processor->process($schemaObject);
         $processedImage  = $processedObject;
 
@@ -118,5 +119,9 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
             ],
             $methods
         ));
+    }
+
+    private function getWpdb():wpdb {
+        return new wpdb('', '', '', '');
     }
 }
