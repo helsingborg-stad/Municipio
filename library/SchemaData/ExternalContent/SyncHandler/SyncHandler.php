@@ -70,6 +70,13 @@ class SyncHandler implements Hookable, SyncHandlerInterface
 
         $this->progressService->setMessage($this->wpService->__('Fetching source data...', 'municipio'));
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
+
+        if (empty($schemaObjects)) {
+            $this->progressService->setMessage($this->wpService->__('No data found to sync.', 'municipio'));
+            error_log('[SyncHandler] No data found to sync for post type: ' . $postType);
+            return;
+        }
+
         $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
         $schemaObjects = array_values($schemaObjects);
         $totalObjects  = count($schemaObjects);
