@@ -105,6 +105,7 @@ class RefactoredApplicatorCache implements Hookable, ApplicatorCacheInterface
         }
 
         // TODO: WpService should be updated to support this
+        // Using direct call as a temporary workaround until WpService provides this method
         wp_using_ext_object_cache(false);
         $this->wpService->wpCacheFlush();
         $this->wpService->wpCacheInit();

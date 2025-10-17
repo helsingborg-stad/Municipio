@@ -51,9 +51,12 @@ class CacheStorage implements CacheStorageInterface
     public function clear(string $keyPattern): bool
     {
         $matchingOptions = $this->wpdb->get_col(
-            "SELECT option_name 
-            FROM {$this->wpdb->options} 
-            WHERE option_name LIKE '{$keyPattern}_%'"
+            $this->wpdb->prepare(
+                "SELECT option_name 
+                FROM {$this->wpdb->options} 
+                WHERE option_name LIKE %s",
+                $this->wpdb->esc_like($keyPattern) . '_%'
+            )
         );
 
         $cacheCleared = false;

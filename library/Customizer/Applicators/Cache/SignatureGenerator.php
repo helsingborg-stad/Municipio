@@ -69,11 +69,10 @@ class SignatureGenerator implements SignatureGeneratorInterface
                 "SELECT post_modified_gmt 
                 FROM {$this->wpdb->posts} 
                 WHERE post_type = %s 
-                AND post_status IN (%s) 
+                AND post_status IN ('" . implode("','", array_map('esc_sql', $postStatus)) . "')
                 ORDER BY post_modified_gmt DESC 
                 LIMIT 1",
-                'customize_changeset',
-                implode(",", $postStatus)
+                'customize_changeset'
             )
         );
 
