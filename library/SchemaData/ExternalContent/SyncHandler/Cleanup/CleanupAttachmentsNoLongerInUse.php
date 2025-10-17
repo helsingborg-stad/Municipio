@@ -48,15 +48,24 @@ class CleanupAttachmentsNoLongerInUse implements Hookable
      */
     private function getAllAttachmentIdsNotInUse(): array
     {
-        $metaKey            = ImageSideloadSchemaObjectProcessor::META_KEY_IMAGE_ID;
         $allSchemaObjectIds = $this->getAllSchemaObjectIds();
 
         $attachmentIds = get_posts([
-            'post_type'           => 'attachment',
-            'meta_key'            => $metaKey,
-            'meta_compare'        => 'EXISTS',
-            'post_parent__not_in' => $allSchemaObjectIds,
-            'fields'              => 'ids',
+            'post_type'   => 'attachment',
+            'meta_query'  => [
+                'relation' => 'AND',
+                [
+                    'key'     => ImageSideloadSchemaObjectProcessor::META_KEY_IMAGE_ID,
+                    'compare' => 'EXISTS',
+                ],
+                [
+                    'key'     => ImageSideloadSchemaObjectProcessor::META_KEY_SCHEMA_PARENT_ID,
+                    'compare' => 'NOT IN',
+                    'value'   => $allSchemaObjectIds,
+                ],
+            ],
+            'fields'      => 'ids',
+            'numberposts' => -1,
         ]);
 
         return $attachmentIds;
