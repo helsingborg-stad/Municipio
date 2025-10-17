@@ -12,7 +12,7 @@ class ImageFocusHooks implements Hookable
 
     public function addHooks(): void
     {
-        $this->wpService->addFilter('wp_generate_attachment_metadata', [$this, 'handle'], 10, 3);
+        $this->wpService->addFilter('wp_generate_attachment_metadata', [$this, 'handle'], 25, 3);
     }
 
     public function handle($metadata, $attachmentId, $context)
