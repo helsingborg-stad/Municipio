@@ -12,7 +12,8 @@ use WpService\Contracts\{IsWpError, MediaSideloadImage, UpdatePostMeta, WpGetAtt
  */
 class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterface
 {
-    public const META_KEY_IMAGE_ID = '_external_image_id';
+    public const META_KEY_IMAGE_ID         = '_external_image_id';
+    public const META_KEY_SCHEMA_PARENT_ID = '_schema_parent_id';
 
     /**
      * Constructor
@@ -95,6 +96,10 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
 
         $mediaId = $this->getImageIdFromPreviousSideload($schemaObject, $imageObject);
 
+        if (!is_null($mediaId)) {
+            return $mediaId;
+        }
+
         if (empty($imageObject->getProperty('url'))) {
             return new WP_Error('no_image_url', 'No image URL provided for sideloading.');
         }
@@ -110,12 +115,12 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
         $this->wpService->updatePostMeta($mediaId, self::META_KEY_IMAGE_ID, $imageObject->getProperty('sameAs'));
 
         $this->wpService->wpUpdatePost([
-            'ID'          => $mediaId,
-            'post_title'  => $imageObject->getProperty('name') ?? '',
-            'post_parent' => $schemaObject->getProperty('@id') ?? 0,
-            'meta_input'  => [
-                self::META_KEY_IMAGE_ID    => $imageObject->getProperty('sameAs'),
-                '_wp_attachment_image_alt' => $imageObject->getProperty('description') ?? '',
+            'ID'         => $mediaId,
+            'post_title' => $imageObject->getProperty('name') ?? '',
+            'meta_input' => [
+                self::META_KEY_IMAGE_ID         => $imageObject->getProperty('sameAs'),
+                '_wp_attachment_image_alt'      => $imageObject->getProperty('description') ?? '',
+                self::META_KEY_SCHEMA_PARENT_ID => $schemaObject->getProperty('@id') ?? 0,
             ]
         ]);
 
@@ -133,9 +138,18 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
     {
         // get post by media hash on post meta
         $posts = get_posts([
-            'meta_key'    => self::META_KEY_IMAGE_ID,
-            'meta_value'  => $imageObject->getProperty('sameAs'),
-            'post_parent' => $schemaObject->getProperty('@id') ?? 0,
+            'meta_query'  => [
+                [
+                    'key'     => self::META_KEY_IMAGE_ID,
+                    'value'   => $imageObject->getProperty('sameAs'),
+                    'compare' => '=',
+                ],
+                [
+                    'key'     => self::META_KEY_SCHEMA_PARENT_ID,
+                    'value'   => $schemaObject->getProperty('@id') ?? 0,
+                    'compare' => '=',
+                ],
+            ],
             'post_type'   => 'attachment',
             'numberposts' => 1
         ]);
