@@ -4,7 +4,7 @@
 
             @includeIf('partials.sidebar', [
                 'id' => 'slider-area',
-                'classes' => ['o-grid', 'o-grid--no-margin', 'o-grid--no-gutter'],
+                'classes' => isset($classes) ? $classes : ['o-grid', 'o-grid--no-margin', 'o-grid--no-gutter'],
             ])
 
             {{-- Search in hero --}}

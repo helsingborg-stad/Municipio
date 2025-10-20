@@ -36,115 +36,116 @@
     @if ($customizer->headerSticky === 'sticky' && empty($headerData['nonStickyMegaMenu'])) data-js-toggle-item="mega-menu"
             data-js-toggle-class="mega-menu-open" @endif>
     <div class="site-wrapper">
-
-        {{-- Notices as banner style --}}
-        @if ($notice && $notice['banner'])
-            @foreach ($notice['banner'] as $noticeItem)
-                @notice($noticeItem)
-                @endnotice
-            @endforeach
-        @endif
-
-        {{-- Site banner --}}
-        @section('site-banner')
-            @includeIf('partials.sidebar', ['id' => 'header-area-site-banner', 'classes' => []])
-        @show
-
-        {{-- Site header --}}
-        @section('site-header')
-            @if (!empty($customizer->headerApperance))
-                @includeIf('partials.header.' . $customizer->headerApperance)
+        @section('site-wrapper')
+            {{-- Notices as banner style --}}
+            @if ($notice && $notice['banner'])
+                @foreach ($notice['banner'] as $noticeItem)
+                    @notice($noticeItem)
+                    @endnotice
+                @endforeach
             @endif
-        @show
 
-        @includeWhen(!$helperNavBeforeContent, 'partials.navigation.helper', [
-            'classList' => ['screen-reader-text'],
-        ])
-        {{-- Hero area and top sidebar --}}
-        @hasSection('hero-top-sidebar')
-            @yield('hero-top-sidebar')
-        @endif
-
-        {{-- Before page layout --}}
-        @yield('before-layout')
-
-        {{-- Notices before content --}}
-        @if ($notice && $notice['content'])
-            <div class="o-container u-margin__top--4">
-                <div class="o-grid o-grid--no-margin">
-                    <div class="o-grid-12">
-                        @foreach ($notice['content'] as $noticeItem)
-                            @notice($noticeItem)
-                            @endnotice
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        {{-- Page layout --}}
-        <main id="main-content">
-            @section('layout')
-                <div class="o-container">
-
-                    {{-- Helper navigation --}}
-                    @hasSection('helper-navigation')
-                        <div class="o-grid o-grid--no-margin u-print-display--none">
-                            <div class="o-grid-12">
-                                @yield('helper-navigation')
-                            </div>
-                        </div>
-                    @endif
-
-                    {{-- Above columns sidebar --}}
-                    @hasSection('above')
-                        <div class="o-grid u-print-display--none">
-                            <div class="o-grid-12">
-                                @yield('above')
-                            </div>
-                        </div>
-                    @endif
-
-                    <!--  Main content padder -->
-                    <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
-                        <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
-
-                            @hasSection('sidebar-left')
-                                <div
-                                    class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-grid-{{ $leftColumnSize }}@xl o-order-2 o-order-1@lg o-order-1@xl u-print-display--none">
-                                    @yield('sidebar-left')
-                                </div>
-                            @endif
-
-                            <div
-                                class="o-grid-12 o-grid-auto@lg o-grid-auto@xl o-order-1 o-order-2@lg o-order-2@xl u-display--flex u-flex--gridgap  u-flex-direction--column">
-                                @yield('content')
-                                @yield('content.below')
-                            </div>
-
-                            @hasSection('sidebar-right')
-                                <div
-                                    class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-grid-{{ $rightColumnSize }}@xl o-order-3 o-order-3@lg o-order-3@xl u-print-display--none">
-                                    @yield('sidebar-right')
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    @hasSection('below')
-                        <div class="o-grid">
-                            <div class="o-grid-12">
-                                @yield('below')
-                            </div>
-                        </div>
-                    @endif
-                </div>
+            {{-- Site banner --}}
+            @section('site-banner')
+                @includeIf('partials.sidebar', ['id' => 'header-area-site-banner', 'classes' => []])
             @show
-        </main>
 
-        {{-- After page layout --}}
-        @yield('after-layout')
+            {{-- Site header --}}
+            @section('site-header')
+                @if (!empty($customizer->headerApperance))
+                    @includeIf('partials.header.' . $customizer->headerApperance)
+                @endif
+            @show
 
+            @includeWhen(!$helperNavBeforeContent, 'partials.navigation.helper', [
+                'classList' => ['screen-reader-text'],
+            ])
+            {{-- Hero area and top sidebar --}}
+            @hasSection('hero-top-sidebar')
+                @yield('hero-top-sidebar')
+            @endif
+
+            {{-- Before page layout --}}
+            @section('before-layout')
+            @show
+
+            {{-- Notices before content --}}
+            @if ($notice && $notice['content'])
+                <div class="o-container u-margin__top--4">
+                    <div class="o-grid o-grid--no-margin">
+                        <div class="o-grid-12">
+                            @foreach ($notice['content'] as $noticeItem)
+                                @notice($noticeItem)
+                                @endnotice
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            {{-- Page layout --}}
+            <main id="main-content">
+                @section('layout')
+                    <div class="o-container">
+
+                        {{-- Helper navigation --}}
+                        @hasSection('helper-navigation')
+                            <div class="o-grid o-grid--no-margin u-print-display--none">
+                                <div class="o-grid-12">
+                                    @yield('helper-navigation')
+                                </div>
+                            </div>
+                        @endif
+
+                        {{-- Above columns sidebar --}}
+                        @hasSection('above')
+                            <div class="o-grid u-print-display--none">
+                                <div class="o-grid-12">
+                                    @yield('above')
+                                </div>
+                            </div>
+                        @endif
+
+                        <!--  Main content padder -->
+                        <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
+                            <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
+
+                                @hasSection('sidebar-left')
+                                    <div
+                                        class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-grid-{{ $leftColumnSize }}@xl o-order-2 o-order-1@lg o-order-1@xl u-print-display--none">
+                                        @yield('sidebar-left')
+                                    </div>
+                                @endif
+
+                                <div
+                                    class="o-grid-12 o-grid-auto@lg o-grid-auto@xl o-order-1 o-order-2@lg o-order-2@xl u-display--flex u-flex--gridgap  u-flex-direction--column">
+                                    @yield('content')
+                                    @yield('content.below')
+                                </div>
+
+                                @hasSection('sidebar-right')
+                                    <div
+                                        class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-grid-{{ $rightColumnSize }}@xl o-order-3 o-order-3@lg o-order-3@xl u-print-display--none">
+                                        @yield('sidebar-right')
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        @hasSection('below')
+                            <div class="o-grid">
+                                <div class="o-grid-12">
+                                    @yield('below')
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @show
+            </main>
+
+            {{-- After page layout --}}
+            @yield('after-layout')
+        @show
     </div>
 
     @section('footer')
@@ -167,7 +168,7 @@
             
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
-
+    @show
 </body>
 
 </html>
