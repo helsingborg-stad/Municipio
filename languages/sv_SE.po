@@ -3142,7 +3142,6 @@ msgid "Call"
 msgstr "Ring"
 
 #: Controller/BaseController.php:412
-#: Controller/Utils/SingularSchoolData.php:542
 msgid "Visiting address"
 msgstr "Adress"
 
@@ -3514,110 +3513,10 @@ msgstr "Kategorier"
 msgid "Estimated budget"
 msgstr "Estimerad budget"
 
-#: Controller/Utils/SingularSchoolData.php:180
-msgid "Contact us"
-msgstr "Kontakta oss"
-
-#: Controller/Utils/SingularSchoolData.php:192
-#, php-format
-msgid "Ca %d children"
-msgstr "Ca %d barn"
-
-#: Controller/Utils/SingularSchoolData.php:193
-#, php-format
-msgid "Ca %d students"
-msgstr "Ca %d elever"
-
-#: Controller/Utils/SingularSchoolData.php:194
-#, php-format
-msgid "%d units"
-msgstr "%d avdelningar"
-
-#: Controller/Utils/SingularSchoolData.php:196
-#, php-format
-msgid "%s profiles"
-msgstr "%s profiler"
-
-#: Controller/Utils/SingularSchoolData.php:197
-#, php-format
-msgid "Opening hours: %s"
-msgstr "Öppettider: %s"
-
-#: Controller/Utils/SingularSchoolData.php:198
-#, php-format
-msgid "Leisure center: %s"
-msgstr "Fritidshem: %s"
-
-#: Controller/Utils/SingularSchoolData.php:205
-msgid "Quick facts"
-msgstr "Snabba fakta"
-
-#: Controller/Utils/SingularSchoolData.php:283
-msgid "Leisure center"
-msgstr "Fritidshem"
-
-#: Controller/Utils/SingularSchoolData.php:340
-msgid "Visit us"
-msgstr "Besök oss"
-
-#: Controller/Utils/SingularSchoolData.php:397
-#, php-format
-msgctxt "Shown on pre-schools"
-msgid "Do you want to join %s?"
-msgstr "Vill du söka plats på %s?"
-
-#: Controller/Utils/SingularSchoolData.php:404
-#, php-format
-msgid "Do you want to apply to %s?"
-msgstr "Vill du välja %s?"
-
-#: Controller/Utils/SingularSchoolData.php:408
-msgid "Do you want to apply?"
-msgstr "Vill du ansöka?"
-
-#: Controller/Utils/SingularSchoolData.php:426
-msgid "About the school"
-msgstr "Om oss"
-
-#: Controller/Utils/SingularSchoolData.php:432
-msgid "How we work"
-msgstr "Så arbetar vi"
-
-#: Controller/Utils/SingularSchoolData.php:438
-msgid "Orientation"
-msgstr "Inskolning"
-
-#: Controller/Utils/SingularSchoolData.php:444
-msgid "Our leisure center"
-msgstr "Vårt fritidshem"
-
-#: Controller/Utils/SingularSchoolData.php:519
-#: Controller/Utils/SingularSchoolData.php:531
-msgid "Find directions"
-msgstr "Hitta hit"
-
-#: Controller/Utils/SingularSchoolData.php:544
-msgid "Visiting addresses"
-msgstr "Adresser"
-
-#: Controller/Utils/SingularSchoolData.php:597
 #: Helper/TranslatedLabels.php:62
 #: Helper/TranslatedLabels.php:79
 msgid "Read more"
 msgstr "Läs mer"
-
-#: Controller/Utils/SingularSchoolData.php:628
-msgid "Follow us in social media"
-msgstr "Följ oss i sociala medier"
-
-#: Controller/Utils/SingularSchoolData.php:774
-#, php-format
-msgid "Date and time: %s at %s"
-msgstr "Datum och tid: %s kl. %s"
-
-#: Controller/Utils/SingularSchoolData.php:782
-msgid "Events"
-msgstr "Evenemang"
 
 #: Customizer.php:59
 msgid "Install plugin"
