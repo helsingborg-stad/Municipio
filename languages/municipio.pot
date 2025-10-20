@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-08T04:59:25+00:00\n"
+"POT-Creation-Date: 2025-10-20T06:22:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -226,6 +226,7 @@ msgstr ""
 
 #: AcfFields/php/block-button.php:65
 #: Customizer/Sections/Component/Button.php:23
+#: Customizer/Sections/Component/Datebadge.php:22
 #: Customizer/Sections/Component/FooterMain.php:62
 #: Customizer/Sections/Component/FooterSub.php:57
 #: Customizer/Sections/Header/Appearance.php:21
@@ -245,6 +246,7 @@ msgstr ""
 
 #: AcfFields/php/block-button.php:66
 #: Customizer/Sections/Colors.php:171
+#: Customizer/Sections/Component/Datebadge.php:23
 #: Customizer/Sections/Component/FooterMain.php:63
 #: Customizer/Sections/Component/FooterSub.php:58
 #: Customizer/Sections/Header/Appearance.php:22
@@ -476,7 +478,6 @@ msgid "The color with the lowest stop will always be shown first."
 msgstr ""
 
 #: AcfFields/php/block-container.php:278
-#: AcfFields/php/options-api-resources-apis.php:30
 #: AcfFields/php/post-type-schema-settings.php:30
 #: AcfFields/php/user-author-image.php:131
 msgid "Add Row"
@@ -920,22 +921,6 @@ msgstr ""
 msgid "Only on template (onepage)"
 msgstr ""
 
-#: AcfFields/php/options-api-resources-apis.php:8
-msgid "Api Resources - Api:s"
-msgstr ""
-
-#: AcfFields/php/options-api-resources-apis.php:12
-msgid "Api:s"
-msgstr ""
-
-#: AcfFields/php/options-api-resources-apis.php:35
-msgid "Url"
-msgstr ""
-
-#: AcfFields/php/options-api-resources-apis.php:48
-msgid "https://dummy.api/wp-json/wp/v2"
-msgstr ""
-
 #: AcfFields/php/options-comment-settings.php:8
 msgid "Comment Settings"
 msgstr ""
@@ -1124,7 +1109,7 @@ msgstr ""
 
 #: AcfFields/php/options-menu-mega.php:8
 #: AcfFields/php/options-theme-google-translate.php:59
-#: Customizer/PanelsRegistry.php:409
+#: Customizer/PanelsRegistry.php:415
 #: Customizer/Sections/Search.php:140
 #: Helper/TranslatedLabels.php:49
 #: Theme/Navigation.php:36
@@ -1315,8 +1300,6 @@ msgstr ""
 
 #: AcfFields/php/options-theme-custom-post-type.php:55
 #: AcfFields/php/options-theme-custom-taxonomy.php:56
-#: AcfFields/php/resource-fields.php:577
-#: AcfFields/php/resource-fields.php:1048
 msgid "Permalänk"
 msgstr ""
 
@@ -1528,7 +1511,7 @@ msgid "Type of taxonomy"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-taxonomy.php:109
-#: Customizer/PanelsRegistry.php:347
+#: Customizer/PanelsRegistry.php:353
 msgid "Tags"
 msgstr ""
 
@@ -1777,7 +1760,6 @@ msgid "news"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-taxonomy.php:195
-#: AcfFields/php/resource-fields.php:1183
 msgid "pre-school"
 msgstr ""
 
@@ -1786,7 +1768,6 @@ msgid "person"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-taxonomy.php:197
-#: AcfFields/php/resource-fields.php:1184
 msgid "elementary-school"
 msgstr ""
 
@@ -1823,8 +1804,6 @@ msgid "modal-content"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-taxonomy.php:219
-#: AcfFields/php/resource-fields.php:254
-#: AcfFields/php/resource-fields.php:796
 msgid "Offentlig"
 msgstr ""
 
@@ -2086,7 +2065,7 @@ msgid "Language menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:63
-#: Customizer/PanelsRegistry.php:415
+#: Customizer/PanelsRegistry.php:421
 #: Customizer/Sections/Search.php:141
 #: Theme/Navigation.php:40
 msgid "Quicklinks menu"
@@ -2248,270 +2227,6 @@ msgstr ""
 
 #: AcfFields/php/post-type-schema-settings.php:57
 msgid "Schema type"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:8
-msgid "Api-resursfält"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:12
-msgid "Typ"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:25
-msgid "Posttyp"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:26
-msgid "Taxonomi"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:27
-msgid "Bifoga"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:41
-#: AcfFields/php/resource-fields.php:74
-#: AcfFields/php/resource-fields.php:107
-msgid "Källa"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:140
-msgid "Posttypsargument"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:173
-msgid "Nyckel"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:177
-msgid "Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller mellanslag."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:193
-#: AcfFields/php/resource-fields.php:714
-msgid "Etikett (plural)"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:213
-#: AcfFields/php/resource-fields.php:734
-msgid "Etikett (singular)"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:233
-#: AcfFields/php/resource-fields.php:775
-msgid "Beskrivning"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:237
-#: AcfFields/php/resource-fields.php:779
-msgid "En kort beskrivande sammanfattning av vad inläggstypen är."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:258
-#: AcfFields/php/resource-fields.php:800
-msgid "Om inläggstypen ska vara allmänt sökbar."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:274
-#: AcfFields/php/resource-fields.php:816
-msgid "Hierarkisk"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:278
-#: AcfFields/php/resource-fields.php:820
-msgid "Om inläggstypen är hierarkisk. Tillåter att Förälder anges."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:294
-#: AcfFields/php/resource-fields.php:836
-msgid "Visa användargränssnitt"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:298
-#: AcfFields/php/resource-fields.php:840
-msgid "Huruvida ett standardgränssnitt ska genereras för hantering av denna inläggstyp."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:314
-msgid "Har arkiv"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:318
-msgid "Aktiverar posttypsarkiv."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:334
-msgid "Uteslut från sök"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:338
-msgid "Om inläggstypen ska exkluderas från sökresultat."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:354
-#: AcfFields/php/resource-fields.php:876
-msgid "Offentligt sökbar"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:358
-#: AcfFields/php/resource-fields.php:880
-msgid "Huruvida förfrågningar kan utföras på frontend som en del av parse_request()."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:374
-#: AcfFields/php/resource-fields.php:896
-msgid "Visa i navigeringsmenyer"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:378
-#: AcfFields/php/resource-fields.php:900
-msgid "Om post_type är tillgänglig för val i navigeringsmenyer."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:394
-#: AcfFields/php/resource-fields.php:916
-msgid "Visa i menyn"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:398
-#: AcfFields/php/resource-fields.php:920
-msgid "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:422
-#: AcfFields/php/resource-fields.php:944
-msgid "Visa i adminfältet"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:426
-#: AcfFields/php/resource-fields.php:948
-msgid "Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:450
-#: AcfFields/php/resource-fields.php:972
-msgid "Omskrivning"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:454
-#: AcfFields/php/resource-fields.php:552
-#: AcfFields/php/resource-fields.php:976
-#: AcfFields/php/resource-fields.php:1023
-msgid "Hantering av url-omskrivningar för denna posttyp."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:470
-msgid "Position för meny"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:474
-msgid "Den position i menyordningen som inläggstypen ska visas. show_in_menu måste vara true."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:500
-#: AcfFields/php/resource-fields.php:992
-msgid "Kapacitet"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:519
-#: AcfFields/php/resource-fields.php:1011
-msgid "t.ex. \"manage_options\"..."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:527
-msgid "Överordnade inläggstyper"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:531
-msgid "Överordnade inläggstyper används för att bestämma permalänken och omskrivningsreglerna för denna inläggstyp. Om du anger överordnade inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen för överordnade inläggstyper."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:548
-#: AcfFields/php/resource-fields.php:1019
-msgid "Alternativ för url-omskrivning"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:597
-#: AcfFields/php/resource-fields.php:1068
-msgid "Med front"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:617
-#: AcfFields/php/resource-fields.php:1088
-msgid "RSS-flöde"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:639
-#: AcfFields/php/resource-fields.php:1110
-msgid "Query Var"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:643
-#: AcfFields/php/resource-fields.php:1114
-msgid "Ställer in query_var-nyckeln för denna inläggstyp."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:661
-msgid "Argument för taxonomi"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:694
-msgid "Taxonominyckel"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:698
-#: AcfFields/php/resource-fields.php:718
-#: AcfFields/php/resource-fields.php:738
-msgid "Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller mellanslag."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:754
-msgid "Typ av objekt"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:758
-msgid "Post Types to which this taxonomy should be connected to."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:856
-msgid "Visa admin-kolumn"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1132
-msgid "Attachment arguments"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1165
-msgid "Post types"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1169
-msgid "Choose which post types that should use this source for their attachments."
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1178
-msgid "attachment for: pre-school, elementary-school, school-person"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1179
-msgid "school-page"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1180
-msgid "school-grade"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1181
-msgid "school-area"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1182
-msgid "school-usp"
-msgstr ""
-
-#: AcfFields/php/resource-fields.php:1185
-msgid "school-person"
 msgstr ""
 
 #: AcfFields/php/term-icon-and-colour.php:8
@@ -3342,14 +3057,6 @@ msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr ""
 
-#: Content/ResourceFromApi/ResourcePostType.php:54
-msgid "API Resources"
-msgstr ""
-
-#: Content/ResourceFromApi/ResourcePostType.php:56
-msgid "API Resource"
-msgstr ""
-
 #: Controller/A11y.php:31
 msgid "Recently reviewed"
 msgstr ""
@@ -3417,7 +3124,6 @@ msgid "Call"
 msgstr ""
 
 #: Controller/BaseController.php:412
-#: Controller/Utils/SingularSchoolData.php:542
 msgid "Visiting address"
 msgstr ""
 
@@ -3472,7 +3178,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: Controller/School/AddressGenerator.php:41
+#: Controller/School/AddressGenerator.php:87
 msgctxt "ElementarySchool"
 msgid "Get directions"
 msgstr ""
@@ -3536,33 +3242,33 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: Controller/SingularElementarySchool.php:40
+#: Controller/SingularElementarySchool.php:39
 msgctxt "ElementarySchool"
 msgid "Quick facts"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:41
+#: Controller/SingularElementarySchool.php:40
 msgctxt "ElementarySchool"
 msgid "Contact us"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:42
+#: Controller/SingularElementarySchool.php:41
 msgctxt "ElementarySchool"
 msgid "Address"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:43
+#: Controller/SingularElementarySchool.php:42
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:44
+#: Controller/SingularElementarySchool.php:43
 msgctxt "ElementarySchool"
 msgid "Follow us on social media"
 msgstr ""
 
-#: Controller/SingularElementarySchool.php:45
+#: Controller/SingularElementarySchool.php:44
 msgctxt "ElementarySchool"
 msgid "Events"
 msgstr ""
@@ -3615,11 +3321,6 @@ msgstr ""
 
 #: Controller/SingularEvent.php:66
 msgid "This event has already taken place."
-msgstr ""
-
-#: Controller/SingularEvent/Mappers/MapPriceList.php:65
-#: Controller/SingularExhibitionEvent.php:173
-msgid "Price not available"
 msgstr ""
 
 #: Controller/SingularExhibitionEvent.php:96
@@ -3683,6 +3384,10 @@ msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr ""
 
+#: Controller/SingularExhibitionEvent.php:173
+msgid "Price not available"
+msgstr ""
+
 #: Controller/SingularJobPosting.php:56
 #: Controller/SingularProject.php:74
 msgid "Contact"
@@ -3739,33 +3444,33 @@ msgstr ""
 msgid "Visit website"
 msgstr ""
 
-#: Controller/SingularPreschool.php:41
+#: Controller/SingularPreschool.php:40
 msgctxt "Preschool"
 msgid "Quick facts"
 msgstr ""
 
-#: Controller/SingularPreschool.php:42
+#: Controller/SingularPreschool.php:41
 msgctxt "Preschool"
 msgid "Contact us"
 msgstr ""
 
-#: Controller/SingularPreschool.php:43
+#: Controller/SingularPreschool.php:42
 msgctxt "Preschool"
 msgid "Address"
 msgstr ""
 
-#: Controller/SingularPreschool.php:44
+#: Controller/SingularPreschool.php:43
 #, php-format
 msgctxt "Preschool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
 
-#: Controller/SingularPreschool.php:45
+#: Controller/SingularPreschool.php:44
 msgctxt "Preschool"
 msgid "Follow us on social media"
 msgstr ""
 
-#: Controller/SingularPreschool.php:46
+#: Controller/SingularPreschool.php:45
 msgctxt "Preschool"
 msgid "Events"
 msgstr ""
@@ -3790,111 +3495,6 @@ msgstr ""
 
 #: Controller/SingularProject.php:75
 msgid "Estimated budget"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:180
-msgid "Contact us"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:192
-#, php-format
-msgid "Ca %d children"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:193
-#, php-format
-msgid "Ca %d students"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:194
-#, php-format
-msgid "%d units"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:196
-#, php-format
-msgid "%s profiles"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:197
-#, php-format
-msgid "Opening hours: %s"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:198
-#, php-format
-msgid "Leisure center: %s"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:205
-msgid "Quick facts"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:283
-msgid "Leisure center"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:340
-msgid "Visit us"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:397
-#, php-format
-msgctxt "Shown on pre-schools"
-msgid "Do you want to join %s?"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:404
-#, php-format
-msgid "Do you want to apply to %s?"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:408
-msgid "Do you want to apply?"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:426
-msgid "About the school"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:432
-msgid "How we work"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:438
-msgid "Orientation"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:444
-msgid "Our leisure center"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:519
-#: Controller/Utils/SingularSchoolData.php:531
-msgid "Find directions"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:544
-msgid "Visiting addresses"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:597
-#: Helper/TranslatedLabels.php:62
-#: Helper/TranslatedLabels.php:79
-msgid "Read more"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:628
-msgid "Follow us in social media"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:774
-#, php-format
-msgid "Date and time: %s at %s"
-msgstr ""
-
-#: Controller/Utils/SingularSchoolData.php:782
-msgid "Events"
 msgstr ""
 
 #: Customizer.php:59
@@ -3957,7 +3557,7 @@ msgid "General settings"
 msgstr ""
 
 #: Customizer/PanelsRegistry.php:176
-#: Customizer/PanelsRegistry.php:391
+#: Customizer/PanelsRegistry.php:397
 #: Customizer/Sections/Component/Divider.php:61
 #: Customizer/Sections/Component/FooterSub.php:14
 #: Customizer/Sections/PostType.php:34
@@ -4094,6 +3694,10 @@ msgid "Sub footer"
 msgstr ""
 
 #: Customizer/PanelsRegistry.php:329
+msgid "Datebadge"
+msgstr ""
+
+#: Customizer/PanelsRegistry.php:335
 #: Customizer/Sections/Borders.php:16
 #: Customizer/Sections/Colors.php:207
 #: Customizer/Sections/Component/Divider.php:67
@@ -4101,56 +3705,56 @@ msgstr ""
 msgid "Divider"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:335
+#: Customizer/PanelsRegistry.php:341
 #: Theme/Sidebars.php:137
 msgid "Hero"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:341
+#: Customizer/PanelsRegistry.php:347
 msgid "Field"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:357
+#: Customizer/PanelsRegistry.php:363
 msgid "Error Pages"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:361
+#: Customizer/PanelsRegistry.php:367
 msgid "401 Unauthorized"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:366
+#: Customizer/PanelsRegistry.php:372
 msgid "403 Forbidden"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:371
+#: Customizer/PanelsRegistry.php:377
 msgid "404 Not found"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:384
+#: Customizer/PanelsRegistry.php:390
 msgid "Behaviour"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:385
+#: Customizer/PanelsRegistry.php:391
 msgid "Menu behaviour settings."
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:397
+#: Customizer/PanelsRegistry.php:403
 msgid "Breadcrumbs"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:403
+#: Customizer/PanelsRegistry.php:409
 msgid "Drawer"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:421
+#: Customizer/PanelsRegistry.php:427
 msgid "Siteselector menu"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:427
+#: Customizer/PanelsRegistry.php:433
 msgid "Tab menu"
 msgstr ""
 
-#: Customizer/PanelsRegistry.php:432
+#: Customizer/PanelsRegistry.php:438
 msgid "General: Menu Settings (vertical)"
 msgstr ""
 
@@ -4408,6 +4012,7 @@ msgstr ""
 #: Customizer/Sections/Colors.php:431
 #: Customizer/Sections/Colors.php:475
 #: Customizer/Sections/Colors.php:565
+#: Customizer/Sections/Component/Datebadge.php:21
 #: Customizer/Sections/Component/OpenStreetMap.php:22
 #: Customizer/Sections/Header/LoginLogout.php:68
 msgid "Dark"
@@ -4421,6 +4026,7 @@ msgstr ""
 #: Customizer/Sections/Colors.php:476
 #: Customizer/Sections/Colors.php:519
 #: Customizer/Sections/Colors.php:566
+#: Customizer/Sections/Component/Datebadge.php:20
 #: Customizer/Sections/Header/LoginLogout.php:67
 #: Customizer/Sections/Icons.php:34
 msgid "Light"
@@ -4656,6 +4262,14 @@ msgstr ""
 #: Customizer/Sections/Component/Card.php:22
 #: Customizer/Sections/Header/Appearance.php:47
 msgid "Accented"
+msgstr ""
+
+#: Customizer/Sections/Component/Datebadge.php:14
+msgid "Datebadge color"
+msgstr ""
+
+#: Customizer/Sections/Component/Datebadge.php:15
+msgid "Which color the datebadges should appear in."
 msgstr ""
 
 #: Customizer/Sections/Component/Divider.php:14
@@ -5963,6 +5577,11 @@ msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr ""
 
+#: Helper/TranslatedLabels.php:62
+#: Helper/TranslatedLabels.php:79
+msgid "Read more"
+msgstr ""
+
 #: Helper/TranslatedLabels.php:63
 msgid "Book here"
 msgstr ""
@@ -6107,12 +5726,16 @@ msgstr ""
 msgid "Fetching source data..."
 msgstr ""
 
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:75
+msgid "No data found to sync."
+msgstr ""
+
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:86
 #, php-format
 msgid "Processing %s of %s..."
 msgstr ""
 
-#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:97
+#: SchemaData/ExternalContent/SyncHandler/SyncHandler.php:104
 msgid "Cleaning up..."
 msgstr ""
 

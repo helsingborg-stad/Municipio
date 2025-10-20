@@ -12,16 +12,9 @@ use Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate;
 use Municipio\Comment\OptionalDisableDiscussionFeature;
 use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
-use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
-use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
-use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
-use Municipio\Content\ResourceFromApi\PostTypeFromResource;
-use Municipio\Content\ResourceFromApi\ResourceType;
-use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
 use WP_Post;
@@ -34,7 +27,6 @@ use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
-
 use Municipio\ImageFocus\ImageFocusManager;
 use Municipio\ImageFocus\Hooks\ImageFocusHooks;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
@@ -190,58 +182,6 @@ class App
         }, 10, 1);
 
         /**
-         * Resources from API
-         */
-
-        // Register the actual post type to be used for resources.
-        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType($this->wpService);
-        $resourcePostType->addHooks();
-
-        // Set up registry.
-
-        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
-
-        add_action('init', function () use ($resourceRegistry) {
-
-            $resourceRegistry->registerResources();
-
-            $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
-            $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
-
-            foreach ($sortedPostTypeResources as $resource) {
-                $registrar = new PostTypeFromResource($resource);
-                $registrar->register();
-            }
-
-            foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
-                $registrar = new TaxonomyFromResource($resource);
-                $registrar->register();
-            }
-        });
-
-        // Make resources available to the helper class.
-        ResourceFromApiHelper::initialize($resourceRegistry);
-
-        // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
-        $modifiersHelper = new ModifiersHelper($resourceRegistry);
-        $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
-        $hooksAdder->addHooks();
-
-        // Add REST API endpoints for resources.
-        add_action('rest_api_init', function () use ($resourceRegistry) {
-            $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
-
-            if (empty($resources)) {
-                return;
-            }
-
-            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
-                $controller = new ResourceFromApiRestController($resource->getName());
-                $controller->register_routes();
-            }
-        });
-
-        /**
          * Oembed
          */
         new \Municipio\Oembed\OembedFilters();
@@ -249,7 +189,6 @@ class App
         /**
          * Language
          */
-
         new \Municipio\Language();
 
         /**
@@ -738,7 +677,7 @@ class App
             return;
         }
 
-        $userHelper = new \Municipio\Helper\User\User(
+        $userHelper         = new \Municipio\Helper\User\User(
             $this->wpService,
             $this->acfService,
             new \Municipio\Helper\User\Config\UserConfig(),
@@ -838,15 +777,15 @@ class App
      */
     public function setupImageFocus(): void
     {
-        $focusStorage   = new FocusPointStorage($this->wpService);
+        $focusStorage = new FocusPointStorage($this->wpService);
 
         // Create resolvers
-        $manualInputFocusPointResolver  = new ManualInputFocusPointResolver($focusStorage);
-        $mostBusyAreaFocusPointResolver = new MostBusyAreaFocusPointResolver(
+        $manualInputFocusPointResolver   = new ManualInputFocusPointResolver($focusStorage);
+        $mostBusyAreaFocusPointResolver  = new MostBusyAreaFocusPointResolver(
             new \FreshleafMedia\Autofocus\FocalPointDetector()
         );
         $faceDetectingFocusPointResolver = new FaceDetectingFocusPointResolver();
-       
+
         // Chain handler
         $chainResolver = new ChainFocusPointResolver(
             $manualInputFocusPointResolver,
