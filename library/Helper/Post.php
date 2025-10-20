@@ -355,7 +355,7 @@ class Post
         $content = apply_filters('the_content', $content);
 
         // Build post_content_filtered
-        $return =  $excerpt . $content;
+        $return = $excerpt . $content;
 
         // Store in runtime cache
         $runtimeCache[$runtimeCacheKey] = $return;
