@@ -196,7 +196,6 @@ class App
         /**
          * Language
          */
-
         new \Municipio\Language();
 
         /**
