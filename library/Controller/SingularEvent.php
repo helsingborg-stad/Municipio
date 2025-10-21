@@ -50,7 +50,7 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get related events based on shared taxonomies
      *
-     * @return array
+     * @return \WP_Post[]
      */
     public function getRelatedEvents(): array
     {
@@ -65,7 +65,7 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $termIdsSql = implode(',', array_map('intval', $termIds));
         $maxResults = 6;
-        // TODO: limit to 6 using a variable
+
         $results = $wpdb->get_results($wpdb->prepare(
             "
             SELECT p.ID, COUNT(*) AS shared_terms
@@ -94,8 +94,17 @@ class SingularEvent extends \Municipio\Controller\Singular
             'orderby' => 'post__in'
         ]);
 
-        // $preparedPosts = 
-        return $results ?: [];
+        $preparedPosts = [];
+
+        foreach ($posts as $post) {
+            if (!$post instanceof \WP_Post) {
+                continue;
+            }
+
+            $preparedPosts[] = \Municipio\Helper\Post::convertWpPostToPostObject($post);
+        }
+
+        return $preparedPosts ?: [];
     }
 
     /**
@@ -116,6 +125,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->organizersTitle    = $this->wpService->__('Organizers', 'municipio');
         $this->data['lang']->accessibilityTitle = $this->wpService->__('Accessibility', 'municipio');
         $this->data['lang']->expiredEventNotice = $this->wpService->__('This event has already taken place.', 'municipio');
+        $this->data['lang']->relatedEventsTitle = $this->wpService->__('Related events', 'municipio');
     }
 
     /**
