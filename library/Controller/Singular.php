@@ -13,7 +13,6 @@ use WP_Post;
 class Singular extends \Municipio\Controller\BaseController
 {
     protected PostObjectInterface $post;
-    protected static $runtimeCache = [];
 
     /**
      * @return array|void
@@ -24,16 +23,9 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Get post data
         $pageID           = $this->getPageID();
-
-        // Prevent running multiple times for the same ID
-        if (isset(self::$runtimeCache[$pageID])) {
-            return self::$runtimeCache[$pageID];
-        }
-
         $originalPostData = $this->getOriginalPostData($pageID);
 
         if (!$originalPostData) {
-            self::$runtimeCache[$pageID] = $this->data;
             return $this->data;
         }
 
@@ -96,9 +88,6 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Get age of post
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
-
-        // Cache result for this pageID
-        self::$runtimeCache[$pageID] = $this->data;
 
         return $this->data;
     }
