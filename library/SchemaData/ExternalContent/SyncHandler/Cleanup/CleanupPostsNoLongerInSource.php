@@ -18,7 +18,7 @@ class CleanupPostsNoLongerInSource implements Hookable
      * Constructor for the CleanupPostsNoLongerInSource class.
      *
      * @param string $postType
-     * @param AddAction&WpDeletePost&GetPosts $wpService
+     * @param AddAct WpDeletePost&GetPosts $wpService
      */
     public function __construct(
         private string $postType,
@@ -41,10 +41,9 @@ class CleanupPostsNoLongerInSource implements Hookable
      */
     public function cleanup(array $syncedSchemaObjects): void
     {
-        $syncedIds     = array_map(fn($object) => $object->getProperty('@id'), $syncedSchemaObjects);
-        $postsToDelete = $this->getPostsNotInSource($syncedIds);
+        $syncedIds = array_map(fn($object) => $object->getProperty('@id'), $syncedSchemaObjects);
 
-        foreach ($postsToDelete as $post) {
+        foreach ($this->getPostsNotInSource($syncedIds) as $post) {
             $this->wpService->wpDeletePost($post->ID, true);
         }
     }
