@@ -27,7 +27,6 @@ use wpdb;
 use WpCronService\WpCronJob\WpCronJob;
 use WpCronService\WpCronJobManager;
 use Municipio\SchemaData\ExternalContent\ExternalContentFeature;
-use Municipio\SchemaData\ExternalContent\SyncHandler\Logger\ExternalContentLogger;
 use WpService\WpService;
 
 /**
