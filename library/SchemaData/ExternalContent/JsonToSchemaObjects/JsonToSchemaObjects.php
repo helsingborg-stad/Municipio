@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\JsonToSchemaObjects;
 
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 
 class JsonToSchemaObjects implements JsonToSchemaObjectsInterface
 {
@@ -15,13 +16,7 @@ class JsonToSchemaObjects implements JsonToSchemaObjectsInterface
      */
     public function transform(string $json): array
     {
-        $decoded = json_decode($json, true);
-
-        if (empty($decoded)) {
-            return [];
-        }
-
-        return array_map(fn($item) => $this->generateSchemaObject($item), $this->ensureArrayOfSchemas($decoded));
+        return array_map(fn($item) => $this->generateSchemaObject($item), $this->ensureArrayOfSchemas(json_decode($json, true, 512, JSON_THROW_ON_ERROR)));
     }
 
     private function ensureArrayOfSchemas($data): array

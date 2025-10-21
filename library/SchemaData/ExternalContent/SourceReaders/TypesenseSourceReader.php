@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiGET;
 
@@ -58,8 +59,8 @@ class TypesenseSourceReader implements SourceReaderInterface
 
         $apiResponse = $this->api->get($getParamsString);
 
-        if ($apiResponse->getStatusCode() !== 200 || empty($apiResponse->getBody())) {
-            return null;
+        if ($apiResponse->getStatusCode() !== 200) {
+            throw new ExternalContentException('Failed to fetch data from Typesense API. Status code: ' . $apiResponse->getStatusCode());
         }
 
         return $apiResponse->getBody();

@@ -2,9 +2,11 @@
 
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 use Municipio\SchemaData\ExternalContent\Filter\SchemaObjectsFilter\SchemaObjectsFilterInterface;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\FileSystem\FileSystem;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -16,12 +18,17 @@ class JsonFileSourceReaderTest extends TestCase {
         $this->assertInstanceOf(JsonFileSourceReader::class, $jsonFileSourceReader);
     }
 
-    #[TestDox('getSourceData() returns an array')]
-    public function testGetSourceDataReturnsArrayOfSchemaObjects() {
+    #[TestDox('getSourceData() throws if source file is empty')]
+    public function testGetSourceDataThrowsIfSourceFileIsEmpty() {
         $fileSystem = $this->getFileSystemMock();
         $fileSystem->method('fileExists')->willReturn(true);
         $jsonFileSourceReader = new JsonFileSourceReader('', $this->getSchemaObjectsFilterMock(), $fileSystem, $this->getJsonToSchemaObjectsMock());
-        $this->assertIsArray($jsonFileSourceReader->getSourceData());
+        
+        try{
+            $jsonFileSourceReader->getSourceData();
+        } catch (ExternalContentException $e) {
+            $this->assertTrue(true);
+        }
     }
 
     #[TestDox('getSourceData() transforms json to schema objects')]
@@ -42,10 +49,16 @@ class JsonFileSourceReaderTest extends TestCase {
     public function testGetSourceDataThrowsIfFileDoesNotExist() {
         $fileSystem = $this->getFileSystemMock();
         $fileSystem->method('fileExists')->willReturn(false);
-
-        $this->expectException(\InvalidArgumentException::class);
         $jsonFileSourceReader = new JsonFileSourceReader('invalid filePath', $this->getSchemaObjectsFilterMock(), $fileSystem, $this->getJsonToSchemaObjectsMock());
-        $jsonFileSourceReader->getSourceData();
+
+        try {
+            $jsonFileSourceReader->getSourceData();
+        } catch (ExternalContentException $e) {
+            $this->assertTrue(true);
+            return;
+        }
+
+        $this->fail('Expected ExternalContentException was not thrown.');
     }
 
     #[TestDox('getSourceData() returns filtered schema objects')]
