@@ -41,6 +41,13 @@ class Post
      */
     public static function preparePostObject(\WP_Post $post, $data = null): PostObjectInterface
     {
+        //Deprecate
+        _doing_it_wrong(
+            __METHOD__,
+            __('This method is deprecated. Use Municipio\PostObject instead.', 'municipio'),
+            '5.176.12'
+        );
+
         // Create a unique cache key based on the post ID and serialized data
         $cacheGroup = 'preparePostObject';
         $cacheKey   = md5(serialize(get_object_vars($post)) . '_' . serialize($data));
