@@ -47,7 +47,11 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
         }
 
         if (!empty($schemaObject['datePosted'])) {
-            $post['post_date'] = $schemaObject['datePosted'];
+            $datePosted = $schemaObject['datePosted'];
+            if ($datePosted instanceof \DateTimeInterface) {
+                $datePosted = $datePosted->format('Y-m-d H:i:s');
+            }
+            $post['post_date'] = $datePosted;
         }
 
         return $post;

@@ -34,7 +34,9 @@
         "dompdf/dompdf": "^2.0.4",
         "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "^1.0.0",
-        "helsingborg-stad/schema-library": "^0.5"
+        "helsingborg-stad/schema-library": "^0.5",
+        "freshleafmedia/autofocus": "^1.0",
+        "astrotomic/php-deepface": "^0.4.0"
     },
     "extra": {
         "installer-paths": {
@@ -59,7 +61,8 @@
         "allow-plugins": {
             "composer/installers": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     },
     "require-dev": {
@@ -82,5 +85,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "5.173.14"
+    "version": "5.176.14"
 }

@@ -72,17 +72,19 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @if ($displayArchiveLoop)
-                @includefirst(
-                    [   
-                        'partials.post.schema.' . $template,
-                        'partials.post.' . $postType . '-' . $template, 
-                        'partials.post.post-' . $template, 
-                        'partials.post.post-cards'
-                    ],
-                    ['posts' => $posts]
-                )
-            @endif
+            @section('loop')
+                @if ($displayArchiveLoop)
+                    @includefirst(
+                        [   
+                            'partials.post.schema.' . $template,
+                            'partials.post.' . $postType . '-' . $template, 
+                            'partials.post.post-' . $template, 
+                            'partials.post.post-cards'
+                        ],
+                        ['posts' => $posts]
+                    )
+                @endif
+            @show
             @if ($showPagination && $paginationList)
                 @pagination([
                     'list' => $paginationList,

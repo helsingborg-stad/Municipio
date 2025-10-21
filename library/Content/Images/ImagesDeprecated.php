@@ -6,7 +6,12 @@ class ImagesDeprecated implements ImagesInterface
 {
     public function __construct()
     {
-        add_filter('the_content', [$this, 'normalizeImages'], 5);
+        add_action('wp', function () {
+            add_filter('the_content', [$this, 'normalizeImages'], 
+                (has_blocks(get_post_field('post_content', get_the_ID())) ? 5 : 11)
+            );
+        });
+
         add_filter('Municipio/Content/ImageNormalized', [$this, 'imageHasBeenNormalized'], 10, 2);
     }
 

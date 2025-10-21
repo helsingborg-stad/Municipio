@@ -19,7 +19,6 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
         foreach (
             [
             'preamble'                   => new School\PreambleGenerator($schema),
-            'getFeaturedImageAttributes' => new School\FeaturedImageAttributesGenerator($schema),
             'accordionListItems'         => new School\ElementarySchool\AccordionListItemsGenerator($schema, $this->wpService),
             'sliderItems'                => new School\SliderItemsGenerator($schema),
             'personsAttributes'          => new School\PersonComponentsAttributesGenerator($schema),

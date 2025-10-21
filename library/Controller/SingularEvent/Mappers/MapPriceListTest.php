@@ -4,6 +4,7 @@ namespace Municipio\Controller\SingularEvent\Mappers;
 
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\__;
 
@@ -25,7 +26,9 @@ class MapPriceListTest extends TestCase
     {
         $mapper = new MapPriceList($this->getWpService());
         $event  = Schema::event()->offers([
-            Schema::offer()->name('Standard Ticket')->price(100)->priceCurrency('SEK')
+            Schema::offer()->priceSpecification([
+                Schema::priceSpecification()->name('Standard Ticket')->price(100)->priceCurrency('SEK')
+            ])
         ]);
 
         $result = $mapper->map($event);
