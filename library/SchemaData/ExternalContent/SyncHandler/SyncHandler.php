@@ -96,8 +96,9 @@ class SyncHandler implements Hookable, SyncHandlerInterface
                 throw new ExternalContentException('Schema object processing resulted in empty object for post type: ' . $postType);
             }
 
-            $wpPostArgs   = $this->getPostFactory($sourceConfig)->transform($schemaObject);
-            $postInserted = $this->wpService->wpInsertPost($wpPostArgs);
+            $postInserted = $this->wpService->wpInsertPost(
+                $this->getPostFactory($sourceConfig)->transform($schemaObject)
+            );
 
             if ($this->wpService->isWpError($postInserted)) {
                 throw new ExternalContentException('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
