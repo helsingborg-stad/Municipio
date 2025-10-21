@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\Rest;
 
+use finfo;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgressInterface;
 use Municipio\HooksRegistrar\Hookable;
@@ -69,12 +70,10 @@ class AjaxSync implements Hookable
 
         try {
             $this->syncHandler->sync($postType, $postId);
-        } catch (\Exception $e) {
+        } finally {
             $this->inProgress->setInProgress($postType, false);
-            throw $e;
         }
 
-        $this->inProgress->setInProgress($postType, false);
         $this->progressReporter->finish($this->wpService->__('Sync completed. Reload page to see changes.', 'municipio'));
     }
 }
