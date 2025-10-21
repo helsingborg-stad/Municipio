@@ -320,6 +320,14 @@ class Post
      */
     public static function getFilteredContent(object $postObject): string
     {
+        /* Caching */
+        static $runtimeCache = [];
+        $runtimeCacheKey = 'post_filtered_content_' . md5($postObject->post_content);
+        if (isset($runtimeCache[$runtimeCacheKey])) {
+            return $runtimeCache[$runtimeCacheKey];
+        }
+        /* End caching */
+
         //Parse lead
         $parts = explode("<!--more-->", $postObject->post_content);
 
@@ -347,7 +355,12 @@ class Post
         $content = apply_filters('the_content', $content);
 
         // Build post_content_filtered
-        return $excerpt . $content;
+        $return = $excerpt . $content;
+
+        // Store in runtime cache
+        $runtimeCache[$runtimeCacheKey] = $return;
+
+        return $return;
     }
 
     /*
