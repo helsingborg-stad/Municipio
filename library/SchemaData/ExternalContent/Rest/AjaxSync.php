@@ -66,7 +66,14 @@ class AjaxSync implements Hookable
         }
 
         $this->inProgress->setInProgress($postType, true);
-        $this->syncHandler->sync($postType, $postId);
+
+        try {
+            $this->syncHandler->sync($postType, $postId);
+        } catch (\Exception $e) {
+            $this->inProgress->setInProgress($postType, false);
+            throw $e;
+        }
+
         $this->inProgress->setInProgress($postType, false);
         $this->progressReporter->finish($this->wpService->__('Sync completed. Reload page to see changes.', 'municipio'));
     }

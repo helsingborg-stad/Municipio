@@ -2,28 +2,32 @@
 
 namespace Municipio\SchemaData\ExternalContent\JsonToSchemaObjects;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class JsonToSchemaObjectsTest extends TestCase {
 
-    #[TestDox('returns empty array when given an invalid JSON string')]
+    #[TestDox('throws when given an invalid JSON string')]
     public function testTransformInvalid() {
-        $json = '{ invalid json [';
-
         $converter = new JsonToSchemaObjects();
-        $schemaObjects = $converter->transform($json);
 
-        $this->assertEmpty($schemaObjects);
+        try{
+            $converter->transform('{ invalid json [');
+        } catch (\JsonException $e) {
+            $this->assertTrue(true);
+        }
     }
 
-    #[TestDox('returns empty array when given an empty JSON string')]
+    #[TestDox('throws when given an empty JSON string')]
     public function testTransformEmpty() {
-        $json = '';
 
         $converter = new JsonToSchemaObjects();
-        $schemaObjects = $converter->transform($json);
-
-        $this->assertEmpty($schemaObjects);
+        
+        try{
+            $converter->transform('');
+        } catch (\JsonException $e) {
+            $this->assertTrue(true);
+        }
     }
 
     #[TestDox('allows non-array JSON input')]

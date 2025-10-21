@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler;
 
+use Exception;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\FilterDefinition;
@@ -12,6 +13,9 @@ use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFr
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\ProgressReporterInterface;
 use Municipio\Schema\BaseType;
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentExceptionCode;
+use Psr\Log\LoggerInterface;
 use WpService\WpService;
 
 /**
@@ -72,9 +76,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
 
         if (empty($schemaObjects)) {
-            $this->progressService->setMessage($this->wpService->__('No data found to sync.', 'municipio'));
-            error_log('[SyncHandler] No data found to sync for post type: ' . $postType);
-            return;
+            throw new ExternalContentException('No data found to sync for post type: ' . $postType);
         }
 
         $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
@@ -94,11 +96,15 @@ class SyncHandler implements Hookable, SyncHandlerInterface
             }
 
             if (empty($schemaObject)) {
-                continue;
+                throw new ExternalContentException('Schema object processing resulted in empty object for post type: ' . $postType);
             }
 
-            $wpPostArgs = $this->getPostFactory($sourceConfig)->transform($schemaObject);
-            $this->wpService->wpInsertPost($wpPostArgs);
+            $wpPostArgs   = $this->getPostFactory($sourceConfig)->transform($schemaObject);
+            $postInserted = $this->wpService->wpInsertPost($wpPostArgs);
+
+            if ($this->wpService->isWpError($postInserted)) {
+                throw new ExternalContentException('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
+            }
         }
 
         $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));
