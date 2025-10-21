@@ -15,7 +15,10 @@ class JsonToSchemaObjectsTest extends TestCase {
             $converter->transform('{ invalid json [');
         } catch (\JsonException $e) {
             $this->assertTrue(true);
+            return;
         }
+
+        $this->fail('Expected JsonException was not thrown.');
     }
 
     #[TestDox('throws when given an empty JSON string')]
@@ -27,7 +30,10 @@ class JsonToSchemaObjectsTest extends TestCase {
             $converter->transform('');
         } catch (\JsonException $e) {
             $this->assertTrue(true);
+            return;
         }
+
+        $this->fail('Expected JsonException was not thrown.');
     }
 
     #[TestDox('allows non-array JSON input')]

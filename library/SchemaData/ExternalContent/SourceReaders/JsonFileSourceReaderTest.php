@@ -55,7 +55,10 @@ class JsonFileSourceReaderTest extends TestCase {
             $jsonFileSourceReader->getSourceData();
         } catch (ExternalContentException $e) {
             $this->assertTrue(true);
+            return;
         }
+
+        $this->fail('Expected ExternalContentException was not thrown.');
     }
 
     #[TestDox('getSourceData() returns filtered schema objects')]
