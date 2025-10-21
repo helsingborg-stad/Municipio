@@ -2,7 +2,6 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler;
 
-use Exception;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\FilterDefinition;
@@ -14,8 +13,6 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\ProgressReporterInterface;
 use Municipio\Schema\BaseType;
 use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
-use Municipio\SchemaData\ExternalContent\Exception\ExternalContentExceptionCode;
-use Psr\Log\LoggerInterface;
 use WpService\WpService;
 
 /**
