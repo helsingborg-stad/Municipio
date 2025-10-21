@@ -159,7 +159,7 @@ class Post
      * @param WP_Post $post WP_Post object
      * @return PostObjectInterface
      */
-    private static function convertWpPostToPostObject(WP_Post $post): PostObjectInterface
+    public static function convertWpPostToPostObject(WP_Post $post): PostObjectInterface
     {
         return self::$postObjectFromWpPostFactory->create($post);
     }
