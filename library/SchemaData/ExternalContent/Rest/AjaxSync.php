@@ -2,7 +2,6 @@
 
 namespace Municipio\SchemaData\ExternalContent\Rest;
 
-use finfo;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgressInterface;
 use Municipio\HooksRegistrar\Hookable;
