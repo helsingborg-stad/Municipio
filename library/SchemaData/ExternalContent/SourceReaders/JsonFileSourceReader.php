@@ -30,7 +30,9 @@ class JsonFileSourceReader implements SourceReaderInterface
 
         $fileContent = $this->fileSystem->fileGetContents($this->filePath);
 
-        empty($fileContent) && throw new ExternalContentException('Source file is empty: ' . $this->filePath);
+        if(empty($fileContent)) {
+            throw new ExternalContentException('Source file is empty: ' . $this->filePath);
+        }
 
         $schemaObjects = $this->jsonToSchemaObjects->transform( $fileContent );
         
