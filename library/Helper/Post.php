@@ -43,13 +43,7 @@ class Post
     {
         // Create a unique cache key based on the post ID and serialized data
         $cacheGroup = 'preparePostObject';
-
-        //If we can base the cache key on the WP_Query request, we do that to avoid issues with large data arrays
-        if(isset($data['wpQuery']?->request)){
-            $cacheKey = md5($data['wpQuery']->request);
-        } else {
-            $cacheKey = md5(serialize(get_object_vars($post)) . '_' . serialize($data));
-        }
+        $cacheKey   = md5(serialize(get_object_vars($post)) . '_' . serialize($data));
 
         if (self::isInCache($cacheGroup, $cacheKey)) {
             return self::getFromCache($cacheGroup, $cacheKey);
