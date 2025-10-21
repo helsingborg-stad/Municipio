@@ -35,6 +35,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['currentOccasion']       = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['icsUrl']                = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
         $this->data['bookingLink']           = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
+        $this->data['relatedPosts']          = $this->getRelatedEvents();
 
         // Ensure we are visiting a singular occasion if occasions exist
         (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion(
@@ -44,6 +45,57 @@ class SingularEvent extends \Municipio\Controller\Singular
         ))->ensureVisitingSingularOccasion();
 
         $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
+    }
+
+    /**
+     * Get related events based on shared taxonomies
+     *
+     * @return array
+     */
+    public function getRelatedEvents(): array
+    {
+        global $wpdb;
+
+        $terms = $this->post->getTerms(['event_keywords_name']);
+        $termIds = array_map(fn($term) => $term->term_id, $terms);
+
+        if (empty($termIds)) {
+            return [];
+        }
+
+        $termIdsSql = implode(',', array_map('intval', $termIds));
+        $maxResults = 6;
+        // TODO: limit to 6 using a variable
+        $results = $wpdb->get_results($wpdb->prepare(
+            "
+            SELECT p.ID, COUNT(*) AS shared_terms
+            FROM {$wpdb->posts} AS p
+            INNER JOIN {$wpdb->term_relationships} AS tr ON p.ID = tr.object_id
+            INNER JOIN {$wpdb->term_taxonomy} AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+            WHERE tt.term_id IN ($termIdsSql)
+            AND p.post_status = 'publish'
+            AND p.post_type = %s
+            AND p.ID != %d
+            GROUP BY p.ID
+            ORDER BY shared_terms DESC, p.post_date DESC
+            LIMIT {$maxResults}
+            ",
+            $this->post->getPostType(),
+            $this->post->getId()
+        ));
+
+
+        $postIds = array_map(fn($post) => $post->ID, $results ?? []);
+        $posts = $this->wpService->getPosts([
+            'post__in' => $postIds,
+            'posts_per_page' => $maxResults,
+            'post_status' => 'publish',
+            'post_type' => $this->post->getPostType(),
+            'orderby' => 'post__in'
+        ]);
+
+        // $preparedPosts = 
+        return $results ?: [];
     }
 
     /**
