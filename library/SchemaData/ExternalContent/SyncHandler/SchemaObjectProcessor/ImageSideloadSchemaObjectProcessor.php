@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor
 use WP_Error;
 use Municipio\Schema\{BaseType, ImageObject, Schema};
 use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGeneratorInterface;
+use wpdb;
 use WpService\Contracts\{IsWpError, MediaSideloadImage, UpdatePostMeta, WpGetAttachmentUrl, WpUpdatePost};
 
 /**
@@ -12,13 +13,15 @@ use WpService\Contracts\{IsWpError, MediaSideloadImage, UpdatePostMeta, WpGetAtt
  */
 class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterface
 {
-    public const META_KEY_IMAGE_ID = '_external_image_id';
+    public const META_KEY_IMAGE_ID         = '_external_image_id';
+    public const META_KEY_SCHEMA_PARENT_ID = '_schema_parent_id';
 
     /**
      * Constructor
      */
     public function __construct(
-        private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService
+        private MediaSideloadImage&UpdatePostMeta&IsWpError&WpGetAttachmentUrl&WpUpdatePost $wpService,
+        private wpdb $wpdb,
     ) {
     }
 
@@ -95,6 +98,10 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
 
         $mediaId = $this->getImageIdFromPreviousSideload($schemaObject, $imageObject);
 
+        if (!is_null($mediaId)) {
+            return $mediaId;
+        }
+
         if (empty($imageObject->getProperty('url'))) {
             return new WP_Error('no_image_url', 'No image URL provided for sideloading.');
         }
@@ -110,12 +117,12 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
         $this->wpService->updatePostMeta($mediaId, self::META_KEY_IMAGE_ID, $imageObject->getProperty('sameAs'));
 
         $this->wpService->wpUpdatePost([
-            'ID'          => $mediaId,
-            'post_title'  => $imageObject->getProperty('name') ?? '',
-            'post_parent' => $schemaObject->getProperty('@id') ?? 0,
-            'meta_input'  => [
-                self::META_KEY_IMAGE_ID    => $imageObject->getProperty('sameAs'),
-                '_wp_attachment_image_alt' => $imageObject->getProperty('description') ?? '',
+            'ID'         => $mediaId,
+            'post_title' => $imageObject->getProperty('name') ?? '',
+            'meta_input' => [
+                self::META_KEY_IMAGE_ID         => $imageObject->getProperty('sameAs'),
+                '_wp_attachment_image_alt'      => $imageObject->getProperty('description') ?? '',
+                self::META_KEY_SCHEMA_PARENT_ID => $schemaObject->getProperty('@id') ?? 0,
             ]
         ]);
 
@@ -131,16 +138,27 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
      */
     private function getImageIdFromPreviousSideload(BaseType $schemaObject, ImageObject $imageObject): ?int
     {
-        // get post by media hash on post meta
-        $posts = get_posts([
-            'meta_key'    => self::META_KEY_IMAGE_ID,
-            'meta_value'  => $imageObject->getProperty('sameAs'),
-            'post_parent' => $schemaObject->getProperty('@id') ?? 0,
-            'post_type'   => 'attachment',
-            'numberposts' => 1
-        ]);
+        $imageIdMetaKey  = self::META_KEY_IMAGE_ID;
+        $imageIdMetaVal  = $imageObject->getProperty('sameAs');
+        $parentIdMetaKey = self::META_KEY_SCHEMA_PARENT_ID;
+        $parentIdMetaVal = $schemaObject->getProperty('@id') ?? 0;
 
-        return !empty($posts) ? (int)$posts[0]->ID : null;
+        $query = $this->wpdb->prepare(
+            "SELECT p.ID
+             FROM {$this->wpdb->posts} p
+             INNER JOIN {$this->wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = %s AND pm1.meta_value = %s
+             INNER JOIN {$this->wpdb->postmeta} pm2 ON p.ID = pm2.post_id AND pm2.meta_key = %s AND pm2.meta_value = %s
+             WHERE p.post_type = 'attachment'
+             LIMIT 1",
+            $imageIdMetaKey,
+            $imageIdMetaVal,
+            $parentIdMetaKey,
+            $parentIdMetaVal
+        );
+
+        $result = $this->wpdb->get_var($query);
+
+        return $result ? (int)$result : null;
     }
 
     /**

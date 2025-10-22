@@ -203,8 +203,8 @@ class Template
                                                 class_exists("Municipio\Controller\Singular{$schemaType()}") &&
                                                 (bool)ControllerHelper::locateController("Singular{$schemaType()}");
         $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
-                                                class_exists("Municipio\Controller\Archive{$schemaType()}") &&
-                                                (bool)ControllerHelper::locateController("Archive{$schemaType()}");
+                                                class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") &&
+                                                (bool)ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
 
         $controllers = [
             [
@@ -224,8 +224,8 @@ class Template
             ],
             [
                 'condition'       => $shouldUseSchemaArchiveController(),
-                'controllerClass' => "Municipio\Controller\Archive{$schemaType()}",
-                'controllerPath'  => ControllerHelper::locateController("Archive{$schemaType()}")
+                'controllerClass' => "Municipio\Controller\ArchiveSchema{$schemaType()}",
+                'controllerPath'  => ControllerHelper::locateController("ArchiveSchema{$schemaType()}")
             ],
             [
                 'condition'       => $shouldUseSchemaController(),

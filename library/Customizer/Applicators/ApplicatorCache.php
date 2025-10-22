@@ -341,9 +341,10 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
     {
         $supportedHashes = hash_algos() ?? [];
         if (in_array('xxh3', $supportedHashes)) {
-            $hash = hash('sha256', json_encode($data));
+            $hash = hash('xxh3', json_encode($data));
+        } else {
+            $hash = hash('md5', json_encode($data));
         }
-        $hash = hash('md5', json_encode($data));
 
         return $this->shortenHash($hash);
     }

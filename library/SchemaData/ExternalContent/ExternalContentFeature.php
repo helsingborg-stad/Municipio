@@ -11,7 +11,6 @@ use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\SchemaData\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\SchemaData\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
-use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGenerator;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\SchemaData\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
@@ -152,7 +151,7 @@ class ExternalContentFeature
     {
         return [
             new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\NoOpSchemaObjectProcessor(),
-            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor($this->wpService)
+            new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor($this->wpService, $GLOBALS['wpdb']),
         ];
     }
 

@@ -683,6 +683,7 @@ class Archive extends \Municipio\Controller\BaseController
                         '/^\d{2}-\d{2}-\d{4}$/',         // DD-MM-YYYY
                         '/^\w+ \d{4}$/',                 // "Month YYYY"
                         '/^\d{1,2} \p{L}+, \d{4}$/u',    // "30 january, 2025"
+                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}$/', // "2025-11-09T00:00:00+00:00"
                     ];
                     foreach ($datePatterns as $pattern) {
                         if (preg_match($pattern, $name)) {

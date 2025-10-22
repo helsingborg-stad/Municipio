@@ -3,9 +3,11 @@
 namespace Municipio\Controller\School;
 
 use DateTime;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Event;
 use Municipio\Schema\Preschool;
+use Municipio\Schema\Schedule;
 
 class EventsGenerator implements ViewDataGeneratorInterface
 {
@@ -13,31 +15,80 @@ class EventsGenerator implements ViewDataGeneratorInterface
     {
     }
 
-    public function generate(): mixed
+    public function generate(): ?array
     {
-        if (empty($this->school->getProperty('event'))) {
-            return [];
+        $events = $this->getEvents();
+
+        if (empty($events)) {
+            return null;
         }
 
-        if (!is_array($this->school->getProperty('event'))) {
-            return [$this->formatEvent($this->school->getProperty('event'))];
-        }
-
-        return array_map([$this, 'formatEvent'], $this->school->getProperty('event'));
+        return $this->generateOccasions($events);
     }
 
-    private function formatEvent(Event $event): array
+    private function getEvents(): array
     {
+        return EnsureArrayOf::ensureArrayOf(
+            $this->school->getProperty('event'),
+            Event::class
+        );
+    }
+
+    private function generateOccasions(array $events): array
+    {
+        $occasions = [];
+
+        foreach ($events as $event) {
+            $schedules = $this->getSchedules($event);
+
+            foreach ($schedules as $schedule) {
+                $occasions[] = $this->createOccasion($event, $schedule);
+            }
+        }
+
+        return $occasions;
+    }
+
+    private function getSchedules(Event $event): array
+    {
+        return EnsureArrayOf::ensureArrayOf(
+            $event->getProperty('eventSchedule'),
+            Schedule::class
+        );
+    }
+
+    private function createOccasion(Event $event, Schedule $schedule): array
+    {
+        $startDate = $schedule->getProperty('startDate');
+        $endDate = $schedule->getProperty('endDate');
+
         return [
             'name'             => $event->getProperty('name'),
-            'timestamp'        => !empty($event->getProperty('startDate')) ? $this->getTimestampFromDateTime($event->getProperty('startDate')) : null,
-            'startTimeEndTime' => !empty($event->getProperty('startDate')) && !empty($event->getProperty('endDate')) ? sprintf('%s - %s', $event->getProperty('startDate')->format('H:i'), $event->getProperty('endDate')->format('H:i')) : null,
-            'description'      => $event->getProperty('description'),
+            'timestamp'        => $startDate ? $this->getTimestampFromDateTime($startDate) : null,
+            'startTimeEndTime' => $this->formatStartEndTime($startDate, $endDate),
+            'description'      => $this->getDescription($event),
         ];
+    }
+
+    private function formatStartEndTime(?DateTime $startDate, ?DateTime $endDate): ?string
+    {
+        if ($startDate && $endDate) {
+            return sprintf('%s - %s', $startDate->format('H:i'), $endDate->format('H:i'));
+        }
+        return null;
     }
 
     private function getTimestampFromDateTime(DateTime $dateTime): int
     {
         return $dateTime->getTimestamp();
+    }
+
+    private function getDescription(Event $event): string
+    {
+        $description = $event->getProperty('description');
+        $descriptions = is_array($description) ? $description : [$description];
+        $descriptions = array_filter($descriptions, 'is_string');
+
+        return implode('', $descriptions);
     }
 }

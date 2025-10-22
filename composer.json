@@ -45,7 +45,9 @@
         "landrok/language-detector": "dev-master",
         "league/commonmark": "2.7.0",
         "league/config": "1.1.1",
-        "helsingborg-stad/component-library": "^4.62.12"
+        "helsingborg-stad/component-library": "^4.62.12",
+        "freshleafmedia/autofocus": "^1.0",
+        "astrotomic/php-deepface": "^0.4.0"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -63,7 +65,8 @@
         "allow-plugins": {
             "composer/installers": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
@@ -97,5 +100,5 @@
     "suggest": {
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "5.175.0"
+    "version": "5.176.21"
 }

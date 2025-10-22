@@ -32,7 +32,7 @@ class Singular extends \Municipio\Controller\BaseController
         $originalPostData = $this->displayQuicklinksAfterFirstBlock($originalPostData);
 
         $this->post                = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
-        $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
+        $this->data['post']        = $this->post;
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         $this->data['displayFeaturedImage']        = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageOnSinglePost($this->post->getId()));

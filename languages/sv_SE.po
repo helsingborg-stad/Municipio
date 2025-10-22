@@ -277,6 +277,7 @@ msgstr "Färg"
 #: library/Customizer/Sections/Search.php:149
 #: Modularity/source/php/AcfFields/php/mod-hero.php:453
 #: Modularity/source/php/AcfFields/php/mod-modal.php:2278
+#, fuzzy
 msgid "Primary"
 msgstr "Primär"
 
@@ -300,7 +301,6 @@ msgstr "Primär"
 #: library/Customizer/Sections/Search.php:150
 #: Modularity/source/php/AcfFields/php/mod-hero.php:454
 #: Modularity/source/php/AcfFields/php/mod-modal.php:2279
-#, fuzzy
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -558,7 +558,6 @@ msgid "The color with the lowest stop will always be shown first."
 msgstr "Färgen med lägst stopp visas alltid först."
 
 #: library/AcfFields/php/block-container.php:278
-#: library/AcfFields/php/options-api-resources-apis.php:30
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:136
@@ -652,7 +651,7 @@ msgid "Report settings"
 msgstr "Rapportinställningar"
 
 #: library/AcfFields/php/external-content-settings.php:8
-#: library/SchemaData/ExternalContent/ExternalContentFeature.php:178
+#: library/SchemaData/ExternalContent/ExternalContentFeature.php:177
 msgid "External Content"
 msgstr "Externt innehåll"
 
@@ -1031,24 +1030,11 @@ msgstr "Alla sidor"
 msgid "Only on template (onepage)"
 msgstr "Endast på template (onepage)"
 
-#: library/AcfFields/php/options-api-resources-apis.php:8
-msgid "Api Resources - Api:s"
-msgstr "Api Resurser - Api:s"
-
-#: library/AcfFields/php/options-api-resources-apis.php:12
-msgid "Api:s"
-msgstr "Api:er"
-
-#: library/AcfFields/php/options-api-resources-apis.php:35
 #: Modularity/source/php/AcfFields/php/mod-map.php:403
 #: Modularity/source/php/AcfFields/php/mod-slider.php:371
 #: Modularity/source/php/AcfFields/php/mod-slider.php:769
 msgid "Url"
 msgstr "Url"
-
-#: library/AcfFields/php/options-api-resources-apis.php:48
-msgid "https://dummy.api/wp-json/wp/v2"
-msgstr "https://dummy.api/wp-json/wp/v2"
 
 #: library/AcfFields/php/options-comment-settings.php:8
 msgid "Comment Settings"
@@ -1456,8 +1442,6 @@ msgstr "<span style=\"color: #ff0000;\">Välj namn med omsorg. Namnet går inte 
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:55
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:56
-#: library/AcfFields/php/resource-fields.php:577
-#: library/AcfFields/php/resource-fields.php:1048
 msgid "Permalänk"
 msgstr "Permalänk"
 
@@ -1920,7 +1904,6 @@ msgid "news"
 msgstr "news"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:195
-#: library/AcfFields/php/resource-fields.php:1183
 msgid "pre-school"
 msgstr "pre-school"
 
@@ -1929,7 +1912,6 @@ msgid "person"
 msgstr "person"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:197
-#: library/AcfFields/php/resource-fields.php:1184
 msgid "elementary-school"
 msgstr "elementary-school"
 
@@ -1966,8 +1948,6 @@ msgid "modal-content"
 msgstr "modal-content"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:219
-#: library/AcfFields/php/resource-fields.php:254
-#: library/AcfFields/php/resource-fields.php:796
 msgid "Offentlig"
 msgstr "Offentlig"
 
@@ -2406,270 +2386,6 @@ msgstr "Posttypens schema"
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:26
 msgid "Schema type"
 msgstr "Schematyp"
-
-#: library/AcfFields/php/resource-fields.php:8
-msgid "Api-resursfält"
-msgstr "Api-resursfält"
-
-#: library/AcfFields/php/resource-fields.php:12
-msgid "Typ"
-msgstr "Typ av"
-
-#: library/AcfFields/php/resource-fields.php:25
-msgid "Posttyp"
-msgstr "Posttyp"
-
-#: library/AcfFields/php/resource-fields.php:26
-msgid "Taxonomi"
-msgstr "Taxonomi"
-
-#: library/AcfFields/php/resource-fields.php:27
-msgid "Bifoga"
-msgstr "Bifoga"
-
-#: library/AcfFields/php/resource-fields.php:41
-#: library/AcfFields/php/resource-fields.php:74
-#: library/AcfFields/php/resource-fields.php:107
-msgid "Källa"
-msgstr "Källa"
-
-#: library/AcfFields/php/resource-fields.php:140
-msgid "Posttypsargument"
-msgstr "Posttypsargument"
-
-#: library/AcfFields/php/resource-fields.php:173
-msgid "Nyckel"
-msgstr "Nyckel"
-
-#: library/AcfFields/php/resource-fields.php:177
-msgid "Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller mellanslag."
-msgstr "Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller mellanslag."
-
-#: library/AcfFields/php/resource-fields.php:193
-#: library/AcfFields/php/resource-fields.php:714
-msgid "Etikett (plural)"
-msgstr "Etikett (plural)"
-
-#: library/AcfFields/php/resource-fields.php:213
-#: library/AcfFields/php/resource-fields.php:734
-msgid "Etikett (singular)"
-msgstr "Etikett (singular)"
-
-#: library/AcfFields/php/resource-fields.php:233
-#: library/AcfFields/php/resource-fields.php:775
-msgid "Beskrivning"
-msgstr "Beskrivning"
-
-#: library/AcfFields/php/resource-fields.php:237
-#: library/AcfFields/php/resource-fields.php:779
-msgid "En kort beskrivande sammanfattning av vad inläggstypen är."
-msgstr "En kort beskrivande sammanfattning av vad inläggstypen är."
-
-#: library/AcfFields/php/resource-fields.php:258
-#: library/AcfFields/php/resource-fields.php:800
-msgid "Om inläggstypen ska vara allmänt sökbar."
-msgstr "Om inläggstypen ska vara allmänt sökbar."
-
-#: library/AcfFields/php/resource-fields.php:274
-#: library/AcfFields/php/resource-fields.php:816
-msgid "Hierarkisk"
-msgstr "Hierarkisk"
-
-#: library/AcfFields/php/resource-fields.php:278
-#: library/AcfFields/php/resource-fields.php:820
-msgid "Om inläggstypen är hierarkisk. Tillåter att Förälder anges."
-msgstr "Om inläggstypen är hierarkisk. Tillåter att Förälder anges."
-
-#: library/AcfFields/php/resource-fields.php:294
-#: library/AcfFields/php/resource-fields.php:836
-msgid "Visa användargränssnitt"
-msgstr "Visa användargränssnitt"
-
-#: library/AcfFields/php/resource-fields.php:298
-#: library/AcfFields/php/resource-fields.php:840
-msgid "Huruvida ett standardgränssnitt ska genereras för hantering av denna inläggstyp."
-msgstr "Huruvida ett standardgränssnitt ska genereras för hantering av denna inläggstyp."
-
-#: library/AcfFields/php/resource-fields.php:314
-msgid "Har arkiv"
-msgstr "Har arkiv"
-
-#: library/AcfFields/php/resource-fields.php:318
-msgid "Aktiverar posttypsarkiv."
-msgstr "Aktiverar posttypsarkiv."
-
-#: library/AcfFields/php/resource-fields.php:334
-msgid "Uteslut från sök"
-msgstr "Uteslutet från sök"
-
-#: library/AcfFields/php/resource-fields.php:338
-msgid "Om inläggstypen ska exkluderas från sökresultat."
-msgstr "Om inläggstypen ska exkluderas från sökresultat."
-
-#: library/AcfFields/php/resource-fields.php:354
-#: library/AcfFields/php/resource-fields.php:876
-msgid "Offentligt sökbar"
-msgstr "Offentligt sökbar"
-
-#: library/AcfFields/php/resource-fields.php:358
-#: library/AcfFields/php/resource-fields.php:880
-msgid "Huruvida förfrågningar kan utföras på frontend som en del av parse_request()."
-msgstr "Huruvida förfrågningar kan utföras på frontend som en del av parse_request()."
-
-#: library/AcfFields/php/resource-fields.php:374
-#: library/AcfFields/php/resource-fields.php:896
-msgid "Visa i navigeringsmenyer"
-msgstr "Visa i navigeringsmenyer"
-
-#: library/AcfFields/php/resource-fields.php:378
-#: library/AcfFields/php/resource-fields.php:900
-msgid "Om post_type är tillgänglig för val i navigeringsmenyer."
-msgstr "Om post_type är tillgänglig för val i navigeringsmenyer."
-
-#: library/AcfFields/php/resource-fields.php:394
-#: library/AcfFields/php/resource-fields.php:916
-msgid "Visa i menyn"
-msgstr "Visa i menyn"
-
-#: library/AcfFields/php/resource-fields.php:398
-#: library/AcfFields/php/resource-fields.php:920
-msgid "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
-msgstr "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
-
-#: library/AcfFields/php/resource-fields.php:422
-#: library/AcfFields/php/resource-fields.php:944
-msgid "Visa i adminfältet"
-msgstr "Visa i adminfältet"
-
-#: library/AcfFields/php/resource-fields.php:426
-#: library/AcfFields/php/resource-fields.php:948
-msgid "Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true."
-msgstr "Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true."
-
-#: library/AcfFields/php/resource-fields.php:450
-#: library/AcfFields/php/resource-fields.php:972
-msgid "Omskrivning"
-msgstr "Omskrivning"
-
-#: library/AcfFields/php/resource-fields.php:454
-#: library/AcfFields/php/resource-fields.php:552
-#: library/AcfFields/php/resource-fields.php:976
-#: library/AcfFields/php/resource-fields.php:1023
-msgid "Hantering av url-omskrivningar för denna posttyp."
-msgstr "Hantering av url-omskrivningar för denna posttyp."
-
-#: library/AcfFields/php/resource-fields.php:470
-msgid "Position för meny"
-msgstr "Position för meny"
-
-#: library/AcfFields/php/resource-fields.php:474
-msgid "Den position i menyordningen som inläggstypen ska visas. show_in_menu måste vara true."
-msgstr "Den position i menyordningen som inläggstypen ska visa. show_in_menu måste vara true."
-
-#: library/AcfFields/php/resource-fields.php:500
-#: library/AcfFields/php/resource-fields.php:992
-msgid "Kapacitet"
-msgstr "Kapacitet"
-
-#: library/AcfFields/php/resource-fields.php:519
-#: library/AcfFields/php/resource-fields.php:1011
-msgid "t.ex. \"manage_options\"..."
-msgstr "t.ex. \"manage_options\"..."
-
-#: library/AcfFields/php/resource-fields.php:527
-msgid "Överordnade inläggstyper"
-msgstr "Överordnade inläggstyper"
-
-#: library/AcfFields/php/resource-fields.php:531
-msgid "Överordnade inläggstyper används för att bestämma permalänken och omskrivningsreglerna för denna inläggstyp. Om du anger överordnade inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen för överordnade inläggstyper."
-msgstr "Överordnade inläggstyper används för att bestämma permalänken och omskrivningsreglerna för denna inläggstyp. Om du anger överordnade inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen för överordnade inläggstyper."
-
-#: library/AcfFields/php/resource-fields.php:548
-#: library/AcfFields/php/resource-fields.php:1019
-msgid "Alternativ för url-omskrivning"
-msgstr "Alternativ för url-omskrivning"
-
-#: library/AcfFields/php/resource-fields.php:597
-#: library/AcfFields/php/resource-fields.php:1068
-msgid "Med front"
-msgstr "Med front"
-
-#: library/AcfFields/php/resource-fields.php:617
-#: library/AcfFields/php/resource-fields.php:1088
-msgid "RSS-flöde"
-msgstr "RSS-flöde"
-
-#: library/AcfFields/php/resource-fields.php:639
-#: library/AcfFields/php/resource-fields.php:1110
-msgid "Query Var"
-msgstr "Query Var"
-
-#: library/AcfFields/php/resource-fields.php:643
-#: library/AcfFields/php/resource-fields.php:1114
-msgid "Ställer in query_var-nyckeln för denna inläggstyp."
-msgstr "Ställ in query_var-nyckeln för denna inläggstyp."
-
-#: library/AcfFields/php/resource-fields.php:661
-msgid "Argument för taxonomi"
-msgstr "Argument för taxonomi"
-
-#: library/AcfFields/php/resource-fields.php:694
-msgid "Taxonominyckel"
-msgstr "Taxonominyckel"
-
-#: library/AcfFields/php/resource-fields.php:698
-#: library/AcfFields/php/resource-fields.php:718
-#: library/AcfFields/php/resource-fields.php:738
-msgid "Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller mellanslag."
-msgstr "Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller mellanslag."
-
-#: library/AcfFields/php/resource-fields.php:754
-msgid "Typ av objekt"
-msgstr "Typ av objekt"
-
-#: library/AcfFields/php/resource-fields.php:758
-msgid "Post Types to which this taxonomy should be connected to."
-msgstr "Post Types to which this taxonomy should be connected to."
-
-#: library/AcfFields/php/resource-fields.php:856
-msgid "Visa admin-kolumn"
-msgstr "Visa admin-kolumn"
-
-#: library/AcfFields/php/resource-fields.php:1132
-msgid "Attachment arguments"
-msgstr "Argument för bifogade filer"
-
-#: library/AcfFields/php/resource-fields.php:1165
-msgid "Post types"
-msgstr "Posttyp"
-
-#: library/AcfFields/php/resource-fields.php:1169
-msgid "Choose which post types that should use this source for their attachments."
-msgstr "Välj vilka inläggstyper som ska använda denna källa för sina bilagor."
-
-#: library/AcfFields/php/resource-fields.php:1178
-msgid "attachment for: pre-school, elementary-school, school-person"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:1179
-msgid "school-page"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:1180
-msgid "school-grade"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:1181
-msgid "school-area"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:1182
-msgid "school-usp"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:1185
-msgid "school-person"
-msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:8
 msgid "Advanced term settings"
@@ -3543,20 +3259,6 @@ msgstr "Inga %s hittades i papperskorgen"
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel."
 
-#: library/Content/RelatedPosts.php:40
-#, php-format
-msgctxt "Default title for related posts, %s being the name of the post type."
-msgid "More %s"
-msgstr "Fler %s"
-
-#: library/Content/ResourceFromApi/ResourcePostType.php:54
-msgid "API Resources"
-msgstr "API-resurser"
-
-#: library/Content/ResourceFromApi/ResourcePostType.php:56
-msgid "API Resource"
-msgstr "API-resurs"
-
 #: library/Controller/A11y.php:31
 msgid "Recently reviewed"
 msgstr "Granskad nyligen"
@@ -3626,7 +3328,6 @@ msgid "Call"
 msgstr "Ring"
 
 #: library/Controller/BaseController.php:412
-#: library/Controller/Utils/SingularSchoolData.php:542
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:407
 msgid "Visiting address"
 msgstr "Adress"
@@ -3746,33 +3447,33 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] "Detta innehåll är äldre än %s dag."
 msgstr[1] "Detta innehåll är äldre än %s dagar."
 
-#: library/Controller/SingularElementarySchool.php:40
+#: library/Controller/SingularElementarySchool.php:39
 msgctxt "ElementarySchool"
 msgid "Quick facts"
 msgstr "Snabba fakta"
 
-#: library/Controller/SingularElementarySchool.php:41
+#: library/Controller/SingularElementarySchool.php:40
 msgctxt "ElementarySchool"
 msgid "Contact us"
 msgstr "Kontakta oss"
 
-#: library/Controller/SingularElementarySchool.php:42
+#: library/Controller/SingularElementarySchool.php:41
 msgctxt "ElementarySchool"
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/SingularElementarySchool.php:43
+#: library/Controller/SingularElementarySchool.php:42
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr "Vill söka plats på %s?"
 
-#: library/Controller/SingularElementarySchool.php:44
+#: library/Controller/SingularElementarySchool.php:43
 msgctxt "ElementarySchool"
 msgid "Follow us on social media"
 msgstr "Följ oss på sociala medier"
 
-#: library/Controller/SingularElementarySchool.php:45
+#: library/Controller/SingularElementarySchool.php:44
 #, fuzzy
 msgctxt "ElementarySchool"
 msgid "Events"
@@ -3946,33 +3647,33 @@ msgstr "stängd"
 msgid "Visit website"
 msgstr "Gå till webbplats"
 
-#: library/Controller/SingularPreschool.php:41
+#: library/Controller/SingularPreschool.php:40
 msgctxt "Preschool"
 msgid "Quick facts"
 msgstr "Snabba fakta"
 
-#: library/Controller/SingularPreschool.php:42
+#: library/Controller/SingularPreschool.php:41
 msgctxt "Preschool"
 msgid "Contact us"
 msgstr "Kontakta oss"
 
-#: library/Controller/SingularPreschool.php:43
+#: library/Controller/SingularPreschool.php:42
 msgctxt "Preschool"
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/SingularPreschool.php:44
+#: library/Controller/SingularPreschool.php:43
 #, php-format
 msgctxt "Preschool"
 msgid "Do you wish to apply to %s?"
 msgstr "Vill du söka plats på %s?"
 
-#: library/Controller/SingularPreschool.php:45
+#: library/Controller/SingularPreschool.php:44
 msgctxt "Preschool"
 msgid "Follow us on social media"
 msgstr "Följ oss på sociala medier"
 
-#: library/Controller/SingularPreschool.php:46
+#: library/Controller/SingularPreschool.php:45
 msgctxt "Preschool"
 msgid "Events"
 msgstr "Evenemang"
@@ -3999,93 +3700,6 @@ msgstr "Kategorier"
 msgid "Estimated budget"
 msgstr "Estimerad budget"
 
-#: library/Controller/Utils/SingularSchoolData.php:180
-msgid "Contact us"
-msgstr "Kontakta oss"
-
-#: library/Controller/Utils/SingularSchoolData.php:192
-#, php-format
-msgid "Ca %d children"
-msgstr "Ca %d barn"
-
-#: library/Controller/Utils/SingularSchoolData.php:193
-#, php-format
-msgid "Ca %d students"
-msgstr "Ca %d elever"
-
-#: library/Controller/Utils/SingularSchoolData.php:194
-#, php-format
-msgid "%d units"
-msgstr "%d avdelningar"
-
-#: library/Controller/Utils/SingularSchoolData.php:196
-#, php-format
-msgid "%s profiles"
-msgstr "%s profiler"
-
-#: library/Controller/Utils/SingularSchoolData.php:197
-#, php-format
-msgid "Opening hours: %s"
-msgstr "Öppettider: %s"
-
-#: library/Controller/Utils/SingularSchoolData.php:198
-#, php-format
-msgid "Leisure center: %s"
-msgstr "Fritidshem: %s"
-
-#: library/Controller/Utils/SingularSchoolData.php:205
-msgid "Quick facts"
-msgstr "Snabba fakta"
-
-#: library/Controller/Utils/SingularSchoolData.php:283
-msgid "Leisure center"
-msgstr "Fritidshem"
-
-#: library/Controller/Utils/SingularSchoolData.php:340
-msgid "Visit us"
-msgstr "Besök oss"
-
-#: library/Controller/Utils/SingularSchoolData.php:397
-#, php-format
-msgctxt "Shown on pre-schools"
-msgid "Do you want to join %s?"
-msgstr "Vill du söka plats på %s?"
-
-#: library/Controller/Utils/SingularSchoolData.php:404
-#, php-format
-msgid "Do you want to apply to %s?"
-msgstr "Vill du välja %s?"
-
-#: library/Controller/Utils/SingularSchoolData.php:408
-msgid "Do you want to apply?"
-msgstr "Vill du ansöka?"
-
-#: library/Controller/Utils/SingularSchoolData.php:426
-msgid "About the school"
-msgstr "Om oss"
-
-#: library/Controller/Utils/SingularSchoolData.php:432
-msgid "How we work"
-msgstr "Så arbetar vi"
-
-#: library/Controller/Utils/SingularSchoolData.php:438
-msgid "Orientation"
-msgstr "Inskolning"
-
-#: library/Controller/Utils/SingularSchoolData.php:444
-msgid "Our leisure center"
-msgstr "Vårt fritidshem"
-
-#: library/Controller/Utils/SingularSchoolData.php:519
-#: library/Controller/Utils/SingularSchoolData.php:531
-msgid "Find directions"
-msgstr "Hitta hit"
-
-#: library/Controller/Utils/SingularSchoolData.php:544
-msgid "Visiting addresses"
-msgstr "Adresser"
-
-#: library/Controller/Utils/SingularSchoolData.php:597
 #: library/Helper/TranslatedLabels.php:62
 #: library/Helper/TranslatedLabels.php:79
 #: Modularity/source/php/AcfFields/php/mod-slider.php:760
@@ -4094,19 +3708,6 @@ msgstr "Adresser"
 #: Modularity/source/php/Module/Slider/Slider.php:224
 msgid "Read more"
 msgstr "Läs mer"
-
-#: library/Controller/Utils/SingularSchoolData.php:628
-msgid "Follow us in social media"
-msgstr "Följ oss i sociala medier"
-
-#: library/Controller/Utils/SingularSchoolData.php:774
-#, php-format
-msgid "Date and time: %s at %s"
-msgstr "Datum och tid: %s kl. %s"
-
-#: library/Controller/Utils/SingularSchoolData.php:782
-msgid "Events"
-msgstr "Evenemang"
 
 #: library/Customizer.php:59
 msgid "Install plugin"
@@ -5457,7 +5058,7 @@ msgid "Select when the login/logout button should be visible"
 msgstr "Välj när logga in/ut knapp ska vara synlig"
 
 #: library/Customizer/Sections/Header/LoginLogout.php:22
-#: library/SchemaData/ExternalContent/ExternalContentFeature.php:203
+#: library/SchemaData/ExternalContent/ExternalContentFeature.php:202
 msgid "Never"
 msgstr "Aldrig"
 
@@ -6085,7 +5686,7 @@ msgstr "Globala notiser har sparats."
 msgid "Tailor"
 msgstr "Specialanpassa"
 
-#: library/Helper/Post.php:214
+#: library/Helper/Post.php:221
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
@@ -6218,12 +5819,10 @@ msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
 #: library/Helper/TranslatedLabels.php:55
-#: views/v3/partials/navigation/language.blade.php:57
 msgid "More Languages"
 msgstr "Fler språk"
 
 #: library/Helper/TranslatedLabels.php:57
-#: views/v3/partials/navigation/accessibility.blade.php:26
 msgid "Expand"
 msgstr "Expandera"
 
@@ -6386,7 +5985,7 @@ msgstr "Den här delen av hemsidan visar innehåll från en annan webbplats (%s)
 msgid "Handling of personal data"
 msgstr "Hantering av personlig data"
 
-#: library/SchemaData/ExternalContent/ExternalContentFeature.php:177
+#: library/SchemaData/ExternalContent/ExternalContentFeature.php:176
 msgid "External Content Settings"
 msgstr "Inställningar för Externt innehåll"
 
@@ -6398,20 +5997,20 @@ msgstr ""
 msgid "Sync already in progress"
 msgstr "Synkronisering pågår redan"
 
-#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:71
+#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:76
 msgid "Sync completed. Reload page to see changes."
 msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:71
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:72
 msgid "Fetching source data..."
 msgstr "Hämtar data från källa..."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:79
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:85
 #, php-format
 msgid "Processing %s of %s..."
 msgstr "Behandlar %s av %s..."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:97
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:108
 msgid "Cleaning up..."
 msgstr "Städar upp..."
 
@@ -19639,16 +19238,10 @@ msgstr ""
 msgid "Database is already up to date."
 msgstr ""
 
-#: Modularity/templates/widget/form.php:4
-#: Modularity/templates/widget/form.php:7
-#, fuzzy
-msgid "Not selected"
-msgstr "Inte använd"
-
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:109
 msgid "Nothing to display…"
 msgstr "Inget att visa…"
 
-#: views/v3/author.blade.php:14
-msgid "Posts by"
+#: library/Helper/Post.php:47
+msgid "This method is deprecated. Use Municipio\\PostObject instead."
 msgstr ""

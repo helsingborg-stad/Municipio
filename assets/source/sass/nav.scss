@@ -14,11 +14,16 @@
     @include mq.mq('md') {
         margin-top: calc(#{variables.$base} * 4);
         margin-bottom: calc(#{variables.$base} * 4);
+        align-items: start;
     } 
 
     @include mq.mq('sm') {
         flex-direction: row;
         gap: 0;
+    }
+
+    .c-breadcrumb {
+        align-self: center;
     }
 }
 
