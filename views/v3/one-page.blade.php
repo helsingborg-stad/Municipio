@@ -11,10 +11,10 @@
 
 @section('layout')
 
-    <div class="o-container">
+    <div class="o-container u-display--flex u-flex-direction--column">
         @if (!$isFrontPage)
             @hasSection('helper-navigation')
-                <div class="o-grid o-grid--no-margin u-print-display--none">
+                <div class="o-grid o-grid--no-margin u-print-display--none t-gutenberg-helper-nav">
                     <div class="o-grid-12">
                         @yield('helper-navigation')
                     </div>

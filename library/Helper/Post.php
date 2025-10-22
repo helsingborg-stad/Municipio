@@ -349,7 +349,7 @@ class Post
             $excerpt = self::removeEmptyPTag(array_shift($parts));
             $excerpt = self::createLeadElement($excerpt);
             $excerpt = self::replaceBuiltinClasses($excerpt);
-            $excerpt = self::handleBlocksInExcerpt($excerpt);
+            $excerpt = self::handleBlocksOrDefaultExcerpt($excerpt);
 
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
         } else {
@@ -358,7 +358,6 @@ class Post
         }
 
         // Apply the_content (will render blocks)
-        $excerpt = apply_filters('the_excerpt', $excerpt);
         $content = apply_filters('the_content', $content);
 
         // Build post_content_filtered
@@ -371,22 +370,19 @@ class Post
     }
 
     /*
-     * Handle blocks in excerpt.
+     * Handle blocks in excerpt or fallback to default excerpt handling.
      * If the excerpt contains blocks, the blocks are rendered and returned.
-     * Otherwise, the excerpt is returned as is.
+     * Otherwise, the excerpt is returned after applying the_excerpt filter.
      *
      * @param string $excerpt The post excerpt.
-     * @return string The excerpt with blocks rendered.
+     * @return string The excerpt with blocks rendered or default excerpt handling applied.
      */
-    private static function handleBlocksInExcerpt(string $excerpt): string
+    private static function handleBlocksOrDefaultExcerpt(string $excerpt): string
     {
-        if (!preg_match('/<!--\s?wp:acf\/[a-zA-Z0-9_-]+/', $excerpt)) {
-            return $excerpt;
+        if (!preg_match('/<!--\s?wp:[a-zA-Z0-9_-]+/', $excerpt)) {
+            return apply_filters('the_excerpt', $excerpt);
         }
-
-        $excerpt = apply_filters('the_content', $excerpt);
-
-        return $excerpt;
+        return do_blocks($excerpt);
     }
 
     /*
