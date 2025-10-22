@@ -358,7 +358,6 @@ class Post
         }
 
         // Apply the_content (will render blocks)
-        $excerpt = apply_filters('the_excerpt', $excerpt);
         $content = apply_filters('the_content', $content);
 
         // Build post_content_filtered
@@ -380,13 +379,10 @@ class Post
      */
     private static function handleBlocksInExcerpt(string $excerpt): string
     {
-        if (!preg_match('/<!--\s?wp:acf\/[a-zA-Z0-9_-]+/', $excerpt)) {
+        if (!preg_match('/<!--\s?wp:[a-zA-Z0-9_-]+/', $excerpt)) {
             return $excerpt;
         }
-
-        $excerpt = apply_filters('the_content', $excerpt);
-
-        return $excerpt;
+        return do_blocks($excerpt);
     }
 
     /*
