@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": false,
+        "target": "es6",
+        "module": "commonjs",
+        "useDefineForClassFields": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "lib": [
+          "ES2021",
+          "DOM",
+          "DOM.Iterable",
+        ]
+    },
+    "include": [
+      "source/js/**/*",
+      "global.d.ts"
+    ]
+}

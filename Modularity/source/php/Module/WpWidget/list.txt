@@ -1,0 +1,55 @@
+
+/* This file will keep you somewhat sane */ 
+
+array(
+        'archive'       =>      array(
+                                    'title' => 'Title', //Text
+                                    'count' => '0', // Numeric boolean
+                                    'dropdown' => '' // Numeric boolean
+                                ),
+        'calendar'      =>      array(
+                                    'title' => 'Title'
+                                )
+        'categories'    =>      array(
+                                    'title' => 'Title',
+                                    'count' => '0', // Numeric boolean
+                                    'hierarchical' => '0', // Numeric boolean
+                                    'dropdown' => '' // Numeric boolean
+                                ),
+        'meta'    =>      array(
+                                    'title' => 'Title'
+                                ),
+        'pages'    =>      array(
+                                    'title' => 'Title',
+                                    'sortby' => ('post_author', 'post_date', 'post_title', 'post_name', 'post_modified', 'post_modified_gmt', 'menu_order', 'post_parent', 'ID', 'rand', or 'comment_count'),
+                                    'exclude' => '1,2' //Comma separated page id's
+                                ),
+        'comments' =>           array(
+                                    'title' => 'Title',
+                                    'number' => 5 //Number of comments to show
+                                ),
+        'recentposts' =>        array(
+                                    'title' => 'Title',
+                                    'number' => 5 //Number of posts to show
+                                ),
+        'rss' =>        array(
+                                    'title' => 'Title',
+                                    'url' => 5, //rss url atom/rss-xml,
+                                    'items' => 4, //Max number of items to show
+                                    'show_summary' => true,
+                                    'show_author' => true,
+                                    'show_date' => true
+                                ),
+        'search' =>        array(
+                                    'title' => 'Title'
+                                ),
+        'tag_cloud' =>        array(
+                                    'title' => 'Title',
+                                    'taxonomy' => 'post_tag' //Number of posts to show
+                                ),
+        'text' =>        array(
+                                    'title' => 'Title',
+                                    'text_content' => 'Lorem ipsum',
+                                    'filter' => true //Enable filters.
+                                ),
+    );
