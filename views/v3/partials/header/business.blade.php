@@ -1,4 +1,4 @@
-@extends('templates.header', ['classList' => ['c-header', 'c-header--business']])
+@extends('templates.header', ['classList' => array_merge($classes ?? [], ['c-header', 'c-header--business'])])
 
 
 @section('primary-navigation')

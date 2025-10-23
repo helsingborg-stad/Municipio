@@ -3,9 +3,8 @@
 
 @include('templates.sections.head')
 
-<body class="{{ $bodyClass }}" data-js-page-id="{{ $pageID }}" data-js-post-type="{{ $postType }}"
-    @if ($customizer->headerSticky === 'sticky' && empty($headerData['nonStickyMegaMenu'])) data-js-toggle-item="mega-menu"
-            data-js-toggle-class="mega-menu-open" @endif>
+{{-- Content --}}
+@section('body-content')
     <div class="site-wrapper">
         {{-- Banner Notices --}}
         @include('templates.sections.banner-notices')
@@ -40,12 +39,15 @@
         @yield('after-layout')
     </div>
 
+    {{-- Bottom sidebar --}}
+    @include('templates.sections.bottom-sidebar')
+
     @section('footer')
         @includeIf('partials.footer')
     @show
 
     {{-- Floating menu --}}
-    @includeWhen(!empty($floatingMenu['items']), 'partials.navigation.floating')
+    @include('partials.navigation.floating')
 
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
@@ -53,7 +55,9 @@
             
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
-    @show
-</body>
+@stop
+
+{{-- Including body --}}
+@include('templates.sections.body')
 
 </html>
