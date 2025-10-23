@@ -77,8 +77,13 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         }
 
         $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
-        $schemaObjects = array_values($schemaObjects);
-        $totalObjects  = count($schemaObjects);
+        $schemaObjects = array_values(array_filter($schemaObjects));
+
+        if (empty($schemaObjects)) {
+            throw new ExternalContentException('No schema objects left to sync after applying filters for post type: ' . $postType);
+        }
+
+        $totalObjects = count($schemaObjects);
 
         foreach ($schemaObjects as $i => $schemaObject) {
             $iPlusOne = $i + 1;
@@ -106,6 +111,10 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         }
 
         $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));
+
+        if (count($schemaObjects) !== $totalObjects) {
+            throw new ExternalContentException('Failed to sync all objects for post type: ' . $postType . '. Expected ' . $totalObjects . ' but got ' . count($schemaObjects));
+        }
 
         /**
          * Action after sync.
