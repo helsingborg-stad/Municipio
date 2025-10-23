@@ -67,53 +67,49 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         }
 
         // Apply filters before sync.
-        $this->applyFiltersBeforeSync($sourceConfig);
+        $this->applyFiltersBeforeSync($postType);
 
         $this->progressService->setMessage($this->wpService->__('Fetching source data...', 'municipio'));
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
 
         if (empty($schemaObjects)) {
-            throw new ExternalContentException('No data found to sync for post type: ' . $postType);
+            return;
         }
 
         $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
         $schemaObjects = array_values(array_filter($schemaObjects));
 
         if (empty($schemaObjects)) {
-            throw new ExternalContentException('No schema objects left to sync after applying filters for post type: ' . $postType);
+            return;
         }
 
-        $totalObjects = count($schemaObjects);
+        $totalObjects         = count($schemaObjects);
+        $insertedWpPostsCount = 0;
 
         foreach ($schemaObjects as $i => $schemaObject) {
             $iPlusOne = $i + 1;
             $this->progressService->setMessage(sprintf($this->wpService->__("Processing %s of %s...", 'municipio'), $iPlusOne, $totalObjects));
             $this->progressService->setPercentage(($iPlusOne / $totalObjects) * 100);
-            if ($schemaObject === null) {
-                continue;
-            }
 
             foreach ($this->schemaObjectProcessors as $processor) {
                 $schemaObject = $processor->process($schemaObject);
             }
 
-            if (empty($schemaObject)) {
-                throw new ExternalContentException('Schema object processing resulted in empty object for post type: ' . $postType);
-            }
-
-            $postInserted = $this->wpService->wpInsertPost(
-                $this->getPostFactory($sourceConfig)->transform($schemaObject)
-            );
+            $args         = $this->getPostFactory($sourceConfig)->transform($schemaObject);
+            $postInserted = $this->wpService->wpInsertPost($args);
 
             if ($this->wpService->isWpError($postInserted)) {
+                // TODO: Replace throw with logging and continue processing other objects.
                 throw new ExternalContentException('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
             }
+
+            $insertedWpPostsCount++;
         }
 
         $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));
 
-        if (count($schemaObjects) !== $totalObjects) {
-            throw new ExternalContentException('Failed to sync all objects for post type: ' . $postType . '. Expected ' . $totalObjects . ' but got ' . count($schemaObjects));
+        if ($insertedWpPostsCount !== $totalObjects) {
+            throw new ExternalContentException('Failed to insert: ' . $postType . '. Expected ' . $totalObjects . ' but got ' . $insertedWpPostsCount);
         }
 
         /**
@@ -185,10 +181,11 @@ class SyncHandler implements Hookable, SyncHandlerInterface
      *
      * @return void
      */
-    private function applyFiltersBeforeSync(): void
+    private function applyFiltersBeforeSync(string $postType): void
     {
         (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
         (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->addHooks();
+        (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->addHooks();
     }
 
     /**
