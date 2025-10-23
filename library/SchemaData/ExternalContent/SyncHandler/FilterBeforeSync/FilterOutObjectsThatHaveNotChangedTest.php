@@ -2,9 +2,6 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync;
 
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\HooksRegistrar\Hookable;
-use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

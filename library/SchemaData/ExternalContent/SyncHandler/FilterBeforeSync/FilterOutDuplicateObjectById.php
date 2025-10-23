@@ -2,23 +2,13 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync;
 
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
 
 /**
  * Class FilterOutDuplicateObjectById
  */
-class FilterOutDuplicateObjectById implements Hookable
+class FilterOutDuplicateObjectById
 {
-    /**
-     * @inheritDoc
-     */
-    public function addHooks(): void
-    {
-        add_filter(SyncHandler::FILTER_BEFORE, [$this, 'filter']);
-    }
-
     /**
      * Filter out duplicate objects from a collection based on their unique identifier.
      *
