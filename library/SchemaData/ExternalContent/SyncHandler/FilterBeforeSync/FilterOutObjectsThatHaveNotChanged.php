@@ -82,6 +82,7 @@ class FilterOutObjectsThatHaveNotChanged implements Hookable
      */
     private function getChecksumQuery(): string
     {
+        $randomNumber = rand(1000, 9999); // To avoid caching issues
         return <<<SQL
             SELECT 
                 post_id AS postId,
@@ -89,9 +90,10 @@ class FilterOutObjectsThatHaveNotChanged implements Hookable
                 MAX(CASE WHEN meta_key = 'checksum' THEN meta_value END) AS checksum
             FROM {$this->wpdb->prefix}postmeta
             WHERE meta_key IN ('originId', 'checksum')
-                AND post_id IN (
-                    SELECT ID FROM {$this->wpdb->prefix}posts WHERE post_type = %s
-                )
+            AND post_id IN (
+                SELECT ID FROM {$this->wpdb->prefix}posts WHERE post_type = %s
+            )
+            AND {$randomNumber} = {$randomNumber}
             GROUP BY post_id;
         SQL;
     }
