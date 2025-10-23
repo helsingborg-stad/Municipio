@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use WP_Post;
 use WpService\Implementations\FakeWpService;
 
@@ -64,6 +65,19 @@ class CleanupPostsNoLongerInSourceTest extends TestCase
         $cleanup   = new CleanupPostsNoLongerInSource('post', $wpService);
 
         $cleanup->cleanup([Schema::thing()->setProperty('@id', '1')]);
+
+        $this->assertArrayNotHasKey('wpDeletePost', $wpService->methodCalls);
+    }
+
+    #[TestDox('will not attempt to delete posts if no synced schema objects are provided')]
+    public function testWillNotAttemptToDeletePostsIfNoSyncedSchemaObjectsAreProvided()
+    {
+        $postToBeDeleted     = new WP_Post([]);
+        $postToBeDeleted->ID = 2;
+        $wpService           = new FakeWpService(['getPosts' => [$postToBeDeleted]]);
+        $cleanup             = new CleanupPostsNoLongerInSource('post', $wpService);
+
+        $cleanup->cleanup([]);
 
         $this->assertArrayNotHasKey('wpDeletePost', $wpService->methodCalls);
     }

@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup;
 
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
@@ -41,6 +42,12 @@ class CleanupPostsNoLongerInSource implements Hookable
      */
     public function cleanup(array $syncedSchemaObjects): void
     {
+        $syncedSchemaObjects = EnsureArrayOf::ensureArrayOf($syncedSchemaObjects, BaseType::class);
+
+        if (empty($syncedSchemaObjects)) {
+            return;
+        }
+
         $syncedIds = array_map(fn($object) => $object->getProperty('@id'), $syncedSchemaObjects);
 
         foreach ($this->getPostsNotInSource($syncedIds) as $post) {
