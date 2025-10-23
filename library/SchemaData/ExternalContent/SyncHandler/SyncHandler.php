@@ -99,8 +99,8 @@ class SyncHandler implements Hookable, SyncHandlerInterface
             $postInserted = $this->wpService->wpInsertPost($args);
 
             if ($this->wpService->isWpError($postInserted)) {
-                // TODO: Replace throw with logging and continue processing other objects.
-                throw new ExternalContentException('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
+                error_log('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
+                continue;
             }
 
             $insertedWpPostsCount++;
