@@ -117,7 +117,8 @@
                     @if(!empty($description))
                     {{-- TODO: Fix this to the correct content --}}
                         @typography(['element' => 'p', 'variant' => 'subtitle'])
-                            {!! $description !!}
+                            {{-- {!! $description !!} --}}
+                            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
                         @endtypography
                     @endif
                 @endelement
@@ -264,6 +265,7 @@
                             'o-layout-grid--gap-6'
                         ]])
                 @stop
+
                 @php
                     $leftSidebarHasContent = !empty(trim($__env->yieldContent('sidebar-left')));
                     $rightSidebarHasContent = !empty(trim($__env->yieldContent('sidebar-right')));

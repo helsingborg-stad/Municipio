@@ -1,151 +1,43 @@
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
 
-<head>
+@include('templates.sections.head')
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{!! $pageTitle !!}</title>
-
-    <meta name="pubdate" content="{{ $pagePublished }}">
-    <meta name="moddate" content="{{ $pageModified }}">
-
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=yes">
-    <meta name="HandheldFriendly" content="true">
-
-    <script>
-        var ajaxurl = '{!! $ajaxUrl !!}';
-    </script>
-
-    @if ($structuredData)
-        <script type="application/ld+json">
-        {!! $structuredData !!}
-        </script>
-    @endif
-
-    {{-- Styles. Use @push('styles') --}}
-    @stack('styles')
-
-    {{-- Wordpress required call to wp_header() --}}
-    {!! $wpHeader !!}
-
-</head>
 <body class="{{ $bodyClass }}" data-js-page-id="{{ $pageID }}" data-js-post-type="{{ $postType }}"
     @if ($customizer->headerSticky === 'sticky' && empty($headerData['nonStickyMegaMenu'])) data-js-toggle-item="mega-menu"
             data-js-toggle-class="mega-menu-open" @endif>
     <div class="site-wrapper">
-        @section('site-wrapper')
-            {{-- Notices as banner style --}}
-            @if ($notice && $notice['banner'])
-                @foreach ($notice['banner'] as $noticeItem)
-                    @notice($noticeItem)
-                    @endnotice
-                @endforeach
-            @endif
+        {{-- Banner Notices --}}
+        @include('templates.sections.banner-notices')
 
-            {{-- Site banner --}}
-            @section('site-banner')
-                @includeIf('partials.sidebar', ['id' => 'header-area-site-banner', 'classes' => []])
-            @show
+        {{-- Site banner --}}
+        @include('templates.sections.site-banner')
 
-            {{-- Site header --}}
-            @section('site-header')
-                @if (!empty($customizer->headerApperance))
-                    @includeIf('partials.header.' . $customizer->headerApperance)
-                @endif
-            @show
+        {{-- Site header --}}
+        @include('templates.sections.site-header')
 
-            @includeWhen(!$helperNavBeforeContent, 'partials.navigation.helper', [
-                'classList' => ['screen-reader-text'],
-            ])
-            {{-- Hero area and top sidebar --}}
-            @hasSection('hero-top-sidebar')
-                @yield('hero-top-sidebar')
-            @endif
+        {{-- Helper navigation --}}
+        @include('templates.sections.helper-nav')
 
-            {{-- Before page layout --}}
-            @section('before-layout')
-            @show
+        {{-- Hero area and top sidebar --}}
+        @hasSection('hero-top-sidebar')
+            @yield('hero-top-sidebar')
+        @endif
 
-            {{-- Notices before content --}}
-            @if ($notice && $notice['content'])
-                <div class="o-container u-margin__top--4">
-                    <div class="o-grid o-grid--no-margin">
-                        <div class="o-grid-12">
-                            @foreach ($notice['content'] as $noticeItem)
-                                @notice($noticeItem)
-                                @endnotice
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            {{-- Page layout --}}
-            <main id="main-content">
-                @section('layout')
-                    <div class="o-container">
-
-                        {{-- Helper navigation --}}
-                        @hasSection('helper-navigation')
-                            <div class="o-grid o-grid--no-margin u-print-display--none">
-                                <div class="o-grid-12">
-                                    @yield('helper-navigation')
-                                </div>
-                            </div>
-                        @endif
-
-                        {{-- Above columns sidebar --}}
-                        @hasSection('above')
-                            <div class="o-grid u-print-display--none">
-                                <div class="o-grid-12">
-                                    @yield('above')
-                                </div>
-                            </div>
-                        @endif
-
-                        <!--  Main content padder -->
-                        <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
-                            <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
-
-                                @hasSection('sidebar-left')
-                                    <div
-                                        class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-grid-{{ $leftColumnSize }}@xl o-order-2 o-order-1@lg o-order-1@xl u-print-display--none">
-                                        @yield('sidebar-left')
-                                    </div>
-                                @endif
-
-                                <div
-                                    class="o-grid-12 o-grid-auto@lg o-grid-auto@xl o-order-1 o-order-2@lg o-order-2@xl u-display--flex u-flex--gridgap  u-flex-direction--column">
-                                    @yield('content')
-                                    @yield('content.below')
-                                </div>
-
-                                @hasSection('sidebar-right')
-                                    <div
-                                        class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-grid-{{ $rightColumnSize }}@xl o-order-3 o-order-3@lg o-order-3@xl u-print-display--none">
-                                        @yield('sidebar-right')
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        @hasSection('below')
-                            <div class="o-grid">
-                                <div class="o-grid-12">
-                                    @yield('below')
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                @show
-            </main>
-
-            {{-- After page layout --}}
-            @yield('after-layout')
+        {{-- Before page layout --}}
+        @section('before-layout')
         @show
+
+        {{-- Notices before content --}}
+        @include('templates.sections.content-notices')
+
+        {{-- Page layout --}}
+        <main id="main-content">
+            @include('templates.sections.master.layout')
+        </main>
+
+        {{-- After page layout --}}
+        @yield('after-layout')
     </div>
 
     @section('footer')
@@ -157,14 +49,7 @@
 
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
-    @if ($notice && $notice['toast'])
-        @toast(['position' => 'bottom-left'])
-            @foreach ($notice['toast'] as $noticeItem)
-                @toast__item($noticeItem)
-                @endtoast__item
-            @endforeach
-        @endtoast
-    @endif
+    @include('templates.sections.toast-notices')
             
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
