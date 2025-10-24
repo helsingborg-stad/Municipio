@@ -16,6 +16,10 @@ class ImageFocusManager
 
     public function calculate(int $attachmentId, array $metadata, string $context): array
     {
+        if(!$this->isManualUpload()) {
+            return $metadata;
+        }
+
         if ($context !== 'create' || !$this->isImage($attachmentId)) {
             return $metadata;
         }
@@ -39,12 +43,35 @@ class ImageFocusManager
         return $metadata;
     }
 
+    /**
+     * Check if attachment is an image
+     * 
+     * @param int $attachmentId
+     * @return bool
+     */
     private function isImage(int $attachmentId): bool
     {
         $mime = $this->wpService->getPostMimeType($attachmentId);
         return strpos($mime, 'image/') === 0;
     }
 
+    /**
+     * Check if the current request is a manual upload via AJAX.
+     * 
+     * @return bool
+     */
+    private function isManualUpload(): bool
+    {
+        return defined('DOING_AJAX') && DOING_AJAX && isset($_POST['action']) && $_POST['action'] === 'upload-attachment';
+    }
+
+    /**
+     * Check if file exists
+     * Check if file exists
+     * 
+     * @param string $filePath
+     * @return bool
+     */
     private function fileExists(string $filePath): bool
     {
         if(empty($filePath)) {
