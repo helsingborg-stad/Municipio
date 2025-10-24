@@ -618,7 +618,7 @@ class Archive extends \Municipio\Controller\BaseController
         $preparedPosts['headings'] = array_map(
             function ($item) {
                 return match ($item) {
-                    'post_title' => __('Title', 'municipio'),
+                    'post_title' =>  $this->getPostTypeSingularName($this->data['postType']) ?? __('Title', 'municipio'),
                     'post_date' => __('Published', 'municipio'),
                     default => ucfirst(str_replace('_', ' ', $item)),
                 };
@@ -653,6 +653,22 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         return $preparedPosts;
+    }
+
+    /**
+     * Get singular name for a post type
+     *
+     * @param string $postType
+     * @return string|null The singular name of the post type, or null if not found.
+     */
+    private function getPostTypeSingularName(string $postType): ?string
+    {
+        $postTypeObject = $this->wpService->getPostTypeObject($postType);
+        if ($postTypeObject && !empty($postTypeObject->labels->singular_name)) {
+            return $postTypeObject->labels->singular_name;
+        }
+
+        return null;
     }
 
     /**
