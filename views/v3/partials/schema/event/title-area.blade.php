@@ -6,8 +6,14 @@
         'o-layout-grid--cols-12',
         'o-layout-grid--gap-4',
         'o-layout-grid--order-0',
-        'u-padding__x--8',
-        'u-padding__y--8',
+        'u-padding__x--3',
+        'u-padding__y--5',
+        'u-padding__x--8@md',
+        'u-padding__y--8@md',
+        'u-padding__x--8@lg',
+        'u-padding__y--8@lg',
+        'u-padding__x--8@xl',
+        'u-padding__y--8@xl',
         'u-rounded--16',
     ],
     'attributeList' => [
@@ -26,10 +32,8 @@
             {!! $post->getTitle() !!}
         @endtypography
         @if(!empty($description))
-        {{-- TODO: Fix this to the correct content --}}
             @typography(['element' => 'p', 'variant' => 'subtitle'])
-                {{-- {!! $description !!} --}}
-                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+                {{-- TODO: Insert excerpt here --}}
             @endtypography
         @endif
     @endelement
@@ -39,8 +43,7 @@
         ]
     ])
         @datebadge([
-            'date' => $currentOccasion->getStartDate(),
-            'translucent' => true
+            'date' => $currentOccasion->getStartDate()
         ])
         @enddatebadge
     @endelement

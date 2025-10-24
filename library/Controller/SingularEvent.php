@@ -101,7 +101,13 @@ class SingularEvent extends \Municipio\Controller\Singular
                 continue;
             }
 
-            $preparedPosts[] = \Municipio\Helper\Post::convertWpPostToPostObject($post);
+            $preparedPost = \Municipio\Helper\Post::convertWpPostToPostObject($post);
+            $preparedPost->locationName = \Municipio\Controller\ArchiveSchemaEvent\GetEventPlaceName::getEventPlaceName($preparedPost->getSchema());
+            $preparedPost->priceRange = \Municipio\Controller\ArchiveSchemaEvent\GetEventPriceRange::getEventPriceRange($preparedPost->getSchema());
+            $preparedPost->eventDate = \Municipio\Controller\ArchiveSchemaEvent\GetEventDate::getEventDate($preparedPost->getSchema());
+
+            $preparedPosts[] = $preparedPost; 
+
         }
 
         return $preparedPosts ?: [];

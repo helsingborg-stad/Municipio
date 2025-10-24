@@ -5,8 +5,14 @@
         'o-layout-grid--gap-6',
         'o-layout-grid--order-23',
         'o-layout-grid--cols-12',
-        'u-padding__x--8',
-        'u-padding__y--8',
+        'u-padding__x--3',
+        'u-padding__y--5',
+        'u-padding__x--8@md',
+        'u-padding__y--8@md',
+        'u-padding__x--8@lg',
+        'u-padding__y--8@lg',
+        'u-padding__x--8@xl',
+        'u-padding__y--8@xl',
         'u-rounded--16',
     ],
     'attributeList' => [
@@ -23,21 +29,25 @@
         {!! $lang->relatedEventsTitle !!}
     @endtypography
     @foreach($relatedPosts as $relatedPost)
-        @card([
-            'image' => $relatedPost->getImage(),
-            'heading' => $relatedPost->getTitle(),
-            'link' => $relatedPost->getPermalink(),
-            'dateBadge' => true,
-            'date' => [
-                'timestamp' => $relatedPost->getArchiveDateTimestamp(),
-                'format'    => $relatedPost->getArchiveDateFormat(),
-            ],
+        @segment([
+            'layout'            => 'card',
+            'image'             => $relatedPost->getImage(),
+            'link'              => $relatedPost->getPermalink(),
+            'title'             => $relatedPost->getTitle(),
             'classList' => [
                 'o-layout-grid--col-span-12',
                 'o-layout-grid--col-span-6@md',
-                'o-layout-grid--col-span-4@lg',
+                'o-layout-grid--col-span-4@lg'
             ]
         ])
-        @endcard
+            @slot('floating')
+                @datebadge([
+                    'date' => $relatedPost->getArchiveDateTimestamp(),
+                    'size' => 'md',
+                    'translucent' => true
+                ]) 
+                @enddatebadge
+            @endslot
+        @endsegment
     @endforeach
 @endelement
