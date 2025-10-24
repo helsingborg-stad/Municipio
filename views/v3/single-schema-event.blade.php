@@ -9,8 +9,13 @@
     @stop
 
     @section('content')
+        @include('partials.schema.event.image')
         @include('partials.schema.event.description')
         @include('partials.schema.event.accessibility-features')
+    @stop
+
+    @section('below-content')
+        @include('partials.schema.event.related-posts')
     @stop
 
     @section('sidebar-right-content')
