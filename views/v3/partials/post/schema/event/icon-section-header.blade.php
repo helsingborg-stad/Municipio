@@ -1,1 +1,0 @@
-@typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['u-margin__bottom--2']]){!!$header!!}@endelement
