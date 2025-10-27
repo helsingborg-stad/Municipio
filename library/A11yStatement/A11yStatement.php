@@ -134,6 +134,14 @@ class A11yStatement implements Hookable
                 $this->wpService->flushRewriteRules();
             }
         });
+
+        //Template bypass
+        $this->wpService->addFilter('Municipio/Template/MayBeCustomTemplateRequest', function ($mayBeCustomTemplateRequest) use ($slug) {
+            if ($this->wpService->getQueryVar('a11y_statement')) {
+                return true;
+            }
+            return $mayBeCustomTemplateRequest;
+        });
     }
 
     /**

@@ -772,33 +772,16 @@ class Template
     }
 
     /**
-     * Check if the current request is for a custom template by inspecting query vars.
+     * Check if the current request is for a custom template by running a filter
      *
      * @return bool True if it's a custom template request, false otherwise.
      */
     private function mayBeCustomTemplateRequest(): bool
     {
-        global $wp_query;
-
-        if (!isset($wp_query) || !is_object($wp_query)) {
-            return false;
-        }
-
-        $defaultVars = [
-            'm','p','posts','w','cat','withcomments','withoutcomments','s','search','exact','sentence',
-            'calendar','page','paged','more','tb','pb','author','order','orderby','year','monthnum','day',
-            'hour','minute','second','name','category_name','tag','feed','author_name','static','pagename',
-            'page_id','error','comments_popup','attachment','attachment_id','subpost','subpost_id','preview',
-            'robots','taxonomy','term','cpage'
-        ];
-
-        foreach ($wp_query->query_vars as $key => $value) {
-            if (!in_array($key, $defaultVars, true) && !empty($value)) {
-                return true; // Found a non-default query var
-            }
-        }
-
-        return false;
+        return apply_filters(
+            'Municipio/Template/MayBeCustomTemplateRequest',
+            false
+        );
     }
 
     /**
