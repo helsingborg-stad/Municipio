@@ -153,33 +153,36 @@ class Template
     {
         global $wp_query;
 
-        if (
-            !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
-            $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
-        ) {
-            if ($wp_query->found_posts > 0) {
-                if (!is_user_logged_in()) {
-                    $template = '401';
+        // Bypass access restriction logic for generic static endpoints
+        if (!$this->mayBeCustomTemplateRequest()) {
+            if (
+                !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
+                $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
+            ) {
+                if ($wp_query->found_posts > 0) {
+                    if (!is_user_logged_in()) {
+                        $template = '401';
+                    } else {
+                        $template = '403';
+                    }
                 } else {
-                    $template = '403';
+                    $template = '404';
                 }
-            } else {
-                $template = '404';
             }
-        }
 
-        if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
-            $template = '401';
-        }
+            if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
+                $template = '401';
+            }
 
-        // Restrict access to single posts that belong to a post type with an assigned "page for post type"
-        // if that page is not publicly viewable and the user is not logged in.
-        if (
-            $this->singlePostHasPostTypeThatUsesPageForPostType() &&
-            !$this->isPostTypePubliclyViewable() &&
-            !is_user_logged_in()
-        ) {
-            $template = '401';
+            // Restrict access to single posts that belong to a post type with an assigned "page for post type"
+            // if that page is not publicly viewable and the user is not logged in.
+            if (
+                $this->singlePostHasPostTypeThatUsesPageForPostType() &&
+                !$this->isPostTypePubliclyViewable() &&
+                !is_user_logged_in()
+            ) {
+                $template = '401';
+            }
         }
 
         //Do something before controller creation
@@ -766,6 +769,36 @@ class Template
         }
 
         return $view;
+    }
+
+    /**
+     * Check if the current request is for a custom template by inspecting query vars.
+     *
+     * @return bool True if it's a custom template request, false otherwise.
+     */
+    private function mayBeCustomTemplateRequest(): bool
+    {
+        global $wp_query;
+
+        if (!isset($wp_query) || !is_object($wp_query)) {
+            return false;
+        }
+
+        $defaultVars = [
+            'm','p','posts','w','cat','withcomments','withoutcomments','s','search','exact','sentence',
+            'calendar','page','paged','more','tb','pb','author','order','orderby','year','monthnum','day',
+            'hour','minute','second','name','category_name','tag','feed','author_name','static','pagename',
+            'page_id','error','comments_popup','attachment','attachment_id','subpost','subpost_id','preview',
+            'robots','taxonomy','term','cpage'
+        ];
+
+        foreach ($wp_query->query_vars as $key => $value) {
+            if (!in_array($key, $defaultVars, true) && !empty($value)) {
+                return true; // Found a non-default query var
+            }
+        }
+
+        return false;
     }
 
     /**
