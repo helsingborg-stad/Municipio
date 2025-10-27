@@ -33,6 +33,7 @@ class Slider extends \Modularity\Module
 
         //Adds backwards compability to when we didn't have focal points
         add_filter('acf/load_value/key=field_56a5ed2f398dc', array($this,'filterDesktopImage'), 10, 3);
+        add_filter('WpSecurity/Csp', array($this, 'csp'), 10, 1);
     }
 
     /**
@@ -69,11 +70,11 @@ class Slider extends \Modularity\Module
         $data['title']         = isset($fields['post_title']) ? $fields['post_title'] : '';
         $data['slidesPerPage'] = isset($fields['slides_per_page']) ? $fields['slides_per_page'] : '1';
         $data['ariaLabels']    =  (object) [
-            'prev'   => __('Previous slide', 'municipio'),
-            'next'   => __('Next slide', 'municipio'),
-            'first'  => __('Go to first slide', 'municipio'),
-            'last'   => __('Go to last slide', 'municipio'),
-            'slideX' => __('Go to slide %s', 'municipio'),
+            'prev'   => __('Previous slide', 'modularity'),
+            'next'   => __('Next slide', 'modularity'),
+            'first'  => __('Go to first slide', 'modularity'),
+            'last'   => __('Go to last slide', 'modularity'),
+            'slideX' => __('Go to slide %s', 'modularity'),
         ];
 
         $imageSize = isset($this->imageSizes[$fields['slider_format']]) ?
@@ -91,8 +92,8 @@ class Slider extends \Modularity\Module
 
         //Translations
         $data['lang'] = (object) [
-            'noSlidesHeading' => __('Slider is empty', 'municipio'),
-            'noSlides'        => __('Please add something to slide.', 'municipio')
+            'noSlidesHeading' => __('Slider is empty', 'modularity'),
+            'noSlides'        => __('Please add something to slide.', 'modularity')
         ];
 
         return $data;
@@ -221,7 +222,7 @@ class Slider extends \Modularity\Module
 
         // Set link text
         if (empty($slide['link_text'])) {
-            $slide['link_text'] = __('Read more', 'municipio');
+            $slide['link_text'] = __('Read more', 'modularity');
         }
 
         $slide['call_to_action'] = false;
@@ -282,6 +283,33 @@ class Slider extends \Modularity\Module
             !empty($slide['link_type']) &&
             $slide['link_type'] !== 'false' &&
             $slide['link_style'] === 'button';
+    }
+
+    /**
+     * Content Security Policy - Add video domains
+     */
+    public function csp(array $domains): array
+    {
+        $slides = $this->getFields()['slides'] ?? [];
+
+        foreach ($slides as $slide) {
+            if (empty($slide['video_mp4']['url'])) {
+                continue;
+            }
+
+            $host = parse_url($slide['video_mp4']['url'], PHP_URL_HOST);
+
+            if (!$host) {
+                continue;
+            }
+
+            $domains['media-src'] ??= [];
+            $domains['media-src'][] = $host;
+        }
+
+        $domains['media-src'] = $domains['media-src'] ? array_unique($domains['media-src']) : [];
+
+        return $domains;
     }
 
     /**
