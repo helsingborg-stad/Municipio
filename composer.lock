@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1acd00a5c11c086a4e5ada6c55077e5",
+    "content-hash": "20e7438fca21a04e854bc53079c3ab00",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -862,6 +862,125 @@
                 "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.18"
             },
             "time": "2025-10-22T12:29:55+00:00"
+        },
+        {
+            "name": "helsingborg-stad/kirki",
+            "version": "5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/kirki.git",
+                "reference": "4f1da9fbfc92d5b96298bb6d754981265cacfd7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/kirki/zipball/4f1da9fbfc92d5b96298bb6d754981265cacfd7b",
+                "reference": "4f1da9fbfc92d5b96298bb6d754981265cacfd7b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "composer/installers": "*",
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "wp-coding-standards/wpcs": "*",
+                "wptrt/wpthemereview": "dev-develop"
+            },
+            "type": "wordpress-muplugin",
+            "autoload": {
+                "psr-4": {
+                    "Kirki\\": [
+                        "kirki-packages/control-base/src",
+                        "kirki-packages/control-checkbox/src",
+                        "kirki-packages/control-code/src",
+                        "kirki-packages/control-color/src",
+                        "kirki-packages/control-color-palette/src",
+                        "kirki-packages/control-cropped-image/src",
+                        "kirki-packages/control-custom/src",
+                        "kirki-packages/control-dashicons/src",
+                        "kirki-packages/control-date/src",
+                        "kirki-packages/control-dimension/src",
+                        "kirki-packages/control-editor/src",
+                        "kirki-packages/control-generic/src",
+                        "kirki-packages/control-image/src",
+                        "kirki-packages/control-multicheck/src",
+                        "kirki-packages/control-palette/src",
+                        "kirki-packages/control-radio/src",
+                        "kirki-packages/control-react-colorful/src",
+                        "kirki-packages/control-react-select/src",
+                        "kirki-packages/control-repeater/src",
+                        "kirki-packages/control-select/src",
+                        "kirki-packages/control-slider/src",
+                        "kirki-packages/control-sortable/src",
+                        "kirki-packages/control-upload/src",
+                        "kirki-packages/field/src",
+                        "kirki-packages/googlefonts/src",
+                        "kirki-packages/l10n/src",
+                        "kirki-packages/module-panels/src",
+                        "kirki-packages/module-sections/src",
+                        "kirki-packages/url-getter/src"
+                    ],
+                    "Kirki\\Pro\\": "pro-src/",
+                    "Kirki\\Data\\": [
+                        "kirki-packages/data-option/src"
+                    ],
+                    "Kirki\\Util\\": [
+                        "kirki-packages/util/src"
+                    ],
+                    "Kirki\\Field\\": [
+                        "kirki-packages/field/src/Field",
+                        "kirki-packages/field-background/src",
+                        "kirki-packages/field-dimensions/src",
+                        "kirki-packages/field-fontawesome/src",
+                        "kirki-packages/field-multicolor/src/Field",
+                        "kirki-packages/field-multicolor/src",
+                        "kirki-packages/field-typography/src/Field",
+                        "kirki-packages/field-typography/src"
+                    ],
+                    "Kirki\\Module\\": [
+                        "kirki-packages/module-css/src",
+                        "kirki-packages/module-editor-styles/src",
+                        "kirki-packages/module-field-dependencies/src",
+                        "kirki-packages/module-postmessage/src",
+                        "kirki-packages/module-preset/src",
+                        "kirki-packages/module-section-icons/src",
+                        "kirki-packages/module-selective-refresh/src",
+                        "kirki-packages/module-tooltips/src",
+                        "kirki-packages/module-webfonts/src"
+                    ],
+                    "Kirki\\Settings\\": [
+                        "kirki-packages/settings/src"
+                    ],
+                    "Kirki\\Compatibility\\": [
+                        "kirki-packages/compatibility/src"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ".",
+                "core"
+            ],
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirki Framework",
+                    "email": "support@themeum.com"
+                }
+            ],
+            "description": "Extending the WordPress customizer",
+            "homepage": "https://www.themeum.com",
+            "keywords": [
+                "customizer",
+                "wordpress"
+            ],
+            "support": {
+                "source": "https://github.com/helsingborg-stad/kirki/tree/5.2.0"
+            },
+            "time": "2024-08-02T07:01:26+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",

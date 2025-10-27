@@ -47,7 +47,8 @@
         "league/config": "1.1.1",
         "helsingborg-stad/component-library": "^4.62.12",
         "freshleafmedia/autofocus": "^1.0",
-        "astrotomic/php-deepface": "^0.4.0"
+        "astrotomic/php-deepface": "^0.4.0",
+        "helsingborg-stad/kirki": "^5.2"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -96,9 +97,6 @@
         "psr-4": {
             "Municipio\\TestUtils\\": "tests/phpunit/TestUtils/"
         }
-    },
-    "suggest": {
-        "helsingborg-stad/kirki": "Required for theme to work properly."
     },
     "version": "5.176.21"
 }
