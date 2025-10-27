@@ -2,9 +2,9 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup;
 
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use WP_Post;
 use WpService\Implementations\FakeWpService;
 
@@ -15,18 +15,6 @@ class CleanupPostsNoLongerInSourceTest extends TestCase
     {
         $cleanup = new CleanupPostsNoLongerInSource('post', new FakeWpService());
         $this->assertInstanceOf(CleanupPostsNoLongerInSource::class, $cleanup);
-    }
-
-    #[TestDox('addHook adds a hook for the cleanup method')]
-    public function testAddHookAddsHookForCleanupMethod()
-    {
-        $wpService = new FakeWpService(['addAction' => true]);
-        $cleanup   = new CleanupPostsNoLongerInSource('post', $wpService);
-
-        $cleanup->addHooks();
-
-        $this->assertEquals(SyncHandler::ACTION_AFTER, $wpService->methodCalls['addAction'][0][0]);
-        $this->assertEquals([$cleanup, 'cleanup'], $wpService->methodCalls['addAction'][0][1]);
     }
 
     #[TestDox('calls getPosts with correct arguments')]
@@ -64,6 +52,19 @@ class CleanupPostsNoLongerInSourceTest extends TestCase
         $cleanup   = new CleanupPostsNoLongerInSource('post', $wpService);
 
         $cleanup->cleanup([Schema::thing()->setProperty('@id', '1')]);
+
+        $this->assertArrayNotHasKey('wpDeletePost', $wpService->methodCalls);
+    }
+
+    #[TestDox('will not attempt to delete posts if no synced schema objects are provided')]
+    public function testWillNotAttemptToDeletePostsIfNoSyncedSchemaObjectsAreProvided()
+    {
+        $postToBeDeleted     = new WP_Post([]);
+        $postToBeDeleted->ID = 2;
+        $wpService           = new FakeWpService(['getPosts' => [$postToBeDeleted]]);
+        $cleanup             = new CleanupPostsNoLongerInSource('post', $wpService);
+
+        $cleanup->cleanup([]);
 
         $this->assertArrayNotHasKey('wpDeletePost', $wpService->methodCalls);
     }

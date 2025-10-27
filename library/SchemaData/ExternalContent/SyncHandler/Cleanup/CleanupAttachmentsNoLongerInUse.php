@@ -2,33 +2,22 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup;
 
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor;
 use wpdb;
-use WpService\Contracts\AddAction;
 use WpService\Contracts\WpDeleteAttachment;
 
 /**
  * Cleanup attachments that are no longer in use.
  */
-class CleanupAttachmentsNoLongerInUse implements Hookable
+class CleanupAttachmentsNoLongerInUse
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private AddAction&WpDeleteAttachment $wpService,
+        private WpDeleteAttachment $wpService,
         private wpdb $db
     ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addHooks(): void
-    {
-        $this->wpService->addAction(SyncHandler::ACTION_AFTER, [$this, 'cleanup']);
     }
 
     /**

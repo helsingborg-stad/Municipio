@@ -11,7 +11,6 @@ use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReaderInterface;
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\ProgressReporterInterface;
-use Municipio\Schema\BaseType;
 use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 use WpService\WpService;
 
@@ -20,9 +19,6 @@ use WpService\WpService;
  */
 class SyncHandler implements Hookable, SyncHandlerInterface
 {
-    public const FILTER_BEFORE = 'Municipio/ExternalContent/Sync/Filter/Before';
-    public const ACTION_AFTER  = 'Municipio/ExternalContent/Sync/After';
-
     /**
      * Constructor for the SyncHandler class.
      *
@@ -61,58 +57,59 @@ class SyncHandler implements Hookable, SyncHandlerInterface
             $sourceConfig = $this->addIdFilterToSourceConfig($sourceConfig, $postId);
         }
 
-        // Cleanup only if a sync is triggered to trigger whole collection.
-        if (is_null($postId)) {
-            $this->setupCleanup($postType);
-        }
-
-        // Apply filters before sync.
-        $this->applyFiltersBeforeSync($sourceConfig);
-
         $this->progressService->setMessage($this->wpService->__('Fetching source data...', 'municipio'));
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
 
         if (empty($schemaObjects)) {
-            throw new ExternalContentException('No data found to sync for post type: ' . $postType);
+            return;
         }
 
-        $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
-        $schemaObjects = array_values($schemaObjects);
-        $totalObjects  = count($schemaObjects);
+        $schemaObjects             = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->filter($schemaObjects);
+        $schemaObjects             = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->convert($schemaObjects);
+        $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
 
-        foreach ($schemaObjects as $i => $schemaObject) {
+        $schemaObjects             = array_values(array_filter($schemaObjects));
+        $newOrChangedSchemaObjects = array_values(array_filter($newOrChangedSchemaObjects));
+
+        if (empty($schemaObjects)) {
+            return;
+        }
+
+        $totalObjects         = count($newOrChangedSchemaObjects);
+        $insertedWpPostsCount = 0;
+
+        foreach ($newOrChangedSchemaObjects as $i => $schemaObject) {
             $iPlusOne = $i + 1;
             $this->progressService->setMessage(sprintf($this->wpService->__("Processing %s of %s...", 'municipio'), $iPlusOne, $totalObjects));
             $this->progressService->setPercentage(($iPlusOne / $totalObjects) * 100);
-            if ($schemaObject === null) {
-                continue;
-            }
 
             foreach ($this->schemaObjectProcessors as $processor) {
                 $schemaObject = $processor->process($schemaObject);
             }
 
-            if (empty($schemaObject)) {
-                throw new ExternalContentException('Schema object processing resulted in empty object for post type: ' . $postType);
-            }
-
-            $postInserted = $this->wpService->wpInsertPost(
-                $this->getPostFactory($sourceConfig)->transform($schemaObject)
-            );
+            $args         = $this->getPostFactory($sourceConfig)->transform($schemaObject);
+            $postInserted = $this->wpService->wpInsertPost($args);
 
             if ($this->wpService->isWpError($postInserted)) {
-                throw new ExternalContentException('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
+                error_log('Failed to insert/update post for post type: ' . $postType . '. Error: ' . $postInserted->get_error_message());
+                continue;
             }
+
+            $insertedWpPostsCount++;
         }
 
         $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));
 
-        /**
-         * Action after sync.
-         *
-         * @param BaseType[] $schemaObjects
-         */
-        $this->wpService->doActionRefArray(self::ACTION_AFTER, [$schemaObjects]);
+        if ($insertedWpPostsCount !== $totalObjects) {
+            throw new ExternalContentException('Failed to insert: ' . $postType . '. Expected ' . $totalObjects . ' but got ' . $insertedWpPostsCount);
+        }
+
+        if ($postId !== null) {
+            // Run only for entire sync
+            (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->cleanup($schemaObjects);
+        }
+
+        (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->cleanup();
     }
 
     /**
@@ -138,18 +135,6 @@ class SyncHandler implements Hookable, SyncHandlerInterface
     }
 
     /**
-     * Sets up the cleanup process for the given source configuration and post type.
-     *
-     * @param string $postType The post type to clean up.
-     * @return void
-     */
-    private function setupCleanup(string $postType): void
-    {
-        (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
-        (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
-    }
-
-    /**
      * Adds an ID filter to the source configuration.
      *
      * @param SourceConfigInterface $sourceConfig The source configuration to which the ID filter will be added.
@@ -166,20 +151,6 @@ class SyncHandler implements Hookable, SyncHandlerInterface
 
         $filterDefinition = new FilterDefinition([new RuleSet([new Rule('@id', $originId)])]);
         return new SourceConfigWithCustomFilterDefinition($filterDefinition, $sourceConfig);
-    }
-
-    /**
-     * Applies necessary filters before synchronization.
-     *
-     * This method is responsible for applying any filters or transformations
-     * to the data before the synchronization process begins.
-     *
-     * @return void
-     */
-    private function applyFiltersBeforeSync(): void
-    {
-        (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
-        (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->addHooks();
     }
 
     /**

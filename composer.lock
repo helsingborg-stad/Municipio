@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20e7438fca21a04e854bc53079c3ab00",
+    "content-hash": "408cebe90530f8aff296db8681b07f23",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -820,16 +820,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.62.18",
+            "version": "4.62.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "873ab15d014b7126e5d665ae2d944c5e23063351"
+                "reference": "c61b52e298af68a5b972306ea41e2b615736547e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/873ab15d014b7126e5d665ae2d944c5e23063351",
-                "reference": "873ab15d014b7126e5d665ae2d944c5e23063351",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/c61b52e298af68a5b972306ea41e2b615736547e",
+                "reference": "c61b52e298af68a5b972306ea41e2b615736547e",
                 "shasum": ""
             },
             "require": {
@@ -859,9 +859,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.18"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.20"
             },
-            "time": "2025-10-22T12:29:55+00:00"
+            "time": "2025-10-24T14:02:15+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",

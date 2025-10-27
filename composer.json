@@ -98,5 +98,5 @@
             "Municipio\\TestUtils\\": "tests/phpunit/TestUtils/"
         }
     },
-    "version": "5.176.21"
+    "version": "5.177.2"
 }

@@ -4,7 +4,6 @@ namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\Factor
 
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\{
-    AddChecksum,
     DateDecorator,
     EventDatesDecorator,
     IdDecorator,
@@ -16,12 +15,10 @@ use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\{
     SchemaDataDecorator,
     SourceIdDecorator,
     ThumbnailDecorator,
-    VerifyChecksum,
     WpPostArgsFromSchemaObject,
     WpPostArgsFromSchemaObjectInterface,
 };
 use Municipio\Helper\WpService;
-use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGenerator;
 
 /**
  * Factory for creating WpPostArgsFromSchemaObject instances.
@@ -54,9 +51,6 @@ class Factory implements FactoryInterface
         $postArgsFromSchemaObject = new SourceIdDecorator($this->sourceConfig->getId(), $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new EventDatesDecorator($postArgsFromSchemaObject);
-
-        $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new VerifyChecksum($postArgsFromSchemaObject, WpService::get());
 
         return $postArgsFromSchemaObject;
     }

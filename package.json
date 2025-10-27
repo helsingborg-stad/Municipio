@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "5.176.21",
+    "version": "5.177.2",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
@@ -39,7 +39,7 @@
         "@babel/core": "^7.28.3",
         "@babel/preset-env": "^7.28.3",
         "@babel/preset-typescript": "^7.27.1",
-        "@helsingborg-stad/styleguide": "0.11.1333",
+        "@helsingborg-stad/styleguide": "0.11.1340",
         "@jest/globals": "^29.7.0",
         "@material-symbols/font-200": "^0.34.1",
         "@material-symbols/font-400": "^0.34.1",

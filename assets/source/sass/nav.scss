@@ -22,8 +22,10 @@
         gap: 0;
     }
 
-    .c-breadcrumb {
-        align-self: center;
+    @include mq.mq('md') {
+        .c-breadcrumb {
+            align-self: center;
+        }
     }
 }
 
