@@ -153,33 +153,36 @@ class Template
     {
         global $wp_query;
 
-        if (
-            !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
-            $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
-        ) {
-            if ($wp_query->found_posts > 0) {
-                if (!is_user_logged_in()) {
-                    $template = '401';
+        // Bypass access restriction logic for generic static endpoints
+        if (!$this->mayBeCustomTemplateRequest()) {
+            if (
+                !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
+                $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
+            ) {
+                if ($wp_query->found_posts > 0) {
+                    if (!is_user_logged_in()) {
+                        $template = '401';
+                    } else {
+                        $template = '403';
+                    }
                 } else {
-                    $template = '403';
+                    $template = '404';
                 }
-            } else {
-                $template = '404';
             }
-        }
 
-        if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
-            $template = '401';
-        }
+            if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
+                $template = '401';
+            }
 
-        // Restrict access to single posts that belong to a post type with an assigned "page for post type"
-        // if that page is not publicly viewable and the user is not logged in.
-        if (
-            $this->singlePostHasPostTypeThatUsesPageForPostType() &&
-            !$this->isPostTypePubliclyViewable() &&
-            !is_user_logged_in()
-        ) {
-            $template = '401';
+            // Restrict access to single posts that belong to a post type with an assigned "page for post type"
+            // if that page is not publicly viewable and the user is not logged in.
+            if (
+                $this->singlePostHasPostTypeThatUsesPageForPostType() &&
+                !$this->isPostTypePubliclyViewable() &&
+                !is_user_logged_in()
+            ) {
+                $template = '401';
+            }
         }
 
         //Do something before controller creation
@@ -766,6 +769,19 @@ class Template
         }
 
         return $view;
+    }
+
+    /**
+     * Check if the current request is for a custom template by running a filter
+     *
+     * @return bool True if it's a custom template request, false otherwise.
+     */
+    private function mayBeCustomTemplateRequest(): bool
+    {
+        return apply_filters(
+            'Municipio/Template/MayBeCustomTemplateRequest',
+            false
+        );
     }
 
     /**
