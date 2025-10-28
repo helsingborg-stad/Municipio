@@ -62,9 +62,9 @@ class ArchiveTest extends \PHPUnit\Framework\TestCase
     {
         $module   = new Archive();
         $fileName = 'mod-' . $module->slug;
-        $acfDir   = realpath(__DIR__ . '/../../AcfFields');
+        $acfDir   = __DIR__ . '/../../AcfFields';
 
         $this->assertFileExists($acfDir . '/json/' . $fileName . '.json');
-        $this->assertFileExists($acfDir . '/php/' . ucfirst($fileName) . '.php');
+        $this->assertFileExists($acfDir . '/php/' . $fileName . '.php');
     }
 }
