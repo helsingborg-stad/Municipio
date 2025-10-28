@@ -1,0 +1,92 @@
+[{
+    "key": "group_571dffc63090c",
+    "title": "Data sorting",
+    "fields": [
+        {
+            "key": "field_571dffca1d90b",
+            "label": "Sort by",
+            "name": "posts_sort_by",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": "modularity-sorted-by"
+            },
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "false": "Do not sort",
+                "title": "Titel",
+                "date": "Publiceringsdatum",
+                "modified": "Date modified",
+                "rand": "Random",
+                "menu_order": "Menu order"
+            },
+            "default_value": "date",
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "disabled": 0,
+            "readonly": 0,
+            "allow_custom": 0,
+            "search_placeholder": ""
+        },
+        {
+            "key": "field_571e00241d90c",
+            "label": "Order",
+            "name": "posts_sort_order",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "layout": "horizontal",
+            "choices": {
+                "asc": "Ascending",
+                "desc": "Descending"
+            },
+            "default_value": "",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "mod-posts"
+            }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/posts"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "modified": 1461661083
+}]
+

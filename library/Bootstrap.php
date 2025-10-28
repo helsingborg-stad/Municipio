@@ -43,6 +43,11 @@ $wpService  = new WpServiceWithTypecastedReturns(new NativeWpService());
 $acfService = new NativeAcfService();
 
 /**
+ * Modularity
+ */
+require_once MUNICIPIO_PATH . 'Modularity/modularity.php';
+
+/**
  * Dependencies.
  */
 $schemaDataConfigService = new \Municipio\SchemaData\Config\SchemaDataConfigService($wpService);

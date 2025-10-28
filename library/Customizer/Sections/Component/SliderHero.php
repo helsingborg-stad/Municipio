@@ -42,9 +42,9 @@ class SliderHero
             'section'  => $sectionID,
             'default'  => 'bg-transparent',
             'choices'  => array(
-                'bg-none'        => __('None', 'modularity'),
-                'bg-transparent' => __('Transparent', 'modularity'),
-                'bg-theme'       => __('Theme', 'modularity'),
+                'bg-none'        => __('None', 'municipio'),
+                'bg-transparent' => __('Transparent', 'municipio'),
+                'bg-theme'       => __('Theme', 'municipio'),
             ),
             'output'   => [
                 [
@@ -67,9 +67,9 @@ class SliderHero
             'section'  => $sectionID,
             'default'  => 'text-align-left',
             'choices'  => array(
-                'text-align-left'   => __('Left', 'modularity'),
-                'text-align-center' => __('Center', 'modularity'),
-                'text-align-right'  => __('Right', 'modularity'),
+                'text-align-left'   => __('Left', 'municipio'),
+                'text-align-center' => __('Center', 'municipio'),
+                'text-align-right'  => __('Right', 'municipio'),
             ),
             'output'   => [
                 [
@@ -92,8 +92,8 @@ class SliderHero
             'section'  => $sectionID,
             'default'  => 'none',
             'choices'  => array(
-                'none' => __('None', 'modularity'),
-                'dark' => __('Dark', 'modularity'),
+                'none' => __('None', 'municipio'),
+                'dark' => __('Dark', 'municipio'),
             ),
             'output'   => [
                 [

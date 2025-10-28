@@ -35,15 +35,20 @@
         "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "^1.0.0",
         "helsingborg-stad/schema-library": "^0.5",
+        "johannheyne/advanced-custom-fields-table-field": "dev-master",
+        "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
+        "jeradin/acf-website-field": "dev-master",
+        "ooksanen/acf-focuspoint": "^1.2.1",
+        "jeradin/acf-dynamic-table-field": "dev-master",
+        "enshrined/svg-sanitize": "dev-master",
+        "helsingborg-stad/acf-select-image-field": "1.6.1",
+        "landrok/language-detector": "dev-master",
+        "league/commonmark": "2.7.0",
+        "league/config": "1.1.1",
+        "helsingborg-stad/component-library": "4.62.20",
         "freshleafmedia/autofocus": "^1.0",
-        "astrotomic/php-deepface": "^0.4.0"
-    },
-    "extra": {
-        "installer-paths": {
-            "vendor/{$name}/": [
-                "type:wordpress-plugin"
-            ]
-        }
+        "astrotomic/php-deepface": "^0.4.0",
+        "helsingborg-stad/kirki": "^5.2"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -53,7 +58,7 @@
         "fix": "vendor/bin/phpcbf",
         "fix:changed": "vendor/bin/phpcbf-changed origin/main",
         "post-update-cmd": [],
-        "make-pot": "wp i18n make-pot library languages/municipio.pot --domain=municipio --allow-root",
+        "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,Modularity/source/php",
         "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
         "make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root"
     },
@@ -65,15 +70,27 @@
             "phpstan/extension-installer": true
         }
     },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$vendor}/{$name}": [
+                "type:wordpress-muplugin",
+                "type:wordpress-theme",
+                "type:wordpress-plugin",
+                "type:acf-plugin"
+            ]
+        }
+    },
     "require-dev": {
         "helsingborg-stad/phpcs": "^0.3.1",
         "php-stubs/wordpress-stubs": "^6.7",
         "phpunit/phpunit": "^11.5",
-        "php-stubs/acf-pro-stubs": "^6.5"
+        "php-stubs/acf-pro-stubs": "^6.5",
+        "spatie/phpunit-snapshot-assertions": "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Municipio\\": "library/"
+            "Municipio\\": "library/",
+            "Modularity\\": "Modularity/source/php/"
         }
     },
     "autoload-dev": {

@@ -1,0 +1,61 @@
+.modularity-modal-open {
+    overflow: hidden;
+}
+
+.modularity-modal-open #wpwrap {
+    filter: blur(10px);
+}
+
+#modularity-modal {
+    position: fixed;
+    z-index: 2147483647;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(#F1F1F1, .95);
+    opacity: 0;
+    animation: 200ms modal-fade-in forwards;
+
+    .modularity-modal-close {
+        position: absolute;
+        top: 0;
+        right: 6%;
+        z-index: 3;
+        font-size: 12pt;
+        padding: 5px 20px;
+        border: none;
+        cursor: pointer;
+        background-color: #c00b0b;
+        color: #fff;
+
+        &:hover {
+            padding-top: 10px;
+        }
+    }
+
+    .modularity-modal-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .modularity-modal-iframe {
+        position: relative;
+        z-index: 2;
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100%;
+    }
+}
+
+.admin-bar:not(.wp-admin) #modularity-modal {
+    top: 32px;
+}
+
+@keyframes modal-fade-in {
+    100% {
+        opacity: 1;
+    }
+}
