@@ -1,6 +1,8 @@
 @if (!empty($breadcrumbItems) || !empty($accessibilityItems))
-    <div class="nav-helper o-container">
+    @element([
+        'classList' => $classList
+    ])
         @includeIf('partials.breadcrumb')
         @includeIf('partials.accessibility')
-    </div>
+    @endelement
 @endif
