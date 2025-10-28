@@ -98,5 +98,9 @@
             "Municipio\\TestUtils\\": "tests/phpunit/TestUtils/"
         }
     },
-    "version": "5.177.2"
+    "suggest": {
+        "helsingborg-stad/component-library": "Required for theme to work properly.",
+        "helsingborg-stad/kirki": "Required for theme to work properly."
+    },
+    "version": "5.177.7"
 }

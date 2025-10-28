@@ -3466,7 +3466,7 @@ msgstr "Adress"
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
-msgstr "Vill söka plats på %s?"
+msgstr "Vill du välja %s?"
 
 #: library/Controller/SingularElementarySchool.php:43
 msgctxt "ElementarySchool"

@@ -99,7 +99,7 @@ class A11yStatement implements Hookable
     public function registerFrontendPage() : void
     {
         //Enabled
-        if($this->acfService->getField('mun_a11ystatement_enabled', 'options') === false) {
+        if ($this->acfService->getField('mun_a11ystatement_enabled', 'options') === false) {
             return;
         }
 
@@ -133,6 +133,14 @@ class A11yStatement implements Hookable
             if (!isset($rules[$expectedRule])) {
                 $this->wpService->flushRewriteRules();
             }
+        });
+
+        //Template bypass
+        $this->wpService->addFilter('Municipio/Template/MayBeCustomTemplateRequest', function ($mayBeCustomTemplateRequest) use ($slug) {
+            if ($this->wpService->getQueryVar('a11y_statement')) {
+                return true;
+            }
+            return $mayBeCustomTemplateRequest;
         });
     }
 

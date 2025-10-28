@@ -49,7 +49,9 @@
 
     @stop
 
-    {!! wpautop( nl2br(e($post->getSchemaProperty('description')))) !!}
+    @if(!empty($description))
+        {!! $description !!}
+    @endif
 
     @if(!empty($galleryComponentAttributes))
         @typography(['element' => 'h3'])
