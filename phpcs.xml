@@ -4,7 +4,6 @@
     <exclude-pattern>library/AcfFields</exclude-pattern>
     <exclude-pattern>Modularity/source/php/AcfFields</exclude-pattern>
     <exclude-pattern>./**/*.blade.php</exclude-pattern>
-    <exclude-pattern>library/**/*Test.php</exclude-pattern>
     <rule ref="Hbg-WordPress"></rule>
 
     <rule ref="Internal.NoCodeFound">
