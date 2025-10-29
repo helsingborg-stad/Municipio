@@ -15,7 +15,7 @@ class BlockManager
         add_action('init', array($this, 'addBlockFieldGroup'));
 
         add_filter('acf/load_field_group', array($this, 'addLocationRulesToBlockGroup'));
-        add_filter('allowed_block_types_all', array($this, 'filterBlockTypes'));
+        // add_filter('allowed_block_types_all', array($this, 'filterBlockTypes'));
 
         add_filter('render_block', array($this, 'renderCustomGrid'), 10, 2);
         add_filter('render_block', array($this, 'renderAnchor'), 10, 2);

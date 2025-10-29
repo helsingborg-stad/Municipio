@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper;
 
+use Municipio\PostObject\PostObjectInterface;
+
 /**
  * Class ListingTest
  */
@@ -34,5 +36,10 @@ class ReadingTime
         }
 
         return $readingTime;
+    }
+
+    public static function getReadingTimeFromPostObject(PostObjectInterface $postObject): int|string
+    {
+        return self::getReadingTime($postObject->getContent());
     }
 }

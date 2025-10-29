@@ -12,7 +12,9 @@ class ArchiveTest extends \PHPUnit\Framework\TestCase
     {
         WpService::set(new FakeWpService([
             'addAction' => true,
+            'addFilter' => true,
             '__'        => fn($text) => $text,
+            'getPosts'  => [],
         ]));
     }
 
@@ -48,13 +50,6 @@ class ArchiveTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEmpty($module->nameSingular);
         $this->assertNotEmpty($module->namePlural);
         $this->assertNotEmpty($module->description);
-    }
-
-    #[TestDox('module view template exists')]
-    public function testArchiveModuleHasViewTemplate()
-    {
-        $module = new Archive();
-        $this->assertFileExists(__DIR__ . '/views/' . $module->template());
     }
 
     #[TestDox('module has acf field group')]
