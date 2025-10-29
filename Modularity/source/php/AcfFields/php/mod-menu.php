@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key'                   => 'group_66c34c64b8d10',
-    'title'                 => __('Menu Module', 'municipio'),
+    'title'                 => __('Menu Module', 'modularity'),
     'fields'                => array(
         0 => array(
             'key'               => 'field_66c59ae797a04',
-            'label'             => __('Display Menu As', 'municipio'),
+            'label'             => __('Display Menu As', 'modularity'),
             'name'              => 'mod_menu_display_as',
             'aria-label'        => '',
             'type'              => 'image_select',
@@ -28,7 +28,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         1 => array(
             'key'               => 'field_66c5c58856a24',
-            'label'             => __('Display as conditional target', 'municipio'),
+            'label'             => __('Display as conditional target', 'modularity'),
             'name'              => 'mod_menu_display_as_conditional',
             'aria-label'        => '',
             'type'              => 'text',
@@ -48,7 +48,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         2 => array(
             'key'                => 'field_66c34c655680e',
-            'label'              => __('Select a Menu', 'municipio'),
+            'label'              => __('Select a Menu', 'modularity'),
             'name'               => 'mod_menu_menu',
             'aria-label'         => '',
             'type'               => 'select',
@@ -75,11 +75,11 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         3 => array(
             'key'               => 'field_6734a0413d66b',
-            'label'             => __('Background', 'municipio'),
+            'label'             => __('Background', 'modularity'),
             'name'              => 'mod_menu_wrapped',
             'aria-label'        => '',
             'type'              => 'true_false',
-            'instructions'      => __('Decides if the menu is wrapped in a container.', 'municipio'),
+            'instructions'      => __('Decides if the menu is wrapped in a container.', 'modularity'),
             'required'          => 0,
             'conditional_logic' => 0,
             'wrapper'           => array(
@@ -95,7 +95,7 @@ if (function_exists('acf_add_local_field_group')) {
         ),
         4 => array(
             'key'               => 'field_678a24781b23e',
-            'label'             => __('Background Notice', 'municipio'),
+            'label'             => __('Background Notice', 'modularity'),
             'name'              => '',
             'aria-label'        => '',
             'type'              => 'message',
@@ -125,7 +125,7 @@ Otherwise the amount of columns will be calculated as best it can automatically.
         ),
         5 => array(
             'key'                => 'field_66c5c3e6b7b5d',
-            'label'              => __('Items Per Column', 'municipio'),
+            'label'              => __('Items Per Column', 'modularity'),
             'name'               => 'mod_menu_columns',
             'aria-label'         => '',
             'type'               => 'select',
@@ -146,10 +146,10 @@ Otherwise the amount of columns will be calculated as best it can automatically.
                 'id'    => '',
             ),
             'choices'            => array(
-                1 => __('1', 'municipio'),
-                2 => __('2', 'municipio'),
-                3 => __('3', 'municipio'),
-                4 => __('4', 'municipio'),
+                1 => __('1', 'modularity'),
+                2 => __('2', 'modularity'),
+                3 => __('3', 'modularity'),
+                4 => __('4', 'modularity'),
             ),
             'default_value'      => 3,
             'return_format'      => 'value',
@@ -165,11 +165,11 @@ Otherwise the amount of columns will be calculated as best it can automatically.
         ),
         6 => array(
             'key'               => 'field_67c846a5654c1',
-            'label'             => __('Collapse menu on mobile', 'municipio'),
+            'label'             => __('Collapse menu on mobile', 'modularity'),
             'name'              => 'mod_menu_mobile_collapse',
             'aria-label'        => '',
             'type'              => 'true_false',
-            'instructions'      => __('Will collapse menu groups on mobile to save vertical space. User has ability to expand individual menu groups with a button click.', 'municipio'),
+            'instructions'      => __('Will collapse menu groups on mobile to save vertical space. User has ability to expand individual menu groups with a button click.', 'modularity'),
             'required'          => 0,
             'conditional_logic' => 0,
             'wrapper'           => array(
@@ -190,14 +190,14 @@ Otherwise the amount of columns will be calculated as best it can automatically.
             0 => array(
                 'param'    => 'post_type',
                 'operator' => '==',
-                'value'    => 'all',
+                'value'    => 'mod-menu',
             ),
         ),
         1 => array(
             0 => array(
                 'param'    => 'block',
                 'operator' => '==',
-                'value'    => 'all',
+                'value'    => 'acf/menu',
             ),
         ),
     ),
