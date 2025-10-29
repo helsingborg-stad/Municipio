@@ -285,11 +285,41 @@ class Posts extends \Modularity\Module
             ];
         }, range(2, $maxNumPages));
 
+        // Sanitize first page link
+        $listItemOne['href'] = $this->sanitizePaginationLink($listItemOne['href']);
+
+        // Sanitize all numbered page links
+        $listItems = array_map(function ($item) {
+            $item['href'] = $this->sanitizePaginationLink($item['href']);
+            return $item;
+        }, $listItems);
+
         return [
             'list'       => array_merge([$listItemOne], $listItems),
             'current'    => $currentPage,
             'linkPrefix' => $this->getPaginationQueryVarName()
         ];
+    }
+
+    /**
+     * Sanitize pagination link by removing unwanted query vars.
+     *
+     * @param string $url
+     * @param array $allowedQueryVars
+     * @return string
+     */
+    private function sanitizePaginationLink($url)
+    {
+        $allowedQueryVars = apply_filters('query_vars', []);
+
+        return remove_query_arg(
+            array_diff(
+                array_keys($_GET ?? []),
+                $allowedQueryVars,
+                [$this->getPaginationQueryVarName()]
+            ),
+            $url
+        );
     }
 
     /**
