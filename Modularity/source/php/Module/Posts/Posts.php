@@ -71,6 +71,12 @@ class Posts extends \Modularity\Module
         // Helpers
         $this->archiveUrlHelper = new GetArchiveUrl();
         new PostsAjax($this);
+
+        //Register getPaginationQueryVarName as a allowed query var
+        add_filter('query_vars', function ($queryVars) {
+            $queryVars[] = $this->getPaginationQueryVarName();
+            return $queryVars;
+        });
     }
 
     /**
