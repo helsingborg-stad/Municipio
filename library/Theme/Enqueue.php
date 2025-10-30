@@ -6,7 +6,7 @@ use Municipio\Helper\Enqueue as EnqueueHelper;
 use Municipio\Helper\EnqueueTranslation;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
-
+use WpUtilService\WpUtilService;
 /**
  * Class Enqueue
  * @package Municipio\Theme
@@ -35,6 +35,14 @@ class Enqueue implements Hookable
         $this->wpService->addAction('wp_print_scripts', array($this, 'moveScriptsToFooter'));
         $this->wpService->addAction('wp_default_scripts', array($this, 'removeJqueryMigrate'));
         $this->wpService->addFilter('gform_init_scripts_footer', array($this, 'forceGravityFormsScriptsNotInFooter'));
+
+        $this->wpService->addAction('wp_enqueue_scripts', function () {
+
+            $wpUtilService = new WpUtilService($this->wpService);
+
+            $wpUtilService->enqueue(['distFolder' => 'assets/dist'])
+                ->add('js/pdf.js', ['jquery'], '1.0.0', true);
+        });
     }
 
     /**
