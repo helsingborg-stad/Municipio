@@ -1,4 +1,4 @@
 <pre>post-list</pre>
 @foreach($posts as $post)
-    @include($config->getAppearanceConfig()->getDesign()->value)
+    @include($config->getDesign()->value)
 @endforeach

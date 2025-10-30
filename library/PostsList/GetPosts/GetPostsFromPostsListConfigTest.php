@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\PostsList\GetPosts;
+namespace Municipio\PostsList\Config\GetPostsConfig;
 
-use Municipio\PostsList\Config\DefaultPostsListConfig;
+use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use WpService\Contracts\GetPosts;
 
@@ -12,7 +12,7 @@ class GetPostsFromPostsListConfigTest extends \PHPUnit\Framework\TestCase
     public function testGetPostsReturnsArray(): void
     {
         $assert    = fn($postTypes) => $this->assertEquals(['test_post_type'], $postTypes);
-        $config    = new class extends DefaultPostsListConfig {
+        $config    = new class extends DefaultGetPostsConfig {
             public function getPostTypes(): array
             {
                 return ['test_post_type'];

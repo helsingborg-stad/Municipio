@@ -4,7 +4,7 @@ namespace Municipio\PostsList\GetPosts;
 
 use Municipio\Helper\Post;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostsList\Config\PostsListConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use WpService\Contracts\GetPosts;
 
 /**
@@ -15,11 +15,11 @@ class GetPostsFromPostsListConfig
     /**
      * Constructor
      *
-     * @param PostsListConfigInterface $config
+     * @param GetPostsConfigInterface $config
      * @param GetPosts $innerGetPosts
      */
     public function __construct(
-        private PostsListConfigInterface $config,
+        private GetPostsConfigInterface $config,
         private GetPosts $innerGetPosts
     ) {
     }

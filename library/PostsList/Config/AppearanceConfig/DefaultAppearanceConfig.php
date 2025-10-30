@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\PostsList\Config\PostsListAppearanceConfig;
+namespace Municipio\PostsList\Config\AppearanceConfig;
 
-class DefaultPostsListAppearanceConfig implements PostsListAppearanceConfigInterface
+class DefaultAppearanceConfig implements AppearanceConfigInterface
 {
     public function getDesign(): PostDesign
     {

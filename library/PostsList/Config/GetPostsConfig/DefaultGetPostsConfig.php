@@ -1,20 +1,15 @@
 <?php
 
-namespace Municipio\PostsList\Config;
+namespace Municipio\PostsList\Config\GetPostsConfig;
 
 use Municipio\PostsList\Config\PostsListAppearanceConfig\DefaultPostsListAppearanceConfig;
 use Municipio\PostsList\Config\PostsListAppearanceConfig\PostsListAppearanceConfigInterface;
 
-class DefaultPostsListConfig implements PostsListConfigInterface
+class DefaultGetPostsConfig implements GetPostsConfigInterface
 {
     public function getPostTypes(): array
     {
         return ['post'];
-    }
-
-    public function getAppearanceConfig(): PostsListAppearanceConfigInterface
-    {
-        return new DefaultPostsListAppearanceConfig();
     }
 
     public function getPostsPerPage(): int

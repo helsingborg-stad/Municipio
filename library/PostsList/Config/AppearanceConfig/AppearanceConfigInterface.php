@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\PostsList\Config\PostsListAppearanceConfig;
+namespace Municipio\PostsList\Config\AppearanceConfig;
 
-interface PostsListAppearanceConfigInterface
+interface AppearanceConfigInterface
 {
     /**
      * Get design for the posts list

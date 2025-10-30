@@ -2,11 +2,11 @@
 
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
-use Municipio\PostsList\Config\PostsListConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 
 class ApplyPostType implements ApplyPostsListConfigToGetPostsArgsInterface
 {
-    public function apply(PostsListConfigInterface $config, array $args): array
+    public function apply(GetPostsConfigInterface $config, array $args): array
     {
         return [...$args, 'post_type' => $config->getPostTypes()];
     }
