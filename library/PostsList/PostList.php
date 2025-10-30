@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\Config\PostsListConfigInterface;
 use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
 use WpService\Contracts\GetPosts;
@@ -27,6 +28,11 @@ class PostList
         return ['posts' => $this->getPosts(), 'config' => $this->getConfig()];
     }
 
+    /**
+     * Get posts based on config
+     *
+     * @return PostObjectInterface[]
+     */
     private function getPosts(): array
     {
         return (new GetPostsFromPostsListConfig($this->config, $this->wpService))->getPosts();
@@ -34,6 +40,10 @@ class PostList
 
     private function getConfig(): PostsListConfigInterface
     {
+        $anyPostHasImage = new AnyPostHasImage($this->getPosts());
+        var_dump($anyPostHasImage->check());
+        die();
+
         return $this->config;
     }
 }

@@ -27,7 +27,7 @@ class Archive extends \Modularity\Module
         $this->templateDir = $this->getPostList()->getTemplateDir();
         WpService::get()->addFilter(
             '/Modularity/externalViewPath',
-            fn($paths) => [...$paths, 'mod-archive' => $this->templateDir]
+            fn($paths) => [...$paths, 'mod-' . $this->slug => $this->templateDir]
         );
     }
 
