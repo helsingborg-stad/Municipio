@@ -104,6 +104,20 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+
+
+
+        $postsList  = new \Municipio\PostsList\PostList(
+            $this->getPostConfig(),
+            new \Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig(),
+            $this->wpService
+        );
+        $this->data = [...$this->data, ...$postsList->getData()];
+    }
+
+    private function getPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
+    {
+        return new \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig();
     }
 
     /**

@@ -1,5 +1,4 @@
 @extends('templates.single')
-
 @section('helper-navigation')
     @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 @stop
@@ -76,6 +75,7 @@
                 @if ($displayArchiveLoop)
                     @includefirst(
                         [   
+                            'posts-list',
                             'partials.post.schema.' . $template,
                             'partials.post.' . $postType . '-' . $template, 
                             'partials.post.post-' . $template, 

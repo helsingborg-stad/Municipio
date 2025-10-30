@@ -3,8 +3,9 @@
 namespace Municipio\PostsList;
 
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
+use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
 use WpService\Contracts\GetPosts;
@@ -19,13 +20,9 @@ class PostList
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private AppearanceConfigInterface $appearanceConfig,
-        private GetPosts $wpService
+        private GetPosts $wpService,
+        private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage()
     ) {
-    }
-
-    public function getTemplateDir(): string
-    {
-        return __DIR__ . '/views/';
     }
 
     /**
@@ -52,27 +49,14 @@ class PostList
         return $this->posts;
     }
 
+    /**
+     * Get appearance config with placeholder image logic
+     *
+     * @return AppearanceConfigInterface
+     */
     private function getAppearanceConfig(): AppearanceConfigInterface
     {
-        $shouldDisplayPlaceholderImage = (new AnyPostHasImage())->check(...$this->getPosts());
-        return new class ($shouldDisplayPlaceholderImage, $this->appearanceConfig) implements AppearanceConfigInterface {
-            public function __construct(
-                private bool $shouldDisplayPlaceholderImage,
-                private AppearanceConfigInterface $innerConfig
-            ) {
-            }
-            public function shouldDisplayPlaceholderImage(): bool
-            {
-                return $this->shouldDisplayPlaceholderImage;
-            }
-            public function getDesign(): PostDesign
-            {
-                return $this->innerConfig->getDesign();
-            }
-            public function shouldDisplayReadingTime(): bool
-            {
-                return $this->innerConfig->shouldDisplayReadingTime();
-            }
-        };
+        $shouldDisplayPlaceholderImage = $this->anyPostHasImageService->check(...$this->getPosts());
+        return new AppearanceConfigWithPlaceholderImage($shouldDisplayPlaceholderImage, $this->appearanceConfig);
     }
 }

@@ -2,16 +2,22 @@
 
 namespace Municipio\PostsList\Config\GetPostsConfig;
 
-use Municipio\PostsList\Config\PostsListAppearanceConfig\DefaultPostsListAppearanceConfig;
-use Municipio\PostsList\Config\PostsListAppearanceConfig\PostsListAppearanceConfigInterface;
-
+/**
+ * Default implementation of GetPostsConfigInterface
+ */
 class DefaultGetPostsConfig implements GetPostsConfigInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function getPostTypes(): array
     {
         return ['post'];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getPostsPerPage(): int
     {
         return 10;

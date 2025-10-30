@@ -4,11 +4,10 @@ namespace Modularity\Module\Archive;
 
 use Modularity\Helper\WpService;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
-use Municipio\PostsList\Config\DefaultPostsListConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-use Municipio\PostsList\Config\PostsListConfigInterface;
 use Municipio\PostsList\PostList;
+use Municipio\PostsList\PostsListFeature;
 
 class Archive extends \Modularity\Module
 {
@@ -27,7 +26,7 @@ class Archive extends \Modularity\Module
 
     private function setTemplateDirectory(): void
     {
-        $this->templateDir = $this->getPostList()->getTemplateDir();
+        $this->templateDir = PostsListFeature::getTemplateDir();
         WpService::get()->addFilter(
             '/Modularity/externalViewPath',
             fn($paths) => [...$paths, 'mod-' . $this->slug => $this->templateDir]
