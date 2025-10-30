@@ -18,4 +18,9 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     {
         return false;
     }
+
+    public function shouldDisplayFeaturedImage(): bool
+    {
+        return false;
+    }
 }

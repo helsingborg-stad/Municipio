@@ -46,4 +46,9 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
     {
         return $this->innerConfig->shouldDisplayReadingTime();
     }
+
+    public function shouldDisplayFeaturedImage(): bool
+    {
+        return $this->innerConfig->shouldDisplayFeaturedImage();
+    }
 }

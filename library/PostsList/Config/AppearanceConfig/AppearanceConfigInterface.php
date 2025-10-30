@@ -14,4 +14,6 @@ interface AppearanceConfigInterface
     public function shouldDisplayReadingTime(): bool;
 
     public function shouldDisplayPlaceholderImage(): bool;
+
+    public function shouldDisplayFeaturedImage(): bool;
 }

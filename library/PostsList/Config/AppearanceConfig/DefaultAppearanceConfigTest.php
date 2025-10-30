@@ -27,4 +27,11 @@ class DefaultAppearanceConfigTest extends TestCase
         $config = new DefaultAppearanceConfig();
         $this->assertFalse($config->shouldDisplayPlaceholderImage());
     }
+
+    #[TestDox('default featured image display is false')]
+    public function testDefaultFeaturedImageDisplayIsFalse(): void
+    {
+        $config = new DefaultAppearanceConfig();
+        $this->assertFalse($config->shouldDisplayFeaturedImage());
+    }
 }
