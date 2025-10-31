@@ -4,7 +4,6 @@ namespace Municipio\PostsList\ViewUtilities;
 
 use Municipio\Helper\WpService;
 use Municipio\PostObject\NullPostObject;
-use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
