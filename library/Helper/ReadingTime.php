@@ -30,16 +30,16 @@ class ReadingTime
 
         if ($i18n) {
             if ($wordsCount < $factor) {
-                return __('Less than a minute', 'municipio');
+                return WpService::get()->__('Less than a minute', 'municipio');
             }
-            return sprintf(_n('1 minute', '%d minutes', $readingTime, 'municipio'), $readingTime);
+            return sprintf(WpService::get()->_n('1 minute', '%d minutes', $readingTime, 'municipio'), $readingTime);
         }
 
         return $readingTime;
     }
 
-    public static function getReadingTimeFromPostObject(PostObjectInterface $postObject): int|string
+    public static function getReadingTimeFromPostObject(PostObjectInterface $postObject, int $factor = 200, bool $i18n = false): int|string
     {
-        return self::getReadingTime($postObject->getContent());
+        return self::getReadingTime($postObject->getContent(), $factor, $i18n);
     }
 }

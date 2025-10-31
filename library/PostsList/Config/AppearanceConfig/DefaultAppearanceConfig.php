@@ -23,4 +23,9 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     {
         return false;
     }
+
+    public function getTaxonomiesToDisplay(): array
+    {
+        return [];
+    }
 }

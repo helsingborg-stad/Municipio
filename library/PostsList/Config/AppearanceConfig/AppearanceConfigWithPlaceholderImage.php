@@ -16,13 +16,12 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
      */
     public function __construct(
         private bool $shouldDisplayPlaceholderImage,
-        private AppearanceConfigInterface $innerConfig
+        private AppearanceConfigInterface $innerConfig = new DefaultAppearanceConfig()
     ) {
     }
 
     /**
-     * Indicates if placeholder image should be displayed.
-     * @return bool
+     * @inheritDoc
      */
     public function shouldDisplayPlaceholderImage(): bool
     {
@@ -30,8 +29,8 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
     }
 
     /**
-     * Get the post design config.
-     * @return PostDesign
+     * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getDesign(): PostDesign
     {
@@ -39,16 +38,29 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
     }
 
     /**
-     * Indicates if reading time should be displayed.
-     * @return bool
+     * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function shouldDisplayReadingTime(): bool
     {
         return $this->innerConfig->shouldDisplayReadingTime();
     }
 
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
     public function shouldDisplayFeaturedImage(): bool
     {
         return $this->innerConfig->shouldDisplayFeaturedImage();
+    }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getTaxonomiesToDisplay(): array
+    {
+        return $this->innerConfig->getTaxonomiesToDisplay();
     }
 }

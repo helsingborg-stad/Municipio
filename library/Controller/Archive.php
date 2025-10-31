@@ -43,7 +43,7 @@ class Archive extends \Municipio\Controller\BaseController
         //     $postType
         // );
 
-        $this->data['template'] = $template;
+        //$this->data['template'] = $template;
 
         //The posts
         //$this->data['posts']           = $this->getPosts($template);
@@ -61,10 +61,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         //$this->data['displayFeaturedImage'] = $this->displayFeaturedImage($this->data['archiveProps']);
         //$this->data['displayReadingTime'] = $this->displayReadingTime($this->data['archiveProps']);
-
-        // Current term meta
-        $this->data['currentTermColour'] = $this->getCurrentTermColour();
-        $this->data['currentTermIcon']   = $this->getCurrentTermIcon();
 
         //Archive data
         $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
@@ -139,6 +135,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
+        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay;
         $template                   = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $this->getPostType());
         $design                     = match ($template) {
             'collection' => PostDesign::COLLECTION,
@@ -148,11 +145,13 @@ class Archive extends \Municipio\Controller\BaseController
         return new class (
             $shouldDisplayFeaturedImage,
             $shouldDisplayReadingTime,
+            $taxonomiesToDisplay,
             $design
         ) extends DefaultAppearanceConfig {
             public function __construct(
                 private bool $shouldDisplayFeaturedImage,
                 private bool $shouldDisplayReadingTime,
+                private array $taxonomiesToDisplay,
                 private PostDesign $design
             ) {
             }
@@ -171,52 +170,12 @@ class Archive extends \Municipio\Controller\BaseController
             {
                 return $this->shouldDisplayReadingTime;
             }
+
+            public function getTaxonomiesToDisplay(): array
+            {
+                return $this->taxonomiesToDisplay;
+            }
         };
-    }
-
-    /**
-     * Get the current therm colour
-     */
-    public function getCurrentTermColour()
-    {
-        if (!is_tax()) {
-            return false;
-        }
-        $term = get_queried_object();
-
-        if (is_null($term)) {
-            return false;
-        }
-
-        $termHelper = new \Municipio\Helper\Term\Term(
-            \Municipio\Helper\WpService::get(),
-            \Municipio\Helper\AcfService::get()
-        );
-
-        return $termHelper->getTermColor($term->term_id, $term->taxonomy);
-    }
-
-    /**
-     * Get the current term icon
-     */
-    public function getCurrentTermIcon()
-    {
-        if (!is_tax()) {
-            return false;
-        }
-
-        $term = get_queried_object();
-
-        if (is_null($term)) {
-            return false;
-        }
-
-        $termHelper = new \Municipio\Helper\Term\Term(
-            \Municipio\Helper\WpService::get(),
-            \Municipio\Helper\AcfService::get()
-        );
-
-        return $termHelper->getTermIcon($term->term_id, $term->taxonomy);
     }
 
     /**

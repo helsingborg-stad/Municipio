@@ -2,13 +2,15 @@
 
 namespace Municipio\PostsList;
 
+use AcfService\Contracts\GetField;
+use AcfService\Implementations\NativeAcfService;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
-use WpService\Contracts\GetPosts;
+use WpService\WpService;
 
 class PostList
 {
@@ -20,7 +22,8 @@ class PostList
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private AppearanceConfigInterface $appearanceConfig,
-        private GetPosts $wpService,
+        private WpService $wpService,
+        private GetField $acfService = new NativeAcfService(),
         private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage()
     ) {
     }
@@ -32,7 +35,13 @@ class PostList
      */
     public function getData(): array
     {
-        return ['posts' => $this->getPosts(), 'config' => $this->getAppearanceConfig()];
+        return [
+            'posts'                  => $this->getPosts(),
+            'config'                 => $this->getAppearanceConfig(),
+            'getTags'                => (new ViewUtilities\GetTagsComponentArguments($this->getPosts(), $this->appearanceConfig->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
+            'getExcerptWithoutLinks' => (new ViewUtilities\GetExcerptWithoutLinks())->getCallable(),
+            'getReadingTime'         => (new ViewUtilities\GetReadingTime($this->appearanceConfig))->getCallable(),
+        ];
     }
 
     /**
@@ -43,7 +52,10 @@ class PostList
     private function getPosts(): array
     {
         if (!isset($this->posts)) {
-            $this->posts = (new GetPostsFromPostsListConfig($this->getPostsConfig, $this->wpService))->getPosts();
+            $this->posts = (new GetPostsFromPostsListConfig(
+                $this->getPostsConfig,
+                $this->wpService
+            ))->getPosts();
         }
 
         return $this->posts;
@@ -57,6 +69,9 @@ class PostList
     private function getAppearanceConfig(): AppearanceConfigInterface
     {
         $shouldDisplayPlaceholderImage = $this->anyPostHasImageService->check(...$this->getPosts());
-        return new AppearanceConfigWithPlaceholderImage($shouldDisplayPlaceholderImage, $this->appearanceConfig);
+        return new AppearanceConfigWithPlaceholderImage(
+            $shouldDisplayPlaceholderImage,
+            $this->appearanceConfig
+        );
     }
 }

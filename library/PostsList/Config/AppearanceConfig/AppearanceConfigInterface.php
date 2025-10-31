@@ -16,4 +16,11 @@ interface AppearanceConfigInterface
     public function shouldDisplayPlaceholderImage(): bool;
 
     public function shouldDisplayFeaturedImage(): bool;
+
+    /**
+     * Get taxonomies to display tags from
+     *
+     * @return string[] Taxonomy slugs
+     */
+    public function getTaxonomiesToDisplay(): array;
 }

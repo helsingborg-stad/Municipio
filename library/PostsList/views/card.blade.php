@@ -2,9 +2,9 @@
     'link' => $post->getPermalink(),
     'image' => $post->getImage(),
     'heading' => $post->getTitle(),
-    'content' => \Municipio\Helper\Sanitize::sanitizeATags($post->getExcerpt()),
-    'tags' => $post->termsUnlinked,
-    'meta' => $config->shouldDisplayReadingTime() ? \Municipio\Helper\ReadingTime::getReadingTimeFromPostObject($post) : '',
+    'content' => $getExcerptWithoutLinks($post),
+    'tags' => $getTags($post),
+    'meta' => $getReadingTime($post), //$config->shouldDisplayReadingTime() ? \Municipio\Helper\ReadingTime::getReadingTimeFromPostObject($post) : '',
     'date' => [
         'timestamp' => $post->getArchiveDateTimestamp(),
         'format'    => $post->getArchiveDateFormat(),
