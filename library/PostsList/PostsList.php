@@ -53,6 +53,7 @@ class PostsList
             'getTags'                => (new ViewUtilities\GetTagsComponentArguments($this->getPosts(), $this->appearanceConfig->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
             'getExcerptWithoutLinks' => (new ViewUtilities\GetExcerptWithoutLinks())->getCallable(),
             'getReadingTime'         => (new ViewUtilities\GetReadingTime($this->appearanceConfig))->getCallable(),
+            'showDateBadge'          => (new ViewUtilities\ShowDateBadge($this->getPosts()))->getCallable(),
         ];
     }
 

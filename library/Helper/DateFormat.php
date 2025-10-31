@@ -40,13 +40,13 @@ class DateFormat
     public static function getUnresolvedDateFormat(PostObjectInterface $post): string
     {
         static $cache = [];
-        $postType = $post->getPostType();
+        $postType     = $post->getPostType();
 
         if (isset($cache[$postType])) {
             return $cache[$postType];
         }
 
-        return $cache[$postType] = get_theme_mod(sprintf('archive_%s_date_format', $postType), 'date-time');
+        return $cache[$postType] = WpService::get()->getThemeMod(sprintf('archive_%s_date_format', $postType), 'date-time');
     }
 
     /**
