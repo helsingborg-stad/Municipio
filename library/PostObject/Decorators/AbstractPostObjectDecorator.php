@@ -59,6 +59,14 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function getExcerpt(): string
+    {
+        return $this->postObject->getExcerpt();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getContentHeadings(): array
     {
         return $this->postObject->getContentHeadings();

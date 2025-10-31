@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:ignoreFile PSR1.Files.SideEffects.FoundWithSymbols
+
 use AcfService\Implementations\NativeAcfService;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
@@ -24,6 +26,7 @@ add_action('after_setup_theme', function () {
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MODULARITY_PATH . 'source/php/AcfFields/');
     $acfExportManager->autoExport(array(
+        'mod-archive'               => 'group_6900b82ba2c5d',
         'mod-booking'               => 'group_56a89f42b432b',
         'mod-contact-info'          => 'group_56a0a3928c017',
         'mod-contact-contacts'      => 'group_5757b93da8d5c',

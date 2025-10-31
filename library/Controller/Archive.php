@@ -5,6 +5,8 @@ namespace Municipio\Controller;
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
+use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 
 /**
  * Class Archive
@@ -35,17 +37,17 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Get template
-        $template = \Municipio\Helper\Archive::getTemplate(
-            $this->data['archiveProps'],
-            'cards',
-            $postType
-        );
+        // $template = \Municipio\Helper\Archive::getTemplate(
+        //     $this->data['archiveProps'],
+        //     'cards',
+        //     $postType
+        // );
 
-        $this->data['template'] = $template;
+        //$this->data['template'] = $template;
 
         //The posts
-        $this->data['posts']           = $this->getPosts($template);
-        $this->data['anyPostHasImage'] = $this->anyPostHasImage($this->data['posts']);
+        //$this->data['posts']           = $this->getPosts($template);
+        //$this->data['anyPostHasImage'] = $this->anyPostHasImage($this->data['posts']);
 
         //Set default values to query parameters
         $this->data['queryParameters'] = $this->setQueryParameters();
@@ -57,12 +59,8 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']    = $this->getFacettingType($this->data['archiveProps']);
 
-        $this->data['displayFeaturedImage'] = $this->displayFeaturedImage($this->data['archiveProps']);
-        $this->data['displayReadingTime']   = $this->displayReadingTime($this->data['archiveProps']);
-
-        // Current term meta
-        $this->data['currentTermColour'] = $this->getCurrentTermColour();
-        $this->data['currentTermIcon']   = $this->getCurrentTermIcon();
+        //$this->data['displayFeaturedImage'] = $this->displayFeaturedImage($this->data['archiveProps']);
+        //$this->data['displayReadingTime'] = $this->displayReadingTime($this->data['archiveProps']);
 
         //Archive data
         $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
@@ -104,51 +102,80 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+
+        $postsList  = new \Municipio\PostsList\PostsList($this->getPostConfig(), $this->getAppearanceConfig(), $this->wpService);
+        $this->data = [...$this->data, ...$postsList->getData()];
     }
 
-    /**
-     * Get the current therm colour
-     */
-    public function getCurrentTermColour()
+    private function getPostType(): string
     {
-        if (!is_tax()) {
-            return false;
-        }
-        $term = get_queried_object();
-
-        if (is_null($term)) {
-            return false;
-        }
-
-        $termHelper = new \Municipio\Helper\Term\Term(
-            \Municipio\Helper\WpService::get(),
-            \Municipio\Helper\AcfService::get()
-        );
-
-        return $termHelper->getTermColor($term->term_id, $term->taxonomy);
+        return !empty($this->data['postType']) ? $this->data['postType'] : 'page';
     }
 
-    /**
-     * Get the current term icon
-     */
-    public function getCurrentTermIcon()
+    private function getPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
     {
-        if (!is_tax()) {
-            return false;
-        }
+        $postType = [$this->getPostType()];
+        return new class ($postType) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+            public function __construct(
+                private array $postType
+            ) {
+            }
+            public function getPostTypes(): array
+            {
+                return $this->postType;
+            }
+            public function getPostsPerPage(): int
+            {
+                return $this->data['archiveProps']->postsPerPage ?? get_option('posts_per_page');
+            }
+        };
+    }
 
-        $term = get_queried_object();
+    private function getAppearanceConfig(): \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
+    {
+        $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
+        $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
+        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay;
+        $template                   = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $this->getPostType());
+        $design                     = match ($template) {
+            'collection' => PostDesign::COLLECTION,
+            'cards' => PostDesign::CARD,
+            default => PostDesign::CARD,
+        };
+        return new class (
+            $shouldDisplayFeaturedImage,
+            $shouldDisplayReadingTime,
+            $taxonomiesToDisplay,
+            $design
+        ) extends DefaultAppearanceConfig {
+            public function __construct(
+                private bool $shouldDisplayFeaturedImage,
+                private bool $shouldDisplayReadingTime,
+                private array $taxonomiesToDisplay,
+                private PostDesign $design
+            ) {
+            }
 
-        if (is_null($term)) {
-            return false;
-        }
+            public function getDesign(): PostDesign
+            {
+                return $this->design;
+            }
 
-        $termHelper = new \Municipio\Helper\Term\Term(
-            \Municipio\Helper\WpService::get(),
-            \Municipio\Helper\AcfService::get()
-        );
+            public function shouldDisplayFeaturedImage(): bool
+            {
+                return $this->shouldDisplayFeaturedImage;
+            }
 
-        return $termHelper->getTermIcon($term->term_id, $term->taxonomy);
+            public function shouldDisplayReadingTime(): bool
+            {
+                return $this->shouldDisplayReadingTime;
+            }
+
+            public function getTaxonomiesToDisplay(): array
+            {
+                return $this->taxonomiesToDisplay;
+            }
+        };
     }
 
     /**

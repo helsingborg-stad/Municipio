@@ -369,6 +369,11 @@ class App
         )->enable();
 
         /**
+         * Setup Posts List
+         */
+        (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
+
+        /**
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();

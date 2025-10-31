@@ -2,48 +2,26 @@
 
 namespace Municipio\PostObject;
 
-use ComponentLibrary\Integrations\Image\Image;
 use ComponentLibrary\Integrations\Image\ImageInterface;
-use Municipio\Integrations\Component\ImageFocusResolver;
-use Municipio\Integrations\Component\ImageResolver;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Thing;
-use WpService\Contracts\GetCurrentBlogId;
-use WpService\Contracts\GetPostThumbnailId;
-use WpService\Contracts\WpGetPostTerms;
 
 /**
- * PostObject
+ * NullPostObject
+ *
+ * A PostObject implementation that represents a non-existing or null post.
+ * This class is useful for testing or scenarios where a PostObject is required.
  */
-class PostObject implements PostObjectInterface
+class NullPostObject implements PostObjectInterface
 {
-    /**
-     * Constructor.
-     */
-    public function __construct(private int $id, private GetCurrentBlogId|WpGetPostTerms|GetPostThumbnailId $wpService)
-    {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function __get(string $name): mixed
-    {
-        if (isset($this->postObject->{$name})) {
-            return $this->postObject->{$name};
-        }
-
-        return null;
-    }
-
     /**
      * @inheritDoc
      */
     public function getId(): int
     {
-        return $this->id;
+        return 0;
     }
 
     /**
@@ -115,7 +93,7 @@ class PostObject implements PostObjectInterface
      */
     public function getBlogId(): int
     {
-        return $this->wpService->getCurrentBlogId();
+        return 0;
     }
 
     /**
@@ -147,7 +125,7 @@ class PostObject implements PostObjectInterface
      */
     public function getArchiveDateFormat(): string
     {
-        return 'date-time';
+        return '';
     }
 
     /**
@@ -163,9 +141,7 @@ class PostObject implements PostObjectInterface
      */
     public function getTerms(array $taxonomies): array
     {
-        $terms = $this->wpService->wpGetPostTerms($this->getId(), $taxonomies);
-
-        return is_array($terms) ? $terms : [];
+        return [];
     }
 
     /**
@@ -181,16 +157,14 @@ class PostObject implements PostObjectInterface
      */
     public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
-        $imageId = $this->wpService->getPostThumbnailId($this->getId());
+        return null;
+    }
 
-        $width  = $width ?? 1920;
-        $height = $height ?? false;
-
-        return $imageId !== false && $imageId !== 0 ? Image::factory(
-            (int) $imageId,
-            [$width, $height],
-            new ImageResolver(),
-            new ImageFocusResolver(['id' => $imageId])
-        ) : null;
+    /**
+     * @inheritDoc
+     */
+    public function __get(string $key): mixed
+    {
+        return null;
     }
 }

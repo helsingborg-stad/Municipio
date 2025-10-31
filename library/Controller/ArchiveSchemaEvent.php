@@ -12,7 +12,7 @@ use Municipio\PostObject\PostObjectInterface;
  */
 class ArchiveSchemaEvent extends \Municipio\Controller\Archive
 {
-    public string $view = 'archive-schema-event';   
+    public string $view = 'archive-schema-event';
 
     /**
      * @inheritDoc
