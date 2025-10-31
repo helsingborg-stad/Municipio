@@ -4,7 +4,7 @@
     'heading' => $post->getTitle(),
     'content' => $getExcerptWithoutLinks($post),
     'tags' => $getTags($post),
-    'meta' => $getReadingTime($post), //$config->shouldDisplayReadingTime() ? \Municipio\Helper\ReadingTime::getReadingTimeFromPostObject($post) : '',
+    'meta' => $getReadingTime($post),
     'date' => [
         'timestamp' => $post->getArchiveDateTimestamp(),
         'format'    => $post->getArchiveDateFormat(),

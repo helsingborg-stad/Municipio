@@ -15,7 +15,7 @@ use WpService\WpService;
 /*
  * Posts list main class
  */
-class PostList
+class PostsList
 {
     /**
      * @var PostObjectInterface[]

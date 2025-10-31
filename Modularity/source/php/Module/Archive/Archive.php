@@ -6,7 +6,7 @@ use Modularity\Helper\WpService;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-use Municipio\PostsList\PostList;
+use Municipio\PostsList\PostsList;
 use Municipio\PostsList\PostsListFeature;
 
 /*
@@ -16,7 +16,7 @@ class Archive extends \Modularity\Module
 {
     public $slug              = 'archive';
     public $isBlockCompatible = true;
-    private PostList $postList;
+    private PostsList $postsList;
 
     public function init(): void
     {
@@ -51,12 +51,12 @@ class Archive extends \Modularity\Module
         return 'posts-list.blade.php';
     }
 
-    private function getPostList(): PostList
+    private function getPostList(): PostsList
     {
-        if (!isset($this->postList)) {
-            $this->postList = new PostList($this->createPostListConfig(), new DefaultAppearanceConfig(), WpService::get());
+        if (!isset($this->postsList)) {
+            $this->postsList = new PostsList($this->createPostListConfig(), new DefaultAppearanceConfig(), WpService::get());
         }
 
-        return $this->postList;
+        return $this->postsList;
     }
 }

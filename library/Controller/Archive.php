@@ -103,7 +103,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
-        $postsList  = new \Municipio\PostsList\PostList($this->getPostConfig(), $this->getAppearanceConfig(), $this->wpService);
+        $postsList  = new \Municipio\PostsList\PostsList($this->getPostConfig(), $this->getAppearanceConfig(), $this->wpService);
         $this->data = [...$this->data, ...$postsList->getData()];
     }
 
