@@ -1,4 +1,4 @@
-@collection__item([ 'link' => $post->getPermalink(), 'classList' => [], 'containerAware' => true, 'bordered' => true ])
+@collection__item([ 'link' => $post->getPermalink(), 'containerAware' => true, 'bordered' => true ])
     @if ($config->shouldDisplayFeaturedImage() && !empty($post->getImage()))
         @slot('before')
             @if($post->getImage()) 
@@ -19,7 +19,7 @@
         ])
         @endtags
         @typography([])
-            {{ \Municipio\Helper\Sanitize::sanitizeATags($post->getExcerpt()) }}
+            {{ $getExcerptWithoutLinks($post) }}
         @endtypography
     @endgroup
 @endcollection__item
