@@ -9,7 +9,7 @@
         'timestamp' => $post->getArchiveDateTimestamp(),
         'format'    => $post->getArchiveDateFormat(),
     ],
-    'dateBadge' => \Municipio\Helper\DateFormat::getUnresolvedDateFormat($post) == 'date-badge',
+    'dateBadge' => $showDateBadge(),
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
     'hasPlaceholder' => $config->shouldDisplayPlaceholderImage() && !$post->getImage(),
