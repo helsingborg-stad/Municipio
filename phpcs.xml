@@ -10,6 +10,10 @@
         <exclude-pattern>./**/*.blade.php</exclude-pattern>
     </rule>
 
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <exclude-pattern>./**/*Test.php</exclude-pattern>
+    </rule>
+    
     <rule ref="Squiz.Commenting.FunctionComment.Missing">
         <type>warning</type>
         <exclude-pattern>./**/*Test.php</exclude-pattern>

@@ -160,6 +160,9 @@ class NullPostObject implements PostObjectInterface
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function __get(string $key): mixed
     {
         return null;

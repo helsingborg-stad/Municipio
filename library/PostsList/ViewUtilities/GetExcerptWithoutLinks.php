@@ -5,6 +5,9 @@ namespace Municipio\PostsList\ViewUtilities;
 use Municipio\Helper\Sanitize;
 use Municipio\PostObject\PostObjectInterface;
 
+/*
+ * View utility to get excerpt without links
+ */
 class GetExcerptWithoutLinks implements ViewUtilityInterface
 {
     /**

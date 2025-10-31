@@ -38,6 +38,14 @@ class ReadingTime
         return $readingTime;
     }
 
+    /**
+     * Get reading time from a PostObject
+     *
+     * @param PostObjectInterface $postObject
+     * @param int $factor
+     * @param bool $i18n
+     * @return int|string
+     */
     public static function getReadingTimeFromPostObject(PostObjectInterface $postObject, int $factor = 200, bool $i18n = false): int|string
     {
         return self::getReadingTime($postObject->getContent(), $factor, $i18n);

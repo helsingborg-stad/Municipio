@@ -7,10 +7,18 @@ use Municipio\Helper\Memoize\MemoizedFunction;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 
+/*
+ * View utility to get reading time
+ */
 class GetReadingTime implements ViewUtilityInterface
 {
     private MemoizedFunction $memoizedReadingTime;
 
+    /**
+     * Constructor
+     *
+     * @param AppearanceConfigInterface $appearanceConfig
+     */
     public function __construct(private AppearanceConfigInterface $appearanceConfig)
     {
         $this->memoizedReadingTime = new MemoizedFunction(

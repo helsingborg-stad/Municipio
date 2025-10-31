@@ -11,10 +11,25 @@ interface AppearanceConfigInterface
      */
     public function getDesign(): PostDesign;
 
+    /**
+     * Should display reading time
+     *
+     * @return bool
+     */
     public function shouldDisplayReadingTime(): bool;
 
+    /**
+     * Should display placeholder image
+     *
+     * @return bool
+     */
     public function shouldDisplayPlaceholderImage(): bool;
 
+    /**
+     * Should display featured image
+     *
+     * @return bool
+     */
     public function shouldDisplayFeaturedImage(): bool;
 
     /**

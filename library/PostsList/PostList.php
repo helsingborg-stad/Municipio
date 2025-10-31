@@ -12,6 +12,9 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
 use WpService\WpService;
 
+/*
+ * Posts list main class
+ */
 class PostList
 {
     /**
@@ -19,6 +22,15 @@ class PostList
      */
     private array $posts;
 
+    /**
+     * Constructor
+     *
+     * @param GetPostsConfigInterface $getPostsConfig
+     * @param AppearanceConfigInterface $appearanceConfig
+     * @param WpService $wpService
+     * @param GetField $acfService
+     * @param AnyPostHasImageInterface $anyPostHasImageService
+     */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private AppearanceConfigInterface $appearanceConfig,

@@ -52,7 +52,6 @@ class TestWpService implements \WpService\Contracts\GetTerms
     }
 }
 
-
 class GetTagsComponentArgumentsTest extends TestCase
 {
     #[TestDox('returns tags with correct structure')]

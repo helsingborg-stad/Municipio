@@ -9,6 +9,9 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\PostList;
 use Municipio\PostsList\PostsListFeature;
 
+/*
+ * Archive module class
+ */
 class Archive extends \Modularity\Module
 {
     public $slug              = 'archive';

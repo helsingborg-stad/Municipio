@@ -8,6 +8,9 @@ use Municipio\PostObject\PostObjectInterface;
 use WP_Term;
 use WpService\Contracts\GetTerms;
 
+/*
+ * View utility to get tags component arguments
+ */
 class GetTagsComponentArguments implements ViewUtilityInterface
 {
     private MemoizedFunction $memoizedGetTerms;
@@ -49,6 +52,12 @@ class GetTagsComponentArguments implements ViewUtilityInterface
         };
     }
 
+    /**
+     * Get all terms for the posts
+     *
+     * @param string[] $taxonomies
+     * @return WP_Term[]
+     */
     private function getAllPostsTerms(array $taxonomies): array
     {
         if (empty($taxonomies)) {
