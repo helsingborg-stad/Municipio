@@ -18,8 +18,9 @@ class Enqueue implements Hookable
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueHelper $enqueueHelper
+        private WpUtilService $wpUtilService
     ) {
+        $this->wpUtilService->enqueue(['distFolder' => 'assets/dist']);
     }
 
     public function addHooks(): void
@@ -38,10 +39,15 @@ class Enqueue implements Hookable
 
         $this->wpService->addAction('wp_enqueue_scripts', function () {
 
-            $wpUtilService = new WpUtilService($this->wpService);
-
-            $wpUtilService->enqueue(['distFolder' => 'assets/dist'])
-                ->add('js/pdf.js', ['jquery'], '1.0.0', true);
+            $this->wpUtilService->enqueue()
+                ->add('js/pdf.js', ['jquery'], '1.0.0', true)->with()->data([
+                    'src' => plugins_url('municipio/library/Theme/assets/vendor/pdfjs/web/pdf.worker.js'),
+                ])->and()->translation('PdfJsLocale', [
+                    'loadingText' => __('Loading document...', 'municipio'),
+                    'ofText'      => __('of', 'municipio'),
+                    'pageText'    => __('Page', 'municipio'),
+                    'errorText'   => __('An error occurred while loading the document.', 'municipio'),
+                ]);
         });
     }
 
@@ -58,7 +64,7 @@ class Enqueue implements Hookable
             '400' => 'medium',
             '600' => 'bold',
         ];
-        $translatedWeight = $weightTranslationTable[$weight] ?? 'medium';
+        $translatedWeight       = $weightTranslationTable[$weight] ?? 'medium';
 
         $this->enqueueHelper->add(
             'material-symbols',

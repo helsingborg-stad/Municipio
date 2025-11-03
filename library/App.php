@@ -36,6 +36,7 @@ use Municipio\ImageFocus\Resolvers\{
     MostBusyAreaFocusPointResolver,
     ChainFocusPointResolver
 };
+use WpUtilService\WpUtilService;
 
 /**
  * Class App
@@ -132,9 +133,12 @@ class App
         /**
          * Theme
          */
+
+        $wpUtilService = new WpUtilService($this->wpService);
+
         $enqueue = new \Municipio\Theme\Enqueue(
             $this->wpService,
-            new \Municipio\Helper\Enqueue($this->wpService)
+            $wpUtilService
         );
         $enqueue->addHooks();
 
