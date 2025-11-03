@@ -57,13 +57,13 @@ class PostsList
             'getParentColumnClasses'             => (new ViewUtilities\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses'               => (new ViewUtilities\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
 
-            // Schema Project specific utilities
+            // Schema Project view utilities
             'getSchemaProjectProgressLabel'      => (new ViewUtilities\Schema\Project\GetProgressLabel())->getCallable(),
             'getSchemaProjectProgressPercentage' => (new ViewUtilities\Schema\Project\GetProgressPercentage())->getCallable(),
             'getSchemaProjectTechnologyTerms'    => (new ViewUtilities\GetTermsAsString($this->getPosts(), ['project_meta_technology'], $this->wpService, ' / '))->getCallable(),
             'getSchemaProjectCategoryTerms'      => (new ViewUtilities\GetTermsAsString($this->getPosts(), ['project_meta_category'], $this->wpService, ' / '))->getCallable(),
 
-            // Schema Event specific utilities
+            // Schema Event view utilities
             'getSchemaEventPriceRange'           => (new ViewUtilities\Schema\Event\GetPriceRange())->getCallable(),
             'getSchemaEventPlaceName'            => (new ViewUtilities\Schema\Event\GetPlaceName())->getCallable(),
             'getSchemaEventDate'                 => (new ViewUtilities\Schema\Event\GetDate())->getCallable(),
