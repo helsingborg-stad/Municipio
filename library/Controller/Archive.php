@@ -136,7 +136,7 @@ class Archive extends \Municipio\Controller\BaseController
         $numberOfColumns            = $this->data['archiveProps']->numberOfColumns ?? 1;
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
-        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay;
+        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay ?? [];
         $template                   = $this->data['archiveProps']->style ?? 'cards';
         $design                     = match ($template) {
             'cards' => PostDesign::CARD,

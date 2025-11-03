@@ -8,7 +8,7 @@ use Municipio\PostsList\ViewUtilities\ViewUtilityInterface;
 /*
  * View utility to get project progress label
  */
-class GetSchemaProjectProgressLabel implements ViewUtilityInterface
+class GetProgressLabel implements ViewUtilityInterface
 {
     /**
      * Get the callable for the view utility

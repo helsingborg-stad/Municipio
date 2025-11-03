@@ -57,11 +57,17 @@ class PostsList
             'getParentColumnClasses'             => (new ViewUtilities\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses'               => (new ViewUtilities\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
 
-            // Schema project specific utilities
-            'getSchemaProjectProgressLabel'      => (new ViewUtilities\Schema\Project\GetSchemaProjectProgressLabel())->getCallable(),
-            'getSchemaProjectProgressPercentage' => (new ViewUtilities\Schema\Project\GetSchemaProjectProgressPercentage())->getCallable(),
+            // Schema Project specific utilities
+            'getSchemaProjectProgressLabel'      => (new ViewUtilities\Schema\Project\GetProgressLabel())->getCallable(),
+            'getSchemaProjectProgressPercentage' => (new ViewUtilities\Schema\Project\GetProgressPercentage())->getCallable(),
             'getSchemaProjectTechnologyTerms'    => (new ViewUtilities\GetTermsAsString($this->getPosts(), ['project_meta_technology'], $this->wpService, ' / '))->getCallable(),
             'getSchemaProjectCategoryTerms'      => (new ViewUtilities\GetTermsAsString($this->getPosts(), ['project_meta_category'], $this->wpService, ' / '))->getCallable(),
+
+            // Schema Event specific utilities
+            'getSchemaEventPriceRange'           => (new ViewUtilities\Schema\Event\GetPriceRange())->getCallable(),
+            'getSchemaEventPlaceName'            => (new ViewUtilities\Schema\Event\GetPlaceName())->getCallable(),
+            'getSchemaEventDate'                 => (new ViewUtilities\Schema\Event\GetDate())->getCallable(),
+            'getSchemaEventDateBadgeDate'        => (new ViewUtilities\Schema\Event\GetDatebadgeDate())->getCallable(),
         ];
     }
 

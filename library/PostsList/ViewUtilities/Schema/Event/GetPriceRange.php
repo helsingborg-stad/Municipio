@@ -1,29 +1,45 @@
 <?php
 
-namespace Municipio\Controller\ArchiveSchemaEvent;
+namespace Municipio\PostsList\ViewUtilities\Schema\Event;
 
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostsList\ViewUtilities\ViewUtilityInterface;
 use Municipio\Schema\Event;
 use Municipio\Schema\Offer;
 use Municipio\Schema\PriceSpecification;
 
 /**
- * Class GetEventPriceRange
+ * Class GetPriceRange
  *
  * Provides functionality to calculate and return the price range for an event.
  */
-class GetEventPriceRange
+class GetPriceRange implements ViewUtilityInterface
 {
+    public function getCallable(): callable
+    {
+        return fn(PostObjectInterface $post): ?string => $this->getPriceRangeFromPost($post);
+    }
+
+    private function getPriceRangeFromPost(PostObjectInterface $post): ?string
+    {
+        $offers = EnsureArrayOf::ensureArrayOf($post->getSchemaProperty('offers'), Offer::class);
+
+        if (empty($offers)) {
+            return null;
+        }
+
+        return $this->getPriceRangeFromOffers(...$offers);
+    }
+
     /**
      * Calculates the price range for the given event based on its offers and price specifications.
      *
-     * @param Event $event The event object containing offers and price specifications.
+     * @param Offer ...$offers The offers associated with the event.
      * @return string|null The formatted price range string, or null if no prices are found.
      */
-    public static function getEventPriceRange(Event $event): ?string
+    private function getPriceRangeFromOffers(Offer ...$offers): ?string
     {
-        $offers = EnsureArrayOf::ensureArrayOf($event->getProperty('offers'), Offer::class);
-
         $priceSpecifications = [];
         foreach ($offers as $offer) {
             $specs               = EnsureArrayOf::ensureArrayOf($offer->getProperty('priceSpecification'), PriceSpecification::class);

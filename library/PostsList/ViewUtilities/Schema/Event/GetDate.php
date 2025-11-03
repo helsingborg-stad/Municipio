@@ -1,27 +1,34 @@
 <?php
 
-namespace Municipio\Controller\ArchiveSchemaEvent;
+namespace Municipio\PostsList\ViewUtilities\Schema\Event;
 
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostsList\ViewUtilities\ViewUtilityInterface;
 use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
 /**
- * Class GetEventDate
+ * Class GetDate
  *
  * Provides utility methods to retrieve event date information for event archives.
  */
-class GetEventDate
+class GetDate implements ViewUtilityInterface
 {
+    public function getCallable(): callable
+    {
+        return fn(PostObjectInterface $post): ?string => $this->getDate($post->getSchema());
+    }
+
     /**
      * Get the date of the first upcoming event occurrence.
      *
      * @param Event $event The event object.
      * @return string|null The formatted date string or null if no upcoming event.
      */
-    public static function getEventDate(Event $event): ?string
+    private function getDate(Event $event): ?string
     {
         $schedules             = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
         $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);

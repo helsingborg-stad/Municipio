@@ -5,9 +5,9 @@ namespace Municipio\PostsList\ViewUtilities\Schema\Project;
 use Municipio\PostObject\NullPostObject;
 use PHPUnit\Framework\TestCase;
 
-class GetSchemaProjectProgressLabelTest extends TestCase
+class GetProgressLabelTest extends TestCase
 {
-    public function testGetSchemaProjectProgressLabel(): void
+    public function testGetProgressLabel(): void
     {
         $post = new class extends NullPostObject {
             public function getId(): int
@@ -25,9 +25,9 @@ class GetSchemaProjectProgressLabelTest extends TestCase
             }
         };
 
-        $getSchemaProjectProgressLabel = new GetSchemaProjectProgressLabel();
-        $callable                      = $getSchemaProjectProgressLabel->getCallable();
-        $result                        = $callable($post);
+        $getProgressLabel = new GetProgressLabel();
+        $callable         = $getProgressLabel->getCallable();
+        $result           = $callable($post);
 
         $this->assertEquals('In Progress', $result);
     }

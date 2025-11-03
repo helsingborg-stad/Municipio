@@ -1,11 +1,13 @@
 <?php
 
-namespace Municipio\Controller\ArchiveSchemaEvent;
+namespace Municipio\PostsList\ViewUtilities\Schema\Event;
 
 use DateTime;
 use DateTimeInterface;
 use Municipio\Helper\DateFormat;
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostsList\ViewUtilities\ViewUtilityInterface;
 use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
@@ -14,15 +16,20 @@ use Municipio\Schema\Schedule;
  *
  * Provides methods to retrieve the date for the date badge of an event.
  */
-class GetDatebadgeDate
+class GetDatebadgeDate implements ViewUtilityInterface
 {
+    public function getCallable(): callable
+    {
+        return fn(PostObjectInterface $post): ?string => $this->getDatebadgeDate($post->getSchema());
+    }
+
     /**
      * Returns the formatted date string for the first upcoming event schedule.
      *
      * @param Event $event The event object.
      * @return string|null The formatted date string (Y-m-d) or null if no upcoming schedule exists.
      */
-    public static function getDatebadgeDate(Event $event): ?string
+    private function getDatebadgeDate(Event $event): ?string
     {
         $schedules             = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
         $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);

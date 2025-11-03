@@ -8,7 +8,7 @@ use Municipio\PostsList\ViewUtilities\ViewUtilityInterface;
 /*
  * View utility to get project progress percentage
  */
-class GetSchemaProjectProgressPercentage implements ViewUtilityInterface
+class GetProgressPercentage implements ViewUtilityInterface
 {
     /**
      * Get the callable for the view utility
