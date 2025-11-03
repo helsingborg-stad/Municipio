@@ -46,4 +46,12 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     {
         return [];
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getNumberOfColumns(): int
+    {
+        return 1;
+    }
 }

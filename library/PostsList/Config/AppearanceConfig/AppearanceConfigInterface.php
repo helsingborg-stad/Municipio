@@ -38,4 +38,11 @@ interface AppearanceConfigInterface
      * @return string[] Taxonomy slugs
      */
     public function getTaxonomiesToDisplay(): array;
+
+    /**
+     * Get number of columns for the posts list
+     *
+     * @return int
+     */
+    public function getNumberOfColumns(): int;
 }

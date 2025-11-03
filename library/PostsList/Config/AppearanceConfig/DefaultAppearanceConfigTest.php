@@ -34,4 +34,11 @@ class DefaultAppearanceConfigTest extends TestCase
         $config = new DefaultAppearanceConfig();
         $this->assertFalse($config->shouldDisplayFeaturedImage());
     }
+
+    #[TestDox('default number of columns is 1')]
+    public function testDefaultNumberOfColumnsIsOne(): void
+    {
+        $config = new DefaultAppearanceConfig();
+        $this->assertSame(1, $config->getNumberOfColumns());
+    }
 }

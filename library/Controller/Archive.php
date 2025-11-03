@@ -133,6 +133,7 @@ class Archive extends \Municipio\Controller\BaseController
 
     private function getAppearanceConfig(): \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
     {
+        $numberOfColumns            = $this->data['archiveProps']->numberOfColumns ?? 1;
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
         $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay;
@@ -141,16 +142,19 @@ class Archive extends \Municipio\Controller\BaseController
             'cards' => PostDesign::CARD,
             'compressed' => PostDesign::COMPRESSED,
             'collection' => PostDesign::COLLECTION,
+            'grid' => PostDesign::GRIDITEM,
             'newsitem' => PostDesign::NEWSITEM,
             default => PostDesign::CARD,
         };
         return new class (
+            $numberOfColumns,
             $shouldDisplayFeaturedImage,
             $shouldDisplayReadingTime,
             $taxonomiesToDisplay,
             $design
         ) extends DefaultAppearanceConfig {
             public function __construct(
+                private int $numberOfColumns,
                 private bool $shouldDisplayFeaturedImage,
                 private bool $shouldDisplayReadingTime,
                 private array $taxonomiesToDisplay,
@@ -176,6 +180,11 @@ class Archive extends \Municipio\Controller\BaseController
             public function getTaxonomiesToDisplay(): array
             {
                 return $this->taxonomiesToDisplay;
+            }
+
+            public function getNumberOfColumns(): int
+            {
+                return $this->numberOfColumns;
             }
         };
     }

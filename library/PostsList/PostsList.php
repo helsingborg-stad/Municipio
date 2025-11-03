@@ -54,6 +54,8 @@ class PostsList
             'getExcerptWithoutLinks' => (new ViewUtilities\GetExcerptWithoutLinks())->getCallable(),
             'getReadingTime'         => (new ViewUtilities\GetReadingTime($this->appearanceConfig))->getCallable(),
             'showDateBadge'          => (new ViewUtilities\ShowDateBadge($this->getPosts()))->getCallable(),
+            'getParentColumnClasses' => (new ViewUtilities\GetParentColumnClasses())->getCallable(),
+            'getPostColumnClasses'   => (new ViewUtilities\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
         ];
     }
 

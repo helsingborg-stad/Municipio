@@ -63,4 +63,13 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
     {
         return $this->innerConfig->getTaxonomiesToDisplay();
     }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getNumberOfColumns(): int
+    {
+        return $this->innerConfig->getNumberOfColumns();
+    }
 }
