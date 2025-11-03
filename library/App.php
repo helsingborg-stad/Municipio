@@ -135,11 +135,12 @@ class App
          */
 
         $wpUtilService = new WpUtilService($this->wpService);
-
-        $enqueue = new \Municipio\Theme\Enqueue(
+        $enqueue       = new \Municipio\Theme\Enqueue(
             $this->wpService,
-            $wpUtilService
+            $wpUtilService,
+            new \Municipio\Helper\Enqueue($this->wpService) //TODO: Remove when WpUtilService is fully implemented
         );
+
         $enqueue->addHooks();
 
         new \Municipio\Theme\Support();

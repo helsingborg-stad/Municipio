@@ -18,7 +18,8 @@ class Enqueue implements Hookable
      */
     public function __construct(
         private WpService $wpService,
-        private WpUtilService $wpUtilService
+        private WpUtilService $wpUtilService,
+        private EnqueueHelper $enqueueHelper
     ) {
         $this->wpUtilService->enqueue(['distFolder' => 'assets/dist']);
     }
@@ -40,14 +41,14 @@ class Enqueue implements Hookable
         $this->wpService->addAction('wp_enqueue_scripts', function () {
 
             $this->wpUtilService->enqueue()
-                ->add('js/pdf.js', ['jquery'], '1.0.0', true)->with()->data([
-                    'src' => plugins_url('municipio/library/Theme/assets/vendor/pdfjs/web/pdf.worker.js'),
-                ])->and()->translation('PdfJsLocale', [
-                    'loadingText' => __('Loading document...', 'municipio'),
-                    'ofText'      => __('of', 'municipio'),
-                    'pageText'    => __('Page', 'municipio'),
-                    'errorText'   => __('An error occurred while loading the document.', 'municipio'),
-                ]);
+            ->add('js/pdf.js', ['jquery'], '1.0.0', true)->with()->data([
+                'src' => plugins_url('municipio/library/Theme/assets/vendor/pdfjs/web/pdf.worker.js'),
+            ])->and()->translation('PdfJsLocale', [
+                'loadingText' => __('Loading document...', 'municipio'),
+                'ofText'      => __('of', 'municipio'),
+                'pageText'    => __('Page', 'municipio'),
+                'errorText'   => __('An error occurred while loading the document.', 'municipio'),
+            ]);
         });
     }
 
