@@ -138,8 +138,9 @@ class Archive extends \Municipio\Controller\BaseController
         $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay;
         $template                   = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $this->getPostType());
         $design                     = match ($template) {
-            'collection' => PostDesign::COLLECTION,
             'cards' => PostDesign::CARD,
+            'compressed' => PostDesign::COMPRESSED,
+            'collection' => PostDesign::COLLECTION,
             default => PostDesign::CARD,
         };
         return new class (
