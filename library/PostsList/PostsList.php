@@ -48,14 +48,20 @@ class PostsList
     public function getData(): array
     {
         return [
-            'posts'                  => $this->getPosts(),
-            'config'                 => $this->getAppearanceConfig(),
-            'getTags'                => (new ViewUtilities\GetTagsComponentArguments($this->getPosts(), $this->appearanceConfig->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
-            'getExcerptWithoutLinks' => (new ViewUtilities\GetExcerptWithoutLinks())->getCallable(),
-            'getReadingTime'         => (new ViewUtilities\GetReadingTime($this->appearanceConfig))->getCallable(),
-            'showDateBadge'          => (new ViewUtilities\ShowDateBadge($this->getPosts()))->getCallable(),
-            'getParentColumnClasses' => (new ViewUtilities\GetParentColumnClasses())->getCallable(),
-            'getPostColumnClasses'   => (new ViewUtilities\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
+            'posts'                              => $this->getPosts(),
+            'config'                             => $this->getAppearanceConfig(),
+            'getTags'                            => (new ViewUtilities\GetTagsComponentArguments($this->getPosts(), $this->appearanceConfig->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
+            'getExcerptWithoutLinks'             => (new ViewUtilities\GetExcerptWithoutLinks())->getCallable(),
+            'getReadingTime'                     => (new ViewUtilities\GetReadingTime($this->appearanceConfig))->getCallable(),
+            'showDateBadge'                      => (new ViewUtilities\ShowDateBadge($this->getPosts()))->getCallable(),
+            'getParentColumnClasses'             => (new ViewUtilities\GetParentColumnClasses())->getCallable(),
+            'getPostColumnClasses'               => (new ViewUtilities\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
+
+            // Schema project specific utilities
+            'getSchemaProjectProgressLabel'      => (new ViewUtilities\Schema\Project\GetSchemaProjectProgressLabel())->getCallable(),
+            'getSchemaProjectProgressPercentage' => (new ViewUtilities\Schema\Project\GetSchemaProjectProgressPercentage())->getCallable(),
+            'getSchemaProjectTechnologyTerms'    => (new ViewUtilities\GetTermsAsString($this->getPosts(), ['project_meta_technology'], $this->wpService, ' / '))->getCallable(),
+            'getSchemaProjectCategoryTerms'      => (new ViewUtilities\GetTermsAsString($this->getPosts(), ['project_meta_category'], $this->wpService, ' / '))->getCallable(),
         ];
     }
 

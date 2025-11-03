@@ -137,13 +137,14 @@ class Archive extends \Municipio\Controller\BaseController
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
         $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay;
-        $template                   = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $this->getPostType());
+        $template                   = $this->data['archiveProps']->style ?? 'cards';
         $design                     = match ($template) {
             'cards' => PostDesign::CARD,
             'compressed' => PostDesign::COMPRESSED,
             'collection' => PostDesign::COLLECTION,
             'grid' => PostDesign::GRIDITEM,
             'newsitem' => PostDesign::NEWSITEM,
+            'schema' => PostDesign::SCHEMA,
             default => PostDesign::CARD,
         };
         return new class (

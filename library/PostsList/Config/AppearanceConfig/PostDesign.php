@@ -9,4 +9,5 @@ enum PostDesign: string
     case COLLECTION = 'collection';
     case GRIDITEM   = 'griditem';
     case NEWSITEM   = 'newsitem';
+    case SCHEMA     = 'schema';
 }
