@@ -121,14 +121,14 @@ class Enqueue implements Hookable
      */
     public function enqueueAdminScriptsAndStyles()
     {
-        $this->enqueueHelper->add('user-group-visibility', 'js/user-group-visibility.js');
-        $this->enqueueHelper->add('hidden-post-status-conditional', 'js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
-        $this->enqueueHelper->add('event-source-progress', 'js/event-source-progress.js');
+        $this->wpUtilService->enqueue()->add('js/user-group-visibility.js');
+        $this->wpUtilService->enqueue()->add('js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
+        $this->wpUtilService->enqueue()->add('js/event-source-progress.js');
 
-        $this->enqueueHelper->add('acf-css', 'css/acf.css');
-        $this->enqueueHelper->add('general-css', 'css/general.css');
-        $this->enqueueHelper->add('a11y-css', 'css/a11y.css');
-        $this->enqueueHelper->add('trash-page-css', 'css/trash-page.css');
+        $this->wpUtilService->enqueue()->add('css/acf.css');
+        $this->wpUtilService->enqueue()->add('css/general.css');
+        $this->wpUtilService->enqueue()->add('css/a11y.css');
+        $this->wpUtilService->enqueue()->add('css/trash-page.css');
     }
 
     /**
