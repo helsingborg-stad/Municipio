@@ -21,7 +21,7 @@ class Enqueue implements Hookable
         private WpUtilService $wpUtilService,
         private EnqueueHelper $enqueueHelper
     ) {
-        $this->wpUtilService->enqueue(['distFolder' => 'assets/dist']);
+        $this->wpUtilService->enqueue(__DIR__);
     }
 
     public function addHooks(): void
@@ -37,19 +37,6 @@ class Enqueue implements Hookable
         $this->wpService->addAction('wp_print_scripts', array($this, 'moveScriptsToFooter'));
         $this->wpService->addAction('wp_default_scripts', array($this, 'removeJqueryMigrate'));
         $this->wpService->addFilter('gform_init_scripts_footer', array($this, 'forceGravityFormsScriptsNotInFooter'));
-
-        $this->wpService->addAction('wp_enqueue_scripts', function () {
-
-            $this->wpUtilService->enqueue()
-            ->add('js/pdf.js', ['jquery'], '1.0.0', true)->with()->data([
-                'src' => plugins_url('municipio/library/Theme/assets/vendor/pdfjs/web/pdf.worker.js'),
-            ])->and()->translation('PdfJsLocale', [
-                'loadingText' => __('Loading document...', 'municipio'),
-                'ofText'      => __('of', 'municipio'),
-                'pageText'    => __('Page', 'municipio'),
-                'errorText'   => __('An error occurred while loading the document.', 'municipio'),
-            ]);
-        });
     }
 
     /**
@@ -67,8 +54,7 @@ class Enqueue implements Hookable
         ];
         $translatedWeight       = $weightTranslationTable[$weight] ?? 'medium';
 
-        $this->enqueueHelper->add(
-            'material-symbols',
+        $this->wpUtilService->enqueue()->add(
             "fonts/material/{$translatedWeight}/{$style}.css"
         );
     }
@@ -78,8 +64,11 @@ class Enqueue implements Hookable
      */
     public function enqueueFrontendScriptsAndStyles()
     {
-        $this->enqueueHelper->add('municipio', 'js/municipio.js', ['jquery']);
-        $this->enqueueHelper->add('municipio-js', 'js/municipio.js', ['wp-api-request'], new EnqueueTranslation(
+        //Add municipio.js with translations
+        $this->wpUtilService->enqueue()->add(
+            'js/municipio.js',
+            ['jquery', 'wp-api-request']
+        )->with()->translation(
             'MunicipioLocale',
             [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
@@ -88,40 +77,43 @@ class Enqueue implements Hookable
                     'onError'       => __('Something went wrong, please try again later', 'municipio'),
                 ]
             ]
-        ));
-        $this->enqueueHelper->add('styleguide-js', 'js/styleguide.js', [], [
-            new EnqueueTranslation('localizedMonths', [
-                ucFirst(__('January')),
-                ucFirst(__('February')),
-                ucFirst(__('March')),
-                ucFirst(__('April')),
-                ucFirst(__('May')),
-                ucFirst(__('June')),
-                ucFirst(__('July')),
-                ucFirst(__('August')),
-                ucFirst(__('September')),
-                ucFirst(__('October')),
-                ucFirst(__('November')),
-                ucFirst(__('December'))
-            ]),
-            new EnqueueTranslation('localizedDays', [
-                ucFirst(__('Su', 'municipio')),
-                ucFirst(__('Mo', 'municipio')),
-                ucFirst(__('Tu', 'municipio')),
-                ucFirst(__('We', 'municipio')),
-                ucFirst(__('Th', 'municipio')),
-                ucFirst(__('Fr', 'municipio')),
-                ucFirst(__('Sa', 'municipio'))
-            ])
+        );
+
+        //Add styleguide.js with translations
+        $this->wpUtilService->enqueue()->add(
+            'js/styleguide.js'
+        )->with()->translation('localizedMonths', [
+            ucFirst(__('January', 'municipio')),
+            ucFirst(__('February', 'municipio')),
+            ucFirst(__('March', 'municipio')),
+            ucFirst(__('April', 'municipio')),
+            ucFirst(__('May', 'municipio')),
+            ucFirst(__('June', 'municipio')),
+            ucFirst(__('July', 'municipio')),
+            ucFirst(__('August', 'municipio')),
+            ucFirst(__('September', 'municipio')),
+            ucFirst(__('October', 'municipio')),
+            ucFirst(__('November', 'municipio')),
+            ucFirst(__('December', 'municipio'))
+        ])->and()->translation('localizedDays', [
+            ucFirst(__('Su', 'municipio')),
+            ucFirst(__('Mo', 'municipio')),
+            ucFirst(__('Tu', 'municipio')),
+            ucFirst(__('We', 'municipio')),
+            ucFirst(__('Th', 'municipio')),
+            ucFirst(__('Fr', 'municipio')),
+            ucFirst(__('Sa', 'municipio'))
         ]);
 
-        $this->enqueueHelper->add('instantpage-js', 'js/instantpage.js');
-        $this->enqueueHelper->add('pdf-js', 'js/pdf.js');
-        $this->enqueueHelper->add('nav-js', 'js/nav.js');
+        //Other scripts
+        $this->wpUtilService->enqueue()->add('js/instantpage.js');
+        $this->wpUtilService->enqueue()->add('js/pdf.js');
+        $this->wpUtilService->enqueue()->add('js/nav.js');
 
-        $this->enqueueHelper->add('styleguide-css', 'css/styleguide.css');
-        $this->enqueueHelper->add('municipio-css', 'css/municipio.css');
-        $this->enqueueHelper->add('splide-css', 'css/splide.css');
+        //Other styles
+        $this->wpUtilService->enqueue()->add('css/styleguide.css');
+        $this->wpUtilService->enqueue()->add('css/municipio.css');
+        $this->wpUtilService->enqueue()->add('css/splide.css');
     }
 
     /**

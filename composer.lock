@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df33aa641f1586ab293a94e681397187",
+    "content-hash": "251a2e8f467dadf53e5eac2d27931556",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1070,16 +1070,16 @@
         },
         {
             "name": "helsingborg-stad/wputilservice",
-            "version": "0.2.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wputilservice.git",
-                "reference": "2ace3d0c57a3fa89e0d7f67bd36e9a10e2eda06f"
+                "reference": "1982188d73bee84b8ef4d0814b6de6766c24eafd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/2ace3d0c57a3fa89e0d7f67bd36e9a10e2eda06f",
-                "reference": "2ace3d0c57a3fa89e0d7f67bd36e9a10e2eda06f",
+                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/1982188d73bee84b8ef4d0814b6de6766c24eafd",
+                "reference": "1982188d73bee84b8ef4d0814b6de6766c24eafd",
                 "shasum": ""
             },
             "require": {
@@ -1093,6 +1093,7 @@
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^11"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1112,9 +1113,9 @@
             "description": "Simplifies WordPress development by providing a centralized WpUtilService that exposes a WordPress api wrapped in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wputilservice/issues",
-                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.2.0"
+                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.2.3"
             },
-            "time": "2025-10-30T22:23:57+00:00"
+            "time": "2025-11-03T07:41:58+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -6801,6 +6802,7 @@
     "stability-flags": {
         "clark-nikdel-powell/post-type-select-for-acf": 20,
         "enshrined/svg-sanitize": 20,
+        "helsingborg-stad/wputilservice": 20,
         "jeradin/acf-dynamic-table-field": 20,
         "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
