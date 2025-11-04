@@ -624,7 +624,6 @@ class Template
             '403'        => '403.blade.php',
             '401'        => '401.blade.php',
             'archive'    => 'archive.blade.php',
-            'author'     => 'author.blade.php',
             'category'   => 'category.blade.php',
             'tag'        => 'tag.blade.php',
             'taxonomy'   => 'taxonomy.blade.php',
