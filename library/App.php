@@ -53,7 +53,8 @@ class App
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
         private SchemaDataConfigInterface $schemaDataConfig,
-        private wpdb $wpdb
+        private wpdb $wpdb,
+        private WpUtilService $wpUtilService
     ) {
         /**
          * Run generic custom actions
@@ -133,14 +134,10 @@ class App
         /**
          * Theme
          */
-
-        $wpUtilService = new WpUtilService($this->wpService);
-        $enqueue       = new \Municipio\Theme\Enqueue(
+        $enqueue = new \Municipio\Theme\Enqueue(
             $this->wpService,
-            $wpUtilService,
-            new \Municipio\Helper\Enqueue($this->wpService) //TODO: Remove when WpUtilService is fully implemented
+            $this->wpUtilService
         );
-
         $enqueue->addHooks();
 
         new \Municipio\Theme\Support();

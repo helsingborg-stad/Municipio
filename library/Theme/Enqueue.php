@@ -6,6 +6,7 @@ use Municipio\Helper\Enqueue as EnqueueHelper;
 use Municipio\Helper\EnqueueTranslation;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 use WpUtilService\WpUtilService;
 /**
  * Class Enqueue
@@ -13,17 +14,21 @@ use WpUtilService\WpUtilService;
  */
 class Enqueue implements Hookable
 {
+    private EnqueueManager $enqueue;
+
     /**
      * Enqueue constructor.
      */
     public function __construct(
         private WpService $wpService,
-        private WpUtilService $wpUtilService,
-        private EnqueueHelper $enqueueHelper
+        private WpUtilService $wpUtilService
     ) {
-        $this->wpUtilService->enqueue(__DIR__);
+        $this->enqueue = $this->wpUtilService->enqueue(__DIR__);
     }
 
+    /**
+     * Add hooks
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('wp_enqueue_scripts', array($this, 'enqueueMaterialSymbols'));
@@ -34,7 +39,6 @@ class Enqueue implements Hookable
         $this->wpService->addFilter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
         $this->wpService->addFilter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
         $this->wpService->addFilter('the_generator', array($this, 'removeGeneratorTag'), 9, 2);
-        $this->wpService->addAction('wp_print_scripts', array($this, 'moveScriptsToFooter'));
         $this->wpService->addAction('wp_default_scripts', array($this, 'removeJqueryMigrate'));
         $this->wpService->addFilter('gform_init_scripts_footer', array($this, 'forceGravityFormsScriptsNotInFooter'));
     }
@@ -54,7 +58,7 @@ class Enqueue implements Hookable
         ];
         $translatedWeight       = $weightTranslationTable[$weight] ?? 'medium';
 
-        $this->wpUtilService->enqueue()->add(
+        $this->enqueue->add(
             "fonts/material/{$translatedWeight}/{$style}.css"
         );
     }
@@ -65,7 +69,7 @@ class Enqueue implements Hookable
     public function enqueueFrontendScriptsAndStyles()
     {
         //Add municipio.js with translations
-        $this->wpUtilService->enqueue()->add(
+        $this->enqueue->add(
             'js/municipio.js',
             ['jquery', 'wp-api-request']
         )->with()->translation(
@@ -80,7 +84,7 @@ class Enqueue implements Hookable
         );
 
         //Add styleguide.js with translations
-        $this->wpUtilService->enqueue()->add(
+        $this->enqueue->add(
             'js/styleguide.js'
         )->with()->translation('localizedMonths', [
             ucFirst(__('January', 'municipio')),
@@ -106,14 +110,14 @@ class Enqueue implements Hookable
         ]);
 
         //Other scripts
-        $this->wpUtilService->enqueue()->add('js/instantpage.js');
-        $this->wpUtilService->enqueue()->add('js/pdf.js');
-        $this->wpUtilService->enqueue()->add('js/nav.js');
+        $this->enqueue->add('js/instantpage.js');
+        $this->enqueue->add('js/pdf.js');
+        $this->enqueue->add('js/nav.js');
 
         //Other styles
-        $this->wpUtilService->enqueue()->add('css/styleguide.css');
-        $this->wpUtilService->enqueue()->add('css/municipio.css');
-        $this->wpUtilService->enqueue()->add('css/splide.css');
+        $this->enqueue->add('css/styleguide.css');
+        $this->enqueue->add('css/municipio.css');
+        $this->enqueue->add('css/splide.css');
     }
 
     /**
@@ -121,14 +125,14 @@ class Enqueue implements Hookable
      */
     public function enqueueAdminScriptsAndStyles()
     {
-        $this->wpUtilService->enqueue()->add('js/user-group-visibility.js');
-        $this->wpUtilService->enqueue()->add('js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
-        $this->wpUtilService->enqueue()->add('js/event-source-progress.js');
+        $this->enqueue->add('js/user-group-visibility.js');
+        $this->enqueue->add('js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
+        $this->enqueue->add('js/event-source-progress.js');
 
-        $this->wpUtilService->enqueue()->add('css/acf.css');
-        $this->wpUtilService->enqueue()->add('css/general.css');
-        $this->wpUtilService->enqueue()->add('css/a11y.css');
-        $this->wpUtilService->enqueue()->add('css/trash-page.css');
+        $this->enqueue->add('css/acf.css');
+        $this->enqueue->add('css/general.css');
+        $this->enqueue->add('css/a11y.css');
+        $this->enqueue->add('css/trash-page.css');
     }
 
     /**
@@ -136,12 +140,12 @@ class Enqueue implements Hookable
      */
     public function enqueueCustomizerScriptsAndStyles()
     {
-        $this->wpUtilService->enqueue()->add(
+        $this->enqueue->add(
             'js/design-share.js',
             ['jquery', 'customize-controls']
         );
 
-        $this->wpUtilService->enqueue()->add(
+        $this->enqueue->add(
             'js/customizer-flexible-header.js',
             ['jquery', 'customize-controls']
         )->with()->translation(
@@ -159,12 +163,12 @@ class Enqueue implements Hookable
             ]
         );
 
-        $this->wpUtilService->enqueue()->add(
+        $this->enqueue->add(
             'js/customizer-error-handling.js',
             ['jquery', 'customize-controls']
         );
-        
-        $this->wpUtilService->enqueue()->add('css/header-flexible.css');
+
+        $this->enqueue->add('css/header-flexible.css');
     }
 
     /**
@@ -176,21 +180,11 @@ class Enqueue implements Hookable
      */
     public function removeScriptVersion($src): string
     {
-        $siteUrlComponents = parse_url($this->wpService->getSiteUrl());
-        $urlComponents     = parse_url($src);
-
-        // Check if the URL is internal or external
-        if (
-            !empty($siteUrlComponents['host'])
-            && !empty($urlComponents['host'])
-            && strcasecmp($urlComponents['host'], $siteUrlComponents['host']) === 0
-            && !is_admin_bar_showing()
-        ) {
-            $src = !empty($urlComponents['query']) ? str_replace('?' . $urlComponents['query'], '', $src) : $src;
-            return $src;
-        } else {
-            return $src;
+        $urlComponents = parse_url($src);
+        if (!empty($urlComponents['query'])) {
+            $src = str_replace('?' . $urlComponents['query'], '', $src);
         }
+        return $src;
     }
 
     /**
@@ -235,32 +229,5 @@ class Enqueue implements Hookable
     public function forceGravityFormsScriptsNotInFooter(): bool
     {
         return false;
-    }
-
-    /**
-     * Get script all dependencies recusively.
-     *
-     * @param string $script The script handle
-     * @return array         The script dependencies
-     */
-    public function getScriptDependencies($script): array
-    {
-        global $wp_scripts;
-
-        if (!isset($wp_scripts->registered[$script])) {
-            trigger_error("Script \"$script\" is not registered.", E_USER_WARNING);
-        }
-
-        $dependencies = $wp_scripts->registered[$script]->deps;
-
-        foreach ($dependencies as $dependency) {
-            if (!empty($wp_scripts->registered[$dependency]->deps)) {
-                try {
-                    $dependencies = array_merge($dependencies, $this->getScriptDependencies($dependency));
-                } catch (\Exception $e) {}
-            }
-        }
-
-        return array_unique($dependencies);
     }
 }
