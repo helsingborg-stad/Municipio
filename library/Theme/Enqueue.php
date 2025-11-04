@@ -136,24 +136,35 @@ class Enqueue implements Hookable
      */
     public function enqueueCustomizerScriptsAndStyles()
     {
-        $this->enqueueHelper->add('design-share-js', 'js/design-share.js', ['jquery', 'customize-controls']);
-        $this->enqueueHelper->add('customizer-flexible-header', 'js/customizer-flexible-header.js', ['jquery', 'customize-controls'], new EnqueueTranslation(
+        $this->wpUtilService->enqueue()->add(
+            'js/design-share.js',
+            ['jquery', 'customize-controls']
+        );
+
+        $this->wpUtilService->enqueue()->add(
+            'js/customizer-flexible-header.js',
+            ['jquery', 'customize-controls']
+        )->with()->translation(
             'FlexibleHeaderSettings',
             [
-                'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
-                'lang'        => [
-                    'alignment' => __('Alignment', 'municipio'),
-                    'margin'    => __('Margin', 'municipio'),
-                    'left'      => __('Left', 'municipio'),
-                    'right'     => __('Right', 'municipio'),
-                    'both'      => __('Both', 'municipio'),
-                    'none'      => __('None', 'municipio'),
-                ]
+            'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
+            'lang'        => [
+                'alignment' => __('Alignment', 'municipio'),
+                'margin'    => __('Margin', 'municipio'),
+                'left'      => __('Left', 'municipio'),
+                'right'     => __('Right', 'municipio'),
+                'both'      => __('Both', 'municipio'),
+                'none'      => __('None', 'municipio'),
             ]
-        ));
-        $this->enqueueHelper->add('customizer-error-handling', 'js/customizer-error-handling.js', ['jquery', 'customize-controls']);
+            ]
+        );
 
-        $this->enqueueHelper->add('header-flexible', 'css/header-flexible.css');
+        $this->wpUtilService->enqueue()->add(
+            'js/customizer-error-handling.js',
+            ['jquery', 'customize-controls']
+        );
+        
+        $this->wpUtilService->enqueue()->add('css/header-flexible.css');
     }
 
     /**
