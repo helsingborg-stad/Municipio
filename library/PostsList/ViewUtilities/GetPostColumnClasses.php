@@ -28,6 +28,12 @@ class GetPostColumnClasses implements ViewUtilityInterface
         );
     }
 
+    /**
+     * Get CSS classes based on the number of columns
+     *
+     * @param int $numberOfColumns
+     * @return array
+     */
     private function getColumnsClassesFromNumberOfColumns(int $numberOfColumns): array
     {
         $classes = [ 'o-layout-grid--col-span-12' ];

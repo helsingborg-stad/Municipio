@@ -7,8 +7,14 @@ use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\GetTaxonomies;
 use WpService\Contracts\__;
 
+/**
+ * Generates table headings based on the appearance configuration
+ */
 class TableHeadingsGenerator
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private AppearanceConfigInterface $appearanceConfig,
         private array $posts,
@@ -16,6 +22,11 @@ class TableHeadingsGenerator
     ) {
     }
 
+    /**
+     * Generate table headings
+     *
+     * @return array
+     */
     public function generate(): array
     {
         $headings = array_map(
@@ -28,6 +39,12 @@ class TableHeadingsGenerator
         return $headings;
     }
 
+    /**
+     * Get the label for a specific heading based on the item type
+     *
+     * @param string $item
+     * @return string
+     */
     private function getHeadingLabel(string $item): string
     {
         return match ($item) {
@@ -37,6 +54,11 @@ class TableHeadingsGenerator
         };
     }
 
+    /**
+     * Get taxonomy headings based on the appearance configuration
+     *
+     * @return array
+     */
     private function getTaxonomyHeadings(): array
     {
         $taxonomies = $this->appearanceConfig->getTaxonomiesToDisplay();

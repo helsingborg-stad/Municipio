@@ -2,6 +2,9 @@
 
 namespace Modularity\Helper;
 
+/**
+ * Class for cache busting asset file names using a rev-manifest.json file
+ */
 class CacheBust
 {
     /**

@@ -8,8 +8,14 @@ use WpService\Contracts\WpDate;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetTerms;
 
+/**
+ * Generates table items for posts based on the appearance configuration
+ */
 class TableItemsGenerator
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private AppearanceConfigInterface $appearanceConfig,
         private array $posts,
@@ -19,6 +25,11 @@ class TableItemsGenerator
     ) {
     }
 
+    /**
+     * Generate table items for the posts
+     *
+     * @return array
+     */
     public function generate(): array
     {
         if (empty($this->posts)) {
@@ -27,6 +38,12 @@ class TableItemsGenerator
         return array_map(fn($post) => $this->getItem($post), $this->posts);
     }
 
+    /**
+     * Get a single table item for a post
+     *
+     * @param PostObjectInterface $post
+     * @return array
+     */
     private function getItem(PostObjectInterface $post): array
     {
         $columns         = array_map(
@@ -41,6 +58,13 @@ class TableItemsGenerator
         ];
     }
 
+    /**
+     * Get the value for a specific column based on the item type
+     *
+     * @param PostObjectInterface $post
+     * @param string $item
+     * @return string
+     */
     private function getColumnValue(PostObjectInterface $post, string $item): string
     {
         return match ($item) {
@@ -53,6 +77,12 @@ class TableItemsGenerator
         };
     }
 
+    /**
+     * Get taxonomy column values for a post
+     *
+     * @param PostObjectInterface $post
+     * @return array
+     */
     private function getTaxonomyColumns(PostObjectInterface $post): array
     {
         $taxonomyColumns = [];
@@ -62,6 +92,13 @@ class TableItemsGenerator
         return $taxonomyColumns;
     }
 
+    /**
+     * Get taxonomy column values for a post
+     *
+     * @param PostObjectInterface $post
+     * @param string $taxonomy
+     * @return string
+     */
     private function getTaxonomyColumnValue(PostObjectInterface $post, string $taxonomy): string
     {
         $terms = array_filter($this->termsProvider->getAllTerms(), fn($term) => $post->getId() === $term->object_id && $term->taxonomy === $taxonomy);

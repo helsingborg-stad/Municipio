@@ -2,11 +2,17 @@
 
 namespace Modularity;
 
+/*
+ * Block manager class
+ */
 class BlockManager
 {
     public $modules = [];
     public $classes = [];
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         add_filter('block_categories_all', array($this, 'filterCategories'), 10, 2);
@@ -244,7 +250,14 @@ class BlockManager
         }
     }
 
-
+    /**
+     * Customize block settings before registration
+     *
+     * @param array blockSettings The settings array for the block.
+     * @param string slug The slug of the block.
+     *
+     * @return array The modified block settings.
+     */
     public function customBlockSettings($blockSettings, $slug)
     {
         if ('script' === $slug) {
@@ -324,6 +337,10 @@ class BlockManager
         return $newGroup;
     }
 
+    /**
+     * Add location rules to block specific group
+     * @return array
+     */
     public function addLocationRulesToBlockGroup($group)
     {
         if ($group['key'] === 'group_block_specific') {

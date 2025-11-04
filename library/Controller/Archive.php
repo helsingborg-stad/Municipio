@@ -96,11 +96,21 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data = [...$this->data, ...$postsList->getData()];
     }
 
+    /**
+     * Get the post type for the archive
+     *
+     * @return string
+     */
     private function getPostType(): string
     {
         return !empty($this->data['postType']) ? $this->data['postType'] : 'page';
     }
 
+    /**
+     * Get filter configuration based on archive properties
+     *
+     * @return \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
+     */
     private function getFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
         $isEnabled           = $this->showFilter($this->data['archiveProps']);
@@ -110,6 +120,9 @@ class Archive extends \Municipio\Controller\BaseController
         $isTextSearchEnabled = $this->enableTextSearch($this->data['archiveProps']);
 
         return new class ($isEnabled, $showReset, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled) extends DefaultFilterConfig {
+            /**
+             * Constructor
+             */
             public function __construct(
                 private bool $isEnabled,
                 private bool $showReset,
@@ -119,26 +132,41 @@ class Archive extends \Municipio\Controller\BaseController
             ) {
             }
 
+            /**
+             * @inheritDoc
+             */
             public function isEnabled(): bool
             {
                 return $this->isEnabled;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function isTextSearchEnabled(): bool
             {
                 return $this->isTextSearchEnabled;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function showReset(): bool
             {
                 return $this->showReset;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getResetUrl(): ?string
             {
                 return $this->resetUrl;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function isDateFilterEnabled(): bool
             {
                 return $this->isDateFilterEnabled;
@@ -146,18 +174,34 @@ class Archive extends \Municipio\Controller\BaseController
         };
     }
 
+    /**
+     * Get post configuration based on archive properties
+     *
+     * @return \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
+     */
     private function getPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
     {
         $postType = [$this->getPostType()];
         return new class ($postType) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+            /**
+             * Constructor
+             */
             public function __construct(
                 private array $postType
             ) {
             }
+
+            /**
+             * @inheritDoc
+             */
             public function getPostTypes(): array
             {
                 return $this->postType;
             }
+
+            /**
+             * @inheritDoc
+             */
             public function getPostsPerPage(): int
             {
                 return $this->data['archiveProps']->postsPerPage ?? get_option('posts_per_page');
@@ -165,6 +209,11 @@ class Archive extends \Municipio\Controller\BaseController
         };
     }
 
+    /**
+     * Get appearance configuration based on archive properties
+     *
+     * @return \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
+     */
     private function getAppearanceConfig(): \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
     {
         $numberOfColumns            = $this->data['archiveProps']->numberOfColumns ?? 1;
@@ -191,6 +240,9 @@ class Archive extends \Municipio\Controller\BaseController
             $postPropertiesToDisplay,
             $design
         ) extends DefaultAppearanceConfig {
+            /**
+             * Constructor
+             */
             public function __construct(
                 private int $numberOfColumns,
                 private bool $shouldDisplayFeaturedImage,
@@ -201,31 +253,49 @@ class Archive extends \Municipio\Controller\BaseController
             ) {
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getDesign(): PostDesign
             {
                 return $this->design;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function shouldDisplayFeaturedImage(): bool
             {
                 return $this->shouldDisplayFeaturedImage;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function shouldDisplayReadingTime(): bool
             {
                 return $this->shouldDisplayReadingTime;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getTaxonomiesToDisplay(): array
             {
                 return $this->taxonomiesToDisplay;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getPostPropertiesToDisplay(): array
             {
                 return $this->postPropertiesToDisplay;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getNumberOfColumns(): int
             {
                 return $this->numberOfColumns;

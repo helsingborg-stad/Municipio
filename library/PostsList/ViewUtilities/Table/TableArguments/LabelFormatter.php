@@ -10,11 +10,20 @@ use WpService\Contracts\GetOption;
  */
 class LabelFormatter implements LabelFormatterInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private WpDate&GetOption $wpService
     ) {
     }
 
+    /**
+     * Format a term name, converting date-like strings to formatted dates
+     *
+     * @param string $name
+     * @return string
+     */
     public function formatTermName(string $name): string
     {
         $name         = trim($name);

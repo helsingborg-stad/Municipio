@@ -17,6 +17,11 @@ use Municipio\Schema\Schedule;
  */
 class GetDate implements ViewUtilityInterface
 {
+    /**
+     * Get a callable that retrieves the date for an event post
+     *
+     * @return callable
+     */
     public function getCallable(): callable
     {
         return fn(PostObjectInterface $post): ?string => $this->getDate($post->getSchema());

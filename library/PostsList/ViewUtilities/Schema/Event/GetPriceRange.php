@@ -16,11 +16,22 @@ use Municipio\Schema\PriceSpecification;
  */
 class GetPriceRange implements ViewUtilityInterface
 {
+    /**
+     * Get a callable that retrieves the price range for an event post
+     *
+     * @return callable
+     */
     public function getCallable(): callable
     {
         return fn(PostObjectInterface $post): ?string => $this->getPriceRangeFromPost($post);
     }
 
+    /**
+     * Retrieves the price range for a given post representing an event.
+     *
+     * @param PostObjectInterface $post The post object representing the event.
+     * @return string|null The formatted price range string, or null if no prices are found.
+     */
     private function getPriceRangeFromPost(PostObjectInterface $post): ?string
     {
         $offers = EnsureArrayOf::ensureArrayOf($post->getSchemaProperty('offers'), Offer::class);

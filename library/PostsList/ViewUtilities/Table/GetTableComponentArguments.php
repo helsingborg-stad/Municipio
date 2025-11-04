@@ -8,6 +8,9 @@ use Municipio\PostsList\ViewUtilities\ViewUtilityInterface;
 use Municipio\PostsList\ViewUtilities\Table\TableArguments\{TableHeadingsGenerator, TableItemsGenerator};
 use WpService\WpService;
 
+/**
+ * Get arguments for the table component
+ */
 class GetTableComponentArguments implements ViewUtilityInterface
 {
     /**
@@ -23,11 +26,21 @@ class GetTableComponentArguments implements ViewUtilityInterface
     ) {
     }
 
+    /**
+     * Get a callable that returns table component arguments
+     *
+     * @return callable
+     */
     public function getCallable(): callable
     {
         return fn() => $this->getTableArguments();
     }
 
+    /**
+     * Get table arguments including headings and items
+     *
+     * @return array
+     */
     private function getTableArguments(): array
     {
         $headingsGenerator = new TableHeadingsGenerator($this->appearanceConfig, $this->posts, $this->wpService);

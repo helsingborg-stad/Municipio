@@ -15,6 +15,11 @@ use Municipio\Schema\Place;
  */
 class GetPlaceName implements ViewUtilityInterface
 {
+    /**
+     * Get a callable that retrieves the place name for an event post
+     *
+     * @return callable
+     */
     public function getCallable(): callable
     {
         return fn(PostObjectInterface $post): ?string => $this->getPlaceName($post->getSchema());

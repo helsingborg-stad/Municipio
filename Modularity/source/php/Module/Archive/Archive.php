@@ -18,6 +18,9 @@ class Archive extends \Modularity\Module
     public $isBlockCompatible = true;
     private PostsList $postsList;
 
+    /**
+     * Initialize the module
+     */
     public function init(): void
     {
         $wpService          = WpService::get();
@@ -27,6 +30,9 @@ class Archive extends \Modularity\Module
         $this->setTemplateDirectory();
     }
 
+    /**
+     * Set the template directory for the module
+     */
     private function setTemplateDirectory(): void
     {
         $this->templateDir = PostsListFeature::getTemplateDir();
@@ -36,21 +42,41 @@ class Archive extends \Modularity\Module
         );
     }
 
+    /**
+     * Get the data for the module
+     *
+     * @return array
+     */
     public function data(): array
     {
         return $this->getPostList()->getData();
     }
 
+    /**
+     * Create the configuration for fetching posts
+     *
+     * @return GetPostsConfigInterface
+     */
     private function createPostListConfig(): GetPostsConfigInterface
     {
         return new DefaultGetPostsConfig();
     }
 
+    /**
+     * Get the template file for the module
+     *
+     * @return string
+     */
     public function template(): string
     {
         return 'posts-list.blade.php';
     }
 
+    /**
+     * Get the PostsList instance for the module
+     *
+     * @return PostsList
+     */
     private function getPostList(): PostsList
     {
         if (!isset($this->postsList)) {

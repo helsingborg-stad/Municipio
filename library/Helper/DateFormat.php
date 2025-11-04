@@ -37,6 +37,13 @@ class DateFormat
         }
     }
 
+    /**
+     * Get the unresolved date format for a specific post type.
+     *
+     * @param PostObjectInterface $post The post object.
+     *
+     * @return string The unresolved date format string.
+     */
     public static function getUnresolvedDateFormat(PostObjectInterface $post): string
     {
         static $cache = [];

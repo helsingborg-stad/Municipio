@@ -18,6 +18,11 @@ use Municipio\Schema\Schedule;
  */
 class GetDatebadgeDate implements ViewUtilityInterface
 {
+    /**
+     * Get a callable that retrieves the date badge date for an event post
+     *
+     * @return callable
+     */
     public function getCallable(): callable
     {
         return fn(PostObjectInterface $post): ?string => $this->getDatebadgeDate($post->getSchema());
