@@ -8,14 +8,14 @@ if (php_sapi_name() !== 'cli') {
 class TerminalStyle
 {
 
-    private const RESET     = "\033[0m";
-    private const BOLD      = "\033[1m";
-    private const UNDERLINE = "\033[4m";
-    private const GREEN     = "\033[32m";
-    private const RED       = "\033[31m";
-    private const YELLOW    = "\033[33m";
-    private const CYAN      = "\033[36m";
-    private const GRAY      = "\033[90m";
+    public const RESET     = "\033[0m";
+    public const BOLD      = "\033[1m";
+    public const UNDERLINE = "\033[4m";
+    public const GREEN     = "\033[32m";
+    public const RED       = "\033[31m";
+    public const YELLOW    = "\033[33m";
+    public const CYAN      = "\033[36m";
+    public const GRAY      = "\033[90m";
 
     /**
      * Apply color to text
@@ -23,8 +23,11 @@ class TerminalStyle
      * @param string $color
      * @return string
      */
-    public static function color(string $text, string $color): string
+    public static function color(string|BuildCommand $text, string $color): string
     {
+        if (is_a($text, BuildCommand::class)) {
+            $text = $text->value;
+        }
         return $color . $text . self::RESET;
     }
 
@@ -34,8 +37,11 @@ class TerminalStyle
      * @param string $text
      * @return string
      */
-    public static function bold(string $text): string 
+    public static function bold(string|BuildCommand $text): string 
     {
+        if (is_a($text, BuildCommand::class)) {
+            $text = $text->value;
+        }
         return self::BOLD . $text . self::RESET;
     }
 
@@ -45,8 +51,11 @@ class TerminalStyle
      * @param string $text
      * @return string
      */
-    public static function underline(string $text): string
+    public static function underline(string|BuildCommand $text): string
     {
+        if (is_a($text, BuildCommand::class)) {
+            $text = $text->value;
+        }
         return self::UNDERLINE . $text . self::RESET;
     }
 
