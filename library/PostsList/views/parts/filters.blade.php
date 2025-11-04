@@ -10,7 +10,7 @@
         'action' => '?q=form_component'
     ])
 
-    @if ($enableTextSearch)
+    @if ($filterConfig->isTextSearchEnabled())
         <div class="o-grid">
             <div class="o-grid-12">
                 @field([
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    @if ($enableDateFilter)
+    @if ($filterConfig->isDateFilterEnabled())
         <div class="o-grid">
             <div class="o-grid-12@xs o-grid-auto@sm">
                 @field([
@@ -85,7 +85,7 @@
     {{-- Select dropdowns for filtering --}}
     <div class="o-grid u-align-content--end">
         
-        @foreach ($taxonomyFilters as $key => $select)
+        @foreach ($filterConfig->getTaxonomiesEnabledForFiltering() as $select)
             <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
                 @select([
                     'label' => $select['label'] ?? '',
@@ -113,10 +113,10 @@
             @endbutton
         </div>
 
-        @if ($showFilterReset && $archiveResetUrl)
+        @if ($filterConfig->showReset() && $filterConfig->getResetUrl())
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                 @button([
-                    'href' => $archiveResetUrl,
+                    'href' => $filterConfig->getResetUrl(),
                     'text' => $facettingType ? $lang->resetFilterBtn : $lang->resetSearchBtn,
                     'type' => 'basic',
                     'classList' => ['u-display--block@xs', 'u-width--100@xs'],

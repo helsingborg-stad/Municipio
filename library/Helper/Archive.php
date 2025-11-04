@@ -273,16 +273,4 @@ class Archive
 
         return implode(' ', $stack);
     }
-
-    /**
-     * Determines if the reset button should show or not.
-     *
-     * @return boolean
-     */
-    public static function showFilterReset($queryParams): bool
-    {
-        return !empty(array_filter(
-            (array) $queryParams
-        ));
-    }
 }

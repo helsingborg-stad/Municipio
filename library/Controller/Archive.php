@@ -5,6 +5,7 @@ namespace Municipio\Controller;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
+use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 
 /**
  * Class Archive
@@ -39,10 +40,12 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Filter options
         $this->data['taxonomyFilters'] = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
+        var_dump($this->data['taxonomyFilters']);
+        die();
 
-        $this->data['enableTextSearch'] = $this->enableTextSearch($this->data['archiveProps']);
-        $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
-        $this->data['facettingType']    = $this->getFacettingType($this->data['archiveProps']);
+        // $this->data['enableTextSearch'] = $this->enableTextSearch($this->data['archiveProps']);
+        // $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
+        $this->data['facettingType'] = $this->getFacettingType($this->data['archiveProps']);
 
         //Archive data
         $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
@@ -66,8 +69,8 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['showPagination'] = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
 
         //Display functions
-        $this->data['showFilterReset'] = $this->showFilterReset($this->data['queryParameters']);
-        $this->data['showDatePickers'] = $this->showDatePickers($this->data['queryParameters']);
+        // $this->data['showFilterReset'] = $this->showFilterReset($this->data['queryParameters']);
+        //$this->data['showDatePickers'] = $this->showDatePickers($this->data['queryParameters']);
 
         //Facetting (menu)
         $this->data['hasQueryParameters'] = $this->hasQueryParameters(['paged' => true]);
@@ -100,16 +103,45 @@ class Archive extends \Municipio\Controller\BaseController
 
     private function getFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
-        $isEnabled = $this->showFilter($this->data['archiveProps']);
-        return new class ($isEnabled) implements \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface {
+        $isEnabled           = $this->showFilter($this->data['archiveProps']);
+        $showReset           = $this->showFilterReset($this->data['queryParameters']);
+        $resetUrl            = $this->getPostTypeArchiveLink($this->getPostType());
+        $isDateFilterEnabled = $this->enableDateFilter($this->data['archiveProps']);
+        $isTextSearchEnabled = $this->enableTextSearch($this->data['archiveProps']);
+
+        return new class ($isEnabled, $showReset, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled) extends DefaultFilterConfig {
             public function __construct(
                 private bool $isEnabled,
+                private bool $showReset,
+                private string $resetUrl,
+                private bool $isDateFilterEnabled,
+                private bool $isTextSearchEnabled
             ) {
             }
 
             public function isEnabled(): bool
             {
                 return $this->isEnabled;
+            }
+
+            public function isTextSearchEnabled(): bool
+            {
+                return $this->isTextSearchEnabled;
+            }
+
+            public function showReset(): bool
+            {
+                return $this->showReset;
+            }
+
+            public function getResetUrl(): ?string
+            {
+                return $this->resetUrl;
+            }
+
+            public function isDateFilterEnabled(): bool
+            {
+                return $this->isDateFilterEnabled;
             }
         };
     }
@@ -335,7 +367,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function showFilterReset($queryParams): bool
     {
-        return \Municipio\Helper\Archive::showFilterReset($queryParams);
+        return !empty(array_filter((array) $queryParams));
     }
 
     /**
