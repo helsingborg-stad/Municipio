@@ -2,9 +2,7 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 
@@ -618,11 +616,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $items = null;
         if (is_array($this->posts) && !empty($this->posts)) {
-            if ($template == 'list') {
-                $items = $this->getListItems($this->posts);
-            } else {
-                $items = $this->getArchiveItems($this->posts);
-            }
+            $items = $this->getArchiveItems($this->posts);
 
             return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $items);
         }
@@ -644,126 +638,6 @@ class Archive extends \Municipio\Controller\BaseController
                 $post            = \Municipio\Helper\Post::preparePostObject($post);
                 $post->href      = $post->permalink;
                 $preparedPosts[] = $post;
-            }
-        }
-
-        return $preparedPosts;
-    }
-
-    /**
-     * Prepare posts for list output
-     *
-     * @param   array $posts    The posts
-     * @return  array           The posts - formatted
-     */
-    protected function getListItems(array $posts): array
-    {
-        $preparedPosts = [
-            'items'    => [],
-            'headings' => []
-        ];
-
-        $preparedPosts['headings'] = array_map(
-            function ($item) {
-                return match ($item) {
-                    'post_title' =>  $this->getPostTypeSingularName($this->data['postType']) ?? __('Title', 'municipio'),
-                    'post_date' => __('Published', 'municipio'),
-                    default => ucfirst(str_replace('_', ' ', $item)),
-                };
-            },
-            $this->data['archiveProps']->postPropertiesToDisplay
-        );
-
-        if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
-            $allTaxonomies = get_taxonomies([], 'objects');
-            foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
-                $preparedPosts['headings'][] = $allTaxonomies[$taxonomy]->labels->singular_name;
-            }
-        }
-
-        if (is_array($posts) && !empty($posts)) {
-            foreach ($posts as $post) {
-                $post = \Municipio\Helper\Post::preparePostObject($post);
-
-                $preparedPosts['items'][] =
-                    [
-                        'id'      => $post->id,
-                        'href'    => WP::getPermalink($post->id),
-                        'columns' => array_map(fn($item) => match ($item) {
-                            'post_title' => $post->postTitle,
-                            'post_date' => !empty($post->postDate) ? wp_date(get_option('date_format'), strtotime($post->postDate)) : '',
-                            default => $post->{$item} ?? ''
-                        }, $this->data['archiveProps']->postPropertiesToDisplay)
-                    ];
-
-                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);
-            }
-        }
-
-        return $preparedPosts;
-    }
-
-    /**
-     * Get singular name for a post type
-     *
-     * @param string $postType
-     * @return string|null The singular name of the post type, or null if not found.
-     */
-    private function getPostTypeSingularName(string $postType): ?string
-    {
-        $postTypeObject = $this->wpService->getPostTypeObject($postType);
-        if ($postTypeObject && !empty($postTypeObject->labels->singular_name)) {
-            return $postTypeObject->labels->singular_name;
-        }
-
-        return null;
-    }
-
-    /**
-     * Prepare taxonomy columns for the given post.
-     *
-     * @param object $post The post object.
-     * @param array $preparedPosts The array of prepared posts.
-     * @param string $dateFormat The date format.
-     * @return array The array of prepared posts with taxonomy columns.
-     */
-    private function prepareTaxonomyColumns(PostObjectInterface $post, $preparedPosts)
-    {
-        if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
-            foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
-                $terms = get_the_terms($post->id, $taxonomy);
-
-                if (is_wp_error($terms) || empty($terms)) {
-                    $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = '';
-                    continue;
-                }
-
-                $termNames = array_map(function ($term) {
-                    $name = trim($term->name ?? '');
-
-                    $datePatterns = [
-                        '/^\d{4}-\d{2}-\d{2}$/',         // YYYY-MM-DD
-                        '/^\d{2}\/\d{2}\/\d{4}$/',       // DD/MM/YYYY or MM/DD/YYYY
-                        '/^\d{2}-\d{2}-\d{4}$/',         // DD-MM-YYYY
-                        '/^\w+ \d{4}$/',                 // "Month YYYY"
-                        '/^\d{1,2} \p{L}+, \d{4}$/u',    // "30 january, 2025"
-                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}$/', // "2025-11-09T00:00:00+00:00"
-                    ];
-                    foreach ($datePatterns as $pattern) {
-                        if (preg_match($pattern, $name)) {
-                            $timestamp = strtotime($name);
-
-                            // Ensure strtotime() returned a valid timestamp
-                            if ($timestamp && $timestamp > 0) {
-                                return wp_date(get_option('date_format'), $timestamp);
-                            }
-                        }
-                    }
-
-                    return $name;
-                }, $terms);
-
-                $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
             }
         }
 
