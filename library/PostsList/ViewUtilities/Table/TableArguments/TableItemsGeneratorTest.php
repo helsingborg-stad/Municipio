@@ -5,8 +5,6 @@ namespace Municipio\PostsList\ViewUtilities\Table\TableArguments;
 use DateTimeZone;
 use Municipio\PostObject\NullPostObject;
 use PHPUnit\Framework\TestCase;
-use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use WP_Error;
 use WpService\Contracts\WpDate;

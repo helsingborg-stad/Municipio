@@ -2,7 +2,6 @@
 
 namespace Municipio\PostsList\ViewUtilities\Table\TableArguments;
 
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
