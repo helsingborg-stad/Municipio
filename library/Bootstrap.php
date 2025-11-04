@@ -11,6 +11,7 @@ use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
 use WpService\Implementations\{NativeWpService,WpServiceWithTypecastedReturns};
+use WpUtilService\WpUtilService;
 
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
     require_once MUNICIPIO_PATH . 'vendor/autoload.php';
@@ -161,7 +162,8 @@ if (function_exists('get_field')) {
         new HooksRegistrar(),
         new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
         $schemaDataConfigService,
-        $wpdb
+        $wpdb,
+        new WpUtilService($wpService)
     );
 } else {
     if (!(defined('WP_CLI') && constant('WP_CLI'))) {
