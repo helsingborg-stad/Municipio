@@ -12,6 +12,6 @@
     'dateBadge' => $showDateBadge(),
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
-    'hasPlaceholder' => $config->shouldDisplayPlaceholderImage() && !$post->getImage(),
+    'hasPlaceholder' => $appearanceConfig->shouldDisplayPlaceholderImage() && !$post->getImage(),
 ])
 @endcard

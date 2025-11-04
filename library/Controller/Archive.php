@@ -34,19 +34,6 @@ class Archive extends \Municipio\Controller\BaseController
         //Get archive properties
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
-        //Get template
-        // $template = \Municipio\Helper\Archive::getTemplate(
-        //     $this->data['archiveProps'],
-        //     'cards',
-        //     $postType
-        // );
-
-        //$this->data['template'] = $template;
-
-        //The posts
-        //$this->data['posts']           = $this->getPosts($template);
-        //$this->data['anyPostHasImage'] = $this->anyPostHasImage($this->data['posts']);
-
         //Set default values to query parameters
         $this->data['queryParameters'] = $this->setQueryParameters();
 
@@ -57,15 +44,11 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']    = $this->getFacettingType($this->data['archiveProps']);
 
-        //$this->data['displayFeaturedImage'] = $this->displayFeaturedImage($this->data['archiveProps']);
-        //$this->data['displayReadingTime'] = $this->displayReadingTime($this->data['archiveProps']);
-
         //Archive data
         $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
         $this->data['archiveLead']     = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']  = $this->getPostTypeArchiveLink($postType);
         $this->data['archiveResetUrl'] = $this->getPostTypeArchiveLink($postType);
-        $this->data['gridColumnClass'] = $this->getGridClass($this->data['archiveProps']);
 
         //Pagination
         $this->data['currentPage']                     = $this->getCurrentPage();
@@ -101,13 +84,36 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
-        $postsList  = new \Municipio\PostsList\PostsList($this->getPostConfig(), $this->getAppearanceConfig(), $this->wpService);
+        $postsList  = new \Municipio\PostsList\PostsList(
+            $this->getPostConfig(),
+            $this->getAppearanceConfig(),
+            $this->getFilterConfig(),
+            $this->wpService
+        );
         $this->data = [...$this->data, ...$postsList->getData()];
     }
 
     private function getPostType(): string
     {
         return !empty($this->data['postType']) ? $this->data['postType'] : 'page';
+    }
+
+    private function getFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
+    {
+        $enabledFilters = $this->data['archiveProps']->enabledFilters ?? [];
+        $isEnabled      = !empty($enabledFilters);
+
+        return new class ($isEnabled) implements \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface {
+            public function __construct(
+                private bool $isEnabled,
+            ) {
+            }
+
+            public function isEnabled(): bool
+            {
+                return $this->isEnabled;
+            }
+        };
     }
 
     private function getPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
@@ -209,30 +215,6 @@ class Archive extends \Municipio\Controller\BaseController
     private function getArchiveProperties($postType, $customize)
     {
         return \Municipio\Helper\Archive::getArchiveProperties($postType, $customize);
-    }
-
-    /**
-     * Camel case post type name
-     *
-     * @param string $postType
-     * @return string
-     *
-     * @deprecated since 3.0.0 In favour of \Municipio\Helper\Archive::camelCasePostTypeName()
-     *
-     */
-    private function camelCasePostTypeName($postType)
-    {
-        return \Municipio\Helper\Archive::camelCasePostTypeName($postType);
-    }
-
-    /**
-     * Create a grid column size
-     * @param  array $archiveProps
-     * @return string
-     */
-    private function getGridClass($args): string
-    {
-        return \Municipio\Helper\Archive::getGridClass($args);
     }
 
 

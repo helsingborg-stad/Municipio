@@ -10,7 +10,7 @@
     'readTime'            => $getReadingTime($post),
     'link'                => $post->getPermalink(),
     'context' => ['archive', 'archive.list', 'archive.list.news-item'],
-    'hasPlaceholderImage' => $config->shouldDisplayPlaceholderImage() && !$post->getImage(),
+    'hasPlaceholderImage' => $appearanceConfig->shouldDisplayPlaceholderImage() && !$post->getImage(),
 ])
     @slot('headerLeftArea')
         @if(!empty($getTags($post)))
