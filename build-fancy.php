@@ -171,6 +171,18 @@ class Cleaner {
 class BuildRunner {
     private array $steps = [];
     public function __construct(private ArgvParser $args) {}
+
+    private function maybeConvertEnum($value): string {
+        // PHP 8.1+ enum detection
+        if (is_object($value) && enum_exists(get_class($value)) && property_exists($value, 'value')) {
+            return $value->value;
+        }
+        return (string)$value;
+    }
+
+    /**
+     * Prepare build steps
+     */
     public function prepareSteps(): void {
         // Composer
         if (file_exists('composer.json')) {
@@ -206,12 +218,25 @@ class BuildRunner {
     public function printSteps(): void {
         print TerminalStyle::sep() . PHP_EOL;
         print TerminalStyle::bold(TerminalStyle::color("Planned build steps:", TerminalStyle::UNDERLINE)) . PHP_EOL;
+        $numColWidth  = 4;
+        $cmdColWidth  = 60;
+        $descColWidth = 30;
+        printf(
+            "%s %s %s\n",
+            TerminalStyle::bold(str_pad("#", $numColWidth)),
+            TerminalStyle::bold(str_pad("Command", $cmdColWidth)),
+            TerminalStyle::bold(str_pad("Description", $descColWidth))
+        );
+        print TerminalStyle::sep() . PHP_EOL;
         foreach ($this->steps as $i => $step) {
-            $desc = $step->description ? " - " . $step->description : "";
-            print TerminalStyle::color("  " . ($i+1) . ". ", TerminalStyle::CYAN)
-                . TerminalStyle::bold($step->command)
-                . TerminalStyle::color($desc, TerminalStyle::GRAY)
-                . PHP_EOL;
+            $desc = $step->description ?? "";
+            $cmdStr = $this->maybeConvertEnum($step->command);
+            printf(
+                "%s %s %s\n",
+                TerminalStyle::color(str_pad(($i+1) . ".", $numColWidth), TerminalStyle::CYAN),
+                TerminalStyle::bold(str_pad($cmdStr, $cmdColWidth)),
+                TerminalStyle::color(str_pad($desc, $descColWidth), TerminalStyle::GRAY)
+            );
         }
         print TerminalStyle::sep() . PHP_EOL . PHP_EOL;
     }
