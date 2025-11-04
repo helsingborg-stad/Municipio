@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\Taxonomy;
 
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomyInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -121,6 +122,35 @@ class TermFactoryTest extends TestCase
         $result = $this->instance->create($taxonomy, $schema);
 
         $this->assertEquals(['JDoe', 'JSmith'], [$result[0]->name, $result[1]->name]);
+    }
+
+    #[TestDox('extracts values of nested array of PropertyValue objects')]
+    public function testCreateExtractsValuesOfNestedArrayOfPropertyValueObjects(): void
+    {
+        $taxonomy = $this->getTaxonomy();
+        $taxonomy->method('getSchemaProperty')->willReturn('@meta.category');
+        $schema = Schema::thing()->setProperty('@meta', [
+            Schema::propertyValue()->name('category')->value('TestCategory'),
+            Schema::propertyValue()->name('tag')->value('TestTag'),
+        ]);
+
+        $result = $this->instance->create($taxonomy, $schema->toArray());
+
+        $this->assertEquals('TestCategory', $result[0]->name);
+    }
+
+    #[TestDox('does not extract values of nested array of PropertyValue objects if name does not match target property')]
+    public function testCreateDoesNotExtractValuesOfNestedArrayOfPropertyValueObjectsIfNameDoesNotMatchTargetProperty(): void
+    {
+        $taxonomy = $this->getTaxonomy();
+        $taxonomy->method('getSchemaProperty')->willReturn('@meta.tag');
+        $schema = Schema::thing()->setProperty('@meta', [
+            Schema::propertyValue()->name('category')->value('TestCategory'),
+        ]);
+
+        $result = $this->instance->create($taxonomy, $schema->toArray());
+
+        $this->assertEmpty($result);
     }
 
     private function getTaxonomy(): MockObject|TaxonomyInterface

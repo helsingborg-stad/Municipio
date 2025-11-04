@@ -98,9 +98,35 @@ class TermFactory implements TermFactoryInterface
                 fn($item) => $this->extractPropertyValue($item, [...$propertyPath, $currentKey]),
                 $data
             );
+        } elseif ($matchingSetOfPropertyValues = $this->tryToGetMatchingSetOfPropertyValues($data, $currentKey)) {
+            return $matchingSetOfPropertyValues;
         }
 
         return [];
+    }
+
+    /**
+     * Try to get a matching set of PropertyValue objects from the data.
+     *
+     * @param mixed  $data               The data to search.
+     * @param string $propertyValueName  The name of the PropertyValue to match.
+     *
+     * @return array|null An array of matching values, or null if none found.
+     */
+    private function tryToGetMatchingSetOfPropertyValues(mixed $data, string $propertyValueName): ?array
+    {
+        if (!is_array($data)) {
+            return null;
+        }
+
+        $matches = array_filter($data, function ($item) use ($propertyValueName) {
+            return
+                isset($item['@type']) && $item['@type'] === 'PropertyValue' &&
+                isset($item['name']) && $item['name'] === $propertyValueName &&
+                isset($item['value']) && is_string($item['value']);
+        });
+
+        return !empty($matches) ? array_map(fn($item) => $item['value'], $matches) : null;
     }
 
     /**
