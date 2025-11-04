@@ -6,43 +6,77 @@ if (php_sapi_name() !== 'cli') {
 
 // --- Terminal styling helpers ---
 class TerminalStyle {
-    const RESET = "\033[0m";
-    const BOLD = "\033[1m";
-    const UNDERLINE = "\033[4m";
-    const GREEN = "\033[32m";
-    const RED = "\033[31m";
-    const YELLOW = "\033[33m";
-    const CYAN = "\033[36m";
-    const GRAY = "\033[90m";
-    public static function color(string $text, string $color): string {
+
+    private const RESET     = "\033[0m";
+    private const BOLD      = "\033[1m";
+    private const UNDERLINE = "\033[4m";
+    private const GREEN     = "\033[32m";
+    private const RED       = "\033[31m";
+    private const YELLOW    = "\033[33m";
+    private const CYAN      = "\033[36m";
+    private const GRAY      = "\033[90m";
+
+    /**
+     * Apply color to text
+     * @param string $text
+     * @param string $color
+     * @return string
+     */
+    public static function color(string $text, string $color): string
+    {
         return $color . $text . self::RESET;
     }
-    public static function bold(string $text): string {
+
+    /**
+     * Apply bold style to text
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function bold(string $text): string 
+    {
         return self::BOLD . $text . self::RESET;
     }
-    public static function underline(string $text): string {
+
+    /**
+     * Apply underline style to text
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function underline(string $text): string
+    {
         return self::UNDERLINE . $text . self::RESET;
     }
-    public static function sep(): string {
+
+    /**
+     * Generate a separator line
+     *
+     * @return string
+     */
+    public static function sep(): string
+    {
         return self::color(str_repeat('─', 60), self::GRAY);
     }
 }
 
 // --- Enums for flags and build commands ---
-enum Flag: string {
-    case NoComposer   = '--no-composer';
-    case Cleanup      = '--cleanup';
-    case InstallNpm   = '--install-npm';
-    case Release      = '--release';
+enum Flag: string
+{
+    case NoComposer = '--no-composer';
+    case Cleanup    = '--cleanup';
+    case InstallNpm = '--install-npm';
+    case Release    = '--release';
 }
 
-enum BuildCommand: string {
+enum BuildCommand: string
+{
     case ComposerInstall      = 'composer install --prefer-dist --no-progress --no-dev';
     case ComposerDumpAutoload = 'composer dump-autoload';
     case NpmCi                = 'npm ci --no-progress --no-audit';
     case NpmInstall           = 'npm install --no-progress --no-audit';
     case NpmRunBuild          = 'npm run build';
-    case RemoveDist           = 'rm -rf ./dist'; // <-- Add this line
+    case RemoveDist           = 'rm -rf ./dist';
 }
 
 // --- Argument parser ---
