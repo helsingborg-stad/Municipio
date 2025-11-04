@@ -48,7 +48,8 @@
         "helsingborg-stad/component-library": "4.62.20",
         "freshleafmedia/autofocus": "^1.0",
         "astrotomic/php-deepface": "^0.4.0",
-        "helsingborg-stad/kirki": "^5.2"
+        "helsingborg-stad/kirki": "^5.2",
+        "helsingborg-stad/wputilservice": "^0.2.44"
     },
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
