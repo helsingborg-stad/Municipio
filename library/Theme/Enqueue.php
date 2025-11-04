@@ -2,19 +2,18 @@
 
 namespace Municipio\Theme;
 
-use Municipio\Helper\Enqueue as EnqueueHelper;
-use Municipio\Helper\EnqueueTranslation;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
-use WpUtilService\Features\Enqueue\EnqueueManager;
 use WpUtilService\WpUtilService;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+
 /**
  * Class Enqueue
  * @package Municipio\Theme
  */
 class Enqueue implements Hookable
 {
-    private EnqueueManager $enqueue;
+    private EnqueueManagerInterface $enqueue;
 
     /**
      * Enqueue constructor.
