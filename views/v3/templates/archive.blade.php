@@ -39,11 +39,6 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
-    @includeFirst([
-        'partials.archive.archive-' . sanitize_title($postType) . '-filters',
-        'partials.archive.archive-filters',
-    ])
-
     <div
         class="archive s-archive s-archive-template-{{ sanitize_title($template) }}  s-{{ sanitize_title($postType) }}-archive">
 

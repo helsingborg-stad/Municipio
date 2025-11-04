@@ -1,12 +1,14 @@
 @element([ 'classList' => $getParentColumnClasses() ])
     
-    @element(['classList' => ['o-layout-grid--col-span-12']])
-        @includeWhen($filterConfig->isEnabled(), 'parts.filters')
-    @endelement
+    @if($filterConfig->isEnabled())
+        @element(['classList' => ['o-layout-grid--col-span-12']])
+            @include('parts.filters')
+        @endelement
+    @endif
 
     @if($appearanceConfig->getDesign() === \Municipio\PostsList\Config\AppearanceConfig\PostDesign::TABLE)
         @element(['classList' => ['o-layout-grid--col-span-12']])
-            @include('table')
+            @include('parts.table')
         @endelement
     @else
         @foreach($posts as $post)

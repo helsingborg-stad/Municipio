@@ -135,31 +135,6 @@ class Archive
     }
 
     /**
-     * Boolean function to determine if navigation should be shown
-     *
-     * @param string $postType
-     * @return boolean
-     */
-    public static function showFilter($args)
-    {
-        $enabledFilters = false;
-
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        $arrayWithoutEmptyValues = isset($args->enabledFilters)
-            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
-            : [];
-
-        if (!empty($arrayWithoutEmptyValues)) {
-            $enabledFilters = $args->enabledFilters;
-        }
-
-        return apply_filters('Municipio/Archive/showFilter', $enabledFilters, $args);
-    }
-
-    /**
      * Boolean function to determine if text search should be enabled
      *
      * @param   string      $postType   The current post type

@@ -73,7 +73,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['hasQueryParameters'] = $this->hasQueryParameters(['paged' => true]);
 
         //Show filter?
-        $this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
+        //$this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
         $archiveMenuConfig = new MenuConfig(
             'archive-menu',
@@ -100,9 +100,7 @@ class Archive extends \Municipio\Controller\BaseController
 
     private function getFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
-        $enabledFilters = $this->data['archiveProps']->enabledFilters ?? [];
-        $isEnabled      = !empty($enabledFilters);
-
+        $isEnabled = $this->showFilter($this->data['archiveProps']);
         return new class ($isEnabled) implements \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface {
             public function __construct(
                 private bool $isEnabled,
@@ -238,9 +236,25 @@ class Archive extends \Municipio\Controller\BaseController
      * @param string $postType
      * @return boolean
      */
-    public function showFilter($args)
+    public function showFilter($args): bool
     {
-        return \Municipio\Helper\Archive::showFilter($args);
+        $enabledFilters = false;
+
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
+        $arrayWithoutEmptyValues = isset($args->enabledFilters)
+            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
+            : [];
+
+        if (!empty($arrayWithoutEmptyValues)) {
+            $enabledFilters = $args->enabledFilters;
+        }
+
+        $enabledFilters = apply_filters('Municipio/Archive/showFilter', $enabledFilters, $args);
+
+        return is_array($enabledFilters) && !empty($enabledFilters) ? true : (bool) $enabledFilters;
     }
 
     /**
