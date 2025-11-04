@@ -141,7 +141,7 @@ class Archive extends \Municipio\Controller\BaseController
             'cards' => PostDesign::CARD,
             'compressed' => PostDesign::COMPRESSED,
             'collection' => PostDesign::COLLECTION,
-            'grid' => PostDesign::GRIDITEM,
+            'grid' => PostDesign::BLOCK,
             'newsitem' => PostDesign::NEWSITEM,
             'schema' => PostDesign::SCHEMA,
             'list' => PostDesign::TABLE,
