@@ -5,7 +5,8 @@ if (php_sapi_name() !== 'cli') {
 }
 
 // --- Terminal styling helpers ---
-class TerminalStyle {
+class TerminalStyle
+{
 
     private const RESET     = "\033[0m";
     private const BOLD      = "\033[1m";
@@ -192,6 +193,18 @@ class BuildRunner {
             }
         }
     }
+    public function printSteps(): void {
+        print TerminalStyle::sep() . PHP_EOL;
+        print TerminalStyle::bold(TerminalStyle::color("Planned build steps:", TerminalStyle::UNDERLINE)) . PHP_EOL;
+        foreach ($this->steps as $i => $step) {
+            $desc = $step->description ? " - " . $step->description : "";
+            print TerminalStyle::color("  " . ($i+1) . ". ", TerminalStyle::CYAN)
+                . TerminalStyle::bold($step->command)
+                . TerminalStyle::color($desc, TerminalStyle::GRAY)
+                . PHP_EOL;
+        }
+        print TerminalStyle::sep() . PHP_EOL . PHP_EOL;
+    }
     public function run(): void {
         $dirName = basename(dirname(__FILE__));
         foreach ($this->steps as $step) {
@@ -205,9 +218,10 @@ class BuildRunner {
 
 // --- Main Entrypoint ---
 function main(array $argv) {
-    $args = new ArgvParser($argv);
+    $args   = new ArgvParser($argv);
     $runner = new BuildRunner($args);
     $runner->prepareSteps();
+    $runner->printSteps();
     $runner->run();
 
     // Removables
