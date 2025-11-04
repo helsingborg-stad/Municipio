@@ -30,7 +30,12 @@ class LabelFormatter implements LabelFormatterInterface
             if (preg_match($pattern, $name)) {
                 $timestamp = strtotime($name);
                 if ($timestamp && $timestamp > 0) {
-                    static $dateFormat = $this->wpService->getOption('date_format');
+                    static $dateFormat = null;
+
+                    if ($dateFormat === null) {
+                        $dateFormat = $this->wpService->getOption('date_format');
+                    }
+
                     return $this->wpService->wpDate($dateFormat, $timestamp);
                 }
             }
