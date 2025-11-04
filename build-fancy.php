@@ -68,6 +68,7 @@ enum Flag: string
     case Cleanup    = '--cleanup';
     case InstallNpm = '--install-npm';
     case Release    = '--release';
+    case DryRun     = '--dry-run';
 }
 
 enum BuildCommand: string
@@ -222,6 +223,10 @@ function main(array $argv) {
     $runner = new BuildRunner($args);
     $runner->prepareSteps();
     $runner->printSteps();
+    if ($args->has(Flag::DryRun)) {
+        print TerminalStyle::bold(TerminalStyle::color("Dry run: No commands will be executed.", TerminalStyle::YELLOW)) . PHP_EOL;
+        exit(0);
+    }
     $runner->run();
 
     // Removables
