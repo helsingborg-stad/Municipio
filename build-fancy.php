@@ -42,6 +42,7 @@ enum BuildCommand: string {
     case NpmCi                = 'npm ci --no-progress --no-audit';
     case NpmInstall           = 'npm install --no-progress --no-audit';
     case NpmRunBuild          = 'npm run build';
+    case RemoveDist           = 'rm -rf ./dist'; // <-- Add this line
 }
 
 // --- Argument parser ---
@@ -142,7 +143,7 @@ class BuildRunner {
                     $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'NPM build');
                 } else {
                     $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package');
-                    $this->steps[] = new BuildStep("rm -rf ./dist", 'Remove dist');
+                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist');
                     $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist');
                 }
             } else {
@@ -151,7 +152,7 @@ class BuildRunner {
                     $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'NPM build');
                 } else {
                     $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package');
-                    $this->steps[] = new BuildStep("rm -rf ./dist", 'Remove dist');
+                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist');
                     $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist');
                 }
             }
