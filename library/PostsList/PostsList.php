@@ -57,6 +57,9 @@ class PostsList
             'getParentColumnClasses'             => (new ViewUtilities\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses'               => (new ViewUtilities\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
 
+            // Table view utilities
+            'getTableComponentArguments'         => (new ViewUtilities\Table\GetTableComponentArguments($this->getPosts(), $this->appearanceConfig, $this->wpService, $this->acfService))->getCallable(),
+
             // Schema Project view utilities
             'getSchemaProjectProgressLabel'      => (new ViewUtilities\Schema\Project\GetProgressLabel())->getCallable(),
             'getSchemaProjectProgressPercentage' => (new ViewUtilities\Schema\Project\GetProgressPercentage())->getCallable(),

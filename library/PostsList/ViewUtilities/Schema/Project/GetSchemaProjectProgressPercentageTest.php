@@ -25,9 +25,9 @@ class GetSchemaProjectProgressPercentageTest extends TestCase
             }
         };
 
-        $getSchemaProjectProgressPercentage = new GetSchemaProjectProgressPercentage();
-        $callable                           = $getSchemaProjectProgressPercentage->getCallable();
-        $result                             = $callable($post);
+        $getProgressPercentage = new GetProgressPercentage();
+        $callable              = $getProgressPercentage->getCallable();
+        $result                = $callable($post);
 
         $this->assertEquals(75, $result);
     }

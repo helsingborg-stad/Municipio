@@ -137,6 +137,7 @@ class Archive extends \Municipio\Controller\BaseController
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
         $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay ?? [];
+        $postPropertiesToDisplay    = $this->data['archiveProps']->postPropertiesToDisplay ?? [];
         $template                   = $this->data['archiveProps']->style ?? 'cards';
         $design                     = match ($template) {
             'cards' => PostDesign::CARD,
@@ -145,6 +146,7 @@ class Archive extends \Municipio\Controller\BaseController
             'grid' => PostDesign::GRIDITEM,
             'newsitem' => PostDesign::NEWSITEM,
             'schema' => PostDesign::SCHEMA,
+            'list' => PostDesign::TABLE,
             default => PostDesign::CARD,
         };
         return new class (
@@ -152,6 +154,7 @@ class Archive extends \Municipio\Controller\BaseController
             $shouldDisplayFeaturedImage,
             $shouldDisplayReadingTime,
             $taxonomiesToDisplay,
+            $postPropertiesToDisplay,
             $design
         ) extends DefaultAppearanceConfig {
             public function __construct(
@@ -159,6 +162,7 @@ class Archive extends \Municipio\Controller\BaseController
                 private bool $shouldDisplayFeaturedImage,
                 private bool $shouldDisplayReadingTime,
                 private array $taxonomiesToDisplay,
+                private array $postPropertiesToDisplay,
                 private PostDesign $design
             ) {
             }
@@ -181,6 +185,11 @@ class Archive extends \Municipio\Controller\BaseController
             public function getTaxonomiesToDisplay(): array
             {
                 return $this->taxonomiesToDisplay;
+            }
+
+            public function getPostPropertiesToDisplay(): array
+            {
+                return $this->postPropertiesToDisplay;
             }
 
             public function getNumberOfColumns(): int

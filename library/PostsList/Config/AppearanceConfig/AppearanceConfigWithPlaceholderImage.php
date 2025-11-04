@@ -68,6 +68,15 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
      * @inheritDoc
      * @codeCoverageIgnore
      */
+    public function getPostPropertiesToDisplay(): array
+    {
+        return $this->innerConfig->getPostPropertiesToDisplay();
+    }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
     public function getNumberOfColumns(): int
     {
         return $this->innerConfig->getNumberOfColumns();

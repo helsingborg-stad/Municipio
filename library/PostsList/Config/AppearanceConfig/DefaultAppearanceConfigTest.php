@@ -41,4 +41,11 @@ class DefaultAppearanceConfigTest extends TestCase
         $config = new DefaultAppearanceConfig();
         $this->assertSame(1, $config->getNumberOfColumns());
     }
+
+    #[TestDox('default post properties to display is empty array')]
+    public function testDefaultPostPropertiesToDisplayIsEmptyArray(): void
+    {
+        $config = new DefaultAppearanceConfig();
+        $this->assertSame([], $config->getPostPropertiesToDisplay());
+    }
 }

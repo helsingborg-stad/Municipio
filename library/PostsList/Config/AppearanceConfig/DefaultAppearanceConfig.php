@@ -50,6 +50,14 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     /**
      * @inheritdoc
      */
+    public function getPostPropertiesToDisplay(): array
+    {
+        return [];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getNumberOfColumns(): int
     {
         return 1;

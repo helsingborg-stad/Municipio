@@ -40,6 +40,13 @@ interface AppearanceConfigInterface
     public function getTaxonomiesToDisplay(): array;
 
     /**
+     * Get post properties to display
+     *
+     * @return string[] Post property keys
+     */
+    public function getPostPropertiesToDisplay(): array;
+
+    /**
      * Get number of columns for the posts list
      *
      * @return int
