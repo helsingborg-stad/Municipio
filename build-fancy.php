@@ -66,7 +66,7 @@ class TerminalStyle
      */
     public static function sep(): string
     {
-        return self::color(str_repeat('─', 60), self::GRAY);
+        return self::color(str_repeat('─', 100), self::GRAY);
     }
 }
 
@@ -196,28 +196,30 @@ class BuildRunner {
             $npmPackage = json_decode(file_get_contents('package.json'));
             if (file_exists('package-lock.json')) {
                 if (!$this->args->has(Flag::InstallNpm)) {
-                    $this->steps[] = new BuildStep(BuildCommand::NpmCi, 'NPM ci');
-                    $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'NPM build');
+                    $this->steps[] = new BuildStep(BuildCommand::NpmCi, 'Install NPM packages (ci)');
+                    $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'Build NPM packages');
                 } else {
-                    $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package');
-                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist');
-                    $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist');
+                    $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package: ' . $npmPackage->name);
+                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist folder');
+                    $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist folder');
                 }
             } else {
                 if (!$this->args->has(Flag::InstallNpm)) {
-                    $this->steps[] = new BuildStep(BuildCommand::NpmInstall, 'NPM install');
-                    $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'NPM build');
+                    $this->steps[] = new BuildStep(BuildCommand::NpmInstall, 'Install NPM packages');
+                    $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'Build NPM packages');
                 } else {
-                    $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package');
-                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist');
-                    $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist');
+                    $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package: ' . $npmPackage->name);
+                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist folder');
+                    $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist folder');
                 }
             }
         }
     }
     public function printSteps(): void {
         print TerminalStyle::sep() . PHP_EOL;
-        print TerminalStyle::bold(TerminalStyle::color("Planned build steps:", TerminalStyle::UNDERLINE)) . PHP_EOL;
+        print TerminalStyle::bold(TerminalStyle::color("PLANNED BUILD STEPS:", TerminalStyle::UNDERLINE)) . PHP_EOL;
+        print TerminalStyle::sep() . PHP_EOL;
+
         $numColWidth  = 4;
         $cmdColWidth  = 60;
         $descColWidth = 30;
@@ -229,8 +231,10 @@ class BuildRunner {
         );
         print TerminalStyle::sep() . PHP_EOL;
         foreach ($this->steps as $i => $step) {
-            $desc = $step->description ?? "";
+
+            $desc   = $step->description ?? "";
             $cmdStr = $this->maybeConvertEnum($step->command);
+
             printf(
                 "%s %s %s\n",
                 TerminalStyle::color(str_pad(($i+1) . ".", $numColWidth), TerminalStyle::CYAN),
@@ -238,7 +242,9 @@ class BuildRunner {
                 TerminalStyle::color(str_pad($desc, $descColWidth), TerminalStyle::GRAY)
             );
         }
+
         print TerminalStyle::sep() . PHP_EOL . PHP_EOL;
+
     }
     public function run(): void {
         $dirName = basename(dirname(__FILE__));
