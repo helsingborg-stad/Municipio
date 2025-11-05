@@ -33,7 +33,7 @@ class LabelFormatterTest extends TestCase
         return new class implements WpDate, GetOption {
             public function wpDate(string $format, int $timestamp = null, \DateTimeZone $timezone = null): string|false
             {
-                $format = 'Y-m-d'; // Simplified for testing
+                $testFormat = 'Y-m-d'; // Simplified for testing
                 return date($format, $timestamp);
             }
 
