@@ -40,8 +40,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Filter options
         $this->data['taxonomyFilters'] = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
-        var_dump($this->data['taxonomyFilters']);
-        die();
 
         // $this->data['enableTextSearch'] = $this->enableTextSearch($this->data['archiveProps']);
         // $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
@@ -118,8 +116,9 @@ class Archive extends \Municipio\Controller\BaseController
         $resetUrl            = $this->getPostTypeArchiveLink($this->getPostType());
         $isDateFilterEnabled = $this->enableDateFilter($this->data['archiveProps']);
         $isTextSearchEnabled = $this->enableTextSearch($this->data['archiveProps']);
+        $taxonomies          = $this->getFilterTaxonomiesFromSettings((array) $this->data['archiveProps']);
 
-        return new class ($isEnabled, $showReset, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled) extends DefaultFilterConfig {
+        return new class ($isEnabled, $showReset, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomies) extends DefaultFilterConfig {
             /**
              * Constructor
              */
@@ -128,7 +127,8 @@ class Archive extends \Municipio\Controller\BaseController
                 private bool $showReset,
                 private string $resetUrl,
                 private bool $isDateFilterEnabled,
-                private bool $isTextSearchEnabled
+                private bool $isTextSearchEnabled,
+                private array $taxonomies
             ) {
             }
 
@@ -171,6 +171,11 @@ class Archive extends \Municipio\Controller\BaseController
             {
                 return $this->isDateFilterEnabled;
             }
+
+            public function getTaxonomiesEnabledForFiltering(): array
+            {
+                return $this->taxonomies;
+            }
         };
     }
 
@@ -181,13 +186,15 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
     {
-        $postType = [$this->getPostType()];
-        return new class ($postType) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+        $postType           = [$this->getPostType()];
+        $isFacettingEnabled = $this->showFilter($this->data['archiveProps']);
+        return new class ($postType, $isFacettingEnabled) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
              */
             public function __construct(
-                private array $postType
+                private array $postType,
+                private bool $isFacettingEnabled
             ) {
             }
 
@@ -205,6 +212,14 @@ class Archive extends \Municipio\Controller\BaseController
             public function getPostsPerPage(): int
             {
                 return $this->data['archiveProps']->postsPerPage ?? get_option('posts_per_page');
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function isFacettingTaxonomyQueryEnabled(): bool
+            {
+                return $this->isFacettingEnabled;
             }
         };
     }
@@ -577,6 +592,24 @@ class Archive extends \Municipio\Controller\BaseController
     public function displayFeaturedImage($args)
     {
         return \Municipio\Helper\Archive::displayFeaturedImage($args);
+    }
+
+    private function getFilterTaxonomiesFromSettings(array $settings): array
+    {
+        $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(
+            $settings['enabledFilters'] ?? [],
+            [$this->currentTaxonomy()]
+        ), $this->currentTaxonomy());
+
+        if (empty($taxonomies)) {
+            return [];
+        }
+
+        // Wash out invalid taxonomies
+        $allTaxonomies = $this->wpService->getTaxonomies([], 'names');
+        $taxonomies    = array_intersect($allTaxonomies, $taxonomies);
+
+        return array_values($taxonomies);
     }
 
     /**

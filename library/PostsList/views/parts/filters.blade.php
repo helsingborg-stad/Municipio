@@ -82,10 +82,15 @@
         </div>
     @endif
 
-    {{-- Select dropdowns for filtering --}}
     <div class="o-grid u-align-content--end">
         
-        @foreach ($filterConfig->getTaxonomiesEnabledForFiltering() as $select)
+        @foreach ($getTaxonomyFilterSelectComponentArguments() as $selectArguments)
+            <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
+                @select([...$selectArguments, 'size' => 'md'])@endselect
+            </div>
+        @endforeach
+        
+        {{-- @foreach ($filterConfig->getTaxonomiesEnabledForFiltering() as $select)
             <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
                 @select([
                     'label' => $select['label'] ?? '',
@@ -99,16 +104,14 @@
                 ])
                 @endselect
             </div>
-        @endforeach
+        @endforeach --}}
     
         {{-- Facetting --}}
         <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
             @button([
-                'text' => $facettingType ? $lang->filterBtn : $lang->searchBtn,
+                ...$getFilterFormSubmitButtonArguments(),
                 'color' => 'primary',
-                'type' => 'submit',
                 'classList' => ['u-display--block@xs', 'u-width--100@xs'],
-                'icon' => $facettingType ? 'filter_list' : 'search',
             ])
             @endbutton
         </div>
@@ -116,9 +119,7 @@
         @if ($filterConfig->showReset() && $filterConfig->getResetUrl())
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                 @button([
-                    'href' => $filterConfig->getResetUrl(),
-                    'text' => $facettingType ? $lang->resetFilterBtn : $lang->resetSearchBtn,
-                    'type' => 'basic',
+                    ...$getFilterFormResetButtonArguments(),
                     'classList' => ['u-display--block@xs', 'u-width--100@xs'],
                 ])
                 @endbutton

@@ -17,4 +17,11 @@ interface GetPostsConfigInterface
      * @return int
      */
     public function getPostsPerPage(): int;
+
+    /**
+     * Check if facetting is enabled
+     *
+     * @return bool
+     */
+    public function isFacettingTaxonomyQueryEnabled(): bool;
 }

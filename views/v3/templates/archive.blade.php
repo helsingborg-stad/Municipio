@@ -68,16 +68,7 @@
             @endif
             @section('loop')
                 @if ($displayArchiveLoop)
-                    @includefirst(
-                        [   
-                            'posts-list',
-                            'partials.post.schema.' . $template,
-                            'partials.post.' . $postType . '-' . $template, 
-                            'partials.post.post-' . $template, 
-                            'partials.post.post-cards'
-                        ],
-                        ['posts' => $posts]
-                    )
+                    @include('posts-list')
                 @endif
             @show
             @if ($showPagination && $paginationList)

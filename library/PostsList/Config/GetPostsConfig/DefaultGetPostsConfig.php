@@ -22,4 +22,9 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     {
         return 10;
     }
+
+    public function isFacettingTaxonomyQueryEnabled(): bool
+    {
+        return false;
+    }
 }
