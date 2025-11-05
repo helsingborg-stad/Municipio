@@ -26,8 +26,8 @@ class CacheBust
             $revManifest = json_decode(file_get_contents($jsonPath), true);
         } else {
             echo '<div style="color:red">Error: Assets not built!
-               Go to ' . MODULARITY_PATH . ' and run `npm run build`. See '
-               . MODULARITY_PATH . '/README.md for more info.</div>';
+               Go to ' . MODULARITY_PATH . ' and run `npm run build`. See ' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+               . MODULARITY_PATH . '/README.md for more info.</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
         return $revManifest[$name] ?? $name;

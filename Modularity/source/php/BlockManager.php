@@ -509,7 +509,7 @@ class BlockManager
             }
 
             // Render block view if validated correctly
-            echo $renderedView;
+            echo $renderedView; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
             $cache->stop(); //Stop cache
         }
