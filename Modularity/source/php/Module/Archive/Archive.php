@@ -4,6 +4,7 @@ namespace Modularity\Module\Archive;
 
 use Modularity\Helper\WpService;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
+use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\PostsList;
@@ -80,7 +81,7 @@ class Archive extends \Modularity\Module
     private function getPostList(): PostsList
     {
         if (!isset($this->postsList)) {
-            $this->postsList = new PostsList($this->createPostListConfig(), new DefaultAppearanceConfig(), WpService::get());
+            $this->postsList = new PostsList($this->createPostListConfig(), new DefaultAppearanceConfig(), new DefaultFilterConfig(), WpService::get());
         }
 
         return $this->postsList;
