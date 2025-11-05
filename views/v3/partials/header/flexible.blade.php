@@ -4,7 +4,8 @@
         'classList' => array_merge(
             ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
             $headerData['upperHeader']['classList'],
-            isset($classList) ? (array) $classList : []
+            isset($classList) ? (array) $classList : [],
+            $classes ?? []
         ),
         'id' => 'site-header-flexible-upper',
         'backgroundColor' => $headerData['upperHeader']['backgroundColor'],
@@ -38,7 +39,8 @@
             'classList' => array_merge(
                 ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
                 $headerData['lowerHeader']['classList'],
-                isset($classList) ? (array) $classList : []
+                isset($classList) ? (array) $classList : [],
+                $classes ?? []
         ),
             'id' => 'site-header-flexible-lower',
             'backgroundColor' => $headerData['lowerHeader']['backgroundColor'],

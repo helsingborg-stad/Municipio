@@ -36,6 +36,7 @@ use Municipio\ImageFocus\Resolvers\{
     MostBusyAreaFocusPointResolver,
     ChainFocusPointResolver
 };
+use WpUtilService\WpUtilService;
 
 /**
  * Class App
@@ -52,7 +53,8 @@ class App
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
         private SchemaDataConfigInterface $schemaDataConfig,
-        private wpdb $wpdb
+        private wpdb $wpdb,
+        private WpUtilService $wpUtilService
     ) {
         /**
          * Run generic custom actions
@@ -134,7 +136,7 @@ class App
          */
         $enqueue = new \Municipio\Theme\Enqueue(
             $this->wpService,
-            new \Municipio\Helper\Enqueue($this->wpService)
+            $this->wpUtilService
         );
         $enqueue->addHooks();
 
