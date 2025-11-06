@@ -110,8 +110,9 @@ class ArgvParser {
 // --- Build step ---
 class BuildStep {
     public function __construct(
-        public BuildCommand|string $command,
-        public ?string $description = null
+        public string $command,
+        public string $description,
+        public ?string $meta = null
     ) {}
     public function run(string $dirName): int {
         print TerminalStyle::sep() . PHP_EOL;
@@ -152,11 +153,29 @@ class ShellExecutor {
 
 // --- Cleaner ---
 class Cleaner {
-    public function __construct(private array $removables, private string $dirName) {}
+    public function __construct(private string $dirName) {}
+    public function preview(): void {
+        $distignorePath = './.distignore';
+        $removables = [];
+        if (file_exists($distignorePath)) {
+            $removables = array_filter(array_map('trim', file($distignorePath)));
+        }
+        print TerminalStyle::sep() . PHP_EOL;
+        print TerminalStyle::bold(TerminalStyle::color("Planned files to remove:", TerminalStyle::YELLOW)) . PHP_EOL;
+        foreach ($removables as $removable) {
+            print TerminalStyle::color("  $removable", TerminalStyle::GRAY) . PHP_EOL;
+        }
+        print TerminalStyle::sep() . PHP_EOL;
+    }
     public function clean(): void {
+        $distignorePath = './.distignore';
+        $removables = [];
+        if (file_exists($distignorePath)) {
+            $removables = array_filter(array_map('trim', file($distignorePath)));
+        }
         print TerminalStyle::sep() . PHP_EOL;
         print TerminalStyle::bold(TerminalStyle::color("🧹 Cleanup started...", TerminalStyle::YELLOW)) . PHP_EOL;
-        foreach ($this->removables as $removable) {
+        foreach ($removables as $removable) {
             if (file_exists($removable)) {
                 print TerminalStyle::color("Removing $removable from {$this->dirName}", TerminalStyle::GRAY) . PHP_EOL;
                 shell_exec("rm -rf $removable");
@@ -187,42 +206,79 @@ class BuildRunner {
         // Composer
         if (file_exists('composer.json')) {
             if (!$this->args->has(Flag::NoComposer)) {
-                $this->steps[] = new BuildStep(BuildCommand::ComposerInstall, 'Composer install');
+                $this->steps[] = new BuildStep(
+                    is_object(BuildCommand::ComposerInstall) && enum_exists(get_class(BuildCommand::ComposerInstall)) ? BuildCommand::ComposerInstall->value : (string)BuildCommand::ComposerInstall,
+                    'Composer install'
+                );
             }
-            $this->steps[] = new BuildStep(BuildCommand::ComposerDumpAutoload, 'Composer dump-autoload');
+            $this->steps[] = new BuildStep(
+                is_object(BuildCommand::ComposerDumpAutoload) && enum_exists(get_class(BuildCommand::ComposerDumpAutoload)) ? BuildCommand::ComposerDumpAutoload->value : (string)BuildCommand::ComposerDumpAutoload,
+                'Composer dump-autoload'
+            );
         }
         // NPM
         if (file_exists('package.json')) {
             $npmPackage = json_decode(file_get_contents('package.json'));
             if (file_exists('package-lock.json')) {
                 if (!$this->args->has(Flag::InstallNpm)) {
-                    $this->steps[] = new BuildStep(BuildCommand::NpmCi, 'Install NPM packages (ci)');
-                    $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'Build NPM packages');
+                    $this->steps[] = new BuildStep(
+                        is_object(BuildCommand::NpmCi) && enum_exists(get_class(BuildCommand::NpmCi)) ? BuildCommand::NpmCi->value : (string)BuildCommand::NpmCi,
+                        'Install NPM packages (ci)'
+                    );
+                    $this->steps[] = new BuildStep(
+                        is_object(BuildCommand::NpmRunBuild) && enum_exists(get_class(BuildCommand::NpmRunBuild)) ? BuildCommand::NpmRunBuild->value : (string)BuildCommand::NpmRunBuild,
+                        'Build NPM packages'
+                    );
                 } else {
                     $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package: ' . $npmPackage->name);
-                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist folder');
+                    $this->steps[] = new BuildStep(
+                        is_object(BuildCommand::RemoveDist) && enum_exists(get_class(BuildCommand::RemoveDist)) ? BuildCommand::RemoveDist->value : (string)BuildCommand::RemoveDist,
+                        'Remove dist folder'
+                    );
                     $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist folder');
                 }
             } else {
                 if (!$this->args->has(Flag::InstallNpm)) {
-                    $this->steps[] = new BuildStep(BuildCommand::NpmInstall, 'Install NPM packages');
-                    $this->steps[] = new BuildStep(BuildCommand::NpmRunBuild, 'Build NPM packages');
+                    $this->steps[] = new BuildStep(
+                        is_object(BuildCommand::NpmInstall) && enum_exists(get_class(BuildCommand::NpmInstall)) ? BuildCommand::NpmInstall->value : (string)BuildCommand::NpmInstall,
+                        'Install NPM packages'
+                    );
+                    $this->steps[] = new BuildStep(
+                        is_object(BuildCommand::NpmRunBuild) && enum_exists(get_class(BuildCommand::NpmRunBuild)) ? BuildCommand::NpmRunBuild->value : (string)BuildCommand::NpmRunBuild,
+                        'Build NPM packages'
+                    );
                 } else {
                     $this->steps[] = new BuildStep("npm install $npmPackage->name", 'NPM install package: ' . $npmPackage->name);
-                    $this->steps[] = new BuildStep(BuildCommand::RemoveDist, 'Remove dist folder');
+                    $this->steps[] = new BuildStep(
+                        is_object(BuildCommand::RemoveDist) && enum_exists(get_class(BuildCommand::RemoveDist)) ? BuildCommand::RemoveDist->value : (string)BuildCommand::RemoveDist,
+                        'Remove dist folder'
+                    );
                     $this->steps[] = new BuildStep("mv node_modules/$npmPackage->name/dist ./", 'Move dist folder');
                 }
             }
         }
+        // Cleanup step
+        if ($this->args->has(Flag::Cleanup)) {
+            $distignorePath = './.distignore';
+            $removables = [];
+            if (file_exists($distignorePath)) {
+                $removables = array_filter(array_map('trim', file($distignorePath)));
+            }
+            $desc = $removables ? "Remove files" : "Remove files (none listed)";
+            $meta = $removables ? ("\n" . implode(", ", array_map(fn($f) => "$f", $removables))) : null;
+            $this->steps[] = new BuildStep('cleanup', $desc, $meta);
+        }
     }
+    /**
+     * Print planned build steps as a table, including meta info for each step.
+     */
     public function printSteps(): void {
         print TerminalStyle::sep() . PHP_EOL;
         print TerminalStyle::bold(TerminalStyle::color("PLANNED BUILD STEPS:", TerminalStyle::UNDERLINE)) . PHP_EOL;
         print TerminalStyle::sep() . PHP_EOL;
-
         $numColWidth  = 4;
-        $cmdColWidth  = 60;
-        $descColWidth = 30;
+        $cmdColWidth  = 18;
+        $descColWidth = 32;
         printf(
             "%s %s %s\n",
             TerminalStyle::bold(str_pad("#", $numColWidth)),
@@ -231,20 +287,20 @@ class BuildRunner {
         );
         print TerminalStyle::sep() . PHP_EOL;
         foreach ($this->steps as $i => $step) {
-
-            $desc   = $step->description ?? "";
-            $cmdStr = $this->maybeConvertEnum($step->command);
-
             printf(
                 "%s %s %s\n",
-                TerminalStyle::color(str_pad(($i+1) . ".", $numColWidth), TerminalStyle::CYAN),
-                TerminalStyle::bold(str_pad($cmdStr, $cmdColWidth)),
-                TerminalStyle::color(str_pad($desc, $descColWidth), TerminalStyle::GRAY)
+                TerminalStyle::color(str_pad(($i + 1) . ".", $numColWidth), TerminalStyle::CYAN),
+                TerminalStyle::bold(str_pad($step->command, $cmdColWidth)),
+                $step->description
             );
+            if ($step->meta) {
+                echo str_pad("", $numColWidth);
+
+                print TerminalStyle::color(" Files:", TerminalStyle::YELLOW) . PHP_EOL;
+                print TerminalStyle::color($step->meta, TerminalStyle::GRAY) . PHP_EOL;
+            }
         }
-
-        print TerminalStyle::sep() . PHP_EOL . PHP_EOL;
-
+        print TerminalStyle::sep() . PHP_EOL;
     }
     public function run(): void {
         $dirName = basename(dirname(__FILE__));
@@ -263,26 +319,15 @@ function main(array $argv) {
     $runner = new BuildRunner($args);
     $runner->prepareSteps();
     $runner->printSteps();
+    $dirName = basename(dirname(__FILE__));
+    if ($args->has(Flag::Cleanup) && !$args->has(Flag::DryRun)) {
+        (new Cleaner($dirName))->clean();
+    }
     if ($args->has(Flag::DryRun)) {
         print TerminalStyle::bold(TerminalStyle::color("Dry run: No commands will be executed.", TerminalStyle::YELLOW)) . PHP_EOL;
         exit(0);
     }
     $runner->run();
-
-    // Removables
-    $removables = [
-        '.gitignore','.github','.gitattributes','build.php','build.js','.npmrc',
-        'composer.lock','env-example','webpack.config.js','package-lock.json','package.json',
-        'phpunit.xml.dist','README.md','./node_modules/','./source/sass/','./source/js/',
-        'LICENSE','babel.config.js','yarn.lock','.devcontainer',
-    ];
-    if (!$args->has(Flag::Release)) {
-        $removables[] = '.git';
-    }
-    $dirName = basename(dirname(__FILE__));
-    if ($args->has(Flag::Cleanup)) {
-        (new Cleaner($removables, $dirName))->clean();
-    }
 }
 
 main($argv);
