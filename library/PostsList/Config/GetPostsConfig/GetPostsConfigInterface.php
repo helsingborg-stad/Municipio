@@ -24,4 +24,11 @@ interface GetPostsConfigInterface
      * @return bool
      */
     public function isFacettingTaxonomyQueryEnabled(): bool;
+
+    /**
+     * Get search query
+     *
+     * @return string|null
+     */
+    public function getSearch(): ?string;
 }

@@ -27,4 +27,9 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     {
         return false;
     }
+
+    public function getSearch(): ?string
+    {
+        return null;
+    }
 }

@@ -14,12 +14,8 @@
         <div class="o-grid">
             <div class="o-grid-12">
                 @field([
-                    'type' => 'search',
-                    'name' => 's',
-                    'value' => $queryParameters->search,
-                    'label' => $lang->searchFor,
+                    ...$getTextSearchFieldArguments(),
                     'classList' => ['u-width--100'],
-                    'required' => false
                 ])
                 @endfield
             </div>
