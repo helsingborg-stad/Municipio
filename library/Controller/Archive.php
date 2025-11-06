@@ -188,13 +188,15 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $postType           = [$this->getPostType()];
         $isFacettingEnabled = $this->showFilter($this->data['archiveProps']);
-        return new class ($postType, $isFacettingEnabled) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+        $search             =  !empty($_GET['s']) ? $_GET['s'] : null;
+        return new class ($postType, $isFacettingEnabled, $search) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
              */
             public function __construct(
                 private array $postType,
-                private bool $isFacettingEnabled
+                private bool $isFacettingEnabled,
+                private ?string $search
             ) {
             }
 
@@ -220,6 +222,14 @@ class Archive extends \Municipio\Controller\BaseController
             public function isFacettingTaxonomyQueryEnabled(): bool
             {
                 return $this->isFacettingEnabled;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getSearch(): ?string
+            {
+                return $this->search;
             }
         };
     }
