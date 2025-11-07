@@ -17,7 +17,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     #[TestDox('returns an array of select component arguments')]
     public function testReturnsArrayOfSelectComponentArguments(): void
     {
-        $expected                    = [
+        $expected = [
             [
                 'label'       => 'Category',
                 'name'        => 'category',
@@ -30,28 +30,18 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
                 ]
             ]
         ];
-        $registeredWpTaxonomy        = new WP_Taxonomy('category', 'post');
-        $registeredWpTaxonomy->label = 'Category';
-        $registeredWpTaxonomy->name  = 'category';
 
-        $filterConfig = new class extends DefaultFilterConfig {
-            public function getTaxonomiesEnabledForFiltering(): array
-            {
-                return ['category'];
-            }
-        };
+        $registeredWpTaxonomy = $this->createTaxonomy('category', 'Category');
 
-        $wpService = new class ($this->getArrayOfTerms(2)) implements GetTerms {
-            public function __construct(private array $terms)
-            {
-            }
-            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|WP_Error
-            {
-                return $this->terms;
-            }
-        };
+        $filterConfig = $this->createFilterConfig(['category']);
+        $wpService    = $this->createWpService($this->getArrayOfTerms(2));
 
-        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments($filterConfig, $this->createGetPostsConfig(), $wpService, ['category' => $registeredWpTaxonomy]);
+        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
+            $filterConfig,
+            $this->createGetPostsConfig(),
+            $wpService,
+            ['category' => $registeredWpTaxonomy]
+        );
         $callable                                   = $getTaxonomyFiltersSelectComponentArguments->getCallable();
 
         $this->assertEquals($expected, $callable());
@@ -60,13 +50,13 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     #[TestDox('sets "preselected" with terms from GetPostsConfig')]
     public function testSetsPreselectedWithTermsFromGetPostsConfig(): void
     {
-        $expected                    = [
+        $expected = [
             [
                 'label'       => 'Category',
                 'name'        => 'category',
                 'required'    => false,
                 'placeholder' => 'Category',
-                'preselected' => [ 'term-1', ],
+                'preselected' => ['term-1'],
                 'multiple'    => true,
                 'options'     => [
                     'term-1' => 'Term 1 (1)',
@@ -74,30 +64,15 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
                 ]
             ]
         ];
-        $registeredWpTaxonomy        = new WP_Taxonomy('category', 'post');
-        $registeredWpTaxonomy->label = 'Category';
-        $registeredWpTaxonomy->name  = 'category';
 
-        $filterConfig = new class extends DefaultFilterConfig {
-            public function getTaxonomiesEnabledForFiltering(): array
-            {
-                return ['category'];
-            }
-        };
-
-        $wpService = new class ($this->getArrayOfTerms(2)) implements GetTerms {
-            public function __construct(private array $terms)
-            {
-            }
-            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|WP_Error
-            {
-                return $this->terms;
-            }
-        };
+        $registeredWpTaxonomy = $this->createTaxonomy('category', 'Category');
+        $filterConfig         = $this->createFilterConfig(['category']);
+        $wpService            = $this->createWpService($this->getArrayOfTerms(2));
+        $preselectedTerms     = [$this->getArrayOfTerms(1)[0]];
 
         $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
             $filterConfig,
-            $this->createGetPostsConfig([$this->getArrayOfTerms(1)[0]]),
+            $this->createGetPostsConfig($preselectedTerms),
             $wpService,
             ['category' => $registeredWpTaxonomy]
         );
@@ -112,9 +87,9 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
         for ($i = 1; $i <= $numberOfTerms; $i++) {
             $term           = new WP_Term([]);
             $term->term_id  = $i;
-            $term->name     = 'Term ' . $i;
+            $term->name     = "Term $i";
             $term->count    = 1;
-            $term->slug     = 'term-' . $i;
+            $term->slug     = "term-$i";
             $term->taxonomy = $taxonomy;
             $terms[]        = $term;
         }
@@ -127,11 +102,44 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
             public function __construct(private array $termsUsedForFiltering)
             {
             }
-
             public function getTerms(): array
             {
                 return $this->termsUsedForFiltering;
             }
         };
+    }
+
+    private function createFilterConfig(array $taxonomies): DefaultFilterConfig
+    {
+        return new class ($taxonomies) extends DefaultFilterConfig {
+            public function __construct(private array $taxonomies)
+            {
+            }
+            public function getTaxonomiesEnabledForFiltering(): array
+            {
+                return $this->taxonomies;
+            }
+        };
+    }
+
+    private function createWpService(array $terms): GetTerms
+    {
+        return new class ($terms) implements GetTerms {
+            public function __construct(private array $terms)
+            {
+            }
+            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|WP_Error
+            {
+                return $this->terms;
+            }
+        };
+    }
+
+    private function createTaxonomy(string $name, string $label): WP_Taxonomy
+    {
+        $taxonomy        = new WP_Taxonomy($name, 'post');
+        $taxonomy->label = $label;
+        $taxonomy->name  = $name;
+        return $taxonomy;
     }
 }

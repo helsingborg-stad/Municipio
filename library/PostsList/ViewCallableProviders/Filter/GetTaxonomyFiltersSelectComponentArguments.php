@@ -35,72 +35,98 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
 
     private function getSelectComponentArguments(): array
     {
-        $allSelectArguments = [];
-        $taxonomies         = $this->filterConfig->getTaxonomiesEnabledForFiltering();
-
+        $taxonomies = $this->filterConfig->getTaxonomiesEnabledForFiltering();
         if (empty($taxonomies)) {
-            return $allSelectArguments;
+            return [];
         }
 
-        $wpTaxonomies = array_filter($this->wpTaxonomies, fn($key) => in_array($key, $taxonomies), ARRAY_FILTER_USE_KEY);
-
+        $wpTaxonomies = $this->filterWpTaxonomies($taxonomies);
         if (empty($wpTaxonomies)) {
-            return $allSelectArguments;
+            return [];
         }
 
-        // Get all terms for all taxonomies in one call
+        $terms = $this->getTermsForTaxonomies(array_keys($wpTaxonomies));
+        if (empty($terms)) {
+            return [];
+        }
+
+        $termsByTaxonomy = $this->groupTermsByTaxonomy($terms);
+
+        return $this->buildSelectArguments($wpTaxonomies, $termsByTaxonomy);
+    }
+
+    private function filterWpTaxonomies(array $taxonomies): array
+    {
+        return array_filter(
+            $this->wpTaxonomies,
+            fn($key) => in_array($key, $taxonomies),
+            ARRAY_FILTER_USE_KEY
+        );
+    }
+
+    private function getTermsForTaxonomies(array $taxonomyNames): array
+    {
         $terms = $this->wpService->getTerms([
-            'taxonomy'   => array_keys($wpTaxonomies),
+            'taxonomy'   => $taxonomyNames,
             'hide_empty' => false,
         ]);
+        return is_wp_error($terms) ? [] : $terms;
+    }
 
-        if (is_wp_error($terms) || empty($terms)) {
-            return $allSelectArguments;
-        }
-
-        // Group terms by taxonomy
-        $termsByTaxonomy = [];
+    private function groupTermsByTaxonomy(array $terms): array
+    {
+        $grouped = [];
         foreach ($terms as $term) {
-            $termsByTaxonomy[$term->taxonomy][] = $term;
+            $grouped[$term->taxonomy][] = $term;
         }
+        return $grouped;
+    }
 
+    private function buildSelectArguments(array $wpTaxonomies, array $termsByTaxonomy): array
+    {
+        $allSelectArguments = [];
         foreach ($wpTaxonomies as $wpTaxonomy) {
-            if (empty($termsByTaxonomy[$wpTaxonomy->name])) {
+            $taxonomyName = $wpTaxonomy->name;
+            if (empty($termsByTaxonomy[$taxonomyName])) {
                 continue;
             }
 
-            $options = [];
-            foreach ($termsByTaxonomy[$wpTaxonomy->name] as $term) {
-                $options[$term->slug] = sprintf('%s (%d)', $term->name, $term->count);
-            }
-
+            $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
             $selectArguments = [
                 'label'       => $wpTaxonomy->label,
-                'name'        => $wpTaxonomy->name,
+                'name'        => $taxonomyName,
                 'required'    => false,
                 'placeholder' => $wpTaxonomy->label,
                 'multiple'    => true,
                 'options'     => $options,
             ];
 
-            if ($this->getPostsConfig->getTerms()) {
-                $preselectedTerms = array_filter(
-                    $this->getPostsConfig->getTerms(),
-                    fn($term) => $term->taxonomy === $wpTaxonomy->name
-                );
-                $termSlugs        = array_map(
-                    fn($term) => $term->slug,
-                    $preselectedTerms
-                );
-
-                if (!empty($termSlugs)) {
-                    $selectArguments['preselected'] = $termSlugs;
-                }
+            $preselected = $this->getPreselectedTermSlugs($taxonomyName);
+            if (!empty($preselected)) {
+                $selectArguments['preselected'] = $preselected;
             }
 
             $allSelectArguments[] = $selectArguments;
         }
-
         return $allSelectArguments;
+    }
+
+    private function buildOptions(array $terms): array
+    {
+        $options = [];
+        foreach ($terms as $term) {
+            $options[$term->slug] = sprintf('%s (%d)', $term->name, $term->count);
+        }
+        return $options;
+    }
+
+    private function getPreselectedTermSlugs(string $taxonomyName): array
+    {
+        $terms = $this->getPostsConfig->getTerms();
+        if (empty($terms)) {
+            return [];
+        }
+        $filtered = array_filter($terms, fn($term) => $term->taxonomy === $taxonomyName);
+        return array_map(fn($term) => $term->slug, $filtered);
     }
 }
