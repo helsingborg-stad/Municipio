@@ -18,7 +18,7 @@ class PostsListTest extends TestCase
         $appearanceConfig = new DefaultAppearanceConfig();
         $filterConfig     = new DefaultFilterConfig();
         $wpService        = new FakeWpService(['getPosts' => []]);
-        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, $wpService);
+        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, [], $wpService);
 
         $this->assertIsArray($postsList->getData());
     }

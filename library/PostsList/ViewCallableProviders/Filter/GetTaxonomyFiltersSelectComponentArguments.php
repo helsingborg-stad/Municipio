@@ -4,6 +4,7 @@ namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
+use WP_Taxonomy;
 use WpService\Contracts\GetTerms;
 
 /**
@@ -11,9 +12,17 @@ use WpService\Contracts\GetTerms;
  */
 class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProviderInterface
 {
+    /**
+     * Constructor
+     *
+     * @param FilterConfigInterface $filterConfig
+     * @param GetTerms $wpService
+     * @param array<string, WP_Taxonomy> $wpTaxonomies
+     */
     public function __construct(
         private FilterConfigInterface $filterConfig,
-        private GetTerms $wpService
+        private GetTerms $wpService,
+        private array $wpTaxonomies
     ) {
     }
 
@@ -31,9 +40,15 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
             return $selectArguments;
         }
 
+        $wpTaxonomies = array_filter($this->wpTaxonomies, fn($key) => in_array($key, $taxonomies), ARRAY_FILTER_USE_KEY);
+
+        if (empty($wpTaxonomies)) {
+            return $selectArguments;
+        }
+
         // Get all terms for all taxonomies in one call
         $terms = $this->wpService->getTerms([
-            'taxonomy'   => $taxonomies,
+            'taxonomy'   => array_keys($wpTaxonomies),
             'hide_empty' => false,
         ]);
 
@@ -47,21 +62,21 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
             $termsByTaxonomy[$term->taxonomy][] = $term;
         }
 
-        foreach ($taxonomies as $taxonomy) {
-            if (empty($termsByTaxonomy[$taxonomy])) {
+        foreach ($wpTaxonomies as $wpTaxonomy) {
+            if (empty($termsByTaxonomy[$wpTaxonomy->name])) {
                 continue;
             }
 
             $options = [];
-            foreach ($termsByTaxonomy[$taxonomy] as $term) {
+            foreach ($termsByTaxonomy[$wpTaxonomy->name] as $term) {
                 $options[$term->slug] = sprintf('%s (%d)', $term->name, $term->count);
             }
 
             $selectArguments[] = [
-                'label'       => ucfirst($taxonomy),
-                'name'        => 'filter-' . $taxonomy,
+                'label'       => $wpTaxonomy->label,
+                'name'        => 'filter-' . $wpTaxonomy->name,
                 'required'    => false,
-                'placeholder' => ucfirst($taxonomy),
+                'placeholder' => $wpTaxonomy->label,
                 'preselected' => false,
                 'multiple'    => true,
                 'options'     => $options,

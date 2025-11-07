@@ -6,6 +6,7 @@ use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Error;
+use WP_Taxonomy;
 use WP_Term;
 use WpService\Contracts\GetTerms;
 
@@ -14,7 +15,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     #[TestDox('returns an array of select component arguments')]
     public function testReturnsArrayOfSelectComponentArguments(): void
     {
-        $expected = [
+        $expected                    = [
             [
                 'label'       => 'Category',
                 'name'        => 'filter-category',
@@ -28,6 +29,9 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
                 ]
             ]
         ];
+        $registeredWpTaxonomy        = new WP_Taxonomy('category', 'post');
+        $registeredWpTaxonomy->label = 'Category';
+        $registeredWpTaxonomy->name  = 'category';
 
         $filterConfig = new class extends DefaultFilterConfig {
             public function getTaxonomiesEnabledForFiltering(): array
@@ -46,7 +50,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
             }
         };
 
-        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments($filterConfig, $wpService);
+        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments($filterConfig, $wpService, ['category' => $registeredWpTaxonomy]);
         $callable                                   = $getTaxonomyFiltersSelectComponentArguments->getCallable();
 
         $this->assertEquals($expected, $callable());

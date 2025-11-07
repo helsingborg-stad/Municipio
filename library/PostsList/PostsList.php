@@ -11,6 +11,7 @@ use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderI
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
+use WP_Taxonomy;
 use WpService\WpService;
 
 /*
@@ -29,6 +30,7 @@ class PostsList
      * @param GetPostsConfigInterface $getPostsConfig
      * @param AppearanceConfigInterface $appearanceConfig
      * @param FilterConfigInterface $filterConfig
+     * @param array<string, WP_Taxonomy> $wpTaxonomies
      * @param WpService $wpService
      * @param GetField $acfService
      * @param AnyPostHasImageInterface $anyPostHasImageService
@@ -37,6 +39,7 @@ class PostsList
         private GetPostsConfigInterface $getPostsConfig,
         private AppearanceConfigInterface $appearanceConfig,
         private FilterConfigInterface $filterConfig,
+        private array $wpTaxonomies,
         private WpService $wpService,
         private GetField $acfService = new NativeAcfService(),
         private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage()
@@ -77,7 +80,7 @@ class PostsList
             'getSchemaEventDateBadgeDate'               => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
 
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->wpService))->getCallable(),
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->wpService, $this->wpTaxonomies))->getCallable(),
             'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig, $this->wpService))->getCallable(),
             'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig, $this->filterConfig, $this->wpService))->getCallable(),
             'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig, $this->wpService))->getCallable(),
