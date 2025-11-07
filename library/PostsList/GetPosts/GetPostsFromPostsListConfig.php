@@ -34,7 +34,8 @@ class GetPostsFromPostsListConfig
         $args     = $args ?? [];
         $appliers = [
             new PostsListConfigToGetPostsArgs\ApplyPostType(),
-            new PostsListConfigToGetPostsArgs\ApplyPostsPerPage()
+            new PostsListConfigToGetPostsArgs\ApplyPostsPerPage(),
+            new PostsListConfigToGetPostsArgs\ApplySearch(),
         ];
 
         foreach ($appliers as $applier) {
