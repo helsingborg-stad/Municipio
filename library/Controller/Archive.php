@@ -85,10 +85,13 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
+        global $wp_taxonomies;
+
         $postsList  = new \Municipio\PostsList\PostsList(
             $this->getPostConfig(),
             $this->getAppearanceConfig(),
             $this->getFilterConfig(),
+            $wp_taxonomies,
             $this->wpService
         );
         $this->data = [...$this->data, ...$postsList->getData()];
@@ -189,14 +192,19 @@ class Archive extends \Municipio\Controller\BaseController
         $postType           = [$this->getPostType()];
         $isFacettingEnabled = $this->showFilter($this->data['archiveProps']);
         $search             =  !empty($_GET['s']) ? $_GET['s'] : null;
-        return new class ($postType, $isFacettingEnabled, $search) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+        $fromDate           = $this->data['queryParameters']->from ?? null;
+        $toDate             = $this->data['queryParameters']->to ?? null;
+
+        return new class ($postType, $isFacettingEnabled, $search, $fromDate, $toDate) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
              */
             public function __construct(
                 private array $postType,
                 private bool $isFacettingEnabled,
-                private ?string $search
+                private ?string $search,
+                private ?string $fromDate,
+                private ?string $toDate
             ) {
             }
 
@@ -230,6 +238,22 @@ class Archive extends \Municipio\Controller\BaseController
             public function getSearch(): ?string
             {
                 return $this->search;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateFrom(): ?string
+            {
+                return $this->fromDate;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateTo(): ?string
+            {
+                return $this->toDate;
             }
         };
     }

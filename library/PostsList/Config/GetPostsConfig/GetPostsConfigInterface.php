@@ -31,4 +31,18 @@ interface GetPostsConfigInterface
      * @return string|null
      */
     public function getSearch(): ?string;
+
+    /**
+     * Get date from filter value
+     *
+     * @return string|null
+     */
+    public function getDateFrom(): ?string;
+
+    /**
+     * Get date to filter value
+     *
+     * @return string|null
+     */
+    public function getDateTo(): ?string;
 }

@@ -84,6 +84,7 @@ class PostsList
             'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig, $this->wpService))->getCallable(),
             'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig, $this->filterConfig, $this->wpService))->getCallable(),
             'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig, $this->wpService))->getCallable(),
+            'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig, $this->wpService))->getCallable(),
         ];
     }
 

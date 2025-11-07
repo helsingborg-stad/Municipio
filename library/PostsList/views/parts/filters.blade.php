@@ -23,59 +23,14 @@
     @endif
 
     @if ($filterConfig->isDateFilterEnabled())
-        <div class="o-grid">
-            <div class="o-grid-12@xs o-grid-auto@sm">
-                @field([
-                    'type' => 'date',
-                    'name' => 'from',
-                    'value' => $queryParameters->from,
-                    'label' => $lang->fromDate,
-                    'attributeList' => [
-                        'data-invalid-message' => $lang->dateInvalid,
-                        'js-archive-filter-from' => ''
-                    ],
-                    'required' => false,
-                    'datepicker' => [
-                        'title' => $lang->fromDate,
-                        'minDate' => false,
-                        'maxDate' => false,
-                        'required' => true,
-                        'showResetButton' => true,
-                        'showDaysOutOfMonth' => true,
-                        'showClearButton' => true,
-                        'hideOnBlur' => true,
-                        'hideOnSelect' => false
-                    ]
-                ])
-                @endfield
-            </div>
-
-            <div class="o-grid-12@xs o-grid-auto@sm">
-                @field([
-                    'type' => 'date',
-                    'name' => 'to',
-                    'value' => $queryParameters->to,
-                    'label' => $lang->toDate,
-                    'attributeList' => [
-                        'data-invalid-message' => $lang->dateInvalid,
-                        'js-archive-filter-to' => ''
-                    ],
-                    'required' => false,
-                    'datepicker' => [
-                        'title' => $lang->toDate,
-                        'minDate' => false,
-                        'maxDate' => false,
-                        'required' => true,
-                        'showResetButton' => true,
-                        'showDaysOutOfMonth' => true,
-                        'showClearButton' => true,
-                        'hideOnBlur' => true,
-                        'hideOnSelect' => false
-                    ]
-                ])
-                @endfield
-            </div>
-        </div>
+        @element(['classList' => ['o-grid']])
+            @element(['classList' => ['o-grid-12@xs', 'o-grid-auto@sm']])
+                @field($getDateFilterFieldArguments()['from'])@endfield
+            @endelement
+            @element(['classList' => ['o-grid-12@xs', 'o-grid-auto@sm']])
+                @field($getDateFilterFieldArguments()['to'])@endfield
+            @endelement
+        @endelement
     @endif
 
     <div class="o-grid u-align-content--end">

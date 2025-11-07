@@ -81,7 +81,8 @@ class Archive extends \Modularity\Module
     private function getPostList(): PostsList
     {
         if (!isset($this->postsList)) {
-            $this->postsList = new PostsList($this->createPostListConfig(), new DefaultAppearanceConfig(), new DefaultFilterConfig(), WpService::get());
+            global $wp_taxonomies;
+            $this->postsList = new PostsList($this->createPostListConfig(), new DefaultAppearanceConfig(), new DefaultFilterConfig(), $wp_taxonomies, WpService::get());
         }
 
         return $this->postsList;

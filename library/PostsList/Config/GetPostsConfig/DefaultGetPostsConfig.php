@@ -23,12 +23,34 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
         return 10;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isFacettingTaxonomyQueryEnabled(): bool
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getSearch(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateFrom(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateTo(): ?string
     {
         return null;
     }

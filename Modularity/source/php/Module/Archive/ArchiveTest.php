@@ -39,7 +39,8 @@ class ArchiveTest extends \PHPUnit\Framework\TestCase
     #[TestDox('module data method returns an array')]
     public function testArchiveModuleDataMethodReturnsArray()
     {
-        $module = new Archive();
+        $GLOBALS['wp_taxonomies'] = [];
+        $module                   = new Archive();
         $this->assertIsArray($module->data());
     }
 
