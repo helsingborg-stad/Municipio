@@ -54,4 +54,12 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     {
         return null;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTerms(): array
+    {
+        return [];
+    }
 }

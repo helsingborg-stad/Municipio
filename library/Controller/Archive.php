@@ -6,6 +6,7 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use WP_Term;
 
 /**
  * Class Archive
@@ -194,8 +195,9 @@ class Archive extends \Municipio\Controller\BaseController
         $search             =  !empty($_GET['s']) ? $_GET['s'] : null;
         $fromDate           = $this->data['queryParameters']->from ?? null;
         $toDate             = $this->data['queryParameters']->to ?? null;
+        $terms              = $this->getTermsForPostsConfig();
 
-        return new class ($postType, $isFacettingEnabled, $search, $fromDate, $toDate) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+        return new class ($postType, $isFacettingEnabled, $search, $fromDate, $toDate, $terms) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
              */
@@ -204,7 +206,8 @@ class Archive extends \Municipio\Controller\BaseController
                 private bool $isFacettingEnabled,
                 private ?string $search,
                 private ?string $fromDate,
-                private ?string $toDate
+                private ?string $toDate,
+                private array $terms
             ) {
             }
 
@@ -255,7 +258,55 @@ class Archive extends \Municipio\Controller\BaseController
             {
                 return $this->toDate;
             }
+
+            public function getTerms(): array
+            {
+                return $this->terms;
+            }
         };
+    }
+
+    /**
+     * @return WP_Term[]
+     */
+    private function getTermsForPostsConfig(): array
+    {
+        // Get all $_GET paramters
+        // Keep only those that are taxonomies, the pattern can be either category or category[] or url encoded category%5B%5D
+        // Get all slugs connected to these taxonomies, assume that they are term slugs. E.g. ?category=term-slug or ?category[]=term-slug1&category[]=term-slug2
+        // Get all terms with a single call to get_terms
+        // Return the terms
+        $params = $_GET;
+        $terms  = [];
+
+        if (empty($params) || !is_array($params)) {
+            return [];
+        }
+
+        $taxonomiesAvailableInFilters = $this->getFilterTaxonomiesFromSettings((array) $this->data['archiveProps']);
+        $taxonomiesFromGetParams      = array_filter(array_keys($params), function ($key) use ($taxonomiesAvailableInFilters) {
+            $cleanKey = rtrim(urldecode($key), '[]');
+            return in_array($cleanKey, $taxonomiesAvailableInFilters);
+        });
+
+        $termSlugs = [];
+
+        foreach ($taxonomiesFromGetParams as $taxonomy) {
+            if (isset($params[$taxonomy])) {
+                $termSlugs  = array_merge($termSlugs, (array) $params[$taxonomy]);
+                $foundTerms = $this->wpService->getTerms([
+                    'taxonomy'   => $taxonomy,
+                    'hide_empty' => false,
+                    'slug'       => $termSlugs,
+                ]);
+
+                if (is_array($foundTerms)) {
+                    $terms = array_merge($terms, $foundTerms);
+                }
+            }
+        }
+
+        return $terms;
     }
 
     /**

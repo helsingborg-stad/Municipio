@@ -2,6 +2,8 @@
 
 namespace Municipio\PostsList\Config\GetPostsConfig;
 
+use WP_Term;
+
 interface GetPostsConfigInterface
 {
     /**
@@ -45,4 +47,11 @@ interface GetPostsConfigInterface
      * @return string|null
      */
     public function getDateTo(): ?string;
+
+    /**
+     * Get terms for filtering
+     *
+     * @return WP_Term[]
+     */
+    public function getTerms(): array;
 }

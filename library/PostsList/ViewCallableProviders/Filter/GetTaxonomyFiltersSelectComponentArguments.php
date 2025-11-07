@@ -3,6 +3,7 @@
 namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WP_Taxonomy;
 use WpService\Contracts\GetTerms;
@@ -21,6 +22,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
      */
     public function __construct(
         private FilterConfigInterface $filterConfig,
+        private GetPostsConfigInterface $getPostsConfig,
         private GetTerms $wpService,
         private array $wpTaxonomies
     ) {
@@ -33,17 +35,17 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
 
     private function getSelectComponentArguments(): array
     {
-        $selectArguments = [];
-        $taxonomies      = $this->filterConfig->getTaxonomiesEnabledForFiltering();
+        $allSelectArguments = [];
+        $taxonomies         = $this->filterConfig->getTaxonomiesEnabledForFiltering();
 
         if (empty($taxonomies)) {
-            return $selectArguments;
+            return $allSelectArguments;
         }
 
         $wpTaxonomies = array_filter($this->wpTaxonomies, fn($key) => in_array($key, $taxonomies), ARRAY_FILTER_USE_KEY);
 
         if (empty($wpTaxonomies)) {
-            return $selectArguments;
+            return $allSelectArguments;
         }
 
         // Get all terms for all taxonomies in one call
@@ -53,7 +55,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         ]);
 
         if (is_wp_error($terms) || empty($terms)) {
-            return $selectArguments;
+            return $allSelectArguments;
         }
 
         // Group terms by taxonomy
@@ -72,17 +74,33 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
                 $options[$term->slug] = sprintf('%s (%d)', $term->name, $term->count);
             }
 
-            $selectArguments[] = [
+            $selectArguments = [
                 'label'       => $wpTaxonomy->label,
-                'name'        => 'filter-' . $wpTaxonomy->name,
+                'name'        => $wpTaxonomy->name,
                 'required'    => false,
                 'placeholder' => $wpTaxonomy->label,
-                'preselected' => false,
                 'multiple'    => true,
                 'options'     => $options,
             ];
+
+            if ($this->getPostsConfig->getTerms()) {
+                $preselectedTerms = array_filter(
+                    $this->getPostsConfig->getTerms(),
+                    fn($term) => $term->taxonomy === $wpTaxonomy->name
+                );
+                $termSlugs        = array_map(
+                    fn($term) => $term->slug,
+                    $preselectedTerms
+                );
+
+                if (!empty($termSlugs)) {
+                    $selectArguments['preselected'] = $termSlugs;
+                }
+            }
+
+            $allSelectArguments[] = $selectArguments;
         }
 
-        return $selectArguments;
+        return $allSelectArguments;
     }
 }

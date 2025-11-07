@@ -3,6 +3,8 @@
 namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
+use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Error;
@@ -18,10 +20,9 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
         $expected                    = [
             [
                 'label'       => 'Category',
-                'name'        => 'filter-category',
+                'name'        => 'category',
                 'required'    => false,
                 'placeholder' => 'Category',
-                'preselected' => false,
                 'multiple'    => true,
                 'options'     => [
                     'term-1' => 'Term 1 (1)',
@@ -50,7 +51,56 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
             }
         };
 
-        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments($filterConfig, $wpService, ['category' => $registeredWpTaxonomy]);
+        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments($filterConfig, $this->createGetPostsConfig(), $wpService, ['category' => $registeredWpTaxonomy]);
+        $callable                                   = $getTaxonomyFiltersSelectComponentArguments->getCallable();
+
+        $this->assertEquals($expected, $callable());
+    }
+
+    #[TestDox('sets "preselected" with terms from GetPostsConfig')]
+    public function testSetsPreselectedWithTermsFromGetPostsConfig(): void
+    {
+        $expected                    = [
+            [
+                'label'       => 'Category',
+                'name'        => 'category',
+                'required'    => false,
+                'placeholder' => 'Category',
+                'preselected' => [ 'term-1', ],
+                'multiple'    => true,
+                'options'     => [
+                    'term-1' => 'Term 1 (1)',
+                    'term-2' => 'Term 2 (1)',
+                ]
+            ]
+        ];
+        $registeredWpTaxonomy        = new WP_Taxonomy('category', 'post');
+        $registeredWpTaxonomy->label = 'Category';
+        $registeredWpTaxonomy->name  = 'category';
+
+        $filterConfig = new class extends DefaultFilterConfig {
+            public function getTaxonomiesEnabledForFiltering(): array
+            {
+                return ['category'];
+            }
+        };
+
+        $wpService = new class ($this->getArrayOfTerms(2)) implements GetTerms {
+            public function __construct(private array $terms)
+            {
+            }
+            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|WP_Error
+            {
+                return $this->terms;
+            }
+        };
+
+        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
+            $filterConfig,
+            $this->createGetPostsConfig([$this->getArrayOfTerms(1)[0]]),
+            $wpService,
+            ['category' => $registeredWpTaxonomy]
+        );
         $callable                                   = $getTaxonomyFiltersSelectComponentArguments->getCallable();
 
         $this->assertEquals($expected, $callable());
@@ -69,5 +119,19 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
             $terms[]        = $term;
         }
         return $terms;
+    }
+
+    private function createGetPostsConfig(array $termsUsedForFiltering = []): GetPostsConfigInterface
+    {
+        return new class ($termsUsedForFiltering) extends DefaultGetPostsConfig {
+            public function __construct(private array $termsUsedForFiltering)
+            {
+            }
+
+            public function getTerms(): array
+            {
+                return $this->termsUsedForFiltering;
+            }
+        };
     }
 }
