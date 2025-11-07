@@ -14,24 +14,30 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
     {
         parent::init();
         $schema = $this->post->getSchema();
+        global $wp_embed;
 
         // Setup view data
         foreach (
             [
-            'preamble'                   => new School\PreambleGenerator($schema),
-            'accordionListItems'         => new School\ElementarySchool\AccordionListItemsGenerator($schema, $this->wpService),
-            'sliderItems'                => new School\SliderItemsGenerator($schema),
-            'personsAttributes'          => new School\PersonComponentsAttributesGenerator($schema),
-            'addresses'                  => new School\AddressGenerator($schema, $this->wpService),
-            'mapAttributes'              => new School\MapComponentAttributesGenerator($schema),
-            'usps'                       => new School\ElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
-            'actions'                    => new School\ActionsGenerator($schema),
-            'contactPoints'              => new School\ContactpointsGenerator($schema),
-            'events'                     => new School\EventsGenerator($schema),
+            'preamble'           => new School\PreambleGenerator($schema),
+            'accordionListItems' => new School\ElementarySchool\AccordionListItemsGenerator($schema, $this->wpService),
+            'sliderItems'        => new School\SliderItemsGenerator($schema, $wp_embed),
+            'personsAttributes'  => new School\PersonComponentsAttributesGenerator($schema),
+            'addresses'          => new School\AddressGenerator($schema, $this->wpService),
+            'mapAttributes'      => new School\MapComponentAttributesGenerator($schema),
+            'usps'               => new School\ElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
+            'actions'            => new School\ActionsGenerator($schema),
+            'contactPoints'      => new School\ContactpointsGenerator($schema),
+            'events'             => new School\EventsGenerator($schema)
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();
         }
+
+        $this->data['embedVideo'] = function ($url) {
+            global $wp_embed;
+            return $wp_embed->run_shortcode('[embed]' . esc_url($url) . '[/embed]');
+        };
 
         // Setup view labels
         foreach (

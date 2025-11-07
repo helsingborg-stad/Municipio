@@ -5,36 +5,39 @@ namespace Municipio\Controller\School;
 use Municipio\Schema\Preschool;
 use Municipio\Schema\ImageObject;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Integrations\Component\ImageResolver;
 use Municipio\Schema\ElementarySchool;
+use Municipio\Schema\VideoObject;
+use WP_Embed;
 
 class SliderItemsGenerator
 {
-    public function __construct(private ElementarySchool|Preschool $school)
+    public function __construct(private ElementarySchool|Preschool $school, private WP_Embed $wpEmbed)
     {
     }
 
     public function generate(): mixed
     {
-        return $this->getGalleryImages($this->school->getProperty('image'));
+        return [
+            ...$this->getSliderImageItems(...EnsureArrayOf::ensureArrayOf($this->school->getProperty('image'), ImageObject::class)),
+            ...$this->getSliderVideoItems(...EnsureArrayOf::ensureArrayOf($this->school->getProperty('video'), VideoObject::class)),
+        ];
     }
 
-    private function getGalleryImages(array|ImageObject|null $image): ?array
+    private function getSliderImageItems(ImageObject ...$images): array
     {
-        if (!is_array($image)) {
-            return null;
-        }
+        $images = array_map(
+            fn(ImageObject $imageObject) => $this->getSliderImageItem($imageObject),
+            $images
+        );
 
-        $images = array_map(function ($item) {
-            return is_a($item, ImageObject::class)
-                ? $this->getImageFromImageObject($item)
-                : null;
-        }, $image); // Skip the first image as it's used as the main image
-
-        return array_filter($images) ?: null;
+        return !empty($images) ? [
+            'imageItems' => $images
+        ] : [];
     }
 
-    private function getImageFromImageObject(ImageObject $imageObject): ?array
+    private function getSliderImageItem(ImageObject $imageObject): ?array
     {
         if (empty($imageObject->getProperty('@id'))) {
             return null;
@@ -46,5 +49,40 @@ class SliderItemsGenerator
             'layout'         => 'bottom',
             'containerColor' => 'darkest'
         ];
+    }
+
+    private function getSliderVideoItems(VideoObject ...$videoObjects): array
+    {
+        $videos = array_map(
+            fn(VideoObject $videoObject) => $this->getSliderVideoItem($videoObject),
+            $videoObjects
+        );
+
+        return !empty($videos) ? [
+            'videoItems' => array_filter($videos)
+        ] : [];
+    }
+
+    /**
+     * Get item from video object.
+     * Supports video objects with a url property only.
+     *
+     * @param VideoObject $videoObject
+     * @return array|null
+     */
+    private function getSliderVideoItem(VideoObject $videoObject): ?array
+    {
+        if (empty($videoObject->getProperty('url'))) {
+            return null;
+        }
+
+        return [
+            'embed' => $this->getEmbeddedVideoHtml($videoObject->getProperty('url')),
+        ];
+    }
+
+    private function getEmbeddedVideoHtml(string $url): string
+    {
+        return $this->wpEmbed->run_shortcode('[embed]' . esc_url($url) . '[/embed]');
     }
 }
