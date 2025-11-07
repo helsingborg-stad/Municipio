@@ -10,6 +10,9 @@ class SingularPreschool extends \Municipio\Controller\Singular
     protected object $postMeta;
     public string $view = 'single-schema-preschool';
 
+    /**
+     * Initialize the controller
+     */
     public function init()
     {
         parent::init();

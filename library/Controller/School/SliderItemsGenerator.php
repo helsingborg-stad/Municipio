@@ -11,12 +11,23 @@ use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\VideoObject;
 use WP_Embed;
 
+/**
+ * Class SliderItemsGenerator
+ */
 class SliderItemsGenerator
 {
+    /**
+     * Constructor
+     */
     public function __construct(private ElementarySchool|Preschool $school, private WP_Embed $wpEmbed)
     {
     }
 
+    /**
+     * Generate slider items from school schema
+     *
+     * @return mixed
+     */
     public function generate(): mixed
     {
         return [
@@ -25,6 +36,12 @@ class SliderItemsGenerator
         ];
     }
 
+    /**
+     * Get slider image items
+     *
+     * @param ImageObject ...$images
+     * @return array
+     */
     private function getSliderImageItems(ImageObject ...$images): array
     {
         $images = array_map(
@@ -37,6 +54,12 @@ class SliderItemsGenerator
         ] : [];
     }
 
+    /**
+     * Get item from image object.
+     *
+     * @param ImageObject $imageObject
+     * @return array|null
+     */
     private function getSliderImageItem(ImageObject $imageObject): ?array
     {
         if (empty($imageObject->getProperty('@id'))) {
@@ -51,6 +74,12 @@ class SliderItemsGenerator
         ];
     }
 
+    /**
+     * Get slider video items
+     *
+     * @param VideoObject ...$videoObjects
+     * @return array
+     */
     private function getSliderVideoItems(VideoObject ...$videoObjects): array
     {
         $videos = array_map(
@@ -81,6 +110,12 @@ class SliderItemsGenerator
         ];
     }
 
+    /**
+     * Get embedded video HTML using WP_Embed
+     *
+     * @param string $url
+     * @return string
+     */
     private function getEmbeddedVideoHtml(string $url): string
     {
         return $this->wpEmbed->run_shortcode('[embed]' . esc_url($url) . '[/embed]');
