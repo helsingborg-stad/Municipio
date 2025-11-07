@@ -10,25 +10,29 @@ class SingularPreschool extends \Municipio\Controller\Singular
     protected object $postMeta;
     public string $view = 'single-schema-preschool';
 
+    /**
+     * Initialize the controller
+     */
     public function init()
     {
         parent::init();
         $schema = $this->post->getSchema();
+        global $wp_embed;
 
         // Setup view data
         foreach (
             [
-            'preamble'                   => new School\PreambleGenerator($schema),
-            'visitUs'                    => new School\Preschool\VisitUsGenerator($schema, $this->wpService),
-            'accordionListItems'         => new School\Preschool\AccordionListItemsGenerator($schema, $this->wpService),
-            'sliderItems'                => new School\SliderItemsGenerator($schema),
-            'personsAttributes'          => new School\PersonComponentsAttributesGenerator($schema),
-            'addresses'                  => new School\AddressGenerator($schema, $this->wpService),
-            'mapAttributes'              => new School\MapComponentAttributesGenerator($schema),
-            'usps'                       => new School\Preschool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
-            'actions'                    => new School\ActionsGenerator($schema),
-            'contactPoints'              => new School\ContactpointsGenerator($schema),
-            'events'                     => new School\EventsGenerator($schema),
+            'preamble'           => new School\PreambleGenerator($schema),
+            'visitUs'            => new School\Preschool\VisitUsGenerator($schema, $this->wpService),
+            'accordionListItems' => new School\Preschool\AccordionListItemsGenerator($schema, $this->wpService),
+            'sliderItems'        => new School\SliderItemsGenerator($schema, $wp_embed),
+            'personsAttributes'  => new School\PersonComponentsAttributesGenerator($schema),
+            'addresses'          => new School\AddressGenerator($schema, $this->wpService),
+            'mapAttributes'      => new School\MapComponentAttributesGenerator($schema),
+            'usps'               => new School\Preschool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
+            'actions'            => new School\ActionsGenerator($schema),
+            'contactPoints'      => new School\ContactpointsGenerator($schema),
+            'events'             => new School\EventsGenerator($schema),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();
