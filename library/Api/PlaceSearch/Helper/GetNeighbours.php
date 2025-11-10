@@ -4,8 +4,18 @@ namespace Municipio\Api\PlaceSearch\Helper;
 
 use WpService\Contracts\ApplyFilters;
 
+/**
+ * Class GetNeighbours
+ *
+ * @package Municipio\Api\PlaceSearch\Helper
+ */
 class GetNeighbours
 {
+    /**
+     * GetNeighbours constructor.
+     *
+     * @param ApplyFilters $wpService
+     */
     public function __construct(private ApplyFilters $wpService)
     {
     }

@@ -20,19 +20,18 @@ class Openstreetmap implements PlaceSearchProviderInterface
     /**
      * The OpenStreetMap Nominatim API URL.
      */
-    private const API_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
-    private const API_REVERSE_SEARCH_URL  = 'https://nominatim.openstreetmap.org/reverse';
+    private const API_SEARCH_URL         = 'https://nominatim.openstreetmap.org/search';
+    private const API_REVERSE_SEARCH_URL = 'https://nominatim.openstreetmap.org/reverse';
 
     /**
      * Openstreetmap constructor.
      *
-     * @param ApplyFilters&WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService
+     * @param ApplyFilters&GetLocale&WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService
      */
     public function __construct(
         private WpRemoteGet&IsWpError&WpRemoteRetrieveBody&GetLocale $wpService,
         private GetNeighbours $neighboursHelper
-    )
-    {
+    ) {
     }
 
     /**
@@ -46,9 +45,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
     public function search(array $args = []): array
     {
         [$defaultCountryCodes, $defaultLanguage] = $this->getCountryCodesAndLanguage();
-        $args['countrycodes'] = $args['countrycodes'] ?? implode(',', $defaultCountryCodes);
-        $args['accept-language'] = $args['accept-language'] ?? $defaultLanguage;
-        $data = !empty($args['reverse']) ? $this->fetchReverseSearch($args) : $this->fetchSearch($args);
+        $args['countrycodes']                    = $args['countrycodes'] ?? implode(',', $defaultCountryCodes);
+        $args['accept-language']                 = $args['accept-language'] ?? $defaultLanguage;
+        $data                                    = !empty($args['reverse']) ? $this->fetchReverseSearch($args) : $this->fetchSearch($args);
 
         if (empty($data)) {
             return [];
@@ -66,15 +65,15 @@ class Openstreetmap implements PlaceSearchProviderInterface
     {
         static $countryCodes = null;
         static $siteLanguage = null;
-        static $countryCode = null;
+        static $countryCode  = null;
 
         if (!$siteLanguage || !$countryCodes || !$countryCode) {
-            $locale = $this->wpService->getLocale();
+            $locale                       = $this->wpService->getLocale();
             [$siteLanguage, $countryCode] = explode('_', $locale);
-            $countryCode = strtolower($countryCode);
-            $siteLanguage = strtolower($siteLanguage);
-            $countryCodes = $this->neighboursHelper->get($countryCode);
-            $countryCodes[] = $countryCode;
+            $countryCode                  = strtolower($countryCode);
+            $siteLanguage                 = strtolower($siteLanguage);
+            $countryCodes                 = $this->neighboursHelper->get($countryCode);
+            $countryCodes[]               = $countryCode;
         }
 
         return $this->wpService->applyFilters(
