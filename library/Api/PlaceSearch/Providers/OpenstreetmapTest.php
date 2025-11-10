@@ -10,7 +10,8 @@ class OpenstreetmapTest extends TestCase
     public function testCanBeInstantiated()
     {
         $openstreetmap = new Openstreetmap(
-            $this->getFakeWpService()
+            $this->getFakeWpService(),
+            $this->getFakeNeighboursHelper()
         );
         $this->assertInstanceOf(Openstreetmap::class, $openstreetmap);
     }
@@ -18,7 +19,8 @@ class OpenstreetmapTest extends TestCase
     public function testSearchReturnsAnEmptyArrayIfWpError()
     {
         $openstreetmap = new Openstreetmap(
-            $this->getFakeWpService(new \WP_Error(), true)
+            $this->getFakeWpService(new \WP_Error(), true),
+            $this->getFakeNeighboursHelper()
         );
 
         $result = $openstreetmap->search(['q' => 'test']);
@@ -35,7 +37,8 @@ class OpenstreetmapTest extends TestCase
         ];
 
         $openstreetmap = new Openstreetmap(
-            $this->getFakeWpService($mockResponse, json_encode($mockResponse))
+            $this->getFakeWpService($mockResponse, json_encode($mockResponse)),
+            $this->getFakeNeighboursHelper()
         );
 
         $result = $openstreetmap->search([
@@ -60,7 +63,8 @@ class OpenstreetmapTest extends TestCase
         ];
 
         $openstreetmap = new Openstreetmap(
-            $this->getFakeWpService($mockResponse, json_encode($mockResponse))
+            $this->getFakeWpService($mockResponse, json_encode($mockResponse)),
+            $this->getFakeNeighboursHelper()
         );
 
         $result = $openstreetmap->search(['q' => 'Stockholm']);
@@ -73,7 +77,7 @@ class OpenstreetmapTest extends TestCase
 
     public function testCreateSearchEndpointUrl()
     {
-        $openstreetmap = new Openstreetmap($this->getFakeWpService());
+        $openstreetmap = new Openstreetmap($this->getFakeWpService(), $this->getFakeNeighboursHelper());
 
         $url = $openstreetmap->createSearchEndpointUrl(['q' => 'test']);
 
@@ -84,7 +88,7 @@ class OpenstreetmapTest extends TestCase
 
     public function testCreateReverseSearchEndpointUrl()
     {
-        $openstreetmap = new Openstreetmap($this->getFakeWpService());
+        $openstreetmap = new Openstreetmap($this->getFakeWpService(), $this->getFakeNeighboursHelper());
 
         $url = $openstreetmap->createReverseSearchEndpointUrl([
             'reverse' => true,
@@ -104,6 +108,17 @@ class OpenstreetmapTest extends TestCase
             'wpRemoteGet'          => $wpRemoteGet,
             'isWpError'            => ($wpRemoteGet instanceof \WP_Error) ? true : false,
             'wpRemoteRetrieveBody' => $wpRemoteRetrieveBody,
+            'getLocale'            => 'sv_SE',
+            'applyFilters'         => function($tag, $value) { return $value; },
         ]);
+    }
+
+    private function getFakeNeighboursHelper()
+    {
+        return new class {
+            public function get($countryCode) {
+                return ['no', 'fi']; // Example neighbours for Sweden
+            }
+        };
     }
 }

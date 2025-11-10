@@ -2,11 +2,13 @@
 
 namespace Municipio\Api\PlaceSearch\Providers;
 
+use Municipio\Api\PlaceSearch\Helper\GetNeighbours;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpRemoteGet;
 use WpService\Contracts\WpRemoteRetrieveBody;
+use WpService\Contracts\GetLocale;
+use WpService\Contracts\ApplyFilters;
 use Municipio\Schema\Schema;
-use WP_Error;
 
 /**
  * Class Openstreetmap
@@ -24,9 +26,12 @@ class Openstreetmap implements PlaceSearchProviderInterface
     /**
      * Openstreetmap constructor.
      *
-     * @param WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService
+     * @param ApplyFilters&WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService
      */
-    public function __construct(private WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService)
+    public function __construct(
+        private WpRemoteGet&IsWpError&WpRemoteRetrieveBody&GetLocale $wpService,
+        private GetNeighbours $neighboursHelper
+    )
     {
     }
 
@@ -40,6 +45,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function search(array $args = []): array
     {
+        [$defaultCountryCodes, $defaultLanguage] = $this->getCountryCodesAndLanguage();
+        $args['countrycodes'] = $args['countrycodes'] ?? implode(',', $defaultCountryCodes);
+        $args['accept-language'] = $args['accept-language'] ?? $defaultLanguage;
         $data = !empty($args['reverse']) ? $this->fetchReverseSearch($args) : $this->fetchSearch($args);
 
         if (empty($data)) {
@@ -47,6 +55,33 @@ class Openstreetmap implements PlaceSearchProviderInterface
         }
 
         return $data;
+    }
+
+    /**
+     * Get country codes and site language.
+     *
+     * @return array An array containing country codes and site language.
+     */
+    private function getCountryCodesAndLanguage(): array
+    {
+        static $countryCodes = null;
+        static $siteLanguage = null;
+        static $countryCode = null;
+
+        if (!$siteLanguage || !$countryCodes || !$countryCode) {
+            $locale = $this->wpService->getLocale();
+            [$siteLanguage, $countryCode] = explode('_', $locale);
+            $countryCode = strtolower($countryCode);
+            $siteLanguage = strtolower($siteLanguage);
+            $countryCodes = $this->neighboursHelper->get($countryCode);
+            $countryCodes[] = $countryCode;
+        }
+
+        return $this->wpService->applyFilters(
+            'Municipio/Api/PlaceSearch/GetLanguageAndCountryCodes',
+            [$countryCodes, $siteLanguage],
+            $countryCode
+        );
     }
 
     /**
@@ -58,7 +93,11 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function fetchSearch(array $args = []): array
     {
-        $response = $this->wpService->wpRemoteGet($this->createSearchEndpointUrl($args));
+        $response = $this->wpService->wpRemoteGet($this->createSearchEndpointUrl($args), [
+            'headers' => [
+                'User-Agent' => 'Municipio - getmunicipio.com'
+            ]
+        ]);
 
         if ($this->wpService->isWpError($response)) {
             return [];
@@ -78,7 +117,14 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function fetchReverseSearch(array $args = []): array
     {
-        $response = $this->wpService->wpRemoteGet($this->createReverseSearchEndpointUrl($args));
+        $response = $this->wpService->wpRemoteGet(
+            $this->createReverseSearchEndpointUrl($args),
+            [
+                'headers' => [
+                    'User-Agent' => 'Municipio - getmunicipio.com'
+                ]
+            ]
+        );
 
         if ($this->wpService->isWpError($response)) {
             return [];
