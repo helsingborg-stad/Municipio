@@ -76,13 +76,11 @@ class Openstreetmap implements PlaceSearchProviderInterface
             $countryCodes[]               = $countryCode;
         }
 
-        $countryCodesAndLanguage = $this->wpService->applyFilters(
+        return $this->wpService->applyFilters(
             'Municipio/Api/PlaceSearch/GetLanguageAndCountryCodes',
             [$countryCodes, $siteLanguage],
             $countryCode
         );
-
-        return is_array($countryCodesAndLanguage) ? $countryCodesAndLanguage : [[], ''];
     }
 
     /**
