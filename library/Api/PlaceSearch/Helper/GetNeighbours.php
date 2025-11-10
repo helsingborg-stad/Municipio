@@ -78,10 +78,12 @@ class GetNeighbours
             'va' => ['it'],
         ];
 
-        return $this->wpService->applyFilters(
+        $neighbours = $this->wpService->applyFilters(
             'Municipio/Api/PlaceSearch/GetNeighbours',
             $neighboursArray[$countryCode] ?? [],
             $countryCode
         );
+
+        return is_array($neighbours) ? $neighbours : [];
     }
 }
