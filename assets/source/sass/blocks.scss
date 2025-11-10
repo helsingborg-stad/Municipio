@@ -7,7 +7,6 @@
     &.t-block-button {
         flex-wrap: wrap;
         gap: calc(#{variables.$base}*2);
-        margin: auto;
         display: flex;
 
         .c-button + .c-button {
