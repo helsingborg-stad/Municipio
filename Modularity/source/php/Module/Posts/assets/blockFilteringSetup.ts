@@ -18,13 +18,21 @@ class BlockFilteringSetup {
     private listenForBlocks() {
         const editor = wp.data.select('core/block-editor');
 
+        let timeoutId: number | undefined;
+
         wp.data.subscribe(() => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+
+            timeoutId = window.setTimeout(() => {
             const postsBlockIds = editor.getBlocksByName('acf/posts');
             if (postsBlockIds.length > 0) {
                 postsBlockIds.forEach((postBlockId: string) => {
-                    this.setupBlockTaxonomyFiltering(postBlockId, editor);
+                this.setupBlockTaxonomyFiltering(postBlockId, editor);
                 });
             }
+            }, 300);
         });
     }
 
