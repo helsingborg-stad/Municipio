@@ -36,7 +36,7 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         }
 
         // Build tax_query array
-        $taxQuery = [];
+        $taxQuery = [ 'relation' => $this->getRelationFromConfig($config) ];
         foreach ($termsByTaxonomy as $taxonomy => $termIds) {
             $taxQuery[] = [
                 'taxonomy' => $taxonomy,
@@ -46,5 +46,10 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         }
 
         return ['tax_query' => $taxQuery];
+    }
+
+    private function getRelationFromConfig(GetPostsConfigInterface $config): string
+    {
+        return  $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
     }
 }

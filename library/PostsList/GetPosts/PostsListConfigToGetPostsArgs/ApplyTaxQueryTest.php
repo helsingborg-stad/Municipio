@@ -30,20 +30,70 @@ class ApplyTaxQueryTest extends TestCase
         $applier = new ApplyTaxQuery();
         $args    = $applier->apply($config, []);
 
-        $this->assertEquals([
-            'tax_query' => [
-                [
-                    'taxonomy' => 'category',
-                    'field'    => 'term_id',
-                    'terms'    => [1],
-                ],
-                [
-                    'taxonomy' => 'post_tag',
-                    'field'    => 'term_id',
-                    'terms'    => [2],
-                ],
-            ],
-        ], $args);
+        $this->assertContains([
+            'taxonomy' => 'category',
+            'field'    => 'term_id',
+            'terms'    => [1],
+        ], $args['tax_query']);
+
+        $this->assertContains([
+            'taxonomy' => 'post_tag',
+            'field'    => 'term_id',
+            'terms'    => [2],
+        ], $args['tax_query']);
+    }
+
+    #[TestDox('relation is OR by default')]
+    public function testApplyAddsDefaultRelationToArgs(): void
+    {
+        $config = new class extends DefaultGetPostsConfig {
+            public function getTerms(): array
+            {
+                $categoryTerm           = new WP_Term([]);
+                $categoryTerm->term_id  = 1;
+                $categoryTerm->taxonomy = 'category';
+
+                $tagTerm           = new WP_Term([]);
+                $tagTerm->term_id  = 2;
+                $tagTerm->taxonomy = 'post_tag';
+
+                return [$categoryTerm, $tagTerm];
+            }
+        };
+
+        $applier = new ApplyTaxQuery();
+        $args    = $applier->apply($config, []);
+
+        $this->assertEquals('OR', $args['tax_query']['relation']);
+    }
+
+    #[TestDox('relation is AND if config defines query as faceting')]
+    public function testApplyAddsAndRelationToArgsWhenFaceting(): void
+    {
+        $config = new class extends DefaultGetPostsConfig {
+            public function isFacettingTaxonomyQueryEnabled(): bool
+            {
+                return true;
+            }
+
+            public function getTerms(): array
+            {
+                $categoryTerm           = new WP_Term([]);
+                $categoryTerm->term_id  = 1;
+                $categoryTerm->taxonomy = 'category';
+
+                $tagTerm           = new WP_Term([]);
+                $tagTerm->term_id  = 2;
+                $tagTerm->taxonomy = 'post_tag';
+
+                return [$categoryTerm, $tagTerm];
+            }
+        };
+
+        $applier = new ApplyTaxQuery();
+        $args    = $applier->apply($config, []);
+
+        $this->assertEquals('AND', $args['tax_query']['relation']);
     }
 
     #[TestDox('Does not modify args if no terms in config')]
