@@ -36,6 +36,7 @@ class GetPostsFromPostsListConfig
             new PostsListConfigToGetPostsArgs\ApplyPostType(),
             new PostsListConfigToGetPostsArgs\ApplyPostsPerPage(),
             new PostsListConfigToGetPostsArgs\ApplySearch(),
+            new PostsListConfigToGetPostsArgs\ApplyTaxQuery(),
         ];
 
         foreach ($appliers as $applier) {
