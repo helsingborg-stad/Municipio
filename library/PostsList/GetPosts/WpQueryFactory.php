@@ -5,7 +5,7 @@ namespace Municipio\PostsList\GetPosts;
 /**
  * Factory for creating WP_Query instances
  */
-class WpQueryFactory implements WPQueryFactoryInterface
+class WpQueryFactory implements WpQueryFactoryInterface
 {
     /**
      * @inheritDoc
