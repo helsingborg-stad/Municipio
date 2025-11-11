@@ -16,6 +16,8 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
 use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
+use Municipio\PostsList\QueryVars\QueryVarRegistrar\QueryVarRegistrar;
+use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WP_Query;
 use WP_Taxonomy;
 use WpService\WpService;
@@ -25,6 +27,7 @@ use WpService\WpService;
  */
 class PostsList
 {
+    private static $instanceCount = 0;
     private WP_Query $wpQuery;
 
     /**
@@ -35,6 +38,8 @@ class PostsList
      * @param FilterConfigInterface $filterConfig
      * @param array<string, WP_Taxonomy> $wpTaxonomies
      * @param WpService $wpService
+     * @param WpQueryFactoryInterface $wpQueryFactory
+     * @param QueryVarRegistrarInterface $querVarsRegistrar
      * @param GetField $acfService
      * @param AnyPostHasImageInterface $anyPostHasImageService
      */
@@ -44,13 +49,12 @@ class PostsList
         private FilterConfigInterface $filterConfig,
         private array $wpTaxonomies,
         private WpQueryFactoryInterface $wpQueryFactory,
-        private string $paginationQueryParam,
+        private QueryVarsInterface $queryVars,
         private WpService $wpService,
-        private QueryVarRegistrarInterface $querVarsRegistrar,
         private GetField $acfService = new NativeAcfService(),
         private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage()
     ) {
-        $this->querVarsRegistrar->register($this->paginationQueryParam);
+        (new QueryVarRegistrar($this->queryVars, $this->wpService))->register();
     }
 
     /**
@@ -94,7 +98,7 @@ class PostsList
             'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
 
             // Pagination utilities
-            'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getTotalNumberOfPages(), $this->getPostsConfig()->getPage(), $this->paginationQueryParam))->getCallable(),
+            'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getTotalNumberOfPages(), $this->getPostsConfig()->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
         ];
     }
 
@@ -118,7 +122,7 @@ class PostsList
 
     private function getPostsConfig(): GetPostsConfigInterface
     {
-        $currentPage = $_GET[$this->paginationQueryParam] ?? 1;
+        $currentPage = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
         return new class ($this->getPostsConfig, $currentPage) extends AbstractDecoratedGetPostsConfig {
             public function __construct(protected GetPostsConfigInterface $innerConfig, private int $currentPage)
             {

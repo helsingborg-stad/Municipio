@@ -59,9 +59,8 @@ class Archive extends \Municipio\Controller\BaseController
             $this->createFilterConfig(),
             $this->getAllRegisteredTaxonomies(),
             new WpQueryFactory(),
-            'archivePage',
+            new \Municipio\PostsList\QueryVars\QueryVars('archive_'),
             $this->wpService,
-            new QueryVarRegistrar($this->wpService)
         ))->getData()];
     }
 

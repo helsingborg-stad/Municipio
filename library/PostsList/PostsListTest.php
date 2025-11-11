@@ -7,6 +7,7 @@ use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
 use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrar;
+use Municipio\PostsList\QueryVars\QueryVars;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -16,13 +17,13 @@ class PostsListTest extends TestCase
     #[TestDox('getData returns an array')]
     public function testGetDataReturnsArray(): void
     {
-        $getPostsConfig     = new  DefaultGetPostsConfig();
-        $appearanceConfig   = new DefaultAppearanceConfig();
-        $filterConfig       = new DefaultFilterConfig();
-        $wpQueryFactory     = $this->getWpQueryFactory();
-        $wpService          = new FakeWpService(['getPosts' => [], 'addFilter' => true]);
-        $queryVarsRegistrar = new QueryVarRegistrar($wpService);
-        $postsList          = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, [], $wpQueryFactory, '', $wpService, $queryVarsRegistrar);
+        $getPostsConfig   = new  DefaultGetPostsConfig();
+        $appearanceConfig = new DefaultAppearanceConfig();
+        $filterConfig     = new DefaultFilterConfig();
+        $wpQueryFactory   = $this->getWpQueryFactory();
+        $wpService        = new FakeWpService(['getPosts' => [], 'addFilter' => true]);
+        $queryVars        = new QueryVars('posts_list_');
+        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, [], $wpQueryFactory, $queryVars, $wpService);
 
         $this->assertIsArray($postsList->getData());
     }
