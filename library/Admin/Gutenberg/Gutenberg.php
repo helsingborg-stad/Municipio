@@ -17,7 +17,7 @@ class Gutenberg
     public function __construct()
     {
         add_filter("use_block_editor_for_post_type", array($this, 'activateGutenbergEditor'), 10, 2);
-        //add_filter('allowed_block_types', [$this,'additionalAllowedBlocks'], 10, 1);
+        add_filter('allowed_block_types', [$this,'additionalAllowedBlocks'], 10, 1);
     }
 
 
