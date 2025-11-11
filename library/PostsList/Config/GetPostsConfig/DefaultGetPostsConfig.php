@@ -42,6 +42,22 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
+    public function getOrderBy(): string
+    {
+        return 'post_date';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOrder(): OrderDirection
+    {
+        return OrderDirection::DESC;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getDateFrom(): ?string
     {
         return null;

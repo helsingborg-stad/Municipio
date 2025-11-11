@@ -35,6 +35,20 @@ interface GetPostsConfigInterface
     public function getSearch(): ?string;
 
     /**
+     * Get order by value
+     *
+     * @return string
+     */
+    public function getOrderBy(): string;
+
+    /**
+     * Get order value
+     *
+     * @return OrderDirection
+     */
+    public function getOrder(): OrderDirection;
+
+    /**
      * Get date from filter value
      *
      * @return string|null

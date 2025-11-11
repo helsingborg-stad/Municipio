@@ -6,6 +6,8 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\GetPostsConfig\ORDER_DIRECTION;
+use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
 use WP_Term;
 
 /**
@@ -89,9 +91,9 @@ class Archive extends \Municipio\Controller\BaseController
         global $wp_taxonomies;
 
         $postsList  = new \Municipio\PostsList\PostsList(
-            $this->getPostConfig(),
-            $this->getAppearanceConfig(),
-            $this->getFilterConfig(),
+            $this->createGetPostConfig(),
+            $this->createAppearanceConfig(),
+            $this->createFilterConfig(),
             $wp_taxonomies,
             $this->wpService
         );
@@ -113,7 +115,7 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
      */
-    private function getFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
+    private function createFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
         $isEnabled           = $this->showFilter($this->data['archiveProps']);
         $showReset           = $this->showFilterReset($this->data['queryParameters']);
@@ -188,16 +190,20 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
      */
-    private function getPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
+    private function createGetPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
     {
         $postType           = [$this->getPostType()];
-        $isFacettingEnabled = $this->showFilter($this->data['archiveProps']);
+        $isFacettingEnabled = $this->getFacettingType($this->data['archiveProps']);
         $search             =  !empty($_GET['s']) ? $_GET['s'] : null;
         $fromDate           = $this->data['queryParameters']->from ?? null;
         $toDate             = $this->data['queryParameters']->to ?? null;
         $terms              = $this->getTermsForPostsConfig();
+        $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
+        $order              = $this->data['archiveProps']->orderDirection && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC'
+            ? OrderDirection::ASC
+            : OrderDirection::DESC;
 
-        return new class ($postType, $isFacettingEnabled, $search, $fromDate, $toDate, $terms) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+        return new class ($postType, $isFacettingEnabled, $search, $fromDate, $toDate, $terms, $orderBy, $order) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
              */
@@ -207,7 +213,9 @@ class Archive extends \Municipio\Controller\BaseController
                 private ?string $search,
                 private ?string $fromDate,
                 private ?string $toDate,
-                private array $terms
+                private array $terms,
+                private string $orderBy,
+                private OrderDirection $order
             ) {
             }
 
@@ -241,6 +249,22 @@ class Archive extends \Municipio\Controller\BaseController
             public function getSearch(): ?string
             {
                 return $this->search;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getOrderBy(): string
+            {
+                return $this->orderBy;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getOrder(): \Municipio\PostsList\Config\GetPostsConfig\OrderDirection
+            {
+                return $this->order;
             }
 
             /**
@@ -314,12 +338,12 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
      */
-    private function getAppearanceConfig(): \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
+    private function createAppearanceConfig(): \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
     {
         $numberOfColumns            = $this->data['archiveProps']->numberOfColumns ?? 1;
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
-        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay ?? [];
+        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay ?: [];
         $postPropertiesToDisplay    = $this->data['archiveProps']->postPropertiesToDisplay ?? [];
         $template                   = $this->data['archiveProps']->style ?? 'cards';
         $design                     = match ($template) {

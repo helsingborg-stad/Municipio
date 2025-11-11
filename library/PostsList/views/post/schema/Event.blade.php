@@ -4,9 +4,11 @@
     'link'              => $post->getPermalink(),
     'containerAware'    => true
 ])
-    @slot('floating')
-        @datebadge([ 'date' => $getSchemaEventDateBadgeDate($post), 'size' => 'sm', ]) @enddatebadge
-    @endslot
+    @if(!empty($getSchemaEventDateBadgeDate($post)))
+        @slot('floating')
+            @datebadge([ 'date' => $getSchemaEventDateBadgeDate($post), 'size' => 'sm', ]) @enddatebadge
+        @endslot
+    @endif
     @slot('aboveContent')
         @typography(['variant' => 'h5', 'classList' => ['u-margin__bottom--0', 'u-color__text--primary']]){!! $getSchemaEventPlaceName($post) !!}@endtypography
         @typography(['element' => 'h2', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2', 'u-margin__top--0']]){!!$post->getTitle()!!}@endtypography
