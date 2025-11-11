@@ -32,12 +32,12 @@ class Archive extends \Municipio\Controller\BaseController
     {
         parent::init();
 
-        //Get current post type
+        // Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
 
         $this->data['displayArchiveLoop'] = true;
 
-        //Get archive properties
+        // Get archive properties
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Archive data
@@ -46,18 +46,14 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveBaseUrl']  = $this->getPostTypeArchiveLink($postType);
         $this->data['archiveResetUrl'] = $this->getPostTypeArchiveLink($postType);
 
-        $archiveMenuConfig = new MenuConfig(
-            'archive-menu',
-            $postType . '-menu'
-        );
-
+        // Build archive menu
+        $archiveMenuConfig = new MenuConfig('archive-menu', $postType . '-menu');
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
-        global $wp_taxonomies;
-
-        $postsList  = new \Municipio\PostsList\PostsList(
+        // Build posts list
+        $this->data = [...$this->data, ...(new \Municipio\PostsList\PostsList(
             $this->createGetPostConfig(),
             $this->createAppearanceConfig(),
             $this->createFilterConfig(),
@@ -66,8 +62,7 @@ class Archive extends \Municipio\Controller\BaseController
             'archivePage',
             $this->wpService,
             new QueryVarRegistrar($this->wpService)
-        );
-        $this->data = [...$this->data, ...$postsList->getData()];
+        ))->getData()];
     }
 
     /**
@@ -420,12 +415,10 @@ class Archive extends \Municipio\Controller\BaseController
 
     /**
      * Get archive properties
+     *
      * @param  string $postType
      * @param  array $customizer
      * @return array|bool
-     *
-     * @deprecated since 3.0.0 In favour of \Municipio\Helper\Archive::getArchiveProperties()
-     *
      */
     private function getArchiveProperties($postType, $customize)
     {
@@ -443,25 +436,10 @@ class Archive extends \Municipio\Controller\BaseController
         return str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $postType)));
     }
 
-
     /**
-     * Determines if view for filter should be rendered.
-     * Check if any queryparameters is present
-     * @param  array $exceptions Keys that shold be exceptions (do not take in account)
-     * @return boolean
-     */
-    public function hasQueryParameters(array $exceptions = ['paged' => true])
-    {
-        return !empty(array_diff_key(
-            (array) $_GET,
-            (array) $exceptions
-        ));
-    }
-
-    /**
-     * Boolean function to determine if navigation should be shown
+     * Determines if the filter should be shown.
      *
-     * @param string $postType
+     * @param object $args
      * @return boolean
      */
     public function showFilter($args): bool
