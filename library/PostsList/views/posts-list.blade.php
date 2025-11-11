@@ -17,4 +17,9 @@
             @endelement
         @endforeach
     @endif
+
+    @element(['classList' => ['o-layout-grid--col-span-12']])
+        @include('parts.pagination')
+    @endelement
+
 @endelement

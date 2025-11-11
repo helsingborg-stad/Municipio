@@ -5,6 +5,8 @@ namespace Municipio\PostsList;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
+use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
+use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrar;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -14,12 +16,29 @@ class PostsListTest extends TestCase
     #[TestDox('getData returns an array')]
     public function testGetDataReturnsArray(): void
     {
-        $getPostsConfig   = new  DefaultGetPostsConfig();
-        $appearanceConfig = new DefaultAppearanceConfig();
-        $filterConfig     = new DefaultFilterConfig();
-        $wpService        = new FakeWpService(['getPosts' => []]);
-        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, [], $wpService);
+        $getPostsConfig     = new  DefaultGetPostsConfig();
+        $appearanceConfig   = new DefaultAppearanceConfig();
+        $filterConfig       = new DefaultFilterConfig();
+        $wpQueryFactory     = $this->getWpQueryFactory();
+        $wpService          = new FakeWpService(['getPosts' => [], 'addFilter' => true]);
+        $queryVarsRegistrar = new QueryVarRegistrar($wpService);
+        $postsList          = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, [], $wpQueryFactory, '', $wpService, $queryVarsRegistrar);
 
         $this->assertIsArray($postsList->getData());
+    }
+
+    private function getWpQueryFactory(): WpQueryFactoryInterface
+    {
+        return new class implements \Municipio\PostsList\GetPosts\WpQueryFactoryInterface {
+            public static function create($query = ''): \WP_Query
+            {
+                return new class extends \WP_Query {
+                    public function get_posts()
+                    {
+                        return [];
+                    }
+                };
+            }
+        };
     }
 }

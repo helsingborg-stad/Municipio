@@ -6,8 +6,10 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
-use Municipio\PostsList\Config\GetPostsConfig\ORDER_DIRECTION;
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
+use Municipio\PostsList\GetPosts\WpQueryFactory;
+use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrar;
+use WP_Taxonomy;
 use WP_Term;
 
 /**
@@ -38,46 +40,11 @@ class Archive extends \Municipio\Controller\BaseController
         //Get archive properties
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
-        //Set default values to query parameters
-        $this->data['queryParameters'] = $this->setQueryParameters();
-
-        //Filter options
-        $this->data['taxonomyFilters'] = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
-
-        // $this->data['enableTextSearch'] = $this->enableTextSearch($this->data['archiveProps']);
-        // $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
-        $this->data['facettingType'] = $this->getFacettingType($this->data['archiveProps']);
-
         //Archive data
         $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
         $this->data['archiveLead']     = $this->getArchiveLead($this->data['archiveProps']);
         $this->data['archiveBaseUrl']  = $this->getPostTypeArchiveLink($postType);
         $this->data['archiveResetUrl'] = $this->getPostTypeArchiveLink($postType);
-
-        //Pagination
-        $this->data['currentPage']                     = $this->getCurrentPage();
-        $this->data['paginationList']                  = $this->getPagination(
-            $postType,
-            $this->data['archiveBaseUrl'],
-            $this->wpQuery
-        );
-        $this->data['paginationListPostsWithLocation'] = $this->getPagination(
-            $postType,
-            $this->data['archiveBaseUrl'],
-            $this->wpQuery
-        );
-
-        $this->data['showPagination'] = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
-
-        //Display functions
-        // $this->data['showFilterReset'] = $this->showFilterReset($this->data['queryParameters']);
-        //$this->data['showDatePickers'] = $this->showDatePickers($this->data['queryParameters']);
-
-        //Facetting (menu)
-        $this->data['hasQueryParameters'] = $this->hasQueryParameters(['paged' => true]);
-
-        //Show filter?
-        //$this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
         $archiveMenuConfig = new MenuConfig(
             'archive-menu',
@@ -94,10 +61,25 @@ class Archive extends \Municipio\Controller\BaseController
             $this->createGetPostConfig(),
             $this->createAppearanceConfig(),
             $this->createFilterConfig(),
-            $wp_taxonomies,
-            $this->wpService
+            $this->getAllRegisteredTaxonomies(),
+            new WpQueryFactory(),
+            'archivePage',
+            $this->wpService,
+            new QueryVarRegistrar($this->wpService)
         );
         $this->data = [...$this->data, ...$postsList->getData()];
+    }
+
+    /**
+     * Get all registered taxonomies
+     *
+     * @return WP_Taxonomy[]
+     */
+    private function getAllRegisteredTaxonomies(): array
+    {
+        global $wp_taxonomies;
+
+        return $wp_taxonomies;
     }
 
     /**
@@ -200,7 +182,6 @@ class Archive extends \Municipio\Controller\BaseController
         $terms              = $this->getTermsForPostsConfig();
         $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
         $perPage            = (int)get_theme_mod('archive_' . $this->getPostType() . '_post_count', 12);
-        $currentPage        = $this->getCurrentPage();
         $order              = $this->data['archiveProps']->orderDirection && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC'
             ? OrderDirection::ASC
             : OrderDirection::DESC;
@@ -214,7 +195,6 @@ class Archive extends \Municipio\Controller\BaseController
             $terms,
             $orderBy,
             $order,
-            $currentPage,
             $perPage
         ) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
@@ -229,7 +209,6 @@ class Archive extends \Municipio\Controller\BaseController
                 private array $terms,
                 private string $orderBy,
                 private OrderDirection $order,
-                private int $currentPage,
                 private int $perPage
             ) {
             }
@@ -248,14 +227,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function getPostsPerPage(): int
             {
                 return $this->perPage;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPage(): int
-            {
-                return $this->currentPage;
             }
 
             /**
@@ -314,15 +285,12 @@ class Archive extends \Municipio\Controller\BaseController
     }
 
     /**
+     * Get the terms for the posts configuration.
+     *
      * @return WP_Term[]
      */
     private function getTermsForPostsConfig(): array
     {
-        // Get all $_GET paramters
-        // Keep only those that are taxonomies, the pattern can be either category or category[] or url encoded category%5B%5D
-        // Get all slugs connected to these taxonomies, assume that they are term slugs. E.g. ?category=term-slug or ?category[]=term-slug1&category[]=term-slug2
-        // Get all terms with a single call to get_terms
-        // Return the terms
         $params = $_GET;
         $terms  = [];
 
@@ -461,7 +429,18 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getArchiveProperties($postType, $customize)
     {
-        return \Municipio\Helper\Archive::getArchiveProperties($postType, $customize);
+        $customizationKey = "archive" . self::camelCasePostTypeName($postType);
+
+        if (isset($customize->{$customizationKey})) {
+            return (object) $customize->{$customizationKey};
+        }
+
+        return false;
+    }
+
+    private function camelCasePostTypeName(string $postType): string
+    {
+        return str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $postType)));
     }
 
 
@@ -514,7 +493,14 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function enableTextSearch($args)
     {
-        return \Municipio\Helper\Archive::enableTextSearch($args);
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
+        return (bool) in_array(
+            'text_search',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
     }
 
     /**
@@ -525,34 +511,14 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function enableDateFilter($args)
     {
-        return \Municipio\Helper\Archive::enableDateFilter($args);
-    }
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
 
-    /**
-     * Get the current page
-     *
-     * @param   integer $default    Default page if not set
-     * @return  integer             The current page
-     */
-    public function getCurrentPage(int $default = 1): int
-    {
-        return (get_query_var('paged')) ? get_query_var('paged') : $default;
-    }
-
-    /**
-     * Get the template style for this archive
-     *
-     * @param string $postType  The post type to get the option from
-     * @param string $default   The default value, if not found.
-     *
-     * @return string
-     *
-     * @deprecated since 3.0.0 In favour of \Municipio\Helper\Archive::getTemplate()
-     *
-     */
-    public function getTemplate($args, string $default = 'cards'): string
-    {
-        return \Municipio\Helper\Archive::getTemplate($args, $default);
+        return (bool) in_array(
+            'date_range',
+            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+        );
     }
 
     /**
@@ -634,96 +600,60 @@ class Archive extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Get pagination
-     *
-     * @return array    Pagination array with label and link
-     */
-    protected function getPagination($postType, $archiveBaseUrl, $wpQuery)
-    {
-        return \Municipio\Helper\Archive::getPagination($archiveBaseUrl, $wpQuery);
-    }
-
-    /**
-     * If the pagination should show or no
-     *
-     * @return bool
-     */
-    protected function showPagination($postType, $archiveBaseUrl, $wpQuery)
-    {
-        return \Municipio\Helper\Archive::showPagination($archiveBaseUrl, $wpQuery);
-    }
-
-    /**
-     * Build a query string with page numer
-     *
-     * @param integer $number
-     * @return void
-     */
-    protected function setQueryString($number)
-    {
-        return \Municipio\Helper\Archive::setQueryString($number);
-    }
-
-    /**
-     * Set default values for query parameters
-     *
-     * @return void
-     */
-    public function setQueryParameters()
-    {
-        $queryParameters = [
-            'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
-            'from'   =>  isset($_GET['from']) ? $_GET['from'] : '',
-            'to'     =>  isset($_GET['to']) ? $_GET['to'] : ''
-        ];
-
-        if (!empty($this->data['postType']) && is_string($this->data['postType'])) {
-            //Include taxonomies (dynamic)
-            $taxonomies = get_object_taxonomies($this->data['postType']);
-            if (is_array($taxonomies) && !empty($taxonomies)) {
-                foreach ($taxonomies as $taxonomy) {
-                    $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
-                }
-            }
-        }
-
-        return \apply_filters(
-            'Municipio/Controller/Archive/setQueryParameters',
-            (object) $queryParameters
-        );
-    }
-
-    /**
      * Boolean function to determine if text search should be enabled
      *
      * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    public function getFacettingType($args)
+    public function getFacettingType($args): bool
     {
-        return \Municipio\Helper\Archive::getFacettingType($args);
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
+        if (!isset($args->filterType) || is_null($args->filterType)) {
+            $args->filterType = false;
+        }
+
+        return (bool) $args->filterType;
     }
 
     /**
-     * Display the estimated reading time for an archive.
+     * Determines whether to display the reading time for an archive.
      *
      * @param array $args The arguments for displaying the reading time.
-     * @return string The estimated reading time.
+     * @return bool Returns true if the reading time is set in the arguments, false otherwise.
      */
     public function displayReadingTime($args)
     {
-        return \Municipio\Helper\Archive::displayReadingTime($args);
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
+        if (!isset($args->readingTime)) {
+            return false;
+        }
+
+        return (bool) $args->readingTime;
     }
 
     /**
-     * Display the featured image for an archive.
+     * Display the featured image based on the provided arguments.
      *
-     * @param array $args The arguments for displaying the featured image.
-     * @return mixed The result of the displayFeaturedImage method.
+     * @param object $args The arguments for displaying the featured image.
+     * @return bool Returns true if the featured image should be displayed, false otherwise.
      */
     public function displayFeaturedImage($args)
     {
-        return \Municipio\Helper\Archive::displayFeaturedImage($args);
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
+        if (!isset($args->displayFeaturedImage)) {
+            return false;
+        }
+
+        return (bool) $args->displayFeaturedImage;
     }
 
     private function getFilterTaxonomiesFromSettings(array $settings): array
@@ -744,112 +674,6 @@ class Archive extends \Municipio\Controller\BaseController
         return array_values($taxonomies);
     }
 
-    /**
-     * Get taxonomy filters to show
-     *
-     * @param   string  $postType           The current post type
-     * @return  array   $taxonomyObjects    Array containing selects with options
-     */
-    protected function getTaxonomyFilters($postType, $args)
-    {
-        if (!isset($args->enabledFilters) || empty($args->enabledFilters)) {
-            return [];
-        }
-
-        //Define storage point
-        $taxonomyObjects = [];
-
-        //Get active taxonomy filters
-        $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(
-            $args->enabledFilters,
-            [$this->currentTaxonomy()]
-        ), $this->currentTaxonomy());
-
-        if (is_array($taxonomies) && !empty($taxonomies)) {
-            foreach ($taxonomies as $taxonomy) {
-                //Fetch full object
-                $taxonomy = get_taxonomy($taxonomy);
-
-                //Bail if not found
-                if ($taxonomy === false) {
-                    continue;
-                }
-
-                //Get terms
-                $terms = get_terms(
-                    array(
-                        'taxonomy'   => $taxonomy->name,
-                        'hide_empty' => true
-                    )
-                );
-
-                //Bail early if there isen't any options
-                if (empty($terms)) {
-                    continue;
-                }
-
-                //Reset options
-                $options = [];
-
-                //Fill options
-                if (is_array($terms) && !empty($terms)) {
-                    foreach ($terms as $option) {
-                        if (!empty($option->name)) {
-                            $value = $option->slug;
-                            $label = ucfirst($option->name) . " (" . $option->count . ")";
-
-                            $value = apply_filters('Municipio/Archive/getTaxonomyFilters/option/value', $value, $option, $taxonomy);
-                            $label = apply_filters('Municipio/Archive/getTaxonomyFilters/option/label', $label, $option, $taxonomy);
-
-                            $options[$value] = $label;
-                        }
-                    }
-                }
-
-                if (!empty($options) && count(array_filter($options, 'is_numeric', ARRAY_FILTER_USE_KEY)) === count($options)) {
-                    // If all labels are numeric, we need to sort them as numbers
-                    asort($options, SORT_NUMERIC);
-                }
-
-                $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
-
-                //Data
-                $taxonomyObject = [
-                    'label'         => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
-                    'required'      => false,
-                    'attributeList' => [
-                        'type' => 'text',
-                        'name' => $taxonomy->name
-                    ],
-                    'fieldType'     => $args->{$tax . "FilterFieldType"} ?? 'single',
-                    'options'       => $options
-                ];
-
-                if (isset($_GET[$taxonomy->name])) {
-                    $taxonomyObject['preselected'] = $this->preselectAllTaxonomiesInUrl($taxonomy->name);
-                }
-
-                $taxonomyObjects[] = $taxonomyObject;
-            }
-        }
-
-        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
-    }
-
-    /**
-     * Preselects all taxonomies in the URL for a given taxonomy name.
-     *
-     * @param string $taxonomyName The name of the taxonomy.
-     * @return array The preselected taxonomies in the URL.
-     */
-    private function preselectAllTaxonomiesInUrl($taxonomyName)
-    {
-        if (isset($_GET[$taxonomyName])) {
-            $preselected = $_GET[$taxonomyName];
-        }
-
-        return !empty($preselected) ? $preselected : [];
-    }
 
     /**
      * Get the current taxonomy page
@@ -866,44 +690,5 @@ class Archive extends \Municipio\Controller\BaseController
             }
         }
         return $isTaxArchive;
-    }
-
-    /**
-     * Get posts in expected format for each component.
-     *
-     * @param   string  $template  The template identifier
-     *
-     * @return  array   $items     Array of posts
-     */
-    public function getPosts($template): array
-    {
-        $items = null;
-        if (is_array($this->posts) && !empty($this->posts)) {
-            $items = $this->getArchiveItems($this->posts);
-
-            return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $items);
-        }
-
-        return [];
-    }
-
-    /**
-     * Prepare posts for general output
-     *
-     * @param   array $posts    The posts
-     * @return  array           The posts - formatted
-     */
-    protected function getArchiveItems(array $posts): array
-    {
-        $preparedPosts = [];
-        if (is_array($posts) && !empty($posts)) {
-            foreach ($posts as $post) {
-                $post            = \Municipio\Helper\Post::preparePostObject($post);
-                $post->href      = $post->permalink;
-                $preparedPosts[] = $post;
-            }
-        }
-
-        return $preparedPosts;
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Municipio\PostsList\Config\GetPostsConfig;
 
-use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
+use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use WpService\Contracts\GetPosts;
 
-class GetPostsFromPostsListConfigTest extends \PHPUnit\Framework\TestCase
+class MapPostArgsFromPostsListConfigTest extends \PHPUnit\Framework\TestCase
 {
     #[TestDox('returns array')]
     public function testGetPostsReturnsArray(): void
@@ -18,7 +18,7 @@ class GetPostsFromPostsListConfigTest extends \PHPUnit\Framework\TestCase
             }
         };
 
-        $getPosts = new GetPostsFromPostsListConfig(new DefaultGetPostsConfig(), $wpService);
+        $getPosts = new MapPostArgsFromPostsListConfig(new DefaultGetPostsConfig(), $wpService);
 
         $this->assertIsArray($getPosts->getPosts());
     }

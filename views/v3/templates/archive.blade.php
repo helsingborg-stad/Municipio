@@ -71,15 +71,6 @@
                     @include('posts-list')
                 @endif
             @show
-            @if ($showPagination && $paginationList)
-                @pagination([
-                    'list' => $paginationList,
-                    'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
-                    'current' => $currentPage,
-                    'linkPrefix' => 'paged'
-                ])
-                @endpagination
-            @endif
         @else
             <div class="o-grid">
                 <div class="o-grid-12">

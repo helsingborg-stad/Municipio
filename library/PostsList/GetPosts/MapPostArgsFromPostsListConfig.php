@@ -2,15 +2,13 @@
 
 namespace Municipio\PostsList\GetPosts;
 
-use Municipio\Helper\Post;
-use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use WpService\Contracts\GetPosts;
 
 /**
- * Get posts from posts list config
+ * Map to posts args from posts list config
  */
-class GetPostsFromPostsListConfig
+class MapPostArgsFromPostsListConfig
 {
     /**
      * Constructor
@@ -25,26 +23,26 @@ class GetPostsFromPostsListConfig
     }
 
     /**
-     * Get posts
+     * Get posts args
      *
-     * @return PostObjectInterface[]
+     * @return array
      */
     public function getPosts(): array
     {
         $args     = $args ?? [];
         $appliers = [
             new PostsListConfigToGetPostsArgs\ApplyOrder(),
+            new PostsListConfigToGetPostsArgs\ApplyPage(),
             new PostsListConfigToGetPostsArgs\ApplyPostsPerPage(),
             new PostsListConfigToGetPostsArgs\ApplyPostType(),
             new PostsListConfigToGetPostsArgs\ApplySearch(),
             new PostsListConfigToGetPostsArgs\ApplyTaxQuery(),
-            new PostsListConfigToGetPostsArgs\ApplyPage(),
         ];
 
         foreach ($appliers as $applier) {
             $args = array_merge($args, $applier->apply($this->config, $args));
         }
 
-        return array_map(fn($wpPost) => Post::convertWpPostToPostObject($wpPost), $this->innerGetPosts->getPosts($args));
+        return $args;
     }
 }

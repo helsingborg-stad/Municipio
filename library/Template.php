@@ -208,8 +208,7 @@ class Template
         $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
                                                 class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") &&
                                                 (bool)ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
-
-        $controllers = [
+        $controllers                      = [
             [
                 'condition'       => ('404' === $template),
                 'controllerClass' => \Municipio\Controller\E404::class,

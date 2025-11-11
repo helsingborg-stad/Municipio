@@ -4,13 +4,19 @@ namespace Municipio\PostsList;
 
 use AcfService\Contracts\GetField;
 use AcfService\Implementations\NativeAcfService;
+use Municipio\Helper\Post;
+use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\AbstractDecoratedGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-use Municipio\PostsList\GetPosts\GetPostsFromPostsListConfig;
+use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
+use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
+use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
+use WP_Query;
 use WP_Taxonomy;
 use WpService\WpService;
 
@@ -19,10 +25,7 @@ use WpService\WpService;
  */
 class PostsList
 {
-    /**
-     * @var PostObjectInterface[]
-     */
-    private array $posts;
+    private WP_Query $wpQuery;
 
     /**
      * Constructor
@@ -40,10 +43,14 @@ class PostsList
         private AppearanceConfigInterface $appearanceConfig,
         private FilterConfigInterface $filterConfig,
         private array $wpTaxonomies,
+        private WpQueryFactoryInterface $wpQueryFactory,
+        private string $paginationQueryParam,
         private WpService $wpService,
+        private QueryVarRegistrarInterface $querVarsRegistrar,
         private GetField $acfService = new NativeAcfService(),
         private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage()
     ) {
+        $this->querVarsRegistrar->register($this->paginationQueryParam);
     }
 
     /**
@@ -80,12 +87,48 @@ class PostsList
             'getSchemaEventDateBadgeDate'               => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
 
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig, $this->wpService, $this->wpTaxonomies))->getCallable(),
-            'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig, $this->wpService))->getCallable(),
-            'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig, $this->filterConfig, $this->wpService))->getCallable(),
-            'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig, $this->wpService))->getCallable(),
-            'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig, $this->wpService))->getCallable(),
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig(), $this->wpService, $this->wpTaxonomies))->getCallable(),
+            'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
+            'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig(), $this->filterConfig, $this->wpService))->getCallable(),
+            'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
+            'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
+
+            // Pagination utilities
+            'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getTotalNumberOfPages(), $this->getPostsConfig()->getPage(), $this->paginationQueryParam))->getCallable(),
         ];
+    }
+
+    private function getWpQuery(): WP_Query
+    {
+        if (!isset($this->wpQuery)) {
+            $args          = $this->getPostsArgs();
+            $this->wpQuery = $this->wpQueryFactory::create($args);
+        }
+
+        return $this->wpQuery;
+    }
+
+    private function getPostsArgs(): array
+    {
+        return (new MapPostArgsFromPostsListConfig(
+            $this->getPostsConfig(),
+            $this->wpService
+        ))->getPosts();
+    }
+
+    private function getPostsConfig(): GetPostsConfigInterface
+    {
+        $currentPage = $_GET[$this->paginationQueryParam] ?? 1;
+        return new class ($this->getPostsConfig, $currentPage) extends AbstractDecoratedGetPostsConfig {
+            public function __construct(protected GetPostsConfigInterface $innerConfig, private int $currentPage)
+            {
+            }
+
+            public function getPage(): int
+            {
+                return $this->currentPage;
+            }
+        };
     }
 
     /**
@@ -95,14 +138,18 @@ class PostsList
      */
     private function getPosts(): array
     {
-        if (!isset($this->posts)) {
-            $this->posts = (new GetPostsFromPostsListConfig(
-                $this->getPostsConfig,
-                $this->wpService
-            ))->getPosts();
+        return array_map(fn($wpPost) => Post::convertWpPostToPostObject($wpPost), (new GetPosts\GetPostsUsingWpQuery($this->getWpQuery()))->getPosts());
+    }
+
+    private function getTotalNumberOfPages(): int
+    {
+        $wpQuery = $this->getWpQuery();
+
+        if (!isset($wpQuery->max_num_pages)) {
+            $this->wpQuery->get_posts();
         }
 
-        return $this->posts;
+        return $wpQuery->max_num_pages;
     }
 
     /**
