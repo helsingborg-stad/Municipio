@@ -22,7 +22,7 @@ class Enqueue implements Hookable
         private WpService $wpService,
         private WpUtilService $wpUtilService
     ) {
-        $this->enqueue = $this->wpUtilService->enqueue(__DIR__);
+        $this->enqueue = $this->wpUtilService->enqueue(__DIR__, 'assets/dist');
     }
 
     /**
