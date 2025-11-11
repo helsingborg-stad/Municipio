@@ -102,6 +102,9 @@ class PostsList
         ];
     }
 
+    /**
+     * Get WP_Query instance
+     */
     private function getWpQuery(): WP_Query
     {
         if (!isset($this->wpQuery)) {
@@ -112,6 +115,9 @@ class PostsList
         return $this->wpQuery;
     }
 
+    /**
+     * Get posts args based on config
+     */
     private function getPostsArgs(): array
     {
         return (new MapPostArgsFromPostsListConfig(
@@ -120,14 +126,23 @@ class PostsList
         ))->getPosts();
     }
 
+    /**
+     * Get decorated getPostsConfig with current page
+     */
     private function getPostsConfig(): GetPostsConfigInterface
     {
         $currentPage = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
         return new class ($this->getPostsConfig, $currentPage) extends AbstractDecoratedGetPostsConfig {
+            /**
+             * Constructor
+             */
             public function __construct(protected GetPostsConfigInterface $innerConfig, private int $currentPage)
             {
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getPage(): int
             {
                 return $this->currentPage;
@@ -145,6 +160,9 @@ class PostsList
         return array_map(fn($wpPost) => Post::convertWpPostToPostObject($wpPost), (new GetPosts\GetPostsUsingWpQuery($this->getWpQuery()))->getPosts());
     }
 
+    /**
+     * Get total number of pages based on WP_Query
+     */
     private function getTotalNumberOfPages(): int
     {
         $wpQuery = $this->getWpQuery();

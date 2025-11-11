@@ -34,7 +34,7 @@ class PostsListTest extends TestCase
             public static function create($query = ''): \WP_Query
             {
                 return new class extends \WP_Query {
-                    public function get_posts()
+                    public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
                     {
                         return [];
                     }

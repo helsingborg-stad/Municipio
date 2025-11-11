@@ -13,7 +13,7 @@ class GetPostsUsingWpQueryTest extends TestCase
     public function testGetPostsUsesProvidedWpQuery(): void
     {
         $wpQuery = new class extends WP_Query {
-            public function get_posts()
+            public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
             {
                 $post     = new WP_Post([]);
                 $post->ID = 123;

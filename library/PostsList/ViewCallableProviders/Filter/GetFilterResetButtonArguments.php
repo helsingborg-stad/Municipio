@@ -6,8 +6,14 @@ use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use WpService\Contracts\__;
 
+/**
+ * Provides arguments for filter reset button
+ */
 class GetFilterResetButtonArguments
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private FilterConfigInterface $filterConfig,
@@ -15,11 +21,17 @@ class GetFilterResetButtonArguments
     ) {
     }
 
+    /**
+     * Get callable
+     */
     public function getCallable(): callable
     {
         return fn() => $this->getSubmitButtonArguments();
     }
 
+    /**
+     * Get submit button arguments
+     */
     private function getSubmitButtonArguments(): array
     {
         return [
@@ -29,6 +41,9 @@ class GetFilterResetButtonArguments
         ];
     }
 
+    /**
+     * Get text for submit button
+     */
     private function getText(): string
     {
         return $this->getPostsConfig->isFacettingTaxonomyQueryEnabled()

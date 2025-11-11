@@ -6,14 +6,23 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\__;
 
+/**
+ * Provides arguments for date filter fields
+ */
 class GetDateFilterFieldArguments implements ViewCallableProviderInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private __ $wpService
     ) {
     }
 
+    /**
+     * Get callable
+     */
     public function getCallable(): callable
     {
         return function () {

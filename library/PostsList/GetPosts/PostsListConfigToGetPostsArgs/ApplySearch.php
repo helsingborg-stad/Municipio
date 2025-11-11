@@ -21,6 +21,12 @@ class ApplySearch implements ApplyPostsListConfigToGetPostsArgsInterface
         return [...$args, ...$this->tryGetSearchArgs($config)];
     }
 
+    /**
+     * Try to get search args from posts list config
+     *
+     * @param GetPostsConfigInterface $config
+     * @return array
+     */
     private function tryGetSearchArgs(GetPostsConfigInterface $config): array
     {
         return !empty($config->getSearch()) ? ['s' => $config->getSearch()] : [];

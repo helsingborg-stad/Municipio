@@ -21,6 +21,12 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         return [...$args, ...$this->tryGetTaxQueryFromConfig($config)];
     }
 
+    /**
+     * Try to get tax query from posts list config
+     *
+     * @param GetPostsConfigInterface $config
+     * @return array
+     */
     private function tryGetTaxQueryFromConfig(GetPostsConfigInterface $config): array
     {
         $terms = $config->getTerms();
@@ -48,6 +54,12 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         return ['tax_query' => $taxQuery];
     }
 
+    /**
+     * Get relation from config
+     *
+     * @param GetPostsConfigInterface $config
+     * @return string
+     */
     private function getRelationFromConfig(GetPostsConfigInterface $config): string
     {
         return  $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';

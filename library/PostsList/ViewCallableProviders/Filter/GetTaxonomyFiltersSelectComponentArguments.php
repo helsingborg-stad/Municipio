@@ -28,11 +28,17 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
     ) {
     }
 
+    /**
+     * Get callable
+     */
     public function getCallable(): callable
     {
         return fn() => $this->getSelectComponentArguments();
     }
 
+    /**
+     * Get select component arguments for taxonomy filters
+     */
     private function getSelectComponentArguments(): array
     {
         $taxonomies = $this->filterConfig->getTaxonomiesEnabledForFiltering();
@@ -55,6 +61,9 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         return $this->buildSelectArguments($wpTaxonomies, $termsByTaxonomy);
     }
 
+    /**
+     * Filter WP taxonomies based on provided taxonomy names
+     */
     private function filterWpTaxonomies(array $taxonomies): array
     {
         return array_filter(
@@ -64,6 +73,9 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         );
     }
 
+    /**
+     * Get terms for specified taxonomies
+     */
     private function getTermsForTaxonomies(array $taxonomyNames): array
     {
         $terms = $this->wpService->getTerms([
@@ -73,6 +85,9 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         return is_wp_error($terms) ? [] : $terms;
     }
 
+    /**
+     * Group terms by their taxonomy
+     */
     private function groupTermsByTaxonomy(array $terms): array
     {
         $grouped = [];
@@ -82,6 +97,9 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         return $grouped;
     }
 
+    /**
+     * Build select arguments for each taxonomy
+     */
     private function buildSelectArguments(array $wpTaxonomies, array $termsByTaxonomy): array
     {
         $allSelectArguments = [];
@@ -111,6 +129,9 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         return $allSelectArguments;
     }
 
+    /**
+     * Build options array from terms
+     */
     private function buildOptions(array $terms): array
     {
         $options = [];
@@ -120,6 +141,9 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         return $options;
     }
 
+    /**
+     * Get preselected term slugs for a taxonomy
+     */
     private function getPreselectedTermSlugs(string $taxonomyName): array
     {
         $terms = $this->getPostsConfig->getTerms();

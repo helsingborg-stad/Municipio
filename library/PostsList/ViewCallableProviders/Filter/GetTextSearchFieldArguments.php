@@ -7,19 +7,31 @@ use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\__;
 use WpService\Contracts\GetPostTypeObject;
 
+/**
+ * Provides arguments for text search field
+ */
 class GetTextSearchFieldArguments implements ViewCallableProviderInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private __&GetPostTypeObject $wpService
     ) {
     }
 
+    /**
+     * Get callable
+     */
     public function getCallable(): callable
     {
         return fn() => $this->buildTextSearchFieldArguments();
     }
 
+    /**
+     * Build arguments for text search field
+     */
     private function buildTextSearchFieldArguments(): array
     {
         $arguments = [
@@ -32,6 +44,9 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
         return array_merge($arguments, $this->getSearchValue());
     }
 
+    /**
+     * Get search value if available
+     */
     private function getSearchValue(): array
     {
         return !empty($this->getPostsConfig->getSearch())
@@ -39,6 +54,9 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
             : [];
     }
 
+    /**
+     * Resolve label for search field
+     */
     private function resolveLabel(): string
     {
         return $this->getLabelFromSinglePostType() !== null
@@ -46,11 +64,17 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
             : $this->getDefaultLabel();
     }
 
+    /**
+     * Get default label
+     */
     private function getDefaultLabel(): string
     {
         return $this->wpService->__('Search', 'municipio');
     }
 
+    /**
+     * Get label from single post type if applicable
+     */
     private function getLabelFromSinglePostType(): ?string
     {
         $postTypes = $this->getPostsConfig->getPostTypes();

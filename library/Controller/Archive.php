@@ -154,6 +154,9 @@ class Archive extends \Municipio\Controller\BaseController
                 return $this->isDateFilterEnabled;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getTaxonomiesEnabledForFiltering(): array
             {
                 return $this->taxonomies;
@@ -271,6 +274,9 @@ class Archive extends \Municipio\Controller\BaseController
                 return $this->toDate;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getTerms(): array
             {
                 return $this->terms;
@@ -430,6 +436,12 @@ class Archive extends \Municipio\Controller\BaseController
         return false;
     }
 
+    /**
+     * Convert post type name to camel case
+     *
+     * @param string $postType
+     * @return string
+     */
     private function camelCasePostTypeName(string $postType): string
     {
         return str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $postType)));
@@ -633,6 +645,12 @@ class Archive extends \Municipio\Controller\BaseController
         return (bool) $args->displayFeaturedImage;
     }
 
+    /**
+     * Get taxonomies to use for filtering from settings
+     *
+     * @param array $settings
+     * @return array
+     */
     private function getFilterTaxonomiesFromSettings(array $settings): array
     {
         $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(

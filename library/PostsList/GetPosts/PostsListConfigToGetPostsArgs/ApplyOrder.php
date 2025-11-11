@@ -25,6 +25,12 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         ];
     }
 
+    /**
+     * Get order by args from config
+     *
+     * @param GetPostsConfigInterface $config
+     * @return array
+     */
     private function getOrderByArgs(GetPostsConfigInterface $config): array
     {
         $orderBy              = $config->getOrderBy();
@@ -38,6 +44,12 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         return $this->getOrderByArgsForCustomFields($normalizedOrderBy);
     }
 
+    /**
+     * Normalize post table field name
+     *
+     * @param string $fieldName
+     * @return string
+     */
     private function normalizePostTableFieldName(string $fieldName): string
     {
         return match ($fieldName) {
@@ -48,6 +60,12 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         };
     }
 
+    /**
+     * Get order by args for custom fields
+     *
+     * @param string $orderBy
+     * @return array
+     */
     private function getOrderByArgsForCustomFields(string $orderBy): array
     {
         return [
