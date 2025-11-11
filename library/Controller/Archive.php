@@ -199,11 +199,24 @@ class Archive extends \Municipio\Controller\BaseController
         $toDate             = $this->data['queryParameters']->to ?? null;
         $terms              = $this->getTermsForPostsConfig();
         $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
+        $perPage            = (int)get_theme_mod('archive_' . $this->getPostType() . '_post_count', 12);
+        $currentPage        = $this->getCurrentPage();
         $order              = $this->data['archiveProps']->orderDirection && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC'
             ? OrderDirection::ASC
             : OrderDirection::DESC;
 
-        return new class ($postType, $isFacettingEnabled, $search, $fromDate, $toDate, $terms, $orderBy, $order) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
+        return new class (
+            $postType,
+            $isFacettingEnabled,
+            $search,
+            $fromDate,
+            $toDate,
+            $terms,
+            $orderBy,
+            $order,
+            $currentPage,
+            $perPage
+        ) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
              */
@@ -215,7 +228,9 @@ class Archive extends \Municipio\Controller\BaseController
                 private ?string $toDate,
                 private array $terms,
                 private string $orderBy,
-                private OrderDirection $order
+                private OrderDirection $order,
+                private int $currentPage,
+                private int $perPage
             ) {
             }
 
@@ -232,7 +247,15 @@ class Archive extends \Municipio\Controller\BaseController
              */
             public function getPostsPerPage(): int
             {
-                return $this->data['archiveProps']->postsPerPage ?? get_option('posts_per_page');
+                return $this->perPage;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getPage(): int
+            {
+                return $this->currentPage;
             }
 
             /**

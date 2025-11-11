@@ -21,6 +21,13 @@ interface GetPostsConfigInterface
     public function getPostsPerPage(): int;
 
     /**
+     * Get current page number
+     *
+     * @return int
+     */
+    public function getPage(): int;
+
+    /**
      * Check if facetting is enabled
      *
      * @return bool

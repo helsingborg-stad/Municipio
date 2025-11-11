@@ -21,6 +21,13 @@ class DefaultGetPostsConfigTest extends TestCase
         $this->assertEquals(10, $config->getPostsPerPage());
     }
 
+    #[TestDox('getPage returns 1 by default')]
+    public function testGetPage(): void
+    {
+        $config = new DefaultGetPostsConfig();
+        $this->assertEquals(1, $config->getPage());
+    }
+
     #[TestDox('isFacettingTaxonomyQueryEnabled returns false by default')]
     public function testIsFacettingTaxonomyQueryEnabled(): void
     {

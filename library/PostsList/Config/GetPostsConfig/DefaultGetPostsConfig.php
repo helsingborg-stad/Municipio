@@ -26,6 +26,14 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
+    public function getPage(): int
+    {
+        return 1;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function isFacettingTaxonomyQueryEnabled(): bool
     {
         return false;
