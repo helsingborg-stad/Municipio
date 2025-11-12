@@ -209,7 +209,7 @@ class ApplyDateTest extends TestCase
 
         $this->assertEquals(['meta_query' => [[
             'key'     => 'custom_field',
-            'value'   => ['2022-01-01', null],
+            'value'   => '2022-01-01',
             'compare' => '>=',
             'type'    => 'DATE'
         ]]], $result);
@@ -240,7 +240,7 @@ class ApplyDateTest extends TestCase
 
         $this->assertEquals(['meta_query' => [[
             'key'     => 'custom_field',
-            'value'   => [null, '2022-01-20'],
+            'value'   => '2022-01-20',
             'compare' => '<=',
             'type'    => 'DATE'
         ]]], $result);

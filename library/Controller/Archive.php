@@ -231,6 +231,9 @@ class Archive extends \Municipio\Controller\BaseController
                 return $this->order;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getDateSource(): string
             {
                 return $this->dateSource;

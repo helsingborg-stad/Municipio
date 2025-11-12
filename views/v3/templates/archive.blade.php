@@ -66,25 +66,13 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @section('loop')
-                @if ($displayArchiveLoop)
-                    @include('posts-list')
-                @endif
-            @show
-        @else
-            <div class="o-grid">
-                <div class="o-grid-12">
-                    @notice([
-                        'type' => 'info',
-                        'message' => [
-                            'text' => $lang->noResult,
-                            'size' => 'md'
-                        ]
-                    ])
-                    @endnotice
-                </div>
-            </div>
         @endif
+        
+        @section('loop')
+            @if ($displayArchiveLoop)
+                @include('posts-list')
+            @endif
+        @show
 
         @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
