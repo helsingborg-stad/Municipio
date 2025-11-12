@@ -4,12 +4,13 @@ namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\__;
 
 /**
  * Provides arguments for filter reset button
  */
-class GetFilterResetButtonArguments
+class GetFilterResetButtonArguments implements ViewCallableProviderInterface
 {
     /**
      * Constructor
