@@ -25,4 +25,12 @@ class GetPaginationComponentArgumentsTest extends TestCase
             'linkPrefix' => 'page'
         ], $callableProvider->getCallable()());
     }
+
+    #[TestDox('It should return empty array when total pages is less than minimum')]
+    public function testGetPaginationComponentArgumentsWithLessThanMinimumPages(): void
+    {
+        $callableProvider = new GetPaginationComponentArguments(1, 1, 'page');
+
+        $this->assertEquals([], $callableProvider->getCallable()());
+    }
 }

@@ -9,8 +9,12 @@ use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
  */
 class GetPaginationComponentArguments implements ViewCallableProviderInterface
 {
+    private const MINIMUM_PAGES_FOR_PAGINATION = 2;
+
     /**
-     * Constructor
+     * @param int $totalPages
+     * @param int $currentPage
+     * @param string $paginationQueryParam
      */
     public function __construct(
         private int $totalPages,
@@ -20,21 +24,19 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
     }
 
     /**
-     * Get callable
+     * Returns a callable that provides pagination arguments.
+     *
+     * @return callable
      */
     public function getCallable(): callable
     {
-        return function () {
-            $paginationList = [];
-            for ($i = 1; $i <= $this->totalPages; $i++) {
-                $paginationList[] = [
-                    'href'  => $this->getUrlWithPage($i),
-                    'label' => (string) $i,
-                ];
+        return function (): array {
+            if ($this->totalPages < self::MINIMUM_PAGES_FOR_PAGINATION) {
+                return [];
             }
 
             return [
-                'list'       => $paginationList,
+                'list'       => $this->generatePaginationList(),
                 'current'    => $this->currentPage,
                 'linkPrefix' => $this->paginationQueryParam
             ];
@@ -42,11 +44,31 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
     }
 
     /**
-     * Generate URL with updated page parameter
+     * Generates the pagination list.
+     *
+     * @return array
      */
-    private function getUrlWithPage(int $page): string
+    private function generatePaginationList(): array
     {
-        $url         = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        $paginationList = [];
+        for ($page = 1; $page <= $this->totalPages; $page++) {
+            $paginationList[] = [
+                'href'  => $this->buildPageUrl($page),
+                'label' => (string) $page,
+            ];
+        }
+        return $paginationList;
+    }
+
+    /**
+     * Builds a URL with the updated page parameter.
+     *
+     * @param int $page
+     * @return string
+     */
+    private function buildPageUrl(int $page): string
+    {
+        $url         = $this->getCurrentRequestUri();
         $parsedUrl   = parse_url($url);
         $queryParams = [];
 
@@ -56,7 +78,18 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
 
         $queryParams[$this->paginationQueryParam] = $page;
         $newQueryString                           = http_build_query($queryParams);
-        $finalUrl                                 = $parsedUrl['path'] . '?' . $newQueryString;
-        return $finalUrl;
+        $path                                     = $parsedUrl['path'] ?? '';
+
+        return $path . '?' . $newQueryString;
+    }
+
+    /**
+     * Gets the current request URI.
+     *
+     * @return string
+     */
+    private function getCurrentRequestUri(): string
+    {
+        return $_SERVER['REQUEST_URI'] ?? '';
     }
 }
