@@ -17,10 +17,21 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     #[TestDox('returns an array of select component arguments')]
     public function testReturnsArrayOfSelectComponentArguments(): void
     {
-        $expected = [
+        $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
+        $filterConfig                               = $this->createFilterConfig(['category']);
+        $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
+        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
+            $filterConfig,
+            $this->createGetPostsConfig(),
+            $wpService,
+            ['category' => $registeredWpTaxonomy],
+            'queryVarNamePrefix_'
+        );
+
+        $this->assertEquals([
             [
                 'label'       => 'Category',
-                'name'        => 'category',
+                'name'        => 'queryVarNamePrefix_category',
                 'required'    => false,
                 'placeholder' => 'Category',
                 'multiple'    => true,
@@ -29,31 +40,28 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
                     'term-2' => 'Term 2 (1)',
                 ]
             ]
-        ];
-
-        $registeredWpTaxonomy = $this->createTaxonomy('category', 'Category');
-
-        $filterConfig = $this->createFilterConfig(['category']);
-        $wpService    = $this->createWpService($this->getArrayOfTerms(2));
-
-        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
-            $filterConfig,
-            $this->createGetPostsConfig(),
-            $wpService,
-            ['category' => $registeredWpTaxonomy]
-        );
-        $callable                                   = $getTaxonomyFiltersSelectComponentArguments->getCallable();
-
-        $this->assertEquals($expected, $callable());
+        ], $getTaxonomyFiltersSelectComponentArguments->getCallable()());
     }
 
     #[TestDox('sets "preselected" with terms from GetPostsConfig')]
     public function testSetsPreselectedWithTermsFromGetPostsConfig(): void
     {
-        $expected = [
+        $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
+        $filterConfig                               = $this->createFilterConfig(['category']);
+        $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
+        $preselectedTerms                           = [$this->getArrayOfTerms(1)[0]];
+        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
+            $filterConfig,
+            $this->createGetPostsConfig($preselectedTerms),
+            $wpService,
+            ['category' => $registeredWpTaxonomy],
+            'queryVarNamePrefix_'
+        );
+
+        $this->assertEquals([
             [
                 'label'       => 'Category',
-                'name'        => 'category',
+                'name'        => 'queryVarNamePrefix_category',
                 'required'    => false,
                 'placeholder' => 'Category',
                 'preselected' => ['term-1'],
@@ -63,22 +71,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
                     'term-2' => 'Term 2 (1)',
                 ]
             ]
-        ];
-
-        $registeredWpTaxonomy = $this->createTaxonomy('category', 'Category');
-        $filterConfig         = $this->createFilterConfig(['category']);
-        $wpService            = $this->createWpService($this->getArrayOfTerms(2));
-        $preselectedTerms     = [$this->getArrayOfTerms(1)[0]];
-
-        $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
-            $filterConfig,
-            $this->createGetPostsConfig($preselectedTerms),
-            $wpService,
-            ['category' => $registeredWpTaxonomy]
-        );
-        $callable                                   = $getTaxonomyFiltersSelectComponentArguments->getCallable();
-
-        $this->assertEquals($expected, $callable());
+        ], $getTaxonomyFiltersSelectComponentArguments->getCallable()());
     }
 
     private function getArrayOfTerms(int $numberOfTerms = 1, string $taxonomy = 'category'): array

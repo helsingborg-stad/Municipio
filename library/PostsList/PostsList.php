@@ -13,11 +13,13 @@ use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderI
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\AbstractDecoratedGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
 use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
 use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
 use Municipio\PostsList\QueryVars\QueryVarRegistrar\QueryVarRegistrar;
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
+use PSpell\Config;
 use WP_Query;
 use WP_Taxonomy;
 use WpService\WpService;
@@ -91,7 +93,7 @@ class PostsList
             'getSchemaEventDateBadgeDate'               => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
 
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig(), $this->wpService, $this->wpTaxonomies))->getCallable(),
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig(), $this->wpService, $this->wpTaxonomies, $this->queryVars->getPrefix()))->getCallable(),
             'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
             'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig(), $this->filterConfig, $this->wpService))->getCallable(),
             'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
@@ -132,12 +134,16 @@ class PostsList
     private function getPostsConfig(): GetPostsConfigInterface
     {
         $currentPage = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
-        return new class ($this->getPostsConfig, $currentPage) extends AbstractDecoratedGetPostsConfig {
+        $terms       = (new GetTermsFromGetParams($_GET, $this->filterConfig, $this->queryVars->getPrefix(), $this->wpService))->getTerms();
+        return new class ($this->getPostsConfig, $currentPage, $terms) extends AbstractDecoratedGetPostsConfig {
             /**
              * Constructor
              */
-            public function __construct(protected GetPostsConfigInterface $innerConfig, private int $currentPage)
-            {
+            public function __construct(
+                protected GetPostsConfigInterface $innerConfig,
+                private int $currentPage,
+                private array $terms
+            ) {
             }
 
             /**
@@ -146,6 +152,14 @@ class PostsList
             public function getPage(): int
             {
                 return $this->currentPage;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getTerms(): array
+            {
+                return $this->terms;
             }
         };
     }
@@ -186,5 +200,46 @@ class PostsList
             $shouldDisplayPlaceholderImage,
             $this->appearanceConfig
         );
+    }
+
+    /**
+     * Get the terms for the posts configuration.
+     *
+     * @return WP_Term[]
+     */
+    private function getTermsForPostsConfig(): array
+    {
+        $params = $_GET;
+        $terms  = [];
+
+        if (empty($params) || !is_array($params)) {
+            return [];
+        }
+
+        $taxonomiesAvailableInFilters = $this->filterConfig->getTaxonomiesEnabledForFiltering();
+        $taxonomiesFromGetParams      = array_filter(array_keys($params), function ($key) use ($taxonomiesAvailableInFilters) {
+            $cleanKey = rtrim(urldecode($key), '[]');
+            $cleanKey = str_replace($this->queryVars->getPrefix(), '', $cleanKey);
+            return in_array($cleanKey, $taxonomiesAvailableInFilters);
+        });
+
+        $termSlugs = [];
+
+        foreach ($taxonomiesFromGetParams as $taxonomy) {
+            if (isset($params[$taxonomy])) {
+                $termSlugs  = array_merge($termSlugs, (array) $params[$taxonomy]);
+                $foundTerms = $this->wpService->getTerms([
+                    'taxonomy'   => str_replace($this->queryVars->getPrefix(), '', $taxonomy),
+                    'hide_empty' => false,
+                    'slug'       => $termSlugs,
+                ]);
+
+                if (is_array($foundTerms)) {
+                    $terms = array_merge($terms, $foundTerms);
+                }
+            }
+        }
+
+        return $terms;
     }
 }

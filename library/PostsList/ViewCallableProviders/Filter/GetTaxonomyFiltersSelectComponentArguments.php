@@ -24,7 +24,8 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         private FilterConfigInterface $filterConfig,
         private GetPostsConfigInterface $getPostsConfig,
         private GetTerms $wpService,
-        private array $wpTaxonomies
+        private array $wpTaxonomies,
+        private string $queryVarNamePrefix
     ) {
     }
 
@@ -112,7 +113,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
             $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
             $selectArguments = [
                 'label'       => $wpTaxonomy->label,
-                'name'        => $taxonomyName,
+                'name'        => $this->queryVarNamePrefix . $taxonomyName,
                 'required'    => false,
                 'placeholder' => $wpTaxonomy->label,
                 'multiple'    => true,
