@@ -173,8 +173,6 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $postType           = [$this->getPostType()];
         $isFacettingEnabled = $this->getFacettingType($this->data['archiveProps']);
-        $fromDate           = $this->data['queryParameters']->from ?? null;
-        $toDate             = $this->data['queryParameters']->to ?? null;
         $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
         $perPage            = (int)get_theme_mod('archive_' . $this->getPostType() . '_post_count', 12);
         $order              = $this->data['archiveProps']->orderDirection && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC'
@@ -184,8 +182,6 @@ class Archive extends \Municipio\Controller\BaseController
         return new class (
             $postType,
             $isFacettingEnabled,
-            $fromDate,
-            $toDate,
             $orderBy,
             $order,
             $perPage
@@ -196,8 +192,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function __construct(
                 private array $postType,
                 private bool $isFacettingEnabled,
-                private ?string $fromDate,
-                private ?string $toDate,
                 private string $orderBy,
                 private OrderDirection $order,
                 private int $perPage
@@ -242,22 +236,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function getOrder(): \Municipio\PostsList\Config\GetPostsConfig\OrderDirection
             {
                 return $this->order;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getDateFrom(): ?string
-            {
-                return $this->fromDate;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getDateTo(): ?string
-            {
-                return $this->toDate;
             }
         };
     }

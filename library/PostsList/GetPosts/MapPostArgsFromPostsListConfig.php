@@ -3,7 +3,6 @@
 namespace Municipio\PostsList\GetPosts;
 
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-use WpService\Contracts\GetPosts;
 
 /**
  * Map to posts args from posts list config
@@ -18,7 +17,6 @@ class MapPostArgsFromPostsListConfig
      */
     public function __construct(
         private GetPostsConfigInterface $config,
-        private GetPosts $innerGetPosts
     ) {
     }
 
@@ -27,10 +25,11 @@ class MapPostArgsFromPostsListConfig
      *
      * @return array
      */
-    public function getPosts(): array
+    public function getPostsArgs(): array
     {
         $args     = $args ?? [];
         $appliers = [
+            new PostsListConfigToGetPostsArgs\ApplyDate(),
             new PostsListConfigToGetPostsArgs\ApplyOrder(),
             new PostsListConfigToGetPostsArgs\ApplyPage(),
             new PostsListConfigToGetPostsArgs\ApplyPostsPerPage(),

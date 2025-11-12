@@ -24,7 +24,7 @@ class GetDateFilterFieldArgumentsTest extends TestCase
             }
         };
 
-        $getDateFilterFieldArguments = new GetDateFilterFieldArguments($getPostsConfig, $this->createWpService());
+        $getDateFilterFieldArguments = new GetDateFilterFieldArguments($getPostsConfig, $this->createWpService(), 'from', 'to');
         $callable                    = $getDateFilterFieldArguments->getCallable();
         $result                      = $callable();
 

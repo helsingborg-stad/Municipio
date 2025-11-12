@@ -11,6 +11,7 @@ use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\AbstractDecoratedGetPostsConfig;
+use Municipio\PostsList\Config\GetPostsConfig\GetParameterFromGetParams\GetParameterFromGetParams;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetSearchFromGetParams\GetSearchFromGetParams;
 use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
@@ -95,7 +96,7 @@ class PostsList
             'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
             'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig(), $this->filterConfig, $this->wpService))->getCallable(),
             'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig(), $this->queryVars->getSearchParameterName(), $this->wpService))->getCallable(),
-            'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
+            'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig(), $this->wpService, $this->queryVars->getDateFromParameterName(), $this->queryVars->getDateToParameterName()))->getCallable(),
 
             // Pagination utilities
             'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getTotalNumberOfPages(), $this->getPostsConfig()->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
@@ -121,9 +122,8 @@ class PostsList
     private function getPostsArgs(): array
     {
         return (new MapPostArgsFromPostsListConfig(
-            $this->getPostsConfig(),
-            $this->wpService
-        ))->getPosts();
+            $this->getPostsConfig()
+        ))->getPostsArgs();
     }
 
     /**
@@ -133,8 +133,10 @@ class PostsList
     {
         $currentPage = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
         $terms       = (new GetTermsFromGetParams($_GET, $this->filterConfig, $this->queryVars->getPrefix(), $this->wpService))->getTerms();
-        $search      = (new GetSearchFromGetParams($_GET, $this->queryVars->getSearchParameterName()))->getSearch();
-        return new class ($this->getPostsConfig, $currentPage, $terms, $search) extends AbstractDecoratedGetPostsConfig {
+        $search      = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getSearchParameterName()) ?? '';
+        $dateFrom    = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateFromParameterName()) ?? '';
+        $dateTo      = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateToParameterName()) ?? '';
+        return new class ($this->getPostsConfig, $currentPage, $terms, $search, $dateFrom, $dateTo) extends AbstractDecoratedGetPostsConfig {
             /**
              * Constructor
              */
@@ -142,7 +144,9 @@ class PostsList
                 protected GetPostsConfigInterface $innerConfig,
                 private int $currentPage,
                 private array $terms,
-                private string $search
+                private string $search,
+                private string $dateFrom,
+                private string $dateTo
             ) {
             }
 
@@ -168,6 +172,22 @@ class PostsList
             public function getSearch(): string
             {
                 return $this->search;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateFrom(): ?string
+            {
+                return $this->dateFrom;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateTo(): ?string
+            {
+                return $this->dateTo;
             }
         };
     }

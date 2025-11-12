@@ -20,6 +20,6 @@ class MapPostArgsFromPostsListConfigTest extends \PHPUnit\Framework\TestCase
 
         $getPosts = new MapPostArgsFromPostsListConfig(new DefaultGetPostsConfig(), $wpService);
 
-        $this->assertIsArray($getPosts->getPosts());
+        $this->assertIsArray($getPosts->getPostsArgs());
     }
 }

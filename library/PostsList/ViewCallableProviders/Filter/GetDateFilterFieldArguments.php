@@ -16,7 +16,9 @@ class GetDateFilterFieldArguments implements ViewCallableProviderInterface
      */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
-        private __ $wpService
+        private __ $wpService,
+        private string $dateFromParameterName,
+        private string $dateToParameterName
     ) {
     }
 
@@ -32,7 +34,7 @@ class GetDateFilterFieldArguments implements ViewCallableProviderInterface
             return [
                 'from' => [
                     'type'          => 'date',
-                    'name'          => 'from',
+                    'name'          => $this->dateFromParameterName,
                     'value'         => $fromValue,
                     'label'         => $this->wpService->__('Choose a from date', 'municipio'),
                     'attributeList' => [
@@ -54,7 +56,7 @@ class GetDateFilterFieldArguments implements ViewCallableProviderInterface
                 ],
                 'to'   => [
                     'type'          => 'date',
-                    'name'          => 'to',
+                    'name'          => $this->dateToParameterName,
                     'value'         => $toValue,
                     'label'         => $this->wpService->__('Choose a to date', 'municipio'),
                     'attributeList' => [
