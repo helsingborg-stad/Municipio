@@ -3,6 +3,8 @@
 namespace Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams;
 
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Error;
@@ -47,7 +49,7 @@ class GetTermsFromGetParamsTest extends TestCase
     {
         $prefix       = 'prefix_';
         $getParams    = [$prefix . 'category' => ['term1', 'term2']];
-        $taxonomies   = ['category'];
+        $taxonomies   = [new TaxonomyFilterConfig('category', TaxonomyFilterType::SINGLESELECT)];
         $filterConfig = new TestFilterConfig($taxonomies);
         $wpService    = new TestGetTermsService();
 

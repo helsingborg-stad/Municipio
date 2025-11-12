@@ -3,6 +3,8 @@
 namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -18,7 +20,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     public function testReturnsArrayOfSelectComponentArguments(): void
     {
         $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
-        $filterConfig                               = $this->createFilterConfig(['category']);
+        $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig('category', TaxonomyFilterType::MULTISELECT)]);
         $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
         $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
             $filterConfig,
@@ -47,7 +49,7 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     public function testSetsPreselectedWithTermsFromGetPostsConfig(): void
     {
         $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
-        $filterConfig                               = $this->createFilterConfig(['category']);
+        $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig('category', TaxonomyFilterType::MULTISELECT)]);
         $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
         $preselectedTerms                           = [$this->getArrayOfTerms(1)[0]];
         $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
