@@ -3,12 +3,6 @@
 namespace Municipio\Controller;
 
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
-use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
-use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
-use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
-use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
-use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
 use Municipio\PostsList\GetPosts\WpQueryFactory;
 use WP_Taxonomy;
 
@@ -41,10 +35,8 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Archive data
-        $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
-        $this->data['archiveLead']     = $this->getArchiveLead($this->data['archiveProps']);
-        $this->data['archiveBaseUrl']  = $this->getPostTypeArchiveLink($postType);
-        $this->data['archiveResetUrl'] = $this->getPostTypeArchiveLink($postType);
+        $this->data['archiveTitle'] = $this->getArchiveTitle($this->data['archiveProps']);
+        $this->data['archiveLead']  = $this->getArchiveLead($this->data['archiveProps']);
 
         // Build archive menu
         $archiveMenuConfig = new MenuConfig('archive-menu', $postType . '-menu');
@@ -54,9 +46,9 @@ class Archive extends \Municipio\Controller\BaseController
 
         // Build posts list
         $this->data = [...$this->data, ...(new \Municipio\PostsList\PostsList(
-            $this->createGetPostConfig(),
+            (new Archive\GetPostsConfigFactory($this->wpService))->create($this->data),
             (new Archive\AppearanceConfigFactory())->create($this->data),
-            $this->createFilterConfig(),
+            (new Archive\FilterConfigFactory($this->wpService))->create($this->data),
             $this->getAllRegisteredTaxonomies(),
             new WpQueryFactory(),
             new \Municipio\PostsList\QueryVars\QueryVars('archive_'),
@@ -74,171 +66,6 @@ class Archive extends \Municipio\Controller\BaseController
         global $wp_taxonomies;
 
         return $wp_taxonomies;
-    }
-
-    /**
-     * Get the post type for the archive
-     *
-     * @return string
-     */
-    private function getPostType(): string
-    {
-        return !empty($this->data['postType']) ? $this->data['postType'] : 'page';
-    }
-
-    /**
-     * Get filter configuration based on archive properties
-     *
-     * @return \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
-     */
-    private function createFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
-    {
-        $isEnabled             = $this->showFilter($this->data['archiveProps']);
-        $resetUrl              = $this->getPostTypeArchiveLink($this->getPostType());
-        $isDateFilterEnabled   = $this->enableDateFilter($this->data['archiveProps']);
-        $isTextSearchEnabled   = $this->enableTextSearch($this->data['archiveProps']);
-        $taxonomyFilterConfigs = $this->getFilterTaxonomiesFromSettings((array) $this->data['archiveProps']);
-
-        return new class ($isEnabled, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomyFilterConfigs) extends DefaultFilterConfig {
-            /**
-             * Constructor
-             */
-            public function __construct(
-                private bool $isEnabled,
-                private string $resetUrl,
-                private bool $isDateFilterEnabled,
-                private bool $isTextSearchEnabled,
-                private array $taxonomyFilterConfigs
-            ) {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function isEnabled(): bool
-            {
-                return $this->isEnabled;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function isTextSearchEnabled(): bool
-            {
-                return $this->isTextSearchEnabled;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getResetUrl(): ?string
-            {
-                return $this->resetUrl;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function isDateFilterEnabled(): bool
-            {
-                return $this->isDateFilterEnabled;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getTaxonomiesEnabledForFiltering(): array
-            {
-                return $this->taxonomyFilterConfigs;
-            }
-        };
-    }
-
-    /**
-     * Get post configuration based on archive properties
-     *
-     * @return \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
-     */
-    private function createGetPostConfig(): \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface
-    {
-        $postType           = [$this->getPostType()];
-        $isFacettingEnabled = $this->getFacettingType($this->data['archiveProps']);
-        $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
-        $perPage            = (int)get_theme_mod('archive_' . $this->getPostType() . '_post_count', 12);
-        $dateSource         = $this->data['archiveProps']->dateField;
-        $order              = $this->data['archiveProps']->orderDirection && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC'
-            ? OrderDirection::ASC
-            : OrderDirection::DESC;
-
-        return new class (
-            $postType,
-            $isFacettingEnabled,
-            $orderBy,
-            $order,
-            $perPage,
-            $dateSource
-        ) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
-            /**
-             * Constructor
-             */
-            public function __construct(
-                private array $postType,
-                private bool $isFacettingEnabled,
-                private string $orderBy,
-                private OrderDirection $order,
-                private int $perPage,
-                private string $dateSource
-            ) {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPostTypes(): array
-            {
-                return $this->postType;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPostsPerPage(): int
-            {
-                return $this->perPage;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function isFacettingTaxonomyQueryEnabled(): bool
-            {
-                return $this->isFacettingEnabled;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getOrderBy(): string
-            {
-                return $this->orderBy;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getOrder(): \Municipio\PostsList\Config\GetPostsConfig\OrderDirection
-            {
-                return $this->order;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getDateSource(): string
-            {
-                return $this->dateSource;
-            }
-        };
     }
 
     /**
@@ -271,111 +98,6 @@ class Archive extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Determines if the filter should be shown.
-     *
-     * @param object $args
-     * @return boolean
-     */
-    public function showFilter($args): bool
-    {
-        $enabledFilters = false;
-
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        $arrayWithoutEmptyValues = isset($args->enabledFilters)
-            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
-            : [];
-
-        if (!empty($arrayWithoutEmptyValues)) {
-            $enabledFilters = $args->enabledFilters;
-        }
-
-        $enabledFilters = apply_filters('Municipio/Archive/showFilter', $enabledFilters, $args);
-
-        return is_array($enabledFilters) && !empty($enabledFilters) ? true : (bool) $enabledFilters;
-    }
-
-    /**
-     * Boolean function to determine if text search should be enabled
-     *
-     * @param   string      $postType   The current post type
-     * @return  boolean                 True or false val.
-     */
-    public function enableTextSearch($args)
-    {
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        return (bool) in_array(
-            'text_search',
-            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
-        );
-    }
-
-    /**
-     * Boolean function to determine if date filter should be enabled
-     *
-     * @param   string      $postType   The current post type
-     * @return  boolean                 True or false val.
-     */
-    public function enableDateFilter($args)
-    {
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        return (bool) in_array(
-            'date_range',
-            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
-        );
-    }
-
-    /**
-     * Get the link to this page, without any query parameters
-     *
-     * @param   string  $postType   The current post type
-     *
-     * @return string
-     */
-    public function getPostTypeArchiveLink($postType)
-    {
-        if (isset($_SERVER['REQUEST_URI'])) {
-            $realPath      = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
-            $postTypePath  = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
-            $mayBeTaxonomy = (bool)   ($realPath != $postTypePath);
-
-            if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
-                return get_term_link(get_queried_object());
-            }
-        }
-
-        return get_post_type_archive_link($postType);
-    }
-
-    /**
-     * Determines if the date input toggle should default to show or not.
-     *
-     * @return boolean
-     */
-    public function showDatePickers($queryParams): bool
-    {
-        //From field
-        if (isset($queryParams->from) && !empty($queryParams->from)) {
-            return true;
-        }
-
-        //To field
-        if (isset($queryParams->to) && !empty($queryParams->to)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Get the archive title
      *
      * @return string
@@ -399,109 +121,5 @@ class Archive extends \Municipio\Controller\BaseController
             'Municipio/Controller/Archive/getArchiveLead',
             $args->body ?? ''
         );
-    }
-
-    /**
-     * Boolean function to determine if text search should be enabled
-     *
-     * @param   string      $postType   The current post type
-     * @return  boolean                 True or false val.
-     */
-    public function getFacettingType($args): bool
-    {
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        if (!isset($args->filterType) || is_null($args->filterType)) {
-            $args->filterType = false;
-        }
-
-        return (bool) $args->filterType;
-    }
-
-    /**
-     * Determines whether to display the reading time for an archive.
-     *
-     * @param array $args The arguments for displaying the reading time.
-     * @return bool Returns true if the reading time is set in the arguments, false otherwise.
-     */
-    public function displayReadingTime($args)
-    {
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        if (!isset($args->readingTime)) {
-            return false;
-        }
-
-        return (bool) $args->readingTime;
-    }
-
-    /**
-     * Display the featured image based on the provided arguments.
-     *
-     * @param object $args The arguments for displaying the featured image.
-     * @return bool Returns true if the featured image should be displayed, false otherwise.
-     */
-    public function displayFeaturedImage($args)
-    {
-        if (!is_object($args)) {
-            $args = (object) [];
-        }
-
-        if (!isset($args->displayFeaturedImage)) {
-            return false;
-        }
-
-        return (bool) $args->displayFeaturedImage;
-    }
-
-    /**
-     * Get taxonomies to use for filtering from settings
-     *
-     * @param array $settings
-     * @return array
-     */
-    private function getFilterTaxonomiesFromSettings(array $settings): array
-    {
-        $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(
-            $settings['enabledFilters'] ?? [],
-            [$this->currentTaxonomy()]
-        ), $this->currentTaxonomy());
-
-        if (empty($taxonomies)) {
-            return [];
-        }
-
-        // Wash out invalid taxonomies
-        $allTaxonomies = $this->wpService->getTaxonomies([], 'names');
-        $taxonomies    = array_values(array_intersect($allTaxonomies, $taxonomies));
-        return array_map(function ($taxonomyName) use ($settings) {
-            $camelCasedName = lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $taxonomyName))));
-            $filterType     = isset($settings[$camelCasedName . 'FilterFieldType']) && $settings[$camelCasedName . 'FilterFieldType'] === 'multi'
-                ? TaxonomyFilterType::MULTISELECT
-                : TaxonomyFilterType::SINGLESELECT;
-            return new TaxonomyFilterConfig($taxonomyName, $filterType);
-        }, $taxonomies);
-    }
-
-
-    /**
-     * Get the current taxonomy page
-     */
-    private function currentTaxonomy()
-    {
-        $queriedObject = get_queried_object();
-        $isTaxArchive  = false;
-        if (!empty($queriedObject->taxonomy) && isset($_SERVER['REQUEST_URI'])) {
-            $pathParts   = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
-            $trimmedPath = end($pathParts);
-            if ($queriedObject->slug == $trimmedPath) {
-                $isTaxArchive = $queriedObject->taxonomy;
-            }
-        }
-        return $isTaxArchive;
     }
 }
