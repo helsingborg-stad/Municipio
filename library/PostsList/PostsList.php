@@ -158,6 +158,9 @@ class PostsList
             {
             }
 
+            /**
+             * @inheritDoc
+             */
             public function showReset(): bool
             {
                 return $this->showReset;
