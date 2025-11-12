@@ -94,19 +94,17 @@ class Archive extends \Municipio\Controller\BaseController
     private function createFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
         $isEnabled           = $this->showFilter($this->data['archiveProps']);
-        $showReset           = $this->showFilterReset($this->data['queryParameters']);
         $resetUrl            = $this->getPostTypeArchiveLink($this->getPostType());
         $isDateFilterEnabled = $this->enableDateFilter($this->data['archiveProps']);
         $isTextSearchEnabled = $this->enableTextSearch($this->data['archiveProps']);
         $taxonomies          = $this->getFilterTaxonomiesFromSettings((array) $this->data['archiveProps']);
 
-        return new class ($isEnabled, $showReset, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomies) extends DefaultFilterConfig {
+        return new class ($isEnabled, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomies) extends DefaultFilterConfig {
             /**
              * Constructor
              */
             public function __construct(
                 private bool $isEnabled,
-                private bool $showReset,
                 private string $resetUrl,
                 private bool $isDateFilterEnabled,
                 private bool $isTextSearchEnabled,
@@ -128,14 +126,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function isTextSearchEnabled(): bool
             {
                 return $this->isTextSearchEnabled;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function showReset(): bool
-            {
-                return $this->showReset;
             }
 
             /**
@@ -446,16 +436,6 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         return get_post_type_archive_link($postType);
-    }
-
-    /**
-     * Determines if the reset button should show or not.
-     *
-     * @return boolean
-     */
-    public function showFilterReset($queryParams): bool
-    {
-        return !empty(array_filter((array) $queryParams));
     }
 
     /**

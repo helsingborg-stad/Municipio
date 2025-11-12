@@ -9,6 +9,7 @@ use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
+use Municipio\PostsList\Config\FilterConfig\AbstractDecoratedFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\AbstractDecoratedGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetParameterFromGetParams\GetParameterFromGetParams;
@@ -30,13 +31,15 @@ use WpService\WpService;
 class PostsList
 {
     private WP_Query $wpQuery;
-
+    private FilterConfigInterface $filterConfig;
+    private GetPostsConfigInterface $postsConfig;
+    private AppearanceConfigInterface $appearanceConfig;
     /**
      * Constructor
      *
-     * @param GetPostsConfigInterface $getPostsConfig
-     * @param AppearanceConfigInterface $appearanceConfig
-     * @param FilterConfigInterface $filterConfig
+     * @param GetPostsConfigInterface $providedGetPostsConfig
+     * @param AppearanceConfigInterface $providedAppearanceConfig
+     * @param FilterConfigInterface $providedFilterConfig
      * @param array<string, WP_Taxonomy> $wpTaxonomies
      * @param WpService $wpService
      * @param WpQueryFactoryInterface $wpQueryFactory
@@ -45,9 +48,9 @@ class PostsList
      * @param AnyPostHasImageInterface $anyPostHasImageService
      */
     public function __construct(
-        private GetPostsConfigInterface $getPostsConfig,
-        private AppearanceConfigInterface $appearanceConfig,
-        private FilterConfigInterface $filterConfig,
+        private GetPostsConfigInterface $providedGetPostsConfig,
+        private AppearanceConfigInterface $providedAppearanceConfig,
+        private FilterConfigInterface $providedFilterConfig,
         private array $wpTaxonomies,
         private WpQueryFactoryInterface $wpQueryFactory,
         private QueryVarsInterface $queryVars,
@@ -68,16 +71,16 @@ class PostsList
         return [
             'posts'                                     => $this->getPosts(),
             'appearanceConfig'                          => $this->getAppearanceConfig(),
-            'filterConfig'                              => $this->filterConfig,
-            'getTags'                                   => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->appearanceConfig->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
+            'filterConfig'                              => $this->getFilterConfig(),
+            'getTags'                                   => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->getAppearanceConfig()->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
             'getExcerptWithoutLinks'                    => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
-            'getReadingTime'                            => (new ViewCallableProviders\GetReadingTime($this->appearanceConfig))->getCallable(),
+            'getReadingTime'                            => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
             'showDateBadge'                             => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
             'getParentColumnClasses'                    => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses'                      => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
 
             // Table view utilities
-            'getTableComponentArguments'                => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->appearanceConfig, $this->wpService, $this->acfService))->getCallable(),
+            'getTableComponentArguments'                => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->getAppearanceConfig(), $this->wpService, $this->acfService))->getCallable(),
 
             // Schema Project view utilities
             'getSchemaProjectProgressLabel'             => (new ViewCallableProviders\Schema\Project\GetProgressLabel())->getCallable(),
@@ -92,9 +95,9 @@ class PostsList
             'getSchemaEventDateBadgeDate'               => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
 
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig(), $this->wpService, $this->wpTaxonomies, $this->queryVars->getPrefix()))->getCallable(),
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->getFilterConfig(), $this->getPostsConfig(), $this->wpService, $this->wpTaxonomies, $this->queryVars->getPrefix()))->getCallable(),
             'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
-            'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig(), $this->filterConfig, $this->wpService))->getCallable(),
+            'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig(), $this->getFilterConfig(), $this->wpService))->getCallable(),
             'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig(), $this->queryVars->getSearchParameterName(), $this->wpService))->getCallable(),
             'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig(), $this->wpService, $this->queryVars->getDateFromParameterName(), $this->queryVars->getDateToParameterName()))->getCallable(),
 
@@ -127,16 +130,58 @@ class PostsList
     }
 
     /**
+     * Get filter configuration
+     *
+     * @return FilterConfigInterface
+     */
+    private function getFilterConfig(): FilterConfigInterface
+    {
+        if (isset($this->filterConfig)) {
+            return $this->filterConfig;
+        }
+
+        $showReset = false;
+        $terms     = (new GetTermsFromGetParams($_GET, $this->providedFilterConfig, $this->queryVars->getPrefix(), $this->wpService))->getTerms();
+        $search    = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getSearchParameterName()) ?? '';
+        $dateFrom  = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateFromParameterName()) ?? '';
+        $dateTo    = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateToParameterName()) ?? '';
+
+        if (!empty($terms) || !empty($search) || !empty($dateFrom) || !empty($dateTo)) {
+            $showReset = true;
+        }
+
+        $this->filterConfig = new class ($this->providedFilterConfig, $showReset) extends AbstractDecoratedFilterConfig{
+            /**
+             * Constructor
+             */
+            public function __construct(protected FilterConfigInterface $innerConfig, private bool $showReset)
+            {
+            }
+
+            public function showReset(): bool
+            {
+                return $this->showReset;
+            }
+        };
+
+        return $this->filterConfig;
+    }
+
+    /**
      * Get decorated getPostsConfig with current page
      */
     private function getPostsConfig(): GetPostsConfigInterface
     {
-        $currentPage = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
-        $terms       = (new GetTermsFromGetParams($_GET, $this->filterConfig, $this->queryVars->getPrefix(), $this->wpService))->getTerms();
-        $search      = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getSearchParameterName()) ?? '';
-        $dateFrom    = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateFromParameterName()) ?? '';
-        $dateTo      = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateToParameterName()) ?? '';
-        return new class ($this->getPostsConfig, $currentPage, $terms, $search, $dateFrom, $dateTo) extends AbstractDecoratedGetPostsConfig {
+        if (isset($this->postsConfig)) {
+            return $this->postsConfig;
+        }
+
+        $currentPage       = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
+        $terms             = (new GetTermsFromGetParams($_GET, $this->getFilterConfig(), $this->queryVars->getPrefix(), $this->wpService))->getTerms();
+        $search            = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getSearchParameterName()) ?? '';
+        $dateFrom          = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateFromParameterName()) ?? '';
+        $dateTo            = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateToParameterName()) ?? '';
+        $this->postsConfig = new class ($this->providedGetPostsConfig, $currentPage, $terms, $search, $dateFrom, $dateTo) extends AbstractDecoratedGetPostsConfig {
             /**
              * Constructor
              */
@@ -190,6 +235,8 @@ class PostsList
                 return $this->dateTo;
             }
         };
+
+        return $this->postsConfig;
     }
 
     /**
@@ -223,10 +270,16 @@ class PostsList
      */
     private function getAppearanceConfig(): AppearanceConfigInterface
     {
+        if (isset($this->appearanceConfig)) {
+            return $this->appearanceConfig;
+        }
+
         $shouldDisplayPlaceholderImage = $this->anyPostHasImageService->check(...$this->getPosts());
-        return new AppearanceConfigWithPlaceholderImage(
+        $this->appearanceConfig        = new AppearanceConfigWithPlaceholderImage(
             $shouldDisplayPlaceholderImage,
-            $this->appearanceConfig
+            $this->providedAppearanceConfig
         );
+
+        return $this->appearanceConfig;
     }
 }
