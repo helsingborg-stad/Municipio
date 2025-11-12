@@ -173,7 +173,6 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $postType           = [$this->getPostType()];
         $isFacettingEnabled = $this->getFacettingType($this->data['archiveProps']);
-        $search             =  !empty($_GET['s']) ? $_GET['s'] : null;
         $fromDate           = $this->data['queryParameters']->from ?? null;
         $toDate             = $this->data['queryParameters']->to ?? null;
         $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
@@ -185,7 +184,6 @@ class Archive extends \Municipio\Controller\BaseController
         return new class (
             $postType,
             $isFacettingEnabled,
-            $search,
             $fromDate,
             $toDate,
             $orderBy,
@@ -198,7 +196,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function __construct(
                 private array $postType,
                 private bool $isFacettingEnabled,
-                private ?string $search,
                 private ?string $fromDate,
                 private ?string $toDate,
                 private string $orderBy,
@@ -229,14 +226,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function isFacettingTaxonomyQueryEnabled(): bool
             {
                 return $this->isFacettingEnabled;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearch(): ?string
-            {
-                return $this->search;
             }
 
             /**
