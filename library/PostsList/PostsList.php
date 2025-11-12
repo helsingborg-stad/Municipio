@@ -12,6 +12,7 @@ use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderI
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\AbstractDecoratedGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetSearchFromGetParams\GetSearchFromGetParams;
 use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
 use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
@@ -93,7 +94,7 @@ class PostsList
             'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig(), $this->wpService, $this->wpTaxonomies, $this->queryVars->getPrefix()))->getCallable(),
             'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
             'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig(), $this->filterConfig, $this->wpService))->getCallable(),
-            'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
+            'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig(), $this->queryVars->getSearchParameterName(), $this->wpService))->getCallable(),
             'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig(), $this->wpService))->getCallable(),
 
             // Pagination utilities
@@ -132,14 +133,16 @@ class PostsList
     {
         $currentPage = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
         $terms       = (new GetTermsFromGetParams($_GET, $this->filterConfig, $this->queryVars->getPrefix(), $this->wpService))->getTerms();
-        return new class ($this->getPostsConfig, $currentPage, $terms) extends AbstractDecoratedGetPostsConfig {
+        $search      = (new GetSearchFromGetParams($_GET, $this->queryVars->getSearchParameterName()))->getSearch();
+        return new class ($this->getPostsConfig, $currentPage, $terms, $search) extends AbstractDecoratedGetPostsConfig {
             /**
              * Constructor
              */
             public function __construct(
                 protected GetPostsConfigInterface $innerConfig,
                 private int $currentPage,
-                private array $terms
+                private array $terms,
+                private string $search
             ) {
             }
 
@@ -157,6 +160,14 @@ class PostsList
             public function getTerms(): array
             {
                 return $this->terms;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getSearch(): string
+            {
+                return $this->search;
             }
         };
     }

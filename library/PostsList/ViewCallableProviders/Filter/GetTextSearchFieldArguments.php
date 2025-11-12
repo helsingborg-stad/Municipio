@@ -17,6 +17,7 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
      */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
+        private string $parameterName,
         private __&GetPostTypeObject $wpService
     ) {
     }
@@ -36,7 +37,7 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
     {
         $arguments = [
             'type'     => 'search',
-            'name'     => 's',
+            'name'     => $this->parameterName,
             'label'    => $this->resolveLabel(),
             'required' => false,
         ];

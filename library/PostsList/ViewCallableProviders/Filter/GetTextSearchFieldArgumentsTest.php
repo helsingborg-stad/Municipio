@@ -14,7 +14,7 @@ class GetTextSearchFieldArgumentsTest extends TestCase
     #[TestDox('returns an array of text search field arguments')]
     public function testReturnsArrayOfTextSearchFieldArguments(): void
     {
-        $getTextSearchFieldArguments = new GetTextSearchFieldArguments(new DefaultGetPostsConfig(), $this->createWpService());
+        $getTextSearchFieldArguments = new GetTextSearchFieldArguments(new DefaultGetPostsConfig(), 's', $this->createWpService());
 
         $this->assertArrayContainsPartial([
             'type'     => 'search',
@@ -38,7 +38,7 @@ class GetTextSearchFieldArgumentsTest extends TestCase
         $postTypeObject->name  = 'article';
         $postTypeObject->label = 'Articles';
 
-        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, $this->createWpService($postTypeObject));
+        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, 's', $this->createWpService($postTypeObject));
 
         $this->assertArrayContainsPartial([
             'label' => 'Search Articles',
@@ -55,7 +55,7 @@ class GetTextSearchFieldArgumentsTest extends TestCase
             }
         };
 
-        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, $this->createWpService());
+        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, 's', $this->createWpService());
 
         $this->assertArrayContainsPartial([
             'label' => 'Search',
@@ -72,7 +72,7 @@ class GetTextSearchFieldArgumentsTest extends TestCase
             }
         };
 
-        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, $this->createWpService());
+        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, 's', $this->createWpService());
 
         $this->assertArrayContainsPartial([
             'value' => 'example search',
@@ -89,7 +89,7 @@ class GetTextSearchFieldArgumentsTest extends TestCase
             }
         };
 
-        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, $this->createWpService());
+        $getTextSearchFieldArguments = new GetTextSearchFieldArguments($getPostsConfig, 's', $this->createWpService());
 
         $this->assertArrayNotHasKey('value', $getTextSearchFieldArguments->getCallable()());
     }

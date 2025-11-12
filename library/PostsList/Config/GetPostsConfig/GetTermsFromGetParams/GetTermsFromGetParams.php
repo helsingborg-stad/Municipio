@@ -5,8 +5,14 @@ namespace Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use WpService\Contracts\GetTerms;
 
+/**
+ * Class to extract terms from GET parameters
+ */
 class GetTermsFromGetParams
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private array $getParams,
         private FilterConfigInterface $filterConfig,
