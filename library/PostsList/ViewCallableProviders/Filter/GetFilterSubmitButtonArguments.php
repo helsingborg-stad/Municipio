@@ -3,12 +3,13 @@
 namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\__;
 
 /**
  * Provides arguments for filter submit button
  */
-class GetFilterSubmitButtonArguments
+class GetFilterSubmitButtonArguments implements ViewCallableProviderInterface
 {
     /**
      * Constructor
