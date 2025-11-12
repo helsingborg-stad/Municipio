@@ -1,4 +1,3 @@
-
 @newsItem([
     'heading'             => $post->getTitle(),
     'content'             => $getExcerptWithoutLinks($post),

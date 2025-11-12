@@ -9,7 +9,7 @@
     'content' => $getSchemaProjectCategoryTerms($post),
     'hasPlaceholder' => $appearanceConfig->shouldDisplayPlaceholderImage() && !$post->getImage(),
     'classList' => ['u-height--100']
-])  
+])
     @slot('afterContent')
         @group([
             'direction' => 'vertical',

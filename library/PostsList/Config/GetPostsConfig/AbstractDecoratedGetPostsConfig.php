@@ -7,7 +7,7 @@ namespace Municipio\PostsList\Config\GetPostsConfig;
  */
 abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterface
 {
-    protected GetPostsConfigInterface $innerConfig ;
+    protected GetPostsConfigInterface $innerConfig;
 
     /**
      * @inheritDoc
