@@ -5,7 +5,6 @@ namespace Municipio\PostsList;
 use AcfService\Contracts\GetField;
 use AcfService\Implementations\NativeAcfService;
 use Municipio\Helper\Post;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
@@ -19,7 +18,6 @@ use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
 use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
 use Municipio\PostsList\QueryVars\QueryVarRegistrar\QueryVarRegistrar;
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
-use PSpell\Config;
 use WP_Query;
 use WP_Taxonomy;
 use WpService\WpService;
@@ -29,7 +27,6 @@ use WpService\WpService;
  */
 class PostsList
 {
-    private static $instanceCount = 0;
     private WP_Query $wpQuery;
 
     /**
@@ -200,46 +197,5 @@ class PostsList
             $shouldDisplayPlaceholderImage,
             $this->appearanceConfig
         );
-    }
-
-    /**
-     * Get the terms for the posts configuration.
-     *
-     * @return WP_Term[]
-     */
-    private function getTermsForPostsConfig(): array
-    {
-        $params = $_GET;
-        $terms  = [];
-
-        if (empty($params) || !is_array($params)) {
-            return [];
-        }
-
-        $taxonomiesAvailableInFilters = $this->filterConfig->getTaxonomiesEnabledForFiltering();
-        $taxonomiesFromGetParams      = array_filter(array_keys($params), function ($key) use ($taxonomiesAvailableInFilters) {
-            $cleanKey = rtrim(urldecode($key), '[]');
-            $cleanKey = str_replace($this->queryVars->getPrefix(), '', $cleanKey);
-            return in_array($cleanKey, $taxonomiesAvailableInFilters);
-        });
-
-        $termSlugs = [];
-
-        foreach ($taxonomiesFromGetParams as $taxonomy) {
-            if (isset($params[$taxonomy])) {
-                $termSlugs  = array_merge($termSlugs, (array) $params[$taxonomy]);
-                $foundTerms = $this->wpService->getTerms([
-                    'taxonomy'   => str_replace($this->queryVars->getPrefix(), '', $taxonomy),
-                    'hide_empty' => false,
-                    'slug'       => $termSlugs,
-                ]);
-
-                if (is_array($foundTerms)) {
-                    $terms = array_merge($terms, $foundTerms);
-                }
-            }
-        }
-
-        return $terms;
     }
 }
