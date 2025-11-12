@@ -2,6 +2,8 @@
 
 namespace Municipio\PostsList\Config\FilterConfig;
 
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
+
 interface FilterConfigInterface
 {
     /**
@@ -28,7 +30,7 @@ interface FilterConfigInterface
     /**
      * Get taxonomies enabled for filtering
      *
-     * @return array
+     * @return TaxonomyFilterConfigInterface[]
      */
     public function getTaxonomiesEnabledForFiltering(): array;
 

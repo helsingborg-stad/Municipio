@@ -6,11 +6,11 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
 use Municipio\PostsList\GetPosts\WpQueryFactory;
-use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrar;
 use WP_Taxonomy;
-use WP_Term;
 
 /**
  * Class Archive
@@ -93,13 +93,13 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function createFilterConfig(): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
-        $isEnabled           = $this->showFilter($this->data['archiveProps']);
-        $resetUrl            = $this->getPostTypeArchiveLink($this->getPostType());
-        $isDateFilterEnabled = $this->enableDateFilter($this->data['archiveProps']);
-        $isTextSearchEnabled = $this->enableTextSearch($this->data['archiveProps']);
-        $taxonomies          = $this->getFilterTaxonomiesFromSettings((array) $this->data['archiveProps']);
+        $isEnabled             = $this->showFilter($this->data['archiveProps']);
+        $resetUrl              = $this->getPostTypeArchiveLink($this->getPostType());
+        $isDateFilterEnabled   = $this->enableDateFilter($this->data['archiveProps']);
+        $isTextSearchEnabled   = $this->enableTextSearch($this->data['archiveProps']);
+        $taxonomyFilterConfigs = $this->getFilterTaxonomiesFromSettings((array) $this->data['archiveProps']);
 
-        return new class ($isEnabled, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomies) extends DefaultFilterConfig {
+        return new class ($isEnabled, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomyFilterConfigs) extends DefaultFilterConfig {
             /**
              * Constructor
              */
@@ -108,7 +108,7 @@ class Archive extends \Municipio\Controller\BaseController
                 private string $resetUrl,
                 private bool $isDateFilterEnabled,
                 private bool $isTextSearchEnabled,
-                private array $taxonomies
+                private array $taxonomyFilterConfigs
             ) {
             }
 
@@ -149,7 +149,7 @@ class Archive extends \Municipio\Controller\BaseController
              */
             public function getTaxonomiesEnabledForFiltering(): array
             {
-                return $this->taxonomies;
+                return $this->taxonomyFilterConfigs;
             }
         };
     }
@@ -571,9 +571,14 @@ class Archive extends \Municipio\Controller\BaseController
 
         // Wash out invalid taxonomies
         $allTaxonomies = $this->wpService->getTaxonomies([], 'names');
-        $taxonomies    = array_intersect($allTaxonomies, $taxonomies);
-
-        return array_values($taxonomies);
+        $taxonomies    = array_values(array_intersect($allTaxonomies, $taxonomies));
+        return array_map(function ($taxonomyName) use ($settings) {
+            $camelCasedName = lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $taxonomyName))));
+            $filterType     = isset($settings[$camelCasedName . 'FilterFieldType']) && $settings[$camelCasedName . 'FilterFieldType'] === 'multi'
+                ? TaxonomyFilterType::MULTISELECT
+                : TaxonomyFilterType::SINGLESELECT;
+            return new TaxonomyFilterConfig($taxonomyName, $filterType);
+        }, $taxonomies);
     }
 
 

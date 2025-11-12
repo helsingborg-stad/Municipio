@@ -3,6 +3,7 @@
 namespace Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
 use WpService\Contracts\GetTerms;
 
 /**
@@ -32,8 +33,7 @@ class GetTermsFromGetParams
             return [];
         }
 
-        $enabledTaxonomies    = $this->filterConfig->getTaxonomiesEnabledForFiltering();
-        $taxonomiesFromParams = $this->getTaxonomiesFromParams($enabledTaxonomies);
+        $taxonomiesFromParams = $this->getTaxonomiesFromParams(...$this->filterConfig->getTaxonomiesEnabledForFiltering());
 
         if (empty($taxonomiesFromParams)) {
             return [];
@@ -64,14 +64,17 @@ class GetTermsFromGetParams
     /**
      * Extract and clean taxonomy keys from GET params.
      *
-     * @param array $enabledTaxonomies
+     * @param TaxonomyFilterConfigInterface[] $enabledTaxonomies
      * @return array
      */
-    private function getTaxonomiesFromParams(array $enabledTaxonomies): array
+    private function getTaxonomiesFromParams(TaxonomyFilterConfigInterface ...$enabledTaxonomies): array
     {
         return array_filter(
             array_keys($this->getParams),
-            fn($key) => in_array($this->cleanTaxonomyKey($key), $enabledTaxonomies)
+            fn($key) => in_array(
+                $this->cleanTaxonomyKey($key),
+                array_map(fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomyName(), $enabledTaxonomies)
+            )
         );
     }
 

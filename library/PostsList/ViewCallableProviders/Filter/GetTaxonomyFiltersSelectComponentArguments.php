@@ -3,6 +3,8 @@
 namespace Municipio\PostsList\ViewCallableProviders\Filter;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WP_Taxonomy;
@@ -42,12 +44,13 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
      */
     private function getSelectComponentArguments(): array
     {
-        $taxonomies = $this->filterConfig->getTaxonomiesEnabledForFiltering();
-        if (empty($taxonomies)) {
+        $taxonomyFilterConfigs = $this->filterConfig->getTaxonomiesEnabledForFiltering();
+        if (empty($taxonomyFilterConfigs)) {
             return [];
         }
 
-        $wpTaxonomies = $this->filterWpTaxonomies($taxonomies);
+        $wpTaxonomies = $this->filterWpTaxonomies(...$taxonomyFilterConfigs);
+
         if (empty($wpTaxonomies)) {
             return [];
         }
@@ -65,11 +68,15 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
     /**
      * Filter WP taxonomies based on provided taxonomy names
      */
-    private function filterWpTaxonomies(array $taxonomies): array
+    private function filterWpTaxonomies(TaxonomyFilterConfigInterface ...$taxonomyFilterConfigs): array
     {
+        $taxonomyNamesFromTaxonomyFilterConfigs = array_map(
+            fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomyName(),
+            $taxonomyFilterConfigs
+        );
         return array_filter(
             $this->wpTaxonomies,
-            fn($key) => in_array($key, $taxonomies),
+            fn($key) => in_array($key, $taxonomyNamesFromTaxonomyFilterConfigs),
             ARRAY_FILTER_USE_KEY
         );
     }
@@ -105,7 +112,12 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
     {
         $allSelectArguments = [];
         foreach ($wpTaxonomies as $wpTaxonomy) {
-            $taxonomyName = $wpTaxonomy->name;
+            $taxonomyName   = $wpTaxonomy->name;
+            $taxonomyConfig = array_values(array_filter(
+                $this->filterConfig->getTaxonomiesEnabledForFiltering(),
+                fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomyName() === $taxonomyName
+            ))[0];
+
             if (empty($termsByTaxonomy[$taxonomyName])) {
                 continue;
             }
@@ -116,7 +128,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
                 'name'        => $this->queryVarNamePrefix . $taxonomyName,
                 'required'    => false,
                 'placeholder' => $wpTaxonomy->label,
-                'multiple'    => true,
+                'multiple'    => $taxonomyConfig->getFilterType() === TaxonomyFilterType::MULTISELECT ? true : false,
                 'options'     => $options,
             ];
 
