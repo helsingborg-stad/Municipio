@@ -165,6 +165,7 @@ class Archive extends \Municipio\Controller\BaseController
         $isFacettingEnabled = $this->getFacettingType($this->data['archiveProps']);
         $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
         $perPage            = (int)get_theme_mod('archive_' . $this->getPostType() . '_post_count', 12);
+        $dateSource         = $this->data['archiveProps']->dateField;
         $order              = $this->data['archiveProps']->orderDirection && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC'
             ? OrderDirection::ASC
             : OrderDirection::DESC;
@@ -174,7 +175,8 @@ class Archive extends \Municipio\Controller\BaseController
             $isFacettingEnabled,
             $orderBy,
             $order,
-            $perPage
+            $perPage,
+            $dateSource
         ) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
@@ -184,7 +186,8 @@ class Archive extends \Municipio\Controller\BaseController
                 private bool $isFacettingEnabled,
                 private string $orderBy,
                 private OrderDirection $order,
-                private int $perPage
+                private int $perPage,
+                private string $dateSource
             ) {
             }
 
@@ -226,6 +229,11 @@ class Archive extends \Municipio\Controller\BaseController
             public function getOrder(): \Municipio\PostsList\Config\GetPostsConfig\OrderDirection
             {
                 return $this->order;
+            }
+
+            public function getDateSource(): string
+            {
+                return $this->dateSource;
             }
         };
     }

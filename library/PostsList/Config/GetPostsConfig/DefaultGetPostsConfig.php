@@ -82,6 +82,14 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
+    public function getDateSource(): string
+    {
+        return 'post_date';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getTerms(): array
     {
         return [];

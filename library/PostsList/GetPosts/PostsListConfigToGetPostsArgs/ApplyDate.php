@@ -20,35 +20,92 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         return [
             ...$args,
-            ...$this->tryGetDateQuery($config)
+            ...$this->getDateOrMetaQuery($config)
         ];
     }
 
     /**
-     * Try to get date query from config
+     * Get date_query or meta_query depending on config
      *
      * @param GetPostsConfigInterface $config
      * @return array
      */
-    private function tryGetDateQuery(GetPostsConfigInterface $config): array
+    private function getDateOrMetaQuery(GetPostsConfigInterface $config): array
     {
-        $dateFrom = $config->getDateFrom();
-        $dateTo   = $config->getDateTo();
+        if ($this->shouldApplyDateQuery($config)) {
+            return ['date_query' => $this->buildDateQuery($config)];
+        }
 
-        if ($dateFrom || $dateTo) {
-            $dateQuery = [];
-
-            if ($dateFrom) {
-                $dateQuery['after'] = $dateFrom;
-            }
-
-            if ($dateTo) {
-                $dateQuery['before'] = $dateTo;
-            }
-
-            return [ 'date_query' => $dateQuery ];
+        if ($this->shouldApplyMetaQuery($config)) {
+            return ['meta_query' => [$this->buildMetaQuery($config)]];
         }
 
         return [];
+    }
+
+    /**
+     * Determine if date_query should be applied
+     *
+     * @param GetPostsConfigInterface $config
+     * @return bool
+     */
+    private function shouldApplyDateQuery(GetPostsConfigInterface $config): bool
+    {
+        $column = $config->getDateSource();
+
+        return ($config->getDateFrom() || $config->getDateTo())
+            && in_array($column, ['post_date', 'post_modified']);
+    }
+
+    /**
+     * Build the date_query array
+     *
+     * @param GetPostsConfigInterface $config
+     * @return array
+     */
+    private function buildDateQuery(GetPostsConfigInterface $config): array
+    {
+        $query = ['column' => $config->getDateSource()];
+        if ($config->getDateFrom()) {
+            $query['after'] = $config->getDateFrom();
+        }
+        if ($config->getDateTo()) {
+            $query['before'] = $config->getDateTo();
+        }
+        return $query;
+    }
+
+    /**
+     * Determine if meta_query should be applied
+     *
+     * @param GetPostsConfigInterface $config
+     * @return bool
+     */
+    private function shouldApplyMetaQuery(GetPostsConfigInterface $config): bool
+    {
+        $column = $config->getDateSource();
+        return !in_array($column, ['post_date', 'post_modified'])
+            && ($config->getDateFrom() || $config->getDateTo());
+    }
+
+    /**
+     * Build the meta_query array
+     *
+     * @param GetPostsConfigInterface $config
+     * @return array
+     */
+    private function buildMetaQuery(GetPostsConfigInterface $config): array
+    {
+        $dateFrom = $config->getDateFrom();
+        $dateTo   = $config->getDateTo();
+        $value    = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
+        $compare  = ($dateFrom && $dateTo) ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
+
+        return [
+            'key'     => $config->getDateSource(),
+            'value'   => $value,
+            'compare' => $compare,
+            'type'    => 'DATE'
+        ];
     }
 }

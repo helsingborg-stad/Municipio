@@ -84,6 +84,14 @@ abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterfac
     /**
      * @inheritDoc
      */
+    public function getDateSource(): string
+    {
+        return $this->innerConfig->getDateSource();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getTerms(): array
     {
         return $this->innerConfig->getTerms();

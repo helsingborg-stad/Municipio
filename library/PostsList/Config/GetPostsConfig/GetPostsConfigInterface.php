@@ -70,6 +70,13 @@ interface GetPostsConfigInterface
     public function getDateTo(): ?string;
 
     /**
+     * Get date source filter value
+     *
+     * @return string|null
+     */
+    public function getDateSource(): string;
+
+    /**
      * Get terms for filtering
      *
      * @return WP_Term[]

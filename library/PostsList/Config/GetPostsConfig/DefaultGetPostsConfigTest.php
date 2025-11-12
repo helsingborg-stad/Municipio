@@ -56,6 +56,13 @@ class DefaultGetPostsConfigTest extends TestCase
         $this->assertNull($config->getDateTo());
     }
 
+    #[TestDox('getDateSource returns "post_date" by default')]
+    public function testGetDateSource(): void
+    {
+        $config = new DefaultGetPostsConfig();
+        $this->assertEquals('post_date', $config->getDateSource());
+    }
+
     #[TestDox('getTerms returns an empty array by default')]
     public function testGetTerms(): void
     {
