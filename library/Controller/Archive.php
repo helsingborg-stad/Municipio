@@ -55,7 +55,7 @@ class Archive extends \Municipio\Controller\BaseController
         // Build posts list
         $this->data = [...$this->data, ...(new \Municipio\PostsList\PostsList(
             $this->createGetPostConfig(),
-            $this->createAppearanceConfig(),
+            (new Archive\AppearanceConfigFactory())->create($this->data),
             $this->createFilterConfig(),
             $this->getAllRegisteredTaxonomies(),
             new WpQueryFactory(),
@@ -237,100 +237,6 @@ class Archive extends \Municipio\Controller\BaseController
             public function getDateSource(): string
             {
                 return $this->dateSource;
-            }
-        };
-    }
-
-    /**
-     * Get appearance configuration based on archive properties
-     *
-     * @return \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
-     */
-    private function createAppearanceConfig(): \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface
-    {
-        $numberOfColumns            = $this->data['archiveProps']->numberOfColumns ?? 1;
-        $shouldDisplayFeaturedImage = $this->displayFeaturedImage($this->data['archiveProps']);
-        $shouldDisplayReadingTime   = $this->displayReadingTime($this->data['archiveProps']);
-        $taxonomiesToDisplay        = $this->data['archiveProps']->taxonomiesToDisplay ?: [];
-        $postPropertiesToDisplay    = $this->data['archiveProps']->postPropertiesToDisplay ?? [];
-        $template                   = $this->data['archiveProps']->style ?? 'cards';
-        $design                     = match ($template) {
-            'cards' => PostDesign::CARD,
-            'compressed' => PostDesign::COMPRESSED,
-            'collection' => PostDesign::COLLECTION,
-            'grid' => PostDesign::BLOCK,
-            'newsitem' => PostDesign::NEWSITEM,
-            'schema' => PostDesign::SCHEMA,
-            'list' => PostDesign::TABLE,
-            default => PostDesign::CARD,
-        };
-        return new class (
-            $numberOfColumns,
-            $shouldDisplayFeaturedImage,
-            $shouldDisplayReadingTime,
-            $taxonomiesToDisplay,
-            $postPropertiesToDisplay,
-            $design
-        ) extends DefaultAppearanceConfig {
-            /**
-             * Constructor
-             */
-            public function __construct(
-                private int $numberOfColumns,
-                private bool $shouldDisplayFeaturedImage,
-                private bool $shouldDisplayReadingTime,
-                private array $taxonomiesToDisplay,
-                private array $postPropertiesToDisplay,
-                private PostDesign $design
-            ) {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getDesign(): PostDesign
-            {
-                return $this->design;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function shouldDisplayFeaturedImage(): bool
-            {
-                return $this->shouldDisplayFeaturedImage;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function shouldDisplayReadingTime(): bool
-            {
-                return $this->shouldDisplayReadingTime;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getTaxonomiesToDisplay(): array
-            {
-                return $this->taxonomiesToDisplay;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPostPropertiesToDisplay(): array
-            {
-                return $this->postPropertiesToDisplay;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getNumberOfColumns(): int
-            {
-                return $this->numberOfColumns;
             }
         };
     }
