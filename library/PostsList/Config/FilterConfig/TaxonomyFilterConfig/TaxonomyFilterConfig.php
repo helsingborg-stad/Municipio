@@ -2,9 +2,6 @@
 
 namespace Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig;
 
-use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-
 /**
  * class TaxonomyFilterConfig
  */
