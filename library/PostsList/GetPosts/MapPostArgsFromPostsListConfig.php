@@ -27,7 +27,7 @@ class MapPostArgsFromPostsListConfig
      */
     public function getPostsArgs(): array
     {
-        $args     = $args ?? [];
+        $args     = [];
         $appliers = [
             new PostsListConfigToGetPostsArgs\ApplyDate(),
             new PostsListConfigToGetPostsArgs\ApplyOrder(),
