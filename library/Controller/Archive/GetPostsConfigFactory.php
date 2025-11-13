@@ -29,7 +29,7 @@ class GetPostsConfigFactory
         $postType           = [$this->getPostType($data)];
         $isFacettingEnabled = $this->getFacettingType($data['archiveProps']);
         $orderBy            = $data['archiveProps']->orderBy ?? 'post_date';
-        $perPage            = (int)$this->wpService->getThemeMod('archive_' . $postType . '_post_count', 12);
+        $perPage            = (int)$this->wpService->getThemeMod('archive_' . $this->getPostType($data) . '_post_count', 12);
         $dateSource         = $data['archiveProps']->dateField ?? 'post_date';
         $order              = $data['archiveProps']->orderDirection && strtoupper($data['archiveProps']->orderDirection) === 'ASC'
             ? OrderDirection::ASC
