@@ -56,7 +56,7 @@ class SingularEvent extends \Municipio\Controller\Singular
     {
         global $wpdb;
 
-        $terms = $this->post->getTerms(['event_keywords_name']);
+        $terms   = $this->post->getTerms(['event_keywords_name']);
         $termIds = array_map(fn($term) => $term->term_id, $terms);
 
         if (empty($termIds)) {
@@ -86,12 +86,12 @@ class SingularEvent extends \Municipio\Controller\Singular
 
 
         $postIds = array_map(fn($post) => $post->ID, $results ?? []);
-        $posts = $this->wpService->getPosts([
-            'post__in' => $postIds,
+        $posts   = $this->wpService->getPosts([
+            'post__in'       => $postIds,
             'posts_per_page' => $maxResults,
-            'post_status' => 'publish',
-            'post_type' => $this->post->getPostType(),
-            'orderby' => 'post__in'
+            'post_status'    => 'publish',
+            'post_type'      => $this->post->getPostType(),
+            'orderby'        => 'post__in'
         ]);
 
         $preparedPosts = [];
@@ -101,13 +101,12 @@ class SingularEvent extends \Municipio\Controller\Singular
                 continue;
             }
 
-            $preparedPost = \Municipio\Helper\Post::convertWpPostToPostObject($post);
-            $preparedPost->locationName = \Municipio\Controller\ArchiveSchemaEvent\GetEventPlaceName::getEventPlaceName($preparedPost->getSchema());
-            $preparedPost->priceRange = \Municipio\Controller\ArchiveSchemaEvent\GetEventPriceRange::getEventPriceRange($preparedPost->getSchema());
-            $preparedPost->eventDate = \Municipio\Controller\ArchiveSchemaEvent\GetEventDate::getEventDate($preparedPost->getSchema());
+            $preparedPost               = \Municipio\Helper\Post::convertWpPostToPostObject($post);
+            $preparedPost->locationName = \Municipio\Controller\SingularEvent\GetEventPlaceName::getEventPlaceName($preparedPost->getSchema());
+            $preparedPost->priceRange   = \Municipio\Controller\SingularEvent\GetEventPriceRange::getEventPriceRange($preparedPost->getSchema());
+            $preparedPost->eventDate    = \Municipio\Controller\SingularEvent\GetEventDate::getEventDate($preparedPost->getSchema());
 
-            $preparedPosts[] = $preparedPost; 
-
+            $preparedPosts[] = $preparedPost;
         }
 
         return $preparedPosts ?: [];
