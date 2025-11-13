@@ -6,12 +6,24 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
 use WpService\Contracts\GetThemeMod;
 
+/**
+ * Factory class for creating GetPostsConfig instances
+ */
 class GetPostsConfigFactory
 {
+    /**
+     * Constructor
+     */
     public function __construct(private GetThemeMod $wpService)
     {
     }
 
+    /**
+     * Create a GetPostsConfig instance
+     *
+     * @param array $data
+     * @return GetPostsConfigInterface
+     */
     public function create(array $data): GetPostsConfigInterface
     {
         $postType           = [$this->getPostType($data)];

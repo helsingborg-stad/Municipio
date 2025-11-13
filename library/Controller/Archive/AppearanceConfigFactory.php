@@ -6,8 +6,17 @@ use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 
+/**
+ * Factory class for creating AppearanceConfig instances
+ */
 class AppearanceConfigFactory
 {
+    /**
+     * Create an AppearanceConfig instance
+     *
+     * @param array $data
+     * @return AppearanceConfigInterface
+     */
     public function create(array $data): AppearanceConfigInterface
     {
         $numberOfColumns            = $data['archiveProps']->numberOfColumns ?? 1;

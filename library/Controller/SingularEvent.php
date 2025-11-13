@@ -144,6 +144,9 @@ class SingularEvent extends \Municipio\Controller\Singular
         }
     }
 
+    /**
+     * Try to get the current date from the GET parameter
+     */
     private function tryGetCurrentDateFromGetParam(): ?DateTime
     {
         $startDateParam = $_GET[self::CURRENT_OCCASION_GET_PARAM] ?? null;

@@ -8,12 +8,24 @@ use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterC
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use WpService\Contracts\GetTaxonomies;
 
+/**
+ * Factory class for creating FilterConfig instances
+ */
 class FilterConfigFactory
 {
+    /**
+     * Constructor
+     */
     public function __construct(private GetTaxonomies $wpService)
     {
     }
 
+    /**
+     * Create a FilterConfig instance
+     *
+     * @param array $data
+     * @return FilterConfigInterface
+     */
     public function create(array $data): FilterConfigInterface
     {
         $isEnabled             = $this->showFilter($data['archiveProps']);
