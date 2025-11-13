@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor
 
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGeneratorInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use wpdb;
@@ -44,6 +45,24 @@ class ImageSideloadSchemaObjectProcessorTest extends TestCase
         $this->assertEquals(123, $processedImage->getProperty('@id'));
         $this->assertEquals('An example image', $processedImage->getProperty('description'));
         $this->assertEquals('Example Image', $processedImage->getProperty('name'));
+    }
+    
+    #[TestDox('the @id property is stored as a string')]
+    public function testIdPropertyIsString()
+    {
+        $schemaObject = Schema::thing()->image([
+            Schema::imageObject()
+                ->url('http://example.com/image.jpg')
+                ->description('An example image')
+                ->name('Example Image')
+        ]);
+
+        $wpService       = $this->getWpService(['mediaSideloadImage' => 123]);
+        $processor       = new ImageSideloadSchemaObjectProcessor($wpService, $this->getWpdb());
+        $processedObject = $processor->process($schemaObject);
+        $processedImage  = $processedObject->getProperty('image')[0];
+
+        $this->assertTrue('123' === $processedImage->getProperty('@id'));
     }
 
     #[TestDox('processes nested images')]
