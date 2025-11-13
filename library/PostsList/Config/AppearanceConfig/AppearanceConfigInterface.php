@@ -33,6 +33,20 @@ interface AppearanceConfigInterface
     public function shouldDisplayFeaturedImage(): bool;
 
     /**
+     * Get placeholder image URL
+     *
+     * @return string|null
+     */
+    public function getPlaceholderImageUrl(): ?string;
+
+    /**
+     * Get image ratio for the posts list
+     *
+     * @return ImageRatio
+     */
+    public function getImageRatio(): ImageRatio;
+
+    /**
      * Get taxonomies to display tags from
      *
      * @return string[] Taxonomy slugs

@@ -280,6 +280,7 @@ class PostsList
         $shouldDisplayPlaceholderImage = $this->anyPostHasImageService->check(...$this->getPosts());
         $this->appearanceConfig        = new AppearanceConfigWithPlaceholderImage(
             $shouldDisplayPlaceholderImage,
+            $this->wpService,
             $this->providedAppearanceConfig
         );
 

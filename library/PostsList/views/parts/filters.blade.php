@@ -40,24 +40,7 @@
                 @select([...$selectArguments, 'size' => 'md'])@endselect
             </div>
         @endforeach
-        
-        {{-- @foreach ($filterConfig->getTaxonomiesEnabledForFiltering() as $select)
-            <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
-                @select([
-                    'label' => $select['label'] ?? '',
-                    'name' => $select['attributeList']['name'] ?? '',
-                    'required' => $select['required'] ?? false,
-                    'placeholder' => $select['label'] ?? '',
-                    'preselected' => $select['preselected'] ?? false,
-                    'multiple' => (bool) ('multi' === $select['fieldType']),
-                    'options' => $select['options'] ?? [],
-                    'size' => 'md'
-                ])
-                @endselect
-            </div>
-        @endforeach --}}
     
-        {{-- Facetting --}}
         <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
             @button([
                 ...$getFilterFormSubmitButtonArguments(),

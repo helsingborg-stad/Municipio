@@ -4,6 +4,7 @@ namespace Municipio\PostsList\Config\AppearanceConfig;
 
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
+use WpService\Contracts\GetThemeMod;
 
 /**
  * Decorator for AppearanceConfigInterface to add placeholder image logic.
@@ -16,7 +17,8 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
      */
     public function __construct(
         private bool $shouldDisplayPlaceholderImage,
-        private AppearanceConfigInterface $innerConfig = new DefaultAppearanceConfig()
+        private GetThemeMod $wpService,
+        private AppearanceConfigInterface $innerConfig = new DefaultAppearanceConfig(),
     ) {
     }
 
@@ -48,11 +50,28 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
 
     /**
      * @inheritDoc
-     * @codeCoverageIgnore
      */
     public function shouldDisplayFeaturedImage(): bool
     {
         return $this->innerConfig->shouldDisplayFeaturedImage();
+    }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getPlaceholderImageUrl(): ?string
+    {
+        return $this->wpService->getThemeMod('logotype_emblem', null);
+    }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getImageRatio(): ImageRatio
+    {
+        return $this->innerConfig->getImageRatio();
     }
 
     /**

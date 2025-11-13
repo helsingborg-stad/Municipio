@@ -42,6 +42,22 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     /**
      * @inheritdoc
      */
+    public function getPlaceholderImageUrl(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getImageRatio(): ImageRatio
+    {
+        return ImageRatio::SQUARE;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getTaxonomiesToDisplay(): array
     {
         return [];

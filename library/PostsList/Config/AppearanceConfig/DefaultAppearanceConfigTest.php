@@ -35,6 +35,13 @@ class DefaultAppearanceConfigTest extends TestCase
         $this->assertFalse($config->shouldDisplayFeaturedImage());
     }
 
+    #[TestDox('default image ratio is SQUARE')]
+    public function testDefaultImageRatioIsSquare(): void
+    {
+        $config = new DefaultAppearanceConfig();
+        $this->assertSame(ImageRatio::SQUARE, $config->getImageRatio());
+    }
+
     #[TestDox('default number of columns is 1')]
     public function testDefaultNumberOfColumnsIsOne(): void
     {
