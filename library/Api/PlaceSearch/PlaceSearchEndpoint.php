@@ -2,6 +2,7 @@
 
 namespace Municipio\Api\PlaceSearch;
 
+use Municipio\Api\PlaceSearch\Helper\GetNeighbours;
 use Municipio\Api\PlaceSearch\Providers\PlaceSearchProviderInterface;
 use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
@@ -133,7 +134,7 @@ class PlaceSearchEndpoint extends RestApiEndpoint
         switch ($providerSlug) {
             case 'openstreetmap':
             default:
-                return new \Municipio\Api\PlaceSearch\Providers\Openstreetmap($this->wpService);
+                return new \Municipio\Api\PlaceSearch\Providers\Openstreetmap($this->wpService, new GetNeighbours($this->wpService));
         }
     }
 }
