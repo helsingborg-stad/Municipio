@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6817e4ea9ea752e6634b71aac1cc95d",
+    "content-hash": "cc121425ce9497e7224a5ce715f84db3",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -6815,5 +6815,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
