@@ -22,7 +22,7 @@ class AppearanceConfigFactory
         $numberOfColumns            = $data['archiveProps']->numberOfColumns ?? 1;
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($data['archiveProps']);
-        $taxonomiesToDisplay        = $data['archiveProps']->taxonomiesToDisplay ?: [];
+        $taxonomiesToDisplay        = $data['archiveProps']->taxonomiesToDisplay ?? null ?: [];
         $postPropertiesToDisplay    = $data['archiveProps']->postPropertiesToDisplay ?? [];
         $template                   = $data['archiveProps']->style ?? 'cards';
         $design                     = match ($template) {

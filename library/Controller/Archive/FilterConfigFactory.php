@@ -29,7 +29,7 @@ class FilterConfigFactory
     public function create(array $data): FilterConfigInterface
     {
         $isEnabled             = $this->showFilter($data['archiveProps']);
-        $resetUrl              = $this->getPostTypeArchiveLink($this->getPostType($data));
+        $resetUrl              = $this->getPostTypeArchiveLink($this->getPostType($data)) ?? '';
         $isDateFilterEnabled   = $this->enableDateFilter($data['archiveProps']);
         $isTextSearchEnabled   = $this->enableTextSearch($data['archiveProps']);
         $taxonomyFilterConfigs = $this->getFilterTaxonomiesFromSettings((array) $data['archiveProps']);
