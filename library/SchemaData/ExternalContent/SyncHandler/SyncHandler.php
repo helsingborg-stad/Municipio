@@ -104,7 +104,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
             throw new ExternalContentException('Failed to insert: ' . $postType . '. Expected ' . $totalObjects . ' but got ' . $insertedWpPostsCount);
         }
 
-        if ($postId !== null) {
+        if ($postId === null) {
             // Run only for entire sync
             (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->cleanup($schemaObjects);
         }

@@ -82,7 +82,7 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
 
         // Update image object with media info
         return $imageObject
-            ->setProperty('@id', $mediaId)
+            ->setProperty('@id', (string)$mediaId)
             ->url($this->wpService->wpGetAttachmentUrl($mediaId));
     }
 
