@@ -3,8 +3,6 @@
 namespace Municipio\Controller;
 
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\PostsList\GetPosts\WpQueryFactory;
-use WP_Taxonomy;
 
 /**
  * Class Archive
@@ -45,27 +43,10 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
         // Build posts list
-        $this->data = [...$this->data, ...(new \Municipio\PostsList\PostsList(
-            (new Archive\GetPostsConfigFactory($this->wpService))->create($this->data),
-            (new Archive\AppearanceConfigFactory())->create($this->data),
-            (new Archive\FilterConfigFactory($this->wpService))->create($this->data),
-            $this->getAllRegisteredTaxonomies(),
-            new WpQueryFactory(),
-            new \Municipio\PostsList\QueryVars\QueryVars('archive_'),
-            $this->wpService,
-        ))->getData()];
-    }
-
-    /**
-     * Get all registered taxonomies
-     *
-     * @return WP_Taxonomy[]
-     */
-    private function getAllRegisteredTaxonomies(): array
-    {
-        global $wp_taxonomies;
-
-        return $wp_taxonomies;
+        $this->data = [...$this->data, ...(new Archive\ArchivePostsListFactory($this->wpService))->create(
+            $this->data,
+            $GLOBALS['wp_taxonomies']
+        )->getData()];
     }
 
     /**

@@ -2,8 +2,14 @@
 
 namespace Municipio\Controller\Archive;
 
+use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetParameterFromGetParams\GetParameterFromGetParams;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
+use Municipio\PostsList\QueryVars\QueryVarsInterface;
+use WP_Query;
+use WP_Term;
+use WpService\Contracts\GetTerms;
 use WpService\Contracts\GetThemeMod;
 
 /**
@@ -14,26 +20,34 @@ class GetPostsConfigFactory
     /**
      * Constructor
      */
-    public function __construct(private GetThemeMod $wpService)
-    {
+    public function __construct(
+        private array $data,
+        private FilterConfigInterface $filterConfig,
+        private QueryVarsInterface $queryVars,
+        private GetThemeMod&GetTerms $wpService
+    ) {
     }
 
     /**
      * Create a GetPostsConfig instance
      *
-     * @param array $data
      * @return GetPostsConfigInterface
      */
-    public function create(array $data): GetPostsConfigInterface
+    public function create(): GetPostsConfigInterface
     {
-        $postType           = [$this->getPostType($data)];
-        $isFacettingEnabled = $this->getFacettingType($data['archiveProps']);
-        $orderBy            = $data['archiveProps']->orderBy ?? 'post_date';
-        $perPage            = (int)$this->wpService->getThemeMod('archive_' . $this->getPostType($data) . '_post_count', 12);
-        $dateSource         = $data['archiveProps']->dateField ?? 'post_date';
-        $order              = (isset($data['archiveProps']->orderDirection) && strtoupper($data['archiveProps']->orderDirection) === 'ASC')
+        $terms              = $this->resolveTerms($this->data['wpQuery'] ?? null);
+        $postType           = [$this->getPostType()];
+        $isFacettingEnabled = $this->getFacettingType();
+        $orderBy            = $this->data['archiveProps']->orderBy ?? 'post_date';
+        $perPage            = (int)$this->wpService->getThemeMod('archive_' . $this->getPostType() . '_post_count', 12);
+        $dateSource         = $this->data['archiveProps']->dateField ?? 'post_date';
+        $order              = (isset($this->data['archiveProps']->orderDirection) && strtoupper($this->data['archiveProps']->orderDirection) === 'ASC')
             ? OrderDirection::ASC
             : OrderDirection::DESC;
+        $currentPage        = $_GET[$this->queryVars->getPaginationParameterName()] ?? 1;
+        $search             = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getSearchParameterName()) ?? '';
+        $dateFrom           = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateFromParameterName()) ?? '';
+        $dateTo             = (new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateToParameterName()) ?? '';
 
         return new class (
             $postType,
@@ -41,7 +55,12 @@ class GetPostsConfigFactory
             $orderBy,
             $order,
             $perPage,
-            $dateSource
+            $dateSource,
+            $terms,
+            $currentPage,
+            $search,
+            $dateFrom,
+            $dateTo
         ) extends \Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig {
             /**
              * Constructor
@@ -52,7 +71,12 @@ class GetPostsConfigFactory
                 private string $orderBy,
                 private OrderDirection $order,
                 private int $perPage,
-                private string $dateSource
+                private string $dateSource,
+                private array $terms,
+                private int $currentPage,
+                private string $search,
+                private string $dateFrom,
+                private string $dateTo
             ) {
             }
 
@@ -103,6 +127,46 @@ class GetPostsConfigFactory
             {
                 return $this->dateSource;
             }
+
+            /**
+             * @inheritDoc
+             */
+            public function getTerms(): array
+            {
+                return $this->terms;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getPage(): int
+            {
+                return $this->currentPage;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getSearch(): ?string
+            {
+                return $this->search;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateFrom(): ?string
+            {
+                return $this->dateFrom;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateTo(): ?string
+            {
+                return $this->dateTo;
+            }
         };
     }
 
@@ -111,27 +175,67 @@ class GetPostsConfigFactory
      *
      * @return string
      */
-    private function getPostType(array $data): string
+    private function getPostType(): string
     {
-        return !empty($data['postType']) ? $data['postType'] : 'page';
+        return !empty($this->data['postType']) ? $this->data['postType'] : 'page';
     }
 
     /**
      * Boolean function to determine if text search should be enabled
      *
-     * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    private function getFacettingType($args): bool
+    private function getFacettingType(): bool
     {
-        if (!is_object($args)) {
-            $args = (object) [];
+        if (!is_object($this->data['archiveProps'])) {
+            $this->data['archiveProps'] = (object) [];
         }
 
         if (!isset($args->filterType) || is_null($args->filterType)) {
-            $args->filterType = false;
+            $this->data['archiveProps']->filterType = false;
         }
 
-        return (bool) $args->filterType;
+        return (bool) $this->data['archiveProps']->filterType;
+    }
+
+    private function getCurrentTerm(?WP_Query $wpQuery = null): ?WP_Term
+    {
+        if (is_null($wpQuery)) {
+            return null;
+        }
+
+        if (!$wpQuery->is_tax && !$wpQuery->is_category && !$wpQuery->is_tag) {
+            return null;
+        }
+
+        return is_a($wpQuery->queried_object, WP_Term::class) ?  $wpQuery->queried_object : null;
+    }
+
+    /**
+     * Resolve terms from the current query
+     *
+     * @param \WP_Query|null $wpQuery
+     * @return \WP_Term[]
+     */
+    private function resolveTerms(?\WP_Query $wpQuery = null): array
+    {
+        $currentTerm = $this->getCurrentTerm($wpQuery);
+
+        return !is_null($currentTerm) ? [$currentTerm] :  $this->resolveTermsFromQueryParams();
+    }
+
+    /**
+     * Resolve terms from query parameters
+     *
+     * @return \WP_Term[]
+     */
+    private function resolveTermsFromQueryParams(): array
+    {
+        return (new \Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams(
+            $_GET,
+            $this->filterConfig,
+            $this->queryVars->getPrefix(),
+            $this->wpService
+        ))->getTerms();
     }
 }

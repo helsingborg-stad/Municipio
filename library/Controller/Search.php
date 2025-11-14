@@ -6,8 +6,6 @@ class Search extends \Municipio\Controller\Archive
 {
     public function init()
     {
-        parent::init();
-
         //Translations
         $this->data['lang']->allPages  = __("All pages", 'municipio');
         $this->data['lang']->noResult  = __("The searchquery did not match any content.", 'municipio');

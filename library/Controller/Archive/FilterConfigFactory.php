@@ -16,23 +16,22 @@ class FilterConfigFactory
     /**
      * Constructor
      */
-    public function __construct(private GetTaxonomies $wpService)
+    public function __construct(private array $data, private GetTaxonomies $wpService)
     {
     }
 
     /**
      * Create a FilterConfig instance
      *
-     * @param array $data
      * @return FilterConfigInterface
      */
-    public function create(array $data): FilterConfigInterface
+    public function create(): FilterConfigInterface
     {
-        $isEnabled             = $this->showFilter($data['archiveProps']);
-        $resetUrl              = $this->getPostTypeArchiveLink($this->getPostType($data)) ?? '';
-        $isDateFilterEnabled   = $this->enableDateFilter($data['archiveProps']);
-        $isTextSearchEnabled   = $this->enableTextSearch($data['archiveProps']);
-        $taxonomyFilterConfigs = $this->getFilterTaxonomiesFromSettings((array) $data['archiveProps']);
+        $isEnabled             = $this->showFilter();
+        $resetUrl              = $this->getPostTypeArchiveLink($this->getPostType()) ?? '';
+        $isDateFilterEnabled   = $this->enableDateFilter();
+        $isTextSearchEnabled   = $this->enableTextSearch();
+        $taxonomyFilterConfigs = $this->getFilterTaxonomiesFromSettings();
 
         return new class ($isEnabled, $resetUrl, $isDateFilterEnabled, $isTextSearchEnabled, $taxonomyFilterConfigs) extends DefaultFilterConfig {
             /**
@@ -92,26 +91,25 @@ class FilterConfigFactory
     /**
      * Determines if the filter should be shown.
      *
-     * @param object $args
      * @return boolean
      */
-    private function showFilter($args): bool
+    private function showFilter(): bool
     {
         $enabledFilters = false;
 
-        if (!is_object($args)) {
-            $args = (object) [];
+        if (!is_object($this->data['archiveProps'])) {
+            $this->data['archiveProps'] = (object) [];
         }
 
-        $arrayWithoutEmptyValues = isset($args->enabledFilters)
-            ? array_filter($args->enabledFilters, fn($element) => !empty($element))
+        $arrayWithoutEmptyValues = isset($this->data['archiveProps']->enabledFilters)
+            ? array_filter($this->data['archiveProps']->enabledFilters, fn($element) => !empty($element))
             : [];
 
         if (!empty($arrayWithoutEmptyValues)) {
-            $enabledFilters = $args->enabledFilters;
+            $enabledFilters = $this->data['archiveProps']->enabledFilters;
         }
 
-        $enabledFilters = apply_filters('Municipio/Archive/showFilter', $enabledFilters, $args);
+        $enabledFilters = apply_filters('Municipio/Archive/showFilter', $enabledFilters, $this->data['archiveProps']);
 
         return is_array($enabledFilters) && !empty($enabledFilters) ? true : (bool) $enabledFilters;
     }
@@ -143,57 +141,58 @@ class FilterConfigFactory
      *
      * @return string
      */
-    private function getPostType(array $data): string
+    private function getPostType(): string
     {
-        return !empty($data['postType']) ? $data['postType'] : 'page';
+        return !empty($this->data['postType']) ? $this->data['postType'] : 'page';
     }
 
     /**
      * Boolean function to determine if date filter should be enabled
      *
-     * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    private function enableDateFilter($args)
+    private function enableDateFilter()
     {
-        if (!is_object($args)) {
-            $args = (object) [];
+        if (!is_object($this->data['archiveProps'])) {
+            $this->data['archiveProps'] = (object) [];
         }
 
         return (bool) in_array(
             'date_range',
-            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+            isset($this->data['archiveProps']->enabledFilters) && is_array($this->data['archiveProps']->enabledFilters)
+                ? $this->data['archiveProps']->enabledFilters
+                : []
         );
     }
 
     /**
      * Boolean function to determine if text search should be enabled
      *
-     * @param   string      $postType   The current post type
      * @return  boolean                 True or false val.
      */
-    private function enableTextSearch($args)
+    private function enableTextSearch()
     {
-        if (!is_object($args)) {
-            $args = (object) [];
+        if (!is_object($this->data['archiveProps'])) {
+            $this->data['archiveProps'] = (object) [];
         }
 
         return (bool) in_array(
             'text_search',
-            isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
+            isset($this->data['archiveProps']->enabledFilters) && is_array($this->data['archiveProps']->enabledFilters)
+                ? $this->data['archiveProps']->enabledFilters
+                : []
         );
     }
 
     /**
      * Get taxonomies to use for filtering from settings
      *
-     * @param array $settings
      * @return array
      */
-    private function getFilterTaxonomiesFromSettings(array $settings): array
+    private function getFilterTaxonomiesFromSettings(): array
     {
         $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(
-            $settings['enabledFilters'] ?? [],
+            $this->data['archiveProps']->enabledFilters ?? [],
             [$this->currentTaxonomy()]
         ), $this->currentTaxonomy());
 
@@ -204,9 +203,9 @@ class FilterConfigFactory
         // Wash out invalid taxonomies
         $allTaxonomies = $this->wpService->getTaxonomies([], 'names');
         $taxonomies    = array_values(array_intersect($allTaxonomies, $taxonomies));
-        return array_map(function ($taxonomyName) use ($settings) {
+        return array_map(function ($taxonomyName) {
             $camelCasedName = lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $taxonomyName))));
-            $filterType     = isset($settings[$camelCasedName . 'FilterFieldType']) && $settings[$camelCasedName . 'FilterFieldType'] === 'multi'
+            $filterType     = isset($this->data['archiveProps']->{$camelCasedName . 'FilterFieldType'}) && $this->data['archiveProps']->{$camelCasedName . 'FilterFieldType'} === 'multi'
                 ? TaxonomyFilterType::MULTISELECT
                 : TaxonomyFilterType::SINGLESELECT;
             return new TaxonomyFilterConfig($taxonomyName, $filterType);
