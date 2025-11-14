@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\GetPosts;
 
+use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 
 /**
@@ -17,6 +18,7 @@ class MapPostArgsFromPostsListConfig
      */
     public function __construct(
         private GetPostsConfigInterface $config,
+        private FilterConfigInterface $filterConfig
     ) {
     }
 
@@ -35,7 +37,7 @@ class MapPostArgsFromPostsListConfig
             new PostsListConfigToGetPostsArgs\ApplyPostsPerPage(),
             new PostsListConfigToGetPostsArgs\ApplyPostType(),
             new PostsListConfigToGetPostsArgs\ApplySearch(),
-            new PostsListConfigToGetPostsArgs\ApplyTaxQuery(),
+            new PostsListConfigToGetPostsArgs\ApplyTaxQuery($this->filterConfig->getTaxonomiesEnabledForFiltering()),
         ];
 
         foreach ($appliers as $applier) {

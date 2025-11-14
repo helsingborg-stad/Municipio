@@ -73,7 +73,7 @@ class GetTermsFromGetParams
             array_keys($this->getParams),
             fn($key) => in_array(
                 $this->cleanTaxonomyKey($key),
-                array_map(fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomyName(), $enabledTaxonomies)
+                array_map(fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name, $enabledTaxonomies)
             )
         );
     }

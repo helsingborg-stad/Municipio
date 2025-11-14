@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
+use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -27,19 +28,28 @@ class ApplyTaxQueryTest extends TestCase
             }
         };
 
-        $applier = new ApplyTaxQuery();
+        $categoryTaxonomy               = new \WP_Taxonomy([], 'category');
+        $categoryTaxonomy->name         = 'category';
+        $categoryTaxonomy->hierarchical = true;
+        $tagTaxonomy                    = new \WP_Taxonomy([], 'post_tag');
+        $tagTaxonomy->name              = 'post_tag';
+        $tagTaxonomy->hierarchical      = false;
+
+        $applier = new ApplyTaxQuery([$categoryTaxonomy, $tagTaxonomy]);
         $args    = $applier->apply($config, []);
 
         $this->assertContains([
             'taxonomy' => 'category',
             'field'    => 'term_id',
             'terms'    => [1],
+            'operator' => 'IN',
         ], $args['tax_query']);
 
         $this->assertContains([
             'taxonomy' => 'post_tag',
             'field'    => 'term_id',
             'terms'    => [2],
+            'operator' => 'AND',
         ], $args['tax_query']);
     }
 
@@ -61,7 +71,10 @@ class ApplyTaxQueryTest extends TestCase
             }
         };
 
-        $applier = new ApplyTaxQuery();
+        $taxonomy               = new \WP_Taxonomy([], 'category');
+        $taxonomy->hierarchical = true;
+
+        $applier = new ApplyTaxQuery([$taxonomy]);
         $args    = $applier->apply($config, []);
 
         $this->assertEquals('OR', $args['tax_query']['relation']);
@@ -90,7 +103,10 @@ class ApplyTaxQueryTest extends TestCase
             }
         };
 
-        $applier = new ApplyTaxQuery();
+        $taxonomy               = new \WP_Taxonomy([], 'category');
+        $taxonomy->hierarchical = true;
+
+        $applier = new ApplyTaxQuery([$taxonomy]);
         $args    = $applier->apply($config, []);
 
         $this->assertEquals('AND', $args['tax_query']['relation']);
@@ -101,7 +117,7 @@ class ApplyTaxQueryTest extends TestCase
     {
         $config = new DefaultGetPostsConfig();
 
-        $applier = new ApplyTaxQuery();
+        $applier = new ApplyTaxQuery([]);
         $args    = $applier->apply($config, []);
 
         $this->assertEquals([], $args);

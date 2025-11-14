@@ -10,19 +10,19 @@ class TaxonomyFilterConfig implements TaxonomyFilterConfigInterface
     /**
      * Constructor
      *
-     * @param string $taxonomyName
+     * @param \WP_Taxonomy $taxonomy
      * @param TaxonomyFilterType $filterType
      */
-    public function __construct(private string $taxonomyName, private TaxonomyFilterType $filterType)
+    public function __construct(private \WP_Taxonomy $taxonomy, private TaxonomyFilterType $filterType)
     {
     }
 
     /**
      * @inheritDoc
      */
-    public function getTaxonomyName(): string
+    public function getTaxonomy(): \WP_Taxonomy
     {
-        return $this->taxonomyName;
+        return $this->taxonomy;
     }
 
     /**

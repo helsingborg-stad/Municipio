@@ -5,11 +5,11 @@ namespace Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig;
 interface TaxonomyFilterConfigInterface
 {
     /**
-     * Get taxonomy name
+     * Get taxonomy
      *
-     * @return string
+     * @return \WP_Taxonomy
      */
-    public function getTaxonomyName(): string;
+    public function getTaxonomy(): \WP_Taxonomy;
 
     /**
      * Get filter type

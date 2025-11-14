@@ -10,6 +10,15 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
 {
     /**
+     * Constructor
+     *
+     * @param \WP_Taxonomy[] $wpTaxonomies
+     */
+    public function __construct(private array $wpTaxonomies)
+    {
+    }
+
+    /**
      * Apply tax query from posts list config to get posts args
      *
      * @param GetPostsConfigInterface $config
@@ -44,10 +53,13 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         // Build tax_query array
         $taxQuery = [ 'relation' => $this->getRelationFromConfig($config) ];
         foreach ($termsByTaxonomy as $taxonomy => $termIds) {
+            $taxonomyIsHierarchical = $this->taxonomyIsHierarchical($taxonomy);
+
             $taxQuery[] = [
                 'taxonomy' => $taxonomy,
                 'field'    => 'term_id',
                 'terms'    => $termIds,
+                'operator' => $taxonomyIsHierarchical ? 'IN' : 'AND'
             ];
         }
 
@@ -63,5 +75,16 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
     private function getRelationFromConfig(GetPostsConfigInterface $config): string
     {
         return  $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
+    }
+
+    private function taxonomyIsHierarchical(string $taxonomy): bool
+    {
+        foreach ($this->wpTaxonomies as $wpTaxonomy) {
+            if ($wpTaxonomy->name === $taxonomy) {
+                return $wpTaxonomy->hierarchical;
+            }
+        }
+
+        return false;
     }
 }

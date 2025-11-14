@@ -32,9 +32,9 @@ class ArchivePostsListFactory
         array $wpTaxonomies
     ): \Municipio\PostsList\PostsList {
         return new \Municipio\PostsList\PostsList(
-            $this->createGetPostsConfig($data),
+            $this->createGetPostsConfig($data, $wpTaxonomies),
             (new AppearanceConfigFactory())->create($data),
-            $this->getFilterConfig($data),
+            $this->getFilterConfig($data, $wpTaxonomies),
             $wpTaxonomies,
             new \Municipio\PostsList\GetPosts\WpQueryFactory(),
             $this->getQueryVars(),
@@ -46,22 +46,24 @@ class ArchivePostsListFactory
      * Create GetPostsConfig instance
      *
      * @param array $data
+     * @param \WP_Taxonomy[] $wpTaxonomies
      * @return GetPostsConfigInterface
      */
-    private function createGetPostsConfig(array $data): GetPostsConfigInterface
+    private function createGetPostsConfig(array $data, array $wpTaxonomies): GetPostsConfigInterface
     {
-        return (new GetPostsConfigFactory($data, $this->getFilterConfig($data), $this->getQueryVars(), $this->wpService))->create();
+        return (new GetPostsConfigFactory($data, $this->getFilterConfig($data, $wpTaxonomies), $this->getQueryVars(), $this->wpService))->create();
     }
 
     /**
      * Create FilterConfig instance
      *
      * @param array $data
+     * @param \WP_Taxonomy[] $wpTaxonomies
      * @return \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
      */
-    private function getFilterConfig(array $data): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
+    private function getFilterConfig(array $data, $wpTaxonomies): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
-        return (new FilterConfigFactory($data, $this->wpService))->create();
+        return (new FilterConfigFactory($data, $wpTaxonomies))->create();
     }
 
     /**

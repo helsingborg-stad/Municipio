@@ -7,17 +7,19 @@ use PHPUnit\Framework\TestCase;
 
 class TaxonomyFilterConfigTest extends TestCase
 {
-    #[TestDox('returns provided taxonomy name')]
-    public function testReturnsProvidedTaxonomyName(): void
+    #[TestDox('returns provided taxonomy')]
+    public function testReturnsProvidedTaxonomy(): void
     {
-        $config = new TaxonomyFilterConfig('category', TaxonomyFilterType::SINGLESELECT);
-        $this->assertSame('category', $config->getTaxonomyName());
+        $taxonomy = new \WP_Taxonomy([], 'category');
+        $config   = new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT);
+        $this->assertSame($taxonomy, $config->getTaxonomy());
     }
 
     #[TestDox('returns provided filter type')]
     public function testReturnsProvidedFilterType(): void
     {
-        $config = new TaxonomyFilterConfig('category', TaxonomyFilterType::MULTISELECT);
+        $taxonomy = new \WP_Taxonomy([], 'category');
+        $config   = new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT);
         $this->assertSame(TaxonomyFilterType::MULTISELECT, $config->getFilterType());
     }
 }

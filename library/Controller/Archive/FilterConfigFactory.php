@@ -15,8 +15,12 @@ class FilterConfigFactory
 {
     /**
      * Constructor
+     *
+     * @param array $data
+     * @param GetTaxonomies $wpService
+     * @param \WP_Taxonomy[] $wpTaxonomies
      */
-    public function __construct(private array $data, private GetTaxonomies $wpService)
+    public function __construct(private array $data, private array $wpTaxonomies)
     {
     }
 
@@ -201,15 +205,19 @@ class FilterConfigFactory
         }
 
         // Wash out invalid taxonomies
-        $allTaxonomies = $this->wpService->getTaxonomies([], 'names');
-        $taxonomies    = array_values(array_intersect($allTaxonomies, $taxonomies));
-        return array_map(function ($taxonomyName) {
-            $camelCasedName = lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $taxonomyName))));
+        $filteredWpTaxonomies = array_filter(
+            $this->wpTaxonomies,
+            fn(\WP_Taxonomy $wpTaxonomy) => in_array($wpTaxonomy->name, $taxonomies)
+        );
+
+        // $taxonomies    = array_values(array_intersect($allTaxonomies, $taxonomies));
+        return array_map(function (\WP_Taxonomy $taxonomy) {
+            $camelCasedName = lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $taxonomy->name))));
             $filterType     = isset($this->data['archiveProps']->{$camelCasedName . 'FilterFieldType'}) && $this->data['archiveProps']->{$camelCasedName . 'FilterFieldType'} === 'multi'
                 ? TaxonomyFilterType::MULTISELECT
                 : TaxonomyFilterType::SINGLESELECT;
-            return new TaxonomyFilterConfig($taxonomyName, $filterType);
-        }, $taxonomies);
+            return new TaxonomyFilterConfig($taxonomy, $filterType);
+        }, $filteredWpTaxonomies);
     }
 
     /**

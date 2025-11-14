@@ -71,7 +71,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
     private function filterWpTaxonomies(TaxonomyFilterConfigInterface ...$taxonomyFilterConfigs): array
     {
         $taxonomyNamesFromTaxonomyFilterConfigs = array_map(
-            fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomyName(),
+            fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name,
             $taxonomyFilterConfigs
         );
         return array_filter(
@@ -115,7 +115,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
             $taxonomyName   = $wpTaxonomy->name;
             $taxonomyConfig = array_values(array_filter(
                 $this->filterConfig->getTaxonomiesEnabledForFiltering(),
-                fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomyName() === $taxonomyName
+                fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name === $taxonomyName
             ))[0];
 
             if (empty($termsByTaxonomy[$taxonomyName])) {

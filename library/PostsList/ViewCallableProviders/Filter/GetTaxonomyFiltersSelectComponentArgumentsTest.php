@@ -20,7 +20,9 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     public function testReturnsArrayOfSelectComponentArguments(): void
     {
         $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
-        $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig('category', TaxonomyFilterType::MULTISELECT)]);
+        $taxonomy                                   = new \WP_Taxonomy([], 'category');
+        $taxonomy->name                             = 'category';
+        $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT)]);
         $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
         $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
             $filterConfig,
@@ -49,7 +51,9 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     public function testSetsPreselectedWithTermsFromGetPostsConfig(): void
     {
         $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
-        $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig('category', TaxonomyFilterType::MULTISELECT)]);
+        $taxonomy                                   = new \WP_Taxonomy([], 'category');
+        $taxonomy->name                             = 'category';
+        $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT)]);
         $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
         $preselectedTerms                           = [$this->getArrayOfTerms(1)[0]];
         $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(

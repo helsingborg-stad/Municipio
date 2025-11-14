@@ -121,7 +121,8 @@ class PostsList
     private function getPostsArgs(): array
     {
         return (new MapPostArgsFromPostsListConfig(
-            $this->getPostsConfig
+            $this->getPostsConfig,
+            $this->filterConfig
         ))->getPostsArgs();
     }
 

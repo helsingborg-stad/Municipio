@@ -47,11 +47,13 @@ class GetTermsFromGetParamsTest extends TestCase
     #[TestDox('returns an array of terms found in the query parameters')]
     public function testGetTerms(): void
     {
-        $prefix       = 'prefix_';
-        $getParams    = [$prefix . 'category' => ['term1', 'term2']];
-        $taxonomies   = [new TaxonomyFilterConfig('category', TaxonomyFilterType::SINGLESELECT)];
-        $filterConfig = new TestFilterConfig($taxonomies);
-        $wpService    = new TestGetTermsService();
+        $prefix         = 'prefix_';
+        $getParams      = [$prefix . 'category' => ['term1', 'term2']];
+        $taxonomy       = new \WP_Taxonomy([], 'category');
+        $taxonomy->name = 'category';
+        $taxonomies     = [new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)];
+        $filterConfig   = new TestFilterConfig($taxonomies);
+        $wpService      = new TestGetTermsService();
 
         $getTermsFromGetParams = new GetTermsFromGetParams($getParams, $filterConfig, $prefix, $wpService);
         $terms                 = $getTermsFromGetParams->getTerms();
