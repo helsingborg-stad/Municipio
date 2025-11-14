@@ -14,8 +14,6 @@ class PostFilters
      */
     public function __construct()
     {
-        add_filter('template_include', array($this, 'enablePostTypeArchiveSearch'), 1);
-
         add_filter('query_vars', array($this, 'addQueryVars'));
 
         add_action('posts_where', array($this, 'doPostDateFiltering'));
@@ -141,28 +139,6 @@ class PostFilters
         }
 
         return $ungrouped;
-    }
-
-    /**
-     * Use correct template when filtering a post type archive
-     * @param  string $template Template path
-     * @return string           Template path
-     */
-    public function enablePostTypeArchiveSearch($template)
-    {
-        $template = \Municipio\Helper\Template::locateTemplate($template);
-
-        if ((is_post_type_archive() || is_category() || is_date() || $this->currentTaxonomy() || is_tag()) && is_search()) {
-            $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
-
-            if (!$archiveTemplate) {
-                $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive.blade.php');
-            }
-
-            $template = $archiveTemplate;
-        }
-
-        return $template;
     }
 
     /**
