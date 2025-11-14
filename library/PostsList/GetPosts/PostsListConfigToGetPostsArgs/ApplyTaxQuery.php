@@ -77,6 +77,12 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         return  $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
     }
 
+    /**
+     * Check if taxonomy is hierarchical
+     *
+     * @param string $taxonomy
+     * @return bool
+     */
     private function taxonomyIsHierarchical(string $taxonomy): bool
     {
         foreach ($this->wpTaxonomies as $wpTaxonomy) {
