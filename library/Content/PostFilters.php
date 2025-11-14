@@ -16,8 +16,6 @@ class PostFilters
     {
         add_filter('query_vars', array($this, 'addQueryVars'));
 
-        add_action('posts_where', array($this, 'doPostDateFiltering'));
-
         add_action('pre_get_posts', array($this, 'suppressFiltersOnFontAttachments'));
 
         add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
@@ -202,42 +200,6 @@ class PostFilters
             apply_filters('Municipio/archive/tax_query', $taxQuery, $query)
         );
         return $query;
-    }
-
-    /**
-     * Add where clause to post query based on active filters
-     * @param  string $where Original where clause
-     * @return string        Modified where clause
-     */
-    public function doPostDateFiltering($where)
-    {
-        if (is_admin()) {
-            return $where;
-        }
-
-        global $wpdb;
-
-        foreach (['from', 'to'] as $query) {
-            if ($querys[$query] = $this->getQueryString($query)) {
-                $querys[$query] = date(
-                    'Y-m-d',
-                    \strtotime($this->getQueryString($query))
-                );
-            } else {
-                $querys[$query] = false;
-            }
-        }
-        extract($querys);
-
-        if ($from && $to) {
-            $where .= " AND ($wpdb->posts.post_date >= '$from' AND $wpdb->posts.post_date <= '$to')";
-        } elseif ($from && !$to) {
-            $where .= " AND ($wpdb->posts.post_date >= '$from')";
-        } elseif (!$from && $to) {
-            $where .= " AND ($wpdb->posts.post_date <= '$to')";
-        }
-
-        return apply_filters('Municipio/archive/date_filter', $where, $from, $to);
     }
 
     /**
