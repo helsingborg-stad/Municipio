@@ -12,7 +12,7 @@ class FilterConfigFactoryTest extends TestCase
     #[TestDox('create returns an instance of FilterConfigInterface')]
     public function testCreateReturnsFilterConfigInterface(): void
     {
-        $factory = new FilterConfigFactory($this->createMock(GetTaxonomies::class));
+        $factory = new FilterConfigFactory(['archiveProps' => (object)[]], $this->createMock(GetTaxonomies::class));
 
         $result = $factory->create(['archiveProps' => (object)[]]);
 

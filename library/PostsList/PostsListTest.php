@@ -36,6 +36,8 @@ class PostsListTest extends TestCase
                 return new class extends \WP_Query {
                     public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
                     {
+                        $this->posts         = [];
+                        $this->max_num_pages = 0;
                         return [];
                     }
                 };

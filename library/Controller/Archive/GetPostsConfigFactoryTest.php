@@ -30,6 +30,7 @@ class GetPostsConfigFactoryTest extends TestCase
     public function testCreateReturnsGetPostsConfigInterface(): void
     {
         $factory = new GetPostsConfigFactory(
+            ['archiveProps' => (object) []],
             $this->createMock(FilterConfigInterface::class),
             $this->createMock(QueryVarsInterface::class),
             new FakeWpService()

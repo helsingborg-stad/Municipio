@@ -9,12 +9,8 @@ use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
-use Municipio\PostsList\Config\FilterConfig\AbstractDecoratedFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\AbstractDecoratedGetPostsConfig;
-use Municipio\PostsList\Config\GetPostsConfig\GetParameterFromGetParams\GetParameterFromGetParams;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
 use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
 use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
@@ -29,6 +25,8 @@ use WpService\WpService;
  */
 class PostsList
 {
+    /** @var PostObjectInterface[] */
+    private array $posts;
     private WP_Query $wpQuery;
     private AppearanceConfigInterface $appearanceConfig;
     /**
@@ -99,7 +97,7 @@ class PostsList
             'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig, $this->wpService, $this->queryVars->getDateFromParameterName(), $this->queryVars->getDateToParameterName()))->getCallable(),
 
             // Pagination utilities
-            'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getTotalNumberOfPages(), $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
+            'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getWpQuery()->max_num_pages, $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
         ];
     }
 
@@ -111,6 +109,7 @@ class PostsList
         if (!isset($this->wpQuery)) {
             $args          = $this->getPostsArgs();
             $this->wpQuery = $this->wpQueryFactory::create($args);
+            $this->wpQuery->get_posts();
         }
 
         return $this->wpQuery;
@@ -133,21 +132,11 @@ class PostsList
      */
     private function getPosts(): array
     {
-        return array_map(fn($wpPost) => Post::convertWpPostToPostObject($wpPost), (new GetPosts\GetPostsUsingWpQuery($this->getWpQuery()))->getPosts());
-    }
-
-    /**
-     * Get total number of pages based on WP_Query
-     */
-    private function getTotalNumberOfPages(): int
-    {
-        $wpQuery = $this->getWpQuery();
-
-        if (!isset($wpQuery->max_num_pages)) {
-            $this->wpQuery->get_posts();
+        if (!isset($this->posts)) {
+            $this->posts = array_map(fn($wpPost) => Post::convertWpPostToPostObject($wpPost), $this->getWpQuery()->posts);
         }
 
-        return $wpQuery->max_num_pages;
+        return $this->posts;
     }
 
     /**
