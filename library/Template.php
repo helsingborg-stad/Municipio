@@ -460,7 +460,7 @@ class Template
      * @param $view
      * @param array $data
      */
-    public function renderView($view, $data = array())
+    public function renderView($view, $data = [])
     {
         // Ensure blade engine is initialized before rendering
         if ($this->bladeEngine === null) {
@@ -469,20 +469,28 @@ class Template
 
         try {
             $markup = $this->bladeEngine
-                ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
+                ->makeView($view, array_merge($data, ['errorMessage' => false]), [], $this->viewPaths)
                 ->render();
 
-            //Hookable filter to get all markup output
-            //Used by WPMUSecurity
-            $this->wpService->applyFilters(
-                'Website/HTML/output',
-                $markup
-            );
+            // Hookable filter to get all markup output (Used by WPMUSecurity)
+            $this->wpService->applyFilters('Website/HTML/output', $markup);
 
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
-                $tidy = new \tidy();
 
+                //Leave out <template> blocks from tidy processing
+                $templates = [];
+                $markup = preg_replace_callback(
+                    '/<template\b[^>]*>.*?<\/template>/is',
+                    function ($matches) use (&$templates) {
+                        $key = '__TEMPLATE_PLACEHOLDER_' . count($templates) . '__';
+                        $templates[$key] = $matches[0];
+                        return $key;
+                    },
+                    $markup
+                );
+
+                $tidy = new \tidy();
                 $tidy->parseString($markup, [
                     'indent'              => true,
                     'output-xhtml'        => false,
@@ -496,31 +504,30 @@ class Template
                 $tidy->cleanRepair();
                 $cleanedHtml = (string) $tidy;
 
-                // Minify inline <style> and <script> content
+                // Restore <template> blocks
+                $cleanedHtml = str_replace(array_keys($templates), array_values($templates), $cleanedHtml);
+
+                // Minify inline <style> content
                 $cleanedHtml = preg_replace_callback(
                     '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
-                    function ($matches) {
-                        return '<style>' . $this->minifyCss($matches[1]) . '</style>';
-                    },
+                    fn($m) => '<style>' . $this->minifyCss($m[1]) . '</style>',
                     $cleanedHtml
                 );
 
                 // Minify inline <script> content
                 $cleanedHtml = preg_replace_callback(
                     '/<script\b([^>]*)>(.*?)<\/script>/is',
-                    function ($matches) {
-                        return '<script' . $matches[1] . '>' . $this->minifyJs($matches[2]) . '</script>';
-                    },
+                    fn($m) => '<script' . $m[1] . '>' . $this->minifyJs($m[2]) . '</script>',
                     $cleanedHtml
                 );
 
                 // Drop comments
-                if (!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
+                if (!defined('WP_DEBUG') || (defined('WP_DEBUG') && constant('WP_DEBUG') !== true)) {
                     $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
                 }
 
                 // Drop empty id attributes
-                $cleanedHtml = preg_replace('/id=""/', '', $cleanedHtml);
+                $cleanedHtml = preg_replace('/\sid=""/', '', $cleanedHtml);
 
                 //Drop attibute that no longer is to spec
                 $cleanedHtml = $this->dropPropertyAttributes([
