@@ -191,7 +191,7 @@ class GetPostsConfigFactory
             $this->data['archiveProps'] = (object) [];
         }
 
-        if (!isset($args->filterType) || is_null($args->filterType)) {
+        if (!isset($this->data['archiveProps']->filterType) || is_null($this->data['archiveProps']->filterType)) {
             $this->data['archiveProps']->filterType = false;
         }
 
