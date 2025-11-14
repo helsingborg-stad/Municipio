@@ -40,6 +40,7 @@ class EventsGenerator implements ViewDataGeneratorInterface
 
         foreach ($events as $event) {
             $schedules = $this->getSchedules($event);
+            $schedules = array_filter($schedules, [$this, 'scheduleStartDateIsTodayOrLater']);
 
             foreach ($schedules as $schedule) {
                 $occasions[] = $this->createOccasion($event, $schedule);
@@ -60,7 +61,7 @@ class EventsGenerator implements ViewDataGeneratorInterface
     private function createOccasion(Event $event, Schedule $schedule): array
     {
         $startDate = $schedule->getProperty('startDate');
-        $endDate = $schedule->getProperty('endDate');
+        $endDate   = $schedule->getProperty('endDate');
 
         return [
             'name'             => $event->getProperty('name'),
@@ -85,10 +86,26 @@ class EventsGenerator implements ViewDataGeneratorInterface
 
     private function getDescription(Event $event): string
     {
-        $description = $event->getProperty('description');
+        $description  = $event->getProperty('description');
         $descriptions = is_array($description) ? $description : [$description];
         $descriptions = array_filter($descriptions, 'is_string');
 
         return implode('', $descriptions);
+    }
+
+    private function scheduleStartDateIsTodayOrLater(Schedule $schedule): bool
+    {
+        $startDate = $schedule->getProperty('startDate');
+
+        if (!$startDate) {
+            return false;
+        }
+
+        $now = new DateTime('now');
+        $now->setTime(0, 0, 0);
+        $startDateClone = clone $startDate;
+        $startDateClone->setTime(0, 0, 0);
+
+        return $startDateClone >= $now;
     }
 }
