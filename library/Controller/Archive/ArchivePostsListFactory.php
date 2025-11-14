@@ -6,10 +6,16 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\QueryVars\QueryVars;
 use WpService\WpService;
 
+/**
+ * Factory class for creating PostsList instances for archives
+ */
 class ArchivePostsListFactory
 {
     private QueryVars $queryVars;
 
+    /**
+     * Constructor
+     */
     public function __construct(private WpService $wpService)
     {
     }
@@ -47,11 +53,22 @@ class ArchivePostsListFactory
         return (new GetPostsConfigFactory($data, $this->getFilterConfig($data), $this->getQueryVars(), $this->wpService))->create();
     }
 
+    /**
+     * Create FilterConfig instance
+     *
+     * @param array $data
+     * @return \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
+     */
     private function getFilterConfig(array $data): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
         return (new FilterConfigFactory($data, $this->wpService))->create();
     }
 
+    /**
+     * Get QueryVars instance
+     *
+     * @return \Municipio\PostsList\QueryVars\QueryVarsInterface
+     */
     private function getQueryVars(): \Municipio\PostsList\QueryVars\QueryVarsInterface
     {
         if (!isset($this->queryVars)) {

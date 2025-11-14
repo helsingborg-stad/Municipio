@@ -420,7 +420,7 @@ class BaseController
                 if (!empty($attributes['href'])) {
                     $parsedUrl = parse_url($attributes['href']);
 
-                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== $_SERVER['HTTP_HOST']) {
+                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== (empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST'])) {
                         $attributes['data-js-original-link'] = $attributes['href'];
                     }
                 }

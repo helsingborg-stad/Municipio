@@ -198,6 +198,12 @@ class GetPostsConfigFactory
         return (bool) $this->data['archiveProps']->filterType;
     }
 
+    /**
+     * Get the current term from the query
+     *
+     * @param \WP_Query|null $wpQuery
+     * @return \WP_Term|null
+     */
     private function getCurrentTerm(?WP_Query $wpQuery = null): ?WP_Term
     {
         if (is_null($wpQuery)) {

@@ -2,8 +2,14 @@
 
 namespace Municipio\Controller;
 
+/**
+ * Search controller
+ */
 class Search extends \Municipio\Controller\Archive
 {
+    /**
+     * Initialize search controller
+     */
     public function init()
     {
         //Translations
