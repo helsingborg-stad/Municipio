@@ -3,6 +3,8 @@
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +37,12 @@ class ApplyTaxQueryTest extends TestCase
         $tagTaxonomy->name              = 'post_tag';
         $tagTaxonomy->hierarchical      = false;
 
-        $applier = new ApplyTaxQuery([$categoryTaxonomy, $tagTaxonomy]);
+        $taxonomyFilterConfigs = [
+            new TaxonomyFilterConfig($categoryTaxonomy, TaxonomyFilterType::SINGLESELECT),
+            new TaxonomyFilterConfig($tagTaxonomy, TaxonomyFilterType::SINGLESELECT)
+        ];
+
+        $applier = new ApplyTaxQuery($taxonomyFilterConfigs);
         $args    = $applier->apply($config, []);
 
         $this->assertContains([
@@ -72,9 +79,11 @@ class ApplyTaxQueryTest extends TestCase
         };
 
         $taxonomy               = new \WP_Taxonomy([], 'category');
+        $taxonomy->name         = 'category';
         $taxonomy->hierarchical = true;
+        $taxonomyFilterConfigs  = [new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)];
 
-        $applier = new ApplyTaxQuery([$taxonomy]);
+        $applier = new ApplyTaxQuery($taxonomyFilterConfigs);
         $args    = $applier->apply($config, []);
 
         $this->assertEquals('OR', $args['tax_query']['relation']);
@@ -104,9 +113,11 @@ class ApplyTaxQueryTest extends TestCase
         };
 
         $taxonomy               = new \WP_Taxonomy([], 'category');
+        $taxonomy->name         = 'category';
         $taxonomy->hierarchical = true;
+        $taxonomyFilterConfigs  = [new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::SINGLESELECT)];
 
-        $applier = new ApplyTaxQuery([$taxonomy]);
+        $applier = new ApplyTaxQuery($taxonomyFilterConfigs);
         $args    = $applier->apply($config, []);
 
         $this->assertEquals('AND', $args['tax_query']['relation']);

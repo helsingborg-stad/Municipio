@@ -27,8 +27,10 @@
                 @endelement
             @endforeach
         @endif
-        @element(['classList' => ['o-layout-grid--col-span-12']])
-            @include('parts.pagination')
-        @endelement
+        @if(!empty($getPaginationComponentArguments()))
+            @element(['classList' => ['o-layout-grid--col-span-12']])
+                @include('parts.pagination')
+            @endelement
+        @endif
     @endif
 @endelement

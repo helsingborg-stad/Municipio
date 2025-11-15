@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 
 /*
@@ -12,9 +13,9 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
     /**
      * Constructor
      *
-     * @param \WP_Taxonomy[] $wpTaxonomies
+     * @param TaxonomyFilterConfigInterface[] $taxonomyFilterConfigs
      */
-    public function __construct(private array $wpTaxonomies)
+    public function __construct(private array $taxonomyFilterConfigs)
     {
     }
 
@@ -85,9 +86,9 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function taxonomyIsHierarchical(string $taxonomy): bool
     {
-        foreach ($this->wpTaxonomies as $wpTaxonomy) {
-            if ($wpTaxonomy->name === $taxonomy) {
-                return $wpTaxonomy->hierarchical;
+        foreach ($this->taxonomyFilterConfigs as $taxonomyFilterConfig) {
+            if ($taxonomyFilterConfig->getTaxonomy()->name === $taxonomy) {
+                return $taxonomyFilterConfig->getTaxonomy()->hierarchical;
             }
         }
 
