@@ -405,10 +405,10 @@ class BaseController
 
             add_filter('ComponentLibrary/Component/Lang', function ($obj) {
                 $lang = [
-                    'visit' => __('Visit', 'municipio'),
-                    'email' => __('Email', 'municipio'),
-                    'call'  => __('Call', 'municipio'),
-                    'address' => __('Address', 'municipio'),
+                    'visit'           => __('Visit', 'municipio'),
+                    'email'           => __('Email', 'municipio'),
+                    'call'            => __('Call', 'municipio'),
+                    'address'         => __('Address', 'municipio'),
                     'visitingAddress' => __('Visiting address', 'municipio'),
                 ];
 
@@ -420,7 +420,7 @@ class BaseController
                 if (!empty($attributes['href'])) {
                     $parsedUrl = parse_url($attributes['href']);
 
-                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== $_SERVER['HTTP_HOST']) {
+                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== (empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST'])) {
                         $attributes['data-js-original-link'] = $attributes['href'];
                     }
                 }
@@ -501,7 +501,7 @@ class BaseController
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
         if (in_array('component.image.placeholder.icon', $contexts)) {
             $data['label'] = __('Emblem', 'municipio');
-            $data['icon'] = $this->getEmblem();
+            $data['icon']  = $this->getEmblem();
         }
         return $data;
     }

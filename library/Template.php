@@ -208,8 +208,7 @@ class Template
         $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
                                                 class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") &&
                                                 (bool)ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
-
-        $controllers = [
+        $controllers                      = [
             [
                 'condition'       => ('404' === $template),
                 'controllerClass' => \Municipio\Controller\E404::class,
@@ -477,13 +476,12 @@ class Template
 
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
-
                 //Leave out <template> blocks from tidy processing
                 $templates = [];
-                $markup = preg_replace_callback(
+                $markup    = preg_replace_callback(
                     '/<template\b[^>]*>.*?<\/template>/is',
                     function ($matches) use (&$templates) {
-                        $key = '__TEMPLATE_PLACEHOLDER_' . count($templates) . '__';
+                        $key             = '__TEMPLATE_PLACEHOLDER_' . count($templates) . '__';
                         $templates[$key] = $matches[0];
                         return $key;
                     },
@@ -631,7 +629,6 @@ class Template
             '403'        => '403.blade.php',
             '401'        => '401.blade.php',
             'archive'    => 'archive.blade.php',
-            'author'     => 'author.blade.php',
             'category'   => 'category.blade.php',
             'tag'        => 'tag.blade.php',
             'taxonomy'   => 'taxonomy.blade.php',

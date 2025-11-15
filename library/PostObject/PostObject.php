@@ -65,6 +65,14 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function getExcerpt(): string
+    {
+        return '';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getContentHeadings(): array
     {
         return [];
@@ -173,10 +181,10 @@ class PostObject implements PostObjectInterface
      */
     public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
-        $imageId    = $this->wpService->getPostThumbnailId($this->getId());
+        $imageId = $this->wpService->getPostThumbnailId($this->getId());
 
-        $width      = $width ?? 1920;
-        $height     = $height ?? false;
+        $width  = $width ?? 1920;
+        $height = $height ?? false;
 
         return $imageId !== false && $imageId !== 0 ? Image::factory(
             (int) $imageId,

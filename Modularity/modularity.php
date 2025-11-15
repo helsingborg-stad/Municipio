@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:ignoreFile PSR1.Files.SideEffects.FoundWithSymbols
+
 use AcfService\Implementations\NativeAcfService;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;

@@ -1,0 +1,71 @@
+<?php
+
+namespace Municipio\PostsList\QueryVars;
+
+/**
+ * Manages query variable names with a specific prefix
+ */
+class QueryVars implements QueryVarsInterface
+{
+    private static array $usedPrefixes = [];
+
+    /**
+     * Constructor
+     */
+    public function __construct(private string $prefix)
+    {
+        if (in_array($this->prefix, self::$usedPrefixes)) {
+            throw new \Exception('Prefix may not be reused between instances');
+        }
+
+        self::$usedPrefixes[] = $this->prefix;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPrefix(): string
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPaginationParameterName(): string
+    {
+        return $this->prefixParameter('page');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateFromParameterName(): string
+    {
+        return $this->prefixParameter('date_from');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateToParameterName(): string
+    {
+        return $this->prefixParameter('date_to');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSearchParameterName(): string
+    {
+        return $this->prefixParameter('search');
+    }
+
+    /**
+     * Prefix a parameter name with the instance's prefix
+     */
+    private function prefixParameter(string $param): string
+    {
+        return $this->getPrefix() . $param;
+    }
+}

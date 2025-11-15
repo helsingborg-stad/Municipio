@@ -2,12 +2,16 @@
 
 namespace Municipio\Controller;
 
+/**
+ * Search controller
+ */
 class Search extends \Municipio\Controller\Archive
 {
+    /**
+     * Initialize search controller
+     */
     public function init()
     {
-        parent::init();
-
         //Translations
         $this->data['lang']->allPages  = __("All pages", 'municipio');
         $this->data['lang']->noResult  = __("The searchquery did not match any content.", 'municipio');

@@ -30,6 +30,13 @@ interface PostObjectInterface
     public function getContent(): string;
 
     /**
+     * Get the post object excerpt.
+     *
+     * @return string
+     */
+    public function getExcerpt(): string;
+
+    /**
      * Get an array of headings from the post content.
      *
      * @return array The table of contents data.
@@ -37,7 +44,7 @@ interface PostObjectInterface
     public function getContentHeadings(): array;
 
     /**
-     * Get the post object excerpt.
+     * Get the post object permalink.
      *
      * @return string
      */

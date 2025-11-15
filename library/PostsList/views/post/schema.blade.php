@@ -1,0 +1,1 @@
+@include('post.schema.' . $post->getSchemaProperty("@type"))
