@@ -75,7 +75,7 @@ class Template
             $nestedRendered = $this->resolveNestedTemplates($nestedTemplate, $data);
 
             // Replace the nested template tag with its rendered content
-            $renderedTemplate = str_replace($matches[0], $nestedRendered, $template);
+            $template = str_replace($matches[0], $nestedRendered, $template);
         }
 
         return $template;
