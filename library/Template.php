@@ -67,24 +67,18 @@ class Template
      */
     private function resolveNestedTemplates(string $template, array $data = []): string
     {
-        $renderedTemplate = $this->renderView($template, $data, [
-            [$this, 'minifyCss'],
-            [$this, 'minifyJs'],
-            [$this, 'resolveNestedTemplates']
-        ]);
-
         // Check if the rendered template contains another template tag
-        if (preg_match('/{{\s*template\((.*?)\)\s*}}/', $renderedTemplate, $matches)) {
+        if (preg_match('/{{\s*template\((.*?)\)\s*}}/', $template, $matches)) {
             $nestedTemplate = trim($matches[1], "'\"");
 
             // Recursively resolve the nested template
             $nestedRendered = $this->resolveNestedTemplates($nestedTemplate, $data);
 
             // Replace the nested template tag with its rendered content
-            $renderedTemplate = str_replace($matches[0], $nestedRendered, $renderedTemplate);
+            $renderedTemplate = str_replace($matches[0], $nestedRendered, $template);
         }
 
-        return $renderedTemplate;
+        return $template;
     }
 
     /**
@@ -163,8 +157,9 @@ class Template
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
 
-        // Use the resolveNestedTemplates method to handle nested templates
-        return $this->resolveNestedTemplates((string) $view, (array) $viewData);
+        return $this->renderView($view, $viewData, [
+            [$this, 'resolveNestedTemplates']
+        ]);
     }
 /**
     * Loads a controller
@@ -556,6 +551,7 @@ class Template
 
                 // Drop empty id attributes
                 $markup = preg_replace('/\sid=""/', '', $markup);
+
                 //Drop attibute that no longer is to spec
                 $markup = $this->dropPropertyAttributes([
                     'style'  => ['type' => 'text/css'],
