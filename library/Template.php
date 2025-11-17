@@ -504,15 +504,6 @@ class Template
 
                 //Leave out <template> blocks from tidy processing
                 $templates = [];
-                $markup = preg_replace_callback(
-                    '/<template\b[^>]*>.*?<\/template>/is',
-                    function ($matches) use (&$templates) {
-                        $key = '__TEMPLATE_PLACEHOLDER_' . count($templates) . '__';
-                        $templates[$key] = $matches[0];
-                        return $key;
-                    },
-                    $markup
-                );
 
                 $tidy = new \tidy();
                 $tidy->parseString($markup, [
