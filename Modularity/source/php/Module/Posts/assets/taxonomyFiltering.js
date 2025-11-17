@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new ModuleFilteringSetup(modPostsTaxonomyFiltering.currentPostID);
     }
 
-    if (pagenow === 'page' && typeof wp !== 'undefined' && wp.blocks) {
+    if (typeof wp !== 'undefined' && wp.blocks) {
         new BlockFilteringSetup(modPostsTaxonomyFiltering.currentPostID);
     }
 });
