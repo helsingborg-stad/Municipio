@@ -5,12 +5,26 @@ namespace Municipio\Controller\Archive\Mappers\FilterConfigMappers;
 use Municipio\Controller\Archive\Mappers\MapperInterface;
 use WpService\Contracts\ApplyFilters;
 
+/**
+ * Maps whether any filters are enabled from the provided data
+ */
 class MapIsEnabledFiltersFromData implements MapperInterface
 {
+    /**
+     * Constructor
+     *
+     * @param ApplyFilters $wpService
+     */
     public function __construct(private ApplyFilters $wpService)
     {
     }
 
+    /**
+     * Maps whether any filters are enabled
+     *
+     * @param array $data Archive configuration data
+     * @return bool True if any filters are enabled, false otherwise
+     */
     public function map(array $data): bool
     {
         $enabledFilters = false;

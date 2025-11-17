@@ -4,8 +4,17 @@ namespace Municipio\Controller\Archive\Mappers\FilterConfigMappers;
 
 use Municipio\Controller\Archive\Mappers\MapperInterface;
 
+/**
+ * Map text search enabled
+ */
 class MapTextSearchEnabled implements MapperInterface
 {
+    /**
+     * Map text search enabled
+     *
+     * @param array $data
+     * @return mixed
+     */
     public function map(array $data): mixed
     {
         if (!is_object($data['archiveProps'])) {

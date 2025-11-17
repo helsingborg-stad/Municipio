@@ -7,12 +7,26 @@ use WpService\Contracts\GetQueriedObject;
 use WpService\Contracts\GetTermLink;
 use WpService\Contracts\HomeUrl;
 
+/**
+ * Maps the reset URL for archive filters based on the current request and post type
+ */
 class MapResetUrl
 {
+    /**
+     * Constructor
+     *
+     * @param HomeUrl&GetPostTypeArchiveLink&GetQueriedObject&GetTermLink $wpService
+     */
     public function __construct(private HomeUrl&GetPostTypeArchiveLink&GetQueriedObject&GetTermLink $wpService)
     {
     }
 
+    /**
+     * Maps the reset URL
+     *
+     * @param array $data Archive configuration data
+     * @return string The reset URL
+     */
     public function map(array $data): string
     {
         if (isset($_SERVER['REQUEST_URI'])) {
@@ -28,6 +42,12 @@ class MapResetUrl
         return $this->wpService->getPostTypeArchiveLink($this->getPostType($data));
     }
 
+    /**
+     * Retrieves the post type from the data array
+     *
+     * @param array $data Archive configuration data
+     * @return string The post type
+     */
     private function getPostType(array $data): string
     {
         return !empty($data['postType']) ? $data['postType'] : 'page';

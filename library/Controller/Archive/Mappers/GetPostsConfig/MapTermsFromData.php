@@ -4,8 +4,14 @@ namespace Municipio\Controller\Archive\Mappers\GetPostsConfig;
 
 use Municipio\Controller\Archive\Mappers\MapperInterface;
 
+/**
+ * Map terms from data
+ */
 class MapTermsFromData implements MapperInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(
         private \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface $filterConfig,
         private \Municipio\PostsList\QueryVars\QueryVarsInterface $queryVars,
@@ -13,6 +19,12 @@ class MapTermsFromData implements MapperInterface
     ) {
     }
 
+    /**
+     * Map terms from data
+     *
+     * @param array $data
+     * @return \WP_Term[]
+     */
     public function map(array $data): array
     {
         if (!isset($data['wpQuery']) || !is_a($data['wpQuery'], \WP_Query::class)) {
@@ -22,6 +34,12 @@ class MapTermsFromData implements MapperInterface
         return $this->resolveTerms($data['wpQuery']);
     }
 
+    /**
+     * Resolve terms
+     *
+     * @param \WP_Query|null $wpQuery
+     * @return \WP_Term[]
+     */
     private function resolveTerms(?\WP_Query $wpQuery = null): array
     {
         $currentTerm = $this->getCurrentTerm($wpQuery);
@@ -29,6 +47,12 @@ class MapTermsFromData implements MapperInterface
         return !is_null($currentTerm) ? [$currentTerm] :  $this->resolveTermsFromQueryParams();
     }
 
+    /**
+     * Get current term from WP_Query
+     *
+     * @param \WP_Query|null $wpQuery
+     * @return \WP_Term|null
+     */
     private function getCurrentTerm(?\WP_Query $wpQuery = null): ?\WP_Term
     {
         if (is_null($wpQuery)) {

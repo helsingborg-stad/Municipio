@@ -8,12 +8,27 @@ use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterT
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetQueriedObject;
 
+/**
+ * Map taxonomy filter configs
+ */
 class MapTaxonomyFilterConfigs implements MapperInterface
 {
+    /**
+     * Constructor
+     *
+     * @param array $wpTaxonomies
+     * @param ApplyFilters&GetQueriedObject $wpService
+     */
     public function __construct(private array $wpTaxonomies, private ApplyFilters&GetQueriedObject $wpService)
     {
     }
 
+    /**
+     * Map taxonomy filter configs
+     *
+     * @param array $data
+     * @return mixed
+     */
     public function map(array $data): mixed
     {
         $taxonomies = $this->wpService->applyFilters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(

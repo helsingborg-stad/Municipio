@@ -5,6 +5,9 @@ namespace Municipio\Controller\Archive;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 
+/**
+ * Builder for FilterConfig
+ */
 class FilterConfigBuilder
 {
     private bool $isEnabled              = false;
@@ -13,36 +16,54 @@ class FilterConfigBuilder
     private bool $isTextSearchEnabled    = false;
     private array $taxonomyFilterConfigs = [];
 
+    /**
+     * Set is enabled
+     */
     public function setEnabled(bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
         return $this;
     }
 
+    /**
+     * Set reset URL
+     */
     public function setResetUrl(string $resetUrl): self
     {
         $this->resetUrl = $resetUrl;
         return $this;
     }
 
+    /**
+     * Set is date filter enabled
+     */
     public function setDateFilterEnabled(bool $isDateFilterEnabled): self
     {
         $this->isDateFilterEnabled = $isDateFilterEnabled;
         return $this;
     }
 
+    /**
+     * Set is text search enabled
+     */
     public function setTextSearchEnabled(bool $isTextSearchEnabled): self
     {
         $this->isTextSearchEnabled = $isTextSearchEnabled;
         return $this;
     }
 
+    /**
+     * Set taxonomy filter configs
+     */
     public function setTaxonomyFilterConfigs(array $taxonomyFilterConfigs): self
     {
         $this->taxonomyFilterConfigs = $taxonomyFilterConfigs;
         return $this;
     }
 
+    /**
+     * Build FilterConfig
+     */
     public function build(): FilterConfigInterface
     {
         return new class (
@@ -52,6 +73,9 @@ class FilterConfigBuilder
             $this->isTextSearchEnabled,
             $this->taxonomyFilterConfigs
         ) extends DefaultFilterConfig {
+            /**
+             * Constructor
+             */
             public function __construct(
                 private bool $isEnabled,
                 private string $resetUrl,

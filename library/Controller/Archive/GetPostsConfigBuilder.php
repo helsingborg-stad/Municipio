@@ -5,6 +5,9 @@ namespace Municipio\Controller\Archive;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
 
+/**
+ * Builder for GetPostsConfig
+ */
 class GetPostsConfigBuilder
 {
     private array $postTypes         = [];
@@ -19,72 +22,108 @@ class GetPostsConfigBuilder
     private string $dateFrom         = '';
     private string $dateTo           = '';
 
+    /**
+     * Set post types
+     */
     public function setPostTypes(array $postTypes): self
     {
         $this->postTypes = $postTypes;
         return $this;
     }
 
+    /**
+     * Set is facetting enabled
+     */
     public function setFacettingEnabled(bool $isFacettingEnabled): self
     {
         $this->isFacettingEnabled = $isFacettingEnabled;
         return $this;
     }
 
+    /**
+     * Set order by
+     */
     public function setOrderBy(string $orderBy): self
     {
         $this->orderBy = $orderBy;
         return $this;
     }
 
+    /**
+     * Set order direction
+     */
     public function setOrder(OrderDirection $order): self
     {
         $this->order = $order;
         return $this;
     }
 
+    /**
+     * Set posts per page
+     */
     public function setPerPage(int $perPage): self
     {
         $this->perPage = $perPage;
         return $this;
     }
 
+    /**
+     * Set date source
+     */
     public function setDateSource(string $dateSource): self
     {
         $this->dateSource = $dateSource;
         return $this;
     }
 
+    /**
+     * Set terms
+     */
     public function setTerms(array $terms): self
     {
         $this->terms = $terms;
         return $this;
     }
 
+    /**
+     * Set current page
+     */
     public function setCurrentPage(int $currentPage): self
     {
         $this->currentPage = $currentPage;
         return $this;
     }
 
+    /**
+     * Set search query
+     */
     public function setSearch(string $search): self
     {
         $this->search = $search;
         return $this;
     }
 
+    /**
+     * Set date from
+     */
     public function setDateFrom(string $dateFrom): self
     {
         $this->dateFrom = $dateFrom;
         return $this;
     }
 
+    /**
+     * Set date to
+     */
     public function setDateTo(string $dateTo): self
     {
         $this->dateTo = $dateTo;
         return $this;
     }
 
+    /**
+     * Build GetPostsConfig
+     */
     public function build(): GetPostsConfigInterface
     {
         return new class (
