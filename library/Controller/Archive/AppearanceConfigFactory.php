@@ -3,7 +3,6 @@
 namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 
 /**
@@ -19,11 +18,8 @@ class AppearanceConfigFactory
      */
     public function create(array $data): AppearanceConfigInterface
     {
-        $numberOfColumns            = $data['archiveProps']->numberOfColumns ?? 1;
         $shouldDisplayFeaturedImage = $this->displayFeaturedImage($data['archiveProps']);
         $shouldDisplayReadingTime   = $this->displayReadingTime($data['archiveProps']);
-        $taxonomiesToDisplay        = $data['archiveProps']->taxonomiesToDisplay ?? null ?: [];
-        $postPropertiesToDisplay    = $data['archiveProps']->postPropertiesToDisplay ?? [];
         $template                   = $data['archiveProps']->style ?? 'cards';
         $design                     = match ($template) {
             'cards' => PostDesign::CARD,
@@ -35,75 +31,15 @@ class AppearanceConfigFactory
             'list' => PostDesign::TABLE,
             default => PostDesign::CARD,
         };
-        return new class (
-            $numberOfColumns,
-            $shouldDisplayFeaturedImage,
-            $shouldDisplayReadingTime,
-            $taxonomiesToDisplay,
-            $postPropertiesToDisplay,
-            $design
-        ) extends DefaultAppearanceConfig {
-            /**
-             * Constructor
-             */
-            public function __construct(
-                private int $numberOfColumns,
-                private bool $shouldDisplayFeaturedImage,
-                private bool $shouldDisplayReadingTime,
-                private array $taxonomiesToDisplay,
-                private array $postPropertiesToDisplay,
-                private PostDesign $design
-            ) {
-            }
 
-            /**
-             * @inheritDoc
-             */
-            public function getDesign(): PostDesign
-            {
-                return $this->design;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function shouldDisplayFeaturedImage(): bool
-            {
-                return $this->shouldDisplayFeaturedImage;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function shouldDisplayReadingTime(): bool
-            {
-                return $this->shouldDisplayReadingTime;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getTaxonomiesToDisplay(): array
-            {
-                return $this->taxonomiesToDisplay;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPostPropertiesToDisplay(): array
-            {
-                return $this->postPropertiesToDisplay;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getNumberOfColumns(): int
-            {
-                return $this->numberOfColumns;
-            }
-        };
+        return (new AppearanceConfigBuilder())
+            ->setNumberOfColumns($data['archiveProps']->numberOfColumns ?? 1)
+            ->setShouldDisplayFeaturedImage($shouldDisplayFeaturedImage)
+            ->setShouldDisplayReadingTime($shouldDisplayReadingTime)
+            ->setTaxonomiesToDisplay($data['archiveProps']->taxonomiesToDisplay ?? null ?: [])
+            ->setPostPropertiesToDisplay($data['archiveProps']->postPropertiesToDisplay ?? [])
+            ->setDesign($design)
+            ->build();
     }
 
     /**
