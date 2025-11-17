@@ -58,6 +58,36 @@ class Template
     }
 
     /**
+     * Resolves nested templates by recursively processing them.
+     *
+     * @param string $template The template to process.
+     * @param array $data The data to pass to the template.
+     *
+     * @return string The rendered template.
+     */
+    private function resolveNestedTemplates(string $template, array $data = []): string
+    {
+        $renderedTemplate = $this->renderView($template, $data, [
+            [$this, 'minifyCss'],
+            [$this, 'minifyJs'],
+            [$this, 'resolveNestedTemplates']
+        ]);
+
+        // Check if the rendered template contains another template tag
+        if (preg_match('/{{\s*template\((.*?)\)\s*}}/', $renderedTemplate, $matches)) {
+            $nestedTemplate = trim($matches[1], "'\"");
+
+            // Recursively resolve the nested template
+            $nestedRendered = $this->resolveNestedTemplates($nestedTemplate, $data);
+
+            // Replace the nested template tag with its rendered content
+            $renderedTemplate = str_replace($matches[0], $nestedRendered, $renderedTemplate);
+        }
+
+        return $renderedTemplate;
+    }
+
+    /**
      * @param string $view The template currently loaded.
      * @param array $data void
      *
@@ -133,10 +163,8 @@ class Template
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
 
-        return $this->renderView(
-            (string) $view,
-            (array)  $viewData
-        );
+        // Use the resolveNestedTemplates method to handle nested templates
+        return $this->resolveNestedTemplates((string) $view, (array) $viewData);
     }
 /**
     * Loads a controller
@@ -460,7 +488,7 @@ class Template
      * @param $view
      * @param array $data
      */
-    public function renderView($view, $data = [])
+    public function renderView($view, $data = [], ?array $additionalParsers)
     {
         // Ensure blade engine is initialized before rendering
         if ($this->bladeEngine === null) {
@@ -502,45 +530,49 @@ class Template
 
                 // Clean and repair the document
                 $tidy->cleanRepair();
-                $cleanedHtml = (string) $tidy;
+                $markup = (string) $tidy;
 
                 // Restore <template> blocks
-                $cleanedHtml = str_replace(array_keys($templates), array_values($templates), $cleanedHtml);
+                $markup = str_replace(array_keys($templates), array_values($templates), $markup);
 
                 // Minify inline <style> content
-                $cleanedHtml = preg_replace_callback(
+                $markup = preg_replace_callback(
                     '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
                     fn($m) => '<style>' . $this->minifyCss($m[1]) . '</style>',
-                    $cleanedHtml
+                    $markup
                 );
 
                 // Minify inline <script> content
-                $cleanedHtml = preg_replace_callback(
+                $markup = preg_replace_callback(
                     '/<script\b([^>]*)>(.*?)<\/script>/is',
                     fn($m) => '<script' . $m[1] . '>' . $this->minifyJs($m[2]) . '</script>',
-                    $cleanedHtml
+                    $markup
                 );
 
                 // Drop comments
                 if (!defined('WP_DEBUG') || (defined('WP_DEBUG') && constant('WP_DEBUG') !== true)) {
-                    $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
+                    $markup = preg_replace('/<!--(.|\s)*?-->/', '', $markup);
                 }
 
                 // Drop empty id attributes
-                $cleanedHtml = preg_replace('/\sid=""/', '', $cleanedHtml);
-
+                $markup = preg_replace('/\sid=""/', '', $markup);
                 //Drop attibute that no longer is to spec
-                $cleanedHtml = $this->dropPropertyAttributes([
+                $markup = $this->dropPropertyAttributes([
                     'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
-                ], $cleanedHtml);
+                ], $markup);
 
-                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $cleanedHtml;
-            } else {
-                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $markup;
             }
+
+            //Run additional parsers if any
+            foreach($additionalParsers as $parser) {
+                if (is_callable($parser)) {
+                    $parser($markup);
+                }
+            }
+
+            echo $markup;
+
         } catch (\Throwable $e) {
             $this->bladeEngine->errorHandler($e)->print();
         }
