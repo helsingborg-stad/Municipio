@@ -1,8 +1,9 @@
 <?php
 
-namespace Municipio\Controller\Archive\Mappers;
+namespace Municipio\Controller\Archive\Mappers\GetPostsConfig;
 
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
+use Municipio\Controller\Archive\Mappers\MapperInterface;
 
 class MapOrderFromData implements MapperInterface
 {

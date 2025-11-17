@@ -13,7 +13,7 @@ class ArchivePostsListFactoryTest extends TestCase
     public function testCreateReturnsPostsList(): void
     {
         $data      = ['archiveProps' => (object)[]];
-        $wpService = new FakeWpService(['addFilter' => true]);
+        $wpService = new FakeWpService(['addFilter' => true, 'getPostTypeArchiveLink' => '']);
 
         $factory = new ArchivePostsListFactory($wpService);
         $result  = $factory->create($data, []);
