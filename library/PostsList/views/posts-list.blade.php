@@ -23,7 +23,7 @@
         @else
             @foreach($posts as $post)
                 @element(['classList' => $getPostColumnClasses()])
-                    @include('post.' . $appearanceConfig->getDesign()->value)
+                    @includeFirst(['post.' . $appearanceConfig->getDesign()->value, 'post.card'])
                 @endelement
             @endforeach
         @endif

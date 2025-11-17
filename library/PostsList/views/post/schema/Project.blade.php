@@ -17,7 +17,6 @@
             'classList' => ['u-height--100']
         ])
             @typography([ 'element' => 'b', 'classList' => ['u-margin__left--auto'] ])
-                {{-- {{$getProgressLabel($post)}} --}}
                 {{$getSchemaProjectProgressLabel($post)}}
             @endtypography
             @progressBar([ 'value' => $getSchemaProjectProgressPercentage($post) ])@endprogressBar

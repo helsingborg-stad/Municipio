@@ -1,3 +1,4 @@
+{{-- Deprecated in favor of the PostsList feature --}}
 @if ($posts)
     <div class="arcive-news-items o-grid u-align-items--start">
         @foreach($posts as $post)

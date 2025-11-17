@@ -1,3 +1,4 @@
+{{-- Deprecated in favor of the PostsList feature --}}
 @if ($posts)
     <div class="o-grid">
         @foreach ($posts as $key => $post)

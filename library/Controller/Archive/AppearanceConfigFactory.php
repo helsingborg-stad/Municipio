@@ -3,7 +3,6 @@
 namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 
 /**
  * Factory class for creating AppearanceConfig instances

@@ -66,12 +66,19 @@ class FilterConfigBuilder
      */
     public function build(): FilterConfigInterface
     {
+        $showReset = $this->isEnabled && (
+            $this->isTextSearchEnabled ||
+            $this->isDateFilterEnabled ||
+            !empty($this->taxonomyFilterConfigs)
+        );
+
         return new class (
             $this->isEnabled,
             $this->resetUrl,
             $this->isDateFilterEnabled,
             $this->isTextSearchEnabled,
-            $this->taxonomyFilterConfigs
+            $this->taxonomyFilterConfigs,
+            $showReset
         ) extends DefaultFilterConfig {
             /**
              * Constructor
@@ -81,7 +88,8 @@ class FilterConfigBuilder
                 private string $resetUrl,
                 private bool $isDateFilterEnabled,
                 private bool $isTextSearchEnabled,
-                private array $taxonomyFilterConfigs
+                private array $taxonomyFilterConfigs,
+                private bool $showReset
             ) {
             }
 
@@ -123,6 +131,14 @@ class FilterConfigBuilder
             public function getTaxonomiesEnabledForFiltering(): array
             {
                 return $this->taxonomyFilterConfigs;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function showReset(): bool
+            {
+                return $this->showReset;
             }
         };
     }
