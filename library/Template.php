@@ -161,7 +161,8 @@ class Template
             [$this, 'resolveNestedTemplates']
         ]);
     }
-/**
+    
+    /**
     * Loads a controller
     *
     * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
