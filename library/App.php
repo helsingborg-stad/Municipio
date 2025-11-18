@@ -374,6 +374,7 @@ class App
          * Setup Posts List
          */
         (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
+        (new \Municipio\PostsList\Block\PostsListBlock($this->wpService, new \Municipio\PostsList\Block\PostsListBlockRenderer()))->addHooks();
 
         /**
          * Setup Accessibility Statement

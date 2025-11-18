@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "municipio/posts-list-block",
+    "version": "0.1.0",
+    "title": "Posts List Block",
+    "category": "widgets",
+    "icon": "list-view",
+    "description": "A block to display a list of posts.",
+    "example": {},
+    "supports": {
+        "html": false
+    },
+    "attributes": {
+        "postType": {
+            "type": "string",
+            "default": "post"
+        },
+        "postsPerPage": {
+            "type": "number",
+            "default": 12
+        },
+        "numberOfColumns": {
+            "type": "number",
+            "default": 3
+        },
+        "design": {
+            "type": "string",
+            "default": "card"
+        },
+        "enableFilters": {
+            "type": "boolean",
+            "default": false
+        },
+        "textSearchEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "dateFilterEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "taxonomiesEnabledForFiltering": {
+            "type": "array",
+            "default": []
+        }
+    },
+    "textdomain": "municipio"
+}

@@ -127,6 +127,7 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/user-group-visibility.js');
         $this->enqueue->add('js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
         $this->enqueue->add('js/event-source-progress.js');
+        $this->enqueue->add('js/blocks/posts-list-block.js', ['wp-blocks', 'wp-element', 'wp-components', 'wp-i18n', 'wp-editor']);
 
         $this->enqueue->add('css/acf.css');
         $this->enqueue->add('css/general.css');
