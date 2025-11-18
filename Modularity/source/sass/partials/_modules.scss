@@ -108,7 +108,7 @@ li.modularity-module {
         position: absolute !important;
         right: calc(var(--sizing-base, 8px) * 3);
         bottom: calc(var(--sizing-base, 8px) * 3);
-        width: unset;
+        width: unset !important;
     }
 }
 
