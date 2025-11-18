@@ -16,7 +16,7 @@
                 <div class="c-card__header">        
                     @typography([
                         'element' => 'h2',
-                        'variant' => 'body',
+                        'variant' => 'h2',
                         'id'      => 'mod-map-' . $id .'-label'
                     ])
                         {!! $postTitle !!}
