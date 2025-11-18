@@ -58,30 +58,6 @@ class Template
     }
 
     /**
-     * Resolves nested templates by recursively processing them.
-     *
-     * @param string $template The template to process.
-     * @param array $data The data to pass to the template.
-     *
-     * @return string The rendered template.
-     */
-    private function resolveNestedTemplates(string $template, array $data = []): string
-    {
-        // Check if the rendered template contains another template tag
-        if (preg_match('/{{\s*template\((.*?)\)\s*}}/', $template, $matches)) {
-            $nestedTemplate = trim($matches[1], "'\"");
-
-            // Recursively resolve the nested template
-            $nestedRendered = $this->resolveNestedTemplates($nestedTemplate, $data);
-
-            // Replace the nested template tag with its rendered content
-            $template = str_replace($matches[0], $nestedRendered, $template);
-        }
-
-        return $template;
-    }
-
-    /**
      * @param string $view The template currently loaded.
      * @param array $data void
      *
@@ -157,9 +133,7 @@ class Template
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
 
-        return $this->renderView($view, $viewData, [
-            [$this, 'resolveNestedTemplates']
-        ]);
+        return $this->renderView($view, $viewData, null);
     }
     
     /**
@@ -512,7 +486,8 @@ class Template
                     'wrap'                => PHP_INT_MAX,
                     'doctype'             => 'html5',
                     'drop-empty-elements' => false,
-                    'drop-empty-paras'    => false
+                    'drop-empty-paras'    => false,
+                    'new-pre-tags'        => 'template',
                 ], 'utf8');
 
                 // Clean and repair the document
