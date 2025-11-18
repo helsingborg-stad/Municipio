@@ -108,6 +108,7 @@ li.modularity-module {
         position: absolute !important;
         right: calc(var(--sizing-base, 8px) * 3);
         bottom: calc(var(--sizing-base, 8px) * 3);
+        width: unset;
     }
 }
 
@@ -116,17 +117,19 @@ li.modularity-module {
         display: flex;
         flex-direction: column;
 
-        .c-card__header {
-            flex: 0 1 auto;
-        }
+        .c-card__paint-container {
+            .c-card__header {
+                flex: 0 1 auto;
+            }
 
-        .c-card__body {
-            padding: 0;
-            flex: 1 1 auto;
-        }
+            .c-card__body {
+                padding: 0;
+                flex: 1 1 auto;
+            }
 
-        iframe {
-            height: 100%;
+            iframe {
+                height: 100%;
+            }
         }
     }
 }
