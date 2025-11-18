@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8208bd6cf7303d6ee867c900f998232d",
+    "content-hash": "cc82a0cbba1b59d6be625ce55851bd4d",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1070,23 +1070,23 @@
         },
         {
             "name": "helsingborg-stad/wputilservice",
-            "version": "0.2.44",
+            "version": "0.2.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wputilservice.git",
-                "reference": "8f8b1d4d781726b87b89d7d2efd3e122ac3844f6"
+                "reference": "e8a14d961b850987ef0714fa7dc03b15c19dd290"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/8f8b1d4d781726b87b89d7d2efd3e122ac3844f6",
-                "reference": "8f8b1d4d781726b87b89d7d2efd3e122ac3844f6",
+                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/e8a14d961b850987ef0714fa7dc03b15c19dd290",
+                "reference": "e8a14d961b850987ef0714fa7dc03b15c19dd290",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.2"
             },
             "require-dev": {
-                "carthage-software/mago": "^0.26.1",
+                "carthage-software/mago": "^1.0.0-rc.1",
                 "helsingborg-stad/wpservice": "^2",
                 "johnpbloch/wordpress": "^6.6",
                 "php-stubs/wordpress-stubs": "^6.6",
@@ -1112,9 +1112,9 @@
             "description": "Simplifies WordPress development by providing a centralized WpUtilService that exposes a WordPress api wrapped in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wputilservice/issues",
-                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.2.44"
+                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.2.46"
             },
-            "time": "2025-11-04T14:36:21+00:00"
+            "time": "2025-11-14T13:05:33+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -2237,16 +2237,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.0.8",
+            "version": "v4.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "c930ca4e3cf4f17dcfb03037703679d2396d2ede"
+                "reference": "505a30ad386daa5211f08a318e47015b501cad30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/c930ca4e3cf4f17dcfb03037703679d2396d2ede",
-                "reference": "c930ca4e3cf4f17dcfb03037703679d2396d2ede",
+                "url": "https://api.github.com/repos/nette/utils/zipball/505a30ad386daa5211f08a318e47015b501cad30",
+                "reference": "505a30ad386daa5211f08a318e47015b501cad30",
                 "shasum": ""
             },
             "require": {
@@ -2320,9 +2320,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.0.8"
+                "source": "https://github.com/nette/utils/tree/v4.0.9"
             },
-            "time": "2025-08-06T21:43:34+00:00"
+            "time": "2025-10-31T00:45:47+00:00"
         },
         {
             "name": "ooksanen/acf-focuspoint",
@@ -3542,6 +3542,65 @@
     ],
     "packages-dev": [
         {
+            "name": "carthage-software/mago",
+            "version": "1.0.0-rc.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carthage-software/mago.git",
+                "reference": "9ac0bf05a6b063a47f131c1ebf11251f592550e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/9ac0bf05a6b063a47f131c1ebf11251f592550e5",
+                "reference": "9ac0bf05a6b063a47f131c1ebf11251f592550e5",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.6",
+                "php": "~8.1 || ~8.2 || ~8.3 || ~8.4"
+            },
+            "require-dev": {
+                "composer/composer": "^2.8"
+            },
+            "bin": [
+                "composer/bin/mago"
+            ],
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Mago\\MagoPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mago\\": "composer/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT OR Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Saif Eddin Gmati",
+                    "email": "azjezz@carthage.software"
+                }
+            ],
+            "description": "Mago is a toolchain for PHP that aims to provide a set of tools to help developers write better code.",
+            "keywords": [
+                "dev"
+            ],
+            "support": {
+                "issues": "https://github.com/carthage-software/mago/issues",
+                "source": "https://github.com/carthage-software/mago/tree/1.0.0-rc.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/azjezz",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-11-24T00:42:49+00:00"
+        },
+        {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
             "version": "v1.2.0",
             "source": {
@@ -4099,16 +4158,16 @@
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "fa82d14ad1c1713224a52c66c78478145fe454ba"
+                "reference": "d71128c702c180ca3b27c761b6773f883394f162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/fa82d14ad1c1713224a52c66c78478145fe454ba",
-                "reference": "fa82d14ad1c1713224a52c66c78478145fe454ba",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/d71128c702c180ca3b27c761b6773f883394f162",
+                "reference": "d71128c702c180ca3b27c761b6773f883394f162",
                 "shasum": ""
             },
             "require": {
@@ -4188,7 +4247,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-11-11T00:17:56+00:00"
+            "time": "2025-11-17T12:58:33+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5626,12 +5685,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "3c28c4f18e226ec893d240473a9902ed106f2850"
+                "reference": "dc4e14eca36068a59fded93054dedd9097afc232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/3c28c4f18e226ec893d240473a9902ed106f2850",
-                "reference": "3c28c4f18e226ec893d240473a9902ed106f2850",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/dc4e14eca36068a59fded93054dedd9097afc232",
+                "reference": "dc4e14eca36068a59fded93054dedd9097afc232",
                 "shasum": ""
             },
             "require": {
@@ -5641,9 +5700,9 @@
                 "ext-libxml": "*",
                 "php": "^8.1",
                 "phpunit/phpunit": "^10.0|^11.0|^12.0",
-                "symfony/property-access": "^5.2|^6.2|^7.0",
-                "symfony/serializer": "^5.2|^6.2|^7.0",
-                "symfony/yaml": "^5.2|^6.2|^7.0"
+                "symfony/property-access": "^5.2|^6.2|^7.0|^8.0",
+                "symfony/serializer": "^5.2|^6.2|^7.0|^8.0",
+                "symfony/yaml": "^5.2|^6.2|^7.0|^8.0"
             },
             "require-dev": {
                 "spatie/pixelmatch-php": "dev-main",
@@ -5696,7 +5755,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-09-08T08:33:12+00:00"
+            "time": "2025-11-20T12:39:59+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -6683,16 +6742,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.2.3",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2"
+                "reference": "b7489ce515e168639d17feec34b8847c326b0b3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2",
-                "reference": "737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/b7489ce515e168639d17feec34b8847c326b0b3c",
+                "reference": "b7489ce515e168639d17feec34b8847c326b0b3c",
                 "shasum": ""
             },
             "require": {
@@ -6721,7 +6780,7 @@
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "support": {
                 "issues": "https://github.com/theseer/tokenizer/issues",
-                "source": "https://github.com/theseer/tokenizer/tree/1.2.3"
+                "source": "https://github.com/theseer/tokenizer/tree/1.3.1"
             },
             "funding": [
                 {
@@ -6729,7 +6788,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-03T12:36:25+00:00"
+            "time": "2025-11-17T20:03:58+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -6801,6 +6860,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "carthage-software/mago": 5,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
         "enshrined/svg-sanitize": 20,
         "jeradin/acf-dynamic-table-field": 20,
@@ -6815,5 +6875,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
