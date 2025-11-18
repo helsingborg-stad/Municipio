@@ -477,7 +477,18 @@ class Template
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
 
                 //Leave out <template> blocks from tidy processing
-                $templates = [];
+                $index      = 0;
+                $templates  = [];
+                $markup = preg_replace_callback(
+                    '/<template(\\s[^>]*)?>([\\s\\S]*?)<\\/template>/i',
+                    function ($matches) use (&$templates, &$index) {
+                        $placeholder = '__TEMPLATE_BLOCK_' . $index . '__';
+                        $templates[$placeholder] = $matches[0];
+                        $index++;
+                        return $placeholder;
+                    },
+                    $markup
+                );
 
                 $tidy = new \tidy();
                 $tidy->parseString($markup, [
@@ -524,6 +535,8 @@ class Template
                     'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
                 ], $markup);
+
+                $markup = str_replace(array_keys($templates), array_values($templates), $markup);
 
             }
 
