@@ -133,7 +133,7 @@ class Template
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
 
-        return $this->renderView($view, $viewData, null);
+        return $this->renderView($view, $viewData);
     }
     
     /**
@@ -458,7 +458,7 @@ class Template
      * @param $view
      * @param array $data
      */
-    public function renderView($view, $data = [], ?array $additionalParsers)
+    public function renderView($view, $data = [], array $additionalParsers = [])
     {
         // Ensure blade engine is initialized before rendering
         if ($this->bladeEngine === null) {
@@ -480,7 +480,7 @@ class Template
                 $index      = 0;
                 $templates  = [];
                 $markup = preg_replace_callback(
-                    '/<template(\\s[^>]*)?>([\\s\\S]*?)<\\/template>/i',
+                    '#<template(\s[^>]*)?>(?:(?>[^<]+)|(?R))*?</template>#i',
                     function ($matches) use (&$templates, &$index) {
                         $placeholder = '__TEMPLATE_BLOCK_' . $index . '__';
                         $templates[$placeholder] = $matches[0];
