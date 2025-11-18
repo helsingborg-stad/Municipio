@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "biomejs.biome",
+        "ms-azuretools.vscode-docker",
+        "xdebug.php-debug",
+        "bmewburn.vscode-intelephense-client",
+        "devsense.composer-php-vscode",
+        "jkillian.custom-local-formatters"
+    ]
+}
