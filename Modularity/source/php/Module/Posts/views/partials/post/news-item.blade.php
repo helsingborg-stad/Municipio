@@ -9,7 +9,7 @@
     'readTime'            => $post->readingTime,
     'link'                => $post->permalink,
     'context'             => ['module.posts.news-item'],
-    'hasPlaceholderImage' => $post->hasPlaceholderImage,
+    'hasPlaceholderImage' => $standing ? false : $post->hasPlaceholderImage,
     'classList' => $post->classList ?? [],
     'standing' => $standing,
     'attributeList' => $post->attributeList ?? [],
