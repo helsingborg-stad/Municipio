@@ -58,30 +58,6 @@ class Template
     }
 
     /**
-     * Resolves nested templates by recursively processing them.
-     *
-     * @param string $template The template to process.
-     * @param array $data The data to pass to the template.
-     *
-     * @return string The rendered template.
-     */
-    private function resolveNestedTemplates(string $template, array $data = []): string
-    {
-        // Check if the rendered template contains another template tag
-        if (preg_match('/{{\s*template\((.*?)\)\s*}}/', $template, $matches)) {
-            $nestedTemplate = trim($matches[1], "'\"");
-
-            // Recursively resolve the nested template
-            $nestedRendered = $this->resolveNestedTemplates($nestedTemplate, $data);
-
-            // Replace the nested template tag with its rendered content
-            $template = str_replace($matches[0], $nestedRendered, $template);
-        }
-
-        return $template;
-    }
-
-    /**
      * @param string $view The template currently loaded.
      * @param array $data void
      *
@@ -157,9 +133,7 @@ class Template
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
 
-        return $this->renderView($view, $viewData, [
-            [$this, 'resolveNestedTemplates']
-        ]);
+        return $this->renderView($view, $viewData);
     }
 
     /**
@@ -483,7 +457,7 @@ class Template
      * @param $view
      * @param array $data
      */
-    public function renderView($view, $data = [], ?array $additionalParsers)
+    public function renderView($view, $data = [], array $additionalParsers = [])
     {
         // Ensure blade engine is initialized before rendering
         if ($this->bladeEngine === null) {
@@ -501,7 +475,18 @@ class Template
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
                 //Leave out <template> blocks from tidy processing
-                $templates = [];
+                $index      = 0;
+                $templates  = [];
+                $markup = preg_replace_callback(
+                    '#<template(\s[^>]*)?>(?:(?>[^<]+)|(?R))*?</template>#i',
+                    function ($matches) use (&$templates, &$index) {
+                        $placeholder = '__TEMPLATE_BLOCK_' . $index . '__';
+                        $templates[$placeholder] = $matches[0];
+                        $index++;
+                        return $placeholder;
+                    },
+                    $markup
+                );
 
                 $tidy = new \tidy();
                 $tidy->parseString($markup, [
@@ -510,7 +495,8 @@ class Template
                     'wrap'                => PHP_INT_MAX,
                     'doctype'             => 'html5',
                     'drop-empty-elements' => false,
-                    'drop-empty-paras'    => false
+                    'drop-empty-paras'    => false,
+                    'new-pre-tags'        => 'template',
                 ], 'utf8');
 
                 // Clean and repair the document
@@ -547,6 +533,9 @@ class Template
                     'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
                 ], $markup);
+              
+                // Replace templates
+                $markup = str_replace(array_keys($templates), array_values($templates), $markup);
             }
 
             //Run additional parsers if any
