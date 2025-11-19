@@ -29,7 +29,13 @@ class SchemaTypesInUse implements SchemaTypesInUseInterface
      */
     public function getSchemaTypesInUse(): array
     {
-        return $this->getRowsFromDb();
+        static $cache = [];
+
+        if (isset($cache[$this->wpdb->options])) {
+            return $cache[$this->wpdb->options];
+        }
+
+        return $cache[$this->wpdb->options] = $this->getRowsFromDb();
     }
 
     /**

@@ -135,7 +135,7 @@ class Template
 
         return $this->renderView($view, $viewData);
     }
-    
+
     /**
     * Loads a controller
     *
@@ -206,8 +206,7 @@ class Template
         $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
                                                 class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") &&
                                                 (bool)ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
-
-        $controllers = [
+        $controllers                      = [
             [
                 'condition'       => ('404' === $template),
                 'controllerClass' => \Municipio\Controller\E404::class,
@@ -475,7 +474,6 @@ class Template
 
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
-
                 //Leave out <template> blocks from tidy processing
                 $index      = 0;
                 $templates  = [];
@@ -535,20 +533,19 @@ class Template
                     'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
                 ], $markup);
-
+              
+                // Replace templates
                 $markup = str_replace(array_keys($templates), array_values($templates), $markup);
-
             }
 
             //Run additional parsers if any
-            foreach($additionalParsers as $parser) {
+            foreach ($additionalParsers as $parser) {
                 if (is_callable($parser)) {
                     $parser($markup);
                 }
             }
 
             echo $markup;
-
         } catch (\Throwable $e) {
             $this->bladeEngine->errorHandler($e)->print();
         }
@@ -639,7 +636,6 @@ class Template
             '403'        => '403.blade.php',
             '401'        => '401.blade.php',
             'archive'    => 'archive.blade.php',
-            'author'     => 'author.blade.php',
             'category'   => 'category.blade.php',
             'tag'        => 'tag.blade.php',
             'taxonomy'   => 'taxonomy.blade.php',
