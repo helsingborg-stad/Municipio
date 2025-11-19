@@ -3,7 +3,7 @@ $color-primary-contrasting: var(--color-primary-contrasting, #fff) !default;
 $color-secondary: var(--color-secondary, #ec6701) !default;
 $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
 
-@import "~@helsingborg-stad/openstreetmap/dist/main.css";
+@use "@helsingborg-stad/openstreetmap/dist/main.css";
 
 .interactive-map {
     position: relative;
