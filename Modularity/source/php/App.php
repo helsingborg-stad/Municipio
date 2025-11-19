@@ -212,7 +212,7 @@ class App
         }
         //Register admin specific scripts/styling here
         if (wp_script_is('jquery', 'registered') && !wp_script_is('jquery', 'enqueued')) {
-            wp_enqueue_script('jquery');
+            $this->wpEnqueue->add('jquery');
         }
     }
 
@@ -285,9 +285,9 @@ class App
 
         // If editor
         if (\Modularity\Helper\Wp::isEditor()) {
-            wp_enqueue_script('jquery-ui-sortable');
-            wp_enqueue_script('jquery-ui-draggable');
-            wp_enqueue_script('jquery-ui-droppable');
+            $this->wpEnqueue->add('jquery-ui-sortable');
+            $this->wpEnqueue->add('jquery-ui-draggable');
+            $this->wpEnqueue->add('jquery-ui-droppable');
 
             add_action(
                 'admin_head',
