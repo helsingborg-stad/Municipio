@@ -1,3 +1,4 @@
+{{-- Deprecated in favor of the PostsList feature --}}
 @if ($posts)
     @element(['classList' => ['o-grid']])
         @foreach ($posts as $post)

@@ -1,3 +1,4 @@
+{{-- Deprecated in favor of the PostsList feature --}}
 <div class="o-grid">
     @foreach($posts as $post)
         <div class="archive-compressed__article u-margin__bottom--12 {{ $gridColumnClass }}">
