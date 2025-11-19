@@ -54,10 +54,9 @@
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
         "test:coverage": "XDEBUG_MODE=coverage php -d memory_limit=512M vendor/bin/phpunit",
-        "lint": "vendor/bin/phpcs",
-        "lint:changed": "vendor/bin/phpcs-changed origin/main",
-        "fix": "vendor/bin/phpcbf",
-        "fix:changed": "vendor/bin/phpcbf-changed origin/main",
+        "lint": "vendor/bin/mago lint",
+        "fix": "vendor/bin/mago lint --format-after-fix --fix",
+        "format": "vendor/bin/mago fmt",
         "post-update-cmd": [],
         "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,Modularity/source/php",
         "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",

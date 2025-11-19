@@ -25,6 +25,14 @@ halstead = { effort-threshold = 7000 }
 # Remove when adressed
 
 no-empty = { level = "warning" }
+excessive-parameter-list = { level = "warning" }
+too-many-methods = { level = "warning" }
+no-global = { level = "warning" }
+kan-defect = { level = "warning" }
+cyclomatic-complexity = { level = "warning" }
+no-request-variable = { level = "warning" }
+no-error-control-operator = { level = "warning" }
+too-many-properties = { level = "warning" }
 
 # End IMPORTANT!
 
