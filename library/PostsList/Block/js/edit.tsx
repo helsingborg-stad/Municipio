@@ -29,7 +29,6 @@ export default function Edit({ attributes, setAttributes }: { attributes: Attrib
     }));
 
     const postTypesTmp = useSelect((select) => select(store).getPostTypes({ per_page: 100 }))
-    console.log(postTypesTmp);
 
     return (
         <>
@@ -93,6 +92,7 @@ export default function Edit({ attributes, setAttributes }: { attributes: Attrib
                             setAttributes({ enableFilters: value })
                         }
                     />
+
                     <ToggleControl
                         label={__('Enable text search', 'municipio')}
                         checked={attributes.textSearchEnabled || false}

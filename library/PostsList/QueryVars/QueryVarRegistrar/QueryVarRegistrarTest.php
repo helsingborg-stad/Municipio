@@ -12,7 +12,8 @@ class QueryVarRegistrarTest extends TestCase
     #[TestDox("Registers query vars")]
     public function testRegisterQueryVar(): void
     {
-        $queryVars = new QueryVars('test_prefix_');
+        $prefix    = rand(1000, 9999); // Random prefix to avoid conflicts with other tests
+        $queryVars = new QueryVars($prefix);
         $wpService = new class implements AddFilter {
             public array $addFilterCalls = [];
             public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
@@ -34,9 +35,9 @@ class QueryVarRegistrarTest extends TestCase
 
         $this->assertCount(1, $wpService->addFilterCalls);
         $this->assertSame('query_vars', $wpService->addFilterCalls[0]['hookName']); // Verify the hook name
-        $this->assertContains('test_prefix_page', $registeredQueryVars);
-        $this->assertContains('test_prefix_date_from', $registeredQueryVars);
-        $this->assertContains('test_prefix_date_to', $registeredQueryVars);
-        $this->assertContains('test_prefix_search', $registeredQueryVars);
+        $this->assertContains($prefix . 'page', $registeredQueryVars);
+        $this->assertContains($prefix . 'date_from', $registeredQueryVars);
+        $this->assertContains($prefix . 'date_to', $registeredQueryVars);
+        $this->assertContains($prefix . 'search', $registeredQueryVars);
     }
 }

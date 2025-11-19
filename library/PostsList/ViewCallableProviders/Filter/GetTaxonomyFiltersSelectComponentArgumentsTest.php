@@ -19,16 +19,15 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     #[TestDox('returns an array of select component arguments')]
     public function testReturnsArrayOfSelectComponentArguments(): void
     {
-        $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
         $taxonomy                                   = new \WP_Taxonomy([], 'category');
         $taxonomy->name                             = 'category';
+        $taxonomy->label                            = 'Category';
         $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT)]);
         $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
         $getTaxonomyFiltersSelectComponentArguments = new GetTaxonomyFiltersSelectComponentArguments(
             $filterConfig,
             $this->createGetPostsConfig(),
             $wpService,
-            ['category' => $registeredWpTaxonomy],
             'queryVarNamePrefix_'
         );
 
@@ -50,9 +49,9 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
     #[TestDox('sets "preselected" with terms from GetPostsConfig')]
     public function testSetsPreselectedWithTermsFromGetPostsConfig(): void
     {
-        $registeredWpTaxonomy                       = $this->createTaxonomy('category', 'Category');
         $taxonomy                                   = new \WP_Taxonomy([], 'category');
         $taxonomy->name                             = 'category';
+        $taxonomy->label                            = 'Category';
         $filterConfig                               = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT)]);
         $wpService                                  = $this->createWpService($this->getArrayOfTerms(2));
         $preselectedTerms                           = [$this->getArrayOfTerms(1)[0]];
@@ -60,7 +59,6 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
             $filterConfig,
             $this->createGetPostsConfig($preselectedTerms),
             $wpService,
-            ['category' => $registeredWpTaxonomy],
             'queryVarNamePrefix_'
         );
 

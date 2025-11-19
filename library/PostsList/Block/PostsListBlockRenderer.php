@@ -10,10 +10,15 @@ use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterT
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactory;
 use Municipio\PostsList\PostsList;
+use Municipio\PostsList\PostsListFactoryInterface;
 use Municipio\PostsList\QueryVars\QueryVars;
 
 class PostsListBlockRenderer implements BlockRendererInterface
 {
+    public function __construct(private PostsListFactoryInterface $postsListFactory)
+    {
+    }
+
     public function render(array $attributes, string $content, \WP_Block $block): string
     {
         global $wpService, $acfService;
@@ -79,16 +84,12 @@ class PostsListBlockRenderer implements BlockRendererInterface
             }
         };
 
-        $data = (new PostsList(
+        $data = $this->postsListFactory->create(
             $getPostsConfig,
             $appearanceConfig,
             $filterConfig,
-            $GLOBALS['wp_taxonomies'],
-            new WpQueryFactory(),
-            new QueryVars(wp_unique_id('posts-list-')),
-            $wpService,
-            $acfService
-        ))->getData();
+            'posts_list_block_' . md5(json_encode($attributes)) . '_'
+        )->getData();
 
         return render_blade_view('posts-list', $data);
     }
