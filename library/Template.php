@@ -483,8 +483,9 @@ class Template
     /**
      * @param $view
      * @param array $data
+     * @param array|null $additionalParsers
      */
-    public function renderView($view, $data = [], ?array $additionalParsers)
+    public function renderView($view, $data = [], ?array $additionalParsers = null)
     {
         // Ensure blade engine is initialized before rendering
         if ($this->bladeEngine === null) {
@@ -553,9 +554,11 @@ class Template
             }
 
             //Run additional parsers if any
-            foreach($additionalParsers as $parser) {
-                if (is_callable($parser)) {
-                    $parser($markup);
+            if ($additionalParsers !== null) {
+                foreach($additionalParsers as $parser) {
+                    if (is_callable($parser)) {
+                        $parser($markup);
+                    }
                 }
             }
 
