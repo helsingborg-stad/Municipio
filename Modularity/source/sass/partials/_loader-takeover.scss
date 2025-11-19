@@ -1,3 +1,5 @@
+@use '../config/z-index' as *;
+
 body.modularity-loader-takeover::before {
     overflow: hidden;
     display: block;

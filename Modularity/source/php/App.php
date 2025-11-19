@@ -2,18 +2,18 @@
 
 namespace Modularity;
 
-use Modularity\Helper\WpService;
 use Modularity\Private\PrivateAcfFields;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class App
 {
-    public static $display       = null;
+    public static $display = null;
     public static $moduleManager = null;
-    public $editor               = null;
+    public $editor = null;
 
-
-    public function __construct()
-    {
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         add_action('admin_enqueue_scripts', array($this, 'enqueueAdmin'), 950);
         add_action('enqueue_block_editor_assets', array($this, 'enqueueBlockEditor'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueFront'), 950);
@@ -49,10 +49,9 @@ class App
         $modulesRestController = new Api\V1\Modules();
         $modulesRestController->register_routes();
 
-        self::$moduleManager = new ModuleManager();
+        self::$moduleManager = new ModuleManager($this->wpEnqueue);
 
-
-        $this->editor  = new Editor();
+        $this->editor = new Editor();
         self::$display = new Display();
 
         if (is_admin()) {
@@ -75,7 +74,6 @@ class App
         });
     }
 
-
     public function addCaps()
     {
         $admin = get_role('administrator');
@@ -90,23 +88,23 @@ class App
                 'edit_other_modules',
                 'publish_modules',
                 'read_modules',
-                'delete_module'
+                'delete_module',
             ),
-            'editor'        => array(
+            'editor' => array(
                 'edit_module',
                 'edit_modules',
                 'edit_other_modules',
                 'publish_modules',
                 'read_modules',
-                'delete_module'
+                'delete_module',
             ),
-            'author'        => array(
+            'author' => array(
                 'edit_module',
                 'edit_modules',
                 'edit_other_modules',
                 'publish_modules',
-                'read_modules'
-            )
+                'read_modules',
+            ),
         );
 
         foreach ($caps as $roleId => $cap) {
@@ -125,54 +123,61 @@ class App
     public function setupAdminBar()
     {
         // Link to editor from page
-        add_action('admin_bar_menu', function () {
+        add_action(
+            'admin_bar_menu',
+            function () {
+                if (is_admin() || !current_user_can('edit_posts')) {
+                    return;
+                }
 
-            if (is_admin() || !current_user_can('edit_posts')) {
-                return;
-            }
+                $options = get_option('modularity-options');
 
-            $options = get_option('modularity-options');
+                global $wp_admin_bar;
+                global $post;
 
-            global $wp_admin_bar;
-            global $post;
+                $editorLink = admin_url('options.php?page=modularity-editor&id=' . get_the_id());
 
-            $editorLink = admin_url('options.php?page=modularity-editor&id=' . get_the_id());
+                $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
+                if ($archiveSlug && ($postId = \Modularity\Editor::pageForPostTypeTranscribe($archiveSlug))) {
+                    $editorLink = admin_url('options.php?page=modularity-editor&id=' . $postId);
+                }
 
-            $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
-            if ($archiveSlug && $postId = \Modularity\Editor::pageForPostTypeTranscribe($archiveSlug)) {
-                $editorLink = admin_url('options.php?page=modularity-editor&id=' . $postId);
-            }
+                if (
+                    isset($options['enabled-post-types'])
+                    && is_array($options['enabled-post-types'])
+                    && !in_array(get_post_type(), $options['enabled-post-types'])
+                ) {
+                    $editorLink = null;
+                }
 
-            if (isset($options['enabled-post-types']) && is_array($options['enabled-post-types']) && !in_array(get_post_type(), $options['enabled-post-types'])) {
-                $editorLink = null;
-            }
+                $editorLink = apply_filters(
+                    'Modularity/adminbar/editor_link',
+                    $editorLink,
+                    $post,
+                    $archiveSlug,
+                    $this->currentUrl(),
+                );
 
-            $editorLink = apply_filters(
-                'Modularity/adminbar/editor_link',
-                $editorLink,
-                $post,
-                $archiveSlug,
-                $this->currentUrl()
-            );
+                if (empty($editorLink)) {
+                    return;
+                }
 
-            if (empty($editorLink)) {
-                return;
-            }
-
-            $wp_admin_bar->add_node(array(
-                'id'    => 'modularity_editor',
-                'title' => __('Edit', 'modularity') . ' ' . strtolower(__('Modules', 'municipio')),
-                'href'  => $editorLink,
-                'meta'  => array(
-                    'class' => 'modularity-editor-icon'
-                )
-            ));
-        }, 1050);
+                $wp_admin_bar->add_node(array(
+                    'id' => 'modularity_editor',
+                    'title' => __('Edit', 'modularity') . ' ' . strtolower(__('Modules', 'municipio')),
+                    'href' => $editorLink,
+                    'meta' => array(
+                        'class' => 'modularity-editor-icon',
+                    ),
+                ));
+            },
+            1050,
+        );
     }
 
     public function currentUrl($querystring = true)
     {
-        $url =  '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $url = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
         if (!$querystring) {
             $url = preg_replace('/\?(.*)/', '', $url);
@@ -183,65 +188,50 @@ class App
 
     public function enqueueFront()
     {
-        wp_register_style('modularity', MODULARITY_URL . '/dist/'
-            . \Modularity\Helper\CacheBust::name('css/modularity.css'));
-        wp_enqueue_style('modularity');
-
-        wp_register_script('modularity', MODULARITY_URL . '/dist/'
-            . \Modularity\Helper\CacheBust::name('js/modularity.js'), [], null, true);
-
-        wp_localize_script('modularity', 'modularityAdminLanguage', array(
-            'langvisibility' => __('Toggle visibility', 'municipio'),
-            'langedit'       => __('Edit', 'municipio'),
-            'langimport'     => __('Import', 'municipio'),
-            'langremove'     => __('Remove', 'municipio'),
-            'langhide'       => __('Hide module', 'municipio'),
-            'actionRemove'   => __('Are you sure you want to remove this module?', 'municipio'),
-            'isSaving'       => __('Saving…', 'municipio'),
-            'close'          => __('Close', 'municipio'),
-            'width'          => __('Width', 'municipio'),
-            'widthOptions'   => $this->editor->getWidthOptions(),
-            'deprecated'     => __('Deprecated', 'municipio')
-        ));
-        wp_enqueue_script('modularity');
-
-        wp_register_script('user-editable-list', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('js/user-editable-list.js'));
-
-        wp_enqueue_script('user-editable-list');
+        $this->wpEnqueue
+            ->add('css/modularity.css')
+            ->add('js/modularity.js', [], true)
+            ->add('js/user-editable-list.js')
+            ->with()
+            ->translation('modularityFrontLanguage', array(
+                'langvisibility' => __('Toggle visibility', 'municipio'),
+                'langedit' => __('Edit', 'municipio'),
+                'langimport' => __('Import', 'municipio'),
+                'langremove' => __('Remove', 'municipio'),
+                'langhide' => __('Hide module', 'municipio'),
+                'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
+                'isSaving' => __('Saving…', 'municipio'),
+                'close' => __('Close', 'municipio'),
+                'width' => __('Width', 'municipio'),
+                'widthOptions' => $this->editor->getWidthOptions(),
+                'deprecated' => __('Deprecated', 'municipio'),
+            ));
 
         if (!current_user_can('edit_posts')) {
             return;
         }
         //Register admin specific scripts/styling here
-
         if (wp_script_is('jquery', 'registered') && !wp_script_is('jquery', 'enqueued')) {
-            wp_enqueue_script('jquery');
+            $this->wpEnqueue->add('jquery');
         }
     }
 
     public function enqueueBlockEditor()
     {
-
         if ($modulesEditorId = \Modularity\Helper\Wp::isGutenbergEditor()) {
-            wp_register_script(
-                'block-editor-edit-modules',
-                MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('js/edit-modules-block-editor.js'),
-                array('wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components'), // dependencies
-                null,
-                true
-            );
-
-            wp_register_script('block-editor-validation', MODULARITY_URL . '/dist/'
-            . \Modularity\Helper\CacheBust::name('js/block-validation.js'), [], null, ['in_footer' => true]);
-
-            wp_localize_script('block-editor-edit-modules', 'modularityBlockEditor', array(
-                'editModulesLinkLabel' => __('Edit Modules', 'municipio'),
-                'editModulesLinkHref'  => admin_url('options.php?page=modularity-editor&id=' . $modulesEditorId)
-            ));
-
-            wp_enqueue_script('block-editor-validation');
-            wp_enqueue_script('block-editor-edit-modules');
+            $this->wpEnqueue
+                ->add(
+                    'js/edit-modules-block-editor.js',
+                    array('wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components'), // dependencies
+                    null,
+                    true,
+                )
+                ->add('js/block-validation.js')
+                ->with()
+                ->translation('modularityBlockEditor', array(
+                    'editModulesLinkLabel' => __('Edit Modules', 'municipio'),
+                    'editModulesLinkHref' => admin_url('options.php?page=modularity-editor&id=' . $modulesEditorId),
+                ));
         }
     }
 
@@ -255,34 +245,19 @@ class App
             return;
         }
 
-        wp_register_style('modularity', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('css/modularity.css'));
-        wp_enqueue_style('modularity');
-
-        wp_register_script('modularity', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('js/modularity.js'), ['wp-api'], null, true);
-        wp_localize_script('modularity', 'modularityAdminLanguage', array(
+        $this->wpEnqueue->add('css/modularity.css')->add('js/modularity.js', ['wp-api'], true)->with()->translation('modularityAdminLanguage', array(
             'langvisibility' => __('Toggle visibility', 'municipio'),
-            'langedit'       => __('Edit', 'municipio'),
-            'langimport'     => __('Import', 'municipio'),
-            'langremove'     => __('Remove', 'municipio'),
-            'langhide'       => __('Hide module', 'municipio'),
-            'actionRemove'   => __('Are you sure you want to remove this module?', 'municipio'),
-            'isSaving'       => __('Saving…', 'municipio'),
-            'close'          => __('Close', 'municipio'),
-            'width'          => __('Width', 'municipio'),
-            'widthOptions'   => $this->editor->getWidthOptions(),
-            'deprecated'     => __('Deprecated', 'municipio')
-        ));
-        wp_enqueue_script('modularity');
-
-        wp_register_script('dynamic-map-acf', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('js/dynamic-map-acf.js'), ['jquery']);
-        wp_enqueue_script('dynamic-map-acf');
-
-        wp_register_script('modularity-text-module', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('js/modularity-text-module.js'));
-        wp_enqueue_script('modularity-text-module');
+            'langedit' => __('Edit', 'municipio'),
+            'langimport' => __('Import', 'municipio'),
+            'langremove' => __('Remove', 'municipio'),
+            'langhide' => __('Hide module', 'municipio'),
+            'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
+            'isSaving' => __('Saving…', 'municipio'),
+            'close' => __('Close', 'municipio'),
+            'width' => __('Width', 'municipio'),
+            'widthOptions' => $this->editor->getWidthOptions(),
+            'deprecated' => __('Deprecated', 'municipio'),
+        ))->add('js/dynamic-map-acf.js', ['jquery'])->add('js/modularity-text-module.js');
 
         add_action('admin_head', function () {
             echo "
@@ -304,26 +279,30 @@ class App
 
         // If editor
         if (\Modularity\Helper\Wp::isEditor()) {
-            wp_enqueue_script('jquery-ui-sortable');
-            wp_enqueue_script('jquery-ui-draggable');
-            wp_enqueue_script('jquery-ui-droppable');
+            $this->wpEnqueue->add('jquery-ui-sortable');
+            $this->wpEnqueue->add('jquery-ui-draggable');
+            $this->wpEnqueue->add('jquery-ui-droppable');
 
-            add_action('admin_head', function () {
-                global $post;
-                global $archive;
+            add_action(
+                'admin_head',
+                function () {
+                    global $post;
+                    global $archive;
 
-                if (isset($_GET['id']) && is_numeric($_GET['id']) && get_post_status($_GET['id'])) {
-                    $id = $_GET['id'];
-                } else {
-                    $id = isset($post->ID) ? $post->ID : "'" . $archive . "'";
-                }
+                    if (isset($_GET['id']) && is_numeric($_GET['id']) && get_post_status($_GET['id'])) {
+                        $id = $_GET['id'];
+                    } else {
+                        $id = isset($post->ID) ? $post->ID : "'" . $archive . "'";
+                    }
 
-                echo "
+                    echo '
                     <script>
-                        var modularity_post_id = " . $id . "
+                        var modularity_post_id = ' . $id . '
                     </script>
-                ";
-            }, 10);
+                ';
+                },
+                10,
+            );
         }
     }
 
@@ -335,15 +314,15 @@ class App
     {
         $currentScreen = get_current_screen();
 
-        if (!($currentScreen instanceof \WP_Screen)) {
+        if (!$currentScreen instanceof \WP_Screen) {
             return false;
         }
 
-        $id     = $currentScreen->id;
+        $id = $currentScreen->id;
         $action = $currentScreen->action;
-        $base   = $currentScreen->base;
+        $base = $currentScreen->base;
 
-        $isModularityPage  = strpos($id, 'modularity') !== false || strpos($id, 'mod-') !== false;
+        $isModularityPage = strpos($id, 'modularity') !== false || strpos($id, 'mod-') !== false;
         $isModularityPage |= isset($_GET['action']) && $_GET['action'] === 'edit' && $action === 'add';
         $isModularityPage |= in_array($base, ['post', 'widgets']);
 
@@ -357,13 +336,11 @@ class App
             'Modularity',
             'manage_options',
             'modularity',
-            function () {
-            },
+            function () {},
             'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjU0Ljg0OXB4IiBoZWlnaHQ9IjU0Ljg0OXB4IiB2aWV3Qm94PSIwIDAgNTQuODQ5IDU0Ljg0OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTQuODQ5IDU0Ljg0OTsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxnPg0KCQkJPHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMTgNCgkJCQlsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzMNCgkJCQlDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+DQoJCQk8cGF0aCBkPSJNNTQuNDk3LDI3LjUxMmwtMTAuMzY0LTQuNDkxbC0xNC45MTYsNS45NjZjLTAuNTM2LDAuMjE1LTEuMTY1LDAuMzIxLTEuNzkyLDAuMzIxYy0wLjYyOCwwLTEuMjU2LTAuMTA2LTEuNzkzLTAuMzIxDQoJCQkJbC0xNC45MTgtNS45NjZMMC4zNTEsMjcuNTEyYy0wLjQ3MiwwLjIwMy0wLjQ2NywwLjUyMywwLjAxLDAuNzE2TDI2LjU2LDM4LjcwNmMwLjQ3NywwLjE5LDEuMjUxLDAuMTksMS43MjksMGwyNi4xOTktMTAuNDc5DQoJCQkJQzU0Ljk2NCwyOC4wMzYsNTQuOTY5LDI3LjcxNiw1NC40OTcsMjcuNTEyeiIvPg0KCQkJPHBhdGggZD0iTTAuMzYxLDE2LjEyNWwxMy42NjIsNS40NjVsMTIuNTM3LDUuMDE1YzAuNDc3LDAuMTkxLDEuMjUxLDAuMTkxLDEuNzI5LDBsMTIuNTQxLTUuMDE2bDEzLjY1OC01LjQ2Mw0KCQkJCWMwLjQ3Ny0wLjE5MSwwLjQ4LTAuNTExLDAuMDEtMC43MTZMMjguMjc3LDQuMDQ4Yy0wLjQ3MS0wLjIwNC0xLjIzNi0wLjIwNC0xLjcwOCwwTDAuMzUxLDE1LjQxDQoJCQkJQy0wLjEyMSwxNS42MTQtMC4xMTYsMTUuOTM1LDAuMzYxLDE2LjEyNXoiLz4NCgkJPC9nPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K',
-            100
+            100,
         );
     }
-
 
     /**
      * Removes specific post types from the ACF post query.
@@ -392,7 +369,6 @@ class App
      */
     public function updatePostModifiedDateOnPostsRelatedToModule(int $postId, \WP_Post $post)
     {
-
         // Bail early if not a module
         if (!str_starts_with($post->post_type, 'mod-')) {
             return;
@@ -423,9 +399,9 @@ class App
         remove_action('post_updated', [$this, 'updatePostModifiedDateOnPostsRelatedToModule'], 10, 2);
         // Update the current post
         wp_update_post([
-            'ID'                => $postId,
-            'post_modified'     => current_time('mysql'),
-            'post_modified_gmt' => current_time('mysql', 1)
+            'ID' => $postId,
+            'post_modified' => current_time('mysql'),
+            'post_modified_gmt' => current_time('mysql', 1),
         ]);
         // Add the hook back once the post has been updated
         add_action('post_updated', [$this, 'updatePostModifiedDateOnPostsRelatedToModule'], 10, 2);
