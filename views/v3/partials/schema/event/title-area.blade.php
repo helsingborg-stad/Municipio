@@ -42,9 +42,8 @@
             'o-layout-grid--justify-end'
         ]
     ])
-        @datebadge([
-            'date' => $currentOccasion->getStartDate()
-        ])
-        @enddatebadge
+        @if(!empty($currentOccasion))
+            @datebadge([ 'date' => $currentOccasion->getStartDate() ]) @enddatebadge
+        @endif
     @endelement
 @endelement

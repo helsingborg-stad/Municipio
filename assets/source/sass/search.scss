@@ -92,6 +92,7 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
 #mobile-search-form .c-field__inner,
 #drawer-search-form input[type="search"],
 #drawer-search-form .c-field__inner {
+  height: 100%;
   border-radius: inherit;
   border: none;
 }
