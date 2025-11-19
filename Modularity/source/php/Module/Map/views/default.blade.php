@@ -1,5 +1,5 @@
 <!-- Map -->
-<div class="o-grid o-grid--equal-elements modularity-map-container">
+<div class="o-grid modularity-map-container">
     <div class="modularity-map-container__map-box {{$cardMapCss}}">
         @card([
             'classList' => [
@@ -16,7 +16,7 @@
                 <div class="c-card__header">        
                     @typography([
                         'element' => 'h2',
-                        'variant' => 'body',
+                        'variant' => 'h2',
                         'id'      => 'mod-map-' . $id .'-label'
                     ])
                         {!! $postTitle !!}

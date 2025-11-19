@@ -88,6 +88,7 @@
           border-radius: calc(var(--base, 8px) * 6);
           background-color: variables.$color-white;
           border: 2px solid var(--c-button-primary-color);
+          height: 100%;
         }
       }
     }

@@ -23,4 +23,12 @@ class MapTaxonomiesToDisplayTest extends TestCase
         $result   = $mapper->map(['archiveProps' => (object) ['taxonomiesToDisplay' => $expected]]);
         $this->assertEquals($expected, $result);
     }
+
+    #[TestDox('It handle empty string input for taxonomiesToDisplay by converting it to an empty array')]
+    public function testMapTaxonomiesHandlesEmptyStringInput()
+    {
+        $mapper = new MapTaxonomiesToDisplay();
+        $result = $mapper->map(['archiveProps' => (object) ['taxonomiesToDisplay' => '']]);
+        $this->assertEquals([], $result);
+    }
 }
