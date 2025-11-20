@@ -54,6 +54,7 @@
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",
         "jquery": "^3.6.0",
+        "leaflet": "^1.9.4",
         "material-symbols": "^0.34.1",
         "object-fit-images": "^3.2.4",
         "postcss": "^8.5.1",
