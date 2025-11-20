@@ -212,7 +212,7 @@ class App
         }
         //Register admin specific scripts/styling here
         if (wp_script_is('jquery', 'registered') && !wp_script_is('jquery', 'enqueued')) {
-            $this->wpEnqueue->add('jquery');
+            wp_enqueue_script('jquery');
         }
     }
 
