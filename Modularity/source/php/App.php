@@ -52,7 +52,7 @@ class App
         self::$moduleManager = new ModuleManager($this->wpEnqueue);
 
         $this->editor = new Editor();
-        self::$display = new Display();
+        self::$display = new Display($this->wpEnqueue);
 
         if (is_admin()) {
             new PrivateAcfFields();
