@@ -8,6 +8,7 @@
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,
       "strict": true,
+      "jsx": "react-jsx",
       "skipLibCheck": true,
       "lib": [
         "ES2021",
@@ -17,5 +18,6 @@
   },
   "include": [
     "source/js/**/*",
+    "library/**/*"
   ]
 }

@@ -52,11 +52,23 @@ class PostsListBlockRenderer implements BlockRendererInterface
             }
         };
 
-        $taxonomyFilterConfigs = array_map(function ($taxonomy) {
-            return new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::MULTISELECT);
-        }, array_filter($GLOBALS['wp_taxonomies'], function ($taxonomy) use ($attributes) {
-            return in_array($taxonomy->name, $attributes['taxonomiesEnabledForFiltering']);
-        }));
+        $taxonomiesEnabledForFiltering = array_filter($attributes['taxonomiesEnabledForFiltering'] ?? [], function ($item) {
+            return is_array($item) && isset($item['taxonomy'], $item['type']);
+        });
+
+        $enabledTaxonomySlugs = array_map(function ($item) {
+            return $item['taxonomy'];
+        }, $taxonomiesEnabledForFiltering);
+
+        $taxonomyFilterConfigs = [];
+
+        foreach ($taxonomiesEnabledForFiltering as $item) {
+            try {
+                $taxonomyFilterConfigs[] = new TaxonomyFilterConfig($GLOBALS['wp_taxonomies'][$item['taxonomy']], TaxonomyFilterType::from($item['type']));
+            } catch (\Throwable $e) {
+                // Ignore invalid taxonomy or type
+            }
+        }
 
         $filterConfig = new class ($attributes, $taxonomyFilterConfigs) extends DefaultFilterConfig {
             public function __construct(private array $attributes, private array $taxonomyFilterConfigs)

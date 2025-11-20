@@ -19,4 +19,20 @@ declare global {
             serverSideRender: React.ComponentType<ServerSideRenderProps>
         }
     }
+
+    export type TaxonomyFilter = {
+        taxonomy: string;
+        type: string;
+    }
+
+    export interface PostsListAttributes {
+        postType: string;
+        numberOfColumns: number;
+        design: string;
+        postsPerPage: number;
+        enableFilters: boolean;
+        textSearchEnabled: boolean;
+        dateFilterEnabled: boolean;
+        taxonomiesEnabledForFiltering: TaxonomyFilter[];
+    }
 }
