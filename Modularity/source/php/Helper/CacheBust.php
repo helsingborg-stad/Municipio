@@ -15,19 +15,22 @@ class CacheBust
      */
     public static function name($name)
     {
-        $jsonPath = MODULARITY_PATH . apply_filters(
-            'Modularity/Helper/CacheBust/RevManifestPath',
-            '/dist/manifest.json'
-        );
+        $jsonPath =
+            MODULARITY_PATH . apply_filters('Modularity/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
 
         $revManifest = [];
 
         if (file_exists($jsonPath)) {
             $revManifest = json_decode(file_get_contents($jsonPath), true);
         } else {
-            echo '<div style="color:red">Error: Assets not built!
-               Go to ' . MODULARITY_PATH . ' and run `npm run build`. See ' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-               . MODULARITY_PATH . '/README.md for more info.</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo
+                '<div style="color:red">Error: Assets not built!
+               Go to '
+                    . MODULARITY_PATH
+                    . ' and run `npm run build`. See '
+                    . MODULARITY_PATH
+                    . '/README.md for more info.</div>'
+            ;
         }
 
         return $revManifest[$name] ?? $name;

@@ -6,6 +6,7 @@ use AcfService\Implementations\NativeAcfService;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
 use WpService\Implementations\NativeWpService;
+use WpUtilService\WpUtilService;
 
 define('MODULARITY_PATH', plugin_dir_path(__FILE__));
 define('MODULARITY_URL', get_template_directory_uri() . '/Modularity/');
@@ -80,7 +81,9 @@ add_action('after_setup_theme', function () {
     $acfExportManager->import();
 });
 
+$wpUtilService = new WpUtilService($wpService);
+
 // Start application
-add_action('after_setup_theme', function () {
-    new Modularity\App();
+add_action('after_setup_theme', function () use ($wpUtilService) {
+    new Modularity\App($wpUtilService->enqueue(__DIR__, 'Modularity/assets/dist'));
 }, 20);
