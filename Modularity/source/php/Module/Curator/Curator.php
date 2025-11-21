@@ -6,20 +6,20 @@ use Modularity\Helper\Block;
 
 class Curator extends \Modularity\Module
 {
-    public $slug     = 'curator';
+    public $slug = 'curator';
     public $supports = array();
-    public $cacheTtl = (60 * 12); //Minutes (12 hours)
+    public $cacheTtl = 60 * 12; //Minutes (12 hours)
 
     public function init()
     {
         $this->nameSingular = __('Curator Social Media', 'municipio');
-        $this->namePlural   = __('Curator Social Media', 'municipio');
-        $this->description  = __("Output social media flow via curator.", 'modularity');
+        $this->namePlural = __('Curator Social Media', 'municipio');
+        $this->description = __('Output social media flow via curator.', 'modularity');
 
         $this->data['i18n'] = [
-        'loadMore'         => __('Load More', 'municipio'),
-        'goToOriginalPost' => __('Go to original post', 'municipio'),
-        'noMoreItems'      => __('No more items to load.', 'municipio'),
+            'loadMore' => __('Load More', 'municipio'),
+            'goToOriginalPost' => __('Go to original post', 'municipio'),
+            'noMoreItems' => __('No more items to load.', 'municipio'),
         ];
 
         add_action('wp_ajax_mod_curator_get_feed', [$this, 'getFeed'], 10, 4);
@@ -48,65 +48,65 @@ class Curator extends \Modularity\Module
         }
 
         $posts = self::parseSocialMediaPosts($posts);
-        $i18n  = $this->data['i18n'];
+        $i18n = $this->data['i18n'];
 
         $layout = empty($_POST['layout']) ? 'card' : $_POST['layout'];
 
         // Print the posts via the blade template
-        echo render_blade_view(
-            "partials/$layout",
-            [
-            'posts'         => $posts,
-            'i18n'          => $i18n,
-            'columnClasses' => $_POST['columnClasses']
-            ],
-            [
-            plugin_dir_path(__FILE__) . 'views'
-            ]
-        );
+        echo
+            render_blade_view(
+                "partials/$layout",
+                [
+                    'posts' => $posts,
+                    'i18n' => $i18n,
+                    'columnClasses' => $_POST['columnClasses'],
+                ],
+                [
+                    plugin_dir_path(__FILE__) . 'views',
+                ],
+            )
+        ;
         wp_die(); // Always die in functions echoing ajax content
     }
 
     public function script()
     {
-        wp_register_script(
-            'mod-curator-load-more',
-            MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('js/mod-curator-load-more.js')
-        );
         $strings = array_merge($this->data['i18n'], [
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce'   => wp_create_nonce('mod-posts-load-more')
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('mod-posts-load-more'),
         ]);
-        wp_localize_script('mod-curator-load-more', 'curator', $strings);
-        wp_enqueue_script('mod-curator-load-more');
+        $this->wpEnqueue
+            ?->add('js/mod-curator-load-more.js')
+            ->with()
+            ->translation('curator', $strings);
     }
 
     public function data(): array
     {
         //Default values
         $data = [
-            'i18n'          => $this->data['i18n'],
+            'i18n' => $this->data['i18n'],
             'columnClasses' => '',
-            'ratio'         => '',
-            'gutter'        => '',
-            'showFeed'      => false,
-            'posts'         => [],
-            'postCount'     => 0
+            'ratio' => '',
+            'gutter' => '',
+            'showFeed' => false,
+            'posts' => [],
+            'postCount' => 0,
         ];
 
         //Get module fields
         $fields = $this->getFields();
 
         //General fields
-        $data['embedCode']     = $this->parseEmbedCode($fields['embed_code']);
+        $data['embedCode'] = $this->parseEmbedCode($fields['embed_code']);
         $data['numberOfItems'] = $fields['number_of_posts'] ?: 12;
-        $data['layout']        = $fields['layout'] ?: 'card';
-        $data['columns']       = $fields['columns'] ?: 4;
+        $data['layout'] = $fields['layout'] ?: 'card';
+        $data['columns'] = $fields['columns'] ?: 4;
         $data['showPoweredBy'] = isset($fields['show_powered_by']) ? (bool) $fields['show_powered_by'] : false;
 
         //Exclusive fields for blocks
         if ($data['layout'] === 'block') {
-            $data['ratio']  = $fields['ratio'] ?: '4:3';
+            $data['ratio'] = $fields['ratio'] ?: '4:3';
             $data['gutter'] = $fields['gutter'] ? 'o-grid--no-gutter' : '';
         }
 
@@ -114,17 +114,12 @@ class Curator extends \Modularity\Module
         $data['columnClasses'] .= $this->getGridClass($data['columns']);
 
         //Fetch feed data
-        $feed = $this->getFeed(
-            $data['embedCode'],
-            (int) $data['numberOfItems'] + 1,
-            0,
-            (bool) !isset($_GET['flush'])
-        );
+        $feed = $this->getFeed($data['embedCode'], (int) $data['numberOfItems'] + 1, 0, (bool) !isset($_GET['flush']));
 
         //Assign to params
         if (!empty($feed->posts)) {
-            $data['showFeed']  = true;
-            $data['posts']     = $feed->posts;
+            $data['showFeed'] = true;
+            $data['posts'] = $feed->posts;
             $data['postCount'] = $feed->postCount;
         }
 
@@ -133,9 +128,9 @@ class Curator extends \Modularity\Module
 
         //Could not fetch error message / embed code error message
         if (!$data['embedCode']) {
-            $data['errorMessage'] = __("An invalid embed code was provided.", 'modularity');
+            $data['errorMessage'] = __('An invalid embed code was provided.', 'modularity');
         } else {
-            $data['errorMessage'] = __("Could not get the feed at this moment, please try again later.", 'modularity');
+            $data['errorMessage'] = __('Could not get the feed at this moment, please try again later.', 'modularity');
         }
 
         //Send to view
@@ -172,9 +167,9 @@ class Curator extends \Modularity\Module
                     continue;
                 }
 
-                $post->full_text          = $post->text ?? '';
+                $post->full_text = $post->text ?? '';
                 $post->user_readable_name = self::getUserName($post->user_screen_name);
-                $post->text               = wp_trim_words($post->text, 20, "...") ?? '';
+                $post->text = wp_trim_words($post->text, 20, '...') ?? '';
 
                 // Prepare oembed
                 if (in_array($post->network_name, ['YouTube', 'Vimeo'], true)) {
@@ -224,7 +219,6 @@ class Curator extends \Modularity\Module
      */
     private function parseEmbedCode($embed)
     {
-
         if (preg_match('/published\/(.*?)\.js/i', $embed, $match) == 1) {
             return $match[1];
         }
@@ -242,6 +236,7 @@ class Curator extends \Modularity\Module
     {
         return ucwords(str_replace(['.', '-'], ' ', $userName));
     }
+
     /**
      * Retrieves social media feed data for the given embed code from Curator.io.
      *
@@ -258,9 +253,9 @@ class Curator extends \Modularity\Module
     {
         if ($this->isAjaxRequest()) {
             if (!empty($_POST['embed-code'])) {
-                $embedCode     = $_POST['embed-code'];
+                $embedCode = $_POST['embed-code'];
                 $numberOfItems = (int) $_POST['limit'] + 1;
-                $offset        = $_POST['offset'];
+                $offset = $_POST['offset'];
             } else {
                 wp_die('embed code not found');
             }
@@ -272,13 +267,13 @@ class Curator extends \Modularity\Module
             'headers' => [
                 'Content-Type: application/json',
             ],
-            'body'    => [
-                'limit'        => $numberOfItems,
-                'offset'       => $offset,
+            'body' => [
+                'limit' => $numberOfItems,
+                'offset' => $offset,
                 'hasPoweredBy' => 1,
-                'version'      => '4.0',
-                'status'       => 1
-            ]
+                'version' => '4.0',
+                'status' => 1,
+            ],
         ];
 
         $feed = $this->maybeRetriveCachedResponse($requestUrl, $requestArgs, $cache);
@@ -300,10 +295,9 @@ class Curator extends \Modularity\Module
      */
     private function maybeRetriveCachedResponse($requestUrl, $requestArgs, $cache)
     {
-
         $transientKey = $this->createTransientKey($requestUrl, $requestArgs);
 
-        if ($cache && $cachedFeed = get_transient($transientKey)) {
+        if ($cache && ($cachedFeed = get_transient($transientKey))) {
             return $cachedFeed;
         }
 
@@ -338,7 +332,7 @@ class Curator extends \Modularity\Module
      */
     private function createTransientKey($requestUrl, $requestArgs)
     {
-        return "curator_" . md5(serialize($requestUrl) . serialize($requestArgs));
+        return 'curator_' . md5(serialize($requestUrl) . serialize($requestArgs));
     }
 
     /**

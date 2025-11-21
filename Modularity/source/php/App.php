@@ -46,12 +46,12 @@ class App
         $optionsForSingleViews->addHooks();
 
         // Rest Controllers
-        $modulesRestController = new Api\V1\Modules();
+        $modulesRestController = new Api\V1\Modules($this->wpEnqueue);
         $modulesRestController->register_routes();
 
         self::$moduleManager = new ModuleManager($this->wpEnqueue);
 
-        $this->editor = new Editor();
+        $this->editor = new Editor($this->wpEnqueue);
         self::$display = new Display($this->wpEnqueue);
 
         if (is_admin()) {
@@ -245,19 +245,25 @@ class App
             return;
         }
 
-        $this->wpEnqueue->add('css/modularity.css')->add('js/modularity.js', ['wp-api'], true)->with()->translation('modularityAdminLanguage', array(
-            'langvisibility' => __('Toggle visibility', 'municipio'),
-            'langedit' => __('Edit', 'municipio'),
-            'langimport' => __('Import', 'municipio'),
-            'langremove' => __('Remove', 'municipio'),
-            'langhide' => __('Hide module', 'municipio'),
-            'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
-            'isSaving' => __('Saving…', 'municipio'),
-            'close' => __('Close', 'municipio'),
-            'width' => __('Width', 'municipio'),
-            'widthOptions' => $this->editor->getWidthOptions(),
-            'deprecated' => __('Deprecated', 'municipio'),
-        ))->add('js/dynamic-map-acf.js', ['jquery'])->add('js/modularity-text-module.js');
+        $this->wpEnqueue
+            ->add('css/modularity.css')
+            ->add('js/modularity.js', ['wp-api'], true)
+            ->with()
+            ->translation('modularityAdminLanguage', array(
+                'langvisibility' => __('Toggle visibility', 'municipio'),
+                'langedit' => __('Edit', 'municipio'),
+                'langimport' => __('Import', 'municipio'),
+                'langremove' => __('Remove', 'municipio'),
+                'langhide' => __('Hide module', 'municipio'),
+                'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
+                'isSaving' => __('Saving…', 'municipio'),
+                'close' => __('Close', 'municipio'),
+                'width' => __('Width', 'municipio'),
+                'widthOptions' => $this->editor->getWidthOptions(),
+                'deprecated' => __('Deprecated', 'municipio'),
+            ))
+            ->add('js/dynamic-map-acf.js', ['jquery'])
+            ->add('js/modularity-text-module.js');
 
         add_action('admin_head', function () {
             echo "

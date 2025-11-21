@@ -57,9 +57,10 @@ class ModuleManager
 
     public static $blockManager = null;
 
-    public function __construct(private EnqueueManager $wpEnqueue)
-    {
-        self::$blockManager = new \Modularity\BlockManager();
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
+        self::$blockManager = new \Modularity\BlockManager($this->wpEnqueue);
 
         // Init modules
         add_action(

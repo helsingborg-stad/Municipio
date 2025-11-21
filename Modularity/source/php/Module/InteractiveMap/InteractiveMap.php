@@ -7,21 +7,21 @@ use WpService\WpService as OriginalWpService;
 
 class InteractiveMap extends \Modularity\Module
 {
-    public $slug          = 'interactivemap';
-    public $supports      = array();
+    public $slug = 'interactivemap';
+    public $supports = array();
     public $blockSupports = array(
         'align' => ['full'],
-        'mode'  => false
+        'mode' => false,
     );
-    private ?OriginalWpService $wpService;
+    private null|OriginalWpService $wpService;
 
     public function init()
     {
         $this->wpService = WpService::get();
 
         $this->nameSingular = $this->wpService->__('Interactive map', 'municipio');
-        $this->namePlural   = $this->wpService->__('Interactive maps', 'municipio');
-        $this->description  = $this->wpService->__('Outputs an interactive map', 'municipio');
+        $this->namePlural = $this->wpService->__('Interactive maps', 'municipio');
+        $this->description = $this->wpService->__('Outputs an interactive map', 'municipio');
 
         add_filter('WpSecurity/Csp', array($this, 'csp'), 10, 1);
         add_filter('Modularity/Block/acf/interactivemap/Data', array($this, 'blockData'), 50, 3);
@@ -29,11 +29,11 @@ class InteractiveMap extends \Modularity\Module
 
     public function data(): array
     {
-        $data            = [];
-        $fields          = $this->getFields();
-        $data['mapID']   = uniqid('map-');
-        $data['mapData'] = $fields['interactive-map'] ?? "";
-        $data['lang']    = $this->getLang();
+        $data = [];
+        $fields = $this->getFields();
+        $data['mapID'] = uniqid('map-');
+        $data['mapData'] = $fields['interactive-map'] ?? '';
+        $data['lang'] = $this->getLang();
         $data['mapSize'] = $this->getMapSize($fields['mod_interactive_map_size'] ?? 'medium');
 
         if (!isset($data['stretch'])) {
@@ -42,24 +42,25 @@ class InteractiveMap extends \Modularity\Module
 
         $parsedMapData = json_decode($fields['interactive-map'] ?? '{}', true);
 
-        [$buttonFilters, $selectFilters, $preselectedSelectFilter] = $this->getSelectAndButtonFilters($this->getStructuredLayerFilters($parsedMapData));
-        $data['attributeList']                                     = [];
-        $data['attributeList']['data-js-interactive-map']          = $data['mapID'];
-        $data['attributeList']['data-js-interactive-map-data']     = $data['mapData'];
+        [$buttonFilters, $selectFilters, $preselectedSelectFilter] =
+            $this->getSelectAndButtonFilters($this->getStructuredLayerFilters($parsedMapData));
+        $data['attributeList'] = [];
+        $data['attributeList']['data-js-interactive-map'] = $data['mapID'];
+        $data['attributeList']['data-js-interactive-map-data'] = $data['mapData'];
 
         if (empty($selectFilters)) {
-            $data['attributeList']['data-js-interactive-map-one-level-only'] = "true";
+            $data['attributeList']['data-js-interactive-map-one-level-only'] = 'true';
         }
 
         if (count($selectFilters) === 1) {
-            $data['attributeList']['data-js-interactive-map-one-parent-only'] = "true";
+            $data['attributeList']['data-js-interactive-map-one-parent-only'] = 'true';
         }
 
-        $data['allowFiltering']          = $parsedMapData['layerFilter'] ?? false;
-        $data['filterDefaultOpen']       = $parsedMapData['layerFilterDefaultOpen'] === 'true' ? true : false;
-        $data['mainFilterTitle']         = $parsedMapData['layerFilterTitle'] ?? $this->getLang()['filter'];
-        $data['buttonFilters']           = $buttonFilters;
-        $data['selectFilters']           = $selectFilters;
+        $data['allowFiltering'] = $parsedMapData['layerFilter'] ?? false;
+        $data['filterDefaultOpen'] = $parsedMapData['layerFilterDefaultOpen'] === 'true' ? true : false;
+        $data['mainFilterTitle'] = $parsedMapData['layerFilterTitle'] ?? $this->getLang()['filter'];
+        $data['buttonFilters'] = $buttonFilters;
+        $data['selectFilters'] = $selectFilters;
         $data['preselectedSelectFilter'] = $preselectedSelectFilter;
 
         return $data;
@@ -79,8 +80,8 @@ class InteractiveMap extends \Modularity\Module
 
     private function getSelectAndButtonFilters(array $structuredLayerFilters)
     {
-        $buttonFilters           = [];
-        $selectFilters           = [];
+        $buttonFilters = [];
+        $selectFilters = [];
         $preselectedSelectFilter = null;
 
         if (count($structuredLayerFilters) <= 1) {
@@ -104,15 +105,12 @@ class InteractiveMap extends \Modularity\Module
 
     private function getStructuredLayerFilters($data)
     {
-        if (
-            empty($data['layerGroups']) ||
-            (empty($data['layerFilter']) || $data['layerFilter'] === 'false')
-        ) {
+        if (empty($data['layerGroups']) || (empty($data['layerFilter']) || $data['layerFilter'] === 'false')) {
             return [];
         }
 
         $layers = $data['layerGroups'];
-        $tree   = [];
+        $tree = [];
         $lookup = [];
 
         foreach ($layers as $layer) {
@@ -150,7 +148,7 @@ class InteractiveMap extends \Modularity\Module
             return $csp;
         }
 
-        $csp['img-src']   = $csp['img-src'] ?? [];
+        $csp['img-src'] = $csp['img-src'] ?? [];
         $csp['img-src'][] = '*.basemaps.cartocdn.com';
         $csp['img-src'][] = 'server.arcgisonline.com';
 
@@ -166,10 +164,10 @@ class InteractiveMap extends \Modularity\Module
         }
 
         $lang = [
-            'no-filter'   => $this->wpService->__('No taxonomy filter', 'municipio'),
-            'filter'      => $this->wpService->__('Filter', 'municipio'),
+            'no-filter' => $this->wpService->__('No taxonomy filter', 'municipio'),
+            'filter' => $this->wpService->__('Filter', 'municipio'),
             'closeFilter' => $this->wpService->__('Close filtering panel', 'municipio'),
-            'closeMarker' => $this->wpService->__('Close marker info', 'municipio')
+            'closeMarker' => $this->wpService->__('Close marker info', 'municipio'),
         ];
 
         return $lang;
@@ -177,20 +175,12 @@ class InteractiveMap extends \Modularity\Module
 
     public function script()
     {
-        $this->wpService->wpRegisterScript(
-            'mod-interactive-map',
-            MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('js/mod-interactive-map.js')
-        );
-
-        $this->wpService->wpEnqueueScript('mod-interactive-map');
+        $this->wpEnqueue?->add('js/mod-interactive-map.js');
     }
 
     public function style()
     {
-        $this->wpService->wpRegisterStyle('mod-interactive-map', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('css/interactive-map.css'));
-
-        $this->wpService->wpEnqueueStyle('mod-interactive-map');
+        $this->wpEnqueue?->add('css/interactive-map.css');
     }
 
     public function template(): string
