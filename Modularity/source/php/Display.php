@@ -97,7 +97,7 @@ class Display
     /**
      * @param $view
      * @param array $data
-     * @return bool
+     * @return string
      * @throws \Exception
      *
      * TODO: This needs to be checked if it is optimizable.
@@ -138,7 +138,7 @@ class Display
         }
 
         $this->isRenderingModule = false;
-        return false;
+        return '';
     }
 
     /**

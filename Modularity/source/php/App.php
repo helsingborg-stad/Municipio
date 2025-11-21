@@ -191,7 +191,7 @@ class App
     {
         $this->wpEnqueue
             ->add('css/modularity.css')
-            ->add('js/modularity.js', [], true)
+            ->add('js/modularity.js', [], null, true)
             ->add('js/user-editable-list.js')
             ->with()
             ->translation('modularityFrontLanguage', [
