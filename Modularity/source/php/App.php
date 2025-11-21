@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Modularity;
 
@@ -220,7 +221,12 @@ class App
     {
         if ($modulesEditorId = \Modularity\Helper\Wp::isGutenbergEditor()) {
             $this->wpEnqueue
-                ->add('js/edit-modules-block-editor.js', ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components'], null, true) // dependencies
+                ->add(
+                    'js/edit-modules-block-editor.js',
+                    ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components'],
+                    null,
+                    true,
+                ) // dependencies
                 ->add('js/block-validation.js')
                 ->with()
                 ->translation('modularityBlockEditor', [

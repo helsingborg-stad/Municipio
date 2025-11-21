@@ -47,6 +47,7 @@ class Script extends \Modularity\Module
         $data['embedContent'] = is_admin() ? '<pre>' . htmlspecialchars($embed) . '</pre>' : $embed;
 
         for ($i = 0; $i < $allowedElements->length; $i++) {
+            /** @var \DOMElement $element */
             $element = $allowedElements->item($i);
 
             $data['embed'][$i]['src'] = null;
