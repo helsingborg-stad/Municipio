@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group([
         'key' => 'group_57454ae7b0e9a',

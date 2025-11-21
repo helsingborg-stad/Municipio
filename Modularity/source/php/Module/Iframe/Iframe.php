@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Iframe;
 
 class Iframe extends \Modularity\Module

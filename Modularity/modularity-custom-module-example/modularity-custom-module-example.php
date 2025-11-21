@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * Plugin Name: Modularity Image Module
  * Plugin URI: -

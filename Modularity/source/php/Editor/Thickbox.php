@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Editor;
 
 use WpUtilService\Features\Enqueue\EnqueueManager;

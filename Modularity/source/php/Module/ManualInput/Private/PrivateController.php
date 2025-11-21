@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\ManualInput\Private;
 
 use Modularity\Module\ManualInput\ManualInput;

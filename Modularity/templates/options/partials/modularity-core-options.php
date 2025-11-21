@@ -1,4 +1,7 @@
-<?php global $modularityOptions; ?>
+<?php
+
+declare(strict_types=1);
+ global $modularityOptions; ?>
 <div class="modularity-form-group">
     <ul>
         <li>

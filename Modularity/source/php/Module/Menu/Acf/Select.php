@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Menu\Acf;
 
 // Handles menu_menu field in Acf.

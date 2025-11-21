@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <ul
     class="modularity-sidebar-area modularity-js-droppable modularity-js-sortable modularity-spinner"
     data-empty="<?php _e('Drag your modules here…', 'modularity'); ?>"

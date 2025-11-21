@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <div id="major-publishing-actions" style="margin: -7px -12px -12px;">
     <div id="publishing-action">
         <span class="spinner"></span>

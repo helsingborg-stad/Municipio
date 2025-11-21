@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 use AcfService\AcfService as OriginalAcfService;

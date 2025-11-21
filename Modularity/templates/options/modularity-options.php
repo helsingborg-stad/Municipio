@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <div class="wrap" id="modularity-options">
 
     <h1><?php esc_html_e(get_admin_page_title(), 'modularity'); do_action('Modularity/options_page_title_suffix'); ?></h1>
