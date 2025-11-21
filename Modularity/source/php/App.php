@@ -46,12 +46,12 @@ class App
         $optionsForSingleViews->addHooks();
 
         // Rest Controllers
-        $modulesRestController = new Api\V1\Modules();
+        $modulesRestController = new Api\V1\Modules($this->wpEnqueue);
         $modulesRestController->register_routes();
 
         self::$moduleManager = new ModuleManager($this->wpEnqueue);
 
-        $this->editor = new Editor();
+        $this->editor = new Editor($this->wpEnqueue);
         self::$display = new Display($this->wpEnqueue);
 
         if (is_admin()) {

@@ -2,10 +2,13 @@
 
 namespace Modularity\Editor;
 
+use WpUtilService\Features\Enqueue\EnqueueManager;
+
 class Thickbox
 {
-    public function __construct()
-    {
+    public function __construct(
+        protected EnqueueManager $wpEnqueue,
+    ) {
         if (\Modularity\Helper\Wp::isThickBox()) {
             $this->init();
         }
@@ -31,7 +34,11 @@ class Thickbox
     public function addFilterUrlParams($views)
     {
         foreach ($views as $index => $view) {
-            $views[$index] = preg_replace("/(?<=href=(\"|'))[^\"']+(?=(\"|'))/", '${0}&is_thickbox=true', $views[$index]);
+            $views[$index] = preg_replace(
+                "/(?<=href=(\"|'))[^\"']+(?=(\"|'))/",
+                '${0}&is_thickbox=true',
+                $views[$index],
+            );
         }
 
         return $views;
@@ -49,13 +56,22 @@ class Thickbox
 
         $id = isset($post->ID) ? $post->ID : "'" . $archive . "'";
 
-        if (substr($current_screen->post_type, 0, 4) == 'mod-' && ($current_screen->action == 'add' || $current_screen->action == '')) {
-            echo "
+        if (
+            substr($current_screen->post_type, 0, 4) == 'mod-'
+            && ($current_screen->action == 'add' || $current_screen->action == '')
+        ) {
+            echo
+                '
                 <script>
-                    var modularity_post_id = " . $id . ";
-                    var modularity_post_action = '" . $current_screen->action . "';
+                    var modularity_post_id = '
+                . $id
+                . ";
+                    var modularity_post_action = '"
+                . $current_screen->action
+                    . "';
                 </script>
-            ";
+            "
+            ;
         }
     }
 
@@ -66,20 +82,8 @@ class Thickbox
     public function enqueue()
     {
         // Script
-        wp_register_script(
-            'modularity-thickbox',
-            MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('js/modularity-editor-modal.js'),
-            [],
-            '1.0.0',
-            true
+        $this->wpEnqueue?->add('js/modularity-editor-modal.js', [], '1.0.0', true)->add(
+            'css/modularity-thickbox-edit.css',
         );
-        wp_enqueue_script('modularity-thickbox');
-
-        // Style
-        wp_register_style(
-            'modularity-thickbox',
-            MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('css/modularity-thickbox-edit.css')
-        );
-        wp_enqueue_style('modularity-thickbox');
     }
 }

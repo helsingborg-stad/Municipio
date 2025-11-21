@@ -4,22 +4,22 @@ namespace Modularity\Module\Menu;
 
 use Modularity\Module\Menu\Acf\Select;
 use Modularity\Module\Menu\Decorator\DataDecorator;
-use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
 
 class Menu extends \Modularity\Module
 {
-    public $slug            = 'menu';
-    public $supports        = array();
+    public $slug = 'menu';
+    public $supports = array();
     public $displaySettings = null;
-    public $cacheTtl        = 0;
+    public $cacheTtl = 0;
 
     public function init()
     {
         $this->nameSingular = __('Menu', 'municipio');
-        $this->namePlural   = __('Menus', 'municipio');
-        $this->description  = __('Outputs a menu.', 'municipio');
+        $this->namePlural = __('Menus', 'municipio');
+        $this->description = __('Outputs a menu.', 'municipio');
 
         add_filter('Municipio/Navigation/Item', array($this, 'setMenuItemData'), 999, 3);
         new Select();
@@ -27,27 +27,20 @@ class Menu extends \Modularity\Module
 
     public function data(): array
     {
-        $data   = [];
+        $data = [];
         $fields = $this->getFields();
 
         $acfService = \Modularity\Helper\AcfService::get();
-        $wpService  = \Modularity\Helper\WpService::get();
+        $wpService = \Modularity\Helper\WpService::get();
 
-        $data['displayAs']      = $fields['mod_menu_display_as'] ?? 'listing';
-        $data['wrapped']        = $fields['mod_menu_wrapped'] ?? false;
+        $data['displayAs'] = $fields['mod_menu_display_as'] ?? 'listing';
+        $data['wrapped'] = $fields['mod_menu_wrapped'] ?? false;
         $data['mobileCollapse'] = $fields['mod_menu_mobile_collapse'] ?? true;
-        $data['ID']             = $this->ID ?? uniqid();
+        $data['ID'] = $this->ID ?? uniqid();
 
-        $menuConfig = new MenuConfig(
-            'mod-menu-' . $data['displayAs'],
-            (int) $fields['mod_menu_menu'],
-        );
+        $menuConfig = new MenuConfig('mod-menu-' . $data['displayAs'], (int) $fields['mod_menu_menu']);
 
-        $menuBuilder = new MenuBuilder(
-            $menuConfig,
-            $acfService,
-            $wpService
-        );
+        $menuBuilder = new MenuBuilder($menuConfig, $acfService, $wpService);
 
         $menuDirector = new MenuDirector();
         $menuDirector->setBuilder($menuBuilder);
@@ -60,11 +53,10 @@ class Menu extends \Modularity\Module
         return $dataDecorator->decorate($data);
     }
 
-
     public function setMenuItemData($item, $identifier, $bool)
     {
         if ($identifier === 'mod-menu-listing' && !$item['top_level']) {
-            $item['icon']        = ['icon' => 'chevron_right', 'size' => 'md'];
+            $item['icon'] = ['icon' => 'chevron_right', 'size' => 'md'];
             $item['classList'][] = 'mod-menu__child';
         }
 
@@ -73,10 +65,7 @@ class Menu extends \Modularity\Module
 
     public function style()
     {
-        wp_register_style('mod-menu-style', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('css/menu.css'));
-
-        wp_enqueue_style('mod-menu-style');
+        $this->wpEnqueue?->add('css/menu.css');
     }
 
     /**

@@ -4,18 +4,18 @@ namespace Modularity\Module\Video;
 
 class Video extends \Modularity\Module
 {
-    public $slug            = 'video';
-    public $supports        = array();
+    public $slug = 'video';
+    public $supports = array();
     private $imageLocations = [
         'youtube' => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
-        'vimeo'   => 'https://vumbnail.com/%s.jpg'
+        'vimeo' => 'https://vumbnail.com/%s.jpg',
     ];
 
     public function init()
     {
-        $this->nameSingular = __("Video", 'modularity');
-        $this->namePlural   = __("Video", 'modularity');
-        $this->description  = __("Outputs an embedded Video.", 'modularity');
+        $this->nameSingular = __('Video', 'modularity');
+        $this->namePlural = __('Video', 'modularity');
+        $this->description = __('Outputs an embedded Video.', 'modularity');
 
         //Cover images
         add_action('wp_after_insert_post', array($this, 'getVideoCover'), 10, 4);
@@ -100,21 +100,17 @@ class Video extends \Modularity\Module
         }
 
         $coverImage = get_field('placeholder_image', $postId);
-        $embedUrl   = get_field('embed_link', $postId);
+        $embedUrl = get_field('embed_link', $postId);
 
         if ($coverImage === false && filter_var($embedUrl, FILTER_VALIDATE_URL) !== false) {
             $videoService = $this->detectVideoService($embedUrl);
-            $videoId      = $this->getVideoId($embedUrl, $videoService);
-            $coverImage   = $this->getCoverUrl($videoId, $videoService);
+            $videoId = $this->getVideoId($embedUrl, $videoService);
+            $coverImage = $this->getCoverUrl($videoId, $videoService);
 
             $filePath = $this->downloadCoverImage($coverImage, $videoId);
 
             if ($filePath) {
-                update_post_meta(
-                    $postId,
-                    'placeholder_fallback_image',
-                    $filePath
-                );
+                update_post_meta($postId, 'placeholder_fallback_image', $filePath);
                 return $filePath;
             }
         }
@@ -144,20 +140,35 @@ class Video extends \Modularity\Module
         }
 
         $blockData = $block['attrs']['data'];
-        $embedUrl  = $blockData['embed_link'];
+        $embedUrl = $blockData['embed_link'];
 
-        if (empty($blockData['placeholder_image']) && filter_var($embedUrl, FILTER_VALIDATE_URL) !== false && $this->isEmbed($blockData['type'])) {
+        if (
+            empty($blockData['placeholder_image'])
+            && filter_var($embedUrl, FILTER_VALIDATE_URL) !== false
+            && $this->isEmbed($blockData['type'])
+        ) {
             $placeholderImageFieldKey = $blockData['_placeholder_image'];
 
             $videoService = $this->detectVideoService($embedUrl);
-            $videoId      = $this->getVideoId($embedUrl, $videoService);
-            $coverImage   = $this->getCoverUrl($videoId, $videoService);
+            $videoId = $this->getVideoId($embedUrl, $videoService);
+            $coverImage = $this->getCoverUrl($videoId, $videoService);
 
-            require_once(ABSPATH . 'wp-admin/includes/media.php');
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
-            require_once(ABSPATH . 'wp-admin/includes/image.php');
+            require_once ABSPATH . 'wp-admin/includes/media.php';
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/image.php';
 
-            $attachmentId = \media_sideload_image($coverImage, $postId, sprintf(__('Automatically downloaded cover image for a video embedded in a post (post id: %s).', 'municipio'), $postId), 'id');
+            $attachmentId = \media_sideload_image(
+                $coverImage,
+                $postId,
+                sprintf(
+                    __(
+                        'Automatically downloaded cover image for a video embedded in a post (post id: %s).',
+                        'municipio',
+                    ),
+                    $postId,
+                ),
+                'id',
+            );
 
             if ($attachmentId) {
                 $existingBlocks = parse_blocks($post->post_content);
@@ -168,7 +179,7 @@ class Video extends \Modularity\Module
                 }
 
                 $postData = array(
-                    'ID'           => $postId,
+                    'ID' => $postId,
                     'post_content' => serialize_blocks($existingBlocks),
                 );
 
@@ -237,29 +248,25 @@ class Video extends \Modularity\Module
      */
     private function storeImage($fileContent, $videoId)
     {
-        $uploadsDir    = $this->getUploadsDir();
+        $uploadsDir = $this->getUploadsDir();
         $uploadsSubDir = $this->getUploadsSubdir();
-        $fileSystem    = $this->initFileSystem();
-        $fileName      = $videoId . ".jpg";
+        $fileSystem = $this->initFileSystem();
+        $fileName = $videoId . '.jpg';
 
         //Explicit path
-        $fullPath = implode("/", [
+        $fullPath = implode('/', [
             $uploadsDir,
             $uploadsSubDir,
-            $fileName
+            $fileName,
         ]);
 
         //Relative to uploads dir
-        $subPath = implode("/", [
+        $subPath = implode('/', [
             $uploadsSubDir,
-            $fileName
+            $fileName,
         ]);
 
-        $fileSystem->put_contents(
-            $fullPath,
-            $fileContent,
-            FS_CHMOD_FILE
-        );
+        $fileSystem->put_contents($fullPath, $fileContent, FS_CHMOD_FILE);
 
         if ($fileSystem->exists($fullPath)) {
             return $subPath;
@@ -275,7 +282,7 @@ class Video extends \Modularity\Module
      */
     private function initFileSystem()
     {
-        require_once(ABSPATH . '/wp-admin/includes/file.php');
+        require_once ABSPATH . '/wp-admin/includes/file.php';
         WP_Filesystem();
         global $wp_filesystem;
         return $wp_filesystem;
@@ -288,7 +295,7 @@ class Video extends \Modularity\Module
      */
     private function getUploadsDir()
     {
-        return rtrim(wp_upload_dir()['basedir'], "/");
+        return rtrim(wp_upload_dir()['basedir'], '/');
     }
 
     /**
@@ -298,13 +305,7 @@ class Video extends \Modularity\Module
      */
     private function getUploadsSubdir()
     {
-        return trim(
-            rtrim(
-                wp_upload_dir()['subdir'],
-                "/"
-            ),
-            "/"
-        );
+        return trim(rtrim(wp_upload_dir()['subdir'], '/'), '/');
     }
 
     /**
@@ -338,14 +339,11 @@ class Video extends \Modularity\Module
 
         //https://youtu.be/ID
         if ($hostname == 'youtu.be') {
-            return trim(rtrim(parse_url($embedLink, PHP_URL_PATH), "/"), "/");
+            return trim(rtrim(parse_url($embedLink, PHP_URL_PATH), '/'), '/');
         }
 
         //https://www.youtube.com/watch?v=ID
-        parse_str(
-            parse_url($embedLink, PHP_URL_QUERY),
-            $queryParameters
-        );
+        parse_str(parse_url($embedLink, PHP_URL_QUERY), $queryParameters);
         if (isset($queryParameters['v']) && !empty($queryParameters['v'])) {
             return $queryParameters['v'];
         }
@@ -395,7 +393,7 @@ class Video extends \Modularity\Module
      */
     public function data(): array
     {
-        $data       = $this->getFields();
+        $data = $this->getFields();
         $data['id'] = uniqid('embed');
         if ($data['type'] == 'embed') {
             $data['embedCode'] = $this->getEmbedMarkup($data['embed_link']);
@@ -404,17 +402,14 @@ class Video extends \Modularity\Module
         // Image
         $data['image'] = false;
         if (isset($data['placeholder_image']) && !empty($data['placeholder_image'])) {
-            $data['image'] = wp_get_attachment_image_src(
-                $data['placeholder_image']['id'],
-                [1140, 641]
-            )[0];
+            $data['image'] = wp_get_attachment_image_src($data['placeholder_image']['id'], [1140, 641])[0];
         }
 
         // Fallback image
         if (!$data['image']) {
             $fallbackImage = get_post_meta($this->ID, 'placeholder_fallback_image', true);
             if ($fallbackImage) {
-                $data['image'] =  wp_get_upload_dir()['baseurl'] . "/" . $fallbackImage;
+                $data['image'] = wp_get_upload_dir()['baseurl'] . '/' . $fallbackImage;
             }
         }
 
@@ -425,7 +420,10 @@ class Video extends \Modularity\Module
 
         //Lang
         $data['lang'] = (object) [
-            'embedFailed' => __('This video could not be embedded. <a href="%s" target="_blank">View the video by visiting embedded page.</a>', 'municipio'),
+            'embedFailed' => __(
+                'This video could not be embedded. <a href="%s" target="_blank">View the video by visiting embedded page.</a>',
+                'municipio',
+            ),
         ];
 
         return $data;
@@ -439,37 +437,20 @@ class Video extends \Modularity\Module
      */
     private function getEmbedMarkup($embedLink)
     {
-        return wp_oembed_get(
-            $embedLink,
-            array(
-                'width'  => 1080,
-                'height' => 720
-            )
-        );
+        return wp_oembed_get($embedLink, array(
+            'width' => 1080,
+            'height' => 720,
+        ));
     }
 
     public function style()
     {
-        wp_register_style('mod-video-style', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('css/video.css'));
-
-        wp_enqueue_style('mod-video-style');
+        $this->wpEnqueue?->add('css/video.css');
     }
 
     public function script()
     {
-        wp_register_script('mod-video-script', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('js/video.js'));
-
-        wp_enqueue_script('mod-video-script');
-    }
-
-    private function accessProtected($obj, $prop)
-    {
-        $reflection = new ReflectionClass($obj);
-        $property   = $reflection->getProperty($prop);
-        $property->setAccessible(true);
-        return $property->getValue($obj);
+        $this->wpEnqueue?->add('js/video.js');
     }
 
     /**
