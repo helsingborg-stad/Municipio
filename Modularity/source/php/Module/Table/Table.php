@@ -5,7 +5,7 @@ namespace Modularity\Module\Table;
 class Table extends \Modularity\Module
 {
     public $slug = 'table';
-    public $supports = array();
+    public $supports = [];
 
     public function init()
     {
@@ -13,11 +13,11 @@ class Table extends \Modularity\Module
         $this->namePlural = __('Tables', 'modularity');
         $this->description = __('Outputs a flexible table with options.', 'modularity');
 
-        add_action('Modularity/Module/mod-table/enqueue', array($this, 'modAssets'));
-        add_action('save_post', array($this, 'csvImport'), 999);
+        add_action('Modularity/Module/mod-table/enqueue', [$this, 'modAssets']);
+        add_action('save_post', [$this, 'csvImport'], 999);
 
         //Remove html filter
-        add_action('save_post', array($this, 'disableHTMLFiltering'), 5);
+        add_action('save_post', [$this, 'disableHTMLFiltering'], 5);
     }
 
     /**
@@ -32,7 +32,7 @@ class Table extends \Modularity\Module
         }
 
         //Disable filter temporarily
-        add_filter('acf/allow_unfiltered_html', function ($allow_unfiltered_html) {
+        add_filter('acf/allow_unfiltered_html', static function ($allow_unfiltered_html) {
             return true;
         });
     }
@@ -44,7 +44,7 @@ class Table extends \Modularity\Module
 
         $tableList = $this->tableList($this->getTableData($post, $data));
 
-        $data['mod_table_size'] = $data['mod_table_size'] ?? '';
+        $data['mod_table_size'] ??= '';
         $data['m_table'] = [
             'data' => (array) $tableList,
             'showHeader' => true, //To-Do: Add this option in ACF
@@ -64,7 +64,7 @@ class Table extends \Modularity\Module
         $data['tableClasses'] = $this->getTableClasses($data);
         $data['classes'] = implode(' ', apply_filters(
             'Modularity/Module/Classes',
-            array('c-card--default'),
+            ['c-card--default'],
             isset($this->post_type) ? $this->post_type : false,
             $this->args,
         ));
@@ -76,7 +76,7 @@ class Table extends \Modularity\Module
 
     public static function unicodeConvert($unicode)
     {
-        $search = array(
+        $search = [
             'u00a5',
             'u201e',
             'u00b6',
@@ -103,8 +103,8 @@ class Table extends \Modularity\Module
             'u00c2u00b4',
             'Äu02dc',
             'u00db',
-        );
-        $replace = array(
+        ];
+        $replace = [
             'å',
             'ä',
             'ö',
@@ -131,7 +131,7 @@ class Table extends \Modularity\Module
             '´',
             "'",
             '€',
-        );
+        ];
 
         return str_replace($search, $replace, $unicode);
     }
@@ -178,7 +178,7 @@ class Table extends \Modularity\Module
     {
         $file = fopen($file['url'], 'r');
 
-        $data = array();
+        $data = [];
 
         if (!$file) {
             wp_die(__('There was an error opening the selected .csv-file.'));
@@ -214,7 +214,7 @@ class Table extends \Modularity\Module
         $file = get_field('mod_table_csv_file', $post_id);
         $file = fopen($file['url'], 'r');
 
-        $data = array();
+        $data = [];
 
         if (!$file) {
             wp_die(__('There was an error opening the selected .csv-file.'));

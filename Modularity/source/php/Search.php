@@ -6,20 +6,19 @@ class Search
 {
     public function __construct()
     {
+        add_action('wp', [$this, 'moduleSearch']);
 
-        add_action('wp', array($this, 'moduleSearch'));
-
-        add_filter('posts_join', array($this, 'moduleSearchModuleDescriptionJoin'));
-        add_filter('posts_search', array($this, 'moduleSearchModuleDescription'));
+        add_filter('posts_join', [$this, 'moduleSearchModuleDescriptionJoin']);
+        add_filter('posts_search', [$this, 'moduleSearchModuleDescription']);
 
         //Elasticpress
-        add_filter('ep_pre_index_post', array($this, 'elasticPressPreIndex'));
-        add_filter('ep_post_sync_args_post_prepare_meta', array($this, 'elasticPressPreIndex'));
+        add_filter('ep_pre_index_post', [$this, 'elasticPressPreIndex']);
+        add_filter('ep_post_sync_args_post_prepare_meta', [$this, 'elasticPressPreIndex']);
 
         //Algolia
-        add_filter('algolia_post_shared_attributes', array($this, 'addAlgoliaModuleAttribute'), 10, 2);
-        add_filter('algolia_searchable_post_shared_attributes', array($this, 'addAlgoliaModuleAttribute'), 10, 2);
-        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 50, 2);
+        add_filter('algolia_post_shared_attributes', [$this, 'addAlgoliaModuleAttribute'], 10, 2);
+        add_filter('algolia_searchable_post_shared_attributes', [$this, 'addAlgoliaModuleAttribute'], 10, 2);
+        add_filter('algolia_should_index_searchable_post', [$this, 'shouldIndexPost'], 50, 2);
     }
 
     /**
@@ -31,11 +30,7 @@ class Search
         global $wp_query;
 
         //Only run on search
-        if (
-            !$wp_query->is_search()
-            || is_admin()
-            || $wp_query->query_vars['post_type'] !== 'any'
-        ) {
+        if (!$wp_query->is_search() || is_admin() || $wp_query->query_vars['post_type'] !== 'any') {
             return;
         }
 
@@ -52,7 +47,7 @@ class Search
             // Find module usage
             $usage = \Modularity\ModuleManager::getModuleUsage($post->ID);
 
-            $usagePosts = array();
+            $usagePosts = [];
             foreach ($usage as $item) {
                 $usagePosts[] = get_post($item->post_id);
             }
@@ -62,7 +57,7 @@ class Search
         }
 
         //Remove modularity duplicated
-        $searchResult = array_filter($searchResult, function ($object) {
+        $searchResult = array_filter($searchResult, static function ($object) {
             if (substr($object->post_type, 0, 4) != 'mod-') {
                 return true;
             }
@@ -73,9 +68,9 @@ class Search
         $foundPosts = count($searchResult);
 
         //"Return"
-        $wp_query->posts       = array_values($searchResult);
+        $wp_query->posts = array_values($searchResult);
         $wp_query->found_posts = $foundPosts;
-        $wp_query->post_count  = $foundPosts;
+        $wp_query->post_count = $foundPosts;
 
         $postsPerPage = (int) get_option('posts_per_page');
         if ($foundPosts != 0 && $postsPerPage != 0) {
@@ -103,8 +98,8 @@ class Search
             $postId = $post->ID;
         }
 
-        $modules     = \Modularity\Editor::getPostModules($postId);
-        $onlyModules = array();
+        $modules = \Modularity\Editor::getPostModules($postId);
+        $onlyModules = [];
 
         // Normalize modules array
         foreach ($modules as $sidebar => $item) {
@@ -116,16 +111,16 @@ class Search
         }
 
         // Render modules and append to post content
-        $rendered = "<br><br>";
+        $rendered = '<br><br>';
         foreach ($onlyModules as $module) {
             if ($module->post_type === 'mod-wpwidget') {
                 continue;
             }
 
-            $markup = \Modularity\App::$display->outputModule($module, array('edit_module' => false), array(), false);
+            $markup = \Modularity\App::$display->outputModule($module, ['edit_module' => false], [], false);
 
             if (!empty($markup)) {
-                $rendered .= " " . $markup;
+                $rendered .= ' ' . $markup;
             }
         }
 
@@ -145,7 +140,7 @@ class Search
         //Get post type object
         if (isset($post->post_type)) {
             //Do not index posts that belong to modularity
-            if (strpos($post->post_type, "mod-") === 0) {
+            if (str_starts_with($post->post_type, 'mod-')) {
                 return false;
             }
         }
@@ -162,13 +157,7 @@ class Search
     public function addAlgoliaModuleAttribute($attributes, $post)
     {
         //Get rendered data from module(s)
-        $rendered = trim(
-            preg_replace(
-                '!\s+!',
-                ' ',
-                strip_tags($this->getRenderedPostModules($post))
-            )
-        );
+        $rendered = trim(preg_replace('!\s+!', ' ', strip_tags($this->getRenderedPostModules($post))));
 
         //Calculate content bytes
         if (is_array($post)) {
@@ -179,11 +168,7 @@ class Search
 
         //Only add if not empty
         if (!empty($rendered)) {
-            $attributes['modules'] = substr(
-                $rendered,
-                0,
-                (9000 - $contentBytes)
-            );
+            $attributes['modules'] = substr($rendered, 0, 9000 - $contentBytes);
         }
 
         return $attributes;
@@ -217,7 +202,7 @@ class Search
         global $wpdb;
 
         if ($this->isModuleSearch()) {
-            $like             = '%' . $wpdb->esc_like($_GET['s']) . '%';
+            $like = '%' . $wpdb->esc_like($_GET['s']) . '%';
             $meta_description = $wpdb->prepare("OR ({$wpdb->postmeta}.meta_value LIKE %s)", $like);
             // Add the meta description OR condition between one of the existing OR conditions.
             $search = str_replace('OR', $meta_description . ' OR', $search);
@@ -269,9 +254,9 @@ class Search
      */
     public function appendToArray(array $array, $key, array $new)
     {
-        $keys  = array_keys($array);
+        $keys = array_keys($array);
         $index = array_search($key, $keys);
-        $pos   = false === $index ? count($array) : $index + 1;
+        $pos = false === $index ? count($array) : $index + 1;
 
         return array_merge(array_slice($array, 0, $pos), $new, array_slice($array, $pos));
     }

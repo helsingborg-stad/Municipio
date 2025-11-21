@@ -3,9 +3,9 @@
 namespace Modularity\Upgrade\Migrators\Block;
 
 use Modularity\Upgrade\Migrators\Block\AcfBlockFieldMigrator;
+use Modularity\Upgrade\Migrators\Block\AcfBlockRemoveFieldMigrator;
 use Modularity\Upgrade\Migrators\Block\AcfBlockRepeaterFieldsMigrator;
 use Modularity\Upgrade\Migrators\Block\AcfBlockReplaceAndUpdateSelectFieldMigrator;
-use Modularity\Upgrade\Migrators\Block\AcfBlockRemoveFieldMigrator;
 
 class AcfBlockMigrationHandler
 {
@@ -14,8 +14,7 @@ class AcfBlockMigrationHandler
 
     public function __construct($fields, $blockData)
     {
-
-        $this->fields    = $fields;
+        $this->fields = $fields;
         $this->blockData = $blockData;
     }
 
@@ -31,9 +30,11 @@ class AcfBlockMigrationHandler
             return $this->blockData;
         }
         foreach ($this->fields as $oldFieldName => $newField) {
-            if (isset($this->blockData[$oldFieldName]) && is_array($newField)) {
-                $this->blockData = $this->migrateField($newField, $oldFieldName, $this->blockData);
+            if (!(isset($this->blockData[$oldFieldName]) && is_array($newField))) {
+                continue;
             }
+
+            $this->blockData = $this->migrateField($newField, $oldFieldName, $this->blockData);
         }
 
         return $this->blockData;
@@ -60,15 +61,18 @@ class AcfBlockMigrationHandler
         } elseif ($this->isReplaceAndUpdateFieldMigration($newField)) {
             $migrator = new AcfBlockReplaceAndUpdateSelectFieldMigrator($newField, $oldFieldName, $blockData);
         } elseif ($this->isRepeaterFieldMigration($newField)) {
-            $migrator = new AcfBlockRepeaterFieldsMigrator($newField['name'], $newField['key'], $newField['fields'], $oldFieldName, $blockData);
+            $migrator = new AcfBlockRepeaterFieldsMigrator(
+                $newField['name'],
+                $newField['key'],
+                $newField['fields'],
+                $oldFieldName,
+                $blockData,
+            );
         } elseif ($this->isCustomFieldMigration($newField)) {
-            $class    = '\\Modularity\Upgrade\Migrators\Block\Custom\\' . $newField['class'];
+            $class = '\\Modularity\Upgrade\Migrators\Block\Custom\\' . $newField['class'];
             $migrator = new $class($newField, $oldFieldName, $blockData);
         }
-        return
-            isset($migrator) ?
-            $migrator->migrate() :
-            $blockData;
+        return isset($migrator) ? $migrator->migrate() : $blockData;
     }
 
     private function isRemoveFieldMigration($newField)
@@ -78,38 +82,42 @@ class AcfBlockMigrationHandler
 
     private function isReplaceAndUpdateFieldMigration($newField)
     {
-        return
-            $newField['type'] == 'replaceValue' &&
-            isset($newField['values']) &&
-            is_array($newField['values']) &&
-            !empty($newField['name']) &&
-            !empty($newField['key']);
+        return (
+            $newField['type'] == 'replaceValue'
+            && isset($newField['values'])
+            && is_array($newField['values'])
+            && !empty($newField['name'])
+            && !empty($newField['key'])
+        );
     }
 
     private function isRepeaterFieldMigration($newField)
     {
-        return
-            $newField['type'] == 'repeater' &&
-            isset($newField['fields']) &&
-            is_array($newField['fields']) &&
-            !empty($newField['name']) &&
-            !empty($newField['key']);
+        return (
+            $newField['type'] == 'repeater'
+            && isset($newField['fields'])
+            && is_array($newField['fields'])
+            && !empty($newField['name'])
+            && !empty($newField['key'])
+        );
     }
 
     private function isCustomFieldMigration($newField)
     {
-        return
-            $newField['type'] == 'custom' &&
-            !empty($newField['class']) &&
-            class_exists('\\Modularity\Upgrade\Migrators\Block\Custom\\' . $newField['class']);
+        return (
+            $newField['type'] == 'custom'
+            && !empty($newField['class'])
+            && class_exists('\\Modularity\Upgrade\Migrators\Block\Custom\\' . $newField['class'])
+        );
     }
 
     private function isValidInputParams()
     {
-        return
-            empty($this->fields) ||
-            !is_array($this->fields) ||
-            empty($this->blockData) ||
-            !is_array($this->blockData);
+        return (
+            empty($this->fields)
+            || !is_array($this->fields)
+            || empty($this->blockData)
+            || !is_array($this->blockData)
+        );
     }
 }

@@ -7,7 +7,7 @@ class Select
 {
     public function __construct()
     {
-        add_filter('acf/load_field/name=mod_menu_menu', array($this, 'setSelectChoices'), 10, 1);
+        add_filter('acf/load_field/name=mod_menu_menu', [$this, 'setSelectChoices'], 10, 1);
     }
 
     public function setSelectChoices($field)
@@ -21,7 +21,7 @@ class Select
 
     private function getAcfStructuredMenus(): array
     {
-        $menus        = [];
+        $menus = [];
         $createdMenus = wp_get_nav_menus();
         if (!empty($createdMenus)) {
             foreach ($createdMenus as $menu) {

@@ -14,7 +14,7 @@ class V2 implements versionInterface
 
     public function __construct(\wpdb $db)
     {
-        $this->db      = $db;
+        $this->db = $db;
         $this->oldName = 'index';
         $this->newName = 'manualinput';
     }
@@ -33,7 +33,7 @@ class V2 implements versionInterface
             $this->db,
             GetPostsByPostType::getPostsByPostType('mod-' . $this->oldName),
             $this->getModuleFields(),
-            'mod-' . $this->newName
+            'mod-' . $this->newName,
         );
 
         $moduleMigrator->migrateModules();
@@ -45,7 +45,7 @@ class V2 implements versionInterface
             $this->db,
             'acf/' . $this->oldName,
             $this->getBlockFields(),
-            'acf/' . $this->newName
+            'acf/' . $this->newName,
         );
 
         $blockMigrator->migrateBlocks();
@@ -54,21 +54,21 @@ class V2 implements versionInterface
     private function getModuleFields()
     {
         return [
-            'index'         => [
-                'name'  => 'manual_inputs',
-                'type'  => 'custom',
+            'index' => [
+                'name' => 'manual_inputs',
+                'type' => 'custom',
                 'class' => 'AcfModuleIndexRepeaterMigrator',
             ],
             'index_columns' => [
-                'name'   => 'columns',
-                'type'   => 'replaceValue',
+                'name' => 'columns',
+                'type' => 'replaceValue',
                 'values' => [
                     'grid-md-12' => 'o-grid-12',
-                    'grid-md-6'  => 'o-grid-6',
-                    'grid-md-4'  => 'o-grid-4',
-                    'grid-md-3'  => 'o-grid-3',
-                    'default'    => 'o-grid-4'
-                ]
+                    'grid-md-6' => 'o-grid-6',
+                    'grid-md-4' => 'o-grid-4',
+                    'grid-md-3' => 'o-grid-3',
+                    'default' => 'o-grid-4',
+                ],
             ],
         ];
     }
@@ -77,23 +77,23 @@ class V2 implements versionInterface
     {
         return [
             'index_columns' => [
-                'name'   => 'columns',
-                'key'    => 'field_65001d039d4c4',
-                'type'   => 'replaceValue',
+                'name' => 'columns',
+                'key' => 'field_65001d039d4c4',
+                'type' => 'replaceValue',
                 'values' => [
                     'grid-md-12' => 'o-grid-12',
-                    'grid-md-6'  => 'o-grid-6',
-                    'grid-md-4'  => 'o-grid-4',
-                    'grid-md-3'  => 'o-grid-3',
-                    'default'    => 'o-grid-4'
-                ]
+                    'grid-md-6' => 'o-grid-6',
+                    'grid-md-4' => 'o-grid-4',
+                    'grid-md-3' => 'o-grid-3',
+                    'default' => 'o-grid-4',
+                ],
             ],
-            'index'         => [
-                'type'  => 'custom',
+            'index' => [
+                'type' => 'custom',
                 'class' => 'AcfBlockIndexRepeaterMigrator',
-                'name'  => 'manual_inputs',
-                'key'   => 'field_64ff22b2d91b7'
-            ]
+                'name' => 'manual_inputs',
+                'key' => 'field_64ff22b2d91b7',
+            ],
         ];
     }
 }

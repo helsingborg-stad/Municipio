@@ -12,9 +12,9 @@ class AcfModuleIndexRepeaterMigrator implements MigratorInterface
 
     public function __construct($newField, $oldFieldValue = [], $moduleId)
     {
-        $this->newField      = $newField;
+        $this->newField = $newField;
         $this->oldFieldValue = $oldFieldValue;
-        $this->moduleId      = $moduleId;
+        $this->moduleId = $moduleId;
     }
 
     public function migrate(): mixed
@@ -29,10 +29,18 @@ class AcfModuleIndexRepeaterMigrator implements MigratorInterface
             foreach ($this->oldFieldValue as $oldInput) {
                 $val = [
                     'image_before_content' => false,
-                    'content'              => !empty($oldInput['lead']) ? $oldInput['lead'] : (!empty($oldInput['page']->post_content) ? $this->getIndexExcerpt($oldInput['page']->post_content) : false),
-                    'title'                => !empty($oldInput['title']) ? $oldInput['title'] : (!empty($oldInput['page']->post_title) ? $oldInput['page']->post_title : false),
-                    'image'                => !empty($oldInput['custom_image']['ID']) ? $oldInput['custom_image']['ID'] : false,
-                    'link'                 => !empty($oldInput['link_url']) ? $oldInput['link_url'] : false,
+                    'content' => !empty($oldInput['lead'])
+                        ? $oldInput['lead']
+                        : (
+                            !empty($oldInput['page']->post_content)
+                                ? $this->getIndexExcerpt($oldInput['page']->post_content)
+                                : false
+                        ),
+                    'title' => !empty($oldInput['title'])
+                        ? $oldInput['title']
+                        : (!empty($oldInput['page']->post_title) ? $oldInput['page']->post_title : false),
+                    'image' => !empty($oldInput['custom_image']['ID']) ? $oldInput['custom_image']['ID'] : false,
+                    'link' => !empty($oldInput['link_url']) ? $oldInput['link_url'] : false,
                 ];
 
                 if (!empty($oldInput['link_type'])) {
@@ -61,8 +69,8 @@ class AcfModuleIndexRepeaterMigrator implements MigratorInterface
     private function getIndexExcerpt($postContent)
     {
         $postContent = preg_replace('#</?a(\s[^>]*)?>#i', '', $postContent);
-        if (strpos($postContent, "<!--more-->")) {
-            return strip_tags(substr($postContent, 0, strpos($postContent, "<!--more-->")));
+        if (strpos($postContent, '<!--more-->')) {
+            return strip_tags(substr($postContent, 0, strpos($postContent, '<!--more-->')));
         }
 
         $postContent = wp_trim_words(strip_tags($postContent), 55, '...');

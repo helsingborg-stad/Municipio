@@ -9,10 +9,10 @@ class Widget extends \WP_Widget
      */
     public function __construct()
     {
-        $widgetOptions = array(
-            'classname'   => '%2$s',
+        $widgetOptions = [
+            'classname' => '%2$s',
             'description' => 'Insert a Modularity module',
-        );
+        ];
 
         parent::__construct('modularity-module', 'Modularity module', $widgetOptions);
     }
@@ -34,7 +34,11 @@ class Widget extends \WP_Widget
         $columnWidth = $instance['module_size'] ?: 'o-grid-12';
 
         // Allow modularity to add classnames by re-applying the format placeholder
-        $args['before_widget'] = \str_replace($args['widget_id'], $args['widget_id'] . ' ' . '%1$s', $args['before_widget']);
+        $args['before_widget'] = \str_replace(
+            $args['widget_id'],
+            $args['widget_id'] . ' ' . '%1$s',
+            $args['before_widget'],
+        );
 
         if (isset($instance['module_type']) && $instance['module_type'] == 'mod-slider') {
             $columnWidth = '';
@@ -42,13 +46,10 @@ class Widget extends \WP_Widget
 
         $columnWidth = apply_filters('Modularity/Widget/ColumnWidth', $columnWidth, $instance);
 
-        $module = \Modularity\Editor::getModule(
-            $instance['module_id'],
-            array(
-                'hidden'      => false,
-                'columnWidth' => $columnWidth
-            )
-        );
+        $module = \Modularity\Editor::getModule($instance['module_id'], [
+            'hidden' => false,
+            'columnWidth' => $columnWidth,
+        ]);
 
         $display->outputModule($module, $args);
     }

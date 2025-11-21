@@ -6,9 +6,9 @@ use Municipio\SchemaData\Helper\GetSchemaType;
 
 class PostTypesFromSchemaTypeResolver implements PostTypesFromSchemaTypeResolverInterface
 {
-    public function __construct(private PostTypesFromSchemaTypeResolverInterface $nextResolver = new NullPostTypesFromSchemaTypeResolver())
-    {
-    }
+    public function __construct(
+        private PostTypesFromSchemaTypeResolverInterface $nextResolver = new NullPostTypesFromSchemaTypeResolver(),
+    ) {}
 
     /**
      * @inheritDoc

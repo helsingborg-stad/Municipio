@@ -2,38 +2,38 @@
 
 namespace Modularity\Module\Slider;
 
-use Modularity\Integrations\Component\ImageResolver;
-use Modularity\Integrations\Component\ImageFocusResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Modularity\Integrations\Component\ImageFocusResolver;
+use Modularity\Integrations\Component\ImageResolver;
 
 class Slider extends \Modularity\Module
 {
-    public $slug     = 'slider';
-    public $supports = array();
+    public $slug = 'slider';
+    public $supports = [];
 
-    public $imageSizes = array(
-        'ratio-16-9' => array(1528, false),
-        'ratio-10-3' => array(1528, false),
-        'ratio-36-7' => array(1528, false),
-        'ratio-4-3'  => array(1528, false)
-    );
+    public $imageSizes = [
+        'ratio-16-9' => [1528, false],
+        'ratio-10-3' => [1528, false],
+        'ratio-36-7' => [1528, false],
+        'ratio-4-3' => [1528, false],
+    ];
 
-    public $paddingRatios = array(
+    public $paddingRatios = [
         'ratio-16-9' => 56.25,
         'ratio-10-3' => 30,
         'ratio-36-7' => 19.44,
-        'ratio-4-3'  => 75
-    );
+        'ratio-4-3' => 75,
+    ];
 
     public function init()
     {
-        $this->nameSingular = __("Slider", 'modularity');
-        $this->namePlural   = __("Sliders", 'modularity');
-        $this->description  = __("Outputs multiple images or videos in a sliding apperance.", 'modularity');
+        $this->nameSingular = __('Slider', 'modularity');
+        $this->namePlural = __('Sliders', 'modularity');
+        $this->description = __('Outputs multiple images or videos in a sliding apperance.', 'modularity');
 
         //Adds backwards compability to when we didn't have focal points
-        add_filter('acf/load_value/key=field_56a5ed2f398dc', array($this,'filterDesktopImage'), 10, 3);
-        add_filter('WpSecurity/Csp', array($this, 'csp'), 10, 1);
+        add_filter('acf/load_value/key=field_56a5ed2f398dc', [$this, 'filterDesktopImage'], 10, 3);
+        add_filter('WpSecurity/Csp', [$this, 'csp'], 10, 1);
     }
 
     /**
@@ -44,12 +44,11 @@ class Slider extends \Modularity\Module
      */
     public function filterDesktopImage($value, $postId, $field)
     {
-
-        if (!is_array($value) && is_numeric($value) && $field['type'] == "focuspoint") {
+        if (!is_array($value) && is_numeric($value) && $field['type'] == 'focuspoint') {
             return [
-                'id'   => $value,
-                'top'  => "40",
-                'left' => "50"
+                'id' => $value,
+                'top' => '40',
+                'left' => '50',
             ];
         }
 
@@ -64,22 +63,22 @@ class Slider extends \Modularity\Module
         $data = [];
 
         //Assign settings to objects
-        $data['autoslide']     = $fields['slides_autoslide'] ? intval($fields['slides_slide_timeout']) : false;
-        $data['ratio']         = preg_replace('/ratio-/', '', $fields['slider_format'] ?? 'ratio-16-9');
-        $data['wrapAround']    = in_array('wrapAround', $fields['additional_options'] ?? []);
-        $data['title']         = isset($fields['post_title']) ? $fields['post_title'] : '';
+        $data['autoslide'] = $fields['slides_autoslide'] ? intval($fields['slides_slide_timeout']) : false;
+        $data['ratio'] = preg_replace('/ratio-/', '', $fields['slider_format'] ?? 'ratio-16-9');
+        $data['wrapAround'] = in_array('wrapAround', $fields['additional_options'] ?? []);
+        $data['title'] = isset($fields['post_title']) ? $fields['post_title'] : '';
         $data['slidesPerPage'] = isset($fields['slides_per_page']) ? $fields['slides_per_page'] : '1';
-        $data['ariaLabels']    =  (object) [
-            'prev'   => __('Previous slide', 'modularity'),
-            'next'   => __('Next slide', 'modularity'),
-            'first'  => __('Go to first slide', 'modularity'),
-            'last'   => __('Go to last slide', 'modularity'),
+        $data['ariaLabels'] = (object) [
+            'prev' => __('Previous slide', 'modularity'),
+            'next' => __('Next slide', 'modularity'),
+            'first' => __('Go to first slide', 'modularity'),
+            'last' => __('Go to last slide', 'modularity'),
             'slideX' => __('Go to slide %s', 'modularity'),
         ];
 
-        $imageSize = isset($this->imageSizes[$fields['slider_format']]) ?
-            $this->imageSizes[$fields['slider_format']] :
-            [1800, 350];
+        $imageSize = isset($this->imageSizes[$fields['slider_format']])
+            ? $this->imageSizes[$fields['slider_format']]
+            : [1800, 350];
 
         //Get slides
         if (isset($fields['slides']) && is_array($fields['slides'])) {
@@ -93,7 +92,7 @@ class Slider extends \Modularity\Module
         //Translations
         $data['lang'] = (object) [
             'noSlidesHeading' => __('Slider is empty', 'modularity'),
-            'noSlides'        => __('Please add something to slide.', 'modularity')
+            'noSlides' => __('Please add something to slide.', 'modularity'),
         ];
 
         return $data;
@@ -109,9 +108,9 @@ class Slider extends \Modularity\Module
      */
     private function prepareSlide($slide, array $imageSize)
     {
-        $slide = $slide['acf_fc_layout'] === 'video' ?
-            $this->prepareVideoSlide($slide, $imageSize) :
-            $this->prepareImageSlide($slide, $imageSize);
+        $slide = $slide['acf_fc_layout'] === 'video'
+            ? $this->prepareVideoSlide($slide, $imageSize)
+            : $this->prepareImageSlide($slide, $imageSize);
 
         $slide = $this->getLinkData($slide);
 
@@ -134,19 +133,16 @@ class Slider extends \Modularity\Module
         }
 
         //Try to get image contract
-        $imageContract = $this->getImageContract(
-            $slide['image']['id'],
-            $slide['image'] ?? null
-        );
+        $imageContract = $this->getImageContract($slide['image']['id'], $slide['image'] ?? null);
 
         //If we have a contract, use it, else fallback to normal image
         if ($imageContract) {
-            $slide['image']            = $imageContract;
+            $slide['image'] = $imageContract;
             $slide['hasImageContract'] = true;
         } else {
-            $slide['image']            = \Municipio\Helper\Image::getImageAttachmentData(
+            $slide['image'] = \Municipio\Helper\Image::getImageAttachmentData(
                 $slide['image']['id'] ?? null,
-                $imageSize
+                $imageSize,
             );
             $slide['hasImageContract'] = false;
         }
@@ -165,19 +161,16 @@ class Slider extends \Modularity\Module
     private function prepareVideoSlide(array $slide, array $imageSize)
     {
         //Try to get image contract
-        $imageContract = $this->getImageContract(
-            $slide['image'],
-            null
-        );
+        $imageContract = $this->getImageContract($slide['image'], null);
 
         //If we have a contract, use it, else fallback to normal image
         if ($imageContract) {
-            $slide['image']            = $imageContract;
+            $slide['image'] = $imageContract;
             $slide['hasImageContract'] = true;
         } else {
-            $slide['image']            = \Municipio\Helper\Image::getImageAttachmentData(
+            $slide['image'] = \Municipio\Helper\Image::getImageAttachmentData(
                 $slide['image']['id'] ?? null,
-                $imageSize
+                $imageSize,
             );
             $slide['hasImageContract'] = false;
         }
@@ -192,14 +185,13 @@ class Slider extends \Modularity\Module
      * @param array $focus
      * @return ImageComponentContract|null
      */
-    private function getImageContract(int $imageId, ?array $focus = null): ?ImageComponentContract
+    private function getImageContract(int $imageId, null|array $focus = null): null|ImageComponentContract
     {
-
         return ImageComponentContract::factory(
             (int) $imageId,
             [1920, false],
             new ImageResolver(),
-            !is_null($focus) ? new ImageFocusResolver($focus) : new ImageFocusResolver(['id' => $imageId])
+            !is_null($focus) ? new ImageFocusResolver($focus) : new ImageFocusResolver(['id' => $imageId]),
         );
     }
 
@@ -211,7 +203,6 @@ class Slider extends \Modularity\Module
      */
     private function getLinkData(array $slide)
     {
-
         if (!$this->slideHasLink($slide)) {
             return $slide;
         }
@@ -227,10 +218,10 @@ class Slider extends \Modularity\Module
 
         $slide['call_to_action'] = false;
         if ($this->isButtonCta($slide)) {
-            $slide['call_to_action'] = array(
+            $slide['call_to_action'] = [
                 'title' => $slide['link_text'],
-                'href'  => $slide['link_url']
-            );
+                'href' => $slide['link_url'],
+            ];
             //remove link url, instead use CTA
             $slide['link_url'] = false;
         }
@@ -265,10 +256,11 @@ class Slider extends \Modularity\Module
      */
     private function isValidLinkUrl($slide)
     {
-        return
-            isset($slide['link_url']) &&
-            is_numeric($slide['link_url']) &&
-            get_post_status($slide['link_url']) == "publish";
+        return (
+            isset($slide['link_url'])
+            && is_numeric($slide['link_url'])
+            && get_post_status($slide['link_url']) == 'publish'
+        );
     }
 
     /**
@@ -279,10 +271,7 @@ class Slider extends \Modularity\Module
      */
     private function isButtonCta($slide)
     {
-        return
-            !empty($slide['link_type']) &&
-            $slide['link_type'] !== 'false' &&
-            $slide['link_style'] === 'button';
+        return !empty($slide['link_type']) && $slide['link_type'] !== 'false' && $slide['link_style'] === 'button';
     }
 
     /**

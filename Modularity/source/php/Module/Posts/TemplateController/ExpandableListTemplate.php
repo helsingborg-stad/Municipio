@@ -32,7 +32,7 @@ class ExpandableListTemplate extends AbstractController
      */
     public $data = [];
 
-     /**
+    /**
      * Fields ACF fields
      *
      * @var array
@@ -48,17 +48,19 @@ class ExpandableListTemplate extends AbstractController
     {
         parent::__construct($module);
         $this->module = $module;
-        $this->args   = $module->args;
-        $this->data   = $module->data;
+        $this->args = $module->args;
+        $this->data = $module->data;
         $this->fields = $module->fields;
 
-        $this->data['posts_list_column_titles'] = !empty($this->fields['posts_list_column_titles']) && is_array($this->fields['posts_list_column_titles']) ?
-            $this->fields['posts_list_column_titles'] : null;
+        $this->data['posts_list_column_titles'] = !empty($this->fields['posts_list_column_titles'])
+        && is_array($this->fields['posts_list_column_titles'])
+            ? $this->fields['posts_list_column_titles']
+            : null;
 
-        $this->data['posts_hide_title_column']  = ($this->fields['posts_hide_title_column']) ? true : false;
-        $this->data['title_column_label']       = $this->fields['title_column_label'] ?? null;
+        $this->data['posts_hide_title_column'] = $this->fields['posts_hide_title_column'] ? true : false;
+        $this->data['title_column_label'] = $this->fields['title_column_label'] ?? null;
         $this->data['allow_freetext_filtering'] = $this->fields['allow_freetext_filtering'] ?? null;
-        $this->data['prepareAccordion']         = $this->prepareExpandableList();
+        $this->data['prepareAccordion'] = $this->prepareExpandableList();
     }
 
     /**
@@ -67,7 +69,6 @@ class ExpandableListTemplate extends AbstractController
      */
     public function getColumnValues(): array
     {
-
         if (empty($this->data['posts_list_column_titles'])) {
             return [];
         }
@@ -103,13 +104,13 @@ class ExpandableListTemplate extends AbstractController
                 $post->postContentFiltered = preg_replace(
                     [
                         '/<h' . $i . '([^>]*)>/i',
-                        '/<\/h' . $i . '>/i'
+                        '/<\/h' . $i . '>/i',
                     ],
                     [
                         '<h' . $newLevel . '$1>',
-                        '</h' . $newLevel . '>'
+                        '</h' . $newLevel . '>',
                     ],
-                    $post->postContentFiltered
+                    $post->postContentFiltered,
                 );
             }
         }
@@ -124,12 +125,12 @@ class ExpandableListTemplate extends AbstractController
      *
      * @return array|null
      */
-    public function prepareExpandableList(): ?array
+    public function prepareExpandableList(): null|array
     {
         $accordion = [];
 
         $this->data['posts'] = $this->rewritePostContent($this->preparePosts($this->module));
-        $columnValues        = $this->getColumnValues();
+        $columnValues = $this->getColumnValues();
 
         if (!empty($this->data['posts']) && is_array($this->data['posts'])) {
             foreach ($this->data['posts'] as $index => $item) {
@@ -137,16 +138,17 @@ class ExpandableListTemplate extends AbstractController
                     foreach ($this->data['posts_list_column_titles'] as $colIndex => $column) {
                         $sanitizedTitle = sanitize_title($column['column_header']);
                         if ($this->arrayDepth($columnValues) > 1) {
-                            $accordion[$index]['column_values'][$colIndex] = $columnValues[$index][$sanitizedTitle] ?? '';
+                            $accordion[$index]['column_values'][$colIndex] =
+                                $columnValues[$index][$sanitizedTitle] ?? '';
                         } else {
                             $accordion[$index]['column_values'][$colIndex] = $columnValues[$sanitizedTitle] ?? '';
                         }
                     }
                 }
 
-                $accordion[$index]['heading']       = $item->getTitle() ?? '';
-                $accordion[$index]['content']       = $item->postContentFiltered ?? '';
-                $accordion[$index]['classList']     = $item->classList ?? [];
+                $accordion[$index]['heading'] = $item->getTitle() ?? '';
+                $accordion[$index]['content'] = $item->postContentFiltered ?? '';
+                $accordion[$index]['classList'] = $item->classList ?? [];
                 $accordion[$index]['attributeList'] = ['data-js-item-id' => $item->getId()];
             }
         }
@@ -169,10 +171,12 @@ class ExpandableListTemplate extends AbstractController
     {
         $maxDepth = 1;
         foreach ($colArray as $value) {
-            if (is_array($value)) {
-                $depth    = $this->arrayDepth($value) + 1;
-                $maxDepth = ($depth > $maxDepth) ? $depth : $maxDepth;
+            if (!is_array($value)) {
+                continue;
             }
+
+            $depth = $this->arrayDepth($value) + 1;
+            $maxDepth = $depth > $maxDepth ? $depth : $maxDepth;
         }
 
         return $maxDepth;
@@ -187,8 +191,7 @@ class ExpandableListTemplate extends AbstractController
      */
     private function hasColumnValues(array $columnValues): bool
     {
-        return isset($columnValues)
-            && !empty($columnValues);
+        return isset($columnValues) && !empty($columnValues);
     }
 
     /**
@@ -200,7 +203,6 @@ class ExpandableListTemplate extends AbstractController
      */
     private function hasColumnTitles(): bool
     {
-        return !empty($this->data['posts_list_column_titles'])
-            && is_array($this->data['posts_list_column_titles']);
+        return !empty($this->data['posts_list_column_titles']) && is_array($this->data['posts_list_column_titles']);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Modularity\Module\Markdown\Providers;
 
-use Modularity\Module\Markdown\Providers\ProviderInterface;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\MarkdownConverter;
+use Modularity\Module\Markdown\Providers\ProviderInterface;
 
 class Github extends BaseProvider implements ProviderInterface
 {

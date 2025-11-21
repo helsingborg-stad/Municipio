@@ -2,19 +2,19 @@
 
 namespace Modularity\Module\Gallery;
 
-use Modularity\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Modularity\Integrations\Component\ImageResolver;
 
 class Gallery extends \Modularity\Module
 {
-    public $slug     = 'gallery';
-    public $supports = array();
+    public $slug = 'gallery';
+    public $supports = [];
 
     public function init()
     {
         $this->nameSingular = __('Gallery', 'municipio');
-        $this->namePlural   = __('Galleries', 'municipio');
-        $this->description  =  __('Outputs a gallery with images', 'municipio');
+        $this->namePlural = __('Galleries', 'municipio');
+        $this->description = __('Outputs a gallery with images', 'municipio');
 
         $this->acfFields();
     }
@@ -37,13 +37,13 @@ class Gallery extends \Modularity\Module
                 $data['images'][$i]['image'] = ImageComponentContract::factory(
                     (int) $image['id'],
                     [768, 432],
-                    new ImageResolver()
+                    new ImageResolver(),
                 );
 
-                $data['images'][$i]['largeImage'] = $image["sizes"]["large"];
-                $data['images'][$i]['smallImage'] = $image["sizes"]["thumbnail"];
-                $data['images'][$i]['alt']        = $image["description"];
-                $data['images'][$i]['caption']    = $image["caption"];
+                $data['images'][$i]['largeImage'] = $image['sizes']['large'];
+                $data['images'][$i]['smallImage'] = $image['sizes']['thumbnail'];
+                $data['images'][$i]['alt'] = $image['description'];
+                $data['images'][$i]['caption'] = $image['caption'];
             }
         } else {
             $data['images'] = null;
@@ -52,20 +52,16 @@ class Gallery extends \Modularity\Module
         return $data;
     }
 
-
     private function getThumbnails($images)
     {
         foreach ($images as &$image) {
-            $thumbnail                          = wp_get_attachment_image_src(
-                $image['id'],
-                apply_filters(
-                    'modularity/image/gallery/thumbnail',
-                    municipio_to_aspect_ratio('1:1', array(300, 300)),
-                    $this->args
-                )
-            );
-            $image['sizes']['thumbnail']        = $thumbnail[0];
-            $image['sizes']['thumbnail-width']  = $thumbnail[1];
+            $thumbnail = wp_get_attachment_image_src($image['id'], apply_filters(
+                'modularity/image/gallery/thumbnail',
+                municipio_to_aspect_ratio('1:1', [300, 300]),
+                $this->args,
+            ));
+            $image['sizes']['thumbnail'] = $thumbnail[0];
+            $image['sizes']['thumbnail-width'] = $thumbnail[1];
             $image['sizes']['thumbnail-height'] = $thumbnail[2];
         }
 
@@ -78,54 +74,54 @@ class Gallery extends \Modularity\Module
     public function acfFields()
     {
         if (function_exists('acf_add_local_field_group')) {
-            acf_add_local_field_group(array (
-                'key'                   => 'group_5666af6d26b7c',
-                'title'                 => 'Gallery',
-                'fields'                => array (
-                    array (
-                        'key'               => 'field_5666af72e3194',
-                        'label'             => 'Images',
-                        'name'              => 'mod_gallery_images',
-                        'type'              => 'gallery',
-                        'instructions'      => '',
-                        'required'          => 1,
+            acf_add_local_field_group([
+                'key' => 'group_5666af6d26b7c',
+                'title' => 'Gallery',
+                'fields' => [
+                    [
+                        'key' => 'field_5666af72e3194',
+                        'label' => 'Images',
+                        'name' => 'mod_gallery_images',
+                        'type' => 'gallery',
+                        'instructions' => '',
+                        'required' => 1,
                         'conditional_logic' => 0,
-                        'wrapper'           => array (
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
-                            'id'    => '',
-                        ),
-                        'min'               => '',
-                        'max'               => '',
-                        'preview_size'      => 'thumbnail',
-                        'library'           => 'all',
-                        'min_width'         => '',
-                        'min_height'        => '',
-                        'min_size'          => '',
-                        'max_width'         => '',
-                        'max_height'        => '',
-                        'max_size'          => '',
-                        'mime_types'        => '',
-                    ),
-                ),
-                'location'              => array (
-                    array (
-                        array (
-                            'param'    => 'post_type',
+                            'id' => '',
+                        ],
+                        'min' => '',
+                        'max' => '',
+                        'preview_size' => 'thumbnail',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => '',
+                    ],
+                ],
+                'location' => [
+                    [
+                        [
+                            'param' => 'post_type',
                             'operator' => '==',
-                            'value'    => 'mod-gallery',
-                        ),
-                    ),
-                ),
-                'menu_order'            => 0,
-                'position'              => 'normal',
-                'style'                 => 'default',
-                'label_placement'       => 'top',
+                            'value' => 'mod-gallery',
+                        ],
+                    ],
+                ],
+                'menu_order' => 0,
+                'position' => 'normal',
+                'style' => 'default',
+                'label_placement' => 'top',
                 'instruction_placement' => 'label',
-                'hide_on_screen'        => '',
-                'active'                => 1,
-                'description'           => '',
-            ));
+                'hide_on_screen' => '',
+                'active' => 1,
+                'description' => '',
+            ]);
         }
     }
 

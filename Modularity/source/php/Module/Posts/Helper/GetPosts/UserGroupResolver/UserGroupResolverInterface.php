@@ -9,5 +9,5 @@ interface UserGroupResolverInterface
      *
      * @return string|null The user group slug or null if not found.
      */
-    public function getUserGroup(): ?string;
+    public function getUserGroup(): null|string;
 }

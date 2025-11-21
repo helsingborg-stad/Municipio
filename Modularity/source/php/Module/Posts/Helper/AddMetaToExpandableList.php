@@ -10,12 +10,12 @@ class AddMetaToExpandableList
 {
     public function __construct()
     {
-        add_action('add_meta_boxes', array($this, 'addColumnFields'));
-        add_action('save_post', array($this, 'saveColumnFields'));
+        add_action('add_meta_boxes', [$this, 'addColumnFields']);
+        add_action('save_post', [$this, 'saveColumnFields']);
     }
 
-       /* Handle Expandable list post meta fields */
-            /**
+    /* Handle Expandable list post meta fields */
+    /**
      * Saves column names if exandable list template is used
      * @param int $postId The id of the post
      * @return void
@@ -23,12 +23,15 @@ class AddMetaToExpandableList
     public function saveColumnFields($postId)
     {
         //Meta key
-        $metaKey = "modularity-mod-posts-expandable-list";
+        $metaKey = 'modularity-mod-posts-expandable-list';
 
         //Bail early if autosave, cron or post request
         if (
-            (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('DOING_CRON') && DOING_CRON) ||
-            !isset($_POST) || (is_array($_POST) && empty($_POST)) || !is_array($_POST)
+            defined('DOING_AUTOSAVE') && DOING_AUTOSAVE
+            || defined('DOING_CRON') && DOING_CRON
+            || !isset($_POST)
+            || is_array($_POST) && empty($_POST)
+            || !is_array($_POST)
         ) {
             return false;
         }
@@ -36,10 +39,7 @@ class AddMetaToExpandableList
         //Update if nonce verification succeed
         if (
             isset($_POST['modularity_post_columns'])
-            && wp_verify_nonce(
-                $_POST['modularity_post_columns'],
-                'save_columns'
-            )
+            && wp_verify_nonce($_POST['modularity_post_columns'], 'save_columns')
         ) {
             //Delete if not posted data
             if (!isset($_POST[$metaKey])) {
@@ -55,8 +55,14 @@ class AddMetaToExpandableList
     public function addModules($postId)
     {
         $modules = [];
-        $modules = array_merge($modules, !empty($this->checkIfManuallyPicked($postId)) ? $this->checkIfManuallyPicked($postId) : []);
-        $modules = array_merge($modules, !empty($this->checkIfPostType($postId)) ? $this->checkIfPostType($postId) : []);
+        $modules = array_merge(
+            $modules,
+            !empty($this->checkIfManuallyPicked($postId)) ? $this->checkIfManuallyPicked($postId) : [],
+        );
+        $modules = array_merge(
+            $modules,
+            !empty($this->checkIfPostType($postId)) ? $this->checkIfPostType($postId) : [],
+        );
         $modules = array_merge($modules, !empty($this->checkIfChild($postId)) ? $this->checkIfChild($postId) : []);
 
         return $modules;
@@ -80,7 +86,7 @@ class AddMetaToExpandableList
             return false;
         }
 
-        $modules = array_filter($modules, function ($item) {
+        $modules = array_filter($modules, static function ($item) {
             return !wp_is_post_revision($item);
         });
 
@@ -94,7 +100,7 @@ class AddMetaToExpandableList
                 null,
                 'normal',
                 'default',
-                [$fields]
+                [$fields],
             );
         }
     }
@@ -107,25 +113,38 @@ class AddMetaToExpandableList
      */
     public function columnFieldsMetaBoxContent($post, $args)
     {
-        $fields      = $args['args'][0];
+        $fields = $args['args'][0];
         $fieldValues = get_post_meta($post->ID, 'modularity-mod-posts-expandable-list', true);
 
         foreach ($fields as $field) {
             $fieldSlug = sanitize_title($field);
-            $value     = isset($fieldValues[$fieldSlug]) && !empty($fieldValues[$fieldSlug])
-                ? $fieldValues[$fieldSlug] : '';
-            echo '
+            $value = isset($fieldValues[$fieldSlug]) && !empty($fieldValues[$fieldSlug])
+                ? $fieldValues[$fieldSlug]
+                : '';
+            echo
+                '
                 <p>
-                    <label for="mod-' . $fieldSlug . '">' . $field . ':</label>
-                    <input value="' . $value . '" class="widefat" type="text" name="modularity-mod-posts-expandable-list[' . sanitize_title($field) . ']" id="mod-' . sanitize_title($field) . '">
+                    <label for="mod-'
+                . $fieldSlug
+                . '">'
+                . $field
+                . ':</label>
+                    <input value="'
+                . $value
+                . '" class="widefat" type="text" name="modularity-mod-posts-expandable-list['
+                . sanitize_title($field)
+                    . ']" id="mod-'
+                    . sanitize_title($field)
+                    . '">
                 </p>
-            ';
+            '
+            ;
         }
 
         echo wp_nonce_field('save_columns', 'modularity_post_columns');
     }
 
-        /**
+    /**
      * Get field columns
      * @param array $posts Post ids
      * @return array        Column names
@@ -149,7 +168,7 @@ class AddMetaToExpandableList
         return $columns;
     }
 
-        /**
+    /**
      * Check if current post is included in a manually picked data source in exapndable list
      * @param integer $id Post id
      * @return array       Modules included in
@@ -177,7 +196,7 @@ class AddMetaToExpandableList
         return $posts;
     }
 
-     /**
+    /**
      * Check if current post is included in the data source post type
      * @param integer $id Postid
      * @return array       Modules included in

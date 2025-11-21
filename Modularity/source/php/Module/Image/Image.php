@@ -2,14 +2,14 @@
 
 namespace Modularity\Module\Image;
 
-use Modularity\Integrations\Component\ImageResolver;
-use Modularity\Integrations\Component\ImageFocusResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Modularity\Integrations\Component\ImageFocusResolver;
+use Modularity\Integrations\Component\ImageResolver;
 
 class Image extends \Modularity\Module
 {
-    public $slug              = 'image';
-    public $supports          = array();
+    public $slug = 'image';
+    public $supports = [];
     public $isBlockCompatible = false;
 
     /**
@@ -19,8 +19,8 @@ class Image extends \Modularity\Module
     public function init()
     {
         $this->nameSingular = __('Image', 'municipio');
-        $this->namePlural   = __('Images', 'municipio');
-        $this->description  = __('Outputs an image', 'municipio');
+        $this->namePlural = __('Images', 'municipio');
+        $this->description = __('Outputs an image', 'municipio');
         add_filter('acf/load_field/key=field_570770b8e2e61', [$this, 'filterImageField']);
     }
 
@@ -30,13 +30,12 @@ class Image extends \Modularity\Module
      */
     public function data(): array
     {
-
         //Declare default data
         $data = [
-            'image'   => false,
-            'link'    => false,
+            'image' => false,
+            'link' => false,
             'caption' => false,
-            'byline'  => false,
+            'byline' => false,
         ];
 
         // Get field definition
@@ -53,11 +52,11 @@ class Image extends \Modularity\Module
                 $imageId,
                 [1920, false],
                 new ImageResolver(),
-                new ImageFocusResolver(['id' => $imageId])
+                new ImageFocusResolver(['id' => $imageId]),
             );
 
             $data['caption'] = $this->getImageCaption($fields, $imageId);
-            $data['byline']  = $this->getImageByline($imageId);
+            $data['byline'] = $this->getImageByline($imageId);
         }
 
         //Get image link, if image is set and link is set
@@ -105,7 +104,11 @@ class Image extends \Modularity\Module
      */
     private function imageHasLink(array $fields)
     {
-        return !empty($fields['mod_image_link']) && $fields['mod_image_link'] != "false" && !empty($fields['mod_image_link_url']);
+        return (
+            !empty($fields['mod_image_link'])
+            && $fields['mod_image_link'] != 'false'
+            && !empty($fields['mod_image_link_url'])
+        );
     }
 
     /**
@@ -115,12 +118,9 @@ class Image extends \Modularity\Module
      */
     public function filterImageField($field)
     {
-        $imageMimeTypes        = $this->getAllowedImageMimeTypes();
-        $field['mime_types']   = $imageMimeTypes;
-        $field['instructions'] = sprintf(
-            __('Allowed file types: %s', 'municipio'),
-            $imageMimeTypes
-        );
+        $imageMimeTypes = $this->getAllowedImageMimeTypes();
+        $field['mime_types'] = $imageMimeTypes;
+        $field['instructions'] = sprintf(__('Allowed file types: %s', 'municipio'), $imageMimeTypes);
 
         return $field;
     }
@@ -140,8 +140,8 @@ class Image extends \Modularity\Module
 
         $allAllowedMimeTypes = get_allowed_mime_types();
 
-        $allowedImageMimeTypes = array_filter($allAllowedMimeTypes, function ($type) {
-            return strpos($type, 'image/') === 0;
+        $allowedImageMimeTypes = array_filter($allAllowedMimeTypes, static function ($type) {
+            return str_starts_with($type, 'image/');
         });
 
         $structuredArray = [];

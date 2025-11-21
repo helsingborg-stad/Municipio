@@ -8,11 +8,11 @@ use WpService\WpService as OriginalWpService;
 class InteractiveMap extends \Modularity\Module
 {
     public $slug = 'interactivemap';
-    public $supports = array();
-    public $blockSupports = array(
+    public $supports = [];
+    public $blockSupports = [
         'align' => ['full'],
         'mode' => false,
-    );
+    ];
     private null|OriginalWpService $wpService;
 
     public function init()
@@ -23,8 +23,8 @@ class InteractiveMap extends \Modularity\Module
         $this->namePlural = $this->wpService->__('Interactive maps', 'municipio');
         $this->description = $this->wpService->__('Outputs an interactive map', 'municipio');
 
-        add_filter('WpSecurity/Csp', array($this, 'csp'), 10, 1);
-        add_filter('Modularity/Block/acf/interactivemap/Data', array($this, 'blockData'), 50, 3);
+        add_filter('WpSecurity/Csp', [$this, 'csp'], 10, 1);
+        add_filter('Modularity/Block/acf/interactivemap/Data', [$this, 'blockData'], 50, 3);
     }
 
     public function data(): array
@@ -148,7 +148,7 @@ class InteractiveMap extends \Modularity\Module
             return $csp;
         }
 
-        $csp['img-src'] = $csp['img-src'] ?? [];
+        $csp['img-src'] ??= [];
         $csp['img-src'][] = '*.basemaps.cartocdn.com';
         $csp['img-src'][] = 'server.arcgisonline.com';
 

@@ -33,7 +33,7 @@ class Post
         $template = get_page_template_slug($post->ID);
 
         // If this is the front page and the template is set to page.php or page.blade.php default to just "page"
-        if ($post->ID === (int)get_option('page_on_front') && in_array($template, array('page.php', 'page.blade.php'))) {
+        if ($post->ID === (int) get_option('page_on_front') && in_array($template, ['page.php', 'page.blade.php'])) {
             return 'page';
         }
 
@@ -52,11 +52,11 @@ class Post
      */
     public static function detectCoreTemplate($post)
     {
-        if ((int)get_option('page_on_front') == (int)$post->ID) {
-            return \Modularity\Helper\Wp::findCoreTemplates(array(
+        if ((int) get_option('page_on_front') == (int) $post->ID) {
+            return \Modularity\Helper\Wp::findCoreTemplates([
                 'front-page',
-                'page'
-            ));
+                'page',
+            ]);
         }
 
         switch ($post->post_type) {
@@ -69,11 +69,11 @@ class Post
                 break;
 
             default:
-                return \Modularity\Helper\Wp::findCoreTemplates(array(
+                return \Modularity\Helper\Wp::findCoreTemplates([
                     'single-' . $post->post_type,
                     'single',
-                    'page'
-                ));
+                    'page',
+                ]);
                 break;
         }
 
@@ -101,7 +101,7 @@ class Post
 
         if (is_archive() && (is_object($post) && $post->post_type == 'post')) {
             return 'archive';
-        } elseif (is_search() || (is_object($post) && is_post_type_archive($post->post_type))) {
+        } elseif (is_search() || is_object($post) && is_post_type_archive($post->post_type)) {
             return 'archive-' . $post->post_type;
         } elseif ($archive == 'author') {
             return 'author';
@@ -143,17 +143,17 @@ class Post
     {
         $featuredImageID = get_post_thumbnail_id($postId);
 
-        $featuredImageSRC   = \get_the_post_thumbnail_url(
-            $postId,
-            apply_filters('Modularity/Helper/Post/FeaturedImageSize', $size)
-        );
-        $featuredImageAlt   = get_post_meta($featuredImageID, '_wp_attachment_image_alt', true);
+        $featuredImageSRC = \get_the_post_thumbnail_url($postId, apply_filters(
+            'Modularity/Helper/Post/FeaturedImageSize',
+            $size,
+        ));
+        $featuredImageAlt = get_post_meta($featuredImageID, '_wp_attachment_image_alt', true);
         $featuredImageTitle = get_the_title($featuredImageID);
 
         $featuredImage = [
-            'src'   => $featuredImageSRC ? $featuredImageSRC : null,
-            'alt'   => $featuredImageAlt ? $featuredImageAlt : null,
-            'title' => $featuredImageTitle ? $featuredImageTitle : null
+            'src' => $featuredImageSRC ? $featuredImageSRC : null,
+            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
+            'title' => $featuredImageTitle ? $featuredImageTitle : null,
         ];
 
         return \apply_filters('Modularity/Helper/Post/FeaturedImage', $featuredImage);

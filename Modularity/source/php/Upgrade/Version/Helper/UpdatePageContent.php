@@ -8,9 +8,9 @@ class UpdatePageContent
     {
         if (!empty($content) && !empty($page->ID)) {
             $queryUpdateContent = $db->prepare(
-                "UPDATE " . $db->posts . " SET post_content = %s WHERE ID = %d",
+                'UPDATE ' . $db->posts . ' SET post_content = %s WHERE ID = %d',
                 $content,
-                $page->ID
+                $page->ID,
             );
             $db->query($queryUpdateContent);
         }

@@ -4,14 +4,14 @@ namespace Modularity\Module\Text;
 
 class Text extends \Modularity\Module
 {
-    public $slug     = 'text';
-    public $supports = array('editor');
+    public $slug = 'text';
+    public $supports = ['editor'];
 
     public function init()
     {
         $this->nameSingular = __('Text', 'municipio');
-        $this->namePlural   = __('Texts', 'municipio');
-        $this->description  = __('Outputs text', 'municipio');
+        $this->namePlural = __('Texts', 'municipio');
+        $this->description = __('Outputs text', 'municipio');
     }
 
     public function data(): array
@@ -30,7 +30,7 @@ class Text extends \Modularity\Module
         $data['hasHeadingsInContent'] = preg_match('/<h[1-6]/', $data['post_content'] ?? '');
 
         // Alway set ID
-        $data['ID'] = $data['ID'] ?? uniqid();
+        $data['ID'] ??= uniqid();
 
         // Set default values
         return $data ?? [];

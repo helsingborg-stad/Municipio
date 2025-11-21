@@ -15,7 +15,7 @@ class V3 implements versionInterface
     {
         $options = get_option('modularity-options');
         if (is_array($options['enabled-modules'])) {
-            $options['enabled-modules'][] = "mod-manualinput";
+            $options['enabled-modules'][] = 'mod-manualinput';
         }
 
         update_option('modularity-options', $options);

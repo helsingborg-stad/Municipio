@@ -14,9 +14,9 @@ class AcfModuleMigration
 
     public function __construct(\wpdb $db, array $modules, array $fields, $newModuleName = false)
     {
-        $this->db            = $db;
-        $this->modules       = $modules;
-        $this->fields        = $fields;
+        $this->db = $db;
+        $this->modules = $modules;
+        $this->fields = $fields;
         $this->newModuleName = $newModuleName;
     }
 
@@ -45,9 +45,9 @@ class AcfModuleMigration
     private function updateModuleName($module)
     {
         $QueryUpdatePostType = $this->db->prepare(
-            "UPDATE " . $this->db->posts . " SET post_type = %s WHERE ID = %d",
+            'UPDATE ' . $this->db->posts . ' SET post_type = %s WHERE ID = %d',
             $this->newModuleName,
-            $module->ID
+            $module->ID,
         );
 
         $successfullyUpdatedName = $this->db->query($QueryUpdatePostType);
@@ -57,14 +57,15 @@ class AcfModuleMigration
             return;
         }
 
-        WP_CLI::line(sprintf('Module post type updated from %s to %s', (string) $module->post_type, (string) $this->newModuleName));
+        WP_CLI::line(sprintf(
+            'Module post type updated from %s to %s',
+            (string) $module->post_type,
+            (string) $this->newModuleName,
+        ));
     }
 
     private function isValidParams()
     {
-        return
-            !empty($this->modules) &&
-            !empty($this->fields) &&
-            !empty($this->db);
+        return !empty($this->modules) && !empty($this->fields) && !empty($this->db);
     }
 }

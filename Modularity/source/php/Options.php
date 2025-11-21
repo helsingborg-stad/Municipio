@@ -27,9 +27,24 @@ abstract class Options
      * @param  integer     $position   Menu position
      * @return void
      */
-    public function register($pageTitle, $menuTitle, $capability, $menuSlug, $iconUrl = null, $position = null, $parent = 'modularity')
-    {
-        add_action('admin_menu', function () use ($pageTitle, $menuTitle, $capability, $menuSlug, $iconUrl, $position, $parent) {
+    public function register(
+        $pageTitle,
+        $menuTitle,
+        $capability,
+        $menuSlug,
+        $iconUrl = null,
+        $position = null,
+        $parent = 'modularity',
+    ) {
+        add_action('admin_menu', function () use (
+            $pageTitle,
+            $menuTitle,
+            $capability,
+            $menuSlug,
+            $iconUrl,
+            $position,
+            $parent,
+        ) {
             // Add the menu page
             $this->screenHook = add_submenu_page(
                 $parent,
@@ -37,18 +52,21 @@ abstract class Options
                 $menuTitle,
                 $capability,
                 $menuSlug,
-                array($this, 'optionPageTemplate')
+                [
+                    $this,
+                    'optionPageTemplate',
+                ],
             );
 
             // Set the slug
             $this->slug = $menuSlug;
 
             // Setup meta box support
-            add_action('load-' . $this->screenHook, array($this, 'save'), 1);
-            add_action('load-' . $this->screenHook, array($this, 'setupMetaBoxSupport'), 2);
+            add_action('load-' . $this->screenHook, [$this, 'save'], 1);
+            add_action('load-' . $this->screenHook, [$this, 'setupMetaBoxSupport'], 2);
 
             // Hook to add the metaboxes
-            add_action('add_meta_boxes_' . $this->screenHook, array($this, 'addMetaBoxes'));
+            add_action('add_meta_boxes_' . $this->screenHook, [$this, 'addMetaBoxes']);
         });
     }
 
@@ -90,7 +108,7 @@ abstract class Options
 
         // Get the options
         global $modularityOptions;
-        $modularityOptions = (isset($_POST['modularity-options'])) ? $_POST['modularity-options'] : array();
+        $modularityOptions = isset($_POST['modularity-options']) ? $_POST['modularity-options'] : [];
 
         // Update the options
         update_option($this->slug, $modularityOptions);
@@ -107,9 +125,9 @@ abstract class Options
      * @param  array  $class   List of DOM classes to use on the notice
      * @return void
      */
-    protected function notice($message, $class = array())
+    protected function notice($message, $class = [])
     {
-        add_action('admin_notices', function () use ($message, $class) {
+        add_action('admin_notices', static function () use ($message, $class) {
             $class = implode(' ', $class);
             echo '<div class="notice ' . $class . '"><p>' . $message . '</p></div>';
         });
@@ -124,7 +142,7 @@ abstract class Options
         do_action('add_meta_boxes_' . $this->screenHook, null);
         do_action('add_meta_boxes', $this->screenHook, null);
 
-        add_screen_option('layout_columns', array('max' => 2, 'default' => 2));
+        add_screen_option('layout_columns', ['max' => 2, 'default' => 2]);
     }
 
     /**

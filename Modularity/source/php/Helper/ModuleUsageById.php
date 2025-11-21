@@ -8,7 +8,7 @@ class ModuleUsageById
     {
         global $wpdb;
 
-        $modules    = self::getPagesFromModuleUsageById($id, $wpdb);
+        $modules = self::getPagesFromModuleUsageById($id, $wpdb);
         $shortcodes = self::getPagesFromShortcodeUsageById($id, $wpdb);
 
         $result = array_merge($modules, $shortcodes);
@@ -67,7 +67,7 @@ class ModuleUsageById
 
         return (object) [
             'data' => $sliced,
-            'more' => self::getMoreCount($uniqueItems, $sliced)
+            'more' => self::getMoreCount($uniqueItems, $sliced),
         ];
     }
 
@@ -75,9 +75,11 @@ class ModuleUsageById
     {
         $uniqueItems = [];
         foreach ($items as $item) {
-            if (!array_key_exists($item->post_id, $uniqueItems)) {
-                $uniqueItems[$item->post_id] = $item;
+            if (array_key_exists($item->post_id, $uniqueItems)) {
+                continue;
             }
+
+            $uniqueItems[$item->post_id] = $item;
         }
 
         return $uniqueItems;

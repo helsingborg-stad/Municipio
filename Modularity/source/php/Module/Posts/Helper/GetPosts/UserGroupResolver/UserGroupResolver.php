@@ -13,24 +13,24 @@ class UserGroupResolver implements UserGroupResolverInterface
 {
     private const TAXONOMY_NAME = 'user_group';
 
-    public function __construct(private GetUserMeta&GetMainSiteId&SwitchToBlog&GetTerm&RestoreCurrentBlog&GetCurrentSite $wpService)
-    {
-    }
+    public function __construct(
+        private GetUserMeta&GetMainSiteId&SwitchToBlog&GetTerm&RestoreCurrentBlog&GetCurrentSite $wpService,
+    ) {}
 
     /**
      * Get the user group slug for the current user.
      *
      * @return string|null The user group slug or null if not found.
      */
-    public function getUserGroup(): ?string
+    public function getUserGroup(): null|string
     {
-        $currentBlogId = ((int) $this->wpService->getCurrentBlogId()) ?? null;
-        $mainBlogId    = ((int) $this->wpService->getMainSiteId()) ?? null;
-        $userGroupId   = null;
+        $currentBlogId = (int) $this->wpService->getCurrentBlogId() ?? null;
+        $mainBlogId = (int) $this->wpService->getMainSiteId() ?? null;
+        $userGroupId = null;
 
         if ($currentBlogId !== $mainBlogId) {
             $this->wpService->switchToBlog($mainBlogId);
-                $userGroupId = $this->getUserGroupFromBlog();
+            $userGroupId = $this->getUserGroupFromBlog();
             $this->wpService->restoreCurrentBlog();
             return $userGroupId;
         }
@@ -43,13 +43,10 @@ class UserGroupResolver implements UserGroupResolverInterface
      *
      * @return string|null The user group slug or null if not found.
      */
-    private function getUserGroupFromBlog(): ?string
+    private function getUserGroupFromBlog(): null|string
     {
-        $terms = $this->wpService->wpGetObjectTerms(
-            $this->wpService->getCurrentUserId(),
-            self::TAXONOMY_NAME
-        );
+        $terms = $this->wpService->wpGetObjectTerms($this->wpService->getCurrentUserId(), self::TAXONOMY_NAME);
 
-        return (!empty($terms) && $terms[0] instanceof \WP_Term) ? $terms[0]->slug : null;
+        return !empty($terms) && $terms[0] instanceof \WP_Term ? $terms[0]->slug : null;
     }
 }

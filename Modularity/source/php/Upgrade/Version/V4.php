@@ -13,7 +13,7 @@ class V4 implements versionInterface
 
     public function __construct(\wpdb $db)
     {
-        $this->db   = $db;
+        $this->db = $db;
         $this->name = 'manualinput';
     }
 
@@ -30,7 +30,7 @@ class V4 implements versionInterface
         $moduleMigrator = new AcfModuleMigration(
             $this->db,
             GetPostsByPostType::getPostsByPostType('mod-' . $this->name),
-            $this->getFields()
+            $this->getFields(),
         );
 
         $moduleMigrator->migrateModules();
@@ -38,25 +38,20 @@ class V4 implements versionInterface
 
     private function upgradeBlocks()
     {
-        $blockMigrator = new AcfBlockMigration(
-            $this->db,
-            'acf/' . $this->name,
-            $this->getFields()
-        );
+        $blockMigrator = new AcfBlockMigration($this->db, 'acf/' . $this->name, $this->getFields());
 
         $blockMigrator->migrateBlocks();
     }
 
     private function getFields()
     {
-        return
-        [
-            'index'         => [
+        return [
+            'index' => [
                 'type' => 'removeField',
             ],
             'index_columns' => [
                 'type' => 'removeField',
-            ]
+            ],
         ];
     }
 }

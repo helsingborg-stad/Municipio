@@ -6,7 +6,7 @@ class PrivateAcfFields
 {
     public function __construct()
     {
-        add_filter('Municipio/Private/PrivateAcfFields/fields', function ($fields) {
+        add_filter('Municipio/Private/PrivateAcfFields/fields', static function ($fields) {
             $fields[] = 'field_67126c170c176';
             $fields[] = 'field_67813612eb109';
 

@@ -9,7 +9,7 @@ class ModuleUsageByName
     public static function getModuleUsageByName($postType)
     {
         $modules = self::getPagesByModuleName($postType);
-        $blocks  = self::getBlocksByModuleName($postType);
+        $blocks = self::getBlocksByModuleName($postType);
 
         return array_unique(array_merge($modules, $blocks));
     }
@@ -19,12 +19,10 @@ class ModuleUsageByName
         global $wpdb;
 
         $postType = str_replace('mod-', 'acf/', $postType);
-        $pages    = $wpdb->get_results(
-            "SELECT *
+        $pages = $wpdb->get_results("SELECT *
             FROM $wpdb->posts
             WHERE post_content LIKE '%{$postType}%'
-            AND post_status = 'publish'"
-        );
+            AND post_status = 'publish'");
 
         return is_array($pages) ? array_column($pages, 'ID') : [];
     }
@@ -45,17 +43,16 @@ class ModuleUsageByName
             }
         }
 
-
         return is_array($pages) ? $pages : [];
     }
 
     public static function getPostsByType($postType)
     {
-        $args = array(
-            'post_type'      => $postType,
+        $args = [
+            'post_type' => $postType,
             'posts_per_page' => -1,
-            'post_status'    => 'publish',
-        );
+            'post_status' => 'publish',
+        ];
 
         return get_posts($args);
     }

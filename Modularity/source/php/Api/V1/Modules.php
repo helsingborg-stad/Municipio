@@ -23,10 +23,10 @@ class Modules extends WP_REST_Controller
     public function register_routes()
     {
         add_action('rest_api_init', function () {
-            register_rest_route($this->namespace, '/' . $this->restBase . '/(?P<id>[\d]+)', array(
-                array(
+            register_rest_route($this->namespace, '/' . $this->restBase . '/(?P<id>[\d]+)', [
+                [
                     'methods' => \WP_REST_Server::READABLE,
-                    'callback' => array($this, 'get_item'),
+                    'callback' => [$this, 'get_item'],
                     'permission_callback' => '__return_true',
                     'args' => [
                         'id' => [
@@ -34,8 +34,8 @@ class Modules extends WP_REST_Controller
                             'type' => 'integer',
                         ],
                     ],
-                ),
-            ));
+                ],
+            ]);
         });
     }
 

@@ -20,8 +20,8 @@ class CachePurge
             $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
         }
 
-        add_action('save_post', array($this, 'purgeObjectCache'), 90, 1);
-        add_action('save_post', array($this, 'purgePageCache'), 100, 1);
+        add_action('save_post', [$this, 'purgeObjectCache'], 90, 1);
+        add_action('save_post', [$this, 'purgePageCache'], 100, 1);
     }
 
     /**
@@ -35,7 +35,6 @@ class CachePurge
      */
     public function purgePageCache($postId): bool
     {
-
         //Not for revisions
         if (wp_is_post_revision($postId)) {
             return false;
@@ -51,12 +50,12 @@ class CachePurge
                         continue;
                     }
 
-                    wp_remote_request(get_the_permalink($modulePage->post_id), array(
-                        'method'      => 'PURGE',
-                        'timeout'     => 2,
+                    wp_remote_request(get_the_permalink($modulePage->post_id), [
+                        'method' => 'PURGE',
+                        'timeout' => 2,
                         'redirection' => 0,
-                        'blocking'    => false
-                    ));
+                        'blocking' => false,
+                    ]);
                 }
 
                 return true;
@@ -87,15 +86,15 @@ class CachePurge
 
         if (!$this->isModularityPost($postId) && !empty($postType)) {
             $args = [
-                'post_type'      => 'mod-posts',
+                'post_type' => 'mod-posts',
                 'posts_per_page' => -1,
-                'meta_query'     => [
+                'meta_query' => [
                     [
-                        'key'     => 'posts_data_post_type',
-                        'value'   => $postType,
+                        'key' => 'posts_data_post_type',
+                        'value' => $postType,
                         'compare' => '=',
-                    ]
-                ]
+                    ],
+                ],
             ];
 
             // Flag to check if we purged any cache
@@ -106,7 +105,7 @@ class CachePurge
 
             if (!empty($posts)) {
                 foreach ($posts as $post) {
-                    $moduleId        = $post->ID;
+                    $moduleId = $post->ID;
                     $purgedPostCache = true;
                     wp_cache_delete($moduleId, $this->keyGroup);
                 }
@@ -129,7 +128,7 @@ class CachePurge
      */
     private function isModularityPost($postId): bool
     {
-        if (strpos(get_post_type($postId), "mod-") === 0) {
+        if (str_starts_with(get_post_type($postId), 'mod-')) {
             return true;
         }
         return false;

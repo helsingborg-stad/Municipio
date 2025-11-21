@@ -2,58 +2,58 @@
 
 namespace Modularity\Module\ManualInput;
 
-use Municipio\Helper\Image as ImageHelper;
-use Modularity\Integrations\Component\ImageResolver;
-use Modularity\Integrations\Component\ImageFocusResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Modularity\Integrations\Component\ImageFocusResolver;
+use Modularity\Integrations\Component\ImageResolver;
 use Modularity\Module\ManualInput\Private\PrivateController;
+use Municipio\Helper\Image as ImageHelper;
 
 class ManualInput extends \Modularity\Module
 {
-    public $slug          = 'manualinput';
-    public $supports      = array();
-    public $blockSupports = array(
-        'align' => ['full']
-    );
+    public $slug = 'manualinput';
+    public $supports = [];
+    public $blockSupports = [
+        'align' => ['full'],
+    ];
 
     public string $postStatus;
     public $template;
 
-    private ?PrivateController $privateController = null;
+    private null|PrivateController $privateController = null;
 
     public function init()
     {
-        $this->nameSingular = __("Manual Input", 'modularity');
-        $this->namePlural   = __("Manual Inputs", 'modularity');
-        $this->description  = __("Creates manual input content.", 'modularity');
+        $this->nameSingular = __('Manual Input', 'modularity');
+        $this->namePlural = __('Manual Inputs', 'modularity');
+        $this->description = __('Creates manual input content.', 'modularity');
 
         $this->privateController = new PrivateController($this);
 
-        add_filter('Modularity/Block/Data', array($this, 'blockData'), 50, 3);
+        add_filter('Modularity/Block/Data', [$this, 'blockData'], 50, 3);
     }
 
     public function data(): array
     {
-        $data           = [];
-        $fields         = $this->getFields();
-        $displayAs      = $this->getTemplateToUse($fields);
+        $data = [];
+        $fields = $this->getFields();
+        $displayAs = $this->getTemplateToUse($fields);
         $this->template = $displayAs;
 
-        $data['manualInputs']      = [];
-        $data['ID']                = !empty($this->ID) ? $this->ID : uniqid('manualinput-');
-        $data['columns']           = !empty($fields['columns']) ? $fields['columns'] . '@md' : 'o-grid-4@md';
-        $data['context']           = ['module.manual-input.' . $this->template];
-        $data['ratio']             = !empty($fields['ratio']) ? $fields['ratio'] : '4:3';
-        $data['imagePosition']     = !empty($fields['image_position']) ? true : false;
-        $imageSize                 = $this->getImageSize($displayAs);
+        $data['manualInputs'] = [];
+        $data['ID'] = !empty($this->ID) ? $this->ID : uniqid('manualinput-');
+        $data['columns'] = !empty($fields['columns']) ? $fields['columns'] . '@md' : 'o-grid-4@md';
+        $data['context'] = ['module.manual-input.' . $this->template];
+        $data['ratio'] = !empty($fields['ratio']) ? $fields['ratio'] : '4:3';
+        $data['imagePosition'] = !empty($fields['image_position']) ? true : false;
+        $imageSize = $this->getImageSize($displayAs);
         $data['freeTextFiltering'] = !empty($fields['free_text_filtering']) ? true : false;
-        $data['lang']              = [
+        $data['lang'] = [
             'search' => __('Search', 'municipio'),
         ];
 
         $data['accordionColumnTitles'] = $this->createAccordionTitles(
             isset($fields['accordion_column_titles']) ? $fields['accordion_column_titles'] : [],
-            isset($fields['accordion_column_marking']) ? $fields['accordion_column_marking'] : ''
+            isset($fields['accordion_column_marking']) ? $fields['accordion_column_marking'] : '',
         );
 
         // Accordion settings
@@ -63,26 +63,29 @@ class ManualInput extends \Modularity\Module
 
         // Card settings
         if ($fields['display_as'] === 'card') {
-            $data['titleAboveImage']    = $fields['title_above_image'] ?? false;
+            $data['titleAboveImage'] = $fields['title_above_image'] ?? false;
             $data['disableLayoutShift'] = $fields['disable_resize_layout_shift'] ?? false;
         }
 
         if (!empty($fields['manual_inputs']) && is_array($fields['manual_inputs'])) {
             foreach ($fields['manual_inputs'] as $index => &$input) {
-                $input = array_filter($input, function ($value) {
+                $input = array_filter($input, static function ($value) {
                     return !empty($value) || $value === false;
                 });
 
                 // Custom background color
                 $customBackgroundColor = ($fields['use_custom_card_color'] ?? false)
-                                            && !empty($input['custom_background_color'])
-                                            && strpos($input['custom_background_color'], '::') !== false
+                && !empty($input['custom_background_color'])
+                && str_contains($input['custom_background_color'], '::')
                     ? explode('::', $input['custom_background_color'])[0]
                     : false;
 
                 // Custom text color
                 $customTextColor = $customBackgroundColor
-                    ? \Municipio\Helper\Color::getBestContrastColor(explode('::', $input['custom_background_color'])[1], false)
+                    ? \Municipio\Helper\Color::getBestContrastColor(
+                        explode('::', $input['custom_background_color'])[1],
+                        false,
+                    )
                     : false;
 
                 // Extra classes
@@ -90,34 +93,44 @@ class ManualInput extends \Modularity\Module
                     $input['classList'] = ['c-card--has-custom-background'];
                 }
 
-                $arr                  = array_merge($this->getManualInputDefaultValues(), $input);
+                $arr = array_merge($this->getManualInputDefaultValues(), $input);
                 $arr['isHighlighted'] = $this->canBeHighlighted($fields, $index);
-                $arr['id']            = 'item-' . $data['ID'] . '-' . $index;
+                $arr['id'] = 'item-' . $data['ID'] . '-' . $index;
                 // TODO: change name and migrate
-                $arr['icon']                    = $arr['box_icon'];
-                $arr['image']                   = $this->maybeGetImageImageContract($displayAs, $arr['image']) ?? $this->getImageData($arr['image'], $imageSize);
-                $arr['accordion_column_values'] = $this->createAccordionTitles($arr['accordion_column_values'], $arr['title']);
-                $arr['view']                    = $this->getInputView($arr['isHighlighted']);
-                $arr['columnSize']              = $this->getInputColumnSize($fields, $arr['isHighlighted']);
-                $arr['attributeList']           = ['id' => $arr['id']];
+                $arr['icon'] = $arr['box_icon'];
+                $arr['image'] = $this->maybeGetImageImageContract($displayAs, $arr['image']) ?? $this->getImageData(
+                    $arr['image'],
+                    $imageSize,
+                );
+                $arr['accordion_column_values'] = $this->createAccordionTitles(
+                    $arr['accordion_column_values'],
+                    $arr['title'],
+                );
+                $arr['view'] = $this->getInputView($arr['isHighlighted']);
+                $arr['columnSize'] = $this->getInputColumnSize($fields, $arr['isHighlighted']);
+                $arr['attributeList'] = ['id' => $arr['id']];
                 $arr['custom_background_color'] = $customBackgroundColor;
-                $arr['custom_text_color']       = $customTextColor;
-                $arr                            = \Municipio\Helper\FormatObject::camelCase($arr);
+                $arr['custom_text_color'] = $customTextColor;
+                $arr = \Municipio\Helper\FormatObject::camelCase($arr);
 
                 $data['manualInputs'][] = (array) $arr;
             }
         }
 
         //Check if any item has an image
-        $data['anyItemHasImage'] = array_reduce($data['manualInputs'], function ($carry, $item) {
-            if (isset($item['image'])) {
-                if (is_a($item['image'], ImageComponentContract::class)) {
-                    return $carry || $item['image']->getUrl();
+        $data['anyItemHasImage'] = array_reduce(
+            $data['manualInputs'],
+            static function ($carry, $item) {
+                if (isset($item['image'])) {
+                    if (is_a($item['image'], ImageComponentContract::class)) {
+                        return $carry || $item['image']->getUrl();
+                    }
+                    return $carry || !empty($item['image']);
                 }
-                return $carry || !empty($item['image']);
-            }
-            return $carry;
-        }, false);
+                return $carry;
+            },
+            false,
+        );
 
         $data = $this->privateController->decorateData($data, $fields);
         return $data;
@@ -125,7 +138,6 @@ class ManualInput extends \Modularity\Module
 
     private function maybeGetImageImageContract(string $displayAs, int $imageId)
     {
-
         $width = $this->getImageSize($displayAs, 'width');
 
         if (in_array($displayAs, ['segment', 'block', 'card'])) {
@@ -133,7 +145,7 @@ class ManualInput extends \Modularity\Module
                 $imageId,
                 [$width, false],
                 new ImageResolver(),
-                new ImageFocusResolver(['id' => $imageId])
+                new ImageFocusResolver(['id' => $imageId]),
             );
         }
 
@@ -146,14 +158,14 @@ class ManualInput extends \Modularity\Module
     private function getManualInputDefaultValues(): array
     {
         return [
-            'title'                   => null,
-            'content'                 => null,
-            'link'                    => null,
-            'link_text'               => null,
-            'default_link_text'       => __('Read more', 'municipio'),
-            'image'                   => null,
+            'title' => null,
+            'content' => null,
+            'link' => null,
+            'link_text' => null,
+            'default_link_text' => __('Read more', 'municipio'),
+            'image' => null,
             'accordion_column_values' => [],
-            'box_icon'                => null,
+            'box_icon' => null,
             'custom_background_color' => null,
         ];
     }
@@ -197,7 +209,11 @@ class ManualInput extends \Modularity\Module
      */
     private function canBeHighlighted(array $fields, int $index)
     {
-        return $index === 0 && !empty($fields['highlight_first_input']) && in_array($this->template, ['card', 'block', 'segment']);
+        return (
+            $index === 0
+            && !empty($fields['highlight_first_input'])
+            && in_array($this->template, ['card', 'block', 'segment'])
+        );
     }
 
     /**
@@ -228,12 +244,12 @@ class ManualInput extends \Modularity\Module
     private function getHighlightedView(): string
     {
         switch ($this->template) {
-            case "segment":
-                return "segment";
-            case "block":
-                return "card";
-            case "card":
-                return "block";
+            case 'segment':
+                return 'segment';
+            case 'block':
+                return 'card';
+            case 'card':
+                return 'block';
             default:
                 return $this->template;
         }
@@ -270,32 +286,32 @@ class ManualInput extends \Modularity\Module
      * @param string $displayAs The name of the template/view.
      * @return array
      */
-    private function getImageSize($displayAs, $return = "both"): null|array|int
+    private function getImageSize($displayAs, $return = 'both'): null|array|int
     {
         switch ($displayAs) {
-            case "segment":
-                $dimensions =  [1920, 1080];
-            case "block":
-                $dimensions =  [1024, 1024];
-            case "collection":
-            case "box":
-                $dimensions =  [768, 768];
+            case 'segment':
+                $dimensions = [1920, 1080];
+            case 'block':
+                $dimensions = [1024, 1024];
+            case 'collection':
+            case 'box':
+                $dimensions = [768, 768];
             default:
                 $dimensions = [1440, 810];
         }
 
-        if ($return == "width") {
+        if ($return == 'width') {
             return $dimensions[0] ?? null;
         }
 
-        if ($return == "height") {
+        if ($return == 'height') {
             return $dimensions[1] ?? null;
         }
 
         return $dimensions;
     }
 
-     /**
+    /**
      * @param array $accordionColumnTitles Array of arrays
      * @param string $accordionColumnMarker
      * @return array
@@ -327,7 +343,7 @@ class ManualInput extends \Modularity\Module
      */
     public function blockData($viewData, $block, $module)
     {
-        if (strpos($block['name'], "acf/manualinput") === 0 && $block['align'] == 'full' && !is_admin()) {
+        if (str_starts_with($block['name'], 'acf/manualinput') && $block['align'] == 'full' && !is_admin()) {
             $viewData['stretch'] = true;
         } else {
             $viewData['stretch'] = false;
@@ -351,10 +367,7 @@ class ManualInput extends \Modularity\Module
     public function getTemplateToUse($fields)
     {
         $templateName = !empty($fields['display_as']) ? $fields['display_as'] : 'card';
-        return apply_filters(
-            'Modularity/Module/ManualInput/Template',
-            $templateName
-        );
+        return apply_filters('Modularity/Module/ManualInput/Template', $templateName);
     }
 
     /**
@@ -369,10 +382,10 @@ class ManualInput extends \Modularity\Module
      */
     public function template()
     {
-        $path = __DIR__ . "/views/" . $this->template . ".blade.php";
+        $path = __DIR__ . '/views/' . $this->template . '.blade.php';
 
         if (file_exists($path)) {
-            return $this->template . ".blade.php";
+            return $this->template . '.blade.php';
         }
 
         return 'base.blade.php';
