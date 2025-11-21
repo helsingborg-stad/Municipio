@@ -53,6 +53,7 @@
         "@wordpress/core-data": "^7.35.0",
         "@wordpress/data": "^10.35.0",
         "@wordpress/i18n": "^6.8.0",
+        "@wordpress/icons": "^11.2.0",
         "autoprefixer": "^10.4.20",
         "babel-jest": "^30.0.5",
         "body-parser": "^1.19.1",
