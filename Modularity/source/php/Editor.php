@@ -21,11 +21,11 @@ class Editor extends \Modularity\Options
 
         $this->adminBar();
 
-        add_action('admin_head', array($this, 'registerTabs'));
-        add_action('init', array($this, 'registerScopeOption'));
+        add_action('admin_head', [$this, 'registerTabs']);
+        add_action('init', [$this, 'registerScopeOption']);
 
-        add_action('wp_ajax_save_modules', array($this, 'save'));
-        add_action('wp_insert_post_data', array($this, 'avoidDuplicatePostName'), 10, 2);
+        add_action('wp_ajax_save_modules', [$this, 'save']);
+        add_action('wp_insert_post_data', [$this, 'avoidDuplicatePostName'], 10, 2);
 
         $this->registerEditorPage();
     }
@@ -65,39 +65,39 @@ class Editor extends \Modularity\Options
 
                 add_action(
                     'admin_bar_menu',
-                    function () use ($post) {
+                    static function () use ($post) {
                         global $wp_admin_bar;
-                        $wp_admin_bar->add_node(array(
+                        $wp_admin_bar->add_node([
                             'id' => 'view_page',
                             'title' => __('View Page'),
                             'href' => get_permalink($post->ID),
-                            'meta' => array(
+                            'meta' => [
                                 'target' => '_blank',
-                            ),
-                        ));
+                            ],
+                        ]);
                     },
                     1050,
                 );
 
-                self::$isEditing = array(
+                self::$isEditing = [
                     'id' => $post->ID,
                     'title' => $post->post_title,
-                );
+                ];
 
                 wp_reset_postdata();
             } else {
                 global $archive;
                 $archive = $_GET['id'];
 
-                self::$isEditing = array(
+                self::$isEditing = [
                     'id' => null,
                     'title' => $archive,
-                );
+                ];
             }
 
             self::$isEditing = apply_filters('Modularity/is_editing', self::$isEditing);
 
-            add_action('Modularity/options_page_title_suffix', function () {
+            add_action('Modularity/options_page_title_suffix', static function () {
                 echo ': ' . self::$isEditing['title'];
             });
         }
@@ -180,7 +180,7 @@ class Editor extends \Modularity\Options
         add_meta_box(
             'modularity-mb-editor-publish',
             __('Save modules', 'municipio'),
-            function () {
+            static function () {
                 include MODULARITY_TEMPLATE_PATH . 'editor/modularity-publish.php';
             },
             $this->screenHook,
@@ -191,25 +191,27 @@ class Editor extends \Modularity\Options
         add_meta_box(
             'modularity-mb-modules',
             __('Enabled modules', 'municipio'),
-            function () {
+            static function () {
                 $enabled = \Modularity\ModuleManager::$enabled;
                 $available = \Modularity\ModuleManager::$available;
                 $deprecated = \Modularity\ModuleManager::$deprecated;
 
-                $modules = array();
+                $modules = [];
                 if (is_array($enabled) && !empty($enabled)) {
                     foreach ($enabled as $module) {
-                        if (isset($available[$module]) && !in_array($module, $deprecated)) {
-                            $modules[$module] = apply_filters(
-                                'Modularity/Editor/SidebarIncompability',
-                                $available[$module],
-                                $module,
-                            );
+                        if (!(isset($available[$module]) && !in_array($module, $deprecated))) {
+                            continue;
                         }
+
+                        $modules[$module] = apply_filters(
+                            'Modularity/Editor/SidebarIncompability',
+                            $available[$module],
+                            $module,
+                        );
                     }
                 }
 
-                uasort($modules, function ($a, $b) {
+                uasort($modules, static function ($a, $b) {
                     if ($a['labels']['name'] === $b['labels']['name']) {
                         return 0;
                     }
@@ -243,7 +245,7 @@ class Editor extends \Modularity\Options
             add_meta_box(
                 'no-sidebars',
                 __('No active sidebar areas', 'municipio'),
-                function () {
+                static function () {
                     echo
                         '<p>'
                         . __(
@@ -264,9 +266,11 @@ class Editor extends \Modularity\Options
 
         if (is_array($activeAreas) && !empty($activeAreas)) {
             foreach ($activeAreas as $area) {
-                if (isset($wp_registered_sidebars[$area])) {
-                    $sidebars[$area] = $wp_registered_sidebars[$area];
+                if (!isset($wp_registered_sidebars[$area])) {
+                    continue;
                 }
+
+                $sidebars[$area] = $wp_registered_sidebars[$area];
             }
 
             if (is_array($sidebars)) {
@@ -301,7 +305,7 @@ class Editor extends \Modularity\Options
         // Fallback
         if (is_array($active) && count($active) === 0 && !is_numeric($template)) {
             if (
-                strpos($template, 'archive-') !== false
+                str_contains($template, 'archive-')
                 && !in_array($template, \Modularity\Helper\Options::getArchiveTemplateSlugs())
             ) {
                 $template = explode('-', $template, 2)[0];
@@ -310,7 +314,7 @@ class Editor extends \Modularity\Options
             }
 
             if (
-                strpos($template, 'single-') !== false
+                str_contains($template, 'single-')
                 && !in_array($template, \Modularity\Helper\Options::getSingleTemplateSlugs())
             ) {
                 $template = explode('-', $template, 2)[0];
@@ -320,9 +324,9 @@ class Editor extends \Modularity\Options
         }
 
         if (self::$isEditing['title'] == 'archive-post') {
-            $home = \Modularity\Helper\Wp::findCoreTemplates(array(
+            $home = \Modularity\Helper\Wp::findCoreTemplates([
                 'home',
-            ));
+            ]);
 
             if ($home) {
                 $active = $this->getEnabledArea($enabledAreas, 'home');
@@ -335,7 +339,7 @@ class Editor extends \Modularity\Options
 
     private function getEnabledArea(array $enabledAreas, string $template): array
     {
-        return isset($enabledAreas[$template]) ? $enabledAreas[$template] : array();
+        return isset($enabledAreas[$template]) ? $enabledAreas[$template] : [];
     }
 
     /**
@@ -348,11 +352,11 @@ class Editor extends \Modularity\Options
         add_meta_box(
             'modularity-mb-' . $sidebar['id'],
             $sidebar['name'],
-            array($this, 'metaBoxSidebar'),
+            [$this, 'metaBoxSidebar'],
             $this->screenHook,
             'normal',
             'low',
-            array('sidebar' => $sidebar),
+            ['sidebar' => $sidebar],
         );
     }
 
@@ -421,17 +425,17 @@ class Editor extends \Modularity\Options
         // Cached results
         static $cachedResults;
 
-        if (isset($cachedResults) && isset($cachedResults[$postId])) {
+        if (isset($cachedResults, $cachedResults[$postId])) {
             return $cachedResults[$postId];
         }
 
         if (!is_array($cachedResults)) {
-            $cachedResults = array();
+            $cachedResults = [];
         }
 
         //Declarations
-        $modules = array();
-        $retModules = array();
+        $modules = [];
+        $retModules = [];
 
         //Get current post id
         $postId = self::pageForPostTypeTranscribe($postId);
@@ -440,7 +444,7 @@ class Editor extends \Modularity\Options
         $enabled = \Modularity\ModuleManager::$enabled;
 
         // Get modules structure
-        $moduleIds = array();
+        $moduleIds = [];
         $moduleSidebars = null;
 
         if (is_numeric($postId)) {
@@ -463,7 +467,7 @@ class Editor extends \Modularity\Options
         }
 
         //Get allowed post statuses
-        $postStatuses = array('publish');
+        $postStatuses = ['publish'];
         if (is_user_logged_in()) {
             $postStatuses[] = 'private';
         }
@@ -471,12 +475,12 @@ class Editor extends \Modularity\Options
         // Get module posts
         $totalNumberOfModules = count($moduleIds);
         if (!empty($totalNumberOfModules) && is_numeric($totalNumberOfModules)) {
-            $modulesPosts = get_posts(array(
+            $modulesPosts = get_posts([
                 'posts_per_page' => count($moduleIds),
                 'post_type' => $enabled,
                 'include' => $moduleIds,
                 'post_status' => $postStatuses,
-            ));
+            ]);
         } else {
             $modulesPosts = [];
         }
@@ -491,12 +495,12 @@ class Editor extends \Modularity\Options
         // Create an strucural correct array with module post data
         if (!empty($moduleSidebars)) {
             foreach ($moduleSidebars as $key => $sidebar) {
-                $retModules[$key] = array(
-                    'modules' => array(),
+                $retModules[$key] = [
+                    'modules' => [],
                     // Todo: This will duplicate for every sidebar, move it to top level of array(?)
                     // Alternatively only fetch options for the current sidebar (not all like now)
                     'options' => get_post_meta($postId, 'modularity-sidebar-options', true),
-                );
+                ];
 
                 $arrayIndex = 0;
 
@@ -528,22 +532,22 @@ class Editor extends \Modularity\Options
         return $retModules;
     }
 
-    public static function getModule($id, $moduleArgs = array())
+    public static function getModule($id, $moduleArgs = [])
     {
         $options = get_option('modularity-options');
         $available = \Modularity\ModuleManager::$available;
 
-        $postStatuses = array('publish');
+        $postStatuses = ['publish'];
         if (is_user_logged_in()) {
             $postStatuses[] = 'private';
         }
         // Basics
-        $moduleList = get_posts(array(
+        $moduleList = get_posts([
             'post_type' => 'any',
             'include' => $id,
             'suppress_filters' => false,
             'post_status' => $postStatuses,
-        ));
+        ]);
 
         $module = isset($moduleList[0]) && !empty($moduleList[0]) ? $moduleList[0] : null;
 
@@ -719,14 +723,14 @@ class Editor extends \Modularity\Options
      */
     public static function widthOptions()
     {
-        return apply_filters('Modularity/Editor/WidthOptions', array(
+        return apply_filters('Modularity/Editor/WidthOptions', [
             'grid-md-12' => '100%',
             'grid-md-9' => '75%',
             'grid-md-8' => '66%',
             'grid-md-6' => '50%',
             'grid-md-4' => '33%',
             'grid-md-3' => '25%',
-        ));
+        ]);
     }
 
     /**
@@ -735,12 +739,14 @@ class Editor extends \Modularity\Options
      */
     public function registerScopeOption()
     {
-        $scopes = apply_filters('Modularity/Editor/ModuleCssScope', array());
+        $scopes = apply_filters('Modularity/Editor/ModuleCssScope', []);
         if (is_array($scopes) && !empty($scopes)) {
             foreach ($scopes as $postType => $style) {
-                if (!empty($style) && is_array($style) && is_string($postType)) {
-                    $this->registerScopeMetaBox($postType, $style);
+                if (!(!empty($style) && is_array($style) && is_string($postType))) {
+                    continue;
                 }
+
+                $this->registerScopeMetaBox($postType, $style);
             }
         }
     }
@@ -763,11 +769,11 @@ class Editor extends \Modularity\Options
             return WP_Error('Could not find required ACF function acf_add_local_field_group.');
         }
 
-        acf_add_local_field_group(array(
+        acf_add_local_field_group([
             'key' => 'group_' . substr(md5($postType . '_scope'), 0, 13),
             'title' => __('Scope styling', 'municipio'),
-            'fields' => array(
-                array(
+            'fields' => [
+                [
                     'key' => 'field_' . substr(md5($postType . '_scope'), 0, 13),
                     'label' => __('Select an apperance for this instance of module', 'municipio'),
                     'name' => 'module_css_scope',
@@ -778,30 +784,30 @@ class Editor extends \Modularity\Options
                     ),
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array(
+                    'wrapper' => [
                         'width' => '',
                         'class' => '',
                         'id' => '',
-                    ),
+                    ],
                     'choices' => $choises,
-                    'default_value' => array(),
+                    'default_value' => [],
                     'allow_null' => 1,
                     'multiple' => 0,
                     'ui' => 0,
                     'ajax' => 0,
                     'return_format' => 'value',
                     'placeholder' => '',
-                ),
-            ),
-            'location' => array(
-                array(
-                    array(
+                ],
+            ],
+            'location' => [
+                [
+                    [
                         'param' => 'post_type',
                         'operator' => '==',
                         'value' => $postType,
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'menu_order' => 0,
             'position' => 'side',
             'style' => 'default',
@@ -810,7 +816,7 @@ class Editor extends \Modularity\Options
             'hide_on_screen' => '',
             'active' => 1,
             'description' => '',
-        ));
+        ]);
 
         return true;
     }
@@ -823,10 +829,12 @@ class Editor extends \Modularity\Options
     public function sanitizeModuleData($sidebars)
     {
         foreach ($sidebars as &$sidebar) {
-            if (!empty($sidebar) && is_array($sidebar)) {
-                foreach ($sidebar as &$module) {
-                    $module['hidden'] = isset($module['hidden']) && $module['hidden'] == 'hidden';
-                }
+            if (!(!empty($sidebar) && is_array($sidebar))) {
+                continue;
+            }
+
+            foreach ($sidebar as &$module) {
+                $module['hidden'] = isset($module['hidden']) && $module['hidden'] == 'hidden';
             }
         }
 

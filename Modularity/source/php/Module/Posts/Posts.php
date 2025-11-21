@@ -23,9 +23,9 @@ class Posts extends \Modularity\Module
     public $slug = 'posts';
     public $supports = [];
     public array $fields = [];
-    public $blockSupports = array(
+    public $blockSupports = [
         'align' => ['full'],
-    );
+    ];
     public GetPostsInterface $getPostsHelper;
     public $archiveUrlHelper;
     public string $postStatus;
@@ -53,15 +53,15 @@ class Posts extends \Modularity\Module
         add_filter('acf/load_field/name=posts_data_network_sources', [$this, 'loadNetworkSourcesField']);
 
         //Add full width data to view
-        add_filter('Modularity/Block/Data', array($this, 'blockData'), 50, 3);
+        add_filter('Modularity/Block/Data', [$this, 'blockData'], 50, 3);
         add_filter(
             'acf/fields/post_object/query/name=posts_data_posts',
-            array($this, 'removeUnwantedPostTypesFromManuallyPicked'),
+            [$this, 'removeUnwantedPostTypesFromManuallyPicked'],
             10,
             3,
         );
 
-        add_filter('acf/load_field/name=taxonomy_display', array($this, 'loadTaxonomyDisplayField'));
+        add_filter('acf/load_field/name=taxonomy_display', [$this, 'loadTaxonomyDisplayField']);
 
         // Helpers
         $this->archiveUrlHelper = new GetArchiveUrl();
@@ -332,7 +332,9 @@ class Posts extends \Modularity\Module
     {
         $skipablePostTypes = ['attachment'];
 
-        $args['post_type'] = array_filter($args['post_type'] ?? [], function ($postType) use ($skipablePostTypes) {
+        $args['post_type'] = array_filter($args['post_type'] ?? [], static function ($postType) use (
+            $skipablePostTypes,
+        ) {
             return !in_array($postType, $skipablePostTypes);
         });
 
@@ -370,7 +372,7 @@ class Posts extends \Modularity\Module
     /**
      * @param $template
      */
-    public function getTemplateData(string $template = '', array $data = array())
+    public function getTemplateData(string $template = '', array $data = [])
     {
         if (empty($template)) {
             return false;
@@ -433,7 +435,7 @@ class Posts extends \Modularity\Module
             $this->getPostsHelper = new GetPostsFromMultipleSites(
                 $this->fields,
                 $this->getPageNumber(),
-                array_map(fn($siteOption) => $siteOption['value'], $this->fields['posts_data_network_sources']),
+                array_map(static fn($siteOption) => $siteOption['value'], $this->fields['posts_data_network_sources']),
                 $wpdb,
                 WpService::get(),
                 $postTypesFromSchemaTypeResolver,
@@ -475,7 +477,7 @@ class Posts extends \Modularity\Module
     public function adminEnqueue()
     {
         $wpService = WpService::get();
-        $getCurrentPostId = fn() => $wpService->isArchive() ? false : $wpService->getTheID();
+        $getCurrentPostId = static fn() => $wpService->isArchive() ? false : $wpService->getTheID();
 
         $this->wpEnqueue
             ?->add('js/mod-posts-taxonomy-filtering.js')

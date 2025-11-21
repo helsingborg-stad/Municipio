@@ -21,13 +21,13 @@ class Language
     public function __construct()
     {
         // Lang attribute option
-        add_filter('Modularity/Display/BeforeModule', array($this, 'addLangAttribute'), 10, 4);
+        add_filter('Modularity/Display/BeforeModule', [$this, 'addLangAttribute'], 10, 4);
 
         // Detect language of module
-        add_filter('wp_after_insert_post', array($this, 'autoDetectLanguage'), 50, 4);
+        add_filter('wp_after_insert_post', [$this, 'autoDetectLanguage'], 50, 4);
 
         //Make auto a selectable option in the language field
-        add_filter('acf/load_field/key=field_636e42408367e', array($this, 'appendAutoLangOption'));
+        add_filter('acf/load_field/key=field_636e42408367e', [$this, 'appendAutoLangOption']);
     }
 
     /**
@@ -38,7 +38,7 @@ class Language
     public function appendAutoLangOption(array $field): array
     {
         $field['choices'] = array_merge([
-            'auto' => __('Auto detected language', 'municipio')
+            'auto' => __('Auto detected language', 'municipio'),
         ], $field['choices']);
         return $field;
     }
@@ -55,7 +55,6 @@ class Language
      */
     public function autoDetectLanguage($post_id, $post, $update, $post_before): bool
     {
-
         if ($this->isModularityModule($post_id) === false) {
             return false;
         }
@@ -90,31 +89,25 @@ class Language
      */
     public function addLangAttribute(string $beforeModule, array $args, string $moduleType, int $moduleId): string
     {
-        $pageId         = \Modularity\Helper\Post::getPageID();
-        $siteLanguage   = get_bloginfo('language');
+        $pageId = \Modularity\Helper\Post::getPageID();
+        $siteLanguage = get_bloginfo('language');
         $moduleLanguage = get_post_meta($moduleId, 'lang', true);
-        $pageLanguage   = get_post_meta($pageId, 'lang', true);
+        $pageLanguage = get_post_meta($pageId, 'lang', true);
 
         //Get auto language
         if ($moduleLanguage == 'auto') {
             $moduleLanguage = get_post_meta($moduleId, 'detected_lang', true);
         }
 
-        $languageDiff =   array_map('strtolower', [$siteLanguage, $moduleLanguage, $pageLanguage]);
-        $languageDiff =   array_map(
-            function ($value) use ($siteLanguage) {
-                return $value ?: strtolower($siteLanguage);
-            },
-            $languageDiff
-        );
+        $languageDiff = array_map('strtolower', [$siteLanguage, $moduleLanguage, $pageLanguage]);
+        $languageDiff = array_map(static function ($value) use ($siteLanguage) {
+            return $value ?: strtolower($siteLanguage);
+        }, $languageDiff);
 
         if (count(array_unique($languageDiff)) != 1) {
             $moduleLanguage = substr($moduleLanguage, 0, 2);
 
-            return $this->addLangAttributeToString(
-                $beforeModule,
-                $moduleLanguage
-            );
+            return $this->addLangAttributeToString($beforeModule, $moduleLanguage);
         }
         return $beforeModule;
     }
@@ -130,11 +123,10 @@ class Language
      */
     function addLangAttributeToString($html, $lang): string
     {
-        $pattern     = '/(<div\s+id="mod-[^"]+")/';
+        $pattern = '/(<div\s+id="mod-[^"]+")/';
         $replacement = '$1 lang="' . $lang . '"';
         return preg_replace($pattern, $replacement, $html);
     }
-
 
     /**
      * Check if a post is a modularity module

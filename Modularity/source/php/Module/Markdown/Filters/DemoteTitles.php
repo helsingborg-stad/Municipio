@@ -6,9 +6,9 @@ use Modularity\Module\Markdown\Filters\FilterInterface;
 
 class DemoteTitles implements FilterInterface
 {
-    public function __construct(private array $fields)
-    {
-    }
+    public function __construct(
+        private array $fields,
+    ) {}
 
     /**
      * Filter the content.
@@ -19,8 +19,12 @@ class DemoteTitles implements FilterInterface
      */
     public function filter(string $content): string
     {
-        return preg_replace_callback('/^(#+)(.*)/m', function ($matches) {
-            return str_repeat('#', strlen($matches[1]) + 1) . $matches[2];
-        }, $content);
+        return preg_replace_callback(
+            '/^(#+)(.*)/m',
+            static function ($matches) {
+                return str_repeat('#', strlen($matches[1]) + 1) . $matches[2];
+            },
+            $content,
+        );
     }
 }

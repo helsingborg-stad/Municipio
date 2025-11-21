@@ -8,8 +8,9 @@ class DataDecorator implements DataDecoratorInterface
 {
     private DataDecoratorInterface $dataDecoratorInstance;
 
-    public function __construct(private $fields)
-    {
+    public function __construct(
+        private $fields,
+    ) {
         $this->dataDecoratorInstance = $this->getDecoratorInstance($this->fields);
     }
 

@@ -35,11 +35,9 @@ class Options
 
     private static function getTemplatesFromPostTypeNames(array $postTypeNames, string $templateType): array
     {
-        $templates = array_map(function ($postTypeName) use ($templateType) {
+        $templates = array_map(static function ($postTypeName) use ($templateType) {
             $template = \Modularity\Helper\Wp::findCoreTemplates([$templateType . '-' . $postTypeName]);
-            return ($template)
-                ? $template
-                : $templateType;
+            return $template ? $template : $templateType;
         }, $postTypeNames);
 
         return array_unique($templates);
@@ -47,16 +45,16 @@ class Options
 
     private static function getPostTypesWithArchives()
     {
-        return get_post_types(array(
-            'has_archive' => true
-        ), 'names');
+        return get_post_types([
+            'has_archive' => true,
+        ], 'names');
     }
 
     private static function getPublicPostTypeNames()
     {
-        return get_post_types(array(
-            'public'  => true,
+        return get_post_types([
+            'public' => true,
             'show_ui' => true,
-        ), 'names');
+        ], 'names');
     }
 }

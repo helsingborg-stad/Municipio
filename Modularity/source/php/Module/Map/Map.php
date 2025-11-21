@@ -4,20 +4,20 @@ namespace Modularity\Module\Map;
 
 class Map extends \Modularity\Module
 {
-    public $slug     = 'map';
-    public $supports = array();
+    public $slug = 'map';
+    public $supports = [];
 
     protected $template = 'default';
 
     public function init()
     {
         $this->nameSingular = __('Map', 'municipio');
-        $this->namePlural   = __('Maps', 'municipio');
-        $this->description  = __("Outputs an embedded map.", 'modularity');
+        $this->namePlural = __('Maps', 'municipio');
+        $this->description = __('Outputs an embedded map.', 'modularity');
 
-        add_filter('acf/load_field/name=map_url', array($this,'sslNotice'));
-        add_filter('acf/load_value/name=map_url', array($this,'filterMapUrl'), 10, 3);
-        add_filter('acf/update_value/name=map_url', array($this,'filterMapUrl'), 10, 3);
+        add_filter('acf/load_field/name=map_url', [$this, 'sslNotice']);
+        add_filter('acf/load_value/name=map_url', [$this, 'filterMapUrl'], 10, 3);
+        add_filter('acf/update_value/name=map_url', [$this, 'filterMapUrl'], 10, 3);
     }
 
     /**
@@ -31,7 +31,7 @@ class Map extends \Modularity\Module
     public function data(): array
     {
         $fields = $this->getFields();
-        $data   = array();
+        $data = [];
 
         //Shared template data
         $data['height'] = !empty($fields['height']) ? $fields['height'] : '400';
@@ -68,28 +68,29 @@ class Map extends \Modularity\Module
      */
     private function openStreetMapTemplateData($data, $fields)
     {
-
-        $data['pins'] = array();
-        $start        = $fields['osm_start_position'];
+        $data['pins'] = [];
+        $start = $fields['osm_start_position'];
 
         if (!empty($fields['osm_markers']) && is_array($fields['osm_markers'])) {
             foreach ($fields['osm_markers'] as $marker) {
-                if ($this->hasCorrectPlaceData($marker['position'])) {
-                    $pin            = array();
-                    $pin['lat']     = $marker['position']['lat'];
-                    $pin['lng']     = $marker['position']['lng'];
-                    $pin['tooltip'] = $this->createMarkerTooltip($marker);
-
-                    array_push($data['pins'], $pin);
+                if (!$this->hasCorrectPlaceData($marker['position'])) {
+                    continue;
                 }
+
+                $pin = [];
+                $pin['lat'] = $marker['position']['lat'];
+                $pin['lng'] = $marker['position']['lng'];
+                $pin['tooltip'] = $this->createMarkerTooltip($marker);
+
+                array_push($data['pins'], $pin);
             }
         }
 
         if (!empty($start)) {
             $data['startPosition'] = [
-                'lat'  => $start['lat'],
-                'lng'  => $start['lng'],
-                'zoom' => $start['zoom']
+                'lat' => $start['lat'],
+                'lng' => $start['lng'],
+                'zoom' => $start['zoom'],
             ];
         }
 
@@ -122,32 +123,44 @@ class Map extends \Modularity\Module
         $map_url = str_replace('disable_scroll=false', 'disable_scroll=true', $map_url); //Remove scroll arcgis
 
         //Create data array
-        $data['map_url']         = $map_url;
+        $data['map_url'] = $map_url;
         $data['map_description'] = !empty($fields['map_description']) ? $fields['map_description'] : '';
 
-        $data['show_button']      = !empty($fields['show_button']) ? $fields['show_button'] : false;
-        $data['button_label']     = !empty($fields['button_label']) ? $fields['button_label'] : false;
-        $data['button_url']       = !empty($fields['button_url']) ? $fields['button_url'] : false;
+        $data['show_button'] = !empty($fields['show_button']) ? $fields['show_button'] : false;
+        $data['button_label'] = !empty($fields['button_label']) ? $fields['button_label'] : false;
+        $data['button_url'] = !empty($fields['button_url']) ? $fields['button_url'] : false;
         $data['more_info_button'] = !empty($fields['more_info_button']) ? $fields['more_info_button'] : false;
-        $data['more_info']        = !empty($fields['more_info']) ? $fields['more_info'] : false;
-        $data['more_info_title']  = !empty($fields['more_info_title']) ? $fields['more_info_title'] : false;
+        $data['more_info'] = !empty($fields['more_info']) ? $fields['more_info'] : false;
+        $data['more_info_title'] = !empty($fields['more_info_title']) ? $fields['more_info_title'] : false;
 
-        $data['cardMapCss']      = ($data['more_info_button']) ? 'o-grid-12@xs o-grid-8@md' : 'o-grid-12@md';
-        $data['cardMoreInfoCss'] = ($data['more_info_button']) ? 'o-grid-12@xs o-grid-4@md' : '';
+        $data['cardMapCss'] = $data['more_info_button'] ? 'o-grid-12@xs o-grid-8@md' : 'o-grid-12@md';
+        $data['cardMoreInfoCss'] = $data['more_info_button'] ? 'o-grid-12@xs o-grid-4@md' : '';
 
         $data['uid'] = uniqid();
-        $data['id']  = $this->ID;
+        $data['id'] = $this->ID;
 
         $data['lang'] = [
-            'knownLabels'   => [
-                'title'  => __('We need your consent to continue', 'municipio'),
-                'info'   => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'municipio'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
+            'knownLabels' => [
+                'title' => __('We need your consent to continue', 'municipio'),
+                'info' => sprintf(
+                    __(
+                        'This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.',
+                        'municipio',
+                    ),
+                    '{SUPPLIER_WEBSITE}',
+                    '{SUPPLIER_POLICY}',
+                ),
                 'button' => __('I understand, continue.', 'municipio'),
             ],
-
             'unknownLabels' => [
-                'title'  => __('We need your consent to continue', 'municipio'),
-                'info'   => sprintf(__('This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.', 'municipio'), '{SUPPLIER_WEBSITE}'),
+                'title' => __('We need your consent to continue', 'municipio'),
+                'info' => sprintf(
+                    __(
+                        'This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.',
+                        'municipio',
+                    ),
+                    '{SUPPLIER_WEBSITE}',
+                ),
                 'button' => __('I understand, continue.', 'municipio'),
             ],
         ];
@@ -169,22 +182,22 @@ class Map extends \Modularity\Module
         return !empty($position) && !empty($position['lat'] && !empty($position['lng']));
     }
 
-   /**
-    * The function createMarkerTooltip in PHP creates a tooltip array based on marker data.
-    *
-    * @param marker The `createMarkerTooltip` function takes a `` parameter, which is expected
-    * to be an associative array containing the following keys:
-    *
-    * @return An array containing the title, excerpt, directions label, and directions URL of the
-    * marker.
-    */
+    /**
+     * The function createMarkerTooltip in PHP creates a tooltip array based on marker data.
+     *
+     * @param marker The `createMarkerTooltip` function takes a `` parameter, which is expected
+     * to be an associative array containing the following keys:
+     *
+     * @return An array containing the title, excerpt, directions label, and directions URL of the
+     * marker.
+     */
     private function createMarkerTooltip($marker)
     {
-        $tooltip                        = array();
-        $tooltip['title']               = $marker['title'];
-        $tooltip['excerpt']             = $marker['description'];
+        $tooltip = [];
+        $tooltip['title'] = $marker['title'];
+        $tooltip['excerpt'] = $marker['description'];
         $tooltip['directions']['label'] = $marker['link_text'];
-        $tooltip['directions']['url']   = $marker['url'];
+        $tooltip['directions']['url'] = $marker['url'];
 
         return $tooltip;
     }
@@ -205,12 +218,17 @@ class Map extends \Modularity\Module
     public function sslNotice($field)
     {
         if (is_ssl() || $this->isUsingSSLProxy()) {
-            $field['instructions'] = '<span style="color: #f00;">' . __("Your map link must start with http<strong>s</strong>://. Links without this prefix will not display.", 'modularity') . '</span>';
+            $field['instructions'] =
+                '<span style="color: #f00;">'
+                . __(
+                    'Your map link must start with http<strong>s</strong>://. Links without this prefix will not display.',
+                    'modularity',
+                )
+                . '</span>';
         }
 
         return $field;
     }
-
 
     /**
      * The function `isUsingSSLProxy` checks if SSL proxy is being used based on the defined constant
@@ -221,7 +239,7 @@ class Map extends \Modularity\Module
      */
     private function isUsingSSLProxy()
     {
-        if ((defined('SSL_PROXY') && SSL_PROXY === true)) {
+        if (defined('SSL_PROXY') && SSL_PROXY === true) {
             return true;
         }
 
@@ -249,10 +267,10 @@ class Map extends \Modularity\Module
      */
     public function template()
     {
-        $path = __DIR__ . "/views/" . $this->template . ".blade.php";
+        $path = __DIR__ . '/views/' . $this->template . '.blade.php';
 
         if (file_exists($path)) {
-            return $this->template . ".blade.php";
+            return $this->template . '.blade.php';
         }
 
         return 'default.blade.php';

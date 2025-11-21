@@ -14,8 +14,8 @@ class Cache
      */
 
     private $postId = null;
-    private $ttl    = null;
-    private $hash   = null;
+    private $ttl = null;
+    private $hash = null;
 
     public $keyGroup = 'modules';
 
@@ -30,7 +30,7 @@ class Cache
 
         // Set variables
         $this->postId = $postId;
-        $this->ttl    = $ttl;
+        $this->ttl = $ttl;
 
         //Alter keyGroup if ms
         if (function_exists('is_multisite') && is_multisite()) {
@@ -54,12 +54,12 @@ class Cache
 
             $roleHash = $this->createShortHash($caps, true);
             if ($roleHash !== false) {
-                $this->hash = $this->hash . "-auth-" . $roleHash;
+                $this->hash = $this->hash . '-auth-' . $roleHash;
             }
         }
 
         if ($cacheGroup != '') {
-            $this->hash = $this->hash . "-" . $cacheGroup;
+            $this->hash = $this->hash . '-' . $cacheGroup;
         }
 
         add_action('save_post', [$this, 'clearCache']);
@@ -84,7 +84,6 @@ class Cache
      */
     public function start()
     {
-
         if (!$this->isActive()) {
             return true;
         }
@@ -104,7 +103,6 @@ class Cache
      */
     public function stop()
     {
-
         if (!$this->isActive() || $this->hasCache()) {
             return false;
         }
@@ -164,7 +162,7 @@ class Cache
      */
     private function fragmentTag()
     {
-        return '<!-- Modularity Fragment Cache: (' . current_time("Y-m-d H:i:s", 1) . '|' . $this->hash . ') -->';
+        return '<!-- Modularity Fragment Cache: (' . current_time('Y-m-d H:i:s', 1) . '|' . $this->hash . ') -->';
     }
 
     /**
@@ -209,10 +207,10 @@ class Cache
 }
 
 /*
-Usage example:
-$cache = new Modularity\Helper\Cache($post->Id);
-if ($cache->start()) {
-    // Your cacheable content here
-    $cache->stop();
-}
-*/
+ * Usage example:
+ * $cache = new Modularity\Helper\Cache($post->Id);
+ * if ($cache->start()) {
+ * // Your cacheable content here
+ * $cache->stop();
+ * }
+ */

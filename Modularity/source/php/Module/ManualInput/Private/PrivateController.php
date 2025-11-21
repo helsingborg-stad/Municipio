@@ -6,12 +6,14 @@ use Modularity\Module\ManualInput\ManualInput;
 
 class PrivateController
 {
-    public static $index        = 0;
+    public static $index = 0;
     private string $userMetaKey = 'manualInputs';
-    public function __construct(private ManualInput $manualInputInstance)
-    {
+
+    public function __construct(
+        private ManualInput $manualInputInstance,
+    ) {
         $this->registerMeta();
-        add_filter('acf/update_value/key=field_6718c31e2862b', array($this, 'assignUniqueIdToRows'), 20, 4);
+        add_filter('acf/update_value/key=field_6718c31e2862b', [$this, 'assignUniqueIdToRows'], 20, 4);
 
         add_filter('acf/prepare_field/key=field_678784f60a1a6', [$this, 'onlyShowCustomMetaKeyFieldIfAdministrator']);
 
@@ -25,10 +27,7 @@ class PrivateController
 
     public function decorateData(array $data, array $fields): array
     {
-        if (
-            $this->manualInputInstance->postStatus !== 'private' ||
-            empty($fields['allow_user_modification'])
-        ) {
+        if ($this->manualInputInstance->postStatus !== 'private' || empty($fields['allow_user_modification'])) {
             return $data;
         }
 
@@ -38,21 +37,21 @@ class PrivateController
             return $data;
         }
 
-        $data['template']                    = $this->manualInputInstance->template;
+        $data['template'] = $this->manualInputInstance->template;
         $this->manualInputInstance->template = 'private';
 
-        $data['user']                 = $user->ID;
-        $data['userMetaKey']          = $this->userMetaKey;
+        $data['user'] = $user->ID;
+        $data['userMetaKey'] = $this->userMetaKey;
         $data['privateModuleMetaKey'] = $this->getPrivateMetaKey($fields);
 
         $data['lang'] = [
-            'save'          => __('Save', 'municipio'),
-            'cancel'        => __('Cancel', 'municipio'),
-            'description'   => __('Description', 'municipio'),
-            'name'          => __('Name', 'municipio'),
-            'saving'        => __('Saving', 'municipio'),
-            'obligatory'    => __('This item is obligatory', 'municipio'),
-            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'municipio'),
+            'save' => __('Save', 'municipio'),
+            'cancel' => __('Cancel', 'municipio'),
+            'description' => __('Description', 'municipio'),
+            'name' => __('Name', 'municipio'),
+            'saving' => __('Saving', 'municipio'),
+            'obligatory' => __('This item is obligatory', 'municipio'),
+            'error' => __('An error occurred and the data could not be saved. Please try again later', 'municipio'),
             'changeContent' => __('Change the lists content', 'municipio'),
         ];
 
@@ -85,20 +84,20 @@ class PrivateController
     private function getUserStructuredManualInputs(array $data): array
     {
         $userManualInputs = get_user_meta($data['user'], 'manualInputs', true);
-        $userManualInput  = $userManualInputs[$this->manualInputInstance->ID] ?? null;
+        $userManualInput = $userManualInputs[$this->manualInputInstance->ID] ?? null;
 
         $filteredManualInputs = [];
         foreach ($data['manualInputs'] as $manualInput) {
-            $manualInput['classList']     ??= [];
+            $manualInput['classList'] ??= [];
             $manualInput['attributeList'] ??= [];
 
             if (
-                empty($manualInput['obligatory']) &&
-                isset($userManualInput[$manualInput['uniqueId']]) &&
-                !$userManualInput[$manualInput['uniqueId']]
+                empty($manualInput['obligatory'])
+                && isset($userManualInput[$manualInput['uniqueId']])
+                && !$userManualInput[$manualInput['uniqueId']]
             ) {
                 $manualInput['classList'][] = 'u-display--none';
-                $manualInput['checked']     = false;
+                $manualInput['checked'] = false;
             } else {
                 $manualInput['checked'] = true;
             }
@@ -113,24 +112,24 @@ class PrivateController
 
     private function registerMeta(): void
     {
-        register_meta('user', 'manualInputs', array(
-            'type'         => 'object',
-            'show_in_rest' => array(
-                'schema' => array(
-                    'type'                 => 'object',
-                    'additionalProperties' => array(
-                        'type'                 => 'object',
-                        'properties'           => array(
-                            'key' => array(
+        register_meta('user', 'manualInputs', [
+            'type' => 'object',
+            'show_in_rest' => [
+                'schema' => [
+                    'type' => 'object',
+                    'additionalProperties' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'key' => [
                                 'type' => 'bool',
-                            ),
-                        ),
+                            ],
+                        ],
                         'additionalProperties' => true,
-                    ),
-                ),
-            ),
-            'single'       => true,
-        ));
+                    ],
+                ],
+            ],
+            'single' => true,
+        ]);
     }
 
     public function assignUniqueIdToRows($value, $postId, $field, $original): string

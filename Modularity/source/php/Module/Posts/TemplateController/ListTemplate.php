@@ -24,16 +24,16 @@ class ListTemplate extends AbstractController
      */
     public function __construct(\Modularity\Module\Posts\Posts $module)
     {
-        $this->args          = $module->args;
-        $this->data          = $module->data;
+        $this->args = $module->args;
+        $this->data = $module->data;
         $this->domainChecker = $module->domainChecker;
-        $this->fields        = $module->fields;
-        $this->module        = $module;
+        $this->fields = $module->fields;
+        $this->module = $module;
         $this->data['posts'] = $this->prepareList([
             'posts_data_source' => $this->data['posts_data_source'] ?? '',
-            'archive_link'      => $this->data['archiveLink'] ?? '',
-            'archive_link_url'  => $this->data['archiveLinkUrl'] ?? '',
-            'filters'           => $this->data['filters'] ?? '',
+            'archive_link' => $this->data['archiveLink'] ?? '',
+            'archive_link_url' => $this->data['archiveLinkUrl'] ?? '',
+            'filters' => $this->data['filters'] ?? '',
         ]);
     }
 
@@ -52,18 +52,18 @@ class ListTemplate extends AbstractController
                     $post->permalink = wp_get_attachment_url($post->getId());
                 }
 
-                $post->icon          = 'arrow_forward';
-                $post->classList     = $post->classList ?? [];
+                $post->icon = 'arrow_forward';
+                $post->classList ??= [];
                 $post->attributeList = ['data-js-item-id' => $post->getId()];
 
                 if (
-                    !empty($this->fields['posts_open_links_in_new_tab']) &&
-                    !$this->domainChecker->isSameDomain($post->getPermalink())
+                    !empty($this->fields['posts_open_links_in_new_tab'])
+                    && !$this->domainChecker->isSameDomain($post->getPermalink())
                 ) {
                     $post->attributeList['target'] = '_blank';
                 }
 
-                if (boolval(($this->data['meta']['use_term_icon_as_icon_in_list'] ?? false))) {
+                if (boolval($this->data['meta']['use_term_icon_as_icon_in_list'] ?? false)) {
                     $post->icon = $post->getIcon()?->toArray() ?: 'arrow_forward';
                 }
 

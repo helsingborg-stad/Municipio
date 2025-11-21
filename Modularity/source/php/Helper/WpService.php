@@ -12,7 +12,7 @@ use WpService\WpService as OriginalWpService;
  */
 class WpService
 {
-    private static ?OriginalWpService $wpService = null;
+    private static null|OriginalWpService $wpService = null;
 
     /**
      * Set the WpService instance.
@@ -29,7 +29,7 @@ class WpService
      *
      * @return OriginalWpService|null
      */
-    public static function get(): ?OriginalWpService
+    public static function get(): null|OriginalWpService
     {
         if (self::$wpService === null) {
             throw new \RuntimeException('WpService not set');

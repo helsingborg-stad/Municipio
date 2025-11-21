@@ -14,13 +14,13 @@ class App
     public function __construct(
         private EnqueueManager $wpEnqueue,
     ) {
-        add_action('admin_enqueue_scripts', array($this, 'enqueueAdmin'), 950);
-        add_action('enqueue_block_editor_assets', array($this, 'enqueueBlockEditor'));
-        add_action('wp_enqueue_scripts', array($this, 'enqueueFront'), 950);
-        add_action('admin_menu', array($this, 'addAdminMenuPage'));
-        add_action('admin_init', array($this, 'addCaps'));
+        add_action('admin_enqueue_scripts', [$this, 'enqueueAdmin'], 950);
+        add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
+        add_action('admin_menu', [$this, 'addAdminMenuPage']);
+        add_action('admin_init', [$this, 'addCaps']);
 
-        add_filter('acf/fields/post_object/query', array($this, 'removeFromAcfPostQuery'), 99, 3);
+        add_filter('acf/fields/post_object/query', [$this, 'removeFromAcfPostQuery'], 99, 3);
 
         // Main hook
         do_action('Modularity');
@@ -28,7 +28,7 @@ class App
         /**
          * Redirect top level Modularity page to the Modularity options page
          */
-        add_action('load-toplevel_page_modularity', function () {
+        add_action('load-toplevel_page_modularity', static function () {
             wp_redirect(admin_url('admin.php?page=modularity-options'));
         });
 
@@ -69,7 +69,7 @@ class App
         add_action('updated_post_meta', [$this, 'updatePostModifiedDateOnMetaUpdate'], 10, 4);
         add_action('deleted_post_meta', [$this, 'updatePostModifiedDateOnMetaUpdate'], 10, 4);
 
-        add_action('widgets_init', function () {
+        add_action('widgets_init', static function () {
             register_widget('\Modularity\Widget');
         });
     }
@@ -81,31 +81,31 @@ class App
             return;
         }
 
-        $caps = array(
-            'administrator' => array(
+        $caps = [
+            'administrator' => [
                 'edit_module',
                 'edit_modules',
                 'edit_other_modules',
                 'publish_modules',
                 'read_modules',
                 'delete_module',
-            ),
-            'editor' => array(
+            ],
+            'editor' => [
                 'edit_module',
                 'edit_modules',
                 'edit_other_modules',
                 'publish_modules',
                 'read_modules',
                 'delete_module',
-            ),
-            'author' => array(
+            ],
+            'author' => [
                 'edit_module',
                 'edit_modules',
                 'edit_other_modules',
                 'publish_modules',
                 'read_modules',
-            ),
-        );
+            ],
+        ];
 
         foreach ($caps as $roleId => $cap) {
             $role = get_role($roleId);
@@ -162,14 +162,14 @@ class App
                     return;
                 }
 
-                $wp_admin_bar->add_node(array(
+                $wp_admin_bar->add_node([
                     'id' => 'modularity_editor',
                     'title' => __('Edit', 'modularity') . ' ' . strtolower(__('Modules', 'municipio')),
                     'href' => $editorLink,
-                    'meta' => array(
+                    'meta' => [
                         'class' => 'modularity-editor-icon',
-                    ),
-                ));
+                    ],
+                ]);
             },
             1050,
         );
@@ -193,7 +193,7 @@ class App
             ->add('js/modularity.js', [], null, true)
             ->add('js/user-editable-list.js')
             ->with()
-            ->translation('modularityFrontLanguage', array(
+            ->translation('modularityFrontLanguage', [
                 'langvisibility' => __('Toggle visibility', 'municipio'),
                 'langedit' => __('Edit', 'municipio'),
                 'langimport' => __('Import', 'municipio'),
@@ -205,7 +205,7 @@ class App
                 'width' => __('Width', 'municipio'),
                 'widthOptions' => $this->editor->getWidthOptions(),
                 'deprecated' => __('Deprecated', 'municipio'),
-            ));
+            ]);
 
         if (!current_user_can('edit_posts')) {
             return;
@@ -220,18 +220,13 @@ class App
     {
         if ($modulesEditorId = \Modularity\Helper\Wp::isGutenbergEditor()) {
             $this->wpEnqueue
-                ->add(
-                    'js/edit-modules-block-editor.js',
-                    array('wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components'), // dependencies
-                    null,
-                    true,
-                )
+                ->add('js/edit-modules-block-editor.js', ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components'], null, true) // dependencies
                 ->add('js/block-validation.js')
                 ->with()
-                ->translation('modularityBlockEditor', array(
+                ->translation('modularityBlockEditor', [
                     'editModulesLinkLabel' => __('Edit Modules', 'municipio'),
                     'editModulesLinkHref' => admin_url('options.php?page=modularity-editor&id=' . $modulesEditorId),
-                ));
+                ]);
         }
     }
 
@@ -249,7 +244,7 @@ class App
             ->add('css/modularity.css')
             ->add('js/modularity.js', ['wp-api'], true)
             ->with()
-            ->translation('modularityAdminLanguage', array(
+            ->translation('modularityAdminLanguage', [
                 'langvisibility' => __('Toggle visibility', 'municipio'),
                 'langedit' => __('Edit', 'municipio'),
                 'langimport' => __('Import', 'municipio'),
@@ -261,11 +256,11 @@ class App
                 'width' => __('Width', 'municipio'),
                 'widthOptions' => $this->editor->getWidthOptions(),
                 'deprecated' => __('Deprecated', 'municipio'),
-            ))
+            ])
             ->add('js/dynamic-map-acf.js', ['jquery'])
             ->add('js/modularity-text-module.js');
 
-        add_action('admin_head', function () {
+        add_action('admin_head', static function () {
             echo "
                 <script>
                     var admin_url = '" . admin_url() . "';
@@ -273,7 +268,7 @@ class App
             ";
         });
 
-        add_action('admin_head', function () {
+        add_action('admin_head', static function () {
             echo "
                 <script>
                     if(typeof $ === 'undefined' && typeof jQuery !== 'undefined') {
@@ -291,7 +286,7 @@ class App
 
             add_action(
                 'admin_head',
-                function () {
+                static function () {
                     global $post;
                     global $archive;
 
@@ -328,7 +323,7 @@ class App
         $action = $currentScreen->action;
         $base = $currentScreen->base;
 
-        $isModularityPage = strpos($id, 'modularity') !== false || strpos($id, 'mod-') !== false;
+        $isModularityPage = str_contains($id, 'modularity') || str_contains($id, 'mod-');
         $isModularityPage |= isset($_GET['action']) && $_GET['action'] === 'edit' && $action === 'add';
         $isModularityPage |= in_array($base, ['post', 'widgets']);
 
@@ -342,7 +337,7 @@ class App
             'Modularity',
             'manage_options',
             'modularity',
-            function () {},
+            static function () {},
             'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjU0Ljg0OXB4IiBoZWlnaHQ9IjU0Ljg0OXB4IiB2aWV3Qm94PSIwIDAgNTQuODQ5IDU0Ljg0OSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTQuODQ5IDU0Ljg0OTsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxnPg0KCQkJPHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMTgNCgkJCQlsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzMNCgkJCQlDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+DQoJCQk8cGF0aCBkPSJNNTQuNDk3LDI3LjUxMmwtMTAuMzY0LTQuNDkxbC0xNC45MTYsNS45NjZjLTAuNTM2LDAuMjE1LTEuMTY1LDAuMzIxLTEuNzkyLDAuMzIxYy0wLjYyOCwwLTEuMjU2LTAuMTA2LTEuNzkzLTAuMzIxDQoJCQkJbC0xNC45MTgtNS45NjZMMC4zNTEsMjcuNTEyYy0wLjQ3MiwwLjIwMy0wLjQ2NywwLjUyMywwLjAxLDAuNzE2TDI2LjU2LDM4LjcwNmMwLjQ3NywwLjE5LDEuMjUxLDAuMTksMS43MjksMGwyNi4xOTktMTAuNDc5DQoJCQkJQzU0Ljk2NCwyOC4wMzYsNTQuOTY5LDI3LjcxNiw1NC40OTcsMjcuNTEyeiIvPg0KCQkJPHBhdGggZD0iTTAuMzYxLDE2LjEyNWwxMy42NjIsNS40NjVsMTIuNTM3LDUuMDE1YzAuNDc3LDAuMTkxLDEuMjUxLDAuMTkxLDEuNzI5LDBsMTIuNTQxLTUuMDE2bDEzLjY1OC01LjQ2Mw0KCQkJCWMwLjQ3Ny0wLjE5MSwwLjQ4LTAuNTExLDAuMDEtMC43MTZMMjguMjc3LDQuMDQ4Yy0wLjQ3MS0wLjIwNC0xLjIzNi0wLjIwNC0xLjcwOCwwTDAuMzUxLDE1LjQxDQoJCQkJQy0wLjEyMSwxNS42MTQtMC4xMTYsMTUuOTM1LDAuMzYxLDE2LjEyNXoiLz4NCgkJPC9nPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K',
             100,
         );
@@ -358,8 +353,8 @@ class App
      */
     public function removeFromAcfPostQuery($args, $field, $id)
     {
-        $args['post_type'] = array_filter($args['post_type'] ?? [], function ($postType) {
-            return strpos($postType, 'mod-') === false;
+        $args['post_type'] = array_filter($args['post_type'] ?? [], static function ($postType) {
+            return !str_contains($postType, 'mod-');
         });
 
         return $args;

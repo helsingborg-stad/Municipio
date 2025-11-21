@@ -9,8 +9,7 @@ class AcfModuleMigrationHandler
 
     public function __construct(array $fields, int|bool $moduleId)
     {
-
-        $this->fields   = $fields;
+        $this->fields = $fields;
         $this->moduleId = $moduleId;
     }
 
@@ -18,9 +17,11 @@ class AcfModuleMigrationHandler
     {
         $fieldsWasUpdated = [];
         foreach ($this->fields as $oldFieldName => $newField) {
-            if (is_array($newField) || is_string($newField)) {
-                $fieldsWasUpdated[] = $this->migrateField($oldFieldName, $newField);
+            if (!(is_array($newField) || is_string($newField))) {
+                continue;
             }
+
+            $fieldsWasUpdated[] = $this->migrateField($oldFieldName, $newField);
         }
 
         return $fieldsWasUpdated;
@@ -48,7 +49,7 @@ class AcfModuleMigrationHandler
         } elseif ($this->isRepeaterFieldMigration($newField)) {
             $migrator = new AcfModuleRepeaterFieldsMigrator($newField, $oldFieldValue, $this->moduleId);
         } elseif ($this->isCustomFieldMigration($newField)) {
-            $class    = '\\Modularity\Upgrade\Migrators\Module\Custom\\' . $newField['class'];
+            $class = '\\Modularity\Upgrade\Migrators\Module\Custom\\' . $newField['class'];
             $migrator = new $class($newField, $oldFieldValue, $this->moduleId);
         }
 
@@ -57,35 +58,37 @@ class AcfModuleMigrationHandler
 
     private function isRemoveFieldMigration($newField)
     {
-        return
-            $newField['type'] == 'removeField';
+        return $newField['type'] == 'removeField';
     }
 
     private function isReplaceAndUpdateFieldMigration(array $newField): bool
     {
-        return
-            $newField['type'] == 'replaceValue' &&
-            isset($newField['values']) &&
-            is_array($newField['values']) &&
-            !empty($newField['name']) &&
-            is_string($newField['name']);
+        return (
+            $newField['type'] == 'replaceValue'
+            && isset($newField['values'])
+            && is_array($newField['values'])
+            && !empty($newField['name'])
+            && is_string($newField['name'])
+        );
     }
 
     private function isRepeaterFieldMigration(array $newField): bool
     {
-        return
-            $newField['type'] == 'repeater' &&
-            isset($newField['fields']) &&
-            is_array($newField['fields']) &&
-            !empty($newField['name']) &&
-            is_string($newField['name']);
+        return (
+            $newField['type'] == 'repeater'
+            && isset($newField['fields'])
+            && is_array($newField['fields'])
+            && !empty($newField['name'])
+            && is_string($newField['name'])
+        );
     }
 
     private function isCustomFieldMigration(array $newField): bool
     {
-        return
-            $newField['type'] == 'custom' &&
-            !empty($newField['class']) &&
-            class_exists('\\Modularity\Upgrade\Migrators\Module\Custom\\' . $newField['class']);
+        return (
+            $newField['type'] == 'custom'
+            && !empty($newField['class'])
+            && class_exists('\\Modularity\Upgrade\Migrators\Module\Custom\\' . $newField['class'])
+        );
     }
 }
