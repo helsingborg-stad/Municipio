@@ -1,30 +1,19 @@
-import { Type } from "@wordpress/core-data";
+import { Taxonomy } from "@wordpress/core-data";
 
 const { useSelect } = window.wp.data;
 const { store } = window.wp.coreData;
 
-type Option = {
-    label: string;
-    value: string;
-}
+export const usePostsSettingsPanel = (selectedPostType: string): { taxonomies: Taxonomy[] } => {
 
-interface UseEdit {
-    postTypeOptions: Option[],
-}
-
-export const usePostsSettingsPanel = (): UseEdit => {
-
-    const postTypes: Type[] = useSelect((select: any) => {
-        const types = select(store).getPostTypes({ per_page: -1 }) || [];
-        return types.filter((postType: any) => postType.viewable === true && postType.slug && postType.labels && postType.labels.singular_name);
-    }, [store]) || [];
-
-    const postTypeOptions: Option[] = postTypes.map((postType) => ({
-        label: postType.labels.singular_name,
-        value: postType.slug
-    }));
+    // Taxonomies from selected post type
+    const taxonomies = useSelect((select: any) => {
+        if (!selectedPostType) {
+            return [];
+        }
+        return select(store).getTaxonomies({ type: selectedPostType }) || [];
+    }, [store, selectedPostType]) || [];
 
     return {
-        postTypeOptions
+        taxonomies
     };
 }

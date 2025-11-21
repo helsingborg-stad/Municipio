@@ -1,18 +1,19 @@
 import { PostsListEditProps } from "../../Edit";
 import { usePostsSettingsPanel } from "./usePostsSettingsPanel";
+import { PostTypeSelectControl } from "./PostTypeSelectControl/PostTypeSelectControl";
+import { TermSelectControl } from "./TermSelectControl";
 
-const { PanelBody, SelectControl, __experimentalNumberControl } = window.wp.components;
+const { PanelBody, __experimentalNumberControl } = window.wp.components;
 const { __ } = window.wp.i18n;
 
 export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { postType, postsPerPage }, setAttributes }) => {
 
-    const { postTypeOptions } = usePostsSettingsPanel();
+    const { taxonomies } = usePostsSettingsPanel(postType);
 
     return (
         <PanelBody title={__('Posts settings', 'municipio')}>
-            <SelectControl
+            <PostTypeSelectControl
                 label={__('Post Type', 'municipio')}
-                options={postTypeOptions}
                 value={postType}
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
@@ -25,6 +26,16 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { 
                 value={postsPerPage || 12}
                 __next40pxDefaultSize
                 onChange={(value) => setAttributes({ postsPerPage: Number(value) })} />
+            {taxonomies.map((taxonomy) => (
+                <TermSelectControl
+                    label={__(`Terms: ${taxonomy.labels.singular_name}`, 'municipio')}
+                    taxonomy={taxonomy.slug}
+                    multiple
+                    key={taxonomy.slug}
+                    __next40pxDefaultSize
+                    __nextHasNoMarginBottom
+                />
+            ))}
         </PanelBody>
-    );;
+    );
 }
