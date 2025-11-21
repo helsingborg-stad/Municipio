@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <div class="modularity-modules">
     <?php foreach ($modules as $moduleId => $module) : ?>
     <div class="modularity-module modularity-js-draggable"

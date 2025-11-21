@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Menu;
 
 use Modularity\Module\Menu\Acf\Select;

@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <p>
     <ul>
         <!-- Page -->

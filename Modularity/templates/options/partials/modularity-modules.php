@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <p>
     <?php _e('Enable and/or disable modules.', 'modularity'); ?><br>
     <span style="font-style:italic;"><?php _e('Note: You will not lose any data from disabling a module. However the modules will not be displayed on your site.', 'modularity'); ?></span>

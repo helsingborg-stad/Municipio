@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;

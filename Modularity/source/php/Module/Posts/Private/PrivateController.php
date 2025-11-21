@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\Private;
 
 use Modularity\Module\Posts\Posts;

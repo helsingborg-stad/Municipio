@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <p style="border: 1px solid #ddd; background: #f9f9f9; padding: 10px 15px;">
     <strong><?php _e('Selected module', 'modularity'); ?></strong><br>
 

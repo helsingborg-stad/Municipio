@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Rss;
 
 class Rss extends \Modularity\Module

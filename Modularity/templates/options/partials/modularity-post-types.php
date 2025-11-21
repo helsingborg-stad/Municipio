@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <p>
     <?php _e('Select which post types you would like to enable Modularity on.', 'modularity'); ?>
 </p>

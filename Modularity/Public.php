@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 if (!function_exists('modularity_register_module')) {
     function modularity_register_module($path, $name)
     {

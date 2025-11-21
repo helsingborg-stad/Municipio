@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <p>
     <span style="font-style:italic;"><?php _e('Only visible for administrators/editors. Please keep the description short and concisely.', 'modularity'); ?></span>
 </p>
