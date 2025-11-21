@@ -174,7 +174,7 @@ class Customizer
     /**
      * Initialize applicators
      * This will apply settings from the customizer on the frontend.
-     * This also includes a cacing layer, to reduce the amount of
+     * This also includes a caching layer, to reduce the amount of
      * time spent on calculating the settings.
      *
      * @return void
@@ -188,12 +188,41 @@ class Customizer
             new Css($this->wpService)
         ];
 
-        $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
-            $this->wpService,
-            $this->wpdb,
-            ...$applicators
-        );
+        // Allow switching to the new refactored cache implementation
+        $useRefactoredCache = $this->wpService->applyFilters('Municipio/Customizer/UseRefactoredCache', false);
+
+        if ($useRefactoredCache) {
+            $customizerCache = $this->createRefactoredApplicatorCache(...$applicators);
+        } else {
+            $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
+                $this->wpService,
+                $this->wpdb,
+                ...$applicators
+            );
+        }
 
         $customizerCache->addHooks();
+    }
+
+    /**
+     * Create the refactored applicator cache with proper dependency injection
+     *
+     * @param \Municipio\Customizer\Applicators\ApplicatorInterface ...$applicators
+     * @return \Municipio\Customizer\Applicators\RefactoredApplicatorCache
+     */
+    private function createRefactoredApplicatorCache(\Municipio\Customizer\Applicators\ApplicatorInterface ...$applicators): \Municipio\Customizer\Applicators\RefactoredApplicatorCache
+    {
+        $cacheFactory = new \Municipio\Customizer\Applicators\Cache\CacheComponentFactory(
+            $this->wpService,
+            $this->wpdb
+        );
+
+        $cacheManager = $cacheFactory->createCacheManager();
+
+        return new \Municipio\Customizer\Applicators\RefactoredApplicatorCache(
+            $this->wpService,
+            $cacheManager,
+            ...$applicators
+        );
     }
 }
