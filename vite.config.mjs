@@ -47,7 +47,8 @@ const entries = {
   'js/widgets-area-hider': './assets/source/js/admin/widgetsAreaHider.js',
   'js/customizer-error-handling': './assets/source/js/admin/customizerErrorHandling.ts',
   'js/blocks/columns': './assets/source/js/admin/blocks/columns.js',
-  'js/event-source-progress': './assets/source/js/admin/eventSourceProgress/index.ts'
+  'js/event-source-progress': './assets/source/js/admin/eventSourceProgress/index.ts',
+  'js/blocks/posts-list-block': './library/PostsList/Block/js/index.ts',
 }
 
 export default defineConfig(({ mode }) => {

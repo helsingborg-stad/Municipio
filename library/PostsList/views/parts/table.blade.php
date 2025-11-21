@@ -1,4 +1,3 @@
-
 @table([
     ...$getTableComponentArguments(),
     'classList' => ['archive-list'],

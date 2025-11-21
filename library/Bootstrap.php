@@ -7,6 +7,15 @@
 use AcfService\Implementations\NativeAcfService;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
+use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
+use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
+use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
+use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
+use Municipio\PostsList\GetPosts\WpQueryFactory;
+use Municipio\PostsList\PostsList;
+use Municipio\PostsList\QueryVars\QueryVars;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
