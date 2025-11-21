@@ -453,6 +453,42 @@ class Template
             $this->userHelper
         );
     }
+
+    /**
+     * Extracts <template> tags from the given HTML string, including nested ones.
+     *
+     * @param string $html The HTML string to extract <template> tags from.
+     * @return array An array containing the modified HTML string with placeholders and an associative array of extracted templates.
+     */
+    private function extractTemplateTags(string $html): array {
+        $templates = [];
+
+        // Robust opening-tag matcher that allows quoted attributes with >
+        $open  = '<template\b(?:[^"\'>]|"[^"]*"|\'[^\']*\')*>';
+        $close = '<\/template>';
+
+        // Use a recursive pattern that matches nested template blocks.
+        // (?R) recurses the whole pattern, allowing nested <template>...< /template>
+        // Flags: i = case-insensitive, s = dot matches newline
+        $pattern = '#'
+                . $open
+                . '(?:'                             // start content group
+                .     '[^<]'                        // any non-< char
+                .   '|<(?!/?template\b)'            // or a '<' that does not start a template tag
+                .   '|(?R)'                         // or recurse (nested <template>)
+                . ')*'                              // repeat content
+                . $close
+                . '#is';
+
+        $htmlWithPlaceholders = preg_replace_callback($pattern, function ($m) use (&$templates) {
+            $key = '___MUN_TPL_' . count($templates) . '___';
+            $templates[$key] = $m[0];
+            return $key;
+        }, $html);
+
+        return [$htmlWithPlaceholders, $templates];
+    }
+
     /**
      * @param $view
      * @param array $data
@@ -474,19 +510,9 @@ class Template
 
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
-                //Leave out <template> blocks from tidy processing
-                $index      = 0;
-                $templates  = [];
-                $markup = preg_replace_callback(
-                    '#<template(\s[^>]*)?>(?:(?>[^<]+)|(?R))*?</template>#i',
-                    function ($matches) use (&$templates, &$index) {
-                        $placeholder = '__TEMPLATE_BLOCK_' . $index . '__';
-                        $templates[$placeholder] = $matches[0];
-                        $index++;
-                        return $placeholder;
-                    },
-                    $markup
-                );
+
+                //Rescue template tags
+                list($markup, $templates) = $this->extractTemplateTags($markup) ?? [];
 
                 $tidy = new \tidy();
                 $tidy->parseString($markup, [
@@ -502,9 +528,6 @@ class Template
                 // Clean and repair the document
                 $tidy->cleanRepair();
                 $markup = (string) $tidy;
-
-                // Restore <template> blocks
-                $markup = str_replace(array_keys($templates), array_values($templates), $markup);
 
                 // Minify inline <style> content
                 $markup = preg_replace_callback(
@@ -533,8 +556,8 @@ class Template
                     'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
                 ], $markup);
-              
-                // Replace templates
+
+                // Replace templates with their original content
                 $markup = str_replace(array_keys($templates), array_values($templates), $markup);
             }
 
