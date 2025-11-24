@@ -481,8 +481,11 @@ class Template
                     $outermost[] = ['start' => $pos, 'end' => null];
                 }
                 $stack[] = $pos;
-            } elseif (empty($stack)) {
-                $outermost[count($outermost) - 1]['end'] = $pos + strlen($match[0]);
+            } else {
+                array_pop($stack);
+                if (empty($stack)) {
+                    $outermost[count($outermost)-1]['end'] = $pos + strlen($match[0]);
+                }
             }
         }
 
