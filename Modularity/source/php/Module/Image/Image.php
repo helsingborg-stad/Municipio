@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Image;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
@@ -9,7 +11,7 @@ use Modularity\Integrations\Component\ImageResolver;
 class Image extends \Modularity\Module
 {
     public $slug = 'image';
-    public $supports = array();
+    public $supports = [];
     public $isBlockCompatible = false;
 
     /**
@@ -140,8 +142,8 @@ class Image extends \Modularity\Module
 
         $allAllowedMimeTypes = get_allowed_mime_types();
 
-        $allowedImageMimeTypes = array_filter($allAllowedMimeTypes, function ($type) {
-            return strpos($type, 'image/') === 0;
+        $allowedImageMimeTypes = array_filter($allAllowedMimeTypes, static function ($type) {
+            return str_starts_with($type, 'image/');
         });
 
         $structuredArray = [];

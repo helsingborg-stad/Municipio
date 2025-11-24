@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\TemplateController;
 
 /**
@@ -171,10 +173,12 @@ class ExpandableListTemplate extends AbstractController
     {
         $maxDepth = 1;
         foreach ($colArray as $value) {
-            if (is_array($value)) {
-                $depth = $this->arrayDepth($value) + 1;
-                $maxDepth = $depth > $maxDepth ? $depth : $maxDepth;
+            if (!is_array($value)) {
+                continue;
             }
+
+            $depth = $this->arrayDepth($value) + 1;
+            $maxDepth = $depth > $maxDepth ? $depth : $maxDepth;
         }
 
         return $maxDepth;

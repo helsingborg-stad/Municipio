@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\FilesList;
 
-use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
 
 class FilesList extends \Modularity\Module
@@ -31,7 +32,7 @@ class FilesList extends \Modularity\Module
         $data['rows'] = $this->prepareFileData();
         $data['classes'] = implode(' ', apply_filters(
             'Modularity/Module/Classes',
-            array('c-card--default'),
+            ['c-card--default'],
             $this->post_type,
             $this->args,
         ));

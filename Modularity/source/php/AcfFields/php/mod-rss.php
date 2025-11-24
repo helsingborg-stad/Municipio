@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_59535d940706c',
         'title' => 'RSS',
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_59535db89b29b',
                 'label' => __('RSS feed URL', 'municipio'),
                 'name' => 'rss_url',
@@ -13,15 +15,15 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_59535e3782765',
                 'label' => __('Number of items', 'municipio'),
                 'name' => 'items',
@@ -29,11 +31,11 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Set to -1 to show all', 'municipio'),
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'prepend' => '',
@@ -41,8 +43,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'min' => '',
                 'max' => '',
                 'step' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_595360d0232cc',
                 'label' => __('Sort order', 'municipio'),
                 'name' => 'sort_order',
@@ -50,23 +52,23 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Select order to sort the RSS feed', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'desc' => __('Descending', 'municipio'),
                     'asc' => __('Ascending', 'municipio'),
-                ),
+                ],
                 'allow_null' => 0,
                 'other_choice' => 0,
                 'save_other_choice' => 0,
                 'default_value' => '',
                 'layout' => 'vertical',
                 'return_format' => 'value',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_59535e9382766',
                 'label' => __('Fields', 'municipio'),
                 'name' => 'fields',
@@ -74,33 +76,33 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'summary' => __('Summary', 'municipio'),
                     'author' => __('Author', 'municipio'),
                     'date' => __('Date', 'municipio'),
-                ),
+                ],
                 'allow_custom' => 0,
                 'save_custom' => 0,
-                'default_value' => array(),
+                'default_value' => [],
                 'layout' => 'vertical',
                 'toggle' => 0,
                 'return_format' => 'value',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-rss',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -109,5 +111,5 @@ if (function_exists('acf_add_local_field_group')) {
         'hide_on_screen' => '',
         'active' => 1,
         'description' => '',
-    ));
+    ]);
 }

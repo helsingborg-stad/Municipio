@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class Template
@@ -16,9 +18,9 @@ class Template
         $view = basename($view, '.php');
 
         // Paths to search
-        $paths = array_unique(array(
+        $paths = array_unique([
             $module->templateDir,
-        ));
+        ]);
 
         //General filter
         $paths = apply_filters('Modularity/Module/TemplatePath', $paths);

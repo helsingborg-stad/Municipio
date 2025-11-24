@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Subscribe;
 
 class Subscribe extends \Modularity\Module
 {
     public $slug = 'subscribe';
-    public $supports = array();
-    public $blockSupports = array(
+    public $supports = [];
+    public $blockSupports = [
         'align' => ['full'],
-    );
+    ];
 
     public function init()
     {

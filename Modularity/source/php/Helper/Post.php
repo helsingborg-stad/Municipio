@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class Post
@@ -33,10 +35,7 @@ class Post
         $template = get_page_template_slug($post->ID);
 
         // If this is the front page and the template is set to page.php or page.blade.php default to just "page"
-        if (
-            $post->ID === (int) get_option('page_on_front')
-            && in_array($template, array('page.php', 'page.blade.php'))
-        ) {
+        if ($post->ID === (int) get_option('page_on_front') && in_array($template, ['page.php', 'page.blade.php'])) {
             return 'page';
         }
 
@@ -56,10 +55,10 @@ class Post
     public static function detectCoreTemplate($post)
     {
         if ((int) get_option('page_on_front') == (int) $post->ID) {
-            return \Modularity\Helper\Wp::findCoreTemplates(array(
+            return \Modularity\Helper\Wp::findCoreTemplates([
                 'front-page',
                 'page',
-            ));
+            ]);
         }
 
         switch ($post->post_type) {
@@ -72,11 +71,11 @@ class Post
                 break;
 
             default:
-                return \Modularity\Helper\Wp::findCoreTemplates(array(
+                return \Modularity\Helper\Wp::findCoreTemplates([
                     'single-' . $post->post_type,
                     'single',
                     'page',
-                ));
+                ]);
                 break;
         }
 

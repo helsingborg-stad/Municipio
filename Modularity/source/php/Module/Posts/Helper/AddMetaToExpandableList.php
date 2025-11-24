@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\Helper;
 
 /**
@@ -10,8 +12,8 @@ class AddMetaToExpandableList
 {
     public function __construct()
     {
-        add_action('add_meta_boxes', array($this, 'addColumnFields'));
-        add_action('save_post', array($this, 'saveColumnFields'));
+        add_action('add_meta_boxes', [$this, 'addColumnFields']);
+        add_action('save_post', [$this, 'saveColumnFields']);
     }
 
     /* Handle Expandable list post meta fields */
@@ -86,7 +88,7 @@ class AddMetaToExpandableList
             return false;
         }
 
-        $modules = array_filter($modules, function ($item) {
+        $modules = array_filter($modules, static function ($item) {
             return !wp_is_post_revision($item);
         });
 

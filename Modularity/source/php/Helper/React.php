@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class React
@@ -21,7 +23,7 @@ class React
             wp_enqueue_script(
                 '@babel/polyfill',
                 'https://cdn.jsdelivr.net/npm/@babel/polyfill@7.0.0/dist/polyfill' . $min . '.js',
-                array(),
+                [],
                 null,
             );
         }
@@ -31,7 +33,7 @@ class React
             wp_enqueue_script(
                 'react',
                 'https://unpkg.com/react@' . $version . '/umd/react.' . $suffix . '.js',
-                array(),
+                [],
                 null,
             );
         }
@@ -40,7 +42,7 @@ class React
             wp_enqueue_script(
                 'react-dom',
                 'https://unpkg.com/react-dom@' . $version . '/umd/react-dom.' . $suffix . '.js',
-                array('react'),
+                ['react'],
                 null,
             );
         }

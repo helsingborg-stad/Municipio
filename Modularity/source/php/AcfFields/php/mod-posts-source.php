@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_571dfaabc3fc5',
         'title' => __('Data source', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_571dfaafe6984',
                 'label' => __('Data source', 'municipio'),
                 'name' => 'posts_data_source',
@@ -14,17 +16,17 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'posttype' => __('Posttyper', 'municipio'),
                     'children' => __('Child posts', 'municipio'),
                     'manual' => __('Manually picked posts', 'municipio'),
                     'schematype' => __('Schema type', 'municipio'),
-                ),
+                ],
                 'default_value' => false,
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -34,8 +36,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_670fb7fc4b05c',
                 'label' => __('Schema Type', 'municipio'),
                 'name' => 'posts_data_schema_type',
@@ -43,21 +45,21 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'select',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'schematype',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(),
+                ],
+                'choices' => [],
                 'default_value' => false,
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -67,8 +69,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_571dfc40f8114',
                 'label' => __('Post Types', 'municipio'),
                 'name' => 'posts_data_post_type',
@@ -76,28 +78,28 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'posttype_select',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'posttype',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => 'modularity-latest-post-type',
                     'id' => 'modularity-latest-post-type',
-                ),
+                ],
                 'default_value' => '',
                 'allow_null' => 0,
                 'multiple' => 0,
                 'placeholder' => '',
                 'disabled' => 0,
                 'readonly' => 0,
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_571dfc6ff8115',
                 'label' => __('Pick posts to display', 'municipio'),
                 'name' => 'posts_data_posts',
@@ -105,22 +107,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'post_object',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'manual',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'post_type' => array(),
-                'taxonomy' => array(),
+                ],
+                'post_type' => [],
+                'taxonomy' => [],
                 'allow_null' => 0,
                 'multiple' => 1,
                 'return_format' => 'id',
@@ -128,9 +130,9 @@ if (function_exists('acf_add_local_field_group')) {
                 'save_custom' => 0,
                 'save_post_type' => '',
                 'save_post_status' => '',
-                'bidirectional_target' => array(),
-            ),
-            4 => array(
+                'bidirectional_target' => [],
+            ],
+            4 => [
                 'key' => 'field_571dfcd6b5cf9',
                 'label' => __('Childs of', 'municipio'),
                 'name' => 'posts_data_child_of',
@@ -138,22 +140,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'post_object',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'children',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'post_type' => array(),
-                'taxonomy' => array(),
+                ],
+                'post_type' => [],
+                'taxonomy' => [],
                 'allow_null' => 0,
                 'multiple' => 0,
                 'return_format' => 'id',
@@ -161,9 +163,9 @@ if (function_exists('acf_add_local_field_group')) {
                 'save_custom' => 0,
                 'save_post_type' => '',
                 'save_post_status' => '',
-                'bidirectional_target' => array(),
-            ),
-            5 => array(
+                'bidirectional_target' => [],
+            ],
+            5 => [
                 'key' => 'field_571dff4eb46c3',
                 'label' => __('Number of posts', 'municipio'),
                 'name' => 'posts_count',
@@ -172,11 +174,11 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Amount of posts to show (Maximum of 100)', 'municipio'),
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => 10,
                 'min' => 1,
                 'max' => 100,
@@ -186,8 +188,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'append' => '',
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            6 => array(
+            ],
+            6 => [
                 'key' => 'field_671b3d7e4e7ed',
                 'label' => __('Pagination', 'municipio'),
                 'name' => 'posts_pagination',
@@ -195,24 +197,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'select',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '!=',
                             'value' => 'manual',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'disabled' => __('Disabled', 'municipio'),
                     'page_numbers' => __('Page numbers', 'municipio'),
-                ),
+                ],
                 'default_value' => __('disabled', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -223,8 +225,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            7 => array(
+            ],
+            7 => [
                 'key' => 'field_57ecf1007b749',
                 'label' => __('Link to post type archive', 'municipio'),
                 'name' => 'archive_link',
@@ -232,27 +234,27 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'posttype',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => 0,
                 'message' => __('Yes, link to post type archive', 'municipio'),
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            8 => array(
+            ],
+            8 => [
                 'key' => 'field_67e6e75d155eb',
                 'label' => __('Link title', 'municipio'),
                 'name' => 'archive_link_title',
@@ -260,27 +262,27 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'text',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_57ecf1007b749',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => __('Show more', 'municipio'),
                 'maxlength' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            9 => array(
+            ],
+            9 => [
                 'key' => 'field_67e6eed195ff6',
                 'label' => __('Archive link above posts', 'municipio'),
                 'name' => 'archive_link_above_posts',
@@ -288,28 +290,28 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'true_false',
                 'instructions' => __('Doesn\'t work in combination with slider turned on', 'municipio'),
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_57ecf1007b749',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 0,
                 'allow_in_bindings' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
                 'ui' => 1,
-            ),
-            10 => array(
+            ],
+            10 => [
                 'key' => 'field_6710ff6562e8c',
                 'label' => __('From network sites', 'municipio'),
                 'name' => 'posts_data_network_sources',
@@ -320,29 +322,29 @@ if (function_exists('acf_add_local_field_group')) {
                     'municipio',
                 ),
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'posttype',
-                        ),
-                    ),
-                    1 => array(
-                        0 => array(
+                        ],
+                    ],
+                    1 => [
+                        0 => [
                             'field' => 'field_571dfaafe6984',
                             'operator' => '==',
                             'value' => 'schematype',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(),
-                'default_value' => array(),
+                ],
+                'choices' => [],
+                'default_value' => [],
                 'return_format' => 'array',
                 'multiple' => 1,
                 'allow_custom' => 0,
@@ -352,24 +354,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'ui' => 1,
                 'ajax' => 0,
                 'search_placeholder' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-posts',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/posts',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 1,
         'position' => 'normal',
         'style' => 'default',
@@ -384,5 +386,5 @@ if (function_exists('acf_add_local_field_group')) {
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

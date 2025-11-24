@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_66c34c64b8d10',
         'title' => __('Menu Module', 'modularity'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_66c59ae797a04',
                 'label' => __('Display Menu As', 'modularity'),
                 'name' => 'mod_menu_display_as',
@@ -14,19 +16,19 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
-                    'row-row-row-row-row-row-row-66c59af297a05' => array(
+                ],
+                'choices' => [
+                    'row-row-row-row-row-row-row-66c59af297a05' => [
                         'image-select-repeater-label' => 'List',
                         'image-select-repeater-value' => 'listing',
-                    ),
-                ),
-            ),
-            1 => array(
+                    ],
+                ],
+            ],
+            1 => [
                 'key' => 'field_66c5c58856a24',
                 'label' => __('Display as conditional target', 'modularity'),
                 'name' => 'mod_menu_display_as_conditional',
@@ -35,18 +37,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => 'acf-hidden',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_66c34c655680e',
                 'label' => __('Select a Menu', 'modularity'),
                 'name' => 'mod_menu_menu',
@@ -55,12 +57,12 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(),
+                ],
+                'choices' => [],
                 'default_value' => false,
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -72,8 +74,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'search_placeholder' => '',
                 'create_options' => 0,
                 'save_options' => 0,
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_6734a0413d66b',
                 'label' => __('Background', 'modularity'),
                 'name' => 'mod_menu_wrapped',
@@ -82,18 +84,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Decides if the menu is wrapped in a container.', 'modularity'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
                 'ui' => 1,
-            ),
-            4 => array(
+            ],
+            4 => [
                 'key' => 'field_678a24781b23e',
                 'label' => __('Background Notice', 'modularity'),
                 'name' => '',
@@ -101,20 +103,20 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'message',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_6734a0413d66b',
                             'operator' => '==',
                             'value' => '1',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => __(
                     'OBS! The amount of top level menu items of the menu must be divisible with the amount of columns chosen. This is always the case when using the option "Background".
 
@@ -125,8 +127,8 @@ Otherwise the amount of columns will be calculated as best it can automatically.
                 ),
                 'new_lines' => 'wpautop',
                 'esc_html' => 0,
-            ),
-            5 => array(
+            ],
+            5 => [
                 'key' => 'field_66c5c3e6b7b5d',
                 'label' => __('Items Per Column', 'modularity'),
                 'name' => 'mod_menu_columns',
@@ -134,26 +136,26 @@ Otherwise the amount of columns will be calculated as best it can automatically.
                 'type' => 'select',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_66c5c58856a24',
                             'operator' => '==',
                             'value' => 'listing',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     1 => __('1', 'modularity'),
                     2 => __('2', 'modularity'),
                     3 => __('3', 'modularity'),
                     4 => __('4', 'modularity'),
-                ),
+                ],
                 'default_value' => 3,
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -165,8 +167,8 @@ Otherwise the amount of columns will be calculated as best it can automatically.
                 'search_placeholder' => '',
                 'create_options' => 0,
                 'save_options' => 0,
-            ),
-            6 => array(
+            ],
+            6 => [
                 'key' => 'field_67c846a5654c1',
                 'label' => __('Collapse menu on mobile', 'modularity'),
                 'name' => 'mod_menu_mobile_collapse',
@@ -178,35 +180,35 @@ Otherwise the amount of columns will be calculated as best it can automatically.
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 1,
                 'allow_in_bindings' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
                 'ui' => 1,
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-menu',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/menu',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -217,11 +219,11 @@ Otherwise the amount of columns will be calculated as best it can automatically.
         'description' => '',
         'show_in_rest' => 0,
         'acfe_display_title' => '',
-        'acfe_autosync' => array(
+        'acfe_autosync' => [
             0 => 'json',
-        ),
+        ],
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

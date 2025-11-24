@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Markdown\Filters;
 
 use Modularity\Module\Markdown\Filters\FilterInterface;
@@ -21,7 +23,7 @@ class DemoteTitles implements FilterInterface
     {
         return preg_replace_callback(
             '/^(#+)(.*)/m',
-            function ($matches) {
+            static function ($matches) {
                 return str_repeat('#', strlen($matches[1]) + 1) . $matches[2];
             },
             $content,

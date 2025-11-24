@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Editor;
 
 class Thickbox
@@ -17,10 +19,10 @@ class Thickbox
      */
     public function init()
     {
-        add_action('admin_head', array($this, 'addJsVariables'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueue'));
+        add_action('admin_head', [$this, 'addJsVariables']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue']);
         add_action('current_screen', function ($current_screen) {
-            add_action('views_edit-' . $current_screen->post_type, array($this, 'addFilterUrlParams'));
+            add_action('views_edit-' . $current_screen->post_type, [$this, 'addFilterUrlParams']);
         });
     }
 

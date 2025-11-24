@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Video;
 
 class Video extends \Modularity\Module
 {
     public $slug = 'video';
-    public $supports = array();
+    public $supports = [];
     private $imageLocations = [
         'youtube' => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
         'vimeo' => 'https://vumbnail.com/%s.jpg',
@@ -18,12 +20,12 @@ class Video extends \Modularity\Module
         $this->description = __('Outputs an embedded Video.', 'modularity');
 
         //Cover images
-        add_action('wp_after_insert_post', array($this, 'getVideoCover'), 10, 4);
+        add_action('wp_after_insert_post', [$this, 'getVideoCover'], 10, 4);
 
-        add_action('Modularity/save_block', array($this, 'getVideoCoverForBlock'), 10, 3);
+        add_action('Modularity/save_block', [$this, 'getVideoCoverForBlock'], 10, 3);
 
         //Add mime types
-        add_filter('upload_mimes', array($this, 'addVttFormatAsAllowedFiletype'), 10, 1);
+        add_filter('upload_mimes', [$this, 'addVttFormatAsAllowedFiletype'], 10, 1);
     }
 
     /**
@@ -173,15 +175,17 @@ class Video extends \Modularity\Module
             if ($attachmentId) {
                 $existingBlocks = parse_blocks($post->post_content);
                 foreach ($existingBlocks as &$existingBlock) {
-                    if ($existingBlock['attrs']['data'] === $block['attrs']['data']) {
-                        $existingBlock['attrs']['data']['placeholder_image'] = $attachmentId;
+                    if ($existingBlock['attrs']['data'] !== $block['attrs']['data']) {
+                        continue;
                     }
+
+                    $existingBlock['attrs']['data']['placeholder_image'] = $attachmentId;
                 }
 
-                $postData = array(
+                $postData = [
                     'ID' => $postId,
                     'post_content' => serialize_blocks($existingBlocks),
-                );
+                ];
 
                 update_field($placeholderImageFieldKey, $attachmentId);
                 return wp_update_post($postData, true, false);
@@ -363,9 +367,11 @@ class Video extends \Modularity\Module
 
         if (is_array($parts) & !empty($parts)) {
             foreach ($parts as $part) {
-                if (is_numeric($part)) {
-                    return $part;
+                if (!is_numeric($part)) {
+                    continue;
                 }
+
+                return $part;
             }
         }
         return false;
@@ -437,10 +443,10 @@ class Video extends \Modularity\Module
      */
     private function getEmbedMarkup($embedLink)
     {
-        return wp_oembed_get($embedLink, array(
+        return wp_oembed_get($embedLink, [
             'width' => 1080,
             'height' => 720,
-        ));
+        ]);
     }
 
     public function style()

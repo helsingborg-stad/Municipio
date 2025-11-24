@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_56a8b9eddfced',
         'title' => __('Embed', 'municipio'),
-        'fields' => array(
-            array(
+        'fields' => [
+            [
                 'key' => 'field_56a8b9f1902a6',
                 'label' => __('Embed code', 'municipio'),
                 'name' => 'embed_code',
@@ -16,18 +18,18 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'maxlength' => '',
                 'rows' => '',
                 'new_lines' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_62a05ea1e4147',
                 'label' => __('Wrap with', 'municipio'),
                 'name' => 'script_wrap_with',
@@ -35,23 +37,23 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'card' => __('Card', 'municipio'),
                     'nothing' => __('Nothing', 'municipio'),
-                ),
+                ],
                 'allow_null' => 0,
                 'other_choice' => 0,
                 'default_value' => 'card',
                 'layout' => 'horizontal',
                 'return_format' => 'value',
                 'save_other_choice' => 0,
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_60097ea2942bb',
                 'label' => __('Script embed padding', 'municipio'),
                 'name' => 'embeded_card_padding',
@@ -59,19 +61,19 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Add padding to script embed (default: 0, no padding)', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => 0,
                 'min' => '',
                 'max' => 4,
                 'step' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            array(
+            ],
+            [
                 'key' => 'field_624f3a552ed05',
                 'label' => 'Placeholder image',
                 'name' => 'embedded_placeholder_image',
@@ -82,11 +84,11 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'return_format' => 'array',
                 'preview_size' => 'medium',
                 'library' => 'all',
@@ -97,17 +99,17 @@ if (function_exists('acf_add_local_field_group')) {
                 'max_height' => '',
                 'max_size' => '',
                 'mime_types' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-script',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -116,5 +118,5 @@ if (function_exists('acf_add_local_field_group')) {
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
-    ));
+    ]);
 }

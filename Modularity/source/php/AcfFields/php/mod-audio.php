@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_66d0837591221',
         'title' => __('Audio module', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_66d0839696db6',
                 'label' => __('Type of audio file', 'municipio'),
                 'name' => 'mod_audio_filetype',
@@ -14,23 +16,23 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'local' => __('Local', 'municipio'),
                     'external' => __('External', 'municipio'),
-                ),
+                ],
                 'default_value' => __('local', 'municipio'),
                 'return_format' => 'value',
                 'allow_null' => 0,
                 'other_choice' => 0,
                 'layout' => 'vertical',
                 'save_other_choice' => 0,
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_66d0837696db5',
                 'label' => __('Local file', 'municipio'),
                 'name' => 'mod_audio_local_file',
@@ -38,28 +40,28 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'file',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_66d0839696db6',
                             'operator' => '==',
                             'value' => 'local',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'uploader' => '',
                 'return_format' => 'url',
                 'min_size' => '',
                 'max_size' => '',
                 'mime_types' => 'mp3,WAV,webm',
                 'library' => 'all',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_66d084561f11f',
                 'label' => __('External audio url', 'municipio'),
                 'name' => 'mod_audio_external_audio_url',
@@ -67,24 +69,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'url',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_66d0839696db6',
                             'operator' => '==',
                             'value' => 'external',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_66d1c6e8fbedf',
                 'label' => __('Alignment', 'municipio'),
                 'name' => 'mod_audio_alignment',
@@ -93,16 +95,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'start' => __('Left', 'municipio'),
                     'center' => __('Center', 'municipio'),
                     'end' => __('Right', 'municipio'),
-                ),
+                ],
                 'default_value' => __('left', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -112,24 +114,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-audio',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/audio',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -140,11 +142,11 @@ if (function_exists('acf_add_local_field_group')) {
         'description' => '',
         'show_in_rest' => 0,
         'acfe_display_title' => '',
-        'acfe_autosync' => array(
+        'acfe_autosync' => [
             0 => 'json',
-        ),
+        ],
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

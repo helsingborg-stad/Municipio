@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\TemplateController;
 
 use Modularity\Helper\WpService as WpServiceHelper;
@@ -159,14 +161,16 @@ class AbstractController
         if (!empty($posts)) {
             foreach ($posts as $index => &$post) {
                 $post = $this->setPostViewData($post, $index);
-                $post->classList = $post->classList ?? [];
+                $post->classList ??= [];
                 $post = $this->addHighlightData($post, $index);
 
                 // Apply $this->getDefaultValuesForPosts() to the post object without turning it into an array
                 foreach ($this->getDefaultValuesForPosts() as $key => $value) {
-                    if (!isset($post->$key)) {
-                        $post->$key = $value;
+                    if (isset($post->$key)) {
+                        continue;
                     }
+
+                    $post->$key = $value;
                 }
             }
         }

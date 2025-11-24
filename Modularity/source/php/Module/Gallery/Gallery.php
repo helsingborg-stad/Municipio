@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Gallery;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
@@ -8,7 +10,7 @@ use Modularity\Integrations\Component\ImageResolver;
 class Gallery extends \Modularity\Module
 {
     public $slug = 'gallery';
-    public $supports = array();
+    public $supports = [];
 
     public function init()
     {
@@ -57,7 +59,7 @@ class Gallery extends \Modularity\Module
         foreach ($images as &$image) {
             $thumbnail = wp_get_attachment_image_src($image['id'], apply_filters(
                 'modularity/image/gallery/thumbnail',
-                municipio_to_aspect_ratio('1:1', array(300, 300)),
+                municipio_to_aspect_ratio('1:1', [300, 300]),
                 $this->args,
             ));
             $image['sizes']['thumbnail'] = $thumbnail[0];
@@ -74,11 +76,11 @@ class Gallery extends \Modularity\Module
     public function acfFields()
     {
         if (function_exists('acf_add_local_field_group')) {
-            acf_add_local_field_group(array(
+            acf_add_local_field_group([
                 'key' => 'group_5666af6d26b7c',
                 'title' => 'Gallery',
-                'fields' => array(
-                    array(
+                'fields' => [
+                    [
                         'key' => 'field_5666af72e3194',
                         'label' => 'Images',
                         'name' => 'mod_gallery_images',
@@ -86,11 +88,11 @@ class Gallery extends \Modularity\Module
                         'instructions' => '',
                         'required' => 1,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'min' => '',
                         'max' => '',
                         'preview_size' => 'thumbnail',
@@ -102,17 +104,17 @@ class Gallery extends \Modularity\Module
                         'max_height' => '',
                         'max_size' => '',
                         'mime_types' => '',
-                    ),
-                ),
-                'location' => array(
-                    array(
-                        array(
+                    ],
+                ],
+                'location' => [
+                    [
+                        [
                             'param' => 'post_type',
                             'operator' => '==',
                             'value' => 'mod-gallery',
-                        ),
-                    ),
-                ),
+                        ],
+                    ],
+                ],
                 'menu_order' => 0,
                 'position' => 'normal',
                 'style' => 'default',
@@ -121,7 +123,7 @@ class Gallery extends \Modularity\Module
                 'hide_on_screen' => '',
                 'active' => 1,
                 'description' => '',
-            ));
+            ]);
         }
     }
 

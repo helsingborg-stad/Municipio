@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class Wp
@@ -10,17 +12,17 @@ class Wp
      */
     public static function getCoreTemplates($extension = false)
     {
-        $paths = apply_filters('Modularity/CoreTemplatesSearchPaths', array(
+        $paths = apply_filters('Modularity/CoreTemplatesSearchPaths', [
             get_stylesheet_directory(),
             get_template_directory(),
-        ));
+        ]);
 
-        $fileExt = apply_filters('Modularity/CoreTemplatesSearchFileExtension', array(
+        $fileExt = apply_filters('Modularity/CoreTemplatesSearchFileExtension', [
             '.php',
             '.blade.php',
-        ));
+        ]);
 
-        $search = apply_filters('Modularity/CoreTemplatesSearchTemplates', array(
+        $search = apply_filters('Modularity/CoreTemplatesSearchTemplates', [
             'index',
             'comments',
             'front-page',
@@ -38,21 +40,21 @@ class Wp
             'search',
             'attachment',
             'image',
-        ));
+        ]);
 
-        $templates = array();
+        $templates = [];
 
         foreach ($paths as $path) {
             foreach ($search as $pattern) {
                 foreach ($fileExt as $ext) {
-                    $foundTemplates = array();
+                    $foundTemplates = [];
                     foreach (glob($path . '/' . $pattern . $ext) as $found) {
-                        $basename = str_replace(array('.blade.php', '.php'), '', basename($found));
+                        $basename = str_replace(['.blade.php', '.php'], '', basename($found));
 
                         if ($extension) {
                             $foundTemplates[$basename] = basename($found);
                         } else {
-                            $foundTemplates[$basename] = str_replace(array('.blade.php', '.php'), '', basename($found));
+                            $foundTemplates[$basename] = str_replace(['.blade.php', '.php'], '', basename($found));
                         }
                     }
 
@@ -72,15 +74,15 @@ class Wp
      */
     public static function findCoreTemplates($templates = null, $extension = false)
     {
-        $paths = apply_filters('Modularity/CoreTemplatesSearchPaths', array(
+        $paths = apply_filters('Modularity/CoreTemplatesSearchPaths', [
             get_stylesheet_directory(),
             get_template_directory(),
-        ));
+        ]);
 
-        $fileExt = apply_filters('Modularity/CoreTemplatesSearchFileExtension', array(
+        $fileExt = apply_filters('Modularity/CoreTemplatesSearchFileExtension', [
             '.php',
             '.blade.php',
-        ));
+        ]);
 
         $search = $templates;
 
@@ -91,14 +93,14 @@ class Wp
         foreach ($paths as $path) {
             foreach ($search as $pattern) {
                 foreach ($fileExt as $ext) {
-                    $foundTemplates = array();
+                    $foundTemplates = [];
                     foreach (glob($path . '/' . $pattern . $ext) as $found) {
-                        $basename = str_replace(array('.blade.php', '.php'), '', basename($found));
+                        $basename = str_replace(['.blade.php', '.php'], '', basename($found));
 
                         if ($extension) {
                             return basename($found);
                         } else {
-                            return str_replace(array('.blade.php', '.php'), '', basename($found));
+                            return str_replace(['.blade.php', '.php'], '', basename($found));
                         }
                     }
                 }
@@ -118,11 +120,11 @@ class Wp
      */
     public static function getTemplate($prefix = '', $slug = '', $error = true)
     {
-        $paths = apply_filters('Modularity/Module/TemplatePath', array(
+        $paths = apply_filters('Modularity/Module/TemplatePath', [
             get_stylesheet_directory() . '/templates/',
             get_template_directory() . '/templates/',
             MODULARITY_PATH . 'templates/',
-        ));
+        ]);
 
         $slug = apply_filters('Modularity/TemplatePathSlug', $slug ? $slug . '/' : '', $prefix);
         $prefix = $prefix ? '-' . $prefix : '';
@@ -164,10 +166,10 @@ class Wp
      */
     public static function getSiteInfo()
     {
-        $siteInfo = array(
+        $siteInfo = [
             'name' => get_bloginfo('name'),
             'url' => esc_url(home_url('/')),
-        );
+        ];
 
         return $siteInfo;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\Helper\GetPosts;
 
 use Modularity\Module\Posts\Helper\GetPosts\GetPostsInterface;
@@ -55,8 +57,8 @@ class GetPostsFromMultipleSites implements GetPostsInterface
         $pagedResults = array_slice($dbResults, $offset, $postsPerPage);
 
         // Separate sticky and non-sticky posts for clarity and maintainability
-        $nonStickyPosts = array_filter($pagedResults, fn($post) => (int) $post->is_sticky === 0);
-        $stickyPosts = array_filter($pagedResults, fn($post) => (int) $post->is_sticky === 1);
+        $nonStickyPosts = array_filter($pagedResults, static fn($post) => (int) $post->is_sticky === 0);
+        $stickyPosts = array_filter($pagedResults, static fn($post) => (int) $post->is_sticky === 1);
 
         // Fetch post objects for both sticky and non-sticky posts
         $posts = $this->fetchPosts($nonStickyPosts, $postStatuses, $currentBlogId);
@@ -201,7 +203,7 @@ class GetPostsFromMultipleSites implements GetPostsInterface
 
     private function fetchPosts(array $dbResults, array $postStatuses, int $currentBlogId): array
     {
-        $dbResults = array_filter($dbResults, fn($item) => !empty($item->post_id));
+        $dbResults = array_filter($dbResults, static fn($item) => !empty($item->post_id));
 
         $posts = array_map(function ($item) use ($postStatuses, $currentBlogId) {
             $post = $this->wpService->getBlogPost($item->blog_id, $item->post_id);

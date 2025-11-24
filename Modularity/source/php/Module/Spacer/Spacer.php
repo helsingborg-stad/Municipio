@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Spacer;
 
 class Spacer extends \Modularity\Module
 {
     public $slug = 'spacer';
-    public $supports = array();
+    public $supports = [];
 
     public function init()
     {
@@ -18,9 +20,9 @@ class Spacer extends \Modularity\Module
     {
         $fields = $this->getFields();
 
-        $data = array(
+        $data = [
             'amount' => $fields['space_amount'] ?? 4,
-        );
+        ];
 
         return $data;
     }

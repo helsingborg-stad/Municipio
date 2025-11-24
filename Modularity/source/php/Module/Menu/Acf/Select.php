@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Menu\Acf;
 
 // Handles menu_menu field in Acf.
@@ -7,7 +9,7 @@ class Select
 {
     public function __construct()
     {
-        add_filter('acf/load_field/name=mod_menu_menu', array($this, 'setSelectChoices'), 10, 1);
+        add_filter('acf/load_field/name=mod_menu_menu', [$this, 'setSelectChoices'], 10, 1);
     }
 
     public function setSelectChoices($field)
