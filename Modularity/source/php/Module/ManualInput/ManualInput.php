@@ -100,8 +100,8 @@ class ManualInput extends \Modularity\Module
                 $arr['id'] = 'item-' . $data['ID'] . '-' . $index;
                 // TODO: change name and migrate
                 $arr['icon'] = $arr['box_icon'];
-                $arr['image'] = $this->maybeGetImageImageContract($displayAs, $arr['image']) ?? $this->getImageData(
-                    $arr['image'],
+                $arr['image'] = $this->maybeGetImageImageContract($displayAs, $arr['image'] ?: 0) ?? $this->getImageData(
+                    $arr['image'] ?: 0,
                     $imageSize,
                 );
                 $arr['accordion_column_values'] = $this->createAccordionTitles(
@@ -165,7 +165,7 @@ class ManualInput extends \Modularity\Module
             'link' => null,
             'link_text' => null,
             'default_link_text' => __('Read more', 'municipio'),
-            'image' => null,
+            'image' => 0,
             'accordion_column_values' => [],
             'box_icon' => null,
             'custom_background_color' => null,
