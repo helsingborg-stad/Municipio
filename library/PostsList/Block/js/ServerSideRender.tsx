@@ -1,4 +1,3 @@
-import { BlockEditProps } from "@wordpress/blocks";
 import { Shrink } from "./UI/Shrink";
 import { PreventClickOnChildren } from "./UI/PreventClickOnChildren";
 import { PostsListEditProps } from "./Edit";
