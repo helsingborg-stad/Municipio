@@ -401,7 +401,7 @@ class Editor extends \Modularity\Options
             $postId = 'archive-' . $postType;
         }
 
-        if (substr($postId, 0, 8) === 'archive-') {
+        if (substr((string) $postId, 0, 8) === 'archive-') {
             $postType = str_replace('archive-', '', $postId);
             $pageForPostType = get_option('page_for_' . $postType);
             $contentFromPage = get_option('page_for_' . $postType . '_content');
