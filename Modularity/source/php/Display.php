@@ -5,6 +5,7 @@ namespace Modularity;
 use Throwable;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use Modularity\Helper\File as FileHelper;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 use Modularity\Helper\Wp;
 use WP_Post;
 
@@ -22,7 +23,7 @@ class Display
     private $isShortcode                     = false; // Flag to indicate if the current context is a shortcode.
     private static $sidebarState             = []; //Holds state of sidebars.
 
-    public function __construct()
+    public function __construct(private EnqueueManager $wpEnqueue)
     {
         add_filter('wp', array($this, 'init'));
         add_filter('is_active_sidebar', array($this, 'isActiveSidebar'), 10, 2);
@@ -498,7 +499,7 @@ class Display
 
         if ($cache->start()) {
             $class  = \Modularity\ModuleManager::$classes[$module->post_type];
-            $module = new $class($module, $args);
+            $module = new $class($module, $args, $this->wpEnqueue);
 
             //Print module
             echo $this->getModuleMarkup(
@@ -792,7 +793,7 @@ class Display
 
         //Create instance
         $class  = \Modularity\ModuleManager::$classes[$module->post_type];
-        $module = new $class($module, $args);
+        $module = new $class($module, $args, $this->wpEnqueue);
 
         $this->isShortcode = true;
         $moduleMarkup      = $this->getModuleMarkup($module, $args);
