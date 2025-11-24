@@ -455,39 +455,60 @@ class Template
     }
 
     /**
-     * Extracts <template> tags from the given HTML string, including nested ones.
+     * Extract outermost <template> tags and replace them with placeholders
      *
-     * @param string $html The HTML string to extract <template> tags from.
-     * @return array An array containing the modified HTML string with placeholders and an associative array of extracted templates.
+     * @param string $html The HTML content
+     *
+     * @return array An array containing the HTML with <template> tags replaced by placeholders and the extracted templates
      */
-    private function extractTemplateTags(string $html): array {
+    private function extractOuterTemplates(string $html): array
+    {
         $templates = [];
 
-        // Robust opening-tag matcher that allows quoted attributes with >
-        $open  = '<template\b(?:[^"\'>]|"[^"]*"|\'[^\']*\')*>';
-        $close = '<\/template>';
+        // Match all <template> and </template> tags with offsets
+        $pattern = '#</?template\b[^>]*>#i';
+        preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
 
-        // Use a recursive pattern that matches nested template blocks.
-        // (?R) recurses the whole pattern, allowing nested <template>...< /template>
-        // Flags: i = case-insensitive, s = dot matches newline
-        $pattern = '#'
-                . $open
-                . '(?:'                             // start content group
-                .     '[^<]'                        // any non-< char
-                .   '|<(?!/?template\b)'            // or a '<' that does not start a template tag
-                .   '|(?R)'                         // or recurse (nested <template>)
-                . ')*'                              // repeat content
-                . $close
-                . '#is';
+        $stack     = [];
+        $outermost = []; // will hold start/end positions of outer templates
 
-        $htmlWithPlaceholders = preg_replace_callback($pattern, function ($m) use (&$templates) {
-            $key = '___MUN_TPL_' . count($templates) . '___';
-            $templates[$key] = $m[0];
-            return $key;
-        }, $html);
+        foreach ($matches[0] as $match) {
+            $tag = strtolower($match[0]);
+            $pos = $match[1];
 
-        return [$htmlWithPlaceholders, $templates];
+            if ($tag === '<template>' || strpos($tag, '<template ') === 0) {
+                if (empty($stack)) {
+                    $outermost[] = ['start' => $pos, 'end' => null];
+                }
+                $stack[] = $pos;
+            } else {
+                array_pop($stack);
+                if (empty($stack)) {
+                    $outermost[count($outermost) - 1]['end'] = $pos + strlen($match[0]);
+                }
+            }
+        }
+
+        // Replace templates with placeholders in reverse order (so offsets remain valid)
+        for ($i = count($outermost) - 1; $i >= 0; $i--) {
+            $start = $outermost[$i]['start'];
+            $end   = $outermost[$i]['end'];
+
+            if ($end === null) {
+                continue;
+            }
+
+            $full            = substr($html, $start, $end - $start);
+            $key             = '___MUN_TPL_' . count($templates) . '___';
+            $templates[$key] = $full;
+
+            // Replace in HTML
+            $html = substr_replace($html, $key, $start, $end - $start);
+        }
+
+        return [$html, $templates];
     }
+
 
     /**
      * @param $view
@@ -512,7 +533,7 @@ class Template
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
 
                 //Rescue template tags
-                list($markup, $templates) = $this->extractTemplateTags($markup) ?? [];
+                [$markup, $templates] = $this->extractOuterTemplates($markup) ?? ['', []];
 
                 $tidy = new \tidy();
                 $tidy->parseString($markup, [
