@@ -2,6 +2,8 @@
 
 namespace Modularity;
 
+use WpUtilService\Features\Enqueue\EnqueueManager;
+
 /*
  * Block manager class
  */
@@ -13,7 +15,7 @@ class BlockManager
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(private EnqueueManager $wpEnqueue)
     {
         add_filter('block_categories_all', array($this, 'filterCategories'), 10, 2);
         add_filter('acf/load_field_group', array($this, 'addLocationRule'));
@@ -468,7 +470,7 @@ class BlockManager
             $viewData = apply_filters('Modularity/Block/' .  $block['name'] . '/Data', $viewData, $block, $module);
 
             if ($this->validateFields($viewData)) {
-                $display      = new Display(false);
+                $display      = new Display($this->wpEnqueue);
                 $renderedView = $display->renderView(
                     $view,
                     $viewData
@@ -579,7 +581,7 @@ class BlockManager
      */
     private function displayNotice($moduleName, $message)
     {
-        $display    = new Display();
+        $display    = new Display($this->wpEnqueue);
         $view       = 'notice';
         $noticeData = array(
             'hideTitle'   => false,
