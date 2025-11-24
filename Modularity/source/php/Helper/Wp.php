@@ -12,36 +12,33 @@ class Wp
     {
         $paths = apply_filters('Modularity/CoreTemplatesSearchPaths', array(
             get_stylesheet_directory(),
-            get_template_directory()
+            get_template_directory(),
         ));
 
         $fileExt = apply_filters('Modularity/CoreTemplatesSearchFileExtension', array(
             '.php',
-            '.blade.php'
+            '.blade.php',
         ));
 
-        $search = apply_filters(
-            'Modularity/CoreTemplatesSearchTemplates',
-            array(
-                'index',
-                'comments',
-                'front-page',
-                'home',
-                'single',
-                'single-*',
-                'archive',
-                'archive-*',
-                'page',
-                'page-*',
-                'category',
-                'category-*',
-                'author',
-                'date',
-                'search',
-                'attachment',
-                'image'
-            )
-        );
+        $search = apply_filters('Modularity/CoreTemplatesSearchTemplates', array(
+            'index',
+            'comments',
+            'front-page',
+            'home',
+            'single',
+            'single-*',
+            'archive',
+            'archive-*',
+            'page',
+            'page-*',
+            'category',
+            'category-*',
+            'author',
+            'date',
+            'search',
+            'attachment',
+            'image',
+        ));
 
         $templates = array();
 
@@ -77,12 +74,12 @@ class Wp
     {
         $paths = apply_filters('Modularity/CoreTemplatesSearchPaths', array(
             get_stylesheet_directory(),
-            get_template_directory()
+            get_template_directory(),
         ));
 
         $fileExt = apply_filters('Modularity/CoreTemplatesSearchFileExtension', array(
             '.php',
-            '.blade.php'
+            '.blade.php',
         ));
 
         $search = $templates;
@@ -127,7 +124,7 @@ class Wp
             MODULARITY_PATH . 'templates/',
         ));
 
-        $slug   = apply_filters('Modularity/TemplatePathSlug', $slug ? $slug . '/' : '', $prefix);
+        $slug = apply_filters('Modularity/TemplatePathSlug', $slug ? $slug . '/' : '', $prefix);
         $prefix = $prefix ? '-' . $prefix : '';
 
         foreach ($paths as $path) {
@@ -139,9 +136,24 @@ class Wp
         }
 
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
-            error_log('Modularity: Template ' . $slug . 'modularity' . $prefix . '.php' . ' not found in any of the paths: ' . var_export($paths, true));
+            error_log('Modularity: Template '
+            . $slug
+            . 'modularity'
+            . $prefix
+            . '.php'
+            . ' not found in any of the paths: '
+            . var_export($paths, true));
             if ($error) {
-                trigger_error('Modularity: Template ' . $slug . 'modularity' . $prefix . '.php' . ' not found in any of the paths: ' . var_export($paths, true), E_USER_WARNING);
+                trigger_error(
+                    'Modularity: Template '
+                    . $slug
+                    . 'modularity'
+                    . $prefix
+                    . '.php'
+                    . ' not found in any of the paths: '
+                    . var_export($paths, true),
+                    E_USER_WARNING,
+                );
             }
         }
     }
@@ -154,7 +166,7 @@ class Wp
     {
         $siteInfo = array(
             'name' => get_bloginfo('name'),
-            'url'  => esc_url(home_url('/')),
+            'url' => esc_url(home_url('/')),
         );
 
         return $siteInfo;
@@ -167,6 +179,7 @@ class Wp
         }
         return get_theme_mod($key);
     }
+
     /**
      * Check if the add question form is opened in thickbox iframe
      * @return boolean
@@ -179,7 +192,7 @@ class Wp
         }
 
         // Check if referer is thickbox
-        $referer = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
         if (is_string($referer) && strpos($referer, 'is_thickbox=true') > -1) {
             return true;
         }
@@ -222,7 +235,11 @@ class Wp
     {
         global $wp_query;
 
-        if ($wp_query && !is_tax() && (is_post_type_archive() || is_archive() || is_home() || is_search() || is_404())) {
+        if (
+            $wp_query
+            && !is_tax()
+            && (is_post_type_archive() || is_archive() || is_home() || is_search() || is_404())
+        ) {
             $postType = get_post_type();
 
             if (isset($wp_query->query_vars['post_type']) && !empty($wp_query->query_vars['post_type'])) {
@@ -254,7 +271,7 @@ class Wp
      *
      * @return string|null The slug of the current single post or page, or null if not found.
      */
-    public static function getSingleSlug(): ?string
+    public static function getSingleSlug(): null|string
     {
         $postType = get_post_type();
         return $postType ? 'single-' . $postType : null;
@@ -277,10 +294,10 @@ class Wp
     {
         global $current_screen;
 
-        return $current_screen->base == 'post'
-                && $current_screen->id == $postType
-                && (
-                    $current_screen->action == 'add' || (isset($_GET['action']) && $_GET['action'] == 'edit')
-                );
+        return (
+            $current_screen->base == 'post'
+            && $current_screen->id == $postType
+            && ($current_screen->action == 'add' || isset($_GET['action']) && $_GET['action'] == 'edit')
+        );
     }
 }

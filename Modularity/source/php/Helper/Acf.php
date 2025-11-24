@@ -27,9 +27,14 @@ class Acf
             require_once MODULARITY_PATH . 'plugins/acf/acf.php';
 
             add_action('admin_notices', function () {
-                echo '<div class="notice error"><p>' .
-                        __('To get the full expirience of the <strong>Modularity</strong> plugin, please activate the <a href="http://www.advancedcustomfields.com/pro/" target="_blank">Advanced Custom Fields Pro</a> plugin.', 'municipio') .
-                     '</p></div>';
+                echo
+                    '<div class="notice error"><p>'
+                    . __(
+                            'To get the full expirience of the <strong>Modularity</strong> plugin, please activate the <a href="http://www.advancedcustomfields.com/pro/" target="_blank">Advanced Custom Fields Pro</a> plugin.',
+                            'municipio',
+                        )
+                        . '</p></div>'
+                ;
             });
         }
     }

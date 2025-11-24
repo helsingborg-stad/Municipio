@@ -17,7 +17,7 @@ class PostsResultTest extends TestCase
 
     public function testGetPostsReturnsOfPosts(): void
     {
-        $posts       = [ new WP_Post([]) ];
+        $posts = [new WP_Post([])];
         $postsResult = new PostsResult($posts, 1, []);
 
         $this->assertSame($posts, $postsResult->getPosts());
@@ -28,7 +28,7 @@ class PostsResultTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Posts must be an array of WP_Post objects.');
-        new PostsResult([ 'not-a-post' ], 1, []);
+        new PostsResult(['not-a-post'], 1, []);
     }
 
     public function testGetNumberOfPagesReturnsInt(): void
@@ -41,7 +41,7 @@ class PostsResultTest extends TestCase
 
     public function testGetStickyPostsReturnsArrayOfPosts(): void
     {
-        $stickyPosts = [ new WP_Post([]) ];
+        $stickyPosts = [new WP_Post([])];
         $postsResult = new PostsResult([], 1, $stickyPosts);
 
         $this->assertIsArray($postsResult->getStickyPosts());
@@ -53,6 +53,6 @@ class PostsResultTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Sticky posts must be an array of WP_Post objects.');
-        new PostsResult([], 1, [ 'not-a-post' ]);
+        new PostsResult([], 1, ['not-a-post']);
     }
 }

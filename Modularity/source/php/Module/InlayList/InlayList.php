@@ -4,26 +4,31 @@ namespace Modularity\Module\InlayList;
 
 class InlayList extends \Modularity\Module
 {
-    public $slug              = 'inlaylist';
-    public $supports          = array();
+    public $slug = 'inlaylist';
+    public $supports = array();
     public $isBlockCompatible = false;
 
     public function init()
     {
-        $this->nameSingular = __("Inlay List", 'modularity');
-        $this->namePlural   = __("Inlay Lists", 'modularity');
-        $this->description  = __("Outputs one or more posts from selected post-type.", 'modularity');
+        $this->nameSingular = __('Inlay List', 'modularity');
+        $this->namePlural = __('Inlay Lists', 'modularity');
+        $this->description = __('Outputs one or more posts from selected post-type.', 'modularity');
 
         add_filter('acf/fields/post_object/result/name=link_internal', array($this, 'acfLocationSelect'), 10, 4);
     }
 
     public function data(): array
     {
-        $data             = array();
-        $data['ID']       = $this->ID;
-        $data['items']    = $this->buildListItems(get_field('items', $this->ID));
+        $data = array();
+        $data['ID'] = $this->ID;
+        $data['items'] = $this->buildListItems(get_field('items', $this->ID));
         $data['iconLast'] = get_field('icon_last', $this->ID);
-        $data['classes']  = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $this->post_type, $this->args));
+        $data['classes'] = implode(' ', apply_filters(
+            'Modularity/Module/Classes',
+            array('box', 'box-panel'),
+            $this->post_type,
+            $this->args,
+        ));
 
         return $data;
     }
@@ -41,7 +46,8 @@ class InlayList extends \Modularity\Module
         $address = get_permalink($post->ID, false);
 
         if (!empty($address)) {
-            $title .= '<br/><span class="inlay-list-url-helper"> ( ' . str_replace(home_url(), "", $address) . ' ) </span>';
+            $title .=
+                '<br/><span class="inlay-list-url-helper"> ( ' . str_replace(home_url(), '', $address) . ' ) </span>';
         }
 
         return $title;
@@ -55,12 +61,12 @@ class InlayList extends \Modularity\Module
      */
     public function buildListItems($field)
     {
-        (object) $list = [];
+        (object) ($list = []);
 
         foreach ($field as $item) {
             $item = (object) $item;
 
-            if (empty($item->title) && ! empty($item->titel)) {
+            if (empty($item->title) && !empty($item->titel)) {
                 $item->title = $item->titel;
             }
 
@@ -68,20 +74,27 @@ class InlayList extends \Modularity\Module
                 $label = $item->title ? $item->title : $item->link_internal->post_title;
 
                 if ($item->date === true) {
-                    $label .= " - " . wp_date(\Modularity\Helper\Date::getDateFormat('date'), strtotime($item->link_internal->post_date));
+                    $label .=
+                        ' - '
+                        . wp_date(
+                            \Modularity\Helper\Date::getDateFormat('date'),
+                            strtotime($item->link_internal->post_date),
+                        );
                 }
 
                 $list[] = [
-                    'label'    => $label,
-                    'href'     => $item->link_internal->post_type === "attachment" ? wp_get_attachment_url($item->link_internal->ID) : get_permalink($item->link_internal->ID),
+                    'label' => $label,
+                    'href' => $item->link_internal->post_type === 'attachment'
+                        ? wp_get_attachment_url($item->link_internal->ID)
+                        : get_permalink($item->link_internal->ID),
                     'external' => false,
                 ];
             }
 
             if ($item->type === 'external') {
                 $list[] = [
-                    'label'    => !empty(trim($item->titel)) ? $item->titel : $item->title,
-                    'href'     => $item->link_external,
+                    'label' => !empty(trim($item->titel)) ? $item->titel : $item->title,
+                    'href' => $item->link_external,
                     'external' => true,
                 ];
             }

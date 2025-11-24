@@ -17,20 +17,14 @@ class Template
 
         // Paths to search
         $paths = array_unique(array(
-            $module->templateDir
+            $module->templateDir,
         ));
 
         //General filter
-        $paths = apply_filters(
-            'Modularity/Module/TemplatePath',
-            $paths
-        );
+        $paths = apply_filters('Modularity/Module/TemplatePath', $paths);
 
         //Specific filter
-        $paths = apply_filters(
-            'Modularity/Module/' . $module->slug . '/TemplatePath',
-            $paths
-        );
+        $paths = apply_filters('Modularity/Module/' . $module->slug . '/TemplatePath', $paths);
 
         // Search for blade template
         foreach ($paths as $path) {

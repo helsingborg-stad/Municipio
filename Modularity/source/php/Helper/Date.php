@@ -21,11 +21,13 @@ class Date
     {
         $defaultTime = 'H:i';
         $defaultDate = 'Y-m-d';
-        $dateFormat  = function_exists('get_option') && !empty(get_option('date_format')) ?
-        get_option('date_format') : $defaultDate;
+        $dateFormat = function_exists('get_option') && !empty(get_option('date_format'))
+            ? get_option('date_format')
+            : $defaultDate;
 
-        $timeFormat = function_exists('get_option') && !empty(get_option('time_format')) ?
-        get_option('time_format') : $defaultTime;
+        $timeFormat = function_exists('get_option') && !empty(get_option('time_format'))
+            ? get_option('time_format')
+            : $defaultTime;
 
         if ($format === 'date') {
             return $dateFormat;
@@ -37,6 +39,7 @@ class Date
 
         return $dateFormat . ' ' . $timeFormat;
     }
+
     /**
      * Returns a timestamp for a given date string
      *
@@ -46,7 +49,7 @@ class Date
     public function getTimeStamp($dateStr)
     {
         $timezone = wp_timezone_string();
-        $dateObj  = new DateTime($dateStr, new DateTimeZone($timezone));
+        $dateObj = new DateTime($dateStr, new DateTimeZone($timezone));
         return $dateObj->format('U');
     }
 }

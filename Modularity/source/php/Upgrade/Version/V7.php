@@ -10,14 +10,14 @@ use WP_CLI;
 
 class V7 implements versionInterface
 {
-    private string $name      = 'posts';
+    private string $name = 'posts';
     private string $fieldName = 'posts_display_as';
-    private string $newValue  = 'index';
-    private string $oldValue  = 'news';
+    private string $newValue = 'index';
+    private string $oldValue = 'news';
 
-    public function __construct(private \wpdb $db)
-    {
-    }
+    public function __construct(
+        private \wpdb $db,
+    ) {}
 
     public function upgrade(): bool
     {
@@ -61,7 +61,7 @@ class V7 implements versionInterface
         }
 
         foreach ($pages as $page) {
-            $blocks           = parse_blocks($page->post_content);
+            $blocks = parse_blocks($page->post_content);
             $hasUpdatedBlocks = false;
             foreach ($blocks as &$block) {
                 if ($block['blockName'] !== 'acf/' . $this->name) {
@@ -69,14 +69,14 @@ class V7 implements versionInterface
                 }
 
                 if (
-                    empty($block['attrs']['data'][$this->fieldName]) ||
-                    $block['attrs']['data'][$this->fieldName] !== $this->oldValue
+                    empty($block['attrs']['data'][$this->fieldName])
+                    || $block['attrs']['data'][$this->fieldName] !== $this->oldValue
                 ) {
                     continue;
                 }
 
                 $block['attrs']['data'][$this->fieldName] = $this->newValue;
-                $hasUpdatedBlocks                         = true;
+                $hasUpdatedBlocks = true;
             }
 
             if ($hasUpdatedBlocks) {

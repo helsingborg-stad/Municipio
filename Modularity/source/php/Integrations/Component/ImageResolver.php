@@ -6,17 +6,16 @@ use ComponentLibrary\Integrations\Image\ImageResolverInterface;
 
 class ImageResolver implements ImageResolverInterface
 {
-  /**
-   * Get image url
-   *
-   * @param int $id
-   * @param array $size
-   * @return string|null
-   */
-    public function getImageUrl(int $id, array $size): ?string
+    /**
+     * Get image url
+     *
+     * @param int $id
+     * @param array $size
+     * @return string|null
+     */
+    public function getImageUrl(int $id, array $size): null|string
     {
-
-      //Make 0 values in array false
+        //Make 0 values in array false
         $size = array_map(function ($value) {
             return $value === 0 ? false : $value;
         }, $size);
@@ -28,13 +27,13 @@ class ImageResolver implements ImageResolverInterface
         return null;
     }
 
-  /**
-   * Get image alt
-   *
-   * @param int $id
-   * @return string|null
-   */
-    public function getImageAltText(int $id): ?string
+    /**
+     * Get image alt
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public function getImageAltText(int $id): null|string
     {
         $alt = get_post_meta($id, '_wp_attachment_image_alt', true);
         if ($alt) {

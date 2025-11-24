@@ -6,7 +6,6 @@ class Search
 {
     public function __construct()
     {
-
         add_action('wp', array($this, 'moduleSearch'));
 
         add_filter('posts_join', array($this, 'moduleSearchModuleDescriptionJoin'));
@@ -31,11 +30,7 @@ class Search
         global $wp_query;
 
         //Only run on search
-        if (
-            !$wp_query->is_search()
-            || is_admin()
-            || $wp_query->query_vars['post_type'] !== 'any'
-        ) {
+        if (!$wp_query->is_search() || is_admin() || $wp_query->query_vars['post_type'] !== 'any') {
             return;
         }
 
@@ -73,9 +68,9 @@ class Search
         $foundPosts = count($searchResult);
 
         //"Return"
-        $wp_query->posts       = array_values($searchResult);
+        $wp_query->posts = array_values($searchResult);
         $wp_query->found_posts = $foundPosts;
-        $wp_query->post_count  = $foundPosts;
+        $wp_query->post_count = $foundPosts;
 
         $postsPerPage = (int) get_option('posts_per_page');
         if ($foundPosts != 0 && $postsPerPage != 0) {
@@ -103,7 +98,7 @@ class Search
             $postId = $post->ID;
         }
 
-        $modules     = \Modularity\Editor::getPostModules($postId);
+        $modules = \Modularity\Editor::getPostModules($postId);
         $onlyModules = array();
 
         // Normalize modules array
@@ -116,7 +111,7 @@ class Search
         }
 
         // Render modules and append to post content
-        $rendered = "<br><br>";
+        $rendered = '<br><br>';
         foreach ($onlyModules as $module) {
             if ($module->post_type === 'mod-wpwidget') {
                 continue;
@@ -125,7 +120,7 @@ class Search
             $markup = \Modularity\App::$display->outputModule($module, array('edit_module' => false), array(), false);
 
             if (!empty($markup)) {
-                $rendered .= " " . $markup;
+                $rendered .= ' ' . $markup;
             }
         }
 
@@ -145,7 +140,7 @@ class Search
         //Get post type object
         if (isset($post->post_type)) {
             //Do not index posts that belong to modularity
-            if (strpos($post->post_type, "mod-") === 0) {
+            if (strpos($post->post_type, 'mod-') === 0) {
                 return false;
             }
         }
@@ -162,13 +157,7 @@ class Search
     public function addAlgoliaModuleAttribute($attributes, $post)
     {
         //Get rendered data from module(s)
-        $rendered = trim(
-            preg_replace(
-                '!\s+!',
-                ' ',
-                strip_tags($this->getRenderedPostModules($post))
-            )
-        );
+        $rendered = trim(preg_replace('!\s+!', ' ', strip_tags($this->getRenderedPostModules($post))));
 
         //Calculate content bytes
         if (is_array($post)) {
@@ -179,11 +168,7 @@ class Search
 
         //Only add if not empty
         if (!empty($rendered)) {
-            $attributes['modules'] = substr(
-                $rendered,
-                0,
-                (9000 - $contentBytes)
-            );
+            $attributes['modules'] = substr($rendered, 0, 9000 - $contentBytes);
         }
 
         return $attributes;
@@ -217,7 +202,7 @@ class Search
         global $wpdb;
 
         if ($this->isModuleSearch()) {
-            $like             = '%' . $wpdb->esc_like($_GET['s']) . '%';
+            $like = '%' . $wpdb->esc_like($_GET['s']) . '%';
             $meta_description = $wpdb->prepare("OR ({$wpdb->postmeta}.meta_value LIKE %s)", $like);
             // Add the meta description OR condition between one of the existing OR conditions.
             $search = str_replace('OR', $meta_description . ' OR', $search);
@@ -269,9 +254,9 @@ class Search
      */
     public function appendToArray(array $array, $key, array $new)
     {
-        $keys  = array_keys($array);
+        $keys = array_keys($array);
         $index = array_search($key, $keys);
-        $pos   = false === $index ? count($array) : $index + 1;
+        $pos = false === $index ? count($array) : $index + 1;
 
         return array_merge(array_slice($array, 0, $pos), $new, array_slice($array, $pos));
     }

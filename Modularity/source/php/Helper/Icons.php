@@ -26,10 +26,7 @@ class Icons
                 $contents = json_decode($contents);
 
                 if (isset($contents->icons) && !empty($contents->icons)) {
-                    return array_column(
-                        (array) $contents->icons,
-                        'name'
-                    );
+                    return array_column((array) $contents->icons, 'name');
                 }
             }
         }

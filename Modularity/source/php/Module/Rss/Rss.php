@@ -4,26 +4,31 @@ namespace Modularity\Module\Rss;
 
 class Rss extends \Modularity\Module
 {
-    public $slug              = 'rss';
-    public $supports          = array();
+    public $slug = 'rss';
+    public $supports = array();
     public $isBlockCompatible = false;
 
     public function init()
     {
-        $this->nameSingular = __("RSS", 'modularity');
-        $this->namePlural   = __("RSS", 'modularity');
-        $this->description  = __("Outputs a RSS feed", 'modularity');
+        $this->nameSingular = __('RSS', 'modularity');
+        $this->namePlural = __('RSS', 'modularity');
+        $this->description = __('Outputs a RSS feed', 'modularity');
     }
 
     public function data(): array
     {
-        $fields          = json_decode(json_encode(get_fields($this->ID)));
-        $show_fields     = (isset($fields->fields) && ! empty($fields->fields)) ? $fields->fields : array();
+        $fields = json_decode(json_encode(get_fields($this->ID)));
+        $show_fields = isset($fields->fields) && !empty($fields->fields) ? $fields->fields : array();
         $data['summary'] = (int) in_array('summary', $show_fields);
-        $data['author']  = (int) in_array('author', $show_fields);
-        $data['date']    = (int) in_array('date', $show_fields);
-        $data['items']   = $this->getFeedContents($fields->rss_url, $fields->items, $fields->sort_order);
-        $data['classes'] = implode(' ', apply_filters('Modularity/Module/Classes', array('box', 'box-panel'), $this->post_type, $this->args));
+        $data['author'] = (int) in_array('author', $show_fields);
+        $data['date'] = (int) in_array('date', $show_fields);
+        $data['items'] = $this->getFeedContents($fields->rss_url, $fields->items, $fields->sort_order);
+        $data['classes'] = implode(' ', apply_filters(
+            'Modularity/Module/Classes',
+            array('box', 'box-panel'),
+            $this->post_type,
+            $this->args,
+        ));
         return $data;
     }
 
@@ -38,7 +43,7 @@ class Rss extends \Modularity\Module
     {
         $entries = array();
 
-        if (! empty($rss)) {
+        if (!empty($rss)) {
             $rss = fetch_feed($rss);
         } else {
             $entries['error'] = __('RSS feed URL is missing', 'municipio');
@@ -53,13 +58,16 @@ class Rss extends \Modularity\Module
         }
 
         if (!$rss->get_item_quantity()) {
-            $entries['error'] = __('An error has occurred, which probably means the feed is down. Try again later.', 'municipio');
+            $entries['error'] = __(
+                'An error has occurred, which probably means the feed is down. Try again later.',
+                'municipio',
+            );
             $rss->__destruct();
             unset($rss);
             return $entries;
         }
 
-        $items   = ($items <= 0) ? 0 : (int) $items;
+        $items = $items <= 0 ? 0 : (int) $items;
         $entries = $rss->get_items(0, $items);
         if ($order == 'asc') {
             $entries = array_reverse($entries);
@@ -78,7 +86,7 @@ class Rss extends \Modularity\Module
     public static function getRssTitle($title = '')
     {
         $title = esc_html(trim(strip_tags($title)));
-        $title = (empty($title)) ? __('Untitled', 'municipio') : $title;
+        $title = empty($title) ? __('Untitled', 'municipio') : $title;
 
         return $title;
     }

@@ -20,9 +20,9 @@ class SliderTest extends TestCase
      */
     public function testSlideHasLinkReturnFalseIfLinkTypeIndicatesNoLink()
     {
-        $slider  = new Slider();
+        $slider = new Slider();
         $linkUrl = 'https://example.com';
-        $this->assertFalse($slider->slideHasLink([ 'link_type' => 'false', 'link_url' => $linkUrl ]));
+        $this->assertFalse($slider->slideHasLink(['link_type' => 'false', 'link_url' => $linkUrl]));
     }
 
     /**
@@ -31,7 +31,7 @@ class SliderTest extends TestCase
     public function testSlideHasLinkReturnFalseIfLinkUrlIsEmpty()
     {
         $slider = new Slider();
-        $this->assertFalse($slider->slideHasLink([ 'link_type' => 'internal', 'link_url' => '' ]));
+        $this->assertFalse($slider->slideHasLink(['link_type' => 'internal', 'link_url' => '']));
     }
 
     /**
@@ -39,8 +39,8 @@ class SliderTest extends TestCase
      */
     public function testSlideHasLinkReturnTrueIfLinkTypeIsInternalAndLinkUrlIsNotEmpty()
     {
-        $slider  = new Slider();
+        $slider = new Slider();
         $linkUrl = 'https://example.com';
-        $this->assertTrue($slider->slideHasLink([ 'link_type' => 'internal', 'link_url' => $linkUrl ]));
+        $this->assertTrue($slider->slideHasLink(['link_type' => 'internal', 'link_url' => $linkUrl]));
     }
 }

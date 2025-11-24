@@ -8,14 +8,13 @@ class RelativeAssets implements FilterInterface
 {
     private string $baseUrl;
 
-    public function __construct(private array $fields)
-    {
-        $this->baseUrl = $this->getBaseUrl(
-            $fields['mod_markdown_url'] ?? null
-        );
+    public function __construct(
+        private array $fields,
+    ) {
+        $this->baseUrl = $this->getBaseUrl($fields['mod_markdown_url'] ?? null);
     }
 
-    private function getBaseUrl(?string $url): string
+    private function getBaseUrl(null|string $url): string
     {
         if (empty($url)) {
             return '';
@@ -34,9 +33,10 @@ class RelativeAssets implements FilterInterface
         $basePath = $pathInfo['dirname'];
 
         // Rebuild the URL without the filename
-        $baseUrl = (isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '') .
-                (isset($parsedUrl['host']) ? $parsedUrl['host'] : '') .
-                $basePath;
+        $baseUrl =
+            (isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '')
+            . (isset($parsedUrl['host']) ? $parsedUrl['host'] : '')
+            . $basePath;
 
         return rtrim($baseUrl, '/') . '/';
     }
@@ -50,17 +50,21 @@ class RelativeAssets implements FilterInterface
      */
     public function filter(string $content): string
     {
-        return preg_replace_callback('/<img src="([^"]+)"([^>]*)>/m', function ($matches) {
-            $src        = $matches[1];
-            $attributes = $matches[2];
+        return preg_replace_callback(
+            '/<img src="([^"]+)"([^>]*)>/m',
+            function ($matches) {
+                $src = $matches[1];
+                $attributes = $matches[2];
 
-            // If the src is already an absolute URL, return the match as it is
-            if (filter_var($src, FILTER_VALIDATE_URL)) {
-                return "<img src=\"$src\"$attributes>";
-            }
+                // If the src is already an absolute URL, return the match as it is
+                if (filter_var($src, FILTER_VALIDATE_URL)) {
+                    return "<img src=\"$src\"$attributes>";
+                }
 
-            // If the src is a relative URL, prepend the base URL
-            return "<img src=\"{$this->baseUrl}$src\"$attributes>";
-        }, $content);
+                // If the src is a relative URL, prepend the base URL
+                return "<img src=\"{$this->baseUrl}$src\"$attributes>";
+            },
+            $content,
+        );
     }
 }

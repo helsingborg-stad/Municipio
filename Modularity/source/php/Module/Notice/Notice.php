@@ -4,25 +4,23 @@ namespace Modularity\Module\Notice;
 
 class Notice extends \Modularity\Module
 {
-    public $slug          = 'notice';
-    public $supports      = array();
+    public $slug = 'notice';
+    public $supports = array();
     public $blockSupports = array(
-        'align' => ['full']
+        'align' => ['full'],
     );
 
     public function init()
     {
-        $this->nameSingular = __("Notice", 'modularity');
-        $this->namePlural   = __("Notice", 'modularity');
-        $this->description  = __("Outputs a notice", 'modularity');
+        $this->nameSingular = __('Notice', 'modularity');
+        $this->namePlural = __('Notice', 'modularity');
+        $this->description = __('Outputs a notice', 'modularity');
     }
 
     public function data(): array
     {
-        $data         = $this->getFields();
-        $data['icon'] = $this->iconData(
-            $data['notice_type']
-        );
+        $data = $this->getFields();
+        $data['icon'] = $this->iconData($data['notice_type']);
 
         return $data;
     }
@@ -30,14 +28,14 @@ class Notice extends \Modularity\Module
     public function iconData($icon)
     {
         $icons = [
-            'info'    => 'info',
+            'info' => 'info',
             'success' => 'check_circle',
             'warning' => 'warning',
-            'danger'  => 'error'
+            'danger' => 'error',
         ];
 
         return [
-            'name' => $icons[$icon]
+            'name' => $icons[$icon],
         ];
     }
 

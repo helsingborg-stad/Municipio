@@ -21,7 +21,7 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
      */
     public function __construct()
     {
-        $options         = get_option('modularity-options');
+        $options = get_option('modularity-options');
         $this->postTypes = $options['enabled-post-types'] ?? [];
     }
 
@@ -43,15 +43,15 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
             $postTypeObject = get_post_type_object($postType);
 
             if ($this->postTypeAllowsArchiveModules($postTypeObject)) {
-                $postTypeUrlParam    = $postType === 'post' ? '' : '?post_type=' . $postType;
+                $postTypeUrlParam = $postType === 'post' ? '' : '?post_type=' . $postType;
                 $transcribedPostType = \Modularity\Editor::pageForPostTypeTranscribe('archive-' . $postType);
-                $editorLink          = "options.php?page=modularity-editor&id={$transcribedPostType}";
+                $editorLink = "options.php?page=modularity-editor&id={$transcribedPostType}";
                 add_submenu_page(
                     'edit.php' . $postTypeUrlParam,
                     __('Archive modules', 'municipio'),
                     __('Archive modules', 'municipio'),
                     'edit_posts',
-                    $editorLink
+                    $editorLink,
                 );
             }
         }
@@ -63,7 +63,7 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
      * @param WP_Post_Type|null $postType The post type to check.
      * @return bool Returns true if the post type allows archive modules, false otherwise.
      */
-    private function postTypeAllowsArchiveModules(?WP_Post_Type $postType): bool
+    private function postTypeAllowsArchiveModules(null|WP_Post_Type $postType): bool
     {
         return !is_null($postType) && $postType->has_archive;
     }
@@ -74,14 +74,14 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
     public function fixBrokenArchiveLinks(): void
     {
         if (
-            is_admin() &&
-            isset($_GET['post_type']) &&
-            isset($_GET['page']) &&
-            isset($_GET['id']) &&
-            substr($_GET['page'], 0, 34) == "options.php?page=modularity-editor"
+            is_admin()
+            && isset($_GET['post_type'])
+            && isset($_GET['page'])
+            && isset($_GET['id'])
+            && substr($_GET['page'], 0, 34) == 'options.php?page=modularity-editor'
         ) {
-            wp_redirect(admin_url($_GET['page'] . "&id=" . $_GET['id']), 302);
-            exit;
+            wp_redirect(admin_url($_GET['page'] . '&id=' . $_GET['id']), 302);
+            exit();
         }
     }
 }

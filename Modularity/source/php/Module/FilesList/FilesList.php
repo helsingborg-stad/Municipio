@@ -7,14 +7,14 @@ use Modularity\Helper\WpService;
 
 class FilesList extends \Modularity\Module
 {
-    public $slug     = 'fileslist';
+    public $slug = 'fileslist';
     public $supports = [];
 
     public function init()
     {
-        $this->nameSingular = __("Files", 'modularity');
-        $this->namePlural   = __("Files", 'modularity');
-        $this->description  = __("Outputs a file archive.", 'modularity');
+        $this->nameSingular = __('Files', 'modularity');
+        $this->namePlural = __('Files', 'modularity');
+        $this->description = __('Outputs a file archive.', 'modularity');
     }
 
     /**
@@ -24,25 +24,22 @@ class FilesList extends \Modularity\Module
      */
     public function data(): array
     {
-        $fields   = $this->getFields();
+        $fields = $this->getFields();
         $settings = isset($fields['settings']) && is_array($fields['settings']) ? $fields['settings'] : [];
 
-        $data                     = [];
-        $data['rows']             = $this->prepareFileData();
-        $data['classes']          = implode(
-            ' ',
-            apply_filters(
-                'Modularity/Module/Classes',
-                array('c-card--default'),
-                $this->post_type,
-                $this->args
-            )
-        );
-        $data['isFilterable']     = $fields['show_filter'] ?? false;
-        $data['filterAboveCard']  = $fields['filter_above_card'] ?? false;
+        $data = [];
+        $data['rows'] = $this->prepareFileData();
+        $data['classes'] = implode(' ', apply_filters(
+            'Modularity/Module/Classes',
+            array('c-card--default'),
+            $this->post_type,
+            $this->args,
+        ));
+        $data['isFilterable'] = $fields['show_filter'] ?? false;
+        $data['filterAboveCard'] = $fields['filter_above_card'] ?? false;
         $data['showDownloadIcon'] = in_array('show_download_icon', $settings);
-        $data['uID']              = uniqid();
-        $data['ID']               = $this->ID;
+        $data['uID'] = uniqid();
+        $data['ID'] = $this->ID;
 
         return $data;
     }
@@ -54,18 +51,18 @@ class FilesList extends \Modularity\Module
      */
     public function prepareFileData()
     {
-        $fields   = $this->getFields();
-        $files    = $fields['file_list'] ?? [];
+        $fields = $this->getFields();
+        $files = $fields['file_list'] ?? [];
         $settings = $fields['settings'] ?? [];
-        $rows     = [];
+        $rows = [];
 
         foreach ($files as $key => $item) {
-            $meta       = [];
+            $meta = [];
             $rows[$key] = [
-                'title'       => $this->filenameToTitle($item['file']['title'] ?? ''),
-                'href'        => $item['file']['url'] ?? '',
+                'title' => $this->filenameToTitle($item['file']['title'] ?? ''),
+                'href' => $item['file']['url'] ?? '',
                 'description' => $item['file']['description'] ?? '',
-                'icon'        => $this->getIconClass($item['file']['subtype'])
+                'icon' => $this->getIconClass($item['file']['subtype']),
             ];
 
             if (!is_array($settings) || !in_array('hide_filetype', $settings)) {
@@ -156,7 +153,7 @@ class FilesList extends \Modularity\Module
      */
     private function formatBytes($size, $precision = 2)
     {
-        $base     = log($size, 1024);
+        $base = log($size, 1024);
         $suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
 
         return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];

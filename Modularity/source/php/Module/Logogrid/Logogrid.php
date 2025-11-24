@@ -4,14 +4,14 @@ namespace Modularity\Module\Logogrid;
 
 class Logogrid extends \Modularity\Module
 {
-    public $slug     = 'logogrid';
+    public $slug = 'logogrid';
     public $supports = array();
 
     public function init()
     {
         $this->nameSingular = __('Logotype grid', 'municipio');
-        $this->namePlural   = __('Logotype grids', 'municipio');
-        $this->description  = __('Outputs a grid of logotypes', 'municipio');
+        $this->namePlural = __('Logotype grids', 'municipio');
+        $this->description = __('Outputs a grid of logotypes', 'municipio');
     }
 
     public function data(): array
@@ -22,9 +22,9 @@ class Logogrid extends \Modularity\Module
         if (is_array($logotypes) && !empty($logotypes)) {
             foreach ($logotypes as $logotype) {
                 $stack[] = [
-                    'alt'  => $logotype['mod_logogrid_name'],
+                    'alt' => $logotype['mod_logogrid_name'],
                     'logo' => $logotype['mod_logogrid_image'],
-                    'url'  => $logotype['mod_logogrid_link']
+                    'url' => $logotype['mod_logogrid_link'],
                 ];
             }
         }

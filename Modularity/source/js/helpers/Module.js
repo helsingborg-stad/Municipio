@@ -1,61 +1,60 @@
 /**
  * Module class
  * Represents a module on the page.
- * 
+ *
  * @property {string} id
  * @property {HTMLElement} element
  * @property {ModulesRestAPI} restAPI
  */
 export class Module {
+	static selector = "[data-module-refresh-interval]";
 
-    static selector = '[data-module-refresh-interval]';
+	constructor(id, element, restAPI) {
+		this.id = id;
+		this.element = element;
+		this.restAPI = restAPI;
+		this.setupEventListeners();
+	}
 
-    constructor(id, element, restAPI) {
-        this.id = id;
-        this.element = element;
-        this.restAPI = restAPI;
-        this.setupEventListeners();
-    }
+	setupEventListeners() {
+		if (!this.element) {
+			throw new Error("Element is not set.");
+		}
 
-    setupEventListeners() {
+		this.element.addEventListener("refresh", this.handleRefresh.bind(this));
 
-        if( !this.element ) {
-            throw new Error('Element is not set.');
-        }
+		this.element.addEventListener("DOMNodeRemoved", () => {
+			this.element.removeEventListener("refresh", this.handleRefresh);
+		});
+	}
 
-        this.element.addEventListener('refresh', this.handleRefresh.bind(this));
+	refresh(interval = null) {
+		const refreshEvent = new CustomEvent("refresh");
+		this.element.dispatchEvent(refreshEvent);
 
-        this.element.addEventListener('DOMNodeRemoved', () => {
-            this.element.removeEventListener('refresh', this.handleRefresh);
-        });
-    }
+		if (interval) {
+			setTimeout(() => {
+				this.refresh(interval);
+			}, interval);
+		}
+	}
 
-    refresh(interval = null) {
-        const refreshEvent = new CustomEvent('refresh');
-        this.element.dispatchEvent(refreshEvent);
+	async handleRefresh() {
+		const freshModule = await this.restAPI.getModule(this.id);
+		this.replace(freshModule);
+	}
 
-        if (interval) {
-            setTimeout(() => {
-                this.refresh(interval);
-            }, interval);
-        }
-    }
+	replace(freshModule) {
+		this.element.parentNode.replaceChild(freshModule, this.element);
+		this.element = freshModule;
+		this.setupEventListeners();
+	}
 
-    async handleRefresh() {
-        const freshModule = await this.restAPI.getModule(this.id);
-        this.replace(freshModule);
-    }
-
-
-    replace(freshModule) {
-        this.element.parentNode.replaceChild(freshModule, this.element);
-        this.element = freshModule;
-        this.setupEventListeners();
-    }
-
-    getRefreshInterval() {
-        const intervalAttributeValue = this.element.getAttribute('data-module-refresh-interval');
-        if (!intervalAttributeValue || isNaN(intervalAttributeValue)) return null;
-        return parseInt(intervalAttributeValue) * 1000;
-    }
+	getRefreshInterval() {
+		const intervalAttributeValue = this.element.getAttribute(
+			"data-module-refresh-interval",
+		);
+		if (!intervalAttributeValue || isNaN(intervalAttributeValue)) return null;
+		return parseInt(intervalAttributeValue) * 1000;
+	}
 }

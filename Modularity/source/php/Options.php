@@ -27,18 +27,29 @@ abstract class Options
      * @param  integer     $position   Menu position
      * @return void
      */
-    public function register($pageTitle, $menuTitle, $capability, $menuSlug, $iconUrl = null, $position = null, $parent = 'modularity')
-    {
-        add_action('admin_menu', function () use ($pageTitle, $menuTitle, $capability, $menuSlug, $iconUrl, $position, $parent) {
+    public function register(
+        $pageTitle,
+        $menuTitle,
+        $capability,
+        $menuSlug,
+        $iconUrl = null,
+        $position = null,
+        $parent = 'modularity',
+    ) {
+        add_action('admin_menu', function () use (
+            $pageTitle,
+            $menuTitle,
+            $capability,
+            $menuSlug,
+            $iconUrl,
+            $position,
+            $parent,
+        ) {
             // Add the menu page
-            $this->screenHook = add_submenu_page(
-                $parent,
-                $pageTitle,
-                $menuTitle,
-                $capability,
-                $menuSlug,
-                array($this, 'optionPageTemplate')
-            );
+            $this->screenHook = add_submenu_page($parent, $pageTitle, $menuTitle, $capability, $menuSlug, array(
+                $this,
+                'optionPageTemplate',
+            ));
 
             // Set the slug
             $this->slug = $menuSlug;
@@ -90,7 +101,7 @@ abstract class Options
 
         // Get the options
         global $modularityOptions;
-        $modularityOptions = (isset($_POST['modularity-options'])) ? $_POST['modularity-options'] : array();
+        $modularityOptions = isset($_POST['modularity-options']) ? $_POST['modularity-options'] : array();
 
         // Update the options
         update_option($this->slug, $modularityOptions);
