@@ -13,7 +13,7 @@ class FilterConfigFactoryTest extends TestCase
     public function testCreateReturnsFilterConfigInterface(): void
     {
         define('ARRAY_A', 'ARRAY_A'); // Mock constant for testing
-        $factory = new FilterConfigFactory(['archiveProps' => (object)[]], [], $this->createMock(WpService::class));
+        $factory = new FilterConfigFactory(['archiveProps' => (object)[]], [], $this->createMock(WpService::class), $this->createMock(\Municipio\PostsList\QueryVars\QueryVarsInterface::class));
 
         $result = $factory->create(['archiveProps' => (object)[]]);
 
