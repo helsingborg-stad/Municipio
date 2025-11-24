@@ -6,7 +6,7 @@ namespace Modularity\Helper;
 
 class ModuleUsageById
 {
-    public static function getModuleUsageById($id, $limit = false)
+    public static function getModuleUsageById(int $id, $limit = false)
     {
         global $wpdb;
 
@@ -22,7 +22,7 @@ class ModuleUsageById
         return $result;
     }
 
-    public static function getPagesFromShortcodeUsageById(string $id, \wpdb $wpdb)
+    public static function getPagesFromShortcodeUsageById(int $id, \wpdb $wpdb)
     {
         $shortcodeQuery = "
         SELECT
@@ -39,9 +39,9 @@ class ModuleUsageById
         return $wpdb->get_results($shortcodeQuery, OBJECT);
     }
 
-    public static function getPagesFromModuleUsageById(string $id, \wpdb $wpdb)
+    public static function getPagesFromModuleUsageById(int $id, \wpdb $wpdb)
     {
-        $idLength = strlen($id);
+        $idLength = strlen((string) $id);
 
         $moduleQuery = "
             SELECT

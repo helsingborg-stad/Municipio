@@ -497,7 +497,7 @@ class ModuleManager
      * @param  integer $id Module id
      * @return array       List of pages where the module is used
      */
-    public static function getModuleUsage($id, $limit = false)
+    public static function getModuleUsage(int $id, $limit = false)
     {
         return \Modularity\Helper\ModuleUsageById::getModuleUsageById($id, $limit);
     }

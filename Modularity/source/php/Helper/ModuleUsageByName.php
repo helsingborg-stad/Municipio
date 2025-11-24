@@ -59,7 +59,7 @@ class ModuleUsageByName
         return get_posts($args);
     }
 
-    private static function getModuleUsageById($postId)
+    private static function getModuleUsageById(int $postId)
     {
         return ModuleUsageById::getModuleUsageById($postId);
     }
