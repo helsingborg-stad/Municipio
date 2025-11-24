@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Menu;
 
 use Modularity\Module\Menu\Acf\Select;
@@ -11,7 +13,7 @@ use Municipio\Controller\Navigation\MenuDirector;
 class Menu extends \Modularity\Module
 {
     public $slug = 'menu';
-    public $supports = array();
+    public $supports = [];
     public $displaySettings = null;
     public $cacheTtl = 0;
 
@@ -21,7 +23,7 @@ class Menu extends \Modularity\Module
         $this->namePlural = __('Menus', 'municipio');
         $this->description = __('Outputs a menu.', 'municipio');
 
-        add_filter('Municipio/Navigation/Item', array($this, 'setMenuItemData'), 999, 3);
+        add_filter('Municipio/Navigation/Item', [$this, 'setMenuItemData'], 999, 3);
         new Select();
     }
 

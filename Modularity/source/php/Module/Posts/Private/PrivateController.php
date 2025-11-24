@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\Private;
 
 use Modularity\Module\Posts\Posts;
@@ -19,7 +21,7 @@ class PrivateController
 
         if ($this->postsInstance->postStatus === 'private') {
             $this->postsInstance->cacheTtl = 0;
-            add_filter('Modularity/Module/Posts/template', array($this, 'checkIfModuleCanBeEditedByUser'), 999, 4);
+            add_filter('Modularity/Module/Posts/template', [$this, 'checkIfModuleCanBeEditedByUser'], 999, 4);
         }
     }
 
@@ -68,7 +70,7 @@ class PrivateController
         $userPosts = get_user_meta($currentUser, $this->userMetaKey, true);
 
         foreach ($posts as &$post) {
-            $post->classList = $post->classList ?? [];
+            $post->classList ??= [];
 
             if (
                 !empty($userPosts)
@@ -97,24 +99,24 @@ class PrivateController
 
     private function registerMeta(): void
     {
-        register_meta('user', $this->userMetaKey, array(
+        register_meta('user', $this->userMetaKey, [
             'type' => 'object',
-            'show_in_rest' => array(
-                'schema' => array(
+            'show_in_rest' => [
+                'schema' => [
                     'type' => 'object',
-                    'additionalProperties' => array(
+                    'additionalProperties' => [
                         'type' => 'object',
-                        'properties' => array(
-                            'key' => array(
+                        'properties' => [
+                            'key' => [
                                 'type' => 'bool',
-                            ),
-                        ),
+                            ],
+                        ],
                         'additionalProperties' => true,
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'single' => true,
-        ));
+        ]);
     }
 
     /**

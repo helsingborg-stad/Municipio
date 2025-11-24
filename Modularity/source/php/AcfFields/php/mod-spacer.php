@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_611cffa40276a',
         'title' => __('Whitespace', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_611d0016546f1',
                 'label' => __('Amount of whitespace', 'municipio'),
                 'name' => 'space_amount',
@@ -13,35 +15,35 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('All space will be multiplied by 8.', 'municipio'),
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => 4,
                 'min' => '',
                 'max' => 24,
                 'step' => 2,
                 'prepend' => '',
                 'append' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-spacer',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/spacer',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -50,5 +52,5 @@ if (function_exists('acf_add_local_field_group')) {
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
-    ));
+    ]);
 }

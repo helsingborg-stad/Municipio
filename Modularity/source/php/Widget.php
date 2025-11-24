@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 class Widget extends \WP_Widget
@@ -9,10 +11,10 @@ class Widget extends \WP_Widget
      */
     public function __construct()
     {
-        $widgetOptions = array(
+        $widgetOptions = [
             'classname' => '%2$s',
             'description' => 'Insert a Modularity module',
-        );
+        ];
 
         parent::__construct('modularity-module', 'Modularity module', $widgetOptions);
     }
@@ -46,10 +48,10 @@ class Widget extends \WP_Widget
 
         $columnWidth = apply_filters('Modularity/Widget/ColumnWidth', $columnWidth, $instance);
 
-        $module = \Modularity\Editor::getModule($instance['module_id'], array(
+        $module = \Modularity\Editor::getModule($instance['module_id'], [
             'hidden' => false,
             'columnWidth' => $columnWidth,
-        ));
+        ]);
 
         $display->outputModule($module, $args);
     }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Divider;
 
 class Divider extends \Modularity\Module
 {
     public $slug = 'divider';
-    public $supports = array();
+    public $supports = [];
     private $curl;
 
     public function init()

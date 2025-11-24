@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\InlayList;
 
 class InlayList extends \Modularity\Module
 {
     public $slug = 'inlaylist';
-    public $supports = array();
+    public $supports = [];
     public $isBlockCompatible = false;
 
     public function init()
@@ -14,18 +16,18 @@ class InlayList extends \Modularity\Module
         $this->namePlural = __('Inlay Lists', 'modularity');
         $this->description = __('Outputs one or more posts from selected post-type.', 'modularity');
 
-        add_filter('acf/fields/post_object/result/name=link_internal', array($this, 'acfLocationSelect'), 10, 4);
+        add_filter('acf/fields/post_object/result/name=link_internal', [$this, 'acfLocationSelect'], 10, 4);
     }
 
     public function data(): array
     {
-        $data = array();
+        $data = [];
         $data['ID'] = $this->ID;
         $data['items'] = $this->buildListItems(get_field('items', $this->ID));
         $data['iconLast'] = get_field('icon_last', $this->ID);
         $data['classes'] = implode(' ', apply_filters(
             'Modularity/Module/Classes',
-            array('box', 'box-panel'),
+            ['box', 'box-panel'],
             $this->post_type,
             $this->args,
         ));

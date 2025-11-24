@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Version;
 
 use Modularity\Upgrade\Migrators\Module\AcfModuleRepeaterFieldsMigrator;
@@ -85,11 +87,13 @@ class V8 implements versionInterface
         // Group results by prefix
         $groupedData = [];
         foreach ($results as $row) {
-            if (preg_match('/' . preg_quote($fieldKey, '/') . '_(\d+)_(.+)$/', $row['meta_key'], $matches)) {
-                $index = (int) $matches[1]; // Extract the numeric index (e.g., 0, 1, etc.)
-                $key = $matches[2]; // Extract the key (e.g., post_title, post_content, etc.)
-                $groupedData[$index][$key] = $row['meta_value'];
+            if (!preg_match('/' . preg_quote($fieldKey, '/') . '_(\d+)_(.+)$/', $row['meta_key'], $matches)) {
+                continue;
             }
+
+            $index = (int) $matches[1]; // Extract the numeric index (e.g., 0, 1, etc.)
+            $key = $matches[2]; // Extract the key (e.g., post_title, post_content, etc.)
+            $groupedData[$index][$key] = $row['meta_value'];
         }
         ksort($groupedData);
 

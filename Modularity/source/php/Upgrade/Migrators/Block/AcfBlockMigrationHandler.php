@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Migrators\Block;
 
 use Modularity\Upgrade\Migrators\Block\AcfBlockFieldMigrator;
@@ -30,9 +32,11 @@ class AcfBlockMigrationHandler
             return $this->blockData;
         }
         foreach ($this->fields as $oldFieldName => $newField) {
-            if (isset($this->blockData[$oldFieldName]) && is_array($newField)) {
-                $this->blockData = $this->migrateField($newField, $oldFieldName, $this->blockData);
+            if (!(isset($this->blockData[$oldFieldName]) && is_array($newField))) {
+                continue;
             }
+
+            $this->blockData = $this->migrateField($newField, $oldFieldName, $this->blockData);
         }
 
         return $this->blockData;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Contacts;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
@@ -8,7 +10,7 @@ use Modularity\Integrations\Component\ImageResolver;
 class Contacts extends \Modularity\Module
 {
     public $slug = 'contacts';
-    public $supports = array();
+    public $supports = [];
     public $displaySettings = null;
 
     private $view = null;
@@ -50,10 +52,10 @@ class Contacts extends \Modularity\Module
      */
     public function prepareContacts($contacts)
     {
-        $retContacts = array();
+        $retContacts = [];
 
         foreach ($contacts as &$contact) {
-            $info = array(
+            $info = [
                 'image' => null,
                 'first_name' => null,
                 'last_name' => null,
@@ -65,13 +67,13 @@ class Contacts extends \Modularity\Module
                 'address' => null,
                 'visiting_address' => null,
                 'opening_hours' => null,
-            );
+            ];
 
             switch ($contact['acf_fc_layout']) {
                 case 'custom':
                     $info = apply_filters(
                         'Modularity/mod-contacts/contact-info',
-                        array(
+                        [
                             'image' => $contact['image'],
                             'first_name' => $contact['first_name'],
                             'last_name' => $contact['last_name'],
@@ -84,7 +86,7 @@ class Contacts extends \Modularity\Module
                             'visiting_address' => strip_tags($contact['visiting_address'] ?? '', ['<br>', '<a>']),
                             'opening_hours' => strip_tags($contact['opening_hours'], '<br>'),
                             'other' => $contact['other'],
-                        ),
+                        ],
                         $contact,
                         $contact['acf_fc_layout'],
                     );
@@ -94,7 +96,7 @@ class Contacts extends \Modularity\Module
                     $fields = function_exists('get_fields') ? get_fields('user_' . $contact['user']['ID']) : [];
                     $info = apply_filters(
                         'Modularity/mod-contacts/contact-info',
-                        array(
+                        [
                             'id' => !empty($contact['user']['ID']) ? $contact['user']['ID'] : '',
                             'image' => $fields['user_profile_picture_id'] ?? null,
                             'first_name' => $contact['user']['user_firstname'] ?? '',
@@ -108,7 +110,7 @@ class Contacts extends \Modularity\Module
                             'visiting_address' => strip_tags($fields['visiting_address'] ?? '', ['<br>', '<a>']),
                             'opening_hours' => null,
                             'other' => $contact['user']['user_description'] ?? '',
-                        ),
+                        ],
                         $contact,
                         $contact['acf_fc_layout'],
                     );
@@ -144,10 +146,10 @@ class Contacts extends \Modularity\Module
             //Create full title string
             $titleProperties = ['administration_unit', 'work_title'];
             $fullTitle = array_filter(
-                array_map(function ($key) use ($info) {
+                array_map(static function ($key) use ($info) {
                     return $info[$key] ?: false;
                 }, $titleProperties),
-                function ($item) {
+                static function ($item) {
                     return $item;
                 },
             );
@@ -155,14 +157,14 @@ class Contacts extends \Modularity\Module
 
             //Sanitize social media
             if (!empty($info['social_media'])) {
-                $info['social_media'] = array_filter($info['social_media'], function ($item) {
+                $info['social_media'] = array_filter($info['social_media'], static function ($item) {
                     return !empty($item['url']);
                 });
             }
 
             //Add social media labels by ['media'] key
             if (!empty($info['social_media'])) {
-                $info['social_media'] = array_map(function ($item) {
+                $info['social_media'] = array_map(static function ($item) {
                     switch ($item['media']) {
                         case 'linkedin':
                             $item['label'] = 'LinkedIn';
@@ -201,7 +203,7 @@ class Contacts extends \Modularity\Module
 
     private function getUserSocialMedia(array $fields): null|array
     {
-        $socialMedia = array();
+        $socialMedia = [];
 
         if (!empty($fields['user_facebook_url'])) {
             $socialMedia[] = ['media' => 'facebook', 'url' => $fields['user_facebook_url']];

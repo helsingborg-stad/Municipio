@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Audio;
 
 class Audio extends \Modularity\Module
 {
     public $slug = 'audio';
-    public $supports = array();
+    public $supports = [];
     public $isBlockCompatible = true;
 
     public function init()
@@ -17,7 +19,7 @@ class Audio extends \Modularity\Module
 
     public function data(): array
     {
-        $data = array();
+        $data = [];
 
         $fields = $this->getFields();
 

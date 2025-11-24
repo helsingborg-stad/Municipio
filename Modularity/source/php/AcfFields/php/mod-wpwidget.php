@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_5729f4d3e7c7a',
         'title' => __('Wordpress Widget', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     'WP_Widget_Archives' => __('Arkiv', 'municipio'),
                     'WP_Widget_Calendar' => __('Kalender', 'municipio'),
                     'WP_Widget_Categories' => __('Kategorier', 'municipio'),
@@ -18,7 +20,7 @@ if (function_exists('acf_add_local_field_group')) {
                     'WP_Widget_RSS' => __('RSS', 'municipio'),
                     'WP_Widget_Search' => __('Sök', 'municipio'),
                     'WP_Widget_Tag_Cloud' => __('Taggmoln', 'municipio'),
-                ),
+                ],
                 'default_value' => '',
                 'other_choice' => 0,
                 'save_other_choice' => 0,
@@ -31,13 +33,13 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            1 => array(
+                ],
+            ],
+            1 => [
                 'message' => __(
                     'There are no options available for this widget type.<br> <style>.acf-field-57309aa0b176d {background-color: #FFDFDF;}</style>',
                     'municipio',
@@ -50,41 +52,41 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'message',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Calendar',
-                        ),
-                    ),
-                    1 => array(
-                        0 => array(
+                        ],
+                    ],
+                    1 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Meta',
-                        ),
-                    ),
-                    2 => array(
-                        0 => array(
+                        ],
+                    ],
+                    2 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Search',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            2 => array(
+                ],
+            ],
+            2 => [
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     0 => __('No', 'municipio'),
                     1 => __('Yes', 'municipio'),
-                ),
+                ],
                 'default_value' => 0,
                 'other_choice' => 0,
                 'save_other_choice' => 0,
@@ -96,27 +98,27 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'radio',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Archives',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            3 => array(
+                ],
+            ],
+            3 => [
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     0 => __('No', 'municipio'),
                     1 => __('Yes', 'municipio'),
-                ),
+                ],
                 'default_value' => 0,
                 'other_choice' => 0,
                 'save_other_choice' => 0,
@@ -128,27 +130,27 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'radio',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Archives',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            4 => array(
+                ],
+            ],
+            4 => [
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     0 => __('No', 'municipio'),
                     1 => __('Yes', 'municipio'),
-                ),
+                ],
                 'default_value' => 0,
                 'other_choice' => 0,
                 'save_other_choice' => 0,
@@ -160,27 +162,27 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'radio',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Categories',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '33,333',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            5 => array(
+                ],
+            ],
+            5 => [
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     0 => __('No', 'municipio'),
                     1 => __('Yes', 'municipio'),
-                ),
+                ],
                 'default_value' => 0,
                 'other_choice' => 0,
                 'save_other_choice' => 0,
@@ -192,27 +194,27 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'radio',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Categories',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '33,333',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            6 => array(
+                ],
+            ],
+            6 => [
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     0 => __('No', 'municipio'),
                     1 => __('Yes', 'municipio'),
-                ),
+                ],
                 'default_value' => 0,
                 'other_choice' => 0,
                 'save_other_choice' => 0,
@@ -224,30 +226,30 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'radio',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Categories',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '33,333',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            7 => array(
+                ],
+            ],
+            7 => [
                 'multiple' => 0,
                 'allow_null' => 0,
-                'choices' => array(
+                'choices' => [
                     'post_title' => __('Titel', 'municipio'),
                     'menu_order' => __('Menu order', 'municipio'),
                     'ID' => __('Page ID', 'municipio'),
-                ),
-                'default_value' => array(),
+                ],
+                'default_value' => [],
                 'ui' => 0,
                 'ajax' => 0,
                 'placeholder' => '',
@@ -258,24 +260,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'select',
                 'instructions' => __('Select how to sort the pages', 'municipio'),
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Pages',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'disabled' => 0,
                 'readonly' => 0,
-            ),
-            8 => array(
+            ],
+            8 => [
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
@@ -287,24 +289,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'text',
                 'instructions' => __('ID:s of pages to exclude. Separated by comma.', 'municipio'),
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Pages',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            9 => array(
+            ],
+            9 => [
                 'default_value' => 5,
                 'min' => 1,
                 'max' => '',
@@ -318,24 +320,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'number',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Recent_Comments',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            10 => array(
+            ],
+            10 => [
                 'default_value' => 5,
                 'min' => '',
                 'max' => '',
@@ -349,24 +351,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'number',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Recent_Posts',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            11 => array(
+            ],
+            11 => [
                 'default_value' => '',
                 'placeholder' => '',
                 'key' => 'field_5731ea87eae83',
@@ -375,22 +377,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'url',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_RSS',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            12 => array(
+                ],
+            ],
+            12 => [
                 'default_value' => 5,
                 'min' => '',
                 'max' => '',
@@ -404,24 +406,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'number',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_RSS',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 25,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            13 => array(
+            ],
+            13 => [
                 'default_value' => 0,
                 'message' => __('Yes, show summary', 'municipio'),
                 'ui' => 0,
@@ -433,22 +435,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_RSS',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 25,
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            14 => array(
+                ],
+            ],
+            14 => [
                 'default_value' => 0,
                 'message' => __('Yes, show author', 'municipio'),
                 'ui' => 0,
@@ -460,22 +462,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_RSS',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 25,
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            15 => array(
+                ],
+            ],
+            15 => [
                 'default_value' => 0,
                 'message' => __('Yes, show date', 'municipio'),
                 'ui' => 0,
@@ -487,33 +489,33 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_RSS',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 25,
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            16 => array(
+                ],
+            ],
+            16 => [
                 'multiple' => 0,
                 'allow_null' => 0,
-                'choices' => array(
+                'choices' => [
                     'category' => __('Kategorier', 'municipio'),
                     'post_tag' => __('Taggar', 'municipio'),
                     'link_category' => __('Länkkategorier', 'municipio'),
                     'listing-category' => __('Kategori', 'municipio'),
                     'listing-places' => __('Plats', 'municipio'),
                     'amne' => __('Ämne', 'municipio'),
-                ),
-                'default_value' => array(),
+                ],
+                'default_value' => [],
                 'ui' => 0,
                 'ajax' => 0,
                 'placeholder' => '',
@@ -524,39 +526,39 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'select',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_572a06dd9d06c',
                             'operator' => '==',
                             'value' => 'WP_Widget_Tag_Cloud',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'disabled' => 0,
                 'readonly' => 0,
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-wpwidget',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
         'label_placement' => 'top',
         'instruction_placement' => 'label',
-        'hide_on_screen' => array(
+        'hide_on_screen' => [
             0 => 'permalink',
             1 => 'the_content',
             2 => 'excerpt',
@@ -572,10 +574,10 @@ if (function_exists('acf_add_local_field_group')) {
             12 => 'categories',
             13 => 'tags',
             14 => 'send-trackbacks',
-        ),
+        ],
         'active' => 1,
         'description' => '',
         'modified' => 1462889442,
         'local' => 'php',
-    ));
+    ]);
 }

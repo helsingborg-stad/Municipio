@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_609b788ad04bb',
         'title' => __('Curator Social Media', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_609b7d2ba3004',
                 'label' => __('Number of posts', 'municipio'),
                 'name' => 'number_of_posts',
@@ -13,11 +15,11 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Set the number items to show.', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
                 'default_value' => 12,
                 'min' => 4,
@@ -26,8 +28,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'step' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_63edf811d3a68',
                 'label' => __('Layout', 'municipio'),
                 'name' => 'layout',
@@ -35,16 +37,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
-                'choices' => array(
+                'choices' => [
                     'card' => __('Card', 'municipio'),
                     'block' => __('Block', 'municipio'),
-                ),
+                ],
                 'default_value' => __('card', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -54,8 +56,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_63ee10add6ed6',
                 'label' => __('Columns', 'municipio'),
                 'name' => 'columns',
@@ -63,16 +65,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
-                'choices' => array(
+                'choices' => [
                     3 => __('3', 'municipio'),
                     4 => __('4', 'municipio'),
-                ),
+                ],
                 'default_value' => false,
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -82,62 +84,62 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_63ff2bc5ce2c6',
                 'label' => __('Grid gutter', 'municipio'),
                 'name' => 'gutter',
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_63edf811d3a68',
                             'operator' => '==',
                             'value' => 'block',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
                 'message' => __('No space between the posts in the grid', 'municipio'),
                 'default_value' => 0,
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            4 => array(
+            ],
+            4 => [
                 'key' => 'field_63ee0a94197d1',
                 'label' => __('Ratio', 'municipio'),
                 'name' => 'ratio',
                 'type' => 'select',
                 'instructions' => '',
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_63edf811d3a68',
                             'operator' => '==',
                             'value' => 'block',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
-                'choices' => array(
+                'choices' => [
                     '1:1' => __('1:1', 'municipio'),
                     '4:3' => __('4:3', 'municipio'),
                     '12:6' => __('12:6', 'municipio'),
-                ),
+                ],
                 'default_value' => __('1:1', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -147,8 +149,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            5 => array(
+            ],
+            5 => [
                 'key' => 'field_609b7894869ce',
                 'label' => __('Embed Code', 'municipio'),
                 'name' => 'embed_code',
@@ -159,11 +161,11 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
                 'default_value' => '',
                 'placeholder' => '',
@@ -171,8 +173,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'rows' => '',
                 'new_lines' => '',
                 'acfe_textarea_code' => 0,
-            ),
-            6 => array(
+            ],
+            6 => [
                 'key' => 'field_609baae15568c',
                 'label' => __('Usage of the curator social media integration', 'municipio'),
                 'name' => '',
@@ -180,11 +182,11 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'aria-label' => '',
                 'message' => __('This is an integration module for curator.io. The module requires an account at the service. 
 
@@ -197,8 +199,8 @@ To integrate a feed, head over to <a href="https://curator.io" target="_blank">c
 5. Save. Your feed should no be displayed.', 'modularity'),
                 'new_lines' => 'wpautop',
                 'esc_html' => 0,
-            ),
-            7 => array(
+            ],
+            7 => [
                 'key' => 'field_643fcdc3b8269',
                 'label' => __('Show powered by', 'municipio'),
                 'name' => 'show_powered_by',
@@ -206,11 +208,11 @@ To integrate a feed, head over to <a href="https://curator.io" target="_blank">c
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => __(
                     'Uncheck to disable the powered by link. It is required to display this link, if free version is used.',
                     'municipio',
@@ -219,24 +221,24 @@ To integrate a feed, head over to <a href="https://curator.io" target="_blank">c
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-curator',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/curator',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -251,5 +253,5 @@ To integrate a feed, head over to <a href="https://curator.io" target="_blank">c
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

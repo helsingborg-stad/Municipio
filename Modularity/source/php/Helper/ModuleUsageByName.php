@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 use Modularity\Helper\ModuleUsageById;
@@ -48,11 +50,11 @@ class ModuleUsageByName
 
     public static function getPostsByType($postType)
     {
-        $args = array(
+        $args = [
             'post_type' => $postType,
             'posts_per_page' => -1,
             'post_status' => 'publish',
-        );
+        ];
 
         return get_posts($args);
     }

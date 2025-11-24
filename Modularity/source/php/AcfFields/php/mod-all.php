@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_636e424039120',
         'title' => __('Screen reader language', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_636e42408367e',
                 'label' => __('Language', 'municipio'),
                 'name' => 'lang',
@@ -17,14 +19,14 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'is_publicly_hidden' => 0,
                 'is_privately_hidden' => 0,
-                'choices' => array(
+                'choices' => [
                     'auto' => __('Auto detected language', 'municipio'),
                     'af' => __('Afrikaans', 'municipio'),
                     'sq' => __('Albanian', 'municipio'),
@@ -150,7 +152,7 @@ if (function_exists('acf_add_local_field_group')) {
                     'xh' => __('Xhosa', 'municipio'),
                     'ji' => __('Yiddish', 'municipio'),
                     'zu' => __('Zulu', 'municipio'),
-                ),
+                ],
                 'default_value' => __('auto', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -160,24 +162,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'ui' => 1,
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'all',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'all',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -192,5 +194,5 @@ if (function_exists('acf_add_local_field_group')) {
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\ManualInput\Private;
 
 use Modularity\Module\ManualInput\ManualInput;
@@ -13,7 +15,7 @@ class PrivateController
         private ManualInput $manualInputInstance,
     ) {
         $this->registerMeta();
-        add_filter('acf/update_value/key=field_6718c31e2862b', array($this, 'assignUniqueIdToRows'), 20, 4);
+        add_filter('acf/update_value/key=field_6718c31e2862b', [$this, 'assignUniqueIdToRows'], 20, 4);
 
         add_filter('acf/prepare_field/key=field_678784f60a1a6', [$this, 'onlyShowCustomMetaKeyFieldIfAdministrator']);
 
@@ -112,24 +114,24 @@ class PrivateController
 
     private function registerMeta(): void
     {
-        register_meta('user', 'manualInputs', array(
+        register_meta('user', 'manualInputs', [
             'type' => 'object',
-            'show_in_rest' => array(
-                'schema' => array(
+            'show_in_rest' => [
+                'schema' => [
                     'type' => 'object',
-                    'additionalProperties' => array(
+                    'additionalProperties' => [
                         'type' => 'object',
-                        'properties' => array(
-                            'key' => array(
+                        'properties' => [
+                            'key' => [
                                 'type' => 'bool',
-                            ),
-                        ),
+                            ],
+                        ],
                         'additionalProperties' => true,
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'single' => true,
-        ));
+        ]);
     }
 
     public function assignUniqueIdToRows($value, $postId, $field, $original): string

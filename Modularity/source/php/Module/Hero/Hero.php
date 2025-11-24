@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Hero;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
@@ -9,10 +11,10 @@ use Modularity\Integrations\Component\ImageResolver;
 class Hero extends \Modularity\Module
 {
     public $slug = 'hero';
-    public $supports = array();
-    public $blockSupports = array(
+    public $supports = [];
+    public $blockSupports = [
         'align' => ['full'],
-    );
+    ];
 
     public function init()
     {
@@ -90,14 +92,18 @@ class Hero extends \Modularity\Module
         ) {
             $buttonArgs = [];
             foreach ($fields['mod_hero_buttons'] as $button) {
-                if (is_array($button['link']) && !empty($button['link']['url']) && !empty($button['link']['title'])) {
-                    $buttonArgs[] = [
-                        'href' => $button['link']['url'],
-                        'text' => $button['link']['title'],
-                        'color' => $button['color'] ?? 'primary',
-                        'style' => $button['type'] ?? 'filled',
-                    ];
+                if (
+                    !(is_array($button['link']) && !empty($button['link']['url']) && !empty($button['link']['title']))
+                ) {
+                    continue;
                 }
+
+                $buttonArgs[] = [
+                    'href' => $button['link']['url'],
+                    'text' => $button['link']['title'],
+                    'color' => $button['color'] ?? 'primary',
+                    'style' => $button['type'] ?? 'filled',
+                ];
             }
         }
 

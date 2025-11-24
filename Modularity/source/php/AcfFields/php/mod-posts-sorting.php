@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_571dffc63090c',
         'title' => __('Data sorting', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_571dffca1d90b',
                 'label' => __('Sort by', 'municipio'),
                 'name' => 'posts_sort_by',
@@ -14,21 +16,21 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => 'modularity-sorted-by',
-                ),
+                ],
                 'multiple' => 0,
                 'allow_null' => 0,
-                'choices' => array(
+                'choices' => [
                     'false' => __('Do not sort', 'municipio'),
                     'title' => __('Titel', 'municipio'),
                     'date' => __('Publiceringsdatum', 'municipio'),
                     'modified' => __('Date modified', 'municipio'),
                     'rand' => __('Random', 'municipio'),
                     'menu_order' => __('Menu order', 'municipio'),
-                ),
+                ],
                 'default_value' => 'date',
                 'ui' => 0,
                 'ajax' => 0,
@@ -38,8 +40,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'readonly' => 0,
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_571e00241d90c',
                 'label' => __('Order', 'municipio'),
                 'name' => 'posts_sort_order',
@@ -48,39 +50,39 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     'asc' => __('Ascending', 'municipio'),
                     'desc' => __('Descending', 'municipio'),
-                ),
+                ],
                 'default_value' => '',
                 'other_choice' => 0,
                 'save_other_choice' => 0,
                 'allow_null' => 0,
                 'return_format' => 'value',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-posts',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/posts',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 10,
         'position' => 'normal',
         'style' => 'default',
@@ -91,5 +93,5 @@ if (function_exists('acf_add_local_field_group')) {
         'description' => '',
         'show_in_rest' => false,
         'modified' => 1461661083,
-    ));
+    ]);
 }

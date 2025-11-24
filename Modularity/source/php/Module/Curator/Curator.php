@@ -1,13 +1,13 @@
 <?php
 
-namespace Modularity\Module\Curator;
+declare(strict_types=1);
 
-use Modularity\Helper\Block;
+namespace Modularity\Module\Curator;
 
 class Curator extends \Modularity\Module
 {
     public $slug = 'curator';
-    public $supports = array();
+    public $supports = [];
     public $cacheTtl = 60 * 12; //Minutes (12 hours)
 
     public function init()
@@ -184,9 +184,11 @@ class Curator extends \Modularity\Module
                 // Set title
                 if (!empty($post->data) && empty($post->title)) {
                     foreach ($post->data as $item) {
-                        if ($item->name == 'title') {
-                            $post->title = $item->value;
+                        if ($item->name != 'title') {
+                            continue;
                         }
+
+                        $post->title = $item->value;
                     }
                 }
 

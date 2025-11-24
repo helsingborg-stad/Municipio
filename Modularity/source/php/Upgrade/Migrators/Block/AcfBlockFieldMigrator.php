@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Migrators\Block;
 
 use Modularity\Upgrade\Migrators\MigratorInterface;

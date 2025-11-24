@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 use WP_CLI;
@@ -17,7 +19,7 @@ class Upgrade
 
     public function __construct()
     {
-        add_action('admin_notices', array($this, 'addAdminNotice'));
+        add_action('admin_notices', [$this, 'addAdminNotice']);
     }
 
     public function addAdminNotice()
@@ -93,7 +95,7 @@ class Upgrade
             //Fetch global wpdb object, save to $db
             $this->globalToLocal('wpdb', 'db');
 
-            $currentDbVersion = $currentDbVersion + 1;
+            $currentDbVersion += 1;
 
             for ($currentDbVersion; $currentDbVersion <= $this->dbVersion; $currentDbVersion++) {
                 $class = 'Modularity\Upgrade\Version\V' . $currentDbVersion;

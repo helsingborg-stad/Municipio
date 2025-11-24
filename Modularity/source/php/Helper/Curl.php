@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class Curl
@@ -54,7 +56,7 @@ class Curl
                 }
 
                 // Set curl options for GET
-                $arguments = array(
+                $arguments = [
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_HEADER => false,
                     CURLOPT_FOLLOWLOCATION => true,
@@ -63,7 +65,7 @@ class Curl
                     CURLOPT_URL => $url,
                     CURLOPT_CONNECTTIMEOUT_MS => 12000,
                     CURLOPT_REFERER => get_option('home_url'),
-                );
+                ];
 
                 break;
 
@@ -72,7 +74,7 @@ class Curl
              */
             case 'POST':
                 // Set curl options for POST
-                $arguments = array(
+                $arguments = [
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
                     CURLOPT_POST => 1,
@@ -80,7 +82,7 @@ class Curl
                     CURLOPT_POSTFIELDS => http_build_query($data),
                     CURLOPT_CONNECTTIMEOUT_MS => 3000,
                     CURLOPT_REFERER => get_option('home_url'),
-                );
+                ];
 
                 break;
         }
@@ -177,6 +179,6 @@ class Curl
      */
     public function setOption($option, $value)
     {
-        $this->curlOptions[] = array($option, $value);
+        $this->curlOptions[] = [$option, $value];
     }
 }

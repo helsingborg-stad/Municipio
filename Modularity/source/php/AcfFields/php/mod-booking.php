@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_56a89f42b432b',
         'title' => 'BookingFields',
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'display_format' => 'd/m/Y',
                 'return_format' => 'd/m/Y',
                 'first_day' => 1,
@@ -16,13 +18,13 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-            1 => array(
+                ],
+            ],
+            1 => [
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
@@ -35,15 +37,15 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Ange tid', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            2 => array(
+            ],
+            2 => [
                 'default_value' => '',
                 'min' => '',
                 'max' => '',
@@ -58,15 +60,15 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('Ange pris', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            3 => array(
+            ],
+            3 => [
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
@@ -82,15 +84,15 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            4 => array(
+            ],
+            4 => [
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
@@ -103,15 +105,15 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            5 => array(
+            ],
+            5 => [
                 'default_value' => '',
                 'placeholder' => '',
                 'key' => 'field_56a8a095dc992',
@@ -121,22 +123,22 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+                ],
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-booking',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -147,5 +149,5 @@ if (function_exists('acf_add_local_field_group')) {
         'description' => '',
         'modified' => 1453900881,
         'local' => 'json',
-    ));
+    ]);
 }

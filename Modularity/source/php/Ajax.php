@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 class Ajax
 {
     public function __construct()
     {
-        add_action('wp_ajax_get_post', array($this, 'getPost'));
-        add_action('wp_ajax_get_post_modules', array($this, 'getPostModules'));
+        add_action('wp_ajax_get_post', [$this, 'getPost']);
+        add_action('wp_ajax_get_post_modules', [$this, 'getPostModules']);
     }
 
     /**
@@ -39,17 +41,19 @@ class Ajax
         $postModules = \Modularity\Editor::getPostModules($_POST['id']);
 
         foreach ($postModules as $postModule) {
-            if (!empty($postModule['modules'])) {
-                foreach ($postModule['modules'] as &$module) {
-                    $incompability = apply_filters('Modularity/Editor/SidebarIncompability', [], $module->post_type);
+            if (empty($postModule['modules'])) {
+                continue;
+            }
 
-                    $module->sidebar_incompability = !empty($incompability['sidebar_incompability'])
-                        ? $incompability['sidebar_incompability']
-                        : array();
+            foreach ($postModule['modules'] as &$module) {
+                $incompability = apply_filters('Modularity/Editor/SidebarIncompability', [], $module->post_type);
 
-                    if ($includeMeta) {
-                        unset($module->meta);
-                    }
+                $module->sidebar_incompability = !empty($incompability['sidebar_incompability'])
+                    ? $incompability['sidebar_incompability']
+                    : [];
+
+                if ($includeMeta) {
+                    unset($module->meta);
                 }
             }
         }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Script;
 
 class Script extends \Modularity\Module
 {
     public $slug = 'script';
-    public $supports = array();
+    public $supports = [];
     public $isBlockCompatible = true;
 
     public function init()
@@ -15,9 +17,9 @@ class Script extends \Modularity\Module
         $this->description = __('Outputs unsanitized code to widget area.', 'modularity');
 
         //Remove html filter
-        add_action('save_post', array($this, 'disableHTMLFiltering'), 5);
+        add_action('save_post', [$this, 'disableHTMLFiltering'], 5);
 
-        add_filter('acf/validate_value/name=embed_code', array($this, 'validateEmbedCode'), 10, 4);
+        add_filter('acf/validate_value/name=embed_code', [$this, 'validateEmbedCode'], 10, 4);
     }
 
     public function validateEmbedCode($valid, $value, $field, $input_name)
@@ -33,7 +35,7 @@ class Script extends \Modularity\Module
 
     public function data(): array
     {
-        $data = array();
+        $data = [];
 
         /* Parsing the embed code and extracting the scripts, iframes, links and styles. */
         $embed = get_field('embed_code', $this->ID);
@@ -119,7 +121,7 @@ class Script extends \Modularity\Module
 
         $data['lang'] = \Modularity\Helper\AcceptanceLabels::getLabels();
         $requiresAccept = false;
-        $arrSrc = array();
+        $arrSrc = [];
 
         foreach ($data['embed'] ?? [] as $embedSrc) {
             if ($embedSrc['requiresAccept'] == 1) {
@@ -140,7 +142,7 @@ class Script extends \Modularity\Module
      */
     private function normalizeUrl($url)
     {
-        if (strpos($url, '//') === 0) {
+        if (str_starts_with($url, '//')) {
             return 'https:' . $url;
         }
         return $url;
@@ -158,7 +160,7 @@ class Script extends \Modularity\Module
         }
 
         //Disable filter temporarirly
-        add_filter('acf/allow_unfiltered_html', function ($allow_unfiltered_html) {
+        add_filter('acf/allow_unfiltered_html', static function ($allow_unfiltered_html) {
             return true;
         });
     }

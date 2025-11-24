@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Iframe;
 
 class Iframe extends \Modularity\Module
 {
     public $slug = 'iframe';
-    public $supports = array();
+    public $supports = [];
 
     public function init()
     {
@@ -13,7 +15,7 @@ class Iframe extends \Modularity\Module
         $this->namePlural = __('Iframe', 'municipio');
         $this->description = __('Outputs an embedded page.', 'modularity');
 
-        add_filter('acf/load_field/name=iframe_url', array($this, 'sslNotice'));
+        add_filter('acf/load_field/name=iframe_url', [$this, 'sslNotice']);
     }
 
     public function data(): array
@@ -77,9 +79,9 @@ class Iframe extends \Modularity\Module
 
     public function script()
     {
-        wp_localize_script('modularity-' . $this->slug, 'modIframe', array(
+        wp_localize_script('modularity-' . $this->slug, 'modIframe', [
             'needConsent' => __('We need your consent to continue.', 'iframe-acceptance'),
-        ));
+        ]);
     }
 
     /**

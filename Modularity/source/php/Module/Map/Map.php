@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Map;
 
 class Map extends \Modularity\Module
 {
     public $slug = 'map';
-    public $supports = array();
+    public $supports = [];
 
     protected $template = 'default';
 
@@ -15,9 +17,9 @@ class Map extends \Modularity\Module
         $this->namePlural = __('Maps', 'municipio');
         $this->description = __('Outputs an embedded map.', 'modularity');
 
-        add_filter('acf/load_field/name=map_url', array($this, 'sslNotice'));
-        add_filter('acf/load_value/name=map_url', array($this, 'filterMapUrl'), 10, 3);
-        add_filter('acf/update_value/name=map_url', array($this, 'filterMapUrl'), 10, 3);
+        add_filter('acf/load_field/name=map_url', [$this, 'sslNotice']);
+        add_filter('acf/load_value/name=map_url', [$this, 'filterMapUrl'], 10, 3);
+        add_filter('acf/update_value/name=map_url', [$this, 'filterMapUrl'], 10, 3);
     }
 
     /**
@@ -31,7 +33,7 @@ class Map extends \Modularity\Module
     public function data(): array
     {
         $fields = $this->getFields();
-        $data = array();
+        $data = [];
 
         //Shared template data
         $data['height'] = !empty($fields['height']) ? $fields['height'] : '400';
@@ -68,19 +70,21 @@ class Map extends \Modularity\Module
      */
     private function openStreetMapTemplateData($data, $fields)
     {
-        $data['pins'] = array();
+        $data['pins'] = [];
         $start = $fields['osm_start_position'];
 
         if (!empty($fields['osm_markers']) && is_array($fields['osm_markers'])) {
             foreach ($fields['osm_markers'] as $marker) {
-                if ($this->hasCorrectPlaceData($marker['position'])) {
-                    $pin = array();
-                    $pin['lat'] = $marker['position']['lat'];
-                    $pin['lng'] = $marker['position']['lng'];
-                    $pin['tooltip'] = $this->createMarkerTooltip($marker);
-
-                    array_push($data['pins'], $pin);
+                if (!$this->hasCorrectPlaceData($marker['position'])) {
+                    continue;
                 }
+
+                $pin = [];
+                $pin['lat'] = $marker['position']['lat'];
+                $pin['lng'] = $marker['position']['lng'];
+                $pin['tooltip'] = $this->createMarkerTooltip($marker);
+
+                array_push($data['pins'], $pin);
             }
         }
 
@@ -191,7 +195,7 @@ class Map extends \Modularity\Module
      */
     private function createMarkerTooltip($marker)
     {
-        $tooltip = array();
+        $tooltip = [];
         $tooltip['title'] = $marker['title'];
         $tooltip['excerpt'] = $marker['description'];
         $tooltip['directions']['label'] = $marker['link_text'];

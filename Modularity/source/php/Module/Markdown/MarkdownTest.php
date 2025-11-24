@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Markdown;
 
-use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

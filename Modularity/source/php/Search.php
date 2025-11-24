@@ -1,24 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 class Search
 {
     public function __construct()
     {
-        add_action('wp', array($this, 'moduleSearch'));
+        add_action('wp', [$this, 'moduleSearch']);
 
-        add_filter('posts_join', array($this, 'moduleSearchModuleDescriptionJoin'));
-        add_filter('posts_search', array($this, 'moduleSearchModuleDescription'));
+        add_filter('posts_join', [$this, 'moduleSearchModuleDescriptionJoin']);
+        add_filter('posts_search', [$this, 'moduleSearchModuleDescription']);
 
         //Elasticpress
-        add_filter('ep_pre_index_post', array($this, 'elasticPressPreIndex'));
-        add_filter('ep_post_sync_args_post_prepare_meta', array($this, 'elasticPressPreIndex'));
+        add_filter('ep_pre_index_post', [$this, 'elasticPressPreIndex']);
+        add_filter('ep_post_sync_args_post_prepare_meta', [$this, 'elasticPressPreIndex']);
 
         //Algolia
-        add_filter('algolia_post_shared_attributes', array($this, 'addAlgoliaModuleAttribute'), 10, 2);
-        add_filter('algolia_searchable_post_shared_attributes', array($this, 'addAlgoliaModuleAttribute'), 10, 2);
-        add_filter('algolia_should_index_searchable_post', array($this, 'shouldIndexPost'), 50, 2);
+        add_filter('algolia_post_shared_attributes', [$this, 'addAlgoliaModuleAttribute'], 10, 2);
+        add_filter('algolia_searchable_post_shared_attributes', [$this, 'addAlgoliaModuleAttribute'], 10, 2);
+        add_filter('algolia_should_index_searchable_post', [$this, 'shouldIndexPost'], 50, 2);
     }
 
     /**
@@ -47,7 +49,7 @@ class Search
             // Find module usage
             $usage = \Modularity\ModuleManager::getModuleUsage($post->ID);
 
-            $usagePosts = array();
+            $usagePosts = [];
             foreach ($usage as $item) {
                 $usagePosts[] = get_post($item->post_id);
             }
@@ -57,7 +59,7 @@ class Search
         }
 
         //Remove modularity duplicated
-        $searchResult = array_filter($searchResult, function ($object) {
+        $searchResult = array_filter($searchResult, static function ($object) {
             if (substr($object->post_type, 0, 4) != 'mod-') {
                 return true;
             }
@@ -99,7 +101,7 @@ class Search
         }
 
         $modules = \Modularity\Editor::getPostModules($postId);
-        $onlyModules = array();
+        $onlyModules = [];
 
         // Normalize modules array
         foreach ($modules as $sidebar => $item) {
@@ -117,7 +119,7 @@ class Search
                 continue;
             }
 
-            $markup = \Modularity\App::$display->outputModule($module, array('edit_module' => false), array(), false);
+            $markup = \Modularity\App::$display->outputModule($module, ['edit_module' => false], [], false);
 
             if (!empty($markup)) {
                 $rendered .= ' ' . $markup;
@@ -140,7 +142,7 @@ class Search
         //Get post type object
         if (isset($post->post_type)) {
             //Do not index posts that belong to modularity
-            if (strpos($post->post_type, 'mod-') === 0) {
+            if (str_starts_with($post->post_type, 'mod-')) {
                 return false;
             }
         }

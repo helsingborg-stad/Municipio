@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 /**
@@ -35,7 +37,7 @@ class Options
 
     private static function getTemplatesFromPostTypeNames(array $postTypeNames, string $templateType): array
     {
-        $templates = array_map(function ($postTypeName) use ($templateType) {
+        $templates = array_map(static function ($postTypeName) use ($templateType) {
             $template = \Modularity\Helper\Wp::findCoreTemplates([$templateType . '-' . $postTypeName]);
             return $template ? $template : $templateType;
         }, $postTypeNames);
@@ -45,16 +47,16 @@ class Options
 
     private static function getPostTypesWithArchives()
     {
-        return get_post_types(array(
+        return get_post_types([
             'has_archive' => true,
-        ), 'names');
+        ], 'names');
     }
 
     private static function getPublicPostTypeNames()
     {
-        return get_post_types(array(
+        return get_post_types([
             'public' => true,
             'show_ui' => true,
-        ), 'names');
+        ], 'names');
     }
 }

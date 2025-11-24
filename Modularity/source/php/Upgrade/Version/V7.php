@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Version;
 
-use Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
 use Modularity\Upgrade\Version\Helper\GetPagesByBlockName;
 use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 use Modularity\Upgrade\Version\Helper\UpdatePageContent;

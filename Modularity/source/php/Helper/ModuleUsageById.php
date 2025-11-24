@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class ModuleUsageById
@@ -75,9 +77,11 @@ class ModuleUsageById
     {
         $uniqueItems = [];
         foreach ($items as $item) {
-            if (!array_key_exists($item->post_id, $uniqueItems)) {
-                $uniqueItems[$item->post_id] = $item;
+            if (array_key_exists($item->post_id, $uniqueItems)) {
+                continue;
             }
+
+            $uniqueItems[$item->post_id] = $item;
         }
 
         return $uniqueItems;
