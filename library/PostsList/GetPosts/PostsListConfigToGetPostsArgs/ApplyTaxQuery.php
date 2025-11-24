@@ -48,6 +48,10 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         // Group terms by taxonomy
         $termsByTaxonomy = [];
         foreach ($terms as $term) {
+            if (!isset($termsByTaxonomy[$term->taxonomy])) {
+                $termsByTaxonomy[$term->taxonomy] = [];
+            }
+
             $termsByTaxonomy[$term->taxonomy][] = $term->term_id;
         }
 
@@ -75,7 +79,7 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function getRelationFromConfig(GetPostsConfigInterface $config): string
     {
-        return  $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
+        return  !$config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
     }
 
     /**

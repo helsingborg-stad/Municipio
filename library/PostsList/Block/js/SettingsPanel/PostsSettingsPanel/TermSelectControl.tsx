@@ -10,7 +10,6 @@ type TermSelectControlProps = SelectControlProps & {
 };
 
 export const TermSelectControl: React.FC<TermSelectControlProps> = (props) => {
-    console.log('taxonomy', props.taxonomy)
     const { taxonomy, ...selectProps } = props;
     const termOptions = useSelect((select: any) => {
         return (select(store).getEntityRecords('taxonomy', taxonomy, { per_page: -1 }) || [])

@@ -6,6 +6,7 @@ declare global {
         attributes?: Record<string, any>;
         urlQueryArgs?: Record<string, any>;
         httpMethod?: 'GET' | 'POST';
+        LoadingResponsePlaceholder?: () => JSX.Element;
     }
 
     interface Window {
@@ -34,5 +35,9 @@ declare global {
         textSearchEnabled: boolean;
         dateFilterEnabled: boolean;
         taxonomiesEnabledForFiltering: TaxonomyFilter[];
+        terms: Array<{
+            taxonomy: string;
+            terms: number[];
+        }>
     }
 }

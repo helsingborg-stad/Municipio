@@ -6,9 +6,16 @@ import { TermSelectControl } from "./TermSelectControl";
 const { PanelBody, __experimentalNumberControl } = window.wp.components;
 const { __ } = window.wp.i18n;
 
-export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { postType, postsPerPage }, setAttributes }) => {
+export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { postType, postsPerPage, terms }, setAttributes }) => {
 
     const { taxonomies } = usePostsSettingsPanel(postType);
+    const handleTermsChange = (taxonomy: string, selectedTerms: number[]) => {
+        const updatedTerms = terms.filter(term => term.taxonomy !== taxonomy);
+        if (selectedTerms.length > 0) {
+            updatedTerms.push({ taxonomy, terms: selectedTerms });
+        }
+        setAttributes({ terms: updatedTerms });
+    };
 
     return (
         <PanelBody title={__('Posts settings', 'municipio')}>
@@ -32,8 +39,10 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { 
                     taxonomy={taxonomy.slug}
                     multiple
                     key={taxonomy.slug}
+                    value={terms.some(t => t.taxonomy === taxonomy.slug) ? terms.find(t => t.taxonomy === taxonomy.slug)?.terms.map(String) : []}
                     __next40pxDefaultSize
                     __nextHasNoMarginBottom
+                    onChange={(value) => handleTermsChange(taxonomy.slug, Array.isArray(value) ? value.map(Number) : [])}
                 />
             ))}
         </PanelBody>

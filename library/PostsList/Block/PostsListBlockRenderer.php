@@ -8,10 +8,7 @@ use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
-use Municipio\PostsList\GetPosts\WpQueryFactory;
-use Municipio\PostsList\PostsList;
 use Municipio\PostsList\PostsListFactoryInterface;
-use Municipio\PostsList\QueryVars\QueryVars;
 
 class PostsListBlockRenderer implements BlockRendererInterface
 {
@@ -36,8 +33,20 @@ class PostsListBlockRenderer implements BlockRendererInterface
             }
         };
 
-        $getPostsConfig = new class ($attributes) extends DefaultGetPostsConfig {
-            public function __construct(private array $attributes)
+        $terms = array_map(function (array $term) {
+            return get_terms([
+                'taxonomy' => $term['taxonomy'],
+                'include'  => $term['terms'] ?? [],
+            ]);
+        }, $attributes['terms'] ?? []);
+
+        // flatten terms array
+        $terms = array_reduce($terms, function ($carry, $item) {
+            return array_merge($carry, $item);
+        }, []);
+
+        $getPostsConfig = new class ($attributes, $terms) extends DefaultGetPostsConfig {
+            public function __construct(private array $attributes, private array $terms)
             {
             }
 
@@ -50,11 +59,16 @@ class PostsListBlockRenderer implements BlockRendererInterface
             {
                 return $this->attributes['postsPerPage'];
             }
+
+            public function getTerms(): array
+            {
+                return $this->terms;
+            }
         };
 
-        $taxonomiesEnabledForFiltering = array_filter($attributes['taxonomiesEnabledForFiltering'] ?? [], function ($item) {
-            return is_array($item) && isset($item['taxonomy'], $item['type']);
-        });
+            $taxonomiesEnabledForFiltering = array_filter($attributes['taxonomiesEnabledForFiltering'] ?? [], function ($item) {
+                return is_array($item) && isset($item['taxonomy'], $item['type']);
+            });
 
         $enabledTaxonomySlugs = array_map(function ($item) {
             return $item['taxonomy'];
@@ -96,12 +110,12 @@ class PostsListBlockRenderer implements BlockRendererInterface
             }
         };
 
-        $data = $this->postsListFactory->create(
-            $getPostsConfig,
-            $appearanceConfig,
-            $filterConfig,
-            'posts_list_block_' . md5(json_encode($attributes)) . '_'
-        )->getData();
+            $data = $this->postsListFactory->create(
+                $getPostsConfig,
+                $appearanceConfig,
+                $filterConfig,
+                'posts_list_block_' . md5(json_encode($attributes)) . '_'
+            )->getData();
 
         return render_blade_view('posts-list', $data);
     }

@@ -43,6 +43,10 @@
         "taxonomiesEnabledForFiltering": {
             "type": "array",
             "default": []
+        },
+        "terms": {
+            "type": "array",
+            "default": []
         }
     },
     "textdomain": "municipio"
