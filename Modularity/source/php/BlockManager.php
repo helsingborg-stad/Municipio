@@ -289,9 +289,9 @@ class BlockManager
      * Detect if this may be a module
      *
      * @param string $value
-     * @return boolean
+     * @return false|string
      */
-    private function isModule(string $value): bool
+    private function isModule(string $value): false|string
     {
         foreach ($this->classes as $object) {
             if ($object->moduleSlug !== $value) {
