@@ -1,20 +1,20 @@
-@import 'config/z-index';
+@use 'config/z-index' as *;
 
-@import 'mixin/gradient';
+@use 'mixin/gradient';
 
-@import 'general/admin-menu';
+@use 'general/admin-menu';
 
-@import 'partials/form';
-@import 'partials/table';
-@import 'partials/tabs';
-@import 'partials/modules';
-@import 'partials/editor';
-@import 'partials/modal';
-@import 'partials/loader-takeover';
-@import 'partials/utilities';
-@import 'partials/spinner';
-@import 'partials/module-fields';
-@import 'partials/spacer';
+@use 'partials/form';
+@use 'partials/table';
+@use 'partials/tabs';
+@use 'partials/modules';
+@use 'partials/editor';
+@use 'partials/modal';
+@use 'partials/loader-takeover';
+@use 'partials/utilities';
+@use 'partials/spinner';
+@use 'partials/module-fields';
+@use 'partials/spacer';
 
 [class*="modularity-mod-"],
 [class*="mod-"] {

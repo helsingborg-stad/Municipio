@@ -4,14 +4,14 @@ namespace Modularity\Module\Text;
 
 class Text extends \Modularity\Module
 {
-    public $slug     = 'text';
+    public $slug = 'text';
     public $supports = array('editor');
 
     public function init()
     {
         $this->nameSingular = __('Text', 'municipio');
-        $this->namePlural   = __('Texts', 'municipio');
-        $this->description  = __('Outputs text', 'municipio');
+        $this->namePlural = __('Texts', 'municipio');
+        $this->description = __('Outputs text', 'municipio');
     }
 
     public function data(): array

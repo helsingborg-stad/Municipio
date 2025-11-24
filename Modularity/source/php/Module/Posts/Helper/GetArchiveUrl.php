@@ -4,7 +4,7 @@ namespace Modularity\Module\Posts\Helper;
 
 class GetArchiveUrl
 {
-        /**
+    /**
      * Get the archive URL for a specified post type using provided fields.
      *
      * This function retrieves the archive URL for a specified post type based on the given fields.
@@ -19,7 +19,6 @@ class GetArchiveUrl
      */
     public function getArchiveUrl($postType, $fields)
     {
-
         if (is_array($fields)) {
             $fields = (object) $fields;
         }
@@ -28,7 +27,7 @@ class GetArchiveUrl
             return false;
         }
 
-        if ($postType == 'post' && $archiveUrl = $this->getPostsArchiveUrl()) {
+        if ($postType == 'post' && ($archiveUrl = $this->getPostsArchiveUrl())) {
             return $archiveUrl;
         }
 

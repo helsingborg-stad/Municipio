@@ -45,7 +45,7 @@
         "landrok/language-detector": "dev-master",
         "league/commonmark": "2.7.0",
         "league/config": "1.1.1",
-        "helsingborg-stad/component-library": "4.62.23",
+        "helsingborg-stad/component-library": "4.62.26",
         "freshleafmedia/autofocus": "^1.0",
         "astrotomic/php-deepface": "^0.4.0",
         "helsingborg-stad/kirki": "^5.2",
@@ -54,10 +54,9 @@
     "scripts": {
         "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
         "test:coverage": "XDEBUG_MODE=coverage php -d memory_limit=512M vendor/bin/phpunit",
-        "lint": "vendor/bin/phpcs",
-        "lint:changed": "vendor/bin/phpcs-changed origin/main",
-        "fix": "vendor/bin/phpcbf",
-        "fix:changed": "vendor/bin/phpcbf-changed origin/main",
+        "lint": "vendor/bin/mago lint",
+        "fix": "vendor/bin/mago lint --format-after-fix --fix",
+        "format": "vendor/bin/mago fmt",
         "post-update-cmd": [],
         "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,Modularity/source/php",
         "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
@@ -68,7 +67,8 @@
             "composer/installers": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "carthage-software/mago": true
         }
     },
     "extra": {
@@ -86,7 +86,8 @@
         "php-stubs/wordpress-stubs": "^6.7",
         "phpunit/phpunit": "^11.5",
         "php-stubs/acf-pro-stubs": "^6.5",
-        "spatie/phpunit-snapshot-assertions": "dev-main"
+        "spatie/phpunit-snapshot-assertions": "dev-main",
+        "carthage-software/mago": "^1.0.0-rc.3"
     },
     "autoload": {
         "psr-4": {
@@ -103,5 +104,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "6.4.14"
+    "version": "6.5.3"
 }

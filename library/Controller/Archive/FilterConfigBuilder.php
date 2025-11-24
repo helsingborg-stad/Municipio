@@ -15,6 +15,7 @@ class FilterConfigBuilder
     private bool $isDateFilterEnabled    = false;
     private bool $isTextSearchEnabled    = false;
     private array $taxonomyFilterConfigs = [];
+    private bool $showReset              = false;
 
     /**
      * Set is enabled
@@ -62,23 +63,27 @@ class FilterConfigBuilder
     }
 
     /**
+     * Set show reset
+     * @param bool $showReset
+     */
+    public function setShowReset(bool $showReset): self
+    {
+        $this->showReset = $showReset;
+        return $this;
+    }
+
+    /**
      * Build FilterConfig
      */
     public function build(): FilterConfigInterface
     {
-        $showReset = $this->isEnabled && (
-            $this->isTextSearchEnabled ||
-            $this->isDateFilterEnabled ||
-            !empty($this->taxonomyFilterConfigs)
-        );
-
         return new class (
             $this->isEnabled,
             $this->resetUrl,
             $this->isDateFilterEnabled,
             $this->isTextSearchEnabled,
             $this->taxonomyFilterConfigs,
-            $showReset
+            $this->showReset
         ) extends DefaultFilterConfig {
             /**
              * Constructor

@@ -21,7 +21,7 @@ class Select
 
     private function getAcfStructuredMenus(): array
     {
-        $menus        = [];
+        $menus = [];
         $createdMenus = wp_get_nav_menus();
         if (!empty($createdMenus)) {
             foreach ($createdMenus as $menu) {

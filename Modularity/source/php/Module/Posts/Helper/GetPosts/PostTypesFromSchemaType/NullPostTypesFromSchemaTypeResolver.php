@@ -4,9 +4,7 @@ namespace Modularity\Module\Posts\Helper\GetPosts\PostTypesFromSchemaType;
 
 class NullPostTypesFromSchemaTypeResolver implements PostTypesFromSchemaTypeResolverInterface
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * @inheritDoc

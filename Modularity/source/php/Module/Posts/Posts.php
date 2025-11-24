@@ -6,15 +6,13 @@ use Modularity\Helper\WpQueryFactory\WpQueryFactory;
 use Modularity\Helper\WpService;
 use Modularity\Module\Posts\Helper\DomainChecker;
 use Modularity\Module\Posts\Helper\GetArchiveUrl;
+use Modularity\Module\Posts\Helper\GetPosts\GetPosts;
+use Modularity\Module\Posts\Helper\GetPosts\GetPostsFromMultipleSites;
 use Modularity\Module\Posts\Helper\GetPosts\GetPostsInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostsResultInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostTypesFromSchemaType\PostTypesFromSchemaTypeResolver;
-use Modularity\Module\Posts\Private\PrivateController;
-use Modularity\Module\Posts\Helper\GetPosts\{
-    GetPosts,
-    GetPostsFromMultipleSites
-};
 use Modularity\Module\Posts\Helper\GetPosts\UserGroupResolver\UserGroupResolver;
+use Modularity\Module\Posts\Private\PrivateController;
 
 /**
  * Class Posts
@@ -22,11 +20,11 @@ use Modularity\Module\Posts\Helper\GetPosts\UserGroupResolver\UserGroupResolver;
  */
 class Posts extends \Modularity\Module
 {
-    public $slug          = 'posts';
-    public $supports      = [];
-    public array $fields  = [];
+    public $slug = 'posts';
+    public $supports = [];
+    public array $fields = [];
     public $blockSupports = array(
-        'align' => ['full']
+        'align' => ['full'],
     );
     public GetPostsInterface $getPostsHelper;
     public $archiveUrlHelper;
@@ -39,8 +37,8 @@ class Posts extends \Modularity\Module
     public function init()
     {
         $this->nameSingular = __('Posts', 'municipio');
-        $this->namePlural   = __('Posts', 'municipio');
-        $this->description  = __('Outputs selected posts in specified layout', 'municipio');
+        $this->namePlural = __('Posts', 'municipio');
+        $this->description = __('Outputs selected posts in specified layout', 'municipio');
 
         // Private controller
         $this->privateController = new PrivateController($this);
@@ -60,13 +58,10 @@ class Posts extends \Modularity\Module
             'acf/fields/post_object/query/name=posts_data_posts',
             array($this, 'removeUnwantedPostTypesFromManuallyPicked'),
             10,
-            3
+            3,
         );
 
-        add_filter(
-            'acf/load_field/name=taxonomy_display',
-            array($this, 'loadTaxonomyDisplayField')
-        );
+        add_filter('acf/load_field/name=taxonomy_display', array($this, 'loadTaxonomyDisplayField'));
 
         // Helpers
         $this->archiveUrlHelper = new GetArchiveUrl();
@@ -108,7 +103,7 @@ class Posts extends \Modularity\Module
     public function loadTaxonomyDisplayField(array $field = []): array
     {
         $taxonomies = get_taxonomies([
-            'public' => true
+            'public' => true,
         ], 'objects');
 
         $choices = [];
@@ -123,7 +118,6 @@ class Posts extends \Modularity\Module
 
     public function loadNetworkSourcesField(array $field = []): array
     {
-
         if (!is_multisite() || get_post_type() === 'acf-field-group') {
             return $field;
         }
@@ -144,36 +138,37 @@ class Posts extends \Modularity\Module
      */
     public function data(): array
     {
-        $data         = [];
+        $data = [];
         $this->fields = $this->getFields();
 
-        $this->domainChecker          = new DomainChecker($this->fields);
-        $data['posts_display_as']     = $this->fields['posts_display_as'] ?? false;
-        $data['display_reading_time'] = !empty($this->fields['posts_fields']) && in_array('reading_time', $this->fields['posts_fields']) ?? false;
+        $this->domainChecker = new DomainChecker($this->fields);
+        $data['posts_display_as'] = $this->fields['posts_display_as'] ?? false;
+        $data['display_reading_time'] =
+            !empty($this->fields['posts_fields']) && in_array('reading_time', $this->fields['posts_fields']) ?? false;
 
         // Posts
-        $data['preamble']             = $this->fields['preamble'] ?? false;
-        $data['posts_fields']         = $this->fields['posts_fields'] ?? [];
+        $data['preamble'] = $this->fields['preamble'] ?? false;
+        $data['posts_fields'] = $this->fields['posts_fields'] ?? [];
         $data['posts_data_post_type'] = $this->fields['posts_data_post_type'] ?? false;
-        $data['posts_data_source']    = $this->fields['posts_data_source'] ?? false;
-        $data['postsSources']         = $this->fields['posts_data_network_sources'] ?? [];
+        $data['posts_data_source'] = $this->fields['posts_data_source'] ?? false;
+        $data['postsSources'] = $this->fields['posts_data_network_sources'] ?? [];
 
         $postsAndPaginationData = $this->getPostsResult();
-        $data['posts']          = $postsAndPaginationData->getPosts();
-        $data['stickyPosts']    = $postsAndPaginationData->getStickyPosts();
+        $data['posts'] = $postsAndPaginationData->getPosts();
+        $data['stickyPosts'] = $postsAndPaginationData->getStickyPosts();
 
         if (!empty($this->fields['posts_pagination']) && $this->fields['posts_pagination'] === 'page_numbers') {
-            $data['maxNumPages']         = $postsAndPaginationData->getNumberOfPages();
+            $data['maxNumPages'] = $postsAndPaginationData->getNumberOfPages();
             $data['paginationArguments'] = $this->getPaginationArguments($data['maxNumPages'], $this->getPageNumber());
         } else {
             $data['paginationArguments'] = null;
         }
 
         // Sorting
-        $data['sortBy']  = false;
+        $data['sortBy'] = false;
         $data['orderBy'] = false;
         if (isset($this->fields['posts_sort_by']) && substr($this->fields['posts_sort_by'], 0, 9) === '_metakey_') {
-            $data['sortBy']    = 'meta_key';
+            $data['sortBy'] = 'meta_key';
             $data['sortByKey'] = str_replace('_metakey_', '', $this->fields['posts_sort_by']);
         }
 
@@ -182,7 +177,7 @@ class Posts extends \Modularity\Module
         // Setup filters
         $filters = [
             'orderby' => sanitize_text_field($data['sortBy']),
-            'order'   => sanitize_text_field($data['order'])
+            'order' => sanitize_text_field($data['order']),
         ];
 
         if ($data['sortBy'] == 'meta_key') {
@@ -191,9 +186,13 @@ class Posts extends \Modularity\Module
 
         $data['filters'] = [];
 
-        if (isset($this->fields['posts_taxonomy_filter']) && $this->fields['posts_taxonomy_filter'] === true && !empty($this->fields['posts_taxonomy_type'])) {
-            $taxType   = $this->fields['posts_taxonomy_type'];
-            $taxValues = (array)$this->fields['posts_taxonomy_value'];
+        if (
+            isset($this->fields['posts_taxonomy_filter'])
+            && $this->fields['posts_taxonomy_filter'] === true
+            && !empty($this->fields['posts_taxonomy_type'])
+        ) {
+            $taxType = $this->fields['posts_taxonomy_type'];
+            $taxValues = (array) $this->fields['posts_taxonomy_value'];
             $taxValues = implode('|', $taxValues);
 
             $data['filters']["{$taxType}[]"] = $taxValues;
@@ -202,7 +201,7 @@ class Posts extends \Modularity\Module
         //Get archive link
         $data['archiveLinkUrl'] = $this->archiveUrlHelper->getArchiveUrl(
             $data['posts_data_post_type'],
-            $this->fields ?? null
+            $this->fields ?? null,
         );
 
         // Archive link title
@@ -213,10 +212,10 @@ class Posts extends \Modularity\Module
 
         //Add filters to archive link
         if ($data['archiveLinkUrl'] && is_array($data['filters']) && !empty($data['filters'])) {
-            $data['archiveLinkUrl'] .= "?" . http_build_query($data['filters']);
+            $data['archiveLinkUrl'] .= '?' . http_build_query($data['filters']);
         }
 
-        $data['ariaLabels'] =  (object) [
+        $data['ariaLabels'] = (object) [
             'prev' => __('Previous slide', 'municipio'),
             'next' => __('Next slide', 'municipio'),
         ];
@@ -225,20 +224,20 @@ class Posts extends \Modularity\Module
             $data['sliderId'] = $this->getID();
         } else {
             $data['sliderId'] = uniqid();
-            $data['ID']       = uniqid();
+            $data['ID'] = uniqid();
         }
 
         $data['classList'] = [];
 
         $data['lang'] = [
-            'showMore'      => __('Show more', 'municipio'),
-            'readMore'      => __('Read more', 'municipio'),
-            'save'          => __('Save', 'municipio'),
-            'cancel'        => __('Cancel', 'municipio'),
-            'description'   => __('Description', 'municipio'),
-            'name'          => __('Name', 'municipio'),
-            'saving'        => __('Saving', 'municipio'),
-            'error'         => __('An error occurred and the data could not be saved. Please try again later', 'municipio'),
+            'showMore' => __('Show more', 'municipio'),
+            'readMore' => __('Read more', 'municipio'),
+            'save' => __('Save', 'municipio'),
+            'cancel' => __('Cancel', 'municipio'),
+            'description' => __('Description', 'municipio'),
+            'name' => __('Name', 'municipio'),
+            'saving' => __('Saving', 'municipio'),
+            'error' => __('An error occurred and the data could not be saved. Please try again later', 'municipio'),
             'changeContent' => __('Change the lists content', 'municipio'),
         ];
 
@@ -274,27 +273,29 @@ class Posts extends \Modularity\Module
      */
     private function getPaginationArguments(int $maxNumPages, int $currentPage): array
     {
-
         if ($maxNumPages < 2) {
             return [];
         }
 
         $listItemOne = [
-            'href'  => remove_query_arg($this->getPaginationQueryVarName()),
-            'label' => __("First page", 'modularity')
+            'href' => remove_query_arg($this->getPaginationQueryVarName()),
+            'label' => __('First page', 'modularity'),
         ];
 
-        $listItems = array_map(function ($pageNumber) {
-            return [
-                'href'  => add_query_arg($this->getPaginationQueryVarName(), $pageNumber),
-                'label' => sprintf(__("Page %d", 'modularity'), $pageNumber)
-            ];
-        }, range(2, $maxNumPages));
+        $listItems = array_map(
+            function ($pageNumber) {
+                return [
+                    'href' => add_query_arg($this->getPaginationQueryVarName(), $pageNumber),
+                    'label' => sprintf(__('Page %d', 'modularity'), $pageNumber),
+                ];
+            },
+            range(2, $maxNumPages),
+        );
 
         return [
-            'list'       => array_merge([$listItemOne], $listItems),
-            'current'    => $currentPage,
-            'linkPrefix' => $this->getPaginationQueryVarName()
+            'list' => array_merge([$listItemOne], $listItems),
+            'current' => $currentPage,
+            'linkPrefix' => $this->getPaginationQueryVarName(),
         ];
     }
 
@@ -345,10 +346,12 @@ class Posts extends \Modularity\Module
     {
         $template = !empty($this->data['posts_display_as']) ? $this->data['posts_display_as'] : 'list';
 
-        if (!empty($this->fields['show_as_slider']) && in_array($this->fields['posts_display_as'], $this->sliderCompatibleLayouts, true)) {
+        if (
+            !empty($this->fields['show_as_slider'])
+            && in_array($this->fields['posts_display_as'], $this->sliderCompatibleLayouts, true)
+        ) {
             $template = 'slider';
         }
-
 
         $template = $this->replaceDeprecatedTemplate($template);
         $this->getTemplateData($template);
@@ -360,7 +363,7 @@ class Posts extends \Modularity\Module
             $template . '.blade.php',
             $this,
             $this->data,
-            $this->fields
+            $this->fields,
         );
     }
 
@@ -419,7 +422,10 @@ class Posts extends \Modularity\Module
      */
     public function getPostsResult(): PostsResultInterface
     {
-        $stickyPostHelper                = new \Municipio\StickyPost\Helper\GetStickyOption(new \Municipio\StickyPost\Config\StickyPostConfig(), WpService::get());
+        $stickyPostHelper = new \Municipio\StickyPost\Helper\GetStickyOption(
+            new \Municipio\StickyPost\Config\StickyPostConfig(),
+            WpService::get(),
+        );
         $postTypesFromSchemaTypeResolver = new PostTypesFromSchemaTypeResolver();
 
         if (!empty($this->fields['posts_data_network_sources'])) {
@@ -431,7 +437,7 @@ class Posts extends \Modularity\Module
                 $wpdb,
                 WpService::get(),
                 $postTypesFromSchemaTypeResolver,
-                new UserGroupResolver(WpService::get())
+                new UserGroupResolver(WpService::get()),
             );
         } else {
             $this->getPostsHelper = new GetPosts(
@@ -440,7 +446,7 @@ class Posts extends \Modularity\Module
                 $stickyPostHelper,
                 WpService::get(),
                 new WpQueryFactory(),
-                $postTypesFromSchemaTypeResolver
+                $postTypesFromSchemaTypeResolver,
             );
         }
 
@@ -460,7 +466,7 @@ class Posts extends \Modularity\Module
         ];
 
         if (array_key_exists($templateSlug, $deprecatedTemplates)) {
-            return  $deprecatedTemplates[$templateSlug];
+            return $deprecatedTemplates[$templateSlug];
         }
 
         return $templateSlug;
@@ -468,16 +474,15 @@ class Posts extends \Modularity\Module
 
     public function adminEnqueue()
     {
-
-        $wpService        = WpService::get();
+        $wpService = WpService::get();
         $getCurrentPostId = fn() => $wpService->isArchive() ? false : $wpService->getTheID();
 
-        wp_register_script('mod-posts-taxonomy-filtering', MODULARITY_URL . '/dist/'
-        . \Modularity\Helper\CacheBust::name('js/mod-posts-taxonomy-filtering.js'));
-        wp_localize_script('mod-posts-taxonomy-filtering', 'modPostsTaxonomyFiltering', [
-            'currentPostID' => $getCurrentPostId(),
-        ]);
-        wp_enqueue_script('mod-posts-taxonomy-filtering');
+        $this->wpEnqueue
+            ?->add('js/mod-posts-taxonomy-filtering.js')
+            ->with()
+            ->translation('modPostsTaxonomyFiltering', [
+                'currentPostID' => $getCurrentPostId(),
+            ]);
     }
 
     /**

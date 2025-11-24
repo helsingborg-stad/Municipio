@@ -1,7 +1,7 @@
 export interface ValuesInterface {
-    [key: string]: boolean;
+	[key: string]: boolean;
 }
 
 export interface ItemsObject {
-    [key: string]: HTMLElement;
+	[key: string]: HTMLElement;
 }

@@ -13,7 +13,7 @@ class AcfModuleRemoveFieldMigrator implements MigratorInterface
     public function __construct($fieldName, $moduleId)
     {
         $this->fieldName = $fieldName;
-        $this->moduleId  = $moduleId;
+        $this->moduleId = $moduleId;
     }
 
     public function migrate(): mixed
@@ -23,7 +23,11 @@ class AcfModuleRemoveFieldMigrator implements MigratorInterface
         if ($deleted) {
             WP_CLI::line(sprintf('Deleting field %s in %s', (string) $this->fieldName, (string) $this->moduleId));
         } else {
-            WP_CLI::warning(sprintf('Failed to delete field %s in %s', (string) $this->fieldName, (string) $this->moduleId));
+            WP_CLI::warning(sprintf(
+                'Failed to delete field %s in %s',
+                (string) $this->fieldName,
+                (string) $this->moduleId,
+            ));
         }
 
         return $deleted;

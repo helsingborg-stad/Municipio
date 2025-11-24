@@ -2,8 +2,8 @@
 
 namespace Modularity\Upgrade\Version;
 
-use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 use Modularity\Upgrade\Migrators\Module\AcfModuleRepeaterFieldsMigrator;
+use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 
 /**
  * Class V8
@@ -47,16 +47,16 @@ class V8 implements versionInterface
             $oldFieldValue = $this->getUndefinedField($module->ID, $this->oldKey);
 
             $newField = [
-            'type'   => 'repeater',
-            'name'   => $this->newKey,
-            'fields' => [
-            'post_title'    => 'title',
-            'post_content'  => 'content',
-            'permalink'     => 'permalink',
-            'permalink'     => 'link',
-            'image'         => 'image',
-            'column_values' => 'accordion_column_values',
-            ]
+                'type' => 'repeater',
+                'name' => $this->newKey,
+                'fields' => [
+                    'post_title' => 'title',
+                    'post_content' => 'content',
+                    'permalink' => 'permalink',
+                    'permalink' => 'link',
+                    'image' => 'image',
+                    'column_values' => 'accordion_column_values',
+                ],
             ];
             $migrator = new AcfModuleRepeaterFieldsMigrator($newField, $oldFieldValue, $module->ID);
             $migrator->migrate();
@@ -74,19 +74,20 @@ class V8 implements versionInterface
      */
     private function getUndefinedField($postId, $fieldKey)
     {
-        $query = $this->db->prepare(
-            "SELECT * FROM {$this->db->postmeta} WHERE post_id = %d AND meta_key LIKE ",
-            $postId
-        ) . "'" . $fieldKey . "_%_%'";
+        $query =
+            $this->db->prepare("SELECT * FROM {$this->db->postmeta} WHERE post_id = %d AND meta_key LIKE ", $postId)
+            . "'"
+            . $fieldKey
+            . "_%_%'";
 
         $results = $this->db->get_results($query, ARRAY_A);
 
-      // Group results by prefix
+        // Group results by prefix
         $groupedData = [];
         foreach ($results as $row) {
             if (preg_match('/' . preg_quote($fieldKey, '/') . '_(\d+)_(.+)$/', $row['meta_key'], $matches)) {
-                $index                     = (int)$matches[1]; // Extract the numeric index (e.g., 0, 1, etc.)
-                $key                       = $matches[2];        // Extract the key (e.g., post_title, post_content, etc.)
+                $index = (int) $matches[1]; // Extract the numeric index (e.g., 0, 1, etc.)
+                $key = $matches[2]; // Extract the key (e.g., post_title, post_content, etc.)
                 $groupedData[$index][$key] = $row['meta_value'];
             }
         }
@@ -104,7 +105,7 @@ class V8 implements versionInterface
      */
     private function getModules(): array
     {
-        $postsModules         = GetPostsByPostType::getPostsByPostType('mod-manualinput');
+        $postsModules = GetPostsByPostType::getPostsByPostType('mod-manualinput');
         $filteredPostsModules = array_filter($postsModules, function ($module) {
             if (!empty($module->ID)) {
                 return empty(get_field($this->newKey, $module->ID) ?? false);

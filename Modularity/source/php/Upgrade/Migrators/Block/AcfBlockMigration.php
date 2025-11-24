@@ -15,7 +15,7 @@ class AcfBlockMigration
         private array $fields = [],
         private $newBlockName = false,
         private $conditionCallback = false,
-        private $pages = null
+        private $pages = null,
     ) {
         $this->pages = $this->pages ?? GetPagesByBlockName::getPagesByBlockName($this->db, $this->blockName);
     }
@@ -40,11 +40,16 @@ class AcfBlockMigration
             return [];
         }
         foreach ($blocks as &$block) {
-            if (!empty($block['blockName']) && $block['blockName'] === $this->blockName && !empty($block['attrs']['data']) && $this->blockCondition($block)) {
-                $migrationFieldManager  = new AcfBlockMigrationHandler($this->fields, $block['attrs']['data']);
+            if (
+                !empty($block['blockName'])
+                && $block['blockName'] === $this->blockName
+                && !empty($block['attrs']['data'])
+                && $this->blockCondition($block)
+            ) {
+                $migrationFieldManager = new AcfBlockMigrationHandler($this->fields, $block['attrs']['data']);
                 $block['attrs']['data'] = $migrationFieldManager->migrateBlockFields();
                 if (!empty($this->newBlockName)) {
-                    $block['blockName']     = $this->newBlockName;
+                    $block['blockName'] = $this->newBlockName;
                     $block['attrs']['name'] = $this->newBlockName;
                 }
             }
@@ -66,11 +71,7 @@ class AcfBlockMigration
 
     private function isValidPagesAndFields(): bool
     {
-        return
-            !empty($this->pages) &&
-            is_array($this->pages) &&
-            !empty($this->fields) &&
-            is_array($this->fields);
+        return !empty($this->pages) && is_array($this->pages) && !empty($this->fields) && is_array($this->fields);
     }
 
     /**

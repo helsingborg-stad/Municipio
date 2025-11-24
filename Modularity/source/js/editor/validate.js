@@ -1,12 +1,12 @@
-let lModularity = null
+let lModularity = null;
 $ = jQuery;
 var hasErrors = false;
-var errorClass = 'validation-error';
+var errorClass = "validation-error";
 
 export default function Validate(Modularity) {
-    lModularity = Modularity;
-    
-    this.handleEvents();
+	lModularity = Modularity;
+
+	this.handleEvents();
 }
 
 /**
@@ -14,8 +14,8 @@ export default function Validate(Modularity) {
  * @return {void}
  */
 Validate.prototype.run = function () {
-    hasErrors = false;
-    this.checkRequired();
+	hasErrors = false;
+	this.checkRequired();
 };
 
 /**
@@ -23,20 +23,22 @@ Validate.prototype.run = function () {
  * @return void
  */
 Validate.prototype.checkRequired = function () {
-    var required = $('[required]');
-    required.removeClass(errorClass);
+	var required = $("[required]");
+	required.removeClass(errorClass);
 
-    required.each(function (index, element) {
-        if ($(element).val().length === 0) {
-            $(element).parents('li').addClass(errorClass);
+	required.each(
+		function (index, element) {
+			if ($(element).val().length === 0) {
+				$(element).parents("li").addClass(errorClass);
 
-            $(element).one('change', function (e) {
-                $(e.target).parents('li').removeClass(errorClass);
-            });
+				$(element).one("change", function (e) {
+					$(e.target).parents("li").removeClass(errorClass);
+				});
 
-            hasErrors = true;
-        }
-    }.bind(this));
+				hasErrors = true;
+			}
+		}.bind(this),
+	);
 };
 
 /**
@@ -44,14 +46,18 @@ Validate.prototype.checkRequired = function () {
  * @return void
  */
 Validate.prototype.handleEvents = function () {
-    $(document).on('click', '#modularity-mb-editor-publish #publish', function (e) {
-        this.run();
+	$(document).on(
+		"click",
+		"#modularity-mb-editor-publish #publish",
+		function (e) {
+			this.run();
 
-        if (hasErrors) {
-            $('#modularity-mb-editor-publish .spinner').css('visibility', 'hidden');
-            return false;
-        }
+			if (hasErrors) {
+				$("#modularity-mb-editor-publish .spinner").css("visibility", "hidden");
+				return false;
+			}
 
-        return true;
-    }.bind(this));
+			return true;
+		}.bind(this),
+	);
 };

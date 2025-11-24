@@ -30,13 +30,13 @@ class AbstractController
      * AbstractController constructor.
      *
      * @param \Modularity\Module\Posts\Posts $module
-    */
+     */
     public function __construct(\Modularity\Module\Posts\Posts $module)
     {
-        $this->module        = $module;
-        $this->fields        = $module->fields;
+        $this->module = $module;
+        $this->fields = $module->fields;
         $this->domainChecker = $module->domainChecker;
-        $this->data          = $this->addDataViewData($module->data, $module->fields);
+        $this->data = $this->addDataViewData($module->data, $module->fields);
         $this->data['posts'] = $this->preparePosts($module);
 
         $this->data['classList'] = [];
@@ -58,14 +58,14 @@ class AbstractController
      * @param \Modularity\Module\Posts\Posts $module
      *
      * @return array
-    */
+     */
     public function preparePosts(\Modularity\Module\Posts\Posts $module)
     {
         $stickyPosts = $module->data['stickyPosts'] ?? [];
         $stickyPosts = $this->addStickyPostsData($stickyPosts);
         $stickyPosts = $this->addPostData($stickyPosts);
-        $posts       = $this->addPostData($module->data['posts']);
-        $posts       = array_merge($stickyPosts, $posts);
+        $posts = $this->addPostData($module->data['posts']);
+        $posts = array_merge($stickyPosts, $posts);
 
         return $posts;
     }
@@ -77,18 +77,21 @@ class AbstractController
      * @param array $fields
      *
      * @return array
-    */
+     */
     public function addDataViewData(array $data, array $fields)
     {
-        $data['posts_columns'] = $this->getWpService()->applyFilters('Modularity/Display/replaceGrid', $fields['posts_columns']);
-        $data['ratio']         = $fields['ratio'] ?? '16:9';
+        $data['posts_columns'] = $this->getWpService()->applyFilters(
+            'Modularity/Display/replaceGrid',
+            $fields['posts_columns'],
+        );
+        $data['ratio'] = $fields['ratio'] ?? '16:9';
 
         $data['highlight_first_column_as'] = $fields['posts_display_highlighted_as'] ?? 'block';
-        $data['highlight_first_column']    = !empty($fields['posts_highlight_first']) ?
-            ColumnHelper::getFirstColumnSize($data['posts_columns']) :
-            false;
-        $data['imagePosition']             = $fields['image_position'] ?? false;
-        $data['showDate']                  = in_array('date', $fields['posts_fields'] ?? []);
+        $data['highlight_first_column'] = !empty($fields['posts_highlight_first'])
+            ? ColumnHelper::getFirstColumnSize($data['posts_columns'])
+            : false;
+        $data['imagePosition'] = $fields['image_position'] ?? false;
+        $data['showDate'] = in_array('date', $fields['posts_fields'] ?? []);
 
         return $data;
     }
@@ -100,50 +103,64 @@ class AbstractController
      *
      * @return array
      * TODO: This should require an array, but cant because sometimes it gets null.
-    */
+     */
     public function addPostData($posts = [])
     {
         $shouldAddBlogNameToPost = $this->shouldAddBlogNameToPost();
 
-        $posts = array_map(function ($post) use ($shouldAddBlogNameToPost) {
-            $post->post_content          = $this->removePostsModuleBlocksFromContent($post->post_content);
-            $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null) ? $this->fields['taxonomy_display'] : [];
-            $helperClass                 = '\Municipio\Helper\Post';
-            $helperMethod                = 'preparePostObject';
-            $helperArchiveMethod         = 'preparePostObjectArchive';
+        $posts = array_map(
+            function ($post) use ($shouldAddBlogNameToPost) {
+                $post->post_content = $this->removePostsModuleBlocksFromContent($post->post_content);
+                $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null)
+                    ? $this->fields['taxonomy_display']
+                    : [];
+                $helperClass = '\Municipio\Helper\Post';
+                $helperMethod = 'preparePostObject';
+                $helperArchiveMethod = 'preparePostObjectArchive';
 
-            if (!class_exists($helperClass) || !method_exists($helperClass, $helperMethod) || !method_exists($helperClass, $helperArchiveMethod)) {
-                error_log("Class or method does not exist: {$helperClass}::{$helperMethod} or {$helperClass}::{$helperArchiveMethod}");
+                if (
+                    !class_exists($helperClass)
+                    || !method_exists($helperClass, $helperMethod)
+                    || !method_exists($helperClass, $helperArchiveMethod)
+                ) {
+                    error_log(
+                        "Class or method does not exist: {$helperClass}::{$helperMethod} or {$helperClass}::{$helperArchiveMethod}",
+                    );
+                    return $post;
+                }
+
+                if ($shouldAddBlogNameToPost) {
+                    $post = $this->addBlogNameToPost($post);
+                }
+
+                if (!empty($post->originalBlogId)) {
+                    $this->getWpService()->switchToBlog($post->originalBlogId);
+                }
+
+                if (
+                    isset($this->fields['posts_display_as'])
+                    && in_array($this->fields['posts_display_as'], ['expandable-list'])
+                ) {
+                    $post = call_user_func([$helperClass, $helperMethod], $post);
+                } else {
+                    $post = call_user_func([$helperClass, $helperArchiveMethod], $post, $data);
+                }
+
+                if (!empty($post->originalBlogId)) {
+                    $this->getWpService()->restoreCurrentBlog();
+                }
+
+                $post = clone $post; // Ensure we don't modify the original post object
                 return $post;
-            }
-
-            if ($shouldAddBlogNameToPost) {
-                $post = $this->addBlogNameToPost($post);
-            }
-
-            if (!empty($post->originalBlogId)) {
-                $this->getWpService()->switchToBlog($post->originalBlogId);
-            }
-
-            if (isset($this->fields['posts_display_as']) && in_array($this->fields['posts_display_as'], ['expandable-list'])) {
-                $post = call_user_func([$helperClass, $helperMethod], $post);
-            } else {
-                $post = call_user_func([$helperClass, $helperArchiveMethod], $post, $data);
-            }
-
-            if (!empty($post->originalBlogId)) {
-                $this->getWpService()->restoreCurrentBlog();
-            }
-
-            $post = clone $post; // Ensure we don't modify the original post object
-            return $post;
-        }, $posts ?? []);
+            },
+            $posts ?? [],
+        );
 
         if (!empty($posts)) {
             foreach ($posts as $index => &$post) {
-                $post            = $this->setPostViewData($post, $index);
+                $post = $this->setPostViewData($post, $index);
                 $post->classList = $post->classList ?? [];
-                $post            = $this->addHighlightData($post, $index);
+                $post = $this->addHighlightData($post, $index);
 
                 // Apply $this->getDefaultValuesForPosts() to the post object without turning it into an array
                 foreach ($this->getDefaultValuesForPosts() as $key => $value) {
@@ -181,11 +198,13 @@ class AbstractController
      * @param WP_Post $post
      *
      * @return WP_Post
-    */
+     */
     private function addBlogNameToPost(WP_Post $post): WP_Post
     {
         static $blogDetailsCache = [];
-        $blogId                  = !empty($post->originalBlogId) ? $post->originalBlogId : $this->getWpService()->getBlogDetails()->blog_id;
+        $blogId = !empty($post->originalBlogId)
+            ? $post->originalBlogId
+            : $this->getWpService()->getBlogDetails()->blog_id;
 
         if (!isset($blogDetailsCache[$blogId])) {
             $blogDetailsCache[$blogId] = $this->getWpService()->getBlogDetails($blogId);
@@ -203,16 +222,16 @@ class AbstractController
      * @param false|int $index
      *
      * @return object
-    */
+     */
     private function addHighlightData(object $post, $index): object
     {
-        $columnsClass =  $this->data['posts_columns'] ?? 'o-grid-12@md';
+        $columnsClass = $this->data['posts_columns'] ?? 'o-grid-12@md';
 
         if (!empty($post->isSticky)) {
-            $columnsClass        = 'o-grid-12@md';
+            $columnsClass = 'o-grid-12@md';
             $post->isHighlighted = true;
         } elseif ($index === 0 && !empty($this->data['highlight_first_column'])) {
-            $columnsClass        = $this->data['highlight_first_column'];
+            $columnsClass = $this->data['highlight_first_column'];
             $post->isHighlighted = true;
         }
 
@@ -225,27 +244,27 @@ class AbstractController
      * Get default values for keys in the post object.
      *
      * @return array
-    */
+     */
     private function getDefaultValuesForPosts()
     {
         return [
-            'postTitle'           => false,
-            'excerptShort'        => false,
-            'termsUnlinked'       => false,
-            'postDateFormatted'   => false,
-            'images'              => false,
+            'postTitle' => false,
+            'excerptShort' => false,
+            'termsUnlinked' => false,
+            'postDateFormatted' => false,
+            'images' => false,
             'hasPlaceholderImage' => false,
-            'readingTime'         => false,
-            'permalink'           => false,
-            'id'                  => false,
-            'postType'            => false,
-            'termIcon'            => false,
-            'callToActionItems'   => false,
-            'imagePosition'       => true,
-            'image'               => false,
-            'attributeList'       => [],
-            'isSticky'            => false,
-            'commentCount'        => false,
+            'readingTime' => false,
+            'permalink' => false,
+            'id' => false,
+            'postType' => false,
+            'termIcon' => false,
+            'callToActionItems' => false,
+            'imagePosition' => true,
+            'image' => false,
+            'attributeList' => [],
+            'isSticky' => false,
+            'commentCount' => false,
         ];
     }
 
@@ -256,29 +275,34 @@ class AbstractController
      * @param false|int $index
      *
      * @return object
-    */
+     */
     private function setPostViewData(object $post, $index = false)
     {
-        $post->excerptShort        = in_array('excerpt', $this->data['posts_fields'] ?? []) ? $this->sanitizeExcerpt($this->data['posts_display_as'] === 'news' ? $post->excerpt : $post->excerptShort) : false;
-        $post->postTitle           = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
-        $post->image               = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
-        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && empty($post->image) ? true : false;
-        $post->commentCount        = in_array('comment_count', $this->data['posts_fields'] ?? []) ? (string) $post->getCommentCount() : false;
-        $post->readingTime         = in_array('reading_time', $this->data['posts_fields'] ?? []) ? $post->readingTime : false;
+        $post->excerptShort = in_array('excerpt', $this->data['posts_fields'] ?? [])
+            ? $this->sanitizeExcerpt($this->data['posts_display_as'] === 'news' ? $post->excerpt : $post->excerptShort)
+            : false;
+        $post->postTitle = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
+        $post->image = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
+        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && empty($post->image)
+            ? true
+            : false;
+        $post->commentCount = in_array('comment_count', $this->data['posts_fields'] ?? [])
+            ? (string) $post->getCommentCount()
+            : false;
+        $post->readingTime = in_array('reading_time', $this->data['posts_fields'] ?? []) ? $post->readingTime : false;
 
-        $post->attributeList                    = !empty($post->attributeList) ? $post->attributeList : [];
+        $post->attributeList = !empty($post->attributeList) ? $post->attributeList : [];
         $post->attributeList['data-js-item-id'] = $post->getId();
 
-
         if (
-            !empty($this->fields['posts_open_links_in_new_tab']) &&
-            !$this->domainChecker->isSameDomain($post->getPermalink())
+            !empty($this->fields['posts_open_links_in_new_tab'])
+            && !$this->domainChecker->isSameDomain($post->getPermalink())
         ) {
             $post->attributeList['target'] = '_blank';
         }
 
         if (!empty($post->image) && is_array($post->image)) {
-            $post->image['removeCaption']   = true;
+            $post->image['removeCaption'] = true;
             $post->image['backgroundColor'] = 'secondary';
         }
 
@@ -296,7 +320,7 @@ class AbstractController
      * @param string $excerpt
      *
      * @return string
-    */
+     */
     private function sanitizeExcerpt(string $excerpt)
     {
         $excerpt = strip_tags($excerpt);
@@ -313,7 +337,7 @@ class AbstractController
      * @param array $stickyPosts
      *
      * @return array
-    */
+     */
     private function addStickyPostsData(array $stickyPosts = [])
     {
         if (empty($stickyPosts)) {

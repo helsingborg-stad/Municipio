@@ -1,247 +1,248 @@
-[{
-    "key": "group_569e054a7f9c2",
-    "title": "List",
-    "fields": [
-        {
-            "key": "field_689f3c1fb7268",
-            "label": "Icon to the right",
-            "name": "icon_last",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
-            "ui": 1
-        },
-        {
-            "key": "field_569e0559eb084",
-            "label": "Lista",
-            "name": "items",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "collapsed": "",
-            "min": 1,
-            "max": 0,
-            "layout": "block",
-            "button_label": "L\u00e4gg till rad",
-            "rows_per_page": 20,
-            "acfe_repeater_stylised_button": 0,
-            "sub_fields": [
-                {
-                    "key": "field_569e068b33f31",
-                    "label": "Link type",
-                    "name": "type",
-                    "aria-label": "",
-                    "type": "radio",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "layout": "horizontal",
-                    "choices": {
-                        "internal": "Internal link",
-                        "external": "External link"
-                    },
-                    "default_value": "internal",
-                    "other_choice": 0,
-                    "save_other_choice": 0,
-                    "allow_null": 0,
-                    "return_format": "value",
-                    "parent_repeater": "field_569e0559eb084"
-                },
-                {
-                    "key": "field_569e0567eb085",
-                    "label": "Titel",
-                    "name": "title",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "If empty, title will default to the linked post's\/page's title on internal links.",
-                    "required": 0,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_569e068b33f31",
-                                "operator": "==",
-                                "value": "internal"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "parent_repeater": "field_569e0559eb084"
-                },
-                {
-                    "key": "field_608e69429b2f7",
-                    "label": "Titel",
-                    "name": "titel",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_569e068b33f31",
-                                "operator": "==",
-                                "value": "external"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "parent_repeater": "field_569e0559eb084"
-                },
-                {
-                    "key": "field_569e05bceb086",
-                    "label": "Link",
-                    "name": "link_internal",
-                    "aria-label": "",
-                    "type": "post_object",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_569e068b33f31",
-                                "operator": "==",
-                                "value": "internal"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "margin-bottom-20",
-                        "id": ""
-                    },
-                    "post_type": [],
-                    "taxonomy": [],
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "return_format": "object",
-                    "ui": 1,
-                    "bidirectional_target": [],
-                    "save_custom": 0,
-                    "save_post_type": "",
-                    "save_post_status": "",
-                    "parent_repeater": "field_569e0559eb084"
-                },
-                {
-                    "key": "field_569e05f8eb087",
-                    "label": "Date",
-                    "name": "date",
-                    "aria-label": "",
-                    "type": "true_false",
-                    "instructions": "If checked, the publish\/last modified date of the linked post will be displayed.",
-                    "required": 0,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_569e068b33f31",
-                                "operator": "==",
-                                "value": "internal"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": 0,
-                    "message": "Show publish date",
-                    "ui": 0,
-                    "ui_on_text": "",
-                    "ui_off_text": "",
-                    "parent_repeater": "field_569e0559eb084"
-                },
-                {
-                    "key": "field_569e06f633f32",
-                    "label": "Link",
-                    "name": "link_external",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_569e068b33f31",
-                                "operator": "==",
-                                "value": "external"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_569e0559eb084"
-                }
-            ]
-        }
-    ],
-    "location": [
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "mod-inlaylist"
-            }
-        ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": "",
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
-}]
-
+[
+	{
+		"key": "group_569e054a7f9c2",
+		"title": "List",
+		"fields": [
+			{
+				"key": "field_689f3c1fb7268",
+				"label": "Icon to the right",
+				"name": "icon_last",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "",
+				"default_value": 0,
+				"ui_on_text": "",
+				"ui_off_text": "",
+				"ui": 1
+			},
+			{
+				"key": "field_569e0559eb084",
+				"label": "Lista",
+				"name": "items",
+				"aria-label": "",
+				"type": "repeater",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"collapsed": "",
+				"min": 1,
+				"max": 0,
+				"layout": "block",
+				"button_label": "L\u00e4gg till rad",
+				"rows_per_page": 20,
+				"acfe_repeater_stylised_button": 0,
+				"sub_fields": [
+					{
+						"key": "field_569e068b33f31",
+						"label": "Link type",
+						"name": "type",
+						"aria-label": "",
+						"type": "radio",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"layout": "horizontal",
+						"choices": {
+							"internal": "Internal link",
+							"external": "External link"
+						},
+						"default_value": "internal",
+						"other_choice": 0,
+						"save_other_choice": 0,
+						"allow_null": 0,
+						"return_format": "value",
+						"parent_repeater": "field_569e0559eb084"
+					},
+					{
+						"key": "field_569e0567eb085",
+						"label": "Titel",
+						"name": "title",
+						"aria-label": "",
+						"type": "text",
+						"instructions": "If empty, title will default to the linked post's\/page's title on internal links.",
+						"required": 0,
+						"conditional_logic": [
+							[
+								{
+									"field": "field_569e068b33f31",
+									"operator": "==",
+									"value": "internal"
+								}
+							]
+						],
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": "",
+						"maxlength": "",
+						"parent_repeater": "field_569e0559eb084"
+					},
+					{
+						"key": "field_608e69429b2f7",
+						"label": "Titel",
+						"name": "titel",
+						"aria-label": "",
+						"type": "text",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": [
+							[
+								{
+									"field": "field_569e068b33f31",
+									"operator": "==",
+									"value": "external"
+								}
+							]
+						],
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": "",
+						"maxlength": "",
+						"parent_repeater": "field_569e0559eb084"
+					},
+					{
+						"key": "field_569e05bceb086",
+						"label": "Link",
+						"name": "link_internal",
+						"aria-label": "",
+						"type": "post_object",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": [
+							[
+								{
+									"field": "field_569e068b33f31",
+									"operator": "==",
+									"value": "internal"
+								}
+							]
+						],
+						"wrapper": {
+							"width": "",
+							"class": "margin-bottom-20",
+							"id": ""
+						},
+						"post_type": [],
+						"taxonomy": [],
+						"allow_null": 0,
+						"multiple": 0,
+						"return_format": "object",
+						"ui": 1,
+						"bidirectional_target": [],
+						"save_custom": 0,
+						"save_post_type": "",
+						"save_post_status": "",
+						"parent_repeater": "field_569e0559eb084"
+					},
+					{
+						"key": "field_569e05f8eb087",
+						"label": "Date",
+						"name": "date",
+						"aria-label": "",
+						"type": "true_false",
+						"instructions": "If checked, the publish\/last modified date of the linked post will be displayed.",
+						"required": 0,
+						"conditional_logic": [
+							[
+								{
+									"field": "field_569e068b33f31",
+									"operator": "==",
+									"value": "internal"
+								}
+							]
+						],
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": 0,
+						"message": "Show publish date",
+						"ui": 0,
+						"ui_on_text": "",
+						"ui_off_text": "",
+						"parent_repeater": "field_569e0559eb084"
+					},
+					{
+						"key": "field_569e06f633f32",
+						"label": "Link",
+						"name": "link_external",
+						"aria-label": "",
+						"type": "url",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": [
+							[
+								{
+									"field": "field_569e068b33f31",
+									"operator": "==",
+									"value": "external"
+								}
+							]
+						],
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"placeholder": "",
+						"parent_repeater": "field_569e0559eb084"
+					}
+				]
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-inlaylist"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0,
+		"acfe_display_title": "",
+		"acfe_autosync": "",
+		"acfe_form": 0,
+		"acfe_meta": "",
+		"acfe_note": ""
+	}
+]

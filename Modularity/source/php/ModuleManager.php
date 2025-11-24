@@ -3,6 +3,7 @@
 namespace Modularity;
 
 use enshrined\svgSanitize\Sanitizer as SVGSanitize;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class ModuleManager
 {
@@ -56,17 +57,22 @@ class ModuleManager
 
     public static $blockManager = null;
 
-    public function __construct()
-    {
-        self::$blockManager = new \Modularity\BlockManager();
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
+        self::$blockManager = new \Modularity\BlockManager($wpEnqueue);
 
         // Init modules
-        add_action('init', function () {
-            self::$enabled    = self::getEnabled();
-            self::$registered = $this->getRegistered();
+        add_action(
+            'init',
+            function () {
+                self::$enabled = self::getEnabled();
+                self::$registered = $this->getRegistered();
 
-            $this->init();
-        }, 10);
+                $this->init();
+            },
+            10,
+        );
 
         // Hide title option
         add_action('edit_form_before_permalink', array($this, 'hideTitleCheckbox'));
@@ -93,7 +99,7 @@ class ModuleManager
     public function getRegistered($getBundled = true)
     {
         if ($getBundled) {
-            $bundeled         = $this->getBundeled();
+            $bundeled = $this->getBundeled();
             self::$registered = array_merge(self::$registered, $bundeled);
         }
 
@@ -122,9 +128,9 @@ class ModuleManager
     public function getBundeled(): array
     {
         $directory = MODULARITY_PATH . 'source/php/Module/';
-        $bundeled  = array();
+        $bundeled = array();
 
-        foreach (@glob($directory . "*", GLOB_ONLYDIR) as $folder) {
+        foreach (@glob($directory . '*', GLOB_ONLYDIR) as $folder) {
             $bundeled[$folder] = basename($folder);
         }
 
@@ -138,8 +144,8 @@ class ModuleManager
     public function init()
     {
         foreach (self::$registered as $path => $module) {
-            $path      = trailingslashit($path);
-            $source    = $path . $module . '.php';
+            $path = trailingslashit($path);
+            $source = $path . $module . '.php';
             $namespace = \Modularity\Helper\File::getModuleNamespace($source);
 
             if (!$namespace) {
@@ -148,7 +154,7 @@ class ModuleManager
 
             require_once $source;
             $class = $namespace . '\\' . $module;
-            $class = new $class();
+            $class = new $class(null, [], $this->wpEnqueue);
 
             $this->register($class, $path);
             self::$blockManager->classes[$class->slug] = $class;
@@ -175,53 +181,53 @@ class ModuleManager
             return;
         }
 
-        $postTypeSlug                 = self::prefixSlug($class->slug);
+        $postTypeSlug = self::prefixSlug($class->slug);
         self::$classes[$postTypeSlug] = $class;
 
         // Set labels
         $labels = array(
-            'name'               => _x($class->nameSingular, 'post type general name', 'modularity'),
-            'singular_name'      => _x($class->nameSingular, 'post type singular name', 'modularity'),
-            'menu_name'          => _x($class->namePlural, 'admin menu', 'modularity'),
-            'name_admin_bar'     => _x($class->nameSingular, 'add new on admin bar', 'modularity'),
-            'add_new'            => _x('Add New', 'add new button', 'modularity'),
-            'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $class->nameSingular),
-            'new_item'           => sprintf(__('New %s', 'municipio'), $class->nameSingular),
-            'edit_item'          => sprintf(__('Edit %s', 'municipio'), $class->nameSingular),
-            'view_item'          => sprintf(__('View %s', 'municipio'), $class->nameSingular),
-            'all_items'          => sprintf(__('Edit %s', 'municipio'), $class->namePlural),
-            'search_items'       => sprintf(__('Search %s', 'municipio'), $class->namePlural),
-            'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $class->namePlural),
-            'not_found'          => sprintf(__('No %s', 'municipio'), $class->namePlural),
-            'not_found_in_trash' => sprintf(__('No %s in trash', 'municipio'), $class->namePlural)
+            'name' => _x($class->nameSingular, 'post type general name', 'modularity'),
+            'singular_name' => _x($class->nameSingular, 'post type singular name', 'modularity'),
+            'menu_name' => _x($class->namePlural, 'admin menu', 'modularity'),
+            'name_admin_bar' => _x($class->nameSingular, 'add new on admin bar', 'modularity'),
+            'add_new' => _x('Add New', 'add new button', 'modularity'),
+            'add_new_item' => sprintf(__('Add new %s', 'municipio'), $class->nameSingular),
+            'new_item' => sprintf(__('New %s', 'municipio'), $class->nameSingular),
+            'edit_item' => sprintf(__('Edit %s', 'municipio'), $class->nameSingular),
+            'view_item' => sprintf(__('View %s', 'municipio'), $class->nameSingular),
+            'all_items' => sprintf(__('Edit %s', 'municipio'), $class->namePlural),
+            'search_items' => sprintf(__('Search %s', 'municipio'), $class->namePlural),
+            'parent_item_colon' => sprintf(__('Parent %s', 'municipio'), $class->namePlural),
+            'not_found' => sprintf(__('No %s', 'municipio'), $class->namePlural),
+            'not_found_in_trash' => sprintf(__('No %s in trash', 'municipio'), $class->namePlural),
         );
 
         // Set args
         $args = array(
-            'labels'              => $labels,
-            'description'         => __($class->description, 'modularity'),
-            'public'              => false,
-            'publicly_queryable'  => false,
+            'labels' => $labels,
+            'description' => __($class->description, 'modularity'),
+            'public' => false,
+            'publicly_queryable' => false,
             'exclude_from_search' => false,
-            'show_ui'             => true,
-            'show_in_nav_menus'   => false,
-            'show_in_menu'        => ($this->showInAdminMenu()) ? 'modularity' : false,
-            'has_archive'         => false,
-            'rewrite'             => false,
-            'hierarchical'        => false,
-            'menu_position'       => 100,
-            'menu_icon'           => $class->icon,
-            'supports'            => array_merge($class->supports, array('title', 'revisions', 'author')),
-            'capabilities'        => array(
-                'edit_post'          => 'edit_module',
-                'edit_posts'         => 'edit_modules',
-                'edit_others_posts'  => 'edit_other_modules',
-                'publish_posts'      => 'publish_modules',
-                'read_post'          => 'read_module',
+            'show_ui' => true,
+            'show_in_nav_menus' => false,
+            'show_in_menu' => $this->showInAdminMenu() ? 'modularity' : false,
+            'has_archive' => false,
+            'rewrite' => false,
+            'hierarchical' => false,
+            'menu_position' => 100,
+            'menu_icon' => $class->icon,
+            'supports' => array_merge($class->supports, array('title', 'revisions', 'author')),
+            'capabilities' => array(
+                'edit_post' => 'edit_module',
+                'edit_posts' => 'edit_modules',
+                'edit_others_posts' => 'edit_other_modules',
+                'publish_posts' => 'publish_modules',
+                'read_post' => 'read_module',
                 'read_private_posts' => 'read_private_posts',
-                'delete_post'        => 'delete_module'
+                'delete_post' => 'delete_module',
             ),
-            'map_meta_cap'        => true
+            'map_meta_cap' => true,
         );
 
         //Disable from search search pages (someone did a huge mistake designing this feature)
@@ -230,8 +236,8 @@ class ModuleManager
         }
 
         // Get menu icon
-        if (empty($args['menu_icon']) && $icon = self::getIcon($class)) {
-            $args['menu_icon']             = $icon;
+        if (empty($args['menu_icon']) && ($icon = self::getIcon($class))) {
+            $args['menu_icon'] = $icon;
             $args['menu_icon_auto_import'] = true;
         }
 
@@ -257,7 +263,12 @@ class ModuleManager
                      * Deprecated
                      * @todo  Remove……
                      */
-                    trigger_error('Deprecation message: Modularity module "' . $postTypeSlug . '" is using a deprecated way of including plugins. Use the wp action "Modularity/Plugins" to load plugins instead.', E_USER_WARNING);
+                    trigger_error(
+                        'Deprecation message: Modularity module "'
+                        . $postTypeSlug
+                        . '" is using a deprecated way of including plugins. Use the wp action "Modularity/Plugins" to load plugins instead.',
+                        E_USER_WARNING,
+                    );
 
                     if (file_exists($plugin)) {
                         require_once $plugin;
@@ -278,16 +289,16 @@ class ModuleManager
 
         // Store settings of each module in static var
         self::$moduleSettings[$postTypeSlug] = array(
-            'moduleSlug'    => $postTypeSlug,
-            'slug'          => $class->slug,
+            'moduleSlug' => $postTypeSlug,
+            'slug' => $class->slug,
             'singular_name' => $class->nameSingular,
-            'plural_name'   => $class->namePlural,
-            'description'   => $class->description,
-            'supports'      => $class->supports,
-            'icon'          => $class->icon,
-            'plugin'        => $class->plugin,
-            'cache_ttl'     => $class->cacheTtl,
-            'hide_title'    => $class->hideTitle
+            'plural_name' => $class->namePlural,
+            'description' => $class->description,
+            'supports' => $class->supports,
+            'icon' => $class->icon,
+            'plugin' => $class->plugin,
+            'cache_ttl' => $class->cacheTtl,
+            'hide_title' => $class->hideTitle,
         );
 
         $class->moduleSlug = $postTypeSlug;
@@ -327,9 +338,7 @@ class ModuleManager
             $sanitizer = new SVGSanitize();
             $sanitizer->minify(true);
             $sanitizer->removeXMLTag(true);
-            return $sanitizer->sanitize(
-                file_get_contents($class->assetDir . 'icon.svg')
-            );
+            return $sanitizer->sanitize(file_get_contents($class->assetDir . 'icon.svg'));
         }
         return '';
     }
@@ -369,12 +378,18 @@ class ModuleManager
 
         $checked = checked(true, $current, false);
 
-        echo '<div>
+        echo
+            '<div>
             <label style="cursor:pointer;">
-            <input type="checkbox" name="modularity-module-hide-title" value="1" ' . $checked . '>
-                ' . __('Hide title', 'municipio') . '
+            <input type="checkbox" name="modularity-module-hide-title" value="1" '
+            . $checked
+            . '>
+                '
+            . __('Hide title', 'municipio')
+                . '
             </label>
-        </div>';
+        </div>'
+        ;
     }
 
     /**
@@ -408,14 +423,25 @@ class ModuleManager
             return;
         }
 
-        add_meta_box('modularity-shortcode', 'Modularity Shortcode', function () {
-            global $post;
-            echo '<p>';
-            echo __('Copy and paste this shortcode to display the module inline.', 'municipio');
-            echo '</p><p>';
-            echo '<textarea style="margin-top:10px; overflow: hidden;width: 100%;height:30px;background:#f9f9f9;border:1px solid #ddd;padding:5px;">[modularity id="' . $post->ID . '"]</textarea>';
-            echo '</p>';
-        }, self::$enabled, 'side', 'default');
+        add_meta_box(
+            'modularity-shortcode',
+            'Modularity Shortcode',
+            function () {
+                global $post;
+                echo '<p>';
+                echo __('Copy and paste this shortcode to display the module inline.', 'municipio');
+                echo '</p><p>';
+                echo
+                    '<textarea style="margin-top:10px; overflow: hidden;width: 100%;height:30px;background:#f9f9f9;border:1px solid #ddd;padding:5px;">[modularity id="'
+                    . $post->ID
+                        . '"]</textarea>'
+                ;
+                echo '</p>';
+            },
+            self::$enabled,
+            'side',
+            'default',
+        );
     }
 
     /**
@@ -437,20 +463,31 @@ class ModuleManager
 
         $usage = self::getModuleUsage($post->ID);
 
-        add_meta_box('modularity-usage', 'Module usage', function () use ($module, $usage) {
-            if (count($usage) == 0) {
-                echo '<p>' . __('This modules is not used yet.', 'municipio')  . '</p>';
-                return;
-            }
+        add_meta_box(
+            'modularity-usage',
+            'Module usage',
+            function () use ($module, $usage) {
+                if (count($usage) == 0) {
+                    echo '<p>' . __('This modules is not used yet.', 'municipio') . '</p>';
+                    return;
+                }
 
-            echo '<p>' . __('This module is used on the following places:', 'municipio') . '</p><p><ul class="modularity-usage-list">';
+                echo
+                    '<p>'
+                    . __('This module is used on the following places:', 'municipio')
+                        . '</p><p><ul class="modularity-usage-list">'
+                ;
 
-            foreach ($usage as $page) {
-                echo '<li><a href="' . get_permalink($page->post_id) . '">' . $page->post_title . '</a></li>';
-            }
+                foreach ($usage as $page) {
+                    echo '<li><a href="' . get_permalink($page->post_id) . '">' . $page->post_title . '</a></li>';
+                }
 
-            echo '</ul></p>';
-        }, self::$enabled, 'side', 'default');
+                echo '</ul></p>';
+            },
+            self::$enabled,
+            'side',
+            'default',
+        );
     }
 
     /**
@@ -492,7 +529,7 @@ class ModuleManager
             },
             self::$enabled,
             'normal',
-            'high'
+            'high',
         );
     }
 
@@ -506,7 +543,11 @@ class ModuleManager
             return;
         }
 
-        update_post_meta(intval($_POST['post_ID']), 'module-description', trim($_POST['modularity-module-description']));
+        update_post_meta(
+            intval($_POST['post_ID']),
+            'module-description',
+            trim($_POST['modularity-module-description']),
+        );
     }
 
     /**
@@ -528,11 +569,11 @@ class ModuleManager
     public function listTableColumns($columns)
     {
         $columns = array(
-            'cb'          => '<input type="checkbox">',
-            'title'       => __('Title'),
+            'cb' => '<input type="checkbox">',
+            'title' => __('Title'),
             'description' => __('Description'),
-            'usage'       => __('Usage', 'municipio'),
-            'date'        => __('Date')
+            'usage' => __('Usage', 'municipio'),
+            'date' => __('Date'),
         );
 
         return $columns;
@@ -588,7 +629,7 @@ class ModuleManager
     public function listTableColumnSorting($columns)
     {
         $columns['description'] = 'description';
-        $columns['usage']       = 'usage';
+        $columns['usage'] = 'usage';
         return $columns;
     }
 
@@ -601,13 +642,18 @@ class ModuleManager
         $options = get_option('modularity-options');
 
         // Add admin notice about module usage if setting is enabled
-        if (isset($options['show-modules-usage-edit-notice-nag']) && $options['show-modules-usage-edit-notice-nag'] == 'on') {
+        if (
+            isset($options['show-modules-usage-edit-notice-nag'])
+            && $options['show-modules-usage-edit-notice-nag'] == 'on'
+        ) {
             $screen = get_current_screen();
-            $usage  = sizeof(ModuleManager::getModuleUsage(get_the_ID()));
+            $usage = sizeof(ModuleManager::getModuleUsage(get_the_ID()));
 
             if (strpos($screen->post_type, 'mod-') === 0 && $usage > 1) {
                 echo '<div class="notice notice-warning">';
-                echo '<p>' . __('<strong>Heads up:</strong> This module is used in several places', 'municipio') . '</p>';
+                echo
+                    '<p>' . __('<strong>Heads up:</strong> This module is used in several places', 'municipio') . '</p>'
+                ;
                 echo '</div>';
             }
         }

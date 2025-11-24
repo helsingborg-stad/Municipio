@@ -4,8 +4,11 @@ namespace Modularity\Module\Posts\Helper\GetPosts;
 
 class PostsResult implements PostsResultInterface
 {
-    public function __construct(private array $posts, private int $numberOfPages, private array $stickyPosts)
-    {
+    public function __construct(
+        private array $posts,
+        private int $numberOfPages,
+        private array $stickyPosts,
+    ) {
         foreach ($this->posts as $post) {
             if (!$post instanceof \WP_Post) {
                 throw new \InvalidArgumentException('Posts must be an array of WP_Post objects.');

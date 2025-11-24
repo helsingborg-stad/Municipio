@@ -2,26 +2,26 @@
 
 namespace Modularity\Module\Markdown;
 
-use WP_Error;
-use Modularity\Module\Markdown\Providers\ProviderInterface;
 use League\CommonMark\CommonMarkConverter;
+use Modularity\Module\Markdown\Providers\ProviderInterface;
+use WP_Error;
 
 class Markdown extends \Modularity\Module
 {
-    public $slug              = 'markdown';
-    public $supports          = array();
+    public $slug = 'markdown';
+    public $supports = array();
     public $isBlockCompatible = true;
-    public $cacheTtl          = (MINUTE_IN_SECONDS * 60 * 12); //Seconds (12 hours)
-    private $providers        = [];
-    private $lastUpdatedKey   = '_last_updated';
-    private $nextUpdateKey    = '_next';
+    public $cacheTtl = MINUTE_IN_SECONDS * 60 * 12; //Seconds (12 hours)
+    private $providers = [];
+    private $lastUpdatedKey = '_last_updated';
+    private $nextUpdateKey = '_next';
 
     public function init()
     {
         //Setup module
-        $this->nameSingular = __("Markdown", 'modularity');
-        $this->namePlural   = __("Markdown", 'modularity');
-        $this->description  = __("Outputs a markdown resource as module.", 'modularity');
+        $this->nameSingular = __('Markdown', 'modularity');
+        $this->namePlural = __('Markdown', 'modularity');
+        $this->description = __('Outputs a markdown resource as module.', 'modularity');
 
         //Setup providers
         $this->providers = [
@@ -53,7 +53,7 @@ class Markdown extends \Modularity\Module
             return;
         }
 
-        $fields      = $this->getFields();
+        $fields = $this->getFields();
         $markdownUrl = $fields['mod_markdown_url'] ?? false;
 
         if ($markdownUrl) {
@@ -73,12 +73,11 @@ class Markdown extends \Modularity\Module
      */
     public function createDocumentationField(array $field): array
     {
-
         //Get language
         $language = $this->getLanguage();
 
         // Initialize table content
-        $tableContent  = '<table class="widefat striped">';
+        $tableContent = '<table class="widefat striped">';
         $tableContent .= '<thead>';
         $tableContent .= '<tr>';
         $tableContent .= '<th>' . $language->tableProviderHead . '</th>';
@@ -90,7 +89,7 @@ class Markdown extends \Modularity\Module
         // Loop through providers
         foreach ($this->providers as $provider) {
             if ($provider instanceof \Modularity\Module\Markdown\Providers\ProviderInterface) {
-                $name    = esc_html($provider->getName());
+                $name = esc_html($provider->getName());
                 $example = esc_html($provider->getExample());
 
                 $tableContent .= '<tr>';
@@ -119,18 +118,22 @@ class Markdown extends \Modularity\Module
         $fields = $this->getFields();
 
         //Handle data
-        $markdownUrl            = $fields['mod_markdown_url'] ?: false;
-        $isMarkdownUrl          = $this->checkIfIsValidMarkdownProvider($markdownUrl, ...$this->providers);
-        $markdownContent        = $isMarkdownUrl ? $this->getDocument($markdownUrl) : false;
-        $isWrapped              = $fields['mod_markdown_wrap_in_container'] ?? false;
-        $markDownImplementation = $isMarkdownUrl ? $this->getMarkdownProvider($markdownUrl, ...$this->providers) : false;
+        $markdownUrl = $fields['mod_markdown_url'] ?: false;
+        $isMarkdownUrl = $this->checkIfIsValidMarkdownProvider($markdownUrl, ...$this->providers);
+        $markdownContent = $isMarkdownUrl ? $this->getDocument($markdownUrl) : false;
+        $isWrapped = $fields['mod_markdown_wrap_in_container'] ?? false;
+        $markDownImplementation = $isMarkdownUrl
+            ? $this->getMarkdownProvider($markdownUrl, ...$this->providers)
+            : false;
 
         if (!is_wp_error($markdownContent)) {
-            $parsedMarkdown = $isMarkdownUrl ? $this->parseMarkdown(
-                $this->filterMarkDownContent($markdownContent, $fields ?? []),
-                $markDownImplementation
-            ) : false;
-            $wpError        = (is_wp_error($parsedMarkdown)) ? $parsedMarkdown : false;
+            $parsedMarkdown = $isMarkdownUrl
+                ? $this->parseMarkdown(
+                    $this->filterMarkDownContent($markdownContent, $fields ?? []),
+                    $markDownImplementation,
+                )
+                : false;
+            $wpError = is_wp_error($parsedMarkdown) ? $parsedMarkdown : false;
         } else {
             $wpError = $markdownContent;
         }
@@ -143,16 +146,16 @@ class Markdown extends \Modularity\Module
 
         //Return data
         return [
-            'isMarkdownUrl'       => $isMarkdownUrl,
-            'wpError'             => $wpError,
-            'markdownContent'     => $markdownContent,
-            'parsedMarkdown'      => $parsedMarkdown,
-            'showMarkdownSource'  => $showMarkdownSource,
-            'markdownUrl'         => $markdownUrl,
+            'isMarkdownUrl' => $isMarkdownUrl,
+            'wpError' => $wpError,
+            'markdownContent' => $markdownContent,
+            'parsedMarkdown' => $parsedMarkdown,
+            'showMarkdownSource' => $showMarkdownSource,
+            'markdownUrl' => $markdownUrl,
             'markdownLastUpdated' => get_transient($this->createTransientKey($markdownUrl) . $this->lastUpdatedKey),
-            'markdownNextUpdate'  => get_transient($this->createTransientKey($markdownUrl) . $this->nextUpdateKey),
-            'language'            => $this->getLanguage(),
-            'isWrapped'           => $isWrapped,
+            'markdownNextUpdate' => get_transient($this->createTransientKey($markdownUrl) . $this->nextUpdateKey),
+            'language' => $this->getLanguage(),
+            'isWrapped' => $isWrapped,
         ];
     }
 
@@ -164,13 +167,13 @@ class Markdown extends \Modularity\Module
     private function getLanguage(): object
     {
         return (object) [
-            'sourceUrl'         =>  __('Source Url', 'municipio'),
-            'nextUpdate'        => __('Next update', 'municipio'),
-            'lastUpdated'       => __('Last updated', 'municipio'),
-            'fetchError'        => __('We could not fetch any content at this moment. Please try again later.', 'municipio'),
-            'parseError'        => __('The url provided could not be parsed by any of the allowed providers.', 'municipio'),
+            'sourceUrl' => __('Source Url', 'municipio'),
+            'nextUpdate' => __('Next update', 'municipio'),
+            'lastUpdated' => __('Last updated', 'municipio'),
+            'fetchError' => __('We could not fetch any content at this moment. Please try again later.', 'municipio'),
+            'parseError' => __('The url provided could not be parsed by any of the allowed providers.', 'municipio'),
             'tableProviderHead' => __('Provider', 'municipio'),
-            'tableExampleHead'  => __('Example', 'municipio'),
+            'tableExampleHead' => __('Example', 'municipio'),
         ];
     }
 
@@ -209,7 +212,7 @@ class Markdown extends \Modularity\Module
     /**
      * Get markdown provider.
      */
-    private function getMarkdownProvider($url, ProviderInterface ...$providers): ProviderInterface | null
+    private function getMarkdownProvider($url, ProviderInterface ...$providers): ProviderInterface|null
     {
         foreach ($providers as $provider) {
             if ($provider->isValidProviderUrl($url)) {
@@ -222,7 +225,7 @@ class Markdown extends \Modularity\Module
     /**
      * Parse markdown content.
      */
-    private function parseMarkdown(string $markdown, ProviderInterface $markDownImplementation): string | \WP_Error
+    private function parseMarkdown(string $markdown, ProviderInterface $markDownImplementation): string|\WP_Error
     {
         try {
             if ($markDownImplementation) {
@@ -243,12 +246,12 @@ class Markdown extends \Modularity\Module
      *
      * @return mixed The remote document.
      */
-    public function getDocument(string $requestUrl): string | \WP_Error
+    public function getDocument(string $requestUrl): string|\WP_Error
     {
         $requestArgs = [
             'headers' => [
                 'Content-Type: application/json',
-            ]
+            ],
         ];
 
         return $this->maybeRetrieveCachedResponse($requestUrl, $requestArgs, true);
@@ -263,11 +266,11 @@ class Markdown extends \Modularity\Module
      *
      * @return mixed Cached response if available or remote response.
      */
-    private function maybeRetrieveCachedResponse(string $requestUrl, array $requestArgs, bool $cache): string | \WP_Error
+    private function maybeRetrieveCachedResponse(string $requestUrl, array $requestArgs, bool $cache): string|\WP_Error
     {
         $transientKey = $this->createTransientKey($requestUrl);
 
-        if ($cache && $cachedDocument = get_transient($transientKey)) {
+        if ($cache && ($cachedDocument = get_transient($transientKey))) {
             return $cachedDocument;
         }
 
@@ -283,21 +286,35 @@ class Markdown extends \Modularity\Module
      *
      * @return string|WP_Error Remote response.
      */
-    private function getRemoteAndSetCachedResponse(string $requestUrl, string $transientKey, array $requestArgs = []): string | \WP_Error
-    {
+    private function getRemoteAndSetCachedResponse(
+        string $requestUrl,
+        string $transientKey,
+        array $requestArgs = [],
+    ): string|\WP_Error {
         $response = wp_remote_get($requestUrl, $requestArgs);
 
         if (is_wp_error($response) || ($responseCode = wp_remote_retrieve_response_code($response) !== 200)) {
             if ($responseCode !== 200) {
-                return new \WP_Error('fetch_error', __('We could not fetch any content at this moment. Please try again later. Response Code ' . ($responseCode), 'modularity'));
+                return new \WP_Error('fetch_error', __(
+                    'We could not fetch any content at this moment. Please try again later. Response Code '
+                    . $responseCode,
+                    'modularity',
+                ));
             }
-            return new \WP_Error('fetch_error', __('We could not fetch any content at this moment. Please try again later.', 'municipio'));
+            return new \WP_Error('fetch_error', __(
+                'We could not fetch any content at this moment. Please try again later.',
+                'municipio',
+            ));
         }
 
         if ($data = wp_remote_retrieve_body($response)) {
             set_transient($transientKey, $data, $this->cacheTtl);
-            set_transient($transientKey . $this->lastUpdatedKey, date("Y-m-d H:i", time()), $this->cacheTtl);
-            set_transient($transientKey . $this->nextUpdateKey, date("Y-m-d H:i", time() + $this->cacheTtl), $this->cacheTtl);
+            set_transient($transientKey . $this->lastUpdatedKey, date('Y-m-d H:i', time()), $this->cacheTtl);
+            set_transient(
+                $transientKey . $this->nextUpdateKey,
+                date('Y-m-d H:i', time() + $this->cacheTtl),
+                $this->cacheTtl,
+            );
         }
 
         return $data;
@@ -312,6 +329,6 @@ class Markdown extends \Modularity\Module
      */
     private function createTransientKey($requestUrl): string
     {
-        return "mod_markdown_" . md5(serialize($requestUrl));
+        return 'mod_markdown_' . md5(serialize($requestUrl));
     }
 }

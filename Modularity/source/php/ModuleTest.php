@@ -2,10 +2,10 @@
 
 namespace Modularity;
 
-use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\TestCase;
 
 class ModuleTest extends TestCase
 {

@@ -4,6 +4,7 @@ namespace Modularity;
 
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class Module
 {
@@ -22,7 +23,7 @@ class Module
      */
     public $ID = null;
 
-    public ?string $post_type = null;
+    public null|string $post_type = null;
 
     protected string $postStatus = '';
 
@@ -31,7 +32,7 @@ class Module
      * Example: image
      * @var string
      */
-    public $slug       = '';
+    public $slug = '';
     public $moduleSlug = '';
 
     /**
@@ -182,12 +183,13 @@ class Module
      */
     public function __construct(
         // Provided by WordPress
-        ?\WP_Post $post = null,
-        $args = array()
+        null|\WP_Post $post = null,
+        $args = array(),
+        protected null|EnqueueManager $wpEnqueue = null,
     ) {
         $this->args = $args;
 
-        $this->ID   = $post->ID ?? null;
+        $this->ID = $post->ID ?? null;
         $this->mode = $this->ID ? 'module' : 'block';
 
         $this->postStatus = $post->post_status ?? 'publish';
@@ -216,12 +218,10 @@ class Module
 
         WpService::get()->addAction('admin_enqueue_scripts', array($this, 'adminEnqueue'));
 
-
         $this->data['postTitle'] = $post->post_title ?? false;
 
         if (!is_admin()) {
             WpService::get()->addAction('wp_enqueue_scripts', function () {
-
                 if ($this->hasModule()) {
                     if (method_exists($this, 'style')) {
                         $this->style();
@@ -234,9 +234,14 @@ class Module
             });
         }
 
-        WpService::get()->addAction('save_post', function ($postID, $post, $update) {
-            WpService::get()->wpCacheDelete('modularity_has_modules_' . $postID);
-        }, 1, 3);
+        WpService::get()->addAction(
+            'save_post',
+            function ($postID, $post, $update) {
+                WpService::get()->wpCacheDelete('modularity_has_modules_' . $postID);
+            },
+            1,
+            3,
+        );
     }
 
     public function init()
@@ -281,7 +286,7 @@ class Module
     {
         foreach ($post as $key => $value) {
             $this->extractedPostProperties[] = $key;
-            $this->data[$key]                = $value;
+            $this->data[$key] = $value;
 
             // Fix for PHP8, avoid creation of dynamic property.
             // https://www.php.net/manual/en/migration80.incompatible.php#migration80.incompatible.variable-handling.indirect
@@ -387,8 +392,8 @@ class Module
     {
         global $post;
 
-        $postId      = null;
-        $modules     = array();
+        $postId = null;
+        $modules = array();
         $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
 
         if ($archiveSlug) {
@@ -408,11 +413,7 @@ class Module
             $moduleSlug = isset($this->data['post_type']) ? $this->data['post_type'] : null;
         }
 
-        return WpService::get()->applyFilters(
-            'Modularity/hasModule',
-            in_array($moduleSlug, $modules),
-            $archiveSlug
-        );
+        return WpService::get()->applyFilters('Modularity/hasModule', in_array($moduleSlug, $modules), $archiveSlug);
     }
 
     /**
@@ -422,7 +423,6 @@ class Module
      */
     private function getPresentModuleList($postId): array
     {
-
         //Return cached modules
         if ($cachedModules = WpService::get()->wpCacheGet('modularity_has_modules_' . $postId)) {
             return $cachedModules;
@@ -432,21 +432,15 @@ class Module
 
         //Get each module link type
         $modulesByLinkType = [
-            'meta'       => $this->getValueFromKeyRecursive(
-                \Modularity\Editor::getPostModules($postId),
-                'post_type'
-            ),
+            'meta' => $this->getValueFromKeyRecursive(\Modularity\Editor::getPostModules($postId), 'post_type'),
             'shortcodes' => $this->getShortcodeModules($postId),
-            'blocks'     => $this->getBlockNamesFromPage(),
-            'widgets'    => $this->getWidgets(),
+            'blocks' => $this->getBlockNamesFromPage(),
+            'widgets' => $this->getWidgets(),
         ];
 
         //Filter and merge all modules
         foreach ($modulesByLinkType as $modulesLinkType) {
-            $modules = array_merge(
-                $modules,
-                $modulesLinkType
-            );
+            $modules = array_merge($modules, $modulesLinkType);
         }
 
         //Remove duplicates
@@ -467,12 +461,9 @@ class Module
      */
     private function getValueFromKeyRecursive(array $haystack, $needle): array
     {
-        $stack     = [];
-        $iterator  = new \RecursiveArrayIterator($haystack);
-        $recursive = new \RecursiveIteratorIterator(
-            $iterator,
-            \RecursiveIteratorIterator::SELF_FIRST
-        );
+        $stack = [];
+        $iterator = new \RecursiveArrayIterator($haystack);
+        $recursive = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursive as $key => $value) {
             if ($key === $needle) {
                 $stack[] = $value;
@@ -515,7 +506,6 @@ class Module
      */
     private function getWidgetNames($widget): array|false
     {
-
         if (!is_array($widget) || empty($widget['content'])) {
             return false;
         }
@@ -559,12 +549,13 @@ class Module
         }
 
         $post_id = intval($post_id);
-        $post    = WpService::get()->getPost($post_id);
+        $post = WpService::get()->getPost($post_id);
         $pattern = WpService::get()->getShortcodeRegex();
         $modules = array();
 
         if (
-            is_object($post) && preg_match_all('/' . $pattern . '/s', $post->post_content, $matches)
+            is_object($post)
+            && preg_match_all('/' . $pattern . '/s', $post->post_content, $matches)
             && array_key_exists(2, $matches)
             && in_array('modularity', $matches[2])
         ) {

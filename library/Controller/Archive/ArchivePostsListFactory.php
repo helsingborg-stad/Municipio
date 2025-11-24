@@ -62,7 +62,7 @@ class ArchivePostsListFactory
      */
     private function getFilterConfig(array $data, $wpTaxonomies): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
     {
-        return (new FilterConfigFactory($data, $wpTaxonomies, $this->wpService))->create();
+        return (new FilterConfigFactory($data, $wpTaxonomies, $this->wpService, $this->getQueryVars()))->create();
     }
 
     /**

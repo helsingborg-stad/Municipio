@@ -11,7 +11,6 @@ class AcfBlockRemoveFieldMigrator implements MigratorInterface
 
     public function __construct($fieldName, $blockData)
     {
-
         $this->fieldName = $fieldName;
         $this->blockData = $blockData;
     }
@@ -30,10 +29,11 @@ class AcfBlockRemoveFieldMigrator implements MigratorInterface
 
     private function isValidInputParams()
     {
-        return
-            is_string($this->fieldName) &&
-            is_array($this->blockData) &&
-            !empty($this->fieldName) &&
-            !empty($this->blockData);
+        return (
+            is_string($this->fieldName)
+            && is_array($this->blockData)
+            && !empty($this->fieldName)
+            && !empty($this->blockData)
+        );
     }
 }

@@ -4,34 +4,46 @@ namespace Modularity\Module\Iframe;
 
 class Iframe extends \Modularity\Module
 {
-    public $slug     = 'iframe';
+    public $slug = 'iframe';
     public $supports = array();
 
     public function init()
     {
         $this->nameSingular = __('Iframe', 'municipio');
-        $this->namePlural   = __('Iframe', 'municipio');
-        $this->description  = __("Outputs an embedded page.", 'modularity');
+        $this->namePlural = __('Iframe', 'municipio');
+        $this->description = __('Outputs an embedded page.', 'modularity');
 
-        add_filter('acf/load_field/name=iframe_url', array($this,'sslNotice'));
+        add_filter('acf/load_field/name=iframe_url', array($this, 'sslNotice'));
     }
 
     public function data(): array
     {
-        $data['url']         = get_field('iframe_url', $this->ID);
-        $data['height']      = get_field('iframe_height', $this->ID);
+        $data['url'] = get_field('iframe_url', $this->ID);
+        $data['height'] = get_field('iframe_height', $this->ID);
         $data['description'] = get_field('iframe_description', $this->ID);
 
         $data['lang'] = [
-            'knownLabels'   => [
-                'title'  => __('We need your consent to continue', 'municipio'),
-                'info'   => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'municipio'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
+            'knownLabels' => [
+                'title' => __('We need your consent to continue', 'municipio'),
+                'info' => sprintf(
+                    __(
+                        'This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.',
+                        'municipio',
+                    ),
+                    '{SUPPLIER_WEBSITE}',
+                    '{SUPPLIER_POLICY}',
+                ),
                 'button' => __('I understand, continue.', 'municipio'),
             ],
-
             'unknownLabels' => [
-                'title'  => __('We need your consent to continue', 'municipio'),
-                'info'   => sprintf(__('This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.', 'municipio'), '{SUPPLIER_WEBSITE}'),
+                'title' => __('We need your consent to continue', 'municipio'),
+                'info' => sprintf(
+                    __(
+                        'This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy.',
+                        'municipio',
+                    ),
+                    '{SUPPLIER_WEBSITE}',
+                ),
                 'button' => __('I understand, continue.', 'municipio'),
             ],
         ];
@@ -42,7 +54,13 @@ class Iframe extends \Modularity\Module
     public function sslNotice($field)
     {
         if (is_ssl() || $this->isUsingSSLProxy()) {
-            $field['instructions'] = '<span style="color: #f00;">' . __("Your iframe link must start with http<strong>s</strong>://. Links without this prefix will not display.", 'modularity') . '</span>';
+            $field['instructions'] =
+                '<span style="color: #f00;">'
+                . __(
+                    'Your iframe link must start with http<strong>s</strong>://. Links without this prefix will not display.',
+                    'modularity',
+                )
+                . '</span>';
         }
 
         return $field;
@@ -50,7 +68,7 @@ class Iframe extends \Modularity\Module
 
     private function isUsingSSLProxy()
     {
-        if ((defined('SSL_PROXY') && SSL_PROXY === true)) {
+        if (defined('SSL_PROXY') && SSL_PROXY === true) {
             return true;
         }
 
@@ -59,14 +77,9 @@ class Iframe extends \Modularity\Module
 
     public function script()
     {
-        wp_localize_script(
-            'modularity-' . $this->slug,
-            'modIframe',
-            array(
-                'needConsent' => __('We need your consent to continue.', 'iframe-acceptance'),
-
-            )
-        );
+        wp_localize_script('modularity-' . $this->slug, 'modIframe', array(
+            'needConsent' => __('We need your consent to continue.', 'iframe-acceptance'),
+        ));
     }
 
     /**
