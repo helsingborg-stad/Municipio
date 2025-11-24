@@ -19,8 +19,8 @@ class BlockManager
     public function __construct(
         private EnqueueManager $wpEnqueue,
     ) {
-        add_filter('block_categories_all', [$this, 'filterCategories'], 10, 2);
-        add_filter('acf/load_field_group', [$this, 'addLocationRule']);
+        add_filter('block_categories_all', array($this, 'filterCategories'), 10, 2);
+        add_filter('acf/load_field_group', array($this, 'addLocationRule'));
 
         add_action('init', [$this, 'addBlockFieldGroup']);
 
@@ -580,7 +580,7 @@ class BlockManager
     {
         $display = new Display($this->wpEnqueue);
         $view = 'notice';
-        $noticeData = [
+        $noticeData = array([
             'hideTitle' => false,
             'post_type' => 'mod-notice',
             'postTitle' => $moduleName,
@@ -588,7 +588,7 @@ class BlockManager
             'notice_type' => 'info',
             'icon' => ['name' => 'info'],
             'postTitle' => $moduleName,
-        ];
+        ]);
 
         return $display->renderView($view, $noticeData);
     }
