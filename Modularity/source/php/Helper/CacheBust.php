@@ -16,7 +16,8 @@ class CacheBust
     public static function name($name)
     {
         $jsonPath =
-            MODULARITY_PATH . apply_filters('Modularity/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
+            MODULARITY_PATH
+            . apply_filters('Modularity/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
 
         $revManifest = [];
 

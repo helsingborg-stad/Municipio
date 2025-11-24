@@ -13,7 +13,7 @@ class V1 implements versionInterface
 
     public function __construct(\wpdb $db)
     {
-        $this->db   = $db;
+        $this->db = $db;
         $this->name = 'divider';
     }
 
@@ -36,8 +36,8 @@ class V1 implements versionInterface
                 if (!empty($dividerTitleField) && is_string($dividerTitleField)) {
                     update_post_meta($divider->ID, 'modularity-module-hide-title', false);
                     wp_update_post([
-                        'ID'         => $divider->ID,
-                        'post_title' => $dividerTitleField
+                        'ID' => $divider->ID,
+                        'post_title' => $dividerTitleField,
                     ]);
                 }
             }
@@ -46,11 +46,7 @@ class V1 implements versionInterface
 
     private function upgradeBlocks()
     {
-        $blockMigrator = new AcfBlockMigration(
-            $this->db,
-            'acf/' . $this->name,
-            $this->getBlockFields()
-        );
+        $blockMigrator = new AcfBlockMigration($this->db, 'acf/' . $this->name, $this->getBlockFields());
 
         $blockMigrator->migrateBlocks();
     }
@@ -60,8 +56,8 @@ class V1 implements versionInterface
         return [
             'divider_title' => [
                 'name' => 'custom_block_title',
-                'key'  => 'field_block_title'
-            ]
+                'key' => 'field_block_title',
+            ],
         ];
     }
 }

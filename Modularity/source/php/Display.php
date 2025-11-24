@@ -2,12 +2,12 @@
 
 namespace Modularity;
 
-use Throwable;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use Modularity\Helper\File as FileHelper;
-use WpUtilService\Features\Enqueue\EnqueueManager;
 use Modularity\Helper\Wp;
+use Throwable;
 use WP_Post;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class Display
 {
@@ -15,16 +15,17 @@ class Display
      * Holds the current post's/page's modules
      * @var array
      */
-    public $modules                          = array();
-    public $options                          = null;
-    private $isBlock                         = false;
-    private $isRenderingModule               = false;
+    public $modules = array();
+    public $options = null;
+    private $isBlock = false;
+    private $isRenderingModule = false;
     private static $renderedShortcodeModules = [];
-    private $isShortcode                     = false; // Flag to indicate if the current context is a shortcode.
-    private static $sidebarState             = []; //Holds state of sidebars.
+    private $isShortcode = false; // Flag to indicate if the current context is a shortcode.
+    private static $sidebarState = []; //Holds state of sidebars.
 
-    public function __construct(private EnqueueManager $wpEnqueue)
-    {
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         add_filter('wp', array($this, 'init'));
         add_filter('is_active_sidebar', array($this, 'isActiveSidebar'), 10, 2);
 
@@ -33,7 +34,7 @@ class Display
 
         add_filter('Modularity/Display/Markup', array($this, 'addGridToSidebar'), 10, 2);
 
-        add_filter('acf/format_value/type=wysiwyg', array( $this, 'filterModularityShortcodes'), 9, 3);
+        add_filter('acf/format_value/type=wysiwyg', array($this, 'filterModularityShortcodes'), 9, 3);
         add_filter('Modularity/Display/SanitizeContent', array($this, 'sanitizeContent'), 10);
         add_filter('Modularity/Display/replaceGrid', array($this, 'replaceGridClasses'), 10);
 
@@ -64,11 +65,7 @@ class Display
      */
     public function replaceGridClasses($className)
     {
-        return preg_replace(
-            '/grid-md-(\d+)/',
-            'o-grid-$1@md',
-            $className
-        );
+        return preg_replace('/grid-md-(\d+)/', 'o-grid-$1@md', $className);
     }
 
     /**
@@ -82,9 +79,7 @@ class Display
             return null;
         }
 
-        $directories = FileHelper::glob(
-            MODULARITY_PATH . 'source/php/Module/*',
-        );
+        $directories = FileHelper::glob(MODULARITY_PATH . 'source/php/Module/*');
 
         if (!empty($directories) && is_array($directories)) {
             foreach ($directories as $dir) {
@@ -111,33 +106,29 @@ class Display
     {
         $data['sidebarContext'] = \Modularity\Helper\Context::get();
 
-        $this->isBlock           = !empty($data['blockData']);
+        $this->isBlock = !empty($data['blockData']);
         $this->isRenderingModule = true;
 
         // Adding Module path to filter
-        $moduleView        = MODULARITY_PATH . 'source/php/Module/' . $this->getModuleDirectory($data['post_type']) . '/views';
+        $moduleView = MODULARITY_PATH . 'source/php/Module/' . $this->getModuleDirectory($data['post_type']) . '/views';
         $externalViewPaths = apply_filters('/Modularity/externalViewPath', []);
 
         if (isset($externalViewPaths[$data['post_type']])) {
             $moduleView = $externalViewPaths[$data['post_type']];
         }
 
-        $init  = new ComponentLibraryInit([]);
+        $init = new ComponentLibraryInit([]);
         $blade = $init->getEngine();
 
         $filters = [
-            fn ($d) => apply_filters('Modularity/Display/viewData', $d),
-            fn ($d) => apply_filters("Modularity/Display/{$d['post_type']}/viewData", $d),
+            fn($d) => apply_filters('Modularity/Display/viewData', $d),
+            fn($d) => apply_filters("Modularity/Display/{$d['post_type']}/viewData", $d),
         ];
 
-        $viewData = array_reduce(
-            $filters,
-            fn (array $d, callable $applyFilter) => $applyFilter($d),
-            $data
-        );
+        $viewData = array_reduce($filters, fn(array $d, callable $applyFilter) => $applyFilter($d), $data);
 
         try {
-            $rendered                = $blade->makeView($view, $viewData, [], $moduleView)->render();
+            $rendered = $blade->makeView($view, $viewData, [], $moduleView)->render();
             $this->isRenderingModule = false;
 
             return $rendered;
@@ -158,11 +149,7 @@ class Display
      */
     public function filterModularityShortcodes($value, $postId, $field)
     {
-        return preg_replace(
-            '/\[modularity(.*)\]/',
-            '',
-            $value
-        );
+        return preg_replace('/\[modularity(.*)\]/', '', $value);
     }
 
     /**
@@ -173,12 +160,7 @@ class Display
      */
     public function sanitizeContent($content)
     {
-        return preg_replace(
-            '/\[modularity(.*)\]/',
-            '',
-            $content
-        )
-        ;
+        return preg_replace('/\[modularity(.*)\]/', '', $content);
     }
 
     /**
@@ -243,7 +225,6 @@ class Display
         return self::$sidebarState[$sidebar] = false;
     }
 
-
     /**
      * Initialize, get post's/page's modules and start output
      * @return void
@@ -299,7 +280,7 @@ class Display
 
     private function setupModulesForSingle(): array
     {
-        $modules    = [];
+        $modules = [];
         $singleSlug = Wp::getSingleSlug();
 
         if ($singleSlug) {
@@ -312,12 +293,15 @@ class Display
 
     private function mergeModules($first, $second): array
     {
-        $merged   = [];
+        $merged = [];
         $sidebars = array_merge(array_keys($first), array_keys($second));
 
         foreach ($sidebars as $sidebar) {
             if (isset($first[$sidebar]) && isset($second[$sidebar])) {
-                $merged[$sidebar] = ['modules' => array_merge($second[$sidebar]['modules'], $first[$sidebar]['modules'])];
+                $merged[$sidebar] = ['modules' => array_merge(
+                    $second[$sidebar]['modules'],
+                    $first[$sidebar]['modules'],
+                )];
             } elseif (isset($first[$sidebar])) {
                 $merged[$sidebar] = $first[$sidebar];
             } elseif (isset($second[$sidebar])) {
@@ -338,7 +322,13 @@ class Display
         $retSidebars = $sidebars;
 
         foreach ($retSidebars as $sidebar => $widgets) {
-            if (!empty($retSidebars[$sidebar]) && (!isset($this->options[$sidebar]['hide_widgets']) || $this->options[$sidebar]['hide_widgets'] != 'true')) {
+            if (
+                !empty($retSidebars[$sidebar])
+                && (
+                    !isset($this->options[$sidebar]['hide_widgets'])
+                    || $this->options[$sidebar]['hide_widgets'] != 'true'
+                )
+            ) {
                 continue;
             }
 
@@ -411,9 +401,7 @@ class Display
 
         // Update context
         if (isset($sidebarArgs['id'])) {
-            \Modularity\Helper\Context::set(
-                "sidebar." . $sidebarArgs['id']
-            );
+            \Modularity\Helper\Context::set('sidebar.' . $sidebarArgs['id']);
         }
 
         // Loop and output modules
@@ -426,9 +414,7 @@ class Display
                 $this->outputModule(
                     $module,
                     $sidebarArgs,
-                    \Modularity\ModuleManager::$moduleSettings[
-                        get_post_type($module)
-                    ]
+                    \Modularity\ModuleManager::$moduleSettings[get_post_type($module)],
                 );
             }
         }
@@ -484,28 +470,25 @@ class Display
             $module->ID,
             [
                 $module,
-                $args['id']
+                $args['id'],
             ],
             $moduleSettings['cache_ttl'] ?? 0,
-            $this->getAllAllowedAndRegisteredQueryVars() ?: null
+            $this->getAllAllowedAndRegisteredQueryVars() ?: null,
         );
 
         if ($echo == false) {
-            $class  = \Modularity\ModuleManager::$classes[$module->post_type];
+            $class = \Modularity\ModuleManager::$classes[$module->post_type];
             $module = new $class($module, $args);
 
             return $this->getModuleMarkup($module, $args);
         }
 
         if ($cache->start()) {
-            $class  = \Modularity\ModuleManager::$classes[$module->post_type];
+            $class = \Modularity\ModuleManager::$classes[$module->post_type];
             $module = new $class($module, $args, $this->wpEnqueue);
 
             //Print module
-            echo $this->getModuleMarkup(
-                $module,
-                $args
-            );
+            echo $this->getModuleMarkup($module, $args);
 
             $cache->stop(); //Stop cache
         }
@@ -524,12 +507,10 @@ class Display
     private function getAllAllowedAndRegisteredQueryVars(): array
     {
         $registeredQueryVars = $this->getRegisteredQueryVars();
-        $allowedQueryVars    = $this->getAllowedQueryVars();
+        $allowedQueryVars = $this->getAllowedQueryVars();
 
         // Merge and filter out empty values
-        return array_filter(
-            array_merge($registeredQueryVars, $allowedQueryVars)
-        );
+        return array_filter(array_merge($registeredQueryVars, $allowedQueryVars));
     }
 
     /**
@@ -561,12 +542,9 @@ class Display
     {
         $pattern = '/^mod-([a-z0-9\-_]+)$/i';
         if ($_GET ?? null) {
-            $queryVars = array_filter(
-                array_keys($_GET),
-                function ($var) use ($pattern) {
-                    return preg_match($pattern, $var);
-                }
-            );
+            $queryVars = array_filter(array_keys($_GET), function ($var) use ($pattern) {
+                return preg_match($pattern, $var);
+            });
             foreach ($queryVars as $key => $value) {
                 $queryVars[$value] = sanitize_text_field($_GET[$value] ?? '');
             }
@@ -592,11 +570,7 @@ class Display
             return false;
         }
 
-        $moduleMarkup = $this->loadBladeTemplate(
-            $templatePath,
-            $module,
-            $args
-        );
+        $moduleMarkup = $this->loadBladeTemplate($templatePath, $module, $args);
 
         if (empty($moduleMarkup)) {
             return;
@@ -605,7 +579,7 @@ class Display
         $classes = array(
             'modularity-' . $module->post_type,
             'modularity-' . $module->post_type . '-' . $module->ID,
-            (property_exists($module, 'columnWidth')) ? $module->columnWidth :  'o-grid-12'
+            property_exists($module, 'columnWidth') ? $module->columnWidth : 'o-grid-12',
         );
 
         //Hide module if preview
@@ -615,8 +589,9 @@ class Display
 
         //Add selected scope class
         if (
-            isset($module->data['meta']) && isset($module->data['meta']['module_css_scope']) &&
-            is_array($module->data['meta']['module_css_scope'])
+            isset($module->data['meta'])
+            && isset($module->data['meta']['module_css_scope'])
+            && is_array($module->data['meta']['module_css_scope'])
         ) {
             if (!empty($module->data['meta']['module_css_scope'][0])) {
                 $classes[] = $module->data['meta']['module_css_scope'][0];
@@ -624,15 +599,26 @@ class Display
         }
 
         // Build before & after module markup
-        $beforeModule = (array_key_exists('before_widget', $args)) ? $args['before_widget'] :
-            '<div id="%1$s" class="%2$s" >';
-        $afterModule  = (array_key_exists('after_widget', $args)) ? $args['after_widget'] : '</div>';
+        $beforeModule = array_key_exists('before_widget', $args)
+            ? $args['before_widget']
+            : '<div id="%1$s" class="%2$s" >';
+        $afterModule = array_key_exists('after_widget', $args) ? $args['after_widget'] : '</div>';
 
         // Apply filter for classes
-        $classes = (array) apply_filters('Modularity/Display/BeforeModule::classes', $classes, $args, $module->post_type, $module->ID);
+        $classes = (array) apply_filters(
+            'Modularity/Display/BeforeModule::classes',
+            $classes,
+            $args,
+            $module->post_type,
+            $module->ID,
+        );
 
         // Set id (%1$s) and classes (%2$s)
-        $beforeModule = sprintf($beforeModule, $module->post_type . '-' . $module->ID . '-' . uniqid(), implode(' ', $classes));
+        $beforeModule = sprintf(
+            $beforeModule,
+            $module->post_type . '-' . $module->ID . '-' . uniqid(),
+            implode(' ', $classes),
+        );
 
         // Append module edit to before markup
         if ($this->displayEditModule($module, $args) && !is_admin()) {
@@ -645,30 +631,22 @@ class Display
             $beforeModule,
             $args,
             $module->post_type,
-            $module->ID
+            $module->ID,
         );
-        $afterModule  = apply_filters(
+        $afterModule = apply_filters(
             'Modularity/Display/AfterModule',
             $afterModule,
             $args,
             $module->post_type,
-            $module->ID
+            $module->ID,
         );
 
         // Concat full module
         $moduleMarkup = $beforeModule . $moduleMarkup . $afterModule;
 
         //Add filters to output
-        $moduleMarkup = apply_filters(
-            'Modularity/Display/Markup',
-            $moduleMarkup,
-            $module
-        );
-        $moduleMarkup = apply_filters(
-            'Modularity/Display/' . $module->post_type . '/Markup',
-            $moduleMarkup,
-            $module
-        );
+        $moduleMarkup = apply_filters('Modularity/Display/Markup', $moduleMarkup, $module);
+        $moduleMarkup = apply_filters('Modularity/Display/' . $module->post_type . '/Markup', $moduleMarkup, $module);
 
         return $moduleMarkup;
     }
@@ -683,7 +661,6 @@ class Display
      */
     private function displayEditModule($module, $args)
     {
-
         if (isset($args['edit_module']) && $args['edit_module'] !== false) {
             return false;
         }
@@ -716,12 +693,12 @@ class Display
      */
     private function createEditModuleMarkup($module)
     {
-        $options        = get_option('modularity-options');
+        $options = get_option('modularity-options');
         $linkParameters = [
-            'post'        => $module->ID ,
-            'action'      => 'edit',
+            'post' => $module->ID,
+            'action' => 'edit',
             'is_thickbox' => 'true',
-            'is_inline'   => 'true'
+            'is_inline' => 'true',
         ];
 
         if (isset($options['show-modules-usage-in-frontend']) && $options['show-modules-usage-in-frontend'] == 'on') {
@@ -731,13 +708,21 @@ class Display
             }
         }
 
-        return '
+        return (
+            '
             <div class="modularity-edit-module">
-                <a href="' . admin_url('post.php?' . http_build_query($linkParameters)) . '">
-                    ' . __('Edit module', 'municipio') . ': ' . $module->data['post_type_name'] .  '
+                <a href="'
+            . admin_url('post.php?' . http_build_query($linkParameters))
+            . '">
+                    '
+            . __('Edit module', 'municipio')
+            . ': '
+            . $module->data['post_type_name']
+            . '
                 </a>
             </div>
-        ';
+        '
+        );
     }
 
     /**
@@ -753,14 +738,7 @@ class Display
             throw new \LogicException('Class ' . get_class($module) . ' must have property $templateDir');
         }
 
-        return $this->renderView(
-            \Modularity\Helper\Template::getModuleTemplate(
-                $view,
-                $module,
-                true
-            ),
-            $module->data
-        );
+        return $this->renderView(\Modularity\Helper\Template::getModuleTemplate($view, $module, true), $module->data);
     }
 
     /**
@@ -788,15 +766,15 @@ class Display
 
         //If not valid details, abort.
         if (!is_object($module) || empty($module->post_type)) {
-            return "";
+            return '';
         }
 
         //Create instance
-        $class  = \Modularity\ModuleManager::$classes[$module->post_type];
+        $class = \Modularity\ModuleManager::$classes[$module->post_type];
         $module = new $class($module, $args, $this->wpEnqueue);
 
         $this->isShortcode = true;
-        $moduleMarkup      = $this->getModuleMarkup($module, $args);
+        $moduleMarkup = $this->getModuleMarkup($module, $args);
         if (empty($moduleMarkup)) {
             $this->isShortcode = false;
             return;
@@ -807,7 +785,7 @@ class Display
         $moduleMarkup = '<div class="' . $module->post_type . '">' . $moduleMarkup . '</div>';
 
         self::$renderedShortcodeModules[$args['id']] = $moduleMarkup;
-        $this->isShortcode                           = false;
+        $this->isShortcode = false;
         return $moduleMarkup;
     }
 
@@ -842,8 +820,11 @@ class Display
     public function addGridToSidebar($markup, $module)
     {
         $sidebars = apply_filters('Modularity/Module/Container/Sidebars', array());
-        $modules  = apply_filters('Modularity/Module/Container/Modules', array());
-        $template = apply_filters('Modularity/Module/Container/Template', '<div class="container"><div class="grid"><div class="grid-xs-12">{{module-markup}}</div></div></div>');
+        $modules = apply_filters('Modularity/Module/Container/Modules', array());
+        $template = apply_filters(
+            'Modularity/Module/Container/Template',
+            '<div class="container"><div class="grid"><div class="grid-xs-12">{{module-markup}}</div></div></div>',
+        );
 
         if (!isset($module->args['id']) || !isset($module->post_type)) {
             return $markup;

@@ -8,7 +8,7 @@ use WP_REST_Controller;
 class Modules extends WP_REST_Controller
 {
     protected $namespace = \Modularity\Api\RestApiNamespace::V1;
-    protected $restBase  = "modules";
+    protected $restBase = 'modules';
 
     public function __construct()
     {
@@ -23,16 +23,16 @@ class Modules extends WP_REST_Controller
         add_action('rest_api_init', function () {
             register_rest_route($this->namespace, '/' . $this->restBase . '/(?P<id>[\d]+)', array(
                 array(
-                    'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => array($this, 'get_item'),
+                    'methods' => \WP_REST_Server::READABLE,
+                    'callback' => array($this, 'get_item'),
                     'permission_callback' => '__return_true',
-                    'args'                => [
+                    'args' => [
                         'id' => [
                             'description' => __('Unique identifier for the module.'),
-                            'type'        => 'integer',
-                        ]
+                            'type' => 'integer',
+                        ],
                     ],
-                )
+                ),
             ));
         });
     }
@@ -46,14 +46,14 @@ class Modules extends WP_REST_Controller
     public function get_item($request)
     {
         $moduleId = $request->get_param('id');
-        $post     = get_post($moduleId);
+        $post = get_post($moduleId);
 
         if ($this->itemExists($post)) {
             return $this->getItemNotFoundError();
         }
 
-        $class   = get_class(\Modularity\ModuleManager::$classes[$post->post_type]);
-        $module  = new $class($post);
+        $class = get_class(\Modularity\ModuleManager::$classes[$post->post_type]);
+        $module = new $class($post);
         $display = new \Modularity\Display($module);
 
         return $display->getModuleMarkup($module, []);
@@ -67,7 +67,11 @@ class Modules extends WP_REST_Controller
      */
     private function itemExists($post)
     {
-        return $post === null || !str_starts_with($post->post_type, \Modularity\ModuleManager::MODULE_PREFIX) || !isset(\Modularity\ModuleManager::$classes[$post->post_type]);
+        return (
+            $post === null
+            || !str_starts_with($post->post_type, \Modularity\ModuleManager::MODULE_PREFIX)
+            || !isset(\Modularity\ModuleManager::$classes[$post->post_type])
+        );
     }
 
     /**

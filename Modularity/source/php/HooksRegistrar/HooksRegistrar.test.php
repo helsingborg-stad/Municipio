@@ -11,7 +11,7 @@ class HooksRegistrarTest extends TestCase
      */
     public function testRegisterCallsAddHooksOnProvidedObject()
     {
-        $hookable       = $this->getHookableClass();
+        $hookable = $this->getHookableClass();
         $hooksRegistrar = new HooksRegistrar();
 
         $hooksRegistrar->register($hookable);

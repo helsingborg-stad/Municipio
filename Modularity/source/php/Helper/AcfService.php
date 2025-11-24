@@ -12,7 +12,7 @@ use AcfService\AcfService as OriginalAcfService;
  */
 class AcfService
 {
-    private static ?OriginalAcfService $acfService = null;
+    private static null|OriginalAcfService $acfService = null;
 
     /**
      * Set the acfService instance.
@@ -29,7 +29,7 @@ class AcfService
      *
      * @return OriginalAcfService|null
      */
-    public static function get(): ?OriginalAcfService
+    public static function get(): null|OriginalAcfService
     {
         if (self::$acfService === null) {
             throw new \RuntimeException('AcfService not set');

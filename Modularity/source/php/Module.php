@@ -185,7 +185,7 @@ class Module
         // Provided by WordPress
         null|\WP_Post $post = null,
         $args = array(),
-        protected ?EnqueueManager $wpEnqueue = null
+        protected null|EnqueueManager $wpEnqueue = null,
     ) {
         $this->args = $args;
 

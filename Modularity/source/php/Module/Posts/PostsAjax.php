@@ -31,7 +31,7 @@ class PostsAjax
         wp_send_json($this->posts->getDateSource($postType));
     }
 
-        /**
+    /**
      * AJAX CALLBACK
      * Get availabel taxonomies for a post type
      * @return void
@@ -47,14 +47,14 @@ class PostsAjax
 
         $result = [
             'types' => get_object_taxonomies($_POST['posttype'], 'objects'),
-            'curr'  => get_field('posts_taxonomy_type', $post)
+            'curr' => get_field('posts_taxonomy_type', $post),
         ];
 
         echo json_encode($result);
         die();
     }
 
-        /**
+    /**
      * AJAX CALLBACK
      * Gets a taxonomies available values
      * @return void
@@ -67,13 +67,13 @@ class PostsAjax
         }
 
         $taxonomy = $_POST['tax'];
-        $post     = $_POST['post'];
+        $post = $_POST['post'];
 
         $result = [
-            'tax'  => get_terms($taxonomy, [
+            'tax' => get_terms($taxonomy, [
                 'hide_empty' => false,
             ]),
-            'curr' => get_field('posts_taxonomy_value', $post)
+            'curr' => get_field('posts_taxonomy_value', $post),
         ];
 
         echo json_encode($result);
@@ -95,8 +95,8 @@ class PostsAjax
         $meta = \Municipio\Helper\Post::getPosttypeMetaKeys($_POST['posttype']);
 
         $response = [
-            'meta_keys'   => $meta,
-            'sort_curr'   => get_field('posts_sort_by', $_POST['post']),
+            'meta_keys' => $meta,
+            'sort_curr' => get_field('posts_sort_by', $_POST['post']),
             'filter_curr' => get_field('posts_meta_key', $_POST['post']),
         ];
 

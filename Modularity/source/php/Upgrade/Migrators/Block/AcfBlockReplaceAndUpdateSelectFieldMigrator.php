@@ -12,21 +12,19 @@ class AcfBlockReplaceAndUpdateSelectFieldMigrator implements MigratorInterface
 
     public function __construct($newField, $oldFieldName, $blockData)
     {
-
-        $this->newField     = $newField;
+        $this->newField = $newField;
         $this->oldFieldName = $oldFieldName;
-        $this->blockData    = $blockData;
+        $this->blockData = $blockData;
     }
 
     public function migrate(): mixed
     {
-
         if (!$this->isValidInputParams()) {
             return $this->blockData;
         }
 
         $this->blockData['_' . $this->newField['name']] = $this->newField['key'];
-        $this->blockData[$this->newField['name']]       = $this->getNewValues();
+        $this->blockData[$this->newField['name']] = $this->getNewValues();
 
         return $this->blockData;
     }
@@ -42,14 +40,15 @@ class AcfBlockReplaceAndUpdateSelectFieldMigrator implements MigratorInterface
 
     private function isValidInputParams()
     {
-        return
-            is_array($this->newField) &&
-            is_string($this->oldFieldName) &&
-            is_array($this->blockData) &&
-            !empty($this->newField) &&
-            !empty($this->oldFieldName) &&
-            !empty($this->blockData) &&
-            is_string($this->newField['name']) &&
-            !empty($this->newField['values']['default']);
+        return (
+            is_array($this->newField)
+            && is_string($this->oldFieldName)
+            && is_array($this->blockData)
+            && !empty($this->newField)
+            && !empty($this->oldFieldName)
+            && !empty($this->blockData)
+            && is_string($this->newField['name'])
+            && !empty($this->newField['values']['default'])
+        );
     }
 }
