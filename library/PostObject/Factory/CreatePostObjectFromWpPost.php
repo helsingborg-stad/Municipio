@@ -67,10 +67,9 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $this->getTimestampResolver($postObject));
         $postObject = new IconResolvingPostObject($postObject, $this->getIconResolver($postObject));
         $postObject = new PostObjectWithCachedContent($postObject, $this->wpService);
+        $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         $postObject = $this->wpService->applyFilters(self::DECORATE_FILTER_NAME, $postObject);
-
-        $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         return $postObject;
     }
