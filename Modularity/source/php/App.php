@@ -247,7 +247,7 @@ class App
 
         $this->wpEnqueue
             ->add('css/modularity.css')
-            ->add('js/modularity.js', ['wp-api'], true)
+            ->add('js/modularity.js', ['wp-api'], null, true)
             ->with()
             ->translation('modularityAdminLanguage', array(
                 'langvisibility' => __('Toggle visibility', 'municipio'),
