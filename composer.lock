@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33a3c8e2121ba48ac4a7003fae1da050",
+    "content-hash": "db4c39bdb43b3884767f685257716b39",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -820,16 +820,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.62.23",
+            "version": "4.62.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "e69bb121a6ec5b7fb28ff7ebfe41a1b8b5612856"
+                "reference": "4956efbe59e159b312e67bae17bdc5a5bbad2e70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/e69bb121a6ec5b7fb28ff7ebfe41a1b8b5612856",
-                "reference": "e69bb121a6ec5b7fb28ff7ebfe41a1b8b5612856",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/4956efbe59e159b312e67bae17bdc5a5bbad2e70",
+                "reference": "4956efbe59e159b312e67bae17bdc5a5bbad2e70",
                 "shasum": ""
             },
             "require": {
@@ -859,9 +859,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.23"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.26"
             },
-            "time": "2025-11-13T10:33:11+00:00"
+            "time": "2025-11-24T12:08:34+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -6875,5 +6875,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
