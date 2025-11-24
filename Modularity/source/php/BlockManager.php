@@ -581,7 +581,7 @@ class BlockManager
      */
     private function displayNotice($moduleName, $message)
     {
-        $display    = new Display();
+        $display    = new Display($this->wpEnqueue);
         $view       = 'notice';
         $noticeData = array(
             'hideTitle'   => false,
