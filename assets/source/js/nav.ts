@@ -1,225 +1,231 @@
 import { viewRender } from "./restApi/endpoints/viewRender";
 
-const SELECTOR_TOGGLE_BUTTON = '.js-async-children';
-const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
+const SELECTOR_TOGGLE_BUTTON = ".js-async-children";
+const ATTRIBUTE_FETCH_URL = "data-fetch-url";
 const LOGIN_CACHE_DURATION = 5 * 60 * 1000;
 let placeholderMarkup: HTMLElement | null = null;
 let isUserLoggedIn: boolean | null = null;
-let loginRefreshInterval: number | undefined = undefined;
-
+let loginRefreshInterval: number | undefined;
 
 declare const wpApiSettings: {
-    nonce: any;
-}
+	nonce: any;
+};
 
 const fetchMarkup = async (url: string) => {
-    let headers: Record<string, string> = {
-        'Content-Type': 'application/json'
-    };
+	const headers: Record<string, string> = {
+		"Content-Type": "application/json",
+	};
 
-    if (isUserLoggedIn) {
-        headers['credentials'] = 'same-origin';
-        headers['X-WP-Nonce'] = wpApiSettings.nonce;
-    }
+	if (isUserLoggedIn) {
+		headers["credentials"] = "same-origin";
+		headers["X-WP-Nonce"] = wpApiSettings.nonce;
+	}
 
-    const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: headers,
-    });
+	const response = await fetch(url, {
+		method: "GET",
+		credentials: "include",
+		headers: headers,
+	});
 
-    const { markup } = await response.json();
+	const { markup } = await response.json();
 
-    return markup;
-}
+	return markup;
+};
 
 function stringToHTML(str: string): HTMLElement {
-    const parser = new DOMParser();
-    const htmlDoc = parser.parseFromString(str, "text/html");
-    return htmlDoc.body.firstChild as HTMLElement;
+	const parser = new DOMParser();
+	const htmlDoc = parser.parseFromString(str, "text/html");
+	return htmlDoc.body.firstChild as HTMLElement;
 }
 
 const getPlaceholderMarkup = async (): Promise<HTMLElement | null> => {
-    return viewRender.call({ routeParams: 'partials/preloader' })
-        .then(htmlString => {
-            return stringToHTML(htmlString)
-        })
-        .catch(error => {
-            console.error(error.message)
-            return null
-        })
-}
+	return viewRender
+		.call({ routeParams: "partials/preloader" })
+		.then((htmlString) => {
+			return stringToHTML(htmlString);
+		})
+		.catch((error) => {
+			console.error(error.message);
+			return null;
+		});
+};
 
 const appendPlaceholder = async (placementElement: Element) => {
-    if (placeholderMarkup === null) return;
-    const clone = placeholderMarkup.cloneNode(true) as HTMLElement;
-    placementElement.insertAdjacentElement('beforeend', clone);
-}
+	if (placeholderMarkup === null) return;
+	const clone = placeholderMarkup.cloneNode(true) as HTMLElement;
+	placementElement.insertAdjacentElement("beforeend", clone);
+};
 
 const removePlaceholder = (placementElement: Element) => {
-    const placeholder = placementElement.querySelector('.preloader')
+	const placeholder = placementElement.querySelector(".preloader");
 
-    if (placeholder === null) {
-        return
-    }
+	if (placeholder === null) {
+		return;
+	}
 
-    placeholder.remove();
-}
+	placeholder.remove();
+};
 
 const insertSubMenu = (placementElement: Element, markup: string) => {
-    placementElement.insertAdjacentHTML('beforeend', markup);
-}
+	placementElement.insertAdjacentHTML("beforeend", markup);
+};
 
 const subscribeOnClick = (element: Element) => {
-    const handleClick = () => {
-        // Parent of toggle has all states
-        const parentElement = element.closest(".js-async-children-data");
+	const handleClick = () => {
+		// Parent of toggle has all states
+		const parentElement = element.closest(".js-async-children-data");
 
-        if (parentElement === null) {
-            return
-        }
+		if (parentElement === null) {
+			return;
+		}
 
-        const parentClassNames = [...parentElement.classList];
+		const parentClassNames = [...parentElement.classList];
 
-        // States
-        const hasFetched = parentClassNames.includes('has-fetched');
-        const isFetching = parentClassNames.includes('is-fetching');
+		// States
+		const hasFetched = parentClassNames.includes("has-fetched");
+		const isFetching = parentClassNames.includes("is-fetching");
 
-        // Bye
-        if (isFetching || hasFetched) {
-            return;
-        }
+		// Bye
+		if (isFetching || hasFetched) {
+			return;
+		}
 
-        // Input from attributes
-        const fetchUrl = parentElement.getAttribute(ATTRIBUTE_FETCH_URL);
+		// Input from attributes
+		const fetchUrl = parentElement.getAttribute(ATTRIBUTE_FETCH_URL);
 
-        if (!fetchUrl) {
-            console.error('Fetch URL is not defined.')
-            return;
-        }
+		if (!fetchUrl) {
+			console.error("Fetch URL is not defined.");
+			return;
+		}
 
-        const customPlacement = parentElement.querySelector('[data-js-async-children]');
-        const placement = customPlacement && customPlacement.parentElement ? customPlacement.parentElement : parentElement;
+		const customPlacement = parentElement.querySelector(
+			"[data-js-async-children]",
+		);
+		const placement =
+			customPlacement && customPlacement.parentElement
+				? customPlacement.parentElement
+				: parentElement;
 
-        // Set states before fetching
-        appendPlaceholder(placement);
-        parentElement.classList.add('is-fetching');
-        parentElement.classList.add('is-loading');
+		// Set states before fetching
+		appendPlaceholder(placement);
+		parentElement.classList.add("is-fetching");
+		parentElement.classList.add("is-loading");
 
-        fetchMarkup(fetchUrl)
-            .then(markup => {
-                // Remove placeholder
-                removePlaceholder(placement);
+		fetchMarkup(fetchUrl)
+			.then((markup) => {
+				// Remove placeholder
+				removePlaceholder(placement);
 
-                // Render sub-menu
-                insertSubMenu(placement, markup);
+				// Render sub-menu
+				insertSubMenu(placement, markup);
 
-                // Make sure submenu is rendered before removing it from DOM
-                requestAnimationFrame(() => {
-                    customPlacement?.remove();
-                });
+				// Make sure submenu is rendered before removing it from DOM
+				requestAnimationFrame(() => {
+					customPlacement?.remove();
+				});
 
-                // Set states
-                parentElement.classList.remove('is-fetching');
-                parentElement.classList.remove('is-loading');
-                parentElement.classList.add('has-fetched');
+				// Set states
+				parentElement.classList.remove("is-fetching");
+				parentElement.classList.remove("is-loading");
+				parentElement.classList.add("has-fetched");
 
-                // Subscribe new toggles found in sub-menu recursively
-                const newSubMenu = parentElement.lastElementChild;
-                if (newSubMenu) {
-                    const newToggleButtons = newSubMenu.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
-                    if (newToggleButtons && newToggleButtons.length > 0) {
-                        newToggleButtons.forEach(subscribeOnClick);
-                    }
-                }
-            })
-            .catch(e => {
-                console.error(e);
-                // Reset states
-                parentElement.classList.remove('is-fetching');
-                parentElement.classList.remove('is-loading');
-            });
-    }
+				// Subscribe new toggles found in sub-menu recursively
+				const newSubMenu = parentElement.lastElementChild;
+				if (newSubMenu) {
+					const newToggleButtons = newSubMenu.querySelectorAll(
+						SELECTOR_TOGGLE_BUTTON,
+					);
+					if (newToggleButtons && newToggleButtons.length > 0) {
+						newToggleButtons.forEach(subscribeOnClick);
+					}
+				}
+			})
+			.catch((e) => {
+				console.error(e);
+				// Reset states
+				parentElement.classList.remove("is-fetching");
+				parentElement.classList.remove("is-loading");
+			});
+	};
 
-    element.addEventListener('click', handleClick);
-}
+	element.addEventListener("click", handleClick);
+};
 
 /**
-* If the top level domain of the current URL is `translate.goog`, then return `true`, otherwise return
-* `false`
-* @returns A boolean value.
-*/
+ * If the top level domain of the current URL is `translate.goog`, then return `true`, otherwise return
+ * `false`
+ * @returns A boolean value.
+ */
 function isCurrentlyBeingTranslated() {
+	const hostChunks = window.location.hostname.split(".");
+	const hostTop =
+		hostChunks[hostChunks.length - 2] + "." + hostChunks[hostChunks.length - 1];
 
-    const hostChunks = window.location.hostname.split('.');
-    const hostTop = hostChunks[hostChunks.length - 2] + '.' + hostChunks[hostChunks.length - 1];
-
-    return 'translate.goog' === hostTop;
+	return "translate.goog" === hostTop;
 }
 
 const userNotLoggedInClearInterval = () => {
-    if (loginRefreshInterval === undefined) {
-        return;
-    }
+	if (loginRefreshInterval === undefined) {
+		return;
+	}
 
-    clearInterval(loginRefreshInterval);
+	clearInterval(loginRefreshInterval);
 };
 
 const startLoginStatusRefresh = () => {
-    const refresh = async () => {
-        try {
-            const response = await fetch('/wp-json/wp/v2/users/me', {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'X-WP-Nonce': wpApiSettings?.nonce
-                }
-            });
+	const refresh = async () => {
+		try {
+			const response = await fetch("/wp-json/wp/v2/users/me", {
+				method: "GET",
+				credentials: "include",
+				headers: {
+					"X-WP-Nonce": wpApiSettings?.nonce,
+				},
+			});
 
-            if (response.ok) {
-                isUserLoggedIn = true;
-            } else {
-                isUserLoggedIn = false;
-                userNotLoggedInClearInterval();
-            }
-        } catch (error) {
-            isUserLoggedIn = false;
-            userNotLoggedInClearInterval();
-        }
-    };
+			if (response.ok) {
+				isUserLoggedIn = true;
+			} else {
+				isUserLoggedIn = false;
+				userNotLoggedInClearInterval();
+			}
+		} catch (error) {
+			isUserLoggedIn = false;
+			userNotLoggedInClearInterval();
+		}
+	};
 
-    refresh();
+	refresh();
 
-    loginRefreshInterval = window.setInterval(refresh, LOGIN_CACHE_DURATION);
+	loginRefreshInterval = window.setInterval(refresh, LOGIN_CACHE_DURATION);
 };
 
 const init = async () => {
+	/*
+	 * Hide language menu if the site is loaded with translate.goog as top level domain
+	 * to prevent google translate from opening multiple sites within.
+	 */
 
-    /* 
-    * Hide language menu if the site is loaded with translate.goog as top level domain 
-    * to prevent google translate from opening multiple sites within.
-    */
+	// Check if user is logged in, in the background
+	startLoginStatusRefresh();
 
-    // Check if user is logged in, in the background
-    startLoginStatusRefresh();
+	if (isCurrentlyBeingTranslated()) {
+		const languageMenu = document.getElementsByClassName("site-language-menu");
+		if (languageMenu.length > 0) {
+			[...languageMenu].forEach((element) => {
+				element.remove();
+			});
+		}
+	}
 
-    if (isCurrentlyBeingTranslated()) {
-        const languageMenu = document.getElementsByClassName('site-language-menu');
-        if (languageMenu.length > 0) {
-            [...languageMenu].forEach(element => {
-                element.remove();
-            });
-        }
-    }
+	const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
+	placeholderMarkup = await getPlaceholderMarkup();
 
-    const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
-    placeholderMarkup = await getPlaceholderMarkup();
+	if (toggleButtons && toggleButtons.length > 0) {
+		toggleButtons.forEach(subscribeOnClick);
+	}
+};
 
-    if (toggleButtons && toggleButtons.length > 0) {
-        toggleButtons.forEach(subscribeOnClick);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    init();
+document.addEventListener("DOMContentLoaded", () => {
+	init();
 });
