@@ -136,7 +136,7 @@ class AbstractController
                 }
 
                 if (!empty($post->originalBlogId)) {
-                    $this->getWpService()->switchToBlog($post->originalBlogId);
+                    $this->getWpService()->switchToBlog((int) $post->originalBlogId);
                 }
 
                 if (
@@ -325,9 +325,9 @@ class AbstractController
      *
      * @return string
      */
-    private function sanitizeExcerpt(string $excerpt)
+    private function sanitizeExcerpt(string|null $excerpt)
     {
-        $excerpt = strip_tags($excerpt);
+        $excerpt = strip_tags($excerpt ?? "");
         $excerpt = preg_replace("/[\r\n]+/", "\n", $excerpt);
         $excerpt = trim($excerpt);
         $excerpt = nl2br($excerpt);
