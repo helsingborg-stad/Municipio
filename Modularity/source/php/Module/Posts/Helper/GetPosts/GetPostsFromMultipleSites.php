@@ -206,7 +206,7 @@ class GetPostsFromMultipleSites implements GetPostsInterface
         $dbResults = array_filter($dbResults, static fn($item) => !empty($item->post_id));
 
         $posts = array_map(function ($item) use ($postStatuses, $currentBlogId) {
-            $post = $this->wpService->getBlogPost((int) $item->blog_id, $item->post_id);
+            $post = $this->wpService->getBlogPost((int) $item->blog_id, (int) $item->post_id);
             if (!$post || !in_array($post->post_status, $postStatuses, true)) {
                 return null;
             }
