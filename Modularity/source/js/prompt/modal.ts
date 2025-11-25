@@ -1,4 +1,8 @@
-declare const modularityAdminLanguage: {
+declare const modularityLang: {
+	close: string;
+};
+
+declare const modularityFrontLanguage: {
 	close: string;
 };
 
@@ -17,7 +21,7 @@ class Modal {
 	private createModalContent(url: string) {
 		return `
             <div class="modularity-modal-wrapper">
-                <button class="modularity-modal-close" data-modularity-modal-action="close">&times; ${modularityAdminLanguage.close}</button>
+                <button class="modularity-modal-close" data-modularity-modal-action="close">&times; ${modularityLang?.close ?? modularityFrontLanguage?.close ?? "Close"}</button>
                 <div class="modularity-modal-spinner-container" id="modularity-iframe-loader"><span class="modularity-modal-spinner"></span></div>
                 <iframe class="modularity-modal-iframe" src="${url}" frameborder="0" allowtransparency></iframe>
             </div>

@@ -12,6 +12,7 @@ class App
     public static $display = null;
     public static $moduleManager = null;
     public $editor = null;
+    private $modularityLangKey = 'modularityLang';
 
     public function __construct(
         private EnqueueManager $wpEnqueue,
@@ -195,19 +196,7 @@ class App
             ->add('js/modularity.js', [], null, true)
             ->add('js/user-editable-list.js')
             ->with()
-            ->translation('modularityFrontLanguage', [
-                'langvisibility' => __('Toggle visibility', 'municipio'),
-                'langedit' => __('Edit', 'municipio'),
-                'langimport' => __('Import', 'municipio'),
-                'langremove' => __('Remove', 'municipio'),
-                'langhide' => __('Hide module', 'municipio'),
-                'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
-                'isSaving' => __('Saving…', 'municipio'),
-                'close' => __('Close', 'municipio'),
-                'width' => __('Width', 'municipio'),
-                'widthOptions' => $this->editor->getWidthOptions(),
-                'deprecated' => __('Deprecated', 'municipio'),
-            ]);
+            ->translation($this->modularityLangKey, $this->getModularityTranslations());
 
         if (!current_user_can('edit_posts')) {
             return;
@@ -251,19 +240,7 @@ class App
             ->add('css/modularity.css')
             ->add('js/modularity.js', ['wp-api'], null, true)
             ->with()
-            ->translation('modularityAdminLanguage', [
-                'langvisibility' => __('Toggle visibility', 'municipio'),
-                'langedit' => __('Edit', 'municipio'),
-                'langimport' => __('Import', 'municipio'),
-                'langremove' => __('Remove', 'municipio'),
-                'langhide' => __('Hide module', 'municipio'),
-                'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
-                'isSaving' => __('Saving…', 'municipio'),
-                'close' => __('Close', 'municipio'),
-                'width' => __('Width', 'municipio'),
-                'widthOptions' => $this->editor->getWidthOptions(),
-                'deprecated' => __('Deprecated', 'municipio'),
-            ])
+            ->translation($this->modularityLangKey, $this->getModularityTranslations())
             ->add('js/dynamic-map-acf.js', ['jquery'])
             ->add('js/modularity-text-module.js');
 
@@ -312,6 +289,23 @@ class App
                 10,
             );
         }
+    }
+
+    private function getModularityTranslations(): array
+    {
+        return [
+            'langvisibility' => __('Toggle visibility', 'municipio'),
+            'langedit' => __('Edit', 'municipio'),
+            'langimport' => __('Import', 'municipio'),
+            'langremove' => __('Remove', 'municipio'),
+            'langhide' => __('Hide module', 'municipio'),
+            'actionRemove' => __('Are you sure you want to remove this module?', 'municipio'),
+            'isSaving' => __('Saving…', 'municipio'),
+            'close' => __('Close', 'municipio'),
+            'width' => __('Width', 'municipio'),
+            'widthOptions' => $this->editor->getWidthOptions(),
+            'deprecated' => __('Deprecated', 'municipio'),
+        ];
     }
 
     /**
