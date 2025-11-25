@@ -2,11 +2,13 @@ import { PostsListEditProps } from "../../Edit";
 import { usePostsSettingsPanel } from "./usePostsSettingsPanel";
 import { PostTypeSelectControl } from "./PostTypeSelectControl/PostTypeSelectControl";
 import { TermSelectControl } from "./TermSelectControl";
+import { OrderControl } from "./OrderControl/OrderControl";
+import { OrderByControl } from "./OrderByControl/OrderByControl";
 
 const { PanelBody, __experimentalNumberControl } = window.wp.components;
 const { __ } = window.wp.i18n;
 
-export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { postType, postsPerPage, terms }, setAttributes }) => {
+export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { postType, postsPerPage, terms, order, orderBy }, setAttributes }) => {
 
     const { taxonomies } = usePostsSettingsPanel(postType);
     const handleTermsChange = (taxonomy: string, selectedTerms: number[]) => {
@@ -33,6 +35,12 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { 
                 value={postsPerPage || 12}
                 __next40pxDefaultSize
                 onChange={(value) => setAttributes({ postsPerPage: Number(value) })} />
+            <OrderByControl
+                orderBy={orderBy}
+                onChange={(value) => setAttributes({ orderBy: value })} />
+            <OrderControl
+                order={order}
+                onChange={(value) => setAttributes({ order: value })} />
             {taxonomies.map((taxonomy) => (
                 <TermSelectControl
                     label={__(`Terms: ${taxonomy.labels.singular_name}`, 'municipio')}

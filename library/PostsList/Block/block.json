@@ -12,42 +12,17 @@
         "html": false
     },
     "attributes": {
-        "postType": {
-            "type": "string",
-            "default": "post"
-        },
-        "postsPerPage": {
-            "type": "number",
-            "default": 12
-        },
-        "numberOfColumns": {
-            "type": "number",
-            "default": 3
-        },
-        "design": {
-            "type": "string",
-            "default": "card"
-        },
-        "enableFilters": {
-            "type": "boolean",
-            "default": false
-        },
-        "textSearchEnabled": {
-            "type": "boolean",
-            "default": false
-        },
-        "dateFilterEnabled": {
-            "type": "boolean",
-            "default": false
-        },
-        "taxonomiesEnabledForFiltering": {
-            "type": "array",
-            "default": []
-        },
-        "terms": {
-            "type": "array",
-            "default": []
-        }
+        "dateFilterEnabled": { "type": "boolean", "default": false },
+        "design": { "type": "string", "default": "card" },
+        "enableFilters": { "type": "boolean", "default": false },
+        "numberOfColumns": { "type": "number", "default": 3 },
+        "order": { "type": "string", "default": "desc" },
+        "orderBy": { "type": "string", "default": "date" },
+        "postsPerPage": { "type": "number", "default": 12 },
+        "postType": { "type": "string", "default": "post" },
+        "taxonomiesEnabledForFiltering": { "type": "array", "default": [] },
+        "terms": { "type": "array", "default": [] },
+        "textSearchEnabled": { "type": "boolean", "default": false }
     },
     "textdomain": "municipio"
 }

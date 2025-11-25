@@ -18,7 +18,8 @@ declare global {
             coreData: typeof import('@wordpress/core-data'),
             i18n: typeof import('@wordpress/i18n'),
             serverSideRender: React.ComponentType<ServerSideRenderProps>
-        }
+        },
+        React: typeof import('react')
     }
 
     export type TaxonomyFilter = {
@@ -27,14 +28,16 @@ declare global {
     }
 
     export interface PostsListAttributes {
-        postType: string;
-        numberOfColumns: number;
-        design: string;
-        postsPerPage: number;
-        enableFilters: boolean;
-        textSearchEnabled: boolean;
         dateFilterEnabled: boolean;
+        design: string;
+        enableFilters: boolean;
+        numberOfColumns: number;
+        orderBy: string;
+        order: 'asc' | 'desc';
+        postsPerPage: number;
+        postType: string;
         taxonomiesEnabledForFiltering: TaxonomyFilter[];
+        textSearchEnabled: boolean;
         terms: Array<{
             taxonomy: string;
             terms: number[];

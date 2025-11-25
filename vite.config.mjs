@@ -3,6 +3,7 @@ import babel from 'vite-plugin-babel'
 import path from 'path'
 import fs from 'fs'
 import copy from 'rollup-plugin-copy'
+import { useMemo } from 'react'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 const entries = {
@@ -59,14 +60,23 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       lib: false, // Disable lib mode to avoid ES modules
       rollupOptions: {
+        onwarn(warning, warn) {
+          if (["SOURCEMAP_ERROR", "MODULE_LEVEL_DIRECTIVE"].includes(warning.code)) {
+            // Ignore sourcemap errors and module level directive warnings, usually caused by wordpress dependencies
+            return;
+          }
+          warn(warning);
+        },  
         input: entries,
-        external: ['jquery', 'tinymce'],
+        external: ['jquery', 'tinymce', 'react', 'react-dom'],
         output: {
           manualChunks: (id, { getModuleInfo, getModuleIds }) => {
             // Force all modules to be inlined - don't create shared chunks
             return null;
           },
           globals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
             jquery: 'jQuery',
             tinymce: 'tinymce'
           },
@@ -106,7 +116,7 @@ export default defineConfig(({ mode }) => {
               }
             }
             return 'assets/[name].[hash].[ext]'
-          }
+          },
         },
         treeshake: {
           moduleSideEffects: false
