@@ -34,13 +34,13 @@ if (file_exists('package.json') && file_exists('package-lock.json')) {
 // Files and directories not suitable for prod to be removed.
 // /!\ Be careful! This part currently contains paths that are not standard. /!\
 $removables = [
-    '.git',
     '.gitignore',
     '.github',
     '.gitattributes',
     'build.php',
+    'build.js',
     '.npmrc',
-    'composer.json',
+    //'composer.json',
     'composer.lock',
     'env-example',
     'webpack.config.js',
@@ -54,6 +54,7 @@ $removables = [
     'LICENSE',
     'babel.config.js',
     'yarn.lock',
+    '.devcontainer',
     'Modularity/.gitignore',
     'Modularity/webpack.config.js',
     'Modularity/package-lock.json',
