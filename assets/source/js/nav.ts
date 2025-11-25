@@ -2,25 +2,34 @@ import { viewRender } from "./restApi/endpoints/viewRender";
 
 const SELECTOR_TOGGLE_BUTTON = '.js-async-children';
 const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
-let placeholderMarkup:HTMLElement|null = null
+const LOGIN_CACHE_DURATION = 5 * 60 * 1000;
+let placeholderMarkup: HTMLElement | null = null;
+let isUserLoggedIn: boolean | null = null;
+let loginRefreshInterval: number | undefined = undefined;
+
 
 declare const wpApiSettings: {
     nonce: any;
 }
 
-const fetchMarkup = async (url:string) => {
-    const response = await fetch(url , {
+const fetchMarkup = async (url: string) => {
+    let headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+    };
+
+    if (isUserLoggedIn) {
+        headers['credentials'] = 'same-origin';
+        headers['X-WP-Nonce'] = wpApiSettings.nonce;
+    }
+
+    const response = await fetch(url, {
         method: 'GET',
         credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin',
-            'X-WP-Nonce': wpApiSettings.nonce
-        },
+        headers: headers,
     });
-    
+
     const { markup } = await response.json();
-    
+
     return markup;
 }
 
@@ -30,19 +39,19 @@ function stringToHTML(str: string): HTMLElement {
     return htmlDoc.body.firstChild as HTMLElement;
 }
 
-const getPlaceholderMarkup = async ():Promise<HTMLElement|null> => {
-    return viewRender.call({routeParams: 'partials/preloader'})
-    .then(htmlString => {
-        return stringToHTML(htmlString)
-    })
-    .catch(error => {
-        console.error(error.message)
-        return null
-    })
+const getPlaceholderMarkup = async (): Promise<HTMLElement | null> => {
+    return viewRender.call({ routeParams: 'partials/preloader' })
+        .then(htmlString => {
+            return stringToHTML(htmlString)
+        })
+        .catch(error => {
+            console.error(error.message)
+            return null
+        })
 }
 
 const appendPlaceholder = async (placementElement: Element) => {
-    if( placeholderMarkup === null ) return;
+    if (placeholderMarkup === null) return;
     const clone = placeholderMarkup.cloneNode(true) as HTMLElement;
     placementElement.insertAdjacentElement('beforeend', clone);
 }
@@ -50,10 +59,10 @@ const appendPlaceholder = async (placementElement: Element) => {
 const removePlaceholder = (placementElement: Element) => {
     const placeholder = placementElement.querySelector('.preloader')
 
-    if( placeholder === null ) {
+    if (placeholder === null) {
         return
     }
-    
+
     placeholder.remove();
 }
 
@@ -61,34 +70,34 @@ const insertSubMenu = (placementElement: Element, markup: string) => {
     placementElement.insertAdjacentHTML('beforeend', markup);
 }
 
-const subscribeOnClick = (element:Element) => {
+const subscribeOnClick = (element: Element) => {
     const handleClick = () => {
         // Parent of toggle has all states
         const parentElement = element.closest(".js-async-children-data");
 
-        if( parentElement === null ) {
+        if (parentElement === null) {
             return
         }
-        
+
         const parentClassNames = [...parentElement.classList];
-        
+
         // States
         const hasFetched = parentClassNames.includes('has-fetched');
         const isFetching = parentClassNames.includes('is-fetching');
-        
+
         // Bye
         if (isFetching || hasFetched) {
             return;
         }
-        
+
         // Input from attributes
         const fetchUrl = parentElement.getAttribute(ATTRIBUTE_FETCH_URL);
-        
+
         if (!fetchUrl) {
             console.error('Fetch URL is not defined.')
-            return;   
+            return;
         }
-        
+
         const customPlacement = parentElement.querySelector('[data-js-async-children]');
         const placement = customPlacement && customPlacement.parentElement ? customPlacement.parentElement : parentElement;
 
@@ -98,40 +107,40 @@ const subscribeOnClick = (element:Element) => {
         parentElement.classList.add('is-loading');
 
         fetchMarkup(fetchUrl)
-        .then(markup => {
-            // Remove placeholder
-            removePlaceholder(placement);
-            
-            // Render sub-menu
-            insertSubMenu(placement, markup);
+            .then(markup => {
+                // Remove placeholder
+                removePlaceholder(placement);
 
-            // Make sure submenu is rendered before removing it from DOM
-            requestAnimationFrame(() => {
-                customPlacement?.remove();
-            });
+                // Render sub-menu
+                insertSubMenu(placement, markup);
 
-            // Set states
-            parentElement.classList.remove('is-fetching');
-            parentElement.classList.remove('is-loading');
-            parentElement.classList.add('has-fetched');
-            
-            // Subscribe new toggles found in sub-menu recursively
-            const newSubMenu = parentElement.lastElementChild;
-            if (newSubMenu) {
-                const newToggleButtons = newSubMenu.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
-                if (newToggleButtons && newToggleButtons.length > 0) {
-                    newToggleButtons.forEach(subscribeOnClick);
+                // Make sure submenu is rendered before removing it from DOM
+                requestAnimationFrame(() => {
+                    customPlacement?.remove();
+                });
+
+                // Set states
+                parentElement.classList.remove('is-fetching');
+                parentElement.classList.remove('is-loading');
+                parentElement.classList.add('has-fetched');
+
+                // Subscribe new toggles found in sub-menu recursively
+                const newSubMenu = parentElement.lastElementChild;
+                if (newSubMenu) {
+                    const newToggleButtons = newSubMenu.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
+                    if (newToggleButtons && newToggleButtons.length > 0) {
+                        newToggleButtons.forEach(subscribeOnClick);
+                    }
                 }
-            }
-        })
-        .catch(e => {
-            console.error(e);
-            // Reset states
-            parentElement.classList.remove('is-fetching');
-            parentElement.classList.remove('is-loading');
-        });
+            })
+            .catch(e => {
+                console.error(e);
+                // Reset states
+                parentElement.classList.remove('is-fetching');
+                parentElement.classList.remove('is-loading');
+            });
     }
-    
+
     element.addEventListener('click', handleClick);
 }
 
@@ -140,33 +149,72 @@ const subscribeOnClick = (element:Element) => {
 * `false`
 * @returns A boolean value.
 */
-function isCurrentlyBeingTranslated () {
-    
+function isCurrentlyBeingTranslated() {
+
     const hostChunks = window.location.hostname.split('.');
-    const hostTop =  hostChunks[hostChunks.length - 2] + '.' + hostChunks[hostChunks.length - 1];
-    
+    const hostTop = hostChunks[hostChunks.length - 2] + '.' + hostChunks[hostChunks.length - 1];
+
     return 'translate.goog' === hostTop;
 }
 
+const userNotLoggedInClearInterval = () => {
+    if (loginRefreshInterval === undefined) {
+        return;
+    }
+
+    clearInterval(loginRefreshInterval);
+};
+
+const startLoginStatusRefresh = () => {
+    const refresh = async () => {
+        try {
+            const response = await fetch('/wp-json/wp/v2/users/me', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'X-WP-Nonce': wpApiSettings?.nonce
+                }
+            });
+
+            if (response.ok) {
+                isUserLoggedIn = true;
+            } else {
+                isUserLoggedIn = false;
+                userNotLoggedInClearInterval();
+            }
+        } catch (error) {
+            isUserLoggedIn = false;
+            userNotLoggedInClearInterval();
+        }
+    };
+
+    refresh();
+
+    loginRefreshInterval = window.setInterval(refresh, LOGIN_CACHE_DURATION);
+};
+
 const init = async () => {
-    
+
     /* 
     * Hide language menu if the site is loaded with translate.goog as top level domain 
     * to prevent google translate from opening multiple sites within.
-    */ 
-    
-    if(isCurrentlyBeingTranslated()) {
-        const languageMenu = document.getElementsByClassName('site-language-menu'); 
-        if(languageMenu.length > 0) {
+    */
+
+    // Check if user is logged in, in the background
+    startLoginStatusRefresh();
+
+    if (isCurrentlyBeingTranslated()) {
+        const languageMenu = document.getElementsByClassName('site-language-menu');
+        if (languageMenu.length > 0) {
             [...languageMenu].forEach(element => {
                 element.remove();
             });
         }
     }
-    
+
     const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
-    placeholderMarkup = await getPlaceholderMarkup()
-    
+    placeholderMarkup = await getPlaceholderMarkup();
+
     if (toggleButtons && toggleButtons.length > 0) {
         toggleButtons.forEach(subscribeOnClick);
     }
