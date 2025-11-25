@@ -7,6 +7,7 @@ namespace Modularity\Module\Posts\TemplateController;
 use Modularity\Helper\WpService as WpServiceHelper;
 use Modularity\Module\Posts\Helper\Column as ColumnHelper;
 use Modularity\Module\Posts\Helper\DomainChecker;
+use Municipio\PostObject\PostObjectInterface;
 use WP_Post;
 use WpService\WpService;
 
@@ -67,6 +68,7 @@ class AbstractController
         $stickyPosts = $this->addStickyPostsData($stickyPosts);
         $stickyPosts = $this->addPostData($stickyPosts);
         $posts = $this->addPostData($module->data['posts']);
+
         $posts = array_merge($stickyPosts, $posts);
 
         return $posts;
@@ -116,20 +118,6 @@ class AbstractController
                 $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null)
                     ? $this->fields['taxonomy_display']
                     : [];
-                $helperClass = '\Municipio\Helper\Post';
-                $helperMethod = 'preparePostObject';
-                $helperArchiveMethod = 'preparePostObjectArchive';
-
-                if (
-                    !class_exists($helperClass)
-                    || !method_exists($helperClass, $helperMethod)
-                    || !method_exists($helperClass, $helperArchiveMethod)
-                ) {
-                    error_log(
-                        "Class or method does not exist: {$helperClass}::{$helperMethod} or {$helperClass}::{$helperArchiveMethod}",
-                    );
-                    return $post;
-                }
 
                 if ($shouldAddBlogNameToPost) {
                     $post = $this->addBlogNameToPost($post);
@@ -139,14 +127,7 @@ class AbstractController
                     $this->getWpService()->switchToBlog((int) $post->originalBlogId);
                 }
 
-                if (
-                    isset($this->fields['posts_display_as'])
-                    && in_array($this->fields['posts_display_as'], ['expandable-list'])
-                ) {
-                    $post = call_user_func([$helperClass, $helperMethod], $post);
-                } else {
-                    $post = call_user_func([$helperClass, $helperArchiveMethod], $post, $data);
-                }
+                $post = \Municipio\Helper\Post::convertWpPostToPostObject($post);
 
                 if (!empty($post->originalBlogId)) {
                     $this->getWpService()->restoreCurrentBlog();
@@ -163,7 +144,7 @@ class AbstractController
                 $post = $this->setPostViewData($post, $index);
                 $post->classList ??= [];
                 $post = $this->addHighlightData($post, $index);
-
+                
                 // Apply $this->getDefaultValuesForPosts() to the post object without turning it into an array
                 foreach ($this->getDefaultValuesForPosts() as $key => $value) {
                     if (isset($post->$key)) {
@@ -253,7 +234,6 @@ class AbstractController
     {
         return [
             'postTitle' => false,
-            'excerptShort' => false,
             'termsUnlinked' => false,
             'postDateFormatted' => false,
             'images' => false,
@@ -280,11 +260,8 @@ class AbstractController
      *
      * @return object
      */
-    private function setPostViewData(object $post, $index = false)
+    private function setPostViewData(PostObjectInterface $post, $index = false)
     {
-        $post->excerptShort = in_array('excerpt', $this->data['posts_fields'] ?? [])
-            ? $this->sanitizeExcerpt($this->data['posts_display_as'] === 'news' ? $post->excerpt : $post->excerptShort)
-            : false;
         $post->postTitle = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
         $post->image = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
         $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && empty($post->image)
@@ -316,23 +293,6 @@ class AbstractController
     public function postUsesSchemaTypeEvent(object $post): bool
     {
         return $post->getSchemaProperty('@type') === 'Event';
-    }
-
-    /**
-     * Sanitize excerpt by stripping tags, normalizing whitespace, trimming, and converting newlines to <br>.
-     *
-     * @param string $excerpt
-     *
-     * @return string
-     */
-    private function sanitizeExcerpt(string|null $excerpt)
-    {
-        $excerpt = strip_tags($excerpt ?? "");
-        $excerpt = preg_replace("/[\r\n]+/", "\n", $excerpt);
-        $excerpt = trim($excerpt);
-        $excerpt = nl2br($excerpt);
-
-        return $excerpt;
     }
 
     /**
