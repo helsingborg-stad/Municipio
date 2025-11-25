@@ -3,14 +3,24 @@ import { PostsListEditProps } from "../../Edit";
 const { PanelBody, SelectControl } = window.wp.components;
 const { __ } = window.wp.i18n;
 
+enum DesignOptions {
+    Card = 'card',
+    Compressed = 'compressed',
+    Collection = 'collection',
+    Block = 'block',
+    Newsitem = 'newsitem',
+    Schema = 'schema',
+    Table = 'table'
+}
+
 const designOptions = [
-    { label: __('Card', 'municipio'), value: 'card' },
-    { label: __('Compressed', 'municipio'), value: 'compressed' },
-    { label: __('Collection', 'municipio'), value: 'collection' },
-    { label: __('Block', 'municipio'), value: 'block' },
-    { label: __('Newsitem', 'municipio'), value: 'newsitem' },
-    { label: __('Schema', 'municipio'), value: 'schema' },
-    { label: __('Table', 'municipio'), value: 'table' },
+    { label: __('Card', 'municipio'), value: DesignOptions.Card },
+    { label: __('Compressed', 'municipio'), value: DesignOptions.Compressed },
+    { label: __('Collection', 'municipio'), value: DesignOptions.Collection },
+    { label: __('Block', 'municipio'), value: DesignOptions.Block },
+    { label: __('Newsitem', 'municipio'), value: DesignOptions.Newsitem },
+    { label: __('Schema', 'municipio'), value: DesignOptions.Schema },
+    { label: __('Table', 'municipio'), value: DesignOptions.Table },
 ];
 
 const numberOfColumnsOptions = [
@@ -22,16 +32,10 @@ const numberOfColumnsOptions = [
 
 export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { numberOfColumns, design }, setAttributes }) => {
 
+    const allowSelectColumns = design !== DesignOptions.Table;
+
     return (
         <PanelBody title={__('Appearance settings', 'municipio')}>
-            <SelectControl
-                label={__('Number of columns', 'municipio')}
-                options={numberOfColumnsOptions}
-                value={String(numberOfColumns || 3)}
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-                onChange={(value) => setAttributes({ numberOfColumns: Number(value) })}
-            />
             <SelectControl
                 label={__('Design', 'municipio')}
                 options={designOptions}
@@ -39,6 +43,15 @@ export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({ attribut
                 __next40pxDefaultSize
                 __nextHasNoMarginBottom
                 onChange={(value) => setAttributes({ design: value })}
+            />
+            <SelectControl
+                disabled={!allowSelectColumns}
+                label={__('Number of columns', 'municipio')}
+                options={numberOfColumnsOptions}
+                value={String(numberOfColumns || 3)}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+                onChange={(value) => setAttributes({ numberOfColumns: Number(value) })}
             />
         </PanelBody>
     );
