@@ -30,7 +30,6 @@ if (!parent.Modularity) {
 	Modularity.Helpers.Widget = new Widget(Modularity);
 
 	Modularity.Prompt = Modularity.Prompt || {};
-	console.log("RUNNING MODAL");
 
 	Modularity.Prompt.Modal = new Modal(Modularity);
 
