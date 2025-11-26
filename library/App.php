@@ -53,6 +53,7 @@ class App
         private SchemaDataConfigInterface $schemaDataConfig,
         private wpdb $wpdb,
         private WpUtilService $wpUtilService,
+        private User $userHelper
     ) {
         /**
          * Run generic custom actions
@@ -70,20 +71,6 @@ class App
         $menuDirector = new MenuDirector();
         $menuBuilder = new MenuBuilder(new MenuConfig(), $this->acfService, $this->wpService);
 
-        /*
-         * Helpers
-         */
-        $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
-        $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper = new \Municipio\Helper\User\User(
-            $this->wpService,
-            $this->acfService,
-            $userHelperConfig,
-            $userGroupConfig,
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
-        );
-
         /**
          * User group
          */
@@ -91,7 +78,7 @@ class App
 
         $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction(
             $this->wpService,
-            $userHelper,
+            $this->userHelper,
             $userGroupRestrictionConfig,
         );
 
@@ -120,7 +107,7 @@ class App
                     new SchemaPropertyValueSanitizer(),
                 ))->create(),
             ),
-            $userHelper,
+            $this->userHelper,
             $this->schemaDataConfig,
         );
 
@@ -223,7 +210,7 @@ class App
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
-        new \Municipio\Admin\Roles\Editor($userHelper);
+        new \Municipio\Admin\Roles\Editor($this->userHelper);
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
@@ -538,15 +525,6 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User(
-            $this->wpService,
-            $this->acfService,
-            new UserConfig(),
-            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
-        );
-
         $setDefaultRoleIfNoneDefined = new \Municipio\Admin\Login\SetDefaultRoleIfNone(
             $this->wpService,
             new UserConfig(),
@@ -559,7 +537,7 @@ class App
         $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices(
             $this->wpService,
             $this->acfService,
-            $userHelper,
+            $this->userHelper,
             new UserConfig(),
         );
         $addLoginAndLogoutNotices->addHooks();
@@ -584,7 +562,7 @@ class App
 
         $redirectUserToGroupUrlIfIsPrefered = new \Municipio\Admin\Login\RedirectUserToGroupUrlIfIsPreferred(
             $this->wpService,
-            $userHelper,
+            $this->userHelper,
         );
         $redirectUserToGroupUrlIfIsPrefered->addHooks();
     }
@@ -604,15 +582,6 @@ class App
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
         $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService);
-
-        $userHelper = new \Municipio\Helper\User\User(
-            $this->wpService,
-            $this->acfService,
-            $userHelperConfig,
-            $config,
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            $siteSwitcher,
-        );
 
         $getUserGroupTerms = new \Municipio\Helper\User\GetUserGroupTerms(
             $this->wpService,
@@ -651,12 +620,12 @@ class App
         // Restrict private posts to user group
         (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup(
             $this->wpService,
-            $userHelper,
+            $this->userHelper,
             $userGroupRestrictionConfig,
         ))->addHooks();
 
         // Redirect to user group url after SSO login if using MiniOrange plugin for SSO login
-        (new \Municipio\UserGroup\RedirectToUserGroupUrlAfterSsoLogin($userHelper, $this->wpService))->addHooks();
+        (new \Municipio\UserGroup\RedirectToUserGroupUrlAfterSsoLogin($this->userHelper, $this->wpService))->addHooks();
     }
 
     /**
@@ -668,15 +637,6 @@ class App
      */
     private function setUpMiniOrangeIntegration(): void
     {
-        $userHelper = new \Municipio\Helper\User\User(
-            $this->wpService,
-            $this->acfService,
-            new \Municipio\Helper\User\Config\UserConfig(),
-            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
-        );
-
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
 
@@ -709,7 +669,7 @@ class App
         // Set group as taxonomy
         $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetUserGroupFromSsoLoginGroup(
             $this->wpService,
-            $userHelper,
+            $this->userHelper,
         );
         $setGroupAsTaxonomy->addHooks();
     }
@@ -729,17 +689,9 @@ class App
             return;
         }
 
-        $userHelper = new \Municipio\Helper\User\User(
-            $this->wpService,
-            $this->acfService,
-            new \Municipio\Helper\User\Config\UserConfig(),
-            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
-        );
         $setGroupAsTaxonomy = new \Municipio\Integrations\ActiveDirectoryApiWpIntegration\SetUserGroupFromCompany(
             $this->wpService,
-            $userHelper,
+            $this->userHelper,
         );
         $setGroupAsTaxonomy->addHooks();
     }
