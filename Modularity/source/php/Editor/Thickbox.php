@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Modularity\Editor;
 
+use WpUtilService\Features\Enqueue\EnqueueManager;
+
 class Thickbox
 {
-    public function __construct()
-    {
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         if (\Modularity\Helper\Wp::isThickBox()) {
             $this->init();
         }
@@ -80,21 +83,8 @@ class Thickbox
      */
     public function enqueue()
     {
-        // Script
-        wp_register_script(
-            'modularity-thickbox',
-            MODULARITY_URL . 'assets/dist/' . \Modularity\Helper\CacheBust::name('js/modularity-editor-modal.js'),
-            [],
-            '1.0.0',
-            true,
+        $this->wpEnqueue->add('js/modularity-editor-modal.js', [], '1.0.0', true)->add(
+            'css/modularity-thickbox-edit.css',
         );
-        wp_enqueue_script('modularity-thickbox');
-
-        // Style
-        wp_register_style(
-            'modularity-thickbox',
-            MODULARITY_URL . 'assets/dist/' . \Modularity\Helper\CacheBust::name('css/modularity-thickbox-edit.css'),
-        );
-        wp_enqueue_style('modularity-thickbox');
     }
 }
