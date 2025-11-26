@@ -52,13 +52,6 @@ jobs:
       - name: Run PHP build script
         run: php build.php --no-composer --cleanup --release
 
-      # --- Reset branch BEFORE overwriting .gitignore ---
-      - name: Reset release branch
-        run: |
-          git config user.name "CI Release Bot"
-          git config user.email "ci@helsingborg.se"
-          git checkout -B release
-
       - name: Overwrite .gitignore for release branch
         run: |
           printf "/*\n!.gitignore\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
@@ -66,6 +59,9 @@ jobs:
       # --- Release Branch Commit ---
       - name: Commit and push release branch
         run: |
+          git config user.name "CI Release Bot"
+          git config user.email "ci@helsingborg.se"
+          git checkout -B release
           git add -A
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
           git push origin release --force
