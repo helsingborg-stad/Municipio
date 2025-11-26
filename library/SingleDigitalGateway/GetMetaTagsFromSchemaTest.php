@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SingleDigitalGateway;
 
 use Municipio\Schema\Schema;
@@ -20,10 +22,10 @@ class GetMetaTagsFromSchemaTest extends TestCase
         $getMetaTags = new GetMetaTagsFromSchema($schema);
         $metaTags = $getMetaTags->getMetaTags();
 
-        $this->assertEquals('<meta name="policy-code" content="12345">', (string) $metaTags[0]);
-        $this->assertEquals('<meta name="DC.Service" content="information;procedure">', (string) $metaTags[1]);
-        $this->assertEquals('<meta name="DC.Policy" content="Sample Policy">', (string) $metaTags[2]);
-        $this->assertEquals('<meta name="DC.Location" content="Sample Location">', (string) $metaTags[3]);
+        static::assertSame('<meta name="policy-code" content="12345">', (string) $metaTags[0]);
+        static::assertSame('<meta name="DC.Service" content="information;procedure">', (string) $metaTags[1]);
+        static::assertSame('<meta name="DC.Policy" content="Sample Policy">', (string) $metaTags[2]);
+        static::assertSame('<meta name="DC.Location" content="Sample Location">', (string) $metaTags[3]);
     }
 
     #[TestDox('handles service as string')]
@@ -34,7 +36,7 @@ class GetMetaTagsFromSchemaTest extends TestCase
         $getMetaTags = new GetMetaTagsFromSchema($schema);
         $metaTags = $getMetaTags->getMetaTags();
 
-        $this->assertEquals('<meta name="DC.Service" content="information">', (string) $metaTags[0]);
+        static::assertSame('<meta name="DC.Service" content="information">', (string) $metaTags[0]);
     }
 
     #[TestDox('returns static meta tags when other properties are present')]
@@ -45,8 +47,8 @@ class GetMetaTagsFromSchemaTest extends TestCase
         $getMetaTags = new GetMetaTagsFromSchema($schema);
         $metaTags = $getMetaTags->getMetaTags();
 
-        $this->assertEquals('<meta name="sdg-tag" content="sdg">', (string) $metaTags[1]);
-        $this->assertEquals('<meta name="DC.ISO3166" content="SE">', (string) $metaTags[2]);
-        $this->assertEquals('<meta name="DC.Language" content="en">', (string) $metaTags[3]);
+        static::assertSame('<meta name="sdg-tag" content="sdg">', (string) $metaTags[1]);
+        static::assertSame('<meta name="DC.ISO3166" content="SE">', (string) $metaTags[2]);
+        static::assertSame('<meta name="DC.Language" content="en">', (string) $metaTags[3]);
     }
 }

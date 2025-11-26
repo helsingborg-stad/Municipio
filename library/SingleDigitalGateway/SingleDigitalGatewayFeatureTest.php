@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SingleDigitalGateway;
 
 use Municipio\Schema\Schema;
@@ -34,8 +36,8 @@ class SingleDigitalGatewayFeatureTest extends TestCase
         $feature = new SingleDigitalGatewayFeature($wpService);
         $feature->enable();
 
-        $this->assertCount(1, $wpService->addedActions);
-        $this->assertEquals(
+        static::assertCount(1, $wpService->addedActions);
+        static::assertSame(
             'Municipio\SchemaData\OutputPostSchemaJsonInSingleHead\Print',
             $wpService->addedActions[0]['hookName'],
         );
@@ -51,6 +53,6 @@ class SingleDigitalGatewayFeatureTest extends TestCase
         $feature->printMetaTags(Schema::singleDigitalGateway()->policyCode('Policy123'));
         $output = ob_get_clean();
 
-        $this->assertStringContainsString('<meta', $output);
+        static::assertStringContainsString('<meta', $output);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SingleDigitalGateway;
 
 use Municipio\Schema\SingleDigitalGateway;
@@ -23,7 +25,7 @@ class GetMetaTagsFromSchema
         $this->addPolicy($metaTags);
         $this->addLocation($metaTags);
 
-        if (!empty($metaTags)) {
+        if (count($metaTags) > 0) {
             $this->addStaticMetaTags($metaTags);
         }
 
@@ -44,7 +46,8 @@ class GetMetaTagsFromSchema
         if ($service) {
             if (is_string($service)) {
                 $metaTags[] = new MetaTag('DC.Service', $service);
-            } elseif (is_array($service)) {
+            }
+            if (is_array($service)) {
                 $metaTags[] = new MetaTag('DC.Service', implode(';', $service));
             }
         }

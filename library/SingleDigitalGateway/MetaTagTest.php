@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SingleDigitalGateway;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -11,6 +13,6 @@ class MetaTagTest extends TestCase
     public function testToString(): void
     {
         $metaTag = new MetaTag('DC.Title', 'Sample Title');
-        $this->assertEquals('<meta name="DC.Title" content="Sample Title">', $metaTag->__toString());
+        static::assertSame('<meta name="DC.Title" content="Sample Title">', $metaTag->__toString());
     }
 }

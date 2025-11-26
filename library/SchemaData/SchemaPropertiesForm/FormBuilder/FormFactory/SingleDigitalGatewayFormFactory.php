@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory;
 
 use Municipio\Schema\BaseType;
