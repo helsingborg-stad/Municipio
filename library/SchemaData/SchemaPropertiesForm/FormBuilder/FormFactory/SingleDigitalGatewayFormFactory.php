@@ -8,6 +8,7 @@ use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\MultiSelectField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\StringField;
 use WpService\Contracts\__;
+use WpService\Contracts\_x;
 
 /**
  * Class SingleDigitalGatewayFormFactory
@@ -19,10 +20,10 @@ class SingleDigitalGatewayFormFactory implements FormFactoryInterface
     /**
      * Constructor.
      *
-     * @param __ $wpService The WordPress service instance.
+     * @param __&_x $wpService The WordPress service instance.
      */
     public function __construct(
-        private __ $wpService,
+        private __&_x $wpService,
     ) {}
 
     /**
@@ -33,10 +34,11 @@ class SingleDigitalGatewayFormFactory implements FormFactoryInterface
         return [
             new StringField(
                 'policyCode',
-                $this->wpService->__('Policy Code', 'municipio'),
+                $this->wpService->_x('Policy Code', 'SingleDigitalGateway', 'municipio'),
                 $schema->getProperty('policyCode'),
-                $this->wpService->__(
+                $this->wpService->_x(
                     'The policy code(s) that applies to the service provided on the page.',
+                    'SingleDigitalGateway',
                     'municipio',
                 ),
             ),
@@ -45,25 +47,34 @@ class SingleDigitalGatewayFormFactory implements FormFactoryInterface
                 $this->wpService->__('Service', 'municipio'),
                 $schema->getProperty('service'),
                 [
-                    'information' => $this->wpService->__('Information', 'municipio'),
-                    'procedure' => $this->wpService->__('Procedure', 'municipio'),
+                    'information' => $this->wpService->_x('Information', 'SingleDigitalGateway', 'municipio'),
+                    'procedure' => $this->wpService->_x('Procedure', 'SingleDigitalGateway', 'municipio'),
                 ],
-                $this->wpService->__(
+                $this->wpService->_x(
                     'The type of service or services covered by the page: information, procedure, or support and problem-solving service.',
+                    'SingleDigitalGateway',
                     'municipio',
                 ),
             ),
             new StringField(
                 'policy',
-                $this->wpService->__('Policy', 'municipio'),
+                $this->wpService->_x('Policy', 'SingleDigitalGateway', 'municipio'),
                 $schema->getProperty('policy'),
-                $this->wpService->__('The policy that is applied to the service provided on the page.', 'municipio'),
+                $this->wpService->_x(
+                    'The policy that is applied to the service provided on the page.',
+                    'SingleDigitalGateway',
+                    'municipio',
+                ),
             ),
             new StringField(
                 'location',
-                $this->wpService->__('Location', 'municipio'),
+                $this->wpService->_x('Location', 'SingleDigitalGateway', 'municipio'),
                 $schema->getProperty('location'),
-                $this->wpService->__('The location where the service is provided.', 'municipio'),
+                $this->wpService->_x(
+                    'The location where the service is provided.',
+                    'SingleDigitalGateway',
+                    'municipio',
+                ),
             ),
         ];
     }
