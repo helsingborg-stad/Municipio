@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20d7555cb6a8314de88845aa249adecd",
+    "content-hash": "773b2d357dfa562256d4d53e071a86cd",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -984,16 +984,16 @@
         },
         {
             "name": "helsingborg-stad/schema-library",
-            "version": "0.5.3",
+            "version": "0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/schema-library.git",
-                "reference": "50e34cec5aa6aa692d13c080604103397963bf0f"
+                "reference": "da022bfaad0cebcef10a4b9066630a7d5f435299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/50e34cec5aa6aa692d13c080604103397963bf0f",
-                "reference": "50e34cec5aa6aa692d13c080604103397963bf0f",
+                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/da022bfaad0cebcef10a4b9066630a7d5f435299",
+                "reference": "da022bfaad0cebcef10a4b9066630a7d5f435299",
                 "shasum": ""
             },
             "require-dev": {
@@ -1015,9 +1015,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/schema-library/issues",
-                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.3"
+                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.4"
             },
-            "time": "2025-11-04T09:44:10+00:00"
+            "time": "2025-11-25T10:57:36+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3543,16 +3543,16 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.0.0-rc.4",
+            "version": "1.0.0-rc.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "9ac0bf05a6b063a47f131c1ebf11251f592550e5"
+                "reference": "09b1f6e4a040ff7d6d6122da1d0690a412a14670"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/9ac0bf05a6b063a47f131c1ebf11251f592550e5",
-                "reference": "9ac0bf05a6b063a47f131c1ebf11251f592550e5",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/09b1f6e4a040ff7d6d6122da1d0690a412a14670",
+                "reference": "09b1f6e4a040ff7d6d6122da1d0690a412a14670",
                 "shasum": ""
             },
             "require": {
@@ -3590,7 +3590,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.0.0-rc.4"
+                "source": "https://github.com/carthage-software/mago/tree/1.0.0-rc.5"
             },
             "funding": [
                 {
@@ -3598,7 +3598,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-24T00:42:49+00:00"
+            "time": "2025-11-25T02:04:59+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -6792,16 +6792,16 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-                "reference": "d2421de7cec3274ae622c22c744de9a62c7925af"
+                "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/d2421de7cec3274ae622c22c744de9a62c7925af",
-                "reference": "d2421de7cec3274ae622c22c744de9a62c7925af",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
+                "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
                 "shasum": ""
             },
             "require": {
@@ -6809,17 +6809,17 @@
                 "ext-libxml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlreader": "*",
-                "php": ">=5.4",
-                "phpcsstandards/phpcsextra": "^1.4.0",
+                "php": ">=7.2",
+                "phpcsstandards/phpcsextra": "^1.5.0",
                 "phpcsstandards/phpcsutils": "^1.1.0",
-                "squizlabs/php_codesniffer": "^3.13.0"
+                "squizlabs/php_codesniffer": "^3.13.4"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^1.0.0",
                 "php-parallel-lint/php-parallel-lint": "^1.4.0",
-                "phpcompatibility/php-compatibility": "^9.0",
+                "phpcompatibility/php-compatibility": "^10.0.0@dev",
                 "phpcsstandards/phpcsdevtools": "^1.2.0",
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "suggest": {
                 "ext-iconv": "For improved results",
@@ -6854,7 +6854,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-07-24T20:08:31+00:00"
+            "time": "2025-11-25T12:08:04+00:00"
         }
     ],
     "aliases": [],
@@ -6875,5 +6875,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
