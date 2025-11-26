@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use WpUtilService\Features\Enqueue\EnqueueManager;
+
 class Editor extends \Modularity\Options
 {
     public const EDITOR_PAGE_LOADING_KEY = 'modularity-option-page-loading';
@@ -11,12 +13,13 @@ class Editor extends \Modularity\Options
     public static $isEditing = null;
     public static $moduleManager = null;
 
-    public function __construct()
-    {
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         global $post;
 
         // Prepare Thickbox
-        new \Modularity\Editor\Thickbox();
+        new \Modularity\Editor\Thickbox($this->wpEnqueue);
 
         $this->adminBar();
 
