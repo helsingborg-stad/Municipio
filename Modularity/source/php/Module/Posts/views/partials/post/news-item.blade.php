@@ -1,13 +1,13 @@
 @newsItem([
-    'heading'             => $post->postTitle,
+    'heading'             => $post->getTitle(),
     'content'             => $post->excerptShort,
-    'image'               => $post->image,
+    'image'               => $post->getImage(),
     'date'                => $showDate ? [
         'timestamp' => $post->getArchiveDateTimestamp(),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'readTime'            => $post->readingTime,
-    'link'                => $post->permalink,
+    'link'                => $post->getPermalink(),
     'context'             => ['module.posts.news-item'],
     'hasPlaceholderImage' => $standing ? false : $post->hasPlaceholderImage,
     'classList' => $post->classList ?? [],
@@ -35,6 +35,6 @@
     @endslot
 
     @slot('headerRightArea')
-        @includeWhen($post->commentCount !== false, 'partials.comment-count')
+        @includeWhen($post->getCommentCount() > 0, 'partials.comment-count')
     @endslot
 @endnewsItem
