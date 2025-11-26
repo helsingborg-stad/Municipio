@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af3d5ad4a6a7677f863876d6e0956fe6",
+    "content-hash": "6e9bd027d000cb4b852e826a8cdaea7c",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -984,16 +984,16 @@
         },
         {
             "name": "helsingborg-stad/schema-library",
-            "version": "0.5.3",
+            "version": "0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/schema-library.git",
-                "reference": "50e34cec5aa6aa692d13c080604103397963bf0f"
+                "reference": "da022bfaad0cebcef10a4b9066630a7d5f435299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/50e34cec5aa6aa692d13c080604103397963bf0f",
-                "reference": "50e34cec5aa6aa692d13c080604103397963bf0f",
+                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/da022bfaad0cebcef10a4b9066630a7d5f435299",
+                "reference": "da022bfaad0cebcef10a4b9066630a7d5f435299",
                 "shasum": ""
             },
             "require-dev": {
@@ -1015,9 +1015,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/schema-library/issues",
-                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.3"
+                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.4"
             },
-            "time": "2025-11-04T09:44:10+00:00"
+            "time": "2025-11-25T10:57:36+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -6875,5 +6875,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
