@@ -33,6 +33,10 @@ class SingleDigitalGatewayFormFactory implements FormFactoryInterface
                 'policyCode',
                 $this->wpService->__('Policy Code', 'municipio'),
                 $schema->getProperty('policyCode'),
+                $this->wpService->__(
+                    'The policy code(s) that applies to the service provided on the page.',
+                    'municipio',
+                ),
             ),
             new MultiSelectField(
                 'service',
@@ -42,12 +46,22 @@ class SingleDigitalGatewayFormFactory implements FormFactoryInterface
                     'information' => $this->wpService->__('Information', 'municipio'),
                     'procedure' => $this->wpService->__('Procedure', 'municipio'),
                 ],
+                $this->wpService->__(
+                    'The type of service or services covered by the page: information, procedure, or support and problem-solving service.',
+                    'municipio',
+                ),
             ),
-            new StringField('policy', $this->wpService->__('Policy', 'municipio'), $schema->getProperty('policy')),
+            new StringField(
+                'policy',
+                $this->wpService->__('Policy', 'municipio'),
+                $schema->getProperty('policy'),
+                $this->wpService->__('The policy that is applied to the service provided on the page.', 'municipio'),
+            ),
             new StringField(
                 'location',
                 $this->wpService->__('Location', 'municipio'),
                 $schema->getProperty('location'),
+                $this->wpService->__('The location where the service is provided.', 'municipio'),
             ),
         ];
     }

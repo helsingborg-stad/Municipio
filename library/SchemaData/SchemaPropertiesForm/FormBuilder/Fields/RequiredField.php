@@ -14,9 +14,9 @@ class RequiredField implements FieldInterface
      *
      * @param FieldInterface $field The field to be wrapped as required.
      */
-    public function __construct(private FieldInterface $field)
-    {
-    }
+    public function __construct(
+        private FieldInterface $field,
+    ) {}
 
     /**
      * @inheritDoc
@@ -56,5 +56,10 @@ class RequiredField implements FieldInterface
     public function getLabel(): string
     {
         return $this->field->getLabel();
+    }
+
+    public function getInstructions(): null|string
+    {
+        return $this->field->getInstructions();
     }
 }

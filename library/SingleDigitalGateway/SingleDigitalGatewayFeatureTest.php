@@ -2,7 +2,6 @@
 
 namespace Municipio\SingleDigitalGateway;
 
-use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

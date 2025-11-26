@@ -38,4 +38,11 @@ interface FieldInterface
      * @return string
      */
     public function getLabel(): string;
+
+    /**
+     * Get the field instructions.
+     *
+     * @return string|null
+     */
+    public function getInstructions(): null|string;
 }
