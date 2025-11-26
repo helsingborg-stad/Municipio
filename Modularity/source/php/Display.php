@@ -67,7 +67,7 @@ class Display
      */
     public function replaceGridClasses($className)
     {
-        return preg_replace('/grid-md-(\d+)/', 'o-grid-$1@md', $className);
+        return preg_replace('/grid-md-(\d+)/', 'o-grid-$1@md', $className ?? '');
     }
 
     /**
