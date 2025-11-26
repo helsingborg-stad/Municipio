@@ -54,7 +54,7 @@ jobs:
 
       - name: Overwrite .gitignore for release branch
         run: |
-          printf "/*\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
+          printf "/*\n!.gitignore\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
 
       # --- Release Branch Commit ---
       - name: Commit and push release branch
