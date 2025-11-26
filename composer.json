@@ -103,6 +103,5 @@
 	"suggest": {
 		"helsingborg-stad/component-library": "Required for theme to work properly.",
 		"helsingborg-stad/kirki": "Required for theme to work properly."
-	},
-	"version": "6.5.11"
+	}
 }

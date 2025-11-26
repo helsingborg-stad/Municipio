@@ -100,9 +100,7 @@ Module.prototype.loadModules = function (postId) {
  * Check editing module
  * @return {boolean/string}
  */
-Module.prototype.isEditingModule = function () {
-	return editingModule;
-};
+Module.prototype.isEditingModule = () => editingModule;
 
 /**
  * Generates a thickbox url to open a thickbox in correct mode
@@ -110,7 +108,7 @@ Module.prototype.isEditingModule = function () {
  * @param  {object} data   Should contain additional data (for now supports "postId" and "postType")
  * @return {string}        Thickbox url
  */
-Module.prototype.getThickBoxUrl = function (action, data) {
+Module.prototype.getThickBoxUrl = (action, data) => {
 	var base = "";
 	var querystring = {};
 
@@ -143,7 +141,7 @@ Module.prototype.getThickBoxUrl = function (action, data) {
 	);
 };
 
-Module.prototype.getImportUrl = function (data) {
+Module.prototype.getImportUrl = (data) => {
 	var base = "edit.php";
 	var querystring = {};
 
@@ -183,7 +181,7 @@ Module.prototype.addModule = function (
 	var deprecated =
 		isDeprecated === true
 			? '<span class="modularity-deprecated" style="color:#ff0000;">(' +
-				modularityAdminLanguage.deprecated +
+				modularityLang.deprecated +
 				")</span>"
 			: "";
 	incompability = typeof incompability != "undefined" ? incompability : "";
@@ -256,11 +254,11 @@ Module.prototype.addModule = function (
 		itemRowId +
 		'][columnWidth]">\
                             ' +
-		modularityAdminLanguage.widthOptions +
+		modularityLang.widthOptions +
 		'\
                         </select>\
                         <span class="label">' +
-		modularityAdminLanguage.width +
+		modularityLang.width +
 		'</span>\
                     </label>\
                     <label class="modularity-module-hide">\
@@ -271,12 +269,12 @@ Module.prototype.addModule = function (
 		'][hidden]" value="hidden" ' +
 		isHidden +
 		' aria-label="' +
-		modularityAdminLanguage.langhide +
+		modularityLang.langhide +
 		'"/>\
                         <i style="top:4px;" class="modularity-cmd-visibility-on modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">visibility</i>\
                         <i style="top:4px;" class="modularity-cmd-visibility-off modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">visibility_off</i>\
                         <span class="label">' +
-		modularityAdminLanguage.langvisibility +
+		modularityLang.langvisibility +
 		'</span>\
                     </label>\
                     <a href="' +
@@ -284,7 +282,7 @@ Module.prototype.addModule = function (
 		'" data-modularity-modal class="modularity-js-thickbox-open modularity-err-resolver">' +
 		'<i style="top:3px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">edit</i>' +
 		'<span class="label">' +
-		modularityAdminLanguage.langedit +
+		modularityLang.langedit +
 		"</span>" +
 		'</a>\
                     <a href="' +
@@ -292,13 +290,13 @@ Module.prototype.addModule = function (
 		'" class="modularity-js-thickbox-import modularity-err-resolver">' +
 		'<i style="top:4px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">dataset_linked</i>' +
 		'<span class="label">' +
-		modularityAdminLanguage.langimport +
+		modularityLang.langimport +
 		"</span>" +
 		'</a>\
                     <a href="#remove" class="modularity-module-remove modularity-err-resolver">' +
 		'<i style="top:4px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">delete</i>' +
 		'<span class="label">' +
-		modularityAdminLanguage.langremove +
+		modularityLang.langremove +
 		"</span>" +
 		'</a>\
                 </span>\
@@ -325,7 +323,7 @@ Module.prototype.addModule = function (
 	this.getAllCurrentModules();
 
 	//Update width selector
-	$(".modularity-sidebar-area > li").each(function (index, item) {
+	$(".modularity-sidebar-area > li").each((index, item) => {
 		$(".modularity-module-columns select", $(item)).val(
 			$(item).attr("data-module-stored-width"),
 		);
@@ -335,9 +333,9 @@ Module.prototype.addModule = function (
 	$(".modularity-js-sortable").sortable("refresh");
 };
 
-Module.prototype.getAllCurrentModules = function () {
+Module.prototype.getAllCurrentModules = () => {
 	const sliderAreas = document.querySelectorAll(".modularity-sidebar-area");
-	let sliderAreasItemsArray = [];
+	const sliderAreasItemsArray = [];
 	sliderAreas.forEach((area) => {
 		area.querySelectorAll("li").forEach((item) => {
 			if (item.hasAttribute("id")) {
@@ -375,8 +373,8 @@ Module.prototype.updateModule = function (module, data) {
  * @param  {DOM Element} module The (to be removed) module's dom element
  * @return {void}
  */
-Module.prototype.removeModule = function (module) {
-	if (confirm(modularityAdminLanguage.actionRemove)) {
+Module.prototype.removeModule = (module) => {
+	if (confirm(modularityLang.actionRemove)) {
 		module.remove();
 	}
 };
@@ -385,7 +383,7 @@ Module.prototype.removeModule = function (module) {
  * Compare two arrays
  * @return array
  */
-Module.prototype.arraysAreEqual = function (a = [], b = []) {
+Module.prototype.arraysAreEqual = (a = [], b = []) => {
 	if (a.length !== b.length) {
 		return false;
 	}
@@ -414,7 +412,7 @@ Module.prototype.handleEvents = function () {
 
 	window.addEventListener("beforeunload", (e) => {
 		const modules = document.querySelectorAll(".modularity-sidebar-area > li");
-		let arr = [];
+		const arr = [];
 		modules.forEach((element) => {
 			if (element.hasAttribute("id")) {
 				arr.push(element.getAttribute("id"));
@@ -438,7 +436,7 @@ Module.prototype.handleEvents = function () {
 	);
 
 	//Import
-	$(document).on("click", ".modularity-js-thickbox-import", function (e) {
+	$(document).on("click", ".modularity-js-thickbox-import", (e) => {
 		e.preventDefault();
 
 		var el = $(e.target).closest("a");
@@ -452,7 +450,7 @@ Module.prototype.handleEvents = function () {
 	$(document).on(
 		"click",
 		".modularity-js-thickbox-open",
-		function (e) {
+		((e) => {
 			e.preventDefault();
 
 			var el = $(e.target).closest("a");
@@ -463,6 +461,6 @@ Module.prototype.handleEvents = function () {
 			editingModule = $(e.target).closest("li");
 
 			lModularity.Prompt.Modal.open($(e.target).closest("a").attr("href"));
-		}.bind(this),
+		}).bind(this),
 	);
 };
