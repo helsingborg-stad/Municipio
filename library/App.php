@@ -356,14 +356,6 @@ class App
         $this->setUpGlobalNotices();
 
         /**
-         * Setup Mirrored Post
-         */
-        (new \Municipio\MirroredPost\MirroredPostFeature(
-            new \Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogId($this->wpService),
-            $this->wpService,
-        ))->enable();
-
-        /**
          * Setup Table of Contents
          */
         (new \Municipio\Toc\TocFeature($this->wpService, $this->acfService))->enable();

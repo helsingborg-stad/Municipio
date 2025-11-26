@@ -7,6 +7,8 @@ namespace Modularity\Module\Posts\TemplateController;
 use Modularity\Helper\WpService as WpServiceHelper;
 use Modularity\Module\Posts\Helper\Column as ColumnHelper;
 use Modularity\Module\Posts\Helper\DomainChecker;
+use Municipio\Helper\Post;
+use Municipio\MirroredPost\PostObject\MirroredPostObject;
 use WP_Post;
 use WpService\WpService;
 
@@ -116,20 +118,6 @@ class AbstractController
                 $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null)
                     ? $this->fields['taxonomy_display']
                     : [];
-                $helperClass = '\Municipio\Helper\Post';
-                $helperMethod = 'preparePostObject';
-                $helperArchiveMethod = 'preparePostObjectArchive';
-
-                if (
-                    !class_exists($helperClass)
-                    || !method_exists($helperClass, $helperMethod)
-                    || !method_exists($helperClass, $helperArchiveMethod)
-                ) {
-                    error_log(
-                        "Class or method does not exist: {$helperClass}::{$helperMethod} or {$helperClass}::{$helperArchiveMethod}",
-                    );
-                    return $post;
-                }
 
                 if ($shouldAddBlogNameToPost) {
                     $post = $this->addBlogNameToPost($post);
@@ -143,19 +131,20 @@ class AbstractController
                     isset($this->fields['posts_display_as'])
                     && in_array($this->fields['posts_display_as'], ['expandable-list'])
                 ) {
-                    $post = call_user_func([$helperClass, $helperMethod], $post);
+                    $post = Post::preparePostObject($post, $data);
                 } else {
-                    $post = call_user_func([$helperClass, $helperArchiveMethod], $post, $data);
+                    $post = Post::preparePostObjectArchive($post, $data);
                 }
 
                 if (!empty($post->originalBlogId)) {
                     $this->getWpService()->restoreCurrentBlog();
+                    $post = new MirroredPostObject($post, $this->getWpService(), (int) $post->originalBlogId);
                 }
 
                 $post = clone $post; // Ensure we don't modify the original post object
                 return $post;
             },
-            $posts ?? [],
+            $posts,
         );
 
         if (!empty($posts)) {
@@ -166,7 +155,7 @@ class AbstractController
 
                 // Apply $this->getDefaultValuesForPosts() to the post object without turning it into an array
                 foreach ($this->getDefaultValuesForPosts() as $key => $value) {
-                    if (isset($post->$key)) {
+                    if (!is_null($post->$key)) {
                         continue;
                     }
 
