@@ -53,7 +53,8 @@ class General extends \Modularity\Options
         add_meta_box(
             'modularity-mb-core-options',
             __('Core options', 'modularity'),
-            static function () {
+            // @mago-ignore lint:prefer-static-closure
+            function () {
                 $templatePath = \Modularity\Helper\Wp::getTemplate('core-options', 'options/partials');
                 include $templatePath;
             },
