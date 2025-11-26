@@ -5,7 +5,7 @@ namespace Municipio\Helper\User;
 use AcfService\Contracts\GetField;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup, CanPreferGroupUrl, GetUserGroupShortname};
+use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup, CanPreferGroupUrl, GetUserGroupLinkType, GetUserGroupOriginalBlogId, GetUserGroupShortname};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
@@ -27,8 +27,11 @@ class User implements
     GetRedirectToGroupUrl,
     SetUserGroup,
     CanPreferGroupUrl,
-    GetUserGroupShortname
+    GetUserGroupShortname,
+    GetUserGroupOriginalBlogId
 {
+    private static ?self $instance = null;
+
     /**
      * Constructor.
      */
@@ -222,6 +225,7 @@ class User implements
     public function getUserGroupUrlType(?WP_Term $term = null, null|WP_User|int $user = null): ?string
     {
         $term ??= $this->getUserGroup($user);
+
         $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
         $userGroupUrlType = $this->siteSwitcher->runInSite(
@@ -232,6 +236,30 @@ class User implements
         );
 
         return $userGroupUrlType;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserGroupOriginalBlogId(?WP_Term $term = null, null|WP_User|int $user = null): ?int
+    {
+        $term ??= $this->getUserGroup($user);
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
+
+        $userGroupUrlType = $this->getUserGroupUrlType($term, $user);
+
+        if (!$userGroupUrlType || $userGroupUrlType !== 'blog_id') {
+            return null;
+        }
+
+        $userGroupOriginalBlogId = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($termId) {
+                return $this->acfService->getField('blog_id', $termId) ?: null;
+            }
+        );
+
+        return $userGroupOriginalBlogId;
     }
 
     /**
@@ -335,5 +363,34 @@ class User implements
         ) ?? false;
 
         return (bool) $userGroupUrlType;
+    }
+
+    /**
+     * Set the User helper instance.
+     *
+     * @param self $userHelper
+     * @return void
+     */
+    public static function set(self $userHelper): void 
+    {
+        if (self::$instance === null) {
+            // Allow setting once to prevent accidental overwriting.
+            self::$instance = $userHelper;
+        }
+    }
+
+    /**
+     * Get the User helper instance.
+     *
+     * @return self
+     * @throws \Exception if the User helper has not been set.
+     */
+    public static function get(): self 
+    {
+        if (self::$instance === null) {
+            throw new \Exception('User helper not set');
+        }
+
+        return self::$instance;
     }
 }

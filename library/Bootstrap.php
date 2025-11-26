@@ -58,6 +58,8 @@ $userHelper = new User(
     new \Municipio\Helper\SiteSwitcher\SiteSwitcher($wpService, $acfService),
 );
 
+$userHelper::set($userHelper);
+
 /**
  * Modularity
  */
