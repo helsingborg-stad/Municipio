@@ -248,7 +248,7 @@ class GetPosts implements GetPostsInterface
     private function getPostsPerPage(array $fields): int
     {
         if (isset($fields['posts_count']) && is_numeric($fields['posts_count'])) {
-            return $fields['posts_count'] == -1 || $fields['posts_count'] > 100 ? 100 : $fields['posts_count'];
+            return $fields['posts_count'] == -1 || $fields['posts_count'] > 100 ? 100 : (int)$fields['posts_count'];
         }
 
         return 10;

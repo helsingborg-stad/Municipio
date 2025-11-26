@@ -205,7 +205,7 @@ class Post
         //Page for posttype archive mapping result
         if (is_post_type_archive()) {
             if ($pageId = get_option('page_for_' . get_post_type())) {
-                return $pageId;
+                return (int)$pageId;
             }
         }
 
@@ -216,7 +216,7 @@ class Post
 
         //Return page for frontpage (fallback)
         if ($frontPageId = get_option('page_on_front')) {
-            return $frontPageId;
+            return (int)$frontPageId;
         }
 
         //Return page blog (fallback)
