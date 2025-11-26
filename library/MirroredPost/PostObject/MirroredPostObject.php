@@ -82,7 +82,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
         $width ??= 1920;
         $height ??= false;
 
-        return $imageId !== false
+        return !empty($imageId)
             ? Image::factory(
                 (int) $imageId,
                 [$width, $height],

@@ -276,7 +276,7 @@ class AbstractController
             : false;
         $post->postTitle = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
         $post->image = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
-        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && empty($post->image)
+        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && is_null($post->getImage())
             ? true
             : false;
         $post->commentCount = in_array('comment_count', $this->data['posts_fields'] ?? [])
