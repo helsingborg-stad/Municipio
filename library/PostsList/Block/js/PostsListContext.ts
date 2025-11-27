@@ -1,6 +1,6 @@
 import apiFetch from "@wordpress/api-fetch";
-import { createContext } from "react";
+const React = window.React;
 
-export const PostsListContext = createContext({
+export const PostsListContext = React.createContext({
     postTypeMetaKeys: (postType: string):Promise<string[]> => apiFetch<string[]>({path: `/municipio/v1/meta-keys/${postType}`}),
 })

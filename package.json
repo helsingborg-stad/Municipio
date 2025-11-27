@@ -7,9 +7,11 @@
         "test:watch": "jest --watch",
         "dev": "vite",
         "build": "npm run build:municipio && (npm run build:modularity)",
-        "build:municipio": "vite build && mkdir -p ./assets/dist/data/",
+        "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
+        "build:blocks": "vite --config vite.blocks.config.mjs build",
         "build:modularity": "cd Modularity && npm install && npm run build",
         "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/",
+        "watch:municipio": "vite build --watch --mode development",
         "watch": "(vite build --watch --mode development &) && (cd Modularity && npm run watch &) && wait",
         "i18n:update": "wp i18n make-pot . languages/municipio.pot --domain=municipio --location=false && wp i18n update-po languages/municipio.pot languages/sv_SE.po",
         "i18n:build": "wp i18n make-mo languages/sv_SE.po"
@@ -47,18 +49,19 @@
         "@material-symbols/font-200": "^0.34.1",
         "@material-symbols/font-400": "^0.34.1",
         "@material-symbols/font-600": "^0.34.1",
-        "@testing-library/react": "^16.3.0",
         "@testing-library/user-event": "^14.6.1",
         "@types/jest": "^29.5.14",
         "@types/wordpress__block-editor": "^14.21.2",
         "@types/wordpress__blocks": "^12.5.18",
         "@types/wordpress__components": "^23.0.12",
         "@wordpress/api-fetch": "^7.35.0",
+        "@wordpress/block-editor": "^15.9.0",
         "@wordpress/blocks": "^15.8.0",
         "@wordpress/core-data": "^7.35.0",
         "@wordpress/data": "^10.35.0",
         "@wordpress/i18n": "^6.8.0",
         "@wordpress/icons": "^11.2.0",
+        "@wordpress/server-side-render": "^6.12.0",
         "autoprefixer": "^10.4.20",
         "babel-jest": "^30.0.5",
         "body-parser": "^1.19.1",
@@ -70,9 +73,11 @@
         "jquery": "^3.6.0",
         "leaflet": "^1.9.4",
         "material-symbols": "^0.34.1",
+        "mousetrap-global-bind": "^1.1.0",
         "object-fit-images": "^3.2.4",
         "postcss": "^8.5.1",
         "postcss-object-fit-images": "^1.1.2",
+        "react-textarea-autosize": "^8.5.9",
         "rollup-plugin-copy": "^3.5.0",
         "sass": "^1.90.0",
         "ts-jest": "^29.2.6",
@@ -87,6 +92,7 @@
         "child_process": false
     },
     "dependencies": {
-        "core-js": "^3.45.0"
+        "core-js": "^3.45.0",
+        "react": "^18.3.1"
     }
 }

@@ -1,8 +1,8 @@
 import { Taxonomy } from "@wordpress/core-data";
-import React, { ReactElement } from "react";
-const { __experimentalToggleGroupControl, __experimentalToggleGroupControlOptionIcon } = window.wp.components;
 import { Icon, notAllowed } from '@wordpress/icons'
 import { MultiSelectIcon, RadioIcon } from "./Icons";
+
+const { __experimentalToggleGroupControl, __experimentalToggleGroupControlOptionIcon } = window.wp.components;
 
 enum TaxonomyFilterType {
     multi = 'multi',
@@ -15,7 +15,7 @@ type Props = {
     onChange: (taxonomyFilter: TaxonomyFilter | null) => void;
 }
 
-export const FilterTaxonomyControl: React.FC<Props> = ({ taxonomy, filterType, onChange }): ReactElement => {
+export const FilterTaxonomyControl: React.FC<Props> = ({ taxonomy, filterType, onChange }): React.ReactElement => {
     return (
         <>
             <__experimentalToggleGroupControl

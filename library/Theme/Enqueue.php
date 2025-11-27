@@ -2,6 +2,7 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Helper\CacheBust;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -34,6 +35,7 @@ class Enqueue implements Hookable
         $this->wpService->addAction('admin_enqueue_scripts', array($this, 'enqueueMaterialSymbols'), 999);
         $this->wpService->addAction('wp_enqueue_scripts', array($this, 'enqueueFrontendScriptsAndStyles'), 5);
         $this->wpService->addAction('admin_enqueue_scripts', array($this, 'enqueueAdminScriptsAndStyles'), 999);
+        $this->wpService->addAction('enqueue_block_editor_assets', array($this, 'enqueueBlockScripts'), 999);
         $this->wpService->addAction(
             'customize_controls_enqueue_scripts',
             array($this, 'enqueueCustomizerScriptsAndStyles'),
@@ -121,6 +123,11 @@ class Enqueue implements Hookable
         $this->enqueue->add('css/splide.css');
     }
 
+    public function enqueueBlockScripts(): void {
+        $enqueue = $this->wpUtilService->enqueue(__DIR__, '/assets/dist/blocks/');
+        $enqueue->add('js/posts-list-block.js', [], null, false);
+    }
+
     /**
      * Enqueue admin scripts and styles
      */
@@ -129,14 +136,6 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/user-group-visibility.js');
         $this->enqueue->add('js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
         $this->enqueue->add('js/event-source-progress.js');
-        $this->enqueue->add('js/blocks/posts-list-block.js', [
-            'wp-blocks',
-            'wp-element',
-            'wp-components',
-            'wp-i18n',
-            'wp-editor',
-            'react',
-        ]);
 
         $this->enqueue->add('css/acf.css');
         $this->enqueue->add('css/general.css');

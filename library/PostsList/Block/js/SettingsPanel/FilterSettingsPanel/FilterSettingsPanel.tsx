@@ -1,7 +1,7 @@
 import { PostsListEditProps } from "../../Edit";
 import { FilterTaxonomyControlGroup } from "./FilterTaxonomyControl/FilterTaxonomyControlGroup";
 
-const { PanelBody, ToggleControl } = window.wp.components;
+import { PanelBody, ToggleControl } from "@wordpress/components";
 const { __ } = window.wp.i18n;
 
 export const FilterSettingsPanel: React.FC<PostsListEditProps> = ({ attributes: { enableFilters, textSearchEnabled, dateFilterEnabled, taxonomiesEnabledForFiltering, postType }, setAttributes }) => {

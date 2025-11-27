@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import { FilterTaxonomyControl } from "./FilterTaxonomyControl";
 import { useFilterTaxonomyControlGroup } from "./useFilterTaxonomyControlGroup";
 
@@ -8,7 +7,7 @@ export type FilterTaxonomyControlGroupProps = {
     onChange: (taxonomyFilters: TaxonomyFilter[]) => void;
 }
 
-export const FilterTaxonomyControlGroup: React.FC<FilterTaxonomyControlGroupProps> = ({ postType, value, onChange }): ReactElement => {
+export const FilterTaxonomyControlGroup: React.FC<FilterTaxonomyControlGroupProps> = ({ postType, value, onChange }): React.ReactElement => {
 
     const { taxonomies } = useFilterTaxonomyControlGroup(postType);
 

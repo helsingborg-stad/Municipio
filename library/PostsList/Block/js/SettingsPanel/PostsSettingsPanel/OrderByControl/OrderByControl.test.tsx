@@ -1,4 +1,4 @@
-import React from 'react';
+const React from 'react';
 import {findByRole, findByText, render} from '@testing-library/react'
 import {userEvent} from '@testing-library/user-event';
 import { OrderByControl } from './OrderByControl';
