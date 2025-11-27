@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // phpcs:ignoreFile PSR1.Files.SideEffects.FoundWithSymbols
 
 use AcfService\Implementations\NativeAcfService;
@@ -82,8 +84,8 @@ add_action('after_setup_theme', function () {
 // Start application
 add_action(
     'after_setup_theme',
-    function () use ($wpService) {
-        new Modularity\App(new WpUtilService($wpService));
+    function () {
+        new Modularity\App(new WpUtilService(WpService::get()));
     },
     20,
 );
