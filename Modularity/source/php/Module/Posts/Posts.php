@@ -147,7 +147,7 @@ class Posts extends \Modularity\Module
         $this->fields = $this->getFields();
 
         $this->domainChecker = new DomainChecker($this->fields);
-        $this->postSourceBuilder = new PostSourceBuilder($this->fields, WpService::get(), User::get());
+        $this->postSourceBuilder = new PostSourceBuilder(WpService::get(), User::get(), $this->fields);
 
         $data['posts_display_as'] = $this->fields['posts_display_as'] ?? false;
         $data['display_reading_time'] =
@@ -160,7 +160,6 @@ class Posts extends \Modularity\Module
         $data['posts_data_source'] = $this->fields['posts_data_source'] ?? false;
 
         $data['postsSources'] = $this->postSourceBuilder->getSources();
-        $data['test'] = 'TESTING';
 
         $postsAndPaginationData = $this->getPostsResult($data['postsSources']);
         $data['posts'] = $postsAndPaginationData->getPosts();

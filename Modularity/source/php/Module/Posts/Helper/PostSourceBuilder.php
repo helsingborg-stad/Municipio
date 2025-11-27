@@ -8,9 +8,9 @@ use WpService\WpService;
 class PostSourceBuilder
 {
     public function __construct(
-        private array $fields = [],
         private WpService $wpService,
         private User $userHelper,
+        private array $fields = [],
     ) {}
 
     /**
