@@ -7,6 +7,7 @@ namespace Modularity;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\WpUtilService;
 
 class Module
 {
@@ -176,6 +177,8 @@ class Module
      */
     public $columnWidth;
 
+    protected null|EnqueueManager $wpEnqueue;
+
     /**
      * Constructs a module
      * Override the wpService and acfService to use a fake service for testing
@@ -187,10 +190,9 @@ class Module
         // Provided by WordPress
         null|\WP_Post $post = null,
         $args = [],
-        protected null|EnqueueManager $wpEnqueue = null,
+        protected null|WpUtilService $wpUtilService = null,
     ) {
         $this->args = $args;
-
         $this->ID = $post->ID ?? null;
         $this->mode = $this->ID ? 'module' : 'block';
 
@@ -198,18 +200,20 @@ class Module
 
         $this->init();
 
+        $path = $this->getModulePath();
+
+        $this->wpEnqueue = $this->wpUtilService?->enqueue($path, $this->getAssetPath($path));
+
         // Defaults to the path of the class .php-file and subdir /views
         // Example: my-module/my-module.php (module class)
         //          my-module/views/        (views folder)
         if (!$this->templateDir || !$this->assetDir) {
-            $reflector = new \ReflectionClass(get_class($this));
-
             if (!$this->templateDir) {
-                $this->templateDir = trailingslashit(dirname($reflector->getFileName())) . 'views/';
+                $this->templateDir = trailingslashit($path) . 'views/';
             }
 
             if (!$this->assetDir) {
-                $this->assetDir = trailingslashit(dirname($reflector->getFileName())) . 'assets/';
+                $this->assetDir = trailingslashit($path) . 'assets/';
             }
         }
 
@@ -244,6 +248,20 @@ class Module
             1,
             3,
         );
+    }
+
+    protected function getModulePath(): string
+    {
+        $reflector = new \ReflectionClass(get_class($this));
+        return dirname($reflector->getFileName());
+    }
+
+    protected function getAssetPath(string $basePath): string|null
+    {
+        if (str_contains($basePath, 'Modularity')) {
+            return 'Modularity/assets/dist/';
+        }
+        return 'assets/dist';
     }
 
     public function init()
@@ -368,7 +386,11 @@ class Module
             return $blocks;
         }
 
-        $post = WpService::get()->getPost(\Municipio\Helper\CurrentPostId::get());
+        $id = \Municipio\Helper\CurrentPostId::get();
+        if (is_string($id)) {
+            $id = (int) $id;
+        }
+        $post = WpService::get()->getPost($id);
 
         if (empty($post->post_content)) {
             return $blocks = [];
