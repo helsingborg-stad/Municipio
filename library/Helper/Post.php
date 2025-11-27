@@ -329,7 +329,7 @@ class Post
     {
         /* Caching */
         static $runtimeCache = [];
-        $runtimeCacheKey = 'post_filtered_content_' . md5($postObject->post_content);
+        $runtimeCacheKey     = 'post_filtered_content_' . md5($postObject->post_content);
         if (isset($runtimeCache[$runtimeCacheKey])) {
             return $runtimeCache[$runtimeCacheKey];
         }
@@ -382,6 +382,7 @@ class Post
         if (!preg_match('/<!--\s?wp:[a-zA-Z0-9_-]+/', $excerpt)) {
             return apply_filters('the_excerpt', $excerpt);
         }
+        return $excerpt;
         return do_blocks($excerpt);
     }
 

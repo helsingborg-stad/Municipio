@@ -7,7 +7,6 @@ use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterC
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
-use WP_Taxonomy;
 use WpService\Contracts\GetTerms;
 
 /**
@@ -20,13 +19,11 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
      *
      * @param FilterConfigInterface $filterConfig
      * @param GetTerms $wpService
-     * @param array<string, WP_Taxonomy> $wpTaxonomies
      */
     public function __construct(
         private FilterConfigInterface $filterConfig,
         private GetPostsConfigInterface $getPostsConfig,
         private GetTerms $wpService,
-        private array $wpTaxonomies,
         private string $queryVarNamePrefix
     ) {
     }
@@ -45,40 +42,20 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
     private function getSelectComponentArguments(): array
     {
         $taxonomyFilterConfigs = $this->filterConfig->getTaxonomiesEnabledForFiltering();
+
         if (empty($taxonomyFilterConfigs)) {
             return [];
         }
 
-        $wpTaxonomies = $this->filterWpTaxonomies(...$taxonomyFilterConfigs);
+        $terms = $this->getTermsForTaxonomies(array_map(fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name, $taxonomyFilterConfigs));
 
-        if (empty($wpTaxonomies)) {
-            return [];
-        }
-
-        $terms = $this->getTermsForTaxonomies(array_keys($wpTaxonomies));
         if (empty($terms)) {
             return [];
         }
 
         $termsByTaxonomy = $this->groupTermsByTaxonomy($terms);
 
-        return $this->buildSelectArguments($wpTaxonomies, $termsByTaxonomy);
-    }
-
-    /**
-     * Filter WP taxonomies based on provided taxonomy names
-     */
-    private function filterWpTaxonomies(TaxonomyFilterConfigInterface ...$taxonomyFilterConfigs): array
-    {
-        $taxonomyNamesFromTaxonomyFilterConfigs = array_map(
-            fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name,
-            $taxonomyFilterConfigs
-        );
-        return array_filter(
-            $this->wpTaxonomies,
-            fn($key) => in_array($key, $taxonomyNamesFromTaxonomyFilterConfigs),
-            ARRAY_FILTER_USE_KEY
-        );
+        return $this->buildSelectArguments($taxonomyFilterConfigs, $termsByTaxonomy);
     }
 
     /**
@@ -107,16 +84,16 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
 
     /**
      * Build select arguments for each taxonomy
+     *
+     * @param TaxonomyFilterConfigInterface[] $taxonomyFilterConfigs
+     * @param array<string, WP_Term[]> $termsByTaxonomy
+     * @return array[]
      */
-    private function buildSelectArguments(array $wpTaxonomies, array $termsByTaxonomy): array
+    private function buildSelectArguments(array $taxonomyFilterConfigs, array $termsByTaxonomy): array
     {
         $allSelectArguments = [];
-        foreach ($wpTaxonomies as $wpTaxonomy) {
-            $taxonomyName   = $wpTaxonomy->name;
-            $taxonomyConfig = array_values(array_filter(
-                $this->filterConfig->getTaxonomiesEnabledForFiltering(),
-                fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name === $taxonomyName
-            ))[0];
+        foreach ($taxonomyFilterConfigs as $taxonomyConfig) {
+            $taxonomyName = $taxonomyConfig->getTaxonomy()->name;
 
             if (empty($termsByTaxonomy[$taxonomyName])) {
                 continue;
@@ -124,15 +101,16 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
 
             $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
             $selectArguments = [
-                'label'       => $wpTaxonomy->label,
+                'label'       => $taxonomyConfig->getTaxonomy()->label,
                 'name'        => $this->queryVarNamePrefix . $taxonomyName,
                 'required'    => false,
-                'placeholder' => $wpTaxonomy->label,
+                'placeholder' => $taxonomyConfig->getTaxonomy()->label,
                 'multiple'    => $taxonomyConfig->getFilterType() === TaxonomyFilterType::MULTISELECT ? true : false,
                 'options'     => $options,
             ];
 
             $preselected = $this->getPreselectedTermSlugs($taxonomyName);
+
             if (!empty($preselected)) {
                 $selectArguments['preselected'] = $preselected;
             }

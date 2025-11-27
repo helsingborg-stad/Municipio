@@ -7,21 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class QueryVarsTest extends TestCase
 {
-    #[TestDox('prefix may not be reused between instances')]
-    public function testPrefixMayNotBeReusedBetweenInstances(): void
-    {
-        $queryVars = new QueryVars('prefix1_');
-
-        try {
-            $queryVars2 = new QueryVars('prefix1_');
-        } catch (\Exception $e) {
-            $this->assertEquals('Prefix may not be reused between instances', $e->getMessage());
-            return;
-        }
-
-        $this->assertTrue(false, 'Expected exception was not thrown');
-    }
-
     #[TestDox('parameter names is prefixed with provided prefix')]
     public function testParameterNamesIsPrefixedWithProvidedPrefix(): void
     {

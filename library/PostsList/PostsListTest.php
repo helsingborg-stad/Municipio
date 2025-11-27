@@ -23,7 +23,7 @@ class PostsListTest extends TestCase
         $wpQueryFactory   = $this->getWpQueryFactory();
         $wpService        = new FakeWpService(['getPosts' => [], 'addFilter' => true]);
         $queryVars        = new QueryVars('posts_list_');
-        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, [], $wpQueryFactory, $queryVars, $wpService);
+        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, $wpQueryFactory, $queryVars, $wpService);
 
         $this->assertIsArray($postsList->getData());
     }
