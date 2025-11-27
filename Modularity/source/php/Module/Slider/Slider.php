@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Slider;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
@@ -9,21 +11,21 @@ use Modularity\Integrations\Component\ImageResolver;
 class Slider extends \Modularity\Module
 {
     public $slug = 'slider';
-    public $supports = array();
+    public $supports = [];
 
-    public $imageSizes = array(
-        'ratio-16-9' => array(1528, false),
-        'ratio-10-3' => array(1528, false),
-        'ratio-36-7' => array(1528, false),
-        'ratio-4-3' => array(1528, false),
-    );
+    public $imageSizes = [
+        'ratio-16-9' => [1528, false],
+        'ratio-10-3' => [1528, false],
+        'ratio-36-7' => [1528, false],
+        'ratio-4-3' => [1528, false],
+    ];
 
-    public $paddingRatios = array(
+    public $paddingRatios = [
         'ratio-16-9' => 56.25,
         'ratio-10-3' => 30,
         'ratio-36-7' => 19.44,
         'ratio-4-3' => 75,
-    );
+    ];
 
     public function init()
     {
@@ -32,8 +34,8 @@ class Slider extends \Modularity\Module
         $this->description = __('Outputs multiple images or videos in a sliding apperance.', 'modularity');
 
         //Adds backwards compability to when we didn't have focal points
-        add_filter('acf/load_value/key=field_56a5ed2f398dc', array($this, 'filterDesktopImage'), 10, 3);
-        add_filter('WpSecurity/Csp', array($this, 'csp'), 10, 1);
+        add_filter('acf/load_value/key=field_56a5ed2f398dc', [$this, 'filterDesktopImage'], 10, 3);
+        add_filter('WpSecurity/Csp', [$this, 'csp'], 10, 1);
     }
 
     /**
@@ -218,10 +220,10 @@ class Slider extends \Modularity\Module
 
         $slide['call_to_action'] = false;
         if ($this->isButtonCta($slide)) {
-            $slide['call_to_action'] = array(
+            $slide['call_to_action'] = [
                 'title' => $slide['link_text'],
                 'href' => $slide['link_url'],
-            );
+            ];
             //remove link url, instead use CTA
             $slide['link_url'] = false;
         }

@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Editor;
+
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class Thickbox
 {
-    public function __construct()
-    {
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         if (\Modularity\Helper\Wp::isThickBox()) {
             $this->init();
         }
@@ -17,10 +22,10 @@ class Thickbox
      */
     public function init()
     {
-        add_action('admin_head', array($this, 'addJsVariables'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueue'));
+        add_action('admin_head', [$this, 'addJsVariables']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue']);
         add_action('current_screen', function ($current_screen) {
-            add_action('views_edit-' . $current_screen->post_type, array($this, 'addFilterUrlParams'));
+            add_action('views_edit-' . $current_screen->post_type, [$this, 'addFilterUrlParams']);
         });
     }
 
@@ -78,21 +83,8 @@ class Thickbox
      */
     public function enqueue()
     {
-        // Script
-        wp_register_script(
-            'modularity-thickbox',
-            MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('js/modularity-editor-modal.js'),
-            [],
-            '1.0.0',
-            true,
+        $this->wpEnqueue->add('js/modularity-editor-modal.js', [], '1.0.0', true)->add(
+            'css/modularity-thickbox-edit.css',
         );
-        wp_enqueue_script('modularity-thickbox');
-
-        // Style
-        wp_register_style(
-            'modularity-thickbox',
-            MODULARITY_URL . '/dist/' . \Modularity\Helper\CacheBust::name('css/modularity-thickbox-edit.css'),
-        );
-        wp_enqueue_style('modularity-thickbox');
     }
 }

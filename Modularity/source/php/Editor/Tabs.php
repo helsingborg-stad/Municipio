@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Editor;
 
 class Tabs
 {
-    protected $tabs = array();
+    protected $tabs = [];
 
     public function __construct()
     {
-        add_action('edit_form_top', array($this, 'output'));
+        add_action('edit_form_top', [$this, 'output']);
     }
 
     /**
@@ -28,8 +30,8 @@ class Tabs
 
         foreach ($this->tabs as $tab => $url) {
             if (
-                strpos($url, $requestUri) !== false
-                || strpos($url, 'post.php') !== false && strpos($requestUri, 'post-new.php') !== false
+                str_contains($url, $requestUri)
+                || str_contains($url, 'post.php') && str_contains($requestUri, 'post-new.php')
             ) {
                 echo '<a href="' . $url . '" class="nav-tab nav-tab-active">' . $tab . '</a>';
             } else {
@@ -62,7 +64,7 @@ class Tabs
         $options = get_option('modularity-options');
         $enabled = isset($options['enabled-post-types']) && is_array($options['enabled-post-types'])
             ? $options['enabled-post-types']
-            : array();
+            : [];
 
         $validPostType = in_array($current_screen->id, $enabled);
 
@@ -71,10 +73,10 @@ class Tabs
             $action = isset($_GET['action']) && !empty($_GET['action']) ? $_GET['action'] : null;
         }
 
-        $validAction = in_array($action, array(
+        $validAction = in_array($action, [
             'add',
             'edit',
-        ));
+        ]);
 
         return $validPostType && $validAction || $current_screen->id == 'admin_page_modularity-editor';
     }

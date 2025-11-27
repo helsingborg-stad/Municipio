@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\Helper\GetPosts;
 
 use Modularity\Helper\WpQueryFactory\WpQueryFactoryInterface;
@@ -121,7 +123,7 @@ class GetPosts implements GetPostsInterface
         $getPostsArgs = $this->getDefaultQueryArgs();
 
         // Sort by meta key
-        if (strpos($orderby, '_metakey_') === 0) {
+        if (str_starts_with($orderby, '_metakey_')) {
             $orderby_key = substr($orderby, strlen('_metakey_'));
             $orderby = 'order_clause';
             $metaQuery = [
@@ -246,7 +248,7 @@ class GetPosts implements GetPostsInterface
     private function getPostsPerPage(array $fields): int
     {
         if (isset($fields['posts_count']) && is_numeric($fields['posts_count'])) {
-            return $fields['posts_count'] == -1 || $fields['posts_count'] > 100 ? 100 : $fields['posts_count'];
+            return $fields['posts_count'] == -1 || $fields['posts_count'] > 100 ? 100 : (int)$fields['posts_count'];
         }
 
         return 10;
@@ -273,7 +275,7 @@ class GetPosts implements GetPostsInterface
      */
     public function sortPosts(array $posts, string $orderby = 'date', string $order = 'desc'): array
     {
-        usort($posts, fn($a, $b) => match ($orderby) {
+        usort($posts, static fn($a, $b) => match ($orderby) {
             'date' => strtotime($a->post_date) > strtotime($b->post_date)
                 ? ($order == 'asc' ? 1 : -1)
                 : ($order == 'asc' ? -1 : 1),

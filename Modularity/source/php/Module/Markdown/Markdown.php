@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Markdown;
 
 use League\CommonMark\CommonMarkConverter;
@@ -9,7 +11,7 @@ use WP_Error;
 class Markdown extends \Modularity\Module
 {
     public $slug = 'markdown';
-    public $supports = array();
+    public $supports = [];
     public $isBlockCompatible = true;
     public $cacheTtl = MINUTE_IN_SECONDS * 60 * 12; //Seconds (12 hours)
     private $providers = [];
@@ -36,10 +38,10 @@ class Markdown extends \Modularity\Module
         ];
 
         //Filter example fields
-        add_filter('acf/prepare_field/key=field_67506eebcdbfd', array($this, 'createDocumentationField'));
+        add_filter('acf/prepare_field/key=field_67506eebcdbfd', [$this, 'createDocumentationField']);
 
         //Delete transients when saving
-        add_action('acf/save_post', array($this, 'deleteTransients'), 10, 1);
+        add_action('acf/save_post', [$this, 'deleteTransients'], 10, 1);
     }
 
     /**
@@ -88,15 +90,17 @@ class Markdown extends \Modularity\Module
 
         // Loop through providers
         foreach ($this->providers as $provider) {
-            if ($provider instanceof \Modularity\Module\Markdown\Providers\ProviderInterface) {
-                $name = esc_html($provider->getName());
-                $example = esc_html($provider->getExample());
-
-                $tableContent .= '<tr>';
-                $tableContent .= "<td>{$name}</td>";
-                $tableContent .= "<td>{$example}</td>";
-                $tableContent .= '</tr>';
+            if (!$provider instanceof \Modularity\Module\Markdown\Providers\ProviderInterface) {
+                continue;
             }
+
+            $name = esc_html($provider->getName());
+            $example = esc_html($provider->getExample());
+
+            $tableContent .= '<tr>';
+            $tableContent .= "<td>{$name}</td>";
+            $tableContent .= "<td>{$example}</td>";
+            $tableContent .= '</tr>';
         }
 
         $tableContent .= '</tbody>';
@@ -215,9 +219,11 @@ class Markdown extends \Modularity\Module
     private function getMarkdownProvider($url, ProviderInterface ...$providers): ProviderInterface|null
     {
         foreach ($providers as $provider) {
-            if ($provider->isValidProviderUrl($url)) {
-                return $provider;
+            if (!$provider->isValidProviderUrl($url)) {
+                continue;
             }
+
+            return $provider;
         }
         return null;
     }

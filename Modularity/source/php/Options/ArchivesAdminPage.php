@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Options;
 
 use WP_Post_Type;
@@ -75,9 +77,7 @@ class ArchivesAdminPage implements \Modularity\Options\AdminPageInterface
     {
         if (
             is_admin()
-            && isset($_GET['post_type'])
-            && isset($_GET['page'])
-            && isset($_GET['id'])
+            && isset($_GET['post_type'], $_GET['page'], $_GET['id'])
             && substr($_GET['page'], 0, 34) == 'options.php?page=modularity-editor'
         ) {
             wp_redirect(admin_url($_GET['page'] . '&id=' . $_GET['id']), 302);

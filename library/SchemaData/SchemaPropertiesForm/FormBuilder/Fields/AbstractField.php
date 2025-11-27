@@ -22,7 +22,8 @@ abstract class AbstractField implements FieldInterface
     public function __construct(
         protected string $name,
         protected string $label,
-        protected mixed $value = null
+        protected mixed $value = null,
+        protected null|string $instructions = null,
     ) {
         self::$nbrOfInstances++;
         $this->instanceNumber = self::$nbrOfInstances;
@@ -66,5 +67,10 @@ abstract class AbstractField implements FieldInterface
     public function getLabel(): string
     {
         return $this->label;
+    }
+
+    public function getInstructions(): null|string
+    {
+        return $this->instructions;
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_5666a2a71d806',
         'title' => __('Table Editor', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_5731982808842',
                 'label' => __('Datatyp', 'municipio'),
                 'name' => 'mod_table_data_type',
@@ -13,50 +15,50 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'layout' => 'horizontal',
-                'choices' => array(
+                'choices' => [
                     'manual' => __('Manual input', 'municipio'),
                     'csv' => __('CSV Import', 'municipio'),
-                ),
+                ],
                 'default_value' => '',
                 'other_choice' => 0,
                 'save_other_choice' => 0,
                 'allow_null' => 0,
                 'return_format' => 'value',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_57319c3b08843',
                 'label' => __('CSV-fil', 'municipio'),
                 'name' => 'mod_table_csv_file',
                 'type' => 'file',
                 'instructions' => __('CSV-formatterad fil', 'municipio'),
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_5731982808842',
                             'operator' => '==',
                             'value' => 'csv',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'return_format' => 'array',
                 'library' => 'all',
                 'min_size' => '',
                 'max_size' => '',
                 'mime_types' => '.csv',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_5731a138b52aa',
                 'label' => __('CSV-avgränsare', 'municipio'),
                 'name' => 'mod_table_csv_delimiter',
@@ -66,20 +68,20 @@ if (function_exists('acf_add_local_field_group')) {
                     'municipio',
                 ),
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_5731982808842',
                             'operator' => '==',
                             'value' => 'csv',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => ';',
                 'maxlength' => '',
                 'placeholder' => '',
@@ -87,8 +89,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'append' => '',
                 'readonly' => 0,
                 'disabled' => 0,
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_5666a2ae23643',
                 'label' => __('Table', 'municipio'),
                 'name' => 'mod_table',
@@ -98,20 +100,20 @@ if (function_exists('acf_add_local_field_group')) {
                     'municipio',
                 ),
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_5731982808842',
                             'operator' => '==',
                             'value' => 'manual',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'tableclass' => '',
                 'maxrows' => '',
                 'disable_sort' => 0,
@@ -120,9 +122,9 @@ if (function_exists('acf_add_local_field_group')) {
                 'default_header' => '',
                 'readonly' => 0,
                 'disabled' => 0,
-                'sub_fields' => array(),
-            ),
-            4 => array(
+                'sub_fields' => [],
+            ],
+            4 => [
                 'key' => 'field_5666a459d2d2a',
                 'label' => __('Aktivera sök', 'municipio'),
                 'name' => 'mod_table_search',
@@ -130,18 +132,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => 50,
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => 1,
                 'message' => __('Yes, use search on this table', 'municipio'),
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            5 => array(
+            ],
+            5 => [
                 'key' => 'field_56e181adef7ac',
                 'label' => __('Aktivera kolumnsortering', 'municipio'),
                 'name' => 'mod_table_ordering',
@@ -149,18 +151,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => 1,
                 'message' => __('Yes, enable column sorting', 'municipio'),
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            6 => array(
+            ],
+            6 => [
                 'key' => 'field_6141aad011c4e',
                 'label' => __('Multidimensional', 'municipio'),
                 'name' => 'mod_table_multidimensional',
@@ -171,18 +173,18 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 1,
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            7 => array(
+            ],
+            7 => [
                 'key' => 'field_6141b4af3a835',
                 'label' => __('Sum', 'municipio'),
                 'name' => 'mod_table_sum',
@@ -193,18 +195,18 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-            8 => array(
+            ],
+            8 => [
                 'key' => 'field_6141dc72e5dcd',
                 'label' => __('Fullscreen', 'municipio'),
                 'name' => 'mod_table_fullscreen',
@@ -215,27 +217,27 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 0,
                 'ui' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-table',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -244,5 +246,5 @@ if (function_exists('acf_add_local_field_group')) {
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
-    ));
+    ]);
 }

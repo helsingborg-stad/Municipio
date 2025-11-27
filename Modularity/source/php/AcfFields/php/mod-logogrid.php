@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_61bc951d73494',
         'title' => __('Logotype grid', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_61bc9525fdb75',
                 'label' => __('Add some brands', 'municipio'),
                 'name' => 'mod_logogrid',
@@ -13,18 +15,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'collapsed' => '',
                 'min' => 2,
                 'max' => 99,
                 'layout' => 'table',
                 'button_label' => __('Add new logotype', 'municipio'),
-                'sub_fields' => array(
-                    0 => array(
+                'sub_fields' => [
+                    0 => [
                         'key' => 'field_61bc955cfdb77',
                         'label' => __('Image/logotype', 'municipio'),
                         'name' => 'mod_logogrid_image',
@@ -32,11 +34,11 @@ if (function_exists('acf_add_local_field_group')) {
                         'instructions' => '',
                         'required' => 1,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'return_format' => 'url',
                         'preview_size' => 'medium',
                         'library' => 'all',
@@ -47,8 +49,8 @@ if (function_exists('acf_add_local_field_group')) {
                         'max_height' => '',
                         'max_size' => '',
                         'mime_types' => 'svg',
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'key' => 'field_61bc9533fdb76',
                         'label' => __('Name', 'municipio'),
                         'name' => 'mod_logogrid_name',
@@ -56,18 +58,18 @@ if (function_exists('acf_add_local_field_group')) {
                         'instructions' => '',
                         'required' => 1,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'default_value' => '',
                         'placeholder' => '',
                         'prepend' => '',
                         'append' => '',
                         'maxlength' => '',
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'key' => 'field_61bc958ffdb78',
                         'label' => __('Link', 'municipio'),
                         'name' => 'mod_logogrid_link',
@@ -75,33 +77,33 @@ if (function_exists('acf_add_local_field_group')) {
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'default_value' => '',
                         'placeholder' => '',
-                    ),
-                ),
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-logogrid',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/logogrid',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -110,5 +112,5 @@ if (function_exists('acf_add_local_field_group')) {
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
-    ));
+    ]);
 }

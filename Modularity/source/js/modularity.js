@@ -5,18 +5,16 @@ import Thickbox from "./editor/thickbox";
 import Validate from "./editor/validate";
 
 import Helpers from "./helpers/helpers";
-import Widget from "./helpers/widget";
-
-import Modal from "./prompt/modal";
-
+import {
+	ensureWPApiSettings,
+	ModuleRefresher,
+} from "./helpers/ModuleRefresher";
 import {
 	ModulesRestAPI,
 	ModulesRestAPIEndpoints,
 } from "./helpers/ModulesRestAPI";
-import {
-	ModuleRefresher,
-	ensureWPApiSettings,
-} from "./helpers/ModuleRefresher";
+import Widget from "./helpers/widget";
+import Modal from "./prompt/modal";
 
 if (!parent.Modularity) {
 	var Modularity = parent.Modularity || {};
@@ -32,11 +30,12 @@ if (!parent.Modularity) {
 	Modularity.Helpers.Widget = new Widget(Modularity);
 
 	Modularity.Prompt = Modularity.Prompt || {};
+
 	Modularity.Prompt.Modal = new Modal(Modularity);
 
 	parent.Modularity = Modularity;
 
-	(function ($) {
+	(($) => {
 		$('input[type="checkbox"].sidebar-area-activator').on(
 			"click",
 			function (e) {
@@ -62,7 +61,7 @@ if (!parent.Modularity) {
 		);
 	})(jQuery);
 
-	(function ($) {
+	(($) => {
 		// Show spinner when clicking save on Modularity options page
 		$("#modularity-options #publish").on("click", function () {
 			$(this).siblings(".spinner").css("visibility", "visible");
@@ -74,15 +73,13 @@ if (!parent.Modularity) {
 			.remove();
 
 		// Trigger autosave when switching tabs
-		$("#modularity-tabs a").on("click", function (e) {
+		$("#modularity-tabs a").on("click", (e) => {
 			if (wp.autosave) {
 				$(window).unbind();
 
 				wp.autosave.server.triggerSave();
 
-				$(document).ajaxComplete(function () {
-					return true;
-				});
+				$(document).ajaxComplete(() => true);
 			}
 
 			return true;
@@ -90,10 +87,10 @@ if (!parent.Modularity) {
 	})(jQuery);
 
 	/* Auto scrolling content */
-	jQuery(document).ready(function ($) {
+	jQuery(document).ready(($) => {
 		if ($("#modularity-mb-modules").length) {
 			var offset = $("#modularity-mb-modules").offset();
-			$(document).scroll(function () {
+			$(document).scroll(() => {
 				if (
 					$(window).scrollTop() + 50 > offset.top &&
 					!$("#modularity-mb-modules").hasClass("is-fixed")
@@ -108,7 +105,7 @@ if (!parent.Modularity) {
 			});
 		}
 
-		$(".modularity-edit-module a").on("click", function (e) {
+		$(".modularity-edit-module a").on("click", (e) => {
 			e.preventDefault();
 
 			Modularity.Editor.Thickbox.postAction = "edit-inline-not-saved";
@@ -117,7 +114,7 @@ if (!parent.Modularity) {
 	});
 }
 
-(function () {
+(() => {
 	try {
 		ensureWPApiSettings();
 

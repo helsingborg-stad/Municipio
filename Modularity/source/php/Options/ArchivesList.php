@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Options;
 
 class ArchivesList extends \WP_List_Table
 {
     public function __construct()
     {
-        parent::__construct(array(
+        parent::__construct([
             'singular' => __('Archive', 'municipio'),
             'plural' => __('Archives', 'municipio'),
             'ajax' => false,
-        ));
+        ]);
     }
 
     public function no_items()
@@ -20,10 +22,10 @@ class ArchivesList extends \WP_List_Table
 
     public function get_columns()
     {
-        return array(
+        return [
             'archive' => __('Post Type Archive', 'municipio'),
             'has_modules' => __('Has modules', 'municipio'),
-        );
+        ];
     }
 
     public function prepare_items()
@@ -32,16 +34,16 @@ class ArchivesList extends \WP_List_Table
 
         // Columns
         $columns = $this->get_columns();
-        $hidden = array();
-        $sortable = array();
-        $this->_column_headers = array($columns, $hidden, $sortable);
+        $hidden = [];
+        $sortable = [];
+        $this->_column_headers = [$columns, $hidden, $sortable];
 
         // Pagination
-        $this->set_pagination_args(array(
+        $this->set_pagination_args([
             'total_items' => count($items),
             'per_page' => 10,
             'total_pages' => ceil(count($items) / 10),
-        ));
+        ]);
 
         // Items
         $this->items = $items;
@@ -55,13 +57,13 @@ class ArchivesList extends \WP_List_Table
     {
         $editorLink = admin_url('options.php?page=modularity-editor&id=archive-' . $item->rewrite['slug']);
 
-        $actions = array(
+        $actions = [
             'view' => sprintf(
                 '<a href="%s" target="_blank">' . __('View') . '</a>',
                 get_post_type_archive_link($item->rewrite['slug']),
             ),
             'edit' => sprintf('<a href="' . $editorLink . '">' . __('Edit modules', 'municipio') . '</a>'),
-        );
+        ];
 
         return sprintf(
             '%1$s %2$s',

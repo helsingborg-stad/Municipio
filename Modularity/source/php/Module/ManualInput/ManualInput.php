@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\ManualInput;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
@@ -11,10 +13,10 @@ use Municipio\Helper\Image as ImageHelper;
 class ManualInput extends \Modularity\Module
 {
     public $slug = 'manualinput';
-    public $supports = array();
-    public $blockSupports = array(
+    public $supports = [];
+    public $blockSupports = [
         'align' => ['full'],
-    );
+    ];
 
     public string $postStatus;
     public $template;
@@ -29,7 +31,7 @@ class ManualInput extends \Modularity\Module
 
         $this->privateController = new PrivateController($this);
 
-        add_filter('Modularity/Block/Data', array($this, 'blockData'), 50, 3);
+        add_filter('Modularity/Block/Data', [$this, 'blockData'], 50, 3);
     }
 
     public function data(): array
@@ -69,17 +71,16 @@ class ManualInput extends \Modularity\Module
 
         if (!empty($fields['manual_inputs']) && is_array($fields['manual_inputs'])) {
             foreach ($fields['manual_inputs'] as $index => &$input) {
-                $input = array_filter($input, function ($value) {
+                $input = array_filter($input, static function ($value) {
                     return !empty($value) || $value === false;
                 });
 
                 // Custom background color
-                $customBackgroundColor =
-                    ($fields['use_custom_card_color'] ?? false)
-                    && !empty($input['custom_background_color'])
-                    && strpos($input['custom_background_color'], '::') !== false
-                        ? explode('::', $input['custom_background_color'])[0]
-                        : false;
+                $customBackgroundColor = ($fields['use_custom_card_color'] ?? false)
+                && !empty($input['custom_background_color'])
+                && str_contains($input['custom_background_color'], '::')
+                    ? explode('::', $input['custom_background_color'])[0]
+                    : false;
 
                 // Custom text color
                 $customTextColor = $customBackgroundColor
@@ -99,8 +100,8 @@ class ManualInput extends \Modularity\Module
                 $arr['id'] = 'item-' . $data['ID'] . '-' . $index;
                 // TODO: change name and migrate
                 $arr['icon'] = $arr['box_icon'];
-                $arr['image'] = $this->maybeGetImageImageContract($displayAs, $arr['image']) ?? $this->getImageData(
-                    $arr['image'],
+                $arr['image'] = $this->maybeGetImageImageContract($displayAs, $arr['image'] ?: 0) ?? $this->getImageData(
+                    $arr['image'] ?: 0,
                     $imageSize,
                 );
                 $arr['accordion_column_values'] = $this->createAccordionTitles(
@@ -121,7 +122,7 @@ class ManualInput extends \Modularity\Module
         //Check if any item has an image
         $data['anyItemHasImage'] = array_reduce(
             $data['manualInputs'],
-            function ($carry, $item) {
+            static function ($carry, $item) {
                 if (isset($item['image'])) {
                     if (is_a($item['image'], ImageComponentContract::class)) {
                         return $carry || $item['image']->getUrl();
@@ -164,7 +165,7 @@ class ManualInput extends \Modularity\Module
             'link' => null,
             'link_text' => null,
             'default_link_text' => __('Read more', 'municipio'),
-            'image' => null,
+            'image' => 0,
             'accordion_column_values' => [],
             'box_icon' => null,
             'custom_background_color' => null,
@@ -344,7 +345,7 @@ class ManualInput extends \Modularity\Module
      */
     public function blockData($viewData, $block, $module)
     {
-        if (strpos($block['name'], 'acf/manualinput') === 0 && $block['align'] == 'full' && !is_admin()) {
+        if (str_starts_with($block['name'], 'acf/manualinput') && $block['align'] == 'full' && !is_admin()) {
             $viewData['stretch'] = true;
         } else {
             $viewData['stretch'] = false;

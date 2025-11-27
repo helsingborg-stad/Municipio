@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\MirroredPost\PostObject;
 
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\RestoreCurrentBlog;
@@ -16,14 +19,14 @@ class MirroredPostObjectTest extends TestCase
     public function testCanBeInstantiated(): void
     {
         $decorator = $this->createMirroredPostObject(1);
-        $this->assertInstanceOf(MirroredPostObject::class, $decorator);
+        static::assertInstanceOf(MirroredPostObject::class, $decorator);
     }
 
     #[TestDox('getBlogId returns the provided blog id')]
     public function testGetBlogIdReturnsTheProvidedBlogId(): void
     {
         $decorator = $this->createMirroredPostObject(2);
-        $this->assertEquals(2, $decorator->getBlogId());
+        static::assertSame(2, $decorator->getBlogId());
     }
 
     #[TestDox('getPermalink replaces the original site url with the current site url')]
@@ -32,56 +35,56 @@ class MirroredPostObjectTest extends TestCase
         $postObject = $this->createPostObjectStub([
             'getPermalink' => 'http://other-site.com/hello-world/',
         ]);
-        $wpService  = $this->createWpService();
-        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
 
         $permaLink = $decorator->getPermalink();
 
-        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
-        $this->assertEquals(1, $wpService->methodCalls['switchToBlog'][1][0]);
-        $this->assertEquals('http://other-site.com/hello-world/', $permaLink);
+        static::assertSame(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        static::assertSame(1, $wpService->methodCalls['switchToBlog'][1][0]);
+        static::assertSame('http://other-site.com/hello-world/', $permaLink);
     }
 
     #[TestDox('getIcon() switches to the blog using the provided blog id when getting the value')]
     public function testGetIconSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
         $postObject = $this->createPostObjectStub(['getIcon' => null]);
-        $wpService  = $this->createWpService();
-        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
 
         $icon = $decorator->getIcon();
 
-        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
-        $this->assertEquals(1, $wpService->methodCalls['switchToBlog'][1][0]);
-        $this->assertNull($icon);
+        static::assertSame(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        static::assertSame(1, $wpService->methodCalls['switchToBlog'][1][0]);
+        static::assertNull($icon);
     }
 
     #[TestDox('getSchemaProperty() switches to the blog using the provided blog id when getting the value')]
     public function testGetSchemaPropertySwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
         $postObject = $this->createPostObjectStub(['getSchemaProperty' => 'schema-value']);
-        $wpService  = $this->createWpService();
-        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
 
         $schemaValue = $decorator->getSchemaProperty('some-property');
 
-        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
-        $this->assertEquals(1, $wpService->methodCalls['switchToBlog'][1][0]);
-        $this->assertEquals('schema-value', $schemaValue);
+        static::assertSame(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        static::assertSame(1, $wpService->methodCalls['switchToBlog'][1][0]);
+        static::assertSame('schema-value', $schemaValue);
     }
 
     #[TestDox('getSchema() switches to the blog using the provided blog id when getting the value')]
     public function testGetSchemaSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
-        $schema     = Schema::thing();
+        $schema = Schema::thing();
         $postObject = $this->createPostObjectStub(['getSchema' => $schema]);
-        $wpService  = $this->createWpService();
-        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
 
         $schemaData = $decorator->getSchema();
 
-        $this->assertCount(2, $wpService->methodCalls['switchToBlog']);
-        $this->assertEquals($schema, $schemaData);
+        static::assertCount(2, $wpService->methodCalls['switchToBlog']);
+        static::assertSame($schema, $schemaData);
     }
 
     /**
@@ -89,11 +92,7 @@ class MirroredPostObjectTest extends TestCase
      */
     private function createMirroredPostObject(int $blogId): MirroredPostObject
     {
-        return new MirroredPostObject(
-            $this->createPostObjectStub(),
-            $this->createWpService(),
-            $blogId
-        );
+        return new MirroredPostObject($this->createPostObjectStub(), $this->createWpService(), $blogId);
     }
 
     /**
@@ -114,11 +113,11 @@ class MirroredPostObjectTest extends TestCase
     private function createWpService(): SwitchToBlog&RestoreCurrentBlog
     {
         return new FakeWpService([
-            'switchToBlog'       => true,
+            'switchToBlog' => true,
             'restoreCurrentBlog' => true,
-            'getSiteUrl'         => 'http://example.com',
-            'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
-            'getCurrentBlogId'   => 1,
+            'getSiteUrl' => 'http://example.com',
+            'addQueryArg' => static fn($args, $url) => $url . '?' . http_build_query($args),
+            'getCurrentBlogId' => 1,
         ]);
     }
 }

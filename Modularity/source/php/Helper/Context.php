@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 /**
@@ -30,7 +32,7 @@ class Context
      * @param string $context
      * @return void
      */
-    public static function set(string $context)
+    public static function set(false|string $context)
     {
         self::$context = $context;
     }

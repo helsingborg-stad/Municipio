@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 /**
@@ -20,8 +22,8 @@ class CachePurge
             $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
         }
 
-        add_action('save_post', array($this, 'purgeObjectCache'), 90, 1);
-        add_action('save_post', array($this, 'purgePageCache'), 100, 1);
+        add_action('save_post', [$this, 'purgeObjectCache'], 90, 1);
+        add_action('save_post', [$this, 'purgePageCache'], 100, 1);
     }
 
     /**
@@ -50,12 +52,12 @@ class CachePurge
                         continue;
                     }
 
-                    wp_remote_request(get_the_permalink($modulePage->post_id), array(
+                    wp_remote_request(get_the_permalink($modulePage->post_id), [
                         'method' => 'PURGE',
                         'timeout' => 2,
                         'redirection' => 0,
                         'blocking' => false,
-                    ));
+                    ]);
                 }
 
                 return true;
@@ -128,7 +130,7 @@ class CachePurge
      */
     private function isModularityPost($postId): bool
     {
-        if (strpos(get_post_type($postId), 'mod-') === 0) {
+        if (str_starts_with(get_post_type($postId), 'mod-')) {
             return true;
         }
         return false;

@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\MirroredPost\PostObject;
 
+use ComponentLibrary\Integrations\Image\Image;
+use ComponentLibrary\Integrations\Image\ImageInterface;
 use Municipio\Integrations\Component\BlogSwitchedImageFocusResolver;
 use Municipio\Integrations\Component\BlogSwitchedImageResolver;
 use Municipio\Integrations\Component\ImageFocusResolver;
@@ -10,7 +14,6 @@ use Municipio\PostObject\Decorators\AbstractPostObjectDecorator;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
-use ComponentLibrary\Integrations\Image\{Image, ImageInterface};
 use WpService\WpService;
 
 /**
@@ -24,7 +27,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     public function __construct(
         PostObjectInterface $postObject,
         private WpService $wpService,
-        private int $blogId
+        private int $blogId,
     ) {
         parent::__construct($postObject);
     }
@@ -34,15 +37,15 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getPermalink(): string
     {
-        return $this->withSwitchedBlog(fn() => $this->postObject->getPermalink());
+        return $this->withSwitchedBlog([$this->postObject, 'getPermalink']);
     }
 
     /**
      * @inheritDoc
      */
-    public function getIcon(): ?IconInterface
+    public function getIcon(): null|IconInterface
     {
-        return $this->withSwitchedBlog(fn() => $this->postObject->getIcon());
+        return $this->withSwitchedBlog([$this->postObject, 'getIcon']);
     }
 
     /**
@@ -58,7 +61,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getSchema(): BaseType
     {
-        return $this->withSwitchedBlog(fn() => $this->postObject->getSchema());
+        return $this->withSwitchedBlog([$this->postObject, 'getSchema']);
     }
 
     /**
@@ -72,19 +75,25 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     /**
      * @inheritDoc
      */
-    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
+    public function getImage(null|int $width = null, null|int $height = null): null|ImageInterface
     {
-        $imageId = $this->withSwitchedBlog(fn () => $this->wpService->getPostThumbnailId($this->getId()));
+        $imageId = $this->withSwitchedBlog(fn() => $this->wpService->getPostThumbnailId($this->getId()));
 
-        $width  = $width ?? 1920;
-        $height = $height ?? false;
+        $width ??= 1920;
+        $height ??= false;
 
-        return $imageId !== false ? Image::factory(
-            (int) $imageId,
-            [$width, $height],
-            new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver(), $this->wpService),
-            new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]), $this->wpService)
-        ) : null;
+        return !empty($imageId)
+            ? Image::factory(
+                (int) $imageId,
+                [$width, $height],
+                new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver(), $this->wpService),
+                new BlogSwitchedImageFocusResolver(
+                    $this->getBlogId(),
+                    new ImageFocusResolver(['id' => $imageId]),
+                    $this->wpService,
+                ),
+            )
+            : null;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Options;
 
 class General extends \Modularity\Options
@@ -16,7 +18,7 @@ class General extends \Modularity\Options
         );
 
         // Add search page modules link to Moduliarty
-        add_action('admin_menu', function () {
+        add_action('admin_menu', static function () {
             if (function_exists('add_submenu_page')) {
                 add_submenu_page(
                     'modularity',
@@ -39,7 +41,7 @@ class General extends \Modularity\Options
         add_meta_box(
             'modularity-mb-publish',
             __('Save options', 'modularity'),
-            function () {
+            static function () {
                 $templatePath = \Modularity\Helper\Wp::getTemplate('publish', 'options/partials');
                 include $templatePath;
             },
@@ -51,6 +53,7 @@ class General extends \Modularity\Options
         add_meta_box(
             'modularity-mb-core-options',
             __('Core options', 'modularity'),
+            // @mago-ignore lint:prefer-static-closure
             function () {
                 $templatePath = \Modularity\Helper\Wp::getTemplate('core-options', 'options/partials');
                 include $templatePath;
@@ -63,7 +66,7 @@ class General extends \Modularity\Options
             add_meta_box(
                 'modularity-mb-module-options',
                 __('Module options', 'modularity'),
-                function () {
+                static function () {
                     do_action('Modularity/Options/Module');
                 },
                 $this->screenHook,
@@ -108,7 +111,7 @@ class General extends \Modularity\Options
         global $wp_registered_sidebars;
         global $modularityOptions;
 
-        usort($wp_registered_sidebars, function ($a, $b) {
+        usort($wp_registered_sidebars, static function ($a, $b) {
             return $a['name'] > $b['name'];
         });
 
@@ -133,7 +136,7 @@ class General extends \Modularity\Options
             ? $modularityOptions['enabled-post-types']
             : [];
 
-        $postTypes = array_filter(get_post_types(), function ($item) {
+        $postTypes = array_filter(get_post_types(), static function ($item) {
             $disallowed = array_merge(array_keys(\Modularity\ModuleManager::$available), [
                 'attachment',
                 'revision',
@@ -164,7 +167,7 @@ class General extends \Modularity\Options
     {
         $available = \Modularity\ModuleManager::$available;
 
-        uasort($available, function ($a, $b) {
+        uasort($available, static function ($a, $b) {
             return strcmp($a['labels']['name'], $b['labels']['name']);
         });
 

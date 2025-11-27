@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Version;
 
 use Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
@@ -46,7 +48,7 @@ class V5 implements versionInterface
             'acf/' . $this->oldName,
             $this->getBlockFields(),
             'acf/' . $this->newName,
-            array($this, 'blockConditionCallback'),
+            [$this, 'blockConditionCallback'],
         );
 
         $blockMigrator->migrateBlocks();
@@ -64,7 +66,7 @@ class V5 implements versionInterface
     {
         $postsModules = GetPostsByPostType::getPostsByPostType('mod-' . $this->oldName);
 
-        $filteredPostsModules = array_filter($postsModules, function ($module) {
+        $filteredPostsModules = array_filter($postsModules, static function ($module) {
             if (!empty($module->ID)) {
                 $source = get_field('posts_data_source', $module->ID);
                 return !empty($source) && $source == 'input';

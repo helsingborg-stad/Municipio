@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Integrations\Component;
 
 use ComponentLibrary\Integrations\Image\ImageResolverInterface;
@@ -16,7 +18,7 @@ class ImageResolver implements ImageResolverInterface
     public function getImageUrl(int $id, array $size): null|string
     {
         //Make 0 values in array false
-        $size = array_map(function ($value) {
+        $size = array_map(static function ($value) {
             return $value === 0 ? false : $value;
         }, $size);
 

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_57454ae7b0e9a',
         'title' => __('Video', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_57454c24d44d8',
                 'label' => __('Type', 'municipio'),
                 'name' => 'type',
@@ -13,23 +15,23 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'embed' => __('Embed by link (YouTube or Vimeo)', 'municipio'),
                     'upload' => __('Upload video file', 'municipio'),
-                ),
+                ],
                 'default_value' => '',
                 'return_format' => 'value',
                 'allow_null' => 0,
                 'other_choice' => 0,
                 'layout' => 'horizontal',
                 'save_other_choice' => 0,
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_57454c5ad44db',
                 'label' => __('Video: mp4', 'municipio'),
                 'name' => 'video_mp4',
@@ -39,51 +41,51 @@ if (function_exists('acf_add_local_field_group')) {
                     'municipio',
                 ),
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_57454c24d44d8',
                             'operator' => '==',
                             'value' => 'upload',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '33.3333',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'return_format' => 'array',
                 'library' => 'all',
                 'min_size' => '',
                 'max_size' => '',
                 'mime_types' => 'mp4',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_57454c7ad44dc',
                 'label' => __('Embed Link', 'municipio'),
                 'name' => 'embed_link',
                 'type' => 'url',
                 'instructions' => '',
                 'required' => 1,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_57454c24d44d8',
                             'operator' => '==',
                             'value' => 'embed',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_57454c91d44dd',
                 'label' => __('Placeholder Image', 'municipio'),
                 'name' => 'placeholder_image',
@@ -94,11 +96,11 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'uploader' => '',
                 'acfe_thumbnail' => 0,
                 'return_format' => 'array',
@@ -111,8 +113,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'mime_types' => '',
                 'preview_size' => 'thumbnail',
                 'library' => 'all',
-            ),
-            4 => array(
+            ],
+            4 => [
                 'key' => 'field_637f27e8eb86c',
                 'label' => __('Subtitles', 'municipio'),
                 'name' => 'subtitles',
@@ -122,20 +124,20 @@ if (function_exists('acf_add_local_field_group')) {
                     'municipio',
                 ),
                 'required' => 0,
-                'conditional_logic' => array(
-                    0 => array(
-                        0 => array(
+                'conditional_logic' => [
+                    0 => [
+                        0 => [
                             'field' => 'field_57454c24d44d8',
                             'operator' => '==',
                             'value' => 'upload',
-                        ),
-                    ),
-                ),
-                'wrapper' => array(
+                        ],
+                    ],
+                ],
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'acfe_repeater_stylised_button' => 1,
                 'layout' => 'table',
                 'pagination' => 0,
@@ -144,8 +146,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'collapsed' => '',
                 'button_label' => __('Add Row', 'municipio'),
                 'rows_per_page' => 20,
-                'sub_fields' => array(
-                    0 => array(
+                'sub_fields' => [
+                    0 => [
                         'key' => 'field_637f2831eb86d',
                         'label' => __('Subtitle File', 'municipio'),
                         'name' => 'file',
@@ -153,11 +155,11 @@ if (function_exists('acf_add_local_field_group')) {
                         'instructions' => '',
                         'required' => 1,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'uploader' => '',
                         'return_format' => 'url',
                         'min_size' => '',
@@ -165,8 +167,8 @@ if (function_exists('acf_add_local_field_group')) {
                         'mime_types' => 'vtt',
                         'library' => 'all',
                         'parent_repeater' => 'field_637f27e8eb86c',
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'key' => 'field_637f2869eb86e',
                         'label' => __('Language', 'municipio'),
                         'name' => 'language',
@@ -174,12 +176,12 @@ if (function_exists('acf_add_local_field_group')) {
                         'instructions' => '',
                         'required' => 1,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
-                        'choices' => array(
+                        ],
+                        'choices' => [
                             'ab' => __('Abkhaz (аҧсуа)', 'municipio'),
                             'aa' => __('Afar (Afaraf)', 'municipio'),
                             'af' => __('Afrikaans (Afrikaans)', 'municipio'),
@@ -365,7 +367,7 @@ if (function_exists('acf_add_local_field_group')) {
                             'yi' => __('Yiddish (ייִדיש)', 'municipio'),
                             'yo' => __('Yoruba (Yorùbá)', 'municipio'),
                             'za' => __('Zhuang (Saɯ cueŋƅ, Saw cuengh)', 'municipio'),
-                        ),
+                        ],
                         'default_value' => __('sv', 'municipio'),
                         'return_format' => 'array',
                         'multiple' => 0,
@@ -374,26 +376,26 @@ if (function_exists('acf_add_local_field_group')) {
                         'ajax' => 0,
                         'placeholder' => '',
                         'parent_repeater' => 'field_637f27e8eb86c',
-                    ),
-                ),
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-video',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/video',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -408,5 +410,5 @@ if (function_exists('acf_add_local_field_group')) {
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

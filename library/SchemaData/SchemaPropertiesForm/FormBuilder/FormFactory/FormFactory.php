@@ -8,14 +8,13 @@ use Municipio\Schema\ExhibitionEvent;
 use Municipio\Schema\JobPosting;
 use Municipio\Schema\Place;
 use Municipio\Schema\Project;
+use Municipio\Schema\SingleDigitalGateway;
 use Municipio\Schema\SpecialAnnouncement;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValueInterface;
-use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\{
-    FieldInterface,
-    FieldWithSubFieldsInterface,
-    GroupField,
-    RepeaterField,
-};
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldWithSubFieldsInterface;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GroupField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\RepeaterField;
 use WpService\Contracts\__;
 
 /**
@@ -31,9 +30,10 @@ class FormFactory implements FormFactoryInterface
      * @param RegisterFieldValueInterface $registerFieldValue The field value registration instance.
      * @param __ $wpService The WordPress service instance.
      */
-    public function __construct(private RegisterFieldValueInterface $registerFieldValue, private __ $wpService)
-    {
-    }
+    public function __construct(
+        private RegisterFieldValueInterface $registerFieldValue,
+        private __ $wpService,
+    ) {}
 
     /**
      * @inheritDoc
@@ -52,15 +52,15 @@ class FormFactory implements FormFactoryInterface
 
         return [
             'instructions' => 'Schema properties for ' . $schema->getType(),
-            'title'        => "Schema properties for {$schema->getType()}",
-            'fields'       => [$group->toArray()],
-            'location'     => [
+            'title' => "Schema properties for {$schema->getType()}",
+            'fields' => [$group->toArray()],
+            'location' => [
                 [
                     [
-                        'param'    => 'post_type',
+                        'param' => 'post_type',
                         'operator' => '==',
-                        'value'    => 'all',
-                    ]
+                        'value' => 'all',
+                    ],
                 ],
             ],
         ];
@@ -76,13 +76,14 @@ class FormFactory implements FormFactoryInterface
     private function getFields(BaseType $schema): array
     {
         return match ($schema::class) {
+            SingleDigitalGateway::class => (new SingleDigitalGatewayFormFactory($this->wpService))->createForm($schema),
             Place::class => (new PlaceFormFactory($this->wpService))->createForm($schema),
             JobPosting::class => (new JobPostingFormFactory($this->wpService))->createForm($schema),
             Event::class => (new EventFormFactory($this->wpService))->createForm($schema),
             ExhibitionEvent::class => (new ExhibitionEventFormFactory($this->wpService))->createForm($schema),
             Project::class => (new ProjectFormFactory($this->wpService))->createForm($schema),
             SpecialAnnouncement::class => (new SpecialAnnouncementFormFactory($this->wpService))->createForm($schema),
-            default   => []
+            default => [],
         };
     }
 

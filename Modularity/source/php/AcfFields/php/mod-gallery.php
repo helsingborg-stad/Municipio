@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_5666af6d26b7c',
         'title' => 'Gallery',
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'library' => 'all',
                 'min' => '',
                 'max' => '',
@@ -24,23 +26,23 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'preview_size' => 'thumbnail',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-gallery',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -50,5 +52,5 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => 1,
         'description' => '',
         'local' => 'php',
-    ));
+    ]);
 }

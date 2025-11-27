@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\TemplateController;
 
 use Modularity\Helper\WpService;
@@ -27,7 +29,7 @@ class AbstractControllerTest extends TestCase
     {
         $controller = new AbstractController($this->getModuleMock());
         $post = $this->getPostObjectFake([
-            'getSchemaProperty' => fn($property) => $property === '@type' ? 'Event' : null,
+            'getSchemaProperty' => static fn($property) => $property === '@type' ? 'Event' : null,
         ]);
 
         $this->assertTrue($controller->postUsesSchemaTypeEvent($post));
@@ -38,7 +40,7 @@ class AbstractControllerTest extends TestCase
     {
         $controller = new AbstractController($this->getModuleMock());
         $post = $this->getPostObjectFake([
-            'getSchemaProperty' => fn($property) => $property === '@type' ? 'Article' : null,
+            'getSchemaProperty' => static fn($property) => $property === '@type' ? 'Article' : null,
         ]);
 
         $this->assertFalse($controller->postUsesSchemaTypeEvent($post));

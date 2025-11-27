@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 use enshrined\svgSanitize\Sanitizer as SVGSanitize;
@@ -17,43 +19,43 @@ class ModuleManager
      * Holds all module's settings
      * @var array
      */
-    public static $moduleSettings = array();
+    public static $moduleSettings = [];
 
     /**
      * Holds a list of registered modules
      * @var array
      */
-    public static $registered = array();
+    public static $registered = [];
 
     /**
      * Holds namespaces for each and every module class
      * @var array
      */
-    public static $classes = array();
+    public static $classes = [];
 
     /**
      * Holds a list of available (initialized) modules
      * @var array
      */
-    public static $available = array();
+    public static $available = [];
 
     /**
      * Holds a list of enabled modules
      * @var array
      */
-    public static $enabled = array();
+    public static $enabled = [];
 
     /**
      * Holds a list of deprecated modules
      * @var array
      */
-    public static $deprecated = array();
+    public static $deprecated = [];
 
     /**
      * Available width settings for modules
      * @var array
      */
-    public static $widths = array();
+    public static $widths = [];
 
     public static $blockManager = null;
 
@@ -75,18 +77,18 @@ class ModuleManager
         );
 
         // Hide title option
-        add_action('edit_form_before_permalink', array($this, 'hideTitleCheckbox'));
-        add_action('save_post', array($this, 'saveHideTitleCheckbox'), 10, 2);
+        add_action('edit_form_before_permalink', [$this, 'hideTitleCheckbox']);
+        add_action('save_post', [$this, 'saveHideTitleCheckbox'], 10, 2);
 
         // Shortcode metabox
-        add_action('add_meta_boxes', array($this, 'shortcodeMetabox'));
+        add_action('add_meta_boxes', [$this, 'shortcodeMetabox']);
 
         // Add usage metabox
-        add_action('add_meta_boxes', array($this, 'whereUsedMetaBox'));
+        add_action('add_meta_boxes', [$this, 'whereUsedMetaBox']);
 
         // Description meta box
-        add_action('add_meta_boxes', array($this, 'descriptionMetabox'), 5);
-        add_action('save_post', array($this, 'descriptionMetaboxSave'));
+        add_action('add_meta_boxes', [$this, 'descriptionMetabox'], 5);
+        add_action('save_post', [$this, 'descriptionMetaboxSave']);
 
         // Possibly show notice nag when editing module used in several places
         add_action('admin_notices', [$this, 'maybeShowEditModuleUsageNoticeNag']);
@@ -115,7 +117,7 @@ class ModuleManager
         $options = get_option('modularity-options');
 
         if (!isset($options['enabled-modules'])) {
-            return array();
+            return [];
         }
 
         return $options['enabled-modules'];
@@ -128,7 +130,7 @@ class ModuleManager
     public function getBundeled(): array
     {
         $directory = MODULARITY_PATH . 'source/php/Module/';
-        $bundeled = array();
+        $bundeled = [];
 
         foreach (@glob($directory . '*', GLOB_ONLYDIR) as $folder) {
             $bundeled[$folder] = basename($folder);
@@ -185,7 +187,7 @@ class ModuleManager
         self::$classes[$postTypeSlug] = $class;
 
         // Set labels
-        $labels = array(
+        $labels = [
             'name' => _x($class->nameSingular, 'post type general name', 'modularity'),
             'singular_name' => _x($class->nameSingular, 'post type singular name', 'modularity'),
             'menu_name' => _x($class->namePlural, 'admin menu', 'modularity'),
@@ -200,10 +202,10 @@ class ModuleManager
             'parent_item_colon' => sprintf(__('Parent %s', 'municipio'), $class->namePlural),
             'not_found' => sprintf(__('No %s', 'municipio'), $class->namePlural),
             'not_found_in_trash' => sprintf(__('No %s in trash', 'municipio'), $class->namePlural),
-        );
+        ];
 
         // Set args
-        $args = array(
+        $args = [
             'labels' => $labels,
             'description' => __($class->description, 'modularity'),
             'public' => false,
@@ -217,8 +219,8 @@ class ModuleManager
             'hierarchical' => false,
             'menu_position' => 100,
             'menu_icon' => $class->icon,
-            'supports' => array_merge($class->supports, array('title', 'revisions', 'author')),
-            'capabilities' => array(
+            'supports' => array_merge($class->supports, ['title', 'revisions', 'author']),
+            'capabilities' => [
                 'edit_post' => 'edit_module',
                 'edit_posts' => 'edit_modules',
                 'edit_others_posts' => 'edit_other_modules',
@@ -226,9 +228,9 @@ class ModuleManager
                 'read_post' => 'read_module',
                 'read_private_posts' => 'read_private_posts',
                 'delete_post' => 'delete_module',
-            ),
+            ],
             'map_meta_cap' => true,
-        );
+        ];
 
         //Disable from search search pages (someone did a huge mistake designing this feature)
         if (is_search()) {
@@ -251,7 +253,7 @@ class ModuleManager
             if (!empty($class->plugin)) {
                 // Fallback to enable old modules to register their plugins
                 if (!is_array($class->plugin)) {
-                    $class->plugin = array($class->plugin);
+                    $class->plugin = [$class->plugin];
                 }
 
                 // Ability to filter path
@@ -288,7 +290,7 @@ class ModuleManager
         \Modularity\ModuleManager::$available[$postTypeSlug] = $args;
 
         // Store settings of each module in static var
-        self::$moduleSettings[$postTypeSlug] = array(
+        self::$moduleSettings[$postTypeSlug] = [
             'moduleSlug' => $postTypeSlug,
             'slug' => $class->slug,
             'singular_name' => $class->nameSingular,
@@ -299,7 +301,7 @@ class ModuleManager
             'plugin' => $class->plugin,
             'cache_ttl' => $class->cacheTtl,
             'hide_title' => $class->hideTitle,
-        );
+        ];
 
         $class->moduleSlug = $postTypeSlug;
 
@@ -426,7 +428,7 @@ class ModuleManager
         add_meta_box(
             'modularity-shortcode',
             'Modularity Shortcode',
-            function () {
+            static function () {
                 global $post;
                 echo '<p>';
                 echo __('Copy and paste this shortcode to display the module inline.', 'municipio');
@@ -466,7 +468,7 @@ class ModuleManager
         add_meta_box(
             'modularity-usage',
             'Module usage',
-            function () use ($module, $usage) {
+            static function () use ($module, $usage) {
                 if (count($usage) == 0) {
                     echo '<p>' . __('This modules is not used yet.', 'municipio') . '</p>';
                     return;
@@ -495,7 +497,7 @@ class ModuleManager
      * @param  integer $id Module id
      * @return array       List of pages where the module is used
      */
-    public static function getModuleUsage($id, $limit = false)
+    public static function getModuleUsage(int $id, $limit = false)
     {
         return \Modularity\Helper\ModuleUsageById::getModuleUsageById($id, $limit);
     }
@@ -523,7 +525,7 @@ class ModuleManager
         add_meta_box(
             'modularity-description',
             __('Module description', 'municipio'),
-            function () {
+            static function () {
                 $description = get_post_meta(get_the_id(), 'module-description', true);
                 include MODULARITY_TEMPLATE_PATH . 'editor/modularity-module-description.php';
             },
@@ -556,9 +558,9 @@ class ModuleManager
      */
     public function setupListTableField($slug)
     {
-        add_filter('manage_edit-' . $slug . '_columns', array($this, 'listTableColumns'));
-        add_action('manage_' . $slug . '_posts_custom_column', array($this, 'listTableColumnContent'), 10, 2);
-        add_filter('manage_edit-' . $slug . '_sortable_columns', array($this, 'listTableColumnSorting'));
+        add_filter('manage_edit-' . $slug . '_columns', [$this, 'listTableColumns']);
+        add_action('manage_' . $slug . '_posts_custom_column', [$this, 'listTableColumnContent'], 10, 2);
+        add_filter('manage_edit-' . $slug . '_sortable_columns', [$this, 'listTableColumnSorting']);
     }
 
     /**
@@ -568,13 +570,13 @@ class ModuleManager
      */
     public function listTableColumns($columns)
     {
-        $columns = array(
+        $columns = [
             'cb' => '<input type="checkbox">',
             'title' => __('Title'),
             'description' => __('Description'),
             'usage' => __('Usage', 'municipio'),
             'date' => __('Date'),
-        );
+        ];
 
         return $columns;
     }
@@ -649,7 +651,7 @@ class ModuleManager
             $screen = get_current_screen();
             $usage = sizeof(ModuleManager::getModuleUsage(get_the_ID()));
 
-            if (strpos($screen->post_type, 'mod-') === 0 && $usage > 1) {
+            if (str_starts_with($screen->post_type, 'mod-') && $usage > 1) {
                 echo '<div class="notice notice-warning">';
                 echo
                     '<p>' . __('<strong>Heads up:</strong> This module is used in several places', 'municipio') . '</p>'

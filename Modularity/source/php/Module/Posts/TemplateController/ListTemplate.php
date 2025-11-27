@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\TemplateController;
 
 use Modularity\Module\Posts\Helper\DomainChecker;
@@ -53,7 +55,7 @@ class ListTemplate extends AbstractController
                 }
 
                 $post->icon = 'arrow_forward';
-                $post->classList = $post->classList ?? [];
+                $post->classList ??= [];
                 $post->attributeList = ['data-js-item-id' => $post->getId()];
 
                 if (

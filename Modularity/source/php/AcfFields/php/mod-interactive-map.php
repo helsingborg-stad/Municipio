@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_67a6218f4b8a6',
         'title' => __('Interactive Map', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_67dd6e61f1d7d',
                 'label' => __('Size', 'municipio'),
                 'name' => 'mod_interactive_map_size',
@@ -14,16 +16,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'small' => __('Small', 'municipio'),
                     'medium' => __('Medium', 'municipio'),
                     'large' => __('Large', 'municipio'),
-                ),
+                ],
                 'default_value' => __('medium', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -34,8 +36,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_67b44cbc181c6',
                 'label' => __('Interactive Map', 'municipio'),
                 'name' => 'interactive-map',
@@ -44,32 +46,32 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_lat' => '',
                 'default_lng' => '',
                 'allow_in_bindings' => 1,
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-interactivemap',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/interactivemap',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -80,11 +82,11 @@ if (function_exists('acf_add_local_field_group')) {
         'description' => '',
         'show_in_rest' => 0,
         'acfe_display_title' => '',
-        'acfe_autosync' => array(
+        'acfe_autosync' => [
             0 => 'json',
-        ),
+        ],
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

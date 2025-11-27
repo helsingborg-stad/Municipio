@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class Block
@@ -17,10 +19,12 @@ class Block
         if (has_blocks($post->post_content)) {
             $blocks = parse_blocks($post->post_content);
             foreach ($blocks as $block) {
-                if ($block['blockName'] === $blockName) {
-                    if (isset($block['attrs']['data'][$fieldName])) {
-                        $content = $block['attrs']['data'][$fieldName];
-                    }
+                if ($block['blockName'] !== $blockName) {
+                    continue;
+                }
+
+                if (isset($block['attrs']['data'][$fieldName])) {
+                    $content = $block['attrs']['data'][$fieldName];
                 }
             }
         }

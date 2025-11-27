@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Modal;
 
 use Municipio\Helper\Post;
@@ -7,7 +9,7 @@ use Municipio\Helper\Post;
 class Modal extends \Modularity\Module
 {
     public $slug = 'modal';
-    public $supports = array();
+    public $supports = [];
     private $postType;
 
     public function init()
@@ -23,7 +25,7 @@ class Modal extends \Modularity\Module
         // Only run if module is enabled
         if (in_array('mod-' . $this->slug, \Modularity\ModuleManager::getEnabled())) {
             add_action('init', [$this, 'registerPostType'], 99);
-            add_filter('allowed_block_types_all', array($this, 'disallowBlockType'), 10, 2);
+            add_filter('allowed_block_types_all', [$this, 'disallowBlockType'], 10, 2);
         }
     }
 

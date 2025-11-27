@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')):
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_60ab6d6ba3621',
         'title' => 'Text - block options',
-        'fields' => array(
-            array(
+        'fields' => [
+            [
                 'key' => 'field_60ab6d956843c',
                 'label' => 'Content',
                 'name' => 'content',
@@ -13,27 +15,27 @@ if (function_exists('acf_add_local_field_group')):
                 'instructions' => '',
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => '',
                 'maxlength' => '',
                 'rows' => '',
                 'new_lines' => '',
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
+            ],
+        ],
+        'location' => [
+            [
+                [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/text',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -42,5 +44,5 @@ if (function_exists('acf_add_local_field_group')):
         'hide_on_screen' => '',
         'active' => true,
         'description' => '',
-    ));
+    ]);
 endif;

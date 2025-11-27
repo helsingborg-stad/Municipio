@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Version;
 
 use Modularity\Upgrade\Migrators\Block\AcfBlockMigration;
-use Modularity\Upgrade\Migrators\Module\AcfModuleMigration;
 use Modularity\Upgrade\Version\Helper\GetPostsByPostType;
 
 class V1 implements versionInterface

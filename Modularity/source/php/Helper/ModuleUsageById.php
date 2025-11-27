@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class ModuleUsageById
 {
-    public static function getModuleUsageById($id, $limit = false)
+    public static function getModuleUsageById(int $id, $limit = false)
     {
         global $wpdb;
 
@@ -20,7 +22,7 @@ class ModuleUsageById
         return $result;
     }
 
-    public static function getPagesFromShortcodeUsageById(string $id, \wpdb $wpdb)
+    public static function getPagesFromShortcodeUsageById(int $id, \wpdb $wpdb)
     {
         $shortcodeQuery = "
         SELECT
@@ -37,9 +39,9 @@ class ModuleUsageById
         return $wpdb->get_results($shortcodeQuery, OBJECT);
     }
 
-    public static function getPagesFromModuleUsageById(string $id, \wpdb $wpdb)
+    public static function getPagesFromModuleUsageById(int $id, \wpdb $wpdb)
     {
-        $idLength = strlen($id);
+        $idLength = strlen((string) $id);
 
         $moduleQuery = "
             SELECT
@@ -75,9 +77,11 @@ class ModuleUsageById
     {
         $uniqueItems = [];
         foreach ($items as $item) {
-            if (!array_key_exists($item->post_id, $uniqueItems)) {
-                $uniqueItems[$item->post_id] = $item;
+            if (array_key_exists($item->post_id, $uniqueItems)) {
+                continue;
             }
+
+            $uniqueItems[$item->post_id] = $item;
         }
 
         return $uniqueItems;

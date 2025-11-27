@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class FormatObject
@@ -36,7 +38,7 @@ class FormatObject
     public static function camelCaseObject($object)
     {
         return (object) self::mapArrayKeys(
-            function ($string) {
+            static function ($string) {
                 return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace(
                     '-',
                     '_',
@@ -69,7 +71,7 @@ class FormatObject
      */
     public static function mapArrayKeys(callable $func, array $array)
     {
-        $return = array();
+        $return = [];
         foreach ($array as $key => $value) {
             $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
         }

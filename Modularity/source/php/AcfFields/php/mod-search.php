@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_66dffe0be28c1',
         'title' => __('Search Module', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_66dffe0cf16c6',
                 'label' => __('Placeholder', 'municipio'),
                 'name' => 'mod_search_placeholder',
@@ -14,18 +16,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_66e00c9a7060e',
                 'label' => __('Button label', 'municipio'),
                 'name' => 'mod_search_button_label',
@@ -34,18 +36,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_66e7d3a9d159b',
                 'label' => __('Width', 'municipio'),
                 'name' => 'mod_search_width',
@@ -54,17 +56,17 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     25 => __('25%', 'municipio'),
                     50 => __('50%', 'municipio'),
                     75 => __('75%', 'municipio'),
                     100 => __('100%', 'municipio'),
-                ),
+                ],
                 'default_value' => 100,
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -74,8 +76,8 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_66e7d424d159c',
                 'label' => __('Alignment', 'municipio'),
                 'name' => 'mod_search_alignment',
@@ -84,16 +86,16 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '50',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'start' => __('Left', 'municipio'),
                     'center' => __('Center', 'municipio'),
                     'end' => __('Right', 'municipio'),
-                ),
+                ],
                 'default_value' => 'center',
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -103,24 +105,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'placeholder' => '',
                 'allow_custom' => 0,
                 'search_placeholder' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-search',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/search',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -131,11 +133,11 @@ if (function_exists('acf_add_local_field_group')) {
         'description' => '',
         'show_in_rest' => 0,
         'acfe_display_title' => '',
-        'acfe_autosync' => array(
+        'acfe_autosync' => [
             0 => 'json',
-        ),
+        ],
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

@@ -5,6 +5,8 @@
  */
 
 use AcfService\Implementations\NativeAcfService;
+use Municipio\Helper\User\Config\UserConfig;
+use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
@@ -51,6 +53,19 @@ require_once MUNICIPIO_PATH . 'library/Public.php';
  */
 $wpService  = new WpServiceWithTypecastedReturns(new NativeWpService());
 $acfService = new NativeAcfService();
+
+
+/**
+ * User
+ */
+$userHelper = new User(
+    $wpService,
+    $acfService,
+    new UserConfig(),
+    new \Municipio\UserGroup\Config\UserGroupConfig($wpService),
+    new \Municipio\Helper\Term\Term($wpService, $acfService),
+    new \Municipio\Helper\SiteSwitcher\SiteSwitcher($wpService, $acfService),
+);
 
 /**
  * Modularity
@@ -172,7 +187,8 @@ if (function_exists('get_field')) {
         new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
         $schemaDataConfigService,
         $wpdb,
-        new WpUtilService($wpService)
+        new WpUtilService($wpService),
+        $userHelper
     );
 } else {
     if (!(defined('WP_CLI') && constant('WP_CLI'))) {

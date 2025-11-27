@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Sites;
 
 class Sites extends \Modularity\Module
 {
     public $slug = 'sites';
-    public $supports = array();
+    public $supports = [];
     public $multisiteOnly = true;
     public $isBlockCompatible = false;
 

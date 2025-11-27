@@ -1,135 +1,88 @@
-name: Bump version and create release
+name: Bump version, build and create release
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   release:
     runs-on: ubuntu-latest
-
-    steps:
-
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
-    - name: Create Release and bump version files
-      uses: helsingborg-stad/release-wp-plugin-action@1.0.2
-      with:
-        php-version: 8.2
-        node-version: 24.6
-  build-assets:
-    needs: ['release']
-    runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
+
     steps:
-      - name: Get latest release version
-        id: get-version
-        run: |
-          echo "LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Update version in package.json
+
+      - name: Bump version files (no release yet)
+        uses: helsingborg-stad/release-wp-plugin-action@main
+        with:
+          php-version: 8.2
+          node-version: 20.6.0
+          skip-release: true  # custom flag you added
+
+      - name: Pull latest main with bumped version
         run: |
-          # Read the latest release version from environment variable
-          LATEST_VERSION="${{ env.LATEST_RELEASE }}"
+          git fetch origin main
+          git checkout main
+          git pull origin main
 
-          # Update the "version" field in package.json using jq
-          jq --arg version "$LATEST_VERSION" '.version = $version' package.json > temp.json && mv temp.json package.json
-      
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - name: Inject access token in .npmrc
-        run: | 
-          echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-      - name: Run CI
-        if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') != '' }}
-        run: npm ci --no-progress --no-audit --include=dev
-      - name: Run build
-        if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') == '' }}
-        run: npx --yes browserslist@latest --update-db && npm run build
-      - name: Publish npm package to GHCR
-        run: npm publish --registry=https://npm.pkg.github.com
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create assets zip
-        uses: thedoctor0/zip-release@0.7.5
-        if: ${{ hashFiles('dist/') != '' }}
-        with:
-          type: zip
-          filename: '../assets.zip'
-          directory: dist
-          exclusions: '*.git* /*node_modules/* */source/sass/* */source/js/*'
-      - name: Upload Assets
-        uses: helsingborg-stad/upload-artifact@1.0.0
-        if: ${{ hashFiles('assets.zip') != '' }}
-        with:
-          artifact: "assets.zip"
-          gh_token: ${{ secrets.GITHUB_TOKEN }}
-          release: ${{ env.LATEST_RELEASE }}
-          repo: ${{ github.repository }}
-          artifact_mime_type: application/zip
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
 
+      # --- PHP Build ---
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
-        if: ${{ hashFiles('composer.json') != '' }}
         with:
-          tools: composer
-          php-version: '8.2'
-      
-      - name: Build PHP
-        if: ${{ hashFiles('composer.json') != '' }}
-        run: |
-          composer install --prefer-dist --no-progress --no-dev
-          composer dump-autoload
+          php-version: "8.2"
 
-      - name: Process removables
+      - name: Configure npm for GitHub Packages
         run: |
-          removables=('.git'
-            '.gitignore'
-            '.github'
-            '.gitattributes'
-            'build.php'
-            '.npmrc'
-            'composer.json'
-            'composer.lock'
-            'env-example'
-            'webpack.config.js'
-            'package-lock.json'
-            'package.json'
-            'phpunit.xml.dist'
-            'README.md'
-            'gulpfile.js'
-            './node_modules/'
-            './source/sass/'
-            './source/js/'
-            'LICENSE'
-            'babel.config.js'
-            'yarn.lock'
-          )
-          for item in ${removables[@]}; do rm -rf $item; done;
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> ~/.npmrc
 
-      - name: Create release zip
-        uses: thedoctor0/zip-release@0.7.5
+      - name: Run PHP build script
+        run: php build.php --no-composer --cleanup --release
+
+      - name: Overwrite .gitignore for release branch
+        run: |
+          printf "/*\n!.gitignore\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
+
+      # --- Release Branch Commit ---
+      - name: Commit and push release branch
+        run: |
+          git config user.name "CI Release Bot"
+          git config user.email "ci@helsingborg.se"
+          git checkout -B release
+          git add -A
+          git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
+          git push origin release --force
+
+      # --- Tag and create GitHub Release on release branch ---
+      - name: Create and push tag
+        run: |
+          TAG="${{ steps.version.outputs.version }}"
+          # skip if tag already exists
+          if git ls-remote --tags origin | grep -q "refs/tags/$TAG$"; then
+            echo "Tag $TAG already exists, skipping tag creation."
+            exit 0
+          fi
+          git tag "$TAG"
+          git push origin "$TAG"
+
+      - name: Wait for tag propagation
+        run: sleep 5
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
         with:
-          type: zip
-          filename: 'release.zip'
-          exclusions: '*.git* /*node_modules/* */source/sass/* */source/js/*'
-      
-      - name: Upload release
-        uses: helsingborg-stad/upload-artifact@1.0.0
-        with:
-          artifact: "release.zip"
-          gh_token: ${{ secrets.GITHUB_TOKEN }}
-          release: ${{ env.LATEST_RELEASE }}
-          repo: ${{ github.repository }}
-          artifact_mime_type: application/zip
+          tag: ${{ steps.version.outputs.version }}
+          generateReleaseNotes: true

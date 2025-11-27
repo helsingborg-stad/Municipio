@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Posts\TemplateController;
 
 use Modularity\Helper\WpService as WpServiceHelper;
 use Modularity\Module\Posts\Helper\Column as ColumnHelper;
 use Modularity\Module\Posts\Helper\DomainChecker;
+use Municipio\Helper\Post;
+use Municipio\MirroredPost\PostObject\MirroredPostObject;
 use WP_Post;
 use WpService\WpService;
 
@@ -114,59 +118,48 @@ class AbstractController
                 $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null)
                     ? $this->fields['taxonomy_display']
                     : [];
-                $helperClass = '\Municipio\Helper\Post';
-                $helperMethod = 'preparePostObject';
-                $helperArchiveMethod = 'preparePostObjectArchive';
-
-                if (
-                    !class_exists($helperClass)
-                    || !method_exists($helperClass, $helperMethod)
-                    || !method_exists($helperClass, $helperArchiveMethod)
-                ) {
-                    error_log(
-                        "Class or method does not exist: {$helperClass}::{$helperMethod} or {$helperClass}::{$helperArchiveMethod}",
-                    );
-                    return $post;
-                }
 
                 if ($shouldAddBlogNameToPost) {
                     $post = $this->addBlogNameToPost($post);
                 }
 
                 if (!empty($post->originalBlogId)) {
-                    $this->getWpService()->switchToBlog($post->originalBlogId);
+                    $this->getWpService()->switchToBlog((int) $post->originalBlogId);
                 }
 
                 if (
                     isset($this->fields['posts_display_as'])
                     && in_array($this->fields['posts_display_as'], ['expandable-list'])
                 ) {
-                    $post = call_user_func([$helperClass, $helperMethod], $post);
+                    $post = Post::preparePostObject($post, $data);
                 } else {
-                    $post = call_user_func([$helperClass, $helperArchiveMethod], $post, $data);
+                    $post = Post::preparePostObjectArchive($post, $data);
                 }
 
                 if (!empty($post->originalBlogId)) {
                     $this->getWpService()->restoreCurrentBlog();
+                    $post = new MirroredPostObject($post, $this->getWpService(), (int) $post->originalBlogId);
                 }
 
                 $post = clone $post; // Ensure we don't modify the original post object
                 return $post;
             },
-            $posts ?? [],
+            $posts,
         );
 
         if (!empty($posts)) {
             foreach ($posts as $index => &$post) {
                 $post = $this->setPostViewData($post, $index);
-                $post->classList = $post->classList ?? [];
+                $post->classList ??= [];
                 $post = $this->addHighlightData($post, $index);
 
                 // Apply $this->getDefaultValuesForPosts() to the post object without turning it into an array
                 foreach ($this->getDefaultValuesForPosts() as $key => $value) {
-                    if (!isset($post->$key)) {
-                        $post->$key = $value;
+                    if (!is_null($post->$key)) {
+                        continue;
                     }
+
+                    $post->$key = $value;
                 }
             }
         }
@@ -283,7 +276,7 @@ class AbstractController
             : false;
         $post->postTitle = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
         $post->image = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
-        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && empty($post->image)
+        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && is_null($post->getImage())
             ? true
             : false;
         $post->commentCount = in_array('comment_count', $this->data['posts_fields'] ?? [])
@@ -321,9 +314,9 @@ class AbstractController
      *
      * @return string
      */
-    private function sanitizeExcerpt(string $excerpt)
+    private function sanitizeExcerpt(string|null $excerpt)
     {
-        $excerpt = strip_tags($excerpt);
+        $excerpt = strip_tags($excerpt ?? "");
         $excerpt = preg_replace("/[\r\n]+/", "\n", $excerpt);
         $excerpt = trim($excerpt);
         $excerpt = nl2br($excerpt);

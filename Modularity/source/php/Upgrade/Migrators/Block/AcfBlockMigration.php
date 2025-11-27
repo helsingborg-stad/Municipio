@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Migrators\Block;
 
 use Modularity\Upgrade\Migrators\Block\AcfBlockMigrationHandler;
@@ -17,7 +19,7 @@ class AcfBlockMigration
         private $conditionCallback = false,
         private $pages = null,
     ) {
-        $this->pages = $this->pages ?? GetPagesByBlockName::getPagesByBlockName($this->db, $this->blockName);
+        $this->pages ??= GetPagesByBlockName::getPagesByBlockName($this->db, $this->blockName);
     }
 
     public function migrateBlocks()

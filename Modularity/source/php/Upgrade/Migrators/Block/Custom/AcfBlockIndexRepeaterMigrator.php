@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Migrators\Block\Custom;
 
 use Modularity\Upgrade\Migrators\MigratorInterface;
@@ -27,64 +29,68 @@ class AcfBlockIndexRepeaterMigrator implements MigratorInterface
             $indexedArrays = [];
 
             foreach ($this->blockData as $key => $value) {
-                if (preg_match('/^index_(\d+)_(.*)/', $key, $matches)) {
-                    if (isset($matches[1]) && isset($matches[2])) {
-                        $index = $matches[1];
-                        $indexedArrays[$index][$matches[2]] = $value;
-                    }
+                if (!preg_match('/^index_(\d+)_(.*)/', $key, $matches)) {
+                    continue;
+                }
+
+                if (isset($matches[1], $matches[2])) {
+                    $index = $matches[1];
+                    $indexedArrays[$index][$matches[2]] = $value;
                 }
             }
 
             if (!empty($indexedArrays) && is_array($indexedArrays)) {
                 foreach ($indexedArrays as $index => $values) {
-                    if (!empty($values['link_type'])) {
-                        $title = !empty($values['title'])
-                            ? $values['title']
-                            : (
-                                $values['link_type'] == 'internal'
-                                && !empty($values['page'])
-                                    ? get_the_title($values['page'])
-                                    : false
-                            );
+                    if (empty($values['link_type'])) {
+                        continue;
+                    }
 
-                        $content = !empty($values['lead'])
-                            ? $values['lead']
-                            : (
-                                $values['link_type'] == 'internal'
-                                && !empty($values['page'])
-                                    ? $this->getIndexExcerpt(get_the_content(null, true, $values['page']))
-                                    : false
-                            );
-
-                        $image =
+                    $title = !empty($values['title'])
+                        ? $values['title']
+                        : (
                             $values['link_type'] == 'internal'
                             && !empty($values['page'])
-                            && !empty($values['image_display'])
-                            && $values['image_display'] == 'featured'
-                                ? get_post_thumbnail_id($values['page'])
-                                : (!empty($values['custom_image']) ? $values['custom_image'] : false);
+                                ? get_the_title($values['page'])
+                                : false
+                        );
 
-                        $link = $values['link_type'] == 'internal' && !empty($values['page'])
-                            ? get_permalink($values['page'])
-                            : (
-                                !empty($values['link_url'])
-                                && $values['link_type'] == 'external'
-                                    ? $values['link_url']
-                                    : false
-                            );
+                    $content = !empty($values['lead'])
+                        ? $values['lead']
+                        : (
+                            $values['link_type'] == 'internal'
+                            && !empty($values['page'])
+                                ? $this->getIndexExcerpt(get_the_content(null, true, $values['page']))
+                                : false
+                        );
 
-                        $this->blockData[$newFieldName . '_' . $index . '_title'] = $title;
-                        $this->blockData['_' . $newFieldName . '_' . $index . '_title'] = 'field_64ff22fdd91b8';
+                    $image =
+                        $values['link_type'] == 'internal'
+                        && !empty($values['page'])
+                        && !empty($values['image_display'])
+                        && $values['image_display'] == 'featured'
+                            ? get_post_thumbnail_id($values['page'])
+                            : (!empty($values['custom_image']) ? $values['custom_image'] : false);
 
-                        $this->blockData[$newFieldName . '_' . $index . '_content'] = $content;
-                        $this->blockData['_' . $newFieldName . '_' . $index . '_content'] = 'field_64ff231ed91b9';
+                    $link = $values['link_type'] == 'internal' && !empty($values['page'])
+                        ? get_permalink($values['page'])
+                        : (
+                            !empty($values['link_url'])
+                            && $values['link_type'] == 'external'
+                                ? $values['link_url']
+                                : false
+                        );
 
-                        $this->blockData[$newFieldName . '_' . $index . '_image'] = $image;
-                        $this->blockData['_' . $newFieldName . '_' . $index . '_image'] = 'field_64ff2355d91bb';
+                    $this->blockData[$newFieldName . '_' . $index . '_title'] = $title;
+                    $this->blockData['_' . $newFieldName . '_' . $index . '_title'] = 'field_64ff22fdd91b8';
 
-                        $this->blockData[$newFieldName . '_' . $index . '_link'] = $link;
-                        $this->blockData['_' . $newFieldName . '_' . $index . '_link'] = 'field_64ff232ad91ba';
-                    }
+                    $this->blockData[$newFieldName . '_' . $index . '_content'] = $content;
+                    $this->blockData['_' . $newFieldName . '_' . $index . '_content'] = 'field_64ff231ed91b9';
+
+                    $this->blockData[$newFieldName . '_' . $index . '_image'] = $image;
+                    $this->blockData['_' . $newFieldName . '_' . $index . '_image'] = 'field_64ff2355d91bb';
+
+                    $this->blockData[$newFieldName . '_' . $index . '_link'] = $link;
+                    $this->blockData['_' . $newFieldName . '_' . $index . '_link'] = 'field_64ff232ad91ba';
                 }
             }
 

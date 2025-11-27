@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 use Modularity\Helper\AcfService;
@@ -13,7 +15,7 @@ class Module
      * This array contains the keys to the extracted properties.
      * @var array
      */
-    public $extractedPostProperties = array();
+    public $extractedPostProperties = [];
 
     /**
      * A place to store the id of a module instance.
@@ -67,14 +69,14 @@ class Module
      * Example: array('editor', 'attributes')
      * @var array
      */
-    public $supports = array();
+    public $supports = [];
 
     /**
      * What the block block supports
      * Example: align (full width etc)
      * @var array
      */
-    public $blockSupports = array();
+    public $blockSupports = [];
 
     /**
      * If empty block notice should be used.
@@ -86,7 +88,7 @@ class Module
      * Any module plugins (path to file to include)
      * @var array
      */
-    public $plugin = array();
+    public $plugin = [];
 
     /**
      * Cache ttl
@@ -104,7 +106,7 @@ class Module
      * Sidebar arguments
      * @var array
      */
-    public $args = array();
+    public $args = [];
 
     /**
      * Is the module deprecated?
@@ -152,7 +154,7 @@ class Module
      * View data (data that will be sent to the blade view)
      * @var array
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * Module mode
@@ -184,7 +186,7 @@ class Module
     public function __construct(
         // Provided by WordPress
         null|\WP_Post $post = null,
-        $args = array(),
+        $args = [],
         protected null|EnqueueManager $wpEnqueue = null,
     ) {
         $this->args = $args;
@@ -216,7 +218,7 @@ class Module
             $this->collectViewData();
         }
 
-        WpService::get()->addAction('admin_enqueue_scripts', array($this, 'adminEnqueue'));
+        WpService::get()->addAction('admin_enqueue_scripts', [$this, 'adminEnqueue']);
 
         $this->data['postTitle'] = $post->post_title ?? false;
 
@@ -236,7 +238,7 @@ class Module
 
         WpService::get()->addAction(
             'save_post',
-            function ($postID, $post, $update) {
+            static function ($postID, $post, $update) {
                 WpService::get()->wpCacheDelete('modularity_has_modules_' . $postID);
             },
             1,
@@ -299,7 +301,7 @@ class Module
 
     public function data(): array
     {
-        return array();
+        return [];
     }
 
     /**
@@ -377,7 +379,7 @@ class Module
 
         $blocks = $matches[1] ?? [];
 
-        $blocks = array_map(function ($block) {
+        $blocks = array_map(static function ($block) {
             return 'mod-' . $block;
         }, $blocks);
 
@@ -393,7 +395,7 @@ class Module
         global $post;
 
         $postId = null;
-        $modules = array();
+        $modules = [];
         $archiveSlug = \Modularity\Helper\Wp::getArchiveSlug();
 
         if ($archiveSlug) {
@@ -465,9 +467,11 @@ class Module
         $iterator = new \RecursiveArrayIterator($haystack);
         $recursive = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursive as $key => $value) {
-            if ($key === $needle) {
-                $stack[] = $value;
+            if ($key !== $needle) {
+                continue;
             }
+
+            $stack[] = $value;
         }
 
         return array_unique(array_filter($stack));
@@ -516,9 +520,11 @@ class Module
 
         if (!empty($matches[1]) && is_array($matches[1])) {
             foreach ($matches[1] as $match) {
-                if (!empty($match)) {
-                    $modules[$match] = 'mod-' . $match;
+                if (empty($match)) {
+                    continue;
                 }
+
+                $modules[$match] = 'mod-' . $match;
             }
         }
 
@@ -551,7 +557,7 @@ class Module
         $post_id = intval($post_id);
         $post = WpService::get()->getPost($post_id);
         $pattern = WpService::get()->getShortcodeRegex();
-        $modules = array();
+        $modules = [];
 
         if (
             is_object($post)

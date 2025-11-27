@@ -1,18 +1,15 @@
 <?php
 
-namespace Modularity\Helper;
+declare(strict_types=1);
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RecursiveRegexIterator;
-use RegexIterator;
+namespace Modularity\Helper;
 
 class Acf
 {
     public function __construct()
     {
-        add_action('init', array($this, 'includeAcf'), 11);
-        add_filter('acf/settings/l10n', function () {
+        add_action('init', [$this, 'includeAcf'], 11);
+        add_filter('acf/settings/l10n', static function () {
             return true;
         });
     }
@@ -26,7 +23,7 @@ class Acf
         if (!(class_exists('acf_pro') || class_exists('ACF'))) {
             require_once MODULARITY_PATH . 'plugins/acf/acf.php';
 
-            add_action('admin_notices', function () {
+            add_action('admin_notices', static function () {
                 echo
                     '<div class="notice error"><p>'
                     . __(

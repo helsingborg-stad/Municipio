@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
@@ -15,7 +17,7 @@ class Display
      * Holds the current post's/page's modules
      * @var array
      */
-    public $modules = array();
+    public $modules = [];
     public $options = null;
     private $isBlock = false;
     private $isRenderingModule = false;
@@ -26,17 +28,17 @@ class Display
     public function __construct(
         private EnqueueManager $wpEnqueue,
     ) {
-        add_filter('wp', array($this, 'init'));
-        add_filter('is_active_sidebar', array($this, 'isActiveSidebar'), 10, 2);
+        add_filter('wp', [$this, 'init']);
+        add_filter('is_active_sidebar', [$this, 'isActiveSidebar'], 10, 2);
 
-        add_shortcode('modularity', array($this, 'shortcodeDisplay'));
-        add_filter('the_post', array($this, 'filterNestedModuleShortocde'));
+        add_shortcode('modularity', [$this, 'shortcodeDisplay']);
+        add_filter('the_post', [$this, 'filterNestedModuleShortocde']);
 
-        add_filter('Modularity/Display/Markup', array($this, 'addGridToSidebar'), 10, 2);
+        add_filter('Modularity/Display/Markup', [$this, 'addGridToSidebar'], 10, 2);
 
-        add_filter('acf/format_value/type=wysiwyg', array($this, 'filterModularityShortcodes'), 9, 3);
-        add_filter('Modularity/Display/SanitizeContent', array($this, 'sanitizeContent'), 10);
-        add_filter('Modularity/Display/replaceGrid', array($this, 'replaceGridClasses'), 10);
+        add_filter('acf/format_value/type=wysiwyg', [$this, 'filterModularityShortcodes'], 9, 3);
+        add_filter('Modularity/Display/SanitizeContent', [$this, 'sanitizeContent'], 10);
+        add_filter('Modularity/Display/replaceGrid', [$this, 'replaceGridClasses'], 10);
 
         add_filter('ComponentLibrary/Component/Data', function ($data) {
             if ($this->isRenderingModule) {
@@ -65,7 +67,7 @@ class Display
      */
     public function replaceGridClasses($className)
     {
-        return preg_replace('/grid-md-(\d+)/', 'o-grid-$1@md', $className);
+        return preg_replace('/grid-md-(\d+)/', 'o-grid-$1@md', $className ?? '');
     }
 
     /**
@@ -102,7 +104,7 @@ class Display
      * TODO: This needs to be checked if it is optimizable.
      *       An component library init for each render can not be grate.
      */
-    public function renderView($view, $data = array()): string
+    public function renderView($view, $data = []): string
     {
         $data['sidebarContext'] = \Modularity\Helper\Context::get();
 
@@ -121,11 +123,11 @@ class Display
         $blade = $init->getEngine();
 
         $filters = [
-            fn($d) => apply_filters('Modularity/Display/viewData', $d),
-            fn($d) => apply_filters("Modularity/Display/{$d['post_type']}/viewData", $d),
+            static fn($d) => apply_filters('Modularity/Display/viewData', $d),
+            static fn($d) => apply_filters("Modularity/Display/{$d['post_type']}/viewData", $d),
         ];
 
-        $viewData = array_reduce($filters, fn(array $d, callable $applyFilter) => $applyFilter($d), $data);
+        $viewData = array_reduce($filters, static fn(array $d, callable $applyFilter) => $applyFilter($d), $data);
 
         try {
             $rendered = $blade->makeView($view, $viewData, [], $moduleView)->render();
@@ -263,10 +265,10 @@ class Display
             }
         }
 
-        add_action('dynamic_sidebar_before', array($this, 'outputBefore'));
-        add_action('dynamic_sidebar_after', array($this, 'outputAfter'));
+        add_action('dynamic_sidebar_before', [$this, 'outputBefore']);
+        add_action('dynamic_sidebar_after', [$this, 'outputAfter']);
 
-        add_filter('sidebars_widgets', array($this, 'hideWidgets'));
+        add_filter('sidebars_widgets', [$this, 'hideWidgets']);
     }
 
     private function getCurrentPostID($post)
@@ -297,7 +299,7 @@ class Display
         $sidebars = array_merge(array_keys($first), array_keys($second));
 
         foreach ($sidebars as $sidebar) {
-            if (isset($first[$sidebar]) && isset($second[$sidebar])) {
+            if (isset($first[$sidebar], $second[$sidebar])) {
                 $merged[$sidebar] = ['modules' => array_merge(
                     $second[$sidebar]['modules'],
                     $first[$sidebar]['modules'],
@@ -332,7 +334,7 @@ class Display
                 continue;
             }
 
-            $retSidebars[$sidebar] = array('');
+            $retSidebars[$sidebar] = [''];
         }
 
         return $retSidebars;
@@ -451,7 +453,7 @@ class Display
      *
      * TODO: Return method needs the ability to be cached.
      */
-    public function outputModule($module, $args = array(), $moduleSettings = array(), $echo = true)
+    public function outputModule($module, $args = [], $moduleSettings = [], $echo = true)
     {
         if (!$module instanceof \WP_Post) {
             return false;
@@ -542,7 +544,7 @@ class Display
     {
         $pattern = '/^mod-([a-z0-9\-_]+)$/i';
         if ($_GET ?? null) {
-            $queryVars = array_filter(array_keys($_GET), function ($var) use ($pattern) {
+            $queryVars = array_filter(array_keys($_GET), static function ($var) use ($pattern) {
                 return preg_match($pattern, $var);
             });
             foreach ($queryVars as $key => $value) {
@@ -576,11 +578,11 @@ class Display
             return;
         }
 
-        $classes = array(
+        $classes = [
             'modularity-' . $module->post_type,
             'modularity-' . $module->post_type . '-' . $module->ID,
             property_exists($module, 'columnWidth') ? $module->columnWidth : 'o-grid-12',
-        );
+        ];
 
         //Hide module if preview
         if (is_preview() && isset($module->hidden) && $module->hidden) {
@@ -589,8 +591,7 @@ class Display
 
         //Add selected scope class
         if (
-            isset($module->data['meta'])
-            && isset($module->data['meta']['module_css_scope'])
+            isset($module->data['meta'], $module->data['meta']['module_css_scope'])
             && is_array($module->data['meta']['module_css_scope'])
         ) {
             if (!empty($module->data['meta']['module_css_scope'][0])) {
@@ -732,7 +733,7 @@ class Display
      * @return string         Template markup
      * @throws \Exception
      */
-    public function loadBladeTemplate($view, $module, array $args = array())
+    public function loadBladeTemplate($view, $module, array $args = [])
     {
         if (!$module->templateDir) {
             throw new \LogicException('Class ' . get_class($module) . ' must have property $templateDir');
@@ -751,7 +752,7 @@ class Display
      */
     public function shortcodeDisplay($args)
     {
-        $args = shortcode_atts(array('id' => false, 'inline' => true), $args);
+        $args = shortcode_atts(['id' => false, 'inline' => true], $args);
 
         if (!is_numeric($args['id'])) {
             return;
@@ -819,8 +820,8 @@ class Display
 
     public function addGridToSidebar($markup, $module)
     {
-        $sidebars = apply_filters('Modularity/Module/Container/Sidebars', array());
-        $modules = apply_filters('Modularity/Module/Container/Modules', array());
+        $sidebars = apply_filters('Modularity/Module/Container/Sidebars', []);
+        $modules = apply_filters('Modularity/Module/Container/Modules', []);
         $template = apply_filters(
             'Modularity/Module/Container/Template',
             '<div class="container"><div class="grid"><div class="grid-xs-12">{{module-markup}}</div></div></div>',

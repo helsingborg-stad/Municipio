@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_67506ac21d132',
         'title' => __('Markdown', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_67506ac4f8055',
                 'label' => __('Markdown URL', 'municipio'),
                 'name' => 'mod_markdown_url',
@@ -17,15 +19,15 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 1,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'placeholder' => __('https://raw.githubusercontent.com/readme.md', 'municipio'),
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_6750799d7e7a4',
                 'label' => __('Show source', 'municipio'),
                 'name' => 'mod_markdown_show_source',
@@ -34,18 +36,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => __('Display the source url', 'municipio'),
                 'default_value' => 1,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
                 'ui' => 1,
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_67516aed46591',
                 'label' => __('Wrap in container', 'municipio'),
                 'name' => 'mod_markdown_wrap_in_container',
@@ -54,18 +56,18 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => '',
                 'default_value' => 0,
                 'ui_on_text' => '',
                 'ui_off_text' => '',
                 'ui' => 1,
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_67506eebcdbfd',
                 'label' => __('Supported providers', 'municipio'),
                 'name' => '',
@@ -74,32 +76,32 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'message' => __('ABC', 'municipio'),
                 'new_lines' => 'wpautop',
                 'esc_html' => 0,
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'mod-markdown',
-                ),
-            ),
-            1 => array(
-                0 => array(
+                ],
+            ],
+            1 => [
+                0 => [
                     'param' => 'block',
                     'operator' => '==',
                     'value' => 'acf/markdown',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -110,11 +112,11 @@ if (function_exists('acf_add_local_field_group')) {
         'description' => '',
         'show_in_rest' => 0,
         'acfe_display_title' => '',
-        'acfe_autosync' => array(
+        'acfe_autosync' => [
             0 => 'json',
-        ),
+        ],
         'acfe_form' => 0,
         'acfe_meta' => '',
         'acfe_note' => '',
-    ));
+    ]);
 }

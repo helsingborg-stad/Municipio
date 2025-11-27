@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Helper;
 
 class File
@@ -20,7 +22,7 @@ class File
         ]);
 
         if ($source === false) {
-            add_action('admin_notices', function () use ($path) {
+            add_action('admin_notices', static function () use ($path) {
                 $malfunctionalPlugin = array_pop(get_plugins('/' . explode('/', plugin_basename($path))[0]));
                 printf(
                     '<div class="%1$s"><p>%2$s</p></div>',

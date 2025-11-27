@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Breadcrumbs;
 
 use Modularity\Helper\Post as PostHelper;
@@ -7,7 +9,7 @@ use Modularity\Helper\Post as PostHelper;
 class Breadcrumbs extends \Modularity\Module
 {
     public $slug = 'breadcrumbs';
-    public $supports = array();
+    public $supports = [];
     public $displaySettings = null;
 
     public function init()
@@ -16,8 +18,8 @@ class Breadcrumbs extends \Modularity\Module
         $this->namePlural = __('Breadcrumbs', 'modularity');
         $this->description = __('Outputs the navigational breadcrumb trail to the current page.', 'modularity');
 
-        add_filter('Municipio/Breadcrumbs/Items', array($this, 'unsetMunicipioBreadcrumbs'), 1, 3);
-        add_filter('Municipio/Accessibility/Items', array($this, 'unsetMunicipioAccessibilityItems'));
+        add_filter('Municipio/Breadcrumbs/Items', [$this, 'unsetMunicipioBreadcrumbs'], 1, 3);
+        add_filter('Municipio/Accessibility/Items', [$this, 'unsetMunicipioAccessibilityItems']);
     }
 
     public function unsetMunicipioBreadcrumbs($pageData, $queriedObj, $context)
@@ -42,7 +44,7 @@ class Breadcrumbs extends \Modularity\Module
 
     public function data(): array
     {
-        $data = array();
+        $data = [];
 
         $data['classList'] = [
             'nav-helper',

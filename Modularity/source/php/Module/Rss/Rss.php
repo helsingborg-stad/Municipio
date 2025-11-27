@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Module\Rss;
 
 class Rss extends \Modularity\Module
 {
     public $slug = 'rss';
-    public $supports = array();
+    public $supports = [];
     public $isBlockCompatible = false;
 
     public function init()
@@ -18,14 +20,14 @@ class Rss extends \Modularity\Module
     public function data(): array
     {
         $fields = json_decode(json_encode(get_fields($this->ID)));
-        $show_fields = isset($fields->fields) && !empty($fields->fields) ? $fields->fields : array();
+        $show_fields = isset($fields->fields) && !empty($fields->fields) ? $fields->fields : [];
         $data['summary'] = (int) in_array('summary', $show_fields);
         $data['author'] = (int) in_array('author', $show_fields);
         $data['date'] = (int) in_array('date', $show_fields);
         $data['items'] = $this->getFeedContents($fields->rss_url, $fields->items, $fields->sort_order);
         $data['classes'] = implode(' ', apply_filters(
             'Modularity/Module/Classes',
-            array('box', 'box-panel'),
+            ['box', 'box-panel'],
             $this->post_type,
             $this->args,
         ));
@@ -41,7 +43,7 @@ class Rss extends \Modularity\Module
      */
     public function getFeedContents($rss, $items = 10, $order = ''): array
     {
-        $entries = array();
+        $entries = [];
 
         if (!empty($rss)) {
             $rss = fetch_feed($rss);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Version;
 
 class V3 implements versionInterface

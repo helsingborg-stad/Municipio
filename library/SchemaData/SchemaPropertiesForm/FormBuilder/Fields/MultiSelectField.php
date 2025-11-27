@@ -17,9 +17,14 @@ class MultiSelectField extends AbstractField implements FieldInterface
      * @param mixed  $value  The value of the field.
      * @param array  $choices The choices for the multi-select field.
      */
-    public function __construct(protected string $name, protected string $label, protected mixed $value = null, protected array $choices = [])
-    {
-        parent::__construct($name, $label, $value);
+    public function __construct(
+        protected string $name,
+        protected string $label,
+        protected mixed $value = null,
+        protected array $choices = [],
+        protected null|string $instructions = null,
+    ) {
+        parent::__construct($name, $label, $value, $instructions);
     }
 
     /**
@@ -28,13 +33,14 @@ class MultiSelectField extends AbstractField implements FieldInterface
     public function toArray(): array
     {
         return [
-            'type'     => 'select',
-            'name'     => $this->getName(),
-            'key'      => $this->getKey(),
-            'label'    => $this->getLabel(),
+            'type' => 'select',
+            'name' => $this->getName(),
+            'key' => $this->getKey(),
+            'label' => $this->getLabel(),
+            'instructions' => $this->getInstructions(),
             'multiple' => 1,
-            'ui'       => 1,
-            'choices'  => $this->getChoices(),
+            'ui' => 1,
+            'choices' => $this->getChoices(),
         ];
     }
 

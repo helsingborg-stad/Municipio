@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modularity\Upgrade\Migrators\Module;
 
 class AcfModuleMigrationHandler
@@ -17,9 +19,11 @@ class AcfModuleMigrationHandler
     {
         $fieldsWasUpdated = [];
         foreach ($this->fields as $oldFieldName => $newField) {
-            if (is_array($newField) || is_string($newField)) {
-                $fieldsWasUpdated[] = $this->migrateField($oldFieldName, $newField);
+            if (!(is_array($newField) || is_string($newField))) {
+                continue;
             }
+
+            $fieldsWasUpdated[] = $this->migrateField($oldFieldName, $newField);
         }
 
         return $fieldsWasUpdated;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Language
  * This class handles the language of the modules, and adds
@@ -21,13 +23,13 @@ class Language
     public function __construct()
     {
         // Lang attribute option
-        add_filter('Modularity/Display/BeforeModule', array($this, 'addLangAttribute'), 10, 4);
+        add_filter('Modularity/Display/BeforeModule', [$this, 'addLangAttribute'], 10, 4);
 
         // Detect language of module
-        add_filter('wp_after_insert_post', array($this, 'autoDetectLanguage'), 50, 4);
+        add_filter('wp_after_insert_post', [$this, 'autoDetectLanguage'], 50, 4);
 
         //Make auto a selectable option in the language field
-        add_filter('acf/load_field/key=field_636e42408367e', array($this, 'appendAutoLangOption'));
+        add_filter('acf/load_field/key=field_636e42408367e', [$this, 'appendAutoLangOption']);
     }
 
     /**
@@ -100,7 +102,7 @@ class Language
         }
 
         $languageDiff = array_map('strtolower', [$siteLanguage, $moduleLanguage, $pageLanguage]);
-        $languageDiff = array_map(function ($value) use ($siteLanguage) {
+        $languageDiff = array_map(static function ($value) use ($siteLanguage) {
             return $value ?: strtolower($siteLanguage);
         }, $languageDiff);
 
