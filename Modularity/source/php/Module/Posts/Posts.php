@@ -14,7 +14,9 @@ use Modularity\Module\Posts\Helper\GetPosts\GetPostsInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostsResultInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostTypesFromSchemaType\PostTypesFromSchemaTypeResolver;
 use Modularity\Module\Posts\Helper\GetPosts\UserGroupResolver\UserGroupResolver;
+use Modularity\Module\Posts\Helper\PostSourceBuilder;
 use Modularity\Module\Posts\Private\PrivateController;
+use Municipio\Helper\User\User;
 
 /**
  * Class Posts
@@ -32,6 +34,7 @@ class Posts extends \Modularity\Module
     public $archiveUrlHelper;
     public string $postStatus;
     public DomainChecker $domainChecker;
+    private PostSourceBuilder $postSourceBuilder;
     private PrivateController $privateController;
 
     private $sliderCompatibleLayouts = ['items', 'news', 'index', 'grid', 'features-grid', 'segment'];
@@ -144,6 +147,8 @@ class Posts extends \Modularity\Module
         $this->fields = $this->getFields();
 
         $this->domainChecker = new DomainChecker($this->fields);
+        $this->postSourceBuilder = new PostSourceBuilder($this->fields, WpService::get(), User::get());
+
         $data['posts_display_as'] = $this->fields['posts_display_as'] ?? false;
         $data['display_reading_time'] =
             !empty($this->fields['posts_fields']) && in_array('reading_time', $this->fields['posts_fields']) ?? false;
@@ -153,9 +158,11 @@ class Posts extends \Modularity\Module
         $data['posts_fields'] = $this->fields['posts_fields'] ?? [];
         $data['posts_data_post_type'] = $this->fields['posts_data_post_type'] ?? false;
         $data['posts_data_source'] = $this->fields['posts_data_source'] ?? false;
-        $data['postsSources'] = $this->fields['posts_data_network_sources'] ?? [];
 
-        $postsAndPaginationData = $this->getPostsResult();
+        $data['postsSources'] = $this->postSourceBuilder->getSources();
+        $data['test'] = 'TESTING';
+
+        $postsAndPaginationData = $this->getPostsResult($data['postsSources']);
         $data['posts'] = $postsAndPaginationData->getPosts();
         $data['stickyPosts'] = $postsAndPaginationData->getStickyPosts();
 
@@ -424,7 +431,7 @@ class Posts extends \Modularity\Module
      *
      * @return PostsResultInterface
      */
-    public function getPostsResult(): PostsResultInterface
+    public function getPostsResult(array $postSources): PostsResultInterface
     {
         $stickyPostHelper = new \Municipio\StickyPost\Helper\GetStickyOption(
             new \Municipio\StickyPost\Config\StickyPostConfig(),
@@ -432,12 +439,12 @@ class Posts extends \Modularity\Module
         );
         $postTypesFromSchemaTypeResolver = new PostTypesFromSchemaTypeResolver();
 
-        if (!empty($this->fields['posts_data_network_sources'])) {
+        if (!empty($postSources)) {
             global $wpdb;
             $this->getPostsHelper = new GetPostsFromMultipleSites(
                 $this->fields,
                 $this->getPageNumber(),
-                array_map(static fn($siteOption) => $siteOption['value'], $this->fields['posts_data_network_sources']),
+                array_map(static fn($siteOption) => $siteOption['value'], $postSources),
                 $wpdb,
                 WpService::get(),
                 $postTypesFromSchemaTypeResolver,
