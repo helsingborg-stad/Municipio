@@ -9,7 +9,7 @@ use Modularity\Helper\File as FileHelper;
 use Modularity\Helper\Wp;
 use Throwable;
 use WP_Post;
-use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\WpUtilService;
 
 class Display
 {
@@ -26,7 +26,7 @@ class Display
     private static $sidebarState = []; //Holds state of sidebars.
 
     public function __construct(
-        private EnqueueManager $wpEnqueue,
+        private WpUtilService $wpUtilService,
     ) {
         add_filter('wp', [$this, 'init']);
         add_filter('is_active_sidebar', [$this, 'isActiveSidebar'], 10, 2);
@@ -487,7 +487,7 @@ class Display
 
         if ($cache->start()) {
             $class = \Modularity\ModuleManager::$classes[$module->post_type];
-            $module = new $class($module, $args, $this->wpEnqueue);
+            $module = new $class($module, $args, $this->wpUtilService);
 
             //Print module
             echo $this->getModuleMarkup($module, $args);
@@ -772,7 +772,7 @@ class Display
 
         //Create instance
         $class = \Modularity\ModuleManager::$classes[$module->post_type];
-        $module = new $class($module, $args, $this->wpEnqueue);
+        $module = new $class($module, $args, $this->wpUtilService);
 
         $this->isShortcode = true;
         $moduleMarkup = $this->getModuleMarkup($module, $args);

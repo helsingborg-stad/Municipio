@@ -1070,16 +1070,16 @@
         },
         {
             "name": "helsingborg-stad/wputilservice",
-            "version": "0.2.46",
+            "version": "0.2.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wputilservice.git",
-                "reference": "e8a14d961b850987ef0714fa7dc03b15c19dd290"
+                "reference": "313ceb2ec75baf3fd448a179dc1e0cc538c7431a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/e8a14d961b850987ef0714fa7dc03b15c19dd290",
-                "reference": "e8a14d961b850987ef0714fa7dc03b15c19dd290",
+                "url": "https://api.github.com/repos/helsingborg-stad/wputilservice/zipball/313ceb2ec75baf3fd448a179dc1e0cc538c7431a",
+                "reference": "313ceb2ec75baf3fd448a179dc1e0cc538c7431a",
                 "shasum": ""
             },
             "require": {
@@ -1112,9 +1112,9 @@
             "description": "Simplifies WordPress development by providing a centralized WpUtilService that exposes a WordPress api wrapped in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wputilservice/issues",
-                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.2.46"
+                "source": "https://github.com/helsingborg-stad/wputilservice/tree/0.2.47"
             },
-            "time": "2025-11-14T13:05:33+00:00"
+            "time": "2025-11-26T09:15:44+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -3543,16 +3543,16 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.0.0-rc.5",
+            "version": "1.0.0-rc.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "09b1f6e4a040ff7d6d6122da1d0690a412a14670"
+                "reference": "d7fe3d07d92eefbf2c40476ca79bee5485d97cdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/09b1f6e4a040ff7d6d6122da1d0690a412a14670",
-                "reference": "09b1f6e4a040ff7d6d6122da1d0690a412a14670",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/d7fe3d07d92eefbf2c40476ca79bee5485d97cdd",
+                "reference": "d7fe3d07d92eefbf2c40476ca79bee5485d97cdd",
                 "shasum": ""
             },
             "require": {
@@ -3590,7 +3590,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.0.0-rc.5"
+                "source": "https://github.com/carthage-software/mago/tree/1.0.0-rc.6"
             },
             "funding": [
                 {
@@ -3598,7 +3598,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-25T02:04:59+00:00"
+            "time": "2025-11-26T21:36:43+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",

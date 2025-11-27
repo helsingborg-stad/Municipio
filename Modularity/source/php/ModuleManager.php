@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modularity;
 
 use enshrined\svgSanitize\Sanitizer as SVGSanitize;
-use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\WpUtilService;
 
 class ModuleManager
 {
@@ -60,9 +60,9 @@ class ModuleManager
     public static $blockManager = null;
 
     public function __construct(
-        private EnqueueManager $wpEnqueue,
+        private WpUtilService $wpUtilService,
     ) {
-        self::$blockManager = new \Modularity\BlockManager($wpEnqueue);
+        self::$blockManager = new \Modularity\BlockManager($wpUtilService);
 
         // Init modules
         add_action(
@@ -156,7 +156,7 @@ class ModuleManager
 
             require_once $source;
             $class = $namespace . '\\' . $module;
-            $class = new $class(null, [], $this->wpEnqueue);
+            $class = new $class(null, [], $this->wpUtilService);
 
             $this->register($class, $path);
             self::$blockManager->classes[$class->slug] = $class;
