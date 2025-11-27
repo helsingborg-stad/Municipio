@@ -23,7 +23,8 @@
         'containerAware' => true,
         'attributeList' => [
             ...(!$hideTitle && !empty($postTitle) ? ['aria-labelledby' => 'mod-slider-' . $sliderId . '-label'] : []),
-            'data-slides-per-page' => $slider->slidesPerPage
+            'data-slides-per-page' => $slider->slidesPerPage,
+            'data-slides-per-move' => $slider->slidesPerPage
         ]
     ])
         @foreach ($posts as $key => $post)
