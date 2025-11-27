@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modularity;
 
-use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\WpUtilService;
 
 /*
  * Block manager class
@@ -18,7 +18,7 @@ class BlockManager
      * Constructor
      */
     public function __construct(
-        private EnqueueManager $wpEnqueue,
+        private WpUtilService $wpUtilService,
     ) {
         add_filter('block_categories_all', [$this, 'filterCategories'], 10, 2);
         add_filter('acf/load_field_group', [$this, 'addLocationRule']);
@@ -124,9 +124,7 @@ class BlockManager
     {
         $metaLang = get_post_meta(get_the_ID() ?: 0, 'lang', true);
         $siteLanguage = strtolower(get_bloginfo('language'));
-        $pageLanguage = is_string($metaLang) 
-            ? strtolower($metaLang) 
-            : $siteLanguage;
+        $pageLanguage = is_string($metaLang) ? strtolower($metaLang) : $siteLanguage;
         $blockLanguage = !empty($block['attrs']['data']['lang'])
             ? strtolower($block['attrs']['data']['lang'])
             : $pageLanguage;
@@ -472,7 +470,7 @@ class BlockManager
             $viewData = apply_filters('Modularity/Block/' . $block['name'] . '/Data', $viewData, $block, $module);
 
             if ($this->validateFields($viewData)) {
-                $display = new Display($this->wpEnqueue);
+                $display = new Display($this->wpUtilService);
                 $renderedView = $display->renderView($view, $viewData);
 
                 //If result is empty, display error for admins
@@ -582,7 +580,7 @@ class BlockManager
      */
     private function displayNotice($moduleName, $message)
     {
-        $display = new Display($this->wpEnqueue);
+        $display = new Display($this->wpUtilService);
         $view = 'notice';
         $noticeData = [
             'hideTitle' => false,

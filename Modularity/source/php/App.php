@@ -6,6 +6,7 @@ namespace Modularity;
 
 use Modularity\Private\PrivateAcfFields;
 use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\WpUtilService;
 
 class App
 {
@@ -13,16 +14,18 @@ class App
     public static $moduleManager = null;
     public $editor = null;
     private $modularityLangKey = 'modularityLang';
+    private EnqueueManager $wpEnqueue;
 
     public function __construct(
-        private EnqueueManager $wpEnqueue,
+        private WpUtilService $wpUtilService,
     ) {
+        $this->wpEnqueue = $this->wpUtilService->enqueue(__DIR__, 'Modularity/assets/dist');
+
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdmin'], 950);
         add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
         add_action('admin_init', [$this, 'addCaps']);
-
         add_filter('acf/fields/post_object/query', [$this, 'removeFromAcfPostQuery'], 99, 3);
 
         // Main hook
@@ -52,10 +55,10 @@ class App
         $modulesRestController = new Api\V1\Modules();
         $modulesRestController->register_routes();
 
-        self::$moduleManager = new ModuleManager($this->wpEnqueue);
+        self::$moduleManager = new ModuleManager($this->wpUtilService);
 
         $this->editor = new Editor($this->wpEnqueue);
-        self::$display = new Display($this->wpEnqueue);
+        self::$display = new Display($this->wpUtilService);
 
         if (is_admin()) {
             new PrivateAcfFields();
