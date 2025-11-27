@@ -1,5 +1,5 @@
     <div class="o-grid-12@sm o-grid-4@md o-grid-4@lg u-display--flex u-align-items--end u-justify-content--end">
-        @if (($archiveLinkUrl))
+        @if ($archiveLinkUrl)
         <div class="t-read-more-section">
             @button([
                 'text' => $archiveLinkTitle ?? $lang['showMore'],
