@@ -181,8 +181,7 @@ class AbstractController
      */
     public function shouldAddBlogNameToPost(): bool
     {
-        $sources = $this->fields['posts_data_network_sources'] ?? [];
-        return is_array($sources) && !empty($sources);
+        return !empty($this->data['postsSources']);
     }
 
     /**
@@ -316,7 +315,7 @@ class AbstractController
      */
     private function sanitizeExcerpt(string|null $excerpt)
     {
-        $excerpt = strip_tags($excerpt ?? "");
+        $excerpt = strip_tags($excerpt ?? '');
         $excerpt = preg_replace("/[\r\n]+/", "\n", $excerpt);
         $excerpt = trim($excerpt);
         $excerpt = nl2br($excerpt);
