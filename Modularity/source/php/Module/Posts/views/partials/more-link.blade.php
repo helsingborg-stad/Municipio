@@ -1,4 +1,4 @@
-@if ($posts_data_source !== 'input' && !empty($archiveLinkUrl))
+@if (!empty($archiveLinkUrl))
     @link([
         'href' => $archiveLinkUrl,
         'classList' => ['u-display-block']

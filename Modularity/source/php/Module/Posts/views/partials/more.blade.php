@@ -1,4 +1,4 @@
-@if ($posts_data_source !== 'input' && !empty($archiveLinkUrl))
+@if (!empty($archiveLinkUrl))
     <div class="t-read-more-section u-display--flex u-align-content--center u-margin__y--4">
         @button([
           'text' => $archiveLinkTitle ?? $lang['showMore'],
