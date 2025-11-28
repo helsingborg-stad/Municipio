@@ -46,8 +46,8 @@ jobs:
 
       - name: Configure npm for GitHub Packages
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
-          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Run PHP build script
         run: php build.php --no-composer --cleanup --release
