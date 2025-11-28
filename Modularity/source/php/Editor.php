@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modularity;
 
-use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class Editor extends \Modularity\Options
 {
@@ -14,7 +14,7 @@ class Editor extends \Modularity\Options
     public static $moduleManager = null;
 
     public function __construct(
-        private EnqueueManager $wpEnqueue,
+        private EnqueueManagerInterface $wpEnqueue,
     ) {
         global $post;
 

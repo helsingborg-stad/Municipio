@@ -9,7 +9,7 @@ use Modularity\Helper\File as FileHelper;
 use Modularity\Helper\Wp;
 use Throwable;
 use WP_Post;
-use WpUtilService\WpUtilService;
+use WpUtilService\WpUtilServiceInterface;
 
 class Display
 {
@@ -26,7 +26,7 @@ class Display
     private static $sidebarState = []; //Holds state of sidebars.
 
     public function __construct(
-        private WpUtilService $wpUtilService,
+        private WpUtilServiceInterface $wpUtilService,
     ) {
         add_filter('wp', [$this, 'init']);
         add_filter('is_active_sidebar', [$this, 'isActiveSidebar'], 10, 2);

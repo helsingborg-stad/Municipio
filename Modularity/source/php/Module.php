@@ -6,8 +6,8 @@ namespace Modularity;
 
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
-use WpUtilService\Features\Enqueue\EnqueueManager;
-use WpUtilService\WpUtilService;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+use WpUtilService\WpUtilServiceInterface;
 
 class Module
 {
@@ -177,7 +177,7 @@ class Module
      */
     public $columnWidth;
 
-    protected null|EnqueueManager $wpEnqueue;
+    protected null|EnqueueManagerInterface $wpEnqueue;
 
     /**
      * Constructs a module
@@ -190,7 +190,7 @@ class Module
         // Provided by WordPress
         null|\WP_Post $post = null,
         $args = [],
-        protected null|WpUtilService $wpUtilService = null,
+        protected null|WpUtilServiceInterface $wpUtilService = null,
     ) {
         $this->args = $args;
         $this->ID = $post->ID ?? null;

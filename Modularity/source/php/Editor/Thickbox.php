@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Modularity\Editor;
 
-use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class Thickbox
 {
     public function __construct(
-        private EnqueueManager $wpEnqueue,
+        private EnqueueManagerInterface $wpEnqueue,
     ) {
         if (\Modularity\Helper\Wp::isThickBox()) {
             $this->init();
