@@ -85,7 +85,18 @@ jobs:
           git config user.email "ci@helsingborg.se"
           git checkout -B release
           # Force add the dist directories that were previously ignored
-          git add -f assets/dist/ Modularity/assets/dist/ || true
+          if [ -d "assets/dist" ]; then
+            echo "Force adding assets/dist/"
+            git add -f assets/dist/
+          else
+            echo "Warning: assets/dist/ directory not found"
+          fi
+          if [ -d "Modularity/assets/dist" ]; then
+            echo "Force adding Modularity/assets/dist/"
+            git add -f Modularity/assets/dist/
+          else
+            echo "Warning: Modularity/assets/dist/ directory not found"
+          fi
           git add -A
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
           git push origin release --force
