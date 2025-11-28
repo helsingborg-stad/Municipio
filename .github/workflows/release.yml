@@ -54,7 +54,29 @@ jobs:
 
       - name: Overwrite .gitignore for release branch
         run: |
-          printf "/*\n!.gitignore\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
+          # Remove .gitignore files that might prevent dist tracking
+          rm -f Modularity/.gitignore
+          cat > .gitignore << 'EOF'
+          /*
+          !.gitignore
+          !/assets
+          !/assets/**
+          !/Modularity
+          !/Modularity/**
+          !/library
+          !/library/**
+          !/languages
+          !/languages/**
+          !/views
+          !/views/**
+          !/vendor
+          !/vendor/**
+          !/functions.php
+          !/style.css
+          !/index.php
+          !/screenshot.png
+          EOF
+          cat .gitignore
 
       # --- Release Branch Commit ---
       - name: Commit and push release branch
@@ -62,6 +84,8 @@ jobs:
           git config user.name "CI Release Bot"
           git config user.email "ci@helsingborg.se"
           git checkout -B release
+          # Force add the dist directories that were previously ignored
+          git add -f assets/dist/ Modularity/assets/dist/ || true
           git add -A
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
           git push origin release --force
