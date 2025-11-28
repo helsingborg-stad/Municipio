@@ -1,0 +1,8 @@
+/*
+!.gitignore
+!/dist
+!/dist/**
+!/source/php
+!/source/php/**
+!/assets
+!/assets/**
