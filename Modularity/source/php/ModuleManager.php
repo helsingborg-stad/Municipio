@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modularity;
 
 use enshrined\svgSanitize\Sanitizer as SVGSanitize;
-use WpUtilService\WpUtilService;
+use WpUtilService\WpUtilServiceInterface;
 
 class ModuleManager
 {
@@ -60,7 +60,7 @@ class ModuleManager
     public static $blockManager = null;
 
     public function __construct(
-        private WpUtilService $wpUtilService,
+        private WpUtilServiceInterface $wpUtilService,
     ) {
         self::$blockManager = new \Modularity\BlockManager($wpUtilService);
 

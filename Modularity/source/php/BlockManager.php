@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modularity;
 
-use WpUtilService\WpUtilService;
+use WpUtilService\WpUtilServiceInterface;
 
 /*
  * Block manager class
@@ -18,7 +18,7 @@ class BlockManager
      * Constructor
      */
     public function __construct(
-        private WpUtilService $wpUtilService,
+        private WpUtilServiceInterface $wpUtilService,
     ) {
         add_filter('block_categories_all', [$this, 'filterCategories'], 10, 2);
         add_filter('acf/load_field_group', [$this, 'addLocationRule']);
