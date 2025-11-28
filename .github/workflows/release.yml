@@ -83,6 +83,7 @@ jobs:
         run: |
           git config user.name "CI Release Bot"
           git config user.email "ci@helsingborg.se"
+          git branch -D release
           git checkout --orphan release
           git reset    # optional, clears index without touching working tree
           git add .
