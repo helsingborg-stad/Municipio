@@ -72,8 +72,11 @@ jobs:
           !/languages/**
           !/composer.json
           !/functions.php
+          !/library
+          !/library/**
           !/index.php
           !/Modularity
+          Modularity/*
           !/Modularity/source
           !/Modularity/source/**
           !/Modularity/modularity.php
