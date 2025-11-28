@@ -73,6 +73,7 @@ jobs:
           !/composer.json
           !/functions.php
           !/index.php
+          !/Modularity
           !/Modularity/source
           !/Modularity/source/**
           !/Modularity/modularity.php
