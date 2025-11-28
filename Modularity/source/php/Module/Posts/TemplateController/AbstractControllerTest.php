@@ -46,32 +46,6 @@ class AbstractControllerTest extends TestCase
         $this->assertFalse($controller->postUsesSchemaTypeEvent($post));
     }
 
-    #[TestDox('shouldAddBlogNameToPost() returns true if field posts_data_network_sources is a non-empty array')]
-    public function testShouldAddBlogNameToPostReturnsTrue()
-    {
-        $controller = new AbstractController($this->getModuleMock());
-        $controller->data['postsSources'] = ['1', '2'];
-
-        $this->assertTrue($controller->shouldAddBlogNameToPost());
-    }
-
-    #[TestDox('shouldAddBlogNameToPost() returns false if field posts_data_network_sources is an empty array')]
-    public function testShouldAddBlogNameToPostReturnsFalse()
-    {
-        $controller = new AbstractController($this->getModuleMock());
-        $controller->fields['posts_data_network_sources'] = [];
-
-        $this->assertFalse($controller->shouldAddBlogNameToPost());
-    }
-
-    #[TestDox('shouldAddBlogNameToPost() returns false if field posts_data_network_sources is not set')]
-    public function testShouldAddBlogNameToPostReturnsFalseIfNotSet()
-    {
-        $controller = new AbstractController($this->getModuleMock());
-        unset($controller->fields['posts_data_network_sources']);
-        $this->assertFalse($controller->shouldAddBlogNameToPost());
-    }
-
     private function getModuleMock(): \Modularity\Module\Posts\Posts|MockObject
     {
         $module = $this->createMock(\Modularity\Module\Posts\Posts::class);

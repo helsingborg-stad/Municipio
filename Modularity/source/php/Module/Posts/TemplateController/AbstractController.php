@@ -7,8 +7,10 @@ namespace Modularity\Module\Posts\TemplateController;
 use Modularity\Helper\WpService as WpServiceHelper;
 use Modularity\Module\Posts\Helper\Column as ColumnHelper;
 use Modularity\Module\Posts\Helper\DomainChecker;
+use Municipio\Helper\Memoize\MemoizedFunction;
 use Municipio\Helper\Post;
 use Municipio\MirroredPost\PostObject\MirroredPostObject;
+use Municipio\PostObject\PostObjectInterface;
 use WP_Post;
 use WpService\WpService;
 
@@ -97,6 +99,17 @@ class AbstractController
         $data['imagePosition'] = $fields['image_position'] ?? false;
         $data['showDate'] = in_array('date', $fields['posts_fields'] ?? []);
 
+        $data['getOriginalBlogName'] = new MemoizedFunction(
+            fn(PostObjectInterface $post): null|string => empty($data['postsSources'])
+            || count($data['postsSources']) <= 1
+                ? null
+                : $this->getWpService()->getBlogDetails($post->getBlogId())->blogname ?? $this->getWpService()->__(
+                    'Unknown Blog',
+                    'municipio',
+                ),
+            fn(PostObjectInterface $post) => $post->getBlogId(),
+        );
+
         return $data;
     }
 
@@ -110,18 +123,12 @@ class AbstractController
      */
     public function addPostData($posts = [])
     {
-        $shouldAddBlogNameToPost = $this->shouldAddBlogNameToPost();
-
         $posts = array_map(
-            function ($post) use ($shouldAddBlogNameToPost) {
+            function ($post) {
                 $post->post_content = $this->removePostsModuleBlocksFromContent($post->post_content);
                 $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null)
                     ? $this->fields['taxonomy_display']
                     : [];
-
-                if ($shouldAddBlogNameToPost) {
-                    $post = $this->addBlogNameToPost($post);
-                }
 
                 if (!empty($post->originalBlogId)) {
                     $this->getWpService()->switchToBlog((int) $post->originalBlogId);
@@ -172,39 +179,6 @@ class AbstractController
         // Use regex to remove Modularity Posts blocks from the content
         $pattern = '/<!--\s*wp:acf\/posts\s.*-->/';
         return preg_replace($pattern, '', $content);
-    }
-
-    /**
-     * Determine if the blog name should be added to the post.
-     *
-     * @return bool
-     */
-    public function shouldAddBlogNameToPost(): bool
-    {
-        return !empty($this->data['postsSources']);
-    }
-
-    /**
-     * Add blog name to the post object.
-     *
-     * @param WP_Post $post
-     *
-     * @return WP_Post
-     */
-    private function addBlogNameToPost(WP_Post $post): WP_Post
-    {
-        static $blogDetailsCache = [];
-        $blogId = !empty($post->originalBlogId)
-            ? $post->originalBlogId
-            : $this->getWpService()->getBlogDetails()->blog_id;
-
-        if (!isset($blogDetailsCache[$blogId])) {
-            $blogDetailsCache[$blogId] = $this->getWpService()->getBlogDetails($blogId);
-        }
-
-        $post->originalSite = $blogDetailsCache[$blogId]->blogname ?? '';
-
-        return $post;
     }
 
     /**
