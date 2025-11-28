@@ -15,13 +15,13 @@
     'attributeList' => $post->attributeList ?? [],
 ])
     @slot('headerLeftArea')
-        @if (!empty($postsSources) && count($postsSources) > 1 && !empty($post->originalSite))
+        @if (!empty($getOriginalBlogName($post)))
             @typography([
                 'element' => 'span',
                 'variant' => 'bold',
                 'classList' => ['u-margin__y--0', 'u-padding__right--1'],
             ])
-                {{ $post->originalSite }}
+                {{ $getOriginalBlogName($post) }}
             @endtypography
         @endif
         @if($post->termsUnlinked)
