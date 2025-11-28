@@ -59,7 +59,30 @@ jobs:
 
       - name: Overwrite .gitignore for release branch
         run: |
-           printf "/*\n!.gitignore\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
+          cat > .gitignore <<'EOF'
+          /*
+          !.gitignore
+          !/dist
+          !/dist/**
+          !/source/php
+          !/source/php/**
+          !/assets
+          !/assets/**
+          !/languages
+          !/languages/**
+          !/composer.json
+          !/functions.php
+          !/index.php
+          !/Modularity/source
+          !/Modularity/source/**
+          !/Modularity/modularity.php
+          !/Modularity/Public.php
+          !/Modularity/templates
+          !/Modularity/templates/**
+          !/Modularity/modularity-custom-module-example/
+          !/Modularity/modularity-custom-module-example/**
+          EOF
+
 
       # --- Release Branch Commit ---
       - name: Commit and push release branch
