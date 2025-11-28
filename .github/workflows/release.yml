@@ -59,29 +59,7 @@ jobs:
 
       - name: Overwrite .gitignore for release branch
         run: |
-          # Remove .gitignore files that might prevent dist tracking
-          rm -f Modularity/.gitignore
-          cat > .gitignore << 'EOF'
-          /*
-          !.gitignore
-          !/assets
-          !/assets/**
-          !/Modularity
-          !/Modularity/**
-          !/library
-          !/library/**
-          !/languages
-          !/languages/**
-          !/views
-          !/views/**
-          !/vendor
-          !/vendor/**
-          !/functions.php
-          !/style.css
-          !/index.php
-          !/screenshot.png
-          EOF
-          cat .gitignore
+           printf "/*\n!.gitignore\n!/dist\n!/dist/**\n!/source/php\n!/source/php/**\n!/assets\n!/assets/**" > .gitignore
 
       # --- Release Branch Commit ---
       - name: Commit and push release branch
