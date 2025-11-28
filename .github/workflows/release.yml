@@ -22,7 +22,7 @@ jobs:
         uses: helsingborg-stad/release-wp-plugin-action@main
         with:
           php-version: 8.2
-          node-version: 20.6.0
+          node-version: 24.3.0
           skip-release: true  # custom flag you added
 
       - name: Pull latest main with bumped version
