@@ -83,21 +83,9 @@ jobs:
         run: |
           git config user.name "CI Release Bot"
           git config user.email "ci@helsingborg.se"
-          git checkout -B release
-          # Force add the dist directories that were previously ignored
-          if [ -d "assets/dist" ]; then
-            echo "Force adding assets/dist/"
-            git add -f assets/dist/
-          else
-            echo "Warning: assets/dist/ directory not found"
-          fi
-          if [ -d "Modularity/assets/dist" ]; then
-            echo "Force adding Modularity/assets/dist/"
-            git add -f Modularity/assets/dist/
-          else
-            echo "Warning: Modularity/assets/dist/ directory not found"
-          fi
-          git add -A
+          git checkout --orphan release
+          git reset    # optional, clears index without touching working tree
+          git add .
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
           git push origin release --force
 
