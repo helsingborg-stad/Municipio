@@ -1,11 +1,11 @@
 import { SelectControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+import { useContext, useEffect, useState } from "react";
 import { PostsListContext } from "../../../PostsListContext";
-
-const React = window.React;
 
 type Props = Pick<PostsListAttributes, "orderBy" | "postType"> & {
 	onChange: (orderBy: PostsListAttributes["orderBy"]) => void;
+	postType: string;
 };
 
 const orderByOptions = [
@@ -19,21 +19,21 @@ export const OrderByControl: React.FC<Props> = ({
 	orderBy,
 	onChange,
 }) => {
-	const { postTypeMetaKeys } = React.useContext(PostsListContext);
-	const [metaKeysAsOptions, setMetaKeysAsOptions] = React.useState<
+	const { postTypeMetaKeys } = useContext(PostsListContext);
+	const [metaKeysAsOptions, setMetaKeysAsOptions] = useState<
 		{ label: string; value: string }[]
 	>([]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		postTypeMetaKeys(postType).then((metaKeys) => {
 			setMetaKeysAsOptions(
-				metaKeys.map((key) => ({
+				Object.values(metaKeys).map((key) => ({
 					label: __(`meta: ${key}`, "municipio"),
 					value: key,
 				})),
 			);
 		});
-	}, [setMetaKeysAsOptions, postTypeMetaKeys, postType]);
+	}, [postTypeMetaKeys, postType]);
 
 	return (
 		<SelectControl
