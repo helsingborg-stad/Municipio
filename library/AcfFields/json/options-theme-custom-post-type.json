@@ -1,0 +1,412 @@
+[{
+    "key": "group_56b34353ef1eb",
+    "title": "Manage post types",
+    "fields": [
+        {
+            "key": "field_56b347f3ffb6c",
+            "label": "Available post types",
+            "name": "avabile_dynamic_post_types",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Add post type",
+            "collapsed": "field_56b3619c5defc",
+            "rows_per_page": 20,
+            "acfe_repeater_stylised_button": 0,
+            "sub_fields": [
+                {
+                    "key": "field_56b3619c5defc",
+                    "label": "Post type name",
+                    "name": "post_type_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! <\/span>",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b36c01e0619",
+                    "label": "Permal\u00e4nk",
+                    "name": "slug",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Public \/url\/ to show archive on.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": 50,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_57fb6fde23852",
+                    "label": "Rewrite with front",
+                    "name": "with_front",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Check if you would like to prefix the slug with blogfront",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 1,
+                    "message": "Prefix slug with blog front",
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56c1c7c731a5c",
+                    "label": "Menu icon",
+                    "name": "menu_icon",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "full",
+                    "library": "uploadedTo",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "svg",
+                    "uploader": "",
+                    "acfe_thumbnail": 0,
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b363105df00",
+                    "label": "Menu position",
+                    "name": "menu_position",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Select where to place this custom post type admin section.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "choices": {
+                        "5": "Below Posts",
+                        "10": "Below Media",
+                        "15": "Below Links",
+                        "20": "Below Pages",
+                        "25": "Below comments",
+                        "60": "Below first separator",
+                        "65": "Below Plugins",
+                        "70": "Below Users",
+                        "75": "Below Tools",
+                        "80": "Below Settings",
+                        "100": "Below second separator"
+                    },
+                    "default_value": 25,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "return_format": "value",
+                    "disabled": 0,
+                    "readonly": 0,
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b361b25defd",
+                    "label": "Public?",
+                    "name": "public",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Controls how the type is visible to authors",
+                    "default_value": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b362255defe",
+                    "label": "Exclude from search?",
+                    "name": "exclude_from_search",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Whether to exclude posts with this post type from front end search results.",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b3629c5deff",
+                    "label": "Avabile in nav menus?",
+                    "name": "show_in_nav_menus",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Make post type available for selection in navigation menus.",
+                    "default_value": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b364336050a",
+                    "label": "Hierarchical",
+                    "name": "hierarchical",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Whether the post type is hierarchical (e.g. page). Allows Parent to be specified.",
+                    "default_value": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_64fef9ff25f70",
+                    "label": "Place under pages menu?",
+                    "name": "place_under_pages_menu",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Place this post type under \"Pages\" in the admin panel?",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_5805d63cdcbf4",
+                    "label": "Navigation",
+                    "name": "show_posts_in_sidebar_menu",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_56b364336050a",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 0,
+                    "message": "Show posts in sidebar menu (only ofr automatically generated menus)",
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_56b364a391788",
+                    "label": "Post type functions",
+                    "name": "supports",
+                    "aria-label": "",
+                    "type": "checkbox",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_652cf6c8921b0",
+                                "operator": "==empty"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "editor": "Content editor",
+                        "author": "Author Select",
+                        "thumbnail": "Featured Image",
+                        "excerpt": "Excerpt",
+                        "trackbacks": "Trackbacks",
+                        "comments": "Comments",
+                        "page-attributes": "Page Attributes",
+                        "post-formats": "Post Formats",
+                        "revisions": "Revisions"
+                    },
+                    "default_value": [],
+                    "return_format": "value",
+                    "allow_custom": 0,
+                    "layout": "horizontal",
+                    "toggle": 0,
+                    "save_custom": 0,
+                    "custom_choice_button_text": "Add new choice",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_633d67ea3f62c",
+                    "label": "Display age notification on posts",
+                    "name": "display_age_notification_on_posts",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Wether to display an information notice on posts after X amount of days",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 0,
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_633d68aec93bb",
+                    "label": "Display the notice after this many days",
+                    "name": "post_age_days",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_633d67ea3f62c",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 60,
+                    "min": "",
+                    "max": "",
+                    "placeholder": "",
+                    "step": "",
+                    "prepend": "",
+                    "append": "days",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-post-types"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
