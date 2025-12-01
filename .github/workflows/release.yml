@@ -61,11 +61,17 @@ jobs:
         run: |
           cat > .gitignore <<'EOF'
           /*
+          !screenshot.png
+          !style.css
           !.gitignore
           !/dist
           !/dist/**
           !/source/php
           !/source/php/**
+          !views/
+          !views/**
+          !views/v3/
+          !views/v3/**
           !/assets
           !/assets/**
           !/languages
