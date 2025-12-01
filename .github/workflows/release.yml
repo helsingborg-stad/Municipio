@@ -61,11 +61,17 @@ jobs:
         run: |
           cat > .gitignore <<'EOF'
           /*
+          !screenshot.png
+          !style.css
           !.gitignore
           !/dist
           !/dist/**
           !/source/php
           !/source/php/**
+          !views/
+          !views/**
+          !views/v3/
+          !views/v3/**
           !/assets
           !/assets/**
           !/languages
@@ -79,12 +85,12 @@ jobs:
           Modularity/*
           !/Modularity/source
           !/Modularity/source/**
+          !/Modularity/assets/
+          !/Modularity/assets/**
           !/Modularity/modularity.php
           !/Modularity/Public.php
           !/Modularity/templates
           !/Modularity/templates/**
-          !/Modularity/modularity-custom-module-example/
-          !/Modularity/modularity-custom-module-example/**
           EOF
 
 
