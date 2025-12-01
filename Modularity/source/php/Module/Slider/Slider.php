@@ -135,7 +135,7 @@ class Slider extends \Modularity\Module
     private function prepareImageSlide(array $slide, array $imageSize)
     {
         //If no image, return slide
-        if (!isset($slide['image']['id'])) {
+        if (!isset($slide['image']['id']) || empty($slide['image']['id'])) {
             return $slide;
         }
 
@@ -168,7 +168,16 @@ class Slider extends \Modularity\Module
     private function prepareVideoSlide(array $slide, array $imageSize)
     {
         //Try to get image contract
-        $imageContract = $this->getImageContract($slide['image']['id'], null);
+        if(!empty($slide['image']['id'])) {
+            $imageContract = $this->getImageContract($slide['image']['id'], null);
+        } else {
+            _doing_it_wrong(
+                'Slider::prepareVideoSlide',
+                __('No image ID provided for video slide. Video slides require an placeholder image.', 'modularity'),
+                '6.8.34'
+            );
+            $imageContract = null;
+        }
 
         //If we have a contract, use it, else fallback to normal image
         if ($imageContract) {
