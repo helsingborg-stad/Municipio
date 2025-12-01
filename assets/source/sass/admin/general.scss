@@ -32,6 +32,37 @@
     filter: drop-shadow(4px 8px 8px rgba(0, 0, 0, .05));
 }
 
+#adminmenuback {
+    border-right: 1px solid #00000026;
+    filter: drop-shadow(4px 8px 8px rgba(0, 0, 0, .05));
+}
+
+#adminmenu, 
+#adminmenuback, 
+#adminmenuwrap {
+    background: #fff;
+}
+
+#adminmenu .wp-submenu {
+    background: #eee;
+}
+
+#adminmenu a,
+#adminmenu .wp-submenu a,
+#adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover, #adminmenu a:hover, #adminmenu li.menu-top>a:focus {
+    color: #333;
+}
+
+#adminmenu .current div.wp-menu-image:before, #adminmenu .wp-has-current-submenu div.wp-menu-image:before, #adminmenu a.current:hover div.wp-menu-image:before, #adminmenu a.wp-has-current-submenu:hover div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu a:focus div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu.opensub div.wp-menu-image:before, #adminmenu li.wp-has-current-submenu:hover div.wp-menu-image:before,
+#adminmenu div.wp-menu-image:before {
+    color: #333;
+}
+
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head, #adminmenu li.current a.menu-top, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+    background-color: #eeeeee36;
+    color: #333;
+}
+
 .wp-core-ui select,
 .wp-core-ui select:focus,
 input[type=checkbox]:focus, input[type=color]:focus, input[type=date]:focus, input[type=datetime-local]:focus, input[type=datetime]:focus, input[type=email]:focus, input[type=month]:focus, input[type=number]:focus, input[type=password]:focus, input[type=radio]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=text]:focus, input[type=time]:focus, input[type=url]:focus, input[type=week]:focus, select:focus, textarea:focus {
