@@ -1,0 +1,52 @@
+[{
+    "key": "group_67597150948c7",
+    "title": "SSO Settings",
+    "fields": [
+        {
+            "key": "field_67597153d37f3",
+            "label": "Require SSO Login",
+            "name": "municipio_require_sso_login",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "This feature disables the manual login ability. All attempts to login will be redirected to the IdP configured with MiniOrange SSO.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "* Requires MiniOrange SSO",
+            "default_value": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "login-logout"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
