@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Modularity;
 
 use Modularity\Private\PrivateAcfFields;
-use WpUtilService\Features\Enqueue\EnqueueManager;
-use WpUtilService\WpUtilService;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+use WpUtilService\WpUtilServiceInterface;
 
 class App
 {
@@ -14,10 +14,10 @@ class App
     public static $moduleManager = null;
     public $editor = null;
     private $modularityLangKey = 'modularityLang';
-    private EnqueueManager $wpEnqueue;
+    private EnqueueManagerInterface $wpEnqueue;
 
     public function __construct(
-        private WpUtilService $wpUtilService,
+        private WpUtilServiceInterface $wpUtilService,
     ) {
         $this->wpEnqueue = $this->wpUtilService->enqueue(__DIR__, 'Modularity/assets/dist');
 
