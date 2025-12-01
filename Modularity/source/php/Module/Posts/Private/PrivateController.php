@@ -54,7 +54,7 @@ class PrivateController
         return $data;
     }
 
-    private function getPrivateMetaKey(array $fields): string
+    private function getPrivateMetaKey(array $fields): string|int
     {
         $privateModuleMetaKey = null;
 

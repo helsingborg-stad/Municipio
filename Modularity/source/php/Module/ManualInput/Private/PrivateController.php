@@ -70,9 +70,9 @@ class PrivateController
      * If it is empty, it assigns the ID of the manualInputInstance to the $privateModuleMetaKey variable.
      *
      * @param array $fields The array of fields.
-     * @return string The private meta key for the module.
+     * @return string|int The private meta key for the module.
      */
-    private function getPrivateMetaKey(array $fields): string
+    private function getPrivateMetaKey(array $fields): string|int
     {
         $privateModuleMetaKey = null;
 
