@@ -85,6 +85,8 @@ jobs:
           Modularity/*
           !/Modularity/source
           !/Modularity/source/**
+          !/Modularity/assets/
+          !/Modularity/assets/**
           !/Modularity/modularity.php
           !/Modularity/Public.php
           !/Modularity/templates
