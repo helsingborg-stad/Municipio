@@ -110,6 +110,11 @@ class Slider extends \Modularity\Module
      */
     private function prepareSlide($slide, array $imageSize)
     {
+        //Make sure image ID is an integer
+        $slide['image']['id'] = isset($slide['image']['id']) && is_numeric($slide['image']['id'])
+            ? absint($slide['image']['id'])
+            : null;
+        
         $slide = $slide['acf_fc_layout'] === 'video'
             ? $this->prepareVideoSlide($slide, $imageSize)
             : $this->prepareImageSlide($slide, $imageSize);
@@ -163,7 +168,7 @@ class Slider extends \Modularity\Module
     private function prepareVideoSlide(array $slide, array $imageSize)
     {
         //Try to get image contract
-        $imageContract = $this->getImageContract($slide['image'], null);
+        $imageContract = $this->getImageContract($slide['image']['id'], null);
 
         //If we have a contract, use it, else fallback to normal image
         if ($imageContract) {
