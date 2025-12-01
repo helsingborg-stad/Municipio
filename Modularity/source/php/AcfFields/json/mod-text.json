@@ -1,0 +1,51 @@
+[
+	{
+		"key": "group_5891b49127038",
+		"title": "Text options",
+		"fields": [
+			{
+				"key": "field_5891b6038c120",
+				"label": "G\u00f6m textbox",
+				"name": "hide_box_frame",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": 0,
+				"message": "Ja, g\u00f6m textbox (visa text som artikel)",
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-text"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/text"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": ""
+	}
+]

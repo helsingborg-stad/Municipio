@@ -1,0 +1,161 @@
+<?php
+
+namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
+
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
+use WpService\Contracts\__;
+use WpService\Contracts\_x;
+
+/**
+ * Class TaxonomiesFromSchemaType
+ *
+ * This class is responsible for creating taxonomies based on the schema type.
+ * It uses a factory to create taxonomies and a resolver to map schema types to post types.
+ */
+class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
+{
+    /**
+     * TaxonomiesFromSchemaType constructor.
+     *
+     * @param TaxonomyFactoryInterface $taxonomyFactory The factory to create taxonomies.
+     * @param SchemaToPostTypeResolverInterface $schemaToPostTypeResolver The resolver to map schema types to post types.
+     */
+    public function __construct(
+        private TaxonomyFactoryInterface $taxonomyFactory,
+        private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver,
+        private __&_x $wpService
+    ) {
+    }
+
+    /**
+     * Create taxonomies based on the schema type.
+     *
+     * @param string $schemaType The schema type for which to create taxonomies.
+     * @return array An array of TaxonomyInterface objects.
+     */
+    public function create(string $schemaType): array
+    {
+        return [
+            'JobPosting'       => $this->getJobPostingTaxonomies(),
+            'Event'            => $this->getEventTaxonomies(),
+            'Project'          => $this->getProjectTaxonomies(),
+            'ExhibitionEvent'  => $this->getExhibitionEventTaxonomies(),
+            'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
+            'Preschool'        => $this->getPreschoolTaxonomies(),
+        ][$schemaType] ?? [];
+    }
+
+    /**
+     * Get taxonomies for ExhibitionEvent schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for ExhibitionEvent.
+     */
+    private function getExhibitionEventTaxonomies(): array
+    {
+        return [
+            new EventStatusFromDatesTaxonomy($this->wpService, $this->createTaxonomy(
+                'ExhibitionEvent',
+                'startDate',
+                $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name (plural)', 'municipio'),
+                $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name', 'municipio'),
+                ['show_admin_column' => true]
+            )),
+        ];
+    }
+
+    /**
+     * Get taxonomies for JobPosting schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for JobPosting.
+     */
+    private function getJobPostingTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('JobPosting', 'relevantOccupation', $this->wpService->__('Job Categories', 'municipio'), $this->wpService->__('Job Category', 'municipio')),
+            $this->createTaxonomy('JobPosting', 'validThrough', $this->wpService->__('Latest Application Dates', 'municipio'), $this->wpService->__('Latest Application Date', 'municipio')),
+        ];
+    }
+
+    /**
+     * Get taxonomies for Event schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for Event.
+     */
+    private function getEventTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio')),
+            $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $this->wpService->__('Physical Accessibility Feature', 'municipio')),
+            $this->createTaxonomy('Event', 'eventSchedule.startDate', $this->wpService->__('Occasions', 'municipio'), $this->wpService->__('Occasion', 'municipio')),
+        ];
+    }
+
+    /**
+     * Get taxonomies for Project schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for Project.
+     */
+    private function getProjectTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('Project', 'department', $this->wpService->__('Project Departments', 'municipio'), $this->wpService->__('Project Department', 'municipio')),
+            $this->createTaxonomy('Project', '@meta.category', $this->wpService->__('Project Categories', 'municipio'), $this->wpService->__('Project Category', 'municipio')),
+            $this->createTaxonomy('Project', '@meta.technology', $this->wpService->__('Project Technologies', 'municipio'), $this->wpService->__('Project Technology', 'municipio')),
+            $this->createTaxonomy('Project', 'status', $this->wpService->__('Project Statuses', 'municipio'), $this->wpService->__('Project Status', 'municipio')),
+        ];
+    }
+
+    /**
+     * Get taxonomies for ElementarySchool schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for ElementarySchool.
+     */
+    private function getElementarySchoolTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('ElementarySchool', 'keywords.name', $this->wpService->__('Unique selling points', 'municipio'), $this->wpService->__('Unique selling point', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('ElementarySchool', 'areaServed', $this->wpService->__('Areas served', 'municipio'), $this->wpService->__('Area served', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('ElementarySchool', 'hasOfferCatalog.itemListElement', $this->wpService->__('Grades', 'municipio'), $this->wpService->__('Grade', 'municipio'), ['show_admin_column' => true]),
+        ];
+    }
+
+    /**
+     * Get taxonomies for Preschool schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for Preschool.
+     */
+    private function getPreschoolTaxonomies(): array
+    {
+        return [
+            $this->createTaxonomy('Preschool', 'keywords.name', $this->wpService->__('Unique selling points', 'municipio'), $this->wpService->__('Unique selling point', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('Preschool', 'areaServed', $this->wpService->__('Areas served', 'municipio'), $this->wpService->__('Area served', 'municipio'), ['show_admin_column' => true]),
+            $this->createTaxonomy('Preschool', 'numberOfGroups', $this->wpService->_x('Number of groups', 'Preschool', 'municipio'), $this->wpService->_x('Number of groups', 'Preschool', 'municipio'), ['show_admin_column' => true]),
+        ];
+    }
+
+    /**
+     * Create a taxonomy based on the schema type and property.
+     *
+     * @param string $schemaType The schema type for the taxonomy.
+     * @param string $schemaProperty The schema property for the taxonomy.
+     * @param string $label The label for the taxonomy.
+     * @param string $singularLabel The singular label for the taxonomy.
+     * @return TaxonomyInterface The created taxonomy.
+     */
+    private function createTaxonomy(
+        string $schemaType,
+        string $schemaProperty,
+        string $label,
+        string $singularLabel,
+        array $args = []
+    ): TaxonomyInterface {
+        return $this->taxonomyFactory->create(
+            $schemaType,
+            $schemaProperty,
+            $this->schemaToPostTypeResolver->resolve($schemaType),
+            $label,
+            $singularLabel,
+            $args
+        );
+    }
+}

@@ -1,0 +1,231 @@
+[
+	{
+		"key": "group_5666a2a71d806",
+		"title": "Table Editor",
+		"fields": [
+			{
+				"key": "field_5731982808842",
+				"label": "Datatyp",
+				"name": "mod_table_data_type",
+				"type": "radio",
+				"instructions": "",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"layout": "horizontal",
+				"choices": {
+					"manual": "Manual input",
+					"csv": "CSV Import"
+				},
+				"default_value": "",
+				"other_choice": 0,
+				"save_other_choice": 0,
+				"allow_null": 0,
+				"return_format": "value"
+			},
+			{
+				"key": "field_57319c3b08843",
+				"label": "CSV-fil",
+				"name": "mod_table_csv_file",
+				"type": "file",
+				"instructions": "CSV-formatterad fil",
+				"required": 1,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_5731982808842",
+							"operator": "==",
+							"value": "csv"
+						}
+					]
+				],
+				"wrapper": {
+					"width": 50,
+					"class": "",
+					"id": ""
+				},
+				"return_format": "array",
+				"library": "all",
+				"min_size": "",
+				"max_size": "",
+				"mime_types": ".csv"
+			},
+			{
+				"key": "field_5731a138b52aa",
+				"label": "CSV-avgr\u00e4nsare",
+				"name": "mod_table_csv_delimiter",
+				"type": "text",
+				"instructions": "Tecken som anv\u00e4nds i CSV-filen som avgr\u00e4nsare. Brukar vara kommatecken eller semikolon.",
+				"required": 1,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_5731982808842",
+							"operator": "==",
+							"value": "csv"
+						}
+					]
+				],
+				"wrapper": {
+					"width": 50,
+					"class": "",
+					"id": ""
+				},
+				"default_value": ";",
+				"maxlength": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"readonly": 0,
+				"disabled": 0
+			},
+			{
+				"key": "field_5666a2ae23643",
+				"label": "Table",
+				"name": "mod_table",
+				"type": "dynamic_table",
+				"instructions": "Enter your table contents, and select appearance and functionality options below.",
+				"required": 1,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_5731982808842",
+							"operator": "==",
+							"value": "manual"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"tableclass": "",
+				"maxrows": "",
+				"disable_sort": 0,
+				"fixed_columns": 0,
+				"default_headers": "",
+				"default_header": "",
+				"readonly": 0,
+				"disabled": 0,
+				"sub_fields": []
+			},
+			{
+				"key": "field_5666a459d2d2a",
+				"label": "Aktivera s\u00f6k",
+				"name": "mod_table_search",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": 50,
+					"class": "",
+					"id": ""
+				},
+				"default_value": 1,
+				"message": "Yes, use search on this table",
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_56e181adef7ac",
+				"label": "Aktivera kolumnsortering",
+				"name": "mod_table_ordering",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": 1,
+				"message": "Yes, enable column sorting",
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_6141aad011c4e",
+				"label": "Multidimensional",
+				"name": "mod_table_multidimensional",
+				"type": "true_false",
+				"instructions": "Anv\u00e4nd den f\u00f6rsta kolumnen som en andra dimension av tabellrubriker. Detta val l\u00e5ser ocks\u00e5 den f\u00f6rsta kolumnen vid scroll.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_6141b4af3a835",
+				"label": "Sum",
+				"name": "mod_table_sum",
+				"type": "true_false",
+				"instructions": "L\u00e4gger till en rad i slutet av tabellen som summerar varje kolumns celler.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "",
+				"default_value": 0,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_6141dc72e5dcd",
+				"label": "Fullscreen",
+				"name": "mod_table_fullscreen",
+				"type": "true_false",
+				"instructions": "Renderar en ikon i h\u00f6gra h\u00f6rnet som m\u00f6jligg\u00f6r helsk\u00e4rmsl\u00e4ge f\u00f6r tabellen.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "",
+				"default_value": 0,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-table"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": ""
+	}
+]
