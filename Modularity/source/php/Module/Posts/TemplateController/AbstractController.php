@@ -144,7 +144,7 @@ class AbstractController
                 $post = clone $post; // Ensure we don't modify the original post object
                 return $post;
             },
-            $posts,
+            $posts ?? [],
         );
 
         if (!empty($posts)) {
@@ -164,7 +164,7 @@ class AbstractController
             }
         }
 
-        return $posts;
+        return $posts ?? [];
     }
 
     private function removePostsModuleBlocksFromContent(string $content): string
