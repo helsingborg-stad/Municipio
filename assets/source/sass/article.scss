@@ -1,0 +1,15 @@
+.c-article {
+    max-width: 1328px;
+
+    p {
+        max-width: 904px;
+    }
+
+    figure {
+        max-width: 100%;
+    }
+
+    [class^="mod-"] figure {
+        margin-top: 0;
+    }
+}

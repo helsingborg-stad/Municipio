@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group([
+        'key' => 'group_5666af6d26b7c',
+        'title' => 'Gallery',
+        'fields' => [
+            0 => [
+                'library' => 'all',
+                'min' => '',
+                'max' => '',
+                'min_width' => '',
+                'min_height' => '',
+                'min_size' => '',
+                'max_width' => '',
+                'max_height' => '',
+                'max_size' => '',
+                'mime_types' => '',
+                'insert' => 'append',
+                'key' => 'field_5666af72e3194',
+                'label' => __('Images', 'municipio'),
+                'name' => 'mod_gallery_images',
+                'type' => 'gallery',
+                'instructions' => '',
+                'required' => 1,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'preview_size' => 'thumbnail',
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'mod-gallery',
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+        'local' => 'php',
+    ]);
+}
