@@ -9,8 +9,8 @@
         'backgroundColor' => 'secondary'
     ],
     'date' => [
-        'timestamp' => $post->getArchiveDateTimestamp(),
-        'format'    => $post->getArchiveDateFormat(),
+        'timestamp' => $getDateTimestamp($post),
+        'format'    => $getDateFormat(),
     ],
     'dateBadge' => $showDateBadge(),
     'classList' => ['t-archive-block'],

@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\Config\AppearanceConfig;
 
+use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -54,5 +55,19 @@ class DefaultAppearanceConfigTest extends TestCase
     {
         $config = new DefaultAppearanceConfig();
         $this->assertSame([], $config->getPostPropertiesToDisplay());
+    }
+
+    #[TestDox('getDateSource returns post_date by default')]
+    public function testGetDateSourceReturnsPostDateByDefault(): void
+    {
+        $config = new DefaultAppearanceConfig();
+        $this->assertSame('post_date', $config->getDateSource());
+    }
+
+    #[TestDox('getDateFormat returns DATE_TIME by default')]
+    public function testGetDateFormatReturnsDateByDefault(): void
+    {
+        $config = new DefaultAppearanceConfig();
+        $this->assertSame(DateFormat::DATE_TIME, $config->getDateFormat());
     }
 }

@@ -34,7 +34,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Archive data
         $this->data['archiveTitle'] = $this->getArchiveTitle($this->data['archiveProps']);
-        $this->data['archiveLead']  = $this->getArchiveLead($this->data['archiveProps']);
+        $this->data['archiveLead'] = $this->getArchiveLead($this->data['archiveProps']);
 
         // Build archive menu
         $archiveMenuConfig = new MenuConfig('archive-menu', $postType . '-menu');
@@ -43,10 +43,12 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
         // Build posts list
-        $this->data = [...$this->data, ...(new Archive\ArchivePostsListFactory($this->wpService))->create(
-            $this->data,
-            $GLOBALS['wp_taxonomies']
-        )->getData()];
+        $this->data = [
+            ...$this->data,
+            ...(new Archive\ArchivePostsListFactory($this->wpService, $GLOBALS['wpdb']))
+                ->create($this->data, $GLOBALS['wp_taxonomies'])
+                ->getData(),
+        ];
     }
 
     /**
@@ -58,7 +60,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getArchiveProperties($postType, $customize)
     {
-        $customizationKey = "archive" . self::camelCasePostTypeName($postType);
+        $customizationKey = 'archive' . self::camelCasePostTypeName($postType);
 
         if (isset($customize->{$customizationKey})) {
             return (object) $customize->{$customizationKey};
@@ -85,10 +87,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function getArchiveTitle($args)
     {
-        return (string) \apply_filters(
-            'Municipio/Controller/Archive/getArchiveTitle',
-            $args->heading ?? ''
-        );
+        return (string) \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $args->heading ?? '');
     }
 
     /**
@@ -98,9 +97,6 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function getArchiveLead($args)
     {
-        return (string) \apply_filters(
-            'Municipio/Controller/Archive/getArchiveLead',
-            $args->body ?? ''
-        );
+        return (string) \apply_filters('Municipio/Controller/Archive/getArchiveLead', $args->body ?? '');
     }
 }
