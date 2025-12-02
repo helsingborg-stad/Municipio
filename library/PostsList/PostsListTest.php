@@ -56,11 +56,6 @@ class PostsListTest extends TestCase
 
     private function getWpDb(): \wpdb
     {
-        return new class('', '', '', '') extends \wpdb {
-            public function __construct($dbuser, $dbpassword, $dbname, $dbhost)
-            {
-                //return parent::__construct($dbuser, $dbpassword, $dbname, $dbhost);
-            }
-        };
+        return new class('', '', '', '') extends \wpdb {};
     }
 }
