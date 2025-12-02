@@ -19,11 +19,17 @@ class AppearanceConfigFactory
     {
         return (new AppearanceConfigBuilder())
             ->setNumberOfColumns((new Mappers\AppearanceConfigMappers\MapNumberOfColumns())->map($data))
-            ->setShouldDisplayFeaturedImage((new Mappers\AppearanceConfigMappers\MapShouldDisplayFeaturedImage())->map($data))
-            ->setShouldDisplayReadingTime((new Mappers\AppearanceConfigMappers\MapShouldDisplayReadingTime())->map($data))
+            ->setShouldDisplayFeaturedImage((new Mappers\AppearanceConfigMappers\MapShouldDisplayFeaturedImage())->map(
+                $data,
+            ))
+            ->setShouldDisplayReadingTime((new Mappers\AppearanceConfigMappers\MapShouldDisplayReadingTime())->map(
+                $data,
+            ))
             ->setTaxonomiesToDisplay((new Mappers\AppearanceConfigMappers\MapTaxonomiesToDisplay())->map($data))
             ->setPostPropertiesToDisplay((new Mappers\AppearanceConfigMappers\MapPostPropertiesToDisplay())->map($data))
             ->setDesign((new Mappers\AppearanceConfigMappers\MapDesign())->map($data))
+            ->setDateSource((new Mappers\AppearanceConfigMappers\MapDateSource())->map($data))
+            ->setDateFormat((new Mappers\AppearanceConfigMappers\MapDateFormat())->map($data))
             ->build();
     }
 }

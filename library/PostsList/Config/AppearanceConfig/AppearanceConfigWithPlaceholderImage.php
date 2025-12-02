@@ -19,8 +19,7 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
         private bool $shouldDisplayPlaceholderImage,
         private GetThemeMod $wpService,
         private AppearanceConfigInterface $innerConfig = new DefaultAppearanceConfig(),
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
@@ -60,7 +59,7 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
      * @inheritDoc
      * @codeCoverageIgnore
      */
-    public function getPlaceholderImageUrl(): ?string
+    public function getPlaceholderImageUrl(): null|string
     {
         return $this->wpService->getThemeMod('logotype_emblem', null);
     }
@@ -99,5 +98,23 @@ class AppearanceConfigWithPlaceholderImage implements AppearanceConfigInterface
     public function getNumberOfColumns(): int
     {
         return $this->innerConfig->getNumberOfColumns();
+    }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getDateSource(): string
+    {
+        return $this->innerConfig->getDateSource();
+    }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getDateFormat(): DateFormat
+    {
+        return $this->innerConfig->getDateFormat();
     }
 }

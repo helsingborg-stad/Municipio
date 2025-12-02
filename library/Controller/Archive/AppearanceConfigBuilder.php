@@ -3,6 +3,7 @@
 namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
+use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 
@@ -11,12 +12,14 @@ use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
  */
 class AppearanceConfigBuilder
 {
-    private int $numberOfColumns             = 1;
+    private int $numberOfColumns = 1;
     private bool $shouldDisplayFeaturedImage = false;
-    private bool $shouldDisplayReadingTime   = false;
-    private array $taxonomiesToDisplay       = [];
-    private array $postPropertiesToDisplay   = [];
-    private PostDesign $design               = PostDesign::CARD;
+    private bool $shouldDisplayReadingTime = false;
+    private array $taxonomiesToDisplay = [];
+    private array $postPropertiesToDisplay = [];
+    private PostDesign $design = PostDesign::CARD;
+    private string $dateSource = 'post_date';
+    private DateFormat $dateFormat = DateFormat::DATE_TIME;
 
     /**
      * Set number of columns
@@ -72,18 +75,32 @@ class AppearanceConfigBuilder
         return $this;
     }
 
+    public function setDateSource(string $dateSource): self
+    {
+        $this->dateSource = $dateSource;
+        return $this;
+    }
+
+    public function setDateFormat(DateFormat $dateFormat): self
+    {
+        $this->dateFormat = $dateFormat;
+        return $this;
+    }
+
     /**
      * Build AppearanceConfig
      */
     public function build(): AppearanceConfigInterface
     {
-        return new class (
+        return new class(
             $this->numberOfColumns,
             $this->shouldDisplayFeaturedImage,
             $this->shouldDisplayReadingTime,
             $this->taxonomiesToDisplay,
             $this->postPropertiesToDisplay,
-            $this->design
+            $this->design,
+            $this->dateSource,
+            $this->dateFormat,
         ) extends DefaultAppearanceConfig {
             /**
              * Constructor
@@ -94,9 +111,10 @@ class AppearanceConfigBuilder
                 private bool $shouldDisplayReadingTime,
                 private array $taxonomiesToDisplay,
                 private array $postPropertiesToDisplay,
-                private PostDesign $design
-            ) {
-            }
+                private PostDesign $design,
+                private string $dateSource,
+                private DateFormat $dateFormat,
+            ) {}
 
             /**
              * @inheritDoc
@@ -144,6 +162,22 @@ class AppearanceConfigBuilder
             public function getNumberOfColumns(): int
             {
                 return $this->numberOfColumns;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateSource(): string
+            {
+                return $this->dateSource;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getDateFormat(): DateFormat
+            {
+                return $this->dateFormat;
             }
         };
     }
