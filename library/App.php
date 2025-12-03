@@ -211,6 +211,7 @@ class App
 
         new \Municipio\Admin\Roles\General($this->wpService);
         new \Municipio\Admin\Roles\Editor($this->userHelper);
+        (new \Municipio\Admin\Roles\Subscriber($this->wpService))->addHooks();
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();

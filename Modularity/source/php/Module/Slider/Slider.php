@@ -139,7 +139,7 @@ class Slider extends \Modularity\Module
     private function prepareImageSlide(array $slide, array $imageSize)
     {
         //If no image, return slide
-        if (!isset($slide['image']['id']) || empty($slide['image']['id'])) {
+        if (!is_array($slide['image']) || !isset($slide['image']['id']) || empty($slide['image']['id'])) {
             return $slide;
         }
 
