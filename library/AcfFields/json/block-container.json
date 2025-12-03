@@ -1,0 +1,370 @@
+[{
+    "key": "group_63cfdba21f7fc",
+    "title": "Container Block",
+    "fields": [
+        {
+            "key": "field_63cfdba39a6d2",
+            "label": "Amount of padding",
+            "name": "amount",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 4,
+            "min": 0,
+            "max": 24,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6807afdfba66c",
+            "label": "Amount of rounded corners",
+            "name": "border_radius",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "sm": "Small",
+                "md": "Medium",
+                "lg": "Large",
+                "xl": "X-Large"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "placeholder": "",
+            "search_placeholder": "",
+            "allow_null": 1,
+            "ui": 1,
+            "ajax": 0
+        },
+        {
+            "key": "field_68088e6bbe241",
+            "label": "Amount of shadow",
+            "name": "shadow",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "min": 0,
+            "max": 5,
+            "step": 1,
+            "prepend": "Level",
+            "append": ""
+        },
+        {
+            "key": "field_644b6d221b7a4",
+            "label": "Content width",
+            "name": "content_width",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "standard": "Standard",
+                "article": "Article"
+            },
+            "default_value": "standard",
+            "return_format": "",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
+        },
+        {
+            "key": "field_6405fea65cc8f",
+            "label": "Background image",
+            "name": "backgroundImage",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "uploader": "",
+            "acfe_thumbnail": 0,
+            "return_format": "id",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_64831fa89c119",
+            "label": "Background color type",
+            "name": "background_color_type",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default",
+                "gradient": "Gradient"
+            },
+            "default_value": "default",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "layout": "vertical"
+        },
+        {
+            "key": "field_63cfdc219a6d3",
+            "label": "Background color",
+            "name": "color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "default"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": 1,
+            "return_format": "string"
+        },
+        {
+            "key": "field_6492ca98d635f",
+            "label": "Gradient settings",
+            "name": "background_gradient_type",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "gradient"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "basic": "Basic",
+                "advanced": "Advanced"
+            },
+            "default_value": "basic",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_64832f14f941f",
+            "label": "Gradient angle",
+            "name": "background_gradient_angle",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "gradient"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "min": "",
+            "max": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_648329b62db2e",
+            "label": "Gradient background color",
+            "name": "background_gradient",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "The color with the lowest stop will always be shown first.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "gradient"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "acfe_repeater_stylised_button": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_64832a1b2db2f",
+                    "label": "Color",
+                    "name": "color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "enable_opacity": 1,
+                    "return_format": "string",
+                    "parent_repeater": "field_648329b62db2e"
+                },
+                {
+                    "key": "field_64832a342db30",
+                    "label": "Stop",
+                    "name": "stop",
+                    "aria-label": "",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6492ca98d635f",
+                                "operator": "==",
+                                "value": "advanced"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 0,
+                    "min": 0,
+                    "max": 100,
+                    "step": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_648329b62db2e"
+                }
+            ]
+        },
+        {
+            "key": "field_644b77128c900",
+            "label": "Text color",
+            "name": "text_color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": 0,
+            "return_format": "string"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/container"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+

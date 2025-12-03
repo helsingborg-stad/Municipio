@@ -1,0 +1,49 @@
+[{
+    "key": "group_61dc486660615",
+    "title": "Navigation Item Style",
+    "fields": [
+        {
+            "key": "field_61dc486ea78df",
+            "label": "Style",
+            "name": "menu_item_style",
+            "type": "select",
+            "instructions": "Display as button should be limited to one item per menu. This item should not have any children.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default",
+                "button": "Button"
+            },
+            "default_value": "default",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "nav_menu_item",
+                "operator": "==",
+                "value": "location\/main-menu"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}]
+

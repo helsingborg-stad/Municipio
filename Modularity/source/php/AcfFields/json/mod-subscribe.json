@@ -1,0 +1,243 @@
+[
+	{
+		"key": "group_641c51b765f4b",
+		"title": "Email Subscribe",
+		"fields": [
+			{
+				"key": "field_641c51b7d5dff",
+				"label": "Lead",
+				"name": "content",
+				"type": "textarea",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"acfe_textarea_code": 0,
+				"maxlength": "",
+				"rows": "",
+				"placeholder": "",
+				"new_lines": ""
+			},
+			{
+				"key": "field_641c53ff5ed70",
+				"label": "Consent message",
+				"name": "consent_message",
+				"type": "textarea",
+				"instructions": "",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "I want to receive relevant information from this organization to my inbox. The information provided here will not be shared or sold. I can unsubscribe at any time.",
+				"acfe_textarea_code": 0,
+				"maxlength": 400,
+				"rows": 3,
+				"placeholder": "",
+				"new_lines": ""
+			},
+			{
+				"key": "field_641c5206d0a1e",
+				"label": "Service",
+				"name": "service",
+				"type": "select",
+				"instructions": "Select the email provider that you want to use for this subscription form. If your service of choise isen't selectable. It needs to be added by a developer.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"choices": {
+					"ungdp": "Ungapped (ungapped.se)"
+				},
+				"default_value": false,
+				"return_format": "value",
+				"multiple": 0,
+				"placeholder": "",
+				"allow_null": 1,
+				"ui": 0,
+				"ajax": 0
+			},
+			{
+				"key": "field_641c527d5b8e0",
+				"label": "Settings for Ungapped service",
+				"name": "settings_for_ungapped_service",
+				"type": "group",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_641c5206d0a1e",
+							"operator": "==",
+							"value": "ungdp"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"layout": "block",
+				"acfe_seamless_style": 0,
+				"acfe_group_modal": 0,
+				"sub_fields": [
+					{
+						"key": "field_641c52955b8e1",
+						"label": "Account ID",
+						"name": "account_id",
+						"type": "text",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					},
+					{
+						"key": "field_641c52955b8e2",
+						"label": "List IDs",
+						"name": "list_ids",
+						"type": "text",
+						"instructions": "Comma separated list of list IDs. One for each list you want to subscribe to.",
+						"required": 1,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					},
+					{
+						"key": "field_641c52125b8e2",
+						"label": "Confirmation E-mail ID",
+						"name": "double_opt_in_issue_id",
+						"type": "text",
+						"instructions": "This is the e-mail that is sent to the subscriber to confirm their subscription.",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					},
+					{
+						"key": "field_641c52175b8e2",
+						"label": "Welcome E-mail ID",
+						"name": "confirmation_issue_id",
+						"type": "text",
+						"instructions": "This is the e-mail that is sent to the subscriber when they have confirmed their subscription.",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					},
+					{
+						"key": "field_641c52135b8e2",
+						"label": "Subscription confirmed url",
+						"name": "subscription_confirmed_url",
+						"type": "url",
+						"instructions": "This is the url that the subscriber is redirected to when they have confirmed their subscription.",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					},
+					{
+						"key": "field_641c52145b8e2",
+						"label": "Subscription failed url",
+						"name": "subscription_failed_url",
+						"type": "url",
+						"instructions": "This is the url that the subscriber is redirected to when their subscription has failed.",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": ""
+					}
+				]
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-subscribe"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/subscribe"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "left",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0,
+		"acfe_display_title": "",
+		"acfe_autosync": "",
+		"acfe_form": 0,
+		"acfe_meta": "",
+		"acfe_note": ""
+	}
+]
