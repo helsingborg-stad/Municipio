@@ -18,7 +18,7 @@ class AutoUpdate implements Hookable
 
     /**
      * Remove default WordPress version check actions
-     * 
+     *
      * @return void
      */
     public function removeVersionCheckActions(): void
@@ -31,7 +31,7 @@ class AutoUpdate implements Hookable
 
     /**
      * Filter default update settings to disable automatic updates
-     * 
+     *
      * @return void
      */
     public function filterDefaultUpdateSettings(): void
@@ -47,7 +47,7 @@ class AutoUpdate implements Hookable
 
     /**
      * Remove update nags from admin area
-     * 
+     *
      * @return void
      */
     public function removeUpdateNags(): void
