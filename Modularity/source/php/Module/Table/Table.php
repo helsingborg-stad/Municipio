@@ -78,6 +78,10 @@ class Table extends \Modularity\Module
 
     public static function unicodeConvert($unicode)
     {
+        if (empty($unicode) || !is_string($unicode)) {
+            return $unicode;
+        }
+
         $search = [
             'u00a5',
             'u201e',
