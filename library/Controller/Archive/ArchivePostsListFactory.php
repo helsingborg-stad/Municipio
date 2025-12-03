@@ -16,9 +16,10 @@ class ArchivePostsListFactory
     /**
      * Constructor
      */
-    public function __construct(private WpService $wpService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+        private \wpdb $wpdb,
+    ) {}
 
     /**
      * Create a PostsList instance
@@ -27,10 +28,8 @@ class ArchivePostsListFactory
      * @param \WP_Taxonomy[] $wpTaxonomies
      * @return \Municipio\PostsList\PostsList
      */
-    public function create(
-        array $data,
-        array $wpTaxonomies
-    ): \Municipio\PostsList\PostsList {
+    public function create(array $data, array $wpTaxonomies): \Municipio\PostsList\PostsList
+    {
         return new \Municipio\PostsList\PostsList(
             $this->createGetPostsConfig($data, $wpTaxonomies),
             (new AppearanceConfigFactory())->create($data),
@@ -39,6 +38,7 @@ class ArchivePostsListFactory
             new \Municipio\PostsList\GetPosts\WpQueryFactory(),
             $this->getQueryVars(),
             $this->wpService,
+            $this->wpdb,
         );
     }
 
@@ -51,7 +51,12 @@ class ArchivePostsListFactory
      */
     private function createGetPostsConfig(array $data, array $wpTaxonomies): GetPostsConfigInterface
     {
-        return (new GetPostsConfigFactory($data, $this->getFilterConfig($data, $wpTaxonomies), $this->getQueryVars(), $this->wpService))->create();
+        return (new GetPostsConfigFactory(
+            $data,
+            $this->getFilterConfig($data, $wpTaxonomies),
+            $this->getQueryVars(),
+            $this->wpService,
+        ))->create();
     }
 
     /**
@@ -61,8 +66,10 @@ class ArchivePostsListFactory
      * @param \WP_Taxonomy[] $wpTaxonomies
      * @return \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
      */
-    private function getFilterConfig(array $data, $wpTaxonomies): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface
-    {
+    private function getFilterConfig(
+        array $data,
+        $wpTaxonomies,
+    ): \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface {
         return (new FilterConfigFactory($data, $wpTaxonomies, $this->wpService, $this->getQueryVars()))->create();
     }
 

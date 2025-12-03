@@ -6,8 +6,8 @@
     'tags' => $getTags($post),
     'meta' => $getReadingTime($post),
     'date' => [
-        'timestamp' => $post->getArchiveDateTimestamp(),
-        'format'    => $post->getArchiveDateFormat(),
+        'timestamp' => $getDateTimestamp($post),
+        'format'    => $getDateFormat(),
     ],
     'dateBadge' => $showDateBadge(),
     'context' => ['archive', 'archive.list', 'archive.list.card'],

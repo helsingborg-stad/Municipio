@@ -37,7 +37,7 @@ interface AppearanceConfigInterface
      *
      * @return string|null
      */
-    public function getPlaceholderImageUrl(): ?string;
+    public function getPlaceholderImageUrl(): null|string;
 
     /**
      * Get image ratio for the posts list
@@ -66,4 +66,18 @@ interface AppearanceConfigInterface
      * @return int
      */
     public function getNumberOfColumns(): int;
+
+    /**
+     * Get date source setting
+     *
+     * @return string
+     */
+    public function getDateSource(): string;
+
+    /**
+     * Get date format
+     *
+     * @return DateFormat
+     */
+    public function getDateFormat(): DateFormat;
 }

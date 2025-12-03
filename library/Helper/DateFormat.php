@@ -47,13 +47,16 @@ class DateFormat
     public static function getUnresolvedDateFormat(PostObjectInterface $post): string
     {
         static $cache = [];
-        $postType     = $post->getPostType();
+        $postType = $post->getPostType();
 
         if (isset($cache[$postType])) {
             return $cache[$postType];
         }
 
-        return $cache[$postType] = WpService::get()->getThemeMod(sprintf('archive_%s_date_format', $postType), 'date-time');
+        return $cache[$postType] = WpService::get()->getThemeMod(
+            sprintf('archive_%s_date_format', $postType),
+            'date-time',
+        );
     }
 
     /**
@@ -96,7 +99,7 @@ class DateFormat
      *
      * @return string The current timezone.
      */
-    public static function getTimezone(): ?string
+    public static function getTimezone(): null|string
     {
         // Get the offset string, like +02:00
         $timezoneOffset = wp_timezone_string();
@@ -107,7 +110,7 @@ class DateFormat
         }
 
         // Parse the offset, convert to seconds
-        $offsetSeconds = (new DateTimeZone($timezoneOffset))->getOffset(new DateTime("now"));
+        $offsetSeconds = (new DateTimeZone($timezoneOffset))->getOffset(new DateTime('now'));
 
         // Get the corresponding timezone name (IANA) from the offset
         $timezoneName = timezone_name_from_abbr('', $offsetSeconds, 1);

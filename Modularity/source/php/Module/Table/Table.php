@@ -139,7 +139,7 @@ class Table extends \Modularity\Module
             '€',
         ];
 
-        return str_replace($search, $replace, $unicode);
+        return str_replace($search, $replace, $unicode ?? '');
     }
 
     public function getTableClasses($data)

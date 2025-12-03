@@ -2,6 +2,8 @@
 
 namespace Municipio\PostsList\Config\AppearanceConfig;
 
+use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
+
 /*
  * Default appearance config implementation
  */
@@ -42,7 +44,7 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     /**
      * @inheritdoc
      */
-    public function getPlaceholderImageUrl(): ?string
+    public function getPlaceholderImageUrl(): null|string
     {
         return null;
     }
@@ -77,5 +79,15 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     public function getNumberOfColumns(): int
     {
         return 1;
+    }
+
+    public function getDateSource(): string
+    {
+        return 'post_date';
+    }
+
+    public function getDateFormat(): DateFormat
+    {
+        return DateFormat::DATE_TIME;
     }
 }
