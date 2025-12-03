@@ -59,7 +59,7 @@ class Script extends \Modularity\Module
                     $data['embed'][$i]['src'] = null;
                     $data['embed'][$i]['requiresAccept'] = 0;
 
-                    $doc->saveHTML($element->setAttribute('defer', true));
+                    $doc->saveHTML($element->setAttribute('defer', ""));
 
                     $src = $element->getAttribute('src');
                     if (!empty($src)) {

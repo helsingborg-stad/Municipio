@@ -3,8 +3,8 @@
     'content'             => $getExcerptWithoutLinks($post),
     'image'               => $post->getImage(),
     'date'                => [
-        'timestamp' => $post->getArchiveDateTimestamp(),
-        'format'    => $post->getArchiveDateFormat(),
+        'timestamp' => $getDateTimestamp($post),
+        'format'    => $getDateFormat(),
     ],
     'readTime'            => $getReadingTime($post),
     'link'                => $post->getPermalink(),

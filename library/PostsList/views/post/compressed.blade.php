@@ -17,13 +17,13 @@
         
     </article>
 
-    @if(!empty($post->getArchiveDateTimestamp()))
+    @if(!empty($getDateTimestamp($post)))
         @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
             {{$lang->publish}}: 
             @date([
                 'action' => 'formatDate',
-                'timestamp' => $post->getArchiveDateTimestamp(),
-                'format' => $post->getArchiveDateFormat()
+                'timestamp' => $getDateTimestamp($post),
+                'format' => $getDateFormat()
             ])
             @enddate
         @endtypography

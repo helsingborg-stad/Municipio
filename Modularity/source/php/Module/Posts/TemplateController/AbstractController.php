@@ -144,7 +144,7 @@ class AbstractController
                 $post = clone $post; // Ensure we don't modify the original post object
                 return $post;
             },
-            $posts,
+            $posts ?? [],
         );
 
         if (!empty($posts)) {
@@ -164,7 +164,7 @@ class AbstractController
             }
         }
 
-        return $posts;
+        return $posts ?? [];
     }
 
     private function removePostsModuleBlocksFromContent(string $content): string
@@ -181,8 +181,7 @@ class AbstractController
      */
     public function shouldAddBlogNameToPost(): bool
     {
-        $sources = $this->fields['posts_data_network_sources'] ?? [];
-        return is_array($sources) && !empty($sources);
+        return !empty($this->data['postsSources']);
     }
 
     /**
@@ -316,7 +315,7 @@ class AbstractController
      */
     private function sanitizeExcerpt(string|null $excerpt)
     {
-        $excerpt = strip_tags($excerpt ?? "");
+        $excerpt = strip_tags($excerpt ?? '');
         $excerpt = preg_replace("/[\r\n]+/", "\n", $excerpt);
         $excerpt = trim($excerpt);
         $excerpt = nl2br($excerpt);

@@ -11,7 +11,7 @@ use WpService\WpService;
 
 class PostsListFactory implements PostsListFactoryInterface
 {
-    public function __construct(private WpService $wpService)
+    public function __construct(private WpService $wpService, private \wpdb $wpdb)
     {
     }
 
@@ -27,7 +27,8 @@ class PostsListFactory implements PostsListFactoryInterface
             $filterConfig,
             new WpQueryFactory(),
             new QueryVars($queryVarsPrefix),
-            $this->wpService
+            $this->wpService,
+            $this->wpdb,
         );
     }
 }

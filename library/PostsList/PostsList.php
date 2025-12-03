@@ -28,6 +28,7 @@ class PostsList
     private array $posts;
     private WP_Query $wpQuery;
     private AppearanceConfigInterface $appearanceConfig;
+
     /**
      * Constructor
      *
@@ -47,8 +48,9 @@ class PostsList
         private WpQueryFactoryInterface $wpQueryFactory,
         private QueryVarsInterface $queryVars,
         private WpService $wpService,
+        private \wpdb $wpdb,
         private GetField $acfService = new NativeAcfService(),
-        private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage()
+        private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage(),
     ) {
         (new QueryVarRegistrar($this->queryVars, $this->wpService))->register();
     }
@@ -61,40 +63,86 @@ class PostsList
     public function getData(): array
     {
         return [
-            'posts'                                     => $this->getPosts(),
-            'appearanceConfig'                          => $this->getAppearanceConfig(),
-            'filterConfig'                              => $this->filterConfig,
-            'getTags'                                   => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->getAppearanceConfig()->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
-            'getExcerptWithoutLinks'                    => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
-            'getReadingTime'                            => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
-            'showDateBadge'                             => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
-            'getParentColumnClasses'                    => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
-            'getPostColumnClasses'                      => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
-
+            'posts' => $this->getPosts(),
+            'appearanceConfig' => $this->getAppearanceConfig(),
+            'filterConfig' => $this->filterConfig,
+            'getTags' => (new ViewCallableProviders\GetTagsComponentArguments(
+                $this->getPosts(),
+                $this->getAppearanceConfig()->getTaxonomiesToDisplay(),
+                $this->wpService,
+                $this->acfService,
+            ))->getCallable(),
+            'getExcerptWithoutLinks' => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
+            'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
+            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
+            'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
+            'getPostColumnClasses' => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
+            'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp(
+                $this->getAppearanceConfig()->getDateSource(),
+                $this->getPosts(),
+                $this->wpdb,
+            ))->getCallable(),
+            'getDateFormat' => (new ViewCallableProviders\GetDateFormat($this->getAppearanceConfig()->getDateFormat()))->getCallable(),
             // Table view utilities
-            'getTableComponentArguments'                => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->getAppearanceConfig(), $this->wpService, $this->acfService))->getCallable(),
-
+            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments(
+                $this->getPosts(),
+                $this->getAppearanceConfig(),
+                $this->wpService,
+                $this->acfService,
+            ))->getCallable(),
             // Schema Project view utilities
-            'getSchemaProjectProgressLabel'             => (new ViewCallableProviders\Schema\Project\GetProgressLabel())->getCallable(),
-            'getSchemaProjectProgressPercentage'        => (new ViewCallableProviders\Schema\Project\GetProgressPercentage())->getCallable(),
-            'getSchemaProjectTechnologyTerms'           => (new ViewCallableProviders\GetTermsAsString($this->getPosts(), ['project_meta_technology'], $this->wpService, ' / '))->getCallable(),
-            'getSchemaProjectCategoryTerms'             => (new ViewCallableProviders\GetTermsAsString($this->getPosts(), ['project_meta_category'], $this->wpService, ' / '))->getCallable(),
-
+            'getSchemaProjectProgressLabel' => (new ViewCallableProviders\Schema\Project\GetProgressLabel())->getCallable(),
+            'getSchemaProjectProgressPercentage' => (new ViewCallableProviders\Schema\Project\GetProgressPercentage())->getCallable(),
+            'getSchemaProjectTechnologyTerms' => (new ViewCallableProviders\GetTermsAsString(
+                $this->getPosts(),
+                ['project_meta_technology'],
+                $this->wpService,
+                ' / ',
+            ))->getCallable(),
+            'getSchemaProjectCategoryTerms' => (new ViewCallableProviders\GetTermsAsString(
+                $this->getPosts(),
+                ['project_meta_category'],
+                $this->wpService,
+                ' / ',
+            ))->getCallable(),
             // Schema Event view utilities
-            'getSchemaEventPriceRange'                  => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
-            'getSchemaEventPlaceName'                   => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
-            'getSchemaEventDate'                        => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
-            'getSchemaEventDateBadgeDate'               => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
-
+            'getSchemaEventPriceRange' => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
+            'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
+            'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
+            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig, $this->wpService, $this->queryVars->getPrefix()))->getCallable(),
-            'getFilterFormSubmitButtonArguments'        => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig, $this->wpService))->getCallable(),
-            'getFilterFormResetButtonArguments'         => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig, $this->filterConfig, $this->wpService))->getCallable(),
-            'getTextSearchFieldArguments'               => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig, $this->queryVars->getSearchParameterName(), $this->wpService))->getCallable(),
-            'getDateFilterFieldArguments'               => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig, $this->wpService, $this->queryVars->getDateFromParameterName(), $this->queryVars->getDateToParameterName()))->getCallable(),
-
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments(
+                $this->filterConfig,
+                $this->getPostsConfig,
+                $this->wpService,
+                $this->queryVars->getPrefix(),
+            ))->getCallable(),
+            'getFilterFormSubmitButtonArguments' => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments(
+                $this->getPostsConfig,
+                $this->wpService,
+            ))->getCallable(),
+            'getFilterFormResetButtonArguments' => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments(
+                $this->getPostsConfig,
+                $this->filterConfig,
+                $this->wpService,
+            ))->getCallable(),
+            'getTextSearchFieldArguments' => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments(
+                $this->getPostsConfig,
+                $this->queryVars->getSearchParameterName(),
+                $this->wpService,
+            ))->getCallable(),
+            'getDateFilterFieldArguments' => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments(
+                $this->getPostsConfig,
+                $this->wpService,
+                $this->queryVars->getDateFromParameterName(),
+                $this->queryVars->getDateToParameterName(),
+            ))->getCallable(),
             // Pagination utilities
-            'getPaginationComponentArguments'           => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getWpQuery()->max_num_pages, $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
+            'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments(
+                $this->getWpQuery()->max_num_pages,
+                $this->getPostsConfig->getPage(),
+                $this->queryVars->getPaginationParameterName(),
+            ))->getCallable(),
         ];
     }
 
@@ -104,7 +152,7 @@ class PostsList
     private function getWpQuery(): WP_Query
     {
         if (!isset($this->wpQuery)) {
-            $args          = $this->getPostsArgs();
+            $args = $this->getPostsArgs();
             $this->wpQuery = $this->wpQueryFactory::create($args);
             $this->wpQuery->get_posts();
         }
@@ -117,10 +165,7 @@ class PostsList
      */
     private function getPostsArgs(): array
     {
-        return (new MapPostArgsFromPostsListConfig(
-            $this->getPostsConfig,
-            $this->filterConfig
-        ))->getPostsArgs();
+        return (new MapPostArgsFromPostsListConfig($this->getPostsConfig, $this->filterConfig))->getPostsArgs();
     }
 
     /**
@@ -131,7 +176,9 @@ class PostsList
     private function getPosts(): array
     {
         if (!isset($this->posts)) {
-            $this->posts = array_map(fn($wpPost) => Post::convertWpPostToPostObject($wpPost), $this->getWpQuery()->posts);
+            $this->posts = array_map(fn($wpPost) => Post::convertWpPostToPostObject(
+                $wpPost,
+            ), $this->getWpQuery()->posts);
         }
 
         return $this->posts;
@@ -149,10 +196,10 @@ class PostsList
         }
 
         $shouldDisplayPlaceholderImage = $this->anyPostHasImageService->check(...$this->getPosts());
-        $this->appearanceConfig        = new AppearanceConfigWithPlaceholderImage(
+        $this->appearanceConfig = new AppearanceConfigWithPlaceholderImage(
             $shouldDisplayPlaceholderImage,
             $this->wpService,
-            $this->providedAppearanceConfig
+            $this->providedAppearanceConfig,
         );
 
         return $this->appearanceConfig;

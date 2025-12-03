@@ -50,7 +50,7 @@ class AbstractControllerTest extends TestCase
     public function testShouldAddBlogNameToPostReturnsTrue()
     {
         $controller = new AbstractController($this->getModuleMock());
-        $controller->fields['posts_data_network_sources'] = ['source1', 'source2'];
+        $controller->data['postsSources'] = ['1', '2'];
 
         $this->assertTrue($controller->shouldAddBlogNameToPost());
     }
@@ -75,7 +75,7 @@ class AbstractControllerTest extends TestCase
     private function getModuleMock(): \Modularity\Module\Posts\Posts|MockObject
     {
         $module = $this->createMock(\Modularity\Module\Posts\Posts::class);
-        $module->data = ['posts' => []];
+        $module->data = ['posts' => [], 'postsSources' => []];
         $module->fields = ['posts_columns' => 2];
         $module->domainChecker = $this->createMock(\Modularity\Module\Posts\Helper\DomainChecker::class);
 

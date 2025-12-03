@@ -6,7 +6,6 @@ use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
-use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrar;
 use Municipio\PostsList\QueryVars\QueryVars;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -17,13 +16,22 @@ class PostsListTest extends TestCase
     #[TestDox('getData returns an array')]
     public function testGetDataReturnsArray(): void
     {
-        $getPostsConfig   = new  DefaultGetPostsConfig();
+        $getPostsConfig = new DefaultGetPostsConfig();
         $appearanceConfig = new DefaultAppearanceConfig();
-        $filterConfig     = new DefaultFilterConfig();
-        $wpQueryFactory   = $this->getWpQueryFactory();
-        $wpService        = new FakeWpService(['getPosts' => [], 'addFilter' => true]);
-        $queryVars        = new QueryVars('posts_list_');
-        $postsList        = new PostsList($getPostsConfig, $appearanceConfig, $filterConfig, $wpQueryFactory, $queryVars, $wpService);
+        $filterConfig = new DefaultFilterConfig();
+        $wpQueryFactory = $this->getWpQueryFactory();
+        $wpService = new FakeWpService(['getPosts' => [], 'addFilter' => true]);
+        $queryVars = new QueryVars('posts_list_');
+        $wpdb = $this->getWpDb();
+        $postsList = new PostsList(
+            $getPostsConfig,
+            $appearanceConfig,
+            $filterConfig,
+            $wpQueryFactory,
+            $queryVars,
+            $wpService,
+            $wpdb,
+        );
 
         $this->assertIsArray($postsList->getData());
     }
@@ -36,12 +44,17 @@ class PostsListTest extends TestCase
                 return new class extends \WP_Query {
                     public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
                     {
-                        $this->posts         = [];
+                        $this->posts = [];
                         $this->max_num_pages = 0;
                         return [];
                     }
                 };
             }
         };
+    }
+
+    private function getWpDb(): \wpdb
+    {
+        return new class('', '', '', '') extends \wpdb {};
     }
 }

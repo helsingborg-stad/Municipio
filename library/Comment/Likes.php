@@ -11,7 +11,7 @@ class Likes extends \Municipio\Helper\Ajax
         $this->data['nonce']    = wp_create_nonce('likeNonce');
 
         //Localize
-        $this->localize('likeButtonData', 'municipio-js');
+        $this->localize('likeButtonData', 'js-municipiojs');
 
         //Hook method to ajax
         $this->hook('ajaxLikeMethod', true);
