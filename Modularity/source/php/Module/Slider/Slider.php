@@ -108,13 +108,17 @@ class Slider extends \Modularity\Module
      *
      * @return array
      */
-    private function prepareSlide($slide, array $imageSize)
+    public function prepareSlide($slide, array $imageSize)
     {
+        if (is_int($slide['image'] ?? null)) {
+            $slide['image'] = ['id' => absint($slide['image'])];
+        }
+
         //Make sure image ID is an integer
         $slide['image']['id'] = isset($slide['image']['id']) && is_numeric($slide['image']['id'])
             ? absint($slide['image']['id'])
             : null;
-        
+
         $slide = $slide['acf_fc_layout'] === 'video'
             ? $this->prepareVideoSlide($slide, $imageSize)
             : $this->prepareImageSlide($slide, $imageSize);
@@ -168,13 +172,13 @@ class Slider extends \Modularity\Module
     private function prepareVideoSlide(array $slide, array $imageSize)
     {
         //Try to get image contract
-        if(!empty($slide['image']['id'])) {
+        if (!empty($slide['image']['id'])) {
             $imageContract = $this->getImageContract($slide['image']['id'], null);
         } else {
             _doing_it_wrong(
                 'Slider::prepareVideoSlide',
                 __('No image ID provided for video slide. Video slides require an placeholder image.', 'modularity'),
-                '6.8.34'
+                '6.8.34',
             );
             $imageContract = null;
         }
@@ -253,7 +257,7 @@ class Slider extends \Modularity\Module
      */
     public function slideHasLink(array $slide): bool
     {
-        if ($slide['link_type'] !== 'internal' && $slide['link_type'] !== 'external') {
+        if (($slide['link_type'] ?? '') !== 'internal' && ($slide['link_type'] ?? '') !== 'external') {
             return false;
         }
 
