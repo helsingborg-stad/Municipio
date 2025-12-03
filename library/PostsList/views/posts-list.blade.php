@@ -1,0 +1,36 @@
+@element([ 'classList' => $getParentColumnClasses() ])
+    @if($filterConfig->isEnabled())
+        @element(['classList' => ['o-layout-grid--col-span-12']])
+            @include('parts.filters')
+        @endelement
+    @endif
+    @if(empty($posts))
+        @element(['classList' => ['o-layout-grid--col-span-12']])
+            @notice([
+                'type' => 'info',
+                'message' => [
+                    'text' => $lang->noResult,
+                    'size' => 'md'
+                ]
+            ])
+            @endnotice
+        @endelement
+    @else
+        @if($appearanceConfig->getDesign() === \Municipio\PostsList\Config\AppearanceConfig\PostDesign::TABLE)
+            @element(['classList' => ['o-layout-grid--col-span-12']])
+                @include('parts.table')
+            @endelement
+        @else
+            @foreach($posts as $post)
+                @element(['classList' => $getPostColumnClasses()])
+                    @includeFirst(['post.' . $appearanceConfig->getDesign()->value, 'post.card'])
+                @endelement
+            @endforeach
+        @endif
+        @if(!empty($getPaginationComponentArguments()))
+            @element(['classList' => ['o-layout-grid--col-span-12']])
+                @include('parts.pagination')
+            @endelement
+        @endif
+    @endif
+@endelement
