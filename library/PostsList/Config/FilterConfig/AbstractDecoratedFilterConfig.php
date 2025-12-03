@@ -12,14 +12,6 @@ abstract class AbstractDecoratedFilterConfig implements FilterConfigInterface
     /**
      * @inheritDoc
      */
-    public function isEnabled(): bool
-    {
-        return $this->innerConfig->isEnabled();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function isTextSearchEnabled(): bool
     {
         return $this->innerConfig->isTextSearchEnabled();
@@ -52,7 +44,7 @@ abstract class AbstractDecoratedFilterConfig implements FilterConfigInterface
     /**
      * @inheritDoc
      */
-    public function getResetUrl(): ?string
+    public function getResetUrl(): null|string
     {
         return $this->innerConfig->getResetUrl();
     }

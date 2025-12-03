@@ -16,7 +16,6 @@
 		"dateFormat": { "type": "string", "default": "F j, Y" },
 		"dateSource": { "type": "string", "default": "post_date" },
 		"design": { "type": "string", "default": "card" },
-		"enableFilters": { "type": "boolean", "default": false },
 		"numberOfColumns": { "type": "number", "default": 3 },
 		"order": { "type": "string", "default": "desc" },
 		"orderBy": { "type": "string", "default": "date" },

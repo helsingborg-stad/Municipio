@@ -125,11 +125,6 @@ class PostsListBlockRenderer implements BlockRendererInterface
                 private array $taxonomyFilterConfigs,
             ) {}
 
-            public function isEnabled(): bool
-            {
-                return $this->attributes['enableFilters'] ?? false;
-            }
-
             public function isTextSearchEnabled(): bool
             {
                 return $this->attributes['textSearchEnabled'] ?? false;

@@ -109,7 +109,7 @@ class PostsList
             'getSchemaEventPriceRange' => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
             'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
-            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
+            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDateBadgeDate())->getCallable(),
             // Filter utilities
             'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments(
                 $this->filterConfig,

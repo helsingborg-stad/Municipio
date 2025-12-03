@@ -10,7 +10,6 @@ declare global {
 		dateFormat: string;
 		dateSource: string;
 		design: string;
-		enableFilters: boolean;
 		numberOfColumns: number;
 		orderBy: string;
 		order: "asc" | "desc";
