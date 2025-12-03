@@ -1,0 +1,52 @@
+[{
+    "key": "group_6639e9aa1409f",
+    "title": "Theme features",
+    "fields": [
+        {
+            "key": "field_6639e9abdbe59",
+            "label": "Branded e-mails",
+            "name": "mun_branded_emails_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "All e-mails sent from WordPress will be branded using the theme appearance settings.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-theme-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+

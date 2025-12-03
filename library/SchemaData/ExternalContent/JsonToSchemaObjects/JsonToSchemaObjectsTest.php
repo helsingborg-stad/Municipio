@@ -1,0 +1,125 @@
+<?php
+
+namespace Municipio\SchemaData\ExternalContent\JsonToSchemaObjects;
+
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\TestCase;
+
+class JsonToSchemaObjectsTest extends TestCase {
+
+    #[TestDox('throws when given an invalid JSON string')]
+    public function testTransformInvalid() {
+        $converter = new JsonToSchemaObjects();
+
+        try{
+            $converter->transform('{ invalid json [');
+        } catch (\JsonException $e) {
+            $this->assertTrue(true);
+            return;
+        }
+
+        $this->fail('Expected JsonException was not thrown.');
+    }
+
+    #[TestDox('throws when given an empty JSON string')]
+    public function testTransformEmpty() {
+
+        $converter = new JsonToSchemaObjects();
+        
+        try{
+            $converter->transform('');
+        } catch (\JsonException $e) {
+            $this->assertTrue(true);
+            return;
+        }
+
+        $this->fail('Expected JsonException was not thrown.');
+    }
+
+    #[TestDox('allows non-array JSON input')]
+    public function testTransformNonArray() {
+        $json = '{"@type": "Thing", "name": "Test"}';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertEquals('Test', $schemaObjects[0]->getProperty('name'));
+    }
+    
+    #[TestDox('returns a Thing when given a valid JSON string containgin a Thing')]
+    public function testTransformSuccess() {
+        $json = '[
+            {
+                "@context": "https:\/\/schema.org",
+                "@type": "Thing",
+                "name": "Test",
+                "@id": 123
+            }
+        ]';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertEquals('Thing', $schemaObjects[0]->getProperty('@type'));
+        $this->assertEquals('Test', $schemaObjects[0]->getProperty('name'));
+        $this->assertEquals(123, $schemaObjects[0]->getProperty('@id'));
+    }
+
+    #[TestDox('returns correct type of object when given a valid JSON string containing a different type')]
+    public function testTransformType() {
+        $json = '[
+            {
+                "@type": "Event"
+            }
+        ]';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertInstanceOf('Municipio\Schema\Event', $schemaObjects[0]);
+    }
+
+    #[TestDox('returns nested types')]
+    public function testTransformNestedTypes() {
+        $json = '[
+            {
+                "@type": "Thing",
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "http://example.com/image.jpg"
+                }
+            }
+        ]';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertInstanceOf('Municipio\Schema\Thing', $schemaObjects[0]);
+        $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image'));
+    }
+
+    #[TestDox('returns nested array types')]
+    public function testTransformNestedArrayTypes() {
+        $json = '[
+            {
+                "@type": "Thing",
+                "image": [
+                    {
+                        "@type": "ImageObject",
+                        "url": "http://example.com/image1.jpg"
+                    },
+                    {
+                        "@type": "ImageObject",
+                        "url": "http://example.com/image2.jpg"
+                    }
+                ]
+            }
+        ]';
+
+        $converter = new JsonToSchemaObjects();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image')[0]);
+        $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image')[1]);
+    }
+}
