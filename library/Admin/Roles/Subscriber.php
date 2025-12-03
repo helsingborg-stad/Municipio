@@ -2,6 +2,7 @@
 
 namespace Municipio\Admin\Roles;
 
+use WP_Role;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
@@ -10,14 +11,11 @@ use WpService\WpService;
  */
 class Subscriber implements Hookable
 {
-    private WpService $wpService;
-
     /**
      * Constructor.
      */
-    public function __construct(WpService $wpService)
+    public function __construct(private WpService $wpService)
     {
-        $this->wpService = $wpService;
     }
 
 
@@ -36,8 +34,12 @@ class Subscriber implements Hookable
     public function makePrivateReadable()
     {
         $role = $this->wpService->getRole('subscriber');
-        if (is_object($role)) {
+
+        if (is_a($role, 'WP_Role') && empty($role->capabilities['read_private_posts'])) {
             $role->add_cap('read_private_posts');
+        }
+
+        if (is_a($role, 'WP_Role') && empty($role->capabilities['read_private_pages'])) {
             $role->add_cap('read_private_pages');
         }
     }
