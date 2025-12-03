@@ -1,0 +1,97 @@
+[
+	{
+		"key": "group_56c47016ea9d5",
+		"title": "Iframe settings",
+		"fields": [
+			{
+				"key": "field_56c4701d32cb4",
+				"label": "Iframe URL",
+				"name": "iframe_url",
+				"type": "url",
+				"instructions": "<span style=\"color: #f00;\">Your iframe link must start with http<strong>s<\/strong>:\/\/. Links without this prefix will not display.<\/span>",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": 80,
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"placeholder": "Enter your embed url"
+			},
+			{
+				"key": "field_56c4704f32cb5",
+				"label": "Iframe height",
+				"name": "iframe_height",
+				"type": "number",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": 20,
+					"class": "",
+					"id": ""
+				},
+				"default_value": 350,
+				"min": 100,
+				"max": 10000,
+				"step": 10,
+				"placeholder": "",
+				"prepend": "",
+				"append": "pixels",
+				"readonly": 0,
+				"disabled": 0
+			},
+			{
+				"key": "field_60d9ccff3a64e",
+				"label": "Description",
+				"name": "iframe_description",
+				"type": "text",
+				"instructions": "Describe the contents of this Iframe (not shown).",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"maxlength": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-iframe"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/iframe"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/iframe"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": ""
+	}
+]
