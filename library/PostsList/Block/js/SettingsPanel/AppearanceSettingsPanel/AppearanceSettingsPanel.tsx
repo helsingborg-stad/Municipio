@@ -1,6 +1,8 @@
 import { PanelBody, SelectControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import type { PostsListEditProps } from "../../Edit";
+import { DateFormatControl } from "./DateFormatControl/DateFormatControl";
+import { DateSourceControl } from "./DateSourceControl/DateSourceControl";
 
 enum DesignOptions {
 	Card = "card",
@@ -30,7 +32,7 @@ const numberOfColumnsOptions = [
 ];
 
 export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
-	attributes: { numberOfColumns, design },
+	attributes: { numberOfColumns, design, dateFormat, dateSource, postType },
 	setAttributes,
 }) => {
 	const allowSelectColumns = design !== DesignOptions.Table;
@@ -53,6 +55,15 @@ export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 				onChange={(value) => setAttributes({ numberOfColumns: Number(value) })}
+			/>
+			<DateSourceControl
+				postType={postType}
+				dateSource={dateSource}
+				onChange={(value) => setAttributes({ dateSource: value })}
+			/>
+			<DateFormatControl
+				dateFormat={dateFormat}
+				onChange={(value) => setAttributes({ dateFormat: value })}
 			/>
 		</PanelBody>
 	);

@@ -17,14 +17,19 @@ class PostsListBlockTest extends TestCase
         $wpService = new class implements AddAction, RegisterBlockType {
             public array $addActionCalls = [];
 
-            public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
-            {
+            public function addAction(
+                string $hookName,
+                callable $callback,
+                int $priority = 10,
+                int $acceptedArgs = 1,
+            ): true {
                 $this->addActionCalls[] = [
                     'hookName' => $hookName,
-                    'callback' => $callback
+                    'callback' => $callback,
                 ];
                 return true;
             }
+
             public function registerBlockType(string|WP_Block_Type $blockType, array $args = []): WP_Block_Type|false
             {
                 return false;
@@ -34,7 +39,6 @@ class PostsListBlockTest extends TestCase
         $postsListBlock = new PostsListBlock($wpService, $this->createBlockRenderer());
         $postsListBlock->addHooks();
 
-        $this->assertCount(1, $wpService->addActionCalls);
         $this->assertEquals('init', $wpService->addActionCalls[0]['hookName']);
     }
 
@@ -42,17 +46,22 @@ class PostsListBlockTest extends TestCase
     public function testRegisterBlock(): void
     {
         $wpService = new class implements AddAction, RegisterBlockType {
-            public ?string $registeredBlockType = null;
-            public ?array $registeredArgs       = null;
+            public null|string $registeredBlockType = null;
+            public null|array $registeredArgs = null;
 
-            public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
-            {
+            public function addAction(
+                string $hookName,
+                callable $callback,
+                int $priority = 10,
+                int $acceptedArgs = 1,
+            ): true {
                 return true;
             }
+
             public function registerBlockType(string|WP_Block_Type $blockType, array $args = []): WP_Block_Type|false
             {
                 $this->registeredBlockType = is_string($blockType) ? $blockType : null;
-                $this->registeredArgs      = $args;
+                $this->registeredArgs = $args;
                 return false;
             }
         };

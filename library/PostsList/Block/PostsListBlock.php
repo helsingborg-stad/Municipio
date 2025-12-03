@@ -17,7 +17,6 @@ class PostsListBlock implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
-        // add custom rest api endpoint
         $this->wpService->addAction('rest_api_init', [$this, 'registerRestEndpoint']);
     }
 

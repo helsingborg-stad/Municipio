@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\Block;
 
+use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
@@ -33,6 +34,16 @@ class PostsListBlockRenderer implements BlockRendererInterface
             public function getDesign(): PostDesign
             {
                 return PostDesign::from($this->attributes['design'] ?? 'card');
+            }
+
+            public function getDateFormat(): DateFormat
+            {
+                return DateFormat::from($this->attributes['dateFormat']);
+            }
+
+            public function getDateSource(): string
+            {
+                return $this->attributes['dateSource'];
             }
         };
 

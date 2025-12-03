@@ -74,7 +74,7 @@ class PostsList
             ))->getCallable(),
             'getExcerptWithoutLinks' => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
             'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
-            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
+            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getAppearanceConfig()))->getCallable(),
             'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses' => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
             'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp(

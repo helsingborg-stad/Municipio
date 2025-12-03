@@ -1,28 +1,30 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 3,
-    "name": "municipio/posts-list-block",
-    "version": "0.1.0",
-    "title": "Posts List Block",
-    "category": "widgets",
-    "icon": "list-view",
-    "description": "A block to display a list of posts.",
-    "example": {},
-    "supports": {
-        "html": false
-    },
-    "attributes": {
-        "dateFilterEnabled": { "type": "boolean", "default": false },
-        "design": { "type": "string", "default": "card" },
-        "enableFilters": { "type": "boolean", "default": false },
-        "numberOfColumns": { "type": "number", "default": 3 },
-        "order": { "type": "string", "default": "desc" },
-        "orderBy": { "type": "string", "default": "date" },
-        "postsPerPage": { "type": "number", "default": 12 },
-        "postType": { "type": "string", "default": "post" },
-        "taxonomiesEnabledForFiltering": { "type": "array", "default": [] },
-        "terms": { "type": "array", "default": [] },
-        "textSearchEnabled": { "type": "boolean", "default": false }
-    },
-    "textdomain": "municipio"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "municipio/posts-list-block",
+	"version": "0.1.0",
+	"title": "Posts List Block",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "A block to display a list of posts.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"dateFilterEnabled": { "type": "boolean", "default": false },
+		"dateFormat": { "type": "string", "default": "F j, Y" },
+		"dateSource": { "type": "string", "default": "post_date" },
+		"design": { "type": "string", "default": "card" },
+		"enableFilters": { "type": "boolean", "default": false },
+		"numberOfColumns": { "type": "number", "default": 3 },
+		"order": { "type": "string", "default": "desc" },
+		"orderBy": { "type": "string", "default": "date" },
+		"postsPerPage": { "type": "number", "default": 12 },
+		"postType": { "type": "string", "default": "post" },
+		"taxonomiesEnabledForFiltering": { "type": "array", "default": [] },
+		"terms": { "type": "array", "default": [] },
+		"textSearchEnabled": { "type": "boolean", "default": false }
+	},
+	"textdomain": "municipio"
 }
