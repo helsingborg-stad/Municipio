@@ -2,45 +2,47 @@
  * @jest-environment jsdom
  */
 
-import ProgressBar from './ProgressBar';
-import ProgressBarWithLabel from './UIComponents/ProgressBarWithLabel';
-import { ProgressBarUpdate } from './IProgressBar';
+import type { ProgressBarUpdate } from "./IProgressBar";
+import ProgressBar from "./ProgressBar";
+import type ProgressBarWithLabel from "./UIComponents/ProgressBarWithLabel";
 
-describe('ProgressBar', () => {
-    let progressBar: ProgressBar;
-    let element: ProgressBarWithLabel;
-    let insertAfterElement: HTMLElement;
+describe("ProgressBar", () => {
+	let progressBar: ProgressBar;
+	let element: ProgressBarWithLabel;
+	let insertAfterElement: HTMLElement;
 
-    beforeEach(() => {
-        element = document.createElement('progress-bar-with-label') as ProgressBarWithLabel;
-        insertAfterElement = document.createElement('div');
-        document.body.appendChild(insertAfterElement);
-        progressBar = new ProgressBar(element, insertAfterElement);
-    });
+	beforeEach(() => {
+		element = document.createElement(
+			"progress-bar-with-label",
+		) as ProgressBarWithLabel;
+		insertAfterElement = document.createElement("div");
+		document.body.appendChild(insertAfterElement);
+		progressBar = new ProgressBar(element, insertAfterElement);
+	});
 
-    afterEach(() => {
-        document.body.removeChild(insertAfterElement);
-    });
+	afterEach(() => {
+		document.body.removeChild(insertAfterElement);
+	});
 
-    test('should update label and progress value', () => {
-        const event: ProgressBarUpdate = { label: 'Loading', value: 50 };
+	test("should update label and progress value", () => {
+		const event: ProgressBarUpdate = { label: "Loading", value: 50 };
 
-        progressBar.update(event);
+		progressBar.update(event);
 
-        expect(element.getAttribute('label')).toBe('Loading');
-        expect(element.getAttribute('progress')).toBe('50');
-    });
+		expect(element.getAttribute("label")).toBe("Loading");
+		expect(element.getAttribute("progress")).toBe("50");
+	});
 
-    test('should show the progress bar', () => {
-        progressBar.show();
+	test("should show the progress bar", () => {
+		progressBar.show();
 
-        expect(insertAfterElement.nextSibling).toBe(element);
-    });
+		expect(insertAfterElement.nextSibling).toBe(element);
+	});
 
-    test('should hide the progress bar', () => {
-        progressBar.show();
-        progressBar.hide();
+	test("should hide the progress bar", () => {
+		progressBar.show();
+		progressBar.hide();
 
-        expect(document.body.contains(element)).toBe(false);
-    });
+		expect(document.body.contains(element)).toBe(false);
+	});
 });
