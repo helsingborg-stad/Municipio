@@ -12,6 +12,5 @@ npm-debug.log
 /views/v1/*
 .phpunit.result.cache
 .coverage
-coverage
 
 *.*~
