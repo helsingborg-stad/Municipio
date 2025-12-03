@@ -35,13 +35,11 @@ class Subscriber implements Hookable
     {
         $role = $this->wpService->getRole('subscriber');
 
-        if (is_a($role, 'WP_Role')
-            && !$role->has_cap('read_private_posts')) {
+        if (is_a($role, 'WP_Role') && !$role->has_cap('read_private_posts')) {
             $role->add_cap('read_private_posts');
         }
 
-        if (is_a($role, 'WP_Role')
-            && !$role->has_cap('read_private_pages')) {
+        if (is_a($role, 'WP_Role') && !$role->has_cap('read_private_pages')) {
             $role->add_cap('read_private_pages');
         }
     }
