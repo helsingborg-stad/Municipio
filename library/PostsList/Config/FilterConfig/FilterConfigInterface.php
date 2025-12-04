@@ -7,13 +7,6 @@ use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterC
 interface FilterConfigInterface
 {
     /**
-     * Is filter enabled
-     *
-     * @return bool
-     */
-    public function isEnabled(): bool;
-
-    /**
      * Is text search enabled
      *
      * @return bool
@@ -46,5 +39,5 @@ interface FilterConfigInterface
      *
      * @return string|null
      */
-    public function getResetUrl(): ?string;
+    public function getResetUrl(): null|string;
 }

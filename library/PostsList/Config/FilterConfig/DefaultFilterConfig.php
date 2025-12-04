@@ -10,14 +10,6 @@ class DefaultFilterConfig implements FilterConfigInterface
     /**
      * @inheritDoc
      */
-    public function isEnabled(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function isTextSearchEnabled(): bool
     {
         return false;
@@ -50,7 +42,7 @@ class DefaultFilterConfig implements FilterConfigInterface
     /**
      * @inheritDoc
      */
-    public function getResetUrl(): ?string
+    public function getResetUrl(): null|string
     {
         return null;
     }

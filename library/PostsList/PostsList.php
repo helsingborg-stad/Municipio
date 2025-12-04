@@ -17,7 +17,6 @@ use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
 use Municipio\PostsList\QueryVars\QueryVarRegistrar\QueryVarRegistrar;
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WP_Query;
-use WP_Taxonomy;
 use WpService\WpService;
 
 /*
@@ -36,7 +35,6 @@ class PostsList
      * @param GetPostsConfigInterface $providedGetPostsConfig
      * @param AppearanceConfigInterface $providedAppearanceConfig
      * @param FilterConfigInterface $providedFilterConfig
-     * @param array<string, WP_Taxonomy> $wpTaxonomies
      * @param WpService $wpService
      * @param WpQueryFactoryInterface $wpQueryFactory
      * @param QueryVarRegistrarInterface $querVarsRegistrar
@@ -47,7 +45,6 @@ class PostsList
         private GetPostsConfigInterface $getPostsConfig,
         private AppearanceConfigInterface $providedAppearanceConfig,
         private FilterConfigInterface $filterConfig,
-        private array $wpTaxonomies,
         private WpQueryFactoryInterface $wpQueryFactory,
         private QueryVarsInterface $queryVars,
         private WpService $wpService,
@@ -77,7 +74,7 @@ class PostsList
             ))->getCallable(),
             'getExcerptWithoutLinks' => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
             'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
-            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
+            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getAppearanceConfig()))->getCallable(),
             'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses' => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
             'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp(
@@ -112,13 +109,12 @@ class PostsList
             'getSchemaEventPriceRange' => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
             'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
-            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
+            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDateBadgeDate())->getCallable(),
             // Filter utilities
             'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments(
                 $this->filterConfig,
                 $this->getPostsConfig,
                 $this->wpService,
-                $this->wpTaxonomies,
                 $this->queryVars->getPrefix(),
             ))->getCallable(),
             'getFilterFormSubmitButtonArguments' => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments(

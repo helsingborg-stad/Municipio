@@ -15,9 +15,9 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
      *
      * @param TaxonomyFilterConfigInterface[] $taxonomyFilterConfigs
      */
-    public function __construct(private array $taxonomyFilterConfigs)
-    {
-    }
+    public function __construct(
+        private array $taxonomyFilterConfigs,
+    ) {}
 
     /**
      * Apply tax query from posts list config to get posts args
@@ -48,19 +48,23 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         // Group terms by taxonomy
         $termsByTaxonomy = [];
         foreach ($terms as $term) {
+            if (!isset($termsByTaxonomy[$term->taxonomy])) {
+                $termsByTaxonomy[$term->taxonomy] = [];
+            }
+
             $termsByTaxonomy[$term->taxonomy][] = $term->term_id;
         }
 
         // Build tax_query array
-        $taxQuery = [ 'relation' => $this->getRelationFromConfig($config) ];
+        $taxQuery = ['relation' => $this->getRelationFromConfig($config)];
         foreach ($termsByTaxonomy as $taxonomy => $termIds) {
             $taxonomyIsHierarchical = $this->taxonomyIsHierarchical($taxonomy);
 
             $taxQuery[] = [
                 'taxonomy' => $taxonomy,
-                'field'    => 'term_id',
-                'terms'    => $termIds,
-                'operator' => $taxonomyIsHierarchical ? 'IN' : 'AND'
+                'field' => 'term_id',
+                'terms' => $termIds,
+                'operator' => $taxonomyIsHierarchical ? 'IN' : 'AND',
             ];
         }
 
@@ -75,7 +79,7 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function getRelationFromConfig(GetPostsConfigInterface $config): string
     {
-        return  $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
+        return $config->isFacettingTaxonomyQueryEnabled() ? 'AND' : 'OR';
     }
 
     /**

@@ -27,7 +27,6 @@ class PostsListTest extends TestCase
             $getPostsConfig,
             $appearanceConfig,
             $filterConfig,
-            [],
             $wpQueryFactory,
             $queryVars,
             $wpService,

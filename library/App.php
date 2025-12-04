@@ -53,7 +53,7 @@ class App
         private SchemaDataConfigInterface $schemaDataConfig,
         private wpdb $wpdb,
         private WpUtilService $wpUtilService,
-        private User $userHelper
+        private User $userHelper,
     ) {
 
         /**
@@ -358,6 +358,12 @@ class App
          * Setup Posts List
          */
         (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
+        (new \Municipio\PostsList\Block\PostsListBlock(
+            $this->wpService,
+            new \Municipio\PostsList\Block\PostsListBlockRenderer(
+                new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb),
+            ),
+        ))->addHooks();
 
         /**
          * Setup Accessibility Statement

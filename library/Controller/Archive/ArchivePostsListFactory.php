@@ -34,7 +34,6 @@ class ArchivePostsListFactory
             $this->createGetPostsConfig($data, $wpTaxonomies),
             (new AppearanceConfigFactory())->create($data),
             $this->getFilterConfig($data, $wpTaxonomies),
-            $wpTaxonomies,
             new \Municipio\PostsList\GetPosts\WpQueryFactory(),
             $this->getQueryVars(),
             $this->wpService,

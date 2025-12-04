@@ -10,21 +10,11 @@ use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
  */
 class FilterConfigBuilder
 {
-    private bool $isEnabled              = false;
-    private string $resetUrl             = '';
-    private bool $isDateFilterEnabled    = false;
-    private bool $isTextSearchEnabled    = false;
+    private string $resetUrl = '';
+    private bool $isDateFilterEnabled = false;
+    private bool $isTextSearchEnabled = false;
     private array $taxonomyFilterConfigs = [];
-    private bool $showReset              = false;
-
-    /**
-     * Set is enabled
-     */
-    public function setEnabled(bool $isEnabled): self
-    {
-        $this->isEnabled = $isEnabled;
-        return $this;
-    }
+    private bool $showReset = false;
 
     /**
      * Set reset URL
@@ -77,34 +67,23 @@ class FilterConfigBuilder
      */
     public function build(): FilterConfigInterface
     {
-        return new class (
-            $this->isEnabled,
+        return new class(
             $this->resetUrl,
             $this->isDateFilterEnabled,
             $this->isTextSearchEnabled,
             $this->taxonomyFilterConfigs,
-            $this->showReset
+            $this->showReset,
         ) extends DefaultFilterConfig {
             /**
              * Constructor
              */
             public function __construct(
-                private bool $isEnabled,
                 private string $resetUrl,
                 private bool $isDateFilterEnabled,
                 private bool $isTextSearchEnabled,
                 private array $taxonomyFilterConfigs,
-                private bool $showReset
-            ) {
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function isEnabled(): bool
-            {
-                return $this->isEnabled;
-            }
+                private bool $showReset,
+            ) {}
 
             /**
              * @inheritDoc
@@ -117,7 +96,7 @@ class FilterConfigBuilder
             /**
              * @inheritDoc
              */
-            public function getResetUrl(): ?string
+            public function getResetUrl(): null|string
             {
                 return $this->resetUrl;
             }

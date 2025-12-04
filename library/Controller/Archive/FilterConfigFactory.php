@@ -26,8 +26,7 @@ class FilterConfigFactory
         private array $wpTaxonomies,
         private WpService $wpService,
         private QueryVarsInterface $queryVars,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a FilterConfig instance
@@ -43,7 +42,6 @@ class FilterConfigFactory
         $showReset = $this->isAnyQueryVarPresent(...$taxonomyFilterConfigs);
 
         return (new FilterConfigBuilder())
-            ->setEnabled((new Mappers\FilterConfigMappers\MapIsEnabledFiltersFromData($this->wpService))->map($this->data))
             ->setResetUrl((new Mappers\FilterConfigMappers\MapResetUrl($this->wpService))->map($this->data))
             ->setDateFilterEnabled((new Mappers\FilterConfigMappers\MapDateFilterEnabled())->map($this->data))
             ->setTextSearchEnabled((new Mappers\FilterConfigMappers\MapTextSearchEnabled())->map($this->data))
