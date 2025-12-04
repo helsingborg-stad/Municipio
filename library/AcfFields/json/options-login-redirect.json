@@ -1,0 +1,52 @@
+[{
+    "key": "group_675aecfbf2f3d",
+    "title": "Broken Links",
+    "fields": [
+        {
+            "key": "field_675aecfc0707a",
+            "label": "Autologin",
+            "name": "municipio_redirect_to_login_when_internal_context",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "This feature will redirect the user to the login page, if an internal context has been detected.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "* Requires Broken Links Detector Plugin",
+            "default_value": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "login-logout"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
