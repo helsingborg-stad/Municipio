@@ -55,6 +55,12 @@ class App
         private WpUtilService $wpUtilService,
         private User $userHelper,
     ) {
+
+        /**
+         * Auto update
+         */
+        (new \Municipio\Admin\AutoUpdate($this->wpService))->addHooks();
+
         /**
          * Run generic custom actions
          */
