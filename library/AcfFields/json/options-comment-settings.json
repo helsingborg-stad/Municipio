@@ -1,0 +1,78 @@
+[{
+    "key": "group_67173bdc92fde",
+    "title": "Comment Settings",
+    "fields": [
+        {
+            "key": "field_67175e844ab4a",
+            "label": "Disable discussion feature",
+            "name": "disable_discussion_feature",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Disable discussion settings page, comment form and posted comments for all post types.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
+            "key": "field_67173bdc8a308",
+            "label": "Hide discussion for logged out users",
+            "name": "hide_discussion_for_logged_out_users",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_67175e844ab4a",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-theme-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
