@@ -18,7 +18,11 @@ class GetExcerptWithoutLinks implements ViewCallableProviderInterface
     public function getCallable(): callable
     {
         return function (PostObjectInterface $post): string {
-            return Sanitize::sanitizeATags($post->getExcerpt());
+            $post->post_excerpt = $post->getExcerpt();
+            $post->post_content = $post->getContent();
+            [$excerptContent, $hasExcerpt] = \Municipio\Helper\Post::getPostExcerpt($post);
+
+            return wp_trim_words(Sanitize::sanitizeATags($excerptContent), 30, '...');
         };
     }
 }
