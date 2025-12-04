@@ -34,6 +34,10 @@ class GetDateTimestamp implements ViewCallableProviderInterface
 
     private function getTimestamp(PostObjectInterface $post): int
     {
+        if($post->postType === 'event'){
+            return strtotime($post->startDate);
+        }
+
         if ($this->dateSource === 'post_date') {
             return $post->getPublishedTime();
         }
