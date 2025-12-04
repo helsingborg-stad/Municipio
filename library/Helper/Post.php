@@ -397,7 +397,7 @@ class Post
     * @param object $postObject The WP_Post object .
     * @return array[string, bool] .
     */
-    private static function getPostExcerpt($postObject): array
+    public static function getPostExcerpt($postObject): array
     {
         if ($postObject->post_excerpt) {
             return [strip_shortcodes($postObject->post_excerpt), true];
