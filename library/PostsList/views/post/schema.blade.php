@@ -1,0 +1,1 @@
+@includeFirst(['post.schema.' . $post->getSchemaProperty("@type"), 'post.card'])
