@@ -42,7 +42,7 @@ class FormatObject
                 return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace(
                     '-',
                     '_',
-                    strtolower($string),
+                    strtolower((string) $string),
                 )))));
             },
             (array) $object,
