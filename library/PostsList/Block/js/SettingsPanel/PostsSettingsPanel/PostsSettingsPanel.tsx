@@ -1,12 +1,11 @@
+import { __experimentalNumberControl, PanelBody } from "@wordpress/components";
+import { __ } from "@wordpress/i18n";
 import type { PostsListEditProps } from "../../Edit";
 import { OrderByControl } from "./OrderByControl/OrderByControl";
 import { OrderControl } from "./OrderControl/OrderControl";
 import { PostTypeSelectControl } from "./PostTypeSelectControl/PostTypeSelectControl";
-import { TermSelectControl } from "./TermSelectControl";
+import { TermSelectControl } from "./TermSelectControl/TermSelectControl";
 import { usePostsSettingsPanel } from "./usePostsSettingsPanel";
-
-const { PanelBody, __experimentalNumberControl } = window.wp.components;
-const { __ } = window.wp.i18n;
 
 export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 	attributes: { postType, postsPerPage, terms, order, orderBy },
@@ -50,24 +49,13 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 			/>
 			{taxonomies.map((taxonomy) => (
 				<TermSelectControl
-					label={__(`Terms: ${taxonomy.labels.singular_name}`, "municipio")}
-					taxonomy={taxonomy.slug}
-					multiple
+					taxonomy={taxonomy}
 					key={taxonomy.slug}
 					value={
-						terms.some((t) => t.taxonomy === taxonomy.slug)
-							? terms
-									.find((t) => t.taxonomy === taxonomy.slug)
-									?.terms.map(String)
-							: []
+						terms.find((term) => term.taxonomy === taxonomy.slug)?.terms || []
 					}
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					onChange={(value) =>
-						handleTermsChange(
-							taxonomy.slug,
-							Array.isArray(value) ? value.map(Number) : [],
-						)
+					onChange={(newValue: number[]) =>
+						handleTermsChange(taxonomy.slug, newValue)
 					}
 				/>
 			))}

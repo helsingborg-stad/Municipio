@@ -16,6 +16,7 @@ const externalDeps = {
 	"@wordpress/element": "wp.element",
 	"@wordpress/api-fetch": "wp.apiFetch",
 	"@wordpress/core-data": "wp.coreData",
+	"@wordpress/data": "wp.data",
 	"@wordpress/i18n": "wp.i18n",
 	"@wordpress/blocks": "wp.blocks",
 	"@wordpress/block-editor": "wp.blockEditor",
@@ -23,6 +24,7 @@ const externalDeps = {
 
 export default defineConfig(({ mode }) => {
 	const isProduction = mode === "production";
+
 	return {
 		build: {
 			outDir: "assets/dist/blocks",
@@ -43,14 +45,23 @@ export default defineConfig(({ mode }) => {
 			minify: isProduction ? "esbuild" : false,
 			sourcemap: true,
 		},
-		// Ensure core-js is included for dependency optimization
+
+		// ⛔ Prevent Vite from prebundling external deps in dev/watch
 		optimizeDeps: {
 			include: ["core-js"],
+			exclude: Object.keys(externalDeps),
 		},
+
+		// Optional: ensures SSR does not try to bundle externals
+		ssr: {
+			external: Object.keys(externalDeps),
+		},
+
 		esbuild: {
 			keepNames: true,
 			minifyIdentifiers: false,
 		},
+
 		resolve: {
 			extensions: [".tsx", ".ts"],
 			alias: {
@@ -61,9 +72,11 @@ export default defineConfig(({ mode }) => {
 				),
 			},
 		},
+
 		assetFileNames: () => {
 			return "assets/[name].[hash].[ext]";
 		},
+
 		plugins: [manifestPlugin("manifest.json")],
 	};
 });
