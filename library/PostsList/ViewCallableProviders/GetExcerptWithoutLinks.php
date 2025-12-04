@@ -19,7 +19,7 @@ class GetExcerptWithoutLinks implements ViewCallableProviderInterface
     {
         return function (PostObjectInterface $post): string {
             $post->post_excerpt = $post->getExcerpt();
-            $post->post_content = $post->getContent();
+            $post->post_content = $post->postContent;
             [$excerptContent, $hasExcerpt] = \Municipio\Helper\Post::getPostExcerpt($post);
 
             return wp_trim_words(Sanitize::sanitizeATags($excerptContent), 30, '...');
