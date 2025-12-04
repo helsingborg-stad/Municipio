@@ -1,0 +1,71 @@
+<?php
+
+namespace Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup;
+
+use PHPUnit\Framework\TestCase;
+use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
+use WP_Post;
+use WpService\Implementations\FakeWpService;
+
+class CleanupPostsNoLongerInSourceTest extends TestCase
+{
+    #[TestDox('class can be instantiated')]
+    public function testClassCanBeInstantiated()
+    {
+        $cleanup = new CleanupPostsNoLongerInSource('post', new FakeWpService());
+        $this->assertInstanceOf(CleanupPostsNoLongerInSource::class, $cleanup);
+    }
+
+    #[TestDox('calls getPosts with correct arguments')]
+    public function testCallsGetPostsWithCorrectArguments()
+    {
+        $wpService = new FakeWpService(['getPosts' => []]);
+        $cleanup   = new CleanupPostsNoLongerInSource('test_post_type', $wpService);
+
+        $cleanup->cleanup([Schema::thing()->setProperty('@id', '1')]);
+
+        $this->assertEquals('test_post_type', $wpService->methodCalls['getPosts'][0][0]['post_type']);
+        $this->assertEquals('originId', $wpService->methodCalls['getPosts'][0][0]['meta_key']);
+        $this->assertEquals(['1'], $wpService->methodCalls['getPosts'][0][0]['meta_value']);
+    }
+
+    #[TestDox('calls wpDeletePost for each post that is no longer in the source')]
+    public function testCallsWpDeletePostForEachPostThatIsNoLongerInTheSource()
+    {
+        $post             = new WP_Post([]);
+        $post->ID         = 2;
+        $postsToBeDeleted = [$post];
+        $wpService        = new FakeWpService(['getPosts' => $postsToBeDeleted, 'wpDeletePost' => new WP_Post([])]);
+        $cleanup          = new CleanupPostsNoLongerInSource('post', $wpService);
+
+        $cleanup->cleanup([Schema::thing()->setProperty('@id', '1')]);
+
+        $this->assertCount(1, $wpService->methodCalls['wpDeletePost']);
+        $this->assertEquals(2, $wpService->methodCalls['wpDeletePost'][0][0]);
+    }
+
+    #[TestDox('does not call wpDeletePost if no posts found that are no longer in the source')]
+    public function testDoesNotCallWpDeletePostIfNoPostsFoundThatAreNoLongerInTheSource()
+    {
+        $wpService = new FakeWpService(['getPosts' => []]);
+        $cleanup   = new CleanupPostsNoLongerInSource('post', $wpService);
+
+        $cleanup->cleanup([Schema::thing()->setProperty('@id', '1')]);
+
+        $this->assertArrayNotHasKey('wpDeletePost', $wpService->methodCalls);
+    }
+
+    #[TestDox('will not attempt to delete posts if no synced schema objects are provided')]
+    public function testWillNotAttemptToDeletePostsIfNoSyncedSchemaObjectsAreProvided()
+    {
+        $postToBeDeleted     = new WP_Post([]);
+        $postToBeDeleted->ID = 2;
+        $wpService           = new FakeWpService(['getPosts' => [$postToBeDeleted]]);
+        $cleanup             = new CleanupPostsNoLongerInSource('post', $wpService);
+
+        $cleanup->cleanup([]);
+
+        $this->assertArrayNotHasKey('wpDeletePost', $wpService->methodCalls);
+    }
+}
