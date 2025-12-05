@@ -2,7 +2,7 @@
     'link' => $post->getPermalink(),
     'image' => $post->getImage(),
     'heading' => $post->getTitle(),
-    'content' => $getExcerptWithoutLinks($post),
+    'content' => $getExcerpt($post, 20),
     'tags' => $getTags($post),
     'meta' => $getReadingTime($post),
     'date' => [
