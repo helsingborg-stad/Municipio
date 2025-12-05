@@ -32,7 +32,7 @@ class ExcerptResolver implements ExcerptResolverInterface
 
     private function prepareExcerpt(string $excerpt): string
     {
-        if (strpos($excerpt, '<!--more-->') !== false) {
+        if (str_contains($excerpt, '<!--more-->')) {
             $divided = explode('<!--more-->', $excerpt);
             $excerpt = $divided[0] !== '' ? $divided[0] : $excerpt;
         }
