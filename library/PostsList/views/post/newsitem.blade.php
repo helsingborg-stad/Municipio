@@ -1,6 +1,6 @@
 @newsItem([
     'heading'             => $post->getTitle(),
-    'content'             => $getExcerpt($post, 55),
+    'content'             => $getExcerpt($post),
     'image'               => $post->getImage(),
     'date'                => [
         'timestamp' => $getDateTimestamp($post),

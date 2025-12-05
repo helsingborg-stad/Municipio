@@ -23,7 +23,7 @@ class GetExcerpt implements ViewCallableProviderInterface
      */
     public function getCallable(): callable
     {
-        return fn(PostObjectInterface $post, int $nbrOfWords = 20): string => $this->wpService->wpTrimWords(
+        return fn(PostObjectInterface $post, int $nbrOfWords = 55): string => $this->wpService->wpTrimWords(
             $post->getExcerpt(),
             $nbrOfWords,
         );
