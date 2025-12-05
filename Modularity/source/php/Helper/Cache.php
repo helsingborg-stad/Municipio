@@ -59,7 +59,7 @@ class Cache
             $caps['usergroup']  = User::get()->getUserGroup()?->term_id ?? null;
             
             //Update hash with user caps
-            $this->hash = $this->hash . '-auth-' . $this->createShortHash($caps, true);
+            $this->hash = $this->hash . '-auth-' . $this->createShortHash($caps, false);
         }
 
         //Add cache group to hash, if set
