@@ -1,0 +1,159 @@
+[
+	{
+		"key": "group_5756ce3e48783",
+		"title": "Files",
+		"fields": [
+			{
+				"key": "field_57fb41f2cb40e",
+				"label": "Filer",
+				"name": "file_list",
+				"aria-label": "",
+				"type": "repeater",
+				"instructions": "",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"min": 1,
+				"max": 0,
+				"layout": "block",
+				"button_label": "L\u00e4gg till fil",
+				"collapsed": "",
+				"rows_per_page": 20,
+				"acfe_repeater_stylised_button": 0,
+				"sub_fields": [
+					{
+						"key": "field_57fb4218cb40f",
+						"label": "Fil",
+						"name": "file",
+						"aria-label": "",
+						"type": "file",
+						"instructions": "",
+						"required": 1,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"return_format": "array",
+						"library": "all",
+						"min_size": "",
+						"max_size": "",
+						"mime_types": "",
+						"uploader": "",
+						"parent_repeater": "field_57fb41f2cb40e"
+					}
+				]
+			},
+			{
+				"key": "field_587600817ff7f",
+				"label": "Filter",
+				"name": "show_filter",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": 1,
+				"message": "Till\u00e5t filtrering",
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_67507dc1a8793",
+				"label": "Filter above card",
+				"name": "filter_above_card",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_587600817ff7f",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "Yes",
+				"default_value": 0,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_6750883f3caf7",
+				"label": "Settings",
+				"name": "settings",
+				"aria-label": "",
+				"type": "checkbox",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"choices": {
+					"hide_filetype": "Hide file type",
+					"hide_filesize": "Hide file size",
+					"show_download_icon": "Show download icon"
+				},
+				"default_value": [],
+				"return_format": "value",
+				"allow_custom": 0,
+				"layout": "horizontal",
+				"toggle": 0,
+				"save_custom": 0,
+				"custom_choice_button_text": "Add new choice"
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-fileslist"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/fileslist"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0,
+		"acfe_display_title": "",
+		"acfe_autosync": "",
+		"acfe_form": 0,
+		"acfe_meta": "",
+		"acfe_note": ""
+	}
+]

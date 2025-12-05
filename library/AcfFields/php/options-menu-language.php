@@ -1,0 +1,109 @@
+<?php 
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+    'key' => 'group_6141cc9c72cc3',
+    'title' => __('Language Menu', 'municipio'),
+    'fields' => array(
+        0 => array(
+            'key' => 'field_614449a2d4489',
+            'label' => __('Number of Menu Items', 'municipio'),
+            'name' => '',
+            'aria-label' => '',
+            'type' => 'message',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('We recommend limiting preselected translations to four', 'municipio'),
+            'new_lines' => 'wpautop',
+            'esc_html' => 0,
+        ),
+        1 => array(
+            'key' => 'field_6141ccdf9d7ef',
+            'label' => __('Disclaimer', 'municipio'),
+            'name' => 'language_menu_disclaimer',
+            'aria-label' => '',
+            'type' => 'textarea',
+            'instructions' => __('A disclaimer to be shown below language options', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'maxlength' => '',
+            'rows' => '',
+            'new_lines' => '',
+            'acfe_textarea_code' => 0,
+        ),
+        2 => array(
+            'key' => 'field_6141cd72ba87a',
+            'label' => __('More Languages Link', 'municipio'),
+            'name' => 'language_menu_more_languages',
+            'aria-label' => '',
+            'type' => 'url',
+            'instructions' => __('A link to the translation service where user can select translation language themself', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+        ),
+        3 => array(
+            'key' => 'field_67f554814ab26',
+            'label' => __('Display current language in list', 'municipio'),
+            'name' => 'display_current_language',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('Yes', 'municipio'),
+            'default_value' => 0,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
+        ),
+    ),
+    'location' => array(
+        0 => array(
+            0 => array(
+                'param' => 'nav_menu',
+                'operator' => '==',
+                'value' => 'location/language-menu',
+            ),
+        ),
+    ),
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => true,
+    'description' => '',
+    'show_in_rest' => 0,
+    'acfe_display_title' => '',
+    'acfe_autosync' => '',
+    'acfe_form' => 0,
+    'acfe_meta' => '',
+    'acfe_note' => '',
+));
+}
