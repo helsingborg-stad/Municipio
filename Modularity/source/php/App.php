@@ -52,7 +52,7 @@ class App
         $optionsForSingleViews->addHooks();
 
         // Rest Controllers
-        $modulesRestController = new Api\V1\Modules();
+        $modulesRestController = new Api\V1\Modules($this->wpUtilService);
         $modulesRestController->register_routes();
 
         self::$moduleManager = new ModuleManager($this->wpUtilService);
