@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\ViewCallableProviders;
 
 use Municipio\Helper\DateFormat as HelperDateFormat;
@@ -26,7 +28,7 @@ class GetDateFormat implements ViewCallableProviderInterface
      */
     public function getCallable(): callable
     {
-        return fn() => $this->getFormat();
+        return [$this, 'getFormat'];
     }
 
     private function getFormat(): null|string

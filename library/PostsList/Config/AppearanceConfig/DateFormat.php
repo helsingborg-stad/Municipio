@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\Config\AppearanceConfig;
 
 enum DateFormat: string

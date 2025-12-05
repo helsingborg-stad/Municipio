@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Controller\Archive\Mappers\AppearanceConfigMappers;
 
 use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
@@ -14,7 +16,7 @@ class MapDateFormatTest extends TestCase
         $mapper = new MapDateFormat();
 
         $result = $mapper->map(['archiveProps' => (object) ['dateFormat' => 'date']]);
-        $this->assertEquals(DateFormat::DATE, $result);
+        static::assertSame(DateFormat::DATE, $result);
     }
 
     #[TestDox('returns DATE_TIME format when format is "date-time"')]
@@ -23,7 +25,7 @@ class MapDateFormatTest extends TestCase
         $mapper = new MapDateFormat();
 
         $result = $mapper->map(['archiveProps' => (object) ['dateFormat' => 'date-time']]);
-        $this->assertEquals(DateFormat::DATE_TIME, $result);
+        static::assertSame(DateFormat::DATE_TIME, $result);
     }
 
     #[TestDox('returns TIME format when format is "time"')]
@@ -32,7 +34,7 @@ class MapDateFormatTest extends TestCase
         $mapper = new MapDateFormat();
 
         $result = $mapper->map(['archiveProps' => (object) ['dateFormat' => 'time']]);
-        $this->assertEquals(DateFormat::TIME, $result);
+        static::assertSame(DateFormat::TIME, $result);
     }
 
     #[TestDox('returns default DATE_TIME format when no valid format is provided')]
@@ -41,7 +43,7 @@ class MapDateFormatTest extends TestCase
         $mapper = new MapDateFormat();
 
         $result = $mapper->map([]);
-        $this->assertEquals(DateFormat::DATE_TIME, $result);
+        static::assertSame(DateFormat::DATE_TIME, $result);
     }
 
     #[TestDox('returns default NONE format when dateField is "none"')]
@@ -50,6 +52,6 @@ class MapDateFormatTest extends TestCase
         $mapper = new MapDateFormat();
 
         $result = $mapper->map(['archiveProps' => (object) ['dateField' => 'none']]);
-        $this->assertEquals(DateFormat::NONE, $result);
+        static::assertSame(DateFormat::NONE, $result);
     }
 }

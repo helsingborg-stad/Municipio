@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Controller\Archive\Mappers\AppearanceConfigMappers;
 
 use Municipio\Controller\Archive\Mappers\MapperInterface;
