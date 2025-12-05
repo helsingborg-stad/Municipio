@@ -12,7 +12,7 @@
                 'bordered' => true,
                 'attributeList' => [
                     ...($input['attributeList'] ?? []),
-                    ...($input['link'] ? ['aria-labelledby' => $input['id']] : [])
+                    ...($input['link'] ? ['aria-labelledby' => $input['id'] . '-title'] : [])
                 ]
             ])
                 @slot('before')
@@ -30,7 +30,7 @@
                         @typography([
                             'element' => 'h2',
                             'variant' => 'h3',
-                            'id'      => $input['id']
+                            'id'      => $input['id'] . '-title'
                         ])
                             {{ $input['title'] }}
                         @endtypography
