@@ -8,10 +8,10 @@
         'src' => $post->getImage() ?? $appearanceConfig->getPlaceholderImageUrl() ?? null,
         'backgroundColor' => 'secondary'
     ],
-    'date' => [
+    'date' => $getDateFormat() ? [
         'timestamp' => $getDateTimestamp($post),
         'format'    => $getDateFormat(),
-    ],
+    ] : null,
     'dateBadge' => $showDateBadge(),
     'classList' => ['t-archive-block'],
     'context' => ['archive', 'archive.list', 'archive.list.block'],

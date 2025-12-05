@@ -5,10 +5,10 @@
     'content' => $getExcerpt($post, 20),
     'tags' => $getTags($post),
     'meta' => $getReadingTime($post),
-    'date' => [
+    'date' => $getDateFormat() ? [
         'timestamp' => $getDateTimestamp($post),
         'format'    => $getDateFormat(),
-    ],
+    ] : null,
     'dateBadge' => $showDateBadge(),
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,

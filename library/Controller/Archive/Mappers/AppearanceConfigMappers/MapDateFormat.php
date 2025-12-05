@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Controller\Archive\Mappers\AppearanceConfigMappers;
 
 use Municipio\Controller\Archive\Mappers\MapperInterface;
@@ -17,6 +19,10 @@ class MapDateFormat implements MapperInterface
      */
     public function map(array $data): DateFormat
     {
+        if (($data['archiveProps']->dateField ?? '') === 'none') {
+            return DateFormat::NONE;
+        }
+
         return match ($data['archiveProps']->dateFormat ?? '') {
             'date' => DateFormat::DATE,
             'date-time' => DateFormat::DATE_TIME,
