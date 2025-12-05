@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\ViewCallableProviders\Schema\ExhibitionEvent;
 
 use DateTime;
@@ -16,10 +18,10 @@ class GetOccasionText implements ViewCallableProviderInterface
 
     public function getCallable(): callable
     {
-        return fn(PostObjectInterface $post): null|string => $this->getOccasionText($post);
+        return [$this, 'getOccasionText'];
     }
 
-    private function getOccasionText(PostObjectInterface $post): null|string
+    public function getOccasionText(PostObjectInterface $post): null|string
     {
         $schema = $post->getSchema();
         $startDate = $this->toDateTime($schema->getProperty('startDate'));
@@ -31,7 +33,7 @@ class GetOccasionText implements ViewCallableProviderInterface
         $start = $this->formatDate($startDate, 'j M');
         $end = $endDate ? $this->formatDate($endDate, 'j M Y') : $this->getUntilFurtherNoticeText();
 
-        return "$start - $end";
+        return "{$start} - {$end}";
     }
 
     private function toDateTime(mixed $value): null|DateTime
@@ -43,7 +45,7 @@ class GetOccasionText implements ViewCallableProviderInterface
             try {
                 return new DateTime($value);
             } catch (\Exception) {
-                // Ignore and return null
+                return null;
             }
         }
         return null;
