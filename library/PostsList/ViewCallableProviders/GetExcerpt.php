@@ -8,7 +8,7 @@ use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\WpTrimWords;
 
 /*
- * View utility to get excerpt without links
+ * View utility to get excerpt with word count trimming
  */
 class GetExcerpt implements ViewCallableProviderInterface
 {

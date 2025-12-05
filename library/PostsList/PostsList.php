@@ -41,7 +41,7 @@ class PostsList
      * @param array<string, WP_Taxonomy> $wpTaxonomies
      * @param WpService $wpService
      * @param WpQueryFactoryInterface $wpQueryFactory
-     * @param QueryVarRegistrarInterface $querVarsRegistrar
+     * @param QueryVarRegistrarInterface $queryVarsRegistrar
      * @param GetField $acfService
      * @param AnyPostHasImageInterface $anyPostHasImageService
      *

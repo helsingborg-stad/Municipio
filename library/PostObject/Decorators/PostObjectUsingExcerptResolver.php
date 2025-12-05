@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\ExcerptResolver\ExcerptResolver;
+
 use Municipio\PostObject\ExcerptResolver\ExcerptResolverInterface;
 use Municipio\PostObject\PostObjectInterface;
 
