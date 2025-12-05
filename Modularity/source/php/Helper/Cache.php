@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modularity\Helper;
 
+use Municipio\Helper\User\User;
+
 class Cache
 {
     /**
@@ -52,6 +54,11 @@ class Cache
 
             if (is_super_admin(get_current_user_id())) {
                 $caps['superadmin'] = true;
+            }
+
+            $userGroup = User::get()->getUserGroup();
+            if(is_a($userGroup, 'WP_Term')){
+                $caps['usergroup'] = $userGroup->term_id ?? $userGroup->slug;
             }
 
             $roleHash = $this->createShortHash($caps, true);
