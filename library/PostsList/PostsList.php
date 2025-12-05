@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList;
 
 use AcfService\Contracts\GetField;
@@ -42,6 +44,8 @@ class PostsList
      * @param QueryVarRegistrarInterface $querVarsRegistrar
      * @param GetField $acfService
      * @param AnyPostHasImageInterface $anyPostHasImageService
+     *
+     * @mago-expect lint:excessive-parameter-list
      */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
@@ -180,9 +184,7 @@ class PostsList
     private function getPosts(): array
     {
         if (!isset($this->posts)) {
-            $this->posts = array_map(fn($wpPost) => Post::convertWpPostToPostObject(
-                $wpPost,
-            ), $this->getWpQuery()->posts);
+            $this->posts = array_map([Post::class, 'convertWpPostToPostObject'], $this->getWpQuery()->posts);
         }
 
         return $this->posts;

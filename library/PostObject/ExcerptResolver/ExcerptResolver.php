@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostObject\ExcerptResolver;
 
 use Municipio\PostObject\PostObjectInterface;
@@ -17,11 +19,11 @@ class ExcerptResolver implements ExcerptResolverInterface
      */
     public function resolveExcerpt(PostObjectInterface $postObject): string
     {
-        if (!empty($postObject->getExcerpt())) {
+        if (strlen(trim($postObject->getExcerpt())) > 0) {
             return $this->prepareExcerpt($postObject->getExcerpt());
         }
 
-        if (!empty($postObject->getContent())) {
+        if (strlen(trim($postObject->getContent())) > 0) {
             return $this->prepareExcerpt($postObject->getContent());
         }
 
@@ -32,7 +34,7 @@ class ExcerptResolver implements ExcerptResolverInterface
     {
         if (strpos($excerpt, '<!--more-->')) {
             $divided = explode('<!--more-->', $excerpt);
-            $excerpt = !empty($divided[0]) ? $divided[0] : $excerpt;
+            $excerpt = $divided[0] !== '' ? $divided[0] : $excerpt;
         }
 
         $excerpt = $this->wpService->stripShortcodes($excerpt);

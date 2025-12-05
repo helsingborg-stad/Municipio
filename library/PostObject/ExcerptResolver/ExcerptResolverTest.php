@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\PostObject\ExcerptResolver;
 
 use Municipio\PostObject\NullPostObject;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\StripShortcodes;
@@ -115,6 +114,7 @@ class ExcerptResolverTest extends TestCase
                 return str_replace('[shortcode]', '', $text);
             }
 
+            // @mago-expect lint:no-boolean-flag-parameter
             public function wpStripAllTags(string $text, bool $removeBreaks = true): string
             {
                 $text = strip_tags($text);

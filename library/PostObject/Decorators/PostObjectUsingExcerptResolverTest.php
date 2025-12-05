@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\ExcerptResolver\ExcerptResolverInterface;
@@ -22,6 +24,6 @@ class PostObjectUsingExcerptResolverTest extends TestCase
         };
 
         $postObjectUsingExcerptResolver = new PostObjectUsingExcerptResolver($post, $excerptResolver);
-        $this->assertEquals('test excerpt', $postObjectUsingExcerptResolver->getExcerpt());
+        static::assertSame('test excerpt', $postObjectUsingExcerptResolver->getExcerpt());
     }
 }

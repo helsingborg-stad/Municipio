@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\ViewCallableProviders;
 
 use Municipio\PostObject\PostObjectInterface;
@@ -21,8 +23,9 @@ class GetExcerpt implements ViewCallableProviderInterface
      */
     public function getCallable(): callable
     {
-        return function (PostObjectInterface $post, int $nbrOfWords = 20): string {
-            return $this->wpService->wpTrimWords($post->getExcerpt(), $nbrOfWords);
-        };
+        return fn(PostObjectInterface $post, int $nbrOfWords = 20): string => $this->wpService->wpTrimWords(
+            $post->getExcerpt(),
+            $nbrOfWords,
+        );
     }
 }
