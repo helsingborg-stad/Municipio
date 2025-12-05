@@ -10,6 +10,7 @@
         'format'    => $getDateFormat(),
     ] : null,
     'dateBadge' => $showDateBadge(),
+    'classList' => ['u-height--100'],
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
     'hasPlaceholder' => $appearanceConfig->shouldDisplayPlaceholderImage() && !$post->getImage(),
