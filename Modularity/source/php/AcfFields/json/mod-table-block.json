@@ -1,0 +1,263 @@
+[
+	{
+		"key": "group_60b8bf5bbc4d7",
+		"title": "Table - Block settings",
+		"fields": [
+			{
+				"key": "field_60b8c0d61b71e",
+				"label": "Datatyp",
+				"name": "mod_table_data_type",
+				"type": "radio",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"choices": {
+					"manual": "Manual input",
+					"csv": "CSV Import"
+				},
+				"allow_null": 0,
+				"other_choice": 0,
+				"default_value": "manual",
+				"layout": "horizontal",
+				"return_format": "value",
+				"save_other_choice": 0
+			},
+			{
+				"key": "field_60b9dd6efc445",
+				"label": "CSV-fil",
+				"name": "mod_table_block_csv_file",
+				"type": "file",
+				"instructions": "CSV-formatterad fil",
+				"required": 1,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_60b8c0d61b71e",
+							"operator": "==",
+							"value": "csv"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"return_format": "array",
+				"library": "all",
+				"min_size": "",
+				"max_size": "",
+				"mime_types": ".csv"
+			},
+			{
+				"key": "field_60b9dc81fc444",
+				"label": "CSV-avgr\u00e4nsare",
+				"name": "mod_table_csv_delimiter",
+				"type": "text",
+				"instructions": "Tecken som anv\u00e4nds i CSV-filen som avgr\u00e4nsare. Brukar vara kommatecken eller semikolon.",
+				"required": 1,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_60b8c0d61b71e",
+							"operator": "==",
+							"value": "csv"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"default_value": ";",
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"maxlength": ""
+			},
+			{
+				"key": "field_60b8c09f1b71d",
+				"label": "Table",
+				"name": "mod_table",
+				"type": "table",
+				"instructions": "",
+				"required": 1,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_60b8c0d61b71e",
+							"operator": "==",
+							"value": "manual"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"use_header": 0,
+				"use_caption": 2
+			},
+			{
+				"key": "field_60b9def7b1bf4",
+				"label": "Sidbl\u00e4ddring",
+				"name": "mod_table_pagination",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"message": "Yes, use pagination on this table",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_60b9df3d7f217",
+				"label": "Antal inl\u00e4gg\/sidor",
+				"name": "mod_table_pagination_count",
+				"type": "number",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_60b9def7b1bf4",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"default_value": 10,
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"min": 1,
+				"max": 500,
+				"step": ""
+			},
+			{
+				"key": "field_60b9df727f218",
+				"label": "Aktivera s\u00f6k",
+				"name": "mod_table_search",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"message": "",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_60b9df987f219",
+				"label": "S\u00f6kfras",
+				"name": "mod_table_search_query",
+				"type": "text",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_60b9df727f218",
+							"operator": "==",
+							"value": "1"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "Search in list",
+				"placeholder": "",
+				"prepend": "",
+				"append": "",
+				"maxlength": ""
+			},
+			{
+				"key": "field_60b9dfdf490d9",
+				"label": "Aktivera kolumnsortering",
+				"name": "mod_table_ordering",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "Yes, enable column sorting",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_6141de4c43487",
+				"label": "",
+				"name": "",
+				"type": "clone",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"clone": [
+					"field_6141aad011c4e",
+					"field_6141b4af3a835",
+					"field_6141dc72e5dcd"
+				],
+				"display": "seamless",
+				"layout": "block",
+				"prefix_label": 0,
+				"prefix_name": 0
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/table"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": ""
+	}
+]

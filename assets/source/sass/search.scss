@@ -1,0 +1,105 @@
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+$search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-radius, variables.$border-radius-xs)) !default;
+  
+#sidebar-slider-area--container {
+  position: relative;
+}
+
+#search-form--field {
+  .c-field__inner {
+    height: 100%;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border: none;
+  }
+}
+
+#hero-search-form {
+    position: absolute;
+    width:clamp(min(100%, 600px), 30%, max(30%, 600px));
+    transform: translate(-50%, -50%);
+    z-index: 3000;
+    color: variables.$color-darker;
+    left: 50%;
+
+    &.c-form--centered {
+      top: 50%;
+    }
+
+    &.c-form--bottom {
+      top: 80%;
+    }
+
+    &.c-form--top {
+      top: 20%;
+    }
+
+    #hero-search-form__wrapper {
+      padding: 0 1.5rem;
+
+      .c-field__inner {
+        border:none;
+      }
+
+      #hero-search-form__field {
+        flex: 0 1 80%;
+        min-width: 0;
+
+        label {
+          display: none;
+        }
+
+        #input_hero-search-form__field {
+          min-width: 0;
+        }
+      }
+
+      #hero-search-form__submit {
+        flex: 0 1 20%;
+        padding: unset;
+        border-radius: 0 $search-border-radius $search-border-radius 0;
+      }
+    }
+
+    .c-slider,
+    .c-slider__container {
+      border-radius: 0;
+    }
+}
+
+#hero-search-form,
+#header-search-form,
+#menu-mega,
+#mobile-search-form,
+#drawer-search-form {
+  &.c-form.search-form,
+  .c-form {
+    .c-field__inner,
+    .c-field__inner input:focus + .c-field_focus-styler {
+      border-radius: $search-border-radius 0 0 $search-border-radius; 
+    }
+  
+    .c-button {
+      border-radius: 0 $search-border-radius $search-border-radius 0;
+    }
+  }
+}
+
+#header-search-form input[type="search"],
+#header-search-form .c-field__inner,
+#mobile-search-form input[type="search"],
+#mobile-search-form .c-field__inner,
+#drawer-search-form input[type="search"],
+#drawer-search-form .c-field__inner {
+  height: 100%;
+  border-radius: inherit;
+  border: none;
+}
+
+
+@media print {
+  #sidebar-slider-area--container {
+    display: none;
+  }
+}
