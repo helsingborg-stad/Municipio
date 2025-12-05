@@ -74,7 +74,7 @@ class Cache
      */
     public function clearCache($postId)
     {
-        if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
+        if (wp_is_post_revision($postId)) {
             return false;
         }
         return wp_cache_delete($postId, $this->keyGroup);
