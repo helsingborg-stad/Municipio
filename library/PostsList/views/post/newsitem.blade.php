@@ -2,10 +2,10 @@
     'heading'             => $post->getTitle(),
     'content'             => $getExcerpt($post),
     'image'               => $post->getImage(),
-    'date'                => [
+    'date'                => $getDateFormat() ? [
         'timestamp' => $getDateTimestamp($post),
         'format'    => $getDateFormat(),
-    ],
+    ] : null,
     'readTime'            => $getReadingTime($post),
     'link'                => $post->getPermalink(),
     'context' => ['archive', 'archive.list', 'archive.list.news-item'],

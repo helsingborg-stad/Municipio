@@ -29,7 +29,7 @@ class GetDateFormat implements ViewCallableProviderInterface
         return fn() => $this->getFormat();
     }
 
-    private function getFormat(): string
+    private function getFormat(): null|string
     {
         static $cachedFormats = [];
 
@@ -42,6 +42,7 @@ class GetDateFormat implements ViewCallableProviderInterface
             DateFormat::DATE => HelperDateFormat::getDateFormat('date'),
             DateFormat::TIME => HelperDateFormat::getDateFormat('time'),
             DateFormat::DATE_BADGE => 'date-badge',
+            DateFormat::NONE => null,
         };
 
         return $cachedFormats[$this->dateFormat->value] = $format;

@@ -43,4 +43,13 @@ class MapDateFormatTest extends TestCase
         $result = $mapper->map([]);
         $this->assertEquals(DateFormat::DATE_TIME, $result);
     }
+
+    #[TestDox('returns default NONE format when dateField is "none"')]
+    public function testMapWithDateFieldNone()
+    {
+        $mapper = new MapDateFormat();
+
+        $result = $mapper->map(['archiveProps' => (object) ['dateField' => 'none']]);
+        $this->assertEquals(DateFormat::NONE, $result);
+    }
 }

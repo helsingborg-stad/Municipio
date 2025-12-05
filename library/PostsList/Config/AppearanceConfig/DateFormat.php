@@ -8,4 +8,5 @@ enum DateFormat: string
     case TIME = 'time';
     case DATE_TIME = 'date-time';
     case DATE_BADGE = 'date-badge';
+    case NONE = 'none';
 }
