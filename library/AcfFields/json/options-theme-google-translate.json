@@ -1,0 +1,164 @@
+[{
+    "key": "group_56cc6f8fe86d3",
+    "title": "Google Translate",
+    "fields": [
+        {
+            "key": "field_56cc6f9bd36e2",
+            "label": "Where to show Google Translate",
+            "name": "show_google_translate",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "false": "Do not show",
+                "header": "Above header",
+                "footer": "Below footer",
+                "fold": "Fixed to right edge"
+            },
+            "default_value": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "disabled": 0,
+            "readonly": 0
+        },
+        {
+            "key": "field_56e6750855442",
+            "label": "Menu to show translate link in",
+            "name": "google_translate_menu",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "help-menu": "Help menu",
+                "header-tabs-menu": "Header tabs menu",
+                "main-menu": "Primary menu",
+                "secondary-menu": "Secondary menu & drawer menu",
+                "mega-menu": "Mega menu",
+                "dropdown-links-menu": "Dropdown menu",
+                "floating-menu": "Floating menu",
+                "language-menu": "Language menu",
+                "quicklinks-menu": "Quicklinks menu",
+                "mobile-drawer": "Drawer (bottom)",
+                "siteselector-menu": "Siteselector",
+                "post-menu": "Posts (above archive posts)",
+                "event-menu": "Event (above archive posts)",
+                "custom_posts-menu": "Custom Posts (above archive posts)",
+                "local-events-menu": "Local event (above archive posts)",
+                "news-menu": "News (above archive posts)",
+                "none": "None (link to #translate to show)"
+            },
+            "default_value": false,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "disabled": 0,
+            "readonly": 0
+        },
+        {
+            "key": "field_56e67f82e4f5e",
+            "label": "Show as",
+            "name": "google_translate_show_as",
+            "type": "radio",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "horizontal",
+            "choices": {
+                "text": "Text",
+                "icon": "Icon",
+                "combined": "Icon and text"
+            },
+            "default_value": "text",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_56cc7592fcc40",
+            "label": "Track usage with Google Analytics",
+            "name": "google_translate_ga_track",
+            "type": "true_false",
+            "instructions": "If set to enabled, Google Translate usage will be tracked in Google Analytics (to the account specified under the Google Analytics settings)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "message": "Enable",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_64f9757fc2270",
+            "label": "Exclude words from being translated",
+            "name": "google_exclude_words_from_translate",
+            "type": "text",
+            "instructions": "Seperate the words with a comma",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-google-translate"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
