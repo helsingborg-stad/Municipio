@@ -6,13 +6,14 @@ namespace Modularity\Api\V1;
 
 use WP_Error;
 use WP_REST_Controller;
+use WpUtilService\WpUtilServiceInterface;
 
 class Modules extends WP_REST_Controller
 {
     protected $namespace = \Modularity\Api\RestApiNamespace::V1;
     protected $restBase = 'modules';
 
-    public function __construct()
+    public function __construct(private WpUtilServiceInterface $wpUtilService)
     {
         return $this;
     }
@@ -56,7 +57,7 @@ class Modules extends WP_REST_Controller
 
         $class = get_class(\Modularity\ModuleManager::$classes[$post->post_type]);
         $module = new $class($post);
-        $display = new \Modularity\Display($module);
+        $display = new \Modularity\Display($this->wpUtilService);
 
         return $display->getModuleMarkup($module, []);
     }
