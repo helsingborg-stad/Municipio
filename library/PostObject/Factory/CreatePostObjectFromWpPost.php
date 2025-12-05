@@ -5,32 +5,35 @@ namespace Municipio\PostObject\Factory;
 use AcfService\AcfService;
 use Municipio\Helper\StringToTime;
 use Municipio\Helper\Term\Term;
-use Municipio\PostObject\Date\{
-    ArchiveDateFormatResolver,
-    ArchiveDateFormatResolverInterface,
-    ArchiveDateSourceResolver,
-    ArchiveDateSourceResolverInterface,
-    CachedArchiveDateSourceResolver,
-    CachedTimestampResolver,
-    ExhibitionEventArchiveDateFormatResolver,
-    TimestampResolver,
-    TimestampResolverInterface
-};
-use Municipio\PostObject\Icon\Resolvers\{CachedIconResolver, IconResolverInterface, NullIconResolver, PostIconResolver, TermIconResolver};
-use Municipio\PostObject\{PostObject, PostObjectInterface};
+use Municipio\PostObject\Date\ArchiveDateFormatResolver;
+use Municipio\PostObject\Date\ArchiveDateFormatResolverInterface;
+use Municipio\PostObject\Date\ArchiveDateSourceResolver;
+use Municipio\PostObject\Date\ArchiveDateSourceResolverInterface;
+use Municipio\PostObject\Date\CachedArchiveDateSourceResolver;
+use Municipio\PostObject\Date\CachedTimestampResolver;
+use Municipio\PostObject\Date\ExhibitionEventArchiveDateFormatResolver;
+use Municipio\PostObject\Date\TimestampResolver;
+use Municipio\PostObject\Date\TimestampResolverInterface;
+use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
+use Municipio\PostObject\Decorators\IconResolvingPostObject;
+use Municipio\PostObject\Decorators\PostObjectArchiveDateFormat;
+use Municipio\PostObject\Decorators\PostObjectArchiveDateTimestamp;
+use Municipio\PostObject\Decorators\PostObjectFromWpPost;
+use Municipio\PostObject\Decorators\PostObjectUsingExcerptResolver;
+use Municipio\PostObject\Decorators\PostObjectWithCachedContent;
+use Municipio\PostObject\Decorators\PostObjectWithFilteredContent;
+use Municipio\PostObject\Decorators\PostObjectWithSchemaObject;
+use Municipio\PostObject\Decorators\PostObjectWithSeoRedirect;
+use Municipio\PostObject\ExcerptResolver\ExcerptResolver;
+use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
+use Municipio\PostObject\Icon\Resolvers\IconResolverInterface;
+use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
+use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
+use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
+use Municipio\PostObject\PostObject;
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use WpService\WpService;
-use Municipio\PostObject\Decorators\{
-    BackwardsCompatiblePostObject,
-    IconResolvingPostObject,
-    PostObjectArchiveDateFormat,
-    PostObjectArchiveDateTimestamp,
-    PostObjectFromWpPost,
-    PostObjectWithCachedContent,
-    PostObjectWithFilteredContent,
-    PostObjectWithSchemaObject,
-    PostObjectWithSeoRedirect
-};
 
 /**
  * CreatePostObjectFromWpPost.
@@ -47,9 +50,8 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
-        private SchemaObjectFromPostInterface $schemaObjectFromPost
-    ) {
-    }
+        private SchemaObjectFromPostInterface $schemaObjectFromPost,
+    ) {}
 
     /**
      * @inheritDoc
@@ -60,6 +62,7 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
 
         $postObject = new PostObject($post->ID, $this->wpService);
         $postObject = new PostObjectFromWpPost($postObject, $post, $this->wpService);
+        $postObject = new PostObjectUsingExcerptResolver($postObject, new ExcerptResolver($this->wpService));
         $postObject = new PostObjectWithFilteredContent($postObject, $this->wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $this->wpService);
         $postObject = new PostObjectWithSchemaObject($postObject, $this->schemaObjectFromPost);
@@ -94,7 +97,12 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
      */
     private function getTimestampResolver(PostObjectInterface $postObject): TimestampResolverInterface
     {
-        $timestampResolver = new TimestampResolver($postObject, $this->wpService, $this->getArchiveDateSourceResolver($postObject), new StringToTime($this->wpService));
+        $timestampResolver = new TimestampResolver(
+            $postObject,
+            $this->wpService,
+            $this->getArchiveDateSourceResolver($postObject),
+            new StringToTime($this->wpService),
+        );
         $timestampResolver = new CachedTimestampResolver($postObject, $this->wpService, $timestampResolver);
 
         return $timestampResolver;
@@ -122,7 +130,12 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
      */
     private function getIconResolver(PostObjectInterface $postObject): IconResolverInterface
     {
-        $iconResolver = new TermIconResolver($postObject, $this->wpService, new Term($this->wpService, $this->acfService), new NullIconResolver());
+        $iconResolver = new TermIconResolver(
+            $postObject,
+            $this->wpService,
+            new Term($this->wpService, $this->acfService),
+            new NullIconResolver(),
+        );
         $iconResolver = new PostIconResolver($postObject, $this->acfService, $iconResolver);
         $iconResolver = new CachedIconResolver($postObject, $iconResolver);
 

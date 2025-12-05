@@ -19,7 +19,7 @@
         ])
         @endtags
         @typography([])
-            {{ $getExcerptWithoutLinks($post) }}
+            {{ $getExcerpt($post) }}
         @endtypography
     @endgroup
 @endcollection__item

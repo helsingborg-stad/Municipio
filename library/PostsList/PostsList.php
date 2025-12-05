@@ -75,7 +75,7 @@ class PostsList
                 $this->wpService,
                 $this->acfService,
             ))->getCallable(),
-            'getExcerptWithoutLinks' => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
+            'getExcerpt' => (new ViewCallableProviders\GetExcerpt($this->wpService))->getCallable(),
             'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
             'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
             'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
