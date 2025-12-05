@@ -1,0 +1,122 @@
+<?php
+
+declare(strict_types=1);
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group([
+        'key' => 'group_67506ac21d132',
+        'title' => __('Markdown', 'municipio'),
+        'fields' => [
+            0 => [
+                'key' => 'field_67506ac4f8055',
+                'label' => __('Markdown URL', 'municipio'),
+                'name' => 'mod_markdown_url',
+                'aria-label' => '',
+                'type' => 'url',
+                'instructions' => __(
+                    'A link to a raw version of a md file, for example https://raw.githubusercontent.com/readme.md',
+                    'municipio',
+                ),
+                'required' => 1,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'default_value' => '',
+                'placeholder' => __('https://raw.githubusercontent.com/readme.md', 'municipio'),
+            ],
+            1 => [
+                'key' => 'field_6750799d7e7a4',
+                'label' => __('Show source', 'municipio'),
+                'name' => 'mod_markdown_show_source',
+                'aria-label' => '',
+                'type' => 'true_false',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'message' => __('Display the source url', 'municipio'),
+                'default_value' => 1,
+                'ui_on_text' => '',
+                'ui_off_text' => '',
+                'ui' => 1,
+            ],
+            2 => [
+                'key' => 'field_67516aed46591',
+                'label' => __('Wrap in container', 'municipio'),
+                'name' => 'mod_markdown_wrap_in_container',
+                'aria-label' => '',
+                'type' => 'true_false',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'message' => '',
+                'default_value' => 0,
+                'ui_on_text' => '',
+                'ui_off_text' => '',
+                'ui' => 1,
+            ],
+            3 => [
+                'key' => 'field_67506eebcdbfd',
+                'label' => __('Supported providers', 'municipio'),
+                'name' => '',
+                'aria-label' => '',
+                'type' => 'message',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => [
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'message' => __('ABC', 'municipio'),
+                'new_lines' => 'wpautop',
+                'esc_html' => 0,
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'mod-markdown',
+                ],
+            ],
+            1 => [
+                0 => [
+                    'param' => 'block',
+                    'operator' => '==',
+                    'value' => 'acf/markdown',
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'left',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,
+        'acfe_display_title' => '',
+        'acfe_autosync' => [
+            0 => 'json',
+        ],
+        'acfe_form' => 0,
+        'acfe_meta' => '',
+        'acfe_note' => '',
+    ]);
+}
