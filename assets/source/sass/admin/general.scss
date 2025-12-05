@@ -1,0 +1,158 @@
+
+#sticky-span,
+.inline-edit-status + .alignleft [name="sticky"],
+.inline-edit-status + .alignleft [name="sticky"] + .checkbox-title {
+    display: none !important;
+}
+
+
+.tablenav progress-bar-with-label {
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    padding-left: 16px;
+}
+
+
+.postbox,
+.stuffbox,
+.notice-warning,
+.notice-info,
+.notice-success,
+.notice-error,
+#screen-meta-links > *,
+.meta-box-sortables,
+.nestedpages,
+.page-title-action,
+.np-button,
+.wp-list-table,
+.wp-core-ui .button,
+.wp-core-ui .button-secondary,
+.wp-core-ui select,
+.wp-core-ui select:focus,
+.tablenav {
+    border-radius: 4px;
+    filter: drop-shadow(4px 8px 8px rgba(0, 0, 0, 0.05));
+}
+
+.wp-core-ui select,
+.wp-core-ui select:focus,
+input[type="checkbox"]:focus,
+input[type="color"]:focus,
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="datetime"]:focus,
+input[type="email"]:focus,
+input[type="month"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="radio"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus,
+input[type="week"]:focus,
+select:focus,
+textarea:focus {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+
+.postbox .inside {
+    border-radius: 0 0 4px 4px;
+    contain: paint;
+}
+
+.tablenav .actions select {
+    margin-right: 12px;
+}
+
+.tablenav {
+    margin-bottom: 32px;
+    padding: 16px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.tablenav .actions,
+.tablenav .tablenav-pages {
+    padding: 0;
+}
+
+.tablenav .actions + .actions {
+    border-left: 1px solid rgba(0, 0, 0, 0.4);
+    padding-left: 32px;
+}
+
+.tablenav .tablenav-pages {
+    margin-left: auto;
+    float: none;
+}
+
+
+br.clear {
+    display: none;
+}
+
+
+.notice-error,
+.notice-warning,
+.notice-info,
+.notice-success {
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    box-shadow: none;
+    padding: 16px 24px;
+}
+
+.postbox,
+.stuffbox,
+#menu-management .menu-edit,
+#menu-settings-column .accordion-container,
+.comment-ays,
+.feature-filter,
+.manage-menus,
+.menu-item-handle,
+.popular-tags,
+.widget-inside,
+.widget-top,
+.widgets-holder-wrap,
+.wp-editor-container,
+p.popular-tags,
+table.widefat {
+    border: none;
+}
+
+.postbox .postbox-header {
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+.postbox .postbox-header .hndle {
+    font-size: 20px;
+    font-weight: 400;
+    color: #333;
+}
+
+.postbox .postbox-header .handle-actions {
+    margin-right: 8px;
+}
+
+.postbox .inside h2,
+.wrap [class$="icon32"] + h2,
+.wrap h1,
+.wrap > h2:first-child {
+    font-size: 38px;
+    font-weight: 400;
+}
+
+.wp-core-ui .button,
+.wp-core-ui .button-secondary {
+    border-radius: 4px;
+    box-shadow: none;
+    text-shadow: none;
+    font-weight: 500;
+}
