@@ -1,0 +1,239 @@
+[
+	{
+		"key": "group_609b788ad04bb",
+		"title": "Curator Social Media",
+		"fields": [
+			{
+				"key": "field_609b7d2ba3004",
+				"label": "Number of posts",
+				"name": "number_of_posts",
+				"type": "number",
+				"instructions": "Set the number items to show.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"default_value": 12,
+				"min": 4,
+				"max": 24,
+				"placeholder": "",
+				"step": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_63edf811d3a68",
+				"label": "Layout",
+				"name": "layout",
+				"type": "select",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"choices": {
+					"card": "Card",
+					"block": "Block"
+				},
+				"default_value": "card",
+				"return_format": "value",
+				"multiple": 0,
+				"allow_null": 0,
+				"ui": 0,
+				"ajax": 0,
+				"placeholder": "",
+				"allow_custom": 0,
+				"search_placeholder": ""
+			},
+			{
+				"key": "field_63ee10add6ed6",
+				"label": "Columns",
+				"name": "columns",
+				"type": "select",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"choices": {
+					"3": "3",
+					"4": "4"
+				},
+				"default_value": false,
+				"return_format": "value",
+				"multiple": 0,
+				"allow_null": 0,
+				"ui": 0,
+				"ajax": 0,
+				"placeholder": "",
+				"allow_custom": 0,
+				"search_placeholder": ""
+			},
+			{
+				"key": "field_63ff2bc5ce2c6",
+				"label": "Grid gutter",
+				"name": "gutter",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_63edf811d3a68",
+							"operator": "==",
+							"value": "block"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"message": "No space between the posts in the grid",
+				"default_value": 0,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_63ee0a94197d1",
+				"label": "Ratio",
+				"name": "ratio",
+				"type": "select",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": [
+					[
+						{
+							"field": "field_63edf811d3a68",
+							"operator": "==",
+							"value": "block"
+						}
+					]
+				],
+				"wrapper": {
+					"width": "50",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"choices": {
+					"1:1": "1:1",
+					"4:3": "4:3",
+					"12:6": "12:6"
+				},
+				"default_value": "1:1",
+				"return_format": "value",
+				"multiple": 0,
+				"allow_null": 0,
+				"ui": 0,
+				"ajax": 0,
+				"placeholder": "",
+				"allow_custom": 0,
+				"search_placeholder": ""
+			},
+			{
+				"key": "field_609b7894869ce",
+				"label": "Embed Code",
+				"name": "embed_code",
+				"type": "textarea",
+				"instructions": "Add your curator embed code here. Thios should be the full javascript. Appeance settings in the javascript configurator will not apply.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"default_value": "",
+				"placeholder": "",
+				"maxlength": "",
+				"rows": "",
+				"new_lines": "",
+				"acfe_textarea_code": 0
+			},
+			{
+				"key": "field_609baae15568c",
+				"label": "Usage of the curator social media integration",
+				"name": "",
+				"type": "message",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"aria-label": "",
+				"message": "This is an integration module for curator.io. The module requires an account at the service. \r\n\r\nTo integrate a feed, head over to <a href=\"https:\/\/curator.io\" target=\"_blank\">curator.io<\/a> (will open in a new window) and follow the steps below. We assume that you already have an account, with a connected feed. \r\n\r\n1. Login to your account. \r\n2. Click on \"style\" in the sidebar navigation. \r\n3. Click on \"publish feed\" (style won't matter). \r\n4. Paste the embed code in the field above. \r\n5. Save. Your feed should no be displayed.",
+				"new_lines": "wpautop",
+				"esc_html": 0
+			},
+			{
+				"key": "field_643fcdc3b8269",
+				"label": "Show powered by",
+				"name": "show_powered_by",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"message": "Uncheck to disable the powered by link. It is required to display this link, if free version is used.",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-curator"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/curator"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0,
+		"acfe_display_title": "",
+		"acfe_autosync": "",
+		"acfe_form": 0,
+		"acfe_meta": "",
+		"acfe_note": ""
+	}
+]
