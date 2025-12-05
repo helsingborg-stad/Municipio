@@ -75,7 +75,7 @@ class Columns
                             ]
                         )
                     );
-                    $modifiedColumns[] = $child->c14n();
+                    $modifiedColumns[] = trim($doc->saveHTML($child));
                     $index++;
                 }
             }

@@ -649,7 +649,13 @@ class ModuleManager
             && $options['show-modules-usage-edit-notice-nag'] == 'on'
         ) {
             $screen = get_current_screen();
-            $usage = sizeof(ModuleManager::getModuleUsage(get_the_ID()));
+            $postId = is_numeric(get_the_ID()) ? intval(get_the_ID()) : null;
+
+            if(is_null($postId)) {
+                return;
+            }
+
+            $usage = sizeof(ModuleManager::getModuleUsage($postId));
 
             if (str_starts_with($screen->post_type, 'mod-') && $usage > 1) {
                 echo '<div class="notice notice-warning">';
