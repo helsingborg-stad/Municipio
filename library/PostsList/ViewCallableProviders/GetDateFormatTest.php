@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\ViewCallableProviders;
 
-use Municipio\Helper\DateFormat as HelperDateFormat;
 use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -15,7 +16,7 @@ class GetDateFormatTest extends TestCase
     public function testReturnsCorrectDateFormatFromConfig(DateFormat $format, string $expected)
     {
         $provider = new GetDateFormat($format);
-        $this->assertEquals($expected, $provider->getCallable()());
+        static::assertSame($expected, $provider->getCallable()());
     }
 
     public static function dateFormatProvider(): array

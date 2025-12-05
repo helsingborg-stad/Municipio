@@ -31,7 +31,7 @@ class GetDateFormat implements ViewCallableProviderInterface
         return [$this, 'getFormat'];
     }
 
-    private function getFormat(): null|string
+    public function getFormat(): null|string
     {
         static $cachedFormats = [];
 
