@@ -15,16 +15,25 @@ class ImageResolver implements ImageResolverInterface
    */
     public function getImageUrl(int $id, array $size): ?string
     {
+        $cacheKey = md5($id . implode(',', $size));
+        static $runtimeCache = [];
 
-      //Make 0 values in array false
+        if (isset($runtimeCache[$cacheKey])) {
+            return $runtimeCache[$cacheKey];
+        }
+
+        // Make 0 values in array false
         $size = array_map(function ($value) {
             return $value === 0 ? false : $value;
         }, $size);
 
         $image = wp_get_attachment_image_src($id, $size);
         if ($image !== false && isset($image[0]) && filter_var($image[0], FILTER_VALIDATE_URL)) {
+            $runtimeCache[$cacheKey] = $image[0];
             return $image[0];
         }
+
+        $runtimeCache[$cacheKey] = null;
         return null;
     }
 
