@@ -41,34 +41,30 @@ class Cache
             $this->keyGroup = $this->keyGroup . '-' . get_current_blog_id();
         }
 
-        // Create hash string
+        // Create hash string from module
         $this->hash = $this->createShortHash($module);
 
+        //If hash key creation failed, disable cache
         if ($this->hash === false) {
             $this->ttl = null;
             return;
         }
 
-        if (is_user_logged_in() && isset(wp_get_current_user()->caps) && is_array(wp_get_current_user()->caps)) {
-            $caps = wp_get_current_user()->caps;
+        //Add user auth state to hash
+        if (is_user_logged_in()) {
 
-            if (is_super_admin(get_current_user_id())) {
-                $caps['superadmin'] = true;
-            }
-
-            $userGroup = User::get()->getUserGroup();
-            if(is_a($userGroup, 'WP_Term')){
-                $caps['usergroup'] = $userGroup->term_id ?? $userGroup->slug;
-            }
-
-            $roleHash = $this->createShortHash($caps, true);
-            if ($roleHash !== false) {
-                $this->hash = $this->hash . '-auth-' . $roleHash;
-            }
+            //Get user caps, populate with additional data
+            $caps = wp_get_current_user()?->caps ?? [];
+            $caps['superadmin'] = is_super_admin();
+            $caps['usergroup']  = User::get()->getUserGroup()?->term_id ?? null;
+            
+            //Update hash with user caps
+            $this->hash = $this->hash . '-auth-' . $this->createShortHash($caps, true);
         }
 
+        //Add cache group to hash, if set
         if ($cacheGroup != '') {
-            $this->hash = $this->hash . '-' . $cacheGroup;
+            $this->hash = $this->hash . '-group-' . $cacheGroup;
         }
 
         add_action('save_post', [$this, 'clearCache']);
