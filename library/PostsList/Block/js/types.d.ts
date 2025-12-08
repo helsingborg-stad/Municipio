@@ -13,6 +13,7 @@ declare global {
 		numberOfColumns: number;
 		orderBy: string;
 		order: "asc" | "desc";
+		paginationEnabled: boolean;
 		postsPerPage: number;
 		postType: string;
 		taxonomiesEnabledForFiltering: TaxonomyFilter[];

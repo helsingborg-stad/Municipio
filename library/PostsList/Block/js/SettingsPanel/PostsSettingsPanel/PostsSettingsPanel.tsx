@@ -1,4 +1,8 @@
-import { __experimentalNumberControl, PanelBody } from "@wordpress/components";
+import {
+	__experimentalNumberControl,
+	PanelBody,
+	ToggleControl,
+} from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import type { PostsListEditProps } from "../../Edit";
 import { OrderByControl } from "./OrderByControl/OrderByControl";
@@ -8,7 +12,14 @@ import { TermSelectControl } from "./TermSelectControl/TermSelectControl";
 import { usePostsSettingsPanel } from "./usePostsSettingsPanel";
 
 export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
-	attributes: { postType, postsPerPage, terms, order, orderBy },
+	attributes: {
+		postType,
+		postsPerPage,
+		terms,
+		order,
+		orderBy,
+		paginationEnabled,
+	},
 	setAttributes,
 }) => {
 	const { taxonomies } = usePostsSettingsPanel(postType);
@@ -30,13 +41,22 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 				onChange={(value) => setAttributes({ postType: value })}
 			/>
 			<__experimentalNumberControl
-				label={__("Posts per page", "municipio")}
+				label={
+					paginationEnabled
+						? __("Posts per page", "municipio")
+						: __("Number of posts", "municipio")
+				}
 				max={40}
 				min={1}
 				spinControls="none"
 				value={postsPerPage || 12}
 				__next40pxDefaultSize
 				onChange={(value) => setAttributes({ postsPerPage: Number(value) })}
+			/>
+			<ToggleControl
+				label={__("Enable Pagination", "municipio")}
+				checked={paginationEnabled}
+				onChange={(value) => setAttributes({ paginationEnabled: value })}
 			/>
 			<OrderByControl
 				orderBy={orderBy}

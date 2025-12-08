@@ -19,6 +19,7 @@
 		"numberOfColumns": { "type": "number", "default": 3 },
 		"order": { "type": "string", "default": "desc" },
 		"orderBy": { "type": "string", "default": "date" },
+		"paginationEnabled": { "type": "boolean", "default": true },
 		"postsPerPage": { "type": "number", "default": 12 },
 		"postType": { "type": "string", "default": "post" },
 		"taxonomiesEnabledForFiltering": { "type": "array", "default": [] },

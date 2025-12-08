@@ -80,6 +80,11 @@ class PostsListBlockRenderer implements BlockRendererInterface
                 return [$this->attributes['postType'] ?? 'post'];
             }
 
+            public function paginationEnabled(): bool
+            {
+                return $this->attributes['paginationEnabled'] ?? true;
+            }
+
             public function getPostsPerPage(): int
             {
                 return $this->attributes['postsPerPage'];
