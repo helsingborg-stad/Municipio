@@ -12,8 +12,8 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes, string $content, \WP_Block $block): string
     {
-        $appearanceConfig = (new ConfigMappers\BlockAttributesToAppearanceConfigMapper())->map($attributes);
         $getPostsConfig = (new ConfigMappers\BlockAttributesToGetPostsConfigMapper())->map($attributes);
+        $appearanceConfig = (new ConfigMappers\BlockAttributesToAppearanceConfigMapper())->map($attributes);
         $filterConfig = (new ConfigMappers\BlockAttributesToFilterConfigMapper())->map($attributes);
         $prefix = 'posts_list_block_' . md5(json_encode($attributes)) . '_';
 

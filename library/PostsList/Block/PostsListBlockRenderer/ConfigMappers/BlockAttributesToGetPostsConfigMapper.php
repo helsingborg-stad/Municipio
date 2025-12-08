@@ -67,6 +67,11 @@ class BlockAttributesToGetPostsConfigMapper
             {
                 return $this->orderBy ?? 'date';
             }
+
+            public function getDateSource(): string
+            {
+                return $this->attributes['dateSource'] ?? 'post_date';
+            }
         };
     }
 }

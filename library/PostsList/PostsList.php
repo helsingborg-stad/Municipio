@@ -13,6 +13,8 @@ use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigUsingGetParamsDecorator;
+use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
 use Municipio\PostsList\GetPosts\MapPostArgsFromPostsListConfig;
 use Municipio\PostsList\GetPosts\WpQueryFactoryInterface;
 use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
@@ -30,6 +32,7 @@ class PostsList
     private array $posts;
     private WP_Query $wpQuery;
     private AppearanceConfigInterface $appearanceConfig;
+    private GetPostsConfigInterface $getPostsConfig;
 
     /**
      * Constructor
@@ -46,7 +49,7 @@ class PostsList
      * @mago-expect lint:excessive-parameter-list
      */
     public function __construct(
-        private GetPostsConfigInterface $getPostsConfig,
+        private GetPostsConfigInterface $providedGetPostsConfig,
         private AppearanceConfigInterface $providedAppearanceConfig,
         private FilterConfigInterface $filterConfig,
         private WpQueryFactoryInterface $wpQueryFactory,
@@ -119,35 +122,35 @@ class PostsList
             // Filter utilities
             'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments(
                 $this->filterConfig,
-                $this->getPostsConfig,
+                $this->getGetPostsConfig(),
                 $this->wpService,
                 $this->queryVars->getPrefix(),
             ))->getCallable(),
             'getFilterFormSubmitButtonArguments' => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments(
-                $this->getPostsConfig,
+                $this->getGetPostsConfig(),
                 $this->wpService,
             ))->getCallable(),
             'getFilterFormResetButtonArguments' => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments(
-                $this->getPostsConfig,
+                $this->getGetPostsConfig(),
                 $this->filterConfig,
                 $this->wpService,
             ))->getCallable(),
             'getTextSearchFieldArguments' => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments(
-                $this->getPostsConfig,
+                $this->getGetPostsConfig(),
                 $this->queryVars->getSearchParameterName(),
                 $this->wpService,
             ))->getCallable(),
             'getDateFilterFieldArguments' => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments(
-                $this->getPostsConfig,
+                $this->getGetPostsConfig(),
                 $this->wpService,
                 $this->queryVars->getDateFromParameterName(),
                 $this->queryVars->getDateToParameterName(),
             ))->getCallable(),
             // Pagination utilities
-            'paginationEnabled' => fn() => $this->getPostsConfig->paginationEnabled(),
+            'paginationEnabled' => fn() => $this->getGetPostsConfig()->paginationEnabled(),
             'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments(
                 $this->getWpQuery()->max_num_pages,
-                $this->getPostsConfig->getPage(),
+                $this->getGetPostsConfig()->getPage(),
                 $this->queryVars->getPaginationParameterName(),
             ))->getCallable(),
         ];
@@ -172,7 +175,7 @@ class PostsList
      */
     private function getPostsArgs(): array
     {
-        return (new MapPostArgsFromPostsListConfig($this->getPostsConfig, $this->filterConfig))->getPostsArgs();
+        return (new MapPostArgsFromPostsListConfig($this->getGetPostsConfig(), $this->filterConfig))->getPostsArgs();
     }
 
     /**
@@ -187,6 +190,20 @@ class PostsList
         }
 
         return $this->posts;
+    }
+
+    private function getGetPostsConfig(): GetPostsConfigInterface
+    {
+        if (!isset($this->getPostsConfig)) {
+            $this->getPostsConfig = new GetPostsConfigUsingGetParamsDecorator(
+                $this->providedGetPostsConfig,
+                $_GET,
+                $this->queryVars,
+                new GetTermsFromGetParams($_GET, $this->filterConfig, $this->queryVars->getPrefix(), $this->wpService),
+            );
+        }
+
+        return $this->getPostsConfig;
     }
 
     /**
