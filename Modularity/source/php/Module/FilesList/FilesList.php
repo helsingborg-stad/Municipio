@@ -67,7 +67,7 @@ class FilesList extends \Modularity\Module
             ];
 
             if (!is_array($settings) || !in_array('hide_filetype', $settings)) {
-                $meta[] = pathInfo($item['file']['url'], PATHINFO_EXTENSION);
+                $meta[] = pathInfo($item['file']['url'] ?? '', PATHINFO_EXTENSION);
             }
 
             if (!is_array($settings) || !in_array('hide_filesize', $settings)) {
