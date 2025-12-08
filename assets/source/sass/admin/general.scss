@@ -156,3 +156,8 @@ table.widefat {
     text-shadow: none;
     font-weight: 500;
 }
+
+/* Nested pages */ 
+.np-inline-overlay.active {
+    display: none !important;
+}
