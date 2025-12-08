@@ -54,6 +54,8 @@ class PostsListBlockRenderer implements BlockRendererInterface
             ]);
         }, $attributes['terms'] ?? []);
 
+        $terms = array_filter($terms, fn($item) => is_a($item, \WP_Term::class));
+
         // flatten terms array
         $terms = array_reduce(
             $terms,
@@ -110,6 +112,9 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
         foreach ($taxonomiesEnabledForFiltering as $item) {
             try {
+                if (!isset($GLOBALS['wp_taxonomies'][$item['taxonomy']])) {
+                    continue;
+                }
                 $taxonomyFilterConfigs[] = new TaxonomyFilterConfig(
                     $GLOBALS['wp_taxonomies'][$item['taxonomy']],
                     TaxonomyFilterType::from($item['type']),
