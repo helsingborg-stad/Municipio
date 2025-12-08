@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @mixin arrow($direction: 'up', $border-width: 5px, $color: #000) {
     width: 0;
     height: 0;
@@ -82,7 +84,7 @@
 		background-image: none;
 
 		&:hover {
-			background-color: lighten(#0085ba, 3%);
+			background-color: color.adjust(#0085ba, $lightness: 3%);
 		}
 
 		&::after {
