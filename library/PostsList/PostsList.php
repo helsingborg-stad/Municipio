@@ -144,6 +144,7 @@ class PostsList
                 $this->queryVars->getDateToParameterName(),
             ))->getCallable(),
             // Pagination utilities
+            'paginationEnabled' => fn() => $this->getPostsConfig->paginationEnabled(),
             'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments(
                 $this->getWpQuery()->max_num_pages,
                 $this->getPostsConfig->getPage(),

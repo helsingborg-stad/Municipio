@@ -27,7 +27,7 @@
                 @endelement
             @endforeach
         @endif
-        @if(!empty($getPaginationComponentArguments()))
+        @if($paginationEnabled() && !empty($getPaginationComponentArguments()))
             @element(['classList' => ['o-layout-grid--col-span-12']])
                 @include('parts.pagination')
             @endelement
