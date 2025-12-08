@@ -20,12 +20,14 @@
     @if(!empty($getDateTimestamp($post)))
         @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['archive-compressed__date', 'u-margin__top--4']])
             {{$lang->publish}}: 
-            @date([
-                'action' => 'formatDate',
-                'timestamp' => $getDateTimestamp($post),
-                'format' => $getDateFormat()
-            ])
-            @enddate
+            @if($getDateFormat()) 
+                @date([
+                    'action' => 'formatDate',
+                    'timestamp' => $getDateTimestamp($post),
+                    'format' => $getDateFormat()
+                ])
+                @enddate
+            @endif
         @endtypography
     @endif
     

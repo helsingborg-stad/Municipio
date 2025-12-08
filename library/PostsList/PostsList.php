@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList;
 
 use AcfService\Contracts\GetField;
@@ -37,9 +39,11 @@ class PostsList
      * @param FilterConfigInterface $providedFilterConfig
      * @param WpService $wpService
      * @param WpQueryFactoryInterface $wpQueryFactory
-     * @param QueryVarRegistrarInterface $querVarsRegistrar
+     * @param QueryVarRegistrarInterface $queryVarsRegistrar
      * @param GetField $acfService
      * @param AnyPostHasImageInterface $anyPostHasImageService
+     *
+     * @mago-expect lint:excessive-parameter-list
      */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
@@ -72,7 +76,7 @@ class PostsList
                 $this->wpService,
                 $this->acfService,
             ))->getCallable(),
-            'getExcerptWithoutLinks' => (new ViewCallableProviders\GetExcerptWithoutLinks())->getCallable(),
+            'getExcerpt' => (new ViewCallableProviders\GetExcerpt($this->wpService))->getCallable(),
             'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
             'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getAppearanceConfig()))->getCallable(),
             'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
@@ -109,7 +113,9 @@ class PostsList
             'getSchemaEventPriceRange' => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
             'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
-            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDateBadgeDate())->getCallable(),
+            'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
+            // Schema Exhibition event view utilities
+            'getSchemaExhibitionOccasionText' => (new ViewCallableProviders\Schema\ExhibitionEvent\GetOccasionText($this->wpService))->getCallable(),
             // Filter utilities
             'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments(
                 $this->filterConfig,
@@ -176,9 +182,7 @@ class PostsList
     private function getPosts(): array
     {
         if (!isset($this->posts)) {
-            $this->posts = array_map(fn($wpPost) => Post::convertWpPostToPostObject(
-                $wpPost,
-            ), $this->getWpQuery()->posts);
+            $this->posts = array_map([Post::class, 'convertWpPostToPostObject'], $this->getWpQuery()->posts);
         }
 
         return $this->posts;

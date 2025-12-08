@@ -1,5 +1,5 @@
 @collection__item([ 'link' => $post->getPermalink(), 'containerAware' => true, 'bordered' => true ])
-    @if ($config->shouldDisplayFeaturedImage() && !empty($post->getImage()))
+    @if ($appearanceConfig->shouldDisplayFeaturedImage() && !empty($post->getImage()))
         @slot('before')
             @if($post->getImage()) 
                 @image(['src' => $post->getImage()])@endimage
@@ -19,7 +19,7 @@
         ])
         @endtags
         @typography([])
-            {{ $getExcerptWithoutLinks($post) }}
+            {{ $getExcerpt($post, 10) }}
         @endtypography
     @endgroup
 @endcollection__item

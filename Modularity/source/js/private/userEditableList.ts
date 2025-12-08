@@ -1,4 +1,4 @@
-import { ValuesInterface, ItemsObject } from "../interface/privateModules";
+import type { ItemsObject, ValuesInterface } from "../interface/privateModules";
 
 class UserEditableList {
 	private savingLang: string = "Saving";
@@ -27,7 +27,7 @@ class UserEditableList {
 		this.submitButton.addEventListener("click", (event) => {
 			event.preventDefault();
 
-			let values: ValuesInterface = {};
+			const values: ValuesInterface = {};
 
 			this.checkboxes.forEach((checkbox) => {
 				values[checkbox.value] = checkbox.checked;
@@ -40,7 +40,7 @@ class UserEditableList {
 	private patchUser(values: ValuesInterface) {
 		this.handleBeforeSave();
 
-		const endpoint = `${wpApiSettings?.root}wp/v2/users/${this.userId}`;
+		const endpoint = `${wpApiSettings?.root}wp/v2/users/${this.userId}?cache-bust=${Date.now()}`;
 		fetch(endpoint, {
 			method: "GET",
 			headers: {
@@ -142,7 +142,7 @@ export default function initUserEditableList(userEditable: HTMLElement) {
 	const errorNotice = userEditable.querySelector(
 		"[data-js-user-editable-error]",
 	);
-	let itemsObject: ItemsObject = {};
+	const itemsObject: ItemsObject = {};
 
 	userEditable.querySelectorAll("[data-js-item-id]").forEach((item) => {
 		const itemId = item.getAttribute("data-js-item-id");
@@ -167,7 +167,7 @@ export default function initUserEditableList(userEditable: HTMLElement) {
 	}
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 	document
 		.querySelectorAll("[data-js-user-editable]")
 		.forEach((userEditable) => {

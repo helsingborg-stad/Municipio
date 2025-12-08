@@ -151,6 +151,9 @@ class Display
      */
     public function filterModularityShortcodes($value, $postId, $field)
     {
+        if(!is_string($value)){
+            return "";
+        }
         return preg_replace('/\[modularity(.*)\]/', '', $value);
     }
 
@@ -162,6 +165,9 @@ class Display
      */
     public function sanitizeContent($content)
     {
+        if(!is_string($content)){
+            return "";
+        }
         return preg_replace('/\[modularity(.*)\]/', '', $content);
     }
 
