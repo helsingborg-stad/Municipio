@@ -1,7 +1,8 @@
 <?php
 
-namespace Municipio\PostsList\Block;
+namespace Municipio\PostsList\Block\PostsListBlockRenderer;
 
+use Municipio\PostsList\Block\PostsListBlock;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Block;

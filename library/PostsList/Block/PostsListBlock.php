@@ -4,6 +4,7 @@ namespace Municipio\PostsList\Block;
 
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\PostsList\Block\PostsListBlockRenderer\BlockRendererInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\RegisterBlockType;
 

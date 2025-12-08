@@ -55,7 +55,6 @@ class App
         private WpUtilService $wpUtilService,
         private User $userHelper,
     ) {
-
         /**
          * Auto update
          */
@@ -360,7 +359,7 @@ class App
         (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
         (new \Municipio\PostsList\Block\PostsListBlock(
             $this->wpService,
-            new \Municipio\PostsList\Block\PostsListBlockRenderer(
+            new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
                 new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb),
             ),
         ))->addHooks();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\PostsList\Block;
+namespace Municipio\PostsList\Block\PostsListBlockRenderer;
 
 interface BlockRendererInterface
 {
