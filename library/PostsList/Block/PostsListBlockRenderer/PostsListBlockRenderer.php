@@ -12,13 +12,17 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes, string $content, \WP_Block $block): string
     {
-        $getPostsConfig = (new ConfigMappers\BlockAttributesToGetPostsConfigMapper())->map($attributes);
-        $appearanceConfig = (new ConfigMappers\BlockAttributesToAppearanceConfigMapper())->map($attributes);
-        $filterConfig = (new ConfigMappers\BlockAttributesToFilterConfigMapper())->map($attributes);
-        $prefix = 'posts_list_block_' . md5(json_encode($attributes)) . '_';
-
-        $data = $this->postsListFactory->create($getPostsConfig, $appearanceConfig, $filterConfig, $prefix)->getData();
-
+        $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\BlockAttributesToPostsListConfigMapper())->map([
+            ...$attributes,
+            'queryVarsPrefix' => 'posts_list_block_' . md5(json_encode($attributes)) . '_',
+        ]);
+        $postsList = $this->postsListFactory->create(
+            $postsListConfigDTO->getPostsConfig,
+            $postsListConfigDTO->appearanceConfig,
+            $postsListConfigDTO->filterConfig,
+            $postsListConfigDTO->queryVarsPrefix,
+        );
+        $data = $postsList->getData();
         return render_blade_view('posts-list', $data);
     }
 }
