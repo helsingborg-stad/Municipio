@@ -31,6 +31,7 @@ use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
+use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use WP_Post;
 use wpdb;
 use WpService\WpService;
@@ -87,6 +88,12 @@ class App
             $this->userHelper,
             $userGroupRestrictionConfig,
         );
+
+        /**
+         * Vary headers for LiteSpeed Cache
+         */
+        $userGroupVaryHeader = new UserGroupVary($this->wpService);
+        $userGroupVaryHeader->addHooks();
 
         /**
          * Allow posts in private visibility to have further conditions to be shown.
