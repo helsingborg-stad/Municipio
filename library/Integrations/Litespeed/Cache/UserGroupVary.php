@@ -22,7 +22,6 @@ class UserGroupVary implements Hookable
    */
   public function addHooks(): void
   {
-  
     $this->wpService->addFilter(
       'litespeed_cache_vary_headers', 
       [$this, 'addUserGroupVaryHeader']
