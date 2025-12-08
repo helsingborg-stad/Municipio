@@ -25,8 +25,6 @@ class BackEnd
         if (!empty($styles)) {
             echo '<style type="text/css" id="kirki_inline_styles">' . $styles . '</style>';
         }
-
-        do_action('kirki_dynamic_css');
     }
 
     /**

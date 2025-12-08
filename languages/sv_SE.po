@@ -551,7 +551,7 @@ msgstr "Ljudmodul"
 msgid "Type of audio file"
 msgstr "Typ av ljudfil"
 
-#: library/Admin/UI/BackEnd.php:60
+#: library/Admin/UI/BackEnd.php:62
 #: Modularity/source/php/AcfFields/php/mod-audio.php:25
 msgid "Local"
 msgstr "Lokal miljö"
@@ -577,7 +577,7 @@ msgstr "Lokal fil"
 msgid "External audio url"
 msgstr "Extern länk"
 
-#: library/Theme/Enqueue.php:155
+#: library/Theme/Enqueue.php:159
 #: Modularity/source/php/AcfFields/php/mod-audio.php:91
 #: Modularity/source/php/AcfFields/php/mod-search.php:82
 msgid "Alignment"
@@ -596,7 +596,7 @@ msgstr "Justering"
 #: library/Customizer/Sections/Header/Layout.php:225
 #: library/Customizer/Sections/Header/Layout.php:254
 #: library/Customizer/Sections/Width.php:68
-#: library/Theme/Enqueue.php:157
+#: library/Theme/Enqueue.php:161
 #: Modularity/source/php/AcfFields/php/mod-audio.php:104
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:285
 #: Modularity/source/php/AcfFields/php/mod-search.php:95
@@ -633,7 +633,7 @@ msgstr "Centrerad"
 #: library/Customizer/Sections/Header/Layout.php:227
 #: library/Customizer/Sections/Header/Layout.php:255
 #: library/Customizer/Sections/Width.php:84
-#: library/Theme/Enqueue.php:158
+#: library/Theme/Enqueue.php:162
 #: Modularity/source/php/AcfFields/php/mod-audio.php:106
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:286
 #: Modularity/source/php/AcfFields/php/mod-search.php:97
@@ -905,7 +905,7 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:170
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -923,11 +923,13 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1057,6 +1059,7 @@ msgstr "Filter ovanför kort/behållare"
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:98
 #: Modularity/source/php/AcfFields/php/mod-notice.php:75
 #: Modularity/source/php/AcfFields/php/mod-notice.php:152
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:385
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:88
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:120
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:152
@@ -1459,7 +1462,7 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:429
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
-#: Modularity/source/php/Module/Posts/Posts.php:239
+#: Modularity/source/php/Module/Posts/Posts.php:245
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1486,7 +1489,7 @@ msgstr "Bildtext"
 #: library/Customizer/Sections/Component/SliderHero.php:45
 #: library/Customizer/Sections/Component/SliderHero.php:95
 #: library/Customizer/Sections/Header/Appearance.php:46
-#: library/Theme/Enqueue.php:160
+#: library/Theme/Enqueue.php:164
 #: Modularity/source/php/AcfFields/php/mod-image.php:74
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:221
 msgid "None"
@@ -1620,6 +1623,7 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:408
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1689,7 +1693,7 @@ msgstr "Bild/Logotyp"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:240
+#: Modularity/source/php/Module/Posts/Posts.php:246
 msgid "Name"
 msgstr "Namn"
 
@@ -1812,6 +1816,7 @@ msgstr "Manuell inmatning"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:326
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:42
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -1831,7 +1836,7 @@ msgstr "Kolumnvärden"
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:626
 #: Modularity/source/php/AcfFields/php/mod-slider.php:261
 #: Modularity/source/php/AcfFields/php/mod-slider.php:553
-#: Modularity/source/php/Editor.php:133
+#: Modularity/source/php/Editor.php:136
 msgid "Content"
 msgstr "Innehåll"
 
@@ -1981,7 +1986,6 @@ msgstr "Aktiverad"
 #: library/Customizer/Sections/Menu/Vertical.php:49
 #: Modularity/source/php/AcfFields/php/mod-map.php:225
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:648
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:215
 msgid "Disabled"
 msgstr "Inaktiverad"
 
@@ -10701,9 +10705,9 @@ msgstr "Fara (röd)"
 msgid "success"
 msgstr "success"
 
-#: library/Admin/UI/BackEnd.php:78
-#: library/Admin/UI/BackEnd.php:83
-#: library/Admin/UI/BackEnd.php:88
+#: library/Admin/UI/BackEnd.php:82
+#: library/Admin/UI/BackEnd.php:93
+#: library/Admin/UI/BackEnd.php:104
 #: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:113
 #: Modularity/source/php/AcfFields/php/mod-notice.php:42
 msgid "Notice"
@@ -10951,25 +10955,12 @@ msgstr "Stigande"
 msgid "Descending"
 msgstr "Fallande"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:8
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:12
-msgid "Data source"
-msgstr "Datakälla"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:25
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:23
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:81
 msgid "Posttyper"
 msgstr "Posttyper"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:26
-msgid "Child posts"
-msgstr "Underordnade inlägg"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:27
-msgid "Manually picked posts"
-msgstr "Manuellt utvalda inlägg"
-
 #: library/AcfFields/php/post-type-schema-settings.php:57
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:28
 msgid "Schema type"
 msgstr "Schematyp"
 
@@ -10978,68 +10969,34 @@ msgid "Schema Type"
 msgstr ""
 
 #: library/Admin/Options/Theme.php:72
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:75
 msgid "Post Types"
 msgstr "Posttyper"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:104
-msgid "Pick posts to display"
-msgstr "Välj inlägg att visa"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:137
-msgid "Childs of"
-msgstr "Inlägg som har förälder"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:174
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:180
 msgid "Amount of posts to show (Maximum of 100)"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:194
-msgid "Pagination"
-msgstr "Paginering"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:216
-msgid "Page numbers"
-msgstr "Sidnummer"
-
 #: library/AcfFields/php/user-group-url.php:52
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:218
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:224
 msgid "disabled"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:231
-msgid "Link to post type archive"
-msgstr "Länka till posttypens arkiv"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:252
-msgid "Yes, link to post type archive"
-msgstr "Ja, länka till posttypens arkiv"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:259
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:267
 #, fuzzy
 msgid "Link title"
 msgstr "Länkstil"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:279
-#: Modularity/source/php/Module/Posts/Posts.php:235
+#: Modularity/source/php/Module/Posts/Posts.php:241
 msgid "Show more"
 msgstr "Visa mer"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:287
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:295
 msgid "Archive link above posts"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:291
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:299
 msgid "Doesn't work in combination with slider turned on"
 msgstr ""
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:316
-msgid "From network sites"
-msgstr "Från andra sajter i nätverket"
-
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:320
-msgid "Get posts from other sites in the network. Leave empty to only show posts from this site. If you chose one or more from this list you must also choose this site to get posts from this site."
-msgstr "Hämta poster från andrea sajter i nätverket. Lämna tom för att endast visa poster från denna sajt. Om du väljer en eller flera från denna lista måste du också välja denna sajten för att inkludera poster från denna sajten."
 
 #: Modularity/source/php/AcfFields/php/mod-posts-taxonomydisplay.php:8
 #: Modularity/source/php/AcfFields/php/mod-posts-taxonomydisplay.php:12
@@ -11118,7 +11075,7 @@ msgid "Placeholder"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-search.php:52
-#: Modularity/source/php/App.php:305
+#: Modularity/source/php/App.php:308
 msgid "Width"
 msgstr "Bredd"
 
@@ -11339,7 +11296,7 @@ msgstr "Extern"
 #: library/Helper/TranslatedLabels.php:79
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:167
-#: Modularity/source/php/Module/Posts/Posts.php:236
+#: Modularity/source/php/Module/Posts/Posts.php:242
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -11484,6 +11441,7 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -12396,6 +12354,7 @@ msgstr "Det finns inga inställningar för denna typ av widget.<br> <style>.acf-
 msgid "No options avabile"
 msgstr "Inga tillgängliga alternativ"
 
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:386
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:87
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:119
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:151
@@ -12500,106 +12459,106 @@ msgstr "Ämne"
 msgid "Taxonomy"
 msgstr "Kategori"
 
-#: Modularity/source/php/App.php:298
+#: Modularity/source/php/App.php:301
 msgid "Edit"
 msgstr "Redigera"
 
-#: Modularity/source/php/App.php:170
-#: Modularity/source/php/BlockManager.php:212
-#: Modularity/source/php/Editor.php:134
+#: Modularity/source/php/App.php:173
+#: Modularity/source/php/BlockManager.php:210
+#: Modularity/source/php/Editor.php:137
 msgid "Modules"
 msgstr "Moduler"
 
-#: Modularity/source/php/App.php:297
+#: Modularity/source/php/App.php:300
 msgid "Toggle visibility"
 msgstr "Synlighet"
 
-#: Modularity/source/php/App.php:299
+#: Modularity/source/php/App.php:302
 msgid "Import"
 msgstr "Importera"
 
-#: Modularity/source/php/App.php:300
+#: Modularity/source/php/App.php:303
 msgid "Remove"
 msgstr "Ta bort"
 
-#: Modularity/source/php/App.php:301
+#: Modularity/source/php/App.php:304
 msgid "Hide module"
 msgstr "Dölj modulen"
 
-#: Modularity/source/php/App.php:302
+#: Modularity/source/php/App.php:305
 msgid "Are you sure you want to remove this module?"
 msgstr "Är du säker på att du vill ta bort modulen?"
 
-#: Modularity/source/php/App.php:303
+#: Modularity/source/php/App.php:306
 msgid "Saving…"
 msgstr "Sparar…"
 
 #: library/Controller/BaseController.php:400
 #: library/Helper/TranslatedLabels.php:54
-#: Modularity/source/php/App.php:304
+#: Modularity/source/php/App.php:307
 msgid "Close"
 msgstr "Stäng"
 
-#: Modularity/source/php/App.php:307
+#: Modularity/source/php/App.php:310
 msgid "Deprecated"
 msgstr "Utgående"
 
-#: Modularity/source/php/App.php:223
+#: Modularity/source/php/App.php:226
 msgid "Edit Modules"
 msgstr "Redigera moduler"
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:138
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:228
-#: Modularity/source/php/BlockManager.php:489
+#: Modularity/source/php/BlockManager.php:487
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: Modularity/source/php/Display.php:719
+#: Modularity/source/php/Display.php:725
 msgid "Edit module"
 msgstr "Redigera modul"
 
-#: Modularity/source/php/Editor.php:181
+#: Modularity/source/php/Editor.php:184
 msgid "Save modules"
 msgstr "Spara moduler"
 
-#: Modularity/source/php/Editor.php:192
+#: Modularity/source/php/Editor.php:195
 msgid "Enabled modules"
 msgstr "Aktiverade moduler"
 
-#: Modularity/source/php/Editor.php:246
+#: Modularity/source/php/Editor.php:249
 msgid "No active sidebar areas"
 msgstr "Inga aktiva sidebars"
 
-#: Modularity/source/php/Editor.php:250
+#: Modularity/source/php/Editor.php:253
 msgid "There's no active sidebars. Please activate sidebar areas in the Modularity Options to add modules."
 msgstr "Det finns inga aktiva sidebars. Du kan aktivera sidebars under sidan ”Modularity -> Options”."
 
-#: Modularity/source/php/Editor.php:602
+#: Modularity/source/php/Editor.php:605
 msgid "Page not loaded before saving changes."
 msgstr ""
 
-#: Modularity/source/php/Editor.php:608
+#: Modularity/source/php/Editor.php:611
 #, fuzzy
 msgid "No post id found"
 msgstr "Placera bild"
 
-#: Modularity/source/php/Editor.php:620
+#: Modularity/source/php/Editor.php:623
 msgid "Modules saved"
 msgstr "Moduler sparades"
 
-#: Modularity/source/php/Editor.php:710
+#: Modularity/source/php/Editor.php:713
 msgid "Inherit"
 msgstr "Ärv"
 
-#: Modularity/source/php/Editor.php:773
+#: Modularity/source/php/Editor.php:776
 msgid "Scope styling"
 msgstr "Utseende"
 
-#: Modularity/source/php/Editor.php:777
+#: Modularity/source/php/Editor.php:780
 msgid "Select an apperance for this instance of module"
 msgstr "Välj ett alternativt utseende för den här modulen"
 
-#: Modularity/source/php/Editor.php:780
+#: Modularity/source/php/Editor.php:783
 msgid "By selecting a scope for this class, they will appear in a different way than the standard layout."
 msgstr "Välj ett specialutseende för den här modulen som passar ditt syfte med innehållet."
 
@@ -12685,12 +12644,12 @@ msgid "Outputs a gallery with images"
 msgstr "Visar ett galleri med bilder"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:32
-#: Modularity/source/php/Module/Posts/Posts.php:221
+#: Modularity/source/php/Module/Posts/Posts.php:227
 msgid "Previous slide"
 msgstr "Gå till föregående bild"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:33
-#: Modularity/source/php/Module/Posts/Posts.php:222
+#: Modularity/source/php/Module/Posts/Posts.php:228
 msgid "Next slide"
 msgstr "Gå till nästa bild"
 
@@ -12787,17 +12746,17 @@ msgstr "Sök"
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
-#: Modularity/source/php/Module/Posts/Posts.php:237
+#: Modularity/source/php/Module/Posts/Posts.php:243
 msgid "Save"
 msgstr "Spara"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:51
-#: Modularity/source/php/Module/Posts/Posts.php:238
+#: Modularity/source/php/Module/Posts/Posts.php:244
 msgid "Cancel"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:54
-#: Modularity/source/php/Module/Posts/Posts.php:241
+#: Modularity/source/php/Module/Posts/Posts.php:247
 msgid "Saving"
 msgstr "Sparar"
 
@@ -12806,13 +12765,13 @@ msgid "This item is obligatory"
 msgstr "Detta är obligatoriskt"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:56
-#: Modularity/source/php/Module/Posts/Posts.php:242
+#: Modularity/source/php/Module/Posts/Posts.php:248
 #, fuzzy
 msgid "An error occurred and the data could not be saved. Please try again later"
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
-#: Modularity/source/php/Module/Posts/Posts.php:243
+#: Modularity/source/php/Module/Posts/Posts.php:249
 msgid "Change the lists content"
 msgstr ""
 
@@ -12913,12 +12872,12 @@ msgstr ""
 msgid "Modularity expandable list column values"
 msgstr "Expanderbar lista - kolumninnehåll"
 
-#: Modularity/source/php/Module/Posts/Posts.php:41
-#: Modularity/source/php/Module/Posts/Posts.php:42
+#: Modularity/source/php/Module/Posts/Posts.php:44
+#: Modularity/source/php/Module/Posts/Posts.php:45
 msgid "Posts"
 msgstr "Inlägg"
 
-#: Modularity/source/php/Module/Posts/Posts.php:43
+#: Modularity/source/php/Module/Posts/Posts.php:46
 msgid "Outputs selected posts in specified layout"
 msgstr "Visar valda inlägg i en vald layout"
 
@@ -13115,7 +13074,7 @@ msgstr "Inte använd"
 msgid "more"
 msgstr "fler"
 
-#: Modularity/source/php/ModuleManager.php:657
+#: Modularity/source/php/ModuleManager.php:663
 msgid "<strong>Heads up:</strong> This module is used in several places"
 msgstr ""
 
@@ -13573,6 +13532,7 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:460
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -15127,6 +15087,7 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -15229,7 +15190,7 @@ msgstr "Vänster & höger"
 #: library/AcfFields/php/widget-header-common.php:119
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:89
 #: library/Customizer/Sections/Header/Appearance.php:86
-#: library/Theme/Enqueue.php:156
+#: library/Theme/Enqueue.php:160
 msgid "Margin"
 msgstr "Marginal"
 
@@ -15468,23 +15429,23 @@ msgstr "Egen CSS/JS"
 msgid "PDF Generator Settings"
 msgstr "Inställningar för PDF-generator"
 
-#: library/Admin/UI/BackEnd.php:64
+#: library/Admin/UI/BackEnd.php:66
 msgid "Test"
 msgstr "Test"
 
-#: library/Admin/UI/BackEnd.php:68
+#: library/Admin/UI/BackEnd.php:70
 msgid "Beta"
 msgstr "Beta"
 
-#: library/Admin/UI/BackEnd.php:78
+#: library/Admin/UI/BackEnd.php:84
 msgid "You're on a local server."
 msgstr "Detta är en lokal server."
 
-#: library/Admin/UI/BackEnd.php:83
+#: library/Admin/UI/BackEnd.php:95
 msgid "This it the test-environment. Your content will not be published."
 msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 
-#: library/Admin/UI/BackEnd.php:88
+#: library/Admin/UI/BackEnd.php:106
 msgid "This it the beta-environment. All functionality is not guaranteed. Possibly, the web page content will be restored and synchronized with the live site on Monday."
 msgstr "Detta är en beta-miljö. All funktionalitet är inte garanterad. Eventuellt kommer webbsidans innehåll att återställas och synkroniseras med live sajten på måndag."
 
@@ -15943,6 +15904,7 @@ msgid "More occasions"
 msgstr "Alla tillfällen"
 
 #: library/Controller/SingularEvent.php:127
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr "Plats"
 
@@ -16026,6 +15988,7 @@ msgstr "Denna utställning har redan ägt rum."
 
 #: library/Controller/SingularExhibitionEvent.php:141
 #: library/PostObject/Date/ExhibitionEventArchiveDateFormatResolver.php:73
+#: library/PostsList/ViewCallableProviders/Schema/ExhibitionEvent/GetOccasionText.php:101
 msgctxt "ExhibitionEvent"
 msgid "until further notice"
 msgstr "tills vidare"
@@ -16530,6 +16493,7 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:403
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -16542,6 +16506,7 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:410
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Date badge"
 msgstr "Datummärke"
 
@@ -16554,6 +16519,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:455
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -16566,6 +16532,7 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:466
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -18686,99 +18653,99 @@ msgstr "One Page"
 msgid "Page (centered)"
 msgstr "Centrerad sida"
 
-#: library/Theme/Enqueue.php:77
+#: library/Theme/Enqueue.php:79
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:79
+#: library/Theme/Enqueue.php:81
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:80
+#: library/Theme/Enqueue.php:82
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:89
+#: library/Theme/Enqueue.php:91
 #, fuzzy
 msgid "January"
 msgstr "manual"
 
-#: library/Theme/Enqueue.php:90
-msgid "February"
-msgstr ""
-
-#: library/Theme/Enqueue.php:91
-#, fuzzy
-msgid "March"
-msgstr "Sök"
-
 #: library/Theme/Enqueue.php:92
-msgid "April"
+msgid "February"
 msgstr ""
 
 #: library/Theme/Enqueue.php:93
 #, fuzzy
-msgid "May"
-msgstr "dag"
+msgid "March"
+msgstr "Sök"
 
 #: library/Theme/Enqueue.php:94
-msgid "June"
+msgid "April"
 msgstr ""
 
 #: library/Theme/Enqueue.php:95
-msgid "July"
-msgstr ""
+#, fuzzy
+msgid "May"
+msgstr "dag"
 
 #: library/Theme/Enqueue.php:96
-msgid "August"
+msgid "June"
 msgstr ""
 
 #: library/Theme/Enqueue.php:97
-msgid "September"
+msgid "July"
 msgstr ""
 
 #: library/Theme/Enqueue.php:98
-msgid "October"
+msgid "August"
 msgstr ""
 
 #: library/Theme/Enqueue.php:99
+msgid "September"
+msgstr ""
+
+#: library/Theme/Enqueue.php:100
+msgid "October"
+msgstr ""
+
+#: library/Theme/Enqueue.php:101
 #, fuzzy
 msgid "November"
 msgstr "Nummer"
 
-#: library/Theme/Enqueue.php:100
+#: library/Theme/Enqueue.php:102
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:102
+#: library/Theme/Enqueue.php:106
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:103
+#: library/Theme/Enqueue.php:107
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:104
+#: library/Theme/Enqueue.php:108
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:105
+#: library/Theme/Enqueue.php:109
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:106
+#: library/Theme/Enqueue.php:110
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:107
+#: library/Theme/Enqueue.php:111
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:108
+#: library/Theme/Enqueue.php:112
 msgid "Sa"
 msgstr "Lö"
 
-#: library/Theme/Enqueue.php:159
+#: library/Theme/Enqueue.php:163
 msgid "Both"
 msgstr "Båda"
 
@@ -19275,3 +19242,163 @@ msgstr "Plats"
 msgctxt "SingleDigitalGateway"
 msgid "The location where the service is provided."
 msgstr "Plats där tjänsten tillhandahålls. Ska endast fyllas i om informationen på webbsidan endast gäller regionalt eller lokalt. Ex. 'SE224'"
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:6
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:10
+msgid "Datakälla"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:24
+msgid "Underordnade inlägg"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:25
+msgid "Manuellt utvalda inlägg"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:26
+msgid "Schematyp"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:63
+msgid "JobPosting"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:65
+msgid "Event"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:110
+msgid "Välj inlägg att visa"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:143
+msgid "Inlägg som har förälder"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:176
+msgid "Antal inlägg"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:200
+msgid "Paginering"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:221
+msgid "Inaktiverad"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:222
+msgid "Sidnummer"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:239
+msgid "Länka till posttypens arkiv"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:260
+msgid "Ja, länka till posttypens arkiv"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:287
+msgid "Visa mer"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:324
+msgid "Från andra sajter i nätverket"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:328
+msgid "Hämta poster från andrea sajter i nätverket. Lämna tom för att endast visa poster från denna sajt. Om du väljer en eller flera från denna lista måste du också välja denna sajten för att inkludera poster från denna sajten."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:370
+msgid "Get posts from the users group"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:374
+msgid "Also fetches the posts from the users homepage (User group)"
+msgstr ""
+
+#: Modularity/source/php/Module/Posts/Helper/PostSourceBuilder.php:45
+#: Modularity/source/php/Module/Posts/TemplateController/AbstractController.php:106
+msgid "Unknown Blog"
+msgstr ""
+
+#: library/PostsList/Block/block.json
+msgctxt "block title"
+msgid "Posts List Block"
+msgstr "Inläggslista"
+
+#: library/PostsList/Block/block.json
+msgctxt "block description"
+msgid "A block to display a list of posts."
+msgstr "Block som visar en lista av poster"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Date Published"
+msgstr "Publiceringsdatum"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "DateModified"
+msgstr "Datum ändrad"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Order by"
+msgstr "Sortera efter"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Posts settings"
+msgstr "Inläggsinställningar"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Posts per page"
+msgstr "Inlägg per sida"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Enable Pagination"
+msgstr "Aktivera paginering"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Time"
+msgstr "Tid"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Date, time"
+msgstr "Datum, tid"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Date Modified"
+msgstr "Datum ändrad"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Date source"
+msgstr "Datumkälla"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Newsitem"
+msgstr "Nyhetsartikel"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Appearance settings"
+msgstr "UI"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Design"
+msgstr "Design"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Number of columns"
+msgstr "Antal kolumner"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Filter settings"
+msgstr "Filterinställningar"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Enable text search"
+msgstr "Aktivera textsökning"
+
+#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+msgid "Enable date filter"
+msgstr "Aktivera datumfilter"
