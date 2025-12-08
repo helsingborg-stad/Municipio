@@ -1,0 +1,15 @@
+<?php
+
+namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper;
+
+use PHPUnit\Framework\TestCase;
+
+class MappedFieldTest extends TestCase
+{
+    #[TestDox('class can be instantiated')]
+    public function testClassCanBeInstantiated(): void
+    {
+        $mappedField = new MappedField('testName', 'testType', 'testValue');
+        $this->assertInstanceOf(MappedField::class, $mappedField);
+    }
+}
