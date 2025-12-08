@@ -17,22 +17,22 @@ class UserGroupVary implements Hookable
 
   /**
    * Register hooks for adding user group vary header.
-   * 
+   *
    * @return void
    */
   public function addHooks(): void
   {
     $this->wpService->addFilter(
-      'litespeed_cache_vary_headers', 
+      'litespeed_cache_vary_headers',
       [$this, 'addUserGroupVaryHeader']
     );
   }
 
   /**
    * Add user group to vary headers for logged in users.
-   * This ensures that different cached versions are served 
+   * This ensures that different cached versions are served
    * based on user groups.
-   * 
+   *
    * @param array $varyHeaders
    * @return array
    */
