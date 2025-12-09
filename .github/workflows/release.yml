@@ -30,6 +30,7 @@ jobs:
           git fetch origin main
           git checkout main
           git pull origin main
+          git checkout -B release
 
       - name: Extract version
         id: version
@@ -56,6 +57,10 @@ jobs:
 
       - name: Run PHP build script
         run: php build.php --no-composer --cleanup --release
+
+      - name: Remove cached git files
+        run: |
+          git rm -r --cached .
 
       - name: Overwrite .gitignore for release branch
         run: |
@@ -99,9 +104,6 @@ jobs:
         run: |
           git config user.name "CI Release Bot"
           git config user.email "ci@helsingborg.se"
-          git branch -D release
-          git checkout --orphan release
-          git reset    # optional, clears index without touching working tree
           git add .
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
           git push origin release --force
