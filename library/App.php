@@ -25,13 +25,13 @@ use Municipio\ImageFocus\Resolvers\FaceDetectingFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\ManualInputFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
+use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
-use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use WP_Post;
 use wpdb;
 use WpService\WpService;
@@ -368,6 +368,7 @@ class App
             $this->wpService,
             new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
                 new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb),
+                new \ComponentLibrary\Renderer\Renderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($this->wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
             ),
         ))->addHooks();
 

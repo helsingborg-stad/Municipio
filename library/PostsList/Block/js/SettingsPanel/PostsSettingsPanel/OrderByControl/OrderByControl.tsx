@@ -19,13 +19,13 @@ export const OrderByControl: React.FC<Props> = ({
 	orderBy,
 	onChange,
 }) => {
-	const { postTypeMetaKeys } = useContext(PostsListContext);
+	const { getPostTypeMetaKeys } = useContext(PostsListContext);
 	const [metaKeysAsOptions, setMetaKeysAsOptions] = useState<
 		{ label: string; value: string }[]
 	>([]);
 
 	useEffect(() => {
-		postTypeMetaKeys(postType).then((metaKeys) => {
+		getPostTypeMetaKeys(postType).then((metaKeys) => {
 			setMetaKeysAsOptions(
 				Object.values(metaKeys).map((key) => ({
 					label: __(`meta: ${key}`, "municipio"),
@@ -33,7 +33,7 @@ export const OrderByControl: React.FC<Props> = ({
 				})),
 			);
 		});
-	}, [postTypeMetaKeys, postType]);
+	}, [getPostTypeMetaKeys, postType]);
 
 	return (
 		<SelectControl

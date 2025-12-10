@@ -2,11 +2,9 @@
 
 namespace Municipio\PostsList;
 
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigUsingGetParamsDecorator;
 use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
+use Municipio\PostsList\ConfigMapper\PostsListConfigDTOInterface;
 use Municipio\PostsList\GetPosts\WpQueryFactory;
 use Municipio\PostsList\QueryVars\QueryVars;
 use WpService\WpService;
@@ -18,22 +16,23 @@ class PostsListFactory implements PostsListFactoryInterface
         private \wpdb $wpdb,
     ) {}
 
-    public function create(
-        GetPostsConfigInterface $getPostsConfig,
-        AppearanceConfigInterface $appearanceConfig,
-        FilterConfigInterface $filterConfig,
-        string $queryVarsPrefix,
-    ): PostsList {
-        $queryVars = new QueryVars($queryVarsPrefix);
+    public function create(PostsListConfigDTOInterface $postsListConfigDTO): PostsListInterface
+    {
+        $queryVars = new QueryVars($postsListConfigDTO->getQueryVarsPrefix());
         return new PostsList(
             new GetPostsConfigUsingGetParamsDecorator(
-                $getPostsConfig,
+                $postsListConfigDTO->getGetPostsConfig(),
                 $_GET,
                 $queryVars,
-                new GetTermsFromGetParams($_GET, $filterConfig, $queryVars->getPrefix(), $this->wpService),
+                new GetTermsFromGetParams(
+                    $_GET,
+                    $postsListConfigDTO->getFilterConfig(),
+                    $queryVars->getPrefix(),
+                    $this->wpService,
+                ),
             ),
-            $appearanceConfig,
-            $filterConfig,
+            $postsListConfigDTO->getAppearanceConfig(),
+            $postsListConfigDTO->getFilterConfig(),
             new WpQueryFactory(),
             $queryVars,
             $this->wpService,

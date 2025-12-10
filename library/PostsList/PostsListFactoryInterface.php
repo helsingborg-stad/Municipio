@@ -2,19 +2,12 @@
 
 namespace Municipio\PostsList;
 
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use Municipio\PostsList\ConfigMapper\PostsListConfigDTOInterface;
 
 interface PostsListFactoryInterface
 {
     /**
      * Create a PostsList instance
      */
-    public function create(
-        GetPostsConfigInterface $getPostsConfig,
-        AppearanceConfigInterface $appearanceConfig,
-        FilterConfigInterface $filterConfig,
-        string $queryVarsPrefix
-    ): PostsList;
+    public function create(PostsListConfigDTOInterface $postsListConfigDTO): PostsListInterface;
 }

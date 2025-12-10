@@ -48,12 +48,7 @@ class Archive extends \Municipio\Controller\BaseController
             'wpTaxonomies' => $GLOBALS['wp_taxonomies'],
         ]);
         $postsListFactory = new \Municipio\PostsList\PostsListFactory($this->wpService, $GLOBALS['wpdb']);
-        $postsList = $postsListFactory->create(
-            $postsListConfigDTO->getPostsConfig,
-            $postsListConfigDTO->appearanceConfig,
-            $postsListConfigDTO->filterConfig,
-            $postsListConfigDTO->queryVarsPrefix,
-        );
+        $postsList = $postsListFactory->create($postsListConfigDTO);
         $this->data = [
             ...$this->data,
             ...$postsList->getData(),

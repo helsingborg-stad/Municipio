@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Municipio\PostsList\ConfigMapper;
 
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-
 /**
  * Maps archive controller data to PostsList config objects
  */
 class ArchiveDataToPostsListConfigMapper implements PostsListConfigMapperInterface
 {
-    public function map(mixed $sourceData): PostsListConfigDTO
+    public function map(mixed $sourceData): PostsListConfigDTOInterface
     {
         // $sourceData is expected to be the $this->data array from Archive.php, with 'wpTaxonomies' key
         $data = $sourceData;

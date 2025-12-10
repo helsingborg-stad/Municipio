@@ -7,19 +7,22 @@ namespace Municipio\PostsList\ConfigMapper;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class PostsListConfigDTOTest extends TestCase
 {
-    public function testDTOProperties(): void
+    #[TestDox('tests PostsListConfigDTO properties and methods')]
+    public function testPostsListConfigDTOPropertiesAndMethods(): void
     {
-        $stubConfig = $this->createMock(GetPostsConfigInterface::class);
-        $stubAppearance = $this->createMock(AppearanceConfigInterface::class);
-        $stubFilter = $this->createMock(FilterConfigInterface::class);
+        $stubConfig = static::createMock(GetPostsConfigInterface::class);
+        $stubAppearance = static::createMock(AppearanceConfigInterface::class);
+        $stubFilter = static::createMock(FilterConfigInterface::class);
         $dto = new PostsListConfigDTO($stubConfig, $stubAppearance, $stubFilter, 'prefix_');
-        $this->assertSame($stubConfig, $dto->getPostsConfig);
-        $this->assertSame($stubAppearance, $dto->appearanceConfig);
-        $this->assertSame($stubFilter, $dto->filterConfig);
-        $this->assertEquals('prefix_', $dto->queryVarsPrefix);
+
+        static::assertSame($stubConfig, $dto->getGetPostsConfig());
+        static::assertSame($stubAppearance, $dto->getAppearanceConfig());
+        static::assertSame($stubFilter, $dto->getFilterConfig());
+        static::assertSame('prefix_', $dto->getQueryVarsPrefix());
     }
 }

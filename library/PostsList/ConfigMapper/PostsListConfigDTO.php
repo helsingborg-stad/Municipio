@@ -11,7 +11,7 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 /**
  * DTO for PostsList config objects
  */
-class PostsListConfigDTO
+class PostsListConfigDTO implements PostsListConfigDTOInterface
 {
     public function __construct(
         public GetPostsConfigInterface $getPostsConfig,
@@ -19,4 +19,24 @@ class PostsListConfigDTO
         public FilterConfigInterface $filterConfig,
         public string $queryVarsPrefix = '',
     ) {}
+
+    public function getGetPostsConfig(): GetPostsConfigInterface
+    {
+        return $this->getPostsConfig;
+    }
+
+    public function getAppearanceConfig(): AppearanceConfigInterface
+    {
+        return $this->appearanceConfig;
+    }
+
+    public function getFilterConfig(): FilterConfigInterface
+    {
+        return $this->filterConfig;
+    }
+
+    public function getQueryVarsPrefix(): string
+    {
+        return $this->queryVarsPrefix;
+    }
 }

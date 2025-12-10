@@ -24,7 +24,7 @@ use WpService\WpService;
 /*
  * Posts list main class
  */
-class PostsList
+class PostsList implements PostsListInterface
 {
     /** @var PostObjectInterface[] */
     private array $posts;
