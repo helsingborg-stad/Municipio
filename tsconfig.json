@@ -1,7 +1,5 @@
 {
  "compilerOptions": {
-      "allowImportingTsExtensions": true,
-      "noEmit": true,
       "allowJs": true,
       "checkJs": false,
       "target": "es6",
