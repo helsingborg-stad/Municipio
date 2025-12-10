@@ -1,6 +1,9 @@
 import { findByRole, render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { PostsListContext } from "../../../PostsListContext";
+import {
+	PostsListContext,
+	PostsListContextProvider,
+} from "../../../PostsListContext";
 import { OrderByControl } from "./OrderByControl";
 
 Object.defineProperty(window, "matchMedia", {
@@ -23,12 +26,8 @@ describe("OrderByControl", () => {
 		async (targetValue) => {
 			let value = "";
 			render(
-				<PostsListContext.Provider
-					value={{
-						postTypeMetaKeys: async () => {
-							return [];
-						},
-					}}
+				<PostsListContextProvider
+					gptmk={{ getPostTypeMetaKeys: () => Promise.resolve([]) }}
 				>
 					<OrderByControl
 						postType="post"
@@ -37,7 +36,7 @@ describe("OrderByControl", () => {
 							value = selectedValue;
 						}}
 					/>
-				</PostsListContext.Provider>,
+				</PostsListContextProvider>,
 			);
 			const select = document.querySelector("select");
 			expect(select).not.toBeNull();
@@ -49,9 +48,9 @@ describe("OrderByControl", () => {
 	it("allows selecting meta keys belonging to post type", async () => {
 		let value = "";
 		render(
-			<PostsListContext.Provider
-				value={{
-					postTypeMetaKeys: async () => {
+			<PostsListContextProvider
+				gptmk={{
+					getPostTypeMetaKeys: async () => {
 						return ["meta_key_example"];
 					},
 				}}
@@ -63,7 +62,7 @@ describe("OrderByControl", () => {
 						value = selectedValue;
 					}}
 				/>
-			</PostsListContext.Provider>,
+			</PostsListContextProvider>,
 		);
 
 		await findByRole(document.body, "option", { name: /meta_key_example/ });
