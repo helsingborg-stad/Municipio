@@ -13,7 +13,7 @@
 	},
 	"attributes": {
 		"dateFilterEnabled": { "type": "boolean", "default": false },
-		"dateFormat": { "type": "string", "default": "F j, Y" },
+		"dateFormat": { "type": "string", "default": "date" },
 		"dateSource": { "type": "string", "default": "post_date" },
 		"design": { "type": "string", "default": "card" },
 		"numberOfColumns": { "type": "number", "default": 3 },
