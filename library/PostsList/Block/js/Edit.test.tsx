@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { Edit, type PostsListEditProps } from "./Edit";
+import { Edit, type PostsListEditProps } from "./Edit.tsx";
 
 jest.mock("./SettingsPanel/SettingsPanel", () => ({
 	SettingsPanel: (props: PostsListEditProps) => (
