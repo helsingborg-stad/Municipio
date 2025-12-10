@@ -30,7 +30,7 @@ class BlockAttributesToAppearanceConfigMapper
 
             public function getDateFormat(): DateFormat
             {
-                return DateFormat::from($this->attributes['dateFormat']);
+                return DateFormat::tryFrom($this->attributes['dateFormat']) ?? DateFormat::DATE;
             }
 
             public function getDateSource(): string

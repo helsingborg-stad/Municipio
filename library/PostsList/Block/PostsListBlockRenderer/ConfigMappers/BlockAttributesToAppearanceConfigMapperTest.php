@@ -34,4 +34,16 @@ class BlockAttributesToAppearanceConfigMapperTest extends TestCase {
         static::assertSame(DateFormat::from('date'), $config->getDateFormat());
         static::assertSame('post_date', $config->getDateSource());
     }
+
+    #[TestDox('can map invalid date format to default')]
+    public function testCanMapInvalidDateFormatToDefault(): void {
+        $attributes = [
+            'dateFormat' => 'invalid-format',
+        ];
+
+        $mapper = new BlockAttributesToAppearanceConfigMapper();
+        $config = $mapper->map($attributes);
+
+        static::assertSame(DateFormat::DATE, $config->getDateFormat());
+    }
 }
