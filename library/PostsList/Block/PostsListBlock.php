@@ -33,7 +33,7 @@ class PostsListBlock implements Hookable
         register_rest_route('municipio/v1', '/meta-keys/(?P<postType>[a-zA-Z0-9_-]+)', [
             'methods' => 'GET',
             'callback' => [$this, 'getPostTypeMetaKeys'],
-            'permission_callback' => function () {
+            'permission_callback' => static function () {
                 return current_user_can('edit_posts');
             },
         ]);

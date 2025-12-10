@@ -13,7 +13,7 @@ class BlockAttributesToFilterConfigMapper
     {
         $taxonomiesEnabledForFiltering = array_filter(
             $attributes['taxonomiesEnabledForFiltering'] ?? [],
-            function ($item) {
+            static function ($item) {
                 return is_array($item) && isset($item['taxonomy'], $item['type']);
             },
         );

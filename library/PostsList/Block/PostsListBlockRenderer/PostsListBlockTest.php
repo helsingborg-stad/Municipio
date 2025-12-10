@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\Block\PostsListBlockRenderer;
 
 use Municipio\PostsList\Block\PostsListBlock;
@@ -40,7 +42,7 @@ class PostsListBlockTest extends TestCase
         $postsListBlock = new PostsListBlock($wpService, $this->createBlockRenderer());
         $postsListBlock->addHooks();
 
-        $this->assertEquals('init', $wpService->addActionCalls[0]['hookName']);
+        static::assertSame('init', $wpService->addActionCalls[0]['hookName']);
     }
 
     #[TestDox('registers block with valid block json file and render callback')]
@@ -70,8 +72,8 @@ class PostsListBlockTest extends TestCase
         $postsListBlock = new PostsListBlock($wpService, $this->createBlockRenderer());
         $postsListBlock->registerBlock();
 
-        $this->assertFileExists($wpService->registeredBlockType);
-        $this->assertIsCallable($wpService->registeredArgs['render_callback']);
+        static::assertFileExists($wpService->registeredBlockType);
+        static::assertIsCallable($wpService->registeredArgs['render_callback']);
     }
 
     private function createBlockRenderer(): BlockRendererInterface

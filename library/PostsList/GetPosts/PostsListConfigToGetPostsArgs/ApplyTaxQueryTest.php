@@ -2,7 +2,7 @@
 
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
-use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;

@@ -47,7 +47,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
             return [];
         }
 
-        $terms = $this->getTermsForTaxonomies(array_map(fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name, $taxonomyFilterConfigs));
+        $terms = $this->getTermsForTaxonomies(array_map(static fn(TaxonomyFilterConfigInterface $config) => $config->getTaxonomy()->name, $taxonomyFilterConfigs));
 
         if (empty($terms)) {
             return [];
@@ -141,7 +141,7 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
         if (empty($terms)) {
             return [];
         }
-        $filtered = array_filter($terms, fn($term) => $term->taxonomy === $taxonomyName);
-        return array_map(fn($term) => $term->slug, $filtered);
+        $filtered = array_filter($terms, static fn($term) => $term->taxonomy === $taxonomyName);
+        return array_map(static fn($term) => $term->slug, $filtered);
     }
 }

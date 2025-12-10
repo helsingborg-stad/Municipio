@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
@@ -41,7 +43,7 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         $terms = $config->getTerms();
 
-        if (empty($terms)) {
+        if (count($terms) === 0) {
             return [];
         }
 
@@ -91,9 +93,11 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
     private function taxonomyIsHierarchical(string $taxonomy): bool
     {
         foreach ($this->taxonomyFilterConfigs as $taxonomyFilterConfig) {
-            if ($taxonomyFilterConfig->getTaxonomy()->name === $taxonomy) {
-                return $taxonomyFilterConfig->getTaxonomy()->hierarchical;
+            if ($taxonomyFilterConfig->getTaxonomy()->name !== $taxonomy) {
+                continue;
             }
+
+            return $taxonomyFilterConfig->getTaxonomy()->hierarchical;
         }
 
         return false;

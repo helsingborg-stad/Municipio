@@ -4,8 +4,8 @@ namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigUsingGetParamsDecorator;
-use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
+
+
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WpService\Contracts\GetTerms;
 use WpService\Contracts\GetThemeMod;

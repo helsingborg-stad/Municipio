@@ -73,13 +73,13 @@ class GetDateBadgeDate implements ViewCallableProviderInterface
     {
         usort(
             $schedules,
-            fn(Schedule $a, Schedule $b) => $a->getProperty('startDate') <=> $b->getProperty('startDate'),
+            static fn(Schedule $a, Schedule $b) => $a->getProperty('startDate') <=> $b->getProperty('startDate'),
         );
         $now = new DateTime();
         foreach ($schedules as $schedule) {
-            if ($schedule->getProperty('startDate') >= $now) {
-                return $schedule;
-            }
+            if ($schedule->getProperty('startDate') < $now) { continue; }
+
+return $schedule;
         }
 
         return null;

@@ -2,7 +2,7 @@
 
 namespace Municipio\Theme;
 
-use Municipio\Helper\CacheBust;
+
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -31,21 +31,21 @@ class Enqueue implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('wp_enqueue_scripts', array($this, 'enqueueMaterialSymbols'));
-        $this->wpService->addAction('admin_enqueue_scripts', array($this, 'enqueueMaterialSymbols'), 999);
-        $this->wpService->addAction('wp_enqueue_scripts', array($this, 'enqueueFrontendScriptsAndStyles'), 5);
-        $this->wpService->addAction('admin_enqueue_scripts', array($this, 'enqueueAdminScriptsAndStyles'), 999);
-        $this->wpService->addAction('enqueue_block_editor_assets', array($this, 'enqueueBlockScripts'), 999);
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueMaterialSymbols']);
+        $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueMaterialSymbols'], 999);
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueFrontendScriptsAndStyles'], 5);
+        $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScriptsAndStyles'], 999);
+        $this->wpService->addAction('enqueue_block_editor_assets', [$this, 'enqueueBlockScripts'], 999);
         $this->wpService->addAction(
             'customize_controls_enqueue_scripts',
-            array($this, 'enqueueCustomizerScriptsAndStyles'),
+            [$this, 'enqueueCustomizerScriptsAndStyles'],
             999,
         );
-        $this->wpService->addFilter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
-        $this->wpService->addFilter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
-        $this->wpService->addFilter('the_generator', array($this, 'removeGeneratorTag'), 9, 2);
-        $this->wpService->addAction('wp_default_scripts', array($this, 'removeJqueryMigrate'));
-        $this->wpService->addFilter('gform_init_scripts_footer', array($this, 'forceGravityFormsScriptsNotInFooter'));
+        $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
+        $this->wpService->addFilter('style_loader_src', [$this, 'removeScriptVersion'], 15, 1);
+        $this->wpService->addFilter('the_generator', [$this, 'removeGeneratorTag'], 9, 2);
+        $this->wpService->addAction('wp_default_scripts', [$this, 'removeJqueryMigrate']);
+        $this->wpService->addFilter('gform_init_scripts_footer', [$this, 'forceGravityFormsScriptsNotInFooter']);
     }
 
     /**

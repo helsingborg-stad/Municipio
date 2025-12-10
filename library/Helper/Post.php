@@ -2,7 +2,7 @@
 
 namespace Municipio\Helper;
 
-use Municipio\Helper\Navigation;
+
 use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
@@ -538,8 +538,8 @@ class Post
         ");
 
         // Filter response, faster than making a more advanced query
-        $metaKeys = array_filter($metaKeys, function ($value) {
-            if (strpos($value, '_') === 0) {
+        $metaKeys = array_filter($metaKeys, static function ($value) {
+            if (str_starts_with($value, '_') ) {
                 return false;
             }
             return true;

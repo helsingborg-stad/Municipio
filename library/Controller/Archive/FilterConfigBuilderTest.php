@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;

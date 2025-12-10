@@ -10,19 +10,19 @@ class BlockAttributesToGetPostsConfigMapper
 {
     public function map(array $attributes): GetPostsConfigInterface
     {
-        $terms = array_map(function (array $term) {
+        $terms = array_map(static function (array $term) {
             return get_terms([
                 'taxonomy' => $term['taxonomy'],
                 'include' => $term['terms'] ?? [],
             ]);
         }, $attributes['terms'] ?? []);
 
-        $terms = array_filter($terms, fn($item) => is_a($item, \WP_Term::class));
+        $terms = array_filter($terms, static fn($item) => is_a($item, \WP_Term::class));
 
         // flatten terms array
         $terms = array_reduce(
             $terms,
-            function ($carry, $item) {
+            static function ($carry, $item) {
                 return array_merge($carry, $item);
             },
             [],

@@ -2,9 +2,9 @@
 
 namespace Municipio\PostsList;
 
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+
+
+
 use Municipio\PostsList\ConfigMapper\PostsListConfigDTOInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

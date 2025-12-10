@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers;
 
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
