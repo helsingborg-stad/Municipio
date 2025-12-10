@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c46bb00aec4bd3496f4294f8e82990a",
+    "content-hash": "edbbed26a5cd08391d9aadd8817cfa58",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -820,16 +820,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "dev-fix/solid-renderer",
+            "version": "4.62.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "961805cb1584118ae238fa4d8ab05b43f5536b5c"
+                "reference": "f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/961805cb1584118ae238fa4d8ab05b43f5536b5c",
-                "reference": "961805cb1584118ae238fa4d8ab05b43f5536b5c",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb",
+                "reference": "f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb",
                 "shasum": ""
             },
             "require": {
@@ -861,9 +861,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/fix/solid-renderer"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.29"
             },
-            "time": "2025-12-10T06:55:39+00:00"
+            "time": "2025-12-10T09:49:53+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -6867,7 +6867,6 @@
         "carthage-software/mago": 5,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
         "enshrined/svg-sanitize": 20,
-        "helsingborg-stad/component-library": 20,
         "jeradin/acf-dynamic-table-field": 20,
         "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
