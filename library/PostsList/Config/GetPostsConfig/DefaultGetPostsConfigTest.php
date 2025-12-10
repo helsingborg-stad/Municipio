@@ -28,6 +28,13 @@ class DefaultGetPostsConfigTest extends TestCase
         $this->assertEquals(1, $config->getPage());
     }
 
+    #[TestDox('paginationEnabled returns true by default')]
+    public function testPaginationEnabled(): void
+    {
+        $config = new DefaultGetPostsConfig();
+        $this->assertTrue($config->paginationEnabled());
+    }
+
     #[TestDox('isFacettingTaxonomyQueryEnabled returns false by default')]
     public function testIsFacettingTaxonomyQueryEnabled(): void
     {

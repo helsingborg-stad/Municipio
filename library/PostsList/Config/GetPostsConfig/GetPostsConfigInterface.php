@@ -28,6 +28,13 @@ interface GetPostsConfigInterface
     public function getPage(): int;
 
     /**
+     * Check if pagination is enabled
+     *
+     * @return bool
+     */
+    public function paginationEnabled(): bool;
+
+    /**
      * Check if facetting is enabled
      *
      * @return bool
@@ -39,7 +46,7 @@ interface GetPostsConfigInterface
      *
      * @return string|null
      */
-    public function getSearch(): ?string;
+    public function getSearch(): null|string;
 
     /**
      * Get order by value
@@ -60,14 +67,14 @@ interface GetPostsConfigInterface
      *
      * @return string|null
      */
-    public function getDateFrom(): ?string;
+    public function getDateFrom(): null|string;
 
     /**
      * Get date to filter value
      *
      * @return string|null
      */
-    public function getDateTo(): ?string;
+    public function getDateTo(): null|string;
 
     /**
      * Get date source filter value

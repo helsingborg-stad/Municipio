@@ -9,6 +9,15 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
+
+
+
+
+
+
+
+
+
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
@@ -28,10 +37,10 @@ $kirkiFilePaths = [
 ];
 
 foreach ($kirkiFilePaths as $kirkiFilePath) {
-    if (file_exists($kirkiFilePath)) {
-        include_once($kirkiFilePath);
+    if (!(file_exists($kirkiFilePath))) { continue; }
+
+include_once($kirkiFilePath);
         break;
-    }
 }
 
 /**
@@ -91,7 +100,7 @@ add_action('init', function () use ($wpService) {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');
-    $autoExportIds = $wpService->applyFilters('Municipio/AcfExportManager/autoExport', array(
+    $autoExportIds = $wpService->applyFilters('Municipio/AcfExportManager/autoExport', [
         // Blocks
         'block-classic-editpr'                       => 'group_61556c32b3697',
         'block-button'                               => 'group_60acdac5158f2',
@@ -161,7 +170,7 @@ add_action('init', function () use ($wpService) {
         'global-notices'                             => 'group_6798e1aebe3c6',
         'a11y-statement'                             => 'group_6874ffb12b42d',
         'a11y-statement-url'                         => 'group_689c4def19f8e',
-    ));
+    ]);
 
     $acfExportManager->autoExport($autoExportIds);
     $acfExportManager->import();

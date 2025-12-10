@@ -8,6 +8,12 @@
   margin-bottom: 0;
 }
 
+html :where(.wp-block) {
+    max-width: var(--container-width);
+    padding-left: calc(var(--base, 8px) * 3);
+    padding-right: calc(var(--base, 8px) * 3);
+}
+
 .editor-styles-wrapper {
   padding: 0;
   .wp-block {

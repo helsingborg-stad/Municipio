@@ -25,13 +25,13 @@ use Municipio\ImageFocus\Resolvers\FaceDetectingFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\ManualInputFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
+use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
-use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use WP_Post;
 use wpdb;
 use WpService\WpService;
@@ -54,9 +54,8 @@ class App
         private SchemaDataConfigInterface $schemaDataConfig,
         private wpdb $wpdb,
         private WpUtilService $wpUtilService,
-        private User $userHelper
+        private User $userHelper,
     ) {
-
         /**
          * Auto update
          */
@@ -263,7 +262,7 @@ class App
          */
         new \Municipio\Blocks\Columns();
 
-        add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
+        add_filter('Modularity/CoreTemplatesSearchPaths', static function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
@@ -365,6 +364,13 @@ class App
          * Setup Posts List
          */
         (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
+        (new \Municipio\PostsList\Block\PostsListBlock(
+            $this->wpService,
+            new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
+                new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb),
+                new \ComponentLibrary\Renderer\Renderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($this->wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
+            ),
+        ))->addHooks();
 
         /**
          * Setup Accessibility Statement

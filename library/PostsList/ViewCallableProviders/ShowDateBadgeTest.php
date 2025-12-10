@@ -2,42 +2,39 @@
 
 namespace Municipio\PostsList\ViewCallableProviders;
 
-use Municipio\Helper\WpService;
-use Municipio\PostObject\NullPostObject;
+use Municipio\PostsList\Config\AppearanceConfig\DateFormat;
+use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Implementations\FakeWpService;
-
-class FakePostObjectWithPostType extends NullPostObject
-{
-    public function __construct(private string $postType)
-    {
-    }
-
-    public function getPostType(): string
-    {
-        return $this->postType;
-    }
-}
 
 class ShowDateBadgeTest extends TestCase
 {
-    #[TestDox('returns true if any post has date-badge format')]
+    #[TestDox('returns true if any appearance config dateFormat is DATE_BADGE')]
     public function testReturnsTrueIfAnyPostHasDateBadgeFormat(): void
     {
-        WpService::set(new FakeWpService(['getThemeMod' => fn($key, $default) => $key === 'archive_post_date_format' ? 'date-badge' : $default]));
-        $posts                = [new FakePostObjectWithPostType('page'), new FakePostObjectWithPostType('post')];
-        $showDateBadgeUtility = new ShowDateBadge($posts);
+        $appearanceConfig = new class extends DefaultAppearanceConfig {
+            public function getDateFormat(): DateFormat
+            {
+                return DateFormat::DATE_BADGE;
+            }
+        };
+
+        $showDateBadgeUtility = new ShowDateBadge($appearanceConfig);
 
         $this->assertTrue($showDateBadgeUtility->getCallable()());
     }
 
-    #[TestDox('returns false if no post has date-badge format')]
+    #[TestDox('returns false if no appearance config dateFormat is DATE_BADGE')]
     public function testReturnsFalseIfNoPostHasDateBadgeFormat(): void
     {
-        WpService::set(new FakeWpService(['getThemeMod' => fn($key, $default) => $default]));
-        $posts                = [new FakePostObjectWithPostType('page'), new FakePostObjectWithPostType('custom_post_type')];
-        $showDateBadgeUtility = new ShowDateBadge($posts);
+        $appearanceConfig = new class extends DefaultAppearanceConfig {
+            public function getDateFormat(): DateFormat
+            {
+                return DateFormat::DATE;
+            }
+        };
+
+        $showDateBadgeUtility = new ShowDateBadge($appearanceConfig);
 
         $this->assertFalse($showDateBadgeUtility->getCallable()());
     }

@@ -42,12 +42,16 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
-        // Build posts list
+        // Build posts list using unified config mapper and factory
+        $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\ArchiveDataToPostsListConfigMapper())->map([
+            ...$this->data,
+            'wpTaxonomies' => $GLOBALS['wp_taxonomies'],
+        ]);
+        $postsListFactory = new \Municipio\PostsList\PostsListFactory($this->wpService, $GLOBALS['wpdb']);
+        $postsList = $postsListFactory->create($postsListConfigDTO);
         $this->data = [
             ...$this->data,
-            ...(new Archive\ArchivePostsListFactory($this->wpService, $GLOBALS['wpdb']))
-                ->create($this->data, $GLOBALS['wp_taxonomies'])
-                ->getData(),
+            ...$postsList->getData(),
         ];
     }
 

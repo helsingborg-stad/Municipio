@@ -7,18 +7,11 @@ namespace Municipio\PostsList\QueryVars;
  */
 class QueryVars implements QueryVarsInterface
 {
-    private static array $usedPrefixes = [];
-
     /**
      * Constructor
      */
     public function __construct(private string $prefix)
     {
-        if (in_array($this->prefix, self::$usedPrefixes)) {
-            throw new \Exception('Prefix may not be reused between instances');
-        }
-
-        self::$usedPrefixes[] = $this->prefix;
     }
 
     /**

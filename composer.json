@@ -45,7 +45,7 @@
 		"landrok/language-detector": "dev-master",
 		"league/commonmark": "2.7.0",
 		"league/config": "1.1.1",
-		"helsingborg-stad/component-library": "4.62.26",
+		"helsingborg-stad/component-library": "4.62.29",
 		"freshleafmedia/autofocus": "^1.0",
 		"astrotomic/php-deepface": "^0.4.0",
 		"helsingborg-stad/kirki": "^5.2",
@@ -60,7 +60,7 @@
 		"fix:changed": "git diff --name-only origin/main | xargs vendor/bin/mago lint --fix --",
 		"format": "vendor/bin/mago fmt",
 		"post-update-cmd": [],
-		"make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,Modularity/source/php",
+		"make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php",
 		"update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
 		"make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root"
 	},

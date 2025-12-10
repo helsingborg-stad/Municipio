@@ -3,14 +3,18 @@
 php-version = "8.3.0"
 
 [source]
-paths = ["source/php/", "Modularity/source/php/"]
+paths = ["source/php/"]
 includes = ["vendor"]
 excludes = []
 
 [formatter]
-print-width = 120
+print-width = 999
 tab-width = 4
 use-tabs = false
+preserve-breaking-parameter-list = true
+preserve-breaking-argument-list = true
+preserve-breaking-array-like = true
+preserve-breaking-attribute-list = true
 
 [linter]
 integrations = ["phpunit"]
@@ -25,14 +29,6 @@ halstead = { effort-threshold = 7000 }
 # Remove when adressed
 
 no-empty = { level = "warning" }
-excessive-parameter-list = { level = "warning" }
-too-many-methods = { level = "warning" }
-no-global = { level = "warning" }
-kan-defect = { level = "warning" }
-cyclomatic-complexity = { level = "warning" }
-no-request-variable = { level = "warning" }
-no-error-control-operator = { level = "warning" }
-too-many-properties = { level = "warning" }
 
 # End IMPORTANT!
 

@@ -2,7 +2,7 @@
 
 namespace Municipio\Helper;
 
-use Municipio\Helper\Navigation;
+
 use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
@@ -329,7 +329,7 @@ class Post
     {
         /* Caching */
         static $runtimeCache = [];
-        $runtimeCacheKey = 'post_filtered_content_' . md5($postObject->post_content);
+        $runtimeCacheKey     = 'post_filtered_content_' . md5($postObject->post_content);
         if (isset($runtimeCache[$runtimeCacheKey])) {
             return $runtimeCache[$runtimeCacheKey];
         }
@@ -382,6 +382,7 @@ class Post
         if (!preg_match('/<!--\s?wp:[a-zA-Z0-9_-]+/', $excerpt)) {
             return apply_filters('the_excerpt', $excerpt);
         }
+        return $excerpt;
         return do_blocks($excerpt);
     }
 
@@ -537,8 +538,8 @@ class Post
         ");
 
         // Filter response, faster than making a more advanced query
-        $metaKeys = array_filter($metaKeys, function ($value) {
-            if (strpos($value, '_') === 0) {
+        $metaKeys = array_filter($metaKeys, static function ($value) {
+            if (str_starts_with($value, '_') ) {
                 return false;
             }
             return true;

@@ -36,6 +36,14 @@ abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterfac
     /**
      * @inheritDoc
      */
+    public function paginationEnabled(): bool
+    {
+        return $this->innerConfig->paginationEnabled();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function isFacettingTaxonomyQueryEnabled(): bool
     {
         return $this->innerConfig->isFacettingTaxonomyQueryEnabled();
@@ -44,7 +52,7 @@ abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterfac
     /**
      * @inheritDoc
      */
-    public function getSearch(): ?string
+    public function getSearch(): null|string
     {
         return $this->innerConfig->getSearch();
     }
@@ -68,7 +76,7 @@ abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterfac
     /**
      * @inheritDoc
      */
-    public function getDateFrom(): ?string
+    public function getDateFrom(): null|string
     {
         return $this->innerConfig->getDateFrom();
     }
@@ -76,7 +84,7 @@ abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterfac
     /**
      * @inheritDoc
      */
-    public function getDateTo(): ?string
+    public function getDateTo(): null|string
     {
         return $this->innerConfig->getDateTo();
     }

@@ -19,13 +19,12 @@ use Municipio\PostsList\QueryVarRegistrar\QueryVarRegistrarInterface;
 use Municipio\PostsList\QueryVars\QueryVarRegistrar\QueryVarRegistrar;
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WP_Query;
-use WP_Taxonomy;
 use WpService\WpService;
 
 /*
  * Posts list main class
  */
-class PostsList
+class PostsList implements PostsListInterface
 {
     /** @var PostObjectInterface[] */
     private array $posts;
@@ -35,10 +34,9 @@ class PostsList
     /**
      * Constructor
      *
-     * @param GetPostsConfigInterface $providedGetPostsConfig
+     * @param GetPostsConfigInterface $getPostsConfig
      * @param AppearanceConfigInterface $providedAppearanceConfig
      * @param FilterConfigInterface $providedFilterConfig
-     * @param array<string, WP_Taxonomy> $wpTaxonomies
      * @param WpService $wpService
      * @param WpQueryFactoryInterface $wpQueryFactory
      * @param QueryVarRegistrarInterface $queryVarsRegistrar
@@ -51,7 +49,6 @@ class PostsList
         private GetPostsConfigInterface $getPostsConfig,
         private AppearanceConfigInterface $providedAppearanceConfig,
         private FilterConfigInterface $filterConfig,
-        private array $wpTaxonomies,
         private WpQueryFactoryInterface $wpQueryFactory,
         private QueryVarsInterface $queryVars,
         private WpService $wpService,
@@ -73,45 +70,21 @@ class PostsList
             'posts' => $this->getPosts(),
             'appearanceConfig' => $this->getAppearanceConfig(),
             'filterConfig' => $this->filterConfig,
-            'getTags' => (new ViewCallableProviders\GetTagsComponentArguments(
-                $this->getPosts(),
-                $this->getAppearanceConfig()->getTaxonomiesToDisplay(),
-                $this->wpService,
-                $this->acfService,
-            ))->getCallable(),
+            'getTags' => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->getAppearanceConfig()->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
             'getExcerpt' => (new ViewCallableProviders\GetExcerpt($this->wpService))->getCallable(),
             'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
-            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getPosts()))->getCallable(),
+            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getAppearanceConfig()))->getCallable(),
             'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
             'getPostColumnClasses' => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
-            'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp(
-                $this->getAppearanceConfig()->getDateSource(),
-                $this->getPosts(),
-                $this->wpdb,
-            ))->getCallable(),
+            'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp($this->getAppearanceConfig()->getDateSource(), $this->getPosts(), $this->wpdb))->getCallable(),
             'getDateFormat' => (new ViewCallableProviders\GetDateFormat($this->getAppearanceConfig()->getDateFormat()))->getCallable(),
             // Table view utilities
-            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments(
-                $this->getPosts(),
-                $this->getAppearanceConfig(),
-                $this->wpService,
-                $this->acfService,
-            ))->getCallable(),
+            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->getAppearanceConfig(), $this->wpService, $this->acfService))->getCallable(),
             // Schema Project view utilities
             'getSchemaProjectProgressLabel' => (new ViewCallableProviders\Schema\Project\GetProgressLabel())->getCallable(),
             'getSchemaProjectProgressPercentage' => (new ViewCallableProviders\Schema\Project\GetProgressPercentage())->getCallable(),
-            'getSchemaProjectTechnologyTerms' => (new ViewCallableProviders\GetTermsAsString(
-                $this->getPosts(),
-                ['project_meta_technology'],
-                $this->wpService,
-                ' / ',
-            ))->getCallable(),
-            'getSchemaProjectCategoryTerms' => (new ViewCallableProviders\GetTermsAsString(
-                $this->getPosts(),
-                ['project_meta_category'],
-                $this->wpService,
-                ' / ',
-            ))->getCallable(),
+            'getSchemaProjectTechnologyTerms' => (new ViewCallableProviders\GetTermsAsString($this->getPosts(), ['project_meta_technology'], $this->wpService, ' / '))->getCallable(),
+            'getSchemaProjectCategoryTerms' => (new ViewCallableProviders\GetTermsAsString($this->getPosts(), ['project_meta_category'], $this->wpService, ' / '))->getCallable(),
             // Schema Event view utilities
             'getSchemaEventPriceRange' => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
@@ -120,39 +93,14 @@ class PostsList
             // Schema Exhibition event view utilities
             'getSchemaExhibitionOccasionText' => (new ViewCallableProviders\Schema\ExhibitionEvent\GetOccasionText($this->wpService))->getCallable(),
             // Filter utilities
-            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments(
-                $this->filterConfig,
-                $this->getPostsConfig,
-                $this->wpService,
-                $this->wpTaxonomies,
-                $this->queryVars->getPrefix(),
-            ))->getCallable(),
-            'getFilterFormSubmitButtonArguments' => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments(
-                $this->getPostsConfig,
-                $this->wpService,
-            ))->getCallable(),
-            'getFilterFormResetButtonArguments' => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments(
-                $this->getPostsConfig,
-                $this->filterConfig,
-                $this->wpService,
-            ))->getCallable(),
-            'getTextSearchFieldArguments' => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments(
-                $this->getPostsConfig,
-                $this->queryVars->getSearchParameterName(),
-                $this->wpService,
-            ))->getCallable(),
-            'getDateFilterFieldArguments' => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments(
-                $this->getPostsConfig,
-                $this->wpService,
-                $this->queryVars->getDateFromParameterName(),
-                $this->queryVars->getDateToParameterName(),
-            ))->getCallable(),
+            'getTaxonomyFilterSelectComponentArguments' => (new ViewCallableProviders\Filter\GetTaxonomyFiltersSelectComponentArguments($this->filterConfig, $this->getPostsConfig, $this->wpService, $this->queryVars->getPrefix()))->getCallable(),
+            'getFilterFormSubmitButtonArguments' => (new ViewCallableProviders\Filter\GetFilterSubmitButtonArguments($this->getPostsConfig, $this->wpService))->getCallable(),
+            'getFilterFormResetButtonArguments' => (new ViewCallableProviders\Filter\GetFilterResetButtonArguments($this->getPostsConfig, $this->filterConfig, $this->wpService))->getCallable(),
+            'getTextSearchFieldArguments' => (new ViewCallableProviders\Filter\GetTextSearchFieldArguments($this->getPostsConfig, $this->queryVars->getSearchParameterName(), $this->wpService))->getCallable(),
+            'getDateFilterFieldArguments' => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig, $this->wpService, $this->queryVars->getDateFromParameterName(), $this->queryVars->getDateToParameterName()))->getCallable(),
             // Pagination utilities
-            'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments(
-                $this->getWpQuery()->max_num_pages,
-                $this->getPostsConfig->getPage(),
-                $this->queryVars->getPaginationParameterName(),
-            ))->getCallable(),
+            'paginationEnabled' => fn() => $this->getPostsConfig->paginationEnabled(),
+            'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getWpQuery()->max_num_pages, $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
         ];
     }
 

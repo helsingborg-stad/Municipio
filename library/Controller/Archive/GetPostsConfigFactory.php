@@ -3,8 +3,9 @@
 namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetParameterFromGetParams\GetParameterFromGetParams;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
+
+
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WpService\Contracts\GetTerms;
 use WpService\Contracts\GetThemeMod;
@@ -21,9 +22,8 @@ class GetPostsConfigFactory
         private array $data,
         private FilterConfigInterface $filterConfig,
         private QueryVarsInterface $queryVars,
-        private GetThemeMod&GetTerms $wpService
-    ) {
-    }
+        private GetThemeMod&GetTerms $wpService,
+    ) {}
 
     /**
      * Create a GetPostsConfig instance
@@ -39,11 +39,15 @@ class GetPostsConfigFactory
             ->setOrder((new Mappers\GetPostsConfig\MapOrderFromData())->map($this->data))
             ->setPerPage((new Mappers\GetPostsConfig\MapPostsPerPageFromData($this->wpService))->map($this->data))
             ->setDateSource((new Mappers\GetPostsConfig\MapDateSourceFromData())->map($this->data))
-            ->setTerms((new Mappers\GetPostsConfig\MapTermsFromData($this->filterConfig, $this->queryVars, $this->wpService))->map($this->data))
-            ->setCurrentPage((new Mappers\GetPostsConfig\MapCurrentPageFromGetParams($_GET, $this->queryVars))->map($this->data))
-            ->setSearch((new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getSearchParameterName()) ?? '')
-            ->setDateFrom((new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateFromParameterName()) ?? '')
-            ->setDateTo((new GetParameterFromGetParams())->getParam($_GET, $this->queryVars->getDateToParameterName()) ?? '')
+            ->setTerms((new Mappers\GetPostsConfig\MapTermsFromData(
+                $this->filterConfig,
+                $this->queryVars,
+                $this->wpService,
+            ))->map($this->data))
+            ->setCurrentPage((new Mappers\GetPostsConfig\MapCurrentPageFromGetParams(
+                $_GET,
+                $this->queryVars,
+            ))->map($this->data))
             ->build();
     }
 }

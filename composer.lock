@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "773b2d357dfa562256d4d53e071a86cd",
+    "content-hash": "edbbed26a5cd08391d9aadd8817cfa58",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -820,23 +820,25 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.62.26",
+            "version": "4.62.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "4956efbe59e159b312e67bae17bdc5a5bbad2e70"
+                "reference": "f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/4956efbe59e159b312e67bae17bdc5a5bbad2e70",
-                "reference": "4956efbe59e159b312e67bae17bdc5a5bbad2e70",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb",
+                "reference": "f8ddf56e77b7bfdfcbba84b1281cb8c902ef71bb",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/blade": "^3.5.0",
+                "helsingborg-stad/wpservice": "^2.0",
                 "php": "^8.0"
             },
             "require-dev": {
+                "carthage-software/mago": "^1.0.0-rc.3",
                 "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^9.6"
             },
@@ -859,9 +861,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.26"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.62.29"
             },
-            "time": "2025-11-24T12:08:34+00:00"
+            "time": "2025-12-10T09:49:53+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",

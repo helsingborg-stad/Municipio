@@ -34,6 +34,14 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
+    public function paginationEnabled(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function isFacettingTaxonomyQueryEnabled(): bool
     {
         return false;
@@ -42,7 +50,7 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
-    public function getSearch(): ?string
+    public function getSearch(): null|string
     {
         return null;
     }
@@ -66,7 +74,7 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
-    public function getDateFrom(): ?string
+    public function getDateFrom(): null|string
     {
         return null;
     }
@@ -74,7 +82,7 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     /**
      * @inheritDoc
      */
-    public function getDateTo(): ?string
+    public function getDateTo(): null|string
     {
         return null;
     }
