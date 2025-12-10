@@ -20,7 +20,7 @@ class BlockAttributesToAppearanceConfigMapper
 
             public function getNumberOfColumns(): int
             {
-                return $this->attributes['numberOfColumns'] ?? 3;
+                return (int) ($this->attributes['numberOfColumns'] ?? 3);
             }
 
             public function getDesign(): PostDesign
