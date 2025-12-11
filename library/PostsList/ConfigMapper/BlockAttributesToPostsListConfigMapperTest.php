@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace Municipio\PostsList\ConfigMapper;
 
-use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
-use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use PHPUnit\Framework\TestCase;
+use WP_Error;
+use WpService\Contracts\GetTerms;
 
 class BlockAttributesToPostsListConfigMapperTest extends TestCase
 {
     public function testMapReturnsConfigDTO(): void
     {
-        $mapper = new BlockAttributesToPostsListConfigMapper();
+        $wpService = new class implements GetTerms {
+            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|WP_Error
+            {
+                return [];
+            }
+        };
+        $mapper = new BlockAttributesToPostsListConfigMapper($wpService);
         $attributes = [
             'order' => 'asc',
             'orderBy' => 'date',
@@ -28,19 +33,19 @@ class BlockAttributesToPostsListConfigMapperTest extends TestCase
             'queryVarsPrefix' => 'block_',
         ];
         $dto = $mapper->map($attributes);
-        $this->assertInstanceOf(PostsListConfigDTO::class, $dto);
-        $this->assertInstanceOf(
+        static::assertInstanceOf(PostsListConfigDTO::class, $dto);
+        static::assertInstanceOf(
             \Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface::class,
             $dto->getPostsConfig,
         );
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             \Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface::class,
             $dto->appearanceConfig,
         );
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             \Municipio\PostsList\Config\FilterConfig\FilterConfigInterface::class,
             $dto->filterConfig,
         );
-        $this->assertEquals('block_', $dto->queryVarsPrefix);
+        static::assertSame('block_', $dto->queryVarsPrefix);
     }
 }
