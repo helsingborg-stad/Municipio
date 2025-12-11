@@ -1,33 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers;
 
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
+use WpService\Contracts\GetTerms;
 
 class BlockAttributesToGetPostsConfigMapper
 {
+    public function __construct(
+        private GetTerms $wpService,
+    ) {}
+
     public function map(array $attributes): GetPostsConfigInterface
     {
-        $terms = array_map(static function (array $term) {
-            return get_terms([
-                'taxonomy' => $term['taxonomy'],
-                'include' => $term['terms'] ?? [],
-            ]);
-        }, $attributes['terms'] ?? []);
-
-        $terms = array_filter($terms, static fn($item) => is_a($item, \WP_Term::class));
+        $terms = array_map(fn(array $term) => $this->wpService->getTerms([
+            'taxonomy' => $term['taxonomy'],
+            'include' => $term['terms'] ?? [],
+        ]), $attributes['terms'] ?? []);
 
         // flatten terms array
-        $terms = array_reduce(
-            $terms,
-            static function ($carry, $item) {
-                return array_merge($carry, $item);
-            },
-            [],
-        );
-
+        $terms = array_reduce($terms, \array_merge(...), []);
+        $terms = array_filter($terms, static fn($item) => is_a($item, \WP_Term::class));
         $order = $attributes['order'] === 'desc' ? OrderDirection::DESC : OrderDirection::ASC;
 
         return new class($attributes, $terms, $attributes['orderBy'], $order) extends DefaultGetPostsConfig {
