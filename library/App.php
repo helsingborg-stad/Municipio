@@ -31,6 +31,7 @@ use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 use WP_Post;
 use wpdb;
@@ -367,7 +368,7 @@ class App
         (new \Municipio\PostsList\Block\PostsListBlock(
             $this->wpService,
             new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
-                new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb),
+                new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb, new SchemaToPostTypeResolver($this->acfService, $this->wpService)),
                 new \ComponentLibrary\Renderer\Renderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($this->wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
                 $this->wpService,
             ),
