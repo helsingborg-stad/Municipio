@@ -2,7 +2,7 @@
     'link' => $post->getPermalink(),
     'heading' => $post->getTitle(),
     'context' => ['module.posts.index'],
-    'content' => $post->getExcerpt(),
+    'content' => $post->excerptShort,
     'tags' => $post->termsUnlinked,
     'date' => $showDate ? [
         'timestamp' => $post->getArchiveDateTimestamp(),
