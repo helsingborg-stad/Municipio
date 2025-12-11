@@ -77,11 +77,11 @@ class DefaultGetPostsConfigTest extends TestCase
         $this->assertEquals([], $config->getTerms());
     }
 
-    #[TestDox('getOrderBy returns "post_date" by default')]
+    #[TestDox('getOrderBy returns "date" by default')]
     public function testGetOrderBy(): void
     {
         $config = new DefaultGetPostsConfig();
-        $this->assertEquals('post_date', $config->getOrderBy());
+        $this->assertEquals('date', $config->getOrderBy());
     }
 
     #[TestDox('getOrder returns OrderDirection::DESC by default')]
