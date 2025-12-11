@@ -60,7 +60,7 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
      */
     public function getOrderBy(): string
     {
-        return 'post_date';
+        return 'date';
     }
 
     /**
