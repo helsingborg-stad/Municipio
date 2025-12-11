@@ -22,7 +22,7 @@
                         @if ($post->permalink && $post->getTitle())
                             @collection__item([
                                 'icon' => $post->icon,
-                                'link' => $post->permalink,
+                                'link' => $post->getPermalink(),
                                 'attributeList' => array_merge($post->attributeList, [
                                     'aria-labelledby' => 'post-' . $ID . '-' . $post->getId() . '-title'
                                 ]),
