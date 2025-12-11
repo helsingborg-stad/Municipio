@@ -3,6 +3,7 @@
 namespace Municipio\Controller;
 
 use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 
 /**
  * Class Archive
@@ -47,7 +48,11 @@ class Archive extends \Municipio\Controller\BaseController
             ...$this->data,
             'wpTaxonomies' => $GLOBALS['wp_taxonomies'],
         ]);
-        $postsListFactory = new \Municipio\PostsList\PostsListFactory($this->wpService, $GLOBALS['wpdb']);
+        $postsListFactory = new \Municipio\PostsList\PostsListFactory(
+            $this->wpService,
+            $GLOBALS['wpdb'],
+            new SchemaToPostTypeResolver($this->acfService, $this->wpService),
+        );
         $postsList = $postsListFactory->create($postsListConfigDTO);
         $this->data = [
             ...$this->data,

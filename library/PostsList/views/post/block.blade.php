@@ -4,10 +4,7 @@
     'ratio' => $appearanceConfig->getImageRatio(),
     'meta' => $getTags($post),
     'secondaryMeta' => $getReadingTime($post),
-    'image' => [
-        'src' => $post->getImage() ?? $appearanceConfig->getPlaceholderImageUrl() ?? null,
-        'backgroundColor' => 'secondary'
-    ],
+    'image' => $post->getImage() ?? $appearanceConfig->getPlaceholderImageUrl() ?? null,
     'date' => $getDateFormat() ? [
         'timestamp' => $getDateTimestamp($post),
         'format'    => $getDateFormat(),
