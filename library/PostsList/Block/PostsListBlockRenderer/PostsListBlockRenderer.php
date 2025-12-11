@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\Block\PostsListBlockRenderer;
 
 use ComponentLibrary\Renderer\RendererInterface;
