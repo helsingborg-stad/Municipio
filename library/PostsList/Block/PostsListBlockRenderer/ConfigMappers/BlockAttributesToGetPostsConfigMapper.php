@@ -26,13 +26,15 @@ class BlockAttributesToGetPostsConfigMapper
         $terms = array_reduce($terms, \array_merge(...), []);
         $terms = array_filter($terms, static fn($item) => is_a($item, \WP_Term::class));
         $order = $attributes['order'] === 'desc' ? OrderDirection::DESC : OrderDirection::ASC;
+        $postsPerPage = (int) ($attributes['postsPerPage'] ?? 12);
 
-        return new class($attributes, $terms, $attributes['orderBy'], $order) extends DefaultGetPostsConfig {
+        return new class($attributes, $terms, $attributes['orderBy'], $order, $postsPerPage) extends DefaultGetPostsConfig {
             public function __construct(
                 private array $attributes,
                 private array $terms,
                 private null|string $orderBy,
                 private OrderDirection $order,
+                private int $postsPerPage,
             ) {}
 
             public function getPostTypes(): array
@@ -47,7 +49,7 @@ class BlockAttributesToGetPostsConfigMapper
 
             public function getPostsPerPage(): int
             {
-                return $this->attributes['postsPerPage'];
+                return $this->postsPerPage;
             }
 
             public function getTerms(): array
