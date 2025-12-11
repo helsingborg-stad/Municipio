@@ -1,5 +1,5 @@
 @collection__item([
-    'link' => $post->permalink,
+    'link' => $post->getPermalink(),
     'classList' => $post->classList ?? [],
     'context' => ['module.posts.collection__item'],
     'before' => $post->readingTime,

@@ -1,8 +1,8 @@
 @card([
     'link' => $post->getPermalink(),
-    'heading' => $post->postTitle,
+    'heading' => $post->getTitle(),
     'context' => ['module.posts.index'],
-    'content' => $post->excerptShort,
+    'content' => $post->getExcerpt(),
     'tags' => $post->termsUnlinked,
     'date' => $showDate ? [
         'timestamp' => $post->getArchiveDateTimestamp(),
@@ -12,7 +12,7 @@
     'classList' => ['u-height--100'],
     'containerAware' => true,
     'hasPlaceholder' => $post->hasPlaceholderImage,
-    'image' => $post->image,
+    'image' => $post->getImage(),
     'icon' => $post->getIcon() ? [
         'icon' => $post->getIcon()->getIcon(),
         'color' => 'white',

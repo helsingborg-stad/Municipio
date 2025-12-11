@@ -1,7 +1,7 @@
 @box([
     'heading' => $post->postTitle,
     'content' => $post->excerptShort,
-    'link' => $post->permalink,
+    'link' => $post->getPermalink(),
     'meta' => $post->termsUnlinked,
     'date' => $showDate ? [
         'timestamp' => $post->getArchiveDateTimestamp(),
