@@ -12,7 +12,7 @@ use WpService\Contracts\GetTerms;
 
 class BlockAttributesToGetPostsConfigMapperTest extends TestCase
 {
-    #[TestDox('it maps block attributes to get posts config correctly')]
+    #[TestDox('it maps default block attributes to get posts config correctly')]
     public function testMap(): void
     {
         $wpService = new class implements GetTerms {
@@ -23,9 +23,9 @@ class BlockAttributesToGetPostsConfigMapperTest extends TestCase
         };
         $mapper = new BlockAttributesToGetPostsConfigMapper($wpService);
 
-        $attributes = [
+        $defaultAttributes = [
             'postType' => 'custom_post',
-            'postsPerPage' => 5,
+            'postsPerPage' => floatval(5),
             'paginationEnabled' => false,
             'orderBy' => 'date',
             'order' => 'desc',
@@ -37,7 +37,7 @@ class BlockAttributesToGetPostsConfigMapperTest extends TestCase
             ],
         ];
 
-        $config = $mapper->map($attributes);
+        $config = $mapper->map($defaultAttributes);
 
         static::assertInstanceOf(GetPostsConfigInterface::class, $config);
         static::assertSame(['custom_post'], $config->getPostTypes());
