@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\ExternalContent\Filter\Transforms;
 
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
+use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Relation;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Rule;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\RuleSet;
@@ -21,9 +22,9 @@ class FilterDefinitionToTypesenseParams implements FilterDefinitionToString
      */
     public function transform(FilterDefinition $filterDefinition): string
     {
-        $ruleSets            = $filterDefinition->getRuleSets();
+        $ruleSets = $filterDefinition->getRuleSets();
         $hasMultipleRuleSets = count($ruleSets) > 1;
-        $filterStrings       = [];
+        $filterStrings = [];
 
         foreach ($ruleSets as $ruleSet) {
             $filterStrings[] = $this->formatRuleSet($ruleSet, $hasMultipleRuleSets);
@@ -49,7 +50,8 @@ class FilterDefinitionToTypesenseParams implements FilterDefinitionToString
         }
 
         // Combine all rules in the set with the logical AND operator.
-        $ruleSetString = implode('&&', $ruleStrings);
+        $relation = $ruleSet->getRelation() === Relation::AND ? '&&' : '||';
+        $ruleSetString = implode($relation, $ruleStrings);
 
         if ($wrapWithParentheses) {
             $ruleSetString = "($ruleSetString)";
@@ -79,8 +81,8 @@ class FilterDefinitionToTypesenseParams implements FilterDefinitionToString
     private function mapOperatorToTypesense(Operator $operator): string
     {
         return match ($operator) {
-            Operator::EQUALS      => '=',
-            Operator::NOT_EQUALS  => '!=',
+            Operator::EQUALS => '=',
+            Operator::NOT_EQUALS => '!=',
         };
     }
 }
