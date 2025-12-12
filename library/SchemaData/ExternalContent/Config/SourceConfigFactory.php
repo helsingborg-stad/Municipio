@@ -91,7 +91,6 @@ class SourceConfigFactory
      */
     public function getFilterDefinitionFromNamedSettings(array $namedSettings, string $rulesRelation): FilterDefinitionInterface
     {
-        $foo = 'bar';
         $rules = array_map(function ($rule) {
             $operator = $rule['operator'] === 'NOT_EQUALS' ? Operator::NOT_EQUALS : Operator::EQUALS;
             return new Rule($rule['property_path'], $rule['value'], $operator);
