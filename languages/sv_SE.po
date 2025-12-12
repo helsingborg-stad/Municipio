@@ -19420,3 +19420,8 @@ msgstr "kryssrutor"
 #: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Radio buttons"
 msgstr "Radioknappar"
+
+#: library/PostsList/PostsList.php:90
+msgctxt "label for more occasions available on event"
+msgid "More occasions available"
+msgstr "Fler tillfällen finns"
