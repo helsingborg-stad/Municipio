@@ -404,6 +404,43 @@
                             "parent_repeater": "field_67c940e8a3f5d"
                         }
                     ]
+                },
+                {
+                    "key": "field_693bcb4c6a025",
+                    "label": "Filters relation",
+                    "name": "rules_relation",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_67c940e8a3f5d",
+                                "operator": "!=empty"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "OR": "Objects must match ANY of the provided rules",
+                        "AND": "Objects must match ALL of the provided rules"
+                    },
+                    "default_value": "OR",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_66da923803552"
                 }
             ]
         }
@@ -425,6 +462,7 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "show_in_rest": 0
+    "show_in_rest": 0,
+    "display_title": ""
 }]
 
