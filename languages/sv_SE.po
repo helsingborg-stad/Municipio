@@ -551,7 +551,7 @@ msgstr "Ljudmodul"
 msgid "Type of audio file"
 msgstr "Typ av ljudfil"
 
-#: library/Admin/UI/BackEnd.php:62
+#: library/Admin/UI/BackEnd.php:60
 #: Modularity/source/php/AcfFields/php/mod-audio.php:25
 msgid "Local"
 msgstr "Lokal miljö"
@@ -905,7 +905,7 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -923,13 +923,13 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1623,7 +1623,7 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:408
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1816,7 +1816,7 @@ msgstr "Manuell inmatning"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:326
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:42
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -10705,9 +10705,9 @@ msgstr "Fara (röd)"
 msgid "success"
 msgstr "success"
 
-#: library/Admin/UI/BackEnd.php:82
-#: library/Admin/UI/BackEnd.php:93
-#: library/Admin/UI/BackEnd.php:104
+#: library/Admin/UI/BackEnd.php:80
+#: library/Admin/UI/BackEnd.php:91
+#: library/Admin/UI/BackEnd.php:102
 #: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:113
 #: Modularity/source/php/AcfFields/php/mod-notice.php:42
 msgid "Notice"
@@ -10941,17 +10941,20 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:361
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -11441,7 +11444,7 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -13493,7 +13496,6 @@ msgid "Source type"
 msgstr "Källtyp"
 
 #: library/AcfFields/php/external-content-settings.php:78
-#: library/AcfFields/php/external-content-settings.php:81
 msgid "json"
 msgstr "json"
 
@@ -13514,7 +13516,6 @@ msgid "Protocol"
 msgstr "Protokoll"
 
 #: library/AcfFields/php/external-content-settings.php:177
-#: library/AcfFields/php/external-content-settings.php:180
 msgid "https"
 msgstr "https"
 
@@ -13532,7 +13533,7 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:460
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -13563,10 +13564,6 @@ msgstr "är lika med"
 #: library/AcfFields/php/external-content-settings.php:375
 msgid "is not equal to"
 msgstr "är ej lika med"
-
-#: library/AcfFields/php/external-content-settings.php:377
-msgid "EQUALS"
-msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:393
 msgid "value"
@@ -15087,7 +15084,7 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -15429,23 +15426,23 @@ msgstr "Egen CSS/JS"
 msgid "PDF Generator Settings"
 msgstr "Inställningar för PDF-generator"
 
-#: library/Admin/UI/BackEnd.php:66
+#: library/Admin/UI/BackEnd.php:64
 msgid "Test"
 msgstr "Test"
 
-#: library/Admin/UI/BackEnd.php:70
+#: library/Admin/UI/BackEnd.php:68
 msgid "Beta"
 msgstr "Beta"
 
-#: library/Admin/UI/BackEnd.php:84
+#: library/Admin/UI/BackEnd.php:82
 msgid "You're on a local server."
 msgstr "Detta är en lokal server."
 
-#: library/Admin/UI/BackEnd.php:95
+#: library/Admin/UI/BackEnd.php:93
 msgid "This it the test-environment. Your content will not be published."
 msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 
-#: library/Admin/UI/BackEnd.php:106
+#: library/Admin/UI/BackEnd.php:104
 msgid "This it the beta-environment. All functionality is not guaranteed. Possibly, the web page content will be restored and synchronized with the live site on Monday."
 msgstr "Detta är en beta-miljö. All funktionalitet är inte garanterad. Eventuellt kommer webbsidans innehåll att återställas och synkroniseras med live sajten på måndag."
 
@@ -16493,7 +16490,7 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:403
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -16506,7 +16503,7 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:410
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date badge"
 msgstr "Datummärke"
 
@@ -16519,7 +16516,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:455
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -16532,7 +16529,7 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:466
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -16964,6 +16961,7 @@ msgid "Add a bottom border for the footer header"
 msgstr "Lägg till en nedre ram till sidfots huvudet"
 
 #: library/Helper/KirkiConditional.php:49
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
@@ -18410,7 +18408,7 @@ msgid "Special Opening Hours"
 msgstr "Öppettider: %s"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Physical Accessibility Features"
 msgstr "Tillgänglighet"
 
@@ -18515,115 +18513,115 @@ msgctxt "Event schema status"
 msgid "Ongoing"
 msgstr "Aktuell"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:59
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:60
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:60
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:61
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
 msgid "Job Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
 msgid "Job Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
 msgid "Latest Application Dates"
 msgstr "Ansök senast"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
 msgid "Latest Application Date"
 msgstr "Ansök senast"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Event Tags"
 msgstr "Eventtaggar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:87
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Event Tag"
 msgstr "Eventtagg"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Physical Accessibility Feature"
 msgstr "Tillgänglighet"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 #, fuzzy
 msgid "Occasions"
 msgstr "Fler tillfällen"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 #, fuzzy
 msgid "Occasion"
 msgstr "Fler tillfällen"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Departments"
 msgstr "Organisationer"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Department"
 msgstr "Organisation"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Technologies"
 msgstr "Omställningar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Technology"
 msgstr "Omställning"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
 msgid "Project Statuses"
 msgstr "Statusar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
 msgid "Project Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Unique selling points"
 msgstr "Särskilda erbjudanden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Unique selling point"
 msgstr "Särskilt erbjudande"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Areas served"
 msgstr "Områden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Area served"
 msgstr "Område"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
 msgid "Grades"
 msgstr "Årskurser"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
 msgid "Grade"
 msgstr "Årskurs"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr "Antal avdelningar"
@@ -19335,70 +19333,90 @@ msgctxt "block description"
 msgid "A block to display a list of posts."
 msgstr "Block som visar en lista av poster"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date Published"
 msgstr "Publiceringsdatum"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "DateModified"
 msgstr "Datum ändrad"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Order by"
 msgstr "Sortera efter"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Posts settings"
 msgstr "Inläggsinställningar"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Posts per page"
 msgstr "Inlägg per sida"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Enable Pagination"
 msgstr "Aktivera paginering"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Time"
 msgstr "Tid"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date, time"
 msgstr "Datum, tid"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date Modified"
 msgstr "Datum ändrad"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Date source"
 msgstr "Datumkälla"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Newsitem"
 msgstr "Nyhetsartikel"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Appearance settings"
 msgstr "UI"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Design"
 msgstr "Design"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Number of columns"
 msgstr "Antal kolumner"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Filter settings"
 msgstr "Filterinställningar"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Enable text search"
 msgstr "Aktivera textsökning"
 
-#: assets/dist/blocks/js/posts-list-block.ClvMb0FB.js:1
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
 msgid "Enable date filter"
 msgstr "Aktivera datumfilter"
+
+#: library/AcfFields/php/external-content-settings.php:417
+msgid "Filters relation"
+msgstr "Filterrelation"
+
+#: library/AcfFields/php/external-content-settings.php:437
+msgid "Objects must match ANY of the provided rules"
+msgstr "Objekt måste matcha NÅGON av de angivna reglerna"
+
+#: library/AcfFields/php/external-content-settings.php:438
+msgid "Objects must match ALL of the provided rules"
+msgstr "Objekt måste matcha ALLA angivna regler"
+
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+msgid "Checkboxes"
+msgstr "kryssrutor"
+
+#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+msgid "Radio buttons"
+msgstr "Radioknappar"
