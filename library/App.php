@@ -221,6 +221,7 @@ class App
 
         new \Municipio\Admin\Acf\PrefillColor($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
+        new \Municipio\Admin\Acf\CustomJsCookieConsent();
 
         new \Municipio\Admin\Roles\General($this->wpService);
         new \Municipio\Admin\Roles\Editor($this->userHelper);
