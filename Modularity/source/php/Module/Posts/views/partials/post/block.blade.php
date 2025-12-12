@@ -9,10 +9,10 @@
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'dateBadge' => \Municipio\Helper\DateFormat::getUnresolvedDateFormat($post) == 'date-badge',
-    'image' => $post->image,
+    'image' => $post->getImage(),
     'classList' => ['t-posts-block', ' u-height--100'],
     'context' => ['module.posts.block'],
-    'link' => $post->permalink,
+    'link' => $post->getPermalink(),
     'icon' => $post->getIcon() ? [
         'icon' => $post->getIcon()->getIcon(),
         'color' => 'white',

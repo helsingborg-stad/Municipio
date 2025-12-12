@@ -33,9 +33,9 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function getOrderByArgs(GetPostsConfigInterface $config): array
     {
-        $orderBy              = $config->getOrderBy();
+        $orderBy = $config->getOrderBy();
         $validPostTableFields = ['title', 'date', 'modified'];
-        $normalizedOrderBy    = $this->normalizePostTableFieldName($orderBy);
+        $normalizedOrderBy = $this->normalizePostTableFieldName($orderBy);
 
         if (in_array($normalizedOrderBy, $validPostTableFields, true)) {
             return ['orderby' => $normalizedOrderBy];
@@ -54,7 +54,7 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         return match ($fieldName) {
             'post_title' => 'title',
-            'post_date'  => 'date',
+            'post_date' => 'date',
             'post_modified' => 'modified',
             default => $fieldName,
         };
@@ -69,7 +69,7 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
     private function getOrderByArgsForCustomFields(string $orderBy): array
     {
         return [
-            'orderby'  => 'meta_value',
+            'orderby' => 'meta_value',
             'meta_key' => $orderBy,
         ];
     }

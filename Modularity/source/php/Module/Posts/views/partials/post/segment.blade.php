@@ -1,15 +1,15 @@
 @segment([
     'layout' => 'card',
-    'title' => $post->postTitle,
+    'title' => $post->getTitle(),
     'context' => ['module.posts.segment'],
     'tags' => $post->termsUnlinked,
-    'image' => $post->image,
+    'image' => $post->getImage(),
     'date'  => $showDate ? [
         'timestamp' => $post->getArchiveDateTimestamp(),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'content' => $post->excerptShort,
-    'buttons' => [['text' => $lang['readMore'], 'href' => $post->permalink, 'color' => 'primary']],
+    'buttons' => [['text' => $lang['readMore'], 'href' => $post->getPermalink(), 'color' => 'primary']],
     'containerAware' => true,
     'reverseColumns' => $imagePosition,
     'icon' => $post->getIcon() ? [
