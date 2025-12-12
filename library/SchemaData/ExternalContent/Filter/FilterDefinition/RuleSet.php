@@ -2,8 +2,9 @@
 
 namespace Municipio\SchemaData\ExternalContent\Filter\FilterDefinition;
 
-use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\RuleSet as RuleSetInterface;
+use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Relation;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Rule;
+use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\RuleSet as RuleSetInterface;
 
 /**
  * RuleSet class.
@@ -20,8 +21,8 @@ class RuleSet implements RuleSetInterface
      */
     public function __construct(
         private array $rules,
-    ) {
-    }
+        private Relation $relation = Relation::OR,
+    ) {}
 
     /**
      * @inheritDoc
@@ -29,5 +30,13 @@ class RuleSet implements RuleSetInterface
     public function getRules(): array
     {
         return $this->rules;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRelation(): Relation
+    {
+        return $this->relation;
     }
 }

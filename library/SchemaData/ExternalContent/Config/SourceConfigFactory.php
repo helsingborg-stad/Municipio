@@ -4,8 +4,9 @@ namespace Municipio\SchemaData\ExternalContent\Config;
 
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\FilterDefinition;
+use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Relation;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition as FilterDefinitionInterface;
+use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\FilterDefinition;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Rule;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\RuleSet;
 use WpService\Contracts\GetOption;
@@ -27,6 +28,7 @@ class SourceConfigFactory
         'source_typesense_port',
         'source_typesense_collection',
         'rules',
+        'rules_relation',
     ];
 
     private array $filterRulesSubFieldNames = [
@@ -43,9 +45,8 @@ class SourceConfigFactory
      */
     public function __construct(
         private SchemaDataConfigInterface $schemaDataConfig,
-        private GetOption&GetOptions $wpService
-    ) {
-    }
+        private GetOption&GetOptions $wpService,
+    ) {}
 
     /**
      * Create an array of named settings.
@@ -65,10 +66,7 @@ class SourceConfigFactory
      */
     private function createSourceConfigsFromNamedSettings(array $namedSettings): SourceConfigInterface
     {
-        $schemaType =
-            isset($namedSettings['post_type'])
-                ? ($this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type']) ?? "")
-                : '';
+        $schemaType = isset($namedSettings['post_type']) ? $this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type']) ?? '' : '';
 
         return new SourceConfig(
             $namedSettings['post_type'] ?? '',
@@ -81,7 +79,7 @@ class SourceConfigFactory
             $namedSettings['source_typesense_host'] ?? '',
             $namedSettings['source_typesense_port'] ?? '',
             $namedSettings['source_typesense_collection'] ?? '',
-            $this->getFilterDefinitionFromNamedSettings($namedSettings['rules']),
+            $this->getFilterDefinitionFromNamedSettings($namedSettings['rules'], $namedSettings['rules_relation'] ?? 'OR'),
         );
     }
 
@@ -91,14 +89,15 @@ class SourceConfigFactory
      * @param array $namedSettings The named settings array.
      * @return FilterDefinitionInterface The filter definition.
      */
-    public function getFilterDefinitionFromNamedSettings(array $namedSettings): FilterDefinitionInterface
+    public function getFilterDefinitionFromNamedSettings(array $namedSettings, string $rulesRelation): FilterDefinitionInterface
     {
         $rules = array_map(function ($rule) {
             $operator = $rule['operator'] === 'NOT_EQUALS' ? Operator::NOT_EQUALS : Operator::EQUALS;
             return new Rule($rule['property_path'], $rule['value'], $operator);
         }, $namedSettings);
 
-        return new FilterDefinition([new RuleSet($rules)]);
+        $relation = $rulesRelation === 'AND' ? Relation::AND : Relation::OR;
+        return new FilterDefinition([new RuleSet($rules, $relation)]);
     }
 
     /**
@@ -115,9 +114,9 @@ class SourceConfigFactory
             return [];
         }
 
-        $options            = $this->fetchOptions($groupName, $nbrOfRows, $this->subFieldNames);
+        $options = $this->fetchOptions($groupName, $nbrOfRows, $this->subFieldNames);
         $filterRulesOptions = $this->fetchFilterRulesOptions($groupName, $nbrOfRows, $options);
-        $settings           = array_merge($options, $filterRulesOptions);
+        $settings = array_merge($options, $filterRulesOptions);
 
         return $this->buildNamedSettings($groupName, $nbrOfRows, $settings);
     }
@@ -169,7 +168,7 @@ class SourceConfigFactory
         $filterRulesOptionNames = [];
 
         foreach (range(1, $nbrOfRows) as $row) {
-            $rowIndex         = $row - 1;
+            $rowIndex = $row - 1;
             $nbrOfFilterRules = intval($options["{$groupName}_{$rowIndex}_rules"] ?? 0);
 
             if ($nbrOfFilterRules === 0) {
@@ -200,7 +199,7 @@ class SourceConfigFactory
         $namedSettings = [];
 
         foreach (range(1, $nbrOfRows) as $row) {
-            $rowIndex        = $row - 1;
+            $rowIndex = $row - 1;
             $namedSettings[] = $this->buildRowSettings($groupName, $rowIndex, $settings);
         }
 
@@ -241,7 +240,7 @@ class SourceConfigFactory
     private function buildFilterRulesSettings(string $groupName, int $rowIndex, array $settings): array
     {
         $nbrOfFilterRules = intval($settings["{$groupName}_{$rowIndex}_rules"] ?? 0);
-        $filterRules      = [];
+        $filterRules = [];
 
         if ($nbrOfFilterRules === 0) {
             return $filterRules;
@@ -249,7 +248,7 @@ class SourceConfigFactory
 
         foreach (range(1, $nbrOfFilterRules) as $filterRuleRow) {
             $filterRuleRowIndex = $filterRuleRow - 1;
-            $filterRules[]      = $this->buildSingleFilterRule($groupName, $rowIndex, $filterRuleRowIndex, $settings);
+            $filterRules[] = $this->buildSingleFilterRule($groupName, $rowIndex, $filterRuleRowIndex, $settings);
         }
 
         return $filterRules;
