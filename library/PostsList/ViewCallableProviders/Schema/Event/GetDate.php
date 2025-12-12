@@ -24,7 +24,7 @@ class GetDate implements ViewCallableProviderInterface
      */
     public function getCallable(): callable
     {
-        return fn(PostObjectInterface $post): ?string => $this->getDate($post->getSchema());
+        return fn(PostObjectInterface $post): null|string => $this->getDate($post->getSchema());
     }
 
     /**
@@ -33,32 +33,25 @@ class GetDate implements ViewCallableProviderInterface
      * @param Event $event The event object.
      * @return string|null The formatted date string or null if no upcoming event.
      */
-    private function getDate(Event $event): ?string
+    private function getDate(Event $event): null|string
     {
-        $schedules             = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
+        $schedules = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
         $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
-        $lastUpcomingDateTime  = self::getLastUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
 
         if ($firstUpcomingDateTime === null) {
             return null;
         }
 
-        $dateFormat = DateFormat::getDateFormat('date');
-
-        if ($lastUpcomingDateTime !== null && $firstUpcomingDateTime->format('Y-m-d') !== $lastUpcomingDateTime->format('Y-m-d')) {
-            return $firstUpcomingDateTime->format($dateFormat) . ' - ' . $lastUpcomingDateTime->format($dateFormat);
-        }
-
-        return $firstUpcomingDateTime->format($dateFormat);
+        return $firstUpcomingDateTime->format(DateFormat::getDateFormat('date-time'));
     }
 
     /**
-     * Get the DateTime of the first upcoming event from an array of schedules.
+     * Retrieves the DateTimeInterface of the first upcoming event schedule.
      *
-     * @param Schedule ...$schedules List of event schedules.
-     * @return DateTimeInterface|null The DateTime of the first upcoming event or null.
+     * @param Schedule ...$schedules One or more Schedule objects.
+     * @return DateTimeInterface|null The DateTimeInterface of the first upcoming schedule or null if none found.
      */
-    private static function getFirstUpcomingEventDateTimeFromArrayOfSchedules(Schedule ...$schedules): ?DateTimeInterface
+    private static function getFirstUpcomingEventDateTimeFromArrayOfSchedules(Schedule ...$schedules): null|DateTimeInterface
     {
         $firstUpcomingSchedule = self::getFirstUpcomingScheduleFromArrayOfSchedules(...$schedules);
 
@@ -70,53 +63,24 @@ class GetDate implements ViewCallableProviderInterface
     }
 
     /**
-     * Get the first upcoming schedule from an array of schedules.
+     * Finds the first upcoming Schedule from an array of schedules.
      *
-     * @param Schedule ...$schedules List of event schedules.
-     * @return Schedule|null The first upcoming schedule or null.
+     * @param Schedule ...$schedules One or more Schedule objects.
+     * @return Schedule|null The first upcoming Schedule or null if none found.
      */
-    private static function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): ?Schedule
+    private static function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
     {
-        usort($schedules, fn(Schedule $a, Schedule $b) => $a->getProperty('startDate') <=> $b->getProperty('startDate'));
+        usort(
+            $schedules,
+            static fn(Schedule $a, Schedule $b) => $a->getProperty('startDate') <=> $b->getProperty('startDate'),
+        );
+        $now = new \DateTime();
         foreach ($schedules as $schedule) {
-            if ($schedule->getProperty('startDate') >= date('c')) {
-                return $schedule;
+            if ($schedule->getProperty('startDate') < $now) {
+                continue;
             }
-        }
 
-        return null;
-    }
-
-    /**
-     * Get the DateTime of the last upcoming event from an array of schedules.
-     *
-     * @param Schedule ...$schedules List of event schedules.
-     * @return DateTimeInterface|null The DateTime of the last upcoming event or null.
-     */
-    private static function getLastUpcomingEventDateTimeFromArrayOfSchedules(Schedule ...$schedules): ?DateTimeInterface
-    {
-        $lastUpcomingSchedule = self::getLastUpcomingScheduleFromArrayOfSchedules(...$schedules);
-
-        if ($lastUpcomingSchedule === null) {
-            return null;
-        }
-
-        return $lastUpcomingSchedule->getProperty('endDate') ?: null;
-    }
-
-    /**
-     * Get the last upcoming schedule from an array of schedules.
-     *
-     * @param Schedule ...$schedules List of event schedules.
-     * @return Schedule|null The last upcoming schedule or null.
-     */
-    private static function getLastUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): ?Schedule
-    {
-        usort($schedules, fn(Schedule $a, Schedule $b) => $b->getProperty('endDate') <=> $a->getProperty('endDate'));
-        foreach ($schedules as $schedule) {
-            if ($schedule->getProperty('endDate') >= date('c')) {
-                return $schedule;
-            }
+            return $schedule;
         }
 
         return null;

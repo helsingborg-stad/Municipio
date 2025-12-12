@@ -43,7 +43,7 @@ class GetDateBadgeDate implements ViewCallableProviderInterface
             return null;
         }
 
-        return $firstUpcomingDateTime->format(DateFormat::getDateFormat('Y-m-d'));
+        return $firstUpcomingDateTime->format(DateFormat::getDateFormat('date'));
     }
 
     /**
@@ -77,9 +77,11 @@ class GetDateBadgeDate implements ViewCallableProviderInterface
         );
         $now = new DateTime();
         foreach ($schedules as $schedule) {
-            if ($schedule->getProperty('startDate') < $now) { continue; }
+            if ($schedule->getProperty('startDate') < $now) {
+                continue;
+            }
 
-return $schedule;
+            return $schedule;
         }
 
         return null;

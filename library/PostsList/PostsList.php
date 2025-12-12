@@ -86,7 +86,8 @@ class PostsList implements PostsListInterface
             'getSchemaProjectTechnologyTerms' => (new ViewCallableProviders\GetTermsAsString($this->getPosts(), ['project_meta_technology'], $this->wpService, ' / '))->getCallable(),
             'getSchemaProjectCategoryTerms' => (new ViewCallableProviders\GetTermsAsString($this->getPosts(), ['project_meta_category'], $this->wpService, ' / '))->getCallable(),
             // Schema Event view utilities
-            'getSchemaEventPriceRange' => (new ViewCallableProviders\Schema\Event\GetPriceRange())->getCallable(),
+            'getSchemaEventHasMoreOccasions' => (new ViewCallableProviders\Schema\Event\EventHasMoreOccasions())->getCallable(),
+            'getEventMoreOccasionsLabel' => fn() => $this->wpService->_x('More occasions available', 'label for more occasions available on event', 'municipio'),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
             'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
             'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),

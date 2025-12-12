@@ -10,14 +10,15 @@ use PHPUnit\Framework\TestCase;
 
 class GetDatebadgeDateTest extends TestCase
 {
-    #[TestDox("Gets a date from the first upcoming event")]
+    #[TestDox('Gets a date from the first upcoming event')]
     public function testGetDatebadgeDate(): void
     {
         $firstAvailableDate = new DateTime('+1 day');
-        $post               = new class ($firstAvailableDate) extends \Municipio\PostObject\NullPostObject {
-            public function __construct(private DateTime $firstAvailableDate)
-            {
-            }
+        $post = new class($firstAvailableDate) extends \Municipio\PostObject\NullPostObject {
+            public function __construct(
+                private DateTime $firstAvailableDate,
+            ) {}
+
             public function getSchema(): \Municipio\Schema\BaseType
             {
                 $schedule1 = Schema::schedule()->startDate($this->firstAvailableDate);
@@ -27,13 +28,13 @@ class GetDatebadgeDateTest extends TestCase
         };
 
         $getDatebadgeDate = new GetDatebadgeDate();
-        $callable         = $getDatebadgeDate->getCallable();
-        $result           = $callable($post);
+        $callable = $getDatebadgeDate->getCallable();
+        $result = $callable($post);
 
-        $this->assertEquals($firstAvailableDate->format(DateFormat::getDateFormat('Y-m-d')), $result);
+        $this->assertEquals($firstAvailableDate->format(DateFormat::getDateFormat('date')), $result);
     }
 
-    #[TestDox("returns null if no upcoming events are found")]
+    #[TestDox('returns null if no upcoming events are found')]
     public function testGetDatebadgeDateNoUpcomingEvents(): void
     {
         $post = new class extends \Municipio\PostObject\NullPostObject {
@@ -46,13 +47,13 @@ class GetDatebadgeDateTest extends TestCase
         };
 
         $getDatebadgeDate = new GetDatebadgeDate();
-        $callable         = $getDatebadgeDate->getCallable();
-        $result           = $callable($post);
+        $callable = $getDatebadgeDate->getCallable();
+        $result = $callable($post);
 
         $this->assertNull($result);
     }
 
-    #[TestDox("returns null if no schedules are provided")]
+    #[TestDox('returns null if no schedules are provided')]
     public function testReturnsNullIfNoSchedulesProvided(): void
     {
         $post = new class extends \Municipio\PostObject\NullPostObject {
@@ -63,8 +64,8 @@ class GetDatebadgeDateTest extends TestCase
         };
 
         $getDatebadgeDate = new GetDatebadgeDate();
-        $callable         = $getDatebadgeDate->getCallable();
-        $result           = $callable($post);
+        $callable = $getDatebadgeDate->getCallable();
+        $result = $callable($post);
 
         $this->assertNull($result);
     }
