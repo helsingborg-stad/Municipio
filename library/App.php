@@ -26,6 +26,7 @@ use Municipio\ImageFocus\Resolvers\ManualInputFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
+use Municipio\Integrations\Litespeed\Cache\PressidiumConsentVary;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
@@ -94,6 +95,9 @@ class App
          */
         $userGroupVaryHeader = new UserGroupVary($this->wpService);
         $userGroupVaryHeader->addHooks();
+
+        $pressidiumConsentVaryHeader = new PressidiumConsentVary($this->wpService);
+        $pressidiumConsentVaryHeader->addHooks();
 
         /**
          * Allow posts in private visibility to have further conditions to be shown.
