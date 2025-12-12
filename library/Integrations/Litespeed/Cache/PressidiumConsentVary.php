@@ -12,6 +12,8 @@ use WpService\Contracts\IsUserLoggedIn;
 class PressidiumConsentVary implements Hookable
 {
 
+  private const COOKIE_NAME = 'pressidium_cookie_consent';
+
   public function __construct(public AddFilter&IsUserLoggedIn $wpService){}
 
   /**
@@ -37,8 +39,8 @@ class PressidiumConsentVary implements Hookable
    */
   public function addPressidiumConsentVaryHeader(array $varyHeaders): array
   {
-      if (!empty($_COOKIE[$cookieName])) {
-          $decoded = json_decode(stripslashes($_COOKIE['pressidium_consent']), true);
+      if (!empty($_COOKIE[self::COOKIE_NAME])) {
+          $decoded = json_decode(stripslashes($_COOKIE[self::COOKIE_NAME]), true);
           if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
               $varyHeaders['pressidium_consent']  = $this->reduceConsentDataToVaryString($decoded);
           }
