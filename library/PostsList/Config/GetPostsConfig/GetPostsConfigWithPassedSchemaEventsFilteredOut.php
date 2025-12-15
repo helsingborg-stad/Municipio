@@ -16,7 +16,7 @@ class GetPostsConfigWithPassedSchemaEventsFilteredOut extends AbstractDecoratedG
     public function getDateFrom(): null|string
     {
         if (!$this->currentPostTypesUseSchemaEvents()) {
-            return null;
+            return $this->innerConfig->getDateFrom();
         }
 
         if ($this->innerConfig->getDateFrom() !== null && trim($this->innerConfig->getDateFrom()) !== '') {
