@@ -90,4 +90,11 @@ class DefaultGetPostsConfigTest extends TestCase
         $config = new DefaultGetPostsConfig();
         $this->assertEquals(OrderDirection::DESC, $config->getOrder());
     }
+
+    #[TestDox('getIncludedPostIds returns an empty array by default')]
+    public function testGetIncludedPostIds(): void
+    {
+        $config = new DefaultGetPostsConfig();
+        $this->assertEquals([], $config->getIncludedPostIds());
+    }
 }

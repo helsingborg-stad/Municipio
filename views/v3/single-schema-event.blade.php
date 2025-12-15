@@ -14,10 +14,6 @@
         @include('partials.schema.event.accessibility-features')
     @stop
 
-    @section('below-content')
-        @include('partials.schema.event.related-posts')
-    @stop
-
     @section('sidebar-right-content')
         @include('partials.schema.event.place-card')
         @include('partials.schema.event.occassions-card')
@@ -25,4 +21,6 @@
     @stop
 
     @include('templates.sections.grid.content')
+
+    @includeWhen($postsListData['posts'], 'partials.schema.event.related-posts')
 @stop

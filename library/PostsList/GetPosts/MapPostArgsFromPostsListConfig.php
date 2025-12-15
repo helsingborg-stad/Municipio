@@ -18,9 +18,8 @@ class MapPostArgsFromPostsListConfig
      */
     public function __construct(
         private GetPostsConfigInterface $config,
-        private FilterConfigInterface $filterConfig
-    ) {
-    }
+        private FilterConfigInterface $filterConfig,
+    ) {}
 
     /**
      * Get posts args
@@ -29,7 +28,7 @@ class MapPostArgsFromPostsListConfig
      */
     public function getPostsArgs(): array
     {
-        $args     = [];
+        $args = [];
         $appliers = [
             new PostsListConfigToGetPostsArgs\ApplyDate(),
             new PostsListConfigToGetPostsArgs\ApplyOrder(),
@@ -38,6 +37,7 @@ class MapPostArgsFromPostsListConfig
             new PostsListConfigToGetPostsArgs\ApplyPostType(),
             new PostsListConfigToGetPostsArgs\ApplySearch(),
             new PostsListConfigToGetPostsArgs\ApplyTaxQuery($this->filterConfig->getTaxonomiesEnabledForFiltering()),
+            new PostsListConfigToGetPostsArgs\ApplyIncludedPostIds(),
         ];
 
         foreach ($appliers as $applier) {

@@ -89,4 +89,11 @@ interface GetPostsConfigInterface
      * @return WP_Term[]
      */
     public function getTerms(): array;
+
+    /**
+     * Get included post IDs
+     *
+     * @return int[]
+     */
+    public function getIncludedPostIds(): array;
 }

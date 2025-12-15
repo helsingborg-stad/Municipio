@@ -104,4 +104,12 @@ abstract class AbstractDecoratedGetPostsConfig implements GetPostsConfigInterfac
     {
         return $this->innerConfig->getTerms();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIncludedPostIds(): array
+    {
+        return $this->innerConfig->getIncludedPostIds();
+    }
 }

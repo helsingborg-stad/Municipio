@@ -102,4 +102,9 @@ class DefaultGetPostsConfig implements GetPostsConfigInterface
     {
         return [];
     }
+
+    public function getIncludedPostIds(): array
+    {
+        return [];
+    }
 }

@@ -1450,7 +1450,7 @@ msgstr "pixlar"
 
 #: library/AcfFields/php/post-icon.php:142
 #: library/AcfFields/php/term-icon-and-colour.php:139
-#: library/Controller/SingularEvent.php:120
+#: library/Controller/SingularEvent.php:173
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -15875,63 +15875,63 @@ msgctxt "ElementarySchool"
 msgid "Events"
 msgstr "Evenemang"
 
-#: library/Controller/SingularEvent.php:121
+#: library/Controller/SingularEvent.php:174
 msgid "Add to calendar"
 msgstr "Lägg till i kalender"
 
-#: library/Controller/SingularEvent.php:122
+#: library/Controller/SingularEvent.php:175
 msgid "Tickets & registration"
 msgstr "Biljetter & bokning"
 
-#: library/Controller/SingularEvent.php:123
+#: library/Controller/SingularEvent.php:176
 msgid "Go to booking page"
 msgstr "Gå till bokninssida"
 
-#: library/Controller/SingularEvent.php:124
+#: library/Controller/SingularEvent.php:177
 msgid "Tickets are sold according to the reseller."
 msgstr "Biljetter säljs enligt återförsäljare."
 
-#: library/Controller/SingularEvent.php:125
+#: library/Controller/SingularEvent.php:178
 msgid "Date and time"
 msgstr "Datum & tid"
 
-#: library/Controller/SingularEvent.php:126
+#: library/Controller/SingularEvent.php:179
 #, fuzzy
 msgid "More occasions"
 msgstr "Alla tillfällen"
 
-#: library/Controller/SingularEvent.php:127
+#: library/Controller/SingularEvent.php:180
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr "Plats"
 
-#: library/Controller/SingularEvent.php:128
+#: library/Controller/SingularEvent.php:181
 #, fuzzy
 msgid "Get directions"
 msgstr "Hitta hit"
 
-#: library/Controller/SingularEvent.php:129
+#: library/Controller/SingularEvent.php:182
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr "Pris"
 
-#: library/Controller/SingularEvent.php:130
+#: library/Controller/SingularEvent.php:183
 msgid "Organizers"
 msgstr "Organisatörer"
 
-#: library/Controller/SingularEvent.php:131
+#: library/Controller/SingularEvent.php:184
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: library/Controller/SingularEvent.php:132
+#: library/Controller/SingularEvent.php:185
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
-#: library/Controller/SingularEvent.php:133
+#: library/Controller/SingularEvent.php:186
 #, fuzzy
 msgid "Related events"
-msgstr "Relaterade länkar"
+msgstr "Relaterade evenemang"
 
 #: library/Controller/SingularExhibitionEvent.php:108
 msgctxt "ExhibitionEvent"
@@ -18551,77 +18551,67 @@ msgstr "Eventtagg"
 msgid "Physical Accessibility Feature"
 msgstr "Tillgänglighet"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
-#, fuzzy
-msgid "Occasions"
-msgstr "Fler tillfällen"
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
-#, fuzzy
-msgid "Occasion"
-msgstr "Fler tillfällen"
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Departments"
 msgstr "Organisationer"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Department"
 msgstr "Organisation"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Technologies"
 msgstr "Omställningar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Technology"
 msgstr "Omställning"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Statuses"
 msgstr "Statusar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
 msgid "Unique selling points"
 msgstr "Särskilda erbjudanden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
 msgid "Unique selling point"
 msgstr "Särskilt erbjudande"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Areas served"
 msgstr "Områden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Area served"
 msgstr "Område"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Grades"
 msgstr "Årskurser"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Grade"
 msgstr "Årskurs"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr "Antal avdelningar"

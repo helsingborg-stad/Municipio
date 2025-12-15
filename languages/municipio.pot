@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-12T10:46:27+00:00\n"
+"POT-Creation-Date: 2025-12-12T13:01:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -2359,7 +2359,7 @@ msgstr ""
 
 #: library/AcfFields/php/post-icon.php:142
 #: library/AcfFields/php/term-icon-and-colour.php:139
-#: library/Controller/SingularEvent.php:120
+#: library/Controller/SingularEvent.php:173
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -3480,58 +3480,58 @@ msgctxt "ElementarySchool"
 msgid "Events"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:121
+#: library/Controller/SingularEvent.php:174
 msgid "Add to calendar"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:122
+#: library/Controller/SingularEvent.php:175
 msgid "Tickets & registration"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:123
+#: library/Controller/SingularEvent.php:176
 msgid "Go to booking page"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:124
+#: library/Controller/SingularEvent.php:177
 msgid "Tickets are sold according to the reseller."
 msgstr ""
 
-#: library/Controller/SingularEvent.php:125
+#: library/Controller/SingularEvent.php:178
 msgid "Date and time"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:126
+#: library/Controller/SingularEvent.php:179
 msgid "More occasions"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:127
+#: library/Controller/SingularEvent.php:180
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:128
+#: library/Controller/SingularEvent.php:181
 msgid "Get directions"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:129
+#: library/Controller/SingularEvent.php:182
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:130
+#: library/Controller/SingularEvent.php:183
 msgid "Organizers"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:131
+#: library/Controller/SingularEvent.php:184
 msgid "Accessibility"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:132
+#: library/Controller/SingularEvent.php:185
 msgid "This event has already taken place."
 msgstr ""
 
-#: library/Controller/SingularEvent.php:133
+#: library/Controller/SingularEvent.php:186
 msgid "Related events"
 msgstr ""
 
@@ -6439,75 +6439,67 @@ msgstr ""
 msgid "Physical Accessibility Feature"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
-msgid "Occasions"
-msgstr ""
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
-msgid "Occasion"
-msgstr ""
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Departments"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:101
 msgid "Project Department"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Categories"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Project Category"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Technologies"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Project Technology"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Statuses"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
 msgid "Project Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
 msgid "Unique selling points"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
 msgid "Unique selling point"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Areas served"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
 msgid "Area served"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Grades"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Grade"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr ""

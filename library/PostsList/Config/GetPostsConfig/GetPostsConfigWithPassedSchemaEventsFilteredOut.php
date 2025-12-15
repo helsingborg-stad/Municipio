@@ -19,7 +19,7 @@ class GetPostsConfigWithPassedSchemaEventsFilteredOut extends AbstractDecoratedG
             return null;
         }
 
-        if ($this->innerConfig->getDateFrom() !== null) {
+        if ($this->innerConfig->getDateFrom() !== null && trim($this->innerConfig->getDateFrom()) !== '') {
             return $this->innerConfig->getDateFrom();
         }
 
