@@ -87,7 +87,6 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio'), ['show_admin_column' => true]),
             $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $this->wpService->__('Physical Accessibility Feature', 'municipio')),
-            $this->createTaxonomy('Event', 'eventSchedule.startDate', $this->wpService->__('Occasions', 'municipio'), $this->wpService->__('Occasion', 'municipio')),
         ];
     }
 
