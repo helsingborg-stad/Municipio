@@ -18,9 +18,15 @@ class ApplyIncludedPostIds implements ApplyPostsListConfigToGetPostsArgsInterfac
      */
     public function apply(GetPostsConfigInterface $config, array $args): array
     {
+        $includedPostIds = $config->getIncludedPostIds();
+
+        if (count($includedPostIds) === 0) {
+            return $args;
+        }
+
         return [
             ...$args,
-            'post__in' => $config->getIncludedPostIds(),
+            'post__in' => $includedPostIds,
         ];
     }
 }

@@ -33,4 +33,25 @@ class ApplyIncludedPostIdsTest extends TestCase
             $resultArgs,
         );
     }
+
+    #[TestDox('does not modify args if no included post IDs in config')]
+    public function testApplyWithNoIncludedPostIds(): void
+    {
+        $config = new class extends DefaultGetPostsConfig {
+            public function getIncludedPostIds(): array
+            {
+                return [];
+            }
+        };
+
+        $applyIncludedPostIds = new ApplyIncludedPostIds();
+        $initialArgs = ['post_type' => 'post'];
+
+        $resultArgs = $applyIncludedPostIds->apply($config, $initialArgs);
+
+        static::assertSame(
+            $initialArgs,
+            $resultArgs,
+        );
+    }
 }
