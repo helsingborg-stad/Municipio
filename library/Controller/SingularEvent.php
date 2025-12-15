@@ -7,6 +7,7 @@ use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
+use Municipio\PostsList\Config\GetPostsConfig\OrderDirection;
 use Municipio\PostsList\PostsList;
 use Municipio\PostsList\PostsListFactory;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
@@ -76,6 +77,11 @@ class SingularEvent extends \Municipio\Controller\Singular
             public function getPostsPerPage(): int
             {
                 return count($this->relatedEventIds);
+            }
+
+            public function getOrder(): OrderDirection
+            {
+                return OrderDirection::ASC;
             }
 
             public function getOrderBy(): string
