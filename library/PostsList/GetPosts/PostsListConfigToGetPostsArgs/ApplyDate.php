@@ -20,7 +20,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         return [
             ...$args,
-            ...$this->getDateOrMetaQuery($config)
+            ...$this->getDateOrMetaQuery($config),
         ];
     }
 
@@ -53,8 +53,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         $column = $config->getDateSource();
 
-        return ($config->getDateFrom() || $config->getDateTo())
-            && in_array($column, ['post_date', 'post_modified']);
+        return ($config->getDateFrom() || $config->getDateTo()) && in_array($column, ['post_date', 'post_modified']);
     }
 
     /**
@@ -72,7 +71,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
         if ($config->getDateTo()) {
             $query['before'] = $config->getDateTo();
         }
-        return $query;
+        return [...$query, 'inclusive' => true];
     }
 
     /**
@@ -84,8 +83,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     private function shouldApplyMetaQuery(GetPostsConfigInterface $config): bool
     {
         $column = $config->getDateSource();
-        return !in_array($column, ['post_date', 'post_modified'])
-            && ($config->getDateFrom() || $config->getDateTo());
+        return !in_array($column, ['post_date', 'post_modified']) && ($config->getDateFrom() || $config->getDateTo());
     }
 
     /**
@@ -97,15 +95,15 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     private function buildMetaQuery(GetPostsConfigInterface $config): array
     {
         $dateFrom = $config->getDateFrom();
-        $dateTo   = $config->getDateTo();
-        $value    = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
-        $compare  = ($dateFrom && $dateTo) ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
+        $dateTo = $config->getDateTo();
+        $value = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
+        $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
 
         return [
-            'key'     => $config->getDateSource(),
-            'value'   => $value,
+            'key' => $config->getDateSource(),
+            'value' => $value,
             'compare' => $compare,
-            'type'    => 'DATE'
+            'type' => 'DATE',
         ];
     }
 }
