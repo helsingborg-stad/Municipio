@@ -124,7 +124,7 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         return (new PostsListFactory(
             $this->wpService,
-            $GLOBALS['wpdb'],
+            $this->getWpDb(),
             new SchemaToPostTypeResolver($this->acfService, $this->wpService),
         ))
             ->create($postsListConfigDto)
@@ -138,7 +138,7 @@ class SingularEvent extends \Municipio\Controller\Singular
      */
     public function getRelatedEventsIds(): array
     {
-        global $wpdb;
+        $wpdb = $this->getWpDb();
 
         $terms = $this->post->getTerms(['event_keywords_name']);
         $termIds = array_map(fn($term) => $term->term_id, $terms);
@@ -215,5 +215,10 @@ class SingularEvent extends \Municipio\Controller\Singular
         }
 
         return DateTime::createFromFormat(self::CURRENT_OCCASION_DATE_FORMAT, $startDateParam) ?: null;
+    }
+
+    private function getWpDb(): \wpdb
+    {
+        return \Municipio\Helper\Wpdb::get();
     }
 }
