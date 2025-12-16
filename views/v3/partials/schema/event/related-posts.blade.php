@@ -11,7 +11,7 @@
             'u-rounded--16',
         ],
         'attributeList' => [
-            'style' => 'background-color: color-mix(in srgb, var(--color-secondary), transparent 70%)'
+            'style' => 'background-color: var(--color-secondary);'
         ]
     ])
         @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2'] ])
