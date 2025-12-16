@@ -14,7 +14,7 @@
             'style' => 'background-color: color-mix(in srgb, var(--color-secondary), transparent 70%)'
         ]
     ])
-        @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2'] ])
+        @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2'], 'attributeList' => ['style' => 'color: var(--color-secondary-contrasting);'] ])
             {!! $lang->relatedEventsTitle !!}
         @endtypography
         @include('posts-list', $postsListData)
