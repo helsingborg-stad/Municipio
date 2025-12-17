@@ -87,7 +87,7 @@
         <div class="o-grid u-align-content--end">
           
             @foreach ($taxonomyFilters as $key => $select)
-                <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
+                <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-4">
                     @select([
                         'label' => $select['label'] ?? '',
                         'name' => $select['attributeList']['name'] ?? '',
