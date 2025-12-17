@@ -19,8 +19,8 @@
         'classes' => []
     ])
 
-    @includeWhen(!$helperNavBeforeContent, 'partials.navigation.helper', [
-        'classList' => ['screen-reader-text'],
+    @includeWhen($helperNavBeforeContent, 'partials.navigation.helper', [
+        'classList' => ['o-container', 'o-container--helper-nav'],
     ])
 
     {{-- Hero area and top sidebar --}}
