@@ -45,7 +45,7 @@
         "@babel/preset-react": "^7.28.5",
         "@babel/preset-typescript": "^7.27.1",
         "@biomejs/biome": "2.3.5",
-        "@helsingborg-stad/styleguide": "0.11.1363",
+        "@helsingborg-stad/styleguide": "0.11.1367",
         "@jest/globals": "^29.7.0",
         "@material-symbols/font-200": "^0.34.1",
         "@material-symbols/font-400": "^0.34.1",
