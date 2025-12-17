@@ -49,6 +49,8 @@ class GetPostsConfigUsingGetParamsDecorator extends AbstractDecoratedGetPostsCon
 
     public function getPage(): int
     {
-        return (int) ($this->getParams[$this->queryVars->getPaginationParameterName()] ?? parent::getPage());
+        $page = (int) ($this->getParams[$this->queryVars->getPaginationParameterName()] ?? 0);
+
+        return $page > 0 ? $page : parent::getPage();
     }
 }
