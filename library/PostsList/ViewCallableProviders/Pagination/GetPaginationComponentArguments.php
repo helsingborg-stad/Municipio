@@ -15,13 +15,14 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
      * @param int $totalPages
      * @param int $currentPage
      * @param string $paginationQueryParam
+     * @param string $id
      */
     public function __construct(
         private int $totalPages,
         private int $currentPage,
-        private string $paginationQueryParam
-    ) {
-    }
+        private string $paginationQueryParam,
+        private string $id,
+    ) {}
 
     /**
      * Returns a callable that provides pagination arguments.
@@ -36,9 +37,9 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
             }
 
             return [
-                'list'       => $this->generatePaginationList(),
-                'current'    => $this->currentPage,
-                'linkPrefix' => $this->paginationQueryParam
+                'list' => $this->generatePaginationList(),
+                'current' => $this->currentPage,
+                'linkPrefix' => $this->paginationQueryParam,
             ];
         };
     }
@@ -53,7 +54,7 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
         $paginationList = [];
         for ($page = 1; $page <= $this->totalPages; $page++) {
             $paginationList[] = [
-                'href'  => $this->buildPageUrl($page),
+                'href' => $this->buildPageUrl($page) . '#' . $this->id,
                 'label' => (string) $page,
             ];
         }
@@ -68,8 +69,8 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
      */
     private function buildPageUrl(int $page): string
     {
-        $url         = $this->getCurrentRequestUri();
-        $parsedUrl   = parse_url($url);
+        $url = $this->getCurrentRequestUri();
+        $parsedUrl = parse_url($url);
         $queryParams = [];
 
         if (isset($parsedUrl['query'])) {
@@ -77,8 +78,8 @@ class GetPaginationComponentArguments implements ViewCallableProviderInterface
         }
 
         $queryParams[$this->paginationQueryParam] = $page;
-        $newQueryString                           = http_build_query($queryParams);
-        $path                                     = $parsedUrl['path'] ?? '';
+        $newQueryString = http_build_query($queryParams);
+        $path = $parsedUrl['path'] ?? '';
 
         return $path . '?' . $newQueryString;
     }

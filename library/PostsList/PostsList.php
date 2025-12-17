@@ -70,6 +70,7 @@ class PostsList implements PostsListInterface
             'posts' => $this->getPosts(),
             'appearanceConfig' => $this->getAppearanceConfig(),
             'filterConfig' => $this->filterConfig,
+            'id' => $this->getId(),
             'getTags' => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->getAppearanceConfig()->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
             'getExcerpt' => (new ViewCallableProviders\GetExcerpt($this->wpService))->getCallable(),
             'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
@@ -101,8 +102,13 @@ class PostsList implements PostsListInterface
             'getDateFilterFieldArguments' => (new ViewCallableProviders\Filter\GetDateFilterFieldArguments($this->getPostsConfig, $this->wpService, $this->queryVars->getDateFromParameterName(), $this->queryVars->getDateToParameterName()))->getCallable(),
             // Pagination utilities
             'paginationEnabled' => fn() => $this->getPostsConfig->paginationEnabled(),
-            'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getWpQuery()->max_num_pages, $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName()))->getCallable(),
+            'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getWpQuery()->max_num_pages, $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName(), $this->getId()))->getCallable(),
         ];
+    }
+
+    private function getId(): string
+    {
+        return $this->queryVars->getPrefix() . 'id';
     }
 
     /**
