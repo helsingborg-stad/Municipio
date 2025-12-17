@@ -1,4 +1,10 @@
-@element([ 'classList' => $getParentColumnClasses() ])
+@element([
+    'classList' => $getParentColumnClasses(),
+    'id' => $id,
+    'attributeList' => [
+        'style' => 'scroll-margin-top: 100px;' 
+    ]
+ ])
     @if($filterConfig->isTextSearchEnabled() || $filterConfig->isDateFilterEnabled() || !empty($getTaxonomyFilterSelectComponentArguments()))
         @element(['classList' => ['o-layout-grid--col-span-12']])
             @include('parts.filters')
