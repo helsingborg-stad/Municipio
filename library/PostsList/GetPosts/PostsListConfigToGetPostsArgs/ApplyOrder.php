@@ -68,6 +68,11 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function getOrderByArgsForCustomFields(string $orderBy): array
     {
+        $invalidPostMetaFieldKeys = [null ,'', 'none'];
+        if (in_array($orderBy, $invalidPostMetaFieldKeys, true)) {
+            return [];
+        }
+
         return [
             'orderby' => 'meta_value',
             'meta_key' => $orderBy,
