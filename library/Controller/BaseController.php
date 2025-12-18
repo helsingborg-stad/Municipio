@@ -84,12 +84,14 @@ class BaseController
         $this->data['homeUrlPath']        = parse_url(get_home_url(), PHP_URL_PATH);
         $this->data['siteName']           = $this->getSiteName();
 
+        // Feeds
+        $this->data['rssFeedUrls']        = $this->getAllPublicPostTypeRssFeeds();
+
         //View porperties
         $this->data['isFrontPage'] = is_front_page() || is_home() ? true : false;
         $this->data['isSingular']  = is_singular();
         $this->data['isSingle']    = is_single();
         $this->data['isSticky']    = is_sticky();
-
         $this->data['hasBlocks'] = $this->hasBlocks();
 
         //Post data
@@ -1046,6 +1048,56 @@ class BaseController
 
         return $this->getLogotype($variant) ?? false;
     }
+
+    /**
+     * Get all public post type rss feeds
+     *
+     * @param array $feedTypes
+     * 
+     * @return array
+     */
+    public function getAllPublicPostTypeRssFeeds(array $feedTypes = ['rss2']): array
+    {
+        $feeds = [];
+
+        $postTypes = get_post_types(
+            [
+                'public' => true,
+            ],
+            'objects'
+        );
+
+        foreach ($postTypes as $postType) {
+            if (empty($postType->has_archive)) {
+                continue;
+            }
+
+            if ($postType->rewrite === false) {
+                continue;
+            }
+
+            if (isset($postType->feeds) && $postType->feeds === false) {
+                continue;
+            }
+
+            foreach ($feedTypes as $feedType) {
+                $feedUrl = get_post_type_archive_feed_link(
+                    $postType->name,
+                    $feedType
+                );
+
+                if ($feedUrl) {
+                    $feeds[$postType->name][$feedType] = (object) [
+                        'url'  => $feedUrl,
+                        'name' => __('Feed') . ': ' . $postType->labels->name
+                    ];
+                }
+            }
+        }
+
+        return $feeds;
+    }
+
     /**
      * Runs after construct
      * @return void

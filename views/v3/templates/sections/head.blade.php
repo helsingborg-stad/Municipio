@@ -27,4 +27,12 @@
     {{-- Wordpress required call to wp_header() --}}
     {!! $wpHeader !!}
 
+    {{-- Rss feed --}}
+    @foreach ($rssFeedUrls as $rssFeedUrl)
+        <link 
+        rel="alternate" 
+        type="application/rss+xml" 
+        title="{{ $siteName }} » {{ $rssFeedUrl['rss2']->name }}" 
+        href="{{ $rssFeedUrl['rss2']->url }}">
+    @endforeach
 </head>
