@@ -14,10 +14,9 @@ class Subscriber implements Hookable
     /**
      * Constructor.
      */
-    public function __construct(private WpService $wpService)
-    {
-    }
-
+    public function __construct(
+        private WpService $wpService,
+    ) {}
 
     /**
      * @inheritDoc
@@ -26,7 +25,6 @@ class Subscriber implements Hookable
     {
         $this->wpService->addAction('init', [$this, 'makePrivateReadable'], 5);
     }
-
 
     /**
      * @inheritDoc
@@ -41,6 +39,10 @@ class Subscriber implements Hookable
 
         if (is_a($role, 'WP_Role') && !$role->has_cap('read_private_pages')) {
             $role->add_cap('read_private_pages');
+        }
+
+        if (is_a($role, 'WP_Role') && !$role->has_cap('read_private_anys')) {
+            $role->add_cap('read_private_anys');
         }
     }
 }

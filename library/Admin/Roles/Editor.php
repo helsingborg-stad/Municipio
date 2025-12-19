@@ -12,8 +12,9 @@ class Editor
     /**
      * Constructor
      */
-    public function __construct(private User $userHelper)
-    {
+    public function __construct(
+        private User $userHelper,
+    ) {
         if ($userHelper->userHasRole('editor')) {
             add_action('admin_init', array($this, 'adminRedirects'), 1);
             add_action('admin_menu', array($this, 'adminMenus'), 9000);
@@ -82,16 +83,18 @@ class Editor
     public function addCapabilities()
     {
         $administrator = get_role('administrator');
-        $editor        = get_role('editor');
+        $editor = get_role('editor');
 
         // Site admins
         $administrator->add_cap('unfiltered_html');
+        $administrator->add_cap('read_private_anys');
 
         // Editors
         $editor->add_cap('edit_theme_options');
         $editor->add_cap('manage_options');
         $editor->add_cap('gform_full_access');
         $editor->add_cap('unfiltered_html');
+        $editor->add_cap('read_private_anys');
     }
 
     /**
@@ -101,7 +104,7 @@ class Editor
     {
         if ($this->userHelper->userHasRole('editor')) {
             wp_redirect(admin_url());
-            exit;
+            exit();
         }
     }
 
