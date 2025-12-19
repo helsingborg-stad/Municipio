@@ -51,7 +51,47 @@ class NormalizeImageSize implements Hookable
             $this->config->maxImageDimension()
         );
 
+        // Cap the aspect ratio if it exceeds the maximum allowed ratio.
+        $dimensions = $this->normalizeRatio(
+            $dimensions, 
+            $this->config->maxImageAspectRatioMultiplier()
+        );
+
         return ImageContract::factory($this->wpService, $image->getId(), $dimensions[0], $dimensions[1]);
+    }
+
+    /**
+     * Normalize the aspect ratio of the image dimensions to ensure it does not exceed the specified maximum ratio.
+     *
+     * @param array $size An array containing the width and height of the image.
+     * @param float|null $maxRatio The maximum allowed aspect ratio (width/height or height/width). Defaults to null (no limit).
+     *
+     * @return array The normalized image dimensions (integers or booleans).
+     */
+    private function normalizeRatio(array $size, ?float $maxRatio): array
+    {
+        if ($maxRatio === null) {
+            return $size;
+        }
+
+        if (!isset($size[0], $size[1]) || $size[0] === false || $size[1] === false) {
+            return $size;
+        }
+
+        $width = $size[0];
+        $height = $size[1];
+
+        $currentRatio = $width / $height;
+
+        if ($currentRatio > $maxRatio) {
+            $newWidth = (int) round($height * $maxRatio);
+            return [$newWidth, $height];
+        } elseif ((1 / $currentRatio) > $maxRatio) {
+            $newHeight = (int) round($width * $maxRatio);
+            return [$width, $newHeight];
+        }
+
+        return $size;
     }
 
     /**
