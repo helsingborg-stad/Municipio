@@ -34,7 +34,7 @@ class GetDatebadgeDateTest extends TestCase
         $this->assertEquals($firstAvailableDate->format(DateFormat::getDateFormat('date')), $result);
     }
 
-    #[TestDox('returns null if no upcoming events are found')]
+    #[TestDox('returns closest passed schedule if no upcoming events are found')]
     public function testGetDatebadgeDateNoUpcomingEvents(): void
     {
         $post = new class extends \Municipio\PostObject\NullPostObject {
@@ -50,7 +50,7 @@ class GetDatebadgeDateTest extends TestCase
         $callable = $getDatebadgeDate->getCallable();
         $result = $callable($post);
 
-        $this->assertNull($result);
+        $this->assertEquals((new DateTime('-1 day'))->format(DateFormat::getDateFormat('date')), $result);
     }
 
     #[TestDox('returns null if no schedules are provided')]
