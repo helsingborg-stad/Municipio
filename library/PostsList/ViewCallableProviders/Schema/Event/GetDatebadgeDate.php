@@ -54,13 +54,13 @@ class GetDateBadgeDate implements ViewCallableProviderInterface
      */
     private static function getFirstUpcomingEventDateTimeFromArrayOfSchedules(Schedule ...$schedules): null|DateTimeInterface
     {
-        $firstUpcomingSchedule = self::getFirstUpcomingScheduleFromArrayOfSchedules(...$schedules);
+        $schedule = self::getFirstUpcomingScheduleFromArrayOfSchedules(...$schedules) ?? self::getClosestPassedScheduleFromArrayOfSchedules(...$schedules);
 
-        if ($firstUpcomingSchedule === null) {
+        if ($schedule === null) {
             return null;
         }
 
-        return $firstUpcomingSchedule->getProperty('startDate') ?: null;
+        return $schedule->getProperty('startDate') ?: null;
     }
 
     /**
@@ -78,6 +78,24 @@ class GetDateBadgeDate implements ViewCallableProviderInterface
         $now = new DateTime();
         foreach ($schedules as $schedule) {
             if ($schedule->getProperty('startDate') < $now) {
+                continue;
+            }
+
+            return $schedule;
+        }
+
+        return null;
+    }
+
+    private static function getClosestPassedScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
+    {
+        usort(
+            $schedules,
+            static fn(Schedule $a, Schedule $b) => $b->getProperty('startDate') <=> $a->getProperty('startDate'),
+        );
+        $now = new DateTime();
+        foreach ($schedules as $schedule) {
+            if ($schedule->getProperty('startDate') >= $now) {
                 continue;
             }
 

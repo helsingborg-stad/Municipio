@@ -36,30 +36,13 @@ class GetDate implements ViewCallableProviderInterface
     private function getDate(Event $event): null|string
     {
         $schedules = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
-        $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
+        $schedule = self::getFirstUpcomingScheduleFromArrayOfSchedules(...$schedules) ?? self::getClosestPassedScheduleFromArrayOfSchedules(...$schedules);
 
-        if ($firstUpcomingDateTime === null) {
+        if ($schedule === null || !$schedule->getProperty('startDate') instanceof DateTimeInterface) {
             return null;
         }
 
-        return $firstUpcomingDateTime->format(DateFormat::getDateFormat('date-time'));
-    }
-
-    /**
-     * Retrieves the DateTimeInterface of the first upcoming event schedule.
-     *
-     * @param Schedule ...$schedules One or more Schedule objects.
-     * @return DateTimeInterface|null The DateTimeInterface of the first upcoming schedule or null if none found.
-     */
-    private static function getFirstUpcomingEventDateTimeFromArrayOfSchedules(Schedule ...$schedules): null|DateTimeInterface
-    {
-        $firstUpcomingSchedule = self::getFirstUpcomingScheduleFromArrayOfSchedules(...$schedules);
-
-        if ($firstUpcomingSchedule === null) {
-            return null;
-        }
-
-        return $firstUpcomingSchedule->getProperty('startDate') ?: null;
+        return $schedule->getProperty('startDate')->format(DateFormat::getDateFormat('date-time'));
     }
 
     /**
@@ -77,6 +60,30 @@ class GetDate implements ViewCallableProviderInterface
         $now = new \DateTime();
         foreach ($schedules as $schedule) {
             if ($schedule->getProperty('startDate') < $now) {
+                continue;
+            }
+
+            return $schedule;
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds the closest passed Schedule from an array of schedules.
+     *
+     * @param Schedule ...$schedules One or more Schedule objects.
+     * @return Schedule|null The closest passed Schedule or null if none found.
+     */
+    private static function getClosestPassedScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
+    {
+        usort(
+            $schedules,
+            static fn(Schedule $a, Schedule $b) => $b->getProperty('startDate') <=> $a->getProperty('startDate'),
+        );
+        $now = new \DateTime();
+        foreach ($schedules as $schedule) {
+            if ($schedule->getProperty('startDate') > $now) {
                 continue;
             }
 

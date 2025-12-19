@@ -5,10 +5,12 @@ namespace Municipio\PostsList\ViewCallableProviders\Schema\Event;
 use DateTimeImmutable;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class GetDateTest extends TestCase
 {
+    #[TestDox('returns null when no schedules')]
     public function testReturnsNullWhenNoSchedules()
     {
         $post = new class extends \Municipio\PostObject\NullPostObject {
@@ -24,6 +26,7 @@ class GetDateTest extends TestCase
         $this->assertNull($result);
     }
 
+    #[TestDox('returns single date when one passed schedule')]
     public function testReturnsSingleDateWhenOneUpcomingSchedule()
     {
         $date = new DateTimeImmutable('+1 day');
@@ -42,6 +45,30 @@ class GetDateTest extends TestCase
         $result = $getDate->getCallable()($post);
 
         $expected = $date->format('Y-m-d H:i');
+
+        $this->assertEquals($expected, $result);
+    }
+
+    #[TestDox('returns closest passed date when no upcoming schedules')]
+    public function testReturnsClosestPassedDateWhenNoUpcomingSchedules()
+    {
+        $passedDate = new DateTimeImmutable('-1 day');
+        $post = new class($passedDate) extends \Municipio\PostObject\NullPostObject {
+            public function __construct(
+                private DateTimeImmutable $passedDate,
+            ) {}
+
+            public function getSchema(): BaseType
+            {
+                $schedule1 = Schema::schedule()->startDate(new DateTimeImmutable('-2 days'))->endDate(new DateTimeImmutable('-2 days'));
+                $schedule2 = Schema::schedule()->startDate($this->passedDate)->endDate($this->passedDate);
+                return Schema::event()->eventSchedule([$schedule1, $schedule2]);
+            }
+        };
+        $getDate = new GetDate();
+        $result = $getDate->getCallable()($post);
+
+        $expected = $passedDate->format('Y-m-d H:i');
 
         $this->assertEquals($expected, $result);
     }
