@@ -7,6 +7,7 @@ use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\DateI18n;
 
 class GetDateTest extends TestCase
 {
@@ -20,7 +21,7 @@ class GetDateTest extends TestCase
             }
         };
 
-        $getDate = new GetDate();
+        $getDate = new GetDate(self::createWpService());
         $result = $getDate->getCallable()($post);
 
         $this->assertNull($result);
@@ -41,7 +42,7 @@ class GetDateTest extends TestCase
                 return Schema::event()->eventSchedule([$schedule]);
             }
         };
-        $getDate = new GetDate();
+        $getDate = new GetDate(self::createWpService());
         $result = $getDate->getCallable()($post);
 
         $expected = $date->format('Y-m-d H:i');
@@ -65,11 +66,21 @@ class GetDateTest extends TestCase
                 return Schema::event()->eventSchedule([$schedule1, $schedule2]);
             }
         };
-        $getDate = new GetDate();
+        $getDate = new GetDate(self::createWpService());
         $result = $getDate->getCallable()($post);
 
         $expected = $passedDate->format('Y-m-d H:i');
 
         $this->assertEquals($expected, $result);
+    }
+
+    private static function createWpService(): DateI18n
+    {
+        return new class implements DateI18n {
+            public function dateI18n(string $format, int|bool $timestampWithOffset = false, bool $gmt = false): string
+            {
+                return date($format, $timestampWithOffset);
+            }
+        };
     }
 }
