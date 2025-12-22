@@ -9,6 +9,7 @@ use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
+use WpService\Contracts\DateI18n;
 
 /**
  * Class GetDate
@@ -17,6 +18,10 @@ use Municipio\Schema\Schedule;
  */
 class GetDate implements ViewCallableProviderInterface
 {
+    public function __construct(
+        private DateI18n $wpService,
+    ) {}
+
     /**
      * Get a callable that retrieves the date for an event post
      *
@@ -42,7 +47,10 @@ class GetDate implements ViewCallableProviderInterface
             return null;
         }
 
-        return $schedule->getProperty('startDate')->format(DateFormat::getDateFormat('date-time'));
+        return $this->wpService->dateI18n(
+            DateFormat::getDateFormat('date-time'),
+            $schedule->getProperty('startDate')->getTimestamp(),
+        );
     }
 
     /**

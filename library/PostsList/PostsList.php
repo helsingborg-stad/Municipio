@@ -90,7 +90,7 @@ class PostsList implements PostsListInterface
             'getSchemaEventHasMoreOccasions' => (new ViewCallableProviders\Schema\Event\EventHasMoreOccasions())->getCallable(),
             'getEventMoreOccasionsLabel' => fn() => $this->wpService->_x('More occasions available', 'label for more occasions available on event', 'municipio'),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
-            'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate())->getCallable(),
+            'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate($this->wpService))->getCallable(),
             'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate())->getCallable(),
             // Schema Exhibition event view utilities
             'getSchemaExhibitionOccasionText' => (new ViewCallableProviders\Schema\ExhibitionEvent\GetOccasionText($this->wpService))->getCallable(),
