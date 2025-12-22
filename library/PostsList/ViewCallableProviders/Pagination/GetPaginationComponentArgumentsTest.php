@@ -13,23 +13,26 @@ class GetPaginationComponentArgumentsTest extends TestCase
         // Set current URL function for testing
         $_SERVER['REQUEST_URI'] = 'https://example.com/posts';
 
-        $callableProvider = new GetPaginationComponentArguments(3, 2, 'page');
+        $callableProvider = new GetPaginationComponentArguments(3, 2, 'page', 'test-id');
 
-        $this->assertEquals([
-            'list'       => [
-                [ 'href' => '/posts?page=1','label' => '1', ],
-                [ 'href' => '/posts?page=2','label' => '2', ],
-                [ 'href' => '/posts?page=3','label' => '3', ],
+        $this->assertEquals(
+            [
+                'list' => [
+                    ['href' => '/posts?page=1#test-id', 'label' => '1'],
+                    ['href' => '/posts?page=2#test-id', 'label' => '2'],
+                    ['href' => '/posts?page=3#test-id', 'label' => '3'],
+                ],
+                'current' => 2,
+                'linkPrefix' => 'page',
             ],
-            'current'    => 2,
-            'linkPrefix' => 'page'
-        ], $callableProvider->getCallable()());
+            $callableProvider->getCallable()(),
+        );
     }
 
     #[TestDox('It should return empty array when total pages is less than minimum')]
     public function testGetPaginationComponentArgumentsWithLessThanMinimumPages(): void
     {
-        $callableProvider = new GetPaginationComponentArguments(1, 1, 'page');
+        $callableProvider = new GetPaginationComponentArguments(1, 1, 'page', 'test-id');
 
         $this->assertEquals([], $callableProvider->getCallable()());
     }
