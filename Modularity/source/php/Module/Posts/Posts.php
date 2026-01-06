@@ -144,6 +144,7 @@ class Posts extends \Modularity\Module
     public function data(): array
     {
         $data = [];
+        $wpService = WpService::get();
         $this->fields = $this->getFields();
 
         $this->domainChecker = new DomainChecker($this->fields);
@@ -214,6 +215,10 @@ class Posts extends \Modularity\Module
 
         // Archive link title
         $data['archiveLinkTitle'] = $this->fields['archive_link_title'] ?? null;
+
+        // Archive link style
+        $data['archiveLinkStyle'] = $this->fields['archive_link_style'] ?? 'secondary';
+        $data['archiveLinkIcon'] = $wpService->applyFilters('Modularity/Module/Posts/ArchiveLink/Icon', null);
 
         // Archive link position
         $data['archiveLinkAbovePosts'] = $this->fields['archive_link_above_posts'] ?? false;

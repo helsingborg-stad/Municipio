@@ -291,6 +291,50 @@ if (function_exists('acf_add_local_field_group')) {
                 'append' => '',
             ),
             9 => array(
+                'key' => 'field_695d1fdbd4b25',
+                'label' => __('Link style', 'municipio'),
+                'name' => 'archive_link_style',
+                'aria-label' => '',
+                'type' => 'select',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => array(
+                    0 => array(
+                        0 => array(
+                            'field' => 'field_57ecf1007b749',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                        1 => array(
+                            'field' => 'field_67e6eed195ff6',
+                            'operator' => '!=',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'choices' => array(
+                    'primary' => __('Primary', 'municipio'),
+                    'secondary' => __('Secondary', 'municipio'),
+                ),
+                'default_value' => 'secondary',
+                'return_format' => 'value',
+                'multiple' => 0,
+                'allow_null' => 0,
+                'allow_in_bindings' => 0,
+                'ui' => 0,
+                'ajax' => 0,
+                'placeholder' => '',
+                'create_options' => 0,
+                'save_options' => 0,
+                'allow_custom' => 0,
+                'search_placeholder' => '',
+            ),
+            10 => array(
                 'key' => 'field_67e6eed195ff6',
                 'label' => __('Archive link above posts', 'municipio'),
                 'name' => 'archive_link_above_posts',
@@ -319,7 +363,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'ui_off_text' => '',
                 'ui' => 1,
             ),
-            10 => array(
+            11 => array(
                 'key' => 'field_6710ff6562e8c',
                 'label' => __('Från andra sajter i nätverket', 'municipio'),
                 'name' => 'posts_data_network_sources',
@@ -365,7 +409,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'create_options' => 0,
                 'save_options' => 0,
             ),
-            11 => array(
+            12 => array(
                 'key' => 'field_6925d1012f482',
                 'label' => __('Get posts from the users group', 'municipio'),
                 'name' => 'posts_data_get_posts_from_user_group',
