@@ -2,16 +2,18 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler;
 
+use Municipio\HooksRegistrar\Hookable;
+use Municipio\ProgressReporter\ProgressReporterInterface;
+use Municipio\Schema\BaseType;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\FilterDefinition;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Rule;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\RuleSet;
 use Municipio\SchemaData\ExternalContent\SourceReaders\SourceReaderInterface;
+use Municipio\SchemaData\ExternalContent\SyncHandler\MetaDataFromSchema\MetaDataItemsFromSchema;
 use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
-use Municipio\HooksRegistrar\Hookable;
-use Municipio\ProgressReporter\ProgressReporterInterface;
-use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 use WpService\WpService;
 
 /**
@@ -26,14 +28,15 @@ class SyncHandler implements Hookable, SyncHandlerInterface
      * @param WpService $wpService
      * @param ProgressReporterInterface $progressService
      * @param SchemaObjectProcessorInterface[] $schemaObjectsProcessors
+     * @param MetaDataItemsFromSchema $metaDataItemsFromSchema
      */
     public function __construct(
         private array $sourceConfigs,
         private WpService $wpService,
         private ProgressReporterInterface $progressService,
-        private array $schemaObjectProcessors = []
-    ) {
-    }
+        private array $schemaObjectProcessors = [],
+        private MetaDataItemsFromSchema $metaDataItemsFromSchema = new MetaDataItemsFromSchema(),
+    ) {}
 
     /**
      * @inheritDoc
@@ -46,7 +49,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
     /**
      * @inheritDoc
      */
-    public function sync(string $postType, ?int $postId = null): void
+    public function sync(string $postType, null|int $postId = null): void
     {
         // allow sync to take longer than current max_execution_time
         set_time_limit(0);
@@ -64,30 +67,30 @@ class SyncHandler implements Hookable, SyncHandlerInterface
             return;
         }
 
-        $schemaObjects             = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->filter($schemaObjects);
-        $schemaObjects             = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->convert($schemaObjects);
+        $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->filter($schemaObjects);
+        $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->convert($schemaObjects);
         $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
 
-        $schemaObjects             = array_values(array_filter($schemaObjects));
+        $schemaObjects = array_values(array_filter($schemaObjects));
         $newOrChangedSchemaObjects = array_values(array_filter($newOrChangedSchemaObjects));
 
         if (empty($schemaObjects)) {
             return;
         }
 
-        $totalObjects         = count($newOrChangedSchemaObjects);
+        $totalObjects = count($newOrChangedSchemaObjects);
         $insertedWpPostsCount = 0;
 
         foreach ($newOrChangedSchemaObjects as $i => $schemaObject) {
             $iPlusOne = $i + 1;
-            $this->progressService->setMessage(sprintf($this->wpService->__("Processing %s of %s...", 'municipio'), $iPlusOne, $totalObjects));
+            $this->progressService->setMessage(sprintf($this->wpService->__('Processing %s of %s...', 'municipio'), $iPlusOne, $totalObjects));
             $this->progressService->setPercentage(($iPlusOne / $totalObjects) * 100);
 
             foreach ($this->schemaObjectProcessors as $processor) {
                 $schemaObject = $processor->process($schemaObject);
             }
 
-            $args         = $this->getPostFactory($sourceConfig)->transform($schemaObject);
+            $args = $this->getPostFactory($sourceConfig)->transform($schemaObject);
             $postInserted = $this->wpService->wpInsertPost($args);
 
             if ($this->wpService->isWpError($postInserted)) {
@@ -95,10 +98,12 @@ class SyncHandler implements Hookable, SyncHandlerInterface
                 continue;
             }
 
+            $this->setMetaDataFromSchema($schemaObject, $postInserted);
+
             $insertedWpPostsCount++;
         }
 
-        $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));
+        $this->progressService->setMessage($this->wpService->__('Cleaning up...', 'municipio'));
 
         if ($insertedWpPostsCount !== $totalObjects) {
             throw new ExternalContentException('Failed to insert: ' . $postType . '. Expected ' . $totalObjects . ' but got ' . $insertedWpPostsCount);
@@ -110,6 +115,21 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         }
 
         (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->cleanup();
+    }
+
+    private function setMetaDataFromSchema(BaseType $schema, int $postInserted): void
+    {
+        $metaDataItems = $this->metaDataItemsFromSchema->getMetaDataItems($schema);
+        $metaDataItemsKeys = array_map(fn($item) => $item->getKey(), $metaDataItems);
+        $metaDataItemsKeys = array_unique($metaDataItemsKeys);
+
+        foreach ($metaDataItemsKeys as $key) {
+            $this->wpService->deletePostMeta($postInserted, $key);
+        }
+
+        foreach ($metaDataItems as $metaDataItem) {
+            $this->wpService->addPostMeta($postInserted, $metaDataItem->getKey(), $metaDataItem->getValue());
+        }
     }
 
     /**

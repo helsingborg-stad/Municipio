@@ -4,50 +4,45 @@ namespace Municipio\PostsList\ViewCallableProviders\Schema\Event;
 
 use DateTime;
 use DateTimeInterface;
-use Municipio\Helper\DateFormat;
+use Municipio\Controller\SingularEvent;
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
-use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
-/**
- * Class GetDatebadgeDate
- *
- * Provides methods to retrieve the date for the date badge of an event.
- */
-class GetDateBadgeDate implements ViewCallableProviderInterface
+class GetPermalink implements ViewCallableProviderInterface
 {
     public function __construct(
         private null|string $dateFrom = 'now',
     ) {}
 
     /**
-     * Get a callable that retrieves the date badge date for an event post
+     * Get a callable that retrieves the permalink for an event post
      *
      * @return callable
      */
     public function getCallable(): callable
     {
-        return fn(PostObjectInterface $post): null|string => $this->getDatebadgeDate($post->getSchema());
+        return fn(PostObjectInterface $post): null|string => $this->getPermalink($post);
     }
 
     /**
-     * Returns the formatted date string for the first upcoming event schedule.
+     * Returns the formatted permalink string for the first upcoming event schedule.
      *
-     * @param Event $event The event object.
-     * @return string|null The formatted date string (Y-m-d) or null if no upcoming schedule exists.
+     * @param PostObjectInterface $post The event post object.
+     * @return string The formatted permalink string.
      */
-    private function getDatebadgeDate(Event $event): null|string
+    private function getPermalink(PostObjectInterface $post): string
     {
+        $event = $post->getSchema();
         $schedules = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
-        $firstUpcomingDateTime = self::getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
+        $firstUpcomingDateTime = $this->getFirstUpcomingEventDateTimeFromArrayOfSchedules(...$schedules);
 
         if ($firstUpcomingDateTime === null) {
-            return null;
+            return $post->getPermalink();
         }
 
-        return $firstUpcomingDateTime->format(DateFormat::getDateFormat('date'));
+        return $this->formatPermalinkWithDate($post, $firstUpcomingDateTime);
     }
 
     /**
@@ -107,5 +102,11 @@ class GetDateBadgeDate implements ViewCallableProviderInterface
         }
 
         return null;
+    }
+
+    private function formatPermalinkWithDate(PostObjectInterface $post, DateTimeInterface $dateTime): string
+    {
+        $separator = strpos($post->getPermalink(), '?') === false ? '?' : '&';
+        return $post->getPermalink() . $separator . SingularEvent::CURRENT_OCCASION_GET_PARAM . '=' . $dateTime->format(SingularEvent::CURRENT_OCCASION_DATE_FORMAT);
     }
 }

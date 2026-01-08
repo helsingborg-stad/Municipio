@@ -1,7 +1,7 @@
 @segment([
     'layout'            => 'card',
     'image'             => $post->getImage(),
-    'link'              => $post->getPermalink(),
+    'link'              => $getSchemaEventPermalink($post),
     'containerAware'    => true
 ])
     @if(!empty($getSchemaEventDateBadgeDate($post)))
