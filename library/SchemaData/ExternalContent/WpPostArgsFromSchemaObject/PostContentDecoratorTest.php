@@ -16,40 +16,40 @@ class PostContentDecoratorTest extends TestCase
 
     public function testTransformAddsPostContent(): void
     {
-        $decorator    = new PostContentDecorator($this->createInnerMock());
+        $decorator = new PostContentDecorator($this->createInnerMock());
         $schemaObject = Schema::thing()->description('Sample Description');
-        $result       = $decorator->transform($schemaObject);
+        $result = $decorator->transform($schemaObject);
 
         $this->assertEquals(['post_content' => 'Sample Description'], $result);
     }
 
     public function testTransformDescriptionArrayToEmptyPostContent(): void
     {
-        $decorator    = new PostContentDecorator($this->createInnerMock());
+        $decorator = new PostContentDecorator($this->createInnerMock());
         $schemaObject = Schema::thing()->description(['Sample Description', 'Another description']);
-        $result       = $decorator->transform($schemaObject);
+        $result = $decorator->transform($schemaObject);
 
         $this->assertEquals(['post_content' => "Sample Description\nAnother description"], $result);
     }
 
     public function testTransformHandlesTextObjectDescription(): void
     {
-        $decorator    = new PostContentDecorator($this->createInnerMock());
+        $decorator = new PostContentDecorator($this->createInnerMock());
         $schemaObject = Schema::thing()->description(Schema::textObject()->text('Text from TextObject'));
-        $result       = $decorator->transform($schemaObject);
+        $result = $decorator->transform($schemaObject);
 
         $this->assertEquals(['post_content' => 'Text from TextObject'], $result);
     }
 
-    public function testTransformPrependsNameOfTextObjectAsTitle(): void
+    public function testTransformPrependsHeadlineOfTextObjectAsTitle(): void
     {
-        $decorator    = new PostContentDecorator($this->createInnerMock());
+        $decorator = new PostContentDecorator($this->createInnerMock());
         $schemaObject = Schema::thing()->description(
-            Schema::textObject()->name('Title')->text('Text from TextObject')
+            Schema::textObject()->headline('Headline')->text('Text from TextObject'),
         );
-        $result       = $decorator->transform($schemaObject);
+        $result = $decorator->transform($schemaObject);
 
-        $this->assertEquals(['post_content' => "Title\nText from TextObject"], $result);
+        $this->assertEquals(['post_content' => "Headline\nText from TextObject"], $result);
     }
 
     private function createInnerMock(): WpPostArgsFromSchemaObjectInterface|MockObject

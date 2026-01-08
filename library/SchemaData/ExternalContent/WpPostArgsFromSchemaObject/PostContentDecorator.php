@@ -11,15 +11,14 @@ class PostContentDecorator implements WpPostArgsFromSchemaObjectInterface
 
     public function __construct(
         private WpPostArgsFromSchemaObjectInterface $inner,
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
      */
     public function transform(BaseType $schemaObject): array
     {
-        $postArgs    = $this->inner->transform($schemaObject);
+        $postArgs = $this->inner->transform($schemaObject);
         $description = $schemaObject->getProperty('description');
 
         if (empty($description)) {
@@ -28,7 +27,7 @@ class PostContentDecorator implements WpPostArgsFromSchemaObjectInterface
 
         return [
             ...$postArgs,
-            self::POST_CONTENT_KEY => $this->formatDescriptionAsPostContent($description)
+            self::POST_CONTENT_KEY => $this->formatDescriptionAsPostContent($description),
         ];
     }
 
@@ -49,8 +48,8 @@ class PostContentDecorator implements WpPostArgsFromSchemaObjectInterface
         }
 
         if ($description instanceof TextObject) {
-            $text  = $description->getProperty('text') ?? '';
-            $title = $description->getProperty('name');
+            $text = $description->getProperty('text') ?? '';
+            $title = $description->getProperty('headline');
 
             if (!empty($title)) {
                 return "{$title}\n{$text}";
@@ -62,7 +61,7 @@ class PostContentDecorator implements WpPostArgsFromSchemaObjectInterface
         if (is_array($description)) {
             return implode(PHP_EOL, array_map(
                 fn($item) => $this->formatDescriptionAsPostContent($item),
-                $description
+                $description,
             ));
         }
 
