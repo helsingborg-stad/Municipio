@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\Schema\BaseType;
@@ -59,10 +61,7 @@ class PostContentDecorator implements WpPostArgsFromSchemaObjectInterface
         }
 
         if (is_array($description)) {
-            return implode(PHP_EOL, array_map(
-                fn($item) => $this->formatDescriptionAsPostContent($item),
-                $description,
-            ));
+            return implode(PHP_EOL, array_map([$this, 'formatDescriptionAsPostContent'], $description));
         }
 
         return '';
