@@ -45,7 +45,7 @@ class MapEventStartDates implements MetaDataItemMapperInterface
 
         if (is_string($startDate)) {
             // Validate string format
-            $time = @strtotime($startDate) ?? false;
+            $time = strtotime($startDate) ?? false;
 
             if ($time !== false) {
                 $schedule->setProperty('startDate', date(\DateTime::ATOM, $time));
