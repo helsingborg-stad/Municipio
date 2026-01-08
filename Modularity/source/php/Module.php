@@ -462,6 +462,11 @@ class Module
             'widgets' => $this->getWidgets(),
         ];
 
+        //Single template modules
+        if (is_singular() || is_archive()) {
+            $modulesByLinkType['template'] = $this->getValueFromKeyRecursive(\Modularity\Editor::getPostModules(\Modularity\Helper\Wp::getSingleSlug()), 'post_type');
+        }
+
         //Filter and merge all modules
         foreach ($modulesByLinkType as $modulesLinkType) {
             $modules = array_merge($modules, $modulesLinkType);
