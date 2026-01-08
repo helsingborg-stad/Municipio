@@ -3,6 +3,8 @@
 namespace Municipio\PostsList\ViewCallableProviders\Schema\Event;
 
 use DateTimeImmutable;
+use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
+use Municipio\PostsList\Config\GetPostsConfig\DefaultGetPostsConfig;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -72,6 +74,30 @@ class GetDateTest extends TestCase
         $expected = $passedDate->format('Y-m-d H:i');
 
         $this->assertEquals($expected, $result);
+    }
+
+    #[TestDox('returns next upcoming date relative to supplied date')]
+    public function testReturnsNextUpcomingDateRelativeToSuppliedDate()
+    {
+        $upcomingDate = new DateTimeImmutable('+10 days');
+        $post = new class($upcomingDate) extends \Municipio\PostObject\NullPostObject {
+            public function __construct(
+                private DateTimeImmutable $upcomingDate,
+            ) {}
+
+            public function getSchema(): BaseType
+            {
+                $schedule1 = Schema::schedule()->startDate(new DateTimeImmutable('+5 days'))->endDate(new DateTimeImmutable('+5 days'));
+                $schedule2 = Schema::schedule()->startDate($this->upcomingDate)->endDate($this->upcomingDate);
+                return Schema::event()->eventSchedule([$schedule1, $schedule2]);
+            }
+        };
+
+        $getDate = new GetDate(self::createWpService(), $upcomingDate->format('Y-m-d H:i'));
+        $result = $getDate->getCallable()($post);
+        $expected = $upcomingDate->format('Y-m-d H:i');
+
+        static::assertSame($expected, $result);
     }
 
     private static function createWpService(): DateI18n

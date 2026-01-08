@@ -69,4 +69,24 @@ class GetDatebadgeDateTest extends TestCase
 
         $this->assertNull($result);
     }
+
+    #[TestDox('returns next upcoming date relative to supplied date')]
+    public function testReturnsNextUpcomingDateRelativeToSuppliedDate(): void
+    {
+        $referenceDate = new DateTime('+3 days');
+        $post = new class extends \Municipio\PostObject\NullPostObject {
+            public function getSchema(): \Municipio\Schema\BaseType
+            {
+                $schedule1 = Schema::schedule()->startDate(new DateTime('+1 day'));
+                $schedule2 = Schema::schedule()->startDate(new DateTime('+4 days'));
+                return Schema::event()->eventSchedule([$schedule1, $schedule2]);
+            }
+        };
+
+        $getDatebadgeDate = new GetDatebadgeDate($referenceDate->format('Y-m-d H:i:s'));
+        $callable = $getDatebadgeDate->getCallable();
+        $result = $callable($post);
+
+        $this->assertEquals((new DateTime('+4 days'))->format(DateFormat::getDateFormat('date')), $result);
+    }
 }

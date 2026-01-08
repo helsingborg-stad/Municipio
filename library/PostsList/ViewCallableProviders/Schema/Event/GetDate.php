@@ -20,6 +20,7 @@ class GetDate implements ViewCallableProviderInterface
 {
     public function __construct(
         private DateI18n $wpService,
+        private null|string $dateFrom = 'now',
     ) {}
 
     /**
@@ -59,13 +60,13 @@ class GetDate implements ViewCallableProviderInterface
      * @param Schedule ...$schedules One or more Schedule objects.
      * @return Schedule|null The first upcoming Schedule or null if none found.
      */
-    private static function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
+    private function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
     {
         usort(
             $schedules,
             static fn(Schedule $a, Schedule $b) => $a->getProperty('startDate') <=> $b->getProperty('startDate'),
         );
-        $now = new \DateTime();
+        $now = new \DateTime($this->dateFrom ?? 'now');
         foreach ($schedules as $schedule) {
             if ($schedule->getProperty('startDate') < $now) {
                 continue;
@@ -83,13 +84,13 @@ class GetDate implements ViewCallableProviderInterface
      * @param Schedule ...$schedules One or more Schedule objects.
      * @return Schedule|null The closest passed Schedule or null if none found.
      */
-    private static function getClosestPassedScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
+    private function getClosestPassedScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
     {
         usort(
             $schedules,
             static fn(Schedule $a, Schedule $b) => $b->getProperty('startDate') <=> $a->getProperty('startDate'),
         );
-        $now = new \DateTime();
+        $now = $this->dateFrom ? new \DateTime($this->dateFrom) : new \DateTime();
         foreach ($schedules as $schedule) {
             if ($schedule->getProperty('startDate') > $now) {
                 continue;
