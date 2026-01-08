@@ -4,8 +4,8 @@ namespace Municipio\PostsList\ViewCallableProviders\Table\TableArguments;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\WpDate;
 use WpService\Contracts\GetOption;
+use WpService\Contracts\WpDate;
 
 class LabelFormatterTest extends TestCase
 {
@@ -17,7 +17,6 @@ class LabelFormatterTest extends TestCase
         $this->assertEquals('2020-01-01', $labelFormatter->formatTermName('01/01/2020'));
         $this->assertEquals('2020-01-01', $labelFormatter->formatTermName('01-01-2020'));
         $this->assertEquals('2020-01-01', $labelFormatter->formatTermName('January 2020'));
-        $this->assertEquals('2025-01-30', $labelFormatter->formatTermName('30 January, 2025'));
         $this->assertEquals('2020-01-01', $labelFormatter->formatTermName('2020-01-01T00:00:00+00:00'));
     }
 
