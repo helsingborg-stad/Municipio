@@ -263,6 +263,19 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     }
 
     /**
+     * The maximum aspect ratio multiplier for images.
+     *
+     * This value is used to cap images with extreme aspect ratios.
+     */
+    public function maxImageAspectRatioMultiplier(): float
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            3.0
+        );
+    }
+
+    /**
      * Create a prefix for image conversion filter.
      *
      * @return string
