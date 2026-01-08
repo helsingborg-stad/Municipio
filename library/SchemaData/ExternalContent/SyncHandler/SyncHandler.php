@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler;
 
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\ProgressReporterInterface;
+use Municipio\Schema\BaseType;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
 use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
@@ -97,17 +98,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
                 continue;
             }
 
-            $metaDataItems = $this->metaDataItemsFromSchema->getMetaDataItems($schemaObject);
-            $metaDataItemsKeys = array_map(fn($item) => $item->getKey(), $metaDataItems);
-            $metaDataItemsKeys = array_unique($metaDataItemsKeys);
-
-            foreach ($metaDataItemsKeys as $key) {
-                $this->wpService->deletePostMeta($postInserted, $key);
-            }
-
-            foreach ($metaDataItems as $metaDataItem) {
-                $this->wpService->addPostMeta($postInserted, $metaDataItem->getKey(), $metaDataItem->getValue());
-            }
+            $this->setMetaDataFromSchema($schemaObject, $postInserted);
 
             $insertedWpPostsCount++;
         }
@@ -124,6 +115,21 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         }
 
         (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->cleanup();
+    }
+
+    private function setMetaDataFromSchema(BaseType $schema, int $postInserted): void
+    {
+        $metaDataItems = $this->metaDataItemsFromSchema->getMetaDataItems($schema);
+        $metaDataItemsKeys = array_map(fn($item) => $item->getKey(), $metaDataItems);
+        $metaDataItemsKeys = array_unique($metaDataItemsKeys);
+
+        foreach ($metaDataItemsKeys as $key) {
+            $this->wpService->deletePostMeta($postInserted, $key);
+        }
+
+        foreach ($metaDataItems as $metaDataItem) {
+            $this->wpService->addPostMeta($postInserted, $metaDataItem->getKey(), $metaDataItem->getValue());
+        }
     }
 
     /**
