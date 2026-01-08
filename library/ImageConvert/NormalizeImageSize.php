@@ -81,6 +81,9 @@ class NormalizeImageSize implements Hookable
         $width = $size[0];
         $height = $size[1];
 
+        if ($height === 0 || $width === 0) {
+            return $size;
+        }
         $currentRatio = $width / $height;
 
         if ($currentRatio > $maxRatio) {
