@@ -92,6 +92,7 @@ class PostsList implements PostsListInterface
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
             'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate($this->wpService, $this->getPostsConfig->getDateFrom()))->getCallable(),
             'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDatebadgeDate($this->getPostsConfig->getDateFrom()))->getCallable(),
+            'getSchemaEventPermalink' => (new ViewCallableProviders\Schema\Event\GetPermalink($this->getPostsConfig->getDateFrom()))->getCallable(),
             // Schema Exhibition event view utilities
             'getSchemaExhibitionOccasionText' => (new ViewCallableProviders\Schema\ExhibitionEvent\GetOccasionText($this->wpService))->getCallable(),
             // Filter utilities
