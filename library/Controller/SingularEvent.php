@@ -62,6 +62,11 @@ class SingularEvent extends \Municipio\Controller\Singular
     private function getPostsListData(): array
     {
         $relatedEventIds = $this->getRelatedEventsIds();
+
+        if (count($relatedEventIds) === 0) {
+            return [];
+        }
+
         $postTypes = [$this->post->getPostType()];
         $getPostsConfig = new class($postTypes, $relatedEventIds) extends DefaultGetPostsConfig {
             public function __construct(
@@ -206,7 +211,7 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Try to get the current date from the GET parameter
      */
-    private function tryGetCurrentDateFromGetParam(): null|DateTime
+    private function tryGetCurrentDateFromGetParam(): ?DateTime
     {
         $startDateParam = $_GET[self::CURRENT_OCCASION_GET_PARAM] ?? null;
 
