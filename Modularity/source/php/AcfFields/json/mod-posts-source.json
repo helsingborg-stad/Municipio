@@ -288,6 +288,50 @@
             "append": ""
         },
         {
+            "key": "field_695d1fdbd4b25",
+            "label": "Link style",
+            "name": "archive_link_style",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_57ecf1007b749",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_67e6eed195ff6",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "primary": "Primary",
+                "secondary": "Secondary"
+            },
+            "default_value": "secondary",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0,
+            "allow_custom": 0,
+            "search_placeholder": ""
+        },
+        {
             "key": "field_67e6eed195ff6",
             "label": "Archive link above posts",
             "name": "archive_link_above_posts",
