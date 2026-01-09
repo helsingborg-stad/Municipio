@@ -14,6 +14,8 @@ import { usePostsSettingsPanel } from "./usePostsSettingsPanel";
 
 export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 	attributes: {
+		dateFrom,
+		dateTo,
 		postType,
 		postsPerPage,
 		terms,
@@ -73,6 +75,18 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 			<OrderControl
 				order={order}
 				onChange={(value) => setAttributes({ order: value })}
+			/>
+			<InputControl
+				type="date"
+				label={__("Date From", "municipio")}
+				value={dateFrom}
+				onChange={(value) => setAttributes({ dateFrom: value })}
+			/>
+			<InputControl
+				type="date"
+				label={__("Date To", "municipio")}
+				value={dateTo}
+				onChange={(value) => setAttributes({ dateTo: value })}
 			/>
 			{taxonomies.map((taxonomy) => (
 				<TermSelectControl

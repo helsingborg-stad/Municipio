@@ -24,7 +24,7 @@
         ])
         @foreach($items as $item)
             @collection__item([
-                'icon' => 'arrow_forward',
+                'icon' => $item['icon'] ?? 'arrow_forward',
                 'iconLast' => $iconLast ?? false,
                 'link' => $item['href'],
             ])

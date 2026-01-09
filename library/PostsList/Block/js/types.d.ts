@@ -7,6 +7,8 @@ declare global {
 
 	export interface PostsListAttributes {
 		dateFilterEnabled: boolean;
+		dateFrom: string;
+		dateTo: string;
 		dateFormat: string;
 		dateSource: string;
 		design: string;
