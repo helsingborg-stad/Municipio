@@ -42,7 +42,7 @@ export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
 			<SelectControl
 				label={__("Design", "municipio")}
 				options={designOptions}
-				value={design as DesignOptions || DesignOptions.Card}
+				value={design || DesignOptions.Card}
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 				onChange={(value) => setAttributes({ design: value as DesignOptions })}
@@ -64,11 +64,6 @@ export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
 			<DateFormatControl
 				dateFormat={dateFormat}
 				onChange={(value) => setAttributes({ dateFormat: value })}
-			/>
-			<TextControl
-				label={__("Query Vars Prefix", "municipio")}
-				value={queryVarsPrefix || ""}
-				onChange={(value) => setAttributes({ queryVarsPrefix: value })}
 			/>
 		</PanelBody>
 	);
