@@ -865,13 +865,13 @@ msgstr "URL"
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:411
+#: library/Controller/BaseController.php:413
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/BaseController.php:412
+#: library/Controller/BaseController.php:414
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr "Adress"
@@ -905,7 +905,7 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -923,13 +923,13 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1059,7 +1059,7 @@ msgstr "Filter ovanför kort/behållare"
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:98
 #: Modularity/source/php/AcfFields/php/mod-notice.php:75
 #: Modularity/source/php/AcfFields/php/mod-notice.php:152
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:385
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:429
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:88
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:120
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:152
@@ -1392,6 +1392,7 @@ msgstr "Färg"
 #: library/Customizer/Sections/Search.php:149
 #: Modularity/source/php/AcfFields/php/mod-hero.php:458
 #: Modularity/source/php/AcfFields/php/mod-modal.php:8646
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:321
 #, fuzzy
 msgid "Primary"
 msgstr "Primär"
@@ -1416,6 +1417,7 @@ msgstr "Primär"
 #: library/Customizer/Sections/Search.php:150
 #: Modularity/source/php/AcfFields/php/mod-hero.php:459
 #: Modularity/source/php/AcfFields/php/mod-modal.php:8647
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:322
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -1450,7 +1452,7 @@ msgstr "pixlar"
 
 #: library/AcfFields/php/post-icon.php:142
 #: library/AcfFields/php/term-icon-and-colour.php:139
-#: library/Controller/SingularEvent.php:173
+#: library/Controller/SingularEvent.php:184
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -1462,7 +1464,7 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:429
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
-#: Modularity/source/php/Module/Posts/Posts.php:245
+#: Modularity/source/php/Module/Posts/Posts.php:250
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1623,7 +1625,7 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:408
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1693,7 +1695,7 @@ msgstr "Bild/Logotyp"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:246
+#: Modularity/source/php/Module/Posts/Posts.php:251
 msgid "Name"
 msgstr "Namn"
 
@@ -1816,7 +1818,7 @@ msgstr "Manuell inmatning"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:326
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:42
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -10941,20 +10943,20 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:361
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -10989,15 +10991,15 @@ msgstr ""
 msgid "Link title"
 msgstr "Länkstil"
 
-#: Modularity/source/php/Module/Posts/Posts.php:241
+#: Modularity/source/php/Module/Posts/Posts.php:246
 msgid "Show more"
 msgstr "Visa mer"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:295
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:339
 msgid "Archive link above posts"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:299
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:343
 msgid "Doesn't work in combination with slider turned on"
 msgstr ""
 
@@ -11299,7 +11301,7 @@ msgstr "Extern"
 #: library/Helper/TranslatedLabels.php:79
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:167
-#: Modularity/source/php/Module/Posts/Posts.php:242
+#: Modularity/source/php/Module/Posts/Posts.php:247
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -11444,7 +11446,7 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -12357,7 +12359,7 @@ msgstr "Det finns inga inställningar för denna typ av widget.<br> <style>.acf-
 msgid "No options avabile"
 msgstr "Inga tillgängliga alternativ"
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:386
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:430
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:87
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:119
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:151
@@ -12496,7 +12498,7 @@ msgstr "Är du säker på att du vill ta bort modulen?"
 msgid "Saving…"
 msgstr "Sparar…"
 
-#: library/Controller/BaseController.php:400
+#: library/Controller/BaseController.php:402
 #: library/Helper/TranslatedLabels.php:54
 #: Modularity/source/php/App.php:307
 msgid "Close"
@@ -12647,12 +12649,12 @@ msgid "Outputs a gallery with images"
 msgstr "Visar ett galleri med bilder"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:32
-#: Modularity/source/php/Module/Posts/Posts.php:227
+#: Modularity/source/php/Module/Posts/Posts.php:232
 msgid "Previous slide"
 msgstr "Gå till föregående bild"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:33
-#: Modularity/source/php/Module/Posts/Posts.php:228
+#: Modularity/source/php/Module/Posts/Posts.php:233
 msgid "Next slide"
 msgstr "Gå till nästa bild"
 
@@ -12749,17 +12751,17 @@ msgstr "Sök"
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
-#: Modularity/source/php/Module/Posts/Posts.php:243
+#: Modularity/source/php/Module/Posts/Posts.php:248
 msgid "Save"
 msgstr "Spara"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:51
-#: Modularity/source/php/Module/Posts/Posts.php:244
+#: Modularity/source/php/Module/Posts/Posts.php:249
 msgid "Cancel"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:54
-#: Modularity/source/php/Module/Posts/Posts.php:247
+#: Modularity/source/php/Module/Posts/Posts.php:252
 msgid "Saving"
 msgstr "Sparar"
 
@@ -12768,13 +12770,13 @@ msgid "This item is obligatory"
 msgstr "Detta är obligatoriskt"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:56
-#: Modularity/source/php/Module/Posts/Posts.php:248
+#: Modularity/source/php/Module/Posts/Posts.php:253
 #, fuzzy
 msgid "An error occurred and the data could not be saved. Please try again later"
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
-#: Modularity/source/php/Module/Posts/Posts.php:249
+#: Modularity/source/php/Module/Posts/Posts.php:254
 msgid "Change the lists content"
 msgstr ""
 
@@ -13533,7 +13535,7 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:460
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -15084,7 +15086,7 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -15129,7 +15131,7 @@ msgid "Phone numer"
 msgstr "Telefonnummer"
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:409
+#: library/Controller/BaseController.php:411
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
@@ -15515,7 +15517,7 @@ msgid "General cover settings"
 msgstr "Allmänna inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:503
+#: library/Controller/BaseController.php:505
 #: library/Customizer/Sections/Header/Logotype.php:41
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -15703,28 +15705,28 @@ msgstr "Senaste bedömningen gjord"
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:396
+#: library/Controller/BaseController.php:398
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: library/Controller/BaseController.php:397
+#: library/Controller/BaseController.php:399
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:398
+#: library/Controller/BaseController.php:400
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr "Logga ut"
 
-#: library/Controller/BaseController.php:399
+#: library/Controller/BaseController.php:401
 msgid "Login"
 msgstr "Logga in"
 
-#: library/Controller/BaseController.php:408
+#: library/Controller/BaseController.php:410
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/BaseController.php:410
+#: library/Controller/BaseController.php:412
 msgid "Call"
 msgstr "Ring"
 
@@ -15875,60 +15877,60 @@ msgctxt "ElementarySchool"
 msgid "Events"
 msgstr "Evenemang"
 
-#: library/Controller/SingularEvent.php:174
+#: library/Controller/SingularEvent.php:185
 msgid "Add to calendar"
 msgstr "Lägg till i kalender"
 
-#: library/Controller/SingularEvent.php:175
+#: library/Controller/SingularEvent.php:186
 msgid "Tickets & registration"
 msgstr "Biljetter & bokning"
 
-#: library/Controller/SingularEvent.php:176
+#: library/Controller/SingularEvent.php:187
 msgid "Go to booking page"
-msgstr "Gå till bokninssida"
+msgstr "Gå till bokningssida"
 
-#: library/Controller/SingularEvent.php:177
+#: library/Controller/SingularEvent.php:188
 msgid "Tickets are sold according to the reseller."
 msgstr "Biljetter säljs enligt återförsäljare."
 
-#: library/Controller/SingularEvent.php:178
+#: library/Controller/SingularEvent.php:189
 msgid "Date and time"
 msgstr "Datum & tid"
 
-#: library/Controller/SingularEvent.php:179
+#: library/Controller/SingularEvent.php:190
 #, fuzzy
 msgid "More occasions"
 msgstr "Alla tillfällen"
 
-#: library/Controller/SingularEvent.php:180
+#: library/Controller/SingularEvent.php:191
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr "Plats"
 
-#: library/Controller/SingularEvent.php:181
+#: library/Controller/SingularEvent.php:192
 #, fuzzy
 msgid "Get directions"
 msgstr "Hitta hit"
 
-#: library/Controller/SingularEvent.php:182
+#: library/Controller/SingularEvent.php:193
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr "Pris"
 
-#: library/Controller/SingularEvent.php:183
+#: library/Controller/SingularEvent.php:194
 msgid "Organizers"
 msgstr "Organisatörer"
 
-#: library/Controller/SingularEvent.php:184
+#: library/Controller/SingularEvent.php:195
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: library/Controller/SingularEvent.php:185
+#: library/Controller/SingularEvent.php:196
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
-#: library/Controller/SingularEvent.php:186
+#: library/Controller/SingularEvent.php:197
 #, fuzzy
 msgid "Related events"
 msgstr "Relaterade evenemang"
@@ -16490,7 +16492,7 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:403
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -16503,7 +16505,7 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:410
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date badge"
 msgstr "Datummärke"
 
@@ -16516,7 +16518,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:455
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -16529,7 +16531,7 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:466
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -16961,7 +16963,7 @@ msgid "Add a bottom border for the footer header"
 msgstr "Lägg till en nedre ram till sidfots huvudet"
 
 #: library/Helper/KirkiConditional.php:49
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
@@ -18195,16 +18197,16 @@ msgstr "Synkronisering pågår redan"
 msgid "Sync completed. Reload page to see changes."
 msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:60
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:63
 msgid "Fetching source data..."
 msgstr "Hämtar data från källa..."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:83
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:86
 #, php-format
 msgid "Processing %s of %s..."
 msgstr "Behandlar %s av %s..."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:101
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:106
 msgid "Cleaning up..."
 msgstr "Städar upp..."
 
@@ -19292,19 +19294,19 @@ msgstr ""
 msgid "Visa mer"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:324
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:368
 msgid "Från andra sajter i nätverket"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:328
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:372
 msgid "Hämta poster från andrea sajter i nätverket. Lämna tom för att endast visa poster från denna sajt. Om du väljer en eller flera från denna lista måste du också välja denna sajten för att inkludera poster från denna sajten."
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:370
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:414
 msgid "Get posts from the users group"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:374
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:418
 msgid "Also fetches the posts from the users homepage (User group)"
 msgstr ""
 
@@ -19323,71 +19325,71 @@ msgctxt "block description"
 msgid "A block to display a list of posts."
 msgstr "Block som visar en lista av poster"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date Published"
 msgstr "Publiceringsdatum"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "DateModified"
 msgstr "Datum ändrad"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Order by"
 msgstr "Sortera efter"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Posts settings"
 msgstr "Inläggsinställningar"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Posts per page"
 msgstr "Inlägg per sida"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Enable Pagination"
 msgstr "Aktivera paginering"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Time"
 msgstr "Tid"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date, time"
 msgstr "Datum, tid"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date Modified"
 msgstr "Datum ändrad"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date source"
 msgstr "Datumkälla"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Newsitem"
 msgstr "Nyhetsartikel"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Appearance settings"
 msgstr "UI"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Design"
 msgstr "Design"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Number of columns"
 msgstr "Antal kolumner"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Filter settings"
 msgstr "Filterinställningar"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Enable text search"
 msgstr "Aktivera textsökning"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Enable date filter"
 msgstr "Aktivera datumfilter"
 
@@ -19403,15 +19405,27 @@ msgstr "Objekt måste matcha NÅGON av de angivna reglerna"
 msgid "Objects must match ALL of the provided rules"
 msgstr "Objekt måste matcha ALLA angivna regler"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Checkboxes"
 msgstr "kryssrutor"
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Radio buttons"
 msgstr "Radioknappar"
 
-#: library/PostsList/PostsList.php:90
+#: library/PostsList/PostsList.php:91
 msgctxt "label for more occasions available on event"
 msgid "More occasions available"
 msgstr "Fler tillfällen finns"
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:295
+msgid "Link style"
+msgstr ""
+
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+msgid "Date From"
+msgstr "Datum från"
+
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+msgid "Date To"
+msgstr "Datum till"

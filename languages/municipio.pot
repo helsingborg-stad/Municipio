@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult
+# Copyright (C) 2026 Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-12T13:01:23+00:00\n"
+"POT-Creation-Date: 2026-01-09T06:33:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -97,7 +97,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:326
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:42
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Title"
 msgstr ""
 
@@ -294,6 +294,7 @@ msgstr ""
 #: library/Customizer/Sections/Search.php:149
 #: Modularity/source/php/AcfFields/php/mod-hero.php:458
 #: Modularity/source/php/AcfFields/php/mod-modal.php:8646
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:321
 msgid "Primary"
 msgstr ""
 
@@ -317,6 +318,7 @@ msgstr ""
 #: library/Customizer/Sections/Search.php:150
 #: Modularity/source/php/AcfFields/php/mod-hero.php:459
 #: Modularity/source/php/AcfFields/php/mod-modal.php:8647
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:322
 msgid "Secondary"
 msgstr ""
 
@@ -717,7 +719,7 @@ msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:460
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Collection"
 msgstr ""
 
@@ -1087,7 +1089,7 @@ msgstr ""
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:246
+#: Modularity/source/php/Module/Posts/Posts.php:251
 msgid "Name"
 msgstr ""
 
@@ -1242,7 +1244,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:98
 #: Modularity/source/php/AcfFields/php/mod-notice.php:75
 #: Modularity/source/php/AcfFields/php/mod-notice.php:152
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:385
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:429
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:88
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:120
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:152
@@ -2139,7 +2141,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Table"
 msgstr ""
 
@@ -2359,7 +2361,7 @@ msgstr ""
 
 #: library/AcfFields/php/post-icon.php:142
 #: library/AcfFields/php/term-icon-and-colour.php:139
-#: library/Controller/SingularEvent.php:173
+#: library/Controller/SingularEvent.php:184
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -2371,7 +2373,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:429
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
-#: Modularity/source/php/Module/Posts/Posts.php:245
+#: Modularity/source/php/Module/Posts/Posts.php:250
 msgid "Description"
 msgstr ""
 
@@ -2468,7 +2470,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:411
+#: library/Controller/BaseController.php:413
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
@@ -2513,7 +2515,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Post Type"
 msgstr ""
 
@@ -2563,7 +2565,7 @@ msgid "Phone numer"
 msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:409
+#: library/Controller/BaseController.php:411
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
@@ -2892,7 +2894,7 @@ msgstr ""
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
-#: Modularity/source/php/Module/Posts/Posts.php:243
+#: Modularity/source/php/Module/Posts/Posts.php:248
 msgid "Save"
 msgstr ""
 
@@ -3075,7 +3077,7 @@ msgid "General cover settings"
 msgstr ""
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:503
+#: library/Controller/BaseController.php:505
 #: library/Customizer/Sections/Header/Logotype.php:41
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -3298,38 +3300,38 @@ msgstr ""
 msgid "Last reviewed"
 msgstr ""
 
-#: library/Controller/BaseController.php:396
+#: library/Controller/BaseController.php:398
 msgid "Search for content"
 msgstr ""
 
-#: library/Controller/BaseController.php:397
+#: library/Controller/BaseController.php:399
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/BaseController.php:398
+#: library/Controller/BaseController.php:400
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr ""
 
-#: library/Controller/BaseController.php:399
+#: library/Controller/BaseController.php:401
 msgid "Login"
 msgstr ""
 
-#: library/Controller/BaseController.php:400
+#: library/Controller/BaseController.php:402
 #: library/Helper/TranslatedLabels.php:54
 #: Modularity/source/php/App.php:307
 msgid "Close"
 msgstr ""
 
-#: library/Controller/BaseController.php:408
+#: library/Controller/BaseController.php:410
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/BaseController.php:410
+#: library/Controller/BaseController.php:412
 msgid "Call"
 msgstr ""
 
-#: library/Controller/BaseController.php:412
+#: library/Controller/BaseController.php:414
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr ""
@@ -3480,58 +3482,58 @@ msgctxt "ElementarySchool"
 msgid "Events"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:174
+#: library/Controller/SingularEvent.php:185
 msgid "Add to calendar"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:175
+#: library/Controller/SingularEvent.php:186
 msgid "Tickets & registration"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:176
+#: library/Controller/SingularEvent.php:187
 msgid "Go to booking page"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:177
+#: library/Controller/SingularEvent.php:188
 msgid "Tickets are sold according to the reseller."
 msgstr ""
 
-#: library/Controller/SingularEvent.php:178
+#: library/Controller/SingularEvent.php:189
 msgid "Date and time"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:179
+#: library/Controller/SingularEvent.php:190
 msgid "More occasions"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:180
+#: library/Controller/SingularEvent.php:191
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:181
+#: library/Controller/SingularEvent.php:192
 msgid "Get directions"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:182
+#: library/Controller/SingularEvent.php:193
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:183
+#: library/Controller/SingularEvent.php:194
 msgid "Organizers"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:184
+#: library/Controller/SingularEvent.php:195
 msgid "Accessibility"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:185
+#: library/Controller/SingularEvent.php:196
 msgid "This event has already taken place."
 msgstr ""
 
-#: library/Controller/SingularEvent.php:186
+#: library/Controller/SingularEvent.php:197
 msgid "Related events"
 msgstr ""
 
@@ -4141,7 +4143,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:361
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Ascending"
 msgstr ""
 
@@ -4153,7 +4155,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:408
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date"
 msgstr ""
 
@@ -4166,7 +4168,7 @@ msgid "Hide date"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:403
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date format"
 msgstr ""
 
@@ -4179,7 +4181,7 @@ msgid "Date, Time"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:410
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date badge"
 msgstr ""
 
@@ -4192,7 +4194,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:455
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Compressed"
 msgstr ""
 
@@ -4210,7 +4212,7 @@ msgid "Blocks"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:466
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Schema"
 msgstr ""
 
@@ -4219,7 +4221,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Card"
 msgstr ""
 
@@ -5708,7 +5710,7 @@ msgid "Tailor"
 msgstr ""
 
 #: library/Helper/KirkiConditional.php:49
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Disable"
 msgstr ""
 
@@ -5872,7 +5874,7 @@ msgstr ""
 #: library/Helper/TranslatedLabels.php:79
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:167
-#: Modularity/source/php/Module/Posts/Posts.php:242
+#: Modularity/source/php/Module/Posts/Posts.php:247
 msgid "Read more"
 msgstr ""
 
@@ -6031,7 +6033,7 @@ msgstr ""
 msgid "Handling of personal data"
 msgstr ""
 
-#: library/PostsList/PostsList.php:90
+#: library/PostsList/PostsList.php:91
 msgctxt "label for more occasions available on event"
 msgid "More occasions available"
 msgstr ""
@@ -6052,16 +6054,16 @@ msgstr ""
 msgid "Sync completed. Reload page to see changes."
 msgstr ""
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:60
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:63
 msgid "Fetching source data..."
 msgstr ""
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:83
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:86
 #, php-format
 msgid "Processing %s of %s..."
 msgstr ""
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:101
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:106
 msgid "Cleaning up..."
 msgstr ""
 
@@ -7792,7 +7794,7 @@ msgid "Curator Social Media"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Number of posts"
 msgstr ""
 
@@ -7802,7 +7804,7 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Block"
 msgstr ""
 
@@ -17186,13 +17188,13 @@ msgid "Menu order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Descending"
 msgstr ""
 
@@ -17275,30 +17277,34 @@ msgid "Visa mer"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:295
+msgid "Link style"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:339
 msgid "Archive link above posts"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:299
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:343
 msgid "Doesn't work in combination with slider turned on"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:324
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:368
 msgid "Från andra sajter i nätverket"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:328
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:372
 msgid "Hämta poster från andrea sajter i nätverket. Lämna tom för att endast visa poster från denna sajt. Om du väljer en eller flera från denna lista måste du också välja denna sajten för att inkludera poster från denna sajten."
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:370
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:414
 msgid "Get posts from the users group"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:374
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:418
 msgid "Also fetches the posts from the users homepage (User group)"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-posts-source.php:386
+#: Modularity/source/php/AcfFields/php/mod-posts-source.php:430
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:87
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:119
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:151
@@ -18825,12 +18831,12 @@ msgid "Outputs a gallery with images"
 msgstr ""
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:32
-#: Modularity/source/php/Module/Posts/Posts.php:227
+#: Modularity/source/php/Module/Posts/Posts.php:232
 msgid "Previous slide"
 msgstr ""
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:33
-#: Modularity/source/php/Module/Posts/Posts.php:228
+#: Modularity/source/php/Module/Posts/Posts.php:233
 msgid "Next slide"
 msgstr ""
 
@@ -18901,12 +18907,12 @@ msgid "Outputs a grid of logotypes"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:51
-#: Modularity/source/php/Module/Posts/Posts.php:244
+#: Modularity/source/php/Module/Posts/Posts.php:249
 msgid "Cancel"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:54
-#: Modularity/source/php/Module/Posts/Posts.php:247
+#: Modularity/source/php/Module/Posts/Posts.php:252
 msgid "Saving"
 msgstr ""
 
@@ -18915,12 +18921,12 @@ msgid "This item is obligatory"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:56
-#: Modularity/source/php/Module/Posts/Posts.php:248
+#: Modularity/source/php/Module/Posts/Posts.php:253
 msgid "An error occurred and the data could not be saved. Please try again later"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
-#: Modularity/source/php/Module/Posts/Posts.php:249
+#: Modularity/source/php/Module/Posts/Posts.php:254
 msgid "Change the lists content"
 msgstr ""
 
@@ -19023,7 +19029,7 @@ msgstr ""
 msgid "Outputs selected posts in specified layout"
 msgstr ""
 
-#: Modularity/source/php/Module/Posts/Posts.php:241
+#: Modularity/source/php/Module/Posts/Posts.php:246
 msgid "Show more"
 msgstr ""
 
@@ -19242,80 +19248,88 @@ msgstr ""
 msgid "Nothing to display…"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Time"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date, time"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date Published"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date Modified"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Date source"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Newsitem"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Appearance settings"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Design"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Number of columns"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Checkboxes"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Radio buttons"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Filter settings"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Enable text search"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Enable date filter"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "DateModified"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Order by"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Posts settings"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Posts per page"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.BodaS8l5.js:1
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
 msgid "Enable Pagination"
+msgstr ""
+
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+msgid "Date From"
+msgstr ""
+
+#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+msgid "Date To"
 msgstr ""
 
 #: library/PostsList/Block/block.json
