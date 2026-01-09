@@ -2,6 +2,7 @@ import {
 	__experimentalNumberControl,
 	PanelBody,
 	ToggleControl,
+	TextControl,
 } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import type { PostsListEditProps } from "../../Edit";
@@ -19,6 +20,7 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 		order,
 		orderBy,
 		paginationEnabled,
+		queryVarsPrefix,
 	},
 	setAttributes,
 }) => {
@@ -57,6 +59,11 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 				label={__("Enable Pagination", "municipio")}
 				checked={paginationEnabled}
 				onChange={(value) => setAttributes({ paginationEnabled: value })}
+			/>
+			<TextControl
+				label={__("Query Vars Prefix", "municipio")}
+				value={queryVarsPrefix || ""}
+				onChange={(value) => setAttributes({ queryVarsPrefix: value })}
 			/>
 			<OrderByControl
 				orderBy={orderBy}

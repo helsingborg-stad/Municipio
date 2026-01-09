@@ -1,4 +1,4 @@
-import { PanelBody, SelectControl } from "@wordpress/components";
+import { PanelBody, SelectControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import type { PostsListEditProps } from "../../Edit";
 import { DateFormatControl } from "./DateFormatControl/DateFormatControl";
@@ -32,7 +32,7 @@ const numberOfColumnsOptions = [
 ];
 
 export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
-	attributes: { numberOfColumns, design, dateFormat, dateSource, postType },
+	attributes: { numberOfColumns, design, dateFormat, dateSource, postType, queryVarsPrefix },
 	setAttributes,
 }) => {
 	const allowSelectColumns = design !== DesignOptions.Table;
@@ -42,10 +42,10 @@ export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
 			<SelectControl
 				label={__("Design", "municipio")}
 				options={designOptions}
-				value={String(design || "card")}
+				value={design as DesignOptions || DesignOptions.Card}
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				onChange={(value) => setAttributes({ design: value })}
+				onChange={(value) => setAttributes({ design: value as DesignOptions })}
 			/>
 			<SelectControl
 				disabled={!allowSelectColumns}
@@ -64,6 +64,11 @@ export const AppearanceSettingsPanel: React.FC<PostsListEditProps> = ({
 			<DateFormatControl
 				dateFormat={dateFormat}
 				onChange={(value) => setAttributes({ dateFormat: value })}
+			/>
+			<TextControl
+				label={__("Query Vars Prefix", "municipio")}
+				value={queryVarsPrefix || ""}
+				onChange={(value) => setAttributes({ queryVarsPrefix: value })}
 			/>
 		</PanelBody>
 	);

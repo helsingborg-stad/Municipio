@@ -16,6 +16,7 @@ declare global {
 		paginationEnabled: boolean;
 		postsPerPage: number;
 		postType: string;
+		queryVarsPrefix?: string;
 		taxonomiesEnabledForFiltering: TaxonomyFilter[];
 		textSearchEnabled: boolean;
 		terms: Array<{

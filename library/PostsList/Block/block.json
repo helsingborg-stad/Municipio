@@ -22,6 +22,7 @@
 		"paginationEnabled": { "type": "boolean", "default": true },
 		"postsPerPage": { "type": "number", "default": 12 },
 		"postType": { "type": "string", "default": "post" },
+		"queryVarsPrefix": { "type": "string", "default": "" },
 		"taxonomiesEnabledForFiltering": { "type": "array", "default": [] },
 		"terms": { "type": "array", "default": [] },
 		"textSearchEnabled": { "type": "boolean", "default": false }
