@@ -19,7 +19,7 @@ class BlockAttributesToPostsListConfigMapper implements PostsListConfigMapperInt
     {
         // $sourceData is expected to be the block attributes array
         $attributes = $sourceData;
-        $prefix = $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes)) . '_';
+        $prefix = ($attributes['anchor'] ?? 'posts_list_block_' . md5(json_encode($attributes))) . '_';
 
         $getPostsConfig = (new \Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers\BlockAttributesToGetPostsConfigMapper($this->wpService))->map(
             $attributes,
