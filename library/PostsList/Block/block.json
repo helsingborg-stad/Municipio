@@ -14,6 +14,8 @@
 	"attributes": {
 		"dateFilterEnabled": { "type": "boolean", "default": false },
 		"dateFormat": { "type": "string", "default": "date" },
+		"dateFrom": { "type": "string", "default": "" },
+		"dateTo": { "type": "string", "default": "" },
 		"dateSource": { "type": "string", "default": "post_date" },
 		"design": { "type": "string", "default": "card" },
 		"numberOfColumns": { "type": "number", "default": 3 },
