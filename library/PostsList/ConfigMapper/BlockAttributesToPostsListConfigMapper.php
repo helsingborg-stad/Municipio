@@ -15,11 +15,10 @@ class BlockAttributesToPostsListConfigMapper implements PostsListConfigMapperInt
         private GetTerms $wpService,
     ) {}
 
-    public function map(mixed $sourceData): PostsListConfigDTOInterface
+    public function map(mixed $attributes): PostsListConfigDTOInterface
     {
-        // $sourceData is expected to be the block attributes array
-        $attributes = $sourceData;
-        $prefix = ($attributes['anchor'] ?? 'posts_list_block_' . md5(json_encode($attributes))) . '_';
+        $prefix = $attributes['anchor'] ?? $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes));
+        $prefix = rtrim($prefix, '_') . '_';
 
         $getPostsConfig = (new \Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers\BlockAttributesToGetPostsConfigMapper($this->wpService))->map(
             $attributes,
