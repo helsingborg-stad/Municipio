@@ -44,8 +44,16 @@ abstract class AbstractDecoratedFilterConfig implements FilterConfigInterface
     /**
      * @inheritDoc
      */
-    public function getResetUrl(): null|string
+    public function getResetUrl(): ?string
     {
         return $this->innerConfig->getResetUrl();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAnchor(): ?string
+    {
+        return $this->innerConfig->getAnchor();
     }
 }
