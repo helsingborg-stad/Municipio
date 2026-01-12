@@ -18,9 +18,7 @@ export const Edit: ComponentType<PostsListEditProps> = (
 	const postTypeRef = useRef(postType);
 
 	useEffect(() => {
-		console.log(postTypeRef.current, postType);
 		if (postTypeRef.current !== postType) {
-			console.log('run');
 			setAttributes({
 				orderBy: "date",
 				dateSource: "post_date",
