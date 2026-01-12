@@ -15,18 +15,19 @@ export const Edit: ComponentType<PostsListEditProps> = (
 ) => {
 	const { postType } = props.attributes;
 	const { setAttributes } = props;
+	const postTypeRef = useRef(postType);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: May cause unwanted resets of attributes.
 	useEffect(() => {
-		return () => {
+		if (postTypeRef.current !== postType) {
 			setAttributes({
 				orderBy: "date",
 				dateSource: "post_date",
 				taxonomiesEnabledForFiltering: [],
 				terms: [],
 			});
-		};
-	}, [postType]);
+			postTypeRef.current = postType;
+		}
+	}, [postType, setAttributes]);
 
 	return (
 		<PostsListContextProvider
