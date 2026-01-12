@@ -7,7 +7,7 @@
 <div class="s-archive-filter">
     @form([
         'method' => 'GET',
-        'action' => '?q=form_component'
+        'action' => '?q=form_component' . ($filterConfig->getAnchor() ? '#' . $filterConfig->getAnchor() . '_id' : '')
     ])
 
     @if ($filterConfig->isTextSearchEnabled())

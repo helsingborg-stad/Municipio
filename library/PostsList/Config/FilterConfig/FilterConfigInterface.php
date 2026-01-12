@@ -39,5 +39,12 @@ interface FilterConfigInterface
      *
      * @return string|null
      */
-    public function getResetUrl(): null|string;
+    public function getResetUrl(): ?string;
+
+    /**
+     * Get anchor value
+     *
+     * @return string|null
+     */
+    public function getAnchor(): ?string;
 }

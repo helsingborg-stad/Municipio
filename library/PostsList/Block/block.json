@@ -9,7 +9,8 @@
 	"description": "A block to display a list of posts.",
 	"example": {},
 	"supports": {
-		"html": false
+		"html": false,
+		"anchor": true
 	},
 	"attributes": {
 		"dateFilterEnabled": { "type": "boolean", "default": false },
@@ -26,7 +27,8 @@
 		"postType": { "type": "string", "default": "post" },
 		"taxonomiesEnabledForFiltering": { "type": "array", "default": [] },
 		"terms": { "type": "array", "default": [] },
-		"textSearchEnabled": { "type": "boolean", "default": false }
+		"textSearchEnabled": { "type": "boolean", "default": false },
+		"anchor": { "type": "string", "default": "" }
 	},
 	"textdomain": "municipio"
 }

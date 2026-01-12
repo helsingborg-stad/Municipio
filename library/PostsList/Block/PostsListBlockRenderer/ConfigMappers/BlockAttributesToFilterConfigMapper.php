@@ -54,6 +54,11 @@ class BlockAttributesToFilterConfigMapper
             {
                 return $this->taxonomyFilterConfigs;
             }
+
+            public function getAnchor(): ?string
+            {
+                return $this->attributes['anchor'] ?? null;
+            }
         };
     }
 }

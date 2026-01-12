@@ -42,7 +42,15 @@ class DefaultFilterConfig implements FilterConfigInterface
     /**
      * @inheritDoc
      */
-    public function getResetUrl(): null|string
+    public function getResetUrl(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAnchor(): ?string
     {
         return null;
     }
