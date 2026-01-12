@@ -18,7 +18,9 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes, string $content, \WP_Block $block): string
     {
-        $queryVarsPrefix = $attributes['anchor'] ?? 'posts_list_block_' . md5(json_encode($attributes)) . '_';
+        $queryVarsPrefix = $attributes['anchor'] ?? $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes));
+        $queryVarsPrefix = rtrim($queryVarsPrefix, '_') . '_';
+
         $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\BlockAttributesToPostsListConfigMapper($this->wpService))->map([
             ...$attributes,
             'queryVarsPrefix' => $queryVarsPrefix,
