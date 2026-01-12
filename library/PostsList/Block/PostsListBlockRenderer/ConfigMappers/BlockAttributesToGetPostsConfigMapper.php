@@ -17,7 +17,6 @@ class BlockAttributesToGetPostsConfigMapper
 
     public function map(array $attributes): GetPostsConfigInterface
     {
-        //$attributes['terms'] = is_array($attributes['terms']) ? $attributes['terms'] : [];
         $terms = array_map(fn(array $term) => $this->wpService->getTerms([
             'taxonomy' => $term['taxonomy'],
             'include' => $term['terms'] ?? [],
@@ -33,7 +32,7 @@ class BlockAttributesToGetPostsConfigMapper
             public function __construct(
                 private array $attributes,
                 private array $terms,
-                private null|string $orderBy,
+                private ?string $orderBy,
                 private OrderDirection $order,
                 private int $postsPerPage,
             ) {}
@@ -73,12 +72,12 @@ class BlockAttributesToGetPostsConfigMapper
                 return $this->attributes['dateSource'] ?? 'post_date';
             }
 
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return isset($this->attributes['dateFrom']) && $this->attributes['dateFrom'] !== '' ? $this->attributes['dateFrom'] : null;
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return isset($this->attributes['dateTo']) && $this->attributes['dateTo'] !== '' ? $this->attributes['dateTo'] : null;
             }
