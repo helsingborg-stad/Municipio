@@ -17,6 +17,6 @@ class MapOrderByFromData implements MapperInterface
      */
     public function map(array $data): string
     {
-        return $data['archiveProps']->dateField ?? 'post_date';
+        return $data['archiveProps']->orderBy ?? 'post_date';
     }
 }
