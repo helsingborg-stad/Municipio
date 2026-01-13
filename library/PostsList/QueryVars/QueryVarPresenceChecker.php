@@ -23,9 +23,9 @@ class QueryVarPresenceChecker
         }
 
         foreach ($taxonomyFilterConfigs as $config) {
-            if (!empty($_GET[$queryVars->getPrefix() . $config->getTaxonomy()->name])) {
-                return true;
-            }
+            if (empty($_GET[$queryVars->getPrefix() . $config->getTaxonomy()->name])) { continue; }
+
+return true;
         }
 
         return false;

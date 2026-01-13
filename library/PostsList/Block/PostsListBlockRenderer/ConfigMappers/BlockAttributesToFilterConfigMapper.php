@@ -86,7 +86,7 @@ class BlockAttributesToFilterConfigMapper
     {
         $requestUri = $_SERVER['REQUEST_URI'] ?? null;
         $httpHost = $_SERVER['HTTP_HOST'] ?? null;
-        $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$httpHost$requestUri";
+        $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$httpHost}{$requestUri}";
         $urlParts = parse_url($currentUrl);
         if (!isset($urlParts['query'])) {
             return $currentUrl;
@@ -106,7 +106,7 @@ class BlockAttributesToFilterConfigMapper
 
         $filteredQueryParams = array_filter(
             $queryParams,
-            fn($key) => !in_array($key, $possibleQueryParams),
+            static fn($key) => !in_array($key, $possibleQueryParams),
             ARRAY_FILTER_USE_KEY,
         );
 
