@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\PostsList\ConfigMapper;
 
+use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WpService\Contracts\GetTerms;
 
 /**
@@ -13,23 +14,21 @@ class BlockAttributesToPostsListConfigMapper implements PostsListConfigMapperInt
 {
     public function __construct(
         private GetTerms $wpService,
+        private QueryVarsInterface $queryVars,
     ) {}
 
     public function map(mixed $attributes): PostsListConfigDTOInterface
     {
-        $prefix = $attributes['anchor'] ?? $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes));
-        $prefix = rtrim($prefix, '_') . '_';
-
         $getPostsConfig = (new \Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers\BlockAttributesToGetPostsConfigMapper($this->wpService))->map(
             $attributes,
         );
         $appearanceConfig = (new \Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers\BlockAttributesToAppearanceConfigMapper())->map(
             $attributes,
         );
-        $filterConfig = (new \Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers\BlockAttributesToFilterConfigMapper())->map(
+        $filterConfig = (new \Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers\BlockAttributesToFilterConfigMapper($this->queryVars))->map(
             $attributes,
         );
 
-        return new PostsListConfigDTO($getPostsConfig, $appearanceConfig, $filterConfig, $prefix);
+        return new PostsListConfigDTO($getPostsConfig, $appearanceConfig, $filterConfig, $this->queryVars->getPrefix());
     }
 }

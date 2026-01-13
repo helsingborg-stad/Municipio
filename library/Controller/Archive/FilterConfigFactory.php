@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\Controller\Archive;
 
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
-use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
 use WpService\WpService;
 
@@ -39,7 +38,8 @@ class FilterConfigFactory
             $this->wpTaxonomies,
             $this->wpService,
         ))->map($this->data);
-        $showReset = $this->isAnyQueryVarPresent(...$taxonomyFilterConfigs);
+
+        $showReset = \Municipio\PostsList\QueryVars\QueryVarPresenceChecker::isAnyQueryVarPresent($this->queryVars, $taxonomyFilterConfigs);
 
         return (new FilterConfigBuilder())
             ->setResetUrl((new Mappers\FilterConfigMappers\MapResetUrl($this->wpService))->map($this->data))
@@ -48,18 +48,5 @@ class FilterConfigFactory
             ->setTaxonomyFilterConfigs($taxonomyFilterConfigs)
             ->setShowReset($showReset)
             ->build();
-    }
-
-    private function isAnyQueryVarPresent(TaxonomyFilterConfigInterface ...$taxonomyFilterConfigs): bool
-    {
-        return (
-            !empty($_GET[$this->queryVars->getSearchParameterName()])
-            || !empty($_GET[$this->queryVars->getDateFromParameterName()])
-            || !empty($_GET[$this->queryVars->getDateToParameterName()])
-            || count(array_filter(
-                $taxonomyFilterConfigs,
-                fn($config) => !empty($_GET[$this->queryVars->getPrefix() . $config->getTaxonomy()->name]),
-            )) > 0
-        );
     }
 }
