@@ -8,7 +8,6 @@ use AcfService\Contracts\GetField;
 use AcfService\Implementations\NativeAcfService;
 use Municipio\Helper\Post;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostsList\AnyPostHasImage\AnyPostHasImageInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigWithPlaceholderImage;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
@@ -29,7 +28,6 @@ class PostsList implements PostsListInterface
     /** @var PostObjectInterface[] */
     private array $posts;
     private WP_Query $wpQuery;
-    private AppearanceConfigInterface $appearanceConfig;
 
     /**
      * Constructor
@@ -41,20 +39,18 @@ class PostsList implements PostsListInterface
      * @param WpQueryFactoryInterface $wpQueryFactory
      * @param QueryVarRegistrarInterface $queryVarsRegistrar
      * @param GetField $acfService
-     * @param AnyPostHasImageInterface $anyPostHasImageService
      *
      * @mago-expect lint:excessive-parameter-list
      */
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
-        private AppearanceConfigInterface $providedAppearanceConfig,
+        private AppearanceConfigInterface $appearanceConfig,
         private FilterConfigInterface $filterConfig,
         private WpQueryFactoryInterface $wpQueryFactory,
         private QueryVarsInterface $queryVars,
         private WpService $wpService,
         private \wpdb $wpdb,
         private GetField $acfService = new NativeAcfService(),
-        private AnyPostHasImageInterface $anyPostHasImageService = new \Municipio\PostsList\AnyPostHasImage\AnyPostHasImage(),
     ) {
         (new QueryVarRegistrar($this->queryVars, $this->wpService))->register();
     }
@@ -68,19 +64,20 @@ class PostsList implements PostsListInterface
     {
         return [
             'posts' => $this->getPosts(),
-            'appearanceConfig' => $this->getAppearanceConfig(),
+            'appearanceConfig' => $this->appearanceConfig,
             'filterConfig' => $this->filterConfig,
             'id' => $this->getId(),
-            'getTags' => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->getAppearanceConfig()->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
+            'getTags' => (new ViewCallableProviders\GetTagsComponentArguments($this->getPosts(), $this->appearanceConfig->getTaxonomiesToDisplay(), $this->wpService, $this->acfService))->getCallable(),
             'getExcerpt' => (new ViewCallableProviders\GetExcerpt($this->wpService))->getCallable(),
-            'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->getAppearanceConfig()))->getCallable(),
-            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->getAppearanceConfig()))->getCallable(),
+            'getReadingTime' => (new ViewCallableProviders\GetReadingTime($this->appearanceConfig))->getCallable(),
+            'showDateBadge' => (new ViewCallableProviders\ShowDateBadge($this->appearanceConfig))->getCallable(),
             'getParentColumnClasses' => (new ViewCallableProviders\GetParentColumnClasses())->getCallable(),
-            'getPostColumnClasses' => (new ViewCallableProviders\GetPostColumnClasses($this->getAppearanceConfig()))->getCallable(),
-            'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp($this->getAppearanceConfig()->getDateSource(), $this->getPosts(), $this->wpdb))->getCallable(),
-            'getDateFormat' => (new ViewCallableProviders\GetDateFormat($this->getAppearanceConfig()->getDateFormat()))->getCallable(),
+            'getPostColumnClasses' => (new ViewCallableProviders\GetPostColumnClasses($this->appearanceConfig))->getCallable(),
+            'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp($this->appearanceConfig->getDateSource(), $this->getPosts(), $this->wpdb))->getCallable(),
+            'getDateFormat' => (new ViewCallableProviders\GetDateFormat($this->appearanceConfig->getDateFormat()))->getCallable(),
+            'shouldDisplayPlaceholderImage' => (new ViewCallableProviders\ShouldDisplayPlaceholderImage(...$this->getPosts()))->getCallable(),
             // Table view utilities
-            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->getAppearanceConfig(), $this->wpService, $this->acfService))->getCallable(),
+            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->appearanceConfig, $this->wpService, $this->acfService))->getCallable(),
             // Schema Project view utilities
             'getSchemaProjectProgressLabel' => (new ViewCallableProviders\Schema\Project\GetProgressLabel())->getCallable(),
             'getSchemaProjectProgressPercentage' => (new ViewCallableProviders\Schema\Project\GetProgressPercentage())->getCallable(),
@@ -146,26 +143,5 @@ class PostsList implements PostsListInterface
         }
 
         return $this->posts;
-    }
-
-    /**
-     * Get appearance config with placeholder image logic
-     *
-     * @return AppearanceConfigInterface
-     */
-    private function getAppearanceConfig(): AppearanceConfigInterface
-    {
-        if (isset($this->appearanceConfig)) {
-            return $this->appearanceConfig;
-        }
-
-        $shouldDisplayPlaceholderImage = $this->anyPostHasImageService->check(...$this->getPosts());
-        $this->appearanceConfig = new AppearanceConfigWithPlaceholderImage(
-            $shouldDisplayPlaceholderImage,
-            $this->wpService,
-            $this->providedAppearanceConfig,
-        );
-
-        return $this->appearanceConfig;
     }
 }

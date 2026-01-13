@@ -7,7 +7,7 @@
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
     'content' => $getSchemaProjectCategoryTerms($post),
-    'hasPlaceholder' => $appearanceConfig->shouldDisplayPlaceholderImage() && !$post->getImage(),
+    'hasPlaceholder' => $shouldDisplayPlaceholderImage($post),
     'classList' => ['u-height--100']
 ])
     @slot('afterContent')
