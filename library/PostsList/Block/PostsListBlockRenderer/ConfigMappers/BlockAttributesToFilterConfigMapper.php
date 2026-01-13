@@ -39,8 +39,8 @@ class BlockAttributesToFilterConfigMapper
             }
         }
 
-        $showReset = $this->isAnyQueryVarPresent();
-        $resetUrl = $this->getResetUrl();
+        $showReset = \Municipio\PostsList\QueryVars\QueryVarPresenceChecker::isAnyQueryVarPresent($this->queryVars, $taxonomyFilterConfigs);
+        $resetUrl = $this->getResetUrl(...$taxonomyFilterConfigs);
 
         return new class($attributes, $taxonomyFilterConfigs, $showReset, $resetUrl) extends DefaultFilterConfig {
             public function __construct(
@@ -82,14 +82,11 @@ class BlockAttributesToFilterConfigMapper
         };
     }
 
-    private function isAnyQueryVarPresent(): bool
+    private function getResetUrl(TaxonomyFilterConfig ...$taxonomyFilterConfigs): null|string
     {
-        return !empty($_GET[$this->queryVars->getSearchParameterName()]) || !empty($_GET[$this->queryVars->getDateFromParameterName()]) || !empty($_GET[$this->queryVars->getDateToParameterName()]);
-    }
-
-    private function getResetUrl(): null|string
-    {
-        $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $requestUri = $_SERVER['REQUEST_URI'] ?? null;
+        $httpHost = $_SERVER['HTTP_HOST'] ?? null;
+        $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$httpHost$requestUri";
         $urlParts = parse_url($currentUrl);
         if (!isset($urlParts['query'])) {
             return $currentUrl;
@@ -97,13 +94,19 @@ class BlockAttributesToFilterConfigMapper
 
         parse_str($urlParts['query'], $queryParams);
 
+        $possibleQueryParams = [
+            $this->queryVars->getSearchParameterName(),
+            $this->queryVars->getDateFromParameterName(),
+            $this->queryVars->getDateToParameterName(),
+        ];
+
+        foreach ($taxonomyFilterConfigs as $config) {
+            $possibleQueryParams[] = $this->queryVars->getPrefix() . $config->getTaxonomy()->name;
+        }
+
         $filteredQueryParams = array_filter(
             $queryParams,
-            fn($key) => !in_array($key, [
-                $this->queryVars->getSearchParameterName(),
-                $this->queryVars->getDateFromParameterName(),
-                $this->queryVars->getDateToParameterName(),
-            ]),
+            fn($key) => !in_array($key, $possibleQueryParams),
             ARRAY_FILTER_USE_KEY,
         );
 
