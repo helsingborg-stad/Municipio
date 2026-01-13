@@ -1,10 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
 
-const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
-	(m) => m.default || m,
-);
-
 const entries = {
 	"js/posts-list-block": "./library/PostsList/Block/js/index.ts",
 };
@@ -35,8 +31,8 @@ export default defineConfig(({ mode }) => {
 				output: {
 					format: "iife",
 					globals: externalDeps,
-					entryFileNames: isProduction ? "[name].[hash].js" : "[name].js",
-					chunkFileNames: isProduction ? "[name].[hash].js" : "[name].js",
+					entryFileNames: isProduction ? "[name].js" : "[name].js",
+					chunkFileNames: isProduction ? "[name].js" : "[name].js",
 				},
 				treeshake: {
 					moduleSideEffects: false,
@@ -74,9 +70,7 @@ export default defineConfig(({ mode }) => {
 		},
 
 		assetFileNames: () => {
-			return "assets/[name].[hash].[ext]";
+			return "assets/[name].[ext]";
 		},
-
-		plugins: [manifestPlugin("manifest.json")],
 	};
 });

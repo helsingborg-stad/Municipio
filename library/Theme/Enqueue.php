@@ -2,7 +2,6 @@
 
 namespace Municipio\Theme;
 
-
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -35,7 +34,6 @@ class Enqueue implements Hookable
         $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueMaterialSymbols'], 999);
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueFrontendScriptsAndStyles'], 5);
         $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScriptsAndStyles'], 999);
-        $this->wpService->addAction('enqueue_block_editor_assets', [$this, 'enqueueBlockScripts'], 999);
         $this->wpService->addAction(
             'customize_controls_enqueue_scripts',
             [$this, 'enqueueCustomizerScriptsAndStyles'],
@@ -121,11 +119,6 @@ class Enqueue implements Hookable
         $this->enqueue->add('css/styleguide.css');
         $this->enqueue->add('css/municipio.css');
         $this->enqueue->add('css/splide.css');
-    }
-
-    public function enqueueBlockScripts(): void {
-        $enqueue = $this->wpUtilService->enqueue(__DIR__, '/assets/dist/blocks/');
-        $enqueue->add('js/posts-list-block.js', [], null, false);
     }
 
     /**
