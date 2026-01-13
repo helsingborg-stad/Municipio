@@ -7,6 +7,6 @@
     'meta' => $getSchemaExhibitionOccasionText($post),
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
-    'hasPlaceholder' => $appearanceConfig->shouldDisplayPlaceholderImage() && !$post->getImage(),
+    'hasPlaceholder' => $shouldDisplayPlaceholderImage($post),
 ])
 @endcard

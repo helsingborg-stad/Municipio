@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\GetPosts\PostsListConfigToGetPostsArgs;
 
+use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 
 /*
@@ -9,6 +10,10 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
  */
 class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
 {
+    public function __construct(
+        private AppearanceConfigInterface $appearanceConfig,
+    ) {}
+
     /**
      * Apply order from posts list config to get posts args
      *
@@ -21,7 +26,6 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         return [
             ...$args,
             ...$this->getOrderByArgs($config),
-            'order' => $config->getOrder()->value,
         ];
     }
 
@@ -38,10 +42,10 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         $normalizedOrderBy = $this->normalizePostTableFieldName($orderBy);
 
         if (in_array($normalizedOrderBy, $validPostTableFields, true)) {
-            return ['orderby' => $normalizedOrderBy];
+            return ['orderby' => $normalizedOrderBy, 'order' => $config->getOrder()->value];
         }
 
-        return $this->getOrderByArgsForCustomFields($normalizedOrderBy);
+        return $this->getOrderByArgsForCustomFields($normalizedOrderBy, $config);
     }
 
     /**
@@ -66,16 +70,38 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
      * @param string $orderBy
      * @return array
      */
-    private function getOrderByArgsForCustomFields(string $orderBy): array
+    private function getOrderByArgsForCustomFields(string $orderBy, GetPostsConfigInterface $config): array
     {
-        $invalidPostMetaFieldKeys = [null ,'', 'none'];
+        $invalidPostMetaFieldKeys = [null, '', 'none'];
         if (in_array($orderBy, $invalidPostMetaFieldKeys, true)) {
             return [];
+        }
+
+        if ($this->shouldUseDateClause($orderBy, $config)) {
+            return [
+                'orderby' => [
+                    ApplyDate::META_QUERY_KEY => $config->getOrder()->value,
+                ],
+            ];
         }
 
         return [
             'orderby' => 'meta_value',
             'meta_key' => $orderBy,
+            'order' => $config->getOrder()->value,
         ];
+    }
+
+    private function shouldUseDateClause(string $customFieldKey, GetPostsConfigInterface $config): bool
+    {
+        if ($customFieldKey !== $this->appearanceConfig->getDateSource()) {
+            return false;
+        }
+
+        if (is_null($config->getDateFrom()) && is_null($config->getDateTo())) {
+            return false;
+        }
+
+        return true;
     }
 }

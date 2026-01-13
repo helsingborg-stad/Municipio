@@ -28,14 +28,6 @@ class DefaultAppearanceConfig implements AppearanceConfigInterface
     /**
      * @inheritdoc
      */
-    public function shouldDisplayPlaceholderImage(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function shouldDisplayFeaturedImage(): bool
     {
         return false;

@@ -9,6 +9,8 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
  */
 class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
 {
+    public const META_QUERY_KEY = 'date_clause';
+
     /**
      * Apply date from posts list config to get posts args
      *
@@ -37,7 +39,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
         }
 
         if ($this->shouldApplyMetaQuery($config)) {
-            return ['meta_query' => [$this->buildMetaQuery($config)]];
+            return ['meta_query' => $this->buildMetaQuery($config)];
         }
 
         return [];
@@ -100,10 +102,12 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
         $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
 
         return [
-            'key' => $config->getDateSource(),
-            'value' => $value,
-            'compare' => $compare,
-            'type' => 'DATE',
+            'date_clause' => [
+                'key' => $config->getDateSource(),
+                'value' => $value,
+                'compare' => $compare,
+                'type' => 'DATE',
+            ],
         ];
     }
 }

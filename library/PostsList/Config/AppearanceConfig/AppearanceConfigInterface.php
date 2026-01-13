@@ -19,13 +19,6 @@ interface AppearanceConfigInterface
     public function shouldDisplayReadingTime(): bool;
 
     /**
-     * Should display placeholder image
-     *
-     * @return bool
-     */
-    public function shouldDisplayPlaceholderImage(): bool;
-
-    /**
      * Should display featured image
      *
      * @return bool
