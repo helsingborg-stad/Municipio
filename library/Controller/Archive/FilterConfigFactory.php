@@ -38,7 +38,7 @@ class FilterConfigFactory
             $this->wpTaxonomies,
             $this->wpService,
         ))->map($this->data);
-        // Removed: isAnyQueryVarPresent. Use QueryVarPresenceChecker instead.
+
         $showReset = \Municipio\PostsList\QueryVars\QueryVarPresenceChecker::isAnyQueryVarPresent($this->queryVars, $taxonomyFilterConfigs);
 
         return (new FilterConfigBuilder())
