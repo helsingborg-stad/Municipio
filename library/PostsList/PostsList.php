@@ -131,7 +131,7 @@ class PostsList implements PostsListInterface
      */
     private function getPostsArgs(): array
     {
-        return (new MapPostArgsFromPostsListConfig($this->getPostsConfig, $this->filterConfig))->getPostsArgs();
+        return (new MapPostArgsFromPostsListConfig($this->getPostsConfig, $this->filterConfig, $this->appearanceConfig))->getPostsArgs();
     }
 
     /**

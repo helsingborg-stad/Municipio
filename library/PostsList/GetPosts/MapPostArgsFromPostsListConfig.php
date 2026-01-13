@@ -2,6 +2,7 @@
 
 namespace Municipio\PostsList\GetPosts;
 
+use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 
@@ -19,6 +20,7 @@ class MapPostArgsFromPostsListConfig
     public function __construct(
         private GetPostsConfigInterface $config,
         private FilterConfigInterface $filterConfig,
+        private AppearanceConfigInterface $appearanceConfig,
     ) {}
 
     /**
@@ -31,7 +33,7 @@ class MapPostArgsFromPostsListConfig
         $args = [];
         $appliers = [
             new PostsListConfigToGetPostsArgs\ApplyDate(),
-            new PostsListConfigToGetPostsArgs\ApplyOrder(),
+            new PostsListConfigToGetPostsArgs\ApplyOrder($this->appearanceConfig),
             new PostsListConfigToGetPostsArgs\ApplyPage(),
             new PostsListConfigToGetPostsArgs\ApplyPostsPerPage(),
             new PostsListConfigToGetPostsArgs\ApplyPostType(),

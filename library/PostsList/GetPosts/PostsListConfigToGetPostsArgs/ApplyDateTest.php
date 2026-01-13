@@ -11,21 +11,20 @@ class ApplyDateTest extends TestCase
     #[TestDox('applies date from posts list config to get posts args')]
     public function testAppliesDate(): void
     {
-
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return '2022-01-20';
             }
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertEquals('2022-01-01', $result['date_query']['after']);
         $this->assertEquals('2022-01-20', $result['date_query']['before']);
@@ -35,19 +34,19 @@ class ApplyDateTest extends TestCase
     public function testAppliesOnlyFromIfSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return null;
             }
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertArrayNotHasKey('before', $result['date_query']);
         $this->assertEquals('2022-01-01', $result['date_query']['after']);
@@ -57,19 +56,19 @@ class ApplyDateTest extends TestCase
     public function testAppliesOnlyToIfSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return null;
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return '2022-01-20';
             }
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertEquals('2022-01-20', $result['date_query']['before']);
         $this->assertArrayNotHasKey('after', $result['date_query']);
@@ -79,19 +78,19 @@ class ApplyDateTest extends TestCase
     public function testAppliesNothingIfNotSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return null;
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return null;
             }
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertEquals([], $result);
     }
@@ -100,12 +99,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesColumnIfIsEitherPostDateOrPostModified(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return '2022-01-20';
             }
@@ -117,7 +116,7 @@ class ApplyDateTest extends TestCase
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertEquals('post_date', $result['date_query']['column']);
     }
@@ -126,12 +125,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesColumnIfIsPostModified(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return '2022-01-20';
             }
@@ -143,7 +142,7 @@ class ApplyDateTest extends TestCase
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertEquals('post_modified', $result['date_query']['column']);
     }
@@ -152,12 +151,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesMetaQueryIfColumnIsNotKnown(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return '2022-01-20';
             }
@@ -169,31 +168,34 @@ class ApplyDateTest extends TestCase
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
         $this->assertArrayNotHasKey('date_query', $result);
-        $this->assertEquals([
-        'meta_query' => [
+        $this->assertEquals(
             [
-                'key'     => 'custom_field',
-                'value'   => ['2022-01-01', '2022-01-20'],
-                'compare' => 'BETWEEN',
-                'type'    => 'DATE'
-            ]
-        ]
-        ], $result);
+                'meta_query' => [
+                    'date_clause' => [
+                        'key' => 'custom_field',
+                        'value' => ['2022-01-01', '2022-01-20'],
+                        'compare' => 'BETWEEN',
+                        'type' => 'DATE',
+                    ],
+                ],
+            ],
+            $result,
+        );
     }
 
     #[TestDox('applies meta_query with only from if column is custom_field and to is not set')]
     public function testAppliesMetaQueryWithOnlyFromIfColumnIsCustomFieldAndToIsNotSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return null;
             }
@@ -205,26 +207,29 @@ class ApplyDateTest extends TestCase
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
-        $this->assertEquals(['meta_query' => [[
-            'key'     => 'custom_field',
-            'value'   => '2022-01-01',
-            'compare' => '>=',
-            'type'    => 'DATE'
-        ]]], $result);
+        $this->assertEquals(
+            ['meta_query' => ['date_clause' => [
+                'key' => 'custom_field',
+                'value' => '2022-01-01',
+                'compare' => '>=',
+                'type' => 'DATE',
+            ]]],
+            $result,
+        );
     }
 
     #[TestDox('applies meta_query with only to if column is custom_field and from is not set')]
     public function testAppliesMetaQueryWithOnlyToIfColumnIsCustomFieldAndFromIsNotSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): ?string
+            public function getDateFrom(): null|string
             {
                 return null;
             }
 
-            public function getDateTo(): ?string
+            public function getDateTo(): null|string
             {
                 return '2022-01-20';
             }
@@ -236,13 +241,16 @@ class ApplyDateTest extends TestCase
         };
 
         $applier = new ApplyDate();
-        $result  = $applier->apply($config, []);
+        $result = $applier->apply($config, []);
 
-        $this->assertEquals(['meta_query' => [[
-            'key'     => 'custom_field',
-            'value'   => '2022-01-20',
-            'compare' => '<=',
-            'type'    => 'DATE'
-        ]]], $result);
+        $this->assertEquals(
+            ['meta_query' => ['date_clause' => [
+                'key' => 'custom_field',
+                'value' => '2022-01-20',
+                'compare' => '<=',
+                'type' => 'DATE',
+            ]]],
+            $result,
+        );
     }
 }
