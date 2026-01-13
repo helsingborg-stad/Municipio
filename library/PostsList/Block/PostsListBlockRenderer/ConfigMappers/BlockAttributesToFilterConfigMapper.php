@@ -5,10 +5,16 @@ namespace Municipio\PostsList\Block\PostsListBlockRenderer\ConfigMappers;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
 use Municipio\PostsList\Config\FilterConfig\FilterConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfigInterface;
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
+use Municipio\PostsList\QueryVars\QueryVarsInterface;
 
 class BlockAttributesToFilterConfigMapper
 {
+    public function __construct(
+        private QueryVarsInterface $queryVars,
+    ) {}
+
     public function map(array $attributes): FilterConfigInterface
     {
         $taxonomiesEnabledForFiltering = array_filter(
@@ -34,10 +40,13 @@ class BlockAttributesToFilterConfigMapper
             }
         }
 
-        return new class($attributes, $taxonomyFilterConfigs) extends DefaultFilterConfig {
+        $showReset = $this->isAnyQueryVarPresent();
+
+        return new class($attributes, $taxonomyFilterConfigs, $showReset) extends DefaultFilterConfig {
             public function __construct(
                 private array $attributes,
                 private array $taxonomyFilterConfigs,
+                private bool $showReset,
             ) {}
 
             public function isTextSearchEnabled(): bool
@@ -55,10 +64,20 @@ class BlockAttributesToFilterConfigMapper
                 return $this->taxonomyFilterConfigs;
             }
 
-            public function getAnchor(): ?string
+            public function getAnchor(): null|string
             {
                 return $this->attributes['anchor'] ?? null;
             }
+
+            public function showReset(): bool
+            {
+                return $this->showReset;
+            }
         };
+    }
+
+    private function isAnyQueryVarPresent(): bool
+    {
+        return !empty($_GET[$this->queryVars->getSearchParameterName()]) || !empty($_GET[$this->queryVars->getDateFromParameterName()]) || !empty($_GET[$this->queryVars->getDateToParameterName()]);
     }
 }

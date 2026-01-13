@@ -6,6 +6,7 @@ namespace Municipio\PostsList\Block\PostsListBlockRenderer;
 
 use ComponentLibrary\Renderer\RendererInterface;
 use Municipio\PostsList\PostsListFactoryInterface;
+use Municipio\PostsList\QueryVars\QueryVars;
 use WpService\Contracts\GetTerms;
 
 class PostsListBlockRenderer implements BlockRendererInterface
@@ -18,12 +19,13 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes, string $content, \WP_Block $block): string
     {
-        $queryVarsPrefix = $attributes['anchor'] ?? $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes));
-        $queryVarsPrefix = rtrim($queryVarsPrefix, '_') . '_';
+        $prefix = $attributes['anchor'] ?? $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes));
+        $prefix = rtrim($prefix, '_') . '_';
+        $queryVars = new QueryVars($prefix);
 
-        $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\BlockAttributesToPostsListConfigMapper($this->wpService))->map([
+        $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\BlockAttributesToPostsListConfigMapper($this->wpService, $queryVars))->map([
             ...$attributes,
-            'queryVarsPrefix' => $queryVarsPrefix,
+            'queryVarsPrefix' => $queryVars->getPrefix(),
         ]);
         $postsList = $this->postsListFactory->create($postsListConfigDTO);
         $data = $postsList->getData();

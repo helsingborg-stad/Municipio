@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\PostsList\ConfigMapper;
 
+use Municipio\PostsList\QueryVars\QueryVars;
 use PHPUnit\Framework\TestCase;
 use WP_Error;
 use WpService\Contracts\GetTerms;
@@ -18,7 +19,7 @@ class BlockAttributesToPostsListConfigMapperTest extends TestCase
                 return [];
             }
         };
-        $mapper = new BlockAttributesToPostsListConfigMapper($wpService);
+        $mapper = new BlockAttributesToPostsListConfigMapper($wpService, new QueryVars('block_'));
         $attributes = [
             'order' => 'asc',
             'orderBy' => 'date',
