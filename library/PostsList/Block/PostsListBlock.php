@@ -4,7 +4,6 @@ namespace Municipio\PostsList\Block;
 
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\PostsList\Block\PostsListBlockRenderer\BlockRendererInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\RegisterBlockType;
 
@@ -12,7 +11,6 @@ class PostsListBlock implements Hookable
 {
     public function __construct(
         private AddAction&RegisterBlockType $wpService,
-        private BlockRendererInterface $blockRenderer,
     ) {}
 
     public function addHooks(): void
@@ -23,9 +21,7 @@ class PostsListBlock implements Hookable
 
     public function registerBlock(): void
     {
-        $this->wpService->registerBlockType(__DIR__ . '/block.json', [
-            'render_callback' => [$this->blockRenderer, 'render'],
-        ]);
+        $this->wpService->registerBlockType(__DIR__ . '/block.json');
     }
 
     public function registerRestEndpoint(): void

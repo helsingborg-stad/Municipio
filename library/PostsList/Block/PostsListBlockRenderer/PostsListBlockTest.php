@@ -73,7 +73,6 @@ class PostsListBlockTest extends TestCase
         $postsListBlock->registerBlock();
 
         static::assertFileExists($wpService->registeredBlockType);
-        static::assertIsCallable($wpService->registeredArgs['render_callback']);
     }
 
     private function createBlockRenderer(): BlockRendererInterface

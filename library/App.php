@@ -25,14 +25,13 @@ use Municipio\ImageFocus\Resolvers\FaceDetectingFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\ManualInputFocusPointResolver;
 use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
-use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use Municipio\Integrations\Litespeed\Cache\PressidiumConsentVary;
+use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
-use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 use WP_Post;
 use wpdb;
@@ -369,14 +368,7 @@ class App
          * Setup Posts List
          */
         (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
-        (new \Municipio\PostsList\Block\PostsListBlock(
-            $this->wpService,
-            new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
-                new \Municipio\PostsList\PostsListFactory($this->wpService, $this->wpdb, new SchemaToPostTypeResolver($this->acfService, $this->wpService)),
-                new \ComponentLibrary\Renderer\Renderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($this->wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
-                $this->wpService,
-            ),
-        ))->addHooks();
+        (new \Municipio\PostsList\Block\PostsListBlock($this->wpService))->addHooks();
 
         /**
          * Setup Accessibility Statement
