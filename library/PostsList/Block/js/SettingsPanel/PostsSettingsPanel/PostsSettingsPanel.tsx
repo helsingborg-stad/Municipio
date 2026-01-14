@@ -60,6 +60,7 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 				label={__("Enable Pagination", "municipio")}
 				checked={paginationEnabled}
 				onChange={(value) => setAttributes({ paginationEnabled: value })}
+				__nextHasNoMarginBottom
 			/>
 			<OrderByControl
 				orderBy={orderBy}
@@ -75,12 +76,14 @@ export const PostSettingsPanel: React.FC<PostsListEditProps> = ({
 				label={__("Date From", "municipio")}
 				value={dateFrom}
 				onChange={(value) => setAttributes({ dateFrom: value })}
+				__next40pxDefaultSize
 			/>
 			<InputControl
 				type="date"
 				label={__("Date To", "municipio")}
 				value={dateTo}
 				onChange={(value) => setAttributes({ dateTo: value })}
+				__next40pxDefaultSize
 			/>
 			{taxonomies.map((taxonomy) => (
 				<TermSelectControl
