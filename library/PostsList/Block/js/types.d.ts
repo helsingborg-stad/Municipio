@@ -1,3 +1,4 @@
+import blockConfig from '../block.json';
 export {};
 declare global {
 	export type TaxonomyFilter = {
@@ -5,24 +6,8 @@ declare global {
 		type: string;
 	};
 
-	export interface PostsListAttributes {
-		dateFilterEnabled: boolean;
-		dateFrom: string;
-		dateTo: string;
-		dateFormat: string;
-		dateSource: string;
-		design: string;
-		numberOfColumns: number;
-		orderBy: string;
-		order: "asc" | "desc";
-		paginationEnabled: boolean;
-		postsPerPage: number;
-		postType: string;
-		taxonomiesEnabledForFiltering: TaxonomyFilter[];
-		textSearchEnabled: boolean;
-		terms: Array<{
-			taxonomy: string;
-			terms: number[];
-		}>;
-	}
+	type AttributeDefinition = typeof blockConfig.attributes;
+	export type PostsListAttributes = {
+		[K in keyof typeof blockConfig.attributes]: typeof blockConfig.attributes[K]['default'];
+	};
 }
