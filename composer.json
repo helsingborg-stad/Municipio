@@ -45,7 +45,7 @@
 		"landrok/language-detector": "dev-master",
 		"league/commonmark": "2.7.0",
 		"league/config": "1.1.1",
-		"helsingborg-stad/component-library": "4.63.0",
+		"helsingborg-stad/component-library": "4.63.3",
 		"freshleafmedia/autofocus": "^1.0",
 		"astrotomic/php-deepface": "^0.4.0",
 		"helsingborg-stad/kirki": "^5.2",
