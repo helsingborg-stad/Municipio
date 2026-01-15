@@ -98,15 +98,19 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         $dateFrom = $config->getDateFrom();
         $dateTo = $config->getDateTo();
+
+        $dateFrom = $dateFrom ? date('Y-m-d 00:00:00', strtotime($dateFrom)) : null;
+        $dateTo = $dateTo ? date('Y-m-d 23:59:59', strtotime($dateTo)) : null;
+
         $value = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
         $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
-
+        
         return [
-            'date_clause' => [
+            self::META_QUERY_KEY => [
                 'key' => $config->getDateSource(),
                 'value' => $value,
                 'compare' => $compare,
-                'type' => 'DATE',
+                'type' => 'DATETIME',
             ],
         ];
     }

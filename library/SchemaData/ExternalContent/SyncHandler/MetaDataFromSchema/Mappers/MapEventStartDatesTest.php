@@ -30,8 +30,8 @@ class MapEventStartDatesTest extends TestCase
         $results = iterator_to_array($mapper->map($eventSchema));
 
         static::assertCount(2, $results);
-        static::assertSame('2024-01-01T10:00:00+00:00', $results[0]->getValue());
-        static::assertSame('2024-02-01T10:00:00+00:00', $results[1]->getValue());
+        static::assertSame('2024-01-01 10:00:00', $results[0]->getValue());
+        static::assertSame('2024-02-01 10:00:00', $results[1]->getValue());
     }
 
     #[TestDox('Yields items with startDate as key')]
@@ -61,8 +61,8 @@ class MapEventStartDatesTest extends TestCase
         $results = iterator_to_array($mapper->map($eventSchema));
 
         static::assertCount(2, $results);
-        static::assertSame('2024-01-01T10:00:00+00:00', $results[0]->getValue());
-        static::assertSame('2024-02-01T10:00:00+00:00', $results[1]->getValue());
+        static::assertSame('2024-01-01 10:00:00', $results[0]->getValue());
+        static::assertSame('2024-02-01 10:00:00', $results[1]->getValue());
     }
 
     #[TestDox('Converts DateTime objects to ISO 8601 strings')]
@@ -76,7 +76,7 @@ class MapEventStartDatesTest extends TestCase
         $results = iterator_to_array($mapper->map($eventSchema));
 
         static::assertCount(1, $results);
-        static::assertSame('2024-01-01T10:00:00+00:00', $results[0]->getValue());
+        static::assertSame('2024-01-01 10:00:00', $results[0]->getValue());
     }
 
     #[TestDox('Converts non ISO 8601 date strings to ISO 8601 format')]
@@ -90,6 +90,6 @@ class MapEventStartDatesTest extends TestCase
         $results = iterator_to_array($mapper->map($eventSchema));
 
         static::assertCount(1, $results);
-        static::assertSame('2024-01-01T10:00:00+00:00', $results[0]->getValue());
+        static::assertSame('2024-01-01 10:00:00', $results[0]->getValue());
     }
 }

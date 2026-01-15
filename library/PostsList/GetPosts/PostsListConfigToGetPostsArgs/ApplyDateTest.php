@@ -176,9 +176,9 @@ class ApplyDateTest extends TestCase
                 'meta_query' => [
                     'date_clause' => [
                         'key' => 'custom_field',
-                        'value' => ['2022-01-01', '2022-01-20'],
+                        'value' => ['2022-01-01 00:00:00', '2022-01-20 23:59:59'],
                         'compare' => 'BETWEEN',
-                        'type' => 'DATE',
+                        'type' => 'DATETIME',
                     ],
                 ],
             ],
@@ -212,9 +212,9 @@ class ApplyDateTest extends TestCase
         $this->assertEquals(
             ['meta_query' => ['date_clause' => [
                 'key' => 'custom_field',
-                'value' => '2022-01-01',
+                'value' => '2022-01-01 00:00:00',
                 'compare' => '>=',
-                'type' => 'DATE',
+                'type' => 'DATETIME',
             ]]],
             $result,
         );
@@ -246,9 +246,9 @@ class ApplyDateTest extends TestCase
         $this->assertEquals(
             ['meta_query' => ['date_clause' => [
                 'key' => 'custom_field',
-                'value' => '2022-01-20',
+                'value' => '2022-01-20 23:59:59',
                 'compare' => '<=',
-                'type' => 'DATE',
+                'type' => 'DATETIME',
             ]]],
             $result,
         );
