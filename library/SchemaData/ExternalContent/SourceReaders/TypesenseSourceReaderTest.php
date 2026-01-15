@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
+use Municipio\Schema\Schema;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiGET;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiResponse;
@@ -21,7 +22,8 @@ class TypesenseSourceReaderTest extends TestCase
     #[TestDox('getSourceData calls api for data untill it gets a empty response')]
     public function testGetSourceDataCallsApiForDataUntillItGetsANullResponse()
     {
-        $api                   = $this->getApiMock([ $this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 200) ]);
+        $schemaObjectJson = Schema::thing()->jsonSerialize();
+        $api = $this->getApiMock([$this->getApiResponseMock([$schemaObjectJson]), $this->getApiResponseMock([$schemaObjectJson]), $this->getApiResponseMock([], 200)]);
         $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
@@ -33,7 +35,8 @@ class TypesenseSourceReaderTest extends TestCase
     #[TestDox('page number is appended correctly to endpoint with already defined GET parameters')]
     public function testPageNumberIsAppendedCorrectlyToEndpointWithAlreadyDefinedGetParameters()
     {
-        $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 200)]);
+        $schemaObjectJson = Schema::thing()->jsonSerialize();
+        $api = $this->getApiMock([$this->getApiResponseMock([$schemaObjectJson]), $this->getApiResponseMock([$schemaObjectJson]), $this->getApiResponseMock([], 200)]);
         $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point?param=value', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
@@ -45,7 +48,8 @@ class TypesenseSourceReaderTest extends TestCase
     #[TestDox('per_page param is appended to endpoint')]
     public function testPerPageParamIsAppendedToEndpoint()
     {
-        $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
+        $schemaObjectJson = Schema::thing()->jsonSerialize();
+        $api = $this->getApiMock([$this->getApiResponseMock([$schemaObjectJson]), $this->getApiResponseMock()]);
         $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
@@ -56,7 +60,8 @@ class TypesenseSourceReaderTest extends TestCase
     #[TestDox('query param is appended to endpoint')]
     public function testQueryParamIsAppendedToEndpoint()
     {
-        $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
+        $schemaObjectJson = Schema::thing()->jsonSerialize();
+        $api = $this->getApiMock([$this->getApiResponseMock([$schemaObjectJson]), $this->getApiResponseMock()]);
         $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
 
         $typesenseSourceReader->getSourceData();
@@ -64,16 +69,32 @@ class TypesenseSourceReaderTest extends TestCase
         $this->assertStringContainsString('&q=*', $api->calls[0]);
     }
 
+    #[TestDox('id is stripped from schema object')]
+    public function testIdIsStrippedFromSchemaObject()
+    {
+        $bodyWithObjects = [
+            [
+                'document' => Schema::thing()->setProperty('id', '123')->jsonSerialize(),
+            ],
+        ];
+        $api = $this->getApiMock([$this->getApiResponseMock($bodyWithObjects), $this->getApiResponseMock()]);
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new JsonToSchemaObjects());
+
+        $schemaObjects = $typesenseSourceReader->getSourceData();
+
+        $this->assertCount(1, $schemaObjects);
+        $this->assertNull($schemaObjects[0]->getProperty('id'));
+    }
+
     private function getApiMock(array $consecutiveReturns = []): ApiGET
     {
-        return new class ($consecutiveReturns) implements ApiGET
-        {
+        return new class($consecutiveReturns) implements ApiGET {
             public array $calls = [];
             private $nbrOfCalls = 0;
 
-            public function __construct(private array $consecutiveReturns)
-            {
-            }
+            public function __construct(
+                private array $consecutiveReturns,
+            ) {}
 
             public function get(string $endpoint): ApiResponse
             {
