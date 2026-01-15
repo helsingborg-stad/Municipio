@@ -11,7 +11,7 @@ use wpdb;
  */
 class FilterOutObjectsThatHaveNotChanged
 {
-    public const string VERSION = '1';
+    public const VERSION = '1';
 
     public function __construct(private wpdb $wpdb, private string $postType)
     {
