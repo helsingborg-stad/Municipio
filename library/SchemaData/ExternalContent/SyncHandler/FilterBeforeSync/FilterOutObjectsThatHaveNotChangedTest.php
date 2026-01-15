@@ -85,4 +85,29 @@ class FilterOutObjectsThatHaveNotChangedTest extends TestCase
 
         $this->assertCount(1, $filtered, 'Expected schema objects to remain after filtering changed objects.');
     }
+
+    #[TestDox('Checksum generation is appended with version')]
+    public function testChecksumGenerationIncludesVersion()
+    {
+        $uniqueSchemaObjects = array_map(fn($number) => Schema::thing()->name("Name $number"), range(1, 5));
+
+        $checksums = array_map(
+            fn($obj) => FilterOutObjectsThatHaveNotChanged::generateChecksum($obj),
+            $uniqueSchemaObjects,
+        );
+
+        $this->assertCount(
+            count($uniqueSchemaObjects),
+            array_unique($checksums),
+            'Expected unique checksums for unique schema objects.',
+        );
+
+        foreach ($checksums as $checksum) {
+            $this->assertStringEndsWith(
+                FilterOutObjectsThatHaveNotChanged::VERSION,
+                $checksum,
+                'Expected checksum to end with version suffix.',
+            );
+        }
+    }
 }
