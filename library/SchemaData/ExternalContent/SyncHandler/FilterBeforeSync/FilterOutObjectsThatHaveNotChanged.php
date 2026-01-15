@@ -2,8 +2,6 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync;
 
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use wpdb;
@@ -13,6 +11,8 @@ use wpdb;
  */
 class FilterOutObjectsThatHaveNotChanged
 {
+    public const string VERSION = '1';
+
     public function __construct(private wpdb $wpdb, private string $postType)
     {
     }
@@ -112,13 +112,18 @@ class FilterOutObjectsThatHaveNotChanged
             }
         }
 
-        $checkSum          = md5(json_encode($schemaObject));
+        $checkSum          = static::generateChecksum($schemaObject);
         $metaPropertyValue = Schema::propertyValue()
             ->setProperty('name', 'checksum')
             ->setProperty('value', $checkSum);
 
         $schemaObject->setProperty('@meta', [...$meta, $metaPropertyValue]);
         return $schemaObject;
+    }
+
+    public static function generateChecksum(BaseType $schemaObject): string
+    {
+        return md5(json_encode($schemaObject)) . self::VERSION;
     }
 
     /**
