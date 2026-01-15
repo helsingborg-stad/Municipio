@@ -11,18 +11,10 @@ use wpdb;
 /**
  * Class FilterOutObjectsThatHaveNotChanged
  */
-class FilterOutObjectsThatHaveNotChanged implements Hookable
+class FilterOutObjectsThatHaveNotChanged
 {
     public function __construct(private wpdb $wpdb, private string $postType)
     {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addHooks(): void
-    {
-        add_filter(SyncHandler::FILTER_BEFORE, [$this, 'filter']);
     }
 
     /**

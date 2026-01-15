@@ -9,6 +9,8 @@ use Municipio\SchemaData\ExternalContent\SyncHandler\MetaDataFromSchema\MetaData
 
 class MapEventStartDates implements MetaDataItemMapperInterface
 {
+    private const DATE_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @inheritDoc
      */
@@ -40,7 +42,7 @@ class MapEventStartDates implements MetaDataItemMapperInterface
         $startDate = $schedule->getProperty('startDate');
 
         if ($startDate instanceof \DateTime) {
-            $schedule->setProperty('startDate', $startDate->format(\DateTime::ATOM));
+            $schedule->setProperty('startDate', $startDate->format(self::DATE_FORMAT));
         }
 
         if (is_string($startDate)) {
@@ -48,7 +50,7 @@ class MapEventStartDates implements MetaDataItemMapperInterface
             $time = strtotime($startDate) ?? false;
 
             if ($time !== false) {
-                $schedule->setProperty('startDate', date(\DateTime::ATOM, $time));
+                $schedule->setProperty('startDate', date(self::DATE_FORMAT, $time));
             }
         }
 
