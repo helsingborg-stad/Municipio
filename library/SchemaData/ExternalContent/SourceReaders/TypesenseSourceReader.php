@@ -40,9 +40,25 @@ class TypesenseSourceReader implements SourceReaderInterface
 
         $documents     = array_map(fn($item) => $item['document'] ?? null, $data);
         $documents     = array_filter($documents);
+        $documents = array_map([$this, 'removeIdFromDocument'], $documents);
         $schemaObjects = $this->jsonConverter->transform(json_encode($documents));
 
         return $schemaObjects;
+    }
+
+    /**
+     * Removes the 'id' field from a document.
+     * This is necessary to avoid indications of updates to an object when only the 'id' field has changed.
+     * The id field is updated by Typesense on each reindexing, causing unnecessary updates.
+     *
+     * @param array $document The document from which to remove the 'id' field.
+     * @return array The document without the 'id' field.
+     */
+    private function removeIdFromDocument(array $document): array
+    {
+        unset($document['id']);
+
+        return $document;
     }
 
     /**
