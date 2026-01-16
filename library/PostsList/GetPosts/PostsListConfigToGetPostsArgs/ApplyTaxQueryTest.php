@@ -60,7 +60,7 @@ class ApplyTaxQueryTest extends TestCase
                 'taxonomy' => 'post_tag',
                 'field' => 'term_id',
                 'terms' => [2],
-                'operator' => 'AND',
+                'operator' => 'IN',
             ],
             $args['tax_query'],
         );
