@@ -162,6 +162,7 @@ class ManualInput extends \Modularity\Module
         return [
             'title' => null,
             'content' => null,
+            'eyebrow' => null,
             'link' => null,
             'link_text' => null,
             'default_link_text' => __('Read more', 'municipio'),
