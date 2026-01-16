@@ -60,13 +60,11 @@ class ApplyTaxQuery implements ApplyPostsListConfigToGetPostsArgsInterface
         // Build tax_query array
         $taxQuery = ['relation' => $this->getRelationFromConfig($config)];
         foreach ($termsByTaxonomy as $taxonomy => $termIds) {
-            $taxonomyIsHierarchical = $this->taxonomyIsHierarchical($taxonomy);
-
             $taxQuery[] = [
                 'taxonomy' => $taxonomy,
                 'field' => 'term_id',
                 'terms' => $termIds,
-                'operator' => $taxonomyIsHierarchical ? 'IN' : 'AND',
+                'operator' => 'IN',
             ];
         }
 
