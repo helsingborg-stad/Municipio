@@ -5,6 +5,7 @@
     @card([
         'link'              => $input['link'],
         'linkText'          => isset($input['linkText']) ? $input['linkText'] : '',
+        'eyebrow'           => !empty($input['eyebrow']) ? $input['eyebrow'] : '',
         'heading'           => $input['title'],
         'context'           => $context,
         'content'           => $input['content'],
@@ -17,7 +18,7 @@
             'icon' => $input['icon'],
             'size' => 'md',
             'color' => 'black'
-        ] : null
+        ] : null,
     ])
     @endcard
     @if (!empty($input['customBackgroundColor']) && !empty($input['customTextColor']))
