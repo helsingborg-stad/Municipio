@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8442be663a1372bd65904352ddfabc9d",
+    "content-hash": "f0ecf8a989290aa26f56e9fddb9a8106",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -820,16 +820,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.63.3",
+            "version": "4.63.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "d489eead3695772a2b3d0f27d25f0e772631909a"
+                "reference": "a025a0af9b43b73d8a9de35ed50e5490a9e94750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/d489eead3695772a2b3d0f27d25f0e772631909a",
-                "reference": "d489eead3695772a2b3d0f27d25f0e772631909a",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/a025a0af9b43b73d8a9de35ed50e5490a9e94750",
+                "reference": "a025a0af9b43b73d8a9de35ed50e5490a9e94750",
                 "shasum": ""
             },
             "require": {
@@ -861,9 +861,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.63.3"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.63.4"
             },
-            "time": "2026-01-14T08:19:06+00:00"
+            "time": "2026-01-20T09:23:46+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -4588,16 +4588,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.46",
+            "version": "11.5.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "75dfe79a2aa30085b7132bb84377c24062193f33"
+                "reference": "fe3665c15e37140f55aaf658c81a2eb9030b6d89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/75dfe79a2aa30085b7132bb84377c24062193f33",
-                "reference": "75dfe79a2aa30085b7132bb84377c24062193f33",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fe3665c15e37140f55aaf658c81a2eb9030b6d89",
+                "reference": "fe3665c15e37140f55aaf658c81a2eb9030b6d89",
                 "shasum": ""
             },
             "require": {
@@ -4611,7 +4611,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.2",
-                "phpunit/php-code-coverage": "^11.0.11",
+                "phpunit/php-code-coverage": "^11.0.12",
                 "phpunit/php-file-iterator": "^5.1.0",
                 "phpunit/php-invoker": "^5.0.1",
                 "phpunit/php-text-template": "^4.0.1",
@@ -4669,7 +4669,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.46"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.48"
             },
             "funding": [
                 {
@@ -4693,7 +4693,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-06T08:01:15+00:00"
+            "time": "2026-01-16T16:26:27+00:00"
         },
         {
             "name": "sebastian/cli-parser",
