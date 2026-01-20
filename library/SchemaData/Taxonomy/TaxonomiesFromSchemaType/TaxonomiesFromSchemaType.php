@@ -24,9 +24,8 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     public function __construct(
         private TaxonomyFactoryInterface $taxonomyFactory,
         private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver,
-        private __&_x&ApplyFilters $wpService
-    ) {
-    }
+        private __&_x&ApplyFilters $wpService,
+    ) {}
 
     /**
      * Create taxonomies based on the schema type.
@@ -35,15 +34,16 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      * @return array An array of TaxonomyInterface objects.
      */
     public function create(string $schemaType): array
+    {
         $map = [
             'JobPosting' => $this->getJobPostingTaxonomies(),
             'Event' => $this->getEventTaxonomies(),
-            'Project' => $this->getProjectTaxonomies(), 
+            'Project' => $this->getProjectTaxonomies(),
             'ExhibitionEvent' => $this->getExhibitionEventTaxonomies(),
             'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
             'Preschool' => $this->getPreschoolTaxonomies(),
         ][$schemaType] ?? [];
-  
+
         return $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
     }
 

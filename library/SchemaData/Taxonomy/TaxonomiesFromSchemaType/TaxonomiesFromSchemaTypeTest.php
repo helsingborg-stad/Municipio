@@ -9,6 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\__;
 use WpService\Contracts\_x;
+use WpService\Contracts\ApplyFilters;
 
 class TaxonomiesFromSchemaTypeTest extends TestCase
 {
@@ -19,7 +20,7 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         $this->instance = new TaxonomiesFromSchemaType(
             $this->getTaxonomyFactory(),
             $this->getSchemaToPostTypeResolver(),
-            $this->getWpService()
+            $this->getWpService(),
         );
     }
 
@@ -30,14 +31,15 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         $this->assertIsArray($taxonomies);
         $this->assertEmpty($taxonomies);
     }
-    #[TestDox("Returns array containing taxonomies for known schema types")]
-    #[DataProvider("knownSchemaTypesProvider")]
+
+    #[TestDox('Returns array containing taxonomies for known schema types')]
+    #[DataProvider('knownSchemaTypesProvider')]
     public function testReturnsTaxonomiesForKnownSchemaTypes(string $schemaType): void
     {
         // Assert array contains only instances of TaxonomyInterface
         $this->assertEachInArrayIsInstanceOf(
             $this->instance->create($schemaType),
-            TaxonomyInterface::class
+            TaxonomyInterface::class,
         );
     }
 
@@ -45,8 +47,8 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     {
         return [
             'JobPosting' => ['JobPosting'],
-            'Event'      => ['Event'],
-            'Project'    => ['Project'],
+            'Event' => ['Event'],
+            'Project' => ['Project'],
         ];
     }
 
@@ -67,17 +69,23 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         return $this->createMock(SchemaToPostTypeResolverInterface::class);
     }
 
-    private function getWpService(): __|_x
+    private function getWpService(): __|_x|ApplyFilters
     {
-        return new class implements __, _x {
+        return new class implements __, _x, ApplyFilters {
             public function __($text, ...$args): string
             {
                 return $text;
             }
+
             // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
             public function _x($text, $context, ...$args): string
             {
                 return $text;
+            }
+
+            public function applyFilters(string $tag, $value, ...$args): mixed
+            {
+                return $value;
             }
         };
     }
