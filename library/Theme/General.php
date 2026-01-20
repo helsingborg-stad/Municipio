@@ -2,6 +2,8 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Helper\WpService;
+
 /**
  * Class General
  *
@@ -69,6 +71,11 @@ class General
             $data['format']   = !empty($data['format']) ? $data['format'] : \Municipio\Helper\DateFormat::getDateFormat($data['format'] ?? 'date');
             $data['region']   = \Municipio\Helper\DateFormat::getLocale();
             $data['timezone'] = \Municipio\Helper\DateFormat::getTimezone();
+            return $data;
+        });
+        
+        add_filter('ComponentLibrary/Component/Select/Data', function ($data) {
+            $data['searchNoResultsText']   = WpService::get()->_x('No results found', 'Select component search no results text', 'municipio');
             return $data;
         });
     }

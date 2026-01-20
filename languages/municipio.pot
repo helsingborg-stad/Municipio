@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-09T06:33:59+00:00\n"
+"POT-Creation-Date: 2026-01-20T15:54:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -91,13 +91,13 @@ msgstr ""
 #: library/AcfFields/php/a11y-statement.php:32
 #: library/Customizer/Sections/Archive.php:318
 #: library/PostsList/ViewCallableProviders/Table/TableArguments/TableHeadingsGenerator.php:51
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:551
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:582
 #: Modularity/source/php/AcfFields/php/mod-map.php:350
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
-#: Modularity/source/php/Module/ManualInput/ManualInput.php:326
+#: Modularity/source/php/Module/ManualInput/ManualInput.php:327
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:42
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Title"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 #: library/Admin/Options/Theme.php:40
 #: library/Customizer/Sections/Component/FooterSub.php:188
 #: library/Customizer/Sections/Width.php:26
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:626
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:657
 #: Modularity/source/php/AcfFields/php/mod-slider.php:261
 #: Modularity/source/php/AcfFields/php/mod-slider.php:553
 #: Modularity/source/php/Editor.php:136
@@ -260,7 +260,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:141
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:207
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:74
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:655
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:686
 #: Modularity/source/php/AcfFields/php/mod-notice.php:83
 #: Modularity/source/php/AcfFields/php/mod-slider.php:282
 #: Modularity/source/php/AcfFields/php/mod-slider.php:682
@@ -647,9 +647,9 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:335
 #: Modularity/source/php/AcfFields/php/mod-index.php:26
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:48
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:242
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:546
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:597
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:239
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:547
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:628
 #: Modularity/source/php/AcfFields/php/mod-map.php:345
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:567
 msgid "Lägg till rad"
@@ -719,7 +719,7 @@ msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:460
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Collection"
 msgstr ""
 
@@ -841,7 +841,7 @@ msgstr ""
 #: library/AcfFields/php/term-icon-and-colour.php:79
 #: library/AcfFields/php/widget-header-links.php:33
 #: library/AcfFields/php/widget-header-links.php:120
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:845
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:876
 #: Modularity/source/php/AcfFields/php/mod-modal.php:51
 msgid "Icon"
 msgstr ""
@@ -1103,7 +1103,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:12
 #: Modularity/source/php/AcfFields/php/mod-curator.php:62
 #: Modularity/source/php/AcfFields/php/mod-index.php:317
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:270
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:267
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:386
 msgid "Columns"
 msgstr ""
@@ -2141,7 +2141,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Table"
 msgstr ""
 
@@ -2515,7 +2515,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Post Type"
 msgstr ""
 
@@ -2629,7 +2629,7 @@ msgstr ""
 #: library/Customizer/Sections/Header/Layout.php:225
 #: library/Customizer/Sections/Header/Layout.php:254
 #: library/Customizer/Sections/Width.php:68
-#: library/Theme/Enqueue.php:161
+#: library/Theme/Enqueue.php:154
 #: Modularity/source/php/AcfFields/php/mod-audio.php:104
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:285
 #: Modularity/source/php/AcfFields/php/mod-search.php:95
@@ -2649,7 +2649,7 @@ msgstr ""
 #: library/Customizer/Sections/Header/Layout.php:227
 #: library/Customizer/Sections/Header/Layout.php:255
 #: library/Customizer/Sections/Width.php:84
-#: library/Theme/Enqueue.php:162
+#: library/Theme/Enqueue.php:155
 #: Modularity/source/php/AcfFields/php/mod-audio.php:106
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:286
 #: Modularity/source/php/AcfFields/php/mod-search.php:97
@@ -2663,7 +2663,7 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:119
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:89
 #: library/Customizer/Sections/Header/Appearance.php:86
-#: library/Theme/Enqueue.php:160
+#: library/Theme/Enqueue.php:153
 msgid "Margin"
 msgstr ""
 
@@ -2681,7 +2681,7 @@ msgstr ""
 #: library/Customizer/Sections/Component/SliderHero.php:45
 #: library/Customizer/Sections/Component/SliderHero.php:95
 #: library/Customizer/Sections/Header/Appearance.php:46
-#: library/Theme/Enqueue.php:164
+#: library/Theme/Enqueue.php:157
 #: Modularity/source/php/AcfFields/php/mod-image.php:74
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:221
 msgid "None"
@@ -4143,7 +4143,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:361
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Ascending"
 msgstr ""
 
@@ -4155,7 +4155,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:408
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date"
 msgstr ""
 
@@ -4168,7 +4168,7 @@ msgid "Hide date"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:403
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date format"
 msgstr ""
 
@@ -4181,7 +4181,7 @@ msgid "Date, Time"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:410
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date badge"
 msgstr ""
 
@@ -4194,7 +4194,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:455
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Compressed"
 msgstr ""
 
@@ -4212,7 +4212,7 @@ msgid "Blocks"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:466
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Schema"
 msgstr ""
 
@@ -4221,7 +4221,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Card"
 msgstr ""
 
@@ -4907,7 +4907,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-image.php:8
 #: Modularity/source/php/AcfFields/php/mod-image.php:12
 #: Modularity/source/php/AcfFields/php/mod-index.php:108
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:804
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:835
 #: Modularity/source/php/Module/Image/Image.php:23
 msgid "Image"
 msgstr ""
@@ -5124,7 +5124,7 @@ msgid "User name color"
 msgstr ""
 
 #: library/Customizer/Sections/Header/LoginLogout.php:131
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:906
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:937
 msgid "Custom background color"
 msgstr ""
 
@@ -5710,7 +5710,7 @@ msgid "Tailor"
 msgstr ""
 
 #: library/Helper/KirkiConditional.php:49
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Disable"
 msgstr ""
 
@@ -5873,7 +5873,7 @@ msgstr ""
 #: library/Helper/TranslatedLabels.php:62
 #: library/Helper/TranslatedLabels.php:79
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
-#: Modularity/source/php/Module/ManualInput/ManualInput.php:167
+#: Modularity/source/php/Module/ManualInput/ManualInput.php:168
 #: Modularity/source/php/Module/Posts/Posts.php:247
 msgid "Read more"
 msgstr ""
@@ -6033,7 +6033,7 @@ msgstr ""
 msgid "Handling of personal data"
 msgstr ""
 
-#: library/PostsList/PostsList.php:91
+#: library/PostsList/PostsList.php:88
 msgctxt "label for more occasions available on event"
 msgid "More occasions available"
 msgstr ""
@@ -6531,106 +6531,111 @@ msgstr ""
 msgid "Page (centered)"
 msgstr ""
 
-#: library/Theme/Enqueue.php:79
+#: library/Theme/Enqueue.php:77
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: library/Theme/Enqueue.php:81
+#: library/Theme/Enqueue.php:79
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/Theme/Enqueue.php:82
+#: library/Theme/Enqueue.php:80
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: library/Theme/Enqueue.php:91
+#: library/Theme/Enqueue.php:89
 msgid "January"
 msgstr ""
 
-#: library/Theme/Enqueue.php:92
+#: library/Theme/Enqueue.php:90
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:93
+#: library/Theme/Enqueue.php:91
 msgid "March"
 msgstr ""
 
-#: library/Theme/Enqueue.php:94
+#: library/Theme/Enqueue.php:92
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:95
+#: library/Theme/Enqueue.php:93
 msgid "May"
 msgstr ""
 
-#: library/Theme/Enqueue.php:96
+#: library/Theme/Enqueue.php:94
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:97
+#: library/Theme/Enqueue.php:95
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:98
+#: library/Theme/Enqueue.php:96
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:99
+#: library/Theme/Enqueue.php:97
 msgid "September"
 msgstr ""
 
-#: library/Theme/Enqueue.php:100
+#: library/Theme/Enqueue.php:98
 msgid "October"
 msgstr ""
 
-#: library/Theme/Enqueue.php:101
+#: library/Theme/Enqueue.php:99
 msgid "November"
 msgstr ""
 
-#: library/Theme/Enqueue.php:102
+#: library/Theme/Enqueue.php:100
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:106
+#: library/Theme/Enqueue.php:104
 msgid "Su"
 msgstr ""
 
-#: library/Theme/Enqueue.php:107
+#: library/Theme/Enqueue.php:105
 msgid "Mo"
 msgstr ""
 
-#: library/Theme/Enqueue.php:108
+#: library/Theme/Enqueue.php:106
 msgid "Tu"
 msgstr ""
 
-#: library/Theme/Enqueue.php:109
+#: library/Theme/Enqueue.php:107
 msgid "We"
 msgstr ""
 
-#: library/Theme/Enqueue.php:110
+#: library/Theme/Enqueue.php:108
 msgid "Th"
 msgstr ""
 
-#: library/Theme/Enqueue.php:111
+#: library/Theme/Enqueue.php:109
 msgid "Fr"
 msgstr ""
 
-#: library/Theme/Enqueue.php:112
+#: library/Theme/Enqueue.php:110
 msgid "Sa"
 msgstr ""
 
-#: library/Theme/Enqueue.php:159
+#: library/Theme/Enqueue.php:152
 #: Modularity/source/php/AcfFields/php/mod-audio.php:91
 #: Modularity/source/php/AcfFields/php/mod-search.php:82
 msgid "Alignment"
 msgstr ""
 
-#: library/Theme/Enqueue.php:163
+#: library/Theme/Enqueue.php:156
 msgid "Both"
 msgstr ""
 
 #: library/Theme/Forms.php:44
 msgid "The password entered is not correct."
+msgstr ""
+
+#: library/Theme/General.php:78
+msgctxt "Select component search no results text"
+msgid "No results found"
 msgstr ""
 
 #: library/Theme/Icon.php:41
@@ -7623,7 +7628,7 @@ msgid "External audio url"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-audio.php:108
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:444
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:443
 msgid "left"
 msgstr ""
 
@@ -7670,14 +7675,14 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:25
 #: Modularity/source/php/AcfFields/php/mod-index.php:331
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:301
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:298
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:412
 msgid "1"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:26
 #: Modularity/source/php/AcfFields/php/mod-index.php:332
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:302
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:299
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:413
 msgid "2"
 msgstr ""
@@ -7685,7 +7690,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:27
 #: Modularity/source/php/AcfFields/php/mod-curator.php:75
 #: Modularity/source/php/AcfFields/php/mod-index.php:333
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:303
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:300
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:414
 msgid "3"
 msgstr ""
@@ -7693,7 +7698,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:28
 #: Modularity/source/php/AcfFields/php/mod-curator.php:76
 #: Modularity/source/php/AcfFields/php/mod-index.php:334
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:304
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:301
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:415
 msgid "4"
 msgstr ""
@@ -7794,7 +7799,7 @@ msgid "Curator Social Media"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Number of posts"
 msgstr ""
 
@@ -7804,7 +7809,7 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Block"
 msgstr ""
 
@@ -7821,21 +7826,20 @@ msgid "No space between the posts in the grid"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:118
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:456
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:455
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:693
 msgid "Ratio"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:139
 #: Modularity/source/php/AcfFields/php/mod-curator.php:143
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:484
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:483
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:721
 msgid "1:1"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:140
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:485
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:488
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:484
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:722
 msgid "4:3"
 msgstr ""
@@ -8189,116 +8193,116 @@ msgstr ""
 msgid "Will default to the module ID but can be set to save as a custom meta key."
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:126
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:123
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:134
 msgid "unique-key"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:132
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:129
 msgid "Free text filtering"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:136
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:133
 msgid "Enables filtering using a input field."
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:160
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:157
 msgid "Spaced sections"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:164
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:161
 msgid "Accordion items will have some space between them"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:188
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:185
 msgid "Column marking"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:216
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:213
 msgid "Column titles"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:247
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:244
 msgid "Column title"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:306
-msgid "o-grid-4"
-msgstr ""
-
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:318
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:317
 msgid "Highlight first input"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:322
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:321
 msgid "Makes the first input bigger"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:367
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:366
 msgid "Show title above image"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:371
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:370
 msgid "Show title above the card image instead of grouped with text"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:395
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:394
 msgid "Disable card layout shift"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:399
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:398
 msgid "Disable the standard card layout shift when browser resizes"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:423
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:422
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:264
 msgid "Image position"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:445
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:444
 msgid "right"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:486
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:485
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:723
 msgid "12:16"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:500
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:501
 msgid "Use custom card color"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:528
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:529
 msgid "Manual inputs"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:572
-msgid "Column values"
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:552
+msgid "Eyebrow"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:603
+msgid "Column values"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:634
 msgid "Column value"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:681
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:712
 msgid "Obligatory"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:710
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:741
 msgid "UniqueId"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:739
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:770
 msgid "Link description"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:768
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:799
 #: Modularity/source/php/AcfFields/php/mod-map.php:391
 #: Modularity/source/php/AcfFields/php/mod-slider.php:748
 msgid "Link text"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:910
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:941
 msgid "Colors can be defined in site customizer under General appearance > Colors > Additional colors."
 msgstr ""
 
@@ -17188,13 +17192,13 @@ msgid "Menu order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Descending"
 msgstr ""
 
@@ -19248,87 +19252,87 @@ msgstr ""
 msgid "Nothing to display…"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Time"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date, time"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date Published"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date Modified"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date source"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Newsitem"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Appearance settings"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Design"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Number of columns"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Checkboxes"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Radio buttons"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Filter settings"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Enable text search"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Enable date filter"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "DateModified"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Order by"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Posts settings"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Posts per page"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Enable Pagination"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date From"
 msgstr ""
 
-#: assets/dist/blocks/js/posts-list-block.CSTXS9Dk.js:1
+#: assets/dist/blocks/js/posts-list-block.js:1
 msgid "Date To"
 msgstr ""
 
