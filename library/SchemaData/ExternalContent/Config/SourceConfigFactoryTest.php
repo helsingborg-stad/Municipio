@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\Config;
 
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -67,7 +68,7 @@ class SourceConfigFactoryTest extends TestCase
     {
         $getOption = fn($option, $default) => $option === 'external_content_sources' ? '0' : $default;
         $wpService = new FakeWpService(['getOption' => $getOption]);
-        $factory   = new SourceConfigFactory($this->getSchemaDataConfig(), $wpService);
+        $factory = new SourceConfigFactory($this->getSchemaDataConfig(), $wpService);
 
         $this->assertEmpty($factory->create());
     }
@@ -75,32 +76,37 @@ class SourceConfigFactoryTest extends TestCase
     #[TestDox('expected options are fetched')]
     public function testExpectedOptionsAreFetched()
     {
-        $getOption  = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
-        $getOptions = fn($options) =>  $this->getTestAcfData();
-        $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
+        $getOption = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
+        $getOptions = fn($options) => $this->getTestAcfData();
+        $wpService = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
         @(new SourceConfigFactory($this->getSchemaDataConfig(), $wpService))->create();
 
-        $this->assertEquals([
-            'options_external_content_sources_0_post_type',
-            'options_external_content_sources_0_automatic_import_schedule',
-            'options_external_content_sources_0_source_type',
-            'options_external_content_sources_0_source_json_file_path',
-            'options_external_content_sources_0_source_typesense_api_key',
-            'options_external_content_sources_0_source_typesense_protocol',
-            'options_external_content_sources_0_source_typesense_host',
-            'options_external_content_sources_0_source_typesense_port',
-            'options_external_content_sources_0_source_typesense_collection',
-            'options_external_content_sources_0_rules',
+        $this->assertEquals(
+            [
+                'options_external_content_sources_0_post_type',
+                'options_external_content_sources_0_automatic_import_schedule',
+                'options_external_content_sources_0_source_type',
+                'options_external_content_sources_0_source_json_file_path',
+                'options_external_content_sources_0_source_typesense_api_key',
+                'options_external_content_sources_0_source_typesense_protocol',
+                'options_external_content_sources_0_source_typesense_host',
+                'options_external_content_sources_0_source_typesense_port',
+                'options_external_content_sources_0_source_typesense_collection',
+                'options_external_content_sources_0_rules',
+                'options_external_content_sources_0_rules_relation',
+            ],
+            $wpService->methodCalls['getOptions'][0][0],
+        );
 
-        ], $wpService->methodCalls['getOptions'][0][0]);
-
-        $this->assertEquals([
-            'options_external_content_sources_0_rules_0_property_path',
-            'options_external_content_sources_0_rules_0_operator',
-            'options_external_content_sources_0_rules_0_value',
-
-        ], $wpService->methodCalls['getOptions'][1][0]);
+        $this->assertEquals(
+            [
+                'options_external_content_sources_0_rules_0_property_path',
+                'options_external_content_sources_0_rules_0_operator',
+                'options_external_content_sources_0_rules_0_value',
+            ],
+            $wpService->methodCalls['getOptions'][1][0],
+        );
     }
 
     #[TestDox('array of SourceConfigInterface objects are returned')]
@@ -128,7 +134,7 @@ class SourceConfigFactoryTest extends TestCase
     #[TestDox('returned $sourceConfig contains schema type')]
     public function testReturnedSourceConfigContainsSchemaType()
     {
-        $getOption  = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
+        $getOption = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
         $getOptions = fn($options) => ['options_external_content_sources_0_post_type' => 'test_post_type'];
 
         $wpService = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
@@ -145,7 +151,7 @@ class SourceConfigFactoryTest extends TestCase
                 return ['test_post_type'];
             }
 
-            public function tryGetSchemaTypeFromPostType(string $postType): ?string
+            public function tryGetSchemaTypeFromPostType(string $postType): null|string
             {
                 return 'test_schema_type';
             }
@@ -160,20 +166,20 @@ class SourceConfigFactoryTest extends TestCase
     private function getTestAcfData(): array
     {
         return [
-            'options_external_content_sources_0_post_type'                   => 'test_post_type',
-            'options_external_content_sources_0_automatic_import_schedule'   => 'test_schedule',
-            'options_external_content_sources_0_taxonomies'                  => '1',
-            'options_external_content_sources_0_source_type'                 => 'test_source_type',
-            'options_external_content_sources_0_source_json_file_path'       => 'test_json_file_path',
-            'options_external_content_sources_0_source_typesense_api_key'    => 'test_api_key',
-            'options_external_content_sources_0_source_typesense_protocol'   => 'test_protocol',
-            'options_external_content_sources_0_source_typesense_host'       => 'test_host',
-            'options_external_content_sources_0_source_typesense_port'       => 'test_port',
+            'options_external_content_sources_0_post_type' => 'test_post_type',
+            'options_external_content_sources_0_automatic_import_schedule' => 'test_schedule',
+            'options_external_content_sources_0_taxonomies' => '1',
+            'options_external_content_sources_0_source_type' => 'test_source_type',
+            'options_external_content_sources_0_source_json_file_path' => 'test_json_file_path',
+            'options_external_content_sources_0_source_typesense_api_key' => 'test_api_key',
+            'options_external_content_sources_0_source_typesense_protocol' => 'test_protocol',
+            'options_external_content_sources_0_source_typesense_host' => 'test_host',
+            'options_external_content_sources_0_source_typesense_port' => 'test_port',
             'options_external_content_sources_0_source_typesense_collection' => 'test_collection',
-            'options_external_content_sources_0_rules'                       => '1',
-            'options_external_content_sources_0_rules_0_property_path'       => 'test_property_path',
-            'options_external_content_sources_0_rules_0_operator'            => 'test_operator',
-            'options_external_content_sources_0_rules_0_value'               => 'test_value',
+            'options_external_content_sources_0_rules' => '1',
+            'options_external_content_sources_0_rules_0_property_path' => 'test_property_path',
+            'options_external_content_sources_0_rules_0_operator' => 'test_operator',
+            'options_external_content_sources_0_rules_0_value' => 'test_value',
         ];
     }
 }

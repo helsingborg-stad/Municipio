@@ -15,10 +15,11 @@ class StringField extends AbstractField implements FieldInterface
     public function toArray(): array
     {
         return [
-            'type'  => 'text',
-            'name'  => $this->getName(),
-            'key'   => $this->getKey(),
-            'label' => $this->getLabel()
+            'type' => 'text',
+            'name' => $this->getName(),
+            'key' => $this->getKey(),
+            'label' => $this->getLabel(),
+            'instructions' => $this->getInstructions(),
         ];
     }
 

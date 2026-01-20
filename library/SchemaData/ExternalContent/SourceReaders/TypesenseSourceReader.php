@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\SourceReaders;
 
+use Municipio\SchemaData\ExternalContent\Exception\ExternalContentException;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsInterface;
 use Municipio\SchemaData\ExternalContent\SourceReaders\HttpApi\ApiGET;
 
@@ -39,9 +40,25 @@ class TypesenseSourceReader implements SourceReaderInterface
 
         $documents     = array_map(fn($item) => $item['document'] ?? null, $data);
         $documents     = array_filter($documents);
+        $documents = array_map([$this, 'removeIdFromDocument'], $documents);
         $schemaObjects = $this->jsonConverter->transform(json_encode($documents));
 
         return $schemaObjects;
+    }
+
+    /**
+     * Removes the 'id' field from a document.
+     * This is necessary to avoid indications of updates to an object when only the 'id' field has changed.
+     * The id field is updated by Typesense on each reindexing, causing unnecessary updates.
+     *
+     * @param array $document The document from which to remove the 'id' field.
+     * @return array The document without the 'id' field.
+     */
+    private function removeIdFromDocument(array $document): array
+    {
+        unset($document['id']);
+
+        return $document;
     }
 
     /**
@@ -58,8 +75,8 @@ class TypesenseSourceReader implements SourceReaderInterface
 
         $apiResponse = $this->api->get($getParamsString);
 
-        if ($apiResponse->getStatusCode() !== 200 || empty($apiResponse->getBody())) {
-            return null;
+        if ($apiResponse->getStatusCode() !== 200) {
+            throw new ExternalContentException('Failed to fetch data from Typesense API. Status code: ' . $apiResponse->getStatusCode());
         }
 
         return $apiResponse->getBody();

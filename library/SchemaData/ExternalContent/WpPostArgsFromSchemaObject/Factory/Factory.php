@@ -2,26 +2,20 @@
 
 namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\Factory;
 
-use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
-use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\{
-    AddChecksum,
-    DateDecorator,
-    EventDatesDecorator,
-    IdDecorator,
-    JobPostingDecorator,
-    MetaPropertyValueDecorator,
-    OriginIdDecorator,
-    PostContentDecorator,
-    PostTypeDecorator,
-    SchemaDataDecorator,
-    SourceIdDecorator,
-    ThumbnailDecorator,
-    VerifyChecksum,
-    WpPostArgsFromSchemaObject,
-    WpPostArgsFromSchemaObjectInterface,
-};
 use Municipio\Helper\WpService;
-use Municipio\SchemaData\ExternalContent\SyncHandler\LocalImageObjectIdGenerator\LocalImageObjectIdGenerator;
+use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\MetaPropertyValueDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\OriginIdDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\PostContentDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\PostTypeDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObject;
+use Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 
 /**
  * Factory for creating WpPostArgsFromSchemaObject instances.
@@ -33,9 +27,9 @@ class Factory implements FactoryInterface
      *
      * @param SourceConfigInterface $sourceConfig
      */
-    public function __construct(private SourceConfigInterface $sourceConfig)
-    {
-    }
+    public function __construct(
+        private SourceConfigInterface $sourceConfig,
+    ) {}
 
     /**
      * @inheritDoc
@@ -53,10 +47,6 @@ class Factory implements FactoryInterface
         $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new SourceIdDecorator($this->sourceConfig->getId(), $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new EventDatesDecorator($postArgsFromSchemaObject);
-
-        $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new VerifyChecksum($postArgsFromSchemaObject, WpService::get());
 
         return $postArgsFromSchemaObject;
     }

@@ -12,18 +12,22 @@
     <testsuites>
         <testsuite name="default">
         <directory suffix="Test.php">library</directory>
+        <directory suffix="Test.php">Modularity/source/php</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
             <directory>library</directory>
+            <directory>Modularity/source/php</directory>
         </include>
         <exclude>
             <directory suffix="Test.php">library</directory>
+            <directory suffix="Test.php">Modularity/source/php</directory>
+            <directory suffix=".blade.php">./</directory>
         </exclude>
     </source>
 
-    <coverage pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="true">
+    <coverage pathCoverage="false" ignoreDeprecatedCodeUnits="true" disableCodeCoverageIgnore="false">
         <report>
             <text outputFile=".coverage/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
             <html outputDirectory=".coverage"/>

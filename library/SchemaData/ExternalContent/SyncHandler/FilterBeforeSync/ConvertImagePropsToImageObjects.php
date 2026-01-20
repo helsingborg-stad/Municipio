@@ -14,7 +14,7 @@ use WpService\Contracts\AddFilter;
  * Ensures that all properties, root or nested, that accept ImageObject or ImageObject[] as type are converted to ImageObject instances.
  * This is particularly useful when dealing with external data sources that may provide image data as simple URLs or strings.
  */
-class ConvertImagePropsToImageObjects implements Hookable
+class ConvertImagePropsToImageObjects
 {
     /**
      * Cache for schema properties per type.
@@ -32,14 +32,6 @@ class ConvertImagePropsToImageObjects implements Hookable
         private AddFilter $wpService,
         private GetSchemaPropertiesWithParamTypes $getSchemaPropertiesWithParamTypes = new GetSchemaPropertiesWithParamTypes()
     ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addHooks(): void
-    {
-        $this->wpService->addFilter(SyncHandler::FILTER_BEFORE, [$this, 'convert']);
     }
 
     /**

@@ -22,7 +22,7 @@ class Singular extends \Municipio\Controller\BaseController
         parent::init();
 
         //Get post data
-        $pageID           = $this->getPageID();
+        $pageID = $this->getPageID();
         $originalPostData = $this->getOriginalPostData($pageID);
 
         if (!$originalPostData) {
@@ -31,45 +31,46 @@ class Singular extends \Municipio\Controller\BaseController
 
         $originalPostData = $this->displayQuicklinksAfterFirstBlock($originalPostData);
 
-        $this->post                = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
-        $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
+        $this->post = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
+        $this->data['post'] = $this->post;
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
-        $this->data['displayFeaturedImage']        = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageOnSinglePost($this->post->getId()));
+        $this->data['displayFeaturedImage'] = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageOnSinglePost($this->post->getId()));
         $this->data['displayFeaturedImageCaption'] = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageCaptionOnSinglePost($this->post->getId()));
-        $this->data['showPageTitleOnOnePage']      = $this->maybeRunInOtherSite(fn() => $this->showPageTitleOnOnePage($this->post->getId()));
-        $this->data['featuredImage']               = $this->maybeRunInOtherSite(fn () => $this->getFeaturedImage($this->post->getId(), [1366, 910]));
+        $this->data['showPageTitleOnOnePage'] = $this->maybeRunInOtherSite(fn() => $this->showPageTitleOnOnePage($this->post->getId()));
+        $this->data['featuredImage'] = $this->maybeRunInOtherSite(fn() => $this->getFeaturedImage(
+            $this->post->getId(),
+            [1366, 910],
+        ));
 
         //Signature options
-        $this->data['signature'] = $this->getSignature(
-            $this->data['post']
-        );
+        $this->data['signature'] = $this->getSignature($this->data['post']);
 
         //Reading time
-        $this->data['readingTime'] = $this->getReadingTime($this->data['post']->postContent);
+        $this->data['readingTime'] = $this->getReadingTime($this->data['post']->getContent());
 
         //Comments
         if (get_option('comment_moderation') === '1') {
             $this->data['comments'] = get_approved_comments($this->data['post']->id, array(
-                'order' => get_option('comment_order')
+                'order' => get_option('comment_order'),
             ));
         } else {
             $this->data['comments'] = get_comments(array(
                 'post_id' => $this->data['post']->id,
-                'order'   => get_option('comment_order')
+                'order' => get_option('comment_order'),
             ));
         }
 
         //Replies
         $this->data['replyArgs'] = array(
-            'add_below'  => 'comment',
+            'add_below' => 'comment',
             'respond_id' => 'respond',
             'reply_text' => __('Reply'),
             'login_text' => __('Log in to Reply'),
-            'depth'      => 1,
-            'before'     => '',
-            'after'      => '',
-            'max_depth'  => get_option('thread_comments_depth')
+            'depth' => 1,
+            'before' => '',
+            'after' => '',
+            'max_depth' => get_option('thread_comments_depth'),
         );
 
         //Post settings
@@ -77,7 +78,7 @@ class Singular extends \Municipio\Controller\BaseController
             'Municipio/blog/post_settings',
             array($this->data['post']),
             '3.0',
-            'Municipio/blog/postSettings'
+            'Municipio/blog/postSettings',
         );
 
         //Should link author page
@@ -134,18 +135,18 @@ class Singular extends \Municipio\Controller\BaseController
         $padding = $customizer->mainContentPadding;
 
         //Validate, and send var to view.
-        if (!empty($padding) && is_numeric($padding) && ($padding % 2 == 0)) {
+        if (!empty($padding) && is_numeric($padding) && ($padding % 2) == 0) {
             //Make md span half the size of padding
             return [
-            'md' => ($padding / 2),
-            'lg' => $padding
+                'md' => $padding / 2,
+                'lg' => $padding,
             ];
         }
 
         //Return default values
         return [
-        'md' => 0,
-        'lg' => 0
+            'md' => 0,
+            'lg' => 0,
         ];
     }
 
@@ -156,36 +157,33 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return WP_Post|null
      */
-    private function displayQuicklinksAfterFirstBlock(?WP_Post $postObject): ?WP_Post
+    private function displayQuicklinksAfterFirstBlock(null|WP_Post $postObject): null|WP_Post
     {
         if (
-            !$postObject ||
-            $this->data['quicklinksPlacement'] !== 'after_first_block' ||
-            !$this->wpService->hasBlocks($postObject->post_content) ||
-            empty($this->data['quicklinksMenu']['items'])
+            !$postObject
+            || $this->data['quicklinksPlacement'] !== 'after_first_block'
+            || !$this->wpService->hasBlocks($postObject->post_content)
+            || empty($this->data['quicklinksMenu']['items'])
         ) {
             return $postObject;
         }
 
         $blocks = $this->wpService->parseBlocks($postObject->post_content);
 
-        $html = render_blade_view(
-            'partials.navigation.fixed-after-block',
-            [
-                'quicklinksMenu'      => $this->data['quicklinksMenu'],
-                'quicklinksPlacement' => $this->data['quicklinksPlacement'],
-                'customizer'          => $this->data['customizer'],
-                'lang'                => $this->data['lang'],
-                'isFrontPage'         => $this->data['isFrontPage'],
-            ]
-        );
+        $html = render_blade_view('partials.navigation.fixed-after-block', [
+            'quicklinksMenu' => $this->data['quicklinksMenu'],
+            'quicklinksPlacement' => $this->data['quicklinksPlacement'],
+            'customizer' => $this->data['customizer'],
+            'lang' => $this->data['lang'],
+            'isFrontPage' => $this->data['isFrontPage'],
+        ]);
 
         $quicklinksBlock = [
-            'blockName'    => 'core/html',
-            'attrs'        => ["name" => "quicklinks"],
-            'innerHTML'    => $html,
+            'blockName' => 'core/html',
+            'attrs' => ['name' => 'quicklinks'],
+            'innerHTML' => $html,
             'innerContent' => [$html],
-            'innerBlocks'  => [],
+            'innerBlocks' => [],
         ];
 
         array_splice($blocks, 1, 0, [$quicklinksBlock]);
@@ -201,19 +199,32 @@ class Singular extends \Municipio\Controller\BaseController
     {
         $displayAuthor = $this->acfService->getField('page_show_author', 'option');
         $displayAvatar = $this->acfService->getField('page_show_author_image', 'option');
-        $linkAuthor    = $this->acfService->getField('page_link_to_author_archive', 'option');
+        $linkAuthor = $this->acfService->getField('page_link_to_author_archive', 'option');
 
-        $displayPublish = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_published', 'option') ?? []);
-        $displayUpdated = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_updated', 'option') ?? []);
+        $displayPublish = in_array(
+            $this->data['postType'],
+            (array) $this->acfService->getField('show_date_published', 'option') ?? [],
+        );
+        $displayUpdated = in_array(
+            $this->data['postType'],
+            (array) $this->acfService->getField('show_date_updated', 'option') ?? [],
+        );
 
-        return $this->maybeRunInOtherSite(function () use ($post, $displayAuthor, $displayAvatar, $linkAuthor, $displayPublish, $displayUpdated) {
+        return $this->maybeRunInOtherSite(function () use (
+            $post,
+            $displayAuthor,
+            $displayAvatar,
+            $linkAuthor,
+            $displayPublish,
+            $displayUpdated,
+        ) {
             return (object) [
-                'avatar'    => ($displayAvatar ? $this->getAuthor($post->getId())->avatar : ""),
-                'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
-                'name'      => ($displayAuthor ? $this->getAuthor($post->getId())->name : ""),
-                'link'      => ($linkAuthor ? $this->getAuthor($post->getId())->link : ""),
-                'published' => ($displayPublish ? $post->getPublishedTime() : false),
-                'updated'   => ($displayUpdated ? $post->getModifiedTime() : false),
+                'avatar' => $displayAvatar ? $this->getAuthor($post->getId())->avatar : '',
+                'role' => $displayAuthor ? __('Author', 'municipio') : '',
+                'name' => $displayAuthor ? $this->getAuthor($post->getId())->name : '',
+                'link' => $linkAuthor ? $this->getAuthor($post->getId())->link : '',
+                'published' => $displayPublish ? $post->getPublishedTime() : false,
+                'updated' => $displayUpdated ? $post->getModifiedTime() : false,
             ];
         }, []);
     }
@@ -225,10 +236,10 @@ class Singular extends \Municipio\Controller\BaseController
     private function getAuthor($id): object
     {
         $author = array(
-        'id'     => $this->data['post']->postAuthor,
-        'link'   => get_author_posts_url($this->data['post']->postAuthor),
-        'name'   => null,
-        'avatar' => null
+            'id' => $this->data['post']->postAuthor,
+            'link' => get_author_posts_url($this->data['post']->postAuthor),
+            'name' => null,
+            'avatar' => null,
         );
 
         //Get setting for username
@@ -236,8 +247,8 @@ class Singular extends \Municipio\Controller\BaseController
 
         //List of less-fancy displaynames
         $prohoboitedUserNames = [
-        get_the_author_meta('user_login', $this->data['post']->postAuthor),
-        get_the_author_meta('nickname', $this->data['post']->postAuthor)
+            get_the_author_meta('user_login', $this->data['post']->postAuthor),
+            get_the_author_meta('nickname', $this->data['post']->postAuthor),
         ];
 
         //Assign only if fancy variant of name
@@ -261,8 +272,8 @@ class Singular extends \Municipio\Controller\BaseController
     private function getPostDates($id): object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
-        'published' => get_the_date(),
-        'updated'   => get_the_modified_date()
+            'published' => get_the_date(),
+            'updated' => get_the_modified_date(),
         ]);
     }
 
@@ -271,7 +282,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $size Name or array for size of image
      * @return array An array of data related to the image
      */
-    private function getFeaturedImage($postId, $size = [1920,false])
+    private function getFeaturedImage($postId, $size = [1920, false])
     {
         //Check option if it should be displayed
         if (get_field('post_single_show_featured_image', $postId) == false) {
@@ -304,13 +315,13 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getPostAge(string $postDate)
     {
-        if (! $postDate) {
+        if (!$postDate) {
             return;
         }
 
         $created = date_create($postDate);
-        $now     = date_create();
-        $diff    = date_diff($created, $now);
+        $now = date_create();
+        $diff = date_diff($created, $now);
 
         return $diff->days;
     }
@@ -352,9 +363,9 @@ class Singular extends \Municipio\Controller\BaseController
                                     'This content was published more than %s day ago.',
                                     'This content was published more than %s days ago.',
                                     $type->postAgeDays,
-                                    'municipio'
+                                    'municipio',
                                 ),
-                                $type->postAgeDays
+                                $type->postAgeDays,
                             );
                         }
                     }
@@ -377,7 +388,7 @@ class Singular extends \Municipio\Controller\BaseController
         return (bool) apply_filters(
             'Municipio/Controller/Singular/displayFeaturedImageCaptionOnSinglePost',
             get_field('post_single_show_featured_image_caption', $postId),
-            $postId
+            $postId,
         );
     }
 
@@ -393,7 +404,7 @@ class Singular extends \Municipio\Controller\BaseController
         return (bool) apply_filters(
             'Municipio/Controller/Singular/displayFeaturedImageOnSinglePost',
             get_field('post_single_show_featured_image', $postId),
-            $postId
+            $postId,
         );
     }
 
@@ -409,7 +420,7 @@ class Singular extends \Municipio\Controller\BaseController
         return (bool) apply_filters(
             'Municipio/Controller/Singular/showTitleOnOnePage',
             get_field('post_one_page_show_title', $postId),
-            $postId
+            $postId,
         );
     }
 
@@ -419,7 +430,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param int $pageID The page id
      * @return WP_Post|null
      */
-    protected function getOriginalPostData(int $pageID): ?WP_Post
+    protected function getOriginalPostData(int $pageID): null|WP_Post
     {
         if (isset($GLOBALS['post']) && is_a($GLOBALS['post'], 'WP_Post') && $GLOBALS['post']->ID === $pageID) {
             $post = $GLOBALS['post'];
@@ -446,11 +457,11 @@ class Singular extends \Municipio\Controller\BaseController
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
-                $termIds    = wp_list_pluck($terms, 'term_id');
+                $termIds = wp_list_pluck($terms, 'term_id');
                 $taxQuery[] = [
                     'taxonomy' => $taxonomy,
-                    'field'    => 'term_id',
-                    'terms'    => $termIds,
+                    'field' => 'term_id',
+                    'terms' => $termIds,
                     'operator' => 'IN',
                 ];
             }
@@ -466,11 +477,11 @@ class Singular extends \Municipio\Controller\BaseController
 
         // Define the query arguments
         $args = [
-            'numberposts'  => 3,
-            'post_type'    => $postType,
+            'numberposts' => 3,
+            'post_type' => $postType,
             'post__not_in' => [$postId],
-            'tax_query'    => $taxQuery,
-            'orderby'      => 'rand'
+            'tax_query' => $taxQuery,
+            'orderby' => 'rand',
         ];
 
         // Get the related posts

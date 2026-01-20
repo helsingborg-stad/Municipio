@@ -84,12 +84,14 @@ class BaseController
         $this->data['homeUrlPath']        = parse_url(get_home_url(), PHP_URL_PATH);
         $this->data['siteName']           = $this->getSiteName();
 
+        // Feeds
+        $this->data['rssFeedUrls']        = $this->getAllPublicPostTypeRssFeeds();
+
         //View porperties
         $this->data['isFrontPage'] = is_front_page() || is_home() ? true : false;
         $this->data['isSingular']  = is_singular();
         $this->data['isSingle']    = is_single();
         $this->data['isSticky']    = is_sticky();
-
         $this->data['hasBlocks'] = $this->hasBlocks();
 
         //Post data
@@ -405,10 +407,10 @@ class BaseController
 
             add_filter('ComponentLibrary/Component/Lang', function ($obj) {
                 $lang = [
-                    'visit' => __('Visit', 'municipio'),
-                    'email' => __('Email', 'municipio'),
-                    'call'  => __('Call', 'municipio'),
-                    'address' => __('Address', 'municipio'),
+                    'visit'           => __('Visit', 'municipio'),
+                    'email'           => __('Email', 'municipio'),
+                    'call'            => __('Call', 'municipio'),
+                    'address'         => __('Address', 'municipio'),
                     'visitingAddress' => __('Visiting address', 'municipio'),
                 ];
 
@@ -420,7 +422,7 @@ class BaseController
                 if (!empty($attributes['href'])) {
                     $parsedUrl = parse_url($attributes['href']);
 
-                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== $_SERVER['HTTP_HOST']) {
+                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== (empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST'])) {
                         $attributes['data-js-original-link'] = $attributes['href'];
                     }
                 }
@@ -501,7 +503,7 @@ class BaseController
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
         if (in_array('component.image.placeholder.icon', $contexts)) {
             $data['label'] = __('Emblem', 'municipio');
-            $data['icon'] = $this->getEmblem();
+            $data['icon']  = $this->getEmblem();
         }
         return $data;
     }
@@ -1046,6 +1048,56 @@ class BaseController
 
         return $this->getLogotype($variant) ?? false;
     }
+
+    /**
+     * Get all public post type rss feeds
+     *
+     * @param array $feedTypes
+     * 
+     * @return array
+     */
+    public function getAllPublicPostTypeRssFeeds(array $feedTypes = ['rss2']): array
+    {
+        $feeds = [];
+
+        $postTypes = get_post_types(
+            [
+                'public' => true,
+            ],
+            'objects'
+        );
+
+        foreach ($postTypes as $postType) {
+            if (empty($postType->has_archive)) {
+                continue;
+            }
+
+            if ($postType->rewrite === false) {
+                continue;
+            }
+
+            if (isset($postType->feeds) && $postType->feeds === false) {
+                continue;
+            }
+
+            foreach ($feedTypes as $feedType) {
+                $feedUrl = get_post_type_archive_feed_link(
+                    $postType->name,
+                    $feedType
+                );
+
+                if ($feedUrl) {
+                    $feeds[$postType->name][$feedType] = (object) [
+                        'url'  => $feedUrl,
+                        'name' => __('Feed') . ': ' . $postType->labels->name
+                    ];
+                }
+            }
+        }
+
+        return $feeds;
+    }
+
     /**
      * Runs after construct
      * @return void

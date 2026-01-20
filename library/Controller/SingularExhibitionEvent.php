@@ -39,6 +39,7 @@ class SingularExhibitionEvent extends Singular
             'placeUrl'                      => $this->getPlaceUrl($event->getProperty('location')),
             'placeName'                     => $this->getPlaceName($event->getProperty('location')),
             'placeAddress'                  => $this->getPlaceAddress($event->getProperty('location')),
+            'description'                   => $this->getDescription($event),
             'priceListItems'                => $this->getPriceList(),
             'occasion'                      => $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate')),
             'physicalAccessibilityFeatures' => $this->formatAccessibilityFeatures($this->post->getSchemaProperty('physicalAccessibilityFeatures')),
@@ -60,6 +61,17 @@ class SingularExhibitionEvent extends Singular
     private function getPlaceAddress(?Place $place): ?string
     {
         return $place?->getProperty('address') ?? null;
+    }
+
+    private function getDescription(BaseType $event): ?string
+    {
+        $description = $event->getProperty('description');
+
+        if (!is_string($description) || empty($description)) {
+            return null;
+        }
+
+        return $this->wpService->wpautop($description);
     }
 
     private function formatAccessibilityFeatures(?array $features): ?string

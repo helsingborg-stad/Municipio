@@ -155,7 +155,7 @@ class PdfGenerator
                     ],
                     [
                         'key'               => 'field_pdf_keep_regular_print',
-                        'label'             => __('Do not use PDF generator on following post types.', 'modularity'),
+                        'label'             => __('Do not use PDF generator on following post types.', 'municipio'),
                         'name'              => 'pdf_keep_regular_print',
                         'type'              => 'checkbox',
                         'instructions'      => __('Checked post types will not use the PDF generator and will use the built in print function instead.', 'municipio'),

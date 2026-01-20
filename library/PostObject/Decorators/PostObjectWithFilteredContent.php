@@ -59,6 +59,14 @@ class PostObjectWithFilteredContent extends AbstractPostObjectDecorator implemen
      */
     private function getFilteredContent(): string
     {
+        /* Caching */
+        static $runtimeCache = [];
+        $runtimeCacheKey = 'post_filtered_content_' . md5($this->postObject->getContent());
+        if (isset($runtimeCache[$runtimeCacheKey])) {
+            return $runtimeCache[$runtimeCacheKey];
+        }
+        /* End caching */
+
         $rawContent = $this->postObject->getContent();
 
         // Parse lead using <!--more--> tag
@@ -87,7 +95,12 @@ class PostObjectWithFilteredContent extends AbstractPostObjectDecorator implemen
         $content = $this->wpService->applyFilters('the_content', $content);
 
         // Build filtered content
-        return $excerpt . $content;
+        $return = $excerpt . $content;
+
+        // Store in runtime cache
+        $runtimeCache[$runtimeCacheKey] = $return;
+
+        return $return;
     }
 
     /**

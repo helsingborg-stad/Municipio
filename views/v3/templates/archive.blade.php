@@ -1,5 +1,4 @@
 @extends('templates.single')
-
 @section('helper-navigation')
     @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 @stop
@@ -40,11 +39,6 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
-    @includeFirst([
-        'partials.archive.archive-' . sanitize_title($postType) . '-filters',
-        'partials.archive.archive-filters',
-    ])
-
     <div
         class="archive s-archive s-archive-template-{{ sanitize_title($template) }}  s-{{ sanitize_title($postType) }}-archive">
 
@@ -72,42 +66,13 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @section('loop')
-                @if ($displayArchiveLoop)
-                    @includefirst(
-                        [   
-                            'partials.post.schema.' . $template,
-                            'partials.post.' . $postType . '-' . $template, 
-                            'partials.post.post-' . $template, 
-                            'partials.post.post-cards'
-                        ],
-                        ['posts' => $posts]
-                    )
-                @endif
-            @show
-            @if ($showPagination && $paginationList)
-                @pagination([
-                    'list' => $paginationList,
-                    'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
-                    'current' => $currentPage,
-                    'linkPrefix' => 'paged'
-                ])
-                @endpagination
-            @endif
-        @else
-            <div class="o-grid">
-                <div class="o-grid-12">
-                    @notice([
-                        'type' => 'info',
-                        'message' => [
-                            'text' => $lang->noResult,
-                            'size' => 'md'
-                        ]
-                    ])
-                    @endnotice
-                </div>
-            </div>
         @endif
+        
+        @section('loop')
+            @if ($displayArchiveLoop)
+                @include('posts-list')
+            @endif
+        @show
 
         @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 

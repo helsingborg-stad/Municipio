@@ -3,6 +3,7 @@
 namespace Municipio\Admin\Roles;
 
 use WpService\Contracts\AddAction;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\HomeUrl;
 use WpService\Contracts\IsAdmin;
@@ -18,12 +19,16 @@ use WpService\Contracts\WpRedirect;
  */
 class General
 {
+    public const FILTER_HOOK = 'Municipio/Admin/Roles/General/AllowAccess';
+
     /**
      * Constructor for the General class.
      */
-    public function __construct(private AddAction&CurrentUserCan&ShowAdminBar&isAdmin&WpDoingAjax&WpRedirect&HomeUrl $wpService)
+    public function __construct(private AddAction&CurrentUserCan&ShowAdminBar&isAdmin&WpDoingAjax&WpRedirect&HomeUrl&ApplyFilters $wpService)
     {
-        if (!$this->wpService->currentUserCan('edit_posts')) {
+        $allowAccess = $this->wpService->applyFilters(self::FILTER_HOOK, false);
+        
+        if (!$this->wpService->currentUserCan('edit_posts') && $allowAccess === false) {
             $this->handleUsersWithoutEditPostsCapability();
         }
     }

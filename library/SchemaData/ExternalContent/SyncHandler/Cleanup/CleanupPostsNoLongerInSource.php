@@ -2,36 +2,27 @@
 
 namespace Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup;
 
-use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\HooksRegistrar\Hookable;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\BaseType;
-use WpService\Contracts\{AddAction, GetPosts, WpDeletePost};
+use WpService\Contracts\{GetPosts, WpDeletePost};
 
 /**
  * Class CleanupPostsNoLongerInSource
  *
  * Cleanup posts that are no longer in the source.
  */
-class CleanupPostsNoLongerInSource implements Hookable
+class CleanupPostsNoLongerInSource
 {
     /**
      * Constructor for the CleanupPostsNoLongerInSource class.
      *
      * @param string $postType
-     * @param AddAct WpDeletePost&GetPosts $wpService
+     * @param WpDeletePost&GetPosts $wpService
      */
     public function __construct(
         private string $postType,
-        private AddAction&WpDeletePost&GetPosts $wpService
+        private WpDeletePost&GetPosts $wpService
     ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function addHooks(): void
-    {
-        $this->wpService->addAction(SyncHandler::ACTION_AFTER, [$this, 'cleanup']);
     }
 
     /**
@@ -41,6 +32,12 @@ class CleanupPostsNoLongerInSource implements Hookable
      */
     public function cleanup(array $syncedSchemaObjects): void
     {
+        $syncedSchemaObjects = EnsureArrayOf::ensureArrayOf($syncedSchemaObjects, BaseType::class);
+
+        if (empty($syncedSchemaObjects)) {
+            return;
+        }
+
         $syncedIds = array_map(fn($object) => $object->getProperty('@id'), $syncedSchemaObjects);
 
         foreach ($this->getPostsNotInSource($syncedIds) as $post) {

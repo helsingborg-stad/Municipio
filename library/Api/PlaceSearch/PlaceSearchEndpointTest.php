@@ -74,7 +74,9 @@ class PlaceSearchEndpointTest extends TestCase
             '__'                   => '',
             'wpRemoteGet'          => [],
             'isWpError'            => false,
-            'wpRemoteRetrieveBody' => ''
+            'wpRemoteRetrieveBody' => '',
+            'getLocale'            => 'sv_SE',
+            'applyFilters'         => function($tag, $value) { return $value; },
         ]);
     }
 }

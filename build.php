@@ -8,7 +8,6 @@ if (php_sapi_name() !== 'cli') {
 /* Parameters:
  --no-composer      Does not install vendors. Just create the autoloader.
  --cleanup          Remove removeables.
- --install-npm      Install NPM package instead
 */
 
 // Any command needed to run and build plugin assets when newly cheched out of repo.
@@ -26,34 +25,24 @@ if (file_exists('composer.json')) {
 
 //Run npm if package.json is found
 if (file_exists('package.json') && file_exists('package-lock.json')) {
-    if (is_array($argv) && !in_array('--install-npm', $argv)) {
-        $buildCommands[] = 'npm ci --no-progress --no-audit';
-    } else {
-        $npmPackage      = json_decode(file_get_contents('package.json'));
-        $buildCommands[] = "npm install $npmPackage->name --omit=dev";
-        $buildCommands[] = "rm -rf ./assets/dist";
-        $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
-    }
+	$buildCommands[] = 'npm ci --no-progress --no-audit';
+    $buildCommands[] = 'npm run build';
 } elseif (file_exists('package.json') && !file_exists('package-lock.json')) {
-    if (is_array($argv) && !in_array('--install-npm', $argv)) {
-        $buildCommands[] = 'npm install --no-progress --no-audit';
-    } else {
-        $npmPackage      = json_decode(file_get_contents('package.json'));
-        $buildCommands[] = "npm install $npmPackage->name --omit=dev";
-        $buildCommands[] = "rm -rf ./assets/dist";
-        $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
-    }
+	$buildCommands[] = 'npm install --no-progress --no-audit';
+    $buildCommands[] = 'npm run build';
 }
 
+
 // Files and directories not suitable for prod to be removed.
+// /!\ Be careful! This part currently contains paths that are not standard. /!\
 $removables = [
-    '.git',
     '.gitignore',
     '.github',
     '.gitattributes',
     'build.php',
+    'build.js',
     '.npmrc',
-    'composer.json',
+    //'composer.json',
     'composer.lock',
     'env-example',
     'webpack.config.js',
@@ -66,7 +55,18 @@ $removables = [
     './source/js/',
     'LICENSE',
     'babel.config.js',
-    'yarn.lock'
+    'yarn.lock',
+    '.devcontainer',
+    'Modularity/.gitignore',
+    'Modularity/webpack.config.js',
+    'Modularity/package-lock.json',
+    'Modularity/package.json',
+    'Modularity/README.md',
+    'Modularity/node_modules/',
+    'Modularity/source/sass/',
+    'Modularity/source/js/',
+    'Modularity/LICENSE',
+    'Modularity/babel.config.js'
 ];
 
 $dirName = basename(dirname(__FILE__));

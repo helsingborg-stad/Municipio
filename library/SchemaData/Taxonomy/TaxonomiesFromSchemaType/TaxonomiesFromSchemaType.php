@@ -35,19 +35,16 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      * @return array An array of TaxonomyInterface objects.
      */
     public function create(string $schemaType): array
-    { 
         $map = [
-            'JobPosting'       => $this->getJobPostingTaxonomies(),
-            'Event'            => $this->getEventTaxonomies(),
-            'Project'          => $this->getProjectTaxonomies(),
-            'ExhibitionEvent'  => $this->getExhibitionEventTaxonomies(),
+            'JobPosting' => $this->getJobPostingTaxonomies(),
+            'Event' => $this->getEventTaxonomies(),
+            'Project' => $this->getProjectTaxonomies(), 
+            'ExhibitionEvent' => $this->getExhibitionEventTaxonomies(),
             'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
-            'Preschool'        => $this->getPreschoolTaxonomies(),
-        ];
-
-        $taxonomies = $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
-
-        return $taxonomies;
+            'Preschool' => $this->getPreschoolTaxonomies(),
+        ][$schemaType] ?? [];
+  
+        return $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
     }
 
     /**
@@ -63,7 +60,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
                 'startDate',
                 $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name (plural)', 'municipio'),
                 $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name', 'municipio'),
-                ['show_admin_column' => true]
+                ['show_admin_column' => true],
             )),
         ];
     }
@@ -90,9 +87,8 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     private function getEventTaxonomies(): array
     {
         return [
-            $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio')),
+            $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio'), ['show_admin_column' => true]),
             $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $this->wpService->__('Physical Accessibility Feature', 'municipio')),
-            $this->createTaxonomy('Event', 'eventSchedule.startDate', $this->wpService->__('Occasions', 'municipio'), $this->wpService->__('Occasion', 'municipio')),
         ];
     }
 
@@ -153,7 +149,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         string $schemaProperty,
         string $label,
         string $singularLabel,
-        array $args = []
+        array $args = [],
     ): TaxonomyInterface {
         return $this->taxonomyFactory->create(
             $schemaType,
@@ -161,7 +157,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             $this->schemaToPostTypeResolver->resolve($schemaType),
             $label,
             $singularLabel,
-            $args
+            $args,
         );
     }
 }

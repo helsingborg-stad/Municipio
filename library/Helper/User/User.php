@@ -3,11 +3,22 @@
 namespace Municipio\Helper\User;
 
 use AcfService\Contracts\GetField;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup, CanPreferGroupUrl, GetUserGroupShortname};
+use Municipio\Helper\User\Contracts\CanPreferGroupUrl;
+use Municipio\Helper\User\Contracts\GetRedirectToGroupUrl;
+use Municipio\Helper\User\Contracts\GetUser;
+use Municipio\Helper\User\Contracts\GetUserGroup;
+use Municipio\Helper\User\Contracts\GetUserGroupLinkType;
+use Municipio\Helper\User\Contracts\GetUserGroupOriginalBlogId;
+use Municipio\Helper\User\Contracts\GetUserGroupShortname;
+use Municipio\Helper\User\Contracts\GetUserGroupUrl;
+use Municipio\Helper\User\Contracts\GetUserGroupUrlType;
+use Municipio\Helper\User\Contracts\GetUserPrefersGroupUrl;
+use Municipio\Helper\User\Contracts\SetUserGroup;
+use Municipio\Helper\User\Contracts\UserHasRole;
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
-use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use Municipio\UserGroup\CreateUserGroupTaxonomy;
 use WP_Term;
@@ -27,8 +38,11 @@ class User implements
     GetRedirectToGroupUrl,
     SetUserGroup,
     CanPreferGroupUrl,
-    GetUserGroupShortname
+    GetUserGroupShortname,
+    GetUserGroupOriginalBlogId
 {
+    private static null|self $instance = null;
+
     /**
      * Constructor.
      */
@@ -38,14 +52,13 @@ class User implements
         private UserConfigInterface $userConfig,
         private UserGroupConfigInterface $userGroupConfig,
         private CreateOrGetTermIdFromString $termHelper,
-        private SiteSwitcher $siteSwitcher
-    ) {
-    }
+        private SiteSwitcher $siteSwitcher,
+    ) {}
 
     /**
      * @inheritDoc
      */
-    public function getUser(null|WP_User|int $user = null): ?WP_User
+    public function getUser(null|WP_User|int $user = null): null|WP_User
     {
         if (is_a($user, 'WP_User') && $user->ID > 0) {
             return $user;
@@ -95,7 +108,7 @@ class User implements
     /**
      * @inheritDoc
      */
-    public function getUserGroup(null|\WP_User|int $user = null): ?WP_Term
+    public function getUserGroup(null|\WP_User|int $user = null): null|WP_Term
     {
         $user = $this->getUser($user);
 
@@ -107,22 +120,15 @@ class User implements
             return null;
         }
 
-        $userGroup = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($user) {
+        $userGroup = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use ($user) {
+            (new \Municipio\UserGroup\CreateUserGroupTaxonomy(
+                $this->wpService,
+                $this->userGroupConfig,
+                $this->siteSwitcher,
+            ))->registerUserGroupTaxonomy();
 
-                (new \Municipio\UserGroup\CreateUserGroupTaxonomy(
-                    $this->wpService,
-                    $this->userGroupConfig,
-                    $this->siteSwitcher
-                ))->registerUserGroupTaxonomy();
-
-                return $this->wpService->wpGetObjectTerms(
-                    $user->ID,
-                    $this->userGroupConfig->getUserGroupTaxonomy()
-                );
-            }
-        );
+            return $this->wpService->wpGetObjectTerms($user->ID, $this->userGroupConfig->getUserGroupTaxonomy());
+        });
 
         if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
             return null;
@@ -138,9 +144,8 @@ class User implements
     /**
      * @inheritDoc
      */
-    public function getUserGroupShortname(?WP_Term $term = null, null|WP_User|int $user = null): ?string
+    public function getUserGroupShortname(null|WP_Term $term = null, null|WP_User|int $user = null): null|string
     {
-
         $user = $this->getUser($user);
 
         if (!$user) {
@@ -156,15 +161,12 @@ class User implements
         // Get the user group taxonomy
         $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy($user);
 
-        $shortname = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($taxonomy, $term) {
-                return $this->acfService->getField(
-                    'user_group_shortname',
-                    $taxonomy . '_' . $term->term_id
-                ) ?: null;
-            }
-        );
+        $shortname = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use (
+            $taxonomy,
+            $term,
+        ) {
+            return $this->acfService->getField('user_group_shortname', $taxonomy . '_' . $term->term_id) ?: null;
+        });
 
         return $shortname ?: null;
     }
@@ -172,7 +174,7 @@ class User implements
     /**
      * @inheritDoc
      */
-    public function getUserGroupUrl(?WP_Term $term = null, null|WP_User|int $user = null): ?string
+    public function getUserGroupUrl(null|WP_Term $term = null, null|WP_User|int $user = null): null|string
     {
         $user = $this->getUser($user);
 
@@ -202,16 +204,15 @@ class User implements
             $this->acfService,
             $this->wpService,
             $this->userConfig,
-            $this->userGroupConfig
+            $this->userGroupConfig,
         );
 
         // Resolve the URL
-        $resolvedUrl = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($urlResolver) {
-                return $urlResolver->get();
-            }
-        );
+        $resolvedUrl = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use (
+            $urlResolver,
+        ) {
+            return $urlResolver->get();
+        });
 
         return $resolvedUrl;
     }
@@ -219,17 +220,21 @@ class User implements
     /**
      * @inheritDoc
      */
-    public function getUserGroupUrlType(?WP_Term $term = null, null|WP_User|int $user = null): ?string
+    public function getUserGroupUrlType(null|WP_Term $term = null, null|WP_User|int $user = null): null|string
     {
         $term ??= $this->getUserGroup($user);
-        $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
-        $userGroupUrlType = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($termId) {
-                return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
-            }
-        );
+        if (!$term) {
+            return null;
+        }
+
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy() . '_' . $term->term_id;
+
+        $userGroupUrlType = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use (
+            $termId,
+        ) {
+            return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
+        });
 
         return $userGroupUrlType;
     }
@@ -237,7 +242,35 @@ class User implements
     /**
      * @inheritDoc
      */
-    public function getUserPrefersGroupUrl(null|WP_User|int $user = null): ?bool
+    public function getUserGroupOriginalBlogId(null|WP_Term $term = null, null|WP_User|int $user = null): null|int
+    {
+        $term ??= $this->getUserGroup($user);
+
+        if (!$term) {
+            return null;
+        }
+
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy() . '_' . $term->term_id;
+
+        $userGroupUrlType = $this->getUserGroupUrlType($term, $user);
+
+        if (!$userGroupUrlType || $userGroupUrlType !== 'blog_id') {
+            return null;
+        }
+
+        $userGroupOriginalBlogId = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use (
+            $termId,
+        ) {
+            return $this->acfService->getField('blog_id', $termId) ?: null;
+        });
+
+        return $userGroupOriginalBlogId;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserPrefersGroupUrl(null|WP_User|int $user = null): null|bool
     {
         $user = $this->getUser($user);
 
@@ -249,16 +282,9 @@ class User implements
             return null;
         }
 
-        $perfersGroupUrl = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($user) {
-                return $this->wpService->getUserMeta(
-                    $user->ID,
-                    $this->userConfig->getUserPrefersGroupUrlMetaKey(),
-                    true
-                );
-            }
-        );
+        $perfersGroupUrl = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use ($user) {
+            return $this->wpService->getUserMeta($user->ID, $this->userConfig->getUserPrefersGroupUrlMetaKey(), true);
+        });
 
         if ($perfersGroupUrl) {
             return true;
@@ -269,7 +295,7 @@ class User implements
     /**
      * @inheritDoc
      */
-    public function getRedirectToGroupUrl(null|WP_User|int $user = null): ?string
+    public function getRedirectToGroupUrl(null|WP_User|int $user = null): null|string
     {
         $user = $this->getUser($user);
 
@@ -278,12 +304,12 @@ class User implements
         }
 
         $perfersGroupUrl = $this->getUserPrefersGroupUrl($user);
-        $groupUrl        = $perfersGroupUrl ? $this->getUserGroupUrl(null, $user) : null;
+        $groupUrl = $perfersGroupUrl ? $this->getUserGroupUrl(null, $user) : null;
 
         if ($groupUrl) {
             return $this->wpService->addQueryArg([
-                'loggedin'     => 'true',
-                'prefersgroup' => 'true'
+                'loggedin' => 'true',
+                'prefersgroup' => 'true',
             ], $groupUrl);
         }
 
@@ -303,37 +329,71 @@ class User implements
 
         $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy();
 
-        $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($groupName, $taxonomy, $user) {
-                if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
-                    (new CreateUserGroupTaxonomy(
-                        $this->wpService,
-                        $this->userGroupConfig,
-                        $this->siteSwitcher
-                    ))->registerUserGroupTaxonomy();
+        $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use (
+            $groupName,
+            $taxonomy,
+            $user,
+        ) {
+            if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
+                (new CreateUserGroupTaxonomy(
+                    $this->wpService,
+                    $this->userGroupConfig,
+                    $this->siteSwitcher,
+                ))->registerUserGroupTaxonomy();
 
-                    $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
-                }
+                $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
             }
-        );
+        });
     }
 
     /**
      * @inheritDoc
      */
-    public function canPreferGroupUrl(?WP_Term $term = null, null|WP_User|int $user = null): bool
+    public function canPreferGroupUrl(null|WP_Term $term = null, null|WP_User|int $user = null): bool
     {
         $term ??= $this->getUserGroup($user);
+
+        if (!$term) {
+            return false;
+        }
+
         $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
-        $userGroupUrlType = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($termId) {
-                return $this->acfService->getField('user_group_user_can_prefer_group_url', $termId) ?: false;
-            }
-        ) ?? false;
+        $userGroupUrlType = $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () use (
+            $termId,
+        ) {
+            return $this->acfService->getField('user_group_user_can_prefer_group_url', $termId) ?: false;
+        }) ?? false;
 
         return (bool) $userGroupUrlType;
+    }
+
+    /**
+     * Set the User helper instance.
+     *
+     * @param self $userHelper
+     * @return void
+     */
+    public static function set(self $userHelper): void
+    {
+        if (self::$instance === null) {
+            // Allow setting once to prevent accidental overwriting.
+            self::$instance = $userHelper;
+        }
+    }
+
+    /**
+     * Get the User helper instance.
+     *
+     * @return self
+     * @throws \Exception if the User helper has not been set.
+     */
+    public static function get(): self
+    {
+        if (self::$instance === null) {
+            throw new \Exception('User helper not set');
+        }
+
+        return self::$instance;
     }
 }

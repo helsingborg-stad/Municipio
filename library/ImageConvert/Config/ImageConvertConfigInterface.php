@@ -20,4 +20,5 @@ interface ImageConvertConfigInterface
     public function pageCacheExpiry(): int;
     public function getImageConversionStrategy(): ?string;
     public function getDefaultImageConversionLogWriter(): ?string;
+    public function maxImageAspectRatioMultiplier(): float;
 }

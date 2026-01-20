@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "municipio/posts-list-block",
+	"version": "0.1.0",
+	"title": "Posts List Block",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "A block to display a list of posts.",
+	"example": {},
+	"render": "file:./render.php",
+	"editorScript": "file:./../../../assets/dist/blocks/js/posts-list-block.js",
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"attributes": {
+		"dateFilterEnabled": { "type": "boolean", "default": false },
+		"dateFormat": { "type": "string", "default": "date" },
+		"dateFrom": { "type": "string", "default": "" },
+		"dateTo": { "type": "string", "default": "" },
+		"dateSource": { "type": "string", "default": "post_date" },
+		"design": { "type": "string", "default": "card" },
+		"numberOfColumns": { "type": "number", "default": 3 },
+		"order": { "type": "string", "default": "desc" },
+		"orderBy": { "type": "string", "default": "date" },
+		"paginationEnabled": { "type": "boolean", "default": true },
+		"postsPerPage": { "type": "number", "default": 12 },
+		"postType": { "type": "string", "default": "post" },
+		"taxonomiesEnabledForFiltering": { "type": "array", "default": [] },
+		"terms": { "type": "array", "default": [] },
+		"textSearchEnabled": { "type": "boolean", "default": false },
+		"anchor": { "type": "string", "default": "" }
+	},
+	"textdomain": "municipio"
+}

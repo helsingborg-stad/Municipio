@@ -133,12 +133,10 @@ class Template
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
 
-        return $this->renderView(
-            (string) $view,
-            (array)  $viewData
-        );
+        return $this->renderView($view, $viewData);
     }
-/**
+
+    /**
     * Loads a controller
     *
     * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
@@ -153,33 +151,36 @@ class Template
     {
         global $wp_query;
 
-        if (
-            !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
-            $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
-        ) {
-            if ($wp_query->found_posts > 0) {
-                if (!is_user_logged_in()) {
-                    $template = '401';
+        // Bypass access restriction logic for generic static endpoints
+        if (!$this->mayBeCustomTemplateRequest()) {
+            if (
+                !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
+                $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
+            ) {
+                if ($wp_query->found_posts > 0) {
+                    if (!is_user_logged_in()) {
+                        $template = '401';
+                    } else {
+                        $template = '403';
+                    }
                 } else {
-                    $template = '403';
+                    $template = '404';
                 }
-            } else {
-                $template = '404';
             }
-        }
 
-        if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
-            $template = '401';
-        }
+            if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
+                $template = '401';
+            }
 
-        // Restrict access to single posts that belong to a post type with an assigned "page for post type"
-        // if that page is not publicly viewable and the user is not logged in.
-        if (
-            $this->singlePostHasPostTypeThatUsesPageForPostType() &&
-            !$this->isPostTypePubliclyViewable() &&
-            !is_user_logged_in()
-        ) {
-            $template = '401';
+            // Restrict access to single posts that belong to a post type with an assigned "page for post type"
+            // if that page is not publicly viewable and the user is not logged in.
+            if (
+                $this->singlePostHasPostTypeThatUsesPageForPostType() &&
+                !$this->isPostTypePubliclyViewable() &&
+                !is_user_logged_in()
+            ) {
+                $template = '401';
+            }
         }
 
         //Do something before controller creation
@@ -205,8 +206,7 @@ class Template
         $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
                                                 class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") &&
                                                 (bool)ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
-
-        $controllers = [
+        $controllers                      = [
             [
                 'condition'       => ('404' === $template),
                 'controllerClass' => \Municipio\Controller\E404::class,
@@ -453,11 +453,68 @@ class Template
             $this->userHelper
         );
     }
+
+    /**
+     * Extract outermost <template> tags and replace them with placeholders
+     *
+     * @param string $html The HTML content
+     *
+     * @return array An array containing the HTML with <template> tags replaced by placeholders and the extracted templates
+     */
+    private function extractOuterTemplates(string $html): array
+    {
+        $templates = [];
+
+        // Match all <template> and </template> tags with offsets
+        $pattern = '#</?template\b[^>]*>#i';
+        preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
+
+        $stack     = [];
+        $outermost = []; // will hold start/end positions of outer templates
+
+        foreach ($matches[0] as $match) {
+            $tag = strtolower($match[0]);
+            $pos = $match[1];
+
+            if ($tag === '<template>' || strpos($tag, '<template ') === 0) {
+                if (empty($stack)) {
+                    $outermost[] = ['start' => $pos, 'end' => null];
+                }
+                $stack[] = $pos;
+            } else {
+                array_pop($stack);
+                if (empty($stack)) {
+                    $outermost[count($outermost) - 1]['end'] = $pos + strlen($match[0]);
+                }
+            }
+        }
+
+        // Replace templates with placeholders in reverse order (so offsets remain valid)
+        for ($i = count($outermost) - 1; $i >= 0; $i--) {
+            $start = $outermost[$i]['start'];
+            $end   = $outermost[$i]['end'];
+
+            if ($end === null) {
+                continue;
+            }
+
+            $full            = substr($html, $start, $end - $start);
+            $key             = '___MUN_TPL_' . count($templates) . '___';
+            $templates[$key] = $full;
+
+            // Replace in HTML
+            $html = substr_replace($html, $key, $start, $end - $start);
+        }
+
+        return [$html, $templates];
+    }
+
+
     /**
      * @param $view
      * @param array $data
      */
-    public function renderView($view, $data = array())
+    public function renderView($view, $data = [], array $additionalParsers = [])
     {
         // Ensure blade engine is initialized before rendering
         if ($this->bladeEngine === null) {
@@ -466,71 +523,73 @@ class Template
 
         try {
             $markup = $this->bladeEngine
-                ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
+                ->makeView($view, array_merge($data, ['errorMessage' => false]), [], $this->viewPaths)
                 ->render();
 
-            //Hookable filter to get all markup output
-            //Used by WPMUSecurity
-            $this->wpService->applyFilters(
-                'Website/HTML/output',
-                $markup
-            );
+            // Hookable filter to get all markup output (Used by WPMUSecurity)
+            $this->wpService->applyFilters('Website/HTML/output', $markup);
 
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
-                $tidy = new \tidy();
 
+                //Rescue template tags
+                [$markup, $templates] = $this->extractOuterTemplates($markup) ?? ['', []];
+
+                $tidy = new \tidy();
                 $tidy->parseString($markup, [
                     'indent'              => true,
                     'output-xhtml'        => false,
                     'wrap'                => PHP_INT_MAX,
                     'doctype'             => 'html5',
                     'drop-empty-elements' => false,
-                    'drop-empty-paras'    => false
+                    'drop-empty-paras'    => false,
+                    'new-pre-tags'        => 'template',
                 ], 'utf8');
 
                 // Clean and repair the document
                 $tidy->cleanRepair();
-                $cleanedHtml = (string) $tidy;
+                $markup = (string) $tidy;
 
-                // Minify inline <style> and <script> content
-                $cleanedHtml = preg_replace_callback(
+                // Minify inline <style> content
+                $markup = preg_replace_callback(
                     '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
-                    function ($matches) {
-                        return '<style>' . $this->minifyCss($matches[1]) . '</style>';
-                    },
-                    $cleanedHtml
+                    fn($m) => '<style>' . $this->minifyCss($m[1]) . '</style>',
+                    $markup
                 );
 
                 // Minify inline <script> content
-                $cleanedHtml = preg_replace_callback(
+                $markup = preg_replace_callback(
                     '/<script\b([^>]*)>(.*?)<\/script>/is',
-                    function ($matches) {
-                        return '<script' . $matches[1] . '>' . $this->minifyJs($matches[2]) . '</script>';
-                    },
-                    $cleanedHtml
+                    fn($m) => '<script' . $m[1] . '>' . $this->minifyJs($m[2]) . '</script>',
+                    $markup
                 );
 
                 // Drop comments
-                if (!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
-                    $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
+                if (!defined('WP_DEBUG') || (defined('WP_DEBUG') && constant('WP_DEBUG') !== true)) {
+                    $markup = preg_replace('/<!--(.|\s)*?-->/', '', $markup);
                 }
 
                 // Drop empty id attributes
-                $cleanedHtml = preg_replace('/id=""/', '', $cleanedHtml);
+                $markup = preg_replace('/\sid=""/', '', $markup);
 
                 //Drop attibute that no longer is to spec
-                $cleanedHtml = $this->dropPropertyAttributes([
+                $markup = $this->dropPropertyAttributes([
                     'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
-                ], $cleanedHtml);
+                ], $markup);
 
-                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $cleanedHtml;
-            } else {
-                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $markup;
+                // Replace templates with their original content
+                $markup = str_replace(array_keys($templates), array_values($templates), $markup);
             }
+
+            //Run additional parsers if any
+            foreach ($additionalParsers as $parser) {
+                if (is_callable($parser)) {
+                    $parser($markup);
+                }
+            }
+
+            echo $markup;
         } catch (\Throwable $e) {
             $this->bladeEngine->errorHandler($e)->print();
         }
@@ -621,7 +680,6 @@ class Template
             '403'        => '403.blade.php',
             '401'        => '401.blade.php',
             'archive'    => 'archive.blade.php',
-            'author'     => 'author.blade.php',
             'category'   => 'category.blade.php',
             'tag'        => 'tag.blade.php',
             'taxonomy'   => 'taxonomy.blade.php',
@@ -766,6 +824,19 @@ class Template
         }
 
         return $view;
+    }
+
+    /**
+     * Check if the current request is for a custom template by running a filter
+     *
+     * @return bool True if it's a custom template request, false otherwise.
+     */
+    private function mayBeCustomTemplateRequest(): bool
+    {
+        return apply_filters(
+            'Municipio/Template/MayBeCustomTemplateRequest',
+            false
+        );
     }
 
     /**

@@ -1,3 +1,4 @@
+{{-- Deprecated in favor of the PostsList feature --}}
 <div class="o-grid">
     <div class="o-grid-12">
         @table([

@@ -1,3 +1,16 @@
 {
-    "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "explicit"
+	},
+	"customLocalFormatters.formatters": [
+		{
+			"command": "vendor/bin/mago format --stdin-input",
+			"languages": ["php"]
+		}
+	],
+	"[php]": {
+		"editor.defaultFormatter": "jkillian.custom-local-formatters"
+	}
 }

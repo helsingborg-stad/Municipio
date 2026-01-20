@@ -20,11 +20,11 @@ class UspsGenerator implements ViewDataGeneratorInterface
     public function generate(): mixed
     {
         return $this->splitArrayIntoColumns(array_merge(
-            $this->getTerms(),
             $this->getAreaServed(),
             $this->getNumberOfStudents(),
             $this->getAfterSchoolCareOpeningHours(),
-            $this->getGrades()
+            $this->getGrades(),
+            $this->getTerms(),
         ), 3);
     }
 

@@ -1,3 +1,4 @@
+{{-- Deprecated in favor of the PostsList feature --}}
 @if ($posts)
     @collection([
         'unbox' => true,
