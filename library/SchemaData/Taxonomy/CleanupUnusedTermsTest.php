@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SchemaData\Taxonomy;
 
 use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactoryInterface;
@@ -32,16 +34,16 @@ class CleanupUnusedTermsTest extends TestCase
         $unusedTerm->count = 0;
 
         $wpService = new FakeWpService([
-            'getTerms' => fn() => [$usedTerm, $unusedTerm],
+            'getTerms' => static fn() => [$usedTerm, $unusedTerm],
             'wpDeleteTerm' => true,
         ]);
 
         $cleanup = new CleanupUnusedTerms($taxonomiesFactory, $wpService);
         $cleanup->cleanupUnusedTerms();
 
-        $this->assertCount(1, $wpService->methodCalls['wpDeleteTerm']);
-        $this->assertEquals(2, $wpService->methodCalls['wpDeleteTerm'][0][0]); // Check that the unused term was deleted
-        $this->assertEquals('category', $wpService->methodCalls['wpDeleteTerm'][0][1]); // Check
+        static::assertCount(1, $wpService->methodCalls['wpDeleteTerm']);
+        static::assertSame(2, $wpService->methodCalls['wpDeleteTerm'][0][0]); // Check that the unused term was deleted
+        static::assertSame('category', $wpService->methodCalls['wpDeleteTerm'][0][1]); // Check
     }
 
     #[TestDox('cleanupUnusedTerms does not delete any terms when no taxonomies are provided')]
@@ -61,7 +63,7 @@ class CleanupUnusedTermsTest extends TestCase
         $unusedTerm->count = 0;
 
         $wpService = new FakeWpService([
-            'getTerms' => fn() => [$usedTerm, $unusedTerm],
+            'getTerms' => static fn() => [$usedTerm, $unusedTerm],
             'wpDeleteTerm' => true,
         ]);
 
@@ -69,7 +71,7 @@ class CleanupUnusedTermsTest extends TestCase
         $cleanup->cleanupUnusedTerms();
 
         // No calls to wpDeleteTerm should have been made
-        $this->assertArrayNotHasKey('wpDeleteTerm', $wpService->methodCalls);
+        static::assertArrayNotHasKey('wpDeleteTerm', $wpService->methodCalls);
     }
 
     private function getTaxonomy(): TaxonomyInterface|MockObject

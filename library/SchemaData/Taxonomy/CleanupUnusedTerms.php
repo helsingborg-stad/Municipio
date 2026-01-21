@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SchemaData\Taxonomy;
 
 use WpService\Contracts\GetTerms;
@@ -49,7 +51,7 @@ class CleanupUnusedTerms
     private function getTaxonomyNames(): array
     {
         $taxonomies = $this->taxonomiesFactory->create();
-        return array_map(fn($taxonomy) => $taxonomy->getName(), $taxonomies);
+        return array_map(static fn($taxonomy) => $taxonomy->getName(), $taxonomies);
     }
 
     /**
@@ -74,7 +76,7 @@ class CleanupUnusedTerms
      */
     private function filterUnusedTerms(array $terms): array
     {
-        return array_filter($terms, fn($term) => $term->count === 0);
+        return array_filter($terms, static fn($term) => $term->count === 0);
     }
 
     /**
