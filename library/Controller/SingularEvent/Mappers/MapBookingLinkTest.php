@@ -52,4 +52,17 @@ class MapBookingLinkTest extends TestCase
 
         static::assertNull($bookingLink);
     }
+
+    #[TestDox('returns null if url is not a url')]
+    public function testReturnsNullIfUrlIsNotAUrl()
+    {
+        $event = Schema::event()->offers([
+            Schema::offer()->url('not-a-valid-url'),
+        ]);
+
+        $mapper = new MapBookingLink();
+        $bookingLink = $mapper->map($event);
+
+        static::assertNull($bookingLink);
+    }
 }

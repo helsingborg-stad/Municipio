@@ -14,15 +14,20 @@ class MapBookingLink implements EventDataMapperInterface
     {
         $scheduleBookingLink = $this->getScheduleBookingLink($event);
         if ($scheduleBookingLink !== null) {
-            return $scheduleBookingLink;
+            return $this->sanitizeUrl($scheduleBookingLink);
         }
 
         $offerBookingLink = $this->getFirstOfferBookingLink($event);
         if ($offerBookingLink !== null) {
-            return $offerBookingLink;
+            return $this->sanitizeUrl($offerBookingLink);
         }
 
         return null;
+    }
+
+    private function sanitizeUrl(string $url): ?string
+    {
+        return filter_var($url, FILTER_VALIDATE_URL) ? $url : null;
     }
 
     private function getScheduleBookingLink(\Municipio\Schema\Event $event): ?string
