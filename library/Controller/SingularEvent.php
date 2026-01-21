@@ -44,7 +44,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['occasions'] = (new SingularEvent\Mappers\MapOccasions($this->post->getPermalink(), $this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['currentOccasion'] = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['icsUrl'] = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
-        $this->data['bookingLink'] = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
+        $this->data['bookingLink'] = (new SingularEvent\Mappers\MapBookingLink($this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data = array_merge($this->data, [
             'postsListData' => $this->getPostsListData(),
         ]);
