@@ -19,9 +19,8 @@ class CleanupUnusedTerms
      */
     public function __construct(
         private TaxonomiesFromSchemaType\TaxonomiesFactoryInterface $taxonomiesFactory,
-        private GetTerms&WpDeleteTerm $wpService
-    ) {
-    }
+        private GetTerms&WpDeleteTerm $wpService,
+    ) {}
 
     /**
      * Cleans up unused terms from the taxonomies defined in the schema.
@@ -31,8 +30,13 @@ class CleanupUnusedTerms
     public function cleanupUnusedTerms(): void
     {
         $taxonomyNames = $this->getTaxonomyNames();
-        $terms         = $this->getAllTerms($taxonomyNames);
-        $unusedTerms   = $this->filterUnusedTerms($terms);
+
+        if (count($taxonomyNames) === 0) {
+            return;
+        }
+
+        $terms = $this->getAllTerms($taxonomyNames);
+        $unusedTerms = $this->filterUnusedTerms($terms);
 
         $this->deleteTerms($unusedTerms);
     }
@@ -45,7 +49,7 @@ class CleanupUnusedTerms
     private function getTaxonomyNames(): array
     {
         $taxonomies = $this->taxonomiesFactory->create();
-        return array_map(fn ($taxonomy) => $taxonomy->getName(), $taxonomies);
+        return array_map(fn($taxonomy) => $taxonomy->getName(), $taxonomies);
     }
 
     /**
@@ -57,8 +61,8 @@ class CleanupUnusedTerms
     private function getAllTerms(array $taxonomyNames): array
     {
         return $this->wpService->getTerms([
-            'taxonomy'   => $taxonomyNames,
-            'hide_empty' => false
+            'taxonomy' => $taxonomyNames,
+            'hide_empty' => false,
         ]);
     }
 
@@ -70,7 +74,7 @@ class CleanupUnusedTerms
      */
     private function filterUnusedTerms(array $terms): array
     {
-        return array_filter($terms, fn ($term) => $term->count === 0);
+        return array_filter($terms, fn($term) => $term->count === 0);
     }
 
     /**
