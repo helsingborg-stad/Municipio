@@ -36,9 +36,14 @@ class General
         add_filter('acf/get_field_group', array($this, 'fixFieldgroupLocationPath'));
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
-        add_filter('Modularity\ModularityIconsLibrary', function () {
-            return MUNICIPIO_PATH . "assets/generated/icon.json";
-        }, 10, 0);
+        add_filter(
+            'Modularity\ModularityIconsLibrary',
+            function () {
+                return MUNICIPIO_PATH . 'assets/generated/icon.json';
+            },
+            10,
+            0,
+        );
 
         remove_filter('template_redirect', 'redirect_canonical');
 
@@ -51,7 +56,6 @@ class General
         });
 
         add_filter('Municipio/bodyClass', function ($class) {
-
             if (current_user_can('upload_files')) {
                 $class .= ' user-can-upload_files';
             }
@@ -63,19 +67,20 @@ class General
             return str_replace(
                 ' />',
                 '>',
-                $html
+                $html,
             );
         });
 
         add_filter('ComponentLibrary/Component/Date/Data', function ($data) {
-            $data['format']   = !empty($data['format']) ? $data['format'] : \Municipio\Helper\DateFormat::getDateFormat($data['format'] ?? 'date');
-            $data['region']   = \Municipio\Helper\DateFormat::getLocale();
+            $data['format'] = !empty($data['format']) ? $data['format'] : \Municipio\Helper\DateFormat::getDateFormat($data['format'] ?? 'date');
+            $data['region'] = \Municipio\Helper\DateFormat::getLocale();
             $data['timezone'] = \Municipio\Helper\DateFormat::getTimezone();
             return $data;
         });
-        
+
         add_filter('ComponentLibrary/Component/Select/Data', function ($data) {
-            $data['searchNoResultsText']   = WpService::get()->_x('No results found', 'Select component search no results text', 'municipio');
+            $data['searchNoResultsText'] = WpService::get()->_x('No results found', 'Select component search no results text', 'municipio');
+            $data['searchPlaceholder'] = WpService::get()->_x('Search', 'Select component search field placeholder', 'municipio');
             return $data;
         });
     }
@@ -121,16 +126,16 @@ class General
 
         //Theme specific class
         $themeObject = wp_get_theme();
-        $classes[]   = "t-" . sanitize_title($themeObject->get("Name"));
+        $classes[] = 't-' . sanitize_title($themeObject->get('Name'));
 
         //Child theme specific class
         if (is_child_theme()) {
             $childThemeObject = wp_get_theme(get_template());
-            $classes[]        = "t-" . sanitize_title($childThemeObject->get("Name"));
+            $classes[] = 't-' . sanitize_title($childThemeObject->get('Name'));
         }
 
         //Define const for later use
-        define("MUNICIPIO_BEM_THEME_NAME", implode(" ", $classes));
+        define('MUNICIPIO_BEM_THEME_NAME', implode(' ', $classes));
     }
 
     /**
@@ -173,7 +178,7 @@ class General
             }
         }
 
-        if (!$image && $logo = get_field('logotype_negative', 'option')) {
+        if (!$image && ($logo = get_field('logotype_negative', 'option'))) {
             $image = '<div class="box-image">
                ' . \Municipio\Helper\Svg::extract($logo['url']) . '
             </div>';
@@ -274,7 +279,7 @@ class General
     {
         //Is childtheme class
         if (is_child_theme()) {
-            $classes[] = "is-child-theme";
+            $classes[] = 'is-child-theme';
         }
         return $classes;
     }

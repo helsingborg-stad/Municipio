@@ -19425,7 +19425,7 @@ msgstr "Datum från"
 msgid "Date To"
 msgstr "Datum till"
 
-#: library/Theme/General.php:78
+#: library/Theme/General.php:82
 msgctxt "Select component search no results text"
 msgid "No results found"
 msgstr "Inga resultat hittades"
@@ -19433,3 +19433,8 @@ msgstr "Inga resultat hittades"
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:552
 msgid "Eyebrow"
 msgstr ""
+
+#: library/Theme/General.php:83
+msgctxt "Select component search field placeholder"
+msgid "Search"
+msgstr "Sök"
