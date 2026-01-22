@@ -3,6 +3,7 @@
 namespace Municipio\Content\PostFilters;
 
 use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WP_Query;
@@ -56,6 +57,24 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $this->assertEquals($querySnapshot, $query);
     }
 
+    #[TestDox('does nothing if in admin area')]
+    public function testRemoveExpiredEventsDoesNothingIfIsAdmin()
+    {
+        $query = $this->getWpQueryMock();
+        $query->method('is_main_query')->willReturn(true);
+        $query->method('is_archive')->willReturn(true);
+        $querySnapshot = clone $query;
+
+        $wpService = new FakeWpService([
+            'isAdmin' => true,
+        ]);
+
+        $sut = new RemoveExpiredEventsFromMainArchiveQuery($wpService, $this->getTryGetSchemaTypeFromPostTypeMock());
+        $sut->removeExpiredEventsFromMainArchiveQuery($query);
+
+        $this->assertEquals($querySnapshot, $query);
+    }
+
     #[TestDox('does nothing if the post type is not connected to the Event schema type')]
     public function testRemoveExpiredEventsDoesNothingIfPostTypeIsNotEvent()
     {
@@ -68,7 +87,7 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $tryGetSchemaTypeFromPostType = $this->getTryGetSchemaTypeFromPostTypeMock();
         $tryGetSchemaTypeFromPostType->method('tryGetSchemaTypeFromPostType')->willReturn(null);
 
-        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(), $tryGetSchemaTypeFromPostType);
+        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false]), $tryGetSchemaTypeFromPostType);
         $sut->removeExpiredEventsFromMainArchiveQuery($query);
 
         $this->assertEquals($querySnapshot, $query);
@@ -77,27 +96,31 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
     #[TestDox('filters out expired events')]
     public function testRemoveExpiredEventsFiltersOutExpiredEvents()
     {
-        $querySetCalls                = [];
-        $query                        = $this->getWpQueryMock();
+        $querySetCalls = [];
+        $query = $this->getWpQueryMock();
         $tryGetSchemaTypeFromPostType = $this->getTryGetSchemaTypeFromPostTypeMock();
 
         $query->method('is_main_query')->willReturn(true);
         $query->method('is_archive')->willReturn(true);
-        $query->method('get')->willReturnCallback(function ($key) {
-            return match ($key) {
-                'post_type' => 'event',
-                'meta_query' => [],
-                default => null,
-            };
-        });
+        $query
+            ->method('get')
+            ->willReturnCallback(function ($key) {
+                return match ($key) {
+                    'post_type' => 'event',
+                    'meta_query' => [],
+                    default => null,
+                };
+            });
 
-        $query->method('set')->willReturnCallback(function ($key, $value) use (&$querySetCalls) {
-            $querySetCalls[$key] = $value;
-        });
+        $query
+            ->method('set')
+            ->willReturnCallback(function ($key, $value) use (&$querySetCalls) {
+                $querySetCalls[$key] = $value;
+            });
 
         $tryGetSchemaTypeFromPostType->method('tryGetSchemaTypeFromPostType')->willReturn('Event');
 
-        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(), $tryGetSchemaTypeFromPostType);
+        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false]), $tryGetSchemaTypeFromPostType);
         $sut->removeExpiredEventsFromMainArchiveQuery($query);
 
         $this->assertArrayHasKey('meta_query', $querySetCalls);
