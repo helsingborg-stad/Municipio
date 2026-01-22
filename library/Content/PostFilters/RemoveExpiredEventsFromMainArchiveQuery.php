@@ -2,10 +2,11 @@
 
 namespace Municipio\Content\PostFilters;
 
-use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use WP_Query;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\IsAdmin;
 
 /**
  * Class RemoveExpiredEventsFromMainArchiveQuery
@@ -16,10 +17,9 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction $wpService,
-        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType
-    ) {
-    }
+        private AddAction&IsAdmin $wpService,
+        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,
+    ) {}
 
     /**
      * @inheritDoc
@@ -37,7 +37,7 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
      */
     public function removeExpiredEventsFromMainArchiveQuery(WP_Query &$query): void
     {
-        if (!$query->is_main_query() || !$query->is_archive()) {
+        if (!$query->is_main_query() || !$query->is_archive() || $this->wpService->isAdmin()) {
             return;
         }
 
@@ -46,13 +46,13 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
         }
 
         $currentDate = new \DateTime();
-        $metaQuery   = $query->get('meta_query') ?: [];
+        $metaQuery = $query->get('meta_query') ?: [];
 
         $metaQuery[] = [
-            'key'     => 'endDate',
-            'value'   => $currentDate->format('Y-m-d H:i:s'),
+            'key' => 'endDate',
+            'value' => $currentDate->format('Y-m-d H:i:s'),
             'compare' => '>=',
-            'type'    => 'DATETIME',
+            'type' => 'DATETIME',
         ];
 
         $query->set('meta_query', $metaQuery);
