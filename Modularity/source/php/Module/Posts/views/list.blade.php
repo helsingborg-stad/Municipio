@@ -33,7 +33,7 @@
                                     'variant' => 'h4',
                                     'id' => 'post-' . $ID . '-' . $post->getId() . '-title',
                                 ])
-                                    {{ $post->getTitle() }}
+                                    {!! $post->getTitle() !!}
                                 @endtypography
                             @endcollection__item
                         @endif

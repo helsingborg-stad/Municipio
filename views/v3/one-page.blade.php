@@ -23,14 +23,14 @@
         @endif
 
         {!! $hook->innerLoopStart !!}
-        @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating']['icon'])))
+        @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->getTitle()) || !empty($post->callToActionItems['floating']['icon'])))
             @group([
                 'justifyContent' => 'space-between',
                 'classList' => [
                     'u-margin__y--4'
                 ]
             ])
-                @if (!empty($post->postTitle))
+                @if (!empty($post->getTitle()))
                     @typography([
                         'element' => 'h1', 
                         'variant' => 'h1',
@@ -39,7 +39,7 @@
                             'u-margin__bottom--0'
                         ]
                         ])
-                        {!! $post->postTitle !!}
+                        {!! $post->getTitle() !!}
                     @endtypography
                 @endif
                 @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
