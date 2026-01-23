@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\QueryVars;
 
 interface QueryVarsInterface
@@ -28,4 +30,10 @@ interface QueryVarsInterface
      * Get search parameter name
      */
     public function getSearchParameterName(): string;
+
+    /**
+     * Get taxonomy parameter names
+     * @return array<string>
+     */
+    public function getTaxonomyParameterNames(): array;
 }

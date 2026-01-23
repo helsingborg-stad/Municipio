@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\QueryVars;
 
 /**
@@ -9,10 +11,14 @@ class QueryVars implements QueryVarsInterface
 {
     /**
      * Constructor
+     *
+     * @param string $prefix The prefix to use for query variables
+     * @param array<string> $taxonomies allowed taxonomy parameter names
      */
-    public function __construct(private string $prefix)
-    {
-    }
+    public function __construct(
+        private string $prefix,
+        private array $taxonomies = [],
+    ) {}
 
     /**
      * @inheritDoc
@@ -60,5 +66,10 @@ class QueryVars implements QueryVarsInterface
     private function prefixParameter(string $param): string
     {
         return $this->getPrefix() . $param;
+    }
+
+    public function getTaxonomyParameterNames(): array
+    {
+        return array_map(fn(string $taxonomyName) => $this->getPrefix() . $taxonomyName, $this->taxonomies);
     }
 }
