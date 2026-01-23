@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\QueryVars;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -11,9 +13,17 @@ class QueryVarsTest extends TestCase
     public function testParameterNamesIsPrefixedWithProvidedPrefix(): void
     {
         $queryVars = new QueryVars('custom_prefix_');
-        $this->assertEquals('custom_prefix_page', $queryVars->getPaginationParameterName());
-        $this->assertEquals('custom_prefix_date_from', $queryVars->getDateFromParameterName());
-        $this->assertEquals('custom_prefix_date_to', $queryVars->getDateToParameterName());
-        $this->assertEquals('custom_prefix_search', $queryVars->getSearchParameterName());
+        static::assertSame('custom_prefix_page', $queryVars->getPaginationParameterName());
+        static::assertSame('custom_prefix_date_from', $queryVars->getDateFromParameterName());
+        static::assertSame('custom_prefix_date_to', $queryVars->getDateToParameterName());
+        static::assertSame('custom_prefix_search', $queryVars->getSearchParameterName());
+    }
+
+    #[TestDox('taxonomy parameter names are returned correctly')]
+    public function testTaxonomyParameterNamesAreReturnedCorrectly(): void
+    {
+        $taxonomies = ['category'];
+        $queryVars = new QueryVars('custom_prefix_', $taxonomies);
+        static::assertSame(['custom_prefix_category'], $queryVars->getTaxonomyParameterNames());
     }
 }

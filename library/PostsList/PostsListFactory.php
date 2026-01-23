@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\PostsList;
 
+use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterConfig;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigUsingGetParamsDecorator;
 use Municipio\PostsList\Config\GetPostsConfig\GetTermsFromGetParams\GetTermsFromGetParams;
 use Municipio\PostsList\ConfigMapper\PostsListConfigDTOInterface;
@@ -22,7 +23,11 @@ class PostsListFactory implements PostsListFactoryInterface
 
     public function create(PostsListConfigDTOInterface $postsListConfigDTO): PostsListInterface
     {
-        $queryVars = new QueryVars($postsListConfigDTO->getQueryVarsPrefix());
+        $taxonomies = array_map(
+            static fn(TaxonomyFilterConfig $taxonomyFilterConfig) => $taxonomyFilterConfig->getTaxonomy()->name,
+            $postsListConfigDTO->getFilterConfig()->getTaxonomiesEnabledForFiltering(),
+        );
+        $queryVars = new QueryVars($postsListConfigDTO->getQueryVarsPrefix(), $taxonomies);
 
         // Decorate GetPostsConfig.
         $getPostsConfig = $postsListConfigDTO->getGetPostsConfig();

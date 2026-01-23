@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\PostsList\QueryVars\QueryVarRegistrar;
 
 use Municipio\PostsList\QueryVars\QueryVarsInterface;
@@ -15,9 +17,8 @@ class QueryVarRegistrar implements QueryVarRegistrarInterface
      */
     public function __construct(
         private QueryVarsInterface $queryVar,
-        private AddFilter $wpService
-    ) {
-    }
+        private AddFilter $wpService,
+    ) {}
 
     /**
      * @inheritDoc
@@ -33,6 +34,7 @@ class QueryVarRegistrar implements QueryVarRegistrarInterface
     private function getArrayOfQueryVars(): array
     {
         return [
+            ...$this->queryVar->getTaxonomyParameterNames(),
             $this->queryVar->getPaginationParameterName(),
             $this->queryVar->getDateFromParameterName(),
             $this->queryVar->getDateToParameterName(),
