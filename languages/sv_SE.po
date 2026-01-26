@@ -15664,10 +15664,6 @@ msgstr "Inga %s hittades"
 msgid "No %s found in trash"
 msgstr "Inga %s hittades i papperskorgen"
 
-#: library/Content/CustomPostType.php:87
-msgid "Auto generated cpt from user iterface."
-msgstr "Automatiskt genererade posttyper från inställningspanel."
-
 #: library/Controller/A11y.php:31
 msgid "Recently reviewed"
 msgstr "Granskad nyligen"

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-21T06:23:02+00:00\n"
+"POT-Creation-Date: 2026-01-26T06:14:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -3269,10 +3269,6 @@ msgstr ""
 #: library/Content/CustomPostType.php:64
 #, php-format
 msgid "No %s found in trash"
-msgstr ""
-
-#: library/Content/CustomPostType.php:87
-msgid "Auto generated cpt from user iterface."
 msgstr ""
 
 #: library/Controller/A11y.php:31
