@@ -84,7 +84,6 @@ class CustomPostType
 
             $args = array(
                 'labels'          => $labels,
-                'description'     => __('Auto generated cpt from user iterface.', 'municipio'),
                 'public'          => $typeDefinition['public'],
                 'show_in_menu'    => $this->showInMenu($typeDefinition),
                 'rewrite'         => $rewrite,
