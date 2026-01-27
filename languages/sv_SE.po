@@ -753,6 +753,7 @@ msgstr "Om objekten som saknar en avatarbild ska visa en platshållaravatar. Den
 msgid "Custom"
 msgstr "Anpassad"
 
+#: library/Controller/BaseController.php:420
 #: library/Customizer/Sections/ErrorPages.php:40
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:110
 #: Modularity/source/php/AcfFields/php/mod-hero.php:200
@@ -865,13 +866,13 @@ msgstr "URL"
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:413
+#: library/Controller/BaseController.php:407
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/BaseController.php:414
+#: library/Controller/BaseController.php:408
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr "Adress"
@@ -1219,6 +1220,7 @@ msgstr "En kort och koncis text som berättar vad webbplatsen handlar om. Maxima
 msgid "Background type"
 msgstr "Bakgrundstyp"
 
+#: library/Controller/BaseController.php:419
 #: Modularity/source/php/AcfFields/php/mod-hero.php:201
 #: Modularity/source/php/AcfFields/php/mod-slider.php:480
 #: Modularity/source/php/AcfFields/php/mod-video.php:8
@@ -12493,7 +12495,7 @@ msgstr "Är du säker på att du vill ta bort modulen?"
 msgid "Saving…"
 msgstr "Sparar…"
 
-#: library/Controller/BaseController.php:402
+#: library/Controller/BaseController.php:394
 #: library/Helper/TranslatedLabels.php:54
 #: Modularity/source/php/App.php:307
 msgid "Close"
@@ -15126,7 +15128,7 @@ msgid "Phone numer"
 msgstr "Telefonnummer"
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:411
+#: library/Controller/BaseController.php:405
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
@@ -15512,7 +15514,7 @@ msgid "General cover settings"
 msgstr "Allmänna inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:505
+#: library/Controller/BaseController.php:520
 #: library/Customizer/Sections/Header/Logotype.php:41
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -15696,28 +15698,28 @@ msgstr "Senaste bedömningen gjord"
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:398
+#: library/Controller/BaseController.php:390
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: library/Controller/BaseController.php:399
+#: library/Controller/BaseController.php:391
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:400
+#: library/Controller/BaseController.php:392
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr "Logga ut"
 
-#: library/Controller/BaseController.php:401
+#: library/Controller/BaseController.php:393
 msgid "Login"
 msgstr "Logga in"
 
-#: library/Controller/BaseController.php:410
+#: library/Controller/BaseController.php:404
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/BaseController.php:412
+#: library/Controller/BaseController.php:406
 msgid "Call"
 msgstr "Ring"
 
@@ -19434,3 +19436,27 @@ msgstr ""
 msgctxt "Select component search field placeholder"
 msgid "Search"
 msgstr "Sök"
+
+#: library/Controller/BaseController.php:421
+msgid "Audio"
+msgstr "Ljud"
+
+#: library/Controller/BaseController.php:422
+msgid "Maximum size: "
+msgstr "Maxstorlek: "
+
+#: library/Controller/BaseController.php:418
+msgid "Allowed files types: "
+msgstr "Tillåtna filtyper: "
+
+#: library/Controller/BaseController.php:423
+msgid "Select file"
+msgstr "Välj fil"
+
+#: library/Controller/BaseController.php:424
+msgid "Remove file"
+msgstr "Ta bort fil"
+
+#: library/Controller/BaseController.php:425
+msgid "Drop files here"
+msgstr "Släpp filer här"
