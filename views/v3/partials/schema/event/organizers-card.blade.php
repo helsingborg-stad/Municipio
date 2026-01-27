@@ -1,7 +1,7 @@
 @card([
     'heading' => $lang->organizersTitle,
 ])
-    @if(!empty($place['url']))
+    @if(!empty($organizers))
         @slot('belowContent')
             @element(['classList' => ['u-display--flex', 'o-layout-grid--gap-8', 'u-flex-direction--column']])
                 @foreach($organizers as $organizer)
