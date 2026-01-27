@@ -7,6 +7,7 @@ use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterC
 use Municipio\PostsList\Config\FilterConfig\TaxonomyFilterConfig\TaxonomyFilterType;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetTerms;
 
 /**
@@ -18,12 +19,12 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
      * Constructor
      *
      * @param FilterConfigInterface $filterConfig
-     * @param GetTerms $wpService
+     * @param GetTerms&ApplyFilters $wpService
      */
     public function __construct(
         private FilterConfigInterface $filterConfig,
         private GetPostsConfigInterface $getPostsConfig,
-        private GetTerms $wpService,
+        private GetTerms&ApplyFilters $wpService,
         private string $queryVarNamePrefix
     ) {
     }
@@ -101,10 +102,10 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
 
             $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
             $selectArguments = [
-                'label'       => $taxonomyConfig->getTaxonomy()->label,
+                'label'       => $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy()),
                 'name'        => $this->queryVarNamePrefix . $taxonomyName,
                 'required'    => false,
-                'placeholder' => $taxonomyConfig->getTaxonomy()->label,
+                'placeholder' => $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Placeholder', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy()),
                 'multiple'    => $taxonomyConfig->getFilterType() === TaxonomyFilterType::MULTISELECT ? true : false,
                 'options'     => $options,
             ];

@@ -5,6 +5,7 @@ namespace Municipio\PostsList\ViewCallableProviders\Filter;
 use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\__;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetPostTypeObject;
 
 /**
@@ -18,7 +19,7 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
     public function __construct(
         private GetPostsConfigInterface $getPostsConfig,
         private string $parameterName,
-        private __&GetPostTypeObject $wpService
+        private __&GetPostTypeObject&ApplyFilters $wpService
     ) {
     }
 
@@ -90,9 +91,15 @@ class GetTextSearchFieldArguments implements ViewCallableProviderInterface
             return null;
         }
 
-        return sprintf(
-            $this->wpService->__('Search %s', 'municipio'),
-            $postTypeObject->label
-        );
+        if (!isset($postTypeObject->labels->search_items)) {
+            return $this->wpService->applyFilters('Municipio/Archive/Search/Text/Label', 
+                sprintf(
+                    $this->wpService->__('Search %s', 'municipio'),
+                    $postTypeObject->label
+                ), 
+            $postTypeObject);
+        }
+
+        return $this->wpService->applyFilters('Municipio/Archive/Search/Text/Label', $postTypeObject->labels->search_items, $postTypeObject);
     }
 }
