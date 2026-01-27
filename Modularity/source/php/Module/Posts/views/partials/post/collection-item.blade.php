@@ -34,7 +34,7 @@
                 'variant' => 'h3',
                 'id' => 'post-' . $ID . '-' . $post->getId() . '-title',
             ])
-                {{ $post->getTitle() }}
+                {!! $post->getTitle() !!}
             @endtypography
             @if ($post->getIcon())
                 @element([
