@@ -315,6 +315,11 @@ class App
         $this->setupComponentContextFilters();
 
         /**
+         * Modify component data
+         */
+        (new \Municipio\ModifyComponentData\ModifyComponentData($this->wpService))->modifyFileInputLabels();
+
+        /**
          * Sticky posts
          */
         $this->setupStickyPosts();

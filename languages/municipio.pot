@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-26T06:14:13+00:00\n"
+"POT-Creation-Date: 2026-01-27T06:11:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -2470,7 +2470,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:413
+#: library/Controller/BaseController.php:407
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
@@ -2565,7 +2565,7 @@ msgid "Phone numer"
 msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:411
+#: library/Controller/BaseController.php:405
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
@@ -3077,7 +3077,7 @@ msgid "General cover settings"
 msgstr ""
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:505
+#: library/Controller/BaseController.php:520
 #: library/Customizer/Sections/Header/Logotype.php:41
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -3296,40 +3296,83 @@ msgstr ""
 msgid "Last reviewed"
 msgstr ""
 
-#: library/Controller/BaseController.php:398
+#: library/Controller/BaseController.php:390
 msgid "Search for content"
 msgstr ""
 
-#: library/Controller/BaseController.php:399
+#: library/Controller/BaseController.php:391
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/BaseController.php:400
+#: library/Controller/BaseController.php:392
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr ""
 
-#: library/Controller/BaseController.php:401
+#: library/Controller/BaseController.php:393
 msgid "Login"
 msgstr ""
 
-#: library/Controller/BaseController.php:402
+#: library/Controller/BaseController.php:394
 #: library/Helper/TranslatedLabels.php:54
 #: Modularity/source/php/App.php:307
 msgid "Close"
 msgstr ""
 
-#: library/Controller/BaseController.php:410
+#: library/Controller/BaseController.php:404
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/BaseController.php:412
+#: library/Controller/BaseController.php:406
 msgid "Call"
 msgstr ""
 
-#: library/Controller/BaseController.php:414
+#: library/Controller/BaseController.php:408
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
+msgstr ""
+
+#: library/Controller/BaseController.php:418
+msgid "Allowed files types: "
+msgstr ""
+
+#: library/Controller/BaseController.php:419
+#: Modularity/source/php/AcfFields/php/mod-hero.php:201
+#: Modularity/source/php/AcfFields/php/mod-slider.php:480
+#: Modularity/source/php/AcfFields/php/mod-video.php:8
+msgid "Video"
+msgstr ""
+
+#: library/Controller/BaseController.php:420
+#: library/Customizer/Sections/ErrorPages.php:40
+#: Modularity/source/php/AcfFields/php/mod-contacts.php:110
+#: Modularity/source/php/AcfFields/php/mod-hero.php:200
+#: Modularity/source/php/AcfFields/php/mod-image.php:8
+#: Modularity/source/php/AcfFields/php/mod-image.php:12
+#: Modularity/source/php/AcfFields/php/mod-index.php:108
+#: Modularity/source/php/AcfFields/php/mod-manual-input.php:835
+#: Modularity/source/php/Module/Image/Image.php:23
+msgid "Image"
+msgstr ""
+
+#: library/Controller/BaseController.php:421
+msgid "Audio"
+msgstr ""
+
+#: library/Controller/BaseController.php:422
+msgid "Maximum size: "
+msgstr ""
+
+#: library/Controller/BaseController.php:423
+msgid "Select file"
+msgstr ""
+
+#: library/Controller/BaseController.php:424
+msgid "Remove file"
+msgstr ""
+
+#: library/Controller/BaseController.php:425
+msgid "Drop files here"
 msgstr ""
 
 #: library/Controller/E404.php:37
@@ -4895,17 +4938,6 @@ msgstr ""
 
 #: library/Customizer/Sections/ErrorPages.php:14
 msgid "Page heading"
-msgstr ""
-
-#: library/Customizer/Sections/ErrorPages.php:40
-#: Modularity/source/php/AcfFields/php/mod-contacts.php:110
-#: Modularity/source/php/AcfFields/php/mod-hero.php:200
-#: Modularity/source/php/AcfFields/php/mod-image.php:8
-#: Modularity/source/php/AcfFields/php/mod-image.php:12
-#: Modularity/source/php/AcfFields/php/mod-index.php:108
-#: Modularity/source/php/AcfFields/php/mod-manual-input.php:835
-#: Modularity/source/php/Module/Image/Image.php:23
-msgid "Image"
 msgstr ""
 
 #: library/Customizer/Sections/ErrorPages.php:41
@@ -7972,12 +8004,6 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-hero.php:187
 msgid "Background type"
-msgstr ""
-
-#: Modularity/source/php/AcfFields/php/mod-hero.php:201
-#: Modularity/source/php/AcfFields/php/mod-slider.php:480
-#: Modularity/source/php/AcfFields/php/mod-video.php:8
-msgid "Video"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-hero.php:245
