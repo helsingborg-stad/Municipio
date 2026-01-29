@@ -43,7 +43,7 @@ class SetPostTitleFromSchemaTitle implements Hookable
      */
     public function setPostTitleFromSchemaTitle(int $postId, \WP_Post $post): void
     {
-        if (empty(GetSchemaType::getSchemaTypeFromPostType($post->post_type))) {
+        if (!$this->hasActiveSchemaType($post->post_type)) {
             return;
         }
 
@@ -53,6 +53,18 @@ class SetPostTitleFromSchemaTitle implements Hookable
         if ($this->shouldUpdateTitle($schemaTitle, $post->post_title)) {
             $this->updatePostTitle($postId, $schemaTitle);
         }
+    }
+
+    /**
+     * Checks if there is an active schema type for the given post type.
+     *
+     * @param string $postType The post type to check.
+     * @return bool True if there is an active schema type, false otherwise.
+     */
+    protected function hasActiveSchemaType(string $postType): bool
+    {
+        $schemaType = GetSchemaType::getSchemaTypeFromPostType($postType);
+        return !empty($schemaType);
     }
 
     /**
