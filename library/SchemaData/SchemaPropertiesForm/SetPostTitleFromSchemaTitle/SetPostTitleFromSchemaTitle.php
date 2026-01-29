@@ -3,8 +3,10 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\SetPostTitleFromSchemaTitle;
 
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\SchemaData\Helper\GetSchemaType;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
-use WpService\Contracts\{AddAction, WpUpdatePost};
+use WpService\Contracts\AddAction;
+use WpService\Contracts\WpUpdatePost;
 
 /**
  * Class SetPostTitleFromSchemaTitle
@@ -22,9 +24,8 @@ class SetPostTitleFromSchemaTitle implements Hookable
      */
     public function __construct(
         private SchemaObjectFromPostInterface $schemaObjectFromPost,
-        private WpUpdatePost&AddAction $wpService
-    ) {
-    }
+        private WpUpdatePost&AddAction $wpService,
+    ) {}
 
     /**
      * @inheritDoc
@@ -43,9 +44,9 @@ class SetPostTitleFromSchemaTitle implements Hookable
     public function setPostTitleFromSchemaTitle(int $postId, \WP_Post $post): void
     {
         $schemaObject = $this->schemaObjectFromPost->create($post);
-        $schemaTitle  = $schemaObject->getProperty('name');
+        $schemaTitle = $schemaObject->getProperty('name');
 
-        if ($this->shouldUpdateTitle($schemaTitle, $post->post_title)) {
+        if ($this->shouldUpdateTitle($schemaTitle, $post->post_title, $post->post_type)) {
             $this->updatePostTitle($postId, $schemaTitle);
         }
     }
@@ -55,11 +56,12 @@ class SetPostTitleFromSchemaTitle implements Hookable
      *
      * @param string|null $schemaTitle The title from the schema.
      * @param string $currentTitle The current post title.
+     * @param string $postType The post type.
      * @return bool True if the title should be updated, false otherwise.
      */
-    private function shouldUpdateTitle(?string $schemaTitle, string $currentTitle): bool
+    private function shouldUpdateTitle(?string $schemaTitle, string $currentTitle, string $postType): bool
     {
-        return !empty($schemaTitle) && $schemaTitle !== $currentTitle;
+        return !empty(GetSchemaType::getSchemaTypeFromPostType($postType)) && !empty($schemaTitle) && $schemaTitle !== $currentTitle;
     }
 
     /**
@@ -71,7 +73,7 @@ class SetPostTitleFromSchemaTitle implements Hookable
     private function updatePostTitle(int $postId, string $newTitle): void
     {
         $this->wpService->wpUpdatePost([
-            'ID'         => $postId,
+            'ID' => $postId,
             'post_title' => $newTitle,
         ]);
     }
