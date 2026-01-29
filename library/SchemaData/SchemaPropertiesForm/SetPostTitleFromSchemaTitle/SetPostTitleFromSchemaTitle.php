@@ -50,7 +50,7 @@ class SetPostTitleFromSchemaTitle implements Hookable
         $schemaObject = $this->schemaObjectFromPost->create($post);
         $schemaTitle = $schemaObject->getProperty('name');
 
-        if ($this->shouldUpdateTitle($schemaTitle, $post->post_title, $post->post_type)) {
+        if ($this->shouldUpdateTitle($schemaTitle, $post->post_title)) {
             $this->updatePostTitle($postId, $schemaTitle);
         }
     }
