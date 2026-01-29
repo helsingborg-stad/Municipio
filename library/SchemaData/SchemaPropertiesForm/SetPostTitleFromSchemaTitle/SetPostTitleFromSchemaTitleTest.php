@@ -59,8 +59,9 @@ class SetPostTitleFromSchemaTitleTest extends \PHPUnit\Framework\TestCase
         $schemaObject = Schema::thing();
         $schemaObject->setProperty('name', 'Title from Schema');
         $this->schemaObjectFromPost->method('create')->willReturn($schemaObject);
-
-        $this->instance->setPostTitleFromSchemaTitle($post->ID, $post);
+        $instance = $this->createMock(SetPostTitleFromSchemaTitle::class);
+        $instance->method('hasActiveSchemaType')->willReturn(true);
+        $instance->setPostTitleFromSchemaTitle($post->ID, $post);
 
         $this->assertArrayHasKey('wpUpdatePost', $this->wpService->methodCalls);
         $this->assertEquals('Title from Schema', $this->wpService->methodCalls['wpUpdatePost'][0][0]['post_title']);
