@@ -61,7 +61,7 @@ class SetPostTitleFromSchemaTitle implements Hookable
      * @param string $postType The post type to check.
      * @return bool True if there is an active schema type, false otherwise.
      */
-    protected function hasActiveSchemaType(string $postType): bool
+    public function hasActiveSchemaType(string $postType): bool
     {
         $schemaType = GetSchemaType::getSchemaTypeFromPostType($postType);
         return !empty($schemaType);
