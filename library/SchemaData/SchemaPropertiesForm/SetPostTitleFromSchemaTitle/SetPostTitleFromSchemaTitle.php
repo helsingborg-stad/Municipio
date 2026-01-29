@@ -43,6 +43,10 @@ class SetPostTitleFromSchemaTitle implements Hookable
      */
     public function setPostTitleFromSchemaTitle(int $postId, \WP_Post $post): void
     {
+        if (empty(GetSchemaType::getSchemaTypeFromPostType($post->post_type))) {
+            return;
+        }
+
         $schemaObject = $this->schemaObjectFromPost->create($post);
         $schemaTitle = $schemaObject->getProperty('name');
 
@@ -56,12 +60,11 @@ class SetPostTitleFromSchemaTitle implements Hookable
      *
      * @param string|null $schemaTitle The title from the schema.
      * @param string $currentTitle The current post title.
-     * @param string $postType The post type.
      * @return bool True if the title should be updated, false otherwise.
      */
-    private function shouldUpdateTitle(?string $schemaTitle, string $currentTitle, string $postType): bool
+    private function shouldUpdateTitle(?string $schemaTitle, string $currentTitle): bool
     {
-        return !empty(GetSchemaType::getSchemaTypeFromPostType($postType)) && !empty($schemaTitle) && $schemaTitle !== $currentTitle;
+        return !empty($schemaTitle) && $schemaTitle !== $currentTitle;
     }
 
     /**
