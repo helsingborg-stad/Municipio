@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\SetPostTitleFromSchemaTitle;
 
 use Municipio\Schema\Schema;
-use Municipio\SchemaData\Helper\GetSchemaType;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use WP_Post;
@@ -60,7 +59,6 @@ class SetPostTitleFromSchemaTitleTest extends \PHPUnit\Framework\TestCase
         $schemaObject = Schema::thing();
         $schemaObject->setProperty('name', 'Title from Schema');
         $this->schemaObjectFromPost->method('create')->willReturn($schemaObject);
-        $this->instance->method('hasActiveSchemaType')->willReturn(true);
 
         $this->instance->setPostTitleFromSchemaTitle($post->ID, $post);
 
@@ -78,9 +76,8 @@ class SetPostTitleFromSchemaTitleTest extends \PHPUnit\Framework\TestCase
         $schemaObject = Schema::thing();
         $schemaObject->setProperty('name', $title);
         $this->schemaObjectFromPost->method('create')->willReturn($schemaObject);
-        $instance = $this->createMock(SetPostTitleFromSchemaTitle::class);
-        $instance->method('hasActiveSchemaType')->willReturn('Schema');
-        $instance->setPostTitleFromSchemaTitle($post->ID, $post);
+
+        $this->instance->setPostTitleFromSchemaTitle($post->ID, $post);
 
         $this->assertArrayNotHasKey('wpUpdatePost', $this->wpService->methodCalls);
     }
