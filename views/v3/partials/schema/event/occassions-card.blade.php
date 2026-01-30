@@ -25,7 +25,7 @@
                         'style' => 'margin-top: 3px;'
                     ]
                 ])
-                    {!! $currentOccasion->getStartDate() !!}
+                    {!! $currentOccasion->getStartDate() !!} - {!! $currentOccasion->getEndTime() !!}
                 @endtypography
             @endtypography
         @endif
@@ -48,7 +48,7 @@
                         @typography([
                                     'element' => 'span',
                                 ])
-                                    {!! $occasion->getStartDate() !!}
+                                    {!! $currentOccasion->getStartDate() !!} - {!! $currentOccasion->getEndTime() !!}
                                 @endtypography
                         @endcollection__item
                         @endif

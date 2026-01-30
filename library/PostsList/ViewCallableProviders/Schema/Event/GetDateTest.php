@@ -47,7 +47,7 @@ class GetDateTest extends TestCase
         $getDate = new GetDate(self::createWpService());
         $result = $getDate->getCallable()($post);
 
-        $expected = $date->format('Y-m-d H:i');
+        $expected = $date->format('Y-m-d H:i - H:i');
 
         $this->assertEquals($expected, $result);
     }
@@ -71,7 +71,7 @@ class GetDateTest extends TestCase
         $getDate = new GetDate(self::createWpService());
         $result = $getDate->getCallable()($post);
 
-        $expected = $passedDate->format('Y-m-d H:i');
+        $expected = $passedDate->format('Y-m-d H:i - H:i');
 
         $this->assertEquals($expected, $result);
     }
@@ -95,7 +95,7 @@ class GetDateTest extends TestCase
 
         $getDate = new GetDate(self::createWpService(), $upcomingDate->format('Y-m-d H:i'));
         $result = $getDate->getCallable()($post);
-        $expected = $upcomingDate->format('Y-m-d H:i');
+        $expected = $upcomingDate->format('Y-m-d H:i - H:i');
 
         static::assertSame($expected, $result);
     }

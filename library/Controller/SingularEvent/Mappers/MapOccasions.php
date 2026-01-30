@@ -21,9 +21,10 @@ class MapOccasions implements EventDataMapperInterface
      * @param string $currentPostPermalink The permalink of the current post.
      * @param DateTime|null $currentlyViewing The date/time currently being viewed, or null.
      */
-    public function __construct(private string $currentPostPermalink, private ?DateTime $currentlyViewing = null)
-    {
-    }
+    public function __construct(
+        private string $currentPostPermalink,
+        private ?DateTime $currentlyViewing = null,
+    ) {}
 
     /**
      * Maps an Event's schedules to an array of OccasionInterface objects.
@@ -35,7 +36,7 @@ class MapOccasions implements EventDataMapperInterface
     {
         return array_filter(array_map(
             fn(Schedule $schedule) => $this->mapScheduleToOccasion($schedule),
-            EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class)
+            EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class),
         ));
     }
 
@@ -48,14 +49,15 @@ class MapOccasions implements EventDataMapperInterface
     private function mapScheduleToOccasion(Schedule $schedule): ?OccasionInterface
     {
         $startDate = $this->getStartDateAsStringFromSchedule($schedule);
-        $endDate   = $this->getEndDateAsStringFromSchedule($schedule);
+        $endDate = $this->getEndDateAsStringFromSchedule($schedule);
 
-        return !empty($startDate) && !empty($endDate) ? new Occasion(
-            $startDate,
-            $endDate,
-            $this->isCurrentOccasion($schedule),
-            $this->getUrlFromSchedule($schedule)
-        ) : null;
+        return !empty($startDate) && !empty($endDate)
+            ? new Occasion(
+                $startDate,
+                $endDate,
+                $this->isCurrentOccasion($schedule),
+                $this->getUrlFromSchedule($schedule),
+            ) : null;
     }
 
     /**
