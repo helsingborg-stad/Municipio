@@ -30,28 +30,14 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $this->assertEquals('pre_get_posts', $wpService->methodCalls['addAction'][0][0]);
     }
 
-    #[TestDox('does nothing if the query is not the main query')]
-    public function testRemoveExpiredEventsDoesNothingIfNotMainQuery()
-    {
-        $query = $this->getWpQueryMock();
-        $query->method('is_main_query')->willReturn(false);
-        $querySnapshot = clone $query;
-
-        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(), $this->getTryGetSchemaTypeFromPostTypeMock());
-        $sut->removeExpiredEventsFromMainArchiveQuery($query);
-
-        $this->assertEquals($querySnapshot, $query);
-    }
-
-    #[TestDox('does nothing if the query is not an archive query')]
+    #[TestDox('does nothing if not on an archive page')]
     public function testRemoveExpiredEventsDoesNothingIfNotArchiveQuery()
     {
         $query = $this->getWpQueryMock();
         $query->method('is_main_query')->willReturn(true);
-        $query->method('is_archive')->willReturn(false);
         $querySnapshot = clone $query;
 
-        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(), $this->getTryGetSchemaTypeFromPostTypeMock());
+        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false, 'isArchive' => false]), $this->getTryGetSchemaTypeFromPostTypeMock());
         $sut->removeExpiredEventsFromMainArchiveQuery($query);
 
         $this->assertEquals($querySnapshot, $query);
@@ -87,7 +73,7 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $tryGetSchemaTypeFromPostType = $this->getTryGetSchemaTypeFromPostTypeMock();
         $tryGetSchemaTypeFromPostType->method('tryGetSchemaTypeFromPostType')->willReturn(null);
 
-        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false]), $tryGetSchemaTypeFromPostType);
+        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false, 'isArchive' => true]), $tryGetSchemaTypeFromPostType);
         $sut->removeExpiredEventsFromMainArchiveQuery($query);
 
         $this->assertEquals($querySnapshot, $query);
@@ -101,7 +87,6 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $tryGetSchemaTypeFromPostType = $this->getTryGetSchemaTypeFromPostTypeMock();
 
         $query->method('is_main_query')->willReturn(true);
-        $query->method('is_archive')->willReturn(true);
         $query
             ->method('get')
             ->willReturnCallback(function ($key) {
@@ -120,11 +105,11 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
 
         $tryGetSchemaTypeFromPostType->method('tryGetSchemaTypeFromPostType')->willReturn('Event');
 
-        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false]), $tryGetSchemaTypeFromPostType);
+        $sut = new RemoveExpiredEventsFromMainArchiveQuery(new FakeWpService(['isAdmin' => false, 'isArchive' => true]), $tryGetSchemaTypeFromPostType);
         $sut->removeExpiredEventsFromMainArchiveQuery($query);
 
         $this->assertArrayHasKey('meta_query', $querySetCalls);
-        $this->assertEquals('endDate', $querySetCalls['meta_query'][0]['key']);
+        $this->assertEquals('startDate', $querySetCalls['meta_query'][0]['key']);
         $this->assertEquals('>=', $querySetCalls['meta_query'][0]['compare']);
         $this->assertEquals('DATETIME', $querySetCalls['meta_query'][0]['type']);
     }
