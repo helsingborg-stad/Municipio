@@ -36,6 +36,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $event = $this->post->getSchema();
 
         $this->data['description'] = (new SingularEvent\Mappers\MapDescription($this->wpService))->map($event);
+        $this->data['scheduleDescription'] = (new SingularEvent\Mappers\MapScheduleDescription($this->wpService, $this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['priceListItems'] = (new SingularEvent\Mappers\MapPriceList($this->wpService))->map($event);
         $this->data['organizers'] = (new SingularEvent\Mappers\MapOrganizers($this->wpService))->map($event);
         $this->data['eventIsInThePast'] = (new SingularEvent\Mappers\MapEventIsInthePast($this->tryGetCurrentDateFromGetParam()))->map($event);
