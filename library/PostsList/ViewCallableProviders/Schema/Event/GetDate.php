@@ -20,7 +20,7 @@ class GetDate implements ViewCallableProviderInterface
 {
     public function __construct(
         private DateI18n $wpService,
-        private null|string $dateFrom = 'now',
+        private ?string $dateFrom = 'now',
     ) {}
 
     /**
@@ -30,7 +30,7 @@ class GetDate implements ViewCallableProviderInterface
      */
     public function getCallable(): callable
     {
-        return fn(PostObjectInterface $post): null|string => $this->getDate($post->getSchema());
+        return fn(PostObjectInterface $post): ?string => $this->getDate($post->getSchema());
     }
 
     /**
@@ -39,7 +39,7 @@ class GetDate implements ViewCallableProviderInterface
      * @param Event $event The event object.
      * @return string|null The formatted date string or null if no upcoming event.
      */
-    private function getDate(Event $event): null|string
+    private function getDate(Event $event): ?string
     {
         $schedules = EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class);
         $schedule = self::getFirstUpcomingScheduleFromArrayOfSchedules(...$schedules) ?? self::getClosestPassedScheduleFromArrayOfSchedules(...$schedules);
@@ -48,10 +48,21 @@ class GetDate implements ViewCallableProviderInterface
             return null;
         }
 
-        return $this->wpService->dateI18n(
+        $date = $this->wpService->dateI18n(
             DateFormat::getDateFormat('date-time'),
             $schedule->getProperty('startDate')->getTimestamp(),
         );
+
+        // Append end time if available
+        if ($schedule->getProperty('endDate') instanceof DateTimeInterface) {
+            $endTime = $this->wpService->dateI18n(
+                DateFormat::getDateFormat('time'),
+                $schedule->getProperty('endDate')->getTimestamp(),
+            );
+            $date .= ' - ' . $endTime;
+        }
+
+        return $date;
     }
 
     /**
@@ -60,7 +71,7 @@ class GetDate implements ViewCallableProviderInterface
      * @param Schedule ...$schedules One or more Schedule objects.
      * @return Schedule|null The first upcoming Schedule or null if none found.
      */
-    private function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
+    private function getFirstUpcomingScheduleFromArrayOfSchedules(Schedule ...$schedules): ?Schedule
     {
         usort(
             $schedules,
@@ -84,7 +95,7 @@ class GetDate implements ViewCallableProviderInterface
      * @param Schedule ...$schedules One or more Schedule objects.
      * @return Schedule|null The closest passed Schedule or null if none found.
      */
-    private function getClosestPassedScheduleFromArrayOfSchedules(Schedule ...$schedules): null|Schedule
+    private function getClosestPassedScheduleFromArrayOfSchedules(Schedule ...$schedules): ?Schedule
     {
         usort(
             $schedules,

@@ -50,22 +50,32 @@ class EnsureVisitingSingularOccasionTest extends TestCase
 
     private function getOccasion(string $startDate, string $url)
     {
-        return new class ($startDate, $url) implements OccasionInterface {
-            public function __construct(private string $startDate, private string $url)
-            {
-            }
+        return new class($startDate, $url) implements OccasionInterface {
+            public function __construct(
+                private string $startDate,
+                private string $url,
+            ) {}
+
             public function getStartDate(): string
             {
                 return $this->startDate;
             }
+
             public function getEndDate(): string
             {
                 return '';
             }
+
+            public function getEndTime(): string
+            {
+                return '';
+            }
+
             public function getUrl(): string
             {
                 return $this->url;
             }
+
             public function isCurrent(): bool
             {
                 return false;
