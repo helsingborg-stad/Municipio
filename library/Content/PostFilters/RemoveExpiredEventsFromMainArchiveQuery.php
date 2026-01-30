@@ -7,6 +7,7 @@ use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use WP_Query;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\IsAdmin;
+use WpService\Contracts\IsArchive;
 
 /**
  * Class RemoveExpiredEventsFromMainArchiveQuery
@@ -17,7 +18,7 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&IsAdmin $wpService,
+        private AddAction&IsAdmin&IsArchive $wpService,
         private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,
     ) {}
 
@@ -37,19 +38,29 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
      */
     public function removeExpiredEventsFromMainArchiveQuery(WP_Query &$query): void
     {
-        if (!$query->is_main_query() || !$query->is_archive() || $this->wpService->isAdmin()) {
+        if ($this->wpService->isAdmin() || !$this->wpService->isArchive()) {
             return;
         }
 
-        if ($this->tryGetSchemaTypeFromPostType->tryGetSchemaTypeFromPostType($query->get('post_type')) !== 'Event') {
+        # If its a query for more than one post type, we can't determine if we should filter out expired events
+        if (is_array($query->get('post_type')) && count($query->get('post_type')) > 1) {
             return;
         }
 
+        # If it was an array with only one post type, we can extract it
+        if (is_array($query->get('post_type')) && count($query->get('post_type')) === 1) {
+            $query->set('post_type', $query->get('post_type')[0]);
+        }
+
+        if ( $this->tryGetSchemaTypeFromPostType->tryGetSchemaTypeFromPostType($query->get('post_type')) !== 'Event') {
+            return;
+        }
+        
         $currentDate = new \DateTime();
         $metaQuery = $query->get('meta_query') ?: [];
 
         $metaQuery[] = [
-            'key' => 'endDate',
+            'key' => 'startDate',
             'value' => $currentDate->format('Y-m-d H:i:s'),
             'compare' => '>=',
             'type' => 'DATETIME',
