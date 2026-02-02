@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Post_Type;
 use WpService\Contracts\__;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetPostTypeObject;
 
 class GetTextSearchFieldArgumentsTest extends TestCase
@@ -94,9 +95,9 @@ class GetTextSearchFieldArgumentsTest extends TestCase
         $this->assertArrayNotHasKey('value', $getTextSearchFieldArguments->getCallable()());
     }
 
-    private function createWpService(?WP_Post_Type $postTypeObject = null): __|GetPostTypeObject
+    private function createWpService(?WP_Post_Type $postTypeObject = null): __&GetPostTypeObject&ApplyFilters
     {
-        return new class ($postTypeObject) implements __, GetPostTypeObject {
+        return new class ($postTypeObject) implements __, GetPostTypeObject, ApplyFilters {
             public function __construct(private $postTypeObject)
             {
             }
@@ -109,6 +110,10 @@ class GetTextSearchFieldArgumentsTest extends TestCase
                 return $this->postTypeObject && $this->postTypeObject->name === $postType
                     ? $this->postTypeObject
                     : null;
+            }
+            public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
+            {
+                return $value;
             }
         };
     }
