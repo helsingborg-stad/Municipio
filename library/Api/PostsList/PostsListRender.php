@@ -33,8 +33,8 @@ class PostsListRender extends RestApiEndpoint
             'permission_callback' => [$this, 'permissionCallback'],
             'args'                => [
                 'attributes' => [
-                    'description' => __('Block attributes for PostsList configuration.', 'municipio'),
-                    'type'        => 'object',
+                    'description' => __('Block attributes for PostsList configuration (JSON string).', 'municipio'),
+                    'type'        => 'string',
                     'required'    => true,
                 ],
             ],
@@ -43,7 +43,8 @@ class PostsListRender extends RestApiEndpoint
 
     public function handleRequest(WP_REST_Request $request)
     {
-        $attributes = $request->get_param('attributes');
+        $attributesJson = $request->get_param('attributes');
+        $attributes = json_decode($attributesJson, true);
 
         if (empty($attributes) || !is_array($attributes)) {
             $error = new WP_Error();

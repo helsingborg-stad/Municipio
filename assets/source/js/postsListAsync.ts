@@ -66,7 +66,7 @@ const fetchAndReplace = async (
 
     try {
         const args: PostsListRenderArgs = {
-            attributes,
+            attributes: JSON.stringify(attributes) as unknown as Record<string, unknown>,
             ...params
         };
 
