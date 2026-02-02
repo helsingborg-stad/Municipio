@@ -59,20 +59,16 @@ class Archive extends \Municipio\Controller\BaseController
             $GLOBALS['wpdb'],
             new SchemaToPostTypeResolver($this->acfService, $this->wpService),
         );
-        $postsList = $postsListFactory->create($postsListConfigDTO);
+
+        $postsList     = $postsListFactory->create($postsListConfigDTO);
         $postsListData = $postsList->getData();
-        // Enable async loading for archives by providing minimal async attributes
-        $queryVarsPrefix = $postsListConfigDTO->getQueryVarsPrefix() ?? 'archive_';
-        $id = $postsListData['id'] ?? null;
-        // Pass only minimal context for async endpoint to avoid long URLs
-        // Always include a valid dateSource for async endpoint
-        // Build minimal async config (no posts array)
-        $postsListData['getAsyncAttributes'] = fn() =>
-            \Municipio\Controller\Archive\AsyncConfigBuilderFactory::fromConfigs(
-                $postsListConfigDTO,
-                $postsListData,
-                true
-            );
+        
+        $postsListData['getAsyncAttributes'] = fn() => \Municipio\Controller\Archive\AsyncConfigBuilderFactory::fromConfigs(
+            $postsListConfigDTO,
+            $postsListData,
+            true
+        );
+
         $this->data = [
             ...$this->data,
             ...$postsListData,
