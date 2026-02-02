@@ -8,12 +8,15 @@ interface PostsListContainer extends HTMLElement {
 }
 
 const initPostsListAsync = (): void => {
+    console.log('[PostsListAsync] Initializing...');
     const containers = document.querySelectorAll<PostsListContainer>('[data-posts-list-async]');
+    console.log('[PostsListAsync] Found containers:', containers.length);
 
     containers.forEach(container => {
         const attributes = parseAttributes(container);
         if (!attributes) return;
 
+        console.log('[PostsListAsync] Setting up container with attributes:', attributes);
         setupFilterForm(container, attributes);
         setupPagination(container, attributes);
     });
@@ -96,12 +99,5 @@ const fetchAndReplace = async (
         container.classList.remove('is-loading');
     }
 };
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPostsListAsync);
-} else {
-    initPostsListAsync();
-}
 
 export { initPostsListAsync };
