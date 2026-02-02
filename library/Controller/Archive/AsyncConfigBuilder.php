@@ -3,62 +3,33 @@
 namespace Municipio\Controller\Archive;
 
 /**
- * Builder for async attributes/config for archive posts list
+ * Decorator for async-specific attributes for archive posts list
  */
 class AsyncConfigBuilder
 {
-    private array $attributes = [];
+    private array $baseConfig = [];
+    private array $asyncAttributes = [];
 
-    public function setQueryVarsPrefix(string $prefix): self
+    public function withBaseConfig(array $config): self
     {
-        $this->attributes['queryVarsPrefix'] = $prefix;
+        $this->baseConfig = $config;
         return $this;
     }
 
-    public function setId($id): self
+    public function setAsyncId($id): self
     {
-        $this->attributes['id'] = $id;
+        $this->asyncAttributes['asyncId'] = $id;
         return $this;
     }
 
-    public function setPostType(string $postType): self
+    public function setIsAsync(bool $isAsync = true): self
     {
-        $this->attributes['postType'] = $postType;
-        return $this;
-    }
-
-    public function setDateSource(string $dateSource): self
-    {
-        $this->attributes['dateSource'] = $dateSource;
-        return $this;
-    }
-
-    public function setDateFormat(string $dateFormat): self
-    {
-        $this->attributes['dateFormat'] = $dateFormat;
-        return $this;
-    }
-
-    public function setNumberOfColumns(int $numberOfColumns): self
-    {
-        $this->attributes['numberOfColumns'] = $numberOfColumns;
-        return $this;
-    }
-
-    public function setPostsPerPage(int $postsPerPage): self
-    {
-        $this->attributes['postsPerPage'] = $postsPerPage;
-        return $this;
-    }
-
-    public function setPaginationEnabled(bool $paginationEnabled): self
-    {
-        $this->attributes['paginationEnabled'] = $paginationEnabled;
+        $this->asyncAttributes['isAsync'] = $isAsync;
         return $this;
     }
 
     public function build(): array
     {
-        return $this->attributes;
+        return array_merge($this->baseConfig, $this->asyncAttributes);
     }
 }

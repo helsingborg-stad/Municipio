@@ -66,18 +66,25 @@ class Archive extends \Municipio\Controller\BaseController
         $id = $postsListData['id'] ?? null;
         // Pass only minimal context for async endpoint to avoid long URLs
         // Always include a valid dateSource for async endpoint
+        // Build minimal async config (no posts array)
         $appearanceConfig = $postsListConfigDTO->getAppearanceConfig();
         $getPostsConfig = $postsListConfigDTO->getGetPostsConfig();
-        $asyncConfigBuilder = (new \Municipio\Controller\Archive\AsyncConfigBuilder())
-            ->setQueryVarsPrefix($archiveAsyncAttributes['queryVarsPrefix'])
-            ->setId($postsListData['id'] ?? null)
-            ->setPostType($archiveAsyncAttributes['postType'])
-            ->setDateSource($appearanceConfig->getDateSource() ?? 'post_date')
-            ->setDateFormat(method_exists($appearanceConfig, 'getDateFormat') && $appearanceConfig->getDateFormat() ? $appearanceConfig->getDateFormat()->value : 'date-time')
-            ->setNumberOfColumns(method_exists($appearanceConfig, 'getNumberOfColumns') ? $appearanceConfig->getNumberOfColumns() : 1)
-            ->setPostsPerPage(method_exists($getPostsConfig, 'getPostsPerPage') ? $getPostsConfig->getPostsPerPage() : 10)
-            ->setPaginationEnabled(method_exists($getPostsConfig, 'paginationEnabled') ? $getPostsConfig->paginationEnabled() : true);
-        $postsListData['getAsyncAttributes'] = fn() => $asyncConfigBuilder->build();
+        $minimalAsyncConfig = [
+            'queryVarsPrefix' => $postsListConfigDTO->getQueryVarsPrefix(),
+            'id' => $postsListData['id'] ?? null,
+            'postType' => $getPostsConfig->getPostTypes()[0] ?? null,
+            'dateSource' => $appearanceConfig->getDateSource() ?? 'post_date',
+            'dateFormat' => method_exists($appearanceConfig, 'getDateFormat') && $appearanceConfig->getDateFormat() ? $appearanceConfig->getDateFormat()->value : 'date-time',
+            'numberOfColumns' => method_exists($appearanceConfig, 'getNumberOfColumns') ? $appearanceConfig->getNumberOfColumns() : 1,
+            'postsPerPage' => method_exists($getPostsConfig, 'getPostsPerPage') ? $getPostsConfig->getPostsPerPage() : 10,
+            'paginationEnabled' => method_exists($getPostsConfig, 'paginationEnabled') ? $getPostsConfig->paginationEnabled() : true,
+        ];
+        $postsListData['getAsyncAttributes'] = fn() =>
+            \Municipio\Controller\Archive\AsyncConfigBuilderFactory::fromConfigs(
+                $minimalAsyncConfig,
+                $postsListData['id'] ?? null,
+                true
+            );
         $this->data = [
             ...$this->data,
             ...$postsListData,

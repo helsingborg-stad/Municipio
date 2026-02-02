@@ -8,21 +8,14 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 class AsyncConfigBuilderFactory
 {
     public static function fromConfigs(
-        string $queryVarsPrefix,
+        array $baseConfig,
         $id,
-        string $postType,
-        AppearanceConfigInterface $appearanceConfig,
-        GetPostsConfigInterface $getPostsConfig
+        bool $isAsync = true
     ): array {
         return (new AsyncConfigBuilder())
-            ->setQueryVarsPrefix($queryVarsPrefix)
-            ->setId($id)
-            ->setPostType($postType)
-            ->setDateSource($appearanceConfig->getDateSource() ?? 'post_date')
-            ->setDateFormat(method_exists($appearanceConfig, 'getDateFormat') && $appearanceConfig->getDateFormat() ? $appearanceConfig->getDateFormat()->value : 'date-time')
-            ->setNumberOfColumns(method_exists($appearanceConfig, 'getNumberOfColumns') ? $appearanceConfig->getNumberOfColumns() : 1)
-            ->setPostsPerPage(method_exists($getPostsConfig, 'getPostsPerPage') ? $getPostsConfig->getPostsPerPage() : 10)
-            ->setPaginationEnabled(method_exists($getPostsConfig, 'paginationEnabled') ? $getPostsConfig->paginationEnabled() : true)
+            ->withBaseConfig($baseConfig)
+            ->setAsyncId($id)
+            ->setIsAsync($isAsync)
             ->build();
     }
 }

@@ -78,7 +78,11 @@ class PostsListRender extends RestApiEndpoint
 
             $renderer = new PostsListBlockRenderer(
                 new PostsListFactory($wpService, $wpdb, new SchemaToPostTypeResolver($acfService, $wpService)),
-                new Renderer((new BladeServiceFactory($wpService))->create([PostsListFeature::getTemplateDir()])),
+                new Renderer(
+                    (new BladeServiceFactory($wpService))->create(
+                        [PostsListFeature::getTemplateDir()]
+                    )
+                ),
                 $wpService,
             );
 
