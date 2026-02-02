@@ -44,19 +44,50 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
         // Build posts list using unified config mapper and factory
-        $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\ArchiveDataToPostsListConfigMapper())->map([
+        // Prepare attributes for async endpoint (REST API) to ensure all context is available
+        $archiveAsyncAttributes = [
             ...$this->data,
             'wpTaxonomies' => $GLOBALS['wp_taxonomies'],
-        ]);
+            'queryVarsPrefix' => 'archive_',
+            'postType' => $this->data['postType'] ?? 'page',
+            'customizer' => $this->data['customizer'] ?? [],
+            'archiveProps' => $this->data['archiveProps'] ?? [],
+        ];
+        $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\ArchiveDataToPostsListConfigMapper())->map($archiveAsyncAttributes);
         $postsListFactory = new \Municipio\PostsList\PostsListFactory(
             $this->wpService,
             $GLOBALS['wpdb'],
             new SchemaToPostTypeResolver($this->acfService, $this->wpService),
         );
         $postsList = $postsListFactory->create($postsListConfigDTO);
+        $postsListData = $postsList->getData();
+        // Enable async loading for archives by providing minimal async attributes
+        $queryVarsPrefix = $postsListConfigDTO->getQueryVarsPrefix() ?? 'archive_';
+        $id = $postsListData['id'] ?? null;
+        // Pass only minimal context for async endpoint to avoid long URLs
+        // Always include a valid dateSource for async endpoint
+        $appearanceConfig = $postsListConfigDTO->getAppearanceConfig();
+        $getPostsConfig = $postsListConfigDTO->getGetPostsConfig();
+        $filterConfig = $postsListConfigDTO->getFilterConfig();
+        $dateSource = $appearanceConfig->getDateSource() ?? 'post_date';
+        $dateFormat = method_exists($appearanceConfig, 'getDateFormat') && $appearanceConfig->getDateFormat() ? $appearanceConfig->getDateFormat()->value : 'date-time';
+        $numberOfColumns = method_exists($appearanceConfig, 'getNumberOfColumns') ? $appearanceConfig->getNumberOfColumns() : 1;
+        $postsPerPage = method_exists($getPostsConfig, 'getPostsPerPage') ? $getPostsConfig->getPostsPerPage() : 10;
+        $paginationEnabled = method_exists($getPostsConfig, 'paginationEnabled') ? $getPostsConfig->paginationEnabled() : true;
+        $asyncAttributes = [
+            'queryVarsPrefix' => $archiveAsyncAttributes['queryVarsPrefix'],
+            'id' => $postsListData['id'] ?? null,
+            'postType' => $archiveAsyncAttributes['postType'],
+            'dateSource' => $dateSource,
+            'dateFormat' => $dateFormat,
+            'numberOfColumns' => $numberOfColumns,
+            'postsPerPage' => $postsPerPage,
+            'paginationEnabled' => $paginationEnabled,
+        ];
+        $postsListData['getAsyncAttributes'] = fn() => $asyncAttributes;
         $this->data = [
             ...$this->data,
-            ...$postsList->getData(),
+            ...$postsListData,
         ];
     }
 
