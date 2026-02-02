@@ -1,4 +1,4 @@
-<div class="archive-compressed__article u-margin__bottom--12">
+<div class="archive-compressed__article u-margin__bottom--12" data-js-posts-list-item>
 
     <article id="article" class="c-article">
         

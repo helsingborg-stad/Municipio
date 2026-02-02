@@ -6,6 +6,7 @@ import { initializeCollapsibleSearch } from './collapsibleSearch';
 import { initializeSessionManager } from './sessionManager';
 import { initializeHashHighlightManager } from './hashHighlightManager';
 import { initializeHashUpdateManager } from './hashUpdateManager';
+import { initPostsListAsync } from './postsList';
 
 const fab = new Fab();
 
@@ -17,3 +18,4 @@ initializeComments();
 initializeCollapsibleSearch();
 initializeHashHighlightManager();
 initializeHashUpdateManager(8 * 10);
+initPostsListAsync();

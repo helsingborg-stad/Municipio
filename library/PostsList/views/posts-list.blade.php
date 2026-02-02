@@ -2,7 +2,9 @@
     'classList' => $getParentColumnClasses(),
     'id' => $id,
     'attributeList' => [
-        'style' => 'scroll-margin-top: 100px;' 
+        'style' => 'scroll-margin-top: 100px;',
+        'data-posts-list-async' => $getAsyncAttributes() ? 'true' : false,
+        'data-posts-list-attributes' => $getAsyncAttributes() ? json_encode($getAsyncAttributes()) : false,
     ]
  ])
     @if($filterConfig->isTextSearchEnabled() || $filterConfig->isDateFilterEnabled() || !empty($getTaxonomyFilterSelectComponentArguments()))

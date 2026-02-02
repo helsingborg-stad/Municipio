@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use WP_Error;
 use WP_Taxonomy;
 use WP_Term;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetTerms;
 
 class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
@@ -119,15 +120,19 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
         };
     }
 
-    private function createWpService(array $terms): GetTerms
+    private function createWpService(array $terms): GetTerms&ApplyFilters
     {
-        return new class ($terms) implements GetTerms {
+        return new class ($terms) implements GetTerms, ApplyFilters {
             public function __construct(private array $terms)
             {
             }
             public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|WP_Error
             {
                 return $this->terms;
+            }
+            public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
+            {
+                return $value;
             }
         };
     }
