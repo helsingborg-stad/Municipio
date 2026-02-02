@@ -57,6 +57,10 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data = [
             ...$this->data,
             ...$postsList->getData(),
+            'getAsyncAttributes' => fn() => [
+                'context'  => 'archive',
+                'postType' => $postType,
+            ],
         ];
     }
 

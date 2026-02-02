@@ -76,13 +76,17 @@ class PostsListRender extends RestApiEndpoint
             $acfService = AcfService::get();
             $wpdb       = $GLOBALS['wpdb'];
 
+            // Convert archive context to block-compatible attributes
+            if (($attributes['context'] ?? 'block') === 'archive') {
+                $attributes = $this->archiveToBlockAttributes($attributes);
+            }
+
             $renderer = new PostsListBlockRenderer(
                 new PostsListFactory($wpService, $wpdb, new SchemaToPostTypeResolver($acfService, $wpService)),
                 new Renderer((new BladeServiceFactory($wpService))->create([PostsListFeature::getTemplateDir()])),
                 $wpService,
             );
 
-            // Create a mock WP_Block for the renderer
             $block  = new \WP_Block(['blockName' => 'municipio/posts-list-block', 'attrs' => $attributes]);
             $markup = $renderer->render($attributes, '', $block);
 
@@ -92,6 +96,45 @@ class PostsListRender extends RestApiEndpoint
             $error->add('render_error', $th->getMessage(), ['status' => WP_Http::INTERNAL_SERVER_ERROR]);
             return rest_ensure_response($error);
         }
+    }
+
+    /**
+     * Converts archive context attributes to block-compatible attributes.
+     *
+     * @param array $attributes Archive attributes containing postType.
+     * @return array Block-compatible attributes.
+     */
+    private function archiveToBlockAttributes(array $attributes): array
+    {
+        $postType      = $attributes['postType'] ?? 'post';
+        $customizer    = apply_filters('Municipio/Controller/Customizer', []);
+        $archiveProps  = $this->getArchiveProperties($postType, $customizer);
+        $designMap     = ['cards' => 'card', 'grid' => 'block', 'list' => 'table'];
+
+        return [
+            ...$attributes,
+            'postType'       => $postType,
+            'design'         => $designMap[$archiveProps->style ?? 'cards'] ?? ($archiveProps->style ?? 'card'),
+            'postsPerPage'   => $archiveProps->postsPerPage ?? 12,
+            'numberOfColumns' => $archiveProps->gridColumnCount ?? 3,
+            'order'          => $archiveProps->order ?? 'desc',
+            'orderBy'        => $archiveProps->orderBy ?? 'date',
+            'dateSource'     => $archiveProps->dateSource ?? 'post_date',
+            'dateFormat'     => $archiveProps->dateFormat ?? 'date',
+        ];
+    }
+
+    /**
+     * Get archive properties from customizer.
+     *
+     * @param string $postType The post type.
+     * @param object $customizer The customizer object.
+     * @return object Archive properties.
+     */
+    private function getArchiveProperties(string $postType, $customizer): object
+    {
+        $key = 'archive' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $postType)));
+        return (object) ($customizer->{$key} ?? []);
     }
 
     /**
