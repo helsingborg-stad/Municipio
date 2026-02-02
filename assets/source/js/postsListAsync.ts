@@ -96,6 +96,22 @@ const hideGhostLoader = (container: HTMLElement): void => {
     });
 };
 
+const updateUrlParams = (params: Record<string, unknown>): void => {
+    const url = new URL(window.location.href);
+
+    // Update URL with new params
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== null && value !== undefined && value !== '') {
+            url.searchParams.set(key, String(value));
+        } else {
+            url.searchParams.delete(key);
+        }
+    });
+
+    // Update browser history
+    history.pushState({ postsListAsync: true }, '', url.toString());
+};
+
 const fetchAndReplace = async (
     container: HTMLElement,
     attributes: Record<string, unknown>,
@@ -129,6 +145,9 @@ const fetchAndReplace = async (
             // Re-initialize on the new element
             setupFilterForm(newContent, attributes);
             setupPagination(newContent, attributes);
+
+            // Update URL to reflect current state
+            updateUrlParams(params);
 
             // Scroll to the container
             newContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
