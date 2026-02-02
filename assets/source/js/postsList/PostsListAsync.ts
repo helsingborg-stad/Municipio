@@ -82,6 +82,7 @@ export class PostsListAsync {
 
     private async fetchAndReplace(params: Record<string, unknown>): Promise<void> {
         this.container.classList.add('is-loading');
+        this.container.setAttribute('aria-busy', 'true');
         this.showPreloader();
 
         try {
@@ -111,6 +112,7 @@ export class PostsListAsync {
             this.hidePreloader();
         } finally {
             this.container.classList.remove('is-loading');
+            this.container.setAttribute('aria-busy', 'false');
         }
     }
 }
