@@ -29,8 +29,38 @@ class PostsListBlockRenderer implements BlockRendererInterface
         ]);
         $postsList = $this->postsListFactory->create($postsListConfigDTO);
         $data = $postsList->getData();
-        $data['asyncAttributes'] = $attributes;
+        // Temporarily disabled for debugging
+        // $data['asyncAttributes'] = $this->filterJsonSafeAttributes($attributes);
 
         return $this->renderer->render('posts-list', $data);
+    }
+
+    /**
+     * Filter attributes to only include JSON-serializable values.
+     */
+    private function filterJsonSafeAttributes(array $attributes): array
+    {
+        $safe = [];
+        foreach ($attributes as $key => $value) {
+            if (is_scalar($value) || is_null($value)) {
+                $safe[$key] = $value;
+            } elseif (is_array($value)) {
+                $safe[$key] = $this->filterJsonSafeArray($value);
+            }
+        }
+        return $safe;
+    }
+
+    private function filterJsonSafeArray(array $array): array
+    {
+        $safe = [];
+        foreach ($array as $key => $value) {
+            if (is_scalar($value) || is_null($value)) {
+                $safe[$key] = $value;
+            } elseif (is_array($value)) {
+                $safe[$key] = $this->filterJsonSafeArray($value);
+            }
+        }
+        return $safe;
     }
 }
