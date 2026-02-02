@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class AsyncConfigBuilderTest extends TestCase
 {
-    public function testBuildReturnsAllSetAttributes()
+    public function testBuildReturnsAllSetAttributes(): void
     {
         $builder = (new AsyncConfigBuilder())
             ->setQueryVarsPrefix('archive_')
@@ -18,7 +18,9 @@ class AsyncConfigBuilderTest extends TestCase
             ->setDateFormat('date-time')
             ->setNumberOfColumns(3)
             ->setPostsPerPage(10)
-            ->setPaginationEnabled(true);
+            ->setPaginationEnabled(true)
+            ->setAsyncId('async_123')
+            ->setIsAsync(true);
 
         $result = $builder->build();
 
@@ -31,6 +33,62 @@ class AsyncConfigBuilderTest extends TestCase
             'numberOfColumns' => 3,
             'postsPerPage' => 10,
             'paginationEnabled' => true,
+            'asyncId' => 'async_123',
+            'isAsync' => true,
         ], $result);
+    }
+
+    public function testBuilderUsesDefaultValues(): void
+    {
+        $builder = new AsyncConfigBuilder();
+        $result = $builder->build();
+
+        $this->assertEquals([
+            'queryVarsPrefix' => null,
+            'id' => null,
+            'postType' => null,
+            'dateSource' => 'post_date',
+            'dateFormat' => 'date-time',
+            'numberOfColumns' => 1,
+            'postsPerPage' => 10,
+            'paginationEnabled' => true,
+            'asyncId' => null,
+            'isAsync' => false,
+        ], $result);
+    }
+
+    public function testResetRestoresDefaultValues(): void
+    {
+        $builder = (new AsyncConfigBuilder())
+            ->setQueryVarsPrefix('archive_')
+            ->setId('archive_id')
+            ->setPostType('post')
+            ->setNumberOfColumns(3)
+            ->setIsAsync(true);
+
+        $builder->reset();
+        $result = $builder->build();
+
+        $this->assertEquals([
+            'queryVarsPrefix' => null,
+            'id' => null,
+            'postType' => null,
+            'dateSource' => 'post_date',
+            'dateFormat' => 'date-time',
+            'numberOfColumns' => 1,
+            'postsPerPage' => 10,
+            'paginationEnabled' => true,
+            'asyncId' => null,
+            'isAsync' => false,
+        ], $result);
+    }
+
+    public function testBuilderImplementsFluentInterface(): void
+    {
+        $builder = new AsyncConfigBuilder();
+        $result = $builder->setId('test');
+
+        $this->assertInstanceOf(AsyncConfigBuilderInterface::class, $result);
+        $this->assertSame($builder, $result);
     }
 }

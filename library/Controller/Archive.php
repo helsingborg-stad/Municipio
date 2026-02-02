@@ -4,14 +4,46 @@ namespace Municipio\Controller;
 
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
+use Municipio\Controller\Archive\AsyncConfigBuilderFactory;
+use Municipio\Controller\Archive\AsyncConfigBuilder;
 
 /**
  * Class Archive
+ *
+ * Follows Dependency Inversion Principle - factory can be injected or uses default implementation.
  *
  * @package Municipio\Controller
  */
 class Archive extends \Municipio\Controller\BaseController
 {
+    private ?AsyncConfigBuilderFactory $asyncConfigFactory = null;
+
+    /**
+     * Get or create the async config factory.
+     *
+     * Allows for dependency injection while maintaining backward compatibility.
+     *
+     * @return AsyncConfigBuilderFactory
+     */
+    protected function getAsyncConfigFactory(): AsyncConfigBuilderFactory
+    {
+        if ($this->asyncConfigFactory === null) {
+            $this->asyncConfigFactory = new AsyncConfigBuilderFactory(new AsyncConfigBuilder());
+        }
+
+        return $this->asyncConfigFactory;
+    }
+
+    /**
+     * Set the async config factory (for dependency injection).
+     *
+     * @param AsyncConfigBuilderFactory $factory
+     * @return void
+     */
+    public function setAsyncConfigFactory(AsyncConfigBuilderFactory $factory): void
+    {
+        $this->asyncConfigFactory = $factory;
+    }
     /**
      * Initializes the Archive controller.
      *
@@ -62,8 +94,8 @@ class Archive extends \Municipio\Controller\BaseController
 
         $postsList     = $postsListFactory->create($postsListConfigDTO);
         $postsListData = $postsList->getData();
-        
-        $postsListData['getAsyncAttributes'] = fn() => \Municipio\Controller\Archive\AsyncConfigBuilderFactory::fromConfigs(
+
+        $postsListData['getAsyncAttributes'] = fn() => $this->getAsyncConfigFactory()->create(
             $postsListConfigDTO,
             $postsListData,
             true
