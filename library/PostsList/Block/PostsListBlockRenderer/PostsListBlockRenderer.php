@@ -37,6 +37,9 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
     /**
      * Filter attributes to only include JSON-serializable values.
+     *
+     * @param array $attributes The block attributes to filter.
+     * @return array The filtered attributes containing only JSON-safe values.
      */
     private function filterJsonSafeAttributes(array $attributes): array
     {
@@ -51,6 +54,12 @@ class PostsListBlockRenderer implements BlockRendererInterface
         return $safe;
     }
 
+    /**
+     * Recursively filter an array to only include JSON-serializable values.
+     *
+     * @param array $array The array to filter.
+     * @return array The filtered array containing only JSON-safe values.
+     */
     private function filterJsonSafeArray(array $array): array
     {
         $safe = [];

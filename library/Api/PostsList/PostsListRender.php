@@ -25,6 +25,11 @@ class PostsListRender extends RestApiEndpoint
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = 'posts-list/render';
 
+    /**
+     * Registers the REST route for async PostsList rendering.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, [
@@ -41,6 +46,12 @@ class PostsListRender extends RestApiEndpoint
         ]);
     }
 
+    /**
+     * Handles the REST request and returns rendered PostsList HTML.
+     *
+     * @param WP_REST_Request $request The REST request object.
+     * @return \WP_REST_Response The rendered HTML or error response.
+     */
     public function handleRequest(WP_REST_Request $request)
     {
         $attributesJson = $request->get_param('attributes');
@@ -83,6 +94,11 @@ class PostsListRender extends RestApiEndpoint
         }
     }
 
+    /**
+     * Permission callback for the REST endpoint.
+     *
+     * @return bool Always returns true as this is a public endpoint.
+     */
     public function permissionCallback(): bool
     {
         return true;
