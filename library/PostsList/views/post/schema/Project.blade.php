@@ -8,7 +8,8 @@
     'containerAware' => true,
     'content' => $getSchemaProjectCategoryTerms($post),
     'hasPlaceholder' => $shouldDisplayPlaceholderImage($post),
-    'classList' => ['u-height--100']
+    'classList' => ['u-height--100'],
+    'attributeList' => ['data-js-posts-list-item' => true],
 ])
     @slot('afterContent')
         @group([

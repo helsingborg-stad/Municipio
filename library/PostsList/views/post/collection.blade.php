@@ -1,4 +1,4 @@
-@collection__item([ 'link' => $post->getPermalink(), 'containerAware' => true, 'bordered' => true ])
+@collection__item([ 'link' => $post->getPermalink(), 'containerAware' => true, 'bordered' => true, 'attributeList' => ['data-js-posts-list-item' => true] ])
     @if ($appearanceConfig->shouldDisplayFeaturedImage() && !empty($post->getImage()))
         @slot('before')
             @if($post->getImage()) 

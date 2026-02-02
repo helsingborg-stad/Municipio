@@ -14,5 +14,6 @@
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
     'hasPlaceholder' => $shouldDisplayPlaceholderImage($post),
+    'attributeList' => ['data-js-posts-list-item' => true],
 ])
 @endcard

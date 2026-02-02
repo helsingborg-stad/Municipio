@@ -55,7 +55,7 @@ export class PostsListAsync {
     }
 
     private showPreloader(): void {
-        this.container.querySelectorAll('.c-card, .c-collection, .c-table').forEach(el => {
+        this.container.querySelectorAll('[data-js-posts-list-item]').forEach(el => {
             el.classList.add('u-preloader');
         });
     }

@@ -2,7 +2,8 @@
     'layout'            => 'card',
     'image'             => $post->getImage(),
     'link'              => $getSchemaEventPermalink($post),
-    'containerAware'    => true
+    'containerAware'    => true,
+    'attributeList'     => ['data-js-posts-list-item' => true],
 ])
     @if(!empty($getSchemaEventDateBadgeDate($post)))
         @slot('floating')

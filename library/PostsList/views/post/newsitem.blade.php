@@ -10,6 +10,7 @@
     'link'                => $post->getPermalink(),
     'context' => ['archive', 'archive.list', 'archive.list.news-item'],
     'hasPlaceholderImage' => $shouldDisplayPlaceholderImage($post),
+    'attributeList' => ['data-js-posts-list-item' => true],
 ])
     @slot('headerLeftArea')
         @if(!empty($getTags($post)))

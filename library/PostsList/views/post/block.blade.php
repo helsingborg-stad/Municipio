@@ -12,5 +12,6 @@
     'dateBadge' => $showDateBadge(),
     'classList' => ['t-archive-block'],
     'context' => ['archive', 'archive.list', 'archive.list.block'],
+    'attributeList' => ['data-js-posts-list-item' => true],
 ])
 @endblock
