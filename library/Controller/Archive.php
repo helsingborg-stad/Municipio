@@ -68,23 +68,16 @@ class Archive extends \Municipio\Controller\BaseController
         // Always include a valid dateSource for async endpoint
         $appearanceConfig = $postsListConfigDTO->getAppearanceConfig();
         $getPostsConfig = $postsListConfigDTO->getGetPostsConfig();
-        $filterConfig = $postsListConfigDTO->getFilterConfig();
-        $dateSource = $appearanceConfig->getDateSource() ?? 'post_date';
-        $dateFormat = method_exists($appearanceConfig, 'getDateFormat') && $appearanceConfig->getDateFormat() ? $appearanceConfig->getDateFormat()->value : 'date-time';
-        $numberOfColumns = method_exists($appearanceConfig, 'getNumberOfColumns') ? $appearanceConfig->getNumberOfColumns() : 1;
-        $postsPerPage = method_exists($getPostsConfig, 'getPostsPerPage') ? $getPostsConfig->getPostsPerPage() : 10;
-        $paginationEnabled = method_exists($getPostsConfig, 'paginationEnabled') ? $getPostsConfig->paginationEnabled() : true;
-        $asyncAttributes = [
-            'queryVarsPrefix' => $archiveAsyncAttributes['queryVarsPrefix'],
-            'id' => $postsListData['id'] ?? null,
-            'postType' => $archiveAsyncAttributes['postType'],
-            'dateSource' => $dateSource,
-            'dateFormat' => $dateFormat,
-            'numberOfColumns' => $numberOfColumns,
-            'postsPerPage' => $postsPerPage,
-            'paginationEnabled' => $paginationEnabled,
-        ];
-        $postsListData['getAsyncAttributes'] = fn() => $asyncAttributes;
+        $asyncConfigBuilder = (new \Municipio\Controller\Archive\AsyncConfigBuilder())
+            ->setQueryVarsPrefix($archiveAsyncAttributes['queryVarsPrefix'])
+            ->setId($postsListData['id'] ?? null)
+            ->setPostType($archiveAsyncAttributes['postType'])
+            ->setDateSource($appearanceConfig->getDateSource() ?? 'post_date')
+            ->setDateFormat(method_exists($appearanceConfig, 'getDateFormat') && $appearanceConfig->getDateFormat() ? $appearanceConfig->getDateFormat()->value : 'date-time')
+            ->setNumberOfColumns(method_exists($appearanceConfig, 'getNumberOfColumns') ? $appearanceConfig->getNumberOfColumns() : 1)
+            ->setPostsPerPage(method_exists($getPostsConfig, 'getPostsPerPage') ? $getPostsConfig->getPostsPerPage() : 10)
+            ->setPaginationEnabled(method_exists($getPostsConfig, 'paginationEnabled') ? $getPostsConfig->paginationEnabled() : true);
+        $postsListData['getAsyncAttributes'] = fn() => $asyncConfigBuilder->build();
         $this->data = [
             ...$this->data,
             ...$postsListData,
