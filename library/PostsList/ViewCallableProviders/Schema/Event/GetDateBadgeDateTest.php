@@ -8,7 +8,7 @@ use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-class GetDatebadgeDateTest extends TestCase
+class GetDateBadgeDateTest extends TestCase
 {
     #[TestDox('Gets a date from the first upcoming event')]
     public function testGetDatebadgeDate(): void
@@ -27,7 +27,7 @@ class GetDatebadgeDateTest extends TestCase
             }
         };
 
-        $getDatebadgeDate = new GetDatebadgeDate();
+        $getDatebadgeDate = new GetDateBadgeDate();
         $callable = $getDatebadgeDate->getCallable();
         $result = $callable($post);
 
@@ -46,7 +46,7 @@ class GetDatebadgeDateTest extends TestCase
             }
         };
 
-        $getDatebadgeDate = new GetDatebadgeDate();
+        $getDatebadgeDate = new GetDateBadgeDate();
         $callable = $getDatebadgeDate->getCallable();
         $result = $callable($post);
 
@@ -63,7 +63,7 @@ class GetDatebadgeDateTest extends TestCase
             }
         };
 
-        $getDatebadgeDate = new GetDatebadgeDate();
+        $getDatebadgeDate = new GetDateBadgeDate();
         $callable = $getDatebadgeDate->getCallable();
         $result = $callable($post);
 
@@ -83,7 +83,7 @@ class GetDatebadgeDateTest extends TestCase
             }
         };
 
-        $getDatebadgeDate = new GetDatebadgeDate($referenceDate->format('Y-m-d H:i:s'));
+        $getDatebadgeDate = new GetDateBadgeDate($referenceDate->format('Y-m-d H:i:s'));
         $callable = $getDatebadgeDate->getCallable();
         $result = $callable($post);
 

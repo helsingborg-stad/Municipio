@@ -12,7 +12,7 @@ use Municipio\Schema\Event;
 use Municipio\Schema\Schedule;
 
 /**
- * Class GetDatebadgeDate
+ * Class GetDateBadgeDate
  *
  * Provides methods to retrieve the date for the date badge of an event.
  */
