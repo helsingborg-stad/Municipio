@@ -57,12 +57,52 @@ const setupPagination = (container: HTMLElement, attributes: Record<string, unkn
     });
 };
 
+const showGhostLoader = (container: HTMLElement): HTMLElement | null => {
+    const template = container.querySelector<HTMLTemplateElement>('template[data-posts-list-ghost]');
+    if (!template) return null;
+
+    // Clone the ghost loader content
+    const ghostContent = template.content.cloneNode(true) as DocumentFragment;
+    const ghostWrapper = document.createElement('div');
+    ghostWrapper.setAttribute('data-posts-list-ghost-active', 'true');
+    ghostWrapper.classList.add('o-layout-grid', 'o-layout-grid--cols-12', 'o-layout-grid--gap-6', 'o-layout-grid--col-span-12');
+    ghostWrapper.appendChild(ghostContent);
+
+    // Hide existing content (except filters and template)
+    container.querySelectorAll(':scope > .c-element:not(:has(form)):not(:has(template))').forEach(el => {
+        (el as HTMLElement).style.display = 'none';
+    });
+
+    // Insert ghost loader after filters
+    const filtersElement = container.querySelector(':scope > .c-element:has(form)');
+    if (filtersElement) {
+        filtersElement.after(ghostWrapper);
+    } else {
+        container.prepend(ghostWrapper);
+    }
+
+    return ghostWrapper;
+};
+
+const hideGhostLoader = (container: HTMLElement): void => {
+    const ghostWrapper = container.querySelector('[data-posts-list-ghost-active]');
+    if (ghostWrapper) {
+        ghostWrapper.remove();
+    }
+
+    // Show hidden content
+    container.querySelectorAll(':scope > .c-element').forEach(el => {
+        (el as HTMLElement).style.display = '';
+    });
+};
+
 const fetchAndReplace = async (
     container: HTMLElement,
     attributes: Record<string, unknown>,
     params: Record<string, unknown>
 ): Promise<void> => {
     container.classList.add('is-loading');
+    const ghostWrapper = showGhostLoader(container);
 
     try {
         const args: PostsListRenderArgs = {
@@ -95,6 +135,7 @@ const fetchAndReplace = async (
         }
     } catch (error) {
         console.error('PostsList async fetch failed:', error);
+        hideGhostLoader(container);
     } finally {
         container.classList.remove('is-loading');
     }
