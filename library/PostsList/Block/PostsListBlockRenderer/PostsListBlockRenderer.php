@@ -29,6 +29,7 @@ class PostsListBlockRenderer implements BlockRendererInterface
         ]);
         $postsList = $this->postsListFactory->create($postsListConfigDTO);
         $data = $postsList->getData();
+        $data['asyncAttributes'] = $attributes;
 
         return $this->renderer->render('posts-list', $data);
     }
