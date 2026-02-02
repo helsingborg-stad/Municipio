@@ -6,6 +6,7 @@ import { initializeCollapsibleSearch } from './collapsibleSearch';
 import { initializeSessionManager } from './sessionManager';
 import { initializeHashHighlightManager } from './hashHighlightManager';
 import { initializeHashUpdateManager } from './hashUpdateManager';
+import { initPostsListAsync } from './postsListAsync';
 
 const fab = new Fab();
 
