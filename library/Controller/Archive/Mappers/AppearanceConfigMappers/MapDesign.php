@@ -24,7 +24,7 @@ class MapDesign
             'list' => PostDesign::TABLE,
             'newsitem' => PostDesign::NEWSITEM,
             'schema' => PostDesign::SCHEMA,
-            default => PostDesign::CARD, // ArchiveDefaults::DESIGN = 'card'
+            default => PostDesign::CARD,
         };
     }
 }
