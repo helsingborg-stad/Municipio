@@ -75,6 +75,9 @@ class Archive extends \Municipio\Controller\BaseController
             ...$postsList->getData(),
         ];
 
+        // Set archiveResetUrl for archive-menu partial (uses filterConfig from PostsList)
+        $this->data['archiveResetUrl'] = $this->data['filterConfig']->getResetUrl();
+
         // Override getAsyncAttributes after PostsList data merge
         $this->data['getAsyncAttributes'] = fn() => $this->getAsyncAttributes();
     }

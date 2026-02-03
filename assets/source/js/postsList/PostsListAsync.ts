@@ -20,6 +20,7 @@ export class PostsListAsync {
             this.setupAccessibility();
             this.setupFilterForm();
             this.setupPagination();
+            this.setupResetButton();
         }
     }
 
@@ -76,6 +77,30 @@ export class PostsListAsync {
     }
 
     /**
+     * Sets up click handler for reset button.
+     * The reset button clears all filters and reloads the default posts list.
+     */
+    private setupResetButton(): void {
+        this.container.addEventListener('click', async (e) => {
+            const target = e.target as HTMLElement;
+            const resetLink = target.closest('a[href]:not([href*="page"])');
+
+            if (!resetLink) return;
+
+            // Check if this is inside the filter form area (reset button)
+            const form = this.container.querySelector('form');
+            if (!form || !form.contains(resetLink)) return;
+
+            // Skip if it's a pagination link
+            if (resetLink.getAttribute('href')?.includes('page')) return;
+
+            e.preventDefault();
+            // Reset filters by calling with empty params and clearing URL
+            await this.fetchAndReplace({}, true);
+        });
+    }
+
+    /**
      * Shows the preloader by adding u-preloader class to list items.
      */
     private showPreloader(): void {
@@ -96,9 +121,15 @@ export class PostsListAsync {
     /**
      * Updates browser URL with current filter/pagination params using History API.
      * @param params - The parameters to set in the URL.
+     * @param clearAll - If true, clears all search params before setting new ones.
      */
-    private updateUrlParams(params: Record<string, unknown>): void {
+    private updateUrlParams(params: Record<string, unknown>, clearAll: boolean = false): void {
         const url = new URL(window.location.href);
+
+        // Clear all search params if requested (used by reset)
+        if (clearAll) {
+            url.search = '';
+        }
 
         Object.entries(params).forEach(([key, value]) => {
             if (value !== null && value !== undefined && value !== '') {
@@ -114,8 +145,9 @@ export class PostsListAsync {
     /**
      * Fetches new content from the API and replaces the container.
      * @param params - The filter/pagination parameters to send.
+     * @param clearUrlParams - If true, clears all URL params (used by reset).
      */
-    private async fetchAndReplace(params: Record<string, unknown>): Promise<void> {
+    private async fetchAndReplace(params: Record<string, unknown>, clearUrlParams: boolean = false): Promise<void> {
         this.container.classList.add('is-loading');
         this.container.setAttribute('aria-busy', 'true');
         this.showPreloader();
@@ -139,7 +171,7 @@ export class PostsListAsync {
 
                 new PostsListAsync(newContent);
 
-                this.updateUrlParams(params);
+                this.updateUrlParams(params, clearUrlParams);
 
                 newContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
