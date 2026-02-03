@@ -54,7 +54,8 @@ export class PostsListAsync {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
-            const params = Object.fromEntries(formData.entries());
+            const params: Record<string, unknown> = Object.fromEntries(formData.entries());
+            params.archive_page = '';
             await this.fetchAndReplace(params);
         });
     }
