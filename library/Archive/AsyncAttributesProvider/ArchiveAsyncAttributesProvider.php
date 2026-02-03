@@ -49,7 +49,7 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
     private function buildAttributes(): array
     {
         return [
-            'postTypes' => [$this->postType],
+            'postType' => $this->postType,
             'dateSource' => $this->archiveProps->dateField ?? 'post_date',
             'dateFormat' => $this->archiveProps->date_format ?? 'date',
             'design' => $this->mapDesign($this->archiveProps->style ?? 'cards'),
