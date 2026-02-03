@@ -3,17 +3,13 @@
 namespace Municipio\Archive\AsyncAttributesProvider;
 
 use Municipio\Controller\Archive\AppearanceConfigFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-/**
- * Test case for ArchiveAsyncAttributesProvider with factory-based initialization
- *
- * Tests use the AsyncAttributesProviderFactory to create provider instances,
- * ensuring tests reflect production usage patterns.
- *
- * @coversDefaultClass \Municipio\Archive\AsyncAttributesProvider\ArchiveAsyncAttributesProvider
- */
+#[CoversClass(\Municipio\Archive\AsyncAttributesProvider\ArchiveAsyncAttributesProvider::class)]
 class ArchiveAsyncAttributesProviderTest extends TestCase
 {
     private function createMockWpService(int $postsPerPage = 10): FakeWpService
@@ -29,21 +25,19 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
     private function createProvider(string $postType, object $archiveProps, FakeWpService $wpService): AsyncAttributesProviderInterface
     {
         $factory = new AsyncAttributesProviderFactory(
-            new AppearanceConfigFactory()
+            new AppearanceConfigFactory(),
         );
         return $factory->createForArchive(
             $postType,
             $archiveProps,
             $wpService,
-            [] // Empty wp_taxonomies for tests
+            [], // Empty wp_taxonomies for tests
         );
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::getAttributes
-     * @covers ::buildAttributes
-     */
+    #[CoversMethod('__construct')]
+    #[CoversMethod('getAttributes')]
+    #[CoversMethod('buildAttributes')]
     public function testGetAttributesWithEmptyArchiveProps()
     {
         $wpService = $this->createMockWpService(10);
@@ -70,10 +64,8 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame('desc', $attributes['order']);
     }
 
-    /**
-     * @covers ::getAttributes
-     * @covers ::buildAttributes
-     */
+    #[CoversMethod('getAttributes')]
+    #[CoversMethod('buildAttributes')]
     public function testGetAttributesWithFullArchiveProps()
     {
         $wpService = $this->createMockWpService(20);
@@ -112,10 +104,8 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame('asc', $attributes['order']);
     }
 
-    /**
-     * @covers ::getAttributes
-     * @dataProvider designMappingProvider
-     */
+    #[CoversMethod('getAttributes')]
+    #[DataProvider('designMappingProvider')]
     public function testDesignMapping(string $archiveStyle, string $expectedDesign)
     {
         $wpService = $this->createMockWpService();
@@ -126,9 +116,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame($expectedDesign, $attributes['design']);
     }
 
-    /**
-     * Data provider for design mapping tests
-     */
     public static function designMappingProvider(): array
     {
         return [
@@ -143,9 +130,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         ];
     }
 
-    /**
-     * @covers ::getAttributes
-     */
+    #[CoversMethod('getAttributes')]
     public function testPostTypeIsCorrectlySet()
     {
         $wpService = $this->createMockWpService();
@@ -155,9 +140,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame('custom_post_type', $attributes['postType']);
     }
 
-    /**
-     * @covers ::getAttributes
-     */
+    #[CoversMethod('getAttributes')]
     public function testAttributesAreJsonSerializable()
     {
         $wpService = $this->createMockWpService();
@@ -178,9 +161,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame($attributes, $decoded);
     }
 
-    /**
-     * @covers ::getAttributes
-     */
+    #[CoversMethod('getAttributes')]
     public function testPartialArchiveProps()
     {
         $wpService = $this->createMockWpService();
@@ -205,9 +186,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertFalse($attributes['displayReadingTime']);
     }
 
-    /**
-     * @covers ::getAttributes
-     */
+    #[CoversMethod('getAttributes')]
     public function testReturnsSameInstanceOnMultipleCalls()
     {
         $wpService = $this->createMockWpService();
