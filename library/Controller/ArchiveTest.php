@@ -4,13 +4,11 @@ namespace Municipio\Controller;
 
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Helper\User;
-use Municipio\SiteSwitcher\SiteSwitcherInterface;
+use Municipio\Helper\User\User;
+use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\GetTerms;
-use WpService\Contracts\GetThemeMod;
-use WpService\WpService;
+use WpService\Implementations\FakeWpService;
 use AcfService\AcfService;
 
 /**
@@ -28,10 +26,16 @@ class ArchiveTest extends TestCase
         $menuBuilder = $this->createMock(MenuBuilderInterface::class);
         $menuDirector = $this->createMock(MenuDirector::class);
 
-        // Create WpService mock
-        $wpService = $this->getMockBuilder(WpService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        // Use FakeWpService with required return values
+        $wpService = new FakeWpService([
+            'wpHead' => null,
+            'wpFooter' => null,
+            'applyFilters' => '',  // Return empty string for apply_filters
+            'getPostTypeArchiveLink' => false,
+            'removeQueryArg' => '',
+            'getThemeMod' => 10,
+            'getTerms' => [],
+        ]);
 
         $acfService = $this->createMock(AcfService::class);
         $siteSwitcher = $this->createMock(SiteSwitcherInterface::class);

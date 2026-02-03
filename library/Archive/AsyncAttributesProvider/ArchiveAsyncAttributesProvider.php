@@ -92,7 +92,7 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
             // Pagination and ordering
             'postsPerPage' => $getPostsConfig->getPostsPerPage(),
             'orderBy' => $getPostsConfig->getOrderBy(),
-            'order' => $getPostsConfig->getOrder()->value,
+            'order' => strtolower($getPostsConfig->getOrder()->value),
         ];
     }
 }

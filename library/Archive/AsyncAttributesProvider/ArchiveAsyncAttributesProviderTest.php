@@ -4,8 +4,7 @@ namespace Municipio\Archive\AsyncAttributesProvider;
 
 use Municipio\Controller\Archive\AppearanceConfigFactory;
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\GetTerms;
-use WpService\Contracts\GetThemeMod;
+use WpService\Implementations\FakeWpService;
 
 /**
  * Test case for ArchiveAsyncAttributesProvider with factory-based initialization
@@ -17,20 +16,17 @@ use WpService\Contracts\GetThemeMod;
  */
 class ArchiveAsyncAttributesProviderTest extends TestCase
 {
-    private function createMockWpService(int $postsPerPage = 10): GetThemeMod&GetTerms
+    private function createMockWpService(int $postsPerPage = 10): FakeWpService
     {
-        // Create mock for intersection type GetThemeMod&GetTerms
-        $mock = $this->getMockBuilder(GetThemeMod::class)
-            ->addMethods(['getTerms']) // Add GetTerms methods
-            ->getMock();
-
-        $mock->method('getThemeMod')->willReturn($postsPerPage);
-        $mock->method('getTerms')->willReturn([]);
-
-        return $mock;
+        return new FakeWpService([
+            'getThemeMod' => $postsPerPage,
+            'getTerms' => [],
+            'getPostTypeArchiveLink' => false,
+            'removeQueryArg' => '',
+        ]);
     }
 
-    private function createProvider(string $postType, object $archiveProps, GetThemeMod&GetTerms $wpService): AsyncAttributesProviderInterface
+    private function createProvider(string $postType, object $archiveProps, FakeWpService $wpService): AsyncAttributesProviderInterface
     {
         $factory = new AsyncAttributesProviderFactory(
             new AppearanceConfigFactory()
