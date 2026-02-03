@@ -14,6 +14,7 @@ class MapDateFormat implements MapperInterface
 {
     /**
      * Map post date format from data
+     * Defaults to DATE_TIME (ArchiveDefaults::DATE_FORMAT = 'date-time')
      * @param array $data
      * @return DateFormat
      */
@@ -23,11 +24,11 @@ class MapDateFormat implements MapperInterface
             return DateFormat::NONE;
         }
 
-        return match ($data['archiveProps']->dateFormat ?? '') {
+        return match ($data['archiveProps']->dateFormat ?? null) {
             'date' => DateFormat::DATE,
             'date-time' => DateFormat::DATE_TIME,
             'time' => DateFormat::TIME,
-            default => DateFormat::DATE_TIME,
+            default => DateFormat::DATE_TIME, // ArchiveDefaults::DATE_FORMAT
         };
     }
 }

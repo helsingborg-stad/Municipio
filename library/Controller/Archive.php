@@ -2,8 +2,9 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Archive\AsyncAttributesProvider\ArchiveAsyncAttributesProvider;
+use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderFactory;
 use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderInterface;
+use Municipio\Controller\Archive\AppearanceConfigFactory;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 
@@ -36,11 +37,15 @@ class Archive extends \Municipio\Controller\BaseController
         // Get archive properties
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
-        // Initialize async attributes provider
-        $this->asyncAttributesProvider = new ArchiveAsyncAttributesProvider(
+        // Initialize async attributes provider using factory
+        $asyncAttributesProviderFactory = new AsyncAttributesProviderFactory(
+            new AppearanceConfigFactory()
+        );
+        $this->asyncAttributesProvider = $asyncAttributesProviderFactory->createForArchive(
             $postType,
             $this->data['archiveProps'],
-            $this->wpService
+            $this->wpService,
+            $GLOBALS['wp_taxonomies']
         );
 
         //Archive data
