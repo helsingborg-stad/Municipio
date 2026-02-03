@@ -11,7 +11,7 @@
             'u-rounded--16',
         ],
         'attributeList' => [
-            'style' => 'background-color: var(--color-secondary);z-index:-1;'
+            'style' => 'background-color: var(--color-secondary);z-index:0;'
         ]
     ])
         @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2'], 'attributeList' => ['style' => 'color: var(--color-secondary-contrasting);'] ])
