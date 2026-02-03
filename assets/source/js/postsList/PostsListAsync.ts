@@ -55,7 +55,14 @@ export class PostsListAsync {
             e.preventDefault();
             const formData = new FormData(form);
             const params: Record<string, unknown> = Object.fromEntries(formData.entries());
-            params.archive_page = '';
+
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.forEach((value, key) => {
+                if (key.endsWith('_page') && !isNaN(Number(value))) {
+                    params[key] = '';
+                }
+            });
+
             await this.fetchAndReplace(params);
         });
     }
