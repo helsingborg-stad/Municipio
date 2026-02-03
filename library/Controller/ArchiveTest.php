@@ -2,14 +2,14 @@
 
 namespace Municipio\Controller;
 
+use AcfService\AcfService;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
+use Municipio\Helper\User\User;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
-use AcfService\AcfService;
 
 /**
  * Test case for Archive controller async attributes functionality
@@ -28,9 +28,9 @@ class ArchiveTest extends TestCase
 
         // Use FakeWpService with required return values
         $wpService = new FakeWpService([
-            'wpHead' => null,
-            'wpFooter' => null,
-            'applyFilters' => '',  // Return empty string for apply_filters
+            'wpHead' => '',
+            'wpFooter' => '',
+            'applyFilters' => '', // Return empty string for apply_filters
             'getPostTypeArchiveLink' => false,
             'removeQueryArg' => '',
             'getThemeMod' => 10,
@@ -47,7 +47,7 @@ class ArchiveTest extends TestCase
             $wpService,
             $acfService,
             $siteSwitcher,
-            $userHelper
+            $userHelper,
         );
     }
 
