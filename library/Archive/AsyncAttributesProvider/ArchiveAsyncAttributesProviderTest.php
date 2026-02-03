@@ -35,9 +35,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         );
     }
 
-    #[CoversMethod('__construct')]
-    #[CoversMethod('getAttributes')]
-    #[CoversMethod('buildAttributes')]
     public function testGetAttributesWithEmptyArchiveProps()
     {
         $wpService = $this->createMockWpService(10);
@@ -64,8 +61,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame('desc', $attributes['order']);
     }
 
-    #[CoversMethod('getAttributes')]
-    #[CoversMethod('buildAttributes')]
     public function testGetAttributesWithFullArchiveProps()
     {
         $wpService = $this->createMockWpService(20);
@@ -104,7 +99,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame('asc', $attributes['order']);
     }
 
-    #[CoversMethod('getAttributes')]
     #[DataProvider('designMappingProvider')]
     public function testDesignMapping(string $archiveStyle, string $expectedDesign)
     {
@@ -130,7 +124,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         ];
     }
 
-    #[CoversMethod('getAttributes')]
     public function testPostTypeIsCorrectlySet()
     {
         $wpService = $this->createMockWpService();
@@ -140,7 +133,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame('custom_post_type', $attributes['postType']);
     }
 
-    #[CoversMethod('getAttributes')]
     public function testAttributesAreJsonSerializable()
     {
         $wpService = $this->createMockWpService();
@@ -161,7 +153,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame($attributes, $decoded);
     }
 
-    #[CoversMethod('getAttributes')]
     public function testPartialArchiveProps()
     {
         $wpService = $this->createMockWpService();
@@ -186,7 +177,6 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertFalse($attributes['displayReadingTime']);
     }
 
-    #[CoversMethod('getAttributes')]
     public function testReturnsSameInstanceOnMultipleCalls()
     {
         $wpService = $this->createMockWpService();

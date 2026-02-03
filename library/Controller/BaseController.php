@@ -110,7 +110,8 @@ class BaseController
         $this->data['subfooterLogotype']  = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']             = $this->getEmblem();
         $this->data['showEmblemInHero']   = $this->data['customizer']->showEmblemInHero ?? true;
-        $this->data['brandText']          = $this->getMultilineTextAsArray(get_option('brand_text', ''));
+        $brandTextOption = get_option('brand_text', '');
+        $this->data['brandText']          = $this->getMultilineTextAsArray(is_string($brandTextOption) ? $brandTextOption : '');
         $this->data['headerBrandEnabled'] = $this->data['customizer']->headerBrandEnabled && !empty($this->data['brandText']);
 
         // Footer
@@ -153,12 +154,13 @@ class BaseController
         $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mobile menu
+        $kirkiMobileFallback = class_exists('Kirki') ? \Kirki::get_option('mobile_menu_pagetree_fallback') : false;
         $mobileMenuConfig = new MenuConfig(
             'mobile',
             'secondary-menu',
             false,
             false,
-            \Kirki::get_option('mobile_menu_pagetree_fallback')
+            $kirkiMobileFallback
         );
 
         $this->menuBuilder->setConfig($mobileMenuConfig);
@@ -168,12 +170,13 @@ class BaseController
         $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Primary menu
+        $kirkiPrimaryFallback = class_exists('Kirki') ? \Kirki::get_option('primary_menu_pagetree_fallback') : false;
         $primaryMenuConfig = new MenuConfig(
             'primary',
             'main-menu',
-            !$this->data['customizer']->primaryMenuDropdown,
+            isset($this->data['customizer']->primaryMenuDropdown) ? !$this->data['customizer']->primaryMenuDropdown : false,
             false,
-            \Kirki::get_option('primary_menu_pagetree_fallback')
+            $kirkiPrimaryFallback
         );
 
         $this->menuBuilder->setConfig($primaryMenuConfig);
@@ -529,7 +532,12 @@ class BaseController
      */
     public function getSiteName(): string
     {
-        return apply_filters('Municipio/SiteName', get_bloginfo('name'));
+        $siteName = get_bloginfo('name');
+        if (!is_string($siteName) || $siteName === null) {
+            $siteName = '';
+        }
+        $filtered = apply_filters('Municipio/SiteName', $siteName);
+        return is_string($filtered) ? $filtered : '';
     }
 
     /**
@@ -541,7 +549,8 @@ class BaseController
     {
         ob_start();
         wp_head();
-        return apply_filters('Municipio/HeaderHTML', ob_get_clean());
+        $header = apply_filters('Municipio/HeaderHTML', ob_get_clean());
+        return is_string($header) ? $header : '';
     }
 
     /**
@@ -553,7 +562,8 @@ class BaseController
     {
         ob_start();
         wp_footer();
-        return apply_filters('Municipio/FooterHTML', ob_get_clean());
+        $footer = apply_filters('Municipio/FooterHTML', ob_get_clean());
+        return is_string($footer) ? $footer : '';
     }
 
     /**
@@ -571,7 +581,8 @@ class BaseController
      */
     public function getPageParentID(): int
     {
-        return wp_get_post_parent_id(CurrentPostId::get());
+        $parentId = wp_get_post_parent_id(CurrentPostId::get());
+        return is_int($parentId) ? $parentId : 0;
     }
 
     /**
@@ -862,7 +873,13 @@ class BaseController
             $homeUrl = get_home_url();
         }
 
-        return apply_filters('Municipio/homeUrl', esc_url($homeUrl));
+        // Ensure $homeUrl is always a string
+        if (!is_string($homeUrl) || $homeUrl === null) {
+            $homeUrl = '';
+        }
+
+        $filtered = apply_filters('Municipio/homeUrl', esc_url($homeUrl));
+        return is_string($filtered) ? $filtered : '';
     }
 
     /**
@@ -871,7 +888,12 @@ class BaseController
      */
     protected function getAdminUrl(): string
     {
-        return apply_filters('Municipio/adminUrl', get_admin_url());
+        $adminUrl = get_admin_url();
+        if (!is_string($adminUrl) || $adminUrl === null) {
+            $adminUrl = '';
+        }
+        $filtered = apply_filters('Municipio/adminUrl', $adminUrl);
+        return is_string($filtered) ? $filtered : '';
     }
 
     /**
@@ -880,7 +902,12 @@ class BaseController
      */
     protected function getPagePublished(): string
     {
-        return apply_filters('Municipio/postPublished', get_the_time('Y-m-d'));
+        $published = get_the_time('Y-m-d');
+        if (!is_string($published) || $published === null) {
+            $published = '';
+        }
+        $filtered = apply_filters('Municipio/postPublished', $published);
+        return is_string($filtered) ? $filtered : '';
     }
 
     /**
@@ -889,7 +916,12 @@ class BaseController
      */
     protected function getPageModified(): string
     {
-        return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
+        $modified = get_the_modified_time('Y-m-d');
+        if (!is_string($modified) || $modified === null) {
+            $modified = '';
+        }
+        $filtered = apply_filters('Municipio/postModified', $modified);
+        return is_string($filtered) ? $filtered : '';
     }
 
     /**
@@ -907,7 +939,12 @@ class BaseController
      */
     protected function getPageTitle(): string
     {
-        return apply_filters('Municipio/postTitle', wp_title('|', false, 'right'));
+        $title = wp_title('|', false, 'right');
+        if (!is_string($title) || $title === null) {
+            $title = '';
+        }
+        $filtered = apply_filters('Municipio/postTitle', $title);
+        return is_string($filtered) ? $filtered : '';
     }
 
     /**
@@ -916,7 +953,8 @@ class BaseController
      */
     protected function getLanguageAttrs(): string
     {
-        return apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
+        $attrs = apply_filters_deprecated('Municipio/language_attributes', array(get_language_attributes()), "3.0", "Municpio/languageAttributes");
+        return is_string($attrs) ? $attrs : '';
     }
 
     /**
@@ -925,7 +963,8 @@ class BaseController
      */
     protected function getAjaxUrl(): string
     {
-        return apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "3.0", "Municpio/ajaxUrl");
+        $url = apply_filters_deprecated('Municipio/ajax_url_in_head', array(admin_url('admin-ajax.php')), "3.0", "Municpio/ajaxUrl");
+        return is_string($url) ? $url : '';
     }
 
     /**
@@ -934,7 +973,12 @@ class BaseController
      */
     protected function getBodyClass(): string
     {
-        return apply_filters('Municipio/bodyClass', join(' ', get_body_class('no-js')));
+        $bodyClass = get_body_class('no-js');
+        if (!is_array($bodyClass)) {
+            $bodyClass = [$bodyClass];
+        }
+        $result = apply_filters('Municipio/bodyClass', join(' ', $bodyClass));
+        return is_string($result) ? $result : '';
     }
 
     /**
@@ -1019,15 +1063,18 @@ class BaseController
      * @param string $text The multiline text to convert to an array.
      * @return array|null The array representation of the multiline text, or null if the text is empty.
      */
-    public function getMultilineTextAsArray(string $text)
+    /**
+     * Convert multiline text to array, safely handling null input.
+     *
+     * @param string|null $text The multiline text to convert to an array.
+     * @return array The array representation of the multiline text, or empty array if the text is empty/null.
+     */
+    public function getMultilineTextAsArray($text): array
     {
-        $trimmed = trim($text);
-
-        if (empty($trimmed)) {
-            return null;
+        if (!is_string($text) || empty(trim($text))) {
+            return [];
         }
-
-        return explode("\n", $trimmed);
+        return explode("\n", trim($text));
     }
 
     /**
