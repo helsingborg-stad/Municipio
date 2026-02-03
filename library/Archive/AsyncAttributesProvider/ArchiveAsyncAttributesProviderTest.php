@@ -19,9 +19,14 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
 {
     private function createMockWpService(int $postsPerPage = 10): GetThemeMod&GetTerms
     {
-        $mock = $this->createMock([GetThemeMod::class, GetTerms::class]);
+        // Create mock for intersection type GetThemeMod&GetTerms
+        $mock = $this->getMockBuilder(GetThemeMod::class)
+            ->addMethods(['getTerms']) // Add GetTerms methods
+            ->getMock();
+
         $mock->method('getThemeMod')->willReturn($postsPerPage);
         $mock->method('getTerms')->willReturn([]);
+
         return $mock;
     }
 

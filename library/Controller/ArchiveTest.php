@@ -2,9 +2,16 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Controller\Navigation\MenuBuilderInterface;
+use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Helper\User;
+use Municipio\SiteSwitcher\SiteSwitcherInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderInterface;
+use WpService\Contracts\GetTerms;
+use WpService\Contracts\GetThemeMod;
+use WpService\WpService;
+use AcfService\AcfService;
 
 /**
  * Test case for Archive controller async attributes functionality
@@ -14,11 +21,38 @@ use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderInterface;
 class ArchiveTest extends TestCase
 {
     /**
+     * Create a mock Archive instance with all required dependencies
+     */
+    private function createArchive(): Archive
+    {
+        $menuBuilder = $this->createMock(MenuBuilderInterface::class);
+        $menuDirector = $this->createMock(MenuDirector::class);
+
+        // Create WpService mock
+        $wpService = $this->getMockBuilder(WpService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $acfService = $this->createMock(AcfService::class);
+        $siteSwitcher = $this->createMock(SiteSwitcherInterface::class);
+        $userHelper = $this->createMock(User::class);
+
+        return new Archive(
+            $menuBuilder,
+            $menuDirector,
+            $wpService,
+            $acfService,
+            $siteSwitcher,
+            $userHelper
+        );
+    }
+
+    /**
      * @covers ::getArchiveProperties
      */
     public function testGetArchivePropertiesReturnsObjectWhenCustomizationExists()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $customize = (object) [
             'archivePost' => [
                 'style' => 'cards',
@@ -42,7 +76,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetArchivePropertiesReturnsEmptyObjectWhenNoCustomization()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $customize = (object) [];
 
         $reflection = new \ReflectionClass($archive);
@@ -60,7 +94,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetArchivePropertiesWithDifferentPostTypes()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $customize = (object) [
             'archivePost' => ['style' => 'cards'],
             'archiveNews' => ['style' => 'list'],
@@ -86,7 +120,7 @@ class ArchiveTest extends TestCase
      */
     public function testCamelCasePostTypeName()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $reflection = new \ReflectionClass($archive);
         $method = $reflection->getMethod('camelCasePostTypeName');
         $method->setAccessible(true);
@@ -102,7 +136,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetArchiveTitle()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $archiveProps = (object) ['heading' => 'Test Archive Title'];
 
         $reflection = new \ReflectionClass($archive);
@@ -120,7 +154,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetArchiveTitleWithEmptyProps()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $archiveProps = (object) [];
 
         $reflection = new \ReflectionClass($archive);
@@ -138,7 +172,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetArchiveLead()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $archiveProps = (object) ['body' => 'Test archive description'];
 
         $reflection = new \ReflectionClass($archive);
@@ -156,7 +190,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetArchiveLeadWithEmptyProps()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
         $archiveProps = (object) [];
 
         $reflection = new \ReflectionClass($archive);
@@ -174,7 +208,7 @@ class ArchiveTest extends TestCase
      */
     public function testGetAsyncAttributesReturnsEmptyArrayWhenProviderIsNull()
     {
-        $archive = new Archive();
+        $archive = $this->createArchive();
 
         $reflection = new \ReflectionClass($archive);
         $method = $reflection->getMethod('getAsyncAttributes');

@@ -2,7 +2,10 @@
 
 namespace Municipio\Archive\AsyncAttributesProvider;
 
+use Municipio\Controller\Archive\AppearanceConfigFactory;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\GetTerms;
+use WpService\Contracts\GetThemeMod;
 
 /**
  * Integration test for Archive async attributes
@@ -11,6 +14,32 @@ use PHPUnit\Framework\TestCase;
  */
 class ArchiveAsyncAttributesIntegrationTest extends TestCase
 {
+    private function createMockWpService(int $postsPerPage = 10): GetThemeMod&GetTerms
+    {
+        // Create mock for intersection type GetThemeMod&GetTerms
+        $mock = $this->getMockBuilder(GetThemeMod::class)
+            ->addMethods(['getTerms']) // Add GetTerms methods
+            ->getMock();
+
+        $mock->method('getThemeMod')->willReturn($postsPerPage);
+        $mock->method('getTerms')->willReturn([]);
+
+        return $mock;
+    }
+
+    private function createProvider(string $postType, object $archiveProps): AsyncAttributesProviderInterface
+    {
+        $factory = new AsyncAttributesProviderFactory(
+            new AppearanceConfigFactory()
+        );
+        return $factory->createForArchive(
+            $postType,
+            $archiveProps,
+            $this->createMockWpService(),
+            [] // Empty wp_taxonomies for tests
+        );
+    }
+
     /**
      * Test that async attributes are compatible with block renderer
      */
@@ -18,16 +47,16 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
     {
         $archiveProps = (object) [
             'dateField' => 'post_date',
-            'date_format' => 'date',
+            'dateFormat' => 'date',
             'style' => 'list',
             'numberOfColumns' => 2,
             'postPropertiesToDisplay' => ['post_title', 'post_date'],
             'taxonomiesToDisplay' => ['category'],
-            'featured_image' => true,
-            'reading_time' => false,
+            'displayFeaturedImage' => true,
+            'readingTime' => false,
         ];
 
-        $provider = new ArchiveAsyncAttributesProvider('news', $archiveProps);
+        $provider = $this->createProvider('news', $archiveProps);
         $attributes = $provider->getAttributes();
 
         // Verify all required block renderer attributes are present
@@ -51,7 +80,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
      */
     public function testAsyncAttributesMatchRestApiFormat()
     {
-        $provider = new ArchiveAsyncAttributesProvider('post', (object) []);
+        $provider = $this->createProvider('post', (object) []);
         $attributes = $provider->getAttributes();
 
         // Test JSON encoding/decoding
@@ -71,7 +100,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
      */
     public function testDifferentPostTypesGenerateCorrectAttributes(string $postType)
     {
-        $provider = new ArchiveAsyncAttributesProvider($postType, (object) []);
+        $provider = $this->createProvider($postType, (object) []);
         $attributes = $provider->getAttributes();
 
         $this->assertSame($postType, $attributes['postType']);
@@ -108,7 +137,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
 
         foreach ($styles as $archiveStyle => $expectedBlockDesign) {
             $archiveProps = (object) ['style' => $archiveStyle];
-            $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps);
+            $provider = $this->createProvider('post', $archiveProps);
             $attributes = $provider->getAttributes();
 
             $this->assertSame(
@@ -131,16 +160,17 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
             'anotherUnusedProperty' => ['not', 'needed'],
         ];
 
-        $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps);
+        $provider = $this->createProvider('post', $archiveProps);
         $attributes = $provider->getAttributes();
 
         // Should not include arbitrary properties
         $this->assertArrayNotHasKey('someUnusedProperty', $attributes);
         $this->assertArrayNotHasKey('anotherUnusedProperty', $attributes);
 
-        // Should only have the expected keys
+        // Should have the expected keys (in any order)
         $expectedKeys = [
             'postType',
+            'queryVarsPrefix',
             'dateSource',
             'dateFormat',
             'design',
@@ -149,9 +179,17 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
             'taxonomiesToDisplay',
             'displayFeaturedImage',
             'displayReadingTime',
+            'textSearchEnabled',
+            'dateFilterEnabled',
+            'postsPerPage',
+            'orderBy',
+            'order',
         ];
 
-        $this->assertSame($expectedKeys, array_keys($attributes));
+        $actualKeys = array_keys($attributes);
+        sort($expectedKeys);
+        sort($actualKeys);
+        $this->assertSame($expectedKeys, $actualKeys);
     }
 
     /**
@@ -164,7 +202,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
             'taxonomiesToDisplay' => [],
         ];
 
-        $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps);
+        $provider = $this->createProvider('post', $archiveProps);
         $attributes = $provider->getAttributes();
 
         $this->assertIsArray($attributes['postPropertiesToDisplay']);
