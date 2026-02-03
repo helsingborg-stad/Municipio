@@ -95,10 +95,7 @@
 		"psr-4": {
 			"Municipio\\": "library/",
 			"Modularity\\": "Modularity/source/php/"
-		},
-		"exclude-from-classmap": [
-			"**/*Test.php"
-		]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {
