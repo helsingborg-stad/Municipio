@@ -28,6 +28,6 @@ class MapCurrentPageFromGetParams implements MapperInterface
      */
     public function map(array $data): int
     {
-        return $this->getParams[$this->queryVars->getPaginationParameterName()] ?? 1;
+        return $this->getParams[$this->queryVars->getPaginationParameterName()] ?: 1;
     }
 }
