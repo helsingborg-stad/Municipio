@@ -122,20 +122,20 @@ export class PostsListAsync {
     }
 
     /**
-     * Shows the preloader by adding u-preloader class to list items.
+     * Shows the preloader by adding u-preloader--inner class to list items.
      */
     private showPreloader(): void {
         this.container.querySelectorAll('[data-js-posts-list-item]').forEach(el => {
-            el.classList.add('u-preloader');
+            el.classList.add('u-preloader--inner');
         });
     }
 
     /**
-     * Hides the preloader by removing u-preloader class from elements.
+     * Hides the preloader by removing u-preloader--inner class from elements.
      */
     private hidePreloader(): void {
-        this.container.querySelectorAll('.u-preloader').forEach(el => {
-            el.classList.remove('u-preloader');
+        this.container.querySelectorAll('.u-preloader--inner').forEach(el => {
+            el.classList.remove('u-preloader--inner');
         });
     }
 
