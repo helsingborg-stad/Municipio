@@ -3,6 +3,7 @@
 namespace Municipio\Archive\AsyncAttributesProvider;
 
 use Municipio\Controller\Archive\AppearanceConfigFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -26,13 +27,13 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
     private function createProvider(string $postType, object $archiveProps): AsyncAttributesProviderInterface
     {
         $factory = new AsyncAttributesProviderFactory(
-            new AppearanceConfigFactory()
+            new AppearanceConfigFactory(),
         );
         return $factory->createForArchive(
             $postType,
             $archiveProps,
             $this->createMockWpService(),
-            [] // Empty wp_taxonomies for tests
+            [], // Empty wp_taxonomies for tests
         );
     }
 
@@ -91,9 +92,8 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
 
     /**
      * Test that different post types generate correct attributes
-     *
-     * @dataProvider postTypeProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('postTypeProvider')]
     public function testDifferentPostTypesGenerateCorrectAttributes(string $postType)
     {
         $provider = $this->createProvider($postType, (object) []);
@@ -139,7 +139,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
             $this->assertSame(
                 $expectedBlockDesign,
                 $attributes['design'],
-                "Failed asserting that archive style '{$archiveStyle}' maps to block design '{$expectedBlockDesign}'"
+                "Failed asserting that archive style '{$archiveStyle}' maps to block design '{$expectedBlockDesign}'",
             );
         }
     }
