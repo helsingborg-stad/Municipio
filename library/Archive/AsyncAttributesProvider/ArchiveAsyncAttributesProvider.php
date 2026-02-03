@@ -56,6 +56,7 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
 
         return [
             'postType' => $this->postType,
+            'queryVarsPrefix' => 'archive_',
             'dateSource' => $this->mapDateSource(),
             'dateFormat' => $this->mapDateFormat(),
             'design' => $this->mapDesign($this->archiveProps->style ?? 'cards'),
