@@ -89,6 +89,13 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
             // Filter settings
             'textSearchEnabled' => $filterConfig->isTextSearchEnabled(),
             'dateFilterEnabled' => $filterConfig->isDateFilterEnabled(),
+            'taxonomiesEnabledForFiltering' => array_map(
+                fn($config) => [
+                    'taxonomy' => $config->getTaxonomy()->name,
+                    'type' => $config->getFilterType()->value,
+                ],
+                $filterConfig->getTaxonomiesEnabledForFiltering()
+            ),
             // Pagination and ordering
             'postsPerPage' => $getPostsConfig->getPostsPerPage(),
             'orderBy' => $getPostsConfig->getOrderBy(),
