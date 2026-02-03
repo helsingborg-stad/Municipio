@@ -56,14 +56,14 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
 
         return [
             'postType' => $this->postType,
-            'dateSource' => $this->archiveProps->dateField ?? 'post_date',
-            'dateFormat' => $this->archiveProps->date_format ?? 'date',
+            'dateSource' => $this->mapDateSource(),
+            'dateFormat' => $this->mapDateFormat(),
             'design' => $this->mapDesign($this->archiveProps->style ?? 'cards'),
             'numberOfColumns' => $this->archiveProps->numberOfColumns ?? 3,
             'postPropertiesToDisplay' => $this->archiveProps->postPropertiesToDisplay ?? [],
             'taxonomiesToDisplay' => $this->archiveProps->taxonomiesToDisplay ?? [],
-            'displayFeaturedImage' => $this->archiveProps->featured_image ?? false,
-            'displayReadingTime' => $this->archiveProps->reading_time ?? false,
+            'displayFeaturedImage' => $this->getDisplayFeaturedImage(),
+            'displayReadingTime' => $this->getDisplayReadingTime(),
             // Filter settings
             'textSearchEnabled' => in_array('text_search', $enabledFilters),
             'dateFilterEnabled' => in_array('date_range', $enabledFilters),
@@ -72,6 +72,72 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
             'orderBy' => $this->archiveProps->orderBy ?? 'post_date',
             'order' => $this->mapOrder($this->archiveProps->orderDirection ?? 'desc'),
         ];
+    }
+
+    /**
+     * Map date source from archive props
+     *
+     * @return string
+     */
+    private function mapDateSource(): string
+    {
+        return $this->archiveProps->dateField ?? 'post_date';
+    }
+
+    /**
+     * Map date format from archive props to block format
+     * Matches the logic in MapDateFormat mapper
+     *
+     * @return string
+     */
+    private function mapDateFormat(): string
+    {
+        // If dateField is 'none', return 'none' format
+        if (($this->archiveProps->dateField ?? '') === 'none') {
+            return 'none';
+        }
+
+        // Map the date format value
+        $dateFormat = $this->archiveProps->dateFormat ?? '';
+
+        return match ($dateFormat) {
+            'date' => 'date',
+            'date-time', 'datetime', 'date_time' => 'date-time',
+            'time' => 'time',
+            'date-badge', 'date_badge' => 'date-badge',
+            'none' => 'none',
+            default => 'date-time',
+        };
+    }
+
+    /**
+     * Get display featured image setting
+     * Handles both camelCase and snake_case property names
+     *
+     * @return bool
+     */
+    private function getDisplayFeaturedImage(): bool
+    {
+        return (bool) (
+            $this->archiveProps->displayFeaturedImage ??
+            $this->archiveProps->featured_image ??
+            false
+        );
+    }
+
+    /**
+     * Get display reading time setting
+     * Handles both camelCase and snake_case property names
+     *
+     * @return bool
+     */
+    private function getDisplayReadingTime(): bool
+    {
+        return (bool) (
+            $this->archiveProps->readingTime ??
+            $this->archiveProps->reading_time ??
+            false
+        );
     }
 
     /**
