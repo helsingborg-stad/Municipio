@@ -3,6 +3,7 @@
 namespace Municipio\Archive\AsyncAttributesProvider;
 
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\GetThemeMod;
 
 /**
  * Test case for ArchiveAsyncAttributesProvider
@@ -11,14 +12,24 @@ use PHPUnit\Framework\TestCase;
  */
 class ArchiveAsyncAttributesProviderTest extends TestCase
 {
+    private function createMockWpService(int $postsPerPage = 10): GetThemeMod
+    {
+        $mock = $this->createMock(GetThemeMod::class);
+        $mock->method('getThemeMod')->willReturn($postsPerPage);
+        return $mock;
+    }
+
     /**
      * @covers ::__construct
      * @covers ::getAttributes
      * @covers ::buildAttributes
+     * @covers ::getPostsPerPage
+     * @covers ::mapOrder
      */
     public function testGetAttributesWithEmptyArchiveProps()
     {
-        $provider = new ArchiveAsyncAttributesProvider('news', (object) []);
+        $wpService = $this->createMockWpService(10);
+        $provider = new ArchiveAsyncAttributesProvider('news', (object) [], $wpService);
         $attributes = $provider->getAttributes();
 
         $this->assertIsArray($attributes);
@@ -31,14 +42,24 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame([], $attributes['taxonomiesToDisplay']);
         $this->assertFalse($attributes['displayFeaturedImage']);
         $this->assertFalse($attributes['displayReadingTime']);
+        // Filter settings
+        $this->assertFalse($attributes['textSearchEnabled']);
+        $this->assertFalse($attributes['dateFilterEnabled']);
+        // Pagination and ordering
+        $this->assertSame(10, $attributes['postsPerPage']);
+        $this->assertSame('post_date', $attributes['orderBy']);
+        $this->assertSame('desc', $attributes['order']);
     }
 
     /**
      * @covers ::getAttributes
      * @covers ::buildAttributes
+     * @covers ::getPostsPerPage
+     * @covers ::mapOrder
      */
     public function testGetAttributesWithFullArchiveProps()
     {
+        $wpService = $this->createMockWpService(20);
         $archiveProps = (object) [
             'dateField' => 'modified',
             'date_format' => 'datetime',
@@ -48,9 +69,12 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
             'taxonomiesToDisplay' => ['category', 'post_tag'],
             'featured_image' => true,
             'reading_time' => true,
+            'enabledFilters' => ['text_search', 'date_range'],
+            'orderBy' => 'title',
+            'orderDirection' => 'ASC',
         ];
 
-        $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps);
+        $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps, $wpService);
         $attributes = $provider->getAttributes();
 
         $this->assertSame('post', $attributes['postType']);
@@ -62,6 +86,13 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         $this->assertSame(['category', 'post_tag'], $attributes['taxonomiesToDisplay']);
         $this->assertTrue($attributes['displayFeaturedImage']);
         $this->assertTrue($attributes['displayReadingTime']);
+        // Filter settings
+        $this->assertTrue($attributes['textSearchEnabled']);
+        $this->assertTrue($attributes['dateFilterEnabled']);
+        // Pagination and ordering
+        $this->assertSame(20, $attributes['postsPerPage']);
+        $this->assertSame('title', $attributes['orderBy']);
+        $this->assertSame('asc', $attributes['order']);
     }
 
     /**
@@ -70,8 +101,9 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
      */
     public function testDesignMapping(string $archiveStyle, string $expectedDesign)
     {
+        $wpService = $this->createMockWpService();
         $archiveProps = (object) ['style' => $archiveStyle];
-        $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps);
+        $provider = new ArchiveAsyncAttributesProvider('post', $archiveProps, $wpService);
         $attributes = $provider->getAttributes();
 
         $this->assertSame($expectedDesign, $attributes['design']);
@@ -99,7 +131,8 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
      */
     public function testPostTypeIsCorrectlySet()
     {
-        $provider = new ArchiveAsyncAttributesProvider('custom_post_type', (object) []);
+        $wpService = $this->createMockWpService();
+        $provider = new ArchiveAsyncAttributesProvider('custom_post_type', (object) [], $wpService);
         $attributes = $provider->getAttributes();
 
         $this->assertSame('custom_post_type', $attributes['postType']);
@@ -110,6 +143,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
      */
     public function testAttributesAreJsonSerializable()
     {
+        $wpService = $this->createMockWpService();
         $archiveProps = (object) [
             'dateField' => 'post_date',
             'style' => 'cards',
@@ -117,7 +151,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
             'taxonomiesToDisplay' => ['category'],
         ];
 
-        $provider = new ArchiveAsyncAttributesProvider('news', $archiveProps);
+        $provider = new ArchiveAsyncAttributesProvider('news', $archiveProps, $wpService);
         $attributes = $provider->getAttributes();
 
         $json = json_encode($attributes);
@@ -132,12 +166,13 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
      */
     public function testPartialArchiveProps()
     {
+        $wpService = $this->createMockWpService();
         $archiveProps = (object) [
             'dateField' => 'custom_date',
             'postPropertiesToDisplay' => ['title'],
         ];
 
-        $provider = new ArchiveAsyncAttributesProvider('page', $archiveProps);
+        $provider = new ArchiveAsyncAttributesProvider('page', $archiveProps, $wpService);
         $attributes = $provider->getAttributes();
 
         // Custom values
@@ -158,7 +193,8 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
      */
     public function testReturnsSameInstanceOnMultipleCalls()
     {
-        $provider = new ArchiveAsyncAttributesProvider('post', (object) []);
+        $wpService = $this->createMockWpService();
+        $provider = new ArchiveAsyncAttributesProvider('post', (object) [], $wpService);
         $attributes1 = $provider->getAttributes();
         $attributes2 = $provider->getAttributes();
 

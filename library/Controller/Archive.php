@@ -39,7 +39,8 @@ class Archive extends \Municipio\Controller\BaseController
         // Initialize async attributes provider
         $this->asyncAttributesProvider = new ArchiveAsyncAttributesProvider(
             $postType,
-            $this->data['archiveProps']
+            $this->data['archiveProps'],
+            $this->wpService
         );
 
         //Archive data
