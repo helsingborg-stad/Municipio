@@ -19,11 +19,11 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
      * Constructor
      *
      * @param string $postType The post type of the archive
-     * @param object|bool $archiveProps Archive properties from customizer
+     * @param object $archiveProps Archive properties from customizer
      */
     public function __construct(
         private string $postType,
-        private object|bool $archiveProps
+        private object $archiveProps
     ) {
         $this->attributes = $this->buildAttributes();
     }
@@ -41,61 +41,43 @@ class ArchiveAsyncAttributesProvider implements AsyncAttributesProviderInterface
     /**
      * Build the attributes array from archive data
      *
+     * Returns minimal block-compatible attributes for async rendering.
+     * Maps archive customizer properties to block attribute format.
+     *
      * @return array
      */
     private function buildAttributes(): array
     {
-        $attributes = [
-            'postType' => $this->postType,
+        return [
+            'postTypes' => [$this->postType],
+            'dateSource' => $this->archiveProps->dateField ?? 'post_date',
+            'dateFormat' => $this->archiveProps->date_format ?? 'date',
+            'design' => $this->mapDesign($this->archiveProps->style ?? 'cards'),
+            'numberOfColumns' => $this->archiveProps->numberOfColumns ?? 3,
+            'postPropertiesToDisplay' => $this->archiveProps->postPropertiesToDisplay ?? [],
+            'taxonomiesToDisplay' => $this->archiveProps->taxonomiesToDisplay ?? [],
+            'displayFeaturedImage' => $this->archiveProps->featured_image ?? false,
+            'displayReadingTime' => $this->archiveProps->reading_time ?? false,
         ];
-
-        // Add archive properties if they exist
-        if (is_object($this->archiveProps)) {
-            $attributes['archiveProps'] = $this->filterJsonSafeObject($this->archiveProps);
-        }
-
-        return $attributes;
     }
 
     /**
-     * Filter an object to only include JSON-serializable properties
+     * Map archive style to block design format
      *
-     * @param object $object The object to filter
-     * @return array The filtered properties as an array
+     * @param string $style Archive style from customizer
+     * @return string Block design value
      */
-    private function filterJsonSafeObject(object $object): array
+    private function mapDesign(string $style): string
     {
-        $safe = [];
-        foreach (get_object_vars($object) as $key => $value) {
-            if (is_scalar($value) || is_null($value)) {
-                $safe[$key] = $value;
-            } elseif (is_array($value)) {
-                $safe[$key] = $this->filterJsonSafeArray($value);
-            } elseif (is_object($value)) {
-                $safe[$key] = $this->filterJsonSafeObject($value);
-            }
-        }
-        return $safe;
-    }
-
-    /**
-     * Recursively filter an array to only include JSON-serializable values
-     *
-     * @param array $array The array to filter
-     * @return array The filtered array containing only JSON-safe values
-     */
-    private function filterJsonSafeArray(array $array): array
-    {
-        $safe = [];
-        foreach ($array as $key => $value) {
-            if (is_scalar($value) || is_null($value)) {
-                $safe[$key] = $value;
-            } elseif (is_array($value)) {
-                $safe[$key] = $this->filterJsonSafeArray($value);
-            } elseif (is_object($value)) {
-                $safe[$key] = $this->filterJsonSafeObject($value);
-            }
-        }
-        return $safe;
+        return match ($style) {
+            'cards' => 'card',
+            'collection' => 'collection',
+            'compressed' => 'compressed',
+            'grid' => 'block',
+            'list' => 'table',
+            'newsitem' => 'newsitem',
+            'schema' => 'schema',
+            default => 'card',
+        };
     }
 }

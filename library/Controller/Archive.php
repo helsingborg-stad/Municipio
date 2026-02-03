@@ -78,9 +78,9 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @param  string $postType
      * @param  array $customizer
-     * @return array|bool
+     * @return object Always returns an object, empty if no customization exists
      */
-    private function getArchiveProperties($postType, $customize)
+    private function getArchiveProperties($postType, $customize): object
     {
         $customizationKey = 'archive' . self::camelCasePostTypeName($postType);
 
@@ -88,7 +88,7 @@ class Archive extends \Municipio\Controller\BaseController
             return (object) $customize->{$customizationKey};
         }
 
-        return false;
+        return (object) [];
     }
 
     /**
@@ -105,9 +105,10 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Get the archive title
      *
+     * @param object $args Archive properties object
      * @return string
      */
-    protected function getArchiveTitle($args)
+    protected function getArchiveTitle(object $args): string
     {
         return (string) \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $args->heading ?? '');
     }
@@ -115,9 +116,10 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Get the archive lead
      *
+     * @param object $args Archive properties object
      * @return string
      */
-    protected function getArchiveLead($args)
+    protected function getArchiveLead(object $args): string
     {
         return (string) \apply_filters('Municipio/Controller/Archive/getArchiveLead', $args->body ?? '');
     }
