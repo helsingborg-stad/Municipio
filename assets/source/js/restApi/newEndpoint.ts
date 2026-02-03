@@ -31,7 +31,7 @@ const getApiRoot = ():string|null => {
 }
 
 const buildUrl = (nameSpace:string, route:string, routeParams?:string, params?:{}):string => {
-    
+
     const apiRoot = getApiRoot()
 
     if( !apiRoot ) {
@@ -40,8 +40,20 @@ const buildUrl = (nameSpace:string, route:string, routeParams?:string, params?:{
 
     let url = `${apiRoot}${nameSpace}/${route}`
     url += routeParams ? `/${routeParams}` : ''
-    url += params ? '?' + new URLSearchParams(params) : ''
-    
+
+    if (params) {
+        const searchParams = new URLSearchParams();
+        Object.entries(params).forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+                value.forEach(v => searchParams.append(key, String(v)));
+            } else if (value !== null && value !== undefined) {
+                searchParams.append(key, String(value));
+            }
+        });
+        const queryString = searchParams.toString();
+        url += queryString ? '?' + queryString : '';
+    }
+
     return url
 }
 

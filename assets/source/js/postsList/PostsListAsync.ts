@@ -54,7 +54,20 @@ export class PostsListAsync {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
-            const params: Record<string, unknown> = Object.fromEntries(formData.entries());
+            const params: Record<string, unknown> = {};
+
+            // Handle multiselect inputs by collecting all values for each key
+            const uniqueKeys = [...new Set(formData.keys())];
+            uniqueKeys.forEach(key => {
+                const values = formData.getAll(key);
+                // For multiple values, use array notation in parameter name for PHP
+                if (values.length > 1) {
+                    const arrayKey = key.endsWith('[]') ? key : `${key}[]`;
+                    params[arrayKey] = values;
+                } else {
+                    params[key] = values[0];
+                }
+            });
 
             const currentUrl = new URL(window.location.href);
             currentUrl.searchParams.forEach((value, key) => {
@@ -140,7 +153,21 @@ export class PostsListAsync {
         }
 
         Object.entries(params).forEach(([key, value]) => {
-            if (value !== null && value !== undefined && value !== '') {
+            // Handle array values (multiselect) - key should already have [] suffix
+            if (Array.isArray(value)) {
+                // Clean up both with and without [] suffix
+                const baseKey = key.replace(/\[\]$/, '');
+                url.searchParams.delete(baseKey);
+                url.searchParams.delete(key);
+
+                if (value.length > 0) {
+                    value.forEach(v => {
+                        if (v !== null && v !== undefined && v !== '') {
+                            url.searchParams.append(key, String(v));
+                        }
+                    });
+                }
+            } else if (value !== null && value !== undefined && value !== '') {
                 url.searchParams.set(key, String(value));
             } else {
                 url.searchParams.delete(key);
