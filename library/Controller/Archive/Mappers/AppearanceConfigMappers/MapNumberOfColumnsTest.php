@@ -20,6 +20,6 @@ class MapNumberOfColumnsTest extends TestCase
     {
         $mapper = new MapNumberOfColumns();
         $result = $mapper->map(['archiveProps' => (object) []]);
-        $this->assertEquals(3, $result); // ArchiveDefaults::NUMBER_OF_COLUMNS = 3
+        $this->assertEquals(3, $result);
     }
 }
