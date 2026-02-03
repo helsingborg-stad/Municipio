@@ -5,6 +5,7 @@ class CollapsibleSearchForm {
     private isOpen: boolean = false;
 
     constructor(
+        private container: HTMLElement,
         private triggerButton: HTMLElement, 
         private searchForm: HTMLElement, 
         private closeButton: HTMLElement, 
@@ -57,7 +58,7 @@ class CollapsibleSearchForm {
         this.handleIsOpen();
 
         setTimeout(() => {
-            this.searchForm.classList.remove('closing'); // Clean up classes
+            this.container.classList.remove('is-closing'); // Clean up classes
             this.lastFocusedElement?.focus(); // Restore focus to the last focused element
         }, 500);
     }
@@ -65,18 +66,18 @@ class CollapsibleSearchForm {
     private handleIsOpen(): void {
         if (this.isOpen) {
             this.lastFocusedElement = document.activeElement as HTMLElement;
-            this.searchForm.classList.remove('closing');
+            this.container.classList.remove('is-closing');
             this.searchForm.setAttribute('aria-hidden', 'false');
             this.searchForm.classList.remove('u-visibility--hidden');
             this.triggerButton.setAttribute('aria-expanded', 'true');
-            this.searchForm.classList.add('open');
+            this.container.classList.add('is-open');
         } else {
             this.searchForm.classList.add('u-visibility--hidden');
             this.searchInput.blur();
-            this.searchForm.classList.remove('open');
+            this.container.classList.remove('is-open');
             this.searchForm.setAttribute('aria-hidden', 'true');
             this.triggerButton.setAttribute('aria-expanded', 'false');
-            this.searchForm.classList.add('closing');
+            this.container.classList.add('is-closing');
         }
     }
 
@@ -136,6 +137,7 @@ export function initializeCollapsibleSearch(): void {
 
             if (triggerButton && searchForm && closeButton && searchInput) {
                 new CollapsibleSearchForm(
+                    collapsibleSearchElement as HTMLElement,
                     triggerButton as HTMLElement, 
                     searchForm as HTMLElement, 
                     closeButton as HTMLElement, 
