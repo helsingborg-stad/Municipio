@@ -17,7 +17,7 @@
             @notice([
                 'type' => 'info',
                 'message' => [
-                    'text' => $lang->noResult,
+                    'text' => $lang->noResult ?? 'No results found',
                     'size' => 'md'
                 ]
             ])
