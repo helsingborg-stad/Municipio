@@ -112,14 +112,14 @@ class BaseController
         $this->data['showEmblemInHero']   = $this->data['customizer']->showEmblemInHero ?? true;
         $brandTextOption = get_option('brand_text', '');
         $this->data['brandText']          = $this->getMultilineTextAsArray(is_string($brandTextOption) ? $brandTextOption : '');
-        $this->data['headerBrandEnabled'] = $this->data['customizer']->headerBrandEnabled && !empty($this->data['brandText']);
+        $this->data['headerBrandEnabled'] = $this->data['customizer']?->headerBrandEnabled && !empty($this->data['brandText']);
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
         $this->data['footerColumns']                 = $footerColumns;
         $this->data['footerGridSize']                = $footerStyle === 'columns' ? floor(12 / $footerColumns) : 12;
         $this->data['footerAreas']                   = $footerAreas;
-        $this->data['footerTextAlignment']           = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
+        $this->data['footerTextAlignment']           = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'] ?? 'left';
 
         // Header controllers
         if (isset($this->data['customizer']->headerApperance)) {
@@ -245,7 +245,7 @@ class BaseController
 
         $this->menuBuilder->setConfig($helpMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['helpMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['helpMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'] ?? [];
 
         // Dropdown menu
         // TODO: Find out what it does
@@ -256,7 +256,7 @@ class BaseController
 
         $this->menuBuilder->setConfig($dropdownMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['dropdownMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['dropdownMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'] ?? [];
 
         // Floating menu
         $floatingMenuConfig = new MenuConfig(
@@ -503,7 +503,7 @@ class BaseController
     {
         $permalink = urldecode($this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get()));
         $permalink = add_query_arg($queryParam, $permalink);
-        return urldecode($permalink);
+        return urldecode($permalink ?? '');
     }
 
     /**
@@ -792,11 +792,11 @@ class BaseController
      */
     protected function getFooterSettings()
     {
-        $footerStyle   = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
+        $footerStyle   = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'] ?? 'standard';
         $footerAreas   = ['footer-area'];
         $footerColumns = 1;
         if ($footerStyle === 'columns') {
-            $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'];
+            $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'] ?? 1;
             for ($i = 1; $i < $footerColumns; $i++) {
                 $footerAreas[] = 'footer-area-column-' . $i;
             }
@@ -1019,6 +1019,10 @@ class BaseController
      */
     public function getColumnSize($location, $customizer)
     {
+        if(!isset($customizer->columnSizeLeft) || !isset($customizer->columnSizeRight)) {
+            return 3;
+        }
+
         if ($location == 'left' && $customizer->columnSizeLeft == 'large') {
             return 4;
         }
@@ -1037,7 +1041,7 @@ class BaseController
      */
     public function getEmblem()
     {
-        if (empty($logotypeEmblem = $this->data['customizer']->logotypeEmblem)) {
+        if (empty($logotypeEmblem = $this->data['customizer']?->logotypeEmblem)) {
             return false;
         }
 
@@ -1135,6 +1139,10 @@ class BaseController
             ],
             'objects'
         );
+        
+        if(empty($postTypes) || !is_array($postTypes)) {
+            return $feeds;
+        }
 
         foreach ($postTypes as $postType) {
             if (empty($postType->has_archive)) {
