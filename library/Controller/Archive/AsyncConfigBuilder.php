@@ -20,6 +20,7 @@ class AsyncConfigBuilder implements AsyncConfigBuilderInterface
     private bool $paginationEnabled = true;
     private ?string $asyncId = null;
     private bool $isAsync = false;
+    private array $sourceAttributes = [];
 
     /**
      * {@inheritDoc}
@@ -114,20 +115,21 @@ class AsyncConfigBuilder implements AsyncConfigBuilderInterface
     /**
      * {@inheritDoc}
      */
+    public function setSourceAttributes(array $attributes): self
+    {
+        $this->sourceAttributes = $attributes;
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function build(): array
     {
-        return [
-            'queryVarsPrefix' => $this->queryVarsPrefix,
-            'id' => $this->id,
-            'postType' => $this->postType,
-            'dateSource' => $this->dateSource,
-            'dateFormat' => $this->dateFormat,
-            'numberOfColumns' => $this->numberOfColumns,
-            'postsPerPage' => $this->postsPerPage,
-            'paginationEnabled' => $this->paginationEnabled,
-            'asyncId' => $this->asyncId,
-            'isAsync' => $this->isAsync,
-        ];
+        // Build ULTRA-MINIMAL async config with ONLY essential identifiers for URL
+        // Returns ONLY: postType, queryVarsPrefix, archivePropsKey
+        // Backend will reconstruct EVERYTHING else when async request comes in
+        return $this->sourceAttributes; // Contains ONLY the 3 minimal identifiers
     }
 
     /**
@@ -145,6 +147,7 @@ class AsyncConfigBuilder implements AsyncConfigBuilderInterface
         $this->paginationEnabled = true;
         $this->asyncId = null;
         $this->isAsync = false;
+        $this->sourceAttributes = [];
         return $this;
     }
 }

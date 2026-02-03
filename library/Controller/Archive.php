@@ -86,6 +86,15 @@ class Archive extends \Municipio\Controller\BaseController
             'archiveProps' => $this->data['archiveProps'] ?? [],
         ];
         $postsListConfigDTO = (new \Municipio\PostsList\ConfigMapper\ArchiveDataToPostsListConfigMapper())->map($archiveAsyncAttributes);
+
+        // Create minimal async attributes - only essential identifiers for URL
+        // The backend will reconstruct the full data when the async request comes in
+        $minimalAsyncAttributes = [
+            'postType' => $this->data['postType'] ?? 'page',
+            'queryVarsPrefix' => 'archive_',
+            // Archive properties can be reconstructed from post type and customizer
+            'archivePropsKey' => 'archive' . $this->camelCasePostTypeName($this->data['postType'] ?? 'page'),
+        ];
         $postsListFactory = new \Municipio\PostsList\PostsListFactory(
             $this->wpService,
             $GLOBALS['wpdb'],
@@ -95,10 +104,14 @@ class Archive extends \Municipio\Controller\BaseController
         $postsList     = $postsListFactory->create($postsListConfigDTO);
         $postsListData = $postsList->getData();
 
+        
+        // Create async attributes with minimal data to keep URLs small
+        // Backend will reconstruct full data from these identifiers
         $postsListData['getAsyncAttributes'] = fn() => $this->getAsyncConfigFactory()->create(
             $postsListConfigDTO,
             $postsListData,
-            true
+            true,
+            $minimalAsyncAttributes
         );
 
         $this->data = [

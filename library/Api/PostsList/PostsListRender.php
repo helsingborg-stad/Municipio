@@ -5,6 +5,7 @@ namespace Municipio\Api\PostsList;
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer;
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Controller\Archive\AsyncAttributesReconstructor;
 use Municipio\Helper\AcfService;
 use Municipio\Helper\WpService;
 use Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer;
@@ -61,6 +62,13 @@ class PostsListRender extends RestApiEndpoint
             $error = new WP_Error();
             $error->add('invalid_attributes', __('Invalid or missing attributes.', 'municipio'), ['status' => WP_Http::BAD_REQUEST]);
             return rest_ensure_response($error);
+        }
+
+        // Reconstruct full data from minimal async attributes
+        // If attributes contain 'archivePropsKey', they're minimal and need reconstruction
+        if (isset($attributes['archivePropsKey'])) {
+            $wpService = WpService::get();
+            $attributes = AsyncAttributesReconstructor::enrich($attributes, $wpService);
         }
 
         // Merge GET parameters into $_GET for filter/search/pagination support

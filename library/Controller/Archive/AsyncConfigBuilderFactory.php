@@ -27,15 +27,26 @@ class AsyncConfigBuilderFactory
      * @param mixed $postsListConfigDTO The posts list configuration DTO
      * @param array $postsListData The posts list data array
      * @param bool $isAsync Whether this is an async request
+     * @param array|null $sourceAttributes Optional source attributes to preserve
      * @return array The built async configuration
      */
     public function create(
         $postsListConfigDTO,
         array $postsListData,
-        bool $isAsync = true
+        bool $isAsync = true,
+        ?array $sourceAttributes = null
     ): array {
         // Reset builder to clean state
         $this->builder->reset();
+
+        // Set source attributes if provided (preserves filter configs, design, etc.)
+        if ($sourceAttributes !== null) {
+            $sourceExtractor = new SourceAttributesExtractor($sourceAttributes);
+            $sourceData = $sourceExtractor->extract();
+            if (isset($sourceData['sourceAttributes'])) {
+                $this->builder->setSourceAttributes($sourceData['sourceAttributes']);
+            }
+        }
 
         // Extract data using specialized extractors
         $extractors = [
@@ -106,14 +117,16 @@ class AsyncConfigBuilderFactory
      * @param mixed $postsListConfigDTO The posts list configuration DTO
      * @param array $postsListData The posts list data array
      * @param bool $isAsync Whether this is an async request
+     * @param array|null $sourceAttributes Optional source attributes to preserve
      * @return array The built async configuration
      */
     public static function fromConfigs(
         $postsListConfigDTO,
         $postsListData,
-        bool $isAsync = true
+        bool $isAsync = true,
+        ?array $sourceAttributes = null
     ): array {
         $factory = new self(new AsyncConfigBuilder());
-        return $factory->create($postsListConfigDTO, $postsListData, $isAsync);
+        return $factory->create($postsListConfigDTO, $postsListData, $isAsync, $sourceAttributes);
     }
 }

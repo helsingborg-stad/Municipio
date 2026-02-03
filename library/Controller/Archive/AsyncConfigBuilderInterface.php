@@ -90,6 +90,14 @@ interface AsyncConfigBuilderInterface
     public function setIsAsync(bool $isAsync): self;
 
     /**
+     * Set the source attributes (full data needed to recreate configs).
+     *
+     * @param array $attributes The full source attributes
+     * @return self
+     */
+    public function setSourceAttributes(array $attributes): self;
+
+    /**
      * Build and return the configuration array.
      *
      * @return array The built configuration
