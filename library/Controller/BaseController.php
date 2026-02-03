@@ -81,7 +81,7 @@ class BaseController
         $this->data['languageAttributes'] = $this->getLanguageAttrs();
         $this->data['homeUrl']            = $this->getHomeUrl();
         $this->data['adminUrl']           = $this->getAdminUrl();
-        $this->data['homeUrlPath']        = parse_url(get_home_url(), PHP_URL_PATH);
+        $this->data['homeUrlPath']        = $this->getHomeUrlPath();
         $this->data['siteName']           = $this->getSiteName();
 
         // Feeds
@@ -196,12 +196,17 @@ class BaseController
         $this->data['mobileSecondaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mega menu
+        if(class_exists('Kirki')) {
+            $megaMenuFallbackOption = \Kirki::get_option('mega_menu_pagetree_fallback');
+        } else {
+            $megaMenuFallbackOption = false;
+        }
         $megaMenuConfig = new MenuConfig(
             'mega-menu',
             'mega-menu',
             false,
             false,
-            \Kirki::get_option('mega_menu_pagetree_fallback')
+            $megaMenuFallbackOption
         );
 
         $this->menuBuilder->setConfig($megaMenuConfig);
@@ -291,12 +296,18 @@ class BaseController
             $this->wpService->getPostType() . '-secondary-menu',
         );
 
+        if(class_exists('Kirki')) {
+            $fallbackToPageTree = \Kirki::get_option('secondary_menu_pagetree_fallback');
+        } else {
+            $fallbackToPageTree = false;
+        }
+        $fallbackToPageTree = false;
         $secondaryMenuConfig = new MenuConfig(
             'sidebar',
             'secondary-menu',
             false,
             empty($this->data['primaryMenu']['items']) ? false : true,
-            \Kirki::get_option('secondary_menu_pagetree_fallback'),
+            $fallbackToPageTree,
         );
 
         $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
@@ -880,6 +891,17 @@ class BaseController
 
         $filtered = apply_filters('Municipio/homeUrl', esc_url($homeUrl));
         return is_string($filtered) ? $filtered : '';
+    }
+
+    /**
+     * Get home url path
+     * @return string
+     */
+    public function getHomeUrlPath(): string
+    {
+        $homeUrl = $this->getHomeUrl();
+        $parsedUrl = wp_parse_url($homeUrl);
+        return $parsedUrl['path'] ?? '/';
     }
 
     /**

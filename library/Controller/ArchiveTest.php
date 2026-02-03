@@ -35,6 +35,7 @@ class ArchiveTest extends TestCase
             'removeQueryArg' => '',
             'getThemeMod' => 10,
             'getTerms' => [],
+            'getPostType' => 'post',
         ]);
 
         $acfService = $this->createMock(AcfService::class);
