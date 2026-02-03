@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Archive\AsyncAttributesProvider\ArchiveAsyncAttributesProvider;
+use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderInterface;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 
@@ -12,6 +14,7 @@ use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolve
  */
 class Archive extends \Municipio\Controller\BaseController
 {
+    private ?AsyncAttributesProviderInterface $asyncAttributesProvider = null;
     /**
      * Initializes the Archive controller.
      *
@@ -32,6 +35,12 @@ class Archive extends \Municipio\Controller\BaseController
 
         // Get archive properties
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
+
+        // Initialize async attributes provider
+        $this->asyncAttributesProvider = new ArchiveAsyncAttributesProvider(
+            $postType,
+            $this->data['archiveProps']
+        );
 
         //Archive data
         $this->data['archiveTitle'] = $this->getArchiveTitle($this->data['archiveProps']);
@@ -54,10 +63,14 @@ class Archive extends \Municipio\Controller\BaseController
             new SchemaToPostTypeResolver($this->acfService, $this->wpService),
         );
         $postsList = $postsListFactory->create($postsListConfigDTO);
+
         $this->data = [
             ...$this->data,
             ...$postsList->getData(),
         ];
+
+        // Override getAsyncAttributes after PostsList data merge
+        $this->data['getAsyncAttributes'] = fn() => $this->getAsyncAttributes();
     }
 
     /**
@@ -107,5 +120,18 @@ class Archive extends \Municipio\Controller\BaseController
     protected function getArchiveLead($args)
     {
         return (string) \apply_filters('Municipio/Controller/Archive/getArchiveLead', $args->body ?? '');
+    }
+
+    /**
+     * Get async attributes for the archive
+     *
+     * Delegates to the AsyncAttributesProvider to get JSON-serializable
+     * attributes for async rendering and client-side hydration.
+     *
+     * @return array
+     */
+    protected function getAsyncAttributes(): array
+    {
+        return $this->asyncAttributesProvider?->getAttributes() ?? [];
     }
 }
