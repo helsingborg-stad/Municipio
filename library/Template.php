@@ -864,6 +864,11 @@ class Template
         $directory = MUNICIPIO_PATH . 'library/Controller/';
 
         foreach (@glob($directory . "*.php") as $file) {
+            // Skip test files
+            if (str_ends_with($file, 'Test.php')) {
+                continue;
+            }
+
             $class = '\Municipio\Controller\\' . basename($file, '.php');
 
             if (!class_exists($class)) {

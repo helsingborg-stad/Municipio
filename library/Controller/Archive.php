@@ -2,6 +2,9 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderFactory;
+use Municipio\Archive\AsyncAttributesProvider\AsyncAttributesProviderInterface;
+use Municipio\Controller\Archive\AppearanceConfigFactory;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 
@@ -12,6 +15,7 @@ use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolve
  */
 class Archive extends \Municipio\Controller\BaseController
 {
+    private ?AsyncAttributesProviderInterface $asyncAttributesProvider = null;
     /**
      * Initializes the Archive controller.
      *
@@ -32,6 +36,17 @@ class Archive extends \Municipio\Controller\BaseController
 
         // Get archive properties
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
+
+        // Initialize async attributes provider using factory
+        $asyncAttributesProviderFactory = new AsyncAttributesProviderFactory(
+            new AppearanceConfigFactory()
+        );
+        $this->asyncAttributesProvider = $asyncAttributesProviderFactory->createForArchive(
+            $postType,
+            $this->data['archiveProps'],
+            $this->wpService,
+            $GLOBALS['wp_taxonomies']
+        );
 
         //Archive data
         $this->data['archiveTitle'] = $this->getArchiveTitle($this->data['archiveProps']);
@@ -54,10 +69,17 @@ class Archive extends \Municipio\Controller\BaseController
             new SchemaToPostTypeResolver($this->acfService, $this->wpService),
         );
         $postsList = $postsListFactory->create($postsListConfigDTO);
+
         $this->data = [
             ...$this->data,
             ...$postsList->getData(),
         ];
+
+        // Set archiveResetUrl for archive-menu partial (uses filterConfig from PostsList)
+        $this->data['archiveResetUrl'] = $this->data['filterConfig']->getResetUrl();
+
+        // Override getAsyncAttributes after PostsList data merge
+        $this->data['getAsyncAttributes'] = fn() => $this->getAsyncAttributes();
     }
 
     /**
@@ -65,9 +87,9 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @param  string $postType
      * @param  array $customizer
-     * @return array|bool
+     * @return object Always returns an object, empty if no customization exists
      */
-    private function getArchiveProperties($postType, $customize)
+    private function getArchiveProperties($postType, $customize): object
     {
         $customizationKey = 'archive' . self::camelCasePostTypeName($postType);
 
@@ -75,7 +97,7 @@ class Archive extends \Municipio\Controller\BaseController
             return (object) $customize->{$customizationKey};
         }
 
-        return false;
+        return (object) [];
     }
 
     /**
@@ -92,9 +114,10 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Get the archive title
      *
+     * @param object $args Archive properties object
      * @return string
      */
-    protected function getArchiveTitle($args)
+    protected function getArchiveTitle(object $args): string
     {
         return (string) \apply_filters('Municipio/Controller/Archive/getArchiveTitle', $args->heading ?? '');
     }
@@ -102,10 +125,24 @@ class Archive extends \Municipio\Controller\BaseController
     /**
      * Get the archive lead
      *
+     * @param object $args Archive properties object
      * @return string
      */
-    protected function getArchiveLead($args)
+    protected function getArchiveLead(object $args): string
     {
         return (string) \apply_filters('Municipio/Controller/Archive/getArchiveLead', $args->body ?? '');
+    }
+
+    /**
+     * Get async attributes for the archive
+     *
+     * Delegates to the AsyncAttributesProvider to get JSON-serializable
+     * attributes for async rendering and client-side hydration.
+     *
+     * @return array
+     */
+    protected function getAsyncAttributes(): array
+    {
+        return $this->asyncAttributesProvider?->getAttributes() ?? [];
     }
 }

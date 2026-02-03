@@ -16,7 +16,7 @@ class MapDesign
      */
     public function map(array $data): PostDesign
     {
-        return match ($data['archiveProps']->style ?? 'cards') {
+        return match ($data['archiveProps']->style ?? null) {
             'cards' => PostDesign::CARD,
             'collection' => PostDesign::COLLECTION,
             'compressed' => PostDesign::COMPRESSED,

@@ -37,6 +37,26 @@ class BlockAttributesToAppearanceConfigMapper
             {
                 return $this->attributes['dateSource'];
             }
+
+            public function getPostPropertiesToDisplay(): array
+            {
+                return $this->attributes['postPropertiesToDisplay'] ?? [];
+            }
+
+            public function getTaxonomiesToDisplay(): array
+            {
+                return $this->attributes['taxonomiesToDisplay'] ?? [];
+            }
+
+            public function shouldDisplayFeaturedImage(): bool
+            {
+                return (bool) ($this->attributes['displayFeaturedImage'] ?? false);
+            }
+
+            public function shouldDisplayReadingTime(): bool
+            {
+                return (bool) ($this->attributes['displayReadingTime'] ?? false);
+            }
         };
     }
 }

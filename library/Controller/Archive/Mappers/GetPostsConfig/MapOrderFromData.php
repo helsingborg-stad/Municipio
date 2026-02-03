@@ -12,6 +12,7 @@ class MapOrderFromData implements MapperInterface
 {
     /**
      * Map order from data
+     * Defaults to DESC (ArchiveDefaults::ORDER)
      *
      * @param array $data
      * @return OrderDirection
@@ -20,6 +21,6 @@ class MapOrderFromData implements MapperInterface
     {
         return (isset($data['archiveProps']->orderDirection) && strtoupper($data['archiveProps']->orderDirection) === 'ASC')
             ? OrderDirection::ASC
-            : OrderDirection::DESC;
+            : OrderDirection::DESC; // ArchiveDefaults::ORDER = 'desc'
     }
 }
