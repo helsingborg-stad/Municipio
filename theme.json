@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {},
+	"styles": {},
+	"customTemplates": [
+        {
+            "name": "municipio-template",
+            "title": "Municipio Template",
+            "postTypes": ["page"]
+        }
+    ],
+	"templateParts": [],
+	"patterns": [
+		"municipio/header"
+	]
+}

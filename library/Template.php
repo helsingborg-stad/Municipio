@@ -2,7 +2,6 @@
 
 namespace Municipio;
 
-use WpService\WpService;
 use AcfService\AcfService;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
@@ -10,13 +9,14 @@ use Municipio\Admin\Private\MainQueryUserGroupRestriction;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
-use Municipio\Helper\Template as TemplateHelper;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\Helper\Template as TemplateHelper;
+use Municipio\Helper\User\User;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use WP_Post;
 use WP_Post_Type;
-use Municipio\Helper\User\User;
-use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
+use WpService\WpService;
 
 /**
  * Class Template
@@ -25,7 +25,7 @@ use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 class Template
 {
     private ?BladeServiceInterface $bladeEngine = null;
-    private ?array $viewPaths                   = null;
+    private ?array $viewPaths = null;
 
     /**
      * Template constructor.
@@ -39,7 +39,7 @@ class Template
         private SiteSwitcher $siteSwitcher,
         private PostObjectFromWpPostFactoryInterface $postObjectFromWpPost,
         private User $userHelper,
-        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType
+        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,
     ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -52,8 +52,8 @@ class Template
         add_action('template_redirect', array($this, 'addTemplateFilters'), 10);
 
         add_filter('template_include', array($this, 'switchPageTemplate'), 5);
-        add_filter('template_include', array($this, 'sanitizeViewName'), 10);
 
+        add_filter('template_include', array($this, 'sanitizeViewName'), 10);
         add_filter('template_include', array($this, 'loadViewData'), 15);
     }
 
@@ -65,8 +65,12 @@ class Template
      */
     public function loadViewData(string $originalTemplate = '', $data = array())
     {
+        if (str_ends_with($originalTemplate, 'template-canvas.php')) {
+            return $originalTemplate;
+        }
+
         $controller = $this->loadController($originalTemplate);
-        $viewData   = $this->accessProtected($controller['data'], 'data');
+        $viewData = $this->accessProtected($controller['data'], 'data');
 
         // Set view based on controller instructions, if any.
         // First checks $controller['data']->view, then $controller['view']
@@ -79,56 +83,66 @@ class Template
         }
 
         $isArchive = fn() => is_archive() || is_home();
-        $postType  = $this->wpService->getPostType();
-        $template  = $viewData['template'] ?? '';
+        $postType = $this->wpService->getPostType();
+        $template = $viewData['template'] ?? '';
 
         $filters = [
-        // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
-        ['Municipio/Template/viewData', [], true, false],
-        ['Municipio/Template/single/viewData', [$postType], is_single(), false],
-        ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
-        ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
-        ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
-        ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
+            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
+            ['Municipio/Template/viewData', [], true, false],
+            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
+            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
+            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
+            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
+            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
         ];
 
         $deprecated = [
-        [
-            'Municipio/controller/base/view_data', [], true, true,
-            '2.0', 'Municipio/Template/viewData'
-        ],
-        [
-            'Municipio/blade/data', [], true, true,
-            '3.0', 'Municipio/Template/viewData'
-        ],
+            [
+                'Municipio/controller/base/view_data',
+                [],
+                true,
+                true,
+                '2.0',
+                'Municipio/Template/viewData',
+            ],
+            [
+                'Municipio/blade/data',
+                [],
+                true,
+                true,
+                '3.0',
+                'Municipio/Template/viewData',
+            ],
 
-        // To be deprecated next
-        [
-            'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
-            '3.0', 'Municipio/Template/archive/viewData'
-        ],
-        [
-            'Municipio/viewData', [], true, false,
-            '3.0', 'Municipio/Template/viewData'
-        ],
+            // To be deprecated next
+            [
+                'Municipio/Controller/Archive/Data',
+                [$postType, $template],
+                $isArchive(),
+                false,
+                '3.0',
+                'Municipio/Template/archive/viewData',
+            ],
+            [
+                'Municipio/viewData',
+                [],
+                true,
+                false,
+                '3.0',
+                'Municipio/Template/viewData',
+            ],
         ];
 
-        $tryApplyFilters = fn (array $viewData, array $maybeFilters): array => array_reduce(
+        $tryApplyFilters = fn(array $viewData, array $maybeFilters): array => array_reduce(
             $maybeFilters,
             function ($viewData, $params) {
                 [$filterTag, $filterParams, $useFilter, $isDeprecated, $version, $message] = [...$params, ...['', '']];
 
-                $applyFilters =
-                    fn (string $tag, array $value, array $params, bool $useDeprecated, string $v = '', string $m = '')
-                    => $useDeprecated
-                        ? apply_filters_deprecated($tag, array_merge([$value], $params), $v, $m)
-                        : apply_filters($tag, ...array_merge([$value], $params));
+                $applyFilters = fn(string $tag, array $value, array $params, bool $useDeprecated, string $v = '', string $m = '') => $useDeprecated ? apply_filters_deprecated($tag, array_merge([$value], $params), $v, $m) : apply_filters($tag, ...array_merge([$value], $params));
 
-                return $useFilter
-                    ? $applyFilters($filterTag, $viewData, $filterParams, $isDeprecated, $version, $message)
-                    : $viewData;
+                return $useFilter ? $applyFilters($filterTag, $viewData, $filterParams, $isDeprecated, $version, $message) : $viewData;
             },
-            $viewData
+            $viewData,
         );
 
         $viewData = $tryApplyFilters($viewData, [...$filters, ...$deprecated]);
@@ -137,26 +151,23 @@ class Template
     }
 
     /**
-    * Loads a controller
-    *
-    * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
-    * This means that a controller that has a priority of 0 will be applied first.
-    * Only one controller can be applied at a time and the method will exit once it's been applied.
-    *
-    * @param string template The WordPress template name, e.g. page, archive, 404, etc.
-    *
-    * @return object A new instance of the controller class.
-    */
+     * Loads a controller
+     *
+     * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
+     * This means that a controller that has a priority of 0 will be applied first.
+     * Only one controller can be applied at a time and the method will exit once it's been applied.
+     *
+     * @param string template The WordPress template name, e.g. page, archive, 404, etc.
+     *
+     * @return object A new instance of the controller class.
+     */
     public function loadController(string $template = ''): array
     {
         global $wp_query;
 
         // Bypass access restriction logic for generic static endpoints
         if (!$this->mayBeCustomTemplateRequest()) {
-            if (
-                !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
-                $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
-            ) {
+            if (!is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() || $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())) {
                 if ($wp_query->found_posts > 0) {
                     if (!is_user_logged_in()) {
                         $template = '401';
@@ -174,11 +185,7 @@ class Template
 
             // Restrict access to single posts that belong to a post type with an assigned "page for post type"
             // if that page is not publicly viewable and the user is not logged in.
-            if (
-                $this->singlePostHasPostTypeThatUsesPageForPostType() &&
-                !$this->isPostTypePubliclyViewable() &&
-                !is_user_logged_in()
-            ) {
+            if ($this->singlePostHasPostTypeThatUsesPageForPostType() && !$this->isPostTypePubliclyViewable() && !is_user_logged_in()) {
                 $template = '401';
             }
         }
@@ -188,72 +195,67 @@ class Template
             'Municipio/blade/before_load_controller',
             $template,
             '3.0',
-            'Municipio/blade/beforeLoadController'
+            'Municipio/blade/beforeLoadController',
         );
 
         // Controller conditions
-        $isSingular                       = fn() => is_singular();
-        $isArchive                        = fn() => is_archive() || is_home();
-        $hasSchemaType                    = fn() => $this->getCurrentPostSchemaType() !== null;
-        $schemaType                       = fn() => $this->getCurrentPostSchemaType();
-        $templateController               = fn() => ControllerHelper::camelCase($template);
-        $templateControllerPath           = fn() => ControllerHelper::locateController($templateController());
-        $templateControllerNamespace      = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
-        $shouldUseSchemaController        = fn() =>  $hasSchemaType() &&
-                                                $isSingular() &&
-                                                class_exists("Municipio\Controller\Singular{$schemaType()}") &&
-                                                (bool)ControllerHelper::locateController("Singular{$schemaType()}");
-        $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
-                                                class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") &&
-                                                (bool)ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
-        $controllers                      = [
+        $isSingular = fn() => is_singular();
+        $isArchive = fn() => is_archive() || is_home();
+        $hasSchemaType = fn() => $this->getCurrentPostSchemaType() !== null;
+        $schemaType = fn() => $this->getCurrentPostSchemaType();
+        $templateController = fn() => ControllerHelper::camelCase($template);
+        $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
+        $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
+        $shouldUseSchemaController = fn() => $hasSchemaType() && $isSingular() && class_exists("Municipio\Controller\Singular{$schemaType()}") && (bool) ControllerHelper::locateController("Singular{$schemaType()}");
+        $shouldUseSchemaArchiveController = fn() => $isArchive() && $hasSchemaType() && class_exists("Municipio\Controller\ArchiveSchema{$schemaType()}") && (bool) ControllerHelper::locateController("ArchiveSchema{$schemaType()}");
+        $controllers = [
             [
-                'condition'       => ('404' === $template),
+                'condition' => '404' === $template,
                 'controllerClass' => \Municipio\Controller\E404::class,
-                'controllerPath'  => ControllerHelper::locateController('E404'),
+                'controllerPath' => ControllerHelper::locateController('E404'),
             ],
             [
-                'condition'       => ('403' === $template),
+                'condition' => '403' === $template,
                 'controllerClass' => \Municipio\Controller\E403::class,
-                'controllerPath'  => ControllerHelper::locateController('E403'),
+                'controllerPath' => ControllerHelper::locateController('E403'),
             ],
             [
-                'condition'       => ('401' === $template),
+                'condition' => '401' === $template,
                 'controllerClass' => \Municipio\Controller\E401::class,
-                'controllerPath'  => ControllerHelper::locateController('E401'),
+                'controllerPath' => ControllerHelper::locateController('E401'),
             ],
             [
-                'condition'       => $shouldUseSchemaArchiveController(),
+                'condition' => $shouldUseSchemaArchiveController(),
                 'controllerClass' => "Municipio\Controller\ArchiveSchema{$schemaType()}",
-                'controllerPath'  => ControllerHelper::locateController("ArchiveSchema{$schemaType()}")
+                'controllerPath' => ControllerHelper::locateController("ArchiveSchema{$schemaType()}"),
             ],
             [
-                'condition'       => $shouldUseSchemaController(),
+                'condition' => $shouldUseSchemaController(),
                 'controllerClass' => "Municipio\Controller\Singular{$schemaType()}",
-                'controllerPath'  => ControllerHelper::locateController("Singular{$schemaType()}")
+                'controllerPath' => ControllerHelper::locateController("Singular{$schemaType()}"),
             ],
             [
                 // If a controller for this specific WordPress template exists, use it.
                 // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions
-                'condition'       => (bool) $templateControllerPath(),
+                'condition' => (bool) $templateControllerPath(),
                 'controllerClass' => $templateControllerNamespace() . $templateController(),
-                'controllerPath'  => $templateControllerPath(),
+                'controllerPath' => $templateControllerPath(),
             ],
             [
-                'condition'       => $isSingular(),
+                'condition' => $isSingular(),
                 'controllerClass' => \Municipio\Controller\Singular::class,
-                'controllerPath'  => ControllerHelper::locateController('Singular')
+                'controllerPath' => ControllerHelper::locateController('Singular'),
             ],
             [
-                'condition'       => $isArchive(),
+                'condition' => $isArchive(),
                 'controllerClass' => \Municipio\Controller\Archive::class,
-                'controllerPath'  => ControllerHelper::locateController('Archive')
+                'controllerPath' => ControllerHelper::locateController('Archive'),
             ],
             [
-                'condition'       => true,
+                'condition' => true,
                 'controllerClass' => \Municipio\Controller\BaseController::class,
-                'controllerPath'  => ControllerHelper::locateController('BaseController'),
-            ]
+                'controllerPath' => ControllerHelper::locateController('BaseController'),
+            ],
         ];
 
         foreach ($controllers as $controller) {
@@ -267,7 +269,7 @@ class Template
 
                 return [
                     'data' => $instance,
-                    'view' => $template
+                    'view' => $template,
                 ];
             }
         }
@@ -347,8 +349,8 @@ class Template
     {
         $pageId = get_option('page_for_' . $postType);
 
-        if (is_numeric($pageId) && (int)$pageId > 0) {
-            return (int)$pageId;
+        if (is_numeric($pageId) && (int) $pageId > 0) {
+            return (int) $pageId;
         }
 
         return null;
@@ -395,16 +397,13 @@ class Template
 
         $queriedObject = $this->wpService->getQueriedObject();
 
-        if (
-            !$queriedObject instanceof WP_Post_Type ||
-            !post_type_exists($queriedObject->name)
-        ) {
+        if (!$queriedObject instanceof WP_Post_Type || !post_type_exists($queriedObject->name)) {
             return null;
         }
 
         $pageId = get_option('page_for_' . $queriedObject->name);
 
-        return (is_numeric($pageId) && (int)$pageId > 0) ? (int)$pageId : null;
+        return is_numeric($pageId) && (int) $pageId > 0 ? (int) $pageId : null;
     }
 
     /**
@@ -422,6 +421,7 @@ class Template
 
         return $this->tryGetSchemaTypeFromPostType->tryGetSchemaTypeFromPostType($post->post_type);
     }
+
     /**
      * It loads a controller class and returns an instance of it
      *
@@ -441,7 +441,7 @@ class Template
             'Municipio/blade/after_load_controller',
             $template,
             '3.0',
-            'Municipio/blade/afterLoadController'
+            'Municipio/blade/afterLoadController',
         );
 
         return new $c['controllerClass'](
@@ -450,7 +450,7 @@ class Template
             $this->wpService,
             $this->acfService,
             $this->siteSwitcher,
-            $this->userHelper
+            $this->userHelper,
         );
     }
 
@@ -469,7 +469,7 @@ class Template
         $pattern = '#</?template\b[^>]*>#i';
         preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
 
-        $stack     = [];
+        $stack = [];
         $outermost = []; // will hold start/end positions of outer templates
 
         foreach ($matches[0] as $match) {
@@ -492,14 +492,14 @@ class Template
         // Replace templates with placeholders in reverse order (so offsets remain valid)
         for ($i = count($outermost) - 1; $i >= 0; $i--) {
             $start = $outermost[$i]['start'];
-            $end   = $outermost[$i]['end'];
+            $end = $outermost[$i]['end'];
 
             if ($end === null) {
                 continue;
             }
 
-            $full            = substr($html, $start, $end - $start);
-            $key             = '___MUN_TPL_' . count($templates) . '___';
+            $full = substr($html, $start, $end - $start);
+            $key = '___MUN_TPL_' . count($templates) . '___';
             $templates[$key] = $full;
 
             // Replace in HTML
@@ -508,7 +508,6 @@ class Template
 
         return [$html, $templates];
     }
-
 
     /**
      * @param $view
@@ -522,29 +521,30 @@ class Template
         }
 
         try {
-            $markup = $this->bladeEngine
-                ->makeView($view, array_merge($data, ['errorMessage' => false]), [], $this->viewPaths)
-                ->render();
+            $markup = $this->bladeEngine->makeView($view, array_merge($data, ['errorMessage' => false]), [], $this->viewPaths)->render();
 
             // Hookable filter to get all markup output (Used by WPMUSecurity)
             $this->wpService->applyFilters('Website/HTML/output', $markup);
 
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
-
                 //Rescue template tags
                 [$markup, $templates] = $this->extractOuterTemplates($markup) ?? ['', []];
 
                 $tidy = new \tidy();
-                $tidy->parseString($markup, [
-                    'indent'              => true,
-                    'output-xhtml'        => false,
-                    'wrap'                => PHP_INT_MAX,
-                    'doctype'             => 'html5',
-                    'drop-empty-elements' => false,
-                    'drop-empty-paras'    => false,
-                    'new-pre-tags'        => 'template',
-                ], 'utf8');
+                $tidy->parseString(
+                    $markup,
+                    [
+                        'indent' => true,
+                        'output-xhtml' => false,
+                        'wrap' => PHP_INT_MAX,
+                        'doctype' => 'html5',
+                        'drop-empty-elements' => false,
+                        'drop-empty-paras' => false,
+                        'new-pre-tags' => 'template',
+                    ],
+                    'utf8',
+                );
 
                 // Clean and repair the document
                 $tidy->cleanRepair();
@@ -554,18 +554,18 @@ class Template
                 $markup = preg_replace_callback(
                     '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
                     fn($m) => '<style>' . $this->minifyCss($m[1]) . '</style>',
-                    $markup
+                    $markup,
                 );
 
                 // Minify inline <script> content
                 $markup = preg_replace_callback(
                     '/<script\b([^>]*)>(.*?)<\/script>/is',
                     fn($m) => '<script' . $m[1] . '>' . $this->minifyJs($m[2]) . '</script>',
-                    $markup
+                    $markup,
                 );
 
                 // Drop comments
-                if (!defined('WP_DEBUG') || (defined('WP_DEBUG') && constant('WP_DEBUG') !== true)) {
+                if (!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
                     $markup = preg_replace('/<!--(.|\s)*?-->/', '', $markup);
                 }
 
@@ -574,7 +574,7 @@ class Template
 
                 //Drop attibute that no longer is to spec
                 $markup = $this->dropPropertyAttributes([
-                    'style'  => ['type' => 'text/css'],
+                    'style' => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
                 ], $markup);
 
@@ -645,10 +645,14 @@ class Template
                 $pattern = '/<' . $tag . '\s+([^>]*\s*)' . $attribute . '=["\']' . preg_quote($value, '/') . '["\']([^>]*)>/is';
 
                 // Replace the matched tag by removing the specified attribute
-                $cleanedHtml = preg_replace_callback($pattern, function ($matches) use ($tag) {
-                    // Rebuild the tag without the specified attribute
-                    return '<' . $tag . ' ' . $matches[1] . $matches[2] . '>';
-                }, $cleanedHtml);
+                $cleanedHtml = preg_replace_callback(
+                    $pattern,
+                    function ($matches) use ($tag) {
+                        // Rebuild the tag without the specified attribute
+                        return '<' . $tag . ' ' . $matches[1] . $matches[2] . '>';
+                    },
+                    $cleanedHtml,
+                );
             }
         }
 
@@ -662,7 +666,7 @@ class Template
      */
     private function getControllerNameFromView(string $view = ''): string
     {
-        return str_replace(".", "", ucwords($view));
+        return str_replace('.', '', ucwords($view));
     }
 
     /**
@@ -672,22 +676,22 @@ class Template
     public function addTemplateFilters()
     {
         $types = array(
-            'index'      => 'index.blade.php',
-            'home'       => 'archive.blade.php',
-            'single'     => 'single.blade.php',
-            'page'       => 'page.blade.php',
-            '404'        => '404.blade.php',
-            '403'        => '403.blade.php',
-            '401'        => '401.blade.php',
-            'archive'    => 'archive.blade.php',
-            'category'   => 'category.blade.php',
-            'tag'        => 'tag.blade.php',
-            'taxonomy'   => 'taxonomy.blade.php',
-            'date'       => 'date.blade.php',
+            'index' => 'index.blade.php',
+            'home' => 'archive.blade.php',
+            'single' => 'single.blade.php',
+            'page' => 'page.blade.php',
+            '404' => '404.blade.php',
+            '403' => '403.blade.php',
+            '401' => '401.blade.php',
+            'archive' => 'archive.blade.php',
+            'category' => 'category.blade.php',
+            'tag' => 'tag.blade.php',
+            'taxonomy' => 'taxonomy.blade.php',
+            'date' => 'date.blade.php',
             'front-page' => 'front-page.blade.php',
-            'paged'      => 'paged.blade.php',
-            'search'     => 'search.blade.php',
-            'singular'   => 'singular.blade.php',
+            'paged' => 'paged.blade.php',
+            'search' => 'search.blade.php',
+            'singular' => 'singular.blade.php',
             'attachment' => 'attachment.blade.php',
         );
 
@@ -695,7 +699,7 @@ class Template
             'Municipio/blade/template_types',
             [$types],
             '3.0',
-            'Municipio/blade/templateTypes'
+            'Municipio/blade/templateTypes',
         );
 
         if (isset($types) && !empty($types) && is_array($types)) {
@@ -758,7 +762,7 @@ class Template
     public function accessProtected($obj, $prop)
     {
         $reflection = new \ReflectionClass($obj);
-        $property   = $reflection->getProperty($prop);
+        $property = $reflection->getProperty($prop);
         $property->setAccessible(true);
         return $property->getValue($obj);
     }
@@ -792,8 +796,8 @@ class Template
             return;
         }
 
-        $this->viewPaths   = $this->registerViewPaths();
-        $componentLibrary  = new Init($this->viewPaths);
+        $this->viewPaths = $this->registerViewPaths();
+        $componentLibrary = new Init($this->viewPaths);
         $this->bladeEngine = $componentLibrary->getEngine();
     }
 
@@ -809,14 +813,13 @@ class Template
      */
     public function switchPageTemplate(string $view): string
     {
-
         $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
 
         if ($customTemplate) {
             //Check if file exsists, before use
             if (is_array($this->viewPaths) && !empty($this->viewPaths)) {
                 foreach ($this->viewPaths as $path) {
-                    if (file_exists(rtrim($path, "/") . '/' . $customTemplate)) {
+                    if (file_exists(rtrim($path, '/') . '/' . $customTemplate)) {
                         return $customTemplate;
                     }
                 }
@@ -835,7 +838,7 @@ class Template
     {
         return apply_filters(
             'Municipio/Template/MayBeCustomTemplateRequest',
-            false
+            false,
         );
     }
 
@@ -852,7 +855,7 @@ class Template
             return $viewPaths;
         }
 
-        throw new \Exception("No view paths registered, please register at least one.");
+        throw new \Exception('No view paths registered, please register at least one.');
     }
 
     /**
@@ -863,7 +866,7 @@ class Template
     {
         $directory = MUNICIPIO_PATH . 'library/Controller/';
 
-        foreach (@glob($directory . "*.php") as $file) {
+        foreach (@glob($directory . '*.php') as $file) {
             // Skip test files
             if (str_ends_with($file, 'Test.php')) {
                 continue;
@@ -889,6 +892,10 @@ class Template
      */
     public function sanitizeViewName($view)
     {
+        if (str_ends_with($view, 'template-canvas.php')) {
+            return $view;
+        }
+
         return $this->getViewNameFromPath($view);
     }
 
@@ -902,13 +909,13 @@ class Template
         //Remove all paths
         $view = str_replace(
             \Municipio\Helper\Template::getViewPaths(),
-            "",
-            $view
+            '',
+            $view,
         ); // Remove view path
 
         //Remove suffix
-        $view = strtolower(trim(str_replace(".blade.php", "", $view), "/"));
+        $view = strtolower(trim(str_replace('.blade.php', '', $view), '/'));
 
-        return str_replace("/", ".", $view);
+        return str_replace('/', '.', $view);
     }
 }
