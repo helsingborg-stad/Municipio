@@ -48,28 +48,18 @@
                     "label": "Icon",
                     "name": "material_icon",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "icon",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "100",
                         "class": "",
                         "id": ""
                     },
-                    "choices": [],
-                    "default_value": false,
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_custom": 0,
-                    "placeholder": "",
-                    "search_placeholder": "",
-                    "allow_null": 1,
-                    "allow_in_bindings": 1,
-                    "ui": 1,
-                    "ajax": 0,
-                    "create_options": 0,
-                    "save_options": 0
+                    "allow_in_bindings": 0,
+                    "default_value": "",
+                    "placeholder": ""
                 },
                 {
                     "key": "field_64a3d199a731c",
@@ -79,16 +69,9 @@
                     "type": "select",
                     "instructions": "",
                     "required": 0,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_64a2b8dd7c9d1",
-                                "operator": "!=empty"
-                            }
-                        ]
-                    ],
+                    "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "100",
                         "class": "",
                         "id": ""
                     },
@@ -102,6 +85,7 @@
                     "allow_custom": 0,
                     "search_placeholder": "",
                     "allow_null": 0,
+                    "allow_in_bindings": 1,
                     "ui": 1,
                     "ajax": 0,
                     "placeholder": "",
