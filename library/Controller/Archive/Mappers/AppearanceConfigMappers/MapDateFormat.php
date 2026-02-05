@@ -28,6 +28,7 @@ class MapDateFormat implements MapperInterface
             'date' => DateFormat::DATE,
             'date-time' => DateFormat::DATE_TIME,
             'time' => DateFormat::TIME,
+            'date-badge' => DateFormat::DATE_BADGE,
             default => DateFormat::DATE_TIME, // ArchiveDefaults::DATE_FORMAT
         };
     }
