@@ -1,8 +1,6 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 3,
-	"settings": {},
-	"styles": {},
 	"customTemplates": [
         {
             "name": "municipio-template",
@@ -13,5 +11,52 @@
 	"templateParts": [],
 	"patterns": [
 		"municipio/header"
-	]
+	],
+	"settings": {
+		"layout": {
+			"contentSize": "var(--container-width)"
+		},
+		"appearanceTools": true,
+		"color": {
+			"custom": false,
+			"defaultPalette": false,
+			"heading": true,
+			"palette": [
+				{
+					"color": "var(--color-primary)",
+					"name": "Primary",
+					"slug": "primary"
+				},
+				{
+					"color": "var(--color-secondary)",
+					"name": "Secondary",
+					"slug": "secondary"
+				},
+				{
+					"color": "var(--color-text)",
+					"name": "Text",
+					"slug": "text"
+				},
+				{
+					"color": "var(--color-background)",
+					"name": "Background",
+					"slug": "background"
+				}
+			]
+		},
+		"useRootPaddingAwareAlignments": true
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--background, var(--color-background))",
+			"text": "var:preset|color|text"
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:preset|color|secondary"
+				}
+			}
+		}
+	}
 }

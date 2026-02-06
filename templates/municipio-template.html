@@ -1,4 +1,14 @@
-<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
-<!-- wp:template-part {"slug":"content","tagName":"content"} /-->
-<!-- wp:acf/text {"name":"acf/text","data":{"custom_block_title":"Text module from gutenberg page","_custom_block_title":"field_block_title","lang":"auto","_lang":"field_636e42408367e","content":"\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam bibendum odio velit, in elementum felis efficitur sodales. Curabitur posuere fermentum luctus. Maecenas dolor ante, fringilla in pharetra ac, iaculis pulvinar erat. Praesent tincidunt viverra turpis, vel dapibus sapien. Proin vitae dui convallis, auctor augue id, convallis ex. Suspendisse condimentum dui at tellus efficitur, in vulputate ligula dictum. Suspendisse aliquet sit amet arcu et varius. Maecenas pretium volutpat tincidunt. Aliquam odio turpis, blandit a tristique in, blandit eget leo. Nulla aliquet eleifend accumsan. Nunc in aliquam ipsum, et scelerisque nisi. Praesent placerat dolor quis odio fermentum, in luctus nisi volutpat. Praesent feugiat urna in pretium ornare.\r\n\r\nSuspendisse dolor purus, consequat vitae velit at, aliquam euismod nibh. Nulla facilisi. Nunc vestibulum libero vitae pharetra congue. Curabitur ac sapien tellus. Nullam pretium maximus urna id rhoncus. Sed eu diam vitae tellus porttitor molestie ac in augue. Nulla sed arcu id lorem tristique euismod a in velit. Ut condimentum vitae sem a dignissim. Aenean id molestie ipsum. Donec maximus molestie vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec facilisis facilisis blandit. Mauris quis sodales nisi.\r\n\r\n","_content":"field_60ab6d956843c","hide_box_frame":"0","_hide_box_frame":"field_5891b6038c120"},"mode":"edit"} /-->
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+<!-- wp:template-part {"slug":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+
+    <!-- wp:query -->
+    <!-- wp:post-template -->
+        <!-- wp:post-title /-->
+        <!-- wp:post-content /-->
+    <!-- /wp:post-template -->
+    <!-- /wp:query -->
+
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->
