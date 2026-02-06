@@ -149,6 +149,13 @@ class App
         new \Municipio\Search\Algolia();
 
         /**
+         * Full site editing
+         */
+        (new \Municipio\FullSiteEditing\FullSiteEditingFeature(
+            $this->wpService,
+        ))->enable();
+
+        /**
          * Content
          */
         new \Municipio\Content\CustomPostType();

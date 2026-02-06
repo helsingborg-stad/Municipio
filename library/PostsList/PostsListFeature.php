@@ -14,10 +14,9 @@ class PostsListFeature
      *
      * @param AddFilter $wpService
      */
-    public function __construct(
-        private AddFilter $wpService,
-    ) {}
-
+    public function __construct(private AddFilter $wpService)
+    {
+    }
     /**
      * Enable the Posts List feature.
      */

@@ -3,22 +3,23 @@
 namespace Municipio\Admin\Gutenberg;
 
 /**
- * Class Gutenberg
- *
- *
- */
+* Class Gutenberg
+*
+*
+*/
 class Gutenberg
 {
-    /**
-     * Constructor method.
-     *
-     * Initializes the Gutenberg class and adds necessary filters.
-     */
+        /**
+         * Constructor method.
+         *
+         * Initializes the Gutenberg class and adds necessary filters.
+         */
     public function __construct()
     {
-        add_filter('use_block_editor_for_post_type', array($this, 'activateGutenbergEditor'), 10, 2);
-        add_filter('allowed_block_types', [$this, 'additionalAllowedBlocks'], 10, 1);
+        add_filter("use_block_editor_for_post_type", array($this, 'activateGutenbergEditor'), 10, 2);
+        add_filter('allowed_block_types', [$this,'additionalAllowedBlocks'], 10, 1);
     }
+
 
     /**
      *
@@ -30,7 +31,6 @@ class Gutenberg
         $allowed_block_types[] = 'core/embed';
         return $allowed_block_types;
     }
-
     /**
      * Activates the Gutenberg editor based on the specified conditions.
      *
@@ -41,6 +41,7 @@ class Gutenberg
 
     public function activateGutenbergEditor($useBlockEditor, $postType)
     {
+
         global $post;
 
         if (!is_admin()) {
@@ -64,7 +65,7 @@ class Gutenberg
 
             $templatesToInclude = apply_filters(
                 'Municipio/Admin/Gutenberg/TemplatesToInclude',
-                ['one-page.blade.php', 'municipio-template'],
+                ['one-page.blade.php']
             );
 
             if (in_array($template, $templatesToInclude)) {
