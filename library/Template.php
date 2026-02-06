@@ -65,6 +65,10 @@ class Template
      */
     public function loadViewData(string $originalTemplate = '', $data = array())
     {
+        if (str_ends_with($originalTemplate, 'template-canvas.php')) {
+            return $originalTemplate;
+        }
+
         $controller = $this->loadController($originalTemplate);
         $viewData   = $this->accessProtected($controller['data'], 'data');
 
@@ -889,6 +893,10 @@ class Template
      */
     public function sanitizeViewName($view)
     {
+        if (str_ends_with($view, 'template-canvas.php')) {
+            return $view;
+        }
+        
         return $this->getViewNameFromPath($view);
     }
 
