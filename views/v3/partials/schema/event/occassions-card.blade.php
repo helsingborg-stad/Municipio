@@ -48,7 +48,7 @@
                         @typography([
                                     'element' => 'span',
                                 ])
-                                    {!! $currentOccasion->getStartDate() !!} - {!! $currentOccasion->getEndTime() !!}
+                                    {!! $occasion->getStartDate() !!} - {!! $occasion->getEndTime() !!}
                                 @endtypography
                         @endcollection__item
                         @endif

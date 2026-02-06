@@ -23,7 +23,7 @@ class Occasion implements OccasionInterface
 
     public function getEndTime(): string
     {
-        return strtotime($this->endDate) ? date('H:i:s', strtotime($this->endDate)) : '';
+        return strtotime($this->endDate) ? date('H:i', strtotime($this->endDate)) : '';
     }
 
     public function isCurrent(): bool
