@@ -8,7 +8,16 @@
             "postTypes": ["page"]
         }
     ],
-	"templateParts": [],
+	"templateParts": [
+		{
+			"name": "header",
+			"title": "Header"
+		},
+		{
+			"name": "footer",
+			"title": "Footer"
+		}
+	],
 	"patterns": [
 		"municipio/header"
 	],

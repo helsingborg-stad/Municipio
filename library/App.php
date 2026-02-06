@@ -151,9 +151,8 @@ class App
         /**
          * Full site editing
          */
-        (new \Municipio\FullSiteEditing\FullSiteEditingFeature(
-            $this->wpService,
-        ))->enable();
+        $fullSiteEditingFeature = new \Municipio\FullSiteEditing\FullSiteEditingFeature($this->wpService);
+        $fullSiteEditingFeature->enable();
 
         /**
          * Content
