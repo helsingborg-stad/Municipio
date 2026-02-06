@@ -126,7 +126,7 @@ export class PostsListAsync {
      */
     private showPreloader(): void {
         this.container.querySelectorAll('[data-js-posts-list-item]').forEach(el => {
-            el.classList.add('u-preloader--inner');
+            el.classList.add('u-preloader--inner', 'u-preloader--exclude');
         });
     }
 
@@ -135,7 +135,7 @@ export class PostsListAsync {
      */
     private hidePreloader(): void {
         this.container.querySelectorAll('.u-preloader--inner').forEach(el => {
-            el.classList.remove('u-preloader--inner');
+            el.classList.remove('u-preloader--inner', 'u-preloader--exclude');
         });
     }
 
