@@ -85,7 +85,8 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     private function shouldApplyMetaQuery(GetPostsConfigInterface $config): bool
     {
         $column = $config->getDateSource();
-        return !in_array($column, ['post_date', 'post_modified']) && ($config->getDateFrom() || $config->getDateTo());
+        $invalidDateSourceValues = ['post_date', 'post_modified', 'none', null, ''];
+        return !in_array($column, $invalidDateSourceValues, true) && ($config->getDateFrom() || $config->getDateTo());
     }
 
     /**
@@ -104,7 +105,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
 
         $value = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
         $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
-        
+
         return [
             self::META_QUERY_KEY => [
                 'key' => $config->getDateSource(),
