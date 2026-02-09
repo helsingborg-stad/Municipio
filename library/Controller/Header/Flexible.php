@@ -2,12 +2,12 @@
 
 namespace Municipio\Controller\Header;
 
-use Municipio\Controller\Header\MenuOrderTransformer;
-use Municipio\Controller\Header\MenuVisibilityTransformer;
 use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderVisibilityClasses;
 use Municipio\Controller\Header\MarginTransformer;
+use Municipio\Controller\Header\MenuOrderTransformer;
+use Municipio\Controller\Header\MenuVisibilityTransformer;
 
 /**
  * Class Flexible
@@ -24,25 +24,26 @@ class Flexible implements HeaderInterface
     private HeaderVisibilityClasses $headerVisibilityClassesInstance;
     private MarginTransformer $marginTransformerInstance;
     private IsResponsiveMenuTransformer $isResponsiveMenu;
-    private string $headerSettingKey           = 'header_sortable_section_';
+    private string $headerSettingKey = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
-    private bool $hasSeparateBrandText         = false;
+    private bool $hasSeparateBrandText = false;
 
     /**
      * Constructor
      */
-    public function __construct(private object $customizer)
-    {
+    public function __construct(
+        private object $customizer,
+    ) {
         $this->isResponsive = !empty($this->customizer->headerEnableResponsiveOrder);
-        $this->hasSearch    = false;
+        $this->hasSearch = false;
 
-        $this->headerVisibilityClassesInstance   = new HeaderVisibilityClasses();
-        $this->flipKeyValueTransformer           = new FlipKeyValueTransformer();
-        $this->isResponsiveMenu                  = new IsResponsiveMenuTransformer();
+        $this->headerVisibilityClassesInstance = new HeaderVisibilityClasses();
+        $this->flipKeyValueTransformer = new FlipKeyValueTransformer();
+        $this->isResponsiveMenu = new IsResponsiveMenuTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
-        $this->menuOrderTransformerInstance      = new MenuOrderTransformer('@md');
-        $this->marginTransformerInstance         = new MarginTransformer($this->getHiddenMenuItemsData());
-        $this->alignmentTransformerInstance      = new AlignmentTransformer($this->getHiddenMenuItemsData());
+        $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
+        $this->marginTransformerInstance = new MarginTransformer($this->getHiddenMenuItemsData());
+        $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenMenuItemsData());
     }
 
     // Gets the header data accessible in the view.
@@ -54,22 +55,20 @@ class Flexible implements HeaderInterface
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
 
         return [
-            'upperHeader'          => $upperHeader,
-            'lowerHeader'          => $lowerHeader,
-            'upperItems'           => $upperItems['modified'],
-            'lowerItems'           => $lowerItems['modified'],
-            'hasSearch'            => $this->hasSearch,
+            'upperHeader' => $upperHeader,
+            'lowerHeader' => $lowerHeader,
+            'upperItems' => $upperItems['modified'],
+            'lowerItems' => $lowerItems['modified'],
+            'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
-            'nonStickyMegaMenu'    => $this->nonStickyMegaMenu,
+            'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
     }
 
     // Handles the hidden menu data in the customizer.
     private function getHiddenMenuItemsData()
     {
-        $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ?
-            $this->customizer->headerSortableHiddenStorage :
-            "{}";
+        $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ? $this->customizer->headerSortableHiddenStorage : '{}';
 
         return json_decode($hiddenData);
     }
@@ -98,14 +97,14 @@ class Flexible implements HeaderInterface
             $lowerHeader['backgroundColor'] = $this->customizer->headerBackground;
         }
 
-        $upperHeader['classList']   = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
-        $lowerHeader['classList']   = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
+        $upperHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
+        $lowerHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
         $upperHeader['classList'][] = !empty($upperItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
         $lowerHeader['classList'][] = !empty($lowerItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
 
         return [
             array_merge($this->defaultHeaderSettings(), $upperHeader),
-            array_merge($this->defaultHeaderSettings(), $lowerHeader)
+            array_merge($this->defaultHeaderSettings(), $lowerHeader),
         ];
     }
 
@@ -113,9 +112,9 @@ class Flexible implements HeaderInterface
     private function defaultHeaderSettings(): array
     {
         return [
-            'sticky'          => false,
+            'sticky' => false,
             'backgroundColor' => 'default',
-            'classList'       => []
+            'classList' => [],
         ];
     }
 
@@ -123,10 +122,10 @@ class Flexible implements HeaderInterface
     private function getItems(string $section): array
     {
         // Getting the items
-        [$setting, $settingCamelCased]              = $this->getSettingName($section);
+        [$setting, $settingCamelCased] = $this->getSettingName($section);
         [$desktopOrderedItems, $mobileOrderedItems] = $this->getOrderedMenuItems($settingCamelCased);
 
-        $this->hasSearch            = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasSearch = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
         $this->hasSeparateBrandText = $this->hasSeparateBrandText($desktopOrderedItems, $mobileOrderedItems ?: []);
 
         // Building the items
@@ -155,10 +154,7 @@ class Flexible implements HeaderInterface
     // Checks if the brand text is separated from logotype.
     private function hasSeparateBrandText(array $desktopOrderedItems, array $mobileOrderedItems)
     {
-        return
-            $this->hasSeparateBrandText ||
-            in_array('brand-text', $desktopOrderedItems) ||
-            in_array('brand-text', $mobileOrderedItems);
+        return $this->hasSeparateBrandText || in_array('brand-text', $desktopOrderedItems) || in_array('brand-text', $mobileOrderedItems);
     }
 
     // Gets the ordered menu items from the customizer.
@@ -167,11 +163,9 @@ class Flexible implements HeaderInterface
         $shouldGetMobileOrderedItems = fn() => $this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive});
 
         $desktopOrderedItems = $this->customizer->{$settingCamelCased};
-        $mobileOrderedItems  = $shouldGetMobileOrderedItems()
-            ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
-            : [];
+        $mobileOrderedItems = $shouldGetMobileOrderedItems() ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive} : [];
 
-        return [ $desktopOrderedItems ?: [], $mobileOrderedItems ?: [] ];
+        return [$desktopOrderedItems ?: [], $mobileOrderedItems ?: []];
     }
 
     // Gets the camelCased setting name.

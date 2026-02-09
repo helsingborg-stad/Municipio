@@ -6,36 +6,16 @@
  * Categories: featured
  */
 
-use Municipio\Controller\Header\Flexible;
+use Municipio\Helper\AcfService;
+use Municipio\Helper\User\User;
 use Municipio\Helper\WpService;
 
-// ob_start();
-// wp_head();
-// $header = apply_filters('Municipio/HeaderHTML', ob_get_clean());
-// $header = ob_get_clean();
+$menuConfig = new \Municipio\Controller\Navigation\Config\MenuConfig();
+$menuBuilder = new \Municipio\Controller\Navigation\MenuBuilder($menuConfig, AcfService::get(), WpService::get());
+$menuDirector = new \Municipio\Controller\Navigation\MenuDirector($menuBuilder);
+$siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher(WpService::get(), AcfService::get());
+$controller = new \Municipio\Controller\BaseController($menuBuilder, $menuDirector, WpService::get(), AcfService::get(), $siteSwitcher, User::get());
 
-$themeMods = WpService::get()->getThemeMods();
-$themeMods = array_combine(
-    array_map(function ($key) {
-        return \Municipio\Helper\FormatObject::camelCase($key);
-    }, array_keys($themeMods)),
-    $themeMods,
-);
+$data = $controller->getData();
 
-$flexibleHeader = new Flexible((object) $themeMods);
-$data = [
-    'headerData' => $flexibleHeader->getHeaderData(),
-    'customizer' => (object) [...$themeMods, 'megaMenuMobile' => false],
-    'homeUrl' => home_url(),
-    'isAuthenticated' => false,
-    'headerBrandEnabled' => true,
-    'megaMenuMobile' => null,
-    'logotype' => 'https://placehold.it/200x50?text=Logo',
-    'lang' => (object) [
-        'search' => __('Search', 'municipio'),
-        'searchQuestion' => __('What are you looking for?', 'municipio'),
-        'goToHomepage' => __('Go to homepage', 'municipio'),
-        'close' => __('Close', 'municipio'),
-    ],
-];
 echo render_blade_view('partials.header.flexible', $data);
