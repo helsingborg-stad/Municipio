@@ -561,7 +561,7 @@ class BaseController
     public function getWpHeader(): string
     {
         ob_start();
-        wp_head();
+        //wp_head();
         $header = apply_filters('Municipio/HeaderHTML', ob_get_clean());
         return is_string($header) ? $header : '';
     }

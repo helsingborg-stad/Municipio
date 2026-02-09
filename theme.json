@@ -19,7 +19,7 @@
 		}
 	],
 	"patterns": [
-		"municipio/header"
+		"municipio/one-page"
 	],
 	"settings": {
 		"layout": {

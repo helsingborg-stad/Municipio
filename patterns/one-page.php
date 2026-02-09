@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Title: Header
- * Slug: municipio/header
+ * Title: One Page
+ * Slug: municipio/one-page
  * Categories: featured
  */
 
@@ -18,4 +18,4 @@ $controller = new \Municipio\Controller\BaseController($menuBuilder, $menuDirect
 
 $data = $controller->getData();
 
-echo render_blade_view('partials.header.flexible', $data);
+echo render_blade_view('one-page', $data);
