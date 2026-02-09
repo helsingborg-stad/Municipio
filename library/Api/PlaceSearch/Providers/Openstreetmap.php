@@ -3,12 +3,12 @@
 namespace Municipio\Api\PlaceSearch\Providers;
 
 use Municipio\Api\PlaceSearch\Helper\GetNeighbours;
+use Municipio\Schema\Schema;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\GetLocale;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpRemoteGet;
 use WpService\Contracts\WpRemoteRetrieveBody;
-use WpService\Contracts\GetLocale;
-use WpService\Contracts\ApplyFilters;
-use Municipio\Schema\Schema;
 
 /**
  * Class Openstreetmap
@@ -20,7 +20,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
     /**
      * The OpenStreetMap Nominatim API URL.
      */
-    private const API_SEARCH_URL         = 'https://nominatim.openstreetmap.org/search';
+    private const API_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
     private const API_REVERSE_SEARCH_URL = 'https://nominatim.openstreetmap.org/reverse';
 
     /**
@@ -30,9 +30,8 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function __construct(
         private WpRemoteGet&IsWpError&WpRemoteRetrieveBody&GetLocale $wpService,
-        private GetNeighbours $neighboursHelper
-    ) {
-    }
+        private GetNeighbours $neighboursHelper,
+    ) {}
 
     /**
      * Search for a place using OpenStreetMap Nominatim API.
@@ -45,9 +44,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
     public function search(array $args = []): array
     {
         [$defaultCountryCodes, $defaultLanguage] = $this->getCountryCodesAndLanguage();
-        $args['countrycodes']                    = $args['countrycodes'] ?? implode(',', $defaultCountryCodes);
-        $args['accept-language']                 = $args['accept-language'] ?? $defaultLanguage;
-        $data                                    = !empty($args['reverse']) ? $this->fetchReverseSearch($args) : $this->fetchSearch($args);
+        $args['countrycodes'] = $args['countrycodes'] ?? implode(',', $defaultCountryCodes);
+        $args['accept-language'] = $args['accept-language'] ?? $defaultLanguage;
+        $data = !empty($args['reverse']) ? $this->fetchReverseSearch($args) : $this->fetchSearch($args);
 
         if (empty($data)) {
             return [];
@@ -65,21 +64,21 @@ class Openstreetmap implements PlaceSearchProviderInterface
     {
         static $countryCodes = null;
         static $siteLanguage = null;
-        static $countryCode  = null;
+        static $countryCode = null;
 
         if (!$siteLanguage || !$countryCodes || !$countryCode) {
-            $locale                       = $this->wpService->getLocale();
+            $locale = $this->wpService->getLocale();
             [$siteLanguage, $countryCode] = explode('_', $locale);
-            $countryCode                  = strtolower($countryCode);
-            $siteLanguage                 = strtolower($siteLanguage);
-            $countryCodes                 = $this->neighboursHelper->get($countryCode);
-            $countryCodes[]               = $countryCode;
+            $countryCode = strtolower($countryCode);
+            $siteLanguage = strtolower($siteLanguage);
+            $countryCodes = $this->neighboursHelper->get($countryCode);
+            $countryCodes[] = $countryCode;
         }
 
         return $this->wpService->applyFilters(
             'Municipio/Api/PlaceSearch/GetLanguageAndCountryCodes',
             [$countryCodes, $siteLanguage],
-            $countryCode
+            $countryCode,
         );
     }
 
@@ -94,8 +93,8 @@ class Openstreetmap implements PlaceSearchProviderInterface
     {
         $response = $this->wpService->wpRemoteGet($this->createSearchEndpointUrl($args), [
             'headers' => [
-                'User-Agent' => 'Municipio - getmunicipio.com'
-            ]
+                'User-Agent' => 'Municipio - getmunicipio.com',
+            ],
         ]);
 
         if ($this->wpService->isWpError($response)) {
@@ -120,9 +119,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
             $this->createReverseSearchEndpointUrl($args),
             [
                 'headers' => [
-                    'User-Agent' => 'Municipio - getmunicipio.com'
-                ]
-            ]
+                    'User-Agent' => 'Municipio - getmunicipio.com',
+                ],
+            ],
         );
 
         if ($this->wpService->isWpError($response)) {
@@ -147,8 +146,8 @@ class Openstreetmap implements PlaceSearchProviderInterface
 
         $args = array_merge($args, [
             'format' => 'json',
-            'lon'    => $args['lng'],
-            'lat'    => $args['lat']
+            'lon' => $args['lng'],
+            'lat' => $args['lat'],
         ]);
 
         unset($args['lng']);
@@ -170,7 +169,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
         $url = self::API_SEARCH_URL;
 
         $args = array_merge($args, [
-            'format' => 'json'
+            'format' => 'json',
+            'addressdetails' => 1,
+            'nameDetails' => 1,
         ]);
 
         return $url . '?' . http_build_query($args);
@@ -188,7 +189,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
         $schemaTransformedItems = [];
         foreach ($response as $value) {
             $streetAddress = ($address['road'] ?? '') . ' ' . ($address['house_number'] ?? '');
-            $address       = $value['address'] ?? [];
+            $address = $value['address'] ?? [];
 
             $postalAddress = Schema::postalAddress();
             $postalAddress->addressCountry($address['country'] ?? null);
@@ -205,7 +206,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
             $schema->latitude($value['lat'] ?? null);
             $schema->longitude($value['lon'] ?? null);
             $schema->address($postalAddress);
-            $schema->name($value['name'] ?? ($value['display_name'] ?? null));
+            $schema->name($value['name'] ?? $value['display_name'] ?? null);
 
             $schemaTransformedItems[] = $schema->toArray();
         }
