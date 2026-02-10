@@ -1,0 +1,141 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "settings": {
+        "appearanceTools": true,
+        "useRootPaddingAwareAlignments": true,
+        "color": {
+            "background": true,
+            "custom": true,
+            "customDuotone": false,
+            "customGradient": true,
+            "defaultDuotone": false,
+            "defaultGradients": false,
+            "defaultPalette": false,
+            "link": true,
+            "text": true,
+            "palette": [
+                {
+                    "slug": "primary",
+                    "color": "#ae0b05",
+                    "name": "Primary"
+                },
+                {
+                    "slug": "primary-dark",
+                    "color": "#770000",
+                    "name": "Primary Dark"
+                },
+                {
+                    "slug": "primary-light",
+                    "color": "#e84c31",
+                    "name": "Primary Light"
+                },
+                {
+                    "slug": "primary-contrasting",
+                    "color": "#ffffff",
+                    "name": "Primary Contrasting"
+                },
+                {
+                    "slug": "secondary",
+                    "color": "#ec6701",
+                    "name": "Secondary"
+                },
+                {
+                    "slug": "secondary-dark",
+                    "color": "#b23700",
+                    "name": "Secondary Dark"
+                },
+                {
+                    "slug": "secondary-light",
+                    "color": "#ff983e",
+                    "name": "Secondary Light"
+                },
+                {
+                    "slug": "secondary-contrasting",
+                    "color": "#ffffff",
+                    "name": "Secondary Contrasting"
+                },
+                {
+                    "slug": "background",
+                    "color": "#f5f5f5",
+                    "name": "Background"
+                },
+                {
+                    "slug": "foreground",
+                    "color": "#000000",
+                    "name": "Foreground"
+                },
+                {
+                    "slug": "success",
+                    "color": "#91d736",
+                    "name": "Success"
+                },
+                {
+                    "slug": "success-contrasting",
+                    "color": "#000000",
+                    "name": "Success Contrasting"
+                },
+                {
+                    "slug": "warning",
+                    "color": "#efbb21",
+                    "name": "Warning"
+                },
+                {
+                    "slug": "warning-contrasting",
+                    "color": "#000000",
+                    "name": "Warning Contrasting"
+                },
+                {
+                    "slug": "danger",
+                    "color": "#d73740",
+                    "name": "Danger"
+                },
+                {
+                    "slug": "danger-contrasting",
+                    "color": "#ffffff",
+                    "name": "Danger Contrasting"
+                },
+                {
+                    "slug": "info",
+                    "color": "#3d3d3d",
+                    "name": "Info"
+                },
+                {
+                    "slug": "info-contrasting",
+                    "color": "#ffffff",
+                    "name": "Info Contrasting"
+                }
+            ]
+        },
+        "spacing": {
+            "units": ["px", "em", "rem", "%", "vw", "vh"],
+            "spacingSizes": [
+                { "slug": "30", "size": "1rem", "name": "Small" },
+                { "slug": "40", "size": "1.5rem", "name": "Medium" },
+                { "slug": "50", "size": "2rem", "name": "Large" },
+                { "slug": "60", "size": "3rem", "name": "Extra Large" }
+            ]
+        },
+        "typography": {
+            "customFontSize": true
+        }
+    },
+    "styles": {
+        "color": {
+            "background": "var(--wp--preset--color--background)",
+            "text": "var(--wp--preset--color--foreground)"
+        },
+        "elements": {
+            "link": {
+                "color": {
+                    "text": "var(--wp--preset--color--primary-dark)"
+                },
+                ":hover": {
+                    "color": {
+                        "text": "var(--wp--preset--color--primary)"
+                    }
+                }
+            }
+        }
+    }
+}
