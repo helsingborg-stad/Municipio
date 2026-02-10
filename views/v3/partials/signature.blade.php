@@ -1,5 +1,5 @@
 <!-- Signature -->
-@section('signature.before')@show
+{!! $hook->signatureBefore !!}
 @signature([
     'author' => $name,
     'published' => $published,
@@ -13,4 +13,4 @@
     'classList' => $classList ?? []
 ])
 @endsignature
-@section('signature.after')@show
+{!! $hook->signatureAfter !!}

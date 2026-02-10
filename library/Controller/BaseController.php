@@ -440,6 +440,8 @@ class BaseController
             'innerLoopEnd' => $this->hook('inner_loop_end'),
             'articleContentBefore' => $this->hook('article_content_before'),
             'articleContentAfter' => $this->hook('article_content_after'),
+            'signatureBefore' => $this->hook('signature_before'),
+            'signatureAfter' => $this->hook('signature_after'),
             'loopStart' => $this->hook('loop_start'),
             'loopEnd' => $this->hook('loop_end'),
             'secondaryLoopStart' => $this->hook('secondary_loop_start'),
