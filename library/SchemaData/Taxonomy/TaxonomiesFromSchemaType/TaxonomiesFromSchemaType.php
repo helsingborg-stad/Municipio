@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 use WpService\Contracts\__;
 use WpService\Contracts\_x;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * Class TaxonomiesFromSchemaType
@@ -23,7 +24,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
     public function __construct(
         private TaxonomyFactoryInterface $taxonomyFactory,
         private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver,
-        private __&_x $wpService,
+        private __&_x&ApplyFilters $wpService,
     ) {}
 
     /**
@@ -34,16 +35,16 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      */
     public function create(string $schemaType): array
     {
-        return (
-            [
-                'JobPosting' => $this->getJobPostingTaxonomies(),
-                'Event' => $this->getEventTaxonomies(),
-                'Project' => $this->getProjectTaxonomies(),
-                'ExhibitionEvent' => $this->getExhibitionEventTaxonomies(),
-                'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
-                'Preschool' => $this->getPreschoolTaxonomies(),
-            ][$schemaType] ?? []
-        );
+        $map = [
+            'JobPosting' => $this->getJobPostingTaxonomies(),
+            'Event' => $this->getEventTaxonomies(),
+            'Project' => $this->getProjectTaxonomies(),
+            'ExhibitionEvent' => $this->getExhibitionEventTaxonomies(),
+            'ElementarySchool' => $this->getElementarySchoolTaxonomies(),
+            'Preschool' => $this->getPreschoolTaxonomies(),
+        ][$schemaType] ?? [];
+
+        return $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
     }
 
     /**
@@ -74,6 +75,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('JobPosting', 'relevantOccupation', $this->wpService->__('Job Categories', 'municipio'), $this->wpService->__('Job Category', 'municipio')),
             $this->createTaxonomy('JobPosting', 'validThrough', $this->wpService->__('Latest Application Dates', 'municipio'), $this->wpService->__('Latest Application Date', 'municipio')),
+            $this->createTaxonomy('JobPosting', 'employmentType', $this->wpService->__('Employment Types', 'municipio'), $this->wpService->__('Employment Type', 'municipio')),
         ];
     }
 
