@@ -385,6 +385,7 @@ class App
          * Register blocks
          */
         (new \Municipio\Blocks\Header\HeaderBlock($this->wpService))->register();
+        (new \Municipio\Blocks\Footer\FooterBlock($this->wpService))->register();
     }
 
     /**

@@ -30,12 +30,12 @@ class CustomTemplates
         \Municipio\Helper\Template::add(
             __('One Page', 'municipio'),
             \Municipio\Helper\Template::locateTemplate('one-page.blade.php'),
-            'all'
+            'all',
         );
         \Municipio\Helper\Template::add(
             __('Page (centered)', 'municipio'),
             \Municipio\Helper\Template::locateTemplate('page-centered.blade.php'),
-            'all'
+            'all',
         );
     }
 }
