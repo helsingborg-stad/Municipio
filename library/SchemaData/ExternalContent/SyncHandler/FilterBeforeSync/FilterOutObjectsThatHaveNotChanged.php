@@ -13,9 +13,10 @@ class FilterOutObjectsThatHaveNotChanged
 {
     public const VERSION = '1';
 
-    public function __construct(private wpdb $wpdb, private string $postType)
-    {
-    }
+    public function __construct(
+        private wpdb $wpdb,
+        private string $postType,
+    ) {}
 
     /**
      * Filters out schema objects that have not changed since last sync.
@@ -42,8 +43,13 @@ class FilterOutObjectsThatHaveNotChanged
                 continue;
             }
 
-            $key                  = $indexedObjects[$originId];
-            $schemaObject         = $this->ensureChecksumProperty($schemaObjects[$key]);
+            $key = $indexedObjects[$originId];
+
+            if (!array_key_exists($key, $schemaObjects)) {
+                continue;
+            }
+
+            $schemaObject = $this->ensureChecksumProperty($schemaObjects[$key]);
             $schemaObjectChecksum = $this->extractChecksum($schemaObject);
 
             if ($schemaObjectChecksum === $row->checksum) {
@@ -76,18 +82,18 @@ class FilterOutObjectsThatHaveNotChanged
     {
         $randomNumber = rand(1000, 9999); // To avoid caching issues
         return <<<SQL
-            SELECT 
-                post_id AS postId,
-                MAX(CASE WHEN meta_key = 'originId' THEN meta_value END) AS originId,
-                MAX(CASE WHEN meta_key = 'checksum' THEN meta_value END) AS checksum
-            FROM {$this->wpdb->prefix}postmeta
-            WHERE meta_key IN ('originId', 'checksum')
-            AND post_id IN (
-                SELECT ID FROM {$this->wpdb->prefix}posts WHERE post_type = %s
-            )
-            AND {$randomNumber} = {$randomNumber}
-            GROUP BY post_id;
-        SQL;
+                SELECT 
+                    post_id AS postId,
+                    MAX(CASE WHEN meta_key = 'originId' THEN meta_value END) AS originId,
+                    MAX(CASE WHEN meta_key = 'checksum' THEN meta_value END) AS checksum
+                FROM {$this->wpdb->prefix}postmeta
+                WHERE meta_key IN ('originId', 'checksum')
+                AND post_id IN (
+                    SELECT ID FROM {$this->wpdb->prefix}posts WHERE post_type = %s
+                )
+                AND {$randomNumber} = {$randomNumber}
+                GROUP BY post_id;
+            SQL;
     }
 
     /**
@@ -104,18 +110,13 @@ class FilterOutObjectsThatHaveNotChanged
         }
 
         foreach ($meta as $metaProperty) {
-            if (
-                $metaProperty instanceof BaseType &&
-                $metaProperty->getProperty('name') === 'checksum'
-            ) {
+            if ($metaProperty instanceof BaseType && $metaProperty->getProperty('name') === 'checksum') {
                 return $schemaObject;
             }
         }
 
-        $checkSum          = static::generateChecksum($schemaObject);
-        $metaPropertyValue = Schema::propertyValue()
-            ->setProperty('name', 'checksum')
-            ->setProperty('value', $checkSum);
+        $checkSum = static::generateChecksum($schemaObject);
+        $metaPropertyValue = Schema::propertyValue()->setProperty('name', 'checksum')->setProperty('value', $checkSum);
 
         $schemaObject->setProperty('@meta', [...$meta, $metaPropertyValue]);
         return $schemaObject;
@@ -140,10 +141,7 @@ class FilterOutObjectsThatHaveNotChanged
         }
 
         foreach ($meta as $metaProperty) {
-            if (
-                $metaProperty instanceof BaseType &&
-                $metaProperty->getProperty('name') === 'checksum'
-            ) {
+            if ($metaProperty instanceof BaseType && $metaProperty->getProperty('name') === 'checksum') {
                 return $metaProperty->getProperty('value');
             }
         }
