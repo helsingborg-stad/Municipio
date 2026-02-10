@@ -263,6 +263,13 @@ class App
         new \Municipio\Customizer($this->wpService, $this->wpdb);
 
         /**
+         * Theme.json integration - bridges Site Editor colors with existing CSS variables
+         */
+        new \Municipio\ThemeJson\ThemeJsonGenerator($this->wpService);
+        new \Municipio\ThemeJson\CssVariableBridge($this->wpService);
+        new \Municipio\ThemeJson\BlockTemplateHybridSupport($this->wpService);
+
+        /**
          * Block customizations
          */
         new \Municipio\Blocks\Columns();
