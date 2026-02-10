@@ -37,7 +37,7 @@
             ])
                 @typography(['element' => 'span', 'variant' => 'meta'])
                     {{ $getEventMoreOccasionsLabel() }}
-                @endelement
+                @endtypography
             @endelement
         @endif
     @endslot
