@@ -380,6 +380,11 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Register blocks
+         */
+        (new \Municipio\Blocks\Header\HeaderBlock($this->wpService))->register();
     }
 
     /**

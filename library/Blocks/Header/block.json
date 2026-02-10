@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "municipio/header",
+	"version": "0.1.0",
+	"title": "Header Block",
+	"category": "widget",
+	"icon": "list-view",
+	"description": "A block to display the site header.",
+	"example": {},
+	"render": "file:./render.php",
+    "editorScript": "file:./editor.js",
+	"attributes": {
+	},
+	"textdomain": "municipio"
+}
