@@ -32,7 +32,7 @@
 
         @if(!empty($getSchemaEventHasMoreOccasions($post)))
             @element([
-                'classList' => [ 'u-margin__top--2', 'u-padding__x--1', 'u-border--1', 'u-color__text--primary' ],
+                'classList' => ['u-margin__top--2', 'u-padding__x--1', 'u-border--1', 'u-color__text--primary', 'u-position--relative', 'u-preloader--no-border'],
                 'attributeList' => [ 'style' => 'border-radius: 8px; display: inline-block;' ]
             ])
                 @typography(['element' => 'span', 'variant' => 'meta'])
