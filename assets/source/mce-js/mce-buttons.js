@@ -34,16 +34,19 @@
                                     var btnClass = $iframe.find('#preview a').attr('class');
                                     var btnText = $iframe.find('#btnText').val();
                                     var btnLink = $iframe.find('#btnLink').val();
-                                    var button =
-                                        '<a href="' +
-                                        btnLink +
-                                        '" class="' +
-                                        btnClass + "u-no-decoration" +
-                                        '">' +
-                                        '<span class="c-button__label">' +
-                                        '<span class="c-button__label-text">' +
-                                        btnText +
-                                        '</span></span></a>';
+                                    const openInNewWindow = $iframe.find('#button-target-checkbox').is(':checked');
+
+                                    const button = `
+                                        <a href="${btnLink}"${openInNewWindow ? ' target="_blank" rel="noopener"' : ''} class="${btnClass} u-no-decoration">
+                                            <span class="c-button__label">
+                                                <span class="c-button__label-text">
+                                                    ${btnText}
+                                                </span>
+                                            </span>
+                                        </a>
+                                    `;
+
+
                                     editor.insertContent(button);
                                     editor.windowManager.close();
                                     return true;
