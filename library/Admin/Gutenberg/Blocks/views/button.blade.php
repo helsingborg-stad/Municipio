@@ -11,6 +11,7 @@
         'size' => $size,
         'href' => $link,
         'classList' => ['t-block-button'],
+        'target' => !empty($open_in_new_window) ? '_blank' : '_top',
         'attributeList' => [
             'id' => $anchor ?? '',
         ]

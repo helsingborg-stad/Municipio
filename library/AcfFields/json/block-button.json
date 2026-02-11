@@ -6,6 +6,7 @@
             "key": "field_60acdb2b56c3f",
             "label": "Text",
             "name": "text",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 1,
@@ -25,28 +26,50 @@
             "key": "field_60acdb4756c40",
             "label": "Link",
             "name": "link",
+            "aria-label": "",
             "type": "url",
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "66",
                 "class": "",
                 "id": ""
             },
+            "is_publicly_hidden": 0,
+            "is_privately_hidden": 0,
             "default_value": "",
+            "allow_in_bindings": 1,
             "placeholder": ""
         },
         {
-            "repeater_choices": false,
-            "repeater_field": "",
-            "repeater_label_field": "",
-            "repeater_value_field": "",
-            "repeater_post_id": 0,
-            "repeater_display_value": 0,
+            "key": "field_698c35b2385a0",
+            "label": "Open in new window",
+            "name": "open_in_new_window",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "is_publicly_hidden": 0,
+            "is_privately_hidden": 0,
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No",
+            "ui": 1
+        },
+        {
             "key": "field_60acdad256c3e",
             "label": "Color",
             "name": "color",
+            "aria-label": "",
             "type": "radio",
             "instructions": "",
             "required": 0,
@@ -56,6 +79,12 @@
                 "class": "",
                 "id": ""
             },
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "choices": {
                 "primary": "Primary",
                 "secondary": "Secondary",
@@ -69,15 +98,10 @@
             "save_other_choice": 0
         },
         {
-            "repeater_choices": false,
-            "repeater_field": "",
-            "repeater_label_field": "",
-            "repeater_value_field": "",
-            "repeater_post_id": 0,
-            "repeater_display_value": 0,
             "key": "field_60acdb5956c41",
             "label": "Style",
             "name": "style",
+            "aria-label": "",
             "type": "radio",
             "instructions": "",
             "required": 0,
@@ -87,6 +111,12 @@
                 "class": "",
                 "id": ""
             },
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "choices": {
                 "basic": "Basic",
                 "outlined": "Outlined",
@@ -100,15 +130,10 @@
             "save_other_choice": 0
         },
         {
-            "repeater_choices": false,
-            "repeater_field": "",
-            "repeater_label_field": "",
-            "repeater_value_field": "",
-            "repeater_post_id": 0,
-            "repeater_display_value": 0,
             "key": "field_60acdba356c42",
             "label": "Size",
             "name": "size",
+            "aria-label": "",
             "type": "radio",
             "instructions": "",
             "required": 0,
@@ -118,6 +143,12 @@
                 "class": "",
                 "id": ""
             },
+            "repeater_choices": false,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
             "choices": {
                 "sm": "Small",
                 "md": "Medium",
@@ -154,6 +185,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 
