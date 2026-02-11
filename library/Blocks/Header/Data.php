@@ -14,38 +14,7 @@ use WpService\WpService;
 
 class Data
 {
-    /**
-     * Holds the view's data
-     * @var array
-     */
-    public $data = [];
-
-    /**
-     * WordPress Global states
-     * @var object
-     */
-    protected $wpQuery = null;
-
-    /**
-     * WordPress Posts object
-     * @var object
-     */
-    protected $posts = null;
-
-    /**
-     * @var null $db The database connection object.
-     */
-    protected $db = null;
-
-    /**
-     * @var int $pageId The current page id.
-     */
-    protected ?int $pageId = null;
-
-    /**
-     * @var array $standardMenuDecorators The standard menu decorators.
-     */
-    protected array $standardMenuDecorators = [];
+    private array $data = [];
 
     /**
      * Init data fetching
@@ -58,41 +27,16 @@ class Data
         private SiteSwitcherInterface $siteSwitcher,
         private User $userHelper,
     ) {
-        //Store globals
-        // $this->globalToLocal('wp_query', 'wpQuery');
-        // $this->globalToLocal('posts');
-        // $this->globalToLocal('wpdb', 'db');
-
-        //Basic
-        // $this->data['ajaxUrl'] = $this->getAjaxUrl();
-        // $this->data['bodyClass'] = $this->getBodyClass();
-        // $this->data['languageAttributes'] = $this->getLanguageAttrs();
         $this->data['homeUrl'] = $this->getHomeUrl();
-        // $this->data['adminUrl'] = $this->getAdminUrl();
-        //$this->data['homeUrlPath'] = $this->getHomeUrlPath();
-        //$this->data['siteName'] = $this->getSiteName();
-
-        // Feeds
-        // $this->data['rssFeedUrls'] = $this->getAllPublicPostTypeRssFeeds();
-
-        //Post data
-        // $this->data['pageID'] = CurrentPostId::get();
-        // $this->data['pageParentID'] = $this->getPageParentID();
 
         //Customization data
         $this->data['customizer'] = apply_filters('Municipio/Controller/Customizer', []);
 
         //Logotypes
         $this->data['logotype'] = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
-        // $this->data['footerLogotype'] = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
-        // $this->data['subfooterLogotype'] = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
-        // $this->data['emblem'] = $this->getEmblem();
-        // $this->data['showEmblemInHero'] = $this->data['customizer']->showEmblemInHero ?? true;
         $brandTextOption = get_option('brand_text', '');
         $this->data['brandText'] = $this->getMultilineTextAsArray(is_string($brandTextOption) ? $brandTextOption : '');
         $this->data['headerBrandEnabled'] = $this->data['customizer']?->headerBrandEnabled && !empty($this->data['brandText']);
-
-        // Footer
 
         // Header controllers
         if (isset($this->data['customizer']->headerApperance)) {
@@ -115,16 +59,6 @@ class Data
         $this->menuBuilder->setConfig($accessibilityMenuConfig);
         $this->menuDirector->buildAccessibilityMenu();
         $this->data['accessibilityMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Breadcrumb menu
-        $breadcrumbMenuConfig = new MenuConfig(
-            'breadcrumb',
-            '',
-        );
-
-        $this->menuBuilder->setConfig($breadcrumbMenuConfig);
-        $this->menuDirector->buildBreadcrumbMenu();
-        $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mobile menu
         $mobileMenuConfig = new MenuConfig(
@@ -250,36 +184,6 @@ class Data
         $this->menuDirector->buildStandardMenu();
         $this->data['siteselectorMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
-        // Sidebar menu
-        $secondaryMenuPostTypeConfig = new MenuConfig(
-            'sidebar',
-            $this->wpService->getPostType() . '-secondary-menu',
-        );
-
-        $secondaryMenuConfig = new MenuConfig(
-            'sidebar',
-            'secondary-menu',
-            false,
-            empty($this->data['primaryMenu']['items']) ? false : true,
-            !empty($this->data['customizer']->secondaryMenuPagetreeFallback),
-        );
-
-        $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
-        $this->menuDirector->buildStandardMenu();
-        $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
-
-        if (empty($secondaryMenu['items'])) {
-            $this->menuBuilder->setConfig($secondaryMenuConfig);
-            $secondaryMenuConfig->getFallbackToPageTree() ? $this->menuDirector->buildMixedPageTreeMenu() : $this->menuDirector->buildStandardMenu();
-            $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
-        }
-
-        $this->data['secondaryMenu'] = $secondaryMenu;
-
-        //Get labels for menu
-        $this->data['floatingMenuLabels'] = $this->getFloatingMenuLabels();
-        //$this->data['quicklinksOptions'] = $this->getQuicklinksOptions();
-
         //Get language menu options
         $this->data['languageMenuOptions'] = $this->getLanguageMenuOptions();
 
@@ -334,11 +238,6 @@ class Data
         $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
-        $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
-
-        //Notice storage
-        $this->data['notice'] = [];
-
         //Language
         $this->data['lang'] = TranslatedLabels::getLang(
             [
@@ -351,42 +250,6 @@ class Data
         );
 
         $this->data['labels'] = (array) $this->data['lang'];
-
-        add_filter(
-            'ComponentLibrary/Component/Lang',
-            function ($obj) {
-                $lang = [
-                    'visit' => __('Visit', 'municipio'),
-                    'email' => __('Email', 'municipio'),
-                    'call' => __('Call', 'municipio'),
-                    'address' => __('Address', 'municipio'),
-                    'visitingAddress' => __('Visiting address', 'municipio'),
-                ];
-
-                return (object) array_merge((array) $obj, $lang);
-            },
-            10,
-            1,
-        );
-
-        if (!empty($_SERVER['HTTP_HOST'])) {
-            add_filter(
-                'ComponentLibrary/Component/Attribute',
-                function ($attributes) {
-                    if (!empty($attributes['href'])) {
-                        $parsedUrl = parse_url($attributes['href']);
-
-                        if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== (empty($_SERVER['HTTP_HOST']) ? '' : $_SERVER['HTTP_HOST'])) {
-                            $attributes['data-js-original-link'] = $attributes['href'];
-                        }
-                    }
-
-                    return $attributes;
-                },
-                10,
-                1,
-            );
-        }
     }
 
     /**
@@ -433,25 +296,6 @@ class Data
             return true;
         }
         return false;
-    }
-
-    /**
-     * Get floating menu labels
-     *
-     * @return object
-     */
-    private function getFloatingMenuLabels(): object
-    {
-        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? '');
-
-        return (object) apply_filters(
-            'Municipio/FloatingMenuLabels',
-            [
-                'heading' => get_field('floating_popup_heading', $menuObject),
-                'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
-                'buttonIcon' => get_field('toggle_button_icon', $menuObject),
-            ],
-        );
     }
 
     /**

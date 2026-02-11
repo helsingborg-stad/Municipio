@@ -1,1 +1,0 @@
-@include('templates.sections.site-header')

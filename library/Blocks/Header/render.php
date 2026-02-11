@@ -14,4 +14,4 @@ $controller = new \Municipio\Blocks\Header\Data($menuBuilder, $menuDirector, WpS
 
 $data = $controller->getData();
 
-echo render_blade_view('blocks.header', $data);
+echo render_blade_view('header-block', $data);

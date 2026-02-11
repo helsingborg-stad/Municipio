@@ -6,8 +6,8 @@ use Municipio\Helper\AcfService;
 use Municipio\Helper\WpService;
 
 $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher(WpService::get(), AcfService::get());
-$controller = new \Municipio\Blocks\Footer\Data(WpService::get(), $siteSwitcher);
+$data = new \Municipio\Blocks\Footer\Data(WpService::get(), $siteSwitcher);
 
-$data = $controller->getData();
+$data = $data->getData();
 
 echo render_blade_view('footer-block', $data, true);
