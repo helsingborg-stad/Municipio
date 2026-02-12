@@ -26,7 +26,6 @@ class Data
         private WpService $wpService,
         private SiteSwitcherInterface $siteSwitcher,
     ) {
-        $this->data['wpFooter'] = $this->getWpFooter();
         $this->data['homeUrl'] = $this->getHomeUrl();
 
         $this->data['pageID'] = CurrentPostId::get();
@@ -63,19 +62,6 @@ class Data
             $data['icon'] = $this->getEmblem();
         }
         return $data;
-    }
-
-    /**
-     * Get WordPress footer
-     *
-     * @return string
-     */
-    private function getWpFooter(): string
-    {
-        ob_start();
-        wp_footer();
-        $footer = apply_filters('Municipio/FooterHTML', ob_get_clean());
-        return is_string($footer) ? $footer : '';
     }
 
     /**

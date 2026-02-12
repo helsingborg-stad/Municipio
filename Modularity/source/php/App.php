@@ -148,11 +148,7 @@ class App
                     $editorLink = admin_url('options.php?page=modularity-editor&id=' . $postId);
                 }
 
-                if (
-                    isset($options['enabled-post-types'])
-                    && is_array($options['enabled-post-types'])
-                    && !in_array(get_post_type(), $options['enabled-post-types'])
-                ) {
+                if (isset($options['enabled-post-types']) && is_array($options['enabled-post-types']) && !in_array(get_post_type(), $options['enabled-post-types'])) {
                     $editorLink = null;
                 }
 

@@ -381,6 +381,8 @@ class App
          */
         $this->setupAccessibilityStatement();
 
+        (new \Municipio\FullSiteEditing\FullSiteEditingFeature($this->wpService))->enable();
+
         /**
          * Register blocks
          */

@@ -37,6 +37,9 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         //Create & apply cache.
         $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateAndApplyCache'), 5);
 
+        // Allows running on block templates.
+        $this->wpService->addAction('wp_loaded', array($this, 'tryCreateAndApplyCache'), 5);
+
         //Create & apply cache on rest requests.
         $this->wpService->addAction('rest_api_init', array($this, 'tryCreateAndApplyCache'), 5);
 

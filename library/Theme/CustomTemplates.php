@@ -37,5 +37,10 @@ class CustomTemplates
             \Municipio\Helper\Template::locateTemplate('page-centered.blade.php'),
             'all',
         );
+        \Municipio\Helper\Template::add(
+            __('Gutenberg', 'municipio'),
+            \Municipio\Helper\Template::locateTemplate('gutenberg.blade.php'),
+            'all',
+        );
     }
 }

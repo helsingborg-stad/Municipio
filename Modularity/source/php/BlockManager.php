@@ -189,6 +189,7 @@ class BlockManager
                 'core/shortcode',
                 'core/block',
                 'core/image',
+                'core/post-content',
             ];
 
             if (str_contains($type, 'core/') && !in_array($type, $allowedCoreBlocks)) {
