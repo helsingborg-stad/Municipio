@@ -8,11 +8,19 @@
 			"allowEditing": true
 		},
 		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"customGradient": false,
 			"palette": [
 				{
 					"name": "Primary",
 					"slug": "primary",
 					"color": "var(--color-primary)"
+				},
+				{
+					"name": "Secondary",
+					"slug": "secondary",
+					"color": "var(--color-secondary)"
 				},
 				{
 					"name": "Background",
@@ -26,7 +34,8 @@
 	},
 	"styles": {
 		"color": {
-			"background": "var(--wp--preset--color--background, var(--color-background))"
+			"background": "var(--wp--preset--color--background, var(--color-background))",
+			"text": "var(--wp--preset--color--primary, var(--color-primary))"
 		}
 	}
 }
