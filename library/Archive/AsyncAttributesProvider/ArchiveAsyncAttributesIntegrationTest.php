@@ -172,6 +172,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
             'design',
             'numberOfColumns',
             'postPropertiesToDisplay',
+            'taxonomiesEnabledForFiltering',
             'taxonomiesToDisplay',
             'displayFeaturedImage',
             'displayReadingTime',
