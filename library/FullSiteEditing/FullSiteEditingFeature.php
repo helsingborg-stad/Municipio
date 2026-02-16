@@ -22,6 +22,7 @@ class FullSiteEditingFeature
         $this->addCssVariablesToEditor();
         $this->enableGutenbergEditorForTemplates();
         $this->disableAccessToTheTemplateEditor();
+        $this->disableBlockDirectoryInEditor();
     }
 
     /**
@@ -62,5 +63,13 @@ class FullSiteEditingFeature
                 $this->wpService->removeThemeSupport('block-templates');
             }
         });
+    }
+
+    /**
+     * Disable the block directory in the editor to prevent users from installing new blocks that may not be compatible with the full site editing experience.
+     */
+    private function disableBlockDirectoryInEditor(): void
+    {
+        $this->wpService->removeAction('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
     }
 }
