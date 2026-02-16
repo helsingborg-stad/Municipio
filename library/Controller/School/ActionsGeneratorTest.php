@@ -21,10 +21,11 @@ class ActionsGeneratorTest extends TestCase
     /**
      * Helper to create an Action mock.
      */
-    private function createAction($description, $title, $url): Action
+    private function createAction($disambiguatingDescription, $description, $title, $url): Action
     {
         return Schema::action()
-            ->disambiguatingDescription($description)
+            ->disambiguatingDescription($disambiguatingDescription)
+            ->description($description)
             ->title($title)
             ->url($url);
     }
@@ -68,7 +69,7 @@ class ActionsGeneratorTest extends TestCase
     public function testGenerateReturnsCorrectDataForValidActions(): void
     {
         // Arrange
-        $action    = $this->createAction('desc', 'Action Title', 'https://example.com');
+        $action    = $this->createAction('description', 'title', 'Action Title', 'https://example.com');
         $preschool = $this->createPreschool([$action]);
 
         // Act
@@ -76,7 +77,8 @@ class ActionsGeneratorTest extends TestCase
         $result    = $generator->generate();
 
         // Assert
-        $this->assertEquals('desc', $result['description']);
+        $this->assertEquals('description', $result['description']);
+        $this->assertEquals('title', $result['title']);
         $this->assertEquals([
             [
                 'text'  => 'Action Title',
