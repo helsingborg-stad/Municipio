@@ -189,6 +189,11 @@ class App
         new \Municipio\Oembed\OembedFilters();
 
         /**
+         * General filters
+         */
+        (new \Municipio\Filters\More($this->wpService))->addHooks();
+
+        /**
          * Language
          */
         new \Municipio\Language();
