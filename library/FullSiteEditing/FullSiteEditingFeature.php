@@ -6,11 +6,12 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\WpAddInlineStyle;
+use WpService\WpService;
 
 class FullSiteEditingFeature
 {
     public function __construct(
-        private AddFilter&AddAction&GetOption&WpAddInlineStyle $wpService,
+        private WpService $wpService,
     ) {}
 
     /**
@@ -20,6 +21,7 @@ class FullSiteEditingFeature
     {
         $this->addCssVariablesToEditor();
         $this->enableGutenbergEditorForTemplates();
+        $this->disableAccessToTheTemplateEditor();
     }
 
     /**
@@ -43,7 +45,22 @@ class FullSiteEditingFeature
     private function enableGutenbergEditorForTemplates(): void
     {
         $this->wpService->addFilter('Municipio/Admin/Gutenberg/TemplatesToInclude', static function (array $templatesToInclude) {
-            return [...$templatesToInclude, 'gutenberg', 'gutenberg.blade.php'];
+            return [...$templatesToInclude, 'gutenberg.blade.php'];
+        });
+    }
+
+    /**
+     * Disable access to the template editor to prevent users from accidentally modifying templates that are meant to be edited with the Gutenberg editor.
+     */
+    private function disableAccessToTheTemplateEditor(): void
+    {
+        $this->wpService->addAction('current_screen', function () {
+            $screen = $this->wpService->getCurrentScreen();
+
+            // Check if we are editing the 'post' post type.
+            if ($screen->is_block_editor) {
+                $this->wpService->removeThemeSupport('block-templates');
+            }
         });
     }
 }
