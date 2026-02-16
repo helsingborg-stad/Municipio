@@ -95,7 +95,7 @@
         @if (!empty($actions))
             @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
                 @typography(['element' => 'h2', 'classList' => ['u-margin__bottom--2']])
-                    {!! $lang->actionsLabel !!}
+                    {!! $actions['title'] ?: $lang->actionsLabel !!}
                 @endtypography
                 @if(!empty($actions['description']))
                     @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
