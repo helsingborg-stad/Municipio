@@ -20,7 +20,7 @@ class ActionsGenerator implements ViewDataGeneratorInterface
 
         $actions = array_filter($potentialAction, fn($fn) => is_a($fn, \Municipio\Schema\Action::class));
         return [
-            'description' => $actions[0]?->getProperty('description') ?? null,
+            'description' => $actions[0]?->getProperty('disambiguatingDescription') ?? null,
             'buttonsArgs' => array_map(fn($action, $index) => [
                 'text'  => $action->getProperty('title'),
                 'href'  => $action->getProperty('url'),

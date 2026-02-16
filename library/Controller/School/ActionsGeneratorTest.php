@@ -24,7 +24,7 @@ class ActionsGeneratorTest extends TestCase
     private function createAction($description, $title, $url): Action
     {
         return Schema::action()
-            ->description($description)
+            ->disambiguatingDescription($description)
             ->title($title)
             ->url($url);
     }
