@@ -3,22 +3,27 @@
 namespace Municipio\Filters;
 
 use Municipio\HooksRegistrar\Hookable;
-use WpService\WpService;
+use WpService\Contracts\AddFilter;
 
 class More implements Hookable
 {
     public function __construct(
-        private WpService $wpService,
+        private AddFilter $wpService,
     ) {}
 
     /**
-     * Adds hooks for the filter.
+     * Registers the filter for processing content with the <!--more--> tag.
      */
     public function addHooks(): void
     {
-        add_filter('Municipio\Filters\More', [$this, 'filterMore'], 10, 1);
+        $this->wpService->addFilter('Municipio\Filters\More', [$this, 'filterMore'], 10, 1);
     }
 
+    /**
+     * Filters the content to process the <!--more--> tag. It splits the content at the <!--more--> tag and adds a "lead" class to paragraphs in the excerpt.
+     * @param string $content The content to filter.
+     * @return string The filtered content with the excerpt and remaining content.
+     */
     public function filterMore(string $content): string
     {
         if (!$this->containsMoreTag($content)) {
@@ -32,11 +37,21 @@ class More implements Hookable
         return $excerpt . $remaining;
     }
 
+    /**
+     * Checks if the content contains the <!--more--> tag.
+     * @param string $content The content to check.
+     * @return bool True if the content contains the <!--more--> tag, false otherwise.
+     */
     private function containsMoreTag(string $content): bool
     {
         return !empty($content) && str_contains($content, '<!--more-->');
     }
 
+    /**
+     * Splits the content at the <!--more--> tag into an excerpt and remaining content.
+     * @param string $content The content to split.
+     * @return array An array containing the excerpt and remaining content.
+     */
     private function splitAtMoreTag(string $content): array
     {
         $parts = explode('<!--more-->', $content, 2);
@@ -47,6 +62,11 @@ class More implements Hookable
         ];
     }
 
+    /**
+     * Adds the "lead" class to all paragraphs in the given HTML content.
+     * @param string $html The HTML content to process.
+     * @return string The HTML content with the "lead" class added to paragraphs.
+     */
     private function addLeadToParagraphs(string $html): string
     {
         return preg_replace_callback(
@@ -58,6 +78,12 @@ class More implements Hookable
         );
     }
 
+    /**
+     * Appends the "lead" class to the class attribute of a paragraph tag. If the class attribute does not exist, it creates one.
+     * @param string $fullTag The full paragraph tag.
+     * @param string $attributes The attributes of the paragraph tag.
+     * @return string The modified paragraph tag with the "lead" class.
+     */
     private function appendLeadClass(string $fullTag, string $attributes): string
     {
         if (preg_match('/class=(["\'])(.*?)\1/', $attributes, $classMatch)) {
