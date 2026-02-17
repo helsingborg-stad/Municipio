@@ -3,7 +3,7 @@
 	"version": 3,
 	"settings": {
 		"layout": {
-			"contentSize": "var(--container-width)",
+			"contentSize": "var(--container-width, 1280px)",
 			"allowCustomContentAndWideSize": true,
 			"allowEditing": true
 		},
@@ -22,7 +22,7 @@
 				{
 					"name": "Primary",
 					"slug": "primary",
-					"color": "light-dark(var(--color--primary, #2d2d2d), var(--color--primary, #2d2d2d))"
+					"color": "var(--color--primary, #2d2d2d)"
 				},
 				{
 					"name": "Primary Contrast",
@@ -131,13 +131,7 @@
 				}
 			]
 		},
-		"appearanceTools": false,
+		"appearanceTools": true,
 		"useRootPaddingAwareAlignments": true
-	},
-	"styles": {
-		"css": ":root { color-scheme: light dark; }",
-		"typography": {
-			"fontFamily": "var(--font-family-base)"
-		}
 	}
 }
