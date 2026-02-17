@@ -1,6 +1,7 @@
 import apiFetch from "@wordpress/api-fetch";
 import type { BlockEditProps } from "@wordpress/blocks";
 import { type ComponentType, useEffect, useRef } from "react";
+import type { PostsListAttributes } from ".";
 import {
 	createGetPostTypeMetaKeys,
 	PostsListContextProvider,
