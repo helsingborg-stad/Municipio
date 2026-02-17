@@ -8,7 +8,10 @@
     'classList' => [
         'site-footer',
         's-footer'
-    ]
+    ],
+    'attributeList' => [
+        'style' => $style ?? '',
+    ],
 ])
 
 {{-- Before footer body --}}

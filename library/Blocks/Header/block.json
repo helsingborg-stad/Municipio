@@ -9,7 +9,7 @@
 	"description": "A block to display the site header.",
 	"example": {},
 	"render": "file:./render.php",
-	"editorScript": "file:./editor.js",
+	"editorScript": "file:./../../../assets/dist/js/municipioBlocks.js",
 	"attributes": {},
 	"textdomain": "municipio"
 }

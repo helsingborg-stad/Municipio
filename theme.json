@@ -8,6 +8,13 @@
 			"allowEditing": true
 		},
 		"color": {
+			"custom": false,
+			"heading": false,
+			"text": true,
+			"background": true,
+			"caption": false,
+			"button": false,
+			"link": true,
 			"defaultPalette": false,
 			"defaultGradients": false,
 			"customGradient": false,
@@ -15,27 +22,119 @@
 				{
 					"name": "Primary",
 					"slug": "primary",
-					"color": "var(--color-primary)"
+					"color": "light-dark(var(--color--primary, #2d2d2d), var(--color--primary, #2d2d2d))"
+				},
+				{
+					"name": "Primary Contrast",
+					"slug": "primary-contrast",
+					"color": "var(--color--primary-contrast, #ffffff)"
 				},
 				{
 					"name": "Secondary",
 					"slug": "secondary",
-					"color": "var(--color-secondary)"
+					"color": "var(--color--secondary, #6e6e6e)"
+				},
+				{
+					"name": "Secondary Contrast",
+					"slug": "secondary-contrast",
+					"color": "var(--color--secondary-contrast, #ffffff)"
+				},
+				{
+					"name": "Accent",
+					"slug": "accent",
+					"color": "var(--color--accent, #bdbdbd)"
+				},
+				{
+					"name": "Accent Contrast",
+					"slug": "accent-contrast",
+					"color": "var(--color--accent-contrast, #2d2d2d)"
 				},
 				{
 					"name": "Background",
 					"slug": "background",
-					"color": "var(--color-background)"
+					"color": "var(--color--background, #f5f5f5)"
+				},
+				{
+					"name": "Background Contrast",
+					"slug": "background-contrast",
+					"color": "var(--color--background-contrast, #2d2d2d)"
+				},
+				{
+					"name": "Background Contrast Muted",
+					"slug": "background-contrast-muted",
+					"color": "var(--color--background--contrast-muted, #6e6e6e)"
+				},
+				{
+					"name": "Surface",
+					"slug": "surface",
+					"color": "var(--color--surface, #ffffff)"
+				},
+				{
+					"name": "Surface Contrast",
+					"slug": "surface-contrast",
+					"color": "var(--color--surface-contrast, #2d2d2d)"
+				},
+				{
+					"name": "Surface Contrast Muted",
+					"slug": "surface-contrast-muted",
+					"color": "var(--color--surface-contrast-muted, #6e6e6e)"
+				},
+				{
+					"name": "Border",
+					"slug": "border",
+					"color": "var(--color--border, #e0e0e0)"
+				},
+				{
+					"name": "Focus",
+					"slug": "focus",
+					"color": "var(--color--focus, #4d90fe)"
+				},
+				{
+					"name": "Success",
+					"slug": "success",
+					"color": "var(--color--success, #4caf50)"
+				},
+				{
+					"name": "Success Contrast",
+					"slug": "success-contrast",
+					"color": "var(--color--success-contrast, #ffffff)"
+				},
+				{
+					"name": "Warning",
+					"slug": "warning",
+					"color": "var(--color--warning, #ffb300)"
+				},
+				{
+					"name": "Warning Contrast",
+					"slug": "warning-contrast",
+					"color": "var(--color--warning-contrast, #2d2d2d)"
+				},
+				{
+					"name": "Danger",
+					"slug": "danger",
+					"color": "var(--color--danger, #e53935)"
+				},
+				{
+					"name": "Danger Contrast",
+					"slug": "danger-contrast",
+					"color": "var(--color--danger-contrast, #ffffff)"
+				},
+				{
+					"name": "Info",
+					"slug": "info",
+					"color": "var(--color--info, #039be5)"
+				},
+				{
+					"name": "Info Contrast",
+					"slug": "info-contrast",
+					"color": "var(--color--info-contrast, #ffffff)"
 				}
 			]
 		},
-		"appearanceTools": true,
+		"appearanceTools": false,
 		"useRootPaddingAwareAlignments": true
 	},
 	"styles": {
-		"color": {
-			"background": "var(--wp--preset--color--background, var(--color-background))",
-			"text": "var(--wp--preset--color--primary, var(--color-primary))"
-		}
+		"css": ":root { color-scheme: light dark; }"
 	}
 }

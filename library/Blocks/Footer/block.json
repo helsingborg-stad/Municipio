@@ -9,8 +9,14 @@
 	"description": "A block to display the site footer.",
 	"example": {},
 	"render": "file:./render.php",
-    "editorScript": "file:./editor.js",
-	"attributes": {
-	},
-	"textdomain": "municipio"
+	"editorScript": "file:./../../../assets/dist/js/municipioBlocks.js",
+	"textdomain": "municipio",
+	"attributes": {},
+	"supports": {
+		"color": {
+			"background": true,
+			"text": true,
+			"link": true
+		}
+	}
 }
