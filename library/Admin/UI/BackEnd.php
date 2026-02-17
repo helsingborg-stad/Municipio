@@ -75,31 +75,19 @@ class BackEnd
     {
         // Editor testing zone
         if ($this->isLocal()) {
-            echo
-                '<div class="hosting-enviroment hosting-yellow"><strong>'
-                . __('Notice', 'municipio')
-                    . ': </strong>'
-                    . __('You\'re on a local server.', 'municipio')
-                    . '</div>'
-            ;
+            echo '<div class="hosting-enviroment hosting-yellow"><strong>' . __('Notice', 'municipio') . ': </strong>' . __('You\'re on a local server.', 'municipio') . '</div>';
         }
 
         // Editor testing zone
         if ($this->isTest()) {
-            echo
-                '<div class="hosting-enviroment hosting-yellow"><strong>'
-                . __('Notice', 'municipio')
-                    . ': </strong>'
-                    . __('This it the test-environment. Your content will not be published.', 'municipio')
-                    . '</div>'
-            ;
+            echo '<div class="hosting-enviroment hosting-yellow"><strong>' . __('Notice', 'municipio') . ': </strong>' . __('This it the test-environment. Your content will not be published.', 'municipio') . '</div>';
         }
 
         // Developer
         if ($this->isBeta()) {
             echo
                 '<div class="hosting-enviroment hosting-red"><strong>'
-                . __('Notice', 'municipio')
+                    . __('Notice', 'municipio')
                     . ': </strong>'
                     . __(
                         'This it the beta-environment. All functionality is not guaranteed. Possibly, the web page content will be restored and synchronized with the live site on Monday.',
@@ -135,11 +123,7 @@ class BackEnd
 
     public function isLocal()
     {
-        return (
-            isset($_SERVER['SERVER_ADDR'])
-            && $_SERVER['SERVER_ADDR'] == '127.0.0.1'
-            && !isset($_SERVER['HTTP_X_VARNISH'])
-        );
+        return isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1' && !isset($_SERVER['HTTP_X_VARNISH']);
     }
 
     public function isTest()

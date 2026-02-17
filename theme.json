@@ -135,6 +135,9 @@
 		"useRootPaddingAwareAlignments": true
 	},
 	"styles": {
-		"css": ":root { color-scheme: light dark; }"
+		"css": ":root { color-scheme: light dark; }",
+		"typography": {
+			"fontFamily": "var(--font-family-base)"
+		}
 	}
 }

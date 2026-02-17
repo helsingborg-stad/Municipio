@@ -125,13 +125,10 @@ class BlockManager
         $metaLang = get_post_meta(get_the_ID() ?: 0, 'lang', true);
         $siteLanguage = strtolower(get_bloginfo('language'));
         $pageLanguage = is_string($metaLang) ? strtolower($metaLang) : $siteLanguage;
-        $blockLanguage = !empty($block['attrs']['data']['lang'])
-            ? strtolower($block['attrs']['data']['lang'])
-            : $pageLanguage;
+        $blockLanguage = !empty($block['attrs']['data']['lang']) ? strtolower($block['attrs']['data']['lang']) : $pageLanguage;
 
         if (!in_array($blockLanguage, [$siteLanguage, $pageLanguage]) && $blockLanguage != 'auto') {
-            $blockContent =
-                '<div lang="' . htmlspecialchars($blockLanguage, ENT_QUOTES, 'UTF-8') . '">' . $blockContent . '</div>';
+            $blockContent = '<div lang="' . htmlspecialchars($blockLanguage, ENT_QUOTES, 'UTF-8') . '">' . $blockContent . '</div>';
         }
 
         return $blockContent;
@@ -193,7 +190,7 @@ class BlockManager
             ];
 
             if (str_contains($type, 'core/') && !in_array($type, $allowedCoreBlocks)) {
-                unset($registeredBlocks[$type]);
+                //unset($registeredBlocks[$type]);
             }
         }
 
@@ -490,9 +487,7 @@ class BlockManager
             }
 
             if (!$module->dataFetched) {
-                error_log('Class '
-                . get_class($module)
-                . ' must use the getFields function to ensure block compability.');
+                error_log('Class ' . get_class($module) . ' must use the getFields function to ensure block compability.');
             }
 
             $wrapModule = apply_filters('Modularity/Block/DisplayBlockWrapper', true);

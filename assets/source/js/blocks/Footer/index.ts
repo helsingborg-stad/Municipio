@@ -9,5 +9,8 @@ export type FooterAttributes = {
 export default function init() {
 	registerBlockType(blockConfig.name, {
 		edit: Edit,
+		example: {
+			attributes: {},
+		},
 	});
 }
