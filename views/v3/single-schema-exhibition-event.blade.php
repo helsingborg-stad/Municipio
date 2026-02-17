@@ -1,118 +1,31 @@
-@extends('templates.single', ['showSidebars' => false, 'centerContent' => true])
+@extends('templates.grid', [
+    'helperNavBeforeContent' => false,
+    'layoutData' => [
+        'addToDefaultClassList' => ['u-margin__bottom--4']
+    ]
+])
 
 @section('hero-top-sidebar')
-    @hero([
-        "image" => $post->getImage(),
-        "size" => "normal",
-        "classList" => ["u-margin__bottom--4"],
-    ])
-    @endhero
+    @includeWhen($post->getImage(), 'partials.schema.exhibitionEvent.hero')
+    @includeWhen($eventIsInThePast, 'partials.schema.exhibitionEvent.expired-notice')
+    @include('templates.sections.grid.above-content')
+    @parent
 @stop
 
-@section('article.content')
+@section('layout')
+    @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 
-    @section('article.title.before')
-        @if($eventIsInThePast)
-            @notice([
-                'type' => 'warning',
-                'message' => [
-                    'text' => $lang->expiredDateNotice,
-                ],
-                'icon' => [
-                    'icon' => 'schedule'
-                ]
-            ])@endnotice
-        @endif
+    @section('content')
+        @include('partials.schema.exhibitionEvent.title-area')
+        @includeWhen($description, 'partials.schema.exhibitionEvent.description')
+        @includeWhen($galleryComponentAttributes, 'partials.schema.exhibitionEvent.gallery')
     @stop
 
-    @section('article.title.after')
-
-        @collection(['classList' => ['u-display--flex']])
-            @collection__item([ 'icon' => 'event', ])
-                @typography(['element' => 'h4', 'variant' => 'h2'])
-                    {!! $lang->dateLabel !!}
-                @endtypography
-                @typography([])
-                    {!! $occasion !!}
-                @endtypography
-            @endcollection__item
-            @collection__item([ 'icon' => 'location_on' ])
-                @typography(['element' => 'h4', 'variant' => 'h2'])
-                    {!! $lang->placeTitle !!}
-                @endtypography
-                @typography([])
-                    {!! $placeName !!}<br>
-                    {!! $placeAddress !!}
-                @endtypography
-            @endcollection__item
-        @endcollection
-
+    @section('sidebar-right-content')
+        @includeWhen($openingHours, 'partials.schema.exhibitionEvent.opening-hours')
+        @includeWhen($specialOpeningHours, 'partials.schema.exhibitionEvent.special-opening-hours')
+        @includeWhen($priceListItems, 'partials.schema.exhibitionEvent.price-list')
     @stop
 
-    @if(!empty($description))
-        {!! $description !!}
-    @endif
-
-    @if(!empty($galleryComponentAttributes))
-        @typography(['element' => 'h3'])
-            {!! $lang->galleryLabel !!}
-        @endtypography
-        @gallery([...$galleryComponentAttributes, 'classList' => ['u-margin__bottom--6', 'u-margin__top--4']])@endgallery
-    @endif
-    
-@stop
-
-@section('sidebar.right-sidebar.before')
-    @paper(['classList' => ['u-margin__bottom--4']])
-
-        @if(!empty($openingHours))
-            @collection()
-                @collection__item([])
-                    @typography(['element' => 'h4', 'variant' => 'h4'])
-                        {!! $lang->openingHoursLabel !!}
-                    @endtypography
-                    @typography([])
-                        {!! $openingHours !!}
-                    @endtypography
-                @endcollection__item
-            @endcollection
-        @endif
-
-        @if(!empty($specialOpeningHours))
-            @collection()
-                @collection__item([])
-                    @typography(['element' => 'h4', 'variant' => 'h4'])
-                        {!! $lang->specialOpeningHoursLabel !!}
-                    @endtypography
-                    @typography([])
-                        @foreach ($specialOpeningHours as $line)
-                            {!! $line !!}
-                        @endforeach
-                    @endtypography
-                @endcollection__item
-            @endcollection
-        @endif
-
-        @if(!empty($priceListItems))
-            @collection()
-                    @collection__item([])
-                        @typography(['element' => 'h4', 'variant' => 'h4'])
-                            {!! $lang->entranceLabel !!}
-                        @endtypography
-                        @foreach ($priceListItems as $priceListItem)
-                            @element([])
-                                @element(['componentElement' => 'span']){!!$priceListItem->getName() !!}: @endelement
-                                @element(['componentElement' => 'span', 'classList' => ['u-float--right']]){!! $priceListItem->getPrice() !!}@endelement
-                            @endelement
-                        @endforeach
-                    @endcollection__item
-            @endcollection
-        @endif
-    
-    @endpaper
-
-@stop
-
-@section('below')
-    @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
+    @include('templates.sections.grid.content')
 @stop

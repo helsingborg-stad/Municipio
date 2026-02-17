@@ -28,9 +28,9 @@
         @includeIf('partials.hero', ['classes' => [], 'sliderAreaClasses' => []])
         @includeIf('partials.sidebar', ['id' => 'top-sidebar', 'classes' => []])
     @show
-    
+
     {{-- Layout --}}
-    @include('templates.sections.grid.layout')
+    @include('templates.sections.grid.layout', $layoutData ?? [])
 
     @section('below')
         @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => []])
