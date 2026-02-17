@@ -11,12 +11,5 @@
 	"render": "file:./render.php",
 	"editorScript": "file:./../../../assets/dist/js/municipioBlocks.js",
 	"textdomain": "municipio",
-	"attributes": {},
-	"supports": {
-		"color": {
-			"background": true,
-			"text": true,
-			"link": true
-		}
-	}
+	"attributes": {}
 }
