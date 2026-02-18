@@ -27,5 +27,7 @@
         @includeWhen($priceListItems, 'partials.schema.exhibitionEvent.price-list')
     @stop
 
-    @include('templates.sections.grid.content')
+    @include('templates.sections.grid.content', [
+        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+    ])
 @stop
