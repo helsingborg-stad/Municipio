@@ -6,6 +6,7 @@
 
 <div class="s-archive-filter">
     @form([
+        'validation' => false,
         'method' => 'GET',
         'action' => '?q=form_component' . ($filterConfig->getAnchor() ? '#' . $filterConfig->getAnchor() . '_id' : '')
     ])
