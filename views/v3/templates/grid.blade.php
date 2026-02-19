@@ -33,8 +33,8 @@
     @include('templates.sections.grid.layout')
 
     @section('below')
-        @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => []])
-    @stop
+        @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => $belowSidebarClasses ?? []])
+    @show
 
     @include('templates.sections.bottom-sidebar')
 
