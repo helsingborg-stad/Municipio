@@ -1,12 +1,12 @@
 @element([
     'id' => 'main-content',
     'componentElement' => 'main',
-    'classList' => [
+    'classList' => $classList ?? array_merge([
         'o-layout-grid',
         'o-layout-grid--cols-12',
-        'o-layout-grid--column-gap-8',
+        'o-layout-grid--column-gap-8@md',
         'o-layout-grid--row-gap-12',
-    ]
+    ], $addToDefaultClassList ?? [])
 ])
     @include('templates.sections.grid.left-sidebar')
     @include('templates.sections.grid.right-sidebar')
@@ -31,7 +31,7 @@
     @hasSection('sidebar-left')
         @element([
             'componentElement' => 'aside',
-            'classList' => [
+            'classList' => array_merge($addToLeftSidebarClassList ?? [], [
                 'o-layout-grid',
                 'o-layout-grid--col-span-' . ($rightSidebarHasContent ? 3 : 4) . '@md',
                 'o-layout-grid--col-span-12',
@@ -40,7 +40,7 @@
                 'o-layout-grid--grid-auto-rows-min-content',
                 'o-layout-grid--order-1@md',
                 'o-layout-grid--order-2'
-            ]
+            ])
         ])
             @yield('sidebar-left')
         @endelement
@@ -48,7 +48,7 @@
     @hasSection('main-content')
         @element([
             'componentElement' => 'article',
-            'classList' => [
+            'classList' => array_merge($addToArticleClassList ?? [], [
                 'o-layout-grid--col-span-' . $mainColumnSize . '@md',
                 'o-layout-grid--col-span-12',
                 'o-layout-grid',
@@ -56,7 +56,7 @@
                 'o-layout-grid--grid-auto-rows-min-content',
                 'o-layout-grid--order-2@md',
                 'o-layout-grid--order-1'
-            ]
+            ])
         ])
             @yield('main-content')
         @endelement
@@ -64,7 +64,7 @@
     @hasSection('sidebar-right')
         @element([
             'componentElement' => 'aside',
-            'classList' => [
+            'classList' => array_merge($addToRightSidebarClassList ?? [], [
                 'o-layout-grid',
                 'o-layout-grid--gap-6',
                 'o-layout-grid--col-span-' . ($leftSidebarHasContent ? 3 : 4) . '@md',
@@ -72,7 +72,7 @@
                 'u-print-display--none',
                 'o-layout-grid--grid-auto-rows-min-content',
                 'o-layout-grid--order-3',
-            ]
+            ])
         ])
             @yield('sidebar-right')
         @endelement
