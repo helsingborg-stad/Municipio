@@ -61,7 +61,6 @@ export const postsListAsync = (
 		async (
 			params: Record<string, unknown>,
 			clearUrlParams: boolean = false,
-			afterRender: () => void = () => {},
 		) => {
 			updateUrlParams(params, clearUrlParams);
 			const currentRequest = ++requestCount;
@@ -72,7 +71,6 @@ export const postsListAsync = (
 				const staleResponse = currentRequest !== requestCount;
 				if (staleResponse) return;
 				renderHTML(html);
-				afterRender();
 				scrollView();
 			} catch (err) {
 				console.error(err);
