@@ -223,11 +223,12 @@ class PostObjectWithFilters extends AbstractPostObjectDecorator implements PostO
      */
     public function getSchema(): BaseType
     {
-        $type = $this->postObject->getSchema()->getType();
+        $schema = $this->postObject->getSchema();
+        $type = $schema->getType();
 
         $value = $this->wpService->applyFilters(
             'Municipio/PostObject/getSchema',
-            $this->postObject->getSchema(),
+            $schema,
             $this->postObject,
             $type,
         );
