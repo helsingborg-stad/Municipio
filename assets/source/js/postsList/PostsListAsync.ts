@@ -39,6 +39,7 @@ export const postsListAsync = (
 		container.setAttribute("aria-busy", isLoading ? "true" : "false");
 		container.querySelectorAll("[data-js-posts-list-item]").forEach((e) => {
 			toggle(e, "u-preloader--inner");
+			toggle(e, "u-preloader--exclude");
 		});
 
 		toggle(container, "is-loading");
