@@ -28,7 +28,7 @@ class PostObjectWithSchemaObjectTest extends TestCase
         $innerPostObject = $this->getPostObject();
         $innerPostObject->method('getId')->willReturn(123);
 
-        $postObject = new PostObjectWithSchemaObject($innerPostObject, $schemaObjectFromPost, new FakeWpService());
+        $postObject = new PostObjectWithSchemaObject($innerPostObject, $schemaObjectFromPost, new FakeWpService(['applyFilters' => 'Foo']));
 
         $this->assertSame('Thing', $postObject->getSchemaProperty('@type'));
         $this->assertSame('Foo', $postObject->getSchemaProperty('name'));
