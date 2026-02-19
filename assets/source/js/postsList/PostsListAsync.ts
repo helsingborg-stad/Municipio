@@ -43,6 +43,18 @@ export const postsListAsync = (
 
 		toggle(container, "is-loading");
 	};
+	const scrollView = () => {
+		const isContainerTopInView = (
+			container: HTMLElement,
+			offset = 0,
+		): boolean => {
+			const rect = container.getBoundingClientRect();
+			return rect.top >= 0 + offset && rect.top <= window.innerHeight;
+		};
+
+		if (!isContainerTopInView(postsContainer))
+			postsContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
 
 	const render = (
 		(requestCount: number = 0) =>
@@ -61,6 +73,7 @@ export const postsListAsync = (
 				if (staleResponse) return;
 				renderHTML(html);
 				afterRender();
+				scrollView();
 			} catch (err) {
 				console.error(err);
 			} finally {
@@ -87,9 +100,7 @@ export const postsListAsync = (
 				window.location.origin,
 			);
 			const params = Object.fromEntries(url.searchParams.entries());
-			render(params, false, () =>
-				postsContainer.scrollIntoView({ behavior: "smooth", block: "start" }),
-			);
+			render(params, false);
 		});
 	};
 
