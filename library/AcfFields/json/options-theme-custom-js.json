@@ -6,6 +6,7 @@
             "key": "field_5731849ed0729",
             "label": "JavaScript",
             "name": "custom_js_input",
+            "aria-label": "",
             "type": "textarea",
             "instructions": "Skriv in din JS-kod h\u00e4r. Den kommer att omslutas med SCRIPT taggar och inkluderas p\u00e5 samtliga sidor.",
             "required": 0,
@@ -21,12 +22,14 @@
             "placeholder": "",
             "rows": 20,
             "readonly": 0,
-            "disabled": 0
+            "disabled": 0,
+            "acfe_textarea_code": 0
         },
         {
             "key": "field_5d9b4091e1fa0",
             "label": "Script Tags",
             "name": "custom_js_tags",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "Enter your JS-code here. It will NOT be wrapped with \"script\" tags and included on all pages.",
             "required": 0,
@@ -36,16 +39,20 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
+            "acfe_repeater_stylised_button": 0,
+            "layout": "row",
+            "pagination": 0,
             "min": 0,
             "max": 0,
-            "layout": "row",
-            "button_label": "",
+            "collapsed": "",
+            "button_label": "Add Tag",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_5d9b40f4e1fa2",
                     "label": "JavaScript",
                     "name": "custom_js_tags_input",
+                    "aria-label": "",
                     "type": "textarea",
                     "instructions": "Enter your Script tags here. eg. <script>console.log('hello world');<\/script>",
                     "required": 1,
@@ -59,12 +66,15 @@
                     "placeholder": "",
                     "maxlength": "",
                     "rows": 5,
-                    "new_lines": ""
+                    "new_lines": "",
+                    "acfe_textarea_code": 0,
+                    "parent_repeater": "field_5d9b4091e1fa0"
                 },
                 {
                     "key": "field_5d9b428dd29cf",
                     "label": "Location",
                     "name": "custom_js_tags_location",
+                    "aria-label": "",
                     "type": "select",
                     "instructions": "",
                     "required": 1,
@@ -84,12 +94,44 @@
                     "ui": 0,
                     "return_format": "value",
                     "ajax": 0,
-                    "placeholder": ""
+                    "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_5d9b4091e1fa0"
+                },
+                {
+                    "key": "field_68274e62bc633",
+                    "label": "Required cookie consents",
+                    "name": "custom_js_tags_cookie_consents",
+                    "aria-label": "",
+                    "type": "checkbox",
+                    "instructions": "What additional consents are required for this script to be run?",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "analytics": "Performance & Analytics",
+                        "targeting": "Advertisement & Targeting",
+                        "preferences": "Functionality & Preferences"
+                    },
+                    "default_value": [],
+                    "return_format": "value",
+                    "allow_custom": 0,
+                    "layout": "horizontal",
+                    "toggle": 0,
+                    "save_custom": 0,
+                    "custom_choice_button_text": "Add new choice",
+                    "parent_repeater": "field_5d9b4091e1fa0"
                 },
                 {
                     "key": "field_5d9b4175e1fa3",
                     "label": "Disable script",
                     "name": "custom_js_tags_disabled",
+                    "aria-label": "",
                     "type": "true_false",
                     "instructions": "",
                     "required": 0,
@@ -103,7 +145,8 @@
                     "default_value": 0,
                     "ui": 1,
                     "ui_on_text": "",
-                    "ui_off_text": ""
+                    "ui_off_text": "",
+                    "parent_repeater": "field_5d9b4091e1fa0"
                 }
             ]
         }
@@ -124,6 +167,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 
