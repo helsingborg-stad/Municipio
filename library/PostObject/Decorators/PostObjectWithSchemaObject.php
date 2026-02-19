@@ -6,6 +6,7 @@ use AllowDynamicProperties;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * Decorator for PostObject that adds schema object functionality.
@@ -20,7 +21,8 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SchemaObjectFromPostInterface $schemaObjectFromPost
+        private SchemaObjectFromPostInterface $schemaObjectFromPost,
+        private ApplyFilters $wpService,
     ) {
         parent::__construct($postObject);
     }
@@ -30,11 +32,19 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
      */
     public function getSchemaProperty(string $property): mixed
     {
+        $type = $this->getSchema()->getType();
         if ($property === '@type') {
-            return $this->getSchema()->getType();
+            return $type;
         }
-
-        return $this->getSchema()->getProperty($property);
+        /**
+         * Apply filters to allow modification of schema properties. The filter name includes the schema type and property name for specificity.
+         * Example: Municipio/PostObject/Schema/Place/address
+         */
+        return $this->wpService->applyFilters(
+            "Municipio/PostObject/Schema/{$type}/{$property}",
+            $this->getSchema()->getProperty($property),
+            $this->postObject,
+        );
     }
 
     /**
@@ -45,7 +55,7 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
     public function getSchema(): BaseType
     {
         if (!isset($this->postObject->schemaObject)) {
-            return @$this->postObject->schemaObject = $this->schemaObjectFromPost->create($this->postObject);
+            return @($this->postObject->schemaObject = $this->schemaObjectFromPost->create($this->postObject));
         }
 
         return $this->postObject->schemaObject;

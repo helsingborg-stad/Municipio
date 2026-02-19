@@ -67,7 +67,7 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
         $postObject = new PostObjectUsingExcerptResolver($postObject, new ExcerptResolver($this->wpService));
         $postObject = new PostObjectWithFilteredContent($postObject, $this->wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $this->wpService);
-        $postObject = new PostObjectWithSchemaObject($postObject, $this->schemaObjectFromPost);
+        $postObject = new PostObjectWithSchemaObject($postObject, $this->schemaObjectFromPost, $this->wpService);
         $postObject = new PostObjectArchiveDateFormat($postObject, $this->getArchiveDateFormatResolver($postObject));
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $this->getTimestampResolver($postObject));
         $postObject = new IconResolvingPostObject($postObject, $this->getIconResolver($postObject));
