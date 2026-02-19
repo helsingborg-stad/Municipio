@@ -86,7 +86,8 @@ export const newEndpoint = <T, A extends ApiCallArgs>(options:EndpointOptions) =
             {
                 method: options.method,
                 body: options.method !== 'GET' ? JSON.stringify(callArgs) : undefined,
-                headers
+                headers,
+                credentials: 'omit'
             }
             ).then(response => {
                 if(response.status === 200) {

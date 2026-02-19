@@ -12,6 +12,8 @@
             @include('parts.filters')
         @endelement
     @endif
+    @element(['classList' => ['js-async-posts', 'o-layout-grid', 'o-layout-grid--cols-12', 'o-layout-grid--col-span-12', 'o-layout-grid--gap-6']])
+
     @if(empty($posts))
         @element(['classList' => ['o-layout-grid--col-span-12']])
             @notice([
@@ -35,10 +37,11 @@
                 @endelement
             @endforeach
         @endif
-        @if($paginationEnabled() && !empty($getPaginationComponentArguments()))
-            @element(['classList' => ['o-layout-grid--col-span-12']])
-                @include('parts.pagination')
-            @endelement
-        @endif
     @endif
+    @if($paginationEnabled() && !empty($getPaginationComponentArguments()))
+        @element(['classList' => ['o-layout-grid--col-span-12']])
+            @include('parts.pagination')
+        @endelement
+    @endif
+    @endelement
 @endelement
