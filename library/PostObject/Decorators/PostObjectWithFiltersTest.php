@@ -235,6 +235,7 @@ class PostObjectWithFiltersTest extends TestCase
     {
         $postObject = $this->getPostObject();
         $postObject->method('getSchemaProperty')->with('name')->willReturn('Original Name');
+        $postObject->method('getSchema')->willReturn(Schema::thing());
 
         $sut = new PostObjectWithFilters($postObject, new FakeWpService([
             'applyFilters' => function ($hook, $value, $passedPostObject, $property) {
@@ -248,6 +249,20 @@ class PostObjectWithFiltersTest extends TestCase
         $this->assertSame('Filtered Name', $sut->getSchemaProperty('name'));
     }
 
+    #[TestDox('getSchemaProperty applies type and property specific filter')]
+    public function testGetSchemaPropertyAppliesTypeAndPropertySpecificFilter(): void
+    {
+        $postObject = $this->getPostObject();
+        $postObject->method('getSchemaProperty')->with('name')->willReturn('Original Name');
+        $postObject->method('getSchema')->willReturn(Schema::thing());
+
+        $sut = new PostObjectWithFilters($postObject, new FakeWpService([
+            'applyFilters' => fn($hook, $value) => $hook === 'Municipio/PostObject/getSchemaProperty/Thing/name' ? 'Type Property Filtered Name' : $value,
+        ]));
+
+        $this->assertSame('Type Property Filtered Name', $sut->getSchemaProperty('name'));
+    }
+
     #[TestDox('getSchema applies filter and returns filtered schema')]
     public function testGetSchemaAppliesFilter(): void
     {
@@ -259,6 +274,22 @@ class PostObjectWithFiltersTest extends TestCase
 
         $sut = new PostObjectWithFilters($postObject, new FakeWpService([
             'applyFilters' => fn($hook, $value) => $hook === 'Municipio/PostObject/getSchema' ? $filteredSchema : $value,
+        ]));
+
+        $this->assertSame($filteredSchema, $sut->getSchema());
+    }
+
+    #[TestDox('getSchema applies type-specific filter')]
+    public function testGetSchemaAppliesTypeSpecificFilter(): void
+    {
+        $originalSchema = Schema::thing()->name('Original');
+        $filteredSchema = Schema::thing()->name('Type Filtered');
+
+        $postObject = $this->getPostObject();
+        $postObject->method('getSchema')->willReturn($originalSchema);
+
+        $sut = new PostObjectWithFilters($postObject, new FakeWpService([
+            'applyFilters' => fn($hook, $value) => $hook === 'Municipio/PostObject/getSchema/Thing' ? $filteredSchema : $value,
         ]));
 
         $this->assertSame($filteredSchema, $sut->getSchema());

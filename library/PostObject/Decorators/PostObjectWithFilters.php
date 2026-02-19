@@ -197,12 +197,25 @@ class PostObjectWithFilters extends AbstractPostObjectDecorator implements PostO
      */
     public function getSchemaProperty(string $property): mixed
     {
-        return $this->wpService->applyFilters(
+        $type = $this->getSchema()->getType();
+
+        $value = $this->wpService->applyFilters(
             'Municipio/PostObject/getSchemaProperty',
             $this->postObject->getSchemaProperty($property),
             $this->postObject,
             $property,
+            $type,
         );
+
+        $value = $this->wpService->applyFilters(
+            'Municipio/PostObject/getSchemaProperty/' . $type . '/' . $property,
+            $value,
+            $this->postObject,
+            $property,
+            $type,
+        );
+
+        return $value;
     }
 
     /**
@@ -210,11 +223,23 @@ class PostObjectWithFilters extends AbstractPostObjectDecorator implements PostO
      */
     public function getSchema(): BaseType
     {
-        return $this->wpService->applyFilters(
+        $type = $this->postObject->getSchema()->getType();
+
+        $value = $this->wpService->applyFilters(
             'Municipio/PostObject/getSchema',
             $this->postObject->getSchema(),
             $this->postObject,
+            $type,
         );
+
+        $value = $this->wpService->applyFilters(
+            'Municipio/PostObject/getSchema/' . $type,
+            $value,
+            $this->postObject,
+            $type,
+        );
+
+        return $value;
     }
 
     /**
