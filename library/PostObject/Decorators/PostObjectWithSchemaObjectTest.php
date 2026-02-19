@@ -15,20 +15,20 @@ class PostObjectWithSchemaObjectTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
-        $decorator = new PostObjectWithSchemaObject($this->getPostObject(), $this->getSchemaObjectFromPostInstance());
+        $decorator = new PostObjectWithSchemaObject($this->getPostObject(), $this->getSchemaObjectFromPostInstance(), new FakeWpService());
         $this->assertInstanceOf(PostObjectWithSchemaObject::class, $decorator);
     }
 
     #[TestDox('apply() method applies schema object to post')]
     public function testApplyMethodAppliesSchemaObjectToPost()
     {
-        $schemaObject         = Schema::thing()->name('Foo');
+        $schemaObject = Schema::thing()->name('Foo');
         $schemaObjectFromPost = $this->getSchemaObjectFromPostInstance();
         $schemaObjectFromPost->method('create')->willReturn($schemaObject);
         $innerPostObject = $this->getPostObject();
         $innerPostObject->method('getId')->willReturn(123);
 
-        $postObject = new PostObjectWithSchemaObject($innerPostObject, $schemaObjectFromPost);
+        $postObject = new PostObjectWithSchemaObject($innerPostObject, $schemaObjectFromPost, new FakeWpService());
 
         $this->assertSame('Thing', $postObject->getSchemaProperty('@type'));
         $this->assertSame('Foo', $postObject->getSchemaProperty('name'));
@@ -38,11 +38,11 @@ class PostObjectWithSchemaObjectTest extends TestCase
     public function testCachesSchemaObjectPerPostId()
     {
         // Arrange
-        $schemaObject         = Schema::thing()->name('Foo');
+        $schemaObject = Schema::thing()->name('Foo');
         $schemaObjectFromPost = $this->getSchemaObjectFromPostInstance();
-        $innerPostObject      = $this->getPostObject();
+        $innerPostObject = $this->getPostObject();
         $innerPostObject->method('getId')->willReturn(321);
-        $postObject = new PostObjectWithSchemaObject($this->getPostObject(), $schemaObjectFromPost);
+        $postObject = new PostObjectWithSchemaObject($this->getPostObject(), $schemaObjectFromPost, new FakeWpService());
 
         // Assert
         $schemaObjectFromPost->expects($this->once())->method('create')->willReturn($schemaObject);
@@ -56,11 +56,11 @@ class PostObjectWithSchemaObjectTest extends TestCase
     public function testGetSchemaReturnsTheSchemaObject()
     {
         // Arrange
-        $schemaObject         = Schema::thing()->name('Foo');
+        $schemaObject = Schema::thing()->name('Foo');
         $schemaObjectFromPost = $this->getSchemaObjectFromPostInstance();
-        $innerPostObject      = $this->getPostObject();
+        $innerPostObject = $this->getPostObject();
         $innerPostObject->method('getId')->willReturn(321);
-        $postObject = new PostObjectWithSchemaObject($this->getPostObject(), $schemaObjectFromPost);
+        $postObject = new PostObjectWithSchemaObject($this->getPostObject(), $schemaObjectFromPost, new FakeWpService());
 
         // Assert
         $schemaObjectFromPost->expects($this->once())->method('create')->willReturn($schemaObject);
