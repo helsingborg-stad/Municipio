@@ -148,20 +148,29 @@ export const postsListAsync = (
 
 			e.preventDefault();
 
-			form //Fix for multi select
+			form //select fix
 				.querySelectorAll<HTMLElement>("[data-js-select-component]")
 				.forEach((e) => {
 					const selectEl = e.querySelector<HTMLSelectElement>(
 						"[data-js-select-element]",
 					);
-					if (!selectEl || !selectEl.hasAttribute("multiple")) return;
 
-					Array.from(selectEl.options).forEach((option) => {
-						option.selected = false;
-						option.removeAttribute("selected");
-					});
+					if (!selectEl) return;
 
-					selectEl.dispatchEvent(new Event("change"));
+					if (selectEl.hasAttribute("multiple")) {
+						//multi
+						Array.from(selectEl.options).forEach((option) => {
+							option.selected = false;
+							option.removeAttribute("selected");
+						});
+						selectEl.dispatchEvent(new Event("change"));
+					} else {
+						//single
+						const clearBtn = e.querySelector<HTMLButtonElement>(
+							"[data-js-select-clear]",
+						);
+						clearBtn?.click();
+					}
 				});
 
 			form.reset();
