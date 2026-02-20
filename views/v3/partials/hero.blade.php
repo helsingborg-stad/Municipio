@@ -21,7 +21,4 @@
                 @includeWhen($emblem && $showEmblemInHero, 'partials.emblem')
         @endelement
     @endif
-    @if ($quicklinksPlacement !== 'below_content')
-        @include('partials.navigation.fixed')
-    @endif
 @show

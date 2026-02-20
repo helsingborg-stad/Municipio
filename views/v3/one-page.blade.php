@@ -2,6 +2,7 @@
 
 @section('hero-top-sidebar')
     @includeIf('partials.hero')
+    @includeWhen($quicklinksPlacement !== 'below_content', 'partials.navigation.fixed')
     @includeIf('partials.sidebar', ['id' => 'top-sidebar'])
 @stop
 
