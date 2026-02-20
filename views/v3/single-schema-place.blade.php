@@ -3,7 +3,6 @@
         'addToDefaultClassList' => ['u-margin__bottom--4']
     ],
     'belowSidebarClasses' => ['o-container'],
-    'quicklinksPlacement' => 'below_content',
 ])
 
 @section('hero-top-sidebar')
@@ -40,7 +39,7 @@
 @stop
 
 @section('below')
-@include('partials.navigation.fixed')
-@parent
-@includeWhen(!empty($relatedPosts), 'partials.schema.place.related-posts')
+    @include('partials.navigation.fixed')
+    @parent
+    @includeWhen(!empty($relatedPosts), 'partials.schema.place.related-posts')
 @stop
