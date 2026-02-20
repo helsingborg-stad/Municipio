@@ -25,7 +25,7 @@
 
     {{-- Hero area and top sidebar --}}
     @section('hero-top-sidebar')
-        @includeIf('partials.hero', ['classes' => [], 'sliderAreaClasses' => []])
+        @includeIf('partials.hero', ['classes' => [], 'sliderAreaClasses' => [], 'quicklinksPlacement' => $quicklinksPlacement ?? null])
         @includeIf('partials.sidebar', ['id' => 'top-sidebar', 'classes' => []])
     @show
     

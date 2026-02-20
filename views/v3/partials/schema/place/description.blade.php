@@ -1,1 +1,1 @@
-{!! $post->postContentFiltered !!}
+{!! $post->getContent() !!}

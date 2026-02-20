@@ -2,7 +2,8 @@
     'layoutData' => [
         'addToDefaultClassList' => ['u-margin__bottom--4']
     ],
-    'belowSidebarClasses' => ['o-container']
+    'belowSidebarClasses' => ['o-container'],
+    'quicklinksPlacement' => 'below_content',
 ])
 
 @section('hero-top-sidebar')
@@ -16,12 +17,12 @@
     @stop
 
     @section('content')
-        @includeWhen($post->postContentFiltered, 'partials.schema.place.description')
+        @includeWhen($post->getContent(), 'partials.schema.place.description')
     @stop
 
     @section('sidebar-right-content')
-        @includeWhen(!empty($post->placeInfo), 'partials.schema.place.place-info')
-        @includeWhen(!empty($post->bookingLink), 'partials.schema.place.booking-link')
+        @includeWhen(!empty($placeInfoList), 'partials.schema.place.place-info')
+        @includeWhen(!empty($placeActions), 'partials.schema.place.actions')
     @stop
 
     {{-- Wrapping the main section in a paper --}}

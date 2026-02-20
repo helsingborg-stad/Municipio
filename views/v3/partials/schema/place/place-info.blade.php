@@ -1,5 +1,5 @@
 @listing([
-    'list' => $post->placeInfo,
+    'list' => $placeInfoList,
     'icon' => false,
     'classList' => [
         'unlist'
