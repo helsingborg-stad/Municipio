@@ -1,5 +1,10 @@
-@extends('templates.grid')
-
+@extends('templates.grid', ['layoutData' => [
+    'addToDefaultClassList' => ['u-margin__y--4']
+]])
+{{-- Adding expire notice if needed --}}
+@section('above-before')
+    @include('partials.schema.event.expired-notice', ['classes' => []])
+@endsection
 {{-- Main content area --}}
 @section('layout')
     @include('templates.sections.grid.above-content')

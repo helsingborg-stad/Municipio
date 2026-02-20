@@ -2,14 +2,14 @@
 
 namespace Municipio\Controller;
 
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use DateTime;
+use Modularity\Integrations\Component\ImageResolver;
+use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\ImageObject;
 use Municipio\Schema\Place;
 use Municipio\Schema\Schema;
-use Modularity\Integrations\Component\ImageResolver;
-use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
-use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString;
 
 /**
@@ -18,7 +18,7 @@ use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpe
 class SingularExhibitionEvent extends Singular
 {
     private const GALLERY_THUMBNAIL_SIZE = [450, 280];
-    private const GALLERY_LARGE_SIZE     = [768, 432];
+    private const GALLERY_LARGE_SIZE = [768, 432];
 
     protected object $postMeta;
     public string $view = 'single-schema-exhibition-event';
@@ -35,18 +35,18 @@ class SingularExhibitionEvent extends Singular
         $event = $this->post->getSchema();
 
         $this->data = array_merge($this->data, [
-            'displayFeaturedImage'          => false,
-            'placeUrl'                      => $this->getPlaceUrl($event->getProperty('location')),
-            'placeName'                     => $this->getPlaceName($event->getProperty('location')),
-            'placeAddress'                  => $this->getPlaceAddress($event->getProperty('location')),
-            'description'                   => $this->getDescription($event),
-            'priceListItems'                => $this->getPriceList(),
-            'occasion'                      => $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate')),
+            'displayFeaturedImage' => false,
+            'placeUrl' => $this->getPlaceUrl($event->getProperty('location')),
+            'placeName' => $this->getPlaceName($event->getProperty('location')),
+            'placeAddress' => $this->getPlaceAddress($event->getProperty('location')),
+            'description' => $this->getDescription($event),
+            'priceListItems' => $this->getPriceList(),
+            'occasion' => $this->getOccasionText($event->getProperty('startDate'), $event->getProperty('endDate')),
             'physicalAccessibilityFeatures' => $this->formatAccessibilityFeatures($this->post->getSchemaProperty('physicalAccessibilityFeatures')),
-            'eventIsInThePast'              => $this->eventIsInThePast(),
-            'galleryComponentAttributes'    => $this->getGalleryComponentAttributes(),
-            'openingHours'                  => $this->formatOpeningHours($event->getProperty('location')?->getProperty('openingHoursSpecification') ?? []),
-            'specialOpeningHours'           => $this->formatOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? [])
+            'eventIsInThePast' => $this->eventIsInThePast(),
+            'galleryComponentAttributes' => $this->getGalleryComponentAttributes(),
+            'openingHours' => $this->formatOpeningHours($event->getProperty('location')?->getProperty('openingHoursSpecification') ?? []),
+            'specialOpeningHours' => $this->formatOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? []),
         ]);
     }
 
@@ -86,7 +86,7 @@ class SingularExhibitionEvent extends Singular
         }
 
         $converter = new OpeningHoursSpecificationToString($this->wpService);
-        $specs     = array_map([$this, 'createOpeningHoursSpecification'], $openingHours);
+        $specs = array_map([$this, 'createOpeningHoursSpecification'], $openingHours);
 
         $formatted = array_map([$converter, 'convert'], $specs);
         return implode(', <br>', array_merge(...$formatted));
@@ -103,20 +103,18 @@ class SingularExhibitionEvent extends Singular
 
     private function populateLanguageObject(): void
     {
-        foreach (
-            [
-            'placeTitle'               => $this->wpService->_x('Place', 'ExhibitionEvent', 'municipio'),
-            'expiredEventNoticeLabel'  => $this->wpService->_x('This event has already taken place.', 'ExhibitionEvent', 'municipio'),
-            'dateLabel'                => $this->wpService->_x('Date', 'ExhibitionEvent', 'municipio'),
-            'openingHoursLabel'        => $this->wpService->_x('Opening hours', 'ExhibitionEvent', 'municipio'),
+        foreach ([
+            'placeTitle' => $this->wpService->_x('Place', 'ExhibitionEvent', 'municipio'),
+            'expiredEventNotice' => $this->wpService->_x('This event has already taken place.', 'ExhibitionEvent', 'municipio'),
+            'dateLabel' => $this->wpService->_x('Date', 'ExhibitionEvent', 'municipio'),
+            'openingHoursLabel' => $this->wpService->_x('Opening hours', 'ExhibitionEvent', 'municipio'),
             'specialOpeningHoursLabel' => $this->wpService->_x('Special opening hours', 'ExhibitionEvent', 'municipio'),
-            'entranceLabel'            => $this->wpService->_x('Entrance', 'ExhibitionEvent', 'municipio'),
-            'accessibilityLabel'       => $this->wpService->_x('Accessibility', 'ExhibitionEvent', 'municipio'),
-            'directionsLabel'          => $this->wpService->_x('Directions', 'ExhibitionEvent', 'municipio'),
-            'galleryLabel'             => $this->wpService->_x('Gallery', 'ExhibitionEvent', 'municipio'),
-            'expiredDateNotice'        => $this->wpService->_x('This exhibition has already taken place.', 'ExhibitionEvent', 'municipio')
-            ] as $key => $text
-        ) {
+            'entranceLabel' => $this->wpService->_x('Entrance', 'ExhibitionEvent', 'municipio'),
+            'accessibilityLabel' => $this->wpService->_x('Accessibility', 'ExhibitionEvent', 'municipio'),
+            'directionsLabel' => $this->wpService->_x('Directions', 'ExhibitionEvent', 'municipio'),
+            'galleryLabel' => $this->wpService->_x('Gallery', 'ExhibitionEvent', 'municipio'),
+            'expiredDateNotice' => $this->wpService->_x('This exhibition has already taken place.', 'ExhibitionEvent', 'municipio'),
+        ] as $key => $text) {
             $this->data['lang']->{$key} = $text;
         }
     }
@@ -137,9 +135,7 @@ class SingularExhibitionEvent extends Singular
         }
 
         $start = ucfirst($this->wpService->dateI18n('j M', $startDate->getTimestamp()));
-        $end   = !$endDate
-        ? $this->wpService->_x('until further notice', 'ExhibitionEvent', 'municipio')
-        : ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
+        $end = !$endDate ? $this->wpService->_x('until further notice', 'ExhibitionEvent', 'municipio') : ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
 
         return "{$start} - {$end}";
     }
@@ -156,8 +152,8 @@ class SingularExhibitionEvent extends Singular
     private function createPriceListItem(array $offer): PriceListItemInterface
     {
         $priceSpecification = $offer['priceSpecification'] ?? [];
-        $name               = $offer['name'] ?? '';
-        $currency           = $offer['priceCurrency'] ?? '';
+        $name = $offer['name'] ?? '';
+        $currency = $offer['priceCurrency'] ?? '';
 
         $price = $this->resolvePrice($offer, $priceSpecification, $currency);
 
@@ -187,7 +183,7 @@ class SingularExhibitionEvent extends Singular
 
     public function eventIsInThePast(): bool
     {
-        $event   = $this->post->getSchema();
+        $event = $this->post->getSchema();
         $endDate = $event->getProperty('endDate');
         return $endDate instanceof DateTime && $endDate->getTimestamp() < time();
     }
@@ -202,9 +198,13 @@ class SingularExhibitionEvent extends Singular
 
         $imageAttributes = array_map([$this, 'getImageAttributes'], $imageProperty);
 
-        return empty($imageAttributes) ? null : [
-        'list' => $imageAttributes
-        ];
+        return (
+            empty($imageAttributes)
+                ? null
+                : [
+                    'list' => $imageAttributes,
+                ]
+        );
     }
 
     private function getImageAttributes(ImageObject $image): array
@@ -218,10 +218,10 @@ class SingularExhibitionEvent extends Singular
         $largeContract = ImageComponentContract::factory($imageId, self::GALLERY_LARGE_SIZE, new ImageResolver());
 
         return [
-        'largeImage' => $largeContract->getUrl(),
-        'smallImage' => $smallContract->getUrl(),
-        'alt'        => $image->getProperty('description') ?: '',
-        'caption'    => null
+            'largeImage' => $largeContract->getUrl(),
+            'smallImage' => $smallContract->getUrl(),
+            'alt' => $image->getProperty('description') ?: '',
+            'caption' => null,
         ];
     }
 }
