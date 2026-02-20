@@ -8,7 +8,9 @@
 @section('hero-top-sidebar')
     @includeWhen($post->getImage(), 'partials.schema.exhibitionEvent.hero')
     @includeWhen($eventIsInThePast, 'partials.schema.exhibitionEvent.expired-notice')
-    @include('templates.sections.grid.above-content')
+    @include('templates.sections.grid.above-content', [
+        'classes' => []
+    ])
     @parent
 @stop
 
