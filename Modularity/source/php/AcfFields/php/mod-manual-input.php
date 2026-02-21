@@ -829,6 +829,78 @@
                     'parent_repeater' => 'field_64ff22b2d91b7',
                 ),
                 9 => array(
+                    'key' => 'field_69985fac063ef',
+                    'label' => __('Show link as button', 'municipio'),
+                    'name' => 'show_link_as_button',
+                    'aria-label' => '',
+                    'type' => 'true_false',
+                    'instructions' => __('Display the link as a button in the card footer instead of making the entire card clickable.', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        0 => array(
+                            0 => array(
+                                'field' => 'field_6752f959acfda',
+                                'operator' => '==',
+                                'value' => 'card',
+                            ),
+                            1 => array(
+                                'field' => 'field_64ff232ad91ba',
+                                'operator' => '!=empty',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'message' => '',
+                    'default_value' => 0,
+                    'ui' => 1,
+                    'ui_on_text' => '',
+                    'ui_off_text' => '',
+                    'parent_repeater' => 'field_64ff22b2d91b7',
+                ),
+                10 => array(
+                    'key' => 'field_69986078063f1',
+                    'label' => __('Button color', 'municipio'),
+                    'name' => 'button_color',
+                    'aria-label' => '',
+                    'type' => 'select',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        0 => array(
+                            0 => array(
+                                'field' => 'field_69985fac063ef',
+                                'operator' => '==',
+                                'value' => '1',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        'primary' => __('Primary', 'municipio'),
+                        'secondary' => __('Secondary', 'municipio'),
+                    ),
+                    'default_value' => 'primary',
+                    'return_format' => 'value',
+                    'multiple' => 0,
+                    'allow_null' => 0,
+                    'ui' => 0,
+                    'ajax' => 0,
+                    'placeholder' => '',
+                    'allow_custom' => 0,
+                    'search_placeholder' => '',
+                    'parent_repeater' => 'field_64ff22b2d91b7',
+                    'create_options' => 0,
+                    'save_options' => 0,
+                ),
+                11 => array(
                     'key' => 'field_64ff2355d91bb',
                     'label' => __('Image', 'municipio'),
                     'name' => 'image',
@@ -869,7 +941,7 @@
                     'library' => 'all',
                     'parent_repeater' => 'field_64ff22b2d91b7',
                 ),
-                10 => array(
+                12 => array(
                     'key' => 'field_65293de2a26c7',
                     'label' => __('Icon', 'municipio'),
                     'name' => 'box_icon',
@@ -930,7 +1002,7 @@
                     'placeholder' => '',
                     'parent_repeater' => 'field_64ff22b2d91b7',
                 ),
-                11 => array(
+                13 => array(
                     'key' => 'field_689b2cf733d44',
                     'label' => __('Custom background color', 'municipio'),
                     'name' => 'custom_background_color',
@@ -1001,5 +1073,9 @@
     'description' => '',
     'show_in_rest' => 0,
     'display_title' => '',
+    'acfe_autosync' => '',
+    'acfe_form' => 0,
+    'acfe_meta' => '',
+    'acfe_note' => '',
 ));
 }

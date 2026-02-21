@@ -77,8 +77,8 @@ class ManualInput extends \Modularity\Module
 
                 // Custom background color
                 $customBackgroundColor = ($fields['use_custom_card_color'] ?? false)
-                && !empty($input['custom_background_color'])
-                && str_contains($input['custom_background_color'], '::')
+                    && !empty($input['custom_background_color'])
+                    && str_contains($input['custom_background_color'], '::')
                     ? explode('::', $input['custom_background_color'])[0]
                     : false;
 
@@ -113,6 +113,7 @@ class ManualInput extends \Modularity\Module
                 $arr['attributeList'] = ['id' => $arr['id']];
                 $arr['custom_background_color'] = $customBackgroundColor;
                 $arr['custom_text_color'] = $customTextColor;
+                $arr['show_link_as_button'] = !empty($input['show_link_as_button']);
                 $arr = \Municipio\Helper\FormatObject::camelCase($arr);
 
                 $data['manualInputs'][] = (array) $arr;
@@ -170,6 +171,8 @@ class ManualInput extends \Modularity\Module
             'accordion_column_values' => [],
             'box_icon' => null,
             'custom_background_color' => null,
+            'show_link_as_button' => false,
+            'button_color' => 'primary',
         ];
     }
 
