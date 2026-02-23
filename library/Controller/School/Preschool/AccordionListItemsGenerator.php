@@ -5,13 +5,15 @@ namespace Municipio\Controller\School\Preschool;
 use Municipio\Controller\School\ViewDataGeneratorInterface;
 use Municipio\Schema\Preschool;
 use Municipio\Schema\TextObject;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\Wpautop;
 
 class AccordionListItemsGenerator implements ViewDataGeneratorInterface
 {
-    public function __construct(private Preschool $preschool, private Wpautop $wpService)
-    {
-    }
+    public function __construct(
+        private Preschool $preschool,
+        private Wpautop&ApplyFilters $wpService,
+    ) {}
 
     public function generate(): mixed
     {
@@ -24,18 +26,25 @@ class AccordionListItemsGenerator implements ViewDataGeneratorInterface
             return null;
         }
 
-        $description = array_filter($description, fn ($item) => is_a($item, TextObject::class));
-        $description = array_filter($description, fn ($item) => $item->getProperty('name') !== 'visit_us');
-        $description = array_map(function ($item) {
-            $formattedText = !empty($item->getProperty('text'))
-                ? $this->wpService->wpautop($item->getProperty('text'))
-                : null;
+        $description = array_filter($description, fn($item) => is_a($item, TextObject::class));
+        $description = array_filter($description, fn($item) => $item->getProperty('name') !== 'visit_us');
 
-            return is_a($item, TextObject::class)
-                ? ['heading' => $item->getProperty('headline'), 'content' => $formattedText]
-                : null;
-        }, array_slice($description, 1)); // Skip the first item as it's used for preamble
+        $result = [];
 
-        return array_filter($description) ?: null;
+        foreach (array_slice($description, 1) as $item) {
+            if (!$item instanceof TextObject) {
+                continue;
+            }
+
+            $formattedText = !empty($item->getProperty('text')) ? $this->wpService->wpautop($item->getProperty('text')) : null;
+            $formattedText = $this->wpService->applyFilters('Municipio\Filters\More', $this->wpService->wpautop($item->getProperty('text')));
+
+            $result[] = [
+                'heading' => $item->getProperty('headline'),
+                'content' => $formattedText,
+            ];
+        }
+
+        return $result ?: null;
     }
 }

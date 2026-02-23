@@ -2,15 +2,16 @@
 
 namespace Municipio\Controller\School\ElementarySchool;
 
-use PHPUnit\Framework\TestCase;
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\TestCase;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\Wpautop;
 
 class AccordionListItemsGeneratorTest extends TestCase
 {
     public function testGenerateReturnsNullIfDescriptionIsNotArray()
     {
-        $school    = Schema::elementarySchool()->description('not-an-array');
+        $school = Schema::elementarySchool()->description('not-an-array');
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
 
         $this->assertNull($generator->generate());
@@ -18,11 +19,11 @@ class AccordionListItemsGeneratorTest extends TestCase
 
     public function testGenerateReturnsNullIfDescriptionArrayHasOneOrZeroItems()
     {
-        $school    = Schema::elementarySchool()->description([]);
+        $school = Schema::elementarySchool()->description([]);
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
         $this->assertNull($generator->generate());
 
-        $school    = Schema::elementarySchool()->description([Schema::textObject()->headline('h')->text('t')]);
+        $school = Schema::elementarySchool()->description([Schema::textObject()->headline('h')->text('t')]);
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
         $this->assertNull($generator->generate());
     }
@@ -32,17 +33,20 @@ class AccordionListItemsGeneratorTest extends TestCase
         $school = Schema::elementarySchool()->description([
             Schema::textObject()->headline('Headline 1')->text('Text 1'),
             Schema::textObject()->headline('Headline 2')->text('Text 2'),
-            Schema::textObject()->headline('Headline 3')->text('Text 3')
+            Schema::textObject()->headline('Headline 3')->text('Text 3'),
         ]);
 
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
-        $result    = $generator->generate();
+        $result = $generator->generate();
 
         $this->assertCount(2, $result);
-        $this->assertEquals([
-            ['heading' => 'Headline 2', 'content' => 'Text 2'],
-            ['heading' => 'Headline 3', 'content' => 'Text 3'],
-        ], array_values($result));
+        $this->assertEquals(
+            [
+                ['heading' => 'Headline 2', 'content' => 'Text 2'],
+                ['heading' => 'Headline 3', 'content' => 'Text 3'],
+            ],
+            array_values($result),
+        );
     }
 
     public function testGenerateSkipsNonTextObjectItems()
@@ -50,25 +54,33 @@ class AccordionListItemsGeneratorTest extends TestCase
         $school = Schema::elementarySchool()->description([
             Schema::textObject()->headline('Headline 1')->text('Text 1'),
             Schema::textObject()->headline('Headline 2')->text('Text 2'),
-            Schema::textObject()->headline('Headline 3')->text('Text 3')
+            Schema::textObject()->headline('Headline 3')->text('Text 3'),
         ]);
 
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
-        $result    = $generator->generate();
+        $result = $generator->generate();
 
         $this->assertCount(2, $result);
-        $this->assertEquals([
-            ['heading' => 'Headline 2', 'content' => 'Text 2'],
-            ['heading' => 'Headline 3', 'content' => 'Text 3'],
-        ], array_values($result));
+        $this->assertEquals(
+            [
+                ['heading' => 'Headline 2', 'content' => 'Text 2'],
+                ['heading' => 'Headline 3', 'content' => 'Text 3'],
+            ],
+            array_values($result),
+        );
     }
 
-    private function getWpService(): Wpautop
+    private function getWpService(): Wpautop&ApplyFilters
     {
-        return new class implements Wpautop {
+        return new class implements Wpautop, ApplyFilters {
             public function wpautop(string $text, bool $br = true): string
             {
                 return $text;
+            }
+
+            public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
+            {
+                return $value;
             }
         };
     }

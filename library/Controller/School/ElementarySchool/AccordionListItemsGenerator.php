@@ -5,13 +5,15 @@ namespace Municipio\Controller\School\ElementarySchool;
 use Municipio\Controller\School\ViewDataGeneratorInterface;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\TextObject;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\Wpautop;
 
 class AccordionListItemsGenerator implements ViewDataGeneratorInterface
 {
-    public function __construct(private ElementarySchool $elementarySchool, private Wpautop $wpService)
-    {
-    }
+    public function __construct(
+        private ElementarySchool $elementarySchool,
+        private Wpautop&ApplyFilters $wpService,
+    ) {}
 
     public function generate(): mixed
     {
@@ -24,16 +26,22 @@ class AccordionListItemsGenerator implements ViewDataGeneratorInterface
             return null;
         }
 
-        $items = array_map(function ($item) {
-            $formattedText = !empty($item->getProperty('text'))
-                ? $this->wpService->wpautop($item->getProperty('text'))
-                : null;
+        $result = [];
 
-            return is_a($item, TextObject::class)
-                ? ['heading' => $item->getProperty('headline'), 'content' => $formattedText]
-                : null;
-        }, array_slice($description, 1)); // Skip the first item as it's used for preamble
+        foreach (array_slice($description, 1) as $item) {
+            if (!$item instanceof TextObject) {
+                continue;
+            }
 
-        return array_filter($items) ?: null;
+            $formattedText = !empty($item->getProperty('text')) ? $this->wpService->wpautop($item->getProperty('text')) : null;
+            $formattedText = $this->wpService->applyFilters('Municipio\Filters\More', $this->wpService->wpautop($item->getProperty('text')));
+
+            $result[] = [
+                'heading' => $item->getProperty('headline'),
+                'content' => $formattedText,
+            ];
+        }
+
+        return $result ?: null;
     }
 }
