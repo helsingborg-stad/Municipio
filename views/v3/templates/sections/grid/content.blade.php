@@ -1,3 +1,6 @@
+{{--
+    This is the main content file for layout grid. It includes the left and right sidebars and the main content area. The main content area is where you will find the "content" yield.
+--}}
 @element([
     'id' => 'main-content',
     'componentElement' => 'main',

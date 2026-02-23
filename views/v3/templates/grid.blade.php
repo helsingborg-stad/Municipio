@@ -1,3 +1,7 @@
+{{-- 
+    This is the main file for grid layout. Everything in here is full width.
+    Go to layout.blade.php to see the main content area.
+--}}
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
 
@@ -31,10 +35,6 @@
     
     {{-- Layout --}}
     @include('templates.sections.grid.layout')
-
-    @section('below')
-        @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => $belowSidebarClasses ?? []])
-    @show
 
     @include('templates.sections.bottom-sidebar')
 
