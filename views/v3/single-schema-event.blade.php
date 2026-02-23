@@ -4,7 +4,6 @@
 @section('layout')
 
     @include('partials.schema.event.expired-notice', ['classes' => []])
-    @include('templates.sections.grid.above-content')
 
     @section('before-content')
         @include('partials.schema.event.title-area')
