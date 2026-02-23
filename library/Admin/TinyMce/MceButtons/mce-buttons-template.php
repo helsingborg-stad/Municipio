@@ -1,4 +1,4 @@
-<?php require_once('../View/header.php'); ?>
+<?php require_once '../View/header.php'; ?>
             <div class="grid">
                 <div class="grid-xs-12">
                     <div id="preview">
@@ -67,6 +67,14 @@
                                 <input id="button-size-sm" type="radio" name="gender" value="c-button--sm ripple ripple--before">
                                 <label for="button-size-sm">Small</label>
                             </div>
+                    </form>
+                </div>
+                <div class="grid-xs-6">
+                    <form id="button-target" class="button-target">
+                        <h6>Open link in new window</h6>
+                        <div>
+                            <input id="button-target-checkbox" type="checkbox" name="button-target" value="c-button c-button__filled c-button__filled">
+                        </div>
                     </form>
                 </div>
             </div>
@@ -142,4 +150,4 @@
                     });
                 });
             </script>
-<?php require_once('../View/footer.php'); ?>
+<?php require_once '../View/footer.php';
