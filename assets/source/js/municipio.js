@@ -7,11 +7,13 @@ import { initializeSessionManager } from './sessionManager';
 import { initializeHashHighlightManager } from './hashHighlightManager';
 import { initializeHashUpdateManager } from './hashUpdateManager';
 import { initPostsListAsync } from './postsList';
+import { initializeWpApiSettingsNonceRefresh } from './restApi/wpApiSettings';
 
 const fab = new Fab();
 
 fab.showOnScroll();
 
+initializeWpApiSettingsNonceRefresh();
 initializeLanguageMenu();
 initializeSessionManager();
 initializeComments();
