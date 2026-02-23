@@ -1,87 +1,15 @@
 @extends('templates.grid')
 
 @section('layout')
-    @include('templates.sections.grid.above-content')
-
-        {{-- @section('before-content')
-            @include('partials.schema.elementary-school.title-area')
-        @endsection --}}
+        @section('before-content')
+        @endsection
         @section('content')
             @include('partials.schema.elementary-school.title-area')
             @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
-
-        @if ($usps)
-            @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
-                @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
-                    {!! $lang->uspsLabel !!}
-                @endtypography
-
-                @element(['classList' => ['o-grid', 'o-grid--no-gutter']])
-                    @foreach ($usps as $uspColumn)
-                        <ul class="o-grid-4@md u-margin__top--0">
-                            @foreach ($uspColumn as $uspItem)
-                                <li class="u-margin__top--1">{{ $uspItem }}</li>
-                            @endforeach
-                        </ul>
-                    @endforeach
-                @endelement
-            @endpaper
-        @endif
-
-        @if (!empty($events))
-            @element()
-                @if ($lang->eventsLabel)
-                    @typography(['element' => 'h2', 'classList' => ['u-margin__bottom--2']])
-                        {{ $lang->eventsLabel }}
-                    @endtypography
-                @endif
-                @foreach ($events as $event)
-                    @collection([])
-                        @collection__item([
-                            'classList' => ['u-box-shadow--3', 'u-margin__bottom--3', 'u-padding--1', 'u-border--1']
-                        ])
-                            @slot('before')
-                                @datebadge([
-                                    'classList' => ['u-padding--2', 'u-margin__right--2'],
-                                    'date' => $event['timestamp'],
-                                    'size' => 'sm'
-                                ])
-                                @enddatebadge
-                            @endslot
-                                {!! $event['name'] !!}
-                            @typography(['classList' => ['u-padding__bottom--2', 'u-padding__top-2']])
-                                {!! $event['startTimeEndTime'] !!}
-                            @endtypography
-                            {!! $event['description'] !!}
-                        @endcollection__item
-                    @endcollection
-                @endforeach
-            @endelement
-        @endif
-
-        @if (!empty($actions))
-            @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
-                @typography(['element' => 'h2'])
-                    {!! $actions['title'] ?: $lang->actionsLabel !!}
-                @endtypography
-                @if(!empty($actions['description']))
-                    @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
-                        {!! $actions['description'] !!}
-                    @endtypography
-                @endif
-                @element(['classList' => ['o-grid', 'o-grid--half-gutter']])
-                    @foreach ($actions['buttonsArgs'] as $buttonArgs)
-                        @element(['classList' => ['o-grid-12@sm', 'o-grid-6@md']])
-                            @button([...$buttonArgs, 'classList' => ['u-width--100']])@endbutton
-                        @endelement
-                    @endforeach
-                @endelement
-            @endpaper
-        @endif
-        @if(!empty($accordionListItems))
-            @accordion(['list' => $accordionListItems, 'spacedSections' => true])
-            @endaccordion
-        @endif
+            @includeWhen(!empty($usps), 'partials.schema.elementary-school.usps')
+            @includeWhen(!empty($events), 'partials.schema.elementary-school.events')
+            @includeWhen(!empty($actions), 'partials.schema.elementary-school.actions')
+            @includeWhen(!empty($accordionListItems), 'partials.schema.elementary-school.accordion-list')
 
         @if(!empty($contactPoints))
             @paper(['classList' => ['u-padding--2']])
