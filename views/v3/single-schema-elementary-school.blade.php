@@ -1,33 +1,14 @@
-@extends('templates.single', ['showSidebars' => true, 'centerContent' => true])
+@extends('templates.grid')
 
-@section('article.content')
+@section('layout')
+    @include('templates.sections.grid.above-content')
 
-    @section('article.title.before')
-        <div class="u-display--flex u-flex--gridgap u-flex-direction--column">
-    @stop
-
-    @section('article.title.after')
-
-        @element(['classList' => ['lead']])
-            {!! $preamble !!}
-        @endelement
-        @if(!empty($sliderItems))
-            @slider(['repeatSlide' => true, 'autoSlide' => false,'padding' => 11, 'showStepper' => false])
-                @if(!empty($sliderItems['imageItems']))
-                    @foreach($sliderItems['imageItems'] as $item)
-                        @slider__item($item)
-                        @endslider__item
-                    @endforeach
-                @endif
-                @if(!empty($sliderItems['videoItems']))
-                    @foreach($sliderItems['videoItems'] as $item)
-                        @slider__item()
-                            {!! $item['embed'] !!}
-                        @endslider__item
-                    @endforeach
-                @endif
-            @endslider
-        @endif
+        {{-- @section('before-content')
+            @include('partials.schema.elementary-school.title-area')
+        @endsection --}}
+        @section('content')
+            @include('partials.schema.elementary-school.title-area')
+            @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
 
         @if ($usps)
             @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
@@ -46,7 +27,6 @@
                 @endelement
             @endpaper
         @endif
-
 
         @if (!empty($events))
             @element()
@@ -136,7 +116,7 @@
             @endelement
         @endif
 
-@if(!empty($addresses))
+        @if(!empty($addresses))
             @paper(['classList' => ['u-padding--2']])
                 @element()
                     @typography(['element' => 'h2'])
@@ -154,7 +134,7 @@
                             @endlink
                         @endif
                     @endforeach
-                    
+
                     @openStreetMap([
                         ...$mapAttributes,
                         'height' => '400px',
@@ -164,9 +144,9 @@
                 @endelement
             @endpaper
         @endif
-
     @stop
 
-    </div>{{-- Closes div opened above in article.title.before --}}
-    
+    @include('templates.sections.grid.content', [
+        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+    ])
 @stop
