@@ -2,6 +2,8 @@
 
 {{-- Main content area --}}
 @section('layout')
+
+    @include('partials.schema.event.expired-notice', ['classes' => []])
     @include('templates.sections.grid.above-content')
 
     @section('before-content')
