@@ -3,8 +3,8 @@
     'classList'     => array_merge($input['classList'] ?? [], [$input['columnSize']])
 ])
     @card([
-        'link'              => $input['link'],
-        'linkText'          => isset($input['linkText']) ? $input['linkText'] : '',
+        'link'              => $input['showLinkAsButton'] ? '' : $input['link'],
+        'linkText'          => (!$input['showLinkAsButton'] && isset($input['linkText'])) ? $input['linkText'] : '',
         'eyebrow'           => !empty($input['eyebrow']) ? $input['eyebrow'] : '',
         'heading'           => $input['title'],
         'context'           => $context,
@@ -19,6 +19,12 @@
             'size' => 'md',
             'color' => 'black'
         ] : null,
+        'buttons'           => $input['showLinkAsButton'] && !empty($input['link']) ? [[
+            'text' => $input['linkText'] ?: ($input['defaultLinkText'] ?? __('Read more', 'municipio')),
+            'href' => $input['link'],
+            'color' => $input['buttonColor'] ?? 'primary',
+            'style' => 'filled',
+        ]] : [],
     ])
     @endcard
     @if (!empty($input['customBackgroundColor']) && !empty($input['customTextColor']))
