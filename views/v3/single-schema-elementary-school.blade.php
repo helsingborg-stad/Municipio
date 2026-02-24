@@ -4,7 +4,7 @@
         @section('before-content')
             @include('partials.schema.elementary-school.title-area')
             @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
-        @endsection
+        @stop
         @section('content')
             @includeWhen(!empty($usps), 'partials.schema.elementary-school.usps')
             @includeWhen(!empty($events), 'partials.schema.elementary-school.events')
@@ -13,7 +13,7 @@
             @includeWhen(!empty($contactPoints), 'partials.schema.elementary-school.contact-points')
             @includeWhen(!empty($personsAttributes), 'partials.schema.elementary-school.contact-persons')
             @includeWhen(!empty($addresses), 'partials.schema.elementary-school.addresses')
-    @stop
+        @stop
 
     @include('templates.sections.grid.content', [
         'addToArticleClassList' => ['c-article', 'c-article--readable-width']
