@@ -1,7 +1,7 @@
 @element([
     'componentElement' => 'header',
     'classList' => [
-        'o-layout-grid--col-span-12',
+        'o-layout-grid--col-span-1',
         'o-layout-grid',
         'o-layout-grid--cols-12',
         'o-layout-grid--gap-4',

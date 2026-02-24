@@ -5,7 +5,8 @@
 
     @include('partials.schema.event.expired-notice', ['classes' => []])
 
-    @section('before-content')
+    @section('above-content')
+        @parent
         @include('partials.schema.event.title-area')
     @stop
 

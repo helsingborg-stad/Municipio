@@ -30,7 +30,6 @@
             $mainColumnSize = 8;
         }
     @endphp
-    @yield('before-content')
     @hasSection('sidebar-left')
         @element([
             'componentElement' => 'aside',
@@ -80,5 +79,4 @@
             @yield('sidebar-right')
         @endelement
     @endif
-    @yield('below-content')
 @endelement
