@@ -2,10 +2,10 @@
 
 @section('layout')
         @section('before-content')
-        @endsection
-        @section('content')
             @include('partials.schema.elementary-school.title-area')
             @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
+        @endsection
+        @section('content')
             @includeWhen(!empty($usps), 'partials.schema.elementary-school.usps')
             @includeWhen(!empty($events), 'partials.schema.elementary-school.events')
             @includeWhen(!empty($actions), 'partials.schema.elementary-school.actions')
