@@ -14,11 +14,12 @@
     @include('templates.sections.grid.left-sidebar')
     @include('templates.sections.grid.right-sidebar')
     @section('main-content')
+        @yield('before-content')
         @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => []])
         @yield('content')
         @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => []])
+        @yield('after-content')
     @stop
-
     @php
         $leftSidebarHasContent = !empty(trim($__env->yieldContent('sidebar-left')));
         $rightSidebarHasContent = !empty(trim($__env->yieldContent('sidebar-right')));
