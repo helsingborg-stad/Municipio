@@ -1,2 +1,4 @@
-{{$post->getSchemaProperty('employerOverview') ?? ''}}
-{!!$post->getSchemaProperty('description') ?? ''!!}
+@element([])
+    {{$post->getSchemaProperty('employerOverview') ?? ''}}
+    {!! $post->getContent() !!}
+@endelement
