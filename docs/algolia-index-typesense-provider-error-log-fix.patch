@@ -16,7 +16,7 @@ index 80f9a6c..c148833 100644
  
          if ($response['error']) {
 -            error_log($response['statusCode']);
-+            error_log((string) $response['statusCode']);
++            error_log('Typesense error - Status code: ' . (string) $response['statusCode']);
              error_log(\json_encode($data));
              return null;
          }
