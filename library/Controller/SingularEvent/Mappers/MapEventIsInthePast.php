@@ -49,7 +49,12 @@ class MapEventIsInthePast implements EventDataMapperInterface
         if ($this->currentlyViewing !== null) {
             $currentSchedule = $this->findScheduleByStartDate($schedules, $this->currentlyViewing);
             if ($currentSchedule !== null) {
-                return $currentSchedule->getProperty('endDate');
+                $endDate = $currentSchedule->getProperty('endDate');
+                // If the current schedule has an endDate, use it
+                if ($endDate !== null) {
+                    return $endDate;
+                }
+                // Otherwise, fall back to latest endDate
             }
         }
 

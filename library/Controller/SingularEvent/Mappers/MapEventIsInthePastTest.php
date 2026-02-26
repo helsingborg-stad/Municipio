@@ -55,8 +55,8 @@ class MapEventIsInthePastTest extends TestCase
             ->startDate((new DateTimeImmutable())->modify('+1 day'))
             ->endDate((new DateTimeImmutable())->modify('+2 days'));
         $schedule2 = Schema::schedule()
-            ->startDate((new DateTimeImmutable())->modify('-1 day'))
-            ->endDate((new DateTimeImmutable())->modify('-1 hour'));
+            ->startDate((new DateTimeImmutable())->modify('-2 days'))
+            ->endDate((new DateTimeImmutable())->modify('-1 day'));
         $event = Schema::event()->eventSchedule([$schedule1, $schedule2]);
 
         $mapper = new MapEventIsInthePast();
@@ -83,5 +83,21 @@ class MapEventIsInthePastTest extends TestCase
         // Try to view a different occasion that doesn't exist
         $mapper = new MapEventIsInthePast((new DateTime())->modify('+5 days'));
         $this->assertFalse($mapper->map($event));
+    }
+
+    #[TestDox('returns true when viewing specific occasion with null endDate but latest endDate is in past')]
+    public function testReturnsTrueWhenSpecificOccasionHasNullEndDateButLatestIsInPast()
+    {
+        $schedule1 = Schema::schedule()
+            ->startDate((new DateTimeImmutable())->modify('-2 days'))
+            ->endDate(null);  // No endDate for this schedule
+        $schedule2 = Schema::schedule()
+            ->startDate((new DateTimeImmutable())->modify('-4 days'))
+            ->endDate((new DateTimeImmutable())->modify('-3 days'));
+        $event = Schema::event()->eventSchedule([$schedule1, $schedule2]);
+
+        // View the specific occasion that has no endDate
+        $mapper = new MapEventIsInthePast(DateTime::createFromInterface((new DateTimeImmutable())->modify('-2 days')));
+        $this->assertTrue($mapper->map($event));
     }
 }
