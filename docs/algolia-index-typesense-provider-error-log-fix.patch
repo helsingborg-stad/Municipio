@@ -1,0 +1,25 @@
+From d0ea448f158ecc51d9f224f5326b6bbaaf959428 Mon Sep 17 00:00:00 2001
+From: GitHub Copilot <copilot@github.com>
+Date: Thu, 26 Feb 2026 13:14:48 +0000
+Subject: [PATCH] fix: convert statusCode to string for error_log
+
+---
+ source/php/Provider/Typesense/TypesenseProvider.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/source/php/Provider/Typesense/TypesenseProvider.php b/source/php/Provider/Typesense/TypesenseProvider.php
+index 80f9a6c..c148833 100644
+--- a/source/php/Provider/Typesense/TypesenseProvider.php
++++ b/source/php/Provider/Typesense/TypesenseProvider.php
+@@ -174,7 +174,7 @@ class TypesenseProvider implements \AlgoliaIndex\Provider\AbstractProvider
+         $response = $this->sendRequest('POST', "/collections/{$this->collectionName}/documents", $data);
+ 
+         if ($response['error']) {
+-            error_log($response['statusCode']);
++            error_log((string) $response['statusCode']);
+             error_log(\json_encode($data));
+             return null;
+         }
+-- 
+2.53.0
+

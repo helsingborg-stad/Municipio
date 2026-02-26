@@ -30,4 +30,33 @@ error_log((string) $response['statusCode']);
 The fix should be applied to: https://github.com/helsingborg-stad/algolia-index-typesense-provider
 
 ## Patch
-The patch has been created and is available in the algolia-index-typesense-provider repository on branch `fix/error-log-type-conversion`.
+The patch has been created and is available in this repository at:
+`docs/algolia-index-typesense-provider-error-log-fix.patch`
+
+### How to Apply the Patch
+
+1. Navigate to the algolia-index-typesense-provider plugin directory:
+   ```bash
+   cd path/to/algolia-index-typesense-provider
+   ```
+
+2. Apply the patch:
+   ```bash
+   git apply /path/to/algolia-index-typesense-provider-error-log-fix.patch
+   ```
+
+3. Or apply directly from this repository:
+   ```bash
+   cd path/to/algolia-index-typesense-provider
+   curl https://raw.githubusercontent.com/helsingborg-stad/Municipio/copilot/bugfix-index-to-typesense/docs/algolia-index-typesense-provider-error-log-fix.patch | git apply
+   ```
+
+### Alternative: Manual Fix
+Simply change line 177 in `source/php/Provider/Typesense/TypesenseProvider.php` from:
+```php
+error_log($response['statusCode']);
+```
+to:
+```php
+error_log((string) $response['statusCode']);
+```
