@@ -715,7 +715,7 @@ class Display
 
     /**
      * Check if template exists and render the template
-     * @param string $view View file
+     * @param string|false $view View file
      * @param class $module Module class
      * @return string         Template markup
      * @throws \Exception
