@@ -104,7 +104,7 @@ class Display
      * TODO: This needs to be checked if it is optimizable.
      *       An component library init for each render can not be grate.
      */
-    public function renderView($view, $data = []): string
+    public function renderView($view, $data = []): false|string
     {
         $data['sidebarContext'] = \Modularity\Helper\Context::get();
 
@@ -151,8 +151,8 @@ class Display
      */
     public function filterModularityShortcodes($value, $postId, $field)
     {
-        if(!is_string($value)){
-            return "";
+        if (!is_string($value)) {
+            return '';
         }
         return preg_replace('/\[modularity(.*)\]/', '', $value);
     }
@@ -165,8 +165,8 @@ class Display
      */
     public function sanitizeContent($content)
     {
-        if(!is_string($content)){
-            return "";
+        if (!is_string($content)) {
+            return '';
         }
         return preg_replace('/\[modularity(.*)\]/', '', $content);
     }
@@ -330,13 +330,7 @@ class Display
         $retSidebars = $sidebars;
 
         foreach ($retSidebars as $sidebar => $widgets) {
-            if (
-                !empty($retSidebars[$sidebar])
-                && (
-                    !isset($this->options[$sidebar]['hide_widgets'])
-                    || $this->options[$sidebar]['hide_widgets'] != 'true'
-                )
-            ) {
+            if (!empty($retSidebars[$sidebar]) && (!isset($this->options[$sidebar]['hide_widgets']) || $this->options[$sidebar]['hide_widgets'] != 'true')) {
                 continue;
             }
 
@@ -596,19 +590,14 @@ class Display
         }
 
         //Add selected scope class
-        if (
-            isset($module->data['meta'], $module->data['meta']['module_css_scope'])
-            && is_array($module->data['meta']['module_css_scope'])
-        ) {
+        if (isset($module->data['meta'], $module->data['meta']['module_css_scope']) && is_array($module->data['meta']['module_css_scope'])) {
             if (!empty($module->data['meta']['module_css_scope'][0])) {
                 $classes[] = $module->data['meta']['module_css_scope'][0];
             }
         }
 
         // Build before & after module markup
-        $beforeModule = array_key_exists('before_widget', $args)
-            ? $args['before_widget']
-            : '<div id="%1$s" class="%2$s" >';
+        $beforeModule = array_key_exists('before_widget', $args) ? $args['before_widget'] : '<div id="%1$s" class="%2$s" >';
         $afterModule = array_key_exists('after_widget', $args) ? $args['after_widget'] : '</div>';
 
         // Apply filter for classes
@@ -715,21 +704,13 @@ class Display
             }
         }
 
-        return (
-            '
+        return '
             <div class="modularity-edit-module">
-                <a href="'
-            . admin_url('post.php?' . http_build_query($linkParameters))
-            . '">
-                    '
-            . __('Edit module', 'municipio')
-            . ': '
-            . $module->data['post_type_name']
-            . '
+                <a href="' . admin_url('post.php?' . http_build_query($linkParameters)) . '">
+                    ' . __('Edit module', 'municipio') . ': ' . $module->data['post_type_name'] . '
                 </a>
             </div>
-        '
-        );
+        ';
     }
 
     /**
@@ -745,7 +726,13 @@ class Display
             throw new \LogicException('Class ' . get_class($module) . ' must have property $templateDir');
         }
 
-        return $this->renderView(\Modularity\Helper\Template::getModuleTemplate($view, $module, true), $module->data);
+        $viewName = \Modularity\Helper\Template::getModuleTemplate($view, $module, true);
+
+        if (!$viewName) {
+            throw new \LogicException('Template ' . $view . ' not found for module ' . get_class($module));
+        }
+
+        return $this->renderView($viewName, $module->data);
     }
 
     /**
