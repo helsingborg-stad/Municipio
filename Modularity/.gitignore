@@ -10,4 +10,3 @@ dist/
 coverage
 *.cache
 .coverage
-__snapshots__
