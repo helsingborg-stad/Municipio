@@ -1,0 +1,1 @@
+<!-- This view is only used to circumvent the municipio controller/view logic to allow block templates loading. -->

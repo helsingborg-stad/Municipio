@@ -21,8 +21,6 @@ class PostsListBlock implements Hookable
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
         $this->wpService->addAction('rest_api_init', [$this, 'registerRestEndpoint']);
-        // Prevent this block's script from loading in Customizer to avoid React errors
-        $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'excludeFromCustomizer'], 1);
     }
 
     private function getBlockJsonPath(): string
@@ -33,25 +31,6 @@ class PostsListBlock implements Hookable
     public function registerBlock(): void
     {
         $this->wpService->registerBlockType($this->getBlockJsonPath());
-    }
-
-    /**
-     * Exclude this block's editor script from Customizer to prevent React dependency errors
-     */
-    public function excludeFromCustomizer(): void
-    {
-        $scriptHandle = $this->getEditorScriptHandle();
-        $this->wpService->wpDequeueScript($scriptHandle);
-        $this->wpService->wpDeregisterScript($scriptHandle);
-    }
-
-    private function getEditorScriptHandle(): string
-    {
-        // The handle is derived from the block name in block.json, which is "municipio/posts-list"
-        $blockJson = json_decode(file_get_contents($this->getBlockJsonPath()), true);
-        $blockName = $blockJson['name'] ?? 'municipio/posts-list';
-        $handle = str_replace('/', '-', $blockName) . '-editor-script';
-        return $handle;
     }
 
     public function registerRestEndpoint(): void

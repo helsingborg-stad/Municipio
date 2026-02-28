@@ -39,22 +39,34 @@ class Template
         private SiteSwitcher $siteSwitcher,
         private PostObjectFromWpPostFactoryInterface $postObjectFromWpPost,
         private User $userHelper,
-        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType
+        private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,
     ) {
         //Init custom templates & views
-        add_action('template_redirect', array($this, 'registerViewPaths'), 10);
-        add_action('template_redirect', array($this, 'initCustomTemplates'), 10);
-
-        // Initialize blade
-        add_action('template_redirect', array($this, 'initializeBlade'), 12);
-
-        //Loads custom controllers and views
-        add_action('template_redirect', array($this, 'addTemplateFilters'), 10);
-
+        add_action(
+            'template_redirect',
+            function () {
+                if (!$this->usingBlockTemplate()) {
+                $this->registerViewPaths();
+                $this->initCustomTemplates();
+                $this->addTemplateFilters();
+                $this->initializeBlade();
         add_filter('template_include', array($this, 'switchPageTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
-
         add_filter('template_include', array($this, 'loadViewData'), 15);
+                }
+            },
+            1,
+        );
+    }
+
+    /**
+     * Determines if the current template is a block template.
+     *
+     * @return bool True if it's a block template, false otherwise.
+     */
+    private function usingBlockTemplate(): bool
+    {
+        return str_ends_with(get_page_template_slug(), 'gutenberg.blade.php');
     }
 
     /**

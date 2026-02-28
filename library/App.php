@@ -386,6 +386,14 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        (new \Municipio\FullSiteEditing\FullSiteEditingFeature($this->wpService))->enable();
+
+        /**
+         * Register blocks
+         */
+        (new \Municipio\Blocks\Header\HeaderBlock($this->wpService))->addHooks();
+        (new \Municipio\Blocks\Footer\FooterBlock($this->wpService))->addHooks();
     }
 
     /**
