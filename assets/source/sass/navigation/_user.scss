@@ -1,41 +1,22 @@
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
-
 $user-background-width: var(--user-background-width, 0px) !default;
-
-// Colors
-.user {
-    --user-active-author-color: #{variables.$color-black};
-    --user-active-text-color: #{variables.$color-dark};
-    --user-active-text-color-hover: #{variables.$color-black};
-
-    --user-background-color: #{variables.$color-white};
-
-    &.user--dark {
-        --user-active-author-color: #{variables.$color-white};
-        --user-active-text-color: #{variables.$color-lightest};
-        --user-active-text-color-hover: #{variables.$color-white};
-    
-        --user-background-color: #{variables.$color-darker};
-    }
-}
 
 // General settings
 .user {
     display: flex;
     align-items: center;
-    gap: calc(variables.$base * 2);
+    gap: calc(var(--base) * 2);
 
     .user__link { 
         display: flex;
         align-items: center;
-        gap: calc(variables.$base * .5);
+        gap: calc(var(--base) * 0.5);
         text-decoration: none;
     }
 }
 
 .user {
-    padding-left: calc(variables.$base * 2);
-    padding-right: calc(variables.$base * 2);
+    padding-left: calc(var(--base) * 2);
+    padding-right: calc(var(--base) * 2);
 
     &::after {
         content: "";
@@ -44,20 +25,16 @@ $user-background-width: var(--user-background-width, 0px) !default;
         bottom: 0;
         width: $user-background-width;
         transition: width .3s;
-        background-color: var(--user-background-color);
-        transform: translateX(calc(-1 * variables.$base * 2));
+        background-color: inherit;
+        transform: translateX(calc(-1 * var(--base) * 2));
         z-index: -1;
     }  
 
     .user__button {
         min-width: 0;
 
-        .c-button__label-text {
-            color: var(--user-active-text-color);
-        }
-
         &:hover .c-button__label-text {
-            color: var(--user-active-text-color-hover);
+            color: var(--color--surface-contrast-muted);
         }
     }
 
@@ -67,7 +44,7 @@ $user-background-width: var(--user-background-width, 0px) !default;
         bottom: 0;
         left: 0;
         width: 100%;
-        padding: calc(variables.$base * 2);
+        padding: calc(var(--base) * 2);
         margin-top: 100%;
 
         &.user--active .user__container {
@@ -78,32 +55,32 @@ $user-background-width: var(--user-background-width, 0px) !default;
     // Logged in user
     &.user--active {
         .user__container {
-            gap: calc(variables.$base * .25);
+            gap: calc(var(--base) * 0.25);
             display: flex;
         }
 
         .user__name {
             font-weight: bold;
             line-height: 1;
-            max-width: calc(variables.$base * 25);
+            max-width: calc(var(--base) * 25);
             overflow-wrap: break-word;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .user__link-text {
-            font-size: variables.$font-size-meta;
+            font-size: var(--font-size-90);
         }
 
         .user__name {
-            color: var(--user-active-author-color);
+            color: var(--color--surface-contrast);
         }
         
         .user__link {
-            color: var(--user-active-text-color);
+            color: var(--color--surface-contrast);
 
             &:hover {
-                color: var(--user-active-text-color-hover);
+                color: var(--color--surface-contrast-muted);
             }
         }
     }

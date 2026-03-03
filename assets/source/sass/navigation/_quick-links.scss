@@ -1,36 +1,29 @@
-@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
-
 /* Colors */
 $c-quicklinks-background-color: var(--c-quicklinks-background-color, transparent) !default;
-$c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color, variables.$color-white) !default;
+$c-quicklinks-background-sticky-color: var(--c-quicklinks-background-sticky-color, $c-quicklinks-background-color) !default;
 $c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
 $c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
 $c-quicklinks-text-color: var(--c-quicklinks-text-color);
-$c-quicklinks-font: var(--c-quicklinks-font, variables.$font-family-base) !default;
 
 /* Gap */
 $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
 #quicklinks-header {
-    z-index: variables.$level-5;
-    font-family: $c-quicklinks-font;
-    margin-bottom: calc(variables.$base * 5);
+    container-name: quicklinks;
+    container-type: inline-size;
+    font-family: var(--c-quicklinks-font, var(--font-family-base));
+    margin-bottom: calc(var(--base) * 5);
     
     &.c-header, .c-header__menu {
         background-color: #{$c-quicklinks-background-color};
     }
 
-    &.c-header--primary {
-        --c-quicklinks-background-color: #{variables.$color-white};
-    }
-
     &.c-header--secondary {
-        --c-quicklinks-background-color: #{variables.$color-secondary};
+        --c-quicklinks-background-color: var(--color--secondary);
     }
 
     &.c-header--font-heading {
-        --c-quicklinks-font: #{variables.$font-family-heading};
+        --c-quicklinks-font: var(--font-family-heading);
     }
 
     &.c-header--sticky {
@@ -40,7 +33,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
     .c-nav {
         justify-content: space-evenly;
-        gap: calc(variables.$base * $c-quicklinks-gap);
+        gap: calc(var(--base) * $c-quicklinks-gap);
 
         .c-nav__link {
 
@@ -59,10 +52,10 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     .c-icon {
         color: #{$c-quicklinks-icon-color};
         background-color: #{$c-quicklinks-icon-background-color};
-        padding: calc(variables.$base * 1.5);
+        padding: calc(var(--base) * 1.5);
         aspect-ratio: 1/1;
         border-radius: 50%;
-        filter: variables.$drop-shadow-2;
+        // filter: variables.$drop-shadow-2; // TODO: Replace with suitable styleguide variable.
     }
     
     .c-nav__link {
@@ -70,14 +63,14 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     }
 
     &.c-header--column {
-        padding: calc(variables.$base * .5) 0;
+        padding: calc(var(--base) * .5) 0;
 
         .c-nav > li {
             flex: 1 0;
         }
 
         .c-nav {
-            max-width: calc(variables.$base * 100);
+            max-width: calc(var(--base) * 100);
             margin-left: auto;
             margin-right: auto;
         }
@@ -112,21 +105,21 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     &.c-header--overflow-top {
         transform: translateY(0px);
 
-        @include mq.mq('md') {
+        @container quicklinks (min-width: 600px) {
             transform: translateY(-50%);
 
             &.c-header--sticky {
-                top: calc(variables.$base * 6.5);
+                top: calc(var(--base) * 6.5);
             }
         }
     }
 
-    @include mq.mq('sm') {
+    @container quicklinks (min-width: 300px) {
         &.c-header.c-header--sticky {
             position: sticky;
 
             &.c-header--column {
-                padding: calc(variables.$base * 2) 0 calc(variables.$base * .5) 0;
+                padding: calc(var(--base) * 2) 0 calc(var(--base) * .5) 0;
             }
             
             &.is-stuck .c-header__menu {
@@ -138,7 +131,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
 #main-content {
     #quicklinks-header.c-header--sticky .c-header__menu {
-        @include mq.mq('sm') {
+        @container quicklinks (min-width: 300px) {
             border-radius: 0;
             position: relative;
             left: 50%;
