@@ -7,16 +7,14 @@
 
 @section('hero-top-sidebar')
     @includeWhen($post->getImage(), 'partials.schema.exhibitionEvent.hero')
-    @includeWhen($eventIsInThePast, 'partials.schema.exhibitionEvent.expired-notice')
+    @parent
     @include('partials.navigation.helper', [
         'classList' => ['o-container', 'o-container--helper-nav'],
     ])
-    @parent
+    @includeWhen($eventIsInThePast, 'partials.schema.exhibitionEvent.expired-notice')
 @stop
 
 @section('layout')
-    @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
-
     @section('content')
         @include('partials.schema.exhibitionEvent.title-area')
         @includeWhen($description, 'partials.schema.exhibitionEvent.description')
