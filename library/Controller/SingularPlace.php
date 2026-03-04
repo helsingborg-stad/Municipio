@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Helper\Listing;
 
 /**
@@ -17,166 +18,74 @@ class SingularPlace extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $pageID                     = $this->getPageID();
+        $pageID = $this->getPageID();
+
         $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
-
-        $this->addHooks();
+        $this->data['placeInfoList'] = $this->createPlaceInfoList();
+        $this->data['placeActions'] = $this->createActions($pageID);
     }
 
-    /**
-     * Add hooks for the Place content type.
-     *
-     * @return void
-     */
-    public function addHooks(): void
+    private function createActions(): array
     {
-        // Append location link to listing items
-        add_filter('Municipio/Controller/SingularPlace/listing', [$this, 'appendListItems'], 10, 2);
-        add_filter('Municipio/viewData', [$this, 'populatePostWithAdditionalPlaceViewData'], 10, 1);
+        $tourBookingPage = $this->createTourBookingPageAction();
+
+        return $this->wpService->applyFilters('Municipio/Controller/SingularPlace/actions', $tourBookingPage, $this->post);
     }
 
-    /**
-     * Populate the view data with additional information for a place post.
-     *
-     * @param array $data The view data to populate.
-     *
-     * @return array The updated view data.
-     */
-    public function populatePostWithAdditionalPlaceViewData($data)
+    private function createPlaceInfoList(): array
     {
-        $data['post'] = $this->complementPlacePost($data['post']);
-        return $data;
+        $telephone = $this->createTelephoneListingItems();
+        $website = $this->createWebsiteListingItems();
+        $listing = array_merge($telephone, $website);
+
+        return $this->wpService->applyFilters('Municipio/Controller/SingularPlace/placeInfoList', $listing, $this->post);
     }
 
-    /**
-     * Prepare the query object by enhancing each post within the query result.
-     *
-     * @param WP_Query $query The query object to prepare.
-     *
-     * @return WP_Query|bool The prepared query object, or false if the input is not a valid query.
-     */
-    public function prepareQuery($query)
+    private function createTourBookingPageAction(): array
     {
-        $query = parent::prepareQuery($query);
+        $tourBookingPage = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('tourBookingPage'), 'string');
 
-        if (empty($query)) {
-            return $query;
+        $formattedTourBookingPages = [];
+        foreach ($tourBookingPage as $index => $bookingLink) {
+            $formattedTourBookingPages[] = [
+                'text' => $this->wpService->__('Book here', 'municipio'),
+                'href' => $bookingLink,
+                'color' => 'primary',
+                'style' => 'filled',
+                'classList' => ['u-width--100'],
+            ];
         }
 
-        if ($query->have_posts()) {
-            foreach ($query->posts as &$post) {
-                $post = $this->complementPlacePost($post);
-            }
-        }
-
-        return $query;
+        return $formattedTourBookingPages;
     }
 
-    /**
-     * Append location-related list items to the listing array.
-     *
-     * @param array $listing The existing listing array.
-     * @param array $fields The fields associated with the post.
-     *
-     * @return array The updated listing array.
-     */
-    public function appendListItems($listing, $fields)
+    private function createTelephoneListingItems(): array
     {
-        // Street name linked to Google Maps
-        if (!empty($fields['location'])) {
-            if (!empty($fields['location']['street_name']) && !empty($fields['location']['street_number'])) {
-                $locationLabel = $fields['location']['street_name'] . ' ' . $fields['location']['street_number'];
-            } elseif (!empty($fields['location']['name'])) {
-                $locationLabel = $fields['location']['name'];
-            } else {
-                $locationLabel = $fields['location']['address'];
-            }
-            $locationLink = $this->buildGoogleMapsLink($fields['location']);
-            if ($locationLink) {
-                $listing['location'] = \Municipio\Helper\Listing::createListingItem(
-                    $locationLabel,
-                    $locationLink,
-                    ['src' => 'directions_bus']
-                );
-            }
+        $telephoneData = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('telephone'), 'string');
+
+        if (empty($telephoneData)) {
+            return [];
         }
-        return $listing;
+
+        return array_map(fn($phone) => Listing::createListingItem(
+            $phone,
+            '',
+            ['src' => 'call'],
+        ), $telephoneData);
     }
 
-    /**
-     * Build a Google Maps link based on location coordinates.
-     *
-     * @param array $location An array containing latitude and longitude information.
-     *
-     * @return string|bool The generated Google Maps link or false if location information is missing.
-     */
-    public function buildGoogleMapsLink(array $location = [])
+    private function createWebsiteListingItems(): array
     {
-        if (empty($location) || empty($location['lng']) || empty($location['lat'])) {
-            return false;
-        }
-        return
-        'https://www.google.com/maps/dir/?api=1&destination='
-            . $location['lat']
-            . ','
-            . $location['lng']
-            . '&travelmode=transit';
-    }
+        $websiteData = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('url'), 'string');
 
-    /**
-     * Complement a place post with additional information.
-     *
-     * @param mixed $post The post object or post ID to complement.
-     *
-     * @return mixed The complemented post object.
-     */
-    private function complementPlacePost($post)
-    {
-        // Fetch custom fields for the post
-        $fields = get_fields($post->ID ?? null);
-
-        // Assign additional information to the post object
-        $post->bookingLink = $fields['booking_link'] ?? false;
-        $post->placeInfo   = $this->createPlaceInfoList($fields);
-
-        return $post;
-    }
-
-    /**
-     * Create a list of place information based on specified fields.
-     *
-     * @param array $fields An array of fields containing information about the place.
-     *
-     * @return array The list of place information.
-     */
-    private function createPlaceInfoList($fields)
-    {
-        $list = [];
-        // Phone number
-        if (!empty($fields['phone'])) {
-            $list['phone'] = Listing::createListingItem(
-                $fields['phone'],
-                '',
-                ['src' => 'call']
-            );
+        if (empty($websiteData)) {
+            return [];
         }
 
-        // Website link (with fixed label)
-        if (!empty($fields['website'])) {
-            $list['website'] = Listing::createListingItem(
-                __('Visit website', 'municipio'),
-                $fields['website'],
-                ['src' => 'language'],
-            );
-        }
-
-        // Apply filters to listing items
-        $list = apply_filters(
-            'Municipio/Controller/SingularPlace/listing',
-            $list,
-            $fields
-        );
-
-        return $list;
+        return array_map(fn($url) => Listing::createListingItem(
+            $url,
+            $url,
+            ['src' => 'language'],
+        ), $websiteData);
     }
 }
