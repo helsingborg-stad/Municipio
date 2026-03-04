@@ -8,8 +8,8 @@
 @section('hero-top-sidebar')
     @includeWhen($post->getImage(), 'partials.schema.exhibitionEvent.hero')
     @includeWhen($eventIsInThePast, 'partials.schema.exhibitionEvent.expired-notice')
-    @include('templates.sections.grid.above-content', [
-        'classes' => []
+    @include('partials.navigation.helper', [
+        'classList' => ['o-container', 'o-container--helper-nav'],
     ])
     @parent
 @stop
