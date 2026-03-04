@@ -52,6 +52,7 @@
         @element([
             'componentElement' => 'article',
             'classList' => array_merge($addToArticleClassList ?? [], [
+                $mainColumnSize === 12 ? 'u-margin__x--auto' : '',
                 'o-layout-grid--col-span-' . $mainColumnSize . '@md',
                 'o-layout-grid--col-span-12',
                 'o-layout-grid',
