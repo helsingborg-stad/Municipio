@@ -1,10 +1,18 @@
 @extends('templates.grid')
 
+@section('hero-top-sidebar')
+    @parent
+    @include('partials.navigation.helper', [
+        'classList' => ['o-container', 'o-container--helper-nav'],
+    ])
+@stop
+
 @section('layout')
         @section('before-content')
             @include('partials.schema.elementary-school.title-area')
             @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
         @stop
+
         @section('content')
             @includeWhen(!empty($usps), 'partials.schema.elementary-school.usps')
             @includeWhen(!empty($events), 'partials.schema.elementary-school.events')
@@ -16,6 +24,6 @@
         @stop
 
     @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+        'addToArticleClassList' => ['c-article']
     ])
 @stop
