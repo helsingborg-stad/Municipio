@@ -1,6 +1,7 @@
 declare const wpApiSettings: {
   nonce?: string
   root?: string
+  refreshNonce?: (nonce?: string) => Promise<string | null>
 }
 declare const wp: { customize?: any }
 

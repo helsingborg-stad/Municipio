@@ -8,12 +8,16 @@ class Template
 {
     /**
      * Search for a specific template (view)
-     * @param  string             $view   View name (filename)
+     * @param  false|string             $view   View name (filename)
      * @param  \Modularity\Module $module
      * @return string                     Found template/view
      */
     public static function getModuleTemplate($view, $module, $sanitizeTemplateName = false)
     {
+        if (!$view) {
+            return false;
+        }
+
         $view = basename($view, '.blade.php');
         $view = basename($view, '.php');
 

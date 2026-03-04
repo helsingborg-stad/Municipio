@@ -7,9 +7,11 @@
 @endsection
 {{-- Main content area --}}
 @section('layout')
-    @include('templates.sections.grid.above-content')
 
-    @section('before-content')
+    @include('partials.schema.event.expired-notice', ['classes' => []])
+
+    @section('above-content')
+        @parent
         @include('partials.schema.event.title-area')
     @stop
 

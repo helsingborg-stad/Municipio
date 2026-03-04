@@ -1,3 +1,7 @@
+{{-- 
+    This is the main file for grid layout. Everything in here is full width.
+    Go to layout.blade.php to see the main content area.
+--}}
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
 
@@ -25,16 +29,12 @@
 
     {{-- Hero area and top sidebar --}}
     @section('hero-top-sidebar')
-        @includeIf('partials.hero', ['classes' => [], 'sliderAreaClasses' => []])
+        @includeIf('partials.hero', ['classes' => [], 'sliderAreaClasses' => [], 'quicklinksPlacement' => $quicklinksPlacement ?? null])
         @includeIf('partials.sidebar', ['id' => 'top-sidebar', 'classes' => []])
     @show
 
     {{-- Layout --}}
     @include('templates.sections.grid.layout', $layoutData ?? [])
-
-    @section('below')
-        @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => []])
-    @stop
 
     @include('templates.sections.bottom-sidebar')
 

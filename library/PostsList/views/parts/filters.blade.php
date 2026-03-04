@@ -6,6 +6,7 @@
 
 <div class="s-archive-filter">
     @form([
+        'validation' => false,
         'method' => 'GET',
         'action' => '?q=form_component' . ($filterConfig->getAnchor() ? '#' . $filterConfig->getAnchor() . '_id' : '')
     ])
@@ -50,7 +51,7 @@
             @endbutton
         </div>
 
-        @if ($filterConfig->showReset() && $filterConfig->getResetUrl())
+        @if ($filterConfig->getResetUrl())
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                 @button([
                     ...$getFilterFormResetButtonArguments(),

@@ -24,6 +24,7 @@ use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Decorators\PostObjectUsingExcerptResolver;
 use Municipio\PostObject\Decorators\PostObjectWithCachedContent;
 use Municipio\PostObject\Decorators\PostObjectWithFilteredContent;
+use Municipio\PostObject\Decorators\PostObjectWithFilters;
 use Municipio\PostObject\Decorators\PostObjectWithSchemaObject;
 use Municipio\PostObject\Decorators\PostObjectWithSeoRedirect;
 use Municipio\PostObject\ExcerptResolver\ExcerptResolver;
@@ -72,6 +73,7 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $this->getTimestampResolver($postObject));
         $postObject = new IconResolvingPostObject($postObject, $this->getIconResolver($postObject));
         $postObject = new PostObjectWithCachedContent($postObject, $this->wpService);
+        $postObject = new PostObjectWithFilters($postObject, $this->wpService);
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         $postObject = $this->wpService->applyFilters(self::DECORATE_FILTER_NAME, $postObject);
