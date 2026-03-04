@@ -24,6 +24,6 @@
         @stop
 
     @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article']
+        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
     ])
 @stop
