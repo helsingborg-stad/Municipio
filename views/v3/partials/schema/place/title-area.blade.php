@@ -1,8 +1,3 @@
-@element([
-    'classList' => [
-        'o-layout-grid--col-span-12'
-    ]
-])
 @group([
     'justifyContent'=> 'space-between',
 ])
@@ -19,4 +14,3 @@
         @endelement
     @endif
 @endgroup
-@endelement

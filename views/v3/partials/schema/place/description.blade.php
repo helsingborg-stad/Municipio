@@ -1,1 +1,3 @@
-{!! $post->getContent() !!}
+@element()
+    {!! $post->getContent() !!}
+@endelement
