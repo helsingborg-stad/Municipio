@@ -162,14 +162,14 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
-         * Oembed
-         */
-        new \Municipio\Oembed\OembedFilters();
-
-        /**
          * General filters
          */
         (new \Municipio\Filters\More($this->wpService))->addHooks();
+
+        /**
+         * Oembed
+         */
+        new \Municipio\Oembed\OembedFilters();
 
         /**
          * Language

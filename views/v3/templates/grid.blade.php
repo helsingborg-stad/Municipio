@@ -32,9 +32,9 @@
         @includeIf('partials.hero', ['classes' => [], 'sliderAreaClasses' => [], 'quicklinksPlacement' => $quicklinksPlacement ?? null])
         @includeIf('partials.sidebar', ['id' => 'top-sidebar', 'classes' => []])
     @show
-    
+
     {{-- Layout --}}
-    @include('templates.sections.grid.layout')
+    @include('templates.sections.grid.layout', $layoutData ?? [])
 
     @include('templates.sections.bottom-sidebar')
 
