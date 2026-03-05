@@ -33,7 +33,7 @@
     ])
         @include('templates.sections.grid.content', [
             'addToArticleClassList' => ['c-article'],
-            'addToRightSidebarClassList' => ['u-justify-content--end']
+            'addToRightSidebarClassList' => ['u-justify-content--end@md', 'u-justify-content--end@lg', 'u-justify-content--end@xl']
         ])
     @endpaper
 @stop
