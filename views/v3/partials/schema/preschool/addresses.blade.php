@@ -16,11 +16,11 @@
             @endif
         @endforeach
 
-        @openStreetMap([
+        @map([
             ...$mapAttributes,
             'height' => '400px',
             'classList' => ['u-margin__top--2']
         ])
-        @endopenStreetMap
+        @endmap
     @endelement
 @endpaper
