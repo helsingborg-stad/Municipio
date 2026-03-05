@@ -68,32 +68,31 @@ class Map extends \Modularity\Module
      * start position with latitude, longitude, and zoom level if the `osm_start_position` field is not
      * empty. Finally
      */
-    private function openStreetMapTemplateData($data, $fields)
+    private function openStreetMapTemplateData($data, $fields): array
     {
-        $data['pins'] = [];
+        $data['markers'] = [];
         $start = $fields['osm_start_position'];
 
         if (!empty($fields['osm_markers']) && is_array($fields['osm_markers'])) {
-            foreach ($fields['osm_markers'] as $marker) {
-                if (!$this->hasCorrectPlaceData($marker['position'])) {
+            foreach ($fields['osm_markers'] as $markerData) {
+                if (!$this->hasCorrectPlaceData($markerData['position'])) {
                     continue;
                 }
 
-                $pin = [];
-                $pin['lat'] = $marker['position']['lat'];
-                $pin['lng'] = $marker['position']['lng'];
-                $pin['tooltip'] = $this->createMarkerTooltip($marker);
+                $marker = [];
+                $marker['lat'] = $markerData['position']['lat'];
+                $marker['lng'] = $markerData['position']['lng'];
+                $marker['icon'] = 'location_on';
+                $marker['content'] = $this->createMarkerTooltip($markerData);
 
-                array_push($data['pins'], $pin);
+                $data['markers'][] = $marker;
             }
         }
 
         if (!empty($start)) {
-            $data['startPosition'] = [
-                'lat' => $start['lat'],
-                'lng' => $start['lng'],
-                'zoom' => $start['zoom'],
-            ];
+            $data['lat'] = $start['lat'];
+            $data['lng'] = $start['lng'];
+            $data['zoom'] = $start['zoom'];
         }
 
         return $data;
@@ -106,7 +105,7 @@ class Map extends \Modularity\Module
      * @param array $fields The fields array containing module settings.
      * @return array The updated data array with default template data.
      */
-    private function defaultTemplateData($data, $fields)
+    private function defaultTemplateData($data, $fields): array
     {
         //Get and sanitize url
         $map_url = $fields['map_url'];
@@ -193,15 +192,17 @@ class Map extends \Modularity\Module
      * @return An array containing the title, excerpt, directions label, and directions URL of the
      * marker.
      */
-    private function createMarkerTooltip($marker)
+    private function createMarkerTooltip(array $marker = []): string
     {
-        $tooltip = [];
-        $tooltip['title'] = $marker['title'];
-        $tooltip['excerpt'] = $marker['description'];
-        $tooltip['directions']['label'] = $marker['link_text'];
-        $tooltip['directions']['url'] = $marker['url'];
-
-        return $tooltip;
+        return render_blade_view(
+            'partials.tooltip',
+            [
+                'marker' => $marker,
+            ],
+            [
+                plugin_dir_path(__FILE__) . 'views',
+            ],
+        );
     }
 
     /**
