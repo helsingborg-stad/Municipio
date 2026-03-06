@@ -8,9 +8,13 @@
     @endtypography
 @endif
 
-@openStreetMap([
-    'startPosition' => $startPosition,
-    'pins' => $pins,
-    'height' => $height . 'px'
+
+
+@map([
+    'markers' => $markers,
+    'height' => $height . 'px',
+    'lat' => $lat,
+    'lng' => $lng,
+    'zoom' => $zoom,
 ])
-@endopenStreetMap
+@endmap

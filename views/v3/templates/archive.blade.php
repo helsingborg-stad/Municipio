@@ -45,28 +45,6 @@
         {!! $hook->loopStart !!}
 
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
-
-        @if (!empty($posts))
-            @if (isset($displayOpenstreetmap) && $displayOpenstreetmap && !empty($pins))
-                @openStreetMap([
-                    'pins' => $pins,
-                    'classList' => ['u-margin__bottom--2'],
-                    'containerAware' => true
-                ])
-                    @if ($postsWithLocation)
-                        @slot('sidebarContent')
-                            @includefirst(
-                                [
-                                    'partials.post.' . $postType . '-' . $template,
-                                    'partials.post.post-' . $template,
-                                ],
-                                ['posts' => $postsWithLocation]
-                            )
-                        @endslot
-                    @endif
-                @endopenStreetMap
-            @endif
-        @endif
         
         @section('loop')
             @if ($displayArchiveLoop)

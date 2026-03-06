@@ -14,7 +14,6 @@ use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Helper\Listing;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -33,7 +32,6 @@ use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
-use WP_Post;
 use wpdb;
 use WpService\WpService;
 use WpUtilService\WpUtilService;
@@ -164,34 +162,14 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
-         * Post decorators
+         * General filters
          */
-        $this->wpService->addFilter(
-            'Municipio/Helper/Post/postObject',
-            function (WP_Post $post) {
-                // Place
-                $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService);
-                $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace(
-                    $this->acfService,
-                    new Listing(),
-                    $decorator,
-                );
-
-                return $decorator->apply($post);
-            },
-            10,
-            1,
-        );
+        (new \Municipio\Filters\More($this->wpService))->addHooks();
 
         /**
          * Oembed
          */
         new \Municipio\Oembed\OembedFilters();
-
-        /**
-         * General filters
-         */
-        (new \Municipio\Filters\More($this->wpService))->addHooks();
 
         /**
          * Language
