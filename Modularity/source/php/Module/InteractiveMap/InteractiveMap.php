@@ -33,7 +33,6 @@ class InteractiveMap extends \Modularity\Module
     {
         $data = [];
         $fields = $this->getFields();
-        $data['mapID'] = uniqid('map-');
         $data['mapData'] = $fields['interactive-map'] ?? '';
         $data['lang'] = $this->getLang();
         $data['mapSize'] = $this->getMapSize($fields['mod_interactive_map_size'] ?? 'medium');
@@ -44,10 +43,15 @@ class InteractiveMap extends \Modularity\Module
 
         $parsedMapData = json_decode($fields['interactive-map'] ?? '{}', true);
 
+        $data['startLat'] = $parsedMapData['startPosition']['latlng']['lat'] ?? 56.046467;
+        $data['startLng'] = $parsedMapData['startPosition']['latlng']['lng'] ?? 12.694512;
+        $data['startZoom'] = $parsedMapData['startPosition']['zoom'] ?? 11;
+        $data['mapStyle'] = $parsedMapData['mapStyle'] ?? 'default';
+
         [$buttonFilters, $selectFilters, $preselectedSelectFilter] =
             $this->getSelectAndButtonFilters($this->getStructuredLayerFilters($parsedMapData));
         $data['attributeList'] = [];
-        $data['attributeList']['data-js-interactive-map'] = $data['mapID'];
+        $data['attributeList']['data-js-interactive-map'] = true;
         $data['attributeList']['data-js-interactive-map-data'] = $data['mapData'];
 
         if (empty($selectFilters)) {

@@ -1,10 +1,4 @@
-import {
-	CreateMap,
-	CreateAttribution,
-	CreateTileLayer,
-	TilesHelper,
-	CreateLayerGroup,
-} from "@helsingborg-stad/openstreetmap";
+import { CreateLayerGroup, type MapInterface } from "@helsingborg-stad/openstreetmap";
 import { SaveData } from "./mapData";
 import LayerGroups from "./map/layerGroups";
 import Markers from "./map/markers";
@@ -17,16 +11,7 @@ import MarkerClick from "./map/markerClick/markerClick";
 import ContainerEvent from "./map/helper/containerEventHelper";
 
 class InteractiveMap {
-	constructor(mapId: string, mapData: SaveData, container: HTMLElement) {
-		const map = new CreateMap({
-			id: mapId,
-			center: mapData.startPosition.latlng ?? {
-				lat: 56.046467,
-				lng: 12.694512,
-			},
-			zoom: mapData.startPosition.zoom ?? 16,
-		}).create();
-
+	constructor(map: MapInterface, mapData: SaveData, container: HTMLElement) {
 		// Helper
 		const containerEventHelper = new ContainerEvent(container);
 
@@ -38,13 +23,6 @@ class InteractiveMap {
 		const onlyOneParentLayerGroup = container.hasAttribute(
 			"data-js-interactive-map-one-parent-only",
 		);
-
-		// Add the tiles and attribution to the map
-		const { url, attribution } = new TilesHelper().getDefaultTiles(
-			mapData.mapStyle,
-		);
-		new CreateTileLayer().create().setUrl(url).addTo(map);
-		new CreateAttribution().create().setPrefix(attribution).addTo(map);
 
 		// Filter
 		const storageInstance = new Storage();
@@ -90,13 +68,20 @@ document.addEventListener("DOMContentLoaded", function () {
 			"[data-js-interactive-map]",
 		) as NodeListOf<HTMLElement>
 	).forEach((container) => {
-		const mapId = container.dataset.jsInteractiveMap;
 		const mapData = JSON.parse(container.dataset.jsInteractiveMapData ?? "");
 
-		if (mapId && mapData) {
-			new InteractiveMap(mapId, mapData as SaveData, container);
-		} else {
-			console.error("Missing mapId or mapData");
+		if (!mapData) {
+			console.error("Missing mapData");
+			return;
 		}
+
+		container.addEventListener(
+			"map:created",
+			(event: Event) => {
+				const map = (event as CustomEvent<{ map: MapInterface }>).detail.map;
+				new InteractiveMap(map, mapData as SaveData, container);
+			},
+			{ once: true },
+		);
 	});
 });
