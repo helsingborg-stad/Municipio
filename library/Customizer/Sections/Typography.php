@@ -136,60 +136,6 @@ class Typography
                     ],
                 ],
             ],
-            'lead' => [
-                'default' => [
-                    'font-size' => '18px',
-                    'font-family' => 'Roboto',
-                    'variant' => '500',
-                    'line-height' => '1.625',
-                ],
-                'output' => [
-                    [
-                        'choice' => 'font-family',
-                        'element' => ':root',
-                        'property' => '--lead-font-family',
-                    ],
-                    [
-                        'choice' => 'font-size',
-                        'element' => ':root',
-                        'property' => '--lead-font-size',
-                    ],
-                    [
-                        'choice' => 'variant',
-                        'element' => ':root',
-                        'property' => '--lead-font-weight',
-                    ],
-                    [
-                        'choice' => 'line-height',
-                        'element' => ':root',
-                        'property' => '--lead-line-height',
-                    ],
-                ],
-            ],
-            'button' => [
-                'default' => [
-                    'font-family' => 'Roboto',
-                    'variant' => '',
-                    'text-transform' => 'none',
-                ],
-                'output' => [
-                    [
-                        'choice' => 'font-family',
-                        'element' => ':root',
-                        'property' => '--font-family-button',
-                    ],
-                    [
-                        'choice' => 'variant',
-                        'element' => ':root',
-                        'property' => '--font-weight-button',
-                    ],
-                    [
-                        'choice' => 'text-transform',
-                        'element' => ':root',
-                        'property' => '--text-transform-button',
-                    ],
-                ],
-            ],
         ];
 
         return $elements;

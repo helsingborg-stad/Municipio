@@ -288,7 +288,7 @@ class FooterMain
             'description' => esc_html__('Background settings for the footer.', 'municipio'),
             'section' => $sectionID,
             'default' => [
-                //'background-color' => 'var(--color-white,#fff)',
+                'background-color' => 'var(--color-white,#fff)',
                 'background-image' => '',
                 'background-repeat' => 'repeat',
                 'background-position' => 'center center',
