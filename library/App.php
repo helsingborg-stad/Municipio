@@ -361,6 +361,14 @@ class App
         (new \Municipio\PostsList\Block\PostsListBlock($this->wpService))->addHooks();
 
         /**
+         * Setup Backdrop Banner
+         */
+        (new \Municipio\BackdropBanner\Block\BackdropBannerBlock(
+            $this->wpService,
+            new \Municipio\BackdropBanner\Block\BackdropBannerRenderer(),
+        ))->addHooks();
+
+        /**
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();

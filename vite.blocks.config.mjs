@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 
 const entries = {
 	"js/posts-list-block": "./library/PostsList/Block/js/index.ts",
+	"js/backdrop-banner-editor": "./library/BackdropBanner/Block/js/index.tsx",
 };
 
 const externalDeps = {
@@ -13,6 +14,7 @@ const externalDeps = {
 	"@wordpress/api-fetch": "wp.apiFetch",
 	"@wordpress/core-data": "wp.coreData",
 	"@wordpress/data": "wp.data",
+	"@wordpress/hooks": "wp.hooks",
 	"@wordpress/i18n": "wp.i18n",
 	"@wordpress/blocks": "wp.blocks",
 	"@wordpress/block-editor": "wp.blockEditor",
