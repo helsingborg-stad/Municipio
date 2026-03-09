@@ -391,12 +391,12 @@ class PanelsRegistry
                     ->setDescription(esc_html__('Menu behaviour settings.', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Behaviour('municipio_customizer_section_menu'))
             )
-            // ->addSection(
-            //     KirkiPanelSection::create()
-            //         ->setID('municipio_customizer_section_navigation')
-            //         ->setTitle(esc_html__('Colors', 'municipio'))
-            //         ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Colors('municipio_customizer_section_navigation'))
-            // )
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_navigation')
+                    ->setTitle(esc_html__('Colors', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Colors('municipio_customizer_section_navigation'))
+            )
             ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_breadcrumbs')
