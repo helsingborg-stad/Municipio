@@ -14,14 +14,16 @@
 		"html": false,
 		"anchor": true
 	},
+	"allowedBlocks": ["municipio/backdrop-banner-row"],
 	"attributes": {
 		"anchor": { "type": "string", "default": "" },
-		"slides": {
+		"rows": {
 			"type": "array",
 			"default": [],
 			"items": {
 				"type": "object",
 				"properties": {
+					"id": { "type": "string" },
 					"title": { "type": "string" },
 					"description": { "type": "string" },
 					"url": { "type": "string" },

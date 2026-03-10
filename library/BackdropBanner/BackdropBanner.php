@@ -28,6 +28,7 @@ class BackdropBanner implements Hookable
     public function registerBlock(): void
     {
         $this->wpService->registerBlockType($this->getBlockJsonPath());
+        $this->wpService->registerBlockType(__DIR__ . '/Row/block.json');
     }
 
     public function excludeFromCustomizer(): void

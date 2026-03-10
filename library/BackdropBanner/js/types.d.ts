@@ -1,7 +1,6 @@
-import blockConfig from '../block.json';
-export {};
+import type blockConfig from '../block.json';
 declare global {
-	export interface SlideItem {
+	export interface RowItem {
 		id: string;
 		title: string;
 		description: string;
@@ -12,7 +11,7 @@ declare global {
 
 	export type BackdropBannerAttributes = Omit<{
 		[K in keyof typeof blockConfig.attributes]: typeof blockConfig.attributes[K]['default'];
-	}, 'slides'> & {
-		slides: SlideItem[];
+	}, 'rows'> & {
+		rows: RowItem[];
 	};
 }

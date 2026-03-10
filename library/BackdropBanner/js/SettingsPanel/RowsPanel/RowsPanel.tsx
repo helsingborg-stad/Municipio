@@ -1,0 +1,39 @@
+import { Button, PanelBody } from "@wordpress/components";
+import { __ } from "@wordpress/i18n";
+import type { BackdropBannerEditProps } from "../../Edit";
+import { RowPanel } from "./RowPanel/RowPanel";
+import { useRowsPanelRows } from "./useRowsPanelRows";
+
+export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
+	clientId,
+	attributes: { rows },
+	setAttributes,
+}) => {
+	const { rowBlocks, addRow, removeRow, updateRow, getRow, lastAddedClientId } =
+		useRowsPanelRows(clientId, rows, setAttributes);
+
+	return (
+		<PanelBody
+			title={__("Backdrop banner settings", "municipio")}
+			initialOpen={true}
+		>
+			{rowBlocks.map((block, index) => {
+				const row = getRow(block.clientId);
+				if (!row) return null;
+				return (
+					<RowPanel
+						key={block.clientId}
+						row={row}
+						index={index}
+						initialOpen={block.clientId === lastAddedClientId}
+						onUpdate={(updates) => updateRow(block.clientId, updates)}
+						onRemove={() => removeRow(block.clientId)}
+					/>
+				);
+			})}
+			<Button variant="primary" onClick={addRow}>
+				{__("Add Row", "municipio")}
+			</Button>
+		</PanelBody>
+	);
+};

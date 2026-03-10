@@ -1,3 +1,14 @@
 <?php
 
-echo '<div class="wp-block-municipio-backdrop-banner-block">Backdrop Banner</div>';
+use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
+use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use Municipio\BackdropBanner\Render\BlockRenderer;
+use Municipio\Helper\WpService;
+
+$wpService = WpService::get();
+$bladeRenderer = new BladeRenderer((new BladeServiceFactory($wpService))->create(BlockRenderer::getViewPathsDir()));
+
+$renderer = new BlockRenderer($wpService, $bladeRenderer);
+
+// echo '<pre>' . print_r($attributes['rows'], true) . '</pre>';
+echo $renderer->render($attributes);

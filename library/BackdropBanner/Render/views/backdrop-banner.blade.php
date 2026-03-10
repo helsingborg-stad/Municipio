@@ -1,0 +1,1 @@
+@includeWhen(!empty($rows), 'upper.navigation')

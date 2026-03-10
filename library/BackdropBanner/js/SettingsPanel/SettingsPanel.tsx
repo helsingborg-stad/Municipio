@@ -1,11 +1,11 @@
 import { InspectorControls } from "@wordpress/block-editor";
 import type { BackdropBannerEditProps } from "../Edit";
-import { SlidesPanel } from "./SlidesPanel/SlidesPanel";
+import { RowsPanel } from "./RowsPanel/RowsPanel";
 
 export const SettingsPanel: React.FC<BackdropBannerEditProps> = (props) => {
 	return (
 		<InspectorControls>
-			<SlidesPanel {...props} />
+			<RowsPanel {...props} />
 		</InspectorControls>
 	);
 };
