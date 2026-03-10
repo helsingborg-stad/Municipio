@@ -20,6 +20,11 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'color_alpha.contrasting' => '--color--alpha-contrast',
         'footer_subfooter_colors.background' => '--c-footer--subfooter-color-background',
         'footer_subfooter_colors.text' => '--c-footer--subfooter-color-text',
+        'footer_background.background-color' => '--c-footer--color--surface',
+        'footer_color_text' => '--c-footer--color--surface-contrast',
+        'typography_base.font-family' => '--font-family-base',
+        'typography_base.font-size' => '--base-font-size',
+        'typography_heading.font-family' => '--font-family-heading',
     ];
 
     public function map(array $themeSettings): CssVariablesCollectionInterface

@@ -45,6 +45,17 @@ class ThemeSettingsMapperTest extends TestCase
                 'background' => '#000010',
                 'text' => '#000011',
             ],
+            'footer_background' => [
+                'background-color' => '#000012',
+            ],
+            'footer_color_text' => '#000013',
+            'typography_base' => [
+                'font-family' => 'Arial, sans-serif',
+                'font-size' => '18px',
+            ],
+            'typography_heading' => [
+                'font-family' => 'Georgia, serif',
+            ],
         ];
 
         $mapper = new ThemeSettingsMapper();
@@ -63,5 +74,10 @@ class ThemeSettingsMapperTest extends TestCase
         $this->assertStringContainsString('--color--alpha-contrast: #000009', (string) $result);
         $this->assertStringContainsString('--c-footer--subfooter-color-background: #000010', (string) $result);
         $this->assertStringContainsString('--c-footer--subfooter-color-text: #000011', (string) $result);
+        $this->assertStringContainsString('--c-footer--color--surface: #000012', (string) $result);
+        $this->assertStringContainsString('--c-footer--color--surface-contrast: #000013', (string) $result);
+        $this->assertStringContainsString('--font-family-base: Arial, sans-serif', (string) $result);
+        $this->assertStringContainsString('--base-font-size: 18px', (string) $result);
+        $this->assertStringContainsString('--font-family-heading: Georgia, serif', (string) $result);
     }
 }
