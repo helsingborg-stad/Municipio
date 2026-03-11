@@ -4,14 +4,20 @@ namespace Municipio\BackdropBanner;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\GetTemplateDirectoryUri;
 use WpService\Contracts\RegisterBlockType;
 use WpService\Contracts\WpDequeueScript;
 use WpService\Contracts\WpDeregisterScript;
+use WpService\Contracts\WpRegisterScript;
+use WpService\Contracts\WpRegisterStyle;
 
 class BackdropBanner implements Hookable
 {
+    private const VIEW_SCRIPT_HANDLE = 'municipio-backdrop-banner-script';
+    private const VIEW_STYLE_HANDLE = 'municipio-backdrop-banner-style';
+
     public function __construct(
-        private AddAction&RegisterBlockType&WpDequeueScript&WpDeregisterScript $wpService,
+        private AddAction&RegisterBlockType&WpDequeueScript&WpDeregisterScript&GetTemplateDirectoryUri&WpRegisterScript&WpRegisterStyle $wpService,
     ) {}
 
     public function addHooks(): void
@@ -25,10 +31,36 @@ class BackdropBanner implements Hookable
         return __DIR__ . '/block.json';
     }
 
+    private function getInnerBlockJsonPath(): string
+    {
+        return __DIR__ . '/Row/block.json';
+    }
+
     public function registerBlock(): void
     {
+        $this->registerScriptAndStyles();
+
         $this->wpService->registerBlockType($this->getBlockJsonPath());
-        $this->wpService->registerBlockType(__DIR__ . '/Row/block.json');
+
+        $this->wpService->registerBlockType($this->getInnerBlockJsonPath());
+    }
+
+    public function registerScriptAndStyles(): void
+    {
+        $this->wpService->wpRegisterScript(
+            self::VIEW_SCRIPT_HANDLE,
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/backdrop-banner.js'),
+            [],
+            null,
+            true,
+        );
+
+        $this->wpService->wpRegisterStyle(
+            self::VIEW_STYLE_HANDLE,
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/backdrop-banner.css'),
+            [],
+            null,
+        );
     }
 
     public function excludeFromCustomizer(): void

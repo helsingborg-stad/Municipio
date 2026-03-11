@@ -10,6 +10,8 @@
 	"example": {},
 	"render": "file:./render.php",
 	"editorScript": "file:./../../assets/dist/blocks/js/blocks.js",
+	"script": ["municipio-backdrop-banner-script"],
+	"style": ["municipio-backdrop-banner-style"],
 	"supports": {
 		"html": false,
 		"anchor": true

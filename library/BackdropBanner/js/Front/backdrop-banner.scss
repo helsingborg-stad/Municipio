@@ -1,0 +1,17 @@
+/* Top area */
+.backdrop-banner__top {
+    display: flex;
+    align-items: end;
+}
+
+.backdrop-banner__navigation {
+    margin-top: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.backdrop-banner__navigation-item-description {
+    opacity: 0;
+    transform: scaleY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
