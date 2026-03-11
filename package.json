@@ -9,6 +9,7 @@
 		"build": "npm run build:municipio && (npm run build:modularity)",
 		"build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
 		"watch:municipio": "vite build --watch --mode development && npm run watch:blocks",
+		"watch:municipio": "(vite build --watch --mode development &) && (npm run watch:blocks &) && wait",
 		"build:blocks": "vite --config vite.blocks.config.mjs build",
 		"watch:blocks": "vite --config vite.blocks.config.mjs build --watch",
 		"build:modularity": "cd Modularity && npm install && npm run build",
