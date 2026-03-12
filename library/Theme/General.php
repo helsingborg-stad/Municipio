@@ -19,6 +19,7 @@ class General
         add_action('init', array($this, 'bemItClassDefinition'));
 
         add_filter('body_class', array($this, 'appendStyleguideBodyClass'));
+        add_filter('login_body_class', array($this, 'appendStyleguideBodyClass'));
         add_filter('body_class', array($this, 'appendBEMITCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));

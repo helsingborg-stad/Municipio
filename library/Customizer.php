@@ -3,22 +3,24 @@
 namespace Municipio;
 
 use Kirki\Compatibility\Kirki;
-use Municipio\Customizer\PanelsRegistry;
-use WpService\WpService;
-use wpdb;
-use Municipio\Customizer\Applicators\Types\Modifier;
 use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
 use Municipio\Customizer\Applicators\Types\Css;
+use Municipio\Customizer\Applicators\Types\Modifier;
+use Municipio\Customizer\PanelsRegistry;
+use wpdb;
+use WpService\WpService;
 
 class Customizer
 {
-    public const KIRKI_CONFIG = "municipio_config";
+    public const KIRKI_CONFIG = 'municipio_config';
 
     public static $panels = array();
 
-    public function __construct(private WpService $wpService, private wpdb $wpdb)
-    {
+    public function __construct(
+        private WpService $wpService,
+        private wpdb $wpdb,
+    ) {
         //Load embedded kirki PRO
         $this->loadEmbeddedKirkiPro();
 
@@ -29,11 +31,16 @@ class Customizer
         $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'addPreviewPageSwitches']);
 
         //Collects all panels view a preview url.
-        $this->wpService->addAction('kirki_section_added', function ($id, $args) {
-            if (isset($args['preview_url']) && filter_var($args['preview_url'], FILTER_VALIDATE_URL)) {
-                self::$panels[$id] = $args['preview_url'];
-            }
-        }, 10, 2);
+        $this->wpService->addAction(
+            'kirki_section_added',
+            function ($id, $args) {
+                if (isset($args['preview_url']) && filter_var($args['preview_url'], FILTER_VALIDATE_URL)) {
+                    self::$panels[$id] = $args['preview_url'];
+                }
+            },
+            10,
+            2,
+        );
 
         // Add filter to sanitize kirki default array values
         $this->wpService->addFilter('kirki_get_value', [$this, 'kirkiGetValue'], 11, 3);
@@ -47,17 +54,17 @@ class Customizer
      */
     public function initKirki()
     {
-        if (class_exists("Kirki")) {
+        if (class_exists('Kirki')) {
             return $this->init();
         }
 
         $this->wpService->wpDie(
-            $this->wpService->__("Kirki Customizer framework is required"),
-            $this->wpService->__("Plugin install required"),
+            $this->wpService->__('Kirki Customizer framework is required'),
+            $this->wpService->__('Plugin install required'),
             [
-                'link_url'  => "https://github.com/helsingborg-stad/kirki",
-                'link_text' => $this->wpService->__("Install plugin", 'municipio')
-            ]
+                'link_url' => 'https://github.com/helsingborg-stad/kirki',
+                'link_text' => $this->wpService->__('Install plugin', 'municipio'),
+            ],
         );
     }
 
@@ -132,14 +139,14 @@ class Customizer
         wp_register_script(
             'municipio-customizer-preview',
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customizer-preview.js'),
-            array( 'jquery', 'customize-controls' ),
+            array('jquery', 'customize-controls'),
             false,
-            true
+            true,
         );
         wp_localize_script(
             'municipio-customizer-preview',
             'customizerPanelPreviewUrls',
-            (array) self::$panels
+            (array) self::$panels,
         );
         wp_enqueue_script('municipio-customizer-preview');
     }
@@ -152,10 +159,10 @@ class Customizer
     public function init()
     {
         Kirki::add_config(self::KIRKI_CONFIG, array(
-            'capability'        => 'edit_theme_options',
-            'option_type'       => 'theme_mod',
+            'capability' => 'edit_theme_options',
+            'option_type' => 'theme_mod',
             'gutenberg_support' => false,
-            'disable_output'    => true
+            'disable_output' => true,
         ));
 
         //Init font uploads
@@ -183,15 +190,15 @@ class Customizer
     {
         $applicators = [
             new Controller($this->wpService),
-            new Modifier($this->wpService),
-            new Component($this->wpService),
-            new Css($this->wpService)
+            // new Modifier($this->wpService),
+            // new Component($this->wpService),
+            // new Css($this->wpService)
         ];
 
         $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
             $this->wpService,
             $this->wpdb,
-            ...$applicators
+            ...$applicators,
         );
 
         $customizerCache->addHooks();

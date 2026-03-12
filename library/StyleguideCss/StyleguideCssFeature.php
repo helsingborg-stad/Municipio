@@ -21,12 +21,28 @@ class StyleguideCssFeature implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('wp_head', [$this, 'outputStyleguideCss']);
+        $this->wpService->addAction('login_head', [$this, 'outputStyleguideCss']);
     }
 
     public function outputStyleguideCss(): void
     {
-        $cssVariablesCollection = $this->themeSettingsMapper->map($this->wpService->getThemeMods());
-        $css = $this->cssVariablesRenderer->render($cssVariablesCollection);
-        echo "<style>\n@layer theme {\n{$css}}\n</style>\n";
+        $cssVariables = $this->themeSettingsMapper->map($this->wpService->getThemeMods());
+        $cssVariables = $this->applyCssVariableFilters($cssVariables);
+        $css = $this->cssVariablesRenderer->render(...$cssVariables);
+        echo "<style>\n{$css}</style>\n";
+    }
+
+    private function applyCssVariableFilters(array $cssVariables): array
+    {
+        $filters = [
+            new CssVariables\CssVariablesFilters\TranslateLegacyBorderRadius(),
+            new CssVariables\CssVariablesFilters\TranslateLegacyContainerWidth(),
+        ];
+
+        foreach ($filters as $filter) {
+            $cssVariables = array_map($filter->apply(...), $cssVariables);
+        }
+
+        return $cssVariables;
     }
 }

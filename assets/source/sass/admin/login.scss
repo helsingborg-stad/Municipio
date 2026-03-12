@@ -1,5 +1,8 @@
-:root {
-  --base: 8px;
+@use '../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens' as tokens;
+
+body {
+  background-color: tokens.get('', 'color--background');
+  color: tokens.get('', 'color--background-contrast');
 }
 
 /* Logotype */ 
@@ -20,22 +23,28 @@
 /* Login form box */ 
 .login form {
   filter: var(--drop-shadow-2, drop-shadow(0px calc(6px* var(--drop-shadow-amount, 0.7)) calc(8px* var(--drop-shadow-amount, 0.7)) var(--drop-shadow-color, rgba(0, 0, 0, 0.1))));
-  border-radius: var(--radius-lg);
+  border-radius: tokens.use('', 'c-card--border-radius');
   border: none;
+  corner-shape: tokens.get('', 'c-card--corner-shape');
   padding: calc(var(--base) * 3);
   margin-top: calc(var(--base) * 3);
   display: grid;
   gap: calc(var(--base) * 2);
-  background-color: var(--c-card-color-background, var(--color-background-card, var(--color-white, #ffffff)));
+  background-color: tokens.get('', 'color--surface');
+
+  --c-field--background-color: #{tokens.get('', 'color--background')};
+  --c-field--color--surface-contrast: #{tokens.get('', 'color--background-contrast')};
 }
 
 /* Form fields */
 .login input[type=password],
 .login input[type=text] {
   appearance: none;
-  background: var(--c-field-background-color, var(--color-form-fields, #f5f5f5));
-  border: var(--c-field-border-width, var(--border-width-input, 1px)) solid var(--c-field-border-color, var(--color-border-input, var(--color-light, #a3a3a3)));
-  border-radius: calc(var(--base, 8px)* var(--c-field-border-radius, .25));
+  background: tokens.get('', 'c-field--background-color');
+  border: tokens.get('', 'c-field--border');
+  border-radius: tokens.use('', 'c-field--border-radius');
+  color: tokens.get('', 'c-field--color--surface-contrast');
+  corner-shape: tokens.get('', 'c-field--corner-shape');
   line-height: var(--c-field-font-size-md-line-height, calc(var(--base, 8px)* 2));
   margin: 0;
   height: calc(var(--c-field-height, calc(var(--base, 8px)* 6)) - var(--c-field-border-width, var(--border-width-input, 1px))* 2);
@@ -44,7 +53,7 @@
 
 /* Form labels */ 
 .login label {
-  color: var(--c-field-label-color, var(--color-darker, #565656));
+  color: tokens.get('', 'c-field--color--surface-contrast');
   font-size: var(--c-field-label-font-size, .75rem);
   font-weight: var(--c-field-label-font-size, 700);
   letter-spacing: .05rem;
@@ -57,13 +66,13 @@
 .wp-core-ui .button-primary:active,
 .wp-core-ui .button-primary:focus,
 .wp-core-ui .button-primary:hover {
-  border-radius: var(--c-button-border-radius, var(--radius-md, var(--base, 8px) / 2));
+  border-radius: tokens.use('', 'border-radius');
   font-size: .95rem;
   height: calc(var(--base, 8px)* 6);
   min-width: calc(var(--base, 8px)* 9);
   padding: 0 calc(var(--base, 8px)* 4);
-  background-color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
-  color: var(--c-button-primary-color-contrasting, var(--color-primary-contrasting, var(--color-white, #fff)));
+  background-color: tokens.get('', 'color--primary');
+  color: tokens.get('', 'color--primary-contrast');
   border: none;
   width: 100%;
 }
@@ -73,13 +82,13 @@
 .wp-core-ui .button-secondary:focus,
 .wp-core-ui .button-secondary:hover {
   &:not(.wp-hide-pw) {
-    border-radius: var(--c-button-border-radius, var(--radius-md, var(--base, 8px) / 2));
+    border-radius: tokens.use('', 'border-radius');
     font-size: .95rem;
     border: none;
     height: calc(var(--base, 8px)* 6);
     min-width: calc(var(--base, 8px)* 9);
-    color: var(--c-button-secondary-color-contrasting, var(--color-secondary-contrasting, var(--color-dark, #333)));
-    background-color: var(--c-button-secondary-color, var(--color-secondary, #f5f5f5));
+    color: tokens.get('', 'color--secondary-contrast');
+    background-color: tokens.get('', 'color--secondary');
     width: 100%;
     padding: 0 calc(var(--base, 8px)* 4);
   }
@@ -93,7 +102,7 @@
 
 .login .button.wp-hide-pw {
   height: 100%;
-  color: var(--color-primary);
+  color: tokens.get('', 'color--primary');
 }
 
 .login #nav {
@@ -115,18 +124,18 @@
 }
 
 .login .message {
-  background-color: var(--notice-color-info-background, var(--color-info, #3d3d3d));
-  color: var(--notice-color-info-text, var(--color-info-contrasting, var(--color-white, #fff)));
+  background-color: tokens.get('', 'color--info');
+  color: tokens.get('', 'color--info-contrast');
 }
 
 .login .notice-error {
-  background-color: var(--notice-color-warning-background, var(--color-warning, #f5a623));
-  color: var(--notice-color-warning-text, var(--color-warning-contrasting, var(--color-white, #fff)));
+  background-color: tokens.get('', 'color--warning');
+  color: tokens.get('', 'color--warning-contrast');
 }
 
 .login .success {
-  background-color: var(--notice-color-success-background, var(--color-success, #4caf50));
-  color: var(--notice-color-success-text, var(--color-success-contrasting, var(--color-white, #fff)));
+  background-color: tokens.get('', 'color--success');
+  color: tokens.get('', 'color--success-contrast');
 }
 
 /* Add vendor */ 
@@ -146,6 +155,10 @@ body.login:after {
 
 .login .language-switcher {
   display: none;
+}
+
+.login #backtoblog a, .login #nav a {
+  color: tokens.get('', 'color--background-primary');
 }
 
 /* Animations */ 

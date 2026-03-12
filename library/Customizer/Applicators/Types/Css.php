@@ -35,17 +35,17 @@ class Css extends AbstractApplicator implements ApplicatorInterface
      */
     public function applyData(array|object|string $data): void
     {
-        // $this->wpService->addFilter('kirki_' . $this->kirkiConfigName . '_styles', [$this, 'filterFontSize']);
-        // $this->wpService->addAction(
-        //     'kirki_dynamic_css',
-        //     function () use ($data) {
-        //         if (!self::$hasApplied) {
-        //             echo $data;
-        //         }
-        //         self::$hasApplied = true;
-        //     },
-        //     20,
-        // );
+        $this->wpService->addFilter('kirki_' . $this->kirkiConfigName . '_styles', [$this, 'filterFontSize']);
+        $this->wpService->addAction(
+            'kirki_dynamic_css',
+            function () use ($data) {
+                if (!self::$hasApplied) {
+                    echo $data;
+                }
+                self::$hasApplied = true;
+            },
+            20,
+        );
     }
 
     /**

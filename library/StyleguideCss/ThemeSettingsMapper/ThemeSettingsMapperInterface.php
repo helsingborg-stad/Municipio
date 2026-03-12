@@ -2,15 +2,15 @@
 
 namespace Municipio\StyleguideCss\ThemeSettingsMapper;
 
-use Municipio\StyleguideCss\CssVariables\CssVariablesCollectionInterface;
+use Municipio\StyleguideCss\CssVariables\CssVariableInterface;
 
 interface ThemeSettingsMapperInterface
 {
     /**
-     * Maps theme settings to an css variable collection
+     * Maps theme settings to an array of CSS variables
      *
      * @param array $themeSettings The theme settings to map
-     * @return CssVariablesCollectionInterface The mapped css variable collection
+     * @return CssVariableInterface[] An array of CSS variables
      */
-    public function map(array $themeSettings): CssVariablesCollectionInterface;
+    public function map(array $themeSettings): array;
 }

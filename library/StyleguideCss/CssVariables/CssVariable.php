@@ -18,4 +18,9 @@ class CssVariable implements CssVariableInterface
     {
         return $this->value;
     }
+
+    public function __toString(): string
+    {
+        return "{$this->name}: {$this->value};";
+    }
 }

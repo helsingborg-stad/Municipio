@@ -58,15 +58,15 @@ class StyleguideCssFeatureTest extends TestCase
     public function testOutputsCssVariablesIfProvided(): void
     {
         $wpService = self::createWpService();
-        $cssVariablesCollection = new CssVariablesCollection([new CssVariable('--color--primary', '#FF0000')]);
-        $themeSettingsMapper = new class($cssVariablesCollection) implements ThemeSettingsMapperInterface {
+        $cssVariables = [new CssVariable('--color--primary', '#FF0000')];
+        $themeSettingsMapper = new class($cssVariables) implements ThemeSettingsMapperInterface {
             public function __construct(
-                private CssVariablesCollectionInterface $collection,
+                private array $cssVariables,
             ) {}
 
-            public function map(array $themeMods): CssVariablesCollectionInterface
+            public function map(array $themeMods): array
             {
-                return $this->collection;
+                return $this->cssVariables;
             }
         };
 

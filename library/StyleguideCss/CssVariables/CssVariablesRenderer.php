@@ -4,8 +4,9 @@ namespace Municipio\StyleguideCss\CssVariables;
 
 class CssVariablesRenderer implements CssVariablesRendererInterface
 {
-    public function render(CssVariablesCollectionInterface $cssVariablesCollection): string
+    public function render(CssVariableInterface ...$cssVariables): string
     {
-        return ":root {\n$cssVariablesCollection\n}";
+        $css = implode("\n", array_map(fn($var) => (string) $var, $cssVariables));
+        return ":root {\n$css\n}";
     }
 }

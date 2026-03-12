@@ -3,8 +3,6 @@
 namespace Municipio\StyleguideCss\ThemeSettingsMapper;
 
 use Municipio\StyleguideCss\CssVariables\CssVariable;
-use Municipio\StyleguideCss\CssVariables\CssVariablesCollection;
-use Municipio\StyleguideCss\CssVariables\CssVariablesCollectionInterface;
 
 class ThemeSettingsMapper implements ThemeSettingsMapperInterface
 {
@@ -25,9 +23,13 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'typography_base.font-family' => '--font-family-base',
         'typography_base.font-size' => '--base-font-size',
         'typography_heading.font-family' => '--font-family-heading',
+        'drop_shadow_color' => '--shadow-color',
+        'drop_shadow_amount' => '--shadow-amount',
+        'radius_md' => '--border-radius',
+        'container' => '--container-width',
     ];
 
-    public function map(array $themeSettings): CssVariablesCollectionInterface
+    public function map(array $themeSettings): array
     {
         $cssVariables = [];
 
@@ -44,7 +46,7 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
             }
         }
 
-        return new CssVariablesCollection($cssVariables);
+        return $cssVariables;
     }
 
     private function getNestedValue(array $array, array $keys)

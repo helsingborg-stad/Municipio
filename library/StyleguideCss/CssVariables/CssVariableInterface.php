@@ -2,7 +2,9 @@
 
 namespace Municipio\StyleguideCss\CssVariables;
 
-interface CssVariableInterface
+use Stringable;
+
+interface CssVariableInterface extends Stringable
 {
     /**
      * Get the name of the CSS variable (e.g., --primary-color)
