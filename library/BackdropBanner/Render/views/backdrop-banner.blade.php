@@ -4,7 +4,7 @@
     @element([
         'classList' => ['backdrop-banner__top', 'u-position--relative'],
         'attributeList' => [
-            'style' => 'background-image: url(' . $startImage . '); min-height: min(640px, 70vh);'
+            'style' => 'background-image: url(' . $startImage . ');'
         ]
     ])
         @includeWhen(!empty($rows), 'upper.navigation')
