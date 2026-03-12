@@ -8,6 +8,8 @@ export type RowBlock = {
     attributes: BackdropBannerRowAttributes;
 };
 
+const MAX_ROWS = 4;
+
 export const useRowsPanelRows = (
     clientId: string,
     rows: RowItem[],
@@ -23,6 +25,10 @@ export const useRowsPanelRows = (
     const { insertBlock, removeBlock } = useDispatch(blockEditorStore);
 
     const addRow = () => {
+        if (rows.length >= MAX_ROWS) {
+            return;
+        }
+
         const rowId = crypto.randomUUID();
         const block = createBlock("municipio/backdrop-banner-row", { rowId });
         setLastAddedClientId(block.clientId);
@@ -56,5 +62,14 @@ export const useRowsPanelRows = (
         return rows.find((r) => r.id === rowBlock?.attributes.rowId);
     };
 
-    return { rowBlocks, addRow, removeRow, updateRow, getRow, lastAddedClientId };
+    return {
+        rowBlocks,
+        addRow,
+        removeRow,
+        updateRow,
+        getRow,
+        lastAddedClientId,
+        canAddRow: rows.length < MAX_ROWS,
+        maxRows: MAX_ROWS,
+    };
 };

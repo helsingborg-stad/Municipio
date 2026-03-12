@@ -9,8 +9,16 @@ export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
 	attributes: { rows },
 	setAttributes,
 }) => {
-	const { rowBlocks, addRow, removeRow, updateRow, getRow, lastAddedClientId } =
-		useRowsPanelRows(clientId, rows, setAttributes);
+	const {
+		rowBlocks,
+		addRow,
+		removeRow,
+		updateRow,
+		getRow,
+		lastAddedClientId,
+		canAddRow,
+		maxRows,
+	} = useRowsPanelRows(clientId, rows, setAttributes);
 
 	return (
 		<PanelBody
@@ -31,9 +39,14 @@ export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
 					/>
 				);
 			})}
-			<Button variant="primary" onClick={addRow}>
+			<Button variant="primary" onClick={addRow} disabled={!canAddRow}>
 				{__("Add Row", "municipio")}
 			</Button>
+			{!canAddRow && (
+				<p style={{ marginTop: "8px" }}>
+					{__("Maximum number of rows reached.", "municipio")} {maxRows}
+				</p>
+			)}
 		</PanelBody>
 	);
 };
