@@ -45,6 +45,11 @@ const entries = {
 	"js/pdf": "./assets/source/js/pdf.ts",
 	"js/nav": "./assets/source/js/nav.ts",
 
+	/* Blocks */
+	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
+	"css/backdrop-banner":
+		"./library/BackdropBanner/js/Front/backdrop-banner.scss",
+
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
 	"js/design-share": "./assets/source/js/admin/designShare.ts",
