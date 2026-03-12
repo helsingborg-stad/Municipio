@@ -46,10 +46,10 @@
 }
 
 .alignfull {
-    margin-left: calc( -100vw / 2 + 100% / 2 );
-    margin-right: calc( -100vw / 2 + 100% / 2 );
-    max-width: 100vw;
-    width: 100vw;
+    position: relative;
+    width: calc(100vw - var(--scrollbar, 15px));
+    left: 50%;
+    transform: translateX(-50%);
 
     img {
         height: auto;
