@@ -3,20 +3,24 @@
 namespace Municipio\BackdropBanner\Render;
 
 use ComponentLibrary\Renderer\RendererInterface;
-use WpService\Contracts\__;
+use WpService\Contracts\GetBlockWrapperAttributes;
 
 class BlockRenderer
 {
     public function __construct(
-        private $wpService,
+        private GetBlockWrapperAttributes $wpService,
         private RendererInterface $bladeRenderer,
     ) {}
 
-    public function render(array $attributes)
+    public function render(array $attributes): string
     {
         $attributes['startImage'] = $this->getStartImage($attributes);
-        // echo '<pre>' . print_r($attributes, true) . '</pre>';
-        return $this->bladeRenderer->render('backdrop-banner', $attributes);
+
+        return sprintf(
+            '<div %s>%s</div>',
+            $this->wpService->getBlockWrapperAttributes(),
+            $this->bladeRenderer->render('backdrop-banner', $attributes),
+        );
     }
 
     private function getStartImage(array $attributes): ?string

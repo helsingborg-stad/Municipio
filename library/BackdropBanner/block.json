@@ -14,7 +14,8 @@
 	"style": ["municipio-backdrop-banner-style"],
 	"supports": {
 		"html": false,
-		"anchor": true
+		"anchor": true,
+		"align": ["full"]
 	},
 	"allowedBlocks": ["municipio/backdrop-banner-row"],
 	"attributes": {
