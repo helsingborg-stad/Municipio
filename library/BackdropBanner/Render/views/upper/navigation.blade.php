@@ -3,16 +3,21 @@
         'o-layout-grid',
         'o-layout-grid--cq',
         'backdrop-banner__navigation',
+        'o-container',
+        'u-padding__y--4'
     ],
 ])
     @element([
         'classList' => ['backdrop-banner__navigation-container']
     ])
         @foreach($rows as $index => $row)
-            @element([
-                'classList' => ['backdrop-banner__navigation-item']
+            @link([
+                'componentElement' => 'div',
+                'href' => !empty($row['url']) ? $row['url'] : null,
+                'classList' => ['backdrop-banner__navigation-item', 'u-no-decoration'],
             ])
                 @element([
+                    'componentElement' => 'div',
                     'classList' => [
                         'backdrop-banner__navigation-item-container'
                     ]
@@ -34,7 +39,7 @@
                         @endtypography
                     @endif
                 @endelement
-            @endelement
+            @endlink
         @endforeach
     @endelement
 @endelement
