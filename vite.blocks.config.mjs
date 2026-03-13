@@ -2,7 +2,7 @@ import path from "path";
 import { defineConfig } from "vite";
 
 const entries = {
-	"js/posts-list-block": "./library/PostsList/Block/js/index.ts",
+	"js/blocks": "./library/Blocks/js/index.ts",
 };
 
 const externalDeps = {
