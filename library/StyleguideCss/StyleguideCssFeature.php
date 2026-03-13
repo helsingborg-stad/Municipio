@@ -37,6 +37,7 @@ class StyleguideCssFeature implements Hookable
         $filters = [
             new CssVariables\CssVariablesFilters\TranslateLegacyBorderRadius(),
             new CssVariables\CssVariablesFilters\TranslateLegacyContainerWidth(),
+            new CssVariables\CssVariablesFilters\TranslateLegacyFooterLogotypeHeight(),
         ];
 
         foreach ($filters as $filter) {

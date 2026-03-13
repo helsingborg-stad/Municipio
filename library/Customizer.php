@@ -191,7 +191,7 @@ class Customizer
         $applicators = [
             new Controller($this->wpService),
             // new Modifier($this->wpService),
-            // new Component($this->wpService),
+            new Component($this->wpService),
             // new Css($this->wpService)
         ];
 

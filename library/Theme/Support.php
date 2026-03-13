@@ -3,6 +3,7 @@
 namespace Municipio\Theme;
 
 use WP_Post;
+
 class Support
 {
     public function __construct()
@@ -33,23 +34,23 @@ class Support
 
     /**
      * Redirects attachment pages to the file URL or sets 404 if attachment page is not allowed.
-     * 
+     *
      * @return void
      */
     public function attachmentPageRedirect(): void
     {
-        $redirectFromAttachmentPageToFile   = (bool) (defined('ATTACHMENT_PAGE_REDIRECT') ? constant('ATTACHMENT_PAGE_REDIRECT') : true);
-        $allowAttachmentPage                = (bool) (defined('ALLOW_ATTACHMENT_PAGE') ? constant('ALLOW_ATTACHMENT_PAGE') : false);
-        
+        $redirectFromAttachmentPageToFile = (bool) (defined('ATTACHMENT_PAGE_REDIRECT') ? constant('ATTACHMENT_PAGE_REDIRECT') : true);
+        $allowAttachmentPage = (bool) (defined('ALLOW_ATTACHMENT_PAGE') ? constant('ALLOW_ATTACHMENT_PAGE') : false);
+
         if ($redirectFromAttachmentPageToFile && $this->isAttachment() && !is_search() && !is_archive()) {
             global $post;
             if ($post instanceof WP_Post) {
                 wp_redirect(wp_get_attachment_url($post->ID));
-                exit;
+                exit();
             }
         }
 
-        if(!$allowAttachmentPage && is_attachment()) {
+        if (!$allowAttachmentPage && is_attachment()) {
             global $wp_query;
             $wp_query->set_404();
         }
@@ -57,10 +58,10 @@ class Support
 
     /**
      * Checks if the current post is an attachment.
-     * 
+     *
      * @return bool
      */
-    public function isAttachment() : bool
+    public function isAttachment(): bool
     {
         global $post;
         if ($post instanceof WP_Post) {
@@ -76,29 +77,29 @@ class Support
      */
     public function mimes($mimes)
     {
-        $mimes['svg']  = 'image/svg+xml';
-        $mimes['dwg']  = 'image/vnd.dwg';
+        $mimes['svg'] = 'image/svg+xml';
+        $mimes['dwg'] = 'image/vnd.dwg';
         $mimes['dotx'] = 'application/vnd.openxmlformats-officedocument.wordprocessingml.template';
         $mimes['docm'] = 'application/vnd.ms-word.document.macroEnabled.12';
         $mimes['xlsm'] = 'application/vnd.ms-excel.sheet.macroEnabled.12';
         $mimes['pptm'] = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
-        $mimes['eps']  = 'application/postscript';
-        $mimes['psd']  = 'image/vnd.adobe.photoshop';
-        $mimes['ai']   = 'application/postscript';
+        $mimes['eps'] = 'application/postscript';
+        $mimes['psd'] = 'image/vnd.adobe.photoshop';
+        $mimes['ai'] = 'application/postscript';
         $mimes['webp'] = 'image/webp';
         $mimes['indd'] = 'application/x-indesign';
         $mimes['idml'] = 'application/vnd.adobe.indesign-idml-package';
-        $mimes['otf']  = 'font/otf';
-        $mimes['ttf']  = 'font/ttf';
+        $mimes['otf'] = 'font/otf';
+        $mimes['ttf'] = 'font/ttf';
         $mimes['woff'] = 'font/woff';
         $mimes['woff2'] = 'font/woff2';
         $mimes['json'] = 'application/json';
-        $mimes['ics']  = 'text/calendar';
-        $mimes['csv']  = 'text/csv';
-        $mimes['xml']  = 'application/xml';
+        $mimes['ics'] = 'text/calendar';
+        $mimes['csv'] = 'text/csv';
+        $mimes['xml'] = 'application/xml';
         $mimes['webm'] = 'video/webm';
-        $mimes['mp4']  = 'video/mp4';
-        $mimes['mp3']  = 'audio/mpeg';
+        $mimes['mp4'] = 'video/mp4';
+        $mimes['mp3'] = 'audio/mpeg';
 
         return $mimes;
     }
@@ -123,14 +124,14 @@ class Support
                 'application/octet-stream',
                 'application/zip',
                 'application/msword',
-                'application/x-dotx'
+                'application/x-dotx',
             ];
 
             $realMime = mime_content_type($file);
 
             if (in_array($realMime, $allowedMimes, true)) {
                 return [
-                    'ext'  => 'dotx',
+                    'ext' => 'dotx',
                     'type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
                     'proper_filename' => $filename,
                 ];
@@ -152,7 +153,7 @@ class Support
     public function allowMultipleDwgMimeTypes($data, $file, $filename, $mimes)
     {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        
+
         if (strtolower($ext) === 'dwg') {
             $allowedMimes = [
                 'image/vnd.dwg',
@@ -163,7 +164,7 @@ class Support
                 'application/dwg',
                 'application/x-dwg',
                 'application/x-autocad',
-                'drawing/dwg'
+                'drawing/dwg',
             ];
 
             // Get actual MIME type
@@ -171,7 +172,7 @@ class Support
 
             if (in_array($realMime, $allowedMimes, true)) {
                 return [
-                    'ext'  => 'dwg',
+                    'ext' => 'dwg',
                     'type' => 'image/vnd.dwg', // pick a consistent one for WP
                     'proper_filename' => $filename,
                 ];
@@ -192,7 +193,7 @@ class Support
         if (isset($wp_post_types['post'])) {
             if (function_exists('get_field') && get_field('disable_default_blog_post_type', 'option')) {
                 add_action('admin_menu', function () {
-                     remove_menu_page('edit.php');
+                    remove_menu_page('edit.php');
                 });
 
                 add_action('wp_before_admin_bar_render', function () {
@@ -254,7 +255,7 @@ class Support
             'gallery',
             'caption',
             'style',
-            'script'
+            'script',
         ));
 
         add_theme_support(
@@ -268,8 +269,8 @@ class Support
                 'status',
                 'video',
                 'audio',
-                'chat'
-            )
+                'chat',
+            ),
         );
         add_theme_support('customize-selective-refresh-widgets');
     }
@@ -279,9 +280,14 @@ class Support
      */
     public static function removeTheGenerator()
     {
-        add_filter('the_generator', function ($a, $b) {
-            return '';
-        }, 9, 2);
+        add_filter(
+            'the_generator',
+            function ($a, $b) {
+                return '';
+            },
+            9,
+            2,
+        );
         remove_filter('update_footer', 'core_update_footer');
     }
 
@@ -327,11 +333,7 @@ class Support
     {
         global $wp_query;
 
-        if (
-            (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES)
-            ||
-            (get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES))
-        ) {
+        if (defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') && !MUNICIPIO_BLOCK_AUTHOR_PAGES || get_field('page_link_to_author_archive', 'option') === true && (!defined('MUNICIPIO_BLOCK_AUTHOR_PAGES') || MUNICIPIO_BLOCK_AUTHOR_PAGES)) {
             return;
         }
 
@@ -340,9 +342,9 @@ class Support
         }
 
         if (is_feed()) {
-            $author     = get_query_var('author_name');
+            $author = get_query_var('author_name');
             $attachment = get_query_var('attachment');
-            $attachment = (empty($attachment)) ? get_query_var('attachment_id') : $attachment;
+            $attachment = empty($attachment) ? get_query_var('attachment_id') : $attachment;
 
             if (!empty($author) || !empty($attachment)) {
                 $wp_query->set_404();

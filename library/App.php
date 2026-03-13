@@ -251,6 +251,8 @@ class App
          */
         (new \Municipio\StyleguideCss\StyleguideCssFeature($this->wpService))->addHooks();
 
+        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
+
         /**
          * Block customizations
          */

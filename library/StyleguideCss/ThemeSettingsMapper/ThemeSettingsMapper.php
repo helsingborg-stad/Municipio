@@ -27,10 +27,15 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'drop_shadow_amount' => '--shadow-amount',
         'radius_md' => '--border-radius',
         'container' => '--container-width',
+        'footer_logotype_height' => '--c-footer--logotype-height',
+        'color_button_primary.base' => '--c-button--color--primary',
+        'color_button_primary.contrasting' => '--c-button--color--primary-contrast',
     ];
 
     public function map(array $themeSettings): array
     {
+        // echo '<pre>' . print_r($themeSettings, true) . '</pre>';
+        // die();
         $cssVariables = [];
 
         foreach (self::THEME_SETTING_TO_CSS_VARIABLE_MAP as $themeSettingKey => $cssVariableName) {
