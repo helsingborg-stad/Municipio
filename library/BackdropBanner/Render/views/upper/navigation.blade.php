@@ -4,17 +4,23 @@
         'o-layout-grid--cq',
         'backdrop-banner__navigation',
         'o-container',
-        'u-padding__y--4'
     ],
+    'attributeList' => [
+        'data-js-backdrop-banner-navigation' => 'true'
+    ]
 ])
     @element([
-        'classList' => ['backdrop-banner__navigation-container']
+        'classList' => ['backdrop-banner__navigation-container'],
     ])
         @foreach($rows as $index => $row)
             @link([
                 'componentElement' => 'div',
                 'href' => !empty($row['url']) ? $row['url'] : null,
                 'classList' => ['backdrop-banner__navigation-item', 'u-no-decoration'],
+                'attributeList' => [
+                    'data-js-backdrop-banner-navigation-item' => 'true',
+                    'data-js-backdrop-banner-image-url' => $row['imageUrl'] ?? ''
+                ]
             ])
                 @element([
                     'componentElement' => 'div',

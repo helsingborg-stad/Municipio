@@ -1,9 +1,15 @@
+import BackgroundImage from './background-image';
+import NavigationItem from './navigation-item';
 
-console.log("Backdrop banner script loaded");
-const backdropBanners = document.querySelectorAll(".wp-block-municipio-backdrop-banner");
-backdropBanners.forEach((backdropBanner) => {
-    const imageUrl = backdropBanner.getAttribute("data-image-url");
-    if (imageUrl) {
-        console.log("Setting backdrop banner image:", imageUrl);
-    }
+document.querySelectorAll<HTMLElement>('[data-js-backdrop-banner]').forEach((backdropBanner) => {
+    const navigationItems = backdropBanner.querySelectorAll<HTMLElement>('[data-js-backdrop-banner-navigation-item]');
+    const backdropBannerImageFront = backdropBanner.querySelector<HTMLElement>('[data-js-backdrop-banner-image-front]');
+    const backdropBannerImageBack = backdropBanner.querySelector<HTMLElement>('[data-js-backdrop-banner-image-back]');
+
+    if (!backdropBannerImageFront || !backdropBannerImageBack) return;
+
+    const backgroundImage = new BackgroundImage(backdropBannerImageFront, backdropBannerImageBack);
+    navigationItems.forEach(navItem => {
+        new NavigationItem(navItem, backgroundImage);
+    });
 });

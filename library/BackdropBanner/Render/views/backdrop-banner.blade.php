@@ -1,12 +1,33 @@
 @element([
     'classList' => ['backdrop-banner'],
+    'attributeList' => [
+        'data-js-backdrop-banner' => 'true'
+    ]
 ])
     @element([
         'classList' => ['backdrop-banner__top', 'u-position--relative'],
         'attributeList' => [
-            'style' => 'background-image: url(' . $startImage . ');'
+            'data-js-backdrop-banner-top' => 'true',
         ]
     ])
+        @element([
+            'classList' => ['backdrop-banner__image-front'],
+            'attributeList' => [
+                'data-js-backdrop-banner-image-front' => 'true',
+                'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . ')',
+            ]
+        ])
+            <!-- Image -->
+        @endelement
+        @element([
+            'classList' => ['backdrop-banner__image-back'],
+            'attributeList' => [
+                'data-js-backdrop-banner-image-back' => 'true',
+                'style' => '--backdrop-banner-image: #',
+            ]
+        ])
+            <!-- Image -->
+        @endelement
         @includeWhen(!empty($rows), 'upper.navigation')
     @endelement
 @endelement

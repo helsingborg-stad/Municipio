@@ -1,8 +1,36 @@
-/* Top area */
 .backdrop-banner__top {
-    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.35) 25%,
+        rgba(0,0,0,0.15) 30%,
+        rgba(0,0,0,0.00) 50%
+    );
+}
+
+.backdrop-banner__image-front,
+.backdrop-banner__image-back {
+    position: absolute;
+    inset: 0;
+    background-image: var(--backdrop-banner-image, '#');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    transition: opacity .5s ease;
+}
+
+.backdrop-banner__image-front {
+    z-index: -1;
+    opacity: 1;
+}
+
+.backdrop-banner__image-back {
+    z-index: -2;
+    opacity: 0;
 }
 
 .backdrop-banner__navigation {
@@ -11,12 +39,28 @@
             grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
             grid-auto-rows: minmax(100%, auto);
         }
+
+        .backdrop-banner__navigation-item {
+            padding: calc(var(--base, 8px) * 8) calc(var(--base, 8px) * 2);
+            z-index: 2000;
+
+            &:nth-child(1),
+            &:nth-child(2) {
+                border-bottom-color: transparent;
+            }
+
+            &:nth-child(4),
+            &:nth-child(3) {
+                margin-top: 0;
+            }
+        }
     }
 }
 
 .backdrop-banner__navigation-container {
     height: 100%;
     width: 100%;
+    position: relative;
     display: grid;
     height: min(40rem, 70vh);
     grid-template-columns: repeat(2, 1fr);
@@ -24,20 +68,33 @@
 }
 
 .backdrop-banner__navigation-item {
+    z-index: 1;
     display: flex;
     align-items: end;
     height: 100%;
     overflow: hidden;
-}
+    padding: calc(var(--base, 8px) * 4) calc(var(--base, 8px) * 2);
+    border: .5px solid rgba(255, 255, 255, 0.20);
+    border-top: transparent;
+    background: transparent;
+    transition: .2s backdrop-filter ease-out, .2s background ease-out;
+    margin-left: -1px;
+    z-index: 1;
 
-.backdrop-banner__navigation-item-container {
-    display: grid;
-    grid-template-rows: auto 0fr;
-    transition: grid-template-rows .2s ease;
-    width: 100%;
+    &:nth-child(4),
+    &:nth-child(3) {
+        border-bottom-color: transparent;
+        margin-top: -1px;
+    }
 }
 
 .backdrop-banner__navigation-item:hover {
+    backdrop-filter: blur(calc(var(--base, 8px) * 3)) brightness(1.1);
+    background: rgba(255, 255, 255, 0.08);
+    outline: 2px solid rgba(255, 255, 255, 0.15);
+    outline-offset: -2px;
+    z-index: 10;
+
     .backdrop-banner__navigation-item-container {
         grid-template-rows: auto 1fr;
     }
@@ -46,6 +103,13 @@
         opacity: 1;
         transform: scaleY(1);
     }
+}
+
+.backdrop-banner__navigation-item-container {
+    display: grid;
+    grid-template-rows: auto 0fr;
+    transition: grid-template-rows .2s ease;
+    width: 100%;
 }
 
 /*
@@ -65,5 +129,5 @@
     transform-origin: bottom;
     opacity: 0;
     transform: scaleY(0);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.3s ease;
 }
