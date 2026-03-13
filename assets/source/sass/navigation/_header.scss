@@ -1,10 +1,7 @@
 @use "sass:map";
-@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
 
-$brand-height: calc(var(--c-header-logotype-height, 6) * #{variables.$base});
+$brand-height: calc(var(--c-header-logotype-height, 6) * var(--base, 8px));
 $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
-$c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
 
 //Spacing
 .c-header .c-header__flex-content {
@@ -12,7 +9,7 @@ $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
     justify-content: space-between;
     align-items: center;
     align-content: center;
-    gap: calc((#{variables.$base} * 2));
+    gap: calc((var(--base) * 2));
 
     //Remove auto space between buttons, rely on gap
     .c-button + .c-button {
@@ -34,7 +31,7 @@ $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
     line-height: 0; // Prevents space below svg.
 
     &__text {
-        color: $brand-text-color;
+        color: var(--color--primary);
     }
 
     &__viewbox {
@@ -42,7 +39,7 @@ $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
         max-width: 100%;
 
         .c-brand__container {
-            height: calc(variables.$base * 12.5);
+            height: calc(var(--base) * 12.5);
         }
     }
 
@@ -64,7 +61,7 @@ body.mega-menu-open.mega-menu-mobile {
 }
 
 #sticky-header {
-    z-index: variables.$level-6;
+    z-index: 6;
 }
 
 /* Remove body scroll */
@@ -87,10 +84,10 @@ body.mega-menu-open {
             }
 
             .c-megamenu__menu {
-                max-height: calc(100vh - (variables.$base * 20));
+                max-height: calc(100vh - (var(--base) * 20));
                 overflow: scroll;
-                padding-bottom: calc(variables.$base * 4);
-                padding-top: calc(variables.$base * 4);
+                padding-bottom: calc(var(--base) * 4);
+                padding-top: calc(var(--base) * 4);
             }
         }
 
@@ -110,32 +107,4 @@ body.mega-menu-open {
     &.sticky-header {
         overflow: hidden;
     }
-}
-
-.site-header:not(.c-header--business) .s-header-button {
-    .c-button__label {
-        color: $c-nav-h-color-contrasting;
-    }
-}
-
-@include mq.mq(map.get(variables.$breakpoints-map, "xs"), map.get(variables.$breakpoints-map, "md")) {
-    #sticky-header {
-        .c-nav {
-            flex-direction: column;
-        }
-    }
-}
-
-@include mq.mq(md) {
-    #sticky-header.c-header {
-        position: sticky;
-        top: 0;
-        width: 100%;
-    }
-
-    .admin-bar {
-        #sticky-header.c-header {
-            top: 32px; 
-        }
-    } 
 }

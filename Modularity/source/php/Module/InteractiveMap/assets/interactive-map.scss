@@ -1,7 +1,7 @@
-$color-primary: var(--color-primary, #ae0b05) !default;
-$color-primary-contrasting: var(--color-primary-contrasting, #fff) !default;
-$color-secondary: var(--color-secondary, #ec6701) !default;
-$color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
+$color-primary: var(--color--primary, #ae0b05) !default;
+$color-primary-contrasting: var(--color--primary-contrast, #fff) !default;
+$color-secondary: var(--color--secondary, #ec6701) !default;
+$color-secondary-contrasting: var(--color--secondary-contrast, #fff) !default;
 
 @use "@helsingborg-stad/openstreetmap/dist/main.css";
 

@@ -1,4 +1,4 @@
-@use "@helsingborg-stad/styleguide/source/sass/mixin/ratio";
+@use "sass:string";
 
 .embed {
 	overflow: hidden;
@@ -8,11 +8,11 @@
 
 	&.embed__ratio {
 		&--1-1 {
-			@include ratio.ratio(1, 1, false);
+			padding: string.unquote( calc(1 / 1) * 100 + "%" );
 		}
 
 		&--16-9 {
-			@include ratio.ratio(16, 9, false);
+			padding: string.unquote( calc(16 / 9) * 100 + "%" );
 		}
 
 	}

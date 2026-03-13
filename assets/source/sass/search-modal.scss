@@ -1,30 +1,24 @@
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
-
-$t-search-modal-breakpoint: 600px;
-
 .t-search-modal {
   .t-search-modal__label {
     color: #fff;
   }
 
   .c-modal__content {
+    container-name: search-modal;
+    container-type: inline-size;
     margin: auto;
     padding: 0;
     width: clamp(320px, 80%, 500px);
   }
 
   &__form {
-    padding: calc(variables.$base * 2);
+    padding: calc(var(--space) * 2);
     display: grid;
     grid-template-areas: 
       "label"
       "field"
       "submit";
-    gap: calc(variables.$base * 1.5) 0;
-
-    > * {
-      filter: variables.$drop-shadow-2;
-    }
+    gap: calc(var(--space) * 1.5) 0;
   }
 
   &__label {
@@ -44,21 +38,18 @@ $t-search-modal-breakpoint: 600px;
     grid-area: submit;
   }
 
-  // Media query for screens smaller than the breakpoint (450px)
-  @media (max-width: $t-search-modal-breakpoint) {
-    .t-search-modal__form {
-      grid-template-areas: 
-        "label"
-        "field"
-        "submit";
-    }
-
-    .t-search-modal__submit {
-      grid-area: submit;
-    }
+  .t-search-modal__form {
+    grid-template-areas: 
+      "label"
+      "field"
+      "submit";
   }
 
-  @media (min-width: calc($t-search-modal-breakpoint + 1px)) {
+  .t-search-modal__submit {
+    grid-area: submit;
+  }
+
+  @container search-modal (min-width: 400px) {
     .t-search-modal__form {
       grid-template-areas: 
         "label label"
@@ -84,19 +75,6 @@ $t-search-modal-breakpoint: 600px;
     .t-search-modal__submit * {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-    }
-
-
-    .t-search-modal__field,
-    .t-search-modal__field * {
-      border-top-left-radius: variables.$border-radius-sm;
-      border-bottom-left-radius: variables.$border-radius-sm;
-    }
-
-    .t-search-modal__submit,
-    .t-search-modal__submit * {
-      border-top-right-radius: variables.$border-radius-sm;
-      border-bottom-right-radius: variables.$border-radius-sm;
     }
   }
 }

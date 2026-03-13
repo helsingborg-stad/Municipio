@@ -247,6 +247,13 @@ class App
         new \Municipio\Customizer($this->wpService, $this->wpdb);
 
         /**
+         * Map theme mods to css vars for the styleguide, this is needed to make sure that the styleguide can use the same css vars as the rest of the theme.
+         */
+        (new \Municipio\StyleguideCss\StyleguideCssFeature($this->wpService))->addHooks();
+
+        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
+
+        /**
          * Block customizations
          */
         new \Municipio\Blocks\Columns();

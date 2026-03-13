@@ -16,7 +16,7 @@
         @endtypography
 
         @if ($subheading && !empty($subheading))
-            @typography(["classList" => ["c-typhography--401-subheading"]])
+            @typography(["variant" => "h6"])
                 {{ $subheading }}
             @endtypography
         @endif
