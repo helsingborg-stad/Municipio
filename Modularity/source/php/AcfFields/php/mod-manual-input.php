@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_64ff22b117e2c',
     'title' => __('Manual Input Data', 'municipio'),
     'fields' => array(
@@ -1034,7 +1036,7 @@
                     'return_format' => 'string',
                     'allow_in_bindings' => 0,
                     'show_custom_palette' => 1,
-                    'palette_colors' => '#ff0000,#00ff00,#0000ff',
+                    'palette_colors' => '',
                     'show_color_wheel' => 0,
                     'custom_palette_source' => '',
                     'parent_repeater' => 'field_64ff22b2d91b7',
@@ -1069,4 +1071,5 @@
     'show_in_rest' => 0,
     'display_title' => '',
 ));
-}
+
+}
