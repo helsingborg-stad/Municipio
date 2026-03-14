@@ -78,14 +78,13 @@ class ManualInput extends \Modularity\Module
                 // Custom background color
                 $customBackgroundColor = ($fields['use_custom_card_color'] ?? false)
                     && !empty($input['custom_background_color'])
-                    && str_contains($input['custom_background_color'], '::')
-                    ? explode('::', $input['custom_background_color'])[0]
+                    ? $input['custom_background_color']
                     : false;
 
                 // Custom text color
                 $customTextColor = $customBackgroundColor
                     ? \Municipio\Helper\Color::getBestContrastColor(
-                        explode('::', $input['custom_background_color'])[1],
+                        $input['custom_background_color'],
                         false,
                     )
                     : false;
