@@ -2,10 +2,8 @@
 
 namespace Municipio\Admin\Acf;
 
-use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\GetPostType;
 
 /**
  * Class PrefillColor
@@ -18,7 +16,7 @@ class PrefillColor
     /**
      * Add filter to specified fields
      */
-    public function __construct(private AddFilter&ApplyFilters&GetPostType&AddAction $wpService)
+    public function __construct(private ApplyFilters&AddAction $wpService)
     {
         $fieldNames = $this->wpService->applyFilters('Municipio/Admin/Acf/PrefillColor', [
             'custom_background_color',
