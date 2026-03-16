@@ -45,12 +45,12 @@
 		"landrok/language-detector": "dev-master",
 		"league/commonmark": "2.7.0",
 		"league/config": "1.1.1",
-		"helsingborg-stad/component-library": "4.65.8",
+		"helsingborg-stad/component-library": "5.2.0",
 		"freshleafmedia/autofocus": "^1.0",
 		"astrotomic/php-deepface": "^0.4.0",
 		"helsingborg-stad/kirki": "^5.2",
 		"helsingborg-stad/wputilservice": "^0.2.44",
-		"helsingborg-stad/styleguide": "2.167.4"
+		"helsingborg-stad/styleguide": "2.190.11"
 	},
 	"scripts": {
 		"test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
