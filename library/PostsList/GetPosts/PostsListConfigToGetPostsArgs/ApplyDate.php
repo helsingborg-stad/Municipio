@@ -55,7 +55,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         $column = $config->getDateSource();
 
-        return ($config->getDateFrom() || $config->getDateTo()) && in_array($column, ['post_date', 'post_modified']);
+        return in_array($column, ['post_date', 'post_modified']);
     }
 
     /**
@@ -86,7 +86,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         $column = $config->getDateSource();
         $invalidDateSourceValues = ['post_date', 'post_modified', 'none', null, ''];
-        return !in_array($column, $invalidDateSourceValues, true) && ($config->getDateFrom() || $config->getDateTo());
+        return !in_array($column, $invalidDateSourceValues, true);
     }
 
     /**
@@ -97,14 +97,21 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function buildMetaQuery(GetPostsConfigInterface $config): array
     {
-        $dateFrom = $config->getDateFrom();
-        $dateTo = $config->getDateTo();
+        $dateFrom = $config->getDateFrom() ?: false;
+        $dateTo = $config->getDateTo() ?: false;
 
         $dateFrom = $dateFrom ? date('Y-m-d 00:00:00', strtotime($dateFrom)) : null;
         $dateTo = $dateTo ? date('Y-m-d 23:59:59', strtotime($dateTo)) : null;
 
+        if (is_null($dateFrom) && is_null($dateTo)) {
+            $dateFrom = '0001-01-01 00:00:00';
+            $dateTo = '9999-12-31 23:59:59';
+            $compare = 'BETWEEN';
+        } else {
+            $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
+        }
+
         $value = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
-        $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
 
         return [
             self::META_QUERY_KEY => [

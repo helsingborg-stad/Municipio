@@ -98,10 +98,6 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
             return false;
         }
 
-        if (is_null($config->getDateFrom()) && is_null($config->getDateTo())) {
-            return false;
-        }
-
         return true;
     }
 }
