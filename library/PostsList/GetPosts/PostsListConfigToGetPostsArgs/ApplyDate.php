@@ -9,7 +9,6 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
  */
 class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
 {
-    public const META_QUERY_KEY = 'date_clause';
 
     /**
      * Apply date from posts list config to get posts args
@@ -55,7 +54,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
     {
         $column = $config->getDateSource();
 
-        return ($config->getDateFrom() || $config->getDateTo()) && in_array($column, ['post_date', 'post_modified']);
+        return in_array($column, ['post_date', 'post_modified']);
     }
 
     /**
@@ -84,9 +83,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function shouldApplyMetaQuery(GetPostsConfigInterface $config): bool
     {
-        $column = $config->getDateSource();
-        $invalidDateSourceValues = ['post_date', 'post_modified', 'none', null, ''];
-        return !in_array($column, $invalidDateSourceValues, true) && ($config->getDateFrom() || $config->getDateTo());
+        return DateClauseBuilder::shouldApplyDateMetaQuery($config->getDateSource());
     }
 
     /**
@@ -97,22 +94,14 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function buildMetaQuery(GetPostsConfigInterface $config): array
     {
-        $dateFrom = $config->getDateFrom();
-        $dateTo = $config->getDateTo();
-
-        $dateFrom = $dateFrom ? date('Y-m-d 00:00:00', strtotime($dateFrom)) : null;
-        $dateTo = $dateTo ? date('Y-m-d 23:59:59', strtotime($dateTo)) : null;
-
-        $value = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
-        $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
+        $dateClause = DateClauseBuilder::buildDateMetaQueryClause($config);
+        
+        if (empty($dateClause)) {
+            return [];
+        }
 
         return [
-            self::META_QUERY_KEY => [
-                'key' => $config->getDateSource(),
-                'value' => $value,
-                'compare' => $compare,
-                'type' => 'DATETIME',
-            ],
+            MetaQueryKeys::DATE_CLAUSE => $dateClause,
         ];
     }
 }

@@ -12,12 +12,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesDate(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return '2022-01-20';
             }
@@ -34,12 +34,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesOnlyFromIfSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return null;
             }
@@ -56,12 +56,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesOnlyToIfSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return null;
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return '2022-01-20';
             }
@@ -78,12 +78,17 @@ class ApplyDateTest extends TestCase
     public function testAppliesNothingIfNotSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateSource(): string
+            {
+                return '';
+            }
+
+            public function getDateFrom(): ?string
             {
                 return null;
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return null;
             }
@@ -95,16 +100,54 @@ class ApplyDateTest extends TestCase
         $this->assertEquals([], $result);
     }
 
+    #[TestDox('queries by beginning of time to end of time if date source is set but from and to is not set')]
+    public function testQueriesByBeginningOfTimeToEndOfTimeIfDateSourceIsSetButFromAndToIsNotSet(): void
+    {
+        $config = new class extends DefaultGetPostsConfig {
+            public function getDateSource(): string
+            {
+                return 'custom_field';
+            }
+
+            public function getDateFrom(): ?string
+            {
+                return null;
+            }
+
+            public function getDateTo(): ?string
+            {
+                return null;
+            }
+        };
+
+        $applier = new ApplyDate();
+        $result = $applier->apply($config, []);
+
+        $this->assertEquals(
+            [
+                'meta_query' => [
+                    'date_clause' => [
+                        'key' => 'custom_field',
+                        'value' => ['0001-01-01 00:00:00', '9999-12-31 23:59:59'],
+                        'compare' => 'BETWEEN',
+                        'type' => 'DATETIME',
+                    ],
+                ],
+            ],
+            $result,
+        );
+    }
+
     #[TestDox('applies column if is post_date')]
     public function testAppliesColumnIfIsEitherPostDateOrPostModified(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return '2022-01-20';
             }
@@ -125,12 +168,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesColumnIfIsPostModified(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return '2022-01-20';
             }
@@ -151,12 +194,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesMetaQueryIfColumnIsNotKnown(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return '2022-01-20';
             }
@@ -190,12 +233,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesMetaQueryWithOnlyFromIfColumnIsCustomFieldAndToIsNotSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return '2022-01-01';
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return null;
             }
@@ -224,12 +267,12 @@ class ApplyDateTest extends TestCase
     public function testAppliesMetaQueryWithOnlyToIfColumnIsCustomFieldAndFromIsNotSet(): void
     {
         $config = new class extends DefaultGetPostsConfig {
-            public function getDateFrom(): null|string
+            public function getDateFrom(): ?string
             {
                 return null;
             }
 
-            public function getDateTo(): null|string
+            public function getDateTo(): ?string
             {
                 return '2022-01-20';
             }
