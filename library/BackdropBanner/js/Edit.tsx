@@ -6,9 +6,12 @@ import blockConfig from "../block.json";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
 export type BackdropBannerEditProps = BlockEditProps<BackdropBannerAttributes>;
+const NoAppender: ComponentType = () => null;
 
 export const Edit: ComponentType<BackdropBannerEditProps> = (props) => {
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps({
+		className: "t-block-container t-block-backdrop-banner",
+	});
 
 	return (
 		<div {...blockProps}>
@@ -17,10 +20,13 @@ export const Edit: ComponentType<BackdropBannerEditProps> = (props) => {
 				block={blockConfig.name}
 				attributes={props.attributes}
 			/>
-			<InnerBlocks
-				allowedBlocks={["municipio/backdrop-banner-row"]}
-				renderAppender={false}
-			/>
+			<div className="t-block-backdrop-banner__inner-area">
+				<InnerBlocks
+					allowedBlocks={["municipio/backdrop-banner-row"]}
+					orientation="horizontal"
+					renderAppender={NoAppender}
+				/>
+			</div>
 		</div>
 	);
 };
