@@ -62,4 +62,149 @@ html :where(.wp-block) {
       margin-left: #{variables.$base};
     }
   }
+
+  &.t-block-backdrop-banner {
+    .t-block-backdrop-banner__inner-area {
+      width: 100%;
+      max-width: min(100%, 1200px);
+      margin-inline: auto;
+      padding: calc(var(--base, 8px) * 2);
+      border: 1px solid #dcdcde;
+      border-radius: 8px;
+      background: #f6f7f7;
+      overflow: hidden;
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks {
+      width: 100%;
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(11rem, 14rem);
+      column-gap: calc(var(--base, 8px) * 2);
+      row-gap: calc(var(--base, 8px));
+      align-items: start;
+      overflow: hidden;
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block-municipio-backdrop-banner-row {
+      margin: 0;
+      min-width: 0;
+      grid-column: 2;
+      width: 100%;
+      opacity: 1;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block-municipio-backdrop-banner-row.is-selected,
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block-municipio-backdrop-banner-row.has-child-selected {
+      grid-column: 1;
+      grid-row: 1;
+      grid-row-end: span 4;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      border-color: #b5bcc4;
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout:not(:has(> .wp-block-municipio-backdrop-banner-row.is-selected, > .wp-block-municipio-backdrop-banner-row.has-child-selected)) > .wp-block-municipio-backdrop-banner-row:first-child {
+      grid-column: 1;
+      grid-row: 1;
+      grid-row-end: span 4;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      border-color: #b5bcc4;
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout:has(> .wp-block-municipio-backdrop-banner-row.is-selected, > .wp-block-municipio-backdrop-banner-row.has-child-selected) > .wp-block-municipio-backdrop-banner-row:not(.is-selected):not(.has-child-selected),
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout:not(:has(> .wp-block-municipio-backdrop-banner-row.is-selected, > .wp-block-municipio-backdrop-banner-row.has-child-selected)) > .wp-block-municipio-backdrop-banner-row:not(:first-child) {
+      align-self: start;
+      padding: calc(var(--base, 8px)) calc(var(--base, 8px) * 1.5);
+      background: #fff;
+      transform: translateX(0);
+
+      .t-block-backdrop-banner-row__header {
+        border-bottom: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .t-block-backdrop-banner-row__title {
+        margin: 0;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .t-block-backdrop-banner-row__description {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        margin: 0;
+        transition: max-height 220ms ease, opacity 180ms ease;
+      }
+
+      > .block-editor-inner-blocks {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: max-height 260ms ease, opacity 180ms ease;
+      }
+    }
+
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block-municipio-backdrop-banner-row.is-selected,
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout > .wp-block-municipio-backdrop-banner-row.has-child-selected,
+    .t-block-backdrop-banner__inner-area > .block-editor-inner-blocks > .block-editor-block-list__layout:not(:has(> .wp-block-municipio-backdrop-banner-row.is-selected, > .wp-block-municipio-backdrop-banner-row.has-child-selected)) > .wp-block-municipio-backdrop-banner-row:first-child {
+      padding: calc(var(--base, 8px) * 2);
+
+      .t-block-backdrop-banner-row__header {
+        border-bottom: 1px solid #f0f0f1;
+        margin-bottom: calc(var(--base, 8px) * 2);
+        padding-bottom: calc(var(--base, 8px) * 1.5);
+      }
+
+      .t-block-backdrop-banner-row__description {
+        max-height: calc(var(--base, 8px) * 12);
+        opacity: 1;
+      }
+
+      > .block-editor-inner-blocks {
+        max-height: 2000px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &.t-block-backdrop-banner-row {
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    background: #fff;
+    padding: calc(var(--base, 8px) * 2);
+
+    .t-block-backdrop-banner-row__header {
+      border-bottom: 1px solid #f0f0f1;
+      margin-bottom: calc(var(--base, 8px) * 2);
+      padding-bottom: calc(var(--base, 8px) * 1.5);
+    }
+
+    .t-block-backdrop-banner-row__title {
+      display: block;
+      margin-bottom: calc(var(--base, 8px) * 0.5);
+      font-size: 14px;
+    }
+
+    .t-block-backdrop-banner-row__description {
+      margin: 0;
+      color: #50575e;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    > .block-editor-inner-blocks > .block-editor-block-list__layout {
+      min-height: calc(var(--base, 8px) * 14);
+    }
+  }
 }
