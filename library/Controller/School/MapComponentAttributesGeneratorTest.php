@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Controller\School;
 
+use Municipio\Helper\RenderBladeView\RenderBladeViewInterface;
 use Municipio\Schema\Schema;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +27,7 @@ class MapComponentAttributesGeneratorTest extends TestCase
             Schema::place()->longitude(59.33), // Missing latitude
         ]);
 
-        $generator = new MapComponentAttributesGenerator($preschool);
+        $generator = new MapComponentAttributesGenerator($preschool, self::createRenderBladeView());
 
         $this->assertNull($generator->generate());
     }
@@ -35,25 +36,33 @@ class MapComponentAttributesGeneratorTest extends TestCase
     public function testGenerateReturnsValidPins(): void
     {
         $preschool = Schema::preschool()->location([
-            Schema::place()->latitude(59.33)->longitude(18.06)->address('Testgatan 1, 12345 Teststad'),
-            Schema::place()->latitude(60.00)->longitude(19.00)->address('Testgatan 2, 12345 Teststad'), // This one should be ignored
+            Schema::place()
+                ->latitude(59.33)
+                ->longitude(18.06)
+                ->address('Testgatan 1, 12345 Teststad'),
+            Schema::place()
+                ->latitude(60.00)
+                ->longitude(19.00)
+                ->address('Testgatan 2, 12345 Teststad'), // This one should be ignored
         ]);
-        $generator = new MapComponentAttributesGenerator($preschool);
-        $result    = $generator->generate();
+        $renderBladeView = self::createRenderBladeView('rendered content');
+        $generator = new MapComponentAttributesGenerator($preschool, $renderBladeView);
+        $result = $generator->generate();
 
         $expectedPins = [
-            [
-                'lat'     => 59.33,
-                'lng'     => 18.06,
-                'tooltip' => ['title' => 'Testgatan 1, 12345 Teststad'],
+            (object) [
+                'lat' => 59.33,
+                'lng' => 18.06,
+                'content' => 'rendered content',
             ],
-            [
-                'lat'     => 60.00,
-                'lng'     => 19.00,
-                'tooltip' => ['title' => 'Testgatan 2, 12345 Teststad'],
+            (object) [
+                'lat' => 60.00,
+                'lng' => 19.00,
+                'content' => 'rendered content',
             ],
         ];
-        $this->assertEquals($expectedPins, $result['pins']);
+
+        $this->assertEquals($expectedPins, $result['markers']);
     }
 
     #[TestDox('Generate method returns start position when valid coordinates are provided')]
@@ -63,10 +72,24 @@ class MapComponentAttributesGeneratorTest extends TestCase
             Schema::place()->latitude(59.33)->longitude(18.06),
             Schema::place()->latitude(60.00)->longitude(19.00),
         ]);
-        $generator = new MapComponentAttributesGenerator($preschool);
-        $result    = $generator->generate();
+        $generator = new MapComponentAttributesGenerator($preschool, self::createRenderBladeView());
+        $result = $generator->generate();
 
-        $this->assertIsFloat($result['startPosition']['lat']);
-        $this->assertIsFloat($result['startPosition']['lng']);
+        $this->assertIsFloat($result['lat']);
+        $this->assertIsFloat($result['lng']);
+    }
+
+    private static function createRenderBladeView(string $rendered = ''): RenderBladeViewInterface
+    {
+        return new class($rendered) implements RenderBladeViewInterface {
+            public function __construct(
+                private string $rendered,
+            ) {}
+
+            public function renderBladeView($view, $data = [], $overrideViewPaths = false, $formatError = true): string
+            {
+                return $this->rendered;
+            }
+        };
     }
 }

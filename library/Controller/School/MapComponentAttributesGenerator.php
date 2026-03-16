@@ -2,8 +2,9 @@
 
 namespace Municipio\Controller\School;
 
-use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf as EnsureArrayOfEnsureArrayOf;
+use Municipio\Helper\RenderBladeView\RenderBladeView;
+use Municipio\Helper\RenderBladeView\RenderBladeViewInterface;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Place;
 use Municipio\Schema\Preschool;
@@ -20,6 +21,7 @@ class MapComponentAttributesGenerator
      */
     public function __construct(
         private ElementarySchool|Preschool $school,
+        private RenderBladeViewInterface $renderBladeView = new RenderBladeView(),
     ) {}
 
     /**
@@ -62,7 +64,7 @@ class MapComponentAttributesGenerator
         return (object) [
             'lat' => $latitude,
             'lng' => $longitude,
-            'content' => render_blade_view('partials.schema.elementary-school.markerTooltipContent', ['title' => $place->getProperty('address')]),
+            'content' => $this->renderBladeView->renderBladeView('partials.schema.elementary-school.markerTooltipContent', ['title' => $place->getProperty('address')]),
         ];
     }
 
