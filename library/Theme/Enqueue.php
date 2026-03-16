@@ -33,6 +33,7 @@ class Enqueue implements Hookable
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueMaterialSymbols']);
         $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueMaterialSymbols'], 999);
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueFrontendScriptsAndStyles'], 5);
+        $this->wpService->addAction('enqueue_block_assets', [$this, 'enqueueFrontendStyles'], 5);
         $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScriptsAndStyles'], 999);
         $this->wpService->addAction(
             'customize_controls_enqueue_scripts',
@@ -116,6 +117,11 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/nav.js');
 
         //Other styles
+        $this->enqueueFrontendStyles();
+    }
+
+    public function enqueueFrontendStyles(): void
+    {
         $this->enqueue->add('css/styleguide.css');
         $this->enqueue->add('css/municipio.css');
         $this->enqueue->add('css/splide.css');

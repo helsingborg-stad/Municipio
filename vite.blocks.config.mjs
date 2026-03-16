@@ -1,10 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
 
-const entries = {
-	"js/posts-list-block": "./library/PostsList/Block/js/index.ts",
-};
-
 const externalDeps = {
 	react: "React",
 	"react-dom": "ReactDOM",
@@ -23,10 +19,10 @@ export default defineConfig(({ mode }) => {
 
 	return {
 		build: {
-			outDir: "assets/dist/blocks",
-			emptyOutDir: true,
+			outDir: "assets/dist/js",
+			emptyOutDir: false,
 			rollupOptions: {
-				input: entries,
+				input: { municipioBlocks: "./assets/source/js/blocks/index.ts" },
 				external: Object.keys(externalDeps),
 				output: {
 					format: "iife",

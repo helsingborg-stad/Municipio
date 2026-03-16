@@ -9,7 +9,7 @@
 	"description": "A block to display a list of posts.",
 	"example": {},
 	"render": "file:./render.php",
-	"editorScript": "file:./../../../assets/dist/blocks/js/posts-list-block.js",
+	"editorScript": "file:./../../../assets/dist/js/municipioBlocks.js",
 	"supports": {
 		"html": false,
 		"anchor": true
