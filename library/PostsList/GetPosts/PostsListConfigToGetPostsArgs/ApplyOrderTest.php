@@ -151,7 +151,7 @@ class ApplyOrderTest extends TestCase
         $this->assertEquals(
             [
                 'orderby' => [
-                    ApplyDate::META_QUERY_KEY => $getPostsConfig->getOrder()->value,
+                    MetaQueryKeys::DATE_CLAUSE => $getPostsConfig->getOrder()->value,
                 ],
             ],
             $args,

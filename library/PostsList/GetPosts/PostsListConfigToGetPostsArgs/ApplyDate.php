@@ -9,7 +9,6 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
  */
 class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
 {
-    public const META_QUERY_KEY = 'date_clause';
 
     /**
      * Apply date from posts list config to get posts args
@@ -84,9 +83,7 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function shouldApplyMetaQuery(GetPostsConfigInterface $config): bool
     {
-        $column = $config->getDateSource();
-        $invalidDateSourceValues = ['post_date', 'post_modified', 'none', null, ''];
-        return !in_array($column, $invalidDateSourceValues, true);
+        return DateClauseBuilder::shouldApplyDateMetaQuery($config->getDateSource());
     }
 
     /**
@@ -97,29 +94,14 @@ class ApplyDate implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     private function buildMetaQuery(GetPostsConfigInterface $config): array
     {
-        $dateFrom = $config->getDateFrom() ?: false;
-        $dateTo = $config->getDateTo() ?: false;
-
-        $dateFrom = $dateFrom ? date('Y-m-d 00:00:00', strtotime($dateFrom)) : null;
-        $dateTo = $dateTo ? date('Y-m-d 23:59:59', strtotime($dateTo)) : null;
-
-        if (is_null($dateFrom) && is_null($dateTo)) {
-            $dateFrom = '0001-01-01 00:00:00';
-            $dateTo = '9999-12-31 23:59:59';
-            $compare = 'BETWEEN';
-        } else {
-            $compare = $dateFrom && $dateTo ? 'BETWEEN' : ($dateFrom ? '>=' : '<=');
+        $dateClause = DateClauseBuilder::buildDateMetaQueryClause($config);
+        
+        if (empty($dateClause)) {
+            return [];
         }
 
-        $value = $dateFrom && $dateTo ? [$dateFrom, $dateTo] : ($dateFrom ?: $dateTo);
-
         return [
-            self::META_QUERY_KEY => [
-                'key' => $config->getDateSource(),
-                'value' => $value,
-                'compare' => $compare,
-                'type' => 'DATETIME',
-            ],
+            MetaQueryKeys::DATE_CLAUSE => $dateClause,
         ];
     }
 }

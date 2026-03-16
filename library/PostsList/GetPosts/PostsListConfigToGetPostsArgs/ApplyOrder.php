@@ -23,6 +23,11 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
      */
     public function apply(GetPostsConfigInterface $config, array $args): array
     {
+        // Ensure date clause exists if we'll need it for ordering
+        if ($this->willNeedDateClauseForOrdering($config)) {
+            $args = DateClauseBuilder::ensureDateClauseForOrdering($args, $config);
+        }
+
         return [
             ...$args,
             ...$this->getOrderByArgs($config),
@@ -80,7 +85,7 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         if ($this->shouldUseDateClause($orderBy, $config)) {
             return [
                 'orderby' => [
-                    ApplyDate::META_QUERY_KEY => $config->getOrder()->value,
+                    MetaQueryKeys::DATE_CLAUSE => $config->getOrder()->value,
                 ],
             ];
         }
@@ -99,5 +104,26 @@ class ApplyOrder implements ApplyPostsListConfigToGetPostsArgsInterface
         }
 
         return true;
+    }
+
+    /**
+     * Check if we will need a date clause for ordering
+     *
+     * @param GetPostsConfigInterface $config
+     * @return bool
+     */
+    private function willNeedDateClauseForOrdering(GetPostsConfigInterface $config): bool
+    {
+        $orderBy = $config->getOrderBy();
+        $validPostTableFields = ['title', 'date', 'modified'];
+        $normalizedOrderBy = $this->normalizePostTableFieldName($orderBy);
+
+        // We don't need date clause for post table fields
+        if (in_array($normalizedOrderBy, $validPostTableFields, true)) {
+            return false;
+        }
+
+        // Check if this is a custom field that would use date clause
+        return $this->shouldUseDateClause($normalizedOrderBy, $config);
     }
 }
