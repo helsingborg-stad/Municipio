@@ -43,7 +43,7 @@
 		"enshrined/svg-sanitize": "dev-master",
 		"helsingborg-stad/acf-select-image-field": "1.6.1",
 		"landrok/language-detector": "dev-master",
-		"league/commonmark": "2.7.0",
+		"league/commonmark": "2.8.1",
 		"league/config": "1.1.1",
 		"helsingborg-stad/component-library": "5.2.0",
 		"freshleafmedia/autofocus": "^1.0",
