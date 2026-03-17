@@ -23,7 +23,7 @@
             'style' => 'max-width: 800px;'
         ]
     ])
-        @typography(['element' => 'h1', 'variant' => 'h1'])
+        @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__top--0']])
             {!! $post->getTitle() !!}
         @endtypography
         @if(!empty($description))

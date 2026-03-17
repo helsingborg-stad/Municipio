@@ -109,11 +109,12 @@ $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !d
         color: $color-primary;
         border-bottom: 2px solid $color-primary;
     }
-
+    
     .mod-menu__heading-label {
         width: 100%;
         margin-top: 0;
         transition: transform .2s ease-in-out;
+        --inherit-font-size: var(--font-size-300);
     }
 
     a:hover {

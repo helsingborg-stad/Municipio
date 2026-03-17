@@ -21,7 +21,6 @@
                 'attributeList' => [
                     'style' => 'grid-template-columns: auto 1fr;'
                 ],
-                'gap' => 1
             ])
                 @includeWhen(!empty($menuItem['icon']['icon']), 'menus.listing.partials.icon')
                 @includeWhen(!empty($menuItem['label']), 'menus.listing.partials.parent')
