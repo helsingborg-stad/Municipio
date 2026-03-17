@@ -11,15 +11,9 @@
             'name'          => 's',
             'required'      => false,
             'size'          => 'sm',
-            'radius'        => 'sm',
-            'borderless'    => true,
             'label'         => $lang->searchQuestion,
             'hideLabel'     => true,
             'icon'          => ['icon' => 'search'],
-            'classList'     => [
-                'u-flex-grow--1',
-                'u-box-shadow--1',
-            ]
         ])
         @endfield
 
