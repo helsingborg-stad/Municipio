@@ -2,12 +2,6 @@ import { MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
 import { Button } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
-type ImageControlProps = {
-	imageId: number;
-	imageUrl: string;
-	onChange: (imageId: number, imageUrl: string) => void;
-};
-
 export const ImageControl: React.FC<ImageControlProps> = ({
 	imageId,
 	imageUrl,

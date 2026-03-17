@@ -7,7 +7,7 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 );
 
 const entries = {
-	"css/splide": "./node_modules/@splidejs/splide/dist/css/splide-core.min.css",
+	// "css/splide": "./node_modules/@helsingborg-stad/node_modules/@splidejs/splide/dist/css/splide-core.min.css",
 	"css/styleguide":
 		"./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss",
 	"js/styleguide":
@@ -47,8 +47,8 @@ const entries = {
 
 	/* Blocks */
 	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
-	"css/backdrop-banner":
-		"./library/BackdropBanner/js/Front/backdrop-banner.scss",
+	"css/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.scss",
+	"css/backdrop-banner-editor": "./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",

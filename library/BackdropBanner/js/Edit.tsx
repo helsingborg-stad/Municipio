@@ -1,14 +1,51 @@
 import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
-import type { BlockEditProps } from "@wordpress/blocks";
 import ServerSideRender from "@wordpress/server-side-render";
 import type { ComponentType } from "react";
+import { useEffect } from "react";
 import blockConfig from "../block.json";
+import { useSelectedBackdropBannerBlock } from "./block-listener";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
+import { BackdropBannerEditProps } from "./types";
 
-export type BackdropBannerEditProps = BlockEditProps<BackdropBannerAttributes>;
 const NoAppender: ComponentType = () => null;
 
 export const Edit: ComponentType<BackdropBannerEditProps> = (props) => {
+	const { selectedBlockClientId, selectedBlockName, isWithinBanner } =
+		useSelectedBackdropBannerBlock(props.clientId);
+
+	useEffect(() => {
+		const styleId = 'custom-popover-style';
+		let styleTag = document.getElementById(styleId) as HTMLStyleElement | null;
+
+		const shouldHide =
+			isWithinBanner &&
+			selectedBlockName === "municipio/backdrop-banner-row" &&
+			selectedBlockClientId;
+
+		if (shouldHide) {
+			if (!styleTag) {
+				styleTag = document.createElement('style');
+				styleTag.id = styleId;
+				document.head.appendChild(styleTag);
+			}
+
+			styleTag.textContent = `
+				.components-popover {
+					display: none !important;
+				}
+			`;
+		} else {
+			if (styleTag) {
+				styleTag.remove();
+			}
+		}
+
+		return () => {
+			const existing = document.getElementById(styleId);
+			if (existing) existing.remove();
+		};
+	}, [isWithinBanner, selectedBlockName, selectedBlockClientId]);
+
 	const blockProps = useBlockProps({
 		className: "t-block-container t-block-backdrop-banner",
 	});

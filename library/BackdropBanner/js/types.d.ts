@@ -15,3 +15,12 @@ declare global {
 		rows: RowItem[];
 	};
 }
+
+export type BackdropBannerEditProps = BlockEditProps<BackdropBannerAttributes>;
+
+export type SelectedBackdropBannerBlock = {
+	selectedBlockClientId: string | null;
+	selectedBlockName: string | null;
+	selectedRowClientId: string | null;
+	isWithinBanner: boolean;
+};

@@ -1,6 +1,6 @@
 import { Button, PanelBody } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import type { BackdropBannerEditProps } from "../../Edit";
+import { BackdropBannerEditProps } from "../../types";
 import { RowPanel } from "./RowPanel/RowPanel";
 import { useRowsPanelRows } from "./useRowsPanelRows";
 
@@ -12,7 +12,6 @@ export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
 	const {
 		rowBlocks,
 		addRow,
-		removeRow,
 		updateRow,
 		getRow,
 		lastAddedClientId,
@@ -35,7 +34,6 @@ export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
 						index={index}
 						initialOpen={block.clientId === lastAddedClientId}
 						onUpdate={(updates) => updateRow(block.clientId, updates)}
-						onRemove={() => removeRow(block.clientId)}
 					/>
 				);
 			})}

@@ -7,20 +7,11 @@ import {
 import { __ } from "@wordpress/i18n";
 import { ImageControl } from "./ImageControl";
 
-type RowPanelProps = {
-	row: RowItem;
-	index: number;
-	initialOpen: boolean;
-	onUpdate: (updates: Partial<RowItem>) => void;
-	onRemove: () => void;
-};
-
 export const RowPanel: React.FC<RowPanelProps> = ({
 	row,
 	index,
 	initialOpen,
-	onUpdate,
-	onRemove,
+	onUpdate
 }) => (
 	<div style={{ border: "1px solid #ddd", marginBottom: "8px" }}>
 		<PanelBody
@@ -54,7 +45,6 @@ export const RowPanel: React.FC<RowPanelProps> = ({
 			<Button
 				variant="link"
 				isDestructive
-				onClick={onRemove}
 				style={{ marginTop: "12px" }}
 			>
 				{__("Remove row", "municipio")}

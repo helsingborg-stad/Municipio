@@ -15,6 +15,7 @@ class BackdropBanner implements Hookable
 {
     private const VIEW_SCRIPT_HANDLE = 'municipio-backdrop-banner-script';
     private const VIEW_STYLE_HANDLE = 'municipio-backdrop-banner-style';
+    private const EDITOR_STYLE_HANDLE = 'municipio-backdrop-banner-style-editor';
 
     public function __construct(
         private AddAction&RegisterBlockType&WpDequeueScript&WpDeregisterScript&GetTemplateDirectoryUri&WpRegisterScript&WpRegisterStyle $wpService,
@@ -58,6 +59,13 @@ class BackdropBanner implements Hookable
         $this->wpService->wpRegisterStyle(
             self::VIEW_STYLE_HANDLE,
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/backdrop-banner.css'),
+            [],
+            null,
+        );
+        
+        $this->wpService->wpRegisterStyle(
+            self::EDITOR_STYLE_HANDLE,
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/backdrop-banner-editor.css'),
             [],
             null,
         );

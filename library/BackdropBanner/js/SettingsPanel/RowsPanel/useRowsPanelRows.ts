@@ -3,19 +3,6 @@ import { createBlock } from "@wordpress/blocks";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { useEffect, useState } from "react";
 
-type BlockLock = {
-    move?: boolean;
-    remove?: boolean;
-};
-
-type BackdropBannerRowEditorAttributes = BackdropBannerRowAttributes & {
-    lock?: BlockLock;
-};
-
-export type RowBlock = {
-    clientId: string;
-    attributes: BackdropBannerRowEditorAttributes;
-};
 
 const MAX_ROWS = 4;
 const ROW_BLOCK_LOCK: Required<BlockLock> = {
@@ -56,13 +43,7 @@ export const useRowsPanelRows = (
         [rowBlocks],
     );
 
-    const { insertBlock, updateBlockAttributes } = useDispatch(blockEditorStore);
-
-    useEffect(() => {
-        if (selectedRowClientId) {
-            updateBlockAttributes(selectedRowClientId, { lock: ROW_BLOCK_LOCK });
-        }
-    }, [selectedRowClientId, updateBlockAttributes]);
+    const { insertBlock } = useDispatch(blockEditorStore);
 
     const addRow = () => {
         if (rows.length >= MAX_ROWS) {
