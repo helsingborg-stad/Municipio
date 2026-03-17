@@ -1,3 +1,5 @@
+@use "../../../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
+
 $base: var(--base, 8px) !default;
 $color-black: var(--color-black, #000000) !default;
 $color-primary: var(--color--primary) !default;
@@ -114,7 +116,7 @@ $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !d
         width: 100%;
         margin-top: 0;
         transition: transform .2s ease-in-out;
-        --inherit-font-size: var(--font-size-300);
+        --inherit-font-size: #{tokens.get("", "font-size-300")};
     }
 
     a:hover {
