@@ -12,7 +12,17 @@
 	"editorScript": "file:./../../../assets/dist/blocks/js/blocks.js",
 	"supports": {
 		"html": false,
-		"inserter": false
+		"align": false,
+		"alignWide": false,
+		"reusable": false,
+		"customClassName": false,
+		"inserter": false,
+		"multiple": true,
+		"renaming": false
+	},
+	"lock": {
+		"move": true,
+		"remove": true
 	},
 	"attributes": {
 		"rowId": { "type": "string", "default": "" }

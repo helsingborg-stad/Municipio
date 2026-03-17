@@ -81,34 +81,34 @@ html :where(.wp-block) {
         width: 100%;
 
         > .block-editor-block-list__layout {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(11rem, 14rem);
-          column-gap: calc(var(--base, 8px) * 2);
-          row-gap: calc(var(--base, 8px));
+          display: flex;
+          flex-wrap: wrap;
+          gap: calc(var(--base, 8px));
+          justify-content: flex-end;
           align-items: start;
           overflow: hidden;
 
           > #{$row-selector} {
             margin: 0;
             min-width: 0;
-            grid-column: 2;
             width: 100%;
             opacity: 1;
-            transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
           }
 
           > #{$row-selector}#{$row-selected},
           &:not(:has(> #{$row-selector}#{$row-selected})) > #{$row-selector}:first-child {
-            grid-column: 1;
-            grid-row: 1;
-            grid-row-end: span 4;
-            width: 100%;
+            order: 2;
+            flex: 1 1 100%;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
             border-color: #b5bcc4;
           }
 
           &:has(> #{$row-selector}#{$row-selected}) > #{$row-selector}:not(.is-selected):not(.has-child-selected),
           &:not(:has(> #{$row-selector}#{$row-selected})) > #{$row-selector}:not(:first-child) {
+            order: 1;
+            flex: 0 1 14rem;
+            cursor: pointer;
             align-self: start;
             padding: calc(var(--base, 8px)) calc(var(--base, 8px) * 1.5);
             background: #fff;
@@ -133,7 +133,6 @@ html :where(.wp-block) {
               opacity: 0;
               overflow: hidden;
               margin: 0;
-              transition: max-height 220ms ease, opacity 180ms ease;
             }
 
             > .block-editor-inner-blocks {
@@ -141,7 +140,6 @@ html :where(.wp-block) {
               opacity: 0;
               overflow: hidden;
               pointer-events: none;
-              transition: max-height 260ms ease, opacity 180ms ease;
             }
           }
 
@@ -158,12 +156,14 @@ html :where(.wp-block) {
             .t-block-backdrop-banner-row__description {
               max-height: calc(var(--base, 8px) * 12);
               opacity: 1;
+              transition: max-height 0.5s ease, opacity 0.3s ease;
             }
 
             > .block-editor-inner-blocks {
               max-height: 2000px;
               opacity: 1;
               pointer-events: auto;
+              transition: max-height 0.5s ease, opacity 0.3s ease;
             }
           }
         }

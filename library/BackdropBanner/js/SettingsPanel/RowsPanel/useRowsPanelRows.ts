@@ -1,14 +1,27 @@
 import { store as blockEditorStore } from "@wordpress/block-editor";
 import { createBlock } from "@wordpress/blocks";
 import { useDispatch, useSelect } from "@wordpress/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type BlockLock = {
+    move?: boolean;
+    remove?: boolean;
+};
+
+type BackdropBannerRowEditorAttributes = BackdropBannerRowAttributes & {
+    lock?: BlockLock;
+};
 
 export type RowBlock = {
     clientId: string;
-    attributes: BackdropBannerRowAttributes;
+    attributes: BackdropBannerRowEditorAttributes;
 };
 
 const MAX_ROWS = 4;
+const ROW_BLOCK_LOCK: Required<BlockLock> = {
+    move: true,
+    remove: true,
+};
 
 export const useRowsPanelRows = (
     clientId: string,
@@ -22,7 +35,34 @@ export const useRowsPanelRows = (
         [clientId],
     ) as RowBlock[];
 
-    const { insertBlock, removeBlock } = useDispatch(blockEditorStore);
+    const selectedRowClientId = useSelect(
+        (select) => {
+            const editor = select(blockEditorStore);
+            const selectedBlockClientId = editor.getSelectedBlockClientId();
+
+            if (!selectedBlockClientId) {
+                return null;
+            }
+
+            const rowClientIds = new Set(rowBlocks.map((rowBlock) => rowBlock.clientId));
+
+            if (rowClientIds.has(selectedBlockClientId)) {
+                return selectedBlockClientId;
+            }
+
+            const selectedParentClientIds = editor.getBlockParents(selectedBlockClientId);
+            return selectedParentClientIds.find((parentClientId: string) => rowClientIds.has(parentClientId)) ?? null;
+        },
+        [rowBlocks],
+    );
+
+    const { insertBlock, updateBlockAttributes } = useDispatch(blockEditorStore);
+
+    useEffect(() => {
+        if (selectedRowClientId) {
+            updateBlockAttributes(selectedRowClientId, { lock: ROW_BLOCK_LOCK });
+        }
+    }, [selectedRowClientId, updateBlockAttributes]);
 
     const addRow = () => {
         if (rows.length >= MAX_ROWS) {
@@ -30,7 +70,10 @@ export const useRowsPanelRows = (
         }
 
         const rowId = crypto.randomUUID();
-        const block = createBlock("municipio/backdrop-banner-row", { rowId });
+        const block = createBlock("municipio/backdrop-banner-row", {
+            rowId,
+            lock: ROW_BLOCK_LOCK,
+        } as BackdropBannerRowEditorAttributes);
         setLastAddedClientId(block.clientId);
         insertBlock(block, undefined, clientId, false);
         setAttributes({
@@ -39,14 +82,6 @@ export const useRowsPanelRows = (
                 { id: rowId, title: "", description: "", url: "", imageId: 0, imageUrl: "" },
             ],
         });
-    };
-
-    const removeRow = (rowClientId: string) => {
-        const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
-        if (rowBlock) {
-            setAttributes({ rows: rows.filter((r) => r.id !== rowBlock.attributes.rowId) });
-        }
-        removeBlock(rowClientId);
     };
 
     const updateRow = (rowClientId: string, updates: Partial<RowItem>) => {
@@ -65,7 +100,6 @@ export const useRowsPanelRows = (
     return {
         rowBlocks,
         addRow,
-        removeRow,
         updateRow,
         getRow,
         lastAddedClientId,

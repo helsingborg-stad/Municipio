@@ -1,15 +1,32 @@
 import {
 	store as blockEditorStore,
 	InnerBlocks,
+	useBlockEditingMode,
 	useBlockProps,
 } from "@wordpress/block-editor";
-import { useSelect } from "@wordpress/data";
+import { useDispatch, useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
+import { useEffect } from "react";
+
+const ROW_BLOCK_LOCK = {
+	move: true,
+	remove: true,
+};
 
 export const Edit = (props: BackdropBannerRowEditProps) => {
+	useBlockEditingMode("contentOnly");
+	const { updateBlockAttributes } = useDispatch(blockEditorStore);
+
 	const blockProps = useBlockProps({
 		className: "t-block-container t-block-backdrop-banner-row",
 	});
+
+	// Look into this
+	useEffect(() => {
+		updateBlockAttributes(props.clientId, {
+			lock: ROW_BLOCK_LOCK,
+		});
+	}, [props.clientId, updateBlockAttributes]);
 
 	const row = useSelect(
 		(select) => {
