@@ -3,17 +3,19 @@
 namespace Municipio\StyleguideCss;
 
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\StyleguideCss\ApplyLayerToWordpressStyles\ApplyLayerToWordpressStyles;
 use Municipio\StyleguideCss\CssVariables\CssVariablesRenderer;
 use Municipio\StyleguideCss\CssVariables\CssVariablesRendererInterface;
 use Municipio\StyleguideCss\ThemeSettingsMapper\ThemeSettingsMapper;
 use Municipio\StyleguideCss\ThemeSettingsMapper\ThemeSettingsMapperInterface;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetThemeMods;
 
 class StyleguideCssFeature implements Hookable
 {
     public function __construct(
-        private AddAction&GetThemeMods $wpService,
+        private AddAction&GetThemeMods&AddFilter $wpService,
         private ThemeSettingsMapperInterface $themeSettingsMapper = new ThemeSettingsMapper(),
         private CssVariablesRendererInterface $cssVariablesRenderer = new CssVariablesRenderer(),
     ) {}
@@ -22,6 +24,7 @@ class StyleguideCssFeature implements Hookable
     {
         $this->wpService->addAction('wp_head', [$this, 'outputStyleguideCss']);
         $this->wpService->addAction('login_head', [$this, 'outputStyleguideCss']);
+        (new ApplyLayerToWordpressStyles($this->wpService))->addHooks();
     }
 
     public function outputStyleguideCss(): void
@@ -29,7 +32,7 @@ class StyleguideCssFeature implements Hookable
         $cssVariables = $this->themeSettingsMapper->map($this->wpService->getThemeMods());
         $cssVariables = $this->applyCssVariableFilters($cssVariables);
         $css = $this->cssVariablesRenderer->render(...$cssVariables);
-        echo "<style>\n{$css}</style>\n";
+        echo "<style>\n@layer theme {{$css}}</style>\n";
     }
 
     private function applyCssVariableFilters(array $cssVariables): array

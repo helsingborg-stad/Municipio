@@ -12,7 +12,9 @@ use Municipio\StyleguideCss\ThemeSettingsMapper\ThemeSettingsMapperInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetThemeMods;
+use WpService\Implementations\NativeWpService;
 
 class StyleguideCssFeatureTest extends TestCase
 {
@@ -89,9 +91,9 @@ class StyleguideCssFeatureTest extends TestCase
         return ob_get_clean();
     }
 
-    private static function createWpService(): AddAction&GetThemeMods
+    private static function createWpService(): AddAction&GetThemeMods&AddFilter
     {
-        return new class implements AddAction, GetThemeMods {
+        return new class extends NativeWpService {
             public array $addActionCalls = [];
 
             public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
@@ -109,6 +111,11 @@ class StyleguideCssFeatureTest extends TestCase
             public function getThemeMods(): array
             {
                 return [];
+            }
+
+            public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
+            {
+                return true;
             }
         };
     }
