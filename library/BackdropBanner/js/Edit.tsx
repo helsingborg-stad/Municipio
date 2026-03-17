@@ -30,7 +30,7 @@ export const Edit: ComponentType<BackdropBannerEditProps> = (props) => {
 			}
 
 			styleTag.textContent = `
-				.components-popover {
+				.block-editor-block-popover.block-editor-block-list__block-popover:not(.block-editor-inserter__popover) {
 					display: none !important;
 				}
 			`;

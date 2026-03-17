@@ -1,7 +1,7 @@
 import { store as blockEditorStore } from "@wordpress/block-editor";
 import { createBlock } from "@wordpress/blocks";
 import { useDispatch, useSelect } from "@wordpress/data";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 const MAX_ROWS = 4;
@@ -43,16 +43,16 @@ export const useRowsPanelRows = (
         [rowBlocks],
     );
 
-    const { insertBlock } = useDispatch(blockEditorStore);
+    const { insertBlock, removeBlock, updateBlockAttributes } = useDispatch(blockEditorStore);
 
     const addRow = () => {
         if (rows.length >= MAX_ROWS) {
             return;
         }
 
-        const rowId = crypto.randomUUID();
+        const id = crypto.randomUUID();
         const block = createBlock("municipio/backdrop-banner-row", {
-            rowId,
+            id,
             lock: ROW_BLOCK_LOCK,
         } as BackdropBannerRowEditorAttributes);
         setLastAddedClientId(block.clientId);
@@ -60,7 +60,7 @@ export const useRowsPanelRows = (
         setAttributes({
             rows: [
                 ...rows,
-                { id: rowId, title: "", description: "", url: "", imageId: 0, imageUrl: "" },
+                { id: id, title: "", description: "", url: "", imageId: 0, imageUrl: "" },
             ],
         });
     };
@@ -68,19 +68,46 @@ export const useRowsPanelRows = (
     const updateRow = (rowClientId: string, updates: Partial<RowItem>) => {
         const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
         if (!rowBlock) return;
+        const rowIdentifier = rowBlock.attributes.id;
+
         setAttributes({
-            rows: rows.map((r) => (r.id === rowBlock.attributes.rowId ? { ...r, ...updates } : r)),
+            rows: rows.map((r) => (r.id === rowIdentifier ? { ...r, ...updates } : r)),
         });
     };
 
     const getRow = (rowClientId: string): RowItem | undefined => {
         const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
-        return rows.find((r) => r.id === rowBlock?.attributes.rowId);
+        const rowIdentifier = rowBlock?.attributes.id;
+        return rows.find((r) => r.id === rowIdentifier);
+    };
+
+    const removeRow = (rowClientId: string) => {
+        const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
+        if (!rowBlock) {
+            return;
+        }
+
+        const rowIdentifier = rowBlock.attributes.id;
+
+        // Row blocks are locked from direct editor removal.
+        // Unlock just before programmatic removal from the rows panel.
+        updateBlockAttributes(rowClientId, {
+            lock: {
+                move: true,
+                remove: false,
+            },
+        });
+
+        removeBlock(rowClientId, false);
+        setAttributes({
+            rows: rows.filter((row) => row.id !== rowIdentifier),
+        });
     };
 
     return {
         rowBlocks,
         addRow,
+        removeRow,
         updateRow,
         getRow,
         lastAddedClientId,

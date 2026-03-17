@@ -1,7 +1,6 @@
 import {
 	store as blockEditorStore,
 	InnerBlocks,
-	useBlockEditingMode,
 	useBlockProps,
 } from "@wordpress/block-editor";
 import { useDispatch, useSelect } from "@wordpress/data";
@@ -14,7 +13,6 @@ const ROW_BLOCK_LOCK = {
 };
 
 export const Edit = (props: BackdropBannerRowEditProps) => {
-	useBlockEditingMode("contentOnly");
 	const { updateBlockAttributes } = useDispatch(blockEditorStore);
 
 	const blockProps = useBlockProps({
@@ -35,10 +33,11 @@ export const Edit = (props: BackdropBannerRowEditProps) => {
 			const parentId = parentIds[parentIds.length - 1];
 			const parentBlock = parentId ? editor.getBlock(parentId) : null;
 			const rows: RowItem[] = parentBlock?.attributes?.rows ?? [];
+			const rowReferenceId = props.attributes.id;
 
-			return rows.find((candidate) => candidate.id === props.attributes.rowId);
+			return rows.find((candidate) => candidate.id === rowReferenceId);
 		},
-		[props.clientId, props.attributes.rowId],
+		[props.clientId, props.attributes],
 	);
 
 	const rowTitle = row?.title?.trim()

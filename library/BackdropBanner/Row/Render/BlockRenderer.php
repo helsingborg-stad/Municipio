@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\BackdropBanner\Render;
+namespace Municipio\BackdropBanner\Row\Render;
 
 use ComponentLibrary\Renderer\RendererInterface;
 use Municipio\BackdropBanner\BlockRendererInterface;
@@ -15,28 +15,11 @@ class BlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes): string
     {
-        $attributes['startImage'] = $this->getStartImage($attributes);
-        // echo '<pre>' . print_r( $attributes, true ) . '</pre>';die;
         return sprintf(
             '<div %s>%s</div>',
             $this->wpService->getBlockWrapperAttributes(),
-            $this->bladeRenderer->render('backdrop-banner', $attributes),
+            $this->bladeRenderer->render('backdrop-banner-row', $attributes),
         );
-    }
-
-    private function getStartImage(array $attributes): ?string
-    {
-        if (empty($attributes['rows']) || !is_array($attributes['rows'])) {
-            return null;
-        }
-
-        foreach ($attributes['rows'] as $row) {
-            if (!empty($row['imageUrl'])) {
-                return $row['imageUrl'];
-            }
-        }
-
-        return null;
     }
 
     public static function getViewPathsDir(): array

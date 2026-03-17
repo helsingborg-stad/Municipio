@@ -12,6 +12,7 @@ export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
 	const {
 		rowBlocks,
 		addRow,
+		removeRow,
 		updateRow,
 		getRow,
 		lastAddedClientId,
@@ -34,6 +35,7 @@ export const RowsPanel: React.FC<BackdropBannerEditProps> = ({
 						index={index}
 						initialOpen={block.clientId === lastAddedClientId}
 						onUpdate={(updates) => updateRow(block.clientId, updates)}
+						onRemove={() => removeRow(block.clientId)}
 					/>
 				);
 			})}

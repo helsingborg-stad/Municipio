@@ -25,7 +25,7 @@
 		"remove": true
 	},
 	"attributes": {
-		"rowId": { "type": "string", "default": "" }
+		"id": { "type": "string", "default": "" }
 	},
 	"textdomain": "municipio"
 }

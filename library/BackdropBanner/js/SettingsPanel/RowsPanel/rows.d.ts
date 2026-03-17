@@ -24,4 +24,5 @@ type RowPanelProps = {
     index: number;
     initialOpen: boolean;
     onUpdate: (updates: Partial<RowItem>) => void;
+    onRemove: () => void;
 };

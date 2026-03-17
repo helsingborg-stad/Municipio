@@ -30,4 +30,8 @@
         @endelement
         @includeWhen(!empty($rows), 'upper.navigation')
     @endelement
+    @dump($content)
+    @if (!empty($content))
+        {!! $content !!}
+    @endif
 @endelement

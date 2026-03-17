@@ -11,7 +11,8 @@ export const RowPanel: React.FC<RowPanelProps> = ({
 	row,
 	index,
 	initialOpen,
-	onUpdate
+	onUpdate,
+	onRemove,
 }) => (
 	<div style={{ border: "1px solid #ddd", marginBottom: "8px" }}>
 		<PanelBody
@@ -46,6 +47,7 @@ export const RowPanel: React.FC<RowPanelProps> = ({
 				variant="link"
 				isDestructive
 				style={{ marginTop: "12px" }}
+				onClick={onRemove}
 			>
 				{__("Remove row", "municipio")}
 			</Button>
