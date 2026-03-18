@@ -3,6 +3,7 @@
     'attributeList' => [
         'data-js-backdrop-banner-slider' => 'true',
     ],
+    'type' => 'fade',
     'repeatSlide' => false,
     'showStepper' => false,
     'navigationHover' => false,

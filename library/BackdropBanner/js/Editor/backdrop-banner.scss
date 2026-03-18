@@ -11,6 +11,10 @@
             margin-left: auto;
             margin-top: calc(var(--base, 8px) * 2);
 
+            .block-list-appender {
+                margin-bottom: calc(var(--base, 8px) * -6);
+            }
+
             > .block-editor-inner-blocks {
                 width: 100%;
 
