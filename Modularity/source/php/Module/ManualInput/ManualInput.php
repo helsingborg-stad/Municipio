@@ -78,13 +78,13 @@ class ManualInput extends \Modularity\Module
                 // Custom background color
                 $customBackgroundColor = ($fields['use_custom_card_color'] ?? false)
                     && !empty($input['custom_background_color'])
-                    ? $input['custom_background_color']
+                    ? $this->parseCustomBackgroundColor($input['custom_background_color'])
                     : false;
 
                 // Custom text color
                 $customTextColor = $customBackgroundColor
                     ? \Municipio\Helper\Color::getBestContrastColor(
-                        $input['custom_background_color'],
+                        $customBackgroundColor,
                         false,
                     )
                     : false;
@@ -337,6 +337,27 @@ class ManualInput extends \Modularity\Module
         }
 
         return $titles;
+    }
+
+    /**
+     * Parses the custom background color and returns a valid hex color code.
+     *
+     * This function takes a color string as input and checks if it contains a valid hex color code using a regular expression. 
+     * If a valid hex color code is found, it is returned. Otherwise, the original input value is returned as a fallback.
+     *
+     * @param string $color The input color string to be parsed.
+     * @return string The parsed hex color code or the original input value if no valid hex code is found.
+     */
+    private function parseCustomBackgroundColor($color)
+    {
+        if (preg_match('/#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b/', $color, $matches)) {
+            $customBackgroundColor = $matches[0];
+        } else {
+            // Fallback to provided value if no hex found
+            $customBackgroundColor = $color;
+        }
+
+        return $customBackgroundColor;
     }
 
     /**
