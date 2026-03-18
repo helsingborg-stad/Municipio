@@ -43,7 +43,7 @@ export const useRowsPanelRows = (
         [rowBlocks],
     );
 
-    const { insertBlock, removeBlock, updateBlockAttributes } = useDispatch(blockEditorStore);
+    const { insertBlock, removeBlock, selectBlock, updateBlockAttributes } = useDispatch(blockEditorStore);
 
     const addRow = () => {
         if (rows.length >= MAX_ROWS) {
@@ -104,10 +104,16 @@ export const useRowsPanelRows = (
         });
     };
 
+    const selectRow = (rowClientId: string) => {
+        selectBlock(rowClientId);
+    };
+
     return {
         rowBlocks,
+        selectedRowClientId,
         addRow,
         removeRow,
+        selectRow,
         updateRow,
         getRow,
         lastAddedClientId,

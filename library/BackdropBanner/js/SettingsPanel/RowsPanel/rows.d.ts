@@ -22,7 +22,6 @@ type ImageControlProps = {
 type RowPanelProps = {
     row: RowItem;
     index: number;
-    initialOpen: boolean;
     onUpdate: (updates: Partial<RowItem>) => void;
     onRemove: () => void;
 };
