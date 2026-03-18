@@ -9,30 +9,6 @@ class SliderHero
     public function __construct(string $sectionID)
     {
         /**
-         * Hero slider typography
-         */
-        $elements = $this->getTypographyElements();
-
-        if (!empty($elements)) {
-            foreach ($elements as $key => $args) {
-                KirkiField::addField([
-                    'type'     => 'typography',
-                    'settings' => 'hero_slider_typography_' . $key,
-                    'label'    => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
-                    'section'  => $sectionID,
-                    'priority' => 10,
-                    'choices'  => [
-                        'fonts' => [
-                            'google' => ['popularity', 200],
-                        ],
-                    ],
-                    'default'  => $args['default'] ?? [],
-                    'output'   => $args['output'] ?? []
-                ]);
-            }
-        }
-
-        /**
          * Hero Slider container colour
          */
         KirkiField::addField([
@@ -106,61 +82,5 @@ class SliderHero
                 ]
             ],
         ]);
-    }
-
-    private function getTypographyElements()
-    {
-        return [
-            'base'        => [
-                'label'   => esc_html__('Base', 'municipio'),
-                'default' => [
-                    'font-size'   => '16px',
-                    'font-family' => 'Roboto',
-                    'font-weight' => '400',
-                ],
-                'output'  => [
-                    [
-                        'choice'   => 'font-size',
-                        'element'  => ':root',
-                        'property' => '--c-slider-item-font-size-base',
-                    ],
-                    [
-                        'choice'   => 'font-weight',
-                        'element'  => ':root',
-                        'property' => '--c-slider-item-font-weight-base',
-                    ],
-                    [
-                        'choice'   => 'font-family',
-                        'element'  => ':root',
-                        'property' => '--c-slider-item-font-family-base',
-                    ],
-                ]
-                ],
-                'heading' => [
-                    'label'   => esc_html__('Heading', 'municipio'),
-                    'default' => [
-                        'font-size'   => '32px',
-                        'font-family' => 'Roboto',
-                        'font-weight' => '400',
-                    ],
-                    'output'  => [
-                        [
-                            'choice'   => 'font-size',
-                            'element'  => ':root',
-                            'property' => '--c-slider-item-font-size-heading',
-                        ],
-                        [
-                            'choice'   => 'font-weight',
-                            'element'  => ':root',
-                            'property' => '--c-slider-item-font-weight-heading',
-                        ],
-                        [
-                            'choice'   => 'font-family',
-                            'element'  => ':root',
-                            'property' => '--c-slider-item-font-family-heading',
-                        ],
-                    ]
-                ]
-        ];
     }
 }
