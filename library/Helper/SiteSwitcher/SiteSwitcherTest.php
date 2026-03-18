@@ -29,6 +29,7 @@ class SiteSwitcherTest extends TestCase
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
+            'isMultisite'        => true,
             'switchToBlog'       => function ($siteId) {
                 global $blog_id;
                 $blog_id = $siteId;
@@ -80,6 +81,7 @@ class SiteSwitcherTest extends TestCase
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
+                'isMultisite'        => true,
                 'switchToBlog'       => function ($siteId) {
                     global $blog_id;
                     $blog_id = $siteId;
@@ -118,5 +120,38 @@ class SiteSwitcherTest extends TestCase
             // Assert that the original blog ID was restored
             $this->assertEquals($originalBlogId, $blog_id);
         }
+    }
+
+    #[TestDox('runInSite() executes the callable directly without switching blogs on a single-site installation')]
+    public function testRunInSiteExecutesCallableDirectlyOnSingleSiteInstallation()
+    {
+        $switchToBlogCalled = false;
+
+        $siteSwitcher = new SiteSwitcher(
+            new FakeWpService([
+                'isMultisite'        => false,
+                'switchToBlog'       => function () use (&$switchToBlogCalled) {
+                    $switchToBlogCalled = true;
+                    return true;
+                },
+                'restoreCurrentBlog' => function () {
+                    return false;
+                }
+            ]),
+            new FakeAcfService()
+        );
+
+        $callableExecuted = false;
+        $result           = $siteSwitcher->runInSite(
+            2,
+            function () use (&$callableExecuted) {
+                $callableExecuted = true;
+                return 'Single site result';
+            }
+        );
+
+        $this->assertTrue($callableExecuted);
+        $this->assertFalse($switchToBlogCalled);
+        $this->assertEquals('Single site result', $result);
     }
 }
