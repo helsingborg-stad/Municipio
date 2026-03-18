@@ -9,7 +9,7 @@
         'u-padding__x--8@xl',
         'u-padding__y--8@xl'
     ]])
-    @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2'], 'attributeList' => ['style' => 'color: var(--color-secondary-contrasting);'] ])
+    @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__top--0'], 'attributeList' => ['style' => 'color: var(--color-secondary-contrasting);'] ])
         {!! $lang->relatedEventsTitle !!}
     @endtypography
     @include('posts-list', $postsListData)

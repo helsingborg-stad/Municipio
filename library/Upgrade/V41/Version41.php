@@ -40,6 +40,8 @@ class Version41 implements VersionInterface
             '--color-secondary' => '--color--secondary',
             '--color-breadcrumb-icon' => '--c-breadcrumb--color--background-contrast-muted',
             '--color-background' => '--color--background',
+            '--c-header-logotype-height' => '--c-header--logotype-height',
+            '--c-header-brand-color' => '--c-header--brand-color',
         ];
 
         $customCss = str_replace(array_keys($searchReplaceMap), array_values($searchReplaceMap), $customCss);

@@ -30,6 +30,8 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'footer_logotype_height' => '--c-footer--logotype-height',
         'color_button_primary.base' => '--c-button--color--primary',
         'color_button_primary.contrasting' => '--c-button--color--primary-contrast',
+        'header_logotype_height' => '--c-header--logotype-height',
+        'header_brand-color' => '--c-header--brand-color',
     ];
 
     public function map(array $themeSettings): array

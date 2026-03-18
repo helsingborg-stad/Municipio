@@ -1,7 +1,7 @@
 @use "sass:map";
 
-$brand-height: calc(var(--c-header-logotype-height, 6) * var(--base, 8px));
-$brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
+$brand-height: calc(var(--c-header--logotype-height, 6) * var(--base, 8px));
+$brand-text-color: var(--c-header--brand-color, var(--color-black, #000));
 
 //Spacing
 .c-header .c-header__flex-content {
