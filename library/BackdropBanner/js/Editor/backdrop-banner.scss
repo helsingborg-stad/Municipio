@@ -3,124 +3,32 @@
         $row-selector: ".wp-block-municipio-backdrop-banner-row";
         $row-selected: ":is(.is-selected, .has-child-selected)";
 
+        .t-block-backdrop-banner__tab-panel {
+            border: 1px solid #e0e0e0;
+            border-radius: calc(var(--base, 8px) * 0.5);
+        }
+
         .t-block-backdrop-banner__inner-area {
             width: 100%;
             max-width: var(--container-width, calc(var(--base, 8px) * 156));
-            overflow: hidden;
             margin-right: auto;
             margin-left: auto;
-            margin-top: calc(var(--base, 8px) * 2);
-
-            .block-list-appender {
-                margin-bottom: calc(var(--base, 8px) * -6);
-            }
 
             > .block-editor-inner-blocks {
                 width: 100%;
 
                 > .block-editor-block-list__layout {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: calc(var(--base, 8px));
-                    justify-content: flex-end;
-                    align-items: start;
-                    overflow: hidden;
-                    box-shadow: 0 8px 20px #0000000f;
-                    background-color: #fff;
-                    border: 1px solid #dcdcde;
-                    border-radius: calc(var(--base, 8px) * 0.5);
-                    padding: calc(var(--base, 8px) * 2);
-
-                    > .block-editor-block-popover.block-editor-block-list__block-popover:not(
-                            .block-editor-inserter__popover
-                        ) {
-                        display: none !important;
-                    }
-
                     > #{$row-selector} {
+                        display: none;
                         margin: 0;
-                        min-width: 0;
                         width: 100%;
-                        opacity: 1;
-                        transition:
-                            transform 0.3s ease,
-                            box-shadow 0.3s ease,
-                            border-color 0.3s ease;
                     }
 
+                    // Show the selected row
                     > #{$row-selector}#{$row-selected},
+                    // Fallback: show the first row when none is selected
                     &:not(:has(> #{$row-selector}#{$row-selected})) > #{$row-selector}:first-child {
-                        order: 2;
-                        flex: 1 1 100%;
-                    }
-
-                    &:has(> #{$row-selector}#{$row-selected})
-                        > #{$row-selector}:not(.is-selected):not(.has-child-selected),
-                    &:not(:has(> #{$row-selector}#{$row-selected})) > #{$row-selector}:not(:first-child) {
-                        order: 1;
-                        flex: 0 1 14rem;
-                        border: 1px solid #f0f0f1;
-                        color: #1e1e1e;
-                        border-radius: calc(var(--base, 8px) * 0.5);
-                        cursor: pointer;
-                        align-self: start;
-                        padding: calc(var(--base, 8px)) calc(var(--base, 8px) * 1.5);
-                        transform: translateX(0);
-
-                        .t-block-backdrop-banner-row__header {
-                            border-bottom: 0;
-                            margin: 0;
-                            padding: 0;
-                        }
-
-                        .t-block-backdrop-banner-row__title {
-                            margin: 0;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                        }
-
-                        .t-block-backdrop-banner-row__description {
-                            max-height: 0;
-                            opacity: 0;
-                            overflow: hidden;
-                            margin: 0;
-                            transition: opacity 0.3s ease;
-                        }
-
-                        > .block-editor-inner-blocks {
-                            max-height: 0;
-                            opacity: 0;
-                            overflow: hidden;
-                            pointer-events: none;
-                            transition: opacity 0.3s ease;
-                        }
-                    }
-
-                    > #{$row-selector}#{$row-selected},
-                    &:not(:has(> #{$row-selector}#{$row-selected})) > #{$row-selector}:first-child {
-                        padding: calc(var(--base, 8px) * 2);
-
-                        .t-block-backdrop-banner-row__header {
-                            border-bottom: 1px solid #f0f0f1;
-                            margin-bottom: calc(var(--base, 8px) * 2);
-                            margin-top: calc(var(--base, 8px) * 2);
-                            padding-bottom: calc(var(--base, 8px) * 1.5);
-                            padding-top: calc(var(--base, 8px) * 1.5);
-                        }
-
-                        .t-block-backdrop-banner-row__description {
-                            // max-height: none;
-                            opacity: 1;
-                            transition: opacity 0.3s ease;
-                        }
-
-                        > .block-editor-inner-blocks {
-                            // max-height: none;
-                            opacity: 1;
-                            pointer-events: auto;
-                            transition: opacity 0.3s ease;
-                        }
+                        display: block;
                     }
                 }
             }
@@ -128,24 +36,6 @@
     }
 
     &.t-block-backdrop-banner-row {
-        .t-block-backdrop-banner-row__header {
-            border-bottom: 1px solid #f0f0f1;
-            margin-bottom: calc(var(--base, 8px) * 2);
-            padding-bottom: calc(var(--base, 8px) * 1.5);
-        }
-
-        .t-block-backdrop-banner-row__title {
-            display: block;
-            margin-bottom: calc(var(--base, 8px) * 0.5);
-            font-size: 1rem;
-        }
-
-        .t-block-backdrop-banner-row__description {
-            margin: 0;
-            color: rgb(117, 117, 117);
-            font-size: calc(1rem * 0.875);
-        }
-
         > .block-editor-inner-blocks > .block-editor-block-list__layout {
             min-height: calc(var(--base, 8px) * 14);
         }
