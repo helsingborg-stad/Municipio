@@ -18,8 +18,8 @@
                 'href' => !empty($row['url']) ? $row['url'] : null,
                 'classList' => ['backdrop-banner__navigation-item', 'u-no-decoration'],
                 'attributeList' => [
-                    'data-js-backdrop-banner-navigation-item' => 'true',
-                    'data-js-backdrop-banner-image-url' => $row['imageUrl'] ?? ''
+                    'data-js-backdrop-banner-navigation-item' => $row['id'],
+                    'data-js-backdrop-banner-image-url' => $row['imageUrl'] ?? '',
                 ]
             ])
                 @element([

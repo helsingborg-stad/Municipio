@@ -10,4 +10,6 @@ $bladeRenderer = new BladeRenderer((new BladeServiceFactory($wpService))->create
 
 $renderer = new BlockRenderer($wpService, $bladeRenderer);
 
-echo $renderer->render($attributes);
+echo $renderer->render(array_merge($attributes, [
+	'content' => $content ?? '',
+]));

@@ -15,11 +15,7 @@ class BlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes): string
     {
-        return sprintf(
-            '<div %s>%s</div>',
-            $this->wpService->getBlockWrapperAttributes(),
-            $this->bladeRenderer->render('backdrop-banner-row', $attributes),
-        );
+        return $this->bladeRenderer->render('backdrop-banner-row', $attributes);
     }
 
     public static function getViewPathsDir(): array
