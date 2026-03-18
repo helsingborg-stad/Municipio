@@ -196,7 +196,7 @@ class PanelsRegistry
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_radius')
                     ->setTitle(esc_html__('Rounded corners', 'municipio'))
-                    ->setDescription(esc_html__('Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab.', 'municipio'))
+                    ->setDescription(esc_html__('Adjust the roundness of corners on the site overall.', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Radius('municipio_customizer_section_radius'))
             )->addSection(
                 KirkiPanelSection::create()

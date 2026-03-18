@@ -11,7 +11,7 @@ class Radius
         KirkiField::addField([
             'type'      => 'slider',
             'settings'  => 'radius_md',
-            'label'     => esc_html__('Medium', 'municipio'),
+            'label'     => esc_html__('Radius', 'municipio'),
             'section'   => $sectionID,
             'transport' => 'auto',
             'default'   => 8,
