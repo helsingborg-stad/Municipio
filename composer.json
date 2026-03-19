@@ -50,7 +50,7 @@
 		"astrotomic/php-deepface": "^0.4.0",
 		"helsingborg-stad/kirki": "^5.2",
 		"helsingborg-stad/wputilservice": "^0.2.44",
-		"helsingborg-stad/styleguide": "2.194.10"
+		"helsingborg-stad/styleguide": "2.197.2"
 	},
 	"scripts": {
 		"test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",

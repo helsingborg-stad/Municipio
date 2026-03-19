@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32594ff0e1a749c0baa6082fb79a3199",
+    "content-hash": "a032375be54a04a9295ed70e59bef999",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1134,16 +1134,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.194.10",
+            "version": "2.197.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "7d51855233b1480ec8e8c53369aa7296f6dd4f28"
+                "reference": "a51b49351f5be356440d6c46cd849914e6456333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/7d51855233b1480ec8e8c53369aa7296f6dd4f28",
-                "reference": "7d51855233b1480ec8e8c53369aa7296f6dd4f28",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/a51b49351f5be356440d6c46cd849914e6456333",
+                "reference": "a51b49351f5be356440d6c46cd849914e6456333",
                 "shasum": ""
             },
             "require": {
@@ -1159,8 +1159,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "HbgStyleGuide\\": "source/php/",
-                    "HbgStyleGuide\\Validators\\": "source/validators/"
+                    "MunicipioStyleGuide\\": "source/php/",
+                    "MunicipioStyleGuide\\Validators\\": "source/validators/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1187,9 +1187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.194.10"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.197.2"
             },
-            "time": "2026-03-19T08:19:07+00:00"
+            "time": "2026-03-19T10:45:46+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
