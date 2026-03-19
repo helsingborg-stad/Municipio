@@ -41,7 +41,11 @@ export const RowPanel: React.FC<RowPanelProps> = ({
 			<ImageControl
 				imageId={row.imageId}
 				imageUrl={row.imageUrl}
-				onChange={(imageId, imageUrl) => onUpdate({ imageId, imageUrl })}
+				focalPointX={row.focalPointX ?? 0.5}
+				focalPointY={row.focalPointY ?? 0.5}
+				onChange={(imageId, imageUrl, focalPointX, focalPointY) =>
+					onUpdate({ imageId, imageUrl, focalPointX, focalPointY })
+				}
 			/>
 			<Button
 				variant="link"

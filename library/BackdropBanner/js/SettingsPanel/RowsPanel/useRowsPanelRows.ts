@@ -60,7 +60,16 @@ export const useRowsPanelRows = (
         setAttributes({
             rows: [
                 ...rows,
-                { id: id, title: "", description: "", url: "", imageId: 0, imageUrl: "" },
+                {
+                    id: id,
+                    title: "",
+                    description: "",
+                    url: "",
+                    imageId: 0,
+                    imageUrl: "",
+                    focalPointX: 0.5,
+                    focalPointY: 0.5,
+                },
             ],
         });
     };

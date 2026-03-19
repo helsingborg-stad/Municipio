@@ -32,7 +32,9 @@
 					"description": { "type": "string" },
 					"url": { "type": "string" },
 					"imageId": { "type": "number" },
-					"imageUrl": { "type": "string" }
+					"imageUrl": { "type": "string" },
+					"focalPointX": { "type": "number" },
+					"focalPointY": { "type": "number" }
 				}
 			}
 		}
