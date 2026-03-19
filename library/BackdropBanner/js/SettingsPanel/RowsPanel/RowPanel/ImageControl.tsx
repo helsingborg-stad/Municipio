@@ -10,7 +10,7 @@ export const ImageControl: React.FC<ImageControlProps> = ({
 	onChange,
 }) => (
 	<div
-		className="municipio-backdrop-banner-image-control"
+		className="t-block-backdrop-banner-image-control"
 		style={{ marginTop: "8px" }}
 	>
 		<MediaUploadCheck>
