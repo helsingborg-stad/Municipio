@@ -99,8 +99,6 @@ export const useRowsPanelRows = (
 
         const rowIdentifier = rowBlock.attributes.id;
 
-        // Row blocks are locked from direct editor removal.
-        // Unlock just before programmatic removal from the rows panel.
         updateBlockAttributes(rowClientId, {
             lock: {
                 move: true,
