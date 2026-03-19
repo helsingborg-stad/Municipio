@@ -90,7 +90,8 @@
     }
 }
 
-.backdrop-banner__navigation-item:hover {
+.backdrop-banner__navigation-item:hover,
+.backdrop-banner__navigation-item.is-active {
     backdrop-filter: blur(calc(var(--base, 8px) * 3)) brightness(1.1);
     background: rgba(255, 255, 255, 0.08);
     outline: 2px solid rgba(255, 255, 255, 0.15);
