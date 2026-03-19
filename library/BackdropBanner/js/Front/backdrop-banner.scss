@@ -143,5 +143,6 @@
 
     .c-slider__item__container {
         max-width: var(--container-width, calc(var(--base, 8px) * 156)) !important;
+        padding: unset !important;
     }
 }
