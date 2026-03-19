@@ -153,12 +153,12 @@
 
 .backdrop-banner__bottom {
     .c-slider__item {
-        width: 100% !important;
+        width: 100%;
     }
 
     .c-slider__item__container {
-        max-width: calc(var(--container-width, calc(var(--base, 8px) * 156)) - calc(var(--base, 8px) * 6)) !important;
-        padding: unset !important;
-        width: 100% !important;
+        max-width: calc(var(--container-width, calc(var(--base, 8px) * 156)) - calc(var(--base, 8px) * 6));
+        padding: unset;
+        width: 100%;
     }
 }
