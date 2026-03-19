@@ -6,9 +6,9 @@ export default class NavigationItem {
     private activeClass = "is-active";
     private focalPointXAttribute = "data-js-backdrop-banner-image-focal-x";
     private focalPointYAttribute = "data-js-backdrop-banner-image-focal-y";
+    private focalPointX: number = 0.5;
+    private focalPointY: number = 0.5;
     private imageUrl: string | null;
-    private focalPointX: number;
-    private focalPointY: number;
 
     constructor(
         private navItem: Element,
@@ -16,8 +16,8 @@ export default class NavigationItem {
     ) {
         this.imageUrl = this.navItem.getAttribute(this.imageUrlAttribute);
         this.setListener();
-        this.focalPointX = Number(this.navItem.getAttribute(this.focalPointXAttribute) ?? 0.5);
-        this.focalPointY = Number(this.navItem.getAttribute(this.focalPointYAttribute) ?? 0.5);
+        this.focalPointX = Number(this.navItem.getAttribute(this.focalPointXAttribute) ?? this.focalPointX);
+        this.focalPointY = Number(this.navItem.getAttribute(this.focalPointYAttribute) ?? this.focalPointY);
 
         if (this.imageUrl) {
             const img = new Image();
