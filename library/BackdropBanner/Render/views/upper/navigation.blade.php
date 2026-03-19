@@ -37,16 +37,38 @@
                     ])
                         {{ !empty($row['title']) ? $row['title'] : 'Row' . ($index + 1) }}
                     @endtypography
-                    @if(!empty($row['description']))
-                        @typography([
-                            'element' => 'p',
-                            'variant' => 'body',
-                            'classList' => ['backdrop-banner__navigation-item-description', 'u-margin__top--0'],
-                        ])
-                            {{ $row['description']}}
-                        @endtypography
-                    @endif
+                    @element([
+                        'classList' => ['backdrop-banner__navigation-item-content'],
+                    ])
+                        @if(!empty($row['subtitle']))
+                            @typography([
+                                'element' => 'h3',
+                                'variant' => 'h4',
+                                'classList' => ['backdrop-banner__navigation-item-subtitle', 'u-margin__top--1'],
+                            ])
+                                {{ $row['subtitle'] }}
+                            @endtypography
+                        @endif
+                        @if(!empty($row['description']))
+                            @typography([
+                                'element' => 'p',
+                                'variant' => 'body',
+                                'classList' => ['backdrop-banner__navigation-item-description', 'u-margin__top--2'],
+                            ])
+                                {{ $row['description']}}
+                            @endtypography
+                        @endif
+                    @endelement
                 @endelement
+                @if(!empty($row['url']))
+                    @icon([
+                        'icon' => 'arrow_circle_right',
+                        'size' => 'lg',
+                        'color' => 'default',
+                        'classList' => ['backdrop-banner__navigation-item-icon'],
+                    ])
+                    @endicon
+                @endif
             @endlink
         @endforeach
     @endelement

@@ -63,6 +63,7 @@ export const useRowsPanelRows = (
                 {
                     id: id,
                     title: "",
+                    subtitle: "",
                     description: "",
                     url: "",
                     imageId: 0,

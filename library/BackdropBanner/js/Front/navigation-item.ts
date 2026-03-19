@@ -2,7 +2,6 @@ import type BackgroundImage from "./background-image";
 
 export default class NavigationItem {
     private imageUrlAttribute = "data-js-backdrop-banner-image-url";
-    private navigationItemAttribute = "data-js-backdrop-banner-navigation-item";
     private activeClass = "is-active";
     private focalPointXAttribute = "data-js-backdrop-banner-image-focal-x";
     private focalPointYAttribute = "data-js-backdrop-banner-image-focal-y";
@@ -13,6 +12,7 @@ export default class NavigationItem {
     constructor(
         private navItem: Element,
         private backgroundImage: BackgroundImage,
+        private allNavigationItems: NodeListOf<HTMLElement>,
     ) {
         this.imageUrl = this.navItem.getAttribute(this.imageUrlAttribute);
         this.setListener();
@@ -39,7 +39,7 @@ export default class NavigationItem {
         });
     }
 
-    private activate(): void {
+    public activate(): void {
         this.setActiveClass();
 
         if (!this.imageUrl) {
@@ -53,12 +53,7 @@ export default class NavigationItem {
     }
 
     private setActiveClass(): void {
-        const banner = this.navItem.closest("[data-js-backdrop-banner]");
-        const navigationItems = banner?.querySelectorAll<HTMLElement>(
-            `[${this.navigationItemAttribute}]`,
-        );
-
-        navigationItems?.forEach((item) => {
+        this.allNavigationItems.forEach((item) => {
             item.classList.remove(this.activeClass);
         });
 

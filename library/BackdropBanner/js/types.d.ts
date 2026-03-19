@@ -3,6 +3,7 @@ declare global {
 	export interface RowItem {
 		id: string;
 		title: string;
+		subtitle: string;
 		description: string;
 		url: string;
 		imageId: number;

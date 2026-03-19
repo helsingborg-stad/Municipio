@@ -1,26 +1,28 @@
+import NavigationItem from "./navigation-item";
+
 class Slider {
     constructor(
         public sliderElement: HTMLElement,
         public splide: any,
-        public navigationItems: NodeListOf<HTMLElement>
+        public navigationItems: { item: HTMLElement, instance: NavigationItem }[],
     ) {
         this.setListeners();
     }
 
     private setListeners() {
-        this.navigationItems.forEach((item, index) => {
-            item.addEventListener('mouseenter', () => {
+        this.navigationItems.forEach((navigationItemsPair, index) => {
+            navigationItemsPair.item.addEventListener('mouseenter', () => {
                 this.splide.go(index);
             });
         });
 
         this.splide.on('move', (newIndex: number) => {
-            console.log('slide changed', newIndex);
+            this.navigationItems[newIndex].instance.activate();
         });
     }
 }
 
-export function initializeSlider(navigationItems: NodeListOf<HTMLElement>) {
+export function initializeSlider(navigationItems: { item: HTMLElement, instance: NavigationItem }[]) {
     document.addEventListener('slider:ready', (slider: any) => {
         if (!slider.detail?.sliderElement || !slider.detail?.splide) {
             return;

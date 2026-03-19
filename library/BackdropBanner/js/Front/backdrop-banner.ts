@@ -7,12 +7,15 @@ document.querySelectorAll<HTMLElement>('[data-js-backdrop-banner]').forEach((bac
     const backdropBannerImageFront = backdropBanner.querySelector<HTMLElement>('[data-js-backdrop-banner-image-front]');
     const backdropBannerImageBack = backdropBanner.querySelector<HTMLElement>('[data-js-backdrop-banner-image-back]');
 
-    initializeSlider(navigationItems);
 
     if (!backdropBannerImageFront || !backdropBannerImageBack) return;
 
+    let navigationItemsArray: { item: HTMLElement, instance: NavigationItem }[] = [];
     const backgroundImage = new BackgroundImage(backdropBannerImageFront, backdropBannerImageBack);
     navigationItems.forEach(navItem => {
-        new NavigationItem(navItem, backgroundImage);
+        const navigationItem = new NavigationItem(navItem, backgroundImage, navigationItems);
+        navigationItemsArray.push({ item: navItem, instance: navigationItem });
     });
+
+    initializeSlider(navigationItemsArray);
 });

@@ -25,6 +25,12 @@ export const RowPanel: React.FC<RowPanelProps> = ({
 				onChange={(value) => onUpdate({ title: value })}
 				__nextHasNoMarginBottom
 			/>
+			<TextControl
+				label={__("Subtitle", "municipio")}
+				value={row.subtitle ?? ""}
+				onChange={(value) => onUpdate({ subtitle: value })}
+				__nextHasNoMarginBottom
+			/>
 			<TextareaControl
 				label={__("Description", "municipio")}
 				value={row.description}

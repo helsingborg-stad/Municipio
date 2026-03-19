@@ -29,6 +29,7 @@
 				"properties": {
 					"id": { "type": "string" },
 					"title": { "type": "string" },
+					"subtitle": { "type": "string" },
 					"description": { "type": "string" },
 					"url": { "type": "string" },
 					"imageId": { "type": "number" },
