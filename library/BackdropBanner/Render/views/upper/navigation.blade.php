@@ -20,6 +20,8 @@
                 'attributeList' => [
                     'data-js-backdrop-banner-navigation-item' => $row['id'],
                     'data-js-backdrop-banner-image-url' => $row['imageUrl'] ?? '',
+                    'data-js-backdrop-banner-image-focal-x' => $row['focalPointX'] ?? 0.5,
+                    'data-js-backdrop-banner-image-focal-y' => $row['focalPointY'] ?? 0.5,
                 ]
             ])
                 @element([

@@ -16,7 +16,9 @@ type RowBlock = {
 type ImageControlProps = {
     imageId: number;
     imageUrl: string;
-    onChange: (imageId: number, imageUrl: string) => void;
+    focalPointX: number;
+    focalPointY: number;
+    onChange: (imageId: number, imageUrl: string, focalPointX: number, focalPointY: number) => void;
 };
 
 type RowPanelProps = {

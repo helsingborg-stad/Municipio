@@ -14,7 +14,7 @@
             'classList' => ['backdrop-banner__image-front'],
             'attributeList' => [
                 'data-js-backdrop-banner-image-front' => 'true',
-                'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . ')',
+                'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . '); background-position: ' . ($startImagePosition ?? '50% 50%') . ';',
                 'data-js-start-image' => $startImage ?? '0',
             ]
         ])
@@ -24,7 +24,7 @@
             'classList' => ['backdrop-banner__image-back'],
             'attributeList' => [
                 'data-js-backdrop-banner-image-back' => 'true',
-                'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . ')',
+                'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . '); background-position: ' . ($startImagePosition ?? '50% 50%') . ';',
             ]
         ])
             <!-- Image -->
