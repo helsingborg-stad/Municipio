@@ -2,6 +2,12 @@ import { store as blockEditorStore } from "@wordpress/block-editor";
 import { createBlock } from "@wordpress/blocks";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { useState } from "react";
+import { createDefaultRow } from "./rowDefaults";
+import {
+    getRowByClientId,
+    removeRowsByClientId,
+    updateRowsByClientId,
+} from "./rowMappers";
 
 
 const MAX_ROWS = 4;
@@ -22,27 +28,6 @@ export const useRowsPanelRows = (
         [clientId],
     ) as RowBlock[];
 
-    const selectedRowClientId = useSelect(
-        (select) => {
-            const editor = select(blockEditorStore);
-            const selectedBlockClientId = editor.getSelectedBlockClientId();
-
-            if (!selectedBlockClientId) {
-                return null;
-            }
-
-            const rowClientIds = new Set(rowBlocks.map((rowBlock) => rowBlock.clientId));
-
-            if (rowClientIds.has(selectedBlockClientId)) {
-                return selectedBlockClientId;
-            }
-
-            const selectedParentClientIds = editor.getBlockParents(selectedBlockClientId);
-            return selectedParentClientIds.find((parentClientId: string) => rowClientIds.has(parentClientId)) ?? null;
-        },
-        [rowBlocks],
-    );
-
     const { insertBlock, removeBlock, updateBlockAttributes } = useDispatch(blockEditorStore);
 
     const addRow = () => {
@@ -58,46 +43,25 @@ export const useRowsPanelRows = (
         setLastAddedClientId(block.clientId);
         insertBlock(block, undefined, clientId, false);
         setAttributes({
-            rows: [
-                ...rows,
-                {
-                    id: id,
-                    title: "",
-                    subtitle: "",
-                    description: "",
-                    url: "",
-                    imageId: 0,
-                    imageUrl: "",
-                    focalPointX: 0.5,
-                    focalPointY: 0.5,
-                },
-            ],
+            rows: [...rows, createDefaultRow(id)],
         });
     };
 
     const updateRow = (rowClientId: string, updates: Partial<RowItem>) => {
-        const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
-        if (!rowBlock) return;
-        const rowIdentifier = rowBlock.attributes.id;
-
         setAttributes({
-            rows: rows.map((r) => (r.id === rowIdentifier ? { ...r, ...updates } : r)),
+            rows: updateRowsByClientId(rowBlocks, rows, rowClientId, updates),
         });
     };
 
     const getRow = (rowClientId: string): RowItem | undefined => {
-        const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
-        const rowIdentifier = rowBlock?.attributes.id;
-        return rows.find((r) => r.id === rowIdentifier);
+        return getRowByClientId(rowBlocks, rows, rowClientId);
     };
 
     const removeRow = (rowClientId: string) => {
-        const rowBlock = rowBlocks.find((r) => r.clientId === rowClientId);
-        if (!rowBlock) {
+        const row = getRowByClientId(rowBlocks, rows, rowClientId);
+        if (!row) {
             return;
         }
-
-        const rowIdentifier = rowBlock.attributes.id;
 
         updateBlockAttributes(rowClientId, {
             lock: {
@@ -108,7 +72,7 @@ export const useRowsPanelRows = (
 
         removeBlock(rowClientId, false);
         setAttributes({
-            rows: rows.filter((row) => row.id !== rowIdentifier),
+            rows: removeRowsByClientId(rowBlocks, rows, rowClientId),
         });
     };
 
