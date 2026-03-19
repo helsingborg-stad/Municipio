@@ -8,8 +8,10 @@ use Municipio\Helper\WpService;
 $wpService = WpService::get();
 $bladeRenderer = new BladeRenderer((new BladeServiceFactory($wpService))->create(BlockRenderer::getViewPathsDir()));
 
-$renderer = new BlockRenderer($wpService, $bladeRenderer);
+$renderer = new BlockRenderer($bladeRenderer);
 
-echo $renderer->render(array_merge($attributes, [
-	'content' => $content ?? '',
-]));
+echo
+    $renderer->render(array_merge($attributes, [
+        'content' => $content ?? '',
+    ]))
+;

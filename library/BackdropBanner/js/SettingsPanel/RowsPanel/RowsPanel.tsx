@@ -1,6 +1,6 @@
 import { Button, PanelBody } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import { BackdropBannerEditProps } from "../../types";
+import type { BackdropBannerEditProps } from "../../types";
 import { RowPanel } from "./RowPanel/RowPanel";
 import { useRowsPanelRows } from "./useRowsPanelRows";
 

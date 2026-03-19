@@ -4,12 +4,10 @@ namespace Municipio\BackdropBanner\Row\Render;
 
 use ComponentLibrary\Renderer\RendererInterface;
 use Municipio\BackdropBanner\BlockRendererInterface;
-use WpService\Contracts\GetBlockWrapperAttributes;
 
 class BlockRenderer implements BlockRendererInterface
 {
     public function __construct(
-        private GetBlockWrapperAttributes $wpService,
         private RendererInterface $bladeRenderer,
     ) {}
 
