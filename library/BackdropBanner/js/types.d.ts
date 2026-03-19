@@ -7,6 +7,8 @@ declare global {
 		url: string;
 		imageId: number;
 		imageUrl: string;
+		focalPointX: number;
+		focalPointY: number;
 	}
 
 	export type BackdropBannerAttributes = Omit<{

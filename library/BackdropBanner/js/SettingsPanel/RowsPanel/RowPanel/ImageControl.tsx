@@ -1,31 +1,39 @@
 import { MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
-import { Button } from "@wordpress/components";
+import { Button, FocalPointPicker } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 export const ImageControl: React.FC<ImageControlProps> = ({
 	imageId,
 	imageUrl,
+	focalPointX,
+	focalPointY,
 	onChange,
 }) => (
-	<div style={{ marginTop: "8px" }}>
+	<div
+		className="municipio-backdrop-banner-image-control"
+		style={{ marginTop: "8px" }}
+	>
 		<MediaUploadCheck>
 			<MediaUpload
 				onSelect={(media: { id: number; url: string }) =>
-					onChange(media.id, media.url)
+					onChange(media.id, media.url, 0.5, 0.5)
 				}
 				allowedTypes={["image"]}
 				value={imageId}
 				render={({ open }) => (
 					<div>
 						{imageUrl && (
-							<img
-								src={imageUrl}
-								alt=""
-								style={{
-									width: "100%",
-									marginBottom: "8px",
-									display: "block",
+							<FocalPointPicker
+								label={__("Image focal point", "municipio")}
+								hideLabelFromVision
+								url={imageUrl}
+								value={{
+									x: focalPointX ?? 0.5,
+									y: focalPointY ?? 0.5,
 								}}
+								onChange={(value) =>
+									onChange(imageId, imageUrl, value.x, value.y)
+								}
 							/>
 						)}
 						<Button variant="secondary" onClick={open}>
@@ -37,7 +45,7 @@ export const ImageControl: React.FC<ImageControlProps> = ({
 							<Button
 								variant="link"
 								isDestructive
-								onClick={() => onChange(0, "")}
+								onClick={() => onChange(0, "", 0.5, 0.5)}
 								style={{ marginLeft: "8px" }}
 							>
 								{__("Remove Image", "municipio")}
