@@ -13,6 +13,10 @@ class Slider {
                 this.splide.go(index);
             });
         });
+
+        this.splide.on('move', (newIndex: number) => {
+            console.log('slide changed', newIndex);
+        });
     }
 }
 

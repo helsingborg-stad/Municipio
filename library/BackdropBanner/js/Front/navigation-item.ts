@@ -46,7 +46,10 @@ export default class NavigationItem {
             return;
         }
 
-        this.backgroundImage.showImage(this.imageUrl);
+        this.backgroundImage.showImage(
+            this.imageUrl,
+            `${this.focalPointX * 100}% ${this.focalPointY * 100}%`,
+        );
     }
 
     private setActiveClass(): void {
@@ -57,11 +60,6 @@ export default class NavigationItem {
 
         navigationItems?.forEach((item) => {
             item.classList.remove(this.activeClass);
-            if (!this.imageUrl) return;
-            this.backgroundImage.showImage(
-                this.imageUrl,
-                `${this.focalPointX * 100}% ${this.focalPointY * 100}%`,
-            );
         });
 
         this.navItem.classList.add(this.activeClass);

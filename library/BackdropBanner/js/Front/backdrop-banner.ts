@@ -9,10 +9,6 @@ document.querySelectorAll<HTMLElement>('[data-js-backdrop-banner]').forEach((bac
 
     initializeSlider(navigationItems);
 
-    if (navigationItems.length > 0) {
-        navigationItems[0].classList.add('is-active');
-    }
-
     if (!backdropBannerImageFront || !backdropBannerImageBack) return;
 
     const backgroundImage = new BackgroundImage(backdropBannerImageFront, backdropBannerImageBack);

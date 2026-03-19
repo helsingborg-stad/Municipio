@@ -15,7 +15,6 @@ export default class BackgroundImage {
         [this.frontLayer, this.backLayer].forEach(layer => {
             layer.addEventListener('transitionend', (event) => {
                 if (event.propertyName !== 'opacity') return;
-                // ensure the hidden layer is always fully transparent
                 if (layer.style.opacity === '0') {
                     layer.style.opacity = '0';
                 }
