@@ -1,7 +1,7 @@
 @slider__item([
     'layout' => 'center',
     'attributeList' => [
-        'data-js-backdrop-banner-row' => $id,
+        'data-js-backdrop-banner-row' => $id
     ]
 ])
     {!! $content ?? '' !!}

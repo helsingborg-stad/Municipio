@@ -1,10 +1,13 @@
 export default class BackgroundImage {
     private currentImage: string | null = null;
+    private startImage: string | null = null;
 
     constructor(
         private frontLayer: HTMLElement,
         private backLayer: HTMLElement
     ) {
+        this.startImage = this.frontLayer.getAttribute('data-js-start-image');
+
         // no swapping needed
         [this.frontLayer, this.backLayer].forEach(layer => {
             layer.addEventListener('transitionend', (event) => {
@@ -19,8 +22,8 @@ export default class BackgroundImage {
 
     public showImage(url: string) {
         if (this.currentImage === url) return;
+        if (this.currentImage === null && this.startImage === url) return;
 
-        // Determine hidden and visible layers dynamically
         const hiddenLayer = this.frontLayer.style.opacity === '0' ? this.frontLayer : this.backLayer;
         const visibleLayer = hiddenLayer === this.frontLayer ? this.backLayer : this.frontLayer;
 

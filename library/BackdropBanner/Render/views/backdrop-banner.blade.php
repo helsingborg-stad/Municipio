@@ -15,6 +15,7 @@
             'attributeList' => [
                 'data-js-backdrop-banner-image-front' => 'true',
                 'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . ')',
+                'data-js-start-image' => $startImage ?? '0',
             ]
         ])
             <!-- Image -->
@@ -23,7 +24,7 @@
             'classList' => ['backdrop-banner__image-back'],
             'attributeList' => [
                 'data-js-backdrop-banner-image-back' => 'true',
-                'style' => '--backdrop-banner-image: #',
+                'style' => '--backdrop-banner-image: url(' . ($startImage ?? '#') . ')',
             ]
         ])
             <!-- Image -->

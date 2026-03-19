@@ -20,7 +20,7 @@
     background-position: center;
     background-repeat: no-repeat;
     pointer-events: none;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.7s ease;
 }
 
 .backdrop-banner__image-front {
@@ -134,4 +134,14 @@
     transition:
         opacity 0.2s ease,
         transform 0.3s ease;
+}
+
+.backdrop-banner__bottom {
+    .c-slider__item {
+        width: 100% !important;
+    }
+
+    .c-slider__item__container {
+        max-width: var(--container-width, calc(var(--base, 8px) * 156)) !important;
+    }
 }
