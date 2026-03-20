@@ -7,7 +7,7 @@ import blockConfig from "../block.json";
 import { useSelectedBackdropBannerBlock } from "./block-listener";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 import { BackdropBannerEditProps } from "./types";
-import { BackdropBannerPanel } from "./Editor/backdropBannerPanel";
+import { BackdropBannerTabPanel } from "./Editor/backdropBannerPanel";
 import { StyleTagComponent } from "./Editor/styleComponent";
 
 export const Edit: ComponentType<BackdropBannerEditProps> = (props) => {
@@ -31,7 +31,7 @@ export const Edit: ComponentType<BackdropBannerEditProps> = (props) => {
 				attributes={props.attributes}
 			/>
 			{(
-				<BackdropBannerPanel
+				<BackdropBannerTabPanel
 					clientId={props.clientId}
 					selectedRowClientId={selectedRowClientId}
 					rows={props.attributes.rows}

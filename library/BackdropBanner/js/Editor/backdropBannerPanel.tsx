@@ -5,13 +5,13 @@ import { useDispatch, useSelect } from "@wordpress/data";
 import type { ComponentType, MouseEvent } from "react";
 import { BackdropBannerInnerBlocksWrapper } from "./backdropBannerInnerRows";
 
-type BackdropBannerPanelProps = {
+type BackdropBannerTabPanelProps = {
     rows: RowItem[];
     clientId: string;
     selectedRowClientId: string | null;
 };
 
-export const BackdropBannerPanel: ComponentType<BackdropBannerPanelProps> = ({
+export const BackdropBannerTabPanel: ComponentType<BackdropBannerTabPanelProps> = ({
     clientId,
     selectedRowClientId,
     rows
