@@ -73,11 +73,6 @@ export const BackdropBannerPanel: ComponentType<BackdropBannerPanelProps> = ({
                 key={tabKey}
                 tabs={tabDefs}
                 initialTabName={activeTabId}
-                onSelect={(tabName?: string) => {
-                    if (tabName) {
-                        selectBlock(tabName, null);
-                    }
-                }}
             >
                 {() => (
                     <BackdropBannerInnerBlocksWrapper />
