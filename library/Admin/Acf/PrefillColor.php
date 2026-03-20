@@ -2,71 +2,67 @@
 
 namespace Municipio\Admin\Acf;
 
-use Kirki\Module\CSS;
-use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
-use WpService\Contracts\GetPostType;
+use WpService\Contracts\AddAction;
 
 /**
  * Class PrefillColor
  *
  * This class adds a filter to specified fields in the ACF (Advanced Custom Fields) settings.
- * It retrieves main colors from the theme colors settings and adds them as choices to the dropdown fields.
+ * It retrieves main colors from the theme colors settings and injects them into the color picker.
  */
 class PrefillColor
 {
     /**
      * Add filter to specified fields
      */
-    public function __construct(private AddFilter&ApplyFilters&GetPostType $wpService)
+    public function __construct(private ApplyFilters&AddAction $wpService)
     {
         $fieldNames = $this->wpService->applyFilters('Municipio/Admin/Acf/PrefillColor', [
             'custom_background_color',
         ]);
 
-        foreach ($fieldNames as $fieldName) {
-            $isKey = strpos($fieldName, 'field_') === 0;
-            $targetOperator = $isKey ? 'key' : 'name';
-
-            $this->wpService->addFilter(
-                'acf/load_field/'.$targetOperator.'=' . $fieldName,
-                array($this, 'addColors'),
-                10,
-                1
-            );
-        }
+        // Enqueue inline JavaScript with palette data
+        $this->wpService->addAction('admin_footer', function() use ($fieldNames) {
+            $this->enqueueColorPickerScript($fieldNames);
+        }, 20, 0);
     }
 
     /**
-     * Add colors to dropdown
+     * Enqueue inline JavaScript for ACF color picker customization
      *
-     * @param array $field  Field definition
-     *
-     * @return array $field Field definition with choices
+     * @param array $fieldNames Array of field names to apply the palette to
      */
-    public function addColors($field): array
+    private function enqueueColorPickerScript(array $fieldNames): void
     {
-        if ($this->isInAcfFieldEditor()) {
-            return $field;
-        }
+        // Get the color palettes
+        $palettes = $this->getColorPalettesAsArray();
 
-        $colors = $this->getColorPalettes();
+        // Prepare the inline script
+        $script = "
+            <script>
+            acf.add_filter('color_picker_args', function(args, field) {
+                // Only apply to our target fields
+                const targetFields = " . json_encode($fieldNames) . ";
+                const fieldName = field[0].dataset.name;
+                if (targetFields.includes(fieldName)) {
+                    args.palettes = " . json_encode($palettes) . ";
+                }
+                
+                return args;
+            });
+            </script>
+        ";
 
-        foreach ($colors as $colorVar => $hex) {
-            $colors[$colorVar] = '
-                <div style="display: flex; align-items: center; gap: 5px;">
-                    <span style="display: inline-block; border-radius: 3px; width: 100px; height: 20px; background-color: ' . esc_attr($hex) . ';"></span>
-                    <span>' . esc_html($hex) . '</span>
-                </div>
-            ';
-        }
-
-        $field['choices'] = $colors;
-
-        return $field;
+        echo $script;
     }
 
-    private function getColorPalettes() 
+    /**
+     * Get color palettes as a simple array of hex values
+     *
+     * @return array Array of hex color values
+     */
+    private function getColorPalettesAsArray(): array
     {
         $hexesToIgnore = [
             '#ffffff',
@@ -80,39 +76,13 @@ class PrefillColor
                 continue;
             }
 
-            foreach ($palette as $color => $hex) {
-                $colorVarName = $this->mapPaletteColorToCssVar($color);
-
-                if ($colorVarName && !in_array(strtolower($hex), $hexesToIgnore)) {
-                    $colors[$colorVarName . '::' . $hex] = $hex;
+            foreach ($palette as $hex) {
+                if (!in_array(strtolower($hex), $hexesToIgnore)) {
+                    $colors[] = $hex;
                 }
             }
         }
 
         return array_unique($colors);
-    }
-
-    private function mapPaletteColorToCssVar(string $color): ?string
-    {
-        $colorMap = [
-            'additional_color_1' => '--color-additional-1',
-            'additional_color_2' => '--color-additional-2',
-            'additional_color_3' => '--color-additional-3',
-            'additional_color_4' => '--color-additional-4',
-            'additional_color_5' => '--color-additional-5',
-            'additional_color_6' => '--color-additional-6',
-        ];
-
-        return $colorMap[$color] ?? false;
-    }
-
-    /**
-     * Checks if the current context is within the ACF Field Editor.
-     *
-     * @return bool Returns true if the current context is within the ACF Field Editor, false otherwise.
-     */
-    private function isInAcfFieldEditor(): bool
-    {
-        return $this->wpService->getPostType() === 'acf-field-group';
     }
 }
