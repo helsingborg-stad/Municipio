@@ -154,6 +154,10 @@ class FilesList extends \Modularity\Module
      */
     private function formatBytes($size, $precision = 2)
     {
+        if (!is_float($size) || $size <= 0) {
+            return '0 B';
+        }
+
         $base = log($size, 1024);
         $suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
 
