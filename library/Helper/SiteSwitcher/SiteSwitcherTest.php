@@ -5,6 +5,7 @@ namespace Municipio\Helper\SiteSwitcher;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 use AcfService\Implementations\FakeAcfService;
+use PHPUnit\Framework\Attributes\TestDox;
 
 class SiteSwitcherTest extends TestCase
 {
@@ -29,6 +30,7 @@ class SiteSwitcherTest extends TestCase
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
+            'isMultisite'        => fn() => true,
             'switchToBlog'       => function ($siteId) {
                 global $blog_id;
                 $blog_id = $siteId;
@@ -80,6 +82,7 @@ class SiteSwitcherTest extends TestCase
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
+                'isMultisite' => fn() => true,
                 'switchToBlog'       => function ($siteId) {
                     global $blog_id;
                     $blog_id = $siteId;
@@ -118,5 +121,34 @@ class SiteSwitcherTest extends TestCase
             // Assert that the original blog ID was restored
             $this->assertEquals($originalBlogId, $blog_id);
         }
+    }
+
+    #[TestDox('runInSite() does not switch blog when multisite is disabled')]
+    public function testRunInSiteDoesNotSwitchBlogWhenMultisiteIsDisabled()
+    {
+        global $blog_id;
+
+        $siteSwitcher = new SiteSwitcher(
+            new FakeWpService([
+                'isMultisite' => fn() => false,
+                'switchToBlog' => function () {
+                    $this->fail('switchToBlog should not be called when multisite is disabled.');
+                },
+                'restoreCurrentBlog' => function () {
+                    $this->fail('restoreCurrentBlog should not be called when multisite is disabled.');
+                },
+            ]),
+            new FakeAcfService()
+        );
+
+        $blog_id = 1;
+
+        $result = $siteSwitcher->runInSite(2, function () use (&$blog_id) {
+            $this->assertEquals(1, $blog_id);
+            return 'executed';
+        });
+
+        $this->assertEquals('executed', $result);
+        $this->assertEquals(1, $blog_id);
     }
 }

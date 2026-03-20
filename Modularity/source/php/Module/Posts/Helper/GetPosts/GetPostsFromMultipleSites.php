@@ -14,6 +14,7 @@ use WpService\Contracts\GetBlogDetails;
 use WpService\Contracts\GetBlogPost;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\IsUserLoggedIn;
+use WpService\Contracts\IsMultisite;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
@@ -24,7 +25,7 @@ class GetPostsFromMultipleSites implements GetPostsInterface
         private int $page,
         private array $siteIds,
         private \wpdb $wpdb,
-        private IsUserLoggedIn&EscSql&GetBlogDetails&SwitchToBlog&RestoreCurrentBlog&GetBlogPost&GetOption $wpService,
+        private IsUserLoggedIn&EscSql&GetBlogDetails&SwitchToBlog&RestoreCurrentBlog&GetBlogPost&GetOption&IsMultisite $wpService,
         private PostTypesFromSchemaTypeResolverInterface $postTypesFromSchemaTypeResolver,
         private UserGroupResolverInterface $userGroupResolver,
     ) {}
@@ -91,11 +92,17 @@ class GetPostsFromMultipleSites implements GetPostsInterface
             ? "{$this->wpdb->base_prefix}postmeta"
             : "{$this->wpdb->base_prefix}{$site}_postmeta";
 
-        $this->wpService->switchToBlog($site);
-        $postTypes = $this->resolvePostTypes();
-        $postTypesSql = $this->toSqlList($postTypes);
-        $stickyPostIds = $this->getStickyPostIds();
-        $this->wpService->restoreCurrentBlog();
+        if ($this->wpService->isMultisite()) {
+            $this->wpService->switchToBlog($site);
+            $postTypes = $this->resolvePostTypes();
+            $postTypesSql = $this->toSqlList($postTypes);
+            $stickyPostIds = $this->getStickyPostIds();
+            $this->wpService->restoreCurrentBlog();
+        } else {
+            $postTypes = $this->resolvePostTypes();
+            $postTypesSql = $this->toSqlList($postTypes);
+            $stickyPostIds = $this->getStickyPostIds();
+        }
 
         // Prepare a comma-separated list of sticky post IDs for SQL IN clause
         $stickyIdsSql = !empty($stickyPostIds) ? implode(',', array_map('intval', $stickyPostIds)) : '0';
