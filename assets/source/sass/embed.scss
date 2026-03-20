@@ -3,16 +3,16 @@
 .embed {
 	overflow: hidden;
 	position: relative;
-	height: 0;
+	//height: 0;
 	background-size: cover;
 
 	&.embed__ratio {
 		&--1-1 {
-			padding: string.unquote( calc(1 / 1) * 100 + "%" );
+			aspect-ratio: 1/1;
 		}
 
 		&--16-9 {
-			padding: string.unquote( calc(16 / 9) * 100 + "%" );
+			aspect-ratio: 16/9;
 		}
 
 	}
