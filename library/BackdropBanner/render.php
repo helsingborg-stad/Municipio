@@ -2,7 +2,6 @@
 
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
-use Municipio\BackdropBanner\BackdropBanner;
 use Municipio\BackdropBanner\Render\BlockRenderer;
 use Municipio\Helper\WpService;
 
