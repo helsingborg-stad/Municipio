@@ -33,6 +33,7 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'header_logotype_height' => '--c-header--logotype-height',
         'header_brand-color' => '--c-header--brand-color',
         'border_width_outline' => '--border-width',
+        'field_border_radius' => '--c-field--border-radius',
     ];
 
     public function map(array $themeSettings): array

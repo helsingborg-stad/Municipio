@@ -38,6 +38,7 @@ class StyleguideCssFeature implements Hookable
     private function applyCssVariableFilters(array $cssVariables): array
     {
         $filters = [
+            new CssVariables\CssVariablesFilters\TranslateLegacyFieldBorderRadius(),
             new CssVariables\CssVariablesFilters\TranslateLegacyHeaderLogotypeHeight(),
             new CssVariables\CssVariablesFilters\TranslateLegacyBorderWidth(),
             new CssVariables\CssVariablesFilters\TranslateLegacyBorderRadius(),
