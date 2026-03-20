@@ -26,6 +26,10 @@ class Sites extends \Modularity\Module
 
     public function getSites()
     {
+        if (!is_multisite()) {
+            return [];
+        }
+
         $sites = get_sites();
         $includeMainSite = get_field('include_main_site', $this->ID);
 

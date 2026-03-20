@@ -18,6 +18,7 @@ use WpService\Contracts\EscSql;
 use WpService\Contracts\GetBlogDetails;
 use WpService\Contracts\GetBlogPost;
 use WpService\Contracts\GetOption;
+use WpService\Contracts\IsMultisite;
 use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
@@ -163,7 +164,7 @@ class GetPostsFromMultipleSitesTest extends TestCase
         return $this->createMock(NullPostTypesFromSchemaTypeResolver::class);
     }
 
-    private function getWpServiceMock(): IsUserLoggedIn|EscSql|GetBlogDetails|SwitchToBlog|RestoreCurrentBlog|GetBlogPost|GetOption|MockObject
+    private function getWpServiceMock(): IsUserLoggedIn|EscSql|GetBlogDetails|SwitchToBlog|RestoreCurrentBlog|GetBlogPost|GetOption|IsMultisite|MockObject
     {
         $wpService = $this->createMockForIntersectionOfInterfaces([
             IsUserLoggedIn::class,
@@ -173,9 +174,11 @@ class GetPostsFromMultipleSitesTest extends TestCase
             RestoreCurrentBlog::class,
             GetBlogPost::class,
             GetOption::class,
+            IsMultisite::class,
         ]);
         $wpService->method('escSql')->willReturnArgument(0);
         $wpService->method('getOption')->willReturn([2]);
+        $wpService->method('isMultisite')->willReturn(true);
         return $wpService;
     }
 

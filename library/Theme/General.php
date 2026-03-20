@@ -164,6 +164,10 @@ class General
      */
     public function sitesGridImage($image, $site)
     {
+        if (!WpService::get()->isMultisite()) {
+            return $image;
+        }
+
         switch_to_blog($site->blog_id);
 
         $image = null;
