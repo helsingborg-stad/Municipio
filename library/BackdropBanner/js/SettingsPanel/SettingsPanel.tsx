@@ -1,6 +1,6 @@
 import { InspectorControls } from "@wordpress/block-editor";
-import type { BackdropBannerEditProps } from "../Edit";
 import { RowsPanel } from "./RowsPanel/RowsPanel";
+import { BackdropBannerEditProps } from "../types";
 
 export const SettingsPanel: React.FC<BackdropBannerEditProps> = (props) => {
 	return (
