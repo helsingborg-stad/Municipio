@@ -23,13 +23,13 @@ class SiteSwitcher implements SiteSwitcherInterface
     public function runInSite(int $siteId, callable $callable, mixed $callableContext = null): mixed
     {
         if (!$this->wpService->isMultisite()) {
-            return $callable(...func_get_args());
+            return $callableContext !== null ? $callable($callableContext) : $callable();
         }
 
         $this->wpService->switchToBlog($siteId);
 
         try {
-            return $callable(...func_get_args());
+            return $callableContext !== null ? $callable($callableContext) : $callable();
         } finally {
             $this->wpService->restoreCurrentBlog();
         }

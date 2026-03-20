@@ -94,14 +94,12 @@ class GetPostsFromMultipleSites implements GetPostsInterface
 
         if ($this->wpService->isMultisite()) {
             $this->wpService->switchToBlog($site);
-            $postTypes = $this->resolvePostTypes();
-            $postTypesSql = $this->toSqlList($postTypes);
-            $stickyPostIds = $this->getStickyPostIds();
+        }
+        $postTypes = $this->resolvePostTypes();
+        $postTypesSql = $this->toSqlList($postTypes);
+        $stickyPostIds = $this->getStickyPostIds();
+        if ($this->wpService->isMultisite()) {
             $this->wpService->restoreCurrentBlog();
-        } else {
-            $postTypes = $this->resolvePostTypes();
-            $postTypesSql = $this->toSqlList($postTypes);
-            $stickyPostIds = $this->getStickyPostIds();
         }
 
         // Prepare a comma-separated list of sticky post IDs for SQL IN clause
