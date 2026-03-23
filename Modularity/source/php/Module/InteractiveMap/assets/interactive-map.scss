@@ -44,6 +44,7 @@ $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
     background-color: $color-secondary;
     container-type: inline-size;
     container-name: markerinfo;
+    max-height: 80%;
 
     &.is-open {
         transform: scaleY(1);
@@ -120,6 +121,12 @@ $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
     pointer-events: none;
     z-index: 4000;
     background-color: $color-secondary;
+    max-height: 80%;
+
+    .interactive-map__filters-content-wrapper {
+        height: 100%;
+        overflow-y: auto;
+    }
 
     .interactive-map__filters-button-title {
         padding-top: 1.5rem;
