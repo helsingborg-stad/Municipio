@@ -41,7 +41,6 @@
         }
 
         .backdrop-banner__navigation-item {
-            padding: calc(var(--base, 8px) * 10) calc(var(--base, 8px) * 2);
             z-index: 2000;
             position: relative;
 
@@ -77,12 +76,13 @@
 }
 
 .backdrop-banner__navigation-item {
+    container-type: inline-size;
+    container-name: backdrop-banner-navigation-item;
     z-index: 1;
     display: flex;
     align-items: end;
     height: 100%;
     overflow: hidden;
-    padding: calc(var(--base, 8px) * 6) calc(var(--base, 8px) * 2);
     border: 0.5px solid rgba(255, 255, 255, 0.2);
     border-top: transparent;
     background: transparent;
@@ -125,7 +125,12 @@
     display: grid;
     grid-template-rows: auto 0fr;
     transition: grid-template-rows 0.2s ease;
+    padding: calc(var(--base, 8px) * 5) calc(var(--base, 8px) * 2);
     width: 100%;
+    
+    @container backdrop-banner-navigation-item (min-width: 26rem) {
+        padding: calc(var(--base, 8px) * 10) calc(var(--base, 8px) * 4);
+    }
 }
 
 /*
@@ -152,6 +157,10 @@
 }
 
 .backdrop-banner__bottom {
+    .c-slider__container {
+        padding-top: unset;
+    }
+
     .c-slider__item {
         width: 100%;
     }
@@ -160,5 +169,6 @@
         max-width: calc(var(--container-width, calc(var(--base, 8px) * 156)) - calc(var(--base, 8px) * 6));
         padding: unset;
         width: 100%;
+        max-height: unset;
     }
 }
