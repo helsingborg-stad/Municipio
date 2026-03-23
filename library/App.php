@@ -102,6 +102,11 @@ class App
         (new \Municipio\Admin\Private\PrivateAcfFields($this->wpService))->addHooks();
 
         /**
+         * Heading structure
+         */
+        (new \Municipio\Content\HeadingStructure($this->wpService))->addHooks();
+
+        /**
          * Template
          */
         new \Municipio\Template(
