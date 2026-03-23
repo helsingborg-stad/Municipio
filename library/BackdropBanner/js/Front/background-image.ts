@@ -8,7 +8,7 @@ export default class BackgroundImage {
         private frontLayer: HTMLElement,
         private backLayer: HTMLElement
     ) {
-        this.startImage = this.frontLayer.getAttribute('data-js-start-image');
+        this.startImage = this.frontLayer.dataset.jsStartImage || null;
         this.startPosition = this.frontLayer.style.backgroundPosition || null;
 
         // no swapping needed

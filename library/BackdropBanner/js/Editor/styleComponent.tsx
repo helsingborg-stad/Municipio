@@ -1,5 +1,4 @@
 import { ComponentType, useMemo } from "react";
-import { useSelectedBackdropBannerBlock } from "../block-listener";
 
 type BackdropBannerStyleProps = {
     selectedBlockClientId: string | null;
