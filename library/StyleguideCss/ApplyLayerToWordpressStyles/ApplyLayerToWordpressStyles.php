@@ -10,9 +10,10 @@ use WpService\Contracts\AddFilter;
  */
 class ApplyLayerToWordpressStyles implements Hookable
 {
-    private const LAYER_NAME = 'wordpress';
-    private const HANDLES = [
+    private const string LAYER_NAME = 'wordpress';
+    private const array HANDLES = [
         'wp-block-library',
+        'common',
     ];
 
     public function __construct(
