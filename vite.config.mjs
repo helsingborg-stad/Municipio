@@ -7,7 +7,7 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 );
 
 const entries = {
-	// "css/splide": "./node_modules/@helsingborg-stad/node_modules/@splidejs/splide/dist/css/splide-core.min.css",
+	"css/splide": "./node_modules/@splidejs/splide/dist/css/splide-core.min.css",
 	"css/styleguide":
 		"./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss",
 	"js/styleguide":
