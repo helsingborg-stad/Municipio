@@ -452,61 +452,6 @@ class Template
     }
 
     /**
-     * Extract outermost <template> tags and replace them with placeholders
-     *
-     * @param string $html The HTML content
-     *
-     * @return array An array containing the HTML with <template> tags replaced by placeholders and the extracted templates
-     */
-    private function extractOuterTemplates(string $html): array
-    {
-        $templates = [];
-
-        // Match all <template> and </template> tags with offsets
-        $pattern = '#</?template\b[^>]*>#i';
-        preg_match_all($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
-
-        $stack = [];
-        $outermost = []; // will hold start/end positions of outer templates
-
-        foreach ($matches[0] as $match) {
-            $tag = strtolower($match[0]);
-            $pos = $match[1];
-
-            if ($tag === '<template>' || strpos($tag, '<template ') === 0) {
-                if (empty($stack)) {
-                    $outermost[] = ['start' => $pos, 'end' => null];
-                }
-                $stack[] = $pos;
-            } else {
-                array_pop($stack);
-                if (empty($stack)) {
-                    $outermost[count($outermost) - 1]['end'] = $pos + strlen($match[0]);
-                }
-            }
-        }
-
-        // Replace templates with placeholders in reverse order (so offsets remain valid)
-        for ($i = count($outermost) - 1; $i >= 0; $i--) {
-            $start = $outermost[$i]['start'];
-            $end = $outermost[$i]['end'];
-
-            if ($end === null) {
-                continue;
-            }
-
-            $full = substr($html, $start, $end - $start);
-            $key = '___MUN_TPL_' . count($templates) . '___';
-            $templates[$key] = $full;
-
-            // Replace in HTML
-            $html = substr_replace($html, $key, $start, $end - $start);
-        }
-
-        return [$html, $templates];
-    }
-
-    /**
      * @param $view
      * @param array $data
      */
@@ -523,14 +468,8 @@ class Template
             // Hookable filter to get all markup output (Used by WPMUSecurity)
             $this->wpService->applyFilters('Website/HTML/output', $markup);
 
-            // Extract outermost templates to prevent them from being processed by the MarkupProcessor
-            [$markup, $templates] = $this->extractOuterTemplates($markup) ?? ['', []];
-
             // Process the markup through the MarkupProcessor
             $markup = $this->markupProcessor->process($markup);
-
-            // Replace templates with their original content
-            $markup = str_replace(array_keys($templates), array_values($templates), $markup);
 
             echo $markup;
         } catch (\Throwable $e) {
