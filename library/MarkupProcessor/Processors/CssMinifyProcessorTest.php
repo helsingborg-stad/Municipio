@@ -12,7 +12,15 @@ class CssMinifyProcessorTest extends TestCase
     {
         $processor = new CssMinifyProcessor();
 
-        $input = '<style>/* Comment */ body { color: red; }</style>';
+        $input = <<<STYLE
+            <style>
+                /* This is a comment */
+                body {
+                    color: red;
+                }
+            </style>
+            STYLE;
+
         $expectedOutput = '<style> body { color: red; }</style>';
 
         $this->assertEquals($expectedOutput, $processor->process($input));
