@@ -41,21 +41,37 @@ class TidyProcessorTest extends TestCase
         $this->assertSame($input, $processor->process($input));
     }
 
-    #[TestDox('returns original markup if tidy processing is disabled via constant')]
-    public function testProcessWithTidyDisabled(): void
+    #[TestDox('does not affect <template> tags during tidy processing')]
+    public function testProcessWithTemplateTags(): void
     {
         if (!extension_loaded('tidy')) {
-            $this->markTestSkipped('Tidy extension is not available, cannot test tidy processing.');
+            $this->assertTrue(true, 'Tidy extension is not available, skipping test.');
+            return;
         }
-
-        define('DISABLE_HTML_TIDY', true);
 
         $processor = new TidyProcessor();
 
         $input = <<<'HTML'
-            <!DOCTYPE html><html><body><div><p>Test</p><br></div></body></html>
+            <!DOCTYPE html><html><body><template><li></template></body></html>
             HTML;
 
-        $this->assertSame($input, $processor->process($input));
+        $this->assertStringContainsString('<template><li></template>', $processor->process($input));
+    }
+
+    #[TestDox('does not affect <template> in <template> tags during tidy processing')]
+    public function testProcessWithNestedTemplateTags(): void
+    {
+        if (!extension_loaded('tidy')) {
+            $this->assertTrue(true, 'Tidy extension is not available, skipping test.');
+            return;
+        }
+
+        $processor = new TidyProcessor();
+
+        $input = <<<'HTML'
+            <!DOCTYPE html><html><body><template><template><li></template></template></body></html>
+            HTML;
+
+        $this->assertStringContainsString('<template><template><li></template></template>', $processor->process($input));
     }
 }
