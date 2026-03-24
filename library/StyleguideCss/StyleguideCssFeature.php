@@ -3,6 +3,8 @@
 namespace Municipio\StyleguideCss;
 
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\StyleguideCss\AddLayerOrderDefinitionToHead\AddLayerOrderDefinitionToHead;
+use Municipio\StyleguideCss\ApplyLayerToInlineStyles\ApplyLayerToInlineStyles;
 use Municipio\StyleguideCss\ApplyLayerToWordpressStyles\ApplyLayerToWordpressStyles;
 use Municipio\StyleguideCss\CssVariables\CssVariablesEditorRenderer;
 use Municipio\StyleguideCss\CssVariables\CssVariablesRenderer;
@@ -15,7 +17,7 @@ class StyleguideCssFeature implements Hookable
 {
     public function __construct(
         private WpService $wpService,
-        private ThemeSettingsMapperInterface $themeSettingsMapper = new ThemeSettingsMapper()
+        private ThemeSettingsMapperInterface $themeSettingsMapper = new ThemeSettingsMapper(),
     ) {}
 
     public function addHooks(): void
@@ -23,6 +25,8 @@ class StyleguideCssFeature implements Hookable
         $this->wpService->addAction('wp_enqueue_scripts', fn() => $this->outputStyleguideCss());
         $this->wpService->addAction('login_enqueue_scripts', fn() => $this->outputStyleguideCss());
         $this->wpService->addAction('enqueue_block_editor_assets', fn() => $this->outputStyleguideCss(true));
+        (new ApplyLayerToInlineStyles($this->wpService))->addHooks();
+        (new AddLayerOrderDefinitionToHead($this->wpService))->addHooks();
         (new ApplyLayerToWordpressStyles($this->wpService))->addHooks();
     }
 
@@ -31,27 +35,26 @@ class StyleguideCssFeature implements Hookable
         $cssVariables = $this->themeSettingsMapper->map($this->wpService->getThemeMods());
         $cssVariables = $this->applyCssVariableFilters($cssVariables);
         $css = $this->getCssVariablesRenderer($isEditor)->render(...$cssVariables);
-        /*$this->enqueueStyles("@layer theme {{$css}}");*/
-        $this->enqueueStyles($css);
+        $css = "@layer theme {{$css}}";
+
+        $this->enqueueStyles($css, $isEditor);
     }
 
-    private function enqueueStyles(string $css, bool $isEditor = false):void {
-        $this->wpService->wpRegisterStyle('styleguide-css-variables', false);
-        $this->wpService->wpEnqueueStyle('styleguide-css-variables');
-        $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
-        if( $isEditor ) {
+    private function enqueueStyles(string $css, bool $isEditor = false): void
+    {
+        if ($isEditor) {
+            $this->wpService->wpRegisterStyle('styleguide-css-variables', false);
+            $this->wpService->wpEnqueueStyle('styleguide-css-variables');
+            $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
             add_editor_style($this->getStyleguideTemplatePath());
         } else {
-            $this->wpService->wpAddInlineStyle('styleguide-css-variables', $this->getStyleguideCssContent());
+            $this->wpService->wpEnqueueStyle('styleguide-css-variables', get_template_directory_uri() . $this->getStyleguideTemplatePath());
+            $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
         }
     }
 
-    private function getStyleguideCssContent():string {
-        $css = file_get_contents($this->wpService->getTemplateDirectory() . $this->getStyleguideTemplatePath());
-        return ":root :where(.editor-styles-wrapper) {\n$css\n})";
-    }
-
-    private function getStyleguideTemplatePath(): string {
+    private function getStyleguideTemplatePath(): string
+    {
         return '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/styleguide.css');
     }
 
