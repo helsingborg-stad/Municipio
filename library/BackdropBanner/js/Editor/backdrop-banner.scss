@@ -1,0 +1,49 @@
+.t-block-container {
+    &.t-block-backdrop-banner {
+        $row-selector: ".wp-block-municipio-backdrop-banner-row";
+        $row-selected: ":is(.is-selected, .has-child-selected)";
+
+        .t-block-backdrop-banner__tab-panel {
+            border: 1px solid #e0e0e0;
+            border-radius: calc(var(--base, 8px) * 0.5);
+        }
+
+        .t-block-backdrop-banner__inner-area {
+            width: 100%;
+            max-width: var(--container-width, calc(var(--base, 8px) * 156));
+            margin-right: auto;
+            margin-left: auto;
+
+            > .block-editor-inner-blocks {
+                width: 100%;
+
+                > .block-editor-block-list__layout {
+                    > #{$row-selector} {
+                        display: none;
+                        margin: 0;
+                        width: 100%;
+                    }
+
+                    // Show the selected row
+                    > #{$row-selector}#{$row-selected},
+                    // Fallback: show the first row when none is selected
+                    &:not(:has(> #{$row-selector}#{$row-selected})) > #{$row-selector}:first-child {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    &.t-block-backdrop-banner-row {
+        > .block-editor-inner-blocks > .block-editor-block-list__layout {
+            min-height: calc(var(--base, 8px) * 14);
+        }
+    }
+}
+
+.t-block-backdrop-banner-image-control {
+    .components-focal-point-picker__controls {
+        display: none;
+    }
+}

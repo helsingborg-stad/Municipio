@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "municipio/backdrop-banner-row",
+	"version": "0.1.0",
+	"title": "Backdrop Banner Row",
+	"category": "widgets",
+	"icon": "align-center",
+	"description": "A single row within a backdrop banner.",
+	"parent": ["municipio/backdrop-banner-block"],
+	"render": "file:./render.php",
+	"editorScript": "file:./../../../assets/dist/blocks/js/blocks.js",
+	"supports": {
+		"html": false,
+		"align": false,
+		"alignWide": false,
+		"reusable": false,
+		"customClassName": false,
+		"inserter": false,
+		"multiple": true,
+		"renaming": false
+	},
+	"lock": {
+		"move": true,
+		"remove": true
+	},
+	"attributes": {
+		"id": { "type": "string", "default": "" }
+	},
+	"textdomain": "municipio"
+}

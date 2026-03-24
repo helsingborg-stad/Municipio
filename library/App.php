@@ -360,6 +360,7 @@ class App
          */
         (new \Municipio\PostsList\PostsListFeature($this->wpService))->enable();
         (new \Municipio\PostsList\Block\PostsListBlock($this->wpService))->addHooks();
+        (new \Municipio\BackdropBanner\BackdropBanner($this->wpService))->addHooks();
 
         /**
          * Setup Accessibility Statement
