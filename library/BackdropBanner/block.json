@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "municipio/backdrop-banner-block",
+	"version": "0.1.0",
+	"title": "Backdrop Banner",
+	"category": "widgets",
+	"icon": "cover-image",
+	"description": "A backdrop banner block.",
+	"example": {},
+	"render": "file:./render.php",
+	"editorScript": "file:./../../assets/dist/blocks/js/blocks.js",
+	"editorStyle": ["municipio-backdrop-banner-style-editor"],
+	"script": ["municipio-backdrop-banner-script"],
+	"style": ["municipio-backdrop-banner-style"],
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": ["full"]
+	},
+	"allowedBlocks": ["municipio/backdrop-banner-row"],
+	"attributes": {
+		"anchor": { "type": "string", "default": "" },
+		"rows": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string" },
+					"title": { "type": "string" },
+					"subtitle": { "type": "string" },
+					"description": { "type": "string" },
+					"url": { "type": "string" },
+					"imageId": { "type": "number" },
+					"imageUrl": { "type": "string" },
+					"focalPointX": { "type": "number" },
+					"focalPointY": { "type": "number" }
+				}
+			}
+		}
+	},
+	"textdomain": "municipio"
+}

@@ -2,7 +2,7 @@ import path from "path";
 import { defineConfig } from "vite";
 
 const entries = {
-	"js/posts-list-block": "./library/PostsList/Block/js/index.ts",
+	"js/blocks": "./library/Blocks/js/index.ts",
 };
 
 const externalDeps = {
@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
 					chunkFileNames: isProduction ? "[name].js" : "[name].js",
 				},
 				treeshake: {
-					moduleSideEffects: false,
+					moduleSideEffects: "no-external",
 				},
 			},
 			minify: isProduction ? "esbuild" : false,
