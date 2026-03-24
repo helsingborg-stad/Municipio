@@ -123,6 +123,7 @@ class App
             ),
             $this->userHelper,
             $this->schemaDataConfig,
+            new MarkupProcessor\MarkupProcessor($this->wpService),
         );
 
         /**
