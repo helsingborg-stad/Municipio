@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_64ff22b117e2c',
     'title' => __('Manual Input Data', 'municipio'),
     'fields' => array(
@@ -1007,9 +1009,9 @@
                     'label' => __('Custom background color', 'municipio'),
                     'name' => 'custom_background_color',
                     'aria-label' => '',
-                    'type' => 'select',
+                    'type' => 'color_picker',
                     'instructions' => __('Colors can be defined in site customizer under General appearance > Colors > Additional colors.', 'municipio'),
-                    'required' => 1,
+                    'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
                             0 => array(
@@ -1029,20 +1031,15 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'choices' => array(
-                    ),
-                    'default_value' => false,
-                    'return_format' => 'value',
-                    'multiple' => 0,
-                    'allow_custom' => 0,
-                    'search_placeholder' => '',
-                    'allow_null' => 0,
-                    'ui' => 1,
-                    'ajax' => 0,
-                    'placeholder' => '',
+                    'default_value' => '',
+                    'enable_opacity' => 0,
+                    'return_format' => 'string',
+                    'allow_in_bindings' => 0,
+                    'show_custom_palette' => 1,
+                    'palette_colors' => '',
+                    'show_color_wheel' => 0,
+                    'custom_palette_source' => '',
                     'parent_repeater' => 'field_64ff22b2d91b7',
-                    'create_options' => 0,
-                    'save_options' => 0,
                 ),
             ),
         ),
@@ -1073,9 +1070,6 @@
     'description' => '',
     'show_in_rest' => 0,
     'display_title' => '',
-    'acfe_autosync' => '',
-    'acfe_form' => 0,
-    'acfe_meta' => '',
-    'acfe_note' => '',
 ));
-}
+
+}
