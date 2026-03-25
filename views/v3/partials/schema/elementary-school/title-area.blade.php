@@ -2,6 +2,6 @@
     {!! $post->getTitle() !!}
 @endtypography
 
-@element(['classList' => ['lead']])
+@typography(['variant' => 'lead'])
     {!! $preamble !!}
-@endelement
+@endtypography

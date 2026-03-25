@@ -22,7 +22,7 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'footer_color_text' => '--c-footer--color--surface-contrast',
         'typography_base.font-family' => '--font-family-base',
         'typography_base.font-size' => '--base-font-size',
-        'typography_heading.font-family' => '--font-family-heading',
+        'typography_h1.font-family' => '--font-family-heading',
         'drop_shadow_color' => '--shadow-color',
         'drop_shadow_amount' => '--shadow-amount',
         'radius_md' => '--border-radius',
@@ -34,6 +34,7 @@ class ThemeSettingsMapper implements ThemeSettingsMapperInterface
         'header_brand-color' => '--c-header--brand-color',
         'border_width_outline' => '--border-width',
         'field_border_radius' => '--c-field--border-radius',
+        'color_input.border' => '--c-field--color--surface-border',
     ];
 
     public function map(array $themeSettings): array
