@@ -1,0 +1,11 @@
+@use "../../../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
+
+.block-modularity-mod-curator {
+    --c-block--radius: 0;
+
+    .modularity-socialmedia__content {
+        border-radius: #{tokens.use("", "border-radius", 1)};
+        corner-shape: tokens.get("", "border-radius");
+        contain: paint;
+    }
+}
