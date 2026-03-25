@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a032375be54a04a9295ed70e59bef999",
+    "content-hash": "35943617dccdeface1fe6aded0a7fd3f",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1134,21 +1134,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.197.2",
+            "version": "2.198.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "a51b49351f5be356440d6c46cd849914e6456333"
+                "reference": "7b41e4193a7f487ea3ea68213424457c4fb5ff71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/a51b49351f5be356440d6c46cd849914e6456333",
-                "reference": "a51b49351f5be356440d6c46cd849914e6456333",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/7b41e4193a7f487ea3ea68213424457c4fb5ff71",
+                "reference": "7b41e4193a7f487ea3ea68213424457c4fb5ff71",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "^5.0",
+                "helsingborg-stad/component-library": "^5.2",
                 "php": "^8.2",
                 "ramsey/uuid": "^4.9"
             },
@@ -1187,9 +1187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.197.2"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.198.44"
             },
-            "time": "2026-03-19T10:45:46+00:00"
+            "time": "2026-03-25T06:23:07+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
