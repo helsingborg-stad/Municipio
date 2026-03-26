@@ -42,7 +42,7 @@ class AddCustomizerPropertiesToComponents implements Hookable
      */
     private function shouldEnableEditor(): bool
     {
-        return $this->wpService->isAdmin() && $this->currentUserCan('edit_theme_options');
+        return $this->wpService->isAdmin() && $this->wpService->currentUserCan('edit_theme_options');
     }
 
     /** Adds customizer properties to the component data.
