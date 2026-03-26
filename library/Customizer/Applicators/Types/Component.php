@@ -2,18 +2,18 @@
 
 namespace Municipio\Customizer\Applicators\Types;
 
+use Error;
 use Municipio\Customizer\Applicators\AbstractApplicator;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 use WpService\WpService;
-use Error;
 
 class Component extends AbstractApplicator implements ApplicatorInterface
 {
     private array $cachedData = [];
 
-    public function __construct(private WpService $wpService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+    ) {}
 
     public function getKey(): string
     {
@@ -66,6 +66,12 @@ class Component extends AbstractApplicator implements ApplicatorInterface
             }
 
             if ($passFilterRules) {
+                if (isset($filter['data']['classList']) && is_string($filter['data']['classList'])) {
+                    // Ensure classList is an array and handle before merging it with existing classList in data.
+                    $data['classList'] = array_merge($data['classList'] ?? [], [$filter['data']['classList']]);
+                    unset($filter['data']['classList']);
+                }
+
                 $data = array_replace_recursive($data, $filter['data']);
             }
         }
@@ -83,13 +89,10 @@ class Component extends AbstractApplicator implements ApplicatorInterface
     private function checkAndOperators(array $andOperators, array $contexts)
     {
         foreach ($andOperators as $andOperator) {
-            $context  = $andOperator['context'];
+            $context = $andOperator['context'];
             $operator = $andOperator['operator'];
 
-            if (
-                ($operator == "===" && !in_array($context, $contexts)) ||
-                ($operator == "!==" && in_array($context, $contexts))
-            ) {
+            if ($operator == '===' && !in_array($context, $contexts) || $operator == '!==' && in_array($context, $contexts)) {
                 return false;
             }
         }
@@ -99,7 +102,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface
 
     public function getData(): array
     {
-        $fields        = $this->getFields();
+        $fields = $this->getFields();
         $componentData = [];
 
         if (is_array($fields) && !empty($fields)) {
@@ -121,20 +124,20 @@ class Component extends AbstractApplicator implements ApplicatorInterface
                         foreach ($output['context'] as $contextKey => $context) {
                             if (is_string($context)) {
                                 $output['context'][$contextKey] = [
-                                'operator' => '==',
-                                'context'  => $context
+                                    'operator' => '==',
+                                    'context' => $context,
                                 ];
                             }
                         }
 
                         $filterData = $this->buildFilterData(
                             $output['dataKey'],
-                            \Kirki::get_option($key)
+                            \Kirki::get_option($key),
                         );
 
                         $componentData[] = [
-                          'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
-                          'data'     => $filterData,
+                            'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
+                            'data' => $filterData,
                         ];
                     }
                 }
@@ -144,25 +147,25 @@ class Component extends AbstractApplicator implements ApplicatorInterface
         return $componentData;
     }
 
-  /**
-   * Build filter data from the given data key and value
-   *
-   * @param string $dataKey
-   * @param mixed $value
-   * @return array
-   */
+    /**
+     * Build filter data from the given data key and value
+     *
+     * @param string $dataKey
+     * @param mixed $value
+     * @return array
+     */
     private function buildFilterData(string $dataKey, $value): array
     {
-        $filterData  = [];
+        $filterData = [];
         $previousArr = &$filterData;
-        $fields      = explode('.', $dataKey);
+        $fields = explode('.', $dataKey);
 
         foreach ($fields as $i => $field) {
-            if ($i === count($fields) - 1) {
+            if ($i === (count($fields) - 1)) {
                 $previousArr[$field] = $value;
             } else {
                 $previousArr[$field] = [];
-                $previousArr         = &$previousArr[$field];
+                $previousArr = &$previousArr[$field];
             }
         }
 

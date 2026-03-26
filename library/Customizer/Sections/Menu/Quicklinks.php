@@ -14,16 +14,21 @@ class Quicklinks
             'settings' => 'quicklinks_color_scheme',
             'label' => esc_html__('Color scheme', 'municipio'),
             'section' => $sectionID,
-            'default' => 'secondary',
+            'default' => 'u-color--secondary',
             'priority' => 10,
             'choices' => [
-                'primary' => esc_html__('Primary', 'municipio'),
-                'secondary' => esc_html__('Secondary', 'municipio'),
+                'u-color--primary' => esc_html__('Primary', 'municipio'),
+                'u-color--secondary' => esc_html__('Secondary', 'municipio'),
+                'u-color--background' => esc_html__('Background', 'municipio'),
+                'u-color--surface' => esc_html__('Surface', 'municipio'),
             ],
             'output' => [
                 [
-                    'type' => 'modifier',
-                    'context' => ['site.quicklinks'],
+                    'type' => 'component_data',
+                    'dataKey' => 'classList',
+                    'context' => [
+                        ['context' => 'site.quicklinks', 'operator' => '=='],
+                    ],
                 ],
             ],
         ]);
