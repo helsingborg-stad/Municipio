@@ -196,6 +196,8 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->accessibilityTitle = $this->wpService->__('Accessibility', 'municipio');
         $this->data['lang']->expiredEventNotice = $this->wpService->__('This event has already taken place.', 'municipio');
         $this->data['lang']->relatedEventsTitle = $this->wpService->__('Related events', 'municipio');
+        $this->data['lang']->readMore = $this->wpService->__('Read more', 'municipio');
+        $this->data['lang']->linksTitle = $this->wpService->__('Links', 'municipio');
     }
 
     /**
