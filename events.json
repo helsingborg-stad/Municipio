@@ -1,0 +1,73 @@
+[
+	{
+		"@context": {
+			"municipio": "https://schema.municipio.tech/schema.jsonld",
+			"schema": "https://schema.org"
+		},
+		"@id": "WPH-239",
+		"@type": "Event",
+		"description": [
+			"<p>Hjälp småfåglarna att hitta ett bo och prova på att hamra och spika.</p>\n<p><strong>När:</strong> 16 februari klockan 12.00–16.00<br />\n<strong>Var: </strong>Bakgården i stadskvarteret, Fredriksdal museer och trädgårdar<br />\n<strong>Entré:</strong> betala med Swish på plats</p>\n"
+		],
+		"eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+		"eventSchedule": [
+			{
+				"@type": "Schedule",
+				"endDate": "2026-02-16 16:00:00",
+				"startDate": "2026-02-16 12:00:00"
+			}
+		],
+		"eventStatus": "https://schema.org/EventScheduled",
+		"id": "25930237",
+		"image": [
+			{
+				"@type": "ImageObject",
+				"caption": "fågelholkar",
+				"name": "fågelholkar",
+				"url": "https://event.helsingborg.io/wp-content/uploads/sites/5/2026/01/AB_fagelholk10_crop_sportlov-scaled.jpg"
+			}
+		],
+		"isAccessibleForFree": true,
+		"keywords": [
+			{
+				"@type": "DefinedTerm",
+				"inDefinedTermSet": {
+					"@type": "DefinedTermSet",
+					"name": "category"
+				},
+				"name": "Lovaktiviteter"
+			}
+		],
+		"location": [
+			{
+				"@type": "Place",
+				"address": "Fredriksdal Museer och Trädgårdar, Gisela Trapps väg 1, 254 37 Helsingborg, Sverige",
+				"latitude": 56.057445208705346,
+				"longitude": 12.710752487182617,
+				"name": "Bakgården i stadskvarteret"
+			}
+		],
+		"name": "Spika din egen fågelholk",
+		"offers": [],
+		"organizer": [
+			{
+				"@type": "Organization",
+				"address": "Gisela Trapps väg 1, 254 37 Helsingborg",
+				"contactPoint": [
+					{
+						"@type": "ContactPoint",
+						"name": "Helsingborgs museum"
+					}
+				],
+				"email": "helsingborgsmuseum@helsingborg.se",
+				"name": "Helsingborgs museum",
+				"telephone": "042-10 45 27",
+				"url": "https://helsingborgsmuseum.se/"
+			}
+		],
+		"physicalAccessibilityFeatures": [],
+		"potentialAction": [],
+		"startDate": "2026-02-16T12:00:00+00:00",
+		"x-created-by": "municipio://schema.org-transformer/wp-headless"
+	}
+]
