@@ -236,6 +236,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\PostsList\PostsListRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\PlaceSearch\PlaceSearchEndpoint($this->wpService));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Nonce\Refresh());
+        RestApiEndpointsRegistry::add(new \Municipio\Chat\Chat($this->acfService));
 
         $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
@@ -364,6 +365,11 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Setup Chat
+         */
+        $this->setupChat();
     }
 
     /**
@@ -858,5 +864,11 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
+    }
+
+    private function setupChat(): void
+    {
+        $registerChatFieldGroupsAdminPage = new \Municipio\Chat\RegisterChatFieldGroupsAdminPage($this->wpService, $this->acfService);
+        $registerChatFieldGroupsAdminPage->addHooks();
     }
 }
