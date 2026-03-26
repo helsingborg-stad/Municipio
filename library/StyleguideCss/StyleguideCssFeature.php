@@ -3,6 +3,7 @@
 namespace Municipio\StyleguideCss;
 
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\StyleguideCss\AddCustomizePropertiesToComponents\AddCustomizerPropertiesToComponents;
 use Municipio\StyleguideCss\AddLayerOrderDefinitionToHead\AddLayerOrderDefinitionToHead;
 use Municipio\StyleguideCss\ApplyLayerToInlineStyles\ApplyLayerToInlineStyles;
 use Municipio\StyleguideCss\ApplyLayerToWordpressStyles\ApplyLayerToWordpressStyles;
@@ -28,6 +29,7 @@ class StyleguideCssFeature implements Hookable
         (new ApplyLayerToInlineStyles($this->wpService))->addHooks();
         (new AddLayerOrderDefinitionToHead($this->wpService))->addHooks();
         (new ApplyLayerToWordpressStyles($this->wpService))->addHooks();
+        (new AddCustomizerPropertiesToComponents($this->wpService))->addHooks();
     }
 
     public function outputStyleguideCss(bool $isEditor = false): void
