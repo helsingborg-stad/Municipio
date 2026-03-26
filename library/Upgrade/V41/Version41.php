@@ -7,6 +7,9 @@ use AcfService\Contracts\UpdateField;
 use Municipio\Customizer\Applicators\Types\NullApplicator;
 use Municipio\Helper\AcfService;
 use Municipio\Upgrade\VersionInterface;
+use WpService\Contracts\GetOption;
+use WpService\Contracts\GetThemeMods;
+use WpService\Contracts\UpdateOption;
 use WpService\Contracts\WpGetCustomCss;
 use WpService\Contracts\WpUpdateCustomCssPost;
 
@@ -19,7 +22,7 @@ class Version41 implements VersionInterface
      * Constructor.
      */
     public function __construct(
-        private WpGetCustomCss&WpUpdateCustomCssPost $wpService,
+        private WpGetCustomCss&WpUpdateCustomCssPost&GetOption&UpdateOption $wpService,
         private GetField&UpdateField $acfService,
     ) {}
 
@@ -28,11 +31,14 @@ class Version41 implements VersionInterface
      */
     public function upgradeToVersion(): void
     {
+        $this->migrateCustomCss();
+        $this->migrateThemeMods();
+    }
+
+    private function migrateCustomCss(): void
+    {
         $customCss = $this->wpService->wpGetCustomCss();
         $acfCustomCss = $this->acfService->getField('custom_css_input', 'option');
-
-        // var_dump($customCss);
-        // die();
 
         $searchReplaceMap = [
             '--color-header-background' => '--c-header--background-color',
@@ -55,6 +61,21 @@ class Version41 implements VersionInterface
 
         $this->wpService->wpUpdateCustomCssPost($customCss);
         $this->acfService->updateField('custom_css_input', $acfCustomCss, 'option');
+    }
+
+    private function migrateThemeMods(): void
+    {
+        $themeMods = $this->wpService->getOption('theme_mods_municipio', []);
+
+        if (isset($themeMods['quicklinks_appearance_type']) && $themeMods['quicklinks_appearance_type'] === 'custom') {
+            $themeMods['quicklinks_color_scheme'] = 'secondary';
+        }
+
+        unset($themeMods['quicklinks_appearance_type']);
+        unset($themeMods['quicklinks_background_type']);
+        unset($themeMods['quicklinks_custom_background']);
+
+        $this->wpService->updateOption('theme_mods_municipio', $themeMods);
     }
 
     private function maybeWrapInCssLayer(string $css): string
