@@ -97,6 +97,7 @@
             const template = document.getElementById('chat-message-template-' + role);
             const newMessage = template.content.cloneNode(true);
             const msgEl = newMessage.querySelector('.c-comment__bubble--inner');
+            //msgEl.style.whiteSpace = 'pre-wrap';
             msgEl.textContent = text;
 
             // Append the new message to the chat messages container
@@ -107,6 +108,22 @@
             });
 
             return msgEl;
+        }
+
+        /**
+         * Basic markdown-to-HTML converter. Supports links, bold, italics, and line breaks.
+         *
+         * @param {string} text - The markdown text to render.
+         * @returns {string} The rendered HTML string.
+         */
+        function renderMarkdown(text) {
+            return text
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+                    '<a href="$2" target="_blank" rel="noopener">$1</a>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
         }
 
         async function ask() {
@@ -156,6 +173,7 @@
             const reader = res.body.getReader();
             const decoder = new TextDecoder('utf-8');
             let buffer = "";
+            let accum = "";
 
             while (true) {
                 const {
@@ -184,7 +202,8 @@
                                     submitButton.textContent = 'Skriver...';
                                     break;
                                 case "text":
-                                    answerEl.textContent += data.answer;
+                                    accum += data.answer;
+                                    answerEl.innerHTML = renderMarkdown(accum);
                                     answerEl.scrollIntoView({
                                         behavior: 'smooth'
                                     });
