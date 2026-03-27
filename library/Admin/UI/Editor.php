@@ -2,8 +2,6 @@
 
 namespace Municipio\Admin\UI;
 
-use Municipio\Helper\Styleguide;
-
 class Editor
 {
     public function __construct()
@@ -52,7 +50,7 @@ class Editor
         return $buttons;
     }
 
-     /**
+    /**
      * Add js to block editor
      * @return void
      */
@@ -61,7 +59,7 @@ class Editor
         wp_enqueue_script(
             'columns-block',
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/blocks/columns.js'),
-            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post')
+            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'),
         );
     }
 
@@ -82,30 +80,16 @@ class Editor
             'block-editor-adjustments',
             apply_filters(
                 'Municipio/Admin/BlockEditor',
-                get_template_directory_uri() .
-                    '/assets/dist/' .
-                    \Municipio\Helper\CacheBust::name('css/blockeditor.css')
-            )
-        );
-
-        wp_enqueue_style(
-            'block-editor-styleguide',
-            apply_filters(
-                'Municipio/Admin/BlockEditorStyleguide',
-                get_template_directory_uri() .
-                    '/assets/dist/' .
-                    \Municipio\Helper\CacheBust::name('css/styleguide.css')
-            )
+                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/blockeditor.css'),
+            ),
         );
 
         wp_enqueue_style(
             'block-editor-municipio',
             apply_filters(
                 'Municipio/Admin/BlockEditorMunicipio',
-                get_template_directory_uri() .
-                    '/assets/dist/' .
-                    \Municipio\Helper\CacheBust::name('css/municipio.css')
-            )
+                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/municipio.css'),
+            ),
         );
     }
 
@@ -115,25 +99,21 @@ class Editor
      */
     public function editorStyle()
     {
-
         add_editor_style(
             apply_filters(
                 'Municipio/Admin/EditorStyleguide',
-                get_template_directory_uri() .
-                    '/assets/dist/' .
-                    \Municipio\Helper\CacheBust::name('css/styleguide.css')
-            )
+                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/styleguide.css'),
+            ),
         );
 
         add_editor_style(
             apply_filters(
                 'Municipio/Admin/EditorTinyMce',
-                get_template_directory_uri() .
-                    '/assets/dist/' .
-                    \Municipio\Helper\CacheBust::name('css/mce.css')
-            )
+                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/mce.css'),
+            ),
         );
     }
+
     /**
      * Add style format options
      * @param  array $settings  Options array
@@ -172,14 +152,18 @@ class Editor
     public static function getEnabledStyleFormats()
     {
         $returnFormats = array();
-        $formats       = self::getAvailableStyleFormats();
-        $enabled       = get_field('content_editor_formats', 'options');
+        $formats = self::getAvailableStyleFormats();
+        $enabled = get_field('content_editor_formats', 'options');
 
         if (is_array($enabled) && !empty($enabled) && is_array($formats) && !empty($formats)) {
             foreach ($formats as $key => &$format) {
-                $format = array_filter($format, function ($key) use ($enabled) {
-                    return in_array($key, $enabled);
-                }, ARRAY_FILTER_USE_KEY);
+                $format = array_filter(
+                    $format,
+                    function ($key) use ($enabled) {
+                        return in_array($key, $enabled);
+                    },
+                    ARRAY_FILTER_USE_KEY,
+                );
             }
 
             foreach ($formats as $key => $items) {
@@ -189,7 +173,7 @@ class Editor
 
                 $returnFormats[] = array(
                     'title' => $key,
-                    'items' => $items
+                    'items' => $items,
                 );
             }
         }
@@ -204,172 +188,172 @@ class Editor
     public static function getAvailableStyleFormats()
     {
         return apply_filters('Municipio\WpEditor\AvailableFormats', array(
-            'Text size'      => array(
-                'small'       => array(
-                    'title'  => 'Small',
-                    'inline' => 'small'
+            'Text size' => array(
+                'small' => array(
+                    'title' => 'Small',
+                    'inline' => 'small',
                 ),
-                'large'       => array(
-                    'title'   => 'Large',
-                    'inline'  => 'span',
-                    'classes' => 'text-lg'
+                'large' => array(
+                    'title' => 'Large',
+                    'inline' => 'span',
+                    'classes' => 'text-lg',
                 ),
                 'extra-large' => array(
-                    'title'   => 'Extra large',
-                    'inline'  => 'span',
-                    'classes' => 'text-xl'
-                )
+                    'title' => 'Extra large',
+                    'inline' => 'span',
+                    'classes' => 'text-xl',
+                ),
             ),
 
-            'Heading size'   => array(
+            'Heading size' => array(
                 'heading-1' => array(
-                    'title'   => 'Heading 1',
-                    'inline'  => 'span',
-                    'classes' => 'h1'
+                    'title' => 'Heading 1',
+                    'inline' => 'span',
+                    'classes' => 'h1',
                 ),
                 'heading-2' => array(
-                    'title'   => 'Heading 2',
-                    'inline'  => 'span',
-                    'classes' => 'h2'
+                    'title' => 'Heading 2',
+                    'inline' => 'span',
+                    'classes' => 'h2',
                 ),
                 'heading-3' => array(
-                    'title'   => 'Heading 3',
-                    'inline'  => 'span',
-                    'classes' => 'h3'
+                    'title' => 'Heading 3',
+                    'inline' => 'span',
+                    'classes' => 'h3',
                 ),
                 'heading-4' => array(
-                    'title'   => 'Heading 4',
-                    'inline'  => 'span',
-                    'classes' => 'h4'
+                    'title' => 'Heading 4',
+                    'inline' => 'span',
+                    'classes' => 'h4',
                 ),
                 'heading-5' => array(
-                    'title'   => 'Heading 5',
-                    'inline'  => 'span',
-                    'classes' => 'h5'
+                    'title' => 'Heading 5',
+                    'inline' => 'span',
+                    'classes' => 'h5',
                 ),
                 'heading-6' => array(
-                    'title'   => 'Heading 6',
-                    'inline'  => 'span',
-                    'classes' => 'h6'
-                )
+                    'title' => 'Heading 6',
+                    'inline' => 'span',
+                    'classes' => 'h6',
+                ),
             ),
 
-            'Font weight'    => array(
+            'Font weight' => array(
                 'weight-300' => array(
-                    'title'   => 'Light (300)',
-                    'inline'  => 'span',
-                    'classes' => 'weight-300'
+                    'title' => 'Light (300)',
+                    'inline' => 'span',
+                    'classes' => 'weight-300',
                 ),
                 'weight-400' => array(
-                    'title'   => 'Regular (400)',
-                    'inline'  => 'span',
-                    'classes' => 'weight-400'
+                    'title' => 'Regular (400)',
+                    'inline' => 'span',
+                    'classes' => 'weight-400',
                 ),
                 'weight-500' => array(
-                    'title'   => 'Medium (500)',
-                    'inline'  => 'span',
-                    'classes' => 'weight-500'
+                    'title' => 'Medium (500)',
+                    'inline' => 'span',
+                    'classes' => 'weight-500',
                 ),
                 'weight-700' => array(
-                    'title'   => 'Bold (700)',
-                    'inline'  => 'span',
-                    'classes' => 'weight-700'
+                    'title' => 'Bold (700)',
+                    'inline' => 'span',
+                    'classes' => 'weight-700',
                 ),
                 'weight-900' => array(
-                    'title'   => 'Black (900)',
-                    'inline'  => 'span',
-                    'classes' => 'weight-900'
-                )
+                    'title' => 'Black (900)',
+                    'inline' => 'span',
+                    'classes' => 'weight-900',
+                ),
             ),
 
-            'Text color'     => array(
+            'Text color' => array(
                 'text-color-1' => array(
-                    'title'   => 'Color 1',
-                    'inline'  => 'span',
-                    'classes' => 'text-color-1'
+                    'title' => 'Color 1',
+                    'inline' => 'span',
+                    'classes' => 'text-color-1',
                 ),
                 'text-color-2' => array(
-                    'title'   => 'Color 2',
-                    'inline'  => 'span',
-                    'classes' => 'text-color-2'
+                    'title' => 'Color 2',
+                    'inline' => 'span',
+                    'classes' => 'text-color-2',
                 ),
                 'text-color-3' => array(
-                    'title'   => 'Color 3',
-                    'inline'  => 'span',
-                    'classes' => 'text-color-3'
+                    'title' => 'Color 3',
+                    'inline' => 'span',
+                    'classes' => 'text-color-3',
                 ),
                 'text-color-4' => array(
-                    'title'   => 'Color 4',
-                    'inline'  => 'span',
-                    'classes' => 'text-color-4'
+                    'title' => 'Color 4',
+                    'inline' => 'span',
+                    'classes' => 'text-color-4',
                 ),
                 'text-color-5' => array(
-                    'title'   => 'Color 5',
-                    'inline'  => 'span',
-                    'classes' => 'text-color-5'
-                )
+                    'title' => 'Color 5',
+                    'inline' => 'span',
+                    'classes' => 'text-color-5',
+                ),
             ),
 
             'Text transform' => array(
-                'uppercase'  => array(
-                    'title'   => 'Uppercase',
-                    'inline'  => 'span',
-                    'classes' => 'text-uppercase'
+                'uppercase' => array(
+                    'title' => 'Uppercase',
+                    'inline' => 'span',
+                    'classes' => 'text-uppercase',
                 ),
-                'lowercase'  => array(
-                    'title'   => 'Lowercase',
-                    'inline'  => 'span',
-                    'classes' => 'text-lowercase'
+                'lowercase' => array(
+                    'title' => 'Lowercase',
+                    'inline' => 'span',
+                    'classes' => 'text-lowercase',
                 ),
                 'capitalize' => array(
-                    'title'   => 'Capitalize',
-                    'inline'  => 'span',
-                    'classes' => 'text-capitalize'
-                )
+                    'title' => 'Capitalize',
+                    'inline' => 'span',
+                    'classes' => 'text-capitalize',
+                ),
             ),
 
-            'Highlight'      => array(
-                'dark-gray'   => array(
-                    'title'   => 'Drak gray',
-                    'inline'  => 'span',
-                    'classes' => 'text-dark-gray'
+            'Highlight' => array(
+                'dark-gray' => array(
+                    'title' => 'Drak gray',
+                    'inline' => 'span',
+                    'classes' => 'text-dark-gray',
                 ),
-                'highlight'   => array(
-                    'title'   => 'Highlight',
-                    'inline'  => 'span',
-                    'classes' => 'text-highlight'
+                'highlight' => array(
+                    'title' => 'Highlight',
+                    'inline' => 'span',
+                    'classes' => 'text-highlight',
                 ),
-                'mark'        => array(
-                    'title'   => 'Mark',
-                    'inline'  => 'mark',
-                    'classes' => 'mark'
+                'mark' => array(
+                    'title' => 'Mark',
+                    'inline' => 'mark',
+                    'classes' => 'mark',
                 ),
                 'mark-yellow' => array(
-                    'title'   => 'Mark yellow',
-                    'inline'  => 'mark',
-                    'classes' => 'mark-yellow'
+                    'title' => 'Mark yellow',
+                    'inline' => 'mark',
+                    'classes' => 'mark-yellow',
                 ),
-                'mark-blue'   => array(
-                    'title'   => 'Mark blue',
-                    'inline'  => 'mark',
-                    'classes' => 'mark-blue'
+                'mark-blue' => array(
+                    'title' => 'Mark blue',
+                    'inline' => 'mark',
+                    'classes' => 'mark-blue',
                 ),
-                'mark-green'  => array(
-                    'title'   => 'Mark green',
-                    'inline'  => 'mark',
-                    'classes' => 'mark-green'
+                'mark-green' => array(
+                    'title' => 'Mark green',
+                    'inline' => 'mark',
+                    'classes' => 'mark-green',
                 ),
-                'mark-red'    => array(
-                    'title'   => 'Mark red',
-                    'inline'  => 'mark',
-                    'classes' => 'mark-red'
+                'mark-red' => array(
+                    'title' => 'Mark red',
+                    'inline' => 'mark',
+                    'classes' => 'mark-red',
                 ),
                 'mark-purple' => array(
-                    'title'   => 'Mark purple',
-                    'inline'  => 'mark',
-                    'classes' => 'mark-purple'
+                    'title' => 'Mark purple',
+                    'inline' => 'mark',
+                    'classes' => 'mark-purple',
                 ),
-            )
+            ),
         ));
     }
 }

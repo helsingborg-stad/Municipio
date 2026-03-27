@@ -1,5 +1,4 @@
-@element([
-    'componentElement' => 'header',
+@paper([
     'classList' => [
         'o-layout-grid--col-span-1',
         'o-layout-grid',
@@ -13,22 +12,18 @@
         'u-padding__x--8@lg',
         'u-padding__y--8@lg',
         'u-padding__x--8@xl',
-        'u-padding__y--8@xl',
-        'u-rounded--16',
+        'u-padding__y--8@xl'
     ],
-    'attributeList' => [
-        'style' => 'background-color: var(--color-secondary);'
-    ]
 ])
     @element([
         'classList' => [
             'o-layout-grid--col-span-11'
         ],
         'attributeList' => [
-            'style' => 'max-width: 800px; color: var(--color-secondary-contrasting);'
+            'style' => 'max-width: 800px;'
         ]
     ])
-        @typography(['element' => 'h1', 'variant' => 'h1'])
+        @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__top--0']])
             {!! $post->getTitle() !!}
         @endtypography
         @if(!empty($description))
@@ -46,4 +41,4 @@
             @datebadge([ 'date' => $currentOccasion->getStartDate() ]) @enddatebadge
         @endif
     @endelement
-@endelement
+@endpaper

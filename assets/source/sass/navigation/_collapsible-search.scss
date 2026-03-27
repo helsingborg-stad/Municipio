@@ -1,10 +1,7 @@
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
-
 .site-header {
     .collapsible-search-form {
         $parent: &;
-
-        position: relative;
+        contain: layout;
 
         .collapsible-search-form__form {
             position: absolute;
@@ -15,14 +12,14 @@
             transition: all 0.2s ease-in-out;
             transform-origin: center right;
             display: flex;
-            padding: calc(var(--base, 8px) * 0.5);
+            padding: calc(var(--base) * 0.5);
             overflow: hidden;
-            z-index: variables.$level-7;
+            z-index: 7;
             opacity: 0;
 
             @media (max-width: 799px) {
                 position: fixed;
-                top: calc(var(--base, 8px) * 1.5);
+                top: calc(var(--base) * 1.5);
             }
         }
 
@@ -43,19 +40,19 @@
             }
 
             .collapsible-search-form__form {
-                width: calc(100% - (var(--base, 8px) * 1.6));
+                width: calc(100% - (var(--base) * 1.6));
                 opacity: 1;
 
                 @media (min-width: 800px) {
-                    width: calc(var(--base, 8px) * 40);
+                    width: calc(var(--base) * 40);
                 }
 
                 @media (min-width: 1000px) {
-                    width: calc(var(--base, 8px) * 50);
+                    width: calc(var(--base) * 50);
                 }
 
                 @media (max-width: 799px) {
-                    right: calc(var(--base, 8px) * 0.8);
+                    right: calc(var(--base) * 0.8);
 
                     #{$parent}__group {
                         width: 100%;
@@ -73,34 +70,14 @@
                 min-width: 0;
 
                 @media (min-width: 800px) {
-                    min-width: calc(var(--base, 8px) * 30);
+                    min-width: calc(var(--base) * 30);
                 }
 
                 @media (min-width: 1000px) {
-                    min-width: calc(var(--base, 8px) * 44);
-                }
-
-                .c-field_focus-styler {
-                    outline-color: var(--c-button-primary-color);
-                    border-radius: calc(var(--base, 8px) * 6);
-                    outline-width: 3px;
-                }
-
-                input {
-                    font-size: 16px;
-                    padding-right: calc(var(--base, 8px) * 5);
-                    border-radius: calc(var(--base, 8px) * 6);
-
-                    &:focus {
-                        outline-style: none;
-                    }
+                    min-width: calc(var(--base) * 44);
                 }
 
                 &__inner {
-                    background-color: variables.$color-white;
-                    border-radius: calc(var(--base, 8px) * 6);
-                    background-color: variables.$color-white;
-                    border: 2px solid var(--c-button-primary-color);
                     height: 100%;
                 }
             }
@@ -133,13 +110,7 @@
             appearance: none;
             background: transparent;
             border: none;
-            background-color: variables.$color-secondary-light;
             outline-width: 3px;
-            border-top-right-radius: calc(var(--base, 8px) * 6);
-            border-bottom-right-radius: calc(var(--base, 8px) * 6);
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            color: variables.$color-black;
             position: relative;
             cursor: pointer;
             z-index: -1;
@@ -151,7 +122,7 @@
                 height: 100%;
                 display: block;
                 position: absolute;
-                background-color: variables.$color-secondary-light;
+
                 inset: 0 100% 0 auto;
                 z-index: -1;
             }

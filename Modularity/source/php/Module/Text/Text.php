@@ -21,7 +21,7 @@ class Text extends \Modularity\Module
         $data = $this->getFields() ?? [];
 
         // Post content [with multiple fallbacks]
-        $data['postContent'] = $this->data['post_content'] ?? $data['post_content'] ?: $data['content'] ?? '';
+        $data['postContent'] = $this->data['post_content'] ?? $data['post_content'] ?? $data['content'] ?? '';
 
         //Run relevant filters
         foreach (['Modularity/Display/SanitizeContent', 'the_content'] as $filter) {

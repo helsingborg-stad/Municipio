@@ -45,29 +45,5 @@ class Padding
                 ]
             ]
         ]);
-
-        KirkiField::addField([
-            'type'        => 'radio_buttonset',
-            'settings'    => 'flat_ui_design',
-            'label'       => esc_html__('Air in cards', 'municipio'),
-            'description' => esc_html__('Enable to remove space between content and the edge of cards.', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => '',
-            'priority'    => 10,
-            'choices'     => [
-                ''     => esc_html__('Apply air', 'municipio'),
-                'flat' => esc_html__('Remove air', 'municipio')
-            ],
-            'output'      => [
-                [
-                  'type'    => 'modifier',
-                  'context' => [
-                    'component.card',
-                    'component.paper',
-                    'component.slider'
-                  ]
-                ]
-            ],
-        ]);
     }
 }

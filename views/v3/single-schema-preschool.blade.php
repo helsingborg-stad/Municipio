@@ -1,12 +1,5 @@
 @extends('templates.grid')
 
-@section('hero-top-sidebar')
-    @parent
-    @include('partials.navigation.helper', [
-        'classList' => ['o-container', 'o-container--helper-nav'],
-    ])
-@stop
-
 @section('layout')
         @section('before-content')
             @include('partials.schema.preschool.title-area')

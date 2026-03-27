@@ -1,5 +1,5 @@
-@paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--2']])
-    @typography(['element' => 'h2'])
+@paper(['padding' => 4])
+    @typography(['element' => 'h2', 'variant' => 'h5'])
         {!! $actions['title'] ?: $lang->actionsLabel !!}
     @endtypography
     @if(!empty($actions['description']))

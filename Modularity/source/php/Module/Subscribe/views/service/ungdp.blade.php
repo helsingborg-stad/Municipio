@@ -12,6 +12,7 @@
 		]
 ])
   @group([
+    'display' => 'flex',
     'alignItems' => 'end',
     'classList' => ['u-margin__bottom--1']
   ])

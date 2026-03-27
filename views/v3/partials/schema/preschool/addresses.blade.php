@@ -1,6 +1,6 @@
-@paper(['classList' => ['u-padding--2']])
+@paper(['padding' => 4])
     @element()
-        @typography(['element' => 'h2'])
+        @typography(['element' => 'h2', 'variant' => 'h5', 'classList' => ['u-margin__top--0']])
             {!! $lang->addressLabel !!}
         @endtypography
         @foreach ($addresses as $address)

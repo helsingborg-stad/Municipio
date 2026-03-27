@@ -7,12 +7,8 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 );
 
 const entries = {
-	"css/splide": "./node_modules/@splidejs/splide/dist/css/splide-core.min.css",
-	"css/styleguide":
-		"./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss",
-	"js/styleguide":
-		"./node_modules/@helsingborg-stad/styleguide/source/js/app.js",
-
+	"js/styleguide": "./vendor/helsingborg-stad/styleguide/assets/dist/js/styleguide-js.js",
+	"css/styleguide": "./vendor/helsingborg-stad/styleguide/assets/dist/css/styleguide-css.css",
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
