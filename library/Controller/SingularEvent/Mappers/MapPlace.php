@@ -24,6 +24,8 @@ class MapPlace implements EventDataMapperInterface
         return [
             'url'     => $this->getUrl($place),
             'address' => $this->getAddress($place),
+            'lat' => $place->getProperty('latitude') ?? null,
+            'lng' => $place->getProperty('longitude') ?? null,
         ];
     }
 
