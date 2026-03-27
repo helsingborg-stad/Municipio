@@ -7,8 +7,14 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 );
 
 const entries = {
-	"js/styleguide": "./vendor/helsingborg-stad/styleguide/assets/dist/js/styleguide-js.js",
-	"css/styleguide": "./vendor/helsingborg-stad/styleguide/assets/dist/css/styleguide-css.css",
+	"js/styleguide":
+		"./vendor/helsingborg-stad/styleguide/assets/dist/js/styleguide-js.js",
+	"css/styleguide":
+		"./vendor/helsingborg-stad/styleguide/assets/dist/css/styleguide-css.css",
+	"css/designbuilder":
+		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder.scss",
+	"js/designbuilder":
+		"./vendor/helsingborg-stad/styleguide/source/design-builder/index.ts",
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
@@ -43,8 +49,10 @@ const entries = {
 
 	/* Blocks */
 	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
-	"css/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.scss",
-	"css/backdrop-banner-editor": "./library/BackdropBanner/js/Editor/backdrop-banner.scss",
+	"css/backdrop-banner":
+		"./library/BackdropBanner/js/Front/backdrop-banner.scss",
+	"css/backdrop-banner-editor":
+		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
