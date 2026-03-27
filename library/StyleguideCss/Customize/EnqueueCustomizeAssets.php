@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\StyleguideCss\Customize;
 
+use Composer\InstalledVersions;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
@@ -11,10 +12,17 @@ class EnqueueCustomizeAssets implements Hookable
 {
     private const HOOK = 'init';
     private const PRIORITY = 10;
+    private const STYLEGUIDE_PACKAGE = 'helsingborg-stad/styleguide';
+
+    private ?string $styleguidePath = null;
 
     public function __construct(
         private readonly WpService $wpService,
-    ) {}
+    ) {
+        $this->styleguidePath = InstalledVersions::getInstallPath(
+            self::STYLEGUIDE_PACKAGE,
+        ) ?: null;
+    }
 
     /* Registers the necessary hooks for adding customizer properties to components.
      *
@@ -28,6 +36,7 @@ class EnqueueCustomizeAssets implements Hookable
         }
 
         $this->wpService->addAction(self::HOOK, [$this, 'enqueueCustomizeAssets'], self::PRIORITY);
+        $this->wpService->addAction(self::HOOK, [$this, 'enqueueCustomizeData'], self::PRIORITY);
     }
 
     /* Checks if the editor should be enabled based on the current user's capabilities.
@@ -53,5 +62,37 @@ class EnqueueCustomizeAssets implements Hookable
             'styleguide-customize-css',
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
         );
+    }
+
+    /* Enqueues the customizer data as inline styles.
+     *
+     * This method reads the customizer data from a specified file and adds it as inline styles to the 'styleguide-customize' stylesheet handle.
+     */
+    public function enqueueCustomizeData(): void
+    {
+        $customizerData = $this->readCustomizeData();
+        if ($customizerData !== null) {
+            $this->wpService->wpAddInlineScript(
+                'styleguide-customize',
+                sprintf('window.styleguideCustomizeData = %s;', $customizerData),
+                'before',
+            );
+        }
+    }
+
+    /* Reads the customizer data from a specified file and returns its contents.
+     *
+     * This method checks if the file exists and is readable, then returns its contents as a string. If the file does not exist or cannot be read, it returns null.
+     *
+     * @return string|null The contents of the customizer data file, or null if the file cannot be read.
+     */
+    private function readCustomizeData(): ?string
+    {
+        $filePath = realpath($this->styleguidePath) . '/component-design-tokens.json';
+        if (!file_exists($filePath)) {
+            return null;
+        }
+
+        return file_get_contents($filePath) ?: null;
     }
 }
