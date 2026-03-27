@@ -33,7 +33,7 @@ class AddCustomizerPropertiesToComponents implements Hookable
             return;
         }
 
-        $this->wpService->addFilter(self::COMPONENT_FILTER, [$this, 'addCustomizerProperties']);
+        $this->wpService->addFilter(self::COMPONENT_FILTER, [$this, 'addCustomizerProperties'], 10, 2);
     }
 
     /* Checks if the editor should be enabled based on the current user's capabilities.
@@ -47,10 +47,15 @@ class AddCustomizerPropertiesToComponents implements Hookable
 
     /** Adds customizer properties to the component data.
      *
+    * The filter can be invoked with either one or two arguments depending on
+    * Component Library version. Keep the component object optional to remain
+     * compatible with both signatures.
+     *
      * @param array $componentData The original component data.
+     * @param object|null $component The component object, if provided by the filter.
      * @return array The modified component data with customizer properties.
      */
-    public function addCustomizerProperties(array $componentData): array
+    public function addCustomizerProperties(array $componentData, ?object $componentObject = null): array
     {
         $componentData['attributeList']['data-customizer'] = json_encode([
             'type' => 'string',
