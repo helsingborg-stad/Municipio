@@ -12,11 +12,11 @@
 
     @section('above-content')
         @parent
-        @include('partials.schema.event.title-area')
     @stop
 
     @section('content')
         @include('partials.schema.event.image')
+        @include('partials.schema.event.title-area')
         @include('partials.schema.event.description')
         @include('partials.schema.event.accessibility-features')
     @stop
