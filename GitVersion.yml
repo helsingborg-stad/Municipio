@@ -11,5 +11,4 @@ branches:
     regex: ^dev-.*$
     tracks-release-branches: true
     is-release-branch: false
-    is-main-branch: false
     pre-release-weight: 0
