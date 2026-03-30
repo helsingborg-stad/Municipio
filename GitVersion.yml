@@ -7,6 +7,9 @@ branches:
   main:
     regex: ^main$|^master$
     is-release-branch: true
-  dev:
+  develop:
     regex: ^dev-.*$
+    tracks-release-branches: true
+    is-release-branch: false
     is-main-branch: false
+    pre-release-weight: 0
