@@ -9,5 +9,4 @@ branches:
     is-release-branch: true
   dev:
     regex: ^dev-.*$
-    is-develop: true
     is-main-branch: false
