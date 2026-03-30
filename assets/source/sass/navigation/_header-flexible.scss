@@ -1,10 +1,12 @@
 .c-header.c-header--flexible {
+    contain: none;
+    
     &#site-header-flexible-upper {
-        z-index: 2;
+        z-index: 1;
     }
 
     &#site-header-flexible-lower {
-        z-index: 1;
+        z-index: 2;
     }
 
     .grid-container {

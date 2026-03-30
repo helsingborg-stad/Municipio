@@ -68,7 +68,7 @@ class Version41 implements VersionInterface
         $themeMods = $this->wpService->getOption('theme_mods_municipio', []);
 
         if (isset($themeMods['quicklinks_appearance_type']) && $themeMods['quicklinks_appearance_type'] === 'custom') {
-            $themeMods['quicklinks_color_scheme'] = 'u-color--secondary';
+            $themeMods['quicklinks_color_scheme'] = 'secondary';
         }
 
         unset($themeMods['quicklinks_appearance_type']);

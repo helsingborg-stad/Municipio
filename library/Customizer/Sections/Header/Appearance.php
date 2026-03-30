@@ -10,10 +10,8 @@ class Appearance
     {
         $colorChoices = [
             '' => esc_html__('Default', 'municipio'),
-            'u-color--primary' => esc_html__('Primary', 'municipio'),
-            'u-color--secondary' => esc_html__('Secondary', 'municipio'),
-            'u-color--background' => esc_html__('Background', 'municipio'),
-            'u-color--surface' => esc_html__('Surface', 'municipio'),
+            'primary' => esc_html__('Primary', 'municipio'),
+            'secondary' => esc_html__('Secondary', 'municipio'),
         ];
 
         KirkiField::addField([
@@ -21,7 +19,7 @@ class Appearance
             'settings' => 'header_background_upper',
             'label' => esc_html__('Color(upper)', 'municipio'),
             'section' => $sectionID,
-            'default' => $colorChoices['u-color--secondary'],
+            'default' => $colorChoices['secondary'],
             'priority' => 10,
             'choices' => $colorChoices,
             'active_callback' => [
@@ -33,8 +31,7 @@ class Appearance
             ],
             'output' => [
                 [
-                    'type' => 'component_data',
-                    'dataKey' => 'classList',
+                    'type' => 'modifier',
                     'context' => [
                         'site.header.flexible.upper',
                     ],
@@ -47,13 +44,12 @@ class Appearance
             'settings' => 'header_background',
             'label' => esc_html__('Color', 'municipio'),
             'section' => $sectionID,
-            'default' => $colorChoices['u-color--primary'],
+            'default' => $colorChoices['primary'],
             'priority' => 10,
             'choices' => $colorChoices,
             'output' => [
                 [
-                    'type' => 'component_data',
-                    'dataKey' => 'classList',
+                    'type' => 'modifier',
                     'context' => [
                         'site.header',
                         'site.header.flexible.lower',

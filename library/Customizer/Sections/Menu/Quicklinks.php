@@ -3,7 +3,6 @@
 namespace Municipio\Customizer\Sections\Menu;
 
 use Municipio\Customizer\KirkiField;
-use Municipio\Helper\KirkiSwatches as KirkiSwatches;
 
 class Quicklinks
 {
@@ -14,18 +13,16 @@ class Quicklinks
             'settings' => 'quicklinks_color_scheme',
             'label' => esc_html__('Color scheme', 'municipio'),
             'section' => $sectionID,
-            'default' => 'u-color--secondary',
+            'default' => 'secondary',
             'priority' => 10,
             'choices' => [
-                'u-color--primary' => esc_html__('Primary', 'municipio'),
-                'u-color--secondary' => esc_html__('Secondary', 'municipio'),
-                'u-color--background' => esc_html__('Background', 'municipio'),
-                'u-color--surface' => esc_html__('Surface', 'municipio'),
+                '' => esc_html__('Default', 'municipio'),
+                'primary' => esc_html__('Primary', 'municipio'),
+                'secondary' => esc_html__('Secondary', 'municipio'),
             ],
             'output' => [
                 [
-                    'type' => 'component_data',
-                    'dataKey' => 'classList',
+                    'type' => 'modifier',
                     'context' => [
                         ['context' => 'site.quicklinks', 'operator' => '=='],
                     ],
