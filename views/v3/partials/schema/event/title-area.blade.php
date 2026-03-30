@@ -13,7 +13,7 @@
             'o-layout-grid--col-span-11',
         ]
     ])
-        @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__top--0']])
+        @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__y--0']])
             {!! $post->getTitle() !!}
         @endtypography
     @endelement
