@@ -58,7 +58,7 @@ jobs:
           echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> ./Modularity/.npmrc
 
       - name: Run PHP build script
-        run: php build.php --no-composer --cleanup --release
+        run: php build.php --cleanup --release
 
       - name: Remove cached git files
         run: |
