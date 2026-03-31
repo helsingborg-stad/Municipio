@@ -27,14 +27,14 @@
 	"require": {
 		"php": "^8.2",
 		"composer/installers": "^2.3",
-		"symfony/polyfill-mbstring": "1.17.0",
+		"symfony/polyfill-mbstring": "v1.33.0",
 		"helsingborg-stad/acf-export-manager": ">=1.0.0",
 		"pragmarx/ia-arr": "^7.3",
 		"symfony/polyfill-php80": "^1.27",
-		"dompdf/dompdf": "^2.0.4",
+		"dompdf/dompdf": "v3.1.5",
 		"helsingborg-stad/wpservice": "^2.0",
 		"helsingborg-stad/acfservice": "^1.0.0",
-		"helsingborg-stad/schema-library": "0.5.4",
+		"helsingborg-stad/schema-library": "0.5.7",
 		"johannheyne/advanced-custom-fields-table-field": "dev-master",
 		"clark-nikdel-powell/post-type-select-for-acf": "dev-master",
 		"jeradin/acf-website-field": "dev-master",
@@ -43,9 +43,9 @@
 		"enshrined/svg-sanitize": "dev-master",
 		"helsingborg-stad/acf-select-image-field": "1.6.1",
 		"landrok/language-detector": "dev-master",
-		"league/commonmark": "2.7.0",
-		"league/config": "1.1.1",
-		"helsingborg-stad/component-library": "5.2.0",
+		"league/commonmark": "2.8.2",
+		"league/config": "v1.2.0",
+		"helsingborg-stad/component-library": "5.7.4",
 		"freshleafmedia/autofocus": "^1.0",
 		"astrotomic/php-deepface": "^0.4.0",
 		"helsingborg-stad/kirki": "^5.2",
@@ -62,7 +62,11 @@
 		"post-update-cmd": [],
 		"make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php",
 		"update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
-		"make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root"
+		"make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root",
+		"pin-all-latest": [
+			"bash -c 'set -euo pipefail; composer outdated --direct --format=json --ignore-platform-req=ext-imagick | jq -c \".installed[] | select(.latest != null and .latest != \\\"[none matched]\\\" and (.latest | startswith(\\\"dev-\\\") | not)) | {name:.name, version:.latest}\" | while read -r row; do PKG=$(echo \"$row\" | jq -r .name); VER=$(echo \"$row\" | jq -r .version); CURRENT=$(jq -r --arg p \"$PKG\" \".require[\\$p] // \\\"\\\"\" composer.json); if [ -z \"$CURRENT\" ]; then echo \"Skipping $PKG (not in root composer.json)\"; elif [[ \"$CURRENT\" == dev-* ]]; then echo \"Skipping $PKG (current version is dev)\"; else echo \"Updating $PKG to $VER\"; jq --arg p \"$PKG\" --arg v \"$VER\" \".require[\\$p] = \\$v\" composer.json > composer.json.tmp && mv composer.json.tmp composer.json; fi; done'",
+			"composer update --lock --ignore-platform-req=ext-imagick -W"
+		]
 	},
 	"config": {
 		"allow-plugins": {
