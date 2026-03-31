@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb045a8b9c3b19c81c1f75eabc19c5c4",
+    "content-hash": "bee060909d933ff78e22ee4a647c880f",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1134,16 +1134,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.198.50",
+            "version": "2.202.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "d540cdbf1449977b2412b28d6dee1604ae1d291d"
+                "reference": "28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d540cdbf1449977b2412b28d6dee1604ae1d291d",
-                "reference": "d540cdbf1449977b2412b28d6dee1604ae1d291d",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9",
+                "reference": "28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9",
                 "shasum": ""
             },
             "require": {
@@ -1187,9 +1187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.198.50"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.202.16"
             },
-            "time": "2026-03-30T05:15:35+00:00"
+            "time": "2026-03-31T11:07:11+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
