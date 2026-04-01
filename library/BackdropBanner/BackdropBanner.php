@@ -4,10 +4,13 @@ namespace Municipio\BackdropBanner;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetTemplateDirectoryUri;
 use WpService\Contracts\RegisterBlockType;
 use WpService\Contracts\WpDequeueScript;
 use WpService\Contracts\WpDeregisterScript;
+use WpService\Contracts\WpEnqueueScript;
+use WpService\Contracts\WpEnqueueStyle;
 use WpService\Contracts\WpRegisterScript;
 use WpService\Contracts\WpRegisterStyle;
 
@@ -16,15 +19,17 @@ class BackdropBanner implements Hookable
     private const VIEW_SCRIPT_HANDLE = 'municipio-backdrop-banner-script';
     private const VIEW_STYLE_HANDLE = 'municipio-backdrop-banner-style';
     private const EDITOR_STYLE_HANDLE = 'municipio-backdrop-banner-style-editor';
+    private const BLOCK_NAME = 'municipio/backdrop-banner-block';
 
     public function __construct(
-        private AddAction&RegisterBlockType&WpDequeueScript&WpDeregisterScript&GetTemplateDirectoryUri&WpRegisterScript&WpRegisterStyle $wpService,
+        private AddAction&RegisterBlockType&WpDequeueScript&WpDeregisterScript&GetTemplateDirectoryUri&WpRegisterScript&WpRegisterStyle&WpEnqueueStyle&WpEnqueueScript $wpService,
     ) {}
 
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
         $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'excludeFromCustomizer'], 1);
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts'], 1);
     }
 
     private function getBlockJsonPath(): string
@@ -44,6 +49,14 @@ class BackdropBanner implements Hookable
         $this->wpService->registerBlockType($this->getBlockJsonPath());
 
         $this->wpService->registerBlockType($this->getInnerBlockJsonPath());
+    }
+
+    public function enqueueScripts(): void
+    {
+        if (has_block(self::BLOCK_NAME)) {
+            $this->wpService->wpEnqueueStyle(self::VIEW_STYLE_HANDLE);
+            $this->wpService->wpEnqueueScript(self::VIEW_SCRIPT_HANDLE);
+        }
     }
 
     public function registerScriptAndStyles(): void

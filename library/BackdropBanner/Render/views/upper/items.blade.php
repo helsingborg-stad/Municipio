@@ -20,7 +20,7 @@
             'variant' => 'h1',
             'classList' => ['backdrop-banner__navigation-item-title'],
         ])
-            {{ !empty($row['title']) ? $row['title'] : 'Row' . ($index + 1) }}
+            {!! !empty($row['title']) ? $row['title'] : 'Row' . ($index + 1) !!}
         @endtypography
         @element([
             'classList' => ['backdrop-banner__navigation-item-content'],

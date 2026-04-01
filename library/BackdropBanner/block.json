@@ -9,10 +9,8 @@
 	"description": "A backdrop banner block.",
 	"example": {},
 	"render": "file:./render.php",
-	"editorScript": "file:./../../assets/dist/blocks/js/blocks.js",
-	"editorStyle": ["municipio-backdrop-banner-style-editor"],
-	"script": ["municipio-backdrop-banner-script"],
-	"style": ["municipio-backdrop-banner-style"],
+	"editorScript": ["file:./../../assets/dist/blocks/js/blocks.js", "municipio-backdrop-banner-script"],
+	"editorStyle": ["municipio-backdrop-banner-style-editor", "municipio-backdrop-banner-style"],
 	"supports": {
 		"html": false,
 		"anchor": true,
