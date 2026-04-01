@@ -29,18 +29,17 @@ class E404 extends \Municipio\Controller\BaseController
         $this->data['archiveLink'] = $this->getPostTypeArchivePermalink();
 
         //Content
-        $this->data['heading']    = $this->getHeading();
+        $this->data['heading'] = $this->getHeading();
         $this->data['subheading'] = $this->getSubheading();
 
         //Actions
-        $shouldLinkToArchive = $this->getPostTypeArchivePermalink() !== null ? [
-            'label' => __("Show all", 'municipio'),
-            'href'  => $this->data['archiveLink']
-        ] : [];
+        $shouldLinkToArchive = $this->getPostTypeArchivePermalink() !== null
+            ? [
+                'label' => __('Show all', 'municipio'),
+                'href' => $this->data['archiveLink'],
+            ] : [];
 
-        $actionButtons = isset($this->data['customizer']->error404Buttons)
-            ? $this->data['customizer']->error404Buttons
-            : array_keys(\Municipio\Customizer\Sections\ErrorPages::getButtonChoices('404'));
+        $actionButtons = isset($this->data['customizer']->error404Buttons) ? $this->data['customizer']->error404Buttons : array_keys(\Municipio\Customizer\Sections\ErrorPages::getButtonChoices('404'));
 
         $this->data['actionButtons'] = [];
         if (in_array('return', $actionButtons)) {
@@ -51,14 +50,10 @@ class E404 extends \Municipio\Controller\BaseController
         }
 
         //Image
-        $this->data['image'] = isset($this->data['customizer']->error404Image) && !empty($this->data['customizer']->error404Image)
-            ? $this->data['customizer']->error404Image
-            : false;
+        $this->data['image'] = isset($this->data['customizer']->error404Image) && !empty($this->data['customizer']->error404Image) ? $this->data['customizer']->error404Image : false;
 
         // Backdrop
-        $backdrop = isset($this->data['customizer']->error404Backdrop) 
-            ? $this->data['customizer']->error404Backdrop
-            : true;
+        $backdrop = isset($this->data['customizer']->error404Backdrop) ? $this->data['customizer']->error404Backdrop : true;
 
         // Extra wrapper classes
         if ($this->data['image']) {
@@ -77,9 +72,7 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        $heading = isset($this->data['customizer']->error404Heading) && !empty($this->data['customizer']->error404Heading)
-            ? $this->data['customizer']->error404Heading
-            : \Municipio\Customizer\Sections\ErrorPages::getDefaultHeading('404');
+        $heading = isset($this->data['customizer']->error404Heading) && !empty($this->data['customizer']->error404Heading) ? $this->data['customizer']->error404Heading : \Municipio\Customizer\Sections\ErrorPages::getDefaultHeading('404');
         return $this->wpService->applyFilters('Municipio/404/Heading', $this->wpService->__($heading, 'municipio'), $this->getRequestedPostType());
     }
 
@@ -89,13 +82,8 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getSubheading()
     {
-        $subheading = isset($this->data['customizer']->error404Description) && !empty($this->data['customizer']->error404Description)
-            ? $this->data['customizer']->error404Description
-            : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('404');
-        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', 
-            $this->wpService->__($subheading, 'municipio'), 
-            ucfirst($this->getRequestedPostType()))
-        );
+        $subheading = isset($this->data['customizer']->error404Description) && !empty($this->data['customizer']->error404Description) ? $this->data['customizer']->error404Description : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('404');
+        return str_replace('%s', $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', $this->wpService->__($subheading, 'municipio'), ucfirst($this->getRequestedPostType())));
     }
 
     /**
@@ -111,7 +99,12 @@ class E404 extends \Municipio\Controller\BaseController
 
         //Default to page if not set
         if (!isset($postType) || is_null($postType)) {
-            $postType = $this->wpService->__("post");
+            $postType = $this->wpService->__('post');
+        }
+
+        //If is array, shift first element
+        if (is_array($postType)) {
+            $postType = array_shift($postType);
         }
 
         return $this->wpService->applyFilters('Municipio/404/PostType', $postType);
@@ -125,7 +118,7 @@ class E404 extends \Municipio\Controller\BaseController
     {
         return $this->wpService->applyFilters(
             'Municipio/404/ArchivePermalink',
-            !is_null($this->getRequestedPostType()) && $this->getRequestedPostType() != "post" ? $this->wpService->getPostTypeArchiveLink($this->getRequestedPostType()) : null
+            !is_null($this->getRequestedPostType()) && $this->getRequestedPostType() != 'post' ? $this->wpService->getPostTypeArchiveLink($this->getRequestedPostType()) : null,
         );
     }
 }
