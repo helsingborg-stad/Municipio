@@ -4,7 +4,6 @@ namespace Municipio\BackdropBanner;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetTemplateDirectoryUri;
 use WpService\Contracts\RegisterBlockType;
 use WpService\Contracts\WpDequeueScript;
