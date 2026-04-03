@@ -30,7 +30,6 @@
     "symfony/polyfill-mbstring": "v1.33.0",
     "helsingborg-stad/acf-export-manager": ">=1.0.0",
     "pragmarx/ia-arr": "^7.3",
-    "symfony/polyfill-php80": "^1.27",
     "dompdf/dompdf": "v3.1.5",
     "helsingborg-stad/wpservice": "^2.0",
     "helsingborg-stad/acfservice": "^1.0.0",
