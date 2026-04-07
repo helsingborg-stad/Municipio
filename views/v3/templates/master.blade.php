@@ -52,7 +52,7 @@
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
     @include('templates.sections.toast-notices')
-
+            
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
 @stop
