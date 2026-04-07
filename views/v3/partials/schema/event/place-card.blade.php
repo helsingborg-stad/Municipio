@@ -15,7 +15,7 @@
                 ],
                 'lat' => $place['lat'],
                 'lng' => $place['lng'],
-                'zoom' => 12
+                'zoom' => 15
             ])
             @endmap
         @endslot
