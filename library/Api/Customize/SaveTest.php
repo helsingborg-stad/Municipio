@@ -70,10 +70,7 @@ class SaveTest extends TestCase
             ->willReturn([
                 'tokens' => ['color' => ['primary' => '#005ea5']],
             ]);
-        $request
-            ->method('get_param')
-            ->with('customize_changeset_uuid')
-            ->willReturn('abc-uuid');
+        $request->method('get_param')->with('customize_changeset_uuid')->willReturn('abc-uuid');
 
         $response = $endpoint->handleRequest($request);
 
@@ -94,10 +91,7 @@ class SaveTest extends TestCase
             ->willReturn([
                 'tokens' => ['color' => ['primary' => '#005ea5']],
             ]);
-        $request
-            ->method('get_param')
-            ->with('customize_changeset_uuid')
-            ->willReturn('abc-uuid');
+        $request->method('get_param')->with('customize_changeset_uuid')->willReturn('abc-uuid');
 
         $response = $endpoint->handleRequest($request);
 
@@ -144,9 +138,7 @@ class SaveTest extends TestCase
         $endpoint = new Save($wpService);
 
         $request = $this->createMock(\WP_REST_Request::class);
-        $request
-            ->method('get_json_params')
-            ->willReturn('invalid-payload');
+        $request->method('get_json_params')->willReturn('invalid-payload');
 
         $response = $endpoint->handleRequest($request);
 
@@ -198,8 +190,7 @@ class SaveTest extends TestCase
         bool $updatePostMeta = true,
         bool $isCustomizePreview = false,
         string $changesetUuidQueryVar = '',
-    ): RegisterRestRoute&CurrentUserCan&SetThemeMod&UpdatePostMeta&WpSavePostRevision&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters
-    {
+    ): RegisterRestRoute&CurrentUserCan&SetThemeMod&UpdatePostMeta&WpSavePostRevision&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters {
         return new class(
             $registerRestRoute,
             $currentUserCan,
@@ -266,9 +257,7 @@ class SaveTest extends TestCase
 
             public function getQueryVar(string $queryVar, mixed $defaultValue = ''): mixed
             {
-                return $queryVar === 'customize_changeset_uuid'
-                    ? $this->changesetUuidQueryVar
-                    : $defaultValue;
+                return $queryVar === 'customize_changeset_uuid' ? $this->changesetUuidQueryVar : $defaultValue;
             }
 
             public function isCustomizePreview(): bool

@@ -101,8 +101,7 @@ class GetTest extends TestCase
         array $getPostsResponse = [],
         bool $isCustomizePreview = false,
         string $changesetUuidQueryVar = '',
-    ): RegisterRestRoute&CurrentUserCan&GetThemeMod&GetPostMeta&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters&__
-    {
+    ): RegisterRestRoute&CurrentUserCan&GetThemeMod&GetPostMeta&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters&__ {
         return new class(
             $registerRestRoute,
             $currentUserCan,
@@ -145,9 +144,7 @@ class GetTest extends TestCase
 
             public function getQueryVar(string $queryVar, mixed $defaultValue = ''): mixed
             {
-                return $queryVar === 'customize_changeset_uuid'
-                    ? $this->changesetUuidQueryVar
-                    : $defaultValue;
+                return $queryVar === 'customize_changeset_uuid' ? $this->changesetUuidQueryVar : $defaultValue;
             }
 
             public function isCustomizePreview(): bool

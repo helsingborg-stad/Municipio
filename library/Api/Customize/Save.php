@@ -150,11 +150,11 @@ class Save extends RestApiEndpoint
         }
 
         $changesets = $this->wpService->getPosts([
-            'post_type'   => self::CHANGESET_POST_TYPE,
-            'name'        => $changesetUuid,
+            'post_type' => self::CHANGESET_POST_TYPE,
+            'name' => $changesetUuid,
             'post_status' => 'any',
             'numberposts' => 1,
-            'fields'      => 'ids',
+            'fields' => 'ids',
         ]);
 
         if (!isset($changesets[0]) || !is_numeric($changesets[0])) {
