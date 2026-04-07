@@ -4,14 +4,16 @@ namespace Municipio\Chat;
 
 use AcfService\Contracts\GetField;
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
 
-class Chat extends RestApiEndpoint
+class ChatEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = '/chat';
 
     public function __construct(
         private GetField $acfService,
+        private PIIRedactorInterface $PIIRedactor,
     ) {}
 
     public function handleRegisterRestRoute(): bool
@@ -35,7 +37,16 @@ class Chat extends RestApiEndpoint
 
         // Clean-up user message
         $message = sanitize_text_field($params['message']);
-        $message = $this->redactPII($message);
+        $redaction = $this->PIIRedactor->extractAndRedactPII($message);
+
+        // update PII cookie
+        $existingPiiMap = [];
+        if (isset($_COOKIE['chat_pii_map'])) {
+            $existingPiiMap = json_decode(stripslashes($_COOKIE['chat_pii_map']), true) ?? [];
+        }
+        $updatedPiiMap = array_merge($existingPiiMap, $redaction->mappedPII);
+        setcookie('chat_pii_map', json_encode($updatedPiiMap), time() + 3600, '/');
+        $_COOKIE['chat_pii_map'] = json_encode($updatedPiiMap); // Update the $_COOKIE superglobal for immediate access
 
         // Perform a POST request to the external chat API
         $chatUrl = $this->acfService->getField('chat_url', 'option');
@@ -43,7 +54,7 @@ class Chat extends RestApiEndpoint
         $assistandId = $this->acfService->getField('chat_assistant_id', 'option');
 
         $body = [
-            'question' => $message,
+            'question' => $redaction->redactedText,
             'stream' => true,
         ];
 
@@ -83,7 +94,7 @@ class Chat extends RestApiEndpoint
 
         curl_exec($ch);
 
-        // TODO: test errors (missing/invalid API key, token limits, etc.)
+        // TODO: test client error handling (missing/invalid API key, token limits, etc.)
 
         if (curl_error($ch)) {
             echo 'event: error\ndata: ' . json_encode(['error' => 'Failed to communicate with chat API.', 'details' => curl_error($ch)]) . "\n\n";
@@ -92,20 +103,5 @@ class Chat extends RestApiEndpoint
         }
 
         exit();
-    }
-
-    private function redactPII(string $text): string
-    {
-        // TODO: use AI-based PPI detection for better accuracy and flexibility
-
-        // Simple regex to match email addresses and phone numbers (basic example)
-        $emailPattern = '/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/';
-        $phonePattern = '/\b\d{3}[-.\s]??\d{3}[-.\s]??\d{4}\b/';
-
-        // Replace matches with [REDACTED]
-        $redactedText = preg_replace($emailPattern, '[REDACTED]', $text);
-        $redactedText = preg_replace($phonePattern, '[REDACTED]', $redactedText);
-
-        return $redactedText;
     }
 }

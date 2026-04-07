@@ -53,9 +53,6 @@
     {{-- Shows up in the bottom left corner as toast messages --}}
     @include('templates.sections.toast-notices')
 
-    {{-- Chat bubble --}}
-    @include('partials.chat-bubble')
-
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
 @stop
