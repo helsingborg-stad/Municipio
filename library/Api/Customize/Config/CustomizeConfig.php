@@ -55,8 +55,15 @@ class CustomizeConfig implements CustomizeConfigInterface
         return is_string($capability) && !empty($capability) ? $capability : $this->savePermissionCapability;
     }
 
+    /**
+     * Creates a filter key by combining the prefix and the provided suffix.
+     *
+     * @param string $filter Optional suffix for the filter key.
+     *
+     * @return string The combined filter key.
+     */
     private function createFilterKey(string $filter = ''): string
     {
-        return $this->filterPrefix . '/' . $filter;
+        return $this->filterPrefix . '/' . ucfirst($filter);
     }
 }
