@@ -88,6 +88,58 @@ class SaveTest extends TestCase
         $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
+    public function testHandleRequestReturnsErrorWhenPayloadIsNotObject(): void
+    {
+        $wpService = $this->getWpServiceMock(true, true, true);
+        $endpoint = new Save($wpService);
+
+        $request = $this->createMock(\WP_REST_Request::class);
+        $request
+            ->method('get_json_params')
+            ->willReturn('invalid-payload');
+
+        $response = $endpoint->handleRequest($request);
+
+        $this->assertInstanceOf(\WP_Error::class, $response);
+        $this->assertNull($wpService->savedName);
+    }
+
+    public function testHandleRequestReturnsErrorWhenTokensIsNotObject(): void
+    {
+        $wpService = $this->getWpServiceMock(true, true, true);
+        $endpoint = new Save($wpService);
+
+        $request = $this->createMock(\WP_REST_Request::class);
+        $request
+            ->method('get_json_params')
+            ->willReturn([
+                'tokens' => 'invalid-tokens',
+            ]);
+
+        $response = $endpoint->handleRequest($request);
+
+        $this->assertInstanceOf(\WP_Error::class, $response);
+        $this->assertNull($wpService->savedName);
+    }
+
+    public function testHandleRequestReturnsErrorWhenJsonEncodeFails(): void
+    {
+        $wpService = $this->getWpServiceMock(true, true, true);
+        $endpoint = new Save($wpService);
+
+        $request = $this->createMock(\WP_REST_Request::class);
+        $request
+            ->method('get_json_params')
+            ->willReturn([
+                'tokens' => ['invalid' => NAN],
+            ]);
+
+        $response = $endpoint->handleRequest($request);
+
+        $this->assertInstanceOf(\WP_Error::class, $response);
+        $this->assertNull($wpService->savedName);
+    }
+
     private function getWpServiceMock(bool $registerRestRoute, bool $currentUserCan, bool $setThemeMod): RegisterRestRoute&CurrentUserCan&SetThemeMod&ApplyFilters
     {
         return new class($registerRestRoute, $currentUserCan, $setThemeMod) implements RegisterRestRoute, CurrentUserCan, SetThemeMod, ApplyFilters {

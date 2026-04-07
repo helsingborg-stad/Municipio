@@ -12,8 +12,8 @@ use WP_Http;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
-use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\__;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\RegisterRestRoute;
@@ -25,6 +25,7 @@ class Get extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'customize/design';
+
     private readonly CustomizeConfigInterface $config;
 
     public function __construct(
@@ -86,7 +87,7 @@ class Get extends RestApiEndpoint
     }
 
     /**
-     * Reads raw JSON from the styleguide customization file.
+     * Reads design token customization JSON from theme mods.
      *
      * @return string|null JSON string or null when unavailable.
      */
