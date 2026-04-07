@@ -15,7 +15,11 @@ use WP_REST_Server;
 use WpService\Contracts\__;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetQueryVar;
 use WpService\Contracts\GetThemeMod;
+use WpService\Contracts\IsCustomizePreview;
 use WpService\Contracts\RegisterRestRoute;
 
 /**
@@ -25,11 +29,13 @@ class Get extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'customize/design';
+    private const CHANGESET_POST_TYPE = 'customize_changeset';
+    private const CHANGESET_QUERY_VAR = 'customize_changeset_uuid';
 
     private readonly CustomizeConfigInterface $config;
 
     public function __construct(
-        private readonly RegisterRestRoute&CurrentUserCan&GetThemeMod&ApplyFilters&__ $wpService,
+        private readonly RegisterRestRoute&CurrentUserCan&GetThemeMod&GetPostMeta&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters&__ $wpService,
         ?CustomizeConfigInterface $config = null,
     ) {
         $this->config = $config ?? new CustomizeConfig($this->wpService);
@@ -58,7 +64,7 @@ class Get extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response|WP_Error
     {
-        $json = $this->readCustomizedDesignTokens();
+        $json = $this->readCustomizedDesignTokens($request);
 
         if ($json === null) {
             return new WP_REST_Response([], WP_Http::OK);
@@ -91,13 +97,56 @@ class Get extends RestApiEndpoint
      *
      * @return string|null JSON string or null when unavailable.
      */
-    protected function readCustomizedDesignTokens(): ?string
+    protected function readCustomizedDesignTokens(WP_REST_Request $request): ?string
     {
+        $changesetId = $this->resolveChangesetId($request);
+        if ($changesetId !== null) {
+            $changesetCustomizations = $this->wpService->getPostMeta(
+                $changesetId,
+                $this->config->getThemeModKey(),
+                true,
+            );
+
+            if (is_string($changesetCustomizations)) {
+                return $changesetCustomizations;
+            }
+        }
+
         $customizations = $this->wpService->getThemeMod($this->config->getThemeModKey());
         if (!is_string($customizations)) {
             return null;
         }
 
         return $customizations;
+    }
+
+    private function resolveChangesetId(WP_REST_Request $request): ?int
+    {
+        $changesetUuid = $request->get_param(self::CHANGESET_QUERY_VAR);
+        if ((!is_string($changesetUuid) || empty($changesetUuid)) && !$this->wpService->isCustomizePreview()) {
+            return null;
+        }
+
+        if (!is_string($changesetUuid) || empty($changesetUuid)) {
+            $changesetUuid = $this->wpService->getQueryVar(self::CHANGESET_QUERY_VAR, '');
+        }
+
+        if (!is_string($changesetUuid) || empty($changesetUuid)) {
+            return null;
+        }
+
+        $changesets = $this->wpService->getPosts([
+            'post_type'   => self::CHANGESET_POST_TYPE,
+            'name'        => $changesetUuid,
+            'post_status' => 'any',
+            'numberposts' => 1,
+            'fields'      => 'ids',
+        ]);
+
+        if (!isset($changesets[0]) || !is_numeric($changesets[0])) {
+            return null;
+        }
+
+        return (int) $changesets[0];
     }
 }

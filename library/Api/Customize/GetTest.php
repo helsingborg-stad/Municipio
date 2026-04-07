@@ -8,7 +8,11 @@ use PHPUnit\Framework\TestCase;
 use WpService\Contracts\__;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetQueryVar;
 use WpService\Contracts\GetThemeMod;
+use WpService\Contracts\IsCustomizePreview;
 use WpService\Contracts\RegisterRestRoute;
 
 class GetTest extends TestCase
@@ -39,7 +43,7 @@ class GetTest extends TestCase
     public function testHandleRequestReturnsDecodedJsonWhenFileContainsValidJson(): void
     {
         $endpoint = new class($this->getWpServiceMock(true)) extends Get {
-            protected function readCustomizedDesignTokens(): ?string
+            protected function readCustomizedDesignTokens(\WP_REST_Request $request): ?string
             {
                 return '{"color":{"primary":"#005ea5"}}';
             }
@@ -53,7 +57,7 @@ class GetTest extends TestCase
     public function testHandleRequestReturnsErrorWhenJsonIsInvalid(): void
     {
         $endpoint = new class($this->getWpServiceMock(true)) extends Get {
-            protected function readCustomizedDesignTokens(): ?string
+            protected function readCustomizedDesignTokens(\WP_REST_Request $request): ?string
             {
                 return '{"invalid"';
             }
@@ -67,7 +71,7 @@ class GetTest extends TestCase
     public function testHandleRequestReturnsEmptyArrayWhenNoDataIsAvailable(): void
     {
         $endpoint = new class($this->getWpServiceMock(true)) extends Get {
-            protected function readCustomizedDesignTokens(): ?string
+            protected function readCustomizedDesignTokens(\WP_REST_Request $request): ?string
             {
                 return null;
             }
@@ -78,12 +82,40 @@ class GetTest extends TestCase
         $this->assertInstanceOf(\WP_REST_Response::class, $response);
     }
 
-    private function getWpServiceMock(bool $registerRestRoute = true, bool $currentUserCan = true): RegisterRestRoute&CurrentUserCan&GetThemeMod&ApplyFilters&__
+    public function testHandleRequestReadsFromChangesetMeta(): void
     {
-        return new class($registerRestRoute, $currentUserCan) implements RegisterRestRoute, CurrentUserCan, GetThemeMod, ApplyFilters, __ {
+        $wpService = $this->getWpServiceMock(true, true, [999], true, '');
+        $endpoint = new Get($wpService);
+
+        $request = $this->createMock(\WP_REST_Request::class);
+        $request->method('get_param')->with('customize_changeset_uuid')->willReturn('abc-uuid');
+
+        $response = $endpoint->handleRequest($request);
+
+        $this->assertInstanceOf(\WP_REST_Response::class, $response);
+    }
+
+    private function getWpServiceMock(
+        bool $registerRestRoute = true,
+        bool $currentUserCan = true,
+        array $getPostsResponse = [],
+        bool $isCustomizePreview = false,
+        string $changesetUuidQueryVar = '',
+    ): RegisterRestRoute&CurrentUserCan&GetThemeMod&GetPostMeta&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters&__
+    {
+        return new class(
+            $registerRestRoute,
+            $currentUserCan,
+            $getPostsResponse,
+            $isCustomizePreview,
+            $changesetUuidQueryVar,
+        ) implements RegisterRestRoute, CurrentUserCan, GetThemeMod, GetPostMeta, GetPosts, GetQueryVar, IsCustomizePreview, ApplyFilters, __ {
             public function __construct(
                 private bool $registerRestRoute,
                 private bool $currentUserCan,
+                private array $getPostsResponse,
+                private bool $isCustomizePreview,
+                private string $changesetUuidQueryVar,
             ) {}
 
             public function registerRestRoute(string $namespace, string $route, array $args = [], bool $override = false): bool
@@ -99,6 +131,28 @@ class GetTest extends TestCase
             public function getThemeMod(string $name, mixed $defaultValue = false): mixed
             {
                 return $defaultValue;
+            }
+
+            public function getPostMeta(int $postId, string $key = '', bool $single = false): mixed
+            {
+                return '{"color":{"primary":"#005ea5"}}';
+            }
+
+            public function getPosts(array $args = null): array
+            {
+                return $this->getPostsResponse;
+            }
+
+            public function getQueryVar(string $queryVar, mixed $defaultValue = ''): mixed
+            {
+                return $queryVar === 'customize_changeset_uuid'
+                    ? $this->changesetUuidQueryVar
+                    : $defaultValue;
+            }
+
+            public function isCustomizePreview(): bool
+            {
+                return $this->isCustomizePreview;
             }
 
             public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed

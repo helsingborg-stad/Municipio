@@ -28,7 +28,7 @@ class CustomizeConfigTest extends TestCase
         $wpService = new class implements ApplyFilters {
             public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
             {
-                return $hookName === 'Municipio/Api/Customize/getThemeModKey' ? 'custom_tokens' : $value;
+                return $hookName === 'Municipio/Api/Customize/GetThemeModKey' ? 'custom_tokens' : $value;
             }
         };
 
@@ -84,7 +84,7 @@ class CustomizeConfigTest extends TestCase
         $wpService = new class implements ApplyFilters {
             public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
             {
-                return $hookName === 'Municipio/Api/Customize/getGetPermissionCapability' ? 'read' : $value;
+                return $hookName === 'Municipio/Api/Customize/GetGetPermissionCapability' ? 'read' : $value;
             }
         };
 
@@ -98,7 +98,7 @@ class CustomizeConfigTest extends TestCase
         $wpService = new class implements ApplyFilters {
             public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
             {
-                return $hookName === 'Municipio/Api/Customize/getSavePermissionCapability' ? 'manage_options' : $value;
+                return $hookName === 'Municipio/Api/Customize/GetSavePermissionCapability' ? 'manage_options' : $value;
             }
         };
 
@@ -112,7 +112,7 @@ class CustomizeConfigTest extends TestCase
         $wpService = new class implements ApplyFilters {
             public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
             {
-                if ($hookName === 'Municipio/Api/Customize/getGetPermissionCapability') {
+                if ($hookName === 'Municipio/Api/Customize/GetGetPermissionCapability') {
                     return ['invalid'];
                 }
 
@@ -130,7 +130,7 @@ class CustomizeConfigTest extends TestCase
         $wpService = new class implements ApplyFilters {
             public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
             {
-                if ($hookName === 'Municipio/Api/Customize/getSavePermissionCapability') {
+                if ($hookName === 'Municipio/Api/Customize/GetSavePermissionCapability') {
                     return null;
                 }
 

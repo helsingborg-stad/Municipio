@@ -14,8 +14,13 @@ use WP_REST_Response;
 use WP_REST_Server;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetQueryVar;
+use WpService\Contracts\IsCustomizePreview;
 use WpService\Contracts\RegisterRestRoute;
 use WpService\Contracts\SetThemeMod;
+use WpService\Contracts\UpdatePostMeta;
+use WpService\Contracts\WpSavePostRevision;
 
 /**
  * REST endpoint for saving styleguide design token customizations.
@@ -24,11 +29,13 @@ class Save extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'customize/design';
+    private const CHANGESET_POST_TYPE = 'customize_changeset';
+    private const CHANGESET_QUERY_VAR = 'customize_changeset_uuid';
 
     private readonly CustomizeConfigInterface $config;
 
     public function __construct(
-        private readonly RegisterRestRoute&CurrentUserCan&SetThemeMod&ApplyFilters $wpService,
+        private readonly RegisterRestRoute&CurrentUserCan&SetThemeMod&UpdatePostMeta&WpSavePostRevision&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters $wpService,
         ?CustomizeConfigInterface $config = null,
     ) {
         $this->config = $config ?? new CustomizeConfig($this->wpService);
@@ -80,7 +87,21 @@ class Save extends RestApiEndpoint
             return $error;
         }
 
-        $didSave = $this->wpService->setThemeMod($this->config->getThemeModKey(), $encodedTokens);
+        $changesetId = $this->resolveChangesetId($request);
+        if ($changesetId !== null) {
+            $didSave = $this->wpService->updatePostMeta(
+                $changesetId,
+                $this->config->getThemeModKey(),
+                $encodedTokens,
+            );
+
+            if ($didSave !== false) {
+                $this->wpService->wpSavePostRevision($changesetId);
+            }
+        } else {
+            $didSave = $this->wpService->setThemeMod($this->config->getThemeModKey(), $encodedTokens);
+        }
+
         if (!$didSave) {
             $error = new WP_Error(
                 'unable_to_save_customized_design_tokens',
@@ -111,5 +132,35 @@ class Save extends RestApiEndpoint
             $message,
             ['status' => WP_Http::BAD_REQUEST],
         );
+    }
+
+    private function resolveChangesetId(WP_REST_Request $request): ?int
+    {
+        $changesetUuid = $request->get_param(self::CHANGESET_QUERY_VAR);
+        if ((!is_string($changesetUuid) || empty($changesetUuid)) && !$this->wpService->isCustomizePreview()) {
+            return null;
+        }
+
+        if (!is_string($changesetUuid) || empty($changesetUuid)) {
+            $changesetUuid = $this->wpService->getQueryVar(self::CHANGESET_QUERY_VAR, '');
+        }
+
+        if (!is_string($changesetUuid) || empty($changesetUuid)) {
+            return null;
+        }
+
+        $changesets = $this->wpService->getPosts([
+            'post_type'   => self::CHANGESET_POST_TYPE,
+            'name'        => $changesetUuid,
+            'post_status' => 'any',
+            'numberposts' => 1,
+            'fields'      => 'ids',
+        ]);
+
+        if (!isset($changesets[0]) || !is_numeric($changesets[0])) {
+            return null;
+        }
+
+        return (int) $changesets[0];
     }
 }
