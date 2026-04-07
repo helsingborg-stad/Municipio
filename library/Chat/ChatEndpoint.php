@@ -45,7 +45,7 @@ class ChatEndpoint extends RestApiEndpoint
             $existingPiiMap = json_decode(stripslashes($_COOKIE['chat_pii_map']), true) ?? [];
         }
         $updatedPiiMap = array_merge($existingPiiMap, $redaction->mappedPII);
-        setcookie('chat_pii_map', json_encode($updatedPiiMap), time() + 3600, '/');
+        setcookie('chat_pii_map', json_encode($updatedPiiMap), time() + 3600, '/', '', true, true);
         $_COOKIE['chat_pii_map'] = json_encode($updatedPiiMap); // Update the $_COOKIE superglobal for immediate access
 
         // Perform a POST request to the external chat API
