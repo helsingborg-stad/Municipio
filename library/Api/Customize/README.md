@@ -113,3 +113,9 @@ For Customizer integrations:
 - Save endpoint: library/Api/Customize/Save.php
 - Config: library/Api/Customize/Config/CustomizeConfig.php
 - Config interface: library/Api/Customize/Config/CustomizeConfigInterface.php
+- Changeset resolver: library/Api/Customize/Support/ChangesetIdResolver.php
+- Changeset resolver interface: library/Api/Customize/Support/ChangesetIdResolverInterface.php
+- Tokens reader: library/Api/Customize/Support/CustomizeTokensReader.php
+- Tokens reader interface: library/Api/Customize/Support/CustomizeTokensReaderInterface.php
+- Tokens writer: library/Api/Customize/Support/CustomizeTokensWriter.php
+- Tokens writer interface: library/Api/Customize/Support/CustomizeTokensWriterInterface.php

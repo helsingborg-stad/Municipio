@@ -6,6 +6,9 @@ namespace Municipio\Api\Customize;
 
 use Municipio\Api\Customize\Config\CustomizeConfig;
 use Municipio\Api\Customize\Config\CustomizeConfigInterface;
+use Municipio\Api\Customize\Support\ChangesetIdResolver;
+use Municipio\Api\Customize\Support\CustomizeTokensWriter;
+use Municipio\Api\Customize\Support\CustomizeTokensWriterInterface;
 use Municipio\Api\RestApiEndpoint;
 use WP_Error;
 use WP_Http;
@@ -29,16 +32,21 @@ class Save extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'customize/design';
-    private const CHANGESET_POST_TYPE = 'customize_changeset';
-    private const CHANGESET_QUERY_VAR = 'customize_changeset_uuid';
 
     private readonly CustomizeConfigInterface $config;
+    private readonly CustomizeTokensWriterInterface $tokensWriter;
 
     public function __construct(
         private readonly RegisterRestRoute&CurrentUserCan&SetThemeMod&UpdatePostMeta&WpSavePostRevision&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters $wpService,
         ?CustomizeConfigInterface $config = null,
+        ?CustomizeTokensWriterInterface $tokensWriter = null,
     ) {
         $this->config = $config ?? new CustomizeConfig($this->wpService);
+        $this->tokensWriter = $tokensWriter ?? new CustomizeTokensWriter(
+            $this->wpService,
+            $this->config,
+            new ChangesetIdResolver($this->wpService),
+        );
     }
 
     /**
@@ -87,20 +95,7 @@ class Save extends RestApiEndpoint
             return $error;
         }
 
-        $changesetId = $this->resolveChangesetId($request);
-        if ($changesetId !== null) {
-            $didSave = $this->wpService->updatePostMeta(
-                $changesetId,
-                $this->config->getThemeModKey(),
-                $encodedTokens,
-            );
-
-            if ($didSave !== false) {
-                $this->wpService->wpSavePostRevision($changesetId);
-            }
-        } else {
-            $didSave = $this->wpService->setThemeMod($this->config->getThemeModKey(), $encodedTokens);
-        }
+        $didSave = $this->tokensWriter->write($request, $encodedTokens);
 
         if (!$didSave) {
             $error = new WP_Error(
@@ -132,35 +127,5 @@ class Save extends RestApiEndpoint
             $message,
             ['status' => WP_Http::BAD_REQUEST],
         );
-    }
-
-    private function resolveChangesetId(WP_REST_Request $request): ?int
-    {
-        $changesetUuid = $request->get_param(self::CHANGESET_QUERY_VAR);
-        if ((!is_string($changesetUuid) || empty($changesetUuid)) && !$this->wpService->isCustomizePreview()) {
-            return null;
-        }
-
-        if (!is_string($changesetUuid) || empty($changesetUuid)) {
-            $changesetUuid = $this->wpService->getQueryVar(self::CHANGESET_QUERY_VAR, '');
-        }
-
-        if (!is_string($changesetUuid) || empty($changesetUuid)) {
-            return null;
-        }
-
-        $changesets = $this->wpService->getPosts([
-            'post_type' => self::CHANGESET_POST_TYPE,
-            'name' => $changesetUuid,
-            'post_status' => 'any',
-            'numberposts' => 1,
-            'fields' => 'ids',
-        ]);
-
-        if (!isset($changesets[0]) || !is_numeric($changesets[0])) {
-            return null;
-        }
-
-        return (int) $changesets[0];
     }
 }
