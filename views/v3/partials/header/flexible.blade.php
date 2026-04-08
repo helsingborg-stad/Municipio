@@ -7,6 +7,7 @@
             isset($classList) ? (array) $classList : [],
             $classes ?? []
         ),
+        'data-scope' => 's-header s-header-flexible s-header-flexible-upper',
         'id' => 'site-header-flexible-upper',
         'backgroundColor' => $headerData['upperHeader']['backgroundColor'],
         'sticky' => $headerData['upperHeader']['sticky'],
@@ -45,7 +46,10 @@
             'id' => 'site-header-flexible-lower',
             'backgroundColor' => $headerData['lowerHeader']['backgroundColor'],
             'sticky' => $headerData['lowerHeader']['sticky'],
-            'context' => 'site.header.flexible.lower'
+            'context' => 'site.header.flexible.lower',
+            'attributeList' => [
+                'data-scope' => 's-header s-header-flexible s-header-flexible-lower'
+            ]
         ])
             <div class="c-header__main-lower-area-container">
                 @element([

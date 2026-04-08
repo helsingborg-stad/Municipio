@@ -4,7 +4,10 @@
         ['site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
         isset($classList) ? (array) $classList : []
     ),
-    'context' => 'site.header'
+    'context' => 'site.header',
+    'attributeList' => [
+        'data-scope' => 's-header'
+    ]
 ])
     @include('partials.header.skip-to-main-content')
     @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
