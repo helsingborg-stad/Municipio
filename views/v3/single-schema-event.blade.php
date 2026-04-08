@@ -1,10 +1,19 @@
 @extends('templates.grid', ['layoutData' => [
     'addToDefaultClassList' => ['u-margin__y--4']
 ]])
+
+@section('hero-top-sidebar')
+    @include('partials.navigation.helper', [
+        'classList' => ['o-container', 'o-container--helper-nav'],
+    ])
+    @parent
+@stop
+
 {{-- Adding expire notice if needed --}}
 @section('above-before')
     @include('partials.schema.event.expired-notice', ['classes' => []])
 @endsection
+
 {{-- Main content area --}}
 @section('layout')
 
