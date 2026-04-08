@@ -6,7 +6,7 @@
 ])
     @if (empty($hideTitle) && !empty($postTitle))
         <div class="c-card__header">
-            @include('partials.postTitle', ['variant' => 'h4'])
+            @include('partials.postTitle', ['variant' => 'h6', 'classList' => ['u-margin__y--0']])
         </div>
     @endif
     

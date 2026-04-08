@@ -1,5 +1,5 @@
 @element()
-    @typography(['element' => 'h2'])
+    @typography(['element' => 'h2', 'variant' => 'h5'])
         {!! $lang->contactLabel !!}
     @endtypography
     @element(['classList' => ['o-grid', 'o-grid--half-gutter', 'u-margin__top--2']])

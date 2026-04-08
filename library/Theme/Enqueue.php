@@ -116,9 +116,7 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/nav.js');
 
         //Other styles
-        $this->enqueue->add('css/styleguide.css');
         $this->enqueue->add('css/municipio.css');
-        $this->enqueue->add('css/splide.css');
     }
 
     /**

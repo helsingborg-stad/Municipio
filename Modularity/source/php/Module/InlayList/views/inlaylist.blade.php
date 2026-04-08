@@ -10,8 +10,8 @@
             @typography([
                 'id'        => 'mod-inlaylist' . $ID . '-label',
                 'element'   => 'h2',
-                'variant'   => 'h4',
-                'classList' => []
+                'variant'   => 'h6',
+                'classList' => ['u-margin__y--0']
             ])
                 {!! $postTitle !!}
             @endtypography

@@ -13,7 +13,7 @@
     &__title-link:visited,
     &__title-link:visited:hover {
         text-decoration: none;
-        color: var(--color-primary, #AE0B05);
+        color: var(--color--primary, #AE0B05);
     }
 
     &__article {
@@ -23,7 +23,7 @@
         }
 
         & h1 {
-            color: var(--color-primary, #AE0B05);
+            color: var(--color--primary, #AE0B05);
         }
 
         &__date {

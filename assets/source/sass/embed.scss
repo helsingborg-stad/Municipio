@@ -1,18 +1,18 @@
-@use "@helsingborg-stad/styleguide/source/sass/mixin/ratio";
+@use "sass:string";
 
 .embed {
 	overflow: hidden;
 	position: relative;
-	height: 0;
+	//height: 0;
 	background-size: cover;
 
 	&.embed__ratio {
 		&--1-1 {
-			@include ratio.ratio(1, 1, false);
+			aspect-ratio: 1/1;
 		}
 
 		&--16-9 {
-			@include ratio.ratio(16, 9, false);
+			aspect-ratio: 16/9;
 		}
 
 	}

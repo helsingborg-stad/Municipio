@@ -1,7 +1,3 @@
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
-
-$search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-radius, variables.$border-radius-xs)) !default;
-  
 #sidebar-slider-area--container {
   position: relative;
 }
@@ -11,7 +7,6 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
     height: 100%;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
-    border: none;
   }
 }
 
@@ -23,8 +18,7 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
     position: absolute;
     width:clamp(min(100%, 600px), 30%, max(30%, 600px));
     transform: translate(-50%, -50%);
-    z-index: 3000;
-    color: variables.$color-darker;
+    z-index: 1;
     left: 50%;
 
     &.c-form--centered {
@@ -62,7 +56,6 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
       #hero-search-form__submit {
         flex: 0 1 20%;
         padding: unset;
-        border-radius: 0 $search-border-radius $search-border-radius 0;
       }
     }
 
@@ -81,11 +74,8 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
   .c-form {
     .c-field__inner,
     .c-field__inner input:focus + .c-field_focus-styler {
-      border-radius: $search-border-radius 0 0 $search-border-radius; 
-    }
-  
-    .c-button {
-      border-radius: 0 $search-border-radius $search-border-radius 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 }
@@ -97,8 +87,6 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
 #drawer-search-form input[type="search"],
 #drawer-search-form .c-field__inner {
   height: 100%;
-  border-radius: inherit;
-  border: none;
 }
 
 

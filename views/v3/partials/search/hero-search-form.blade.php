@@ -2,7 +2,7 @@
     'id'        => 'hero-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['search-form', 'c-form--hidden', 'u-box-shadow--5', 'u-print-display--none'],
+    'classList' => ['search-form', 'c-form--hidden', 'u-box-shadow--5', 'u-print-display--none', 'u-display--flex', 'u-flex-direction--column'],
     'context' => ['hero.search.form']
     ])
     @group([

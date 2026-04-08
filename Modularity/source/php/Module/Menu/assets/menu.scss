@@ -1,8 +1,10 @@
+@use "../../../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
+
 $base: var(--base, 8px) !default;
 $color-black: var(--color-black, #000000) !default;
-$color-primary: var(--color-primary, #ec6701) !default;
-$paper-color: var(--c-paper-color-background, var(--color-background-card, var(--color-white, #ffffff))) !default;
-$color-lighter: var(--color-lighter, #e5e5e5) !default;
+$color-primary: var(--color--primary) !default;
+$paper-color: var(--c-paper--background-color) !default;
+$color-lighter: var(--c-paper--border-color) !default;
 $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !default;
 
 .mod-menu.mod-menu--listing {
@@ -109,11 +111,12 @@ $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !d
         color: $color-primary;
         border-bottom: 2px solid $color-primary;
     }
-
+    
     .mod-menu__heading-label {
         width: 100%;
         margin-top: 0;
         transition: transform .2s ease-in-out;
+        --inherit-font-size: #{tokens.get("", "font-size-300")};
     }
 
     a:hover {

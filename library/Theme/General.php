@@ -18,6 +18,8 @@ class General
     {
         add_action('init', array($this, 'bemItClassDefinition'));
 
+        add_filter('body_class', array($this, 'appendStyleguideBodyClass'));
+        add_filter('login_body_class', array($this, 'appendStyleguideBodyClass'));
         add_filter('body_class', array($this, 'appendBEMITCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));
@@ -255,6 +257,12 @@ class General
         $content = preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
         $content = preg_replace('~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content);
         return $content;
+    }
+
+    public function appendStyleguideBodyClass($classes)
+    {
+        $classes[] = 'o-body';
+        return $classes;
     }
 
     /**
