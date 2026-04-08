@@ -616,6 +616,11 @@ class Display
             implode(' ', $classes),
         );
 
+        $beforeModule = $this->addDataScopeToWrapper(
+            $beforeModule,
+            's-' . $module->post_type,
+        );
+
         // Append module edit to before markup
         if ($this->displayEditModule($module, $args) && !is_admin()) {
             $beforeModule .= $this->createEditModuleMarkup($module);
@@ -645,6 +650,30 @@ class Display
         $moduleMarkup = apply_filters('Modularity/Display/' . $module->post_type . '/Markup', $moduleMarkup, $module);
 
         return $moduleMarkup;
+    }
+
+    /**
+     * Add a data-scope attribute to the first wrapper element.
+     *
+     * @param string $wrapperMarkup The wrapper markup.
+     * @param string $scopeValue    The scope value.
+     *
+     * @return string
+     */
+    private function addDataScopeToWrapper(string $wrapperMarkup, string $scopeValue): string
+    {
+        if (stripos($wrapperMarkup, 'data-scope=') !== false) {
+            return $wrapperMarkup;
+        }
+
+        $updatedWrapperMarkup = preg_replace(
+            '/^<([a-zA-Z0-9:-]+)\b/',
+            '<$1 data-scope="' . esc_attr($scopeValue) . '"',
+            $wrapperMarkup,
+            1,
+        );
+
+        return is_string($updatedWrapperMarkup) ? $updatedWrapperMarkup : $wrapperMarkup;
     }
 
     /**
@@ -776,7 +805,7 @@ class Display
 
         $moduleMarkup = apply_filters('Modularity/Display/Markup', $moduleMarkup, $module);
         $moduleMarkup = apply_filters('Modularity/Display/' . $module->post_type . '/Markup', $moduleMarkup, $module);
-        $moduleMarkup = '<div class="' . $module->post_type . '">' . $moduleMarkup . '</div>';
+        $moduleMarkup = '<div class="' . esc_attr($module->post_type) . '" data-scope="s-' . esc_attr($module->post_type) . '">' . $moduleMarkup . '</div>';
 
         self::$renderedShortcodeModules[$args['id']] = $moduleMarkup;
         $this->isShortcode = false;
