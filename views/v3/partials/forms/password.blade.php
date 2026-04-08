@@ -2,6 +2,9 @@
     'action' => $formAction,
     'classList' => [
         'post-password-form'
+    ],
+    'attributeList' => [
+        'data-scope' => 's-post-password-form'
     ]
 ])
     @if($messageBefore)
