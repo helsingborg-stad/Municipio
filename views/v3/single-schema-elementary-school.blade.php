@@ -1,6 +1,7 @@
 @extends('templates.grid')
 
 @section('layout')
+    @scope(['name' => ['single-schema-elementary-school', $postType . '-single-schema-elementary-school']])
         @section('before-content')
             @include('partials.schema.elementary-school.title-area')
             @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
@@ -16,7 +17,8 @@
             @includeWhen(!empty($addresses), 'partials.schema.elementary-school.addresses')
         @stop
 
-    @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
-    ])
+        @include('templates.sections.grid.content', [
+            'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+        ])
+    @endscope
 @stop
