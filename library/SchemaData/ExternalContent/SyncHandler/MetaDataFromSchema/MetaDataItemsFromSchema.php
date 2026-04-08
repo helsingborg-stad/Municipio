@@ -37,6 +37,7 @@ class MetaDataItemsFromSchema
     {
         return [
             new Mappers\MapEventStartDates(),
+            new Mappers\MapExhibitionEventDates(),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\ExternalContent\SyncHandler\MetaDataFromSchema\Ma
 
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\BaseType;
+use Municipio\Schema\Contracts\EventContract;
 use Municipio\Schema\Schedule;
 use Municipio\SchemaData\ExternalContent\SyncHandler\MetaDataFromSchema\MetaDataItemInterface;
 
@@ -16,7 +17,7 @@ class MapEventStartDates implements MetaDataItemMapperInterface
      */
     public function map(BaseType $schema): \Generator
     {
-        if ($schema->getType() !== 'Event') {
+        if (!$schema instanceof EventContract) {
             return;
         }
 
