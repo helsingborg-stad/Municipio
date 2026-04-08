@@ -223,7 +223,8 @@ class Display
             return self::$sidebarState[$sidebar];
         }
 
-        $hasWidgets = $this->areWidgetsActive($sidebar);
+        $hideWidgets = isset($this->options[$sidebar]['hide_widgets']) && $this->options[$sidebar]['hide_widgets'] === 'true';
+        $hasWidgets = $hideWidgets ? false : $this->areWidgetsActive($sidebar);
         $hasModules = $this->areModulesActive($sidebar);
 
         if ($hasWidgets || $hasModules) {
