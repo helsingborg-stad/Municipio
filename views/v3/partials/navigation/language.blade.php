@@ -4,6 +4,9 @@
         'site-language-menu__card',
         'u-padding--2',
         'u-color__bg--default',
+    ],
+    'attributeList' => [
+        'data-scope' => 's-language-menu'
     ]
 ])
 

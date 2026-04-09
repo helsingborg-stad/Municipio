@@ -16,31 +16,31 @@
 
     @if ($archiveTitle || $archiveLead)
         <article class="c-article c-article--readable-width s-article u-clearfix" id="article">
-            @if ($archiveTitle)
-                @typography([
-                    'variant' => 'h1',
-                    'element' => 'h1',
-                    'classList' => ['t-archive-title', 't-' . $postType . '-archive-title'],
-                    'id' => 'page-title'
-                ])
-                    {{ $archiveTitle }}
-                @endtypography
-            @endif
-            @if ($archiveLead)
-                @typography([
-                    'element' => 'p',
-                    'classList' => ['lead', 't-archive-lead', 't-' . $postType . '-archive-lead']
-                ])
-                    {{ $archiveLead }}
-                @endtypography
-            @endif
+            @scope(['name' => ['archive-lead', $postType . '-archive-lead']])
+                @if ($archiveTitle)
+                    @typography([
+                        'variant' => 'h1',
+                        'element' => 'h1',
+                        'classList' => ['t-archive-title', 't-' . $postType . '-archive-title'],
+                        'id' => 'page-title'
+                    ])
+                        {{ $archiveTitle }}
+                    @endtypography
+                @endif
+                @if ($archiveLead)
+                    @typography([
+                        'element' => 'p',
+                        'classList' => ['lead', 't-archive-lead', 't-' . $postType . '-archive-lead']
+                    ])
+                        {{ $archiveLead }}
+                    @endtypography
+                @endif
+            @endscope
         </article>
     @endif
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
-
-    <div
-        class="archive s-archive s-archive-template-{{ sanitize_title($template) }}  s-{{ sanitize_title($postType) }}-archive">
+    @scope(['name' => ['archive', $postType . '-archive']])
 
         {!! $hook->loopStart !!}
 
@@ -48,7 +48,9 @@
         
         @section('loop')
             @if ($displayArchiveLoop)
-                @include('posts-list')
+                @scope(['name' => ['archive-list', $postType . '-archive-list']])
+                    @include('posts-list')
+                @endscope
             @endif
         @show
 
@@ -56,7 +58,7 @@
 
         {!! $hook->loopEnd !!}
 
-    </div>
+    @endscope
 @stop
 
 @section('sidebar-right')

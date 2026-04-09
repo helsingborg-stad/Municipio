@@ -7,29 +7,30 @@
 @endsection
 {{-- Main content area --}}
 @section('layout')
+    @scope(['name' => ['single-schema-event', $postType . '-single-schema-event']])
+        @include('partials.schema.event.expired-notice', ['classes' => []])
 
-    @include('partials.schema.event.expired-notice', ['classes' => []])
+        @section('above-content')
+            @parent
+        @stop
 
-    @section('above-content')
-        @parent
-    @stop
+        @section('content')
+            @include('partials.schema.event.image')
+            @include('partials.schema.event.title-area')
+            @include('partials.schema.event.description')
+            @include('partials.schema.event.accessibility-features')
+        @stop
 
-    @section('content')
-        @include('partials.schema.event.image')
-        @include('partials.schema.event.title-area')
-        @include('partials.schema.event.description')
-        @include('partials.schema.event.accessibility-features')
-    @stop
+        @section('sidebar-right-content')
+            @include('partials.schema.event.place-card')
+            @include('partials.schema.event.occassions-card')
+            @include('partials.schema.event.booking-link-card')
+            @include('partials.schema.event.links')
+            @includeWhen(!empty($organizers), 'partials.schema.event.organizers-card')
+        @stop
 
-    @section('sidebar-right-content')
-        @include('partials.schema.event.place-card')
-        @include('partials.schema.event.occassions-card')
-        @include('partials.schema.event.booking-link-card')
-        @include('partials.schema.event.links')
-        @includeWhen(!empty($organizers), 'partials.schema.event.organizers-card')
-    @stop
+        @include('templates.sections.grid.content')
 
-    @include('templates.sections.grid.content')
-
-    @includeWhen($postsListData['posts'], 'partials.schema.event.related-posts')
+        @includeWhen($postsListData['posts'], 'partials.schema.event.related-posts')
+    @endscope
 @stop

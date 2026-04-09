@@ -5,9 +5,9 @@
         'mobile' => $customizer->megaMenuMobile,
         'attributeList' => [
             'aria-hidden' => 'true',
+            'data-scope' => 's-megamenu'
         ],
         'context' => ['site.megamenu.nav']
-
     ])
         @if($showMegaMenuSearch)
             <div class="o-grid-12">
