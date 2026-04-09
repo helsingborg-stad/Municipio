@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\PostsList\Block\PostsListBlockRenderer;
 
 use ComponentLibrary\Renderer\RendererInterface;
+use Municipio\Helper\TranslatedLabels;
 use Municipio\PostsList\PostsListFactoryInterface;
 use Municipio\PostsList\QueryVars\QueryVars;
 use WpService\Contracts\GetTerms;
@@ -29,6 +30,8 @@ class PostsListBlockRenderer implements BlockRendererInterface
         ]);
         $postsList = $this->postsListFactory->create($postsListConfigDTO);
         $data = $postsList->getData();
+        // REST/async render has no BaseController; provide $lang for posts-list.blade.php empty state.
+        $data['lang'] = TranslatedLabels::getLang([]);
         $safeAttributes = $this->filterJsonSafeAttributes($attributes);
         $data['getAsyncAttributes'] = fn() => $safeAttributes;
 
