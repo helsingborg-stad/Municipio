@@ -5,6 +5,10 @@ namespace Municipio;
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
+use Municipio\Api\Customize\Config\CustomizeConfig;
+use Municipio\Api\Customize\Support\ChangesetIdResolver;
+use Municipio\Api\Customize\Support\CustomizeTokensReader;
+use Municipio\Api\Customize\Support\CustomizeTokensWriter;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
 use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
@@ -228,6 +232,17 @@ class App
         $uploads->addHooks();
 
         /**
+         * Map theme mods to css vars for the styleguide, this is needed to make sure that the styleguide can use the same css vars as the rest of the theme.
+         */
+        $tokensConfig = new CustomizeConfig($this->wpService);
+        $tokensReader = $tokensReader ?? new CustomizeTokensReader($this->wpService, $tokensConfig, new ChangesetIdResolver($this->wpService));
+        $tokensWriter = $tokensWriter ?? new CustomizeTokensWriter($this->wpService, $tokensConfig, new ChangesetIdResolver($this->wpService));
+        (new \Municipio\StyleguideCss\StyleguideCssFeature($this->wpService, $tokensReader))->addHooks();
+        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Customize\Get($this->wpService, $tokensConfig, $tokensReader));
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Customize\Save($this->wpService, $tokensConfig, $tokensWriter));
+
+        /**
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
@@ -237,8 +252,6 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\PostsList\PostsListRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\PlaceSearch\PlaceSearchEndpoint($this->wpService));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Nonce\Refresh());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Customize\Get($this->wpService));
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Customize\Save($this->wpService));
 
         $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
@@ -248,13 +261,6 @@ class App
          * Customizer
          */
         new \Municipio\Customizer($this->wpService, $this->wpdb);
-
-        /**
-         * Map theme mods to css vars for the styleguide, this is needed to make sure that the styleguide can use the same css vars as the rest of the theme.
-         */
-        (new \Municipio\StyleguideCss\StyleguideCssFeature($this->wpService))->addHooks();
-
-        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
 
         /**
          * Block customizations

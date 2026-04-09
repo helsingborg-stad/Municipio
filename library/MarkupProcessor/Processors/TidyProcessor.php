@@ -30,6 +30,7 @@ class TidyProcessor implements MarkupProcessorInterface
                 'drop-empty-elements' => false,
                 'drop-empty-paras' => false,
                 'new-pre-tags' => 'template',
+                'new-blocklevel-tags' => 'design-builder,range-controller',
             ],
             'utf8',
         );

@@ -33,21 +33,11 @@ class Save extends RestApiEndpoint
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'customize/design';
 
-    private readonly CustomizeConfigInterface $config;
-    private readonly CustomizeTokensWriterInterface $tokensWriter;
-
     public function __construct(
         private readonly RegisterRestRoute&CurrentUserCan&SetThemeMod&UpdatePostMeta&WpSavePostRevision&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters $wpService,
-        ?CustomizeConfigInterface $config = null,
-        ?CustomizeTokensWriterInterface $tokensWriter = null,
-    ) {
-        $this->config = $config ?? new CustomizeConfig($this->wpService);
-        $this->tokensWriter = $tokensWriter ?? new CustomizeTokensWriter(
-            $this->wpService,
-            $this->config,
-            new ChangesetIdResolver($this->wpService),
-        );
-    }
+        private readonly CustomizeConfigInterface $config,
+        private readonly CustomizeTokensWriterInterface $tokensWriter,
+    ) {}
 
     /**
      * Registers the REST route.

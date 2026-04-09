@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\StyleguideCss\Customize;
 
 use Composer\InstalledVersions;
+use Municipio\Api\Customize\Support\CustomizeTokensReaderInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
@@ -18,6 +19,7 @@ class EnqueueCustomizeAssets implements Hookable
 
     public function __construct(
         private readonly WpService $wpService,
+        private readonly CustomizeTokensReaderInterface $tokensReader,
     ) {
         $this->styleguidePath = InstalledVersions::getInstallPath(
             self::STYLEGUIDE_PACKAGE,
@@ -36,7 +38,7 @@ class EnqueueCustomizeAssets implements Hookable
         }
 
         $this->wpService->addAction(self::HOOK, [$this, 'enqueueCustomizeAssets'], self::PRIORITY);
-        $this->wpService->addAction(self::HOOK, [$this, 'enqueueCustomizeData'], self::PRIORITY);
+        $this->wpService->addAction('wp_footer', [$this, 'enqueueCustomizeData'], self::PRIORITY);
     }
 
     /* Checks if the editor should be enabled based on the current user's capabilities.
@@ -54,13 +56,19 @@ class EnqueueCustomizeAssets implements Hookable
      */
     public function enqueueCustomizeAssets(): void
     {
+        $this->wpService->wpEnqueueStyle(
+            'styleguide-customize',
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
+        );
+
         $this->wpService->wpEnqueueScript(
             'styleguide-customize',
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder.js'),
         );
-        $this->wpService->wpEnqueueStyle(
-            'styleguide-customize-css',
-            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
+
+        $this->wpService->wpEnqueueScript(
+            'municipio-customize',
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customize.js'),
         );
     }
 
@@ -70,14 +78,23 @@ class EnqueueCustomizeAssets implements Hookable
      */
     public function enqueueCustomizeData(): void
     {
-        $customizerData = $this->readCustomizeData();
-        if ($customizerData !== null) {
-            $this->wpService->wpAddInlineScript(
-                'styleguide-customize',
-                sprintf('window.styleguideCustomizeData = %s;', $customizerData),
-                'before',
-            );
-        }
+        $componentData = $this->getComponentData();
+        $tokenLibrary = $this->getTokenData();
+
+        $componentData = htmlspecialchars($componentData, ENT_QUOTES, 'UTF-8');
+        $tokenLibrary = htmlspecialchars($tokenLibrary, ENT_QUOTES, 'UTF-8');
+
+        $default = json_encode(['design' => ['token' => [], 'component' => []]]);
+        $stored = get_theme_mod('tokens', $default);
+        $stored = json_decode($stored, true);
+        $overrideState = [
+            'token' => $stored['design']['token'],
+            'component' => $stored['design']['component'],
+        ];
+
+        $overrideState = htmlspecialchars(json_encode($overrideState), ENT_QUOTES, 'UTF-8');
+
+        echo "<design-builder component-data='" . $componentData . "' token-data='" . $tokenLibrary . "' token-library='" . $tokenLibrary . "' override-state='" . $overrideState . "'></design-builder>";
     }
 
     /* Reads the customizer data from a specified file and returns its contents.
@@ -86,9 +103,19 @@ class EnqueueCustomizeAssets implements Hookable
      *
      * @return string|null The contents of the customizer data file, or null if the file cannot be read.
      */
-    private function readCustomizeData(): ?string
+    private function getComponentData(): ?string
     {
         $filePath = realpath($this->styleguidePath) . '/component-design-tokens.json';
+        if (!file_exists($filePath)) {
+            return null;
+        }
+
+        return file_get_contents($filePath) ?: null;
+    }
+
+    private function getTokenData(): ?string
+    {
+        $filePath = realpath($this->styleguidePath) . '/source/data/design-tokens.json';
         if (!file_exists($filePath)) {
             return null;
         }

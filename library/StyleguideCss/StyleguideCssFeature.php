@@ -2,6 +2,7 @@
 
 namespace Municipio\StyleguideCss;
 
+use Municipio\Api\Customize\Support\CustomizeTokensReaderInterface;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\StyleguideCss\AddLayerOrderDefinitionToHead\AddLayerOrderDefinitionToHead;
 use Municipio\StyleguideCss\ApplyLayerToInlineStyles\ApplyLayerToInlineStyles;
@@ -18,6 +19,7 @@ class StyleguideCssFeature implements Hookable
 {
     public function __construct(
         private WpService $wpService,
+        private CustomizeTokensReaderInterface $tokensReader,
         private ThemeSettingsMapperInterface $themeSettingsMapper = new ThemeSettingsMapper(),
     ) {}
 
@@ -29,7 +31,7 @@ class StyleguideCssFeature implements Hookable
         (new ApplyLayerToInlineStyles($this->wpService))->addHooks();
         (new AddLayerOrderDefinitionToHead($this->wpService))->addHooks();
         (new ApplyLayerToWordpressStyles($this->wpService))->addHooks();
-        (new EnqueueCustomizeAssets($this->wpService))->addHooks();
+        (new EnqueueCustomizeAssets($this->wpService, $this->tokensReader))->addHooks();
     }
 
     public function outputStyleguideCss(bool $isEditor = false): void

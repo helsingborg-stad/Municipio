@@ -33,21 +33,11 @@ class Get extends RestApiEndpoint
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = 'customize/design';
 
-    private readonly CustomizeConfigInterface $config;
-    private readonly CustomizeTokensReaderInterface $tokensReader;
-
     public function __construct(
         private readonly RegisterRestRoute&CurrentUserCan&GetThemeMod&GetPostMeta&GetPosts&GetQueryVar&IsCustomizePreview&ApplyFilters&__ $wpService,
-        ?CustomizeConfigInterface $config = null,
-        ?CustomizeTokensReaderInterface $tokensReader = null,
-    ) {
-        $this->config = $config ?? new CustomizeConfig($this->wpService);
-        $this->tokensReader = $tokensReader ?? new CustomizeTokensReader(
-            $this->wpService,
-            $this->config,
-            new ChangesetIdResolver($this->wpService),
-        );
-    }
+        private readonly CustomizeConfigInterface $config,
+        private readonly CustomizeTokensReaderInterface $tokensReader,
+    ) {}
 
     /**
      * Registers the REST route.

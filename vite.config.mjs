@@ -12,9 +12,10 @@ const entries = {
 	"css/styleguide":
 		"./vendor/helsingborg-stad/styleguide/assets/dist/css/styleguide-css.css",
 	"css/designbuilder":
-		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder.scss",
+		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder-external.css",
 	"js/designbuilder":
 		"./vendor/helsingborg-stad/styleguide/source/design-builder/index.ts",
+	"js/customize": "./library/StyleguideCss/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
@@ -139,7 +140,10 @@ export default defineConfig(({ mode }) => {
 					},
 				},
 				treeshake: {
-					moduleSideEffects: false,
+					moduleSideEffects: (id) =>
+						id.includes(
+							"/vendor/helsingborg-stad/styleguide/source/design-builder/",
+						),
 				},
 			},
 			minify: isProduction ? "esbuild" : false,
