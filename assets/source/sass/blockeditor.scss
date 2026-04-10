@@ -4,9 +4,7 @@
 }
 
 html :where(.wp-block) {
-    max-width: var(--container-width);
-    padding-left: calc(var(--space) * 3);
-    padding-right: calc(var(--space) * 3);
+    max-width: 100%;
 }
 
 .editor-styles-wrapper {
