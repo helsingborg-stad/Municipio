@@ -232,15 +232,10 @@ class App
         $uploads->addHooks();
 
         /**
-         * Map theme mods to css vars for the styleguide, this is needed to make sure that the styleguide can use the same css vars as the rest of the theme.
+         * Styleguide integration
          */
-        $tokensConfig = new CustomizeConfig($this->wpService);
-        $tokensReader = $tokensReader ?? new CustomizeTokensReader($this->wpService, $tokensConfig, new ChangesetIdResolver($this->wpService));
-        $tokensWriter = $tokensWriter ?? new CustomizeTokensWriter($this->wpService, $tokensConfig, new ChangesetIdResolver($this->wpService));
-        (new \Municipio\StyleguideCss\StyleguideCssFeature($this->wpService, $tokensReader))->addHooks();
+        (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
         (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Customize\Get($this->wpService, $tokensConfig, $tokensReader));
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Customize\Save($this->wpService, $tokensConfig, $tokensWriter));
 
         /**
          * Api
