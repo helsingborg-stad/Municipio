@@ -108,7 +108,7 @@ class Customize implements Hookable
 
         $overrideState = htmlspecialchars(json_encode($overrideState), ENT_QUOTES, 'UTF-8');
 
-        return "<design-builder component-data='" . $componentData . "' token-data='" . $tokenLibrary . "' token-library='" . $tokenLibrary . "' override-state='" . $overrideState . "'></design-builder>";
+        return "<design-builder component-data='" . $componentData . "' token-data='" . $tokenLibrary . "' token-library='" . $tokenLibrary . "' override-state='" . $overrideState . "' show-save-button='false'></design-builder>";
     }
 
     /* Reads the customizer data from a specified file and returns its contents.
