@@ -35,7 +35,7 @@
         @includeWhen(
                 $showMobileSearchDrawer,
                 'partials.search.drawer-search-form',
-                ['classList' => ['search-form', 'u-margin__top--2', 'u-width--100']]
+                ['classList' => ['search-form', 'u-margin__top--2', 'u-margin__bottom--2', 'u-width--100']]
             )
     @endslot
 
