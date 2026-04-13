@@ -4,7 +4,7 @@
   'action'    => $homeUrl,
   'classList' => $classList
 ])
-    @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
+    @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto', 'u-width--100']])
         @field([
             'id'            => 'drawer-search-form__field',
             'type'          => 'search',
