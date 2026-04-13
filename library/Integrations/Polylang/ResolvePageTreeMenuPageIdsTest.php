@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Integrations\Polylang;
 
 use Closure;
@@ -12,7 +14,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testCanBeInstantiated(): void
     {
-        $this->assertInstanceOf(ResolvePageTreeMenuPageIds::class, $this->getSut());
+        static::assertInstanceOf(ResolvePageTreeMenuPageIds::class, $this->getSut());
     }
 
     #[TestDox('addHooks() registers filters for translated page tree related options')]
@@ -27,7 +29,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
 
         $sut->addHooks();
 
-        $this->assertSame(
+        static::assertSame(
             [
                 'option_page_on_front',
                 'option_page_for_posts',
@@ -45,7 +47,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
             translatedPostResolver: static fn (int $pageId): int => $pageId + 100
         );
 
-        $this->assertSame(110, $sut->resolveTranslatedPageId(10));
+        static::assertSame(110, $sut->resolveTranslatedPageId(10));
     }
 
     #[TestDox('resolveTranslatedPageId() returns the original value when the page ID is not numeric')]
@@ -53,7 +55,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
     {
         $sut = $this->getSut();
 
-        $this->assertSame('not-a-page-id', $sut->resolveTranslatedPageId('not-a-page-id'));
+        static::assertSame('not-a-page-id', $sut->resolveTranslatedPageId('not-a-page-id'));
     }
 
     #[TestDox('resolveTranslatedPageId() returns the original page ID when no translated page is found')]
@@ -63,7 +65,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
             translatedPostResolver: static fn (int $pageId): int => 0
         );
 
-        $this->assertSame(10, $sut->resolveTranslatedPageId(10));
+        static::assertSame(10, $sut->resolveTranslatedPageId(10));
     }
 
     /**
