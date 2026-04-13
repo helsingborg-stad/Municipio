@@ -111,7 +111,7 @@ class DesignTokensToCssConverter implements DesignTokensToCssConverterInterface
                 continue;
             }
 
-            $selector = sprintf('[data-scope="%s"] .c-%s', $scopeName, $component);
+            $selector = sprintf('[data-scope*="%s;"] .c-%s', $scopeName, $component);
             $this->appendBlock($rows, $selector, $componentTokens);
         }
     }
