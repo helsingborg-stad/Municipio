@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Styleguide\Customize\DesignTokensToCssConverter;
+namespace Municipio\Styleguide\Customize\ApplyStyles\DesignTokensToCssConverter;
 
 interface DesignTokensToCssConverterInterface
 {

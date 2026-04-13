@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Styleguide\Customize\DesignTokensToCssConverter;
+namespace Municipio\Styleguide\Customize\ApplyStyles\DesignTokensToCssConverter;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

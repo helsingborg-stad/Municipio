@@ -6,6 +6,25 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 	(m) => m.default || m,
 );
 
+const wrapStandaloneEntryScripts = () => ({
+	name: "wrap-standalone-entry-scripts",
+	renderChunk(code, chunk) {
+		if (
+			!chunk.isEntry ||
+			chunk.fileName.endsWith(".css") ||
+			chunk.imports.length > 0 ||
+			chunk.dynamicImports.length > 0
+		) {
+			return null;
+		}
+
+		return {
+			code: `;(() => {\n${code}\n})();`,
+			map: null,
+		};
+	},
+});
+
 const entries = {
 	"js/styleguide":
 		"./vendor/helsingborg-stad/styleguide/assets/dist/js/styleguide-js.js",
@@ -15,7 +34,9 @@ const entries = {
 		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder-external.css",
 	"js/designbuilder":
 		"./vendor/helsingborg-stad/styleguide/source/design-builder/index.ts",
-	"js/customize": "./library/StyleguideCss/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
+	"js/designbuilder-preview":
+		"./library/Styleguide/Customize/js/designbuilderPreview.ts",
+	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
@@ -187,6 +208,7 @@ export default defineConfig(({ mode }) => {
 			dedupe: ["leaflet"],
 		},
 		plugins: [
+			wrapStandaloneEntryScripts(),
 			manifestPlugin("manifest.json"),
 			copy({
 				targets: [

@@ -6,10 +6,9 @@ namespace Municipio\Styleguide\Customize;
 
 use Composer\InstalledVersions;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Styleguide\Customize\RestApi\Support\CustomizeTokensReaderInterface as SupportCustomizeTokensReaderInterface;
 use WpService\WpService;
 
-class StyleguideDesignBuilder implements Hookable
+class Customize implements Hookable
 {
     private const STYLEGUIDE_PACKAGE = 'helsingborg-stad/styleguide';
 
@@ -17,11 +16,11 @@ class StyleguideDesignBuilder implements Hookable
 
     public function __construct(
         private readonly WpService $wpService,
-        private readonly SupportCustomizeTokensReaderInterface $tokensReader,
     ) {
-        $this->styleguidePath = InstalledVersions::getInstallPath(
-            self::STYLEGUIDE_PACKAGE,
-        ) ?: null;
+        $this->styleguidePath =
+            InstalledVersions::getInstallPath(
+                self::STYLEGUIDE_PACKAGE,
+            ) ?? null;
     }
 
     /* Registers the necessary hooks for adding customizer properties to components.
@@ -31,77 +30,68 @@ class StyleguideDesignBuilder implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'outputDesignBuilderStyles']);
-        $this->wpService->addAction('init', [$this, 'enqueueCustomizeAssets']);
+        (new ApplyStyles\ApplyStyles($this->wpService))->addHooks();
+        $this->wpService->addAction('customize_register', [$this, 'registerThemeMod']);
+        $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'enqueueControlsAssets']);
+        $this->wpService->addAction('customize_preview_init', [$this, 'enqueuePreviewAssets']);
         $this->wpService->addFilter('Municipio/Styleguide/DesignBuilderMarkup', [$this, 'getDesignBuilderMarkup']);
     }
 
-    /* Checks if the editor should be enabled based on the current user's capabilities.
-     *
-     * @return bool True if the editor should be enabled, false otherwise.
-     */
-    private function shouldEnableEditor(): bool
+    public function registerThemeMod(\WP_Customize_Manager $wpCustomize): void
     {
-        if ($this->wpService->isCustomizePreview() && $this->wpService->currentUserCan('edit_theme_options')) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function outputDesignBuilderStyles(): void
-    {
-        if ($this->shouldEnableEditor() === true) {
-            return;
-        }
-
-        $this->wpService->wpRegisterStyle('styleguide-design-builder-output', false);
-        $this->wpService->wpEnqueueStyle('styleguide-design-builder-output');
-        $this->wpService->wpAddInlineStyle('styleguide-design-builder-output', $this->getTokensAsCss());
-    }
-
-    private function getTokensAsCss(): string
-    {
-        $default = json_encode(['design' => ['token' => [], 'component' => []]]);
-        $stored = get_theme_mod('tokens', $default);
-        $stored = json_decode($stored, true);
-        $generalTokens = $stored['design']['token'];
-        $componentTokens = $stored['design']['component'];
-
-        $designTokensCssConverter = new DesignTokensToCssConverter\DesignTokensToCssConverter();
-        $css = $designTokensCssConverter->convert(array_merge($generalTokens, $componentTokens));
-        return '@layer theme {' . $css . '}';
+        $wpCustomize->add_setting('tokens', [
+            'default' => '{design: {token: {}, component: {}}}',
+            'transport' => 'postMessage',
+        ]);
+        $wpCustomize->add_control('tokens', [
+            'id' => 'tokens',
+            'type' => 'hidden',
+            'value' => '{design: {token: {}, component: {}}}',
+            'section' => 'title_tagline',
+        ]);
     }
 
     /* Enqueues the necessary assets for the customizer editor.
      *
      * This method registers and enqueues the stylesheet for the customizer editor, ensuring that it is loaded on the appropriate pages.
      */
-    public function enqueueCustomizeAssets(): void
+    public function enqueueControlsAssets(): void
     {
-        if (!$this->shouldEnableEditor()) {
+        $this->wpService->wpEnqueueScript(
+            'municipio-customize',
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customize.js'),
+            ['customize-controls'],
+            false,
+            ['in_footer' => true],
+        );
+    }
+
+    public function enqueuePreviewAssets(): void
+    {
+        if (!$this->wpService->isCustomizePreview()) {
             return;
         }
 
         $this->wpService->wpEnqueueStyle(
-            'styleguide-customize',
+            'styleguide-designbuilder',
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
         );
 
-        $this->wpService->wpEnqueueScript(
-            'styleguide-customize',
+        $this->wpService->wpRegisterScript(
+            'styleguide-designbuilder',
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder.js'),
         );
 
         $this->wpService->wpEnqueueScript(
-            'municipio-customize',
-            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customize.js'),
+            'styleguide-designbuilder-preview',
+            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder-preview.js'),
+            ['customize-preview', 'styleguide-designbuilder'],
         );
     }
 
     public function getDesignBuilderMarkup(): ?string
     {
-        if ($this->shouldEnableEditor() === false) {
+        if (!$this->wpService->isCustomizePreview()) {
             return null;
         }
 
@@ -115,8 +105,8 @@ class StyleguideDesignBuilder implements Hookable
         $stored = get_theme_mod('tokens', $default);
         $stored = json_decode($stored, true);
         $overrideState = [
-            'token' => $stored['design']['token'],
-            'component' => $stored['design']['component'],
+            'token' => $stored['token'],
+            'component' => $stored['component'],
         ];
 
         $overrideState = htmlspecialchars(json_encode($overrideState), ENT_QUOTES, 'UTF-8');
@@ -137,7 +127,8 @@ class StyleguideDesignBuilder implements Hookable
             return null;
         }
 
-        return file_get_contents($filePath) ?: null;
+        $contents = file_get_contents($filePath);
+        return $contents === false ? null : $contents;
     }
 
     private function getTokenData(): ?string
@@ -147,6 +138,7 @@ class StyleguideDesignBuilder implements Hookable
             return null;
         }
 
-        return file_get_contents($filePath) ?: null;
+        $contents = file_get_contents($filePath);
+        return $contents === false ? null : $contents;
     }
 }

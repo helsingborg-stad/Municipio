@@ -9,7 +9,7 @@ use Municipio\Styleguide\ApplyLayerToWordpressStyles\ApplyLayerToWordpressStyles
 use Municipio\Styleguide\CssVariables\CssVariablesEditorRenderer;
 use Municipio\Styleguide\CssVariables\CssVariablesRenderer;
 use Municipio\Styleguide\CssVariables\CssVariablesRendererInterface;
-use Municipio\Styleguide\Customize\StyleguideDesignBuilder;
+use Municipio\Styleguide\Customize\Customize;
 use Municipio\Styleguide\ThemeSettingsMapper\ThemeSettingsMapper;
 use Municipio\Styleguide\ThemeSettingsMapper\ThemeSettingsMapperInterface;
 use WpService\WpService;
@@ -29,8 +29,7 @@ class StyleguideFeature implements Hookable
         (new ApplyLayerToInlineStyles($this->wpService))->addHooks();
         (new AddLayerOrderDefinitionToHead($this->wpService))->addHooks();
         (new ApplyLayerToWordpressStyles($this->wpService))->addHooks();
-
-        $this->setupCustomizer();
+        (new Customize($this->wpService))->addHooks();
     }
 
     public function outputStyleguideCss(bool $isEditor = false): void
@@ -59,19 +58,6 @@ class StyleguideFeature implements Hookable
     private function getStyleguideTemplatePath(): string
     {
         return '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/styleguide.css');
-    }
-
-    private function setupCustomizer(): void
-    {
-        $tokensConfig = new Customize\RestApi\Config\CustomizeConfig($this->wpService);
-        $tokensReader = new Customize\RestApi\Support\CustomizeTokensReader($this->wpService, $tokensConfig, new Customize\RestApi\Support\ChangesetIdResolver($this->wpService));
-        $tokensWriter = new Customize\RestApi\Support\CustomizeTokensWriter($this->wpService, $tokensConfig, new Customize\RestApi\Support\ChangesetIdResolver($this->wpService));
-
-        (new StyleguideDesignBuilder($this->wpService, $tokensReader))->addHooks();
-        (new Customize\RestApi\Get($this->wpService, $tokensConfig, $tokensReader))->register();
-        (new Customize\RestApi\Save($this->wpService, $tokensConfig, $tokensWriter))->register();
-
-        $tokensConfig = new Customize\RestApi\Config\CustomizeConfig($this->wpService);
     }
 
     private function applyCssVariableFilters(array $cssVariables): array

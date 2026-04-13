@@ -11,7 +11,7 @@ use Municipio\Helper\FormatObject;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\User\User;
-use Municipio\Styleguide\Customize\StyleguideDesignBuilderInterface;
+use Municipio\Styleguide\Customize\CustomizeInterface;
 use WpService\WpService;
 
 /**
