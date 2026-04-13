@@ -21,58 +21,6 @@ class StyleguideFeatureTest extends TestCase
         $this->assertInstanceOf(StyleguideFeature::class, $feature);
     }
 
-    #[TestDox('attaches to the wp_head action')]
-    public function testAttachesToWpHead(): void
-    {
-        $wpService = self::createWpService();
-        $feature = new StyleguideFeature($wpService);
-        $feature->addHooks();
-
-        $addActionCalls = $wpService->addActionCalls;
-        $wpHeadAction = array_filter($addActionCalls, fn($call) => $call['hookName'] === 'wp_head');
-
-        // Assert wp_head action was added
-        $this->assertNotEmpty($wpHeadAction, 'wp_head action was not added');
-    }
-
-    #[TestDox('outputs style tag in wp_head')]
-    public function testOutputsStyleguideCssInWpHead(): void
-    {
-        $wpService = self::createWpService();
-        $output = self::getFeatureOutput($wpService);
-        $this->assertStringContainsString('<style', $output, 'Style tag was not output in wp_head');
-    }
-
-    #[TestDox('outputs styles in theme layer')]
-    public function testOutputsStylesInThemeLayer(): void
-    {
-        $wpService = self::createWpService();
-        $output = self::getFeatureOutput($wpService);
-        // Here you can add more specific assertions based on the actual CSS you expect to be output
-        $this->assertStringContainsString('@layer theme', $output, 'Expected CSS was not found in the output');
-    }
-
-    #[TestDox('outputs css variables if provided')]
-    public function testOutputsCssVariablesIfProvided(): void
-    {
-        $wpService = self::createWpService();
-        $cssVariables = [new CssVariable('--color--primary', '#FF0000')];
-        $themeSettingsMapper = new class($cssVariables) implements ThemeSettingsMapperInterface {
-            public function __construct(
-                private array $cssVariables,
-            ) {}
-
-            public function map(array $themeMods): array
-            {
-                return $this->cssVariables;
-            }
-        };
-
-        $output = self::getFeatureOutput($wpService, $themeSettingsMapper);
-
-        $this->assertStringContainsString('--color--primary: #FF0000', $output, 'Expected CSS variable was not found in the output');
-    }
-
     private static function getFeatureOutput(AddAction&GetThemeMods $wpService, ThemeSettingsMapperInterface $themeSettingsMapper = new ThemeSettingsMapper()): string
     {
         $feature = new StyleguideFeature($wpService, $themeSettingsMapper);

@@ -40,13 +40,12 @@ class Customize implements Hookable
     public function registerThemeMod(\WP_Customize_Manager $wpCustomize): void
     {
         $wpCustomize->add_setting('tokens', [
-            'default' => '{design: {token: {}, component: {}}}',
+            'default' => '{"token": {}, "component": {}}',
             'transport' => 'postMessage',
         ]);
         $wpCustomize->add_control('tokens', [
             'id' => 'tokens',
             'type' => 'hidden',
-            'value' => '{design: {token: {}, component: {}}}',
             'section' => 'title_tagline',
         ]);
     }
@@ -61,8 +60,6 @@ class Customize implements Hookable
             'municipio-customize',
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customize.js'),
             ['customize-controls'],
-            false,
-            ['in_footer' => true],
         );
     }
 

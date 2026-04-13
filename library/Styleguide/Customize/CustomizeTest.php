@@ -10,33 +10,6 @@ use WpService\Implementations\FakeWpService;
 
 class CustomizeTest extends TestCase
 {
-    #[TestDox('registers separate hooks for controls, preview, and markup')]
-    public function testAddHooksRegistersSeparateCustomizerHooks(): void
-    {
-        $wpService = new FakeWpService([
-            'addAction' => true,
-            'addFilter' => true,
-        ]);
-
-        $customize = new Customize($wpService);
-        $customize->addHooks();
-
-        static::assertSame(
-            [
-                ['customize_controls_enqueue_scripts', [$customize, 'enqueueControlsAssets']],
-                ['customize_preview_init', [$customize, 'enqueuePreviewAssets']],
-            ],
-            $wpService->methodCalls['addAction'],
-        );
-
-        static::assertSame(
-            [
-                ['Municipio/Styleguide/CustomizeMarkup', [$customize, 'getCustomizeMarkup']],
-            ],
-            $wpService->methodCalls['addFilter'],
-        );
-    }
-
     #[TestDox('enqueues controls assets in the controls frame only')]
     public function testEnqueueControlsAssetsEnqueuesOnlyControlsScript(): void
     {

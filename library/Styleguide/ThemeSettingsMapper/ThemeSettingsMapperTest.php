@@ -55,6 +55,9 @@ class ThemeSettingsMapperTest extends TestCase
             'typography_heading' => [
                 'font-family' => 'Georgia, serif',
             ],
+            'typography_h1' => [
+                'font-family' => 'Georgia, serif',
+            ],
             'drop_shadow_color' => 'rgba(0, 0, 0, 0.06)',
             'drop_shadow_amount' => '2.5',
             'radius_md' => 7,
