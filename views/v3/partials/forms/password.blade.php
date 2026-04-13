@@ -4,7 +4,7 @@
         'post-password-form'
     ],
     'attributeList' => [
-        'data-scope' => 's-post-password-form'
+        'data-scope' => 's-post-password-form;'
     ]
 ])
     @if($messageBefore)

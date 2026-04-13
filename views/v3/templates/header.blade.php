@@ -6,7 +6,7 @@
     ),
     'context' => 'site.header',
     'attributeList' => [
-        'data-scope' => 's-header'
+        'data-scope' => 's-header;'
     ]
 ])
     @include('partials.header.skip-to-main-content')
