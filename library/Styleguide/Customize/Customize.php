@@ -34,7 +34,7 @@ class Customize implements Hookable
         $this->wpService->addAction('customize_register', [$this, 'registerThemeMod']);
         $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'enqueueControlsAssets']);
         $this->wpService->addAction('customize_preview_init', [$this, 'enqueuePreviewAssets']);
-        $this->wpService->addFilter('Municipio/Styleguide/DesignBuilderMarkup', [$this, 'getDesignBuilderMarkup']);
+        $this->wpService->addFilter('Municipio/Styleguide/CustomizeMarkup', [$this, 'getCustomizeMarkup']);
     }
 
     public function registerThemeMod(\WP_Customize_Manager $wpCustomize): void
@@ -89,7 +89,7 @@ class Customize implements Hookable
         );
     }
 
-    public function getDesignBuilderMarkup(): ?string
+    public function getCustomizeMarkup(): ?string
     {
         if (!$this->wpService->isCustomizePreview()) {
             return null;

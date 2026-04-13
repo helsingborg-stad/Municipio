@@ -104,7 +104,7 @@ class BaseController
 
         //Customization data
         $this->data['customizer'] = apply_filters('Municipio/Controller/Customizer', []);
-        $this->data['designBuilderMarkup'] = $this->wpService->applyFilters('Municipio/Styleguide/DesignBuilderMarkup', null);
+        $this->data['styleguideCustomizeMarkup'] = $this->wpService->applyFilters('Municipio/Styleguide/CustomizeMarkup', null);
 
         //Logotypes
         $this->data['logotype'] = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);

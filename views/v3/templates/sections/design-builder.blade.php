@@ -1,4 +1,4 @@
-@if (isset($designBuilderMarkup) && !empty($designBuilderMarkup))
+@if (isset($styleguideCustomizeMarkup) && !empty($styleguideCustomizeMarkup))
     @fab([
             'position' => 'bottom-right',
             'button' => [
@@ -14,6 +14,6 @@
                 'data-customizable' => 'false'
             ]
         ])
-        {!! $designBuilderMarkup !!}
+        {!! $styleguideCustomizeMarkup !!}
     @endfab
 @endif

@@ -26,14 +26,14 @@ class CustomizeTest extends TestCase
                 ['customize_controls_enqueue_scripts', [$customize, 'enqueueControlsAssets']],
                 ['customize_preview_init', [$customize, 'enqueuePreviewAssets']],
             ],
-            $wpService->methodCalls['addAction']
+            $wpService->methodCalls['addAction'],
         );
 
         static::assertSame(
             [
-                ['Municipio/Styleguide/DesignBuilderMarkup', [$customize, 'getDesignBuilderMarkup']],
+                ['Municipio/Styleguide/CustomizeMarkup', [$customize, 'getCustomizeMarkup']],
             ],
-            $wpService->methodCalls['addFilter']
+            $wpService->methodCalls['addFilter'],
         );
     }
 
@@ -58,7 +58,7 @@ class CustomizeTest extends TestCase
                     ['in_footer' => true],
                 ],
             ],
-            $wpService->methodCalls['wpEnqueueScript']
+            $wpService->methodCalls['wpEnqueueScript'],
         );
         static::assertArrayNotHasKey('wpEnqueueStyle', $wpService->methodCalls);
     }
@@ -83,7 +83,7 @@ class CustomizeTest extends TestCase
                     'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
                 ],
             ],
-            $wpService->methodCalls['wpEnqueueStyle']
+            $wpService->methodCalls['wpEnqueueStyle'],
         );
 
         static::assertSame(
@@ -93,7 +93,7 @@ class CustomizeTest extends TestCase
                     'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder.js'),
                 ],
             ],
-            $wpService->methodCalls['wpRegisterScript']
+            $wpService->methodCalls['wpRegisterScript'],
         );
 
         static::assertSame(
@@ -104,7 +104,7 @@ class CustomizeTest extends TestCase
                     ['customize-preview', 'styleguide-designbuilder'],
                 ],
             ],
-            $wpService->methodCalls['wpEnqueueScript']
+            $wpService->methodCalls['wpEnqueueScript'],
         );
     }
 }
