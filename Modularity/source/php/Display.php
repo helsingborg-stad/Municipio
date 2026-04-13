@@ -669,7 +669,7 @@ class Display
 
         $updatedWrapperMarkup = preg_replace(
             '/^<([a-zA-Z0-9:-]+)\b/',
-            '<$1 data-scope="' . esc_attr($scopeValue) . '"',
+            '<$1 data-scope="' . esc_attr($scopeValue) . ';"',
             $wrapperMarkup,
             1,
         );
@@ -806,7 +806,7 @@ class Display
 
         $moduleMarkup = apply_filters('Modularity/Display/Markup', $moduleMarkup, $module);
         $moduleMarkup = apply_filters('Modularity/Display/' . $module->post_type . '/Markup', $moduleMarkup, $module);
-        $moduleMarkup = '<div class="' . esc_attr($module->post_type) . '" data-scope="s-' . esc_attr($module->post_type) . '">' . $moduleMarkup . '</div>';
+        $moduleMarkup = '<div class="' . esc_attr($module->post_type) . '" data-scope="s-' . esc_attr($module->post_type) . ';">' . $moduleMarkup . '</div>';
 
         self::$renderedShortcodeModules[$args['id']] = $moduleMarkup;
         $this->isShortcode = false;

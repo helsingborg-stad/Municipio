@@ -502,7 +502,7 @@ class BlockManager
                     $classes = array_merge($classes, explode(' ', $block['className']));
                 }
 
-                $renderedView = '<div class="' . implode(' ', $classes) . '" data-scope="' . esc_attr($scopeValue) . '">' . $renderedView . '</div>';
+                $renderedView = '<div class="' . implode(' ', $classes) . '" data-scope="' . esc_attr($scopeValue) . ';">' . $renderedView . '</div>';
             } else {
                 $renderedView = $this->addDataScopeToFirstTag($renderedView, $scopeValue);
             }
@@ -623,7 +623,7 @@ class BlockManager
 
         $updatedMarkup = preg_replace(
             '/<([a-zA-Z0-9:-]+)\b(?![^>]*\bdata-scope=)/',
-            '<$1 data-scope="' . esc_attr($scopeValue) . '"',
+            '<$1 data-scope="' . esc_attr($scopeValue) . ';"',
             $markup,
             1,
         );

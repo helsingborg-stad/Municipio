@@ -20,7 +20,7 @@
     'attributeList' => [
         'data-move-to' => 'body', 
         'data-js-toggle-item' => 'drawer',
-        'data-scope' => 's-drawer'
+        'data-scope' => 's-drawer;'
     ],
     'classList' => [
         'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileSecondaryMenu['items']) ? 'duotone' : 'monotone'),

@@ -5,7 +5,7 @@
             'classList' => ['site-header', 's-nav-fixed'],
             'context' => ['site.quicklinks'],
             'attributeList' => [
-                'data-scope' => 's-header s-nav-fixed s-nav-fixed-top'
+                'data-scope' => 's-header; s-nav-fixed; s-nav-fixed-top;'
             ]
         ])
             <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">

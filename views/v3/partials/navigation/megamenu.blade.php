@@ -5,7 +5,7 @@
         'mobile' => $customizer->megaMenuMobile,
         'attributeList' => [
             'aria-hidden' => 'true',
-            'data-scope' => 's-megamenu'
+            'data-scope' => 's-megamenu;'
         ],
         'context' => ['site.megamenu.nav']
     ])

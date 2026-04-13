@@ -6,7 +6,7 @@
         'u-color__bg--default',
     ],
     'attributeList' => [
-        'data-scope' => 's-language-menu'
+        'data-scope' => 's-language-menu;'
     ]
 ])
 
