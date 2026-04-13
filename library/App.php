@@ -223,6 +223,10 @@ class App
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
         $this->hooksRegistrar->register($moveAdminPageToSettings);
 
+        /* Integration: Polylang */
+        $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
+        $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
+
         /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
