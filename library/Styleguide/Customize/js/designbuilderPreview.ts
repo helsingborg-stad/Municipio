@@ -1,9 +1,17 @@
 jQuery(() => {
+	const designBuilderElement = document.querySelector("design-builder");
+
+	if (!designBuilderElement) {
+		console.error("Design Builder element not found in the preview.");
+		return;
+	}
+
 	wp.customize.preview.bind("active", () => {
-		document
-			.querySelector("design-builder")
-			?.addEventListener("design-builder:save", (event: Event) => {
-				wp.customize.preview.send("design-builder:save", event.detail.state);
-			});
+		designBuilderElement?.addEventListener(
+			"design-builder:action",
+			(event: Event) => {
+				wp.customize.preview.send("tokens:update", event.detail.state);
+			},
+		);
 	});
 });
