@@ -72,6 +72,7 @@
         "jest-environment-jsdom": "^30.0.5",
         "jquery": "^3.6.0",
         "leaflet": "^1.9.4",
+        "lit-html": "^3.3.2",
         "material-symbols": "^0.34.1",
         "mousetrap-global-bind": "^1.1.0",
         "object-fit-images": "^3.2.4",

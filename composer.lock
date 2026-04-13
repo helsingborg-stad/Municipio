@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08d943825861d6f362fe8bcbb9f1cb2f",
+    "content-hash": "c3d33607171f4d5b18480b34d84a61af",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1134,16 +1134,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.202.16",
+            "version": "2.207.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9"
+                "reference": "06858433fb7c03dfac4b2d8cd93e4d9a6e2407eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9",
-                "reference": "28edfd494bf76f6aff8dc1f6a0f32e38cfc71fe9",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/06858433fb7c03dfac4b2d8cd93e4d9a6e2407eb",
+                "reference": "06858433fb7c03dfac4b2d8cd93e4d9a6e2407eb",
                 "shasum": ""
             },
             "require": {
@@ -1187,9 +1187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.202.16"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.207.11"
             },
-            "time": "2026-03-31T11:07:11+00:00"
+            "time": "2026-04-13T09:35:54+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -6026,12 +6026,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "8789260a291e89751f9798034ba7c35ff8ff2b57"
+                "reference": "6ef0a3ae61e482d5b6829c2ec39ab3d6830bcd79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/8789260a291e89751f9798034ba7c35ff8ff2b57",
-                "reference": "8789260a291e89751f9798034ba7c35ff8ff2b57",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/6ef0a3ae61e482d5b6829c2ec39ab3d6830bcd79",
+                "reference": "6ef0a3ae61e482d5b6829c2ec39ab3d6830bcd79",
                 "shasum": ""
             },
             "require": {
@@ -6096,7 +6096,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-04-08T07:36:13+00:00"
+            "time": "2026-04-08T08:05:59+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7204,20 +7204,20 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
+        "carthage-software/mago": 5,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
-        "spatie/phpunit-snapshot-assertions": 20,
-        "carthage-software/mago": 5
+        "spatie/phpunit-snapshot-assertions": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

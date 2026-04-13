@@ -11,6 +11,7 @@ use Municipio\Helper\FormatObject;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\User\User;
+use Municipio\Styleguide\Customize\CustomizeInterface;
 use WpService\WpService;
 
 /**
@@ -103,6 +104,7 @@ class BaseController
 
         //Customization data
         $this->data['customizer'] = apply_filters('Municipio/Controller/Customizer', []);
+        $this->data['styleguideCustomizeMarkup'] = $this->wpService->applyFilters('Municipio/Styleguide/CustomizeMarkup', null);
 
         //Logotypes
         $this->data['logotype'] = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
