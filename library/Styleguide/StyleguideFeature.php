@@ -45,13 +45,14 @@ class StyleguideFeature implements Hookable
     private function enqueueStyles(string $css, bool $isEditor = false): void
     {
         if ($isEditor) {
-            $this->wpService->wpRegisterStyle('styleguide-css-variables', false);
-            $this->wpService->wpEnqueueStyle('styleguide-css-variables');
-            $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
+            // $this->wpService->wpRegisterStyle('styleguide-css-variables', false);
+            // $this->wpService->wpEnqueueStyle('styleguide-css-variables');
+            // $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
             add_editor_style($this->getStyleguideTemplatePath());
         } else {
             $this->wpService->wpEnqueueStyle('styleguide-css-variables', get_template_directory_uri() . $this->getStyleguideTemplatePath());
-            $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
+
+            // $this->wpService->wpAddInlineStyle('styleguide-css-variables', $css);
         }
     }
 
@@ -65,9 +66,9 @@ class StyleguideFeature implements Hookable
         $filters = [
             new CssVariables\CssVariablesFilters\TranslateLegacyFieldBorderRadius(),
             new CssVariables\CssVariablesFilters\TranslateLegacyHeaderLogotypeHeight(),
-            new CssVariables\CssVariablesFilters\TranslateLegacyBorderWidth(),
-            new CssVariables\CssVariablesFilters\TranslateLegacyBorderRadius(),
-            new CssVariables\CssVariablesFilters\TranslateLegacyContainerWidth(),
+            //new CssVariables\CssVariablesFilters\TranslateLegacyBorderWidth(),
+            //new CssVariables\CssVariablesFilters\TranslateLegacyBorderRadius(),
+            //new CssVariables\CssVariablesFilters\TranslateLegacyContainerWidth(),
             new CssVariables\CssVariablesFilters\TranslateLegacyFooterLogotypeHeight(),
         ];
 

@@ -4,12 +4,9 @@ namespace Municipio\Upgrade\V41;
 
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
-use Municipio\Customizer\Applicators\Types\NullApplicator;
-use Municipio\Helper\AcfService;
 use Municipio\Upgrade\VersionInterface;
 use WpService\Contracts\GetOption;
-use WpService\Contracts\GetThemeMods;
-use WpService\Contracts\UpdateOption;
+use WpService\Contracts\SetThemeMod;
 use WpService\Contracts\WpGetCustomCss;
 use WpService\Contracts\WpUpdateCustomCssPost;
 
@@ -18,11 +15,44 @@ use WpService\Contracts\WpUpdateCustomCssPost;
  */
 class Version41 implements VersionInterface
 {
+    private const THEMEMODS_TOKENS_MAP = [
+        'color_background.background' => 'token.--color--background',
+        'color_text.base' => ['token.--color--surface-contrast', 'token.--color--background-contrast'],
+        'color_palette_primary.base' => 'token.--color--primary',
+        'color_palette_primary.contrasting' => 'token.--color--primary-contrast',
+        'color_palette_secondary.base' => 'token.--color--secondary',
+        'color_palette_secondary.contrasting' => 'token.--color--secondary-contrast',
+        'color_card.background' => 'token.--color--surface',
+        'color_alpha.base' => 'token.--color--alpha',
+        'color_alpha.contrasting' => 'token.--color--alpha-contrast',
+        'footer_subfooter_colors.background' => 'component.__general__.footer.--c-footer--subfooter-color-background',
+        'footer_subfooter_colors.text' => 'component.__general__.footer.--c-footer--subfooter-color-text',
+        'footer_background.background-color' => 'component.__general__.footer.--c-footer--color--surface',
+        'footer_color_text' => 'component.__general__.footer.--c-footer--color--surface-contrast',
+        'typography_base.font-family' => 'token.--font-family-base',
+        'typography_base.font-size' => 'token.--base-font-size',
+        'typography_h1.font-family' => 'token.--font-family-heading',
+        'drop_shadow_color' => 'token.--shadow-color',
+        'drop_shadow_amount' => 'token.--shadow-amount',
+        'radius_md' => 'token.--border-radius',
+        'container' => 'token.--container-width',
+        'footer_logotype_height' => 'token.--c-footer--logotype-height',
+        'color_button_primary.base' => 'token.--c-button--color--primary',
+        'color_button_primary.contrasting' => 'token.--c-button--color--primary-contrast',
+        'header_logotype_height' => 'token.--c-header--logotype-height',
+        'header_brand-color' => 'token.--c-header--brand-color',
+        'border_width_outline' => 'token.--border-width',
+        'field_border_radius' => 'component.__general__.field.--c-field--border-radius',
+        'field_custom_colors.background' => 'component.__general__.field.--c-field--color--surface-alt',
+        'field_custom_colors.border-color' => 'component.__general__.field.--c-field--color--surface-border',
+        'quicklinks_custom_colors.text-color' => 'component.scope:s-quicklinks-header.header.--c-header--color',
+    ];
+
     /**
      * Constructor.
      */
     public function __construct(
-        private WpGetCustomCss&WpUpdateCustomCssPost&GetOption&UpdateOption $wpService,
+        private WpGetCustomCss&WpUpdateCustomCssPost&GetOption&SetThemeMod $wpService,
         private GetField&UpdateField $acfService,
     ) {}
 
@@ -31,8 +61,142 @@ class Version41 implements VersionInterface
      */
     public function upgradeToVersion(): void
     {
+        $this->migrateCustomizerSettingsToDesignTokens();
+
         $this->migrateCustomCss();
-        $this->migrateThemeMods();
+
+        // $this->migrateThemeMods();
+    }
+
+    private function migrateCustomizerSettingsToDesignTokens(): void
+    {
+        $themeMods = $this->wpService->getOption('theme_mods_municipio', []);
+        // echo '<pre>' . print_r($themeMods, true) . '</pre>';
+        // die();
+        $tokens = $this->getMigratedTokens($themeMods);
+
+        $this->wpService->setThemeMod('tokens', json_encode($tokens));
+    }
+
+    public function getMigratedTokens(array $themeMods): array
+    {
+        $tokens = $this->map($themeMods);
+        return $this->decorate($tokens);
+    }
+
+    /**
+     * Apply custom transformations to certain targets.
+     *
+     * @param array $cssVariables The array of CSS variables to transform.
+     * @return array The transformed array of CSS variables.
+     */
+    private function decorate(array $tokens): array
+    {
+        if (!is_null($tokens['token']['--container-width'] ?? null)) {
+            $tokens['token']['--container-width'] .= 'px';
+        }
+
+        if (!is_null($tokens['token']['--border-radius'] ?? null)) {
+            $tokens['token']['--border-radius'] = (float) $tokens['token']['--border-radius'] / 8;
+        }
+
+        if (!is_null($tokens['token']['--border-width'] ?? null)) {
+            $tokens['token']['--border-width'] = (float) $tokens['token']['--border-width'] / 8;
+        }
+
+        if (!is_null($tokens['component']['__general__']['field']['--c-field--border-radius'] ?? null)) {
+            $tokens['component']['__general__']['field']['--c-field--border-radius'] = (string) (float) $tokens['component']['__general__']['field']['--c-field--border-radius'] / 4;
+        }
+
+        return $tokens;
+    }
+
+    public function map(array $themeSettings): array
+    {
+        $mapped = [
+            'token' => [],
+            'component' => [],
+        ];
+
+        foreach (self::THEMEMODS_TOKENS_MAP as $themeSettingKey => $tokenKey) {
+            $themeSettingValue = $this->getNestedValue($themeSettings, explode('.', $themeSettingKey));
+
+            if ($themeSettingValue !== null) {
+                if (is_array($tokenKey)) {
+                    foreach ($tokenKey as $key) {
+                        $this->setNestedValue($mapped, explode('.', $key), $themeSettingValue);
+                    }
+                } else {
+                    $this->setNestedValue($mapped, explode('.', $tokenKey), $themeSettingValue);
+                }
+            }
+        }
+
+        return $this->removeEmptyValues($mapped);
+    }
+
+    private function removeEmptyValues(array $tokens): array
+    {
+        $tokens['token'] = array_filter($tokens['token'], function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        $tokens['component'] = array_filter($tokens['component'], function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        return $tokens;
+    }
+
+    private function getNestedValue(array $array, array $keys)
+    {
+        $value = $array;
+        foreach ($keys as $key) {
+            if (!isset($value[$key])) {
+                return null;
+            }
+            $value = $value[$key];
+        }
+        return $value;
+    }
+
+    private function setNestedValue(array &$array, array $keys, mixed $value): void
+    {
+        $current = &$array;
+
+        foreach ($keys as $key) {
+            if (!isset($current[$key]) || !is_array($current[$key])) {
+                $current[$key] = [];
+            }
+
+            $current = &$current[$key];
+        }
+
+        $current = $value;
+    }
+
+    private function migrateThemeMods(): void
+    {
+        $themeMods = $this->wpService->getOption('theme_mods_municipio', []);
+
+        if (isset($themeMods['quicklinks_appearance_type']) && $themeMods['quicklinks_appearance_type'] === 'custom') {
+            $themeMods['quicklinks_color_scheme'] = 'secondary';
+        }
+
+        unset($themeMods['quicklinks_appearance_type']);
+        unset($themeMods['quicklinks_background_type']);
+        unset($themeMods['quicklinks_custom_background']);
+
+        $this->wpService->updateOption('theme_mods_municipio', $themeMods);
+    }
+
+    private function maybeWrapInCssLayer(string $css): string
+    {
+        if (str_contains($css, '@layer')) {
+            return $css;
+        }
+
+        return "@layer theme {\n" . $css . "\n}";
     }
 
     private function migrateCustomCss(): void
@@ -61,29 +225,5 @@ class Version41 implements VersionInterface
 
         $this->wpService->wpUpdateCustomCssPost($customCss);
         $this->acfService->updateField('custom_css_input', $acfCustomCss, 'option');
-    }
-
-    private function migrateThemeMods(): void
-    {
-        $themeMods = $this->wpService->getOption('theme_mods_municipio', []);
-
-        if (isset($themeMods['quicklinks_appearance_type']) && $themeMods['quicklinks_appearance_type'] === 'custom') {
-            $themeMods['quicklinks_color_scheme'] = 'secondary';
-        }
-
-        unset($themeMods['quicklinks_appearance_type']);
-        unset($themeMods['quicklinks_background_type']);
-        unset($themeMods['quicklinks_custom_background']);
-
-        $this->wpService->updateOption('theme_mods_municipio', $themeMods);
-    }
-
-    private function maybeWrapInCssLayer(string $css): string
-    {
-        if (str_contains($css, '@layer')) {
-            return $css;
-        }
-
-        return "@layer theme {\n" . $css . "\n}";
     }
 }
