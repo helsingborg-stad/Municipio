@@ -69,10 +69,12 @@ class UploadedFontMapper
             return null;
         }
 
+        $extension = pathinfo(basename($file), PATHINFO_EXTENSION);
+
         return [
             'id'   => 0,
             'name' => $fontName,
-            'type' => pathinfo(basename($file), PATHINFO_EXTENSION) !== '' ? pathinfo(basename($file), PATHINFO_EXTENSION) : 'woff',
+            'type' => $extension !== '' ? $extension : 'woff',
             'url'  => $file,
         ];
     }
