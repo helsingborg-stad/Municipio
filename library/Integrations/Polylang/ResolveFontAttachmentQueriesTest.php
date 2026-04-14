@@ -37,10 +37,9 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     public function testMakeFontAttachmentQueryLanguageAgnosticUpdatesArrayMimeTypeQuery(): void
     {
         $query = new WP_Query();
-        $query->query_vars = [
-            'post_type'      => 'attachment',
-            'post_mime_type' => ['application/font-woff', 'font/woff2'],
-        ];
+        $query->query_vars = [];
+        $query->set('post_type', 'attachment');
+        $query->set('post_mime_type', ['application/font-woff', 'font/woff2']);
 
         $sut = $this->getSut(
             polylangIsActiveResolver: static fn (): bool => true
@@ -56,10 +55,9 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     public function testMakeFontAttachmentQueryLanguageAgnosticUpdatesStringMimeTypeQuery(): void
     {
         $query = new WP_Query();
-        $query->query_vars = [
-            'post_type'      => 'attachment',
-            'post_mime_type' => 'application/font-woff',
-        ];
+        $query->query_vars = [];
+        $query->set('post_type', 'attachment');
+        $query->set('post_mime_type', 'application/font-woff');
 
         $sut = $this->getSut(
             polylangIsActiveResolver: static fn (): bool => true
@@ -75,10 +73,9 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     public function testMakeFontAttachmentQueryLanguageAgnosticDoesNotUpdateNonFontQueries(): void
     {
         $query = new WP_Query();
-        $query->query_vars = [
-            'post_type'      => 'attachment',
-            'post_mime_type' => 'image/jpeg',
-        ];
+        $query->query_vars = [];
+        $query->set('post_type', 'attachment');
+        $query->set('post_mime_type', 'image/jpeg');
 
         $sut = $this->getSut(
             polylangIsActiveResolver: static fn (): bool => true
@@ -94,10 +91,9 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     public function testMakeFontAttachmentQueryLanguageAgnosticDoesNotUpdateQueriesWhenPolylangIsUnavailable(): void
     {
         $query = new WP_Query();
-        $query->query_vars = [
-            'post_type'      => 'attachment',
-            'post_mime_type' => 'application/font-woff',
-        ];
+        $query->query_vars = [];
+        $query->set('post_type', 'attachment');
+        $query->set('post_mime_type', 'application/font-woff');
 
         $sut = $this->getSut(
             polylangIsActiveResolver: static fn (): bool => false
