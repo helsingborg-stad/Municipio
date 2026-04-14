@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\Customizer\Fonts;
 
-use Kirki\Compatibility\Kirki;
-
 /**
  * Reads managed and legacy font settings.
  */
@@ -32,7 +30,7 @@ class FontSettings
      */
     public static function getUploadedFontNames(): array
     {
-        $uploadedFonts = Kirki::get_option(FontCatalog::UPLOADED_FONTS_SETTING, []);
+        $uploadedFonts = \Kirki\Compatibility\Kirki::get_option(FontCatalog::UPLOADED_FONTS_SETTING, []);
 
         if (!is_array($uploadedFonts)) {
             return [];
@@ -61,7 +59,7 @@ class FontSettings
         $fontFamilies = [];
 
         foreach (self::FONT_SETTING_KEYS as $settingKey) {
-            $value = Kirki::get_option($settingKey, []);
+            $value = \Kirki\Compatibility\Kirki::get_option($settingKey, []);
 
             if (!is_array($value) || !array_key_exists('font-family', $value) || $value['font-family'] === '') {
                 continue;
