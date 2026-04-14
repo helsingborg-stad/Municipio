@@ -7,6 +7,7 @@ use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
 use Municipio\Customizer\Applicators\Types\Css;
 use Municipio\Customizer\Applicators\Types\Modifier;
+use Municipio\Customizer\Fonts\FontCatalog;
 use Municipio\Customizer\PanelsRegistry;
 use wpdb;
 use WpService\WpService;
@@ -165,9 +166,8 @@ class Customizer
             'disable_output' => true,
         ));
 
-        //Init font uploads
-        $fontUploads = new \Municipio\Customizer\FontUploads\FontUploads($this->wpService);
-        $fontUploads->addHooks();
+        // Init managed fonts
+        (new FontCatalog($this->wpService))->addHooks();
 
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();

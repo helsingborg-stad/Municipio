@@ -72,6 +72,7 @@ class PanelsRegistry
         self::$registerInvoked = true;
         self::registerArchivePanel();
         self::registerGeneralAppearancePanel();
+        self::registerFontsPanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
         self::registerDesignLibraryPanel();
@@ -170,13 +171,6 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_typography')
-                    ->setTitle(esc_html__('Typography', 'municipio'))
-                    ->setDescription(esc_html__('Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Typography('municipio_customizer_section_typography')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_width')
                     ->setTitle(esc_html__('Page Widths', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Width('municipio_customizer_section_width')),
@@ -192,6 +186,49 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_icons')
                     ->setTitle(esc_html__('Icons', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Icons('municipio_customizer_section_icons')),
+            )
+            ->register();
+    }
+
+    /**
+     * Register the separate font management panel.
+     *
+     * @return void
+     */
+    public static function registerFontsPanel()
+    {
+        KirkiPanel::create()
+            ->setID('municipio_customizer_panel_fonts')
+            ->setTitle(esc_html__('Fonts', 'municipio'))
+            ->setDescription(esc_html__('Manage available site fonts and typography settings.', 'municipio'))
+            ->setPriority(121)
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_typography')
+                    ->setTitle(esc_html__('Typography', 'municipio'))
+                    ->setDescription(esc_html__('Configure the typography used across the site.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Typography('municipio_customizer_section_typography')),
+            )
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_google_fonts')
+                    ->setTitle(esc_html__('Google Fonts', 'municipio'))
+                    ->setDescription(esc_html__('Enable the Google Fonts that should be available on the site.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\GoogleFonts('municipio_customizer_section_google_fonts')),
+            )
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_uploaded_fonts')
+                    ->setTitle(esc_html__('Uploaded Fonts', 'municipio'))
+                    ->setDescription(esc_html__('Manage uploaded font files that should be available on the site.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\UploadedFonts('municipio_customizer_section_uploaded_fonts')),
+            )
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_header_brand_font')
+                    ->setTitle(esc_html__('Header Logotype Text', 'municipio'))
+                    ->setDescription(esc_html__('Manage the font settings for the optional header logotype text.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\HeaderBrandFont('municipio_customizer_section_header_brand_font')),
             )
             ->register();
     }

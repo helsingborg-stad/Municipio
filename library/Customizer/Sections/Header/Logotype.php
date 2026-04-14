@@ -94,59 +94,6 @@ class Logotype
             ]
         );
 
-        KirkiField::addField([
-            'type'            => 'typography',
-            'settings'        => 'header_brand_font_settings',
-            'active_callback' => $this->getHeaderBrandEnabledActiveCallback(),
-            'label'           => __('Header LogoType Text: Font Settings ', 'municipio'),
-            'section'         => $sectionID,
-            'priority'        => 10,
-            'choices'         => [
-                'fonts' => [
-                    'google' => ['popularity', 200],
-                ],
-            ],
-            'default'         => [
-                'font-size'      => '2.25rem',
-                'font-family'    => 'Roboto',
-                'variant'        => '400',
-                'line-height'    => '1.2',
-                'letter-spacing' => '0',
-                'text-transform' => 'none',
-            ],
-            'output'          => [
-                [
-                    'choice'   => 'font-size',
-                    'element'  => ':root',
-                    'property' => '--c-brand-font-size',
-                ],
-                [
-                    'choice'   => 'font-family',
-                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
-                    'property' => 'font-family',
-                ],
-                [
-                    'choice'   => 'variant',
-                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
-                    'property' => 'font-variant',
-                ],
-                [
-                    'choice'   => 'line-height',
-                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
-                    'property' => 'line-height',
-                ],
-                [
-                    'choice'   => 'letter-spacing',
-                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
-                    'property' => 'letter-spacing',
-                ],
-                [
-                    'choice'   => 'text-transform',
-                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
-                    'property' => 'text-transform',
-                ],
-            ]
-        ]);
     }
 
     private function getHeaderBrandEnabledActiveCallback(): array

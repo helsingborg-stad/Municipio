@@ -2,7 +2,10 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\Fonts\FontRepository;
+use Municipio\Customizer\Fonts\FontCatalog;
 use Municipio\Customizer\KirkiField;
+use WpService\Implementations\NativeWpService;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
 
@@ -231,6 +234,10 @@ class LoadDesign
                     continue;
                 }
 
+                if (in_array($key, [FontCatalog::UPLOADED_FONTS_SETTING, FontCatalog::MIGRATION_SETTING], true)) {
+                    continue;
+                }
+
                 if (array_key_exists($key, \Kirki::$all_fields)) {
                     $stack[$key] = $mod;
                 }
@@ -249,12 +256,10 @@ class LoadDesign
 
     private function getUploadedFontUrl(string $fontFamily = ''): ?string
     {
-        $uploadedFonts = array_diff_key(
-            \Kirki\Module\Webfonts\Fonts::get_standard_fonts(),
-            array_flip(["serif", "sans-serif", "monospace"])
-        );
-        if (!empty($uploadedFonts[$fontFamily])) {
-            return \Municipio\Helper\File::getFileUrl($fontFamily);
+        $uploadedFonts = (new FontRepository(new NativeWpService()))->getUploadedFonts();
+
+        if (!empty($uploadedFonts[$fontFamily]['url'])) {
+            return $uploadedFonts[$fontFamily]['url'];
         }
 
         return null;

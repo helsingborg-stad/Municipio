@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\Fonts\FontChoices;
 use Municipio\Customizer\KirkiField;
 
 class Typography
@@ -15,11 +16,7 @@ class Typography
                 'label'    => $args['label'] ?? esc_html__(ucfirst($key), 'municipio'), // does not get translated
                 'section'  => $sectionID,
                 'priority' => 10,
-                'choices'  => [
-                    'fonts' => [
-                        'google' => [ 'popularity', 200 ],
-                    ],
-                ],
+                'choices'  => FontChoices::getTypographyChoices(),
                 'default'  => $args['default'] ?? [],
                 'output'   => $args['output'] ?? []
             ]);
