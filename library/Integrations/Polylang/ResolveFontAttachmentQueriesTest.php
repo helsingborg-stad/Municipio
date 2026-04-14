@@ -47,7 +47,7 @@ class ResolveFontAttachmentQueriesTest extends TestCase
         $sut->makeFontAttachmentQueryLanguageAgnostic($query);
 
         static::assertSame('', $query->get('lang'));
-        static::assertTrue($query->get('suppress_filters'));
+        static::assertArrayNotHasKey('suppress_filters', $query->query_vars);
     }
 
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() updates font attachment queries with string mime types')]
@@ -64,7 +64,7 @@ class ResolveFontAttachmentQueriesTest extends TestCase
         $sut->makeFontAttachmentQueryLanguageAgnostic($query);
 
         static::assertSame('', $query->get('lang'));
-        static::assertTrue($query->get('suppress_filters'));
+        static::assertArrayNotHasKey('suppress_filters', $query->query_vars);
     }
 
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() does not update non-font attachment queries')]

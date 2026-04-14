@@ -48,7 +48,6 @@ class ResolveFontAttachmentQueries implements Hookable
         }
 
         $query->set('lang', '');
-        $query->set('suppress_filters', true);
     }
 
     /**
