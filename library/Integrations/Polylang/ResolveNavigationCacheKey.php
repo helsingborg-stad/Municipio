@@ -44,7 +44,11 @@ class ResolveNavigationCacheKey implements Hookable
     {
         $currentLanguage = $this->getCurrentLanguageResolver()?->__invoke();
 
-        return !empty($currentLanguage) ? sprintf('%s:%s', $key, $currentLanguage) : $key;
+        if (!is_string($currentLanguage) || $currentLanguage === '') {
+            return $key;
+        }
+
+        return sprintf('%s:%s', $key, $currentLanguage);
     }
 
     /**
