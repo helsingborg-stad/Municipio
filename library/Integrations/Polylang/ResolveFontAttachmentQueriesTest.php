@@ -36,8 +36,7 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() updates font attachment queries with array mime types')]
     public function testMakeFontAttachmentQueryLanguageAgnosticUpdatesArrayMimeTypeQuery(): void
     {
-        $query = new WP_Query();
-        $query->query_vars = [];
+        $query = $this->createQuery();
         $query->set('post_type', 'attachment');
         $query->set('post_mime_type', ['application/font-woff', 'font/woff2']);
 
@@ -54,8 +53,7 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() updates font attachment queries with string mime types')]
     public function testMakeFontAttachmentQueryLanguageAgnosticUpdatesStringMimeTypeQuery(): void
     {
-        $query = new WP_Query();
-        $query->query_vars = [];
+        $query = $this->createQuery();
         $query->set('post_type', 'attachment');
         $query->set('post_mime_type', 'application/font-woff');
 
@@ -72,8 +70,7 @@ class ResolveFontAttachmentQueriesTest extends TestCase
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() does not update non-font attachment queries')]
     public function testMakeFontAttachmentQueryLanguageAgnosticDoesNotUpdateNonFontQueries(): void
     {
-        $query = new WP_Query();
-        $query->query_vars = [];
+        $query = $this->createQuery();
         $query->set('post_type', 'attachment');
         $query->set('post_mime_type', 'image/jpeg');
 
@@ -83,15 +80,14 @@ class ResolveFontAttachmentQueriesTest extends TestCase
 
         $sut->makeFontAttachmentQueryLanguageAgnostic($query);
 
-        static::assertNull($query->get('lang'));
-        static::assertNull($query->get('suppress_filters'));
+        static::assertArrayNotHasKey('lang', $query->query_vars);
+        static::assertArrayNotHasKey('suppress_filters', $query->query_vars);
     }
 
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() does not update queries when Polylang is unavailable')]
     public function testMakeFontAttachmentQueryLanguageAgnosticDoesNotUpdateQueriesWhenPolylangIsUnavailable(): void
     {
-        $query = new WP_Query();
-        $query->query_vars = [];
+        $query = $this->createQuery();
         $query->set('post_type', 'attachment');
         $query->set('post_mime_type', 'application/font-woff');
 
@@ -101,8 +97,8 @@ class ResolveFontAttachmentQueriesTest extends TestCase
 
         $sut->makeFontAttachmentQueryLanguageAgnostic($query);
 
-        static::assertNull($query->get('lang'));
-        static::assertNull($query->get('suppress_filters'));
+        static::assertArrayNotHasKey('lang', $query->query_vars);
+        static::assertArrayNotHasKey('suppress_filters', $query->query_vars);
     }
 
     /**
@@ -120,5 +116,48 @@ class ResolveFontAttachmentQueriesTest extends TestCase
             ]),
             $polylangIsActiveResolver
         );
+    }
+
+    /**
+     * Create a query double with working get/set methods.
+     *
+     * @return WP_Query The query double.
+     */
+    private function createQuery(): WP_Query
+    {
+        return new class extends WP_Query {
+            /**
+             * Query vars storage.
+             *
+             * @var array<string, mixed>
+             */
+            public $query_vars = [];
+
+            /**
+             * Set a query var.
+             *
+             * @param string $queryVar The query var name.
+             * @param mixed  $value The query var value.
+             *
+             * @return void
+             */
+            public function set($queryVar, $value = ''): void
+            {
+                $this->query_vars[$queryVar] = $value;
+            }
+
+            /**
+             * Get a query var.
+             *
+             * @param string $queryVar The query var name.
+             * @param mixed  $defaultValue The default value.
+             *
+             * @return mixed The query var value.
+             */
+            public function get($queryVar, $defaultValue = '')
+            {
+                return $this->query_vars[$queryVar] ?? $defaultValue;
+            }
+        };
     }
 }
