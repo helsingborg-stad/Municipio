@@ -10,7 +10,7 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetPostTypes;
 
 /**
- * Resolves language-specific page IDs used by page tree menus.
+ * Resolves language-specific page IDs used by page tree menus and page-for-post-type mappings.
  */
 class ResolvePageTreeMenuPageIds implements Hookable
 {
@@ -74,7 +74,7 @@ class ResolvePageTreeMenuPageIds implements Hookable
             'option_page_for_posts',
         ];
 
-        foreach ($this->wpService->getPostTypes(['public' => true, 'hierarchical' => true]) as $postType) {
+        foreach ($this->wpService->getPostTypes(['public' => true]) as $postType) {
             $hooks[] = sprintf('option_page_for_%s', $postType);
         }
 
