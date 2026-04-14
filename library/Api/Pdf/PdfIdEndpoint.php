@@ -71,7 +71,7 @@ class PdfIdEndpoint extends RestApiEndpoint
             null,
             303,
             [
-                'Location' => site_url('/404'),
+                'Location' => apply_filters('Municipio/Pdf/NotFoundUrl', site_url('/404')),
             ]
         );
     }

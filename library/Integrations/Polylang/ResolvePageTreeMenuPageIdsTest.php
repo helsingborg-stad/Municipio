@@ -22,7 +22,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
     {
         $wpService = new FakeWpService([
             'addFilter' => true,
-            'getPostTypes' => ['page', 'event'],
+            'getPostTypes' => ['page', 'event', 'news'],
         ]);
 
         $sut = new ResolvePageTreeMenuPageIds($wpService);
@@ -35,6 +35,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
                 'option_page_for_posts',
                 'option_page_for_page',
                 'option_page_for_event',
+                'option_page_for_news',
             ],
             array_column($wpService->methodCalls['addFilter'], 0)
         );
@@ -80,7 +81,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
         return new ResolvePageTreeMenuPageIds(
             new FakeWpService([
                 'addFilter' => true,
-                'getPostTypes' => ['page'],
+                'getPostTypes' => ['page', 'news'],
             ]),
             $translatedPostResolver
         );

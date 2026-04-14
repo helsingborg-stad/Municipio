@@ -17,6 +17,8 @@ class NavigationWpCache
      */
     public static function setCache(string $key, mixed $data, bool $persistent = true): bool
     {
+        $key = self::resolveCacheKey($key);
+
         //Runtime
         self::$cache[$key] = $data;
 
@@ -62,6 +64,8 @@ class NavigationWpCache
      */
     public static function getCache($key, $persistent = true): mixed
     {
+        $key = self::resolveCacheKey((string) $key);
+
         //Get runtime cache
         if (array_key_exists($key, self::$cache)) {
             return self::$cache[$key];
@@ -73,5 +77,19 @@ class NavigationWpCache
         }
 
         return null;
+    }
+
+    /**
+     * Resolve the cache key before reading or writing it.
+     *
+     * @param string $key The cache key.
+     *
+     * @return string The resolved cache key.
+     */
+    private static function resolveCacheKey(string $key): string
+    {
+        $resolvedKey = apply_filters('Municipio/Navigation/Cache/Key', $key);
+
+        return is_string($resolvedKey) && $resolvedKey !== '' ? $resolvedKey : $key;
     }
 }

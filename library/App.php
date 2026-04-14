@@ -225,7 +225,11 @@ class App
 
         /* Integration: Polylang */
         $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
+        $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
+        $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
         $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
+        $this->hooksRegistrar->register($resolveNavigationCacheKey);
+        $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
 
         /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
