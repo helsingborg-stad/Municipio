@@ -4,8 +4,7 @@
         'o-layout-grid',
         'o-layout-grid--cols-12',
         'o-layout-grid--gap-4',
-        'o-layout-grid--order-0',
-        'u-align-items--center'
+        'o-layout-grid--order-0'
     ],
 ])
     @element([
