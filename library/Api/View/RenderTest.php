@@ -111,7 +111,7 @@ if (!function_exists(__NAMESPACE__ . '\rest_ensure_response')) {
                     return;
                 }
 
-                $this->headers[$key] = [(array) $existingHeader, $value];
+                $this->headers[$key] = array_merge((array) $existingHeader, [$value]);
             }
         };
     }
