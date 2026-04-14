@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Api\View;
 
 use Municipio\Api\RestApiEndpoint;
@@ -51,6 +53,7 @@ class Render extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request)
     {
+        $this->sendNoCacheHeaders();
         $params = $request->get_params('GET');
 
         try {
@@ -61,6 +64,14 @@ class Render extends RestApiEndpoint
             $error->add(null, $th->getMessage(), ['status' => WP_Http::BAD_REQUEST]);
             return rest_ensure_response($error);
         }
+    }
+
+    /**
+     * Sends headers that prevent clients from caching the rendered response.
+     */
+    protected function sendNoCacheHeaders(): void
+    {
+        nocache_headers();
     }
 
     /**
