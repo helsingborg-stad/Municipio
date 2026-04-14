@@ -55,7 +55,7 @@ class FontChoices
      */
     public static function getEnabledGoogleFonts(): array
     {
-        $enabledFonts = Kirki::get_option(FontCatalog::GOOGLE_FONTS_SETTING, []);
+        $enabledFonts = \Kirki\Compatibility\Kirki::get_option(FontCatalog::GOOGLE_FONTS_SETTING, []);
         $enabledFonts = is_array($enabledFonts) ? $enabledFonts : [];
 
         foreach (FontSettings::getSelectedFontFamilies() as $fontFamily) {
