@@ -9,17 +9,23 @@ wp.domReady(() => {
 		name: "four-columns",
 		icon: (
 			<svg
+				xmlns="http://www.w3.org/2000/svg"
 				width="48"
 				height="48"
 				viewBox="0 0 48 48"
-				xmlns="http://www.w3.org/2000/svg"
-				role="img"
 				aria-hidden="true"
 				focusable="false"
 			>
 				<path
-					fillRule="nonzero"
-					d="M39 12a2 2 0 011.995 1.85L41 14v20a2 2 0 01-1.85 1.995L39 36H9a2 2 0 01-1.995-1.85L7 34V14a2 2 0 011.85-1.995L9 12h30zm-24 2H9v20h6V14zm8 0h-6v20h6V14zm2 0v20h6V14h-6zm8 20h6V14h-6v20z"
+					d="
+				M0 10a2 2 0 0 1 2-2h7c1.105 0 2 .895 2 2v28c0 1.105-.895 2-2 2H2a2 2 0 0 1-2-2V10Z
+
+				M12 10c0-1.105.895-2 2-2h7c1.105 0 2 .895 2 2v28c0 1.105-.895 2-2 2h-7c-1.105 0-2-.895-2-2V10Z
+
+				M24 10c0-1.105.895-2 2-2h7c1.105 0 2 .895 2 2v28c0 1.105-.895 2-2 2h-7c-1.105 0-2-.895-2-2V10Z
+
+				M36 10c0-1.105.895-2 2-2h7c1.105 0 2 .895 2 2v28c0 1.105-.895 2-2 2h-7c-1.105 0-2-.895-2-2V10Z
+				"
 				/>
 			</svg>
 		),
