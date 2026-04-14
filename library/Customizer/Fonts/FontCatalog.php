@@ -13,9 +13,9 @@ use WpService\WpService;
  */
 class FontCatalog implements Hookable
 {
-    public const GOOGLE_FONTS_SETTING   = 'municipio_font_catalog_google_fonts';
+    public const GOOGLE_FONTS_SETTING = 'municipio_font_catalog_google_fonts';
     public const UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
-    public const MIGRATION_SETTING      = 'municipio_font_catalog_migrated';
+    public const MIGRATION_SETTING = 'municipio_font_catalog_migrated';
 
     /**
      * @param WpService $wpService
@@ -25,12 +25,10 @@ class FontCatalog implements Hookable
     public function __construct(
         private readonly WpService $wpService,
         private ?ManagedFonts $managedFonts = null,
-        private ?GoogleFontsUrlBuilder $googleFontsUrlBuilder = null,
         private ?FontRepository $fontRepository = null,
     ) {
-        $this->managedFonts          ??= new ManagedFonts();
-        $this->googleFontsUrlBuilder ??= new GoogleFontsUrlBuilder();
-        $this->fontRepository        ??= new FontRepository($wpService);
+        $this->managedFonts ??= new ManagedFonts();
+        $this->fontRepository ??= new FontRepository($wpService);
     }
 
     /**
@@ -67,22 +65,6 @@ class FontCatalog implements Hookable
     public function printFontDeclarations(): void
     {
         $uploadedFonts = $this->fontRepository->getUploadedFonts();
-        $googleFontsUrl = $this->googleFontsUrlBuilder->build(
-            $this->getSelectedGoogleFonts(),
-            KirkiFonts::get_google_fonts(),
-        );
-
-        if ($uploadedFonts === [] && $googleFontsUrl === null) {
-            return;
-        }
-
-        if ($googleFontsUrl !== null) {
-            echo sprintf(
-                '<link rel="stylesheet" id="municipio-google-fonts" href="%s" media="all" />',
-                $this->wpService->escUrl($googleFontsUrl),
-            );
-        }
-
         if ($uploadedFonts === []) {
             return;
         }
@@ -154,7 +136,7 @@ class FontCatalog implements Hookable
     private function mapLegacyUploadedFontsToRows(): array
     {
         return array_values(array_map(
-            static fn (array $font): array => [
+            static fn(array $font): array => [
                 'name' => $font['name'],
                 'file' => $font['id'],
             ],

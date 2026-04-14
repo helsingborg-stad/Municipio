@@ -30,7 +30,10 @@ class FontSettings
      */
     public static function getUploadedFontNames(): array
     {
-        $uploadedFonts = \Kirki\Compatibility\Kirki::get_option(FontCatalog::UPLOADED_FONTS_SETTING, []);
+        $uploadedFonts = \Kirki\Compatibility\Kirki::get_option(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            FontCatalog::UPLOADED_FONTS_SETTING,
+        );
 
         if (!is_array($uploadedFonts)) {
             return [];
@@ -59,7 +62,10 @@ class FontSettings
         $fontFamilies = [];
 
         foreach (self::FONT_SETTING_KEYS as $settingKey) {
-            $value = \Kirki\Compatibility\Kirki::get_option($settingKey, []);
+            $value = \Kirki\Compatibility\Kirki::get_option(
+                \Municipio\Customizer::KIRKI_CONFIG,
+                $settingKey,
+            );
 
             if (!is_array($value) || !array_key_exists('font-family', $value) || $value['font-family'] === '') {
                 continue;

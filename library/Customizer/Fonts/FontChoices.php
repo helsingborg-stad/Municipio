@@ -24,7 +24,7 @@ class FontChoices
         return [
             'fonts' => [
                 'standard' => self::getStandardFontChoices(),
-                'google'   => self::getEnabledGoogleFonts(),
+                'google' => self::getEnabledGoogleFonts(),
             ],
         ];
     }
@@ -37,7 +37,7 @@ class FontChoices
     public static function getGoogleFontToggleChoices(): array
     {
         $googleFonts = (new GoogleFonts())->get_google_fonts_by_args([
-            'sort'  => 'popularity',
+            'sort' => 'popularity',
             'count' => self::GOOGLE_FONT_LIMIT,
         ]);
         $googleFonts = array_values(array_unique(array_merge(
@@ -55,7 +55,10 @@ class FontChoices
      */
     public static function getEnabledGoogleFonts(): array
     {
-        $enabledFonts = \Kirki\Compatibility\Kirki::get_option(FontCatalog::GOOGLE_FONTS_SETTING, []);
+        $enabledFonts = \Kirki\Compatibility\Kirki::get_option(
+            \Municipio\Customizer::KIRKI_CONFIG,
+            FontCatalog::GOOGLE_FONTS_SETTING,
+        );
         $enabledFonts = is_array($enabledFonts) ? $enabledFonts : [];
 
         foreach (FontSettings::getSelectedFontFamilies() as $fontFamily) {
