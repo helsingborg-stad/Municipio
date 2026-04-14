@@ -60,21 +60,11 @@ class ChatEndpoint extends RestApiEndpoint
             return rest_ensure_response(['error' => 'Assistant configuration is incomplete.']);
         }
 
-
         $sessionId = $params['session_id'] ?? null;
 
         // Clean-up user message
         $message = sanitize_text_field($params['message']);
         $redaction = $this->PIIRedactor->extractAndRedactPII($message);
-
-        // update PII cookie
-        $existingPiiMap = [];
-        if (isset($_COOKIE['chat_pii_map'])) {
-            $existingPiiMap = json_decode(stripslashes($_COOKIE['chat_pii_map']), true) ?? [];
-        }
-        $updatedPiiMap = array_merge($existingPiiMap, $redaction->mappedPII);
-        setcookie('chat_pii_map', json_encode($updatedPiiMap), time() + 3600, '/', '', true, true);
-        $_COOKIE['chat_pii_map'] = json_encode($updatedPiiMap); // Update the $_COOKIE superglobal for immediate access
 
         // Perform a POST request to the external chat API
         $body = [
