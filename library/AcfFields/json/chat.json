@@ -3,49 +3,12 @@
     "title": "Chat Settings",
     "fields": [
         {
-            "key": "field_69b814ffe90d1",
-            "label": "Chat URL",
-            "name": "chat_url",
-            "aria-label": "",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "allow_in_bindings": 0,
-            "placeholder": ""
-        },
-        {
-            "key": "field_69b97761d5880",
-            "label": "Chat API Key",
-            "name": "chat_api_key",
-            "aria-label": "",
-            "type": "password",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_69b97783d5881",
-            "label": "Chat Assistant ID",
-            "name": "chat_assistant_id",
+            "key": "field_69ddf0289aa80",
+            "label": "Default Assistant",
+            "name": "chat_default_assistant",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "Unique ID of the assistant to use when no assistant is given.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -59,6 +22,135 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_69ddefc99aa7a",
+            "label": "Assistants",
+            "name": "chat_assistants",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_69ddefdc9aa7b",
+                    "label": "Unique ID",
+                    "name": "id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddefe99aa7c",
+                    "label": "Name",
+                    "name": "name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddefed9aa7d",
+                    "label": "Server URL",
+                    "name": "server_url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddeffa9aa7e",
+                    "label": "API Key",
+                    "name": "api_key",
+                    "aria-label": "",
+                    "type": "password",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddf0029aa7f",
+                    "label": "Assistant ID",
+                    "name": "assistant_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                }
+            ]
         }
     ],
     "location": [
@@ -73,7 +165,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/chat"
+                "value": "all"
             }
         ]
     ],

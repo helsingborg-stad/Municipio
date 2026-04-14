@@ -33,6 +33,34 @@ class ChatEndpoint extends RestApiEndpoint
             return rest_ensure_response(['error' => 'No message provided.']);
         }
 
+        $assistantId = $params['assistant_id'] ?? null;
+
+        if (!isset($assistantId) || empty($assistantId)) {
+            $assistantId = $this->acfService->getField('chat_default_assistant', 'option');
+        }
+
+        $allAssistants = $this->acfService->getField('chat_assistants', 'option') ?? [];
+        $assistant = null;
+        foreach ($allAssistants as $a) {
+            if ($a['id'] === $assistantId) {
+                $assistant = $a;
+                break;
+            }
+        }
+
+        if (!$assistant) {
+            return rest_ensure_response(['error' => 'Assistant not found.']);
+        }
+
+        $chatUrl = $assistant['server_url'] ?? null;
+        $apiKey = $assistant['api_key'] ?? null;
+        $assistandId = $assistant['assistant_id'] ?? null;
+
+        if (!$chatUrl || !$apiKey || !$assistandId) {
+            return rest_ensure_response(['error' => 'Assistant configuration is incomplete.']);
+        }
+
+
         $sessionId = $params['session_id'] ?? null;
 
         // Clean-up user message
@@ -49,10 +77,6 @@ class ChatEndpoint extends RestApiEndpoint
         $_COOKIE['chat_pii_map'] = json_encode($updatedPiiMap); // Update the $_COOKIE superglobal for immediate access
 
         // Perform a POST request to the external chat API
-        $chatUrl = $this->acfService->getField('chat_url', 'option');
-        $apiKey = $this->acfService->getField('chat_api_key', 'option');
-        $assistandId = $this->acfService->getField('chat_assistant_id', 'option');
-
         $body = [
             'question' => $redaction->redactedText,
             'stream' => true,
