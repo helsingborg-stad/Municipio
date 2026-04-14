@@ -3,7 +3,7 @@
         @scope(['name' => ['quicklinks-header']])
             @header([
                 'id' => 'quicklinks-header',
-                'classList' => ['site-header', 's-nav-fixed'],
+                'classList' => ['s-nav-fixed'],
                 'context' => ['site.quicklinks'],
                 'attributeList' => [
                     'data-scope' => 's-header; s-nav-fixed; s-nav-fixed-top;'

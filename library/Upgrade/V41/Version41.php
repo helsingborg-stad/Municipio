@@ -39,13 +39,20 @@ class Version41 implements VersionInterface
         'footer_logotype_height' => 'token.--c-footer--logotype-height',
         'color_button_primary.base' => 'token.--c-button--color--primary',
         'color_button_primary.contrasting' => 'token.--c-button--color--primary-contrast',
-        'header_logotype_height' => 'token.--c-header--logotype-height',
+        'header_logotype_height' => 'component.__general__.header.--c-header--logotype-height',
         'header_brand-color' => 'token.--c-header--brand-color',
         'border_width_outline' => 'token.--border-width',
         'field_border_radius' => 'component.__general__.field.--c-field--border-radius',
         'field_custom_colors.background' => 'component.__general__.field.--c-field--color--surface-alt',
         'field_custom_colors.border-color' => 'component.__general__.field.--c-field--color--surface-border',
         'quicklinks_custom_colors.text-color' => 'component.scope:s-quicklinks-header.header.--c-header--color',
+        'quicklinks_custom_colors.background' => 'component.scope:s-quicklinks-header.header.--c-header--background-color',
+        'quicklinks_custom_colors.icon-color' => 'component.scope:s-quicklinks-header.header.--c-header--color',
+        'border_width_card' => 'component.__general__.card.--c-card--border-width',
+        'color_card.border' => 'component.__general__.card.--c-card--color--surface-border',
+        'color_button_primary.base' => 'component.__general__.button.--c-button--color--primary',
+        'color_button_primary.contrasting' => 'component.__general__.button.--c-button--color--primary-contrast',
+        'header_brand_font_settings.font-size' => 'component.__general__.header.--c-brand-font-size',
     ];
 
     /**
@@ -108,13 +115,21 @@ class Version41 implements VersionInterface
             $tokens['component']['__general__']['field']['--c-field--border-radius'] = (string) (float) $tokens['component']['__general__']['field']['--c-field--border-radius'] / 4;
         }
 
+        if (!is_null($tokens['component']['__general__']['card']['--c-card--border-width'] ?? null)) {
+            $tokens['component']['__general__']['card']['--c-card--border-width'] = (string) (float) $tokens['component']['__general__']['card']['--c-card--border-width'] / 8;
+        }
+
+        if (!is_null($tokens['component']['__general__']['header']['--c-header--logotype-height'] ?? null)) {
+            $tokens['component']['__general__']['header']['--c-header--logotype-height'] = ((int) $tokens['component']['__general__']['header']['--c-header--logotype-height'] * 8) . 'px';
+        }
+
         return $tokens;
     }
 
     public function map(array $themeSettings): array
     {
         $mapped = [
-            'token' => [],
+            'token' => ['--font-size-scale-ratio' => 1.200],
             'component' => [],
         ];
 
