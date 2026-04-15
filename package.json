@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.0.0-alpha.128",
+    "version": "7.0.0-alpha.130",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
