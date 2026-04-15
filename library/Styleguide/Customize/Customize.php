@@ -92,50 +92,14 @@ class Customize implements Hookable
             return null;
         }
 
-        $componentData = $this->getComponentData();
-        $tokenLibrary = $this->getTokenData();
+        $componentData = json_encode((new \Municipio\Styleguide\Customize\ComponentData\ComponentData($this->wpService))->getComponentData());
+        $tokenData = json_encode((new \Municipio\Styleguide\Customize\TokenData\TokenData($this->wpService))->getTokenData());
+        $overrideState = json_encode((new \Municipio\Styleguide\Customize\OverrideState\OverrideState($this->wpService))->getOverrideState());
 
         $componentData = htmlspecialchars($componentData, ENT_QUOTES, 'UTF-8');
-        $tokenLibrary = htmlspecialchars($tokenLibrary, ENT_QUOTES, 'UTF-8');
+        $tokenData = htmlspecialchars($tokenData, ENT_QUOTES, 'UTF-8');
+        $overrideState = htmlspecialchars($overrideState, ENT_QUOTES, 'UTF-8');
 
-        $default = json_encode(['design' => ['token' => [], 'component' => []]]);
-        $stored = get_theme_mod('tokens', $default);
-        $stored = json_decode($stored, true);
-        $overrideState = [
-            'token' => $stored['token'],
-            'component' => $stored['component'],
-        ];
-
-        $overrideState = htmlspecialchars(json_encode($overrideState), ENT_QUOTES, 'UTF-8');
-
-        return "<design-builder component-data='" . $componentData . "' token-data='" . $tokenLibrary . "' token-library='" . $tokenLibrary . "' override-state='" . $overrideState . "' show-save-button='false'></design-builder>";
-    }
-
-    /* Reads the customizer data from a specified file and returns its contents.
-     *
-     * This method checks if the file exists and is readable, then returns its contents as a string. If the file does not exist or cannot be read, it returns null.
-     *
-     * @return string|null The contents of the customizer data file, or null if the file cannot be read.
-     */
-    private function getComponentData(): ?string
-    {
-        $filePath = realpath($this->styleguidePath) . '/component-design-tokens.json';
-        if (!file_exists($filePath)) {
-            return null;
-        }
-
-        $contents = file_get_contents($filePath);
-        return $contents === false ? null : $contents;
-    }
-
-    private function getTokenData(): ?string
-    {
-        $filePath = realpath($this->styleguidePath) . '/source/data/design-tokens.json';
-        if (!file_exists($filePath)) {
-            return null;
-        }
-
-        $contents = file_get_contents($filePath);
-        return $contents === false ? null : $contents;
+        return "<design-builder component-data='" . $componentData . "' token-data='" . $tokenData . "' override-state='" . $overrideState . "' show-save-button='false'></design-builder>";
     }
 }
