@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Customizer\Sections;
+namespace Municipio\Customizer\Fonts\Sections;
 
 use Municipio\Customizer\Fonts\FontCatalog;
 use Municipio\Customizer\Fonts\FontChoices;

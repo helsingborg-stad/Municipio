@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\Customizer\Sections;
 
 use Municipio\Customizer\Fonts\FontCatalog;
+use Municipio\Customizer\Fonts\Sections\GoogleFonts as GoogleFontsSection;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ class GoogleFontsTest extends TestCase
     #[TestDox('getFieldArgs() uses searchable multi-select control for enabled Google fonts')]
     public function testGetFieldArgsUsesSearchableMultiSelectControlForEnabledGoogleFonts(): void
     {
-        $args = GoogleFonts::getFieldArgs('municipio_customizer_section_google_fonts');
+        $args = GoogleFontsSection::getFieldArgs('municipio_customizer_section_google_fonts');
 
         static::assertSame('select', $args['type']);
         static::assertSame(FontCatalog::GOOGLE_FONTS_SETTING, $args['settings']);

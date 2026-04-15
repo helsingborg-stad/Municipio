@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\Customizer\Sections;
 
 use Municipio\Customizer\Fonts\FontCatalog;
+use Municipio\Customizer\Fonts\Sections\UploadedFonts as UploadedFontsSection;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ class UploadedFontsTest extends TestCase
     #[TestDox('getFieldArgs() uses Add font button and numbered Font row labels')]
     public function testGetFieldArgsUsesAddFontButtonAndNumberedFontRowLabels(): void
     {
-        $args = UploadedFonts::getFieldArgs('municipio_customizer_section_uploaded_fonts');
+        $args = UploadedFontsSection::getFieldArgs('municipio_customizer_section_uploaded_fonts');
 
         static::assertSame('repeater', $args['type']);
         static::assertSame(FontCatalog::UPLOADED_FONTS_SETTING, $args['settings']);
