@@ -1,18 +1,20 @@
 @if (!empty($quicklinksMenu['items']) && $quicklinksPlacement !== 'after_first_block')
     @if (($customizer->quicklinksLocation == 'frontpage' && $isFrontPage) || $customizer->quicklinksLocation == 'everywhere')
-        @header([
-            'id' => 'quicklinks-header',
-            'classList' => ['site-header', 's-nav-fixed'],
-            'context' => ['site.quicklinks'],
-            'attributeList' => [
-                'data-scope' => 's-header; s-nav-fixed; s-nav-fixed-top;'
-            ]
-        ])
-            <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">
-                <div class="o-container">
-                    @include('partials.navigation.quicklinks')
+        @scope(['name' => ['quicklinks-header']])
+            @header([
+                'id' => 'quicklinks-header',
+                'classList' => ['s-nav-fixed'],
+                'context' => ['site.quicklinks'],
+                'attributeList' => [
+                    'data-scope' => 's-header; s-nav-fixed; s-nav-fixed-top;'
+                ]
+            ])
+                <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">
+                    <div class="o-container">
+                        @include('partials.navigation.quicklinks')
+                    </div>
                 </div>
-            </div>
-        @endheader
+            @endheader
+        @endscope
     @endif
 @endif

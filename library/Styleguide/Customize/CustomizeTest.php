@@ -27,8 +27,6 @@ class CustomizeTest extends TestCase
                     'municipio-customize',
                     'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customize.js'),
                     ['customize-controls'],
-                    false,
-                    ['in_footer' => true],
                 ],
             ],
             $wpService->methodCalls['wpEnqueueScript'],

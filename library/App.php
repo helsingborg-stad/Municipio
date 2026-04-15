@@ -5,10 +5,6 @@ namespace Municipio;
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
-use Municipio\Api\Customize\Config\CustomizeConfig;
-use Municipio\Api\Customize\Support\ChangesetIdResolver;
-use Municipio\Api\Customize\Support\CustomizeTokensReader;
-use Municipio\Api\Customize\Support\CustomizeTokensWriter;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
 use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
@@ -235,7 +231,6 @@ class App
          * Styleguide integration
          */
         (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
-        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
 
         /**
          * Api

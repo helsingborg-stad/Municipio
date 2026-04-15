@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3deb3a63989e5e8fb586b2c93d07be85",
+    "content-hash": "d1c70c60b0f6a8b8751f00bf0d85e458",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -931,16 +931,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.7.8",
+            "version": "5.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "27737b45221715acf8b87758efe2fc2001c3d49f"
+                "reference": "67d957c1e13fd40396715c23e348220a74fdabf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/27737b45221715acf8b87758efe2fc2001c3d49f",
-                "reference": "27737b45221715acf8b87758efe2fc2001c3d49f",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/67d957c1e13fd40396715c23e348220a74fdabf8",
+                "reference": "67d957c1e13fd40396715c23e348220a74fdabf8",
                 "shasum": ""
             },
             "require": {
@@ -972,9 +972,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.8"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.8.1"
             },
-            "time": "2026-04-08T08:43:51+00:00"
+            "time": "2026-04-13T12:55:14+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -1134,16 +1134,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.208.3",
+            "version": "2.208.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "98452d8dda2373de75bfb1e7e1d29cc999fc7c31"
+                "reference": "1b50925e448c555cafb49f080e30929debe0e4ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/98452d8dda2373de75bfb1e7e1d29cc999fc7c31",
-                "reference": "98452d8dda2373de75bfb1e7e1d29cc999fc7c31",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/1b50925e448c555cafb49f080e30929debe0e4ec",
+                "reference": "1b50925e448c555cafb49f080e30929debe0e4ec",
                 "shasum": ""
             },
             "require": {
@@ -1187,9 +1187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.208.3"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.208.7"
             },
-            "time": "2026-04-13T12:52:10+00:00"
+            "time": "2026-04-14T07:41:38+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
