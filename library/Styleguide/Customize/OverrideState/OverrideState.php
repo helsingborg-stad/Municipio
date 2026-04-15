@@ -5,7 +5,7 @@ namespace Municipio\Styleguide\Customize\OverrideState;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetThemeMod;
 
-class OverrideState
+class OverrideState implements OverrideStateInterface
 {
     public function __construct(
         private GetThemeMod&ApplyFilters $wpService,

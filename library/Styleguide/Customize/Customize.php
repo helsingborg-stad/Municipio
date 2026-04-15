@@ -92,9 +92,11 @@ class Customize implements Hookable
             return null;
         }
 
+        $overrideStateService = new \Municipio\Styleguide\Customize\OverrideState\OverrideState($this->wpService);
+
+        $overrideState = json_encode($overrideStateService->getOverrideState());
+        $tokenData = json_encode((new \Municipio\Styleguide\Customize\TokenData\TokenData($this->wpService, $overrideStateService))->getTokenData());
         $componentData = json_encode((new \Municipio\Styleguide\Customize\ComponentData\ComponentData($this->wpService))->getComponentData());
-        $tokenData = json_encode((new \Municipio\Styleguide\Customize\TokenData\TokenData($this->wpService))->getTokenData());
-        $overrideState = json_encode((new \Municipio\Styleguide\Customize\OverrideState\OverrideState($this->wpService))->getOverrideState());
 
         $componentData = htmlspecialchars($componentData, ENT_QUOTES, 'UTF-8');
         $tokenData = htmlspecialchars($tokenData, ENT_QUOTES, 'UTF-8');

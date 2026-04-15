@@ -3,6 +3,8 @@
 namespace Municipio\Styleguide\Customize\TokenData;
 
 use Composer\InstalledVersions;
+use Municipio\Styleguide\Customize\OverrideState\OverrideStateInterface;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 
 class TokenData
@@ -10,7 +12,8 @@ class TokenData
     private const STYLEGUIDE_PACKAGE = 'helsingborg-stad/styleguide';
 
     public function __construct(
-        private ApplyFilters $wpService,
+        private ApplyFilters&AddFilter $wpService,
+        private OverrideStateInterface $overrideStateService,
     ) {}
 
     public function getTokenData(): array
@@ -21,6 +24,10 @@ class TokenData
 
         $contents = file_get_contents($this->getFilePath());
         $contents = $contents === false ? [] : json_decode($contents, true);
+
+        // Apply local decorators
+        (new Decorators\AddOverrideFontFamilies($this->wpService, $this->overrideStateService))->addHooks();
+        $contents = (new Decorators\FontFamilies($this->wpService))->decorate($contents);
 
         return $this->wpService->applyFilters('Municipio/Styleguide/Customize/TokenData', $contents);
     }
