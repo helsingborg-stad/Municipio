@@ -13,7 +13,7 @@ use WpService\Contracts\AddFilter;
  */
 class ApplyLayerToInlineStyles implements MarkupProcessorInterface, Hookable
 {
-    private const string LAYER_NAME = 'wordpress';
+    private const LAYER_NAME = 'wordpress';
 
     public function __construct(
         private AddFilter $wpService,
