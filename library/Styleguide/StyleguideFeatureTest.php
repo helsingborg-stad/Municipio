@@ -2,9 +2,6 @@
 
 namespace Municipio\Styleguide;
 
-use Municipio\Styleguide\CssVariables\CssVariable;
-use Municipio\Styleguide\ThemeSettingsMapper\ThemeSettingsMapper;
-use Municipio\Styleguide\ThemeSettingsMapper\ThemeSettingsMapperInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddAction;
@@ -21,9 +18,9 @@ class StyleguideFeatureTest extends TestCase
         $this->assertInstanceOf(StyleguideFeature::class, $feature);
     }
 
-    private static function getFeatureOutput(AddAction&GetThemeMods $wpService, ThemeSettingsMapperInterface $themeSettingsMapper = new ThemeSettingsMapper()): string
+    private static function getFeatureOutput(AddAction&GetThemeMods $wpService): string
     {
-        $feature = new StyleguideFeature($wpService, $themeSettingsMapper);
+        $feature = new StyleguideFeature($wpService);
         $feature->addHooks();
 
         $addActionCalls = $wpService->addActionCalls;
