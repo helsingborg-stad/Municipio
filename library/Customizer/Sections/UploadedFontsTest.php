@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
  */
 class UploadedFontsTest extends TestCase
 {
-    #[TestDox('getFieldArgs() uses Add font button and numbered Font row labels')]
-    public function testGetFieldArgsUsesAddFontButtonAndNumberedFontRowLabels(): void
+    #[TestDox('getFieldArgs() uses Add font button and file-only rows')]
+    public function testGetFieldArgsUsesAddFontButtonAndFileOnlyRows(): void
     {
         $args = UploadedFontsSection::getFieldArgs('municipio_customizer_section_uploaded_fonts');
 

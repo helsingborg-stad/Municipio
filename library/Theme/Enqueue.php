@@ -157,6 +157,7 @@ class Enqueue implements Hookable
             ]);
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
+        $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
 
         $this->enqueue->add('css/header-flexible.css');
     }
