@@ -76,4 +76,24 @@ class DecorateDesignTokensTest extends TestCase
 
         $this->assertSame('24px', $decoratedTokens['component']['__general__']['header']['--c-header--logotype-height']);
     }
+
+    #[TestDox('converts --space from a 0-12 scale to a 0-2 scale')]
+    public function testConvertsSpace(): void
+    {
+        $tokens = ['token' => ['--space' => '12']];
+
+        $decoratedTokens = (new DecorateDesignTokens())->decorate($tokens);
+
+        $this->assertSame(2.0, $decoratedTokens['token']['--space']);
+    }
+
+    #[TestDox('converts --outer-space from a 0-12 scale to a 0-3 scale')]
+    public function testConvertsOuterSpace(): void
+    {
+        $tokens = ['token' => ['--outer-space' => '12']];
+
+        $decoratedTokens = (new DecorateDesignTokens())->decorate($tokens);
+
+        $this->assertSame(3.0, $decoratedTokens['token']['--outer-space']);
+    }
 }

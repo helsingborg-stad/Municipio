@@ -35,6 +35,8 @@ class Version41 implements VersionInterface
     private function migrateCustomizerSettingsToDesignTokens(): void
     {
         $themeMods = $this->wpService->getOption('theme_mods_municipio', []);
+        // echo '<pre>' . print_r($themeMods, true) . '</pre>';
+        // die();
         $tokens = (new MapThemeModsToDesignTokens())->map($themeMods);
         $tokens = (new DecorateDesignTokens())->decorate($tokens);
 

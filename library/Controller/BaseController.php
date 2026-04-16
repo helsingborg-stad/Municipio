@@ -384,9 +384,6 @@ class BaseController
         $this->data['leftColumnSize'] = $this->getColumnSize('left', $this->data['customizer']);
         $this->data['rightColumnSize'] = $this->getColumnSize('right', $this->data['customizer']);
 
-        //Main content padder
-        $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller.
-
         //Language
         $this->data['lang'] = TranslatedLabels::getLang(
             [

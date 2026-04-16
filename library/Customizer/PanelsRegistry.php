@@ -105,11 +105,7 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module')),
             )
             ->addSubPanel(
-                KirkiPanel::create()
-                    ->setID($panelId)
-                    ->setTitle(esc_html__('Load design for individual post types', 'municipio'))
-                    ->setDescription(esc_html__('Manage post types settings', 'municipio'))
-                    ->addSections($sections),
+                KirkiPanel::create()->setID($panelId)->setTitle(esc_html__('Load design for individual post types', 'municipio'))->setDescription(esc_html__('Manage post types settings', 'municipio'))->addSections($sections),
             )
             ->register();
     }
@@ -174,12 +170,6 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_colors')
-                    ->setTitle(esc_html__('Colors', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Colors('municipio_customizer_section_colors')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_typography')
                     ->setTitle(esc_html__('Typography', 'municipio'))
                     ->setDescription(esc_html__('Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable.', 'municipio'))
@@ -189,33 +179,7 @@ class PanelsRegistry
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_width')
                     ->setTitle(esc_html__('Page Widths', 'municipio'))
-                    ->setDescription(esc_html__('Set the maximum page withs of different page types.', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Width('municipio_customizer_section_width')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_border')
-                    ->setTitle(esc_html__('Borders', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Borders('municipio_customizer_section_border')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_radius')
-                    ->setTitle(esc_html__('Rounded corners', 'municipio'))
-                    ->setDescription(esc_html__('Adjust the roundness of corners on the site overall.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Radius('municipio_customizer_section_radius')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_padding')
-                    ->setTitle(esc_html__('Padding', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Padding('municipio_customizer_section_padding')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_shadow')
-                    ->setTitle(esc_html__('Drop Shadows', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Shadow('municipio_customizer_section_shadow')),
             )
             ->addSection(
                 KirkiPanelSection::create()
