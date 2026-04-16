@@ -23,8 +23,9 @@ class UploadedFontsTest extends TestCase
         static::assertSame(FontCatalog::UPLOADED_FONTS_SETTING, $args['settings']);
         static::assertSame('municipio_customizer_section_uploaded_fonts', $args['section']);
         static::assertSame('Add font', $args['button_label']);
-        static::assertSame('field', $args['row_label']['type']);
+        static::assertSame('text', $args['row_label']['type']);
         static::assertSame('Font', $args['row_label']['value']);
-        static::assertSame('name', $args['row_label']['field']);
+        static::assertArrayNotHasKey('name', $args['fields']);
+        static::assertArrayHasKey('file', $args['fields']);
     }
 }

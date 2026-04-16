@@ -22,11 +22,11 @@ class UploadedFontMapper
      * Maps an attachment to a font definition.
      *
      * @param int $attachmentId
-     * @param string $fontName
+     * @param string|null $fontName
      *
      * @return array{id: int, name: string, type: string, url: string}|null
      */
-    public function fromAttachment(int $attachmentId, string $fontName): ?array
+    public function fromAttachment(int $attachmentId, ?string $fontName = null): ?array
     {
         if ($attachmentId === 0) {
             return null;
@@ -43,9 +43,13 @@ class UploadedFontMapper
             basename($url),
         );
 
+        $resolvedFontName = is_string($fontName) && $fontName !== ''
+            ? $fontName
+            : $this->deriveFontNameFromFilePath($url);
+
         return [
             'id'   => $attachmentId,
-            'name' => $fontName,
+            'name' => $resolvedFontName,
             'type' => $fileType['ext'] ?? pathinfo(basename($url), PATHINFO_EXTENSION),
             'url'  => $url,
         ];
@@ -55,11 +59,11 @@ class UploadedFontMapper
      * Maps a raw upload field value to a font definition.
      *
      * @param int|string $file
-     * @param string $fontName
+     * @param string|null $fontName
      *
      * @return array{id: int, name: string, type: string, url: string}|null
      */
-    public function fromUploadValue(int|string $file, string $fontName): ?array
+    public function fromUploadValue(int|string $file, ?string $fontName = null): ?array
     {
         if (is_numeric($file)) {
             return $this->fromAttachment((int) $file, $fontName);
@@ -70,12 +74,35 @@ class UploadedFontMapper
         }
 
         $extension = pathinfo(basename($file), PATHINFO_EXTENSION);
+        $resolvedFontName = is_string($fontName) && $fontName !== ''
+            ? $fontName
+            : $this->deriveFontNameFromFilePath($file);
 
         return [
             'id'   => 0,
-            'name' => $fontName,
+            'name' => $resolvedFontName,
             'type' => $extension !== '' ? $extension : 'woff',
             'url'  => $file,
         ];
+    }
+
+    /**
+     * Derives a readable font family name from an uploaded file path.
+     *
+     * @param string $filePath
+     *
+     * @return string
+     */
+    private function deriveFontNameFromFilePath(string $filePath): string
+    {
+        $stem = pathinfo(basename($filePath), PATHINFO_FILENAME);
+        $stem = str_replace(['-', '_'], ' ', $stem);
+        $stem = trim($stem);
+
+        if ($stem === '') {
+            return $this->wpService->__('Untitled Font', 'municipio');
+        }
+
+        return ucwords($stem);
     }
 }

@@ -33,21 +33,14 @@ class UploadedFonts
             'type' => 'repeater',
             'settings' => FontCatalog::UPLOADED_FONTS_SETTING,
             'label' => esc_html__('Uploaded Fonts', 'municipio'),
-            'description' => esc_html__('Upload WOFF or WOFF2 files and name the font family exactly as you want it to appear in the font pickers.', 'municipio'),
+            'description' => esc_html__('Upload WOFF or WOFF2 files. The font family name is derived automatically from the file name.', 'municipio'),
             'section' => $sectionID,
             'button_label' => 'Add font',
             'row_label' => [
-                'type' => 'field',
+                'type' => 'text',
                 'value' => 'Font',
-                'field' => 'name',
             ],
             'fields' => [
-                'name' => [
-                    'type' => 'text',
-                    'label' => esc_html__('Font family', 'municipio'),
-                    'description' => esc_html__('Example: Source Sans Pro', 'municipio'),
-                    'default' => '',
-                ],
                 'file' => [
                     'type' => 'upload',
                     'label' => esc_html__('Font file', 'municipio'),

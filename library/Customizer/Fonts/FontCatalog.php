@@ -118,7 +118,7 @@ class FontCatalog implements Hookable
     /**
      * Returns migrated uploaded fonts.
      *
-     * @return array<int, array{name: string, file: int|string}>
+     * @return array<int, array{file: int|string}>
      */
     private function getMigratedUploadedFonts(): array
     {
@@ -134,14 +134,13 @@ class FontCatalog implements Hookable
     /**
      * Maps legacy uploaded fonts into managed rows.
      *
-     * @return array<int, array{name: string, file: int}>
+     * @return array<int, array{file: string}>
      */
     private function mapLegacyUploadedFontsToRows(): array
     {
         return array_values(array_map(
             static fn(array $font): array => [
-                'name' => $font['name'],
-                'file' => $font['id'],
+                'file' => $font['url'],
             ],
             $this->fontRepository->getLegacyUploadedFonts(),
         ));

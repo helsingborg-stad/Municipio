@@ -42,11 +42,23 @@ class FontSettings
         $fontNames = [];
 
         foreach ($uploadedFonts as $uploadedFont) {
-            if (!is_array($uploadedFont) || !array_key_exists('name', $uploadedFont) || $uploadedFont['name'] === '') {
+            if (!is_array($uploadedFont)) {
                 continue;
             }
 
-            $fontNames[] = (string) $uploadedFont['name'];
+            if (array_key_exists('file', $uploadedFont) && is_string($uploadedFont['file']) && $uploadedFont['file'] !== '') {
+                $fontName = pathinfo(basename($uploadedFont['file']), PATHINFO_FILENAME);
+                $fontName = trim(str_replace(['-', '_'], ' ', $fontName));
+
+                if ($fontName !== '') {
+                    $fontNames[] = ucwords($fontName);
+                    continue;
+                }
+            }
+
+            if (array_key_exists('name', $uploadedFont) && is_string($uploadedFont['name']) && $uploadedFont['name'] !== '') {
+                $fontNames[] = $uploadedFont['name'];
+            }
         }
 
         return array_values(array_unique($fontNames));

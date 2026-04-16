@@ -10,11 +10,11 @@ namespace Municipio\Customizer\Fonts;
 class ManagedFonts
 {
     /**
-     * Merges uploaded font rows by font family.
+     * Merges uploaded font rows by file reference.
      *
-     * @param array<int, array{name: string, file: int|string}> ...$fontCollections
+     * @param array<int, array{file: int|string}> ...$fontCollections
      *
-     * @return array<int, array{name: string, file: int|string}>
+     * @return array<int, array{file: int|string}>
      */
     public function mergeUploadedFontRows(array ...$fontCollections): array
     {
@@ -23,16 +23,21 @@ class ManagedFonts
         foreach ($fontCollections as $fontCollection) {
             foreach ($fontCollection as $font) {
                 if (
-                    !array_key_exists('name', $font)
-                    || !array_key_exists('file', $font)
-                    || $font['name'] === ''
+                    !array_key_exists('file', $font)
                     || $font['file'] === ''
                 ) {
                     continue;
                 }
 
-                $mergedFonts[$font['name']] = [
-                    'name' => (string) $font['name'],
+                $fileKey = is_int($font['file']) || is_string($font['file'])
+                    ? (string) $font['file']
+                    : '';
+
+                if ($fileKey === '') {
+                    continue;
+                }
+
+                $mergedFonts[$fileKey] = [
                     'file' => $font['file'],
                 ];
             }

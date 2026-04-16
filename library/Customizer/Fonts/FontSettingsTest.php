@@ -63,18 +63,19 @@ class FontSettingsTest extends TestCase
     {
         KirkiCompatibility::$values = [
             FontCatalog::UPLOADED_FONTS_SETTING => [
-                ['name' => 'Inter'],
-                ['name' => ''],
-                ['name' => 'Inter'],
-                ['missing' => 'name'],
+                ['file' => 'https://example.com/inter.woff2'],
+                ['file' => 'https://example.com/open_sans.woff'],
+                ['file' => 'https://example.com/inter.woff2'],
+                ['file' => 10],
+                ['name' => 'Legacy Font Name'],
                 'invalid-row',
-                ['name' => 'Roboto'],
+                ['name' => ''],
             ],
         ];
 
         $fontNames = FontSettings::getUploadedFontNames();
 
-        static::assertSame(['Inter', 'Roboto'], $fontNames);
+        static::assertSame(['Inter', 'Open Sans', 'Legacy Font Name'], $fontNames);
         static::assertSame(
             [[Customizer::KIRKI_CONFIG, FontCatalog::UPLOADED_FONTS_SETTING]],
             KirkiCompatibility::$calls,

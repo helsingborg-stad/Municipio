@@ -11,25 +11,25 @@ use PHPUnit\Framework\TestCase;
  */
 class ManagedFontsTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\TestDox('mergeUploadedFontRows() keeps one row per font family')]
-    public function testMergeUploadedFontRowsKeepsOneRowPerFontFamily(): void
+    #[\PHPUnit\Framework\Attributes\TestDox('mergeUploadedFontRows() keeps one row per uploaded file')]
+    public function testMergeUploadedFontRowsKeepsOneRowPerUploadedFile(): void
     {
         $managedFonts = new ManagedFonts();
 
         $rows = $managedFonts->mergeUploadedFontRows(
             [
-                ['name' => 'Roboto Flex', 'file' => 10],
+                ['file' => 10],
             ],
             [
-                ['name' => 'Roboto Flex', 'file' => 25],
-                ['name' => 'Inter', 'file' => 30],
+                ['file' => 10],
+                ['file' => 30],
             ],
         );
 
         static::assertSame(
             [
-                ['name' => 'Roboto Flex', 'file' => 25],
-                ['name' => 'Inter', 'file' => 30],
+                ['file' => 10],
+                ['file' => 30],
             ],
             $rows,
         );

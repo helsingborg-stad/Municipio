@@ -78,9 +78,7 @@ class FontRepository
         foreach ($uploadedFonts as $uploadedFont) {
             if (
                 !is_array($uploadedFont)
-                || !array_key_exists('name', $uploadedFont)
                 || !array_key_exists('file', $uploadedFont)
-                || $uploadedFont['name'] === ''
                 || $uploadedFont['file'] === ''
             ) {
                 continue;
@@ -88,7 +86,7 @@ class FontRepository
 
             $font = $this->uploadedFontMapper->fromUploadValue(
                 $uploadedFont['file'],
-                (string) $uploadedFont['name'],
+                null,
             );
 
             if ($font !== null) {
