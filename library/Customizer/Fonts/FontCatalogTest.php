@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Municipio\Customizer\Fonts;
 
+use Municipio\Customizer\Fonts\Sections\GoogleFonts as GoogleFontsSection;
+use Municipio\Customizer\Fonts\Sections\UploadedFonts as UploadedFontsSection;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -13,6 +15,36 @@ use WpService\Implementations\FakeWpService;
  */
 class FontCatalogTest extends TestCase
 {
+    #[TestDox('GoogleFonts section field args use searchable multi-select control')]
+    public function testGoogleFontsSectionFieldArgsUseSearchableMultiSelectControl(): void
+    {
+        $args = GoogleFontsSection::getFieldArgs('municipio_customizer_section_google_fonts');
+
+        static::assertSame('select', $args['type']);
+        static::assertSame(FontCatalog::GOOGLE_FONTS_SETTING, $args['settings']);
+        static::assertSame('municipio_customizer_section_google_fonts', $args['section']);
+        static::assertSame(999, $args['multiple']);
+        static::assertTrue($args['clearable']);
+        static::assertSame('Search fonts...', $args['placeholder']);
+        static::assertIsArray($args['choices']);
+        static::assertIsArray($args['default']);
+    }
+
+    #[TestDox('UploadedFonts section field args use add font button and file-only rows')]
+    public function testUploadedFontsSectionFieldArgsUseAddFontButtonAndFileOnlyRows(): void
+    {
+        $args = UploadedFontsSection::getFieldArgs('municipio_customizer_section_uploaded_fonts');
+
+        static::assertSame('repeater', $args['type']);
+        static::assertSame(FontCatalog::UPLOADED_FONTS_SETTING, $args['settings']);
+        static::assertSame('municipio_customizer_section_uploaded_fonts', $args['section']);
+        static::assertSame('Add font', $args['button_label']);
+        static::assertSame('text', $args['row_label']['type']);
+        static::assertSame('Font', $args['row_label']['value']);
+        static::assertArrayNotHasKey('name', $args['fields']);
+        static::assertArrayHasKey('file', $args['fields']);
+    }
+
     #[TestDox('addHooks() registers styleguide font family options filter')]
     public function testAddHooksRegistersStyleguideFontFamilyOptionsFilter(): void
     {

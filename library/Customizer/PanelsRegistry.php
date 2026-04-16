@@ -216,13 +216,6 @@ class PanelsRegistry
                     ->setDescription(esc_html__('Manage uploaded font files that should be available on the site.', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Fonts\Sections\UploadedFonts('municipio_customizer_section_uploaded_fonts')),
             )
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_header_brand_font')
-                    ->setTitle(esc_html__('Header Logotype Text', 'municipio'))
-                    ->setDescription(esc_html__('Manage the font settings for the optional header logotype text.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Fonts\Sections\HeaderBrandFont('municipio_customizer_section_header_brand_font')),
-            )
             ->register();
     }
 
