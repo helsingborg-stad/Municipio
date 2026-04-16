@@ -13,6 +13,7 @@
         <testsuite name="default">
         <directory suffix="Test.php">library</directory>
         <directory suffix="Test.php">Modularity/source/php</directory>
+        <directory suffix="Test.php">Test</directory>
         </testsuite>
     </testsuites>
     <source>

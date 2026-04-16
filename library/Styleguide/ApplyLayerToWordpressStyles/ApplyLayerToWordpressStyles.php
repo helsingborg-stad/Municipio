@@ -11,7 +11,7 @@ use WpService\Contracts\AddFilter;
 class ApplyLayerToWordpressStyles implements Hookable
 {
     private const LAYER_NAME = 'wordpress';
-    private const HANDLES = [
+    public const HANDLES = [
         'wp-block-library',
         'common',
     ];
