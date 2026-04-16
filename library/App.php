@@ -241,6 +241,7 @@ class App
          * Styleguide integration
          */
         (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
+        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
 
         /**
          * Api

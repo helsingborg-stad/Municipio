@@ -30,6 +30,16 @@ class DecorateDesignTokens
             $tokens['component']['__general__']['header']['--c-header--logotype-height'] = ((int) $tokens['component']['__general__']['header']['--c-header--logotype-height'] * 8) . 'px';
         }
 
+        if (!is_null($tokens['token']['--space'] ?? null)) {
+            // convert from 0-12 scale to 0-2 scale
+            $tokens['token']['--space'] = ((float) $tokens['token']['--space'] / 12) * 2;
+        }
+
+        if (!is_null($tokens['token']['--outer-space'] ?? null)) {
+            // convert from 0-12 scale to 0-3 scale
+            $tokens['token']['--outer-space'] = ((float) $tokens['token']['--outer-space'] / 12) * 3;
+        }
+
         return $tokens;
     }
 }
