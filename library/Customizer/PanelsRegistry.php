@@ -204,13 +204,6 @@ class PanelsRegistry
             ->setPriority(121)
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_typography')
-                    ->setTitle(esc_html__('Typography', 'municipio'))
-                    ->setDescription(esc_html__('Configure the typography used across the site.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Fonts\Sections\Typography('municipio_customizer_section_typography')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_google_fonts')
                     ->setTitle(esc_html__('Google Fonts', 'municipio'))
                     ->setDescription(esc_html__('Enable the Google Fonts that should be available on the site.', 'municipio'))

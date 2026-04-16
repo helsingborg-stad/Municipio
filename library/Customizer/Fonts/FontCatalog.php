@@ -26,9 +26,11 @@ class FontCatalog implements Hookable
         private readonly WpService $wpService,
         private ?ManagedFonts $managedFonts = null,
         private ?FontRepository $fontRepository = null,
+        private ?GoogleFontsCssLocaleFilter $googleFontsCssLocaleFilter = null,
     ) {
         $this->managedFonts ??= new ManagedFonts();
         $this->fontRepository ??= new FontRepository($wpService);
+        $this->googleFontsCssLocaleFilter ??= new GoogleFontsCssLocaleFilter($wpService);
     }
 
     /**
@@ -37,6 +39,7 @@ class FontCatalog implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addFilter('upload_mimes', [$this->fontRepository, 'addFontMimes'], 1, 1);
+        $this->googleFontsCssLocaleFilter->addHooks();
         $this->wpService->addAction('init', [$this, 'migrateLegacyFonts']);
         $this->wpService->addAction('wp_head', [$this, 'printFontDeclarations'], 1);
     }
