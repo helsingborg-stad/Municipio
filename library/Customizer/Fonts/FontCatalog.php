@@ -39,9 +39,38 @@ class FontCatalog implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addFilter('upload_mimes', [$this->fontRepository, 'addFontMimes'], 1, 1);
+        $this->wpService->addFilter('Municipio/Styleguide/Customize/TokenData/FontFamilies', [$this, 'addStyleguideFontFamilies'], 10, 1);
         $this->googleFontsCssLocaleFilter->addHooks();
         $this->wpService->addAction('init', [$this, 'migrateLegacyFonts']);
         $this->wpService->addAction('wp_head', [$this, 'printFontDeclarations'], 1);
+    }
+
+    /**
+     * Adds managed font catalog families to styleguide token options.
+     *
+     * @param array<int, array{value: string, label: string}> $options
+     *
+     * @return array<int, array{value: string, label: string}>
+     */
+    public function addStyleguideFontFamilies(array $options): array
+    {
+        $googleFonts = $this->wpService->getThemeMod(self::GOOGLE_FONTS_SETTING, []);
+        $googleFonts = is_array($googleFonts) ? $googleFonts : [];
+        $googleFonts = array_values(array_unique(array_filter(array_map('strval', $googleFonts))));
+
+        foreach ($googleFonts as $fontFamily) {
+            $options[] = $this->createFontFamilyOption($fontFamily);
+        }
+
+        foreach ($this->fontRepository->getUploadedFonts() as $uploadedFont) {
+            if (!isset($uploadedFont['name']) || $uploadedFont['name'] === '') {
+                continue;
+            }
+
+            $options[] = $this->createFontFamilyOption((string) $uploadedFont['name']);
+        }
+
+        return $this->getUniqueOptionsByValue($options);
     }
 
     /**
@@ -144,5 +173,46 @@ class FontCatalog implements Hookable
             ],
             $this->fontRepository->getLegacyUploadedFonts(),
         ));
+    }
+
+    /**
+     * Creates a styleguide-select option from a font family name.
+     *
+     * @param string $fontFamily
+     *
+     * @return array{value: string, label: string}
+     */
+    private function createFontFamilyOption(string $fontFamily): array
+    {
+        return [
+            'value' => sprintf('"%s", sans-serif', trim($fontFamily)),
+            'label' => trim($fontFamily),
+        ];
+    }
+
+    /**
+     * Removes duplicated styleguide options by value while preserving order.
+     *
+     * @param array<int, array{value: string, label: string}> $options
+     *
+     * @return array<int, array{value: string, label: string}>
+     */
+    private function getUniqueOptionsByValue(array $options): array
+    {
+        $uniqueOptions = [];
+
+        foreach ($options as $option) {
+            if (!isset($option['value'], $option['label']) || !is_string($option['value']) || !is_string($option['label'])) {
+                continue;
+            }
+
+            if ($option['value'] === '') {
+                continue;
+            }
+
+            $uniqueOptions[$option['value']] = $option;
+        }
+
+        return array_values($uniqueOptions);
     }
 }
