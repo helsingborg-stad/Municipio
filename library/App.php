@@ -223,6 +223,16 @@ class App
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
         $this->hooksRegistrar->register($moveAdminPageToSettings);
 
+        /* Integration: Polylang */
+        $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
+        $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
+        $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
+        $resolveFontAttachmentQueries = new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService);
+        $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
+        $this->hooksRegistrar->register($resolveNavigationCacheKey);
+        $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
+        $this->hooksRegistrar->register($resolveFontAttachmentQueries);
+
         /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();

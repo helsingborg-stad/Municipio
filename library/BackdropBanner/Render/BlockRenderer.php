@@ -17,7 +17,7 @@ class BlockRenderer implements BlockRendererInterface
     {
         $attributes['startImage'] = $this->getStartImage($attributes);
         $attributes['startImagePosition'] = $this->getStartImagePosition($attributes);
-        // echo '<pre>' . print_r( $attributes, true ) . '</pre>';die;
+
         return sprintf(
             '<div %s>%s</div>',
             $this->wpService->getBlockWrapperAttributes(),

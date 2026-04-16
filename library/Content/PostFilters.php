@@ -14,8 +14,6 @@ class PostFilters
      */
     public function __construct()
     {
-        add_action('pre_get_posts', array($this, 'suppressFiltersOnFontAttachments'));
-
         add_action('parse_query', array($this, 'handleQuery'));
 
         remove_filter('content_save_pre', 'wp_filter_post_kses');
@@ -35,26 +33,4 @@ class PostFilters
         }
     }
 
-    /**
-     * Suppress filters on font attachments
-     */
-    public function suppressFiltersOnFontAttachments($query)
-    {
-        /**
-         * Suppress filters for font attachments in queries
-         *
-         * @param WP_Query $query
-         * @return void
-         */
-        if (
-            $query->get('post_type') == 'attachment' && is_array($query->get('post_mime_type')) &&
-                !empty(array_filter($query->get('post_mime_type'), function ($item) {
-                    return strpos($item, 'font') !== false;
-                }))
-        ) {
-                $query->set('suppress_filters', true);
-        }
-
-        return $query;
-    }
 }

@@ -37,12 +37,12 @@ class StructureMenuItems implements MenuInterface
      * Structures the menu items.
      *
      * @param array $menuItems The menu items.
-     * @param int $parentId The parent ID.
+     * @param int|string $parentId The parent ID.
      * @param array $visited The visited menu item IDs to prevent circular references.
      *
      * @return array The structured menu items.
      */
-    private function structureMenuItems(array $menuItems, int $parentId = 0, array $visited = []): array
+    private function structureMenuItems(array $menuItems, int|string $parentId = 0, array $visited = []): array
     {
         $structuredMenuItems = [];
 

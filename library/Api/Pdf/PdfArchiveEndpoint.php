@@ -74,7 +74,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
                 null,
                 302,
                 [
-                    'Location' => site_url('/404'),
+                    'Location' => apply_filters('Municipio/Pdf/NotFoundUrl', site_url('/404')),
                 ]
             );
         }
@@ -83,7 +83,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             null,
             302,
             [
-                'Location' => site_url('/404'),
+                'Location' => apply_filters('Municipio/Pdf/NotFoundUrl', site_url('/404')),
             ]
         );
     }
