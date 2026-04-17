@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Municipio\Customizer\Fonts;
 
 /**
- * Builds Google Fonts CSS2 URLs.
+ * Builds Google Fonts CSS2 URLs and enshures a google url never
+ * can be outputted.
  */
 class GoogleFontsUrlBuilder
 {
     /**
      * @param GoogleFontVariantNormalizer|null $variantNormalizer
      */
-    public function __construct(private ?GoogleFontVariantNormalizer $variantNormalizer = null)
-    {
+    public function __construct(
+        private ?GoogleFontVariantNormalizer $variantNormalizer = null,
+    ) {
         $this->variantNormalizer ??= new GoogleFontVariantNormalizer();
     }
 
@@ -41,7 +43,7 @@ class GoogleFontsUrlBuilder
             }
 
             $variants = $googleFonts[$fontFamily]['variants'] ?? [];
-            $family   = $this->buildFamilyQuery($fontFamily, is_array($variants) ? $variants : []);
+            $family = $this->buildFamilyQuery($fontFamily, is_array($variants) ? $variants : []);
 
             if ($family !== '') {
                 $families[] = $family;

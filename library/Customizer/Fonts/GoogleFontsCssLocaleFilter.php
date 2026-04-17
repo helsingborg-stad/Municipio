@@ -8,7 +8,9 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
 /**
- * Filters inlined Google Fonts CSS to locale-relevant subsets.
+ * Filters inlined Google Fonts CSS to locale-relevant subsets. This
+ * will remove unnecessary unicode-range blocks from the CSS, which can cause
+ * excessive font file loading in some browsers when multiple subsets are included.
  */
 class GoogleFontsCssLocaleFilter implements Hookable
 {

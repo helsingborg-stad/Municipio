@@ -53,10 +53,14 @@ class FontCatalogTest extends TestCase
             'addAction' => true,
         ]);
 
+        $fontRepository = $this->createMock(FontRepository::class);
         $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
         $googleFontsCssLocaleFilter->expects(static::once())->method('addHooks');
+        $provider = $this->createMock(FontStyleguideOptionProvider::class);
+        $migrator = $this->createMock(FontCatalogMigrator::class);
+        $printer = $this->createMock(UploadedFontFacePrinter::class);
 
-        $fontCatalog = new FontCatalog($wpService, null, null, $googleFontsCssLocaleFilter);
+        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $printer);
         $fontCatalog->addHooks();
 
         static::assertContains(
@@ -65,113 +69,56 @@ class FontCatalogTest extends TestCase
         );
     }
 
-    #[TestDox('addStyleguideFontFamilies() appends managed Google and uploaded fonts')]
-    public function testAddStyleguideFontFamiliesAppendsManagedGoogleAndUploadedFonts(): void
+    #[TestDox('addStyleguideFontFamilies() delegates to the styleguide option provider')]
+    public function testAddStyleguideFontFamiliesDelegatesToStyleguideOptionProvider(): void
     {
-        $wpService = new FakeWpService([
-            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === FontCatalog::GOOGLE_FONTS_SETTING ? ['Roboto', 'Open Sans', 'Roboto', ''] : $default,
-        ]);
+        $wpService = new FakeWpService();
+        $options = [['value' => 'Arial, sans-serif', 'label' => 'Arial']];
+        $expectedOptions = [['value' => '"Roboto", sans-serif', 'label' => 'Roboto']];
 
         $fontRepository = $this->createMock(FontRepository::class);
-        $fontRepository
-            ->method('getUploadedFonts')
-            ->willReturn([
-                'Inter' => [
-                    'id' => 10,
-                    'name' => 'Inter',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/inter.woff2',
-                ],
-                'Open Sans' => [
-                    'id' => 11,
-                    'name' => 'Open Sans',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/open-sans.woff2',
-                ],
-            ]);
+        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
+        $provider = $this->createMock(FontStyleguideOptionProvider::class);
+        $provider->expects(static::once())->method('addFontFamilies')->with($options)->willReturn($expectedOptions);
+        $migrator = $this->createMock(FontCatalogMigrator::class);
+        $printer = $this->createMock(UploadedFontFacePrinter::class);
 
-        $fontCatalog = new FontCatalog($wpService, null, $fontRepository);
+        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $printer);
 
-        $options = $fontCatalog->addStyleguideFontFamilies([
-            ['value' => 'Arial, sans-serif', 'label' => 'Arial'],
-        ]);
-
-        static::assertContains(
-            ['value' => '"Roboto", sans-serif', 'label' => 'Roboto'],
-            $options,
-        );
-        static::assertContains(
-            ['value' => '"Open Sans", sans-serif', 'label' => 'Open Sans'],
-            $options,
-        );
-        static::assertContains(
-            ['value' => '"Inter", sans-serif', 'label' => 'Inter'],
-            $options,
-        );
-
-        $openSansMatches = array_values(array_filter(
-            $options,
-            static fn(array $option): bool => $option['value'] === '"Open Sans", sans-serif',
-        ));
-
-        static::assertCount(1, $openSansMatches);
+        static::assertSame($expectedOptions, $fontCatalog->addStyleguideFontFamilies($options));
     }
 
-    #[TestDox('printFontDeclarations() does not output Google Fonts CDN links')]
-    public function testPrintFontDeclarationsDoesNotOutputGoogleFontsCdnLinks(): void
+    #[TestDox('migrateLegacyFonts() delegates to the catalog migrator')]
+    public function testMigrateLegacyFontsDelegatesToCatalogMigrator(): void
     {
-        $wpService = new FakeWpService([
-            'escAttr' => static fn(string $value): string => $value,
-            'escUrl' => static fn(string $value): string => $value,
-            'wpStripAllTags' => static fn(string $value): string => $value,
-        ]);
+        $wpService = new FakeWpService();
 
         $fontRepository = $this->createMock(FontRepository::class);
-        $fontRepository->method('getUploadedFonts')->willReturn([]);
+        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
+        $provider = $this->createMock(FontStyleguideOptionProvider::class);
+        $migrator = $this->createMock(FontCatalogMigrator::class);
+        $migrator->expects(static::once())->method('migrate');
+        $printer = $this->createMock(UploadedFontFacePrinter::class);
 
-        $fontCatalog = new FontCatalog($wpService, null, $fontRepository);
+        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $printer);
 
-        ob_start();
-        $fontCatalog->printFontDeclarations();
-        $output = (string) ob_get_clean();
-
-        static::assertSame('', $output);
-        static::assertStringNotContainsString('fonts.googleapis.com', $output);
-        static::assertStringNotContainsString('id="municipio-google-fonts"', $output);
+        $fontCatalog->migrateLegacyFonts();
     }
 
-    #[TestDox('printFontDeclarations() renders uploaded fonts as local @font-face rules')]
-    public function testPrintFontDeclarationsRendersUploadedFontsAsLocalFontFaceRules(): void
+    #[TestDox('printFontDeclarations() delegates to the uploaded font face printer')]
+    public function testPrintFontDeclarationsDelegatesToUploadedFontFacePrinter(): void
     {
-        $wpService = new FakeWpService([
-            'escAttr' => static fn(string $value): string => $value,
-            'escUrl' => static fn(string $value): string => $value,
-            'wpStripAllTags' => static fn(string $value): string => $value,
-        ]);
+        $wpService = new FakeWpService();
 
         $fontRepository = $this->createMock(FontRepository::class);
-        $fontRepository
-            ->method('getUploadedFonts')
-            ->willReturn([
-                'Inter' => [
-                    'id' => 10,
-                    'name' => 'Inter',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/inter.woff2',
-                ],
-            ]);
+        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
+        $provider = $this->createMock(FontStyleguideOptionProvider::class);
+        $migrator = $this->createMock(FontCatalogMigrator::class);
+        $printer = $this->createMock(UploadedFontFacePrinter::class);
+        $printer->expects(static::once())->method('printDeclarations');
 
-        $fontCatalog = new FontCatalog($wpService, null, $fontRepository);
+        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $printer);
 
-        ob_start();
         $fontCatalog->printFontDeclarations();
-        $output = (string) ob_get_clean();
-
-        static::assertStringContainsString('id="municipio-uploaded-fonts"', $output);
-        static::assertStringContainsString('@font-face', $output);
-        static::assertStringContainsString('font-family:"Inter"', $output);
-        static::assertStringContainsString('https://example.com/inter.woff2', $output);
-        static::assertStringNotContainsString('fonts.googleapis.com', $output);
-        static::assertStringNotContainsString('id="municipio-google-fonts"', $output);
     }
 }

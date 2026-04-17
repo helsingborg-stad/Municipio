@@ -2,46 +2,47 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\Fonts\FontRepository;
 use Municipio\Customizer\Fonts\FontCatalog;
+use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Customizer\KirkiField;
-use WpService\Implementations\NativeWpService;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
+use Municipio\Helper\WpService as WpServiceHelper;
 
 class LoadDesign
 {
-    private const API_URL                 = 'https://customizer.municipio.tech/';
-    private const LOAD_DESIGN_KEY         = 'load_design';
+    private const API_URL = 'https://customizer.municipio.tech/';
+    private const LOAD_DESIGN_KEY = 'load_design';
     private const EXCLUDE_LOAD_DESIGN_KEY = 'exclude_load_design';
-    private $uniqueId                     = null;
+
+    private $uniqueId = null;
 
     private $apiActions = [
-        'post'   =>  "",
-        'single' => 'id' . DIRECTORY_SEPARATOR
+        'post' => '',
+        'single' => 'id' . DIRECTORY_SEPARATOR,
     ];
 
     public function __construct(string $sectionID)
     {
         KirkiField::addField([
-            'type'      => 'select',
-            'settings'  => self::LOAD_DESIGN_KEY,
-            'label'     => esc_html__('Select a design', 'municipio'),
-            'section'   => $sectionID,
-            'default'   => false,
-            'priority'  => 10,
-            'choices'   => $this->loadOptions(),
-            'transport' => 'postMessage'
+            'type' => 'select',
+            'settings' => self::LOAD_DESIGN_KEY,
+            'label' => esc_html__('Select a design', 'municipio'),
+            'section' => $sectionID,
+            'default' => false,
+            'priority' => 10,
+            'choices' => $this->loadOptions(),
+            'transport' => 'postMessage',
         ]);
 
         KirkiField::addField(array(
-            'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
-            'section'     => $sectionID,
-            'type'        => 'select',
-            'multiple'    => true,
-            'label'       => esc_html__('Exclude from import', 'municipio'),
+            'settings' => self::EXCLUDE_LOAD_DESIGN_KEY,
+            'section' => $sectionID,
+            'type' => 'select',
+            'multiple' => true,
+            'label' => esc_html__('Exclude from import', 'municipio'),
             'description' => esc_html__('Selected local settings will not be overriden on import.', 'municipio'),
-            'choices'     => $this->getCustomizerSectionsAsOptions()
+            'choices' => $this->getCustomizerSectionsAsOptions(),
         ));
 
         // Disable info
@@ -49,20 +50,20 @@ class LoadDesign
             new \Kirki\Pro\Field\Divider(
                 [
                     'settings' => 'load_design_state_divider',
-                    'section'  => $sectionID,
-                    'choices'  => [
+                    'section' => $sectionID,
+                    'choices' => [
                         'color' => '#ddd',
                     ],
-                ]
+                ],
             );
 
             new \Kirki\Pro\Field\Headline(
                 [
-                    'settings'    => 'load_design_state',
-                    'label'       => esc_html__('Design Community is disabled', 'kirki-pro'),
+                    'settings' => 'load_design_state',
+                    'label' => esc_html__('Design Community is disabled', 'kirki-pro'),
                     'description' => esc_html__('This blog is currently not published. The design share is disabled until you site is published. Sites not accessible from the internet is always disabled.', 'kirki-pro'),
-                    'section'     => $sectionID
-                ]
+                    'section' => $sectionID,
+                ],
             );
         }
 
@@ -100,7 +101,7 @@ class LoadDesign
     {
         // Add core section due to unavalability through PanelsRegistry.
         $options = ['custom_css' => __('Additional CSS')];
-        $panels  = PanelsRegistry::getInstance()->getRegisteredPanels();
+        $panels = PanelsRegistry::getInstance()->getRegisteredPanels();
 
         foreach ($panels as $panel) {
             $this->generateOptionsFromPanel($panel, $options);
@@ -111,13 +112,12 @@ class LoadDesign
 
     private function generateOptionsFromPanel(Panel $panel, array &$options)
     {
-
         if (!empty($sections = $panel->getSections())) {
             $optionGroupPanelPrefix = '';
-            $optionGroupLabel       = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
+            $optionGroupLabel = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
 
             if (!empty($parentPanelID = $panel->getPanel())) {
-                $parentPanelTitle       = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
+                $parentPanelTitle = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
                 $optionGroupPanelPrefix = "{$parentPanelTitle} / ";
             }
 
@@ -136,14 +136,13 @@ class LoadDesign
      */
     private function loadOptions(): array
     {
-
         //Do not load option in frontend applications
         if (!is_customize_preview()) {
             return array();
         }
 
         $data = wp_remote_get(self::API_URL, [
-            'cacheBust' => $this->uniqueId
+            'cacheBust' => $this->uniqueId,
         ]);
 
         if (wp_remote_retrieve_response_code($data) == 200) {
@@ -159,7 +158,7 @@ class LoadDesign
                 }
             }
         } else {
-            $choices['error'] = __("Error loading options", 'municipio');
+            $choices['error'] = __('Error loading options', 'municipio');
         }
 
         return $choices;
@@ -174,15 +173,13 @@ class LoadDesign
     public function storeThemeMod($customizerManager = null)
     {
         $response = wp_remote_post(
-            self::API_URL .
-                $this->apiActions['post'] .
-                '?cacheBust=' . uniqid(),
+            self::API_URL . $this->apiActions['post'] . '?cacheBust=' . uniqid(),
             [
-                'method'  => 'POST',
+                'method' => 'POST',
                 'timeout' => 5,
-                'body'    => $this->getSiteData(),
-                'headers' => 'CLIENT-SITE-ID: ' . md5(NONCE_KEY . NONCE_SALT . get_current_blog_id())
-            ]
+                'body' => $this->getSiteData(),
+                'headers' => 'CLIENT-SITE-ID: ' . md5(NONCE_KEY . NONCE_SALT . get_current_blog_id()),
+            ],
         );
 
         if (is_wp_error($response)) {
@@ -204,12 +201,12 @@ class LoadDesign
     private function getSiteData()
     {
         return [
-            'uuid'      => md5(ABSPATH . get_home_url()),
-            'website'   => get_home_url(),
-            'name'      => get_bloginfo('name'),
+            'uuid' => md5(ABSPATH . get_home_url()),
+            'website' => get_home_url(),
+            'name' => get_bloginfo('name'),
             'dbVersion' => get_option('municipio_db_version'),
-            'mods'      => $this->getSharedAttributes(),
-            'css'       => wp_get_custom_css() ?? false,
+            'mods' => $this->getSharedAttributes(),
+            'css' => wp_get_custom_css() ?? false,
         ];
     }
 
@@ -256,7 +253,7 @@ class LoadDesign
 
     private function getUploadedFontUrl(string $fontFamily = ''): ?string
     {
-        $uploadedFonts = (new FontRepository(new NativeWpService()))->getUploadedFonts();
+        $uploadedFonts = (new FontCatalogFactory(WpServiceHelper::get()))->createFontRepository()->getUploadedFonts();
 
         if (!empty($uploadedFonts[$fontFamily]['url'])) {
             return $uploadedFonts[$fontFamily]['url'];

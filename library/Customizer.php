@@ -7,7 +7,7 @@ use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
 use Municipio\Customizer\Applicators\Types\Css;
 use Municipio\Customizer\Applicators\Types\Modifier;
-use Municipio\Customizer\Fonts\FontCatalog;
+use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Customizer\PanelsRegistry;
 use wpdb;
 use WpService\WpService;
@@ -167,7 +167,7 @@ class Customizer
         ));
 
         // Init managed fonts
-        (new FontCatalog($this->wpService))->addHooks();
+        (new FontCatalogFactory($this->wpService))->create()->addHooks();
 
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();
@@ -192,7 +192,6 @@ class Customizer
             new Controller($this->wpService),
             new Modifier($this->wpService),
             new Component($this->wpService),
-            // new Css($this->wpService)
         ];
 
         $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
