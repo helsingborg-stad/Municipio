@@ -96,8 +96,6 @@ class Chat {
 		return {
 			async ask(message: string): Promise<void> {
 				try {
-					console.log("ask called with message:", message);
-
 					const messageText = message.trim();
 
 					if (!messageText || messageText.length === 0) {
@@ -124,7 +122,7 @@ class Chat {
 					});
 
 					if (!res.ok || !res.body) {
-						throw new Error("Network response was not ok");
+						throw new Error(`Network response was not ok: ${res.status}`);
 					}
 
 					// Stream response
@@ -141,16 +139,26 @@ class Chat {
 							stream: true,
 						});
 
+						let error: string | null = null;
+						try {
+							error = JSON.parse(buffer);
+						} catch (_) { }
+						if (error && error.length > 0) {
+							throw new Error(error);
+						}
+
 						const lines = buffer.split("\n");
 						buffer = lines.pop() ?? "";
 
 						let eventType = "";
 						for (const line of lines) {
+							if (line.trim() === "") continue;
+							const dataPart = line.slice(6).trim();
 							if (line.startsWith("event: ")) {
 								eventType = line.slice(7).trim();
-							} else if (line.startsWith("data: ") && line.slice(6).trim()) {
+							} else if (line.startsWith("data: ")) {
 								try {
-									const data = JSON.parse(line.slice(6));
+									const data = JSON.parse(dataPart);
 									switch (eventType) {
 										case "first_chunk":
 											sessionId = data.session_id;
@@ -162,20 +170,23 @@ class Chat {
 											onStatusTextChanged("Skriver...");
 											break;
 										case "tool_call":
-											console.log("Tool call:", data);
 											onStatusTextChanged("Verktyg används...");
 											break;
+										case "error":
+											throw new Error(`Chat error: ${dataPart}`);
 									}
 								} catch (e) {
-									console.error("Error parsing chat response:", e);
+									throw new Error(`Failed to parse line data as JSON: ${dataPart}. Error: ${e}`);
 								}
+							} else {
+								throw new Error(`Unexpected data line: ${line}`);
 							}
 						}
 					}
 
 					onStatusTextChanged(null);
 				} catch (error) {
-					console.error("Chat error:", error);
+					console.error("Error during chat", error);
 					onMessageTextChanged("Ett fel uppstod. Försök igen senare.");
 				} finally {
 					onStateChanged({ isMessagePending: false });

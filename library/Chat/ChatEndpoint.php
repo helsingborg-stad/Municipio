@@ -111,7 +111,7 @@ class ChatEndpoint extends RestApiEndpoint
         // TODO: test client error handling (missing/invalid API key, token limits, etc.)
 
         if (curl_error($ch)) {
-            echo 'event: error\ndata: ' . json_encode(['error' => 'Failed to communicate with chat API.', 'details' => curl_error($ch)]) . "\n\n";
+            echo "event: error\ndata: " . json_encode(['error' => 'Failed to communicate with chat API.', 'details' => curl_error($ch)]) . "\n\n";
             ob_flush();
             flush();
         }
