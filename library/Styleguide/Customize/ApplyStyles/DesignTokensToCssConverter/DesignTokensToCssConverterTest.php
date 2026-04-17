@@ -65,7 +65,7 @@ class DesignTokensToCssConverterTest extends TestCase
         $css = $converter->convert($tokens);
 
         $rows = explode("\n", $css);
-        static::assertSame('[data-scope*="s-header;"] .c-header {', trim($rows[0]));
+        static::assertSame('[data-scope*="s-header;"] {', trim($rows[0]));
         static::assertSame('--c-header--space: 0.25;', trim($rows[1]));
         static::assertSame('}', trim($rows[2]));
     }

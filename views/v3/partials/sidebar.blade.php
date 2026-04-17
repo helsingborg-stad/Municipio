@@ -12,12 +12,10 @@
 
             @section('sidebar.active.' . $id . '.before')@show
 
-            @scope([
-                'id' => 'sidebar-' . $id, 
-                'name' => ['sidebar', 'sidebar-' . $id, $postType . '-sidebar-' . $id],
-                'classList' => $classes ?? []
-            ])
-                {!! $sidebarMarkup !!}
+            @scope(['name' => ['sidebar', 'sidebar-' . $id, $postType . '-sidebar-' . $id],])
+                @element([ 'id' => 'sidebar-' . $id, 'classList' => $classes ?? [], ])
+                    {!! $sidebarMarkup !!}
+                @endelement
             @endscope
 
             @section('sidebar.active.' . $id . '.after')@show
