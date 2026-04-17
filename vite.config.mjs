@@ -82,6 +82,8 @@ const entries = {
 	"js/customizer-preview": "./assets/source/js/admin/customizerPreview.js",
 	"js/customizer-flexible-header":
 		"./assets/source/js/admin/customizerFlexibleHeader.ts",
+	"js/customizer-uploaded-font-labels":
+		"./assets/source/js/admin/customizerUploadedFontLabels.ts",
 	"js/hidden-post-status-conditional":
 		"./assets/source/js/admin/acf/hiddenPostStatusConditional.ts",
 	"js/user-group-visibility":
