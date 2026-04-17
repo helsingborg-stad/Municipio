@@ -33,16 +33,16 @@ class ChatEndpoint extends RestApiEndpoint
             return rest_ensure_response(['error' => 'No message provided.']);
         }
 
-        $assistantId = $params['assistant_id'] ?? null;
+        $assistantUniqueId = $params['assistant_id'] ?? null;
 
-        if (!isset($assistantId) || empty($assistantId)) {
-            $assistantId = $this->acfService->getField('chat_default_assistant', 'option');
+        if (!isset($assistantUniqueId) || empty($assistantUniqueId)) {
+            $assistantUniqueId = $this->acfService->getField('chat_default_assistant', 'option');
         }
 
         $allAssistants = $this->acfService->getField('chat_assistants', 'option') ?? [];
         $assistant = null;
         foreach ($allAssistants as $a) {
-            if ($a['id'] === $assistantId) {
+            if ($a['id'] === $assistantUniqueId) {
                 $assistant = $a;
                 break;
             }
@@ -54,9 +54,9 @@ class ChatEndpoint extends RestApiEndpoint
 
         $chatUrl = $assistant['server_url'] ?? null;
         $apiKey = $assistant['api_key'] ?? null;
-        $assistandId = $assistant['assistant_id'] ?? null;
+        $remoteAssistantId = $assistant['assistant_id'] ?? null;
 
-        if (!$chatUrl || !$apiKey || !$assistandId) {
+        if (!$chatUrl || !$apiKey || !$remoteAssistantId) {
             return rest_ensure_response(['error' => 'Assistant configuration is incomplete.']);
         }
 
@@ -75,7 +75,7 @@ class ChatEndpoint extends RestApiEndpoint
         if ($sessionId) {
             $body['session_id'] = $sessionId;
         } else {
-            $body['assistant_id'] = $assistandId;
+            $body['assistant_id'] = $remoteAssistantId;
         }
 
         // Set SSE headers

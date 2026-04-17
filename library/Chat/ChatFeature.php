@@ -27,10 +27,25 @@ class ChatFeature
     public function enable(): void
     {
         $this->registerApiEndpoint();
+        $this->registerModule();
 
         $this->wpService->addAction('init', [$this, 'addAdminPage']);
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
         $this->wpService->addAction('wp_footer', [$this, 'renderChat']);
+    }
+
+    private function registerModule(): void
+    {
+        modularity_register_module(__DIR__ . '/Module', 'ChatModule');
+
+        $this->wpService->addFilter('/Modularity/externalViewPath', function (array $viewPaths): array {
+            $viewPaths['mod-chat'] = __DIR__ . '/Module/views';
+            return $viewPaths;
+        });
+
+        $this->wpService->addAction('acf/init', function (): void {
+            require_once __DIR__ . '/Module/acf-fields.php';
+        });
     }
 
     public function addAdminPage(): void
@@ -55,7 +70,7 @@ class ChatFeature
     public function renderChat(): void
     {
         $renderer = new Renderer((new BladeServiceFactory($this->wpService))->create([__DIR__ . '/views']));
-        $markup = $renderer->render('Chat');
+        $markup = $renderer->render('ChatBubble');
         echo $markup;
     }
 
