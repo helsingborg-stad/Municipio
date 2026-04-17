@@ -3,6 +3,48 @@
     "title": "Chat Settings",
     "fields": [
         {
+            "key": "field_69e25529fe5f9",
+            "label": "Enable Chat Feature",
+            "name": "chat_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        },
+        {
+            "key": "field_69e2556e5f6ed",
+            "label": "Enable Global Chat Bubble",
+            "name": "chat_global_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Enable the chat bubble globally on all pages. It will use the \"default\" assistant for chatting.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        },
+        {
             "key": "field_69ddf0289aa80",
             "label": "Default Assistant",
             "name": "chat_default_assistant",

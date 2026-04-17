@@ -5,6 +5,11 @@ interface WpApiSettings {
 declare const wpApiSettings: WpApiSettings;
 
 const ChatUtils = {
+	unsafeGetElement<T extends HTMLElement = HTMLElement>(id: string): T | null {
+		const el = document.getElementById(id);
+		return el as T | null;
+	},
+
 	safeGetElement<T extends HTMLElement = HTMLElement>(id: string): T {
 		const el = document.getElementById(id);
 		if (!el) {
@@ -74,7 +79,7 @@ class Chat {
 		this.#initPageModuleChats();
 	}
 
-	#useChat({
+	#createChat({
 		assistantId,
 		onMessageAdded,
 		onMessageTextChanged,
@@ -203,10 +208,16 @@ class Chat {
 	}
 
 	#initGlobalChat() {
+		const chatRoot = ChatUtils.unsafeGetElement<HTMLElement>("chat-global-root");
+
+		if (!chatRoot) {
+			// Assume global chat is disabled
+			return;
+		}
+
 		console.log("Init global chat");
 
 		// TODO: temp hack
-		const chatRoot = ChatUtils.safeGetElement<HTMLElement>("chat-global-root");
 		const panel = ChatUtils.safeQueryElement(".c-fab__panel", chatRoot);
 		if (panel) {
 			panel.style.maxWidth = "500px";
@@ -223,7 +234,7 @@ class Chat {
 
 		let lastMessageElement: Element | null = null;
 
-		const { ask } = this.#useChat({
+		const { ask } = this.#createChat({
 			assistantId: null,
 			onMessageAdded: (role) => {
 				lastMessageElement = ChatUtils.appendMessageElement(role, messagesRoot, userMessageTemplate, assistantMessageTemplate);
@@ -300,7 +311,7 @@ class Chat {
 
 			let lastMessageElement: Element | null = null;
 
-			const { ask, clear } = this.#useChat({
+			const { ask, clear } = this.#createChat({
 				assistantId: null,
 				onMessageAdded: (role) => {
 					lastMessageElement = ChatUtils.appendMessageElement(role, messagesRoot, userMessageTemplate, assistantMessageTemplate);
