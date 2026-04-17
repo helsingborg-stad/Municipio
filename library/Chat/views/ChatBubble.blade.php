@@ -6,20 +6,20 @@
         'icon' => 'chat',
         'size' => 'md',
         'color' => 'primary',
-        'text' => 'Chatta',
+        'text' => __('Chat', 'municipio'),
         'reversePositions' => true
     ]
 ])
     <div class="u-display--flex u-flex-direction--column u-gap-2" style="max-height: 60vh;">
         @typography(['variant' => 'h6', 'classList' => ['c-fab__heading']])
-            Chatta med oss
+            {{ __('Chat with AI', 'municipio') }}
         @endtypography
 
         <div data-chat-messages="" class="chat-messages u-padding--2" style="overflow-y: auto; overflow-wrap: anywhere;">
             {{-- Chat messages will be appended here --}}
             <template data-chat-template-user="">
                 @comment([
-                    'author' => 'Du',
+                    'author' => __('You', 'municipio'),
                     'text' => 'asdf',
                     'is_reply' => false,
                     'date' => ''
@@ -29,7 +29,7 @@
 
             <template data-chat-template-assistant="">
                 @comment([
-                    'author' => 'Assistent',
+                    'author' => __('Assistant', 'municipio'),
                     'text' => 'asdf',
                     'is_reply' => false,
                     'date' => ''
@@ -46,12 +46,12 @@
         ])
         @field([
             'type' => 'text',
-            'label' => 'Skriv din fråga här',
+            'label' => __('Write your question here', 'municipio'),
             'multiline' => true
         ])
         @endfield
         @button([
-            'text' => 'Skicka',
+            'text' => __('Send', 'municipio'),
             'color' => 'primary',
             'style' => 'filled',
         ])

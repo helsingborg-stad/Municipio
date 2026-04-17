@@ -5,15 +5,15 @@ declare(strict_types=1);
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
         'key' => 'group_69df45b8c2d7d',
-        'title' => 'Chat module',
+        'title' => __('Chat module', 'municipio'),
         'fields' => array(
             array(
                 'key' => 'field_69df45b8c646e',
-                'label' => 'Title',
+                'label' => __('Title', 'municipio'),
                 'name' => 'title',
                 'aria-label' => '',
                 'type' => 'text',
-                'instructions' => 'Text shown prominently above the input field. Leave blank to remove.',
+                'instructions' => __('Text shown prominently above the input field. Leave blank to remove.', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array(
@@ -30,11 +30,11 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             array(
                 'key' => 'field_69df476bc646f',
-                'label' => 'Subtitle',
+                'label' => __('Subtitle', 'municipio'),
                 'name' => 'subtitle',
                 'aria-label' => '',
                 'type' => 'text',
-                'instructions' => 'Text shown below the title. Leave blank to remove.',
+                'instructions' => __('Text shown below the title. Leave blank to remove.', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array(
@@ -51,11 +51,11 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             array(
                 'key' => 'field_69df47d0c6471',
-                'label' => 'Placeholder',
+                'label' => __('Placeholder', 'municipio'),
                 'name' => 'placeholder',
                 'aria-label' => '',
                 'type' => 'text',
-                'instructions' => 'Placeholder text shown in the input field.',
+                'instructions' => __('Placeholder text shown in the input field.', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array(
@@ -72,11 +72,11 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             array(
                 'key' => 'field_69df47e5c6472',
-                'label' => 'Button label',
+                'label' => __('Button label', 'municipio'),
                 'name' => 'button_label',
                 'aria-label' => '',
                 'type' => 'text',
-                'instructions' => 'Label text for the button.',
+                'instructions' => __('Label text for the button.', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array(
@@ -93,11 +93,11 @@ if (function_exists('acf_add_local_field_group')) {
             ),
             array(
                 'key' => 'field_69df4786c6470',
-                'label' => 'Assistant ID',
+                'label' => __('Assistant ID', 'municipio'),
                 'name' => 'assistant_id',
                 'aria-label' => '',
                 'type' => 'text',
-                'instructions' => 'Unique ID of assistant to connect this chat to. Find in "Chat Settings".',
+                'instructions' => __('Unique ID of assistant to connect this chat to. Find in "Chat Settings".', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array(

@@ -30,7 +30,7 @@ class ChatEndpoint extends RestApiEndpoint
         $params = $request->get_params();
 
         if (!isset($params['message']) || empty($params['message'])) {
-            return rest_ensure_response(['error' => 'No message provided.']);
+            return rest_ensure_response(['error' => __('No message provided.', 'municipio')]);
         }
 
         $assistantUniqueId = $params['assistant_id'] ?? null;
@@ -49,7 +49,7 @@ class ChatEndpoint extends RestApiEndpoint
         }
 
         if (!$assistant) {
-            return rest_ensure_response(['error' => 'Assistant not found.']);
+            return rest_ensure_response(['error' => __('Assistant not found.', 'municipio')]);
         }
 
         $chatUrl = $assistant['server_url'] ?? null;
@@ -57,7 +57,7 @@ class ChatEndpoint extends RestApiEndpoint
         $remoteAssistantId = $assistant['assistant_id'] ?? null;
 
         if (!$chatUrl || !$apiKey || !$remoteAssistantId) {
-            return rest_ensure_response(['error' => 'Assistant configuration is incomplete.']);
+            return rest_ensure_response(['error' => __('Assistant configuration is incomplete.', 'municipio')]);
         }
 
         $sessionId = $params['session_id'] ?? null;
@@ -111,7 +111,7 @@ class ChatEndpoint extends RestApiEndpoint
         // TODO: test client error handling (missing/invalid API key, token limits, etc.)
 
         if (curl_error($ch)) {
-            echo "event: error\ndata: " . json_encode(['error' => 'Failed to communicate with chat API.', 'details' => curl_error($ch)]) . "\n\n";
+            echo "event: error\ndata: " . json_encode(['error' => __('Failed to communicate with chat API.', 'municipio'), 'details' => curl_error($ch)]) . "\n\n";
             ob_flush();
             flush();
         }

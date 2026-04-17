@@ -2,7 +2,15 @@ interface WpApiSettings {
 	root: string;
 }
 
+interface MunicipioChatStrings {
+	sending: string;
+	writing: string;
+	usingTools: string;
+	error: string;
+}
+
 declare const wpApiSettings: WpApiSettings;
+declare const municipioChatStrings: MunicipioChatStrings;
 
 const ChatUtils = {
 	unsafeGetElement<T extends HTMLElement = HTMLElement>(id: string): T | null {
@@ -110,7 +118,7 @@ class Chat {
 					onStateChanged({ isMessagePending: true });
 					onMessageAdded("user");
 					onMessageTextChanged(messageText);
-					onStatusTextChanged("Skickar...");
+					onStatusTextChanged(municipioChatStrings.sending);
 
 					onMessageAdded("assistant");
 
@@ -167,15 +175,15 @@ class Chat {
 									switch (eventType) {
 										case "first_chunk":
 											sessionId = data.session_id;
-											onStatusTextChanged("Skriver...");
+											onStatusTextChanged(municipioChatStrings.writing);
 											break;
 										case "text":
 											accum += data.answer;
 											onMessageTextChanged(ChatUtils.renderMarkdown(accum));
-											onStatusTextChanged("Skriver...");
+											onStatusTextChanged(municipioChatStrings.writing);
 											break;
 										case "tool_call":
-											onStatusTextChanged("Verktyg används...");
+											onStatusTextChanged(municipioChatStrings.usingTools);
 											break;
 										case "error":
 											throw new Error(`Chat error: ${dataPart}`);
@@ -192,7 +200,7 @@ class Chat {
 					onStatusTextChanged(null);
 				} catch (error) {
 					console.error("Error during chat", error);
-					onMessageTextChanged("Ett fel uppstod. Försök igen senare.");
+					onMessageTextChanged(municipioChatStrings.error);
 				} finally {
 					onStateChanged({ isMessagePending: false });
 				}

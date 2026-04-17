@@ -91,7 +91,7 @@
             <div data-chat-messages="" style="display: flex; flex-direction: column; overflow-y: auto; max-height: 60vh;">
                 <template data-chat-template-user="y">
                     @comment([
-                        'author' => 'Du',
+                        'author' => __('You', 'municipio'),
                         'text' => 'asdf',
                         'is_reply' => false,
                         'date' => ''
@@ -101,7 +101,7 @@
 
                 <template data-chat-template-assistant="y">
                     @comment([
-                        'author' => 'Assistent',
+                        'author' => __('Assistant', 'municipio'),
                         'text' => 'asdf',
                         'is_reply' => false,
                         'date' => ''
@@ -118,11 +118,11 @@
             ])
             @field([
                 'type' => 'text',
-                'placeholder' => 'Skriv din fråga här'
+                'placeholder' => __('Write your question here', 'municipio')
             ])
             @endfield
             @button([
-                'text' => 'Skicka',
+                'text' => __('Send', 'municipio'),
                 'color' => 'primary',
                 'style' => 'filled',
                 'attributeList' => ['data-chat-send-button' => ''],
