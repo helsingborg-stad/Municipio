@@ -135,14 +135,14 @@ class SingularExhibitionEvent extends Singular
         }
 
         if (!$endDate) {
-            $start = ucfirst($this->wpService->dateI18n('j M Y', $startDate->getTimestamp()));
+            $start = $this->wpService->dateI18n('j M Y', $startDate->getTimestamp());
             $end = $this->wpService->_x('until further notice', 'ExhibitionEvent', 'municipio');
         } else if ($startDate->format('Y') !== $endDate->format('Y')) {
-            $start = ucfirst($this->wpService->dateI18n('j M Y', $startDate->getTimestamp()));
-            $end = ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
+            $start = $this->wpService->dateI18n('j M Y', $startDate->getTimestamp());
+            $end = $this->wpService->dateI18n('j M Y', $endDate->getTimestamp());
         } else {
-            $start = ucfirst($this->wpService->dateI18n('j M', $startDate->getTimestamp()));
-            $end = ucfirst($this->wpService->dateI18n('j M Y', $endDate->getTimestamp()));
+            $start = $this->wpService->dateI18n('j M', $startDate->getTimestamp());
+            $end = $this->wpService->dateI18n('j M Y', $endDate->getTimestamp());
         }
 
         return "{$start} - {$end}";
