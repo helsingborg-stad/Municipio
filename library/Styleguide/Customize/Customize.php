@@ -84,6 +84,36 @@ class Customize implements Hookable
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder-preview.js'),
             ['customize-preview', 'styleguide-designbuilder'],
         );
+
+        $this->wpService->wpLocalizeScript(
+            'styleguide-designbuilder-preview',
+            'styleguide',
+            [
+                'translations' => [
+                    'showUneditable' => $this->wpService->_x('Show uneditable', 'design-builder', 'municipio'),
+                    'hideUneditable' => $this->wpService->_x('Hide uneditable', 'design-builder', 'municipio'),
+                    'general' => $this->wpService->_x('General', 'design-builder', 'municipio'),
+                    'components' => $this->wpService->_x('Components', 'design-builder', 'municipio'),
+                    'chooseAPreset' => $this->wpService->_x('Choose a preset', 'design-builder', 'municipio'),
+                    'pickOnPage' => $this->wpService->_x('Pick on page', 'design-builder', 'municipio'),
+                    'stopPicking' => $this->wpService->_x('Stop picking', 'design-builder', 'municipio'),
+                    'preset' => $this->wpService->_x('Preset', 'design-builder', 'municipio'),
+                    'importExportJson' => $this->wpService->_x('Import/Export JSON', 'design-builder', 'municipio'),
+                    'importJson' => $this->wpService->_x('Import JSON', 'design-builder', 'municipio'),
+                    'exportJson' => $this->wpService->_x('Export JSON', 'design-builder', 'municipio'),
+                    'resetActions' => $this->wpService->_x('Reset actions', 'design-builder', 'municipio'),
+                    'resetAll' => $this->wpService->_x('Reset all', 'design-builder', 'municipio'),
+                    'presetActions' => $this->wpService->_x('Preset actions', 'design-builder', 'municipio'),
+                    'savePreset' => $this->wpService->_x('Save preset', 'design-builder', 'municipio'),
+                    'deletePreset' => $this->wpService->_x('Delete preset', 'design-builder', 'municipio'),
+                    'component' => $this->wpService->_x('Component', 'design-builder', 'municipio'),
+                    'scope' => $this->wpService->_x('Scope', 'design-builder', 'municipio'),
+                    'resetSelected' => $this->wpService->_x('Reset selected', 'design-builder', 'municipio'),
+                    'savedPresets' => $this->wpService->_x('Saved presets', 'design-builder', 'municipio'),
+                    'generalAllScopes' => $this->wpService->_x('General (all scopes)', 'design-builder', 'municipio'),
+                ],
+            ],
+        );
     }
 
     public function getCustomizeMarkup(): ?string
