@@ -10567,3 +10567,108 @@ msgstr ""
 msgctxt "block description"
 msgid "A single row within a backdrop banner."
 msgstr ""
+
+#: library/Styleguide/Customize/Customize.php:93
+msgctxt "design-builder"
+msgid "Show uneditable"
+msgstr "Visa icke redigerbara"
+
+#: library/Styleguide/Customize/Customize.php:94
+msgctxt "design-builder"
+msgid "Hide uneditable"
+msgstr "Göm icke redigerbara"
+
+#: library/Styleguide/Customize/Customize.php:95
+msgctxt "design-builder"
+msgid "General"
+msgstr "Allmänt"
+
+#: library/Styleguide/Customize/Customize.php:96
+msgctxt "design-builder"
+msgid "Components"
+msgstr "Komponenter"
+
+#: library/Styleguide/Customize/Customize.php:97
+msgctxt "design-builder"
+msgid "Choose a preset"
+msgstr "Välj en förinställning"
+
+#: library/Styleguide/Customize/Customize.php:98
+msgctxt "design-builder"
+msgid "Pick on page"
+msgstr "Välj på sidan"
+
+#: library/Styleguide/Customize/Customize.php:99
+msgctxt "design-builder"
+msgid "Stop picking"
+msgstr "Sluta välja"
+
+#: library/Styleguide/Customize/Customize.php:100
+msgctxt "design-builder"
+msgid "Preset"
+msgstr "Förinställning"
+
+#: library/Styleguide/Customize/Customize.php:101
+msgctxt "design-builder"
+msgid "Import/Export JSON"
+msgstr "Importera/Exportera JSON"
+
+#: library/Styleguide/Customize/Customize.php:102
+msgctxt "design-builder"
+msgid "Import JSON"
+msgstr "Importera JSON"
+
+#: library/Styleguide/Customize/Customize.php:103
+msgctxt "design-builder"
+msgid "Export JSON"
+msgstr "Exportera JSON"
+
+#: library/Styleguide/Customize/Customize.php:104
+msgctxt "design-builder"
+msgid "Reset actions"
+msgstr "Återställ åtgärder"
+
+#: library/Styleguide/Customize/Customize.php:105
+msgctxt "design-builder"
+msgid "Reset all"
+msgstr "Återställ allt"
+
+#: library/Styleguide/Customize/Customize.php:106
+msgctxt "design-builder"
+msgid "Preset actions"
+msgstr "Förinställningsåtgärder"
+
+#: library/Styleguide/Customize/Customize.php:107
+msgctxt "design-builder"
+msgid "Save preset"
+msgstr "Spara förinställning"
+
+#: library/Styleguide/Customize/Customize.php:108
+msgctxt "design-builder"
+msgid "Delete preset"
+msgstr "Radera förinställning"
+
+#: library/Styleguide/Customize/Customize.php:109
+msgctxt "design-builder"
+msgid "Component"
+msgstr "Komponent"
+
+#: library/Styleguide/Customize/Customize.php:110
+msgctxt "design-builder"
+msgid "Scope"
+msgstr "Område"
+
+#: library/Styleguide/Customize/Customize.php:111
+msgctxt "design-builder"
+msgid "Reset selected"
+msgstr "Återställ vald"
+
+#: library/Styleguide/Customize/Customize.php:112
+msgctxt "design-builder"
+msgid "Saved presets"
+msgstr "Sparade förinställningar"
+
+#: library/Styleguide/Customize/Customize.php:113
+msgctxt "design-builder"
+msgid "General (all scopes)"
+msgstr "Allmänt (alla områden)"

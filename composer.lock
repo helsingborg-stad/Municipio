@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "177d2a5a9d84a1e5c724d7628bb078af",
+    "content-hash": "f34a839dc7e9645059ac6884d5ed184c",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.217.2",
+            "version": "2.219.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "2b45f6377514844fb98c8bf6e5972d55d78b9227"
+                "reference": "aa224c93b2f4fb8f19044e1fe3fb034556dc9689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/2b45f6377514844fb98c8bf6e5972d55d78b9227",
-                "reference": "2b45f6377514844fb98c8bf6e5972d55d78b9227",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/aa224c93b2f4fb8f19044e1fe3fb034556dc9689",
+                "reference": "aa224c93b2f4fb8f19044e1fe3fb034556dc9689",
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.217.2"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.219.0"
             },
-            "time": "2026-04-17T05:03:48+00:00"
+            "time": "2026-04-17T11:12:02+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -4042,16 +4042,16 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.20.1",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "c0453e95b56d78d1d6c520cfe927fbdf167fe552"
+                "reference": "2e0aee3579acfb23db99c2f7c5f21645d964f894"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/c0453e95b56d78d1d6c520cfe927fbdf167fe552",
-                "reference": "c0453e95b56d78d1d6c520cfe927fbdf167fe552",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/2e0aee3579acfb23db99c2f7c5f21645d964f894",
+                "reference": "2e0aee3579acfb23db99c2f7c5f21645d964f894",
                 "shasum": ""
             },
             "require": {
@@ -4086,7 +4086,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.20.1"
+                "source": "https://github.com/carthage-software/mago/tree/1.21.0"
             },
             "funding": [
                 {
@@ -4094,7 +4094,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-15T01:10:46+00:00"
+            "time": "2026-04-17T06:44:23+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
