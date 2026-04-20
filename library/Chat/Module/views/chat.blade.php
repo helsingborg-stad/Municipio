@@ -50,7 +50,7 @@
             @button([
                 'color' => 'primary',
                 'size' => 'md',
-                'text' => $button_label ?? $i18n['submit'],
+                'text' => !empty($button_label) ? $button_label : $i18n['submit'],
             ])
             @endbutton
         @endgroup
