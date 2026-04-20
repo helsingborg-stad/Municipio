@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Styleguide\Customize\TokenData\Decorators;
 
 use WpService\Contracts\_x;
@@ -21,11 +23,14 @@ class ApplyI18n implements DecoratorInterface
         $translatedData = [];
 
         foreach ($tokenData as $key => $value) {
-            $path = $currentPath ? "$currentPath.$key" : $key;
+            $path = $currentPath ? "{$currentPath}.{$key}" : $key;
 
             if (is_string($value)) {
                 $translatedData[$key] = $this->getTranslationForString($value);
-            } elseif (is_array($value)) {
+                continue;
+            }
+
+            if (is_array($value)) {
                 $translatedData[$key] = $this->getTranslatedTokenData($value, $path);
             }
         }
@@ -40,7 +45,6 @@ class ApplyI18n implements DecoratorInterface
             'Base' => $this->wpService->_x('Base', 'design-builder-token-data', 'municipio'),
             'Foundation values that drive spacing, radius, and typography scales.' => $this->wpService->_x('Foundation values that drive spacing, radius, and typography scales.', 'design-builder-token-data', 'municipio'),
             'Base Unit' => $this->wpService->_x('Base Unit', 'design-builder-token-data', 'municipio'),
-            'Main unit for spacing and sizing, used to derive other spacing and sizing values.' => $this->wpService->_x('Main unit for spacing and sizing, used to derive other spacing and sizing values.', 'design-builder-token-data', 'municipio'),
             'Base Font Size' => $this->wpService->_x('Base Font Size', 'design-builder-token-data', 'municipio'),
             'Main unit that drives radius and spacing scales.' => $this->wpService->_x('Main unit that drives radius and spacing scales.', 'design-builder-token-data', 'municipio'),
             'Root font size. All typographic sizes derive from this.' => $this->wpService->_x('Root font size. All typographic sizes derive from this.', 'design-builder-token-data', 'municipio'),
@@ -52,9 +56,7 @@ class ApplyI18n implements DecoratorInterface
             'Multiplier that drives container widths.' => $this->wpService->_x('Multiplier that drives container widths.', 'design-builder-token-data', 'municipio'),
             'Container Width' => $this->wpService->_x('Container Width', 'design-builder-token-data', 'municipio'),
             'Main unit that drives container widths.' => $this->wpService->_x('Main unit that drives container widths.', 'design-builder-token-data', 'municipio'),
-            'Wide Container Width Multiplier' => $this->wpService->_x('Wide Container Width Multiplier', 'design-builder-token-data', 'municipio'),
             'Multiplier for wide container width.' => $this->wpService->_x('Multiplier for wide container width.', 'design-builder-token-data', 'municipio'),
-            'Wide Container Width' => $this->wpService->_x('Wide Container Width', 'design-builder-token-data', 'municipio'),
             'Max width for wide containers.' => $this->wpService->_x('Max width for wide containers.', 'design-builder-token-data', 'municipio'),
             'Radius' => $this->wpService->_x('Radius', 'design-builder-token-data', 'municipio'),
             'Border radius and corner shape style.' => $this->wpService->_x('Border radius and corner shape style.', 'design-builder-token-data', 'municipio'),
@@ -187,7 +189,6 @@ class ApplyI18n implements DecoratorInterface
             'Danger' => $this->wpService->_x('Danger', 'design-builder-token-data', 'municipio'),
             'Danger Contrast' => $this->wpService->_x('Danger Contrast', 'design-builder-token-data', 'municipio'),
             'Danger Border' => $this->wpService->_x('Danger Border', 'design-builder-token-data', 'municipio'),
-            'Auto-generated companion token for danger border and emphasis states.' => $this->wpService->_x('Auto-generated companion token for danger border and emphasis states.', 'design-builder-token-data', 'municipio'),
             'Info' => $this->wpService->_x('Info', 'design-builder-token-data', 'municipio'),
             'Info Contrast' => $this->wpService->_x('Info Contrast', 'design-builder-token-data', 'municipio'),
             'Info Border' => $this->wpService->_x('Info Border', 'design-builder-token-data', 'municipio'),

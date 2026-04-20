@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Styleguide\Customize\TokenData\Decorators;
 
 use Municipio\Styleguide\Customize\TokenData\TokenData;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\__;
 use WpService\Contracts\_x;
 
 class ApplyI18nTest extends TestCase
@@ -39,8 +40,25 @@ class ApplyI18nTest extends TestCase
         $missingCount = count($missingTranslations);
 
         static::assertTrue(
-            empty($missingTranslations),
+            $missingTranslations === [],
             "Missing {$missingCount} translations:\n- " . implode("\n- ", $missingTranslations),
+        );
+    }
+
+    #[TestDox('all declared translations are used by token data')]
+    public function testDecoratorHasNoUnusedTranslations(): void
+    {
+        $translatableStrings = array_values(array_unique(static::getTranslatablePaths(static::getTokenData())));
+        $declaredTranslations = static::getDeclaredTranslations();
+        $unusedTranslations = array_values(array_diff($declaredTranslations, $translatableStrings));
+
+        sort($unusedTranslations);
+
+        $unusedCount = count($unusedTranslations);
+
+        static::assertTrue(
+            $unusedTranslations === [],
+            "Found {$unusedCount} unused translations:\n- " . implode("\n- ", $unusedTranslations),
         );
     }
 
@@ -68,7 +86,15 @@ class ApplyI18nTest extends TestCase
         $paths = [];
 
         foreach ($data as $key => $value) {
-            $path = is_int($key) ? sprintf('%s[%d]', $basePath, $key) : ($basePath === '' ? (string) $key : sprintf('%s.%s', $basePath, $key));
+            $path = (string) $key;
+
+            if (is_int($key)) {
+                $path = sprintf('%s[%d]', $basePath, $key);
+            }
+
+            if (!is_int($key) && $basePath !== '') {
+                $path = sprintf('%s.%s', $basePath, $key);
+            }
 
             if (is_array($value)) {
                 $paths += static::getTranslatablePaths($value, $path);
@@ -100,6 +126,21 @@ class ApplyI18nTest extends TestCase
         }
 
         return $currentValue;
+    }
+
+    private static function getDeclaredTranslations(): array
+    {
+        $source = file_get_contents((string) (new \ReflectionClass(ApplyI18n::class))->getFileName());
+
+        static::assertNotFalse($source);
+        preg_match_all("/^[\t ]+'((?:\\\\'|[^'])*)' =>/m", $source, $matches);
+
+        $translations = array_map('stripcslashes', $matches[1]);
+        $translations = array_values(array_unique($translations));
+
+        sort($translations);
+
+        return $translations;
     }
 
     public static function translate(string $text): string
