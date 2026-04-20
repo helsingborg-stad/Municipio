@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62f948754e96fee78463cdcc694a5720",
+    "content-hash": "a12ead6b2b0ec831278bfd4cf02ded2b",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1227,6 +1227,7 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
+<<<<<<< Updated upstream
             "version": "2.221.0",
             "source": {
                 "type": "git",
@@ -1237,6 +1238,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d6b8d5f768d6383ff871ee3670d136092beb234a",
                 "reference": "d6b8d5f768d6383ff871ee3670d136092beb234a",
+=======
+            "version": "2.221.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/styleguide.git",
+                "reference": "2dcf199555ee300a571df529dfe6b46e393972c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/2dcf199555ee300a571df529dfe6b46e393972c1",
+                "reference": "2dcf199555ee300a571df529dfe6b46e393972c1",
+>>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1293,15 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
+<<<<<<< Updated upstream
                 "source": "https://github.com/helsingborg-stad/styleguide/tree/2.221.0"
             },
             "time": "2026-04-17T13:20:33+00:00"
+=======
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.221.2"
+            },
+            "time": "2026-04-20T08:20:46+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "helsingborg-stad/wpservice",

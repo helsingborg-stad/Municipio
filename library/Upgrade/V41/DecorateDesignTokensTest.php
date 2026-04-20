@@ -67,14 +67,14 @@ class DecorateDesignTokensTest extends TestCase
         $this->assertSame(0.25, $decoratedTokens['component']['__general__']['card']['--c-card--border-width']);
     }
 
-    #[TestDox('converts header logotype height from an integer to a pixel value')]
-    public function testConvertsHeaderLogotypeHeight(): void
+    #[TestDox('converts header logotype height from a 3-20 scale to the logotype multiplier')]
+    public function testConvertsHeaderLogotypeHeightMultiplier(): void
     {
-        $tokens = ['component' => ['__general__' => ['header' => ['--c-header--logotype-height' => '3']]]];
+        $tokens = ['component' => ['__general__' => ['header' => ['--c-header--logotype-height-multiplier' => '3']]]];
 
         $decoratedTokens = (new DecorateDesignTokens())->decorate($tokens);
 
-        $this->assertSame('24px', $decoratedTokens['component']['__general__']['header']['--c-header--logotype-height']);
+        $this->assertSame(0.5, $decoratedTokens['component']['__general__']['header']['--c-header--logotype-height-multiplier']);
     }
 
     #[TestDox('converts --space from a 0-12 scale to a 0-2 scale')]

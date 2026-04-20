@@ -26,8 +26,9 @@ class DecorateDesignTokens
             $tokens['component']['__general__']['card']['--c-card--border-width'] = (string) (float) $tokens['component']['__general__']['card']['--c-card--border-width'] / 8;
         }
 
-        if (!is_null($tokens['component']['__general__']['header']['--c-header--logotype-height'] ?? null)) {
-            $tokens['component']['__general__']['header']['--c-header--logotype-height'] = ((int) $tokens['component']['__general__']['header']['--c-header--logotype-height'] * 8) . 'px';
+        if (!is_null($tokens['component']['__general__']['header']['--c-header--logotype-height-multiplier'] ?? null)) {
+            // Legacy setting was an absolute multiplier for base units (default 6).
+            $tokens['component']['__general__']['header']['--c-header--logotype-height-multiplier'] = (float) $tokens['component']['__general__']['header']['--c-header--logotype-height-multiplier'] / 6;
         }
 
         if (!is_null($tokens['token']['--space'] ?? null)) {

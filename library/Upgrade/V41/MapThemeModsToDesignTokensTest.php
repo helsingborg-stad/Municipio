@@ -75,4 +75,17 @@ class MapThemeModsToDesignTokensTest extends TestCase
 
         static::assertArrayNotHasKey('--color--background', $migratedTokens['token']);
     }
+
+    #[TestDox('maps legacy header logotype height to the logotype height multiplier token')]
+    public function testMapsHeaderLogotypeHeightToLogotypeHeightMultiplierToken(): void
+    {
+        $themeMods = ['header_logotype_height' => 6];
+        $themeModsTokenMap = [
+            'header_logotype_height' => 'component.__general__.header.--c-header--logotype-height-multiplier',
+        ];
+
+        $migratedTokens = (new MapThemeModsToDesignTokens())->map($themeMods, $themeModsTokenMap);
+
+        static::assertSame(6, $migratedTokens['component']['__general__']['header']['--c-header--logotype-height-multiplier']);
+    }
 }
