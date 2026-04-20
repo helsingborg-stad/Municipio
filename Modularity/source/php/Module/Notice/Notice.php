@@ -37,7 +37,7 @@ class Notice extends \Modularity\Module
         ];
 
         return [
-            'name' => $icons[$icon],
+            'icon' => $icons[$icon],
         ];
     }
 

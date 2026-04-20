@@ -116,9 +116,7 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/nav.js');
 
         //Other styles
-        $this->enqueue->add('css/styleguide.css');
         $this->enqueue->add('css/municipio.css');
-        $this->enqueue->add('css/splide.css');
     }
 
     /**
@@ -159,6 +157,7 @@ class Enqueue implements Hookable
             ]);
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
+        $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
 
         $this->enqueue->add('css/header-flexible.css');
     }

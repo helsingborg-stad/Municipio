@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - 'dev-**'
 
 jobs:
   release:
@@ -25,11 +26,12 @@ jobs:
           node-version: 24.3.0
           skip-release: true  # custom flag you added
 
-      - name: Pull latest main with bumped version
+      - name: Pull latest branch with bumped version
         run: |
-          git fetch origin main
-          git checkout main
-          git pull origin main
+          BRANCH_NAME="${GITHUB_REF##*/}"
+          git fetch origin "$BRANCH_NAME"
+          git checkout "$BRANCH_NAME"
+          git pull origin "$BRANCH_NAME"
           git checkout -B release
 
       - name: Extract version
@@ -56,7 +58,7 @@ jobs:
           echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> ./Modularity/.npmrc
 
       - name: Run PHP build script
-        run: php build.php --no-composer --cleanup --release
+        run: php build.php --cleanup --release
 
       - name: Remove cached git files
         run: |

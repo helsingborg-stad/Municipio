@@ -238,6 +238,11 @@ class App
         $uploads->addHooks();
 
         /**
+         * Styleguide integration
+         */
+        (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
+
+        /**
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());

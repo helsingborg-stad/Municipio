@@ -15,19 +15,21 @@
 @stop
 
 @section('layout')
-    @section('content')
-        @include('partials.schema.exhibitionEvent.title-area')
-        @includeWhen($description, 'partials.schema.exhibitionEvent.description')
-        @includeWhen($galleryComponentAttributes, 'partials.schema.exhibitionEvent.gallery')
-    @stop
+    @scope(['name' => ['single-schema-exhibition-event', $postType . '-single-schema-exhibition-event']])
+        @section('content')
+            @include('partials.schema.exhibitionEvent.title-area')
+            @includeWhen($description, 'partials.schema.exhibitionEvent.description')
+            @includeWhen($galleryComponentAttributes, 'partials.schema.exhibitionEvent.gallery')
+        @stop
 
-    @section('sidebar-right-content')
-        @includeWhen($openingHours, 'partials.schema.exhibitionEvent.opening-hours')
-        @includeWhen($specialOpeningHours, 'partials.schema.exhibitionEvent.special-opening-hours')
-        @includeWhen($priceListItems, 'partials.schema.exhibitionEvent.price-list')
-    @stop
+        @section('sidebar-right-content')
+            @includeWhen($openingHours, 'partials.schema.exhibitionEvent.opening-hours')
+            @includeWhen($specialOpeningHours, 'partials.schema.exhibitionEvent.special-opening-hours')
+            @includeWhen($priceListItems, 'partials.schema.exhibitionEvent.price-list')
+        @stop
 
-    @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
-    ])
+        @include('templates.sections.grid.content', [
+            'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+        ])
+    @endscope
 @stop

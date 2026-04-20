@@ -11,6 +11,7 @@ use Municipio\Helper\FormatObject;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\User\User;
+use Municipio\Styleguide\Customize\CustomizeInterface;
 use WpService\WpService;
 
 /**
@@ -103,6 +104,7 @@ class BaseController
 
         //Customization data
         $this->data['customizer'] = apply_filters('Municipio/Controller/Customizer', []);
+        $this->data['styleguideCustomizeMarkup'] = $this->wpService->applyFilters('Municipio/Styleguide/CustomizeMarkup', null);
 
         //Logotypes
         $this->data['logotype'] = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
@@ -381,9 +383,6 @@ class BaseController
         //Column sizes
         $this->data['leftColumnSize'] = $this->getColumnSize('left', $this->data['customizer']);
         $this->data['rightColumnSize'] = $this->getColumnSize('right', $this->data['customizer']);
-
-        //Main content padder
-        $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller.
 
         //Language
         $this->data['lang'] = TranslatedLabels::getLang(

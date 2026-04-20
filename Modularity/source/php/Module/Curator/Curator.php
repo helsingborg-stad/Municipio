@@ -348,6 +348,11 @@ class Curator extends \Modularity\Module
         return (bool) (defined('DOING_AJAX') && DOING_AJAX);
     }
 
+    public function style()
+    {
+        $this->wpEnqueue?->add('css/curator.css');
+    }
+
     /**
      * Available "magic" methods for modules:
      * init()            What to do on initialization

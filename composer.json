@@ -27,10 +27,10 @@
   "require": {
     "php": "^8.2",
     "composer/installers": "^2.3",
-    "symfony/polyfill-mbstring": "v1.35.0",
+    "symfony/polyfill-mbstring": "v1.36.0",
     "helsingborg-stad/acf-export-manager": ">=1.0.0",
     "pragmarx/ia-arr": "^7.3",
-    "symfony/polyfill-php80": "v1.35.0",
+    "symfony/polyfill-php80": "v1.36.0",
     "dompdf/dompdf": "v3.1.5",
     "helsingborg-stad/wpservice": "^2.0",
     "helsingborg-stad/acfservice": "^1.0.0",
@@ -45,11 +45,12 @@
     "landrok/language-detector": "dev-master",
     "league/commonmark": "2.8.2",
     "league/config": "v1.2.0",
-    "helsingborg-stad/component-library": "5.10.0",
+    "helsingborg-stad/component-library": "5.11.2",
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "^0.4.0",
     "helsingborg-stad/kirki": "^5.2",
-    "helsingborg-stad/wputilservice": "^0.2.44"
+    "helsingborg-stad/wputilservice": "^0.2.44",
+    "helsingborg-stad/styleguide": "2.221.2"
   },
   "scripts": {
     "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -98,7 +99,8 @@
   "autoload": {
     "psr-4": {
       "Municipio\\": "library/",
-      "Modularity\\": "Modularity/source/php/"
+      "Modularity\\": "Modularity/source/php/",
+      "Municipio\\Test\\": "Test/"
     }
   },
   "autoload-dev": {

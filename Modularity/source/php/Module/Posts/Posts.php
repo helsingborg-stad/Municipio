@@ -151,8 +151,7 @@ class Posts extends \Modularity\Module
         $this->postSourceBuilder = new PostSourceBuilder(WpService::get(), User::get(), $this->fields);
 
         $data['posts_display_as'] = $this->fields['posts_display_as'] ?? false;
-        $data['display_reading_time'] =
-            !empty($this->fields['posts_fields']) && in_array('reading_time', $this->fields['posts_fields']) ?? false;
+        $data['display_reading_time'] = !empty($this->fields['posts_fields']) && in_array('reading_time', $this->fields['posts_fields']) ?? false;
 
         // Posts
         $data['preamble'] = $this->fields['preamble'] ?? false;
@@ -195,11 +194,7 @@ class Posts extends \Modularity\Module
 
         $data['filters'] = [];
 
-        if (
-            isset($this->fields['posts_taxonomy_filter'])
-            && $this->fields['posts_taxonomy_filter'] === true
-            && !empty($this->fields['posts_taxonomy_type'])
-        ) {
+        if (isset($this->fields['posts_taxonomy_filter']) && $this->fields['posts_taxonomy_filter'] === true && !empty($this->fields['posts_taxonomy_type'])) {
             $taxType = $this->fields['posts_taxonomy_type'];
             $taxValues = (array) $this->fields['posts_taxonomy_value'];
             $taxValues = implode('|', $taxValues);
@@ -235,6 +230,7 @@ class Posts extends \Modularity\Module
 
         if ($this->getID()) {
             $data['sliderId'] = $this->getID();
+            $data['ID'] = $this->getID();
         } else {
             $data['sliderId'] = uniqid();
             $data['ID'] = uniqid();
@@ -345,9 +341,7 @@ class Posts extends \Modularity\Module
     {
         $skipablePostTypes = ['attachment'];
 
-        $args['post_type'] = array_filter($args['post_type'] ?? [], static function ($postType) use (
-            $skipablePostTypes,
-        ) {
+        $args['post_type'] = array_filter($args['post_type'] ?? [], static function ($postType) use ($skipablePostTypes) {
             return !in_array($postType, $skipablePostTypes);
         });
 
@@ -361,10 +355,7 @@ class Posts extends \Modularity\Module
     {
         $template = !empty($this->data['posts_display_as']) ? $this->data['posts_display_as'] : 'list';
 
-        if (
-            !empty($this->fields['show_as_slider'])
-            && in_array($this->fields['posts_display_as'], $this->sliderCompatibleLayouts, true)
-        ) {
+        if (!empty($this->fields['show_as_slider']) && in_array($this->fields['posts_display_as'], $this->sliderCompatibleLayouts, true)) {
             $template = 'slider';
         }
 
