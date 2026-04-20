@@ -911,7 +911,7 @@ msgstr "Antal inlägg"
 msgid "Set the number items to show."
 msgstr "Ange hur många inlägg du vill visa."
 
-#: library/Customizer/PanelsRegistry.php:214
+#: library/Customizer/PanelsRegistry.php:237
 #: Modularity/source/php/AcfFields/php/mod-curator.php:34
 msgid "Layout"
 msgstr "Layout"
@@ -1082,7 +1082,7 @@ msgstr "Visa nedladdningsikon"
 msgid "Images"
 msgstr "Bilder"
 
-#: library/Customizer/PanelsRegistry.php:310
+#: library/Customizer/PanelsRegistry.php:333
 #: library/Theme/Sidebars.php:137
 #: Modularity/source/php/AcfFields/php/mod-hero.php:8
 #: Modularity/source/php/Module/Hero/Hero.php:21
@@ -1284,7 +1284,7 @@ msgstr "Stor"
 msgid "normal"
 msgstr "normal"
 
-#: library/Customizer/PanelsRegistry.php:250
+#: library/Customizer/PanelsRegistry.php:273
 #: library/Customizer/Sections/ErrorPages.php:54
 #: Modularity/source/php/AcfFields/php/mod-hero.php:366
 #, fuzzy
@@ -1878,7 +1878,7 @@ msgstr "Typ av karta"
 msgid "Embedded"
 msgstr "Inbäddad"
 
-#: library/Customizer/PanelsRegistry.php:262
+#: library/Customizer/PanelsRegistry.php:285
 #: Modularity/source/php/AcfFields/php/mod-map.php:25
 msgid "Open Street Map"
 msgstr "Open Street MAp"
@@ -2590,7 +2590,7 @@ msgstr "Webbplater"
 msgid "Include main site"
 msgstr "Inkludera huvudsidan"
 
-#: library/Customizer/PanelsRegistry.php:269
+#: library/Customizer/PanelsRegistry.php:292
 #: Modularity/source/php/AcfFields/php/mod-slider.php:8
 msgid "Slider"
 msgstr "Bildspel"
@@ -4087,7 +4087,7 @@ msgstr "Den här delen av webbplatsen visar innehåll från en annan webbplats (
 msgid "To get the full expirience of the <strong>Modularity</strong> plugin, please activate the <a href=\"http://www.advancedcustomfields.com/pro/\" target=\"_blank\">Advanced Custom Fields Pro</a> plugin."
 msgstr "För att kunna utnyttja <strong>Modularity</strong> maximalt rekommenderar vi dig att installera och aktivera pluginet <a href=\"http://www.advancedcustomfields.com/pro/\" target=\"_blank\">Advanced Custom Fields Pro</a>."
 
-#: library/Customizer/PanelsRegistry.php:364
+#: library/Customizer/PanelsRegistry.php:387
 msgid "Breadcrumbs"
 msgstr "Brödsmulor"
 
@@ -4215,7 +4215,7 @@ msgstr "Visar ett galleri med logotyper"
 
 #: library/Admin/Options/Theme.php:47
 #: library/Admin/Options/Theme.php:48
-#: library/Customizer/PanelsRegistry.php:187
+#: library/Customizer/PanelsRegistry.php:181
 #: library/Helper/TranslatedLabels.php:44
 #: library/Helper/TranslatedLabels.php:83
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
@@ -4862,7 +4862,7 @@ msgid "Content width"
 msgstr "Bredd på innehåll"
 
 #: library/AcfFields/php/block-container.php:97
-#: library/Customizer/PanelsRegistry.php:224
+#: library/Customizer/PanelsRegistry.php:247
 #: library/Customizer/Sections/Component/Button.php:51
 msgid "Standard"
 msgstr "Standard"
@@ -5408,7 +5408,7 @@ msgstr "Visa aktuell språk i listan"
 
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
-#: library/Customizer/PanelsRegistry.php:376
+#: library/Customizer/PanelsRegistry.php:399
 #: library/Customizer/Sections/Search.php:140
 #: library/Helper/TranslatedLabels.php:49
 #: library/Theme/Navigation.php:36
@@ -5784,7 +5784,7 @@ msgid "Type of taxonomy"
 msgstr "Typ av taxonomi"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:109
-#: library/Customizer/PanelsRegistry.php:316
+#: library/Customizer/PanelsRegistry.php:339
 msgid "Tags"
 msgstr "Taggar"
 
@@ -6329,7 +6329,7 @@ msgid "Language menu"
 msgstr "Språkmeny"
 
 #: library/AcfFields/php/options-theme-google-translate.php:63
-#: library/Customizer/PanelsRegistry.php:382
+#: library/Customizer/PanelsRegistry.php:405
 #: library/Customizer/Sections/Search.php:141
 #: library/Theme/Navigation.php:40
 msgid "Quicklinks menu"
@@ -6856,7 +6856,7 @@ msgid "Login/Logout Options"
 msgstr "Logga in och logga ut"
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:24
-#: library/Customizer/PanelsRegistry.php:243
+#: library/Customizer/PanelsRegistry.php:266
 #: library/Customizer/Sections/Header/Layout.php:316
 msgid "Login/Logout"
 msgstr "Logga in / Logga ut"
@@ -7575,62 +7575,63 @@ msgstr "Omställning"
 msgid "Estimated budget"
 msgstr "Estimerad budget"
 
-#: library/Customizer.php:66
+#: library/Customizer.php:67
 msgid "Install plugin"
 msgstr "Installera tillägg"
 
-#: library/Customizer/FontUploads/FontUploads.php:68
+#: library/Customizer/Fonts/LegacyUploadedFontRepository.php:67
+#: library/Customizer/Fonts/UploadedFontMapper.php:103
 msgid "Untitled Font"
 msgstr "Namnlöst typsnitt"
 
 #: library/Customizer/Panels/DesignLibrary.php:13
-#: library/Customizer/PanelsRegistry.php:97
+#: library/Customizer/PanelsRegistry.php:98
 msgid "Design Library"
 msgstr "Designbibliotek"
 
 #: library/Customizer/Panels/DesignLibrary.php:14
-#: library/Customizer/PanelsRegistry.php:98
+#: library/Customizer/PanelsRegistry.php:99
 msgid "Select a design made by other municipio users."
 msgstr "Välj mellan olika designer skapade av andra municipioanvändare."
 
-#: library/Customizer/PanelsRegistry.php:103
+#: library/Customizer/PanelsRegistry.php:104
 msgid "Load a design"
 msgstr "Ladda in en design"
 
-#: library/Customizer/PanelsRegistry.php:104
+#: library/Customizer/PanelsRegistry.php:105
 msgid "Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!"
 msgstr "Sugen på en ny och fräsch design för din webbplats? Ladda in och använd ett tema att utgå ifrån. Justera efter hand!"
 
-#: library/Customizer/PanelsRegistry.php:108
+#: library/Customizer/PanelsRegistry.php:109
 msgid "Load design for individual post types"
 msgstr "Ladda in design för posttyper"
 
-#: library/Customizer/PanelsRegistry.php:108
+#: library/Customizer/PanelsRegistry.php:109
 msgid "Manage post types settings"
 msgstr "Hantera posttypers inställningar"
 
-#: library/Customizer/PanelsRegistry.php:143
+#: library/Customizer/PanelsRegistry.php:144
 msgid "Archive Apperance"
 msgstr "Arkiv"
 
-#: library/Customizer/PanelsRegistry.php:144
+#: library/Customizer/PanelsRegistry.php:145
 msgid "Manage apperance options on archives."
 msgstr "Hantera design på komponentnivå."
 
-#: library/Customizer/PanelsRegistry.php:155
+#: library/Customizer/PanelsRegistry.php:156
 msgid "General Apperance"
 msgstr "Generellt utseende"
 
-#: library/Customizer/PanelsRegistry.php:156
+#: library/Customizer/PanelsRegistry.php:157
 msgid "Manage site general design options."
 msgstr "Hantera generella inställningar för design."
 
-#: library/Customizer/PanelsRegistry.php:161
+#: library/Customizer/PanelsRegistry.php:162
 #: library/Customizer/Sections/PostType.php:35
 msgid "Logotypes"
 msgstr "Logotyper"
 
-#: library/Customizer/PanelsRegistry.php:167
+#: library/Customizer/PanelsRegistry.php:168
 msgid "General settings"
 msgstr "Generella inställningar"
 
@@ -7639,15 +7640,7 @@ msgstr "Generella inställningar"
 msgid "Colors"
 msgstr "Färger"
 
-#: library/Customizer/PanelsRegistry.php:174
-msgid "Typography"
-msgstr "Typografi"
-
 #: library/Customizer/PanelsRegistry.php:175
-msgid "Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable."
-msgstr "Inställningar för typografi: Den här sektionen stödjer ”Bring your own font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i mediabiblioteket och väljer sedan typsnittet i listan nedan."
-
-#: library/Customizer/PanelsRegistry.php:181
 msgid "Page Widths"
 msgstr "Sidans bredd"
 
@@ -7655,118 +7648,118 @@ msgstr "Sidans bredd"
 msgid "Rounded corners"
 msgstr "Rundade hörn"
 
-#: library/Customizer/PanelsRegistry.php:193
+#: library/Customizer/PanelsRegistry.php:187
 msgid "Icons"
 msgstr "Ikoner"
 
-#: library/Customizer/PanelsRegistry.php:204
+#: library/Customizer/PanelsRegistry.php:227
 msgid "Component Apperance"
 msgstr "Komponentutseende"
 
-#: library/Customizer/PanelsRegistry.php:205
+#: library/Customizer/PanelsRegistry.php:228
 msgid "Manage design options on component level."
 msgstr "Hantera design på komponentnivå."
 
-#: library/Customizer/PanelsRegistry.php:210
+#: library/Customizer/PanelsRegistry.php:233
 msgid "Header"
 msgstr "Sidhuvud"
 
-#: library/Customizer/PanelsRegistry.php:218
+#: library/Customizer/PanelsRegistry.php:241
 msgid "General"
 msgstr "Generellt"
 
-#: library/Customizer/PanelsRegistry.php:221
+#: library/Customizer/PanelsRegistry.php:244
 #: library/Customizer/Sections/Header/Layout.php:182
 msgid "Flexible"
 msgstr "Fexibel"
 
-#: library/Customizer/PanelsRegistry.php:231
+#: library/Customizer/PanelsRegistry.php:254
 #: library/Customizer/Sections/Header/LoginLogout.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:17
 msgid "Appearance"
 msgstr "Utseende"
 
-#: library/Customizer/PanelsRegistry.php:237
+#: library/Customizer/PanelsRegistry.php:260
 #: library/Customizer/Sections/Component/FooterMain.php:56
 #: library/Customizer/Sections/Component/FooterSub.php:51
 #: library/Customizer/Sections/Header/Layout.php:314
 msgid "Logotype"
 msgstr "Logotyp"
 
-#: library/Customizer/PanelsRegistry.php:256
+#: library/Customizer/PanelsRegistry.php:279
 #: library/Customizer/Sections/Archive.php:456
 msgid "Cards"
 msgstr "Kort"
 
-#: library/Customizer/PanelsRegistry.php:263
+#: library/Customizer/PanelsRegistry.php:286
 msgid "Settings for Open Street Maps."
 msgstr "Inställningar för Open Street Map."
 
-#: library/Customizer/PanelsRegistry.php:273
+#: library/Customizer/PanelsRegistry.php:296
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
-#: library/Customizer/PanelsRegistry.php:279
+#: library/Customizer/PanelsRegistry.php:302
 msgid "Hero slider"
 msgstr "Slider (Hero)"
 
-#: library/Customizer/PanelsRegistry.php:280
+#: library/Customizer/PanelsRegistry.php:303
 msgid "Settings for the slider in the hero area."
 msgstr "Inställningar för slider i heroytan."
 
-#: library/Customizer/PanelsRegistry.php:287
+#: library/Customizer/PanelsRegistry.php:310
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Customizer/PanelsRegistry.php:291
+#: library/Customizer/PanelsRegistry.php:314
 msgid "Main footer"
 msgstr "Primär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:297
+#: library/Customizer/PanelsRegistry.php:320
 msgid "Sub footer"
 msgstr "Sekundär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:304
+#: library/Customizer/PanelsRegistry.php:327
 msgid "Datebadge"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:327
+#: library/Customizer/PanelsRegistry.php:350
 msgid "Error Pages"
 msgstr "Felsidor"
 
-#: library/Customizer/PanelsRegistry.php:331
+#: library/Customizer/PanelsRegistry.php:354
 msgid "401 Unauthorized"
 msgstr "401 Obehörig"
 
-#: library/Customizer/PanelsRegistry.php:337
+#: library/Customizer/PanelsRegistry.php:360
 msgid "403 Forbidden"
 msgstr "403 Förbjuden"
 
-#: library/Customizer/PanelsRegistry.php:343
+#: library/Customizer/PanelsRegistry.php:366
 msgid "404 Not found"
 msgstr "404 Kan inte hittas"
 
-#: library/Customizer/PanelsRegistry.php:357
+#: library/Customizer/PanelsRegistry.php:380
 msgid "Behaviour"
 msgstr "Beteende"
 
-#: library/Customizer/PanelsRegistry.php:358
+#: library/Customizer/PanelsRegistry.php:381
 msgid "Menu behaviour settings."
 msgstr "Inställningar för menybeteende."
 
-#: library/Customizer/PanelsRegistry.php:370
+#: library/Customizer/PanelsRegistry.php:393
 msgid "Drawer"
 msgstr "Mobilmeny"
 
-#: library/Customizer/PanelsRegistry.php:388
+#: library/Customizer/PanelsRegistry.php:411
 msgid "Siteselector menu"
 msgstr "Webbplatsväljare"
 
-#: library/Customizer/PanelsRegistry.php:394
+#: library/Customizer/PanelsRegistry.php:417
 msgid "Tab menu"
 msgstr "Tabbmeny"
 
-#: library/Customizer/PanelsRegistry.php:400
+#: library/Customizer/PanelsRegistry.php:423
 msgid "General: Menu Settings (vertical)"
 msgstr "Generella inställningar (vertikala menyer)"
 
@@ -7977,10 +7970,6 @@ msgstr "Block"
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr "Schema"
-
-#: library/Customizer/Sections/Typography.php:33
-msgid "Base"
-msgstr "Bas"
 
 #: library/Customizer/Sections/Component/Datebadge.php:21
 #: library/Customizer/Sections/Component/OpenStreetMap.php:22
@@ -8539,10 +8528,6 @@ msgstr "Rubrik Logotyp Text: Innehåll"
 msgid "Header LogoType Text: Color "
 msgstr "Rubrik LogoTyp Text: Färg "
 
-#: library/Customizer/Sections/Header/Logotype.php:101
-msgid "Header LogoType Text: Font Settings "
-msgstr "Rubrik LogoTyp Text: Inställningar för teckensnitt "
-
 #: library/Customizer/Sections/Icons.php:21
 msgid "Sharp"
 msgstr "Skarp"
@@ -8552,7 +8537,6 @@ msgid "Weight"
 msgstr "Vikt"
 
 #: library/Customizer/Sections/Icons.php:36
-#: library/Customizer/Sections/Typography.php:113
 msgid "Bold"
 msgstr "Fetstil"
 
@@ -8560,22 +8544,22 @@ msgstr "Fetstil"
 msgid "Filled icons"
 msgstr "Fyllda ikoner"
 
-#: library/Customizer/Sections/LoadDesign.php:26
-#: library/Customizer/Sections/LoadDesign.php:150
+#: library/Customizer/Sections/LoadDesign.php:30
+#: library/Customizer/Sections/LoadDesign.php:152
 #: library/Customizer/Sections/PostType.php:17
 #: library/Customizer/Sections/PostType.php:73
 msgid "Select a design"
 msgstr "Välj en design"
 
-#: library/Customizer/Sections/LoadDesign.php:39
+#: library/Customizer/Sections/LoadDesign.php:43
 msgid "Exclude from import"
 msgstr "Exkludera från import"
 
-#: library/Customizer/Sections/LoadDesign.php:40
+#: library/Customizer/Sections/LoadDesign.php:44
 msgid "Selected local settings will not be overriden on import."
 msgstr "Valda lokala inställningar kommer inte att skrivas över vid import."
 
-#: library/Customizer/Sections/LoadDesign.php:159
+#: library/Customizer/Sections/LoadDesign.php:161
 #: library/Customizer/Sections/PostType.php:82
 msgid "Error loading options"
 msgstr "Kunde inte ladda in alternativen"
@@ -8924,22 +8908,6 @@ msgstr "Inställning i huvudmeny"
 #: library/Customizer/Sections/Search.php:139
 msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
-
-#: library/Customizer/Sections/Typography.php:76
-msgid "Headings"
-msgstr "Rubriker"
-
-#: library/Customizer/Sections/Typography.php:114
-msgid "Use the same font as base but preferably with a higher font weight"
-msgstr "Använd samma typsnitt som bas men mer fetstilad"
-
-#: library/Customizer/Sections/Typography.php:133
-msgid "Italic"
-msgstr "Kursiv"
-
-#: library/Customizer/Sections/Typography.php:134
-msgid "Use the same font as base but preferably with an italic style"
-msgstr "Använd samma typsnitt som bas men välj en kursiv stil"
 
 #: library/Customizer/Sections/Width.php:16
 msgid "Width of page columns"
@@ -10672,3 +10640,852 @@ msgstr "Sparade förinställningar"
 msgctxt "design-builder"
 msgid "General (all scopes)"
 msgstr "Allmänt (alla områden)"
+
+#: library/Customizer/Fonts/Sections/GoogleFonts.php:36
+msgid "Enabled Google Fonts"
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/GoogleFonts.php:37
+msgid "Choose which Google Fonts should be available on the site. The list is limited to the top 200 fonts by popularity."
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/GoogleFonts.php:43
+msgid "Search fonts..."
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:35
+#: library/Customizer/PanelsRegistry.php:215
+msgid "Uploaded Fonts"
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:36
+msgid "Upload WOFF or WOFF2 files. The font family name is derived automatically from the file name."
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:46
+msgid "Font file"
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:47
+msgid "Upload a WOFF or WOFF2 file."
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:202
+msgid "Fonts"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:203
+msgid "Manage available site fonts and typography settings."
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:208
+msgid "Google Fonts"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:209
+msgid "Enable the Google Fonts that should be available on the site."
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:216
+msgid "Manage uploaded font files that should be available on the site."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:39
+msgctxt "design-builder-token-data"
+msgid "Design System"
+msgstr "Designsystem"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:40
+msgctxt "design-builder-token-data"
+msgid "Base"
+msgstr "Bas"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:41
+msgctxt "design-builder-token-data"
+msgid "Foundation values that drive spacing, radius, and typography scales."
+msgstr "Grundläggande värden som styr skalor för mellanrum, radie och typografi."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:42
+msgctxt "design-builder-token-data"
+msgid "Base Unit"
+msgstr "Basenhet"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:43
+msgctxt "design-builder-token-data"
+msgid "Main unit for spacing and sizing, used to derive other spacing and sizing values."
+msgstr "Huvudenhet för mellanrum och storlekar som används för att härleda andra värden för mellanrum och storlekar."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:44
+msgctxt "design-builder-token-data"
+msgid "Base Font Size"
+msgstr "Grundstorlek för teckensnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:45
+msgctxt "design-builder-token-data"
+msgid "Main unit that drives radius and spacing scales."
+msgstr "Huvudenhet som styr skalor för radie och mellanrum."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:46
+msgctxt "design-builder-token-data"
+msgid "Root font size. All typographic sizes derive from this."
+msgstr "Rotens teckenstorlek. Alla typografiska storlekar härleds från denna."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:47
+msgctxt "design-builder-token-data"
+msgid "Standard"
+msgstr "Standard"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:48
+msgctxt "design-builder-token-data"
+msgid "Large"
+msgstr "Stor"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:49
+msgctxt "design-builder-token-data"
+msgid "Layout"
+msgstr "Layout"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:50
+msgctxt "design-builder-token-data"
+msgid "Tokens for layout widths"
+msgstr "Variabler för layoutbredder"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:51
+msgctxt "design-builder-token-data"
+msgid "Container Width Multiplier"
+msgstr "Multiplikator för containerbredd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:52
+msgctxt "design-builder-token-data"
+msgid "Multiplier that drives container widths."
+msgstr "Multiplikator som styr containerbredder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:53
+msgctxt "design-builder-token-data"
+msgid "Container Width"
+msgstr "Containerbredd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:54
+msgctxt "design-builder-token-data"
+msgid "Main unit that drives container widths."
+msgstr "Huvudenhet som styr containerbredder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:55
+msgctxt "design-builder-token-data"
+msgid "Wide Container Width Multiplier"
+msgstr "Multiplikator för bred containerbredd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:56
+msgctxt "design-builder-token-data"
+msgid "Multiplier for wide container width."
+msgstr "Multiplikator för bred containerbredd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:57
+msgctxt "design-builder-token-data"
+msgid "Wide Container Width"
+msgstr "Bred containerbredd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:58
+msgctxt "design-builder-token-data"
+msgid "Max width for wide containers."
+msgstr "Maxbredd för breda containrar."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:59
+msgctxt "design-builder-token-data"
+msgid "Radius"
+msgstr "Radie"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:60
+msgctxt "design-builder-token-data"
+msgid "Border radius and corner shape style."
+msgstr "Stil för hörnradie och hörnform."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:61
+msgctxt "design-builder-token-data"
+msgid "Border Radius"
+msgstr "Hörnradie"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:62
+msgctxt "design-builder-token-data"
+msgid "Corner Shape"
+msgstr "Hörnform"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:63
+msgctxt "design-builder-token-data"
+msgid "Square"
+msgstr "Fyrkantig"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:64
+msgctxt "design-builder-token-data"
+msgid "Round"
+msgstr "Rund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:65
+msgctxt "design-builder-token-data"
+msgid "Squircle"
+msgstr "Squircle"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:66
+msgctxt "design-builder-token-data"
+msgid "Circular"
+msgstr "Cirkulär"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:67
+msgctxt "design-builder-token-data"
+msgid "Bevel"
+msgstr "Avfasad"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:68
+msgctxt "design-builder-token-data"
+msgid "Scoop"
+msgstr "Utskuren"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:69
+msgctxt "design-builder-token-data"
+msgid "Typography"
+msgstr "Typografi"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:70
+msgctxt "design-builder-token-data"
+msgid "Font families, type scale, weights, and line heights."
+msgstr "Typsnittsfamiljer, typografisk skala, vikter och radavstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:71
+msgctxt "design-builder-token-data"
+msgid "Body Font"
+msgstr "Brödtexttypsnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:72
+msgctxt "design-builder-token-data"
+msgid "Heading Font"
+msgstr "Rubriktypsnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:73
+msgctxt "design-builder-token-data"
+msgid "Falls back to body font if not set."
+msgstr "Använder brödtexttypsnittet om inget är angivet."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:74
+msgctxt "design-builder-token-data"
+msgid "Code Font"
+msgstr "Kodtypsnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:75
+msgctxt "design-builder-token-data"
+msgid "Type Scale"
+msgstr "Typografisk skala"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:76
+msgctxt "design-builder-token-data"
+msgid "Multiplier that generates all font sizes from the base."
+msgstr "Multiplikator som genererar alla teckenstorlekar från basen."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:77
+msgctxt "design-builder-token-data"
+msgid "Minor Second"
+msgstr "Liten sekund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:78
+msgctxt "design-builder-token-data"
+msgid "Major Second"
+msgstr "Stor sekund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:79
+msgctxt "design-builder-token-data"
+msgid "Minor Third"
+msgstr "Liten ters"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:80
+msgctxt "design-builder-token-data"
+msgid "Major Third"
+msgstr "Stor ters"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:81
+msgctxt "design-builder-token-data"
+msgid "Perfect Fourth"
+msgstr "Ren kvart"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:82
+msgctxt "design-builder-token-data"
+msgid "Normal Weight"
+msgstr "Normal vikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:83
+msgctxt "design-builder-token-data"
+msgid "Thin (100)"
+msgstr "Tunn (100)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:84
+msgctxt "design-builder-token-data"
+msgid "Extra Light (200)"
+msgstr "Extra lätt (200)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:85
+msgctxt "design-builder-token-data"
+msgid "Light (300)"
+msgstr "Lätt (300)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:86
+msgctxt "design-builder-token-data"
+msgid "Regular (400)"
+msgstr "Normal (400)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:87
+msgctxt "design-builder-token-data"
+msgid "Medium (500)"
+msgstr "Medium (500)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:88
+msgctxt "design-builder-token-data"
+msgid "Semi Bold (600)"
+msgstr "Halvfet (600)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:89
+msgctxt "design-builder-token-data"
+msgid "Bold (700)"
+msgstr "Fet (700)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:90
+msgctxt "design-builder-token-data"
+msgid "Extra Bold (800)"
+msgstr "Extra fet (800)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:91
+msgctxt "design-builder-token-data"
+msgid "Black (900)"
+msgstr "Svart (900)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:92
+msgctxt "design-builder-token-data"
+msgid "Medium Weight"
+msgstr "Medium vikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:93
+msgctxt "design-builder-token-data"
+msgid "Bold Weight"
+msgstr "Fet vikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:94
+msgctxt "design-builder-token-data"
+msgid "Heading Weight"
+msgstr "Rubrikvikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:95
+msgctxt "design-builder-token-data"
+msgid "Body Line Height"
+msgstr "Radavstånd för brödtext"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:96
+msgctxt "design-builder-token-data"
+msgid "Heading Line Height"
+msgstr "Radavstånd för rubriker"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:97
+msgctxt "design-builder-token-data"
+msgid "Letter Spacing"
+msgstr "Bokstavsavstånd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:98
+msgctxt "design-builder-token-data"
+msgid "Font Sizes"
+msgstr "Teckenstorlekar"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:99
+msgctxt "design-builder-token-data"
+msgid "Computed font size scale derived from base font size and type scale ratio."
+msgstr "Beräknad skala för teckenstorlekar baserad på grundstorlek och förhållandet i den typografiska skalan."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:100
+msgctxt "design-builder-token-data"
+msgid "Font Size 80"
+msgstr "Teckenstorlek 80"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:101
+msgctxt "design-builder-token-data"
+msgid "Two steps below base in the type scale."
+msgstr "Två steg under basen i den typografiska skalan."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:102
+msgctxt "design-builder-token-data"
+msgid "Font Size 90"
+msgstr "Teckenstorlek 90"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:103
+msgctxt "design-builder-token-data"
+msgid "One step below base in the type scale."
+msgstr "Ett steg under basen i den typografiska skalan."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:104
+msgctxt "design-builder-token-data"
+msgid "Font Size 100"
+msgstr "Teckenstorlek 100"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:105
+msgctxt "design-builder-token-data"
+msgid "Base font size."
+msgstr "Grundstorlek för teckensnitt."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:106
+msgctxt "design-builder-token-data"
+msgid "Font Size 200"
+msgstr "Teckenstorlek 200"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:107
+msgctxt "design-builder-token-data"
+msgid "One step above base in the type scale. Equivalent to h6/subtitle."
+msgstr "Ett steg över basen i den typografiska skalan. Motsvarar h6/underrubrik."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:108
+msgctxt "design-builder-token-data"
+msgid "Font Size 300"
+msgstr "Teckenstorlek 300"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:109
+msgctxt "design-builder-token-data"
+msgid "Two steps above base in the type scale. Equivalent to h5."
+msgstr "Två steg över basen i den typografiska skalan. Motsvarar h5."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:110
+msgctxt "design-builder-token-data"
+msgid "Font Size 400"
+msgstr "Teckenstorlek 400"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:111
+msgctxt "design-builder-token-data"
+msgid "Three steps above base in the type scale. Equivalent to h4."
+msgstr "Tre steg över basen i den typografiska skalan. Motsvarar h4."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:112
+msgctxt "design-builder-token-data"
+msgid "Font Size 500"
+msgstr "Teckenstorlek 500"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:113
+msgctxt "design-builder-token-data"
+msgid "Four steps above base in the type scale. Equivalent to h3."
+msgstr "Fyra steg över basen i den typografiska skalan. Motsvarar h3."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:114
+msgctxt "design-builder-token-data"
+msgid "Font Size 600"
+msgstr "Teckenstorlek 600"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:115
+msgctxt "design-builder-token-data"
+msgid "Five steps above base in the type scale. Equivalent to h2."
+msgstr "Fem steg över basen i den typografiska skalan. Motsvarar h2."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:116
+msgctxt "design-builder-token-data"
+msgid "Font Size 700"
+msgstr "Teckenstorlek 700"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:117
+msgctxt "design-builder-token-data"
+msgid "Six steps above base in the type scale. Equivalent to h1."
+msgstr "Sex steg över basen i den typografiska skalan. Motsvarar h1."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:118
+msgctxt "design-builder-token-data"
+msgid "Font Size 800"
+msgstr "Teckenstorlek 800"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:119
+msgctxt "design-builder-token-data"
+msgid "Seven steps above base in the type scale. Larger than h1."
+msgstr "Sju steg över basen i den typografiska skalan. Större än h1."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:120
+msgctxt "design-builder-token-data"
+msgid "Borders"
+msgstr "Kantlinjer"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:121
+msgctxt "design-builder-token-data"
+msgid "Border width tokens for UI elements."
+msgstr "Variabler för kantlinjebredd för gränssnittselement."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:122
+msgctxt "design-builder-token-data"
+msgid "Size"
+msgstr "Storlek"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:123
+msgctxt "design-builder-token-data"
+msgid "Border Mix Amount"
+msgstr "Blandningsgrad för kantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:124
+msgctxt "design-builder-token-data"
+msgid "Controls contrast intensity used when generating companion border colors."
+msgstr "Styr kontrastintensiteten som används när kompletterande kantlinjefärger genereras."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:125
+msgctxt "design-builder-token-data"
+msgid "Spacing"
+msgstr "Mellanrum"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:126
+msgctxt "design-builder-token-data"
+msgid "Spacing tokens for UI elements."
+msgstr "Variabler för mellanrum i gränssnittselement."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:127
+msgctxt "design-builder-token-data"
+msgid "Outer Space"
+msgstr "Yttre mellanrum"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:128
+msgctxt "design-builder-token-data"
+msgid "Spacing between components. Use --space for spacing inside components."
+msgstr "Mellanrum mellan komponenter. Använd --space för mellanrum inuti komponenter."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:129
+msgctxt "design-builder-token-data"
+msgid "Shadows"
+msgstr "Skuggor"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:130
+msgctxt "design-builder-token-data"
+msgid "Global shadow multipliers and color."
+msgstr "Globala multiplikatorer och färg för skuggor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:131
+msgctxt "design-builder-token-data"
+msgid "Shadow Color"
+msgstr "Skuggfärg"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:132
+msgctxt "design-builder-token-data"
+msgid "Drop Shadow Intensity"
+msgstr "Intensitet för skugga"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:133
+msgctxt "design-builder-token-data"
+msgid "Multiplier for elevation shadows. 0 = none, 1 = default."
+msgstr "Multiplikator för elevationsskuggor. 0 = ingen, 1 = standard."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:134
+msgctxt "design-builder-token-data"
+msgid "Brand Colors"
+msgstr "Varumärkesfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:135
+msgctxt "design-builder-token-data"
+msgid "Primary, secondary, and accent brand colors with contrast pairs."
+msgstr "Primära, sekundära och accentfärger för varumärket med kontrastpar."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:136
+msgctxt "design-builder-token-data"
+msgid "Primary"
+msgstr "Primär"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:137
+msgctxt "design-builder-token-data"
+msgid "Primary Contrast"
+msgstr "Primär kontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:138
+msgctxt "design-builder-token-data"
+msgid "Primary Border"
+msgstr "Primär kantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:139
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for primary border and hover states."
+msgstr "Manuell kompletterande variabel för primär kantlinje och hovringstillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:140
+msgctxt "design-builder-token-data"
+msgid "Primary Alt"
+msgstr "Primär alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:141
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle primary surfaces."
+msgstr "Manuell kompletterande variabel för diskreta primära ytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:142
+msgctxt "design-builder-token-data"
+msgid "Secondary"
+msgstr "Sekundär"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:143
+msgctxt "design-builder-token-data"
+msgid "Secondary Contrast"
+msgstr "Sekundär kontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:144
+msgctxt "design-builder-token-data"
+msgid "Secondary Border"
+msgstr "Sekundär kantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:145
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for secondary border and hover states."
+msgstr "Manuell kompletterande variabel för sekundär kantlinje och hovringstillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:146
+msgctxt "design-builder-token-data"
+msgid "Secondary Alt"
+msgstr "Sekundär alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:147
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle secondary surfaces."
+msgstr "Manuell kompletterande variabel för diskreta sekundära ytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:148
+msgctxt "design-builder-token-data"
+msgid "Layout Colors"
+msgstr "Layoutfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:149
+msgctxt "design-builder-token-data"
+msgid "Background and surface colors."
+msgstr "Bakgrunds- och ytfärger."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:150
+msgctxt "design-builder-token-data"
+msgid "Alt Mix Amount"
+msgstr "Blandningsgrad för alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:151
+msgctxt "design-builder-token-data"
+msgid "Controls contrast intensity used when generating companion alt colors."
+msgstr "Styr kontrastintensiteten som används när kompletterande alt-färger genereras."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:152
+msgctxt "design-builder-token-data"
+msgid "Background"
+msgstr "Bakgrund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:153
+msgctxt "design-builder-token-data"
+msgid "Background Contrast"
+msgstr "Bakgrundskontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:154
+msgctxt "design-builder-token-data"
+msgid "Used for text and icons on background with less contrast."
+msgstr "Används för text och ikoner på bakgrund med lägre kontrast."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:155
+msgctxt "design-builder-token-data"
+msgid "Background Contrast Muted"
+msgstr "Dämpad bakgrundskontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:156
+msgctxt "design-builder-token-data"
+msgid "Derived muted contrast for text and icons on background surfaces."
+msgstr "Härledd dämpad kontrast för text och ikoner på bakgrundsytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:157
+msgctxt "design-builder-token-data"
+msgid "Background Border"
+msgstr "Bakgrundskantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:158
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for borders on background surfaces."
+msgstr "Manuell kompletterande variabel för kantlinjer på bakgrundsytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:159
+msgctxt "design-builder-token-data"
+msgid "Surface"
+msgstr "Yta"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:160
+msgctxt "design-builder-token-data"
+msgid "Surface Contrast"
+msgstr "Ytkontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:161
+msgctxt "design-builder-token-data"
+msgid "Used for text and icons on surface backgrounds with less contrast."
+msgstr "Används för text och ikoner på ytbakgrunder med lägre kontrast."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:162
+msgctxt "design-builder-token-data"
+msgid "Surface Contrast Muted"
+msgstr "Dämpad ytkontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:163
+msgctxt "design-builder-token-data"
+msgid "Derived muted contrast for text and icons on surface backgrounds."
+msgstr "Härledd dämpad kontrast för text och ikoner på ytbakgrunder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:164
+msgctxt "design-builder-token-data"
+msgid "Surface Border"
+msgstr "Ytkantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:165
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for borders on surface elements."
+msgstr "Manuell kompletterande variabel för kantlinjer på ytelement."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:166
+msgctxt "design-builder-token-data"
+msgid "Surface Alt"
+msgstr "Yta alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:167
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle surface backgrounds."
+msgstr "Manuell kompletterande variabel för diskreta ytbakgrunder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:168
+msgctxt "design-builder-token-data"
+msgid "UI Colors"
+msgstr "Gränssnittsfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:169
+msgctxt "design-builder-token-data"
+msgid "Borders, focus, and interactive states."
+msgstr "Kantlinjer, fokus och interaktiva tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:170
+msgctxt "design-builder-token-data"
+msgid "Focus"
+msgstr "Fokus"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:171
+msgctxt "design-builder-token-data"
+msgid "Alpha Color"
+msgstr "Alfafärg"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:172
+msgctxt "design-builder-token-data"
+msgid "Used for overlays. Includes opacity — set both color and alpha together."
+msgstr "Används för överlägg. Inkluderar opacitet — ange både färg och alfa tillsammans."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:173
+msgctxt "design-builder-token-data"
+msgid "Alpha Contrast"
+msgstr "Alfakontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:174
+msgctxt "design-builder-token-data"
+msgid "Used for text and icons on alpha overlays."
+msgstr "Används för text och ikoner på alfaöverlägg."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:175
+msgctxt "design-builder-token-data"
+msgid "Alpha Border"
+msgstr "Alfakantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:176
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for alpha overlay border states."
+msgstr "Manuell kompletterande variabel för kantlinjetillstånd på alfaöverlägg."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:177
+msgctxt "design-builder-token-data"
+msgid "State Colors"
+msgstr "Tillståndsfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:178
+msgctxt "design-builder-token-data"
+msgid "Feedback colors for success, warning, error, and info."
+msgstr "Återkopplingsfärger för bekräftelse, varning, fel och information."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:179
+msgctxt "design-builder-token-data"
+msgid "Success"
+msgstr "Bekräftelse"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:180
+msgctxt "design-builder-token-data"
+msgid "Success Contrast"
+msgstr "Bekräftelsekontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:181
+msgctxt "design-builder-token-data"
+msgid "Success Border"
+msgstr "Bekräftelsekantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:182
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for success border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för bekräftelsekantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:183
+msgctxt "design-builder-token-data"
+msgid "Warning"
+msgstr "Varning"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:184
+msgctxt "design-builder-token-data"
+msgid "Warning Contrast"
+msgstr "Varningskontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:185
+msgctxt "design-builder-token-data"
+msgid "Warning Border"
+msgstr "Varningskantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:186
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for warning border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för varningskantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:187
+msgctxt "design-builder-token-data"
+msgid "Danger"
+msgstr "Fel"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:188
+msgctxt "design-builder-token-data"
+msgid "Danger Contrast"
+msgstr "Felkontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:189
+msgctxt "design-builder-token-data"
+msgid "Danger Border"
+msgstr "Felkantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:190
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for danger border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för felkantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:191
+msgctxt "design-builder-token-data"
+msgid "Info"
+msgstr "Info"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:192
+msgctxt "design-builder-token-data"
+msgid "Info Contrast"
+msgstr "Infokontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:193
+msgctxt "design-builder-token-data"
+msgid "Info Border"
+msgstr "Infokantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:194
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for info border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för infokantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:195
+msgctxt "design-builder-token-data"
+msgid "Container Wide Width Multiplier"
+msgstr "Multiplikator för bredd på bred container"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:196
+msgctxt "design-builder-token-data"
+msgid "Container Wide Width"
+msgstr "Bredd på bred container"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:197
+msgctxt "design-builder-token-data"
+msgid "Base spacing unit. Used for padding and margin inside components."
+msgstr "Grundläggande enhet för mellanrum. Används för utfyllnad och marginal i komponenter."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:198
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for danger border and emphasis states."
+msgstr "Manuell kompletterande variabel för felkantlinje och betonade tillstånd."

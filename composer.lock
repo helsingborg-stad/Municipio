@@ -1024,16 +1024,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.11.1",
+            "version": "5.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "53f81f45970e3625df35bc7d9f714d5ab447e829"
+                "reference": "8bc9a9241211f08f7585a744831b337c2bc9ba89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/53f81f45970e3625df35bc7d9f714d5ab447e829",
-                "reference": "53f81f45970e3625df35bc7d9f714d5ab447e829",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/8bc9a9241211f08f7585a744831b337c2bc9ba89",
+                "reference": "8bc9a9241211f08f7585a744831b337c2bc9ba89",
                 "shasum": ""
             },
             "require": {
@@ -1065,9 +1065,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.11.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.11.2"
             },
-            "time": "2026-04-17T04:55:51+00:00"
+            "time": "2026-04-17T12:04:14+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.219.0",
+            "version": "2.221.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "aa224c93b2f4fb8f19044e1fe3fb034556dc9689"
+                "reference": "d6b8d5f768d6383ff871ee3670d136092beb234a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/aa224c93b2f4fb8f19044e1fe3fb034556dc9689",
-                "reference": "aa224c93b2f4fb8f19044e1fe3fb034556dc9689",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d6b8d5f768d6383ff871ee3670d136092beb234a",
+                "reference": "d6b8d5f768d6383ff871ee3670d136092beb234a",
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.219.0"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.221.0"
             },
-            "time": "2026-04-17T11:12:02+00:00"
+            "time": "2026-04-17T13:20:33+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -4042,16 +4042,16 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.21.0",
+            "version": "1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "2e0aee3579acfb23db99c2f7c5f21645d964f894"
+                "reference": "4fdfd2df7271a80ecaff77906068675a769f7587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/2e0aee3579acfb23db99c2f7c5f21645d964f894",
-                "reference": "2e0aee3579acfb23db99c2f7c5f21645d964f894",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/4fdfd2df7271a80ecaff77906068675a769f7587",
+                "reference": "4fdfd2df7271a80ecaff77906068675a769f7587",
                 "shasum": ""
             },
             "require": {
@@ -4086,7 +4086,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.21.0"
+                "source": "https://github.com/carthage-software/mago/tree/1.23.1"
             },
             "funding": [
                 {
@@ -4094,7 +4094,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-17T06:44:23+00:00"
+            "time": "2026-04-19T10:37:36+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -6195,12 +6195,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "6ef0a3ae61e482d5b6829c2ec39ab3d6830bcd79"
+                "reference": "ba48973de6d8e361ff0682492d20736bfc765d36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/6ef0a3ae61e482d5b6829c2ec39ab3d6830bcd79",
-                "reference": "6ef0a3ae61e482d5b6829c2ec39ab3d6830bcd79",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/ba48973de6d8e361ff0682492d20736bfc765d36",
+                "reference": "ba48973de6d8e361ff0682492d20736bfc765d36",
                 "shasum": ""
             },
             "require": {
@@ -6265,7 +6265,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-04-08T08:05:59+00:00"
+            "time": "2026-04-20T05:47:41+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7373,20 +7373,20 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
+        "carthage-software/mago": 5,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
-        "spatie/phpunit-snapshot-assertions": 20,
-        "carthage-software/mago": 5
+        "spatie/phpunit-snapshot-assertions": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
