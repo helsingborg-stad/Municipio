@@ -63,15 +63,15 @@ const ChatUtils = {
 	 */
 	renderMarkdown(text: string): string {
 		return text
-			.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(
+			.replaceAll("&", "&amp;")
+			.replaceAll("<", "&lt;")
+			.replaceAll(
 				/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
 				'<a href="$2" target="_blank" rel="noopener">$1</a>',
 			)
-			.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-			.replace(/\*(.+?)\*/g, "<em>$1</em>")
-			.replace(/\n/g, "<br>");
+			.replaceAll(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+			.replaceAll(/\*(.+?)\*/g, "<em>$1</em>")
+			.replaceAll("\n", "<br>");
 	},
 };
 
@@ -263,7 +263,7 @@ class Chat {
 				inputField.disabled = isMessagePending;
 			},
 			onStatusTextChanged: (status) => {
-				sendButton.textContent = status ? status : origSendButtonText;
+				sendButton.textContent = status ?? origSendButtonText;
 			},
 		});
 
@@ -313,7 +313,7 @@ class Chat {
 			const mainSendButton = ChatUtils.safeQueryElement<HTMLButtonElement>("button[data-chat-send-button]", mainGroup);
 			const closeButton = ChatUtils.safeQueryElement<HTMLButtonElement>("button[data-chat-close-button]", chatEl);
 
-			const assistantId = chatEl.getAttribute("data-chat-assistant");
+			const assistantId = chatEl.dataset.chatAssistant || null;
 
 			const origSendButtonText = mainSendButton.textContent || "";
 
@@ -342,7 +342,7 @@ class Chat {
 					mainInputField.disabled = isMessagePending;
 				},
 				onStatusTextChanged: (status) => {
-					mainSendButton.textContent = status ? status : origSendButtonText;
+					mainSendButton.textContent = status ?? origSendButtonText;
 				},
 			});
 

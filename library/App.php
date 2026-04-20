@@ -382,7 +382,7 @@ class App
          */
         (new \Municipio\Chat\ChatFeature(
             $this->wpService,
-            $this->wpUtilService->enqueue(), // TODO: should the instance be refactored out and shared?
+            $this->wpUtilService->enqueue(), // Note: should this instance be shared?
             $this->acfService,
         ))->enable();
     }
