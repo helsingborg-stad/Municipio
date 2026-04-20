@@ -95,7 +95,16 @@ class ChatFeature
     public function renderChat(): void
     {
         $renderer = new Renderer((new BladeServiceFactory($this->wpService))->create([__DIR__ . '/views']));
-        $markup = $renderer->render('ChatBubble');
+        $markup = $renderer->render('ChatBubble', [
+            'i18n' => [
+                'chat'          => $this->wpService->__('Chat', 'municipio'),
+                'chatWithAi'    => $this->wpService->__('Chat with AI', 'municipio'),
+                'you'           => $this->wpService->__('You', 'municipio'),
+                'assistant'     => $this->wpService->__('Assistant', 'municipio'),
+                'writeQuestion' => $this->wpService->__('Write your question here', 'municipio'),
+                'send'          => $this->wpService->__('Send', 'municipio'),
+            ],
+        ]);
         echo $markup;
     }
 

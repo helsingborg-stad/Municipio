@@ -50,7 +50,7 @@
             @button([
                 'color' => 'primary',
                 'size' => 'md',
-                'text' => $button_label ?? __('Submit', 'municipio'),
+                'text' => $button_label ?? $i18n['submit'],
             ])
             @endbutton
         @endgroup
@@ -91,7 +91,7 @@
             <div data-chat-messages="" style="display: flex; flex-direction: column; overflow-y: auto; max-height: 60vh;">
                 <template data-chat-template-user="y">
                     @comment([
-                        'author' => __('You', 'municipio'),
+                        'author' => $i18n['you'],
                         'text' => 'asdf',
                         'is_reply' => false,
                         'date' => ''
@@ -101,7 +101,7 @@
 
                 <template data-chat-template-assistant="y">
                     @comment([
-                        'author' => __('Assistant', 'municipio'),
+                        'author' => $i18n['assistant'],
                         'text' => 'asdf',
                         'is_reply' => false,
                         'date' => ''
@@ -118,11 +118,11 @@
             ])
             @field([
                 'type' => 'text',
-                'placeholder' => __('Write your question here', 'municipio')
+                'placeholder' => $i18n['writeQuestion']
             ])
             @endfield
             @button([
-                'text' => __('Send', 'municipio'),
+                'text' => $i18n['send'],
                 'color' => 'primary',
                 'style' => 'filled',
                 'attributeList' => ['data-chat-send-button' => ''],

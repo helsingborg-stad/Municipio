@@ -18,7 +18,17 @@ class ChatModule extends \Modularity\Module
 
     public function data(): array
     {
-        return $this->getFields() ?? [];
+        $data = $this->getFields() ?? [];
+
+        $data['i18n'] = [
+            'submit'        => __('Submit', 'municipio'),
+            'you'           => __('You', 'municipio'),
+            'assistant'     => __('Assistant', 'municipio'),
+            'writeQuestion' => __('Write your question here', 'municipio'),
+            'send'          => __('Send', 'municipio'),
+        ];
+
+        return $data;
     }
 
     public function template()

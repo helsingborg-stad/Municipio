@@ -6,20 +6,20 @@
         'icon' => 'chat',
         'size' => 'md',
         'color' => 'primary',
-        'text' => __('Chat', 'municipio'),
+        'text' => $i18n['chat'],
         'reversePositions' => true
     ]
 ])
     <div class="u-display--flex u-flex-direction--column u-gap-2" style="max-height: 60vh;">
         @typography(['variant' => 'h6', 'classList' => ['c-fab__heading']])
-            {{ __('Chat with AI', 'municipio') }}
+            {{ $i18n['chatWithAi'] }}
         @endtypography
 
         <div data-chat-messages="" class="chat-messages u-padding--2" style="overflow-y: auto; overflow-wrap: anywhere;">
             {{-- Chat messages will be appended here --}}
             <template data-chat-template-user="">
                 @comment([
-                    'author' => __('You', 'municipio'),
+                    'author' => $i18n['you'],
                     'text' => 'asdf',
                     'is_reply' => false,
                     'date' => ''
@@ -29,7 +29,7 @@
 
             <template data-chat-template-assistant="">
                 @comment([
-                    'author' => __('Assistant', 'municipio'),
+                    'author' => $i18n['assistant'],
                     'text' => 'asdf',
                     'is_reply' => false,
                     'date' => ''
@@ -46,12 +46,12 @@
         ])
         @field([
             'type' => 'text',
-            'label' => __('Write your question here', 'municipio'),
+            'label' => $i18n['writeQuestion'],
             'multiline' => true
         ])
         @endfield
         @button([
-            'text' => __('Send', 'municipio'),
+            'text' => $i18n['send'],
             'color' => 'primary',
             'style' => 'filled',
         ])
