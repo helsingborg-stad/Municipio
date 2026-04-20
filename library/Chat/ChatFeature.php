@@ -1,0 +1,108 @@
+<?php
+
+namespace Municipio\Chat;
+
+use AcfService\Contracts\AddOptionsPage;
+use AcfService\Contracts\GetField;
+use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
+use ComponentLibrary\Renderer\Renderer;
+use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
+use WpService\Contracts\__;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\GetOption;
+use WpService\Contracts\WpCacheGet;
+use WpService\Contracts\WpCacheSet;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+
+class ChatFeature
+{
+    public function __construct(
+        private __&AddAction&AddFilter&ApplyFilters&WpCacheGet&WpCacheSet&GetOption $wpService,
+        private EnqueueManagerInterface $enqueue,
+        private GetField&AddOptionsPage $acfService,
+    ) {}
+
+    public function enable(): void
+    {
+        $this->wpService->addAction('init', [$this, 'addAdminPage']);
+
+        if (!$this->isEnabled()) {
+            return;
+        }
+
+        if ($this->isGlobalChatEnabled()) {
+            $this->wpService->addAction('wp_footer', [$this, 'renderChat']);
+        }
+
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+
+        $this->registerApiEndpoint();
+        $this->registerModule();
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->acfService->getField('chat_enabled', 'option') === true;
+    }
+
+    public function isGlobalChatEnabled(): bool
+    {
+        return $this->acfService->getField('chat_global_enabled', 'option') === true;
+    }
+
+    private function registerModule(): void
+    {
+        modularity_register_module(__DIR__ . '/Module', 'ChatModule');
+
+        $this->wpService->addFilter('/Modularity/externalViewPath', function (array $viewPaths): array {
+            $viewPaths['mod-chat'] = __DIR__ . '/Module/views';
+            return $viewPaths;
+        });
+
+        $this->wpService->addAction('acf/init', function (): void {
+            require_once __DIR__ . '/Module/acf-fields.php';
+        });
+    }
+
+    public function addAdminPage(): void
+    {
+        $this->acfService->addOptionsPage([
+            'page_title' => $this->wpService->__('Chat Settings', 'municipio'),
+            'menu_title' => $this->wpService->__('Chat Settings', 'municipio'),
+            'menu_slug' => 'chat-settings',
+            'capability' => 'edit_posts',
+            'redirect' => true,
+            'update_button' => $this->wpService->__('Save', 'municipio'),
+            'updated_message' => $this->wpService->__('Chat settings has been saved.', 'municipio'),
+            'icon_url' => 'dashicons-format-chat',
+        ]);
+    }
+
+    public function enqueueScripts(): void
+    {
+        $this->enqueue->add('js/chat.js')
+            ->with()->translation('municipioChatStrings', [
+                'sending'    => $this->wpService->__('Sending...', 'municipio'),
+                'writing'    => $this->wpService->__('Writing...', 'municipio'),
+                'usingTools' => $this->wpService->__('Using tools...', 'municipio'),
+                'error'      => $this->wpService->__('An error occurred. Try again later.', 'municipio'),
+            ]);
+    }
+
+    public function renderChat(): void
+    {
+        $renderer = new Renderer((new BladeServiceFactory($this->wpService))->create([__DIR__ . '/views']));
+        $markup = $renderer->render('ChatBubble');
+        echo $markup;
+    }
+
+    private function registerApiEndpoint(): void
+    {
+        $redactor = (new PIIRedactorFactory())->create();
+
+        RestApiEndpointsRegistry::add(new \Municipio\Chat\ChatEndpoint($this->acfService, $redactor));
+    }
+}

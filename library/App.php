@@ -376,6 +376,15 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Setup Chat
+         */
+        (new \Municipio\Chat\ChatFeature(
+            $this->wpService,
+            $this->wpUtilService->enqueue(), // TODO: should the instance be refactored out and shared?
+            $this->acfService,
+        ))->enable();
     }
 
     /**

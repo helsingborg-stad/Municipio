@@ -49,6 +49,8 @@ const entries = {
 	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
 	"css/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.scss",
 	"css/backdrop-banner-editor": "./library/BackdropBanner/js/Editor/backdrop-banner.scss",
+	
+	"js/chat": "./library/Chat/js/index.ts",
 
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",

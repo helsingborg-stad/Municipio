@@ -164,6 +164,7 @@ add_action('init', function () use ($wpService) {
         'global-notices' => 'group_6798e1aebe3c6',
         'a11y-statement' => 'group_6874ffb12b42d',
         'a11y-statement-url' => 'group_689c4def19f8e',
+        'chat' => 'group_69b814ff11562',
     ]);
 
     $acfExportManager->autoExport($autoExportIds);
