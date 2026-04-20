@@ -313,6 +313,8 @@ class Chat {
 			const mainSendButton = ChatUtils.safeQueryElement<HTMLButtonElement>("button[data-chat-send-button]", mainGroup);
 			const closeButton = ChatUtils.safeQueryElement<HTMLButtonElement>("button[data-chat-close-button]", chatEl);
 
+			const assistantId = chatEl.getAttribute("data-chat-assistant");
+
 			const origSendButtonText = mainSendButton.textContent || "";
 
 			mainGroup.style.visibility = "hidden";
@@ -320,7 +322,7 @@ class Chat {
 			let lastMessageElement: Element | null = null;
 
 			const { ask, clear } = this.#createChat({
-				assistantId: null,
+				assistantId,
 				onMessageAdded: (role) => {
 					lastMessageElement = ChatUtils.appendMessageElement(role, messagesRoot, userMessageTemplate, assistantMessageTemplate);
 					lastMessageElement.textContent = "";
