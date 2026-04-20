@@ -25,7 +25,7 @@ class MapThemeModsToDesignTokens
         'drop_shadow_amount' => 'token.--shadow-amount',
         'radius_md' => 'token.--border-radius',
         'container' => 'token.--container-width',
-        'footer_logotype_height' => 'token.--c-footer--logotype-height',
+        'footer_height_logotype' => 'component.__general__.footer.--c-footer--home-link-height-multiplier',
         'color_button_primary.base' => 'token.--c-button--color--primary',
         'color_button_primary.contrasting' => 'token.--c-button--color--primary-contrast',
         'header_logotype_height' => 'component.__general__.header.--c-header--logotype-height-multiplier',

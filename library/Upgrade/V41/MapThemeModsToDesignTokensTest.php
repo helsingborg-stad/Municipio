@@ -88,4 +88,17 @@ class MapThemeModsToDesignTokensTest extends TestCase
 
         static::assertSame(6, $migratedTokens['component']['__general__']['header']['--c-header--logotype-height-multiplier']);
     }
+
+    #[TestDox('maps legacy footer logotype height to the home link height multiplier token')]
+    public function testMapsFooterLogotypeHeightToHomeLinkHeightMultiplierToken(): void
+    {
+        $themeMods = ['footer_height_logotype' => 6];
+        $themeModsTokenMap = [
+            'footer_height_logotype' => 'component.__general__.footer.--c-footer--home-link-height-multiplier',
+        ];
+
+        $migratedTokens = (new MapThemeModsToDesignTokens())->map($themeMods, $themeModsTokenMap);
+
+        static::assertSame(6, $migratedTokens['component']['__general__']['footer']['--c-footer--home-link-height-multiplier']);
+    }
 }

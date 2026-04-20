@@ -77,6 +77,16 @@ class DecorateDesignTokensTest extends TestCase
         $this->assertSame(0.5, $decoratedTokens['component']['__general__']['header']['--c-header--logotype-height-multiplier']);
     }
 
+    #[TestDox('converts footer logotype height from a 3-12 scale to the home link height multiplier')]
+    public function testConvertsFooterHomeLinkHeightMultiplier(): void
+    {
+        $tokens = ['component' => ['__general__' => ['footer' => ['--c-footer--home-link-height-multiplier' => '3']]]];
+
+        $decoratedTokens = (new DecorateDesignTokens())->decorate($tokens);
+
+        $this->assertSame(0.5, $decoratedTokens['component']['__general__']['footer']['--c-footer--home-link-height-multiplier']);
+    }
+
     #[TestDox('converts --space from a 0-12 scale to a 0-2 scale')]
     public function testConvertsSpace(): void
     {

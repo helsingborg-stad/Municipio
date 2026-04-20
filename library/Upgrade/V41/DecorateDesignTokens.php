@@ -31,6 +31,11 @@ class DecorateDesignTokens
             $tokens['component']['__general__']['header']['--c-header--logotype-height-multiplier'] = (float) $tokens['component']['__general__']['header']['--c-header--logotype-height-multiplier'] / 6;
         }
 
+        if (!is_null($tokens['component']['__general__']['footer']['--c-footer--home-link-height-multiplier'] ?? null)) {
+            // Legacy setting used a 3-12 scale with default 6.
+            $tokens['component']['__general__']['footer']['--c-footer--home-link-height-multiplier'] = (float) $tokens['component']['__general__']['footer']['--c-footer--home-link-height-multiplier'] / 6;
+        }
+
         if (!is_null($tokens['token']['--space'] ?? null)) {
             // convert from 0-12 scale to 0-2 scale
             $tokens['token']['--space'] = ((float) $tokens['token']['--space'] / 12) * 2;
