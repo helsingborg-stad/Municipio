@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-20T11:38:17+00:00\n"
+"POT-Creation-Date: 2026-04-21T12:55:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -655,8 +655,8 @@ msgid "px"
 msgstr ""
 
 #: library/AcfFields/php/chat.php:8
-#: library/Chat/ChatFeature.php:73
-#: library/Chat/ChatFeature.php:74
+#: library/Chat/Admin/RegisterChatAdminPage.php:25
+#: library/Chat/Admin/RegisterChatAdminPage.php:26
 msgid "Chat Settings"
 msgstr ""
 
@@ -2960,7 +2960,7 @@ msgid "Login/Logout"
 msgstr ""
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:28
-#: library/Chat/ChatFeature.php:78
+#: library/Chat/Admin/RegisterChatAdminPage.php:30
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
@@ -3237,67 +3237,67 @@ msgstr ""
 msgid "This email was sent from %s."
 msgstr ""
 
-#: library/Chat/ChatEndpoint.php:33
-msgid "No message provided."
-msgstr ""
-
-#: library/Chat/ChatEndpoint.php:52
-msgid "Assistant not found."
-msgstr ""
-
-#: library/Chat/ChatEndpoint.php:60
-msgid "Assistant configuration is incomplete."
-msgstr ""
-
-#: library/Chat/ChatEndpoint.php:114
-msgid "Failed to communicate with chat API."
-msgstr ""
-
-#: library/Chat/ChatFeature.php:79
+#: library/Chat/Admin/RegisterChatAdminPage.php:31
 msgid "Chat settings has been saved."
 msgstr ""
 
-#: library/Chat/ChatFeature.php:88
+#: library/Chat/ChatEndpoint.php:64
+msgid "No message provided."
+msgstr ""
+
+#: library/Chat/ChatEndpoint.php:90
+msgid "Assistant not found."
+msgstr ""
+
+#: library/Chat/ChatEndpoint.php:100
+msgid "Assistant configuration is incomplete."
+msgstr ""
+
+#: library/Chat/ChatEndpoint.php:185
+msgid "Failed to communicate with chat API."
+msgstr ""
+
+#: library/Chat/Frontend/EnqueueChatScripts.php:34
 msgid "Sending..."
 msgstr ""
 
-#: library/Chat/ChatFeature.php:89
+#: library/Chat/Frontend/EnqueueChatScripts.php:35
 msgid "Writing..."
 msgstr ""
 
-#: library/Chat/ChatFeature.php:90
+#: library/Chat/Frontend/EnqueueChatScripts.php:36
 msgid "Using tools..."
 msgstr ""
 
-#: library/Chat/ChatFeature.php:91
+#: library/Chat/Frontend/EnqueueChatScripts.php:37
 msgid "An error occurred. Try again later."
 msgstr ""
 
-#: library/Chat/ChatFeature.php:100
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:33
 #: library/Chat/Module/ChatModule.php:14
 msgid "Chat"
 msgstr ""
 
-#: library/Chat/ChatFeature.php:101
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:34
 msgid "Chat with AI"
 msgstr ""
 
-#: library/Chat/ChatFeature.php:102
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:35
 #: library/Chat/Module/ChatModule.php:25
 msgid "You"
 msgstr ""
 
-#: library/Chat/ChatFeature.php:103
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:36
 #: library/Chat/Module/ChatModule.php:26
 msgid "Assistant"
 msgstr ""
 
-#: library/Chat/ChatFeature.php:104
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:37
 #: library/Chat/Module/ChatModule.php:27
 msgid "Write your question here"
 msgstr ""
 
-#: library/Chat/ChatFeature.php:105
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:38
 #: library/Chat/Module/ChatModule.php:28
 msgid "Send"
 msgstr ""

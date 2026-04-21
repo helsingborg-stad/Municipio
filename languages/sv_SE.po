@@ -4262,7 +4262,7 @@ msgid "Search"
 msgstr "Sök"
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:28
-#: library/Chat/ChatFeature.php:78
+#: library/Chat/Admin/RegisterChatAdminPage.php:30
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
@@ -10890,8 +10890,8 @@ msgid "Open in new window"
 msgstr ""
 
 #: library/AcfFields/php/chat.php:8
-#: library/Chat/ChatFeature.php:73
-#: library/Chat/ChatFeature.php:74
+#: library/Chat/Admin/RegisterChatAdminPage.php:25
+#: library/Chat/Admin/RegisterChatAdminPage.php:26
 msgid "Chat Settings"
 msgstr "Chattinställningar"
 
@@ -10944,39 +10944,39 @@ msgstr ""
 msgid "Invalid or missing attributes."
 msgstr ""
 
-#: library/Chat/ChatEndpoint.php:33
+#: library/Chat/ChatEndpoint.php:64
 msgid "No message provided."
 msgstr "Inget meddelande angivet."
 
-#: library/Chat/ChatEndpoint.php:52
+#: library/Chat/ChatEndpoint.php:90
 msgid "Assistant not found."
 msgstr "Assistenten hittades inte."
 
-#: library/Chat/ChatEndpoint.php:60
+#: library/Chat/ChatEndpoint.php:100
 msgid "Assistant configuration is incomplete."
 msgstr "Assistentkonfigurationen är ofullständig."
 
-#: library/Chat/ChatEndpoint.php:114
+#: library/Chat/ChatEndpoint.php:185
 msgid "Failed to communicate with chat API."
 msgstr "Det gick inte att kommunicera med chatt-API:et."
 
-#: library/Chat/ChatFeature.php:79
+#: library/Chat/Admin/RegisterChatAdminPage.php:31
 msgid "Chat settings has been saved."
 msgstr "Chattinställningarna har sparats."
 
-#: library/Chat/ChatFeature.php:88
+#: library/Chat/Frontend/EnqueueChatScripts.php:34
 msgid "Sending..."
 msgstr "Skickar..."
 
-#: library/Chat/ChatFeature.php:89
+#: library/Chat/Frontend/EnqueueChatScripts.php:35
 msgid "Writing..."
 msgstr "Skriver..."
 
-#: library/Chat/ChatFeature.php:90
+#: library/Chat/Frontend/EnqueueChatScripts.php:36
 msgid "Using tools..."
 msgstr "Använder verktyg..."
 
-#: library/Chat/ChatFeature.php:91
+#: library/Chat/Frontend/EnqueueChatScripts.php:37
 msgid "An error occurred. Try again later."
 msgstr "Ett fel uppstod. Försök igen senare."
 
@@ -11008,7 +11008,7 @@ msgstr "Text för knappen."
 msgid "Unique ID of assistant to connect this chat to. Find in \"Chat Settings\"."
 msgstr "Unikt ID för assistenten som denna chatt ska kopplas till. Hittas i \"Chattinställningar\"."
 
-#: library/Chat/ChatFeature.php:100
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:33
 #: library/Chat/Module/ChatModule.php:14
 msgid "Chat"
 msgstr "Chatt"
@@ -11033,7 +11033,7 @@ msgstr ""
 msgid "Button color"
 msgstr ""
 
-#: library/Chat/ChatFeature.php:101
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:34
 msgid "Chat with AI"
 msgstr "Chatta med AI"
 
@@ -11057,22 +11057,22 @@ msgctxt "block description"
 msgid "A single row within a backdrop banner."
 msgstr ""
 
-#: library/Chat/ChatFeature.php:102
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:35
 #: library/Chat/Module/ChatModule.php:25
 msgid "You"
 msgstr "Du"
 
-#: library/Chat/ChatFeature.php:103
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:36
 #: library/Chat/Module/ChatModule.php:26
 msgid "Assistant"
 msgstr "Assistent"
 
-#: library/Chat/ChatFeature.php:104
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:37
 #: library/Chat/Module/ChatModule.php:27
 msgid "Write your question here"
 msgstr "Ställ din fråga här"
 
-#: library/Chat/ChatFeature.php:105
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:38
 #: library/Chat/Module/ChatModule.php:28
 msgid "Send"
 msgstr "Skicka"
