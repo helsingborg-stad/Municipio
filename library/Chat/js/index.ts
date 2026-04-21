@@ -79,8 +79,6 @@ class Chat {
 	#apiRoot: string = "";
 
 	initialize() {
-		console.log("Chat initialize");
-
 		this.#apiRoot = wpApiSettings.root;
 
 		this.#initGlobalChat();
@@ -222,8 +220,6 @@ class Chat {
 			// Assume global chat is disabled
 			return;
 		}
-
-		console.log("Init global chat");
 
 		// TODO: temp hack
 		const panel = ChatUtils.safeQueryElement(".c-fab__panel", chatRoot);

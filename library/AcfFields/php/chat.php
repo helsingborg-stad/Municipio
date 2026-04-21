@@ -82,7 +82,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'layout' => 'table',
+            'layout' => 'row',
             'pagination' => 0,
             'min' => 0,
             'max' => 0,

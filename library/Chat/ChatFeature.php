@@ -8,6 +8,7 @@ use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
@@ -17,7 +18,7 @@ use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
-class ChatFeature
+class ChatFeature implements Hookable
 {
     public function __construct(
         private __&AddAction&AddFilter&ApplyFilters&WpCacheGet&WpCacheSet&GetOption $wpService,
@@ -25,7 +26,7 @@ class ChatFeature
         private GetField&AddOptionsPage $acfService,
     ) {}
 
-    public function enable(): void
+    public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'addAdminPage']);
 
@@ -45,17 +46,19 @@ class ChatFeature
 
     public function isEnabled(): bool
     {
-        return $this->acfService->getField('chat_enabled', 'option') === true;
+        return (bool) $this->acfService->getField('chat_enabled', 'option');
     }
 
     public function isGlobalChatEnabled(): bool
     {
-        return $this->acfService->getField('chat_global_enabled', 'option') === true;
+        return (bool) $this->acfService->getField('chat_global_enabled', 'option');
     }
 
     private function registerModule(): void
     {
-        modularity_register_module(__DIR__ . '/Module', 'ChatModule');
+        if (function_exists('modularity_register_module')) {
+            modularity_register_module(__DIR__ . '/Module', 'ChatModule');
+        }
 
         $this->wpService->addFilter('/Modularity/externalViewPath', function (array $viewPaths): array {
             $viewPaths['mod-chat'] = __DIR__ . '/Module/views';
@@ -83,12 +86,14 @@ class ChatFeature
 
     public function enqueueScripts(): void
     {
-        $this->enqueue->add('js/chat.js')
-            ->with()->translation('municipioChatStrings', [
-                'sending'    => $this->wpService->__('Sending...', 'municipio'),
-                'writing'    => $this->wpService->__('Writing...', 'municipio'),
+        $this->enqueue
+            ->add('js/chat.js')
+            ->with()
+            ->translation('municipioChatStrings', [
+                'sending' => $this->wpService->__('Sending...', 'municipio'),
+                'writing' => $this->wpService->__('Writing...', 'municipio'),
                 'usingTools' => $this->wpService->__('Using tools...', 'municipio'),
-                'error'      => $this->wpService->__('An error occurred. Try again later.', 'municipio'),
+                'error' => $this->wpService->__('An error occurred. Try again later.', 'municipio'),
             ]);
     }
 
@@ -97,12 +102,12 @@ class ChatFeature
         $renderer = new Renderer((new BladeServiceFactory($this->wpService))->create([__DIR__ . '/views']));
         $markup = $renderer->render('ChatBubble', [
             'i18n' => [
-                'chat'          => $this->wpService->__('Chat', 'municipio'),
-                'chatWithAi'    => $this->wpService->__('Chat with AI', 'municipio'),
-                'you'           => $this->wpService->__('You', 'municipio'),
-                'assistant'     => $this->wpService->__('Assistant', 'municipio'),
+                'chat' => $this->wpService->__('Chat', 'municipio'),
+                'chatWithAi' => $this->wpService->__('Chat with AI', 'municipio'),
+                'you' => $this->wpService->__('You', 'municipio'),
+                'assistant' => $this->wpService->__('Assistant', 'municipio'),
                 'writeQuestion' => $this->wpService->__('Write your question here', 'municipio'),
-                'send'          => $this->wpService->__('Send', 'municipio'),
+                'send' => $this->wpService->__('Send', 'municipio'),
             ],
         ]);
         echo $markup;

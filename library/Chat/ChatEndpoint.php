@@ -13,7 +13,7 @@ class ChatEndpoint extends RestApiEndpoint
 
     public function __construct(
         private GetField $acfService,
-        private PIIRedactorInterface $PIIRedactor,
+        private PIIRedactorInterface $piiRedactor,
     ) {}
 
     public function handleRegisterRestRoute(): bool
@@ -25,95 +25,183 @@ class ChatEndpoint extends RestApiEndpoint
         ));
     }
 
-    public function handleRequest(\WP_REST_Request $request): \WP_REST_Response
+    public function handleRequest(\WP_REST_Request $request): \WP_REST_Response|\WP_Error
     {
         $params = $request->get_params();
 
-        if (!isset($params['message']) || empty($params['message'])) {
-            return rest_ensure_response(['error' => __('No message provided.', 'municipio')]);
+        $messageError = $this->validateMessage($params);
+        if (is_wp_error($messageError)) {
+            return $messageError;
         }
 
+        $assistant = $this->resolveAssistant($params);
+        if (is_wp_error($assistant)) {
+            return $assistant;
+        }
+
+        $configError = $this->validateAssistantConfig($assistant);
+        if (is_wp_error($configError)) {
+            return $configError;
+        }
+
+        $body = $this->buildRequestBody($params, $assistant);
+
+        $this->registerSseStream(
+            $request,
+            $assistant['server_url'],
+            $assistant['api_key'],
+            $body,
+        );
+
+        return rest_ensure_response(null);
+    }
+
+    private function validateMessage(array $params): ?\WP_Error
+    {
+        if (!isset($params['message']) || empty($params['message'])) {
+            return new \WP_Error(
+                'chat_message_missing',
+                __('No message provided.', 'municipio'),
+                ['status' => 400],
+            );
+        }
+
+        return null;
+    }
+
+    private function resolveAssistant(array $params): array|\WP_Error
+    {
         $assistantUniqueId = $params['assistant_id'] ?? null;
 
-        if (!isset($assistantUniqueId) || empty($assistantUniqueId)) {
+        if (empty($assistantUniqueId)) {
             $assistantUniqueId = $this->acfService->getField('chat_default_assistant', 'option');
         }
 
         $allAssistants = $this->acfService->getField('chat_assistants', 'option') ?? [];
-        $assistant = null;
-        foreach ($allAssistants as $a) {
-            if ($a['id'] === $assistantUniqueId) {
-                $assistant = $a;
-                break;
+
+        foreach ($allAssistants as $candidate) {
+            if ($candidate['id'] === $assistantUniqueId) {
+                return $candidate;
             }
         }
 
-        if (!$assistant) {
-            return rest_ensure_response(['error' => __('Assistant not found.', 'municipio')]);
+        return new \WP_Error(
+            'chat_assistant_not_found',
+            __('Assistant not found.', 'municipio'),
+            ['status' => 404],
+        );
+    }
+
+    private function validateAssistantConfig(array $assistant): ?\WP_Error
+    {
+        if (empty($assistant['server_url']) || empty($assistant['api_key']) || empty($assistant['assistant_id'])) {
+            return new \WP_Error(
+                'chat_assistant_incomplete',
+                __('Assistant configuration is incomplete.', 'municipio'),
+                ['status' => 500],
+            );
         }
 
-        $chatUrl = $assistant['server_url'] ?? null;
-        $apiKey = $assistant['api_key'] ?? null;
-        $remoteAssistantId = $assistant['assistant_id'] ?? null;
+        return null;
+    }
 
-        if (!$chatUrl || !$apiKey || !$remoteAssistantId) {
-            return rest_ensure_response(['error' => __('Assistant configuration is incomplete.', 'municipio')]);
-        }
-
-        $sessionId = $params['session_id'] ?? null;
-
-        // Clean-up user message
+    private function buildRequestBody(array $params, array $assistant): array
+    {
         $message = sanitize_text_field($params['message']);
-        $redaction = $this->PIIRedactor->extractAndRedactPII($message);
+        $redaction = $this->piiRedactor->extractAndRedactPII($message);
 
-        // Perform a POST request to the external chat API
         $body = [
             'question' => $redaction->redactedText,
             'stream' => true,
         ];
 
+        $sessionId = $params['session_id'] ?? null;
         if ($sessionId) {
             $body['session_id'] = $sessionId;
         } else {
-            $body['assistant_id'] = $remoteAssistantId;
+            $body['assistant_id'] = $assistant['assistant_id'];
         }
 
-        // Set SSE headers
+        return $body;
+    }
+
+    private function registerSseStream(
+        \WP_REST_Request $request,
+        string $chatUrl,
+        string $apiKey,
+        array $body,
+    ): void {
+        add_filter(
+            'rest_pre_serve_request',
+            function ($served, $result, $filterRequest) use ($chatUrl, $apiKey, $body, $request) {
+                if ($filterRequest !== $request) {
+                    return $served;
+                }
+                $this->streamResponse($chatUrl, $apiKey, $body);
+                return true;
+            },
+            10,
+            3,
+        );
+    }
+
+    private function streamResponse(string $chatUrl, string $apiKey, array $body): void
+    {
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
         header('Connection: keep-alive');
         header('X-Accel-Buffering: no'); // Disables nginx buffering
 
-        // Disable PHP output buffering
         while (ob_get_level()) {
             ob_end_clean();
         }
 
         $ch = curl_init($chatUrl);
-        curl_setopt_array($ch, [
-            CURLOPT_POST => true,
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json',
-                'X-Api-Key: ' . $apiKey,
-            ],
-            CURLOPT_POSTFIELDS => json_encode($body),
-            CURLOPT_RETURNTRANSFER => false,
-            CURLOPT_WRITEFUNCTION => function ($ch, $data) {
-                echo $data . "\n\n";
+
+        try {
+            curl_setopt_array($ch, [
+                CURLOPT_POST => true,
+                CURLOPT_HTTPHEADER => [
+                    'Content-Type: application/json',
+                    'X-Api-Key: ' . $apiKey,
+                ],
+                CURLOPT_POSTFIELDS => json_encode($body),
+                CURLOPT_RETURNTRANSFER => false,
+                CURLOPT_WRITEFUNCTION => function ($ch, $data) {
+                    echo $data . "\n\n";
+                    ob_flush();
+                    flush();
+                    return \strlen($data);
+                },
+            ]);
+
+            $success = curl_exec($ch);
+
+            if ($success === false || curl_errno($ch) !== 0) {
+                $this->logCurlError(curl_error($ch));
+                echo
+                    "event: error\ndata: "
+                        . json_encode([
+                            'error' => __('Failed to communicate with chat API.', 'municipio'),
+                            'code' => 'chat_api_communication_failed',
+                        ])
+                        . "\n\n"
+                ;
                 ob_flush();
                 flush();
-                return \strlen($data);
-            },
-        ]);
-
-        curl_exec($ch);
-
-        if (curl_error($ch)) {
-            echo "event: error\ndata: " . json_encode(['error' => __('Failed to communicate with chat API.', 'municipio'), 'details' => curl_error($ch)]) . "\n\n";
-            ob_flush();
-            flush();
+            }
+        } finally {
+            curl_close($ch);
         }
+    }
 
-        exit();
+    private function logCurlError(string $curlErrorMessage): void
+    {
+        error_log(
+            sprintf(
+                '[ChatEndpoint] Chat API communication failed: %s',
+                $curlErrorMessage,
+            ),
+        );
     }
 }

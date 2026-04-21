@@ -15,7 +15,7 @@
                 {{ $title }}
             @endtypography
         @endif
-        @if (!empty($title))
+        @if (!empty($subtitle))
             @typography([
                 'variant' => 'p'
             ])

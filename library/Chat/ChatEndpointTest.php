@@ -41,6 +41,13 @@ if (!function_exists(__NAMESPACE__ . '\__')) {
     }
 }
 
+if (!function_exists(__NAMESPACE__ . '\is_wp_error')) {
+    function is_wp_error($thing): bool
+    {
+        return $thing instanceof \WP_Error;
+    }
+}
+
 class ChatEndpointTest extends TestCase
 {
     #[TestDox('class can be instantiated')]
@@ -59,7 +66,7 @@ class ChatEndpointTest extends TestCase
         $this->assertTrue($endpoint->handleRegisterRestRoute());
     }
 
-    #[TestDox('handleRequest() returns an error response when no message parameter is provided')]
+    #[TestDox('handleRequest() returns a WP_Error when no message parameter is provided')]
     public function testHandleRequestReturnsErrorWhenMessageIsMissing(): void
     {
         $endpoint = new ChatEndpoint($this->getAcfService(), $this->getPIIRedactor());
@@ -67,12 +74,10 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertIsArray($response->data);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
-    #[TestDox('handleRequest() returns an error response when the message parameter is empty')]
+    #[TestDox('handleRequest() returns a WP_Error when the message parameter is empty')]
     public function testHandleRequestReturnsErrorWhenMessageIsEmpty(): void
     {
         $endpoint = new ChatEndpoint($this->getAcfService(), $this->getPIIRedactor());
@@ -80,11 +85,10 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
-    #[TestDox('handleRequest() returns an error response when no matching assistant is configured')]
+    #[TestDox('handleRequest() returns a WP_Error when no matching assistant is configured')]
     public function testHandleRequestReturnsErrorWhenAssistantNotFound(): void
     {
         $acfService = $this->getAcfService([
@@ -99,11 +103,10 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
-    #[TestDox('handleRequest() returns an error response when the matched assistant is missing server_url')]
+    #[TestDox('handleRequest() returns a WP_Error when the matched assistant is missing server_url')]
     public function testHandleRequestReturnsErrorWhenAssistantMissingServerUrl(): void
     {
         $acfService = $this->getAcfService([
@@ -118,11 +121,10 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
-    #[TestDox('handleRequest() returns an error response when the matched assistant is missing api_key')]
+    #[TestDox('handleRequest() returns a WP_Error when the matched assistant is missing api_key')]
     public function testHandleRequestReturnsErrorWhenAssistantMissingApiKey(): void
     {
         $acfService = $this->getAcfService([
@@ -137,11 +139,10 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
-    #[TestDox('handleRequest() returns an error response when the matched assistant is missing assistant_id')]
+    #[TestDox('handleRequest() returns a WP_Error when the matched assistant is missing assistant_id')]
     public function testHandleRequestReturnsErrorWhenAssistantMissingAssistantId(): void
     {
         $acfService = $this->getAcfService([
@@ -156,8 +157,7 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
     #[TestDox('handleRequest() resolves the assistant by the explicit assistant_id parameter when provided')]
@@ -179,8 +179,7 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        $this->assertInstanceOf(\WP_REST_Response::class, $response);
-        $this->assertArrayHasKey('error', $response->data);
+        $this->assertInstanceOf(\WP_Error::class, $response);
     }
 
     private function createRequest(array $params): \WP_REST_Request

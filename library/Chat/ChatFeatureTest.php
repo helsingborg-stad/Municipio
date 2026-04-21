@@ -16,7 +16,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $this->getAcfService()
+            $this->getAcfService(),
         );
 
         $this->assertInstanceOf(ChatFeature::class, $feature);
@@ -28,7 +28,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $this->getAcfService(['chat_enabled' => true])
+            $this->getAcfService(['chat_enabled' => true]),
         );
 
         $this->assertTrue($feature->isEnabled());
@@ -40,7 +40,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $this->getAcfService(['chat_enabled' => false])
+            $this->getAcfService(['chat_enabled' => false]),
         );
 
         $this->assertFalse($feature->isEnabled());
@@ -52,7 +52,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $this->getAcfService()
+            $this->getAcfService(),
         );
 
         $this->assertFalse($feature->isEnabled());
@@ -64,7 +64,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $this->getAcfService(['chat_global_enabled' => true])
+            $this->getAcfService(['chat_global_enabled' => true]),
         );
 
         $this->assertTrue($feature->isGlobalChatEnabled());
@@ -76,7 +76,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $this->getAcfService(['chat_global_enabled' => false])
+            $this->getAcfService(['chat_global_enabled' => false]),
         );
 
         $this->assertFalse($feature->isGlobalChatEnabled());
@@ -90,7 +90,7 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $this->getWpService(),
             $this->getEnqueueManager(),
-            $acfService
+            $acfService,
         );
 
         $feature->addAdminPage();
@@ -107,10 +107,10 @@ class ChatFeatureTest extends TestCase
         $feature = new ChatFeature(
             $wpService,
             $this->getEnqueueManager(),
-            $this->getAcfService(['chat_enabled' => false])
+            $this->getAcfService(['chat_enabled' => false]),
         );
 
-        $feature->enable();
+        $feature->addHooks();
 
         $this->assertCount(1, $wpService->methodCalls['addAction'] ?? []);
         $this->assertSame('init', $wpService->methodCalls['addAction'][0][0]);
@@ -119,13 +119,13 @@ class ChatFeatureTest extends TestCase
     private function getWpService(): FakeWpService
     {
         return new FakeWpService([
-            'addAction'    => true,
-            'addFilter'    => true,
+            'addAction' => true,
+            'addFilter' => true,
             'applyFilters' => fn($tag, $value) => $value,
-            'wpCacheGet'   => false,
-            'wpCacheSet'   => true,
-            'getOption'    => false,
-            '__'           => '',
+            'wpCacheGet' => false,
+            'wpCacheSet' => true,
+            'getOption' => false,
+            '__' => '',
         ]);
     }
 

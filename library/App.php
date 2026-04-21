@@ -382,9 +382,9 @@ class App
          */
         (new \Municipio\Chat\ChatFeature(
             $this->wpService,
-            $this->wpUtilService->enqueue(), // Note: should this instance be shared?
+            $this->wpUtilService->enqueue(),
             $this->acfService,
-        ))->enable();
+        ))->addHooks();
     }
 
     /**
