@@ -502,6 +502,11 @@ class App
      */
     private function setUpPolylangIntegration(): void
     {
+        // If Polylang is not active, do not register any of the integrations.
+        if(function_exists('pll_get_post_translations') === false) {
+            return;
+        }
+
         $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
         $resolvePageTreeTranslatedChildren = new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService);
         $resolveNavigationItemsLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService);
