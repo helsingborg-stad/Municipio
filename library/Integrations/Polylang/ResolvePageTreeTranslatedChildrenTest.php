@@ -46,7 +46,9 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
             defaultLanguageResolver: static fn (): string => 'en',
             childrenByParentResolver: static fn (int $postId, string $postType): array => [
                 ['ID' => 120, 'post_title' => 'Testpage sub (en)', 'post_parent' => 116, 'post_type' => 'page']
-            ]
+            ],
+            currentPostIdResolver: static fn (): int => 124,
+            ancestorIdsResolver: static fn (): array => [0, 128, 124]
         );
 
         $translatedChildren = $sut->resolveTranslatedChildren([], 128);
@@ -54,6 +56,8 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
         static::assertCount(1, $translatedChildren);
         static::assertSame(124, $translatedChildren[0]['ID']);
         static::assertSame(128, $translatedChildren[0]['post_parent']);
+        static::assertTrue($translatedChildren[0]['active']);
+        static::assertTrue($translatedChildren[0]['ancestor']);
     }
 
     #[TestDox('resolveTranslatedChildren() returns existing children when children are already provided')]
@@ -86,6 +90,8 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
      * @param ?Closure $translatedPostResolver Optional translated post resolver.
      * @param ?Closure $defaultLanguageResolver Optional default language resolver.
      * @param ?Closure $childrenByParentResolver Optional children resolver.
+     * @param ?Closure $currentPostIdResolver Optional current post ID resolver.
+     * @param ?Closure $ancestorIdsResolver Optional ancestor IDs resolver.
      *
      * @return ResolvePageTreeTranslatedChildren The system under test.
      */
@@ -94,7 +100,9 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
         ?Closure $currentLanguageResolver = null,
         ?Closure $translatedPostResolver = null,
         ?Closure $defaultLanguageResolver = null,
-        ?Closure $childrenByParentResolver = null
+        ?Closure $childrenByParentResolver = null,
+        ?Closure $currentPostIdResolver = null,
+        ?Closure $ancestorIdsResolver = null
     ): ResolvePageTreeTranslatedChildren {
         return new ResolvePageTreeTranslatedChildren(
             new FakeWpService([
@@ -106,7 +114,9 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
             $currentLanguageResolver,
             $translatedPostResolver,
             $defaultLanguageResolver,
-            $childrenByParentResolver
+            $childrenByParentResolver,
+            $currentPostIdResolver,
+            $ancestorIdsResolver
         );
     }
 }

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Municipio\Integrations\Polylang;
 
 use Closure;
+use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\Helper\CurrentPostId;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetTheTitle;
@@ -25,6 +27,8 @@ class ResolvePageTreeTranslatedChildren implements Hookable
      * @param ?Closure $translatedPostResolver Optional translated post resolver.
      * @param ?Closure $defaultLanguageResolver Optional default language resolver.
      * @param ?Closure $childrenByParentResolver Optional children resolver.
+     * @param ?Closure $currentPostIdResolver Optional current post ID resolver.
+     * @param ?Closure $ancestorIdsResolver Optional ancestor IDs resolver.
      */
     public function __construct(
         private AddFilter&GetPostType&GetTheTitle $wpService,
@@ -32,7 +36,9 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         private ?Closure $currentLanguageResolver = null,
         private ?Closure $translatedPostResolver = null,
         private ?Closure $defaultLanguageResolver = null,
-        private ?Closure $childrenByParentResolver = null
+        private ?Closure $childrenByParentResolver = null,
+        private ?Closure $currentPostIdResolver = null,
+        private ?Closure $ancestorIdsResolver = null
     ) {
     }
 
@@ -97,6 +103,10 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         }
 
         $translatedChildren = [];
+        $currentPostId      = $this->getCurrentPostIdResolver()?->__invoke();
+        $ancestorIds        = $this->getAncestorIdsResolver()?->__invoke();
+        $ancestorIds        = is_array($ancestorIds) ? $ancestorIds : [];
+
         foreach ($sourceChildren as $sourceChild) {
             if (empty($sourceChild['ID']) || !is_numeric($sourceChild['ID'])) {
                 continue;
@@ -115,6 +125,8 @@ class ResolvePageTreeTranslatedChildren implements Hookable
                 'post_title'  => (string) $this->wpService->getTheTitle($translatedChildId),
                 'post_parent' => $postId,
                 'post_type'   => (string) $this->wpService->getPostType($translatedChildId),
+                'active'      => is_numeric($currentPostId) && (int) $currentPostId === $translatedChildId,
+                'ancestor'    => in_array($translatedChildId, $ancestorIds),
             ];
         }
 
@@ -240,5 +252,33 @@ class ResolvePageTreeTranslatedChildren implements Hookable
 
         return static fn (int $postId, string $postType): array =>
             GetPostsByParent::getPostsByParent($postId, $postType);
+    }
+
+    /**
+     * Get the current post ID resolver.
+     *
+     * @return ?Closure The current post ID resolver.
+     */
+    private function getCurrentPostIdResolver(): ?Closure
+    {
+        if ($this->currentPostIdResolver instanceof Closure) {
+            return $this->currentPostIdResolver;
+        }
+
+        return static fn (): int => (int) CurrentPostId::get();
+    }
+
+    /**
+     * Get the ancestor IDs resolver.
+     *
+     * @return ?Closure The ancestor IDs resolver.
+     */
+    private function getAncestorIdsResolver(): ?Closure
+    {
+        if ($this->ancestorIdsResolver instanceof Closure) {
+            return $this->ancestorIdsResolver;
+        }
+
+        return static fn (): array => GetAncestors::getAncestors();
     }
 }
