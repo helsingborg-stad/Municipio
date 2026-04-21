@@ -224,14 +224,7 @@ class App
         $this->hooksRegistrar->register($moveAdminPageToSettings);
 
         /* Integration: Polylang */
-        $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
-        $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
-        $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
-        $resolveFontAttachmentQueries = new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService);
-        $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
-        $this->hooksRegistrar->register($resolveNavigationCacheKey);
-        $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
-        $this->hooksRegistrar->register($resolveFontAttachmentQueries);
+        $this->setUpPolylangIntegration();
 
         /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
@@ -510,6 +503,37 @@ class App
             $config,
         );
         $redirect->addHooks();
+    }
+
+    /**
+     * Sets up Polylang integrations.
+     *
+     * @return void
+     */
+    private function setUpPolylangIntegration(): void
+    {
+        // If Polylang is not active, do not register any of the integrations.
+        if(function_exists('pll_get_post_translations') === false) {
+            return;
+        }
+
+        $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
+        $resolvePageTreeTranslatedChildren = new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService);
+        $resolveNavigationItemsLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService);
+        $resolveLanguageMenuItems = new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService);
+        $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
+        $resolveHomeUrl = new \Municipio\Integrations\Polylang\ResolveHomeUrl($this->wpService);
+        $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
+        $resolveFontAttachmentQueries = new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService);
+
+        $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
+        $this->hooksRegistrar->register($resolvePageTreeTranslatedChildren);
+        $this->hooksRegistrar->register($resolveNavigationItemsLanguage);
+        $this->hooksRegistrar->register($resolveLanguageMenuItems);
+        $this->hooksRegistrar->register($resolveNavigationCacheKey);
+        $this->hooksRegistrar->register($resolveHomeUrl);
+        $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
+        $this->hooksRegistrar->register($resolveFontAttachmentQueries);
     }
 
     /**
