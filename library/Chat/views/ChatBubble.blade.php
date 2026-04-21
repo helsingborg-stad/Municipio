@@ -11,7 +11,11 @@
     ]
 ])
     <div class="u-display--flex u-flex-direction--column u-gap-2" style="max-height: 60vh;">
-        @typography(['variant' => 'h6', 'classList' => ['c-fab__heading']])
+        @typography([
+            'element' => 'h6',
+            'variant' => 'h6',
+            'classList' => ['c-fab__heading']
+        ])
             {{ $i18n['chatWithAi'] }}
         @endtypography
 

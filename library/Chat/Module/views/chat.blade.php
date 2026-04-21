@@ -14,6 +14,7 @@
     ])
         @if (!empty($title))
             @typography([
+                'element' => 'h1',
                 'variant' => 'h1'
             ])
                 {{ $title }}
@@ -21,6 +22,7 @@
         @endif
         @if (!empty($subtitle))
             @typography([
+                'element' => 'p',
                 'variant' => 'p'
             ])
                 {{ $subtitle }}
