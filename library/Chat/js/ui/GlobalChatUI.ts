@@ -19,19 +19,19 @@ export const initGlobalChat = ({
 	}
 
 	const userMessageTemplate = utils.safeQueryElement<HTMLTemplateElement>(
-		"[data-chat-template-user]",
+		"[data-js-chat-template-user]",
 		chatRoot,
 	);
 	const assistantMessageTemplate = utils.safeQueryElement<HTMLTemplateElement>(
-		"[data-chat-template-assistant]",
+		"[data-js-chat-template-assistant]",
 		chatRoot,
 	);
 	const messagesRoot = utils.safeQueryElement<HTMLElement>(
-		"[data-chat-messages]",
+		"[data-js-chat-messages]",
 		chatRoot,
 	);
 	const inputForm = utils.safeQueryElement<HTMLFormElement>(
-		"form[data-chat-form]",
+		"form[data-js-chat-form]",
 		chatRoot,
 	);
 	const inputField = utils.safeQueryElement<

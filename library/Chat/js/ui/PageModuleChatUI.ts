@@ -5,20 +5,20 @@ const initPageModuleChat = (
 	{ utils, sessionFactory, apiRoot, strings }: ChatUIDependencies,
 ): void => {
 	const userMessageTemplate = utils.safeQueryElement<HTMLTemplateElement>(
-		"[data-chat-template-user]",
+		"[data-js-chat-template-user]",
 		chatEl,
 	);
 	const assistantMessageTemplate = utils.safeQueryElement<HTMLTemplateElement>(
-		"[data-chat-template-assistant]",
+		"[data-js-chat-template-assistant]",
 		chatEl,
 	);
 	const messagesRoot = utils.safeQueryElement<HTMLElement>(
-		"[data-chat-messages]",
+		"[data-js-chat-messages]",
 		chatEl,
 	);
 
 	const initialGroup = utils.safeQueryElement<HTMLElement>(
-		"[data-chat-initial-group]",
+		"[data-js-chat-initial-group]",
 		chatEl,
 	);
 	const initialField = utils.safeQueryElement<
@@ -30,22 +30,22 @@ const initPageModuleChat = (
 	);
 
 	const mainGroup = utils.safeQueryElement<HTMLElement>(
-		"[data-chat-main-group]",
+		"[data-js-chat-main-group]",
 		chatEl,
 	);
 	const mainInputField = utils.safeQueryElement<
 		HTMLInputElement | HTMLTextAreaElement
 	>("input", mainGroup);
 	const mainSendButton = utils.safeQueryElement<HTMLButtonElement>(
-		"button[data-chat-send-button]",
+		"button[data-js-chat-send-button]",
 		mainGroup,
 	);
 	const closeButton = utils.safeQueryElement<HTMLButtonElement>(
-		"button[data-chat-close-button]",
+		"button[data-js-chat-close-button]",
 		chatEl,
 	);
 
-	const assistantId = chatEl.dataset.chatAssistant || null;
+	const assistantId = chatEl.dataset.jsChatAssistant || null;
 	const origSendButtonText = mainSendButton.textContent || "";
 
 	mainGroup.style.visibility = "hidden";
@@ -116,6 +116,6 @@ const initPageModuleChat = (
 
 export const initPageModuleChats = (deps: ChatUIDependencies): void => {
 	document
-		.querySelectorAll<HTMLElement>("[data-chat-assistant]")
+		.querySelectorAll<HTMLElement>("[data-js-chat-assistant]")
 		.forEach((chatEl) => { initPageModuleChat(chatEl, deps); });
 };
