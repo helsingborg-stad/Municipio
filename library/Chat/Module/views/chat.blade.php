@@ -1,9 +1,13 @@
+@php
+    $rootAttributes = ['data-js-chat-module' => true];
+    if (!empty($assistant_id)) {
+        $rootAttributes['data-js-chat-assistant'] = $assistant_id;
+    }
+@endphp
 @group([
     'direction' => 'vertical',
     'classList' => ['u-margin__bottom--2', 'u-margin__top--2', 'u-gap-1'],
-    'attributeList' => [
-        'data-js-chat-assistant' => $assistant_id ?? ''
-    ]
+    'attributeList' => $rootAttributes
 ])
     @group([
         'direction' => 'vertical'
@@ -31,13 +35,13 @@
         'action' => '#',
         'method' => 'POST',
         'classList' => ['u-width--100'],
-        'attributeList' => ['data-js-chat-form' => '']
+        'attributeList' => ['data-js-chat-form' => true]
         ])
         @group([
             'direction' => 'horizontal',
             'alignItems' => 'end',
             'classList' => ['u-gap-2', 'u-position--relative', 'u-width--100'],
-            'attributeList' => ['data-js-chat-initial-group' => '']
+            'attributeList' => ['data-js-chat-initial-group' => true]
         ])
             @field([
                 'type' => 'search',
@@ -72,7 +76,7 @@
                 'u-width--50'
             ],
             'attributeList' => [
-                'data-js-chat-main-group' => ''
+                'data-js-chat-main-group' => true
             ]
         ])
             @button([
@@ -85,11 +89,11 @@
                     'u-right--1',
                     'u-level-top',
                 ],
-                'attributeList' => ['data-js-chat-close-button' => ''],
+                'attributeList' => ['data-js-chat-close-button' => true],
             ])
             @endbutton
-            <div data-js-chat-messages="" style="display: flex; flex-direction: column; overflow-y: auto; max-height: 60vh;">
-                <template data-js-chat-template-user="y">
+            <div data-js-chat-messages="1" style="display: flex; flex-direction: column; overflow-y: auto; max-height: 60vh;">
+                <template data-js-chat-template-user="1">
                     @comment([
                         'author' => $i18n['you'],
                         'text' => 'asdf',
@@ -99,7 +103,7 @@
                     @endcomment
                 </template>
 
-                <template data-js-chat-template-assistant="y">
+                <template data-js-chat-template-assistant="1">
                     @comment([
                         'author' => $i18n['assistant'],
                         'text' => 'asdf',
@@ -114,7 +118,7 @@
             'action' => '#',
             'method' => 'POST',
             'classList' => ['u-display--flex', 'u-flex-direction--row', 'u-gap-2'],
-            'attributeList' => ['data-js-chat-form' => '']
+            'attributeList' => ['data-js-chat-form' => true]
             ])
             @field([
                 'type' => 'text',
@@ -125,7 +129,7 @@
                 'text' => $i18n['send'],
                 'color' => 'primary',
                 'style' => 'filled',
-                'attributeList' => ['data-js-chat-send-button' => ''],
+                'attributeList' => ['data-js-chat-send-button' => true],
             ])
             @endbutton
             @endform

@@ -116,6 +116,6 @@ const initPageModuleChat = (
 
 export const initPageModuleChats = (deps: ChatUIDependencies): void => {
 	document
-		.querySelectorAll<HTMLElement>("[data-js-chat-assistant]")
+		.querySelectorAll<HTMLElement>("[data-js-chat-module]")
 		.forEach((chatEl) => { initPageModuleChat(chatEl, deps); });
 };

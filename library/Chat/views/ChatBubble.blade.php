@@ -15,9 +15,9 @@
             {{ $i18n['chatWithAi'] }}
         @endtypography
 
-        <div data-js-chat-messages="" class="chat-messages u-padding--2" style="overflow-y: auto; overflow-wrap: anywhere;">
+        <div data-js-chat-messages="1" class="chat-messages u-padding--2" style="overflow-y: auto; overflow-wrap: anywhere;">
             {{-- Chat messages will be appended here --}}
-            <template data-js-chat-template-user="">
+            <template data-js-chat-template-user="1">
                 @comment([
                     'author' => $i18n['you'],
                     'text' => 'asdf',
@@ -27,7 +27,7 @@
                 @endcomment
             </template>
 
-            <template data-js-chat-template-assistant="">
+            <template data-js-chat-template-assistant="1">
                 @comment([
                     'author' => $i18n['assistant'],
                     'text' => 'asdf',
@@ -42,7 +42,7 @@
         'action' => '#',
         'method' => 'POST',
         'classList' => ['u-display--flex', 'u-flex-direction--column', 'u-gap-2'],
-        'attributeList' => ['data-js-chat-form' => '']
+        'attributeList' => ['data-js-chat-form' => true]
         ])
         @field([
             'type' => 'text',
