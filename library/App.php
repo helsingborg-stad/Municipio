@@ -382,9 +382,10 @@ class App
          */
         (new \Municipio\Chat\ChatFeature(
             $this->wpService,
-            $this->wpUtilService->enqueue(),
             $this->acfService,
-        ))->addHooks();
+            $this->wpUtilService->enqueue(),
+            $this->hooksRegistrar,
+        ))->enable();
     }
 
     /**
