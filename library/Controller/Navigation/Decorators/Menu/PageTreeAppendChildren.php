@@ -10,6 +10,7 @@ use Municipio\Controller\Navigation\Helper\IsUserLoggedIn;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetPostType;
 
 /**
@@ -20,7 +21,7 @@ class PageTreeAppendChildren implements MenuInterface
     /**
      * Constructor
      */
-    public function __construct(private MenuInterface $inner, private GetPostType $wpService)
+    public function __construct(private MenuInterface $inner, private GetPostType&ApplyFilters $wpService)
     {
     }
 
@@ -115,10 +116,22 @@ class PageTreeAppendChildren implements MenuInterface
     private function getChildrenForMenuItem(array $menuItem): array|bool
     {
         if ($menuItem['id'] == CurrentPostId::get()) {
-            return GetPostsByParent::getPostsByParent(
+            $children = GetPostsByParent::getPostsByParent(
                 $menuItem['id'],
                 $this->wpService->getPostType($menuItem['id'])
             );
+
+            if (!empty($children)) {
+                return $children;
+            }
+
+            $translatedChildren = $this->wpService->applyFilters(
+                'Municipio/Navigation/PageTree/Children',
+                [],
+                (int) $menuItem['id']
+            );
+
+            return is_array($translatedChildren) ? $translatedChildren : [];
         }
 
         return $this->indicateChildren($menuItem['id']);
