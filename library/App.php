@@ -226,12 +226,14 @@ class App
         /* Integration: Polylang */
         $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
         $resolvePageTreeTranslatedChildren = new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService);
+        $resolveNavigationItemsLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService);
         $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
         $resolveHomeUrl = new \Municipio\Integrations\Polylang\ResolveHomeUrl($this->wpService);
         $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
         $resolveFontAttachmentQueries = new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService);
         $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
         $this->hooksRegistrar->register($resolvePageTreeTranslatedChildren);
+        $this->hooksRegistrar->register($resolveNavigationItemsLanguage);
         $this->hooksRegistrar->register($resolveNavigationCacheKey);
         $this->hooksRegistrar->register($resolveHomeUrl);
         $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
