@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kirki\Compatibility;
 
-if (!class_exists(Kirki::class)) {
+if (!class_exists(Kirki::class, false)) {
     /**
      * Test stub for Kirki option retrieval.
      */

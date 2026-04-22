@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kirki\Compatibility;
 
-if (!class_exists(Kirki::class)) {
+if (!class_exists(Kirki::class, false)) {
     /**
      * Test stub for Kirki option retrieval.
      */
@@ -43,7 +43,7 @@ if (!class_exists(Kirki::class)) {
 
 namespace Kirki\Module\Webfonts;
 
-if (!class_exists(Fonts::class)) {
+if (!class_exists(Fonts::class, false)) {
     /**
      * Test stub for Kirki webfont helper methods.
      */
