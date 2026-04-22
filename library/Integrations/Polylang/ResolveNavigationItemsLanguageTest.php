@@ -167,6 +167,30 @@ class ResolveNavigationItemsLanguageTest extends TestCase
         static::assertSame([1024, 847], array_column($filtered, 'id'));
     }
 
+    #[TestDox('filterItemsByCurrentLanguage() falls back to native post terms when Polylang post language is unavailable')]
+    public function testFilterItemsByCurrentLanguageFallsBackToNativePostTerms(): void
+    {
+        $wpService = new FakeWpService([
+            'addFilter' => true,
+            'wpGetPostTerms' => static fn (int $postId, string $taxonomy, array $args): array => $postId === 124 ? ['sv'] : ['en'],
+        ]);
+
+        $sut = new ResolveNavigationItemsLanguage(
+            $wpService,
+            static fn (): string => 'sv'
+        );
+
+        $filtered = $sut->filterItemsByCurrentLanguage(
+            [
+                ['id' => 114, 'post_type' => 'page', 'label' => 'Testpage 1 (en)'],
+                ['id' => 124, 'post_type' => 'page', 'label' => 'Testpage sub (sv)'],
+            ],
+            'mobile'
+        );
+
+        static::assertSame([124], array_column($filtered, 'id'));
+    }
+
     /**
      * Get the system under test.
      *
@@ -180,7 +204,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
         ?Closure $postLanguageResolver = null
     ): ResolveNavigationItemsLanguage {
         return new ResolveNavigationItemsLanguage(
-            new FakeWpService(['addFilter' => true]),
+            new FakeWpService(['addFilter' => true, 'wpGetPostTerms' => []]),
             $currentLanguageResolver,
             $postLanguageResolver
         );

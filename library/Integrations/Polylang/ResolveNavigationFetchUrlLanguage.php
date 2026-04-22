@@ -42,7 +42,7 @@ class ResolveNavigationFetchUrlLanguage implements Hookable
      */
     public function appendCurrentLanguage(string $fetchUrl): string
     {
-        $currentLanguage = $this->getCurrentLanguageResolver()?->__invoke();
+        $currentLanguage = $this->getCurrentLanguageResolver()();
 
         if (!is_string($currentLanguage) || $currentLanguage === '') {
             return $fetchUrl;
@@ -92,9 +92,9 @@ class ResolveNavigationFetchUrlLanguage implements Hookable
     /**
      * Get the current language resolver.
      *
-     * @return ?Closure
+     * @return Closure
      */
-    private function getCurrentLanguageResolver(): ?Closure
+    private function getCurrentLanguageResolver(): Closure
     {
         if ($this->currentLanguageResolver instanceof Closure) {
             return $this->currentLanguageResolver;

@@ -6,8 +6,8 @@ namespace Municipio\Integrations\Polylang;
 
 use Closure;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Helper\GetGlobal;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\WpGetPostTerms;
 
 /**
  * Filters navigation items to the active Polylang language.
@@ -22,7 +22,7 @@ class ResolveNavigationItemsLanguage implements Hookable
      * @param ?Closure  $postLanguageResolver Optional post language resolver.
      */
     public function __construct(
-        private AddFilter $wpService,
+        private AddFilter&WpGetPostTerms $wpService,
         private ?Closure $currentLanguageResolver = null,
         private ?Closure $postLanguageResolver = null
     ) {
@@ -46,32 +46,21 @@ class ResolveNavigationItemsLanguage implements Hookable
      */
     public function filterItemsByCurrentLanguage(array $menuItems, string $identifier): array
     {
-        $currentLanguageResolver = $this->getCurrentLanguageResolver();
-        $postLanguageResolver    = $this->getPostLanguageResolver();
-
-        if ($currentLanguageResolver === null) {
-            return $menuItems;
-        }
-
-        $currentLanguage = $currentLanguageResolver();
+        $currentLanguage = $this->getCurrentLanguageResolver()();
         if (!is_string($currentLanguage) || $currentLanguage === '') {
             return $menuItems;
         }
 
         return $this->filterMenuItemsRecursively(
             $menuItems,
-            function (array $menuItem) use ($postLanguageResolver, $currentLanguage): bool {
-                if ($postLanguageResolver === null) {
-                    return true;
-                }
-
+            function (array $menuItem) use ($currentLanguage): bool {
                 $postId = $this->resolvePostId($menuItem);
 
                 if ($postId === null) {
                     return true;
                 }
 
-                $postLanguage = $postLanguageResolver($postId);
+                $postLanguage = $this->getPostLanguageResolver()($postId);
 
                 if (!is_string($postLanguage) || $postLanguage === '') {
                     return true;
@@ -133,9 +122,9 @@ class ResolveNavigationItemsLanguage implements Hookable
     /**
      * Get current language resolver.
      *
-     * @return ?Closure
+     * @return Closure
      */
-    private function getCurrentLanguageResolver(): ?Closure
+    private function getCurrentLanguageResolver(): Closure
     {
         if ($this->currentLanguageResolver instanceof Closure) {
             return $this->currentLanguageResolver;
@@ -147,9 +136,9 @@ class ResolveNavigationItemsLanguage implements Hookable
     /**
      * Get post language resolver.
      *
-     * @return ?Closure
+     * @return Closure
      */
-    private function getPostLanguageResolver(): ?Closure
+    private function getPostLanguageResolver(): Closure
     {
         if ($this->postLanguageResolver instanceof Closure) {
             return $this->postLanguageResolver;
@@ -207,23 +196,13 @@ class ResolveNavigationItemsLanguage implements Hookable
      */
     private function resolvePostLanguageFromTaxonomy(int $postId): ?string
     {
-        $wpdb = GetGlobal::getGlobal('wpdb');
+        $languageTerms = $this->wpService->wpGetPostTerms($postId, 'language', ['fields' => 'slugs']);
 
-        if ($wpdb === null) {
+        if ($languageTerms instanceof \WP_Error || empty($languageTerms) || !is_array($languageTerms)) {
             return null;
         }
 
-        $language = $wpdb->get_var($wpdb->prepare(
-            "SELECT t.slug
-            FROM {$wpdb->term_relationships} tr
-            INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-            INNER JOIN {$wpdb->terms} t ON tt.term_id = t.term_id
-            WHERE tr.object_id = %d
-            AND tt.taxonomy = %s
-            LIMIT 1",
-            $postId,
-            'language'
-        ));
+        $language = reset($languageTerms);
 
         return is_string($language) && $language !== '' ? $language : null;
     }

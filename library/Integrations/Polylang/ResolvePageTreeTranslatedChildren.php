@@ -70,19 +70,17 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         }
 
         $postTranslationsResolver = $this->getPostTranslationsResolver();
-        $currentLanguageResolver  = $this->getCurrentLanguageResolver();
         $translatedPostResolver   = $this->getTranslatedPostResolver();
 
         if (
             $postTranslationsResolver === null ||
-            $currentLanguageResolver === null ||
             $translatedPostResolver === null
         ) {
             return $children;
         }
 
         $translations = $postTranslationsResolver($postId);
-        $currentLang  = $currentLanguageResolver();
+        $currentLang  = $this->getCurrentLanguageResolver()();
 
         if (!is_array($translations) || !is_string($currentLang) || $currentLang === '') {
             return $children;
@@ -188,9 +186,9 @@ class ResolvePageTreeTranslatedChildren implements Hookable
     /**
      * Get the current language resolver.
      *
-     * @return ?Closure The current language resolver.
+     * @return Closure The current language resolver.
      */
-    private function getCurrentLanguageResolver(): ?Closure
+    private function getCurrentLanguageResolver(): Closure
     {
         if ($this->currentLanguageResolver instanceof Closure) {
             return $this->currentLanguageResolver;
