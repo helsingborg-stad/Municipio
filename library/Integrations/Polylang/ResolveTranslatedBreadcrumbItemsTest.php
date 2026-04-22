@@ -96,6 +96,17 @@ class ResolveTranslatedBreadcrumbItemsTest extends TestCase
         static::assertSame($items, $sut->resolveTranslatedBreadcrumbItems($items));
     }
 
+    #[TestDox('resolveTranslatedBreadcrumbItems() returns null unchanged when breadcrumbs are unset upstream')]
+    public function testResolveTranslatedBreadcrumbItemsReturnsNullWhenBreadcrumbsAreUnsetUpstream(): void
+    {
+        $sut = $this->getSut(
+            currentLanguageResolver: static fn (): string => 'sv',
+            postTranslationsResolver: static fn (int $postId): array => ['en' => $postId, 'sv' => 115]
+        );
+
+        static::assertNull($sut->resolveTranslatedBreadcrumbItems(null, new \stdClass(), 'municipio'));
+    }
+
     /**
      * Get the system under test.
      *
