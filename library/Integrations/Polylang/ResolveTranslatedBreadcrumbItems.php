@@ -40,12 +40,21 @@ class ResolveTranslatedBreadcrumbItems implements Hookable
     /**
      * Resolve breadcrumb item labels and URLs for the current Polylang language.
      *
-     * @param array $items Existing breadcrumb items.
+     * The breadcrumb items filter can be short-circuited by upstream callbacks,
+     * such as the Modularity breadcrumbs module, which returns null.
      *
-     * @return array
+     * @param mixed $items Existing breadcrumb items or a short-circuited value.
+     * @param mixed $queriedObject Current queried object.
+     * @param mixed $context Breadcrumb render context.
+     *
+     * @return mixed
      */
-    public function resolveTranslatedBreadcrumbItems(array $items): array
+    public function resolveTranslatedBreadcrumbItems(mixed $items, mixed $queriedObject = null, mixed $context = null): mixed
     {
+        if (!is_array($items)) {
+            return $items;
+        }
+
         $currentLanguage = $this->getCurrentLanguageResolver()();
         if (!is_string($currentLanguage) || $currentLanguage === '') {
             return $items;
