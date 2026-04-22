@@ -49,7 +49,6 @@ class ApplyI18n
             'Accordion' => $this->wpService->_x('Accordion', 'design-builder-component-data', 'municipio'),
             'Avatar' => $this->wpService->_x('Avatar', 'design-builder-component-data', 'municipio'),
             'Block' => $this->wpService->_x('Block', 'design-builder-component-data', 'municipio'),
-            'Blockquote' => $this->wpService->_x('Blockquote', 'design-builder-component-data', 'municipio'),
             'Box' => $this->wpService->_x('Box', 'design-builder-component-data', 'municipio'),
             'Brand' => $this->wpService->_x('Brand', 'design-builder-component-data', 'municipio'),
             'Breadcrumb' => $this->wpService->_x('Breadcrumb', 'design-builder-component-data', 'municipio'),
@@ -100,7 +99,17 @@ class ApplyI18n
             'Testimonials' => $this->wpService->_x('Testimonials', 'design-builder-component-data', 'municipio'),
             'Toast' => $this->wpService->_x('Toast', 'design-builder-component-data', 'municipio'),
             'Typography' => $this->wpService->_x('Typography', 'design-builder-component-data', 'municipio'),
-            'Component-local typography adjustments.' => $this->wpService->_x('Component-local typography adjustments.', 'design-builder-component-data', 'municipio'),
+            'Settings' => $this->wpService->_x('Settings', 'design-builder-component-data', 'municipio'),
+            'Shape' => $this->wpService->_x('Shape', 'design-builder-component-data', 'municipio'),
+            'Background color' => $this->wpService->_x('Background color', 'design-builder-component-data', 'municipio'),
+            'Icon & initials color' => $this->wpService->_x('Icon & initials color', 'design-builder-component-data', 'municipio'),
+            'Component-local adjustments.' => $this->wpService->_x('Component-local adjustments.', 'design-builder-component-data', 'municipio'),
+            'Space' => $this->wpService->_x('Space', 'design-builder-component-data', 'municipio'),
+            'Adjusts the spacing between logo and text.' => $this->wpService->_x('Adjusts the spacing between logo and text.', 'design-builder-component-data', 'municipio'),
+            'Text Color' => $this->wpService->_x('Text Color', 'design-builder-component-data', 'municipio'),
+            'Overrides the default text color for the brand component.' => $this->wpService->_x('Overrides the default text color for the brand component.', 'design-builder-component-data', 'municipio'),
+            'Font Family' => $this->wpService->_x('Font Family', 'design-builder-component-data', 'municipio'),
+            'Overrides the default font family for the brand component.' => $this->wpService->_x('Overrides the default font family for the brand component.', 'design-builder-component-data', 'municipio'),
             'Component-local branding adjustments.' => $this->wpService->_x('Component-local branding adjustments.', 'design-builder-component-data', 'municipio'),
             'Scales the header logotype height locally without changing the global base size.' => $this->wpService->_x('Scales the header logotype height locally without changing the global base size.', 'design-builder-component-data', 'municipio'),
             'Font Size Multiplier' => $this->wpService->_x('Font Size Multiplier', 'design-builder-component-data', 'municipio'),
@@ -123,12 +132,6 @@ class ApplyI18n
 
     private function getComponentDescriptionTranslation(string $string): string
     {
-        preg_match('/^The (.+) component provides a reusable pattern for (.+) in the interface\.$/', $string, $componentDescriptionMatch);
-
-        return sprintf(
-            $this->wpService->_x('The %s component provides a reusable pattern for %s in the interface.', 'design-builder-component-data', 'municipio'),
-            $this->wpService->_x($componentDescriptionMatch[1], 'design-builder-component-data', 'municipio'),
-            $this->wpService->_x($componentDescriptionMatch[1], 'design-builder-component-data', 'municipio'),
-        );
+        return $this->wpService->_x($string, 'design-builder-component-data', 'municipio');
     }
 }
