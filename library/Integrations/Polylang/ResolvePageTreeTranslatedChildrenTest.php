@@ -82,6 +82,38 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
         static::assertSame([], $sut->resolveTranslatedChildren([], 128));
     }
 
+    #[TestDox('resolveTranslatedChildren() falls back to the request lang when current language is unavailable')]
+    public function testResolveTranslatedChildrenFallsBackToRequestLang(): void
+    {
+        $previousLang = $_GET['lang'] ?? null;
+        $_GET['lang'] = 'sv';
+
+        try {
+            $sut = $this->getSut(
+                postTranslationsResolver: static fn (int $postId): array => ['en' => 116, 'sv' => 128],
+                currentLanguageResolver: null,
+                translatedPostResolver: static fn (int $postId, string $lang): int => 124,
+                defaultLanguageResolver: static fn (): string => 'en',
+                childrenByParentResolver: static fn (int $postId, string $postType): array => [
+                    ['ID' => 120, 'post_title' => 'Testpage sub (en)', 'post_parent' => 116, 'post_type' => 'page']
+                ],
+                currentPostIdResolver: static fn (): int => 124,
+                ancestorIdsResolver: static fn (): array => [0, 128, 124]
+            );
+
+            $translatedChildren = $sut->resolveTranslatedChildren([], 128);
+
+            static::assertCount(1, $translatedChildren);
+            static::assertSame(124, $translatedChildren[0]['ID']);
+        } finally {
+            if ($previousLang === null) {
+                unset($_GET['lang']);
+            } else {
+                $_GET['lang'] = $previousLang;
+            }
+        }
+    }
+
     /**
      * Get the system under test.
      *

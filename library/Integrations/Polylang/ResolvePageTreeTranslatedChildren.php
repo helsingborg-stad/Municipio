@@ -70,19 +70,17 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         }
 
         $postTranslationsResolver = $this->getPostTranslationsResolver();
-        $currentLanguageResolver  = $this->getCurrentLanguageResolver();
         $translatedPostResolver   = $this->getTranslatedPostResolver();
 
         if (
             $postTranslationsResolver === null ||
-            $currentLanguageResolver === null ||
             $translatedPostResolver === null
         ) {
             return $children;
         }
 
         $translations = $postTranslationsResolver($postId);
-        $currentLang  = $currentLanguageResolver();
+        $currentLang  = $this->getCurrentLanguageResolver()();
 
         if (!is_array($translations) || !is_string($currentLang) || $currentLang === '') {
             return $children;
@@ -188,19 +186,27 @@ class ResolvePageTreeTranslatedChildren implements Hookable
     /**
      * Get the current language resolver.
      *
-     * @return ?Closure The current language resolver.
+     * @return Closure The current language resolver.
      */
-    private function getCurrentLanguageResolver(): ?Closure
+    private function getCurrentLanguageResolver(): Closure
     {
         if ($this->currentLanguageResolver instanceof Closure) {
             return $this->currentLanguageResolver;
         }
 
-        if (!is_callable('pll_current_language')) {
-            return null;
-        }
+        return static function (): ?string {
+            if (is_callable('pll_current_language')) {
+                $language = call_user_func('pll_current_language', 'slug');
 
-        return static fn (): mixed => call_user_func('pll_current_language', 'slug');
+                if (is_string($language) && $language !== '') {
+                    return $language;
+                }
+            }
+
+            $requestLanguage = $_GET['lang'] ?? null;
+
+            return is_string($requestLanguage) && $requestLanguage !== '' ? $requestLanguage : null;
+        };
     }
 
     /**

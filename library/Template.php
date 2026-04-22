@@ -76,7 +76,11 @@ class Template
         if (empty(TemplateHelper::locateView($view))) {
             // If set view doesn't exist, fall back to original template.
             // Or if original template is empty, fall back to 'page'.
-            $view = $originalTemplate ?: 'page';
+            if (empty(TemplateHelper::locateView($originalTemplate))) {
+                $view = 'page';
+            } else {
+                $view = $originalTemplate;
+            }
         }
 
         $isArchive = fn() => is_archive() || is_home();

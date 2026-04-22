@@ -53,6 +53,14 @@ class PageTreeAppendMenuItemsFetchUrl implements MenuInterface
             . $targetMenuIdentifiers[$identifier] . '&identifier='
             . $targetMenuIdentifiers[$identifier];
 
+            $fetchUrl = $this->wpService->applyFilters(
+                'Municipio/Navigation/PageTree/FetchUrl',
+                $fetchUrl,
+                $menuItem,
+                $identifier,
+                $depth
+            );
+
 
             $menuItem['attributeList'] = array(
                 'data-fetch-url' => $fetchUrl
