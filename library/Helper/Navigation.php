@@ -795,7 +795,10 @@ class Navigation
             $label = get_post_type_object(get_post_type($queriedObj))->label ?? __("Untitled page", 'municipio');
 
             if (is_archive()) {
-                $label = $queriedObj->label ?? __("Untitled page", 'municipio');
+                $label = $this->resolveArchiveBreadcrumbLabel(
+                    (int) $pageId,
+                    $queriedObj->label ?? __("Untitled page", 'municipio')
+                );
             }
 
             array_push($pageData, array(
@@ -830,6 +833,50 @@ class Navigation
 
         //Apply filters
         return apply_filters('Municipio/Breadcrumbs/Items', $pageData, $queriedObj, $this->context);
+    }
+
+    /**
+     * Resolve the breadcrumb label for archive pages.
+     *
+     * Prefer the resolved current page title when the archive is backed by a
+     * dedicated page, and fall back to the archive object label otherwise.
+     *
+     * @param int $pageId The resolved current page ID.
+     * @param string $fallbackLabel The fallback archive label.
+     *
+     * @return string
+     */
+    protected function resolveArchiveBreadcrumbLabel(int $pageId, string $fallbackLabel): string
+    {
+        if (!$this->isArchiveContext() || $pageId <= 0) {
+            return $fallbackLabel;
+        }
+
+        $pageTitle = $this->getPageTitle($pageId);
+
+        return is_string($pageTitle) && $pageTitle !== '' ? $pageTitle : $fallbackLabel;
+    }
+
+    /**
+     * Determine if the current request is an archive context.
+     *
+     * @return bool
+     */
+    protected function isArchiveContext(): bool
+    {
+        return WP::isArchive();
+    }
+
+    /**
+     * Get a page title for breadcrumb label resolution.
+     *
+     * @param int $pageId The page ID.
+     *
+     * @return string
+     */
+    protected function getPageTitle(int $pageId): string
+    {
+        return (string) WP::getTheTitle($pageId);
     }
 
     /**

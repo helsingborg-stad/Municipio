@@ -986,15 +986,6 @@ class BaseController
     }
 
     /**
-     * Get breadcrumb array
-     * @return array
-     */
-    protected function getBreadcrumb(): array
-    {
-        return apply_filters('Municipio/breadcrumbArray', breadcrumb());
-    }
-
-    /**
      * Get size of column
      *
      * @return integer

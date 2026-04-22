@@ -9,6 +9,7 @@ use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetPostTypeArchiveLink;
 use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\GetQueriedObject;
+use WpService\Contracts\GetTheTitle;
 use WpService\Contracts\IsArchive;
 
 /**
@@ -19,7 +20,7 @@ class AppendArchiveMenuItem implements MenuInterface
     /**
      * Constructor
      */
-    public function __construct(private MenuInterface $inner, private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject $wpService)
+    public function __construct(private MenuInterface $inner, private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject&GetTheTitle $wpService)
     {
     }
 
@@ -44,7 +45,8 @@ class AppendArchiveMenuItem implements MenuInterface
             $defaultLabel = __("Untitled page", 'municipio');
 
             if ($this->wpService->isArchive()) {
-                $label = $this->wpService->getQueriedObject()->label ?? $defaultLabel;
+                $pageTitle = (string) $this->wpService->getTheTitle(CurrentPostId::get());
+                $label     = $pageTitle !== '' ? $pageTitle : ($this->wpService->getQueriedObject()->label ?? $defaultLabel);
             } else {
                 $label = $this->wpService->getPostTypeObject($postType)->label ?? $defaultLabel;
             }

@@ -84,7 +84,7 @@ class ResolveTranslatedBreadcrumbItems implements Hookable
             $translatedTitle  = (string) $this->wpService->getTheTitle($translatedPostId);
             $translatedUrl    = $this->wpService->getPermalink($translatedPostId);
 
-            if ($translatedTitle !== '') {
+            if ((empty($item['label']) || $item['label'] === __('Untitled page', 'municipio')) && $translatedTitle !== '') {
                 $item['label'] = $translatedTitle;
             }
 

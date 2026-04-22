@@ -77,6 +77,28 @@ class ResolveTranslatedBreadcrumbItemsTest extends TestCase
         static::assertSame('https://example.com/sv/barn', $resolvedItems[25]['href']);
     }
 
+    #[TestDox('resolveTranslatedBreadcrumbItems() preserves existing labels while still updating URLs')]
+    public function testResolveTranslatedBreadcrumbItemsPreservesExistingLabels(): void
+    {
+        $items = [
+            25 => [
+                'label' => 'Talent & Research',
+                'href' => 'https://example.com/en/talent-research',
+                'icon' => 'chevron_right',
+            ],
+        ];
+
+        $sut = $this->getSut(
+            currentLanguageResolver: static fn (): string => 'en',
+            postTranslationsResolver: static fn (int $postId): array => ['sv' => 125, 'en' => 225]
+        );
+
+        $resolvedItems = $sut->resolveTranslatedBreadcrumbItems($items);
+
+        static::assertSame('Talent & Research', $resolvedItems[25]['label']);
+        static::assertSame('https://example.com/en/talent-research', $resolvedItems[25]['href']);
+    }
+
     #[TestDox('resolveTranslatedBreadcrumbItems() returns original items when no current language exists')]
     public function testResolveTranslatedBreadcrumbItemsReturnsOriginalItemsWithoutCurrentLanguage(): void
     {
@@ -133,6 +155,7 @@ class ResolveTranslatedBreadcrumbItemsTest extends TestCase
                     return match ($postId) {
                         115 => 'https://example.com/sv/foralder',
                         125 => 'https://example.com/sv/barn',
+                        225 => 'https://example.com/en/talent-research',
                         default => '',
                     };
                 },
