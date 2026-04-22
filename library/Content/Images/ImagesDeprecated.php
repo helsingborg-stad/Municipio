@@ -7,9 +7,7 @@ class ImagesDeprecated implements ImagesInterface
     public function __construct()
     {
         add_action('wp', function () {
-            add_filter('the_content', [$this, 'normalizeImages'], 
-                (has_blocks(get_post_field('post_content', get_the_ID())) ? 5 : 11)
-            );
+            add_filter('the_content', [$this, 'normalizeImages'], has_blocks(get_post_field('post_content', get_the_ID())) ? 5 : 11);
         });
 
         add_filter('Municipio/Content/ImageNormalized', [$this, 'imageHasBeenNormalized'], 10, 2);
@@ -24,7 +22,7 @@ class ImagesDeprecated implements ImagesInterface
             $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
             $xpath = new \DOMXPath($dom);
 
-            $links  = $dom->getElementsByTagName('a');
+            $links = $dom->getElementsByTagName('a');
             $images = $xpath->query('//img[contains(@class, "wp-image-")]');
 
             $this->processLinks($dom, $links);
@@ -35,7 +33,7 @@ class ImagesDeprecated implements ImagesInterface
             return str_replace(
                 [$encoding, '<html>', '</html>', '<body>', '</body>'],
                 '',
-                \Municipio\Helper\Post::replaceBuiltinClasses($content)
+                \Municipio\Helper\Post::replaceBuiltinClasses($content),
             );
         }
 
@@ -44,16 +42,18 @@ class ImagesDeprecated implements ImagesInterface
 
     private function processLinks($dom, $links)
     {
-        if (!is_object($links) || empty($links)) return;
+        if (!is_object($links) || empty($links))
+            return;
 
         foreach ($links as $link) {
-            if (!isset($link->firstChild) || $link->firstChild->nodeName !== 'img') continue;
+            if (!isset($link->firstChild) || $link->firstChild->nodeName !== 'img')
+                continue;
 
             $linkedImage = $link->firstChild;
             if ($this->isSelfLinked($link, $linkedImage)) {
                 $linkedImage->setAttribute('parsed', '1');
                 $captionText = $this->extractCaption($link->parentNode);
-                $altText     = $linkedImage->getAttribute('alt') ?: $captionText;
+                $altText = $linkedImage->getAttribute('alt') ?: $captionText;
                 $this->replaceWithBladeTemplate($dom, $link, $linkedImage, $altText, $captionText);
             }
         }
@@ -61,13 +61,15 @@ class ImagesDeprecated implements ImagesInterface
 
     private function processImages($dom, $images)
     {
-        if (!is_object($images) || empty($images)) return;
+        if (!is_object($images) || empty($images))
+            return;
 
         foreach ($images as $image) {
-            if (apply_filters('Municipio/Content/ImageNormalized', false, $image)) continue;
+            if (apply_filters('Municipio/Content/ImageNormalized', false, $image))
+                continue;
 
             $captionText = $this->extractCaption($image->parentNode);
-            $altText     = $image->getAttribute('alt') ?: $captionText;
+            $altText = $image->getAttribute('alt') ?: $captionText;
 
             $this->replaceWithBladeTemplate($dom, $image, $image, $altText, $captionText);
         }
@@ -75,19 +77,22 @@ class ImagesDeprecated implements ImagesInterface
 
     private function isSelfLinked($link, $image)
     {
-        $imgDir  = pathinfo($image->getAttribute('src'), PATHINFO_DIRNAME);
+        $imgDir = pathinfo($image->getAttribute('src'), PATHINFO_DIRNAME);
         $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
         return $linkDir === $imgDir;
     }
 
-    private function extractCaption($parentNode)
+    public function extractCaption($parentNode)
     {
         $captionText = '';
 
         if ($parentNode instanceof \DOMElement && $parentNode->getElementsByTagName('figcaption')->length > 0) {
             foreach ($parentNode->getElementsByTagName('figcaption') as $caption) {
                 $captionText = wp_strip_all_tags($caption->textContent);
-                $parentNode->removeChild($caption);
+
+                if ($caption->parentNode instanceof \DOMNode) {
+                    $caption->parentNode->removeChild($caption);
+                }
             }
         }
 
@@ -96,7 +101,7 @@ class ImagesDeprecated implements ImagesInterface
 
     private function replaceWithBladeTemplate($dom, $element, $image, $altText, $captionText)
     {
-        $url          = $this->sanitizeRequestUrl($image->getAttribute('src'));
+        $url = $this->sanitizeRequestUrl($image->getAttribute('src'));
         $attachmentId = attachment_url_to_postid($url);
 
         $classes = $image->parentNode instanceof \DOMElement ? explode(' ', $image->parentNode->getAttribute('class') ?? []) : [];
@@ -107,40 +112,41 @@ class ImagesDeprecated implements ImagesInterface
 
             if ($imageSrc && isset($imageSrc[0])) {
                 $html = render_blade_view('partials.content.image', [
-                    'src'              => $imageSrc[0],
-                    'alt'              => $altText,
-                    'caption'          => $captionText,
-                    'classList'        => $classes,
+                    'src' => $imageSrc[0],
+                    'alt' => $altText,
+                    'caption' => $captionText,
+                    'classList' => $classes,
                     'imgAttributeList' => ['parsed' => true],
-                    'attributeList'    => [
+                    'attributeList' => [
                         'style' => sprintf(
                             'width: min(%s, 100%%); height: auto;',
-                            ($image->getAttribute('width') ?? 1920) . 'px'
-                        )
-                    ]
+                            ($image->getAttribute('width') ?? 1920) . 'px',
+                        ),
+                    ],
                 ]);
             }
         }
 
         if (empty($attachmentId)) {
             $html = render_blade_view('partials.content.image', [
-                'src'              => $url,
-                'alt'              => $altText,
-                'caption'          => $captionText,
-                'classList'        => $classes,
+                'src' => $url,
+                'alt' => $altText,
+                'caption' => $captionText,
+                'classList' => $classes,
                 'imgAttributeList' => ['parsed' => true],
-                'attributeList'    => [
+                'attributeList' => [
                     'style' => sprintf(
                         'width: min(%s, 100%%); height: auto;',
-                        ($image->getAttribute('width') ?? 1920) . 'px'
-                    )
-                ]
+                        ($image->getAttribute('width') ?? 1920) . 'px',
+                    ),
+                ],
             ]);
         }
 
         if (!empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-            if ($image) $image->replaceWith($newNode);
+            if ($image)
+                $image->replaceWith($newNode);
         }
     }
 
@@ -152,9 +158,10 @@ class ImagesDeprecated implements ImagesInterface
     private function sanitizeRequestUrl($url): string
     {
         $parsedUrl = parse_url($url);
-        if (!$parsedUrl) return $url;
+        if (!$parsedUrl)
+            return $url;
 
-        $sanitizedUrl  = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '';
+        $sanitizedUrl = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '';
         $sanitizedUrl .= isset($parsedUrl['host']) ? $parsedUrl['host'] : '';
         $sanitizedUrl .= isset($parsedUrl['port']) && !in_array($parsedUrl['port'], [80, 443]) ? ':' . $parsedUrl['port'] : '';
         $sanitizedUrl .= isset($parsedUrl['path']) ? $parsedUrl['path'] : '';

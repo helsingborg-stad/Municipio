@@ -73,20 +73,20 @@ class Archive
     }
 
     /*
-    * Filter number of posts that should be displayed in archive list
-    * @param $WP_Query The query to show current archive page return
-    * @return bool True or false depending on if the query has been altered or not.
-    */
+     * Filter number of posts that should be displayed in archive list
+     * @param $WP_Query The query to show current archive page return
+     * @return bool True or false depending on if the query has been altered or not.
+     */
     public function filterNumberOfPostsInArchive($query): bool
     {
         if (!is_admin() && $query->is_main_query()) {
             //Check that posttype is valid
-            if (!isset($query->query["post_type"])) {
+            if (!isset($query->query['post_type'])) {
                 return false;
             }
 
             //Get current post count
-            $postCount = get_theme_mod('archive_' . $query->query["post_type"] . '_post_count', 12);
+            $postCount = get_theme_mod('archive_' . $query->query['post_type'] . '_post_count', 12);
 
             //Set value
             if (isset($postCount) && !empty($postCount) && is_numeric($postCount)) {
@@ -106,11 +106,11 @@ class Archive
 
         $inMenu = false;
         foreach ((array) get_field('avabile_dynamic_post_types', 'options') as $type) {
-            if ($type['slug'] !== $query->post_type) {
+            if (is_array($type) && $type['slug'] !== $query->post_type) {
                 continue;
             }
 
-            if (!$type['show_posts_in_sidebar_menu']) {
+            if (!is_array($type) || !$type['show_posts_in_sidebar_menu']) {
                 return;
             }
         }
