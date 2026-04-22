@@ -359,12 +359,9 @@ class Posts extends \Modularity\Module
      */
     public function template()
     {
-        $template = !empty($this->data['posts_display_as']) ? $this->data['posts_display_as'] : 'list';
+        $template = $this->getTemplateName();
 
-        if (
-            !empty($this->fields['show_as_slider'])
-            && in_array($this->fields['posts_display_as'], $this->sliderCompatibleLayouts, true)
-        ) {
+        if (!empty($this->fields['show_as_slider']) && in_array($template, $this->sliderCompatibleLayouts, true)) {
             $template = 'slider';
         }
 
@@ -380,6 +377,16 @@ class Posts extends \Modularity\Module
             $this->data,
             $this->fields,
         );
+    }
+
+    /**
+     * Get template name based on field value. If field value is empty or invalid, return default template name.
+     */
+    private function getTemplateName(): string
+    {
+        $default = 'list';
+        $template = !empty($this->data['posts_display_as']) ? $this->data['posts_display_as'] : $default;
+        return in_array($template, ['expandable-list', 'grid', 'features-grid', 'index', 'collection', 'list', 'news', 'segment']) ? $template : $default;
     }
 
     /**
