@@ -512,6 +512,7 @@ class App
         $resolveNavigationItemsLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService);
         $resolveLanguageMenuItems = new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService);
         $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
+        $resolveNavigationFetchUrlLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationFetchUrlLanguage($this->wpService);
         $resolveHomeUrl = new \Municipio\Integrations\Polylang\ResolveHomeUrl($this->wpService);
         $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
         $resolveFontAttachmentQueries = new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService);
@@ -521,6 +522,7 @@ class App
         $this->hooksRegistrar->register($resolveNavigationItemsLanguage);
         $this->hooksRegistrar->register($resolveLanguageMenuItems);
         $this->hooksRegistrar->register($resolveNavigationCacheKey);
+        $this->hooksRegistrar->register($resolveNavigationFetchUrlLanguage);
         $this->hooksRegistrar->register($resolveHomeUrl);
         $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
         $this->hooksRegistrar->register($resolveFontAttachmentQueries);
