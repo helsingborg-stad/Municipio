@@ -509,6 +509,7 @@ class App
 
         $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
         $resolvePageTreeTranslatedChildren = new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService);
+        $resolveTranslatedBreadcrumbItems = new \Municipio\Integrations\Polylang\ResolveTranslatedBreadcrumbItems($this->wpService);
         $resolveNavigationItemsLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService);
         $resolveLanguageMenuItems = new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService);
         $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
@@ -519,6 +520,7 @@ class App
 
         $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
         $this->hooksRegistrar->register($resolvePageTreeTranslatedChildren);
+        $this->hooksRegistrar->register($resolveTranslatedBreadcrumbItems);
         $this->hooksRegistrar->register($resolveNavigationItemsLanguage);
         $this->hooksRegistrar->register($resolveLanguageMenuItems);
         $this->hooksRegistrar->register($resolveNavigationCacheKey);
