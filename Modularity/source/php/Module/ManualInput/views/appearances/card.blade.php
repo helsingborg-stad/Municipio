@@ -10,7 +10,6 @@
         'context'           => $context,
         'content'           => $input['content'],
         'image'             => $input['image'],
-        'containerAware'    => !$disableLayoutShift,
         'classList'         => array_merge($input['classList'] ?? [], ['u-height--100']),
         'hasPlaceholder'    => $anyItemHasImage,
         'headingAboveImage' => isset($titleAboveImage) ? $titleAboveImage : false,

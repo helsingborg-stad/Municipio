@@ -59,14 +59,13 @@ class ManualInput extends \Modularity\Module
         );
 
         // Accordion settings
-        if ($fields['display_as'] === 'accordion') {
+        if (isset($fields['display_as']) && $fields['display_as'] === 'accordion') {
             $data['accordionSpacedSections'] = $fields['accordion_spaced_sections'] ?? false;
         }
 
         // Card settings
-        if ($fields['display_as'] === 'card') {
+        if (isset($fields['display_as']) && $fields['display_as'] === 'card') {
             $data['titleAboveImage'] = $fields['title_above_image'] ?? false;
-            $data['disableLayoutShift'] = $fields['disable_resize_layout_shift'] ?? false;
         }
 
         if (!empty($fields['manual_inputs']) && is_array($fields['manual_inputs'])) {
