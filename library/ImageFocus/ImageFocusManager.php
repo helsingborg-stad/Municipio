@@ -1,22 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\ImageFocus;
 
 use Municipio\ImageFocus\Resolvers\FocusPointResolverInterface;
-use Municipio\ImageFocus\Storage\FocusPointStorage;
+use Municipio\ImageFocus\Storage\FocusPointStorageInterface;
 use WpService\WpService;
 
 class ImageFocusManager
 {
     public function __construct(
         private WpService $wpService,
-        private FocusPointStorage $storage,
-        private FocusPointResolverInterface $resolver
+        private FocusPointStorageInterface $storage,
+        private FocusPointResolverInterface $resolver,
     ) {}
 
     public function calculate(int $attachmentId, array $metadata, string $context): array
     {
-        if(!$this->isManualUpload()) {
+        if (!$this->isManualUpload()) {
             return $metadata;
         }
 
@@ -33,19 +35,19 @@ class ImageFocusManager
             return $metadata;
         }
 
-        $focus = $this->resolver->resolve($filePath, $metadata['width'], $metadata['height'], $attachmentId);
+        $focus = $this->resolver->resolve($filePath, (int) $metadata['width'], (int) $metadata['height'], $attachmentId);
         if ($focus === null) {
             return $metadata;
         }
 
         $this->storage->set($attachmentId, $focus);
-        
+
         return $metadata;
     }
 
     /**
      * Check if attachment is an image
-     * 
+     *
      * @param int $attachmentId
      * @return bool
      */
@@ -57,7 +59,7 @@ class ImageFocusManager
 
     /**
      * Check if the current request is a manual upload via AJAX.
-     * 
+     *
      * @return bool
      */
     private function isManualUpload(): bool
@@ -68,14 +70,14 @@ class ImageFocusManager
     /**
      * Check if file exists
      * Check if file exists
-     * 
+     *
      * @param string $filePath
      * @return bool
      */
     private function fileExists(string $filePath): bool
     {
-        if(empty($filePath)) {
-          return false;
+        if (empty($filePath)) {
+            return false;
         }
         return file_exists($filePath);
     }

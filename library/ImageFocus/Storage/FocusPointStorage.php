@@ -4,7 +4,7 @@ namespace Municipio\ImageFocus\Storage;
 
 use WpService\WpService;
 
-class FocusPointStorage
+class FocusPointStorage implements FocusPointStorageInterface
 {
     private const META_KEY = '_focus_point';
 
