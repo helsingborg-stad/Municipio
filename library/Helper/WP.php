@@ -96,4 +96,14 @@ class WP
 
         return get_permalink($post, $leavename);
     }
+
+    /**
+     * Determine if the current request is an archive.
+     *
+     * @return bool
+     */
+    public static function isArchive(): bool
+    {
+        return is_archive();
+    }
 }
