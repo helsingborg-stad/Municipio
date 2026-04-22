@@ -42,6 +42,8 @@ class CustomizeTest extends TestCase
             'currentUserCan' => true,
             'getTemplateDirectoryUri' => 'https://example.com/theme',
             'wpRegisterScript' => true,
+            '_x' => fn($text) => $text,
+            'wpLocalizeScript' => true,
         ]);
 
         $customize = new Customize($wpService);

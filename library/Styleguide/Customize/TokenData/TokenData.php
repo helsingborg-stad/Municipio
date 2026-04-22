@@ -4,7 +4,7 @@ namespace Municipio\Styleguide\Customize\TokenData;
 
 use Composer\InstalledVersions;
 use Municipio\Styleguide\Customize\OverrideState\OverrideStateInterface;
-use WpService\Contracts\__;
+use WpService\Contracts\_x;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 
@@ -13,7 +13,7 @@ class TokenData
     private const STYLEGUIDE_PACKAGE = 'helsingborg-stad/styleguide';
 
     public function __construct(
-        private ApplyFilters&AddFilter&__ $wpService,
+        private ApplyFilters&AddFilter&_x $wpService,
         private OverrideStateInterface $overrideStateService,
     ) {}
 
