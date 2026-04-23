@@ -33,6 +33,10 @@
     opacity: 0;
 }
 
+.backdrop-banner__navigation-item-description {
+    display: none;
+}
+
 .backdrop-banner__navigation {
     @container layout-grid (min-width: 64rem) {
         .backdrop-banner__navigation-container {
@@ -53,6 +57,10 @@
             &:nth-child(3) {
                 margin-top: 0;
             }
+        }
+
+        .backdrop-banner__navigation-item-description {
+            display: block;
         }
     }
 }
