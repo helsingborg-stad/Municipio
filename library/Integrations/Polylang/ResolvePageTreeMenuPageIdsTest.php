@@ -17,26 +17,17 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
         static::assertInstanceOf(ResolvePageTreeMenuPageIds::class, $this->getSut());
     }
 
-    #[TestDox('addHooks() registers filters for translated page tree related options')]
-    public function testAddHooksRegistersFiltersForTranslatedPageTreeRelatedOptions(): void
+    #[TestDox('addHooks() registers filters for page_on_front and page_for_posts options')]
+    public function testAddHooksRegistersFiltersForPageOnFrontAndPageForPosts(): void
     {
-        $wpService = new FakeWpService([
-            'addFilter' => true,
-            'getPostTypes' => ['page', 'event', 'news'],
-        ]);
+        $wpService = new FakeWpService(['addFilter' => true]);
 
         $sut = new ResolvePageTreeMenuPageIds($wpService);
 
         $sut->addHooks();
 
         static::assertSame(
-            [
-                'option_page_on_front',
-                'option_page_for_posts',
-                'option_page_for_page',
-                'option_page_for_event',
-                'option_page_for_news',
-            ],
+            ['option_page_on_front', 'option_page_for_posts'],
             array_column($wpService->methodCalls['addFilter'], 0)
         );
     }
@@ -79,10 +70,7 @@ class ResolvePageTreeMenuPageIdsTest extends TestCase
     private function getSut(?Closure $translatedPostResolver = null): ResolvePageTreeMenuPageIds
     {
         return new ResolvePageTreeMenuPageIds(
-            new FakeWpService([
-                'addFilter' => true,
-                'getPostTypes' => ['page', 'news'],
-            ]),
+            new FakeWpService(['addFilter' => true]),
             $translatedPostResolver
         );
     }

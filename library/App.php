@@ -511,11 +511,11 @@ class App
         $resolvers = [
             new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService),
             new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService),
-            new \Municipio\Integrations\Polylang\ResolvePageForPostTypeIds($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveCurrentPostId($this->wpService),
             new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveTranslatedPageLink($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveTranslatedPostTypeLink($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveNavigationFetchUrlLanguage($this->wpService),
             new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService),

@@ -7,21 +7,20 @@ namespace Municipio\Integrations\Polylang;
 use Closure;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\GetPostTypes;
 
 /**
- * Resolves language-specific page IDs used by page tree menus and page-for-post-type mappings.
+ * Resolves language-specific page IDs used by page tree menus.
  */
 class ResolvePageTreeMenuPageIds implements Hookable
 {
     /**
      * Constructor.
      *
-     * @param AddFilter&GetPostTypes $wpService The WordPress service.
+     * @param AddFilter $wpService The WordPress service.
      * @param ?Closure $translatedPostResolver Optional translated post resolver.
      */
     public function __construct(
-        private AddFilter&GetPostTypes $wpService,
+        private AddFilter $wpService,
         private ?Closure $translatedPostResolver = null
     ) {
     }
@@ -31,9 +30,8 @@ class ResolvePageTreeMenuPageIds implements Hookable
      */
     public function addHooks(): void
     {
-        foreach ($this->getOptionHooks() as $hookName) {
-            $this->wpService->addFilter($hookName, [$this, 'resolveTranslatedPageId']);
-        }
+        $this->wpService->addFilter('option_page_on_front', [$this, 'resolveTranslatedPageId']);
+        $this->wpService->addFilter('option_page_for_posts', [$this, 'resolveTranslatedPageId']);
     }
 
     /**
@@ -60,25 +58,6 @@ class ResolvePageTreeMenuPageIds implements Hookable
         return is_numeric($translatedPageId) && (int) $translatedPageId > 0
             ? (int) $translatedPageId
             : (int) $pageId;
-    }
-
-    /**
-     * Get the option hooks that should resolve translated page IDs.
-     *
-     * @return array<string> The option hooks to register.
-     */
-    private function getOptionHooks(): array
-    {
-        $hooks = [
-            'option_page_on_front',
-            'option_page_for_posts',
-        ];
-
-        foreach ($this->wpService->getPostTypes(['public' => true]) as $postType) {
-            $hooks[] = sprintf('option_page_for_%s', $postType);
-        }
-
-        return array_values(array_unique($hooks));
     }
 
     /**

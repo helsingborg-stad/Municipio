@@ -7,20 +7,21 @@ namespace Municipio\Integrations\Polylang;
 use Closure;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\GetPostTypes;
 
 /**
- * Resolves page-for-post-type IDs to the active Polylang language.
+ * Resolves page-for-post-type option values to the active Polylang language.
  */
-class ResolvePageForPostTypeIds implements Hookable
+class ResolveTranslatedPostTypeLink implements Hookable
 {
     /**
      * Constructor.
      *
-     * @param AddFilter $wpService The WordPress service.
-     * @param ?Closure  $translatedPostResolver Optional translated post resolver.
+     * @param AddFilter&GetPostTypes $wpService The WordPress service.
+     * @param ?Closure $translatedPostResolver Optional translated post resolver.
      */
     public function __construct(
-        private AddFilter $wpService,
+        private AddFilter&GetPostTypes $wpService,
         private ?Closure $translatedPostResolver = null
     ) {
     }
@@ -30,20 +31,24 @@ class ResolvePageForPostTypeIds implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter('Municipio/Navigation/PageForPostTypeId', [$this, 'resolveTranslatedPageId'], 10, 2);
+        foreach ($this->wpService->getPostTypes(['public' => true]) as $postType) {
+            $this->wpService->addFilter(
+                'option_page_for_' . $postType,
+                [$this, 'resolveTranslatedPageId']
+            );
+        }
     }
 
     /**
-     * Resolve the translated page-for-post-type ID when available.
+     * Resolve the translated page ID for the active language.
      *
-     * @param mixed  $pageId   The source page ID.
-     * @param string $postType The post type using the mapping.
+     * @param mixed $pageId The stored page ID.
      *
      * @return mixed
      */
-    public function resolveTranslatedPageId(mixed $pageId, string $postType): mixed
+    public function resolveTranslatedPageId(mixed $pageId): mixed
     {
-        if (!is_numeric($pageId) || (int) $pageId <= 0 || $postType === '') {
+        if (!is_numeric($pageId) || (int) $pageId <= 0) {
             return $pageId;
         }
 
@@ -52,7 +57,7 @@ class ResolvePageForPostTypeIds implements Hookable
             return $pageId;
         }
 
-        $translatedPageId = $translatedPostResolver((int) $pageId, $postType);
+        $translatedPageId = $translatedPostResolver((int) $pageId);
 
         return is_numeric($translatedPageId) && (int) $translatedPageId > 0
             ? (int) $translatedPageId
@@ -60,7 +65,7 @@ class ResolvePageForPostTypeIds implements Hookable
     }
 
     /**
-     * Get translated post resolver.
+     * Get the translated post resolver.
      *
      * @return ?Closure
      */
