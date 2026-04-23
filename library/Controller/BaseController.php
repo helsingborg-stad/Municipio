@@ -143,15 +143,17 @@ class BaseController
         $this->menuDirector->buildAccessibilityMenu();
         $this->data['accessibilityMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
-        // Breadcrumb menu
-        $breadcrumbMenuConfig = new MenuConfig(
-            'breadcrumb',
-            '',
-        );
+        if (!$this->wpService->is404()) {
+            // Breadcrumb menu
+            $breadcrumbMenuConfig = new MenuConfig(
+                'breadcrumb',
+                '',
+            );
 
-        $this->menuBuilder->setConfig($breadcrumbMenuConfig);
-        $this->menuDirector->buildBreadcrumbMenu();
-        $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
+            $this->menuBuilder->setConfig($breadcrumbMenuConfig);
+            $this->menuDirector->buildBreadcrumbMenu();
+            $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
+        }
 
         // Mobile menu
         $mobileMenuConfig = new MenuConfig(
