@@ -18,10 +18,12 @@ class ResolvePageTreeMenuPageIds implements Hookable
      *
      * @param AddFilter $wpService The WordPress service.
      * @param ?Closure $translatedPostResolver Optional translated post resolver.
+     * @param ?Closure $currentLanguageResolver Optional current language resolver.
      */
     public function __construct(
         private AddFilter $wpService,
-        private ?Closure $translatedPostResolver = null
+        private ?Closure $translatedPostResolver = null,
+        private ?Closure $currentLanguageResolver = null
     ) {
     }
 
@@ -32,6 +34,26 @@ class ResolvePageTreeMenuPageIds implements Hookable
     {
         $this->wpService->addFilter('option_page_on_front', [$this, 'resolveTranslatedPageId']);
         $this->wpService->addFilter('option_page_for_posts', [$this, 'resolveTranslatedPageId']);
+        $this->wpService->addFilter('Municipio/Navigation/Cache/Key', [$this, 'addLanguageToCacheKey']);
+    }
+
+    /**
+     * Append the current Polylang language to the navigation cache key so that
+     * each language gets its own cached navigation data.
+     *
+     * @param string $key The original cache key.
+     *
+     * @return string
+     */
+    public function addLanguageToCacheKey(string $key): string
+    {
+        $language = $this->getCurrentLanguageResolver()?->__invoke();
+
+        if (is_string($language) && $language !== '') {
+            return $key . ':' . $language;
+        }
+
+        return $key;
     }
 
     /**
@@ -76,5 +98,18 @@ class ResolvePageTreeMenuPageIds implements Hookable
         }
 
         return static fn (int $pageId): mixed => call_user_func('pll_get_post', $pageId);
+    }
+
+    private function getCurrentLanguageResolver(): ?Closure
+    {
+        if ($this->currentLanguageResolver instanceof Closure) {
+            return $this->currentLanguageResolver;
+        }
+
+        if (!is_callable('pll_current_language')) {
+            return null;
+        }
+
+        return static fn (): mixed => call_user_func('pll_current_language', 'slug');
     }
 }
