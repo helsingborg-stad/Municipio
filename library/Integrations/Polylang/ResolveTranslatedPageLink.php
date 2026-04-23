@@ -63,16 +63,21 @@ class ResolveTranslatedPageLink implements Hookable
             return $link;
         }
 
+        $baseUrl = $this->getLanguageHomeUrlResolver()?->__invoke($language);
+        if (!is_string($baseUrl) || $baseUrl === '') {
+            $baseUrl = $this->wpService->homeUrl();
+        }
+
+        // WordPress sets page_link to home_url() for the front page — don't override it.
+        if (rtrim($link, '/') === rtrim($baseUrl, '/')) {
+            return $link;
+        }
+
         $sourcePostId = $this->resolveSourcePostId($postId, $language);
         $segments     = $this->buildTranslatedPathSegments($postId, $sourcePostId, $language);
 
         if (empty($segments)) {
             return $link;
-        }
-
-        $baseUrl = $this->getLanguageHomeUrlResolver()?->__invoke($language);
-        if (!is_string($baseUrl) || $baseUrl === '') {
-            $baseUrl = $this->wpService->homeUrl();
         }
 
         return rtrim($baseUrl, '/') . '/' . implode('/', $segments) . '/';
@@ -136,6 +141,12 @@ class ResolveTranslatedPageLink implements Hookable
             }
 
             array_unshift($segments, $translatedPost->post_name);
+
+            // Translated page is top-level — no need to walk further up the source
+            // parent chain since the translated hierarchy is shallower than the source.
+            if ((int) ($translatedPost->post_parent ?? 0) === 0) {
+                break;
+            }
 
             $sourcePost = $this->wpService->getPost($sourcePostId);
             if (!is_object($sourcePost) || !isset($sourcePost->post_parent) || !is_numeric($sourcePost->post_parent)) {
