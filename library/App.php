@@ -369,6 +369,16 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Setup Chat
+         */
+        (new \Municipio\Chat\ChatFeature(
+            $this->wpService,
+            $this->acfService,
+            $this->wpUtilService->enqueue(),
+            $this->hooksRegistrar,
+        ))->enable();
     }
 
     /**
