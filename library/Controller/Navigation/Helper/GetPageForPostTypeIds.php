@@ -42,11 +42,12 @@ class GetPageForPostTypeIds
         if (is_countable($postTypes)) {
             foreach ($postTypes as $postType) {
                 //Fetch mapping ID
-                $postId = $optionResolver($postType);
-                $postId = apply_filters('Municipio/Navigation/PageForPostTypeId', $postId, $postType);
+                $postId          = $optionResolver($postType);
+                $filteredPostId  = apply_filters('Municipio/Navigation/PageForPostTypeId', $postId, $postType);
+                $postId          = $filteredPostId ?? $postId;
 
                 //Validate mapping ID
-                if (is_numeric($postId)) {
+                if (is_numeric($postId) && (int) $postId > 0) {
                     $result[$postId] = $postType;
                 }
             }

@@ -7,7 +7,7 @@ namespace Municipio\Integrations\Polylang;
 use Closure;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use stdClass;
+use WP_Post;
 use WpService\Implementations\FakeWpService;
 
 class ResolveTranslatedPageLinkTest extends TestCase
@@ -17,7 +17,7 @@ class ResolveTranslatedPageLinkTest extends TestCase
     {
         $wpService = new FakeWpService([
             'addFilter' => true,
-            'getPost' => new stdClass(),
+            'getPost' => new WP_Post((object) ['ID' => 1]),
             'homeUrl' => 'https://example.com',
         ]);
 
@@ -174,17 +174,27 @@ class ResolveTranslatedPageLinkTest extends TestCase
                     'page_on_front' => 999,
                     default         => false,
                 },
-                'getPost' => static function (int $postId): ?object {
-                    return match ($postId) {
-                        200 => (object) ['ID' => 200, 'post_parent' => 50,  'post_name' => 'move-here'],
-                        150 => (object) ['ID' => 150, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
-                        100 => (object) ['ID' => 100, 'post_parent' => 50,  'post_name' => 'flytta-hit'],
-                        50  => (object) ['ID' => 50,  'post_parent' => 0,   'post_name' => 'leva-bo'],
-                        400 => (object) ['ID' => 400, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
-                        500 => (object) ['ID' => 500, 'post_parent' => 999, 'post_name' => 'live-stay-studdy'],
-                        999 => (object) ['ID' => 999, 'post_parent' => 0,   'post_name' => 'home'],
-                        default => null,
-                    };
+                'getPost' => static function (int $postId): ?WP_Post {
+                    $posts = [
+                        200 => ['ID' => 200, 'post_parent' => 50,  'post_name' => 'move-here'],
+                        150 => ['ID' => 150, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
+                        100 => ['ID' => 100, 'post_parent' => 50,  'post_name' => 'flytta-hit'],
+                        50  => ['ID' => 50,  'post_parent' => 0,   'post_name' => 'leva-bo'],
+                        400 => ['ID' => 400, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
+                        500 => ['ID' => 500, 'post_parent' => 999, 'post_name' => 'live-stay-studdy'],
+                        999 => ['ID' => 999, 'post_parent' => 0,   'post_name' => 'home'],
+                    ];
+
+                    if (!isset($posts[$postId])) {
+                        return null;
+                    }
+
+                    $post = new WP_Post((object) $posts[$postId]);
+                    foreach ($posts[$postId] as $key => $value) {
+                        $post->$key = $value;
+                    }
+
+                    return $post;
                 },
                 'homeUrl' => 'http://localhost:8080/hbgcom',
             ]),
