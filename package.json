@@ -94,6 +94,7 @@
     },
     "dependencies": {
         "core-js": "^3.45.0",
+        "date-fns": "^4.1.0",
         "react": "^18.3.1"
     }
 }
