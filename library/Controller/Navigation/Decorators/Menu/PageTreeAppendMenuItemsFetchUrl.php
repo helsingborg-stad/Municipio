@@ -42,7 +42,7 @@ class PageTreeAppendMenuItemsFetchUrl implements MenuInterface
             return $menu;
         }   
 
-        $homeUrl = $this->wpService->applyFilters('Municipio/homeUrl', $this->wpService->escUrl($this->wpService->getHomeUrl()));
+        $homeUrl = rtrim($this->wpService->escUrl($this->wpService->getHomeUrl()), '/');
 
         $depth = isset($_GET['depth']) ? intval($_GET['depth']) + 1 : 2;
 

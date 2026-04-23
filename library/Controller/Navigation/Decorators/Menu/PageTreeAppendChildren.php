@@ -95,16 +95,55 @@ class PageTreeAppendChildren implements MenuInterface
         $hasUnstructuredChildren = false;
         if (is_array($children) && !empty($children)) {
             foreach ($children as &$child) {
-                if (isset($menuItemsIdAsKey[$child['ID']])) {
-                    $structuredChildren[] = $menuItemsIdAsKey[$child['ID']];
+                $childId = $child['ID'] ?? $child['id'] ?? null;
+
+                if (!is_numeric($childId) || (int) $childId <= 0) {
+                    continue;
+                }
+
+                $childId = (int) $childId;
+
+                if (isset($menuItemsIdAsKey[$childId])) {
+                    $structuredChildren[] = $menuItemsIdAsKey[$childId];
                 } else {
-                    $newMenuItems[]          = $child;
+                    $newMenuItems[]          = $this->normalizeChild($child, $childId);
                     $hasUnstructuredChildren = true;
                 }
             }
         }
 
         return !empty($structuredChildren) ? $structuredChildren : $hasUnstructuredChildren;
+    }
+
+    /**
+     * Normalize a child item so downstream page tree decorators can process it.
+     *
+     * @param array $child The child item.
+     * @param int   $childId The normalized child ID.
+     *
+     * @return array The normalized child item.
+     */
+    private function normalizeChild(array $child, int $childId): array
+    {
+        $child['id']          = $child['id'] ?? $childId;
+        $child['label']       = $child['label'] ?? ($child['post_title'] ?? null);
+        $child['post_parent'] = isset($child['post_parent']) ? (int) $child['post_parent'] : 0;
+
+        unset($child['ID']);
+
+        return array_merge(
+            [
+                'id'          => null,
+                'post_parent' => null,
+                'post_type'   => null,
+                'active'      => null,
+                'ancestor'    => null,
+                'label'       => null,
+                'href'        => null,
+                'children'    => null,
+            ],
+            $child
+        );
     }
 
     /**

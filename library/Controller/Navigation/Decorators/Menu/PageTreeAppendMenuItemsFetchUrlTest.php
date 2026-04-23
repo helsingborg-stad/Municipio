@@ -13,8 +13,8 @@ use WpService\Implementations\FakeWpService;
 
 class PageTreeAppendMenuItemsFetchUrlTest extends TestCase
 {
-    #[TestDox('getMenu() applies the page tree fetch URL filter to generated fetch URLs')]
-    public function testGetMenuAppliesPageTreeFetchUrlFilter(): void
+    #[TestDox('getMenu() builds fetch URLs from the site home URL and applies the page tree fetch URL filter')]
+    public function testGetMenuBuildsFetchUrlsFromSiteHomeUrlAndAppliesPageTreeFetchUrlFilter(): void
     {
         $inner = new class implements MenuInterface {
             public function getMenu(): array
@@ -37,9 +37,7 @@ class PageTreeAppendMenuItemsFetchUrlTest extends TestCase
         $wpService = new FakeWpService([
             'getHomeUrl' => 'http://localhost:8080/hbgcom',
             'escUrl'     => static fn (string $url): string => $url,
-            'applyFilters' => static fn (string $hookName, string $value): string => $hookName === 'Municipio/homeUrl'
-                ? $value
-                : $value . '&lang=sv',
+            'applyFilters' => static fn (string $hookName, string $value): string => $value . '&lang=sv',
         ]);
 
         $sut = new PageTreeAppendMenuItemsFetchUrl($inner, $wpService);
