@@ -111,6 +111,33 @@ class ResolveTranslatedPageLinkTest extends TestCase
         );
     }
 
+    #[TestDox('resolveTranslatedPageLink() skips the front page ancestor when building the path')]
+    public function testResolveTranslatedPageLinkSkipsFrontPageAncestor(): void
+    {
+        // English archive page (500) has post_parent pointing to the English front page (999).
+        // The front page should not appear as a path segment.
+        $sut = $this->getSut(
+            postTranslationsResolver: static function (int $postId): array {
+                return match ($postId) {
+                    500 => ['sv' => 500, 'en' => 500],
+                    999 => ['sv' => 999, 'en' => 999],
+                    default => [],
+                };
+            },
+            translatedPostResolver: static function (int $postId, string $language): int {
+                return 0;
+            },
+            postLanguageResolver:    static fn (int $postId): string => 'en',
+            defaultLanguageResolver: static fn (): string => 'sv',
+            languageHomeUrlResolver: static fn (string $language): string => 'http://localhost:8080/hbgcom/en'
+        );
+
+        static::assertSame(
+            'http://localhost:8080/hbgcom/en/live-stay-studdy/',
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/home/live-stay-studdy/', 500, false)
+        );
+    }
+
     #[TestDox('resolveTranslatedPageLink() returns the original link when the page language cannot be resolved')]
     public function testResolveTranslatedPageLinkReturnsOriginalLinkWhenLanguageIsUnknown(): void
     {
@@ -143,6 +170,10 @@ class ResolveTranslatedPageLinkTest extends TestCase
         return new ResolveTranslatedPageLink(
             new FakeWpService([
                 'addFilter' => true,
+                'getOption' => static fn (string $option): mixed => match ($option) {
+                    'page_on_front' => 999,
+                    default         => false,
+                },
                 'getPost' => static function (int $postId): ?object {
                     return match ($postId) {
                         200 => (object) ['ID' => 200, 'post_parent' => 50,  'post_name' => 'move-here'],
@@ -150,6 +181,8 @@ class ResolveTranslatedPageLinkTest extends TestCase
                         100 => (object) ['ID' => 100, 'post_parent' => 50,  'post_name' => 'flytta-hit'],
                         50  => (object) ['ID' => 50,  'post_parent' => 0,   'post_name' => 'leva-bo'],
                         400 => (object) ['ID' => 400, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
+                        500 => (object) ['ID' => 500, 'post_parent' => 999, 'post_name' => 'live-stay-studdy'],
+                        999 => (object) ['ID' => 999, 'post_parent' => 0,   'post_name' => 'home'],
                         default => null,
                     };
                 },

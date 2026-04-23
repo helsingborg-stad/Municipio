@@ -7,6 +7,7 @@ namespace Municipio\Integrations\Polylang;
 use Closure;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPost;
 use WpService\Contracts\HomeUrl;
 
@@ -26,7 +27,7 @@ class ResolveTranslatedPageLink implements Hookable
      * @param ?Closure $languageHomeUrlResolver Optional language home URL resolver.
      */
     public function __construct(
-        private AddFilter&GetPost&HomeUrl $wpService,
+        private AddFilter&GetOption&GetPost&HomeUrl $wpService,
         private ?Closure $postTranslationsResolver = null,
         private ?Closure $translatedPostResolver = null,
         private ?Closure $postLanguageResolver = null,
@@ -124,8 +125,9 @@ class ResolveTranslatedPageLink implements Hookable
      */
     private function buildTranslatedPathSegments(int $postId, int $sourcePostId, string $language): array
     {
-        $segments = [];
-        $visited  = [];
+        $segments    = [];
+        $visited     = [];
+        $frontPageId = (int) $this->wpService->getOption('page_on_front');
 
         while ($sourcePostId > 0 && !isset($visited[$sourcePostId])) {
             $visited[$sourcePostId] = true;
@@ -133,6 +135,10 @@ class ResolveTranslatedPageLink implements Hookable
             $translatedPostId = $this->resolveTranslatedPostId($sourcePostId, $postId, $language);
             if ($translatedPostId === null) {
                 return [];
+            }
+
+            if ($frontPageId > 0 && $translatedPostId === $frontPageId) {
+                break;
             }
 
             $translatedPost = $this->wpService->getPost($translatedPostId);
