@@ -71,10 +71,14 @@ class ResolveTranslatedBreadcrumbItemsTest extends TestCase
         $resolvedItems = $sut->resolveTranslatedBreadcrumbItems($items);
 
         static::assertSame('Home', $resolvedItems[2]['label']);
-        static::assertSame('Foralder', $resolvedItems[15]['label']);
-        static::assertSame('https://example.com/sv/foralder', $resolvedItems[15]['href']);
-        static::assertSame('Barn', $resolvedItems[25]['label']);
-        static::assertSame('https://example.com/sv/barn', $resolvedItems[25]['href']);
+        static::assertArrayNotHasKey(15, $resolvedItems);
+        static::assertArrayNotHasKey(25, $resolvedItems);
+        static::assertSame('Foralder', $resolvedItems[115]['label']);
+        static::assertSame(115, $resolvedItems[115]['id']);
+        static::assertSame('https://example.com/sv/foralder', $resolvedItems[115]['href']);
+        static::assertSame('Barn', $resolvedItems[125]['label']);
+        static::assertSame(125, $resolvedItems[125]['id']);
+        static::assertSame('https://example.com/sv/barn', $resolvedItems[125]['href']);
     }
 
     #[TestDox('resolveTranslatedBreadcrumbItems() preserves existing labels while still updating URLs')]
@@ -95,8 +99,10 @@ class ResolveTranslatedBreadcrumbItemsTest extends TestCase
 
         $resolvedItems = $sut->resolveTranslatedBreadcrumbItems($items);
 
-        static::assertSame('Talent & Research', $resolvedItems[25]['label']);
-        static::assertSame('https://example.com/en/talent-research', $resolvedItems[25]['href']);
+        static::assertArrayNotHasKey(25, $resolvedItems);
+        static::assertSame('Talent & Research', $resolvedItems[225]['label']);
+        static::assertSame(225, $resolvedItems[225]['id']);
+        static::assertSame('https://example.com/en/talent-research', $resolvedItems[225]['href']);
     }
 
     #[TestDox('resolveTranslatedBreadcrumbItems() returns original items when no current language exists')]

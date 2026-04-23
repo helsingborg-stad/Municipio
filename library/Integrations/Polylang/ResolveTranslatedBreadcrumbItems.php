@@ -60,29 +60,39 @@ class ResolveTranslatedBreadcrumbItems implements Hookable
             return $items;
         }
 
+        $resolvedItems = [];
+
         foreach ($items as $key => $item) {
+            $resolvedKey = $key;
+
             if (!is_array($item) || (($item['icon'] ?? null) === 'home')) {
+                $resolvedItems[$resolvedKey] = $item;
                 continue;
             }
 
             $postId = $this->resolvePostId($key, $item);
             if ($postId === null) {
+                $resolvedItems[$resolvedKey] = $item;
                 continue;
             }
 
             $translations = $this->getPostTranslationsResolver()?->__invoke($postId);
             if (!is_array($translations)) {
+                $resolvedItems[$resolvedKey] = $item;
                 continue;
             }
 
             $translatedPostId = $translations[$currentLanguage] ?? null;
             if (!is_numeric($translatedPostId) || (int) $translatedPostId <= 0) {
+                $resolvedItems[$resolvedKey] = $item;
                 continue;
             }
 
             $translatedPostId = (int) $translatedPostId;
             $translatedTitle  = (string) $this->wpService->getTheTitle($translatedPostId);
             $translatedUrl    = $this->wpService->getPermalink($translatedPostId);
+            $resolvedKey      = is_numeric($key) && (int) $key > 0 ? $translatedPostId : $key;
+            $item['id']       = $translatedPostId;
 
             if ((empty($item['label']) || $item['label'] === __('Untitled page', 'municipio')) && $translatedTitle !== '') {
                 $item['label'] = $translatedTitle;
@@ -92,10 +102,10 @@ class ResolveTranslatedBreadcrumbItems implements Hookable
                 $item['href'] = $translatedUrl;
             }
 
-            $items[$key] = $item;
+            $resolvedItems[$resolvedKey] = $item;
         }
 
-        return $items;
+        return $resolvedItems;
     }
 
     /**
