@@ -16,7 +16,7 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
     {
         static::assertInstanceOf(
             ResolveTranslatedPostTypeArchiveLink::class,
-            $this->getSut()
+            $this->getSut(),
         );
     }
 
@@ -24,13 +24,13 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
     public function testAddHooksRegistersFilter(): void
     {
         $wpService = new FakeWpService(['addFilter' => true]);
-        $sut       = new ResolveTranslatedPostTypeArchiveLink($wpService);
+        $sut = new ResolveTranslatedPostTypeArchiveLink($wpService);
 
         $sut->addHooks();
 
         static::assertSame(
             [['post_type_archive_link', [$sut, 'resolveTranslatedArchiveLink'], 10, 2]],
-            $wpService->methodCalls['addFilter']
+            $wpService->methodCalls['addFilter'],
         );
     }
 
@@ -40,12 +40,12 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         $sut = $this->getSut(
             getOption: 42,
             getPageLink: 'https://example.test/en/visit-experience/food-drinks/',
-            translatedPostResolver: static fn (int $id): int => $id === 42 ? 100 : 0
+            translatedPostResolver: static fn(int $id): int => $id === 42 ? 100 : 0,
         );
 
         static::assertSame(
             'https://example.test/en/visit-experience/food-drinks/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/en/besoka-uppleva/food-drinks/', 'food-drinks')
+            $sut->resolveTranslatedArchiveLink('https://example.test/en/besoka-uppleva/food-drinks/', 'food-drinks'),
         );
     }
 
@@ -55,12 +55,12 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         $sut = $this->getSut(
             getOption: 42,
             getPageLink: 'https://example.test/sv/besoka-uppleva/mat-och-dryck/',
-            translatedPostResolver: static fn (int $id): int => 0
+            translatedPostResolver: static fn(int $id): int => 0,
         );
 
         static::assertSame(
             'https://example.test/sv/besoka-uppleva/mat-och-dryck/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/original/', 'food-drinks')
+            $sut->resolveTranslatedArchiveLink('https://example.test/original/', 'food-drinks'),
         );
     }
 
@@ -70,12 +70,12 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         $sut = $this->getSut(
             getOption: false,
             getPageLink: 'https://example.test/should/not/be/used/',
-            translatedPostResolver: static fn (int $id): int => 100
+            translatedPostResolver: static fn(int $id): int => 100,
         );
 
         static::assertSame(
             'https://example.test/product/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/product/', 'product')
+            $sut->resolveTranslatedArchiveLink('https://example.test/product/', 'product'),
         );
     }
 
@@ -86,7 +86,7 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
 
         static::assertSame(
             'https://example.test/product/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/product/', '')
+            $sut->resolveTranslatedArchiveLink('https://example.test/product/', ''),
         );
     }
 
@@ -97,7 +97,7 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
 
         static::assertSame(
             'https://example.test/butik/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product')
+            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product'),
         );
     }
 
@@ -107,12 +107,12 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         $sut = $this->getSut(
             getOption: 42,
             getPageLink: '',
-            translatedPostResolver: static fn (int $id): int => 100
+            translatedPostResolver: static fn(int $id): int => 100,
         );
 
         static::assertSame(
             'https://example.test/butik/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product')
+            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product'),
         );
     }
 
@@ -122,17 +122,17 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
     private function getSut(
         mixed $getOption = false,
         string $getPageLink = '',
-        ?Closure $translatedPostResolver = null
+        ?Closure $translatedPostResolver = null,
     ): ResolveTranslatedPostTypeArchiveLink {
         $wpService = new FakeWpService([
-            'addFilter'   => true,
-            'getOption'   => $getOption,
+            'addFilter' => true,
+            'getOption' => $getOption,
             'getPageLink' => $getPageLink,
         ]);
 
         return new ResolveTranslatedPostTypeArchiveLink(
             $wpService,
-            $translatedPostResolver
+            $translatedPostResolver,
         );
     }
 }

@@ -32,9 +32,8 @@ class ResolveTranslatedPageLink implements Hookable
         private ?Closure $translatedPostResolver = null,
         private ?Closure $postLanguageResolver = null,
         private ?Closure $defaultLanguageResolver = null,
-        private ?Closure $languageHomeUrlResolver = null
-    ) {
-    }
+        private ?Closure $languageHomeUrlResolver = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -75,7 +74,7 @@ class ResolveTranslatedPageLink implements Hookable
         }
 
         $sourcePostId = $this->resolveSourcePostId($postId, $language);
-        $segments     = $this->buildTranslatedPathSegments($postId, $sourcePostId, $language);
+        $segments = $this->buildTranslatedPathSegments($postId, $sourcePostId, $language);
 
         if (empty($segments)) {
             return $link;
@@ -100,14 +99,7 @@ class ResolveTranslatedPageLink implements Hookable
         }
 
         $defaultLanguage = $this->getDefaultLanguageResolver()?->__invoke();
-        if (
-            is_string($defaultLanguage) &&
-            $defaultLanguage !== '' &&
-            $defaultLanguage !== $language &&
-            isset($translations[$defaultLanguage]) &&
-            is_numeric($translations[$defaultLanguage]) &&
-            (int) $translations[$defaultLanguage] > 0
-        ) {
+        if (is_string($defaultLanguage) && $defaultLanguage !== '' && $defaultLanguage !== $language && isset($translations[$defaultLanguage]) && is_numeric($translations[$defaultLanguage]) && (int) $translations[$defaultLanguage] > 0) {
             return (int) $translations[$defaultLanguage];
         }
 
@@ -125,19 +117,27 @@ class ResolveTranslatedPageLink implements Hookable
      */
     private function buildTranslatedPathSegments(int $postId, int $sourcePostId, string $language): array
     {
-        $segments    = [];
-        $visited     = [];
-        $frontPageId = (int) $this->wpService->getOption('page_on_front');
+        $segments = [];
+        $visited = [];
+        $frontPageIds = $this->collectFrontPageIds($language);
 
         while ($sourcePostId > 0 && !isset($visited[$sourcePostId])) {
             $visited[$sourcePostId] = true;
+
+            // Stop walking when the source ancestor is the front page in any language.
+            // Polylang filters `page_on_front` to the current language's front page ID,
+            // so the translated counterpart of a non-current-language front page would
+            // otherwise be appended as a regular segment (e.g. the English "home" page).
+            if (isset($frontPageIds[$sourcePostId])) {
+                break;
+            }
 
             $translatedPostId = $this->resolveTranslatedPostId($sourcePostId, $postId, $language);
             if ($translatedPostId === null) {
                 return [];
             }
 
-            if ($frontPageId > 0 && $translatedPostId === $frontPageId) {
+            if (isset($frontPageIds[$translatedPostId])) {
                 break;
             }
 
@@ -163,6 +163,49 @@ class ResolveTranslatedPageLink implements Hookable
         }
 
         return $segments;
+    }
+
+    /**
+     * Collect front page IDs for all languages, keyed by ID for fast lookup.
+     *
+     * `page_on_front` is filtered by Polylang to the current language's front
+     * page, which may differ from the language we are building a link for
+     * (e.g. building an English link while the current language is Swedish).
+     * To cover that case we also explicitly resolve the front page for the
+     * target `$language` via `pll_get_post`, and collect all Polylang
+     * translations of the stored front page.
+     *
+     * @param string $language The target language slug (e.g. 'en', 'sv').
+     * @return array<int, true>
+     */
+    private function collectFrontPageIds(string $language): array
+    {
+        $frontPageId = (int) $this->wpService->getOption('page_on_front');
+        if ($frontPageId <= 0) {
+            return [];
+        }
+
+        $ids = [$frontPageId => true];
+
+        // Explicitly resolve the front page for the target language.  This
+        // matters when pll_current_language() != $language and the front pages
+        // are not linked as Polylang translations of each other.
+        $langFrontPageId = $this->getTranslatedPostResolver()?->__invoke($frontPageId, $language);
+        if (is_numeric($langFrontPageId) && (int) $langFrontPageId > 0) {
+            $ids[(int) $langFrontPageId] = true;
+        }
+
+        // Also collect all translation variants of the stored front page.
+        $translations = $this->getPostTranslationsResolver()?->__invoke($frontPageId);
+        if (is_array($translations)) {
+            foreach ($translations as $translatedId) {
+                if (is_numeric($translatedId) && (int) $translatedId > 0) {
+                    $ids[(int) $translatedId] = true;
+                }
+            }
+        }
+
+        return $ids;
     }
 
     /**
@@ -195,6 +238,14 @@ class ResolveTranslatedPageLink implements Hookable
             return (int) $translations[$language];
         }
 
+        // Final fallback: if the source page is already in the target language
+        // (e.g. we are walking up the ancestor chain of a page that has no
+        // source-language counterpart), return it as its own "translation".
+        $sourceLanguage = $this->getPostLanguageResolver()?->__invoke($sourcePostId);
+        if (is_string($sourceLanguage) && $sourceLanguage !== '' && $sourceLanguage === $language) {
+            return $sourcePostId;
+        }
+
         return null;
     }
 
@@ -213,7 +264,7 @@ class ResolveTranslatedPageLink implements Hookable
             return null;
         }
 
-        return static fn (int $postId): mixed => call_user_func('pll_get_post_translations', $postId);
+        return static fn(int $postId): mixed => call_user_func('pll_get_post_translations', $postId);
     }
 
     /**
@@ -231,7 +282,7 @@ class ResolveTranslatedPageLink implements Hookable
             return null;
         }
 
-        return static fn (int $postId, string $language): mixed => call_user_func('pll_get_post', $postId, $language);
+        return static fn(int $postId, string $language): mixed => call_user_func('pll_get_post', $postId, $language);
     }
 
     /**
@@ -249,7 +300,7 @@ class ResolveTranslatedPageLink implements Hookable
             return null;
         }
 
-        return static fn (int $postId): mixed => call_user_func('pll_get_post_language', $postId, 'slug');
+        return static fn(int $postId): mixed => call_user_func('pll_get_post_language', $postId, 'slug');
     }
 
     /**
@@ -267,7 +318,7 @@ class ResolveTranslatedPageLink implements Hookable
             return null;
         }
 
-        return static fn (): mixed => call_user_func('pll_default_language', 'slug');
+        return static fn(): mixed => call_user_func('pll_default_language', 'slug');
     }
 
     /**
@@ -285,6 +336,6 @@ class ResolveTranslatedPageLink implements Hookable
             return null;
         }
 
-        return static fn (string $language): mixed => call_user_func('pll_home_url', $language);
+        return static fn(string $language): mixed => call_user_func('pll_home_url', $language);
     }
 }

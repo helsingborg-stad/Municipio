@@ -138,6 +138,67 @@ class ResolveTranslatedPageLinkTest extends TestCase
         );
     }
 
+    #[TestDox('resolveTranslatedPageLink() skips the front page ancestor found via translatedPostResolver when current language differs from target language')]
+    public function testResolveTranslatedPageLinkSkipsFrontPageFoundViaTranslatedPostResolver(): void
+    {
+        // Simulates building an English link while Polylang's current language is Swedish:
+        // - page_on_front = 1 (Swedish startsida, because pll_current_language()='sv')
+        // - translatedPostResolver(1, 'en') = 2 (English home, linked in Polylang)
+        // - English food-drinks (200) has no Swedish counterpart → sourcePostId = 200
+        // - English hierarchy: home(2) → visit-experience(150) → food-drinks(200)
+        // The English "home" page must be recognised as a front page and excluded.
+        $wpService = new FakeWpService([
+            'addFilter' => true,
+            'getOption' => static fn (string $option): mixed => match ($option) {
+                'page_on_front' => 1, // Swedish front page (current language is 'sv')
+                default         => false,
+            },
+            'getPost' => static function (int $postId): ?WP_Post {
+                $posts = [
+                    200 => ['ID' => 200, 'post_parent' => 150, 'post_name' => 'food-drinks'],
+                    150 => ['ID' => 150, 'post_parent' => 2,   'post_name' => 'visit-experience'],
+                    2   => ['ID' => 2,   'post_parent' => 0,   'post_name' => 'home'],
+                    1   => ['ID' => 1,   'post_parent' => 0,   'post_name' => 'startsida'],
+                ];
+
+                if (!isset($posts[$postId])) {
+                    return null;
+                }
+
+                $post = new WP_Post((object) $posts[$postId]);
+                foreach ($posts[$postId] as $key => $value) {
+                    $post->$key = $value;
+                }
+
+                return $post;
+            },
+            'homeUrl' => 'http://localhost:8080/hbgcom',
+        ]);
+
+        $sut = new ResolveTranslatedPageLink(
+            $wpService,
+            // postTranslationsResolver: food-drinks (200) has no Swedish counterpart.
+            // The Swedish front page (1) has no English translation via this resolver.
+            static fn (int $postId): array => match ($postId) {
+                1  => ['sv' => 1],
+                default => [],
+            },
+            // translatedPostResolver: pll_get_post(1, 'en') = 2 (English home).
+            static fn (int $postId, string $language): int => match ([$postId, $language]) {
+                [1, 'en'] => 2,
+                default   => 0,
+            },
+            static fn (int $postId): string  => 'en',
+            static fn (): string             => 'sv',
+            static fn (string $lang): string => 'http://localhost:8080/hbgcom/en',
+        );
+
+        static::assertSame(
+            'http://localhost:8080/hbgcom/en/visit-experience/food-drinks/',
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/home/visit-experience/food-drinks/', 200, false)
+        );
+    }
+
     #[TestDox('resolveTranslatedPageLink() returns the original link when the page language cannot be resolved')]
     public function testResolveTranslatedPageLinkReturnsOriginalLinkWhenLanguageIsUnknown(): void
     {

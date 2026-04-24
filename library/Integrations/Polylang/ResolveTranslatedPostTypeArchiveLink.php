@@ -37,9 +37,8 @@ class ResolveTranslatedPostTypeArchiveLink implements Hookable
      */
     public function __construct(
         private AddFilter&GetOption&GetPageLink $wpService,
-        private ?Closure $translatedPostResolver = null
-    ) {
-    }
+        private ?Closure $translatedPostResolver = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -102,6 +101,6 @@ class ResolveTranslatedPostTypeArchiveLink implements Hookable
             return null;
         }
 
-        return static fn (int $postId): mixed => call_user_func('pll_get_post', $postId);
+        return static fn(int $postId): mixed => call_user_func('pll_get_post', $postId);
     }
 }
