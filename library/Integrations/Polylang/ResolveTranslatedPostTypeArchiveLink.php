@@ -8,34 +8,36 @@ use Closure;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
-use WpService\Contracts\GetPageUri;
+use WpService\Contracts\GetPageLink;
 
 /**
  * Resolves `get_post_type_archive_link()` to the translated archive URL.
  *
  * The wp-page-for-posttype plugin rewrites each post type's registered
- * `rewrite.slug` / `has_archive` to the URI of the default-language page
- * mapped via `page_for_<postType>`. WordPress then builds archive links from
- * that registered slug, which means `get_post_type_archive_link()` always
- * returns the default-language URL — even when a translated page is stored
- * in `page_for_<postType>` for the active language.
+ * `rewrite.slug` / `has_archive` to the URI of the page mapped via
+ * `page_for_<postType>`. WordPress then builds archive links from that
+ * registered slug, so `get_post_type_archive_link()` can return an URL that
+ * mixes ancestor slugs from different languages — e.g. when a translated
+ * page's `post_parent` chain is not fully linked to translated ancestors
+ * the URI becomes `besoka-uppleva/food-drinks` instead of
+ * `visit-experience/food-drinks`.
  *
- * This resolver corrects the returned URL by rebuilding it from the
- * translated page's URI combined with the active language's home URL.
+ * This resolver corrects the returned URL by delegating to
+ * `get_page_link()` on the translated page, which triggers the `page_link`
+ * filter and lets `ResolveTranslatedPageLink` rebuild the URL from
+ * translated ancestor slugs.
  */
 class ResolveTranslatedPostTypeArchiveLink implements Hookable
 {
     /**
      * Constructor.
      *
-     * @param AddFilter&GetOption&GetPageUri $wpService The WordPress service.
+     * @param AddFilter&GetOption&GetPageLink $wpService The WordPress service.
      * @param ?Closure $translatedPostResolver Optional translated post resolver.
-     * @param ?Closure $languageHomeUrlResolver Optional language home URL resolver.
      */
     public function __construct(
-        private AddFilter&GetOption&GetPageUri $wpService,
-        private ?Closure $translatedPostResolver = null,
-        private ?Closure $languageHomeUrlResolver = null
+        private AddFilter&GetOption&GetPageLink $wpService,
+        private ?Closure $translatedPostResolver = null
     ) {
     }
 
@@ -62,38 +64,27 @@ class ResolveTranslatedPostTypeArchiveLink implements Hookable
             return $link;
         }
 
-        $storedPageId = $this->wpService->getOption('page_for_' . $postType);
-        if (!is_numeric($storedPageId) || (int) $storedPageId <= 0) {
-            return $link;
-        }
-
         $translatedPostResolver = $this->getTranslatedPostResolver();
         if ($translatedPostResolver === null) {
             return $link;
         }
 
+        $storedPageId = $this->wpService->getOption('page_for_' . $postType);
+        if (!is_numeric($storedPageId) || (int) $storedPageId <= 0) {
+            return $link;
+        }
+
         $translatedPageId = $translatedPostResolver((int) $storedPageId);
         if (!is_numeric($translatedPageId) || (int) $translatedPageId <= 0) {
+            $translatedPageId = (int) $storedPageId;
+        }
+
+        $pageLink = $this->wpService->getPageLink((int) $translatedPageId);
+        if (!is_string($pageLink) || $pageLink === '') {
             return $link;
         }
 
-        // Nothing to do when the translation resolves to the same page the
-        // plugin already baked into the post type's registered slug.
-        if ((int) $translatedPageId === (int) $storedPageId) {
-            return $link;
-        }
-
-        $pageUri = $this->wpService->getPageUri((int) $translatedPageId);
-        if (!is_string($pageUri) || $pageUri === '') {
-            return $link;
-        }
-
-        $languageHomeUrl = $this->getLanguageHomeUrlResolver()?->__invoke();
-        if (!is_string($languageHomeUrl) || $languageHomeUrl === '') {
-            return $link;
-        }
-
-        return rtrim($languageHomeUrl, '/') . '/' . trim($pageUri, '/') . '/';
+        return $pageLink;
     }
 
     /**
@@ -112,23 +103,5 @@ class ResolveTranslatedPostTypeArchiveLink implements Hookable
         }
 
         return static fn (int $postId): mixed => call_user_func('pll_get_post', $postId);
-    }
-
-    /**
-     * Get the language home URL resolver.
-     *
-     * @return ?Closure
-     */
-    private function getLanguageHomeUrlResolver(): ?Closure
-    {
-        if ($this->languageHomeUrlResolver instanceof Closure) {
-            return $this->languageHomeUrlResolver;
-        }
-
-        if (!is_callable('pll_home_url')) {
-            return null;
-        }
-
-        return static fn (): mixed => call_user_func('pll_home_url');
     }
 }

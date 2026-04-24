@@ -34,19 +34,33 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         );
     }
 
-    #[TestDox('resolveTranslatedArchiveLink() rebuilds the URL using the translated page URI and language home URL')]
-    public function testResolveTranslatedArchiveLinkRebuildsUrl(): void
+    #[TestDox('resolveTranslatedArchiveLink() delegates to get_page_link() for the translated page so ancestor slugs are translated')]
+    public function testResolveTranslatedArchiveLinkDelegatesToGetPageLink(): void
     {
         $sut = $this->getSut(
             getOption: 42,
-            getPageUri: 'shop',
-            translatedPostResolver: static fn (int $id): int => $id === 42 ? 100 : 0,
-            languageHomeUrlResolver: static fn (): string => 'https://example.test/en'
+            getPageLink: 'https://example.test/en/visit-experience/food-drinks/',
+            translatedPostResolver: static fn (int $id): int => $id === 42 ? 100 : 0
         );
 
         static::assertSame(
-            'https://example.test/en/shop/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product')
+            'https://example.test/en/visit-experience/food-drinks/',
+            $sut->resolveTranslatedArchiveLink('https://example.test/en/besoka-uppleva/food-drinks/', 'food-drinks')
+        );
+    }
+
+    #[TestDox('resolveTranslatedArchiveLink() falls back to the stored page ID when the translation resolver returns 0')]
+    public function testResolveTranslatedArchiveLinkFallsBackToStoredIdWhenNoTranslation(): void
+    {
+        $sut = $this->getSut(
+            getOption: 42,
+            getPageLink: 'https://example.test/sv/besoka-uppleva/mat-och-dryck/',
+            translatedPostResolver: static fn (int $id): int => 0
+        );
+
+        static::assertSame(
+            'https://example.test/sv/besoka-uppleva/mat-och-dryck/',
+            $sut->resolveTranslatedArchiveLink('https://example.test/original/', 'food-drinks')
         );
     }
 
@@ -55,7 +69,7 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
     {
         $sut = $this->getSut(
             getOption: false,
-            getPageUri: 'shop',
+            getPageLink: 'https://example.test/should/not/be/used/',
             translatedPostResolver: static fn (int $id): int => 100
         );
 
@@ -76,41 +90,10 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         );
     }
 
-    #[TestDox('resolveTranslatedArchiveLink() returns the original link when the translated page ID equals the stored ID')]
-    public function testResolveTranslatedArchiveLinkReturnsOriginalWhenTranslationSameAsStored(): void
-    {
-        $sut = $this->getSut(
-            getOption: 42,
-            getPageUri: 'butik',
-            translatedPostResolver: static fn (int $id): int => 42,
-            languageHomeUrlResolver: static fn (): string => 'https://example.test/sv'
-        );
-
-        static::assertSame(
-            'https://example.test/butik/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product')
-        );
-    }
-
-    #[TestDox('resolveTranslatedArchiveLink() returns the original link when the translation cannot be resolved')]
-    public function testResolveTranslatedArchiveLinkReturnsOriginalWhenNoTranslation(): void
-    {
-        $sut = $this->getSut(
-            getOption: 42,
-            getPageUri: 'butik',
-            translatedPostResolver: static fn (int $id): int => 0
-        );
-
-        static::assertSame(
-            'https://example.test/butik/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product')
-        );
-    }
-
     #[TestDox('resolveTranslatedArchiveLink() returns the original link when Polylang is not active')]
     public function testResolveTranslatedArchiveLinkReturnsOriginalWhenPolylangInactive(): void
     {
-        $sut = $this->getSut(getOption: 42, getPageUri: 'shop');
+        $sut = $this->getSut(getOption: 42, getPageLink: 'https://example.test/should/not/be/used/');
 
         static::assertSame(
             'https://example.test/butik/',
@@ -118,29 +101,13 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
         );
     }
 
-    #[TestDox('resolveTranslatedArchiveLink() returns the original link when the language home URL resolver is unavailable')]
-    public function testResolveTranslatedArchiveLinkReturnsOriginalWhenNoLanguageHomeUrl(): void
+    #[TestDox('resolveTranslatedArchiveLink() returns the original link when get_page_link() returns an empty string')]
+    public function testResolveTranslatedArchiveLinkReturnsOriginalWhenPageLinkEmpty(): void
     {
         $sut = $this->getSut(
             getOption: 42,
-            getPageUri: 'shop',
+            getPageLink: '',
             translatedPostResolver: static fn (int $id): int => 100
-        );
-
-        static::assertSame(
-            'https://example.test/butik/',
-            $sut->resolveTranslatedArchiveLink('https://example.test/butik/', 'product')
-        );
-    }
-
-    #[TestDox('resolveTranslatedArchiveLink() returns the original link when the page URI is empty')]
-    public function testResolveTranslatedArchiveLinkReturnsOriginalWhenPageUriEmpty(): void
-    {
-        $sut = $this->getSut(
-            getOption: 42,
-            getPageUri: '',
-            translatedPostResolver: static fn (int $id): int => 100,
-            languageHomeUrlResolver: static fn (): string => 'https://example.test/en'
         );
 
         static::assertSame(
@@ -154,20 +121,18 @@ class ResolveTranslatedPostTypeArchiveLinkTest extends TestCase
      */
     private function getSut(
         mixed $getOption = false,
-        string $getPageUri = '',
-        ?Closure $translatedPostResolver = null,
-        ?Closure $languageHomeUrlResolver = null
+        string $getPageLink = '',
+        ?Closure $translatedPostResolver = null
     ): ResolveTranslatedPostTypeArchiveLink {
         $wpService = new FakeWpService([
-            'addFilter'  => true,
-            'getOption'  => $getOption,
-            'getPageUri' => $getPageUri,
+            'addFilter'   => true,
+            'getOption'   => $getOption,
+            'getPageLink' => $getPageLink,
         ]);
 
         return new ResolveTranslatedPostTypeArchiveLink(
             $wpService,
-            $translatedPostResolver,
-            $languageHomeUrlResolver
+            $translatedPostResolver
         );
     }
 }
