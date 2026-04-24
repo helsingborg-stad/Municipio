@@ -9,6 +9,7 @@ use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\__ as Translate;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetPostTypeArchiveLink;
@@ -31,15 +32,17 @@ class AppendArchiveMenuItemTest extends TestCase
 
         $sut = new AppendArchiveMenuItem(
             $this->createInnerMenu(),
-            new class() implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption {
+            new class() implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption, Translate {
                 public function getPostType(int|\WP_Post|null $post = null): string|false
                 {
                     return 'akademi-utbildning';
                 }
 
-                public function getPostTypeObject(string $postType): \WP_Post_Type|null
+                public function getPostTypeObject(string $postType): ?\WP_Post_Type
                 {
-                    $t = new \WP_Post_Type('post'); $t->label = 'Akademi, utbildning & forskning'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->label = 'Akademi, utbildning & forskning';
+                    return $t;
                 }
 
                 public function getPostTypeArchiveLink(string $postType): string|false
@@ -54,7 +57,10 @@ class AppendArchiveMenuItemTest extends TestCase
 
                 public function getQueriedObject(): \WP_Term|\WP_Post_Type|\WP_Post|\WP_User|null
                 {
-                    $t = new \WP_Post_Type('post'); $t->name = 'akademi-utbildning'; $t->label = 'Akademi, utbildning & forskning'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->name = 'akademi-utbildning';
+                    $t->label = 'Akademi, utbildning & forskning';
+                    return $t;
                 }
 
                 public function getTheTitle(int|\WP_Post $post = 0): string
@@ -65,6 +71,11 @@ class AppendArchiveMenuItemTest extends TestCase
                 public function getOption(string $option, mixed $defaultValue = false): mixed
                 {
                     return false;
+                }
+
+                public function __(string $text, string $domain = 'default'): string
+                {
+                    return $text;
                 }
             },
         );
@@ -82,15 +93,17 @@ class AppendArchiveMenuItemTest extends TestCase
 
         $sut = new AppendArchiveMenuItem(
             $this->createInnerMenu(),
-            new class() implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption {
+            new class() implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption, Translate {
                 public function getPostType(int|\WP_Post|null $post = null): string|false
                 {
                     return 'akademi-utbildning';
                 }
 
-                public function getPostTypeObject(string $postType): \WP_Post_Type|null
+                public function getPostTypeObject(string $postType): ?\WP_Post_Type
                 {
-                    $t = new \WP_Post_Type('post'); $t->label = 'Akademi, utbildning & forskning'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->label = 'Akademi, utbildning & forskning';
+                    return $t;
                 }
 
                 public function getPostTypeArchiveLink(string $postType): string|false
@@ -105,7 +118,10 @@ class AppendArchiveMenuItemTest extends TestCase
 
                 public function getQueriedObject(): \WP_Term|\WP_Post_Type|\WP_Post|\WP_User|null
                 {
-                    $t = new \WP_Post_Type('post'); $t->name = 'akademi-utbildning'; $t->label = 'Akademi, utbildning & forskning'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->name = 'akademi-utbildning';
+                    $t->label = 'Akademi, utbildning & forskning';
+                    return $t;
                 }
 
                 public function getTheTitle(int|\WP_Post $post = 0): string
@@ -116,6 +132,11 @@ class AppendArchiveMenuItemTest extends TestCase
                 public function getOption(string $option, mixed $defaultValue = false): mixed
                 {
                     return false;
+                }
+
+                public function __(string $text, string $domain = 'default'): string
+                {
+                    return $text;
                 }
             },
         );
@@ -132,15 +153,17 @@ class AppendArchiveMenuItemTest extends TestCase
 
         $sut = new AppendArchiveMenuItem(
             $this->createInnerMenu(),
-            new class () implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption {
+            new class() implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption, Translate {
                 public function getPostType(int|\WP_Post|null $post = null): string|false
                 {
                     return 'food-drinks';
                 }
 
-                public function getPostTypeObject(string $postType): \WP_Post_Type|null
+                public function getPostTypeObject(string $postType): ?\WP_Post_Type
                 {
-                    $t = new \WP_Post_Type('post'); $t->label = 'Mat och dryck'; return $t; // Swedish raw label
+                    $t = new \WP_Post_Type('post');
+                    $t->label = 'Mat och dryck';
+                    return $t; // Swedish raw label
                 }
 
                 public function getPostTypeArchiveLink(string $postType): string|false
@@ -155,7 +178,9 @@ class AppendArchiveMenuItemTest extends TestCase
 
                 public function getQueriedObject(): \WP_Term|\WP_Post_Type|\WP_Post|\WP_User|null
                 {
-                    $t = new \WP_Post_Type('post'); $t->name = 'food-drinks'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->name = 'food-drinks';
+                    return $t;
                 }
 
                 public function getTheTitle(int|\WP_Post $post = 0): string
@@ -168,7 +193,12 @@ class AppendArchiveMenuItemTest extends TestCase
                 {
                     return $option === 'page_for_food-drinks' ? 200 : false;
                 }
-            }
+
+                public function __(string $text, string $domain = 'default'): string
+                {
+                    return $text;
+                }
+            },
         );
 
         $menu = $sut->getMenu();
@@ -183,15 +213,17 @@ class AppendArchiveMenuItemTest extends TestCase
 
         $sut = new AppendArchiveMenuItem(
             $this->createInnerMenu(),
-            new class () implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption {
+            new class() implements GetPostType, GetPostTypeObject, GetPostTypeArchiveLink, IsArchive, GetQueriedObject, GetTheTitle, GetOption, Translate {
                 public function getPostType(int|\WP_Post|null $post = null): string|false
                 {
                     return 'food-drinks';
                 }
 
-                public function getPostTypeObject(string $postType): \WP_Post_Type|null
+                public function getPostTypeObject(string $postType): ?\WP_Post_Type
                 {
-                    $t = new \WP_Post_Type('post'); $t->label = 'Food & Drinks'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->label = 'Food & Drinks';
+                    return $t;
                 }
 
                 public function getPostTypeArchiveLink(string $postType): string|false
@@ -206,7 +238,9 @@ class AppendArchiveMenuItemTest extends TestCase
 
                 public function getQueriedObject(): \WP_Term|\WP_Post_Type|\WP_Post|\WP_User|null
                 {
-                    $t = new \WP_Post_Type('post'); $t->name = 'food-drinks'; return $t;
+                    $t = new \WP_Post_Type('post');
+                    $t->name = 'food-drinks';
+                    return $t;
                 }
 
                 public function getTheTitle(int|\WP_Post $post = 0): string
@@ -218,7 +252,12 @@ class AppendArchiveMenuItemTest extends TestCase
                 {
                     return false; // no page_for_posttype
                 }
-            }
+
+                public function __(string $text, string $domain = 'default'): string
+                {
+                    return $text;
+                }
+            },
         );
 
         $menu = $sut->getMenu();

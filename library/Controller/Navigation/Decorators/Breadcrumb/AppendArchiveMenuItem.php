@@ -5,6 +5,7 @@ namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
+use WpService\Contracts\__ as Translate;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetPostTypeArchiveLink;
@@ -23,7 +24,7 @@ class AppendArchiveMenuItem implements MenuInterface
      */
     public function __construct(
         private MenuInterface $inner,
-        private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject&GetTheTitle&GetOption $wpService,
+        private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject&GetTheTitle&GetOption&Translate $wpService,
     ) {}
 
     /**
@@ -44,7 +45,7 @@ class AppendArchiveMenuItem implements MenuInterface
         $archiveLink = $this->wpService->getPostTypeArchiveLink($postType);
 
         if ($archiveLink) {
-            $defaultLabel = __('Untitled page', 'municipio');
+            $defaultLabel = $this->wpService->__('Untitled page', 'municipio');
 
             if ($this->wpService->isArchive()) {
                 $pageTitle = (string) $this->wpService->getTheTitle(CurrentPostId::get());
@@ -59,7 +60,7 @@ class AppendArchiveMenuItem implements MenuInterface
             }
 
             $menu['items'][] = [
-                'label' => __($label),
+                'label' => $this->wpService->__($label, 'municipio'),
                 'href' => $archiveLink,
                 'current' => false,
                 'icon' => 'chevron_right',
