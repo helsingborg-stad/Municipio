@@ -35,7 +35,10 @@ class ResolveTranslatedPostTypeLinkTest extends TestCase
             'getPostTypes' => ['books', 'events'],
         ]);
 
-        $sut = new ResolveTranslatedPostTypeLink($wpService);
+        $sut = new ResolveTranslatedPostTypeLink(
+            $wpService,
+            translatedPostResolver: static fn (int $id): int => $id
+        );
 
         $sut->registerPostTypeHooks();
 
@@ -43,6 +46,26 @@ class ResolveTranslatedPostTypeLinkTest extends TestCase
             ['option_page_for_books', 'option_page_for_events'],
             array_column($wpService->methodCalls['addFilter'], 0)
         );
+    }
+
+    #[TestDox('registerPostTypeHooks() does nothing when Polylang is not active')]
+    public function testRegisterPostTypeHooksEarlyReturnsWhenPolylangInactive(): void
+    {
+        $wpService = new FakeWpService([
+            'addFilter'      => true,
+            'addRewriteRule' => null,
+            'getOption'      => 42,
+            'getPostTypes'   => ['books'],
+        ]);
+
+        // No translatedPostResolver and Polylang functions are undefined in tests.
+        $sut = new ResolveTranslatedPostTypeLink($wpService);
+
+        $sut->registerPostTypeHooks();
+
+        static::assertArrayNotHasKey('addFilter', $wpService->methodCalls);
+        static::assertArrayNotHasKey('addRewriteRule', $wpService->methodCalls);
+        static::assertArrayNotHasKey('getPostTypes', $wpService->methodCalls);
     }
 
     #[TestDox('registerPostTypeHooks() adds rewrite rules for all language variants')]
@@ -62,6 +85,7 @@ class ResolveTranslatedPostTypeLinkTest extends TestCase
 
         $sut = new ResolveTranslatedPostTypeLink(
             $wpService,
+            translatedPostResolver: static fn (int $id): int => $id,
             postTranslationsResolver: static fn (int $id): array => ['sv' => 42, 'en' => 100]
         );
 

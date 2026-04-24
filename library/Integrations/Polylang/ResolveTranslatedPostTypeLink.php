@@ -43,6 +43,12 @@ class ResolveTranslatedPostTypeLink implements Hookable
      */
     public function registerPostTypeHooks(): void
     {
+        // Early-return when Polylang is not active — avoids iterating every public
+        // post type and reading options on every request on non-Polylang sites.
+        if ($this->getTranslatedPostResolver() === null) {
+            return;
+        }
+
         foreach ($this->wpService->getPostTypes(['public' => true]) as $postType) {
             $storedPageId = $this->wpService->getOption('page_for_' . $postType);
 
