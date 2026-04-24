@@ -166,14 +166,12 @@ class ResolveTranslatedPageLink implements Hookable
     }
 
     /**
-     * Collect front page IDs for all languages, keyed by ID for fast lookup.
+     * Collect front page IDs for both the current and target languages.
      *
      * `page_on_front` is filtered by Polylang to the current language's front
-     * page, which may differ from the language we are building a link for
-     * (e.g. building an English link while the current language is Swedish).
-     * To cover that case we also explicitly resolve the front page for the
-     * target `$language` via `pll_get_post`, and collect all Polylang
-     * translations of the stored front page.
+     * page, which may differ from the language we are building a link for.
+     * We also resolve the front page for the target `$language` explicitly so
+     * that cross-language ancestor-chain walks stop at the correct front page.
      *
      * @param string $language The target language slug (e.g. 'en', 'sv').
      * @return array<int, true>
@@ -187,22 +185,9 @@ class ResolveTranslatedPageLink implements Hookable
 
         $ids = [$frontPageId => true];
 
-        // Explicitly resolve the front page for the target language.  This
-        // matters when pll_current_language() != $language and the front pages
-        // are not linked as Polylang translations of each other.
         $langFrontPageId = $this->getTranslatedPostResolver()?->__invoke($frontPageId, $language);
         if (is_numeric($langFrontPageId) && (int) $langFrontPageId > 0) {
             $ids[(int) $langFrontPageId] = true;
-        }
-
-        // Also collect all translation variants of the stored front page.
-        $translations = $this->getPostTranslationsResolver()?->__invoke($frontPageId);
-        if (is_array($translations)) {
-            foreach ($translations as $translatedId) {
-                if (is_numeric($translatedId) && (int) $translatedId > 0) {
-                    $ids[(int) $translatedId] = true;
-                }
-            }
         }
 
         return $ids;

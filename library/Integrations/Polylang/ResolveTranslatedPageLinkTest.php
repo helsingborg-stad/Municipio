@@ -27,7 +27,7 @@ class ResolveTranslatedPageLinkTest extends TestCase
 
         static::assertSame(
             [['page_link', [$sut, 'resolveTranslatedPageLink'], 10, 3]],
-            $wpService->methodCalls['addFilter']
+            $wpService->methodCalls['addFilter'],
         );
     }
 
@@ -50,20 +50,20 @@ class ResolveTranslatedPageLinkTest extends TestCase
                     default => 0,
                 };
             },
-            postLanguageResolver: static fn (int $postId): string => 'en',
-            defaultLanguageResolver: static fn (): string => 'sv',
-            languageHomeUrlResolver: static fn (string $language): string => 'http://localhost:8080/hbgcom/en'
+            postLanguageResolver: static fn(int $postId): string => 'en',
+            defaultLanguageResolver: static fn(): string => 'sv',
+            languageHomeUrlResolver: static fn(string $language): string => 'http://localhost:8080/hbgcom/en',
         );
 
         $resolvedLink = $sut->resolveTranslatedPageLink(
             'http://localhost:8080/hbgcom/en/leva-bo/move-here/',
             200,
-            false
+            false,
         );
 
         static::assertSame(
             'http://localhost:8080/hbgcom/en/live-stay-studdy/move-here/',
-            $resolvedLink
+            $resolvedLink,
         );
     }
 
@@ -71,13 +71,13 @@ class ResolveTranslatedPageLinkTest extends TestCase
     public function testResolveTranslatedPageLinkReturnsFrontPageLinkUnchanged(): void
     {
         $sut = $this->getSut(
-            postLanguageResolver:    static fn (int $postId): string => 'en',
-            languageHomeUrlResolver: static fn (string $language): string => 'http://localhost:8080/hbgcom/en'
+            postLanguageResolver: static fn(int $postId): string => 'en',
+            languageHomeUrlResolver: static fn(string $language): string => 'http://localhost:8080/hbgcom/en',
         );
 
         static::assertSame(
             'http://localhost:8080/hbgcom/en/',
-            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/', 1, false)
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/', 1, false),
         );
     }
 
@@ -97,17 +97,17 @@ class ResolveTranslatedPageLinkTest extends TestCase
             translatedPostResolver: static function (int $postId, string $language): int {
                 return match ([$postId, $language]) {
                     [300, 'en'] => 400,
-                    default     => 0,
+                    default => 0,
                 };
             },
-            postLanguageResolver:    static fn (int $postId): string => 'en',
-            defaultLanguageResolver: static fn (): string => 'sv',
-            languageHomeUrlResolver: static fn (string $language): string => 'http://localhost:8080/hbgcom/en'
+            postLanguageResolver: static fn(int $postId): string => 'en',
+            defaultLanguageResolver: static fn(): string => 'sv',
+            languageHomeUrlResolver: static fn(string $language): string => 'http://localhost:8080/hbgcom/en',
         );
 
         static::assertSame(
             'http://localhost:8080/hbgcom/en/live-stay-studdy/',
-            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/leva-bo/wechosehelsingborg/', 400, false)
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/leva-bo/wechosehelsingborg/', 400, false),
         );
     }
 
@@ -127,14 +127,14 @@ class ResolveTranslatedPageLinkTest extends TestCase
             translatedPostResolver: static function (int $postId, string $language): int {
                 return 0;
             },
-            postLanguageResolver:    static fn (int $postId): string => 'en',
-            defaultLanguageResolver: static fn (): string => 'sv',
-            languageHomeUrlResolver: static fn (string $language): string => 'http://localhost:8080/hbgcom/en'
+            postLanguageResolver: static fn(int $postId): string => 'en',
+            defaultLanguageResolver: static fn(): string => 'sv',
+            languageHomeUrlResolver: static fn(string $language): string => 'http://localhost:8080/hbgcom/en',
         );
 
         static::assertSame(
             'http://localhost:8080/hbgcom/en/live-stay-studdy/',
-            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/home/live-stay-studdy/', 500, false)
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/home/live-stay-studdy/', 500, false),
         );
     }
 
@@ -149,16 +149,16 @@ class ResolveTranslatedPageLinkTest extends TestCase
         // The English "home" page must be recognised as a front page and excluded.
         $wpService = new FakeWpService([
             'addFilter' => true,
-            'getOption' => static fn (string $option): mixed => match ($option) {
+            'getOption' => static fn(string $option): mixed => match ($option) {
                 'page_on_front' => 1, // Swedish front page (current language is 'sv')
-                default         => false,
+                default => false,
             },
             'getPost' => static function (int $postId): ?WP_Post {
                 $posts = [
                     200 => ['ID' => 200, 'post_parent' => 150, 'post_name' => 'food-drinks'],
-                    150 => ['ID' => 150, 'post_parent' => 2,   'post_name' => 'visit-experience'],
-                    2   => ['ID' => 2,   'post_parent' => 0,   'post_name' => 'home'],
-                    1   => ['ID' => 1,   'post_parent' => 0,   'post_name' => 'startsida'],
+                    150 => ['ID' => 150, 'post_parent' => 2, 'post_name' => 'visit-experience'],
+                    2 => ['ID' => 2, 'post_parent' => 0, 'post_name' => 'home'],
+                    1 => ['ID' => 1, 'post_parent' => 0, 'post_name' => 'startsida'],
                 ];
 
                 if (!isset($posts[$postId])) {
@@ -179,34 +179,34 @@ class ResolveTranslatedPageLinkTest extends TestCase
             $wpService,
             // postTranslationsResolver: food-drinks (200) has no Swedish counterpart.
             // The Swedish front page (1) has no English translation via this resolver.
-            static fn (int $postId): array => match ($postId) {
-                1  => ['sv' => 1],
+            static fn(int $postId): array => match ($postId) {
+                1 => ['sv' => 1],
                 default => [],
             },
             // translatedPostResolver: pll_get_post(1, 'en') = 2 (English home).
-            static fn (int $postId, string $language): int => match ([$postId, $language]) {
+            static fn(int $postId, string $language): int => match ([$postId, $language]) {
                 [1, 'en'] => 2,
-                default   => 0,
+                default => 0,
             },
-            static fn (int $postId): string  => 'en',
-            static fn (): string             => 'sv',
-            static fn (string $lang): string => 'http://localhost:8080/hbgcom/en',
+            static fn(int $postId): string => 'en',
+            static fn(): string => 'sv',
+            static fn(string $lang): string => 'http://localhost:8080/hbgcom/en',
         );
 
         static::assertSame(
             'http://localhost:8080/hbgcom/en/visit-experience/food-drinks/',
-            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/home/visit-experience/food-drinks/', 200, false)
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/home/visit-experience/food-drinks/', 200, false),
         );
     }
 
     #[TestDox('resolveTranslatedPageLink() returns the original link when the page language cannot be resolved')]
     public function testResolveTranslatedPageLinkReturnsOriginalLinkWhenLanguageIsUnknown(): void
     {
-        $sut = $this->getSut(postLanguageResolver: static fn (int $postId): string => '');
+        $sut = $this->getSut(postLanguageResolver: static fn(int $postId): string => '');
 
         static::assertSame(
             'http://localhost:8080/hbgcom/en/leva-bo/move-here/',
-            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/leva-bo/move-here/', 200, false)
+            $sut->resolveTranslatedPageLink('http://localhost:8080/hbgcom/en/leva-bo/move-here/', 200, false),
         );
     }
 
@@ -226,24 +226,24 @@ class ResolveTranslatedPageLinkTest extends TestCase
         ?Closure $translatedPostResolver = null,
         ?Closure $postLanguageResolver = null,
         ?Closure $defaultLanguageResolver = null,
-        ?Closure $languageHomeUrlResolver = null
+        ?Closure $languageHomeUrlResolver = null,
     ): ResolveTranslatedPageLink {
         return new ResolveTranslatedPageLink(
             new FakeWpService([
                 'addFilter' => true,
-                'getOption' => static fn (string $option): mixed => match ($option) {
+                'getOption' => static fn(string $option): mixed => match ($option) {
                     'page_on_front' => 999,
-                    default         => false,
+                    default => false,
                 },
                 'getPost' => static function (int $postId): ?WP_Post {
                     $posts = [
-                        200 => ['ID' => 200, 'post_parent' => 50,  'post_name' => 'move-here'],
-                        150 => ['ID' => 150, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
-                        100 => ['ID' => 100, 'post_parent' => 50,  'post_name' => 'flytta-hit'],
-                        50  => ['ID' => 50,  'post_parent' => 0,   'post_name' => 'leva-bo'],
-                        400 => ['ID' => 400, 'post_parent' => 0,   'post_name' => 'live-stay-studdy'],
+                        200 => ['ID' => 200, 'post_parent' => 50, 'post_name' => 'move-here'],
+                        150 => ['ID' => 150, 'post_parent' => 0, 'post_name' => 'live-stay-studdy'],
+                        100 => ['ID' => 100, 'post_parent' => 50, 'post_name' => 'flytta-hit'],
+                        50 => ['ID' => 50, 'post_parent' => 0, 'post_name' => 'leva-bo'],
+                        400 => ['ID' => 400, 'post_parent' => 0, 'post_name' => 'live-stay-studdy'],
                         500 => ['ID' => 500, 'post_parent' => 999, 'post_name' => 'live-stay-studdy'],
-                        999 => ['ID' => 999, 'post_parent' => 0,   'post_name' => 'home'],
+                        999 => ['ID' => 999, 'post_parent' => 0, 'post_name' => 'home'],
                     ];
 
                     if (!isset($posts[$postId])) {
@@ -263,7 +263,7 @@ class ResolveTranslatedPageLinkTest extends TestCase
             $translatedPostResolver,
             $postLanguageResolver,
             $defaultLanguageResolver,
-            $languageHomeUrlResolver
+            $languageHomeUrlResolver,
         );
     }
 }

@@ -503,12 +503,12 @@ class App
     private function setUpPolylangIntegration(): void
     {
         // If Polylang is not active, do not register any of the integrations.
-        if(function_exists('pll_get_post_translations') === false) {
+        if (function_exists('pll_get_post_translations') === false) {
             return;
         }
 
         $resolvers = [
-            new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService), //OK
+            new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService),
             new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveTranslatedPageLink($this->wpService),
