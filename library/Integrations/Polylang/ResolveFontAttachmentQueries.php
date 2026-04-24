@@ -31,6 +31,12 @@ class ResolveFontAttachmentQueries implements Hookable
      */
     public function addHooks(): void
     {
+        // Skip registering the pre_get_posts listener entirely on non-Polylang
+        // sites so non-Polylang requests pay no per-query cost.
+        if (!$this->isPolylangActive()) {
+            return;
+        }
+
         $this->wpService->addAction('pre_get_posts', [$this, 'makeFontAttachmentQueryLanguageAgnostic'], 1);
     }
 

@@ -18,19 +18,39 @@ class ResolveFontAttachmentQueriesTest extends TestCase
         static::assertInstanceOf(ResolveFontAttachmentQueries::class, $this->getSut());
     }
 
-    #[TestDox('addHooks() registers the pre_get_posts action')]
+    #[TestDox('addHooks() registers the pre_get_posts action when Polylang is active')]
     public function testAddHooksRegistersPreGetPostsAction(): void
     {
         $wpService = new FakeWpService([
             'addAction' => true,
         ]);
 
-        $sut = new ResolveFontAttachmentQueries($wpService);
+        $sut = new ResolveFontAttachmentQueries(
+            $wpService,
+            static fn (): bool => true
+        );
 
         $sut->addHooks();
 
         static::assertSame('pre_get_posts', $wpService->methodCalls['addAction'][0][0]);
         static::assertSame(1, $wpService->methodCalls['addAction'][0][2]);
+    }
+
+    #[TestDox('addHooks() does not register the pre_get_posts action when Polylang is unavailable')]
+    public function testAddHooksSkipsPreGetPostsActionWhenPolylangInactive(): void
+    {
+        $wpService = new FakeWpService([
+            'addAction' => true,
+        ]);
+
+        $sut = new ResolveFontAttachmentQueries(
+            $wpService,
+            static fn (): bool => false
+        );
+
+        $sut->addHooks();
+
+        static::assertArrayNotHasKey('addAction', $wpService->methodCalls);
     }
 
     #[TestDox('makeFontAttachmentQueryLanguageAgnostic() updates font attachment queries with array mime types')]
