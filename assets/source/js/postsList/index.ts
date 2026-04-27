@@ -12,9 +12,9 @@ export const initPostsListAsync = (): void => {
 				const postsContainer =
 					container.querySelector<HTMLElement>(".js-async-posts");
 				const form = container.querySelector<HTMLFormElement>("form");
-				postsContainer && form
-					? postsListAsync(container, postsContainer, form)
-					: console.error("[PostsList]: Failed to locate posts container.");
+				if (postsContainer) {
+					postsListAsync(container, postsContainer, form);
+				}
 			});
 	});
 };
