@@ -40,7 +40,7 @@
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
     <div
-        class="archive s-archive s-archive-template-{{ sanitize_title($template) }}  s-{{ sanitize_title($postType) }}-archive">
+        class="archive s-archive s-archive-template-{{ sanitize_title($template ?? '') }}  s-{{ sanitize_title($postType) }}-archive">
 
         {!! $hook->loopStart !!}
 
