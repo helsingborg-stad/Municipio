@@ -1,6 +1,6 @@
 @use "sass:map";
 
-$brand-height: calc(var(--c-header--logotype-height, 6) * var(--base, 8px));
+//$brand-height: calc(var(--c-header--logotype-height, 6) * var(--base, 8px));
 $brand-text-color: var(--c-header--brand-color, var(--color-black, #000));
 
 //Spacing
@@ -24,28 +24,6 @@ $brand-text-color: var(--c-header--brand-color, var(--color-black, #000));
     width: auto;
     margin: auto;
     max-width: 50vw;
-}
-
-// Brand
-.c-header .c-brand {
-    line-height: 0; // Prevents space below svg.
-
-    &__text {
-        color: var(--color--primary);
-    }
-
-    &__viewbox {
-        height: $brand-height;
-        max-width: 100%;
-
-        .c-brand__container {
-            height: calc(var(--base) * 12.5);
-        }
-    }
-
-    .c-brand__logotype {
-        height: 100%;
-    }
 }
 
 body.mega-menu-open.mega-menu-mobile {
