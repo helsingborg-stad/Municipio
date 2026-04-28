@@ -14,7 +14,6 @@ class Chat {
     private subscribeToUserMessages(): void {
         this.chat.subscribeToUserMessages((message: any) => {
             const content = message.getContent();
-            console.log("User message:", content);
             this.sendMessage(content);
         });
     }
