@@ -6,12 +6,17 @@
         'icon' => 'chat',
         'size' => 'md',
         'color' => 'primary',
-        'text' => $i18n['chat'],
+        'text' => $lang['chat'],
         'reversePositions' => true
     ]
 ])
     @chat([
-        'id' => 'global-chat'
+        'id' => 'global-chat',
+        'persistent' => true,
+        'chatInputData' => [
+            'sendButtonText' => $lang['send'],
+            'placeholderText' => "PLACEHOLDER TEXT"
+        ]
     ])
     @endchat
 @endfab
