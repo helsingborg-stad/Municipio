@@ -206,13 +206,6 @@
                 'value' => 'chat-settings',
             ),
         ),
-        1 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
     ),
     'menu_order' => 0,
     'position' => 'normal',

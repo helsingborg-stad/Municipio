@@ -202,13 +202,6 @@
                 "operator": "==",
                 "value": "chat-settings"
             }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "all"
-            }
         ]
     ],
     "menu_order": 0,
