@@ -11,31 +11,27 @@
 ])
 
     <!-- Title -->
-    @section('article.title.before')@show
-    @section('article.title')
-        @if ((is_object($post) && method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) || isset($callToActionItems['floating']))
-            @group([
-                'justifyContent' => 'space-between'
-            ])
-                @if ((method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title))
-                    @typography([
-                        'element' => 'h1', 
-                        'variant' => 'h1', 
-                        'id' => 'page-title',
-                    ])
-                        {!! (method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) !!}
-                    @endtypography
-                @endif
-                @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
-                    @element($callToActionItems['floating']['wrapper'] ?? [])
-                        @icon($callToActionItems['floating']['icon'])
-                        @endicon
-                    @endelement
-                @endif
-            @endgroup
-        @endif
-    @show
-    @section('article.title.after')@show
+    @if ((is_object($post) && method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) || isset($callToActionItems['floating']))
+        @group([
+            'justifyContent' => 'space-between'
+        ])
+            @if ((method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title))
+                @typography([
+                    'element' => 'h1', 
+                    'variant' => 'h1', 
+                    'id' => 'page-title',
+                ])
+                    {!! (method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) !!}
+                @endtypography
+            @endif
+            @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
+                @element($callToActionItems['floating']['wrapper'] ?? [])
+                    @icon($callToActionItems['floating']['icon'])
+                    @endicon
+                @endelement
+            @endif
+        @endgroup
+    @endif
 
     <!-- Blog style author signature -->
     @includeWhen(
@@ -49,19 +45,16 @@
 
     <!-- Featured image -->
     @if ($displayFeaturedImage && method_exists($post, 'getImage') && !empty($post->getImage()))
-        @section('article.featuredimage.before')@show
-            @image([
-                'src' => $post->getImage(),
-                'caption' => $featuredImage['caption'],
-                'removeCaption' => !$displayFeaturedImageCaption,
-                'classList' => ['c-article__feature-image', 'u-box-shadow--1', 'u-margin__top--2'],
-            ])
-            @endimage
-        @section('article.featuredimage.after')@show
+        @image([
+            'src' => $post->getImage(),
+            'caption' => $featuredImage['caption'],
+            'removeCaption' => !$displayFeaturedImageCaption,
+            'classList' => ['c-article__feature-image', 'u-box-shadow--1', 'u-margin__top--2'],
+        ])
+        @endimage
     @endif
 
     <!-- Content -->
-    @section('article.content.before')@show
     {!! $hook->articleContentBefore !!}
     @if ($postAgeNotice)
         @notice([
@@ -77,10 +70,7 @@
         ])
         @endnotice
     @endif
-    @section('article.content')
-        {!! is_object($post) && method_exists($post, 'getContent') ? $post->getContent() : $post->post_content !!}
-    @show
-    @section('article.content.after')@show
+    {!! is_object($post) && method_exists($post, 'getContent') ? $post->getContent() : $post->post_content !!}
 
     {!! $hook->articleContentAfter !!}
 
