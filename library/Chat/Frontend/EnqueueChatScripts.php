@@ -27,6 +27,7 @@ class EnqueueChatScripts implements Hookable
 
     public function enqueue(): void
     {
+        /* TODO: Change */
         $this->enqueue
             ->add('js/chat.js')
             ->with()
