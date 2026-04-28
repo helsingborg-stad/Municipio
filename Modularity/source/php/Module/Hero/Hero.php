@@ -63,7 +63,7 @@ class Hero extends \Modularity\Module
         //Common fields
         $data['type'] = $type;
         $data['size'] = $fields['mod_hero_size'];
-        $data['byline'] = $fields['mod_hero_byline'];
+        $data['byline'] = $fields['mod_hero_byline'] ?? null;
         $data['paragraph'] = $fields['mod_hero_body'];
         $data['backgroundType'] = $data['mod_hero_background_type'] ?? 'image';
         $data['heroView'] = !empty($fields['mod_hero_display_as']) ? $fields['mod_hero_display_as'] : 'default';
