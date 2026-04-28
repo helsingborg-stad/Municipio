@@ -37,6 +37,8 @@ const entries = {
 	"js/designbuilder-preview":
 		"./library/Styleguide/Customize/js/designbuilderPreview.ts",
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
+	"js/chat": "./library/Chat/js/index.ts",
+
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
@@ -205,7 +207,7 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			extensions: [".tsx", ".ts", ".js", ".scss", ".css"],
 			alias: {
-				"~": path.resolve(process.cwd(), "node_modules"),
+				"~": path.resolve(process.cwd(), "node_modules")
 			},
 			dedupe: ["leaflet"],
 		},

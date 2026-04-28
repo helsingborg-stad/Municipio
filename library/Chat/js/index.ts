@@ -1,17 +1,9 @@
-import { createChatSession } from "./ChatSession";
-import { createChatUtils } from "./ChatUtils";
-import { initGlobalChat } from "./ui/GlobalChatUI";
-import { initPageModuleChats } from "./ui/PageModuleChatUI";
+import Chat from "./chat";
+import { ChatSessionFactory } from "./ChatSessionFactory";
 
-document.addEventListener("DOMContentLoaded", () => {
-	const utils = createChatUtils();
-	const deps: ChatUIDependencies = {
-		utils,
-		sessionFactory: createChatSession,
-		apiRoot: wpApiSettings.root,
-		strings: municipioChatStrings,
-	};
-
-	initGlobalChat(deps);
-	initPageModuleChats(deps);
+document.addEventListener("chat:initialized", (e: any) => {
+	new Chat(
+		new ChatSessionFactory(wpApiSettings.root),
+		e.detail.chat,
+	).init();
 });

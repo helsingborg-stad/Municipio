@@ -1,3 +1,17 @@
+{{-- @fab([
+    'id' => 'chat-global-root',
+    'position' => 'bottom-right',
+    'heading' => '',
+    'button' => [
+        'icon' => 'chat',
+        'size' => 'md',
+        'color' => 'primary',
+        'text' => $i18n['chat'],
+        'reversePositions' => true
+    ]
+])
+@endfab --}}
+
 @fab([
     'id' => 'chat-global-root',
     'position' => 'bottom-right',
@@ -10,6 +24,10 @@
         'reversePositions' => true
     ]
 ])
+    @chat([
+        'id' => 'global-chat'
+    ])
+    @endchat
     <div class="u-display--flex u-flex-direction--column u-gap-2" style="max-height: 60vh;">
         @typography([
             'element' => 'h6',
@@ -28,6 +46,7 @@
                     'is_reply' => false,
                     'date' => ''
                 ])
+                    <!-- Example of a user message template -->
                 @endcomment
             </template>
 
@@ -38,6 +57,7 @@
                     'is_reply' => false,
                     'date' => ''
                 ])
+                    <!-- Example of an assistant message template -->
                 @endcomment
             </template>
         </div>
