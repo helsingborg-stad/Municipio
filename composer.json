@@ -27,10 +27,10 @@
   "require": {
     "php": "^8.2",
     "composer/installers": "^2.3",
-    "symfony/polyfill-mbstring": "v1.36.0",
+    "symfony/polyfill-mbstring": "v1.37.0",
     "helsingborg-stad/acf-export-manager": ">=1.0.0",
     "pragmarx/ia-arr": "^7.3",
-    "symfony/polyfill-php80": "v1.36.0",
+    "symfony/polyfill-php80": "v1.37.0",
     "dompdf/dompdf": "v3.1.5",
     "helsingborg-stad/wpservice": "^2.0",
     "helsingborg-stad/acfservice": "^1.0.0",
@@ -50,7 +50,7 @@
     "astrotomic/php-deepface": "^0.4.0",
     "helsingborg-stad/kirki": "^5.2",
     "helsingborg-stad/wputilservice": "^0.2.44",
-    "helsingborg-stad/styleguide": "2.223.2"
+    "helsingborg-stad/styleguide": "2.224.4"
   },
   "scripts": {
     "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
