@@ -31,7 +31,9 @@ class RenderGlobalChatBubble implements Hookable
             $this->renderer->render('ChatBubble', [
                 'lang' => [
                     'chat' => $this->wpService->__('Chat', 'municipio'),
+                    'clear' => $this->wpService->__('Clear', 'municipio'),
                     'send' => $this->wpService->__('Send', 'municipio'),
+                    'placeholder' => $this->wpService->__('Ask me anything...', 'municipio'),
                 ],
             ])
         ;
