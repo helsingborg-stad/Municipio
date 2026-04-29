@@ -22,9 +22,8 @@ class Chat {
 		if (!this.session) return;
 
 		const pendingMessage = this.chat.addPendingMessage();
-
+		this.chat.disableSend();
 		for await (const event of this.session.ask(message)) {
-			console.log(event.type, event);
 			switch (event.type) {
 				case "text":
 					this.chat.editMessage(event.content, pendingMessage);
@@ -34,6 +33,7 @@ class Chat {
 					break;
 				case "done":
 					console.log("Done");
+					this.chat.enableSend();
 					break;
 			}
 		}
