@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modularity\Module\Text;
 
+use Modularity\Helper\WpService;
+
 class Text extends \Modularity\Module
 {
     public $slug = 'text';
@@ -21,11 +23,12 @@ class Text extends \Modularity\Module
         $data = $this->getFields() ?? [];
 
         // Post content [with multiple fallbacks]
-        $data['postContent'] = $this->data['post_content'] ?? $data['post_content'] ?: $data['content'] ?? '';
+        $data['postContent'] = $data['post_content'] ?? '';
+        $data['postContent'] = $data['postContent'] ?: $data['content'] ?? '';
 
         //Run relevant filters
         foreach (['Modularity/Display/SanitizeContent', 'the_content'] as $filter) {
-            $data['postContent'] = apply_filters($filter, $data['postContent']);
+            $data['postContent'] = WpService::get()->applyFilters($filter, $data['postContent']);
         }
 
         // Check if content contains h1-h6 tags
