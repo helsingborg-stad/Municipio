@@ -23,17 +23,27 @@ class Chat {
 
 		const pendingMessage = this.chat.addPendingMessage();
 		this.chat.disableSend();
+		let contentAdded = false;
+
 		for await (const event of this.session.ask(message)) {
 			switch (event.type) {
 				case "text":
+					console.log("Received text:", event.content);
 					this.chat.editMessage(event.content, pendingMessage);
+					contentAdded = true;
 					break;
 				case "tool_call":
-					console.log("Using tools...");
+					console.log("Using tools...", event);
+					contentAdded = true;
 					break;
 				case "done":
 					console.log("Done");
 					this.chat.enableSend();
+					if (!contentAdded) {
+						//TODO: Handle errors
+						this.chat.deleteMessage(pendingMessage);
+					}
+
 					break;
 			}
 		}
