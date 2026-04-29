@@ -235,6 +235,7 @@ class Posts extends \Modularity\Module
 
         if ($this->getID()) {
             $data['sliderId'] = $this->getID();
+            $data['ID'] = $this->getID();
         } else {
             $data['sliderId'] = uniqid();
             $data['ID'] = uniqid();
