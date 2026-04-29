@@ -88,7 +88,7 @@ class AbstractController
     {
         $data['posts_columns'] = $this->getWpService()->applyFilters(
             'Modularity/Display/replaceGrid',
-            $fields['posts_columns'],
+            $fields['posts_columns'] ?? '',
         );
         $data['ratio'] = $fields['ratio'] ?? '16:9';
 
