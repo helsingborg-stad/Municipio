@@ -7,7 +7,8 @@
         'size' => 'md',
         'color' => 'primary',
         'reversePositions' => true
-    ]
+    ],
+    'size' => 'xl'
 ])
     @chat([
         'id' => 'global-chat',
@@ -22,14 +23,6 @@
         ]
     ])
         @slot('titleArea')
-            {{-- @element([
-                'classList' => ['u-position--absolute'],
-                'attributeList' => [
-                    'style' => 'top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;'
-                ]
-            ])
-                hej
-            @endelement --}}
             @button([
                 'icon' => 'close',
                 'size' => 'md',
