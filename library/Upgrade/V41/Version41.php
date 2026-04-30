@@ -48,8 +48,8 @@ class Version41 implements VersionInterface
         $customCss = $this->wpService->wpGetCustomCss();
         $acfCustomCss = $this->acfService->getField('custom_css_input', 'option');
 
-        $customCss = (new MigrateCustomCss())->migrate($customCss);
-        $acfCustomCss = (new MigrateCustomCss())->migrate($acfCustomCss);
+        $customCss = (new MigrateCustomCss())->migrate($customCss ?? '');
+        $acfCustomCss = (new MigrateCustomCss())->migrate($acfCustomCss ?? '');
 
         $this->wpService->wpUpdateCustomCssPost($customCss);
         $this->acfService->updateField('custom_css_input', $acfCustomCss, 'option');
