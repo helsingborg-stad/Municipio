@@ -21,7 +21,6 @@ class HeroImageContractResolver
         private AcfService $acfService,
         private ?ImageResolverInterface $imageResolver = null,
     ) {
-        $this->imageResolver ??= null;
     }
 
     /**
