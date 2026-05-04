@@ -8,15 +8,15 @@
         'color' => 'primary',
         'reversePositions' => true
     ],
-    'size' => 'xl'
+    'size' => 'xl',
+    'attributeList' => [
+        'style' => '--c-fab--panel-padding: 0px;'
+    ]
 ])
     @chat([
         'id' => 'global-chat',
         'persistent' => true,
         'title' => $lang['chat'],
-        'clearButton' => [
-            'text' => $lang['clear'],
-        ],
         'chatInputData' => [
             'sendButtonText' => $lang['send'],
             'placeholderText' => $lang['placeholder']
@@ -27,7 +27,7 @@
                 'icon' => 'close',
                 'size' => 'md',
                 'style' => 'basic',
-                'text' => $lang['clear'],
+                'text' => $lang['close'],
                 'reversePositions' => true,
                 'attributeList' => [
                     'data-js-chat-clear' => ''
