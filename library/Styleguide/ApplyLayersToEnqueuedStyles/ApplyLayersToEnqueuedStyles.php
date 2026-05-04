@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Styleguide\ApplyLayerToWordpressStyles;
+namespace Municipio\Styleguide\ApplyLayersToEnqueuedStyles;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
@@ -8,7 +8,7 @@ use WpService\Contracts\AddFilter;
 /**
  * Applies a CSS layer to specific WordPress stylesheets by filtering the style loader tag.
  */
-class ApplyLayerToWordpressStyles implements Hookable
+class ApplyLayersToEnqueuedStyles implements Hookable
 {
     private const LAYER_NAME = 'wordpress';
     public const HANDLES = [

@@ -1,21 +1,21 @@
 <?php
 
-namespace Municipio\Styleguide\ApplyLayerToWordpressStyles;
+namespace Municipio\Styleguide\ApplyLayersToEnqueuedStyles;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddFilter;
 
-class ApplyLayerToWordpressStylesTest extends TestCase
+class ApplyLayersToEnqueuedStylesTest extends TestCase
 {
     #[TestDox('has valid addHooks method')]
     public function testAddHooks(): void
     {
         $wpService = static::createWpService();
-        $applyLayerToWordpressStyles = new ApplyLayerToWordpressStyles($wpService);
+        $ApplyLayersToEnqueuedStyles = new ApplyLayersToEnqueuedStyles($wpService);
 
-        $applyLayerToWordpressStyles->addHooks();
+        $ApplyLayersToEnqueuedStyles->addHooks();
 
         // Since the addFilter method always returns true, we can assert that it was called.
         static::assertTrue(true);
@@ -23,11 +23,11 @@ class ApplyLayerToWordpressStylesTest extends TestCase
 
     #[TestDox('Puts layers in wordpress css layer')]
     #[DataProvider('provideTestData')]
-    public function testApplyLayerToWordpressStyles(string $tag, string $handle, string $href): void
+    public function testApplyLayersToEnqueuedStyles(string $tag, string $handle, string $href): void
     {
-        $applyLayerToWordpressStyles = new ApplyLayerToWordpressStyles(static::createWpService());
+        $ApplyLayersToEnqueuedStyles = new ApplyLayersToEnqueuedStyles(static::createWpService());
 
-        $result = $applyLayerToWordpressStyles->apply($tag, $handle);
+        $result = $ApplyLayersToEnqueuedStyles->apply($tag, $handle);
 
         static::assertEquals("<style>@import url(\"$href\") layer(wordpress);</style>", $result);
     }
@@ -35,11 +35,11 @@ class ApplyLayerToWordpressStylesTest extends TestCase
     #[TestDox('only applies layers to specified handles')]
     public function testOnlyAppliesLayersToSpecifiedHandles(): void
     {
-        $applyLayerToWordpressStyles = new ApplyLayerToWordpressStyles(static::createWpService());
+        $ApplyLayersToEnqueuedStyles = new ApplyLayersToEnqueuedStyles(static::createWpService());
 
         $tag = '<link href="http://test/path/style.css" />';
         $handle = 'some-other-handle';
-        $result = $applyLayerToWordpressStyles->apply($tag, $handle);
+        $result = $ApplyLayersToEnqueuedStyles->apply($tag, $handle);
 
         static::assertEquals($tag, $result);
     }
@@ -47,11 +47,11 @@ class ApplyLayerToWordpressStylesTest extends TestCase
     #[TestDox('does not modify tag if href is missing')]
     public function testDoesNotModifyTagIfHrefIsMissing(): void
     {
-        $applyLayerToWordpressStyles = new ApplyLayerToWordpressStyles(static::createWpService());
+        $ApplyLayersToEnqueuedStyles = new ApplyLayersToEnqueuedStyles(static::createWpService());
 
         $tag = '<link rel="stylesheet" />';
         $handle = 'wp-block-library';
-        $result = $applyLayerToWordpressStyles->apply($tag, $handle);
+        $result = $ApplyLayersToEnqueuedStyles->apply($tag, $handle);
 
         static::assertEquals($tag, $result);
     }
@@ -61,9 +61,9 @@ class ApplyLayerToWordpressStylesTest extends TestCase
     {
         $handle = 'css-municipiocss';
         $tag = '<link href="http://test/path/style.css" />';
-        $applyLayerToWordpressStyles = new ApplyLayerToWordpressStyles(static::createWpService());
+        $ApplyLayersToEnqueuedStyles = new ApplyLayersToEnqueuedStyles(static::createWpService());
 
-        $result = $applyLayerToWordpressStyles->apply($tag, $handle);
+        $result = $ApplyLayersToEnqueuedStyles->apply($tag, $handle);
 
         static::assertEquals('<style>@import url("http://test/path/style.css") layer(theme);</style>', $result);
     }

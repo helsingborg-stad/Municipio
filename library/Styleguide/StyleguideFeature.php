@@ -3,10 +3,6 @@
 namespace Municipio\Styleguide;
 
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Styleguide\AddLayerOrderDefinitionToHead\AddLayerOrderDefinitionToHead;
-use Municipio\Styleguide\ApplyLayerToInlineStyles\ApplyLayerToInlineStyles;
-use Municipio\Styleguide\ApplyLayerToWordpressStyles\ApplyLayerToWordpressStyles;
-use Municipio\Styleguide\Customize\Customize;
 use WpService\WpService;
 
 class StyleguideFeature implements Hookable
@@ -20,10 +16,10 @@ class StyleguideFeature implements Hookable
         $this->wpService->addAction('wp_enqueue_scripts', fn() => $this->outputStyleguideCss());
         $this->wpService->addAction('login_enqueue_scripts', fn() => $this->outputStyleguideCss());
         $this->wpService->addAction('enqueue_block_editor_assets', fn() => $this->outputStyleguideCss(true));
-        (new ApplyLayerToInlineStyles($this->wpService))->addHooks();
-        (new AddLayerOrderDefinitionToHead($this->wpService))->addHooks();
-        (new ApplyLayerToWordpressStyles($this->wpService))->addHooks();
-        (new Customize($this->wpService))->addHooks();
+        (new ApplyLayerToInlineStyles\ApplyLayerToInlineStyles($this->wpService))->addHooks();
+        (new AddLayerOrderDefinitionToHead\AddLayerOrderDefinitionToHead($this->wpService))->addHooks();
+        (new ApplyLayersToEnqueuedStyles\ApplyLayersToEnqueuedStyles($this->wpService))->addHooks();
+        (new Customize\Customize($this->wpService))->addHooks();
     }
 
     public function outputStyleguideCss(bool $isEditor = false): void
