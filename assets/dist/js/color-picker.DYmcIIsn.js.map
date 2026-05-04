@@ -1,0 +1,1 @@
+{"version":3,"file":"color-picker.DYmcIIsn.js","sources":["../../source/js/admin/colorPicker.js"],"sourcesContent":["acf.add_filter('color_picker_args', function(args, field){\n  args.palettes = themeColorPalette['colors'];\n  return args;\n});"],"names":[],"mappings":"AAAA,IAAI,WAAW,oBAAqB,SAAS,KAAM,MAAM,CACvD,YAAK,SAAW,kBAAkB,OAC3B,IACT,CAAC"}
