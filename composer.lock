@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10ad805e1af3d6bd1672902af12a6400",
+    "content-hash": "eb6f1969a8697dc9dd120cfd88138a73",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.223.2",
+            "version": "2.232.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "b99d07224b6f84ca07a7a6719288c460ed8d9a2b"
+                "reference": "63ec13de3c0f1daa6e2be5080c8b54c143efbb2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/b99d07224b6f84ca07a7a6719288c460ed8d9a2b",
-                "reference": "b99d07224b6f84ca07a7a6719288c460ed8d9a2b",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/63ec13de3c0f1daa6e2be5080c8b54c143efbb2e",
+                "reference": "63ec13de3c0f1daa6e2be5080c8b54c143efbb2e",
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.223.2"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.232.6"
             },
-            "time": "2026-04-22T05:26:36+00:00"
+            "time": "2026-05-04T11:36:33+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3263,7 +3263,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.36.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -3324,7 +3324,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.36.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.37.0"
             },
             "funding": [
                 {
@@ -3348,7 +3348,7 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.36.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -3408,7 +3408,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.36.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.37.0"
             },
             "funding": [
                 {
