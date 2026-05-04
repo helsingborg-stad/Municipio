@@ -8,7 +8,12 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\FormatObject;
+use Municipio\ImagePreload\Header\HeroImageContractResolver;
+use Municipio\ImagePreload\Header\HeroImageModuleProvider;
+use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
+use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
+use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\User\User;
 use WpService\WpService;
@@ -74,6 +79,13 @@ class BaseController
         //Header & Footer
         $this->data['wpHeader'] = $this->getWpHeader();
         $this->data['wpFooter'] = $this->getWpFooter();
+        $this->data['heroImagePreload'] = (new HeroImagePreloadResolver(
+            new HeroImageModuleProvider(
+                new HeroSidebarModuleProvider(),
+                new HeroWidgetModuleProvider($this->wpService),
+            ),
+            new HeroImageContractResolver($this->acfService),
+        ))->resolve();
 
         //Basic
         $this->data['ajaxUrl'] = $this->getAjaxUrl();
