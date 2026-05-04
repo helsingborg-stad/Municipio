@@ -104,7 +104,11 @@ class App
         /**
          * Heading structure
          */
-        (new \Municipio\Content\HeadingStructure($this->wpService))->addHooks();
+        $headingStructureDomAdapter = class_exists(\DOM\HTMLDocument::class)
+            ? new \Municipio\Content\HeadingStructure\NativeDomAdapter()
+            : new \Municipio\Content\HeadingStructure\LegacyDomAdapter();
+
+        (new \Municipio\Content\HeadingStructure($this->wpService, $headingStructureDomAdapter))->addHooks();
 
         /**
          * Template

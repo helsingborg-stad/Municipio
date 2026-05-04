@@ -2,15 +2,30 @@
 
 namespace Municipio\Content;
 
+use Municipio\Content\HeadingStructure\Contracts\HeadingStructureDomAdapterInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 
+/**
+ * Normalizes heading levels in rendered HTML output.
+ */
 class HeadingStructure implements Hookable
 {
+    /**
+     * @param AddFilter $wpService The WordPress filter service.
+     * @param HeadingStructureDomAdapterInterface $domAdapter The DOM adapter used to inspect and rewrite headings.
+     */
     public function __construct(
         private AddFilter $wpService,
-    ) {}
+        private HeadingStructureDomAdapterInterface $domAdapter,
+    ) {
+    }
 
+    /**
+     * Registers the HTML output filter.
+     *
+     * @return void
+     */
     public function addHooks(): void
     {
         $this->wpService->addFilter(
@@ -21,39 +36,54 @@ class HeadingStructure implements Hookable
         );
     }
 
+    /**
+     * Corrects the heading structure for the provided HTML.
+     *
+     * @param string $html The HTML to normalize.
+     *
+     * @return string The normalized HTML.
+     */
     public function correctHeadingStructure(string $html): string
     {
-        $htmlDom = @\DOM\HTMLDocument::createFromString($html, 0, 'UTF-8');
-        $headings = $htmlDom->querySelectorAll('h1, h2, h3, h4, h5, h6');
+        try {
+            $this->domAdapter->load($html);
+        } catch (\Throwable) {
+            return $html;
+        }
 
-        $headingElements = iterator_to_array($headings);
-
-        $context = null;
-        $hasSeenH1 = false;
+        $headingElements = $this->domAdapter->getHeadingElements();
+        $context         = null;
+        $hasSeenH1       = false;
 
         if (!$this->hasH1($headingElements)) {
-            $candidate = $htmlDom->querySelector('[data-autopromote="1"]');
-            if ($candidate) {
-                $this->renameHeadingElement($htmlDom, $candidate, 'h1');
-                $headingElements = iterator_to_array($htmlDom->querySelectorAll('h1, h2, h3, h4, h5, h6'));
+            $candidate = $this->domAdapter->findAutoPromoteCandidate();
+            if (is_object($candidate)) {
+                $this->domAdapter->renameHeadingElement($candidate, 'h1');
+                $headingElements = $this->domAdapter->getHeadingElements();
             }
         }
 
         foreach ($headingElements as $heading) {
-            $tag = strtolower($heading->tagName);
+            $tag          = $this->domAdapter->getTagName($heading);
             $correctedTag = $this->getCorrectHeadingLevel($tag, $context, $hasSeenH1);
 
             if ($correctedTag !== $tag) {
-                $this->renameHeadingElement($htmlDom, $heading, $correctedTag);
+                $this->domAdapter->renameHeadingElement($heading, $correctedTag);
             }
         }
 
-        return $htmlDom->saveHTML() ?: $html;
+        return $this->domAdapter->saveHtml();
     }
 
     /**
      * Correct a heading level based on the current document context.
      * Prevents skipped levels (h2 → h4 becomes h2 → h3) and duplicate h1s.
+     *
+     * @param string $element The current heading tag.
+     * @param int|null $context The current heading context.
+     * @param bool $hasSeenH1 Whether a h1 has already been encountered.
+     *
+     * @return string The corrected heading tag.
      */
     private function getCorrectHeadingLevel(string $element, ?int &$context, bool &$hasSeenH1): string
     {
@@ -64,7 +94,7 @@ class HeadingStructure implements Hookable
                 $context = 2;
                 return 'h2';
             }
-            $context = 1;
+            $context   = 1;
             $hasSeenH1 = true;
             return $element;
         }
@@ -84,33 +114,20 @@ class HeadingStructure implements Hookable
     }
 
     /**
-     * Replace a heading element with a new one of a different tag, preserving attributes and children.
-     */
-    private function renameHeadingElement(\DOM\HTMLDocument $doc, \DOM\Element $element, string $newTag): void
-    {
-        $newElement = $doc->createElement($newTag);
-
-        foreach ($element->attributes as $attr) {
-            $newElement->setAttribute($attr->name, $attr->value);
-        }
-
-        while ($element->firstChild) {
-            $newElement->appendChild($element->firstChild);
-        }
-
-        $element->parentNode->replaceChild($newElement, $element);
-    }
-
-    /**
-     * @param \DOM\Element[] $headingElements
+     * Determines whether the provided headings already contain a h1.
+     *
+     * @param array<object> $headingElements The heading elements in document order.
+     *
+     * @return bool True when a h1 exists, otherwise false.
      */
     private function hasH1(array $headingElements): bool
     {
         foreach ($headingElements as $heading) {
-            if (strtolower($heading->tagName) === 'h1') {
+            if ($this->domAdapter->getTagName($heading) === 'h1') {
                 return true;
             }
         }
+
         return false;
     }
 }
