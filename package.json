@@ -93,7 +93,9 @@
         "child_process": false
     },
     "dependencies": {
+        "@types/markdown-it": "^14.1.2",
         "core-js": "^3.45.0",
+        "markdown-it": "^14.1.1",
         "react": "^18.3.1"
     }
 }
