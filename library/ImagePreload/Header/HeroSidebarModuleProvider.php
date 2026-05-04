@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Head;
+namespace Municipio\ImagePreload\Header;
 
 use Modularity\App as ModularityApp;
 

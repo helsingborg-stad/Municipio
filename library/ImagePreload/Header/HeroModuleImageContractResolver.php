@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Head;
+namespace Municipio\ImagePreload\Header;
 
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use ComponentLibrary\Integrations\Image\ImageInterface;
@@ -10,9 +10,9 @@ use ComponentLibrary\Integrations\Image\ImageResolverInterface;
 use Modularity\Integrations\Component\ImageResolver as ModularityImageResolver;
 
 /**
- * Resolves image contracts for slider modules.
+ * Resolves image contracts for hero modules.
  */
-class SliderModuleImageContractResolver
+class HeroModuleImageContractResolver
 {
     private const PRELOAD_IMAGE_SIZE = [1920, false];
 
@@ -25,38 +25,26 @@ class SliderModuleImageContractResolver
     }
 
     /**
-     * Resolve the first preloadable slider image.
+     * Resolve the hero module background image.
      *
      * @param array<string, mixed> $fields ACF fields.
      * @return ImageInterface|null
      */
     public function resolve(array $fields): ?ImageInterface
     {
-        $slides = $fields['slides'] ?? [];
-
-        if (!is_array($slides)) {
+        if (($fields['mod_hero_background_type'] ?? 'image') !== 'image') {
             return null;
         }
 
-        foreach ($slides as $slide) {
-            if (!is_array($slide)) {
-                continue;
-            }
+        $image = $fields['mod_hero_background_image'] ?? null;
+        $imageId = is_array($image) && is_numeric($image['id'] ?? null)
+            ? (int) $image['id']
+            : null;
 
-            $image = $slide['image'] ?? null;
-            $imageId = match (true) {
-                is_numeric($image) => (int) $image,
-                is_array($image) && is_numeric($image['id'] ?? null) => (int) $image['id'],
-                default => null,
-            };
-
-            if (!is_int($imageId) || $imageId <= 0) {
-                continue;
-            }
-
-            return ImageComponentContract::factory($imageId, self::PRELOAD_IMAGE_SIZE, $this->imageResolver);
+        if (!is_int($imageId) || $imageId <= 0) {
+            return null;
         }
 
-        return null;
+        return ImageComponentContract::factory($imageId, self::PRELOAD_IMAGE_SIZE, $this->imageResolver);
     }
 }

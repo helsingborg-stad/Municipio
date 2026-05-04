@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Head;
+namespace Municipio\ImagePreload\Header;
 
 /**
  * Combines hero-area modules from both Modularity sidebars and widgets.

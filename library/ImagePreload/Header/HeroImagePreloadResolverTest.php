@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Head;
+namespace Municipio\ImagePreload\Header;
 
 use AcfService\Implementations\FakeAcfService;
 use ComponentLibrary\Integrations\Image\ImageResolverInterface;
