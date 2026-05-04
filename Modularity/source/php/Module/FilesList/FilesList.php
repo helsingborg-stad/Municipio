@@ -58,6 +58,11 @@ class FilesList extends \Modularity\Module
         $rows = [];
 
         foreach ($files as $key => $item) {
+            // Skip if file is not attached or file does not exist
+            if (!isset($item['file']['id']) || get_attached_file($item['file']['id']) === false) {
+                continue;
+            }
+            
             $meta = [];
             $rows[$key] = [
                 'title' => $this->filenameToTitle($item['file']['title'] ?? ''),
