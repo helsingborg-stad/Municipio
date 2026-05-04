@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Styleguide\ApplyLayerToWordpressStyles;
+namespace Municipio\Styleguide\ApplyLayersToEnqueuedStyles;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
@@ -8,12 +8,14 @@ use WpService\Contracts\AddFilter;
 /**
  * Applies a CSS layer to specific WordPress stylesheets by filtering the style loader tag.
  */
-class ApplyLayerToWordpressStyles implements Hookable
+class ApplyLayersToEnqueuedStyles implements Hookable
 {
     private const LAYER_NAME = 'wordpress';
     public const HANDLES = [
-        'wp-block-library',
-        'common',
+        'wp-block-library' => 'wordpress',
+        'common' => 'wordpress',
+        'municipio' => 'wordpress',
+        'css-municipiocss' => 'theme',
     ];
 
     public function __construct(
@@ -27,14 +29,14 @@ class ApplyLayerToWordpressStyles implements Hookable
 
     public function apply(string $tag, string $handle): string
     {
-        if (!in_array($handle, self::HANDLES)) {
+        if (!in_array($handle, array_keys(self::HANDLES))) {
             return $tag;
         }
 
         $url = $this->extractImportUrl($tag);
 
         if ($url) {
-            return "<style>@import url(\"$url\") layer(" . self::LAYER_NAME . ');</style>';
+            return "<style>@import url(\"$url\") layer(" . self::HANDLES[$handle] . ');</style>';
         }
 
         return $tag;
