@@ -56,6 +56,18 @@ class ApplyLayerToWordpressStylesTest extends TestCase
         static::assertEquals($tag, $result);
     }
 
+    #[TestDox('uses the correct layer based on handle')]
+    public function testUsesCorrectLayerBasedOnHandle(): void
+    {
+        $handle = 'css-municipiocss';
+        $tag = '<link href="http://test/path/style.css" />';
+        $applyLayerToWordpressStyles = new ApplyLayerToWordpressStyles(static::createWpService());
+
+        $result = $applyLayerToWordpressStyles->apply($tag, $handle);
+
+        static::assertEquals('<style>@import url("http://test/path/style.css") layer(theme);</style>', $result);
+    }
+
     public static function provideTestData(): array
     {
         return [
