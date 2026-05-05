@@ -67,8 +67,6 @@
     @container layout-grid (min-width: 48rem) {
         .backdrop-banner__navigation-container {
             height: min(40rem, 70vh);
-            grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
-            grid-auto-rows: minmax(100%, auto);
         }
         
         .backdrop-banner__navigation-item-content {
