@@ -26,6 +26,20 @@ class FontSettings
     ];
 
     /**
+     * Default variants by typography setting when the theme mod has no explicit variant.
+     *
+     * @var array<string, string>
+     */
+    private const FONT_SETTING_DEFAULT_VARIANTS = [
+        'typography_base' => 'regular',
+        'typography_heading' => '700',
+        'typography_bold' => '700',
+        'typography_italic' => 'italic',
+        'typography_lead' => '500',
+        'header_brand_font_settings' => 'regular',
+    ];
+
+    /**
      * Returns uploaded font names from managed settings.
      *
      * @return array<int, string>
@@ -100,7 +114,19 @@ class FontSettings
      */
     public static function getSelectedFontFamiliesFromThemeMods(WpService $wpService): array
     {
-        $fontFamilies = [];
+        return array_keys(self::getSelectedFontVariantsFromThemeMods($wpService));
+    }
+
+    /**
+     * Returns selected font families with the variants used by typography theme mods.
+     *
+     * @param WpService $wpService
+     *
+     * @return array<string, array<int, string>>
+     */
+    public static function getSelectedFontVariantsFromThemeMods(WpService $wpService): array
+    {
+        $fonts = [];
 
         foreach (self::FONT_SETTING_KEYS as $settingKey) {
             $value = $wpService->getThemeMod($settingKey, []);
@@ -109,9 +135,33 @@ class FontSettings
                 continue;
             }
 
-            $fontFamilies[] = (string) $value['font-family'];
+            $fontFamily = (string) $value['font-family'];
+            $variant = self::resolveVariantForSetting($settingKey, $value);
+
+            $fonts[$fontFamily] ??= [];
+
+            if (!in_array($variant, $fonts[$fontFamily], true)) {
+                $fonts[$fontFamily][] = $variant;
+            }
         }
 
-        return array_values(array_unique($fontFamilies));
+        return $fonts;
+    }
+
+    /**
+     * Resolves a font variant from a typography theme mod value.
+     *
+     * @param string $settingKey
+     * @param array<string, mixed> $value
+     *
+     * @return string
+     */
+    private static function resolveVariantForSetting(string $settingKey, array $value): string
+    {
+        if (isset($value['variant']) && is_string($value['variant']) && $value['variant'] !== '') {
+            return $value['variant'];
+        }
+
+        return self::FONT_SETTING_DEFAULT_VARIANTS[$settingKey] ?? 'regular';
     }
 }

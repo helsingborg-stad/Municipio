@@ -43,17 +43,29 @@ class GoogleFontCssPrinter
     ) {
         $this->urlBuilder ??= new GoogleFontsUrlBuilder();
         $this->enabledFontFamiliesProvider = $enabledFontFamiliesProvider ?? function (): array {
-            $enabledFonts = $this->wpService->getThemeMod(FontCatalog::GOOGLE_FONTS_SETTING, []);
-            $enabledFonts = is_array($enabledFonts) ? $enabledFonts : [];
-            $enabledFonts = array_merge($enabledFonts, FontSettings::getSelectedFontFamiliesFromThemeMods($this->wpService));
-            $enabledFonts = array_values(array_unique(array_filter(array_map('strval', $enabledFonts))));
+            $enabledFonts = FontSettings::getSelectedFontFamiliesFromThemeMods($this->wpService);
 
             return $enabledFonts !== [] ? $enabledFonts : ['Roboto'];
         };
-        $this->googleFontsProvider = $googleFontsProvider ?? static fn(): array => array_filter(
-            (array) (new \Kirki\GoogleFonts())->get_google_fonts(),
-            'is_array',
-        );
+        $this->googleFontsProvider = $googleFontsProvider ?? function (): array {
+            $selectedFonts = FontSettings::getSelectedFontVariantsFromThemeMods($this->wpService);
+            $availableFonts = array_filter(
+                (array) (new \Kirki\GoogleFonts())->get_google_fonts(),
+                'is_array',
+            );
+            $googleFonts = [];
+
+            foreach ($selectedFonts as $fontFamily => $variants) {
+                if (!isset($availableFonts[$fontFamily]) || !is_array($availableFonts[$fontFamily])) {
+                    continue;
+                }
+
+                $googleFonts[$fontFamily] = $availableFonts[$fontFamily];
+                $googleFonts[$fontFamily]['variants'] = $variants;
+            }
+
+            return $googleFonts;
+        };
         $this->cssFetcher = $cssFetcher ?? static fn(string $url): string => (string) (new \Kirki\Module\Webfonts\Downloader())->get_styles($url);
     }
 
