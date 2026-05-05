@@ -30,7 +30,8 @@
                 'text' => $lang['close'],
                 'reversePositions' => true,
                 'attributeList' => [
-                    'data-js-chat-clear' => ''
+                    'data-js-chat-clear' => '',
+                    'style' => 'margin-top: calc(var(--base, 8px) * -2);'
                 ],
                 'classList' => ['u-margin__left--auto']
             ])
