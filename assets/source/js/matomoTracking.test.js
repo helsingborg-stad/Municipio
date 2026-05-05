@@ -103,6 +103,19 @@ describe("matomoTracking", () => {
 		expect(button.dataset.matomoName).toBe("Dynamic CTA");
 	});
 
+	it("returns a cleanup function that removes delegated tracking", () => {
+		document.body.innerHTML = '<button>Track me</button>';
+
+		const cleanup = initializeMatomoTracking();
+		cleanup();
+
+		document
+			.querySelector("button")
+			.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+		expect(window._paq).toEqual([]);
+	});
+
 	it("does not push events when the tracking queue is unavailable", () => {
 		document.body.innerHTML = '<button>Track me</button>';
 		delete window._paq;

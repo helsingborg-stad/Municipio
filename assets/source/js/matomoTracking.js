@@ -7,6 +7,7 @@ const matomoTrackingSelector = [
 
 const defaultTrackingCategory = "UI Interaction";
 const defaultTrackingAction = "Click";
+const handleMatomoTrackingDomReady = () => normalizeMatomoTrackableElements();
 
 /**
  * Normalize whitespace in tracking labels.
@@ -131,12 +132,15 @@ export function initializeMatomoTracking() {
 	if (document.readyState === "loading") {
 		document.addEventListener(
 			"DOMContentLoaded",
-			normalizeMatomoTrackableElements,
+			handleMatomoTrackingDomReady,
 			{ once: true },
 		);
-
-		return;
+	} else {
+		normalizeMatomoTrackableElements();
 	}
 
-	normalizeMatomoTrackableElements();
+	return () => {
+		document.removeEventListener("click", handleMatomoTrackingClick);
+		document.removeEventListener("DOMContentLoaded", handleMatomoTrackingDomReady);
+	};
 }
