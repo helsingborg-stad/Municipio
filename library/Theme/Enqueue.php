@@ -30,8 +30,6 @@ class Enqueue implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueMaterialSymbols']);
-        $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueMaterialSymbols'], 999);
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueFrontendScriptsAndStyles'], 5);
         $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueAdminScriptsAndStyles'], 999);
         $this->wpService->addAction(
@@ -44,24 +42,6 @@ class Enqueue implements Hookable
         $this->wpService->addFilter('the_generator', [$this, 'removeGeneratorTag'], 9, 2);
         $this->wpService->addAction('wp_default_scripts', [$this, 'removeJqueryMigrate']);
         $this->wpService->addFilter('gform_init_scripts_footer', [$this, 'forceGravityFormsScriptsNotInFooter']);
-    }
-
-    /**
-     * Enqueue Material Symbols font CSS
-     */
-    public function enqueueMaterialSymbols()
-    {
-        $weight = $this->wpService->getThemeMod('icon_weight') ?: '400';
-        $style = $this->wpService->getThemeMod('icon_style') ?: 'rounded';
-
-        $weightTranslationTable = [
-            '200' => 'light',
-            '400' => 'medium',
-            '600' => 'bold',
-        ];
-        $translatedWeight = $weightTranslationTable[$weight] ?? 'medium';
-
-        $this->enqueue->add("fonts/material/{$translatedWeight}/{$style}.css");
     }
 
     /**

@@ -33,6 +33,7 @@ use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
+use Municipio\Theme\InlineMaterialSymbolsCss\InlineMaterialSymbolsCssFeature;
 use wpdb;
 use WpService\WpService;
 use WpUtilService\WpUtilService;
@@ -132,6 +133,10 @@ class App
          */
         $enqueue = new \Municipio\Theme\Enqueue($this->wpService, $this->wpUtilService);
         $enqueue->addHooks();
+        (new InlineMaterialSymbolsCssFeature(
+            $this->wpService,
+            $this->wpUtilService,
+        ))->addHooks();
 
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
@@ -524,7 +529,7 @@ class App
     private function setUpPolylangIntegration(): void
     {
         // If Polylang is not active, do not register any of the integrations.
-        if(function_exists('pll_get_post_translations') === false) {
+        if (function_exists('pll_get_post_translations') === false) {
             return;
         }
 
