@@ -124,12 +124,15 @@ export function handleMatomoTrackingClick(event) {
 /**
  * Initialize global Matomo CTA tracking.
  *
- * @returns {void}
+ * @returns {() => void} Cleanup function for removing tracking listeners.
  */
 export function initializeMatomoTracking() {
+	let hasDomReadyListener = false;
+
 	document.addEventListener("click", handleMatomoTrackingClick);
 
 	if (document.readyState === "loading") {
+		hasDomReadyListener = true;
 		document.addEventListener(
 			"DOMContentLoaded",
 			handleMatomoTrackingDomReady,
@@ -141,6 +144,9 @@ export function initializeMatomoTracking() {
 
 	return () => {
 		document.removeEventListener("click", handleMatomoTrackingClick);
-		document.removeEventListener("DOMContentLoaded", handleMatomoTrackingDomReady);
+
+		if (hasDomReadyListener) {
+			document.removeEventListener("DOMContentLoaded", handleMatomoTrackingDomReady);
+		}
 	};
 }
