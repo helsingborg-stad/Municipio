@@ -17,6 +17,7 @@ class InlineMaterialSymbolsCssFeature implements Hookable
     private const THEME_DIST_DIRECTORY = 'assets/dist/';
 
     private EnqueueManagerInterface $enqueue;
+    private ?array $manifest = null;
 
     /**
      * @param WpService $wpService WordPress service wrapper.
@@ -44,7 +45,7 @@ class InlineMaterialSymbolsCssFeature implements Hookable
     public function enqueueMaterialSymbols(): void
     {
         $weight = $this->wpService->getThemeMod('icon_weight') ?: '400';
-        $style  = $this->wpService->getThemeMod('icon_style') ?: 'rounded';
+        $style = $this->wpService->getThemeMod('icon_style') ?: 'rounded';
 
         $weightTranslationTable = [
             '200' => 'light',
@@ -73,9 +74,15 @@ class InlineMaterialSymbolsCssFeature implements Hookable
      */
     private function enqueueMaterialSymbolsInline(string $src, string $translatedWeight, string $style): bool
     {
-        $assetPath = $this->resolveBuiltAssetPath($src);
+        $assetFile = $this->resolveBuiltAssetFile($src);
 
-        if ($assetPath === null || !is_readable($assetPath)) {
+        if ($assetFile === null) {
+            return false;
+        }
+
+        $assetPath = $this->wpService->getThemeFilePath(self::THEME_DIST_DIRECTORY . ltrim($assetFile, '/'));
+
+        if (!is_readable($assetPath)) {
             return false;
         }
 
@@ -85,8 +92,8 @@ class InlineMaterialSymbolsCssFeature implements Hookable
             return false;
         }
 
-        $handle       = sprintf('material-symbols-%s-%s', $translatedWeight, $style);
-        $assetBaseUrl = $this->resolveBuiltAssetBaseUrl($src);
+        $handle = sprintf('material-symbols-%s-%s', $translatedWeight, $style);
+        $assetBaseUrl = $this->resolveBuiltAssetBaseUrl($assetFile);
 
         $this->wpService->wpRegisterStyle($handle, false);
         $this->wpService->wpEnqueueStyle($handle);
@@ -96,40 +103,15 @@ class InlineMaterialSymbolsCssFeature implements Hookable
     }
 
     /**
-     * Resolve a built asset path from the theme dist manifest.
-     *
-     * @param string $src The manifest asset key.
-     *
-     * @return string|null The absolute asset path when found.
-     */
-    private function resolveBuiltAssetPath(string $src): ?string
-    {
-        $assetFile = $this->resolveBuiltAssetFile($src);
-
-        if ($assetFile === null) {
-            return null;
-        }
-
-        return $this->wpService->getThemeFilePath(self::THEME_DIST_DIRECTORY . ltrim($assetFile, '/'));
-    }
-
-    /**
      * Resolve the public base URL for a built asset directory.
      *
-     * @param string $src The manifest asset key.
+     * @param string $assetFile The built asset path relative to the dist directory.
      *
      * @return string The absolute base URL ending with a slash.
      */
-    private function resolveBuiltAssetBaseUrl(string $src): string
+    private function resolveBuiltAssetBaseUrl(string $assetFile): string
     {
-        $assetFile = $this->resolveBuiltAssetFile($src) ?? $src;
-
-        return rtrim($this->wpService->getStylesheetDirectoryUri(), '/')
-            . '/'
-            . trim(self::THEME_DIST_DIRECTORY, '/')
-            . '/'
-            . trim(dirname($assetFile), './')
-            . '/';
+        return rtrim($this->wpService->getStylesheetDirectoryUri(), '/') . '/' . trim(self::THEME_DIST_DIRECTORY, '/') . '/' . trim(dirname($assetFile), './') . '/';
     }
 
     /**
@@ -141,6 +123,26 @@ class InlineMaterialSymbolsCssFeature implements Hookable
      */
     private function resolveBuiltAssetFile(string $src): ?string
     {
+        $manifest = $this->getManifest();
+
+        if ($manifest === null) {
+            return null;
+        }
+
+        return is_string($manifest[$src] ?? null) ? $manifest[$src] : null;
+    }
+
+    /**
+     * Read and cache the built asset manifest.
+     *
+     * @return array<string, string>|null The decoded manifest, or null if unavailable.
+     */
+    private function getManifest(): ?array
+    {
+        if ($this->manifest !== null) {
+            return $this->manifest;
+        }
+
         $manifestPath = $this->wpService->getThemeFilePath(self::THEME_DIST_DIRECTORY . 'manifest.json');
 
         if (!is_readable($manifestPath)) {
@@ -153,7 +155,9 @@ class InlineMaterialSymbolsCssFeature implements Hookable
             return null;
         }
 
-        return is_string($manifest[$src] ?? null) ? $manifest[$src] : null;
+        $this->manifest = $manifest;
+
+        return $this->manifest;
     }
 
     /**
@@ -171,14 +175,7 @@ class InlineMaterialSymbolsCssFeature implements Hookable
             static function (array $matches) use ($assetBaseUrl): string {
                 $rawUrl = trim($matches[1], " \t\n\r\0\x0B\"'");
 
-                if (
-                    $rawUrl === ''
-                    || str_starts_with($rawUrl, 'data:')
-                    || str_starts_with($rawUrl, '#')
-                    || str_starts_with($rawUrl, '/')
-                    || str_starts_with($rawUrl, '//')
-                    || preg_match('/^[a-z][a-z0-9+.-]*:/i', $rawUrl) === 1
-                ) {
+                if ($rawUrl === '' || str_starts_with($rawUrl, 'data:') || str_starts_with($rawUrl, '#') || str_starts_with($rawUrl, '/') || str_starts_with($rawUrl, '//') || preg_match('/^[a-z][a-z0-9+.-]*:/i', $rawUrl) === 1) {
                     return 'url(' . $matches[1] . ')';
                 }
 
