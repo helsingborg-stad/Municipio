@@ -47,6 +47,7 @@ use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Municipio\Customizer;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 /**
  * Tests managed font settings reads.
@@ -107,6 +108,52 @@ class FontSettingsTest extends TestCase
                 [Customizer::KIRKI_CONFIG, 'header_brand_font_settings'],
             ],
             KirkiCompatibility::$calls,
+        );
+    }
+
+    #[TestDox('getSelectedFontFamiliesFromThemeMods() reads typography font families from theme mods')]
+    public function testGetSelectedFontFamiliesFromThemeModsReadsTypographyFontFamiliesFromThemeMods(): void
+    {
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => match ($key) {
+                'typography_base' => ['font-family' => 'Arimo', 'variant' => 'regular'],
+                'typography_heading' => ['font-family' => 'Open Sans', 'variant' => '600'],
+                'typography_bold' => ['font-family' => 'Arimo', 'variant' => '700'],
+                'typography_italic' => ['variant' => 'italic'],
+                'typography_lead' => [],
+                'header_brand_font_settings' => 'invalid',
+                default => $default,
+            },
+        ]);
+
+        $fontFamilies = FontSettings::getSelectedFontFamiliesFromThemeMods($wpService);
+
+        static::assertSame(['Arimo', 'Open Sans'], $fontFamilies);
+    }
+
+    #[TestDox('getSelectedFontVariantsFromThemeMods() groups selected theme mod variants by font family')]
+    public function testGetSelectedFontVariantsFromThemeModsGroupsSelectedThemeModVariantsByFontFamily(): void
+    {
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => match ($key) {
+                'typography_base' => ['font-family' => 'Arimo'],
+                'typography_heading' => ['font-family' => 'Arimo', 'variant' => '600'],
+                'typography_bold' => ['font-family' => 'Arimo'],
+                'typography_italic' => ['font-family' => 'Arimo'],
+                'typography_lead' => ['font-family' => 'Open Sans'],
+                'header_brand_font_settings' => ['font-family' => 'Open Sans', 'variant' => '300italic'],
+                default => $default,
+            },
+        ]);
+
+        $fontVariants = FontSettings::getSelectedFontVariantsFromThemeMods($wpService);
+
+        static::assertSame(
+            [
+                'Arimo' => ['regular', '600', '700', 'italic'],
+                'Open Sans' => ['500', '300italic'],
+            ],
+            $fontVariants,
         );
     }
 }

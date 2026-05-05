@@ -99,4 +99,42 @@ class GoogleFontsCssLocaleFilterTest extends TestCase
 
         static::assertSame($css, $result);
     }
+
+    #[TestDox('filterCssByLocale() infers subsets from unicode ranges when subset comments are missing')]
+    public function testFilterCssByLocaleInfersSubsetsFromUnicodeRangesWhenSubsetCommentsAreMissing(): void
+    {
+        $wpService = new FakeWpService([
+            'getLocale' => 'sv_SE',
+        ]);
+
+        $filter = new GoogleFontsCssLocaleFilter($wpService);
+
+        $css = '@font-face{font-family:"Arimo";unicode-range:U+0400-045F;}'
+            . '@font-face{font-family:"Arimo";unicode-range:U+0100-02BA, U+1E00-1E9F;}'
+            . '@font-face{font-family:"Arimo";unicode-range:U+0000-00FF, U+20AC;}';
+
+        $result = $filter->filterCssByLocale($css);
+
+        static::assertStringNotContainsString('U+0400-045F', $result);
+        static::assertStringContainsString('U+0100-02BA', $result);
+        static::assertStringContainsString('U+0000-00FF', $result);
+    }
+
+    #[TestDox('filterCssByLocale() infers latin only for English locale when subset comments are missing')]
+    public function testFilterCssByLocaleInfersLatinOnlyForEnglishLocaleWhenSubsetCommentsAreMissing(): void
+    {
+        $wpService = new FakeWpService([
+            'getLocale' => 'en_US',
+        ]);
+
+        $filter = new GoogleFontsCssLocaleFilter($wpService);
+
+        $css = '@font-face{font-family:"Arimo";unicode-range:U+0100-02BA, U+1E00-1E9F;}'
+            . '@font-face{font-family:"Arimo";unicode-range:U+0000-00FF, U+20AC;}';
+
+        $result = $filter->filterCssByLocale($css);
+
+        static::assertStringNotContainsString('U+0100-02BA', $result);
+        static::assertStringContainsString('U+0000-00FF', $result);
+    }
 }
