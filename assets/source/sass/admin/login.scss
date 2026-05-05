@@ -1,8 +1,8 @@
 @use '../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens' as tokens;
 
 body {
-  background-color: tokens.get('', 'color--background');
-  color: tokens.get('', 'color--background-contrast');
+  background-color: tokens.getRawValue('', 'color--background');
+  color: tokens.getRawValue('', 'color--background-contrast');
 }
 
 /* Logotype */ 
@@ -23,28 +23,28 @@ body {
 /* Login form box */ 
 .login form {
   filter: var(--drop-shadow-2, drop-shadow(0px calc(6px* var(--drop-shadow-amount, 0.7)) calc(8px* var(--drop-shadow-amount, 0.7)) var(--drop-shadow-color, rgba(0, 0, 0, 0.1))));
-  border-radius: tokens.use('', 'c-card--border-radius');
+  border-radius: tokens.getCalculatedValue('', 'c-card--border-radius');
   border: none;
-  corner-shape: tokens.get('', 'c-card--corner-shape');
+  corner-shape: tokens.getRawValue('', 'c-card--corner-shape');
   padding: calc(var(--base) * 3);
   margin-top: calc(var(--base) * 3);
   display: grid;
   gap: calc(var(--base) * 2);
-  background-color: tokens.get('', 'color--surface');
+  background-color: tokens.getRawValue('', 'color--surface');
 
-  --c-field--background-color: #{tokens.get('', 'color--background')};
-  --c-field--color--surface-contrast: #{tokens.get('', 'color--background-contrast')};
+  --c-field--background-color: #{tokens.getRawValue('', 'color--background')};
+  --c-field--color--surface-contrast: #{tokens.getRawValue('', 'color--background-contrast')};
 }
 
 /* Form fields */
 .login input[type=password],
 .login input[type=text] {
   appearance: none;
-  background: tokens.get('', 'c-field--background-color');
-  border: tokens.get('', 'c-field--border');
-  border-radius: tokens.use('', 'c-field--border-radius');
-  color: tokens.get('', 'c-field--color--surface-contrast');
-  corner-shape: tokens.get('', 'c-field--corner-shape');
+  background: tokens.getRawValue('', 'c-field--background-color');
+  border: tokens.getRawValue('', 'c-field--border');
+  border-radius: tokens.getCalculatedValue('', 'c-field--border-radius');
+  color: tokens.getRawValue('', 'c-field--color--surface-contrast');
+  corner-shape: tokens.getRawValue('', 'c-field--corner-shape');
   line-height: var(--c-field-font-size-md-line-height, calc(var(--base, 8px)* 2));
   margin: 0;
   height: calc(var(--c-field-height, calc(var(--base, 8px)* 6)) - var(--c-field-border-width, var(--border-width-input, 1px))* 2);
@@ -53,7 +53,7 @@ body {
 
 /* Form labels */ 
 .login label {
-  color: tokens.get('', 'c-field--color--surface-contrast');
+  color: tokens.getRawValue('', 'c-field--color--surface-contrast');
   font-size: var(--c-field-label-font-size, .75rem);
   font-weight: var(--c-field-label-font-size, 700);
   letter-spacing: .05rem;
@@ -66,13 +66,13 @@ body {
 .wp-core-ui .button-primary:active,
 .wp-core-ui .button-primary:focus,
 .wp-core-ui .button-primary:hover {
-  border-radius: tokens.use('', 'border-radius');
+  border-radius: tokens.getCalculatedValue('', 'border-radius');
   font-size: .95rem;
   height: calc(var(--base, 8px)* 6);
   min-width: calc(var(--base, 8px)* 9);
   padding: 0 calc(var(--base, 8px)* 4);
-  background-color: tokens.get('', 'color--primary');
-  color: tokens.get('', 'color--primary-contrast');
+  background-color: tokens.getRawValue('', 'color--primary');
+  color: tokens.getRawValue('', 'color--primary-contrast');
   border: none;
   width: 100%;
 }
@@ -82,13 +82,13 @@ body {
 .wp-core-ui .button-secondary:focus,
 .wp-core-ui .button-secondary:hover {
   &:not(.wp-hide-pw) {
-    border-radius: tokens.use('', 'border-radius');
+    border-radius: tokens.getCalculatedValue('', 'border-radius');
     font-size: .95rem;
     border: none;
     height: calc(var(--base, 8px)* 6);
     min-width: calc(var(--base, 8px)* 9);
-    color: tokens.get('', 'color--secondary-contrast');
-    background-color: tokens.get('', 'color--secondary');
+    color: tokens.getRawValue('', 'color--secondary-contrast');
+    background-color: tokens.getRawValue('', 'color--secondary');
     width: 100%;
     padding: 0 calc(var(--base, 8px)* 4);
   }
@@ -102,7 +102,7 @@ body {
 
 .login .button.wp-hide-pw {
   height: 100%;
-  color: tokens.get('', 'color--primary');
+  color: tokens.getRawValue('', 'color--primary');
 }
 
 .login #nav {
@@ -124,18 +124,18 @@ body {
 }
 
 .login .message {
-  background-color: tokens.get('', 'color--info');
-  color: tokens.get('', 'color--info-contrast');
+  background-color: tokens.getRawValue('', 'color--info');
+  color: tokens.getRawValue('', 'color--info-contrast');
 }
 
 .login .notice-error {
-  background-color: tokens.get('', 'color--warning');
-  color: tokens.get('', 'color--warning-contrast');
+  background-color: tokens.getRawValue('', 'color--warning');
+  color: tokens.getRawValue('', 'color--warning-contrast');
 }
 
 .login .success {
-  background-color: tokens.get('', 'color--success');
-  color: tokens.get('', 'color--success-contrast');
+  background-color: tokens.getRawValue('', 'color--success');
+  color: tokens.getRawValue('', 'color--success-contrast');
 }
 
 /* Add vendor */ 
@@ -158,7 +158,7 @@ body.login:after {
 }
 
 .login #backtoblog a, .login #nav a {
-  color: tokens.get('', 'color--background-primary');
+  color: tokens.getRawValue('', 'color--background-primary');
 }
 
 /* Animations */ 

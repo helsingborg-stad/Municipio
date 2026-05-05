@@ -116,7 +116,7 @@ $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !d
         width: 100%;
         margin-top: 0;
         transition: transform .2s ease-in-out;
-        --inherit-font-size: #{tokens.get("", "font-size-300")};
+        --inherit-font-size: #{tokens.getRawValue("", "font-size-300")};
     }
 
     a:hover {

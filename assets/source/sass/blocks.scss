@@ -5,7 +5,7 @@
 
     &.t-block-button {
         flex-wrap: wrap;
-        gap: tokens.use("", "space", 2);
+        gap: tokens.getCalculatedValue("", "space", 2);
         display: flex;
 
         .c-button + .c-button {

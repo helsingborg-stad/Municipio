@@ -4,8 +4,8 @@
     --c-block--radius: 0;
 
     .modularity-socialmedia__content {
-        border-radius: #{tokens.use("", "border-radius", 1)};
-        corner-shape: tokens.get("", "border-radius");
+        border-radius: #{tokens.getCalculatedValue("", "border-radius", 1)};
+        corner-shape: tokens.getRawValue("", "border-radius");
         contain: paint;
     }
 }
