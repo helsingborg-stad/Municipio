@@ -63,6 +63,34 @@
             display: block;
         }
     }
+
+    @container layout-grid (min-width: 48rem) {
+        .backdrop-banner__navigation-item-content {
+            display: block;
+        }
+
+        .backdrop-banner__navigation-item.is-active {
+            backdrop-filter: blur(calc(var(--base, 8px) * 3)) brightness(1.1);
+            background: rgba(255, 255, 255, 0.08);
+            outline: 2px solid rgba(255, 255, 255, 0.15);
+            outline-offset: -2px;
+            z-index: 10;
+
+
+            .backdrop-banner__navigation-item-container {
+                grid-template-rows: auto 1fr;
+            }
+
+            .backdrop-banner__navigation-item-content {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+            .backdrop-banner__navigation-item-icon {
+                opacity: 1;
+            }
+        }
+    }
 }
 
 .backdrop-banner__navigation-container {
@@ -107,28 +135,6 @@
     }
 }
 
-.backdrop-banner__navigation-item.is-active {
-    backdrop-filter: blur(calc(var(--base, 8px) * 3)) brightness(1.1);
-    background: rgba(255, 255, 255, 0.08);
-    outline: 2px solid rgba(255, 255, 255, 0.15);
-    outline-offset: -2px;
-    z-index: 10;
-
-
-    .backdrop-banner__navigation-item-container {
-        grid-template-rows: auto 1fr;
-    }
-
-    .backdrop-banner__navigation-item-content {
-        opacity: 1;
-        transform: scaleY(1);
-    }
-
-    .backdrop-banner__navigation-item-icon {
-        opacity: 1;
-    }
-}
-
 .backdrop-banner__navigation-item-container {
     display: grid;
     grid-template-rows: auto 0fr;
@@ -155,6 +161,7 @@
 }
 
 .backdrop-banner__navigation-item-content {
+    display: none;
     overflow: hidden;
     transform-origin: bottom;
     opacity: 0;

@@ -7,8 +7,19 @@ document.querySelectorAll<HTMLElement>('[data-js-backdrop-banner]').forEach((bac
     const backdropBannerImageFront = backdropBanner.querySelector<HTMLElement>('[data-js-backdrop-banner-image-front]');
     const backdropBannerImageBack = backdropBanner.querySelector<HTMLElement>('[data-js-backdrop-banner-image-back]');
 
-
     if (!backdropBannerImageFront || !backdropBannerImageBack) return;
+
+    const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            if (entry.contentRect.width < 768) {
+                backdropBanner.classList.add('no-hover');
+            } else {
+                backdropBanner.classList.remove('no-hover');
+            }
+        }
+    });
+
+    resizeObserver.observe(backdropBanner);
 
     let navigationItemsArray: { item: HTMLElement, instance: NavigationItem }[] = [];
     const backgroundImage = new BackgroundImage(backdropBannerImageFront, backdropBannerImageBack);
@@ -17,5 +28,5 @@ document.querySelectorAll<HTMLElement>('[data-js-backdrop-banner]').forEach((bac
         navigationItemsArray.push({ item: navItem, instance: navigationItem });
     });
 
-    initializeSlider(navigationItemsArray);
+    initializeSlider(navigationItemsArray, backdropBanner);
 });
