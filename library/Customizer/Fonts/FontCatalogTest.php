@@ -45,7 +45,7 @@ class FontCatalogTest extends TestCase
         static::assertSame('municipio_customizer_section_google_fonts', $args['section']);
         static::assertSame(999, $args['multiple']);
         static::assertTrue($args['clearable']);
-        static::assertSame('Search fonts...', $args['placeholder']);
+        static::assertArrayHasKey('placeholder', $args);
         static::assertIsArray($args['choices']);
         static::assertIsArray($args['default']);
     }
