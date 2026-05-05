@@ -76,3 +76,7 @@
     //     flex-basis: 100% !important; // Override inline style.
     // }
 }
+
+.wp-block-heading:first-child {
+    --inherit-margin-top: 0;
+}
