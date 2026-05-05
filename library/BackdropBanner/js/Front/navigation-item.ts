@@ -12,10 +12,10 @@ export default class NavigationItem {
     constructor(
         private navItem: Element,
         private backgroundImage: BackgroundImage,
-        private allNavigationItems: NodeListOf<HTMLElement>,
+        private allNavigationItems: NodeListOf<HTMLElement>
     ) {
         this.imageUrl = this.navItem.getAttribute(this.imageUrlAttribute);
-        this.setListener();
+
         this.focalPointX = Number(this.navItem.getAttribute(this.focalPointXAttribute) ?? this.focalPointX);
         this.focalPointY = Number(this.navItem.getAttribute(this.focalPointYAttribute) ?? this.focalPointY);
 
@@ -27,16 +27,6 @@ export default class NavigationItem {
         if (this.navItem.classList.contains(this.activeClass)) {
             this.activate();
         }
-    }
-
-    private setListener(): void {
-        this.navItem.addEventListener("mouseenter", () => {
-            this.activate();
-        });
-
-        this.navItem.addEventListener("focusin", () => {
-            this.activate();
-        });
     }
 
     public activate(): void {
