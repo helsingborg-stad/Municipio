@@ -95,7 +95,7 @@ describe("matomoTracking", () => {
 		expect(document.querySelector("a").dataset.matomoName).toBe("Read more");
 	});
 
-	it("does not track links without backend-provided matomo markers", () => {
+	it("does not track links without matomo tracking attributes", () => {
 		document.body.innerHTML = `
 			<a class="c-button" href="/example">
 				<span class="c-button__label-text">Read more</span>
