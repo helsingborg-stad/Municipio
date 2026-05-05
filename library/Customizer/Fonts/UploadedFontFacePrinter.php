@@ -28,6 +28,7 @@ class UploadedFontFacePrinter
     public function printDeclarations(): void
     {
         $uploadedFonts = $this->fontRepository->getUploadedFonts();
+
         if ($uploadedFonts === []) {
             return;
         }

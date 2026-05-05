@@ -47,6 +47,7 @@ use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Municipio\Customizer;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 /**
  * Tests managed font settings reads.
@@ -108,5 +109,25 @@ class FontSettingsTest extends TestCase
             ],
             KirkiCompatibility::$calls,
         );
+    }
+
+    #[TestDox('getSelectedFontFamiliesFromThemeMods() reads typography font families from theme mods')]
+    public function testGetSelectedFontFamiliesFromThemeModsReadsTypographyFontFamiliesFromThemeMods(): void
+    {
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => match ($key) {
+                'typography_base' => ['font-family' => 'Arimo'],
+                'typography_heading' => ['font-family' => 'Open Sans'],
+                'typography_bold' => ['font-family' => 'Arimo'],
+                'typography_italic' => ['variant' => 'italic'],
+                'typography_lead' => [],
+                'header_brand_font_settings' => 'invalid',
+                default => $default,
+            },
+        ]);
+
+        $fontFamilies = FontSettings::getSelectedFontFamiliesFromThemeMods($wpService);
+
+        static::assertSame(['Arimo', 'Open Sans'], $fontFamilies);
     }
 }

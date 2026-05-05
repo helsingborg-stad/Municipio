@@ -7,7 +7,6 @@ use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
 use Municipio\Customizer\Applicators\Types\Css;
 use Municipio\Customizer\Applicators\Types\Modifier;
-use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Customizer\PanelsRegistry;
 use wpdb;
 use WpService\WpService;
@@ -165,9 +164,6 @@ class Customizer
             'gutenberg_support' => false,
             'disable_output' => true,
         ));
-
-        // Init managed fonts
-        (new FontCatalogFactory($this->wpService))->create()->addHooks();
 
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();

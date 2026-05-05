@@ -22,6 +22,7 @@ class FontCatalog implements Hookable
      * @param GoogleFontsCssLocaleFilter $googleFontsCssLocaleFilter
      * @param FontStyleguideOptionProvider $fontStyleguideOptionProvider
      * @param FontCatalogMigrator $fontCatalogMigrator
+     * @param GoogleFontCssPrinter $googleFontCssPrinter
      * @param UploadedFontFacePrinter $uploadedFontFacePrinter
      */
     public function __construct(
@@ -30,6 +31,7 @@ class FontCatalog implements Hookable
         private readonly GoogleFontsCssLocaleFilter $googleFontsCssLocaleFilter,
         private readonly FontStyleguideOptionProvider $fontStyleguideOptionProvider,
         private readonly FontCatalogMigrator $fontCatalogMigrator,
+        private readonly GoogleFontCssPrinter $googleFontCssPrinter,
         private readonly UploadedFontFacePrinter $uploadedFontFacePrinter,
     ) {}
 
@@ -74,6 +76,7 @@ class FontCatalog implements Hookable
      */
     public function printFontDeclarations(): void
     {
+        $this->googleFontCssPrinter->printDeclarations();
         $this->uploadedFontFacePrinter->printDeclarations();
     }
 }

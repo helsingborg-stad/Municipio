@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Municipio\Customizer\Fonts;
 
+use WpService\WpService;
+
 /**
  * Reads managed and legacy font settings.
  */
@@ -78,6 +80,30 @@ class FontSettings
                 \Municipio\Customizer::KIRKI_CONFIG,
                 $settingKey,
             );
+
+            if (!is_array($value) || !array_key_exists('font-family', $value) || $value['font-family'] === '') {
+                continue;
+            }
+
+            $fontFamilies[] = (string) $value['font-family'];
+        }
+
+        return array_values(array_unique($fontFamilies));
+    }
+
+    /**
+     * Returns font families currently selected in typography theme mods.
+     *
+     * @param WpService $wpService
+     *
+     * @return array<int, string>
+     */
+    public static function getSelectedFontFamiliesFromThemeMods(WpService $wpService): array
+    {
+        $fontFamilies = [];
+
+        foreach (self::FONT_SETTING_KEYS as $settingKey) {
+            $value = $wpService->getThemeMod($settingKey, []);
 
             if (!is_array($value) || !array_key_exists('font-family', $value) || $value['font-family'] === '') {
                 continue;
