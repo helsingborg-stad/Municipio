@@ -38,7 +38,6 @@ describe("matomoTracking", () => {
 	it("preserves explicitly provided matomo attributes", () => {
 		document.body.innerHTML = `
 			<a
-				class="c-button"
 				href="/example"
 				data-matomo-category="Custom category"
 				data-matomo-action="Open"
@@ -59,7 +58,11 @@ describe("matomoTracking", () => {
 
 	it("finds the closest trackable element for nested CTA content", () => {
 		document.body.innerHTML = `
-			<a class="c-button" href="/example">
+			<a
+				href="/example"
+				data-matomo-category="UI Interaction"
+				data-matomo-action="Click"
+			>
 				<span class="c-button__label-text">Read more</span>
 			</a>
 		`;
@@ -72,7 +75,11 @@ describe("matomoTracking", () => {
 
 	it("tracks clicks for delegated button-like links", () => {
 		document.body.innerHTML = `
-			<a class="c-button" href="/example">
+			<a
+				href="/example"
+				data-matomo-category="UI Interaction"
+				data-matomo-action="Click"
+			>
 				<span class="c-button__label-text">Read more</span>
 			</a>
 		`;
@@ -86,6 +93,22 @@ describe("matomoTracking", () => {
 			["trackEvent", "UI Interaction", "Click", "Read more"],
 		]);
 		expect(document.querySelector("a").dataset.matomoName).toBe("Read more");
+	});
+
+	it("does not track links without backend-provided matomo markers", () => {
+		document.body.innerHTML = `
+			<a class="c-button" href="/example">
+				<span class="c-button__label-text">Read more</span>
+			</a>
+		`;
+
+		initializeMatomoTracking();
+
+		document
+			.querySelector(".c-button__label-text")
+			.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+		expect(window._paq).toEqual([]);
 	});
 
 	it("tracks dynamically injected buttons through delegated listeners", () => {

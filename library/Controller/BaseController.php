@@ -448,6 +448,13 @@ class BaseController
             );
         }
 
+        $this->wpService->addFilter(
+            'ComponentLibrary/Component/Attribute',
+            [$this, 'filterMatomoTrackingAttributes'],
+            20,
+            1,
+        );
+
         //Wordpress hooks
         $this->data['hook'] = (object) array(
             'innerLoopStart' => $this->hook('inner_loop_start'),
@@ -509,6 +516,48 @@ class BaseController
         $permalink = urldecode($this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get()));
         $permalink = add_query_arg($queryParam, $permalink);
         return urldecode($permalink ?? '');
+    }
+
+    /**
+     * Add default Matomo tracking attributes to rendered component links and buttons.
+     *
+     * @param array<string, mixed> $attributes The component attributes.
+     *
+     * @return array<string, mixed> The modified component attributes.
+     */
+    public function filterMatomoTrackingAttributes(array $attributes): array
+    {
+        if (!$this->shouldAddMatomoTrackingAttributes($attributes)) {
+            return $attributes;
+        }
+
+        if (empty($attributes['data-matomo-category'])) {
+            $attributes['data-matomo-category'] = 'UI Interaction';
+        }
+
+        if (empty($attributes['data-matomo-action'])) {
+            $attributes['data-matomo-action'] = 'Click';
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Determine whether a component should receive default Matomo tracking attributes.
+     *
+     * @param array<string, mixed> $attributes The component attributes.
+     *
+     * @return bool True when Matomo tracking attributes should be added.
+     */
+    private function shouldAddMatomoTrackingAttributes(array $attributes): bool
+    {
+        $buttonTypes = ['button', 'submit', 'reset'];
+
+        return !empty($attributes['href'])
+            || in_array($attributes['type'] ?? null, $buttonTypes, true)
+            || ($attributes['role'] ?? null) === 'button'
+            || !empty($attributes['data-open'])
+            || !empty($attributes['aria-controls']);
     }
 
     /**

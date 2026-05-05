@@ -1,8 +1,6 @@
 const matomoTrackingSelector = [
 	"button",
-	"a.btn",
-	"a.c-button",
-	'a[role="button"]',
+	"[data-matomo-category]",
 ].join(", ");
 
 const defaultTrackingCategory = "UI Interaction";
