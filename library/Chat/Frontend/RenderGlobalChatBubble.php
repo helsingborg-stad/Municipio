@@ -33,7 +33,7 @@ class RenderGlobalChatBubble implements Hookable
                     'chat' => $this->wpService->__('Chat', 'municipio'),
                     'close' => $this->wpService->__('Close', 'municipio'),
                     'send' => $this->wpService->__('Send', 'municipio'),
-                    'placeholder' => $this->wpService->__('Ask me anything...', 'municipio'),
+                    'placeholder' => $this->wpService->__('Write your question here', 'municipio'),
                 ],
             ])
         ;
