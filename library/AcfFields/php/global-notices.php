@@ -108,6 +108,27 @@
                     'parent_repeater' => 'field_6798fa24c712e',
                 ),
                 3 => array(
+                    'key' => 'field_6819c7a2f4b15',
+                    'label' => __('Title', 'municipio'),
+                    'name' => 'title',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'parent_repeater' => 'field_6798fa24c712e',
+                ),
+                4 => array(
                     'key' => 'field_6798fb080eda8',
                     'label' => __('Message', 'municipio'),
                     'name' => 'message',
@@ -129,7 +150,7 @@
                     'new_lines' => '',
                     'parent_repeater' => 'field_6798fa24c712e',
                 ),
-                4 => array(
+                5 => array(
                     'key' => 'field_6798fb904462e',
                     'label' => __('Constraints', 'municipio'),
                     'name' => 'constraints',
@@ -165,7 +186,7 @@
                     'custom_choice_button_text' => 'Lägg till nytt val',
                     'parent_repeater' => 'field_6798fa24c712e',
                 ),
-                5 => array(
+                6 => array(
                     'key' => 'field_6798fc4f9dc38',
                     'label' => __('Action', 'municipio'),
                     'name' => 'action',
@@ -262,7 +283,7 @@
                         ),
                     ),
                 ),
-                6 => array(
+                7 => array(
                     'key' => 'field_6799cf0e2826f',
                     'label' => __('Dismissable', 'municipio'),
                     'name' => 'dismissable',
