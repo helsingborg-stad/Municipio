@@ -10,10 +10,10 @@ use WpService\Contracts\AddFilter;
  */
 class ApplyLayersToEnqueuedStyles implements Hookable
 {
-    private const LAYER_NAME = 'wordpress';
     public const HANDLES = [
         'wp-block-library' => 'wordpress',
         'common' => 'wordpress',
+        'edit' => 'wordpress',
         'municipio' => 'wordpress',
         'css-municipiocss' => 'theme',
     ];
