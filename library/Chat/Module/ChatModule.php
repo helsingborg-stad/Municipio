@@ -19,13 +19,12 @@ class ChatModule extends \Modularity\Module
     public function data(): array
     {
         $data = $this->getFields() ?? [];
+        $data['id'] = uniqid('chat-');
 
-        $data['i18n'] = [
-            'submit'        => __('Submit', 'municipio'),
-            'you'           => __('You', 'municipio'),
-            'assistant'     => __('Assistant', 'municipio'),
-            'writeQuestion' => __('Write your question here', 'municipio'),
-            'send'          => __('Send', 'municipio'),
+        $data['lang'] = [
+            'chat' => __('Chat', 'municipio'),
+            'send' => __('Send', 'municipio'),
+            'placeholder' => __('Write your question here', 'municipio'),
         ];
 
         return $data;
