@@ -26,13 +26,18 @@ class Text extends \Modularity\Module
         $data['postContent'] = $data['post_content'] ?? '';
         $data['postContent'] = $data['postContent'] ?: $data['content'] ?? '';
 
+        // If content is still empty and ID is set, try to fetch content from post
+        if($this->ID) {
+            $data['postContent'] = $data['postContent'] ?: get_post($this->ID)->post_content ?? '';
+        }
+
         //Run relevant filters
         foreach (['Modularity/Display/SanitizeContent', 'the_content'] as $filter) {
             $data['postContent'] = WpService::get()->applyFilters($filter, $data['postContent']);
         }
 
         // Check if content contains h1-h6 tags
-        $data['hasHeadingsInContent'] = preg_match('/<h[1-6]/', $data['post_content'] ?? '');
+        $data['hasHeadingsInContent'] = preg_match('/<h[1-6]/', $data['postContent'] ?? '');
 
         // Alway set ID
         $data['ID'] ??= uniqid();
