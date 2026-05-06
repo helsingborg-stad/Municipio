@@ -32,7 +32,10 @@ class ApplyI18n implements DecoratorInterface
 
             if (is_array($value)) {
                 $translatedData[$key] = $this->getTranslatedTokenData($value, $path);
+                continue;
             }
+
+            $translatedData[$key] = $value;
         }
 
         return $translatedData;
