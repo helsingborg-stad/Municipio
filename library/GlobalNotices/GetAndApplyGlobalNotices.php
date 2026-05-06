@@ -54,7 +54,10 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable, Ge
       ][$location] ?? [];
 
         return [
-          'message'     => ['text' => $notice['message'] ?? ''],
+          'message'     => [
+              'title' => ($notice['title'] ?? null) !== null && $notice['title'] !== '' ? $notice['title'] : null,
+              'text'  => $notice['message'] ?? '',
+          ],
           'location'    => $notice['location'] ?? 'toast',
           'type'        => $notice['type'] ?? 'info',
           'icon'        => ['name' => $notice['icon'] ?? ''] ?: false,

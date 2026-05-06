@@ -105,6 +105,27 @@
                     "parent_repeater": "field_6798fa24c712e"
                 },
                 {
+                    "key": "field_6819c7a2f4b15",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6798fa24c712e"
+                },
+                {
                     "key": "field_6798fb080eda8",
                     "label": "Message",
                     "name": "message",
@@ -369,4 +390,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+
