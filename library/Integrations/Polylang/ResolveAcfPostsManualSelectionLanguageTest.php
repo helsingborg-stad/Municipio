@@ -17,7 +17,7 @@ class ResolveAcfPostsManualSelectionLanguageTest extends TestCase
         static::assertInstanceOf(ResolveAcfPostsManualSelectionLanguage::class, $this->getSut());
     }
 
-    #[TestDox('addHooks() registers the ACF post object query filter when Polylang is active')]
+    #[TestDox('addHooks() registers the ACF post object query filters when Polylang is active')]
     public function testAddHooksRegistersFilterWhenPolylangIsActive(): void
     {
         $wpService = new FakeWpService([
@@ -32,7 +32,11 @@ class ResolveAcfPostsManualSelectionLanguageTest extends TestCase
         $sut->addHooks();
 
         static::assertSame(
-            [['acf/fields/post_object/query/name=posts_data_posts', [$sut, 'makeManualPostsFieldLanguageAgnostic'], 20, 3]],
+            [
+                ['acf/fields/post_object/query/name=posts_data_posts', [$sut, 'makeManualPostsFieldLanguageAgnostic'], 20, 3],
+                ['acf/fields/post_object/query/key=field_571dfc6ff8115', [$sut, 'makeManualPostsFieldLanguageAgnostic'], 20, 3],
+                ['acf/acf_get_posts/args', [$sut, 'makeManualPostsFieldLoadLanguageAgnostic'], 20, 1],
+            ],
             $wpService->methodCalls['addFilter'],
         );
     }
@@ -73,6 +77,105 @@ class ResolveAcfPostsManualSelectionLanguageTest extends TestCase
         $result = $sut->makeManualPostsFieldLanguageAgnostic($args, $field, 13018);
 
         static::assertSame('', $result['lang']);
+    }
+
+    #[TestDox('makeManualPostsFieldLanguageAgnostic() sets empty lang when field key matches manual field')]
+    public function testMakeManualPostsFieldLanguageAgnosticSetsEmptyLangForManualFieldKey(): void
+    {
+        $sut = $this->getSut(
+            static fn(): bool => true,
+        );
+
+        $args = [
+            'post_type' => ['post', 'evenemang'],
+            'lang' => 'sv',
+        ];
+
+        $field = [
+            'key' => 'field_571dfc6ff8115',
+        ];
+
+        $result = $sut->makeManualPostsFieldLanguageAgnostic($args, $field, 13018);
+
+        static::assertSame('', $result['lang']);
+    }
+
+    #[TestDox('makeManualPostsFieldLoadLanguageAgnostic() sets empty lang when loading selected values for manual posts field')]
+    public function testMakeManualPostsFieldLoadLanguageAgnosticSetsEmptyLangForManualField(): void
+    {
+        $sut = $this->getSut(
+            static fn(): bool => true,
+            static fn(): array => [
+                [
+                    'function' => 'get_posts',
+                    'args' => [
+                        [407],
+                        ['key' => 'field_571dfc6ff8115'],
+                    ],
+                ],
+            ],
+        );
+
+        $args = [
+            'post__in' => [407],
+            'lang' => 'sv',
+        ];
+
+        $result = $sut->makeManualPostsFieldLoadLanguageAgnostic($args);
+
+        static::assertSame('', $result['lang']);
+    }
+
+    #[TestDox('makeManualPostsFieldLoadLanguageAgnostic() leaves args unchanged for unrelated field context')]
+    public function testMakeManualPostsFieldLoadLanguageAgnosticLeavesArgsUnchangedForUnrelatedField(): void
+    {
+        $sut = $this->getSut(
+            static fn(): bool => true,
+            static fn(): array => [
+                [
+                    'function' => 'get_posts',
+                    'args' => [
+                        [407],
+                        ['key' => 'field_571dfcd6b5cf9'],
+                    ],
+                ],
+            ],
+        );
+
+        $args = [
+            'post__in' => [407],
+            'lang' => 'sv',
+        ];
+
+        $result = $sut->makeManualPostsFieldLoadLanguageAgnostic($args);
+
+        static::assertSame($args, $result);
+    }
+
+    #[TestDox('makeManualPostsFieldLoadLanguageAgnostic() leaves args unchanged when Polylang is unavailable')]
+    public function testMakeManualPostsFieldLoadLanguageAgnosticLeavesArgsUnchangedWhenPolylangUnavailable(): void
+    {
+        $sut = $this->getSut(
+            static fn(): bool => false,
+            static fn(): array => [
+                [
+                    'function' => 'get_posts',
+                    'args' => [
+                        [407],
+                        ['key' => 'field_571dfc6ff8115'],
+                    ],
+                ],
+            ],
+        );
+
+        $args = [
+            'post__in' => [407],
+            'lang' => 'sv',
+        ];
+
+        $result = $sut->makeManualPostsFieldLoadLanguageAgnostic($args);
+
+        static::assertSame($args, $result);
     }
 
     #[TestDox('makeManualPostsFieldLanguageAgnostic() leaves args unchanged for other fields')]
@@ -124,13 +227,16 @@ class ResolveAcfPostsManualSelectionLanguageTest extends TestCase
      *
      * @return ResolveAcfPostsManualSelectionLanguage
      */
-    private function getSut(?Closure $polylangIsActiveResolver = null): ResolveAcfPostsManualSelectionLanguage
-    {
+    private function getSut(
+        ?Closure $polylangIsActiveResolver = null,
+        ?Closure $callStackResolver = null,
+    ): ResolveAcfPostsManualSelectionLanguage {
         return new ResolveAcfPostsManualSelectionLanguage(
             new FakeWpService([
                 'addFilter' => true,
             ]),
             $polylangIsActiveResolver,
+            $callStackResolver,
         );
     }
 }
