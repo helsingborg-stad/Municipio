@@ -17,6 +17,10 @@
         'id' => 'global-chat',
         'persistent' => true,
         'title' => $lang['chat'],
+        'height' => 'min(80vh, calc(var(--base, 8px) * 75))',
+        'attributeList' => [
+            'style' => '--c-chat--inner-padding-multiplier: 2;',
+        ],
         'chatInputData' => [
             'sendButtonText' => $lang['send'],
             'placeholderText' => $lang['placeholder']
