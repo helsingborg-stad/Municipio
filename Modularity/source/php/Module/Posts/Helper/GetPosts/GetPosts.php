@@ -9,6 +9,7 @@ use Modularity\Module\Posts\Helper\GetPosts\GetPostsInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostsResult;
 use Modularity\Module\Posts\Helper\GetPosts\PostsResultInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostTypesFromSchemaType\PostTypesFromSchemaTypeResolverInterface;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetPermalink;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetTheID;
@@ -17,11 +18,13 @@ use WpService\Contracts\IsUserLoggedIn;
 
 class GetPosts implements GetPostsInterface
 {
+    private const GET_POSTS_ARGS_FILTER = 'Modularity/Module/Posts/GetPosts/Args';
+
     public function __construct(
         private array $fields,
         private int $page,
         private ?\Municipio\StickyPost\Helper\GetStickyOption $getStickyOption,
-        private IsUserLoggedIn&GetPermalink&GetPostType&IsArchive&GetTheID $wpService,
+        private IsUserLoggedIn&GetPermalink&GetPostType&IsArchive&GetTheID&ApplyFilters $wpService,
         private WpQueryFactoryInterface $wpQueryFactory,
         private PostTypesFromSchemaTypeResolverInterface $postTypesFromSchemaTypeResolver,
     ) {}
@@ -218,6 +221,19 @@ class GetPosts implements GetPostsInterface
 
         // Exclude current post if needed
         $getPostsArgs = $this->excludeCurrentPostFromArgs($getPostsArgs);
+
+        // Allow integrations to adjust query arguments for the Posts module.
+        $filteredGetPostsArgs = $this->wpService->applyFilters(
+            self::GET_POSTS_ARGS_FILTER,
+            $getPostsArgs,
+            $fields,
+            $page,
+            $stickyPostIds,
+        );
+
+        if (is_array($filteredGetPostsArgs)) {
+            return $filteredGetPostsArgs;
+        }
 
         return $getPostsArgs;
     }

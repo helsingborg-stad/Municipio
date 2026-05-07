@@ -276,6 +276,58 @@ class GetPostsTest extends TestCase
         $this->assertEquals(2, $sortedPosts[2]->menu_order);
     }
 
+    #[TestDox('getPosts() applies common args filter before creating manual selection query')]
+    public function testGetPostsAppliesCommonArgsFilterBeforeCreatingManualSelectionQuery(): void
+    {
+        $fields = [
+            'posts_data_source' => 'manual',
+            'posts_data_posts' => [403, 407],
+            'posts_count' => 10,
+            'posts_sort_by' => 'false',
+            'posts_sort_order' => 'asc',
+        ];
+
+        $wpService = new FakeWpService([
+            'getTheID' => 1,
+            'isArchive' => false,
+            'isUserLoggedIn' => false,
+            'applyFilters' => static function (string $hookName, mixed $args, array $filterFields, int $filterPage): array {
+                if ($hookName !== 'Modularity/Module/Posts/GetPosts/Args') {
+                    return $args;
+                }
+
+                $args['lang'] = '';
+
+                return $args;
+            },
+        ]);
+
+        $wpQuery = $this->createMock(\WP_Query::class);
+        $wpQuery->method('get_posts')->willReturn([]);
+        $wpQuery->max_num_pages = 0;
+
+        $wpQueryFactory = $this->createMock(WpQueryFactoryInterface::class);
+        $wpQueryFactory
+            ->expects($this->once())
+            ->method('create')
+            ->with($this->callback(function (array $args): bool {
+                $this->assertSame([403, 407], $args['post__in'] ?? null);
+                $this->assertSame('', $args['lang'] ?? null);
+                $this->assertSame('post__in', $args['orderby'] ?? null);
+
+                return true;
+            }))
+            ->willReturn($wpQuery);
+
+        $postTypeFromSchemaTypeResolver = new NullPostTypesFromSchemaTypeResolver();
+        $getPosts = new GetPosts($fields, 1, null, $wpService, $wpQueryFactory, $postTypeFromSchemaTypeResolver);
+
+        $result = $getPosts->getPosts();
+
+        $this->assertSame('Modularity/Module/Posts/GetPosts/Args', $wpService->methodCalls['applyFilters'][0][0]);
+        $this->assertInstanceOf(PostsResultInterface::class, $result);
+    }
+
     private function getWpPostMock(array $data = []): WP_Post|MockObject
     {
         $wpPost = $this->createStub(stdClass::class);

@@ -522,6 +522,7 @@ class App
             new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveAcfPostsManualSelectionLanguage($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolvePostsModuleManualSelectionLanguage($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveTranslatedPageLink($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveTranslatedPostTypeLink($this->wpService),
             new \Municipio\Integrations\Polylang\ResolveTranslatedPostTypeArchiveLink($this->wpService),
