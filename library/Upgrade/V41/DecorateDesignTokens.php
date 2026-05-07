@@ -46,6 +46,27 @@ class DecorateDesignTokens
             $tokens['token']['--outer-space'] = ((float) $tokens['token']['--outer-space'] / 12) * 3;
         }
 
+        if (!is_null($tokens['component']['scope:s-header']['c-header']['--c-header--background-color'] ?? null)) {
+            if ($tokens['component']['scope:s-header']['c-header']['--c-header--background-color'] === 'secondary') {
+                $tokens['component']['scope:s-header']['c-header']['--c-header--background-color'] = 'var(--color--secondary)';
+                $tokens['component']['scope:s-header']['c-header']['--c-header--color'] = 'var(--color--secondary-contrast)';
+            } elseif ($tokens['component']['scope:s-header']['c-header']['--c-header--background-color'] === 'primary') {
+                $tokens['component']['scope:s-header']['c-header']['--c-header--background-color'] = 'var(--color--primary)';
+                $tokens['component']['scope:s-header']['c-header']['--c-header--color'] = 'var(--color--primary-contrast)';
+            }
+        }
+
+        if (!is_null($tokens['token']['--drawer-color-scheme-secondary-area'] ?? null)) {
+            if ($tokens['token']['--drawer-color-scheme-secondary-area'] === 'duotone-secondary') {
+                $tokens['component']['__general__']['drawer']['--c-drawer--color--surface'] = 'var(--color--secondary)';
+                $tokens['component']['__general__']['drawer']['--c-drawer--color--surface-contrast'] = 'var(--color--secondary-contrast)';
+            }
+        } else {
+            // Default
+            $tokens['component']['__general__']['drawer']['--c-drawer--color--surface'] = 'var(--color--primary)';
+            $tokens['component']['__general__']['drawer']['--c-drawer--color--surface-contrast'] = 'var(--color--primary-contrast)';
+        }
+
         return $tokens;
     }
 }

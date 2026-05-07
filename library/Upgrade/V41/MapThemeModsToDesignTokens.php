@@ -44,6 +44,9 @@ class MapThemeModsToDesignTokens
         'header_brand_font_settings.font-size' => 'component.__general__.header.--c-brand-font-size',
         'organism_grid_gap' => 'token.--outer-space',
         'nav_v_color_primary.background_color' => 'component.scope:s-header-flexible-lower.c-nav.--c-nav--color--surface',
+        'header_background' => 'component.scope:s-header.c-header.--c-header--background-color',
+        'drawer_color_scheme' => 'token.--drawer-color-scheme',
+        'drawer_color_scheme_secondary_area' => 'token.--drawer-color-scheme-secondary-area',
     ];
 
     public function map(array $themeMods, array $themeModsTokenMap = self::THEMEMODS_TOKENS_MAP): array
