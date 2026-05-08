@@ -7,6 +7,7 @@ use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
+use Municipio\Helper\Image;
 
 class RenderGlobalChatBubble implements Hookable
 {
@@ -18,7 +19,7 @@ class RenderGlobalChatBubble implements Hookable
 
     public function addHooks(): void
     {
-        if (!$this->config->isEnabled() || !$this->config->isGlobalChatEnabled()) {
+        if (!$this->config->isEnabled() || !$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) {
             return;
         }
 
@@ -27,6 +28,8 @@ class RenderGlobalChatBubble implements Hookable
 
     public function render(): void
     {
+        $defaultAssistant = $this->config->getDefaultAssistant();
+        $avatar = !empty($defaultAssistant['avatar']) ? Image::getImageAttachmentData($defaultAssistant['avatar'], [150, 150]) : null;
         echo
             $this->renderer->render('ChatBubble', [
                 'lang' => [
@@ -35,6 +38,7 @@ class RenderGlobalChatBubble implements Hookable
                     'send' => $this->wpService->__('Send', 'municipio'),
                     'placeholder' => $this->wpService->__('Write your question here', 'municipio'),
                 ],
+                'avatar' => $avatar,
             ])
         ;
     }

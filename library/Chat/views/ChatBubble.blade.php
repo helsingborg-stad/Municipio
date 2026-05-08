@@ -16,7 +16,6 @@
     @chat([
         'id' => 'global-chat',
         'persistent' => true,
-        'title' => $lang['chat'],
         'height' => 'min(80vh, calc(var(--base, 8px) * 75))',
         'attributeList' => [
             'style' => '--c-chat--inner-padding-multiplier: 2;',
@@ -26,7 +25,29 @@
             'placeholderText' => $lang['placeholder']
         ]
     ])
+        {{-- 'title' => $lang['chat'], --}}
         @slot('titleArea')
+            @element([
+                'classList' => ['o-layout-grid', 'o-layout-grid--cols-2', 'o-layout-grid--gap-2']
+            ])
+                @avatar([
+                    'image' => $avatar['src'] ?? null,
+                    'classList' => ['o-layout-grid--align-center'],
+                    'size' => 'sm',
+                    'icon' => [
+                        'name' => 'person',
+                        'size' => 'md'
+                    ]
+                ])
+                @endavatar
+                @typography([
+                    'element' => 'h2',
+                    'variant' => 'h6',
+                    'classList' => ['o-layout-grid--align-center'],
+                ])
+                    {{ $lang['chat'] }}
+                @endtypography
+            @endelement
             @button([
                 'icon' => 'close',
                 'size' => 'md',
