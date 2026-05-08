@@ -25,7 +25,6 @@
             'placeholderText' => $lang['placeholder']
         ]
     ])
-        {{-- 'title' => $lang['chat'], --}}
         @slot('titleArea')
             @element([
                 'classList' => ['o-layout-grid', 'o-layout-grid--cols-2', 'o-layout-grid--gap-2']
