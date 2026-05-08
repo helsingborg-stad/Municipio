@@ -52,8 +52,8 @@ main .c-sidebar .c-sidebar__subcontainer--top {
 }
 
 .c-typography.module-title {
-    margin-bottom: calc(var(--space) * 3);
-    margin-top: calc(var(--space) * 3);
+    margin-bottom: calc(var(--space) * 3 * 8px);
+    margin-top: calc(var(--space) * 3 * 8px);
 }
 
 div:first-child>.module-title {
