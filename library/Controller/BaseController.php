@@ -658,6 +658,8 @@ class BaseController
         $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
 
         $options = [
+            'headline' => __('Choose language', 'municipio'),
+            'moreLanguageLinkLabel' => __('More languages', 'municipio'),
             'disclaimer' => get_field('language_menu_disclaimer', $options),
             'moreLanguageLink' => get_field('language_menu_more_languages', $options),
             'displayCurrentLanguage' => get_field('display_current_language', $options) ?? false,
