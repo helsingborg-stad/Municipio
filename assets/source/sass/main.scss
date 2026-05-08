@@ -56,6 +56,11 @@ main .c-sidebar .c-sidebar__subcontainer--top {
     margin-top: calc(var(--space) * 3 * 8px);
 }
 
+.c-card__header > .c-typography.module-title {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
 div:first-child>.module-title {
     margin-top: 0;
 }
