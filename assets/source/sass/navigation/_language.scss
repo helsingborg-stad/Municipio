@@ -31,25 +31,20 @@
     }
 
     .site-language-menu__more {
-        border-width: 1px 0 1px 0;
-        border-style: solid;
-
-        .c-icon {
-            transition: transform 300ms ease-in-out;
+        height: auto;
+        margin-left: auto;
+        &::before {
+            bottom: 0;
         }
 
-        &,
-        &:hover {
-            text-decoration: none;
-        }
-
-        &:hover .c-icon {
-            transform: translateX(calc(var(--base, 8px) * -0.5));
+        &:hover::before {
+            width: 100%;
         }
     }
 
     &.is-expanded {
         .site-language-menu__card {
+            outline: 4000px solid var(--color--alpha);
             display: block;
             animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }

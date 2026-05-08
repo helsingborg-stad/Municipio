@@ -1,11 +1,24 @@
 @scope(['name' => ['language-menu']])
     @card([
         'classList' => [
-            'site-language-menu__card',
-            'u-padding--2',
-            'u-color__bg--default',
+            'site-language-menu__card'
         ],
     ])
+        <div class="c-card__header site-language-menu__header">
+            @typography([
+                'element' => 'p',
+                'variant' => 'h6',
+                'classList' => [
+                    'u-margin__top--0',
+                    'u-margin__bottom--0'
+                ]
+            ])
+                {{ $languageMenuOptions->headline }}
+            @endtypography
+        </div>
+
+        <div class="c-card__body site-language-menu__body u-padding__top--0">
+
         @if ($languageMenuOptions->displayCurrentLanguage)
             @button([
                 'variant' => 'filled',
@@ -35,42 +48,27 @@
         @endnav
 
         @if($languageMenuOptions->moreLanguageLink)
-
-            @link([
+            @button([
+                'icon' => 'arrow_forward',
+                'reversePositions' => true,
+                'text' => $languageMenuOptions->moreLanguageLinkLabel,
+                'color' => 'default',
+                'style' => 'basic',
+                'size' => 'sm',
                 'href' => $languageMenuOptions->moreLanguageLink,
                 'classList' => [
-                    'site-language-menu__more',
-                    'u-display--flex',
-                    'u-justify-content--space-between',
-                    'u-padding__y--2',
-                    'u-margin__top--2'
+                    'site-language-menu__more'
                 ]
             ])
-                @typography([
-                    'variant' => 'h4',
-                    'classList' => [
-                        'u-color__text--darkest',
-                        'u-margin__top--0'
-                    ]
-                ])
-                    {{ __('More Languages', 'municipio') }}
-                @endtypography
-
-                @icon([
-                    'icon' => 'arrow_forward',
-                    'size' => 'md'
-                ])
-                @endicon
-            @endlink
-
+            @endbutton
         @endif
 
         @if($languageMenuOptions->disclaimer)
             @typography([
                 'variant' => 'byline',
                 'classList' => [
-                    'u-color__text--dark',
-                    'u-padding--1'
+                    'u-border__top--1',
+                    'u-padding__top--2',
                 ]
             ])
                 {{ $languageMenuOptions->disclaimer }}
