@@ -5,7 +5,7 @@
     <div class="c-card__header">
         @include('partials.post-title', 
         [
-            'variant' => 'h4', 'classList' => [],
+            'variant' => 'h6',
             'titleIcon' => $titleIcon ?? null
         ])
     </div>
