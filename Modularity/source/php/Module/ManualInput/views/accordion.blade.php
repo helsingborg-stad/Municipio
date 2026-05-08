@@ -3,7 +3,7 @@
         @include('partials.post-title', ['variant' => 'h2', 'classList' => []])
     </div>
 @endif
-<div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }}" {{!empty($freeTextFiltering) ? 'js-filter-container=' . $ID : ''}}>
+<div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : ' o-grid--half-gutter' }}" {{!empty($freeTextFiltering) ? 'js-filter-container=' . $ID : ''}}>
     @card([
         'context' => $context
     ])

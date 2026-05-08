@@ -12,7 +12,7 @@
 @endif
 
     @if (!empty($posts))
-        <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }}">
+        <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : ' o-grid--half-gutter' }}">
             <div class="o-grid-12">
                 @collection([
                     'sharpTop' => true,

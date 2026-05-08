@@ -8,7 +8,7 @@
         {!! $postTitle !!}
     @endtypography
 @endif
-<div class="o-grid">
+<div class="o-grid o-grid--half-gutter">
     @foreach ($items as $item)
         <div class="{{ apply_filters('Municipio/Controller/Archive/GridColumnClass', $columnClass) }}">
             @card([

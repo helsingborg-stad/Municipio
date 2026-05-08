@@ -4,7 +4,7 @@
 @includeWhen($preamble, 'partials.preamble')
 
 @if($posts)
-    <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }} {{ !empty($noGutter) ? ' o-grid--no-gutter' : '' }} {{ (!empty($preamble)||(!$hideTitle && !empty($postTitle))) ? ' u-margin__top--4' : '' }} {{!empty($post->classList) ? implode(' ', $post->classList) : ''}}" 
+    <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : (!empty($noGutter) ? '' : ' o-grid--half-gutter') }} {{ !empty($noGutter) ? ' o-grid--no-gutter' : '' }} {{ (!empty($preamble)||(!$hideTitle && !empty($postTitle))) ? ' u-margin__top--4' : '' }} {{!empty($post->classList) ? implode(' ', $post->classList) : ''}}" 
         @if (!$hideTitle && !empty($postTitle)) aria-labelledby="{{ 'mod-posts-' . $ID . '-label' }}" @endif>
         @foreach ($posts as $post)
             <div class="{{ !empty($post->classList) ? implode(' ', $post->classList) : '' }}" 

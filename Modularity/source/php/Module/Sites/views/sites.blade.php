@@ -1,4 +1,4 @@
-<div class="o-grid">
+<div class="o-grid o-grid--half-gutter">
     @foreach($sites as $site)
     <div class="o-grid-4@md">
          <a class="box box-post-brick" href="{{ $site->home }}">

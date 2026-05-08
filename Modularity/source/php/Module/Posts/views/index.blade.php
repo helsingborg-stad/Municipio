@@ -1,5 +1,5 @@
 @if($archiveLinkAbovePosts)
-    <div class="o-grid u-align-items--center">
+    <div class="o-grid o-grid--half-gutter u-align-items--center">
         <div class="o-grid-9@md">
             @include('partials.head')
         </div>
@@ -11,7 +11,7 @@
     @include('partials.head')
 @endif
 
-<div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }}{{ !empty($noGutter) ? ' o-grid--no-gutter' : '' }}{{ (!empty($preamble)||(!$hideTitle && !empty($postTitle))) ? ' u-margin__top--4' : '' }}"
+<div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : (!empty($noGutter) ? '' : ' o-grid--half-gutter') }}{{ !empty($noGutter) ? ' o-grid--no-gutter' : '' }}{{ (!empty($preamble)||(!$hideTitle && !empty($postTitle))) ? ' u-margin__top--4' : '' }}"
 @if (!$hideTitle && !empty($postTitle)) aria-labelledby="{{ 'mod-posts-' . $ID . '-label' }}" @endif>
     @if($posts)    
         @foreach ($posts as $post)
