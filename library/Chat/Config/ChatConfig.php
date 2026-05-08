@@ -19,4 +19,36 @@ class ChatConfig implements ChatConfigInterface
     {
         return (bool) $this->acfService->getField('chat_global_enabled', 'option');
     }
+
+    public function getDefaultAssistant(): ?array
+    {
+        static $defaultAssistant = null;
+
+        if ($defaultAssistant !== null) {
+            return $defaultAssistant;
+        }
+
+        static $defaultAssistantName = null;
+
+        if ($defaultAssistantName === null) {
+            $defaultAssistantName = $this->acfService->getField('chat_default_assistant', 'option');
+        }
+
+        $defaultAssistantArray = array_filter($this->getAssistants(), function ($assistant) use ($defaultAssistantName) {
+            return $assistant['name'] === $defaultAssistantName;
+        });
+
+        return $defaultAssistant = !empty($defaultAssistantArray) ? array_shift($defaultAssistantArray) : null;
+    }
+
+    public function getAssistants(): array
+    {
+        static $assistants = null;
+
+        if ($assistants !== null) {
+            return $assistants;
+        }
+
+        return $assistants = $this->acfService->getField('chat_assistants', 'option') ?? [];
+    }
 }
