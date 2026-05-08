@@ -89,33 +89,11 @@
             "sub_fields": [
                 {
                     "key": "field_69ddefdc9aa7b",
-                    "label": "Unique ID",
-                    "name": "id",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_69ddefc99aa7a"
-                },
-                {
-                    "key": "field_69ddefe99aa7c",
                     "label": "Name",
                     "name": "name",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "",
+                    "instructions": "The name must be unique",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {

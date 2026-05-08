@@ -92,11 +92,11 @@
             'sub_fields' => array(
                 0 => array(
                     'key' => 'field_69ddefdc9aa7b',
-                    'label' => __('Unique ID', 'municipio'),
-                    'name' => 'id',
+                    'label' => __('Name', 'municipio'),
+                    'name' => 'name',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => '',
+                    'instructions' => __('The name must be unique', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -113,28 +113,6 @@
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
                 1 => array(
-                    'key' => 'field_69ddefe99aa7c',
-                    'label' => __('Name', 'municipio'),
-                    'name' => 'name',
-                    'aria-label' => '',
-                    'type' => 'text',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'default_value' => '',
-                    'maxlength' => '',
-                    'allow_in_bindings' => 0,
-                    'placeholder' => '',
-                    'prepend' => '',
-                    'append' => '',
-                    'parent_repeater' => 'field_69ddefc99aa7a',
-                ),
-                2 => array(
                     'key' => 'field_69ddefed9aa7d',
                     'label' => __('Server URL', 'municipio'),
                     'name' => 'server_url',
@@ -153,7 +131,7 @@
                     'placeholder' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                3 => array(
+                2 => array(
                     'key' => 'field_69ddeffa9aa7e',
                     'label' => __('API Key', 'municipio'),
                     'name' => 'api_key',
@@ -173,7 +151,7 @@
                     'append' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                4 => array(
+                3 => array(
                     'key' => 'field_69ddf0029aa7f',
                     'label' => __('Assistant ID', 'municipio'),
                     'name' => 'assistant_id',

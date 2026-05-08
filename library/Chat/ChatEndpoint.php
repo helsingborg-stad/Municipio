@@ -80,7 +80,7 @@ class ChatEndpoint extends RestApiEndpoint
         $allAssistants = $this->acfService->getField('chat_assistants', 'option') ?? [];
 
         foreach ($allAssistants as $candidate) {
-            if ($candidate['id'] === $assistantUniqueId) {
+            if ($candidate['name'] === $assistantUniqueId) {
                 return $candidate;
             }
         }
