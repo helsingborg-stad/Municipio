@@ -9,6 +9,8 @@ use WpUtilService\WpUtilServiceInterface;
 
 class ModuleManager
 {
+    private const MODULE_USAGE_POST_LIST_CACHE_TTL = 900;
+
     /**
      * Prefix for module slugs
      * @var  string
@@ -503,6 +505,44 @@ class ModuleManager
     }
 
     /**
+     * Get cached module usage data for admin post list related views.
+     *
+     * @param int       $id    Module id.
+     * @param int|false $limit Optional result limit.
+     *
+     * @return array|object
+     */
+    public static function getCachedModuleUsageForPostList(int $id, int|false $limit = false): array|object
+    {
+        $cacheKey    = self::getModuleUsagePostListCacheKey($id, $limit);
+        $cachedUsage = get_transient($cacheKey);
+
+        if ($cachedUsage !== false) {
+            return $cachedUsage;
+        }
+
+        $usage = self::getModuleUsage($id, $limit);
+        set_transient($cacheKey, $usage, self::MODULE_USAGE_POST_LIST_CACHE_TTL);
+
+        return $usage;
+    }
+
+    /**
+     * Create cache key for admin post list module usage data.
+     *
+     * @param int       $id    Module id.
+     * @param int|false $limit Optional result limit.
+     *
+     * @return string
+     */
+    private static function getModuleUsagePostListCacheKey(int $id, int|false $limit = false): string
+    {
+        $limitKey = is_numeric($limit) ? (string) $limit : 'all';
+
+        return sprintf('modularity_module_usage_post_list_%d_%s', $id, $limitKey);
+    }
+
+    /**
      * Search database for what pages have specific modules.
      * @param  integer $postType Post type of the module
      * @return array       List of pages where the module is used
@@ -596,7 +636,7 @@ class ModuleManager
                 break;
 
             case 'usage':
-                $usage = self::getModuleUsage($postId, 3);
+                $usage = self::getCachedModuleUsageForPostList($postId, 3);
 
                 if (count($usage->data) == 0) {
                     echo __('Not used', 'municipio');

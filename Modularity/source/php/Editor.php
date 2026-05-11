@@ -562,8 +562,14 @@ class Editor extends \Modularity\Options
         $module->isDeprecated = in_array($module->post_type, \Modularity\ModuleManager::$deprecated);
 
         // Module usage
-        if (isset($options['show-modules-usage-in-post-list']) && $options['show-modules-in-menu'] == 'on') {
-            $module->usage = sizeof(ModuleManager::getModuleUsage($module->ID));
+        if (
+            is_admin()
+            && isset($options['show-modules-usage-in-post-list'])
+            && $options['show-modules-usage-in-post-list'] == 'on'
+            && isset($options['show-modules-in-menu'])
+            && $options['show-modules-in-menu'] == 'on'
+        ) {
+            $module->usage = sizeof(ModuleManager::getCachedModuleUsageForPostList($module->ID));
         }
 
         // Args
