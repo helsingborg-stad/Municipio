@@ -510,9 +510,9 @@ class ModuleManager
      * @param int       $id    Module id.
      * @param int|false $limit Optional result limit.
      *
-     * @return array|object
+     * @return mixed Same return shape as self::getModuleUsage().
      */
-    public static function getCachedModuleUsageForPostList(int $id, int|false $limit = false): array|object
+    public static function getCachedModuleUsageForPostList(int $id, int|false $limit = false)
     {
         $cacheKey    = self::getModuleUsagePostListCacheKey($id, $limit);
         $cachedUsage = get_transient($cacheKey);
@@ -528,6 +528,18 @@ class ModuleManager
     }
 
     /**
+     * Get cached module usage count for admin post list related views.
+     *
+     * @param int $id Module id.
+     *
+     * @return int
+     */
+    public static function getCachedModuleUsageCountForPostList(int $id): int
+    {
+        return count(self::getCachedModuleUsageForPostList($id));
+    }
+
+    /**
      * Create cache key for admin post list module usage data.
      *
      * @param int       $id    Module id.
@@ -535,7 +547,7 @@ class ModuleManager
      *
      * @return string
      */
-    private static function getModuleUsagePostListCacheKey(int $id, int|false $limit = false): string
+    protected static function getModuleUsagePostListCacheKey(int $id, int|false $limit = false): string
     {
         $limitKey = is_numeric($limit) ? (string) $limit : 'all';
 

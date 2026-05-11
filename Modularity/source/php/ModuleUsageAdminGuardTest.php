@@ -36,7 +36,7 @@ if (!function_exists(__NAMESPACE__ . '\get_post_custom')) {
 }
 
 if (!function_exists(__NAMESPACE__ . '\get_post_meta')) {
-    function get_post_meta(int $postId, string $key, mixed $single): string
+    function get_post_meta(int $postId, string $key, mixed ...$args): mixed
     {
         return '';
     }
@@ -152,13 +152,31 @@ class ModuleUsageAdminGuardTest extends TestCase
             'more' => 0,
         ];
 
-        $cacheKey = new \ReflectionMethod(ModuleManager::class, 'getModuleUsagePostListCacheKey');
-        $cacheKey->setAccessible(true);
-
-        self::$transients[$cacheKey->invoke(null, 123, 3)] = $expectedUsage;
+        self::$transients[ModuleManagerTestProxy::getCacheKey(123, 3)] = $expectedUsage;
 
         $usage = ModuleManager::getCachedModuleUsageForPostList(123, 3);
 
         static::assertSame($expectedUsage, $usage);
+    }
+
+    #[TestDox('ModuleManager returns cached admin post list usage count when present')]
+    public function testModuleManagerReturnsCachedAdminPostListUsageCountWhenPresent(): void
+    {
+        self::$transients[ModuleManagerTestProxy::getCacheKey(123, false)] = [
+            (object) ['post_id' => 10],
+            (object) ['post_id' => 11],
+        ];
+
+        $usageCount = ModuleManager::getCachedModuleUsageCountForPostList(123);
+
+        static::assertSame(2, $usageCount);
+    }
+}
+
+class ModuleManagerTestProxy extends ModuleManager
+{
+    public static function getCacheKey(int $id, int|false $limit = false): string
+    {
+        return parent::getModuleUsagePostListCacheKey($id, $limit);
     }
 }

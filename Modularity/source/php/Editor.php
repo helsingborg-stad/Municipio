@@ -559,17 +559,18 @@ class Editor extends \Modularity\Options
 
         $module->post_type_name = $available[$module->post_type]['labels']['name'];
         $module->meta = get_post_custom($module->ID);
-        $module->isDeprecated = in_array($module->post_type, \Modularity\ModuleManager::$deprecated);
+        $module->isDeprecated = in_array($module->post_type, \Modularity\ModuleManager::$deprecated, true);
+
+        $showUsageInPostList = $options['show-modules-usage-in-post-list'] ?? null;
+        $showModulesInMenu   = $options['show-modules-in-menu'] ?? null;
 
         // Module usage
         if (
             is_admin()
-            && isset($options['show-modules-usage-in-post-list'])
-            && $options['show-modules-usage-in-post-list'] == 'on'
-            && isset($options['show-modules-in-menu'])
-            && $options['show-modules-in-menu'] == 'on'
+            && $showUsageInPostList === 'on'
+            && $showModulesInMenu === 'on'
         ) {
-            $module->usage = sizeof(ModuleManager::getCachedModuleUsageForPostList($module->ID));
+            $module->usage = ModuleManager::getCachedModuleUsageCountForPostList($module->ID);
         }
 
         // Args
