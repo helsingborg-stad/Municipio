@@ -1,6 +1,6 @@
 import MarkdownIt from "markdown-it";
 
-class Chat {
+class Chat implements ChatInterface {
 	private session: ChatSession | null = null;
 	private streamedContent: string = "";
 
@@ -13,6 +13,10 @@ class Chat {
 	public init(): void {
 		this.session = this.sessionFactory.create(null);
 		this.subscribeToUserMessages();
+	}
+
+	public createNewChatSession(assistantId: string | null): void {
+		this.session = this.sessionFactory.create(assistantId);
 	}
 
 	private subscribeToUserMessages(): void {
@@ -30,7 +34,7 @@ class Chat {
 		}
 	}
 
-	public async sendMessage(message: string): Promise<void> {
+	private async sendMessage(message: string): Promise<void> {
 		if (!this.session) return;
 
 		const pendingMessage = this.chat.addPendingMessage();
