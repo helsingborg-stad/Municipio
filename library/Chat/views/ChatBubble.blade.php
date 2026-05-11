@@ -17,9 +17,7 @@
         'id' => 'global-chat',
         'persistent' => true,
         'height' => 'min(80vh, calc(var(--base, 8px) * 75))',
-        'attributeList' => [
-            'style' => '--c-chat--inner-padding-multiplier: 2;',
-        ],
+        'attributeList' => $attributeList,
         'chatInputData' => [
             'sendButtonText' => $lang['send'],
             'placeholderText' => $lang['placeholder']
@@ -39,13 +37,15 @@
                     ]
                 ])
                 @endavatar
-                @typography([
-                    'element' => 'h2',
-                    'variant' => 'h6',
-                    'classList' => ['o-layout-grid--align-center'],
-                ])
-                    {{ $lang['chat'] }}
-                @endtypography
+                @if (!empty($name))
+                    @typography([
+                        'element' => 'h2',
+                        'variant' => 'h6',
+                        'classList' => ['o-layout-grid--align-center'],
+                    ])
+                        {{ $name }}
+                    @endtypography
+                @endif
             @endelement
             @element([
                 'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center']

@@ -30,6 +30,15 @@ class RenderGlobalChatBubble implements Hookable
     {
         $defaultAssistant = $this->config->getDefaultAssistant();
         $avatar = !empty($defaultAssistant['avatar']) ? Image::getImageAttachmentData($defaultAssistant['avatar'], [150, 150]) : null;
+
+        $attributeList = [
+            'style' => '--c-chat--inner-padding-multiplier: 2;',
+        ];
+
+        if (!empty($defaultAssistant['greetings_phrase'])) {
+            $attributeList['data-js-chat-greetings-phrase'] = $defaultAssistant['greetings_phrase'];
+        }
+
         echo
             $this->renderer->render('ChatBubble', [
                 'lang' => [
@@ -39,6 +48,8 @@ class RenderGlobalChatBubble implements Hookable
                     'placeholder' => $this->wpService->__('Write your question here', 'municipio'),
                 ],
                 'avatar' => $avatar,
+                'attributeList' => $attributeList,
+                'name' => $defaultAssistant['name'] ?? null,
             ])
         ;
     }

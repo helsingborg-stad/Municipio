@@ -1,13 +1,14 @@
 import Chat from "./chat";
 import { ChatSessionFactory } from "./ChatSessionFactory";
-import ClearButton from "./clearButton";
 import MarkdownIt from "markdown-it";
 import NewChatSessionButton from "./newChatSessionButton";
+import GreetingPhrase from "./greetingPhrase";
 
 document.addEventListener("chat:initialized", (e: any) => {
 	const chat = e.detail.chat;
 	const clearButtonElement = e.detail.chat.getElement().querySelector("[data-js-chat-clear]") as HTMLElement;
 	const newChatButtonElement = e.detail.chat.getElement().querySelector("[data-js-chat-new]") as HTMLElement;
+	const greetingsPhrase = chat.getElement().dataset.jsChatGreetingsPhrase || null;
 
 	const markdownParser = new MarkdownIt({
 		html: false,
@@ -21,8 +22,8 @@ document.addEventListener("chat:initialized", (e: any) => {
 		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
 	};
 
-	if (clearButtonElement) {
-		new ClearButton(clearButtonElement, chat);
+	if (greetingsPhrase) {
+		new GreetingPhrase(chat, greetingsPhrase);
 	}
 
 	const chatInstance = new Chat(
