@@ -47,20 +47,33 @@
                     {{ $lang['chat'] }}
                 @endtypography
             @endelement
-            @button([
-                'icon' => 'close',
-                'size' => 'md',
-                'style' => 'basic',
-                'text' => $lang['close'],
-                'reversePositions' => true,
-                'attributeList' => [
-                    'data-js-chat-clear' => true,
-                    'style' => 'margin-top: calc(var(--base, 8px) * -2);',
-                    'data-js-toggle-trigger' => 'chat-global-root'
-                ],
-                'classList' => ['u-margin__left--auto']
+            @element([
+                'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center']
             ])
-            @endbutton
+                @button([
+                    'icon' => 'new_window',
+                    'size' => 'sm',
+                    'style' => 'filled',
+                    'color' => 'default',
+                    'reversePositions' => true,
+                    'attributeList' => [
+                        'data-js-chat-new' => true,
+                    ],
+                ])
+                @endbutton
+                @button([
+                    'icon' => 'keyboard_double_arrow_down',
+                    'size' => 'sm',
+                    'style' => 'filled',
+                    'color' => 'default',
+                    'reversePositions' => true,
+                    'attributeList' => [
+                        'data-js-chat-clear' => true,
+                        'data-js-toggle-trigger' => 'chat-global-root'
+                    ],
+                ])
+                @endbutton
+            @endelement
         @endslot
     @endchat
 @endfab
