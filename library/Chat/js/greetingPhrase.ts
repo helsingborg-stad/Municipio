@@ -6,7 +6,7 @@ class GreetingPhrase {
     }
 
     private addGreetingPhrase() {
-        this.chat.addMessage(this.greetingPhrase);
+        this.chat.addMessage(this.greetingPhrase, true);
     }
 }
 

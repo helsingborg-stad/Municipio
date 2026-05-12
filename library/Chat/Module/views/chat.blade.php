@@ -9,6 +9,9 @@
     'chatInputData' => [
         'sendButtonText' => $lang['send'],
         'placeholderText' => $lang['placeholder']
+    ],
+    'classList' => [
+        'c-chat--flat'
     ]
 ])
 @endchat

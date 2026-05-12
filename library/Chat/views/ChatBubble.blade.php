@@ -51,9 +51,9 @@
                 'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center']
             ])
                 @button([
-                    'icon' => 'new_window',
-                    'size' => 'sm',
-                    'style' => 'filled',
+                    'icon' => 'edit_square',
+                    'size' => 'md',
+                    'style' => 'basic',
                     'color' => 'default',
                     'reversePositions' => true,
                     'attributeList' => [
@@ -62,11 +62,14 @@
                 ])
                 @endbutton
                 @button([
-                    'icon' => 'keyboard_double_arrow_down',
-                    'size' => 'sm',
-                    'style' => 'filled',
+                    'icon' => 'close',
+                    'size' => 'md',
+                    'style' => 'basic',
                     'color' => 'default',
                     'reversePositions' => true,
+                    'classList' => [
+                        'u-margin__left--0'
+                    ],
                     'attributeList' => [
                         'data-js-chat-clear' => true,
                         'data-js-toggle-trigger' => 'chat-global-root'
