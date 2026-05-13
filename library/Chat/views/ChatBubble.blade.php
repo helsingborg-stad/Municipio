@@ -58,6 +58,8 @@
                     'reversePositions' => true,
                     'attributeList' => [
                         'data-js-chat-new' => true,
+                        'aria-label' => $lang['newConversation'],
+                        'data-tooltip' => $lang['newConversation']
                     ],
                 ])
                 @endbutton
@@ -72,7 +74,9 @@
                     ],
                     'attributeList' => [
                         'data-js-chat-clear' => true,
-                        'data-js-toggle-trigger' => 'chat-global-root'
+                        'data-js-toggle-trigger' => 'chat-global-root',
+                        'aria-label' => $lang['close'],
+                        'data-tooltip' => $lang['close']
                     ],
                 ])
                 @endbutton
