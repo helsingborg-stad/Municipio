@@ -16,7 +16,7 @@
     @chat([
         'id' => 'global-chat',
         'persistent' => true,
-        'height' => 'min(80vh, calc(var(--base, 8px) * 75))',
+        'size' => 'sm',
         'attributeList' => $attributeList,
         'chatInputData' => [
             'sendButtonText' => $lang['send'],
