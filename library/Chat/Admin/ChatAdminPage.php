@@ -7,7 +7,7 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
 
-class RegisterChatAdminPage implements Hookable
+class ChatAdminPage implements Hookable
 {
     public function __construct(
         private __&AddAction $wpService,

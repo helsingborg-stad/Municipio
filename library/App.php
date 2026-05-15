@@ -393,10 +393,7 @@ class App
             $this->wpService,
             $this->acfService,
             $this->wpUtilService->enqueue(),
-            $this->hooksRegistrar,
         ))->enable();
-
-        (new \Municipio\Chat\ChatBlock($this->wpService))->addHooks();
     }
 
     /**
