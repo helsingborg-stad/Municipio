@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Chat\Frontend;
+namespace Municipio\Chat\Render;
 
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\HooksRegistrar\Hookable;
@@ -8,7 +8,7 @@ use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
-class EnqueueChatScripts implements Hookable
+class ChatEnqueue implements Hookable
 {
     public function __construct(
         private __&AddAction $wpService,
@@ -27,7 +27,6 @@ class EnqueueChatScripts implements Hookable
 
     public function enqueue(): void
     {
-        /* TODO: Change */
         $this->enqueue
             ->add('js/chat.js')
             ->with()

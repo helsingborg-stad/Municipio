@@ -393,7 +393,6 @@ class App
             $this->wpService,
             $this->acfService,
             $this->wpUtilService->enqueue(),
-            $this->hooksRegistrar,
         ))->enable();
     }
 

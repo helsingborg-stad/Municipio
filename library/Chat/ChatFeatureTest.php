@@ -3,11 +3,9 @@
 namespace Municipio\Chat;
 
 use AcfService\Implementations\FakeAcfService;
-use Municipio\Chat\Admin\RegisterChatAdminPage;
-use Municipio\Chat\Api\RegisterChatEndpoint;
-use Municipio\Chat\Frontend\EnqueueChatScripts;
-use Municipio\Chat\Frontend\RenderGlobalChatBubble;
-use Municipio\Chat\Module\RegisterChatModule;
+use Municipio\Chat\Admin\ChatAdminPage;
+use Municipio\Chat\Render\ChatBubble;
+use Municipio\Chat\Render\ChatEnqueue;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -44,11 +42,10 @@ class ChatFeatureTest extends TestCase
 
         $registered = array_map('get_class', $registrar->registered);
 
-        $this->assertContains(RegisterChatAdminPage::class, $registered);
-        $this->assertContains(EnqueueChatScripts::class, $registered);
-        $this->assertContains(RenderGlobalChatBubble::class, $registered);
-        $this->assertContains(RegisterChatModule::class, $registered);
-        $this->assertContains(RegisterChatEndpoint::class, $registered);
+        $this->assertContains(ChatAdminPage::class, $registered);
+        $this->assertContains(ChatEnqueue::class, $registered);
+        $this->assertContains(ChatBubble::class, $registered);
+        $this->assertContains(ChatEndpoint::class, $registered);
     }
 
     private function getWpService(): FakeWpService

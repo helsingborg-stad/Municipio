@@ -14,7 +14,7 @@ class RegisterChatAdminPageTest extends TestCase
     {
         $wpService = $this->getWpService();
 
-        (new RegisterChatAdminPage($wpService, $this->getAcfService()))->addHooks();
+        (new ChatAdminPage($wpService, $this->getAcfService()))->addHooks();
 
         $this->assertCount(1, $wpService->methodCalls['addAction'] ?? []);
         $this->assertSame('init', $wpService->methodCalls['addAction'][0][0]);
@@ -25,7 +25,7 @@ class RegisterChatAdminPageTest extends TestCase
     {
         $acfService = $this->getAcfService();
 
-        (new RegisterChatAdminPage($this->getWpService(), $acfService))->register();
+        (new ChatAdminPage($this->getWpService(), $acfService))->register();
 
         $this->assertArrayHasKey('addOptionsPage', $acfService->methodCalls);
         $this->assertCount(1, $acfService->methodCalls['addOptionsPage']);
