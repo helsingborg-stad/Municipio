@@ -50,7 +50,6 @@ class Chat implements ChatInterface {
 					contentAdded = true;
 					break;
 				case "tool_call":
-					console.log("Using tools...", event);
 					contentAdded = true;
 					break;
 				case "done":

@@ -20,7 +20,6 @@ export class ChatSession {
 
 	private async postMessage(message: string): Promise<Response> {
 		const { apiRoot, assistantId } = this.config;
-		console.log("Posting message to chat API...", { message, sessionId: this.sessionId, assistantId });
 		return this.fetchFn(`${apiRoot}${CHAT_API_ENDPOINT}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
