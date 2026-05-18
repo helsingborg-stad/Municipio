@@ -82,14 +82,7 @@ class Index extends \Modularity\Module
                 }
 
                 //Removes empty/unfetchable objects from index
-                if (
-                    isset($item)
-                    && $item['link_type'] == 'internal'
-                    && empty($item['title'])
-                    && empty($item['lead'])
-                    && empty($item['thumbnail'])
-                    && empty($item['permalink'])
-                ) {
+                if (isset($item) && $item['link_type'] == 'internal' && empty($item['title']) && empty($item['lead']) && empty($item['thumbnail']) && empty($item['permalink'])) {
                     unset($items[$key]);
                 }
             }
@@ -134,11 +127,7 @@ class Index extends \Modularity\Module
      */
     public function getThumbnail($item)
     {
-        if (
-            $item['image_display'] == 'custom'
-            || $item['link_type'] == 'external'
-            || $item['link_type'] == 'unlinked' && !empty($item['custom_image']['ID'])
-        ) {
+        if ($item['image_display'] == 'custom' || $item['link_type'] == 'external' || $item['link_type'] == 'unlinked' && !empty($item['custom_image']['ID'])) {
             return wp_get_attachment_image_src($item['custom_image']['ID'], apply_filters(
                 'Modularity/index/image',
                 municipio_to_aspect_ratio('16:9', $this->thumbnailSize),
@@ -146,6 +135,10 @@ class Index extends \Modularity\Module
             ));
         } elseif ($item['image_display'] == 'false') {
             return false;
+        }
+
+        if (!isset($item['page']->ID) || is_numeric($item['page']->ID)) {
+            return null;
         }
 
         return wp_get_attachment_image_src(
