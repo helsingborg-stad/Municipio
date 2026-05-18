@@ -1,16 +1,15 @@
-@group([
-    'classList'     => $filterAboveCard ? ['has-filter-outside-card'] : false,
-    'direction'     => 'vertical',
+@element([
+    'classList'     => $filterAboveCard ? ['has-filter-outside-card'] : [],
     'attributeList' => [
         'js-filter-container' => $uID
     ]
 ])
     @if ($isFilterable && $filterAboveCard)
-        @card([
-            'classList' => ['u-padding__4']
+        @element([
+            'classList' => ['u-margin__bottom--2'],
         ])
             @include('partials.filter')
-        @endcard
+        @endelement
     @endif
 
     @card([
@@ -27,7 +26,8 @@
                 @typography([
                     'id'      => 'mod-fileslist-' . $ID . '-label',
                     'element' => 'h2',
-                    'variant' => 'h4'
+                    'variant' => 'h4',
+                    'classList' => ['u-margin__y--0', 'u-font-size--subtitle-small']
                 ])
                     {!! $postTitle !!}
                 @endtypography
@@ -35,7 +35,11 @@
         @endif
 
         @if ($isFilterable && !$filterAboveCard)
-            @include('partials.filter')
+            @element([
+                'classList' => ['u-padding--2'],
+            ])
+                @include('partials.filter')
+            @endelement
         @endif
 
         @collection([
@@ -52,10 +56,10 @@
                     @if ($showDownloadIcon)
                         @group([
                             'justifyContent' => 'space-between',
-                            'classList' => ['u-gap-1',]
+                            'classList' => ['u-gap-1', 'u-width--100']
                         ])
                             @group([
-                                'classList' => ['u-display--block'],
+                                'classList' => ['u-display--block', 'u-width--100'],
                             ])
                                 @include('partials.file')
                             @endgroup
@@ -72,4 +76,4 @@
             @endforeach
         @endcollection
     @endcard
-@endgroup
+@endelement
