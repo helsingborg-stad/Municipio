@@ -88,20 +88,17 @@ class AbstractController
     {
         $data['posts_columns'] = $this->getWpService()->applyFilters(
             'Modularity/Display/replaceGrid',
-            $fields['posts_columns'],
+            $fields['posts_columns'] ?? [],
         );
         $data['ratio'] = $fields['ratio'] ?? '16:9';
 
         $data['highlight_first_column_as'] = $fields['posts_display_highlighted_as'] ?? 'block';
-        $data['highlight_first_column'] = !empty($fields['posts_highlight_first'])
-            ? ColumnHelper::getFirstColumnSize($data['posts_columns'])
-            : false;
+        $data['highlight_first_column'] = !empty($fields['posts_highlight_first']) ? ColumnHelper::getFirstColumnSize($data['posts_columns']) : false;
         $data['imagePosition'] = $fields['image_position'] ?? false;
         $data['showDate'] = in_array('date', $fields['posts_fields'] ?? []);
 
         $data['getOriginalBlogName'] = new MemoizedFunction(
-            fn(PostObjectInterface $post): null|string => empty($data['postsSources'])
-            || count($data['postsSources']) <= 1
+            fn(PostObjectInterface $post): ?string => empty($data['postsSources']) || count($data['postsSources']) <= 1
                 ? null
                 : $this->getWpService()->getBlogDetails($post->getBlogId())->blogname ?? $this->getWpService()->__(
                     'Unknown Blog',
@@ -126,18 +123,13 @@ class AbstractController
         $posts = array_map(
             function ($post) {
                 $post->post_content = $this->removePostsModuleBlocksFromContent($post->post_content);
-                $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null)
-                    ? $this->fields['taxonomy_display']
-                    : [];
+                $data['taxonomiesToDisplay'] = !empty($this->fields['taxonomy_display'] ?? null) ? $this->fields['taxonomy_display'] : [];
 
                 if (!empty($post->originalBlogId)) {
                     $this->getWpService()->switchToBlog((int) $post->originalBlogId);
                 }
 
-                if (
-                    isset($this->fields['posts_display_as'])
-                    && in_array($this->fields['posts_display_as'], ['expandable-list'])
-                ) {
+                if (isset($this->fields['posts_display_as']) && in_array($this->fields['posts_display_as'], ['expandable-list'])) {
                     $post = Post::preparePostObject($post, $data);
                 } else {
                     $post = Post::preparePostObjectArchive($post, $data);
@@ -244,26 +236,17 @@ class AbstractController
      */
     private function setPostViewData(object $post, $index = false)
     {
-        $post->excerptShort = in_array('excerpt', $this->data['posts_fields'] ?? [])
-            ? $this->sanitizeExcerpt($this->data['posts_display_as'] === 'news' ? $post->excerpt : $post->excerptShort)
-            : false;
+        $post->excerptShort = in_array('excerpt', $this->data['posts_fields'] ?? []) ? $this->sanitizeExcerpt($this->data['posts_display_as'] === 'news' ? $post->excerpt : $post->excerptShort) : false;
         $post->postTitle = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
         $post->image = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
-        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && is_null($post->getImage())
-            ? true
-            : false;
-        $post->commentCount = in_array('comment_count', $this->data['posts_fields'] ?? [])
-            ? (string) $post->getCommentCount()
-            : false;
+        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && is_null($post->getImage()) ? true : false;
+        $post->commentCount = in_array('comment_count', $this->data['posts_fields'] ?? []) ? (string) $post->getCommentCount() : false;
         $post->readingTime = in_array('reading_time', $this->data['posts_fields'] ?? []) ? $post->readingTime : false;
 
         $post->attributeList = !empty($post->attributeList) ? $post->attributeList : [];
         $post->attributeList['data-js-item-id'] = $post->getId();
 
-        if (
-            !empty($this->fields['posts_open_links_in_new_tab'])
-            && !$this->domainChecker->isSameDomain($post->getPermalink())
-        ) {
+        if (!empty($this->fields['posts_open_links_in_new_tab']) && !$this->domainChecker->isSameDomain($post->getPermalink())) {
             $post->attributeList['target'] = '_blank';
         }
 
@@ -287,7 +270,7 @@ class AbstractController
      *
      * @return string
      */
-    private function sanitizeExcerpt(string|null $excerpt)
+    private function sanitizeExcerpt(?string $excerpt)
     {
         $excerpt = strip_tags($excerpt ?? '');
         $excerpt = preg_replace("/[\r\n]+/", "\n", $excerpt);
