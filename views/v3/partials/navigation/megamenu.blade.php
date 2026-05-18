@@ -15,7 +15,7 @@
                         <label for="mega-menu-search" class="u-sr__only">
                             {{ $lang->searchOn . " " . $siteName }}
                         </label>
-                        @group([])
+                        @group(['classList' => ['u-width--100']])
                             @field([
                                 'id' => 'mega-menu-search',
                                 'type' => 'search',
@@ -24,7 +24,7 @@
                                 'required' => true,
                                 'attributeList' => [
                                     'aria-label' => $lang->searchOn . " " . $siteName
-                                ],
+                                ]
                             ])
                             @endfield
                             @button([
