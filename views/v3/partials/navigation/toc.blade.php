@@ -12,8 +12,13 @@
         'u-level--8',
       ]
     ])
-      @element(['element' => 'div', 'classList' => ['c-card__header']])
-       @typography(['id' => 'table-of-contents-heading', 'element' => 'h4', 'variant' => 'h4'])
+      @element(['componentElement' => 'div', 'classList' => ['c-card__header']])
+        @typography([
+          'id' => 'table-of-contents-heading', 
+          'element' => 'h4', 
+          'variant' => 'h4',
+          'classList' => ['u-margin__y--0']
+        ])
             {{ $lang->findOnPage }}
         @endtypography
       @endelement
