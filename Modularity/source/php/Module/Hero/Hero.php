@@ -56,7 +56,7 @@ class Hero extends \Modularity\Module
 
         //Custom hero data
         $customHeroData = [];
-        if ($fields['mod_hero_display_as'] === 'callToActions') {
+        if (isset($fields['mod_hero_display_as']) && $fields['mod_hero_display_as'] === 'callToActions') {
             $customHeroData['mediaFirst'] = $fields['mod_hero_media_first'] ?? false;
         }
 
@@ -85,16 +85,10 @@ class Hero extends \Modularity\Module
     {
         $buttonArgs = null;
 
-        if (
-            isset($fields['mod_hero_buttons'])
-            && is_array($fields['mod_hero_buttons'])
-            && !empty($fields['mod_hero_buttons'])
-        ) {
+        if (isset($fields['mod_hero_buttons']) && is_array($fields['mod_hero_buttons']) && !empty($fields['mod_hero_buttons'])) {
             $buttonArgs = [];
             foreach ($fields['mod_hero_buttons'] as $button) {
-                if (
-                    !(is_array($button['link']) && !empty($button['link']['url']) && !empty($button['link']['title']))
-                ) {
+                if (!(is_array($button['link']) && !empty($button['link']['url']) && !empty($button['link']['title']))) {
                     continue;
                 }
 
