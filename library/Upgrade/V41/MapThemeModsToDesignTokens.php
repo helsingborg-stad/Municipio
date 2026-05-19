@@ -44,6 +44,7 @@ class MapThemeModsToDesignTokens
         'header_brand_font_settings.font-size' => 'component.__general__.header.--c-brand-font-size',
         'organism_grid_gap' => 'token.--outer-space',
         'nav_h_color_primary.contrasting' => 'component.__general__.header.--c-header--color',
+        'nav_v_color_drawer.contrasting' => 'component.scope:s-drawer.header.--c-nav--color--surface-contrast',
     ];
 
     public function map(array $themeMods, array $themeModsTokenMap = self::THEMEMODS_TOKENS_MAP): array
