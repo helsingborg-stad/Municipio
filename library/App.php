@@ -368,7 +368,11 @@ class App
         /**
          * Setup Kulturkortet QR Code Viewer
          */
-        (new \Municipio\KulturkortetQRCodeViewer\KulturkortetQRCodeViewerFeature($this->wpService))->addHooks();
+        (new \Municipio\KulturkortetQRCodeViewer\KulturkortetQRCodeViewerFeature(
+            $this->wpService,
+            $this->wpUtilService->enqueue(),
+            $this->hooksRegistrar,
+        ))->addHooks();
 
         /**
          * Setup Accessibility Statement

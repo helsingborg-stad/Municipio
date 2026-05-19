@@ -28,6 +28,6 @@ class VitecService implements VitecServiceInterface
             return null;
         }
         $body = $this->wpService->wpRemoteRetrieveBody($response);
-        return json_decode($body, true);
+        return json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
     }
 }

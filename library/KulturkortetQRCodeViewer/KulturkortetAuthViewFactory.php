@@ -14,6 +14,8 @@ use WpService\Contracts\WpCacheSet;
 
 class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
 {
+    private const DATE_FORMAT = 'Y-m-d';
+
     public function __construct(
         private WpCacheGet&WpCacheSet $wpService,
         private VitecServiceInterface $vitecService,
@@ -29,9 +31,18 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
     {
         $vitecUser = $this->vitecService->tryGetUserData($user->getSSN());
         if ($vitecUser === null) {
-            return $this->renderWithModel('kulturkortet-no-vitec-user', ['user' => $user]);
+            return $this->renderWithModel('kulturkortet-no-vitec-user', ['model' => ['name' => $user->getName()]]);
         }
-        return $this->renderWithModel('kulturkortet-vitec-user', ['user' => $user, 'vitecUser' => $vitecUser]);
+        return $this->renderWithModel('kulturkortet-vitec-user', [
+            // 'user' => $user,
+            // 'vitecUser' => $vitecUser,
+            'model' => [
+                'name' => $user->getName(),
+                'barcode' => $vitecUser['tickets'][0]['barcode'] ?? null,
+                'validFrom' => $this->formatDate($vitecUser['tickets'][0]['validFrom'] ?? null),
+                'validTo' => $this->formatDate($vitecUser['tickets'][0]['validUntil'] ?? null),
+            ],
+        ]);
     }
 
     public function whenAnonymous(string $redirectUrl): string
@@ -55,5 +66,11 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
             'buttonText' => $this->attributes['buttonText'] ?? '',
             ...$model,
         ]);
+    }
+
+    private function formatDate(mixed $date): ?string
+    {
+        $time = is_string($date) ? strtotime($date) : null;
+        return $time ? date(self::DATE_FORMAT, $time) : null;
     }
 }
