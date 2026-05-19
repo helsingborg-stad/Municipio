@@ -4,7 +4,9 @@
   'action'    => $homeUrl,
   'classList' => $classList
 ])
-    @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto', 'u-width--100']])
+    @element([
+        'classList' => ['u-display--flex']
+    ])
         @field([
             'id'            => 'drawer-search-form__field',
             'type'          => 'search',
@@ -26,7 +28,9 @@
             'attributeList' => [
                 'aria-label' => $lang->search,
             ],
+            'classList' => ['u-rounded-left--none']
         ])
         @endbutton
-    @endgroup
+    @endelement
+
 @endform

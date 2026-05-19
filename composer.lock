@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c0a5af65bcfa4992d38877e9ab798d9",
+    "content-hash": "5a4b8b86ce82487133aa91377708e834",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.18.3",
+            "version": "5.20.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "c4d90cd4bdbb101bccf6695bfb0fb4dfed59953a"
+                "reference": "336b157291015995c98642a43c304a703c959569"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/c4d90cd4bdbb101bccf6695bfb0fb4dfed59953a",
-                "reference": "c4d90cd4bdbb101bccf6695bfb0fb4dfed59953a",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/336b157291015995c98642a43c304a703c959569",
+                "reference": "336b157291015995c98642a43c304a703c959569",
                 "shasum": ""
             },
             "require": {
@@ -1065,9 +1065,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.18.3"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.20.4"
             },
-            "time": "2026-05-05T07:46:34+00:00"
+            "time": "2026-05-18T08:18:59+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -1227,26 +1227,26 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.233.13",
+            "version": "2.241.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "cfcdff8d03fc3b5c9fe8bd6badcbbb7febe4d8f5"
+                "reference": "58fae315163a8b30cceb92aecaa3219bdd79288f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/cfcdff8d03fc3b5c9fe8bd6badcbbb7febe4d8f5",
-                "reference": "cfcdff8d03fc3b5c9fe8bd6badcbbb7febe4d8f5",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/58fae315163a8b30cceb92aecaa3219bdd79288f",
+                "reference": "58fae315163a8b30cceb92aecaa3219bdd79288f",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "^5.18",
+                "helsingborg-stad/component-library": "^5.19.1",
                 "php": "^8.2",
                 "ramsey/uuid": "^4.9"
             },
             "require-dev": {
-                "carthage-software/mago": "^1.8",
+                "carthage-software/mago": "1.26.0",
                 "phpunit/phpunit": "^9.6"
             },
             "type": "library",
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.233.13"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.241.0"
             },
-            "time": "2026-05-05T11:09:11+00:00"
+            "time": "2026-05-19T13:03:01+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7380,11 +7380,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7393,6 +7393,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
