@@ -43,6 +43,7 @@ class MapThemeModsToDesignTokens
         'color_button_primary.contrasting' => 'component.__general__.button.--c-button--color--primary-contrast',
         'header_brand_font_settings.font-size' => 'component.__general__.header.--c-brand-font-size',
         'organism_grid_gap' => 'token.--outer-space',
+        'nav_h_color_primary.contrasting' => 'component.__general__.header.--c-header--color',
     ];
 
     public function map(array $themeMods, array $themeModsTokenMap = self::THEMEMODS_TOKENS_MAP): array
