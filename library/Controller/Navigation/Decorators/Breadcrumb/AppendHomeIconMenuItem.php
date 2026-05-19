@@ -16,9 +16,10 @@ class AppendHomeIconMenuItem implements MenuInterface
     /**
      * Constructor
      */
-    public function __construct(private MenuInterface $inner, private GetOption&GetHomeUrl&IsFrontPage $wpService)
-    {
-    }
+    public function __construct(
+        private MenuInterface $inner,
+        private GetOption&GetHomeUrl&IsFrontPage $wpService,
+    ) {}
 
     /**
      * Retrieves the menu with applied home icon menu item.
@@ -27,15 +28,22 @@ class AppendHomeIconMenuItem implements MenuInterface
      */
     public function getMenu(): array
     {
-        $menu        = $this->inner->getMenu();
+        $menu = $this->inner->getMenu();
         $homeItemKey = $this->wpService->getOption('page_on_front');
 
         if (!empty($homeItemKey)) {
             $menu['items'][$homeItemKey] = array(
-                'label'   => __('Home', 'municipio'),
-                'href'    => $this->wpService->getHomeUrl(),
+                'label' => __('Home', 'municipio'),
+                'href' => $this->wpService->getHomeUrl(),
                 'current' => $this->wpService->isFrontPage() ? true : false,
-                'icon'    => 'home'
+                'icon' => 'home',
+            );
+        } else {
+            $menu['items']['home'] = array(
+                'label' => __('Home', 'municipio'),
+                'href' => $this->wpService->getHomeUrl(),
+                'current' => $this->wpService->isFrontPage() ? true : false,
+                'icon' => 'home',
             );
         }
 
