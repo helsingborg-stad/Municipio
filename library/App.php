@@ -11,10 +11,10 @@ use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
 use Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate;
 use Municipio\Comment\OptionalDisableDiscussionFeature;
 use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
-use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -240,6 +240,7 @@ class App
          * Styleguide integration
          */
         (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
+        (new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
 
         /**
          * Managed fonts
