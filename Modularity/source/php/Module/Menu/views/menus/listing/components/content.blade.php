@@ -15,6 +15,7 @@
             >
             @group([
                 'display' => 'grid',
+                'gap' => 1,
                 'classList' => [
                     'mod-menu__grid'
                 ],
