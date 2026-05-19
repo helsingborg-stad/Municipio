@@ -37,6 +37,7 @@
 @use 'navigation/user';
 @use 'navigation/toc';
 
+@use "../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
 
 .u-mr-auto {
     margin-right: auto;
@@ -52,8 +53,8 @@ main .c-sidebar .c-sidebar__subcontainer--top {
 }
 
 .c-typography.module-title {
-    margin-bottom: calc(var(--space) * 3);
-    margin-top: calc(var(--space) * 3);
+    margin-bottom: tokens.getCalculatedValue("", "space", 3);
+    margin-top: tokens.getCalculatedValue("", "space", 3);
 }
 
 div:first-child>.module-title {
