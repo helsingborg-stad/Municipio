@@ -49,7 +49,8 @@
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "^0.4.0",
     "helsingborg-stad/kirki": "^5.2",
-    "helsingborg-stad/wputilservice": "^0.2.44"
+    "helsingborg-stad/wputilservice": "^0.2.44",
+    "firebase/php-jwt": "^7.0"
   },
   "scripts": {
     "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
@@ -57,6 +58,7 @@
     "lint": "vendor/bin/mago lint",
     "lint:changed": "git diff --name-only origin/main | xargs vendor/bin/mago lint --",
     "fix": "vendor/bin/mago lint --format-after-fix --fix",
+    "fix:unsafe": "vendor/bin/mago lint --format-after-fix --fix --unsafe",
     "fix:changed": "git diff --name-only origin/main | xargs vendor/bin/mago lint --fix --",
     "format": "vendor/bin/mago fmt",
     "post-update-cmd": [],
@@ -93,7 +95,7 @@
     "phpunit/phpunit": "^11.5",
     "php-stubs/acf-pro-stubs": "^6.5",
     "spatie/phpunit-snapshot-assertions": "dev-main",
-    "carthage-software/mago": "^1.0.0-rc.3"
+    "carthage-software/mago": "1.26.0"
   },
   "autoload": {
     "psr-4": {

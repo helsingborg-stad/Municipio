@@ -366,6 +366,11 @@ class App
         (new \Municipio\BackdropBanner\BackdropBanner($this->wpService))->addHooks();
 
         /**
+         * Setup Kulturkortet QR Code Viewer
+         */
+        (new \Municipio\KulturkortetQRCodeViewer\KulturkortetQRCodeViewerFeature($this->wpService))->addHooks();
+
+        /**
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();

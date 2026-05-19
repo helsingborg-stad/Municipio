@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma;
+
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
+
+class VismaAuthorizedUser implements MunicipioAuthenticatedUserInterface
+{
+    public function __construct(
+        private array $data,
+    ) {}
+
+    public function getSSN(): string
+    {
+        return $this->data['username'] ?? '';
+    }
+
+    public function getName(): string
+    {
+        return $this->data['userAttributes']['CN'] ?? '';
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->data['userAttributes']['GN'] ?? '';
+    }
+
+    public function getLastName(): string
+    {
+        return $this->data['userAttributes']['SN'] ?? '';
+    }
+}
