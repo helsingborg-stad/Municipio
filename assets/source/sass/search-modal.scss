@@ -46,6 +46,8 @@
   }
 
   .t-search-modal__submit {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
     grid-area: submit;
   }
 
@@ -63,8 +65,8 @@
 
     .t-search-modal__field,
     .t-search-modal__field * {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
     }
 
     .t-search-modal__submit {
