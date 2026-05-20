@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Municipio\KulturkortetQRCodeViewer;
 
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\secure\SecureMunicipioAuthConfig;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\secure\SecureMunicipioAuthController;
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\navigation\MunicipioAuthNavigation;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma\VismaAuthController;
 use Municipio\KulturkortetQRCodeViewer\Vitec\VitecService;
@@ -36,7 +36,6 @@ class KulturkortetQRCodeViewerFeature implements Hookable
     public function __construct(
         private IsWpError&AddAction&ApplyFilters&RegisterBlockType&HomeUrl&WpRemoteGet&WpRemoteRetrieveBody&AddQueryArg&WpCacheGet&WpCacheSet $wpService,
         private EnqueueManagerInterface $enqueue,
-        private HooksRegistrarInterface $hooksRegistrar,
     ) {}
 
     /**
@@ -85,6 +84,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
 
     function render(array $attributes): string
     {
+        $navigation = new MunicipioAuthNavigation($this->wpService);
         $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig());
 
         $secureController = SecureMunicipioAuthController::createDefault(
@@ -94,6 +94,6 @@ class KulturkortetQRCodeViewerFeature implements Hookable
 
         $viewFactory = new KulturkortetAuthViewFactory($this->wpService, new VitecService($this->wpService), $attributes);
 
-        return $secureController->render($viewFactory);
+        return $secureController->render($viewFactory, $navigation);
     }
 }

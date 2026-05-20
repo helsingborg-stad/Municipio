@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\secure;
 
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\MunicipioAuthControllerInterface;
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUser;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
-use Override;
 
 class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 {
@@ -31,18 +31,12 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         private JWTStrategyInterface $jwtStrategy = new JWTStrategy(),
     ) {}
 
-    #[Override]
     public function validateUser(?MunicipioAuthenticatedUserInterface $user): ?MunicipioAuthenticatedUserInterface
     {
         return $this->inner->validateUser($user);
     }
 
-    public function getHomeUrl(): string
-    {
-        return $this->inner->getHomeUrl();
-    }
-
-    public function render(MunicipioAuthViewFactoryInterface $viewFactory): string
+    public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
             $secureViewFactory = new class(
@@ -54,32 +48,32 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
                     private MunicipioAuthViewFactoryInterface $viewFactory,
                 ) {}
 
-                public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user): string
+                public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
                 {
                     $validateUser = $this->controller->validateUser($user);
                     $this->controller->trySetUserCookie($validateUser);
-                    return $validateUser ? $this->viewFactory->whenAuthenticated($validateUser) : $this->viewFactory->whenAnonymous($this->controller->getHomeUrl());
+                    return $validateUser ? $this->viewFactory->whenAuthenticated($validateUser, $navigation) : $this->viewFactory->whenAnonymous($navigation->getHomeUrl(), $navigation);
                 }
 
-                public function whenAnonymous(string $redirectUrl): string
+                public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
                 {
-                    return $this->viewFactory->whenAnonymous($redirectUrl);
+                    return $this->viewFactory->whenAnonymous($loginUrl, $navigation);
                 }
 
-                public function whenError(string $errorMessage, string $homeUrl): string
+                public function whenError(string $errorMessage, MunicipioAuthNavigationInterface $navigation): string
                 {
-                    return $this->viewFactory->whenError($errorMessage, $homeUrl);
+                    return $this->viewFactory->whenError($errorMessage, $navigation);
                 }
             };
 
             $user = $this->validateUser($this->tryGetUserFromCookieJWT());
             if ($user) {
-                return $viewFactory->whenAuthenticated($user);
+                return $viewFactory->whenAuthenticated($user, $navigation);
             }
 
-            return $this->inner->render($secureViewFactory);
+            return $this->inner->render($secureViewFactory, $navigation);
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $this->getHomeUrl());
+            return $viewFactory->whenError($e->getMessage(), $navigation);
         }
     }
 

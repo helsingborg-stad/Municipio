@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma;
 
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpRemoteGet;
 use WpService\Contracts\WpRemoteRetrieveBody;
@@ -12,25 +13,24 @@ class VismaApi implements VismaApiInterface
 {
     public function __construct(
         private VismaAuthConfigInterface $config,
-        private VismaContextInterface $context,
         private WpRemoteGet&WpRemoteRetrieveBody&IsWpError $wpService,
     ) {}
 
-    public function shouldRemoteGetApiSession(): bool
+    public function shouldRemoteGetApiSession(MunicipioAuthNavigationInterface $navigation): bool
     {
-        return $this->context->getQueryParameter('ts_session_id') !== null;
+        return $navigation->getQueryParameter('ts_session_id') !== null;
     }
 
-    public function remoteApiLogin(): ?string
+    public function remoteApiLogin(MunicipioAuthNavigationInterface $navigation): ?string
     {
-        $body = $this->remoteGetJson('/json1.1/Login', ['callbackUrl' => $this->context->getHomeUrl()]);
+        $body = $this->remoteGetJson('/json1.1/Login', ['callbackUrl' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['ts_session_id'])]);
         if ($body && isset($body['redirectUrl'])) {
             return $body['redirectUrl'];
         }
         return null;
     }
 
-    public function remoteApiGetSession(): ?array
+    public function remoteApiGetSession(MunicipioAuthNavigationInterface $navigation): ?array
     {
         /*
          * Session could look something like
@@ -63,7 +63,7 @@ class VismaApi implements VismaApiInterface
          * }
          */
 
-        $body = $this->remoteGetJson('/json1.1/GetSession', ['sessionId' => $this->context->getQueryParameter('ts_session_id')]);
+        $body = $this->remoteGetJson('/json1.1/GetSession', ['sessionId' => $navigation->getQueryParameter('ts_session_id')]);
         return $body ?? null;
     }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma;
 
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\MunicipioAuthControllerInterface;
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use WpService\Contracts\AddQueryArg;
@@ -20,14 +21,12 @@ class VismaAuthController implements MunicipioAuthControllerInterface
         VismaAuthConfigInterface $config = new VismaAuthConfig(),
     ): self {
         return new self(
-            new VismaContext($config, $wpService),
-            new VismaApi($config, new VismaContext($config, $wpService), $wpService),
+            new VismaApi($config, $wpService),
             new VismaAuthorizedUserFactory(),
         );
     }
 
     public function __construct(
-        private VismaContextInterface $context,
         private VismaApiInterface $api,
         private VismaAuthorizedUserFactoryInterface $authorizedUserFactory = new VismaAuthorizedUserFactory(),
     ) {}
@@ -38,48 +37,43 @@ class VismaAuthController implements MunicipioAuthControllerInterface
         return $user && $user->getSSN() ? $user : null;
     }
 
-    public function getHomeUrl(): string
+    public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->context->getHomeUrl();
-    }
-
-    public function render(MunicipioAuthViewFactoryInterface $viewFactory): string
-    {
-        if ($this->api->shouldRemoteGetApiSession()) {
-            return $this->handleCanGetSession($viewFactory);
+        if ($this->api->shouldRemoteGetApiSession($navigation)) {
+            return $this->handleCanGetSession($viewFactory, $navigation);
         }
 
         // no session, redirect to auth server
-        return $this->handleHasNoSession($viewFactory);
+        return $this->handleHasNoSession($viewFactory, $navigation);
     }
 
-    protected function handleHasNoSession(MunicipioAuthViewFactoryInterface $viewFactory): string
+    protected function handleHasNoSession(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
-            $redirectUrl = $this->api->remoteApiLogin();
+            $redirectUrl = $this->api->remoteApiLogin($navigation);
             if ($redirectUrl) {
-                return $viewFactory->whenAnonymous($redirectUrl);
+                return $viewFactory->whenAnonymous($redirectUrl, $navigation);
             }
             throw new \Exception('Failed to get redirect URL from Visma');
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $this->context->getHomeUrl());
+            return $viewFactory->whenError($e->getMessage(), $navigation);
         }
     }
 
-    protected function handleCanGetSession(MunicipioAuthViewFactoryInterface $viewFactory): string
+    protected function handleCanGetSession(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
-            $session = $this->api->remoteApiGetSession();
+            $session = $this->api->remoteApiGetSession($navigation);
             if ($session) {
                 $user = $this->validateUser($this->authorizedUserFactory->createAuthorizedUser($session));
                 if (!$user) {
-                    return $viewFactory->whenAnonymous($this->context->getHomeUrl());
+                    return $viewFactory->whenAnonymous($navigation->getHomeUrl(), $navigation);
                 }
-                return $viewFactory->whenAuthenticated($user);
+                return $viewFactory->whenAuthenticated($user, $navigation);
             }
             throw new \Exception('Invalid session');
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $this->context->getHomeUrl());
+            return $viewFactory->whenError($e->getMessage(), $navigation);
         }
     }
 }

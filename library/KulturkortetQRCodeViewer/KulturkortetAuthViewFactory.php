@@ -6,6 +6,7 @@ namespace Municipio\KulturkortetQRCodeViewer;
 
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use Municipio\KulturkortetQRCodeViewer\Vitec\VitecServiceInterface;
@@ -27,7 +28,7 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
         return __DIR__ . '/views';
     }
 
-    public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user): string
+    public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
     {
         $vitecUser = $this->vitecService->tryGetUserData($user->getSSN());
         if ($vitecUser === null) {
@@ -45,14 +46,14 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
         ]);
     }
 
-    public function whenAnonymous(string $redirectUrl): string
+    public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->renderWithModel('kulturkortet-anonymous', ['url' => $redirectUrl]);
+        return $this->renderWithModel('kulturkortet-anonymous', ['url' => $loginUrl]);
     }
 
-    public function whenError(string $error, string $redirectUrl): string
+    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->renderWithModel('kulturkortet-error', ['error' => $error, 'url' => $redirectUrl]);
+        return $this->renderWithModel('kulturkortet-error', ['error' => $error, 'url' => $navigation->getHomeUrl()]);
     }
 
     private function renderWithModel(string $template, array $model): string
