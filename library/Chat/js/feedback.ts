@@ -5,7 +5,8 @@ class Feedback implements FeedbackInterface {
         private chatInstance: any,
         private messageInstance: any,
         private likeButton: HTMLElement,
-        private dislikeButton: HTMLElement
+        private dislikeButton: HTMLElement,
+        private apiRoot: string
     ) {
         this.liked = this.getLikeStatus();
         this.updateFeedbackClasses();
@@ -59,6 +60,20 @@ class Feedback implements FeedbackInterface {
         this.messageInstance.setData(data);
         this.updateFeedbackClasses();
         this.chatInstance.updateMessage(this.messageInstance);
+
+        if (liked === true) {
+            this.postStat('like');
+        } else if (liked === false) {
+            this.postStat('dislike');
+        }
+    }
+
+    private postStat(type: 'like' | 'dislike'): void {
+        fetch(this.apiRoot + 'municipio/v1/chat/stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type }),
+        }).catch(() => {});
     }
 
     private updateFeedbackClasses(): void {

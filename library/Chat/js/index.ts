@@ -26,7 +26,7 @@ document.addEventListener("chat:initialized", (e: any) => {
 		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
 	};
 
-	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement);
+	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, wpApiSettings.root);
 
 	chat.getMessages().forEach((message: any, index: number) => {
 		if (!message.getIsReply()) {
@@ -48,7 +48,8 @@ document.addEventListener("chat:initialized", (e: any) => {
 		chatSessionFactory,
 		chat,
 		markdownParser,
-		feedbackFactory
+		feedbackFactory,
+		wpApiSettings.root
 	);
 
 	if (newChatButtonElement) {

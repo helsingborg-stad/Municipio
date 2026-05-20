@@ -8,12 +8,21 @@ class Chat implements ChatInterface {
 		private readonly sessionFactory: ChatSessionFactory,
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
-		private readonly feedbackFactory: FeedbackFactoryInterface
+		private readonly feedbackFactory: FeedbackFactoryInterface,
+		private readonly apiRoot: string
 	) {}
 
 	public init(): void {
 		this.session = this.sessionFactory.create(null);
 		this.listenForUserMessages();
+	}
+
+	private postMessageStat(): void {
+		fetch(this.apiRoot + 'municipio/v1/chat/stats', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ type: 'message' }),
+		}).catch(() => {});
 	}
 
 	public createNewChatSession(assistantId: string | null): void {
@@ -68,6 +77,7 @@ class Chat implements ChatInterface {
 						this.chat.deleteMessage(pendingMessage);
 					} else {
 						this.feedbackFactory.create(pendingMessage);
+						this.postMessageStat();
 					}
 					break;
 			}
