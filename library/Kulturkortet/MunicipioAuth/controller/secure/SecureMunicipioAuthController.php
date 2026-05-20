@@ -45,8 +45,10 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
+            // our decorated view factory handles cookies and JWT for us, i.e. mutates state
             $secureViewFactory = $this->decorateViewFactory($viewFactory);
 
+            // from here on we rely on the decorated view factory to have set the cookie for us, so we can just try to get the user from the cookie JWT and validate it
             $user = $this->validateUser($this->tryGetUserFromCookieJWT());
 
             if ($navigation->getQueryParameter('action') === 'logout') {
@@ -70,11 +72,11 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
     protected function tryUnpackUser(array $payload): ?MunicipioAuthenticatedUserInterface
     {
         return $this->validateUser(new MunicipioAuthenticatedUser(
-            $payload['psessid'] ?? null,
-            $payload['ssn'] ?? '',
-            $payload['cn'] ?? '',
-            $payload['gn'] ?? '',
-            $payload['sn'] ?? '',
+            $payload['x-sid'] ?? null,
+            $payload['sub'] ?? '',
+            $payload['x-cn'] ?? '',
+            $payload['x-gn'] ?? '',
+            $payload['x-sn'] ?? '',
         ));
     }
 
@@ -83,11 +85,11 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         return (
             $user
                 ? [
-                    'psessid' => $user->getProviderSessionId(),
-                    'ssn' => $user->getSSN(),
-                    'cn' => $user->getName(),
-                    'gn' => $user->getFirstName(),
-                    'sn' => $user->getLastName(),
+                    'x-sid' => $user->getProviderSessionId(),
+                    'sub' => $user->getSSN(),
+                    'x-cn' => $user->getName(),
+                    'x-gn' => $user->getFirstName(),
+                    'x-sn' => $user->getLastName(),
                 ] : null
         );
     }
@@ -124,8 +126,10 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
             public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
             {
+                // persist the state
                 $validateUser = $this->controller->validateUser($user);
                 $this->controller->trySetUserCookie($validateUser);
+                // ...and route through the inner factory for consistent rendering
                 return $validateUser ? $this->inner->whenAuthenticated($validateUser, $navigation) : $this->inner->whenAnonymous($navigation->getHomeUrl(), $navigation);
             }
 
@@ -136,6 +140,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
             public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
             {
+                // the intention is to logout and we enforce it
                 $this->controller->tryLogoutUser($user);
                 return $this->inner->whenLogOut($user, $navigation);
             }
