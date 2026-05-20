@@ -26,8 +26,6 @@ class MapThemeModsToDesignTokens
         'radius_md' => 'token.--border-radius',
         'container' => 'token.--container-width',
         'footer_height_logotype' => 'component.__general__.footer.--c-footer--home-link-height-multiplier',
-        'color_button_primary.base' => 'token.--c-button--color--primary',
-        'color_button_primary.contrasting' => 'token.--c-button--color--primary-contrast',
         'header_logotype_height' => 'component.__general__.header.--c-header--logotype-height-multiplier',
         'header_brand-color' => 'token.--c-header--brand-color',
         'border_width_outline' => 'token.--border-width',
@@ -38,9 +36,19 @@ class MapThemeModsToDesignTokens
         'quicklinks_custom_colors.background' => 'component.scope:s-quicklinks-header.header.--c-header--background-color',
         'quicklinks_custom_colors.icon-color' => 'component.scope:s-quicklinks-header.header.--c-header--color',
         'border_width_card' => 'component.__general__.card.--c-card--border-width',
-        //'color_card.border' => 'component.__general__.card.--c-card--color--surface-border',
+
+        'button_default_color_active' => 'button_default_color_active', // Only for handling in decorator, will be removed from tokens after decoration
+        'color_button_default.base' => 'component.__general__.button.--c-button--color--surface-alt',
+        'color_button_default.contrasting' => 'component.__general__.button.--c-button--color--surface-contrast',
+
+        'button_secondary_color_active' => 'button_primary_color_active', // Only for handling in decorator, will be removed from tokens after decoration
+        'color_button_secondary.base' => 'component.__general__.button.--c-button--color--secondary',
+        'color_button_secondary.contrasting' => 'component.__general__.button.--c-button--color--secondary-contrast',
+
+        'button_primary_color_active' => 'button_primary_color_active', // Only for handling in decorator, will be removed from tokens after decoration
         'color_button_primary.base' => 'component.__general__.button.--c-button--color--primary',
         'color_button_primary.contrasting' => 'component.__general__.button.--c-button--color--primary-contrast',
+
         'header_brand_font_settings.font-size' => 'component.__general__.header.--c-brand-font-size',
         'organism_grid_gap' => 'token.--outer-space',
         'nav_h_color_primary.contrasting' => 'component.__general__.header.--c-header--color',
