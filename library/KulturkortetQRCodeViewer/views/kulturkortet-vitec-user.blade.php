@@ -8,6 +8,9 @@
                         'square' => true,
                     ],
                     'heading' => $model['name'] ?? '',
+                    'buttons' => [
+                            ['type' => 'filled', 'color' => 'primary', 'text' => 'Logga ut', 'href' => $model['logoutUrl']]
+                        ]
                 ])
                 @slot('subHeading')
                     {{ $model['validFrom'] ?? '' }} - {{ $model['validTo'] ?? '' }}

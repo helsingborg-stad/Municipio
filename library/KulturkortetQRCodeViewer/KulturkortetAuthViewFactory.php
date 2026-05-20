@@ -31,20 +31,57 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
     public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
     {
         $vitecUser = $this->vitecService->tryGetUserData($user->getSSN());
-        if ($vitecUser === null) {
+
+        $ticket = $vitecUser['tickets'][0] ?? null;
+        if (!$ticket) {
             return $this->renderWithModel('kulturkortet-no-vitec-user', ['model' => ['logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']), 'name' => $user->getName()]]);
         }
+
         return $this->renderWithModel('kulturkortet-vitec-user', [
-            // 'user' => $user,
-            // 'vitecUser' => $vitecUser,
             'model' => [
                 'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
-                'barcode' => $vitecUser['tickets'][0]['barcode'] ?? null,
-                'validFrom' => $this->formatDate($vitecUser['tickets'][0]['validFrom'] ?? null),
-                'validTo' => $this->formatDate($vitecUser['tickets'][0]['validUntil'] ?? null),
+                'email' => $ticket['email'] ?? null,
+                'barcode' => $ticket['barcode'] ?? null,
+                'validFrom' => $this->formatDate($ticket['validFrom'] ?? null),
+                'validTo' => $this->formatDate($ticket['validUntil'] ?? null),
             ],
         ]);
+
+        // $vitecUser is expected to look something like
+        // {
+        //         "version":25860271,
+        //         "tickets":[
+        //                 {
+        //                         "id":"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        //                         "barcode":"1234abcd",
+        //                         "tagId":"1234abcd",
+        //                         "civicRegistrationNumber":"19700101-0000",
+        //                         "validFrom":"2024-12-05T00:00:00",
+        //                         "validUntil":"2026-12-11T23:59:00",
+        //                         "firstname":"Test",
+        //                         "lastname":"Testersson",
+        //                         "email":"test@example.com",
+        //                         "articleName":"Kulturkort\/Nyf\u00f6rs\u00e4ljning",
+        //                         "ticketTemplateName":"Import_Kulturkort",
+        //                         "plu":1300,
+        //                         "saleDate":"2024-12-05T12:03:59.296",
+        //                         "statisticsValues":{
+        //                             "ANL\u00c4GGNINGSBES\u00d6K":"- Ej applicerbar",
+        //                             "F\u00f6rs\u00e4ljning":"Kulturkort",
+        //                             "Kategorigrupp":"Betalande",
+        //                             "Rapportgrupp":"Endast entr\u00e9",
+        //                             "Rapportkategori":"Kulturkortsbes\u00f6k",
+        //                             "Verksamhet":"- Ej applicerbar"
+        //                         },
+        //                         "timestamp":"2025-12-11T12:09:52.9416901",
+        //                         "version":25860271,
+        //                         "oldCardRef":null,
+        //                         "isCancelled":false,
+        //                         "hasBlock":false
+        //                 }
+        //         ]
+        // }
     }
 
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
