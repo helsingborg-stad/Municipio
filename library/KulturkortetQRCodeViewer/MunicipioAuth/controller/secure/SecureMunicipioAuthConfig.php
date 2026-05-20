@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\secure;
 
-use Override;
-
 class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
 {
     public function __construct() {}
@@ -20,7 +18,6 @@ class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
         return defined('SECURE_MUNICIPIO_AUTH_COOKIE_NAME') ? SECURE_MUNICIPIO_AUTH_COOKIE_NAME : '';
     }
 
-    #[Override]
     public function expires(): int
     {
         return 20 * 60; // 20 min
@@ -34,8 +31,8 @@ class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
     public function getJWTHeaders(): array
     {
         return [
-            'iss' => defined('SECURE_MUNICIPIO_AUTH_JWT_ISSUER') ? SECURE_MUNICIPIO_AUTH_JWT_ISSUER : 'MunicipioAuth',
-            'aud' => defined('SECURE_MUNICIPIO_AUTH_JWT_AUDIENCE') ? SECURE_MUNICIPIO_AUTH_JWT_AUDIENCE : 'Municipio',
+            'iss' => defined('SECURE_MUNICIPIO_AUTH_JWT_ISSUER_OPT') ? SECURE_MUNICIPIO_AUTH_JWT_ISSUER_OPT : (defined('WP_HOME') ? WP_HOME : 'MunicipioAuth'),
+            'aud' => defined('SECURE_MUNICIPIO_AUTH_JWT_AUDIENCE_OPT') ? SECURE_MUNICIPIO_AUTH_JWT_AUDIENCE_OPT : (defined('WP_HOME') ? WP_HOME : 'Municipio'),
         ];
     }
 }

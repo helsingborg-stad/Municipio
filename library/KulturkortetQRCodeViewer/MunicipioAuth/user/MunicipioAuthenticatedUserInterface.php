@@ -6,6 +6,8 @@ namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user;
 
 interface MunicipioAuthenticatedUserInterface
 {
+    public function getProviderSessionId(): ?string;
+
     public function getSSN(): string;
 
     public function getName(): string;

@@ -86,6 +86,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
     protected function tryUnpackUser(array $payload): ?MunicipioAuthenticatedUserInterface
     {
         return $this->validateUser(new MunicipioAuthenticatedUser(
+            $payload['psessid'] ?? null,
             $payload['ssn'] ?? '',
             $payload['cn'] ?? '',
             $payload['gn'] ?? '',
@@ -98,6 +99,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         return (
             $user
                 ? [
+                    'psessid' => $user->getProviderSessionId(),
                     'ssn' => $user->getSSN(),
                     'cn' => $user->getName(),
                     'gn' => $user->getFirstName(),

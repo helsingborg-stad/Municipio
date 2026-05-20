@@ -12,6 +12,11 @@ class VismaAuthorizedUser implements MunicipioAuthenticatedUserInterface
         private array $data,
     ) {}
 
+    public function getProviderSessionId(): ?string
+    {
+        return $this->data['sessionId'] ?? null;
+    }
+
     public function getSSN(): string
     {
         return $this->data['username'] ?? '';

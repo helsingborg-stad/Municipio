@@ -7,11 +7,17 @@ namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user;
 class MunicipioAuthenticatedUser implements MunicipioAuthenticatedUserInterface
 {
     public function __construct(
+        private ?string $providerSessionId,
         private string $ssn,
         private string $name,
         private string $firstName,
         private string $lastName,
     ) {}
+
+    public function getProviderSessionId(): ?string
+    {
+        return $this->providerSessionId;
+    }
 
     public function getSSN(): string
     {
