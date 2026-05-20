@@ -20,9 +20,25 @@ class Feedback implements FeedbackInterface {
             this.updateButtonClasses();
         });
 
+        this.likeButton.addEventListener("mouseenter", () => {
+            this.likeButton.classList.add(this.materialSymbolsFilledClass);
+        });
+
+        this.likeButton.addEventListener("mouseleave", () => {
+            this.updateButtonClasses();
+        });
+
         this.dislikeButton.addEventListener("click", () => {
             const status = this.liked === false ? null : false;
             this.setLikeStatus(status);
+            this.updateButtonClasses();
+        });
+
+        this.dislikeButton.addEventListener("mouseenter", () => {
+            this.dislikeButton.classList.add(this.materialSymbolsFilledClass);
+        });
+
+        this.dislikeButton.addEventListener("mouseleave", () => {
             this.updateButtonClasses();
         });
     }
