@@ -32,12 +32,13 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
     {
         $vitecUser = $this->vitecService->tryGetUserData($user->getSSN());
         if ($vitecUser === null) {
-            return $this->renderWithModel('kulturkortet-no-vitec-user', ['model' => ['name' => $user->getName()]]);
+            return $this->renderWithModel('kulturkortet-no-vitec-user', ['model' => ['logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']), 'name' => $user->getName()]]);
         }
         return $this->renderWithModel('kulturkortet-vitec-user', [
             // 'user' => $user,
             // 'vitecUser' => $vitecUser,
             'model' => [
+                'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
                 'barcode' => $vitecUser['tickets'][0]['barcode'] ?? null,
                 'validFrom' => $this->formatDate($vitecUser['tickets'][0]['validFrom'] ?? null),
@@ -49,6 +50,11 @@ class KulturkortetAuthViewFactory implements MunicipioAuthViewFactoryInterface
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
     {
         return $this->renderWithModel('kulturkortet-anonymous', ['url' => $loginUrl]);
+    }
+
+    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
+    {
+        return $this->renderWithModel('kulturkortet-logged-out', ['name' => $user->getName(), 'url' => $navigation->getHomeUrl()]);
     }
 
     public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string

@@ -13,5 +13,7 @@ interface MunicipioAuthControllerInterface
 {
     public function validateUser(?MunicipioAuthenticatedUserInterface $user): ?MunicipioAuthenticatedUserInterface;
 
+    public function tryLogoutUser(?MunicipioAuthenticatedUserInterface $user): void;
+
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string;
 }

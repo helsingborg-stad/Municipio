@@ -20,7 +20,7 @@ class MunicipioAuthNavigation implements MunicipioAuthNavigationInterface
         return $this->homeUrl ?? $this->wpService->homeUrl($this->wpService->addQueryArg($_GET));
     }
 
-    public function getModifiedHomeUrl(array $removeQueryArgs, array $addQueryArgs = []): string
+    public function getModifiedHomeUrl(array $removeQueryArgs = [], array $addQueryArgs = []): string
     {
         $currentUrl = $this->getHomeUrl();
 
@@ -44,5 +44,11 @@ class MunicipioAuthNavigation implements MunicipioAuthNavigationInterface
         $queryParams = [];
         parse_str($query, $queryParams);
         return $queryParams[$name] ?? null;
+    }
+
+    public function redirect(string $url): void
+    {
+        header('Location: ' . $url);
+        exit();
     }
 }

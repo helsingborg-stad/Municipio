@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma;
 
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 
 interface VismaApiInterface
 {
@@ -25,4 +26,6 @@ interface VismaApiInterface
      * The session ID is expected to be provided as a query parameter in the URL (ts_session_id)
      */
     public function remoteApiGetSession(MunicipioAuthNavigationInterface $navigation): ?array;
+
+    public function remoteApiLogout(MunicipioAuthenticatedUserInterface $user): void;
 }

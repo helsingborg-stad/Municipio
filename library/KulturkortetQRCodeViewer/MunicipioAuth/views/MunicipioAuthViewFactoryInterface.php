@@ -13,5 +13,7 @@ interface MunicipioAuthViewFactoryInterface
 
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string;
 
+    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string;
+
     public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string;
 }

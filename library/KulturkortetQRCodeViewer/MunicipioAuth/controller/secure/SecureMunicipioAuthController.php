@@ -36,38 +36,28 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         return $this->inner->validateUser($user);
     }
 
+    public function tryLogoutUser(?MunicipioAuthenticatedUserInterface $user): void
+    {
+        $this->trySetUserCookie(null);
+        $this->inner->tryLogoutUser($user);
+    }
+
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
-            $secureViewFactory = new class(
-                $this,
-                $viewFactory,
-            ) implements MunicipioAuthViewFactoryInterface {
-                public function __construct(
-                    private SecureMunicipioAuthController $controller,
-                    private MunicipioAuthViewFactoryInterface $viewFactory,
-                ) {}
-
-                public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
-                {
-                    $validateUser = $this->controller->validateUser($user);
-                    $this->controller->trySetUserCookie($validateUser);
-                    return $validateUser ? $this->viewFactory->whenAuthenticated($validateUser, $navigation) : $this->viewFactory->whenAnonymous($navigation->getHomeUrl(), $navigation);
-                }
-
-                public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
-                {
-                    return $this->viewFactory->whenAnonymous($loginUrl, $navigation);
-                }
-
-                public function whenError(string $errorMessage, MunicipioAuthNavigationInterface $navigation): string
-                {
-                    return $this->viewFactory->whenError($errorMessage, $navigation);
-                }
-            };
+            $secureViewFactory = $this->decorateViewFactory($viewFactory);
 
             $user = $this->validateUser($this->tryGetUserFromCookieJWT());
+
+            if ($navigation->getQueryParameter('action') === 'logout') {
+                if ($user) {
+                    return $secureViewFactory->whenLogOut($user, $navigation);
+                }
+                $navigation->redirect($navigation->getModifiedHomeUrl(removeQueryArgs: ['action']));
+            }
+
             if ($user) {
+                // bypass our decorator to avoid setting cookie again and potentially causing issues with logout flow
                 return $viewFactory->whenAuthenticated($user, $navigation);
             }
 
@@ -122,5 +112,38 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         $payload = $this->tryPackUser($user);
         $jwt = $payload ? $this->jwtStrategy->encode($payload, $this->config) : '';
         $this->cookieStrategy->setCookie($jwt, $this->config);
+    }
+
+    private function decorateViewFactory(MunicipioAuthViewFactoryInterface $viewFactory): MunicipioAuthViewFactoryInterface
+    {
+        return new class($this, $viewFactory) implements MunicipioAuthViewFactoryInterface {
+            public function __construct(
+                private SecureMunicipioAuthController $controller,
+                private MunicipioAuthViewFactoryInterface $inner,
+            ) {}
+
+            public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
+            {
+                $validateUser = $this->controller->validateUser($user);
+                $this->controller->trySetUserCookie($validateUser);
+                return $validateUser ? $this->inner->whenAuthenticated($validateUser, $navigation) : $this->inner->whenAnonymous($navigation->getHomeUrl(), $navigation);
+            }
+
+            public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
+            {
+                return $this->inner->whenAnonymous($loginUrl, $navigation);
+            }
+
+            public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
+            {
+                $this->controller->tryLogoutUser($user);
+                return $this->inner->whenLogOut($user, $navigation);
+            }
+
+            public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string
+            {
+                return $this->inner->whenError($error, $navigation);
+            }
+        };
     }
 }

@@ -37,6 +37,16 @@ class VismaAuthController implements MunicipioAuthControllerInterface
         return $user && $user->getSSN() ? $user : null;
     }
 
+    public function tryLogoutUser(?MunicipioAuthenticatedUserInterface $user): void
+    {
+        try {
+            $this->api->remoteApiLogout($user);
+        } catch (\Exception $e) {
+            // Log the error but don't disrupt the user experience
+            error_log('Failed to log out from Visma: ' . $e->getMessage());
+        }
+    }
+
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         if ($this->api->shouldRemoteGetApiSession($navigation)) {
@@ -67,7 +77,9 @@ class VismaAuthController implements MunicipioAuthControllerInterface
             if ($session) {
                 $user = $this->validateUser($this->authorizedUserFactory->createAuthorizedUser($session));
                 if (!$user) {
-                    return $viewFactory->whenAnonymous($navigation->getHomeUrl(), $navigation);
+                    // return $viewFactory->whenAnonymous($navigation->getHomeUrl(), $navigation);
+                    $navigation->redirect($navigation->getModifiedHomeUrl(removeQueryArgs: ['ts_session_id'])); // session invalid, redirect to clean home to start over
+                    return '';
                 }
                 return $viewFactory->whenAuthenticated($user, $navigation);
             }

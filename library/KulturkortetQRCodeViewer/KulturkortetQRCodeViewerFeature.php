@@ -20,6 +20,7 @@ use WpService\Contracts\RegisterBlockType;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpService\Contracts\WpRemoteGet;
+use WpService\Contracts\WpRemotePost;
 use WpService\Contracts\WpRemoteRetrieveBody;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
@@ -34,7 +35,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
      * @param AddAction $wpService
      */
     public function __construct(
-        private IsWpError&AddAction&ApplyFilters&RegisterBlockType&HomeUrl&WpRemoteGet&WpRemoteRetrieveBody&AddQueryArg&WpCacheGet&WpCacheSet $wpService,
+        private IsWpError&AddAction&ApplyFilters&RegisterBlockType&HomeUrl&WpRemoteGet&WpRemotePost&WpRemoteRetrieveBody&AddQueryArg&WpCacheGet&WpCacheSet $wpService,
         private EnqueueManagerInterface $enqueue,
     ) {}
 
@@ -45,7 +46,8 @@ class KulturkortetQRCodeViewerFeature implements Hookable
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
         $this->wpService->addAction('litespeed_control_set_nocache', static fn() => 'cache disabled due to cookie usage');
-        $this->wpService->applyFilters('query_vars', ['ts_session_id']);
+        $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
+
         $this->enqueue->add('js/kulturkortet.js');
     }
 
@@ -94,6 +96,9 @@ class KulturkortetQRCodeViewerFeature implements Hookable
 
         $viewFactory = new KulturkortetAuthViewFactory($this->wpService, new VitecService($this->wpService), $attributes);
 
-        return $secureController->render($viewFactory, $navigation);
+        return $secureController->render(
+            $viewFactory,
+            $navigation,
+        );
     }
 }
