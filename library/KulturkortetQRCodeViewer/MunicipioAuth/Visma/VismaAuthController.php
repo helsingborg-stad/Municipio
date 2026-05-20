@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\KulturkortetQRCodeViewer\MunicipioAuth\Visma;
 
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\MunicipioAuthControllerInterface;
+use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use WpService\Contracts\AddQueryArg;
 use WpService\Contracts\HomeUrl;
@@ -30,6 +31,12 @@ class VismaAuthController implements MunicipioAuthControllerInterface
         private VismaApiInterface $api,
         private VismaAuthorizedUserFactoryInterface $authorizedUserFactory = new VismaAuthorizedUserFactory(),
     ) {}
+
+    public function validateUser(?MunicipioAuthenticatedUserInterface $user): ?MunicipioAuthenticatedUserInterface
+    {
+        // No additional validation needed, as we rely on Visma's session validation
+        return $user && $user->getSSN() ? $user : null;
+    }
 
     public function getHomeUrl(): string
     {
@@ -64,7 +71,11 @@ class VismaAuthController implements MunicipioAuthControllerInterface
         try {
             $session = $this->api->remoteApiGetSession();
             if ($session) {
-                return $viewFactory->whenAuthenticated($this->authorizedUserFactory->createAuthorizedUser($session));
+                $user = $this->validateUser($this->authorizedUserFactory->createAuthorizedUser($session));
+                if (!$user) {
+                    return $viewFactory->whenAnonymous($this->context->getHomeUrl());
+                }
+                return $viewFactory->whenAuthenticated($user);
             }
             throw new \Exception('Invalid session');
         } catch (\Exception $e) {

@@ -1,7 +1,4 @@
-// alert("kulturkortet");
 import QRCode from "qrcode";
-
-// data - kulturkortet - barcode;
 
 document.addEventListener("DOMContentLoaded", () => {
 	document.querySelectorAll("[data-kulturkortet-barcode]").forEach((canvas) => {

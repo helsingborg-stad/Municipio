@@ -34,7 +34,7 @@ class VismaAuthControllerTest extends TestCase
     public function testRenderWhenCanGetSessionAndRemoteApiGetSessionReturnsSession(): void
     {
         // Our expected user to be passed to view
-        $expedtedUser = new VismaAuthorizedUser(['user' => 'test']);
+        $expedtedUser = new VismaAuthorizedUser(['username' => '197001011234']);
 
         // Fake Visma context
         $context = $this->createMock(VismaContextInterface::class);
@@ -42,11 +42,11 @@ class VismaAuthControllerTest extends TestCase
         $api = $this->createMock(VismaApi::class);
         $context->method('getHomeUrl')->willReturn('http://home.url');
         $api->method('shouldRemoteGetApiSession')->willReturn(true);
-        $api->method('remoteApiGetSession')->willReturn(['user' => 'test']);
+        $api->method('remoteApiGetSession')->willReturn(['username' => '197001011234']);
 
         // Ensure our expected user is returned
         $userFactory = $this->createMock(VismaAuthorizedUserFactoryInterface::class);
-        $userFactory->method('createAuthorizedUser')->with(['user' => 'test'])->willReturn($expedtedUser);
+        $userFactory->method('createAuthorizedUser')->with(['username' => '197001011234'])->willReturn($expedtedUser);
 
         // We expect the authenticated view to be rendered with the expected user
         $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);

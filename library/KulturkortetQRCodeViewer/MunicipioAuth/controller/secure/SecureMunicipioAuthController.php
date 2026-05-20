@@ -8,6 +8,7 @@ use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\controller\MunicipioAuthCon
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUser;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\KulturkortetQRCodeViewer\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
+use Override;
 
 class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 {
@@ -30,6 +31,12 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         private JWTStrategyInterface $jwtStrategy = new JWTStrategy(),
     ) {}
 
+    #[Override]
+    public function validateUser(?MunicipioAuthenticatedUserInterface $user): ?MunicipioAuthenticatedUserInterface
+    {
+        return $this->inner->validateUser($user);
+    }
+
     public function getHomeUrl(): string
     {
         return $this->inner->getHomeUrl();
@@ -49,8 +56,9 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
                 public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user): string
                 {
-                    $this->controller->trySetUserCookie($user);
-                    return $this->viewFactory->whenAuthenticated($user);
+                    $validateUser = $this->controller->validateUser($user);
+                    $this->controller->trySetUserCookie($validateUser);
+                    return $validateUser ? $this->viewFactory->whenAuthenticated($validateUser) : $this->viewFactory->whenAnonymous($this->controller->getHomeUrl());
                 }
 
                 public function whenAnonymous(string $redirectUrl): string
@@ -64,7 +72,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
                 }
             };
 
-            $user = $this->tryGetUserFromCookieJWT();
+            $user = $this->validateUser($this->tryGetUserFromCookieJWT());
             if ($user) {
                 return $viewFactory->whenAuthenticated($user);
             }
@@ -77,26 +85,25 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
     protected function tryUnpackUser(array $payload): ?MunicipioAuthenticatedUserInterface
     {
-        if (!isset($payload['ssn'])) {
-            return null;
-        }
-
-        return new MunicipioAuthenticatedUser(
-            $payload['ssn'],
+        return $this->validateUser(new MunicipioAuthenticatedUser(
+            $payload['ssn'] ?? '',
             $payload['cn'] ?? '',
             $payload['gn'] ?? '',
             $payload['sn'] ?? '',
-        );
+        ));
     }
 
-    protected function tryPackUser(MunicipioAuthenticatedUserInterface $user): array
+    protected function tryPackUser(?MunicipioAuthenticatedUserInterface $user): ?array
     {
-        return [
-            'ssn' => $user->getSSN(),
-            'cn' => $user->getName(),
-            'gn' => $user->getFirstName(),
-            'sn' => $user->getLastName(),
-        ];
+        return (
+            $user
+                ? [
+                    'ssn' => $user->getSSN(),
+                    'cn' => $user->getName(),
+                    'gn' => $user->getFirstName(),
+                    'sn' => $user->getLastName(),
+                ] : null
+        );
     }
 
     protected function tryGetUserFromCookieJWT(): ?MunicipioAuthenticatedUserInterface
@@ -116,7 +123,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
     public function trySetUserCookie(?MunicipioAuthenticatedUserInterface $user): void
     {
-        $payload = $user ? $this->tryPackUser($user) : null;
+        $payload = $this->tryPackUser($user);
         $jwt = $payload ? $this->jwtStrategy->encode($payload, $this->config) : '';
         $this->cookieStrategy->setCookie($jwt, $this->config);
     }
