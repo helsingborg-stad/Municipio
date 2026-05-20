@@ -13,6 +13,9 @@
             @icon([
                 'icon' => 'thumb_up',
                 'size' => 'sm',
+                'classList' => [
+                    'municipio-ai-chat__feedback-like-button'
+                ],
                 'attributeList' => [
                     'role' => 'button',
                     'data-js-chat-message-like-button' => true
@@ -22,6 +25,9 @@
             @icon([
                 'icon' => 'thumb_down',
                 'size' => 'sm',
+                'classList' => [
+                    'municipio-ai-chat__feedback-dislike-button'
+                ],
                 'attributeList' => [
                     'role' => 'button',
                     'data-js-chat-message-dislike-button' => true

@@ -26,6 +26,20 @@ document.addEventListener("chat:initialized", (e: any) => {
 		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
 	};
 
+	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement);
+
+	chat.getMessages().forEach((message: any, index: number) => {
+		if (!message.getIsReply()) {
+			return;
+		}
+
+		if (index === 0 && greetingsPhrase === message.getContent()) {
+			return;
+		}
+
+		feedbackFactory.create(message);
+	});
+
 	if (greetingsPhrase) {
 		new GreetingPhrase(chat, greetingsPhrase);
 	}
@@ -34,7 +48,7 @@ document.addEventListener("chat:initialized", (e: any) => {
 		chatSessionFactory,
 		chat,
 		markdownParser,
-		new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement)
+		feedbackFactory
 	);
 
 	if (newChatButtonElement) {

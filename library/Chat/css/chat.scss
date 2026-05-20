@@ -1,6 +1,20 @@
-.municipio-ai-chat {
-    &__feedback {
-        display: flex;
-        gap: 0.5rem;
+$_: "municipio-ai-chat";
+.#{$_}__feedback {
+    display: flex;
+    gap: calc(var(--base) * 0.5);
+    margin-top: calc(var(--base) * 0.5);
+    margin-left: var(--base);
+
+    .#{$_}__feedback-like-button,
+    .#{$_}__feedback-dislike-button {
+        font-size: calc(var(--base) * 2.5);
+        cursor: pointer;
+        color: var(--c-chat--color--surface-contrast-muted);
+        align-items: center;
+        justify-content: center;
+        min-height: calc(var(--base) * 3);
+        min-width: calc(var(--base) * 3);
+        background-color: transparent;
+        border: 1px solid transparent;
     }
 }

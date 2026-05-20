@@ -1,5 +1,6 @@
 class Feedback implements FeedbackInterface {
     private liked: boolean | null = null;
+    private materialSymbolsFilledClass = 'material-symbols--filled';
     constructor(
         private chatInstance: any,
         private messageInstance: any,
@@ -8,18 +9,27 @@ class Feedback implements FeedbackInterface {
     ) {
         this.liked = this.getLikeStatus();
         this.updateFeedbackClasses();
+        this.updateButtonClasses();
         this.setListeners();
     }
 
     private setListeners(): void {
         this.likeButton.addEventListener("click", () => {
-            this.setLikeStatus(this.liked === true ? null : true);
+            const status = this.liked === true ? null : true;
+            this.setLikeStatus(status);
+            this.updateButtonClasses();
         });
 
         this.dislikeButton.addEventListener("click", () => {
-            this.setLikeStatus(this.liked === false ? null : false);
+            const status = this.liked === false ? null : false;
+            this.setLikeStatus(status);
+            this.updateButtonClasses();
         });
-        
+    }
+
+    private updateButtonClasses(): void {
+        this.likeButton.classList.toggle(this.materialSymbolsFilledClass, this.liked === true);
+        this.dislikeButton.classList.toggle(this.materialSymbolsFilledClass, this.liked === false);
     }
 
     private setLikeStatus(liked: boolean | null): void {
