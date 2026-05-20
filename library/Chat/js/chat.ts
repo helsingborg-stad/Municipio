@@ -7,20 +7,27 @@ class Chat implements ChatInterface {
 	constructor(
 		private readonly sessionFactory: ChatSessionFactory,
 		private readonly chat: any,
-		private readonly markdownParser: MarkdownIt
+		private readonly markdownParser: MarkdownIt,
+		private readonly feedbackFactory: FeedbackFactoryInterface
 	) {}
 
 	public init(): void {
 		this.session = this.sessionFactory.create(null);
-		this.subscribeToUserMessages();
+		this.listenForUserMessages();
 	}
 
 	public createNewChatSession(assistantId: string | null): void {
 		this.session = this.sessionFactory.create(assistantId);
 	}
 
-	private subscribeToUserMessages(): void {
-		this.chat.subscribeToUserMessages((message: any) => {
+	private listenForUserMessages(): void {
+		this.chat.getElement().addEventListener('chat:message-added', (e: any) => {
+			const message = e.detail;
+
+			if (message.getIsReply()) {
+				return;
+			}
+
 			this.sendMessage(message.getContent());
 		});
 	}
@@ -59,6 +66,8 @@ class Chat implements ChatInterface {
 					this.chat.enableSend();
 					if (!contentAdded) {
 						this.chat.deleteMessage(pendingMessage);
+					} else {
+						this.feedbackFactory.create(pendingMessage);
 					}
 					break;
 			}

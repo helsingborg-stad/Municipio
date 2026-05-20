@@ -18,6 +18,7 @@
         'persistent' => true,
         'size' => 'sm',
         'attributeList' => $attributeList,
+        'classList' => ['municipio-ai-chat'],
         'chatInputData' => [
             'sendButtonText' => $lang['send'],
             'placeholderText' => $lang['placeholder']
@@ -82,5 +83,6 @@
                 @endbutton
             @endelement
         @endslot
+        @include('partials.feedback')
     @endchat
 @endfab

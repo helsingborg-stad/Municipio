@@ -36,5 +36,7 @@ class ChatEnqueue implements Hookable
                 'usingTools' => $this->wpService->__('Using tools...', 'municipio'),
                 'error' => $this->wpService->__('An error occurred. Try again later.', 'municipio'),
             ]);
+
+        $this->enqueue->add('css/chat.css');
     }
 }

@@ -3,12 +3,16 @@ import { ChatSessionFactory } from "./ChatSessionFactory";
 import MarkdownIt from "markdown-it";
 import NewChatSessionButton from "./newChatSessionButton";
 import GreetingPhrase from "./greetingPhrase";
+import FeedbackFactory from "./feedbackFactory";
 
 document.addEventListener("chat:initialized", (e: any) => {
-	const chat = e.detail.chat;
-	const clearButtonElement = e.detail.chat.getElement().querySelector("[data-js-chat-clear]") as HTMLElement;
-	const newChatButtonElement = e.detail.chat.getElement().querySelector("[data-js-chat-new]") as HTMLElement;
+	const chat = e.detail;
+
+	if (!chat.getElement().classList.contains("municipio-ai-chat")) return;
+
+	const newChatButtonElement = chat.getElement().querySelector("[data-js-chat-new]") as HTMLElement;
 	const greetingsPhrase = chat.getElement().dataset.jsChatGreetingsPhrase || null;
+	const feedbackTemplate = chat.getElement().querySelector("[data-js-chat-feedback]") || null;
 
 	const markdownParser = new MarkdownIt({
 		html: false,
@@ -29,7 +33,8 @@ document.addEventListener("chat:initialized", (e: any) => {
 	const chatInstance = new Chat(
 		chatSessionFactory,
 		chat,
-		markdownParser
+		markdownParser,
+		new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement)
 	);
 
 	if (newChatButtonElement) {
