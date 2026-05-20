@@ -46,6 +46,21 @@ class DecorateDesignTokens
             $tokens['token']['--outer-space'] = ((float) $tokens['token']['--outer-space'] / 12) * 3;
         }
 
+        if (!isset($tokens['button_default_color_active']) || empty($tokens['button_default_color_active'])) {
+            unset($tokens['component']['__general__']['button']['--c-button--color--surface-alt']);
+            unset($tokens['component']['__general__']['button']['--c-button--color--surface-contrast']);
+        }
+
+        if (!isset($tokens['button_primary_color_active']) || empty($tokens['button_primary_color_active'])) {
+            unset($tokens['component']['__general__']['button']['--c-button--color--primary']);
+            unset($tokens['component']['__general__']['button']['--c-button--color--primary-contrast']);
+        }
+
+        if (!isset($tokens['button_secondary_color_active']) || empty($tokens['button_secondary_color_active'])) {
+            unset($tokens['component']['__general__']['button']['--c-button--color--secondary']);
+            unset($tokens['component']['__general__']['button']['--c-button--color--secondary-contrast']);
+        }
+
         return $tokens;
     }
 }
