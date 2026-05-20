@@ -52,11 +52,6 @@ main .c-sidebar .c-sidebar__subcontainer--top {
     padding: 0;
 }
 
-.c-typography.module-title {
-    margin-bottom: tokens.getCalculatedValue("", "space", 3);
-    margin-top: tokens.getCalculatedValue("", "space", 3);
-}
-
 div:first-child>.module-title {
     margin-top: 0;
 }
