@@ -37,7 +37,6 @@ const entries = {
 	"js/designbuilder-preview":
 		"./library/Styleguide/Customize/js/designbuilderPreview.ts",
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
-	"js/chat": "./library/Chat/js/index.ts",
 
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
@@ -77,6 +76,9 @@ const entries = {
 		"./library/BackdropBanner/js/Front/backdrop-banner.scss",
 	"css/backdrop-banner-editor":
 		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
+
+	"js/chat": "./library/Chat/js/index.ts",
+	"css/chat": "./library/Chat/css/chat.scss",
 
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
