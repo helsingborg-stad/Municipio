@@ -1,10 +1,11 @@
 import Feedback from "./feedback";
+import FeedbackApi from "./feedbackApi";
 
 class FeedbackFactory implements FeedbackFactoryInterface {
     constructor(
         private chatInstance: any,
         private feedbackTemplate: HTMLTemplateElement|null,
-        private apiRoot: string
+        private feedbackApi: FeedbackApi
     ) {}
 
     public create(messageInstance: any): FeedbackInterface {
@@ -12,7 +13,7 @@ class FeedbackFactory implements FeedbackFactoryInterface {
         const like = feedbackFragment.querySelector("[data-js-chat-message-like-button]") as HTMLElement;
         const dislike = feedbackFragment.querySelector("[data-js-chat-message-dislike-button]") as HTMLElement;
 
-        const feedback = new Feedback(this.chatInstance, messageInstance, like, dislike, this.apiRoot);
+        const feedback = new Feedback(this.chatInstance, messageInstance, like, dislike, this.feedbackApi);
         messageInstance.getMessageContainer().appendChild(feedbackFragment);
         return feedback;
     }

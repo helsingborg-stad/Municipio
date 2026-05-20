@@ -4,6 +4,7 @@ import MarkdownIt from "markdown-it";
 import NewChatSessionButton from "./newChatSessionButton";
 import GreetingPhrase from "./greetingPhrase";
 import FeedbackFactory from "./feedbackFactory";
+import FeedbackApi from "./feedbackApi";
 
 document.addEventListener("chat:initialized", (e: any) => {
 	const chat = e.detail;
@@ -26,7 +27,8 @@ document.addEventListener("chat:initialized", (e: any) => {
 		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
 	};
 
-	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, wpApiSettings.root);
+	const feedbackApi = new FeedbackApi(wpApiSettings.root + 'municipio/v1/chat/stats');
+	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
 
 	chat.getMessages().forEach((message: any, index: number) => {
 		if (!message.getIsReply()) {
@@ -49,7 +51,7 @@ document.addEventListener("chat:initialized", (e: any) => {
 		chat,
 		markdownParser,
 		feedbackFactory,
-		wpApiSettings.root
+		feedbackApi
 	);
 
 	if (newChatButtonElement) {

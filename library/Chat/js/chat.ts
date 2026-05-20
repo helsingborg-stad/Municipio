@@ -1,4 +1,5 @@
 import MarkdownIt from "markdown-it";
+import FeedbackApi from "./feedbackApi";
 
 class Chat implements ChatInterface {
 	private session: ChatSession | null = null;
@@ -9,7 +10,7 @@ class Chat implements ChatInterface {
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
-		private readonly apiRoot: string
+		private readonly feedbackApi: FeedbackApi
 	) {}
 
 	public init(): void {
@@ -18,11 +19,7 @@ class Chat implements ChatInterface {
 	}
 
 	private postMessageStat(): void {
-		fetch(this.apiRoot + 'municipio/v1/chat/stats', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ type: 'message' }),
-		}).catch(() => {});
+		this.feedbackApi.postStat('message');
 	}
 
 	public createNewChatSession(assistantId: string | null): void {
