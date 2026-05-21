@@ -1,8 +1,10 @@
+@use "../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
+
 .c-logotype--emblem {
   position: absolute;
-  height: calc(var(--base) * 10);
-  bottom: calc(var(--space) * 3);
-  right: calc(var(--space) * 3);
+  height: tokens.getCalculatedValue("", "base", 10);
+  bottom: tokens.getCalculatedValue("", "space", 3);
+  right: tokens.getCalculatedValue("", "space", 3);
   text-align: right;
   z-index: 2;
 
@@ -10,7 +12,7 @@
 }
 
 .c-logotype--emblem-small {
-  height: calc(var(--base) * 5);
+  height: tokens.getCalculatedValue("", "base", 5);
 }
 
 @keyframes emblem-fade-in {
