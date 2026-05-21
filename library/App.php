@@ -374,6 +374,13 @@ class App
         ))->addHooks();
 
         /**
+         * Setup Kulturkortet Profile Editor
+         */
+        (new \Municipio\Kulturkortet\ProfileEditor\KulturkortetProfileEditorFeature(
+            $this->wpService,
+        ))->addHooks();
+
+        /**
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();

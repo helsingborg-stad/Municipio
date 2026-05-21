@@ -6,12 +6,14 @@ namespace Municipio\Kulturkortet\Vitec;
 
 use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpRemoteGet;
+use WpService\Contracts\WpRemotePost;
 use WpService\Contracts\WpRemoteRetrieveBody;
 
+// Vitec API: https://helsingborg.entryevent.se/kulturkortet/swagger/index.html
 class VitecService implements VitecServiceInterface
 {
     public function __construct(
-        private IsWpError&WpRemoteGet&WpRemoteRetrieveBody $wpService,
+        private IsWpError&WpRemoteGet&WpRemotePost&WpRemoteRetrieveBody $wpService,
         private VitecConfigInterface $config = new VitecConfig(),
     ) {}
 
@@ -67,5 +69,31 @@ class VitecService implements VitecServiceInterface
         //                 }
         //         ]
         // }
+    }
+
+    public function updateUserData(string $ssn, string $email): ?array
+    {
+        return $this->tryGetUserData($ssn);
+
+        // The API is fishy so we disable the logic for now
+        // $userData = $this->tryGetUserData($ssn);
+        // $ticket = $userData['tickets'][0] ?? null;
+        // if (!$ticket) {
+        //     return null;
+        // }
+        // $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . $ticket['id'] . '/update';
+        // $response = $this->wpService->wpRemotePost($url, [
+        //     'headers' => [
+        //         'Authorization' => 'Bearer ' . $this->config->getApiKey(),
+        //         'Content-Type' => 'application/json',
+        //     ],
+        //     // 'body' => ['email' => 'dennis.camitz2@helsingborg.se
+        //     'body' => json_encode(['email' => $email]),
+        // ]);
+        // if ($this->wpService->isWpError($response)) {
+        //     return null;
+        // }
+        // $body = $this->wpService->wpRemoteRetrieveBody($response);
+        // return json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
     }
 }
