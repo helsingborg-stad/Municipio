@@ -18,7 +18,8 @@
                 ],
                 'attributeList' => [
                     'role' => 'button',
-                    'data-js-chat-message-like-button' => true
+                    'data-js-chat-message-like-button' => true,
+                    'data-tooltip' => $lang['like']
                 ],
             ])
             @endicon
@@ -30,7 +31,8 @@
                 ],
                 'attributeList' => [
                     'role' => 'button',
-                    'data-js-chat-message-dislike-button' => true
+                    'data-js-chat-message-dislike-button' => true,
+                    'data-tooltip' => $lang['dislike']
                 ],
             ])
             @endicon

@@ -74,6 +74,8 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
             'send' => $this->wpService->__('Send', 'municipio'),
             'placeholder' => $this->wpService->__('Write your question here', 'municipio'),
             'newConversation' => $this->wpService->__('New conversation', 'municipio'),
+            'like' => $this->wpService->__('Like', 'municipio'),
+            'dislike' => $this->wpService->__('Dislike', 'municipio'),
         ];
     }
 
