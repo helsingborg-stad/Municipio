@@ -26,7 +26,7 @@
     ])
         @slot('titleArea')
             @element([
-                'classList' => ['o-layout-grid', 'o-layout-grid--cols-2', 'o-layout-grid--gap-2']
+                'classList' => ['u-display--flex', 'o-layout-grid--gap-2'],
             ])
                 @avatar([
                     'image' => $avatar['src'] ?? null,

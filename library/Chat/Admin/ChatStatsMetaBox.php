@@ -42,10 +42,6 @@ class ChatStatsMetaBox implements Hookable
 
     public function render(): void
     {
-        update_option(ChatStatsEndpoint::OPTION_MESSAGES, 0);
-        update_option(ChatStatsEndpoint::OPTION_LIKED, 0);
-        update_option(ChatStatsEndpoint::OPTION_DISLIKED, 0);
-
         $messages = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_MESSAGES, 0);
         $liked    = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_LIKED, 0);
         $disliked = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_DISLIKED, 0);
