@@ -15,7 +15,7 @@
                         <label for="mega-menu-search" class="u-sr__only">
                             {{ $lang->searchOn . " " . $siteName }}
                         </label>
-                        @group(['classList' => ['u-width--100']])
+                        @group(['normalizeChildren' => false, 'classList', 'fullWidth' => true])
                             @field([
                                 'id' => 'mega-menu-search',
                                 'type' => 'search',

@@ -86,3 +86,15 @@ body.mega-menu-open {
         overflow: hidden;
     }
 }
+
+.c-megamenu .c-group {
+    .c-field .c-field__inner {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .c-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
