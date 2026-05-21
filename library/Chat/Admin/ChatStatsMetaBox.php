@@ -8,11 +8,15 @@ use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddMetaBox;
 use WpService\Contracts\GetOption;
+use ComponentLibrary\Renderer\RendererInterface as BladeRenderInterface;
+
+
 
 class ChatStatsMetaBox implements Hookable
 {
     public function __construct(
         private __&AddAction&AddMetaBox&GetOption $wpService,
+        private BladeRenderInterface $renderer
     ) {}
 
     public function addHooks(): void
@@ -38,15 +42,42 @@ class ChatStatsMetaBox implements Hookable
 
     public function render(): void
     {
+        update_option(ChatStatsEndpoint::OPTION_MESSAGES, 0);
+        update_option(ChatStatsEndpoint::OPTION_LIKED, 0);
+        update_option(ChatStatsEndpoint::OPTION_DISLIKED, 0);
+
         $messages = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_MESSAGES, 0);
         $liked    = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_LIKED, 0);
         $disliked = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_DISLIKED, 0);
 
-        echo '<table class="widefat fixed striped">';
-        echo '<tbody>';
-        echo '<tr><td>' . esc_html($this->wpService->__('Total messages sent', 'municipio')) . '</td><td>' . esc_html((string) $messages) . '</td></tr>';
-        echo '<tr><td>' . esc_html($this->wpService->__('Total liked messages', 'municipio')) . '</td><td>' . esc_html((string) $liked) . '</td></tr>';
-        echo '<tr><td>' . esc_html($this->wpService->__('Total disliked messages', 'municipio')) . '</td><td>' . esc_html((string) $disliked) . '</td></tr>';
-        echo '</tbody></table>';
+        $total = $messages;
+        $neutral = $messages - ($liked + $disliked);
+        $likedPercent    = $total > 0 ? ($liked / $total) * 100 : 0;
+        $dislikedPercent = $total > 0 ? ($disliked / $total) * 100 : 0;
+        $neutralPercent  = $total > 0 ? ($neutral / $total) * 100 : 0;
+        $likedOffset = 0;
+        $dislikedOffset = -$likedPercent;
+        $neutralOffset = -($likedPercent + $dislikedPercent);
+
+        $lang = [
+            'totalMessages'    => $this->wpService->__('Total Messages', 'municipio'),
+            'likedMessages'    => $this->wpService->__('Liked', 'municipio'),
+            'dislikedMessages' => $this->wpService->__('Disliked', 'municipio'),
+            'neutralMessages'  => $this->wpService->__('Neutral', 'municipio'),
+        ];
+
+        echo $this->renderer->render('stats', [
+            'lang'            => $lang,
+            'messages'        => $messages,
+            'liked'           => $liked,
+            'disliked'        => $disliked,
+            'neutral'         => $neutral,
+            'neutralPercent'  => $neutralPercent,
+            'likedPercent'    => $likedPercent,
+            'dislikedPercent' => $dislikedPercent,
+            'neutralOffset'   => $neutralOffset,
+            'likedOffset'     => $likedOffset,
+            'dislikedOffset'  => $dislikedOffset,
+        ]);
     }
 }

@@ -56,7 +56,8 @@ class Feedback implements FeedbackInterface {
         if (liked === this.liked) {
             return;
         }
-
+        
+        const previousLiked = this.liked;
         this.liked = liked;
         const data = this.messageInstance.getData() ?? {};
         data.liked = this.liked;
@@ -66,8 +67,20 @@ class Feedback implements FeedbackInterface {
 
         if (liked === true) {
             this.feedbackApi.postStat('like');
+            if (previousLiked === false) {
+                this.feedbackApi.postStat('undislike');
+            }
         } else if (liked === false) {
             this.feedbackApi.postStat('dislike');
+            if (previousLiked === true) {
+                this.feedbackApi.postStat('unlike');
+            }
+        } else if (liked === null) {
+            if (previousLiked === true) {
+                this.feedbackApi.postStat('unlike');
+            } else if (previousLiked === false) {
+                this.feedbackApi.postStat('undislike');
+            }
         }
     }
 

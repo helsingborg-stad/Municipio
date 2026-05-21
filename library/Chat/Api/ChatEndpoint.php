@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Chat;
+namespace Municipio\Chat\Api;
 
 use AcfService\Contracts\GetField;
 use Municipio\Api\RestApiEndpoint;
@@ -14,7 +14,8 @@ class ChatEndpoint extends RestApiEndpoint
     public function __construct(
         private GetField $acfService,
         private PIIRedactorInterface $piiRedactor,
-    ) {}
+    ) {
+    }
 
     public function handleRegisterRestRoute(): bool
     {
