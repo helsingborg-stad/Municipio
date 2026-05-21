@@ -6,7 +6,9 @@ class FeedbackApi {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type }),
-        }).catch(() => {});
+        }).catch(() => {
+            console.error(`[FeedbackApi] Failed to post stat: ${type}`);
+        });
     }
 }
 

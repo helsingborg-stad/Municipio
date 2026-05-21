@@ -37,18 +37,21 @@ class ChatStatsEndpoint extends RestApiEndpoint
         $type = $request->get_param('type');
 
         $optionMap = [
-            'message' => self::OPTION_MESSAGES,
-            'like'    => self::OPTION_LIKED,
-            'dislike' => self::OPTION_DISLIKED,
+            'message'   => self::OPTION_MESSAGES,
+            'like'      => self::OPTION_LIKED,
+            'dislike'   => self::OPTION_DISLIKED,
+            'unlike'    => self::OPTION_LIKED,
+            'undislike' => self::OPTION_DISLIKED,
         ];
 
         if (!isset($optionMap[$type])) {
             return new \WP_Error('invalid_type', $this->wpService->__('Invalid stat type.', 'municipio'), ['status' => 400]);
         }
 
+        $delta   = in_array($type, ['unlike', 'undislike']) ? -1 : 1;
         $option  = $optionMap[$type];
         $current = (int) $this->wpService->getOption($option, 0);
-        $this->wpService->updateOption($option, $current + 1, false);
+        $this->wpService->updateOption($option, max(0, $current + $delta), false);
 
         return $this->wpService->restEnsureResponse(['success' => true]);
     }

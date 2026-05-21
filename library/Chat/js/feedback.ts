@@ -75,6 +75,12 @@ class Feedback implements FeedbackInterface {
             if (previousLiked === true) {
                 this.feedbackApi.postStat('unlike');
             }
+        } else if (liked === null) {
+            if (previousLiked === true) {
+                this.feedbackApi.postStat('unlike');
+            } else if (previousLiked === false) {
+                this.feedbackApi.postStat('undislike');
+            }
         }
     }
 
