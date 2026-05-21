@@ -34,10 +34,19 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
 
         $ticket = $vitecUser['tickets'][0] ?? null;
         if (!$ticket) {
-            return $this->renderWithModel('kulturkortet-no-vitec-user', ['model' => ['logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']), 'name' => $user->getName()]]);
+            return $this->renderWithModel('kulturkortet-qr-simple', [
+                'lang' => [
+                    'heading' => __('Du verkar inte ha ett giltigt kulturkort', 'municipio'),
+                    'content' => '',
+                    'url' => __('Logga ut', 'municipio'),
+                ],
+                'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
+                'name' => $user->getName(),
+            ]);
         }
 
         return $this->renderWithModel('kulturkortet-vitec-user', [
+            'lang' => [],
             'model' => [
                 'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
@@ -86,17 +95,38 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
 
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->renderWithModel('kulturkortet-anonymous', ['url' => $loginUrl]);
+        return $this->renderWithModel('kulturkortet-qr-simple', [
+            'lang' => [
+                'heading' => __('Logga in för att se ditt kulturkort', 'municipio'),
+                'content' => __('För att kunna se ditt kulturkort du logga in med BankId.', 'municipio'),
+                'url' => __('Logga in', 'municipio'),
+            ],
+            'url' => $loginUrl,
+        ]);
     }
 
     public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->renderWithModel('kulturkortet-logged-out', ['name' => $user->getName(), 'url' => $navigation->getHomeUrl()]);
+        return $this->renderWithModel('kulturkortet-qr-simple', [
+            'lang' => [
+                'heading' => __('Du har loggat ut', 'municipio'),
+                'content' => __('Du har loggat ut från ditt kulturkort.', 'municipio'),
+                'url' => __('Till startsidan', 'municipio'),
+            ],
+            'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
+        ]);
     }
 
     public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string
     {
-        return $this->renderWithModel('kulturkortet-error', ['error' => $error, 'url' => $navigation->getHomeUrl()]);
+        return $this->renderWithModel('kulturkortet-qr-simple', [
+            'lang' => [
+                'heading' => __('Ett fel uppstod', 'municipio'),
+                'content' => $error,
+                'url' => __('Till startsidan', 'municipio'),
+            ],
+            'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
+        ]);
     }
 
     private function renderWithModel(string $template, array $model): string
@@ -105,9 +135,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         $bladeRenderer = new BladeRenderer($bsf->create([self::getTemplateDir()]));
 
         return $bladeRenderer->render($template, [
-            'heading' => $this->attributes['heading'] ?? '',
-            'content' => $this->attributes['content'] ?? '',
-            'buttonText' => $this->attributes['buttonText'] ?? '',
+            'attributes' => $this->attributes,
             ...$model,
         ]);
     }

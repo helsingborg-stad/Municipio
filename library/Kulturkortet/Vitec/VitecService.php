@@ -88,7 +88,7 @@ class VitecService implements VitecServiceInterface
         //         'Content-Type' => 'application/json',
         //     ],
         //     // 'body' => ['email' => 'dennis.camitz2@helsingborg.se
-        //     'body' => json_encode(['email' => $email]),
+        //     'body' => json_encode(['email' => $email, 'civicRegistrationNumber' => $ticket['civicRegistrationNumber'] ?? '', 'firstname' => $ticket['firstname'] ?? '', 'lastname' => $ticket['lastname'] ?? '']),
         // ]);
         // if ($this->wpService->isWpError($response)) {
         //     return null;

@@ -9,7 +9,8 @@
                     ],
                     'heading' => $model['name'] ?? '',
                     'buttons' => [
-                            ['type' => 'filled', 'color' => 'primary', 'text' => 'Logga ut', 'href' => $model['logoutUrl']]
+                            ['type' => 'filled', 'color' => 'primary', 'text' => 'Logga ut', 'href' => $model['logoutUrl']],
+                            ...(empty($attributes['profileLinkLabel']) || empty($attributes['profileLink']) ? [] : [['type' => 'filled', 'color' => 'primary', 'text' => $attributes['profileLinkLabel'] ?? '', 'href' => $attributes['profileLink'] ?? '']])
                         ]
                 ])
                 @slot('subHeading')

@@ -64,20 +64,15 @@ class KulturkortetQRCodeViewerFeature implements Hookable
                     'autoRegister' => true,
                 ],
                 'attributes' => [
-                    'heading' => [
-                        'label' => __('Label', 'municipio'),
+                    'profileLinkLabel' => [
+                        'label' => __('Text på länk till profilsida', 'municipio'),
                         'type' => 'string',
-                        'default' => __('Du måste logga in för att fortsätta', 'municipio'),
+                        'default' => __('Visa min profil', 'municipio'),
                     ],
-                    'content' => [
-                        'label' => __('Content', 'municipio'),
+                    'profileLink' => [
+                        'label' => __('Länk till profilsida', 'municipio'),
                         'type' => 'string',
-                        'default' => __('För att kunna se din QR-kod måste du logga in med ditt personnummer', 'municipio'),
-                    ],
-                    'buttonText' => [
-                        'label' => __('ButtonText', 'municipio'),
-                        'type' => 'string',
-                        'default' => __('Logga in', 'municipio'),
+                        'default' => '',
                     ],
                 ],
             ],
