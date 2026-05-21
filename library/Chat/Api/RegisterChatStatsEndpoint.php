@@ -11,7 +11,8 @@ class RegisterChatStatsEndpoint implements Hookable
     public function __construct(
         private ChatStatsEndpoint $endpoint,
         private ChatConfigInterface $config,
-    ) {}
+    ) {
+    }
 
     public function addHooks(): void
     {

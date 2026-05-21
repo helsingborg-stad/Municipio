@@ -8,6 +8,7 @@ use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
 use Municipio\Chat\Admin\ChatAdminPage;
 use Municipio\Chat\Admin\ChatStatsMetaBox;
+use Municipio\Chat\Api\ChatEndpoint;
 use Municipio\Chat\Api\ChatStatsEndpoint;
 use Municipio\Chat\Api\RegisterChatEndpoint;
 use Municipio\Chat\Api\RegisterChatStatsEndpoint;
@@ -40,19 +41,21 @@ class ChatFeature
           $render = new ChatRender(
             $bladeRenderer,
         );
-            
         
-        $endpoint = new ChatEndpoint(
-            $this->acfService,
-            (new PIIRedactorFactory())->create(),
-        );
-            
+        (new RegisterChatEndpoint(
+            new ChatEndpoint($this->acfService, (new PIIRedactorFactory())->create()),
+            $config,
+        ))->addHooks();
+
+        (new RegisterChatStatsEndpoint(
+            new ChatStatsEndpoint($this->wpService),
+            $config,
+        ))->addHooks();
+
         (new ChatBlock($this->wpService, $config, $render))->addHooks();
         (new ChatAdminPage($this->wpService, $this->acfService))->addHooks();
-        (new ChatStatsMetaBox($this->wpService))->addHooks();
+        (new ChatStatsMetaBox($this->wpService, $bladeRenderer))->addHooks();
         (new ChatEnqueue($this->wpService, $this->enqueue, $config))->addHooks();
         (new ChatBubble($this->wpService, $config, $render))->addHooks();
-        (new RegisterChatEndpoint($endpoint, $config))->addHooks();
-        (new RegisterChatStatsEndpoint(new ChatStatsEndpoint($this->wpService), $config))->addHooks();
     }
 }
