@@ -3,7 +3,6 @@
 namespace Municipio\Chat\Admin;
 
 use Municipio\Chat\Api\ChatStatsEndpoint;
-use Municipio\Chat\Render\ChatRenderInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
@@ -43,13 +42,13 @@ class ChatStatsMetaBox implements Hookable
 
     public function render(): void
     {
-        // $messages = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_MESSAGES, 0);
-        // $liked    = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_LIKED, 0);
-        // $disliked = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_DISLIKED, 0);
+        update_option(ChatStatsEndpoint::OPTION_MESSAGES, 0);
+        update_option(ChatStatsEndpoint::OPTION_LIKED, 0);
+        update_option(ChatStatsEndpoint::OPTION_DISLIKED, 0);
 
-        $messages = 2222;
-        $liked    = 333;
-        $disliked = 111;
+        $messages = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_MESSAGES, 0);
+        $liked    = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_LIKED, 0);
+        $disliked = (int) $this->wpService->getOption(ChatStatsEndpoint::OPTION_DISLIKED, 0);
 
         $total = $messages;
         $neutral = $messages - ($liked + $disliked);
@@ -61,22 +60,24 @@ class ChatStatsMetaBox implements Hookable
         $neutralOffset = -($likedPercent + $dislikedPercent);
 
         $lang = [
-            'totalMessages' => $this->wpService->__('Total Messages', 'municipio'),
-            'liked' => $this->wpService->__('Liked', 'municipio'),
-            'disliked' => $this->wpService->__('Disliked', 'municipio'),
+            'totalMessages'    => $this->wpService->__('Total Messages', 'municipio'),
+            'likedMessages'    => $this->wpService->__('Liked', 'municipio'),
+            'dislikedMessages' => $this->wpService->__('Disliked', 'municipio'),
+            'neutralMessages'  => $this->wpService->__('Neutral', 'municipio'),
         ];
 
         echo $this->renderer->render('stats', [
-            'lang' => $lang,
-            'messages' => $messages,
-            'liked' => $liked,
-            'disliked' => $disliked,
-            'neutralPercent' => $neutralPercent,
-            'likedPercent' => $likedPercent,
+            'lang'            => $lang,
+            'messages'        => $messages,
+            'liked'           => $liked,
+            'disliked'        => $disliked,
+            'neutral'         => $neutral,
+            'neutralPercent'  => $neutralPercent,
+            'likedPercent'    => $likedPercent,
             'dislikedPercent' => $dislikedPercent,
-            'neutralOffset' => $neutralOffset,
-            'likedOffset' => $likedOffset,
-            'dislikedOffset' => $dislikedOffset,
+            'neutralOffset'   => $neutralOffset,
+            'likedOffset'     => $likedOffset,
+            'dislikedOffset'  => $dislikedOffset,
         ]);
     }
 }

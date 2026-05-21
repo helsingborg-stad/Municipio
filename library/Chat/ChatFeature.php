@@ -6,7 +6,6 @@ use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
-use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Chat\Admin\ChatAdminPage;
 use Municipio\Chat\Admin\ChatStatsMetaBox;
 use Municipio\Chat\Api\ChatEndpoint;
