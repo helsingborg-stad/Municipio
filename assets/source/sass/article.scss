@@ -1,4 +1,7 @@
 .c-article {
+    h1:first-child {
+        --inherit-margin-top: -0.25em;
+    }
     p {
         max-width: 904px;
     }

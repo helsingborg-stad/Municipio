@@ -14,8 +14,14 @@
     @section('article.title.before')@show
     @section('article.title')
         @if ((is_object($post) && method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) || isset($callToActionItems['floating']))
-            @group([
-                'justifyContent' => 'space-between'
+            @element([
+                'componentElement' => 'div',
+                'classList' => [
+                    'c-article__header',
+                    'u-display--flex',
+                    'u-align-items--center',
+                    'u-justify-content--space-between',
+                ]
             ])
                 @if ((method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title))
                     @typography([
@@ -32,7 +38,7 @@
                         @endicon
                     @endelement
                 @endif
-            @endgroup
+            @endelement
         @endif
     @show
     @section('article.title.after')@show
