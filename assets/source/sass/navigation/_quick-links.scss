@@ -22,15 +22,18 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
         justify-content: space-evenly;
         gap: calc(var(--base) * $c-quicklinks-gap);
 
-        .c-nav__link {
-
-            &:hover {
+        .c-nav__item-wrapper:hover {
+            .c-nav__link {
                 .c-nav__text {
                     text-decoration: underline;
                 }
                 
                 .c-nav__icon {
                     outline: unset;
+                }
+
+                &::after {
+                    display: none;
                 }
             }
         }
