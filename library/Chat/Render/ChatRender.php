@@ -13,7 +13,7 @@ class ChatRender implements ChatRenderInterface
     public function render(ChatRenderConfigInterface $renderConfig): string
     {;
         $assistant = $renderConfig->getAssistant();
-        
+
         if (empty($assistant)) {
             return '';
         }
