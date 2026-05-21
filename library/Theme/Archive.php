@@ -106,11 +106,11 @@ class Archive
 
         $inMenu = false;
         foreach ((array) get_field('avabile_dynamic_post_types', 'options') as $type) {
-            if ($type['slug'] !== $query->post_type) {
+            if (isset($type['slug']) && $type['slug'] !== $query->post_type) {
                 continue;
             }
 
-            if (!$type['show_posts_in_sidebar_menu']) {
+            if (isset($type['show_posts_in_sidebar_menu']) && !$type['show_posts_in_sidebar_menu']) {
                 return;
             }
         }
