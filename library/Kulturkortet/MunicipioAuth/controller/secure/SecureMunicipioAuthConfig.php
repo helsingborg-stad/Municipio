@@ -20,7 +20,7 @@ class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
 
     public function expires(): int
     {
-        return 20 * 60; // 20 min
+        return defined('SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT') ? SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT : 20 * 60; // 20 min
     }
 
     public function getJWTKey(): string

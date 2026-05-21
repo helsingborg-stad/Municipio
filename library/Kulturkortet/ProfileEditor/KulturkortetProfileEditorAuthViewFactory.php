@@ -116,6 +116,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
         $bladeRenderer = new BladeRenderer($bsf->create([self::getTemplateDir()]));
 
         return $bladeRenderer->render($template, [
+            'attributes' => $this->attributes,
             ...$model,
         ]);
     }

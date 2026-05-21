@@ -87,7 +87,6 @@ class VitecService implements VitecServiceInterface
         //         'Authorization' => 'Bearer ' . $this->config->getApiKey(),
         //         'Content-Type' => 'application/json',
         //     ],
-        //     // 'body' => ['email' => 'dennis.camitz2@helsingborg.se
         //     'body' => json_encode(['email' => $email, 'civicRegistrationNumber' => $ticket['civicRegistrationNumber'] ?? '', 'firstname' => $ticket['firstname'] ?? '', 'lastname' => $ticket['lastname'] ?? '']),
         // ]);
         // if ($this->wpService->isWpError($response)) {
