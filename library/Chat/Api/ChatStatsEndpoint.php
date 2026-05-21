@@ -20,7 +20,8 @@ class ChatStatsEndpoint extends RestApiEndpoint
 
     public function __construct(
         private GetOption&UpdateOption&RegisterRestRoute&RestEnsureResponse&__ $wpService,
-    ) {}
+    ) {
+    }
 
     public function handleRegisterRestRoute(): bool
     {

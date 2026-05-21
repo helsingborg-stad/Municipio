@@ -27,7 +27,8 @@ document.addEventListener("chat:initialized", (e: any) => {
 		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
 	};
 
-	const feedbackApi = new FeedbackApi(wpApiSettings.root + 'municipio/v1/chat/stats');
+	const feedbackApi = new FeedbackApi(wpApiSettings.root);
+	console.log("[Chat] Initialized with API:", feedbackApi);
 	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
 
 	chat.getMessages().forEach((message: any, index: number) => {

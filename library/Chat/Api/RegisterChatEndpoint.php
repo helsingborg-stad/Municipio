@@ -3,7 +3,7 @@
 namespace Municipio\Chat\Api;
 
 use Municipio\Api\RestApiEndpointsRegistry;
-use Municipio\Chat\ChatEndpoint;
+use Municipio\Chat\Api\ChatEndpoint;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\HooksRegistrar\Hookable;
 
