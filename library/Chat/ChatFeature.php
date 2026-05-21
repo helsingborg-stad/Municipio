@@ -55,7 +55,7 @@ class ChatFeature
 
         (new ChatBlock($this->wpService, $config, $render))->addHooks();
         (new ChatAdminPage($this->wpService, $this->acfService))->addHooks();
-        (new ChatStatsMetaBox($this->wpService))->addHooks();
+        (new ChatStatsMetaBox($this->wpService, $bladeRenderer))->addHooks();
         (new ChatEnqueue($this->wpService, $this->enqueue, $config))->addHooks();
         (new ChatBubble($this->wpService, $config, $render))->addHooks();
     }
