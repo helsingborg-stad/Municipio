@@ -65,7 +65,7 @@
         "@wordpress/server-side-render": "^6.12.0",
         "autoprefixer": "^10.4.20",
         "babel-jest": "^30.0.5",
-        "body-parser": "^1.19.1",
+        "body-parser": "^1.20.5",
         "dotenv": "^16.0.0",
         "eslint-config-hbg": "^0.1.1",
         "instant.page": "^5.2.0",
