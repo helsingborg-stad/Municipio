@@ -9,7 +9,6 @@ use Municipio\Kulturkortet\MunicipioAuth\controller\secure\CookieStrategyInterfa
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\JWTStrategyInterface;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthConfigInterface;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthController;
-use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
@@ -55,7 +54,7 @@ class SecureMunicipioAuthControllerTest extends TestCase
     }
 
     #[TestDox('should render inner controller view when no user is authenticated')]
-    public function testRenderAnonymous()
+    public function testRenderAnonymous(): void
     {
         // we are called with no intended action
         $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
@@ -80,31 +79,102 @@ class SecureMunicipioAuthControllerTest extends TestCase
         static::assertSame('inner controller rendering', $result);
     }
 
+    #[TestDox('should render logout view for a valid authenticated user')]
     public function testRenderLogout(): void
     {
-        $user = $this->createMock(MunicipioAuthenticatedUserInterface::class);
+        $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
+        $navigation->expects(static::once())->method('getQueryParameter')->with('action')->willReturn('logout');
 
-        $navigation = new MunicipioAuthNavigation('https://www.example.com/home/?foo=bar&action=logout');
-        $user = $this->createMock(MunicipioAuthenticatedUserInterface::class);
         $config = $this->createMock(SecureMunicipioAuthConfigInterface::class);
 
         $inner = $this->createMock(MunicipioAuthControllerInterface::class);
-        $inner->expects(static::once())->method('validateUser')->with($user)->willReturn($user);
-        $inner->expects(static::once())->method('tryLogoutUser')->with($user);
+        $inner
+            ->expects(static::exactly(2))
+            ->method('validateUser')
+            ->with($this->isInstanceOf(MunicipioAuthenticatedUserInterface::class))
+            ->willReturnCallback(fn($user) => $user);
+        $inner->expects(static::once())->method('tryLogoutUser')->with($this->isInstanceOf(MunicipioAuthenticatedUserInterface::class));
 
         $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
-        $viewFactory->expects(static::once())->method('whenLogOut')->with($user, $navigation)->willReturn('logged out view');
+        $viewFactory->expects(static::once())->method('whenLogOut')->with($this->isInstanceOf(MunicipioAuthenticatedUserInterface::class), $navigation)->willReturn('logged out view');
 
         $cookieStrategy = $this->createMock(CookieStrategyInterface::class);
         $cookieStrategy->expects(static::once())->method('getCookie')->with($config)->willReturn('cookie value');
+        $cookieStrategy->expects(static::once())->method('setCookie')->with('', $config);
 
         $jwtStrategy = $this->createMock(JWTStrategyInterface::class);
-        $jwtStrategy->expects(static::once())->method('tryDecode')->with('cookie value')->willReturn($user);
+        $jwtStrategy
+            ->expects(static::once())
+            ->method('tryDecode')
+            ->with('cookie value', $config)
+            ->willReturn([
+                'x-sid' => '00000000-0000-0000-0000-000000000000',
+                'sub' => '19700101-0000',
+                'x-cn' => 'Test Person',
+                'x-gn' => 'Person',
+                'x-sn' => 'Test',
+            ]);
 
-        $controller = new SecureMunicipioAuthController($inner, $config, $cookieStrategy);
+        $controller = new SecureMunicipioAuthController($inner, $config, $cookieStrategy, $jwtStrategy);
 
         // we just want to make sure this doesn't throw an error when no user is authenticated, the inner controller should handle this case and render the appropriate view
         $result = $controller->render($viewFactory, $navigation);
         static::assertSame('logged out view', $result);
+    }
+
+    #[TestDox('should render error view when cookie retrieval fails')]
+    public function testRenderReturnsErrorWhenCookieRetrievalFails(): void
+    {
+        $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
+
+        $config = $this->createMock(SecureMunicipioAuthConfigInterface::class);
+
+        $inner = $this->createMock(MunicipioAuthControllerInterface::class);
+        $inner->expects(static::never())->method('render');
+
+        $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
+        $viewFactory->expects(static::once())->method('whenError')->with('cookie exception', $navigation)->willReturn('error view');
+
+        $cookieStrategy = $this->createMock(CookieStrategyInterface::class);
+        $cookieStrategy
+            ->expects(static::once())
+            ->method('getCookie')
+            ->with($config)
+            ->willThrowException(new \RuntimeException('cookie exception'));
+
+        $controller = new SecureMunicipioAuthController($inner, $config, $cookieStrategy);
+
+        $result = $controller->render($viewFactory, $navigation);
+
+        static::assertSame('error view', $result);
+    }
+
+    #[TestDox('should render error view when inner controller render fails')]
+    public function testRenderReturnsErrorWhenInnerRenderFails(): void
+    {
+        $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
+        $navigation->expects(static::once())->method('getQueryParameter')->with('action')->willReturn(null);
+
+        $config = $this->createMock(SecureMunicipioAuthConfigInterface::class);
+
+        $inner = $this->createMock(MunicipioAuthControllerInterface::class);
+        $inner->expects(static::once())->method('validateUser')->with(null)->willReturn(null);
+        $inner
+            ->expects(static::once())
+            ->method('render')
+            ->with($this->anything(), $navigation)
+            ->willThrowException(new \RuntimeException('inner render failed'));
+
+        $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
+        $viewFactory->expects(static::once())->method('whenError')->with('inner render failed', $navigation)->willReturn('error view');
+
+        $cookieStrategy = $this->createMock(CookieStrategyInterface::class);
+        $cookieStrategy->expects(static::once())->method('getCookie')->with($config)->willReturn(null);
+
+        $controller = new SecureMunicipioAuthController($inner, $config, $cookieStrategy);
+
+        $result = $controller->render($viewFactory, $navigation);
+
+        static::assertSame('error view', $result);
     }
 }
