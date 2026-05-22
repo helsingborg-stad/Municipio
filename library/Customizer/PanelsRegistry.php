@@ -329,6 +329,12 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_divider')
+                    ->setTitle(esc_html__('Divider', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Divider('municipio_customizer_section_divider')),
+            )
+            ->addSection(
+                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_hero')
                     ->setTitle(esc_html__('Hero', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Hero('municipio_customizer_section_hero')),
