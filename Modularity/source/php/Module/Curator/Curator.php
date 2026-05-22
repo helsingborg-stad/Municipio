@@ -180,6 +180,7 @@ class Curator extends \Modularity\Module
 
                 // Format date
                 $post->formatted_date = date_i18n('j M. Y', strtotime($post->source_created_at));
+                $post->raw_date = strtotime($post->source_created_at);
 
                 // Set title
                 if (!empty($post->data) && empty($post->title)) {
