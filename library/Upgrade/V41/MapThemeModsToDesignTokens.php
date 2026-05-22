@@ -29,7 +29,7 @@ class MapThemeModsToDesignTokens
         'header_logotype_height' => 'component.__general__.header.--c-header--logotype-height-multiplier',
         'header_brand-color' => 'token.--c-header--brand-color',
         'border_width_outline' => 'token.--border-width',
-        'field_border_radius' => 'component.__general__.field.--c-field--border-radius',
+        'field_border_radius' => ['component.__general__.field.--c-field--border-radius'],
         'field_custom_colors.background' => 'component.__general__.field.--c-field--color--surface-alt',
         'field_custom_colors.border-color' => 'component.__general__.field.--c-field--color--surface-border',
         'quicklinks_custom_colors.text-color' => 'component.scope:s-quicklinks-header.header.--c-header--color',
@@ -48,6 +48,8 @@ class MapThemeModsToDesignTokens
         'button_primary_color_active' => 'button_primary_color_active', // Only for handling in decorator, will be removed from tokens after decoration
         'color_button_primary.base' => 'component.__general__.button.--c-button--color--primary',
         'color_button_primary.contrasting' => 'component.__general__.button.--c-button--color--primary-contrast',
+
+        'button_shape' => 'button_shape',
 
         'header_brand_font_settings.font-size' => 'component.__general__.brand.--c-brand--font-size-multiplier',
         'header_brand_color' => 'component.__general__.brand.--c-brand--color--primary',

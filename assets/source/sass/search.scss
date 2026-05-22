@@ -34,28 +34,24 @@
     }
 
     #hero-search-form__wrapper {
-      padding: 0 1.5rem;
+      
 
       .c-field__inner {
-        border:none;
+        // border:none;
       }
 
       #hero-search-form__field {
-        flex: 0 1 80%;
-        min-width: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
 
         label {
           display: none;
-        }
-
-        #input_hero-search-form__field {
-          min-width: 0;
-        }
+        }        
       }
 
       #hero-search-form__submit {
-        flex: 0 1 20%;
-        padding: unset;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
       }
     }
 

@@ -66,6 +66,11 @@ class DecorateDesignTokens
             $tokens['component']['__general__']['brand']['--c-brand--font-size-multiplier'] = $multiplier;
         }
 
+        if (isset($tokens['button_shape']) && $tokens['button_shape'] === 'pill') {
+            unset($tokens['button_shape']);
+            $tokens['component']['__general__']['button']['--c-button--border-radius'] = 4;
+        }
+
         return $tokens;
     }
 }

@@ -7,6 +7,8 @@
     ])
     @group([
         'id' => 'hero-search-form__wrapper',
+        'normalizeChildren' => false,
+        'fullWidth' => true,
     ])
         @field([
             'id' => 'hero-search-form__field',
@@ -16,7 +18,6 @@
             'label' => $lang->searchOn . " " . $siteName,
             'placeholder' => $lang->searchOn . " " . $siteName,
             'size' => 'lg',
-            'radius' => 'xs',
             'icon' => [
                 'icon' => 'search', 
                 'classList' => ['u-display--none@xs', 'c-field__icon']

@@ -269,12 +269,6 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_component_button')
-                    ->setTitle(esc_html__('Buttons', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Button('municipio_customizer_section_component_button')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_component_card')
                     ->setTitle(esc_html__('Cards', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Card('municipio_customizer_section_component_card')),
