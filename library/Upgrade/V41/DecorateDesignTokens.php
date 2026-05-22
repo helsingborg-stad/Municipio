@@ -61,6 +61,11 @@ class DecorateDesignTokens
             unset($tokens['component']['__general__']['button']['--c-button--color--secondary-contrast']);
         }
 
+        if (isset($tokens['component']['__general__']['brand']['--c-brand--font-size-multiplier']) && !empty($tokens['component']['__general__']['brand']['--c-brand--font-size-multiplier'])) {
+            $multiplier = (float) $tokens['component']['__general__']['brand']['--c-brand--font-size-multiplier'] / 2.1;
+            $tokens['component']['__general__']['brand']['--c-brand--font-size-multiplier'] = $multiplier;
+        }
+
         return $tokens;
     }
 }

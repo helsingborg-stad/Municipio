@@ -49,7 +49,8 @@ class MapThemeModsToDesignTokens
         'color_button_primary.base' => 'component.__general__.button.--c-button--color--primary',
         'color_button_primary.contrasting' => 'component.__general__.button.--c-button--color--primary-contrast',
 
-        'header_brand_font_settings.font-size' => 'component.__general__.header.--c-brand-font-size',
+        'header_brand_font_settings.font-size' => 'component.__general__.brand.--c-brand--font-size-multiplier',
+        'header_brand_color' => 'component.__general__.brand.--c-brand--color--primary',
         'organism_grid_gap' => 'token.--outer-space',
         'nav_h_color_primary.contrasting' => 'component.__general__.header.--c-header--color',
         'nav_v_color_drawer.contrasting' => 'component.scope:s-drawer.header.--c-nav--color--surface-contrast',
