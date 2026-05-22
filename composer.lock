@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f11a19844b79a7c4043bc06c256afd50",
+    "content-hash": "ca9cb68436edb5c76e8b559e1de11e1b",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.21.7",
+            "version": "5.21.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "aec23e57e8c81a9498cc61be8a3041f8445e6a85"
+                "reference": "f85c5a54b18ea0ff340d81cfdc96b5b31ec62509"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/aec23e57e8c81a9498cc61be8a3041f8445e6a85",
-                "reference": "aec23e57e8c81a9498cc61be8a3041f8445e6a85",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f85c5a54b18ea0ff340d81cfdc96b5b31ec62509",
+                "reference": "f85c5a54b18ea0ff340d81cfdc96b5b31ec62509",
                 "shasum": ""
             },
             "require": {
@@ -1065,9 +1065,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.7"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.8"
             },
-            "time": "2026-05-21T08:25:20+00:00"
+            "time": "2026-05-21T12:43:48+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.246.27",
+            "version": "2.253.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "c6a224eb14fd6c4ceba6c2afb18ee5047e9cea67"
+                "reference": "c1b20d8b2b705dfffde7ac626788a2c52b37c888"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/c6a224eb14fd6c4ceba6c2afb18ee5047e9cea67",
-                "reference": "c6a224eb14fd6c4ceba6c2afb18ee5047e9cea67",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/c1b20d8b2b705dfffde7ac626788a2c52b37c888",
+                "reference": "c1b20d8b2b705dfffde7ac626788a2c52b37c888",
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.246.27"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.253.5"
             },
-            "time": "2026-05-21T12:07:21+00:00"
+            "time": "2026-05-22T12:31:46+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -4525,16 +4525,16 @@
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.9.1",
+            "version": "v6.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "f12220f303e0d7c0844c0e5e957b0c3cee48d2f7"
+                "reference": "90a9412826b9944f93b10bf41d795b5fe68abcd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/f12220f303e0d7c0844c0e5e957b0c3cee48d2f7",
-                "reference": "f12220f303e0d7c0844c0e5e957b0c3cee48d2f7",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/90a9412826b9944f93b10bf41d795b5fe68abcd5",
+                "reference": "90a9412826b9944f93b10bf41d795b5fe68abcd5",
                 "shasum": ""
             },
             "conflict": {
@@ -4544,7 +4544,7 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
                 "nikic/php-parser": "^5.5",
                 "php": "^7.4 || ^8.0",
-                "php-stubs/generator": "^0.8.3",
+                "php-stubs/generator": "^0.8.6",
                 "phpdocumentor/reflection-docblock": "^6.0",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^9.5",
@@ -4571,9 +4571,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.9.1"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.9.4"
             },
-            "time": "2026-02-03T19:29:21+00:00"
+            "time": "2026-05-01T20:36:01+00:00"
         },
         {
             "name": "phpcsstandards/phpcsextra",
@@ -7380,11 +7380,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "enshrined/svg-sanitize": 20,
-        "jeradin/acf-dynamic-table-field": 20,
-        "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
+        "clark-nikdel-powell/post-type-select-for-acf": 20,
+        "jeradin/acf-website-field": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7393,6 +7393,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
