@@ -16,7 +16,8 @@ class MigrateCustomCss
         '--color--primary-light' => '--color--primary',
         'height: calc(var(--c-header--logotype-height, 6) * var(--base, 8px));' => 'height: var(--c-header--logotype-height);',
         'width: calc(var(--c-header--logotype-height, 6) * var(--base, 8px));' => 'width: var(--c-header--logotype-height);',
-        ".c-tags .c-tags__tag, .c-nav__button {\r\nbackground: #ffffff;" => ".c-tags .c-tags__tag, .c-nav__button {\r\n", // rsnv
+        ".c-tags .c-tags__tag, .c-nav__button {\r\nbackground: #ffffff;" => ".c-tags .c-tags__tag, .c-nav__button {\r\n", // rsnv,
+        '--c-datebadge-color-background' => '--c-datebadge--bg',
     ];
 
     public function migrate(string $css, array $replacementMap = self::REPLACEMENT_MAP): string
