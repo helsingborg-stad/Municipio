@@ -38,7 +38,9 @@ export class ChatSession {
 		throw new Error(this.parseErrorMessage(body));
 	}
 
-	private async *consumeSseStream(response: Response): AsyncGenerator<ChatEvent> {
+	private async *consumeSseStream(
+		response: Response,
+	): AsyncGenerator<ChatEvent> {
 		if (!response.body) throw new Error("Response has no body");
 
 		const reader = response.body.getReader();
@@ -106,7 +108,11 @@ export class ChatSession {
 				return { eventType, accumulatedText, event: null };
 			case "text":
 				accumulatedText += data.answer;
-				return { eventType, accumulatedText, event: { type: "text", content: accumulatedText } };
+				return {
+					eventType,
+					accumulatedText,
+					event: { type: "text", content: accumulatedText },
+				};
 			case "tool_call":
 				return { eventType, accumulatedText, event: { type: "tool_call" } };
 			case "error":

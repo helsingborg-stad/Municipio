@@ -9,6 +9,7 @@ use Modularity\Module\Posts\Helper\GetPosts\GetPostsInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostsResult;
 use Modularity\Module\Posts\Helper\GetPosts\PostsResultInterface;
 use Modularity\Module\Posts\Helper\GetPosts\PostTypesFromSchemaType\PostTypesFromSchemaTypeResolverInterface;
+use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetPermalink;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetTheID;
@@ -17,11 +18,13 @@ use WpService\Contracts\IsUserLoggedIn;
 
 class GetPosts implements GetPostsInterface
 {
+    private const GET_POSTS_ARGS_FILTER = 'Modularity/Module/Posts/GetPosts/Args';
+
     public function __construct(
         private array $fields,
         private int $page,
-        private \Municipio\StickyPost\Helper\GetStickyOption|null $getStickyOption,
-        private IsUserLoggedIn&GetPermalink&GetPostType&IsArchive&GetTheID $wpService,
+        private ?\Municipio\StickyPost\Helper\GetStickyOption $getStickyOption,
+        private IsUserLoggedIn&GetPermalink&GetPostType&IsArchive&GetTheID&ApplyFilters $wpService,
         private WpQueryFactoryInterface $wpQueryFactory,
         private PostTypesFromSchemaTypeResolverInterface $postTypesFromSchemaTypeResolver,
     ) {}
@@ -66,13 +69,7 @@ class GetPosts implements GetPostsInterface
      */
     private function getStickyPostsForSite(array $fields, int $page, array $stickyPostIds): array
     {
-        if (
-            empty($stickyPostIds)
-            || empty($fields['posts_data_source'])
-            || $fields['posts_data_source'] !== 'posttype'
-            || empty($fields['posts_data_post_type'])
-            || $page !== 1
-        ) {
+        if (empty($stickyPostIds) || empty($fields['posts_data_source']) || $fields['posts_data_source'] !== 'posttype' || empty($fields['posts_data_post_type']) || $page !== 1) {
             return [];
         }
 
@@ -103,7 +100,7 @@ class GetPosts implements GetPostsInterface
     private function getStickyPostIds(array $fields, int $page): array
     {
         $stickyPosts = [];
-        if (is_null($this->getStickyOption) || !empty($fields['posts_data_post_type'])) {
+        if (!is_null($this->getStickyOption) && !empty($fields['posts_data_post_type'])) {
             $stickyPosts = $this->getStickyOption->getOption($fields['posts_data_post_type']);
         }
 
@@ -113,7 +110,7 @@ class GetPosts implements GetPostsInterface
     /**
      * Get post args
      */
-    private function getPostArgs(array $fields, int $page, array $stickyPostIds = [])
+    public function getPostArgs(array $fields, int $page, array $stickyPostIds = [])
     {
         $metaQuery = false;
         $orderby = !empty($fields['posts_sort_by']) ? $fields['posts_sort_by'] : 'date';
@@ -153,11 +150,7 @@ class GetPosts implements GetPostsInterface
         }
 
         // Taxonomy filter
-        if (
-            isset($fields['posts_taxonomy_filter'])
-            && $fields['posts_taxonomy_filter'] === true
-            && !empty($fields['posts_taxonomy_type'])
-        ) {
+        if (isset($fields['posts_taxonomy_filter']) && $fields['posts_taxonomy_filter'] === true && !empty($fields['posts_taxonomy_type'])) {
             $taxType = $fields['posts_taxonomy_type'];
             $taxValues = (array) $fields['posts_taxonomy_value'];
 
@@ -226,7 +219,54 @@ class GetPosts implements GetPostsInterface
         // Apply pagination
         $getPostsArgs['paged'] = $page;
 
+        // Exclude current post if needed
+        $getPostsArgs = $this->excludeCurrentPostFromArgs($getPostsArgs);
+
+        // Allow integrations to adjust query arguments for the Posts module.
+        $filteredGetPostsArgs = $this->wpService->applyFilters(
+            self::GET_POSTS_ARGS_FILTER,
+            $getPostsArgs,
+            $fields,
+            $page,
+            $stickyPostIds,
+        );
+
+        if (is_array($filteredGetPostsArgs)) {
+            return $filteredGetPostsArgs;
+        }
+
         return $getPostsArgs;
+    }
+
+    /**
+     * Exclude current post from args
+     * Prevents possible loops by ensuring the current post is not included in the query args.
+     *
+     * @param array $postArgs The original query args.
+     * @return array The modified query args with the current post excluded.
+     */
+    private function excludeCurrentPostFromArgs(array $postArgs): array
+    {
+        $currentPostId = $this->getCurrentPostID();
+
+        if ($currentPostId === false) {
+            return $postArgs;
+        }
+
+        if (isset($postArgs['post__in']) && is_array($postArgs['post__in'])) {
+            $postArgs['post__in'] = $this->removeIdFromArray($postArgs['post__in'], $currentPostId);
+        }
+
+        if (isset($postArgs['post__not_in']) && is_array($postArgs['post__not_in'])) {
+            $postArgs['post__not_in'] = $this->removeIdFromArray($postArgs['post__not_in'], $currentPostId);
+        }
+
+        return $postArgs;
+    }
+
+    private function removeIdFromArray(array $ids, int $idToRemove): array
+    {
+        return array_filter($ids, static fn($id) => $id !== $idToRemove);
     }
 
     /**
@@ -248,7 +288,7 @@ class GetPosts implements GetPostsInterface
     private function getPostsPerPage(array $fields): int
     {
         if (isset($fields['posts_count']) && is_numeric($fields['posts_count'])) {
-            return $fields['posts_count'] == -1 || $fields['posts_count'] > 100 ? 100 : (int)$fields['posts_count'];
+            return $fields['posts_count'] == -1 || $fields['posts_count'] > 100 ? 100 : (int) $fields['posts_count'];
         }
 
         return 10;
@@ -276,13 +316,9 @@ class GetPosts implements GetPostsInterface
     public function sortPosts(array $posts, string $orderby = 'date', string $order = 'desc'): array
     {
         usort($posts, static fn($a, $b) => match ($orderby) {
-            'date' => strtotime($a->post_date) > strtotime($b->post_date)
-                ? ($order == 'asc' ? 1 : -1)
-                : ($order == 'asc' ? -1 : 1),
+            'date' => strtotime($a->post_date) > strtotime($b->post_date) ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
             'title' => $a->post_title > $b->post_title ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
-            'modified' => strtotime($a->post_modified) > strtotime($b->post_modified)
-                ? ($order == 'asc' ? 1 : -1)
-                : ($order == 'asc' ? -1 : 1),
+            'modified' => strtotime($a->post_modified) > strtotime($b->post_modified) ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
             'menu_order' => $a->menu_order > $b->menu_order ? ($order == 'asc' ? 1 : -1) : ($order == 'asc' ? -1 : 1),
             'rand' => rand(-1, 1),
             default => 0,

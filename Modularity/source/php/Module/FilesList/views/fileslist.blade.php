@@ -1,5 +1,6 @@
-@element([
-    'classList'     => $filterAboveCard ? ['has-filter-outside-card'] : [],
+@group([
+    'classList'     => $filterAboveCard ? ['has-filter-outside-card', 'u-width--100'] : ['u-width--100'],
+    'direction'     => 'vertical',
     'attributeList' => [
         'js-filter-container' => $uID
     ]

@@ -42,7 +42,7 @@ class ResolveNavigationCacheKey implements Hookable
      */
     public function appendCurrentLanguage(string $key): string
     {
-        $currentLanguage = $this->getCurrentLanguageResolver()?->__invoke();
+        $currentLanguage = $this->getCurrentLanguageResolver()();
 
         if (!is_string($currentLanguage) || $currentLanguage === '') {
             return $key;
@@ -54,18 +54,26 @@ class ResolveNavigationCacheKey implements Hookable
     /**
      * Get the current language resolver.
      *
-     * @return ?Closure The current language resolver.
+     * @return Closure The current language resolver.
      */
-    private function getCurrentLanguageResolver(): ?Closure
+    private function getCurrentLanguageResolver(): Closure
     {
         if ($this->currentLanguageResolver instanceof Closure) {
             return $this->currentLanguageResolver;
         }
 
-        if (!is_callable('pll_current_language')) {
-            return null;
-        }
+        return static function (): ?string {
+            if (is_callable('pll_current_language')) {
+                $language = call_user_func('pll_current_language', 'slug');
 
-        return static fn (): mixed => call_user_func('pll_current_language', 'slug');
+                if (is_string($language) && $language !== '') {
+                    return $language;
+                }
+            }
+
+            $requestLanguage = $_GET['lang'] ?? null;
+
+            return is_string($requestLanguage) && $requestLanguage !== '' ? $requestLanguage : null;
+        };
     }
 }

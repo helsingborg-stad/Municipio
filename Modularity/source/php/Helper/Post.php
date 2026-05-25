@@ -202,28 +202,6 @@ class Post
      */
     public static function getPageID(): int
     {
-        //Page for posttype archive mapping result
-        if (is_post_type_archive()) {
-            if ($pageId = get_option('page_for_' . get_post_type())) {
-                return (int)$pageId;
-            }
-        }
-
-        //Get the queried page
-        if (get_queried_object_id()) {
-            return get_queried_object_id();
-        }
-
-        //Return page for frontpage (fallback)
-        if ($frontPageId = get_option('page_on_front')) {
-            return (int)$frontPageId;
-        }
-
-        //Return page blog (fallback)
-        if ($frontPageId = get_option('page_for_posts')) {
-            return $frontPageId;
-        }
-
-        return 0;
+        return (int) \Municipio\Helper\CurrentPostId::get();
     }
 }

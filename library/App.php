@@ -240,7 +240,6 @@ class App
          * Styleguide integration
          */
         (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
-        //(new \Municipio\Upgrade\V41\Version41($this->wpService, $this->acfService))->upgradeToVersion();
 
         /**
          * Managed fonts
@@ -533,23 +532,24 @@ class App
             return;
         }
 
-        $resolvePageTreeMenuPageIds = new \Municipio\Integrations\Polylang\ResolvePageTreeMenuPageIds($this->wpService);
-        $resolvePageTreeTranslatedChildren = new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService);
-        $resolveNavigationItemsLanguage = new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService);
-        $resolveLanguageMenuItems = new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService);
-        $resolveNavigationCacheKey = new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService);
-        $resolveHomeUrl = new \Municipio\Integrations\Polylang\ResolveHomeUrl($this->wpService);
-        $resolvePdfNotFoundUrl = new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService);
-        $resolveFontAttachmentQueries = new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService);
+        $resolvers = [
+            new \Municipio\Integrations\Polylang\ResolveLanguageMenuItems($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolvePageTreeTranslatedChildren($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveNavigationItemsLanguage($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveAcfPostsManualSelectionLanguage($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolvePostsModuleManualSelectionLanguage($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveTranslatedPageLink($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveTranslatedPostTypeLink($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveTranslatedPostTypeArchiveLink($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveNavigationCacheKey($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveNavigationFetchUrlLanguage($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolvePdfNotFoundUrl($this->wpService),
+            new \Municipio\Integrations\Polylang\ResolveFontAttachmentQueries($this->wpService),
+        ];
 
-        $this->hooksRegistrar->register($resolvePageTreeMenuPageIds);
-        $this->hooksRegistrar->register($resolvePageTreeTranslatedChildren);
-        $this->hooksRegistrar->register($resolveNavigationItemsLanguage);
-        $this->hooksRegistrar->register($resolveLanguageMenuItems);
-        $this->hooksRegistrar->register($resolveNavigationCacheKey);
-        $this->hooksRegistrar->register($resolveHomeUrl);
-        $this->hooksRegistrar->register($resolvePdfNotFoundUrl);
-        $this->hooksRegistrar->register($resolveFontAttachmentQueries);
+        foreach ($resolvers as $resolver) {
+            $resolver->addHooks();
+        }
     }
 
     /**

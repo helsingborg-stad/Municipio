@@ -66,7 +66,6 @@ class ManualInput extends \Modularity\Module
         // Card settings
         if (isset($fields['display_as']) && $fields['display_as'] === 'card') {
             $data['titleAboveImage'] = $fields['title_above_image'] ?? false;
-            $data['disableLayoutShift'] = $fields['disable_resize_layout_shift'] ?? false;
         }
 
         if (!empty($fields['manual_inputs']) && is_array($fields['manual_inputs'])) {

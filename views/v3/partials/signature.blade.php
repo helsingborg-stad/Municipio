@@ -2,7 +2,7 @@
 {!! $hook->signatureBefore !!}
 @signature([
     'author' => $name,
-    'published' => $published,
+    'published' => isset($published) ? $published : null,
     'updated' => $updated,
     'avatar_size' => 'sm',
     'avatar' => $avatar,

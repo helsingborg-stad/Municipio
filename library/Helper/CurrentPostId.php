@@ -23,26 +23,40 @@ class CurrentPostId
             }
 
             if ($pageId = get_option('page_for_' . $postType)) {
-                return self::$pageId = (int) $pageId;
+                return self::setPageId((int) $pageId);
             }
         }
 
         // Get the queried page
         if ($queriedObjectId = get_queried_object_id()) {
-            return self::$pageId = $queriedObjectId;
+            return self::setPageId((int) $queriedObjectId);
         }
 
         // Return page for front page (fallback)
         if ($frontPageId = get_option('page_on_front')) {
-            return self::$pageId = $frontPageId;
+            return self::setPageId((int) $frontPageId);
         }
 
         // Return page for blog (fallback)
         if ($blogPageId = get_option('page_for_posts')) {
-            return self::$pageId = $blogPageId;
+            return self::setPageId((int) $blogPageId);
         }
 
         // If none of the above, set and return 0
-        return self::$pageId = 0;
+        return self::setPageId(0);
+    }
+
+    /**
+     * Cache and filter the resolved current page ID.
+     *
+     * @param int $pageId The resolved page ID.
+     *
+     * @return int
+     */
+    private static function setPageId(int $pageId): int
+    {
+        self::$pageId = (int) apply_filters('Municipio/Helper/CurrentPostId', $pageId);
+
+        return self::$pageId;
     }
 }

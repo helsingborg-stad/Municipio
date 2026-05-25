@@ -5,10 +5,13 @@ namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
+use WpService\Contracts\__ as Translate;
+use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetPostTypeArchiveLink;
 use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\GetQueriedObject;
+use WpService\Contracts\GetTheTitle;
 use WpService\Contracts\IsArchive;
 
 /**
@@ -19,9 +22,10 @@ class AppendArchiveMenuItem implements MenuInterface
     /**
      * Constructor
      */
-    public function __construct(private MenuInterface $inner, private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject $wpService)
-    {
-    }
+    public function __construct(
+        private MenuInterface $inner,
+        private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject&GetTheTitle&GetOption&Translate $wpService,
+    ) {}
 
     /**
      * Retrieves the menu with appended archive menu item.
@@ -30,8 +34,8 @@ class AppendArchiveMenuItem implements MenuInterface
      */
     public function getMenu(): array
     {
-        $menu          = $this->inner->getMenu();
-        $postType      = $this->wpService->getPostType(CurrentPostId::get());
+        $menu = $this->inner->getMenu();
+        $postType = $this->wpService->getPostType(CurrentPostId::get());
         $queriedObject = $this->wpService->getQueriedObject();
 
         if ($this->wpService->isArchive() && is_object($queriedObject)) {
@@ -41,19 +45,25 @@ class AppendArchiveMenuItem implements MenuInterface
         $archiveLink = $this->wpService->getPostTypeArchiveLink($postType);
 
         if ($archiveLink) {
-            $defaultLabel = __("Untitled page", 'municipio');
+            $defaultLabel = $this->wpService->__('Untitled page', 'municipio');
 
             if ($this->wpService->isArchive()) {
-                $label = $this->wpService->getQueriedObject()->label ?? $defaultLabel;
+                $pageTitle = (string) $this->wpService->getTheTitle(CurrentPostId::get());
+                $label = $pageTitle !== '' ? $pageTitle : $this->wpService->getQueriedObject()->label ?? $defaultLabel;
             } else {
-                $label = $this->wpService->getPostTypeObject($postType)->label ?? $defaultLabel;
+                //Handle page for post type archive title if set, otherwise
+                //fallback to post type label or default label
+                $archivePageId = (int) $this->wpService->getOption('page_for_' . $postType);
+
+                $pageTitle = $archivePageId > 0 ? (string) $this->wpService->getTheTitle($archivePageId) : '';
+                $label = $pageTitle !== '' ? $pageTitle : $this->wpService->getPostTypeObject($postType)->label ?? $defaultLabel;
             }
 
             $menu['items'][] = [
-                'label'   => __($label),
-                'href'    => $archiveLink,
+                'label' => $this->wpService->__($label, 'municipio'),
+                'href' => $archiveLink,
                 'current' => false,
-                'icon'    => 'chevron_right'
+                'icon' => 'chevron_right',
             ];
         }
 

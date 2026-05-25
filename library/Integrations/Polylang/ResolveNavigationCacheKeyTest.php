@@ -54,6 +54,25 @@ class ResolveNavigationCacheKeyTest extends TestCase
         static::assertSame('pageForPostType', $sut->appendCurrentLanguage('pageForPostType'));
     }
 
+    #[TestDox('appendCurrentLanguage() falls back to the request lang when current language is unavailable')]
+    public function testAppendCurrentLanguageFallsBackToRequestLang(): void
+    {
+        $previousLang = $_GET['lang'] ?? null;
+        $_GET['lang'] = 'sv';
+
+        try {
+            $sut = $this->getSut();
+
+            static::assertSame('pageForPostType:sv', $sut->appendCurrentLanguage('pageForPostType'));
+        } finally {
+            if ($previousLang === null) {
+                unset($_GET['lang']);
+            } else {
+                $_GET['lang'] = $previousLang;
+            }
+        }
+    }
+
     /**
      * Get the system under test.
      *

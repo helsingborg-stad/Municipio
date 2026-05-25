@@ -1,19 +1,23 @@
-import Chat from "./chat";
-import { ChatSessionFactory } from "./ChatSessionFactory";
 import MarkdownIt from "markdown-it";
-import NewChatSessionButton from "./newChatSessionButton";
-import GreetingPhrase from "./greetingPhrase";
-import FeedbackFactory from "./feedbackFactory";
+import { ChatSessionFactory } from "./ChatSessionFactory";
+import Chat from "./chat";
 import FeedbackApi from "./feedbackApi";
+import FeedbackFactory from "./feedbackFactory";
+import GreetingPhrase from "./greetingPhrase";
+import NewChatSessionButton from "./newChatSessionButton";
 
 document.addEventListener("chat:initialized", (e: any) => {
 	const chat = e.detail;
 
 	if (!chat.getElement().classList.contains("municipio-ai-chat")) return;
 
-	const newChatButtonElement = chat.getElement().querySelector("[data-js-chat-new]") as HTMLElement;
-	const greetingsPhrase = chat.getElement().dataset.jsChatGreetingsPhrase || null;
-	const feedbackTemplate = chat.getElement().querySelector("[data-js-chat-feedback]") || null;
+	const newChatButtonElement = chat
+		.getElement()
+		.querySelector("[data-js-chat-new]") as HTMLElement;
+	const greetingsPhrase =
+		chat.getElement().dataset.jsChatGreetingsPhrase || null;
+	const feedbackTemplate =
+		chat.getElement().querySelector("[data-js-chat-feedback]") || null;
 
 	const markdownParser = new MarkdownIt({
 		html: false,
@@ -28,7 +32,11 @@ document.addEventListener("chat:initialized", (e: any) => {
 	};
 
 	const feedbackApi = new FeedbackApi(wpApiSettings.root);
-	const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
+	const feedbackFactory = new FeedbackFactory(
+		chat,
+		feedbackTemplate as HTMLTemplateElement,
+		feedbackApi,
+	);
 
 	chat.getMessages().forEach((message: any, index: number) => {
 		if (!message.getIsReply()) {
@@ -51,7 +59,7 @@ document.addEventListener("chat:initialized", (e: any) => {
 		chat,
 		markdownParser,
 		feedbackFactory,
-		feedbackApi
+		feedbackApi,
 	);
 
 	if (newChatButtonElement) {

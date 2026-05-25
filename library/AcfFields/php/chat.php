@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_69b814ff11562',
     'title' => __('Chat Settings', 'municipio'),
     'fields' => array(
@@ -270,14 +272,7 @@
                 'operator' => '==',
                 'value' => 'chat-settings',
             ),
-        ),
-        1 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
-            ),
-        ),
+        )
     ),
     'menu_order' => 0,
     'position' => 'normal',
@@ -290,4 +285,5 @@
     'show_in_rest' => 0,
     'display_title' => '',
 ));
-}
+
+}

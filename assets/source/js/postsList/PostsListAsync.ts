@@ -4,7 +4,7 @@ import { updateUrlParams } from "./updateUrlParams";
 export const postsListAsync = (
 	container: HTMLElement,
 	postsContainer: HTMLElement,
-	form: HTMLFormElement,
+	form: HTMLFormElement | null,
 ) => {
 	const fetchHTML = (
 		(attributes: Record<string, unknown>) =>
@@ -104,6 +104,7 @@ export const postsListAsync = (
 	};
 
 	const setupFilterForm = () => {
+		if (!form) return;
 		form.addEventListener("submit", (e) => {
 			e.preventDefault();
 			const formData = new FormData(form);

@@ -46,9 +46,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['currentOccasion'] = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['icsUrl'] = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
         $this->data['bookingLink'] = (new SingularEvent\Mappers\MapBookingLink($this->tryGetCurrentDateFromGetParam()))->map($event);
-        $this->data = array_merge($this->data, [
-            'postsListData' => $this->getPostsListData(),
-        ]);
+        $this->data['postsListData'] = $this->getPostsListData();
 
         // Ensure we are visiting a singular occasion if occasions exist
         (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion(
@@ -60,12 +58,12 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
     }
 
-    private function getPostsListData(): array
+    private function getPostsListData(): ?array
     {
         $relatedEventIds = $this->getRelatedEventsIds();
 
         if (count($relatedEventIds) === 0) {
-            return [];
+            return null;
         }
 
         $postTypes = [$this->post->getPostType()];

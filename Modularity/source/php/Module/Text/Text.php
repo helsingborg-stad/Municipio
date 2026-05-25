@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modularity\Module\Text;
 
+use Modularity\Helper\WpService;
+
 class Text extends \Modularity\Module
 {
     public $slug = 'text';
@@ -21,15 +23,21 @@ class Text extends \Modularity\Module
         $data = $this->getFields() ?? [];
 
         // Post content [with multiple fallbacks]
-        $data['postContent'] = $this->data['post_content'] ?? $data['post_content'] ?? $data['content'] ?? '';
+        $data['postContent'] = $data['post_content'] ?? '';
+        $data['postContent'] = $data['postContent'] ?: $data['content'] ?? '';
+
+        // If content is still empty and ID is set, try to fetch content from post
+        if ($this->ID) {
+            $data['postContent'] = $data['postContent'] ?: get_post($this->ID)->post_content ?? '';
+        }
 
         //Run relevant filters
         foreach (['Modularity/Display/SanitizeContent', 'the_content'] as $filter) {
-            $data['postContent'] = apply_filters($filter, $data['postContent']);
+            $data['postContent'] = WpService::get()->applyFilters($filter, $data['postContent']);
         }
 
         // Check if content contains h1-h6 tags
-        $data['hasHeadingsInContent'] = preg_match('/<h[1-6]/', $data['post_content'] ?? '');
+        $data['hasHeadingsInContent'] = preg_match('/<h[1-6]/', $data['postContent'] ?? '');
 
         // Alway set ID
         $data['ID'] ??= uniqid();

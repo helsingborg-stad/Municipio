@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modularity\Module\Index;
 
+use Modularity\Helper\WpService;
+
 class Index extends \Modularity\Module
 {
     public $slug = 'index';
@@ -127,7 +129,7 @@ class Index extends \Modularity\Module
      */
     public function getThumbnail($item)
     {
-        if ($item['image_display'] == 'custom' || $item['link_type'] == 'external' || $item['link_type'] == 'unlinked' && !empty($item['custom_image']['ID'])) {
+        if (!empty($item['custom_image']['ID']) && ($item['image_display'] == 'custom' || $item['link_type'] == 'external' || $item['link_type'] == 'unlinked')) {
             return wp_get_attachment_image_src($item['custom_image']['ID'], apply_filters(
                 'Modularity/index/image',
                 municipio_to_aspect_ratio('16:9', $this->thumbnailSize),
@@ -141,9 +143,9 @@ class Index extends \Modularity\Module
             return null;
         }
 
-        return wp_get_attachment_image_src(
-            get_post_thumbnail_id($item['page']->ID),
-            apply_filters(
+        return WpService::get()->wpGetAttachmentImageSrc(
+            WpService::get()->getPostThumbnailId($item['page']->ID),
+            WpService::get()->applyFilters(
                 'Modularity/index/image',
                 municipio_to_aspect_ratio('16:9', $this->thumbnailSize),
                 $this->args,

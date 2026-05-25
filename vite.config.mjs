@@ -69,6 +69,7 @@ const entries = {
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",
 	"js/pdf": "./assets/source/js/pdf.ts",
 	"js/nav": "./assets/source/js/nav.ts",
+	"js/chat": "./library/Chat/js/index.ts",
 
 	/* Blocks */
 	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
@@ -209,7 +210,7 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			extensions: [".tsx", ".ts", ".js", ".scss", ".css"],
 			alias: {
-				"~": path.resolve(process.cwd(), "node_modules")
+				"~": path.resolve(process.cwd(), "node_modules"),
 			},
 			dedupe: ["leaflet"],
 		},
