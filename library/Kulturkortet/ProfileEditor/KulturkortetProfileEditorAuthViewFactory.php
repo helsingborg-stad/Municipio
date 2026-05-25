@@ -88,7 +88,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
         return $this->renderWithModel('kulturkortet-profile-simple-message', [
             'lang' => [
                 'heading' => __('Logga in för att redigera din profil', 'municipio'),
-                'content' => __('För att kunna redigera din profil du logga in med BankId.', 'municipio'),
+                'content' => __('För att kunna redigera din profil måste du logga in med BankId.', 'municipio'),
                 'url' => __('Logga in', 'municipio'),
             ],
             'url' => $loginUrl,
@@ -100,7 +100,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
         return $this->renderWithModel('kulturkortet-profile-simple-message', [
             'lang' => [
                 'heading' => __('Du är nu utloggad', 'municipio'),
-                'content' => __('', 'municipio'),
+                'content' => __('Du har loggat ut från ditt kulturkort och BankId.', 'municipio'),
                 'url' => __('Starta om', 'municipio'),
             ],
             'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),

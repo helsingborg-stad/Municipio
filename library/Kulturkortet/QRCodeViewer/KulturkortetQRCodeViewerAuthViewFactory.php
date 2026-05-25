@@ -105,7 +105,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => __('Logga in för att se ditt kulturkort', 'municipio'),
-                'content' => __('För att kunna se ditt kulturkort du logga in med BankId.', 'municipio'),
+                'content' => __('För att kunna se ditt kulturkort måste du logga in med BankId.', 'municipio'),
                 'url' => __('Logga in', 'municipio'),
             ],
             'url' => $loginUrl,
@@ -117,7 +117,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => __('Du har loggat ut', 'municipio'),
-                'content' => __('Du har loggat ut från ditt kulturkort.', 'municipio'),
+                'content' => __('Du har loggat ut från ditt kulturkort och BankId.', 'municipio'),
                 'url' => __('Till startsidan', 'municipio'),
             ],
             'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
