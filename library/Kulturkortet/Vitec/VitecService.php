@@ -73,26 +73,28 @@ class VitecService implements VitecServiceInterface
 
     public function updateUserData(string $ssn, string $email): ?array
     {
-        return $this->tryGetUserData($ssn);
-
-        // The API is fishy so we disable the logic for now
-        // $userData = $this->tryGetUserData($ssn);
-        // $ticket = $userData['tickets'][0] ?? null;
-        // if (!$ticket) {
-        //     return null;
-        // }
-        // $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . $ticket['id'] . '/update';
-        // $response = $this->wpService->wpRemotePost($url, [
-        //     'headers' => [
-        //         'Authorization' => 'Bearer ' . $this->config->getApiKey(),
-        //         'Content-Type' => 'application/json',
-        //     ],
-        //     'body' => json_encode(['email' => $email, 'civicRegistrationNumber' => $ticket['civicRegistrationNumber'] ?? '', 'firstname' => $ticket['firstname'] ?? '', 'lastname' => $ticket['lastname'] ?? '']),
-        // ]);
-        // if ($this->wpService->isWpError($response)) {
-        //     return null;
-        // }
-        // $body = $this->wpService->wpRemoteRetrieveBody($response);
-        // return json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
+        $userData = $this->tryGetUserData($ssn);
+        $ticket = $userData['tickets'][0] ?? null;
+        if (!$ticket) {
+            return null;
+        }
+        $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . $ticket['id'] . '/update';
+        $response = $this->wpService->wpRemotePost($url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->config->getApiKey(),
+                'Content-Type' => 'application/json',
+            ],
+            'body' => json_encode([
+                'email' => $email,
+                'civicRegistrationNumber' => $ticket['civicRegistrationNumber'] ?? '',
+                'firstname' => $ticket['firstname'] ?? '',
+                'lastname' => $ticket['lastname'] ?? '',
+            ]),
+        ]);
+        if ($this->wpService->isWpError($response)) {
+            return null;
+        }
+        $body = $this->wpService->wpRemoteRetrieveBody($response);
+        return json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
     }
 }
