@@ -1,13 +1,11 @@
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
-
 .site-language-menu {
     position: relative;
-    z-index: variables.$level-6;
+    z-index: 6;
 
     .site-language-menu__card {
         position: absolute;
         display: none;
-        width: calc(#{variables.$base} * 34);
+        width: calc(var(--base) * 34);
         top: 100%;
         right: 0;
 
@@ -22,8 +20,8 @@
 
     .site-language-menu__default_lang {
         &.c-button {
-            padding-left: calc(#{variables.$base} * 2);
-            padding-right: calc(#{variables.$base} * 2);
+            padding-left: calc(var(--base) * 2);
+            padding-right: calc(var(--base) * 2);
         }
         .c-button__label {
             justify-content: start;
@@ -33,27 +31,20 @@
     }
 
     .site-language-menu__more {
-        border-width: 1px 0 1px 0;
-        border-style: solid;
-        border-color: variables.$color-lighter;
-
-        .c-icon {
-            transition: transform 300ms ease-in-out;
+        height: auto;
+        margin-left: auto;
+        &::before {
+            bottom: 0;
         }
 
-        &,
-        &:hover {
-            text-decoration: none;
-            color: variables.$color-darkest;
-        }
-
-        &:hover .c-icon {
-            transform: translateX(calc(var(--base, 8px) * -0.5));
+        &:hover::before {
+            width: 100%;
         }
     }
 
     &.is-expanded {
         .site-language-menu__card {
+            outline: 4000px solid var(--color--alpha);
             display: block;
             animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }

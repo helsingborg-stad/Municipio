@@ -84,9 +84,6 @@ class Singular extends \Municipio\Controller\BaseController
         //Should link author page
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
 
-        //Main content padder
-        $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
-
         //Get age of post
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
@@ -127,44 +124,15 @@ class Singular extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Get main content padder size
-     */
-    public function getMainContentPadding($customizer): array
-    {
-        //Name shorten
-        $padding = $customizer->mainContentPadding;
-
-        //Validate, and send var to view.
-        if (!empty($padding) && is_numeric($padding) && ($padding % 2) == 0) {
-            //Make md span half the size of padding
-            return [
-                'md' => $padding / 2,
-                'lg' => $padding,
-            ];
-        }
-
-        //Return default values
-        return [
-            'md' => 0,
-            'lg' => 0,
-        ];
-    }
-
-    /**
      * Inserts a "Quicklinks" block after the first block in the post content if certain conditions are met.
      *
      * @param WP_Post|null $postObject The post object whose content will be modified. Can be null.
      *
      * @return WP_Post|null
      */
-    private function displayQuicklinksAfterFirstBlock(null|WP_Post $postObject): null|WP_Post
+    private function displayQuicklinksAfterFirstBlock(?WP_Post $postObject): ?WP_Post
     {
-        if (
-            !$postObject
-            || $this->data['quicklinksPlacement'] !== 'after_first_block'
-            || !$this->wpService->hasBlocks($postObject->post_content)
-            || empty($this->data['quicklinksMenu']['items'])
-        ) {
+        if (!$postObject || $this->data['quicklinksPlacement'] !== 'after_first_block' || !$this->wpService->hasBlocks($postObject->post_content) || empty($this->data['quicklinksMenu']['items'])) {
             return $postObject;
         }
 
@@ -210,14 +178,7 @@ class Singular extends \Municipio\Controller\BaseController
             (array) $this->acfService->getField('show_date_updated', 'option') ?? [],
         );
 
-        return $this->maybeRunInOtherSite(function () use (
-            $post,
-            $displayAuthor,
-            $displayAvatar,
-            $linkAuthor,
-            $displayPublish,
-            $displayUpdated,
-        ) {
+        return $this->maybeRunInOtherSite(function () use ($post, $displayAuthor, $displayAvatar, $linkAuthor, $displayPublish, $displayUpdated) {
             return (object) [
                 'avatar' => $displayAvatar ? $this->getAuthor($post->getId())->avatar : '',
                 'role' => $displayAuthor ? __('Author', 'municipio') : '',
@@ -352,10 +313,7 @@ class Singular extends \Municipio\Controller\BaseController
                     }
 
                     $type = (object) \Municipio\Helper\FormatObject::camelCase($type);
-                    if (
-                        isset($type->displayAgeNotificationOnPosts)
-                        && $type->displayAgeNotificationOnPosts === (bool) true
-                    ) {
+                    if (isset($type->displayAgeNotificationOnPosts) && $type->displayAgeNotificationOnPosts === (bool) true) {
                         $postAge = $this->getPostAge($post->postDate);
                         if ($postAge > $type->postAgeDays) {
                             return sprintf(
@@ -430,7 +388,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param int $pageID The page id
      * @return WP_Post|null
      */
-    protected function getOriginalPostData(int $pageID): null|WP_Post
+    protected function getOriginalPostData(int $pageID): ?WP_Post
     {
         if (isset($GLOBALS['post']) && is_a($GLOBALS['post'], 'WP_Post') && $GLOBALS['post']->ID === $pageID) {
             $post = $GLOBALS['post'];

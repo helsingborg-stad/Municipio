@@ -16,7 +16,7 @@
             ])
             @endnav
           </nav>
-          @if($hasQueryParameters)
+          @if(isset($hasQueryParameters) && $hasQueryParameters)
             <div class="u-padding--2 u-margin__y--auto@md u-margin__y--auto@lg u-margin__y--auto@xl  u-align-self--end u-width--100@xs u-width--100@sm">
               @button([
                   'href'  => $archiveResetUrl, 

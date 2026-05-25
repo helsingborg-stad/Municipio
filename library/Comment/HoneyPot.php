@@ -16,8 +16,8 @@ class HoneyPot
         }
 
         //Verification values
-        $this->field_content  = substr(md5(NONCE_SALT . NONCE_KEY), 5, 15);
-        $this->field_name     = substr(md5(AUTH_KEY), 5, 15);
+        $this->field_content = substr(md5(NONCE_SALT . NONCE_KEY), 5, 15);
+        $this->field_name = substr(md5(AUTH_KEY), 5, 15);
         $this->field_min_time = 4513;
 
         //Print frontend fields
@@ -42,7 +42,7 @@ class HoneyPot
      */
     public function printFakeHideBox()
     {
-        echo '<style>.fake-hide {width: 1px; height: 1px; opacity: 0.0001; position: absolute; overflow: hidden;}</style>';
+        echo '<style>div.fake-hide[aria-hidden="true"] {width: 1px; height: 1px; opacity: 0.0001; position: absolute !important; overflow: hidden; order: 9999;}</style>';
     }
 
     /**
@@ -50,11 +50,13 @@ class HoneyPot
      */
     public function addHoneyPotFieldTimer()
     {
-        echo $this->createField(
-            $this->field_name . '_ti',
-            $this->field_content,
-            'hp-timer-field'
-        );
+        echo
+            $this->createField(
+                $this->field_name . '_ti',
+                $this->field_content,
+                'hp-timer-field',
+            )
+        ;
         echo '
             <script type="text/javascript">
                 ["onload"].forEach(function(e){
@@ -73,10 +75,12 @@ class HoneyPot
      */
     public function addHoneyPotFieldFilled()
     {
-        echo $this->createField(
-            $this->field_name . '_fi',
-            $this->field_content
-        );
+        echo
+            $this->createField(
+                $this->field_name . '_fi',
+                $this->field_content,
+            )
+        ;
     }
 
     /**
@@ -94,7 +98,7 @@ class HoneyPot
      * @param string    $fieldContent  The predefined value of the field
      * @return string                  The field
      */
-    private function createField($fieldName, $fieldContent = "", $class = ""): string
+    private function createField($fieldName, $fieldContent = '', $class = ''): string
     {
         return '
             <div class="fake-hide" aria-hidden="true">
@@ -117,35 +121,36 @@ class HoneyPot
      * @param  array $data The comment data
      * @return array       Comment data or die
      */
-    public function honeyPotValidateFieldContent($data)//:void
+    public function honeyPotValidateFieldContent($data)
+    //:void
     {
         //Require these fields
         $lookForFields = [
             $this->field_name . '_fi',
             $this->field_name . '_bl',
-            $this->field_name . '_ti'
+            $this->field_name . '_ti',
         ];
 
         //Check that all fields exists
         foreach ($lookForFields as $field) {
             if (!array_key_exists($field, $_POST)) {
-                wp_die(__("Could not verify that you are human (some form fields are missing).", 'municipio'));
+                wp_die(__('Could not verify that you are human (some form fields are missing).', 'municipio'));
             }
         }
 
         //Validate empty
         if ($_POST[$this->field_name . '_bl'] != '') {
-            wp_die(__("Could not verify that you are human.", 'municipio') . " (bl)");
+            wp_die(__('Could not verify that you are human.', 'municipio') . ' (bl)');
         }
 
         //Validate filled
         if ($_POST[$this->field_name . '_fi'] != $this->field_content) {
-            wp_die(__("Could not verify that you are human.", 'municipio') . " (fi)");
+            wp_die(__('Could not verify that you are human.', 'municipio') . ' (fi)');
         }
 
         //Validate timer
         if ($_POST[$this->field_name . '_ti'] != $this->field_min_time) {
-            wp_die(__("Could not verify that you are human.", 'municipio') . " (ti)");
+            wp_die(__('Could not verify that you are human.', 'municipio') . ' (ti)');
         }
 
         return $data;

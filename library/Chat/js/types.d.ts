@@ -17,21 +17,13 @@ declare global {
 
 	type ChatRole = "user" | "assistant";
 
-	interface ChatSessionState {
-		isMessagePending: boolean;
-	}
-
-	interface ChatSessionEvents {
-		onMessageAdded: (role: ChatRole) => void;
-		onUserMessageText: (text: string) => void;
-		onAssistantMessageText: (html: string) => void;
-		onStateChanged: (state: ChatSessionState) => void;
-		onStatusTextChanged: (status: string | null) => void;
-	}
+	type ChatEvent =
+		| { type: "text"; content: string }
+		| { type: "tool_call" }
+		| { type: "done" };
 
 	interface ChatSession {
-		ask(message: string): Promise<void>;
-		clear(): void;
+		ask(message: string): AsyncGenerator<ChatEvent>;
 	}
 
 	interface ChatUtilsApi {
@@ -53,18 +45,15 @@ declare global {
 	interface ChatSessionConfig {
 		assistantId: string | null;
 		apiRoot: string;
-		strings: MunicipioChatStrings;
-		events: ChatSessionEvents;
-		utils: Pick<ChatUtilsApi, "renderMarkdown">;
 		fetchImpl?: typeof fetch;
 	}
 
-	type CreateChatSession = (config: ChatSessionConfig) => ChatSession;
+	interface ChatSessionFactory {
+		create(assistantId: string | null): ChatSession;
+	}
 
 	interface ChatUIDependencies {
 		utils: ChatUtilsApi;
-		sessionFactory: CreateChatSession;
-		apiRoot: string;
-		strings: MunicipioChatStrings;
+		sessionFactory: ChatSessionFactory;
 	}
 }

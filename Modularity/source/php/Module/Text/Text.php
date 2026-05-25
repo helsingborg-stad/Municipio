@@ -27,7 +27,7 @@ class Text extends \Modularity\Module
         $data['postContent'] = $data['postContent'] ?: $data['content'] ?? '';
 
         // If content is still empty and ID is set, try to fetch content from post
-        if($this->ID) {
+        if ($this->ID) {
             $data['postContent'] = $data['postContent'] ?: get_post($this->ID)->post_content ?? '';
         }
 

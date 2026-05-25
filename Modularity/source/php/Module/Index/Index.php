@@ -129,15 +129,7 @@ class Index extends \Modularity\Module
      */
     public function getThumbnail($item)
     {
-        if (
-            !empty($item['custom_image']['ID']) && 
-            (
-                $item['image_display'] == 'custom' || 
-                $item['link_type'] == 'external' || 
-                $item['link_type'] == 'unlinked'
-            )
-        )
-         {
+        if (!empty($item['custom_image']['ID']) && ($item['image_display'] == 'custom' || $item['link_type'] == 'external' || $item['link_type'] == 'unlinked')) {
             return wp_get_attachment_image_src($item['custom_image']['ID'], apply_filters(
                 'Modularity/index/image',
                 municipio_to_aspect_ratio('16:9', $this->thumbnailSize),
@@ -145,6 +137,10 @@ class Index extends \Modularity\Module
             ));
         } elseif ($item['image_display'] == 'false') {
             return false;
+        }
+
+        if (!isset($item['page']->ID) || is_numeric($item['page']->ID)) {
+            return null;
         }
 
         return WpService::get()->wpGetAttachmentImageSrc(

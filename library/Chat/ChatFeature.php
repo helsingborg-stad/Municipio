@@ -5,47 +5,57 @@ namespace Municipio\Chat;
 use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
-use ComponentLibrary\Renderer\Renderer;
-use Municipio\Chat\Admin\RegisterChatAdminPage;
+use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use Municipio\Chat\Admin\ChatAdminPage;
+use Municipio\Chat\Admin\ChatStatsMetaBox;
+use Municipio\Chat\Api\ChatEndpoint;
+use Municipio\Chat\Api\ChatStatsEndpoint;
 use Municipio\Chat\Api\RegisterChatEndpoint;
+use Municipio\Chat\Api\RegisterChatStatsEndpoint;
 use Municipio\Chat\Config\ChatConfig;
-use Municipio\Chat\Frontend\EnqueueChatScripts;
-use Municipio\Chat\Frontend\RenderGlobalChatBubble;
-use Municipio\Chat\Module\RegisterChatModule;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
-use Municipio\HooksRegistrar\HooksRegistrarInterface;
-use WpService\Contracts\__;
-use WpService\Contracts\AddAction;
-use WpService\Contracts\AddFilter;
-use WpService\Contracts\ApplyFilters;
-use WpService\Contracts\WpCacheGet;
-use WpService\Contracts\WpCacheSet;
+use Municipio\Chat\Render\ChatBubble;
+use Municipio\Chat\Render\ChatEnqueue;
+use Municipio\Chat\Render\ChatRender;
+use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class ChatFeature
 {
     public function __construct(
-        private __&AddAction&AddFilter&ApplyFilters&WpCacheGet&WpCacheSet $wpService,
+        private WpService $wpService,
         private GetField&AddOptionsPage $acfService,
         private EnqueueManagerInterface $enqueue,
-        private HooksRegistrarInterface $hooksRegistrar,
     ) {}
 
     public function enable(): void
     {
         $config = new ChatConfig($this->acfService);
-        $renderer = new Renderer(
-            (new BladeServiceFactory($this->wpService))->create([__DIR__ . '/views']),
-        );
-        $endpoint = new ChatEndpoint(
-            $this->acfService,
-            (new PIIRedactorFactory())->create(),
+
+        if (!$config->isEnabled()) {
+            return;
+        }
+
+        $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
+
+        $render = new ChatRender(
+            $bladeRenderer,
         );
 
-        $this->hooksRegistrar->register(new RegisterChatAdminPage($this->wpService, $this->acfService));
-        $this->hooksRegistrar->register(new EnqueueChatScripts($this->wpService, $this->enqueue, $config));
-        $this->hooksRegistrar->register(new RenderGlobalChatBubble($this->wpService, $renderer, $config));
-        $this->hooksRegistrar->register(new RegisterChatModule($this->wpService, $config));
-        $this->hooksRegistrar->register(new RegisterChatEndpoint($endpoint, $config));
+        (new RegisterChatEndpoint(
+            new ChatEndpoint($this->acfService, (new PIIRedactorFactory())->create()),
+            $config,
+        ))->addHooks();
+
+        (new RegisterChatStatsEndpoint(
+            new ChatStatsEndpoint($this->wpService),
+            $config,
+        ))->addHooks();
+
+        (new ChatBlock($this->wpService, $config, $render))->addHooks();
+        (new ChatAdminPage($this->wpService, $this->acfService))->addHooks();
+        (new ChatStatsMetaBox($this->wpService, $bladeRenderer))->addHooks();
+        (new ChatEnqueue($this->wpService, $this->enqueue, $config))->addHooks();
+        (new ChatBubble($this->wpService, $config, $render))->addHooks();
     }
 }

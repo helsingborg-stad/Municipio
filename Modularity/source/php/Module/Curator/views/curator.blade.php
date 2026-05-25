@@ -11,14 +11,17 @@
 @endif
 
 @if ($showFeed)
+    @php
+        $placeholderCount = max(1, (int) $numberOfItems);
+    @endphp
 
     <div class="o-grid modularity-socialmedia-container">
         <div class="o-grid modularity-socialmedia__content {{ $gutter }}">
             @includeIf("partials.$layout", ['posts' => $posts])
-            @for ($i = 0; $i < $columns; $i++)
-                <div class="modularity-socialmedia__item--placeholder u-display--none {{ $columnClasses }}">
+            @for ($i = 0; $i < $placeholderCount; $i++)
+                <div class="modularity-socialmedia__item modularity-socialmedia__item--placeholder u-display--none {{ $columnClasses }}">
                     @block([
-                        'ratio' => $ratio,
+                        'ratio' => $layout === 'card' ? '4:3' : $ratio,
                         'classList' => ['u-preloader', 'u-height--100']
                     ])
                     @endblock
@@ -38,6 +41,7 @@
                         'data-layout' => $layout,
                     ],
                     'classList' => ['mod-curator-load-more'],
+                    'size' => 'lg'
                 ])
                 @endbutton
             @endtypography

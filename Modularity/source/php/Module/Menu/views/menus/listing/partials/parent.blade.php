@@ -6,7 +6,7 @@
 ])
     @typography([
         'element' => 'h2',
-        'variant' => 'h2',
+        'variant' => 'h4',
         'classList' => [
             'mod-menu__heading-label',
             'u-margin__top--0'

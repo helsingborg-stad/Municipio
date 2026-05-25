@@ -32,7 +32,7 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
 
         static::assertSame(
             [['Municipio/Navigation/PageTree/Children', [$sut, 'resolveTranslatedChildren'], 10, 2]],
-            $wpService->methodCalls['addFilter']
+            $wpService->methodCalls['addFilter'],
         );
     }
 
@@ -40,15 +40,15 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
     public function testResolveTranslatedChildrenReturnsTranslatedChildren(): void
     {
         $sut = $this->getSut(
-            postTranslationsResolver: static fn (int $postId): array => ['en' => 116, 'sv' => 128],
-            currentLanguageResolver: static fn (): string => 'sv',
-            translatedPostResolver: static fn (int $postId, string $lang): int => 124,
-            defaultLanguageResolver: static fn (): string => 'en',
-            childrenByParentResolver: static fn (int $postId, string $postType): array => [
-                ['ID' => 120, 'post_title' => 'Testpage sub (en)', 'post_parent' => 116, 'post_type' => 'page']
+            postTranslationsResolver: static fn(int $postId): array => ['en' => 116, 'sv' => 128],
+            currentLanguageResolver: static fn(): string => 'sv',
+            translatedPostResolver: static fn(int $postId, string $lang): int => 124,
+            defaultLanguageResolver: static fn(): string => 'en',
+            childrenByParentResolver: static fn(int $postId, string $postType): array => [
+                ['ID' => 120, 'post_title' => 'Testpage sub (en)', 'post_parent' => 116, 'post_type' => 'page'],
             ],
-            currentPostIdResolver: static fn (): int => 124,
-            ancestorIdsResolver: static fn (): array => [0, 128, 124]
+            currentPostIdResolver: static fn(): int => 124,
+            ancestorIdsResolver: static fn(): array => [0, 128, 124],
         );
 
         $translatedChildren = $sut->resolveTranslatedChildren([], 128);
@@ -74,9 +74,9 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
     public function testResolveTranslatedChildrenReturnsEmptyChildrenWhenNoSourceExists(): void
     {
         $sut = $this->getSut(
-            postTranslationsResolver: static fn (int $postId): array => ['sv' => 128],
-            currentLanguageResolver: static fn (): string => 'sv',
-            translatedPostResolver: static fn (int $postId, string $lang): int => 0
+            postTranslationsResolver: static fn(int $postId): array => ['sv' => 128],
+            currentLanguageResolver: static fn(): string => 'sv',
+            translatedPostResolver: static fn(int $postId, string $lang): int => 0,
         );
 
         static::assertSame([], $sut->resolveTranslatedChildren([], 128));
@@ -90,15 +90,15 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
 
         try {
             $sut = $this->getSut(
-                postTranslationsResolver: static fn (int $postId): array => ['en' => 116, 'sv' => 128],
+                postTranslationsResolver: static fn(int $postId): array => ['en' => 116, 'sv' => 128],
                 currentLanguageResolver: null,
-                translatedPostResolver: static fn (int $postId, string $lang): int => 124,
-                defaultLanguageResolver: static fn (): string => 'en',
-                childrenByParentResolver: static fn (int $postId, string $postType): array => [
-                    ['ID' => 120, 'post_title' => 'Testpage sub (en)', 'post_parent' => 116, 'post_type' => 'page']
+                translatedPostResolver: static fn(int $postId, string $lang): int => 124,
+                defaultLanguageResolver: static fn(): string => 'en',
+                childrenByParentResolver: static fn(int $postId, string $postType): array => [
+                    ['ID' => 120, 'post_title' => 'Testpage sub (en)', 'post_parent' => 116, 'post_type' => 'page'],
                 ],
-                currentPostIdResolver: static fn (): int => 124,
-                ancestorIdsResolver: static fn (): array => [0, 128, 124]
+                currentPostIdResolver: static fn(): int => 124,
+                ancestorIdsResolver: static fn(): array => [0, 128, 124],
             );
 
             $translatedChildren = $sut->resolveTranslatedChildren([], 128);
@@ -134,7 +134,7 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
         ?Closure $defaultLanguageResolver = null,
         ?Closure $childrenByParentResolver = null,
         ?Closure $currentPostIdResolver = null,
-        ?Closure $ancestorIdsResolver = null
+        ?Closure $ancestorIdsResolver = null,
     ): ResolvePageTreeTranslatedChildren {
         return new ResolvePageTreeTranslatedChildren(
             new FakeWpService([
@@ -148,7 +148,7 @@ class ResolvePageTreeTranslatedChildrenTest extends TestCase
             $defaultLanguageResolver,
             $childrenByParentResolver,
             $currentPostIdResolver,
-            $ancestorIdsResolver
+            $ancestorIdsResolver,
         );
     }
 }

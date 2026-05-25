@@ -4,14 +4,15 @@ namespace Municipio;
 
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
-use Municipio\SchemaData\Config\SchemaDataConfigService;
 use Municipio\Customizer\Applicators\Types\NullApplicator;
+use Municipio\Helper\AcfService;
 use Municipio\Helper\WpService;
+use Municipio\SchemaData\Config\SchemaDataConfigService;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\DoAction;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\SetThemeMod;
-use WpService\Contracts\DoAction;
 
 /**
  * Class App
@@ -20,7 +21,7 @@ use WpService\Contracts\DoAction;
  */
 class Upgrade
 {
-    private $dbVersion    = 40; //The db version we want to achive
+    private $dbVersion = 41; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -29,13 +30,13 @@ class Upgrade
      */
     public function __construct(
         private GetThemeMod&SetThemeMod&GetPostTypes&AddAction&DoAction $wpService,
-        private UpdateField&GetField $acfService
+        private UpdateField&GetField $acfService,
     ) {
         //Development tools
         //WARNING: Do not use in PROD. This will destroy your db.
-        /*add_action('init', array($this, 'reset'), 1);
-        add_action('init', array($this, 'debugPre'), 5);
-        add_action('init', array($this, 'debugAfter'), 20);*/
+        // add_action('init', array($this, 'reset'), 1);
+        // add_action('init', array($this, 'debugPre'), 5);
+        // add_action('init', array($this, 'debugAfter'), 20);
 
         //Production hook
         $this->wpService->addAction('wp', array($this, 'initUpgrade'), 1);
@@ -96,8 +97,7 @@ class Upgrade
     // Migrate width from acf to kirki
     private function v_5($db): bool
     {
-
-    //Move
+        //Move
         $this->migrateThemeMod('widths', 'container', 'field_609bdcc8348d6');
         $this->migrateThemeMod('widths', 'container_frontpage', 'field_60928f237c070');
         $this->migrateThemeMod('widths', 'container_archive', 'field_609bdcad348d5');
@@ -179,14 +179,14 @@ class Upgrade
     {
         $overlays = get_theme_mod('hero');
 
-        $defaultColor   = $overlays['field_614c713ae73ea']['field_614c7189e73eb'];
+        $defaultColor = $overlays['field_614c713ae73ea']['field_614c7189e73eb'];
         $defaultOpacity = $overlays['field_614c713ae73ea']['field_614c7197e73ec'];
 
-        $vibrantColor   = $overlays['field_614c720fb65a4']['field_614c720fb65a5'];
+        $vibrantColor = $overlays['field_614c720fb65a4']['field_614c720fb65a5'];
         $vibrantOpacity = $overlays['field_614c720fb65a4']['field_614c720fb65a6'];
 
-        $defaultOverlay = $this->hex2rgba($defaultColor, "0." . (int)$defaultOpacity);
-        $vibrantOverlay = $this->hex2rgba($vibrantColor, "0." . (int)$vibrantOpacity);
+        $defaultOverlay = $this->hex2rgba($defaultColor, '0.' . (int) $defaultOpacity);
+        $vibrantOverlay = $this->hex2rgba($vibrantColor, '0.' . (int) $vibrantOpacity);
 
         if ($vibrantColor || $defaultColor) {
             if ($vibrantColor == 'rgb(0,0,0)' && $defaultColor == 'rgb(0,0,0)') {
@@ -198,8 +198,6 @@ class Upgrade
             set_theme_mod('hero_overlay_enable', 0);
         }
 
-
-
         $this->deleteThemeMod('hero');
 
         return true;
@@ -210,9 +208,9 @@ class Upgrade
     {
         $overlays = get_theme_mod('overlay');
         if ($overlays) {
-            $color   = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0'];
+            $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0'];
             $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6'];
-            $overlay = $this->hex2rgba($color, "0." . (int)$opacity);
+            $overlay = $this->hex2rgba($color, '0.' . (int) $opacity);
             set_theme_mod('overlay', $overlay);
         }
 
@@ -348,8 +346,8 @@ class Upgrade
             'hero_overlay_vibrant',
             get_theme_mod(
                 'hero_overlay_neutral',
-                get_theme_mod('overlay', "rgba(0,0,0,0.55)")
-            )
+                get_theme_mod('overlay', 'rgba(0,0,0,0.55)'),
+            ),
         );
 
         if ($overlay) {
@@ -367,17 +365,11 @@ class Upgrade
     //Set contrasting colors (if no default)
     private function v_17($db): bool
     {
-        if (
-            !empty(get_theme_mod('color_palette_primary')) &&
-            empty(get_theme_mod('color_palette_primary')['contrasting'])
-        ) {
+        if (!empty(get_theme_mod('color_palette_primary')) && empty(get_theme_mod('color_palette_primary')['contrasting'])) {
             $this->setAssociativeThemeMod('color_palette_primary.contrasting', '#ffffff');
         }
 
-        if (
-            !empty(get_theme_mod('color_palette_secondary')) &&
-            empty(get_theme_mod('color_palette_secondary')['contrasting'])
-        ) {
+        if (!empty(get_theme_mod('color_palette_secondary')) && empty(get_theme_mod('color_palette_secondary')['contrasting'])) {
             $this->setAssociativeThemeMod('color_palette_secondary.contrasting', '#ffffff');
         }
 
@@ -424,25 +416,25 @@ class Upgrade
 
         //Translation sheme
         $scheme = [
-            'title'                 => 'heading',
-            'post_style'            => 'style',
-            'number_of_posts'       => 'post_count',
-            'sort_key'              => 'order_by',
-            'sort_order'            => 'order_direction',
-            'post_taxonomy_display' => 'taxonomies_to_display'
+            'title' => 'heading',
+            'post_style' => 'style',
+            'number_of_posts' => 'post_count',
+            'sort_key' => 'order_by',
+            'sort_order' => 'order_direction',
+            'post_taxonomy_display' => 'taxonomies_to_display',
         ];
 
         if (is_array($postTypes) && !empty($postTypes)) {
             foreach ($postTypes as $postType) {
-                $fromId = isset($postType->name) ?  'options_archive_' . $postType->name . '_' : false;
-                $toId   = isset($postType->name) ?  'archive_' . $postType->name . '_' : false;
+                $fromId = isset($postType->name) ? 'options_archive_' . $postType->name . '_' : false;
+                $toId = isset($postType->name) ? 'archive_' . $postType->name . '_' : false;
 
                 if ($fromId != false) {
                     //Plain transfer according to scheme
                     foreach ($scheme as $oldKey => $newKey) {
                         set_theme_mod(
                             $toId . $newKey,
-                            get_option($fromId . $oldKey) ?? null
+                            get_option($fromId . $oldKey) ?? null,
                         );
                         delete_option($fromId . $oldKey); //Clean old option
                     }
@@ -451,7 +443,7 @@ class Upgrade
                     $filters = array_merge(
                         (array) get_option($fromId . 'feed_filtering_settings') ?? [],
                         (array) get_option($fromId . 'post_filters_header') ?? [],
-                        (array) get_option($fromId . 'post_filters_sidebar') ?? []
+                        (array) get_option($fromId . 'post_filters_sidebar') ?? [],
                     );
                     set_theme_mod($toId . 'enabled_filters', array_filter($filters));
                     delete_option($fromId . 'feed_filtering_settings'); //Clean old option
@@ -482,8 +474,6 @@ class Upgrade
         delete_option('options_footer_logotype');
         return true;
     }
-
-
 
     /**
      * Move logos from theme options to Customizer
@@ -573,10 +563,10 @@ class Upgrade
     private function v_28($db): bool
     {
         $args = array(
-            'post_type'      => 'attachment',
+            'post_type' => 'attachment',
             'posts_per_page' => -1,
-            'post_status'    => 'inherit',
-            'post_mime_type' => 'application/font-woff'
+            'post_status' => 'inherit',
+            'post_mime_type' => 'application/font-woff',
         );
 
         $woffFilesQuery = new \WP_Query($args);
@@ -599,9 +589,9 @@ class Upgrade
     {
         $args = [
             'posts_per_page' => -1,
-            'meta_key'       => 'location',
-            'post_type'      => 'any',
-            'post_status'    => 'publish'
+            'meta_key' => 'location',
+            'post_type' => 'any',
+            'post_status' => 'publish',
         ];
 
         $posts = get_posts($args);
@@ -609,7 +599,7 @@ class Upgrade
             foreach ($posts as $post) {
                 $schemaField = get_field('schema', $post->ID) ?? [];
                 if (is_array($schemaField)) {
-                    $locationField      = get_post_meta($post->ID, 'location', true);
+                    $locationField = get_post_meta($post->ID, 'location', true);
                     $schemaField['geo'] = !empty($schemaField['geo']) ? $schemaField['geo'] : $locationField;
 
                     update_field('schema', $schemaField, $post->ID);
@@ -623,8 +613,8 @@ class Upgrade
     //Retires custom favicon in favour of native functionality
     private function v_30($db): bool
     {
-        $nativeFaviconKey = "site_icon";
-        $nativeFavicon    = get_option($nativeFaviconKey, false);
+        $nativeFaviconKey = 'site_icon';
+        $nativeFavicon = get_option($nativeFaviconKey, false);
         if (!$nativeFavicon) {
             foreach (['152', '144', 'fav'] as $type) {
                 for ($i = 0; $i < 10; $i++) {
@@ -677,8 +667,8 @@ class Upgrade
             }
 
             $destinationValues[] = [
-                'post_type'   => $postType,
-                'schema_type' => $schemaType
+                'post_type' => $postType,
+                'schema_type' => $schemaType,
             ];
         }
 
@@ -727,13 +717,13 @@ class Upgrade
      */
     public function v_37($db)
     {
-        $applicators     = [
+        $applicators = [
             new NullApplicator($this->wpService),
         ];
         $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
             $this->wpService,
             $db,
-            ...$applicators
+            ...$applicators,
         );
         $customizerCache->tryClearCache();
         return true;
@@ -757,7 +747,6 @@ class Upgrade
         return true;
     }
 
-
     /**
      * Version 39
      */
@@ -766,8 +755,43 @@ class Upgrade
         global $wpdb;
         $version = new \Municipio\Upgrade\V39\Version39(
             $wpdb,
-            WpService::get()
+            WpService::get(),
         );
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 40
+     */
+    public function v_40(): bool
+    {
+        global $wpdb;
+        $version = new \Municipio\Upgrade\V40\Version40($wpdb, WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 41
+     */
+    public function v_41(): bool
+    {
+        $version = new \Municipio\Upgrade\V41\Version41(WpService::get(), AcfService::get());
 
         try {
             $version->upgradeToVersion();
@@ -798,10 +822,10 @@ class Upgrade
         }
 
         $postTypes['author'] = (object) array(
-            'name'              => 'author',
-            'label'             => __('Author'),
-            'has_archive'       => true,
-            'is_author_archive' => true
+            'name' => 'author',
+            'label' => __('Author'),
+            'has_archive' => true,
+            'is_author_archive' => true,
         );
 
         return $postTypes;
@@ -849,11 +873,7 @@ class Upgrade
     {
         $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
 
-        if (
-            !function_exists('get_field') ||
-            empty($value = get_field($option, 'option', false)) ||
-            !set_theme_mod($themeMod, $value)
-        ) {
+        if (!function_exists('get_field') || empty($value = get_field($option, 'option', false)) || !set_theme_mod($themeMod, $value)) {
             $this->logError($errorMessage);
             return;
         }
@@ -910,8 +930,8 @@ class Upgrade
     protected function setAssociativeThemeMod($key, $value, $castToArray = false)
     {
         $parsedString = explode('.', $key);
-        $key          = $parsedString[0] ?? '';
-        $property     = $parsedString[1] ?? '';
+        $key = $parsedString[0] ?? '';
+        $property = $parsedString[1] ?? '';
 
         if (empty($parsedString) || empty($key)) {
             return false;
@@ -922,14 +942,14 @@ class Upgrade
             $associativeArr = is_array($associativeArr) || $castToArray !== true ? $associativeArr : [];
 
             if (!is_array($associativeArr)) {
-                $errorMessage = "Failed to migrate setting (" . $key . "." . $property . ").
-                The specified setting already exists and is not an associative array.";
+                $errorMessage = 'Failed to migrate setting (' . $key . '.' . $property . ').
+                The specified setting already exists and is not an associative array.';
                 $this->logError($errorMessage);
                 return false;
             }
 
             $associativeArr[$property] = $value;
-            $value                     = $associativeArr;
+            $value = $associativeArr;
         }
 
         return set_theme_mod($key, $value);
@@ -969,24 +989,24 @@ class Upgrade
 
         //Check if color has 6 or 3 characters and get values
         if (strlen($color) == 6) {
-            $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
+            $hex = array($color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]);
         } elseif (strlen($color) == 3) {
-            $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
+            $hex = array($color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
         } else {
             return $default;
         }
 
         //Convert hexadec to rgb
-        $rgb =  array_map('hexdec', $hex);
+        $rgb = array_map('hexdec', $hex);
 
         //Check if opacity is set(rgba or rgb)
         if ($opacity) {
             if (abs($opacity) > 1) {
                 $opacity = 1.0;
             }
-            $output = 'rgba(' . implode(",", $rgb) . ',' . $opacity . ')';
+            $output = 'rgba(' . implode(',', $rgb) . ',' . $opacity . ')';
         } else {
-            $output = 'rgb(' . implode(",", $rgb) . ')';
+            $output = 'rgb(' . implode(',', $rgb) . ')';
         }
 
         //Return rgb(a) color string
@@ -1015,8 +1035,8 @@ class Upgrade
                 $this->logError(
                     __(
                         'Database cannot be lower than currently installed (cannot downgrade).',
-                        'municipio'
-                    )
+                        'municipio',
+                    ),
                 );
             }
 
@@ -1028,7 +1048,7 @@ class Upgrade
                 $currentDbVersion++;
                 $funcName = 'v_' . (string) $currentDbVersion;
 
-                $lockKey  = 'upgrade_lock_v' . $currentDbVersion;
+                $lockKey = 'upgrade_lock_v' . $currentDbVersion;
                 $isLocked = get_transient($lockKey);
                 if (!$isLocked && method_exists($this, $funcName)) {
                     set_transient($lockKey, time(), 600);

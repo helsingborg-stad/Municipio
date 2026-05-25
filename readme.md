@@ -506,6 +506,35 @@ Municipio is integrated with google web-fonts. It enables smart loading of fonts
 define('WEB_FONT', 'Roboto'); //The google fonts name (without weights)
 define('WEB_FONT_REMOTE', true); //Load font kit from cdn
 ```
+
+### Retrieve enabled fonts as array (design tool)
+If you need a list of available/enabled fonts for an external design tool, you can read uploaded fonts and enabled Google fonts from the managed font settings.
+
+```php
+use Municipio\Customizer\Fonts\FontChoices;
+use Municipio\Customizer\Fonts\FontSettings;
+
+$uploadedFonts = FontSettings::getUploadedFontNames();
+$googleFonts   = FontChoices::getEnabledGoogleFonts();
+
+$availableFonts = array_values(array_unique(array_merge(
+    $uploadedFonts,
+    $googleFonts,
+)));
+
+// Example payload shape for a design tool.
+$designToolFonts = [
+    'all' => $availableFonts,
+    'uploaded' => $uploadedFonts,
+    'google' => $googleFonts,
+];
+```
+
+Notes:
+- `FontSettings::getUploadedFontNames()` returns uploaded font family names from `municipio_font_catalog_uploaded_fonts`.
+- `FontChoices::getEnabledGoogleFonts()` returns enabled Google fonts from `municipio_font_catalog_google_fonts` and also includes Google fonts currently selected in typography settings.
+- If no Google fonts are enabled/selected, `Roboto` is used as fallback.
+
 # Version 2.0
 The goal of version 2.0 is to restructure the theme frontend and move towards the BEM (IT) standard for markup. More filters will be added in a automatic manner, mutch like ACF doe's it. These will for now, be documented below.
 

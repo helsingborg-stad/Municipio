@@ -46,7 +46,7 @@ class CompressedCollections implements Hookable
 
         if (in_array($context, $sidebarContexts)) {
             $data['classList']   = is_array($data['classList']) ? $data['classList'] : [];
-            $data['classList'][] = 'c-collection--compact-lg';
+            $data['classList'][] = 'c-collection--compact';
         }
 
         return $data;

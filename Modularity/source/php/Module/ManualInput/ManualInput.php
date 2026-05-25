@@ -21,7 +21,7 @@ class ManualInput extends \Modularity\Module
     public string $postStatus;
     public $template;
 
-    private null|PrivateController $privateController = null;
+    private ?PrivateController $privateController = null;
 
     public function init()
     {
@@ -75,10 +75,7 @@ class ManualInput extends \Modularity\Module
                 });
 
                 // Custom background color
-                $customBackgroundColor = ($fields['use_custom_card_color'] ?? false)
-                    && !empty($input['custom_background_color'])
-                    ? $this->parseCustomBackgroundColor($input['custom_background_color'])
-                    : false;
+                $customBackgroundColor = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color']) ? $this->parseCustomBackgroundColor($input['custom_background_color']) : false;
 
                 // Custom text color
                 $customTextColor = $customBackgroundColor
@@ -213,11 +210,7 @@ class ManualInput extends \Modularity\Module
      */
     private function canBeHighlighted(array $fields, int $index)
     {
-        return (
-            $index === 0
-            && !empty($fields['highlight_first_input'])
-            && in_array($this->template, ['card', 'block', 'segment'])
-        );
+        return $index === 0 && !empty($fields['highlight_first_input']) && in_array($this->template, ['card', 'block', 'segment']);
     }
 
     /**
@@ -341,7 +334,7 @@ class ManualInput extends \Modularity\Module
     /**
      * Parses the custom background color and returns a valid hex color code.
      *
-     * This function takes a color string as input and checks if it contains a valid hex color code using a regular expression. 
+     * This function takes a color string as input and checks if it contains a valid hex color code using a regular expression.
      * If a valid hex color code is found, it is returned. Otherwise, the original input value is returned as a fallback.
      *
      * @param string $color The input color string to be parsed.

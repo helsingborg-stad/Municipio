@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_69b814ff11562',
     'title' => __('Chat Settings', 'municipio'),
     'fields' => array(
@@ -53,7 +55,7 @@
             'name' => 'chat_default_assistant',
             'aria-label' => '',
             'type' => 'text',
-            'instructions' => __('Unique ID of the assistant to use when no assistant is given.', 'municipio'),
+            'instructions' => __('Write the name of the Assistant you want to use as default', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -91,11 +93,11 @@
             'rows_per_page' => 20,
             'sub_fields' => array(
                 0 => array(
-                    'key' => 'field_69ddefdc9aa7b',
-                    'label' => __('Unique ID', 'municipio'),
-                    'name' => 'id',
+                    'key' => 'field_69fdd43358131',
+                    'label' => __('Settings', 'municipio'),
+                    'name' => '',
                     'aria-label' => '',
-                    'type' => 'text',
+                    'type' => 'tab',
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -104,21 +106,18 @@
                         'class' => '',
                         'id' => '',
                     ),
-                    'default_value' => '',
-                    'maxlength' => '',
-                    'allow_in_bindings' => 0,
-                    'placeholder' => '',
-                    'prepend' => '',
-                    'append' => '',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                    'selected' => 0,
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
                 1 => array(
-                    'key' => 'field_69ddefe99aa7c',
+                    'key' => 'field_69ddefdc9aa7b',
                     'label' => __('Name', 'municipio'),
                     'name' => 'name',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => '',
+                    'instructions' => __('The name must be unique', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -195,6 +194,74 @@
                     'append' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
+                5 => array(
+                    'key' => 'field_69fdd45146a41',
+                    'label' => __('Appearance', 'municipio'),
+                    'name' => '',
+                    'aria-label' => '',
+                    'type' => 'tab',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                    'selected' => 0,
+                    'parent_repeater' => 'field_69ddefc99aa7a',
+                ),
+                6 => array(
+                    'key' => 'field_69fdd46446a42',
+                    'label' => __('Avatar', 'municipio'),
+                    'name' => 'avatar',
+                    'aria-label' => '',
+                    'type' => 'image',
+                    'instructions' => __('For best experience, choose an image with a 1:1 ratio.', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'return_format' => 'id',
+                    'library' => 'all',
+                    'min_width' => '',
+                    'min_height' => '',
+                    'min_size' => '',
+                    'max_width' => '',
+                    'max_height' => '',
+                    'max_size' => '',
+                    'mime_types' => '',
+                    'allow_in_bindings' => 0,
+                    'preview_size' => 'medium',
+                    'parent_repeater' => 'field_69ddefc99aa7a',
+                ),
+                7 => array(
+                    'key' => 'field_69fdd4f11fb4b',
+                    'label' => __('Greetings phrase', 'municipio'),
+                    'name' => 'greetings_phrase',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => __('A phrase that will greet the user', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'allow_in_bindings' => 0,
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                    'parent_repeater' => 'field_69ddefc99aa7a',
+                ),
             ),
         ),
     ),
@@ -205,7 +272,7 @@
                 'operator' => '==',
                 'value' => 'chat-settings',
             ),
-        ),
+        )
     ),
     'menu_order' => 0,
     'position' => 'normal',
@@ -218,4 +285,5 @@
     'show_in_rest' => 0,
     'display_title' => '',
 ));
-}
+
+}

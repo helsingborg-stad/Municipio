@@ -1,4 +1,5 @@
 @notice([
+    'classList' => ['o-container'],
     'type' => 'warning',
     'message' => [
         'text' => $lang->expiredDateNotice,

@@ -4,8 +4,10 @@ namespace Municipio\PostsList\ViewCallableProviders\Table;
 
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
+use Municipio\PostsList\ViewCallableProviders\Table\TableArguments\TableHeadingsGenerator;
+use Municipio\PostsList\ViewCallableProviders\Table\TableArguments\TableItemsGenerator;
+use Municipio\PostsList\ViewCallableProviders\Table\TableArguments\TableItemsWithEmpasizedFirstItem;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
-use Municipio\PostsList\ViewCallableProviders\Table\TableArguments\{TableHeadingsGenerator, TableItemsGenerator};
 use WpService\WpService;
 
 /**
@@ -22,9 +24,8 @@ class GetTableComponentArguments implements ViewCallableProviderInterface
     public function __construct(
         private array $posts,
         private AppearanceConfigInterface $appearanceConfig,
-        private WpService $wpService
-    ) {
-    }
+        private WpService $wpService,
+    ) {}
 
     /**
      * Get a callable that returns table component arguments
@@ -44,17 +45,19 @@ class GetTableComponentArguments implements ViewCallableProviderInterface
     private function getTableArguments(): array
     {
         $headingsGenerator = new TableHeadingsGenerator($this->appearanceConfig, $this->posts, $this->wpService);
-        $itemsGenerator    = new TableItemsGenerator(
+        $itemsGenerator = new TableItemsGenerator(
             $this->appearanceConfig,
             $this->posts,
             $this->wpService,
             new TableArguments\TaxonomyTermsProvider($this->appearanceConfig, $this->posts, $this->wpService),
-            new TableArguments\LabelFormatter($this->wpService)
+            new TableArguments\LabelFormatter($this->wpService),
         );
+
+        $items = (new TableItemsWithEmpasizedFirstItem($itemsGenerator->generate()))->emphasize();
 
         return [
             'headings' => $headingsGenerator->generate(),
-            'list'     => $itemsGenerator->generate(),
+            'list' => $items,
         ];
     }
 }

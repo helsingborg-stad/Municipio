@@ -20,7 +20,9 @@
                         @group([
                             'direction' => 'vertical',
                             'justifyContent' => 'flex-end',
-                            'classList' => ['u-height--100']
+                            'normalizeChildren' => false,
+                            'fullWidth' => true,
+                            'classList' => ['u-height--100'],
                         ])
                             @typography([ 'element' => 'b', 'classList' => ['u-margin__left--auto'] ])
                                 {{$getProgressLabel($post)}}

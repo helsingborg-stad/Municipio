@@ -4,7 +4,7 @@
         <!-- Single link item -->
         @button([
             'id' => 'fab-item',
-            'classList' => ['u-fixed--bottom-right', 'u-margin--2'],
+            'classList' => ['u-position--fixed', 'u-bottom--2', 'u-right--2'],
             'icon' => !empty($floatingMenu['items'][0]['icon']['icon']) ? $floatingMenu['items'][0]['icon']['icon'] : $floatingMenuLabels->buttonIcon,
             'size' => 'md',
             'color' => 'primary',

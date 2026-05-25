@@ -15,8 +15,15 @@ function loadMoreHandler(event) {
 	const placeholderBlocks = socialMediaBlocks.querySelectorAll(
 		".modularity-socialmedia__item--placeholder",
 	);
+	const firstRenderedBlock = socialMediaBlocks.querySelector(
+		".modularity-socialmedia__item:not(.modularity-socialmedia__item--placeholder)",
+	);
+	const renderedBlockHeight = firstRenderedBlock?.offsetHeight;
 
 	placeholderBlocks.forEach((block) => {
+		if (renderedBlockHeight) {
+			block.style.minHeight = `${renderedBlockHeight}px`;
+		}
 		block.classList.remove("u-display--none");
 	});
 	if (itemsLoaded < itemCount) {

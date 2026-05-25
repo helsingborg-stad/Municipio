@@ -15,7 +15,6 @@
                 'link'              => $item['permalink'] ?? false,
                 'classList'         => ['u-height--100', 'u-height-100'],
                 'context'           => 'module.index',
-                'hasAction'         => !empty($item['permalink']),
                 'image'             => isset($item['thumbnail'][0]) ? $item['thumbnail'][0] : false,
                 'heading'           => isset($item['title']) && !empty($item['title']) ? $item['title'] : false,
                 'content'           => $item['lead'],

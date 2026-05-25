@@ -24,9 +24,8 @@ class ResolveNavigationItemsLanguage implements Hookable
     public function __construct(
         private AddFilter&WpGetPostTerms $wpService,
         private ?Closure $currentLanguageResolver = null,
-        private ?Closure $postLanguageResolver = null
-    ) {
-    }
+        private ?Closure $postLanguageResolver = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -67,7 +66,7 @@ class ResolveNavigationItemsLanguage implements Hookable
                 }
 
                 return $postLanguage === $currentLanguage;
-            }
+            },
         );
     }
 
@@ -130,7 +129,7 @@ class ResolveNavigationItemsLanguage implements Hookable
             return $this->currentLanguageResolver;
         }
 
-        return fn (): ?string => $this->resolveCurrentLanguage();
+        return fn(): ?string => $this->resolveCurrentLanguage();
     }
 
     /**
@@ -144,7 +143,7 @@ class ResolveNavigationItemsLanguage implements Hookable
             return $this->postLanguageResolver;
         }
 
-        return fn (int $postId): ?string => $this->resolvePostLanguage($postId);
+        return fn(int $postId): ?string => $this->resolvePostLanguage($postId);
     }
 
     /**

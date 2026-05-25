@@ -11,7 +11,7 @@
             {{ $post->postTitle }}
         @endtypography
 
-        @typography([ 'element' => 'b', ])
+        @typography([ 'element' => 'b'])
             {{$progressLabel}}
         @endtypography
         @progressBar([ 'value' => $progressPercentage ]) @endprogressBar

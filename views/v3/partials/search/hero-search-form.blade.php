@@ -2,11 +2,13 @@
     'id'        => 'hero-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['search-form', 'c-form--hidden', 'u-box-shadow--5', 'u-print-display--none'],
+    'classList' => ['search-form', 'c-form--hidden', 'u-box-shadow--5', 'u-print-display--none', 'u-display--flex', 'u-flex-direction--column'],
     'context' => ['hero.search.form']
     ])
     @group([
         'id' => 'hero-search-form__wrapper',
+        'normalizeChildren' => false,
+        'fullWidth' => true,
     ])
         @field([
             'id' => 'hero-search-form__field',
@@ -16,7 +18,6 @@
             'label' => $lang->searchOn . " " . $siteName,
             'placeholder' => $lang->searchOn . " " . $siteName,
             'size' => 'lg',
-            'radius' => 'xs',
             'icon' => [
                 'icon' => 'search', 
                 'classList' => ['u-display--none@xs', 'c-field__icon']
