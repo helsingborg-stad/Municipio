@@ -46,6 +46,11 @@ class KulturkortetProfileEditorFeature implements Hookable
                     'autoRegister' => true,
                 ],
                 'attributes' => [
+                    'ticketLinkLabel' => [
+                        'label' => __('Text på länk till biljett', 'municipio'),
+                        'type' => 'string',
+                        'default' => __('Visa min biljett', 'municipio'),
+                    ],
                     'ticketLink' => [
                         'label' => __('Länk till biljett', 'municipio'),
                         'type' => 'string',

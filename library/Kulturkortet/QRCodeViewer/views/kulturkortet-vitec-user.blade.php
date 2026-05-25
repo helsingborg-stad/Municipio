@@ -1,5 +1,5 @@
 <div class="o-grid">
-    <div class="o-grid-4@md">
+    <div class="o-grid-12@md">
         @card([
                     'color' => 'success',
                     'image' => [
@@ -7,18 +7,28 @@
                         'alt' => 'Kulturkortet',
                         'square' => true,
                     ],
-                    'heading' => $model['name'] ?? '',
+                    'heading' => $profile['firstname'] . ' ' . $profile['lastname'],
                     'buttons' => [
-                            ['type' => 'filled', 'color' => 'primary', 'text' => 'Logga ut', 'href' => $model['logoutUrl']],
+                            ['type' => 'filled', 'color' => 'primary', 'text' => 'Logga ut', 'href' => $logoutUrl],
                             ...(empty($attributes['profileLinkLabel']) || empty($attributes['profileLink']) ? [] : [['type' => 'filled', 'color' => 'primary', 'text' => $attributes['profileLinkLabel'] ?? '', 'href' => $attributes['profileLink'] ?? '']])
                         ]
                 ])
                 @slot('subHeading')
-                    {{ $model['validFrom'] ?? '' }} - {{ $model['validTo'] ?? '' }}
+                    {{ $ticket['validFrom'] ?? '' }} - {{ $ticket['validTo'] ?? '' }}
                 @endslot
                 @slot('aboveContent')
-                    <canvas data-kulturkortet-barcode="{{ $model['barcode'] ?? '' }}"></canvas>
+                    <canvas data-kulturkortet-barcode="{{ $ticket['barcode'] ?? '' }}"></canvas>
                 @endslot
         @endcard
+        @if ($showDebugInfo)
+            @card([
+                'color' => 'info',
+                'heading' => 'Debug info - Vitec user data',
+            ])
+                @slot('content')
+                    <pre><code>{{ var_export($vitecUser, true) }}</code></pre>
+                @endslot
+            @endcard
+        @endif
     </div>
 </div>

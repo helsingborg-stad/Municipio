@@ -47,14 +47,21 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
 
         return $this->renderWithModel('kulturkortet-vitec-user', [
             'lang' => [],
-            'model' => [
-                'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
-                'name' => $user->getName(),
-                'email' => $ticket['email'] ?? null,
+
+            'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
+            'name' => $user->getName(),
+            'profile' => [
+                'firstname' => $ticket['firstname'] ?? '',
+                'lastname' => $ticket['lastname'] ?? '',
+                'email' => $ticket['email'] ?? '',
+            ],
+            'ticket' => [
                 'barcode' => $ticket['barcode'] ?? null,
                 'validFrom' => $this->formatDate($ticket['validFrom'] ?? null),
                 'validTo' => $this->formatDate($ticket['validUntil'] ?? null),
             ],
+            'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG, // set to true to show raw Vitec user data for debugging purposes
+            'vitecUser' => $vitecUser, // for debugging purposes
         ]);
 
         // $vitecUser is expected to look something like

@@ -61,16 +61,25 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 'logoutUrl' => __('Logga ut', 'municipio'),
                 'saveUrl' => __('Spara', 'municipio'),
 
+                'firstnameLabel' => __('Förnamn', 'municipio'),
+                'firstnamePlaceholder' => __('Ange ditt förnamn', 'municipio'),
+
+                'lastnameLabel' => __('Efternamn', 'municipio'),
+                'lastnamePlaceholder' => __('Ange ditt efternamn', 'municipio'),
+
                 'emailLabel' => __('E-post', 'municipio'),
                 'emailPlaceholder' => __('Ange din e-post', 'municipio'),
             ],
             'profile' => [
-                'name' => $user->getName() ?? '',
+                'firstname' => $ticket['firstname'] ?? '',
+                'lastname' => $ticket['lastname'] ?? '',
                 'email' => $ticket['email'] ?? '',
             ],
-            'vitecUser' => $vitecUser,
+            'name' => $user->getName() ?? '',
             'saveUrl' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
             'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
+            'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG, // set to true to show raw Vitec user data for debugging purposes
+            'vitecUser' => $vitecUser, // for debugging purposes
         ]);
     }
 
