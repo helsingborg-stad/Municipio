@@ -12106,3 +12106,307 @@ msgstr ""
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Maximum number of rows reached."
 msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:203
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:204
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:230
+msgctxt "design-builder-token-data"
+msgid "Colors"
+msgstr "Färger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:205
+msgctxt "design-builder-token-data"
+msgid "Variant color selection for button surfaces."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:206
+msgctxt "design-builder-token-data"
+msgid "Primary Variant"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:207
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for primary button variants."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:208
+msgctxt "design-builder-token-data"
+msgid "Secondary Variant"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:209
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for secondary button variants."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:210
+msgctxt "design-builder-token-data"
+msgid "Default Variant"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:211
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for default button variants."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:212
+msgctxt "design-builder-token-data"
+msgid "Chat"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:213
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:217
+msgctxt "design-builder-token-data"
+msgid "Border radius multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:214
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:218
+msgctxt "design-builder-token-data"
+msgid "Scales the border radius locally without changing the global border radius scale."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:215
+msgctxt "design-builder-token-data"
+msgid "Form"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:216
+msgctxt "design-builder-token-data"
+msgid "Border settings"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:219
+msgctxt "design-builder-token-data"
+msgid "Border width"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:220
+msgctxt "design-builder-token-data"
+msgid "Corner shape"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:221
+msgctxt "design-builder-token-data"
+msgid "Border color"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:222
+msgctxt "design-builder-token-data"
+msgid "Placeholder settings"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:223
+msgctxt "design-builder-token-data"
+msgid "Placeholder font family"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:224
+msgctxt "design-builder-token-data"
+msgid "Placeholder font weight"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:225
+msgctxt "design-builder-token-data"
+msgid "Placeholder background color"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:226
+msgctxt "design-builder-token-data"
+msgid "Caption settings"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:227
+msgctxt "design-builder-token-data"
+msgid "Caption font size"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:228
+msgctxt "design-builder-token-data"
+msgid "Caption line height"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:229
+msgctxt "design-builder-token-data"
+msgid "Caption color"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:231
+msgctxt "design-builder-token-data"
+msgid "Selects the token families used by each notice state."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:232
+msgctxt "design-builder-token-data"
+msgid "Info State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:233
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for informational notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:234
+msgctxt "design-builder-token-data"
+msgid "Danger State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:235
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for danger notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:236
+msgctxt "design-builder-token-data"
+msgid "Warning State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:237
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for warning notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:238
+msgctxt "design-builder-token-data"
+msgid "Success State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:239
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for success notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:240
+msgctxt "design-builder-token-data"
+msgid "Product"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:241
+msgctxt "design-builder-token-data"
+msgid "Timeline"
+msgstr "Tidslinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:242
+msgctxt "design-builder-token-data"
+msgid "The Timeline component provides a vertical overview of events, milestones, or steps in a process."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:243
+msgctxt "design-builder-token-data"
+msgid "Brand Palette"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:244
+msgctxt "design-builder-token-data"
+msgid "Optional brand palette slots for reusable campaign and accent colors."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:245
+msgctxt "design-builder-token-data"
+msgid "Palette 1"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:246
+msgctxt "design-builder-token-data"
+msgid "Palette 1 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:247
+msgctxt "design-builder-token-data"
+msgid "Palette 2"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:248
+msgctxt "design-builder-token-data"
+msgid "Palette 2 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:249
+msgctxt "design-builder-token-data"
+msgid "Palette 3"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:250
+msgctxt "design-builder-token-data"
+msgid "Palette 3 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:251
+msgctxt "design-builder-token-data"
+msgid "Palette 4"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:252
+msgctxt "design-builder-token-data"
+msgid "Palette 4 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:253
+msgctxt "design-builder-token-data"
+msgid "Palette 5"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:254
+msgctxt "design-builder-token-data"
+msgid "Palette 5 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:255
+msgctxt "design-builder-token-data"
+msgid "Palette 6"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:256
+msgctxt "design-builder-token-data"
+msgid "Palette 6 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:257
+msgctxt "design-builder-token-data"
+msgid "Palette 7"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:258
+msgctxt "design-builder-token-data"
+msgid "Palette 7 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:259
+msgctxt "design-builder-token-data"
+msgid "Palette 8"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:260
+msgctxt "design-builder-token-data"
+msgid "Palette 8 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:261
+msgctxt "design-builder-token-data"
+msgid "Palette 9"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:262
+msgctxt "design-builder-token-data"
+msgid "Palette 9 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:263
+msgctxt "design-builder-token-data"
+msgid "Palette 10"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:264
+msgctxt "design-builder-token-data"
+msgid "Palette 10 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:265
+msgctxt "design-builder-token-data"
+msgid "Background Alt"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:266
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle background surfaces."
+msgstr ""

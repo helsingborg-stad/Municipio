@@ -12,24 +12,12 @@ class ChatConfig implements ChatConfigInterface
 
     public function isEnabled(): bool
     {
-        static $enabled = null;
-
-        if ($enabled !== null) {
-            return $enabled;
-        }
-
-        return $enabled = (bool) $this->acfService->getField('chat_enabled', 'option');
+        return (bool) $this->acfService->getField('chat_enabled', 'option');
     }
 
     public function isGlobalChatEnabled(): bool
     {
-        static $globalChatEnabled = null;
-
-        if ($globalChatEnabled !== null) {
-            return $globalChatEnabled;
-        }
-
-        return $globalChatEnabled = (bool) $this->acfService->getField('chat_global_enabled', 'option');
+        return (bool) $this->acfService->getField('chat_global_enabled', 'option');
     }
 
     public function getDefaultAssistant(): ?array

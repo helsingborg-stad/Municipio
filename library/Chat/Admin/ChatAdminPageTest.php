@@ -7,7 +7,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class RegisterChatAdminPageTest extends TestCase
+class ChatAdminPageTest extends TestCase
 {
     #[TestDox('addHooks() registers the init action')]
     public function testAddHooksRegistersInitAction(): void
