@@ -6,6 +6,9 @@ namespace Municipio\Kulturkortet\MunicipioAuth\Visma;
 
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 
+/**
+ * Interface for creating authorized users from Visma API session data.
+ */
 interface VismaAuthorizedUserFactoryInterface
 {
     /**
