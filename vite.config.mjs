@@ -69,7 +69,6 @@ const entries = {
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",
 	"js/pdf": "./assets/source/js/pdf.ts",
 	"js/nav": "./assets/source/js/nav.ts",
-	"js/chat": "./library/Chat/js/index.ts",
 
 	/* Blocks */
 	"js/backdrop-banner": "./library/BackdropBanner/js/Front/backdrop-banner.ts",
@@ -78,6 +77,7 @@ const entries = {
 	"css/backdrop-banner-editor":
 		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
+	/* Chat */
 	"js/chat": "./library/Chat/js/index.ts",
 	"css/chat": "./library/Chat/css/chat.scss",
 
