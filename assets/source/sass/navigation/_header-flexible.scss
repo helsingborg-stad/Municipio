@@ -65,6 +65,6 @@
 
     // Brand text
     .c-header__brand-text {
-       font-size: var(--c-brand-font-size, calc(var(--base) * 3));
+       font-size: calc(var(--base) * 2.5);
     }
 }
