@@ -75,6 +75,16 @@ class Columns
                             ]
                         )
                     );
+
+                    $style = $child->getAttribute('style');
+                    $style = $this->removeFlexBasisFromStyle($style);
+
+                    if ($style === '') {
+                        $child->removeAttribute('style');
+                    } else {
+                        $child->setAttribute('style', $style);
+                    }
+
                     $modifiedColumns[] = trim($doc->saveHTML($child));
                     $index++;
                 }
@@ -82,6 +92,21 @@ class Columns
         }
 
         return $modifiedColumns;
+    }
+
+    /**
+     * Remove the flex-basis declaration from an inline style attribute.
+     *
+     * @param string $style The inline style attribute value.
+     * @return string The sanitized inline style attribute value.
+     */
+    private function removeFlexBasisFromStyle(string $style): string
+    {
+        $style = preg_replace('/(^|;)\s*flex-basis\s*:[^;]+;?/i', '$1', $style) ?? $style;
+        $style = preg_replace('/\s*;\s*/', '; ', $style) ?? $style;
+        $style = trim($style, " ;");
+
+        return $style;
     }
 
     /**
