@@ -63,7 +63,6 @@
 
 
 .o-grid-column-block {
-
     &.is-vertically-aligned-center {
         align-self: center;
     }
@@ -71,8 +70,4 @@
     &.is-vertically-aligned-bottom {
         align-self: flex-end;
     }
-
-    // @include mq.mq(map.get(variables.$breakpoints-map, "xs"), map.get(variables.$breakpoints-map, "md")) { // TODO: Replace with suitable styleguide variable.
-    //     flex-basis: 100% !important; // Override inline style.
-    // }
 }
