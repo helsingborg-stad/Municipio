@@ -93,22 +93,22 @@ class PanelsRegistry
                 ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\PostType($id, $postType));
         }, $filteredPostTypes);
 
-        KirkiPanel::create()
-            ->setID('municipio_customizer_panel_designlib')
-            ->setTitle(esc_html__('Design Library', 'municipio'))
-            ->setDescription(esc_html__('Select a design made by other municipio users.', 'municipio'))
-            ->setPriority(1000)
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_panel_design_module')
-                    ->setTitle(esc_html__('Load a design', 'municipio'))
-                    ->setDescription(esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module')),
-            )
-            ->addSubPanel(
-                KirkiPanel::create()->setID($panelId)->setTitle(esc_html__('Load design for individual post types', 'municipio'))->setDescription(esc_html__('Manage post types settings', 'municipio'))->addSections($sections),
-            )
-            ->register();
+        // KirkiPanel::create()
+        //     ->setID('municipio_customizer_panel_designlib')
+        //     ->setTitle(esc_html__('Design Library', 'municipio'))
+        //     ->setDescription(esc_html__('Select a design made by other municipio users.', 'municipio'))
+        //     ->setPriority(1000)
+        //     ->addSection(
+        //         KirkiPanelSection::create()
+        //             ->setID('municipio_customizer_panel_design_module')
+        //             ->setTitle(esc_html__('Load a design', 'municipio'))
+        //             ->setDescription(esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'))
+        //             ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module')),
+        //     )
+        //     ->addSubPanel(
+        //         KirkiPanel::create()->setID($panelId)->setTitle(esc_html__('Load design for individual post types', 'municipio'))->setDescription(esc_html__('Manage post types settings', 'municipio'))->addSections($sections),
+        //     )
+        //     ->register();
     }
 
     /**
