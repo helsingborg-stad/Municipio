@@ -1,11 +1,9 @@
-@use '../config/z-index' as *;
-
 body.modularity-loader-takeover::before {
     overflow: hidden;
     display: block;
     content: '';
     position: fixed;
-    z-index: $level-top;
+    z-index: 9999;
     top: 0;
     bottom: 0;
     left: 0;
@@ -22,7 +20,7 @@ body.modularity-loader-takeover::after {
     left: 50%;
     margin-top: calc($size / 2) * -1;
     margin-left: calc($size / 2) * -1;
-    z-index: $level-top;
+    z-index: 9999;
     background-color: #DF8EAE;
     width: 100px;
     height: 100px;
