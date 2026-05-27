@@ -10,11 +10,13 @@ class Chat implements ChatInterface {
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
-		private readonly feedbackApi: FeedbackApi
+		private readonly feedbackApi: FeedbackApi,
+		private readonly assistantName: string | null = null,
 	) {}
 
 	public init(): void {
-		this.session = this.sessionFactory.create(null);
+		this.session = this.sessionFactory.create(this.assistantName);
+		console.log(this.session);
 		this.listenForUserMessages();
 	}
 
@@ -22,8 +24,8 @@ class Chat implements ChatInterface {
 		this.feedbackApi.postStat('message');
 	}
 
-	public createNewChatSession(assistantId: string | null): void {
-		this.session = this.sessionFactory.create(assistantId);
+	public createNewChatSession(): void {
+		this.session = this.sessionFactory.create(this.assistantName);
 	}
 
 	private listenForUserMessages(): void {

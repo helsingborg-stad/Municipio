@@ -13,7 +13,7 @@ class ChatRender implements ChatRenderInterface
     public function render(ChatRenderConfigInterface $renderConfig): string
     {;
         $assistant = $renderConfig->getAssistant();
-
+        
         if (empty($assistant)) {
             return '';
         }
@@ -24,7 +24,7 @@ class ChatRender implements ChatRenderInterface
             $this->bladeRenderer->render($renderConfig->getView(), [
                 'lang' => $renderConfig->getLang(),
                 'avatar' => $renderConfig->getAvatar(),
-                'name' => $renderConfig->getAssistantName(),
+                'name' => $assistant['name'],
                 'attributeList' => $renderConfig->getAttributeList()
             ]),
         );

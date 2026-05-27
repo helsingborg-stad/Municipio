@@ -6,7 +6,7 @@ class NewChatSessionButton {
     private setListeners(): void {
         this.newChatButtonElement.addEventListener("click", () => {
             this.chat.clearMessages();
-            this.chatInstance.createNewChatSession(null);
+            this.chatInstance.createNewChatSession();
         });
     }
 }
