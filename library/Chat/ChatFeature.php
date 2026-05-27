@@ -43,7 +43,7 @@ class ChatFeature
         );
         
         (new RegisterChatEndpoint(
-            new ChatEndpoint($this->acfService, (new PIIRedactorFactory())->create()),
+            new ChatEndpoint($config, (new PIIRedactorFactory())->create()),
             $config,
         ))->addHooks();
 

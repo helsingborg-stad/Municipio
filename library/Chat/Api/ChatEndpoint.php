@@ -2,8 +2,8 @@
 
 namespace Municipio\Chat\Api;
 
-use AcfService\Contracts\GetField;
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
 
 class ChatEndpoint extends RestApiEndpoint
@@ -12,7 +12,7 @@ class ChatEndpoint extends RestApiEndpoint
     private const ROUTE = '/chat';
 
     public function __construct(
-        private GetField $acfService,
+        private ChatConfigInterface $config,
         private PIIRedactorInterface $piiRedactor,
     ) {
     }
@@ -29,7 +29,6 @@ class ChatEndpoint extends RestApiEndpoint
     public function handleRequest(\WP_REST_Request $request): \WP_REST_Response|\WP_Error
     {
         $params = $request->get_params();
-
         $messageError = $this->validateMessage($params);
         if (is_wp_error($messageError)) {
             return $messageError;
@@ -72,13 +71,13 @@ class ChatEndpoint extends RestApiEndpoint
 
     private function resolveAssistant(array $params): array|\WP_Error
     {
-        $assistantUniqueId = $params['assistant_id'] ?? null;
+        $assistantUniqueId = $params['assistant_name'] ?? null;
 
-        if (empty($assistantUniqueId)) {
-            $assistantUniqueId = $this->acfService->getField('chat_default_assistant', 'option');
+        if (empty($assistantUniqueId) || $assistantUniqueId === 'Default') {
+            return $this->config->getDefaultAssistant();
         }
 
-        $allAssistants = $this->acfService->getField('chat_assistants', 'option') ?? [];
+        $allAssistants = $this->config->getAssistants();
 
         foreach ($allAssistants as $candidate) {
             if ($candidate['name'] === $assistantUniqueId) {

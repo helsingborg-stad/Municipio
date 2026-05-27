@@ -16,7 +16,6 @@ class Chat implements ChatInterface {
 
 	public init(): void {
 		this.session = this.sessionFactory.create(this.assistantName);
-		console.log(this.session);
 		this.listenForUserMessages();
 	}
 

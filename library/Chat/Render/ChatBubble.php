@@ -26,12 +26,13 @@ class ChatBubble implements Hookable
 
     public function render(): void
     {
-        echo 
-            $this->renderer->render(new ChatRenderConfig(
-                $this->wpService,
-                $this->config,
-                'fab',
-                'Default'
-            ));
+        $config = new ChatRenderConfig(
+            $this->wpService,
+            $this->config,
+            'fab',
+            'Default'
+        );
+
+        echo $this->renderer->render($config);
     }
 }

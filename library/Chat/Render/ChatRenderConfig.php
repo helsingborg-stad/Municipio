@@ -7,13 +7,17 @@ use Municipio\Helper\Image;
 use WpService\Contracts\__;
 
 class ChatRenderConfig implements ChatRenderConfigInterface {
+    private ?array $assistant = null;
+    private ?array $avatar = null;
+
     public function __construct(
         private __ $wpService,
         private ChatConfigInterface $config,
         private string $view,
-        private ?string $assistantName = null,
+        private string $assistantName,
         private ?string $wrapperAttributes = '',
-    ) {}
+    ) {
+    }
 
     public function getView(): string
     {
@@ -24,22 +28,20 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
     {
         $assistant = $this->getAssistant();
 
-        if (empty($assistant)) {
+        if (empty($assistant) || empty($assistant['name'])) {
             return null;
         }
 
-        return $assistant['name'] ?? null;
+        return $assistant['name'];
     }
 
     public function getAssistant(): ?array
     {
-        static $assistant = null;
-
-        if ($assistant !== null) {
-            return $assistant;
+        if ($this->assistant !== null) {
+            return $this->assistant;
         }
 
-        return $assistant = $this->getAssistantFromString();
+        return $this->assistant = $this->getAssistantFromString();
     }
 
     public function getWrapperAttributes(): ?string
@@ -86,29 +88,27 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
     public function getAvatar(): ?array
     {
         $assistant = $this->getAssistant();
-        static $avatar = null;
 
-        if (!empty($avatar)) {
-            return $avatar;
+        if ($this->avatar !== null) {
+            return $this->avatar;
         }
 
         if (empty($assistant) || empty($assistant['avatar'])) {
             return null;
         }
 
-        return $avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]);
+        return $this->avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]);
     }
 
     private function getAssistantFromString(): ?array
     {
         $allAssistants = $this->config->getAssistants();
 
-
         if (empty($allAssistants)) {
             return null;
         }
 
-        if (empty($this->assistantName) || $this->assistantName === 'Default') {
+        if ($this->assistantName === 'Default') {
             return $this->config->getDefaultAssistant();
         }
 
