@@ -2,7 +2,7 @@
 node_modules
 .npmrc
 assets/dist/*
-vendor/
+vendor/*
 .php_cs.cache
 .env
 
