@@ -5,6 +5,7 @@ namespace Municipio\Chat\Api;
 use Municipio\Api\RestApiEndpoint;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
+use Municipio\Chat\PIIRedactor\RedactionResult;
 
 class ChatEndpoint extends RestApiEndpoint
 {
@@ -14,8 +15,7 @@ class ChatEndpoint extends RestApiEndpoint
     public function __construct(
         private ChatConfigInterface $config,
         private PIIRedactorInterface $piiRedactor,
-    ) {
-    }
+    ) {}
 
     public function handleRegisterRestRoute(): bool
     {
@@ -44,7 +44,12 @@ class ChatEndpoint extends RestApiEndpoint
             return $configError;
         }
 
-        $body = $this->buildRequestBody($params, $assistant);
+        $redaction = $this->redactMessage(sanitize_text_field($params['message']));
+        if (is_wp_error($redaction)) {
+            return $redaction;
+        }
+
+        $body = $this->buildRequestBody($params, $assistant, $redaction);
 
         $this->registerSseStream(
             $request,
@@ -105,11 +110,22 @@ class ChatEndpoint extends RestApiEndpoint
         return null;
     }
 
-    private function buildRequestBody(array $params, array $assistant): array
+    private function redactMessage(string $message): RedactionResult|\WP_Error
     {
-        $message = sanitize_text_field($params['message']);
-        $redaction = $this->piiRedactor->extractAndRedactPII($message);
+        try {
+            return $this->piiRedactor->extractAndRedactPII($message);
+        } catch (\Throwable $e) {
+            $this->logRedactionError($e);
+            return new \WP_Error(
+                'chat_pii_redaction_failed',
+                __('Unable to process message safely. Please try again later.', 'municipio'),
+                ['status' => 503],
+            );
+        }
+    }
 
+    private function buildRequestBody(array $params, array $assistant, RedactionResult $redaction): array
+    {
         $body = [
             'question' => $redaction->redactedText,
             'stream' => true,
@@ -201,6 +217,16 @@ class ChatEndpoint extends RestApiEndpoint
             sprintf(
                 '[ChatEndpoint] Chat API communication failed: %s',
                 $curlErrorMessage,
+            ),
+        );
+    }
+
+    private function logRedactionError(\Throwable $error): void
+    {
+        error_log(
+            sprintf(
+                '[ChatEndpoint] PII redaction failed: %s',
+                $error->getMessage(),
             ),
         );
     }
