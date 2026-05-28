@@ -5,15 +5,7 @@ declare global {
 		root: string;
 	}
 
-	interface MunicipioChatStrings {
-		sending: string;
-		writing: string;
-		usingTools: string;
-		error: string;
-	}
-
 	const wpApiSettings: WpApiSettings;
-	const municipioChatStrings: MunicipioChatStrings;
 
 	type ChatRole = "user" | "assistant";
 
