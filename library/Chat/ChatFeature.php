@@ -6,12 +6,11 @@ use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Chat\Admin\ChatAdminPage;
 use Municipio\Chat\Admin\ChatStatsMetaBox;
 use Municipio\Chat\Api\ChatEndpoint;
 use Municipio\Chat\Api\ChatStatsEndpoint;
-use Municipio\Chat\Api\RegisterChatEndpoint;
-use Municipio\Chat\Api\RegisterChatStatsEndpoint;
 use Municipio\Chat\Config\ChatConfig;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -32,28 +31,22 @@ class ChatFeature
     {
         $config = new ChatConfig($this->acfService);
 
+        (new ChatAdminPage($this->wpService, $this->acfService))->addHooks();
+
         if (!$config->isEnabled()) {
             return;
         }
-            
+
         $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
 
           $render = new ChatRender(
             $bladeRenderer,
         );
-        
-        (new RegisterChatEndpoint(
-            new ChatEndpoint($config, (new PIIRedactorFactory())->create()),
-            $config,
-        ))->addHooks();
 
-        (new RegisterChatStatsEndpoint(
-            new ChatStatsEndpoint($this->wpService),
-            $config,
-        ))->addHooks();
+        RestApiEndpointsRegistry::add(new ChatEndpoint($config, (new PIIRedactorFactory())->create()));
+        RestApiEndpointsRegistry::add(new ChatStatsEndpoint($this->wpService));
 
         (new ChatBlock($this->wpService, $config, $render))->addHooks();
-        (new ChatAdminPage($this->wpService, $this->acfService))->addHooks();
         (new ChatStatsMetaBox($this->wpService, $bladeRenderer))->addHooks();
         (new ChatEnqueue($this->wpService, $this->enqueue, $config))->addHooks();
         (new ChatBubble($this->wpService, $config, $render))->addHooks();
