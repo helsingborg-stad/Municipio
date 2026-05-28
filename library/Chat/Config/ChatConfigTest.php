@@ -3,6 +3,7 @@
 namespace Municipio\Chat\Config;
 
 use AcfService\Implementations\FakeAcfService;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +23,7 @@ class ChatConfigTest extends TestCase
     }
 
     #[TestDox('isEnabled() returns true when chat_enabled field is truthy')]
+    #[RunInSeparateProcess]
     public function testIsEnabledReturnsTrueWhenChatEnabledFieldIsTruthy(): void
     {
         $acfService = new FakeAcfService([
