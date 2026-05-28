@@ -115,7 +115,7 @@
                     'name' => 'name',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('The name must be unique', 'municipio'),
+                    'instructions' => __('The name must be unique. "Default" is reserved.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -269,13 +269,6 @@
                 'param' => 'options_page',
                 'operator' => '==',
                 'value' => 'chat-settings',
-            ),
-        ),
-        1 => array(
-            0 => array(
-                'param' => 'block',
-                'operator' => '==',
-                'value' => 'all',
             ),
         ),
     ),

@@ -112,7 +112,7 @@
                     "name": "name",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "The name must be unique",
+                    "instructions": "The name must be unique. \"Default\" is reserved.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -266,13 +266,6 @@
                 "param": "options_page",
                 "operator": "==",
                 "value": "chat-settings"
-            }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "all"
             }
         ]
     ],
