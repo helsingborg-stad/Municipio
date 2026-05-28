@@ -90,6 +90,7 @@ class BlockManagerTest extends TestCase
         $result = $manager->buildData([
             'title' => 'field_title',
             'items' => [
+                'field_nested_value',
                 ['label' => 'First item'],
             ],
         ]);
@@ -97,6 +98,7 @@ class BlockManagerTest extends TestCase
         $this->assertSame([
             'title' => 'Resolved title',
             'items' => [
+                'field_nested_value',
                 ['label' => 'First item'],
             ],
         ], $result);
@@ -116,5 +118,34 @@ class BlockManagerTest extends TestCase
         ]);
 
         $this->assertFalse($result);
+    }
+
+    public function testValidateFieldsPassesWhenRequiredStringFieldHasAValue(): void
+    {
+        block_manager_test_state([
+            'fields' => [
+                ...block_manager_test_state()['fields'],
+                'field_required_text' => [
+                    'name'     => 'required_text',
+                    'required' => true,
+                    'value'    => 'Filled',
+                    'parent'   => 'group_123',
+                ],
+            ],
+        ]);
+
+        $manager          = (new \ReflectionClass(BlockManager::class))->newInstanceWithoutConstructor();
+        $validationMethod = new \ReflectionMethod(BlockManager::class, 'validateFields');
+        $validationMethod->setAccessible(true);
+
+        $result = $validationMethod->invoke($manager, [
+            'items'          => [
+                'field_nested_value',
+                ['label' => 'First item'],
+            ],
+            'required_text' => 'field_required_text',
+        ]);
+
+        $this->assertTrue($result);
     }
 }
