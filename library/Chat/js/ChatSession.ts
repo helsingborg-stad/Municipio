@@ -19,14 +19,15 @@ export class ChatSession {
 	}
 
 	private async postMessage(message: string): Promise<Response> {
-		const { apiRoot, assistantId } = this.config;
+		const { apiRoot, assistantName } = this.config;
+
 		return this.fetchFn(`${apiRoot}${CHAT_API_ENDPOINT}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				message,
 				session_id: this.sessionId,
-				assistant_id: assistantId,
+				assistant_name: assistantName,
 			}),
 		});
 	}
@@ -38,9 +39,7 @@ export class ChatSession {
 		throw new Error(this.parseErrorMessage(body));
 	}
 
-	private async *consumeSseStream(
-		response: Response,
-	): AsyncGenerator<ChatEvent> {
+	private async *consumeSseStream(response: Response): AsyncGenerator<ChatEvent> {
 		if (!response.body) throw new Error("Response has no body");
 
 		const reader = response.body.getReader();
@@ -108,11 +107,7 @@ export class ChatSession {
 				return { eventType, accumulatedText, event: null };
 			case "text":
 				accumulatedText += data.answer;
-				return {
-					eventType,
-					accumulatedText,
-					event: { type: "text", content: accumulatedText },
-				};
+				return { eventType, accumulatedText, event: { type: "text", content: accumulatedText } };
 			case "tool_call":
 				return { eventType, accumulatedText, event: { type: "tool_call" } };
 			case "error":

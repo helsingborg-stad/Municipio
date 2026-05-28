@@ -24,9 +24,15 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
         return $this->view;
     }
 
-    public function getAssistantName(): string
+    public function getAssistantName(): ?string
     {
-        return $this->assistantName;
+        $assistant = $this->getAssistant();
+
+        if (empty($assistant) || empty($assistant['name'])) {
+            return null;
+        }
+
+        return $assistant['name'];
     }
 
     public function getAssistant(): ?array
@@ -102,11 +108,11 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
             return null;
         }
 
-        if ($this->getAssistantName() === 'Default') {
+        if ($this->assistantName === 'Default') {
             return $this->config->getDefaultAssistant();
         }
 
-        $filteredAssistant = array_filter($allAssistants, fn($a) => $a['name'] === ($this->getAssistantName() ?? null));
+        $filteredAssistant = array_filter($allAssistants, fn($a) => $a['name'] === ($this->assistantName ?? null));
         return reset($filteredAssistant) ?: null;
     }
 }

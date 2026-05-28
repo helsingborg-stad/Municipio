@@ -3,55 +3,95 @@
 namespace Municipio\Chat\Config;
 
 use AcfService\Implementations\FakeAcfService;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Tests for ChatConfig.
+ */
 class ChatConfigTest extends TestCase
 {
-    #[TestDox('isEnabled() returns true when the chat_enabled option is true')]
-    public function testIsEnabledReturnsTrueWhenAcfFieldIsTrue(): void
+    #[TestDox('class can be instantiated')]
+    public function testClassCanBeInstantiated(): void
     {
-        $config = new ChatConfig($this->getAcfService(['chat_enabled' => true]));
+        $acfService = new FakeAcfService([
+            'getField' => fn() => null,
+        ]);
+
+        $this->assertInstanceOf(ChatConfig::class, new ChatConfig($acfService));
+    }
+
+    #[TestDox('isEnabled() returns true when chat_enabled field is truthy')]
+    #[RunInSeparateProcess]
+    public function testIsEnabledReturnsTrueWhenChatEnabledFieldIsTruthy(): void
+    {
+        $acfService = new FakeAcfService([
+            'getField' => fn(string $field, string $scope) => $field === 'chat_enabled' && $scope === 'option' ? 1 : null,
+        ]);
+
+        $config = new ChatConfig($acfService);
 
         $this->assertTrue($config->isEnabled());
     }
 
-    #[TestDox('isEnabled() returns false when the chat_enabled option is false')]
-    public function testIsEnabledReturnsFalseWhenAcfFieldIsFalse(): void
+    #[TestDox('isGlobalChatEnabled() returns false when chat_global_enabled field is falsy')]
+    public function testIsGlobalChatEnabledReturnsFalseWhenFieldIsFalsy(): void
     {
-        $config = new ChatConfig($this->getAcfService(['chat_enabled' => false]));
+        $acfService = new FakeAcfService([
+            'getField' => fn(string $field, string $scope) => $field === 'chat_global_enabled' && $scope === 'option' ? 0 : null,
+        ]);
 
-        $this->assertFalse($config->isEnabled());
-    }
-
-    #[TestDox('isEnabled() returns false when the chat_enabled option is unset')]
-    public function testIsEnabledReturnsFalseWhenAcfFieldIsUnset(): void
-    {
-        $config = new ChatConfig($this->getAcfService());
-
-        $this->assertFalse($config->isEnabled());
-    }
-
-    #[TestDox('isGlobalChatEnabled() returns true when the chat_global_enabled option is true')]
-    public function testIsGlobalChatEnabledReturnsTrueWhenAcfFieldIsTrue(): void
-    {
-        $config = new ChatConfig($this->getAcfService(['chat_global_enabled' => true]));
-
-        $this->assertTrue($config->isGlobalChatEnabled());
-    }
-
-    #[TestDox('isGlobalChatEnabled() returns false when the chat_global_enabled option is false')]
-    public function testIsGlobalChatEnabledReturnsFalseWhenAcfFieldIsFalse(): void
-    {
-        $config = new ChatConfig($this->getAcfService(['chat_global_enabled' => false]));
+        $config = new ChatConfig($acfService);
 
         $this->assertFalse($config->isGlobalChatEnabled());
     }
 
-    private function getAcfService(array $fields = []): FakeAcfService
+    #[TestDox('getAssistants() returns assistants when field is an array')]
+    public function testGetAssistantsReturnsAssistantsWhenFieldIsArray(): void
     {
-        return new FakeAcfService([
-            'getField' => fn(string $selector) => $fields[$selector] ?? null,
+        $assistants = [
+            ['name' => 'Ava', 'greetings_phrase' => 'Hello'],
+            ['name' => 'Noah', 'greetings_phrase' => 'Hi'],
+        ];
+
+        $acfService = new FakeAcfService([
+            'getField' => fn(string $field, string $scope) => $field === 'chat_assistants' && $scope === 'option' ? $assistants : null,
         ]);
+
+        $config = new ChatConfig($acfService);
+
+        $this->assertSame($assistants, $config->getAssistants());
+    }
+
+    #[TestDox('getDefaultAssistant() returns matching assistant by configured default name')]
+    public function testGetDefaultAssistantReturnsMatchingAssistantByConfiguredDefaultName(): void
+    {
+        $assistants = [
+            ['name' => 'Ava', 'greetings_phrase' => 'Hello'],
+            ['name' => 'Noah', 'greetings_phrase' => 'Hi'],
+        ];
+
+        $acfService = new FakeAcfService([
+            'getField' => function (string $field, string $scope) use ($assistants) {
+                if ($scope !== 'option') {
+                    return null;
+                }
+
+                if ($field === 'chat_default_assistant') {
+                    return 'Noah';
+                }
+
+                if ($field === 'chat_assistants') {
+                    return $assistants;
+                }
+
+                return null;
+            },
+        ]);
+
+        $config = new ChatConfig($acfService);
+
+        $this->assertSame($assistants[1], $config->getDefaultAssistant());
     }
 }

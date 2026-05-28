@@ -6,43 +6,34 @@ use AcfService\Implementations\FakeAcfService;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class ChatFeatureTest extends TestCase
 {
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
-        $feature = new ChatFeature(
-            $this->getWpService(),
-            $this->getAcfService(),
-            $this->getEnqueueManager(),
-        );
-
-        $this->assertInstanceOf(ChatFeature::class, $feature);
-    }
-
-    private function getWpService(): FakeWpService
-    {
-        return new FakeWpService([
+        $wpService = new FakeWpService([
             'addAction' => true,
-            'addFilter' => true,
-            'applyFilters' => fn($tag, $value) => $value,
-            'wpCacheGet' => false,
-            'wpCacheSet' => true,
-            '__' => '',
         ]);
+        $acfService = new FakeAcfService([
+            'getField' => fn() => false,
+        ]);
+        $enqueue = new EnqueueManager($wpService);
+        $this->assertInstanceOf(ChatFeature::class, new ChatFeature($wpService, $acfService, $enqueue));
     }
 
-    private function getAcfService(): FakeAcfService
+    #[TestDox('enable() can be called')]
+    public function testEnableCanBeCalled(): void
     {
-        return new FakeAcfService([
-            'getField' => null,
+        $wpService = new FakeWpService([
+            'addAction' => true,
         ]);
-    }
-
-    private function getEnqueueManager(): EnqueueManagerInterface
-    {
-        return $this->createMock(EnqueueManagerInterface::class);
+        $acfService = new FakeAcfService([
+            'getField' => fn() => false,
+        ]);
+        $enqueue = new EnqueueManager($wpService);
+        $feature = new ChatFeature($wpService, $acfService, $enqueue);
+        $this->assertNull($feature->enable());
     }
 }

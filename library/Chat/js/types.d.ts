@@ -43,13 +43,13 @@ declare global {
 	}
 
 	interface ChatSessionConfig {
-		assistantId: string | null;
+		assistantName: string | null;
 		apiRoot: string;
 		fetchImpl?: typeof fetch;
 	}
 
 	interface ChatSessionFactory {
-		create(assistantId: string | null): ChatSession;
+		create(assistantName: string | null): ChatSession;
 	}
 
 	interface ChatUIDependencies {

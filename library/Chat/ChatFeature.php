@@ -14,11 +14,11 @@ use Municipio\Chat\Api\RegisterChatEndpoint;
 use Municipio\Chat\Api\RegisterChatStatsEndpoint;
 use Municipio\Chat\Config\ChatConfig;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 use Municipio\Chat\Render\ChatBubble;
 use Municipio\Chat\Render\ChatEnqueue;
 use Municipio\Chat\Render\ChatRender;
 use WpService\WpService;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class ChatFeature
 {
@@ -35,15 +35,15 @@ class ChatFeature
         if (!$config->isEnabled()) {
             return;
         }
-
+            
         $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
 
-        $render = new ChatRender(
+          $render = new ChatRender(
             $bladeRenderer,
         );
-
+        
         (new RegisterChatEndpoint(
-            new ChatEndpoint($this->acfService, (new PIIRedactorFactory())->create()),
+            new ChatEndpoint($config, (new PIIRedactorFactory())->create()),
             $config,
         ))->addHooks();
 
