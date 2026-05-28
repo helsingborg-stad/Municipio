@@ -103,6 +103,7 @@ class PostsList implements PostsListInterface
             'getPaginationComponentArguments' => (new ViewCallableProviders\Pagination\GetPaginationComponentArguments($this->getWpQuery()->max_num_pages, $this->getPostsConfig->getPage(), $this->queryVars->getPaginationParameterName(), $this->getId()))->getCallable(),
             // Async rendering (overridden by block renderer when applicable)
             'getAsyncAttributes' => fn() => null,
+            'getPostType' => fn() => $this->getPostsConfig->getPostTypes()[array_key_first($this->getPostsConfig->getPostTypes())] ?? null,
         ];
     }
 

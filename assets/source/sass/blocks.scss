@@ -1,12 +1,11 @@
 @use "sass:map";
-@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
-@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+@use "../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
 
 .t-block-container {
 
     &.t-block-button {
         flex-wrap: wrap;
-        gap: calc(#{variables.$base}*2);
+        gap: tokens.getCalculatedValue("", "space", 2);
         display: flex;
 
         .c-button + .c-button {
@@ -64,16 +63,11 @@
 
 
 .o-grid-column-block {
-
     &.is-vertically-aligned-center {
         align-self: center;
     }
     
     &.is-vertically-aligned-bottom {
         align-self: flex-end;
-    }
-
-    @include mq.mq(map.get(variables.$breakpoints-map, "xs"), map.get(variables.$breakpoints-map, "md")) {
-        flex-basis: 100% !important; // Override inline style.
     }
 }

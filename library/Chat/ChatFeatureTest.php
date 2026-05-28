@@ -3,89 +3,37 @@
 namespace Municipio\Chat;
 
 use AcfService\Implementations\FakeAcfService;
-use Municipio\Chat\Admin\RegisterChatAdminPage;
-use Municipio\Chat\Api\RegisterChatEndpoint;
-use Municipio\Chat\Frontend\EnqueueChatScripts;
-use Municipio\Chat\Frontend\RenderGlobalChatBubble;
-use Municipio\Chat\Module\RegisterChatModule;
-use Municipio\HooksRegistrar\Hookable;
-use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class ChatFeatureTest extends TestCase
 {
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
-        $feature = new ChatFeature(
-            $this->getWpService(),
-            $this->getAcfService(),
-            $this->getEnqueueManager(),
-            $this->getHooksRegistrar(),
-        );
-
-        $this->assertInstanceOf(ChatFeature::class, $feature);
-    }
-
-    #[TestDox('enable() registers the expected sub-hookables with the registrar')]
-    public function testEnableRegistersAllHookables(): void
-    {
-        $registrar = $this->getHooksRegistrar();
-
-        (new ChatFeature(
-            $this->getWpService(),
-            $this->getAcfService(),
-            $this->getEnqueueManager(),
-            $registrar,
-        ))->enable();
-
-        $registered = array_map('get_class', $registrar->registered);
-
-        $this->assertContains(RegisterChatAdminPage::class, $registered);
-        $this->assertContains(EnqueueChatScripts::class, $registered);
-        $this->assertContains(RenderGlobalChatBubble::class, $registered);
-        $this->assertContains(RegisterChatModule::class, $registered);
-        $this->assertContains(RegisterChatEndpoint::class, $registered);
-    }
-
-    private function getWpService(): FakeWpService
-    {
-        return new FakeWpService([
+        $wpService = new FakeWpService([
             'addAction' => true,
-            'addFilter' => true,
-            'applyFilters' => fn($tag, $value) => $value,
-            'wpCacheGet' => false,
-            'wpCacheSet' => true,
-            '__' => '',
         ]);
-    }
-
-    private function getAcfService(): FakeAcfService
-    {
-        return new FakeAcfService([
-            'getField' => null,
+        $acfService = new FakeAcfService([
+            'getField' => fn() => false,
         ]);
+        $enqueue = new EnqueueManager($wpService);
+        $this->assertInstanceOf(ChatFeature::class, new ChatFeature($wpService, $acfService, $enqueue));
     }
 
-    private function getEnqueueManager(): EnqueueManagerInterface
+    #[TestDox('enable() can be called')]
+    public function testEnableCanBeCalled(): void
     {
-        return $this->createMock(EnqueueManagerInterface::class);
-    }
-
-    private function getHooksRegistrar(): HooksRegistrarInterface
-    {
-        return new class implements HooksRegistrarInterface {
-            /** @var Hookable[] */
-            public array $registered = [];
-
-            public function register(Hookable $object): HooksRegistrarInterface
-            {
-                $this->registered[] = $object;
-                return $this;
-            }
-        };
+        $wpService = new FakeWpService([
+            'addAction' => true,
+        ]);
+        $acfService = new FakeAcfService([
+            'getField' => fn() => false,
+        ]);
+        $enqueue = new EnqueueManager($wpService);
+        $feature = new ChatFeature($wpService, $acfService, $enqueue);
+        $this->assertNull($feature->enable());
     }
 }

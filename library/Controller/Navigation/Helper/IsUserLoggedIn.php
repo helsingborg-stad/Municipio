@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
+use Municipio\Helper\WpService;
+
 class IsUserLoggedIn
 {
     /**
@@ -17,7 +19,7 @@ class IsUserLoggedIn
         static $isUserLoggedIn = null;
 
         if ($isUserLoggedIn === null) {
-            $isUserLoggedIn = is_user_logged_in();
+            $isUserLoggedIn = WpService::get()->isUserLoggedIn();
         }
 
         return $isUserLoggedIn;

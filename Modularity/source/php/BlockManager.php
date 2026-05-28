@@ -125,13 +125,10 @@ class BlockManager
         $metaLang = get_post_meta(get_the_ID() ?: 0, 'lang', true);
         $siteLanguage = strtolower(get_bloginfo('language'));
         $pageLanguage = is_string($metaLang) ? strtolower($metaLang) : $siteLanguage;
-        $blockLanguage = !empty($block['attrs']['data']['lang'])
-            ? strtolower($block['attrs']['data']['lang'])
-            : $pageLanguage;
+        $blockLanguage = !empty($block['attrs']['data']['lang']) ? strtolower($block['attrs']['data']['lang']) : $pageLanguage;
 
         if (!in_array($blockLanguage, [$siteLanguage, $pageLanguage]) && $blockLanguage != 'auto') {
-            $blockContent =
-                '<div lang="' . htmlspecialchars($blockLanguage, ENT_QUOTES, 'UTF-8') . '">' . $blockContent . '</div>';
+            $blockContent = '<div lang="' . htmlspecialchars($blockLanguage, ENT_QUOTES, 'UTF-8') . '">' . $blockContent . '</div>';
         }
 
         return $blockContent;
@@ -489,12 +486,11 @@ class BlockManager
             }
 
             if (!$module->dataFetched) {
-                error_log('Class '
-                . get_class($module)
-                . ' must use the getFields function to ensure block compability.');
+                error_log('Class ' . get_class($module) . ' must use the getFields function to ensure block compability.');
             }
 
             $wrapModule = apply_filters('Modularity/Block/DisplayBlockWrapper', true);
+            $scopeValue = 's-' . $module->moduleSlug;
             if ($wrapModule) {
                 $classes = [
                     "modularity-mod-{$block['moduleName']}",
@@ -506,7 +502,9 @@ class BlockManager
                     $classes = array_merge($classes, explode(' ', $block['className']));
                 }
 
-                $renderedView = '<div class="' . implode(' ', $classes) . '">' . $renderedView . '</div>';
+                $renderedView = '<div class="' . implode(' ', $classes) . '" data-scope="' . esc_attr($scopeValue) . ';">' . $renderedView . '</div>';
+            } else {
+                $renderedView = $this->addDataScopeToFirstTag($renderedView, $scopeValue);
             }
 
             // Render block view if validated correctly
@@ -607,5 +605,29 @@ class BlockManager
             'anchor' => true,
         ]);
         return $args;
+    }
+
+    /**
+     * Add data-scope to the first HTML start tag in block content.
+     *
+     * @param string $markup The markup to process.
+     * @param string $scopeValue The scope value.
+     *
+     * @return string
+     */
+    private function addDataScopeToFirstTag(string $markup, string $scopeValue): string
+    {
+        if (stripos($markup, 'data-scope=') !== false) {
+            return $markup;
+        }
+
+        $updatedMarkup = preg_replace(
+            '/<([a-zA-Z0-9:-]+)\b(?![^>]*\bdata-scope=)/',
+            '<$1 data-scope="' . esc_attr($scopeValue) . ';"',
+            $markup,
+            1,
+        );
+
+        return is_string($updatedMarkup) ? $updatedMarkup : $markup;
     }
 }

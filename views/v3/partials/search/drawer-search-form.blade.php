@@ -4,22 +4,18 @@
   'action'    => $homeUrl,
   'classList' => $classList
 ])
-    @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
+    @element([
+        'classList' => ['u-display--flex']
+    ])
         @field([
             'id'            => 'drawer-search-form__field',
             'type'          => 'search',
             'name'          => 's',
             'required'      => false,
             'size'          => 'sm',
-            'radius'        => 'sm',
-            'borderless'    => true,
             'label'         => $lang->searchQuestion,
             'hideLabel'     => true,
             'icon'          => ['icon' => 'search'],
-            'classList'     => [
-                'u-flex-grow--1',
-                'u-box-shadow--1',
-            ]
         ])
         @endfield
 
@@ -32,7 +28,9 @@
             'attributeList' => [
                 'aria-label' => $lang->search,
             ],
+            'classList' => ['u-rounded-left--none']
         ])
         @endbutton
-    @endgroup
+    @endelement
+
 @endform

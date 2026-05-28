@@ -6,12 +6,37 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 	(m) => m.default || m,
 );
 
+const wrapStandaloneEntryScripts = () => ({
+	name: "wrap-standalone-entry-scripts",
+	renderChunk(code, chunk) {
+		if (
+			!chunk.isEntry ||
+			chunk.fileName.endsWith(".css") ||
+			chunk.imports.length > 0 ||
+			chunk.dynamicImports.length > 0
+		) {
+			return null;
+		}
+
+		return {
+			code: `;(() => {\n${code}\n})();`,
+			map: null,
+		};
+	},
+});
+
 const entries = {
-	"css/splide": "./node_modules/@splidejs/splide/dist/css/splide-core.min.css",
-	"css/styleguide":
-		"./node_modules/@helsingborg-stad/styleguide/source/sass/main.scss",
 	"js/styleguide":
-		"./node_modules/@helsingborg-stad/styleguide/source/js/app.js",
+		"./vendor/helsingborg-stad/styleguide/assets/dist/js/styleguide-js.js",
+	"css/styleguide":
+		"./vendor/helsingborg-stad/styleguide/assets/dist/css/styleguide-css.css",
+	"css/designbuilder":
+		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder-external.css",
+	"js/designbuilder":
+		"./vendor/helsingborg-stad/styleguide/source/design-builder/index.ts",
+	"js/designbuilder-preview":
+		"./library/Styleguide/Customize/js/designbuilderPreview.ts",
+	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 
 	"css/municipio": "./assets/source/sass/main.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
@@ -44,7 +69,6 @@ const entries = {
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",
 	"js/pdf": "./assets/source/js/pdf.ts",
 	"js/nav": "./assets/source/js/nav.ts",
-	"js/chat": "./library/Chat/js/index.ts",
 
 	/* Kulturkortet */
 	"js/kulturkortet": "./library/KulturkortetQRCodeViewer/js/index.ts",
@@ -56,12 +80,18 @@ const entries = {
 	"css/backdrop-banner-editor":
 		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
+	/* Chat */
+	"js/chat": "./library/Chat/js/index.ts",
+	"css/chat": "./library/Chat/css/chat.scss",
+
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
 	"js/design-share": "./assets/source/js/admin/designShare.ts",
 	"js/customizer-preview": "./assets/source/js/admin/customizerPreview.js",
 	"js/customizer-flexible-header":
 		"./assets/source/js/admin/customizerFlexibleHeader.ts",
+	"js/customizer-uploaded-font-labels":
+		"./assets/source/js/admin/customizerUploadedFontLabels.ts",
 	"js/hidden-post-status-conditional":
 		"./assets/source/js/admin/acf/hiddenPostStatusConditional.ts",
 	"js/user-group-visibility":
@@ -69,7 +99,7 @@ const entries = {
 	"js/widgets-area-hider": "./assets/source/js/admin/widgetsAreaHider.js",
 	"js/customizer-error-handling":
 		"./assets/source/js/admin/customizerErrorHandling.ts",
-	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.js",
+	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
 	"js/event-source-progress":
 		"./assets/source/js/admin/eventSourceProgress/index.ts",
 };
@@ -141,7 +171,10 @@ export default defineConfig(({ mode }) => {
 					},
 				},
 				treeshake: {
-					moduleSideEffects: false,
+					moduleSideEffects: (id) =>
+						id.includes(
+							"/vendor/helsingborg-stad/styleguide/source/design-builder/",
+						),
 				},
 			},
 			minify: isProduction ? "esbuild" : false,
@@ -185,6 +218,7 @@ export default defineConfig(({ mode }) => {
 			dedupe: ["leaflet"],
 		},
 		plugins: [
+			wrapStandaloneEntryScripts(),
 			manifestPlugin("manifest.json"),
 			copy({
 				targets: [

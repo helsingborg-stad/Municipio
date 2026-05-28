@@ -28,7 +28,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
 
         static::assertSame(
             [['Municipio/Navigation/Items', [$sut, 'filterItemsByCurrentLanguage'], 10, 2]],
-            $wpService->methodCalls['addFilter']
+            $wpService->methodCalls['addFilter'],
         );
     }
 
@@ -36,8 +36,8 @@ class ResolveNavigationItemsLanguageTest extends TestCase
     public function testFilterItemsByCurrentLanguageFiltersMobileItems(): void
     {
         $sut = $this->getSut(
-            currentLanguageResolver: static fn (): string => 'sv',
-            postLanguageResolver: static fn (int $postId): string => in_array($postId, [106, 128, 124], true) ? 'sv' : 'en'
+            currentLanguageResolver: static fn(): string => 'sv',
+            postLanguageResolver: static fn(int $postId): string => in_array($postId, [106, 128, 124], true) ? 'sv' : 'en',
         );
 
         $filtered = $sut->filterItemsByCurrentLanguage(
@@ -48,7 +48,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
                 ['id' => 2004, 'page_id' => 128, 'post_type' => 'page', 'label' => 'Testpage 2 (sv)'],
                 ['id' => 2005, 'page_id' => 124, 'post_type' => 'page', 'label' => 'Testpage sub (sv)', 'post_parent' => 2004],
             ],
-            'mobile'
+            'mobile',
         );
 
         static::assertSame([106, 128, 124], array_column($filtered, 'page_id'));
@@ -58,8 +58,8 @@ class ResolveNavigationItemsLanguageTest extends TestCase
     public function testFilterItemsByCurrentLanguageFallsBackToIdForPageTreeItems(): void
     {
         $sut = $this->getSut(
-            currentLanguageResolver: static fn (): string => 'sv',
-            postLanguageResolver: static fn (int $postId): string => $postId === 124 ? 'sv' : 'en'
+            currentLanguageResolver: static fn(): string => 'sv',
+            postLanguageResolver: static fn(int $postId): string => $postId === 124 ? 'sv' : 'en',
         );
 
         $filtered = $sut->filterItemsByCurrentLanguage(
@@ -67,7 +67,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
                 ['id' => 114, 'post_type' => 'page', 'label' => 'Testpage 1 (en)'],
                 ['id' => 124, 'post_type' => 'page', 'label' => 'Testpage sub (sv)'],
             ],
-            'mobile'
+            'mobile',
         );
 
         static::assertSame([124], array_column($filtered, 'id'));
@@ -77,8 +77,8 @@ class ResolveNavigationItemsLanguageTest extends TestCase
     public function testFilterItemsByCurrentLanguageFiltersAllIdentifiers(): void
     {
         $sut = $this->getSut(
-            currentLanguageResolver: static fn (): string => 'sv',
-            postLanguageResolver: static fn (int $postId): string => 'en'
+            currentLanguageResolver: static fn(): string => 'sv',
+            postLanguageResolver: static fn(int $postId): string => 'en',
         );
 
         $menuItems = [
@@ -98,7 +98,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
         try {
             $sut = $this->getSut(
                 currentLanguageResolver: null,
-                postLanguageResolver: static fn (int $postId): string => $postId === 124 ? 'sv' : 'en'
+                postLanguageResolver: static fn(int $postId): string => $postId === 124 ? 'sv' : 'en',
             );
 
             $filtered = $sut->filterItemsByCurrentLanguage(
@@ -106,7 +106,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
                     ['id' => 114, 'post_type' => 'page', 'label' => 'Testpage 1 (en)'],
                     ['id' => 124, 'post_type' => 'page', 'label' => 'Testpage sub (sv)'],
                 ],
-                'mobile'
+                'mobile',
             );
 
             static::assertSame([124], array_column($filtered, 'id'));
@@ -123,8 +123,8 @@ class ResolveNavigationItemsLanguageTest extends TestCase
     public function testFilterItemsByCurrentLanguageFiltersNestedChildrenRecursively(): void
     {
         $sut = $this->getSut(
-            currentLanguageResolver: static fn (): string => 'sv',
-            postLanguageResolver: static fn (int $postId): string => in_array($postId, [26, 1024, 847], true) ? 'sv' : 'en'
+            currentLanguageResolver: static fn(): string => 'sv',
+            postLanguageResolver: static fn(int $postId): string => in_array($postId, [26, 1024, 847], true) ? 'sv' : 'en',
         );
 
         $filtered = $sut->filterItemsByCurrentLanguage(
@@ -140,7 +140,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
                     ],
                 ],
             ],
-            'mobile'
+            'mobile',
         );
 
         static::assertSame([1024, 847], array_column($filtered[0]['children'], 'id'));
@@ -150,8 +150,8 @@ class ResolveNavigationItemsLanguageTest extends TestCase
     public function testFilterItemsByCurrentLanguageFiltersCustomPostTypes(): void
     {
         $sut = $this->getSut(
-            currentLanguageResolver: static fn (): string => 'sv',
-            postLanguageResolver: static fn (int $postId): string => in_array($postId, [1024, 847], true) ? 'sv' : 'en'
+            currentLanguageResolver: static fn(): string => 'sv',
+            postLanguageResolver: static fn(int $postId): string => in_array($postId, [1024, 847], true) ? 'sv' : 'en',
         );
 
         $filtered = $sut->filterItemsByCurrentLanguage(
@@ -161,7 +161,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
                 ['id' => 847, 'post_type' => 'besoka-uppleva', 'label' => 'Boende'],
                 ['id' => 11184, 'post_type' => 'besoka-uppleva', 'label' => 'Accommodation'],
             ],
-            'mobile'
+            'mobile',
         );
 
         static::assertSame([1024, 847], array_column($filtered, 'id'));
@@ -172,12 +172,12 @@ class ResolveNavigationItemsLanguageTest extends TestCase
     {
         $wpService = new FakeWpService([
             'addFilter' => true,
-            'wpGetPostTerms' => static fn (int $postId, string $taxonomy, array $args): array => $postId === 124 ? ['sv'] : ['en'],
+            'wpGetPostTerms' => static fn(int $postId, string $taxonomy, array $args): array => $postId === 124 ? ['sv'] : ['en'],
         ]);
 
         $sut = new ResolveNavigationItemsLanguage(
             $wpService,
-            static fn (): string => 'sv'
+            static fn(): string => 'sv',
         );
 
         $filtered = $sut->filterItemsByCurrentLanguage(
@@ -185,7 +185,7 @@ class ResolveNavigationItemsLanguageTest extends TestCase
                 ['id' => 114, 'post_type' => 'page', 'label' => 'Testpage 1 (en)'],
                 ['id' => 124, 'post_type' => 'page', 'label' => 'Testpage sub (sv)'],
             ],
-            'mobile'
+            'mobile',
         );
 
         static::assertSame([124], array_column($filtered, 'id'));
@@ -201,12 +201,12 @@ class ResolveNavigationItemsLanguageTest extends TestCase
      */
     private function getSut(
         ?Closure $currentLanguageResolver = null,
-        ?Closure $postLanguageResolver = null
+        ?Closure $postLanguageResolver = null,
     ): ResolveNavigationItemsLanguage {
         return new ResolveNavigationItemsLanguage(
             new FakeWpService(['addFilter' => true, 'wpGetPostTerms' => []]),
             $currentLanguageResolver,
-            $postLanguageResolver
+            $postLanguageResolver,
         );
     }
 }

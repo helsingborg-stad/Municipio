@@ -1,7 +1,7 @@
-$color-primary: var(--color-primary, #ae0b05) !default;
-$color-primary-contrasting: var(--color-primary-contrasting, #fff) !default;
-$color-secondary: var(--color-secondary, #ec6701) !default;
-$color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
+$color-primary: var(--color--primary, #ae0b05) !default;
+$color-primary-contrasting: var(--color--primary-contrast, #fff) !default;
+$color-secondary: var(--color--secondary, #ec6701) !default;
+$color-secondary-contrasting: var(--color--secondary-contrast, #fff) !default;
 
 @use "@helsingborg-stad/openstreetmap/dist/main.css";
 
@@ -40,7 +40,7 @@ $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
     align-items: center;
     justify-content: center;
     transition: 0.1s ease-in-out;
-    z-index: 4000;
+    z-index: 5;
     background-color: $color-secondary;
     container-type: inline-size;
     container-name: markerinfo;
@@ -119,7 +119,7 @@ $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
     transform-origin: bottom;
     transition: 0.1s ease-in-out;
     pointer-events: none;
-    z-index: 4000;
+    z-index: 5;
     background-color: $color-secondary;
     max-height: 80%;
 
@@ -201,7 +201,7 @@ $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
     position: absolute;
     top: 2rem;
     right: 2rem;
-    z-index: 5000;
+    z-index: 6;
     padding: .5rem;
     background-color: $color-primary-contrasting;
     color: $color-primary;
@@ -227,7 +227,7 @@ $color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
     top: .5rem;
     right: .5rem;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 2;
 }
 
 .interactive-map__marker-info-container,

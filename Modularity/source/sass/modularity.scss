@@ -1,5 +1,3 @@
-@use 'config/z-index' as *;
-
 @use 'mixin/gradient';
 
 @use 'general/admin-menu';
@@ -26,7 +24,7 @@
         bottom: 100%;
         left: 50%;
         transform: translateX(-50%);
-        z-index: $level-top;
+        z-index: 9999;
     }
 
     .modularity-edit-module a {

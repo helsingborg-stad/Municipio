@@ -7,8 +7,8 @@ namespace Municipio\Integrations\Polylang;
 use Closure;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\Helper\CurrentPostId;
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetTheTitle;
@@ -38,9 +38,8 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         private ?Closure $defaultLanguageResolver = null,
         private ?Closure $childrenByParentResolver = null,
         private ?Closure $currentPostIdResolver = null,
-        private ?Closure $ancestorIdsResolver = null
-    ) {
-    }
+        private ?Closure $ancestorIdsResolver = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -51,7 +50,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             'Municipio/Navigation/PageTree/Children',
             [$this, 'resolveTranslatedChildren'],
             10,
-            2
+            2,
         );
     }
 
@@ -70,17 +69,14 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         }
 
         $postTranslationsResolver = $this->getPostTranslationsResolver();
-        $translatedPostResolver   = $this->getTranslatedPostResolver();
+        $translatedPostResolver = $this->getTranslatedPostResolver();
 
-        if (
-            $postTranslationsResolver === null ||
-            $translatedPostResolver === null
-        ) {
+        if ($postTranslationsResolver === null || $translatedPostResolver === null) {
             return $children;
         }
 
         $translations = $postTranslationsResolver($postId);
-        $currentLang  = $this->getCurrentLanguageResolver()();
+        $currentLang = $this->getCurrentLanguageResolver()();
 
         if (!is_array($translations) || !is_string($currentLang) || $currentLang === '') {
             return $children;
@@ -93,7 +89,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
 
         $sourceChildren = $this->getChildrenByParentResolver()?->__invoke(
             $sourcePostId,
-            (string) $this->wpService->getPostType($sourcePostId)
+            (string) $this->wpService->getPostType($sourcePostId),
         );
 
         if (!is_array($sourceChildren) || empty($sourceChildren)) {
@@ -101,9 +97,9 @@ class ResolvePageTreeTranslatedChildren implements Hookable
         }
 
         $translatedChildren = [];
-        $currentPostId      = $this->getCurrentPostIdResolver()?->__invoke();
-        $ancestorIds        = $this->getAncestorIdsResolver()?->__invoke();
-        $ancestorIds        = is_array($ancestorIds) ? $ancestorIds : [];
+        $currentPostId = $this->getCurrentPostIdResolver()?->__invoke();
+        $ancestorIds = $this->getAncestorIdsResolver()?->__invoke();
+        $ancestorIds = is_array($ancestorIds) ? $ancestorIds : [];
 
         foreach ($sourceChildren as $sourceChild) {
             if (empty($sourceChild['ID']) || !is_numeric($sourceChild['ID'])) {
@@ -119,12 +115,12 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             $translatedChildId = (int) $translatedChildId;
 
             $translatedChildren[] = [
-                'ID'          => $translatedChildId,
-                'post_title'  => (string) $this->wpService->getTheTitle($translatedChildId),
+                'ID' => $translatedChildId,
+                'post_title' => (string) $this->wpService->getTheTitle($translatedChildId),
                 'post_parent' => $postId,
-                'post_type'   => (string) $this->wpService->getPostType($translatedChildId),
-                'active'      => is_numeric($currentPostId) && (int) $currentPostId === $translatedChildId,
-                'ancestor'    => in_array($translatedChildId, $ancestorIds),
+                'post_type' => (string) $this->wpService->getPostType($translatedChildId),
+                'active' => is_numeric($currentPostId) && (int) $currentPostId === $translatedChildId,
+                'ancestor' => in_array($translatedChildId, $ancestorIds),
             ];
         }
 
@@ -143,14 +139,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
     {
         $defaultLanguage = $this->getDefaultLanguageResolver()?->__invoke();
 
-        if (
-            is_string($defaultLanguage) &&
-            $defaultLanguage !== '' &&
-            $defaultLanguage !== $currentLang &&
-            isset($translations[$defaultLanguage]) &&
-            is_numeric($translations[$defaultLanguage]) &&
-            (int) $translations[$defaultLanguage] > 0
-        ) {
+        if (is_string($defaultLanguage) && $defaultLanguage !== '' && $defaultLanguage !== $currentLang && isset($translations[$defaultLanguage]) && is_numeric($translations[$defaultLanguage]) && (int) $translations[$defaultLanguage] > 0) {
             return (int) $translations[$defaultLanguage];
         }
 
@@ -180,7 +169,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             return null;
         }
 
-        return static fn (int $postId): mixed => call_user_func('pll_get_post_translations', $postId);
+        return static fn(int $postId): mixed => call_user_func('pll_get_post_translations', $postId);
     }
 
     /**
@@ -224,7 +213,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             return null;
         }
 
-        return static fn (int $postId, string $language): mixed => call_user_func('pll_get_post', $postId, $language);
+        return static fn(int $postId, string $language): mixed => call_user_func('pll_get_post', $postId, $language);
     }
 
     /**
@@ -242,7 +231,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             return null;
         }
 
-        return static fn (): mixed => call_user_func('pll_default_language', 'slug');
+        return static fn(): mixed => call_user_func('pll_default_language', 'slug');
     }
 
     /**
@@ -256,8 +245,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             return $this->childrenByParentResolver;
         }
 
-        return static fn (int $postId, string $postType): array =>
-            GetPostsByParent::getPostsByParent($postId, $postType);
+        return static fn(int $postId, string $postType): array => GetPostsByParent::getPostsByParent($postId, $postType);
     }
 
     /**
@@ -271,7 +259,7 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             return $this->currentPostIdResolver;
         }
 
-        return static fn (): int => (int) CurrentPostId::get();
+        return static fn(): int => (int) CurrentPostId::get();
     }
 
     /**
@@ -285,6 +273,6 @@ class ResolvePageTreeTranslatedChildren implements Hookable
             return $this->ancestorIdsResolver;
         }
 
-        return static fn (): array => GetAncestors::getAncestors();
+        return static fn(): array => GetAncestors::getAncestors();
     }
 }

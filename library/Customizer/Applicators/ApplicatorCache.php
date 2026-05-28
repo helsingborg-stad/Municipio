@@ -2,11 +2,11 @@
 
 namespace Municipio\Customizer\Applicators;
 
-use WpService\WpService;
-use Municipio\HooksRegistrar\Hookable;
-use wpdb;
 use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
+use Municipio\HooksRegistrar\Hookable;
+use wpdb;
+use WpService\WpService;
 
 /**
  * Class ApplicatorCache
@@ -16,22 +16,25 @@ use Municipio\Customizer\Applicators\ApplicatorInterface;
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
     private string $cacheKeyBaseName = 'theme_mod_applicator_cache';
-    private array $applicators       = [];
-    private static $firstRunTracker  = [];
+    private array $applicators = [];
+    private static $firstRunTracker = [];
 
     /**
      * Constructor.
      */
-    public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
-    {
+    public function __construct(
+        private WpService $wpService,
+        private wpdb $wpdb,
+        ApplicatorInterface ...$applicators,
+    ) {
         $this->applicators = $applicators;
     }
 
-  /**
-   * Add hooks.
-   *
-   * @return void
-   */
+    /**
+     * Add hooks.
+     *
+     * @return void
+     */
     public function addHooks(): void
     {
         //Create & apply cache.
@@ -52,11 +55,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         $this->wpService->addAction('customize_preview_init', array($this, 'disableObjectCacheInRuntime'), 1);
     }
 
-  /**
-   * Manually clear the cache.
-   *
-   * @return void
-   */
+    /**
+     * Manually clear the cache.
+     *
+     * @return void
+     */
     public function tryClearCacheByUrl()
     {
         if (isset($_GET['clear_customizer_cache'])) {
@@ -66,22 +69,22 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         }
     }
 
-  /**
-   * Clear the cache.
-   * This is designed intentionally, to use delete_option instead
-   * of using delete statement. This is to avoid any potential
-   * issues with cache plugins.
-   *
-   * @return bool True if the cache was cleared, false otherwise (no cache found).
-   */
+    /**
+     * Clear the cache.
+     * This is designed intentionally, to use delete_option instead
+     * of using delete statement. This is to avoid any potential
+     * issues with cache plugins.
+     *
+     * @return bool True if the cache was cleared, false otherwise (no cache found).
+     */
     public function tryClearCache(): bool
     {
         $matchingOptions = $this->wpdb->get_col(
             "SELECT option_name 
             FROM {$this->wpdb->options} 
-            WHERE option_name LIKE '{$this->cacheKeyBaseName}_%'"
+            WHERE option_name LIKE '{$this->cacheKeyBaseName}_%'",
         );
-        $cacheCleared    = false;
+        $cacheCleared = false;
         foreach ($matchingOptions as $optionName) {
             if ($this->wpService->deleteOption($optionName)) {
                 $cacheCleared = true;
@@ -89,7 +92,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         }
 
         if ($cacheCleared) {
-            $this->wpService->doAction("Municipio/Customizer/CacheCleared");
+            $this->wpService->doAction('Municipio/Customizer/CacheCleared');
         }
 
         return $cacheCleared;
@@ -123,11 +126,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         $this->wpService->wpCacheInit();
     }
 
-  /**
-   * Run cache control.
-   *
-   * @return void
-   */
+    /**
+     * Run cache control.
+     *
+     * @return void
+     */
     public function tryCreateAndApplyCache()
     {
         if (!$this->isFrontend()) {
@@ -140,30 +143,33 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
         $cacheKey = $this->getCacheKey();
 
-        $staticCache = $this->getStaticCache(
-            $cacheKey
-        );
+        $staticCache =
+            $this->getStaticCache(
+                $cacheKey,
+            );
+
+        $staticCache = null;
 
         if (is_null($staticCache)) {
             $staticCache = $this->createStaticCache(
                 $cacheKey,
-                ...$this->applicators
+                ...$this->applicators,
             );
         }
 
         $this->tryApplyCache($cacheKey, $staticCache);
     }
 
-  /**
-   * Apply cached data to frontend.
-   *
-   * @return void
-   */
+    /**
+     * Apply cached data to frontend.
+     *
+     * @return void
+     */
     private function tryApplyCache(?string $cacheKey = null, ?array $staticCache = null): void
     {
         if (is_null($staticCache)) {
             $staticCache = $this->getStaticCache(
-                ($cacheKey ?: $this->getCacheKey())
+                $cacheKey ?: $this->getCacheKey(),
             );
         }
 
@@ -180,24 +186,24 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         }
     }
 
-  /**
-   * Check if the current request is a frontend request.
-   *
-   * @return bool
-   */
+    /**
+     * Check if the current request is a frontend request.
+     *
+     * @return bool
+     */
     private function isFrontend(): bool
     {
         return !is_admin() && !defined('WP_CLI') && !defined('WP_IMPORTING') && !defined('WP_INSTALLING');
     }
 
-  /**
-   * Create a static cache.
-   *
-   * @param string $publishedTime The last published time.
-   * @param string $fieldSignature The field signature.
-   *
-   * @return void
-   */
+    /**
+     * Create a static cache.
+     *
+     * @param string $publishedTime The last published time.
+     * @param string $fieldSignature The field signature.
+     *
+     * @return void
+     */
     public function createStaticCache(string $cacheKey, ApplicatorInterface ...$applicators): array
     {
         $cacheEntity = [];
@@ -211,11 +217,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         return $cacheEntity;
     }
 
-  /**
-   * Get the static cache identifier.
-   *
-   * @return string
-   */
+    /**
+     * Get the static cache identifier.
+     *
+     * @return string
+     */
     private function getCacheKey(): string
     {
         return sprintf(
@@ -224,50 +230,48 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
             $this->getCustomizerStateKey(),
             $this->getCustomizerLastPublished(),
             $this->getCustomizerFieldSignature(),
-            $this->getCacheKeySuffix()
+            $this->getCacheKeySuffix(),
         );
     }
 
-  /**
-   * Store the cache.
-   *
-   * @param array $cacheEntity The cache entity to store.
-   *
-   * @return void
-   */
+    /**
+     * Store the cache.
+     *
+     * @param array $cacheEntity The cache entity to store.
+     *
+     * @return void
+     */
     private function storeCache($cacheKey, $cacheEntity): void
     {
         $this->wpService->addOption(
             $cacheKey,
-            $cacheEntity
+            $cacheEntity,
         );
     }
 
-  /**
-   * Get the static cache.
-   *
-   * @param string $cacheKey The cache key to get the cache for.
-   *
-   * @return array|null
-   */
-    public function getStaticCache(string $cacheKey): array|null
+    /**
+     * Get the static cache.
+     *
+     * @param string $cacheKey The cache key to get the cache for.
+     *
+     * @return array|null
+     */
+    public function getStaticCache(string $cacheKey): ?array
     {
         $staticCache = $this->wpService->getOption(
-            $cacheKey
+            $cacheKey,
         ) ?: null;
         return $this->wpService->applyFilters('Municipio/Customizer/StaticCache', $staticCache);
     }
 
-  /**
-   * Get the last published date of the customizer.
-   *
-   * @return string|null
-   */
-    private function getCustomizerLastPublished(): string|null
+    /**
+     * Get the last published date of the customizer.
+     *
+     * @return string|null
+     */
+    private function getCustomizerLastPublished(): ?string
     {
-        $postStatus = $this->getCustomizerStateKey() === 'draft' ?
-        ['draft', 'auto-draft', 'inherit', 'future', 'trash', 'publish'] :
-        ['publish'];
+        $postStatus = $this->getCustomizerStateKey() === 'draft' ? ['draft', 'auto-draft', 'inherit', 'future', 'trash', 'publish'] : ['publish'];
 
         $latestDate = $this->wpdb->get_var(
             $this->wpdb->prepare(
@@ -278,18 +282,18 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
           ORDER BY post_modified_gmt DESC 
           LIMIT 1",
                 'customize_changeset',
-                implode(",", $postStatus)
-            )
+                implode(',', $postStatus),
+            ),
         );
 
         return $latestDate ? strtotime($latestDate) : 'unknown';
     }
 
-  /**
-   * Get the signature of the customizer fields.
-   *
-   * @return string
-   */
+    /**
+     * Get the signature of the customizer fields.
+     *
+     * @return string
+     */
     private function getCustomizerFieldSignature(): string
     {
         $fields = [];
@@ -297,46 +301,46 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
             $fields = array_merge(
                 KirkiCompatibility::$fields ?? [],
                 KirkiCompatibility::$all_fields ?? [],
-                $fields
+                $fields,
             );
         }
         return $this->getArraySignature($fields);
     }
 
-  /**
-   * Get the customizer state key.
-   * Determines if the customizer is in preview mode or not.
-   *
-   * @return string
-   */
+    /**
+     * Get the customizer state key.
+     * Determines if the customizer is in preview mode or not.
+     *
+     * @return string
+     */
     private function getCustomizerStateKey(): string
     {
         return $this->wpService->isCustomizePreview() ? 'draft' : 'publish';
     }
 
-  /**
-   * Get the cache key suffix.
-   * This may be used when a postType needs to be cached separately.
-   *
-   * @return string
-   */
+    /**
+     * Get the cache key suffix.
+     * This may be used when a postType needs to be cached separately.
+     *
+     * @return string
+     */
     private function getCacheKeySuffix(): string
     {
         return $this->wpService->applyFilters(
             'Municipio/Customizer/CacheKeySuffix',
             '',
             $this->wpService->isCustomizePreview(),
-            $this->wpService->getPostType()
+            $this->wpService->getPostType(),
         );
     }
 
-  /**
-   * Create a signature for the given data.
-   *
-   * @param array $data The data to create a signature for.
-   *
-   * @return string
-   */
+    /**
+     * Create a signature for the given data.
+     *
+     * @param array $data The data to create a signature for.
+     *
+     * @return string
+     */
     protected function getArraySignature(array $data): string
     {
         $supportedHashes = hash_algos() ?? [];
@@ -349,13 +353,13 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         return $this->shortenHash($hash);
     }
 
-  /**
-   * Shorten hash.
-   *
-   * @param string $hash The hash to shorten.
-   *
-   * @return string
-   */
+    /**
+     * Shorten hash.
+     *
+     * @param string $hash The hash to shorten.
+     *
+     * @return string
+     */
     protected function shortenHash($hash): string
     {
         return substr($hash, 0, 8);

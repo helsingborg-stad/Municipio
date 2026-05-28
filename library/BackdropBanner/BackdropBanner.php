@@ -74,7 +74,7 @@ class BackdropBanner implements Hookable
             [],
             null,
         );
-        
+
         $this->wpService->wpRegisterStyle(
             self::EDITOR_STYLE_HANDLE,
             $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/backdrop-banner-editor.css'),
@@ -85,16 +85,29 @@ class BackdropBanner implements Hookable
 
     public function excludeFromCustomizer(): void
     {
-        $scriptHandle = $this->getEditorScriptHandle();
-        $this->wpService->wpDequeueScript($scriptHandle);
-        $this->wpService->wpDeregisterScript($scriptHandle);
+        foreach ($this->getEditorScriptHandles() as $scriptHandle) {
+            $this->wpService->wpDequeueScript($scriptHandle);
+            $this->wpService->wpDeregisterScript($scriptHandle);
+        }
     }
 
-    private function getEditorScriptHandle(): string
+    /**
+     * Resolve editor script handles for both parent and row blocks.
+     *
+     * @return array<int, string>
+     */
+    private function getEditorScriptHandles(): array
     {
-        $blockJson = json_decode(file_get_contents($this->getBlockJsonPath()), true);
-        $blockName = $blockJson['name'] ?? 'municipio/backdrop-banner-block';
-        $handle = str_replace('/', '-', $blockName) . '-editor-script';
-        return $handle;
+        $blockPaths = [
+            $this->getBlockJsonPath(),
+            $this->getInnerBlockJsonPath(),
+        ];
+
+        return array_map(function (string $blockPath): string {
+            $blockJson = json_decode(file_get_contents($blockPath), true);
+            $blockName = $blockJson['name'] ?? '';
+
+            return str_replace('/', '-', $blockName) . '-editor-script';
+        }, $blockPaths);
     }
 }

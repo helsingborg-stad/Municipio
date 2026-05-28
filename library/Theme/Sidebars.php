@@ -111,7 +111,7 @@ class Sidebars
                 'description'   => __('The footer area ' . $suffix, 'municipio'),
                 'before_title'  => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title'   => '</h2>',
-                'before_widget' => '<div class="o-grid-' . $footerGridSize . '@md' . ' o-grid-12">' . $beforeWidget,
+                'before_widget' => '<div class="o-grid-12">' . $beforeWidget,
                 'after_widget'  => $afterWidget . '</div>',
             ));
         }

@@ -9,15 +9,17 @@
 @stop
 
 @section('layout')
-    @section('content')
-        @include('partials.schema.project.description')
-    @stop
+    @scope(['name' => ['single-schema-project', $postType . '-single-schema-project']])
+        @section('content')
+            @include('partials.schema.project.description')
+        @stop
 
-    @section('sidebar-right-content')
-        @include('partials.schema.project.information-list')
-    @stop
+        @section('sidebar-right-content')
+            @include('partials.schema.project.information-list')
+        @stop
 
-    @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
-    ])
+        @include('templates.sections.grid.content', [
+            'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+        ])
+    @endscope
 @stop

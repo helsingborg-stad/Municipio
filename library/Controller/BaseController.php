@@ -16,6 +16,7 @@ use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\User\User;
+use Municipio\Styleguide\Customize\CustomizeInterface;
 use WpService\WpService;
 
 /**
@@ -115,6 +116,7 @@ class BaseController
 
         //Customization data
         $this->data['customizer'] = apply_filters('Municipio/Controller/Customizer', []);
+        $this->data['styleguideCustomizeMarkup'] = $this->wpService->applyFilters('Municipio/Styleguide/CustomizeMarkup', null);
 
         //Logotypes
         $this->data['logotype'] = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
@@ -396,9 +398,6 @@ class BaseController
         $this->data['leftColumnSize'] = $this->getColumnSize('left', $this->data['customizer']);
         $this->data['rightColumnSize'] = $this->getColumnSize('right', $this->data['customizer']);
 
-        //Main content padder
-        $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller.
-
         //Language
         $this->data['lang'] = TranslatedLabels::getLang(
             [
@@ -673,6 +672,8 @@ class BaseController
         $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
 
         $options = [
+            'headline' => __('Choose language', 'municipio'),
+            'moreLanguageLinkLabel' => __('More languages', 'municipio'),
             'disclaimer' => get_field('language_menu_disclaimer', $options),
             'moreLanguageLink' => get_field('language_menu_more_languages', $options),
             'displayCurrentLanguage' => get_field('display_current_language', $options) ?? false,

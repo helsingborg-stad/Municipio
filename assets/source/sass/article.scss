@@ -1,14 +1,13 @@
 .c-article {
-    max-width: 1328px;
-
+    h1:first-child {
+        --inherit-margin-top: -0.25em;
+    }
     p {
         max-width: 904px;
     }
-
     figure {
         max-width: 100%;
     }
-
     [class^="mod-"] figure {
         margin-top: 0;
     }

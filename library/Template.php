@@ -14,6 +14,7 @@ use Municipio\Helper\Template as TemplateHelper;
 use Municipio\Helper\User\User;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\Styleguide\Customize\CustomizeInterface;
 use WP_Post;
 use WP_Post_Type;
 use WpService\WpService;

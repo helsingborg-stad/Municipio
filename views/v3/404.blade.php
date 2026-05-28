@@ -1,5 +1,7 @@
 @extends('templates.master')
 
 @section('content')
-    @includeFirst(['partials.404.' . $postType, 'partials.404.default'])
+    @scope(['name' => ['error', 'error-404']])
+        @includeFirst(['partials.404.' . $postType, 'partials.404.default'])
+    @endscope
 @stop

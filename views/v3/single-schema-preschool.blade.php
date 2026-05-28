@@ -1,13 +1,7 @@
 @extends('templates.grid')
 
-@section('hero-top-sidebar')
-    @parent
-    @include('partials.navigation.helper', [
-        'classList' => ['o-container', 'o-container--helper-nav'],
-    ])
-@stop
-
 @section('layout')
+    @scope(['name' => ['single-schema-preschool', $postType . '-single-schema-preschool']])
         @section('before-content')
             @include('partials.schema.preschool.title-area')
             @includeWhen(!empty($sliderItems), 'partials.schema.preschool.slider')
@@ -21,9 +15,10 @@
             @includeWhen(!empty($contactPoints), 'partials.schema.preschool.contact-points')
             @includeWhen(!empty($personsAttributes), 'partials.schema.preschool.contact-persons')
             @includeWhen(!empty($addresses), 'partials.schema.preschool.addresses')
-    @stop
+        @stop
 
-    @include('templates.sections.grid.content', [
-        'addToArticleClassList' => ['c-article', 'c-article--readable-width']
-    ])
+        @include('templates.sections.grid.content', [
+            'addToArticleClassList' => ['c-article', 'c-article--readable-width']
+        ])
+    @endscope
 @stop

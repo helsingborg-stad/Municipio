@@ -1,7 +1,8 @@
 @group([
     'direction' => 'horizontal',
     'justifyContent' => 'space-between',
-    'alignItems' => 'center'
+    'alignItems' => 'center',
+    'display' => 'flex',
 ])
     @if (!$hideTitle && !empty($postTitle))
         @typography([

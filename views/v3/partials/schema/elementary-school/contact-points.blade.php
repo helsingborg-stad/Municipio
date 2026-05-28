@@ -1,12 +1,11 @@
-@paper(['classList' => ['u-padding--2']])
-    @typography(['element' => 'h2', 'classList' => ['u-margin__bottom--2']])
+@paper(['padding' => 4])
+    @typography(['element' => 'h2', 'variant' => 'h5'])
         {!! $lang->contactPointsLabel !!}
     @endtypography
     @foreach($contactPoints['items'] as $item)
         @button([
             'text' => $item['name'],
             'color' => 'primary',
-            'size' => 'lg',
             'href' => $item['url'],
             'icon' => $item['icon'],
             'reversePositions' => 'true',

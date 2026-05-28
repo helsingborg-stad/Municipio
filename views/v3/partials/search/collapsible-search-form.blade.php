@@ -57,6 +57,7 @@
         'style' => 'basic',
         'icon' => 'search',
         'reversePositions' => true,
+        'toggle' => true,
         'attributeList' => ['aria-expanded' => 'false', 'aria-label' => $lang->search],
     ])
     @endbutton

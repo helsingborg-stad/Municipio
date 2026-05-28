@@ -14,6 +14,7 @@ use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -32,6 +33,7 @@ use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
+use Municipio\Theme\InlineMaterialSymbolsCss\InlineMaterialSymbolsCssFeature;
 use wpdb;
 use WpService\WpService;
 use WpUtilService\WpUtilService;
@@ -131,6 +133,10 @@ class App
          */
         $enqueue = new \Municipio\Theme\Enqueue($this->wpService, $this->wpUtilService);
         $enqueue->addHooks();
+        (new InlineMaterialSymbolsCssFeature(
+            $this->wpService,
+            $this->wpUtilService,
+        ))->addHooks();
 
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
@@ -229,6 +235,16 @@ class App
         /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
+
+        /**
+         * Styleguide integration
+         */
+        (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
+
+        /**
+         * Managed fonts
+         */
+        (new FontCatalogFactory($this->wpService))->create()->addHooks();
 
         /**
          * Api
@@ -392,7 +408,6 @@ class App
             $this->wpService,
             $this->acfService,
             $this->wpUtilService->enqueue(),
-            $this->hooksRegistrar,
         ))->enable();
     }
 

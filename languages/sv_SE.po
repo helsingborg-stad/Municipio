@@ -27,7 +27,6 @@ msgstr ""
 msgid "Screen reader language"
 msgstr "Språk för skärmläsare"
 
-#: library/Customizer/Sections/Menu/Colors.php:68
 #: library/Helper/TranslatedLabels.php:56
 #: Modularity/source/php/AcfFields/php/mod-all.php:12
 #: Modularity/source/php/AcfFields/php/mod-video.php:173
@@ -577,42 +576,42 @@ msgstr "Lokal fil"
 msgid "External audio url"
 msgstr "Extern länk"
 
-#: library/Theme/Enqueue.php:152
+#: library/Theme/Enqueue.php:130
 #: Modularity/source/php/AcfFields/php/mod-audio.php:91
 #: Modularity/source/php/AcfFields/php/mod-search.php:82
 msgid "Alignment"
 msgstr "Justering"
 
 #: library/AcfFields/php/widget-header-common.php:104
-#: library/Customizer/Sections/Component/Divider.php:139
+#: library/Customizer/Sections/Component/Divider.php:70
+#: library/Customizer/Sections/Component/FooterMain.php:78
 #: library/Customizer/Sections/Component/FooterMain.php:98
-#: library/Customizer/Sections/Component/FooterMain.php:118
-#: library/Customizer/Sections/Component/FooterMain.php:145
+#: library/Customizer/Sections/Component/FooterMain.php:125
 #: library/Customizer/Sections/Component/FooterSub.php:163
 #: library/Customizer/Sections/Component/Hero.php:45
 #: library/Customizer/Sections/Component/Hero.php:97
 #: library/Customizer/Sections/Component/SliderDefault.php:115
-#: library/Customizer/Sections/Component/SliderHero.php:70
+#: library/Customizer/Sections/Component/SliderHero.php:46
 #: library/Customizer/Sections/Header/Layout.php:225
 #: library/Customizer/Sections/Header/Layout.php:254
-#: library/Customizer/Sections/Width.php:68
-#: library/Theme/Enqueue.php:154
+#: library/Customizer/Sections/Width.php:24
+#: library/Theme/Enqueue.php:132
 #: Modularity/source/php/AcfFields/php/mod-audio.php:104
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:285
 #: Modularity/source/php/AcfFields/php/mod-search.php:95
 msgid "Left"
 msgstr "Vänster"
 
-#: library/Customizer/Sections/Component/Divider.php:140
+#: library/Customizer/Sections/Component/Divider.php:71
+#: library/Customizer/Sections/Component/FooterMain.php:79
 #: library/Customizer/Sections/Component/FooterMain.php:99
-#: library/Customizer/Sections/Component/FooterMain.php:119
-#: library/Customizer/Sections/Component/FooterMain.php:146
+#: library/Customizer/Sections/Component/FooterMain.php:126
 #: library/Customizer/Sections/Component/FooterSub.php:164
 #: library/Customizer/Sections/Component/Hero.php:46
 #: library/Customizer/Sections/Component/Hero.php:72
 #: library/Customizer/Sections/Component/Hero.php:98
 #: library/Customizer/Sections/Component/SliderDefault.php:116
-#: library/Customizer/Sections/Component/SliderHero.php:71
+#: library/Customizer/Sections/Component/SliderHero.php:47
 #: library/Customizer/Sections/Header/Layout.php:226
 #: Modularity/source/php/AcfFields/php/mod-audio.php:105
 #: Modularity/source/php/AcfFields/php/mod-search.php:96
@@ -621,19 +620,19 @@ msgid "Center"
 msgstr "Centrerad"
 
 #: library/AcfFields/php/widget-header-common.php:105
-#: library/Customizer/Sections/Component/Divider.php:141
+#: library/Customizer/Sections/Component/Divider.php:72
+#: library/Customizer/Sections/Component/FooterMain.php:80
 #: library/Customizer/Sections/Component/FooterMain.php:100
-#: library/Customizer/Sections/Component/FooterMain.php:120
-#: library/Customizer/Sections/Component/FooterMain.php:147
+#: library/Customizer/Sections/Component/FooterMain.php:127
 #: library/Customizer/Sections/Component/FooterSub.php:165
 #: library/Customizer/Sections/Component/Hero.php:47
 #: library/Customizer/Sections/Component/Hero.php:99
 #: library/Customizer/Sections/Component/SliderDefault.php:117
-#: library/Customizer/Sections/Component/SliderHero.php:72
+#: library/Customizer/Sections/Component/SliderHero.php:48
 #: library/Customizer/Sections/Header/Layout.php:227
 #: library/Customizer/Sections/Header/Layout.php:255
-#: library/Customizer/Sections/Width.php:84
-#: library/Theme/Enqueue.php:155
+#: library/Customizer/Sections/Width.php:40
+#: library/Theme/Enqueue.php:133
 #: Modularity/source/php/AcfFields/php/mod-audio.php:106
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:286
 #: Modularity/source/php/AcfFields/php/mod-search.php:97
@@ -861,18 +860,19 @@ msgstr "Instagram"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr "URL"
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:408
+#: library/Controller/BaseController.php:421
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/BaseController.php:409
+#: library/Controller/BaseController.php:422
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr "Adress"
@@ -906,6 +906,7 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -913,21 +914,22 @@ msgstr "Antal inlägg"
 msgid "Set the number items to show."
 msgstr "Ange hur många inlägg du vill visa."
 
-#: library/Customizer/PanelsRegistry.php:239
+#: library/Customizer/PanelsRegistry.php:237
 #: Modularity/source/php/AcfFields/php/mod-curator.php:34
 msgid "Layout"
 msgstr "Layout"
 
-#: library/Customizer/Sections/Borders.php:58
 #: library/Customizer/Sections/Component/Card.php:14
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -986,11 +988,7 @@ msgstr ""
 msgid "Uncheck to disable the powered by link. It is required to display this link, if free version is used."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:335
-#: library/Customizer/Sections/Borders.php:16
-#: library/Customizer/Sections/Colors.php:207
-#: library/Customizer/Sections/Component/Divider.php:67
-#: library/Customizer/Sections/Menu/Colors.php:200
+#: library/Customizer/PanelsRegistry.php:327
 #: Modularity/source/php/AcfFields/php/mod-divider.php:8
 #: Modularity/source/php/Module/Divider/Divider.php:15
 msgid "Divider"
@@ -1066,6 +1064,7 @@ msgstr "Filter ovanför kort/behållare"
 msgid "Yes"
 msgstr "Ja"
 
+#: library/AcfFields/php/chat.php:97
 #: library/Api/Pdf/PdfGenerator.php:135
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:106
 msgid "Settings"
@@ -1088,7 +1087,7 @@ msgstr "Visa nedladdningsikon"
 msgid "Images"
 msgstr "Bilder"
 
-#: library/Customizer/PanelsRegistry.php:341
+#: library/Customizer/PanelsRegistry.php:333
 #: library/Theme/Sidebars.php:137
 #: Modularity/source/php/AcfFields/php/mod-hero.php:8
 #: Modularity/source/php/Module/Hero/Hero.php:21
@@ -1110,19 +1109,20 @@ msgstr "Visa som"
 #: library/AcfFields/php/widget-header-menu.php:50
 #: library/Api/Pdf/PdfGenerator.php:374
 #: library/Api/Pdf/PdfGenerator.php:472
-#: library/Customizer/Sections/Component/Field.php:36
+#: library/Chat/ChatBlock.php:33
 #: library/Customizer/Sections/Component/OpenStreetMap.php:20
 #: library/Customizer/Sections/Component/Tags.php:20
 #: library/Customizer/Sections/Component/Tags.php:46
-#: library/Customizer/Sections/Header/Appearance.php:20
-#: library/Customizer/Sections/Header/Appearance.php:69
+#: library/Customizer/Sections/Header/Appearance.php:12
+#: library/Customizer/Sections/Header/Appearance.php:93
 #: library/Customizer/Sections/Header/Layout.php:199
 #: library/Customizer/Sections/Menu/MegaMenu.php:105
 #: library/Customizer/Sections/Menu/MegaMenu.php:176
 #: library/Customizer/Sections/Menu/MegaMenu.php:213
 #: library/Customizer/Sections/Menu/MegaMenu.php:284
-#: library/Customizer/Sections/Menu/Quicklinks.php:185
-#: library/Customizer/Sections/Menu/Quicklinks.php:238
+#: library/Customizer/Sections/Menu/Quicklinks.php:19
+#: library/Customizer/Sections/Menu/Quicklinks.php:42
+#: library/Customizer/Sections/Menu/Quicklinks.php:95
 #: library/Customizer/Sections/Menu/Tabmenu.php:19
 #: library/Customizer/Sections/Menu/Tabmenu.php:53
 #: library/Customizer/Sections/Search.php:148
@@ -1150,11 +1150,6 @@ msgid "default"
 msgstr "default"
 
 #: library/AcfFields/php/block-container.php:164
-#: library/Customizer/Sections/Component/Divider.php:198
-#: library/Customizer/Sections/Component/Field.php:66
-#: library/Customizer/Sections/Header/Appearance.php:14
-#: library/Customizer/Sections/Menu/Colors.php:277
-#: library/Customizer/Sections/Menu/Quicklinks.php:41
 #: Modularity/source/php/AcfFields/php/mod-hero.php:41
 msgid "Background color"
 msgstr "Bakgrundsfärg"
@@ -1164,22 +1159,19 @@ msgid "rgba(255,255,255,0.0)"
 msgstr "rgba(255,255,255,0.0)"
 
 #: library/AcfFields/php/block-container.php:334
-#: library/Customizer/Sections/Component/Divider.php:109
-#: library/Customizer/Sections/Component/FooterMain.php:267
-#: library/Customizer/Sections/Menu/Quicklinks.php:43
+#: library/Customizer/Sections/Component/Divider.php:40
+#: library/Customizer/Sections/Component/FooterMain.php:247
 #: Modularity/source/php/AcfFields/php/mod-hero.php:67
 #: Modularity/source/php/AcfFields/php/mod-slider.php:619
 msgid "Text color"
 msgstr "Textfärg"
 
-#: library/Customizer/Sections/Colors.php:569
 #: Modularity/source/php/AcfFields/php/mod-hero.php:88
 #: Modularity/source/php/AcfFields/php/mod-slider.php:633
 #: Modularity/source/php/AcfFields/php/mod-slider.php:664
 msgid "White"
 msgstr "Vit"
 
-#: library/Customizer/Sections/Colors.php:562
 #: Modularity/source/php/AcfFields/php/mod-hero.php:89
 #: Modularity/source/php/AcfFields/php/mod-slider.php:632
 msgid "Black"
@@ -1205,7 +1197,6 @@ msgid "Meta"
 msgstr "Meta"
 
 #: library/Customizer/Sections/Menu/MegaMenu.php:80
-#: library/Customizer/Sections/Menu/Quicklinks.php:132
 #: Modularity/source/php/AcfFields/php/mod-hero.php:159
 msgid "Body"
 msgstr "Brödtext"
@@ -1260,7 +1251,6 @@ msgstr "Storlek"
 #: library/Customizer/Sections/Menu/Behaviour.php:141
 #: library/Customizer/Sections/Menu/Siteselector.php:116
 #: library/Customizer/Sections/Menu/Tabmenu.php:87
-#: library/Customizer/Sections/Radius.php:35
 #: Modularity/source/php/AcfFields/php/mod-hero.php:350
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:25
 #: Modularity/source/php/AcfFields/php/mod-modal.php:177
@@ -1270,8 +1260,8 @@ msgstr "Storlek"
 msgid "Small"
 msgstr "Liten"
 
-#: library/Customizer/Sections/Width.php:73
-#: library/Customizer/Sections/Width.php:89
+#: library/Customizer/Sections/Width.php:29
+#: library/Customizer/Sections/Width.php:45
 #: Modularity/source/php/AcfFields/php/mod-hero.php:351
 msgid "Normal"
 msgstr "Normal"
@@ -1286,9 +1276,8 @@ msgstr "Normal"
 #: library/Customizer/Sections/Menu/Behaviour.php:143
 #: library/Customizer/Sections/Menu/Siteselector.php:118
 #: library/Customizer/Sections/Menu/Tabmenu.php:89
-#: library/Customizer/Sections/Radius.php:77
-#: library/Customizer/Sections/Width.php:74
-#: library/Customizer/Sections/Width.php:90
+#: library/Customizer/Sections/Width.php:30
+#: library/Customizer/Sections/Width.php:46
 #: Modularity/source/php/AcfFields/php/mod-hero.php:352
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:27
 #: Modularity/source/php/AcfFields/php/mod-modal.php:179
@@ -1302,7 +1291,6 @@ msgstr "Stor"
 msgid "normal"
 msgstr "normal"
 
-#: library/Customizer/PanelsRegistry.php:275
 #: library/Customizer/Sections/ErrorPages.php:54
 #: Modularity/source/php/AcfFields/php/mod-hero.php:366
 #, fuzzy
@@ -1314,7 +1302,6 @@ msgid "Add Call to Action button"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:32
-#: library/Customizer/Sections/Colors.php:260
 #: Modularity/source/php/AcfFields/php/mod-hero.php:397
 #: Modularity/source/php/AcfFields/php/mod-image.php:60
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:141
@@ -1367,24 +1354,24 @@ msgstr "ifylld"
 #: library/AcfFields/php/block-button.php:75
 #: library/AcfFields/php/block-container.php:283
 #: library/AcfFields/php/post-icon.php:172
+#: library/Customizer/Sections/Header/Appearance.php:45
 #: Modularity/source/php/AcfFields/php/mod-hero.php:444
 msgid "Color"
 msgstr "Färg"
 
 #: library/AcfFields/php/block-button.php:94
-#: library/Customizer/Sections/Component/Button.php:23
 #: library/Customizer/Sections/Component/Datebadge.php:22
 #: library/Customizer/Sections/Component/FooterMain.php:62
 #: library/Customizer/Sections/Component/FooterSub.php:57
 #: library/Customizer/Sections/Component/SliderDefault.php:196
-#: library/Customizer/Sections/Header/Appearance.php:21
-#: library/Customizer/Sections/Header/Logotype.php:39
+#: library/Customizer/Sections/Header/Appearance.php:13
+#: library/Customizer/Sections/Header/Logotype.php:19
 #: library/Customizer/Sections/Menu/Drawer.php:24
 #: library/Customizer/Sections/Menu/Drawer.php:47
 #: library/Customizer/Sections/Menu/MegaMenu.php:174
 #: library/Customizer/Sections/Menu/MegaMenu.php:282
 #: library/Customizer/Sections/Menu/MegaMenu.php:320
-#: library/Customizer/Sections/Menu/Quicklinks.php:158
+#: library/Customizer/Sections/Menu/Quicklinks.php:20
 #: library/Customizer/Sections/Menu/Siteselector.php:82
 #: library/Customizer/Sections/Menu/Tabmenu.php:20
 #: library/Customizer/Sections/Menu/Tabmenu.php:54
@@ -1398,19 +1385,18 @@ msgid "Primary"
 msgstr "Primär"
 
 #: library/AcfFields/php/block-button.php:95
-#: library/Customizer/Sections/Colors.php:171
 #: library/Customizer/Sections/Component/Datebadge.php:23
 #: library/Customizer/Sections/Component/FooterMain.php:63
 #: library/Customizer/Sections/Component/FooterSub.php:58
 #: library/Customizer/Sections/Component/SliderDefault.php:197
-#: library/Customizer/Sections/Header/Appearance.php:22
-#: library/Customizer/Sections/Header/Logotype.php:40
+#: library/Customizer/Sections/Header/Appearance.php:14
+#: library/Customizer/Sections/Header/Logotype.php:20
 #: library/Customizer/Sections/Menu/Drawer.php:25
 #: library/Customizer/Sections/Menu/Drawer.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:175
 #: library/Customizer/Sections/Menu/MegaMenu.php:283
 #: library/Customizer/Sections/Menu/MegaMenu.php:321
-#: library/Customizer/Sections/Menu/Quicklinks.php:159
+#: library/Customizer/Sections/Menu/Quicklinks.php:21
 #: library/Customizer/Sections/Menu/Siteselector.php:83
 #: library/Customizer/Sections/Menu/Tabmenu.php:21
 #: library/Customizer/Sections/Menu/Tabmenu.php:55
@@ -1453,7 +1439,7 @@ msgstr "pixlar"
 
 #: library/AcfFields/php/post-icon.php:142
 #: library/AcfFields/php/term-icon-and-colour.php:139
-#: library/Controller/SingularEvent.php:185
+#: library/Controller/SingularEvent.php:183
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
@@ -1465,7 +1451,8 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:429
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
-#: Modularity/source/php/Module/Posts/Posts.php:250
+#: Modularity/source/php/Module/Posts/Posts.php:246
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1489,10 +1476,10 @@ msgstr "Bildtext"
 #: library/Customizer/Sections/Component/FooterSub.php:56
 #: library/Customizer/Sections/Component/SliderDefault.php:88
 #: library/Customizer/Sections/Component/SliderDefault.php:142
-#: library/Customizer/Sections/Component/SliderHero.php:45
-#: library/Customizer/Sections/Component/SliderHero.php:95
-#: library/Customizer/Sections/Header/Appearance.php:46
-#: library/Theme/Enqueue.php:157
+#: library/Customizer/Sections/Component/SliderHero.php:21
+#: library/Customizer/Sections/Component/SliderHero.php:71
+#: library/Customizer/Sections/Header/Appearance.php:70
+#: library/Theme/Enqueue.php:135
 #: Modularity/source/php/AcfFields/php/mod-image.php:74
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:221
 msgid "None"
@@ -1515,7 +1502,7 @@ msgstr "Länk till sida"
 
 #: Modularity/source/php/AcfFields/php/mod-index.php:8
 #: Modularity/source/php/AcfFields/php/mod-index.php:12
-#: Modularity/source/php/Module/Index/Index.php:19
+#: Modularity/source/php/Module/Index/Index.php:21
 msgid "Index"
 msgstr "Index"
 
@@ -1626,6 +1613,7 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:408
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1648,7 +1636,6 @@ msgstr ""
 #: library/Customizer/Sections/Menu/Behaviour.php:142
 #: library/Customizer/Sections/Menu/Siteselector.php:117
 #: library/Customizer/Sections/Menu/Tabmenu.php:88
-#: library/Customizer/Sections/Radius.php:56
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:26
 #: Modularity/source/php/AcfFields/php/mod-modal.php:178
 #: Modularity/source/php/AcfFields/php/mod-modal.php:334
@@ -1678,7 +1665,7 @@ msgstr "Lägg till ny logotyp"
 msgid "Image/logotype"
 msgstr "Bild/Logotyp"
 
-#: library/AcfFields/php/chat.php:119
+#: library/AcfFields/php/chat.php:116
 #: library/AcfFields/php/options-customize-footer.php:31
 #: library/AcfFields/php/options-customize-header.php:31
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:43
@@ -1696,7 +1683,7 @@ msgstr "Bild/Logotyp"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:251
+#: Modularity/source/php/Module/Posts/Posts.php:247
 msgid "Name"
 msgstr "Namn"
 
@@ -1743,7 +1730,7 @@ msgstr "Spara inställningar"
 
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:161
 msgid "Accordion items will have some space between them"
-msgstr ""
+msgstr "Expanderbara listobjekt kommer att ha lite utrymme mellan dem"
 
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:185
 msgid "Column marking"
@@ -1807,6 +1794,7 @@ msgid "Manual inputs"
 msgstr "Manuell inmatning"
 
 #: library/AcfFields/php/a11y-statement.php:32
+#: library/AcfFields/php/global-notices.php:114
 #: library/Chat/Module/acf-fields.php:12
 #: library/Customizer/Sections/Archive.php:318
 #: library/PostsList/ViewCallableProviders/Table/TableArguments/TableHeadingsGenerator.php:51
@@ -1814,8 +1802,9 @@ msgstr "Manuell inmatning"
 #: Modularity/source/php/AcfFields/php/mod-map.php:350
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
-#: Modularity/source/php/Module/ManualInput/ManualInput.php:329
+#: Modularity/source/php/Module/ManualInput/ManualInput.php:321
 #: Modularity/source/php/Module/Posts/views/expandable-list.blade.php:42
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -1831,7 +1820,6 @@ msgstr "Kolumnvärden"
 #: library/Admin/Options/Theme.php:39
 #: library/Admin/Options/Theme.php:40
 #: library/Customizer/Sections/Component/FooterSub.php:188
-#: library/Customizer/Sections/Width.php:26
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:657
 #: Modularity/source/php/AcfFields/php/mod-slider.php:261
 #: Modularity/source/php/AcfFields/php/mod-slider.php:553
@@ -1899,7 +1887,7 @@ msgstr "Typ av karta"
 msgid "Embedded"
 msgstr "Inbäddad"
 
-#: library/Customizer/PanelsRegistry.php:287
+#: library/Customizer/PanelsRegistry.php:279
 #: Modularity/source/php/AcfFields/php/mod-map.php:25
 msgid "Open Street Map"
 msgstr "Open Street MAp"
@@ -1962,8 +1950,7 @@ msgstr "Kortet med extra info är inaktiverat som standard"
 #: library/AcfFields/php/options-login-logout.php:26
 #: library/AcfFields/php/options-login-redirect.php:26
 #: library/AcfFields/php/options-theme-features.php:26
-#: library/Customizer/Sections/Component/Divider.php:89
-#: library/Customizer/Sections/Component/Divider.php:165
+#: library/Customizer/Sections/Component/Divider.php:96
 #: library/Customizer/Sections/Menu/Behaviour.php:85
 #: library/Customizer/Sections/Menu/Behaviour.php:101
 #: library/Customizer/Sections/Menu/MegaMenu.php:366
@@ -1981,9 +1968,7 @@ msgstr "Aktiverad"
 #: library/AcfFields/php/options-login-redirect.php:27
 #: library/AcfFields/php/options-theme-features.php:27
 #: library/AcfFields/php/user-group-url.php:47
-#: library/Customizer/Sections/Colors.php:172
-#: library/Customizer/Sections/Component/Divider.php:90
-#: library/Customizer/Sections/Component/Divider.php:166
+#: library/Customizer/Sections/Component/Divider.php:97
 #: library/Customizer/Sections/Menu/Behaviour.php:86
 #: library/Customizer/Sections/Menu/Behaviour.php:102
 #: library/Customizer/Sections/Menu/MegaMenu.php:367
@@ -2067,8 +2052,6 @@ msgstr "Välj en leverantör"
 msgid "ABC"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:110
-#: library/Customizer/Sections/Colors.php:140
 #: library/Customizer/Sections/Component/FooterSub.php:20
 #: library/Customizer/Sections/Menu/MegaMenu.php:38
 #: library/Customizer/Sections/Menu/Siteselector.php:45
@@ -2078,12 +2061,11 @@ msgstr "Bakgrund"
 #: Modularity/source/php/AcfFields/php/mod-modal.php:8
 #: Modularity/source/php/AcfFields/php/mod-modal.php:197
 msgid "Modal"
-msgstr "Modal"
+msgstr "Dialogruta"
 
 #: library/AcfFields/php/options-menu-style.php:25
 #: library/AcfFields/php/options-theme-editor-formats.php:39
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:39
-#: library/Customizer/Sections/Borders.php:101
 #: library/Customizer/Sections/Menu/MegaMenu.php:106
 #: library/Customizer/Sections/Menu/MegaMenu.php:214
 #: Modularity/source/php/AcfFields/php/mod-modal.php:12
@@ -2097,7 +2079,7 @@ msgstr "Knapp"
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
 #: Modularity/source/php/AcfFields/php/mod-modal.php:33
-#: Modularity/source/php/Module/Text/Text.php:14
+#: Modularity/source/php/Module/Text/Text.php:16
 msgid "Text"
 msgstr "Text"
 
@@ -2120,8 +2102,8 @@ msgstr ""
 #: library/AcfFields/php/navigation-widget.php:316
 #: library/AcfFields/php/options-menu-style.php:12
 #: library/Customizer/Sections/Archive.php:44
-#: library/Customizer/Sections/Header/Appearance.php:40
-#: library/Customizer/Sections/Header/Appearance.php:63
+#: library/Customizer/Sections/Header/Appearance.php:64
+#: library/Customizer/Sections/Header/Appearance.php:87
 #: library/Customizer/Sections/Icons.php:14
 #: Modularity/source/php/AcfFields/php/mod-modal.php:102
 #, fuzzy
@@ -2130,7 +2112,7 @@ msgstr "Stil"
 
 #: library/Customizer/Sections/Header/LoginLogout.php:62
 #: library/Customizer/Sections/Menu/MegaMenu.php:315
-#: library/Customizer/Sections/Menu/Quicklinks.php:153
+#: library/Customizer/Sections/Menu/Quicklinks.php:14
 #: library/Customizer/Sections/Menu/Siteselector.php:76
 #: Modularity/source/php/AcfFields/php/mod-modal.php:133
 msgid "Color scheme"
@@ -2145,19 +2127,19 @@ msgstr ""
 #: Modularity/source/php/Module/Modal/Modal.php:82
 #, fuzzy
 msgid "Modal Content"
-msgstr "Innehåll"
+msgstr "Dialogrutans Innehåll"
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:254
 msgid "Modal layout settings (Click to expand)"
-msgstr ""
+msgstr "Dialogrutans layoutinställningar (Klicka för att expandera)"
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:272
 msgid "Use Modal Content title"
-msgstr ""
+msgstr "Använd dialogrutans innehållstitel"
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:276
 msgid "Use the title of the Modal Content post as the heading for this modal."
-msgstr ""
+msgstr "Använd titeln på dialogrutans innehållspost som rubrik för denna dialogruta."
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:292
 #, fuzzy
@@ -2170,18 +2152,17 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:312
 msgid "Modal Size"
-msgstr ""
+msgstr "Dialogrutans storlek"
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:316
 msgid "Empty as default is set to max width 800px."
-msgstr ""
+msgstr "Tom som standard är inställd på maxbredd 800px."
 
 #: Modularity/source/php/AcfFields/php/mod-modal.php:341
 #, fuzzy
 msgid "Select size"
 msgstr "Välj en leverantör"
 
-#: library/Customizer/PanelsRegistry.php:204
 #: library/Customizer/Sections/Component/FooterMain.php:36
 #: library/Customizer/Sections/Component/FooterSub.php:109
 #: Modularity/source/php/AcfFields/php/mod-modal.php:351
@@ -2257,22 +2238,22 @@ msgstr "Släckbar"
 msgid "Dismissal time"
 msgstr "Policy för släckning"
 
-#: library/AcfFields/php/global-notices.php:332
+#: library/AcfFields/php/global-notices.php:353
 #: Modularity/source/php/AcfFields/php/mod-notice.php:181
 msgid "Dismissed until user restarts browser"
 msgstr "Visas inte igen förrän användaren startar om webbläsaren"
 
-#: library/AcfFields/php/global-notices.php:333
+#: library/AcfFields/php/global-notices.php:354
 #: Modularity/source/php/AcfFields/php/mod-notice.php:182
 msgid "Dismissed \"forever\""
 msgstr "Visa aldrig igen"
 
-#: library/AcfFields/php/global-notices.php:334
+#: library/AcfFields/php/global-notices.php:355
 #: Modularity/source/php/AcfFields/php/mod-notice.php:183
 msgid "Dismissed until page reload"
 msgstr "Visa igen när sidan laddas om"
 
-#: library/AcfFields/php/global-notices.php:336
+#: library/AcfFields/php/global-notices.php:357
 #: Modularity/source/php/AcfFields/php/mod-notice.php:185
 msgid "session"
 msgstr "session"
@@ -2457,17 +2438,20 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:361
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -2502,7 +2486,7 @@ msgstr ""
 msgid "Link title"
 msgstr "Länkstil"
 
-#: Modularity/source/php/Module/Posts/Posts.php:246
+#: Modularity/source/php/Module/Posts/Posts.php:242
 msgid "Show more"
 msgstr "Visa mer"
 
@@ -2545,7 +2529,7 @@ msgid "Summary"
 msgstr "Sammanfattning"
 
 #: library/AcfFields/php/options-theme-author.php:8
-#: library/Controller/Singular.php:223
+#: library/Controller/Singular.php:184
 #: Modularity/source/php/AcfFields/php/mod-rss.php:86
 msgid "Author"
 msgstr "Författare"
@@ -2623,7 +2607,7 @@ msgstr "Webbplater"
 msgid "Include main site"
 msgstr "Inkludera huvudsidan"
 
-#: library/Customizer/PanelsRegistry.php:294
+#: library/Customizer/PanelsRegistry.php:286
 #: Modularity/source/php/AcfFields/php/mod-slider.php:8
 msgid "Slider"
 msgstr "Bildspel"
@@ -2809,12 +2793,12 @@ msgstr "Intern"
 msgid "Extern"
 msgstr "Extern"
 
-#: library/Controller/SingularEvent.php:199
+#: library/Controller/SingularEvent.php:197
 #: library/Helper/TranslatedLabels.php:62
 #: library/Helper/TranslatedLabels.php:79
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
-#: Modularity/source/php/Module/ManualInput/ManualInput.php:168
-#: Modularity/source/php/Module/Posts/Posts.php:247
+#: Modularity/source/php/Module/ManualInput/ManualInput.php:164
+#: Modularity/source/php/Module/Posts/Posts.php:243
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -2959,6 +2943,7 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -3079,6 +3064,7 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -3983,7 +3969,7 @@ msgid "Edit"
 msgstr "Redigera"
 
 #: Modularity/source/php/App.php:173
-#: Modularity/source/php/BlockManager.php:210
+#: Modularity/source/php/BlockManager.php:207
 #: Modularity/source/php/Editor.php:137
 msgid "Modules"
 msgstr "Moduler"
@@ -4012,7 +3998,8 @@ msgstr "Är du säker på att du vill ta bort modulen?"
 msgid "Saving…"
 msgstr "Sparar…"
 
-#: library/Controller/BaseController.php:395
+#: library/Chat/Render/ChatRenderConfig.php:73
+#: library/Controller/BaseController.php:408
 #: library/Helper/TranslatedLabels.php:54
 #: Modularity/source/php/App.php:307
 msgid "Close"
@@ -4028,11 +4015,11 @@ msgstr "Redigera moduler"
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:138
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:228
-#: Modularity/source/php/BlockManager.php:487
+#: Modularity/source/php/BlockManager.php:484
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: Modularity/source/php/Display.php:710
+#: Modularity/source/php/Display.php:740
 msgid "Edit module"
 msgstr "Redigera modul"
 
@@ -4052,32 +4039,32 @@ msgstr "Inga aktiva sidebars"
 msgid "There's no active sidebars. Please activate sidebar areas in the Modularity Options to add modules."
 msgstr "Det finns inga aktiva sidebars. Du kan aktivera sidebars under sidan ”Modularity -> Options”."
 
-#: Modularity/source/php/Editor.php:605
+#: Modularity/source/php/Editor.php:612
 msgid "Page not loaded before saving changes."
 msgstr ""
 
-#: Modularity/source/php/Editor.php:611
+#: Modularity/source/php/Editor.php:618
 #, fuzzy
 msgid "No post id found"
 msgstr "Placera bild"
 
-#: Modularity/source/php/Editor.php:623
+#: Modularity/source/php/Editor.php:630
 msgid "Modules saved"
 msgstr "Moduler sparades"
 
-#: Modularity/source/php/Editor.php:713
+#: Modularity/source/php/Editor.php:720
 msgid "Inherit"
 msgstr "Ärv"
 
-#: Modularity/source/php/Editor.php:776
+#: Modularity/source/php/Editor.php:783
 msgid "Scope styling"
 msgstr "Utseende"
 
-#: Modularity/source/php/Editor.php:780
+#: Modularity/source/php/Editor.php:787
 msgid "Select an apperance for this instance of module"
 msgstr "Välj ett alternativt utseende för den här modulen"
 
-#: Modularity/source/php/Editor.php:783
+#: Modularity/source/php/Editor.php:790
 msgid "By selecting a scope for this class, they will appear in a different way than the standard layout."
 msgstr "Välj ett specialutseende för den här modulen som passar ditt syfte med innehållet."
 
@@ -4119,7 +4106,7 @@ msgstr "Den här delen av webbplatsen visar innehåll från en annan webbplats (
 msgid "To get the full expirience of the <strong>Modularity</strong> plugin, please activate the <a href=\"http://www.advancedcustomfields.com/pro/\" target=\"_blank\">Advanced Custom Fields Pro</a> plugin."
 msgstr "För att kunna utnyttja <strong>Modularity</strong> maximalt rekommenderar vi dig att installera och aktivera pluginet <a href=\"http://www.advancedcustomfields.com/pro/\" target=\"_blank\">Advanced Custom Fields Pro</a>."
 
-#: library/Customizer/PanelsRegistry.php:403
+#: library/Customizer/PanelsRegistry.php:387
 msgid "Breadcrumbs"
 msgstr "Brödsmulor"
 
@@ -4163,12 +4150,12 @@ msgid "Outputs a gallery with images"
 msgstr "Visar ett galleri med bilder"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:32
-#: Modularity/source/php/Module/Posts/Posts.php:232
+#: Modularity/source/php/Module/Posts/Posts.php:227
 msgid "Previous slide"
 msgstr "Gå till föregående bild"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:33
-#: Modularity/source/php/Module/Posts/Posts.php:233
+#: Modularity/source/php/Module/Posts/Posts.php:228
 msgid "Next slide"
 msgstr "Gå till nästa bild"
 
@@ -4205,11 +4192,11 @@ msgstr "Visar en bild"
 msgid "Allowed file types: %s"
 msgstr "Tillåtna filtyper: jpg, png, gif"
 
-#: Modularity/source/php/Module/Index/Index.php:20
+#: Modularity/source/php/Module/Index/Index.php:22
 msgid "Indexes"
 msgstr "Index"
 
-#: Modularity/source/php/Module/Index/Index.php:21
+#: Modularity/source/php/Module/Index/Index.php:23
 msgid "Index card to use as an entry point for a \"content section\"."
 msgstr "Index-rutor att använda som ingångar till undersidor."
 
@@ -4247,7 +4234,7 @@ msgstr "Visar ett galleri med logotyper"
 
 #: library/Admin/Options/Theme.php:47
 #: library/Admin/Options/Theme.php:48
-#: library/Customizer/PanelsRegistry.php:214
+#: library/Customizer/PanelsRegistry.php:181
 #: library/Helper/TranslatedLabels.php:44
 #: library/Helper/TranslatedLabels.php:83
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
@@ -4262,21 +4249,22 @@ msgid "Search"
 msgstr "Sök"
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:28
+#: library/Chat/Admin/ChatAdminPage.php:30
 #: library/Chat/Admin/RegisterChatAdminPage.php:30
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
-#: Modularity/source/php/Module/Posts/Posts.php:248
+#: Modularity/source/php/Module/Posts/Posts.php:244
 msgid "Save"
 msgstr "Spara"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:51
-#: Modularity/source/php/Module/Posts/Posts.php:249
+#: Modularity/source/php/Module/Posts/Posts.php:245
 msgid "Cancel"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:54
-#: Modularity/source/php/Module/Posts/Posts.php:252
+#: Modularity/source/php/Module/Posts/Posts.php:248
 msgid "Saving"
 msgstr "Sparar"
 
@@ -4285,13 +4273,13 @@ msgid "This item is obligatory"
 msgstr "Detta är obligatoriskt"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:56
-#: Modularity/source/php/Module/Posts/Posts.php:253
+#: Modularity/source/php/Module/Posts/Posts.php:249
 #, fuzzy
 msgid "An error occurred and the data could not be saved. Please try again later"
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
-#: Modularity/source/php/Module/Posts/Posts.php:254
+#: Modularity/source/php/Module/Posts/Posts.php:250
 msgid "Change the lists content"
 msgstr ""
 
@@ -4354,39 +4342,39 @@ msgstr "Visar en bild"
 
 #: Modularity/source/php/Module/Modal/Modal.php:80
 msgid "All Modal Contents"
-msgstr ""
+msgstr "Allt dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:83
 msgid "Add New Modal Content"
-msgstr ""
+msgstr "Lägg till nytt dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:84
 msgid "Add Modal Content"
-msgstr "Lägg till en avdelare för innehåll."
+msgstr "Lägg till dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:85
 msgid "New Modal Content"
-msgstr ""
+msgstr "Nytt dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:86
 msgid "Edit Modal Content"
-msgstr "Redigera moduler"
+msgstr "Redigera dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:87
 msgid "Update Modal Content"
-msgstr ""
+msgstr "Uppdatera dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:88
 msgid "View Modal Content"
-msgstr ""
+msgstr "Visa dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:89
 msgid "View Modal Contents"
-msgstr ""
+msgstr "Visa dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Modal/Modal.php:90
 msgid "Search For Modal Content"
-msgstr ""
+msgstr "Sök efter dialogruteinnehåll"
 
 #: Modularity/source/php/Module/Posts/Helper/AddMetaToExpandableList.php:100
 msgid "Modularity expandable list column values"
@@ -4477,11 +4465,11 @@ msgstr "Kunde ej skapa prenumeration"
 msgid "Sorry, we could not subscribe you to this list at the moment. Please try again later."
 msgstr "Vi kunde ej skapa din prenumeration. Försök gärna igen vid ett senare tillfälle."
 
-#: Modularity/source/php/Module/Text/Text.php:15
+#: Modularity/source/php/Module/Text/Text.php:17
 msgid "Texts"
 msgstr "Texter"
 
-#: Modularity/source/php/Module/Text/Text.php:16
+#: Modularity/source/php/Module/Text/Text.php:18
 msgid "Outputs text"
 msgstr "Visar texter"
 
@@ -4515,86 +4503,86 @@ msgid "Categories"
 msgstr "Kategorier"
 
 #: library/Content/CustomPostType.php:56
-#: Modularity/source/php/ModuleManager.php:196
+#: Modularity/source/php/ModuleManager.php:198
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
 #: library/Content/CustomPostType.php:57
-#: Modularity/source/php/ModuleManager.php:197
+#: Modularity/source/php/ModuleManager.php:199
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
 #: library/Content/CustomPostType.php:58
-#: Modularity/source/php/ModuleManager.php:198
 #: Modularity/source/php/ModuleManager.php:200
+#: Modularity/source/php/ModuleManager.php:202
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
 #: library/Content/CustomPostType.php:59
-#: Modularity/source/php/ModuleManager.php:199
+#: Modularity/source/php/ModuleManager.php:201
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
 #: library/Content/CustomPostType.php:61
 #: library/PostsList/ViewCallableProviders/Filter/GetTextSearchFieldArguments.php:97
-#: Modularity/source/php/ModuleManager.php:201
+#: Modularity/source/php/ModuleManager.php:203
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
 #: library/Content/CustomPostType.php:62
-#: Modularity/source/php/ModuleManager.php:202
+#: Modularity/source/php/ModuleManager.php:204
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: Modularity/source/php/ModuleManager.php:203
+#: Modularity/source/php/ModuleManager.php:205
 #, php-format
 msgid "No %s"
 msgstr "Inga %s"
 
-#: Modularity/source/php/ModuleManager.php:204
+#: Modularity/source/php/ModuleManager.php:206
 #, php-format
 msgid "No %s in trash"
 msgstr "Inga %s i papperskorgen"
 
-#: Modularity/source/php/ModuleManager.php:390
+#: Modularity/source/php/ModuleManager.php:392
 msgid "Hide title"
 msgstr "Dölj titel"
 
-#: Modularity/source/php/ModuleManager.php:434
+#: Modularity/source/php/ModuleManager.php:436
 msgid "Copy and paste this shortcode to display the module inline."
 msgstr "Kopiera och klistra in denna shortcode i en brödtext där du vill visa modulen."
 
-#: Modularity/source/php/ModuleManager.php:473
+#: Modularity/source/php/ModuleManager.php:475
 msgid "This modules is not used yet."
 msgstr "Denna modulen används inte än."
 
-#: Modularity/source/php/ModuleManager.php:479
+#: Modularity/source/php/ModuleManager.php:481
 msgid "This module is used on the following places:"
 msgstr "Denna modulen används på följande ställen:"
 
-#: Modularity/source/php/ModuleManager.php:527
+#: Modularity/source/php/ModuleManager.php:579
 msgid "Module description"
 msgstr "Modulbeskrivning"
 
-#: Modularity/source/php/ModuleManager.php:577
+#: Modularity/source/php/ModuleManager.php:629
 msgid "Usage"
 msgstr "Användning"
 
-#: Modularity/source/php/ModuleManager.php:602
+#: Modularity/source/php/ModuleManager.php:654
 msgid "Not used"
 msgstr "Inte använd"
 
-#: Modularity/source/php/ModuleManager.php:619
+#: Modularity/source/php/ModuleManager.php:671
 msgid "more"
 msgstr "fler"
 
-#: Modularity/source/php/ModuleManager.php:663
+#: Modularity/source/php/ModuleManager.php:715
 msgid "<strong>Heads up:</strong> This module is used in several places"
 msgstr ""
 
@@ -4637,17 +4625,17 @@ msgstr "Posttyp moduler"
 msgid "The database may need to be updated to accomodate new datatastructures. Run wp-cli \"modularity upgrade\" to upgrade."
 msgstr "Databasen kan behöva uppdateras för att anpassas till nya datastrukturer. Kör wp-cli ”modularity upgrade” för att uppgradera."
 
-#: library/Upgrade.php:1007
+#: library/Upgrade.php:1027
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:1011
+#: library/Upgrade.php:1031
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:1016
+#: library/Upgrade.php:1036
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr "Databasversionen som ska uppnås, kan inte vara lägre än den version som är sparad (kan inte nedgradera databasen)."
@@ -4895,9 +4883,7 @@ msgid "Content width"
 msgstr "Bredd på innehåll"
 
 #: library/AcfFields/php/block-container.php:97
-#: library/Customizer/PanelsRegistry.php:249
-#: library/Customizer/Sections/Colors.php:518
-#: library/Customizer/Sections/Component/Button.php:148
+#: library/Customizer/PanelsRegistry.php:247
 msgid "Standard"
 msgstr "Standard"
 
@@ -5050,6 +5036,7 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:460
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -5098,7 +5085,7 @@ msgstr "Funktionen för globala meddelanden lägger till meddelanden över hela 
 
 #: library/AcfFields/php/global-notices.php:35
 #: library/AcfFields/php/options-theme-custom-js.php:71
-#: library/Customizer/Sections/Menu/Quicklinks.php:199
+#: library/Customizer/Sections/Menu/Quicklinks.php:56
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:62
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:54
 msgid "Location"
@@ -5147,85 +5134,85 @@ msgstr "Fara"
 msgid "info"
 msgstr "info"
 
-#: library/AcfFields/php/global-notices.php:114
+#: library/AcfFields/php/global-notices.php:135
 #: library/Theme/Icon.php:74
 msgid "Message"
 msgstr "Meddelande"
 
-#: library/AcfFields/php/global-notices.php:118
+#: library/AcfFields/php/global-notices.php:139
 msgid "If you have decided to show your messsage in a toast, please keep it as short as possible."
 msgstr "Om du har valt att visa ditt meddelande som en ”toast”, vänligen håll dig kortfattad. "
 
-#: library/AcfFields/php/global-notices.php:136
+#: library/AcfFields/php/global-notices.php:157
 msgid "Constraints"
 msgstr "Begränsningar"
 
-#: library/AcfFields/php/global-notices.php:149
+#: library/AcfFields/php/global-notices.php:170
 msgid "##User status"
 msgstr "##Användarstatus"
 
-#: library/AcfFields/php/global-notices.php:150
+#: library/AcfFields/php/global-notices.php:171
 msgid "Authenticated users"
 msgstr "Inloggade användare"
 
-#: library/AcfFields/php/global-notices.php:151
+#: library/AcfFields/php/global-notices.php:172
 msgid "Un authenticated users"
 msgstr "Utloggade användare"
 
-#: library/AcfFields/php/global-notices.php:152
+#: library/AcfFields/php/global-notices.php:173
 msgid "##Page"
 msgstr "##Sidor"
 
-#: library/AcfFields/php/global-notices.php:153
+#: library/AcfFields/php/global-notices.php:174
 msgid "Frontpage"
 msgstr "Startsidan"
 
-#: library/AcfFields/php/global-notices.php:154
+#: library/AcfFields/php/global-notices.php:175
 msgid "Subpages"
 msgstr "Undersidor"
 
-#: library/AcfFields/php/global-notices.php:157
+#: library/AcfFields/php/global-notices.php:178
 msgid "loggedin"
 msgstr "loggedin"
 
-#: library/AcfFields/php/global-notices.php:158
+#: library/AcfFields/php/global-notices.php:179
 msgid "loggedout"
 msgstr "loggedout"
 
-#: library/AcfFields/php/global-notices.php:159
+#: library/AcfFields/php/global-notices.php:180
 msgid "frontpage"
 msgstr "frontpage"
 
-#: library/AcfFields/php/global-notices.php:160
+#: library/AcfFields/php/global-notices.php:181
 msgid "subpage"
 msgstr "subpage"
 
-#: library/AcfFields/php/global-notices.php:172
+#: library/AcfFields/php/global-notices.php:193
 msgid "Action"
 msgstr "Länk"
 
-#: library/AcfFields/php/global-notices.php:194
+#: library/AcfFields/php/global-notices.php:215
 msgid "Add action"
 msgstr "Lägg till en länk"
 
-#: library/AcfFields/php/global-notices.php:214
+#: library/AcfFields/php/global-notices.php:235
 msgid "Action Label"
 msgstr "Text på länk"
 
-#: library/AcfFields/php/global-notices.php:242
+#: library/AcfFields/php/global-notices.php:263
 msgid "Action Target"
 msgstr "Länkmål"
 
-#: library/AcfFields/php/global-notices.php:269
-#: library/AcfFields/php/global-notices.php:291
+#: library/AcfFields/php/global-notices.php:290
+#: library/AcfFields/php/global-notices.php:312
 msgid "Dismissable"
 msgstr "Kan stängas"
 
-#: library/AcfFields/php/global-notices.php:303
+#: library/AcfFields/php/global-notices.php:324
 msgid "This message can be dismissed"
 msgstr "Det här meddelandet kan stängas / klickas bort"
 
-#: library/AcfFields/php/global-notices.php:311
+#: library/AcfFields/php/global-notices.php:332
 msgid "Dismissal lifetime"
 msgstr "Hur länge ska dölj kommas ihåg? "
 
@@ -5284,7 +5271,7 @@ msgstr "Aktivera Gutenberg redigerare"
 
 #: library/AcfFields/php/options-activate-gutenberg.php:25
 #: library/Controller/Search.php:16
-#: library/Customizer/Sections/Menu/Quicklinks.php:206
+#: library/Customizer/Sections/Menu/Quicklinks.php:63
 msgid "All pages"
 msgstr "Alla sidor"
 
@@ -5441,7 +5428,7 @@ msgstr "Visa aktuell språk i listan"
 
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
-#: library/Customizer/PanelsRegistry.php:415
+#: library/Customizer/PanelsRegistry.php:399
 #: library/Customizer/Sections/Search.php:140
 #: library/Helper/TranslatedLabels.php:49
 #: library/Theme/Navigation.php:36
@@ -5817,7 +5804,7 @@ msgid "Type of taxonomy"
 msgstr "Typ av taxonomi"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:109
-#: library/Customizer/PanelsRegistry.php:353
+#: library/Customizer/PanelsRegistry.php:339
 msgid "Tags"
 msgstr "Taggar"
 
@@ -6155,7 +6142,6 @@ msgid "Drak gray"
 msgstr "Mörkgrå"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:32
-#: library/Customizer/Sections/Borders.php:37
 #: library/Customizer/Sections/Component/Card.php:23
 msgid "Highlight"
 msgstr "Markering"
@@ -6350,7 +6336,7 @@ msgstr "Primär menu"
 #: library/AcfFields/php/options-theme-google-translate.php:58
 #: library/Theme/Navigation.php:35
 msgid "Secondary menu & drawer menu"
-msgstr "Sekundärmeny och panelmeny"
+msgstr "Sekundärmeny och menu i utdragbar panel"
 
 #: library/AcfFields/php/options-theme-google-translate.php:60
 #: library/Theme/Navigation.php:37
@@ -6363,7 +6349,7 @@ msgid "Language menu"
 msgstr "Språkmeny"
 
 #: library/AcfFields/php/options-theme-google-translate.php:63
-#: library/Customizer/PanelsRegistry.php:421
+#: library/Customizer/PanelsRegistry.php:405
 #: library/Customizer/Sections/Search.php:141
 #: library/Theme/Navigation.php:40
 msgid "Quicklinks menu"
@@ -6372,7 +6358,7 @@ msgstr "Snabblänksmeny"
 #: library/AcfFields/php/options-theme-google-translate.php:64
 #: library/Theme/Navigation.php:41
 msgid "Drawer (bottom)"
-msgstr "Panelmeny (nedre del)"
+msgstr "Utdragbar panel (nedre del)"
 
 #: library/AcfFields/php/options-theme-google-translate.php:65
 #: library/Theme/Navigation.php:42
@@ -6600,6 +6586,7 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -6644,7 +6631,7 @@ msgid "Phone numer"
 msgstr "Telefonnummer"
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:406
+#: library/Controller/BaseController.php:419
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
@@ -6701,8 +6688,8 @@ msgstr "Vänster & höger"
 
 #: library/AcfFields/php/widget-header-common.php:119
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:89
-#: library/Customizer/Sections/Header/Appearance.php:86
-#: library/Theme/Enqueue.php:153
+#: library/Customizer/Sections/Header/Appearance.php:110
+#: library/Theme/Enqueue.php:131
 msgid "Margin"
 msgstr "Marginal"
 
@@ -6739,7 +6726,7 @@ msgid "Widget header - Links"
 msgstr "Widgetrubrik - Länkar"
 
 #: library/AcfFields/php/widget-header-links.php:12
-#: library/Controller/SingularEvent.php:200
+#: library/Controller/SingularEvent.php:198
 msgid "Links"
 msgstr "Länkar"
 
@@ -6838,7 +6825,6 @@ msgid "A margin block"
 msgstr "Ett marginalblock"
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:106
-#: library/Customizer/Sections/Width.php:18
 msgid "Container"
 msgstr "Behållare"
 
@@ -6890,7 +6876,7 @@ msgid "Login/Logout Options"
 msgstr "Logga in och logga ut"
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:24
-#: library/Customizer/PanelsRegistry.php:268
+#: library/Customizer/PanelsRegistry.php:266
 #: library/Customizer/Sections/Header/Layout.php:316
 msgid "Login/Logout"
 msgstr "Logga in / Logga ut"
@@ -6974,7 +6960,7 @@ msgstr "Beskrivning."
 msgid "Return type from sideloaded image."
 msgstr "Returtyp från nedladdad bild."
 
-#: library/Api/Navigation/ChildrenRender.php:113
+#: library/Api/Navigation/ChildrenRender.php:104
 msgid "An error occurred while rendering the menu."
 msgstr ""
 
@@ -7031,8 +7017,8 @@ msgid "General cover settings"
 msgstr "Allmänna inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:510
-#: library/Customizer/Sections/Header/Logotype.php:41
+#: library/Controller/BaseController.php:523
+#: library/Customizer/Sections/Header/Logotype.php:21
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
 msgstr "Emblem"
@@ -7042,10 +7028,8 @@ msgid "Specific cover settings"
 msgstr "Specifika inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:398
-#: library/Customizer/Sections/Component/SliderHero.php:140
 #: library/Customizer/Sections/Menu/MegaMenu.php:36
 #: library/Customizer/Sections/Menu/MegaMenu.php:81
-#: library/Customizer/Sections/Menu/Quicklinks.php:133
 msgid "Heading"
 msgstr "Rubrik"
 
@@ -7134,13 +7118,13 @@ msgstr "Du behöver logga in för att kunna lämna en kommentar."
 msgid "Cancel reply"
 msgstr "Avbryt"
 
-#: library/Comment/HoneyPot.php:132
+#: library/Comment/HoneyPot.php:137
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
-#: library/Comment/HoneyPot.php:138
 #: library/Comment/HoneyPot.php:143
 #: library/Comment/HoneyPot.php:148
+#: library/Comment/HoneyPot.php:153
 msgid "Could not verify that you are human."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
@@ -7215,28 +7199,28 @@ msgstr "Senaste bedömningen gjord"
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:391
+#: library/Controller/BaseController.php:404
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: library/Controller/BaseController.php:392
+#: library/Controller/BaseController.php:405
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:393
+#: library/Controller/BaseController.php:406
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr "Logga ut"
 
-#: library/Controller/BaseController.php:394
+#: library/Controller/BaseController.php:407
 msgid "Login"
 msgstr "Logga in"
 
-#: library/Controller/BaseController.php:405
+#: library/Controller/BaseController.php:418
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/BaseController.php:407
+#: library/Controller/BaseController.php:420
 msgid "Call"
 msgstr "Ring"
 
@@ -7277,17 +7261,18 @@ msgstr "Papperskorgen är tom."
 msgid "Are you sure you want to permanently delete this post?"
 msgstr "Är du säker på att du vill radera denna post permanent?"
 
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendArchiveMenuItem.php:44
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendArchiveMenuItem.php:48
 #: library/Controller/Navigation/Decorators/Breadcrumb/AppendPageTreeAncestorsMenuItems.php:50
 #: library/Controller/Navigation/Decorators/Menu/PageTreeAppendMenuItemsCustomTitle.php:50
 #: library/Helper/Navigation.php:672
 #: library/Helper/Navigation.php:795
-#: library/Helper/Navigation.php:798
-#: library/Helper/Navigation.php:822
+#: library/Helper/Navigation.php:800
+#: library/Helper/Navigation.php:825
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:35
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:36
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:43
 msgid "Home"
 msgstr "Hem"
 
@@ -7348,7 +7333,7 @@ msgstr "Sök efter"
 msgid "View page"
 msgstr "Visa sida"
 
-#: library/Controller/Singular.php:362
+#: library/Controller/Singular.php:320
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -7387,60 +7372,60 @@ msgctxt "ElementarySchool"
 msgid "Events"
 msgstr "Evenemang"
 
-#: library/Controller/SingularEvent.php:186
+#: library/Controller/SingularEvent.php:184
 msgid "Add to calendar"
 msgstr "Lägg till i kalender"
 
-#: library/Controller/SingularEvent.php:187
+#: library/Controller/SingularEvent.php:185
 msgid "Tickets & registration"
 msgstr "Biljetter & bokning"
 
-#: library/Controller/SingularEvent.php:188
+#: library/Controller/SingularEvent.php:186
 msgid "Go to booking page"
 msgstr "Gå till bokningssida"
 
-#: library/Controller/SingularEvent.php:189
+#: library/Controller/SingularEvent.php:187
 msgid "Tickets are sold according to the reseller."
 msgstr "Biljetter säljs enligt återförsäljare."
 
-#: library/Controller/SingularEvent.php:190
+#: library/Controller/SingularEvent.php:188
 msgid "Date and time"
 msgstr "Datum & tid"
 
-#: library/Controller/SingularEvent.php:191
+#: library/Controller/SingularEvent.php:189
 #, fuzzy
 msgid "More occasions"
 msgstr "Alla tillfällen"
 
-#: library/Controller/SingularEvent.php:192
+#: library/Controller/SingularEvent.php:190
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr "Plats"
 
-#: library/Controller/SingularEvent.php:193
+#: library/Controller/SingularEvent.php:191
 #, fuzzy
 msgid "Get directions"
 msgstr "Hitta hit"
 
-#: library/Controller/SingularEvent.php:194
+#: library/Controller/SingularEvent.php:192
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr "Pris"
 
-#: library/Controller/SingularEvent.php:195
+#: library/Controller/SingularEvent.php:193
 msgid "Organizers"
 msgstr "Organisatörer"
 
-#: library/Controller/SingularEvent.php:196
+#: library/Controller/SingularEvent.php:194
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: library/Controller/SingularEvent.php:197
+#: library/Controller/SingularEvent.php:195
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
 
-#: library/Controller/SingularEvent.php:198
+#: library/Controller/SingularEvent.php:196
 #, fuzzy
 msgid "Related events"
 msgstr "Relaterade evenemang"
@@ -7495,19 +7480,19 @@ msgctxt "ExhibitionEvent"
 msgid "This exhibition has already taken place."
 msgstr "Denna utställning har redan ägt rum."
 
-#: library/Controller/SingularExhibitionEvent.php:138
+#: library/Controller/SingularExhibitionEvent.php:139
 #: library/PostObject/Date/ExhibitionEventArchiveDateFormatResolver.php:73
 #: library/PostsList/ViewCallableProviders/Schema/ExhibitionEvent/GetOccasionText.php:101
 msgctxt "ExhibitionEvent"
 msgid "until further notice"
 msgstr "tills vidare"
 
-#: library/Controller/SingularExhibitionEvent.php:161
+#: library/Controller/SingularExhibitionEvent.php:166
 msgctxt "ExhibitionEvent"
 msgid "Free entrance"
 msgstr "Fri entré"
 
-#: library/Controller/SingularExhibitionEvent.php:181
+#: library/Controller/SingularExhibitionEvent.php:186
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
@@ -7611,224 +7596,192 @@ msgstr "Omställning"
 msgid "Estimated budget"
 msgstr "Estimerad budget"
 
-#: library/Customizer.php:59
+#: library/Customizer.php:66
 msgid "Install plugin"
 msgstr "Installera tillägg"
 
-#: library/Customizer/FontUploads/FontUploads.php:68
+#: library/Customizer/Fonts/LegacyUploadedFontRepository.php:67
+#: library/Customizer/Fonts/UploadedFontMapper.php:103
 msgid "Untitled Font"
 msgstr "Namnlöst typsnitt"
 
 #: library/Customizer/Panels/DesignLibrary.php:13
-#: library/Customizer/PanelsRegistry.php:97
+#: library/Customizer/PanelsRegistry.php:98
 msgid "Design Library"
 msgstr "Designbibliotek"
 
 #: library/Customizer/Panels/DesignLibrary.php:14
-#: library/Customizer/PanelsRegistry.php:98
+#: library/Customizer/PanelsRegistry.php:99
 msgid "Select a design made by other municipio users."
 msgstr "Välj mellan olika designer skapade av andra municipioanvändare."
 
-#: library/Customizer/PanelsRegistry.php:103
+#: library/Customizer/PanelsRegistry.php:104
 msgid "Load a design"
 msgstr "Ladda in en design"
 
-#: library/Customizer/PanelsRegistry.php:104
+#: library/Customizer/PanelsRegistry.php:105
 msgid "Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!"
 msgstr "Sugen på en ny och fräsch design för din webbplats? Ladda in och använd ett tema att utgå ifrån. Justera efter hand!"
 
-#: library/Customizer/PanelsRegistry.php:110
+#: library/Customizer/PanelsRegistry.php:109
 msgid "Load design for individual post types"
 msgstr "Ladda in design för posttyper"
 
-#: library/Customizer/PanelsRegistry.php:111
+#: library/Customizer/PanelsRegistry.php:109
 msgid "Manage post types settings"
 msgstr "Hantera posttypers inställningar"
 
-#: library/Customizer/PanelsRegistry.php:147
+#: library/Customizer/PanelsRegistry.php:144
 msgid "Archive Apperance"
 msgstr "Arkiv"
 
-#: library/Customizer/PanelsRegistry.php:148
+#: library/Customizer/PanelsRegistry.php:145
 msgid "Manage apperance options on archives."
 msgstr "Hantera design på komponentnivå."
 
-#: library/Customizer/PanelsRegistry.php:159
+#: library/Customizer/PanelsRegistry.php:156
 msgid "General Apperance"
 msgstr "Generellt utseende"
 
-#: library/Customizer/PanelsRegistry.php:160
+#: library/Customizer/PanelsRegistry.php:157
 msgid "Manage site general design options."
 msgstr "Hantera generella inställningar för design."
 
-#: library/Customizer/PanelsRegistry.php:165
+#: library/Customizer/PanelsRegistry.php:162
 #: library/Customizer/Sections/PostType.php:35
 msgid "Logotypes"
 msgstr "Logotyper"
 
-#: library/Customizer/PanelsRegistry.php:170
+#: library/Customizer/PanelsRegistry.php:168
 msgid "General settings"
 msgstr "Generella inställningar"
 
-#: library/Customizer/PanelsRegistry.php:176
-#: library/Customizer/PanelsRegistry.php:397
-#: library/Customizer/Sections/Component/Divider.php:61
 #: library/Customizer/Sections/Component/FooterSub.php:14
 #: library/Customizer/Sections/PostType.php:34
 msgid "Colors"
 msgstr "Färger"
 
-#: library/Customizer/PanelsRegistry.php:181
-msgid "Typography"
-msgstr "Typografi"
-
-#: library/Customizer/PanelsRegistry.php:182
-msgid "Options for various Typography elements. This support BOF (Bring your own font). Simply upload your font in the media library, and it will be selectable."
-msgstr "Inställningar för typografi: Den här sektionen stödjer ”Bring your own font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i mediabiblioteket och väljer sedan typsnittet i listan nedan."
-
-#: library/Customizer/PanelsRegistry.php:187
+#: library/Customizer/PanelsRegistry.php:175
 msgid "Page Widths"
 msgstr "Sidans bredd"
 
-#: library/Customizer/PanelsRegistry.php:188
-msgid "Set the maximum page withs of different page types."
-msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
-
-#: library/Customizer/PanelsRegistry.php:193
-msgid "Borders"
-msgstr "Kantlinjer"
-
-#: library/Customizer/PanelsRegistry.php:198
 #: library/Customizer/Sections/Menu/Siteselector.php:109
 msgid "Rounded corners"
 msgstr "Rundade hörn"
 
-#: library/Customizer/PanelsRegistry.php:199
-msgid "Adjust the roundness of corners on the site overall. The sizes are applied where they are suitable, additional component adjustments can be made under the components tab."
-msgstr "Ställer in storleken på rundade hörn. Storlekarna appliceras där de är lämpliga i grunddesignen. Mer detaljerade justeringar av rundade hörn hittar du under komponentfliken."
-
-#: library/Customizer/PanelsRegistry.php:209
-msgid "Drop Shadows"
-msgstr "Skuggor"
-
-#: library/Customizer/PanelsRegistry.php:219
+#: library/Customizer/PanelsRegistry.php:187
 msgid "Icons"
 msgstr "Ikoner"
 
-#: library/Customizer/PanelsRegistry.php:229
+#: library/Customizer/PanelsRegistry.php:227
 msgid "Component Apperance"
 msgstr "Komponentutseende"
 
-#: library/Customizer/PanelsRegistry.php:230
+#: library/Customizer/PanelsRegistry.php:228
 msgid "Manage design options on component level."
 msgstr "Hantera design på komponentnivå."
 
-#: library/Customizer/PanelsRegistry.php:235
+#: library/Customizer/PanelsRegistry.php:233
 msgid "Header"
 msgstr "Sidhuvud"
 
-#: library/Customizer/PanelsRegistry.php:243
+#: library/Customizer/PanelsRegistry.php:241
 msgid "General"
 msgstr "Generellt"
 
-#: library/Customizer/PanelsRegistry.php:246
+#: library/Customizer/PanelsRegistry.php:244
 #: library/Customizer/Sections/Header/Layout.php:182
 msgid "Flexible"
 msgstr "Fexibel"
 
-#: library/Customizer/PanelsRegistry.php:256
-#: library/Customizer/Sections/Component/Field.php:16
+#: library/AcfFields/php/chat.php:199
+#: library/Customizer/PanelsRegistry.php:254
 #: library/Customizer/Sections/Header/LoginLogout.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:17
-#: library/Customizer/Sections/Menu/Quicklinks.php:15
 msgid "Appearance"
 msgstr "Utseende"
 
-#: library/Customizer/PanelsRegistry.php:262
+#: library/Customizer/PanelsRegistry.php:260
 #: library/Customizer/Sections/Component/FooterMain.php:56
 #: library/Customizer/Sections/Component/FooterSub.php:51
 #: library/Customizer/Sections/Header/Layout.php:314
 msgid "Logotype"
 msgstr "Logotyp"
 
-#: library/Customizer/PanelsRegistry.php:281
+#: library/Customizer/PanelsRegistry.php:273
 #: library/Customizer/Sections/Archive.php:456
 msgid "Cards"
 msgstr "Kort"
 
-#: library/Customizer/PanelsRegistry.php:288
+#: library/Customizer/PanelsRegistry.php:280
 msgid "Settings for Open Street Maps."
 msgstr "Inställningar för Open Street Map."
 
-#: library/Customizer/PanelsRegistry.php:298
+#: library/Customizer/PanelsRegistry.php:290
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
-#: library/Customizer/PanelsRegistry.php:304
+#: library/Customizer/PanelsRegistry.php:296
 msgid "Hero slider"
 msgstr "Slider (Hero)"
 
-#: library/Customizer/PanelsRegistry.php:305
+#: library/Customizer/PanelsRegistry.php:297
 msgid "Settings for the slider in the hero area."
 msgstr "Inställningar för slider i heroytan."
 
-#: library/Customizer/PanelsRegistry.php:312
+#: library/Customizer/PanelsRegistry.php:304
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Customizer/PanelsRegistry.php:316
+#: library/Customizer/PanelsRegistry.php:308
 msgid "Main footer"
 msgstr "Primär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:322
+#: library/Customizer/PanelsRegistry.php:314
 msgid "Sub footer"
 msgstr "Sekundär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:329
+#: library/Customizer/PanelsRegistry.php:321
 msgid "Datebadge"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:347
-msgid "Field"
-msgstr "Formulär & Fält"
-
-#: library/Customizer/PanelsRegistry.php:363
+#: library/Customizer/PanelsRegistry.php:350
 msgid "Error Pages"
 msgstr "Felsidor"
 
-#: library/Customizer/PanelsRegistry.php:367
+#: library/Customizer/PanelsRegistry.php:354
 msgid "401 Unauthorized"
 msgstr "401 Obehörig"
 
-#: library/Customizer/PanelsRegistry.php:372
+#: library/Customizer/PanelsRegistry.php:360
 msgid "403 Forbidden"
 msgstr "403 Förbjuden"
 
-#: library/Customizer/PanelsRegistry.php:377
+#: library/Customizer/PanelsRegistry.php:366
 msgid "404 Not found"
 msgstr "404 Kan inte hittas"
 
-#: library/Customizer/PanelsRegistry.php:390
+#: library/Customizer/PanelsRegistry.php:380
 msgid "Behaviour"
 msgstr "Beteende"
 
-#: library/Customizer/PanelsRegistry.php:391
+#: library/Customizer/PanelsRegistry.php:381
 msgid "Menu behaviour settings."
 msgstr "Inställningar för menybeteende."
 
-#: library/Customizer/PanelsRegistry.php:409
+#: library/Customizer/PanelsRegistry.php:393
 msgid "Drawer"
-msgstr "Mobilmeny"
+msgstr "Meny i utdragbar panel"
 
-#: library/Customizer/PanelsRegistry.php:427
+#: library/Customizer/PanelsRegistry.php:411
 msgid "Siteselector menu"
 msgstr "Webbplatsväljare"
 
-#: library/Customizer/PanelsRegistry.php:433
+#: library/Customizer/PanelsRegistry.php:417
 msgid "Tab menu"
 msgstr "Tabbmeny"
 
-#: library/Customizer/PanelsRegistry.php:438
+#: library/Customizer/PanelsRegistry.php:423
 msgid "General: Menu Settings (vertical)"
 msgstr "Generella inställningar (vertikala menyer)"
 
@@ -7874,7 +7827,7 @@ msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
 #: library/Customizer/Sections/Archive.php:123
-#: library/Customizer/Sections/Component/FooterMain.php:240
+#: library/Customizer/Sections/Component/FooterMain.php:220
 msgid "Number of columns to display"
 msgstr "Antal kolumner i rutnät"
 
@@ -7997,6 +7950,7 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:403
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -8009,8 +7963,9 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:410
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
-msgstr "Datummärke"
+msgstr "Datumetikett"
 
 #: library/Customizer/Sections/Archive.php:435
 msgid "Display reading time"
@@ -8021,6 +7976,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:455
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -8033,265 +7989,28 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:466
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr "Schema"
 
-#: library/Customizer/Sections/Borders.php:79
-#: library/Customizer/Sections/Colors.php:208
-msgid "Outline"
-msgstr "Ramlinje"
-
-#: library/Customizer/Sections/Borders.php:123
-msgid "Input"
-msgstr "Inmatning"
-
-#: library/Customizer/Sections/Colors.php:15
-msgid "Primary colors"
-msgstr "Primära färger"
-
-#: library/Customizer/Sections/Colors.php:21
-#: library/Customizer/Sections/Colors.php:65
-#: library/Customizer/Sections/Colors.php:170
-#: library/Customizer/Sections/Colors.php:312
-#: library/Customizer/Sections/Colors.php:342
-#: library/Customizer/Sections/Colors.php:386
-#: library/Customizer/Sections/Colors.php:430
-#: library/Customizer/Sections/Colors.php:474
-#: library/Customizer/Sections/Component/SliderHero.php:115
-#: library/Customizer/Sections/Typography.php:33
-msgid "Base"
-msgstr "Bas"
-
-#: library/Customizer/Sections/Colors.php:22
-#: library/Customizer/Sections/Colors.php:66
-#: library/Customizer/Sections/Colors.php:343
-#: library/Customizer/Sections/Colors.php:387
-#: library/Customizer/Sections/Colors.php:431
-#: library/Customizer/Sections/Colors.php:475
-#: library/Customizer/Sections/Colors.php:565
 #: library/Customizer/Sections/Component/Datebadge.php:21
 #: library/Customizer/Sections/Component/OpenStreetMap.php:22
 #: library/Customizer/Sections/Component/SliderDefault.php:143
-#: library/Customizer/Sections/Component/SliderHero.php:96
+#: library/Customizer/Sections/Component/SliderHero.php:72
 #: library/Customizer/Sections/Header/LoginLogout.php:68
 msgid "Dark"
 msgstr "Mörk"
 
-#: library/Customizer/Sections/Colors.php:23
-#: library/Customizer/Sections/Colors.php:67
-#: library/Customizer/Sections/Colors.php:344
-#: library/Customizer/Sections/Colors.php:388
-#: library/Customizer/Sections/Colors.php:432
-#: library/Customizer/Sections/Colors.php:476
-#: library/Customizer/Sections/Colors.php:519
-#: library/Customizer/Sections/Colors.php:566
 #: library/Customizer/Sections/Component/Datebadge.php:20
 #: library/Customizer/Sections/Header/LoginLogout.php:67
 #: library/Customizer/Sections/Icons.php:34
 msgid "Light"
 msgstr "Ljus"
 
-#: library/Customizer/Sections/Colors.php:24
-#: library/Customizer/Sections/Colors.php:68
-#: library/Customizer/Sections/Colors.php:345
-#: library/Customizer/Sections/Colors.php:389
-#: library/Customizer/Sections/Colors.php:433
-#: library/Customizer/Sections/Colors.php:477
-msgid "Contrastring"
-msgstr "Kontrasterande"
-
-#: library/Customizer/Sections/Colors.php:59
-msgid "Secondary colors"
-msgstr "Sekundära färger"
-
-#: library/Customizer/Sections/Colors.php:103
-msgid "Background colors"
-msgstr "Bakgrundsfärger"
-
-#: library/Customizer/Sections/Colors.php:111
-msgid "Complementary"
-msgstr "Komplementär"
-
-#: library/Customizer/Sections/Colors.php:134
-msgid "Card & Paper colors"
-msgstr "Kortfärg"
-
-#: library/Customizer/Sections/Colors.php:141
-#: library/Customizer/Sections/Colors.php:237
-msgid "Border"
-msgstr "Ramlinje"
-
-#: library/Customizer/Sections/Colors.php:164
-msgid "Text colors"
-msgstr "Textfärger"
-
-#: library/Customizer/Sections/Colors.php:201
-msgid "Border colors"
-msgstr "Färg på ramilje"
-
-#: library/Customizer/Sections/Colors.php:231
-msgid "Input colors"
-msgstr "Färg på inmatningsfält"
-
-#: library/Customizer/Sections/Colors.php:254
-msgid "Link colors"
-msgstr "Länkfärger"
-
-#: library/Customizer/Sections/Colors.php:261
-msgid "Hover"
-msgstr "Hovra"
-
-#: library/Customizer/Sections/Colors.php:262
-msgid "Active"
-msgstr "Aktivera"
-
-#: library/Customizer/Sections/Colors.php:263
-msgid "Visited"
-msgstr "Besökt"
-
-#: library/Customizer/Sections/Colors.php:264
-msgid "Visited hover"
-msgstr "Besökt (fokuserad)"
-
-#: library/Customizer/Sections/Colors.php:305
-msgid "Alpha colors"
-msgstr "Alfa färger"
-
-#: library/Customizer/Sections/Colors.php:313
 #: library/Customizer/Sections/Component/FooterSub.php:21
 msgid "Base Contrasting"
 msgstr "Kontrastfärg"
 
-#: library/Customizer/Sections/Colors.php:336
-msgid "Success colors"
-msgstr "Lyckades"
-
-#: library/Customizer/Sections/Colors.php:380
-msgid "Danger colors"
-msgstr "Fara"
-
-#: library/Customizer/Sections/Colors.php:424
-msgid "Warning colors"
-msgstr "Varning"
-
-#: library/Customizer/Sections/Colors.php:468
-msgid "Info colors"
-msgstr "Information"
-
-#: library/Customizer/Sections/Colors.php:512
-msgid "Complement colors"
-msgstr "Komplementfärger"
-
-#: library/Customizer/Sections/Colors.php:520
-msgid "Lighter"
-msgstr "Ljusare"
-
-#: library/Customizer/Sections/Colors.php:521
-#: library/Customizer/Sections/Colors.php:568
-msgid "Lightest"
-msgstr "Ljusast"
-
-#: library/Customizer/Sections/Colors.php:556
-msgid "Monotone colors"
-msgstr "Monotona färger"
-
-#: library/Customizer/Sections/Colors.php:563
-msgid "Darkest"
-msgstr "Mörkast"
-
-#: library/Customizer/Sections/Colors.php:564
-msgid "Darker"
-msgstr "Mörkare"
-
-#: library/Customizer/Sections/Colors.php:567
-msgid "Lighther"
-msgstr "Ljusare"
-
-#: library/Customizer/Sections/Colors.php:634
-msgid "Additional colors"
-msgstr "Extra färger"
-
-#: library/Customizer/Sections/Colors.php:635
-msgid "These colors are used by various color pickers throughout the theme."
-msgstr "Dom här färgerna placeras i flera färgväljare på webbplatsen. "
-
-#: library/Customizer/Sections/Colors.php:641
-msgid "Color #1"
-msgstr "Färg 1"
-
-#: library/Customizer/Sections/Colors.php:642
-msgid "Color #2"
-msgstr "Färg 2"
-
-#: library/Customizer/Sections/Colors.php:643
-msgid "Color #3"
-msgstr "Färg 3"
-
-#: library/Customizer/Sections/Colors.php:644
-msgid "Color #4"
-msgstr "Färg 4"
-
-#: library/Customizer/Sections/Colors.php:645
-msgid "Color #5"
-msgstr "Färg 5"
-
-#: library/Customizer/Sections/Colors.php:646
-msgid "Color #6"
-msgstr "Färg 6"
-
-#: library/Customizer/Sections/Component/Button.php:18
-msgid "Primary button colors"
-msgstr "Färg på primärknappar"
-
-#: library/Customizer/Sections/Component/Button.php:24
-msgid "Primary Contrasting"
-msgstr "Primär kontrast"
-
-#: library/Customizer/Sections/Component/Button.php:42
-msgid "Tailor Color: Primary"
-msgstr "Specialanpassa primärfärg"
-
-#: library/Customizer/Sections/Component/Button.php:50
-msgid "Secondary button colors"
-msgstr "Färg på sekundärknappar"
-
-#: library/Customizer/Sections/Component/Button.php:55
-msgid "Secondary "
-msgstr "Sekundär "
-
-#: library/Customizer/Sections/Component/Button.php:56
-msgid "Secondary Contrasting"
-msgstr "Sekundär kontrast"
-
-#: library/Customizer/Sections/Component/Button.php:74
-msgid "Tailor Color: Secondary"
-msgstr "Specialanpassa sekundärfärg"
-
-#: library/Customizer/Sections/Component/Button.php:82
-msgid "Default button colors"
-msgstr "Standardfärger på knappar"
-
-#: library/Customizer/Sections/Component/Button.php:87
-msgid "Default "
-msgstr "Standard "
-
-#: library/Customizer/Sections/Component/Button.php:88
-msgid "Default Contrasting"
-msgstr "Standard kontrasterande"
-
-#: library/Customizer/Sections/Component/Button.php:106
-msgid "Tailor Color: Default"
-msgstr "Specialanpassa standardfärg"
-
-#: library/Customizer/Sections/Component/Button.php:116
-msgid "Button shape"
-msgstr "Knapputseende"
-
-#: library/Customizer/Sections/Component/Button.php:117
-msgid "Choose the shape of the buttons."
-msgstr "Form på knappar."
-
-#: library/Customizer/Sections/Component/Button.php:149
 #: library/Customizer/Sections/Component/Tags.php:21
 #: library/Customizer/Sections/Menu/Siteselector.php:119
 #: library/Customizer/Sections/Search.php:158
@@ -8303,7 +8022,7 @@ msgid "Panel"
 msgstr "Panel"
 
 #: library/Customizer/Sections/Component/Card.php:22
-#: library/Customizer/Sections/Header/Appearance.php:47
+#: library/Customizer/Sections/Header/Appearance.php:71
 msgid "Accented"
 msgstr "Accentuerad"
 
@@ -8315,111 +8034,37 @@ msgstr ""
 msgid "Which color the datebadges should appear in."
 msgstr ""
 
-#: library/Customizer/Sections/Component/Divider.php:14
-msgid "Divider thickness"
-msgstr "Avdelarens tjocklek"
-
-#: library/Customizer/Sections/Component/Divider.php:35
-msgid "Border style"
-msgstr "Kantstil"
-
-#: library/Customizer/Sections/Component/Divider.php:40
-msgid "Solid"
-msgstr "Solid"
-
-#: library/Customizer/Sections/Component/Divider.php:41
-msgid "Dotted"
-msgstr "Prickad"
-
-#: library/Customizer/Sections/Component/Divider.php:42
-msgid "Dashed"
-msgstr "Streckad"
-
-#: library/Customizer/Sections/Component/Divider.php:84
-msgid "Customize text color"
-msgstr "Anpassa kontrastfärg"
-
-#: library/Customizer/Sections/Component/Divider.php:134
-#: library/Customizer/Sections/Component/FooterMain.php:113
+#: library/Customizer/Sections/Component/Divider.php:65
+#: library/Customizer/Sections/Component/FooterMain.php:93
 #: library/Customizer/Sections/Component/Hero.php:40
 #: library/Customizer/Sections/Component/SliderDefault.php:111
-#: library/Customizer/Sections/Component/SliderHero.php:66
+#: library/Customizer/Sections/Component/SliderHero.php:42
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: library/Customizer/Sections/Component/Divider.php:160
-msgid "Wrap title in frame"
-msgstr "Ram runt titel"
-
-#: library/Customizer/Sections/Component/Divider.php:185
-msgid "Frame colors"
-msgstr "Ramfärger"
-
-#: library/Customizer/Sections/Component/Divider.php:199
-#: library/Customizer/Sections/Component/Field.php:67
-msgid "Border color"
-msgstr "Färg på kantlinje"
-
-#: library/Customizer/Sections/Component/Divider.php:222
-msgid "Frame border radius"
-msgstr "Rundning av hörn"
-
-#: library/Customizer/Sections/Component/Divider.php:250
-msgid "Frame border width"
-msgstr "Storlek på kantlinje"
-
-#: library/Customizer/Sections/Component/Field.php:17
 #: library/Customizer/Sections/Header/LoginLogout.php:49
 #: library/Customizer/Sections/Menu/MegaMenu.php:18
-#: library/Customizer/Sections/Menu/Quicklinks.php:16
 msgid "Select if you want to use one of the predefined appearance, or customize freely."
 msgstr "Välj mellan fördefinierat utseende eller anpassa fritt."
 
-#: library/Customizer/Sections/Component/Field.php:22
 #: library/Customizer/Sections/Header/LoginLogout.php:54
 #: library/Customizer/Sections/Menu/MegaMenu.php:23
-#: library/Customizer/Sections/Menu/Quicklinks.php:21
 msgid "Predefined appearance"
 msgstr "Fördefinierade utseende"
 
-#: library/Customizer/Sections/Component/Field.php:23
 #: library/Customizer/Sections/Header/LoginLogout.php:55
 #: library/Customizer/Sections/Menu/MegaMenu.php:24
-#: library/Customizer/Sections/Menu/Quicklinks.php:22
 msgid "Custom appearance"
 msgstr "Anpassat utseende"
 
-#: library/Customizer/Sections/Component/Field.php:30
-msgid "Field style"
-msgstr "Fältstil"
-
-#: library/Customizer/Sections/Component/Field.php:31
-msgid "Which styling the input field use."
-msgstr "Styling för input-fält."
-
-#: library/Customizer/Sections/Component/Field.php:37
 #: library/Customizer/Sections/Icons.php:20
 msgid "Rounded"
 msgstr "Rundad"
 
-#: library/Customizer/Sections/Component/Field.php:61
 #: library/Customizer/Sections/Menu/MegaMenu.php:31
-#: library/Customizer/Sections/Menu/Quicklinks.php:36
 #: library/Customizer/Sections/Menu/Siteselector.php:40
 msgid "Custom colors"
 msgstr "Anpassade färger"
-
-#: library/Customizer/Sections/Component/Field.php:98
-msgid "Select border radius"
-msgstr "Välj storlek på rundade hörn"
-
-#: library/Customizer/Sections/Component/Field.php:129
-msgid "Field shadow"
-msgstr "Fältskugga"
-
-#: library/Customizer/Sections/Component/Field.php:130
-msgid "If fields should apply shadows"
-msgstr "Om fält ska ha skuggor"
 
 #: library/Customizer/Sections/Component/FooterMain.php:17
 msgid "Footer style"
@@ -8429,69 +8074,68 @@ msgstr "Stil för sidfot"
 msgid "Which style of footer to use."
 msgstr "Vilken stil på sidfoten som ska användas."
 
-#: library/Customizer/Sections/Component/FooterMain.php:73
 #: library/Customizer/Sections/Component/FooterSub.php:89
-#: library/Customizer/Sections/Header/Logotype.php:14
 msgid "Logotype height"
 msgstr "Storlek på logotyp (höjd)"
 
-#: library/Customizer/Sections/Component/FooterMain.php:93
+#: library/Customizer/Sections/Component/FooterMain.php:73
 msgid "Logotype alignment"
 msgstr "Justering för logotyp"
 
-#: library/Customizer/Sections/Component/FooterMain.php:94
+#: library/Customizer/Sections/Component/FooterMain.php:74
 msgid "How to align the logo in the footer."
 msgstr "Hur logotypen i sidfoten ska justeras."
 
-#: library/Customizer/Sections/Component/FooterMain.php:114
+#: library/Customizer/Sections/Component/FooterMain.php:94
 msgid "How to align the text in the columns."
 msgstr "Hur texten i kolumnerna ska justeras."
 
-#: library/Customizer/Sections/Component/FooterMain.php:140
+#: library/Customizer/Sections/Component/FooterMain.php:120
 msgid "Pre-footer Text alignment"
 msgstr "Textjustering före sidfot"
 
-#: library/Customizer/Sections/Component/FooterMain.php:141
+#: library/Customizer/Sections/Component/FooterMain.php:121
 msgid "How to align the text in the pre-footer."
 msgstr "Hur texten före sidfoten ska justeras."
 
-#: library/Customizer/Sections/Component/FooterMain.php:166
+#: library/Customizer/Sections/Component/FooterMain.php:146
 msgid "Footer header border"
 msgstr "Sidfots huvud ram"
 
-#: library/Customizer/Sections/Component/FooterMain.php:167
+#: library/Customizer/Sections/Component/FooterMain.php:147
 msgid "Add a bottom border for the footer header"
 msgstr "Lägg till en nedre ram till sidfots huvudet"
 
 #: library/Helper/KirkiConditional.php:49
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
-#: library/Customizer/Sections/Component/FooterMain.php:188
+#: library/Customizer/Sections/Component/FooterMain.php:168
 msgid "Footer header border size"
 msgstr "Sidfothuvud kantstorlek"
 
-#: library/Customizer/Sections/Component/FooterMain.php:189
+#: library/Customizer/Sections/Component/FooterMain.php:169
 msgid "The size of the footer header's bottom border"
 msgstr "Storlek på sidfothuvudets nedre kantlinje"
 
-#: library/Customizer/Sections/Component/FooterMain.php:217
+#: library/Customizer/Sections/Component/FooterMain.php:197
 msgid "Footer header border color"
 msgstr "Kantlinjefärg"
 
-#: library/Customizer/Sections/Component/FooterMain.php:218
+#: library/Customizer/Sections/Component/FooterMain.php:198
 msgid "The color of the footer header's bottom border"
 msgstr "Färg på sidfothuvudets nedre kantlinje"
 
-#: library/Customizer/Sections/Component/FooterMain.php:241
+#: library/Customizer/Sections/Component/FooterMain.php:221
 msgid "How many columns that the footer should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: library/Customizer/Sections/Component/FooterMain.php:283
+#: library/Customizer/Sections/Component/FooterMain.php:263
 msgid "Footer background"
 msgstr "Bakgrund för sidfot"
 
-#: library/Customizer/Sections/Component/FooterMain.php:284
+#: library/Customizer/Sections/Component/FooterMain.php:264
 msgid "Background settings for the footer."
 msgstr "Bakgrundsinställningar för sidfoten."
 
@@ -8504,12 +8148,10 @@ msgid "Upload SVG logo"
 msgstr "Ladda upp SVG-logotyp"
 
 #: library/Customizer/Sections/Component/FooterSub.php:134
-#: library/Customizer/Sections/Menu/Colors.php:95
 msgid "Horizontal"
 msgstr "Horisontell"
 
 #: library/Customizer/Sections/Component/FooterSub.php:135
-#: library/Customizer/Sections/Menu/Colors.php:99
 msgid "Vertical"
 msgstr "Vertikal"
 
@@ -8620,22 +8262,22 @@ msgid "If set to 0, no preview will be show. If preview of previous and next sli
 msgstr "Om värdet sätts till 0 förhandsvisas ingenting av kommande/föregående objekt i bildspelet. Värdet borde alltid vara högre än \"Luft mellan slides\" om förhandsvisning önskas."
 
 #: library/Customizer/Sections/Component/SliderDefault.php:84
-#: library/Customizer/Sections/Component/SliderHero.php:41
+#: library/Customizer/Sections/Component/SliderHero.php:17
 msgid "Container colour"
 msgstr "Färg för behållare"
 
 #: library/Customizer/Sections/Component/SliderDefault.php:89
-#: library/Customizer/Sections/Component/SliderHero.php:46
+#: library/Customizer/Sections/Component/SliderHero.php:22
 msgid "Transparent"
 msgstr ""
 
 #: library/Customizer/Sections/Component/SliderDefault.php:90
-#: library/Customizer/Sections/Component/SliderHero.php:47
+#: library/Customizer/Sections/Component/SliderHero.php:23
 msgid "Theme"
 msgstr ""
 
 #: library/Customizer/Sections/Component/SliderDefault.php:138
-#: library/Customizer/Sections/Component/SliderHero.php:91
+#: library/Customizer/Sections/Component/SliderHero.php:67
 msgid "Slide overlay"
 msgstr "Övertäckning slider"
 
@@ -8732,35 +8374,31 @@ msgstr "Positionering av sekundärmeny"
 msgid "Show emblem in hero"
 msgstr "Visa emblem i heroytan"
 
-#: library/Customizer/Sections/Header/Appearance.php:15
-msgid "Choose a background color for the header section of the page."
-msgstr "Välj en bakgrundfärg för sidhuvudet."
-
-#: library/Customizer/Sections/Header/Appearance.php:41
+#: library/Customizer/Sections/Header/Appearance.php:65
 msgid "Select a alternative style of this header."
 msgstr "Välj en alternativ stul för rubriken."
 
-#: library/Customizer/Sections/Header/Appearance.php:64
+#: library/Customizer/Sections/Header/Appearance.php:88
 msgid "Select a max width for the header"
 msgstr "Välj en max bredd för sidhuvudet"
 
-#: library/Customizer/Sections/Header/Appearance.php:70
+#: library/Customizer/Sections/Header/Appearance.php:94
 msgid "Wide"
 msgstr "Bred"
 
-#: library/Customizer/Sections/Header/Appearance.php:71
+#: library/Customizer/Sections/Header/Appearance.php:95
 msgid "Full Width"
 msgstr "Fullbredd"
 
-#: library/Customizer/Sections/Header/Appearance.php:87
+#: library/Customizer/Sections/Header/Appearance.php:111
 msgid "Select if the header should have margins or not."
 msgstr "Välj om sidhuvudet ska ha marginal"
 
-#: library/Customizer/Sections/Header/Appearance.php:92
+#: library/Customizer/Sections/Header/Appearance.php:116
 msgid "Margin enabled"
 msgstr "Marginal aktiverad"
 
-#: library/Customizer/Sections/Header/Appearance.php:93
+#: library/Customizer/Sections/Header/Appearance.php:117
 msgid "Margin disabled"
 msgstr "Marginal inaktiverad"
 
@@ -8785,7 +8423,7 @@ msgid "Business (large sites)"
 msgstr "Business (Stora hemsidor)"
 
 #: library/Customizer/Sections/Header/Layout.php:192
-#: library/Customizer/Sections/Menu/Quicklinks.php:179
+#: library/Customizer/Sections/Menu/Quicklinks.php:36
 #: library/StickyPost/AddStickyLabelToPost.php:50
 msgid "Sticky"
 msgstr "Klibbig"
@@ -8795,7 +8433,7 @@ msgid "Adjust how the header section should behave when the user scrolls trough 
 msgstr "Justera hur sidhuvudet ska bete sig när användaren scrollar på sidan."
 
 #: library/Customizer/Sections/Header/Layout.php:200
-#: library/Customizer/Sections/Menu/Quicklinks.php:186
+#: library/Customizer/Sections/Menu/Quicklinks.php:43
 msgid "Stick to top"
 msgstr "Klibba fast i toppen"
 
@@ -8819,7 +8457,7 @@ msgstr "Tabbmeny"
 #: library/Customizer/Sections/Header/Layout.php:303
 #: library/Customizer/Sections/Header/Layout.php:306
 msgid "Drawer Menu"
-msgstr "Mobilmeny"
+msgstr "Meny i utdragbar panel"
 
 #: library/Customizer/Sections/Header/Layout.php:304
 msgid "Mega Menu"
@@ -8882,29 +8520,25 @@ msgstr "Logga ut länkfärg aktiv"
 msgid "User name color"
 msgstr "Användare namn färg"
 
-#: library/Customizer/Sections/Header/Logotype.php:34
+#: library/Customizer/Sections/Header/Logotype.php:14
 msgid "Header logotype"
 msgstr "Logotyp för sidhuvud"
 
-#: library/Customizer/Sections/Header/Logotype.php:51
+#: library/Customizer/Sections/Header/Logotype.php:31
 msgid "Header Logotype Text"
 msgstr "Rubrik Logotyp Text"
 
-#: library/Customizer/Sections/Header/Logotype.php:52
+#: library/Customizer/Sections/Header/Logotype.php:32
 msgid "Enables text to the right of the header logotype."
 msgstr "Aktiverar text till höger om rubrikens logotyp."
 
-#: library/Customizer/Sections/Header/Logotype.php:68
+#: library/Customizer/Sections/Header/Logotype.php:48
 msgid "Header Logotype Text: Content"
 msgstr "Rubrik Logotyp Text: Innehåll"
 
-#: library/Customizer/Sections/Header/Logotype.php:84
+#: library/Customizer/Sections/Header/Logotype.php:64
 msgid "Header LogoType Text: Color "
 msgstr "Rubrik LogoTyp Text: Färg "
-
-#: library/Customizer/Sections/Header/Logotype.php:101
-msgid "Header LogoType Text: Font Settings "
-msgstr "Rubrik LogoTyp Text: Inställningar för teckensnitt "
 
 #: library/Customizer/Sections/Icons.php:21
 msgid "Sharp"
@@ -8915,7 +8549,6 @@ msgid "Weight"
 msgstr "Vikt"
 
 #: library/Customizer/Sections/Icons.php:36
-#: library/Customizer/Sections/Typography.php:113
 msgid "Bold"
 msgstr "Fetstil"
 
@@ -8923,22 +8556,22 @@ msgstr "Fetstil"
 msgid "Filled icons"
 msgstr "Fyllda ikoner"
 
-#: library/Customizer/Sections/LoadDesign.php:26
-#: library/Customizer/Sections/LoadDesign.php:150
+#: library/Customizer/Sections/LoadDesign.php:30
+#: library/Customizer/Sections/LoadDesign.php:152
 #: library/Customizer/Sections/PostType.php:17
 #: library/Customizer/Sections/PostType.php:73
 msgid "Select a design"
 msgstr "Välj en design"
 
-#: library/Customizer/Sections/LoadDesign.php:39
+#: library/Customizer/Sections/LoadDesign.php:43
 msgid "Exclude from import"
 msgstr "Exkludera från import"
 
-#: library/Customizer/Sections/LoadDesign.php:40
+#: library/Customizer/Sections/LoadDesign.php:44
 msgid "Selected local settings will not be overriden on import."
 msgstr "Valda lokala inställningar kommer inte att skrivas över vid import."
 
-#: library/Customizer/Sections/LoadDesign.php:159
+#: library/Customizer/Sections/LoadDesign.php:161
 #: library/Customizer/Sections/PostType.php:82
 msgid "Error loading options"
 msgstr "Kunde inte ladda in alternativen"
@@ -8998,15 +8631,14 @@ msgstr ""
 
 #: library/Customizer/Sections/Menu/Behaviour.php:124
 msgid "Drawer screen sizes"
-msgstr "Utfällbar meny (drawer)"
+msgstr "Skärmstorlekar utdragbar panel"
 
 #: library/Customizer/Sections/Menu/Behaviour.php:125
 msgid "Select which screen sizes the drawer menu should be visible on."
-msgstr "Välj på vilka skärmstorlekar den utfällbara menyn ska visas."
+msgstr "Välj på vilka skärmstorlekar den meny i utdragbar panel ska visas."
 
 #: library/Customizer/Sections/Menu/Behaviour.php:140
 #: library/Customizer/Sections/Menu/Siteselector.php:115
-#: library/Customizer/Sections/Radius.php:14
 msgid "Extra small"
 msgstr "Extra liten"
 
@@ -9026,88 +8658,39 @@ msgstr "Visa hemikon"
 msgid "Show prefix usually used for screen readers only (eg. you are here)"
 msgstr "Visa prefix (vanligtvis använda av skärmläsare)"
 
-#: library/Customizer/Sections/Menu/Colors.php:13
-msgid "Sidebar navigation"
-msgstr "Sidomeny"
-
-#: library/Customizer/Sections/Menu/Colors.php:27
-msgid "Drawer navigation"
-msgstr "Panelnavigation"
-
-#: library/Customizer/Sections/Menu/Colors.php:41
-msgid "Drawer navigation, secondary"
-msgstr "Panelnavigation, sekundär"
-
-#: library/Customizer/Sections/Menu/Colors.php:55
 #: library/Helper/TranslatedLabels.php:48
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Customizer/Sections/Menu/Colors.php:79
-msgid "Floating"
-msgstr "Flytande"
-
-#: library/Customizer/Sections/Menu/Colors.php:103
-msgid "Dropdown"
-msgstr "Dropdown navigation"
-
-#: library/Customizer/Sections/Menu/Colors.php:160
-#: library/Customizer/Sections/Menu/Colors.php:190
-#: library/Customizer/Sections/Menu/Colors.php:243
-msgid "colors"
-msgstr "färger"
-
-#: library/Customizer/Sections/Menu/Colors.php:166
-#: library/Customizer/Sections/Menu/Colors.php:196
-#: library/Customizer/Sections/Menu/Colors.php:249
-msgid "Default Contrast"
-msgstr "Standard kontrasterande"
-
-#: library/Customizer/Sections/Menu/Colors.php:167
-#: library/Customizer/Sections/Menu/Colors.php:198
-#: library/Customizer/Sections/Menu/Colors.php:251
-msgid "Contrasting (Active)"
-msgstr "Kontrasterande (Aktiv)"
-
-#: library/Customizer/Sections/Menu/Colors.php:197
-#: library/Customizer/Sections/Menu/Colors.php:250
-msgid "Background (Active)"
-msgstr "Bakgrund (akriv)"
-
-#: library/Customizer/Sections/Menu/Colors.php:199
-msgid "Background (Expanded)"
-msgstr "Bakgrund (Expanderad)"
-
 #: library/Customizer/Sections/Menu/Drawer.php:17
 msgid "Drawer color scheme"
-msgstr "Färgschema på mobilmeny"
+msgstr "Färgschema på meny i utdragbar panel"
 
 #: library/Customizer/Sections/Menu/Drawer.php:18
 msgid "Sets the color scheme for the items inside the drawers main area"
-msgstr "Ställer in färgschemat på mobilmenyns huvudområde"
+msgstr "Ställer in färgschemat på meny i utdragbar panels huvudområde"
 
 #: library/Customizer/Sections/Menu/Drawer.php:40
 msgid "Drawer secondary area"
-msgstr "Mobilmeny; Sekundär yta"
+msgstr "Utdragbar panel; Sekundär yta"
 
 #: library/Customizer/Sections/Menu/Drawer.php:41
 msgid "If using both the areas in the drawer menu this will decide the bottom area"
-msgstr "Om båda ytorna används i mobilmenyn, bestämmer om en sekundär yta visas. "
+msgstr "Om båda ytorna används i menyn i utdragbar panel så bestämmer den här inställningen vilken som blir den nedre ytan"
 
 #: library/Customizer/Sections/Menu/Drawer.php:63
 msgid "Drawer divider"
-msgstr ""
+msgstr "Avdelare i utdragbar panel"
 
 #: library/Customizer/Sections/Menu/Drawer.php:79
 msgid "Drawer divider (top level only)"
-msgstr ""
+msgstr "Avdelare i utdragbar panel (endast toppnivå)"
 
 #: library/Customizer/Sections/Menu/MegaMenu.php:37
 msgid "Subitem"
 msgstr "Underobjekt"
 
 #: library/Customizer/Sections/Menu/MegaMenu.php:75
-#: library/Customizer/Sections/Menu/Quicklinks.php:128
 msgid "Select font"
 msgstr "Välj typsnitt"
 
@@ -9167,48 +8750,33 @@ msgstr "Utan omslag"
 msgid "Show on mobile"
 msgstr "Visa på mobil"
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:42
-msgid "Sticky background"
-msgstr "Klibbig bakgrundsfärg"
-
-#: library/Customizer/Sections/Menu/Quicklinks.php:44
-msgid "Icon color"
-msgstr "Ikonfärg"
-
-#: library/Customizer/Sections/Menu/Quicklinks.php:45
-msgid "Icon background color"
-msgstr "Bakgrundsfärg för ikon"
-
-#: library/Customizer/Sections/Menu/Quicklinks.php:101
-msgid "Amount of gap between"
-msgstr "Avstånd mellan"
-
-#: library/Customizer/Sections/Menu/Quicklinks.php:180
+#: library/Customizer/Sections/Menu/Quicklinks.php:37
 msgid "Adjust how the quicklinks menu should behave when the user scrolls trough the page. This option should not be used in combination with a sticky header."
 msgstr "Anpassa hur snabblänksmenyn ska bete sig när användaren scrollar på sidan. Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt sidhuvud."
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:200
+#: library/Customizer/Sections/Menu/Quicklinks.php:57
 msgid "Quicklinks location."
 msgstr "Position för snabblänkar."
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:205
+#: library/Customizer/Sections/Menu/Quicklinks.php:62
 msgid "Front page"
 msgstr "Startsidan"
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:216
+#: library/Customizer/Sections/Menu/Quicklinks.php:73
 msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:220
+#: library/Customizer/Sections/Menu/Quicklinks.php:77
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr "Rad"
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:221
+#: library/Customizer/Sections/Menu/Quicklinks.php:78
 msgid "Column"
 msgstr "Kolumn"
 
-#: library/Customizer/Sections/Menu/Quicklinks.php:234
-#: library/Customizer/Sections/Menu/Quicklinks.php:239
+#: library/Customizer/Sections/Menu/Quicklinks.php:91
+#: library/Customizer/Sections/Menu/Quicklinks.php:96
 msgid "Overflow top"
 msgstr "Svämma över uppåt"
 
@@ -9288,35 +8856,6 @@ msgstr "Indrag"
 msgid "Submenus will indent one step for every level down"
 msgstr "Aktivera för att lägga till ett indrag på nivå 1-5."
 
-#: library/Customizer/Sections/Padding.php:14
-msgid "Amount of padding around columns."
-msgstr "Mängden luft kring kolumner (huvudinnehåll)"
-
-#: library/Customizer/Sections/Padding.php:15
-#: library/Customizer/Sections/Padding.php:32
-msgid "Padding will be applied in 8px increments."
-msgstr "Luft sätts i steg om 8 pixlar."
-
-#: library/Customizer/Sections/Padding.php:31
-msgid "Amount of padding in grids."
-msgstr "Mängden luft i rutnät."
-
-#: library/Customizer/Sections/Padding.php:52
-msgid "Air in cards"
-msgstr "Luft i kort"
-
-#: library/Customizer/Sections/Padding.php:53
-msgid "Enable to remove space between content and the edge of cards."
-msgstr "Genom att aktivera alternativet tar du bort luft mellan innehåll i kort och kanten på kortet. Det här alternativet fungerar bra med designer som har kort utan särskiljande bakgrundsfärg eller kantlinje."
-
-#: library/Customizer/Sections/Padding.php:58
-msgid "Apply air"
-msgstr "Luft"
-
-#: library/Customizer/Sections/Padding.php:59
-msgid "Remove air"
-msgstr "Ingen luft"
-
 #: library/Customizer/Sections/PostType.php:28
 msgid "Styles to copy."
 msgstr "Stilinställningar att kopiera"
@@ -9382,51 +8921,11 @@ msgstr "Inställning i huvudmeny"
 msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
 
-#: library/Customizer/Sections/Shadow.php:14
-msgid "Amount of shadows"
-msgstr "Mängden skugga"
-
-#: library/Customizer/Sections/Shadow.php:15
-msgid "The shadow sizes will automatically be multiplied from the value below. A value of 0 will completly turn off shadows."
-msgstr "Skuggans storlek beräknas automatiskt fram från inställt värde. Ett nollvärde stänger av skuggor helt och hållet."
-
-#: library/Customizer/Sections/Shadow.php:35
-msgid "Amount of detail shadow"
-msgstr "Mängden skugga"
-
-#: library/Customizer/Sections/Shadow.php:36
-msgid "The detail shadow size will affect smaller components. A value of 0 will turn of the shadow completely."
-msgstr "Detaljskuggstorleken kommer att påverka mindre komponenter. Ett värde på 0 kommer att vända skuggan helt."
-
-#: library/Customizer/Sections/Shadow.php:56
-msgid "Color of shadows"
-msgstr "Färg på skugga"
-
-#: library/Customizer/Sections/Shadow.php:57
-msgid "What color to use for shadows."
-msgstr "Välj färg för skuggor."
-
-#: library/Customizer/Sections/Typography.php:76
-msgid "Headings"
-msgstr "Rubriker"
-
-#: library/Customizer/Sections/Typography.php:114
-msgid "Use the same font as base but preferably with a higher font weight"
-msgstr "Använd samma typsnitt som bas men mer fetstilad"
-
-#: library/Customizer/Sections/Typography.php:133
-msgid "Italic"
-msgstr "Kursiv"
-
-#: library/Customizer/Sections/Typography.php:134
-msgid "Use the same font as base but preferably with an italic style"
-msgstr "Använd samma typsnitt som bas men välj en kursiv stil"
-
-#: library/Customizer/Sections/Width.php:60
+#: library/Customizer/Sections/Width.php:16
 msgid "Width of page columns"
 msgstr "Bredd på sidans kolumner"
 
-#: library/Customizer/Sections/Width.php:61
+#: library/Customizer/Sections/Width.php:17
 msgid "Set the width of left & right columns. The middle (content) column will use whatever space left."
 msgstr "Ställ in önskad bredd på höger och vänster kolumn. Innehållsytan anpassar sig och använder kvarstående yta automatiskt."
 
@@ -10144,99 +9643,99 @@ msgstr "One Page"
 msgid "Page (centered)"
 msgstr "Centrerad sida"
 
-#: library/Theme/Enqueue.php:77
+#: library/Theme/Enqueue.php:57
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:79
+#: library/Theme/Enqueue.php:59
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:80
+#: library/Theme/Enqueue.php:60
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:89
+#: library/Theme/Enqueue.php:69
 #, fuzzy
 msgid "January"
 msgstr "manual"
 
-#: library/Theme/Enqueue.php:90
+#: library/Theme/Enqueue.php:70
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:91
+#: library/Theme/Enqueue.php:71
 #, fuzzy
 msgid "March"
 msgstr "Sök"
 
-#: library/Theme/Enqueue.php:92
+#: library/Theme/Enqueue.php:72
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:93
+#: library/Theme/Enqueue.php:73
 #, fuzzy
 msgid "May"
 msgstr "dag"
 
-#: library/Theme/Enqueue.php:94
+#: library/Theme/Enqueue.php:74
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:95
+#: library/Theme/Enqueue.php:75
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:96
+#: library/Theme/Enqueue.php:76
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:97
+#: library/Theme/Enqueue.php:77
 msgid "September"
 msgstr ""
 
-#: library/Theme/Enqueue.php:98
+#: library/Theme/Enqueue.php:78
 msgid "October"
 msgstr ""
 
-#: library/Theme/Enqueue.php:99
+#: library/Theme/Enqueue.php:79
 #, fuzzy
 msgid "November"
 msgstr "Nummer"
 
-#: library/Theme/Enqueue.php:100
+#: library/Theme/Enqueue.php:80
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:104
+#: library/Theme/Enqueue.php:84
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:105
+#: library/Theme/Enqueue.php:85
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:106
+#: library/Theme/Enqueue.php:86
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:107
+#: library/Theme/Enqueue.php:87
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:108
+#: library/Theme/Enqueue.php:88
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:109
+#: library/Theme/Enqueue.php:89
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:110
+#: library/Theme/Enqueue.php:90
 msgid "Sa"
 msgstr "Lö"
 
-#: library/Theme/Enqueue.php:156
+#: library/Theme/Enqueue.php:134
 msgid "Both"
 msgstr "Båda"
 
@@ -10812,7 +10311,7 @@ msgid "Also fetches the posts from the users homepage (User group)"
 msgstr ""
 
 #: Modularity/source/php/Module/Posts/Helper/PostSourceBuilder.php:45
-#: Modularity/source/php/Module/Posts/TemplateController/AbstractController.php:106
+#: Modularity/source/php/Module/Posts/TemplateController/AbstractController.php:103
 msgid "Unknown Blog"
 msgstr ""
 
@@ -10826,6 +10325,74 @@ msgctxt "block description"
 msgid "A block to display a list of posts."
 msgstr "Block som visar en lista av poster"
 
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Published"
+msgstr "Publiceringsdatum"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "DateModified"
+msgstr "Datum ändrad"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Order by"
+msgstr "Sortera efter"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts settings"
+msgstr "Inläggsinställningar"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts per page"
+msgstr "Inlägg per sida"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable Pagination"
+msgstr "Aktivera paginering"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Time"
+msgstr "Tid"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date, time"
+msgstr "Datum, tid"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Modified"
+msgstr "Datum ändrad"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date source"
+msgstr "Datumkälla"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Newsitem"
+msgstr "Nyhetsartikel"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Appearance settings"
+msgstr "UI"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Design"
+msgstr "Design"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Number of columns"
+msgstr "Antal kolumner"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Filter settings"
+msgstr "Filterinställningar"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable text search"
+msgstr "Aktivera textsökning"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable date filter"
+msgstr "Aktivera datumfilter"
+
 #: library/AcfFields/php/external-content-settings.php:417
 msgid "Filters relation"
 msgstr "Filterrelation"
@@ -10838,6 +10405,14 @@ msgstr "Objekt måste matcha NÅGON av de angivna reglerna"
 msgid "Objects must match ALL of the provided rules"
 msgstr "Objekt måste matcha ALLA angivna regler"
 
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Checkboxes"
+msgstr "kryssrutor"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Radio buttons"
+msgstr "Radioknappar"
+
 #: library/PostsList/PostsList.php:88
 msgctxt "label for more occasions available on event"
 msgid "More occasions available"
@@ -10847,7 +10422,15 @@ msgstr "Fler tillfällen finns"
 msgid "Link style"
 msgstr ""
 
-#: library/Theme/General.php:82
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date From"
+msgstr "Datum från"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date To"
+msgstr "Datum till"
+
+#: library/Theme/General.php:84
 msgctxt "Select component search no results text"
 msgid "No results found"
 msgstr "Inga resultat hittades"
@@ -10856,7 +10439,7 @@ msgstr "Inga resultat hittades"
 msgid "Eyebrow"
 msgstr ""
 
-#: library/Theme/General.php:83
+#: library/Theme/General.php:85
 msgctxt "Select component search field placeholder"
 msgid "Search"
 msgstr "Sök"
@@ -10890,6 +10473,8 @@ msgid "Open in new window"
 msgstr ""
 
 #: library/AcfFields/php/chat.php:8
+#: library/Chat/Admin/ChatAdminPage.php:25
+#: library/Chat/Admin/ChatAdminPage.php:26
 #: library/Chat/Admin/RegisterChatAdminPage.php:25
 #: library/Chat/Admin/RegisterChatAdminPage.php:26
 msgid "Chat Settings"
@@ -10911,27 +10496,19 @@ msgstr "Aktivera chattbubblan globalt på alla sidor. Den kommer att använda st
 msgid "Default Assistant"
 msgstr "Standardassistent"
 
-#: library/AcfFields/php/chat.php:58
-msgid "Unique ID of the assistant to use when no assistant is given."
-msgstr "Unikt ID för assistenten som används när ingen assistent har angetts."
-
 #: library/AcfFields/php/chat.php:75
 msgid "Assistants"
 msgstr "Assistenter"
 
-#: library/AcfFields/php/chat.php:97
-msgid "Unique ID"
-msgstr "Unikt ID"
-
-#: library/AcfFields/php/chat.php:141
+#: library/AcfFields/php/chat.php:138
 msgid "Server URL"
 msgstr "Server-URL"
 
-#: library/AcfFields/php/chat.php:160
+#: library/AcfFields/php/chat.php:157
 msgid "API Key"
 msgstr "API-nyckel"
 
-#: library/AcfFields/php/chat.php:180
+#: library/AcfFields/php/chat.php:177
 #: library/Chat/Module/acf-fields.php:96
 msgid "Assistant ID"
 msgstr "Assistent-ID"
@@ -10944,39 +10521,48 @@ msgstr ""
 msgid "Invalid or missing attributes."
 msgstr ""
 
+#: library/Chat/Api/ChatEndpoint.php:65
 #: library/Chat/ChatEndpoint.php:64
 msgid "No message provided."
 msgstr "Inget meddelande angivet."
 
+#: library/Chat/Api/ChatEndpoint.php:91
 #: library/Chat/ChatEndpoint.php:90
 msgid "Assistant not found."
 msgstr "Assistenten hittades inte."
 
+#: library/Chat/Api/ChatEndpoint.php:101
 #: library/Chat/ChatEndpoint.php:100
 msgid "Assistant configuration is incomplete."
 msgstr "Assistentkonfigurationen är ofullständig."
 
+#: library/Chat/Api/ChatEndpoint.php:186
 #: library/Chat/ChatEndpoint.php:185
 msgid "Failed to communicate with chat API."
 msgstr "Det gick inte att kommunicera med chatt-API:et."
 
+#: library/Chat/Admin/ChatAdminPage.php:31
 #: library/Chat/Admin/RegisterChatAdminPage.php:31
 msgid "Chat settings has been saved."
 msgstr "Chattinställningarna har sparats."
 
 #: library/Chat/Frontend/EnqueueChatScripts.php:34
+#: library/Chat/Render/ChatEnqueue.php:34
 msgid "Sending..."
 msgstr "Skickar..."
 
 #: library/Chat/Frontend/EnqueueChatScripts.php:35
+#: library/Chat/Render/ChatEnqueue.php:35
 msgid "Writing..."
 msgstr "Skriver..."
 
 #: library/Chat/Frontend/EnqueueChatScripts.php:36
+#: library/Chat/Render/ChatEnqueue.php:36
 msgid "Using tools..."
 msgstr "Använder verktyg..."
 
 #: library/Chat/Frontend/EnqueueChatScripts.php:37
+#: library/Chat/Render/ChatEnqueue.php:37
 msgid "An error occurred. Try again later."
 msgstr "Ett fel uppstod. Försök igen senare."
 
@@ -10989,6 +10575,7 @@ msgid "Text shown prominently above the input field. Leave blank to remove."
 msgstr "Text som visas tydligt ovanför inmatningsfältet. Lämna tomt för att ta bort."
 
 #: library/Chat/Module/acf-fields.php:33
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Subtitle"
 msgstr "Underrubrik"
 
@@ -11008,8 +10595,10 @@ msgstr "Text för knappen."
 msgid "Unique ID of assistant to connect this chat to. Find in \"Chat Settings\"."
 msgstr "Unikt ID för assistenten som denna chatt ska kopplas till. Hittas i \"Chattinställningar\"."
 
+#: library/Chat/ChatBlock.php:38
 #: library/Chat/Frontend/RenderGlobalChatBubble.php:33
 #: library/Chat/Module/ChatModule.php:14
+#: library/Chat/Render/ChatRenderConfig.php:72
 msgid "Chat"
 msgstr "Chatt"
 
@@ -11019,7 +10608,9 @@ msgstr "Chattar"
 
 #: library/Chat/Module/ChatModule.php:16
 msgid "Outputs a chat interface"
-msgstr "Visar ett chattgränssnitt"
+msgstr ""
+"Visar ett chattgränssnitt\n"
+"main"
 
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:835
 msgid "Show link as button"
@@ -11033,9 +10624,35 @@ msgstr ""
 msgid "Button color"
 msgstr ""
 
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Image focal point"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Change Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Select Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove row"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Backdrop banner settings"
+msgstr ""
+
 #: library/Chat/Frontend/RenderGlobalChatBubble.php:34
 msgid "Chat with AI"
-msgstr "Chatta med AI"
+msgstr ""
+"Chatta med AI\n"
+"main"
 
 #: library/BackdropBanner/block.json
 msgctxt "block title"
@@ -11057,11 +10674,1256 @@ msgctxt "block description"
 msgid "A single row within a backdrop banner."
 msgstr ""
 
-#: library/Chat/Frontend/RenderGlobalChatBubble.php:35
-#: library/Chat/Module/ChatModule.php:25
-msgid "You"
-msgstr "Du"
+#: library/Styleguide/Customize/Customize.php:93
+msgctxt "design-builder"
+msgid "Show uneditable"
+msgstr "Visa icke redigerbara"
 
+#: library/Styleguide/Customize/Customize.php:94
+msgctxt "design-builder"
+msgid "Hide uneditable"
+msgstr "Göm icke redigerbara"
+
+#: library/Styleguide/Customize/Customize.php:95
+msgctxt "design-builder"
+msgid "General"
+msgstr "Allmänt"
+
+#: library/Styleguide/Customize/Customize.php:96
+msgctxt "design-builder"
+msgid "Components"
+msgstr "Komponenter"
+
+#: library/Styleguide/Customize/Customize.php:97
+msgctxt "design-builder"
+msgid "Choose a preset"
+msgstr "Välj en förinställning"
+
+#: library/Styleguide/Customize/Customize.php:98
+msgctxt "design-builder"
+msgid "Pick on page"
+msgstr "Välj på sidan"
+
+#: library/Styleguide/Customize/Customize.php:99
+msgctxt "design-builder"
+msgid "Stop picking"
+msgstr "Sluta välja"
+
+#: library/Styleguide/Customize/Customize.php:100
+msgctxt "design-builder"
+msgid "Preset"
+msgstr "Förinställning"
+
+#: library/Styleguide/Customize/Customize.php:101
+msgctxt "design-builder"
+msgid "Import/Export JSON"
+msgstr "Importera/Exportera JSON"
+
+#: library/Styleguide/Customize/Customize.php:102
+msgctxt "design-builder"
+msgid "Import JSON"
+msgstr "Importera JSON"
+
+#: library/Styleguide/Customize/Customize.php:103
+msgctxt "design-builder"
+msgid "Export JSON"
+msgstr "Exportera JSON"
+
+#: library/Styleguide/Customize/Customize.php:104
+msgctxt "design-builder"
+msgid "Reset actions"
+msgstr "Återställ åtgärder"
+
+#: library/Styleguide/Customize/Customize.php:105
+msgctxt "design-builder"
+msgid "Reset all"
+msgstr "Återställ allt"
+
+#: library/Styleguide/Customize/Customize.php:106
+msgctxt "design-builder"
+msgid "Preset actions"
+msgstr "Förinställningsåtgärder"
+
+#: library/Styleguide/Customize/Customize.php:107
+msgctxt "design-builder"
+msgid "Save preset"
+msgstr "Spara förinställning"
+
+#: library/Styleguide/Customize/Customize.php:108
+msgctxt "design-builder"
+msgid "Delete preset"
+msgstr "Radera förinställning"
+
+#: library/Styleguide/Customize/Customize.php:109
+msgctxt "design-builder"
+msgid "Component"
+msgstr "Komponent"
+
+#: library/Styleguide/Customize/Customize.php:110
+msgctxt "design-builder"
+msgid "Scope"
+msgstr "Område"
+
+#: library/Styleguide/Customize/Customize.php:111
+msgctxt "design-builder"
+msgid "Reset selected"
+msgstr "Återställ vald"
+
+#: library/Styleguide/Customize/Customize.php:112
+msgctxt "design-builder"
+msgid "Saved presets"
+msgstr "Sparade förinställningar"
+
+#: library/Styleguide/Customize/Customize.php:113
+msgctxt "design-builder"
+msgid "General (all scopes)"
+msgstr "Allmänt (alla områden)"
+
+#: library/Customizer/Fonts/Sections/GoogleFonts.php:36
+msgid "Enabled Google Fonts"
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/GoogleFonts.php:37
+msgid "Choose which Google Fonts should be available on the site. The list is limited to the top 200 fonts by popularity."
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/GoogleFonts.php:43
+msgid "Search fonts..."
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:35
+#: library/Customizer/PanelsRegistry.php:215
+msgid "Uploaded Fonts"
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:36
+msgid "Upload WOFF or WOFF2 files. The font family name is derived automatically from the file name."
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:46
+msgid "Font file"
+msgstr ""
+
+#: library/Customizer/Fonts/Sections/UploadedFonts.php:47
+msgid "Upload a WOFF or WOFF2 file."
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:202
+msgid "Fonts"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:203
+msgid "Manage available site fonts and typography settings."
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:208
+msgid "Google Fonts"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:209
+msgid "Enable the Google Fonts that should be available on the site."
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:216
+msgid "Manage uploaded font files that should be available on the site."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:47
+msgctxt "design-builder-token-data"
+msgid "Design System"
+msgstr "Designsystem"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:48
+msgctxt "design-builder-token-data"
+msgid "Base"
+msgstr "Bas"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:49
+msgctxt "design-builder-token-data"
+msgid "Foundation values that drive spacing, radius, and typography scales."
+msgstr "Grundläggande värden som styr skalor för mellanrum, radie och typografi."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:50
+msgctxt "design-builder-token-data"
+msgid "Base Unit"
+msgstr "Basenhet"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:51
+msgctxt "design-builder-token-data"
+msgid "Base Font Size"
+msgstr "Grundstorlek för teckensnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:52
+msgctxt "design-builder-token-data"
+msgid "Main unit that drives radius and spacing scales."
+msgstr "Huvudenhet som styr skalor för radie och mellanrum."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:53
+msgctxt "design-builder-token-data"
+msgid "Root font size. All typographic sizes derive from this."
+msgstr "Rotens teckenstorlek. Alla typografiska storlekar härleds från denna."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:54
+msgctxt "design-builder-token-data"
+msgid "Standard"
+msgstr "Standard"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:55
+msgctxt "design-builder-token-data"
+msgid "Large"
+msgstr "Stor"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:56
+msgctxt "design-builder-token-data"
+msgid "Layout"
+msgstr "Layout"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:57
+msgctxt "design-builder-token-data"
+msgid "Tokens for layout widths"
+msgstr "Variabler för layoutbredder"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:58
+msgctxt "design-builder-token-data"
+msgid "Container Width Multiplier"
+msgstr "Multiplikator för containerbredd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:59
+msgctxt "design-builder-token-data"
+msgid "Multiplier that drives container widths."
+msgstr "Multiplikator som styr containerbredder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:60
+msgctxt "design-builder-token-data"
+msgid "Container Width"
+msgstr "Containerbredd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:61
+msgctxt "design-builder-token-data"
+msgid "Main unit that drives container widths."
+msgstr "Huvudenhet som styr containerbredder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:62
+msgctxt "design-builder-token-data"
+msgid "Multiplier for wide container width."
+msgstr "Multiplikator för bred containerbredd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:63
+msgctxt "design-builder-token-data"
+msgid "Max width for wide containers."
+msgstr "Maxbredd för breda containrar."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:64
+msgctxt "design-builder-token-data"
+msgid "Radius"
+msgstr "Radie"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:65
+msgctxt "design-builder-token-data"
+msgid "Border radius and corner shape style."
+msgstr "Stil för hörnradie och hörnform."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:66
+msgctxt "design-builder-token-data"
+msgid "Border Radius"
+msgstr "Hörnradie"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:67
+msgctxt "design-builder-token-data"
+msgid "Corner Shape"
+msgstr "Hörnform"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:68
+msgctxt "design-builder-token-data"
+msgid "Square"
+msgstr "Fyrkantig"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:69
+msgctxt "design-builder-token-data"
+msgid "Round"
+msgstr "Rund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:70
+msgctxt "design-builder-token-data"
+msgid "Squircle"
+msgstr "Squircle"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:71
+msgctxt "design-builder-token-data"
+msgid "Circular"
+msgstr "Cirkulär"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:72
+msgctxt "design-builder-token-data"
+msgid "Bevel"
+msgstr "Avfasad"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:73
+msgctxt "design-builder-token-data"
+msgid "Scoop"
+msgstr "Utskuren"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:74
+msgctxt "design-builder-token-data"
+msgid "Typography"
+msgstr "Typografi"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:75
+msgctxt "design-builder-token-data"
+msgid "Font families, type scale, weights, and line heights."
+msgstr "Typsnittsfamiljer, typografisk skala, vikter och radavstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:76
+msgctxt "design-builder-token-data"
+msgid "Body Font"
+msgstr "Brödtexttypsnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:77
+msgctxt "design-builder-token-data"
+msgid "Heading Font"
+msgstr "Rubriktypsnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:78
+msgctxt "design-builder-token-data"
+msgid "Falls back to body font if not set."
+msgstr "Använder brödtexttypsnittet om inget är angivet."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:79
+msgctxt "design-builder-token-data"
+msgid "Code Font"
+msgstr "Kodtypsnitt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:80
+msgctxt "design-builder-token-data"
+msgid "Type Scale"
+msgstr "Typografisk skala"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:81
+msgctxt "design-builder-token-data"
+msgid "Multiplier that generates all font sizes from the base."
+msgstr "Multiplikator som genererar alla teckenstorlekar från basen."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:82
+msgctxt "design-builder-token-data"
+msgid "Minor Second"
+msgstr "Liten sekund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:83
+msgctxt "design-builder-token-data"
+msgid "Major Second"
+msgstr "Stor sekund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:84
+msgctxt "design-builder-token-data"
+msgid "Minor Third"
+msgstr "Liten ters"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:85
+msgctxt "design-builder-token-data"
+msgid "Major Third"
+msgstr "Stor ters"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:86
+msgctxt "design-builder-token-data"
+msgid "Perfect Fourth"
+msgstr "Ren kvart"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:87
+msgctxt "design-builder-token-data"
+msgid "Normal Weight"
+msgstr "Normal vikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:88
+msgctxt "design-builder-token-data"
+msgid "Thin (100)"
+msgstr "Tunn (100)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:89
+msgctxt "design-builder-token-data"
+msgid "Extra Light (200)"
+msgstr "Extra lätt (200)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:90
+msgctxt "design-builder-token-data"
+msgid "Light (300)"
+msgstr "Lätt (300)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:91
+msgctxt "design-builder-token-data"
+msgid "Regular (400)"
+msgstr "Normal (400)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:92
+msgctxt "design-builder-token-data"
+msgid "Medium (500)"
+msgstr "Medium (500)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:93
+msgctxt "design-builder-token-data"
+msgid "Semi Bold (600)"
+msgstr "Halvfet (600)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:94
+msgctxt "design-builder-token-data"
+msgid "Bold (700)"
+msgstr "Fet (700)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:95
+msgctxt "design-builder-token-data"
+msgid "Extra Bold (800)"
+msgstr "Extra fet (800)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:96
+msgctxt "design-builder-token-data"
+msgid "Black (900)"
+msgstr "Svart (900)"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:97
+msgctxt "design-builder-token-data"
+msgid "Medium Weight"
+msgstr "Medium vikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:98
+msgctxt "design-builder-token-data"
+msgid "Bold Weight"
+msgstr "Fet vikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:99
+msgctxt "design-builder-token-data"
+msgid "Heading Weight"
+msgstr "Rubrikvikt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:100
+msgctxt "design-builder-token-data"
+msgid "Body Line Height"
+msgstr "Radavstånd för brödtext"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:101
+msgctxt "design-builder-token-data"
+msgid "Heading Line Height"
+msgstr "Radavstånd för rubriker"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:102
+msgctxt "design-builder-token-data"
+msgid "Letter Spacing"
+msgstr "Bokstavsavstånd"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:103
+msgctxt "design-builder-token-data"
+msgid "Font Sizes"
+msgstr "Teckenstorlekar"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:104
+msgctxt "design-builder-token-data"
+msgid "Computed font size scale derived from base font size and type scale ratio."
+msgstr "Beräknad skala för teckenstorlekar baserad på grundstorlek och förhållandet i den typografiska skalan."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:105
+msgctxt "design-builder-token-data"
+msgid "Font Size 80"
+msgstr "Teckenstorlek 80"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:106
+msgctxt "design-builder-token-data"
+msgid "Two steps below base in the type scale."
+msgstr "Två steg under basen i den typografiska skalan."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:107
+msgctxt "design-builder-token-data"
+msgid "Font Size 90"
+msgstr "Teckenstorlek 90"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:108
+msgctxt "design-builder-token-data"
+msgid "One step below base in the type scale."
+msgstr "Ett steg under basen i den typografiska skalan."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:109
+msgctxt "design-builder-token-data"
+msgid "Font Size 100"
+msgstr "Teckenstorlek 100"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:110
+msgctxt "design-builder-token-data"
+msgid "Base font size."
+msgstr "Grundstorlek för teckensnitt."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:111
+msgctxt "design-builder-token-data"
+msgid "Font Size 200"
+msgstr "Teckenstorlek 200"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:112
+msgctxt "design-builder-token-data"
+msgid "One step above base in the type scale. Equivalent to h6/subtitle."
+msgstr "Ett steg över basen i den typografiska skalan. Motsvarar h6/underrubrik."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:113
+msgctxt "design-builder-token-data"
+msgid "Font Size 300"
+msgstr "Teckenstorlek 300"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:114
+msgctxt "design-builder-token-data"
+msgid "Two steps above base in the type scale. Equivalent to h5."
+msgstr "Två steg över basen i den typografiska skalan. Motsvarar h5."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:115
+msgctxt "design-builder-token-data"
+msgid "Font Size 400"
+msgstr "Teckenstorlek 400"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:116
+msgctxt "design-builder-token-data"
+msgid "Three steps above base in the type scale. Equivalent to h4."
+msgstr "Tre steg över basen i den typografiska skalan. Motsvarar h4."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:117
+msgctxt "design-builder-token-data"
+msgid "Font Size 500"
+msgstr "Teckenstorlek 500"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:118
+msgctxt "design-builder-token-data"
+msgid "Four steps above base in the type scale. Equivalent to h3."
+msgstr "Fyra steg över basen i den typografiska skalan. Motsvarar h3."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:119
+msgctxt "design-builder-token-data"
+msgid "Font Size 600"
+msgstr "Teckenstorlek 600"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:120
+msgctxt "design-builder-token-data"
+msgid "Five steps above base in the type scale. Equivalent to h2."
+msgstr "Fem steg över basen i den typografiska skalan. Motsvarar h2."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:121
+msgctxt "design-builder-token-data"
+msgid "Font Size 700"
+msgstr "Teckenstorlek 700"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:122
+msgctxt "design-builder-token-data"
+msgid "Six steps above base in the type scale. Equivalent to h1."
+msgstr "Sex steg över basen i den typografiska skalan. Motsvarar h1."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:123
+msgctxt "design-builder-token-data"
+msgid "Font Size 800"
+msgstr "Teckenstorlek 800"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:124
+msgctxt "design-builder-token-data"
+msgid "Seven steps above base in the type scale. Larger than h1."
+msgstr "Sju steg över basen i den typografiska skalan. Större än h1."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:125
+msgctxt "design-builder-token-data"
+msgid "Borders"
+msgstr "Kantlinjer"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:126
+msgctxt "design-builder-token-data"
+msgid "Border width tokens for UI elements."
+msgstr "Variabler för kantlinjebredd för gränssnittselement."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:127
+msgctxt "design-builder-token-data"
+msgid "Size"
+msgstr "Storlek"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:128
+msgctxt "design-builder-token-data"
+msgid "Border Mix Amount"
+msgstr "Blandningsgrad för kantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:129
+msgctxt "design-builder-token-data"
+msgid "Controls contrast intensity used when generating companion border colors."
+msgstr "Styr kontrastintensiteten som används när kompletterande kantlinjefärger genereras."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:130
+msgctxt "design-builder-token-data"
+msgid "Spacing"
+msgstr "Mellanrum"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:131
+msgctxt "design-builder-token-data"
+msgid "Spacing tokens for UI elements."
+msgstr "Variabler för mellanrum i gränssnittselement."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:132
+msgctxt "design-builder-token-data"
+msgid "Outer Space"
+msgstr "Yttre mellanrum"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:133
+msgctxt "design-builder-token-data"
+msgid "Spacing between components. Use --space for spacing inside components."
+msgstr "Mellanrum mellan komponenter. Använd --space för mellanrum inuti komponenter."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:134
+msgctxt "design-builder-token-data"
+msgid "Shadows"
+msgstr "Skuggor"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:135
+msgctxt "design-builder-token-data"
+msgid "Global shadow multipliers and color."
+msgstr "Globala multiplikatorer och färg för skuggor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:136
+msgctxt "design-builder-token-data"
+msgid "Shadow Color"
+msgstr "Skuggfärg"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:137
+msgctxt "design-builder-token-data"
+msgid "Drop Shadow Intensity"
+msgstr "Intensitet för skugga"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:138
+msgctxt "design-builder-token-data"
+msgid "Multiplier for elevation shadows. 0 = none, 1 = default."
+msgstr "Multiplikator för elevationsskuggor. 0 = ingen, 1 = standard."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:139
+msgctxt "design-builder-token-data"
+msgid "Brand Colors"
+msgstr "Varumärkesfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:140
+msgctxt "design-builder-token-data"
+msgid "Primary, secondary, and accent brand colors with contrast pairs."
+msgstr "Primära, sekundära och accentfärger för varumärket med kontrastpar."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:141
+msgctxt "design-builder-token-data"
+msgid "Primary"
+msgstr "Primär"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:142
+msgctxt "design-builder-token-data"
+msgid "Primary Contrast"
+msgstr "Primär kontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:143
+msgctxt "design-builder-token-data"
+msgid "Primary Border"
+msgstr "Primär kantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:144
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for primary border and hover states."
+msgstr "Manuell kompletterande variabel för primär kantlinje och hovringstillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:145
+msgctxt "design-builder-token-data"
+msgid "Primary Alt"
+msgstr "Primär alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:146
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle primary surfaces."
+msgstr "Manuell kompletterande variabel för diskreta primära ytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:147
+msgctxt "design-builder-token-data"
+msgid "Secondary"
+msgstr "Sekundär"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:148
+msgctxt "design-builder-token-data"
+msgid "Secondary Contrast"
+msgstr "Sekundär kontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:149
+msgctxt "design-builder-token-data"
+msgid "Secondary Border"
+msgstr "Sekundär kantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:150
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for secondary border and hover states."
+msgstr "Manuell kompletterande variabel för sekundär kantlinje och hovringstillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:151
+msgctxt "design-builder-token-data"
+msgid "Secondary Alt"
+msgstr "Sekundär alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:152
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle secondary surfaces."
+msgstr "Manuell kompletterande variabel för diskreta sekundära ytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:153
+msgctxt "design-builder-token-data"
+msgid "Layout Colors"
+msgstr "Layoutfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:154
+msgctxt "design-builder-token-data"
+msgid "Background and surface colors."
+msgstr "Bakgrunds- och ytfärger."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:155
+msgctxt "design-builder-token-data"
+msgid "Alt Mix Amount"
+msgstr "Blandningsgrad för alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:156
+msgctxt "design-builder-token-data"
+msgid "Controls contrast intensity used when generating companion alt colors."
+msgstr "Styr kontrastintensiteten som används när kompletterande alt-färger genereras."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:157
+msgctxt "design-builder-token-data"
+msgid "Background"
+msgstr "Bakgrund"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:158
+msgctxt "design-builder-token-data"
+msgid "Background Contrast"
+msgstr "Bakgrundskontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:159
+msgctxt "design-builder-token-data"
+msgid "Used for text and icons on background with less contrast."
+msgstr "Används för text och ikoner på bakgrund med lägre kontrast."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:160
+msgctxt "design-builder-token-data"
+msgid "Background Contrast Muted"
+msgstr "Dämpad bakgrundskontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:161
+msgctxt "design-builder-token-data"
+msgid "Derived muted contrast for text and icons on background surfaces."
+msgstr "Härledd dämpad kontrast för text och ikoner på bakgrundsytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:162
+msgctxt "design-builder-token-data"
+msgid "Background Border"
+msgstr "Bakgrundskantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:163
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for borders on background surfaces."
+msgstr "Manuell kompletterande variabel för kantlinjer på bakgrundsytor."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:164
+msgctxt "design-builder-token-data"
+msgid "Surface"
+msgstr "Yta"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:165
+msgctxt "design-builder-token-data"
+msgid "Surface Contrast"
+msgstr "Ytkontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:166
+msgctxt "design-builder-token-data"
+msgid "Used for text and icons on surface backgrounds with less contrast."
+msgstr "Används för text och ikoner på ytbakgrunder med lägre kontrast."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:167
+msgctxt "design-builder-token-data"
+msgid "Surface Contrast Muted"
+msgstr "Dämpad ytkontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:168
+msgctxt "design-builder-token-data"
+msgid "Derived muted contrast for text and icons on surface backgrounds."
+msgstr "Härledd dämpad kontrast för text och ikoner på ytbakgrunder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:169
+msgctxt "design-builder-token-data"
+msgid "Surface Border"
+msgstr "Ytkantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:170
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for borders on surface elements."
+msgstr "Manuell kompletterande variabel för kantlinjer på ytelement."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:171
+msgctxt "design-builder-token-data"
+msgid "Surface Alt"
+msgstr "Yta alt"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:172
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle surface backgrounds."
+msgstr "Manuell kompletterande variabel för diskreta ytbakgrunder."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:173
+msgctxt "design-builder-token-data"
+msgid "UI Colors"
+msgstr "Gränssnittsfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:174
+msgctxt "design-builder-token-data"
+msgid "Borders, focus, and interactive states."
+msgstr "Kantlinjer, fokus och interaktiva tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:175
+msgctxt "design-builder-token-data"
+msgid "Focus"
+msgstr "Fokus"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:176
+msgctxt "design-builder-token-data"
+msgid "Alpha Color"
+msgstr "Alfafärg"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:177
+msgctxt "design-builder-token-data"
+msgid "Used for overlays. Includes opacity — set both color and alpha together."
+msgstr "Används för överlägg. Inkluderar opacitet — ange både färg och alfa tillsammans."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:178
+msgctxt "design-builder-token-data"
+msgid "Alpha Contrast"
+msgstr "Alfakontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:179
+msgctxt "design-builder-token-data"
+msgid "Used for text and icons on alpha overlays."
+msgstr "Används för text och ikoner på alfaöverlägg."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:180
+msgctxt "design-builder-token-data"
+msgid "Alpha Border"
+msgstr "Alfakantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:181
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for alpha overlay border states."
+msgstr "Manuell kompletterande variabel för kantlinjetillstånd på alfaöverlägg."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:182
+msgctxt "design-builder-token-data"
+msgid "State Colors"
+msgstr "Tillståndsfärger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:183
+msgctxt "design-builder-token-data"
+msgid "Feedback colors for success, warning, error, and info."
+msgstr "Återkopplingsfärger för bekräftelse, varning, fel och information."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:184
+msgctxt "design-builder-token-data"
+msgid "Success"
+msgstr "Bekräftelse"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:185
+msgctxt "design-builder-token-data"
+msgid "Success Contrast"
+msgstr "Bekräftelsekontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:186
+msgctxt "design-builder-token-data"
+msgid "Success Border"
+msgstr "Bekräftelsekantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:187
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for success border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för bekräftelsekantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:188
+msgctxt "design-builder-token-data"
+msgid "Warning"
+msgstr "Varning"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:189
+msgctxt "design-builder-token-data"
+msgid "Warning Contrast"
+msgstr "Varningskontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:190
+msgctxt "design-builder-token-data"
+msgid "Warning Border"
+msgstr "Varningskantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:191
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for warning border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för varningskantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:192
+msgctxt "design-builder-token-data"
+msgid "Danger"
+msgstr "Fel"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:193
+msgctxt "design-builder-token-data"
+msgid "Danger Contrast"
+msgstr "Felkontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:194
+msgctxt "design-builder-token-data"
+msgid "Danger Border"
+msgstr "Felkantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:195
+msgctxt "design-builder-token-data"
+msgid "Info"
+msgstr "Info"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:196
+msgctxt "design-builder-token-data"
+msgid "Info Contrast"
+msgstr "Infokontrast"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:197
+msgctxt "design-builder-token-data"
+msgid "Info Border"
+msgstr "Infokantlinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:198
+msgctxt "design-builder-token-data"
+msgid "Auto-generated companion token for info border and emphasis states."
+msgstr "Automatiskt genererad kompletterande variabel för infokantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:199
+msgctxt "design-builder-token-data"
+msgid "Container Wide Width Multiplier"
+msgstr "Multiplikator för bredd på bred container"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:200
+msgctxt "design-builder-token-data"
+msgid "Container Wide Width"
+msgstr "Bredd på bred container"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:201
+msgctxt "design-builder-token-data"
+msgid "Base spacing unit. Used for padding and margin inside components."
+msgstr "Grundläggande enhet för mellanrum. Används för utfyllnad och marginal i komponenter."
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:202
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for danger border and emphasis states."
+msgstr "Manuell kompletterande variabel för felkantlinje och betonade tillstånd."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:48
+msgctxt "design-builder-component-data"
+msgid "Acceptance"
+msgstr "Godkännande"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:49
+msgctxt "design-builder-component-data"
+msgid "Accordion"
+msgstr "Expanderbar lista"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:50
+msgctxt "design-builder-component-data"
+msgid "Avatar"
+msgstr "Avatar"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:51
+msgctxt "design-builder-component-data"
+msgid "Block"
+msgstr "Block"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:52
+msgctxt "design-builder-component-data"
+msgid "Box"
+msgstr "Ruta"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:53
+msgctxt "design-builder-component-data"
+msgid "Brand"
+msgstr "Varumärke"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:54
+msgctxt "design-builder-component-data"
+msgid "Breadcrumb"
+msgstr "Brödsmulor"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:55
+msgctxt "design-builder-component-data"
+msgid "Button"
+msgstr "Knapp"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:56
+msgctxt "design-builder-component-data"
+msgid "Card"
+msgstr "Kort"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:57
+msgctxt "design-builder-component-data"
+msgid "Code"
+msgstr "Kod"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:58
+msgctxt "design-builder-component-data"
+msgid "Collection"
+msgstr "Samling"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:59
+msgctxt "design-builder-component-data"
+msgid "Comment"
+msgstr "Kommentar"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:60
+msgctxt "design-builder-component-data"
+msgid "Date Badge"
+msgstr "Datumetikett"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:61
+msgctxt "design-builder-component-data"
+msgid "Divider"
+msgstr "Avdelare"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:62
+msgctxt "design-builder-component-data"
+msgid "Drawer"
+msgstr "Utdragbar panel"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:63
+msgctxt "design-builder-component-data"
+msgid "Fab"
+msgstr "Flytande åtgärdsknapp"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:64
+msgctxt "design-builder-component-data"
+msgid "Field"
+msgstr "Fält"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:65
+msgctxt "design-builder-component-data"
+msgid "File Input"
+msgstr "Filuppladdning"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:66
+msgctxt "design-builder-component-data"
+msgid "Footer"
+msgstr "Sidfot"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:67
+msgctxt "design-builder-component-data"
+msgid "Gallery"
+msgstr "Galleri"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:68
+msgctxt "design-builder-component-data"
+msgid "Gallery Modal"
+msgstr "Galleri i dialogruta"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:69
+msgctxt "design-builder-component-data"
+msgid "Group"
+msgstr "Grupp"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:70
+msgctxt "design-builder-component-data"
+msgid "Header"
+msgstr "Sidhuvud"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:71
+msgctxt "design-builder-component-data"
+msgid "Hero"
+msgstr "Hero"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:72
+msgctxt "design-builder-component-data"
+msgid "Icon"
+msgstr "Ikon"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:73
+msgctxt "design-builder-component-data"
+msgid "Icon Section"
+msgstr "Ikonsektion"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:74
+msgctxt "design-builder-component-data"
+msgid "Image"
+msgstr "Bild"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:75
+msgctxt "design-builder-component-data"
+msgid "Inline CSS Wrapper"
+msgstr "Inline CSS Wrapper"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:76
+msgctxt "design-builder-component-data"
+msgid "Listing"
+msgstr "Lista"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:77
+msgctxt "design-builder-component-data"
+msgid "Loader"
+msgstr "Laddningsindikator"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:78
+msgctxt "design-builder-component-data"
+msgid "Logotype"
+msgstr "Logotyp"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:79
+msgctxt "design-builder-component-data"
+msgid "Logotype Grid"
+msgstr "Logotyprutnät"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:80
+msgctxt "design-builder-component-data"
+msgid "Map"
+msgstr "Karta"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:81
+msgctxt "design-builder-component-data"
+msgid "Megamenu"
+msgstr "Megameny"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:82
+msgctxt "design-builder-component-data"
+msgid "Modal"
+msgstr "Dialogruta"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:83
+msgctxt "design-builder-component-data"
+msgid "Nav"
+msgstr "Navigering"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:84
+msgctxt "design-builder-component-data"
+msgid "News Item"
+msgstr "Nyhetsartikel"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:85
+msgctxt "design-builder-component-data"
+msgid "Notice"
+msgstr "Notis"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:86
+msgctxt "design-builder-component-data"
+msgid "Option"
+msgstr "Alternativ"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:87
+msgctxt "design-builder-component-data"
+msgid "Pagination"
+msgstr "Paginering"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:88
+msgctxt "design-builder-component-data"
+msgid "Paper"
+msgstr "Yta"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:89
+msgctxt "design-builder-component-data"
+msgid "Person"
+msgstr "Person"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:90
+msgctxt "design-builder-component-data"
+msgid "Progressbar"
+msgstr "Förloppsindikator"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:91
+msgctxt "design-builder-component-data"
+msgid "Scope"
+msgstr "Kontext"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:92
+msgctxt "design-builder-component-data"
+msgid "Segment"
+msgstr "Segment"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:93
+msgctxt "design-builder-component-data"
+msgid "Select"
+msgstr "Välj"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:94
+msgctxt "design-builder-component-data"
+msgid "Signature"
+msgstr "Signatur"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:95
+msgctxt "design-builder-component-data"
+msgid "Slider"
+msgstr "Karusell"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:96
+msgctxt "design-builder-component-data"
+msgid "Table"
+msgstr "Tabell"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:97
+msgctxt "design-builder-component-data"
+msgid "Tabs"
+msgstr "Flikar"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:98
+msgctxt "design-builder-component-data"
+msgid "Tags"
+msgstr "Taggar"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:99
+msgctxt "design-builder-component-data"
+msgid "Testimonials"
+msgstr "Omdömen"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:100
+msgctxt "design-builder-component-data"
+msgid "Toast"
+msgstr "Tillfälligt meddelande"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:101
+msgctxt "design-builder-component-data"
+msgid "Typography"
+msgstr "Typografi"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:113
+msgctxt "design-builder-component-data"
+msgid "Component-local branding adjustments."
+msgstr "Lokala varumärkesjusteringar för komponenter."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:114
+msgctxt "design-builder-component-data"
+msgid "Scales the header logotype height locally without changing the global base size."
+msgstr "Skalar lokalt höjden på header-logotypen utan att ändra den globala basstorleken."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:115
+msgctxt "design-builder-component-data"
+msgid "Font Size Multiplier"
+msgstr "Multiplikator för teckenstorlek"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:116
+msgctxt "design-builder-component-data"
+msgid "Branding"
+msgstr "Varumärke"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:117
+msgctxt "design-builder-component-data"
+msgid "Home Link Height Multiplier"
+msgstr "Multiplikator för höjd på hem-länk"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:118
+msgctxt "design-builder-component-data"
+msgid "Logotype Height Multiplier"
+msgstr "Multiplikator för höjd på logotyp"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:119
+msgctxt "design-builder-component-data"
+msgid "Scales the brand text size locally without changing the global typography scale."
+msgstr "Skalar lokalt storleken på varumärkestexten utan att ändra den globala typografiska skalan."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:120
+msgctxt "design-builder-component-data"
+msgid "Scales the footer home link height locally without changing global sizing."
+msgstr "Skalar lokalt höjden på hem-länken i sidfoten utan att ändra den globala storleken."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:121
+msgctxt "design-builder-component-data"
+msgid "The Scope component groups inner content styles and limits the scope of styles to prevent them from affecting other parts of the interface."
+msgstr "Kontext-komponenten grupperar inre innehållsstilar och begränsar omfattningen av stilar för att förhindra att de påverkar andra delar av gränssnittet."
+
+#: library/Chat/ChatBlock.php:42
 #: library/Chat/Frontend/RenderGlobalChatBubble.php:36
 #: library/Chat/Module/ChatModule.php:26
 msgid "Assistant"
@@ -11069,14 +11931,482 @@ msgstr "Assistent"
 
 #: library/Chat/Frontend/RenderGlobalChatBubble.php:37
 #: library/Chat/Module/ChatModule.php:27
+#: library/Chat/Render/ChatRenderConfig.php:75
 msgid "Write your question here"
 msgstr "Ställ din fråga här"
 
 #: library/Chat/Frontend/RenderGlobalChatBubble.php:38
 #: library/Chat/Module/ChatModule.php:28
+#: library/Chat/Render/ChatRenderConfig.php:74
 msgid "Send"
 msgstr "Skicka"
 
 #: library/Chat/Module/ChatModule.php:24
 msgid "Submit"
-msgstr "Ange"
+msgstr ""
+"Ange\n"
+"main"
+
+#: library/AcfFields/php/chat.php:58
+msgid "Write the name of the Assistant you want to use as default"
+msgstr ""
+
+#: library/AcfFields/php/chat.php:120
+msgid "The name must be unique"
+msgstr ""
+
+#: library/AcfFields/php/chat.php:218
+msgid "Avatar"
+msgstr ""
+
+#: library/AcfFields/php/chat.php:222
+msgid "For best experience, choose an image with a 1:1 ratio."
+msgstr ""
+
+#: library/AcfFields/php/chat.php:245
+msgid "Greetings phrase"
+msgstr ""
+
+#: library/AcfFields/php/chat.php:249
+msgid "A phrase that will greet the user"
+msgstr ""
+
+#: library/Chat/Admin/ChatStatsMetaBox.php:36
+msgid "Chat Statistics"
+msgstr ""
+
+#: library/Chat/Admin/ChatStatsMetaBox.php:59
+msgid "Total Messages"
+msgstr ""
+
+#: library/Chat/Admin/ChatStatsMetaBox.php:60
+msgid "Liked"
+msgstr ""
+
+#: library/Chat/Admin/ChatStatsMetaBox.php:61
+msgid "Disliked"
+msgstr ""
+
+#: library/Chat/Admin/ChatStatsMetaBox.php:62
+msgid "Neutral"
+msgstr ""
+
+#: library/Chat/Api/ChatStatsEndpoint.php:48
+msgid "Invalid stat type."
+msgstr ""
+
+#: library/Chat/ChatBlock.php:39
+msgid "A simple chat block."
+msgstr ""
+
+#: library/Chat/Frontend/RenderGlobalChatBubble.php:35
+#: library/Chat/Module/ChatModule.php:25
+msgid "You"
+msgstr ""
+
+#: library/Chat/Render/ChatRenderConfig.php:76
+msgid "New conversation"
+msgstr ""
+
+#: library/Chat/Render/ChatRenderConfig.php:77
+msgid "Like"
+msgstr ""
+
+#: library/Chat/Render/ChatRenderConfig.php:78
+msgid "Dislike"
+msgstr ""
+
+#: library/Controller/BaseController.php:675
+msgid "Choose language"
+msgstr ""
+
+#: library/Controller/BaseController.php:676
+msgid "More languages"
+msgstr ""
+
+#: library/Customizer/Sections/Component/Divider.php:14
+msgid "Border style"
+msgstr ""
+
+#: library/Customizer/Sections/Component/Divider.php:19
+msgid "Solid"
+msgstr ""
+
+#: library/Customizer/Sections/Component/Divider.php:20
+msgid "Dotted"
+msgstr ""
+
+#: library/Customizer/Sections/Component/Divider.php:21
+msgid "Dashed"
+msgstr ""
+
+#: library/Customizer/Sections/Component/Divider.php:91
+msgid "Wrap title in frame"
+msgstr ""
+
+#: library/Customizer/Sections/Header/Appearance.php:20
+msgid "Color(upper)"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:102
+msgctxt "design-builder-component-data"
+msgid "Settings"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:103
+msgctxt "design-builder-component-data"
+msgid "Shape"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:104
+msgctxt "design-builder-component-data"
+msgid "Background color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:105
+msgctxt "design-builder-component-data"
+msgid "Icon & initials color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:106
+msgctxt "design-builder-component-data"
+msgid "Component-local adjustments."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:107
+msgctxt "design-builder-component-data"
+msgid "Space"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:108
+msgctxt "design-builder-component-data"
+msgid "Adjusts the spacing between logo and text."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:109
+msgctxt "design-builder-component-data"
+msgid "Text Color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:110
+msgctxt "design-builder-component-data"
+msgid "Overrides the default text color for the brand component."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:111
+msgctxt "design-builder-component-data"
+msgid "Font Family"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:112
+msgctxt "design-builder-component-data"
+msgid "Overrides the default font family for the brand component."
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Maximum number of rows reached."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:203
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:204
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:230
+msgctxt "design-builder-token-data"
+msgid "Colors"
+msgstr "Färger"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:205
+msgctxt "design-builder-token-data"
+msgid "Variant color selection for button surfaces."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:206
+msgctxt "design-builder-token-data"
+msgid "Primary Variant"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:207
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for primary button variants."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:208
+msgctxt "design-builder-token-data"
+msgid "Secondary Variant"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:209
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for secondary button variants."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:210
+msgctxt "design-builder-token-data"
+msgid "Default Variant"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:211
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for default button variants."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:212
+msgctxt "design-builder-token-data"
+msgid "Chat"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:213
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:217
+msgctxt "design-builder-token-data"
+msgid "Border radius multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:214
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:218
+msgctxt "design-builder-token-data"
+msgid "Scales the border radius locally without changing the global border radius scale."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:215
+msgctxt "design-builder-token-data"
+msgid "Form"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:216
+msgctxt "design-builder-token-data"
+msgid "Border settings"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:219
+msgctxt "design-builder-token-data"
+msgid "Border width"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:220
+msgctxt "design-builder-token-data"
+msgid "Corner shape"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:221
+msgctxt "design-builder-token-data"
+msgid "Border color"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:222
+msgctxt "design-builder-token-data"
+msgid "Placeholder settings"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:223
+msgctxt "design-builder-token-data"
+msgid "Placeholder font family"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:224
+msgctxt "design-builder-token-data"
+msgid "Placeholder font weight"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:225
+msgctxt "design-builder-token-data"
+msgid "Placeholder background color"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:226
+msgctxt "design-builder-token-data"
+msgid "Caption settings"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:227
+msgctxt "design-builder-token-data"
+msgid "Caption font size"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:228
+msgctxt "design-builder-token-data"
+msgid "Caption line height"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:229
+msgctxt "design-builder-token-data"
+msgid "Caption color"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:231
+msgctxt "design-builder-token-data"
+msgid "Selects the token families used by each notice state."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:232
+msgctxt "design-builder-token-data"
+msgid "Info State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:233
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for informational notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:234
+msgctxt "design-builder-token-data"
+msgid "Danger State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:235
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for danger notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:236
+msgctxt "design-builder-token-data"
+msgid "Warning State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:237
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for warning notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:238
+msgctxt "design-builder-token-data"
+msgid "Success State"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:239
+msgctxt "design-builder-token-data"
+msgid "Selects the token family used for success notices."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:240
+msgctxt "design-builder-token-data"
+msgid "Product"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:241
+msgctxt "design-builder-token-data"
+msgid "Timeline"
+msgstr "Tidslinje"
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:242
+msgctxt "design-builder-token-data"
+msgid "The Timeline component provides a vertical overview of events, milestones, or steps in a process."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:243
+msgctxt "design-builder-token-data"
+msgid "Brand Palette"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:244
+msgctxt "design-builder-token-data"
+msgid "Optional brand palette slots for reusable campaign and accent colors."
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:245
+msgctxt "design-builder-token-data"
+msgid "Palette 1"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:246
+msgctxt "design-builder-token-data"
+msgid "Palette 1 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:247
+msgctxt "design-builder-token-data"
+msgid "Palette 2"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:248
+msgctxt "design-builder-token-data"
+msgid "Palette 2 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:249
+msgctxt "design-builder-token-data"
+msgid "Palette 3"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:250
+msgctxt "design-builder-token-data"
+msgid "Palette 3 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:251
+msgctxt "design-builder-token-data"
+msgid "Palette 4"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:252
+msgctxt "design-builder-token-data"
+msgid "Palette 4 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:253
+msgctxt "design-builder-token-data"
+msgid "Palette 5"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:254
+msgctxt "design-builder-token-data"
+msgid "Palette 5 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:255
+msgctxt "design-builder-token-data"
+msgid "Palette 6"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:256
+msgctxt "design-builder-token-data"
+msgid "Palette 6 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:257
+msgctxt "design-builder-token-data"
+msgid "Palette 7"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:258
+msgctxt "design-builder-token-data"
+msgid "Palette 7 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:259
+msgctxt "design-builder-token-data"
+msgid "Palette 8"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:260
+msgctxt "design-builder-token-data"
+msgid "Palette 8 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:261
+msgctxt "design-builder-token-data"
+msgid "Palette 9"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:262
+msgctxt "design-builder-token-data"
+msgid "Palette 9 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:263
+msgctxt "design-builder-token-data"
+msgid "Palette 10"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:264
+msgctxt "design-builder-token-data"
+msgid "Palette 10 Contrast"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:265
+msgctxt "design-builder-token-data"
+msgid "Background Alt"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:266
+msgctxt "design-builder-token-data"
+msgid "Manual companion token for subtle background surfaces."
+msgstr ""

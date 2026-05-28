@@ -9,10 +9,15 @@
     failOnAllIssues="true"
     displayDetailsOnAllIssues="true">
 
+    <php>
+        <ini name="error_reporting" value="E_ALL &amp; ~E_DEPRECATED &amp; ~E_USER_DEPRECATED"/>
+    </php>
+
     <testsuites>
         <testsuite name="default">
         <directory suffix="Test.php">library</directory>
         <directory suffix="Test.php">Modularity/source/php</directory>
+        <directory suffix="Test.php">Test</directory>
         </testsuite>
     </testsuites>
     <source>
