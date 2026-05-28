@@ -18,10 +18,6 @@ class ChatEnqueue implements Hookable
 
     public function addHooks(): void
     {
-        if (!$this->config->isEnabled()) {
-            return;
-        }
-
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueue']);
     }
 

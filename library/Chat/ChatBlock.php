@@ -20,7 +20,7 @@ class ChatBlock implements Hookable {
 
     public function addHooks(): void
     {
-        if (!$this->config->isEnabled() || empty($this->config->getAssistants())) {
+        if (empty($this->config->getAssistants())) {
             return;
         }
 

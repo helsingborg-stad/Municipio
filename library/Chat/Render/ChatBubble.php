@@ -17,7 +17,7 @@ class ChatBubble implements Hookable
 
     public function addHooks(): void
     {
-        if (!$this->config->isEnabled() || !$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) {
+        if (!$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) {
             return;
         }
 
