@@ -370,6 +370,21 @@ class App
         $this->setUpGlobalNotices();
 
         /**
+         * Setup Kulturkortet QR Code Viewer
+         */
+        (new \Municipio\Kulturkortet\QRCodeViewer\KulturkortetQRCodeViewerFeature(
+            $this->wpService,
+            $this->wpUtilService->enqueue(),
+        ))->addHooks();
+
+        /**
+         * Setup Kulturkortet Profile Editor
+         */
+        (new \Municipio\Kulturkortet\ProfileEditor\KulturkortetProfileEditorFeature(
+            $this->wpService,
+        ))->addHooks();
+
+        /**
          * Setup Table of Contents
          */
         (new \Municipio\Toc\TocFeature($this->wpService, $this->acfService))->enable();

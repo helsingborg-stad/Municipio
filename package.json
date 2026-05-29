@@ -50,6 +50,7 @@
         "@material-symbols/font-400": "^0.34.1",
         "@material-symbols/font-600": "^0.34.1",
         "@types/jest": "^29.5.14",
+        "@types/qrcode": "^1.5.6",
         "@types/wordpress__block-editor": "^14.21.2",
         "@types/wordpress__blocks": "^12.5.18",
         "@types/wordpress__components": "^23.0.12",
@@ -96,6 +97,7 @@
         "@types/markdown-it": "^14.1.2",
         "core-js": "^3.45.0",
         "markdown-it": "^14.1.1",
+        "qrcode": "^1.5.4",
         "react": "^18.3.1"
     }
 }

@@ -77,6 +77,9 @@ const entries = {
 	"css/backdrop-banner-editor":
 		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
+	/* Kulturkortet */
+	"js/kulturkortet": "./library/Kulturkortet/QRCodeViewer/js/index.ts",
+
 	/* Chat */
 	"js/chat": "./library/Chat/js/index.ts",
 	"css/chat": "./library/Chat/css/chat.scss",

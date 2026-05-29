@@ -1,0 +1,83 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\Kulturkortet\MunicipioAuth\Visma;
+
+use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
+use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\TestCase;
+
+class VismaAuthControllerTest extends TestCase
+{
+    #[TestDox('renders anonymous view when no session and remote API login returns redirect URL')]
+    public function testRenderWhenNoSessionAndRemoteApiLoginReturnsRedirectUrl(): void
+    {
+        // Fake navigation api
+        $navigation = $this->createMock(MunicipioAuthNavigation::class);
+        $navigation->method('getHomeUrl')->willReturn('http://home.url');
+
+        // Fake Visma API
+        $api = $this->createMock(VismaApi::class);
+        $api->method('shouldRemoteGetApiSession')->willReturn(false);
+        $api->method('remoteApiLogin')->willReturn('http://redirect.url');
+
+        // Fake viewfactory
+        $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
+        $viewFactory->expects($this->once())->method('whenAnonymous')->with('http://redirect.url', $navigation)->willReturn('anonymous view');
+
+        $controller = new VismaAuthController($api);
+        $result = $controller->render($viewFactory, $navigation);
+        static::assertSame('anonymous view', $result);
+    }
+
+    #[TestDox('renders authenticated view when can get session and remote API get session returns session')]
+    public function testRenderWhenCanGetSessionAndRemoteApiGetSessionReturnsSession(): void
+    {
+        // Our expected user to be passed to view
+        $expedtedUser = new VismaAuthorizedUser(['username' => '197001011234']);
+
+        // Fake navigation api
+        $navigation = $this->createMock(MunicipioAuthNavigation::class);
+        $navigation->method('getHomeUrl')->willReturn('http://home.url');
+
+        // Fake API
+        $api = $this->createMock(VismaApi::class);
+        $api->method('shouldRemoteGetApiSession')->willReturn(true);
+        $api->method('remoteApiGetSession')->willReturn(['username' => '197001011234']);
+
+        // Ensure our expected user is returned
+        $userFactory = $this->createMock(VismaAuthorizedUserFactoryInterface::class);
+        $userFactory->method('createAuthorizedUser')->with(['username' => '197001011234'])->willReturn($expedtedUser);
+
+        // We expect the authenticated view to be rendered with the expected user
+        $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
+        $viewFactory->expects($this->once())->method('whenAuthenticated')->with($expedtedUser, $navigation)->willReturn('authenticated view');
+
+        $controller = new VismaAuthController($api);
+        $result = $controller->render($viewFactory, $navigation);
+        static::assertSame('authenticated view', $result);
+    }
+
+    #[TestDox('renders error view when no session and remote API login throws exception')]
+    public function testRenderWhenNoSessionAndRemoteApiLoginThrowsException(): void
+    {
+        // Fake navigation api
+        $navigation = $this->createMock(MunicipioAuthNavigation::class);
+        $navigation->method('getHomeUrl')->willReturn('http://home.url');
+
+        // Fake API
+        $api = $this->createMock(VismaApi::class);
+        $api->method('shouldRemoteGetApiSession')->willReturn(false);
+        $api->method('remoteApiLogin')->willThrowException(new \Exception('Login error'));
+
+        // We expect the error view to be rendered with the exception message and home URL
+        $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
+        $viewFactory->expects($this->once())->method('whenError')->with('Login error', $navigation)->willReturn('error view');
+
+        $controller = new VismaAuthController($api);
+        $result = $controller->render($viewFactory, $navigation);
+        static::assertSame('error view', $result);
+    }
+}
