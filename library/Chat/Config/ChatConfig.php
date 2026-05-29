@@ -40,7 +40,7 @@ class ChatConfig implements ChatConfigInterface
     public function getAssistants(): array
     {
         $allAssistants = $this->acfService->getField('chat_assistants', 'option');
-        return $assistants = !empty($allAssistants) && is_array($allAssistants) ? $allAssistants : [];
+        return !empty($allAssistants) && is_array($allAssistants) ? $allAssistants : [];
     }
 
     public function isPresidioEnabled(): bool
