@@ -1,3 +1,5 @@
+@include('partials.ticket')
+
 <div class="o-grid">
     <div class="o-grid-12@md">
         @card([

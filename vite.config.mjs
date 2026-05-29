@@ -79,6 +79,7 @@ const entries = {
 
 	/* Kulturkortet */
 	"js/kulturkortet": "./library/Kulturkortet/QRCodeViewer/js/index.ts",
+	"css/kulturkortet": "./library/Kulturkortet/QRCodeViewer/css/index.scss",
 
 	/* Chat */
 	"js/chat": "./library/Chat/js/index.ts",
