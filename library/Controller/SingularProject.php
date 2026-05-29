@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\Person;
 
 /**
@@ -103,13 +104,10 @@ class SingularProject extends \Municipio\Controller\Singular
             ];
         }
 
-        if (!empty($this->post->getSchemaProperty('employee')['alternateName'])) {
+        if ($employeeValue = $this->getEmployeeListItemValue()) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->contact,
-                'value' => [
-                    $this->post->getSchemaProperty('employee')['alternateName'],
-                    $this->getEmailLinkFromEmployee($this->post->getSchemaProperty('employee'))
-                ]
+                'value' => $employeeValue
             ];
         }
 
@@ -119,6 +117,28 @@ class SingularProject extends \Municipio\Controller\Singular
                 'value' => $this->data['budget']
             ];
         }
+    }
+
+    private function getEmployeeListItemValue(): ?array
+    {
+        $employees = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('employee'), Person::class);
+
+        if (empty($employees)) {
+            return null;
+        }
+
+        $value = [];
+
+        foreach ($employees as $employee) {
+            $item = '';
+            $item .= $employee['alternateName'] ?? '';
+            $item .= !empty($item) ? PHP_EOL : '';
+            $email = $this->getEmailLinkFromEmployee($employee);
+            $item .= $email ?? '';
+            $value[] = $item;
+        }
+
+        return $value;
     }
 
     /**
