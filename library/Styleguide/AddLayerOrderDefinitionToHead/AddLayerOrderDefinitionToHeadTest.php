@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Styleguide\AddLayerOrderDefinitionToHead;
 
 use Municipio\Test\GetThemeFilters;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 
 class AddLayerOrderDefinitionToHeadTest extends TestCase
@@ -15,7 +19,7 @@ class AddLayerOrderDefinitionToHeadTest extends TestCase
     public function testCanBeInstantiated(): void
     {
         $sut = new AddLayerOrderDefinitionToHead(static::createWpService());
-        $this->assertInstanceOf(AddLayerOrderDefinitionToHead::class, $sut);
+        static::assertInstanceOf(AddLayerOrderDefinitionToHead::class, $sut);
     }
 
     #[TestDox('applies filter to MarkupProcessor')]
@@ -27,13 +31,40 @@ class AddLayerOrderDefinitionToHeadTest extends TestCase
         $sut->addHooks();
 
         foreach ($wpService->addedFilters as $filter) {
-            if ($filter['hookName'] === 'Municipio\MarkupProcessor') {
-                static::assertSame([$sut, 'process'], $filter['callback']);
+            if ($filter['hookName'] !== 'Municipio\MarkupProcessor') { continue; }
+
+static::assertSame([$sut, 'process'], $filter['callback']);
                 return;
-            }
         }
 
         static::fail('Filter "Municipio\MarkupProcessor" not found');
+    }
+
+    #[TestDox('registers early admin and login hooks')]
+    public function testRegistersEarlyAdminAndLoginHooks(): void
+    {
+        $wpService = static::createWpService();
+        $sut = new AddLayerOrderDefinitionToHead($wpService);
+
+        $sut->addHooks();
+
+        static::assertSame(
+            [
+                [
+                    'hookName' => 'admin_print_styles',
+                    'callback' => [$sut, 'render'],
+                    'priority' => 0,
+                    'acceptedArgs' => 1,
+                ],
+                [
+                    'hookName' => 'login_head',
+                    'callback' => [$sut, 'render'],
+                    'priority' => 0,
+                    'acceptedArgs' => 1,
+                ],
+            ],
+            $wpService->addedActions,
+        );
     }
 
     #[TestDox('target filter is present in theme')]
@@ -56,10 +87,39 @@ class AddLayerOrderDefinitionToHeadTest extends TestCase
         static::assertStringContainsString($expectedHtml, $html);
     }
 
-    private static function createWpService(): AddFilter
+    #[TestDox('renders the style tag for admin and login heads')]
+    public function testRenderOutputsStyleTag(): void
     {
-        return new class implements AddFilter {
+        $wpService = static::createWpService();
+        $sut = new AddLayerOrderDefinitionToHead($wpService);
+
+        ob_start();
+        $sut->render();
+        $output = ob_get_clean();
+
+        static::assertSame(
+            '<style>@layer wordpress, generic, elements, objects, components, icons, utilities, theme;</style>',
+            $output,
+        );
+    }
+
+    private static function createWpService(): AddAction&AddFilter
+    {
+        return new class implements AddAction, AddFilter {
+            public array $addedActions = [];
             public array $addedFilters = [];
+
+            public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
+            {
+                $this->addedActions[] = [
+                    'hookName' => $hookName,
+                    'callback' => $callback,
+                    'priority' => $priority,
+                    'acceptedArgs' => $acceptedArgs,
+                ];
+
+                return true;
+            }
 
             public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {

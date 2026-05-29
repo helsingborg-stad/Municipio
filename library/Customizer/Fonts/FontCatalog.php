@@ -45,6 +45,7 @@ class FontCatalog implements Hookable
         $this->googleFontsCssLocaleFilter->addHooks();
         $this->wpService->addAction('init', [$this, 'migrateLegacyFonts']);
         $this->wpService->addAction('wp_head', [$this, 'printFontDeclarations'], 1);
+        $this->wpService->addAction('admin_head', [$this, 'printFontDeclarations'], 1);
     }
 
     /**
