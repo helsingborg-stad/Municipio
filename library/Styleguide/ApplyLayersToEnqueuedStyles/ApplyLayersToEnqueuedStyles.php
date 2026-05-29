@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Styleguide\ApplyLayersToEnqueuedStyles;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\GetCurrentScreen;
+use WpService\Contracts\IsAdmin;
 
 /**
  * Applies a CSS layer to specific WordPress stylesheets by filtering the style loader tag.
@@ -11,39 +16,69 @@ use WpService\Contracts\AddFilter;
 class ApplyLayersToEnqueuedStyles implements Hookable
 {
     public const HANDLES = [
-        'wp-block-library' => 'wordpress',
-        'common' => 'wordpress',
-        'edit' => 'wordpress',
         'municipio' => 'wordpress',
         'css-municipiocss' => 'theme',
+        'admin-bar' => 'theme',
+    ];
+
+    public const patterns = [
+        'wp-includes' => 'wordpress',
+        'wp-admin' => 'wordpress'
     ];
 
     public function __construct(
-        private AddFilter $wpService,
+        private AddFilter&IsAdmin&GetCurrentScreen $wpService,
     ) {}
 
     public function addHooks(): void
     {
-        $this->wpService->addFilter('style_loader_tag', [$this, 'apply'], 10, 2);
+        $this->wpService->addFilter('style_loader_tag', [$this, 'apply'], 10, 3);
     }
 
-    public function apply(string $tag, string $handle): string
+    public function apply(string $tag, string $handle, string $href): string
     {
-        if (!in_array($handle, array_keys(self::HANDLES))) {
+        // Load only in frontend and in gutenberg editor, not in wp-admin to avoid breaking admin styles.
+        if( $this->shouldApplyLayer() === false ) {
             return $tag;
         }
 
-        $url = $this->extractImportUrl($tag);
+        if ($layer = $this->getLayerByHandle($handle)) {
+            return "<style>@import url(\"{$href}\") layer({$layer});</style>";
+        }
 
-        if ($url) {
-            return "<style>@import url(\"$url\") layer(" . self::HANDLES[$handle] . ');</style>';
+        if($layer = $this->getLayerByPattern($href)) {
+            return "<style>@import url(\"{$href}\") layer({$layer});</style>";
         }
 
         return $tag;
     }
 
-    private function extractImportUrl(string $tag): ?string
+    private function shouldApplyLayer(): bool
     {
-        return preg_match('/href=[\'"]([^\'"]+)[\'"]/', $tag, $matches) ? $matches[1] : null;
+        if(!$this->wpService->isAdmin()) {
+            return true;
+        }
+        
+        if( $this->wpService->getCurrentScreen()?->is_block_editor() ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function getLayerByHandle(string $handle): ?string
+    {
+        return self::HANDLES[$handle] ?? null;
+    }
+
+    private function getLayerByPattern(string $href): ?string
+    {
+        foreach (self::patterns as $pattern => $layer) {
+            if (str_contains($href, $pattern)) {
+                return $layer;
+            }
+        }
+
+        return null;
     }
 }
