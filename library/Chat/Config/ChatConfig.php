@@ -14,55 +14,31 @@ class ChatConfig implements ChatConfigInterface
 
     public function isEnabled(): bool
     {
-        static $enabled = null;
-
-        if ($enabled !== null) {
-            return $enabled;
-        }
-
-        return $enabled = (bool) $this->acfService->getField('chat_enabled', 'option');
+        return (bool) $this->acfService->getField('chat_enabled', 'option');
     }
 
     public function isGlobalChatEnabled(): bool
     {
-        static $globalChatEnabled = null;
-
-        if ($globalChatEnabled !== null) {
-            return $globalChatEnabled;
-        }
-
-        return $globalChatEnabled = (bool) $this->acfService->getField('chat_global_enabled', 'option');
+        return (bool) $this->acfService->getField('chat_global_enabled', 'option');
     }
 
     public function getDefaultAssistant(): ?array
     {
-        static $defaultAssistant = null;
+        $defaultAssistantName = $this->acfService->getField('chat_default_assistant', 'option');
 
-        if ($defaultAssistant !== null) {
-            return $defaultAssistant;
-        }
-
-        static $defaultAssistantName = null;
-
-        if ($defaultAssistantName === null) {
-            $defaultAssistantName = $this->acfService->getField('chat_default_assistant', 'option');
+        if (!is_string($defaultAssistantName)) {
+            return null;
         }
 
         $defaultAssistantArray = array_filter($this->getAssistants(), function ($assistant) use ($defaultAssistantName) {
             return $assistant['name'] === $defaultAssistantName;
         });
 
-        return $defaultAssistant = !empty($defaultAssistantArray) ? array_shift($defaultAssistantArray) : null;
+        return !empty($defaultAssistantArray) ? array_shift($defaultAssistantArray) : null;
     }
 
     public function getAssistants(): array
     {
-        static $assistants = null;
-
-        if ($assistants !== null) {
-            return $assistants;
-        }
-
         $allAssistants = $this->acfService->getField('chat_assistants', 'option');
         return $assistants = !empty($allAssistants) && is_array($allAssistants) ? $allAssistants : [];
     }
