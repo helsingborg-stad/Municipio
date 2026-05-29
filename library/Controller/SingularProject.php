@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Controller;
 
 use Municipio\Integrations\Component\ImageResolver;
@@ -166,6 +169,6 @@ class SingularProject extends \Municipio\Controller\Singular
      */
     public function implodeTerms(array $terms): string
     {
-        return implode(', ', array_map(fn ($term) => $term->name, $terms));
+        return implode(', ', array_map(static fn ($term) => $term->name, $terms));
     }
 }
