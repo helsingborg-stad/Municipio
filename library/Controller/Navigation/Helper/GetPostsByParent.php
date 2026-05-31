@@ -28,8 +28,8 @@ class GetPostsByParent
      */
     public static function getPostsByParent(int|array $parent = 0, string|array $postType = 'page'): array
     {
-        //Check if if valid post type string
-        if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
+        //Check if valid post type string
+        if ($postType != 'all' && !is_array($postType) && !self::isSupportedPostType($postType)) {
             return [];
         }
 
@@ -39,7 +39,7 @@ class GetPostsByParent
         if (is_array($postType)) {
             $stack = [];
             foreach ($postType as $item) {
-                if (post_type_exists($item) && is_post_type_hierarchical($item)) {
+                if (self::isSupportedPostType($item)) {
                     $stack[] = $item;
                 }
             }
@@ -58,7 +58,13 @@ class GetPostsByParent
 
         //Handle post type cases
         if ($postType == 'all') {
-            $postTypeSQL = "post_type IN('" . implode("', '", get_post_types(['public' => true])) . "')";
+            $postTypes = self::getHierarchicalPublicPostTypes();
+
+            if (empty($postTypes)) {
+                return [];
+            }
+
+            $postTypeSQL = "post_type IN('" . implode("', '", $postTypes) . "')";
         } elseif (is_array($postType)) {
             $postTypeSQL = "post_type IN('" . implode("', '", $postType) . "')";
         } else {
@@ -92,7 +98,11 @@ class GetPostsByParent
         $resultSet = $localWpdb->get_results($sql, ARRAY_A);
 
         foreach ($resultSet as &$item) {
-            if ($item['post_type'] != self::$masterPostType && $item['post_parent'] == 0) {
+            if (
+                $item['post_type'] != self::$masterPostType &&
+                $item['post_parent'] == 0 &&
+                self::isSupportedPostType($item['post_type'])
+            ) {
                 $pageForPostTypeIds = array_flip((array) GetPageForPostTypeIds::getPageForPostTypeIds());
 
                 if (array_key_exists($item['post_type'], $pageForPostTypeIds)) {
@@ -103,5 +113,30 @@ class GetPostsByParent
 
         //Run query
         return (array) $resultSet;
+    }
+
+    /**
+     * Check whether a post type can participate in page-tree navigation.
+     *
+     * @param string $postType The post type to check.
+     *
+     * @return bool True when the post type exists and is hierarchical.
+     */
+    private static function isSupportedPostType(string $postType): bool
+    {
+        return post_type_exists($postType) && is_post_type_hierarchical($postType);
+    }
+
+    /**
+     * Get public post types that can participate in page-tree navigation.
+     *
+     * @return array Public hierarchical post type names.
+     */
+    private static function getHierarchicalPublicPostTypes(): array
+    {
+        return array_values(array_filter(
+            (array) get_post_types(['public' => true]),
+            static fn (string $postType): bool => self::isSupportedPostType($postType)
+        ));
     }
 }
