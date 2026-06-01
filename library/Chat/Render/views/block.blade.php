@@ -1,6 +1,10 @@
 @chat([
     'classList' => ['municipio-ai-chat', 'c-chat--flat'],
-    'attributeList' => $attributeList
+    'attributeList' => $attributeList,
+    'chatInputData' => [
+        'sendButtonText' => $lang['send'],
+        'placeholderText' => $lang['placeholder']
+    ]
 ])
     @include('partials.feedback')
 @endchat
