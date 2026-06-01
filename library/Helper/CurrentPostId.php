@@ -25,8 +25,10 @@ class CurrentPostId
             if ($pageId = get_option('page_for_' . $postType)) {
                 return self::setPageId((int) $pageId);
             }
-        }
 
+            return self::setPageId(0);
+        }
+            
         // Get the queried page
         if ($queriedObjectId = get_queried_object_id()) {
             return self::setPageId((int) $queriedObjectId);
