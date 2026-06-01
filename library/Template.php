@@ -525,10 +525,11 @@ class Template
                         $type = $types['front-page'];
                     }
 
-                    // Template slug
-                    if (get_queried_object() && get_page_template_slug()) {
+                    // Template slug should only override for singular requests.
+                    if (is_singular() && get_queried_object() && get_page_template_slug()) {
                         $type = get_page_template_slug();
                     }
+
 
                     $templatePath = \Municipio\Helper\Template::locateTemplate($type);
 
