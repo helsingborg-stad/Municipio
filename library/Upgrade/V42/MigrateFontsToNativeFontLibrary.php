@@ -49,7 +49,7 @@ class MigrateFontsToNativeFontLibrary
         }
 
         foreach ($this->fontRepository->getUploadedFonts() as $uploadedFont) {
-            if (!isset($uploadedFont['name'], $uploadedFont['url']) || $uploadedFont['name'] === '' || $uploadedFont['url'] === '') {
+            if (($uploadedFont['name'] ?? '') === '' || ($uploadedFont['url'] ?? '') === '') {
                 continue;
             }
 

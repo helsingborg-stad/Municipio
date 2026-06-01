@@ -40,7 +40,7 @@ class FontStyleguideOptionProvider
         }
 
         foreach ($this->fontRepository->getUploadedFonts() as $uploadedFont) {
-            if (!isset($uploadedFont['name']) || $uploadedFont['name'] === '') {
+            if (($uploadedFont['name'] ?? '') === '') {
                 continue;
             }
 
@@ -81,7 +81,7 @@ class FontStyleguideOptionProvider
         $uniqueOptions = [];
 
         foreach ($options as $option) {
-            if (!isset($option['value'], $option['label']) || !is_string($option['value']) || !is_string($option['label'])) {
+            if (!is_string($option['value'] ?? null) || !is_string($option['label'] ?? null)) {
                 continue;
             }
 
