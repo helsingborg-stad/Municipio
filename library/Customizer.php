@@ -3,6 +3,7 @@
 namespace Municipio;
 
 use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\Applicators\ApplicatorInterface;
 use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
 use Municipio\Customizer\Applicators\Types\Css;
@@ -177,26 +178,59 @@ class Customizer
     /**
      * Initialize applicators
      * This will apply settings from the customizer on the frontend.
-     * This also includes a cacing layer, to reduce the amount of
-     * time spent on calculating the settings.
      *
      * @return void
      */
     public function initApplicators()
     {
-        $applicators = [
+        $this->wpService->addAction('kirki_dynamic_css', [$this, 'applyApplicators'], 5);
+        $this->wpService->addAction('rest_api_init', [$this, 'applyApplicators'], 5);
+    }
+
+    /**
+     * Apply customizer applicators on supported requests.
+     *
+     * @return void
+     */
+    public function applyApplicators(): void
+    {
+        if (!$this->isFrontend()) {
+            return;
+        }
+
+        foreach ($this->getApplicators() as $applicator) {
+            $data = $applicator->getData();
+
+            if (!is_array($data) && !is_object($data)) {
+                continue;
+            }
+
+            $applicator->applyData($data);
+        }
+    }
+
+    /**
+     * Get applicators used for customizer output.
+     *
+     * @return array<int, ApplicatorInterface>
+     */
+    private function getApplicators(): array
+    {
+        return [
             new Controller($this->wpService),
             new Modifier($this->wpService),
             new Component($this->wpService),
             //new Css($this->wpService),
         ];
+    }
 
-        $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
-            $this->wpService,
-            $this->wpdb,
-            ...$applicators,
-        );
-
-        $customizerCache->addHooks();
+    /**
+     * Check if the current request is a frontend request.
+     *
+     * @return bool
+     */
+    private function isFrontend(): bool
+    {
+        return !is_admin() && !defined('WP_CLI') && !defined('WP_IMPORTING') && !defined('WP_INSTALLING');
     }
 }
