@@ -19,20 +19,12 @@ class FontCatalog implements Hookable
     /**
      * @param WpService $wpService
      * @param FontRepository $fontRepository
-     * @param GoogleFontsCssLocaleFilter $googleFontsCssLocaleFilter
      * @param FontStyleguideOptionProvider $fontStyleguideOptionProvider
-     * @param FontCatalogMigrator $fontCatalogMigrator
-     * @param GoogleFontCssPrinter $googleFontCssPrinter
-     * @param UploadedFontFacePrinter $uploadedFontFacePrinter
      */
     public function __construct(
         private readonly WpService $wpService,
         private readonly FontRepository $fontRepository,
-        private readonly GoogleFontsCssLocaleFilter $googleFontsCssLocaleFilter,
         private readonly FontStyleguideOptionProvider $fontStyleguideOptionProvider,
-        private readonly FontCatalogMigrator $fontCatalogMigrator,
-        private readonly GoogleFontCssPrinter $googleFontCssPrinter,
-        private readonly UploadedFontFacePrinter $uploadedFontFacePrinter,
     ) {}
 
     /**
@@ -42,10 +34,6 @@ class FontCatalog implements Hookable
     {
         $this->wpService->addFilter('upload_mimes', [$this->fontRepository, 'addFontMimes'], 1, 1);
         $this->wpService->addFilter('Municipio/Styleguide/Customize/TokenData/FontFamilies', [$this, 'addStyleguideFontFamilies'], 10, 1);
-        $this->googleFontsCssLocaleFilter->addHooks();
-        $this->wpService->addAction('init', [$this, 'migrateLegacyFonts']);
-        $this->wpService->addAction('wp_head', [$this, 'printFontDeclarations'], 1);
-        $this->wpService->addAction('admin_head', [$this, 'printFontDeclarations'], 1);
     }
 
     /**
@@ -60,24 +48,4 @@ class FontCatalog implements Hookable
         return $this->fontStyleguideOptionProvider->addFontFamilies($options);
     }
 
-    /**
-     * Migrates legacy font selections and media-library uploads.
-     *
-     * @return void
-     */
-    public function migrateLegacyFonts(): void
-    {
-        $this->fontCatalogMigrator->migrate();
-    }
-
-    /**
-     * Prints font declarations in the site header.
-     *
-     * @return void
-     */
-    public function printFontDeclarations(): void
-    {
-        $this->googleFontCssPrinter->printDeclarations();
-        $this->uploadedFontFacePrinter->printDeclarations();
-    }
 }

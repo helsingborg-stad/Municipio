@@ -14,10 +14,12 @@ class FontStyleguideOptionProvider
     /**
      * @param WpService $wpService
      * @param FontRepository $fontRepository
+     * @param NativeFontLibraryRepository|null $nativeFontLibraryRepository
      */
     public function __construct(
         private readonly WpService $wpService,
         private readonly FontRepository $fontRepository,
+        private readonly ?NativeFontLibraryRepository $nativeFontLibraryRepository = null,
     ) {}
 
     /**
@@ -43,6 +45,10 @@ class FontStyleguideOptionProvider
             }
 
             $options[] = $this->createFontFamilyOption((string) $uploadedFont['name']);
+        }
+
+        foreach (($this->nativeFontLibraryRepository ?? new NativeFontLibraryRepository())->getFontFamilies() as $fontFamily) {
+            $options[] = $this->createFontFamilyOption($fontFamily);
         }
 
         return $this->getUniqueOptionsByValue($options);

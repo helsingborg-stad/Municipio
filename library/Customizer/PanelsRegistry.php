@@ -72,7 +72,6 @@ class PanelsRegistry
         self::$registerInvoked = true;
         self::registerArchivePanel();
         self::registerGeneralAppearancePanel();
-        self::registerFontsPanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
         self::registerDesignLibraryPanel();

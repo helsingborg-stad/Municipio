@@ -30,11 +30,7 @@ class FontCatalogFactory
         return new FontCatalog(
             $this->wpService,
             $fontRepository,
-            new GoogleFontsCssLocaleFilter($this->wpService),
-            new FontStyleguideOptionProvider($this->wpService, $fontRepository),
-            new FontCatalogMigrator($this->wpService, new ManagedFonts(), $this->createLegacyUploadedFontRepository()),
-            new GoogleFontCssPrinter($this->wpService),
-            new UploadedFontFacePrinter($this->wpService, $fontRepository),
+            new FontStyleguideOptionProvider($this->wpService, $fontRepository, new NativeFontLibraryRepository()),
         );
     }
 

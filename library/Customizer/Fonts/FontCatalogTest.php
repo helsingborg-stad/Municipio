@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 /**
- * Tests frontend font declaration output.
+ * Tests native font library integration hooks.
  */
 class FontCatalogTest extends TestCase
 {
@@ -70,24 +70,19 @@ class FontCatalogTest extends TestCase
     {
         $wpService = new FakeWpService([
             'addFilter' => true,
-            'addAction' => true,
         ]);
 
         $fontRepository = $this->createMock(FontRepository::class);
-        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
-        $googleFontsCssLocaleFilter->expects(static::once())->method('addHooks');
         $provider = $this->createMock(FontStyleguideOptionProvider::class);
-        $migrator = $this->createMock(FontCatalogMigrator::class);
-        $googleFontPrinter = $this->createMock(GoogleFontCssPrinter::class);
-        $printer = $this->createMock(UploadedFontFacePrinter::class);
 
-        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $googleFontPrinter, $printer);
+        $fontCatalog = new FontCatalog($wpService, $fontRepository, $provider);
         $fontCatalog->addHooks();
 
         static::assertContains(
             'Municipio/Styleguide/Customize/TokenData/FontFamilies',
             array_column($wpService->methodCalls['addFilter'], 0),
         );
+        static::assertArrayNotHasKey('addAction', $wpService->methodCalls);
     }
 
     #[TestDox('addStyleguideFontFamilies() delegates to the styleguide option provider')]
@@ -98,52 +93,11 @@ class FontCatalogTest extends TestCase
         $expectedOptions = [['value' => '"Roboto", sans-serif', 'label' => 'Roboto']];
 
         $fontRepository = $this->createMock(FontRepository::class);
-        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
         $provider = $this->createMock(FontStyleguideOptionProvider::class);
         $provider->expects(static::once())->method('addFontFamilies')->with($options)->willReturn($expectedOptions);
-        $migrator = $this->createMock(FontCatalogMigrator::class);
-        $googleFontPrinter = $this->createMock(GoogleFontCssPrinter::class);
-        $printer = $this->createMock(UploadedFontFacePrinter::class);
 
-        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $googleFontPrinter, $printer);
+        $fontCatalog = new FontCatalog($wpService, $fontRepository, $provider);
 
         static::assertSame($expectedOptions, $fontCatalog->addStyleguideFontFamilies($options));
-    }
-
-    #[TestDox('migrateLegacyFonts() delegates to the catalog migrator')]
-    public function testMigrateLegacyFontsDelegatesToCatalogMigrator(): void
-    {
-        $wpService = new FakeWpService();
-
-        $fontRepository = $this->createMock(FontRepository::class);
-        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
-        $provider = $this->createMock(FontStyleguideOptionProvider::class);
-        $migrator = $this->createMock(FontCatalogMigrator::class);
-        $migrator->expects(static::once())->method('migrate');
-        $googleFontPrinter = $this->createMock(GoogleFontCssPrinter::class);
-        $printer = $this->createMock(UploadedFontFacePrinter::class);
-
-        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $googleFontPrinter, $printer);
-
-        $fontCatalog->migrateLegacyFonts();
-    }
-
-    #[TestDox('printFontDeclarations() delegates to managed Google and uploaded font printers')]
-    public function testPrintFontDeclarationsDelegatesToManagedGoogleAndUploadedFontPrinters(): void
-    {
-        $wpService = new FakeWpService();
-
-        $fontRepository = $this->createMock(FontRepository::class);
-        $googleFontsCssLocaleFilter = $this->createMock(GoogleFontsCssLocaleFilter::class);
-        $provider = $this->createMock(FontStyleguideOptionProvider::class);
-        $migrator = $this->createMock(FontCatalogMigrator::class);
-        $googleFontPrinter = $this->createMock(GoogleFontCssPrinter::class);
-        $googleFontPrinter->expects(static::once())->method('printDeclarations');
-        $printer = $this->createMock(UploadedFontFacePrinter::class);
-        $printer->expects(static::once())->method('printDeclarations');
-
-        $fontCatalog = new FontCatalog($wpService, $fontRepository, $googleFontsCssLocaleFilter, $provider, $migrator, $googleFontPrinter, $printer);
-
-        $fontCatalog->printFontDeclarations();
     }
 }
