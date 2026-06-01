@@ -17,15 +17,15 @@ class ChatBubble implements Hookable
 
     public function addHooks(): void
     {
-        if (!$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) {
-            return;
-        }
-
         $this->wpService->addAction('wp_footer', [$this, 'render']);
     }
 
     public function render(): void
     {
+        if (!$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) {
+            return;
+        }
+
         $config = new ChatRenderConfig(
             $this->wpService,
             $this->config,
