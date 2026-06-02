@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Municipio\Customizer\Fonts;
 
 /**
- * Aggregates managed and legacy uploaded fonts.
+ * Reads managed uploaded fonts exposed by the current font catalog.
  */
 class FontRepository
 {
     /**
      * @param ManagedUploadedFontRepository $managedUploadedFontRepository
-     * @param LegacyUploadedFontRepository $legacyUploadedFontRepository
      */
     public function __construct(
         private readonly ManagedUploadedFontRepository $managedUploadedFontRepository,
-        private readonly LegacyUploadedFontRepository $legacyUploadedFontRepository,
     ) {}
 
     /**
@@ -27,19 +25,19 @@ class FontRepository
      */
     public function addFontMimes(array $mimes): array
     {
-        return $this->legacyUploadedFontRepository->addFontMimes($mimes);
+        $mimes['woff'] = 'application/font-woff';
+        $mimes['woff2'] = 'application/font-woff2';
+
+        return $mimes;
     }
 
     /**
-     * Returns uploaded fonts from both managed settings and legacy uploads.
+     * Returns uploaded fonts from managed settings.
      *
      * @return array<string, array{id: int, name: string, type: string, url: string}>
      */
     public function getUploadedFonts(): array
     {
-        return array_replace(
-            $this->legacyUploadedFontRepository->getFonts(),
-            $this->managedUploadedFontRepository->getFonts(),
-        );
+        return $this->managedUploadedFontRepository->getFonts();
     }
 }

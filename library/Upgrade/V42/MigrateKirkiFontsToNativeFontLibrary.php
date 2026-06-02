@@ -6,7 +6,6 @@ namespace Municipio\Upgrade\V42;
 
 use Closure;
 use Municipio\Customizer\Fonts\FontCatalog;
-use Municipio\Customizer\Fonts\FontSettings;
 use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use WpService\WpService;
 
@@ -17,6 +16,20 @@ use WpService\WpService;
 class MigrateKirkiFontsToNativeFontLibrary
 {
     public const MIGRATION_SETTING = 'municipio_native_font_library_kirki_fonts_migrated';
+
+    /**
+     * Known typography settings containing legacy font family selections.
+     *
+     * @var array<int, string>
+     */
+    private const FONT_SETTING_KEYS = [
+        'typography_base',
+        'typography_heading',
+        'typography_bold',
+        'typography_italic',
+        'typography_lead',
+        'header_brand_font_settings',
+    ];
 
     /**
      * @var Closure(): array<string, array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}>
@@ -91,7 +104,7 @@ class MigrateKirkiFontsToNativeFontLibrary
         $catalogFonts = is_array($catalogFonts) ? array_values(array_filter(array_map('strval', $catalogFonts))) : [];
 
         $selectedFamilies = array_values(array_unique(array_merge(
-            FontSettings::getSelectedFontFamiliesFromThemeMods($this->wpService),
+            $this->getSelectedFontFamiliesFromThemeMods(),
             $catalogFonts,
         )));
 
@@ -140,6 +153,28 @@ class MigrateKirkiFontsToNativeFontLibrary
         }
 
         return $normalizedFonts;
+    }
+
+    /**
+     * Returns legacy font families currently selected in typography theme mods.
+     *
+     * @return array<int, string>
+     */
+    private function getSelectedFontFamiliesFromThemeMods(): array
+    {
+        $fontFamilies = [];
+
+        foreach (self::FONT_SETTING_KEYS as $settingKey) {
+            $value = $this->wpService->getThemeMod($settingKey, []);
+
+            if (!is_array($value) || !array_key_exists('font-family', $value) || $value['font-family'] === '') {
+                continue;
+            }
+
+            $fontFamilies[] = (string) $value['font-family'];
+        }
+
+        return array_values(array_unique($fontFamilies));
     }
 
     /**

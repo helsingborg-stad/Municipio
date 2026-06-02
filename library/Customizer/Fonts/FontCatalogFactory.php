@@ -41,10 +41,7 @@ class FontCatalogFactory
      */
     public function createFontRepository(): FontRepository
     {
-        return new FontRepository(
-            $this->createManagedUploadedFontRepository(),
-            $this->createLegacyUploadedFontRepository(),
-        );
+        return new FontRepository($this->createManagedUploadedFontRepository());
     }
 
     /**
@@ -55,19 +52,6 @@ class FontCatalogFactory
     private function createManagedUploadedFontRepository(): ManagedUploadedFontRepository
     {
         return new ManagedUploadedFontRepository(
-            $this->wpService,
-            $this->createUploadedFontMapper(),
-        );
-    }
-
-    /**
-     * Creates the legacy uploaded font repository.
-     *
-     * @return LegacyUploadedFontRepository
-     */
-    private function createLegacyUploadedFontRepository(): LegacyUploadedFontRepository
-    {
-        return new LegacyUploadedFontRepository(
             $this->wpService,
             $this->createUploadedFontMapper(),
         );

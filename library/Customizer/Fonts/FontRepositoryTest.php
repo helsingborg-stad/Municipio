@@ -12,8 +12,8 @@ use PHPUnit\Framework\TestCase;
  */
 class FontRepositoryTest extends TestCase
 {
-    #[TestDox('getUploadedFonts() preserves multiple files for the same font family')]
-    public function testGetUploadedFontsPreservesMultipleFilesForTheSameFontFamily(): void
+    #[TestDox('getUploadedFonts() returns managed uploaded fonts')]
+    public function testGetUploadedFontsReturnsManagedUploadedFonts(): void
     {
         $managedUploadedFontRepository = $this->createMock(ManagedUploadedFontRepository::class);
         $managedUploadedFontRepository
@@ -28,41 +28,10 @@ class FontRepositoryTest extends TestCase
                 ],
             ]);
 
-        $legacyUploadedFontRepository = $this->createMock(LegacyUploadedFontRepository::class);
-        $legacyUploadedFontRepository
-            ->expects(static::once())
-            ->method('getFonts')
-            ->willReturn([
-                'Roboto|https://example.com/roboto.woff2' => [
-                    'id' => 10,
-                    'name' => 'Roboto',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/roboto.woff2',
-                ],
-                'Inter|https://example.com/inter-legacy.woff2' => [
-                    'id' => 11,
-                    'name' => 'Inter',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/inter-legacy.woff2',
-                ],
-            ]);
-
-        $repository = new FontRepository($managedUploadedFontRepository, $legacyUploadedFontRepository);
+        $repository = new FontRepository($managedUploadedFontRepository);
 
         static::assertSame(
             [
-                'Roboto|https://example.com/roboto.woff2' => [
-                    'id' => 10,
-                    'name' => 'Roboto',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/roboto.woff2',
-                ],
-                'Inter|https://example.com/inter-legacy.woff2' => [
-                    'id' => 11,
-                    'name' => 'Inter',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/inter-legacy.woff2',
-                ],
                 'Inter|https://example.com/inter-managed.woff2' => [
                     'id' => 21,
                     'name' => 'Inter',
@@ -74,27 +43,18 @@ class FontRepositoryTest extends TestCase
         );
     }
 
-    #[TestDox('addFontMimes() delegates to the legacy repository')]
-    public function testAddFontMimesDelegatesToTheLegacyRepository(): void
+    #[TestDox('addFontMimes() adds WOFF mime types')]
+    public function testAddFontMimesAddsWoffMimeTypes(): void
     {
         $managedUploadedFontRepository = $this->createMock(ManagedUploadedFontRepository::class);
 
-        $legacyUploadedFontRepository = $this->createMock(LegacyUploadedFontRepository::class);
-        $legacyUploadedFontRepository
-            ->expects(static::once())
-            ->method('addFontMimes')
-            ->with(['jpg' => 'image/jpeg'])
-            ->willReturn([
-                'jpg' => 'image/jpeg',
-                'woff' => 'application/font-woff',
-            ]);
-
-        $repository = new FontRepository($managedUploadedFontRepository, $legacyUploadedFontRepository);
+        $repository = new FontRepository($managedUploadedFontRepository);
 
         static::assertSame(
             [
                 'jpg' => 'image/jpeg',
                 'woff' => 'application/font-woff',
+                'woff2' => 'application/font-woff2',
             ],
             $repository->addFontMimes(['jpg' => 'image/jpeg']),
         );
