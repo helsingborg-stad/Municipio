@@ -56,6 +56,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
             'getPosts' => [],
             'wpInsertPost' => static fn(array $postarr): int => $postarr['post_type'] === 'wp_font_family' ? 71 : 72,
             'addPostMeta' => true,
+            'wpDeletePost' => null,
         ]);
 
         (new LegacyUploadedFontsMigrator($wpService))->migrate();
@@ -75,6 +76,10 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
         static::assertSame('abeezee.woff2', $wpService->methodCalls['wpHandleSideload'][0][0]['name']);
         static::assertSame([['upload_dir', '_wp_filter_font_directory']], $wpService->methodCalls['addFilter']);
         static::assertSame([['upload_dir', '_wp_filter_font_directory']], $wpService->methodCalls['removeFilter']);
+        static::assertContains(
+            [LegacyUploadedFontsMigrator::MIGRATION_SETTING, true],
+            $wpService->methodCalls['setThemeMod'],
+        );
 
         if (file_exists($sourceFile)) {
             unlink($sourceFile);
@@ -133,5 +138,53 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
         static::assertContains('font/ttf', $mimeTypes);
         static::assertContains('font/woff', $mimeTypes);
         static::assertContains('font/woff2', $mimeTypes);
+    }
+
+    #[TestDox('migrate() ignores attachment slug collisions and still creates native font families for uploaded fonts')]
+    public function testMigrateIgnoresAttachmentSlugCollisionsWhenCreatingNativeFontFamilies(): void
+    {
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === LegacyUploadedFontsMigrator::MIGRATION_SETTING ? false : $default,
+            'setThemeMod' => true,
+            'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
+            'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
+            'wpJsonEncode' => static fn(mixed $value): string|false => json_encode($value),
+            'wpSlash' => static fn(string|array $value): string|array => is_string($value) ? addslashes($value) : $value,
+            'isWpError' => false,
+            'getPageByPath' => [
+                'ID' => 4076,
+                'post_type' => 'attachment',
+            ],
+            'getPosts' => [],
+            'wpInsertPost' => static fn(array $postarr): int => $postarr['post_type'] === 'wp_font_family' ? 91 : 92,
+            'addPostMeta' => true,
+        ]);
+
+        (new LegacyUploadedFontsMigrator(
+            $wpService,
+            static fn(): array => [[
+                'id' => 0,
+                'name' => 'Helsingborg Sans Bold',
+                'type' => 'woff',
+                'url' => 'https://media.helsingborg.se/uploads/networks/4/sites/131/2023/01/helsingborg-sans-bold.woff',
+            ]],
+            static fn(array $font): ?array => [
+                'source' => $font['url'],
+                'fontFile' => null,
+            ],
+        ))->migrate();
+
+        static::assertSame(
+            ['wp_font_family', 'wp_font_face'],
+            array_values(array_map(
+                static fn(array $call): string => (string) $call[0]['post_type'],
+                $wpService->methodCalls['wpInsertPost'],
+            )),
+        );
+        static::assertSame(91, $wpService->methodCalls['wpInsertPost'][1][0]['post_parent']);
+        static::assertContains(
+            [LegacyUploadedFontsMigrator::MIGRATION_SETTING, true],
+            $wpService->methodCalls['setThemeMod'],
+        );
     }
 }

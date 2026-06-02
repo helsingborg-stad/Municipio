@@ -38,7 +38,7 @@ trait InteractsWithNativeFontLibrary
 
         $existingPost = $this->getWpService()->getPageByPath($slug, 'OBJECT', 'wp_font_family');
 
-        if (is_object($existingPost) && property_exists($existingPost, 'ID')) {
+        if (is_object($existingPost) && property_exists($existingPost, 'ID') && property_exists($existingPost, 'post_type') && $existingPost->post_type === 'wp_font_family') {
             return (int) $existingPost->ID;
         }
 

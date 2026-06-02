@@ -70,20 +70,26 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
             return;
         }
 
+        $attachmentsToDelete = [];
+        $allFontsMigrated = true;
+
         foreach (($this->uploadedFontsProvider)() as $font) {
             if (($font['name'] ?? '') === '' || ($font['url'] ?? '') === '') {
+                $allFontsMigrated = false;
                 continue;
             }
 
             $fontFamilyPostId = $this->createNativeFontFamilyIfMissing((string) $font['name']);
 
             if ($fontFamilyPostId === null) {
+                $allFontsMigrated = false;
                 continue;
             }
 
             $resolvedSource = ($this->fontSourceResolver)($font);
 
             if (!is_array($resolvedSource) || ($resolvedSource['source'] ?? '') === '') {
+                $allFontsMigrated = false;
                 continue;
             }
 
@@ -95,9 +101,38 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
                 '100 900',
                 isset($resolvedSource['fontFile']) && is_string($resolvedSource['fontFile']) ? $resolvedSource['fontFile'] : null,
             );
+
+            if (!$this->nativeFontFaceExists($fontFamilyPostId, (string) $resolvedSource['source'])) {
+                $allFontsMigrated = false;
+                continue;
+            }
+
+            if (($font['id'] ?? 0) > 0) {
+                $attachmentsToDelete[] = (int) $font['id'];
+            }
+        }
+
+        if ($allFontsMigrated) {
+            $this->cleanupLegacyUploadedFonts(array_values(array_unique($attachmentsToDelete)));
         }
 
         $this->wpService->setThemeMod(self::MIGRATION_SETTING, true);
+    }
+
+    /**
+     * @param array<int, int> $attachmentIds
+     */
+    private function cleanupLegacyUploadedFonts(array $attachmentIds): void
+    {
+        $this->wpService->setThemeMod(self::LEGACY_UPLOADED_FONTS_SETTING, []);
+
+        foreach ($attachmentIds as $attachmentId) {
+            if ($attachmentId <= 0) {
+                continue;
+            }
+
+            $this->wpService->wpDeletePost($attachmentId, true);
+        }
     }
 
     /**
