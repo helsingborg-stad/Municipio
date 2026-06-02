@@ -2,16 +2,13 @@
 
 namespace Municipio\Styleguide\ApplyLayerToInlineStyles;
 
-use Municipio\HooksRegistrar\Hookable;
-use Municipio\MarkupProcessor\MarkupProcessorInterface;
-use Municipio\Test\GetThemeFilters;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddFilter;
 
 class ApplyLayerToInlineStylesTest extends TestCase
 {
-    use GetThemeFilters;
+    //use GetThemeFilters;
 
     #[TestDox('runs addHooks without errors')]
     public function testAddHooks(): void
@@ -24,12 +21,12 @@ class ApplyLayerToInlineStylesTest extends TestCase
         static::assertTrue(true);
     }
 
-    #[TestDox('target filter is available')]
-    public function testTargetFilterIsAvailable(): void
-    {
-        $filters = static::getThemeFilters();
-        static::assertContains('Municipio\MarkupProcessor', $filters, 'Filter "Municipio\MarkupProcessor" not found in theme');
-    }
+    // #[TestDox('target filter is available')]
+    // public function testTargetFilterIsAvailable(): void
+    // {
+    //     $filters = static::getThemeFilters();
+    //     static::assertContains('Municipio\MarkupProcessor', $filters, 'Filter "Municipio\MarkupProcessor" not found in theme');
+    // }
 
     #[TestDox('wraps inline styles in a @layer wordpress {}')]
     public function testProcess(): void

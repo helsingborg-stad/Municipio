@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Modularity\Helper;
 
 use AcfService\Implementations\FakeAcfService;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class AcfServiceTest extends TestCase
 {
     #[TestDox('::get throws an exception when AcfService is not set')]
-    #[RunInSeparateProcess]
     public function testGetThrowsAnExceptionWhenAcfServiceIsNotSet()
     {
         $this->expectException(\RuntimeException::class);

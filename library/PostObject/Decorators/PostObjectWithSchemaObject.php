@@ -2,7 +2,6 @@
 
 namespace Municipio\PostObject\Decorators;
 
-use AllowDynamicProperties;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
@@ -12,9 +11,10 @@ use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
  *
  * @package Municipio\PostObject\Decorators
  */
-#[AllowDynamicProperties]
 class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements PostObjectInterface
 {
+    private ?BaseType $schemaObject = null;
+
     /**
      * Constructor.
      */
@@ -44,11 +44,11 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
      */
     public function getSchema(): BaseType
     {
-        if (!isset($this->postObject->schemaObject)) {
-            return @$this->postObject->schemaObject = $this->schemaObjectFromPost->create($this->postObject);
+        if ($this->schemaObject === null) {
+            $this->schemaObject = $this->schemaObjectFromPost->create($this->postObject);
         }
 
-        return $this->postObject->schemaObject;
+        return $this->schemaObject;
     }
 
     /**

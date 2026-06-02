@@ -3,7 +3,6 @@
 namespace Municipio\Helper\Term;
 
 use AcfService\Implementations\FakeAcfService;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WP_Error;
@@ -55,7 +54,6 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermColor() returns the colour of the term if it has one')]
-    #[RunInSeparateProcess]
     public function testGetTermColorReturnsTheColourOfTheTermIfItHasOne()
     {
         $acfService     = new FakeAcfService(['getField' => '#000000']);
@@ -67,12 +65,12 @@ class TermTest extends TestCase
             'applyFilters' => fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
+        $termHelper::$cache = []; // Reset cache before test
 
         $this->assertEquals('#000000', $termHelper->getTermColor(123, 'category'));
     }
 
     #[TestDox('getTermColor() prepends a hash to the colour if it does not have one')]
-    #[RunInSeparateProcess]
     public function testGetTermColorPrependsAHashToTheColourIfItDoesNotHaveOne()
     {
         $acfService     = new FakeAcfService(['getField' => '000000']);
@@ -130,18 +128,17 @@ class TermTest extends TestCase
     }
 
     #[TestDox('getTermIcon() returns false if term can not be found by ID or slug')]
-    #[RunInSeparateProcess]
     public function testGetTermIconReturnsFalseIfTermCanNotBeFoundByIdOrSlug()
     {
         $wpService  = new FakeWpService(['getTermBy' => false]);
         $termHelper = new Term($wpService, new FakeAcfService());
+        $termHelper::$cache = []; // Reset cache before test
 
         $this->assertFalse($termHelper->getTermIcon(123, 'category'));
         $this->assertFalse($termHelper->getTermIcon('non-existing-slug', 'category'));
     }
 
     #[TestDox('getTermIcon() returns false if term has no icon')]
-    #[RunInSeparateProcess]
     public function testGetTermIconReturnsFalseIfTermHasNoIcon()
     {
         $acfService     = new FakeAcfService(['getField' => null]);
@@ -153,12 +150,12 @@ class TermTest extends TestCase
             'applyFilters' => fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
+        $termHelper::$cache = []; // Reset cache before test
 
         $this->assertFalse($termHelper->getTermIcon(123, 'category'));
     }
 
     #[TestDox('getTermIcon() returns the icon of the term if it has one')]
-    #[RunInSeparateProcess]
     public function testGetTermIconReturnsTheIconOfTheTermIfItHasOne()
     {
         $acfService     = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
@@ -170,12 +167,12 @@ class TermTest extends TestCase
             'applyFilters' => fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
+        $termHelper::$cache = []; // Reset cache before test
 
         $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
     }
 
     #[TestDox('getTermIcon() returns the SVG icon of the term if it has one')]
-    #[RunInSeparateProcess]
     public function testGetTermIconReturnsTheSvgIconOfTheTermIfItHasOne()
     {
         $term           = new WP_Term([]);
@@ -193,6 +190,7 @@ class TermTest extends TestCase
             'applyFilters'            => fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
+        $termHelper::$cache = []; // Reset cache before test
         $icon           = $termHelper->getTermIcon(123, 'category');
 
         $this->assertEquals('attachment-url', $icon['src']);
@@ -214,6 +212,7 @@ class TermTest extends TestCase
 
         $termHelper     = new Term($wpService, $acfService);
 
+        $termHelper::$cache = []; // Reset cache before test
         $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
         $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
 

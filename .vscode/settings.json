@@ -11,6 +11,12 @@
 		}
 	],
 	"[php]": {
-		"editor.defaultFormatter": "jkillian.custom-local-formatters"
+		"editor.defaultFormatter": "jkillian.custom-local-formatters",
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": false,
+			"strings": false
+		},
+		"editor.suggestOnTriggerCharacters": true
 	}
 }

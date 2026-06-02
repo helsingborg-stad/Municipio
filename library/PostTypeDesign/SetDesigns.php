@@ -20,6 +20,8 @@ class SetDesigns implements Hookable
      */
     private $postType = false;
 
+    public static array|null $cache = null;
+
     /**
      * Class SetDesigns
      *
@@ -53,15 +55,14 @@ class SetDesigns implements Hookable
      */
     public function getDesignOption(): array
     {
-        static $designOption;
-
-        if (!is_null($designOption)) {
-            return $designOption;
+        if (!is_null(static::$cache)) {
+            return static::$cache;
         }
 
         $designOption = $this->wpService->getOption($this->optionName, []);
+        static::$cache = $designOption;
 
-        return $designOption;
+        return static::$cache;
     }
 
     /**

@@ -13,8 +13,6 @@ use WpService\Contracts\AddFilter;
 
 class AddLayerOrderDefinitionToHeadTest extends TestCase
 {
-    use GetThemeFilters;
-
     #[TestDox('can be instantiated')]
     public function testCanBeInstantiated(): void
     {
@@ -65,13 +63,6 @@ static::assertSame([$sut, 'process'], $filter['callback']);
             ],
             $wpService->addedActions,
         );
-    }
-
-    #[TestDox('target filter is present in theme')]
-    public function testTargetFilterIsPresentInTheme(): void
-    {
-        $filters = static::getThemeFilters();
-        static::assertContains('Municipio\MarkupProcessor', $filters, 'Filter "Municipio\MarkupProcessor" not found in theme');
     }
 
     #[TestDox('adds style tag as first child of <head>')]

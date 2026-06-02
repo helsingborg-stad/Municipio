@@ -2,7 +2,6 @@
 
 namespace Municipio\ProgressReporter\HttpHeader;
 
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +20,6 @@ class HttpHeaderTest extends TestCase
     }
 
     #[TestDox('sendHeader() method sends headers')]
-    #[RunInSeparateProcess]
     public function testSendHeaderMethodSendsHeaders()
     {
         ob_start();
@@ -40,9 +38,11 @@ class HttpHeaderTest extends TestCase
 
     private function mockHeaderFunction()
     {
-        function header(string $header, bool $replace = true, int $httpResponseCode = 0)
-        {
-            echo $header;
+        if (!function_exists(__NAMESPACE__ . '\\header')) {
+            function header(string $header, bool $replace = true, int $httpResponseCode = 0)
+            {
+                echo $header;
+            }
         }
     }
 }

@@ -4,7 +4,6 @@ namespace Municipio\PostTypeDesign;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\PostTypeDesign\SetDesigns;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
@@ -65,7 +64,6 @@ class SetDesignsTest extends TestCase
         $this->assertEquals('value', $result);
     }
 
-    #[RunInSeparateProcess]
     public function testSetDesignReturnsOptionValueIfFound()
     {
         $wpService = $this->getWpService([
@@ -80,6 +78,7 @@ class SetDesignsTest extends TestCase
         ]);
 
         $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
+        $setDesignsInstance::$cache = null; // Reset cache to ensure getOption is called
 
         $result = $setDesignsInstance->setDesign('value', 'post_type_design');
 
@@ -102,7 +101,6 @@ class SetDesignsTest extends TestCase
         $this->assertEmpty($output);
     }
 
-    #[RunInSeparateProcess]
     public function testInlineCssAddsIfNotEmpty()
     {
         $wpService = $this->getWpService([
@@ -112,6 +110,7 @@ class SetDesignsTest extends TestCase
         ]);
 
         $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
+        $setDesignsInstance::$cache = null; // Reset cache to ensure getOption is called
         ob_start();
         $setDesignsInstance->addInlineCss();
         $output = ob_get_clean();

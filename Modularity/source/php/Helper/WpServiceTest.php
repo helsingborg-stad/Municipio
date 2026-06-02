@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modularity\Helper;
 
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -12,7 +11,6 @@ use WpService\Implementations\FakeWpService;
 class WpServiceTest extends TestCase
 {
     #[TestDox('::get throws an exception when WpService is not set')]
-    #[RunInSeparateProcess]
     public function testGetThrowsAnExceptionWhenWpServiceIsNotSet()
     {
         $this->expectException(\RuntimeException::class);

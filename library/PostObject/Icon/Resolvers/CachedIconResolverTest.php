@@ -3,6 +3,7 @@
 namespace Municipio\PostObject\Icon\Resolvers;
 
 use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class CachedIconResolverTest extends TestCase
@@ -15,7 +16,6 @@ class CachedIconResolverTest extends TestCase
     }
 
     #[TestDox('resolve() caches result from inner resolver')]
-    #[RunInSeparateProcess]
     public function testResolveCachesResultFromInnerResolver()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
