@@ -22,6 +22,12 @@ $_: kulturkortet-ticket;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background-color: var(--color--surface);
+        color: var(--color--surface-contrast);
+        padding: calc(var(--base) * 2);
     }
     .#{$_}__remaining-days-number {
         font-size: var(--font-size-700);
