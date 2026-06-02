@@ -364,7 +364,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
             'name' => $fileName,
             'tmp_name' => $temporaryFile,
             'error' => 0,
-            'size' => function_exists('filesize') ? (int) filesize($temporaryFile) : 0,
+            'size' => (int) filesize($temporaryFile),
         ];
 
         $overrides = [

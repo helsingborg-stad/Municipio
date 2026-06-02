@@ -29,6 +29,9 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
             'setThemeMod' => true,
             'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
             'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
+            'wpJsonEncode' => static fn(mixed $value): string|false => json_encode($value),
+            'wpSlash' => static fn(string|array $value): string|array => is_string($value) ? addslashes($value) : $value,
+            'isWpError' => false,
             'getPageByPath' => null,
             'wpGetAttachmentUrl' => 'http://example.com/wp-content/uploads/2023/10/abeezee.woff2',
             'wpCheckFiletypeAndExt' => ['ext' => 'woff2'],
@@ -69,8 +72,8 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
         );
         static::assertSame([[72, '_wp_font_face_file', 'abeezee.woff2']], $wpService->methodCalls['addPostMeta']);
         static::assertSame('abeezee.woff2', $wpService->methodCalls['wpHandleSideload'][0][0]['name']);
-        static::assertSame([['upload_dir', '_wp_filter_font_directory', 10, 1]], $wpService->methodCalls['addFilter']);
-        static::assertSame([['upload_dir', '_wp_filter_font_directory', 10]], $wpService->methodCalls['removeFilter']);
+        static::assertSame([['upload_dir', '_wp_filter_font_directory']], $wpService->methodCalls['addFilter']);
+        static::assertSame([['upload_dir', '_wp_filter_font_directory']], $wpService->methodCalls['removeFilter']);
 
         if (file_exists($sourceFile)) {
             unlink($sourceFile);

@@ -259,11 +259,7 @@ class MigrateUploadedFontsToNativeFontLibrary
      */
     private function installAttachmentInFontDirectory(int $attachmentId): ?array
     {
-        if (!function_exists('get_attached_file')) {
-            return null;
-        }
-
-        $filePath = get_attached_file($attachmentId);
+        $filePath = $this->wpService->getAttachedFile($attachmentId);
 
         if (!is_string($filePath) || $filePath === '') {
             return null;
@@ -355,7 +351,7 @@ class MigrateUploadedFontsToNativeFontLibrary
         }
 
         if (!copy($sourceRealPath, $temporaryFile)) {
-            if (function_exists('unlink') && file_exists($temporaryFile)) {
+            if (file_exists($temporaryFile)) {
                 unlink($temporaryFile);
             }
 
@@ -372,7 +368,7 @@ class MigrateUploadedFontsToNativeFontLibrary
             'name' => $fileName,
             'tmp_name' => $temporaryFile,
             'error' => 0,
-            'size' => function_exists('filesize') ? (int) filesize($temporaryFile) : 0,
+            'size' => (int) filesize($temporaryFile),
         ];
 
         $overrides = [
@@ -383,18 +379,14 @@ class MigrateUploadedFontsToNativeFontLibrary
             $overrides['mimes'] = \WP_Font_Utils::get_allowed_font_mime_types();
         }
 
-        if (function_exists('add_filter') && function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
-            add_filter('upload_dir', '_wp_filter_font_directory');
-        }
+        $this->wpService->addFilter('upload_dir', '_wp_filter_font_directory');
 
         $sideloadedFile = $this->wpService->wpHandleSideload($file, $overrides);
 
-        if (function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
-            remove_filter('upload_dir', '_wp_filter_font_directory');
-        }
+        $this->wpService->removeFilter('upload_dir', '_wp_filter_font_directory');
 
         if (!is_array($sideloadedFile) || empty($sideloadedFile['file']) || empty($sideloadedFile['url'])) {
-            if (function_exists('file_exists') && file_exists($temporaryFile) && function_exists('unlink')) {
+            if (file_exists($temporaryFile)) {
                 unlink($temporaryFile);
             }
 

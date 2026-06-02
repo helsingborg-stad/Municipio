@@ -302,7 +302,7 @@ class MigrateKirkiFontsToNativeFontLibrary
             'name' => $fileName,
             'tmp_name' => $temporaryFile,
             'error' => 0,
-            'size' => function_exists('filesize') ? (int) filesize($temporaryFile) : 0,
+            'size' => (int) filesize($temporaryFile),
         ];
 
         $overrides = [
@@ -313,18 +313,14 @@ class MigrateKirkiFontsToNativeFontLibrary
             $overrides['mimes'] = \WP_Font_Utils::get_allowed_font_mime_types();
         }
 
-        if (function_exists('add_filter') && function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
-            add_filter('upload_dir', '_wp_filter_font_directory');
-        }
+        $this->wpService->addFilter('upload_dir', '_wp_filter_font_directory');
 
         $sideloadedFile = $this->wpService->wpHandleSideload($file, $overrides);
 
-        if (function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
-            remove_filter('upload_dir', '_wp_filter_font_directory');
-        }
+        $this->wpService->removeFilter('upload_dir', '_wp_filter_font_directory');
 
         if (!is_array($sideloadedFile) || empty($sideloadedFile['file']) || empty($sideloadedFile['url'])) {
-            if (function_exists('file_exists') && file_exists($temporaryFile) && function_exists('unlink')) {
+            if (file_exists($temporaryFile)) {
                 unlink($temporaryFile);
             }
 
@@ -622,11 +618,7 @@ class MigrateKirkiFontsToNativeFontLibrary
 
     private function createFontSlug(string $fontName): string
     {
-        if (function_exists('sanitize_title')) {
-            return (string) sanitize_title($fontName);
-        }
-
-        return trim((string) preg_replace('/[^a-z0-9]+/', '-', strtolower($fontName)), '-');
+        return $this->wpService->sanitizeTitle($fontName);
     }
 
     /**
@@ -653,17 +645,17 @@ class MigrateKirkiFontsToNativeFontLibrary
      */
     private function preparePostContent(array $postContent): string
     {
-        $json = function_exists('wp_json_encode') ? (string) wp_json_encode($postContent) : (string) json_encode($postContent);
+        $json = $this->wpService->wpJsonEncode($postContent);
 
-        if (function_exists('wp_slash')) {
-            $slashedJson = wp_slash($json);
+        if (is_string($json) && $json !== '') {
+            $slashedJson = $this->wpService->wpSlash($json);
 
             if (is_string($slashedJson)) {
                 return $slashedJson;
             }
         }
 
-        return addslashes($json);
+        return addslashes(is_string($json) ? $json : (string) json_encode($postContent));
     }
 
     /**
@@ -690,7 +682,7 @@ class MigrateKirkiFontsToNativeFontLibrary
 
             $collectionData = $collection->get_data();
 
-            if (function_exists('is_wp_error') && is_wp_error($collectionData) || !is_array($collectionData)) {
+            if ($this->wpService->isWpError($collectionData) || !is_array($collectionData)) {
                 continue;
             }
 

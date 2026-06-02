@@ -172,17 +172,17 @@ trait InteractsWithNativeFontLibrary
      */
     private function prepareNativeFontPostContent(array $settings): string
     {
-        $json = function_exists('wp_json_encode') ? (string) wp_json_encode($settings) : (string) json_encode($settings);
+        $json = $this->getWpService()->wpJsonEncode($settings);
 
-        if (function_exists('wp_slash')) {
-            $slashedJson = wp_slash($json);
+        if (is_string($json) && $json !== '') {
+            $slashedJson = $this->getWpService()->wpSlash($json);
 
             if (is_string($slashedJson)) {
                 return $slashedJson;
             }
         }
 
-        return addslashes($json);
+        return addslashes(is_string($json) ? $json : (string) json_encode($settings));
     }
 
     /**
@@ -200,8 +200,11 @@ trait InteractsWithNativeFontLibrary
 
         $sourceSignature = substr(
             md5(
-                function_exists('wp_json_encode')
-                    ? (string) wp_json_encode([
+                is_string($this->getWpService()->wpJsonEncode([
+                    'src' => $fontFaceSettings['src'] ?? [],
+                    'unicodeRange' => $fontFaceSettings['unicodeRange'] ?? '',
+                ]))
+                    ? (string) $this->getWpService()->wpJsonEncode([
                         'src' => $fontFaceSettings['src'] ?? [],
                         'unicodeRange' => $fontFaceSettings['unicodeRange'] ?? '',
                     ])
@@ -219,6 +222,6 @@ trait InteractsWithNativeFontLibrary
 
     private function isWpError(mixed $value): bool
     {
-        return function_exists('is_wp_error') && is_wp_error($value);
+        return $this->getWpService()->isWpError($value);
     }
 }

@@ -37,7 +37,12 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
             },
             'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
             'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
+            'wpJsonEncode' => static fn(mixed $value): string|false => json_encode($value),
+            'wpSlash' => static fn(string|array $value): string|array => is_string($value) ? addslashes($value) : $value,
+            'isWpError' => false,
             'getPageByPath' => null,
+            'addFilter' => true,
+            'removeFilter' => true,
             'wpHandleSideload' => static function (array $file): array {
                 return match ($file['name']) {
                     'roboto-400.woff2' => [
@@ -153,6 +158,20 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
                 $activatedFonts[0]['fontFace'],
             )),
         );
+        static::assertSame(
+            [
+                ['upload_dir', '_wp_filter_font_directory'],
+                ['upload_dir', '_wp_filter_font_directory'],
+            ],
+            $wpService->methodCalls['addFilter'],
+        );
+        static::assertSame(
+            [
+                ['upload_dir', '_wp_filter_font_directory'],
+                ['upload_dir', '_wp_filter_font_directory'],
+            ],
+            $wpService->methodCalls['removeFilter'],
+        );
     }
 
     #[TestDox('migrate() activates normal medium semibold bold and matching italic variants for imported Google fonts')]
@@ -170,6 +189,7 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
                 };
             },
             'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
+            'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
             'setThemeMod' => true,
         ]);
 
