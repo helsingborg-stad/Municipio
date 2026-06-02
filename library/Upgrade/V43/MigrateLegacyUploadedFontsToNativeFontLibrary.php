@@ -23,8 +23,12 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
      * @var array<int, string>
      */
     private array $allowedMimes = [
+        'application/vnd.ms-opentype',
         'application/font-woff',
         'application/font-woff2',
+        'application/x-font-ttf',
+        'font/otf',
+        'font/ttf',
         'font/woff',
         'font/woff2',
     ];
@@ -97,20 +101,31 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
     }
 
     /**
-     * Returns uploaded fonts from the legacy Kirki setting and mime-matching attachments.
+     * Returns uploaded fonts from both the post-bridge managed rows and the pre-bridge attachment scan.
      *
      * @return array<int, array{id: int, name: string, type: string, url: string}>
      */
     private function getUploadedFonts(): array
     {
+        return $this->mergeUploadedFonts(
+            $this->getManagedFonts(),
+            $this->getLegacyAttachmentFonts(),
+        );
+    }
+
+    /**
+     * @param array<int, array{id: int, name: string, type: string, url: string}> ...$fontCollections
+     *
+     * @return array<int, array{id: int, name: string, type: string, url: string}>
+     */
+    private function mergeUploadedFonts(array ...$fontCollections): array
+    {
         $fonts = [];
 
-        foreach ($this->getManagedFonts() as $font) {
-            $fonts[$this->createFontKey($font)] = $font;
-        }
-
-        foreach ($this->getLegacyAttachmentFonts() as $font) {
-            $fonts[$this->createFontKey($font)] = $font;
+        foreach ($fontCollections as $fontCollection) {
+            foreach ($fontCollection as $font) {
+                $fonts[$this->createFontKey($font)] = $font;
+            }
         }
 
         return array_values($fonts);
@@ -157,7 +172,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
             'post_type' => 'attachment',
             'posts_per_page' => -1,
             'post_status' => ['publish', 'inherit'],
-            'post_mime_type' => $this->allowedMimes,
+            'post_mime_type' => $this->getLegacyAttachmentMimeTypes(),
         ]);
 
         $fonts = [];
@@ -178,6 +193,14 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
         }
 
         return $fonts;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function getLegacyAttachmentMimeTypes(): array
+    {
+        return array_values(array_unique($this->allowedMimes));
     }
 
     /**
@@ -416,7 +439,15 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
      */
     private function createFontKey(array $font): string
     {
-        return sprintf('%s|%s', $font['name'], $font['url']);
+        if (($font['url'] ?? '') !== '') {
+            return 'url:' . (string) $font['url'];
+        }
+
+        if (($font['id'] ?? 0) > 0) {
+            return 'attachment:' . (string) $font['id'];
+        }
+
+        return 'name:' . strtolower((string) ($font['name'] ?? ''));
     }
 
     private function deriveFontNameFromFilePath(string $filePath): string

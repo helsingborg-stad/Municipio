@@ -7,6 +7,7 @@ namespace Municipio\Upgrade\V43;
 use Municipio\Upgrade\V43\MigrateLegacyUploadedFontsToNativeFontLibrary as LegacyUploadedFontsMigrator;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use WpService\Implementations\FakeWpService;
 
 /**
@@ -78,5 +79,59 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
         if (file_exists($sourceFile)) {
             unlink($sourceFile);
         }
+    }
+
+    #[TestDox('mergeUploadedFonts() merges post-bridge uploaded rows with pre-bridge attachment fonts without duplicating the same file')]
+    public function testMergeUploadedFontsMergesManagedRowsAndLegacyAttachmentsWithoutDuplicatingTheSameFile(): void
+    {
+        $wpService = new FakeWpService([
+            'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
+        ]);
+        $migrator = new LegacyUploadedFontsMigrator($wpService);
+        $mergeUploadedFonts = new ReflectionMethod(LegacyUploadedFontsMigrator::class, 'mergeUploadedFonts');
+        $mergeUploadedFonts->setAccessible(true);
+
+        $fonts = $mergeUploadedFonts->invoke(
+            $migrator,
+            [[
+                'id' => 0,
+                'name' => 'Abeezee Merged',
+                'type' => 'woff2',
+                'url' => 'http://example.com/wp-content/uploads/2023/10/abeezee-merged.woff2',
+            ]],
+            [[
+                'id' => 55,
+                'name' => 'ABeeZee',
+                'type' => 'woff2',
+                'url' => 'http://example.com/wp-content/uploads/2023/10/abeezee-merged.woff2',
+            ]],
+        );
+
+        static::assertSame(
+            [
+                [
+                    'id' => 55,
+                    'name' => 'ABeeZee',
+                    'type' => 'woff2',
+                    'url' => 'http://example.com/wp-content/uploads/2023/10/abeezee-merged.woff2',
+                ],
+            ],
+            $fonts,
+        );
+    }
+
+    #[TestDox('getLegacyAttachmentMimeTypes() includes the legacy uploaded font mime types supported by the theme')]
+    public function testGetLegacyAttachmentMimeTypesIncludesLegacyUploadedFontMimeTypes(): void
+    {
+        $migrator = new LegacyUploadedFontsMigrator(new FakeWpService([]));
+        $getLegacyAttachmentMimeTypes = new ReflectionMethod(LegacyUploadedFontsMigrator::class, 'getLegacyAttachmentMimeTypes');
+        $getLegacyAttachmentMimeTypes->setAccessible(true);
+
+        $mimeTypes = $getLegacyAttachmentMimeTypes->invoke($migrator);
+
+        static::assertContains('font/otf', $mimeTypes);
+        static::assertContains('font/ttf', $mimeTypes);
+        static::assertContains('font/woff', $mimeTypes);
+        static::assertContains('font/woff2', $mimeTypes);
     }
 }
