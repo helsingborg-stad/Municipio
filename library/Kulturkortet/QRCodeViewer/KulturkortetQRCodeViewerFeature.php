@@ -12,16 +12,7 @@ use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
 use Municipio\Kulturkortet\Vitec\VitecService;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\AddQueryArg;
-use WpService\Contracts\ApplyFilters;
-use WpService\Contracts\HomeUrl;
-use WpService\Contracts\IsWpError;
-use WpService\Contracts\RegisterBlockType;
-use WpService\Contracts\WpCacheGet;
-use WpService\Contracts\WpCacheSet;
-use WpService\Contracts\WpRemoteGet;
-use WpService\Contracts\WpRemotePost;
-use WpService\Contracts\WpRemoteRetrieveBody;
+use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /*
@@ -35,7 +26,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
      * @param AddAction $wpService
      */
     public function __construct(
-        private IsWpError&AddAction&ApplyFilters&RegisterBlockType&HomeUrl&WpRemoteGet&WpRemotePost&WpRemoteRetrieveBody&AddQueryArg&WpCacheGet&WpCacheSet $wpService,
+        private WpService $wpService,
         private EnqueueManagerInterface $enqueue,
     ) {}
 
@@ -59,19 +50,14 @@ class KulturkortetQRCodeViewerFeature implements Hookable
         $this->wpService->registerBlockType(
             'kulturkortet/qr-code-viewer',
             [
-                'title' => __('Kulturkortet QR Code Viewer', 'municipio'),
+                'title' => $this->wpService->__('Kulturkortet QR Code Viewer', 'municipio'),
                 'render_callback' => [$this, 'render'],
                 'supports' => [
                     'autoRegister' => true,
                 ],
                 'attributes' => [
-                    'profileLinkLabel' => [
-                        'label' => __('Text på länk till profilsida', 'municipio'),
-                        'type' => 'string',
-                        'default' => __('Visa min profil', 'municipio'),
-                    ],
                     'profileLink' => [
-                        'label' => __('Länk till profilsida', 'municipio'),
+                        'label' => $this->wpService->__('Link profile page', 'municipio'),
                         'type' => 'string',
                         'default' => '',
                     ],

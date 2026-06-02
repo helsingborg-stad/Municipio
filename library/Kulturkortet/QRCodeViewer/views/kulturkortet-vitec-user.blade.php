@@ -1,6 +1,16 @@
-@include('partials.ticket')
-
-<div class="o-grid">
+@element([
+    'classList' => [
+        'u-display--flex',
+        'u-align-items--center',
+        'u-flex-direction--column',
+        'o-layout-grid--gap-12'
+    ]
+])
+    @include('partials.ticket')
+    @include('partials.actions')
+@endelement
+@dump($attributes)
+{{-- <div class="o-grid">
     <div class="o-grid-12@md">
         @card([
                 'color' => 'success',
@@ -22,6 +32,9 @@
                 <canvas data-kulturkortet-barcode="{{ $ticket['barcode'] ?? '' }}"></canvas>
             @endslot
         @endcard
+
+
+
         @if ($showDebugInfo)
             @card([
                 'color' => 'info',
@@ -33,4 +46,4 @@
             @endcard
         @endif
     </div>
-</div>
+</div> --}}

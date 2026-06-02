@@ -1,0 +1,6 @@
+$_: kulturkortet-actions;
+
+.#{$_} {
+    display: flex;
+    gap: calc(var(--base) * 2);
+}

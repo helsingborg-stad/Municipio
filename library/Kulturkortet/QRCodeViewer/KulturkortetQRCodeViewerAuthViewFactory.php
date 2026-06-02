@@ -47,7 +47,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
 
         return $this->renderWithModel('kulturkortet-vitec-user', [
             'lang' => [
-                'days' => $this->wpService->__('Dagar', 'municipio'),
+                'days' => $this->wpService->__('Days', 'municipio'),
+                'logout' => $this->wpService->__('Logout', 'municipio'),
+                'profile' => $this->wpService->__('Profile', 'municipio'),
             ],
             'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
             'name' => $user->getName(),

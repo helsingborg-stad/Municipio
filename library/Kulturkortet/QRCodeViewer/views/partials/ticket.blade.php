@@ -1,7 +1,6 @@
 @element([
     'classList' => [
         'kulturkortet-ticket',
-        'u-rounded--2',
         'u-color__bg--secondary',
         'u-padding--3',
     ],
@@ -9,7 +8,6 @@
     @element([
         'classList' => [
             'kulturkortet-ticket__inner-card',
-            'u-rounded--2',
             'u-padding--3',
         ],
     ])
