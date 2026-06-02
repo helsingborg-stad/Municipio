@@ -108,9 +108,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
-                'heading' => __('Logga in för att se ditt kulturkort', 'municipio'),
-                'content' => __('För att kunna se ditt kulturkort måste du logga in med BankId.', 'municipio'),
-                'url' => __('Logga in', 'municipio'),
+                'heading' => __('Log in to view your kulturkort', 'municipio'),
+                'content' => __('To view your kulturkort, you must log in with BankId.', 'municipio'),
+                'url' => __('Log in', 'municipio'),
             ],
             'url' => $loginUrl,
         ]);
@@ -120,9 +120,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
-                'heading' => __('Du har loggat ut', 'municipio'),
-                'content' => __('Du har loggat ut från ditt kulturkort och BankId.', 'municipio'),
-                'url' => __('Till startsidan', 'municipio'),
+                'heading' => __('You have been successfully logged out', 'municipio'),
+                'content' => __('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
+                'url' => __('To the homepage', 'municipio'),
             ],
             'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
         ]);
@@ -132,9 +132,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
-                'heading' => __('Ett fel uppstod', 'municipio'),
+                'heading' => __('An error occurred', 'municipio'),
                 'content' => $error,
-                'url' => __('Till startsidan', 'municipio'),
+                'url' => __('To the homepage', 'municipio'),
             ],
             'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
         ]);
