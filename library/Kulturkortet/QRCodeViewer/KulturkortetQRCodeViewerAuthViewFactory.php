@@ -10,6 +10,7 @@ use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInter
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use Municipio\Kulturkortet\Vitec\VitecServiceInterface;
+use WpService\Contracts\__;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 
@@ -18,7 +19,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     private const DATE_FORMAT = 'Y-m-d';
 
     public function __construct(
-        private WpCacheGet&WpCacheSet $wpService,
+        private WpCacheGet&WpCacheSet&__ $wpService,
         private VitecServiceInterface $vitecService,
         private array $attributes = [],
     ) {}
@@ -36,9 +37,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         if (!$ticket) {
             return $this->renderWithModel('kulturkortet-qr-simple', [
                 'lang' => [
-                    'heading' => __('Du verkar inte ha ett giltigt kulturkort', 'municipio'),
+                    'heading' => $this->wpService->__('Du verkar inte ha ett giltigt kulturkort', 'municipio'),
                     'content' => '',
-                    'url' => __('Logga ut', 'municipio'),
+                    'url' => $this->wpService->__('Logga ut', 'municipio'),
                 ],
                 'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
@@ -46,8 +47,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         }
 
         return $this->renderWithModel('kulturkortet-vitec-user', [
-            'lang' => [],
-
+            'lang' => [
+                'days' => $this->wpService->__('Dagar', 'municipio'),
+            ],
             'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
             'name' => $user->getName(),
             'profile' => [
@@ -59,6 +61,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'barcode' => $ticket['barcode'] ?? null,
                 'validFrom' => $this->formatDate($ticket['validFrom'] ?? null),
                 'validTo' => $this->formatDate($ticket['validUntil'] ?? null),
+                'daysLeft' => $this->calculateDaysLeft($ticket['validUntil'] ?? null),
             ],
             'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG, // set to true to show raw Vitec user data for debugging purposes
             'vitecUser' => $vitecUser, // for debugging purposes
@@ -151,5 +154,29 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         $time = is_string($date) ? strtotime($date) : null;
         return $time ? date(self::DATE_FORMAT, $time) : null;
+    }
+
+    /**
+     * Calculates remaining whole calendar days until ticket expiry date.
+     *
+     * Returns null for invalid date input, and clamps expired tickets to 0 days.
+     *
+     * @param mixed $validUntil The ticket valid-until datetime string.
+     * @return int|null Number of days left, or null when input is invalid.
+     */
+    private function calculateDaysLeft(mixed $validUntil): ?int
+    {
+        $expiryTimestamp = is_string($validUntil) ? strtotime($validUntil) : false;
+
+        if ($expiryTimestamp === false) {
+            return null;
+        }
+
+        $currentDate = (new \DateTimeImmutable())->setTime(0, 0, 0);
+        $expiryDate = (new \DateTimeImmutable('@' . $expiryTimestamp))->setTimezone($currentDate->getTimezone())->setTime(0, 0, 0);
+
+        $daysLeft = (int) $currentDate->diff($expiryDate)->format('%r%a');
+
+        return max(0, $daysLeft);
     }
 }

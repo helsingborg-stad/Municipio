@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			QRCode.toCanvas(
 				canvas,
 				barcode,
-				{ scale: 5, dark: "#000", light: "#fff" },
+				{ scale: 5, dark: "#000", light: "#fff", width: 200, margin: 3},
 				(error) => {
 					if (error) console.error(error);
 				},
