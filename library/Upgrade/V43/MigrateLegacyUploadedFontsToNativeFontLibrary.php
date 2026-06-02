@@ -16,6 +16,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
     use InteractsWithNativeFontLibrary;
 
     private const LEGACY_UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
+    private const ACTIVATION_SETTING = 'municipio_native_font_library_legacy_uploaded_fonts_v43_activated';
 
     public const MIGRATION_SETTING = 'municipio_native_font_library_legacy_uploaded_fonts_v43_migrated';
 
@@ -43,13 +44,20 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
      */
     private readonly Closure $fontSourceResolver;
 
+    /**
+     * @var Closure(array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>}): bool
+     */
+    private readonly Closure $fontActivationPersister;
+
     public function __construct(
         private readonly WpService $wpService,
         ?Closure $uploadedFontsProvider = null,
         ?Closure $fontSourceResolver = null,
+        ?Closure $fontActivationPersister = null,
     ) {
         $this->uploadedFontsProvider = $uploadedFontsProvider ?? fn(): array => $this->getUploadedFonts();
         $this->fontSourceResolver = $fontSourceResolver ?? fn(array $font): ?array => $this->resolveNativeFontSource($font);
+        $this->fontActivationPersister = $fontActivationPersister ?? fn(array $activatedFont): bool => $this->persistActivatedFontFamily($activatedFont);
     }
 
     protected function getWpService(): WpService
@@ -72,6 +80,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
 
         $attachmentsToDelete = [];
         $allFontsMigrated = true;
+        $activatedFonts = [];
 
         foreach (($this->uploadedFontsProvider)() as $font) {
             if (($font['name'] ?? '') === '' || ($font['url'] ?? '') === '') {
@@ -107,8 +116,27 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
                 continue;
             }
 
+            $activatedFonts[$fontFamilyPostId] = $this->createActivatedFontFamily(
+                $fontFamilyPostId,
+                (string) $font['name'],
+            );
+
             if (($font['id'] ?? 0) > 0) {
                 $attachmentsToDelete[] = (int) $font['id'];
+            }
+        }
+
+        if (!(bool) $this->wpService->getThemeMod(self::ACTIVATION_SETTING, false)) {
+            $allFontsActivated = $activatedFonts !== [];
+
+            foreach (array_values(array_filter($activatedFonts, 'is_array')) as $activatedFont) {
+                if (!(($this->fontActivationPersister)($activatedFont))) {
+                    $allFontsActivated = false;
+                }
+            }
+
+            if ($allFontsActivated) {
+                $this->wpService->setThemeMod(self::ACTIVATION_SETTING, true);
             }
         }
 
@@ -496,5 +524,181 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
         }
 
         return ucwords($stem);
+    }
+
+    /**
+     * @return array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>}|null
+     */
+    private function createActivatedFontFamily(int $fontFamilyPostId, string $fontName): ?array
+    {
+        if ($fontFamilyPostId <= 0 || trim($fontName) === '') {
+            return null;
+        }
+
+        $fontFaces = $this->getActivatedFontFaces($fontFamilyPostId);
+
+        if ($fontFaces === []) {
+            return null;
+        }
+
+        return [
+            'name' => trim($fontName),
+            'slug' => $this->wpService->sanitizeTitle($fontName),
+            'fontFamily' => sprintf('"%s", sans-serif', trim($fontName)),
+            'fontFace' => $fontFaces,
+        ];
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private function getActivatedFontFaces(int $fontFamilyPostId): array
+    {
+        $fontFaces = $this->wpService->getPosts([
+            'post_type' => 'wp_font_face',
+            'post_status' => 'publish',
+            'post_parent' => $fontFamilyPostId,
+            'posts_per_page' => -1,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        ]);
+
+        $activatedFontFaces = [];
+
+        foreach ($fontFaces as $fontFace) {
+            $postContent = is_object($fontFace) && property_exists($fontFace, 'post_content')
+                ? (string) $fontFace->post_content
+                : (is_array($fontFace) && isset($fontFace['post_content']) ? (string) $fontFace['post_content'] : '');
+            $fontFaceSettings = json_decode($postContent, true);
+
+            if (!is_array($fontFaceSettings)) {
+                continue;
+            }
+
+            $activatedFontFaces[] = $fontFaceSettings;
+        }
+
+        return $activatedFontFaces;
+    }
+
+    /**
+     * @param array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>} $activatedFont
+     */
+    private function persistActivatedFontFamily(array $activatedFont): bool
+    {
+        if (!class_exists(\WP_Theme_JSON_Resolver::class) || !method_exists(\WP_Theme_JSON_Resolver::class, 'get_user_global_styles_post_id')) {
+            return false;
+        }
+
+        $globalStylesPostId = \WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
+
+        if (!is_numeric($globalStylesPostId) || (int) $globalStylesPostId <= 0) {
+            return false;
+        }
+
+        $globalStylesPostId = (int) $globalStylesPostId;
+        $globalStylesPost = $this->wpService->getPost($globalStylesPostId);
+        $postContent = is_object($globalStylesPost) && property_exists($globalStylesPost, 'post_content')
+            ? (string) $globalStylesPost->post_content
+            : (is_array($globalStylesPost) && isset($globalStylesPost['post_content']) ? (string) $globalStylesPost['post_content'] : '');
+        $globalStylesData = json_decode($postContent, true);
+
+        if (!is_array($globalStylesData)) {
+            $globalStylesData = [];
+        }
+
+        $globalStylesData['version'] = isset($globalStylesData['version']) && is_int($globalStylesData['version'])
+            ? $globalStylesData['version']
+            : (class_exists(\WP_Theme_JSON::class) ? \WP_Theme_JSON::LATEST_SCHEMA : 3);
+        $globalStylesData['isGlobalStylesUserThemeJSON'] = true;
+
+        $customFontFamilies = $globalStylesData['settings']['typography']['fontFamilies']['custom'] ?? [];
+        $customFontFamilies = is_array($customFontFamilies) ? array_values(array_filter($customFontFamilies, 'is_array')) : [];
+
+        foreach ($customFontFamilies as $index => $existingFontFamily) {
+            if (($existingFontFamily['slug'] ?? null) !== $activatedFont['slug']) {
+                continue;
+            }
+
+            $existingFontFaces = is_array($existingFontFamily['fontFace'] ?? null)
+                ? array_values(array_filter($existingFontFamily['fontFace'], 'is_array'))
+                : [];
+
+            $customFontFamilies[$index] = [
+                ...$existingFontFamily,
+                ...$activatedFont,
+                'fontFace' => $this->mergeActivatedFontFaces($existingFontFaces, $activatedFont['fontFace']),
+            ];
+
+            $globalStylesData['settings']['typography']['fontFamilies']['custom'] = $customFontFamilies;
+
+            $this->wpService->wpUpdatePost([
+                'ID' => $globalStylesPostId,
+                'post_content' => $this->preparePostContent($globalStylesData),
+            ]);
+
+            return true;
+        }
+
+        $customFontFamilies[] = $activatedFont;
+        $globalStylesData['settings']['typography']['fontFamilies']['custom'] = $customFontFamilies;
+
+        $this->wpService->wpUpdatePost([
+            'ID' => $globalStylesPostId,
+            'post_content' => $this->preparePostContent($globalStylesData),
+        ]);
+
+        return true;
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $existingFontFaces
+     * @param array<int, array<string, mixed>> $activatedFontFaces
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function mergeActivatedFontFaces(array $existingFontFaces, array $activatedFontFaces): array
+    {
+        $mergedFontFaces = [];
+
+        foreach (array_merge($existingFontFaces, $activatedFontFaces) as $fontFace) {
+            if (!is_array($fontFace)) {
+                continue;
+            }
+
+            $mergedFontFaces[$this->createActivatedFontFaceKey($fontFace)] = $fontFace;
+        }
+
+        return array_values($mergedFontFaces);
+    }
+
+    /**
+     * @param array<string, mixed> $fontFace
+     */
+    private function createActivatedFontFaceKey(array $fontFace): string
+    {
+        $fontStyle = isset($fontFace['fontStyle']) ? strtolower(trim((string) $fontFace['fontStyle'])) : 'normal';
+        $fontWeight = isset($fontFace['fontWeight']) ? trim((string) $fontFace['fontWeight']) : '400';
+        $sources = isset($fontFace['src']) && is_array($fontFace['src']) ? array_values(array_filter($fontFace['src'], 'is_string')) : [];
+
+        return $fontStyle . '|' . $fontWeight . '|' . implode(',', $sources);
+    }
+
+    /**
+     * @param array<string, mixed> $postContent
+     */
+    private function preparePostContent(array $postContent): string
+    {
+        $json = $this->wpService->wpJsonEncode($postContent);
+
+        if (is_string($json) && $json !== '') {
+            $slashedJson = $this->wpService->wpSlash($json);
+
+            if (is_string($slashedJson)) {
+                return $slashedJson;
+            }
+        }
+
+        return addslashes(is_string($json) ? $json : (string) json_encode($postContent));
     }
 }

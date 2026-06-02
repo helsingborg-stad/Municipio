@@ -86,6 +86,94 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
         }
     }
 
+    #[TestDox('migrate() activates all migrated uploaded font faces for a family by default')]
+    public function testMigrateActivatesAllMigratedUploadedFontFacesByDefault(): void
+    {
+        $storedFontFaces = [];
+        $activatedFonts = [];
+
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => match ($key) {
+                LegacyUploadedFontsMigrator::MIGRATION_SETTING => false,
+                'municipio_native_font_library_legacy_uploaded_fonts_v43_activated' => false,
+                default => $default,
+            },
+            'setThemeMod' => true,
+            'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
+            'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
+            'wpJsonEncode' => static fn(mixed $value): string|false => json_encode($value),
+            'wpSlash' => static fn(string|array $value): string|array => is_string($value) ? addslashes($value) : $value,
+            'isWpError' => false,
+            'getPageByPath' => null,
+            'getPosts' => static function (array $query) use (&$storedFontFaces): array {
+                if (($query['post_type'] ?? null) !== 'wp_font_face' || ($query['post_parent'] ?? 0) !== 71) {
+                    return [];
+                }
+
+                return $storedFontFaces;
+            },
+            'wpInsertPost' => static function (array $postarr) use (&$storedFontFaces): int {
+                if ($postarr['post_type'] === 'wp_font_family') {
+                    return 71;
+                }
+
+                $faceId = 72 + count($storedFontFaces);
+                $storedFontFaces[] = (object) [
+                    'ID' => $faceId,
+                    'post_content' => stripslashes((string) $postarr['post_content']),
+                ];
+
+                return $faceId;
+            },
+            'addPostMeta' => true,
+        ]);
+
+        (new LegacyUploadedFontsMigrator(
+            $wpService,
+            static fn(): array => [
+                [
+                    'id' => 0,
+                    'name' => 'ABeeZee',
+                    'type' => 'woff2',
+                    'url' => 'https://fonts.example.com/abeezee-400.woff2',
+                ],
+                [
+                    'id' => 0,
+                    'name' => 'ABeeZee',
+                    'type' => 'woff2',
+                    'url' => 'https://fonts.example.com/abeezee-700.woff2',
+                ],
+            ],
+            static fn(array $font): ?array => [
+                'source' => $font['url'],
+                'fontFile' => null,
+            ],
+            static function (array $activatedFont) use (&$activatedFonts): bool {
+                $activatedFonts[] = $activatedFont;
+
+                return true;
+            },
+        ))->migrate();
+
+        static::assertCount(1, $activatedFonts);
+        static::assertSame('ABeeZee', $activatedFonts[0]['name']);
+        static::assertSame('abeezee', $activatedFonts[0]['slug']);
+        static::assertSame(
+            [
+                ['https://fonts.example.com/abeezee-400.woff2'],
+                ['https://fonts.example.com/abeezee-700.woff2'],
+            ],
+            array_values(array_map(
+                static fn(array $fontFace): array => $fontFace['src'],
+                $activatedFonts[0]['fontFace'],
+            )),
+        );
+        static::assertContains(
+            ['municipio_native_font_library_legacy_uploaded_fonts_v43_activated', true],
+            $wpService->methodCalls['setThemeMod'],
+        );
+    }
+
     #[TestDox('mergeUploadedFonts() merges post-bridge uploaded rows with pre-bridge attachment fonts without duplicating the same file')]
     public function testMergeUploadedFontsMergesManagedRowsAndLegacyAttachmentsWithoutDuplicatingTheSameFile(): void
     {
