@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\Upgrade\V42;
 
-use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use Municipio\Upgrade\VersionInterface;
 use WpService\WpService;
 
@@ -25,9 +24,6 @@ class Version42 implements VersionInterface
      */
     public function upgradeToVersion(): void
     {
-        (new MigrateFontsToNativeFontLibrary(
-            $this->wpService,
-            new NativeFontLibraryRepository(),
-        ))->migrate();
+        (new MigrateFontsToNativeFontLibrary($this->wpService))->migrate();
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\Fonts\FontCatalog;
-use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Customizer\KirkiField;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
@@ -268,14 +266,40 @@ class LoadDesign
 
     private function getUploadedFontUrl(string $fontFamily = ''): ?string
     {
-        $uploadedFonts = (new FontCatalogFactory(WpServiceHelper::get()))->createFontRepository()->getUploadedFonts();
+        if ($fontFamily === '') {
+            return null;
+        }
 
-        foreach ($uploadedFonts as $uploadedFont) {
-            if (($uploadedFont['name'] ?? '') !== $fontFamily || empty($uploadedFont['url'])) {
+        $wpService = WpServiceHelper::get();
+
+        if (!$wpService->postTypeExists('wp_font_family') || !$wpService->postTypeExists('wp_font_face')) {
+            return null;
+        }
+
+        $fontFamilyPost = $wpService->getPageByPath($wpService->sanitizeTitle($fontFamily), 'OBJECT', 'wp_font_family');
+
+        if (!is_object($fontFamilyPost) || !property_exists($fontFamilyPost, 'ID')) {
+            return null;
+        }
+
+        $fontFaces = $wpService->getPosts([
+            'post_type' => 'wp_font_face',
+            'post_status' => 'publish',
+            'post_parent' => (int) $fontFamilyPost->ID,
+            'posts_per_page' => -1,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        ]);
+
+        foreach ($fontFaces as $fontFace) {
+            $fontFaceSettings = is_object($fontFace) && property_exists($fontFace, 'post_content') ? json_decode((string) $fontFace->post_content, true) : null;
+            $sources = is_array($fontFaceSettings) && isset($fontFaceSettings['src']) ? (array) $fontFaceSettings['src'] : [];
+
+            if ($sources === [] || !is_string($sources[0]) || $sources[0] === '') {
                 continue;
             }
 
-            return (string) $uploadedFont['url'];
+            return $sources[0];
         }
 
         return null;

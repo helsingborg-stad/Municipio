@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\Upgrade\V42;
 
 use Closure;
-use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use WpService\WpService;
 
 /**
@@ -14,6 +13,13 @@ use WpService\WpService;
  */
 class MigrateKirkiFontsToNativeFontLibrary
 {
+    use InteractsWithNativeFontLibrary;
+
+    protected function getWpService(): WpService
+    {
+        return $this->wpService;
+    }
+
     public const MIGRATION_SETTING = 'municipio_native_font_library_kirki_fonts_migrated';
     public const ACTIVATION_SETTING = 'municipio_native_font_library_kirki_fonts_activated';
     public const LOCAL_INSTALL_SETTING = 'municipio_native_font_library_kirki_fonts_locally_installed';
@@ -75,7 +81,6 @@ class MigrateKirkiFontsToNativeFontLibrary
 
     public function __construct(
         private readonly WpService $wpService,
-        private readonly NativeFontLibraryRepository $nativeFontLibraryRepository,
         ?Closure $installableFontsProvider = null,
         ?Closure $fontActivator = null,
     ) {
@@ -91,7 +96,7 @@ class MigrateKirkiFontsToNativeFontLibrary
      */
     public function migrate(): void
     {
-        if (!$this->nativeFontLibraryRepository->isAvailable()) {
+        if (!$this->nativeFontLibraryIsAvailable()) {
             return;
         }
 
@@ -138,11 +143,7 @@ class MigrateKirkiFontsToNativeFontLibrary
      */
     private function installFont(array $font): ?array
     {
-        $fontFamilyPostId = $this->nativeFontLibraryRepository->createFontFamilyIfMissing(
-            $font['name'],
-            $font['fontFamily'],
-            $font['preview'] ?? null,
-        );
+        $fontFamilyPostId = $this->createNativeFontFamilyIfMissing($font['name'], $font['fontFamily'], $font['preview'] ?? null);
 
         if ($fontFamilyPostId === null) {
             return null;
@@ -159,7 +160,7 @@ class MigrateKirkiFontsToNativeFontLibrary
                 continue;
             }
 
-            $this->nativeFontLibraryRepository->createFontFaceIfMissing(
+            $this->createNativeFontFaceIfMissing(
                 $fontFamilyPostId,
                 $font['name'],
                 $installedFontFace['src'],

@@ -48,7 +48,7 @@ if (!class_exists(GoogleFonts::class, false)) {
 }
 
 namespace Municipio\Upgrade\V42;
-use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
+
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -63,9 +63,8 @@ class MigrateFontsToNativeFontLibraryTest extends TestCase
     {
         $wpService = new FakeWpService([
             'getThemeMod' => static fn(string $key, mixed $default): mixed => $default,
+            'postTypeExists' => static fn(string $postType): bool => false,
         ]);
-        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
-        $nativeFontLibraryRepository->expects(static::once())->method('isAvailable')->willReturn(false);
 
         $kirkiFontsMigrator = $this->createMock(MigrateKirkiFontsToNativeFontLibrary::class);
         $kirkiFontsMigrator->expects(static::never())->method('migrate');
@@ -75,7 +74,6 @@ class MigrateFontsToNativeFontLibraryTest extends TestCase
 
         (new MigrateFontsToNativeFontLibrary(
             $wpService,
-            $nativeFontLibraryRepository,
             $kirkiFontsMigrator,
             $uploadedFontsMigrator,
         ))->migrate();
@@ -86,10 +84,9 @@ class MigrateFontsToNativeFontLibraryTest extends TestCase
     #[TestDox('migrate() runs both dedicated native font migrations when the library is available')]
     public function testMigrateRunsBothDedicatedNativeFontMigrationsWhenTheLibraryIsAvailable(): void
     {
-        $wpService = new FakeWpService();
-
-        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
-        $nativeFontLibraryRepository->expects(static::once())->method('isAvailable')->willReturn(true);
+        $wpService = new FakeWpService([
+            'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
+        ]);
         $kirkiFontsMigrator = $this->createMock(MigrateKirkiFontsToNativeFontLibrary::class);
         $kirkiFontsMigrator->expects(static::once())->method('migrate');
 
@@ -98,7 +95,6 @@ class MigrateFontsToNativeFontLibraryTest extends TestCase
 
         (new MigrateFontsToNativeFontLibrary(
             $wpService,
-            $nativeFontLibraryRepository,
             $kirkiFontsMigrator,
             $uploadedFontsMigrator,
         ))->migrate();

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\Upgrade\V42;
 
-use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -36,6 +35,9 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
                     default => '',
                 };
             },
+            'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
+            'sanitizeTitle' => static fn(string $title): string => strtolower(str_replace(' ', '-', $title)),
+            'getPageByPath' => null,
             'wpHandleSideload' => static function (array $file): array {
                 return match ($file['name']) {
                     'roboto-400.woff2' => [
@@ -56,43 +58,18 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
                 'baseurl' => 'https://example.com/wp-content/uploads/fonts',
             ],
             'getPosts' => [],
+            'wpInsertPost' => static function (array $postarr): int {
+                static $postId = 20;
+
+                return ++$postId;
+            },
+            'addPostMeta' => true,
             'setThemeMod' => true,
         ]);
-
-        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
-        $nativeFontLibraryRepository->expects(static::once())->method('isAvailable')->willReturn(true);
-        $nativeFontLibraryRepository->expects(static::once())->method('createFontFamilyIfMissing')->with('Roboto', '"Roboto", sans-serif', 'https://example.com/roboto.svg')->willReturn(21);
-
-        $createdFaces = [];
         $activatedFonts = [];
-        $nativeFontLibraryRepository
-            ->expects(static::exactly(2))
-            ->method('createFontFaceIfMissing')
-            ->willReturnCallback(static function (
-                int $fontFamilyPostId,
-                string $fontFamily,
-                string|array $source,
-                string $fontStyle,
-                string $fontWeight,
-                ?string $fontFile = null,
-                ?string $unicodeRange = null,
-                ?string $preview = null,
-            ) use (&$createdFaces): void {
-                $createdFaces[] = [
-                    'fontFamilyPostId' => $fontFamilyPostId,
-                    'fontFamily' => $fontFamily,
-                    'source' => $source,
-                    'fontStyle' => $fontStyle,
-                    'fontWeight' => $fontWeight,
-                    'fontFile' => $fontFile,
-                    'unicodeRange' => $unicodeRange,
-                    'preview' => $preview,
-                ];
-            });
 
         (new MigrateKirkiFontsToNativeFontLibrary(
             $wpService,
-            $nativeFontLibraryRepository,
             static fn(): array => [
                 'roboto' => [
                     'name' => 'Roboto',
@@ -134,32 +111,6 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
 
         static::assertSame(
             [
-                [
-                    'fontFamilyPostId' => 21,
-                    'fontFamily' => 'Roboto',
-                    'source' => ['https://example.com/wp-content/uploads/fonts/roboto-400.woff2'],
-                    'fontStyle' => 'normal',
-                    'fontWeight' => '400',
-                    'fontFile' => 'roboto-400.woff2',
-                    'unicodeRange' => 'U+0000-00FF',
-                    'preview' => 'https://example.com/roboto-400-normal.svg',
-                ],
-                [
-                    'fontFamilyPostId' => 21,
-                    'fontFamily' => 'Roboto',
-                    'source' => ['https://example.com/wp-content/uploads/fonts/roboto-700.woff2'],
-                    'fontStyle' => 'normal',
-                    'fontWeight' => '700',
-                    'fontFile' => 'roboto-700.woff2',
-                    'unicodeRange' => 'U+0000-00FF',
-                    'preview' => 'https://example.com/roboto-700-normal.svg',
-                ],
-            ],
-            $createdFaces,
-        );
-
-        static::assertSame(
-            [
                 ['https://fonts.example.com/roboto-400.woff2'],
                 ['https://fonts.example.com/roboto-700.woff2'],
             ],
@@ -174,6 +125,15 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
             ],
             $wpService->methodCalls['setThemeMod'],
         );
+
+        static::assertSame(
+            ['wp_font_family', 'wp_font_face', 'wp_font_face'],
+            array_values(array_map(
+                static fn(array $call): string => (string) $call[0]['post_type'],
+                $wpService->methodCalls['wpInsertPost'],
+            )),
+        );
+        static::assertCount(2, $wpService->methodCalls['addPostMeta']);
 
         static::assertCount(1, $activatedFonts);
         static::assertSame(
@@ -209,19 +169,14 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
                     default => $default,
                 };
             },
+            'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
             'setThemeMod' => true,
         ]);
-
-        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
-        $nativeFontLibraryRepository->expects(static::once())->method('isAvailable')->willReturn(true);
-        $nativeFontLibraryRepository->expects(static::never())->method('createFontFamilyIfMissing');
-        $nativeFontLibraryRepository->expects(static::never())->method('createFontFaceIfMissing');
 
         $activatedFonts = [];
 
         (new MigrateKirkiFontsToNativeFontLibrary(
             $wpService,
-            $nativeFontLibraryRepository,
             static fn(): array => [
                 'roboto' => [
                     'name' => 'Roboto',

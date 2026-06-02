@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\Upgrade\V42;
 
-use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use WpService\WpService;
 
 /**
@@ -12,13 +11,18 @@ use WpService\WpService;
  */
 class MigrateFontsToNativeFontLibrary
 {
+    use InteractsWithNativeFontLibrary;
+
+    protected function getWpService(): WpService
+    {
+        return $this->wpService;
+    }
+
     /**
      * @param WpService $wpService
-     * @param NativeFontLibraryRepository $nativeFontLibraryRepository
      */
     public function __construct(
         private readonly WpService $wpService,
-        private readonly NativeFontLibraryRepository $nativeFontLibraryRepository,
         private readonly ?MigrateKirkiFontsToNativeFontLibrary $kirkiFontsMigrator = null,
         private readonly ?MigrateUploadedFontsToNativeFontLibrary $uploadedFontsMigrator = null,
     ) {}
@@ -30,18 +34,16 @@ class MigrateFontsToNativeFontLibrary
      */
     public function migrate(): void
     {
-        if (!$this->nativeFontLibraryRepository->isAvailable()) {
+        if (!$this->nativeFontLibraryIsAvailable()) {
             return;
         }
 
         ($this->kirkiFontsMigrator ?? new MigrateKirkiFontsToNativeFontLibrary(
             $this->wpService,
-            $this->nativeFontLibraryRepository,
         ))->migrate();
 
         ($this->uploadedFontsMigrator ?? new MigrateUploadedFontsToNativeFontLibrary(
             $this->wpService,
-            $this->nativeFontLibraryRepository,
         ))->migrate();
     }
 }

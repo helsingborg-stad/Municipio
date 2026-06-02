@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\Upgrade\V42;
 
 use Closure;
-use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use WpService\WpService;
 
 /**
@@ -13,6 +12,13 @@ use WpService\WpService;
  */
 class MigrateUploadedFontsToNativeFontLibrary
 {
+    use InteractsWithNativeFontLibrary;
+
+    protected function getWpService(): WpService
+    {
+        return $this->wpService;
+    }
+
     private const LEGACY_UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
 
     public const MIGRATION_SETTING = 'municipio_native_font_library_uploaded_fonts_migrated';
@@ -39,7 +45,6 @@ class MigrateUploadedFontsToNativeFontLibrary
 
     public function __construct(
         private readonly WpService $wpService,
-        private readonly NativeFontLibraryRepository $nativeFontLibraryRepository,
         ?Closure $uploadedFontsProvider = null,
         ?Closure $fontSourceResolver = null,
     ) {
@@ -56,7 +61,7 @@ class MigrateUploadedFontsToNativeFontLibrary
             return;
         }
 
-        if (!$this->nativeFontLibraryRepository->isAvailable()) {
+        if (!$this->nativeFontLibraryIsAvailable()) {
             return;
         }
 
@@ -65,7 +70,7 @@ class MigrateUploadedFontsToNativeFontLibrary
                 continue;
             }
 
-            $fontFamilyPostId = $this->nativeFontLibraryRepository->createFontFamilyIfMissing((string) $font['name']);
+            $fontFamilyPostId = $this->createNativeFontFamilyIfMissing((string) $font['name']);
 
             if ($fontFamilyPostId === null) {
                 continue;
@@ -77,7 +82,7 @@ class MigrateUploadedFontsToNativeFontLibrary
                 continue;
             }
 
-            $this->nativeFontLibraryRepository->createFontFaceIfMissing(
+            $this->createNativeFontFaceIfMissing(
                 $fontFamilyPostId,
                 (string) $font['name'],
                 (string) $resolvedSource['source'],
@@ -231,13 +236,13 @@ class MigrateUploadedFontsToNativeFontLibrary
      */
     private function resolveNativeFontSource(array $font): ?array
     {
-        $sourceFromAttachment = $font['id'] > 0 ? $this->copyAttachmentToFontDirectory($font['id']) : null;
+        $sourceFromAttachment = $font['id'] > 0 ? $this->installAttachmentInFontDirectory($font['id']) : null;
 
         if ($sourceFromAttachment !== null) {
             return $sourceFromAttachment;
         }
 
-        $sourceFromUrl = $this->copyUrlToFontDirectory($font['url']);
+        $sourceFromUrl = $this->installUrlInFontDirectory($font['url']);
 
         if ($sourceFromUrl !== null) {
             return $sourceFromUrl;
@@ -252,7 +257,7 @@ class MigrateUploadedFontsToNativeFontLibrary
     /**
      * @return array{source: string, fontFile: string|null}|null
      */
-    private function copyAttachmentToFontDirectory(int $attachmentId): ?array
+    private function installAttachmentInFontDirectory(int $attachmentId): ?array
     {
         if (!function_exists('get_attached_file')) {
             return null;
@@ -264,19 +269,19 @@ class MigrateUploadedFontsToNativeFontLibrary
             return null;
         }
 
-        return $this->copyFileToFontDirectory($filePath);
+        return $this->installFileInFontDirectory($filePath, basename($filePath));
     }
 
     /**
      * @return array{source: string, fontFile: string|null}|null
      */
-    private function copyUrlToFontDirectory(string $url): ?array
+    private function installUrlInFontDirectory(string $url): ?array
     {
-        if ($url === '' || !function_exists('wp_get_font_dir')) {
+        if ($url === '') {
             return null;
         }
 
-        $fontDir = wp_get_font_dir();
+        $fontDir = $this->wpService->wpGetFontDir();
 
         if (!is_array($fontDir) || empty($fontDir['baseurl']) || empty($fontDir['basedir'])) {
             return null;
@@ -291,11 +296,7 @@ class MigrateUploadedFontsToNativeFontLibrary
             ];
         }
 
-        if (!function_exists('wp_upload_dir')) {
-            return null;
-        }
-
-        $uploadDir = wp_upload_dir();
+        $uploadDir = $this->wpService->wpUploadDir();
 
         if (!is_array($uploadDir) || empty($uploadDir['baseurl']) || empty($uploadDir['basedir'])) {
             return null;
@@ -310,19 +311,19 @@ class MigrateUploadedFontsToNativeFontLibrary
         $relativePath = ltrim(substr($url, strlen($baseUrl)), '/');
         $filePath = rtrim((string) $uploadDir['basedir'], DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
 
-        return $this->copyFileToFontDirectory($filePath);
+        return $this->installFileInFontDirectory($filePath, basename($filePath));
     }
 
     /**
      * @return array{source: string, fontFile: string|null}|null
      */
-    private function copyFileToFontDirectory(string $sourcePath): ?array
+    private function installFileInFontDirectory(string $sourcePath, ?string $preferredFileName = null): ?array
     {
-        if ($sourcePath === '' || !is_readable($sourcePath) || !function_exists('wp_get_font_dir')) {
+        if ($sourcePath === '' || !is_readable($sourcePath)) {
             return null;
         }
 
-        $fontDir = wp_get_font_dir();
+        $fontDir = $this->wpService->wpGetFontDir();
 
         if (!is_array($fontDir) || empty($fontDir['basedir']) || empty($fontDir['baseurl'])) {
             return null;
@@ -347,32 +348,79 @@ class MigrateUploadedFontsToNativeFontLibrary
             ];
         }
 
-        if (function_exists('wp_mkdir_p')) {
-            wp_mkdir_p($fontBaseDir);
-        } elseif (!is_dir($fontBaseDir)) {
-            mkdir($fontBaseDir, 0777, true);
-        }
+        $temporaryFile = $this->wpService->wpTempnam($sourcePath);
 
-        if (!is_dir($fontBaseDir) || !is_writable($fontBaseDir)) {
+        if ($temporaryFile === '') {
             return null;
         }
 
-        $fileName = basename($sourceRealPath);
+        if (!copy($sourceRealPath, $temporaryFile)) {
+            if (function_exists('unlink') && file_exists($temporaryFile)) {
+                unlink($temporaryFile);
+            }
 
-        if (function_exists('wp_unique_filename')) {
-            $fileName = wp_unique_filename($fontBaseDir, $fileName);
+            return null;
         }
 
-        $destinationPath = $fontBaseDir . DIRECTORY_SEPARATOR . $fileName;
+        $fileName = $preferredFileName;
 
-        if (!file_exists($destinationPath) && !copy($sourceRealPath, $destinationPath)) {
+        if (!is_string($fileName) || $fileName === '') {
+            $fileName = basename($sourceRealPath);
+        }
+
+        $file = [
+            'name' => $fileName,
+            'tmp_name' => $temporaryFile,
+            'error' => 0,
+            'size' => function_exists('filesize') ? (int) filesize($temporaryFile) : 0,
+        ];
+
+        $overrides = [
+            'test_form' => false,
+        ];
+
+        if (class_exists(\WP_Font_Utils::class) && method_exists(\WP_Font_Utils::class, 'get_allowed_font_mime_types')) {
+            $overrides['mimes'] = \WP_Font_Utils::get_allowed_font_mime_types();
+        }
+
+        if (function_exists('add_filter') && function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
+            add_filter('upload_dir', '_wp_filter_font_directory');
+        }
+
+        $sideloadedFile = $this->wpService->wpHandleSideload($file, $overrides);
+
+        if (function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
+            remove_filter('upload_dir', '_wp_filter_font_directory');
+        }
+
+        if (!is_array($sideloadedFile) || empty($sideloadedFile['file']) || empty($sideloadedFile['url'])) {
+            if (function_exists('file_exists') && file_exists($temporaryFile) && function_exists('unlink')) {
+                unlink($temporaryFile);
+            }
+
             return null;
         }
 
         return [
-            'source' => $fontBaseUrl . '/' . $fileName,
-            'fontFile' => $fileName,
+            'source' => (string) $sideloadedFile['url'],
+            'fontFile' => $this->relativeFontsPath((string) $sideloadedFile['file']),
         ];
+    }
+
+    private function relativeFontsPath(string $path): string
+    {
+        if ($path === '') {
+            return $path;
+        }
+
+        $fontDir = $this->wpService->wpGetFontDir();
+        $baseDir = isset($fontDir['basedir']) && is_string($fontDir['basedir']) ? rtrim($fontDir['basedir'], '/') : '';
+
+        if ($baseDir !== '' && str_starts_with($path, $baseDir)) {
+            return ltrim(substr($path, strlen($baseDir)), '/');
+        }
+
+        return $path;
     }
 
     /**
