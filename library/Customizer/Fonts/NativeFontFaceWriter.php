@@ -57,7 +57,7 @@ class NativeFontFaceWriter
             'post_status' => 'publish',
             'post_title' => $postSlug,
             'post_name' => $postSlug,
-            'post_content' => wp_json_encode($fontFaceSettings),
+            'post_content' => $this->preparePostContent($fontFaceSettings),
         ], true);
 
         if ($fontFile !== null && $fontFile !== '' && function_exists('add_post_meta') && (!function_exists('is_wp_error') || !is_wp_error($postId)) && is_numeric($postId)) {
@@ -153,5 +153,30 @@ class NativeFontFaceWriter
             static fn(mixed $source): string => is_string($source) ? trim($source) : '',
             $sources,
         ))));
+    }
+
+    /**
+     * Prepares JSON post content for wp_insert_post().
+     *
+     * WordPress unslashes post fields before persistence, so JSON that contains
+     * quoted font-family values must be slashed ahead of time to remain valid.
+     *
+     * @param array<string, mixed> $settings
+     *
+     * @return string
+     */
+    private function preparePostContent(array $settings): string
+    {
+        $json = (string) wp_json_encode($settings);
+
+        if (function_exists('wp_slash')) {
+            $slashedJson = wp_slash($json);
+
+            if (is_string($slashedJson)) {
+                return $slashedJson;
+            }
+        }
+
+        return addslashes($json);
     }
 }

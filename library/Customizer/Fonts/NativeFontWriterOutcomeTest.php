@@ -28,7 +28,16 @@ class NativeFontWriterOutcomeTestState
 
 function wp_insert_post(array $postarr, bool $wpError = false): int
 {
-    NativeFontWriterOutcomeTestState::$insertedPosts[] = $postarr;
+    NativeFontWriterOutcomeTestState::$insertedPosts[] = array_map(
+        static function (mixed $value): mixed {
+            if (!is_string($value)) {
+                return $value;
+            }
+
+            return stripslashes($value);
+        },
+        $postarr,
+    );
 
     return count(NativeFontWriterOutcomeTestState::$insertedPosts);
 }
