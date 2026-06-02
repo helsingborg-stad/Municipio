@@ -41,15 +41,16 @@ class AppendArchiveMenuItem implements MenuInterface
         if ($this->wpService->isArchive() && is_object($queriedObject)) {
             $postType = $queriedObject->name;
         }
-
-        $archiveLink = $this->wpService->getPostTypeArchiveLink($postType);
+            
+            $archiveLink = $this->wpService->getPostTypeArchiveLink($postType);
 
         if ($archiveLink) {
             $defaultLabel = $this->wpService->__('Untitled page', 'municipio');
 
             if ($this->wpService->isArchive()) {
-                $pageTitle = (string) $this->wpService->getTheTitle(CurrentPostId::get());
-                $label = $pageTitle !== '' ? $pageTitle : $this->wpService->getQueriedObject()->label ?? $defaultLabel;
+                $currentPostId = CurrentPostId::get();
+                $pageTitle = !empty($currentPostId) ? (string) $this->wpService->getTheTitle($currentPostId) : '';
+                $label = !empty($pageTitle) ? $pageTitle : $this->wpService->getQueriedObject()->label ?? $defaultLabel;
             } else {
                 //Handle page for post type archive title if set, otherwise
                 //fallback to post type label or default label
