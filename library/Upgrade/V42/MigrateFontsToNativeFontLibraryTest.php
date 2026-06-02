@@ -69,20 +69,16 @@ class MigrateFontsToNativeFontLibraryTest extends TestCase
         $kirkiFontsMigrator = $this->createMock(MigrateKirkiFontsToNativeFontLibrary::class);
         $kirkiFontsMigrator->expects(static::never())->method('migrate');
 
-        $uploadedFontsMigrator = $this->createMock(MigrateUploadedFontsToNativeFontLibrary::class);
-        $uploadedFontsMigrator->expects(static::never())->method('migrate');
-
         (new MigrateFontsToNativeFontLibrary(
             $wpService,
             $kirkiFontsMigrator,
-            $uploadedFontsMigrator,
         ))->migrate();
 
         static::assertArrayNotHasKey('setThemeMod', $wpService->methodCalls);
     }
 
-    #[TestDox('migrate() runs both dedicated native font migrations when the library is available')]
-    public function testMigrateRunsBothDedicatedNativeFontMigrationsWhenTheLibraryIsAvailable(): void
+    #[TestDox('migrate() runs the v42 Kirki-font migration when the library is available')]
+    public function testMigrateRunsTheV42KirkiFontMigrationWhenTheLibraryIsAvailable(): void
     {
         $wpService = new FakeWpService([
             'postTypeExists' => static fn(string $postType): bool => in_array($postType, ['wp_font_family', 'wp_font_face'], true),
@@ -90,13 +86,9 @@ class MigrateFontsToNativeFontLibraryTest extends TestCase
         $kirkiFontsMigrator = $this->createMock(MigrateKirkiFontsToNativeFontLibrary::class);
         $kirkiFontsMigrator->expects(static::once())->method('migrate');
 
-        $uploadedFontsMigrator = $this->createMock(MigrateUploadedFontsToNativeFontLibrary::class);
-        $uploadedFontsMigrator->expects(static::once())->method('migrate');
-
         (new MigrateFontsToNativeFontLibrary(
             $wpService,
             $kirkiFontsMigrator,
-            $uploadedFontsMigrator,
         ))->migrate();
     }
 }

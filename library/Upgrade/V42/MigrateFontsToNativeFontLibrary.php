@@ -24,11 +24,10 @@ class MigrateFontsToNativeFontLibrary
     public function __construct(
         private readonly WpService $wpService,
         private readonly ?MigrateKirkiFontsToNativeFontLibrary $kirkiFontsMigrator = null,
-        private readonly ?MigrateUploadedFontsToNativeFontLibrary $uploadedFontsMigrator = null,
     ) {}
 
     /**
-     * Runs the Kirki-font and uploaded-font migrations when the native library exists.
+     * Runs the v42 Kirki-font migration when the native library exists.
      *
      * @return void
      */
@@ -39,10 +38,6 @@ class MigrateFontsToNativeFontLibrary
         }
 
         ($this->kirkiFontsMigrator ?? new MigrateKirkiFontsToNativeFontLibrary(
-            $this->wpService,
-        ))->migrate();
-
-        ($this->uploadedFontsMigrator ?? new MigrateUploadedFontsToNativeFontLibrary(
             $this->wpService,
         ))->migrate();
     }
