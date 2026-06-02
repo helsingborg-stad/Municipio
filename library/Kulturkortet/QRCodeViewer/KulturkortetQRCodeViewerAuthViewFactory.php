@@ -108,9 +108,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
-                'heading' => __('Log in to view your kulturkort', 'municipio'),
-                'content' => __('To view your kulturkort, you must log in with BankId.', 'municipio'),
-                'url' => __('Log in', 'municipio'),
+                'heading' => $this->wpService->__('Log in to view your kulturkort', 'municipio'),
+                'content' => $this->wpService->__('To view your kulturkort, you must log in with BankId.', 'municipio'),
+                'url' => $this->wpService->__('Log in', 'municipio'),
             ],
             'url' => $loginUrl,
         ]);
@@ -120,9 +120,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
-                'heading' => __('You have been successfully logged out', 'municipio'),
-                'content' => __('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
-                'url' => __('To the homepage', 'municipio'),
+                'heading' => $this->wpService->__('You have been successfully logged out', 'municipio'),
+                'content' => $this->wpService->__('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
+                'url' => $this->wpService->__('To the homepage', 'municipio'),
             ],
             'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
         ]);
@@ -132,9 +132,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
-                'heading' => __('An error occurred', 'municipio'),
+                'heading' => $this->wpService->__('An error occurred', 'municipio'),
                 'content' => $error,
-                'url' => __('To the homepage', 'municipio'),
+                'url' => $this->wpService->__('To the homepage', 'municipio'),
             ],
             'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
         ]);
