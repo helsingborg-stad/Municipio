@@ -127,7 +127,6 @@ class ApplyI18n
             'Selects the token family used for success notices.' => $this->wpService->_x('Selects the token family used for success notices.', 'design-builder-component-data', 'municipio'),
             'Selects the token family used for warning notices.' => $this->wpService->_x('Selects the token family used for warning notices.', 'design-builder-component-data', 'municipio'),
             'Success State' => $this->wpService->_x('Success State', 'design-builder-component-data', 'municipio'),
-            'The contrast of the selected palette will be used.' => $this->wpService->_x('The contrast of the selected palette will be used.', 'design-builder-component-data', 'municipio'),
             'The Link component outputs a link to a URL.' => $this->wpService->_x('The Link component outputs a link to a URL.', 'design-builder-component-data', 'municipio'),
             'Typography' => $this->wpService->_x('Typography', 'design-builder-component-data', 'municipio'),
             'Settings' => $this->wpService->_x('Settings', 'design-builder-component-data', 'municipio'),
@@ -189,6 +188,8 @@ class ApplyI18n
             'Controls the color used by the drawer shadow.'=> $this->wpService->_x('Controls the color used by the drawer shadow.', 'design-builder-component-data', 'municipio'),
             'Shadow Intensity'    => $this->wpService->_x('Shadow Intensity', 'design-builder-component-data', 'municipio'),
             'Controls how strong the drawer shadow appears when open.'=> $this->wpService->_x('Controls how strong the drawer shadow appears when open.', 'design-builder-component-data', 'municipio'),
+            'Link Color Mix Amount' => $this->wpService->_x('Link Color Mix Amount', 'design-builder-component-data', 'municipio'),
+            'Adjusts the mix amount of the link color in hover, active, and visited states.'=> $this->wpService->_x('Adjusts the mix amount of the link color in hover, active, and visited states.', 'design-builder-component-data', 'municipio'),
             default => $string,
         };
     }

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-02T07:18:46+00:00\n"
+"POT-Creation-Date: 2026-06-02T08:28:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -6749,312 +6749,317 @@ msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:130
 msgctxt "design-builder-component-data"
-msgid "The contrast of the selected palette will be used."
+msgid "The Link component outputs a link to a URL."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:131
 msgctxt "design-builder-component-data"
-msgid "The Link component outputs a link to a URL."
+msgid "Typography"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:132
 msgctxt "design-builder-component-data"
-msgid "Typography"
+msgid "Settings"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:133
 msgctxt "design-builder-component-data"
-msgid "Settings"
+msgid "Shape"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:134
 msgctxt "design-builder-component-data"
-msgid "Shape"
+msgid "Background color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:135
 msgctxt "design-builder-component-data"
-msgid "Background color"
+msgid "Icon & initials color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:136
 msgctxt "design-builder-component-data"
-msgid "Icon & initials color"
+msgid "Component-local adjustments."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:137
 msgctxt "design-builder-component-data"
-msgid "Component-local adjustments."
+msgid "The Timeline component provides a vertical overview of events, milestones, or steps in a process."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:138
 msgctxt "design-builder-component-data"
-msgid "The Timeline component provides a vertical overview of events, milestones, or steps in a process."
+msgid "Variant color selection for button surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:139
 msgctxt "design-builder-component-data"
-msgid "Variant color selection for button surfaces."
+msgid "Warning State"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:140
 msgctxt "design-builder-component-data"
-msgid "Warning State"
+msgid "Space"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:141
 msgctxt "design-builder-component-data"
-msgid "Space"
+msgid "Adjusts the spacing between logo and text."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:142
 msgctxt "design-builder-component-data"
-msgid "Adjusts the spacing between logo and text."
+msgid "Text Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:143
 msgctxt "design-builder-component-data"
-msgid "Text Color"
+msgid "Overrides the default text color for the brand component."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:144
 msgctxt "design-builder-component-data"
-msgid "Overrides the default text color for the brand component."
+msgid "Font Family"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:145
 msgctxt "design-builder-component-data"
-msgid "Font Family"
+msgid "Overrides the default font family for the brand component."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:146
 msgctxt "design-builder-component-data"
-msgid "Overrides the default font family for the brand component."
+msgid "Component-local branding adjustments."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:147
 msgctxt "design-builder-component-data"
-msgid "Component-local branding adjustments."
+msgid "Scales the header logotype height locally without changing the global base size."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:148
 msgctxt "design-builder-component-data"
-msgid "Scales the header logotype height locally without changing the global base size."
+msgid "Font Size Multiplier"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:149
 msgctxt "design-builder-component-data"
-msgid "Font Size Multiplier"
+msgid "Branding"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:150
 msgctxt "design-builder-component-data"
-msgid "Branding"
+msgid "Home Link Height Multiplier"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:151
 msgctxt "design-builder-component-data"
-msgid "Home Link Height Multiplier"
+msgid "Logotype Height Multiplier"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:152
 msgctxt "design-builder-component-data"
-msgid "Logotype Height Multiplier"
+msgid "Scales the brand text size locally without changing the global typography scale."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:153
 msgctxt "design-builder-component-data"
-msgid "Scales the brand text size locally without changing the global typography scale."
+msgid "Scales the footer home link height locally without changing global sizing."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:154
 msgctxt "design-builder-component-data"
-msgid "Scales the footer home link height locally without changing global sizing."
+msgid "The Scope component groups inner content styles and limits the scope of styles to prevent them from affecting other parts of the interface."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:155
 msgctxt "design-builder-component-data"
-msgid "The Scope component groups inner content styles and limits the scope of styles to prevent them from affecting other parts of the interface."
+msgid "Button Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:156
 msgctxt "design-builder-component-data"
-msgid "Button Color"
+msgid "Controls the background, text, border, hover, and active colors for primary buttons."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:157
 msgctxt "design-builder-component-data"
-msgid "Controls the background, text, border, hover, and active colors for primary buttons."
+msgid "Controls the background, text, border, hover, and active colors for secondary buttons."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:158
 msgctxt "design-builder-component-data"
-msgid "Controls the background, text, border, hover, and active colors for secondary buttons."
+msgid "Controls the background, text, border, hover, and active colors for default buttons."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:159
 msgctxt "design-builder-component-data"
-msgid "Controls the background, text, border, hover, and active colors for default buttons."
+msgid "Card Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:160
 msgctxt "design-builder-component-data"
-msgid "Card Color"
+msgid "Controls the card background, text, border, and hover colors."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:161
 msgctxt "design-builder-component-data"
-msgid "Controls the card background, text, border, and hover colors."
+msgid "Component-local adjustments for card appearance and spacing."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:162
 msgctxt "design-builder-component-data"
-msgid "Component-local adjustments for card appearance and spacing."
+msgid "Controls the card surface, text contrast, border, and alternate layout colors."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:163
 msgctxt "design-builder-component-data"
-msgid "Controls the card surface, text contrast, border, and alternate layout colors."
+msgid "Accent Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:164
 msgctxt "design-builder-component-data"
-msgid "Accent Color"
+msgid "Controls highlighted card details, including accent borders and accented header backgrounds."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:165
 msgctxt "design-builder-component-data"
-msgid "Controls highlighted card details, including accent borders and accented header backgrounds."
+msgid "Image Background Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:166
 msgctxt "design-builder-component-data"
-msgid "Image Background Color"
+msgid "Controls the background shown behind transparent images and SVG illustrations."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:167
 msgctxt "design-builder-component-data"
-msgid "Controls the background shown behind transparent images and SVG illustrations."
+msgid "Spacing & Padding"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:168
 msgctxt "design-builder-component-data"
-msgid "Spacing & Padding"
+msgid "Controls padding inside the card and spacing between card elements."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:169
 msgctxt "design-builder-component-data"
-msgid "Controls padding inside the card and spacing between card elements."
+msgid "Border & Divider Width"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:170
 msgctxt "design-builder-component-data"
-msgid "Border & Divider Width"
+msgid "Controls the width of card borders and internal dividers."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:171
 msgctxt "design-builder-component-data"
-msgid "Controls the width of card borders and internal dividers."
+msgid "Component-local color choices for drawer panels and navigation areas."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:172
 msgctxt "design-builder-component-data"
-msgid "Component-local color choices for drawer panels and navigation areas."
+msgid "Main Panel Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:173
 msgctxt "design-builder-component-data"
-msgid "Main Panel Color"
+msgid "Controls the default drawer background, text contrast, field colors, and surface borders."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:174
 msgctxt "design-builder-component-data"
-msgid "Controls the default drawer background, text contrast, field colors, and surface borders."
+msgid "Controls the main drawer background when the drawer is duotone."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:175
 msgctxt "design-builder-component-data"
-msgid "Controls the main drawer background when the drawer is duotone."
+msgid "Secondary Navigation Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:176
 msgctxt "design-builder-component-data"
-msgid "Secondary Navigation Color"
+msgid "Controls the secondary navigation area when the drawer is duotone."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:177
 msgctxt "design-builder-component-data"
-msgid "Controls the secondary navigation area when the drawer is duotone."
+msgid "Overlay Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:178
 msgctxt "design-builder-component-data"
-msgid "Overlay Color"
+msgid "Controls the dimmed backdrop shown behind an open drawer, including its opacity."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:179
 msgctxt "design-builder-component-data"
-msgid "Controls the dimmed backdrop shown behind an open drawer, including its opacity."
+msgid "Layout"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:180
 msgctxt "design-builder-component-data"
-msgid "Layout"
+msgid "Component-local sizing and spacing for the drawer panel and its navigation items."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:181
 msgctxt "design-builder-component-data"
-msgid "Component-local sizing and spacing for the drawer panel and its navigation items."
+msgid "Spacing and Padding"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:182
 msgctxt "design-builder-component-data"
-msgid "Spacing and Padding"
+msgid "Controls drawer header, footer, and navigation item padding."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:183
 msgctxt "design-builder-component-data"
-msgid "Controls drawer header, footer, and navigation item padding."
+msgid "Width Multiplier"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:184
 msgctxt "design-builder-component-data"
-msgid "Width Multiplier"
+msgid "Multiplies the default drawer width without changing the global base unit."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:185
 msgctxt "design-builder-component-data"
-msgid "Multiplies the default drawer width without changing the global base unit."
+msgid "Elevation"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:186
 msgctxt "design-builder-component-data"
-msgid "Elevation"
+msgid "Component-local shadow controls for the open drawer state."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:187
 msgctxt "design-builder-component-data"
-msgid "Component-local shadow controls for the open drawer state."
+msgid "Shadow Color"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:188
 msgctxt "design-builder-component-data"
-msgid "Shadow Color"
+msgid "Controls the color used by the drawer shadow."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:189
 msgctxt "design-builder-component-data"
-msgid "Controls the color used by the drawer shadow."
+msgid "Shadow Intensity"
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:190
 msgctxt "design-builder-component-data"
-msgid "Shadow Intensity"
+msgid "Controls how strong the drawer shadow appears when open."
 msgstr ""
 
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:191
 msgctxt "design-builder-component-data"
-msgid "Controls how strong the drawer shadow appears when open."
+msgid "Link Color Mix Amount"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:192
+msgctxt "design-builder-component-data"
+msgid "Adjusts the mix amount of the link color in hover, active, and visited states."
 msgstr ""
 
 #: library/Styleguide/Customize/Customize.php:93
