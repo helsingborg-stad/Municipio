@@ -20,10 +20,11 @@ class NativeFontFamilyWriter
      * Creates a native font family when it does not already exist.
      *
      * @param string $fontFamily
+     * @param string|null $cssFontFamily
      *
      * @return int|null
      */
-    public function createFontFamilyIfMissing(string $fontFamily): ?int
+    public function createFontFamilyIfMissing(string $fontFamily, ?string $cssFontFamily = null, ?string $preview = null): ?int
     {
         if (!$this->support->isAvailable()) {
             return null;
@@ -42,7 +43,7 @@ class NativeFontFamilyWriter
             return (int) $existingPost->ID;
         }
 
-        return $this->insertFontFamily($fontFamily, $slug);
+        return $this->insertFontFamily($fontFamily, $slug, $cssFontFamily, $preview);
     }
 
     /**
@@ -50,23 +51,32 @@ class NativeFontFamilyWriter
      *
      * @param string $fontFamily
      * @param string $slug
+     * @param string|null $cssFontFamily
      *
      * @return int|null
      */
-    private function insertFontFamily(string $fontFamily, string $slug): ?int
+    private function insertFontFamily(string $fontFamily, string $slug, ?string $cssFontFamily = null, ?string $preview = null): ?int
     {
         if (!function_exists('wp_insert_post') || !function_exists('wp_json_encode')) {
             return null;
         }
 
+        $settings = [
+            'name' => $fontFamily,
+            'slug' => $slug,
+            'fontFamily' => is_string($cssFontFamily) && trim($cssFontFamily) !== '' ? trim($cssFontFamily) : $this->support->getFontFamilyCssValue($fontFamily),
+        ];
+
+        if (is_string($preview) && trim($preview) !== '') {
+            $settings['preview'] = trim($preview);
+        }
+
         $postId = wp_insert_post([
-            'post_type'    => 'wp_font_family',
-            'post_status'  => 'publish',
-            'post_title'   => $fontFamily,
-            'post_name'    => $slug,
-            'post_content' => wp_json_encode([
-                'fontFamily' => $this->support->getFontFamilyCssValue($fontFamily),
-            ]),
+            'post_type' => 'wp_font_family',
+            'post_status' => 'publish',
+            'post_title' => $fontFamily,
+            'post_name' => $slug,
+            'post_content' => wp_json_encode($settings),
         ], true);
 
         if (function_exists('is_wp_error') && is_wp_error($postId)) {

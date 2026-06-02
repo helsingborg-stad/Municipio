@@ -30,7 +30,7 @@ class FontCatalogFactory
         return new FontCatalog(
             $this->wpService,
             $fontRepository,
-            new FontStyleguideOptionProvider($this->wpService, $fontRepository, new NativeFontLibraryRepository()),
+            new FontStyleguideOptionProvider($fontRepository, new NativeFontLibraryRepository()),
         );
     }
 

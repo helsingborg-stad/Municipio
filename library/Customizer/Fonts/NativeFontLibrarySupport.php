@@ -16,9 +16,7 @@ class NativeFontLibrarySupport
      */
     public function isAvailable(): bool
     {
-        return function_exists('post_type_exists')
-            && post_type_exists('wp_font_family')
-            && post_type_exists('wp_font_face');
+        return function_exists('post_type_exists') && post_type_exists('wp_font_family') && post_type_exists('wp_font_face');
     }
 
     /**
@@ -55,28 +53,32 @@ class NativeFontLibrarySupport
      * Checks if a font face with the same source exists for a font family.
      *
      * @param int $fontFamilyPostId
-     * @param string $source
+     * @param string|array<int, string> $source
      *
      * @return bool
      */
-    public function fontFaceExists(int $fontFamilyPostId, string $source): bool
+    public function fontFaceExists(int $fontFamilyPostId, string|array $source): bool
     {
         if (!function_exists('get_posts')) {
             return false;
         }
 
+        $sourcesToFind = $this->normalizeSources($source);
+
+        if ($sourcesToFind === []) {
+            return false;
+        }
+
         foreach ($this->getFontFacePosts($fontFamilyPostId) as $fontFace) {
-            $settings = is_object($fontFace) && property_exists($fontFace, 'post_content')
-                ? json_decode((string) $fontFace->post_content, true)
-                : null;
+            $settings = is_object($fontFace) && property_exists($fontFace, 'post_content') ? json_decode((string) $fontFace->post_content, true) : null;
 
             if (!is_array($settings) || !array_key_exists('src', $settings)) {
                 continue;
             }
 
-            $sources = is_array($settings['src']) ? $settings['src'] : [$settings['src']];
+            $sources = $this->normalizeSources(is_array($settings['src']) ? $settings['src'] : [(string) $settings['src']]);
 
-            if (in_array($source, $sources, true)) {
+            if (array_intersect($sourcesToFind, $sources) !== []) {
                 return true;
             }
         }
@@ -110,12 +112,27 @@ class NativeFontLibrarySupport
     private function getFontFacePosts(int $fontFamilyPostId): array
     {
         return get_posts([
-            'post_type'              => 'wp_font_face',
-            'post_status'            => 'publish',
-            'post_parent'            => $fontFamilyPostId,
-            'posts_per_page'         => -1,
+            'post_type' => 'wp_font_face',
+            'post_status' => 'publish',
+            'post_parent' => $fontFamilyPostId,
+            'posts_per_page' => -1,
             'update_post_meta_cache' => false,
             'update_post_term_cache' => false,
         ]);
+    }
+
+    /**
+     * @param string|array<int, string> $sources
+     *
+     * @return array<int, string>
+     */
+    private function normalizeSources(string|array $sources): array
+    {
+        $sources = is_array($sources) ? $sources : [$sources];
+
+        return array_values(array_unique(array_filter(array_map(
+            static fn(mixed $source): string => is_string($source) ? trim($source) : '',
+            $sources,
+        ))));
     }
 }

@@ -189,35 +189,6 @@ class PanelsRegistry
             ->register();
     }
 
-    /**
-     * Register the separate font management panel.
-     *
-     * @return void
-     */
-    public static function registerFontsPanel()
-    {
-        KirkiPanel::create()
-            ->setID('municipio_customizer_panel_fonts')
-            ->setTitle(esc_html__('Fonts', 'municipio'))
-            ->setDescription(esc_html__('Manage available site fonts and typography settings.', 'municipio'))
-            ->setPriority(121)
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_google_fonts')
-                    ->setTitle(esc_html__('Google Fonts', 'municipio'))
-                    ->setDescription(esc_html__('Enable the Google Fonts that should be available on the site.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Fonts\Sections\GoogleFonts('municipio_customizer_section_google_fonts')),
-            )
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_uploaded_fonts')
-                    ->setTitle(esc_html__('Uploaded Fonts', 'municipio'))
-                    ->setDescription(esc_html__('Manage uploaded font files that should be available on the site.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Fonts\Sections\UploadedFonts('municipio_customizer_section_uploaded_fonts')),
-            )
-            ->register();
-    }
-
     /* Component panel */
     public static function registerComponentAppearancePanel()
     {

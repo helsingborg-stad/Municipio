@@ -6,20 +6,15 @@ namespace Municipio\Customizer\Fonts;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Implementations\FakeWpService;
 
 /**
  * Tests managed font styleguide options.
  */
 class FontStyleguideOptionProviderTest extends TestCase
 {
-    #[TestDox('addFontFamilies() appends managed Google and uploaded fonts')]
-    public function testAddFontFamiliesAppendsManagedGoogleAndUploadedFonts(): void
+    #[TestDox('addFontFamilies() appends uploaded fonts and deduplicates native library matches')]
+    public function testAddFontFamiliesAppendsUploadedFontsAndDeduplicatesNativeLibraryMatches(): void
     {
-        $wpService = new FakeWpService([
-            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === FontCatalog::GOOGLE_FONTS_SETTING ? ['Roboto', 'Open Sans', 'Roboto', ''] : $default,
-        ]);
-
         $fontRepository = $this->createMock(FontRepository::class);
         $fontRepository
             ->method('getUploadedFonts')
@@ -38,22 +33,27 @@ class FontStyleguideOptionProviderTest extends TestCase
                 ],
             ]);
 
-        $provider = new FontStyleguideOptionProvider($wpService, $fontRepository);
+        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
+        $nativeFontLibraryRepository
+            ->method('getFontFamilies')
+            ->willReturn(['Open Sans', 'Merriweather']);
+
+        $provider = new FontStyleguideOptionProvider($fontRepository, $nativeFontLibraryRepository);
 
         $options = $provider->addFontFamilies([
             ['value' => 'Arial, sans-serif', 'label' => 'Arial'],
         ]);
 
         static::assertContains(
-            ['value' => '"Roboto", sans-serif', 'label' => 'Roboto'],
-            $options,
-        );
-        static::assertContains(
             ['value' => '"Open Sans", sans-serif', 'label' => 'Open Sans'],
             $options,
         );
         static::assertContains(
             ['value' => '"Inter", sans-serif', 'label' => 'Inter'],
+            $options,
+        );
+        static::assertContains(
+            ['value' => '"Merriweather", sans-serif', 'label' => 'Merriweather'],
             $options,
         );
 
@@ -68,14 +68,13 @@ class FontStyleguideOptionProviderTest extends TestCase
     #[TestDox('addFontFamilies() ignores malformed option entries')]
     public function testAddFontFamiliesIgnoresMalformedOptionEntries(): void
     {
-        $wpService = new FakeWpService([
-            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === FontCatalog::GOOGLE_FONTS_SETTING ? ['Roboto'] : $default,
-        ]);
-
         $fontRepository = $this->createMock(FontRepository::class);
         $fontRepository->method('getUploadedFonts')->willReturn([]);
 
-        $provider = new FontStyleguideOptionProvider($wpService, $fontRepository);
+        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
+        $nativeFontLibraryRepository->method('getFontFamilies')->willReturn(['Roboto']);
+
+        $provider = new FontStyleguideOptionProvider($fontRepository, $nativeFontLibraryRepository);
 
         $options = $provider->addFontFamilies([
             ['value' => '', 'label' => ''],

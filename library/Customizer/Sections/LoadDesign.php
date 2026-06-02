@@ -255,8 +255,12 @@ class LoadDesign
     {
         $uploadedFonts = (new FontCatalogFactory(WpServiceHelper::get()))->createFontRepository()->getUploadedFonts();
 
-        if (!empty($uploadedFonts[$fontFamily]['url'])) {
-            return $uploadedFonts[$fontFamily]['url'];
+        foreach ($uploadedFonts as $uploadedFont) {
+            if (($uploadedFont['name'] ?? '') !== $fontFamily || empty($uploadedFont['url'])) {
+                continue;
+            }
+
+            return (string) $uploadedFont['url'];
         }
 
         return null;

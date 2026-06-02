@@ -22,102 +22,85 @@ if (!class_exists(Fonts::class, false)) {
     }
 }
 
-namespace Municipio\Upgrade\V42;
+namespace Kirki;
 
-use Municipio\Customizer\Fonts\FontCatalog;
-use Municipio\Customizer\Fonts\FontRepository;
+if (!class_exists(GoogleFonts::class, false)) {
+    /**
+     * Test stub for Kirki Google font metadata.
+     */
+    final class GoogleFonts
+    {
+        /**
+         * @return array<string, array{variants?: array<mixed>}>
+         */
+        public function get_google_fonts(): array
+        {
+            return [
+                'Roboto' => [
+                    'variants' => ['regular', '700italic'],
+                ],
+                'Open Sans' => [
+                    'variants' => ['regular', '700'],
+                ],
+            ];
+        }
+    }
+}
+
+namespace Municipio\Upgrade\V42;
 use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 /**
- * Tests migration to the native WordPress font library.
+ * Tests orchestration of the V42 native font migrations.
  */
 class MigrateFontsToNativeFontLibraryTest extends TestCase
 {
-    #[TestDox('migrate() does nothing when native font migration has already completed')]
-    public function testMigrateDoesNothingWhenNativeFontMigrationHasAlreadyCompleted(): void
-    {
-        $wpService = new FakeWpService([
-            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === MigrateFontsToNativeFontLibrary::MIGRATION_SETTING ? true : $default,
-        ]);
-        $fontRepository = $this->createMock(FontRepository::class);
-        $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
-        $nativeFontLibraryRepository->expects(static::never())->method('isAvailable');
-
-        (new MigrateFontsToNativeFontLibrary($wpService, $fontRepository, $nativeFontLibraryRepository))->migrate();
-
-        static::assertArrayNotHasKey('setThemeMod', $wpService->methodCalls);
-    }
-
     #[TestDox('migrate() waits for WordPress native font library availability')]
     public function testMigrateWaitsForWordPressNativeFontLibraryAvailability(): void
     {
         $wpService = new FakeWpService([
             'getThemeMod' => static fn(string $key, mixed $default): mixed => $default,
         ]);
-        $fontRepository = $this->createMock(FontRepository::class);
         $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
         $nativeFontLibraryRepository->expects(static::once())->method('isAvailable')->willReturn(false);
 
-        (new MigrateFontsToNativeFontLibrary($wpService, $fontRepository, $nativeFontLibraryRepository))->migrate();
+        $kirkiFontsMigrator = $this->createMock(MigrateKirkiFontsToNativeFontLibrary::class);
+        $kirkiFontsMigrator->expects(static::never())->method('migrate');
+
+        $uploadedFontsMigrator = $this->createMock(MigrateUploadedFontsToNativeFontLibrary::class);
+        $uploadedFontsMigrator->expects(static::never())->method('migrate');
+
+        (new MigrateFontsToNativeFontLibrary(
+            $wpService,
+            $nativeFontLibraryRepository,
+            $kirkiFontsMigrator,
+            $uploadedFontsMigrator,
+        ))->migrate();
 
         static::assertArrayNotHasKey('setThemeMod', $wpService->methodCalls);
     }
 
-    #[TestDox('migrate() creates native families and faces for legacy font settings')]
-    public function testMigrateCreatesNativeFamiliesAndFacesForLegacyFontSettings(): void
+    #[TestDox('migrate() runs both dedicated native font migrations when the library is available')]
+    public function testMigrateRunsBothDedicatedNativeFontMigrationsWhenTheLibraryIsAvailable(): void
     {
-        $wpService = new FakeWpService([
-            'getThemeMod' => static function (string $key, mixed $default): mixed {
-                return match ($key) {
-                    MigrateFontsToNativeFontLibrary::MIGRATION_SETTING => false,
-                    FontCatalog::GOOGLE_FONTS_SETTING => ['Roboto', 'Open Sans', 'Roboto'],
-                    'typography_base' => ['font-family' => 'Open Sans', 'variant' => '700'],
-                    'typography_heading' => ['font-family' => 'Arial', 'variant' => 'regular'],
-                    default => $default,
-                };
-            },
-            'setThemeMod' => true,
-        ]);
-
-        $fontRepository = $this->createMock(FontRepository::class);
-        $fontRepository
-            ->expects(static::once())
-            ->method('getUploadedFonts')
-            ->willReturn([
-                'Inter' => [
-                    'id' => 10,
-                    'name' => 'Inter',
-                    'type' => 'woff2',
-                    'url' => 'https://example.com/inter.woff2',
-                ],
-            ]);
+        $wpService = new FakeWpService();
 
         $nativeFontLibraryRepository = $this->createMock(NativeFontLibraryRepository::class);
         $nativeFontLibraryRepository->expects(static::once())->method('isAvailable')->willReturn(true);
-        $nativeFontLibraryRepository
-            ->expects(static::exactly(3))
-            ->method('createFontFamilyIfMissing')
-            ->willReturnMap([
-                ['Roboto', 1],
-                ['Open Sans', 2],
-                ['Inter', 3],
-            ]);
-        $nativeFontLibraryRepository
-            ->expects(static::once())
-            ->method('createFontFaceIfMissing')
-            ->with(3, 'Inter', 'https://example.com/inter.woff2');
+        $kirkiFontsMigrator = $this->createMock(MigrateKirkiFontsToNativeFontLibrary::class);
+        $kirkiFontsMigrator->expects(static::once())->method('migrate');
 
-        (new MigrateFontsToNativeFontLibrary($wpService, $fontRepository, $nativeFontLibraryRepository))->migrate();
+        $uploadedFontsMigrator = $this->createMock(MigrateUploadedFontsToNativeFontLibrary::class);
+        $uploadedFontsMigrator->expects(static::once())->method('migrate');
 
-        static::assertSame(
-            [
-                [MigrateFontsToNativeFontLibrary::MIGRATION_SETTING, true],
-                [FontCatalog::MIGRATION_SETTING, true],
-            ],
-            $wpService->methodCalls['setThemeMod'],
-        );
+        (new MigrateFontsToNativeFontLibrary(
+            $wpService,
+            $nativeFontLibraryRepository,
+            $kirkiFontsMigrator,
+            $uploadedFontsMigrator,
+        ))->migrate();
     }
 }

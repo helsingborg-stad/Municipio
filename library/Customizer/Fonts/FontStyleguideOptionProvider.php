@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Municipio\Customizer\Fonts;
 
-use WpService\WpService;
-
 /**
- * Builds styleguide font family options from managed fonts.
+ * Builds styleguide font family options from uploaded and native-library fonts.
  */
 class FontStyleguideOptionProvider
 {
     /**
-     * @param WpService $wpService
      * @param FontRepository $fontRepository
      * @param NativeFontLibraryRepository|null $nativeFontLibraryRepository
      */
     public function __construct(
-        private readonly WpService $wpService,
         private readonly FontRepository $fontRepository,
         private readonly ?NativeFontLibraryRepository $nativeFontLibraryRepository = null,
     ) {}
 
     /**
-     * Adds managed Google and uploaded fonts to styleguide options.
+     * Adds uploaded and native-library fonts to styleguide options.
      *
      * @param array<int, array{value: string, label: string}> $options
      *
@@ -31,14 +27,6 @@ class FontStyleguideOptionProvider
      */
     public function addFontFamilies(array $options): array
     {
-        $googleFonts = $this->wpService->getThemeMod(FontCatalog::GOOGLE_FONTS_SETTING, []);
-        $googleFonts = is_array($googleFonts) ? $googleFonts : [];
-        $googleFonts = array_values(array_unique(array_filter(array_map('strval', $googleFonts))));
-
-        foreach ($googleFonts as $fontFamily) {
-            $options[] = $this->createFontFamilyOption($fontFamily);
-        }
-
         foreach ($this->fontRepository->getUploadedFonts() as $uploadedFont) {
             if (($uploadedFont['name'] ?? '') === '') {
                 continue;

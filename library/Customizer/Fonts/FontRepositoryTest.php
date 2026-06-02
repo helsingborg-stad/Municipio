@@ -12,15 +12,15 @@ use PHPUnit\Framework\TestCase;
  */
 class FontRepositoryTest extends TestCase
 {
-    #[TestDox('getUploadedFonts() merges legacy and managed fonts with managed precedence')]
-    public function testGetUploadedFontsMergesLegacyAndManagedFontsWithManagedPrecedence(): void
+    #[TestDox('getUploadedFonts() preserves multiple files for the same font family')]
+    public function testGetUploadedFontsPreservesMultipleFilesForTheSameFontFamily(): void
     {
         $managedUploadedFontRepository = $this->createMock(ManagedUploadedFontRepository::class);
         $managedUploadedFontRepository
             ->expects(static::once())
             ->method('getFonts')
             ->willReturn([
-                'Inter' => [
+                'Inter|https://example.com/inter-managed.woff2' => [
                     'id' => 21,
                     'name' => 'Inter',
                     'type' => 'woff2',
@@ -33,13 +33,13 @@ class FontRepositoryTest extends TestCase
             ->expects(static::once())
             ->method('getFonts')
             ->willReturn([
-                'Roboto' => [
+                'Roboto|https://example.com/roboto.woff2' => [
                     'id' => 10,
                     'name' => 'Roboto',
                     'type' => 'woff2',
                     'url' => 'https://example.com/roboto.woff2',
                 ],
-                'Inter' => [
+                'Inter|https://example.com/inter-legacy.woff2' => [
                     'id' => 11,
                     'name' => 'Inter',
                     'type' => 'woff2',
@@ -51,13 +51,19 @@ class FontRepositoryTest extends TestCase
 
         static::assertSame(
             [
-                'Roboto' => [
+                'Roboto|https://example.com/roboto.woff2' => [
                     'id' => 10,
                     'name' => 'Roboto',
                     'type' => 'woff2',
                     'url' => 'https://example.com/roboto.woff2',
                 ],
-                'Inter' => [
+                'Inter|https://example.com/inter-legacy.woff2' => [
+                    'id' => 11,
+                    'name' => 'Inter',
+                    'type' => 'woff2',
+                    'url' => 'https://example.com/inter-legacy.woff2',
+                ],
+                'Inter|https://example.com/inter-managed.woff2' => [
                     'id' => 21,
                     'name' => 'Inter',
                     'type' => 'woff2',

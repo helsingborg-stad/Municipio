@@ -46,10 +46,22 @@ class ManagedUploadedFontRepository
             );
 
             if ($font !== null) {
-                $fonts[$font['name']] = $font;
+                $fonts[$this->createFontKey($font)] = $font;
             }
         }
 
         return $fonts;
+    }
+
+    /**
+     * Creates a stable key for an uploaded font file.
+     *
+     * @param array{id: int, name: string, type: string, url: string} $font
+     *
+     * @return string
+     */
+    private function createFontKey(array $font): string
+    {
+        return sprintf('%s|%s', $font['name'], $font['url']);
     }
 }
