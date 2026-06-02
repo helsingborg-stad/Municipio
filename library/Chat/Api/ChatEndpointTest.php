@@ -9,8 +9,10 @@ use Municipio\Chat\PIIRedactor\Exception\PIIRedactionException;
 use Municipio\Chat\PIIRedactor\Passthrough\PassthroughPIIRedactor;
 use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
+use Override;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\RegisterRestRoute;
 use WpService\Implementations\FakeWpService;
 
 class ChatEndpointTest extends TestCase
@@ -18,7 +20,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor(), static::createWpService());
 
         $this->assertInstanceOf(ChatEndpoint::class, $endpoint);
     }
@@ -26,7 +28,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('handleRegisterRestRoute() returns true')]
     public function testHandleRegisterRestRouteCanBeCalled(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor(), static::createWpService());
 
         $this->assertTrue($endpoint->handleRegisterRestRoute());
     }
@@ -34,7 +36,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('handleRequest() returns a WP_Error when no message parameter is provided')]
     public function testHandleRequestReturnsErrorWhenMessageIsMissing(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest([]);
 
         $response = $endpoint->handleRequest($request);
@@ -45,7 +47,7 @@ class ChatEndpointTest extends TestCase
     #[TestDox('handleRequest() returns a WP_Error when the message parameter is empty')]
     public function testHandleRequestReturnsErrorWhenMessageIsEmpty(): void
     {
-        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($this->getConfig(), $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest(['message' => '']);
 
         $response = $endpoint->handleRequest($request);
@@ -63,7 +65,7 @@ class ChatEndpointTest extends TestCase
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -81,7 +83,7 @@ class ChatEndpointTest extends TestCase
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -99,7 +101,7 @@ class ChatEndpointTest extends TestCase
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -117,7 +119,7 @@ class ChatEndpointTest extends TestCase
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -142,7 +144,7 @@ class ChatEndpointTest extends TestCase
             }
         };
 
-        $endpoint = new ChatEndpoint($config, $throwingRedactor);
+        $endpoint = new ChatEndpoint($config, $throwingRedactor, static::createWpService());
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);
@@ -161,7 +163,7 @@ class ChatEndpointTest extends TestCase
             ],
         ]);
 
-        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor());
+        $endpoint = new ChatEndpoint($config, $this->getPIIRedactor(), static::createWpService());
         $request = $this->createRequest([
             'message' => 'Hello',
             'assistant_id' => 'explicit-id',
@@ -196,5 +198,16 @@ class ChatEndpointTest extends TestCase
     private function getPIIRedactor(): PIIRedactorInterface
     {
         return new PassthroughPIIRedactor();
+    }
+
+    private static function createWpService(): RegisterRestRoute
+    {
+        return new class implements RegisterRestRoute {
+            
+            public function registerRestRoute(string $routeNamespace, string $route, array $args = [], bool $override = false): bool
+            {
+                return true;
+            }
+        };
     }
 }

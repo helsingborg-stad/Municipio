@@ -29,7 +29,7 @@ class Html
             $result = "o-grid-" . round($baseColumns / $numberOfColumns);
         }
 
-        return apply_filters(
+        return WpService::get()->applyFilters(
             'Municipio/Helper/Css/createGridClass',
             $result
         );

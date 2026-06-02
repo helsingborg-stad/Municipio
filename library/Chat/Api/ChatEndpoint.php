@@ -6,6 +6,7 @@ use Municipio\Api\RestApiEndpoint;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
+use WpService\Contracts\RegisterRestRoute;
 
 class ChatEndpoint extends RestApiEndpoint
 {
@@ -15,11 +16,12 @@ class ChatEndpoint extends RestApiEndpoint
     public function __construct(
         private ChatConfigInterface $config,
         private PIIRedactorInterface $piiRedactor,
+        private RegisterRestRoute $wpService,
     ) {}
 
     public function handleRegisterRestRoute(): bool
     {
-        return register_rest_route(self::NAMESPACE, self::ROUTE, array(
+        return $this->wpService->registerRestRoute(self::NAMESPACE, self::ROUTE, array(
             'methods' => 'POST',
             'callback' => array($this, 'handleRequest'),
             'permission_callback' => '__return_true',
@@ -30,22 +32,22 @@ class ChatEndpoint extends RestApiEndpoint
     {
         $params = $request->get_params();
         $messageError = $this->validateMessage($params);
-        if (is_wp_error($messageError)) {
+        if ($messageError instanceof \WP_Error) {
             return $messageError;
-        }
-
-        $assistant = $this->resolveAssistant($params);
-        if (is_wp_error($assistant)) {
-            return $assistant;
-        }
+            }
+            
+            $assistant = $this->resolveAssistant($params);
+            if ($assistant instanceof \WP_Error) {
+                return $assistant;
+                }
 
         $configError = $this->validateAssistantConfig($assistant);
-        if (is_wp_error($configError)) {
+        if ($configError instanceof \WP_Error) {
             return $configError;
         }
 
         $redaction = $this->redactMessage(sanitize_text_field($params['message']));
-        if (is_wp_error($redaction)) {
+        if ($redaction instanceof \WP_Error) {
             return $redaction;
         }
 
@@ -77,9 +79,9 @@ class ChatEndpoint extends RestApiEndpoint
     private function resolveAssistant(array $params): array|\WP_Error
     {
         $assistantUniqueId = $params['assistant_name'] ?? null;
-
+        
         if (empty($assistantUniqueId) || $assistantUniqueId === 'Default') {
-            return $this->config->getDefaultAssistant();
+            return $this->config->getDefaultAssistant() ?? [];
         }
 
         $allAssistants = $this->config->getAssistants();

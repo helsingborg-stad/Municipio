@@ -3,6 +3,7 @@
 namespace Municipio\Chat\Render;
 
 use Municipio\Chat\Config\ChatConfigInterface;
+use Override;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -38,6 +39,37 @@ class ChatEnqueueTest extends TestCase
             {
                 return [['name' => 'Default']];
             }
+
+            public function isPresidioEnabled(): bool
+            {
+                return true;
+            }
+
+            
+            public function getPresidioAllowList(): array
+            {
+                return [];
+            }
+            
+            public function getPresidioAnalyzerHost(): ?string
+            {
+                return null;
+            }
+            
+            public function getPresidioAnonymizerConfig(): ?array
+            {
+                return null;
+            }
+            
+            public function getPresidioAnonymizerHost(): ?string
+            {
+                return null;
+            }
+            
+            public function getPresidioLanguage(): ?string
+            {
+                return null;
+            }
         };
         $this->assertInstanceOf(ChatEnqueue::class, new ChatEnqueue($wpService, $enqueue, $config));
     }
@@ -70,8 +102,40 @@ class ChatEnqueueTest extends TestCase
             {
                 return [];
             }
+            
+            public function isPresidioEnabled(): bool
+            {
+                return true;
+            }
+
+            
+            public function getPresidioAllowList(): array
+            {
+                return [];
+            }
+            
+            public function getPresidioAnalyzerHost(): ?string
+            {
+                return null;
+            }
+            
+            public function getPresidioAnonymizerConfig(): ?array
+            {
+                return null;
+            }
+            
+            public function getPresidioAnonymizerHost(): ?string
+            {
+                return null;
+            }
+            
+            public function getPresidioLanguage(): ?string
+            {
+                return null;
+            }
         };
         $enqueueObj = new ChatEnqueue($wpService, $enqueue, $config);
+
         $this->assertNull($enqueueObj->addHooks());
     }
 }

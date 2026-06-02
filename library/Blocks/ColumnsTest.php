@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace Municipio\Blocks;
 
+use Municipio\Helper\WpService;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class ColumnsTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        WpService::set(new FakeWpService([
+            'applyFilters' => fn($filterName, $value) => $value,
+        ]));
+    }
+
     #[TestDox('removes flex-basis from column inline styles while preserving other declarations')]
     public function testRenderBlockColumnsRemovesOnlyFlexBasisFromStyleAttribute(): void
     {
@@ -29,7 +38,7 @@ class ColumnsTest extends TestCase
         $result = $sut->renderBlockColumns($content, $block);
 
         $this->assertStringNotContainsString('flex-basis', $result);
-        $this->assertStringContainsString('style="color:red;"', $result);
+        $this->assertStringContainsString('style="color:red"', $result);
         $this->assertStringContainsString('o-grid-column-block', $result);
     }
 
