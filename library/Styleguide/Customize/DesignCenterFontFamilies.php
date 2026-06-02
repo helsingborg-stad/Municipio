@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Customizer;
+namespace Municipio\Styleguide\Customize;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
@@ -12,9 +12,6 @@ use WpService\WpService;
  */
 class DesignCenterFontFamilies implements Hookable
 {
-    /**
-     * @param WpService $wpService
-     */
     public function __construct(
         private readonly WpService $wpService,
     ) {}

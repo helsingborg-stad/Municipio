@@ -130,7 +130,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
             $allFontsActivated = $activatedFonts !== [];
 
             foreach (array_values(array_filter($activatedFonts, 'is_array')) as $activatedFont) {
-                if (!(($this->fontActivationPersister)($activatedFont))) {
+                if (!($this->fontActivationPersister)($activatedFont)) {
                     $allFontsActivated = false;
                 }
             }
@@ -566,9 +566,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
         $activatedFontFaces = [];
 
         foreach ($fontFaces as $fontFace) {
-            $postContent = is_object($fontFace) && property_exists($fontFace, 'post_content')
-                ? (string) $fontFace->post_content
-                : (is_array($fontFace) && isset($fontFace['post_content']) ? (string) $fontFace['post_content'] : '');
+            $postContent = is_object($fontFace) && property_exists($fontFace, 'post_content') ? (string) $fontFace->post_content : (is_array($fontFace) && isset($fontFace['post_content']) ? (string) $fontFace['post_content'] : '');
             $fontFaceSettings = json_decode($postContent, true);
 
             if (!is_array($fontFaceSettings)) {
@@ -598,18 +596,14 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
 
         $globalStylesPostId = (int) $globalStylesPostId;
         $globalStylesPost = $this->wpService->getPost($globalStylesPostId);
-        $postContent = is_object($globalStylesPost) && property_exists($globalStylesPost, 'post_content')
-            ? (string) $globalStylesPost->post_content
-            : (is_array($globalStylesPost) && isset($globalStylesPost['post_content']) ? (string) $globalStylesPost['post_content'] : '');
+        $postContent = is_object($globalStylesPost) && property_exists($globalStylesPost, 'post_content') ? (string) $globalStylesPost->post_content : (is_array($globalStylesPost) && isset($globalStylesPost['post_content']) ? (string) $globalStylesPost['post_content'] : '');
         $globalStylesData = json_decode($postContent, true);
 
         if (!is_array($globalStylesData)) {
             $globalStylesData = [];
         }
 
-        $globalStylesData['version'] = isset($globalStylesData['version']) && is_int($globalStylesData['version'])
-            ? $globalStylesData['version']
-            : (class_exists(\WP_Theme_JSON::class) ? \WP_Theme_JSON::LATEST_SCHEMA : 3);
+        $globalStylesData['version'] = isset($globalStylesData['version']) && is_int($globalStylesData['version']) ? $globalStylesData['version'] : (class_exists(\WP_Theme_JSON::class) ? \WP_Theme_JSON::LATEST_SCHEMA : 3);
         $globalStylesData['isGlobalStylesUserThemeJSON'] = true;
 
         $customFontFamilies = $globalStylesData['settings']['typography']['fontFamilies']['custom'] ?? [];
@@ -620,9 +614,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
                 continue;
             }
 
-            $existingFontFaces = is_array($existingFontFamily['fontFace'] ?? null)
-                ? array_values(array_filter($existingFontFamily['fontFace'], 'is_array'))
-                : [];
+            $existingFontFaces = is_array($existingFontFamily['fontFace'] ?? null) ? array_values(array_filter($existingFontFamily['fontFace'], 'is_array')) : [];
 
             $customFontFamilies[$index] = [
                 ...$existingFontFamily,

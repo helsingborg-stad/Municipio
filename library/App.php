@@ -241,11 +241,6 @@ class App
         (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
 
         /**
-         * Design center native fonts
-         */
-        (new \Municipio\Customizer\DesignCenterFontFamilies($this->wpService))->addHooks();
-
-        /**
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());

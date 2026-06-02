@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Customizer;
+namespace Municipio\Styleguide\Customize;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
