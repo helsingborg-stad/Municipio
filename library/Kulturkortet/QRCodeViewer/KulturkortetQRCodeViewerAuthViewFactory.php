@@ -6,6 +6,7 @@ namespace Municipio\Kulturkortet\QRCodeViewer;
 
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use Municipio\Helper\DateFormat;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
@@ -16,8 +17,6 @@ use WpService\Contracts\WpCacheSet;
 
 class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactoryInterface
 {
-    private const DATE_FORMAT = 'Y-m-d';
-
     public function __construct(
         private WpCacheGet&WpCacheSet&__ $wpService,
         private VitecServiceInterface $vitecService,
@@ -153,7 +152,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     private function formatDate(mixed $date): ?string
     {
         $time = is_string($date) ? strtotime($date) : null;
-        return $time ? date(self::DATE_FORMAT, $time) : null;
+        return $time ? date(DateFormat::getDateFormat('date'), $time) : null;
     }
 
     /**
