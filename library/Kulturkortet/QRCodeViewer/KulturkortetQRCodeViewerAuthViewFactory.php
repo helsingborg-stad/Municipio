@@ -36,9 +36,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         if (!$ticket) {
             return $this->renderWithModel('kulturkortet-qr-simple', [
                 'lang' => [
-                    'heading' => $this->wpService->__('Du verkar inte ha ett giltigt kulturkort', 'municipio'),
+                    'heading' => $this->wpService->__('You do not seem to have a valid kulturkort', 'municipio'),
                     'content' => '',
-                    'url' => $this->wpService->__('Logga ut', 'municipio'),
+                    'url' => $this->wpService->__('Log out', 'municipio'),
                 ],
                 'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
