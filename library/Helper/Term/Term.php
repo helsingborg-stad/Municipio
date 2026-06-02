@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Helper\Term;
 
 use AcfService\Contracts\GetField;

@@ -14,7 +14,7 @@ class ColumnsTest extends TestCase
     protected function setUp(): void
     {
         WpService::set(new FakeWpService([
-            'applyFilters' => fn($filterName, $value) => $value,
+            'applyFilters' => static fn($filterName, $value) => $value,
         ]));
     }
 
@@ -37,9 +37,9 @@ class ColumnsTest extends TestCase
 
         $result = $sut->renderBlockColumns($content, $block);
 
-        $this->assertStringNotContainsString('flex-basis', $result);
-        $this->assertStringContainsString('style="color:red"', $result);
-        $this->assertStringContainsString('o-grid-column-block', $result);
+        static::assertStringNotContainsString('flex-basis', $result);
+        static::assertStringContainsString('style="color:red"', $result);
+        static::assertStringContainsString('o-grid-column-block', $result);
     }
 
     #[TestDox('removes the style attribute when flex-basis was the only inline declaration')]
@@ -61,8 +61,8 @@ class ColumnsTest extends TestCase
 
         $result = $sut->renderBlockColumns($content, $block);
 
-        $this->assertStringNotContainsString('flex-basis', $result);
-        $this->assertStringNotContainsString('style=""', $result);
-        $this->assertStringNotContainsString(' style=', $result);
+        static::assertStringNotContainsString('flex-basis', $result);
+        static::assertStringNotContainsString('style=""', $result);
+        static::assertStringNotContainsString(' style=', $result);
     }
 }

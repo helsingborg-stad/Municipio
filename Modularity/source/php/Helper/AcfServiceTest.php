@@ -21,6 +21,6 @@ class AcfServiceTest extends TestCase
     public function testSetSetsTheAcfServiceInstance()
     {
         \Modularity\Helper\AcfService::set(new FakeAcfService());
-        $this->assertInstanceOf(\AcfService\AcfService::class, \Modularity\Helper\AcfService::get());
+        static::assertInstanceOf(\AcfService\AcfService::class, \Modularity\Helper\AcfService::get());
     }
 }

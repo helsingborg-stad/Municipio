@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Styleguide\ApplyLayerToInlineStyles;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -37,7 +40,7 @@ class ApplyLayerToInlineStylesTest extends TestCase
         $input = '<style>body { background: red; }</style>';
         $expectedOutput = '<style>@layer wordpress {body { background: red; }}</style>';
 
-        $this->assertEquals($expectedOutput, $applyLayer->process($input));
+        static::assertEquals($expectedOutput, $applyLayer->process($input));
     }
 
     #[TestDox('does not wrap styles that already contain a @layer')]
@@ -49,7 +52,7 @@ class ApplyLayerToInlineStylesTest extends TestCase
         $input = '<style>@layer wordpress {body { background: red; }}</style>';
         $expectedOutput = '<style>@layer wordpress {body { background: red; }}</style>';
 
-        $this->assertEquals($expectedOutput, $applyLayer->process($input));
+        static::assertEquals($expectedOutput, $applyLayer->process($input));
     }
 
     #[TestDox('does not wrap styles that contain a layer(')]
@@ -61,6 +64,6 @@ class ApplyLayerToInlineStylesTest extends TestCase
         $input = '<style>@import url("style.css") layer(theme);</style>';
         $expectedOutput = '<style>@import url("style.css") layer(theme);</style>';
 
-        $this->assertEquals($expectedOutput, $applyLayer->process($input));
+        static::assertEquals($expectedOutput, $applyLayer->process($input));
     }
 }

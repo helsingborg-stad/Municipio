@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Chat\Render;
 
 use Municipio\Chat\Config\ChatConfigInterface;
-use Override;
+
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -16,7 +19,7 @@ class ChatEnqueueTest extends TestCase
     {
         $wpService = new FakeWpService([
             'addAction' => true,
-            '__' => fn(string $string) => $string,
+            '__' => static fn(string $string) => $string,
         ]);
         $enqueue = new EnqueueManager($wpService);
         $config = new class () implements ChatConfigInterface {
@@ -71,7 +74,7 @@ class ChatEnqueueTest extends TestCase
                 return null;
             }
         };
-        $this->assertInstanceOf(ChatEnqueue::class, new ChatEnqueue($wpService, $enqueue, $config));
+        static::assertInstanceOf(ChatEnqueue::class, new ChatEnqueue($wpService, $enqueue, $config));
     }
 
     #[TestDox('addHooks() can be called')]
@@ -79,7 +82,7 @@ class ChatEnqueueTest extends TestCase
     {
         $wpService = new FakeWpService([
             'addAction' => true,
-            '__' => fn(string $string) => $string,
+            '__' => static fn(string $string) => $string,
         ]);
         $enqueue = new EnqueueManager($wpService);
         $config = new class () implements ChatConfigInterface {
@@ -136,6 +139,6 @@ class ChatEnqueueTest extends TestCase
         };
         $enqueueObj = new ChatEnqueue($wpService, $enqueue, $config);
 
-        $this->assertNull($enqueueObj->addHooks());
+        static::assertNull($enqueueObj->addHooks());
     }
 }

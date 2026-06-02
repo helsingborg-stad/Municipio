@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Municipio\Styleguide\AddLayerOrderDefinitionToHead;
 
-use Municipio\Test\GetThemeFilters;
+
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddAction;

@@ -21,6 +21,6 @@ class WpServiceTest extends TestCase
     public function testSetSetsTheWpServiceInstance()
     {
         \Modularity\Helper\WpService::set(new FakeWpService());
-        $this->assertInstanceOf(\WpService\WpService::class, \Modularity\Helper\WpService::get());
+        static::assertInstanceOf(\WpService\WpService::class, \Modularity\Helper\WpService::get());
     }
 }

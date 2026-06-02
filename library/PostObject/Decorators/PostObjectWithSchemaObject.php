@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;

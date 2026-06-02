@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\PostObject\Date;
 
 use Municipio\PostObject\PostObjectInterface;
@@ -12,7 +15,7 @@ class CachedTimestampResolverTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             CachedTimestampResolver::class,
             new CachedTimestampResolver(
                 $this->createMock(PostObjectInterface::class),
@@ -37,6 +40,6 @@ class CachedTimestampResolverTest extends TestCase
         $result = $resolver->resolve();
         $result = $resolver->resolve();
 
-        $this->assertEquals(123, $result);
+        static::assertSame(123, $result);
     }
 }

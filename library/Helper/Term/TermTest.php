@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Helper\Term;
 
 use AcfService\Implementations\FakeAcfService;
@@ -14,7 +17,7 @@ class TermTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated()
     {
-        $this->assertInstanceOf(Term::class, new Term(new FakeWpService(), new FakeAcfService()));
+        static::assertInstanceOf(Term::class, new Term(new FakeWpService(), new FakeAcfService()));
     }
 
     #[TestDox('getTermColor() returns false if term is empty')]
@@ -22,8 +25,8 @@ class TermTest extends TestCase
     {
         $termHelper = new Term(new FakeWpService(), new FakeAcfService());
 
-        $this->assertFalse($termHelper->getTermColor('', 'category'));
-        $this->assertFalse($termHelper->getTermColor(0, 'category'));
+        static::assertFalse($termHelper->getTermColor('', 'category'));
+        static::assertFalse($termHelper->getTermColor(0, 'category'));
     }
 
     #[TestDox('getTermColor() returns false if term is not found when passing an ID or slug')]
@@ -32,8 +35,8 @@ class TermTest extends TestCase
         $wpService  = new FakeWpService(['getTermBy' => false]);
         $termHelper = new Term($wpService, new FakeAcfService());
 
-        $this->assertFalse($termHelper->getTermColor(123, 'category'));
-        $this->assertFalse($termHelper->getTermColor('non-existing-slug', 'category'));
+        static::assertFalse($termHelper->getTermColor(123, 'category'));
+        static::assertFalse($termHelper->getTermColor('non-existing-slug', 'category'));
     }
 
     #[TestDox('getTermColor() returns false if term is found but has no colour and no ancestors')]
@@ -46,11 +49,11 @@ class TermTest extends TestCase
         $wpService      = new FakeWpService([
             'getTermBy'    => $term,
             'getAncestors' => [],
-            'applyFilters' => fn($hook, $value) => $value]);
+            'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper = new Term($wpService, $acfService);
 
-        $this->assertFalse($termHelper->getTermColor(123, 'category'));
+        static::assertFalse($termHelper->getTermColor(123, 'category'));
     }
 
     #[TestDox('getTermColor() returns the colour of the term if it has one')]
@@ -62,12 +65,12 @@ class TermTest extends TestCase
         $term->taxonomy = 'category';
         $wpService      = new FakeWpService([
             'getTermBy'    => $term,
-            'applyFilters' => fn($hook, $value) => $value]);
+            'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
         $termHelper::$cache = []; // Reset cache before test
 
-        $this->assertEquals('#000000', $termHelper->getTermColor(123, 'category'));
+        static::assertSame('#000000', $termHelper->getTermColor(123, 'category'));
     }
 
     #[TestDox('getTermColor() prepends a hash to the colour if it does not have one')]
@@ -79,11 +82,11 @@ class TermTest extends TestCase
         $term->taxonomy = 'category';
         $wpService      = new FakeWpService([
             'getTermBy'    => $term,
-            'applyFilters' => fn($hook, $value) => $value]);
+            'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
 
-        $this->assertEquals('#000000', $termHelper->getTermColor(123, 'category'));
+        static::assertSame('#000000', $termHelper->getTermColor(123, 'category'));
     }
 
     #[TestDox('getAncestorTermColor() returns false if term has no ancestors')]
@@ -95,7 +98,7 @@ class TermTest extends TestCase
         $term->term_id  = 123;
         $term->taxonomy = 'category';
 
-        $this->assertFalse($termHelper->getAncestorTermColor($term));
+        static::assertFalse($termHelper->getAncestorTermColor($term));
     }
 
     #[TestDox('getAncestorTermColor() returns false if no ancestor has a colour')]
@@ -109,7 +112,7 @@ class TermTest extends TestCase
 
         $termHelper = new Term($wpService, $acfService);
 
-        $this->assertFalse($termHelper->getAncestorTermColor($term));
+        static::assertFalse($termHelper->getAncestorTermColor($term));
     }
 
     #[TestDox('getAncestorTermColor() returns the colour of the first ancestor that has a colour')]
@@ -124,7 +127,7 @@ class TermTest extends TestCase
         $termHelper = new Term($wpService, $acfService);
 
 
-        $this->assertEquals('#000000', $termHelper->getAncestorTermColor($term));
+        static::assertSame('#000000', $termHelper->getAncestorTermColor($term));
     }
 
     #[TestDox('getTermIcon() returns false if term can not be found by ID or slug')]
@@ -134,8 +137,8 @@ class TermTest extends TestCase
         $termHelper = new Term($wpService, new FakeAcfService());
         $termHelper::$cache = []; // Reset cache before test
 
-        $this->assertFalse($termHelper->getTermIcon(123, 'category'));
-        $this->assertFalse($termHelper->getTermIcon('non-existing-slug', 'category'));
+        static::assertFalse($termHelper->getTermIcon(123, 'category'));
+        static::assertFalse($termHelper->getTermIcon('non-existing-slug', 'category'));
     }
 
     #[TestDox('getTermIcon() returns false if term has no icon')]
@@ -147,12 +150,12 @@ class TermTest extends TestCase
         $term->taxonomy = 'category';
         $wpService      = new FakeWpService([
             'getTermBy'    => $term,
-            'applyFilters' => fn($hook, $value) => $value]);
+            'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
         $termHelper::$cache = []; // Reset cache before test
 
-        $this->assertFalse($termHelper->getTermIcon(123, 'category'));
+        static::assertFalse($termHelper->getTermIcon(123, 'category'));
     }
 
     #[TestDox('getTermIcon() returns the icon of the term if it has one')]
@@ -164,12 +167,12 @@ class TermTest extends TestCase
         $term->taxonomy = 'category';
         $wpService      = new FakeWpService([
             'getTermBy'    => $term,
-            'applyFilters' => fn($hook, $value) => $value]);
+            'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
         $termHelper::$cache = []; // Reset cache before test
 
-        $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
+        static::assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
     }
 
     #[TestDox('getTermIcon() returns the SVG icon of the term if it has one')]
@@ -187,16 +190,16 @@ class TermTest extends TestCase
         $wpService      = new FakeWpService([
             'getTermBy'               => $term,
             'wpGetAttachmentImageUrl' => 'attachment-url',
-            'applyFilters'            => fn($hook, $value) => $value]);
+            'applyFilters'            => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
         $termHelper::$cache = []; // Reset cache before test
         $icon           = $termHelper->getTermIcon(123, 'category');
 
-        $this->assertEquals('attachment-url', $icon['src']);
-        $this->assertEquals('svg', $icon['type']);
-        $this->assertEquals('description', $icon['description']);
-        $this->assertEquals('description', $icon['alt']);
+        static::assertSame('attachment-url', $icon['src']);
+        static::assertSame('svg', $icon['type']);
+        static::assertSame('description', $icon['description']);
+        static::assertSame('description', $icon['alt']);
     }
 
     #[TestDox('getTermIcon() returns cached result if term has been checked before')]
@@ -208,15 +211,15 @@ class TermTest extends TestCase
         $acfService     = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
         $wpService      = new FakeWpService([
             'getTermBy'    => $term,
-            'applyFilters' => fn($hook, $value) => $value]);
+            'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
 
         $termHelper::$cache = []; // Reset cache before test
-        $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
-        $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
+        static::assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
+        static::assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
 
-        $this->assertCount(1, $acfService->methodCalls['getField']);
+        static::assertCount(1, $acfService->methodCalls['getField']);
     }
 
     #[TestDox('createOrGetTermIdFromString() returns termId if term already exists')]
@@ -229,7 +232,7 @@ class TermTest extends TestCase
         $wpService      = new FakeWpService(['getTermBy' => $term]);
         $termHelper     = new Term($wpService, new FakeAcfService());
 
-        $this->assertEquals(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
+        static::assertSame(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
     }
 
     #[TestDox('createOrGetTermIdFromString() returns null if term could no be created')]
@@ -241,7 +244,7 @@ class TermTest extends TestCase
             'isWpError'    => true]);
         $termHelper = new Term($wpService, new FakeAcfService());
 
-        $this->assertNull($termHelper->createOrGetTermIdFromString('term', 'category'));
+        static::assertNull($termHelper->createOrGetTermIdFromString('term', 'category'));
     }
 
     #[TestDox('createOrGetTermIdFromString() returns termId if term was created')]
@@ -253,6 +256,6 @@ class TermTest extends TestCase
             'isWpError'    => false]);
         $termHelper = new Term($wpService, new FakeAcfService());
 
-        $this->assertEquals(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
+        static::assertSame(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\PostObject\Icon\Resolvers;
 
 use Municipio\PostObject\PostObjectInterface;
@@ -12,7 +15,7 @@ class CachedIconResolverTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $resolver = new CachedIconResolver($this->createMock(PostObjectInterface::class), $this->createMock(IconResolverInterface::class));
-        $this->assertInstanceOf(CachedIconResolver::class, $resolver);
+        static::assertInstanceOf(CachedIconResolver::class, $resolver);
     }
 
     #[TestDox('resolve() caches result from inner resolver')]
