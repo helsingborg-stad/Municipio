@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c27dbd670631205e09057a3d425625cc",
+    "content-hash": "ed22d99740bedceaac4b85cc271f7e8d",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.260.5",
+            "version": "2.264.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "f379e38472d03e7ba8252a6f64f474a89ea98e0d"
+                "reference": "e5b01172472c78e71db1113d5480e1fef33e7434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/f379e38472d03e7ba8252a6f64f474a89ea98e0d",
-                "reference": "f379e38472d03e7ba8252a6f64f474a89ea98e0d",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/e5b01172472c78e71db1113d5480e1fef33e7434",
+                "reference": "e5b01172472c78e71db1113d5480e1fef33e7434",
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.260.5"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.264.2"
             },
-            "time": "2026-06-01T11:26:02+00:00"
+            "time": "2026-06-02T06:55:31+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -6199,12 +6199,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "d3aa3bdc0cffb7993127bfe4c4be4ff415a3b900"
+                "reference": "fc83ad39c347aefd26dbef80a721e1cdfa828b49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/d3aa3bdc0cffb7993127bfe4c4be4ff415a3b900",
-                "reference": "d3aa3bdc0cffb7993127bfe4c4be4ff415a3b900",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/fc83ad39c347aefd26dbef80a721e1cdfa828b49",
+                "reference": "fc83ad39c347aefd26dbef80a721e1cdfa828b49",
                 "shasum": ""
             },
             "require": {
@@ -6272,7 +6272,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-04-29T09:52:40+00:00"
+            "time": "2026-06-02T06:58:50+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7394,5 +7394,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
