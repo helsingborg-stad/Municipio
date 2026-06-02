@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Chat\Api;
 
 use Municipio\Api\RestApiEndpoint;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
+use WpService\Contracts\RegisterRestRoute;
 
 class ChatEndpoint extends RestApiEndpoint
 {
@@ -15,37 +19,38 @@ class ChatEndpoint extends RestApiEndpoint
     public function __construct(
         private ChatConfigInterface $config,
         private PIIRedactorInterface $piiRedactor,
+        private RegisterRestRoute $wpService,
     ) {}
 
     public function handleRegisterRestRoute(): bool
     {
-        return register_rest_route(self::NAMESPACE, self::ROUTE, array(
+        return $this->wpService->registerRestRoute(self::NAMESPACE, self::ROUTE, [
             'methods' => 'POST',
-            'callback' => array($this, 'handleRequest'),
+            'callback' => [$this, 'handleRequest'],
             'permission_callback' => '__return_true',
-        ));
+        ]);
     }
 
     public function handleRequest(\WP_REST_Request $request): \WP_REST_Response|\WP_Error
     {
         $params = $request->get_params();
         $messageError = $this->validateMessage($params);
-        if (is_wp_error($messageError)) {
+        if ($messageError instanceof \WP_Error) {
             return $messageError;
-        }
-
-        $assistant = $this->resolveAssistant($params);
-        if (is_wp_error($assistant)) {
-            return $assistant;
-        }
+            }
+            
+            $assistant = $this->resolveAssistant($params);
+            if ($assistant instanceof \WP_Error) {
+                return $assistant;
+                }
 
         $configError = $this->validateAssistantConfig($assistant);
-        if (is_wp_error($configError)) {
+        if ($configError instanceof \WP_Error) {
             return $configError;
         }
 
         $redaction = $this->redactMessage(sanitize_text_field($params['message']));
-        if (is_wp_error($redaction)) {
+        if ($redaction instanceof \WP_Error) {
             return $redaction;
         }
 
@@ -77,9 +82,9 @@ class ChatEndpoint extends RestApiEndpoint
     private function resolveAssistant(array $params): array|\WP_Error
     {
         $assistantUniqueId = $params['assistant_name'] ?? null;
-
+        
         if (empty($assistantUniqueId) || $assistantUniqueId === 'Default') {
-            return $this->config->getDefaultAssistant();
+            return $this->config->getDefaultAssistant() ?? [];
         }
 
         $allAssistants = $this->config->getAssistants();
@@ -144,7 +149,7 @@ class ChatEndpoint extends RestApiEndpoint
     private function registerSseStream(
         \WP_REST_Request $request,
         string $chatUrl,
-        string $apiKey,
+        #[\SensitiveParameter] string $apiKey,
         array $body,
     ): void {
         add_filter(
@@ -161,7 +166,7 @@ class ChatEndpoint extends RestApiEndpoint
         );
     }
 
-    private function streamResponse(string $chatUrl, string $apiKey, array $body): void
+    private function streamResponse(string $chatUrl, #[\SensitiveParameter] string $apiKey, array $body): void
     {
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
@@ -183,7 +188,7 @@ class ChatEndpoint extends RestApiEndpoint
                 ],
                 CURLOPT_POSTFIELDS => json_encode($body),
                 CURLOPT_RETURNTRANSFER => false,
-                CURLOPT_WRITEFUNCTION => function ($ch, $data) {
+                CURLOPT_WRITEFUNCTION => static function ($ch, $data) {
                     echo $data . "\n\n";
                     ob_flush();
                     flush();

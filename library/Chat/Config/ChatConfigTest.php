@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Chat\Config;
 
 use AcfService\Implementations\FakeAcfService;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\DetermineLocale;
 use WpService\Implementations\FakeWpService;
 
 /**
@@ -18,21 +19,20 @@ class ChatConfigTest extends TestCase
     public function testClassCanBeInstantiated(): void
     {
         $acfService = new FakeAcfService([
-            'getField' => fn() => null,
+            'getField' => static fn() => null,
         ]);
 
-        $this->assertInstanceOf(ChatConfig::class, new ChatConfig($this->getWpService(), $acfService));
+        static::assertInstanceOf(ChatConfig::class, new ChatConfig($this->getWpService(), $acfService));
     }
 
     #[TestDox('isEnabled() returns true when chat_enabled field is truthy')]
-    #[RunInSeparateProcess]
     public function testIsEnabledReturnsTrueWhenChatEnabledFieldIsTruthy(): void
     {
         $acfService = $this->getAcfService(['chat_enabled' => 1]);
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
-        $this->assertTrue($config->isEnabled());
+        static::assertTrue($config->isEnabled());
     }
 
     #[TestDox('isGlobalChatEnabled() returns false when chat_global_enabled field is falsy')]
@@ -42,7 +42,7 @@ class ChatConfigTest extends TestCase
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
-        $this->assertFalse($config->isGlobalChatEnabled());
+        static::assertFalse($config->isGlobalChatEnabled());
     }
 
     #[TestDox('getAssistants() returns assistants when field is an array')]
@@ -57,7 +57,7 @@ class ChatConfigTest extends TestCase
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
-        $this->assertSame($assistants, $config->getAssistants());
+        static::assertSame($assistants, $config->getAssistants());
     }
 
     #[TestDox('getDefaultAssistant() returns matching assistant by configured default name')]
@@ -69,7 +69,7 @@ class ChatConfigTest extends TestCase
         ];
 
         $acfService = new FakeAcfService([
-            'getField' => function (string $field, string $scope) use ($assistants) {
+            'getField' => static function (string $field, string $scope) use ($assistants) {
                 if ($scope !== 'option') {
                     return null;
                 }
@@ -88,7 +88,7 @@ class ChatConfigTest extends TestCase
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
-        $this->assertSame($assistants[1], $config->getDefaultAssistant());
+        static::assertSame($assistants[1], $config->getDefaultAssistant());
     }
 
     #[TestDox('isPresidioEnabled() returns true when the chat_presidio_enabled option is true')]
@@ -96,7 +96,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio_enabled' => true]));
 
-        $this->assertTrue($config->isPresidioEnabled());
+        static::assertTrue($config->isPresidioEnabled());
     }
 
     #[TestDox('isPresidioEnabled() returns false when the chat_presidio_enabled option is false')]
@@ -104,7 +104,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio_enabled' => false]));
 
-        $this->assertFalse($config->isPresidioEnabled());
+        static::assertFalse($config->isPresidioEnabled());
     }
 
     #[TestDox('isPresidioEnabled() returns false when the chat_presidio_enabled option is unset')]
@@ -112,7 +112,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService());
 
-        $this->assertFalse($config->isPresidioEnabled());
+        static::assertFalse($config->isPresidioEnabled());
     }
 
     #[TestDox('getPresidio() returns the configured group array')]
@@ -121,7 +121,7 @@ class ChatConfigTest extends TestCase
         $group = ['analyzer_host' => 'https://a', 'supported_languages' => [['language' => 'sv']]];
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio' => $group]));
 
-        $this->assertSame($group, $config->getPresidio());
+        static::assertSame($group, $config->getPresidio());
     }
 
     #[TestDox('getPresidio() returns an empty array when the field is unset')]
@@ -129,7 +129,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService());
 
-        $this->assertSame([], $config->getPresidio());
+        static::assertSame([], $config->getPresidio());
     }
 
     #[TestDox('getPresidio() returns an empty array when the field is not an array')]
@@ -137,7 +137,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio' => 'not-an-array']));
 
-        $this->assertSame([], $config->getPresidio());
+        static::assertSame([], $config->getPresidio());
     }
 
     #[TestDox('getPresidioAnalyzerHost() returns the configured analyzer host')]
@@ -147,7 +147,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['analyzer_host' => 'https://analyzer.example.com'],
         ]));
 
-        $this->assertSame('https://analyzer.example.com', $config->getPresidioAnalyzerHost());
+        static::assertSame('https://analyzer.example.com', $config->getPresidioAnalyzerHost());
     }
 
     #[TestDox('getPresidioAnalyzerHost() returns null when the analyzer_host sub-field is unset')]
@@ -155,7 +155,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio' => []]));
 
-        $this->assertNull($config->getPresidioAnalyzerHost());
+        static::assertNull($config->getPresidioAnalyzerHost());
     }
 
     #[TestDox('getPresidioAnalyzerHost() returns null when the chat_presidio group is unset')]
@@ -163,7 +163,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService());
 
-        $this->assertNull($config->getPresidioAnalyzerHost());
+        static::assertNull($config->getPresidioAnalyzerHost());
     }
 
     #[TestDox('getPresidioAnalyzerHost() returns null when the analyzer_host value is not a string')]
@@ -173,7 +173,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['analyzer_host' => 123],
         ]));
 
-        $this->assertNull($config->getPresidioAnalyzerHost());
+        static::assertNull($config->getPresidioAnalyzerHost());
     }
 
     #[TestDox('getPresidioAnonymizerHost() returns the configured anonymizer host')]
@@ -183,7 +183,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_host' => 'https://anonymizer.example.com'],
         ]));
 
-        $this->assertSame('https://anonymizer.example.com', $config->getPresidioAnonymizerHost());
+        static::assertSame('https://anonymizer.example.com', $config->getPresidioAnonymizerHost());
     }
 
     #[TestDox('getPresidioAnonymizerHost() returns null when the anonymizer_host sub-field is unset')]
@@ -191,7 +191,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio' => []]));
 
-        $this->assertNull($config->getPresidioAnonymizerHost());
+        static::assertNull($config->getPresidioAnonymizerHost());
     }
 
     #[TestDox('getPresidioAnonymizerHost() returns null when the anonymizer_host value is not a string')]
@@ -201,7 +201,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_host' => ['not' => 'a string']],
         ]));
 
-        $this->assertNull($config->getPresidioAnonymizerHost());
+        static::assertNull($config->getPresidioAnonymizerHost());
     }
 
     #[TestDox('getPresidioLanguage() returns the supported language matching the page locale')]
@@ -219,7 +219,7 @@ class ChatConfigTest extends TestCase
             ]),
         );
 
-        $this->assertSame('sv', $config->getPresidioLanguage());
+        static::assertSame('sv', $config->getPresidioLanguage());
     }
 
     #[TestDox('getPresidioLanguage() falls back to the first supported language when the page locale is unsupported')]
@@ -237,7 +237,7 @@ class ChatConfigTest extends TestCase
             ]),
         );
 
-        $this->assertSame('en', $config->getPresidioLanguage());
+        static::assertSame('en', $config->getPresidioLanguage());
     }
 
     #[TestDox('getPresidioLanguage() matches case-insensitively against the page locale')]
@@ -255,7 +255,7 @@ class ChatConfigTest extends TestCase
             ]),
         );
 
-        $this->assertSame('Sv', $config->getPresidioLanguage());
+        static::assertSame('Sv', $config->getPresidioLanguage());
     }
 
     #[TestDox('getPresidioLanguage() returns null when supported_languages is unset')]
@@ -263,7 +263,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService('sv_SE'), $this->getAcfService(['chat_presidio' => []]));
 
-        $this->assertNull($config->getPresidioLanguage());
+        static::assertNull($config->getPresidioLanguage());
     }
 
     #[TestDox('getPresidioLanguage() returns null when supported_languages is empty and locale does not match')]
@@ -274,7 +274,7 @@ class ChatConfigTest extends TestCase
             $this->getAcfService(['chat_presidio' => ['supported_languages' => []]]),
         );
 
-        $this->assertNull($config->getPresidioLanguage());
+        static::assertNull($config->getPresidioLanguage());
     }
 
     #[TestDox('getPresidioLanguage() returns null when the chat_presidio group is unset')]
@@ -282,7 +282,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService('sv_SE'), $this->getAcfService());
 
-        $this->assertNull($config->getPresidioLanguage());
+        static::assertNull($config->getPresidioLanguage());
     }
 
     #[TestDox('getPresidioAnonymizerConfig() returns the decoded array when valid JSON is configured')]
@@ -292,7 +292,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_config' => '{"DEFAULT":{"type":"replace","new_value":"<X>"}}'],
         ]));
 
-        $this->assertSame(
+        static::assertSame(
             ['DEFAULT' => ['type' => 'replace', 'new_value' => '<X>']],
             $config->getPresidioAnonymizerConfig(),
         );
@@ -305,7 +305,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_config' => '{}'],
         ]));
 
-        $this->assertSame([], $config->getPresidioAnonymizerConfig());
+        static::assertSame([], $config->getPresidioAnonymizerConfig());
     }
 
     #[TestDox('getPresidioAnonymizerConfig() returns null when the JSON is invalid')]
@@ -315,7 +315,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_config' => 'not-json'],
         ]));
 
-        $this->assertNull($config->getPresidioAnonymizerConfig());
+        static::assertNull($config->getPresidioAnonymizerConfig());
     }
 
     #[TestDox('getPresidioAnonymizerConfig() returns null when the JSON decodes to a non-array (scalar)')]
@@ -325,7 +325,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_config' => '"a string"'],
         ]));
 
-        $this->assertNull($config->getPresidioAnonymizerConfig());
+        static::assertNull($config->getPresidioAnonymizerConfig());
     }
 
     #[TestDox('getPresidioAnonymizerConfig() returns null when the field is unset')]
@@ -333,7 +333,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio' => []]));
 
-        $this->assertNull($config->getPresidioAnonymizerConfig());
+        static::assertNull($config->getPresidioAnonymizerConfig());
     }
 
     #[TestDox('getPresidioAnonymizerConfig() returns null when the value is not a string')]
@@ -343,7 +343,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['anonymizer_config' => ['already' => 'array']],
         ]));
 
-        $this->assertNull($config->getPresidioAnonymizerConfig());
+        static::assertNull($config->getPresidioAnonymizerConfig());
     }
 
     #[TestDox('getPresidioAllowList() extracts the word values from the configured repeater rows')]
@@ -358,7 +358,7 @@ class ChatConfigTest extends TestCase
             ],
         ]));
 
-        $this->assertSame(['Helsingborg', 'Stockholm'], $config->getPresidioAllowList());
+        static::assertSame(['Helsingborg', 'Stockholm'], $config->getPresidioAllowList());
     }
 
     #[TestDox('getPresidioAllowList() returns an empty array when the allow_list field is unset')]
@@ -366,7 +366,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService(['chat_presidio' => []]));
 
-        $this->assertSame([], $config->getPresidioAllowList());
+        static::assertSame([], $config->getPresidioAllowList());
     }
 
     #[TestDox('getPresidioAllowList() returns an empty array when the chat_presidio group is unset')]
@@ -374,7 +374,7 @@ class ChatConfigTest extends TestCase
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService());
 
-        $this->assertSame([], $config->getPresidioAllowList());
+        static::assertSame([], $config->getPresidioAllowList());
     }
 
     #[TestDox('getPresidioAllowList() returns an empty array when allow_list is not an array')]
@@ -384,7 +384,7 @@ class ChatConfigTest extends TestCase
             'chat_presidio' => ['allow_list' => 'not-an-array'],
         ]));
 
-        $this->assertSame([], $config->getPresidioAllowList());
+        static::assertSame([], $config->getPresidioAllowList());
     }
 
     #[TestDox('getPresidioAllowList() returns an empty array when a row is missing its word sub-field')]
@@ -399,7 +399,7 @@ class ChatConfigTest extends TestCase
             ],
         ]));
 
-        $this->assertSame([], $config->getPresidioAllowList());
+        static::assertSame([], $config->getPresidioAllowList());
     }
 
     #[TestDox('getPresidioAllowList() returns an empty array when a row word is not a string')]
@@ -414,13 +414,13 @@ class ChatConfigTest extends TestCase
             ],
         ]));
 
-        $this->assertSame([], $config->getPresidioAllowList());
+        static::assertSame([], $config->getPresidioAllowList());
     }
 
     private function getAcfService(array $fields = []): FakeAcfService
     {
         return new FakeAcfService([
-            'getField' => fn(string $selector) => $fields[$selector] ?? null,
+            'getField' => static fn(string $selector) => $fields[$selector] ?? null,
         ]);
     }
 

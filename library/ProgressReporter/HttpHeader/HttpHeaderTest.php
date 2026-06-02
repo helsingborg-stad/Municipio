@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\ProgressReporter\HttpHeader;
 
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -17,11 +19,10 @@ class HttpHeaderTest extends TestCase
     public function testCanBeInstantiated()
     {
         $header = new HttpHeader();
-        $this->assertInstanceOf(HttpHeader::class, $header);
+        static::assertInstanceOf(HttpHeader::class, $header);
     }
 
     #[TestDox('sendHeader() method sends headers')]
-    #[RunInSeparateProcess]
     public function testSendHeaderMethodSendsHeaders()
     {
         ob_start();
@@ -33,16 +34,18 @@ class HttpHeaderTest extends TestCase
 
         $output = ob_get_clean();
 
-        $this->assertStringContainsString('Content-Type: text/event-stream', $output);
-        $this->assertStringContainsString('Cache-Control: no-cache', $output);
-        $this->assertStringContainsString('Connection: keep-alive', $output);
+        static::assertStringContainsString('Content-Type: text/event-stream', $output);
+        static::assertStringContainsString('Cache-Control: no-cache', $output);
+        static::assertStringContainsString('Connection: keep-alive', $output);
     }
 
     private function mockHeaderFunction()
     {
-        function header(string $header, bool $replace = true, int $httpResponseCode = 0)
-        {
-            echo $header;
+        if (!function_exists(__NAMESPACE__ . '\\header')) {
+            function header(string $header, bool $replace = true, int $httpResponseCode = 0)
+            {
+                echo $header;
+            }
         }
     }
 }

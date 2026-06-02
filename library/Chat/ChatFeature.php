@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Chat;
 
 use AcfService\Contracts\AddOptionsPage;
@@ -40,7 +43,7 @@ class ChatFeature
         $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
         $render = new ChatRender($bladeRenderer);
 
-        RestApiEndpointsRegistry::add(new ChatEndpoint($config, (new PIIRedactorFactory($this->wpService))->create($config)));
+        RestApiEndpointsRegistry::add(new ChatEndpoint($config, (new PIIRedactorFactory($this->wpService))->create($config), $this->wpService));
         RestApiEndpointsRegistry::add(new ChatStatsEndpoint($this->wpService));
 
         // Acf repeater crashes when below are reigstered

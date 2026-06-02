@@ -1,18 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\PostObject\Date;
 
 use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 class CachedTimestampResolverTest extends TestCase
 {
     #[TestDox('class can be instantiated')]
-    #[RunInSeparateProcess]
     public function testClassCanBeInstantiated()
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             CachedTimestampResolver::class,
             new CachedTimestampResolver(
                 $this->createMock(PostObjectInterface::class),
@@ -23,7 +26,6 @@ class CachedTimestampResolverTest extends TestCase
     }
 
     #[TestDox('resolve() caches result from inner resolver')]
-    #[RunInSeparateProcess]
     public function testResolveCachesResultFromInnerResolver()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -38,6 +40,6 @@ class CachedTimestampResolverTest extends TestCase
         $result = $resolver->resolve();
         $result = $resolver->resolve();
 
-        $this->assertEquals(123, $result);
+        static::assertSame(123, $result);
     }
 }

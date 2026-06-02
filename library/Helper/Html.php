@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Helper;
 
 /**
@@ -29,7 +32,7 @@ class Html
             $result = "o-grid-" . round($baseColumns / $numberOfColumns);
         }
 
-        return apply_filters(
+        return WpService::get()->applyFilters(
             'Municipio/Helper/Css/createGridClass',
             $result
         );
@@ -52,14 +55,12 @@ class Html
         preg_match_all($regex, $content, $matches, PREG_SET_ORDER, 0);
 
         if (isset($matches) && !empty($matches)) {
-            $tags = array();
+            $tags = [];
             foreach ($matches as $match) {
                 $tags[] = $match[0];
             }
 
-            $tags = array_unique($tags);
-
-            return $tags;
+            return array_unique($tags);
         }
 
         return [];
@@ -76,7 +77,7 @@ class Html
             return false;
         }
 
-        $attributes = array();
+        $attributes = [];
 
         foreach ($attributesArray as $attribute => $value) {
             if (!is_array($value) && !is_string($value) || !$value || empty($value)) {
@@ -108,7 +109,7 @@ class Html
 
         preg_match_all($re, $content, $matches, PREG_SET_ORDER, 0);
 
-        $atts = array();
+        $atts = [];
         if ($matches) {
             foreach ($matches as $match) {
                 $atts[$match[2]] = $match[0];

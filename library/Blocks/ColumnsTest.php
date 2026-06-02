@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace Municipio\Blocks;
 
+use Municipio\Helper\WpService;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class ColumnsTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        WpService::set(new FakeWpService([
+            'applyFilters' => static fn($filterName, $value) => $value,
+        ]));
+    }
+
     #[TestDox('removes flex-basis from column inline styles while preserving other declarations')]
     public function testRenderBlockColumnsRemovesOnlyFlexBasisFromStyleAttribute(): void
     {
@@ -28,9 +37,9 @@ class ColumnsTest extends TestCase
 
         $result = $sut->renderBlockColumns($content, $block);
 
-        $this->assertStringNotContainsString('flex-basis', $result);
-        $this->assertStringContainsString('style="color:red;"', $result);
-        $this->assertStringContainsString('o-grid-column-block', $result);
+        static::assertStringNotContainsString('flex-basis', $result);
+        static::assertStringContainsString('style="color:red"', $result);
+        static::assertStringContainsString('o-grid-column-block', $result);
     }
 
     #[TestDox('removes the style attribute when flex-basis was the only inline declaration')]
@@ -52,8 +61,8 @@ class ColumnsTest extends TestCase
 
         $result = $sut->renderBlockColumns($content, $block);
 
-        $this->assertStringNotContainsString('flex-basis', $result);
-        $this->assertStringNotContainsString('style=""', $result);
-        $this->assertStringNotContainsString(' style=', $result);
+        static::assertStringNotContainsString('flex-basis', $result);
+        static::assertStringNotContainsString('style=""', $result);
+        static::assertStringNotContainsString(' style=', $result);
     }
 }

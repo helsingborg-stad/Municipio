@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\PostTypeDesign;
 
 use PHPUnit\Framework\TestCase;
-use Municipio\PostTypeDesign\SetDesigns;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
@@ -20,9 +22,9 @@ class SetDesignsTest extends TestCase
 
         $saveDesignsInstance->addHooks();
 
-        $this->assertEquals('option_theme_mods_municipio', $wpService->calls['addFilter'][0][0]);
-        $this->assertEquals('wp_get_custom_css', $wpService->calls['addFilter'][1][0]);
-        $this->assertEquals('wp_head', $wpService->calls['addAction'][0][0]);
+        static::assertSame('option_theme_mods_municipio', $wpService->calls['addFilter'][0][0]);
+        static::assertSame('wp_get_custom_css', $wpService->calls['addFilter'][1][0]);
+        static::assertSame('wp_head', $wpService->calls['addAction'][0][0]);
     }
 
     public function testSetCssReturnsOldCssIfNoPostType()
@@ -32,7 +34,7 @@ class SetDesignsTest extends TestCase
 
         $result = $setDesignsInstance->setCss('oldCss', 'stylesheet');
 
-        $this->assertEquals('oldCss', $result);
+        static::assertSame('oldCss', $result);
     }
 
     public function testSetCssReturnsOldCssIfNoCorrespondingPostType()
@@ -42,7 +44,7 @@ class SetDesignsTest extends TestCase
 
         $result = $setDesignsInstance->setCss('oldCss', 'stylesheet');
 
-        $this->assertEquals('oldCss', $result);
+        static::assertSame('oldCss', $result);
     }
 
     public function testSetCssReturnsNewCssIfCorrespondingPostType()
@@ -52,7 +54,7 @@ class SetDesignsTest extends TestCase
 
         $result = $setDesignsInstance->setCss('oldCss', 'stylesheet');
 
-        $this->assertEquals('newCssValue', $result);
+        static::assertSame('newCssValue', $result);
     }
 
     public function testSetDesignReturnsValueIfNoPostTypeOrOption()
@@ -62,10 +64,9 @@ class SetDesignsTest extends TestCase
 
         $result = $setDesignsInstance->setDesign('value', 'option');
 
-        $this->assertEquals('value', $result);
+        static::assertSame('value', $result);
     }
 
-    #[RunInSeparateProcess]
     public function testSetDesignReturnsOptionValueIfFound()
     {
         $wpService = $this->getWpService([
@@ -80,10 +81,11 @@ class SetDesignsTest extends TestCase
         ]);
 
         $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
+        $setDesignsInstance::$cache = null; // Reset cache to ensure getOption is called
 
         $result = $setDesignsInstance->setDesign('value', 'post_type_design');
 
-        $this->assertEquals('value1', $result['mod1']);
+        static::assertSame('value1', $result['mod1']);
     }
 
     public function testInlineCssSkippedIfEmpty()
@@ -99,10 +101,9 @@ class SetDesignsTest extends TestCase
         $setDesignsInstance->addInlineCss();
         $output = ob_get_clean();
 
-        $this->assertEmpty($output);
+        static::assertEmpty($output);
     }
 
-    #[RunInSeparateProcess]
     public function testInlineCssAddsIfNotEmpty()
     {
         $wpService = $this->getWpService([
@@ -112,13 +113,14 @@ class SetDesignsTest extends TestCase
         ]);
 
         $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
+        $setDesignsInstance::$cache = null; // Reset cache to ensure getOption is called
         ob_start();
         $setDesignsInstance->addInlineCss();
         $output = ob_get_clean();
 
 
 
-        $this->assertTrue(str_contains($output, 'css'));
+        static::assertTrue(str_contains($output, 'css'));
     }
 
 

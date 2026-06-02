@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\PostTypeDesign;
 
 use Municipio\HooksRegistrar\Hookable;
@@ -19,6 +22,8 @@ class SetDesigns implements Hookable
      * @var string|false $postType Current post type.
      */
     private $postType = false;
+
+    public static array|null $cache = null;
 
     /**
      * Class SetDesigns
@@ -40,10 +45,10 @@ class SetDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter('option_theme_mods_municipio', array($this, 'setDesign'), 10, 2);
-        $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
-        $this->wpService->addAction('wp_head', array($this, 'addInlineCss'));
-        $this->wpService->addFilter('Municipio/Customizer/CacheKeySuffix', array($this, 'setUniqueCustomizerCacheSuffix'), 10, 3);
+        $this->wpService->addFilter('option_theme_mods_municipio', [$this, 'setDesign'], 10, 2);
+        $this->wpService->addFilter('wp_get_custom_css', [$this, 'setCss'], 10, 2);
+        $this->wpService->addAction('wp_head', [$this, 'addInlineCss']);
+        $this->wpService->addFilter('Municipio/Customizer/CacheKeySuffix', [$this, 'setUniqueCustomizerCacheSuffix'], 10, 3);
     }
 
     /**
@@ -53,15 +58,14 @@ class SetDesigns implements Hookable
      */
     public function getDesignOption(): array
     {
-        static $designOption;
-
-        if (!is_null($designOption)) {
-            return $designOption;
+        if (!is_null(static::$cache)) {
+            return static::$cache;
         }
 
         $designOption = $this->wpService->getOption($this->optionName, []);
+        static::$cache = $designOption;
 
-        return $designOption;
+        return static::$cache;
     }
 
     /**
@@ -119,9 +123,7 @@ class SetDesigns implements Hookable
         }
 
         $design = $this->getDesignOption()[$this->postType]['design'];
-        $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
-
-        return $value;
+        return is_array($value) ? array_replace($value, (array) $design) : $design;
     }
 
     /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\Styleguide\Customize\ComponentData\Decorators;
 
 use Municipio\Styleguide\Customize\ComponentData\ComponentData;
-use Municipio\Styleguide\Customize\TokenData\TokenData;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\_x;
@@ -15,8 +14,6 @@ class ApplyI18nTest extends TestCase
     #[TestDox('all labels and descriptions has a translation')]
     public function testDecorate(): void
     {
-        $this->markTestSkipped();
-        return;
         $componentData = static::getComponentData();
         $decorator = new ApplyI18n(static::createWpService());
 
