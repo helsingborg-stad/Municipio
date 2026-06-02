@@ -11,6 +11,9 @@ use Municipio\Helper\WpService as WpServiceHelper;
 
 class LoadDesign
 {
+    private const LEGACY_UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
+    private const LEGACY_FONT_CATALOG_MIGRATION_SETTING = 'municipio_font_catalog_migrated';
+
     private const API_URL = 'https://customizer.municipio.tech/';
     private const LOAD_DESIGN_KEY = 'load_design';
     private const EXCLUDE_LOAD_DESIGN_KEY = 'exclude_load_design';
@@ -231,11 +234,11 @@ class LoadDesign
                     continue;
                 }
 
-                if (in_array($key, [FontCatalog::UPLOADED_FONTS_SETTING, FontCatalog::MIGRATION_SETTING], true)) {
+                if (in_array($key, [self::LEGACY_UPLOADED_FONTS_SETTING, self::LEGACY_FONT_CATALOG_MIGRATION_SETTING], true)) {
                     continue;
                 }
 
-                if (array_key_exists($key, \Kirki::$all_fields)) {
+                if ($this->hasKirkiField($key)) {
                     $stack[$key] = $mod;
                 }
 
@@ -249,6 +252,18 @@ class LoadDesign
         }
 
         return $stack;
+    }
+
+    private function hasKirkiField(string $key): bool
+    {
+        if (!class_exists('Kirki')) {
+            return false;
+        }
+
+        $kirkiClass = 'Kirki';
+        $allFields = $kirkiClass::$all_fields ?? null;
+
+        return is_array($allFields) && array_key_exists($key, $allFields);
     }
 
     private function getUploadedFontUrl(string $fontFamily = ''): ?string

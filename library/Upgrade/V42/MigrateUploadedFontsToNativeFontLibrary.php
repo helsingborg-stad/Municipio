@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\Upgrade\V42;
 
 use Closure;
-use Municipio\Customizer\Fonts\FontCatalog;
 use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use WpService\WpService;
 
@@ -14,6 +13,8 @@ use WpService\WpService;
  */
 class MigrateUploadedFontsToNativeFontLibrary
 {
+    private const LEGACY_UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
+
     public const MIGRATION_SETTING = 'municipio_native_font_library_uploaded_fonts_migrated';
 
     /**
@@ -114,7 +115,7 @@ class MigrateUploadedFontsToNativeFontLibrary
      */
     private function getManagedFonts(): array
     {
-        $uploadedFonts = $this->wpService->getThemeMod(FontCatalog::UPLOADED_FONTS_SETTING, []);
+        $uploadedFonts = $this->wpService->getThemeMod(self::LEGACY_UPLOADED_FONTS_SETTING, []);
 
         if (!is_array($uploadedFonts)) {
             return [];

@@ -12,10 +12,6 @@ use WpService\WpService;
  */
 class FontCatalog implements Hookable
 {
-    public const GOOGLE_FONTS_SETTING = 'municipio_font_catalog_google_fonts';
-    public const UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
-    public const MIGRATION_SETTING = 'municipio_font_catalog_migrated';
-
     /**
      * @param WpService $wpService
      * @param FontRepository $fontRepository
@@ -47,5 +43,4 @@ class FontCatalog implements Hookable
     {
         return $this->fontStyleguideOptionProvider->addFontFamilies($options);
     }
-
 }

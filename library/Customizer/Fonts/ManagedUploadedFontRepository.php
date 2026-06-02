@@ -11,6 +11,8 @@ use WpService\WpService;
  */
 class ManagedUploadedFontRepository
 {
+    private const LEGACY_UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
+
     /**
      * @param WpService $wpService
      * @param UploadedFontMapper $uploadedFontMapper
@@ -27,7 +29,7 @@ class ManagedUploadedFontRepository
      */
     public function getFonts(): array
     {
-        $uploadedFonts = $this->wpService->getThemeMod(FontCatalog::UPLOADED_FONTS_SETTING, []);
+        $uploadedFonts = $this->wpService->getThemeMod(self::LEGACY_UPLOADED_FONTS_SETTING, []);
 
         if (!is_array($uploadedFonts)) {
             return [];

@@ -17,7 +17,7 @@ class ManagedUploadedFontRepositoryTest extends TestCase
     public function testGetFontsReturnsManagedUploadedFontsFromThemeSettings(): void
     {
         $wpService = new FakeWpService([
-            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === FontCatalog::UPLOADED_FONTS_SETTING ? [['file' => 'https://example.com/open-sans.woff2'], ['file' => 21]] : $default,
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === 'municipio_font_catalog_uploaded_fonts' ? [['file' => 'https://example.com/open-sans.woff2'], ['file' => 21]] : $default,
         ]);
 
         $uploadedFontMapper = $this->createMock(UploadedFontMapper::class);
@@ -43,13 +43,13 @@ class ManagedUploadedFontRepositoryTest extends TestCase
 
         static::assertSame(
             [
-                'Open Sans' => [
+                'Open Sans|https://example.com/open-sans.woff2' => [
                     'id' => 0,
                     'name' => 'Open Sans',
                     'type' => 'woff2',
                     'url' => 'https://example.com/open-sans.woff2',
                 ],
-                'Inter' => [
+                'Inter|https://example.com/inter.woff2' => [
                     'id' => 21,
                     'name' => 'Inter',
                     'type' => 'woff2',
@@ -64,7 +64,7 @@ class ManagedUploadedFontRepositoryTest extends TestCase
     public function testGetFontsIgnoresMalformedThemeSettingsRows(): void
     {
         $wpService = new FakeWpService([
-            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === FontCatalog::UPLOADED_FONTS_SETTING ? [['file' => ''], ['name' => 'No File'], 'invalid'] : $default,
+            'getThemeMod' => static fn(string $key, mixed $default): mixed => $key === 'municipio_font_catalog_uploaded_fonts' ? [['file' => ''], ['name' => 'No File'], 'invalid'] : $default,
         ]);
 
         $uploadedFontMapper = $this->createMock(UploadedFontMapper::class);

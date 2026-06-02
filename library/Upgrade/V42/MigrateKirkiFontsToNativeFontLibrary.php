@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Municipio\Upgrade\V42;
 
 use Closure;
-use Municipio\Customizer\Fonts\FontCatalog;
 use Municipio\Customizer\Fonts\NativeFontLibraryRepository;
 use WpService\WpService;
 
@@ -16,6 +15,9 @@ use WpService\WpService;
 class MigrateKirkiFontsToNativeFontLibrary
 {
     public const MIGRATION_SETTING = 'municipio_native_font_library_kirki_fonts_migrated';
+    public const ACTIVATION_SETTING = 'municipio_native_font_library_kirki_fonts_activated';
+    public const LOCAL_INSTALL_SETTING = 'municipio_native_font_library_kirki_fonts_locally_installed';
+    public const LEGACY_GOOGLE_FONTS_SETTING = 'municipio_font_catalog_google_fonts';
 
     /**
      * Known typography settings containing legacy font family selections.
@@ -32,67 +34,335 @@ class MigrateKirkiFontsToNativeFontLibrary
     ];
 
     /**
+     * Default variants that should be active after Google-font migration.
+     *
+     * @var array<int, string>
+     */
+    private const DEFAULT_ACTIVATED_VARIANTS = [
+        '400',
+        '500',
+        '600',
+        '700',
+        '400italic',
+        '500italic',
+        '600italic',
+        '700italic',
+    ];
+
+    /**
+     * Default variants by typography setting when the theme mod has no explicit variant.
+     *
+     * @var array<string, string>
+     */
+    private const FONT_SETTING_DEFAULT_VARIANTS = [
+        'typography_base' => 'regular',
+        'typography_heading' => '700',
+        'typography_bold' => '700',
+        'typography_italic' => 'italic',
+        'typography_lead' => '500',
+        'header_brand_font_settings' => 'regular',
+    ];
+
+    /**
      * @var Closure(): array<string, array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}>
      */
     private readonly Closure $installableFontsProvider;
+
+    /**
+     * @var Closure(array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}): void
+     */
+    private readonly Closure $fontActivator;
 
     public function __construct(
         private readonly WpService $wpService,
         private readonly NativeFontLibraryRepository $nativeFontLibraryRepository,
         ?Closure $installableFontsProvider = null,
+        ?Closure $fontActivator = null,
     ) {
         $this->installableFontsProvider = $installableFontsProvider ?? fn(): array => $this->getInstallableFontsFromWordPressCollections();
+        $this->fontActivator = $fontActivator ?? function (array $font): void {
+            $this->persistActivatedFontFamily($font);
+        };
     }
 
     /**
-     * Installs previously used Google fonts into native font-family and font-face posts.
+     * Installs previously used Google fonts into native font-family and font-face posts,
+     * then activates supported variants in user global styles.
      */
     public function migrate(): void
     {
-        if ((bool) $this->wpService->getThemeMod(self::MIGRATION_SETTING, false)) {
-            return;
-        }
-
         if (!$this->nativeFontLibraryRepository->isAvailable()) {
             return;
         }
 
-        foreach ($this->getPreviouslyUsedInstallableFonts(($this->installableFontsProvider)()) as $font) {
-            $fontFamilyPostId = $this->nativeFontLibraryRepository->createFontFamilyIfMissing(
-                $font['name'],
-                $font['fontFamily'],
-                $font['preview'] ?? null,
-            );
+        $fonts = $this->getPreviouslyUsedInstallableFonts(($this->installableFontsProvider)());
+        $fontsToActivate = $fonts;
 
-            if ($fontFamilyPostId === null) {
+        if (!(bool) $this->wpService->getThemeMod(self::LOCAL_INSTALL_SETTING, false)) {
+            $fontsToActivate = [];
+
+            foreach ($fonts as $font) {
+                $installedFont = $this->installFont($font);
+
+                if ($installedFont !== null) {
+                    $fontsToActivate[] = $installedFont;
+                }
+            }
+
+            $this->wpService->setThemeMod(self::LOCAL_INSTALL_SETTING, true);
+        }
+
+        if (!(bool) $this->wpService->getThemeMod(self::MIGRATION_SETTING, false)) {
+            $this->wpService->setThemeMod(self::MIGRATION_SETTING, true);
+        }
+
+        if ((bool) $this->wpService->getThemeMod(self::ACTIVATION_SETTING, false) && $fontsToActivate === $fonts) {
+            return;
+        }
+
+        foreach ($fontsToActivate as $font) {
+            $activatedFont = $this->createActivatedFontFamily($font);
+
+            if ($activatedFont === null) {
                 continue;
             }
 
-            foreach ($font['fontFace'] as $fontFace) {
-                $sources = $this->normalizeSources($fontFace['src'] ?? []);
-
-                if ($sources === []) {
-                    continue;
-                }
-
-                $this->nativeFontLibraryRepository->createFontFaceIfMissing(
-                    $fontFamilyPostId,
-                    $font['name'],
-                    $sources,
-                    isset($fontFace['fontStyle']) ? (string) $fontFace['fontStyle'] : 'normal',
-                    isset($fontFace['fontWeight']) ? (string) $fontFace['fontWeight'] : '400',
-                    unicodeRange: isset($fontFace['unicodeRange']) && is_string($fontFace['unicodeRange']) ? $fontFace['unicodeRange'] : null,
-                    preview: isset($fontFace['preview']) && is_string($fontFace['preview']) ? $fontFace['preview'] : null,
-                );
-            }
+            ($this->fontActivator)($activatedFont);
         }
 
-        $this->wpService->setThemeMod(self::MIGRATION_SETTING, true);
+        $this->wpService->setThemeMod(self::ACTIVATION_SETTING, true);
     }
 
     /**
-     * Returns installable WordPress font collection entries for previously used font families.
+     * @param array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string} $font
+     */
+    private function installFont(array $font): ?array
+    {
+        $fontFamilyPostId = $this->nativeFontLibraryRepository->createFontFamilyIfMissing(
+            $font['name'],
+            $font['fontFamily'],
+            $font['preview'] ?? null,
+        );
+
+        if ($fontFamilyPostId === null) {
+            return null;
+        }
+
+        $this->removeRemoteFontFaces($fontFamilyPostId);
+
+        $installedFontFaces = [];
+
+        foreach ($font['fontFace'] as $fontFace) {
+            $installedFontFace = $this->installFontFace($fontFace);
+
+            if ($installedFontFace === null) {
+                continue;
+            }
+
+            $this->nativeFontLibraryRepository->createFontFaceIfMissing(
+                $fontFamilyPostId,
+                $font['name'],
+                $installedFontFace['src'],
+                isset($installedFontFace['fontStyle']) ? (string) $installedFontFace['fontStyle'] : 'normal',
+                isset($installedFontFace['fontWeight']) ? (string) $installedFontFace['fontWeight'] : '400',
+                $installedFontFace['fontFile'] ?? null,
+                isset($installedFontFace['unicodeRange']) && is_string($installedFontFace['unicodeRange']) ? $installedFontFace['unicodeRange'] : null,
+                isset($installedFontFace['preview']) && is_string($installedFontFace['preview']) ? $installedFontFace['preview'] : null,
+            );
+
+            unset($installedFontFace['fontFile']);
+            $installedFontFaces[] = $installedFontFace;
+        }
+
+        if ($installedFontFaces === []) {
+            return null;
+        }
+
+        $installedFont = [
+            'name' => $font['name'],
+            'fontFamily' => $font['fontFamily'],
+            'fontFace' => $installedFontFaces,
+        ];
+
+        if (isset($font['preview']) && is_string($font['preview']) && trim($font['preview']) !== '') {
+            $installedFont['preview'] = trim($font['preview']);
+        }
+
+        return $installedFont;
+    }
+
+    private function removeRemoteFontFaces(int $fontFamilyPostId): void
+    {
+        $fontDir = $this->wpService->wpGetFontDir();
+        $baseUrl = isset($fontDir['baseurl']) && is_string($fontDir['baseurl']) ? rtrim($fontDir['baseurl'], '/') : '';
+
+        if ($fontFamilyPostId <= 0 || $baseUrl === '') {
+            return;
+        }
+
+        $fontFaces = $this->wpService->getPosts([
+            'post_type' => 'wp_font_face',
+            'post_status' => 'publish',
+            'post_parent' => $fontFamilyPostId,
+            'posts_per_page' => -1,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        ]);
+
+        foreach ($fontFaces as $fontFace) {
+            $fontFaceId = is_object($fontFace) && property_exists($fontFace, 'ID') ? (int) $fontFace->ID : 0;
+            $postContent = is_object($fontFace) && property_exists($fontFace, 'post_content') ? (string) $fontFace->post_content : '';
+            $fontFaceSettings = json_decode($postContent, true);
+            $fontFaceSources = is_array($fontFaceSettings) ? $this->normalizeSources($fontFaceSettings['src'] ?? []) : [];
+
+            if ($fontFaceId <= 0 || $fontFaceSources === [] || $this->hasOnlyLocalFontSources($fontFaceSources, $baseUrl)) {
+                continue;
+            }
+
+            $this->wpService->wpDeletePost($fontFaceId, true);
+        }
+    }
+
+    /**
+     * @param array<int, string> $fontFaceSources
+     */
+    private function hasOnlyLocalFontSources(array $fontFaceSources, string $baseUrl): bool
+    {
+        foreach ($fontFaceSources as $fontFaceSource) {
+            if (!str_starts_with($fontFaceSource, $baseUrl)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Downloads a font face into the WordPress fonts directory and returns the local settings.
      *
+     * @param array<string, mixed> $fontFace
+     *
+     * @return array<string, mixed>|null
+     */
+    private function installFontFace(array $fontFace): ?array
+    {
+        $sources = $this->normalizeSources($fontFace['src'] ?? []);
+
+        if ($sources === []) {
+            return null;
+        }
+
+        $installedSources = [];
+        $fontFile = null;
+
+        foreach ($sources as $source) {
+            $installedSource = $this->installFontSource($source);
+
+            if ($installedSource === null) {
+                continue;
+            }
+
+            $installedSources[] = $installedSource['url'];
+            $fontFile ??= $installedSource['fontFile'];
+        }
+
+        if ($installedSources === []) {
+            return null;
+        }
+
+        $fontFace['src'] = $installedSources;
+
+        if ($fontFile !== null) {
+            $fontFace['fontFile'] = $fontFile;
+        }
+
+        return $fontFace;
+    }
+
+    /**
+     * Downloads one remote font source and moves it into the native WordPress font directory.
+     *
+     * @return array{url: string, fontFile: string}|null
+     */
+    private function installFontSource(string $source): ?array
+    {
+        if ($source === '') {
+            return null;
+        }
+
+        $temporaryFile = $this->wpService->downloadUrl($source);
+
+        if (!is_string($temporaryFile) || $temporaryFile === '') {
+            return null;
+        }
+
+        $fileName = $this->getDownloadedFontFileName($source, $temporaryFile);
+        $file = [
+            'name' => $fileName,
+            'tmp_name' => $temporaryFile,
+            'error' => 0,
+            'size' => function_exists('filesize') ? (int) filesize($temporaryFile) : 0,
+        ];
+
+        $overrides = [
+            'test_form' => false,
+        ];
+
+        if (class_exists(\WP_Font_Utils::class) && method_exists(\WP_Font_Utils::class, 'get_allowed_font_mime_types')) {
+            $overrides['mimes'] = \WP_Font_Utils::get_allowed_font_mime_types();
+        }
+
+        if (function_exists('add_filter') && function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
+            add_filter('upload_dir', '_wp_filter_font_directory');
+        }
+
+        $sideloadedFile = $this->wpService->wpHandleSideload($file, $overrides);
+
+        if (function_exists('remove_filter') && function_exists('_wp_filter_font_directory')) {
+            remove_filter('upload_dir', '_wp_filter_font_directory');
+        }
+
+        if (!is_array($sideloadedFile) || empty($sideloadedFile['file']) || empty($sideloadedFile['url'])) {
+            if (function_exists('file_exists') && file_exists($temporaryFile) && function_exists('unlink')) {
+                unlink($temporaryFile);
+            }
+
+            return null;
+        }
+
+        return [
+            'url' => (string) $sideloadedFile['url'],
+            'fontFile' => $this->relativeFontsPath((string) $sideloadedFile['file']),
+        ];
+    }
+
+    private function getDownloadedFontFileName(string $source, string $temporaryFile): string
+    {
+        $path = (string) parse_url($source, PHP_URL_PATH);
+        $fileName = basename($path);
+
+        if ($fileName !== '' && $fileName !== '/' && $fileName !== '.') {
+            return $fileName;
+        }
+
+        $extension = pathinfo($temporaryFile, PATHINFO_EXTENSION);
+
+        return $extension !== '' ? 'font.' . $extension : 'font-file';
+    }
+
+    private function relativeFontsPath(string $path): string
+    {
+        $fontDir = $this->wpService->wpGetFontDir();
+        $baseDir = isset($fontDir['basedir']) && is_string($fontDir['basedir']) ? rtrim($fontDir['basedir'], '/') : '';
+
+        if ($baseDir !== '' && str_starts_with($path, $baseDir)) {
+            return ltrim(substr($path, strlen($baseDir)), '/');
+        }
+
+        return $path;
+    }
+
+    /**
      * @param array<string, array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}> $installableFonts
      *
      * @return array<string, array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}>
@@ -100,7 +370,7 @@ class MigrateKirkiFontsToNativeFontLibrary
     private function getPreviouslyUsedInstallableFonts(array $installableFonts): array
     {
         $installableFonts = $this->normalizeInstallableFontsIndex($installableFonts);
-        $catalogFonts = $this->wpService->getThemeMod(FontCatalog::GOOGLE_FONTS_SETTING, []);
+        $catalogFonts = $this->wpService->getThemeMod(self::LEGACY_GOOGLE_FONTS_SETTING, []);
         $catalogFonts = is_array($catalogFonts) ? array_values(array_filter(array_map('strval', $catalogFonts))) : [];
 
         $selectedFamilies = array_values(array_unique(array_merge(
@@ -156,13 +426,19 @@ class MigrateKirkiFontsToNativeFontLibrary
     }
 
     /**
-     * Returns legacy font families currently selected in typography theme mods.
-     *
      * @return array<int, string>
      */
     private function getSelectedFontFamiliesFromThemeMods(): array
     {
-        $fontFamilies = [];
+        return array_keys($this->getSelectedFontVariantsFromThemeMods());
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    private function getSelectedFontVariantsFromThemeMods(): array
+    {
+        $fonts = [];
 
         foreach (self::FONT_SETTING_KEYS as $settingKey) {
             $value = $this->wpService->getThemeMod($settingKey, []);
@@ -171,15 +447,225 @@ class MigrateKirkiFontsToNativeFontLibrary
                 continue;
             }
 
-            $fontFamilies[] = (string) $value['font-family'];
+            $fontFamily = $this->normalizeFontFamilyName((string) $value['font-family']);
+            $variant = $this->normalizeVariant(isset($value['variant']) && is_string($value['variant']) && $value['variant'] !== '' ? $value['variant'] : self::FONT_SETTING_DEFAULT_VARIANTS[$settingKey] ?? 'regular');
+
+            if ($fontFamily === '' || $variant === null) {
+                continue;
+            }
+
+            $fonts[$fontFamily] ??= [];
+
+            if (!in_array($variant, $fonts[$fontFamily], true)) {
+                $fonts[$fontFamily][] = $variant;
+            }
         }
 
-        return array_values(array_unique($fontFamilies));
+        return $fonts;
     }
 
     /**
-     * Returns installable font families from WordPress' registered font collections.
+     * @param array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string} $font
      *
+     * @return array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}|null
+     */
+    private function createActivatedFontFamily(array $font): ?array
+    {
+        $activatedFontFaces = $this->getActivatedFontFaces($font);
+
+        if ($activatedFontFaces === []) {
+            return null;
+        }
+
+        $activatedFont = [
+            'name' => $font['name'],
+            'slug' => $this->createFontSlug($font['name']),
+            'fontFamily' => $font['fontFamily'],
+            'fontFace' => $activatedFontFaces,
+        ];
+
+        if (isset($font['preview']) && is_string($font['preview']) && trim($font['preview']) !== '') {
+            $activatedFont['preview'] = trim($font['preview']);
+        }
+
+        return $activatedFont;
+    }
+
+    /**
+     * @param array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string} $font
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function getActivatedFontFaces(array $font): array
+    {
+        $fontKey = $this->normalizeFontFamilyName($font['name']);
+        $selectedVariants = $this->getSelectedFontVariantsFromThemeMods()[$fontKey] ?? [];
+        $allowedVariants = array_fill_keys(array_merge(self::DEFAULT_ACTIVATED_VARIANTS, $selectedVariants), true);
+
+        return array_values(array_filter(
+            $font['fontFace'],
+            fn(array $fontFace): bool => isset($allowedVariants[$this->createFontFaceVariantKey($fontFace)]),
+        ));
+    }
+
+    /**
+     * @param array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string} $activatedFont
+     */
+    private function persistActivatedFontFamily(array $activatedFont): void
+    {
+        $globalStylesPostId = $this->getGlobalStylesPostId();
+
+        if ($globalStylesPostId === null) {
+            return;
+        }
+
+        $globalStylesPost = $this->wpService->getPost($globalStylesPostId);
+        $postContent = is_object($globalStylesPost) && property_exists($globalStylesPost, 'post_content') ? (string) $globalStylesPost->post_content : (is_array($globalStylesPost) && isset($globalStylesPost['post_content']) ? (string) $globalStylesPost['post_content'] : '');
+
+        $globalStylesData = $this->decodeGlobalStylesPostContent($postContent);
+        $customFontFamilies = $globalStylesData['settings']['typography']['fontFamilies']['custom'] ?? [];
+        $customFontFamilies = is_array($customFontFamilies) ? array_values(array_filter($customFontFamilies, 'is_array')) : [];
+
+        $fontWasUpdated = false;
+
+        foreach ($customFontFamilies as $index => $existingFontFamily) {
+            if (($existingFontFamily['slug'] ?? null) !== $activatedFont['slug']) {
+                continue;
+            }
+
+            $customFontFamilies[$index] = $this->mergeActivatedFontFamily($existingFontFamily, $activatedFont);
+            $fontWasUpdated = true;
+            break;
+        }
+
+        if (!$fontWasUpdated) {
+            $customFontFamilies[] = $activatedFont;
+        }
+
+        $globalStylesData['settings']['typography']['fontFamilies']['custom'] = $customFontFamilies;
+
+        $this->wpService->wpUpdatePost([
+            'ID' => $globalStylesPostId,
+            'post_content' => $this->preparePostContent($globalStylesData),
+        ]);
+    }
+
+    /**
+     * @param array<string, mixed> $existingFontFamily
+     * @param array{name: string, slug: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string} $activatedFontFamily
+     *
+     * @return array<string, mixed>
+     */
+    private function mergeActivatedFontFamily(array $existingFontFamily, array $activatedFontFamily): array
+    {
+        $mergedFontFaces = [];
+
+        foreach (array_merge($existingFontFamily['fontFace'] ?? [], $activatedFontFamily['fontFace']) as $fontFace) {
+            if (!is_array($fontFace)) {
+                continue;
+            }
+
+            $mergedFontFaces[$this->createFontFaceVariantKey($fontFace)] = $fontFace;
+        }
+
+        return [
+            ...$existingFontFamily,
+            ...$activatedFontFamily,
+            'fontFace' => array_values($mergedFontFaces),
+        ];
+    }
+
+    private function getGlobalStylesPostId(): ?int
+    {
+        if (!class_exists(\WP_Theme_JSON_Resolver::class) || !method_exists(\WP_Theme_JSON_Resolver::class, 'get_user_global_styles_post_id')) {
+            return null;
+        }
+
+        $postId = \WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
+
+        return is_numeric($postId) && (int) $postId > 0 ? (int) $postId : null;
+    }
+
+    /**
+     * @param array<string, mixed> $fontFace
+     */
+    private function createFontFaceVariantKey(array $fontFace): string
+    {
+        $fontWeight = isset($fontFace['fontWeight']) ? $this->normalizeFontWeight((string) $fontFace['fontWeight']) : '400';
+        $fontStyle = isset($fontFace['fontStyle']) ? strtolower(trim((string) $fontFace['fontStyle'])) : 'normal';
+
+        return $fontStyle === 'italic' ? $fontWeight . 'italic' : $fontWeight;
+    }
+
+    private function normalizeVariant(string $variant): ?string
+    {
+        $variant = strtolower(trim($variant));
+
+        return match ($variant) {
+            'regular', 'normal' => '400',
+            'italic' => '400italic',
+            default => preg_match('/^\d+(italic)?$/', $variant) === 1 ? $variant : null,
+        };
+    }
+
+    private function normalizeFontWeight(string $fontWeight): string
+    {
+        $fontWeight = strtolower(trim($fontWeight));
+
+        return match ($fontWeight) {
+            'normal', 'regular' => '400',
+            'bold' => '700',
+            default => preg_match('/^\d+$/', $fontWeight) === 1 ? $fontWeight : '400',
+        };
+    }
+
+    private function createFontSlug(string $fontName): string
+    {
+        if (function_exists('sanitize_title')) {
+            return (string) sanitize_title($fontName);
+        }
+
+        return trim((string) preg_replace('/[^a-z0-9]+/', '-', strtolower($fontName)), '-');
+    }
+
+    /**
+     * @param string $postContent
+     *
+     * @return array<string, mixed>
+     */
+    private function decodeGlobalStylesPostContent(string $postContent): array
+    {
+        $decodedPostContent = json_decode($postContent, true);
+
+        if (!is_array($decodedPostContent)) {
+            $decodedPostContent = [];
+        }
+
+        $decodedPostContent['version'] = isset($decodedPostContent['version']) && is_int($decodedPostContent['version']) ? $decodedPostContent['version'] : (class_exists(\WP_Theme_JSON::class) ? \WP_Theme_JSON::LATEST_SCHEMA : 3);
+        $decodedPostContent['isGlobalStylesUserThemeJSON'] = true;
+
+        return $decodedPostContent;
+    }
+
+    /**
+     * @param array<string, mixed> $postContent
+     */
+    private function preparePostContent(array $postContent): string
+    {
+        $json = function_exists('wp_json_encode') ? (string) wp_json_encode($postContent) : (string) json_encode($postContent);
+
+        if (function_exists('wp_slash')) {
+            $slashedJson = wp_slash($json);
+
+            if (is_string($slashedJson)) {
+                return $slashedJson;
+            }
+        }
+
+        return addslashes($json);
+    }
+
+    /**
      * @return array<string, array{name: string, fontFamily: string, fontFace: array<int, array<string, mixed>>, preview?: string}>
      */
     private function getInstallableFontsFromWordPressCollections(): array
@@ -298,16 +784,10 @@ class MigrateKirkiFontsToNativeFontLibrary
         ))));
     }
 
-    /**
-     * Normalizes a CSS font-family value to the primary family name.
-     *
-     * @param string $fontFamily
-     *
-     * @return string
-     */
     private function normalizeFontFamilyName(string $fontFamily): string
     {
         $fontFamily = trim(strtok($fontFamily, ','));
+
         return strtolower(trim($fontFamily, " \t\n\r\0\x0B\"'"));
     }
 }
