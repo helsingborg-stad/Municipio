@@ -126,7 +126,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'content' => $this->wpService->__('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
                 'actionLabel' => $this->wpService->__('Login again', 'municipio'),
             ],
-            'url' => $loginUrl,
+            'url' => $loginUrl ?? $navigation->getHomeUrl(),
         ]);
     }
 
@@ -140,7 +140,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'content' => $error,
                 'actionLabel' => $this->wpService->__('Try again', 'municipio'),
             ],
-            'url' => $loginUrl,
+            'url' => $loginUrl ?? $navigation->getHomeUrl(),
         ]);
     }
 
