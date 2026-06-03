@@ -47,11 +47,6 @@ class KulturkortetProfileEditorFeature implements Hookable
                     'autoRegister' => true,
                 ],
                 'attributes' => [
-                    'ticketLinkLabel' => [
-                        'label' => $this->wpService->__('Text for the ticket link', 'municipio'),
-                        'type' => 'string',
-                        'default' => $this->wpService->__('Show my ticket', 'municipio'),
-                    ],
                     'ticketLink' => [
                         'label' => $this->wpService->__('Link to the ticket', 'municipio'),
                         'type' => 'string',

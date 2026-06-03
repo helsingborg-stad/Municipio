@@ -5,7 +5,7 @@
 ])
     @button([
         'style' => 'outlined',
-        'color' => 'primary',
+        'color' => 'secondary',
         'href' => $logoutUrl,
         'text' => $lang['logout'],
         'classList' => ['u-margin__left--0'],

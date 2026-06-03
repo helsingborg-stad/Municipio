@@ -6,6 +6,7 @@ namespace Municipio\Kulturkortet\ProfileEditor;
 
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
+use Municipio\Helper\DateFormat;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
@@ -61,15 +62,14 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 'content' => '',
                 'logoutUrl' => $this->wpService->__('Logout', 'municipio'),
                 'saveUrl' => $this->wpService->__('Save', 'municipio'),
-
                 'firstnameLabel' => $this->wpService->__('First name', 'municipio'),
                 'firstnamePlaceholder' => $this->wpService->__('Enter your first name', 'municipio'),
-
                 'lastnameLabel' => $this->wpService->__('Last name', 'municipio'),
                 'lastnamePlaceholder' => $this->wpService->__('Enter your last name', 'municipio'),
-
                 'emailLabel' => $this->wpService->__('Email', 'municipio'),
                 'emailPlaceholder' => $this->wpService->__('Enter your email', 'municipio'),
+                'myTicket' => $this->wpService->__('My ticket', 'municipio'),
+                'activeUntil' => $this->wpService->__('Active until', 'municipio'),
             ],
             'profile' => [
                 'firstname' => $ticket['firstname'] ?? '',
@@ -79,8 +79,12 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
             'name' => $user->getName() ?? '',
             'saveUrl' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
             'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
-            'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG, // set to true to show raw Vitec user data for debugging purposes
-            'vitecUser' => $vitecUser, // for debugging purposes
+            'ticket' => [
+                'validUntil' => $this->formatDate($ticket['validUntil'] ?? null),
+            ],
+            //Debug remove later
+            'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG,
+            'vitecUser' => $vitecUser,
         ]);
     }
 
@@ -129,5 +133,11 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
             'attributes' => $this->attributes,
             ...$model,
         ]);
+    }
+
+    private function formatDate(mixed $date): ?string
+    {
+        $time = is_string($date) ? strtotime($date) : null;
+        return $time ? date(DateFormat::getDateFormat('date'), $time) : null;
     }
 }
