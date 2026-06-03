@@ -3,8 +3,6 @@
 $base: var(--base, 8px) !default;
 $color-black: var(--color-black, #000000) !default;
 $color-primary: var(--color--primary) !default;
-$paper-color: var(--c-paper--background-color) !default;
-$color-lighter: var(--c-paper--border-color) !default;
 $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !default;
 
 .mod-menu.mod-menu--listing {
@@ -81,7 +79,6 @@ $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !d
 
         .mod-menu__container {
             gap: 1px;
-            background-color: $color-lighter;
 
             .c-group--size-lg {
                 grid-auto-rows: 1fr;
@@ -90,7 +87,6 @@ $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !d
 
         .mod-menu__item {
             padding: calc($base * 4);
-            background-color: $paper-color;
         }
 
         .mod-menu__children, 
