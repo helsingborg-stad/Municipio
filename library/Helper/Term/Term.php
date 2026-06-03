@@ -17,7 +17,8 @@ use WpService\Contracts\{WpInsertTerm, WpGetAttachmentImageUrl, IsWpError, GetTe
  */
 class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
 {
-    public static array $cache = [];
+    public static array $termColorCache = [];
+    public static array $termIconCache = [];
 
     /**
      * Constructor.
@@ -33,20 +34,22 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
      */
     public function getTermColor(int|string|\WP_Term $term, string $taxonomy = ''): false|string
     {
-        $cacheKey     = md5(json_encode($term)) . md5($taxonomy);
+        $cacheKey = md5(json_encode($term)) . md5($taxonomy);
 
-        if (array_key_exists($cacheKey, self::$cache)) {
-            return self::$cache[$cacheKey];
+        if (array_key_exists($cacheKey, self::$termColorCache)) {
+            return self::$termColorCache[$cacheKey];
         }
 
         if (empty($term)) {
-            return self::$cache[$cacheKey] = false;
+            self::$termColorCache[$cacheKey] = false;
+            return self::$termColorCache[$cacheKey];
         }
 
         $term = $this->getTerm($term, $taxonomy);
 
         if (empty($term)) {
-            return self::$cache[$cacheKey] = false;
+            self::$termColorCache[$cacheKey] = false;
+            return self::$termColorCache[$cacheKey];
         }
 
         $color = $this->acfService->getField('colour', 'term_' . $term->term_id);
@@ -58,7 +61,8 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
         }
 
         $result                  = $this->wpService->applyFilters('Municipio/getTermColour', $color, $term, $taxonomy);
-        return self::$cache[$cacheKey] = $result;
+        self::$termColorCache[$cacheKey] = $result;
+        return self::$termColorCache[$cacheKey];
     }
 
     /**
@@ -114,17 +118,16 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
      */
     public function getTermIcon(int|string|\WP_Term $term, string $taxonomy = ''): array|false
     {
-        static $cache = [];
         $cacheKey     = md5(json_encode($term)) . md5($taxonomy);
 
-        if (array_key_exists($cacheKey, self::$cache)) {
-            return self::$cache[$cacheKey];
+        if (array_key_exists($cacheKey, self::$termIconCache)) {
+            return self::$termIconCache[$cacheKey];
         }
 
         $term = self::getTerm($term, $taxonomy);
 
         if (empty($term)) {
-            return self::$cache[$cacheKey] = false;
+            return self::$termIconCache[$cacheKey] = false;
         }
 
         $termIcon = $this->acfService->getField('icon', 'term_' . $term->term_id);
@@ -154,7 +157,7 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
             $result = false;
         }
 
-        return self::$cache[$cacheKey] = $result;
+        return self::$termIconCache[$cacheKey] = $result;
     }
 
     /**

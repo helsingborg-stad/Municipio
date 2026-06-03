@@ -68,7 +68,7 @@ class TermTest extends TestCase
             'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
-        $termHelper::$cache = []; // Reset cache before test
+        $termHelper::$termColorCache = []; // Reset cache before test
 
         static::assertSame('#000000', $termHelper->getTermColor(123, 'category'));
     }
@@ -135,7 +135,7 @@ class TermTest extends TestCase
     {
         $wpService  = new FakeWpService(['getTermBy' => false]);
         $termHelper = new Term($wpService, new FakeAcfService());
-        $termHelper::$cache = []; // Reset cache before test
+        $termHelper::$termIconCache = []; // Reset cache before test
 
         static::assertFalse($termHelper->getTermIcon(123, 'category'));
         static::assertFalse($termHelper->getTermIcon('non-existing-slug', 'category'));
@@ -153,7 +153,7 @@ class TermTest extends TestCase
             'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
-        $termHelper::$cache = []; // Reset cache before test
+        $termHelper::$termIconCache = []; // Reset cache before test
 
         static::assertFalse($termHelper->getTermIcon(123, 'category'));
     }
@@ -170,7 +170,7 @@ class TermTest extends TestCase
             'applyFilters' => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
-        $termHelper::$cache = []; // Reset cache before test
+        $termHelper::$termIconCache = []; // Reset cache before test
 
         static::assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
     }
@@ -193,7 +193,7 @@ class TermTest extends TestCase
             'applyFilters'            => static fn($hook, $value) => $value]);
 
         $termHelper     = new Term($wpService, $acfService);
-        $termHelper::$cache = []; // Reset cache before test
+        $termHelper::$termIconCache = []; // Reset cache before test
         $icon           = $termHelper->getTermIcon(123, 'category');
 
         static::assertSame('attachment-url', $icon['src']);
@@ -215,7 +215,7 @@ class TermTest extends TestCase
 
         $termHelper     = new Term($wpService, $acfService);
 
-        $termHelper::$cache = []; // Reset cache before test
+        $termHelper::$termIconCache = []; // Reset cache before test
         static::assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
         static::assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
 
