@@ -11,6 +11,7 @@ use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
 use Municipio\Kulturkortet\Vitec\VitecService;
+use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\HomeUrl;
@@ -24,7 +25,7 @@ use WpService\Contracts\WpRemoteRetrieveBody;
 class KulturkortetProfileEditorFeature implements Hookable
 {
     public function __construct(
-        private AddAction&ApplyFilters&RegisterBlockType&HomeUrl&IsWpError&WpRemoteGet&WpRemoteRetrieveBody&WpCacheGet&WpCacheSet $wpService,
+        private AddAction&ApplyFilters&RegisterBlockType&HomeUrl&IsWpError&WpRemoteGet&WpRemoteRetrieveBody&WpCacheGet&WpCacheSet&__ $wpService,
     ) {}
 
     public function addHooks(): void
@@ -40,19 +41,19 @@ class KulturkortetProfileEditorFeature implements Hookable
         $this->wpService->registerBlockType(
             'kulturkortet/profile-editor',
             [
-                'title' => __('Kulturkortet Profil editor', 'municipio'),
+                'title' => $this->wpService->__('Kulturkortet Profile Editor', 'municipio'),
                 'render_callback' => [$this, 'render'],
                 'supports' => [
                     'autoRegister' => true,
                 ],
                 'attributes' => [
                     'ticketLinkLabel' => [
-                        'label' => __('Text på länk till biljett', 'municipio'),
+                        'label' => $this->wpService->__('Text for the ticket link', 'municipio'),
                         'type' => 'string',
-                        'default' => __('Visa min biljett', 'municipio'),
+                        'default' => $this->wpService->__('Show my ticket', 'municipio'),
                     ],
                     'ticketLink' => [
-                        'label' => __('Länk till biljett', 'municipio'),
+                        'label' => $this->wpService->__('Link to the ticket', 'municipio'),
                         'type' => 'string',
                         'default' => '',
                     ],

@@ -49,7 +49,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 'lang' => [
                     'heading' => $this->wpService->__('You do not have a valid kulturkort', 'municipio'),
                     'content' => '',
-                    'url' => $this->wpService->__('Logout', 'municipio'),
+                    'actionLabel' => $this->wpService->__('Logout', 'municipio'),
                 ],
                 'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
             ]);
@@ -90,7 +90,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
             'lang' => [
                 'heading' => $this->wpService->__('Login to edit your profile', 'municipio'),
                 'content' => $this->wpService->__('To edit your profile, you must log in with BankId.', 'municipio'),
-                'url' => $this->wpService->__('Log in', 'municipio'),
+                'actionLabel' => $this->wpService->__('Log in', 'municipio'),
             ],
             'url' => $loginUrl,
         ]);
@@ -102,7 +102,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
             'lang' => [
                 'heading' => $this->wpService->__('You have been successfully logged out', 'municipio'),
                 'content' => $this->wpService->__('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
-                'url' => $this->wpService->__('Start over', 'municipio'),
+                'actionLabel' => $this->wpService->__('Start over', 'municipio'),
             ],
             'url' => $loginUrl ?? $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
         ]);
@@ -112,9 +112,9 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
     {
         return $this->renderWithModel('kulturkortet-profile-simple-message', [
             'lang' => [
-                'heading' => $this->wpService->__('Något gick fel', 'municipio'),
+                'heading' => $this->wpService->__('Something went wrong', 'municipio'),
                 'content' => $error,
-                'url' => $this->wpService->__('Prova igen', 'municipio'),
+                'actionLabel' => $this->wpService->__('Try again', 'municipio'),
             ],
             'url' => $loginUrl ?? $navigation->getHomeUrl(),
         ]);
