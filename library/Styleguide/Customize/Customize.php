@@ -31,6 +31,7 @@ class Customize implements Hookable
     public function addHooks(): void
     {
         (new ApplyStyles\ApplyStyles($this->wpService))->addHooks();
+        (new DesignCenterFontFamilies($this->wpService))->addHooks();
         $this->wpService->addAction('customize_register', [$this, 'registerThemeMod']);
         $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'enqueueControlsAssets']);
         $this->wpService->addAction('customize_preview_init', [$this, 'enqueuePreviewAssets']);

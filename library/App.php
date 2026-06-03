@@ -14,7 +14,6 @@ use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -240,11 +239,6 @@ class App
          * Styleguide integration
          */
         (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
-
-        /**
-         * Managed fonts
-         */
-        (new FontCatalogFactory($this->wpService))->create()->addHooks();
 
         /**
          * Api
