@@ -189,6 +189,7 @@ class ApplyI18n
             'Shadow Intensity'    => $this->wpService->_x('Shadow Intensity', 'design-builder-component-data', 'municipio'),
             'Controls how strong the drawer shadow appears when open.'=> $this->wpService->_x('Controls how strong the drawer shadow appears when open.', 'design-builder-component-data', 'municipio'),
             'Link Color Mix Amount' => $this->wpService->_x('Link Color Mix Amount', 'design-builder-component-data', 'municipio'),
+            'Link Color Mix Amount [State]' => $this->wpService->_x('Link Color Mix Amount [State]', 'design-builder-component-data', 'municipio'),
             'Adjusts the mix amount of the link color in hover, active, and visited states.'=> $this->wpService->_x('Adjusts the mix amount of the link color in hover, active, and visited states.', 'design-builder-component-data', 'municipio'),
             default => $string,
         };
