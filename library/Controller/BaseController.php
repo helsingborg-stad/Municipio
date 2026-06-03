@@ -17,6 +17,7 @@ use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
 use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
 use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Styleguide\Customize\CustomizeInterface;
+use Municipio\Styleguide\Customize\ResolvePostTypeScope;
 use WpService\WpService;
 
 /**
@@ -102,6 +103,7 @@ class BaseController
 
         //View porperties
         $this->data['isFrontPage'] = is_front_page() || is_home() ? true : false;
+        $this->data['isArchive'] = is_archive();
         $this->data['isSingular'] = is_singular();
         $this->data['isSingle'] = is_single();
         $this->data['isSticky'] = is_sticky();
@@ -381,6 +383,11 @@ class BaseController
         // Current posttype
         $this->data['postTypeDetails'] = \Municipio\Helper\PostType::postTypeDetails();
         $this->data['postType'] = $this->data['postTypeDetails']->name ?? '';
+        $this->data['postTypeScope'] = (new ResolvePostTypeScope())->resolve(
+            $this->data['postType'],
+            $this->data['isSingle'],
+            $this->data['isArchive'],
+        );
 
         // Get page template
         $this->data['pageTemplate'] = $this->getPageTemplate();
