@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ExternalContent\SourceReaders\Factories;
 
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
