@@ -7,7 +7,9 @@
                 'color' => 'primary',
                 'shape' => 'pill',
                 'classList' => ['u-margin--0'],
-                'ariaLabel' => 'Open component customizer'
+                'ariaLabel' => $floatingMenuLabelsCustomize->buttonLabel,
+                'text' => $floatingMenuLabelsCustomize->buttonLabel,
+                'reversePositions' => true,
             ],
             'classList' => ['c-fab--width-xl', 'c-fab--padding-none'],
             'attributeList' => [

@@ -8,14 +8,14 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\FormatObject;
-use Municipio\ImagePreload\Header\HeroImageContractResolver;
-use Municipio\ImagePreload\Header\HeroImageModuleProvider;
-use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
-use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
-use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\User\User;
+use Municipio\ImagePreload\Header\HeroImageContractResolver;
+use Municipio\ImagePreload\Header\HeroImageModuleProvider;
+use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
+use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
+use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Styleguide\Customize\CustomizeInterface;
 use WpService\WpService;
 
@@ -324,6 +324,7 @@ class BaseController
 
         //Get labels for menu
         $this->data['floatingMenuLabels'] = $this->getFloatingMenuLabels();
+        $this->data['floatingMenuLabelsCustomize'] = $this->getFloatingMenuLabelsCustomize();
         $this->data['quicklinksOptions'] = $this->getQuicklinksOptions();
         $this->data['megaMenuLabels'] = $this->getmegaMenuLabels();
 
@@ -639,6 +640,16 @@ class BaseController
                 'heading' => get_field('floating_popup_heading', $menuObject),
                 'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
                 'buttonIcon' => get_field('toggle_button_icon', $menuObject),
+            ],
+        );
+    }
+
+    public function getFloatingMenuLabelsCustomize(): object
+    {
+        return (object) apply_filters(
+            'Municipio/FloatingMenuLabelsCustomize',
+            [
+                'buttonLabel' => __('Design', 'municipio') ?? '',
             ],
         );
     }
