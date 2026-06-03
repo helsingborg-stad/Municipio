@@ -132,7 +132,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface
 
                         $filterData = $this->buildFilterData(
                             $output['dataKey'],
-                            \Kirki::get_option($key),
+                            $this->getFieldValue($key, $field),
                         );
 
                         $componentData[] = [
