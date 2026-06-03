@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "531dd897abc3753c4f02af2d3c79b06f",
+    "content-hash": "bad7fa7aa5e99ade50fd05720efdca7f",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.264.10",
+            "version": "2.265.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "d85378cd379fb158ad3f5fb7be63f9f50310f8a9"
+                "reference": "80b9a62907cd541c9959b464c450c153243b6bf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d85378cd379fb158ad3f5fb7be63f9f50310f8a9",
-                "reference": "d85378cd379fb158ad3f5fb7be63f9f50310f8a9",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/80b9a62907cd541c9959b464c450c153243b6bf5",
+                "reference": "80b9a62907cd541c9959b464c450c153243b6bf5",
                 "shasum": ""
             },
             "require": {
@@ -1280,9 +1280,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.264.10"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.265.0"
             },
-            "time": "2026-06-02T11:01:40+00:00"
+            "time": "2026-06-03T12:10:14+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7380,11 +7380,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "enshrined/svg-sanitize": 20,
-        "jeradin/acf-dynamic-table-field": 20,
-        "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
+        "clark-nikdel-powell/post-type-select-for-acf": 20,
+        "jeradin/acf-website-field": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7393,6 +7393,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
