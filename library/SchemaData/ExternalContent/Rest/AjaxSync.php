@@ -69,6 +69,10 @@ class AjaxSync implements Hookable
 
         try {
             $this->syncHandler->sync($postType, $postId);
+        } catch (\RuntimeException $e) {
+            $this->progressReporter->finish($e->getMessage());
+            $this->inProgress->setInProgress($postType, false);
+            return;
         } finally {
             $this->inProgress->setInProgress($postType, false);
         }

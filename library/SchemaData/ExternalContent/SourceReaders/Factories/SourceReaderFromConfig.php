@@ -14,6 +14,7 @@ use Municipio\SchemaData\ExternalContent\SourceReaders\TypesenseSourceReader;
 use Municipio\Helper\WpService;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsFactory;
 use Municipio\SchemaData\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjectsFactoryInterface;
+use Municipio\SchemaData\ExternalContent\SourceReaders\TrustworthySourceReader;
 
 /**
  * Class SourceReaderFromConfig
@@ -58,15 +59,16 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
      * Creates and returns a TypesenseSourceReader instance based on the provided configuration.
      *
      * @param SourceConfigInterface $config The configuration object for the source reader.
-     * @return TypesenseSourceReader The created TypesenseSourceReader instance.
+     * @return SourceReaderInterface The created SourceReaderInterface instance.
      */
-    private function getTypesenseSourceReader(SourceConfigInterface $config): TypesenseSourceReader
+    private function getTypesenseSourceReader(SourceConfigInterface $config): SourceReaderInterface
     {
         $api                               = new TypesenseApi($config, WpService::get());
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
         $getParamsString                   = $filterDefinitionToTypesenseParams->transform($config->getFilterDefinition());
         $getParamsString                   = !empty($getParamsString) ? '?' . $getParamsString : ''; // Add '?' if there are any parameters
-
-        return new TypesenseSourceReader($api, $getParamsString, $this->jsonToSchemaObjectsFactory->create());
+        $typesenseSourceReader = new TypesenseSourceReader($api, $getParamsString, $this->jsonToSchemaObjectsFactory->create());
+        
+        return new TrustworthySourceReader($typesenseSourceReader, WpService::get(), 5, 2000);
     }
 }
