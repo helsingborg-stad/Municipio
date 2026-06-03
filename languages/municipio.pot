@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-02T08:28:51+00:00\n"
+"POT-Creation-Date: 2026-06-03T08:32:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -531,7 +531,7 @@ msgid "Content width"
 msgstr ""
 
 #: library/AcfFields/php/block-container.php:97
-#: library/Customizer/PanelsRegistry.php:247
+#: library/Customizer/PanelsRegistry.php:217
 msgid "Standard"
 msgstr ""
 
@@ -1247,7 +1247,7 @@ msgid "Assistant ID"
 msgstr ""
 
 #: library/AcfFields/php/options-chat.php:395
-#: library/Customizer/PanelsRegistry.php:254
+#: library/Customizer/PanelsRegistry.php:224
 #: library/Customizer/Sections/Header/LoginLogout.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:17
 msgid "Appearance"
@@ -1428,7 +1428,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
-#: library/Customizer/PanelsRegistry.php:399
+#: library/Customizer/PanelsRegistry.php:369
 #: library/Customizer/Sections/Search.php:140
 #: library/Helper/TranslatedLabels.php:49
 #: library/Theme/Navigation.php:36
@@ -1837,7 +1837,7 @@ msgid "Type of taxonomy"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:109
-#: library/Customizer/PanelsRegistry.php:339
+#: library/Customizer/PanelsRegistry.php:309
 msgid "Tags"
 msgstr ""
 
@@ -2395,7 +2395,7 @@ msgid "Language menu"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-google-translate.php:63
-#: library/Customizer/PanelsRegistry.php:405
+#: library/Customizer/PanelsRegistry.php:375
 #: library/Customizer/Sections/Search.php:141
 #: library/Theme/Navigation.php:40
 msgid "Quicklinks menu"
@@ -2642,7 +2642,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:421
+#: library/Controller/BaseController.php:422
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
@@ -2737,7 +2737,7 @@ msgid "Phone numer"
 msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:419
+#: library/Controller/BaseController.php:420
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
 msgid "Email"
@@ -3058,7 +3058,7 @@ msgid "Login/Logout Options"
 msgstr ""
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:24
-#: library/Customizer/PanelsRegistry.php:266
+#: library/Customizer/PanelsRegistry.php:236
 #: library/Customizer/Sections/Header/Layout.php:316
 msgid "Login/Logout"
 msgstr ""
@@ -3096,7 +3096,7 @@ msgstr ""
 
 #: library/Admin/Options/Theme.php:47
 #: library/Admin/Options/Theme.php:48
-#: library/Customizer/PanelsRegistry.php:181
+#: library/Customizer/PanelsRegistry.php:180
 #: library/Helper/TranslatedLabels.php:44
 #: library/Helper/TranslatedLabels.php:83
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
@@ -3246,7 +3246,7 @@ msgid "General cover settings"
 msgstr ""
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:523
+#: library/Controller/BaseController.php:524
 #: library/Customizer/Sections/Header/Logotype.php:21
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -3396,7 +3396,7 @@ msgid "Assistant"
 msgstr ""
 
 #: library/Chat/Render/ChatRenderConfig.php:79
-#: library/Controller/BaseController.php:408
+#: library/Controller/BaseController.php:409
 #: library/Helper/TranslatedLabels.php:54
 #: Modularity/source/php/App.php:307
 msgid "Close"
@@ -3559,41 +3559,46 @@ msgstr ""
 msgid "Last reviewed"
 msgstr ""
 
-#: library/Controller/BaseController.php:404
+#: library/Controller/BaseController.php:405
 msgid "Search for content"
 msgstr ""
 
-#: library/Controller/BaseController.php:405
+#: library/Controller/BaseController.php:406
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/BaseController.php:406
+#: library/Controller/BaseController.php:407
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr ""
 
-#: library/Controller/BaseController.php:407
+#: library/Controller/BaseController.php:408
 msgid "Login"
 msgstr ""
 
-#: library/Controller/BaseController.php:418
+#: library/Controller/BaseController.php:419
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/BaseController.php:420
+#: library/Controller/BaseController.php:421
 msgid "Call"
 msgstr ""
 
-#: library/Controller/BaseController.php:422
+#: library/Controller/BaseController.php:423
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr ""
 
-#: library/Controller/BaseController.php:675
+#: library/Controller/BaseController.php:652
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Design"
+msgstr ""
+
+#: library/Controller/BaseController.php:686
 msgid "Choose language"
 msgstr ""
 
-#: library/Controller/BaseController.php:676
+#: library/Controller/BaseController.php:687
 msgid "More languages"
 msgstr ""
 
@@ -3987,40 +3992,6 @@ msgstr ""
 msgid "Install plugin"
 msgstr ""
 
-#: library/Customizer/Fonts/LegacyUploadedFontRepository.php:67
-#: library/Customizer/Fonts/UploadedFontMapper.php:103
-msgid "Untitled Font"
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/GoogleFonts.php:36
-msgid "Enabled Google Fonts"
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/GoogleFonts.php:37
-msgid "Choose which Google Fonts should be available on the site. The list is limited to the top 200 fonts by popularity."
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/GoogleFonts.php:43
-msgid "Search fonts..."
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/UploadedFonts.php:35
-#: library/Customizer/PanelsRegistry.php:215
-msgid "Uploaded Fonts"
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/UploadedFonts.php:36
-msgid "Upload WOFF or WOFF2 files. The font family name is derived automatically from the file name."
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/UploadedFonts.php:46
-msgid "Font file"
-msgstr ""
-
-#: library/Customizer/Fonts/Sections/UploadedFonts.php:47
-msgid "Upload a WOFF or WOFF2 file."
-msgstr ""
-
 #: library/Customizer/Panels/DesignLibrary.php:13
 msgid "Design Library"
 msgstr ""
@@ -4029,193 +4000,173 @@ msgstr ""
 msgid "Select a design made by other municipio users."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:144
+#: library/Customizer/PanelsRegistry.php:143
 msgid "Archive Apperance"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:145
+#: library/Customizer/PanelsRegistry.php:144
 msgid "Manage apperance options on archives."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:156
+#: library/Customizer/PanelsRegistry.php:155
 msgid "General Apperance"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:157
+#: library/Customizer/PanelsRegistry.php:156
 msgid "Manage site general design options."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:162
+#: library/Customizer/PanelsRegistry.php:161
 #: library/Customizer/Sections/PostType.php:35
 msgid "Logotypes"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:168
+#: library/Customizer/PanelsRegistry.php:167
 msgid "General settings"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:175
+#: library/Customizer/PanelsRegistry.php:174
 msgid "Page Widths"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:187
+#: library/Customizer/PanelsRegistry.php:186
 msgid "Icons"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:202
-msgid "Fonts"
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:203
-msgid "Manage available site fonts and typography settings."
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:208
-msgid "Google Fonts"
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:209
-msgid "Enable the Google Fonts that should be available on the site."
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:216
-msgid "Manage uploaded font files that should be available on the site."
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:227
+#: library/Customizer/PanelsRegistry.php:197
 msgid "Component Apperance"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:228
+#: library/Customizer/PanelsRegistry.php:198
 msgid "Manage design options on component level."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:233
+#: library/Customizer/PanelsRegistry.php:203
 msgid "Header"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:237
+#: library/Customizer/PanelsRegistry.php:207
 #: Modularity/source/php/AcfFields/php/mod-curator.php:34
 msgid "Layout"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:241
+#: library/Customizer/PanelsRegistry.php:211
 msgid "General"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:244
+#: library/Customizer/PanelsRegistry.php:214
 #: library/Customizer/Sections/Header/Layout.php:182
 msgid "Flexible"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:260
+#: library/Customizer/PanelsRegistry.php:230
 #: library/Customizer/Sections/Component/FooterMain.php:56
 #: library/Customizer/Sections/Component/FooterSub.php:51
 #: library/Customizer/Sections/Header/Layout.php:314
 msgid "Logotype"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:273
+#: library/Customizer/PanelsRegistry.php:243
 #: library/Customizer/Sections/Archive.php:456
 msgid "Cards"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:279
+#: library/Customizer/PanelsRegistry.php:249
 #: Modularity/source/php/AcfFields/php/mod-map.php:25
 msgid "Open Street Map"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:280
+#: library/Customizer/PanelsRegistry.php:250
 msgid "Settings for Open Street Maps."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:286
+#: library/Customizer/PanelsRegistry.php:256
 #: Modularity/source/php/AcfFields/php/mod-slider.php:8
 msgid "Slider"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:290
+#: library/Customizer/PanelsRegistry.php:260
 msgid "Regular Slider"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:296
+#: library/Customizer/PanelsRegistry.php:266
 msgid "Hero slider"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:297
+#: library/Customizer/PanelsRegistry.php:267
 msgid "Settings for the slider in the hero area."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:304
+#: library/Customizer/PanelsRegistry.php:274
 msgid "Footer"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:308
+#: library/Customizer/PanelsRegistry.php:278
 msgid "Main footer"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:314
+#: library/Customizer/PanelsRegistry.php:284
 msgid "Sub footer"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:321
+#: library/Customizer/PanelsRegistry.php:291
 msgid "Datebadge"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:327
+#: library/Customizer/PanelsRegistry.php:297
 #: Modularity/source/php/AcfFields/php/mod-divider.php:8
 #: Modularity/source/php/Module/Divider/Divider.php:15
 msgid "Divider"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:333
+#: library/Customizer/PanelsRegistry.php:303
 #: library/Theme/Sidebars.php:137
 #: Modularity/source/php/AcfFields/php/mod-hero.php:8
 #: Modularity/source/php/Module/Hero/Hero.php:21
 msgid "Hero"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:350
+#: library/Customizer/PanelsRegistry.php:320
 msgid "Error Pages"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:354
+#: library/Customizer/PanelsRegistry.php:324
 msgid "401 Unauthorized"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:360
+#: library/Customizer/PanelsRegistry.php:330
 msgid "403 Forbidden"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:366
+#: library/Customizer/PanelsRegistry.php:336
 msgid "404 Not found"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:380
+#: library/Customizer/PanelsRegistry.php:350
 msgid "Behaviour"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:381
+#: library/Customizer/PanelsRegistry.php:351
 msgid "Menu behaviour settings."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:387
+#: library/Customizer/PanelsRegistry.php:357
 msgid "Breadcrumbs"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:393
+#: library/Customizer/PanelsRegistry.php:363
 msgid "Drawer"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:411
+#: library/Customizer/PanelsRegistry.php:381
 msgid "Siteselector menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:417
+#: library/Customizer/PanelsRegistry.php:387
 msgid "Tab menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:423
+#: library/Customizer/PanelsRegistry.php:393
 msgid "General: Menu Settings (vertical)"
 msgstr ""
 
@@ -5101,22 +5052,22 @@ msgstr ""
 msgid "Filled icons"
 msgstr ""
 
-#: library/Customizer/Sections/LoadDesign.php:30
-#: library/Customizer/Sections/LoadDesign.php:152
+#: library/Customizer/Sections/LoadDesign.php:31
+#: library/Customizer/Sections/LoadDesign.php:153
 #: library/Customizer/Sections/PostType.php:17
 #: library/Customizer/Sections/PostType.php:73
 msgid "Select a design"
 msgstr ""
 
-#: library/Customizer/Sections/LoadDesign.php:43
+#: library/Customizer/Sections/LoadDesign.php:44
 msgid "Exclude from import"
 msgstr ""
 
-#: library/Customizer/Sections/LoadDesign.php:44
+#: library/Customizer/Sections/LoadDesign.php:45
 msgid "Selected local settings will not be overriden on import."
 msgstr ""
 
-#: library/Customizer/Sections/LoadDesign.php:161
+#: library/Customizer/Sections/LoadDesign.php:162
 #: library/Customizer/Sections/PostType.php:82
 msgid "Error loading options"
 msgstr ""
@@ -5860,16 +5811,20 @@ msgstr ""
 msgid "External Content Settings"
 msgstr ""
 
-#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:54
+#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:57
 msgid "Missing post_type parameter"
 msgstr ""
 
-#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:64
+#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:67
 msgid "Sync already in progress"
 msgstr ""
 
-#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:76
+#: library/SchemaData/ExternalContent/Rest/AjaxSync.php:83
 msgid "Sync completed. Reload page to see changes."
+msgstr ""
+
+#: library/SchemaData/ExternalContent/SourceReaders/TrustworthySourceReader.php:45
+msgid "We could not verify the external content at this time. Please try again later."
 msgstr ""
 
 #: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:63
@@ -7062,107 +7017,107 @@ msgctxt "design-builder-component-data"
 msgid "Adjusts the mix amount of the link color in hover, active, and visited states."
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:93
+#: library/Styleguide/Customize/Customize.php:94
 msgctxt "design-builder"
 msgid "Show uneditable"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:94
+#: library/Styleguide/Customize/Customize.php:95
 msgctxt "design-builder"
 msgid "Hide uneditable"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:95
+#: library/Styleguide/Customize/Customize.php:96
 msgctxt "design-builder"
 msgid "General"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:96
+#: library/Styleguide/Customize/Customize.php:97
 msgctxt "design-builder"
 msgid "Components"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:97
+#: library/Styleguide/Customize/Customize.php:98
 msgctxt "design-builder"
 msgid "Choose a preset"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:98
+#: library/Styleguide/Customize/Customize.php:99
 msgctxt "design-builder"
 msgid "Pick on page"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:99
+#: library/Styleguide/Customize/Customize.php:100
 msgctxt "design-builder"
 msgid "Stop picking"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:100
+#: library/Styleguide/Customize/Customize.php:101
 msgctxt "design-builder"
 msgid "Preset"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:101
+#: library/Styleguide/Customize/Customize.php:102
 msgctxt "design-builder"
 msgid "Import/Export JSON"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:102
+#: library/Styleguide/Customize/Customize.php:103
 msgctxt "design-builder"
 msgid "Import JSON"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:103
+#: library/Styleguide/Customize/Customize.php:104
 msgctxt "design-builder"
 msgid "Export JSON"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:104
+#: library/Styleguide/Customize/Customize.php:105
 msgctxt "design-builder"
 msgid "Reset actions"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:105
+#: library/Styleguide/Customize/Customize.php:106
 msgctxt "design-builder"
 msgid "Reset all"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:106
+#: library/Styleguide/Customize/Customize.php:107
 msgctxt "design-builder"
 msgid "Preset actions"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:107
+#: library/Styleguide/Customize/Customize.php:108
 msgctxt "design-builder"
 msgid "Save preset"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:108
+#: library/Styleguide/Customize/Customize.php:109
 msgctxt "design-builder"
 msgid "Delete preset"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:109
+#: library/Styleguide/Customize/Customize.php:110
 msgctxt "design-builder"
 msgid "Component"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:110
+#: library/Styleguide/Customize/Customize.php:111
 msgctxt "design-builder"
 msgid "Scope"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:111
+#: library/Styleguide/Customize/Customize.php:112
 msgctxt "design-builder"
 msgid "Reset selected"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:112
+#: library/Styleguide/Customize/Customize.php:113
 msgctxt "design-builder"
 msgid "Saved presets"
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:113
+#: library/Styleguide/Customize/Customize.php:114
 msgctxt "design-builder"
 msgid "General (all scopes)"
 msgstr ""
@@ -8795,19 +8750,23 @@ msgstr ""
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: library/Upgrade.php:1027
+#: library/Upgrade.php:1062
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1031
+#: library/Upgrade.php:1066
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1036
+#: library/Upgrade.php:1071
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
+msgstr ""
+
+#: library/Upgrade/V43/MigrateLegacyUploadedFontsToNativeFontLibrary.php:523
+msgid "Untitled Font"
 msgstr ""
 
 #: library/UserGroup/AddSelectUserGroupForPrivatePost.php:150
@@ -12547,10 +12506,6 @@ msgstr ""
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Appearance settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Design"
 msgstr ""
 
 #: assets/dist/blocks/js/blocks.js:1
