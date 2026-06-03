@@ -47,6 +47,15 @@ class VismaAuthController implements MunicipioAuthControllerInterface
         }
     }
 
+    public function getLoginUrl(MunicipioAuthNavigationInterface $navigation): ?string
+    {
+        try {
+            return $this->api->remoteApiLogin($navigation);
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         if ($this->api->shouldRemoteGetApiSession($navigation)) {
@@ -60,13 +69,13 @@ class VismaAuthController implements MunicipioAuthControllerInterface
     protected function handleHasNoSession(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
-            $redirectUrl = $this->api->remoteApiLogin($navigation);
+            $redirectUrl = $this->getLoginUrl($navigation);
             if ($redirectUrl) {
                 return $viewFactory->whenAnonymous($redirectUrl, $navigation);
             }
             throw new \Exception('Failed to get redirect URL from Visma');
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $navigation);
+            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation));
         }
     }
 
@@ -85,7 +94,7 @@ class VismaAuthController implements MunicipioAuthControllerInterface
             }
             throw new \Exception('Invalid session');
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $navigation);
+            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation));
         }
     }
 }

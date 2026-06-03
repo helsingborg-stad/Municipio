@@ -74,7 +74,7 @@ class VismaAuthControllerTest extends TestCase
 
         // We expect the error view to be rendered with the exception message and home URL
         $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
-        $viewFactory->expects($this->once())->method('whenError')->with('Login error', $navigation)->willReturn('error view');
+        $viewFactory->expects($this->once())->method('whenError')->with('Login error', $navigation, null)->willReturn('error view');
 
         $controller = new VismaAuthController($api);
         $result = $controller->render($viewFactory, $navigation);

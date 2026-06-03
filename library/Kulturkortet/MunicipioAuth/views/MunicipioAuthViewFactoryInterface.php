@@ -35,16 +35,18 @@ interface MunicipioAuthViewFactoryInterface
      *
      * @param MunicipioAuthenticatedUserInterface $user The authenticated user who is logging out.
      * @param MunicipioAuthNavigationInterface $navigation The navigation interface providing context for rendering the view.
+     * @param string|null $loginUrl The URL for the login page, if available.
      * @return string The rendered view as a string.
      */
-    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string;
+    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string;
 
     /**
      * Renders the view for an error scenario.
      *
      * @param string $error The error message to be displayed.
      * @param MunicipioAuthNavigationInterface $navigation The navigation interface providing context for rendering the view.
+     * @param string|null $loginUrl The URL for the login page, if available.
      * @return string The rendered view as a string.
      */
-    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string;
+    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string;
 }

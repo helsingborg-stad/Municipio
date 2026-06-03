@@ -38,7 +38,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'lang' => [
                     'heading' => $this->wpService->__('You do not seem to have a valid kulturkort', 'municipio'),
                     'content' => '',
-                    'url' => $this->wpService->__('Log out', 'municipio'),
+                    'actionLabel' => $this->wpService->__('Log out', 'municipio'),
                 ],
                 'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
@@ -110,33 +110,37 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
             'lang' => [
                 'heading' => $this->wpService->__('Log in to view your kulturkort', 'municipio'),
                 'content' => $this->wpService->__('To view your kulturkort, you must log in with BankId.', 'municipio'),
-                'url' => $this->wpService->__('Log in', 'municipio'),
+                'actionLabel' => $this->wpService->__('Log in', 'municipio'),
             ],
             'url' => $loginUrl,
         ]);
     }
 
-    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
+    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string
     {
+        $loginUrl = $loginUrl ?? $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']);
+
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => $this->wpService->__('You have been successfully logged out', 'municipio'),
                 'content' => $this->wpService->__('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
-                'url' => $this->wpService->__('To the homepage', 'municipio'),
+                'actionLabel' => $this->wpService->__('Login again', 'municipio'),
             ],
-            'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
+            'url' => $loginUrl,
         ]);
     }
 
-    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string
+    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string
     {
+        $loginUrl = $loginUrl ?? $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']);
+
         return $this->renderWithModel('kulturkortet-qr-simple', [
             'lang' => [
                 'heading' => $this->wpService->__('An error occurred', 'municipio'),
                 'content' => $error,
-                'url' => $this->wpService->__('To the homepage', 'municipio'),
+                'actionLabel' => $this->wpService->__('Try again', 'municipio'),
             ],
-            'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
+            'url' => $loginUrl,
         ]);
     }
 
@@ -174,7 +178,9 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         }
 
         $currentDate = (new \DateTimeImmutable())->setTime(0, 0, 0);
-        $expiryDate = (new \DateTimeImmutable('@' . $expiryTimestamp))->setTimezone($currentDate->getTimezone())->setTime(0, 0, 0);
+        $expiryDate = (new \DateTimeImmutable('@' . $expiryTimestamp))
+            ->setTimezone($currentDate->getTimezone())
+            ->setTime(0, 0, 0);
 
         $daysLeft = (int) $currentDate->diff($expiryDate)->format('%r%a');
 

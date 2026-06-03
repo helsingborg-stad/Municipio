@@ -42,6 +42,22 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         $this->inner->tryLogoutUser($user);
     }
 
+    public function getLoginUrl(MunicipioAuthNavigationInterface $navigation): ?string
+    {
+        if (!method_exists($this->inner, 'getLoginUrl')) {
+            return null;
+        }
+
+        $callback = [$this->inner, 'getLoginUrl'];
+
+        if (!is_callable($callback)) {
+            return null;
+        }
+
+        $loginUrl = $callback($navigation);
+        return is_string($loginUrl) ? $loginUrl : null;
+    }
+
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
@@ -53,7 +69,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
             if ($navigation->getQueryParameter('action') === 'logout') {
                 if ($user) {
-                    return $secureViewFactory->whenLogOut($user, $navigation);
+                    return $secureViewFactory->whenLogOut($user, $navigation, $this->getLoginUrl($navigation));
                 }
                 $navigation->redirect($navigation->getModifiedHomeUrl(removeQueryArgs: ['action']));
             }
@@ -65,7 +81,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
 
             return $this->inner->render($secureViewFactory, $navigation);
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $navigation);
+            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation));
         }
     }
 
@@ -138,16 +154,16 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
                 return $this->inner->whenAnonymous($loginUrl, $navigation);
             }
 
-            public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
+            public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string
             {
                 // the intention is to logout and we enforce it
                 $this->controller->tryLogoutUser($user);
-                return $this->inner->whenLogOut($user, $navigation);
+                return $this->inner->whenLogOut($user, $navigation, $loginUrl);
             }
 
-            public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string
+            public function whenError(string $error, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string
             {
-                return $this->inner->whenError($error, $navigation);
+                return $this->inner->whenError($error, $navigation, $loginUrl);
             }
         };
     }

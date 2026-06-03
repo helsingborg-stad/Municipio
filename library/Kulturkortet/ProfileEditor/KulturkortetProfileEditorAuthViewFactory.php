@@ -10,13 +10,14 @@ use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInter
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
 use Municipio\Kulturkortet\Vitec\VitecServiceInterface;
+use WpService\Contracts\__;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 
 class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFactoryInterface
 {
     public function __construct(
-        private WpCacheGet&WpCacheSet $wpService,
+        private WpCacheGet&WpCacheSet&__ $wpService,
         private VitecServiceInterface $vitecService,
         private array $attributes = [],
     ) {}
@@ -46,9 +47,9 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
         if (!$ticket) {
             return $this->renderWithModel('kulturkortet-profile-simple-message', [
                 'lang' => [
-                    'heading' => __('Du verkar inte ha ett giltigt kulturkort', 'municipio'),
+                    'heading' => $this->wpService->__('You do not have a valid kulturkort', 'municipio'),
                     'content' => '',
-                    'url' => __('Logga ut', 'municipio'),
+                    'url' => $this->wpService->__('Logout', 'municipio'),
                 ],
                 'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
             ]);
@@ -56,19 +57,19 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
 
         return $this->renderWithModel('kulturkortet-profile-editor', [
             'lang' => [
-                'heading' => __('Dina uppgifter', 'municipio'),
+                'heading' => $this->wpService->__('Your details', 'municipio'),
                 'content' => '',
-                'logoutUrl' => __('Logga ut', 'municipio'),
-                'saveUrl' => __('Spara', 'municipio'),
+                'logoutUrl' => $this->wpService->__('Logout', 'municipio'),
+                'saveUrl' => $this->wpService->__('Save', 'municipio'),
 
-                'firstnameLabel' => __('Förnamn', 'municipio'),
-                'firstnamePlaceholder' => __('Ange ditt förnamn', 'municipio'),
+                'firstnameLabel' => $this->wpService->__('First name', 'municipio'),
+                'firstnamePlaceholder' => $this->wpService->__('Enter your first name', 'municipio'),
 
-                'lastnameLabel' => __('Efternamn', 'municipio'),
-                'lastnamePlaceholder' => __('Ange ditt efternamn', 'municipio'),
+                'lastnameLabel' => $this->wpService->__('Last name', 'municipio'),
+                'lastnamePlaceholder' => $this->wpService->__('Enter your last name', 'municipio'),
 
-                'emailLabel' => __('E-post', 'municipio'),
-                'emailPlaceholder' => __('Ange din e-post', 'municipio'),
+                'emailLabel' => $this->wpService->__('Email', 'municipio'),
+                'emailPlaceholder' => $this->wpService->__('Enter your email', 'municipio'),
             ],
             'profile' => [
                 'firstname' => $ticket['firstname'] ?? '',
@@ -87,35 +88,35 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
     {
         return $this->renderWithModel('kulturkortet-profile-simple-message', [
             'lang' => [
-                'heading' => __('Logga in för att redigera din profil', 'municipio'),
-                'content' => __('För att kunna redigera din profil måste du logga in med BankId.', 'municipio'),
-                'url' => __('Logga in', 'municipio'),
+                'heading' => $this->wpService->__('Login to edit your profile', 'municipio'),
+                'content' => $this->wpService->__('To edit your profile, you must log in with BankId.', 'municipio'),
+                'url' => $this->wpService->__('Log in', 'municipio'),
             ],
             'url' => $loginUrl,
         ]);
     }
 
-    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
+    public function whenLogOut(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string
     {
         return $this->renderWithModel('kulturkortet-profile-simple-message', [
             'lang' => [
-                'heading' => __('Du är nu utloggad', 'municipio'),
-                'content' => __('Du har loggat ut från ditt kulturkort och BankId.', 'municipio'),
-                'url' => __('Starta om', 'municipio'),
+                'heading' => $this->wpService->__('You have been successfully logged out', 'municipio'),
+                'content' => $this->wpService->__('You have been successfully logged out from your kulturkort and BankId.', 'municipio'),
+                'url' => $this->wpService->__('Start over', 'municipio'),
             ],
-            'url' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
+            'url' => $loginUrl ?? $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
         ]);
     }
 
-    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation): string
+    public function whenError(string $error, MunicipioAuthNavigationInterface $navigation, ?string $loginUrl = null): string
     {
         return $this->renderWithModel('kulturkortet-profile-simple-message', [
             'lang' => [
-                'heading' => __('Något gick fel', 'municipio'),
+                'heading' => $this->wpService->__('Något gick fel', 'municipio'),
                 'content' => $error,
-                'url' => __('Prova igen', 'municipio'),
+                'url' => $this->wpService->__('Prova igen', 'municipio'),
             ],
-            'url' => $navigation->getHomeUrl(),
+            'url' => $loginUrl ?? $navigation->getHomeUrl(),
         ]);
     }
 
