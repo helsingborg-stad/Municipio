@@ -5,6 +5,7 @@ namespace Municipio\Styleguide\Customize\ApplyStyles;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\WpAddInlineStyle;
 use WpService\Contracts\WpEnqueueStyle;
@@ -12,6 +13,21 @@ use WpService\Contracts\WpRegisterStyle;
 
 class ApplyStylesTest extends TestCase
 {
+    #[TestDox('registers the block editor settings filter for iframe styles')]
+    public function testRegistersBlockEditorIframeStylesFilter(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        $subject = new ApplyStyles($wpService);
+
+        $subject->addHooks();
+
+        static::assertContains('block_editor_settings_all', $wpService->addedFilters);
+    }
+
     #[TestDox('outputs stored root tokens for both root and editor wrapper scopes')]
     public function testOutputsStoredRootTokensForBothRootAndEditorWrapperScopes(): void
     {
@@ -43,9 +59,34 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString('.c-card {', $wpService->inlineStyles);
     }
 
-    private function createWpService(string $storedTokens): AddAction&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod
+    #[TestDox('appends stored tokens to block editor iframe settings styles')]
+    public function testAppendsStoredTokensToBlockEditorIframeSettingsStyles(): void
     {
-        return new class ($storedTokens) implements AddAction, WpRegisterStyle, WpEnqueueStyle, WpAddInlineStyle, GetThemeMod {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [
+                '--color--primary' => '#667b50',
+            ],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        $subject = new ApplyStyles($wpService);
+
+        $settings = $subject->applyEditorIframeStyles([
+            'styles' => [
+                ['css' => '.existing { color: red; }'],
+            ],
+        ]);
+
+        static::assertCount(2, $settings['styles']);
+        static::assertSame('.existing { color: red; }', $settings['styles'][0]['css']);
+        static::assertStringContainsString('@layer theme {', $settings['styles'][1]['css']);
+        static::assertStringContainsString('--color--primary: #667b50;', $settings['styles'][1]['css']);
+    }
+
+    private function createWpService(string $storedTokens): AddAction&AddFilter&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod
+    {
+        return new class ($storedTokens) implements AddAction, AddFilter, WpRegisterStyle, WpEnqueueStyle, WpAddInlineStyle, GetThemeMod {
+            public array $addedFilters = [];
             public ?string $registeredHandle = null;
             public ?string $enqueuedHandle = null;
             public ?string $inlineStyles = null;
@@ -56,6 +97,12 @@ class ApplyStylesTest extends TestCase
 
             public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
+                return true;
+            }
+
+            public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
+            {
+                $this->addedFilters[] = $hookName;
                 return true;
             }
 
