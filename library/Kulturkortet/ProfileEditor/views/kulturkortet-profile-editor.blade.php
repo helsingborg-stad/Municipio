@@ -13,7 +13,7 @@
                 'kulturkortet-profile-editor__form',
                 'o-layout-grid',
                 'o-layout-grid--gap-6',
-                'u-margin__top--4'
+                'u-margin__top--5'
             ],
         ])
             @include('partials.fields')

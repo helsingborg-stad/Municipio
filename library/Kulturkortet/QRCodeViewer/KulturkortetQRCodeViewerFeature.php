@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\QRCodeViewer;
 
+use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthController;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
+use Municipio\Kulturkortet\Vitec\VitecConfig;
 use Municipio\Kulturkortet\Vitec\VitecService;
 use WpService\Contracts\AddAction;
 use WpService\WpService;
@@ -27,6 +29,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
      */
     public function __construct(
         private WpService $wpService,
+        private AcfService $acfService,
         private EnqueueManagerInterface $enqueue,
     ) {}
 
@@ -35,6 +38,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
      */
     public function addHooks(): void
     {
+        $this->wpService->addAction('init', [$this, 'setupOptionsPage']);
         $this->wpService->addAction('init', [$this, 'registerBlock']);
         $this->wpService->addAction('litespeed_control_set_nocache', static fn() => 'cache disabled due to cookie usage');
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
@@ -43,7 +47,18 @@ class KulturkortetQRCodeViewerFeature implements Hookable
         $this->enqueue->add('css/kulturkortet.css');
     }
 
-    function registerBlock(): void
+    public function setupOptionsPage(): void
+    {
+        $this->acfService->addOptionsSubPage([
+            'page_title'  => $this->wpService->__('Vitec', 'municipio'),
+            'menu_title'  => $this->wpService->__('Vitec', 'municipio'),
+            'menu_slug'   => 'vitec-settings',
+            'capability'  => 'manage_options',
+            'parent_slug' => 'options-general.php',
+        ]);
+    }
+
+    public function registerBlock(): void
     {
         // https://make.wordpress.org/core/2026/03/03/php-only-block-registration/
 
@@ -76,7 +91,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
             new SecureMunicipioAuthConfig(),
         );
 
-        $viewFactory = new KulturkortetQRCodeViewerAuthViewFactory($this->wpService, new VitecService($this->wpService), $attributes);
+        $viewFactory = new KulturkortetQRCodeViewerAuthViewFactory($this->wpService, new VitecService($this->wpService, new VitecConfig($this->acfService)), $attributes);
 
         return $secureController->render(
             $viewFactory,

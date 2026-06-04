@@ -374,6 +374,7 @@ class App
          */
         (new \Municipio\Kulturkortet\QRCodeViewer\KulturkortetQRCodeViewerFeature(
             $this->wpService,
+            $this->acfService,
             $this->wpUtilService->enqueue(),
         ))->addHooks();
 
@@ -382,6 +383,7 @@ class App
          */
         (new \Municipio\Kulturkortet\ProfileEditor\KulturkortetProfileEditorFeature(
             $this->wpService,
+            $this->acfService,
         ))->addHooks();
 
         /**

@@ -14,7 +14,7 @@ class VitecService implements VitecServiceInterface
 {
     public function __construct(
         private IsWpError&WpRemoteGet&WpRemotePost&WpRemoteRetrieveBody $wpService,
-        private VitecConfigInterface $config = new VitecConfig(),
+        private VitecConfigInterface $config,
     ) {}
 
     public function tryGetUserData(string $ssn): ?array

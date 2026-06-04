@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\ProfileEditor;
 
+use AcfService\Contracts\GetField;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\controller\secure\SecureMunicipioAuthController;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigation;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthConfig;
 use Municipio\Kulturkortet\MunicipioAuth\Visma\VismaAuthController;
+use Municipio\Kulturkortet\Vitec\VitecConfig;
 use Municipio\Kulturkortet\Vitec\VitecService;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
@@ -26,6 +28,7 @@ class KulturkortetProfileEditorFeature implements Hookable
 {
     public function __construct(
         private AddAction&ApplyFilters&RegisterBlockType&HomeUrl&IsWpError&WpRemoteGet&WpRemoteRetrieveBody&WpCacheGet&WpCacheSet&__ $wpService,
+        private GetField $acfService,
     ) {}
 
     public function addHooks(): void
@@ -71,7 +74,7 @@ class KulturkortetProfileEditorFeature implements Hookable
             new SecureMunicipioAuthConfig(),
         );
 
-        $viewFactory = new KulturkortetProfileEditorAuthViewFactory($this->wpService, new VitecService($this->wpService), $attributes);
+        $viewFactory = new KulturkortetProfileEditorAuthViewFactory($this->wpService, new VitecService($this->wpService, new VitecConfig($this->acfService)), $attributes);
 
         return $secureController->render(
             $viewFactory,
