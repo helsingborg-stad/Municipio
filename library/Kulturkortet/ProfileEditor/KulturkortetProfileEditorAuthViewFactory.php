@@ -42,9 +42,8 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
             }
         }
 
-        $vitecUser = $this->vitecService->tryGetUserData($user->getSSN());
+        $ticket = $this->vitecService->tryGetTicket($user->getSSN());
 
-        $ticket = $vitecUser['tickets'][0] ?? null;
         if (!$ticket) {
             return $this->renderWithModel('kulturkortet-profile-simple-message', [
                 'lang' => [
@@ -84,7 +83,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
             ],
             //Debug remove later
             'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG,
-            'vitecUser' => $vitecUser,
+            'debug' => $ticket,
         ]);
     }
 

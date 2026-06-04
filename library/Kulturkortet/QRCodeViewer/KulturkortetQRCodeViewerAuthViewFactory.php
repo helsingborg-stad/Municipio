@@ -30,9 +30,8 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
 
     public function whenAuthenticated(MunicipioAuthenticatedUserInterface $user, MunicipioAuthNavigationInterface $navigation): string
     {
-        $vitecUser = $this->vitecService->tryGetUserData($user->getSSN());
+        $ticket = $this->vitecService->tryGetTicket($user->getSSN());
 
-        $ticket = $vitecUser['tickets'][0] ?? null;
         if (!$ticket) {
             return $this->renderWithModel('kulturkortet-qr-simple', [
                 'lang' => [
@@ -65,7 +64,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'daysLeft' => $this->calculateDaysLeft($ticket['validUntil'] ?? null),
             ],
             'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG, // set to true to show raw Vitec user data for debugging purposes
-            'vitecUser' => $vitecUser, // for debugging purposes
+            'debug' => $ticket, // for debugging purposes
         ]);
 
         // $vitecUser is expected to look something like

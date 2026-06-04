@@ -17,7 +17,7 @@ class VitecService implements VitecServiceInterface
         private VitecConfigInterface $config,
     ) {}
 
-    public function tryGetUserData(string $ssn): ?array
+    public function tryGetTicket(string $ssn): ?array
     {
         // For testing purposes, allow overriding the SSN with a known cardholder
         $actualSsn = defined('KULTURKORTET_VITEC_SSN') ? KULTURKORTET_VITEC_SSN : $ssn;
@@ -33,7 +33,16 @@ class VitecService implements VitecServiceInterface
             return null;
         }
         $body = $this->wpService->wpRemoteRetrieveBody($response);
-        return json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
+
+        $decodedBody = json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
+
+        $ticket = array_values(
+            array_filter(
+                $decodedBody['tickets'] ?? [],
+                fn($t) => $t['ticketTemplateName'] === 'Import_Kulturkort')
+            )[0] ?? null;
+
+        return $ticket ?? null;
 
         //returns something similar to
         // {
@@ -73,11 +82,12 @@ class VitecService implements VitecServiceInterface
 
     public function updateUserData(string $ssn, string $email): ?array
     {
-        $userData = $this->tryGetUserData($ssn);
-        $ticket = $userData['tickets'][0] ?? null;
+        $ticket = $this->tryGetTicket($ssn);
+
         if (!$ticket) {
             return null;
         }
+
         $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . $ticket['id'] . '/update';
         $response = $this->wpService->wpRemotePost($url, [
             'headers' => [
