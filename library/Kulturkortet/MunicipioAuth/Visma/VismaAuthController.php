@@ -18,7 +18,7 @@ class VismaAuthController implements MunicipioAuthControllerInterface
 {
     public static function createDefault(
         HomeUrl&AddQueryArg&WpRemoteGet&WpRemoteRetrieveBody&IsWpError $wpService,
-        VismaAuthConfigInterface $config = new VismaAuthConfig(),
+        VismaAuthConfigInterface $config,
     ): self {
         return new self(
             new VismaApi($config, $wpService),

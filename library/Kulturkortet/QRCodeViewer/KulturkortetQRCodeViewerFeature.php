@@ -38,24 +38,12 @@ class KulturkortetQRCodeViewerFeature implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('init', [$this, 'setupOptionsPage']);
         $this->wpService->addAction('init', [$this, 'registerBlock']);
         $this->wpService->addAction('litespeed_control_set_nocache', static fn() => 'cache disabled due to cookie usage');
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
 
         $this->enqueue->add('js/kulturkortet.js');
         $this->enqueue->add('css/kulturkortet.css');
-    }
-
-    public function setupOptionsPage(): void
-    {
-        $this->acfService->addOptionsSubPage([
-            'page_title'  => $this->wpService->__('Vitec', 'municipio'),
-            'menu_title'  => $this->wpService->__('Vitec', 'municipio'),
-            'menu_slug'   => 'vitec-settings',
-            'capability'  => 'manage_options',
-            'parent_slug' => 'options-general.php',
-        ]);
     }
 
     public function registerBlock(): void
@@ -84,7 +72,7 @@ class KulturkortetQRCodeViewerFeature implements Hookable
     function render(array $attributes): string
     {
         $navigation = new MunicipioAuthNavigation($this->wpService);
-        $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig());
+        $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig($this->wpService));
 
         $secureController = SecureMunicipioAuthController::createDefault(
             $vismaAuthController,

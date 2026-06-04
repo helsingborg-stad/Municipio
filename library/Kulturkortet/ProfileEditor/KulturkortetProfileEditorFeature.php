@@ -67,7 +67,7 @@ class KulturkortetProfileEditorFeature implements Hookable
         header('Expires: 0');
 
         $navigation = new MunicipioAuthNavigation($this->wpService);
-        $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig());
+        $vismaAuthController = VismaAuthController::createDefault($this->wpService, new VismaAuthConfig($this->wpService));
 
         $secureController = SecureMunicipioAuthController::createDefault(
             $vismaAuthController,
