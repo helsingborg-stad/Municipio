@@ -16,10 +16,10 @@ class VitecConfig implements VitecConfigInterface
             return VITEC_API_BASEURL;
         }
 
-        $apiBaseUrl = $this->acfService->getField('vitec_api_url', 'option');
+        $vitecApiBaseUrl = $this->acfService->getField('vitec_api_baseurl', 'option');
 
-        if (is_string($apiBaseUrl) && !empty($apiBaseUrl)) {
-            return $apiBaseUrl;
+        if (!empty($vitecApiBaseUrl) && is_string($vitecApiBaseUrl)) {
+            return $vitecApiBaseUrl;
         }
 
         return '';
@@ -27,6 +27,16 @@ class VitecConfig implements VitecConfigInterface
 
     public function getApiKey(): string
     {
-        return defined('VITEC_API_KEY') ? VITEC_API_KEY : '';
+        if (defined('VITEC_API_KEY')) {
+            return VITEC_API_KEY;
+        }
+
+        $vitecApiKey = $this->acfService->getField('vitec_api_key', 'option');
+
+        if (!empty($vitecApiKey) && is_string($vitecApiKey)) {
+            return $vitecApiKey;
+        }
+
+        return '';
     }
 }
