@@ -5,7 +5,6 @@
                 'icon' => 'tune',
                 'size' => 'md',
                 'color' => 'primary',
-                'shape' => 'pill',
                 'classList' => ['u-margin--0'],
                 'ariaLabel' => $floatingMenuLabelsCustomize->buttonLabel,
                 'text' => $floatingMenuLabelsCustomize->buttonLabel,
