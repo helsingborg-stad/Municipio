@@ -80,6 +80,7 @@ class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
             [LegacyUploadedFontsMigrator::MIGRATION_SETTING, true],
             $wpService->methodCalls['setThemeMod'],
         );
+        static::assertNull($wpService->methodCalls['wpDeletePost']);
 
         if (file_exists($sourceFile)) {
             unlink($sourceFile);
