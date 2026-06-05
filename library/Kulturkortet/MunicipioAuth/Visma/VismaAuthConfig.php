@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\MunicipioAuth\Visma;
 
-use WpService\Contracts\GetOption;
+use AcfService\Contracts\GetField;
 
 class VismaAuthConfig implements VismaAuthConfigInterface
 {
     public function __construct(
-        private GetOption $wpService
+        private GetField $acfService
     ) {}
 
     public function isValid(): bool
@@ -23,7 +23,7 @@ class VismaAuthConfig implements VismaAuthConfigInterface
             return VISMA_AUTH_BASEURL;
         }
 
-        $vismaAuthBaseUrl = $this->wpService->getOption('visma_auth_baseurl', 'option');
+        $vismaAuthBaseUrl = $this->acfService->getField('visma_auth_baseurl', 'option');
 
         if (!empty($vismaAuthBaseUrl) && is_string($vismaAuthBaseUrl)) {
             return $vismaAuthBaseUrl;
@@ -38,7 +38,7 @@ class VismaAuthConfig implements VismaAuthConfigInterface
             return VISMA_AUTH_CUSTOMERKEY;
         }
 
-        $vismaAuthCustomerKey = $this->wpService->getOption('visma_auth_customerkey', 'option');
+        $vismaAuthCustomerKey = $this->acfService->getField('visma_auth_customerkey', 'options');
 
         if (!empty($vismaAuthCustomerKey) && is_string($vismaAuthCustomerKey)) {
             return $vismaAuthCustomerKey;
@@ -53,7 +53,7 @@ class VismaAuthConfig implements VismaAuthConfigInterface
             return VISMA_AUTH_SERVICEKEY;
         }
 
-        $vismaAuthServiceKey = $this->wpService->getOption('visma_auth_servicekey', 'option');
+        $vismaAuthServiceKey = $this->acfService->getField('visma_auth_servicekey', 'options');
 
         if (!empty($vismaAuthServiceKey) && is_string($vismaAuthServiceKey)) {
             return $vismaAuthServiceKey;
