@@ -1,2 +1,8 @@
-@import "ticket";
-@import "actions";
+@use "ticket";
+@use "actions";
+
+$_: kulturkortet;
+
+.#{$_}__content-wrapper {
+    width: min(var(--base, 0.5rem) * 50, 100%);
+}

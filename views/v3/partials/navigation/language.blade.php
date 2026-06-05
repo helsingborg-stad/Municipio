@@ -35,7 +35,6 @@
                 ])
                 @endbutton
             @endif
-
             @nav([
                 'id' => 'menu-language',
                 'items' => $languageMenu['items'],

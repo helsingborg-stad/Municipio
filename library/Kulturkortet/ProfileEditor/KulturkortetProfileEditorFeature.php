@@ -23,18 +23,22 @@ use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 use WpService\Contracts\WpRemoteGet;
 use WpService\Contracts\WpRemoteRetrieveBody;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class KulturkortetProfileEditorFeature implements Hookable
 {
     public function __construct(
         private AddAction&ApplyFilters&RegisterBlockType&HomeUrl&IsWpError&WpRemoteGet&WpRemoteRetrieveBody&WpCacheGet&WpCacheSet&__ $wpService,
         private GetField $acfService,
+        private EnqueueManagerInterface $enqueue
     ) {}
 
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
+
+        $this->enqueue->add('css/kulturkortetProfileEditor.css');
     }
 
     function registerBlock(): void

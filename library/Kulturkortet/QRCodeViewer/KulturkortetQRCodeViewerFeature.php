@@ -42,8 +42,8 @@ class KulturkortetQRCodeViewerFeature implements Hookable
         $this->wpService->addAction('litespeed_control_set_nocache', static fn() => 'cache disabled due to cookie usage');
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
 
-        $this->enqueue->add('js/kulturkortet.js');
-        $this->enqueue->add('css/kulturkortet.css');
+        $this->enqueue->add('js/kulturkortetQR.js');
+        $this->enqueue->add('css/kulturkortetQR.css');
     }
 
     public function registerBlock(): void

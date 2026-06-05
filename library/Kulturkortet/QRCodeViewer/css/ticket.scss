@@ -4,7 +4,6 @@ $_: kulturkortet-ticket;
     --kulturkortet-ticket--padding: calc(var(--base) * 3);
     --kulturkortet-ticket--border-radius: calc(var(--base) * var(--border-radius) * 2);
     --kulturkortet-ticket--border-width: calc(var(--base) * var(--border-width) * 3);
-    width: min(calc(var(--base, 0.5rem) * 50), 100%);
     border-radius: var(--kulturkortet-ticket--border-radius);
     background-color: var(--color--secondary);
     color: var(--color--secondary-contrast);

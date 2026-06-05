@@ -7,6 +7,7 @@ namespace Municipio\Kulturkortet\ProfileEditor;
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
 use Municipio\Helper\DateFormat;
+use Municipio\Kulturkortet\Helper\ActionCreator;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
@@ -67,24 +68,42 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 'lastnamePlaceholder' => $this->wpService->__('Enter your last name', 'municipio'),
                 'emailLabel' => $this->wpService->__('Email', 'municipio'),
                 'emailPlaceholder' => $this->wpService->__('Enter your email', 'municipio'),
-                'myTicket' => $this->wpService->__('My ticket', 'municipio'),
                 'activeUntil' => $this->wpService->__('Active until', 'municipio'),
             ],
+
             'profile' => [
                 'firstname' => $ticket['firstname'] ?? '',
                 'lastname' => $ticket['lastname'] ?? '',
                 'email' => $ticket['email'] ?? '',
             ],
-            'name' => $user->getName() ?? '',
             'saveUrl' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
+            'actions' => $this->getActions($navigation),
             'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
             'ticket' => [
                 'validUntil' => $this->formatDate($ticket['validUntil'] ?? null),
-            ],
-            //Debug remove later
-            'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG,
-            'debug' => $ticket,
+            ]
         ]);
+    }
+
+    private function getActions(MunicipioAuthNavigationInterface $navigation): array
+    {
+        $actions = [];
+
+        if (!empty($this->attributes['ticketLink'])) {
+            $actions[] = ActionCreator::create(
+                $this->wpService->__('My ticket', 'municipio'),
+                $this->attributes['ticketLink'],
+                'confirmation_number'
+            );
+        }
+
+        $actions[] = ActionCreator::create(
+            $this->wpService->__('Logout', 'municipio'),
+            $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
+            'logout'
+        );
+
+        return $actions;
     }
 
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string

@@ -7,6 +7,7 @@ namespace Municipio\Kulturkortet\QRCodeViewer;
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
 use Municipio\Helper\DateFormat;
+use Municipio\Kulturkortet\Helper\ActionCreator;
 use Municipio\Kulturkortet\MunicipioAuth\navigation\MunicipioAuthNavigationInterface;
 use Municipio\Kulturkortet\MunicipioAuth\user\MunicipioAuthenticatedUserInterface;
 use Municipio\Kulturkortet\MunicipioAuth\views\MunicipioAuthViewFactoryInterface;
@@ -47,60 +48,20 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         return $this->renderWithModel('kulturkortet-vitec-user', [
             'lang' => [
                 'days' => $this->wpService->__('Days', 'municipio'),
-                'logout' => $this->wpService->__('Logout', 'municipio'),
-                'profile' => $this->wpService->__('Profile', 'municipio'),
+                'yourCultureCard' => $this->wpService->__('Your Kulturkort', 'municipio'),
             ],
-            'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
-            'name' => $user->getName(),
+            'actions' => $this->getActions($navigation),
             'profile' => [
                 'firstname' => $ticket['firstname'] ?? '',
                 'lastname' => $ticket['lastname'] ?? '',
-                'email' => $ticket['email'] ?? '',
             ],
             'ticket' => [
                 'barcode' => $ticket['barcode'] ?? null,
                 'validFrom' => $this->formatDate($ticket['validFrom'] ?? null),
                 'validTo' => $this->formatDate($ticket['validUntil'] ?? null),
                 'daysLeft' => $this->calculateDaysLeft($ticket['validUntil'] ?? null),
-            ],
-            'showDebugInfo' => defined('KULTURKORTET_DEBUG') && KULTURKORTET_DEBUG, // set to true to show raw Vitec user data for debugging purposes
-            'debug' => $ticket, // for debugging purposes
+            ]
         ]);
-
-        // $vitecUser is expected to look something like
-        // {
-        //         "version":25860271,
-        //         "tickets":[
-        //                 {
-        //                         "id":"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-        //                         "barcode":"1234abcd",
-        //                         "tagId":"1234abcd",
-        //                         "civicRegistrationNumber":"19700101-0000",
-        //                         "validFrom":"2024-12-05T00:00:00",
-        //                         "validUntil":"2026-12-11T23:59:00",
-        //                         "firstname":"Test",
-        //                         "lastname":"Testersson",
-        //                         "email":"test@example.com",
-        //                         "articleName":"Kulturkort\/Nyf\u00f6rs\u00e4ljning",
-        //                         "ticketTemplateName":"Import_Kulturkort",
-        //                         "plu":1300,
-        //                         "saleDate":"2024-12-05T12:03:59.296",
-        //                         "statisticsValues":{
-        //                             "ANL\u00c4GGNINGSBES\u00d6K":"- Ej applicerbar",
-        //                             "F\u00f6rs\u00e4ljning":"Kulturkort",
-        //                             "Kategorigrupp":"Betalande",
-        //                             "Rapportgrupp":"Endast entr\u00e9",
-        //                             "Rapportkategori":"Kulturkortsbes\u00f6k",
-        //                             "Verksamhet":"- Ej applicerbar"
-        //                         },
-        //                         "timestamp":"2025-12-11T12:09:52.9416901",
-        //                         "version":25860271,
-        //                         "oldCardRef":null,
-        //                         "isCancelled":false,
-        //                         "hasBlock":false
-        //                 }
-        //         ]
-        // }
     }
 
     public function whenAnonymous(string $loginUrl, MunicipioAuthNavigationInterface $navigation): string
@@ -158,6 +119,26 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
     {
         $time = is_string($date) ? strtotime($date) : null;
         return $time ? date(DateFormat::getDateFormat('date'), $time) : null;
+    }
+
+    private function getActions(MunicipioAuthNavigationInterface $navigation): array
+    {
+        $actions = [];
+        if (!empty($this->attributes['profileLink'] ?? '')) {
+            $actions[] = ActionCreator::create(
+                $this->wpService->__('Profile', 'municipio'),
+                $this->attributes['profileLink'],
+                'person'
+            );
+        }
+
+        $actions[] = ActionCreator::create(
+            $this->wpService->__('Logout', 'municipio'),
+            $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
+            'logout'
+        );
+
+        return $actions;
     }
 
     /**

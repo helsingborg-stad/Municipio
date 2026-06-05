@@ -78,8 +78,9 @@ const entries = {
 		"./library/BackdropBanner/js/Editor/backdrop-banner.scss",
 
 	/* Kulturkortet */
-	"js/kulturkortet": "./library/Kulturkortet/QRCodeViewer/js/index.ts",
-	"css/kulturkortet": "./library/Kulturkortet/QRCodeViewer/css/index.scss",
+	"js/kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/js/index.ts",
+	"css/kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/css/index.scss",
+	"css/kulturkortetProfileEditor": "./library/Kulturkortet/ProfileEditor/css/index.scss",
 
 	/* Chat */
 	"js/chat": "./library/Chat/js/index.ts",

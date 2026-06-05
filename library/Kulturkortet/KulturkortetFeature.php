@@ -48,6 +48,7 @@ class KulturkortetFeature implements Hookable
         (new \Municipio\Kulturkortet\ProfileEditor\KulturkortetProfileEditorFeature(
             $this->wpService,
             $this->acfService,
+            $this->wpUtilService->enqueue(),
         ))->addHooks();
     }
 }
