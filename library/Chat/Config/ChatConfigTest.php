@@ -28,7 +28,9 @@ class ChatConfigTest extends TestCase
     #[TestDox('isEnabled() returns true when chat_enabled field is truthy')]
     public function testIsEnabledReturnsTrueWhenChatEnabledFieldIsTruthy(): void
     {
-        $acfService = $this->getAcfService(['chat_enabled' => 1]);
+        $acfService = new FakeAcfService([
+            'getField' => fn(string $field, string $scope) => $field === 'chat_enabled' && $scope === 'option' ? 1 : null,
+        ]);
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
@@ -38,7 +40,9 @@ class ChatConfigTest extends TestCase
     #[TestDox('isGlobalChatEnabled() returns false when chat_global_enabled field is falsy')]
     public function testIsGlobalChatEnabledReturnsFalseWhenFieldIsFalsy(): void
     {
-        $acfService = $this->getAcfService(['chat_global_enabled' => 0]);
+        $acfService = new FakeAcfService([
+            'getField' => fn(string $field, string $scope) => $field === 'chat_global_enabled' && $scope === 'option' ? 0 : null,
+        ]);
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
@@ -53,7 +57,9 @@ class ChatConfigTest extends TestCase
             ['name' => 'Noah', 'greetings_phrase' => 'Hi'],
         ];
 
-        $acfService = $this->getAcfService(['chat_assistants' => $assistants]);
+        $acfService = new FakeAcfService([
+            'getField' => fn(string $field, string $scope) => $field === 'chat_assistants' && $scope === 'option' ? $assistants : null,
+        ]);
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 

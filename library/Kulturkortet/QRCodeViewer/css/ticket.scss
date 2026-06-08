@@ -1,0 +1,99 @@
+$_: kulturkortet-ticket;
+
+.#{$_} {
+    --kulturkortet-ticket--padding: calc(var(--base) * 3);
+    --kulturkortet-ticket--border-radius: calc(var(--base) * var(--border-radius) * 2);
+    --kulturkortet-ticket--border-width: calc(var(--base) * var(--border-width) * 3);
+    border-radius: var(--kulturkortet-ticket--border-radius);
+    background-color: var(--color--secondary);
+    color: var(--color--secondary-contrast);
+    padding: calc(var(--kulturkortet-ticket--padding) * 1.5);
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: calc(var(--base) * 2);
+        border: var(--kulturkortet-ticket--border-width) solid var(--color--secondary-contrast);
+        border-radius: inherit;
+        pointer-events: none;
+    }
+
+    .#{$_}__inner-card {
+        position: relative;
+        border-radius: var(--kulturkortet-ticket--border-radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--kulturkortet-ticket--padding);
+        gap: calc(var(--base) * 6);
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+
+        background: linear-gradient(
+            90deg,
+            transparent 40%,
+            var(--color--secondary-contrast) 50%,
+            transparent 60%
+        );
+
+        animation: snake-rotate 5s linear infinite;
+        transform-origin: center;
+    }
+
+    // inner mask (creates the border effect)
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--color--secondary);
+        margin: var(--kulturkortet-ticket--border-width);
+        z-index: 1;
+    }
+
+    // keep content above
+    > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    @keyframes snake-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+}
+
+    .#{$_}__remaining-days {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background-color: var(--color--surface);
+        color: var(--color--surface-contrast);
+        padding: calc(var(--base) * 2.5);
+    }
+    .#{$_}__remaining-days-number {
+        font-size: var(--font-size-600);
+        line-height: var(--font-size-600);
+        font-weight: var(--font-weight-bold);
+    }
+    
+    .#{$_}__remaining-days-label {
+        font-size: var(--font-size-100);
+        line-height: var(--font-size-100);
+    }
+}

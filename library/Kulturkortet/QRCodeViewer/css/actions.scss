@@ -1,0 +1,28 @@
+$_: kulturkortet-actions;
+
+.#{$_} {
+    display: inline-flex;
+    margin-left: auto;
+    position: relative;
+
+    .#{$_}__menu-card {
+        position: absolute;
+        width: calc(var(--base) * 34);
+        z-index: 3;
+        top: 100%;
+        right: 0;
+        margin-top: calc(var(--base) * 0.5);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    &.is-expanded {
+        .#{$_}__menu-card {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+    }
+}

@@ -358,6 +358,12 @@ class App
          */
         $this->setUpGlobalNotices();
 
+        (new \Municipio\Kulturkortet\KulturkortetFeature(
+            $this->wpService,
+            $this->acfService,
+            $this->wpUtilService,
+        ))->addHooks();
+
         /**
          * Setup Table of Contents
          */
