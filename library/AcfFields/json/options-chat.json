@@ -325,6 +325,32 @@
                     "parent_repeater": "field_69ddefc99aa7a"
                 },
                 {
+                    "key": "field_6a21301b299ff",
+                    "label": "Pages",
+                    "name": "pages",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "Pages to use this assistant on for the chat bubble.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": "",
+                    "post_status": "",
+                    "taxonomy": "",
+                    "return_format": "id",
+                    "multiple": 1,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
                     "key": "field_69ddefed9aa7d",
                     "label": "Server URL",
                     "name": "server_url",
@@ -474,8 +500,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "display_title": "",
-    "allow_ai_access": false,
-    "ai_description": ""
+    "display_title": ""
 }]
 

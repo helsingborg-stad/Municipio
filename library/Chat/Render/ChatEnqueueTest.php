@@ -38,6 +38,11 @@ class ChatEnqueueTest extends TestCase
                 return ['name' => 'Default'];
             }
 
+            public function getAssistantForActiveQuery(): ?array
+            {
+                return null;
+            }
+
             public function getAssistants(): array
             {
                 return [['name' => 'Default']];
@@ -97,6 +102,11 @@ class ChatEnqueueTest extends TestCase
             }
 
             public function getDefaultAssistant(): ?array
+            {
+                return null;
+            }
+
+            public function getAssistantForActiveQuery(): ?array
             {
                 return null;
             }

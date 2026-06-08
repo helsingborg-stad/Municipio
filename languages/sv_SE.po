@@ -5506,39 +5506,39 @@ msgstr "Assistenter"
 msgid "The name must be unique. \"Default\" is reserved."
 msgstr ""
 
-#: library/AcfFields/php/options-chat.php:334
+#: library/AcfFields/php/options-chat.php:361
 msgid "Server URL"
 msgstr "Server-URL"
 
-#: library/AcfFields/php/options-chat.php:353
+#: library/AcfFields/php/options-chat.php:380
 #: library/AcfFields/php/options-vitec-settings.php:33
 msgid "API Key"
 msgstr "API-nyckel"
 
-#: library/AcfFields/php/options-chat.php:373
+#: library/AcfFields/php/options-chat.php:400
 msgid "Assistant ID"
 msgstr "Assistent-ID"
 
-#: library/AcfFields/php/options-chat.php:395
+#: library/AcfFields/php/options-chat.php:422
 #: library/Customizer/PanelsRegistry.php:224
 #: library/Customizer/Sections/Header/LoginLogout.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:17
 msgid "Appearance"
 msgstr "Utseende"
 
-#: library/AcfFields/php/options-chat.php:414
+#: library/AcfFields/php/options-chat.php:441
 msgid "Avatar"
 msgstr ""
 
-#: library/AcfFields/php/options-chat.php:418
+#: library/AcfFields/php/options-chat.php:445
 msgid "For best experience, choose an image with a 1:1 ratio."
 msgstr ""
 
-#: library/AcfFields/php/options-chat.php:441
+#: library/AcfFields/php/options-chat.php:468
 msgid "Greetings phrase"
 msgstr ""
 
-#: library/AcfFields/php/options-chat.php:445
+#: library/AcfFields/php/options-chat.php:472
 msgid "A phrase that will greet the user"
 msgstr ""
 
@@ -12838,3 +12838,11 @@ msgstr ""
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Remove Image"
 msgstr ""
+
+#: library/AcfFields/php/options-chat.php:334
+msgid "Pages"
+msgstr "Sidor"
+
+#: library/AcfFields/php/options-chat.php:338
+msgid "Pages to use this assistant on for the chat bubble."
+msgstr "Sidor att använda denna assistenten på för chatt-bubblan."

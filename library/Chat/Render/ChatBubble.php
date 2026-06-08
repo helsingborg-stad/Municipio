@@ -12,7 +12,7 @@ class ChatBubble implements Hookable
     public function __construct(
         private __&AddAction $wpService,
         private ChatConfigInterface $config,
-        private ChatRenderInterface $renderer
+        private ChatRenderInterface $renderer,
     ) {}
 
     public function addHooks(): void
@@ -26,11 +26,13 @@ class ChatBubble implements Hookable
             return;
         }
 
+        $assistant = $this->config->getAssistantForActiveQuery();
+
         $config = new ChatRenderConfig(
             $this->wpService,
             $this->config,
             'fab',
-            'Default'
+            $assistant['name'] ?? 'Default',
         );
 
         echo $this->renderer->render($config);
