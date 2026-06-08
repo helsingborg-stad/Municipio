@@ -7,6 +7,7 @@ namespace Municipio\Kulturkortet\QRCodeViewer;
 use Municipio\Kulturkortet\Vitec\VitecServiceInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\__;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 
@@ -22,8 +23,7 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
 
         $result = $calculateDaysLeft->invoke(
             $factory,
-            '2026-06-10T23:59:00',
-            new \DateTimeImmutable('2026-06-02T12:00:00')
+            (new \DateTimeImmutable('today +8 days'))->format('Y-m-d\\T23:59:00')
         );
 
         static::assertSame(8, $result);
@@ -39,14 +39,12 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
 
         $todayResult = $calculateDaysLeft->invoke(
             $factory,
-            '2026-06-02T23:59:00',
-            new \DateTimeImmutable('2026-06-02T12:00:00')
+            (new \DateTimeImmutable('today'))->format('Y-m-d\\T23:59:00')
         );
 
         $pastResult = $calculateDaysLeft->invoke(
             $factory,
-            '2026-05-20T23:59:00',
-            new \DateTimeImmutable('2026-06-02T12:00:00')
+            (new \DateTimeImmutable('today -3 days'))->format('Y-m-d\\T23:59:00')
         );
 
         static::assertSame(0, $todayResult);
@@ -63,8 +61,7 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
 
         $result = $calculateDaysLeft->invoke(
             $factory,
-            'not-a-date',
-            new \DateTimeImmutable('2026-06-02T12:00:00')
+            'not-a-date'
         );
 
         static::assertNull($result);
@@ -72,7 +69,7 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
 
     private function createFactory(): KulturkortetQRCodeViewerAuthViewFactory
     {
-        $wpService = new class implements WpCacheGet, WpCacheSet {
+        $wpService = new class implements WpCacheGet, WpCacheSet, __ {
             public function wpCacheGet(int|string $key, string $group = '', bool $force = false, bool &$found = null): mixed
             {
                 $found = false;
@@ -82,6 +79,11 @@ class KulturkortetQRCodeViewerAuthViewFactoryTest extends TestCase
             public function wpCacheSet(int|string $key, mixed $data, string $group = '', int $expire = 0): bool
             {
                 return true;
+            }
+
+            public function __(string $text, string $domain = 'default'): string
+            {
+                return $text;
             }
         };
 

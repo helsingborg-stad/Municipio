@@ -11,6 +11,19 @@ use PHPUnit\Framework\TestCase;
 
 class VismaAuthControllerTest extends TestCase
 {
+    #[TestDox('getLoginUrl returns null when remote API login throws exception')]
+    public function testGetLoginUrlReturnsNullOnException(): void
+    {
+        $navigation = $this->createMock(MunicipioAuthNavigation::class);
+
+        $api = $this->createMock(VismaApi::class);
+        $api->method('remoteApiLogin')->willThrowException(new \Exception('Login error'));
+
+        $controller = new VismaAuthController($api);
+
+        static::assertNull($controller->getLoginUrl($navigation));
+    }
+
     #[TestDox('renders anonymous view when no session and remote API login returns redirect URL')]
     public function testRenderWhenNoSessionAndRemoteApiLoginReturnsRedirectUrl(): void
     {
@@ -74,7 +87,7 @@ class VismaAuthControllerTest extends TestCase
 
         // We expect the error view to be rendered with the exception message and home URL
         $viewFactory = $this->createMock(MunicipioAuthViewFactoryInterface::class);
-        $viewFactory->expects($this->once())->method('whenError')->with('Login error', $navigation, null)->willReturn('error view');
+        $viewFactory->expects($this->once())->method('whenError')->with('Login error', $navigation, 'http://home.url')->willReturn('error view');
 
         $controller = new VismaAuthController($api);
         $result = $controller->render($viewFactory, $navigation);

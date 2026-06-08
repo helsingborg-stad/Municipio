@@ -45,7 +45,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
     public function getLoginUrl(MunicipioAuthNavigationInterface $navigation): ?string
     {
         if (!method_exists($this->inner, 'getLoginUrl')) {
-            return null;
+                return $navigation->getHomeUrl();
         }
 
         $callback = [$this->inner, 'getLoginUrl'];
@@ -55,7 +55,7 @@ class SecureMunicipioAuthController implements MunicipioAuthControllerInterface
         }
 
         $loginUrl = $callback($navigation);
-        return is_string($loginUrl) ? $loginUrl : null;
+            return is_string($loginUrl) && $loginUrl !== '' ? $loginUrl : $navigation->getHomeUrl();
     }
 
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string

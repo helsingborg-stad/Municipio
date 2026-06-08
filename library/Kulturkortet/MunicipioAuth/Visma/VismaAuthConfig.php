@@ -38,7 +38,7 @@ class VismaAuthConfig implements VismaAuthConfigInterface
             return VISMA_AUTH_CUSTOMERKEY;
         }
 
-        $vismaAuthCustomerKey = $this->acfService->getField('visma_auth_customerkey', 'options');
+        $vismaAuthCustomerKey = $this->acfService->getField('visma_auth_customerkey', 'option');
 
         if (!empty($vismaAuthCustomerKey) && is_string($vismaAuthCustomerKey)) {
             return $vismaAuthCustomerKey;
@@ -53,7 +53,7 @@ class VismaAuthConfig implements VismaAuthConfigInterface
             return VISMA_AUTH_SERVICEKEY;
         }
 
-        $vismaAuthServiceKey = $this->acfService->getField('visma_auth_servicekey', 'options');
+        $vismaAuthServiceKey = $this->acfService->getField('visma_auth_servicekey', 'option');
 
         if (!empty($vismaAuthServiceKey) && is_string($vismaAuthServiceKey)) {
             return $vismaAuthServiceKey;

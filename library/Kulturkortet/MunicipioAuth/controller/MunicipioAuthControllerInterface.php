@@ -14,5 +14,7 @@ interface MunicipioAuthControllerInterface
 
     public function tryLogoutUser(?MunicipioAuthenticatedUserInterface $user): void;
 
+    public function getLoginUrl(MunicipioAuthNavigationInterface $navigation): ?string;
+
     public function render(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string;
 }

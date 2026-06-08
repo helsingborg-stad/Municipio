@@ -69,13 +69,13 @@ class VismaAuthController implements MunicipioAuthControllerInterface
     protected function handleHasNoSession(MunicipioAuthViewFactoryInterface $viewFactory, MunicipioAuthNavigationInterface $navigation): string
     {
         try {
-            $redirectUrl = $this->getLoginUrl($navigation);
+            $redirectUrl = $this->api->remoteApiLogin($navigation);
             if ($redirectUrl) {
                 return $viewFactory->whenAnonymous($redirectUrl, $navigation);
             }
             throw new \Exception('Failed to get redirect URL from Visma');
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation));
+            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation) ?? $navigation->getHomeUrl());
         }
     }
 
@@ -94,7 +94,7 @@ class VismaAuthController implements MunicipioAuthControllerInterface
             }
             throw new \Exception('Invalid session');
         } catch (\Exception $e) {
-            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation));
+            return $viewFactory->whenError($e->getMessage(), $navigation, $this->getLoginUrl($navigation) ?? $navigation->getHomeUrl());
         }
     }
 }

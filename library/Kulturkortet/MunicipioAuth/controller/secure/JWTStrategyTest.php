@@ -9,9 +9,18 @@ use PHPUnit\Framework\TestCase;
 
 class JWTStrategyTest extends TestCase
 {
+    private function skipIfJwtLibraryMissing(): void
+    {
+        if (!class_exists('Firebase\\JWT\\JWT')) {
+            $this->markTestSkipped('firebase/php-jwt is not installed in this environment.');
+        }
+    }
+
     #[TestDox('should encode and decode JWT correctly')]
     public function testEncodeDecode(): void
     {
+        $this->skipIfJwtLibraryMissing();
+
         $config = $this->createMock(SecureMunicipioAuthConfigInterface::class);
         $config->method('isValid')->willReturn(true);
         $config->method('expires')->willReturn(20 * 60);
@@ -31,6 +40,8 @@ class JWTStrategyTest extends TestCase
     #[TestDox('verifies JWT headers and returns null if they do not match')]
     public function testInvalidHeaders(): void
     {
+        $this->skipIfJwtLibraryMissing();
+
         $encodeConfig = $this->createMock(SecureMunicipioAuthConfigInterface::class);
         $encodeConfig->method('isValid')->willReturn(true);
         $encodeConfig->method('expires')->willReturn(20 * 60);
@@ -54,6 +65,8 @@ class JWTStrategyTest extends TestCase
     #[TestDox('should return null for invalid JWT')]
     public function testInvalidJWT(): void
     {
+        $this->skipIfJwtLibraryMissing();
+
         $config = $this->createMock(SecureMunicipioAuthConfigInterface::class);
         $config->method('isValid')->willReturn(true);
 

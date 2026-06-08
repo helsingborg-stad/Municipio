@@ -13,6 +13,21 @@ use PHPUnit\Framework\TestCase;
 
 class SecureMunicipioAuthControllerTest extends TestCase
 {
+    #[TestDox('should return home URL when inner controller login URL is missing')]
+    public function testGetLoginUrlFallsBackToHomeUrl(): void
+    {
+        $navigation = $this->createMock(MunicipioAuthNavigationInterface::class);
+        $navigation->expects(static::once())->method('getHomeUrl')->willReturn('http://home.url');
+
+        $inner = $this->createMock(MunicipioAuthControllerInterface::class);
+        $inner->expects(static::once())->method('getLoginUrl')->with($navigation)->willReturn(null);
+
+        $config = $this->createMock(SecureMunicipioAuthConfigInterface::class);
+        $controller = new SecureMunicipioAuthController($inner, $config);
+
+        static::assertSame('http://home.url', $controller->getLoginUrl($navigation));
+    }
+
     #[TestDox('should delegate validateUser to inner controller')]
     public function testValidateUser(): void
     {
