@@ -7,7 +7,8 @@
             'attributeList' => [
                 'js-filter-input' => $ID
             ],
-            'placeholder' => $lang['search']
+            'placeholder' => $lang['search'],
+            'classList' => array_merge($classList ?? [])
         ])
         @endfield
 </div>
