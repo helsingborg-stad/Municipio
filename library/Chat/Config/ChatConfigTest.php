@@ -32,7 +32,7 @@ class ChatConfigTest extends TestCase
             'getField' => fn(string $field, string $scope) => $field === 'chat_enabled' && $scope === 'option' ? 1 : null,
         ]);
 
-        $config = new ChatConfig($acfService);
+        $config = new ChatConfig($this->getWpService(), $acfService);
 
         static::assertTrue($config->isEnabled());
     }
@@ -44,7 +44,7 @@ class ChatConfigTest extends TestCase
             'getField' => fn(string $field, string $scope) => $field === 'chat_global_enabled' && $scope === 'option' ? 0 : null,
         ]);
 
-        $config = new ChatConfig($acfService);
+        $config = new ChatConfig($this->getWpService(), $acfService);
 
         static::assertFalse($config->isGlobalChatEnabled());
     }
@@ -61,7 +61,7 @@ class ChatConfigTest extends TestCase
             'getField' => fn(string $field, string $scope) => $field === 'chat_assistants' && $scope === 'option' ? $assistants : null,
         ]);
 
-        $config = new ChatConfig($acfService);
+        $config = new ChatConfig($this->getWpService(), $acfService);
 
         static::assertSame($assistants, $config->getAssistants());
     }
@@ -92,7 +92,7 @@ class ChatConfigTest extends TestCase
             },
         ]);
 
-        $config = new ChatConfig($acfService);
+        $config = new ChatConfig($this->getWpService(), $acfService);
 
         static::assertSame($assistants[1], $config->getDefaultAssistant());
     }
