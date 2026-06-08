@@ -12,5 +12,5 @@ define('VISMA_AUTH_BASEURL', 'https://...');
 ```php
 define('SECURE_MUNICIPIO_AUTH_COOKIE_NAME', 'secure_municipio_auth');
 define('SECURE_MUNICIPIO_AUTH_JWT_KEY', 'a-string-secret-at-least-256-bits-long');
-define('SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT', 60 * 60 * 24); // 1 day
+define('SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT', 60 * 60 * 24);
 ```

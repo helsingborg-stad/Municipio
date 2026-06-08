@@ -15,12 +15,12 @@ class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
 
     public function getCookieName(): string
     {
-        return defined('SECURE_MUNICIPIO_AUTH_COOKIE_NAME') ? SECURE_MUNICIPIO_AUTH_COOKIE_NAME : '';
+        return defined('SECURE_MUNICIPIO_AUTH_COOKIE_NAME') ? SECURE_MUNICIPIO_AUTH_COOKIE_NAME : 'secure_municipio_auth';
     }
 
     public function expires(): int
     {
-        return defined('SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT') ? SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT : 20 * 60; // 20 min
+        return defined('SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT') ? SECURE_MUNICIPIO_AUTH_EXPIRES_SECONDS_OPT : 20 * 60;
     }
 
     public function getJWTKey(): string
