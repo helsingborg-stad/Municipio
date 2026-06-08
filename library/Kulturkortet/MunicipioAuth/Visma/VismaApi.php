@@ -34,37 +34,6 @@ class VismaApi implements VismaApiInterface
 
     public function remoteApiGetSession(MunicipioAuthNavigationInterface $navigation): ?array
     {
-        /*
-         * Session could look something like
-         * {
-         * "sessionId": "...",
-         * "username": "197001010000",
-         * "userAttributes": {
-         * "system": "helsingborg_rest_test",
-         * "C": "SE",
-         * "O": "Testbank A AB (publ)",
-         * "SN": "Smith",
-         * "GN": "John",
-         * "serialNumber": "197001010000",
-         * "name": "(211217 10.12) John Smith - BankID på fil",
-         * "CN": "John Smith",
-         * "issuerCommonName": "BankID File",
-         * "idp": "WPKI",
-         * "type": "auth",
-         * "urn:oid:1.2.752.201.3.2": "8e7a8fd6-96fa-4b77-a796-e48e9b90e6e1",
-         * "urn:oid:1.2.752.201.3.3": "bankidNotBefore=2021-12-16T23%3A00%3A00Z;bankidNotAfter=2022-12-17T22%3A59%3A59Z;bankidUserAgentAddress=193.180.104.62"
-         * }
-         * }
-         *
-         * but also like
-         * {
-         * "errorObject": {
-         * "code": "NOTLOGGEDIN",
-         * "message": "This session 55F89526DD20C3D7A001580B23390232DAFB26A7D7 is not a logged in user"
-         * }
-         * }
-         */
-
         $body = $this->remoteGetJson('/json1.1/GetSession', ['sessionId' => $navigation->getQueryParameter('ts_session_id')]);
         return $body ?? null;
     }
