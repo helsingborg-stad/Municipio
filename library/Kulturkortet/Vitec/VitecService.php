@@ -20,9 +20,7 @@ class VitecService implements VitecServiceInterface
     public function tryGetTicket(string $ssn): ?array
     {
         // For testing purposes, allow overriding the SSN with a known cardholder
-        $actualSsn = defined('KULTURKORTET_VITEC_SSN') ? KULTURKORTET_VITEC_SSN : $ssn;
-
-        $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . VitecSSN::formatSSN($actualSsn) . '/tickets';
+        $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . VitecSSN::formatSSN($ssn) . '/tickets';
 
         $response = $this->wpService->wpRemoteGet($url, [
             'headers' => [
@@ -43,41 +41,6 @@ class VitecService implements VitecServiceInterface
             )[0] ?? null;
 
         return $ticket ?? null;
-
-        //returns something similar to
-        // {
-        //         "version":25860271,
-        //         "tickets":[
-        //                 {
-        //                         "id":"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-        //                         "barcode":"1234abcd",
-        //                         "tagId":"1234abcd",
-        //                         "civicRegistrationNumber":"19700101-0000",
-        //                         "validFrom":"2024-12-05T00:00:00",
-        //                         "validUntil":"2026-12-11T23:59:00",
-        //                         "firstname":"Test",
-        //                         "lastname":"Testersson",
-        //                         "email":"test@example.com",
-        //                         "articleName":"Kulturkort\/Nyf\u00f6rs\u00e4ljning",
-        //                         "ticketTemplateName":"Import_Kulturkort",
-        //                         "plu":1300,
-        //                         "saleDate":"2024-12-05T12:03:59.296",
-        //                         "statisticsValues":{
-        //                             "ANL\u00c4GGNINGSBES\u00d6K":"- Ej applicerbar",
-        //                             "F\u00f6rs\u00e4ljning":"Kulturkort",
-        //                             "Kategorigrupp":"Betalande",
-        //                             "Rapportgrupp":"Endast entr\u00e9",
-        //                             "Rapportkategori":"Kulturkortsbes\u00f6k",
-        //                             "Verksamhet":"- Ej applicerbar"
-        //                         },
-        //                         "timestamp":"2025-12-11T12:09:52.9416901",
-        //                         "version":25860271,
-        //                         "oldCardRef":null,
-        //                         "isCancelled":false,
-        //                         "hasBlock":false
-        //                 }
-        //         ]
-        // }
     }
 
     public function updateUserData(string $ssn, string $email): ?array
