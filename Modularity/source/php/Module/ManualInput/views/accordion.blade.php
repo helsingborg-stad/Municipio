@@ -3,10 +3,8 @@
         @include('partials.post-title', ['variant' => 'h2', 'classList' => []])
     </div>
 @endif
+
 <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }}" {{!empty($freeTextFiltering) ? 'js-filter-container=' . $ID : ''}}>
-    @card([
-        'context' => $context
-    ])
         @if (empty($hideTitle) && !empty($postTitle) && !$accordionSpacedSections)
             <div class="c-card__header">
                 @include('partials.post-title', ['variant' => 'h4', 'classList' => []])
@@ -45,5 +43,5 @@
                 @endforeach
             @endaccordion
         </div>
-    @endcard
+
 </div>

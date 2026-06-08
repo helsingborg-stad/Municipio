@@ -2,8 +2,6 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\Fonts\FontCatalog;
-use Municipio\Customizer\Fonts\FontCatalogFactory;
 use Municipio\Customizer\KirkiField;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
@@ -11,6 +9,9 @@ use Municipio\Helper\WpService as WpServiceHelper;
 
 class LoadDesign
 {
+    private const LEGACY_UPLOADED_FONTS_SETTING = 'municipio_font_catalog_uploaded_fonts';
+    private const LEGACY_FONT_CATALOG_MIGRATION_SETTING = 'municipio_font_catalog_migrated';
+
     private const API_URL = 'https://customizer.municipio.tech/';
     private const LOAD_DESIGN_KEY = 'load_design';
     private const EXCLUDE_LOAD_DESIGN_KEY = 'exclude_load_design';
@@ -231,11 +232,11 @@ class LoadDesign
                     continue;
                 }
 
-                if (in_array($key, [FontCatalog::UPLOADED_FONTS_SETTING, FontCatalog::MIGRATION_SETTING], true)) {
+                if (in_array($key, [self::LEGACY_UPLOADED_FONTS_SETTING, self::LEGACY_FONT_CATALOG_MIGRATION_SETTING], true)) {
                     continue;
                 }
 
-                if (array_key_exists($key, \Kirki::$all_fields)) {
+                if ($this->hasKirkiField($key)) {
                     $stack[$key] = $mod;
                 }
 
@@ -251,12 +252,54 @@ class LoadDesign
         return $stack;
     }
 
+    private function hasKirkiField(string $key): bool
+    {
+        if (!class_exists('Kirki')) {
+            return false;
+        }
+
+        $kirkiClass = 'Kirki';
+        $allFields = $kirkiClass::$all_fields ?? null;
+
+        return is_array($allFields) && array_key_exists($key, $allFields);
+    }
+
     private function getUploadedFontUrl(string $fontFamily = ''): ?string
     {
-        $uploadedFonts = (new FontCatalogFactory(WpServiceHelper::get()))->createFontRepository()->getUploadedFonts();
+        if ($fontFamily === '') {
+            return null;
+        }
 
-        if (!empty($uploadedFonts[$fontFamily]['url'])) {
-            return $uploadedFonts[$fontFamily]['url'];
+        $wpService = WpServiceHelper::get();
+
+        if (!$wpService->postTypeExists('wp_font_family') || !$wpService->postTypeExists('wp_font_face')) {
+            return null;
+        }
+
+        $fontFamilyPost = $wpService->getPageByPath($wpService->sanitizeTitle($fontFamily), 'OBJECT', 'wp_font_family');
+
+        if (!is_object($fontFamilyPost) || !property_exists($fontFamilyPost, 'ID')) {
+            return null;
+        }
+
+        $fontFaces = $wpService->getPosts([
+            'post_type' => 'wp_font_face',
+            'post_status' => 'publish',
+            'post_parent' => (int) $fontFamilyPost->ID,
+            'posts_per_page' => -1,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        ]);
+
+        foreach ($fontFaces as $fontFace) {
+            $fontFaceSettings = is_object($fontFace) && property_exists($fontFace, 'post_content') ? json_decode((string) $fontFace->post_content, true) : null;
+            $sources = is_array($fontFaceSettings) && isset($fontFaceSettings['src']) ? (array) $fontFaceSettings['src'] : [];
+
+            if ($sources === [] || !is_string($sources[0]) || $sources[0] === '') {
+                continue;
+            }
+
+            return $sources[0];
         }
 
         return null;

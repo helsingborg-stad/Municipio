@@ -20,15 +20,16 @@ class ChatBlock implements Hookable {
 
     public function addHooks(): void
     {
-        if (empty($this->config->getAssistants())) {
-            return;
-        }
-
         $this->wpService->addAction('init', [$this, 'registerBlock']);
     }
 
     public function registerBlock()
     {
+            
+        if (empty($this->config->getAssistants())) {
+            return;
+        }
+        
         $result = array_column($this->config->getAssistants(), 'name', 'name');
         $result = array_merge(['Default' => __('Default', 'municipio')], $result);
 

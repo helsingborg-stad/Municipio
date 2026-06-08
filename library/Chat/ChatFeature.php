@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Chat;
 
 use AcfService\Contracts\AddOptionsPage;
@@ -16,23 +19,13 @@ use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
 use Municipio\Chat\Render\ChatBubble;
 use Municipio\Chat\Render\ChatEnqueue;
 use Municipio\Chat\Render\ChatRender;
-use WpService\Contracts\__;
-use WpService\Contracts\AddAction;
-use WpService\Contracts\AddMetaBox;
-use WpService\Contracts\DetermineLocale;
-use WpService\Contracts\GetBlockWrapperAttributes;
-use WpService\Contracts\GetOption;
-use WpService\Contracts\IsWpError;
-use WpService\Contracts\RegisterBlockType;
-use WpService\Contracts\WpRemotePost;
-use WpService\Contracts\WpRemoteRetrieveBody;
-use WpService\Contracts\WpRemoteRetrieveResponseCode;
+use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class ChatFeature
 {
     public function __construct(
-        private __&DetermineLocale&IsWpError&WpRemotePost&WpRemoteRetrieveBody&WpRemoteRetrieveResponseCode&RegisterBlockType&AddAction&GetBlockWrapperAttributes&AddMetaBox&GetOption $wpService,
+        private WpService $wpService,
         private GetField&AddOptionsPage $acfService,
         private EnqueueManagerInterface $enqueue,
     ) {}
@@ -50,12 +43,16 @@ class ChatFeature
         $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
         $render = new ChatRender($bladeRenderer);
 
-        RestApiEndpointsRegistry::add(new ChatEndpoint($config, (new PIIRedactorFactory($this->wpService))->create($config)));
+        RestApiEndpointsRegistry::add(new ChatEndpoint($config, (new PIIRedactorFactory($this->wpService))->create($config), $this->wpService));
         RestApiEndpointsRegistry::add(new ChatStatsEndpoint($this->wpService));
 
-        (new ChatBlock($this->wpService, $config, $render))->addHooks();
+        // Acf repeater crashes when below are reigstered
+        if (!$this->wpService->isAdmin() || !isset($_GET['page']) || $_GET['page'] !== 'chat-settings') {
+            (new ChatBubble($this->wpService, $config, $render))->addHooks();
+            (new ChatBlock($this->wpService, $config, $render))->addHooks();
+            (new ChatEnqueue($this->wpService, $this->enqueue, $config))->addHooks();
+        }
+
         (new ChatStatsMetaBox($this->wpService, $bladeRenderer))->addHooks();
-        (new ChatEnqueue($this->wpService, $this->enqueue, $config))->addHooks();
-        (new ChatBubble($this->wpService, $config, $render))->addHooks();
     }
 }

@@ -1,0 +1,481 @@
+[{
+    "key": "group_69b814ff11562",
+    "title": "Chat Settings",
+    "fields": [
+        {
+            "key": "field_69e25529fe5f9",
+            "label": "Enable Chat Feature",
+            "name": "chat_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        },
+        {
+            "key": "field_69e2556e5f6ed",
+            "label": "Enable Global Chat Bubble",
+            "name": "chat_global_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Enable the chat bubble globally on all pages. It will use the \"default\" assistant for chatting.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        },
+        {
+            "key": "field_6a044d2919b4a",
+            "label": "Enable Presidio",
+            "name": "chat_presidio_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Enable anonymization of Personally Identifiable Information (PII) using a Microsoft Presidio server.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        },
+        {
+            "key": "field_69f0a4faef94b",
+            "label": "Presidio",
+            "name": "chat_presidio",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Settings for Microsoft Presidio.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6a044d2919b4a",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_69f0be23ef94c",
+                    "label": "Analyzer Host",
+                    "name": "analyzer_host",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "Presidio analyzer server host.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "https:\/\/presidio.example.com:5002"
+                },
+                {
+                    "key": "field_69f0be44ef94d",
+                    "label": "Anonymizer Host",
+                    "name": "anonymizer_host",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "Presidio anonymizer server host.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "https:\/\/presidio.example.com:5001"
+                },
+                {
+                    "key": "field_69f0be4def94e",
+                    "label": "Supported languages",
+                    "name": "supported_languages",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Two-letter language tags for languages supported by Presidio. First entry will be used as fallback if there is no good match.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 1,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "L\u00e4gg till rad",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_69fb0a2df4493",
+                            "label": "Language",
+                            "name": "language",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "sv",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_69f0be4def94e"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_6a0431442b910",
+                    "label": "Allow List",
+                    "name": "allow_list",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "List of case-sensitive words that will not be redacted.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 1,
+                    "rows_per_page": 20,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Add Row",
+                    "sub_fields": [
+                        {
+                            "key": "field_6a0431b52b911",
+                            "label": "",
+                            "name": "word",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "Helsingborg",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6a0431442b910"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_69f0be57ef94f",
+                    "label": "Anonymizer Config",
+                    "name": "anonymizer_config",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "JSON config to customize how information is redacted.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "{}",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": "",
+                    "placeholder": "{}",
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_69ddf0289aa80",
+            "label": "Default Assistant",
+            "name": "chat_default_assistant",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Write the name of the Assistant you want to use as default",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_69ddefc99aa7a",
+            "label": "Assistants",
+            "name": "chat_assistants",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_69fdd43358131",
+                    "label": "Settings",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "tab",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placement": "top",
+                    "endpoint": 0,
+                    "selected": 0,
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddefdc9aa7b",
+                    "label": "Name",
+                    "name": "name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "The name must be unique. \"Default\" is reserved.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddefed9aa7d",
+                    "label": "Server URL",
+                    "name": "server_url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddeffa9aa7e",
+                    "label": "API Key",
+                    "name": "api_key",
+                    "aria-label": "",
+                    "type": "password",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69ddf0029aa7f",
+                    "label": "Assistant ID",
+                    "name": "assistant_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69fdd45146a41",
+                    "label": "Appearance",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "tab",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placement": "top",
+                    "endpoint": 0,
+                    "selected": 0,
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69fdd46446a42",
+                    "label": "Avatar",
+                    "name": "avatar",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "For best experience, choose an image with a 1:1 ratio.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_69fdd4f11fb4b",
+                    "label": "Greetings phrase",
+                    "name": "greetings_phrase",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "A phrase that will greet the user",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "chat-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
+}]
+

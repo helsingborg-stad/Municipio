@@ -2,9 +2,15 @@
 
 namespace Municipio;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WpService\Implementations\FakeWpService;
 use wpdb;
+use WpService\Implementations\FakeWpService;
+
+function is_admin(): bool
+{
+    return false;
+}
 
 class CustomizerTest extends TestCase
 {
@@ -12,20 +18,42 @@ class CustomizerTest extends TestCase
     public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
     {
         $wpService = new FakeWpService([
-          'addFilter' => true,
-          'addAction' => true
+            'addFilter' => true,
+            'addAction' => true,
         ]);
-        $wpdb      = new wpdb('', '', '', '');
+        $wpdb = new wpdb('', '', '', '');
 
-        $value      = '';
-        $default    = ['foo' => 'bar'];
+        $value = '';
+        $default = ['foo' => 'bar'];
         $customizer = new \Municipio\Customizer(
             $wpService,
-            $wpdb
+            $wpdb,
         );
 
         $sanitizedValue = $customizer->sanitizeKirkiDefaultArrayValue($value, $default);
 
         $this->assertEquals(['foo' => 'bar'], $sanitizedValue);
+    }
+
+    #[TestDox('initApplicators registers direct applicator hooks without using cache wrapper')]
+    public function testInitApplicatorsRegistersDirectApplicatorHooksWithoutUsingCacheWrapper(): void
+    {
+        $wpService = new FakeWpService([
+            'addFilter' => true,
+            'addAction' => true,
+        ]);
+        $wpdb = new wpdb('', '', '', '');
+
+        $customizer = new \Municipio\Customizer($wpService, $wpdb);
+
+        $customizer->initApplicators();
+
+        $registeredHooks = array_map(
+            fn(array $call): string => $call[0],
+            $wpService->methodCalls['addAction'],
+        );
+
+        $this->assertContains('kirki_dynamic_css', $registeredHooks);
+        $this->assertContains('rest_api_init', $registeredHooks);
     }
 }

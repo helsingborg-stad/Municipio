@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d9aa51a5c19509cbd5ebf4dc657f0f9",
+    "content-hash": "57daafbbecb8bb1fa7b826c54f141ca4",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1291,21 +1291,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.256.21",
+            "version": "2.266.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "15f4a718b3f6ec2cdf3d9ec2fdbd0fc4ea2efe42"
+                "reference": "dad064d0a3b2400cc2e4642f2f643effc13e2e33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/15f4a718b3f6ec2cdf3d9ec2fdbd0fc4ea2efe42",
-                "reference": "15f4a718b3f6ec2cdf3d9ec2fdbd0fc4ea2efe42",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/dad064d0a3b2400cc2e4642f2f643effc13e2e33",
+                "reference": "dad064d0a3b2400cc2e4642f2f643effc13e2e33",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "^5.19.1",
+                "helsingborg-stad/component-library": "^5.21.9",
                 "php": "^8.2",
                 "ramsey/uuid": "^4.9"
             },
@@ -1344,9 +1344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.256.21"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.266.3"
             },
-            "time": "2026-05-27T06:46:43+00:00"
+            "time": "2026-06-04T13:09:26+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3500,16 +3500,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.4.11",
+            "version": "v7.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d9593c9efa40499eb078b81144de42cbc28a31f0"
+                "reference": "f5804be144caceb570f6747519999636b664f24c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d9593c9efa40499eb078b81144de42cbc28a31f0",
-                "reference": "d9593c9efa40499eb078b81144de42cbc28a31f0",
+                "url": "https://api.github.com/repos/symfony/process/zipball/f5804be144caceb570f6747519999636b664f24c",
+                "reference": "f5804be144caceb570f6747519999636b664f24c",
                 "shasum": ""
             },
             "require": {
@@ -3541,7 +3541,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.4.11"
+                "source": "https://github.com/symfony/process/tree/v7.4.13"
             },
             "funding": [
                 {
@@ -3561,7 +3561,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-11T16:55:21+00:00"
+            "time": "2026-05-23T16:05:06+00:00"
         },
         {
             "name": "symfony/translation",
@@ -4537,20 +4537,20 @@
         },
         {
             "name": "php-stubs/acf-pro-stubs",
-            "version": "v6.5.0",
+            "version": "v6.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/acf-pro-stubs.git",
-                "reference": "e54ba80a945fd1f6c9ebe761e3f19992fbaedb39"
+                "reference": "b22454992d9651cd837439a2c1073a0955b68d94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/acf-pro-stubs/zipball/e54ba80a945fd1f6c9ebe761e3f19992fbaedb39",
-                "reference": "e54ba80a945fd1f6c9ebe761e3f19992fbaedb39",
+                "url": "https://api.github.com/repos/php-stubs/acf-pro-stubs/zipball/b22454992d9651cd837439a2c1073a0955b68d94",
+                "reference": "b22454992d9651cd837439a2c1073a0955b68d94",
                 "shasum": ""
             },
             "require": {
-                "php-stubs/wordpress-stubs": "^4.7 || ^5.0 || ^6.0"
+                "php-stubs/wordpress-stubs": "^4.7 || ^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
                 "php": "~7.1 || ^8.0",
@@ -4583,9 +4583,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/acf-pro-stubs/issues",
-                "source": "https://github.com/php-stubs/acf-pro-stubs/tree/v6.5.0"
+                "source": "https://github.com/php-stubs/acf-pro-stubs/tree/v6.8.2"
             },
-            "time": "2025-09-05T00:47:01+00:00"
+            "time": "2026-06-01T12:08:34+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -5383,7 +5383,6 @@
                     "type": "github"
                 }
             ],
-            "abandoned": true,
             "time": "2025-03-19T07:56:08+00:00"
         },
         {
@@ -5440,7 +5439,6 @@
                     "type": "github"
                 }
             ],
-            "abandoned": true,
             "time": "2024-07-03T04:45:54+00:00"
         },
         {
@@ -6265,12 +6263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "d3aa3bdc0cffb7993127bfe4c4be4ff415a3b900"
+                "reference": "44068fcdcbd71457942ebd4f6ba3ebb7dd96c0e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/d3aa3bdc0cffb7993127bfe4c4be4ff415a3b900",
-                "reference": "d3aa3bdc0cffb7993127bfe4c4be4ff415a3b900",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/44068fcdcbd71457942ebd4f6ba3ebb7dd96c0e7",
+                "reference": "44068fcdcbd71457942ebd4f6ba3ebb7dd96c0e7",
                 "shasum": ""
             },
             "require": {
@@ -6338,7 +6336,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-04-29T09:52:40+00:00"
+            "time": "2026-06-02T10:34:07+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7078,16 +7076,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.4.11",
+            "version": "v7.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "965f7306a43383d02c6aca1e3f3bd2f0ea5dee15"
+                "reference": "961683010db3b27ec6ebcd7308e6e1ee8fa7ffde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/965f7306a43383d02c6aca1e3f3bd2f0ea5dee15",
-                "reference": "965f7306a43383d02c6aca1e3f3bd2f0ea5dee15",
+                "url": "https://api.github.com/repos/symfony/string/zipball/961683010db3b27ec6ebcd7308e6e1ee8fa7ffde",
+                "reference": "961683010db3b27ec6ebcd7308e6e1ee8fa7ffde",
                 "shasum": ""
             },
             "require": {
@@ -7145,7 +7143,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.4.11"
+                "source": "https://github.com/symfony/string/tree/v7.4.13"
             },
             "funding": [
                 {
@@ -7165,7 +7163,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-13T12:04:42+00:00"
+            "time": "2026-05-23T15:23:29+00:00"
         },
         {
             "name": "symfony/type-info",
@@ -7252,16 +7250,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.4.12",
+            "version": "v7.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "8b6952b56ca6417f25f7a65758cadd0ce02edc51"
+                "reference": "a7ec3b1156faf8815db7683ec7c1e7338e6f977c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/8b6952b56ca6417f25f7a65758cadd0ce02edc51",
-                "reference": "8b6952b56ca6417f25f7a65758cadd0ce02edc51",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/a7ec3b1156faf8815db7683ec7c1e7338e6f977c",
+                "reference": "a7ec3b1156faf8815db7683ec7c1e7338e6f977c",
                 "shasum": ""
             },
             "require": {
@@ -7304,7 +7302,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.12"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.13"
             },
             "funding": [
                 {
@@ -7324,7 +7322,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-20T07:20:23+00:00"
+            "time": "2026-05-25T06:06:12+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -7446,11 +7444,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "enshrined/svg-sanitize": 20,
-        "jeradin/acf-dynamic-table-field": 20,
-        "jeradin/acf-website-field": 20,
         "johannheyne/advanced-custom-fields-table-field": 20,
+        "clark-nikdel-powell/post-type-select-for-acf": 20,
+        "jeradin/acf-website-field": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7459,6 +7457,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

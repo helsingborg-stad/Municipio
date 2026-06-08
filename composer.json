@@ -60,6 +60,7 @@
     "lint:changed": "git diff --name-only origin/main | xargs vendor/bin/mago lint --",
     "fix": "vendor/bin/mago lint --format-after-fix --fix",
     "fix:changed": "git diff --name-only origin/main | xargs vendor/bin/mago lint --fix --",
+    "fix:changed:unsafe": "git diff --name-only origin/main | xargs vendor/bin/mago lint --fix --unsafe --",
     "format": "vendor/bin/mago fmt",
     "post-update-cmd": [],
     "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php",

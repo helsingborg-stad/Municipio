@@ -14,8 +14,6 @@ class ApplyI18nTest extends TestCase
     #[TestDox('all labels and descriptions has a translation')]
     public function testDecorate(): void
     {
-        $this->markTestSkipped();
-        return;
         $tokenData = static::getTokenData();
         $decorator = new ApplyI18n(static::createWpService());
 
@@ -50,8 +48,6 @@ class ApplyI18nTest extends TestCase
     #[TestDox('all declared translations are used by token data')]
     public function testDecoratorHasNoUnusedTranslations(): void
     {
-        $this->markTestSkipped();
-        return;
         $translatableStrings = array_values(array_unique(static::getTranslatablePaths(static::getTokenData())));
         $declaredTranslations = static::getDeclaredTranslations();
         $unusedTranslations = array_values(array_diff($declaredTranslations, $translatableStrings));

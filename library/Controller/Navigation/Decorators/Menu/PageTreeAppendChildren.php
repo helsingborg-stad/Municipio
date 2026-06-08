@@ -209,7 +209,10 @@ class PageTreeAppendChildren implements MenuInterface
 
         //Check if posttype has content
         $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds();
-        if (array_key_exists($postId, $pageForPostTypeIds)) {
+        if (
+            array_key_exists($postId, $pageForPostTypeIds) &&
+            is_post_type_hierarchical($pageForPostTypeIds[$postId])
+        ) {
             $postTypeHasPosts = $localWpdb->get_var(
                 $localWpdb->prepare("
                     SELECT ID

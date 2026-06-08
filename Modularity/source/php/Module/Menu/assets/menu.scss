@@ -7,6 +7,10 @@ $paper-color: var(--c-paper--background-color) !default;
 $color-lighter: var(--c-paper--border-color) !default;
 $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !default;
 
+.mod-menu .c-paper {
+    contain:paint layout;
+}
+
 .mod-menu.mod-menu--listing {
     transition: .5s ease-in-out;
 

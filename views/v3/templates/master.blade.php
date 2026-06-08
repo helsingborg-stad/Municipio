@@ -52,8 +52,6 @@
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
     @include('templates.sections.toast-notices')
-
-    @include('templates.sections.styleguide-customize')
             
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
