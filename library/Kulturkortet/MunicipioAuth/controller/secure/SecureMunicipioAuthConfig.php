@@ -23,7 +23,7 @@ class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
 
     public function getJWTKey(): string
     {
-        return defined('SECURE_MUNICIPIO_AUTH_JWT_KEY') ? SECURE_MUNICIPIO_AUTH_JWT_KEY : '';
+        return defined('SECURE_MUNICIPIO_AUTH_JWT_KEY') ? SECURE_MUNICIPIO_AUTH_JWT_KEY : AUTH_KEY . AUTH_SALT;
     }
 
     public function getJWTHeaders(): array
