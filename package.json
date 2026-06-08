@@ -88,7 +88,7 @@
         "vite-config-factory": "^1.0.1",
         "vite-plugin-babel": "^1.3.2",
         "vite-plugin-simple-manifest": "^1.0.2",
-        "wp-types": "^4.68.3"
+        "wp-types": "^4.70.1"
     },
     "browser": {
         "child_process": false
