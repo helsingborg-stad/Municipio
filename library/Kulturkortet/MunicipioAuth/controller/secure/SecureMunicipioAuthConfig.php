@@ -6,8 +6,6 @@ namespace Municipio\Kulturkortet\MunicipioAuth\controller\secure;
 
 class SecureMunicipioAuthConfig implements SecureMunicipioAuthConfigInterface
 {
-    public function __construct() {}
-
     public function isValid(): bool
     {
         return !empty($this->getCookieName()) && !empty($this->getJWTKey());
