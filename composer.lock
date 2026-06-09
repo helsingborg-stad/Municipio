@@ -1291,16 +1291,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.268.7",
+            "version": "2.268.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "f712dbf654d1aa56f9cbe5ed58c6add4eed05254"
+                "reference": "0b72878d8b89c7520042e5646957cf4565ef9f26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/f712dbf654d1aa56f9cbe5ed58c6add4eed05254",
-                "reference": "f712dbf654d1aa56f9cbe5ed58c6add4eed05254",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/0b72878d8b89c7520042e5646957cf4565ef9f26",
+                "reference": "0b72878d8b89c7520042e5646957cf4565ef9f26",
                 "shasum": ""
             },
             "require": {
@@ -1344,9 +1344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.268.7"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.268.9"
             },
-            "time": "2026-06-09T11:17:23+00:00"
+            "time": "2026-06-09T11:41:14+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
