@@ -5,11 +5,13 @@ namespace Municipio\Controller\Header\Helper;
 class ShowHideClasses
 {
     // Classes for showing an element on desktop.
-    public static function getShowDesktopClasses(array $classes = []): array
+    public static function getShowDesktopClasses(array $classes = [], $flex = false): array
     {
+        $display = $flex ? 'flex' : 'block';
+
         return array_merge($classes, [
-            'u-display--block@lg',
-            'u-display--block@xl'
+            "u-display--{$display}@lg",
+            "u-display--{$display}@xl"
         ]);
     }
 

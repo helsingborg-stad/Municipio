@@ -1,6 +1,7 @@
 .site-header {
     .collapsible-search-form {
         $parent: &;
+        display: flex;
         contain: layout;
 
         .collapsible-search-form__form {

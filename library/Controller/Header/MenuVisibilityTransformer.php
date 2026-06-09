@@ -12,17 +12,27 @@ class MenuVisibilityTransformer
         }
 
         foreach ($items['modified'] as $menu => $classes) {
-            if (isset($items['desktop'][$menu]) && isset($items['mobile'][$menu])) {
+            if (isset($items['desktop'][$menu], $items['mobile'][$menu])) {
+                $items['modified'][$menu][] = 'u-display--flex';
                 continue;
             }
 
+            $displayFlex = true;
+
             if (isset($items['desktop'][$menu])) {
+                $displayFlex = false;
                 $items['modified'][$menu][] = 'u-display--none';
-                $items['modified'][$menu]   = \Municipio\Controller\Header\Helper\ShowHideClasses::getShowDesktopClasses($items['modified'][$menu]);
+                $items['modified'][$menu]   = \Municipio\Controller\Header\Helper\ShowHideClasses::getShowDesktopClasses($items['modified'][$menu], true);
             }
 
             if (isset($items['mobile'][$menu])) {
+                $displayFlex = false;
+                $items['modified'][$menu][] = 'u-display--flex';
                 $items['modified'][$menu] = \Municipio\Controller\Header\Helper\ShowHideClasses::getHideDesktopClasses($items['modified'][$menu]);
+            }
+
+            if ($displayFlex) {
+                $items['modified'][$menu][] = 'u-display--flex';
             }
         }
 

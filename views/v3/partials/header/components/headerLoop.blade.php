@@ -1,9 +1,11 @@
 <div class="c-header__{{$area}}-{{$align}}">
     @if(!empty($headerData[$key][$align]))
         @foreach($headerData[$key][$align] as $name => $classes)
-            <div class="{{implode(' ', $classes)}}">
+            @element([
+                'classList' => [...$classes, 'u-align-items--center']
+            ])
                 @includeIf('partials.header.components.' . $name)
-            </div>
+            @endelement
         @endforeach
     @endif
 </div>
