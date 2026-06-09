@@ -12,7 +12,7 @@ class MenuVisibilityTransformer
         }
 
         foreach ($items['modified'] as $menu => $classes) {
-            if (isset($items['desktop'][$menu]) && isset($items['mobile'][$menu])) {
+            if (isset($items['desktop'][$menu], $items['mobile'][$menu])) {
                 $items['modified'][$menu][] = 'u-display--flex';
                 continue;
             }

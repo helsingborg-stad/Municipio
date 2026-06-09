@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Header;
 
-use Municipio\Controller\Header\MenuVisibilityTransformer;
+
 use PHPUnit\Framework\TestCase;
 
 class MenuVisibilityTransformerTest extends TestCase
