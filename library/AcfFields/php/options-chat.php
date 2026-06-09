@@ -328,6 +328,33 @@
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
                 2 => array(
+                    'key' => 'field_6a21301b299ff',
+                    'label' => __('Pages', 'municipio'),
+                    'name' => 'chat_assistant_pages',
+                    'aria-label' => '',
+                    'type' => 'post_object',
+                    'instructions' => __('Pages to use this assistant on for the chat bubble.', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'post_type' => '',
+                    'post_status' => '',
+                    'taxonomy' => '',
+                    'return_format' => 'id',
+                    'multiple' => 1,
+                    'allow_null' => 0,
+                    'allow_in_bindings' => 0,
+                    'bidirectional' => 0,
+                    'ui' => 1,
+                    'bidirectional_target' => array(
+                    ),
+                    'parent_repeater' => 'field_69ddefc99aa7a',
+                ),
+                3 => array(
                     'key' => 'field_69ddefed9aa7d',
                     'label' => __('Server URL', 'municipio'),
                     'name' => 'server_url',
@@ -346,7 +373,7 @@
                     'placeholder' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                3 => array(
+                4 => array(
                     'key' => 'field_69ddeffa9aa7e',
                     'label' => __('API Key', 'municipio'),
                     'name' => 'api_key',
@@ -366,7 +393,7 @@
                     'append' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                4 => array(
+                5 => array(
                     'key' => 'field_69ddf0029aa7f',
                     'label' => __('Assistant ID', 'municipio'),
                     'name' => 'assistant_id',
@@ -388,7 +415,7 @@
                     'append' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                5 => array(
+                6 => array(
                     'key' => 'field_69fdd45146a41',
                     'label' => __('Appearance', 'municipio'),
                     'name' => '',
@@ -407,7 +434,7 @@
                     'selected' => 0,
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                6 => array(
+                7 => array(
                     'key' => 'field_69fdd46446a42',
                     'label' => __('Avatar', 'municipio'),
                     'name' => 'avatar',
@@ -434,7 +461,7 @@
                     'preview_size' => 'medium',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
-                7 => array(
+                8 => array(
                     'key' => 'field_69fdd4f11fb4b',
                     'label' => __('Greetings phrase', 'municipio'),
                     'name' => 'greetings_phrase',
@@ -478,7 +505,5 @@
     'description' => '',
     'show_in_rest' => 0,
     'display_title' => '',
-    'allow_ai_access' => false,
-    'ai_description' => '',
 ));
 }

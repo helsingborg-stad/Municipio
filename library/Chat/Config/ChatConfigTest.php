@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\Chat\Config;
 
 use AcfService\Implementations\FakeAcfService;
@@ -95,6 +94,73 @@ class ChatConfigTest extends TestCase
         $config = new ChatConfig($this->getWpService(), $acfService);
 
         static::assertSame($assistants[1], $config->getDefaultAssistant());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() return null when no assistant is configured')]
+    public function testGetAssistantForActiveQueryReturnsNullWhenNoAssistantsConfigured(): void
+    {
+        $config = new ChatConfig($this->getWpService(), $this->getAcfService());
+
+        static::assertNull($config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() returns default when no explicit assistant matches the active query')]
+    public function testGetAssistantForActiveQueryReturnsDefaultWhenNoAssistantMatches(): void
+    {
+        $assistant = ['name' => 'Noah', 'greetings_phrase' => 'Hi'];
+        $acfService = $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_assistants' => [$assistant]]);
+
+        $config = new ChatConfig($this->getWpService(), $acfService);
+
+        static::assertSame($assistant, $config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() returns the assistant matching the active query')]
+    public function testGetAssistantForActiveQueryReturnsMatchingAssistant(): void
+    {
+        $assistants = [
+            ['name' => 'Ava', 'chat_assistant_pages' => [123]],
+            ['name' => 'Noah', 'chat_assistant_pages' => [456]],
+        ];
+
+        $config = new ChatConfig(
+            $this->getWpService('en_US', 123),
+            $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_assistants' => $assistants]),
+        );
+
+        static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() returns inherited assistant from parent page when no direct match')]
+    public function testGetAssistantForActiveQueryReturnsInheritedAssistant(): void
+    {
+        $assistants = [
+            ['name' => 'Ava', 'chat_assistant_pages' => [123]],
+            ['name' => 'Noah', 'chat_assistant_pages' => [456]],
+        ];
+
+        $config = new ChatConfig(
+            $this->getWpService('en_US', 789, [123]),
+            $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_assistants' => $assistants]),
+        );
+
+        static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() returns most specific match when multiple assistants match the active query')]
+    public function testGetAssistantForActiveQueryReturnsMostSpecificMatch(): void
+    {
+        $assistants = [
+            ['name' => 'Ava', 'chat_assistant_pages' => [123, 789]],
+            ['name' => 'Noah', 'chat_assistant_pages' => [456, 789]],
+        ];
+
+        $config = new ChatConfig(
+            $this->getWpService('en_US', 789, [123, 456]),
+            $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_assistants' => $assistants]),
+        );
+
+        static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
     }
 
     #[TestDox('isPresidioEnabled() returns true when the chat_presidio_enabled option is true')]
@@ -430,8 +496,8 @@ class ChatConfigTest extends TestCase
         ]);
     }
 
-    private function getWpService(string $locale = 'en_US'): FakeWpService
+    private function getWpService(string $locale = 'en_US', int $queriedObjectId = 0, array $postAncestors = []): FakeWpService
     {
-        return new FakeWpService(['determineLocale' => $locale]);
+        return new FakeWpService(['determineLocale' => $locale, 'getQueriedObjectId' => $queriedObjectId, 'getPostAncestors' => $postAncestors]);
     }
 }

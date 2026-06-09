@@ -4,11 +4,13 @@ namespace Municipio\Chat\Config;
 
 use AcfService\Contracts\GetField;
 use WpService\Contracts\DetermineLocale;
+use WpService\Contracts\GetPostAncestors;
+use WpService\Contracts\GetQueriedObjectId;
 
 class ChatConfig implements ChatConfigInterface
 {
     public function __construct(
-        private DetermineLocale $wpService,
+        private DetermineLocale&GetQueriedObjectId&GetPostAncestors $wpService,
         private GetField $acfService,
     ) {}
 
@@ -35,6 +37,29 @@ class ChatConfig implements ChatConfigInterface
         });
 
         return !empty($defaultAssistantArray) ? array_shift($defaultAssistantArray) : null;
+    }
+
+    public function getAssistantForActiveQuery(): ?array
+    {
+        $assistants = $this->getAssistants();
+
+        $currentPageId = $this->wpService->getQueriedObjectId();
+        $ancestors = $this->wpService->getPostAncestors($currentPageId);
+        $postChain = array_merge([$currentPageId], $ancestors);
+
+        foreach ($postChain as $queriedPostId) {
+            foreach ($assistants as $assistant) {
+                if (empty($assistant['chat_assistant_pages']) || !is_array($assistant['chat_assistant_pages'])) {
+                    continue;
+                }
+
+                if (in_array($queriedPostId, $assistant['chat_assistant_pages'], true)) {
+                    return $assistant;
+                }
+            }
+        }
+
+        return $this->getDefaultAssistant();
     }
 
     public function getAssistants(): array
