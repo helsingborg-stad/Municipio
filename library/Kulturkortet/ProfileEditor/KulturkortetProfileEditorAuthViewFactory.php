@@ -65,8 +65,9 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 'emailLabel' => $this->wpService->__('Email', 'municipio'),
                 'emailPlaceholder' => $this->wpService->__('Enter your email', 'municipio'),
                 'activeUntil' => $this->wpService->__('Active until', 'municipio'),
+                'profileSaved' => $this->wpService->__('Your profile was successfully updated', 'municipio'),
             ],
-
+            'showSavedNotice' => isset($_GET['action']) && $_GET['action'] === 'saved',
             'profile' => [
                 'firstname' => $ticket['firstname'] ?? '',
                 'lastname' => $ticket['lastname'] ?? '',

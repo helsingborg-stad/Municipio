@@ -1,3 +1,4 @@
+@includeWhen($showSavedNotice, 'partials.success-notice')
 @card([
     'classList' => [
         'kulturkortet-profile-editor',
