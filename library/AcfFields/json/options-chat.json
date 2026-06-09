@@ -327,7 +327,7 @@
                 {
                     "key": "field_6a21301b299ff",
                     "label": "Pages",
-                    "name": "pages",
+                    "name": "chat_assistant_pages",
                     "aria-label": "",
                     "type": "post_object",
                     "instructions": "Pages to use this assistant on for the chat bubble.",

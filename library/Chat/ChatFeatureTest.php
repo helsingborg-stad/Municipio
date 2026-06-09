@@ -27,6 +27,7 @@ class ChatFeatureTest extends TestCase
     public function testEnableCanBeCalled(): void
     {
         $wpService = new FakeWpService([
+            'addFilter' => true,
             'addAction' => true,
         ]);
         $acfService = new FakeAcfService([

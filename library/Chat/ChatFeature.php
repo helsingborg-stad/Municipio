@@ -35,8 +35,6 @@ class ChatFeature
 
         (new ChatAdminPage($this->wpService, $this->acfService))->addHooks();
 
-        $this->wpService->addFilter('acf/fields/post_object/query/name=pages', [$this, 'filterPostObjectField'], 10, 3);
-
         if (!$config->isEnabled()) {
             return;
         }
@@ -55,16 +53,5 @@ class ChatFeature
         }
 
         (new ChatStatsMetaBox($this->wpService, $bladeRenderer))->addHooks();
-    }
-
-    public function filterPostObjectField($args, $field, $postId)
-    {
-        $wpService = $this->wpService;
-        $args['post_type'] = array_filter($args['post_type'] ?? [], static function ($postType) use ($wpService) {
-            $postObj = $wpService->getPostTypeObject($postType);
-            return $postObj && $wpService->isPostTypeHierarchical($postType) && $wpService->isPostTypeViewable($postObj);
-        });
-
-        return $args;
     }
 }

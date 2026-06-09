@@ -330,7 +330,7 @@
                 2 => array(
                     'key' => 'field_6a21301b299ff',
                     'label' => __('Pages', 'municipio'),
-                    'name' => 'pages',
+                    'name' => 'chat_assistant_pages',
                     'aria-label' => '',
                     'type' => 'post_object',
                     'instructions' => __('Pages to use this assistant on for the chat bubble.', 'municipio'),

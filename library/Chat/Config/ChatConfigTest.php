@@ -119,8 +119,8 @@ class ChatConfigTest extends TestCase
     public function testGetAssistantForActiveQueryReturnsMatchingAssistant(): void
     {
         $assistants = [
-            ['name' => 'Ava', 'pages' => [123]],
-            ['name' => 'Noah', 'pages' => [456]],
+            ['name' => 'Ava', 'chat_assistant_pages' => [123]],
+            ['name' => 'Noah', 'chat_assistant_pages' => [456]],
         ];
 
         $config = new ChatConfig(
@@ -135,8 +135,8 @@ class ChatConfigTest extends TestCase
     public function testGetAssistantForActiveQueryReturnsInheritedAssistant(): void
     {
         $assistants = [
-            ['name' => 'Ava', 'pages' => [123]],
-            ['name' => 'Noah', 'pages' => [456]],
+            ['name' => 'Ava', 'chat_assistant_pages' => [123]],
+            ['name' => 'Noah', 'chat_assistant_pages' => [456]],
         ];
 
         $config = new ChatConfig(
@@ -151,8 +151,8 @@ class ChatConfigTest extends TestCase
     public function testGetAssistantForActiveQueryReturnsMostSpecificMatch(): void
     {
         $assistants = [
-            ['name' => 'Ava', 'pages' => [123, 789]],
-            ['name' => 'Noah', 'pages' => [456, 789]],
+            ['name' => 'Ava', 'chat_assistant_pages' => [123, 789]],
+            ['name' => 'Noah', 'chat_assistant_pages' => [456, 789]],
         ];
 
         $config = new ChatConfig(

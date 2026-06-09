@@ -49,11 +49,11 @@ class ChatConfig implements ChatConfigInterface
 
         foreach ($postChain as $queriedPostId) {
             foreach ($assistants as $assistant) {
-                if (empty($assistant['pages']) || !is_array($assistant['pages'])) {
+                if (empty($assistant['chat_assistant_pages']) || !is_array($assistant['chat_assistant_pages'])) {
                     continue;
                 }
 
-                if (in_array($queriedPostId, $assistant['pages'], true)) {
+                if (in_array($queriedPostId, $assistant['chat_assistant_pages'], true)) {
                     return $assistant;
                 }
             }
