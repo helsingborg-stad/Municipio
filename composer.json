@@ -50,7 +50,7 @@
     "astrotomic/php-deepface": "^0.4.0",
     "helsingborg-stad/kirki": "^5.2",
     "helsingborg-stad/wputilservice": "^0.2.44",
-    "helsingborg-stad/styleguide": "2.268.7",
+    "helsingborg-stad/styleguide": "2.268.9",
     "firebase/php-jwt": "^7.0"
   },
   "scripts": {
