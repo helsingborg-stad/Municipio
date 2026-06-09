@@ -10,7 +10,7 @@
                 ]
             )
 
-            @if (!empty(array_filter($accordionColumnTitles)))
+            @if (!empty($accordionColumnTitles) && !empty(array_filter($accordionColumnTitles)))
                 <header class="accordion-table__head">
                     @foreach ($accordionColumnTitles as $title)
                         @typography([
@@ -24,7 +24,7 @@
             @endif
 
             @accordion([
-                'spacedSections' => $accordionSpacedSections
+                // 'spacedSections' => $accordionSpacedSections
             ])
                 @foreach ($manualInputs as $input)
                     @accordion__item([
@@ -53,7 +53,7 @@
         <div>
             @includeWhen(!empty($freeTextFiltering), 'partials.search-field')
 
-            @if (!empty(array_filter($accordionColumnTitles)))
+            @if (!empty($accordionColumnTitles) && !empty(array_filter($accordionColumnTitles)))
                 <header class="accordion-table__head">
                     @foreach ($accordionColumnTitles as $title)
                         @typography([
