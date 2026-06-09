@@ -62,9 +62,4 @@
     .c-header__upper-right {
         justify-content: flex-end;
     }
-
-    // Brand text
-    .c-header__brand-text {
-       font-size: var(--c-brand-font-size, calc(var(--base) * 3));
-    }
 }

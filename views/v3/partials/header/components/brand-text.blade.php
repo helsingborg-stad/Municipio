@@ -4,7 +4,12 @@
         'classList' => ['u-no-decoration', 'c-header__brand-text']
     ])
         @foreach ($brandText as $text)
-            <span>{!! $text !!}</span>
+            @typography([
+                    'element' => 'span',
+                    'classList' => ['c-header__brand-text-inner']
+                ])
+                {{ $text }}
+            @endtypography
         @endforeach
     @endlink
 @endif
