@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6bf7032e9707bfc8e44be4e31ba79ba",
+    "content-hash": "8e1fc18c395578649c0e91c6393e90dd",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1088,16 +1088,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.21.10",
+            "version": "5.21.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "8b5babf841d3d48cbc859784312ce71d237b815d"
+                "reference": "256044b11679f6995a1a97a47b46d0083859263a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/8b5babf841d3d48cbc859784312ce71d237b815d",
-                "reference": "8b5babf841d3d48cbc859784312ce71d237b815d",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/256044b11679f6995a1a97a47b46d0083859263a",
+                "reference": "256044b11679f6995a1a97a47b46d0083859263a",
                 "shasum": ""
             },
             "require": {
@@ -1129,9 +1129,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.10"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.11"
             },
-            "time": "2026-06-04T13:59:02+00:00"
+            "time": "2026-06-08T08:06:55+00:00"
         },
         {
             "name": "helsingborg-stad/kirki",
@@ -1291,16 +1291,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "2.266.10",
+            "version": "2.268.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "58d4244f8082181a7339bf37b3aaf4f9d3ac6de6"
+                "reference": "f712dbf654d1aa56f9cbe5ed58c6add4eed05254"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/58d4244f8082181a7339bf37b3aaf4f9d3ac6de6",
-                "reference": "58d4244f8082181a7339bf37b3aaf4f9d3ac6de6",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/f712dbf654d1aa56f9cbe5ed58c6add4eed05254",
+                "reference": "f712dbf654d1aa56f9cbe5ed58c6add4eed05254",
                 "shasum": ""
             },
             "require": {
@@ -1344,9 +1344,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.266.10"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/2.268.7"
             },
-            "time": "2026-06-07T18:37:52+00:00"
+            "time": "2026-06-09T11:17:23+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3331,16 +3331,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.38.1",
+            "version": "v1.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "14c5439eec4ccff081ac14eca2dc57feb2a66d92"
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/14c5439eec4ccff081ac14eca2dc57feb2a66d92",
-                "reference": "14c5439eec4ccff081ac14eca2dc57feb2a66d92",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
                 "shasum": ""
             },
             "require": {
@@ -3392,7 +3392,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.1"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.2"
             },
             "funding": [
                 {
@@ -3412,7 +3412,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-26T12:51:13+00:00"
+            "time": "2026-05-27T06:59:30+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -7444,11 +7444,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7457,6 +7457,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

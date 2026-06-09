@@ -25,7 +25,7 @@ class MenuVisibilityTransformerTest extends TestCase
 
         $result = $menuVisibilityTransformerInstance->transform($array);
 
-        $this->assertEmpty($result['modified']['menu']);
+        $this->assertSame(['u-display--flex'], $result['modified']['menu']);
     }
 
     public function testTransformTransformAddsMobileHiddenClasses()
@@ -46,7 +46,7 @@ class MenuVisibilityTransformerTest extends TestCase
 
         $this->assertEquals(
             $result['modified']['menu'],
-            ['u-display--none', 'u-display--block@lg', 'u-display--block@xl']
+            ['u-display--none', 'u-display--flex@lg', 'u-display--flex@xl']
         );
     }
 
@@ -66,6 +66,6 @@ class MenuVisibilityTransformerTest extends TestCase
 
         $result = $menuVisibilityTransformerInstance->transform($array);
 
-        $this->assertEquals($result['modified']['menu'], ['u-display--none@lg', 'u-display--none@xl']);
+        $this->assertEquals($result['modified']['menu'], ['u-display--flex', 'u-display--none@lg', 'u-display--none@xl']);
     }
 }

@@ -191,6 +191,10 @@ class ApplyI18n
             'Link Color Mix Amount' => $this->wpService->_x('Link Color Mix Amount', 'design-builder-component-data', 'municipio'),
             'Link Color Mix Amount [State]' => $this->wpService->_x('Link Color Mix Amount [State]', 'design-builder-component-data', 'municipio'),
             'Adjusts the mix amount of the link color in hover, active, and visited states.'=> $this->wpService->_x('Adjusts the mix amount of the link color in hover, active, and visited states.', 'design-builder-component-data', 'municipio'),
+            'Button Color (Primary)' => $this->wpService->_x('Button Color (Primary)', 'design-builder-component-data', 'municipio'),
+            'Button Color (Secondary)' => $this->wpService->_x('Button Color (Secondary)', 'design-builder-component-data', 'municipio'),
+            'Button Color (Default)' => $this->wpService->_x('Button Color (Default)', 'design-builder-component-data', 'municipio'),
+            'The Button component is used to trigger actions, submit forms, or navigate users through primary, secondary, and default button variants.' => $this->wpService->_x('The Button component is used to trigger actions, submit forms, or navigate users through primary, secondary, and default button variants.', 'design-builder-component-data', 'municipio'),
             default => $string,
         };
     }
