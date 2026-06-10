@@ -228,6 +228,8 @@ class Support
         remove_action('wp_print_styles', 'print_emoji_styles');
         remove_action('wp_head', 'rsd_link');
         remove_action('wp_head', 'wlwmanifest_link');
+        remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+        remove_action('template_redirect', 'wp_shortlink_header', 11);
     }
 
     /**
