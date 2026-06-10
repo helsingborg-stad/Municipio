@@ -49,7 +49,7 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
                 if (!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
                     $stack = $this->appendStack(
                         $stack,
-                        \Kirki::get_option($key),
+                        $this->getFieldValue($key, $field),
                         $key,
                         $field
                     );
