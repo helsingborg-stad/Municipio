@@ -6,6 +6,7 @@ import { initializeCollapsibleSearch } from './collapsibleSearch';
 import { initializeSessionManager } from './sessionManager';
 import { initializeHashHighlightManager } from './hashHighlightManager';
 import { initializeHashUpdateManager } from './hashUpdateManager';
+import { initializeMatomoTracking } from './matomoTracking';
 import { initPostsListAsync } from './postsList';
 import { initializeWpApiSettingsNonceRefresh } from './restApi/wpApiSettings';
 
@@ -20,4 +21,5 @@ initializeComments();
 initializeCollapsibleSearch();
 initializeHashHighlightManager();
 initializeHashUpdateManager(8 * 10);
+initializeMatomoTracking();
 initPostsListAsync();
