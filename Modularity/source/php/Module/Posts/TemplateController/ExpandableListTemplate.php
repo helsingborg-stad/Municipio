@@ -54,15 +54,38 @@ class ExpandableListTemplate extends AbstractController
         $this->data = $module->data;
         $this->fields = $module->fields;
 
-        $this->data['posts_list_column_titles'] = !empty($this->fields['posts_list_column_titles'])
-        && is_array($this->fields['posts_list_column_titles'])
-            ? $this->fields['posts_list_column_titles']
-            : null;
+        $this->data['accordionHeadings'] = $this->getAccordionHeadings();
 
         $this->data['posts_hide_title_column'] = $this->fields['posts_hide_title_column'] ? true : false;
         $this->data['title_column_label'] = $this->fields['title_column_label'] ?? null;
         $this->data['allow_freetext_filtering'] = $this->fields['allow_freetext_filtering'] ?? null;
         $this->data['prepareAccordion'] = $this->prepareExpandableList();
+    }
+
+    private function getTitleColumnLabel(): string
+    {
+        return $this->fields['title_column_label'] ?? __('Title', 'modularity');
+    }
+
+    private function getAccordionHeadings(): array
+    {
+        $headings = [];
+
+        if (empty($this->fields['posts_hide_title_column'])) {
+            $headings[] = $this->getTitleColumnLabel();
+        }
+
+        if (!empty($this->fields['posts_list_column_titles']) && is_array($this->fields['posts_list_column_titles'])) {
+            foreach ($this->fields['posts_list_column_titles'] as $column) {
+                if (empty($column['column_header'])) {
+                    continue;
+                }
+
+                $headings[] = $column['column_header'];
+            }
+        }
+
+        return $headings;
     }
 
     /**
@@ -71,7 +94,7 @@ class ExpandableListTemplate extends AbstractController
      */
     public function getColumnValues(): array
     {
-        if (empty($this->data['posts_list_column_titles'])) {
+        if (empty($this->data['accordionHeadings'])) {
             return [];
         }
 
@@ -120,6 +143,11 @@ class ExpandableListTemplate extends AbstractController
         return $preparedPosts;
     }
 
+    private function shouldUsePostTitleForHeading(string $title): bool
+    {
+        return empty($this->fields['posts_hide_title_column']) && $title === $this->getTitleColumnLabel();
+    }
+
     /**
      * Prepare Data for accordion
      * @param array $items Array of posts
@@ -136,14 +164,14 @@ class ExpandableListTemplate extends AbstractController
 
         if (!empty($this->data['posts']) && is_array($this->data['posts'])) {
             foreach ($this->data['posts'] as $index => $item) {
-                if ($this->hasColumnValues($columnValues) && $this->hasColumnTitles($this->data)) {
-                    foreach ($this->data['posts_list_column_titles'] as $colIndex => $column) {
-                        $sanitizedTitle = sanitize_title($column['column_header']);
+                if ($this->hasColumnValues($columnValues) && $this->hasColumnTitles()) {
+                    foreach ($this->data['accordionHeadings'] as $colIndex => $title) {
+                        $usePostTitleInHeading = $this->shouldUsePostTitleForHeading($title);
+                        $sanitizedTitle = sanitize_title($title);
                         if ($this->arrayDepth($columnValues) > 1) {
-                            $accordion[$index]['column_values'][$colIndex] =
-                                $columnValues[$index][$sanitizedTitle] ?? '';
+                            $accordion[$index]['headings'][$colIndex] = $usePostTitleInHeading ? $item->getTitle() : $columnValues[$index][$sanitizedTitle] ?? '';
                         } else {
-                            $accordion[$index]['column_values'][$colIndex] = $columnValues[$sanitizedTitle] ?? '';
+                            $accordion[$index]['headings'][$colIndex] = $usePostTitleInHeading ? $item->getTitle() : $columnValues[$sanitizedTitle] ?? '';
                         }
                     }
                 }
@@ -155,7 +183,7 @@ class ExpandableListTemplate extends AbstractController
             }
         }
 
-        if ($accordion < 0) {
+        if (empty($accordion)) {
             return null;
         }
 
@@ -205,6 +233,6 @@ class ExpandableListTemplate extends AbstractController
      */
     private function hasColumnTitles(): bool
     {
-        return !empty($this->data['posts_list_column_titles']) && is_array($this->data['posts_list_column_titles']);
+        return !empty($this->data['accordionHeadings']) && is_array($this->data['accordionHeadings']);
     }
 }
