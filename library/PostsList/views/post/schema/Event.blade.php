@@ -32,7 +32,7 @@
 
         @if(!empty($getSchemaEventHasMoreOccasions($post)))
             @element([
-                'classList' => ['u-margin__top--2', 'u-border--1', 'u-border__color--primary', 'u-color__text--primary', 'u-preloader--no-border', 'u-display--inline-flex', 'u-rounded', 'u-align-content--center', 'u-padding--1' ]
+                'classList' => ['u-margin__top--2', 'u-border--1', 'u-rounded--1', 'u-border__color--primary', 'u-color__text--primary', 'u-preloader--no-border', 'u-display--inline-flex', 'u-rounded', 'u-align-content--center', 'u-padding__x--2', 'u-padding__y--1']
             ])
                 @icon(['icon' => 'calendar_month', 'classList' => ['u-margin__right--1', 'u-align-items--center']])@endicon
                 @typography(['element' => 'span', 'variant' => 'meta'])
