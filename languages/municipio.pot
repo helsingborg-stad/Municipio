@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-09T11:45:44+00:00\n"
+"POT-Creation-Date: 2026-06-15T12:51:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -1072,8 +1072,8 @@ msgid "Only on template (onepage)"
 msgstr ""
 
 #: library/AcfFields/php/options-chat.php:8
-#: library/Chat/Admin/ChatAdminPage.php:25
-#: library/Chat/Admin/ChatAdminPage.php:26
+#: library/Chat/Admin/ChatAdminPage.php:30
+#: library/Chat/Admin/ChatAdminPage.php:31
 msgid "Chat Settings"
 msgstr ""
 
@@ -3063,7 +3063,7 @@ msgid "Login/Logout"
 msgstr ""
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:28
-#: library/Chat/Admin/ChatAdminPage.php:30
+#: library/Chat/Admin/ChatAdminPage.php:35
 #: library/CommonFieldGroups/RegisterCommonFieldGroupsOptionsAdminPage.php:32
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:64
@@ -3329,7 +3329,7 @@ msgstr ""
 msgid "This email was sent from %s."
 msgstr ""
 
-#: library/Chat/Admin/ChatAdminPage.php:31
+#: library/Chat/Admin/ChatAdminPage.php:36
 msgid "Chat settings has been saved."
 msgstr ""
 
@@ -7169,6 +7169,396 @@ msgctxt "design-builder-component-data"
 msgid "The Button component is used to trigger actions, submit forms, or navigate users through primary, secondary, and default button variants."
 msgstr ""
 
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:198
+msgctxt "design-builder-component-data"
+msgid "Type Foundations"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:199
+msgctxt "design-builder-component-data"
+msgid "Shared typography controls for families, weights, rhythm, and spacing."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:200
+msgctxt "design-builder-component-data"
+msgid "Body Font Family"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:201
+msgctxt "design-builder-component-data"
+msgid "Controls the base typeface used by body, paragraph, lead, small text, and non-heading variants that inherit the base family."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:202
+msgctxt "design-builder-component-data"
+msgid "Heading Font Family"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:203
+msgctxt "design-builder-component-data"
+msgid "Controls the typeface used by variants that explicitly switch to the heading family."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:204
+msgctxt "design-builder-component-data"
+msgid "Body Font Weight"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:205
+msgctxt "design-builder-component-data"
+msgid "Controls the default font weight for variants that keep the base weight."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:206
+msgctxt "design-builder-component-data"
+msgid "Medium Font Weight"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:207
+msgctxt "design-builder-component-data"
+msgid "Controls the shared medium emphasis used by title and lead variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:208
+msgctxt "design-builder-component-data"
+msgid "Bold Font Weight"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:209
+msgctxt "design-builder-component-data"
+msgid "Controls the heavier emphasis used by bold and marketing variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:210
+msgctxt "design-builder-component-data"
+msgid "Heading Font Weight"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:211
+msgctxt "design-builder-component-data"
+msgid "Controls the default weight used by heading level variants h1 through h6."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:212
+msgctxt "design-builder-component-data"
+msgid "Body Line Height"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:213
+msgctxt "design-builder-component-data"
+msgid "Controls the reading line height for variants that keep the base line height."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:214
+msgctxt "design-builder-component-data"
+msgid "Heading Line Height"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:215
+msgctxt "design-builder-component-data"
+msgid "Controls the shared line height for heading-style variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:216
+msgctxt "design-builder-component-data"
+msgid "Controls the default tracking for variants that inherit the base letter spacing."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:217
+msgctxt "design-builder-component-data"
+msgid "Controls the tracking for heading-style variants that use the heading spacing scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:218
+msgctxt "design-builder-component-data"
+msgid "Heading Spacing"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:219
+msgctxt "design-builder-component-data"
+msgid "Controls the vertical spacing inserted between adjacent heading-style variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:220
+msgctxt "design-builder-component-data"
+msgid "Type Scale"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:221
+msgctxt "design-builder-component-data"
+msgid "Shared token-based font sizes used by typography variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:222
+msgctxt "design-builder-component-data"
+msgid "Small Text Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:223
+msgctxt "design-builder-component-data"
+msgid "Controls caption, byline, and meta text sizes."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:224
+msgctxt "design-builder-component-data"
+msgid "Lead and Small Heading Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:225
+msgctxt "design-builder-component-data"
+msgid "Controls the shared size used by lead text and the smaller heading level h6."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:226
+msgctxt "design-builder-component-data"
+msgid "H5 Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:227
+msgctxt "design-builder-component-data"
+msgid "Controls the default size used by h5 headings."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:228
+msgctxt "design-builder-component-data"
+msgid "Subtitle and H4 Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:229
+msgctxt "design-builder-component-data"
+msgid "Controls the shared size used by subtitle and h4 variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:230
+msgctxt "design-builder-component-data"
+msgid "Title and H3 Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:231
+msgctxt "design-builder-component-data"
+msgid "Controls the shared size used by title and h3 variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:232
+msgctxt "design-builder-component-data"
+msgid "Headline and H2 Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:233
+msgctxt "design-builder-component-data"
+msgid "Controls the shared size used by headline and h2 variants."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:234
+msgctxt "design-builder-component-data"
+msgid "H1 Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:235
+msgctxt "design-builder-component-data"
+msgid "Controls the default size used by h1 headings."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:236
+msgctxt "design-builder-component-data"
+msgid "Marketing Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:237
+msgctxt "design-builder-component-data"
+msgid "Controls the default size used by the marketing variant."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:238
+msgctxt "design-builder-component-data"
+msgid "Modifier Overrides"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:239
+msgctxt "design-builder-component-data"
+msgid "Local multiplier controls that let specific typography modifiers scale independently in a single placement."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:240
+msgctxt "design-builder-component-data"
+msgid "Body Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:241
+msgctxt "design-builder-component-data"
+msgid "Scales regular body and paragraph text locally without changing the shared type scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:242
+msgctxt "design-builder-component-data"
+msgid "Bold Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:243
+msgctxt "design-builder-component-data"
+msgid "Scales the bold variant locally without changing other text styles."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:244
+msgctxt "design-builder-component-data"
+msgid "Lead Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:245
+msgctxt "design-builder-component-data"
+msgid "Scales lead text locally without changing the shared lead token."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:246
+msgctxt "design-builder-component-data"
+msgid "Caption Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:247
+msgctxt "design-builder-component-data"
+msgid "Scales caption text locally without changing the shared small-text token."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:248
+msgctxt "design-builder-component-data"
+msgid "Byline Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:249
+msgctxt "design-builder-component-data"
+msgid "Scales byline text locally without changing the shared small-text token."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:250
+msgctxt "design-builder-component-data"
+msgid "Meta Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:251
+msgctxt "design-builder-component-data"
+msgid "Scales meta text locally without changing the shared small-text token."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:252
+msgctxt "design-builder-component-data"
+msgid "Email Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:253
+msgctxt "design-builder-component-data"
+msgid "Scales email text locally without changing the shared body size."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:254
+msgctxt "design-builder-component-data"
+msgid "H1 Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:255
+msgctxt "design-builder-component-data"
+msgid "Scales h1 locally for one placement without changing the global h1 scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:256
+msgctxt "design-builder-component-data"
+msgid "H2 Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:257
+msgctxt "design-builder-component-data"
+msgid "Scales h2 locally for one placement without changing the global h2 scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:258
+msgctxt "design-builder-component-data"
+msgid "H3 Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:259
+msgctxt "design-builder-component-data"
+msgid "Scales h3 locally for one placement without changing the global h3 scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:260
+msgctxt "design-builder-component-data"
+msgid "H4 Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:261
+msgctxt "design-builder-component-data"
+msgid "Scales h4 locally for one placement without changing the global h4 scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:262
+msgctxt "design-builder-component-data"
+msgid "H5 Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:263
+msgctxt "design-builder-component-data"
+msgid "Scales h5 locally for one placement without changing the global h5 scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:264
+msgctxt "design-builder-component-data"
+msgid "H6 Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:265
+msgctxt "design-builder-component-data"
+msgid "Scales h6 locally for one placement without changing the global h6 scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:266
+msgctxt "design-builder-component-data"
+msgid "Headline Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:267
+msgctxt "design-builder-component-data"
+msgid "Scales the headline variant locally without changing the shared display scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:268
+msgctxt "design-builder-component-data"
+msgid "Title Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:269
+msgctxt "design-builder-component-data"
+msgid "Scales the title variant locally without changing the shared display scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:270
+msgctxt "design-builder-component-data"
+msgid "Subtitle Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:271
+msgctxt "design-builder-component-data"
+msgid "Scales the subtitle variant locally without changing the shared display scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:272
+msgctxt "design-builder-component-data"
+msgid "Marketing Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:273
+msgctxt "design-builder-component-data"
+msgid "Scales the marketing variant locally without changing the shared display scale."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:274
+msgctxt "design-builder-component-data"
+msgid "Body Letter Spacing"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:275
+msgctxt "design-builder-component-data"
+msgid "Heading Letter Spacing"
+msgstr ""
+
 #: library/Styleguide/Customize/Customize.php:94
 msgctxt "design-builder"
 msgid "Show uneditable"
@@ -7611,767 +8001,772 @@ msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:114
 msgctxt "design-builder-token-data"
-msgid "Letter Spacing"
+msgid "Palette 4 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:115
 msgctxt "design-builder-token-data"
-msgid "Palette 4 Border"
+msgid "Manual companion token for palette 4 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:116
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 4 border and hover states."
+msgid "Palette 4 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:117
 msgctxt "design-builder-token-data"
-msgid "Palette 4 Alt"
+msgid "Manual companion token for subtle palette 4 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:118
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 4 surfaces."
+msgid "Font Sizes"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:119
 msgctxt "design-builder-token-data"
-msgid "Font Sizes"
+msgid "Computed font size scale derived from base font size and type scale ratio."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:120
 msgctxt "design-builder-token-data"
-msgid "Computed font size scale derived from base font size and type scale ratio."
+msgid "Palette 5 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:121
 msgctxt "design-builder-token-data"
-msgid "Palette 5 Border"
+msgid "Manual companion token for palette 5 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:122
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 5 border and hover states."
+msgid "Palette 5 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:123
 msgctxt "design-builder-token-data"
-msgid "Palette 5 Alt"
+msgid "Manual companion token for subtle palette 5 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:124
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 5 surfaces."
+msgid "Font Size 80"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:125
 msgctxt "design-builder-token-data"
-msgid "Font Size 80"
+msgid "Two steps below base in the type scale."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:126
 msgctxt "design-builder-token-data"
-msgid "Two steps below base in the type scale."
+msgid "Palette 6 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:127
 msgctxt "design-builder-token-data"
-msgid "Palette 6 Border"
+msgid "Manual companion token for palette 6 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:128
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 6 border and hover states."
+msgid "Palette 6 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:129
 msgctxt "design-builder-token-data"
-msgid "Palette 6 Alt"
+msgid "Manual companion token for subtle palette 6 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:130
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 6 surfaces."
+msgid "Font Size 90"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:131
 msgctxt "design-builder-token-data"
-msgid "Font Size 90"
+msgid "One step below base in the type scale."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:132
 msgctxt "design-builder-token-data"
-msgid "One step below base in the type scale."
+msgid "Palette 7 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:133
 msgctxt "design-builder-token-data"
-msgid "Palette 7 Border"
+msgid "Manual companion token for palette 7 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:134
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 7 border and hover states."
+msgid "Palette 7 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:135
 msgctxt "design-builder-token-data"
-msgid "Palette 7 Alt"
+msgid "Manual companion token for subtle palette 7 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:136
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 7 surfaces."
+msgid "Font Size 100"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:137
 msgctxt "design-builder-token-data"
-msgid "Font Size 100"
+msgid "Base font size."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:138
 msgctxt "design-builder-token-data"
-msgid "Base font size."
+msgid "Palette 8 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:139
 msgctxt "design-builder-token-data"
-msgid "Palette 8 Border"
+msgid "Manual companion token for palette 8 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:140
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 8 border and hover states."
+msgid "Palette 8 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:141
 msgctxt "design-builder-token-data"
-msgid "Palette 8 Alt"
+msgid "Manual companion token for subtle palette 8 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:142
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 8 surfaces."
+msgid "Font Size 200"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:143
 msgctxt "design-builder-token-data"
-msgid "Font Size 200"
+msgid "One step above base in the type scale. Equivalent to h6/subtitle."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:144
 msgctxt "design-builder-token-data"
-msgid "One step above base in the type scale. Equivalent to h6/subtitle."
+msgid "Palette 9 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:145
 msgctxt "design-builder-token-data"
-msgid "Palette 9 Border"
+msgid "Manual companion token for palette 9 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:146
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 9 border and hover states."
+msgid "Palette 9 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:147
 msgctxt "design-builder-token-data"
-msgid "Palette 9 Alt"
+msgid "Manual companion token for subtle palette 9 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:148
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 9 surfaces."
+msgid "Font Size 300"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:149
 msgctxt "design-builder-token-data"
-msgid "Font Size 300"
+msgid "Two steps above base in the type scale. Equivalent to h5."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:150
 msgctxt "design-builder-token-data"
-msgid "Two steps above base in the type scale. Equivalent to h5."
+msgid "Palette 10 Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:151
 msgctxt "design-builder-token-data"
-msgid "Palette 10 Border"
+msgid "Manual companion token for palette 10 border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:152
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for palette 10 border and hover states."
+msgid "Palette 10 Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:153
 msgctxt "design-builder-token-data"
-msgid "Palette 10 Alt"
+msgid "Manual companion token for subtle palette 10 surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:154
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle palette 10 surfaces."
+msgid "Font Size 400"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:155
 msgctxt "design-builder-token-data"
-msgid "Font Size 400"
+msgid "Three steps above base in the type scale. Equivalent to h4."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:156
 msgctxt "design-builder-token-data"
-msgid "Three steps above base in the type scale. Equivalent to h4."
+msgid "Font Size 500"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:157
 msgctxt "design-builder-token-data"
-msgid "Font Size 500"
+msgid "Four steps above base in the type scale. Equivalent to h3."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:158
 msgctxt "design-builder-token-data"
-msgid "Four steps above base in the type scale. Equivalent to h3."
+msgid "Font Size 600"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:159
 msgctxt "design-builder-token-data"
-msgid "Font Size 600"
+msgid "Five steps above base in the type scale. Equivalent to h2."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:160
 msgctxt "design-builder-token-data"
-msgid "Five steps above base in the type scale. Equivalent to h2."
+msgid "Font Size 700"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:161
 msgctxt "design-builder-token-data"
-msgid "Font Size 700"
+msgid "Six steps above base in the type scale. Equivalent to h1."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:162
 msgctxt "design-builder-token-data"
-msgid "Six steps above base in the type scale. Equivalent to h1."
+msgid "Font Size 800"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:163
 msgctxt "design-builder-token-data"
-msgid "Font Size 800"
+msgid "Seven steps above base in the type scale. Larger than h1."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:164
 msgctxt "design-builder-token-data"
-msgid "Seven steps above base in the type scale. Larger than h1."
+msgid "Borders"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:165
 msgctxt "design-builder-token-data"
-msgid "Borders"
+msgid "Border width tokens for UI elements."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:166
 msgctxt "design-builder-token-data"
-msgid "Border width tokens for UI elements."
+msgid "Size"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:167
 msgctxt "design-builder-token-data"
-msgid "Size"
+msgid "Border Mix Amount"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:168
 msgctxt "design-builder-token-data"
-msgid "Border Mix Amount"
+msgid "Controls contrast intensity used when generating companion border colors."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:169
 msgctxt "design-builder-token-data"
-msgid "Controls contrast intensity used when generating companion border colors."
+msgid "Spacing"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:170
 msgctxt "design-builder-token-data"
-msgid "Spacing"
+msgid "Spacing tokens for UI elements."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:171
 msgctxt "design-builder-token-data"
-msgid "Spacing tokens for UI elements."
+msgid "Outer Space"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:172
 msgctxt "design-builder-token-data"
-msgid "Outer Space"
+msgid "Spacing between components. Use --space for spacing inside components."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:173
 msgctxt "design-builder-token-data"
-msgid "Spacing between components. Use --space for spacing inside components."
+msgid "Shadows"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:174
 msgctxt "design-builder-token-data"
-msgid "Shadows"
+msgid "Global shadow multipliers and color."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:175
 msgctxt "design-builder-token-data"
-msgid "Global shadow multipliers and color."
+msgid "Shadow Color"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:176
 msgctxt "design-builder-token-data"
-msgid "Shadow Color"
+msgid "Drop Shadow Intensity"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:177
 msgctxt "design-builder-token-data"
-msgid "Drop Shadow Intensity"
+msgid "Multiplier for elevation shadows. 0 = none, 1 = default."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:178
 msgctxt "design-builder-token-data"
-msgid "Multiplier for elevation shadows. 0 = none, 1 = default."
+msgid "Brand Colors"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:179
 msgctxt "design-builder-token-data"
-msgid "Brand Colors"
+msgid "Primary, secondary, and accent brand colors with contrast pairs."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:180
 msgctxt "design-builder-token-data"
-msgid "Primary, secondary, and accent brand colors with contrast pairs."
+msgid "Primary"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:181
 msgctxt "design-builder-token-data"
-msgid "Primary"
+msgid "Primary Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:182
 msgctxt "design-builder-token-data"
-msgid "Primary Contrast"
+msgid "Primary Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:183
 msgctxt "design-builder-token-data"
-msgid "Primary Border"
+msgid "Manual companion token for primary border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:184
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for primary border and hover states."
+msgid "Primary Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:185
 msgctxt "design-builder-token-data"
-msgid "Primary Alt"
+msgid "Manual companion token for subtle primary surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:186
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle primary surfaces."
+msgid "Secondary"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:187
 msgctxt "design-builder-token-data"
-msgid "Secondary"
+msgid "Secondary Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:188
 msgctxt "design-builder-token-data"
-msgid "Secondary Contrast"
+msgid "Secondary Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:189
 msgctxt "design-builder-token-data"
-msgid "Secondary Border"
+msgid "Manual companion token for secondary border and hover states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:190
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for secondary border and hover states."
+msgid "Secondary Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:191
 msgctxt "design-builder-token-data"
-msgid "Secondary Alt"
+msgid "Manual companion token for subtle secondary surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:192
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle secondary surfaces."
+msgid "Layout Colors"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:193
 msgctxt "design-builder-token-data"
-msgid "Layout Colors"
+msgid "Background and surface colors."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:194
 msgctxt "design-builder-token-data"
-msgid "Background and surface colors."
+msgid "Alt Mix Amount"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:195
 msgctxt "design-builder-token-data"
-msgid "Alt Mix Amount"
+msgid "Controls contrast intensity used when generating companion alt colors."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:196
 msgctxt "design-builder-token-data"
-msgid "Controls contrast intensity used when generating companion alt colors."
+msgid "Background"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:197
 msgctxt "design-builder-token-data"
-msgid "Background"
+msgid "Background Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:198
 msgctxt "design-builder-token-data"
-msgid "Background Contrast"
+msgid "Used for text and icons on background with less contrast."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:199
 msgctxt "design-builder-token-data"
-msgid "Used for text and icons on background with less contrast."
+msgid "Background Contrast Muted"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:200
 msgctxt "design-builder-token-data"
-msgid "Background Contrast Muted"
+msgid "Derived muted contrast for text and icons on background surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:201
 msgctxt "design-builder-token-data"
-msgid "Derived muted contrast for text and icons on background surfaces."
+msgid "Background Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:202
 msgctxt "design-builder-token-data"
-msgid "Background Border"
+msgid "Manual companion token for borders on background surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:203
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for borders on background surfaces."
+msgid "Surface"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:204
 msgctxt "design-builder-token-data"
-msgid "Surface"
+msgid "Surface Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:205
 msgctxt "design-builder-token-data"
-msgid "Surface Contrast"
+msgid "Used for text and icons on surface backgrounds with less contrast."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:206
 msgctxt "design-builder-token-data"
-msgid "Used for text and icons on surface backgrounds with less contrast."
+msgid "Surface Contrast Muted"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:207
 msgctxt "design-builder-token-data"
-msgid "Surface Contrast Muted"
+msgid "Derived muted contrast for text and icons on surface backgrounds."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:208
 msgctxt "design-builder-token-data"
-msgid "Derived muted contrast for text and icons on surface backgrounds."
+msgid "Surface Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:209
 msgctxt "design-builder-token-data"
-msgid "Surface Border"
+msgid "Manual companion token for borders on surface elements."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:210
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for borders on surface elements."
+msgid "Surface Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:211
 msgctxt "design-builder-token-data"
-msgid "Surface Alt"
+msgid "Manual companion token for subtle surface backgrounds."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:212
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle surface backgrounds."
+msgid "UI Colors"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:213
 msgctxt "design-builder-token-data"
-msgid "UI Colors"
+msgid "Borders, focus, and interactive states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:214
 msgctxt "design-builder-token-data"
-msgid "Borders, focus, and interactive states."
+msgid "Focus"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:215
 msgctxt "design-builder-token-data"
-msgid "Focus"
+msgid "Alpha Color"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:216
 msgctxt "design-builder-token-data"
-msgid "Alpha Color"
+msgid "Used for overlays. Includes opacity — set both color and alpha together."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:217
 msgctxt "design-builder-token-data"
-msgid "Used for overlays. Includes opacity — set both color and alpha together."
+msgid "Alpha Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:218
 msgctxt "design-builder-token-data"
-msgid "Alpha Contrast"
+msgid "Used for text and icons on alpha overlays."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:219
 msgctxt "design-builder-token-data"
-msgid "Used for text and icons on alpha overlays."
+msgid "Alpha Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:220
 msgctxt "design-builder-token-data"
-msgid "Alpha Border"
+msgid "Manual companion token for alpha overlay border states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:221
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for alpha overlay border states."
+msgid "State Colors"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:222
 msgctxt "design-builder-token-data"
-msgid "State Colors"
+msgid "Feedback colors for success, warning, error, and info."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:223
 msgctxt "design-builder-token-data"
-msgid "Feedback colors for success, warning, error, and info."
+msgid "Success"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:224
 msgctxt "design-builder-token-data"
-msgid "Success"
+msgid "Success Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:225
 msgctxt "design-builder-token-data"
-msgid "Success Contrast"
+msgid "Success Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:226
 msgctxt "design-builder-token-data"
-msgid "Success Border"
+msgid "Auto-generated companion token for success border and emphasis states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:227
 msgctxt "design-builder-token-data"
-msgid "Auto-generated companion token for success border and emphasis states."
+msgid "Warning"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:228
 msgctxt "design-builder-token-data"
-msgid "Warning"
+msgid "Warning Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:229
 msgctxt "design-builder-token-data"
-msgid "Warning Contrast"
+msgid "Warning Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:230
 msgctxt "design-builder-token-data"
-msgid "Warning Border"
+msgid "Auto-generated companion token for warning border and emphasis states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:231
 msgctxt "design-builder-token-data"
-msgid "Auto-generated companion token for warning border and emphasis states."
+msgid "Danger"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:232
 msgctxt "design-builder-token-data"
-msgid "Danger"
+msgid "Danger Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:233
 msgctxt "design-builder-token-data"
-msgid "Danger Contrast"
+msgid "Danger Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:234
 msgctxt "design-builder-token-data"
-msgid "Danger Border"
+msgid "Info"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:235
 msgctxt "design-builder-token-data"
-msgid "Info"
+msgid "Info Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:236
 msgctxt "design-builder-token-data"
-msgid "Info Contrast"
+msgid "Info Border"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:237
 msgctxt "design-builder-token-data"
-msgid "Info Border"
+msgid "Auto-generated companion token for info border and emphasis states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:238
 msgctxt "design-builder-token-data"
-msgid "Auto-generated companion token for info border and emphasis states."
+msgid "Container Wide Width Multiplier"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:239
 msgctxt "design-builder-token-data"
-msgid "Container Wide Width Multiplier"
+msgid "Container Wide Width"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:240
 msgctxt "design-builder-token-data"
-msgid "Container Wide Width"
+msgid "Base spacing unit. Used for padding and margin inside components."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:241
 msgctxt "design-builder-token-data"
-msgid "Base spacing unit. Used for padding and margin inside components."
+msgid "Manual companion token for danger border and emphasis states."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:242
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for danger border and emphasis states."
+msgid "Brand Palette"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:243
 msgctxt "design-builder-token-data"
-msgid "Brand Palette"
+msgid "Optional brand palette slots for reusable campaign and accent colors."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:244
 msgctxt "design-builder-token-data"
-msgid "Optional brand palette slots for reusable campaign and accent colors."
+msgid "Palette 1"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:245
 msgctxt "design-builder-token-data"
-msgid "Palette 1"
+msgid "Palette 1 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:246
 msgctxt "design-builder-token-data"
-msgid "Palette 1 Contrast"
+msgid "Palette 2"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:247
 msgctxt "design-builder-token-data"
-msgid "Palette 2"
+msgid "Palette 2 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:248
 msgctxt "design-builder-token-data"
-msgid "Palette 2 Contrast"
+msgid "Palette 3"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:249
 msgctxt "design-builder-token-data"
-msgid "Palette 3"
+msgid "Palette 3 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:250
 msgctxt "design-builder-token-data"
-msgid "Palette 3 Contrast"
+msgid "Palette 4"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:251
 msgctxt "design-builder-token-data"
-msgid "Palette 4"
+msgid "Palette 4 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:252
 msgctxt "design-builder-token-data"
-msgid "Palette 4 Contrast"
+msgid "Palette 5"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:253
 msgctxt "design-builder-token-data"
-msgid "Palette 5"
+msgid "Palette 5 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:254
 msgctxt "design-builder-token-data"
-msgid "Palette 5 Contrast"
+msgid "Palette 6"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:255
 msgctxt "design-builder-token-data"
-msgid "Palette 6"
+msgid "Palette 6 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:256
 msgctxt "design-builder-token-data"
-msgid "Palette 6 Contrast"
+msgid "Palette 7"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:257
 msgctxt "design-builder-token-data"
-msgid "Palette 7"
+msgid "Palette 7 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:258
 msgctxt "design-builder-token-data"
-msgid "Palette 7 Contrast"
+msgid "Palette 8"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:259
 msgctxt "design-builder-token-data"
-msgid "Palette 8"
+msgid "Palette 8 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:260
 msgctxt "design-builder-token-data"
-msgid "Palette 8 Contrast"
+msgid "Palette 9"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:261
 msgctxt "design-builder-token-data"
-msgid "Palette 9"
+msgid "Palette 9 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:262
 msgctxt "design-builder-token-data"
-msgid "Palette 9 Contrast"
+msgid "Palette 10"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:263
 msgctxt "design-builder-token-data"
-msgid "Palette 10"
+msgid "Palette 10 Contrast"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:264
 msgctxt "design-builder-token-data"
-msgid "Palette 10 Contrast"
+msgid "Background Alt"
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:265
 msgctxt "design-builder-token-data"
-msgid "Background Alt"
+msgid "Manual companion token for subtle background surfaces."
 msgstr ""
 
 #: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:266
 msgctxt "design-builder-token-data"
-msgid "Manual companion token for subtle background surfaces."
+msgid "Body Letter Spacing"
+msgstr ""
+
+#: library/Styleguide/Customize/TokenData/Decorators/ApplyI18n.php:267
+msgctxt "design-builder-token-data"
+msgid "Heading Letter Spacing"
 msgstr ""
 
 #: library/Theme/CustomTemplates.php:20
