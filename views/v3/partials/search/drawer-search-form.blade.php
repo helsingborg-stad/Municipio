@@ -16,6 +16,7 @@
             'label'         => $lang->searchQuestion,
             'hideLabel'     => true,
             'icon'          => ['icon' => 'search'],
+            'classList'     => ['u-rounded-right--none']
         ])
         @endfield
 
