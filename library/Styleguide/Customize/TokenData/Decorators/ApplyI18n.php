@@ -111,7 +111,6 @@ class ApplyI18n implements DecoratorInterface
             'Palette 3 Alt' => $this->wpService->_x('Palette 3 Alt', 'design-builder-token-data', 'municipio'),
             'Manual companion token for subtle palette 3 surfaces.' => $this->wpService->_x('Manual companion token for subtle palette 3 surfaces.', 'design-builder-token-data', 'municipio'),
             'Heading Line Height' => $this->wpService->_x('Heading Line Height', 'design-builder-token-data', 'municipio'),
-            'Letter Spacing' => $this->wpService->_x('Letter Spacing', 'design-builder-token-data', 'municipio'),
             'Palette 4 Border' => $this->wpService->_x('Palette 4 Border', 'design-builder-token-data', 'municipio'),
             'Manual companion token for palette 4 border and hover states.' => $this->wpService->_x('Manual companion token for palette 4 border and hover states.', 'design-builder-token-data', 'municipio'),
             'Palette 4 Alt' => $this->wpService->_x('Palette 4 Alt', 'design-builder-token-data', 'municipio'),
@@ -264,6 +263,8 @@ class ApplyI18n implements DecoratorInterface
             'Palette 10 Contrast' => $this->wpService->_x('Palette 10 Contrast', 'design-builder-token-data', 'municipio'),
             'Background Alt' => $this->wpService->_x('Background Alt', 'design-builder-token-data', 'municipio'),
             'Manual companion token for subtle background surfaces.' => $this->wpService->_x('Manual companion token for subtle background surfaces.', 'design-builder-token-data', 'municipio'),
+            'Body Letter Spacing' => $this->wpService->_x('Body Letter Spacing', 'design-builder-token-data', 'municipio'),
+            'Heading Letter Spacing' => $this->wpService->_x('Heading Letter Spacing', 'design-builder-token-data', 'municipio'),
             default => $text,
         };
     }

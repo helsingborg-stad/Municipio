@@ -29,11 +29,7 @@ class ApplyI18nTest extends TestCase
             $expectedValue = static::translate($originalValue);
 
             if ($translatedValue !== $expectedValue) {
-                $missingTranslations[] = sprintf(
-                    '%s => %s',
-                    $path,
-                    var_export($originalValue, true),
-                );
+                $missingTranslations[] = sprintf('%s',var_export($originalValue, true));
             }
         }
 
@@ -41,7 +37,7 @@ class ApplyI18nTest extends TestCase
 
         static::assertTrue(
             $missingTranslations === [],
-            "Missing {$missingCount} translations:\n- " . implode("\n- ", $missingTranslations),
+            "Missing {$missingCount} translations:\n" . implode(",\n", $missingTranslations),
         );
     }
 
