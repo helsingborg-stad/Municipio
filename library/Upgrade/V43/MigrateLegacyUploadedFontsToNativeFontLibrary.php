@@ -78,7 +78,6 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
             return;
         }
 
-        $attachmentsToDelete = [];
         $allFontsMigrated = true;
         $activatedFonts = [];
 
@@ -120,10 +119,6 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
                 $fontFamilyPostId,
                 (string) $font['name'],
             );
-
-            if (($font['id'] ?? 0) > 0) {
-                $attachmentsToDelete[] = (int) $font['id'];
-            }
         }
 
         if (!(bool) $this->wpService->getThemeMod(self::ACTIVATION_SETTING, false)) {
@@ -141,26 +136,17 @@ class MigrateLegacyUploadedFontsToNativeFontLibrary
         }
 
         if ($allFontsMigrated) {
-            $this->cleanupLegacyUploadedFonts(array_values(array_unique($attachmentsToDelete)));
+            $this->cleanupLegacyUploadedFonts();
         }
 
         $this->wpService->setThemeMod(self::MIGRATION_SETTING, true);
     }
 
     /**
-     * @param array<int, int> $attachmentIds
      */
-    private function cleanupLegacyUploadedFonts(array $attachmentIds): void
+    private function cleanupLegacyUploadedFonts(): void
     {
         $this->wpService->setThemeMod(self::LEGACY_UPLOADED_FONTS_SETTING, []);
-
-        foreach ($attachmentIds as $attachmentId) {
-            if ($attachmentId <= 0) {
-                continue;
-            }
-
-            $this->wpService->wpDeletePost($attachmentId, true);
-        }
     }
 
     /**

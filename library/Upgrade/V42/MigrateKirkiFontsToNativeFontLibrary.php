@@ -291,6 +291,8 @@ class MigrateKirkiFontsToNativeFontLibrary
             return null;
         }
 
+        $this->ensureDownloadUrlIsAvailable();
+
         $temporaryFile = $this->wpService->downloadUrl($source);
 
         if (!is_string($temporaryFile) || $temporaryFile === '') {
@@ -331,6 +333,15 @@ class MigrateKirkiFontsToNativeFontLibrary
             'url' => (string) $sideloadedFile['url'],
             'fontFile' => $this->relativeFontsPath((string) $sideloadedFile['file']),
         ];
+    }
+
+    private function ensureDownloadUrlIsAvailable(): void
+    {
+        if (function_exists('download_url') || !defined('ABSPATH')) {
+            return;
+        }
+
+        require_once ABSPATH . 'wp-admin/includes/file.php';
     }
 
     private function getDownloadedFontFileName(string $source, string $temporaryFile): string
