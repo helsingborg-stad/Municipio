@@ -2,6 +2,8 @@
 
 namespace Municipio\Oembed;
 
+use Municipio\Content\WpAutopContentGuard\WpAutopContentGuard;
+
 /**
  * Class OembedFilters
  *
@@ -14,7 +16,7 @@ class OembedFilters
      *
      * Initializes the class and adds the oembed_dataparse filter.
      */
-    public function __construct()
+    public function __construct(private WpAutopContentGuard $wpAutopContentGuard)
     {
         add_filter('oembed_dataparse', [$this,'oembedDataparse'], 1, 3);
     }
@@ -53,14 +55,10 @@ class OembedFilters
             $videoService = new \Municipio\Helper\VideoService($url);
             $poster       = $videoService->getCoverArt();
 
-            return render_blade_view(
-                'partials.iframe',
-                [
-                'settings' => $data,
-                'src'      => $url,
-                'poster'   => $poster,
-                ]
-            );
+            $markup = render_blade_view( 'partials.iframe', [ 'settings' => $data, 'src' => $url, 'poster' => $poster ]);
+            $markup = $this->wpAutopContentGuard->lock($markup);
+
+            return $markup;
         }
         return $output;
     }

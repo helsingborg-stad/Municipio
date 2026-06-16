@@ -2,6 +2,7 @@
 
 namespace Municipio\MarkupProcessor;
 
+use Municipio\Content\WpAutopContentGuard\WpAutopContentGuard;
 use WpService\WpService;
 
 class MarkupProcessor implements MarkupProcessorInterface
@@ -28,6 +29,7 @@ class MarkupProcessor implements MarkupProcessorInterface
     private function getProcessors(): array
     {
         return [
+            new Processors\ReleaseWpautopProtectedContent(new WpAutopContentGuard()),
             new Processors\TidyProcessor(),
             new Processors\CssMinifyProcessor(),
             new Processors\ScriptMinifyProcessor(),
