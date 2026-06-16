@@ -175,7 +175,7 @@ class App
         /**
          * Oembed
          */
-        new \Municipio\Oembed\OembedFilters();
+        new \Municipio\Oembed\OembedFilters(new \Municipio\Content\WpAutopContentGuard\WpAutopContentGuard());
 
         /**
          * Language
