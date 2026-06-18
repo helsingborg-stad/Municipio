@@ -1,6 +1,7 @@
 @group([
     'classList'     => $filterAboveCard ? ['has-filter-outside-card', 'u-width--100'] : ['u-width--100'],
     'direction'     => 'vertical',
+    'normalizeChildren' => false,
     'attributeList' => [
         'js-filter-container' => $uID
     ]
