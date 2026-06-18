@@ -1,4 +1,4 @@
-@paper(['padding' => 4])
+@paper(['padding' => 2])
     @element()
         @typography(['element' => 'h2', 'variant' => 'h5', 'classList' => ['u-margin__top--0']])
             {!! $lang->addressLabel !!}

@@ -1,2 +1,2 @@
-@accordion(['list' => $accordionListItems, 'spacedSections' => true])
+@accordion(['list' => $accordionListItems])
 @endaccordion
