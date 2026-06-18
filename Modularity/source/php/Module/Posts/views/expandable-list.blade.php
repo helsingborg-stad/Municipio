@@ -53,5 +53,6 @@
         @endforeach
     @endaccordion
 @endcard
+</div>
 
 @include('partials.more')
