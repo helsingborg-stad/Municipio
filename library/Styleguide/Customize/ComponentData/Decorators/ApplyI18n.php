@@ -178,7 +178,6 @@ class ApplyI18n
             'Controls the dimmed backdrop shown behind an open drawer, including its opacity.'=> $this->wpService->_x('Controls the dimmed backdrop shown behind an open drawer, including its opacity.', 'design-builder-component-data', 'municipio'),
             'Layout'                          => $this->wpService->_x('Layout', 'design-builder-component-data', 'municipio'),
             'Component-local sizing and spacing for the drawer panel and its navigation items.'=> $this->wpService->_x('Component-local sizing and spacing for the drawer panel and its navigation items.', 'design-builder-component-data', 'municipio'),
-            'Spacing and Padding' => $this->wpService->_x('Spacing and Padding', 'design-builder-component-data', 'municipio'),
             'Controls drawer header, footer, and navigation item padding.'=> $this->wpService->_x('Controls drawer header, footer, and navigation item padding.', 'design-builder-component-data', 'municipio'),
             'Width Multiplier'    => $this->wpService->_x('Width Multiplier', 'design-builder-component-data', 'municipio'),
             'Multiplies the default drawer width without changing the global base unit.'=> $this->wpService->_x('Multiplies the default drawer width without changing the global base unit.', 'design-builder-component-data', 'municipio'),
@@ -272,7 +271,9 @@ class ApplyI18n
             'Marketing Size Multiplier' => $this->wpService->_x('Marketing Size Multiplier', 'design-builder-component-data', 'municipio'),                                             
             'Scales the marketing variant locally without changing the shared display scale.' => $this->wpService->_x('Scales the marketing variant locally without changing the shared display scale.', 'design-builder-component-data', 'municipio'),
             'Body Letter Spacing' => $this->wpService->_x('Body Letter Spacing', 'design-builder-component-data', 'municipio'),            
-            'Heading Letter Spacing' => $this->wpService->_x('Heading Letter Spacing', 'design-builder-component-data', 'municipio'),                                                 
+            'Heading Letter Spacing' => $this->wpService->_x('Heading Letter Spacing', 'design-builder-component-data', 'municipio'),   
+            'Padding Multiplier' => $this->wpService->_x('Padding Multiplier', 'design-builder-component-data', 'municipio'),   
+            'Scales drawer padding locally while keeping vertical nav padding slightly tighter on the y-axis.' => $this->wpService->_x('Scales drawer padding locally while keeping vertical nav padding slightly tighter on the y-axis.', 'design-builder-component-data', 'municipio'),                                           
             default => $string,
         };
     }
