@@ -9,8 +9,8 @@ namespace Municipio\Content\WpAutopContentGuard;
  * Protects markup from wpautop by wrapping it in a known sentinel element.
  */
 class WpAutopContentGuard {
-    private const string PROTECTED_CLASS = 'wpautop-protected';
-    private const string PROTECTED_TAG = 'pre';
+    private const PROTECTED_CLASS = 'wpautop-protected';
+    private const PROTECTED_TAG = 'pre';
 
     /**
      * Wraps markup so wpautop skips it.
