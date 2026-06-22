@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Content\WpAutopContentGuard;
 
 use PHPUnit\Framework\Attributes\TestDox;
