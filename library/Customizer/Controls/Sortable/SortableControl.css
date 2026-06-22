@@ -1,0 +1,27 @@
+.municipio-sortable-items {
+	margin: 0;
+}
+
+.municipio-sortable-item {
+	align-items: center;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	display: flex;
+	gap: 8px;
+	margin: 0 0 8px;
+	padding: 8px;
+}
+
+.municipio-sortable-item__handle {
+	cursor: move;
+	height: 18px;
+	position: relative;
+	width: 12px;
+}
+
+.municipio-sortable-item__handle::before {
+	color: #757575;
+	content: "\2630";
+	font-size: 14px;
+	line-height: 18px;
+}

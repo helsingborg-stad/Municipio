@@ -35,7 +35,7 @@ class CustomFieldSettingArguments
     private static function getDefaultValue(array $field): mixed
     {
         return match ($field['type'] ?? '') {
-            'background', 'multicheck', 'multicolor', 'repeater', 'select' => [],
+            'background', 'multicheck', 'multicolor', 'repeater', 'select', 'sortable' => [],
             default => '',
         };
     }
@@ -50,7 +50,7 @@ class CustomFieldSettingArguments
     private static function getSanitizeCallback(string $fieldType): callable|string
     {
         return match ($fieldType) {
-            'background', 'multicheck', 'multicolor', 'repeater', 'select' => [self::class, 'sanitizeJsonArray'],
+            'background', 'multicheck', 'multicolor', 'repeater', 'select', 'sortable' => [self::class, 'sanitizeJsonArray'],
             'color' => 'sanitize_text_field',
             default => 'sanitize_text_field',
         };

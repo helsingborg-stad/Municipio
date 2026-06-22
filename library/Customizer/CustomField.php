@@ -104,6 +104,7 @@ class CustomFieldSupport
         'multicolor',
         'repeater',
         'select',
+        'sortable',
     ];
 
     /**

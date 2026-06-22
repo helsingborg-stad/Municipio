@@ -158,6 +158,11 @@ class NativeFieldTest extends TestCase
             ],
         ]));
 
+        $this->assertTrue(CustomField::supports([
+            'type' => 'sortable',
+            'settings' => 'custom_test_sortable',
+        ]));
+
         KirkiField::addField([
             'type' => 'multicheck',
             'settings' => 'custom_routed_field',

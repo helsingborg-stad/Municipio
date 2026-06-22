@@ -23,6 +23,7 @@ class CustomFieldControlFactory
         'multicheck' => MultiCheckControl::class,
         'multicolor' => MultiColorControl::class,
         'repeater' => RepeaterControl::class,
+        'sortable' => '\\Municipio\\Customizer\\Controls\\Sortable\\SortableControl',
     ];
 
     /**
