@@ -48,24 +48,19 @@ class LoadDesign
 
         // Disable info
         if (!$this->isBlogPublished()) {
-            new \Kirki\Pro\Field\Divider(
-                [
-                    'settings' => 'load_design_state_divider',
-                    'section' => $sectionID,
-                    'choices' => [
-                        'color' => '#ddd',
-                    ],
-                ],
-            );
+            KirkiField::addField([
+                'type' => 'divider',
+                'settings' => 'load_design_state_divider',
+                'section' => $sectionID,
+            ]);
 
-            new \Kirki\Pro\Field\Headline(
-                [
-                    'settings' => 'load_design_state',
-                    'label' => esc_html__('Design Community is disabled', 'kirki-pro'),
-                    'description' => esc_html__('This blog is currently not published. The design share is disabled until you site is published. Sites not accessible from the internet is always disabled.', 'kirki-pro'),
-                    'section' => $sectionID,
-                ],
-            );
+            KirkiField::addField([
+                'type' => 'headline',
+                'settings' => 'load_design_state',
+                'label' => esc_html__('Design Community is disabled', 'municipio'),
+                'description' => esc_html__('This blog is currently not published. The design share is disabled until you site is published. Sites not accessible from the internet is always disabled.', 'municipio'),
+                'section' => $sectionID,
+            ]);
         }
 
         //Always reset option of theme

@@ -1,0 +1,19 @@
+.municipio-repeater-row {
+	border: 1px solid #dcdcde;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.municipio-repeater-field {
+	display: block;
+	margin-bottom: 8px;
+}
+
+.municipio-repeater-field > span {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.municipio-repeater-field input {
+	width: 100%;
+}

@@ -25,21 +25,20 @@ class Logotype
             ],
         ]);
 
-        KirkiField::addProField(new \Kirki\Pro\Field\HeadlineToggle(
-            [
-                'settings' => 'header_brand_enabled',
-                'label' => esc_html__('Header Logotype Text', 'municipio'),
-                'description' => esc_html__('Enables text to the right of the header logotype.', 'municipio'),
-                'section' => $sectionID,
-                'default' => false,
-                'output' => [
-                    [
-                        'type' => 'controller',
-                        'as_object' => false,
-                    ],
+        KirkiField::addField([
+            'type' => 'checkbox_switch',
+            'settings' => 'header_brand_enabled',
+            'label' => esc_html__('Header Logotype Text', 'municipio'),
+            'description' => esc_html__('Enables text to the right of the header logotype.', 'municipio'),
+            'section' => $sectionID,
+            'default' => false,
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => false,
                 ],
             ],
-        ));
+        ]);
 
         KirkiField::addField([
             'type' => 'textarea',

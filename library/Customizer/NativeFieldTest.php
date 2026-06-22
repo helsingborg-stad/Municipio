@@ -136,6 +136,52 @@ class NativeFieldTest extends TestCase
         ]));
     }
 
+    #[TestDox('CustomField routes and sanitizes Kirki-only fields implemented by Municipio controls')]
+    public function testCustomFieldRoutesAndSanitizesKirkiOnlyFieldsImplementedByMunicipioControls(): void
+    {
+        $this->assertTrue(CustomField::supports([
+            'type' => 'multicheck',
+            'settings' => 'custom_test_multicheck',
+        ]));
+
+        $this->assertTrue(CustomField::supports([
+            'type' => 'select',
+            'settings' => 'custom_test_multi_select',
+            'multiple' => true,
+        ]));
+
+        $this->assertTrue(CustomField::supports([
+            'type' => 'color',
+            'settings' => 'custom_test_alpha_color',
+            'choices' => [
+                'alpha' => true,
+            ],
+        ]));
+
+        KirkiField::addField([
+            'type' => 'multicheck',
+            'settings' => 'custom_routed_field',
+            'section' => 'custom_test_section',
+            'choices' => [
+                'one' => 'One',
+                'two' => 'Two',
+            ],
+        ]);
+
+        $fields = PanelsRegistry::getInstance()->getRegisteredFields();
+        $registeredField = end($fields);
+        $action = end(NativeFieldTestState::$actions);
+
+        $this->assertSame('custom_routed_field', $registeredField['settings']);
+        $this->assertSame(CustomField::FIELD_DRIVER, $registeredField[CustomField::FIELD_DRIVER_KEY]);
+        $this->assertSame('customize_register', $action[0]);
+
+        $this->assertSame(
+            ['one' => 'Value', 'nested' => ['two' => 'Second']],
+            CustomFieldSettingArguments::sanitizeJsonArray('{"one":"Value","nested":{"two":"Second"}}'),
+        );
+    }
+
     #[TestDox('KirkiField addField routes native-compatible fields through NativeField')]
     public function testKirkiFieldAddFieldRoutesNativeCompatibleFieldsThroughNativeField(): void
     {

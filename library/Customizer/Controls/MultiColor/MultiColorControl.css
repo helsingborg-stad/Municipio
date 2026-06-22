@@ -1,0 +1,9 @@
+.municipio-multicolor-field {
+	display: block;
+	margin-bottom: 12px;
+}
+
+.municipio-multicolor-field > span {
+	display: block;
+	margin-bottom: 4px;
+}

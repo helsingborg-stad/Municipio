@@ -4,7 +4,6 @@ namespace Municipio\Customizer;
 
 use Kirki\Compatibility\Kirki;
 use Municipio\Customizer;
-use Municipio\Customizer\PanelsRegistry;
 use Municipio\Helper\KirkiConditional;
 
 class KirkiField
@@ -13,6 +12,11 @@ class KirkiField
     {
         if (NativeField::supports($field)) {
             NativeField::addField($field);
+            return;
+        }
+
+        if (CustomField::supports($field)) {
+            CustomField::addField($field);
             return;
         }
 
