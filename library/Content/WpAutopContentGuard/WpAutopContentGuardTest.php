@@ -54,4 +54,23 @@ class WpAutopContentGuardTest extends TestCase {
 
         static::assertEquals($expectedOutput, $this->guard->unlock($input));
     }
+
+    #[TestDox('unlocks empty localized content without errors')]
+    public function testUnlockWithEmptyLocalizedContent(): void {
+        $input = $this->guard->lock('   ');
+        $expectedOutput = '   ';
+
+        static::assertEquals($expectedOutput, $this->guard->unlock($input));
+    }
+
+    #[TestDox('unlocks protected content embedded in a large full-page HTML document without PCRE backtrack-limit errors')]
+    public function testUnlockInsideLargeDocument(): void {
+        $filler      = str_repeat('<p>' . str_repeat('a', 100) . '</p>', 2000); // ~250 KB of surrounding HTML
+        $protected   = $this->guard->lock('<div class="c-acceptance"><template><iframe src="https://youtube.com/embed/test"></iframe></template></div>');
+        $input       = '<html><body>' . $filler . $protected . $filler . '</body></html>';
+        $output      = $this->guard->unlock($input);
+
+        static::assertStringNotContainsString('wpautop-protected', $output);
+        static::assertStringContainsString('<div class="c-acceptance">', $output);
+    }
 }

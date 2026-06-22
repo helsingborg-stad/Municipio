@@ -30,15 +30,25 @@ class WpAutopContentGuard {
      */
     public function unlock(string $markup): string
     {
-        if (!str_contains($markup, $this->getProtectedOpeningTag())) {
+        $openTag = $this->getProtectedOpeningTag();
+
+        if (!str_contains($markup, $openTag)) {
             return $markup;
         }
 
-        return $this->unwrapProtectedMarkup($markup);
+        do {
+            $previous = $markup;
+            $markup   = $this->unwrapProtectedMarkup($markup);
+        } while ($markup !== $previous && str_contains($markup, $openTag));
+
+        return $markup;
     }
 
     /**
-     * Repeatedly unwraps one nesting level at a time until no wrappers remain.
+     * Walks the markup string and strips every protected wrapper while preserving
+     * inner content. Uses a depth counter to correctly handle nested wrappers
+     * without relying on PCRE, which fails with a backtrack-limit error on large
+     * full-page HTML documents.
      *
      * @param string $markup Protected markup.
      *
@@ -46,14 +56,52 @@ class WpAutopContentGuard {
      */
     private function unwrapProtectedMarkup(string $markup): string
     {
-        $unwrappedMarkup = $markup;
+        $openTag   = $this->getProtectedOpeningTag();
+        $closeTag  = $this->getProtectedClosingTag();
+        $openLen   = strlen($openTag);
+        $closeLen  = strlen($closeTag);
+        $result    = '';
+        $remaining = $markup;
 
-        do {
-            $previousMarkup = $unwrappedMarkup;
-            $unwrappedMarkup = preg_replace($this->getProtectedWrapperPattern(), '$1', $unwrappedMarkup) ?? $previousMarkup;
-        } while ($unwrappedMarkup !== $previousMarkup);
+        while (($startPos = strpos($remaining, $openTag)) !== false) {
+            $result   .= substr($remaining, 0, $startPos);
+            $afterOpen = substr($remaining, $startPos + $openLen);
 
-        return $unwrappedMarkup;
+            $depth       = 1;
+            $searchPos   = 0;
+            $innerEndPos = null;
+
+            while ($searchPos < strlen($afterOpen)) {
+                $nextOpen  = strpos($afterOpen, $openTag, $searchPos);
+                $nextClose = strpos($afterOpen, $closeTag, $searchPos);
+
+                if ($nextClose === false) {
+                    // Malformed markup: no matching closing tag; keep wrapper as-is.
+                    $result   .= $openTag . $afterOpen;
+                    $remaining = '';
+                    break 2;
+                }
+
+                if ($nextOpen !== false && $nextOpen < $nextClose) {
+                    $depth++;
+                    $searchPos = $nextOpen + $openLen;
+                } else {
+                    $depth--;
+                    if ($depth === 0) {
+                        $innerEndPos = $nextClose;
+                        break;
+                    }
+                    $searchPos = $nextClose + $closeLen;
+                }
+            }
+
+            if ($innerEndPos !== null) {
+                $result   .= substr($afterOpen, 0, $innerEndPos);
+                $remaining = substr($afterOpen, $innerEndPos + $closeLen);
+            }
+        }
+
+        return $result . $remaining;
     }
 
     /**
@@ -74,22 +122,6 @@ class WpAutopContentGuard {
     private function getProtectedClosingTag(): string
     {
         return '</' . self::PROTECTED_TAG . '>';
-    }
-
-    /**
-     * Matches the innermost protected wrapper so nested sections can be released safely.
-     *
-     * @return string
-     */
-    private function getProtectedWrapperPattern(): string
-    {
-        return '#'
-            . preg_quote($this->getProtectedOpeningTag(), '#')
-            . '((?:(?!'
-            . preg_quote($this->getProtectedOpeningTag(), '#')
-            . ').)*)'
-            . preg_quote($this->getProtectedClosingTag(), '#')
-            . '#is';
     }
 
 }
