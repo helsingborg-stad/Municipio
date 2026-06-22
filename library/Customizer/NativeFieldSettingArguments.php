@@ -36,6 +36,9 @@ class NativeFieldSettingArguments
     {
         $sanitizeCallbacks = [
             'checkbox' => static fn($value): bool => (bool) $value,
+            'checkbox_switch' => static fn($value): bool => (bool) $value,
+            'code' => static fn($value): string => (string) $value,
+            'color' => 'sanitize_hex_color',
             'switch' => static fn($value): bool => (bool) $value,
             'toggle' => static fn($value): bool => (bool) $value,
             'number' => 'absint',

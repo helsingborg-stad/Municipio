@@ -18,6 +18,10 @@ class NativeField
      */
     public static function addField(array $field): void
     {
+        if (!self::supports($field)) {
+            return;
+        }
+
         $field = self::withApplicatorMetadata($field);
 
         PanelsRegistry::getInstance()->addRegisteredField($field);
@@ -44,7 +48,19 @@ class NativeField
         }
 
         $wpCustomize->add_setting($settingId, NativeFieldSettingArguments::fromField($field));
-        $wpCustomize->add_control($settingId, NativeFieldControlArguments::fromField($field));
+        NativeFieldControlFactory::addControl($wpCustomize, $settingId, $field);
+    }
+
+    /**
+     * Determine if the field can be represented by native WordPress Customizer controls.
+     *
+     * @param array $field Field configuration.
+     *
+     * @return bool
+     */
+    public static function supports(array $field): bool
+    {
+        return NativeFieldSupport::supports($field);
     }
 
     /**
@@ -95,5 +111,78 @@ class NativeField
     private static function getSettingId(array $field): string
     {
         return is_string($field['settings'] ?? null) ? $field['settings'] : '';
+    }
+}
+
+class NativeFieldSupport
+{
+    private const NATIVE_FIELD_TYPES = [
+        'checkbox',
+        'checkbox_switch',
+        'code',
+        'color',
+        'email',
+        'image',
+        'number',
+        'radio',
+        'radio_buttonset',
+        'select',
+        'slider',
+        'switch',
+        'text',
+        'textarea',
+        'toggle',
+        'upload',
+        'url',
+    ];
+
+    /**
+     * Determine if the field can be represented by native WordPress Customizer controls.
+     *
+     * @param array $field Field configuration.
+     *
+     * @return bool
+     */
+    public static function supports(array $field): bool
+    {
+        $type = $field['type'] ?? null;
+
+        if (!is_string($type) || !in_array($type, self::NATIVE_FIELD_TYPES, true)) {
+            return false;
+        }
+
+        return !self::isMultipleSelect($field) && !self::isAlphaColor($field);
+    }
+
+    /**
+     * Determine if a select field depends on Kirki's multi-select behavior.
+     *
+     * @param array $field Field configuration.
+     *
+     * @return bool
+     */
+    private static function isMultipleSelect(array $field): bool
+    {
+        return ($field['type'] ?? null) === 'select' && ($field['multiple'] ?? false) === true;
+    }
+
+    /**
+     * Determine if a color field depends on Kirki alpha/rgba behavior.
+     *
+     * @param array $field Field configuration.
+     *
+     * @return bool
+     */
+    private static function isAlphaColor(array $field): bool
+    {
+        if (($field['type'] ?? null) !== 'color') {
+            return false;
+        }
+
+        if (($field['alpha'] ?? false) === true || ($field['choices']['alpha'] ?? false) === true) {
+            return true;
+        }
+
+        return is_string($field['default'] ?? null) && str_starts_with($field['default'], 'rgba(');
     }
 }

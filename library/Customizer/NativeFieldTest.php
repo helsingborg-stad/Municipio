@@ -33,6 +33,7 @@ class NativeFieldTest extends TestCase
     protected function setUp(): void
     {
         NativeFieldTestState::$actions = [];
+        PanelsRegistry::getInstance()->fields = [];
     }
 
     #[TestDox('getSettingArguments maps Kirki-shaped settings to native Customizer setting arguments')]
@@ -73,6 +74,21 @@ class NativeFieldTest extends TestCase
         $this->assertSame(['min' => 1, 'max' => 12, 'step' => 1], $arguments['input_attrs']);
     }
 
+    #[TestDox('getControlArguments maps Kirki code fields to native code editor controls')]
+    public function testGetControlArgumentsMapsKirkiCodeFieldsToNativeCodeEditorControls(): void
+    {
+        $arguments = NativeField::getControlArguments([
+            'type' => 'code',
+            'section' => 'header',
+            'choices' => [
+                'language' => 'js',
+            ],
+        ]);
+
+        $this->assertSame('code', $arguments['type']);
+        $this->assertSame('application/javascript', $arguments['code_type']);
+    }
+
     #[TestDox('addField stores native fields for applicators and schedules native registration')]
     public function testAddFieldStoresNativeFieldsForApplicatorsAndSchedulesNativeRegistration(): void
     {
@@ -95,6 +111,50 @@ class NativeFieldTest extends TestCase
 
         $action = end(NativeFieldTestState::$actions);
 
+        $this->assertSame('customize_register', $action[0]);
+    }
+
+    #[TestDox('supports returns false for Kirki multi-select fields')]
+    public function testSupportsReturnsFalseForKirkiMultiSelectFields(): void
+    {
+        $this->assertFalse(NativeField::supports([
+            'type' => 'select',
+            'settings' => 'native_test_multi_select',
+            'multiple' => true,
+        ]));
+    }
+
+    #[TestDox('supports returns false for Kirki alpha color fields')]
+    public function testSupportsReturnsFalseForKirkiAlphaColorFields(): void
+    {
+        $this->assertFalse(NativeField::supports([
+            'type' => 'color',
+            'settings' => 'native_test_alpha_color',
+            'choices' => [
+                'alpha' => true,
+            ],
+        ]));
+    }
+
+    #[TestDox('KirkiField addField routes native-compatible fields through NativeField')]
+    public function testKirkiFieldAddFieldRoutesNativeCompatibleFieldsThroughNativeField(): void
+    {
+        KirkiField::addField([
+            'type' => 'select',
+            'settings' => 'native_routed_field',
+            'section' => 'native_test_section',
+            'choices' => [
+                'one' => 'One',
+                'two' => 'Two',
+            ],
+        ]);
+
+        $fields = PanelsRegistry::getInstance()->getRegisteredFields();
+        $registeredField = end($fields);
+        $action = end(NativeFieldTestState::$actions);
+
+        $this->assertSame('native_routed_field', $registeredField['settings']);
+        $this->assertSame(NativeField::FIELD_DRIVER, $registeredField[NativeField::FIELD_DRIVER_KEY]);
         $this->assertSame('customize_register', $action[0]);
     }
 }

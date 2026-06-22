@@ -3,14 +3,19 @@
 namespace Municipio\Customizer;
 
 use Kirki\Compatibility\Kirki;
-use Municipio\Helper\KirkiConditional;
-use Municipio\Customizer\PanelsRegistry;
 use Municipio\Customizer;
+use Municipio\Customizer\PanelsRegistry;
+use Municipio\Helper\KirkiConditional;
 
 class KirkiField
 {
     public static function addField(array $field): void
     {
+        if (NativeField::supports($field)) {
+            NativeField::addField($field);
+            return;
+        }
+
         PanelsRegistry::getInstance()->addRegisteredField($field);
 
         Kirki::add_field(Customizer::KIRKI_CONFIG, $field);
