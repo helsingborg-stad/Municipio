@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class SliderDefault
 {
@@ -11,7 +11,7 @@ class SliderDefault
         /**
          * Slider gap
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'slider',
             'settings' => 'slider_gap',
             'label'    => esc_html__('Gap between slides', 'municipio'),
@@ -44,7 +44,7 @@ class SliderDefault
         /**
          * Slider padding
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'slider',
             'settings'    => 'slider_padding',
             'label'       => esc_html__('Amount of preview', 'municipio'),
@@ -78,7 +78,7 @@ class SliderDefault
         /**
          * Slider container colour
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'slider_container_color',
             'label'    => esc_html__('Container colour', 'municipio'),
@@ -105,7 +105,7 @@ class SliderDefault
         /**
          * Slider text alignment
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'slider_text_alignment',
             'label'    => esc_html__('Text alignment', 'municipio'),
@@ -132,7 +132,7 @@ class SliderDefault
         /**
          * Slider overlay
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'slider_coverlay',
             'label'    => esc_html__('Slide overlay', 'municipio'),
@@ -159,7 +159,7 @@ class SliderDefault
         /**
          * Slider button style
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'slider_arrow_button_style',
             'label'    => esc_html__('Arrow button style', 'municipio'),
@@ -186,7 +186,7 @@ class SliderDefault
         /**
          * Slider button color
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'slider_arrow_button_color',
             'label'    => esc_html__('Arrow button color', 'municipio'),

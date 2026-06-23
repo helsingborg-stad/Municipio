@@ -9,9 +9,9 @@ use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 /**
- * Tests Kirki-font migration to the native WordPress font library.
+ * Tests legacy Google-font migration to the native WordPress font library.
  */
-class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
+class MigrateLegacyGoogleFontsToNativeFontLibraryTest extends TestCase
 {
     #[TestDox('migrate() installs previously used fonts from WordPress font collections with all available faces')]
     public function testMigrateInstallsPreviouslyUsedFontsFromWordPressFontCollectionsWithAllAvailableFaces(): void
@@ -19,10 +19,10 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
         $wpService = new FakeWpService([
             'getThemeMod' => static function (string $key, mixed $default): mixed {
                 return match ($key) {
-                    MigrateKirkiFontsToNativeFontLibrary::LOCAL_INSTALL_SETTING => false,
-                    MigrateKirkiFontsToNativeFontLibrary::MIGRATION_SETTING => false,
-                    MigrateKirkiFontsToNativeFontLibrary::ACTIVATION_SETTING => false,
-                    MigrateKirkiFontsToNativeFontLibrary::LEGACY_GOOGLE_FONTS_SETTING => ['Roboto'],
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::LOCAL_INSTALL_SETTING => false,
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::MIGRATION_SETTING => false,
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::ACTIVATION_SETTING => false,
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::LEGACY_GOOGLE_FONTS_SETTING => ['Roboto'],
                     'typography_base' => ['font-family' => 'Roboto', 'variant' => 'regular'],
                     'typography_heading' => ['font-family' => 'Arial', 'variant' => '700'],
                     default => $default,
@@ -73,7 +73,7 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
         ]);
         $activatedFonts = [];
 
-        (new MigrateKirkiFontsToNativeFontLibrary(
+        (new MigrateLegacyGoogleFontsToNativeFontLibrary(
             $wpService,
             static fn(): array => [
                 'roboto' => [
@@ -124,9 +124,9 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
 
         static::assertSame(
             [
-                [MigrateKirkiFontsToNativeFontLibrary::LOCAL_INSTALL_SETTING, true],
-                [MigrateKirkiFontsToNativeFontLibrary::MIGRATION_SETTING,     true],
-                [MigrateKirkiFontsToNativeFontLibrary::ACTIVATION_SETTING,    true],
+                [MigrateLegacyGoogleFontsToNativeFontLibrary::LOCAL_INSTALL_SETTING, true],
+                [MigrateLegacyGoogleFontsToNativeFontLibrary::MIGRATION_SETTING,     true],
+                [MigrateLegacyGoogleFontsToNativeFontLibrary::ACTIVATION_SETTING,    true],
             ],
             $wpService->methodCalls['setThemeMod'],
         );
@@ -180,10 +180,10 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
         $wpService = new FakeWpService([
             'getThemeMod' => static function (string $key, mixed $default): mixed {
                 return match ($key) {
-                    MigrateKirkiFontsToNativeFontLibrary::LOCAL_INSTALL_SETTING => true,
-                    MigrateKirkiFontsToNativeFontLibrary::MIGRATION_SETTING => true,
-                    MigrateKirkiFontsToNativeFontLibrary::ACTIVATION_SETTING => false,
-                    MigrateKirkiFontsToNativeFontLibrary::LEGACY_GOOGLE_FONTS_SETTING => ['Roboto'],
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::LOCAL_INSTALL_SETTING => true,
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::MIGRATION_SETTING => true,
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::ACTIVATION_SETTING => false,
+                    MigrateLegacyGoogleFontsToNativeFontLibrary::LEGACY_GOOGLE_FONTS_SETTING => ['Roboto'],
                     'typography_base' => ['font-family' => 'Roboto', 'variant' => 'regular'],
                     default => $default,
                 };
@@ -195,7 +195,7 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
 
         $activatedFonts = [];
 
-        (new MigrateKirkiFontsToNativeFontLibrary(
+        (new MigrateLegacyGoogleFontsToNativeFontLibrary(
             $wpService,
             static fn(): array => [
                 'roboto' => [
@@ -229,7 +229,7 @@ class MigrateKirkiFontsToNativeFontLibraryTest extends TestCase
             )),
         );
         static::assertSame(
-            [[MigrateKirkiFontsToNativeFontLibrary::ACTIVATION_SETTING, true]],
+            [[MigrateLegacyGoogleFontsToNativeFontLibrary::ACTIVATION_SETTING, true]],
             $wpService->methodCalls['setThemeMod'],
         );
     }

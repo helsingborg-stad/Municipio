@@ -142,7 +142,7 @@ abstract class PanelSection
         return $this;
     }
 
-    public function getPreviewUrl(): bool
+    public function getPreviewUrl(): string
     {
         return $this->previewUrl;
     }

@@ -2,15 +2,15 @@
 
 namespace Municipio\Customizer\Sections\Header;
 
-use Municipio\Customizer\KirkiField;
-use Municipio\Helper\KirkiSwatches;
+use Municipio\Customizer\CustomizerField;
+use Municipio\Helper\ColorSwatches;
 
 class LoginLogout
 {
     public function __construct(string $sectionID)
     {
-        $colorPalette = KirkiSwatches::getColors();
-        KirkiField::addField([
+        $colorPalette = ColorSwatches::getColors();
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'header_login_logout_display',
             'label'       => esc_html__('Display login/logout', 'municipio'),
@@ -28,7 +28,7 @@ class LoginLogout
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'checkbox',
             'settings' => 'header_login_logout_show_in_mobile_menu',
             'label'    => esc_html__('Show in mobile menu', 'municipio'),
@@ -42,7 +42,7 @@ class LoginLogout
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'radio',
             'settings'    => 'login_logout_appearance_type',
             'label'       => esc_html__('Appearance', 'municipio'),
@@ -56,7 +56,7 @@ class LoginLogout
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'login_logout_color_scheme',
             'label'           => esc_html__('Color scheme', 'municipio'),
@@ -81,7 +81,7 @@ class LoginLogout
             ],
           ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'multicolor',
             'settings'        => 'header_login_logout_colors_active',
             'label'           => esc_html__('Custom colors user colors', 'municipio'),
@@ -125,7 +125,7 @@ class LoginLogout
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'color',
             'settings'        => 'header_login_logout_background_color',
             'label'           => esc_html__('Custom background color', 'municipio'),

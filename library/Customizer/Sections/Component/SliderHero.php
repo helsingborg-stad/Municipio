@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class SliderHero
 {
@@ -11,7 +11,7 @@ class SliderHero
         /**
          * Hero Slider container colour
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'hero_slider_container_color',
             'label'    => esc_html__('Container colour', 'municipio'),
@@ -36,7 +36,7 @@ class SliderHero
         /**
          * Hero Slider text alignment
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'hero_slider_text_alignment',
             'label'    => esc_html__('Text alignment', 'municipio'),
@@ -61,7 +61,7 @@ class SliderHero
         /**
          * Hero Slider overlay
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'hero_slider_coverlay',
             'label'    => esc_html__('Slide overlay', 'municipio'),

@@ -2,12 +2,10 @@
 
 namespace Municipio\Customizer;
 
-use Kirki\Util\Helper as KirkiHelper;
-
 class NativeFieldActiveCallback
 {
     /**
-     * Translate Kirki active callbacks to native Customizer active callbacks.
+    * Translate field active callbacks to native Customizer active callbacks.
      *
      * @param mixed $activeCallback Active callback from a field definition.
      *
@@ -57,7 +55,7 @@ class NativeFieldActiveCallback
             return false;
         }
 
-        return KirkiHelper::compare_values(
+        return ActiveCallbackComparator::compare(
             get_theme_mod($condition['setting']),
             $condition['value'] ?? null,
             $condition['operator'],

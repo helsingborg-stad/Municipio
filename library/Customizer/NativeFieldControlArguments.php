@@ -5,7 +5,7 @@ namespace Municipio\Customizer;
 class NativeFieldControlArguments
 {
     /**
-     * Build native control arguments from a Kirki-shaped field definition.
+     * Build native control arguments from a Customizer-shaped field definition.
      *
      * @param array $field Field configuration.
      *
@@ -36,7 +36,7 @@ class NativeFieldControlArguments
     }
 
     /**
-     * Map Kirki field types to native WordPress Customizer control types.
+     * Map Customizer field types to native WordPress Customizer control types.
      *
      * @param string $fieldType Field type.
      *

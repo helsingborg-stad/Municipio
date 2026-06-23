@@ -14,10 +14,10 @@
 		},
 	};
 
- const defaultOptions = {
-  align: "right",
-  margin: "none",
- };
+	const defaultOptions = {
+		align: "right",
+		margin: "none",
+	};
 
 	function updateValue(container) {
 		var valueInput = container.querySelector(".municipio-sortable-value");
@@ -45,7 +45,7 @@
 
 	function getHiddenStorage(container) {
 		var hiddenSettingName = getHiddenSettingName(container);
-		var hiddenSetting = wp.customize && wp.customize(hiddenSettingName);
+		var hiddenSetting = window.wp?.customize?.(hiddenSettingName);
 		var value = hiddenSetting ? hiddenSetting.get() : "{}";
 
 		if (!value || typeof value !== "string") {
@@ -54,14 +54,14 @@
 
 		try {
 			return JSON.parse(value) || {};
-		} catch (error) {
+		} catch {
 			return {};
 		}
 	}
 
 	function setHiddenStorage(container, storage) {
 		var hiddenSettingName = getHiddenSettingName(container);
-		var hiddenSetting = wp.customize && wp.customize(hiddenSettingName);
+		var hiddenSetting = window.wp?.customize?.(hiddenSettingName);
 
 		if (hiddenSetting) {
 			hiddenSetting.set(JSON.stringify(storage));
@@ -221,14 +221,19 @@
 	}
 
 	document.addEventListener("click", (event) => {
+		let container;
+		let item;
+		let list;
+		let selectedOptions;
+
 		if (event.target.matches(".municipio-sortable-picker__add")) {
-			var container = event.target.closest(".municipio-control--sortable");
-			var selectedOptions = Array.prototype.slice.call(
+			container = event.target.closest(".municipio-control--sortable");
+			selectedOptions = Array.prototype.slice.call(
 				container.querySelectorAll(
 					".municipio-sortable-picker__select option:checked:not(:disabled)",
 				),
 			);
-			var list = container.querySelector(".municipio-sortable-items");
+			list = container.querySelector(".municipio-sortable-items");
 
 			selectedOptions.forEach((option) => {
 				list.appendChild(createSortableItem(container, option.value, option.textContent.trim()));
@@ -239,8 +244,8 @@
 		}
 
 		if (event.target.matches(".municipio-sortable-remove")) {
-			var item = event.target.closest(".municipio-sortable-item");
-			var container = event.target.closest(".municipio-control--sortable");
+			item = event.target.closest(".municipio-sortable-item");
+			container = event.target.closest(".municipio-control--sortable");
 			item.remove();
 			updateValue(container);
 			return;

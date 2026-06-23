@@ -2,8 +2,8 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Helper\KirkiSwatches as KirkiSwatches;
-use Municipio\Customizer\KirkiField;
+use Municipio\Helper\ColorSwatches as ColorSwatches;
+use Municipio\Customizer\CustomizerField;
 
 class MegaMenu
 {
@@ -11,7 +11,7 @@ class MegaMenu
 
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'radio',
             'settings'    => 'mega_menu_appearance_type',
             'label'       => esc_html__('Appearance', 'municipio'),
@@ -25,7 +25,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'multicolor',
             'settings'        => 'mega_menu_custom_colors',
             'label'           => esc_html__('Custom colors', 'municipio'),
@@ -42,7 +42,7 @@ class MegaMenu
                 'subitem'    => '#000',
                 'background' => '#fff',
             ],
-            'palettes'        => KirkiSwatches::getColors(),
+            'palettes'        => ColorSwatches::getColors(),
             'output'          => [
                 [
                     'choice'   => 'heading',
@@ -69,7 +69,7 @@ class MegaMenu
                 ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_font',
             'label'           => esc_html__('Select font', 'municipio'),
@@ -95,7 +95,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_item_style',
             'label'           => esc_html__('Sets the style of the main items', 'municipio'),
@@ -126,7 +126,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_item_button_style',
             'label'           => esc_html__('Sets the style of the main items', 'municipio'),
@@ -163,7 +163,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_item_button_color',
             'label'           => esc_html__('Color of the button', 'municipio'),
@@ -203,7 +203,7 @@ class MegaMenu
         ]);
 
         // Child link styles
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_child_item_style',
             'label'           => esc_html__('Sets the style of the child items', 'municipio'),
@@ -234,7 +234,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_child_item_button_style',
             'label'           => esc_html__('Sets the style of the child buttons', 'municipio'),
@@ -271,7 +271,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_child_item_button_color',
             'label'           => esc_html__('Color of the child buttons', 'municipio'),
@@ -309,7 +309,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'select',
             'settings'        => 'mega_menu_color_scheme',
             'label'           => esc_html__('Color scheme', 'municipio'),
@@ -336,7 +336,7 @@ class MegaMenu
         ]);
 
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'mega_cover_page',
             'label'    => esc_html__('Cover full page', 'municipio'),
@@ -355,7 +355,7 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'switch',
             'settings' => 'mega_menu_mobile',
             'label'    => esc_html__('Show on mobile', 'municipio'),

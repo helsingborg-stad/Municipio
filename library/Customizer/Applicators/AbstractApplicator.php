@@ -2,10 +2,9 @@
 
 namespace Municipio\Customizer\Applicators;
 
-use Kirki\Compatibility\Kirki as KirkiCompatibility;
-use Kirki\Util\Helper as KirkiHelper;
 use Municipio\Customizer\NativeField;
 use Municipio\Customizer\PanelsRegistry;
+use Municipio\Customizer\ActiveCallbackComparator;
 
 abstract class AbstractApplicator
 {
@@ -22,23 +21,11 @@ abstract class AbstractApplicator
      */
     protected function getFields(): array
     {
-        $fields = [];
-
-        if (class_exists('\Kirki\Compatibility\Kirki', false)) {
-            $fields = array_merge(
-                KirkiCompatibility::$fields ?? [],
-                KirkiCompatibility::$all_fields ?? [],
-                $fields,
-            );
-        }
-
-        $fields = array_merge($fields, $this->getRegisteredFields());
-
-        return $fields;
+        return $this->getRegisteredFields();
     }
 
     /**
-     * Get field definitions registered outside Kirki.
+     * Get field definitions registered outside the native field registry.
      *
      * @return array
      */
@@ -71,15 +58,11 @@ abstract class AbstractApplicator
             return get_theme_mod($settingKey, $field['default'] ?? false);
         }
 
-        if (class_exists('\Kirki', false) && is_callable(['\Kirki', 'get_option'])) {
-            return call_user_func(['\Kirki', 'get_option'], $settingKey);
-        }
-
         return get_theme_mod($settingKey, $field['default'] ?? false);
     }
 
     /**
-     * Compare values using KirkiHelper.
+    * Compare values using Customizer active-callback operators.
      *
      * @param string $settingKey The setting key to compare.
      * @param mixed $value The value to compare.
@@ -92,11 +75,7 @@ abstract class AbstractApplicator
         $fields = $this->getFields();
         $settingKeyStoredValue = $this->getFieldValue($settingKey, $fields[$settingKey] ?? []);
 
-        return KirkiHelper::compare_values(
-            $settingKeyStoredValue,
-            $value,
-            $operator,
-        );
+        return ActiveCallbackComparator::compare($settingKeyStoredValue, $value, $operator);
     }
 
     /**

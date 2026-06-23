@@ -36,8 +36,8 @@ class NativeFieldTest extends TestCase
         PanelsRegistry::getInstance()->fields = [];
     }
 
-    #[TestDox('getSettingArguments maps Kirki-shaped settings to native Customizer setting arguments')]
-    public function testGetSettingArgumentsMapsKirkiShapedSettingsToNativeCustomizerSettingArguments(): void
+    #[TestDox('getSettingArguments maps Customizer-shaped settings to native Customizer setting arguments')]
+    public function testGetSettingArgumentsMapsCustomizerShapedSettingsToNativeCustomizerSettingArguments(): void
     {
         $arguments = NativeField::getSettingArguments([
             'type' => 'slider',
@@ -59,8 +59,8 @@ class NativeFieldTest extends TestCase
         $this->assertSame('{"item":true}', $hiddenArguments['sanitize_callback']('{"item":true}'));
     }
 
-    #[TestDox('getControlArguments maps Kirki slider fields to native number controls')]
-    public function testGetControlArgumentsMapsKirkiSliderFieldsToNativeNumberControls(): void
+    #[TestDox('getControlArguments maps Customizer slider fields to native number controls')]
+    public function testGetControlArgumentsMapsCustomizerSliderFieldsToNativeNumberControls(): void
     {
         $arguments = NativeField::getControlArguments([
             'type' => 'slider',
@@ -81,8 +81,8 @@ class NativeFieldTest extends TestCase
         $this->assertSame(['min' => 1, 'max' => 12, 'step' => 1], $arguments['input_attrs']);
     }
 
-    #[TestDox('getControlArguments maps Kirki code fields to native code editor controls')]
-    public function testGetControlArgumentsMapsKirkiCodeFieldsToNativeCodeEditorControls(): void
+    #[TestDox('getControlArguments maps Customizer code fields to native code editor controls')]
+    public function testGetControlArgumentsMapsCustomizerCodeFieldsToNativeCodeEditorControls(): void
     {
         $arguments = NativeField::getControlArguments([
             'type' => 'code',
@@ -121,8 +121,8 @@ class NativeFieldTest extends TestCase
         $this->assertSame('customize_register', $action[0]);
     }
 
-    #[TestDox('supports returns false for Kirki multi-select fields')]
-    public function testSupportsReturnsFalseForKirkiMultiSelectFields(): void
+    #[TestDox('supports returns false for Customizer multi-select fields')]
+    public function testSupportsReturnsFalseForMultiSelectFields(): void
     {
         $this->assertFalse(NativeField::supports([
             'type' => 'select',
@@ -131,8 +131,8 @@ class NativeFieldTest extends TestCase
         ]));
     }
 
-    #[TestDox('supports returns false for Kirki alpha color fields')]
-    public function testSupportsReturnsFalseForKirkiAlphaColorFields(): void
+    #[TestDox('supports returns false for Customizer alpha color fields')]
+    public function testSupportsReturnsFalseForAlphaColorFields(): void
     {
         $this->assertFalse(NativeField::supports([
             'type' => 'color',
@@ -148,8 +148,8 @@ class NativeFieldTest extends TestCase
         ]));
     }
 
-    #[TestDox('CustomField routes and sanitizes Kirki-only fields implemented by Municipio controls')]
-    public function testCustomFieldRoutesAndSanitizesKirkiOnlyFieldsImplementedByMunicipioControls(): void
+    #[TestDox('CustomField routes and sanitizes Customizer-only fields implemented by Municipio controls')]
+    public function testCustomFieldRoutesAndSanitizesCustomizerOnlyFieldsImplementedByMunicipioControls(): void
     {
         $this->assertTrue(CustomField::supports([
             'type' => 'multicheck',
@@ -175,7 +175,7 @@ class NativeFieldTest extends TestCase
             'settings' => 'custom_test_sortable',
         ]));
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'multicheck',
             'settings' => 'custom_routed_field',
             'section' => 'custom_test_section',
@@ -199,10 +199,10 @@ class NativeFieldTest extends TestCase
         );
     }
 
-    #[TestDox('KirkiField addField routes native-compatible fields through NativeField')]
-    public function testKirkiFieldAddFieldRoutesNativeCompatibleFieldsThroughNativeField(): void
+    #[TestDox('CustomizerField addField routes native-compatible fields through NativeField')]
+    public function testCustomizerFieldAddFieldRoutesNativeCompatibleFieldsThroughNativeField(): void
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'native_routed_field',
             'section' => 'native_test_section',

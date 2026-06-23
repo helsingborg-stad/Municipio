@@ -5,7 +5,7 @@ namespace Municipio\Customizer;
 class NativeFieldInputAttributes
 {
     /**
-     * Convert Kirki choice constraints to native input attributes.
+     * Convert field choice constraints to native input attributes.
      *
      * @param array $field Field configuration.
      *

@@ -47,7 +47,6 @@
     "league/config": "v1.2.0",
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "^0.4.0",
-    "helsingborg-stad/kirki": "^5.2",
     "helsingborg-stad/wputilservice": "^0.2.44",
     "helsingborg-stad/styleguide": "2.280.10",
     "firebase/php-jwt": "v7.1.0"
@@ -110,7 +109,6 @@
     }
   },
   "suggest": {
-    "helsingborg-stad/component-library": "Required for theme to work properly.",
-    "helsingborg-stad/kirki": "Required for theme to work properly."
+    "helsingborg-stad/component-library": "Required for theme to work properly."
   }
 }

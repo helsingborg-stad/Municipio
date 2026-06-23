@@ -1,6 +1,31 @@
-import { mediaSideload, MediaSideloadArgs } from "../restApi/endpoints/mediaSideload";
+import { mediaSideload } from "../restApi/endpoints/mediaSideload";
+import type { MediaSideloadArgs } from "../restApi/endpoints/mediaSideload";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
 import { scrubHexValue } from "../utils/scrubHexValue";
+
+type CustomizerSetting = {
+    id: string;
+    selector: string;
+    params: {
+        default?: unknown;
+        id: string;
+        section: string;
+        type?: string;
+        value?: unknown;
+    };
+    setting: {
+        set: (value: unknown) => void;
+    };
+    notifications: {
+        add: (code: string, notification: unknown) => void;
+    };
+}
+
+type CustomizerMods = Record<string, unknown>;
+
+function hasOwn(object: object, property: string): boolean {
+    return Object.hasOwn(object, property);
+}
 
 export async function handleMediaSideload(args: MediaSideloadArgs) {
     return mediaSideload
@@ -23,7 +48,7 @@ export function getExcludedSettingIds(): string[] {
     .entries(wp.customize.settings.controls)
     .map(([key]) => wp.customize.control(key))
     .filter(setting => setting !== undefined)
-    .filter(setting => setting.hasOwnProperty("params"))
+    .filter(setting => hasOwn(setting, "params"))
     .filter(setting => excludedSections.includes(setting.params.section))
     .map(setting => setting.id)
 }
@@ -34,19 +59,19 @@ export function getSettingsWithDefaultSetting() {
         .entries(wp.customize.settings.settings)
         .map(([key]) => wp.customize.control(key))
         .filter(setting => setting !== undefined)
-        .filter(setting => setting.hasOwnProperty("params"))
-        .filter(setting => setting.params.hasOwnProperty("default") && setting.params.hasOwnProperty("value"))
-        .filter(setting => setting.params.type !== "kirki-custom")
+        .filter(setting => hasOwn(setting, "params"))
+        .filter(setting => hasOwn(setting.params, "default") && hasOwn(setting.params, "value"))
+        .filter(setting => setting.params.type !== "custom")
         .filter(setting => !excludedSettingsIds.includes(setting.params.id))
 }
 
-export function resetSettingsToDefault(settings: any[]) {
+export function resetSettingsToDefault(settings: CustomizerSetting[]) {
     settings.forEach(setting => {
         wp.customize.control(setting.id).setting.set(setting.params.default);
     });
 }
 
-export function themeIdIsValid(id: any): id is string {
+export function themeIdIsValid(id: unknown): id is string {
     return typeof id === 'string' && id.length === 32;
 }
 
@@ -58,7 +83,7 @@ export async function getRemoteSiteDesignData(id: string) {
         });
 }
 
-export async function migrateRemoteMediaFile(value: string, control: any = null) {
+export async function migrateRemoteMediaFile(value: string, control: CustomizerSetting | null = null) {
     const sideloadedMedia = await handleMediaSideload({ url: value, return: 'src' });
 
     if (control && sideloadedMedia !== null) {
@@ -68,15 +93,15 @@ export async function migrateRemoteMediaFile(value: string, control: any = null)
     return sideloadedMedia
 }
 
-export function updateKirkiImageControl(control: any, value: string) {
-    const img = document.querySelector(`.control-section-kirki-default ${control.selector} .attachment-thumb`);
+export function updateCustomizerImageControl(control: CustomizerSetting, value: string) {
+    const img = document.querySelector(`${control.selector} .attachment-thumb, ${control.selector} img`);
     if (img !== null) {
         img.setAttribute('src', value);
     }
 }
 
 interface CustomizerNotificationProps {
-    setting: any,
+    setting: CustomizerSetting,
     code: string,
     message: string,
     type?: 'error' | 'warning' | 'notice'
@@ -87,8 +112,8 @@ export function showNotification(args: CustomizerNotificationProps) {
     args.setting.notifications.add(args.code, notification);
 }
 
-export async function getFormattedMods(mods: any, excludedSettings:string[]) {
-    let formattedMods: Record<string, any> = {}
+export async function getFormattedMods(mods: CustomizerMods, excludedSettings:string[]) {
+    const formattedMods: CustomizerMods = {}
 
 
     for (const [key, value] of Object.entries(mods)) {
@@ -111,7 +136,7 @@ export async function getFormattedMods(mods: any, excludedSettings:string[]) {
     return formattedMods
 }
 
-export async function importSettings(formattedMods: Record<string, any>, excludedSettings: string[]) {
+export async function importSettings(formattedMods: CustomizerMods, excludedSettings: string[]) {
     for (const [key, rawValue] of Object.entries(formattedMods)) {
 
         const control = wp.customize.control(key);
@@ -125,16 +150,16 @@ export async function importSettings(formattedMods: Record<string, any>, exclude
             continue;
         }
 
-        if (key.startsWith('custom_fonts')) {
+        if (key.startsWith('custom_fonts') && typeof value === 'string') {
             const fontName = key.match(/\[(.+)\]$/)
             if (fontName === null) continue;
             await handleMediaSideload({ url: value, description: fontName[1], return: 'id' })
         } else if (typeof control !== 'undefined') {
 
-            if (isRemoteMediaFile(value)) {
+            if (typeof value === 'string' && isRemoteMediaFile(value)) {
 
                 await migrateRemoteMediaFile(value, control)
-                updateKirkiImageControl(control, value);
+                updateCustomizerImageControl(control, value);
 
             } else {
                 const scrubbedValue = scrubHexValue(value);

@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 use Municipio\Customizer\NativeField;
 
 class Archive
@@ -27,7 +27,7 @@ class Archive
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'textarea',
             'settings' => 'archive_' . $archive->name . '_body',
             'label' => esc_html__('Archive lead text', 'municipio'),
@@ -41,7 +41,7 @@ class Archive
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'archive_' . $archive->name . '_style',
             'label' => esc_html__('Style', 'municipio'),
@@ -56,7 +56,7 @@ class Archive
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'archive_' . $archive->name . '_format',
             'label' => esc_html__('Format', 'municipio'),
@@ -81,7 +81,7 @@ class Archive
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'archive_' . $archive->name . '_display_featured_image',
             'label' => esc_html__('Display featured image', 'municipio'),
@@ -105,7 +105,7 @@ class Archive
                 ],
             ],
         ]);
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'slider',
             'settings' => 'archive_' . $archive->name . '_post_count',
             'label' => esc_html__('Number of posts to display', 'municipio'),
@@ -120,7 +120,7 @@ class Archive
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'slider',
             'settings' => 'archive_' . $archive->name . '_number_of_columns',
             'label' => esc_html__('Number of columns to display', 'municipio'),
@@ -148,7 +148,7 @@ class Archive
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'archive_' . $archive->name . '_display_openstreetmap',
             'label' => esc_html__('Display map', 'municipio'),
@@ -166,7 +166,7 @@ class Archive
                 ],
             ],
         ]);
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'archive_' . $archive->name . '_display_archive_loop',
             'label' => esc_html__('Keep the regular loop', 'municipio'),
@@ -191,7 +191,7 @@ class Archive
                 ],
             ],
         ]);
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'archive_' . $archive->name . '_display_google_maps_link',
             'label' => esc_html__('Display Google Maps-link', 'municipio'),
@@ -216,14 +216,14 @@ class Archive
                 ],
             ],
         ]);
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'archive_' . $archive->name . '_enabled_filters',
             'label' => esc_html__('Filters', 'municipio'),
             'description' => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
             'multiple' => 6,
             'section' => $sectionID,
-            // Below prevents Kirki bugg from using faulty default sanitize_callback.
+            // Below prevents legacy control bug from using faulty default sanitize_callback.
             'sanitize_callback' => fn($values) => $values,
             'default' => [],
             'choices' => array_merge(
@@ -242,7 +242,7 @@ class Archive
         ]);
         if (!empty($archive->taxonomies)) {
             foreach ($archive->taxonomies as $key => $label):
-                KirkiField::addField([
+                CustomizerField::addField([
                     'type' => 'select',
                     'settings' => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
                     'label' => $label,
@@ -269,7 +269,7 @@ class Archive
                 ]);
             endforeach;
         }
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'archive_' . $archive->name . '_filter_type',
             'label' => esc_html__('Facetting type', 'municipio'),
@@ -289,7 +289,7 @@ class Archive
         ]);
 
         if (!empty($archive->taxonomies)) {
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'select',
                 'settings' => 'archive_' . $archive->name . '_taxonomies_to_display',
                 'label' => esc_html__('Taxonomy display', 'municipio'),
@@ -297,7 +297,7 @@ class Archive
                 'multiple' => 4,
                 'section' => $sectionID,
                 'choices' => $archive->taxonomies,
-                // Below prevents Kirki bugg from using faulty default sanitize_callback.
+                // Below prevents legacy control bug from using faulty default sanitize_callback.
                 'sanitize_callback' => fn($values) => $values,
                 'output' => [
                     [
@@ -308,7 +308,7 @@ class Archive
             ]);
         }
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'archive_' . $archive->name . '_post_properties_to_display',
             'label' => esc_html__('Post properties to display', 'municipio'),
@@ -337,7 +337,7 @@ class Archive
         ]);
 
         if (!empty($archive->orderBy)) {
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'select',
                 'settings' => 'archive_' . $archive->name . '_order_by',
                 'label' => esc_html__('Order By', 'municipio'),
@@ -353,7 +353,7 @@ class Archive
                 ],
             ]);
 
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'select',
                 'settings' => 'archive_' . $archive->name . '_order_direction',
                 'label' => esc_html__('Order direction', 'municipio'),
@@ -374,7 +374,7 @@ class Archive
         }
 
         if (!empty($archive->dateSource)) {
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'select',
                 'settings' => 'archive_' . $archive->name . '_date_field',
                 'label' => esc_html__('Date', 'municipio'),
@@ -400,7 +400,7 @@ class Archive
                 ],
             ]);
 
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'select',
                 'settings' => 'archive_' . $archive->name . '_date_format',
                 'label' => esc_html__('Date format', 'municipio'),
@@ -432,7 +432,7 @@ class Archive
                 ],
             ]);
         }
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'archive_' . $archive->name . '_reading_time',
             'label' => esc_html__('Display reading time', 'municipio'),

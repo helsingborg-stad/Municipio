@@ -74,12 +74,12 @@ class Color
     {
         $colorPalettes = apply_filters('Municipio/Helper/Color/options', $options);
 
-        if (!class_exists('Kirki') || empty($colorPalettes)) {
+        if (empty($colorPalettes)) {
             return $colorPalettes;
         }
 
         foreach ($options as $option) {
-            $value = \Kirki::get_option($option);
+            $value = get_theme_mod($option);
             if (is_array($value) && !empty($value)) {
                 $colorPalettes[$option] = $value;
             }

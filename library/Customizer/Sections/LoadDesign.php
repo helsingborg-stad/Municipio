@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
 use Municipio\Helper\WpService as WpServiceHelper;
@@ -25,7 +25,7 @@ class LoadDesign
 
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => self::LOAD_DESIGN_KEY,
             'label' => esc_html__('Select a design', 'municipio'),
@@ -36,7 +36,7 @@ class LoadDesign
             'transport' => 'postMessage',
         ]);
 
-        KirkiField::addField(array(
+        CustomizerField::addField(array(
             'settings' => self::EXCLUDE_LOAD_DESIGN_KEY,
             'section' => $sectionID,
             'type' => 'select',
@@ -48,13 +48,13 @@ class LoadDesign
 
         // Disable info
         if (!$this->isBlogPublished()) {
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'divider',
                 'settings' => 'load_design_state_divider',
                 'section' => $sectionID,
             ]);
 
-            KirkiField::addField([
+            CustomizerField::addField([
                 'type' => 'headline',
                 'settings' => 'load_design_state',
                 'label' => esc_html__('Design Community is disabled', 'municipio'),
@@ -231,7 +231,7 @@ class LoadDesign
                     continue;
                 }
 
-                if ($this->hasKirkiField($key)) {
+                if ($this->hasCustomizerField($key)) {
                     $stack[$key] = $mod;
                 }
 
@@ -247,16 +247,15 @@ class LoadDesign
         return $stack;
     }
 
-    private function hasKirkiField(string $key): bool
+    private function hasCustomizerField(string $key): bool
     {
-        if (!class_exists('Kirki')) {
-            return false;
+        foreach (\Municipio\Customizer\PanelsRegistry::getInstance()->getRegisteredFields() as $field) {
+            if (($field['settings'] ?? null) === $key) {
+                return true;
+            }
         }
 
-        $kirkiClass = 'Kirki';
-        $allFields = $kirkiClass::$all_fields ?? null;
-
-        return is_array($allFields) && array_key_exists($key, $allFields);
+        return false;
     }
 
     private function getUploadedFontUrl(string $fontFamily = ''): ?string

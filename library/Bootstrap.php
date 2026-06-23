@@ -21,23 +21,6 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
 }
 
 /**
- * Load kirki source
- */
-$kirkiFilePaths = [
-    rtrim(ABSPATH, '/') . '/../vendor/kirki/kirki.php',
-    rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php',
-];
-
-foreach ($kirkiFilePaths as $kirkiFilePath) {
-    if (!file_exists($kirkiFilePath)) {
-        continue;
-    }
-
-    include_once $kirkiFilePath;
-    break;
-}
-
-/**
  * Public include
  */
 require_once MUNICIPIO_PATH . 'library/Public.php';

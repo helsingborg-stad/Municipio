@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Header;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Appearance
 {
@@ -14,7 +14,7 @@ class Appearance
             'secondary' => esc_html__('Secondary', 'municipio'),
         ];
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_background_upper',
             'label' => esc_html__('Color(upper)', 'municipio'),
@@ -39,7 +39,7 @@ class Appearance
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_background',
             'label' => esc_html__('Color', 'municipio'),
@@ -58,7 +58,7 @@ class Appearance
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_modifier',
             'label' => esc_html__('Style', 'municipio'),
@@ -81,7 +81,7 @@ class Appearance
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_width',
             'label' => esc_html__('Style', 'municipio'),
@@ -104,7 +104,7 @@ class Appearance
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_margin',
             'label' => esc_html__('Margin', 'municipio'),

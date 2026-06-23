@@ -36,8 +36,8 @@ class Sidebars
         if ('widgets.php' !== $page) {
             return;
         }
-        $footerStyle   = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style');
-        $footerColumns = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_columns');
+        $footerStyle   = get_theme_mod('footer_style');
+        $footerColumns = get_theme_mod('footer_columns');
         wp_enqueue_script(
             'widgets-area-hide-js',
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/widgets-area-hider.js')
@@ -101,7 +101,7 @@ class Sidebars
         /**
          * Create a total of 6 footer areas for use with the "columns" footer style
          */
-        $footerStyle    = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style') ?? 'basic';
+        $footerStyle    = get_theme_mod('footer_style', 'basic');
         $footerGridSize = $footerStyle === 'basic' ? 4 : 12;
         for ($i = 0; $i < 6; $i++) {
             $suffix = ($i !== 0 ? '-column-' . $i : '');

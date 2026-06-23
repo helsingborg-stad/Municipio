@@ -2,11 +2,9 @@
 
 namespace Municipio;
 
-use Kirki\Compatibility\Kirki;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
-use Municipio\Customizer\Applicators\Types\Css;
 use Municipio\Customizer\Applicators\Types\Modifier;
 use Municipio\Customizer\PanelsRegistry;
 use wpdb;
@@ -14,7 +12,7 @@ use WpService\WpService;
 
 class Customizer
 {
-    public const KIRKI_CONFIG = 'municipio_config';
+    public const CONFIG = 'municipio_config';
 
     public static $panels = array();
 
@@ -22,112 +20,28 @@ class Customizer
         private WpService $wpService,
         private wpdb $wpdb,
     ) {
-        //Load embedded kirki PRO
-        $this->loadEmbeddedKirkiPro();
-
-        //Kirki failed to load, handle
-        $this->wpService->addAction('init', [$this, 'initKirki'], 11);
+        $this->wpService->addAction('init', [$this, 'init'], 11);
 
         //Loads functionality to load a certain page for each expanded panel.
         $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'addPreviewPageSwitches']);
 
-        //Collects all panels view a preview url.
-        $this->wpService->addAction(
-            'kirki_section_added',
-            function ($id, $args) {
-                if (isset($args['preview_url']) && filter_var($args['preview_url'], FILTER_VALIDATE_URL)) {
-                    self::$panels[$id] = $args['preview_url'];
-                }
-            },
-            10,
-            2,
-        );
-
-        // Add filter to sanitize kirki default array values
-        $this->wpService->addFilter('kirki_get_value', [$this, 'kirkiGetValue'], 11, 3);
-        $this->wpService->addFilter('kirki_values_get_value', [$this, 'kirkiValuesGetValue'], 11, 2);
     }
 
     /**
-     * Initialize Kirki
-     *
-     * @return void
-     */
-    public function initKirki()
-    {
-        if (class_exists('Kirki')) {
-            return $this->init();
-        }
-
-        $this->wpService->wpDie(
-            $this->wpService->__('Kirki Customizer framework is required'),
-            $this->wpService->__('Plugin install required'),
-            [
-                'link_url' => 'https://github.com/helsingborg-stad/kirki',
-                'link_text' => $this->wpService->__('Install plugin', 'municipio'),
-            ],
-        );
-    }
-
-    /**
-     * Sanitize kirki default array values
-     *
-     * @param mixed $value
-     * @param string $option
-     * @param mixed $default
-     *
-     * @return mixed
-     */
-    public function kirkiGetValue($value, $option, $default)
-    {
-        return $this->sanitizeKirkiDefaultArrayValue($value, $default);
-    }
-
-    /**
-     * Get kirki values
-     *
-     * @param mixed $value
-     * @param string $field_id
-     *
-     * @return mixed
-     */
-    public function kirkiValuesGetValue($value, $field_id)
-    {
-        if (!isset(Kirki::$all_fields[$field_id])) {
-            return $value;
-        }
-
-        $field = Kirki::$all_fields[$field_id];
-        return $this->sanitizeKirkiDefaultArrayValue($value, $field['default'] ?? '');
-    }
-
-    /**
-     * Sanitize kirki default array values
+     * Sanitize default array values.
      *
      * @param mixed $value
      * @param mixed $default
      *
      * @return mixed
      */
-    public function sanitizeKirkiDefaultArrayValue($value, $default)
+    public function sanitizeDefaultArrayValue($value, $default)
     {
         if ($value === '' && is_array($default)) {
             return $default;
         }
 
         return $value;
-    }
-
-    /**
-     * Load embedded kirki
-     *
-     * @return void
-     */
-    public function loadEmbeddedKirkiPro()
-    {
-        if (function_exists('kirki_pro_load_controls')) {
-            kirki_pro_load_controls();
-        }
     }
 
     /**
@@ -159,13 +73,6 @@ class Customizer
      */
     public function init()
     {
-        Kirki::add_config(self::KIRKI_CONFIG, array(
-            'capability' => 'edit_theme_options',
-            'option_type' => 'theme_mod',
-            'gutenberg_support' => false,
-            'disable_output' => true,
-        ));
-
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();
 
@@ -181,7 +88,7 @@ class Customizer
      */
     public function initApplicators()
     {
-        $this->wpService->addAction('kirki_dynamic_css', [$this, 'applyApplicators'], 5);
+        $this->wpService->addAction('wp', [$this, 'applyApplicators'], 5);
         $this->wpService->addAction('rest_api_init', [$this, 'applyApplicators'], 5);
     }
 

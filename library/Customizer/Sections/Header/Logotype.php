@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Header;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Logotype
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'radio',
             'settings' => 'header_logotype',
             'label' => esc_html__('Header logotype', 'municipio'),
@@ -25,7 +25,7 @@ class Logotype
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'checkbox_switch',
             'settings' => 'header_brand_enabled',
             'label' => esc_html__('Header Logotype Text', 'municipio'),
@@ -40,7 +40,7 @@ class Logotype
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'textarea',
             'settings' => 'brand_text',
             'section' => $sectionID,
@@ -56,7 +56,7 @@ class Logotype
             ],
         ]);
 
-        KirkiField::addField(
+        CustomizerField::addField(
             [
                 'type' => 'color',
                 'settings' => 'header_brand_color',

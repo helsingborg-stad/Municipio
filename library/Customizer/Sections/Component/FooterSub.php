@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class FooterSub
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'multicolor',
             'settings'  => 'footer_subfooter_colors',
             'label'     => esc_html__('Colors', 'municipio'),
@@ -45,7 +45,7 @@ class FooterSub
             ]
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'select',
             'settings'  => 'footer_subfooter_logotype',
             'label'     => esc_html__('Logotype', 'municipio'),
@@ -63,7 +63,7 @@ class FooterSub
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'upload',
             'settings'        => 'footer_subfooter_custom_logotype',
             'label'           => esc_html__('Upload SVG logo', 'municipio'),
@@ -83,7 +83,7 @@ class FooterSub
             ]
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'slider',
             'settings'  => 'footer_subfooter_height_logotype',
             'label'     => esc_html__('Logotype height', 'municipio'),
@@ -103,7 +103,7 @@ class FooterSub
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'slider',
             'settings'  => 'footer_subfooter_padding',
             'label'     => esc_html__('Padding', 'municipio'),
@@ -123,7 +123,7 @@ class FooterSub
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'select',
             'settings'  => 'footer_subfooter_flex_direction',
             'label'     => esc_html__('Direction', 'municipio'),
@@ -152,7 +152,7 @@ class FooterSub
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'select',
             'settings'  => 'footer_subfooter_alignment',
             'label'     => esc_html__('Content alignment', 'municipio'),
@@ -182,7 +182,7 @@ class FooterSub
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'repeater',
             'settings'  => 'footer_subfooter_content',
             'label'     => esc_html__('Content', 'municipio'),

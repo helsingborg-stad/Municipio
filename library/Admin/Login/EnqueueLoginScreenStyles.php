@@ -17,7 +17,6 @@ class EnqueueLoginScreenStyles implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('login_head', [$this, 'renderCssVariables']);
-        $this->wpService->addAction('login_head', [$this, 'renderKirkiCssVariables']);
         $this->wpService->addAction('login_enqueue_scripts', [$this, 'enqueueStyles']);
     }
 
@@ -60,18 +59,6 @@ class EnqueueLoginScreenStyles implements Hookable
 
         // Output CSS variables
         echo sprintf('<style>:root {%s}</style>', $reduced);
-    }
-
-    /**
-     * Render Kirki CSS variables for the login page.
-     *
-     * @return void
-     */
-    public function renderKirkiCssVariables(): void
-    {
-        echo '<style>' . PHP_EOL;
-            do_action('kirki_dynamic_css');
-        echo '</style>' . PHP_EOL;
     }
 
     /**

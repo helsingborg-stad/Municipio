@@ -2,7 +2,7 @@
 	function getFields(container) {
 		try {
 			return JSON.parse(container.dataset.fields || "{}");
-		} catch (error) {
+		} catch {
 			return {};
 		}
 	}
@@ -57,8 +57,11 @@
 	}
 
 	document.addEventListener("click", (event) => {
+		let container;
+		let repeater;
+
 		if (event.target.matches(".municipio-repeater-add")) {
-			var container = event.target.closest(".municipio-control--repeater");
+			container = event.target.closest(".municipio-control--repeater");
 			container
 				.querySelector(".municipio-repeater-rows")
 				.appendChild(createRow(container));
@@ -67,7 +70,7 @@
 		}
 
 		if (event.target.matches(".municipio-repeater-remove")) {
-			var repeater = event.target.closest(".municipio-control--repeater");
+			repeater = event.target.closest(".municipio-control--repeater");
 			event.target.closest(".municipio-repeater-row").remove();
 			updateValue(repeater);
 		}

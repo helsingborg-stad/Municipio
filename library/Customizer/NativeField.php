@@ -12,7 +12,7 @@ class NativeField
     /**
      * Add a native WordPress Customizer field while keeping applicator metadata available.
      *
-     * @param array $field Field configuration using the same shape as KirkiField.
+     * @param array $field Field configuration using the same shape as CustomizerField.
      *
      * @return void
      */
@@ -64,7 +64,7 @@ class NativeField
     }
 
     /**
-     * Build native setting arguments from a Kirki-shaped field definition.
+     * Build native setting arguments from a Customizer-shaped field definition.
      *
      * @param array $field Field configuration.
      *
@@ -76,7 +76,7 @@ class NativeField
     }
 
     /**
-     * Build native control arguments from a Kirki-shaped field definition.
+     * Build native control arguments from a Customizer-shaped field definition.
      *
      * @param array $field Field configuration.
      *
@@ -156,7 +156,7 @@ class NativeFieldSupport
     }
 
     /**
-     * Determine if a select field depends on Kirki's multi-select behavior.
+     * Determine if a select field depends on multi-select behavior.
      *
      * @param array $field Field configuration.
      *
@@ -168,7 +168,7 @@ class NativeFieldSupport
     }
 
     /**
-     * Determine if a color field depends on Kirki alpha/rgba behavior.
+     * Determine if a color field depends on Customizer alpha/rgba behavior.
      *
      * @param array $field Field configuration.
      *

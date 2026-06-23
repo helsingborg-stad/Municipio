@@ -95,7 +95,7 @@ class Upgrade
         return true; //Return false to keep running this each time!
     }
 
-    // Migrate width from acf to kirki
+    // Migrate width from ACF to Customizer
     private function v_5($db): bool
     {
         //Move

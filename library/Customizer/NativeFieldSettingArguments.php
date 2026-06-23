@@ -5,7 +5,7 @@ namespace Municipio\Customizer;
 class NativeFieldSettingArguments
 {
     /**
-     * Build native setting arguments from a Kirki-shaped field definition.
+     * Build native setting arguments from a Customizer-shaped field definition.
      *
      * @param array $field Field configuration.
      *

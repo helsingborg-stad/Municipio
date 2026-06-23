@@ -42,7 +42,6 @@ const entries = {
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
 	"css/acf": "./assets/source/sass/admin/acf.scss",
-	"css/header-flexible": "./assets/source/sass/admin/header-flexible.scss",
 	"css/general": "./assets/source/sass/admin/general.scss",
 	"css/a11y": "./assets/source/sass/admin/a11y.scss",
 	"css/login": "./assets/source/sass/admin/login.scss",
@@ -90,8 +89,6 @@ const entries = {
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
 	"js/design-share": "./assets/source/js/admin/designShare.ts",
 	"js/customizer-preview": "./assets/source/js/admin/customizerPreview.js",
-	"js/customizer-flexible-header":
-		"./assets/source/js/admin/customizerFlexibleHeader.ts",
 	"js/customizer-uploaded-font-labels":
 		"./assets/source/js/admin/customizerUploadedFontLabels.ts",
 	"js/hidden-post-status-conditional":
@@ -117,7 +114,7 @@ export default defineConfig(({ mode }) => {
 				input: entries,
 				external: ["jquery", "tinymce"],
 				output: {
-					manualChunks: (id, { getModuleInfo, getModuleIds }) => {
+					manualChunks: () => {
 						// Force all modules to be inlined - don't create shared chunks
 						return null;
 					},
@@ -135,9 +132,6 @@ export default defineConfig(({ mode }) => {
 						if (assetInfo.name?.match(/\.(woff2?|ttf|eot|svg|otf)$/)) {
 							const name = assetInfo.name;
 							if (name.includes("material-symbols")) {
-								// Extract weight information from source path context
-								const source = assetInfo.source || "";
-
 								// Extract weight and style from filename
 								let weight = "medium"; // default
 								let style = "sharp"; // default

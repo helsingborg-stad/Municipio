@@ -15,6 +15,15 @@ function getFilenameFromPath(path: string): string {
 }
 
 function updateUploadedFontLabel(fileElement: Element): void {
+    if (fileElement instanceof HTMLInputElement) {
+        if (!fileElement.value.includes('/')) {
+            return
+        }
+
+        fileElement.value = getFilenameFromPath(fileElement.value)
+        return
+    }
+
     const iconElement = fileElement.querySelector('.dashicons')
     const rawText = (fileElement.textContent ?? '').trim()
 
@@ -33,7 +42,7 @@ function updateUploadedFontLabel(fileElement: Element): void {
 }
 
 function updateAllUploadedFontLabels(): void {
-    const selector = '#customize-control-municipio_font_catalog_uploaded_fonts .kirki-file-attachment .file'
+    const selector = '#customize-control-municipio_font_catalog_uploaded_fonts .municipio-repeater-field input[type="text"]'
     document.querySelectorAll(selector).forEach(updateUploadedFontLabel)
 }
 
@@ -45,7 +54,7 @@ export default (() => {
     wp.customize.bind('ready', () => {
         updateAllUploadedFontLabels()
 
-        // Repeater rows are added/updated dynamically by Kirki, so observe changes.
+        // Repeater rows are added/updated dynamically, so observe changes.
         const observer = new MutationObserver(() => updateAllUploadedFontLabels())
         observer.observe(document.body, { childList: true, subtree: true })
     })

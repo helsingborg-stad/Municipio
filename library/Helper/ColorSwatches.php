@@ -3,9 +3,9 @@
 namespace Municipio\Helper;
 
 /**
- * Class KirkiSwatches
+ * Class ColorSwatches
  */
-class KirkiSwatches
+class ColorSwatches
 {
     /**
      * Cached color swatches.

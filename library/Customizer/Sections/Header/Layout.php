@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Header;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Layout
 {
@@ -15,11 +15,11 @@ class Layout
 
     private function buildFlexibleTab($sectionID): void
     {
-        KirkiField::addField(
+        CustomizerField::addField(
             [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_upper',
-                'label' => __('Upper main area', 'kirki'),
+                'label' => __('Upper main area', 'municipio'),
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
@@ -39,11 +39,11 @@ class Layout
             ],
         );
 
-        KirkiField::addField(
+        CustomizerField::addField(
             [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_lower',
-                'label' => __('Lower main area', 'kirki'),
+                'label' => __('Lower main area', 'municipio'),
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
@@ -63,7 +63,7 @@ class Layout
             ],
         );
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'checkbox_switch',
             'settings' => 'header_enable_responsive_order',
             'label' => esc_html__('Enable responsive order', 'municipio'),
@@ -86,11 +86,11 @@ class Layout
             ],
         ]);
 
-        KirkiField::addField(
+        CustomizerField::addField(
             [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_upper_responsive',
-                'label' => __('Upper main area (Responsive)', 'kirki'),
+                'label' => __('Upper main area (Responsive)', 'municipio'),
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
@@ -115,11 +115,11 @@ class Layout
             ],
         );
 
-        KirkiField::addField(
+        CustomizerField::addField(
             [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_lower_responsive',
-                'label' => __('Lower main area (Responsive)', 'kirki'),
+                'label' => __('Lower main area (Responsive)', 'municipio'),
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
@@ -144,7 +144,7 @@ class Layout
             ],
         );
 
-        KirkiField::addField(
+        CustomizerField::addField(
             [
                 'type' => 'hidden',
                 'settings' => 'header_sortable_hidden_storage',
@@ -164,7 +164,7 @@ class Layout
 
     private function buildGeneralTab($sectionID): void
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_apperance',
             'label' => esc_html__('Apperance', 'municipio'),
@@ -182,7 +182,7 @@ class Layout
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_sticky',
             'label' => esc_html__('Sticky', 'municipio'),
@@ -209,7 +209,7 @@ class Layout
 
     private function buildStandardTab($sectionID): void
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'casual_header_alignment',
             'label' => esc_html__('Menu alignment', 'municipio'),
@@ -237,7 +237,7 @@ class Layout
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'business_header_alignment',
             'label' => esc_html__('Menu alignment', 'municipio'),

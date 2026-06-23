@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class FooterMain
 {
@@ -11,7 +11,7 @@ class FooterMain
         /**
          * Main footer settings
          */
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'footer_style',
             'label' => esc_html__('Footer style', 'municipio'),
@@ -30,7 +30,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'slider',
             'settings' => 'footer_padding',
             'label' => esc_html__('Padding', 'municipio'),
@@ -50,7 +50,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'footer_logotype',
             'label' => esc_html__('Logotype', 'municipio'),
@@ -67,7 +67,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'footer_logotype_alignment',
             'label' => esc_html__('Logotype alignment', 'municipio'),
@@ -87,7 +87,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'footer_text_alignment',
             'label' => esc_html__('Text alignment', 'municipio'),
@@ -114,7 +114,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'pre_footer_text_alignment',
             'label' => esc_html__('Pre-footer Text alignment', 'municipio'),
@@ -140,7 +140,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'checkbox_switch',
             'settings' => 'footer_header_border',
             'label' => esc_html__('Footer header border', 'municipio'),
@@ -148,8 +148,8 @@ class FooterMain
             'section' => $sectionID,
             'default' => 'off',
             'choices' => [
-                'on' => esc_html__('Enable', 'kirki'),
-                'off' => esc_html__('Disable', 'kirki'),
+                'on' => esc_html__('Enable', 'municipio'),
+                'off' => esc_html__('Disable', 'municipio'),
             ],
             'output' => [
                 [
@@ -162,7 +162,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'slider',
             'settings' => 'footer_header_border_size',
             'label' => esc_html__('Footer header border size', 'municipio'),
@@ -191,7 +191,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'color',
             'settings' => 'footer_header_border_color',
             'label' => esc_html__('Footer header border color', 'municipio'),
@@ -214,7 +214,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'slider',
             'settings' => 'footer_columns',
             'label' => esc_html__('Number of columns to display', 'municipio'),
@@ -241,7 +241,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'color',
             'settings' => 'footer_color_text',
             'label' => esc_html__('Text color', 'municipio'),
@@ -257,7 +257,7 @@ class FooterMain
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'background',
             'settings' => 'footer_background',
             'label' => esc_html__('Footer background', 'municipio'),

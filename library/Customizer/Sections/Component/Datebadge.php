@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Datebadge
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'datebadge_color_settings',
             'label'       => esc_html__('Datebadge color', 'municipio'),

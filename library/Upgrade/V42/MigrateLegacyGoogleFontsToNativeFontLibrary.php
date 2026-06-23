@@ -8,10 +8,10 @@ use Closure;
 use WpService\WpService;
 
 /**
- * Detects previously used Kirki Google fonts and installs them through
+ * Detects previously used legacy Google fonts and installs them through
  * WordPress' native font collection data.
  */
-class MigrateKirkiFontsToNativeFontLibrary
+class MigrateLegacyGoogleFontsToNativeFontLibrary
 {
     use InteractsWithNativeFontLibrary;
 
@@ -20,9 +20,9 @@ class MigrateKirkiFontsToNativeFontLibrary
         return $this->wpService;
     }
 
-    public const MIGRATION_SETTING = 'municipio_native_font_library_kirki_fonts_migrated';
-    public const ACTIVATION_SETTING = 'municipio_native_font_library_kirki_fonts_activated';
-    public const LOCAL_INSTALL_SETTING = 'municipio_native_font_library_kirki_fonts_locally_installed';
+    public const MIGRATION_SETTING = 'municipio_native_font_library_legacy_google_fonts_migrated';
+    public const ACTIVATION_SETTING = 'municipio_native_font_library_legacy_google_fonts_activated';
+    public const LOCAL_INSTALL_SETTING = 'municipio_native_font_library_legacy_google_fonts_locally_installed';
     public const LEGACY_GOOGLE_FONTS_SETTING = 'municipio_font_catalog_google_fonts';
 
     /**

@@ -14,7 +14,7 @@ class CustomField
     /**
      * Add a Municipio custom Customizer field while keeping applicator metadata available.
      *
-     * @param array $field Field configuration using the same shape as KirkiField.
+     * @param array $field Field configuration using the same shape as CustomizerField.
      *
      * @return void
      */

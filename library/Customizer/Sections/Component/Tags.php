@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Tags
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'tags_style_settings',
             'label'       => esc_html__('Tag styling', 'municipio'),
@@ -34,7 +34,7 @@ class Tags
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'tags_markings_style',
             'label'       => esc_html__('Tag icon', 'municipio'),
@@ -60,7 +60,7 @@ class Tags
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'slider',
             'settings'    => 'tags_compress',
             'label'       => esc_html__('Compress tags', 'municipio'),
