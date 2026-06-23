@@ -49,14 +49,14 @@ class SortableControl extends WP_Customize_Control
             <?php endif; ?>
             <input type="hidden" class="municipio-sortable-value" value="<?php echo esc_attr(wp_json_encode($selectedValues)); ?>" <?php $this->link(); ?> />
             <div class="municipio-sortable-picker">
-                <select class="municipio-sortable-picker__select" multiple size="<?php echo esc_attr((string) min(6, max(3, count($orderedChoices)))); ?>">
+                <select class="municipio-sortable-picker__select">
+                    <option value=""><?php esc_html_e('Select value', 'municipio'); ?></option>
                     <?php foreach ($orderedChoices as $choiceValue => $choiceLabel): ?>
                         <option value="<?php echo esc_attr((string) $choiceValue); ?>" <?php disabled(in_array((string) $choiceValue, $selectedValues, true)); ?>>
                             <?php echo esc_html((string) $choiceLabel); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <button type="button" class="button municipio-sortable-picker__add"><?php esc_html_e('Add selected', 'municipio'); ?></button>
             </div>
             <ul class="municipio-sortable-items">
                 <?php foreach ($orderedChoices as $choiceValue => $choiceLabel): ?>
@@ -64,12 +64,12 @@ class SortableControl extends WP_Customize_Control
                         continue;
                     } ?>
                     <li class="municipio-sortable-item" data-sortable-value="<?php echo esc_attr((string) $choiceValue); ?>" data-sortable-label="<?php echo esc_attr((string) $choiceLabel); ?>">
-                        <button type="button" class="municipio-sortable-item__handle" aria-label="<?php esc_attr_e('Move item', 'municipio'); ?>"></button>
+                        <span class="municipio-sortable-item__handle" data-tooltip="<?php esc_attr_e('Drag to reorder', 'municipio'); ?>" aria-hidden="true"></span>
                         <span class="municipio-sortable-item__label"><?php echo esc_html((string) $choiceLabel); ?></span>
                         <div class="municipio-sortable-item__actions">
-                            <button type="button" class="button button-small municipio-sortable-option" data-sortable-option="align" data-sortable-values="left,center,right"></button>
-                            <button type="button" class="button button-small municipio-sortable-option" data-sortable-option="margin" data-sortable-values="none,left,right,both"></button>
-                            <button type="button" class="button-link-delete municipio-sortable-remove"><?php esc_html_e('Remove', 'municipio'); ?></button>
+                            <button type="button" class="button button-small municipio-sortable-option municipio-sortable-option--align" data-sortable-option="align" data-sortable-values="left,center,right"><span class="dashicons municipio-sortable-action__icon municipio-sortable-option__icon" aria-hidden="true"></span></button>
+                            <button type="button" class="button button-small municipio-sortable-option municipio-sortable-option--margin" data-sortable-option="margin" data-sortable-values="none,left,right,both"><span class="dashicons municipio-sortable-action__icon municipio-sortable-option__icon" aria-hidden="true"></span></button>
+                            <button type="button" class="button button-small municipio-sortable-remove" data-tooltip="<?php esc_attr_e('Remove', 'municipio'); ?>" aria-label="<?php esc_attr_e('Remove', 'municipio'); ?>"><span class="dashicons dashicons-trash municipio-sortable-action__icon" aria-hidden="true"></span></button>
                         </div>
                     </li>
                 <?php endforeach; ?>

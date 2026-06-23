@@ -152,7 +152,6 @@ class Layout
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
-                'transport' => 'postMessage',
                 'output' => [
                     [
                         'type' => 'controller',

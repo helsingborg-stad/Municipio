@@ -3,9 +3,9 @@ export type CustomizerSetting = {
 	set: (value: string) => void;
 };
 
-export type WordPressCustomizer = {
-	(settingName: string): CustomizerSetting | undefined;
-};
+export type WordPressCustomizer = (
+	settingName: string,
+) => CustomizerSetting | undefined;
 
 export type WordPressI18n = {
 	__: (text: string, domain?: string) => string;
@@ -21,7 +21,21 @@ export type JQueryCollection = {
 		change?: () => void;
 		clear?: () => void;
 	}) => void;
-	sortable?: (options: { handle: string; update: () => void }) => void;
+	sortable?: (
+		options:
+			| {
+					axis?: "x" | "y";
+					cancel?: string;
+					distance?: number;
+					forcePlaceholderSize?: boolean;
+					handle: string;
+					items?: string;
+					placeholder?: string;
+					tolerance?: "intersect" | "pointer";
+					update: () => void;
+			  }
+			| "refresh",
+	) => void;
 };
 
 export type JQueryFactory = {
@@ -62,7 +76,9 @@ export function readJsonObject(value: string | null | undefined): JsonObject {
 
 	try {
 		const parsedValue = JSON.parse(value);
-		return parsedValue !== null && typeof parsedValue === "object" && !Array.isArray(parsedValue)
+		return parsedValue !== null &&
+			typeof parsedValue === "object" &&
+			!Array.isArray(parsedValue)
 			? parsedValue
 			: {};
 	} catch {
