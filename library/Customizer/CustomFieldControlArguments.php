@@ -21,6 +21,7 @@ class CustomFieldControlArguments
                 'choices' => $field['choices'] ?? [],
                 'input_attrs' => [
                     'fields' => $field['fields'] ?? [],
+                    'multiple' => $field['multiple'] ?? false,
                 ],
                 'field' => $field,
             ],

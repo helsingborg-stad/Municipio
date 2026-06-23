@@ -79,7 +79,8 @@ const entries = {
 	/* Kulturkortet */
 	"js/kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/js/index.ts",
 	"css/kulturkortetQR": "./library/Kulturkortet/QRCodeViewer/css/index.scss",
-	"css/kulturkortetProfileEditor": "./library/Kulturkortet/ProfileEditor/css/index.scss",
+	"css/kulturkortetProfileEditor":
+		"./library/Kulturkortet/ProfileEditor/css/index.scss",
 
 	/* Chat */
 	"js/chat": "./library/Chat/js/index.ts",
@@ -98,6 +99,7 @@ const entries = {
 	"js/widgets-area-hider": "./assets/source/js/admin/widgetsAreaHider.js",
 	"js/customizer-error-handling":
 		"./assets/source/js/admin/customizerErrorHandling.ts",
+	"js/customizer-controls": "./library/Customizer/Controls/index.ts",
 	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
 	"js/event-source-progress":
 		"./assets/source/js/admin/eventSourceProgress/index.ts",

@@ -6,7 +6,7 @@ use Municipio\Customizer\CustomizerPanel;
 
 class DesignLibrary
 {
-    public const PANEL_ID = "municipio_customizer_panel_designlib";
+    public const PANEL_ID = 'municipio_customizer_panel_designlib';
 
     public function __construct()
     {

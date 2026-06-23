@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Controls\Background;
 
+use Municipio\Customizer\Controls\CustomizerControlAssets;
 use WP_Customize_Control;
 
 class BackgroundControl extends WP_Customize_Control
@@ -29,13 +30,7 @@ class BackgroundControl extends WP_Customize_Control
      */
     public function enqueue(): void
     {
-        wp_enqueue_script(
-            'municipio-customizer-background',
-            get_template_directory_uri() . '/library/Customizer/Controls/Background/BackgroundControl.js',
-            ['customize-controls'],
-            null,
-            true,
-        );
+        CustomizerControlAssets::enqueueScript();
 
         wp_enqueue_style(
             'municipio-customizer-background',
@@ -52,7 +47,7 @@ class BackgroundControl extends WP_Customize_Control
     {
         $values = $this->getValues();
         ?>
-        <div class="municipio-control municipio-control--background">
+        <municipio-background-control class="municipio-control municipio-control--background">
             <?php if (!empty($this->label)): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
             <?php endif; ?>
@@ -66,7 +61,7 @@ class BackgroundControl extends WP_Customize_Control
                     <?php $this->renderField($fieldKey, $fieldType, (string) ($values[$fieldKey] ?? '')); ?>
                 </label>
             <?php endforeach; ?>
-        </div>
+        </municipio-background-control>
         <?php
     }
 

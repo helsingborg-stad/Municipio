@@ -138,7 +138,7 @@ class CustomFieldSupport
      */
     private static function isMultipleSelect(array $field): bool
     {
-        return ($field['multiple'] ?? false) === true;
+        return isset($field['multiple']) && $field['multiple'] !== false && $field['multiple'] !== 0 && $field['multiple'] !== '0';
     }
 
     /**

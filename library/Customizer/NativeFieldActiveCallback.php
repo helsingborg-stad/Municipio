@@ -5,7 +5,7 @@ namespace Municipio\Customizer;
 class NativeFieldActiveCallback
 {
     /**
-    * Translate field active callbacks to native Customizer active callbacks.
+     * Translate field active callbacks to native Customizer active callbacks.
      *
      * @param mixed $activeCallback Active callback from a field definition.
      *

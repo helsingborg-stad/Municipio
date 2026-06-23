@@ -1,3 +1,7 @@
+.municipio-control--repeater {
+	display: block;
+}
+
 .municipio-repeater-row {
 	border: 1px solid #dcdcde;
 	margin-bottom: 10px;

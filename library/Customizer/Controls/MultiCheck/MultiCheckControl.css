@@ -1,3 +1,7 @@
+.municipio-control--multicheck {
+	display: block;
+}
+
 .municipio-multicheck-options {
 	margin: 0;
 }

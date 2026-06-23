@@ -16,6 +16,7 @@ use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolve
 class Archive extends \Municipio\Controller\BaseController
 {
     private ?AsyncAttributesProviderInterface $asyncAttributesProvider = null;
+
     /**
      * Initializes the Archive controller.
      *
@@ -39,13 +40,13 @@ class Archive extends \Municipio\Controller\BaseController
 
         // Initialize async attributes provider using factory
         $asyncAttributesProviderFactory = new AsyncAttributesProviderFactory(
-            new AppearanceConfigFactory()
+            new AppearanceConfigFactory(),
         );
         $this->asyncAttributesProvider = $asyncAttributesProviderFactory->createForArchive(
             $postType,
             $this->data['archiveProps'],
             $this->wpService,
-            $GLOBALS['wp_taxonomies']
+            $GLOBALS['wp_taxonomies'],
         );
 
         //Archive data
@@ -94,10 +95,29 @@ class Archive extends \Municipio\Controller\BaseController
         $customizationKey = 'archive' . self::camelCasePostTypeName($postType);
 
         if (isset($customize->{$customizationKey})) {
-            return (object) $customize->{$customizationKey};
+            return (object) $this->normalizeArchiveProperties((array) $customize->{$customizationKey});
         }
 
         return (object) [];
+    }
+
+    /**
+     * Normalize archive properties that must always be arrays.
+     *
+     * @param array $properties Archive customizer properties.
+     * @return array
+     */
+    private function normalizeArchiveProperties(array $properties): array
+    {
+        foreach (['enabledFilters', 'taxonomiesToDisplay', 'postPropertiesToDisplay'] as $propertyKey) {
+            if (!array_key_exists($propertyKey, $properties)) {
+                continue;
+            }
+
+            $properties[$propertyKey] = is_array($properties[$propertyKey]) ? $properties[$propertyKey] : array_values(array_filter([(string) $properties[$propertyKey]], static fn(string $value): bool => $value !== ''));
+        }
+
+        return $properties;
     }
 
     /**

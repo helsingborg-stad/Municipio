@@ -1,0 +1,47 @@
+.municipio-control--multiselect {
+	display: block;
+}
+
+.municipio-multiselect-picker {
+	display: grid;
+	gap: 8px;
+	grid-template-columns: minmax(0, 1fr) auto;
+	margin-bottom: 10px;
+}
+
+.municipio-multiselect-picker__select {
+	width: 100%;
+}
+
+.municipio-multiselect-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 0;
+}
+
+.municipio-multiselect-pill {
+	align-items: center;
+	background: #f0f0f1;
+	border: 1px solid #c3c4c7;
+	border-radius: 999px;
+	display: inline-flex;
+	gap: 6px;
+	margin: 0;
+	max-width: 100%;
+	padding: 3px 8px;
+}
+
+.municipio-multiselect-pill__label {
+	overflow-wrap: anywhere;
+}
+
+.municipio-multiselect-pill__remove {
+	appearance: none;
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	font-size: 16px;
+	line-height: 1;
+	padding: 0;
+}

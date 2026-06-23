@@ -129,6 +129,12 @@ class NativeFieldTest extends TestCase
             'settings' => 'native_test_multi_select',
             'multiple' => true,
         ]));
+
+        $this->assertFalse(NativeField::supports([
+            'type' => 'select',
+            'settings' => 'native_test_numeric_multi_select',
+            'multiple' => 6,
+        ]));
     }
 
     #[TestDox('supports returns false for Customizer alpha color fields')]
@@ -160,6 +166,12 @@ class NativeFieldTest extends TestCase
             'type' => 'select',
             'settings' => 'custom_test_multi_select',
             'multiple' => true,
+        ]));
+
+        $this->assertTrue(CustomField::supports([
+            'type' => 'select',
+            'settings' => 'custom_test_numeric_multi_select',
+            'multiple' => 6,
         ]));
 
         $this->assertTrue(CustomField::supports([

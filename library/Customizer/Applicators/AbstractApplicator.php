@@ -2,9 +2,9 @@
 
 namespace Municipio\Customizer\Applicators;
 
+use Municipio\Customizer\ActiveCallbackComparator;
 use Municipio\Customizer\NativeField;
 use Municipio\Customizer\PanelsRegistry;
-use Municipio\Customizer\ActiveCallbackComparator;
 
 abstract class AbstractApplicator
 {
@@ -62,7 +62,7 @@ abstract class AbstractApplicator
     }
 
     /**
-    * Compare values using Customizer active-callback operators.
+     * Compare values using Customizer active-callback operators.
      *
      * @param string $settingKey The setting key to compare.
      * @param mixed $value The value to compare.

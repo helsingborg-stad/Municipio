@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Controls\Repeater;
 
+use Municipio\Customizer\Controls\CustomizerControlAssets;
 use WP_Customize_Control;
 
 class RepeaterControl extends WP_Customize_Control
@@ -20,13 +21,7 @@ class RepeaterControl extends WP_Customize_Control
      */
     public function enqueue(): void
     {
-        wp_enqueue_script(
-            'municipio-customizer-repeater',
-            get_template_directory_uri() . '/library/Customizer/Controls/Repeater/RepeaterControl.js',
-            ['customize-controls'],
-            null,
-            true,
-        );
+        CustomizerControlAssets::enqueueScript();
 
         wp_enqueue_style(
             'municipio-customizer-repeater',
@@ -44,7 +39,7 @@ class RepeaterControl extends WP_Customize_Control
         $rows = $this->getRows();
         $fields = $this->getFields();
         ?>
-        <div class="municipio-control municipio-control--repeater" data-fields="<?php echo esc_attr(wp_json_encode($fields)); ?>">
+        <municipio-repeater-control class="municipio-control municipio-control--repeater" data-fields="<?php echo esc_attr(wp_json_encode($fields)); ?>">
             <?php if (!empty($this->label)): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
             <?php endif; ?>
@@ -58,7 +53,7 @@ class RepeaterControl extends WP_Customize_Control
                 <?php endforeach; ?>
             </div>
             <button type="button" class="button municipio-repeater-add"><?php esc_html_e('Add row', 'municipio'); ?></button>
-        </div>
+        </municipio-repeater-control>
         <?php
     }
 

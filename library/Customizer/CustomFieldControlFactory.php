@@ -9,6 +9,7 @@ use Municipio\Customizer\Controls\Divider\DividerControl;
 use Municipio\Customizer\Controls\Headline\HeadlineControl;
 use Municipio\Customizer\Controls\MultiCheck\MultiCheckControl;
 use Municipio\Customizer\Controls\MultiColor\MultiColorControl;
+use Municipio\Customizer\Controls\MultiSelect\MultiSelectControl;
 use Municipio\Customizer\Controls\Repeater\RepeaterControl;
 use WP_Customize_Manager;
 
@@ -22,6 +23,7 @@ class CustomFieldControlFactory
         'headline' => HeadlineControl::class,
         'multicheck' => MultiCheckControl::class,
         'multicolor' => MultiColorControl::class,
+        'multiselect' => MultiSelectControl::class,
         'repeater' => RepeaterControl::class,
         'sortable' => '\\Municipio\\Customizer\\Controls\\Sortable\\SortableControl',
     ];
@@ -67,8 +69,8 @@ class CustomFieldControlFactory
      */
     private static function getControlType(array $field): string
     {
-        if (($field['type'] ?? '') === 'select' && ($field['multiple'] ?? false) === true) {
-            return 'multicheck';
+        if (($field['type'] ?? '') === 'select' && self::hasMultipleValues($field)) {
+            return 'multiselect';
         }
 
         if (($field['type'] ?? '') === 'color') {
@@ -76,5 +78,17 @@ class CustomFieldControlFactory
         }
 
         return (string) ($field['type'] ?? '');
+    }
+
+    /**
+     * Determine if a field stores multiple selected values.
+     *
+     * @param array $field Field configuration.
+     *
+     * @return bool
+     */
+    private static function hasMultipleValues(array $field): bool
+    {
+        return isset($field['multiple']) && $field['multiple'] !== false && $field['multiple'] !== 0 && $field['multiple'] !== '0';
     }
 }

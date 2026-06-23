@@ -24,7 +24,6 @@ class Customizer
 
         //Loads functionality to load a certain page for each expanded panel.
         $this->wpService->addAction('customize_controls_enqueue_scripts', [$this, 'addPreviewPageSwitches']);
-
     }
 
     /**

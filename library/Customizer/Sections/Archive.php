@@ -223,8 +223,6 @@ class Archive
             'description' => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
             'multiple' => 6,
             'section' => $sectionID,
-            // Below prevents legacy control bug from using faulty default sanitize_callback.
-            'sanitize_callback' => fn($values) => $values,
             'default' => [],
             'choices' => array_merge(
                 [
@@ -297,8 +295,6 @@ class Archive
                 'multiple' => 4,
                 'section' => $sectionID,
                 'choices' => $archive->taxonomies,
-                // Below prevents legacy control bug from using faulty default sanitize_callback.
-                'sanitize_callback' => fn($values) => $values,
                 'output' => [
                     [
                         'type' => 'controller',

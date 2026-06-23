@@ -20,22 +20,19 @@ class Color
      */
     public static function prepareColor(array $colorItem)
     {
-        $colorItem['alpha'] = "1";
+        $colorItem['alpha'] = '1';
 
-        if (
-            isset($colorItem['value']) && is_array($colorItem['value']) ||
-            isset($colorItem['default']) && is_array($colorItem['default'])
-        ) {
-            $defaultColor = !empty($colorItem['default']['color']) ? $colorItem['default']['color'] : "";
-            $defaultAlpha = !empty($colorItem['default']['alpha']) ? $colorItem['default']['alpha'] :  "1";
+        if (isset($colorItem['value']) && is_array($colorItem['value']) || isset($colorItem['default']) && is_array($colorItem['default'])) {
+            $defaultColor = !empty($colorItem['default']['color']) ? $colorItem['default']['color'] : '';
+            $defaultAlpha = !empty($colorItem['default']['alpha']) ? $colorItem['default']['alpha'] : '1';
 
             if (!empty($colorItem['value'])) {
                 $setColor = array_values($colorItem['value'])[0] ?? '';
-                $setAlpha = array_values($colorItem['value'])[1] ?? "1";
+                $setAlpha = array_values($colorItem['value'])[1] ?? '1';
             }
 
             $colorItem['value'] = !empty($setColor) ? $setColor : $defaultColor;
-            $colorItem['alpha'] = isset($setAlpha) && $setAlpha == "0" || !empty($setAlpha) ? $setAlpha : $defaultAlpha;
+            $colorItem['alpha'] = isset($setAlpha) && $setAlpha == '0' || !empty($setAlpha) ? $setAlpha : $defaultAlpha;
         } else {
             return false;
         }
@@ -50,7 +47,7 @@ class Color
     private static function convertHexToRgba($value, $alpha, $default)
     {
         $value = !empty($value) ? $value : $default;
-        $value = sscanf($value, "#%02x%02x%02x");
+        $value = sscanf($value, '#%02x%02x%02x');
         return "rgba({$value[0]}, {$value[1]}, {$value[2]}, $alpha)";
     }
 
@@ -69,7 +66,7 @@ class Color
         'color_palette_secondary',
         'color_palette_complement',
         'color_background',
-        'color_palette_monotone'
+        'color_palette_monotone',
     ])
     {
         $colorPalettes = apply_filters('Municipio/Helper/Color/options', $options);
@@ -104,14 +101,12 @@ class Color
         $l = $l < 0.5 ? 0.95 : 0.05;
         [$rNew, $gNew, $bNew] = self::hslToRgb($h, $s, $l);
 
-        return sprintf("#%02x%02x%02x", $rNew, $gNew, $bNew);
+        return sprintf('#%02x%02x%02x', $rNew, $gNew, $bNew);
     }
 
     private static function getContrastRatio(float $lum1, float $lum2): float
     {
-        return ($lum1 > $lum2)
-            ? ($lum1 + 0.05) / ($lum2 + 0.05)
-            : ($lum2 + 0.05) / ($lum1 + 0.05);
+        return $lum1 > $lum2 ? ($lum1 + 0.05) / ($lum2 + 0.05) : ($lum2 + 0.05) / ($lum1 + 0.05);
     }
 
     private static function getRelativeLuminance(int $r, int $g, int $b): float
@@ -121,16 +116,14 @@ class Color
             return $c <= 0.03928 ? $c / 12.92 : pow(($c + 0.055) / 1.055, 2.4);
         }, [$r, $g, $b]);
 
-        return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+        return (0.2126 * $r) + (0.7152 * $g) + (0.0722 * $b);
     }
 
     private static function hexToRgb(string $hex): array
     {
         $hex = ltrim($hex, '#');
         if (strlen($hex) === 3) {
-            $hex = $hex[0] . $hex[0]
-                 . $hex[1] . $hex[1]
-                 . $hex[2] . $hex[2];
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
         }
 
         return [
@@ -156,13 +149,13 @@ class Color
 
             switch ($max) {
                 case $r:
-                    $h = ($g - $b) / $d + ($g < $b ? 6 : 0);
+                    $h = (($g - $b) / $d) + ($g < $b ? 6 : 0);
                     break;
                 case $g:
-                    $h = ($b - $r) / $d + 2;
+                    $h = (($b - $r) / $d) + 2;
                     break;
                 case $b:
-                    $h = ($r - $g) / $d + 4;
+                    $h = (($r - $g) / $d) + 4;
                     break;
             }
 
@@ -181,23 +174,28 @@ class Color
             return [$val, $val, $val];
         }
 
-        $q = $l < 0.5 ? $l * (1 + $s) : $l + $s - $l * $s;
-        $p = 2 * $l - $q;
+        $q = $l < 0.5 ? $l * (1 + $s) : $l + $s - ($l * $s);
+        $p = (2 * $l) - $q;
 
         return [
-            round(self::hue2rgb($p, $q, $h + 1/3) * 255),
+            round(self::hue2rgb($p, $q, $h + (1 / 3)) * 255),
             round(self::hue2rgb($p, $q, $h) * 255),
-            round(self::hue2rgb($p, $q, $h - 1/3) * 255)
+            round(self::hue2rgb($p, $q, $h - (1 / 3)) * 255),
         ];
     }
 
     private static function hue2rgb(float $p, float $q, float $t): float
     {
-        if ($t < 0) $t += 1;
-        if ($t > 1) $t -= 1;
-        if ($t < 1/6) return $p + ($q - $p) * 6 * $t;
-        if ($t < 1/2) return $q;
-        if ($t < 2/3) return $p + ($q - $p) * (2/3 - $t) * 6;
+        if ($t < 0)
+            $t += 1;
+        if ($t > 1)
+            $t -= 1;
+        if ($t < (1 / 6))
+            return $p + (($q - $p) * 6 * $t);
+        if ($t < (1 / 2))
+            return $q;
+        if ($t < (2 / 3))
+            return $p + (($q - $p) * ((2 / 3) - $t) * 6);
         return $p;
     }
 }

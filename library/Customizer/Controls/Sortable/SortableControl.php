@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Controls\Sortable;
 
+use Municipio\Customizer\Controls\CustomizerControlAssets;
 use WP_Customize_Control;
 
 class SortableControl extends WP_Customize_Control
@@ -20,13 +21,7 @@ class SortableControl extends WP_Customize_Control
      */
     public function enqueue(): void
     {
-        wp_enqueue_script(
-            'municipio-customizer-sortable',
-            get_template_directory_uri() . '/library/Customizer/Controls/Sortable/SortableControl.js',
-            ['customize-controls', 'jquery-ui-sortable', 'wp-i18n'],
-            null,
-            true,
-        );
+        CustomizerControlAssets::enqueueScript();
 
         wp_enqueue_style(
             'municipio-customizer-sortable',
@@ -43,9 +38,9 @@ class SortableControl extends WP_Customize_Control
     {
         $selectedValues = $this->getSelectedValues();
         $orderedChoices = $this->getOrderedChoices($selectedValues);
-        $baseSettingId  = $this->getBaseSettingId();
+        $baseSettingId = $this->getBaseSettingId();
         ?>
-        <div class="municipio-control municipio-control--sortable" data-sortable-setting="<?php echo esc_attr($this->id); ?>" data-sortable-base-setting="<?php echo esc_attr($baseSettingId); ?>" data-sortable-hidden-setting="header_sortable_hidden_storage">
+        <municipio-sortable-control class="municipio-control municipio-control--sortable" data-sortable-setting="<?php echo esc_attr($this->id); ?>" data-sortable-base-setting="<?php echo esc_attr($baseSettingId); ?>" data-sortable-hidden-setting="header_sortable_hidden_storage">
             <?php if ($this->label !== ''): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
             <?php endif; ?>
@@ -79,7 +74,7 @@ class SortableControl extends WP_Customize_Control
                     </li>
                 <?php endforeach; ?>
             </ul>
-        </div>
+        </municipio-sortable-control>
         <?php
     }
 

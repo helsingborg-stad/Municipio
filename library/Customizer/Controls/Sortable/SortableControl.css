@@ -1,3 +1,7 @@
+.municipio-control--sortable {
+	display: block;
+}
+
 .municipio-sortable-items {
 	margin: 0;
 }

@@ -1,61 +1,62 @@
 function getFilenameFromPath(path: string): string {
-    const normalizedPath = path.split('?')[0].split('#')[0]
-    const segments = normalizedPath.split('/')
-    const candidate = segments[segments.length - 1] ?? ''
+	const normalizedPath = path.split("?")[0].split("#")[0];
+	const segments = normalizedPath.split("/");
+	const candidate = segments[segments.length - 1] ?? "";
 
-    if (candidate === '') {
-        return path
-    }
+	if (candidate === "") {
+		return path;
+	}
 
-    try {
-        return decodeURIComponent(candidate)
-    } catch {
-        return candidate
-    }
+	try {
+		return decodeURIComponent(candidate);
+	} catch {
+		return candidate;
+	}
 }
 
 function updateUploadedFontLabel(fileElement: Element): void {
-    if (fileElement instanceof HTMLInputElement) {
-        if (!fileElement.value.includes('/')) {
-            return
-        }
+	if (fileElement instanceof HTMLInputElement) {
+		if (!fileElement.value.includes("/")) {
+			return;
+		}
 
-        fileElement.value = getFilenameFromPath(fileElement.value)
-        return
-    }
+		fileElement.value = getFilenameFromPath(fileElement.value);
+		return;
+	}
 
-    const iconElement = fileElement.querySelector('.dashicons')
-    const rawText = (fileElement.textContent ?? '').trim()
+	const iconElement = fileElement.querySelector(".dashicons");
+	const rawText = (fileElement.textContent ?? "").trim();
 
-    if (rawText === '' || !rawText.includes('/')) {
-        return
-    }
+	if (rawText === "" || !rawText.includes("/")) {
+		return;
+	}
 
-    const filename = getFilenameFromPath(rawText)
+	const filename = getFilenameFromPath(rawText);
 
-    if (iconElement) {
-        fileElement.innerHTML = `${iconElement.outerHTML} ${filename}`
-        return
-    }
+	if (iconElement) {
+		fileElement.innerHTML = `${iconElement.outerHTML} ${filename}`;
+		return;
+	}
 
-    fileElement.textContent = filename
+	fileElement.textContent = filename;
 }
 
 function updateAllUploadedFontLabels(): void {
-    const selector = '#customize-control-municipio_font_catalog_uploaded_fonts .municipio-repeater-field input[type="text"]'
-    document.querySelectorAll(selector).forEach(updateUploadedFontLabel)
+	const selector =
+		'#customize-control-municipio_font_catalog_uploaded_fonts .municipio-repeater-field input[type="text"]';
+	document.querySelectorAll(selector).forEach(updateUploadedFontLabel);
 }
 
 export default (() => {
-    if (!wp.customize) {
-        return
-    }
+	if (!wp.customize) {
+		return;
+	}
 
-    wp.customize.bind('ready', () => {
-        updateAllUploadedFontLabels()
+	wp.customize.bind("ready", () => {
+		updateAllUploadedFontLabels();
 
-        // Repeater rows are added/updated dynamically, so observe changes.
-        const observer = new MutationObserver(() => updateAllUploadedFontLabels())
-        observer.observe(document.body, { childList: true, subtree: true })
-    })
+		// Repeater rows are added/updated dynamically, so observe changes.
+		const observer = new MutationObserver(() => updateAllUploadedFontLabels());
+		observer.observe(document.body, { childList: true, subtree: true });
+	});
 })();

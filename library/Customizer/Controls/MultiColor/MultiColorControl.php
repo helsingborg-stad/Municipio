@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Controls\MultiColor;
 
+use Municipio\Customizer\Controls\CustomizerControlAssets;
 use WP_Customize_Control;
 
 class MultiColorControl extends WP_Customize_Control
@@ -21,13 +22,7 @@ class MultiColorControl extends WP_Customize_Control
     public function enqueue(): void
     {
         wp_enqueue_style('wp-color-picker');
-        wp_enqueue_script(
-            'municipio-customizer-multicolor',
-            get_template_directory_uri() . '/library/Customizer/Controls/MultiColor/MultiColorControl.js',
-            ['customize-controls', 'wp-color-picker'],
-            null,
-            true,
-        );
+        CustomizerControlAssets::enqueueScript();
 
         wp_enqueue_style(
             'municipio-customizer-multicolor',
@@ -44,7 +39,7 @@ class MultiColorControl extends WP_Customize_Control
     {
         $values = $this->getValues();
         ?>
-        <div class="municipio-control municipio-control--multicolor">
+        <municipio-multicolor-control class="municipio-control municipio-control--multicolor">
             <?php if (!empty($this->label)): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
             <?php endif; ?>
@@ -58,7 +53,7 @@ class MultiColorControl extends WP_Customize_Control
                     <input type="text" class="municipio-multicolor-input" data-choice="<?php echo esc_attr((string) $choiceValue); ?>" value="<?php echo esc_attr((string) ($values[$choiceValue] ?? '')); ?>" />
                 </label>
             <?php endforeach; ?>
-        </div>
+        </municipio-multicolor-control>
         <?php
     }
 

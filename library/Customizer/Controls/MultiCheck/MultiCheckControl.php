@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Controls\MultiCheck;
 
+use Municipio\Customizer\Controls\CustomizerControlAssets;
 use WP_Customize_Control;
 
 class MultiCheckControl extends WP_Customize_Control
@@ -20,13 +21,7 @@ class MultiCheckControl extends WP_Customize_Control
      */
     public function enqueue(): void
     {
-        wp_enqueue_script(
-            'municipio-customizer-multicheck',
-            get_template_directory_uri() . '/library/Customizer/Controls/MultiCheck/MultiCheckControl.js',
-            ['customize-controls'],
-            null,
-            true,
-        );
+        CustomizerControlAssets::enqueueScript();
 
         wp_enqueue_style(
             'municipio-customizer-multicheck',
@@ -43,16 +38,15 @@ class MultiCheckControl extends WP_Customize_Control
     {
         $selectedValues = $this->getSelectedValues();
         ?>
-        <label class="municipio-control municipio-control--multicheck">
+        <municipio-multicheck-control class="municipio-control municipio-control--multicheck">
             <?php if (!empty($this->label)): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
             <?php endif; ?>
             <?php if (!empty($this->description)): ?>
                 <span class="description customize-control-description"><?php echo esc_html($this->description); ?></span>
             <?php endif; ?>
-        </label>
-        <input type="hidden" class="municipio-multicheck-value" value="<?php echo esc_attr(wp_json_encode($selectedValues)); ?>" <?php $this->link(); ?> />
-        <ul class="municipio-multicheck-options">
+            <input type="hidden" class="municipio-multicheck-value" value="<?php echo esc_attr(wp_json_encode($selectedValues)); ?>" <?php $this->link(); ?> />
+            <ul class="municipio-multicheck-options">
             <?php foreach ($this->choices as $choiceValue => $choiceLabel): ?>
                 <li class="municipio-multicheck-options__item">
                     <label>
@@ -61,7 +55,8 @@ class MultiCheckControl extends WP_Customize_Control
                     </label>
                 </li>
             <?php endforeach; ?>
-        </ul>
+            </ul>
+        </municipio-multicheck-control>
         <?php
     }
 

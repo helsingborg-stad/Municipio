@@ -164,7 +164,7 @@ class NativeFieldSupport
      */
     private static function isMultipleSelect(array $field): bool
     {
-        return ($field['type'] ?? null) === 'select' && ($field['multiple'] ?? false) === true;
+        return ($field['type'] ?? null) === 'select' && isset($field['multiple']) && $field['multiple'] !== false && $field['multiple'] !== 0 && $field['multiple'] !== '0';
     }
 
     /**
