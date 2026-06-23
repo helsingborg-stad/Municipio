@@ -50,6 +50,13 @@ class NativeFieldTest extends TestCase
         $this->assertSame(7, $arguments['default']);
         $this->assertSame('postMessage', $arguments['transport']);
         $this->assertSame('absint', $arguments['sanitize_callback']);
+
+        $hiddenArguments = NativeField::getSettingArguments([
+            'type' => 'hidden',
+        ]);
+
+        $this->assertIsCallable($hiddenArguments['sanitize_callback']);
+        $this->assertSame('{"item":true}', $hiddenArguments['sanitize_callback']('{"item":true}'));
     }
 
     #[TestDox('getControlArguments maps Kirki slider fields to native number controls')]
@@ -133,6 +140,11 @@ class NativeFieldTest extends TestCase
             'choices' => [
                 'alpha' => true,
             ],
+        ]));
+
+        $this->assertTrue(NativeField::supports([
+            'type' => 'hidden',
+            'settings' => 'native_test_hidden',
         ]));
     }
 

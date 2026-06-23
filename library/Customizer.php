@@ -169,9 +169,7 @@ class Customizer
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();
 
-        //Define Typography Customizer
-        new \Municipio\Customizer\Controls\Typography();
-
+        //Build panels and sections
         PanelsRegistry::getInstance()->build();
     }
 
@@ -220,7 +218,6 @@ class Customizer
             new Controller($this->wpService),
             new Modifier($this->wpService),
             new Component($this->wpService),
-            //new Css($this->wpService),
         ];
     }
 

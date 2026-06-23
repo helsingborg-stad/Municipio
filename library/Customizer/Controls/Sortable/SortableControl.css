@@ -2,19 +2,34 @@
 	margin: 0;
 }
 
+.municipio-sortable-picker {
+	display: grid;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.municipio-sortable-picker__select {
+	width: 100%;
+}
+
 .municipio-sortable-item {
 	align-items: center;
 	background: #fff;
 	border: 1px solid #dcdcde;
-	display: flex;
+	display: grid;
 	gap: 8px;
+	grid-template-columns: 20px minmax(0, 1fr);
 	margin: 0 0 8px;
 	padding: 8px;
 }
 
 .municipio-sortable-item__handle {
+	appearance: none;
+	background: transparent;
+	border: 0;
 	cursor: move;
 	height: 18px;
+	padding: 0;
 	position: relative;
 	width: 12px;
 }
@@ -24,4 +39,21 @@
 	content: "\2630";
 	font-size: 14px;
 	line-height: 18px;
+}
+
+.municipio-sortable-item__label {
+	font-weight: 600;
+	min-width: 0;
+}
+
+.municipio-sortable-item__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	grid-column: 2;
+}
+
+.municipio-sortable-option {
+	min-width: 72px;
+	text-align: center;
 }

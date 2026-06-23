@@ -39,6 +39,7 @@ class NativeFieldSettingArguments
             'checkbox_switch' => static fn($value): bool => (bool) $value,
             'code' => static fn($value): string => (string) $value,
             'color' => 'sanitize_hex_color',
+            'hidden' => static fn($value): string => (string) $value,
             'switch' => static fn($value): bool => (bool) $value,
             'toggle' => static fn($value): bool => (bool) $value,
             'number' => 'absint',

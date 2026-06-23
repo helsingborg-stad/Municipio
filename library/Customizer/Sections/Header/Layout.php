@@ -146,16 +146,13 @@ class Layout
 
         KirkiField::addField(
             [
-                'type' => 'code',
+                'type' => 'hidden',
                 'settings' => 'header_sortable_hidden_storage',
-                'label' => __('Hidden', 'kirki'),
+                'label' => '',
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
                 'transport' => 'postMessage',
-                'choices' => [
-                    'language' => 'js',
-                ],
                 'output' => [
                     [
                         'type' => 'controller',

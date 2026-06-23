@@ -121,25 +121,8 @@ class Enqueue implements Hookable
     {
         $this->enqueue->add('js/design-share.js', ['jquery', 'customize-controls']);
 
-        $this->enqueue
-            ->add('js/customizer-flexible-header.js', ['jquery', 'customize-controls'])
-            ->with()
-            ->translation('FlexibleHeaderSettings', [
-                'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
-                'lang' => [
-                    'alignment' => __('Alignment', 'municipio'),
-                    'margin' => __('Margin', 'municipio'),
-                    'left' => __('Left', 'municipio'),
-                    'right' => __('Right', 'municipio'),
-                    'both' => __('Both', 'municipio'),
-                    'none' => __('None', 'municipio'),
-                ],
-            ]);
-
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
-
-        $this->enqueue->add('css/header-flexible.css');
     }
 
     /**

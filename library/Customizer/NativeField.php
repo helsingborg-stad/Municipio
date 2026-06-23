@@ -122,6 +122,7 @@ class NativeFieldSupport
         'code',
         'color',
         'email',
+        'hidden',
         'image',
         'number',
         'radio',
