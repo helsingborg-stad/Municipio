@@ -322,21 +322,29 @@ class PanelsRegistry
                 CustomizerPanelSection::create()
                     ->setID('municipio_customizer_section_error_401')
                     ->setTitle(esc_html__('401 Unauthorized', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_401', 401)),
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_401', 401))
+                    ->setPreviewUrl(self::getErrorPagePreviewUrl('401')),
             )
             ->addSection(
                 CustomizerPanelSection::create()
                     ->setID('municipio_customizer_section_error_403')
                     ->setTitle(esc_html__('403 Forbidden', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_403', 403)),
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_403', 403))
+                    ->setPreviewUrl(self::getErrorPagePreviewUrl('403')),
             )
             ->addSection(
                 CustomizerPanelSection::create()
                     ->setID('municipio_customizer_section_error_404')
                     ->setTitle(esc_html__('404 Not found', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_404', 404)),
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_404', 404))
+                    ->setPreviewUrl(self::getErrorPagePreviewUrl('404')),
             )
             ->register();
+    }
+
+    private static function getErrorPagePreviewUrl(string $type): string
+    {
+        return add_query_arg('municipio_error_preview', $type, home_url('/'));
     }
 
     /* Menu panel */
