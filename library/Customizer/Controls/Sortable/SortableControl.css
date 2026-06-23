@@ -2,6 +2,16 @@
 	display: block;
 }
 
+li.customize-control-municipio_sortable {
+	background: #fff;
+	border: 1px solid #0000003b;
+	border-radius: 16px;
+	box-shadow: 0 0 5px rgb(0 0 0 / 9%);
+	box-sizing: border-box;
+	corner-shape: squircle;
+	padding: 10px;
+}
+
 .municipio-sortable-items {
 	margin: 0;
 }
@@ -62,8 +72,9 @@
 }
 
 .municipio-sortable-item__actions {
+	align-items: center;
 	display: flex;
-	gap: 6px;
+	gap: 4px;
 }
 
 .municipio-sortable-item__actions .button.municipio-sortable-option,

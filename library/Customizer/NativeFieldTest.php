@@ -187,6 +187,11 @@ class NativeFieldTest extends TestCase
             'settings' => 'custom_test_sortable',
         ]));
 
+        $this->assertTrue(CustomField::supports([
+            'type' => 'tab_box',
+            'settings' => 'custom_test_tab_box',
+        ]));
+
         CustomizerField::addField([
             'type' => 'multicheck',
             'settings' => 'custom_routed_field',

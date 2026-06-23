@@ -5,6 +5,7 @@ import { MultiColorControlElement } from "./MultiColor/MultiColorControl";
 import { MultiSelectControlElement } from "./MultiSelect/MultiSelectControl";
 import { RepeaterControlElement } from "./Repeater/RepeaterControl";
 import { SortableControlElement } from "./Sortable/SortableControl";
+import { TabBoxControlElement } from "./TabBox/TabBoxControl";
 
 new ControlOrchestrator([
 	{
@@ -25,4 +26,5 @@ new ControlOrchestrator([
 	},
 	{ tagName: "municipio-repeater-control", element: RepeaterControlElement },
 	{ tagName: "municipio-sortable-control", element: SortableControlElement },
+	{ tagName: "municipio-tab-box-control", element: TabBoxControlElement },
 ]).register();

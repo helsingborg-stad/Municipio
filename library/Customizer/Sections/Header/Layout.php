@@ -17,6 +17,40 @@ class Layout
     {
         CustomizerField::addField(
             [
+                'type' => 'tab_box',
+                'settings' => 'header_flexible_device_tabs',
+                'label' => __('Header order', 'municipio'),
+                'section' => $sectionID,
+                'priority' => 9,
+                'tab' => 'flexible',
+                'choices' => [
+                    'desktop' => [
+                        'label' => __('Desktop', 'municipio'),
+                        'controls' => [
+                            'header_sortable_section_main_upper',
+                            'header_sortable_section_main_lower',
+                        ],
+                    ],
+                    'mobile' => [
+                        'label' => __('Mobile', 'municipio'),
+                        'controls' => [
+                            'header_sortable_section_main_upper_responsive',
+                            'header_sortable_section_main_lower_responsive',
+                        ],
+                    ],
+                ],
+                'active_callback' => [
+                    [
+                        'setting' => 'header_apperance',
+                        'operator' => '==',
+                        'value' => 'flexible',
+                    ],
+                ],
+            ],
+        );
+
+        CustomizerField::addField(
+            [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_upper',
                 'label' => __('Upper main area', 'municipio'),
@@ -63,44 +97,16 @@ class Layout
             ],
         );
 
-        CustomizerField::addField([
-            'type' => 'checkbox_switch',
-            'settings' => 'header_enable_responsive_order',
-            'label' => esc_html__('Enable responsive order', 'municipio'),
-            'description' => esc_html__('Enables a different order of the menu items for mobile devices.', 'municipio'),
-            'section' => $sectionID,
-            'default' => false,
-            'tab' => 'flexible',
-            'active_callback' => [
-                [
-                    'setting' => 'header_apperance',
-                    'operator' => '==',
-                    'value' => 'flexible',
-                ],
-            ],
-            'output' => [
-                [
-                    'type' => 'controller',
-                    'as_object' => false,
-                ],
-            ],
-        ]);
-
         CustomizerField::addField(
             [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_upper_responsive',
-                'label' => __('Upper main area (Responsive)', 'municipio'),
+                'label' => __('Upper main area', 'municipio'),
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
                 'choices' => $this->buildFlexibleMainLowerSection(),
                 'active_callback' => [
-                    [
-                        'setting' => 'header_enable_responsive_order',
-                        'operator' => '==',
-                        'value' => true,
-                    ],
                     [
                         'setting' => 'header_apperance',
                         'operator' => '==',
@@ -119,17 +125,12 @@ class Layout
             [
                 'type' => 'sortable',
                 'settings' => 'header_sortable_section_main_lower_responsive',
-                'label' => __('Lower main area (Responsive)', 'municipio'),
+                'label' => __('Lower main area', 'municipio'),
                 'section' => $sectionID,
                 'priority' => 10,
                 'tab' => 'flexible',
                 'choices' => $this->buildFlexibleMainLowerSection(),
                 'active_callback' => [
-                    [
-                        'setting' => 'header_enable_responsive_order',
-                        'operator' => '==',
-                        'value' => true,
-                    ],
                     [
                         'setting' => 'header_apperance',
                         'operator' => '==',

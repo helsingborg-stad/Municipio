@@ -11,6 +11,7 @@ use Municipio\Customizer\Controls\MultiCheck\MultiCheckControl;
 use Municipio\Customizer\Controls\MultiColor\MultiColorControl;
 use Municipio\Customizer\Controls\MultiSelect\MultiSelectControl;
 use Municipio\Customizer\Controls\Repeater\RepeaterControl;
+use Municipio\Customizer\Controls\TabBox\TabBoxControl;
 use WP_Customize_Manager;
 
 class CustomFieldControlFactory
@@ -26,6 +27,7 @@ class CustomFieldControlFactory
         'multiselect' => MultiSelectControl::class,
         'repeater' => RepeaterControl::class,
         'sortable' => '\\Municipio\\Customizer\\Controls\\Sortable\\SortableControl',
+        'tab_box' => TabBoxControl::class,
     ];
 
     /**

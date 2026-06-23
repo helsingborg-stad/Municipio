@@ -1,0 +1,49 @@
+.municipio-control--tab-box {
+    display: block;
+}
+
+.municipio-tab-box {
+    background: #f0f0f1;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: grid;
+    gap: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    margin-top: 8px;
+    padding: 2px;
+}
+
+.municipio-tab-box__tab {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: #2c3338;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.4;
+    min-height: 32px;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+.municipio-tab-box__tab:hover,
+.municipio-tab-box__tab:focus {
+    color: #1d2327;
+}
+
+.municipio-tab-box__tab:focus-visible {
+    box-shadow: 0 0 0 2px #2271b1;
+    outline: 2px solid transparent;
+}
+
+.municipio-tab-box__tab.is-active {
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+    color: #1d2327;
+}

@@ -105,6 +105,7 @@ class CustomFieldSupport
         'repeater',
         'select',
         'sortable',
+        'tab_box',
     ];
 
     /**

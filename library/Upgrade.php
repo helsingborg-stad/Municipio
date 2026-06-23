@@ -9,6 +9,7 @@ use Municipio\Helper\AcfService;
 use Municipio\Helper\WpService;
 use Municipio\SchemaData\Config\SchemaDataConfigService;
 use Municipio\Upgrade\V43\Version43 as UpgradeVersion43;
+use Municipio\Upgrade\V44\Version44 as UpgradeVersion44;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetPostTypes;
@@ -22,7 +23,7 @@ use WpService\Contracts\SetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion = 43; //The db version we want to achive
+    private $dbVersion = 44; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -718,6 +719,10 @@ class Upgrade
      */
     public function v_37($db)
     {
+        if (!class_exists(\Municipio\Customizer\Applicators\ApplicatorCache::class)) {
+            return true;
+        }
+
         $applicators = [
             new NullApplicator($this->wpService),
         ];
@@ -827,6 +832,23 @@ class Upgrade
     public function v_43(): bool
     {
         $version = new UpgradeVersion43(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 44
+     */
+    public function v_44(): bool
+    {
+        $version = new UpgradeVersion44(WpService::get());
 
         try {
             $version->upgradeToVersion();

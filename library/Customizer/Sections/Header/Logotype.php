@@ -55,23 +55,6 @@ class Logotype
                 ],
             ],
         ]);
-
-        CustomizerField::addField(
-            [
-                'type' => 'color',
-                'settings' => 'header_brand_color',
-                'label' => __('Header LogoType Text: Color ', 'municipio'),
-                'section' => $sectionID,
-                'active_callback' => $this->getHeaderBrandEnabledActiveCallback(),
-                'default' => '#000000',
-                'output' => [
-                    [
-                        'element' => ':root',
-                        'property' => '--c-header-brand-color',
-                    ],
-                ],
-            ],
-        );
     }
 
     private function getHeaderBrandEnabledActiveCallback(): array
