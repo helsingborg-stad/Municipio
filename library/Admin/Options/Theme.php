@@ -69,11 +69,11 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
-                'page_title' => __('Custom CSS/JS Editor', 'municipio'),
-                'menu_title' => __('Custom CSS/JS', 'municipio'),
+                'page_title' => __('Custom JavaScript Editor', 'municipio'),
+                'menu_title' => __('Custom JavaScript', 'municipio'),
                 'parent_slug' => $themeOptionsParent,
                 'capability' => $themeOptionsCapability,
-                'menu_slug' => 'acf-options-css',
+                'menu_slug' => 'acf-options-javascript',
             ));
 
             acf_add_options_sub_page(array(

@@ -96,6 +96,8 @@ const entries = {
 	"js/widgets-area-hider": "./assets/source/js/admin/widgetsAreaHider.js",
 	"js/customizer-error-handling":
 		"./assets/source/js/admin/customizerErrorHandling.ts",
+	"js/customizer-uploaded-font-labels":
+		"./assets/source/js/admin/customizerUploadedFontLabels.ts",
 	"js/customizer-controls": "./library/Customizer/Controls/index.ts",
 	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
 	"js/event-source-progress":

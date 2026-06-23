@@ -2,7 +2,6 @@
 
 namespace Municipio\Theme;
 
-use Municipio\Helper\CacheBust;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -38,7 +37,6 @@ class Enqueue implements Hookable
             [$this, 'enqueueCustomizerScriptsAndStyles'],
             999,
         );
-        $this->wpService->addAction('customize_preview_init', [$this, 'enqueueCustomizerPreviewScripts']);
         $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
         $this->wpService->addFilter('style_loader_src', [$this, 'removeScriptVersion'], 15, 1);
         $this->wpService->addFilter('the_generator', [$this, 'removeGeneratorTag'], 9, 2);
@@ -125,20 +123,6 @@ class Enqueue implements Hookable
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
-    }
-
-    /**
-     * Enqueue scripts that run inside the Customizer preview frame.
-     */
-    public function enqueueCustomizerPreviewScripts(): void
-    {
-        $this->wpService->wpEnqueueScript(
-            'municipio-customizer-custom-css-preview',
-            $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . CacheBust::name('js/customizer-custom-css-preview.js'),
-            ['customize-preview'],
-            null,
-            true,
-        );
     }
 
     /**
