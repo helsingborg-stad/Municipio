@@ -6,11 +6,6 @@ export class MultiSelectControlElement extends HTMLElement {
 			return;
 		}
 
-		if (event.target.classList.contains("municipio-multiselect-picker__add")) {
-			this.addSelectedValue();
-			return;
-		}
-
 		if (event.target.classList.contains("municipio-multiselect-pill__remove")) {
 			event.target.closest(".municipio-multiselect-pill")?.remove();
 			this.updateValue();

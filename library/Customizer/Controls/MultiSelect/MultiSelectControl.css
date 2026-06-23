@@ -3,9 +3,6 @@
 }
 
 .municipio-multiselect-picker {
-	display: grid;
-	gap: 8px;
-	grid-template-columns: minmax(0, 1fr) auto;
 	margin-bottom: 10px;
 }
 

@@ -56,7 +56,6 @@ class MultiSelectControl extends WP_Customize_Control
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <button type="button" class="button municipio-multiselect-picker__add"><?php esc_html_e('Add', 'municipio'); ?></button>
             </div>
             <ul class="municipio-multiselect-pills">
                 <?php foreach ($selectedValues as $selectedValue): ?>
