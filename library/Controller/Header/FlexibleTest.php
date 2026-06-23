@@ -38,6 +38,29 @@ class FlexibleTest extends TestCase
         $this->assertSame(['u-order--1', 'u-order--1@md', 'u-display--flex'], $headerData['upperItems']['right']['search-modal']);
     }
 
+    public function testGetHeaderDataDoesNotDuplicateItemsWhenAlignmentAndMarginUseDifferentSides(): void
+    {
+        $controller = new Flexible((object) [
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_upper' => [
+                    'logotype' => [
+                        'align' => 'left',
+                        'margin' => 'right',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['logotype'],
+            'headerSortableSectionMainLower' => [],
+            'headerSortableSectionMainUpperResponsive' => [],
+            'headerSortableSectionMainLowerResponsive' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertSame(['u-order--0', 'u-order--0@md', 'u-display--flex', 'u-margin__right--2'], $headerData['upperItems']['left']['logotype']);
+        $this->assertArrayNotHasKey('right', $headerData['upperItems']);
+    }
+
     private function getHiddenStorage(): string
     {
         return json_encode([
