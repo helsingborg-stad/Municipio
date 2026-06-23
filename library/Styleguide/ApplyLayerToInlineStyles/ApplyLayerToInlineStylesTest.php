@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\Styleguide\ApplyLayerToInlineStyles;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -51,6 +50,18 @@ class ApplyLayerToInlineStylesTest extends TestCase
 
         $input = '<style>@layer wordpress {body { background: red; }}</style>';
         $expectedOutput = '<style>@layer wordpress {body { background: red; }}</style>';
+
+        static::assertEquals($expectedOutput, $applyLayer->process($input));
+    }
+
+    #[TestDox('preserves style id when wrapping inline styles in a layer')]
+    public function testProcessPreservesStyleIdWhenWrappingInlineStylesInLayer(): void
+    {
+        $wpServiceMock = $this->createMock(AddFilter::class);
+        $applyLayer = new ApplyLayerToInlineStyles($wpServiceMock);
+
+        $input = '<style id="wp-custom-css">body { background: red; }</style>';
+        $expectedOutput = '<style id="wp-custom-css">@layer wordpress {body { background: red; }}</style>';
 
         static::assertEquals($expectedOutput, $applyLayer->process($input));
     }

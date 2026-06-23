@@ -8,9 +8,10 @@ export class TabBoxControlElement extends HTMLElement {
 	private controlObserver?: MutationObserver;
 
 	private readonly handleClick = (event: Event): void => {
-		const button = event.target instanceof HTMLElement
-			? event.target.closest<TabButton>(".municipio-tab-box__tab")
-			: null;
+		const button =
+			event.target instanceof HTMLElement
+				? event.target.closest<TabButton>(".municipio-tab-box__tab")
+				: null;
 
 		if (!button) {
 			return;
@@ -63,26 +64,39 @@ export class TabBoxControlElement extends HTMLElement {
 
 		this.getTabs().forEach((button) => {
 			button.classList.toggle("is-active", button === activeButton);
-			button.setAttribute("aria-selected", button === activeButton ? "true" : "false");
+			button.setAttribute(
+				"aria-selected",
+				button === activeButton ? "true" : "false",
+			);
 		});
 
 		managedControls.forEach((control) => {
-			control.hidden = !activeControls.includes(control.id.replace("customize-control-", ""));
+			control.hidden = !activeControls.includes(
+				control.id.replace("customize-control-", ""),
+			);
 		});
 
 		return true;
 	}
 
 	private getTabs(): TabButton[] {
-		return Array.from(this.querySelectorAll<TabButton>(".municipio-tab-box__tab"));
+		return Array.from(
+			this.querySelectorAll<TabButton>(".municipio-tab-box__tab"),
+		);
 	}
 
 	private getManagedControls(): HTMLElement[] {
-		const controlIds = this.getTabs().flatMap((button) => this.readControls(button));
+		const controlIds = this.getTabs().flatMap((button) =>
+			this.readControls(button),
+		);
 
 		return Array.from(new Set(controlIds))
-			.map((controlId) => document.getElementById(`customize-control-${controlId}`))
-			.filter((control): control is HTMLElement => control instanceof HTMLElement);
+			.map((controlId) =>
+				document.getElementById(`customize-control-${controlId}`),
+			)
+			.filter(
+				(control): control is HTMLElement => control instanceof HTMLElement,
+			);
 	}
 
 	private readControls(button: TabButton): string[] {
@@ -90,7 +104,10 @@ export class TabBoxControlElement extends HTMLElement {
 			const controls = JSON.parse(button.dataset.tabBoxControls ?? "[]");
 
 			return Array.isArray(controls)
-				? controls.filter((control): control is string => typeof control === "string" && control !== "")
+				? controls.filter(
+						(control): control is string =>
+							typeof control === "string" && control !== "",
+					)
 				: [];
 		} catch {
 			return [];

@@ -89,9 +89,6 @@ const entries = {
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
 	"js/design-share": "./assets/source/js/admin/designShare.ts",
-	"js/customizer-preview": "./assets/source/js/admin/customizerPreview.js",
-	"js/customizer-uploaded-font-labels":
-		"./assets/source/js/admin/customizerUploadedFontLabels.ts",
 	"js/hidden-post-status-conditional":
 		"./assets/source/js/admin/acf/hiddenPostStatusConditional.ts",
 	"js/user-group-visibility":

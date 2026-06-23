@@ -533,7 +533,6 @@ class Template
                         $type = get_page_template_slug();
                     }
 
-
                     $templatePath = \Municipio\Helper\Template::locateTemplate($type);
 
                     // Look for post type archive
