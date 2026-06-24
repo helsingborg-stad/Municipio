@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class OpenStreetMap
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'map_style',
             'label'       => esc_html__('Map style', 'municipio'),
@@ -36,7 +36,7 @@ class OpenStreetMap
             ],
             ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'text',
             'settings'    => 'map_start_lat_lng',
             'label'       => esc_html__('Map start center', 'municipio'),
@@ -57,7 +57,7 @@ class OpenStreetMap
                 ]
             ],
         ]);
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'number',
             'settings'    => 'map_start_zoom',
             'label'       => esc_html__('Map start zoom', 'municipio'),

@@ -14,8 +14,8 @@ function is_admin(): bool
 
 class CustomizerTest extends TestCase
 {
-    #[TestDox('sanitizeKirkiDefaultArrayValue converts empty string value to array if default is array')]
-    public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
+    #[TestDox('sanitizeDefaultArrayValue converts empty string value to array if default is array')]
+    public function testSanitizeDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
     {
         $wpService = new FakeWpService([
             'addFilter' => true,
@@ -30,7 +30,7 @@ class CustomizerTest extends TestCase
             $wpdb,
         );
 
-        $sanitizedValue = $customizer->sanitizeKirkiDefaultArrayValue($value, $default);
+        $sanitizedValue = $customizer->sanitizeDefaultArrayValue($value, $default);
 
         $this->assertEquals(['foo' => 'bar'], $sanitizedValue);
     }
@@ -53,7 +53,7 @@ class CustomizerTest extends TestCase
             $wpService->methodCalls['addAction'],
         );
 
-        $this->assertContains('kirki_dynamic_css', $registeredHooks);
+        $this->assertContains('wp', $registeredHooks);
         $this->assertContains('rest_api_init', $registeredHooks);
     }
 }

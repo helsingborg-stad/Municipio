@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Siteselector
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
           'type'        => 'radio',
           'settings'    => 'siteselector_color_source',
           'label'       => esc_html__('Select color source', 'municipio'),
@@ -34,7 +34,7 @@ class Siteselector
           ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
           'type'            => 'multicolor',
           'settings'        => 'custom_colors',
           'label'           => esc_html__('Custom colors', 'municipio'),
@@ -70,7 +70,7 @@ class Siteselector
           ]
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
         'type'            => 'select',
         'settings'        => 'siteselector_color_scheme',
         'label'           => esc_html__('Color scheme', 'municipio'),
@@ -103,7 +103,7 @@ class Siteselector
         ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
           'type'        => 'select',
           'settings'    => 'siteselector_border_radius',
           'label'       => esc_html__('Rounded corners', 'municipio'),
@@ -132,7 +132,7 @@ class Siteselector
           ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
           'type'        => 'slider',
           'settings'    => 'siteselector_max_items',
           'label'       => esc_html__('Number of items', 'municipio'),

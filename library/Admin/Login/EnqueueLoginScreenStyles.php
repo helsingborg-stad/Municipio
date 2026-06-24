@@ -2,22 +2,21 @@
 
 namespace Municipio\Admin\Login;
 
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\Helper\CacheBust;
+use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
 class EnqueueLoginScreenStyles implements Hookable
 {
     private const ASSETS_DIST_PATH = '/assets/dist/';
 
-    public function __construct(private WpService $wpService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+    ) {}
 
     public function addHooks(): void
     {
         $this->wpService->addAction('login_head', [$this, 'renderCssVariables']);
-        $this->wpService->addAction('login_head', [$this, 'renderKirkiCssVariables']);
         $this->wpService->addAction('login_enqueue_scripts', [$this, 'enqueueStyles']);
     }
 
@@ -29,8 +28,8 @@ class EnqueueLoginScreenStyles implements Hookable
     public function enqueueStyles(): void
     {
         $styles = [
-            'styleguide-css'      => 'css/styleguide.css',
-            'municipio-css'       => 'css/municipio.css',
+            'styleguide-css' => 'css/styleguide.css',
+            'municipio-css' => 'css/municipio.css',
             'municipio-login-css' => 'css/login.css',
         ];
 
@@ -54,24 +53,16 @@ class EnqueueLoginScreenStyles implements Hookable
         $themeMods = array_filter($themeMods);
 
         // Reduce theme mods to CSS variables
-        $reduced = implode(' ', array_map(function ($value, $key) {
-            return "--" . esc_html($key) . ": " . esc_html($value) . ";";
-        }, $themeMods, array_keys($themeMods)));
+        $reduced = implode(' ', array_map(
+            function ($value, $key) {
+                return '--' . esc_html($key) . ': ' . esc_html($value) . ';';
+            },
+            $themeMods,
+            array_keys($themeMods),
+        ));
 
         // Output CSS variables
         echo sprintf('<style>:root {%s}</style>', $reduced);
-    }
-
-    /**
-     * Render Kirki CSS variables for the login page.
-     *
-     * @return void
-     */
-    public function renderKirkiCssVariables(): void
-    {
-        echo '<style>' . PHP_EOL;
-            do_action('kirki_dynamic_css');
-        echo '</style>' . PHP_EOL;
     }
 
     /**
@@ -94,7 +85,7 @@ class EnqueueLoginScreenStyles implements Hookable
         return implode([
             get_template_directory_uri(),
             self::ASSETS_DIST_PATH,
-            \Municipio\Helper\CacheBust::name($file)
+            \Municipio\Helper\CacheBust::name($file),
         ]);
     }
 }

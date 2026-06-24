@@ -19,8 +19,8 @@ class CssMinifyProcessor implements MarkupProcessorInterface
         }
 
         return preg_replace_callback(
-            '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
-            fn($m) => '<style>' . $this->minifyCss($m[1]) . '</style>',
+            '/<style\b([^>]*)>(.*?)<\/style>/is',
+            fn($matches) => '<style' . $matches[1] . '>' . $this->minifyCss($matches[2]) . '</style>',
             $markup,
         );
     }

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\Styleguide\ApplyLayersToEnqueuedStyles;
-
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -77,6 +75,19 @@ class ApplyLayersToEnqueuedStylesTest extends TestCase
         static::assertSame('<style>@import url("http://test/path/style.css") layer(theme);</style>', $result);
     }
 
+    #[TestDox('preserves id when converting stylesheet link to layered style tag')]
+    public function testPreservesIdWhenConvertingStylesheetLinkToLayeredStyleTag(): void
+    {
+        $handle = 'admin-bar';
+        $href = 'http://test/path/style.css';
+        $tag = "<link id=\"wp-custom-css\" href=\"{$href}\" />";
+        $ApplyLayersToEnqueuedStyles = new ApplyLayersToEnqueuedStyles(static::createWpService());
+
+        $result = $ApplyLayersToEnqueuedStyles->apply($tag, $handle, $href);
+
+        static::assertSame('<style id="wp-custom-css">@import url("http://test/path/style.css") layer(theme);</style>', $result);
+    }
+
     public static function provideTestData(): array
     {
         return [
@@ -91,7 +102,6 @@ class ApplyLayersToEnqueuedStylesTest extends TestCase
     private function createWpService(): AddFilter&IsAdmin&GetCurrentScreen
     {
         return new class implements AddFilter, IsAdmin, GetCurrentScreen {
-
             public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
                 return true;

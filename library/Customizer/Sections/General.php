@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class General
 {
     public function __construct($sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'checkbox_switch',
             'settings' => 'show_emblem_in_hero',
             'label' => esc_html__('Show emblem in hero', 'municipio'),

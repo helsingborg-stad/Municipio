@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Width
 {
     public function __construct($sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'custom',
             'settings' => 'heading_width',
             'section' => $sectionID,
@@ -18,7 +18,7 @@ class Width
                             ',
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'column_size_left',
             'label' => esc_html__('Left', 'municipio'),
@@ -34,7 +34,7 @@ class Width
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'column_size_right',
             'label' => esc_html__('Right', 'municipio'),

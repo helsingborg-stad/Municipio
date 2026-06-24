@@ -25,6 +25,9 @@ use WpService\WpService;
  */
 class Template
 {
+    private const ERROR_PREVIEW_QUERY_VAR = 'municipio_error_preview';
+    private const ERROR_PREVIEW_TEMPLATES = ['401', '403', '404'];
+
     private ?BladeServiceInterface $bladeEngine = null;
     private ?array $viewPaths = null;
 
@@ -530,7 +533,6 @@ class Template
                         $type = get_page_template_slug();
                     }
 
-
                     $templatePath = \Municipio\Helper\Template::locateTemplate($type);
 
                     // Look for post type archive
@@ -629,6 +631,12 @@ class Template
      */
     public function switchPageTemplate(string $view): string
     {
+        $errorPreviewTemplate = $this->getErrorPreviewTemplate();
+
+        if ($errorPreviewTemplate !== null) {
+            return $errorPreviewTemplate;
+        }
+
         $customTemplate = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
 
         if ($customTemplate) {
@@ -654,8 +662,20 @@ class Template
     {
         return apply_filters(
             'Municipio/Template/MayBeCustomTemplateRequest',
-            false,
+            $this->getErrorPreviewTemplate() !== null,
         );
+    }
+
+    private function getErrorPreviewTemplate(): ?string
+    {
+        if (!function_exists('is_customize_preview') || !is_customize_preview()) {
+            return null;
+        }
+
+        $rawTemplate = wp_unslash($_GET[self::ERROR_PREVIEW_QUERY_VAR] ?? '');
+        $template = is_scalar($rawTemplate) ? sanitize_key((string) $rawTemplate) : '';
+
+        return in_array($template, self::ERROR_PREVIEW_TEMPLATES, true) ? $template : null;
     }
 
     /**

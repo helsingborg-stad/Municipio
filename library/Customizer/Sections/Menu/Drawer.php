@@ -2,8 +2,8 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Helper\KirkiSwatches as KirkiSwatches;
-use Municipio\Customizer\KirkiField;
+use Municipio\Helper\ColorSwatches as ColorSwatches;
+use Municipio\Customizer\CustomizerField;
 
 class Drawer
 {
@@ -11,7 +11,7 @@ class Drawer
 
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'drawer_color_scheme',
             'label'       => esc_html__('Drawer color scheme', 'municipio'),
@@ -34,7 +34,7 @@ class Drawer
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'drawer_color_scheme_secondary_area',
             'label'       => esc_html__('Drawer secondary area', 'municipio'),
@@ -57,7 +57,7 @@ class Drawer
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'switch',
             'settings' => 'drawer_divider',
             'label'    => esc_html__('Drawer divider', 'municipio'),
@@ -65,15 +65,15 @@ class Drawer
             'default'  => false,
             'priority' => 10,
             'choices'  => [
-                true  => esc_html__('Enabled', 'kirki'),
-                false => esc_html__('Disabled', 'kirki'),
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
             ],
             'output'   => [
                 ['type' => 'controller']
             ]
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'switch',
             'settings' => 'drawer_divider_top_level_only',
             'label'    => esc_html__('Drawer divider (top level only)', 'municipio'),
@@ -81,8 +81,8 @@ class Drawer
             'default'  => true,
             'priority' => 10,
             'choices'  => [
-                true  => esc_html__('Enabled', 'kirki'),
-                false => esc_html__('Disabled', 'kirki'),
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
             ],
             'output'   => [
                 ['type' => 'controller']

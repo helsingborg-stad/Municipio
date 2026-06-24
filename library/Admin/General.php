@@ -2,7 +2,6 @@
 
 namespace Municipio\Admin;
 
-// use Kirki as Kirki;
 
 class General
 {

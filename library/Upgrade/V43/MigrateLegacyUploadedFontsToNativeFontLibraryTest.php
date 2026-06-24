@@ -11,12 +11,12 @@ use ReflectionMethod;
 use WpService\Implementations\FakeWpService;
 
 /**
- * Tests v43 migration of legacy uploaded Kirki fonts.
+ * Tests v43 migration of legacy uploaded legacy Google fonts.
  */
 class MigrateLegacyUploadedFontsToNativeFontLibraryTest extends TestCase
 {
-    #[TestDox('migrate() moves a legacy Kirki attachment font into the native uploaded font manager')]
-    public function testMigrateMovesLegacyKirkiAttachmentFontIntoTheNativeUploadedFontManager(): void
+    #[TestDox('migrate() moves a legacy attachment font into the native uploaded font manager')]
+    public function testMigrateMovesLegacyAttachmentFontIntoTheNativeUploadedFontManager(): void
     {
         $sourceFile = sys_get_temp_dir() . '/abeezee.woff2';
         file_put_contents($sourceFile, 'font-data');

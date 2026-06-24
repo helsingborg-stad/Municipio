@@ -60,4 +60,7 @@
 {{-- Including body --}}
 @include('templates.sections.body')
 
+{{-- Including styleguide customize --}}
+@include('templates.sections.styleguide-customize')
+
 </html>

@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Logo
 {
@@ -41,9 +41,9 @@ class Logo
             $emblemDescription
         );
 
-        KirkiField::addField($primaryLogoField);
-        KirkiField::addField($secondaryLogoField);
-        KirkiField::addField($emblemField);
+        CustomizerField::addField($primaryLogoField);
+        CustomizerField::addField($secondaryLogoField);
+        CustomizerField::addField($emblemField);
     }
 
     private function getImageField(string $sectionID, string $setting, string $label, string $description): array

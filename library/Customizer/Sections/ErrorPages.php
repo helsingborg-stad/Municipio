@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class ErrorPages
 {
     public function __construct(string $sectionID, string $type)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'text',
             'settings' => 'error' . $type . '_heading',
             'label'    => esc_html__('Page heading', 'municipio'),
@@ -21,7 +21,7 @@ class ErrorPages
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'textarea',
             'settings' => 'error' . $type . '_description',
             'label'    => esc_html__('Description', 'municipio'),
@@ -34,7 +34,7 @@ class ErrorPages
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'image',
             'settings'    => 'error' . $type . '_image',
             'label'       => esc_html__('Image', 'municipio'),
@@ -48,7 +48,7 @@ class ErrorPages
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'multicheck',
             'settings'    => 'error' . $type . '_buttons',
             'label'       => esc_html__('Buttons', 'municipio'),
@@ -63,7 +63,7 @@ class ErrorPages
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'switch',
             'settings'    => 'error' . $type . '_backdrop',
             'label'       => esc_html__('Error code backdrop', 'municipio'),

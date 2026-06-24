@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Hero
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'hero_animation',
             'label'       => esc_html__('Choose animation type', 'municipio'),
@@ -34,7 +34,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'radio_buttonset',
             'settings' => 'hero_text_align',
             'label'    => esc_html__('Text alignment', 'municipio'),
@@ -60,7 +60,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'radio_buttonset',
             'settings' => 'hero_content_align_vertical',
             'label'    => esc_html__('Content vertical alignment', 'municipio'),
@@ -86,7 +86,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'radio_buttonset',
             'settings' => 'hero_content_align_horizontal',
             'label'    => esc_html__('Content horizontal alignment', 'municipio'),
@@ -112,7 +112,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'color',
             'settings'    => 'hero_content_bg_color',
             'label'       => esc_html__('Content background', 'municipio'),
@@ -137,7 +137,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'color',
             'settings'        => 'hero_contrast_color',
             'label'           => esc_html__('Contrast color', 'municipio'),
@@ -160,7 +160,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'switch',
             'settings'        => 'hero_content_apply_shadows',
             'label'           => esc_html__('Apply shadows to content', 'municipio'),
@@ -182,7 +182,7 @@ class Hero
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'            => 'switch',
             'settings'        => 'hero_content_apply_rounded_corners',
             'label'           => esc_html__('Apply rounded corners to content', 'municipio'),

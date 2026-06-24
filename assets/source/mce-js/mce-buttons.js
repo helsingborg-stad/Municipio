@@ -1,6 +1,6 @@
 (function () {
     if (typeof tinymce !== 'undefined') {
-        let inlineStyles = document.querySelector('#kirki_inline_styles');
+        let inlineStyles = document.querySelector('#municipio_customizer_inline_styles');
 
         if (inlineStyles) {
             inlineStyles = inlineStyles.innerHTML;
