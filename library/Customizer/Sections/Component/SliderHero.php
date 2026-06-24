@@ -12,24 +12,24 @@ class SliderHero
          * Hero Slider container colour
          */
         CustomizerField::addField([
-            'type'     => 'select',
+            'type' => 'select',
             'settings' => 'hero_slider_container_color',
-            'label'    => esc_html__('Container colour', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => 'bg-transparent',
-            'choices'  => array(
-                'bg-none'        => __('None', 'municipio'),
+            'label' => esc_html__('Container colour', 'municipio'),
+            'section' => $sectionID,
+            'default' => 'bg-transparent',
+            'choices' => array(
+                'bg-none' => __('None', 'municipio'),
                 'bg-transparent' => __('Transparent', 'municipio'),
-                'bg-theme'       => __('Theme', 'municipio'),
+                'bg-theme' => __('Theme', 'municipio'),
             ),
-            'output'   => [
+            'output' => [
                 [
-                    'type'    => 'modifier',
+                    'type' => 'modifier',
                     'context' => [
-                        'context'  => 'module.slider.hero.slider-item',
-                        'operator' => '=='
-                    ]
-                ]
+                        'context' => 'module.slider.hero.slider-item',
+                        'operator' => '==',
+                    ],
+                ],
             ],
         ]);
 
@@ -37,49 +37,24 @@ class SliderHero
          * Hero Slider text alignment
          */
         CustomizerField::addField([
-            'type'     => 'select',
+            'type' => 'select',
             'settings' => 'hero_slider_text_alignment',
-            'label'    => esc_html__('Text alignment', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => 'text-align-left',
-            'choices'  => array(
-                'text-align-left'   => __('Left', 'municipio'),
+            'label' => esc_html__('Text alignment', 'municipio'),
+            'section' => $sectionID,
+            'default' => 'text-align-left',
+            'choices' => array(
+                'text-align-left' => __('Left', 'municipio'),
                 'text-align-center' => __('Center', 'municipio'),
-                'text-align-right'  => __('Right', 'municipio'),
+                'text-align-right' => __('Right', 'municipio'),
             ),
-            'output'   => [
+            'output' => [
                 [
-                    'type'    => 'modifier',
+                    'type' => 'modifier',
                     'context' => [
-                        'context'  => 'module.slider.hero.slider-item',
-                        'operator' => '=='
-                    ]
-                ]
-            ],
-        ]);
-
-        /**
-         * Hero Slider overlay
-         */
-        CustomizerField::addField([
-            'type'     => 'select',
-            'settings' => 'hero_slider_coverlay',
-            'label'    => esc_html__('Slide overlay', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => 'none',
-            'choices'  => array(
-                'none' => __('None', 'municipio'),
-                'dark' => __('Dark', 'municipio'),
-            ),
-            'output'   => [
-                [
-                    'type'    => 'component_data',
-                    'dataKey' => 'overlay',
-                    'context' => [
-                        'context'  => 'module.slider.hero.slider-item',
-                        'operator' => '=='
-                    ]
-                ]
+                        'context' => 'module.slider.hero.slider-item',
+                        'operator' => '==',
+                    ],
+                ],
             ],
         ]);
     }
