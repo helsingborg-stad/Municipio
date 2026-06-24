@@ -34,12 +34,10 @@ class MapOccasions implements EventDataMapperInterface
      */
     public function map(Event $event): array
     {
-        $time = array_filter(array_map(
+        return array_filter(array_map(
             fn(Schedule $schedule) => $this->mapScheduleToOccasion($schedule),
             EnsureArrayOf::ensureArrayOf($event->getProperty('eventSchedule'), Schedule::class),
         ));
-
-        return $time;
     }
 
     /**
@@ -53,15 +51,13 @@ class MapOccasions implements EventDataMapperInterface
         $startDate = $this->getStartDateAsStringFromSchedule($schedule);
         $endDate = $this->getEndDateAsStringFromSchedule($schedule);
 
-        $item = !empty($startDate) && !empty($endDate)
+        return !empty($startDate) && !empty($endDate)
             ? new Occasion(
                 $startDate,
                 $endDate,
                 $this->isCurrentOccasion($schedule),
                 $this->getUrlFromSchedule($schedule),
             ) : null;
-
-        return $item;
     }
 
     /**
