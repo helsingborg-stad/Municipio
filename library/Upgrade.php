@@ -1090,6 +1090,10 @@ class Upgrade
                     if ($this->{$funcName}($this->db)) {
                         update_option($this->dbVersionKey, (int) $currentDbVersion);
                         wp_cache_flush();
+                    } else {
+                        delete_transient($lockKey);
+                        error_log('Upgrade function ' . $funcName . ' failed. Aborting upgrade process.');
+                        break;
                     }
 
                     delete_transient($lockKey);

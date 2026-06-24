@@ -1,4 +1,4 @@
-@paper(['padding' => 4])
+@paper(['padding' => 2])
     @typography(['element' => 'h2', 'variant' => 'h5'])
         {!! $actions['title'] ?: $lang->actionsLabel !!}
     @endtypography

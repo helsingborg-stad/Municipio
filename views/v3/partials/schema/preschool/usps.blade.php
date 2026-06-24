@@ -1,4 +1,4 @@
-@paper(['padding' => 4, 'classList' => ['u-color--secondary']])
+@paper(['padding' => 2, 'classList' => ['u-color--secondary']])
     @typography(['element' => 'h2', 'variant' => 'h5', 'classList' => ['u-margin__bottom--2']])
         {!! $lang->uspsLabel !!}
     @endtypography

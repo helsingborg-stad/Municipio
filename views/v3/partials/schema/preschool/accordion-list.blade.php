@@ -1,2 +1,1 @@
-@accordion(['list' => $accordionListItems, 'spacedSections' => true])
-@endaccordion
+@accordion(['list' => $accordionListItems])@endaccordion

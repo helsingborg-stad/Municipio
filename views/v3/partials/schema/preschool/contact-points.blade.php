@@ -1,4 +1,4 @@
-@paper(['padding' => 4])
+@paper(['padding' => 2])
     @typography(['element' => 'h2', 'variant' => 'h5', 'classList' => ['u-margin__bottom--2']])
         {!! $lang->contactPointsLabel !!}
     @endtypography

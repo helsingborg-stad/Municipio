@@ -1,6 +1,6 @@
 @if( is_singular() && comments_open() && get_option('comment_registration') === 0 || is_singular() && comments_open())
 
-    <div class="comment">
+    <div class="comment u-display--flex u-flex-direction--column u-gap--4">
         @card([
             'classList' => ['u-padding--3'],
         ])

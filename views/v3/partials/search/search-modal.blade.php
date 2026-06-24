@@ -39,7 +39,7 @@
             @button([
                 'id' => 'modal-search-form__submit',
                 'text' => $lang->search,
-                'color' => 'default',
+                'color' => 'primary',
                 'type' => 'submit',
                 'size' => 'lg',
                 'attributeList' => [
