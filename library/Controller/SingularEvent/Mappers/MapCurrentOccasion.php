@@ -18,12 +18,13 @@ class MapCurrentOccasion implements EventDataMapperInterface
 
     public function map(Event $event): ?OccasionInterface
     {
+        
         foreach ($this->occasions as $occasion) {
             if ($occasion->isCurrent()) {
                 return $occasion;
             }
         }
-
+        // die;
         return null;
     }
 }
