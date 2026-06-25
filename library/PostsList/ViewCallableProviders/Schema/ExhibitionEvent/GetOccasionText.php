@@ -46,7 +46,7 @@ class GetOccasionText implements ViewCallableProviderInterface
         }
 
         $endDate = $this->toDateTime($schema->getProperty('endDate'));
-        $start = $this->formatDate($startDate, 'j M');
+        $start = $this->formatDate($startDate, 'j M Y');
         $end = $endDate ? $this->formatDate($endDate, 'j M Y') : $this->getUntilFurtherNoticeText();
 
         return "{$start} - {$end}";
