@@ -64,6 +64,11 @@ class KulturkortetQRCodeViewerFeature implements Hookable
                         'type' => 'string',
                         'default' => '',
                     ],
+                    'renewLink' => [
+                        'label' => $this->wpService->__('Link to renew/buy page', 'municipio'),
+                        'type' => 'string',
+                        'default' => '',
+                    ]
                 ],
             ],
         );
