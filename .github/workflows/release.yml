@@ -30,8 +30,9 @@ jobs:
         run: |
           BRANCH_NAME="${GITHUB_REF##*/}"
           git fetch origin "$BRANCH_NAME"
-          git checkout "$BRANCH_NAME"
-          git pull origin "$BRANCH_NAME"
+          git checkout -B "$BRANCH_NAME" "origin/$BRANCH_NAME"
+          git reset --hard "origin/$BRANCH_NAME"
+          git clean -fdx
           git checkout -B release
 
       - name: Extract version
