@@ -27,7 +27,8 @@
         'direction' => 'vertical'
     ])
         @group([
-            'justifyContent' => 'space-between'
+            'justifyContent' => 'space-between',
+            'normalizeChildren' => false
         ])
             @typography([
                 'element' => 'h2',
