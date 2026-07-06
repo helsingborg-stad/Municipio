@@ -10,7 +10,7 @@
         'format'    => $getDateFormat(),
     ] : null,
     'dateBadge' => $showDateBadge(),
-    'classList' => ['t-archive-block'],
+    'classList' => ['t-archive-block', 'u-height--100'],
     'context' => ['archive', 'archive.list', 'archive.list.block'],
     'attributeList' => ['data-js-posts-list-item' => true],
 ])
