@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2026-06-30 13:48+0200\n"
-"PO-Revision-Date: 2026-06-30 13:49+0200\n"
+"POT-Creation-Date: 2026-07-01 10:04+0200\n"
+"PO-Revision-Date: 2026-07-09 14:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -8324,7 +8324,7 @@ msgid "General cover settings"
 msgstr "Allmänna inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:531
+#: library/Controller/BaseController.php:532
 #: library/Customizer/Sections/Header/Logotype.php:21
 #: library/Customizer/Sections/Logo.php:40
 msgid "Emblem"
@@ -8602,8 +8602,8 @@ msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:53
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:63
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:98
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:146
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:106
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:154
 msgid "Logout"
 msgstr "Logga ut"
 
@@ -8619,19 +8619,26 @@ msgstr "Besök"
 msgid "Call"
 msgstr "Ring"
 
-#: library/Controller/BaseController.php:659
+#: library/Controller/BaseController.php:431
+#: library/Controller/Error/Buttons.php:21
+#: library/Helper/TranslatedLabels.php:21 library/Widget/Brand/Brand.php:47
+#: library/Widget/Header/Logo.php:46
+msgid "Go to homepage"
+msgstr "Gå till startsidan"
+
+#: library/Controller/BaseController.php:660
 msgid "Design"
 msgstr "Design"
 
-#: library/Controller/BaseController.php:693
+#: library/Controller/BaseController.php:694
 msgid "Choose language"
 msgstr ""
 
-#: library/Controller/BaseController.php:694
+#: library/Controller/BaseController.php:695
 msgid "More languages"
 msgstr ""
 
-#: library/Controller/BaseController.php:1173
+#: library/Controller/BaseController.php:1174
 msgid "Feed"
 msgstr ""
 
@@ -8639,18 +8646,12 @@ msgstr ""
 msgid "Show all"
 msgstr "Visa alla"
 
-#: library/Controller/Error/Buttons.php:21
-#: library/Helper/TranslatedLabels.php:21 library/Widget/Brand/Brand.php:47
-#: library/Widget/Header/Logo.php:46
-msgid "Go to homepage"
-msgstr "Gå till startsidan"
-
 #: library/Controller/Error/Buttons.php:38
 msgid "Go back"
 msgstr "Gå bakåt"
 
 #: library/Controller/Error/Buttons.php:58
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:112
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:120
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:83
 msgid "Log in"
 msgstr "Logga in"
@@ -10743,33 +10744,43 @@ msgstr ""
 msgid "My ticket"
 msgstr "Min biljett"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:110
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:99
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:147
+msgid "Renew"
+msgstr ""
+
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:99
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:147
+msgid "Buy"
+msgstr ""
+
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:118
 msgid "Login to edit your profile"
 msgstr "Logga in för att se din profil"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:111
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:119
 msgid "To edit your profile, you must log in with BankId."
 msgstr "För att redigera din profil måste du vara inloggad."
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:122
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:130
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:95
 msgid "You have been successfully logged out"
 msgstr "Du har blivit utloggad"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:123
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:131
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:96
 msgid "You have been successfully logged out from your kulturkort and BankId."
 msgstr "Du har blivit utloggad från ditt Kulturkort och Bankid."
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:124
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:132
 msgid "Start over"
 msgstr "Starta om"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:134
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:142
 msgid "Something went wrong"
 msgstr "Något gick fel"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:136
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:144
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:111
 msgid "Try again"
 msgstr "Försök igen"
@@ -10781,6 +10792,13 @@ msgstr "Kulturkortet Profilredigerare"
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:58
 msgid "Link to the ticket"
 msgstr "Länk till kulturkortet (biljett)"
+
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:63
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:68
+#, fuzzy
+#| msgid "Link profile page"
+msgid "Link to renew/buy page"
+msgstr "Länk till användarens profil"
 
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:39
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:61
@@ -10825,12 +10843,6 @@ msgstr "Kulturkortet QR-Kod"
 
 #: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:63
 msgid "Link profile page"
-msgstr "Länk till användarens profil"
-
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:68
-#, fuzzy
-#| msgid "Link profile page"
-msgid "Link to renew/buy page"
 msgstr "Länk till användarens profil"
 
 #: library/Kulturkortet/Vitec/VitecOptionsPage.php:25
