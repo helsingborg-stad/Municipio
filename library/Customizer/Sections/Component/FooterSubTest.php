@@ -16,12 +16,19 @@ class FooterSubTest extends TestCase
     #[TestDox('Footer sub content repeater refreshes the preview when component data changes')]
     public function testFooterSubContentRepeaterRefreshesPreviewWhenComponentDataChanges(): void
     {
-        new FooterSub('municipio_customizer_section_component_footer_subfooter');
+        new FooterSub('municipio_customizer_section_component_footer');
 
         $fields = PanelsRegistry::getInstance()->getRegisteredFields();
+        $logotypeField = $this->getFieldBySettings($fields, 'footer_subfooter_logotype');
         $contentField = $this->getFieldBySettings($fields, 'footer_subfooter_content');
+        $customLogotypeField = $this->getFieldBySettings($fields, 'footer_subfooter_custom_logotype');
 
+        $this->assertSame('select', $logotypeField['type']);
+        $this->assertSame('upload', $customLogotypeField['type']);
         $this->assertSame('repeater', $contentField['type']);
+        $this->assertArrayHasKey('title', $contentField['fields']);
+        $this->assertArrayHasKey('content', $contentField['fields']);
+        $this->assertArrayHasKey('link', $contentField['fields']);
         $this->assertSame('refresh', $contentField['transport']);
         $this->assertSame('component_data', $contentField['output'][0]['type']);
         $this->assertSame('subfooter.content', $contentField['output'][0]['dataKey']);

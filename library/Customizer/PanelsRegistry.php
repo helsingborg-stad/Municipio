@@ -274,15 +274,9 @@ class PanelsRegistry
                     ->setTitle(esc_html__('Footer', 'municipio'))
                     ->addSection(
                         CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_component_footer_main')
-                            ->setTitle(esc_html__('Main footer', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\FooterMain('municipio_customizer_section_component_footer_main')),
-                    )
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_component_footer_subfooter')
-                            ->setTitle(esc_html__('Sub footer', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\FooterSub('municipio_customizer_section_component_footer_subfooter')),
+                            ->setID('municipio_customizer_section_component_footer')
+                            ->setTitle(esc_html__('Footer', 'municipio'))
+                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Footer('municipio_customizer_section_component_footer')),
                     ),
             )
             ->addSection(

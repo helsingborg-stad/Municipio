@@ -4,8 +4,6 @@ namespace Municipio\Theme;
 
 class Sidebars
 {
-    private $footerColumns = null;
-
     public function __construct()
     {
         add_action('widgets_init', array($this, 'register'));
@@ -36,8 +34,6 @@ class Sidebars
         if ('widgets.php' !== $page) {
             return;
         }
-        $footerStyle = get_theme_mod('footer_style');
-        $footerColumns = get_theme_mod('footer_columns');
         wp_enqueue_script(
             'widgets-area-hide-js',
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/widgets-area-hider.js'),
@@ -46,10 +42,26 @@ class Sidebars
             'widgets-area-hide-js',
             'municipioSidebars',
             [
-                'footerStyle' => $footerStyle,
-                'footerColumns' => $footerColumns ?? 1,
+                'footerColumns' => $this->getFooterColumns(),
             ],
         );
+    }
+
+    /**
+     * Get the configured footer column count from stored design tokens.
+     */
+    private function getFooterColumns(): int
+    {
+        $storedTokens = get_theme_mod('tokens', '');
+
+        if (!is_string($storedTokens) || trim($storedTokens) === '') {
+            return 1;
+        }
+
+        $decodedTokens = json_decode($storedTokens, true);
+        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
+
+        return max(1, (int) $columnCount);
     }
 
     public function replaceGridClasses($beforeMarkup)
@@ -98,10 +110,8 @@ class Sidebars
         ));
 
         /**
-         * Create a total of 6 footer areas for use with the "columns" footer style
+         * Create a total of 6 footer areas for use with the column-based footer layout.
          */
-        $footerStyle = get_theme_mod('footer_style', 'basic');
-        $footerGridSize = $footerStyle === 'basic' ? 4 : 12;
         for ($i = 0; $i < 6; $i++) {
             $suffix = $i !== 0 ? '-column-' . $i : '';
             register_sidebar(array(

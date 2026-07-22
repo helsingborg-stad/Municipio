@@ -124,6 +124,7 @@ class BaseController
         $this->data['logotype'] = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
         $this->data['footerLogotype'] = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype'] = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
+        $this->data['footerBackgroundImageStyle'] = $this->getFooterBackgroundImageStyle();
         $this->data['emblem'] = $this->getEmblem();
         $this->data['showEmblemInHero'] = $this->data['customizer']->showEmblemInHero ?? true;
         $brandTextOption = get_option('brand_text', '');
@@ -131,11 +132,10 @@ class BaseController
         $this->data['headerBrandEnabled'] = $this->data['customizer']?->headerBrandEnabled && !empty($this->data['brandText']);
 
         // Footer
-        [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
+        [$footerColumns, $footerAreas] = $this->getFooterSettings();
         $this->data['footerColumns'] = $footerColumns;
-        $this->data['footerGridSize'] = $footerStyle === 'columns' ? floor(12 / $footerColumns) : 12;
+        $this->data['footerGridSize'] = floor(12 / $footerColumns);
         $this->data['footerAreas'] = $footerAreas;
-        $this->data['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'] ?? 'left';
 
         // Header controllers
         if (isset($this->data['customizer']->headerApperance)) {
@@ -807,21 +807,35 @@ class BaseController
     /**
      * Retrieves the footer settings.
      *
-     * @return array An array containing the footer style, number of footer columns, and footer areas.
+     * @return array An array containing the number of footer columns and footer areas.
      */
     protected function getFooterSettings()
     {
-        $footerStyle = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'] ?? 'standard';
         $footerAreas = ['footer-area'];
-        $footerColumns = 1;
-        if ($footerStyle === 'columns') {
-            $footerColumns = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerColumns'] ?? 1;
-            for ($i = 1; $i < $footerColumns; $i++) {
-                $footerAreas[] = 'footer-area-column-' . $i;
-            }
+        $footerColumns = $this->getFooterColumns();
+
+        for ($i = 1; $i < $footerColumns; $i++) {
+            $footerAreas[] = 'footer-area-column-' . $i;
         }
 
-        return [$footerStyle, $footerColumns, $footerAreas];
+        return [$footerColumns, $footerAreas];
+    }
+
+    /**
+     * Get the configured footer column count from stored design tokens.
+     */
+    private function getFooterColumns(): int
+    {
+        $storedTokens = $this->wpService->getThemeMod('tokens', '');
+
+        if (!is_string($storedTokens) || trim($storedTokens) === '') {
+            return 1;
+        }
+
+        $decodedTokens = json_decode($storedTokens, true);
+        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
+
+        return max(1, (int) $columnCount);
     }
 
     /**
@@ -1124,6 +1138,20 @@ class BaseController
         }
 
         return $this->getLogotype($variant) ?? false;
+    }
+
+    /**
+     * Get the inline footer background image CSS custom property style.
+     */
+    public function getFooterBackgroundImageStyle(): string
+    {
+        $backgroundImage = $this->data['customizer']->footerBackgroundImage ?? '';
+
+        if (!is_string($backgroundImage) || trim($backgroundImage) === '') {
+            return '';
+        }
+
+        return "--c-footer--background-image: url('" . esc_url($backgroundImage) . "');";
     }
 
     /**
