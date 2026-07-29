@@ -70,12 +70,20 @@ class PanelsRegistry
         }
 
         self::$registerInvoked = true;
+        self::registerAppearancePanel();
+        self::registerHeaderPanel();
+        self::registerNavigationPanel();
+        self::registerHeroSection();
+        self::registerFooterSection();
+        self::registerCardsSection();
+        self::registerSliderPanel();
+        self::registerDatebadgeSection();
+        self::registerDividerSection();
+        self::registerTagsSection();
+        self::registerOpenStreetMapSection();
         self::registerArchivePanel();
-        self::registerGeneralAppearancePanel();
-        self::registerComponentAppearancePanel();
-        self::registerNavMenusPanel();
-        self::registerDesignLibraryPanel();
         self::registerErrorPagesPanel();
+        self::registerDesignLibraryPanel();
     }
 
     public static function registerDesignLibraryPanel()
@@ -124,6 +132,252 @@ class PanelsRegistry
         return $postTypes;
     }
 
+    /* Appearance panel */
+    public static function registerAppearancePanel()
+    {
+        CustomizerPanel::create()
+            ->setID('municipio_customizer_panel_design')
+            ->setTitle(esc_html__('Appearance', 'municipio'))
+            ->setDescription(esc_html__('Manage site-wide design options.', 'municipio'))
+            ->setPriority(10)
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_general')
+                    ->setTitle(esc_html__('General', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\General('municipio_customizer_section_general')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_logo')
+                    ->setTitle(esc_html__('Logotypes', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Logo('municipio_customizer_section_logo')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_width')
+                    ->setTitle(esc_html__('Page Widths', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Width('municipio_customizer_section_width')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_icons')
+                    ->setTitle(esc_html__('Icons', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Icons('municipio_customizer_section_icons')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_search')
+                    ->setTitle(esc_html__('Search', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Search('municipio_customizer_section_search')),
+            )
+            ->register();
+    }
+
+    /* Header panel */
+    public static function registerHeaderPanel()
+    {
+        CustomizerPanel::create()
+            ->setID('municipio_customizer_header_panel')
+            ->setTitle(esc_html__('Header', 'municipio'))
+            ->setDescription(esc_html__('Manage header layout and appearance.', 'municipio'))
+            ->setPriority(20)
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_header_panel_layout')
+                    ->setTitle(esc_html__('Layout', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Layout('municipio_customizer_section_header_panel_layout'))
+                    ->setTabs([
+                        'general' => [
+                            'label' => esc_html__('General', 'municipio'),
+                        ],
+                        'flexible' => [
+                            'label' => esc_html__('Flexible', 'municipio'),
+                        ],
+                        'standard' => [
+                            'label' => esc_html__('Standard', 'municipio'),
+                        ],
+                    ]),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_header_panel_appearance')
+                    ->setTitle(esc_html__('Appearance', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Appearance('municipio_customizer_section_header_panel_appearance')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_header_panel_logotype')
+                    ->setTitle(esc_html__('Logotype', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Logotype('municipio_customizer_section_header_panel_logotype')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_header_panel_login_logout')
+                    ->setTitle(esc_html__('Login / Logout', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\LoginLogout('municipio_customizer_section_header_panel_login_logout')),
+            )
+            ->register();
+    }
+
+    /* Navigation panel — adds sections to the WordPress native nav_menus panel */
+    public static function registerNavigationPanel()
+    {
+        CustomizerPanel::create()
+            ->setID('nav_menus')
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_menu')
+                    ->setTitle(esc_html__('Behaviour', 'municipio'))
+                    ->setDescription(esc_html__('Menu behaviour settings.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Behaviour('municipio_customizer_section_menu')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_breadcrumbs')
+                    ->setTitle(esc_html__('Breadcrumbs', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Breadcrumbs('municipio_customizer_section_breadcrumbs')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_drawer')
+                    ->setTitle(esc_html__('Drawer', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Drawer('municipio_customizer_section_drawer')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_mega_menu')
+                    ->setTitle(esc_html__('Mega menu', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\MegaMenu('municipio_customizer_section_mega_menu')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_quicklinks')
+                    ->setTitle(esc_html__('Quicklinks', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Quicklinks('municipio_customizer_section_quicklinks')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_siteselector')
+                    ->setTitle(esc_html__('Site selector', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Siteselector('municipio_customizer_section_siteselector')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_header_panel_tab_menu')
+                    ->setTitle(esc_html__('Tab menu', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Tabmenu('municipio_customizer_section_header_panel_tab_menu')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_vertical')
+                    ->setTitle(esc_html__('Vertical menu', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Vertical('municipio_customizer_section_vertical')),
+            )
+            ->register();
+    }
+
+    /* Hero — standalone top-level section */
+    public static function registerHeroSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_hero')
+            ->setTitle(esc_html__('Hero', 'municipio'))
+            ->setPriority(40)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Hero('municipio_customizer_section_hero'))
+            ->register();
+    }
+
+    /* Footer — standalone top-level section */
+    public static function registerFooterSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_component_footer')
+            ->setTitle(esc_html__('Footer', 'municipio'))
+            ->setPriority(45)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Footer('municipio_customizer_section_component_footer'))
+            ->register();
+    }
+
+    /* Cards — standalone top-level section */
+    public static function registerCardsSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_component_card')
+            ->setTitle(esc_html__('Cards', 'municipio'))
+            ->setPriority(50)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Card('municipio_customizer_section_component_card'))
+            ->register();
+    }
+
+    /* Slider panel */
+    public static function registerSliderPanel()
+    {
+        CustomizerPanel::create()
+            ->setID('municipio_customizer_section_component_slider')
+            ->setTitle(esc_html__('Slider', 'municipio'))
+            ->setPriority(55)
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_default_component_slider')
+                    ->setTitle(esc_html__('Regular Slider', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\SliderDefault('municipio_customizer_section_default_component_slider')),
+            )
+            ->addSection(
+                CustomizerPanelSection::create()
+                    ->setID('municipio_customizer_section_hero_component_slider')
+                    ->setTitle(esc_html__('Hero Slider', 'municipio'))
+                    ->setDescription(esc_html__('Settings for the slider in the hero area.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\SliderHero('municipio_customizer_section_hero_component_slider')),
+            )
+            ->register();
+    }
+
+    /* Date Badge — standalone top-level section */
+    public static function registerDatebadgeSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_datebadge')
+            ->setTitle(esc_html__('Date Badge', 'municipio'))
+            ->setPriority(60)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Datebadge('municipio_customizer_section_datebadge'))
+            ->register();
+    }
+
+    /* Divider — standalone top-level section */
+    public static function registerDividerSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_divider')
+            ->setTitle(esc_html__('Divider', 'municipio'))
+            ->setPriority(65)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Divider('municipio_customizer_section_divider'))
+            ->register();
+    }
+
+    /* Tags — standalone top-level section */
+    public static function registerTagsSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_tags')
+            ->setTitle(esc_html__('Tags', 'municipio'))
+            ->setPriority(70)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Tags('municipio_customizer_section_tags'))
+            ->register();
+    }
+
+    /* Open Street Map — standalone top-level section */
+    public static function registerOpenStreetMapSection()
+    {
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_component_openstreetmap')
+            ->setTitle(esc_html__('Maps', 'municipio'))
+            ->setDescription(esc_html__('Settings for maps.', 'municipio'))
+            ->setPriority(75)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\OpenStreetMap('municipio_customizer_section_component_openstreetmap'))
+            ->register();
+    }
+
+    /* Archive panel */
     public static function registerArchivePanel()
     {
         $panelID = 'municipio_customizer_panel_archive';
@@ -140,169 +394,10 @@ class PanelsRegistry
 
         CustomizerPanel::create()
             ->setID($panelID)
-            ->setTitle(esc_html__('Archive Apperance', 'municipio'))
-            ->setDescription(esc_html__('Manage apperance options on archives.', 'municipio'))
-            ->setPriority(120)
+            ->setTitle(esc_html__('Archives', 'municipio'))
+            ->setDescription(esc_html__('Manage appearance options on archives.', 'municipio'))
+            ->setPriority(80)
             ->addSections($sections)
-            ->register();
-    }
-
-    /* General panel */
-    public static function registerGeneralAppearancePanel()
-    {
-        CustomizerPanel::create()
-            ->setID('municipio_customizer_panel_design')
-            ->setTitle(esc_html__('General Apperance', 'municipio'))
-            ->setDescription(esc_html__('Manage site general design options.', 'municipio'))
-            ->setPriority(120)
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_logo')
-                    ->setTitle(esc_html__('Logotypes', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Logo('municipio_customizer_section_logo')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_general')
-                    ->setTitle(esc_html__('General settings', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\General('municipio_customizer_section_general'))
-                    ->setPriority(120),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_width')
-                    ->setTitle(esc_html__('Page Widths', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Width('municipio_customizer_section_width')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_search')
-                    ->setTitle(esc_html__('Search', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Search('municipio_customizer_section_search')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_icons')
-                    ->setTitle(esc_html__('Icons', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Icons('municipio_customizer_section_icons')),
-            )
-            ->register();
-    }
-
-    /* Component panel */
-    public static function registerComponentAppearancePanel()
-    {
-        CustomizerPanel::create()
-            ->setID('municipio_customizer_panel_design_component')
-            ->setTitle(esc_html__('Component Apperance', 'municipio'))
-            ->setDescription(esc_html__('Manage design options on component level.', 'municipio'))
-            ->setPriority(120)
-            ->addSubPanel(
-                CustomizerPanel::create()
-                    ->setID('municipio_customizer_header_panel')
-                    ->setTitle(esc_html__('Header', 'municipio'))
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_header_panel_layout')
-                            ->setTitle(esc_html__('Layout', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Layout('municipio_customizer_section_header_panel_layout'))
-                            ->setTabs([
-                                'general' => [
-                                    'label' => esc_html__('General', 'municipio'),
-                                ],
-                                'flexible' => [
-                                    'label' => esc_html__('Flexible', 'municipio'),
-                                ],
-                                'standard' => [
-                                    'label' => esc_html__('Standard', 'municipio'),
-                                ],
-                            ]),
-                    )
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_header_panel_appearance')
-                            ->setTitle(esc_html__('Appearance', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Appearance('municipio_customizer_section_header_panel_appearance')),
-                    )
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_header_panel_logotype')
-                            ->setTitle(esc_html__('Logotype', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Logotype('municipio_customizer_section_header_panel_logotype')),
-                    )
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_header_panel_login_logout')
-                            ->setTitle(esc_html__('Login/Logout', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\LoginLogout('municipio_customizer_section_header_panel_login_logout')),
-                    ),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_component_card')
-                    ->setTitle(esc_html__('Cards', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Card('municipio_customizer_section_component_card')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_component_openstreetmap')
-                    ->setTitle(esc_html__('Open Street Map', 'municipio'))
-                    ->setDescription(esc_html__('Settings for Open Street Maps.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\OpenStreetMap('municipio_customizer_section_component_openstreetmap')),
-            )
-            ->addSubPanel(
-                CustomizerPanel::create()
-                    ->setID('municipio_customizer_section_component_slider')
-                    ->setTitle(esc_html__('Slider', 'municipio'))
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_default_component_slider')
-                            ->setTitle(esc_html__('Regular Slider', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\SliderDefault('municipio_customizer_section_default_component_slider')),
-                    )
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_hero_component_slider')
-                            ->setTitle(esc_html__('Hero slider', 'municipio'))
-                            ->setDescription(esc_html__('Settings for the slider in the hero area.', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\SliderHero('municipio_customizer_section_hero_component_slider')),
-                    ),
-            )
-            ->addSubPanel(
-                CustomizerPanel::create()
-                    ->setID('municipio_customizer_panel_component_footer')
-                    ->setTitle(esc_html__('Footer', 'municipio'))
-                    ->addSection(
-                        CustomizerPanelSection::create()
-                            ->setID('municipio_customizer_section_component_footer')
-                            ->setTitle(esc_html__('Footer', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Footer('municipio_customizer_section_component_footer')),
-                    ),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_datebadge')
-                    ->setTitle(esc_html__('Datebadge', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Datebadge('municipio_customizer_section_datebadge')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_divider')
-                    ->setTitle(esc_html__('Divider', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Divider('municipio_customizer_section_divider')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_hero')
-                    ->setTitle(esc_html__('Hero', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Hero('municipio_customizer_section_hero')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_tags')
-                    ->setTitle(esc_html__('Tags', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Tags('municipio_customizer_section_tags')),
-            )
             ->register();
     }
 
@@ -339,63 +434,6 @@ class PanelsRegistry
     private static function getErrorPagePreviewUrl(string $type): string
     {
         return add_query_arg('municipio_error_preview', $type, home_url('/'));
-    }
-
-    /* Menu panel */
-    public static function registerNavMenusPanel()
-    {
-        CustomizerPanel::create()
-            ->setID('nav_menus')
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_menu')
-                    ->setTitle(esc_html__('Behaviour', 'municipio'))
-                    ->setDescription(esc_html__('Menu behaviour settings.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Behaviour('municipio_customizer_section_menu')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_breadcrumbs')
-                    ->setTitle(esc_html__('Breadcrumbs', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Breadcrumbs('municipio_customizer_section_breadcrumbs')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_drawer')
-                    ->setTitle(esc_html__('Drawer', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Drawer('municipio_customizer_section_drawer')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_mega_menu')
-                    ->setTitle(esc_html__('Mega menu', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\MegaMenu('municipio_customizer_section_mega_menu')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_quicklinks')
-                    ->setTitle(esc_html__('Quicklinks menu', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Quicklinks('municipio_customizer_section_quicklinks')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_siteselector')
-                    ->setTitle(esc_html__('Siteselector menu', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Siteselector('municipio_customizer_section_siteselector')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_header_panel_tab_menu')
-                    ->setTitle(esc_html__('Tab menu', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Tabmenu('municipio_customizer_section_header_panel_tab_menu')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_vertical')
-                    ->setTitle(esc_html__('General: Menu Settings (vertical)', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Vertical('municipio_customizer_section_vertical')),
-            )
-            ->register();
     }
 
     public static function getArchivePanelSectionsConfiguaration(string $parentPanelID): array
