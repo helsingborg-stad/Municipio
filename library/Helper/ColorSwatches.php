@@ -209,7 +209,9 @@ class ColorSwatches
             return false;
         }
 
+        $existingColors = self::getExistingColorSetForPaletteMigration($tokenValues);
         $didChange = false;
+        $legacyColorIndex = 0;
         for ($index = 1; $index <= 10; $index++) {
             $tokenColorKey = '--color--palette-' . $index;
             $tokenContrastKey = '--color--palette-' . $index . '-contrast';
@@ -218,12 +220,17 @@ class ColorSwatches
                 continue;
             }
 
-            $legacyColor = $legacyPaletteColors[$index - 1] ?? null;
+            $legacyColor = self::getNextMigratableLegacyColor(
+                $legacyPaletteColors,
+                $legacyColorIndex,
+                $existingColors,
+            );
             if ($legacyColor === null) {
                 break;
             }
 
             $tokenValues[$tokenColorKey] = $legacyColor;
+            $existingColors[$legacyColor] = true;
 
             if (empty($tokenValues[$tokenContrastKey])) {
                 $tokenValues[$tokenContrastKey] = self::getOneTimeContrastForMigration($legacyColor);
@@ -241,6 +248,66 @@ class ColorSwatches
         self::$cachedColors = null;
 
         return true;
+    }
+
+    /**
+     * Get the next legacy color that is not already represented in tokens.
+     *
+     * @param array<int, string>       $legacyPaletteColors
+     * @param int                      $legacyColorIndex
+     * @param array<string, bool>      $existingColors
+     *
+     * @return string|null
+     */
+    private static function getNextMigratableLegacyColor(
+        array $legacyPaletteColors,
+        int &$legacyColorIndex,
+        array $existingColors,
+    ): ?string {
+        $legacyPaletteColorCount = count($legacyPaletteColors);
+
+        while ($legacyColorIndex < $legacyPaletteColorCount) {
+            $legacyColor = $legacyPaletteColors[$legacyColorIndex];
+            $legacyColorIndex++;
+
+            if (isset($existingColors[$legacyColor])) {
+                continue;
+            }
+
+            return $legacyColor;
+        }
+
+        return null;
+    }
+
+    /**
+     * Build a set of already represented colors to avoid duplicate migration.
+     *
+     * @param array<string, mixed> $tokenValues
+     *
+     * @return array<string, bool>
+     */
+    private static function getExistingColorSetForPaletteMigration(array $tokenValues): array
+    {
+        $existingColors = [];
+
+        $existingColorKeys = [
+            '--color--primary',
+            '--color--secondary',
+        ];
+
+        for ($index = 1; $index <= 10; $index++) {
+            $existingColorKeys[] = '--color--palette-' . $index;
+        }
+
+        foreach ($existingColorKeys as $tokenKey) {
+            $normalizedColor = self::normalizeHexColor($tokenValues[$tokenKey] ?? null);
+            if ($normalizedColor !== null) {
+                $existingColors[$normalizedColor] = true;
+            }
+        }
+
+        return $existingColors;
     }
 
     /**
