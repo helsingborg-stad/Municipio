@@ -77,7 +77,6 @@ class PanelsRegistry
         self::registerFooterSection();
         self::registerCardsSection();
         self::registerSliderPanel();
-        self::registerDatebadgeSection();
         self::registerDividerSection();
         self::registerTagsSection();
         self::registerOpenStreetMapSection();
