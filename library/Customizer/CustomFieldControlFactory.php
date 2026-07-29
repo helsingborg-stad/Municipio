@@ -4,6 +4,7 @@ namespace Municipio\Customizer;
 
 use Municipio\Customizer\Controls\AlphaColor\AlphaColorControl;
 use Municipio\Customizer\Controls\Background\BackgroundControl;
+use Municipio\Customizer\Controls\ColorChoice\ColorChoiceControl;
 use Municipio\Customizer\Controls\CustomContent\CustomContentControl;
 use Municipio\Customizer\Controls\Divider\DividerControl;
 use Municipio\Customizer\Controls\Headline\HeadlineControl;
@@ -19,6 +20,7 @@ class CustomFieldControlFactory
     private const CONTROL_CLASSES = [
         'alpha_color' => AlphaColorControl::class,
         'background' => BackgroundControl::class,
+        'color_choice' => ColorChoiceControl::class,
         'custom' => CustomContentControl::class,
         'divider' => DividerControl::class,
         'headline' => HeadlineControl::class,

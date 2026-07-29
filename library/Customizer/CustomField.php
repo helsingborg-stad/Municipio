@@ -96,6 +96,7 @@ class CustomFieldSupport
 {
     private const CUSTOM_FIELD_TYPES = [
         'background',
+        'color_choice',
         'color',
         'custom',
         'divider',

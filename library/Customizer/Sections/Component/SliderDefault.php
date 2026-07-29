@@ -160,7 +160,7 @@ class SliderDefault
          * Slider button color
          */
         CustomizerField::addField([
-            'type' => 'select',
+            'type' => 'color_choice',
             'settings' => 'slider_arrow_button_color',
             'label' => esc_html__('Arrow button color', 'municipio'),
             'section' => $sectionID,

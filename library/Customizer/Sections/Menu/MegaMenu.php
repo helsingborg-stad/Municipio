@@ -310,7 +310,7 @@ class MegaMenu
         ]);
 
         CustomizerField::addField([
-            'type'            => 'select',
+            'type'            => 'color_choice',
             'settings'        => 'mega_menu_color_scheme',
             'label'           => esc_html__('Color scheme', 'municipio'),
             'section'         => $sectionID,

@@ -1,4 +1,5 @@
 import { BackgroundControlElement } from "./Background/BackgroundControl";
+import { ColorChoiceControlElement } from "./ColorChoice/ColorChoiceControl";
 import { ControlOrchestrator } from "./ControlOrchestrator";
 import { MultiCheckControlElement } from "./MultiCheck/MultiCheckControl";
 import { MultiColorControlElement } from "./MultiColor/MultiColorControl";
@@ -11,6 +12,10 @@ new ControlOrchestrator([
 	{
 		tagName: "municipio-background-control",
 		element: BackgroundControlElement,
+	},
+	{
+		tagName: "municipio-color-choice-control",
+		element: ColorChoiceControlElement,
 	},
 	{
 		tagName: "municipio-multicheck-control",

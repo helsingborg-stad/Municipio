@@ -73,7 +73,7 @@ class Siteselector
         ]);
 
         CustomizerField::addField([
-            'type' => 'select',
+            'type' => 'color_choice',
             'settings' => 'siteselector_color_scheme',
             'label' => esc_html__('Color scheme', 'municipio'),
             'description' => esc_html__('Select color scheme to use for this component.', 'municipio'),

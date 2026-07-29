@@ -1,0 +1,35 @@
+.municipio-color-choice-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+.municipio-color-choice-swatch {
+	background: transparent;
+	border: 1px solid #dcdcde;
+	border-radius: 999px;
+	padding: 2px;
+	cursor: pointer;
+}
+
+.municipio-color-choice-swatch.is-active {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.municipio-color-choice-swatch__sample {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 999px;
+	line-height: 1;
+}
+
+.municipio-color-choice-swatch__sample svg {
+	width: 1rem;
+	height: 1rem;
+	display: block;
+}
