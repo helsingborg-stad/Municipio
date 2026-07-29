@@ -370,7 +370,6 @@ class PanelsRegistry
         CustomizerPanelSection::create()
             ->setID('municipio_customizer_section_component_openstreetmap')
             ->setTitle(esc_html__('Maps', 'municipio'))
-            ->setDescription(esc_html__('Settings for maps.', 'municipio'))
             ->setPriority(75)
             ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\OpenStreetMap('municipio_customizer_section_component_openstreetmap'))
             ->register();
