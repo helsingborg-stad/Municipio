@@ -50,6 +50,11 @@ class Customizer
      */
     public function addPreviewPageSwitches()
     {
+        wp_add_inline_style(
+            'customize-controls',
+            '.wp-core-ui select{max-width:none;}',
+        );
+
         wp_register_script(
             'municipio-customizer-preview',
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/customizer-preview.js'),

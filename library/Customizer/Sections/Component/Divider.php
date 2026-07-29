@@ -45,6 +45,8 @@ class Divider
             'alpha' => true,
             'default' => 'rgba(255, 255, 255, 0)',
             'palettes' => ColorSwatches::getColors(),
+            'palette_pairs' => ColorSwatches::getColorPairs(),
+            'swatch_pair_role' => 'contrast',
             'active_callback' => [
                 [
                     'setting' => 'divider_custom_font',

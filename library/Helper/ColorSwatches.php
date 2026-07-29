@@ -116,6 +116,65 @@ class ColorSwatches
     }
 
     /**
+     * Returns normalized background/contrast color pairs.
+     *
+     * @return array<int, array{background:string, contrast:string}>
+     */
+    public static function getColorPairs(): array
+    {
+        $tokenValues = self::getTokenPaletteValues();
+        $pairs = [];
+
+        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--primary', '--color--primary-contrast'));
+        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--secondary', '--color--secondary-contrast'));
+
+        for ($index = 1; $index <= 10; $index++) {
+            $pairs = array_merge(
+                $pairs,
+                self::buildPair(
+                    $tokenValues,
+                    '--color--palette-' . $index,
+                    '--color--palette-' . $index . '-contrast',
+                ),
+            );
+        }
+
+        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--background', '--color--background-contrast'));
+        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--surface', '--color--surface-contrast'));
+
+        if (empty($pairs)) {
+            $pairs[] = ['background' => '#2d2d2d', 'contrast' => '#ffffff'];
+            $pairs[] = ['background' => '#f5f5f5', 'contrast' => '#2d2d2d'];
+        }
+
+        return array_values(array_unique($pairs, SORT_REGULAR));
+    }
+
+    /**
+     * Build a normalized background/contrast pair from token keys.
+     *
+     * @param array<string, string> $tokenValues
+     * @param string                $backgroundKey
+     * @param string                $contrastKey
+     *
+     * @return array<int, array{background:string, contrast:string}>
+     */
+    private static function buildPair(array $tokenValues, string $backgroundKey, string $contrastKey): array
+    {
+        $background = self::normalizeHexColor($tokenValues[$backgroundKey] ?? null);
+        if ($background === null) {
+            return [];
+        }
+
+        $contrast = self::normalizeHexColor($tokenValues[$contrastKey] ?? null);
+        if ($contrast === null) {
+            $contrast = self::getOneTimeContrastForMigration($background);
+        }
+
+        return [['background' => $background, 'contrast' => $contrast]];
+    }
+
+    /**
      * Reads token values from the stored design token theme mod.
      *
      * @return array<string, mixed>

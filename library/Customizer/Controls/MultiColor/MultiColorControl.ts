@@ -1,63 +1,75 @@
-import { dispatchCustomizerChange, getJQuery } from "../controlTypes";
+import { dispatchCustomizerChange } from "../controlTypes";
 
 export class MultiColorControlElement extends HTMLElement {
 	private readonly handleInput = (event: Event): void => {
-		if (!(event.target instanceof HTMLInputElement) || !event.target.classList.contains("municipio-multicolor-input")) {
+		if (
+			!(event.target instanceof HTMLInputElement) ||
+			!event.target.classList.contains("municipio-multicolor-input")
+		) {
 			return;
 		}
 
 		this.updateValue();
 	};
 
+	private readonly handleSwatchClick = (event: Event): void => {
+		if (!(event.target instanceof Element)) {
+			return;
+		}
+
+		const swatchButton = event.target.closest<HTMLButtonElement>(
+			".municipio-multicolor-swatch",
+		);
+		if (!(swatchButton instanceof HTMLButtonElement)) {
+			return;
+		}
+
+		const choiceKey = swatchButton.dataset.choice;
+		const nextColor = swatchButton.dataset.background;
+		if (!choiceKey || !nextColor) {
+			return;
+		}
+
+		const input = this.querySelector<HTMLInputElement>(
+			`.municipio-multicolor-input[data-choice="${choiceKey}"]`,
+		);
+		if (!(input instanceof HTMLInputElement)) {
+			return;
+		}
+
+		input.value = nextColor;
+
+		const swatchContainer = swatchButton.closest(
+			".municipio-multicolor-swatches",
+		);
+		swatchContainer
+			?.querySelectorAll<HTMLButtonElement>(".municipio-multicolor-swatch")
+			.forEach((button) => {
+				button.classList.remove("is-active");
+			});
+		swatchButton.classList.add("is-active");
+
+		this.updateValue();
+	};
+
 	public connectedCallback(): void {
 		this.addEventListener("input", this.handleInput);
-		this.initializeColorPickers();
+		this.addEventListener("click", this.handleSwatchClick);
 	}
 
 	public disconnectedCallback(): void {
 		this.removeEventListener("input", this.handleInput);
-	}
-
-	private initializeColorPickers(): void {
-		const jquery = getJQuery();
-		const palettes = this.getPalettes();
-
-		if (!jquery?.fn?.wpColorPicker) {
-			return;
-		}
-
-		this.querySelectorAll<HTMLInputElement>(".municipio-multicolor-input").forEach((input) => {
-			jquery(input).wpColorPicker?.({
-				palettes,
-				change: () => window.setTimeout(() => this.updateValue(), 0),
-				clear: () => window.setTimeout(() => this.updateValue(), 0),
-			});
-		});
-	}
-
-	private getPalettes(): string[] {
-		const rawValue = this.dataset.palettes;
-
-		if (!rawValue) {
-			return [];
-		}
-
-		try {
-			const parsedValue = JSON.parse(rawValue);
-			if (!Array.isArray(parsedValue)) {
-				return [];
-			}
-
-			return parsedValue.filter((value): value is string => typeof value === "string" && value.trim().length > 0);
-		} catch {
-			return [];
-		}
+		this.removeEventListener("click", this.handleSwatchClick);
 	}
 
 	private updateValue(): void {
-		const valueInput = this.querySelector<HTMLInputElement>(".municipio-multicolor-value");
+		const valueInput = this.querySelector<HTMLInputElement>(
+			".municipio-multicolor-value",
+		);
 		const values = Object.fromEntries(
-			Array.from(this.querySelectorAll<HTMLInputElement>(".municipio-multicolor-input"))
+			Array.from(
+				this.querySelectorAll<HTMLInputElement>(".municipio-multicolor-input"),
+			)
 				.map((input) => [input.dataset.choice ?? "", input.value])
 				.filter(([key]) => key !== ""),
 		);

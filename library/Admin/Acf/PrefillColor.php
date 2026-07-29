@@ -40,7 +40,7 @@ class PrefillColor
     /**
      * Enqueue inline JavaScript for ACF color picker customization
      *
-    * @param array $fieldNames Optional field names to apply the palette to
+     * @param array $fieldNames Optional field names to apply the palette to
      */
     private function enqueueColorPickerScript(array $fieldNames): void
     {

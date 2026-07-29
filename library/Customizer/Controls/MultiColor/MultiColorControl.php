@@ -39,10 +39,11 @@ class MultiColorControl extends WP_Customize_Control
     {
         $values = $this->getValues();
         $palettes = $this->getPalettes();
+        $palettePairs = $this->getPalettePairs($palettes);
         ?>
         <municipio-multicolor-control
             class="municipio-control municipio-control--multicolor"
-            data-palettes="<?php echo esc_attr(wp_json_encode($palettes)); ?>"
+            data-palette-pairs="<?php echo esc_attr(wp_json_encode($palettePairs)); ?>"
         >
             <?php if (!empty($this->label)): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
@@ -54,7 +55,31 @@ class MultiColorControl extends WP_Customize_Control
             <?php foreach ($this->choices as $choiceValue => $choiceLabel): ?>
                 <label class="municipio-multicolor-field">
                     <span><?php echo esc_html((string) $choiceLabel); ?></span>
-                    <input type="text" class="municipio-multicolor-input" data-choice="<?php echo esc_attr((string) $choiceValue); ?>" value="<?php echo esc_attr((string) ($values[$choiceValue] ?? '')); ?>" />
+                    <input type="hidden" class="municipio-multicolor-input" data-choice="<?php echo esc_attr((string) $choiceValue); ?>" value="<?php echo esc_attr((string) ($values[$choiceValue] ?? '')); ?>" />
+                    <div class="municipio-multicolor-swatches" role="group" aria-label="<?php echo esc_attr((string) $choiceLabel); ?>">
+                        <?php foreach ($palettePairs as $pair): ?>
+                            <?php $isActive = strtolower((string) ($values[$choiceValue] ?? '')) === strtolower($pair['background']); ?>
+                            <button
+                                type="button"
+                                class="municipio-multicolor-swatch<?php echo $isActive ? ' is-active' : ''; ?>"
+                                data-choice="<?php echo esc_attr((string) $choiceValue); ?>"
+                                data-background="<?php echo esc_attr($pair['background']); ?>"
+                                data-contrast="<?php echo esc_attr($pair['contrast']); ?>"
+                                aria-label="<?php echo esc_attr(sprintf('%s / %s', $pair['background'], $pair['contrast'])); ?>"
+                                title="<?php echo esc_attr(sprintf('%s / %s', $pair['background'], $pair['contrast'])); ?>"
+                            >
+                                <span
+                                    class="municipio-multicolor-swatch__sample"
+                                    style="background-color: <?php echo esc_attr($pair['background']); ?>; color: <?php echo esc_attr($pair['contrast']); ?>;"
+                                    aria-hidden="true"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" focusable="false" aria-hidden="true">
+                                        <path d="M280-160v-520H80v-120h520v120H400v520H280Zm360 0v-320H520v-120h360v120H760v320H640Z"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
                 </label>
             <?php endforeach; ?>
         </municipio-multicolor-control>
@@ -91,10 +116,45 @@ class MultiColorControl extends WP_Customize_Control
             return [];
         }
 
-        return array_values(array_filter(array_map(static function (mixed $value): string {
-            return is_string($value) ? trim($value) : '';
-        }, $palettes), static function (string $value): bool {
-            return $value !== '';
-        }));
+        return array_values(array_filter(
+            array_map(static function (mixed $value): string {
+                return is_string($value) ? trim($value) : '';
+            }, $palettes),
+            static function (string $value): bool {
+                return $value !== '';
+            },
+        ));
+    }
+
+    /**
+     * Build background/contrast swatch pairs from a flat palette list.
+     *
+     * @param array<int, string> $palettes
+     *
+     * @return array<int, array{background:string, contrast:string}>
+     */
+    private function getPalettePairs(array $palettes): array
+    {
+        $pairs = [];
+
+        for ($index = 0; $index < count($palettes); $index += 2) {
+            $background = $palettes[$index] ?? null;
+            $contrast = $palettes[$index + 1] ?? null;
+
+            if (!is_string($background) || trim($background) === '') {
+                continue;
+            }
+
+            if (!is_string($contrast) || trim($contrast) === '') {
+                $contrast = '#ffffff';
+            }
+
+            $pairs[] = [
+                'background' => strtolower(trim($background)),
+                'contrast' => strtolower(trim($contrast)),
+            ];
+        }
+
+        return array_values(array_unique($pairs, SORT_REGULAR));
     }
 }
