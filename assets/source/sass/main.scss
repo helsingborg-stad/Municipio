@@ -55,3 +55,7 @@ main .c-sidebar .c-sidebar__subcontainer--top {
 div:first-child>.module-title {
     margin-top: 0;
 }
+
+.c-fab--design-tool-top-level {
+    z-index: 2147483000;
+}

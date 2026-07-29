@@ -10,7 +10,7 @@
                 'text' => $floatingMenuLabelsCustomize->buttonLabel,
                 'reversePositions' => true,
             ],
-            'classList' => ['c-fab--width-xl', 'c-fab--padding-none'],
+            'classList' => ['c-fab--width-xl', 'c-fab--padding-none', 'c-fab--design-tool-top-level'],
             'attributeList' => [
                 'data-customizable' => 'false'
             ]
