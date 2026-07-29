@@ -2,8 +2,9 @@
 
 namespace Municipio\Admin\Acf;
 
-use WpService\Contracts\ApplyFilters;
+use Municipio\Helper\ColorSwatches;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * Class PrefillColor
@@ -16,16 +17,22 @@ class PrefillColor
     /**
      * Add filter to specified fields
      */
-    public function __construct(private ApplyFilters&AddAction $wpService)
-    {
+    public function __construct(
+        private ApplyFilters&AddAction $wpService,
+    ) {
         $fieldNames = $this->wpService->applyFilters('Municipio/Admin/Acf/PrefillColor', [
             'custom_background_color',
         ]);
 
         // Enqueue inline JavaScript with palette data
-        $this->wpService->addAction('admin_footer', function() use ($fieldNames) {
-            $this->enqueueColorPickerScript($fieldNames);
-        }, 20, 0);
+        $this->wpService->addAction(
+            'admin_footer',
+            function () use ($fieldNames) {
+                $this->enqueueColorPickerScript($fieldNames);
+            },
+            20,
+            0,
+        );
     }
 
     /**
@@ -43,16 +50,16 @@ class PrefillColor
             <script>
             acf.add_filter('color_picker_args', function(args, field) {
                 // Only apply to our target fields
-                const targetFields = " . json_encode($fieldNames) . ";
+                const targetFields = " . json_encode($fieldNames) . ';
                 const fieldName = field[0].dataset.name;
                 if (targetFields.includes(fieldName)) {
-                    args.palettes = " . json_encode($palettes) . ";
+                    args.palettes = ' . json_encode($palettes) . ';
                 }
                 
                 return args;
             });
             </script>
-        ";
+        ';
 
         echo $script;
     }
@@ -64,25 +71,6 @@ class PrefillColor
      */
     private function getColorPalettesAsArray(): array
     {
-        $hexesToIgnore = [
-            '#ffffff',
-        ];
-
-        $colors = [];
-        $rawColors = \Municipio\Helper\Color::getPalettes(['color_palette_additional']);
-
-        foreach ($rawColors as $palette) {
-            if (!is_array($palette)) {
-                continue;
-            }
-
-            foreach ($palette as $hex) {
-                if (!in_array(strtolower($hex), $hexesToIgnore)) {
-                    $colors[] = $hex;
-                }
-            }
-        }
-
-        return array_unique($colors);
+        return ColorSwatches::getColors();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Municipio\Admin;
 
+use Municipio\Helper\ColorSwatches;
 
 class General
 {
@@ -51,26 +52,38 @@ class General
 
     public function setIrisDefaultColorPalette()
     {
-        $palettesToGet          = ['color_palette_primary','color_palette_secondary'];
-        $colorPalettes          = \Municipio\Helper\Color::getPalettes($palettesToGet);
-        $colorPalettesSanitized = array_filter($colorPalettes, fn ($value) => is_array($value) && !empty($value));
+        $palettes = ColorSwatches::getColors();
+        if (empty($palettes)) {
+            return;
+        }
 
-        if (!empty($colorPalettesSanitized)) {
-            $colorsStr = '';
-            foreach ($colorPalettesSanitized as $colors) {
-                $colorsStr .= '"' . implode('","', $colors) . '",';
+        $encodedPalettes = wp_json_encode(array_values($palettes));
+
+        echo '
+        <script>
+        (function($) {
+            const palettes = ' . $encodedPalettes . ";
+            if (!Array.isArray(palettes) || palettes.length === 0) {
+                return;
             }
-            echo "
-            <script>
-            if (typeof(acf) != 'undefined') {
-                acf.add_filter('color_picker_args', function( args, \$field ){
-                    args.palettes = [" . $colorsStr . "]
+
+            if (typeof acf !== 'undefined' && typeof acf.add_filter === 'function') {
+                acf.add_filter('color_picker_args', function(args) {
+                    args.palettes = palettes;
                     return args;
                 });
             }
-            </script>
-            ";
-        }
+
+            if ($.wp && $.wp.wpColorPicker && $.wp.wpColorPicker.prototype) {
+                $.wp.wpColorPicker.prototype.options = $.extend(
+                    {},
+                    $.wp.wpColorPicker.prototype.options,
+                    { palettes: palettes }
+                );
+            }
+        })(jQuery);
+        </script>
+        ";
     }
 
     /**
@@ -80,7 +93,7 @@ class General
      */
     public function removeUnwantedModuleMetaboxes($postType)
     {
-        $publicPostTypes   = array_keys(\Municipio\Helper\PostType::getPublic());
+        $publicPostTypes = array_keys(\Municipio\Helper\PostType::getPublic());
         $publicPostTypes[] = 'page';
 
         if (!in_array($postType, $publicPostTypes)) {
@@ -106,13 +119,18 @@ class General
             return;
         }
 
-        add_filter('gettext', function ($translation, $text, $domain) {
-            if ($text !== 'Private') {
-                return $translation;
-            }
+        add_filter(
+            'gettext',
+            function ($translation, $text, $domain) {
+                if ($text !== 'Private') {
+                    return $translation;
+                }
 
-            return __('Only for logged in users', 'municipio');
-        }, 10, 3);
+                return __('Only for logged in users', 'municipio');
+            },
+            10,
+            3,
+        );
     }
 
     /**
@@ -129,10 +147,10 @@ class General
         }
 
         $r['post_status'] = array('publish', 'private');
-        $pages            = get_pages($r);
+        $pages = get_pages($r);
 
         $class = '';
-        if (! empty($r['class'])) {
+        if (!empty($r['class'])) {
             $class = " class='" . esc_attr($r['class']) . "'";
         }
 

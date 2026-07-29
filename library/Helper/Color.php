@@ -69,13 +69,25 @@ class Color
         'color_palette_monotone',
     ])
     {
-        $colorPalettes = apply_filters('Municipio/Helper/Color/options', $options);
+        $requestedOptions = apply_filters('Municipio/Helper/Color/options', $options);
 
-        if (empty($colorPalettes)) {
-            return $colorPalettes;
+        if (empty($requestedOptions) || !is_array($requestedOptions)) {
+            return [];
         }
 
-        foreach ($options as $option) {
+        $tokenBackedPalettes = self::getTokenBackedPalettes();
+        $colorPalettes = [];
+
+        foreach ($requestedOptions as $option) {
+            if (!is_string($option) || trim($option) === '') {
+                continue;
+            }
+
+            if (isset($tokenBackedPalettes[$option]) && is_array($tokenBackedPalettes[$option]) && !empty($tokenBackedPalettes[$option])) {
+                $colorPalettes[$option] = $tokenBackedPalettes[$option];
+                continue;
+            }
+
             $value = get_theme_mod($option);
             if (is_array($value) && !empty($value)) {
                 $colorPalettes[$option] = $value;
@@ -83,6 +95,59 @@ class Color
         }
 
         return apply_filters('Municipio/Helper/Color/colorPalettes', $colorPalettes);
+    }
+
+    /**
+     * Build legacy palette structures backed by design token values.
+     *
+     * @return array<string, array<string, string>|array<int, string>>
+     */
+    private static function getTokenBackedPalettes(): array
+    {
+        $tokenValues = ColorSwatches::getTokenPaletteValues();
+        if (empty($tokenValues)) {
+            return [];
+        }
+
+        $palettes = [];
+
+        $primary = array_filter([
+            'base' => $tokenValues['--color--primary'] ?? null,
+            'contrasting' => $tokenValues['--color--primary-contrast'] ?? null,
+        ]);
+        if (!empty($primary)) {
+            $palettes['color_palette_primary'] = $primary;
+        }
+
+        $secondary = array_filter([
+            'base' => $tokenValues['--color--secondary'] ?? null,
+            'contrasting' => $tokenValues['--color--secondary-contrast'] ?? null,
+        ]);
+        if (!empty($secondary)) {
+            $palettes['color_palette_secondary'] = $secondary;
+        }
+
+        $background = array_filter([
+            'background' => $tokenValues['--color--background'] ?? null,
+            'contrasting' => $tokenValues['--color--background-contrast'] ?? null,
+        ]);
+        if (!empty($background)) {
+            $palettes['color_background'] = $background;
+        }
+
+        $additional = [];
+        for ($index = 1; $index <= 10; $index++) {
+            $key = '--color--palette-' . $index;
+            if (!empty($tokenValues[$key])) {
+                $additional[] = $tokenValues[$key];
+            }
+        }
+
+        if (!empty($additional)) {
+            $palettes['color_palette_additional'] = array_values(array_unique($additional));
+        }
+
+        return $palettes;
     }
 
     public static function getBestContrastColor(string $color, bool $returnAnyColor = false): string
