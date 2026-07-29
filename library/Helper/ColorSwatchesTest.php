@@ -186,6 +186,34 @@ class ColorSwatchesTest extends TestCase
         static::assertArrayNotHasKey('--color--palette-2', $tokenValues);
     }
 
+    #[TestDox('migration skips legacy colors already represented by primary and secondary tokens')]
+    public function testMigrationSkipsLegacyColorsAlreadyRepresentedByPrimaryAndSecondaryTokens(): void
+    {
+        ColorSwatchesTestState::$themeMods = [
+            'tokens' => json_encode([
+                'token' => [
+                    '--color--primary' => '#101010',
+                    '--color--secondary' => '#f0f0f0',
+                ],
+                'component' => [],
+            ], JSON_THROW_ON_ERROR),
+            'color_palette_primary' => ['base' => '#101010'],
+            'color_palette_secondary' => ['base' => '#f0f0f0'],
+            'color_palette_additional' => ['#00ff00', '#ff00ff'],
+        ];
+
+        $didMigrate = ColorSwatches::migrateLegacyCustomizerPaletteToDesignTokens();
+
+        static::assertTrue($didMigrate);
+        static::assertCount(1, ColorSwatchesTestState::$setThemeModCalls);
+
+        $savedTokens = json_decode((string) ColorSwatchesTestState::$setThemeModCalls[0][1], true, 512, JSON_THROW_ON_ERROR);
+
+        static::assertSame('#00ff00', $savedTokens['token']['--color--palette-1']);
+        static::assertSame('#ff00ff', $savedTokens['token']['--color--palette-2']);
+        static::assertArrayNotHasKey('--color--palette-3', $savedTokens['token']);
+    }
+
     #[TestDox('Color getPalettes resolves requested palettes from token values')]
     public function testColorGetPalettesResolvesRequestedPalettesFromTokenValues(): void
     {
