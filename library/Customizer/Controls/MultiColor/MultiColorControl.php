@@ -38,8 +38,12 @@ class MultiColorControl extends WP_Customize_Control
     protected function render_content(): void
     {
         $values = $this->getValues();
+        $palettes = $this->getPalettes();
         ?>
-        <municipio-multicolor-control class="municipio-control municipio-control--multicolor">
+        <municipio-multicolor-control
+            class="municipio-control municipio-control--multicolor"
+            data-palettes="<?php echo esc_attr(wp_json_encode($palettes)); ?>"
+        >
             <?php if (!empty($this->label)): ?>
                 <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
             <?php endif; ?>
@@ -72,5 +76,25 @@ class MultiColorControl extends WP_Customize_Control
         }
 
         return is_array($value) ? $value : [];
+    }
+
+    /**
+     * Get sanitized palettes from control input attributes.
+     *
+     * @return array<int, string>
+     */
+    private function getPalettes(): array
+    {
+        $palettes = $this->input_attrs['palettes'] ?? [];
+
+        if (!is_array($palettes)) {
+            return [];
+        }
+
+        return array_values(array_filter(array_map(static function (mixed $value): string {
+            return is_string($value) ? trim($value) : '';
+        }, $palettes), static function (string $value): bool {
+            return $value !== '';
+        }));
     }
 }

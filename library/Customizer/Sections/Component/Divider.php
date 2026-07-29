@@ -3,6 +3,7 @@
 namespace Municipio\Customizer\Sections\Component;
 
 use Municipio\Customizer\CustomizerField;
+use Municipio\Helper\ColorSwatches;
 
 class Divider
 {
@@ -43,6 +44,7 @@ class Divider
             'transport' => 'auto',
             'alpha' => true,
             'default' => 'rgba(255, 255, 255, 0)',
+            'palettes' => ColorSwatches::getColors(),
             'active_callback' => [
                 [
                     'setting' => 'divider_custom_font',

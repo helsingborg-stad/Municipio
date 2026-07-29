@@ -3,6 +3,7 @@
 namespace Municipio\Customizer\Sections\Component;
 
 use Municipio\Customizer\CustomizerField;
+use Municipio\Helper\ColorSwatches;
 
 class Hero
 {
@@ -123,6 +124,7 @@ class Hero
             'choices'     => [
                 'alpha' => true,
             ],
+            'palettes'    => ColorSwatches::getColors(),
             'output'      => [
                 [
                     'type'    => 'component_data',
@@ -145,6 +147,7 @@ class Hero
             'section'         => $sectionID,
             'default'         => 'rgba(255, 255, 255, 1)',
             'priority'        => 10,
+            'palettes'        => ColorSwatches::getColors(),
             'active_callback' => $this->getActiveCallbackForFieldDependentOnContentBackground(),
             'output'          => [
                 [

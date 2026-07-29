@@ -18,6 +18,7 @@ export type WordPressGlobals = {
 
 export type JQueryCollection = {
 	wpColorPicker?: (options: {
+		palettes?: string[];
 		change?: () => void;
 		clear?: () => void;
 	}) => void;

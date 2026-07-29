@@ -3,6 +3,7 @@
 namespace Municipio\Customizer\Sections\Menu;
 
 use Municipio\Customizer\CustomizerField;
+use Municipio\Helper\ColorSwatches;
 
 class Siteselector
 {
@@ -49,6 +50,7 @@ class Siteselector
             'background'  => '#eee',
             'contrasting' => '#000'
           ],
+          'palettes'        => ColorSwatches::getColors(),
           'output'          => [
             [
                 'choice'   => 'background',

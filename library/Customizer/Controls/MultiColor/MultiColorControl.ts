@@ -20,6 +20,7 @@ export class MultiColorControlElement extends HTMLElement {
 
 	private initializeColorPickers(): void {
 		const jquery = getJQuery();
+		const palettes = this.getPalettes();
 
 		if (!jquery?.fn?.wpColorPicker) {
 			return;
@@ -27,10 +28,30 @@ export class MultiColorControlElement extends HTMLElement {
 
 		this.querySelectorAll<HTMLInputElement>(".municipio-multicolor-input").forEach((input) => {
 			jquery(input).wpColorPicker?.({
+				palettes,
 				change: () => window.setTimeout(() => this.updateValue(), 0),
 				clear: () => window.setTimeout(() => this.updateValue(), 0),
 			});
 		});
+	}
+
+	private getPalettes(): string[] {
+		const rawValue = this.dataset.palettes;
+
+		if (!rawValue) {
+			return [];
+		}
+
+		try {
+			const parsedValue = JSON.parse(rawValue);
+			if (!Array.isArray(parsedValue)) {
+				return [];
+			}
+
+			return parsedValue.filter((value): value is string => typeof value === "string" && value.trim().length > 0);
+		} catch {
+			return [];
+		}
 	}
 
 	private updateValue(): void {
