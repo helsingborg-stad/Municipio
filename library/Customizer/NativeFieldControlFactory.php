@@ -66,6 +66,7 @@ class NativeFieldControlFactory
             'code' => '\\WP_Customize_Code_Editor_Control',
             'color' => '\\WP_Customize_Color_Control',
             'image' => '\\WP_Customize_Image_Control',
+            'slider' => '\\Municipio\\Customizer\\Controls\\Slider\\SliderControl',
             'upload' => '\\WP_Customize_Upload_Control',
         ];
 

@@ -26,10 +26,11 @@ export class ColorChoiceControlElement extends HTMLElement {
 		}
 
 		valueInput.value = nextValue;
-		this.querySelectorAll<HTMLButtonElement>(".municipio-color-choice-swatch")
-			.forEach((button) => {
-				button.classList.remove("is-active");
-			});
+		this.querySelectorAll<HTMLButtonElement>(
+			".municipio-color-choice-swatch",
+		).forEach((button) => {
+			button.classList.remove("is-active");
+		});
 		swatchButton.classList.add("is-active");
 
 		dispatchCustomizerChange(valueInput);
