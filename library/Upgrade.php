@@ -14,6 +14,7 @@ use Municipio\Upgrade\V45\Version45 as UpgradeVersion45;
 use Municipio\Upgrade\V46\Version46 as UpgradeVersion46;
 use Municipio\Upgrade\V47\Version47 as UpgradeVersion47;
 use Municipio\Upgrade\V48\Version48 as UpgradeVersion48;
+use Municipio\Upgrade\V49\Version49 as UpgradeVersion49;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetPostTypes;
@@ -27,7 +28,7 @@ use WpService\Contracts\SetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion = 48; //The db version we want to achive
+    private $dbVersion = 49; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -921,6 +922,23 @@ class Upgrade
     public function v_48(): bool
     {
         $version = new UpgradeVersion48(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 49
+     */
+    public function v_49(): bool
+    {
+        $version = new UpgradeVersion49(WpService::get());
 
         try {
             $version->upgradeToVersion();

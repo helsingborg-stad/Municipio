@@ -37,6 +37,7 @@ class MultiCheckControl extends WP_Customize_Control
     protected function render_content(): void
     {
         $selectedValues = $this->getSelectedValues();
+        $layoutClassName = $this->getLayoutClassName();
         ?>
         <municipio-multicheck-control class="municipio-control municipio-control--multicheck">
             <?php if (!empty($this->label)): ?>
@@ -46,11 +47,11 @@ class MultiCheckControl extends WP_Customize_Control
                 <span class="description customize-control-description"><?php echo esc_html($this->description); ?></span>
             <?php endif; ?>
             <input type="hidden" class="municipio-multicheck-value" value="<?php echo esc_attr(wp_json_encode($selectedValues)); ?>" <?php $this->link(); ?> />
-            <ul class="municipio-multicheck-options">
+            <ul class="municipio-multicheck-options <?php echo esc_attr($layoutClassName); ?>">
             <?php foreach ($this->choices as $choiceValue => $choiceLabel): ?>
                 <li class="municipio-multicheck-options__item">
-                    <label>
-                        <input type="checkbox" value="<?php echo esc_attr((string) $choiceValue); ?>" <?php checked(in_array((string) $choiceValue, $selectedValues, true)); ?> />
+                    <label class="municipio-multicheck-options__label">
+                        <input class="municipio-multicheck-options__input" type="checkbox" value="<?php echo esc_attr((string) $choiceValue); ?>" <?php checked(in_array((string) $choiceValue, $selectedValues, true)); ?> />
                         <?php echo esc_html((string) $choiceLabel); ?>
                     </label>
                 </li>
@@ -58,6 +59,18 @@ class MultiCheckControl extends WP_Customize_Control
             </ul>
         </municipio-multicheck-control>
         <?php
+    }
+
+    /**
+     * Get multicheck options layout class name.
+     *
+     * @return string
+     */
+    private function getLayoutClassName(): string
+    {
+        $layout = is_string($this->input_attrs['layout'] ?? null) ? trim($this->input_attrs['layout']) : '';
+
+        return $layout === 'horizontal' ? 'municipio-multicheck-options--horizontal' : '';
     }
 
     /**

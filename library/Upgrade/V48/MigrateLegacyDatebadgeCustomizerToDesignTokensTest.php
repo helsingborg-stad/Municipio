@@ -36,9 +36,12 @@ class MigrateLegacyDatebadgeCustomizerToDesignTokensTest extends TestCase
         static::assertSame('2px', $storedTokens['component']['__general__']['button']['--c-button--border-radius']);
         static::assertSame('var(--color--secondary)', $storedTokens['component']['__general__']['datebadge']['--c-datebadge--bg']);
 
-        static::assertSame([
-            ['datebadge_color_settings'],
-        ], $wpService->methodCalls['removeThemeMod'] ?? []);
+        static::assertSame(
+            [
+                ['datebadge_color_settings'],
+            ],
+            $wpService->methodCalls['removeThemeMod'] ?? [],
+        );
     }
 
     #[TestDox('migrate keeps existing datebadge design token value')]
@@ -58,9 +61,12 @@ class MigrateLegacyDatebadgeCustomizerToDesignTokensTest extends TestCase
         (new MigrateLegacyDatebadgeCustomizerToDesignTokens($wpService))->migrate();
 
         static::assertCount(0, $wpService->methodCalls['setThemeMod'] ?? []);
-        static::assertSame([
-            ['datebadge_color_settings'],
-        ], $wpService->methodCalls['removeThemeMod'] ?? []);
+        static::assertSame(
+            [
+                ['datebadge_color_settings'],
+            ],
+            $wpService->methodCalls['removeThemeMod'] ?? [],
+        );
     }
 
     #[TestDox('migrate removes deprecated theme mod when legacy value is invalid')]
@@ -80,8 +86,11 @@ class MigrateLegacyDatebadgeCustomizerToDesignTokensTest extends TestCase
         (new MigrateLegacyDatebadgeCustomizerToDesignTokens($wpService))->migrate();
 
         static::assertCount(0, $wpService->methodCalls['setThemeMod'] ?? []);
-        static::assertSame([
-            ['datebadge_color_settings'],
-        ], $wpService->methodCalls['removeThemeMod'] ?? []);
+        static::assertSame(
+            [
+                ['datebadge_color_settings'],
+            ],
+            $wpService->methodCalls['removeThemeMod'] ?? [],
+        );
     }
 }

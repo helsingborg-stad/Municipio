@@ -177,7 +177,7 @@ class BaseController
             'secondary-menu',
             false,
             false,
-            !empty($this->data['customizer']->mobileMenuPagetreeFallback),
+            $this->isMenuPagetreeFallbackEnabled('mobile', !empty($this->data['customizer']->mobileMenuPagetreeFallback)),
         );
 
         $this->menuBuilder->setConfig($mobileMenuConfig);
@@ -190,7 +190,7 @@ class BaseController
             'main-menu',
             isset($this->data['customizer']->primaryMenuDropdown) ? !$this->data['customizer']->primaryMenuDropdown : false,
             false,
-            !empty($this->data['customizer']->primaryMenuPagetreeFallback),
+            $this->isMenuPagetreeFallbackEnabled('primary', !empty($this->data['customizer']->primaryMenuPagetreeFallback)),
         );
 
         $this->menuBuilder->setConfig($primaryMenuConfig);
@@ -213,7 +213,7 @@ class BaseController
             'mega-menu',
             false,
             false,
-            !empty($this->data['customizer']->megaMenuPagetreeFallback),
+            $this->isMenuPagetreeFallbackEnabled('mega', !empty($this->data['customizer']->megaMenuPagetreeFallback)),
         );
 
         $this->menuBuilder->setConfig($megaMenuConfig);
@@ -306,7 +306,7 @@ class BaseController
             'secondary-menu',
             false,
             empty($this->data['primaryMenu']['items']) ? false : true,
-            !empty($this->data['customizer']->secondaryMenuPagetreeFallback),
+            $this->isMenuPagetreeFallbackEnabled('secondary', !empty($this->data['customizer']->secondaryMenuPagetreeFallback)),
         );
 
         $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
@@ -1205,6 +1205,57 @@ class BaseController
         }
 
         return $feeds;
+    }
+
+    /**
+     * Determine if a specific menu should use page tree fallback.
+     *
+     * @param string  $menuName
+     * @param boolean $legacyValue
+     *
+     * @return boolean
+     */
+    private function isMenuPagetreeFallbackEnabled(string $menuName, bool $legacyValue): bool
+    {
+        $configuredMenus = $this->getConfiguredMenuPagetreeFallbackMenus();
+
+        if ($configuredMenus === null) {
+            return $legacyValue;
+        }
+
+        return in_array($menuName, $configuredMenus, true);
+    }
+
+    /**
+     * Get configured menu page tree fallback menu names.
+     *
+     * @return array<int, string>|null
+     */
+    private function getConfiguredMenuPagetreeFallbackMenus(): ?array
+    {
+        $configuredMenus = get_theme_mod('menu_pagetree_fallback_menus', null);
+
+        if ($configuredMenus === null) {
+            return null;
+        }
+
+        if (is_string($configuredMenus)) {
+            $decodedValue = json_decode($configuredMenus, true);
+            $configuredMenus = is_array($decodedValue) ? $decodedValue : [];
+        }
+
+        if (!is_array($configuredMenus)) {
+            return [];
+        }
+
+        return array_values(array_filter(
+            array_map(static function (mixed $menu): string {
+                return is_string($menu) ? trim($menu) : '';
+            }, $configuredMenus),
+            static function (string $menu): bool {
+                return $menu !== '';
+            },
+        ));
     }
 
     /**

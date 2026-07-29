@@ -22,6 +22,7 @@ class CustomFieldControlArguments
                 'input_attrs' => [
                     'fields' => $field['fields'] ?? [],
                     'multiple' => $field['multiple'] ?? false,
+                    'layout' => $field['layout'] ?? '',
                     'palettes' => $field['palettes'] ?? [],
                     'palette_pairs' => $field['palette_pairs'] ?? [],
                     'swatch_pair_role' => $field['swatch_pair_role'] ?? 'background',

@@ -269,16 +269,17 @@ class Layout
     private function buildFlexibleMainLowerSection(): array
     {
         $activeItems = get_nav_menu_locations();
+        $menuFallbackMenus = $this->getMenuPagetreeFallbackMenus();
 
-        if (!isset($activeItems['main-menu']) && get_theme_mod('primary_menu_pagetree_fallback', false)) {
+        if (!isset($activeItems['main-menu']) && in_array('primary', $menuFallbackMenus, true)) {
             $activeItems['main-menu'] = 0;
         }
 
-        if (!isset($activeItems['mega-menu']) && get_theme_mod('mega_menu_pagetree_fallback', false)) {
+        if (!isset($activeItems['mega-menu']) && in_array('mega', $menuFallbackMenus, true)) {
             $activeItems['mega-menu'] = 0;
         }
 
-        if (!isset($activeItems['secondary-menu']) && get_theme_mod('mobile_menu_pagetree_fallback', false)) {
+        if (!isset($activeItems['secondary-menu']) && in_array('mobile', $menuFallbackMenus, true)) {
             $activeItems['secondary-menu'] = 0;
         }
 
@@ -289,6 +290,69 @@ class Layout
         $filteredMenuOptions = $this->getFilteredActiveMenus($activeItems);
 
         return $filteredMenuOptions;
+    }
+
+    /**
+     * Get menu slugs configured for page-tree fallback.
+     *
+     * @return array<int, string>
+     */
+    private function getMenuPagetreeFallbackMenus(): array
+    {
+        $configuredMenus = get_theme_mod('menu_pagetree_fallback_menus', null);
+        $configuredMenuValues = $this->normalizeConfiguredFallbackMenus($configuredMenus);
+
+        if (!empty($configuredMenuValues)) {
+            return $configuredMenuValues;
+        }
+
+        $legacyMenus = [];
+
+        if ((bool) get_theme_mod('primary_menu_pagetree_fallback', true)) {
+            $legacyMenus[] = 'primary';
+        }
+
+        if ((bool) get_theme_mod('secondary_menu_pagetree_fallback', true)) {
+            $legacyMenus[] = 'secondary';
+        }
+
+        if ((bool) get_theme_mod('mobile_menu_pagetree_fallback', true)) {
+            $legacyMenus[] = 'mobile';
+        }
+
+        if ((bool) get_theme_mod('mega_menu_pagetree_fallback', false)) {
+            $legacyMenus[] = 'mega';
+        }
+
+        return $legacyMenus;
+    }
+
+    /**
+     * Normalize the configured fallback menus setting value.
+     *
+     * @param mixed $configuredMenus
+     *
+     * @return array<int, string>
+     */
+    private function normalizeConfiguredFallbackMenus(mixed $configuredMenus): array
+    {
+        if (is_string($configuredMenus)) {
+            $decodedValue = json_decode($configuredMenus, true);
+            $configuredMenus = is_array($decodedValue) ? $decodedValue : [];
+        }
+
+        if (!is_array($configuredMenus)) {
+            return [];
+        }
+
+        return array_values(array_filter(
+            array_map(static function (mixed $menu): string {
+                return is_string($menu) ? trim($menu) : '';
+            }, $configuredMenus),
+            static function (string $menu): bool {
+                return $menu !== '';
+            },
+        ));
     }
 
     private function getFilteredActiveMenus(array $activeMenus): array

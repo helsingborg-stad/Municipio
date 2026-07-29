@@ -11,64 +11,20 @@ class Behaviour
     public function __construct(string $sectionID)
     {
         CustomizerField::addField([
-            'type' => 'switch',
-            'settings' => 'primary_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for primary menu', 'municipio'),
+            'type' => 'multicheck',
+            'settings' => 'menu_pagetree_fallback_menus',
+            'label' => esc_html__('Use page tree as fallback for menus', 'municipio'),
+            'description' => esc_html__('Choose which menus should use the page tree when no assigned menu exists.', 'municipio'),
             'section' => $sectionID,
-            'default' => true,
+            'default' => ['primary', 'secondary', 'mobile'],
             'priority' => 10,
             'choices' => [
-                true => esc_html__('Enabled', 'municipio'),
-                false => esc_html__('Disabled', 'municipio'),
+                'primary' => esc_html__('Primary menu', 'municipio'),
+                'secondary' => esc_html__('Secondary menu', 'municipio'),
+                'mobile' => esc_html__('Mobile menu', 'municipio'),
+                'mega' => esc_html__('Mega menu', 'municipio'),
             ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
-        CustomizerField::addField([
-            'type' => 'switch',
-            'settings' => 'secondary_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for secondary menu', 'municipio'),
-            'section' => $sectionID,
-            'default' => true,
-            'priority' => 10,
-            'choices' => [
-                true => esc_html__('Enabled', 'municipio'),
-                false => esc_html__('Disabled', 'municipio'),
-            ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
-        CustomizerField::addField([
-            'type' => 'switch',
-            'settings' => 'mobile_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for mobile menu', 'municipio'),
-            'section' => $sectionID,
-            'default' => true,
-            'priority' => 10,
-            'choices' => [
-                true => esc_html__('Enabled', 'municipio'),
-                false => esc_html__('Disabled', 'municipio'),
-            ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
-        CustomizerField::addField([
-            'type' => 'switch',
-            'settings' => 'mega_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for mega menu', 'municipio'),
-            'section' => $sectionID,
-            'default' => false,
-            'priority' => 10,
-            'choices' => [
-                true => esc_html__('Enabled', 'municipio'),
-                false => esc_html__('Disabled', 'municipio'),
-            ],
+            'layout' => 'horizontal',
             'output' => [
                 ['type' => 'controller'],
             ],
@@ -144,6 +100,7 @@ class Behaviour
             'default' => $this->getDefaultDrawerScreenSizes(),
             'priority' => 10,
             'choices' => $this->getDrawerScreenSizeOptions(),
+            'layout' => 'horizontal',
             'output' => [
                 ['type' => 'controller'],
             ],
