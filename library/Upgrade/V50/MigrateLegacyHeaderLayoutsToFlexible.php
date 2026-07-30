@@ -28,6 +28,10 @@ class MigrateLegacyHeaderLayoutsToFlexible
      */
     public function migrate(): void
     {
+        if ($this->isConfiguredFlexibleHeader()) {
+            return;
+        }
+
         $detectedLayout = $this->detectLegacyLayout();
 
         if ($detectedLayout === 'casual') {
@@ -125,5 +129,22 @@ class MigrateLegacyHeaderLayoutsToFlexible
         }
 
         return array_values(array_filter($decoded, static fn(mixed $item): bool => is_string($item) && $item !== ''));
+    }
+
+    /**
+     * Determine whether flexible header is already explicitly configured.
+     */
+    private function isConfiguredFlexibleHeader(): bool
+    {
+        if (strtolower((string) $this->wpService->getThemeMod('header_apperance', '')) !== 'flexible') {
+            return false;
+        }
+
+        $mainUpper = $this->normalizeSectionItems($this->wpService->getThemeMod('header_sortable_section_main_upper', []));
+        $mainLower = $this->normalizeSectionItems($this->wpService->getThemeMod('header_sortable_section_main_lower', []));
+        $responsiveUpper = $this->normalizeSectionItems($this->wpService->getThemeMod('header_sortable_section_main_upper_responsive', []));
+        $responsiveLower = $this->normalizeSectionItems($this->wpService->getThemeMod('header_sortable_section_main_lower_responsive', []));
+
+        return !empty($mainUpper) || !empty($mainLower) || !empty($responsiveUpper) || !empty($responsiveLower);
     }
 }

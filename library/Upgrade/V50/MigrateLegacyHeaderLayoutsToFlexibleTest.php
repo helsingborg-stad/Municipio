@@ -144,8 +144,8 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         );
     }
 
-    #[TestDox('migrate detects split default business-like layout and applies business template when no casual marker exists')]
-    public function testMigrateDetectsSplitDefaultBusinessLayoutWhenNoCasualMarkerExists(): void
+    #[TestDox('migrate does not modify already configured flexible header layouts')]
+    public function testMigrateDoesNotModifyAlreadyConfiguredFlexibleHeaderLayouts(): void
     {
         $themeMods = [
             'header_apperance' => 'flexible',
@@ -161,15 +161,7 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
 
         (new MigrateLegacyHeaderLayoutsToFlexible($wpService))->migrate();
 
-        static::assertContains(
-            ['header_sortable_section_main_upper', ['logotype', 'language', 'drawer', 'user']],
-            $wpService->methodCalls['setThemeMod'] ?? [],
-        );
-
-        static::assertContains(
-            ['header_sortable_section_main_lower', ['primary']],
-            $wpService->methodCalls['setThemeMod'] ?? [],
-        );
+        static::assertCount(0, $wpService->methodCalls['setThemeMod'] ?? []);
     }
 
     /**
