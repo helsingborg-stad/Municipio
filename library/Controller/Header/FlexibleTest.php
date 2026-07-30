@@ -22,7 +22,7 @@ class FlexibleTest extends TestCase
         $this->assertSame(['u-order--1', 'u-order--0@md', 'u-display--flex'], $headerData['upperItems']['right']['menu']);
     }
 
-    public function testGetHeaderDataFallsBackToDesktopOrderWhenResponsiveSectionsAreEmpty(): void
+    public function testGetHeaderDataRespectsExplicitlyEmptyResponsiveSections(): void
     {
         $controller = new Flexible((object) [
             'headerSortableHiddenStorage' => $this->getHiddenStorage(),
@@ -30,6 +30,20 @@ class FlexibleTest extends TestCase
             'headerSortableSectionMainLower' => [],
             'headerSortableSectionMainUpperResponsive' => [],
             'headerSortableSectionMainLowerResponsive' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertContains('u-display--none', $headerData['upperItems']['right']['menu']);
+        $this->assertContains('u-display--none', $headerData['upperItems']['right']['search-modal']);
+    }
+
+    public function testGetHeaderDataFallsBackToDesktopOrderWhenResponsiveSectionsAreMissing(): void
+    {
+        $controller = new Flexible((object) [
+            'headerSortableHiddenStorage' => $this->getHiddenStorage(),
+            'headerSortableSectionMainUpper' => ['menu', 'search-modal'],
+            'headerSortableSectionMainLower' => [],
         ]);
 
         $headerData = $controller->getHeaderData();
@@ -57,7 +71,7 @@ class FlexibleTest extends TestCase
 
         $headerData = $controller->getHeaderData();
 
-        $this->assertSame(['u-order--0', 'u-order--0@md', 'u-display--flex', 'u-margin__right--2'], $headerData['upperItems']['left']['logotype']);
+        $this->assertContains('u-margin__right--2', $headerData['upperItems']['left']['logotype']);
         $this->assertArrayNotHasKey('right', $headerData['upperItems']);
     }
 

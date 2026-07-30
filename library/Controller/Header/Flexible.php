@@ -161,12 +161,14 @@ class Flexible implements HeaderInterface
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
         $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
-        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && !empty($this->customizer->{$responsiveSetting});
+        $responsiveSettingExists = property_exists($this->customizer, $responsiveSetting)
+            && $this->customizer->{$responsiveSetting} !== null;
+        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && $responsiveSettingExists;
 
-        $desktopOrderedItems = $this->customizer->{$settingCamelCased};
-        $mobileOrderedItems = $shouldGetMobileOrderedItems() ? $this->customizer->{$responsiveSetting} : [];
+        $desktopOrderedItems = $this->normalizeOrderedItems($this->customizer->{$settingCamelCased} ?? []);
+        $mobileOrderedItems = $shouldGetMobileOrderedItems() ? $this->normalizeOrderedItems($this->customizer->{$responsiveSetting}) : [];
 
-        return [$desktopOrderedItems ?: [], $mobileOrderedItems ?: []];
+        return [$desktopOrderedItems, $mobileOrderedItems];
     }
 
     /**
@@ -178,13 +180,36 @@ class Flexible implements HeaderInterface
     {
         foreach (['main_upper', 'main_lower'] as $section) {
             [, $settingCamelCased] = $this->getSettingName($section);
+            $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
 
-            if (!empty($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive})) {
+            if (property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function normalizeOrderedItems(mixed $items): array
+    {
+        if (is_array($items)) {
+            return array_values(array_filter($items, static fn(mixed $item): bool => is_string($item) && $item !== ''));
+        }
+
+        if (!is_string($items) || trim($items) === '') {
+            return [];
+        }
+
+        $decoded = json_decode($items, true);
+
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        return array_values(array_filter($decoded, static fn(mixed $item): bool => is_string($item) && $item !== ''));
     }
 
     // Gets the camelCased setting name.

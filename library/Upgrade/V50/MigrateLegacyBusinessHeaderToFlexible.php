@@ -51,24 +51,15 @@ class MigrateLegacyBusinessHeaderToFlexible
         $this->wpService->setThemeMod(self::HEADER_APPEARANCE_SETTING, 'flexible');
         $this->wpService->setThemeMod(self::UPPER_SECTION_SETTING, self::UPPER_ITEMS);
         $this->wpService->setThemeMod(self::LOWER_SECTION_SETTING, self::LOWER_ITEMS);
+        $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, []);
+        $this->wpService->setThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, []);
 
         $storage = $this->getNormalizedHiddenStorage();
         $storage[self::UPPER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_ITEMS, 'right');
         $storage[self::UPPER_SECTION_SETTING]['logotype']['align'] = 'left';
         $storage[self::LOWER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::LOWER_ITEMS, 'right');
-
-        $responsiveUpperItems = $this->normalizeSectionItems(
-            $this->wpService->getThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, []),
-        );
-        $responsiveLowerItems = $this->normalizeSectionItems(
-            $this->wpService->getThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, []),
-        );
-
-        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions($responsiveUpperItems, 'right');
-        if (isset($storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype'])) {
-            $storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
-        }
-        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions($responsiveLowerItems, 'right');
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = [];
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = [];
 
         $legacyAlignment = (string) $this->wpService->getThemeMod('business_header_alignment', 'business-gap');
         $menuAlignments = [
@@ -128,25 +119,4 @@ class MigrateLegacyBusinessHeaderToFlexible
         return $options;
     }
 
-    /**
-     * @return array<int, string>
-     */
-    private function normalizeSectionItems(mixed $items): array
-    {
-        if (is_array($items)) {
-            return array_values(array_filter($items, static fn(mixed $item): bool => is_string($item) && $item !== ''));
-        }
-
-        if (!is_string($items) || trim($items) === '') {
-            return [];
-        }
-
-        $decoded = json_decode($items, true);
-
-        if (!is_array($decoded)) {
-            return [];
-        }
-
-        return array_values(array_filter($decoded, static fn(mixed $item): bool => is_string($item) && $item !== ''));
-    }
 }

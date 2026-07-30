@@ -75,11 +75,23 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
+        static::assertContains(
+            ['header_sortable_section_main_upper_responsive', []],
+            $wpService->methodCalls['setThemeMod'] ?? [],
+        );
+
+        static::assertContains(
+            ['header_sortable_section_main_lower_responsive', []],
+            $wpService->methodCalls['setThemeMod'] ?? [],
+        );
+
         $hiddenStorageWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage');
         $hiddenStorageWrite = is_string($hiddenStorageWrite) ? json_decode($hiddenStorageWrite, true) : $hiddenStorageWrite;
         static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_lower']['primary']['align']);
         static::assertArrayHasKey('header_sortable_section_main_upper_responsive', $hiddenStorageWrite);
         static::assertArrayHasKey('header_sortable_section_main_lower_responsive', $hiddenStorageWrite);
+        static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_upper_responsive']);
+        static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_lower_responsive']);
     }
 
     #[TestDox('migrate overwrites existing flexible sortable settings when legacy appearance is present')]

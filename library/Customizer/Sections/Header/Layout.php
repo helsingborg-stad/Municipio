@@ -301,7 +301,7 @@ class Layout
      */
     private function getDefaultResponsiveUpperItems(): array
     {
-        return ['logotype', 'language', 'drawer', 'user'];
+        return [];
     }
 
     /**
@@ -343,22 +343,8 @@ class Layout
                 ],
             ],
             'header_sortable_section_main_upper_responsive' => [
-                'logotype' => [
-                    'align' => 'left',
-                    'margin' => 'none',
-                ],
-                'language' => [
-                    'align' => 'right',
-                    'margin' => 'none',
-                ],
-                'drawer' => [
-                    'align' => 'right',
-                    'margin' => 'none',
-                ],
-                'user' => [
-                    'align' => 'right',
-                    'margin' => 'none',
-                ],
+                // Intentionally empty: avoid injecting mobile upper content when
+                // responsive settings are not explicitly configured.
             ],
             'header_sortable_section_main_lower_responsive' => [
                 'primary' => [
