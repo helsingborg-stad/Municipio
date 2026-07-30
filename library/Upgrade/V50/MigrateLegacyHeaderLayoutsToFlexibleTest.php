@@ -50,6 +50,9 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         static::assertIsArray($hiddenStorageWrite);
         static::assertSame('center', $hiddenStorageWrite['header_sortable_section_main_upper']['primary']['align']);
         static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_upper']['logotype']['align']);
+        static::assertArrayHasKey('header_sortable_section_main_lower', $hiddenStorageWrite);
+        static::assertArrayHasKey('header_sortable_section_main_upper_responsive', $hiddenStorageWrite);
+        static::assertArrayHasKey('header_sortable_section_main_lower_responsive', $hiddenStorageWrite);
     }
 
     #[TestDox('migrate maps business alignment to flexible lower primary alignment')]
@@ -75,6 +78,8 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         $hiddenStorageWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage');
         $hiddenStorageWrite = is_string($hiddenStorageWrite) ? json_decode($hiddenStorageWrite, true) : $hiddenStorageWrite;
         static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_lower']['primary']['align']);
+        static::assertArrayHasKey('header_sortable_section_main_upper_responsive', $hiddenStorageWrite);
+        static::assertArrayHasKey('header_sortable_section_main_lower_responsive', $hiddenStorageWrite);
     }
 
     #[TestDox('migrate overwrites existing flexible sortable settings when legacy appearance is present')]

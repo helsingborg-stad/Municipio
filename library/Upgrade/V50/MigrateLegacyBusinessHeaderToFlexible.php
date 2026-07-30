@@ -16,6 +16,8 @@ class MigrateLegacyBusinessHeaderToFlexible
     private const HEADER_HIDDEN_STORAGE_SETTING = 'header_sortable_hidden_storage';
     private const UPPER_SECTION_SETTING = 'header_sortable_section_main_upper';
     private const LOWER_SECTION_SETTING = 'header_sortable_section_main_lower';
+    private const UPPER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_upper_responsive';
+    private const LOWER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_lower_responsive';
 
     private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
     private const LOWER_ITEMS = ['primary'];
@@ -54,6 +56,19 @@ class MigrateLegacyBusinessHeaderToFlexible
         $storage[self::UPPER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_ITEMS, 'right');
         $storage[self::UPPER_SECTION_SETTING]['logotype']['align'] = 'left';
         $storage[self::LOWER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::LOWER_ITEMS, 'right');
+
+        $responsiveUpperItems = $this->normalizeSectionItems(
+            $this->wpService->getThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, []),
+        );
+        $responsiveLowerItems = $this->normalizeSectionItems(
+            $this->wpService->getThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, []),
+        );
+
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions($responsiveUpperItems, 'right');
+        if (isset($storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype'])) {
+            $storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
+        }
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions($responsiveLowerItems, 'right');
 
         $legacyAlignment = (string) $this->wpService->getThemeMod('business_header_alignment', 'business-gap');
         $menuAlignments = [
@@ -111,5 +126,27 @@ class MigrateLegacyBusinessHeaderToFlexible
         }
 
         return $options;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function normalizeSectionItems(mixed $items): array
+    {
+        if (is_array($items)) {
+            return array_values(array_filter($items, static fn(mixed $item): bool => is_string($item) && $item !== ''));
+        }
+
+        if (!is_string($items) || trim($items) === '') {
+            return [];
+        }
+
+        $decoded = json_decode($items, true);
+
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        return array_values(array_filter($decoded, static fn(mixed $item): bool => is_string($item) && $item !== ''));
     }
 }

@@ -60,6 +60,10 @@ class MigrateLegacyCasualHeaderToFlexible
             'right',
         );
         $storage[self::UPPER_SECTION_SETTING]['logotype']['align'] = 'left';
+        $storage[self::LOWER_SECTION_SETTING] = [];
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions(self::RESPONSIVE_UPPER_ITEMS, 'right');
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = [];
 
         $legacyAlignment = (string) $this->wpService->getThemeMod('casual_header_alignment', 'casual-right');
         $menuAlignments = [
