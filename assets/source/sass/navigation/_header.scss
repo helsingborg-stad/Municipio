@@ -17,15 +17,6 @@ $brand-text-color: var(--c-header--brand-color, var(--color-black, #000));
     }
 }
 
-// Logo
-.c-header.c-header--business .c-logotype:not(.c-brand .c-logotype),
-.c-header.c-header--casual .c-logotype:not(.c-brand .c-logotype) {
-    display: block;
-    width: auto;
-    margin: auto;
-    max-width: 50vw;
-}
-
 body.mega-menu-open.mega-menu-mobile {
     .c-header--sticky {
         height: 100%;
