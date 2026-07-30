@@ -161,8 +161,7 @@ class Flexible implements HeaderInterface
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
         $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
-        $responsiveSettingExists = property_exists($this->customizer, $responsiveSetting)
-            && $this->customizer->{$responsiveSetting} !== null;
+        $responsiveSettingExists = property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null;
         $shouldGetMobileOrderedItems = fn() => $this->isResponsive && $responsiveSettingExists;
 
         $desktopOrderedItems = $this->normalizeOrderedItems($this->customizer->{$settingCamelCased} ?? []);

@@ -21,6 +21,7 @@ class MigrateLegacyBusinessHeaderToFlexible
 
     private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
     private const LOWER_ITEMS = ['primary'];
+    private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'drawer'];
 
     /**
      * Constructor.
@@ -51,14 +52,15 @@ class MigrateLegacyBusinessHeaderToFlexible
         $this->wpService->setThemeMod(self::HEADER_APPEARANCE_SETTING, 'flexible');
         $this->wpService->setThemeMod(self::UPPER_SECTION_SETTING, self::UPPER_ITEMS);
         $this->wpService->setThemeMod(self::LOWER_SECTION_SETTING, self::LOWER_ITEMS);
-        $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, []);
+        $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, self::UPPER_RESPONSIVE_ITEMS);
         $this->wpService->setThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, []);
 
         $storage = $this->getNormalizedHiddenStorage();
         $storage[self::UPPER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_ITEMS, 'right');
         $storage[self::UPPER_SECTION_SETTING]['logotype']['align'] = 'left';
         $storage[self::LOWER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::LOWER_ITEMS, 'right');
-        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = [];
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_RESPONSIVE_ITEMS, 'right');
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
         $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = [];
 
         $legacyAlignment = (string) $this->wpService->getThemeMod('business_header_alignment', 'business-gap');
@@ -118,5 +120,4 @@ class MigrateLegacyBusinessHeaderToFlexible
 
         return $options;
     }
-
 }

@@ -76,7 +76,7 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         );
 
         static::assertContains(
-            ['header_sortable_section_main_upper_responsive', []],
+            ['header_sortable_section_main_upper_responsive', ['logotype', 'drawer']],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
@@ -90,7 +90,8 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_lower']['primary']['align']);
         static::assertArrayHasKey('header_sortable_section_main_upper_responsive', $hiddenStorageWrite);
         static::assertArrayHasKey('header_sortable_section_main_lower_responsive', $hiddenStorageWrite);
-        static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_upper_responsive']);
+        static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['logotype']['align']);
+        static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['drawer']['align']);
         static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_lower_responsive']);
     }
 
