@@ -61,6 +61,38 @@ class FlexibleTest extends TestCase
         $this->assertArrayNotHasKey('right', $headerData['upperItems']);
     }
 
+    public function testGetHeaderDataInjectsUserItemWhenLoginLogoutIsEnabledAndLayoutHasNoUserItem(): void
+    {
+        $controller = new Flexible((object) [
+            'headerLoginLogoutDisplay' => 'both',
+            'headerSortableHiddenStorage' => $this->getHiddenStorage(),
+            'headerSortableSectionMainUpper' => ['menu', 'search-modal'],
+            'headerSortableSectionMainLower' => [],
+            'headerSortableSectionMainUpperResponsive' => [],
+            'headerSortableSectionMainLowerResponsive' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertSame(['u-display--flex'], $headerData['lowerItems']['right']['user']);
+    }
+
+    public function testGetHeaderDataDoesNotInjectUserItemWhenLoginLogoutIsDisabled(): void
+    {
+        $controller = new Flexible((object) [
+            'headerLoginLogoutDisplay' => '',
+            'headerSortableHiddenStorage' => $this->getHiddenStorage(),
+            'headerSortableSectionMainUpper' => ['menu', 'search-modal'],
+            'headerSortableSectionMainLower' => [],
+            'headerSortableSectionMainUpperResponsive' => [],
+            'headerSortableSectionMainLowerResponsive' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertArrayNotHasKey('right', $headerData['lowerItems']);
+    }
+
     private function getHiddenStorage(): string
     {
         return json_encode([

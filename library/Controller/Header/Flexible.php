@@ -52,6 +52,10 @@ class Flexible implements HeaderInterface
         $upperItems = $this->getItems('main_upper');
         $lowerItems = $this->getItems('main_lower');
 
+        if ($this->shouldInjectUserItem($upperItems, $lowerItems)) {
+            $lowerItems['modified']['right']['user'] = ['u-display--flex'];
+        }
+
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
 
         return [
@@ -63,6 +67,33 @@ class Flexible implements HeaderInterface
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
+    }
+
+    /**
+     * Ensure login/logout entry is visible in flexible header when enabled.
+     */
+    private function shouldInjectUserItem(array $upperItems, array $lowerItems): bool
+    {
+        if (empty($this->customizer->headerLoginLogoutDisplay)) {
+            return false;
+        }
+
+        return !$this->hasUserItem($upperItems['modified'] ?? [])
+            && !$this->hasUserItem($lowerItems['modified'] ?? []);
+    }
+
+    /**
+     * Check if the transformed header item map already contains a user item.
+     */
+    private function hasUserItem(array $items): bool
+    {
+        foreach ($items as $alignedItems) {
+            if (is_array($alignedItems) && array_key_exists('user', $alignedItems)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Handles the hidden menu data in the customizer.
