@@ -15,6 +15,7 @@ use Municipio\Upgrade\V46\Version46 as UpgradeVersion46;
 use Municipio\Upgrade\V47\Version47 as UpgradeVersion47;
 use Municipio\Upgrade\V48\Version48 as UpgradeVersion48;
 use Municipio\Upgrade\V49\Version49 as UpgradeVersion49;
+use Municipio\Upgrade\V50\Version50 as UpgradeVersion50;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetPostTypes;
@@ -28,7 +29,7 @@ use WpService\Contracts\SetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion = 49; //The db version we want to achive
+    private $dbVersion = 50; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -947,6 +948,59 @@ class Upgrade
             return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Version 50
+     */
+    public function v_50(): bool
+    {
+        $version = new UpgradeVersion50(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 51
+     */
+    public function v_51($db = null): bool
+    {
+        // Intentionally empty: version step kept only to progress db version.
+        return true;
+    }
+
+    /**
+     * Version 52
+     */
+    public function v_52($db = null): bool
+    {
+        // Intentionally empty: version step kept only to progress db version.
+        return true;
+    }
+
+    /**
+     * Version 53
+     */
+    public function v_53($db = null): bool
+    {
+        // Intentionally empty: version step kept only to progress db version.
+        return true;
+    }
+
+    /**
+     * Version 54
+     */
+    public function v_54($db = null): bool
+    {
+        // Intentionally empty: version step kept only to progress db version.
         return true;
     }
 
