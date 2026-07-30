@@ -21,7 +21,7 @@ class MigrateLegacyBusinessHeaderToFlexible
 
     private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
     private const LOWER_ITEMS = ['primary'];
-    private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'drawer'];
+    private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'language', 'drawer'];
 
     /**
      * Constructor.
