@@ -1,4 +1,8 @@
 @if (!empty($headerData))
+    @include('partials.header.skip-to-main-content')
+    @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
+    @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
+
     @if(!empty($headerData['upperItems']))
         @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
             @header([

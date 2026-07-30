@@ -13,7 +13,7 @@
             'src'=> $logotype,
             'alt' => $lang->goToHomepage,
             'classList' => ['c-nav__logo', 'c-header__logotype'],
-            'context' => ['site.header.logo', 'site.header.casual.logo']
+            'context' => ['site.header.logo']
         ])
         @endlogotype
     @endif
