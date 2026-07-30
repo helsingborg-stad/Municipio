@@ -9,7 +9,6 @@ class Layout
     public function __construct(string $sectionID)
     {
         $this->buildGeneralTab($sectionID);
-        $this->buildStandardTab($sectionID);
         $this->buildFlexibleTab($sectionID);
     }
 
@@ -39,13 +38,6 @@ class Layout
                         ],
                     ],
                 ],
-                'active_callback' => [
-                    [
-                        'setting' => 'header_apperance',
-                        'operator' => '==',
-                        'value' => 'flexible',
-                    ],
-                ],
             ],
         );
 
@@ -55,16 +47,10 @@ class Layout
                 'settings' => 'header_sortable_section_main_upper',
                 'label' => __('Upper main area', 'municipio'),
                 'section' => $sectionID,
+                'default' => $this->getDefaultDesktopUpperItems(),
                 'priority' => 10,
                 'tab' => 'flexible',
                 'choices' => $this->buildFlexibleMainLowerSection(),
-                'active_callback' => [
-                    [
-                        'setting' => 'header_apperance',
-                        'operator' => '==',
-                        'value' => 'flexible',
-                    ],
-                ],
                 'output' => [
                     [
                         'type' => 'controller',
@@ -79,16 +65,10 @@ class Layout
                 'settings' => 'header_sortable_section_main_lower',
                 'label' => __('Lower main area', 'municipio'),
                 'section' => $sectionID,
+                'default' => $this->getDefaultDesktopLowerItems(),
                 'priority' => 10,
                 'tab' => 'flexible',
                 'choices' => $this->buildFlexibleMainLowerSection(),
-                'active_callback' => [
-                    [
-                        'setting' => 'header_apperance',
-                        'operator' => '==',
-                        'value' => 'flexible',
-                    ],
-                ],
                 'output' => [
                     [
                         'type' => 'controller',
@@ -103,16 +83,10 @@ class Layout
                 'settings' => 'header_sortable_section_main_upper_responsive',
                 'label' => __('Upper main area', 'municipio'),
                 'section' => $sectionID,
+                'default' => $this->getDefaultResponsiveUpperItems(),
                 'priority' => 10,
                 'tab' => 'flexible',
                 'choices' => $this->buildFlexibleMainLowerSection(),
-                'active_callback' => [
-                    [
-                        'setting' => 'header_apperance',
-                        'operator' => '==',
-                        'value' => 'flexible',
-                    ],
-                ],
                 'output' => [
                     [
                         'type' => 'controller',
@@ -127,16 +101,10 @@ class Layout
                 'settings' => 'header_sortable_section_main_lower_responsive',
                 'label' => __('Lower main area', 'municipio'),
                 'section' => $sectionID,
+                'default' => $this->getDefaultResponsiveLowerItems(),
                 'priority' => 10,
                 'tab' => 'flexible',
                 'choices' => $this->buildFlexibleMainLowerSection(),
-                'active_callback' => [
-                    [
-                        'setting' => 'header_apperance',
-                        'operator' => '==',
-                        'value' => 'flexible',
-                    ],
-                ],
                 'output' => [
                     [
                         'type' => 'controller',
@@ -151,6 +119,7 @@ class Layout
                 'settings' => 'header_sortable_hidden_storage',
                 'label' => '',
                 'section' => $sectionID,
+                'default' => wp_json_encode($this->getDefaultHiddenStorage()),
                 'priority' => 10,
                 'tab' => 'flexible',
                 'output' => [
@@ -164,24 +133,6 @@ class Layout
 
     private function buildGeneralTab($sectionID): void
     {
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'header_apperance',
-            'label' => esc_html__('Apperance', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'casual',
-            'priority' => 10,
-            'tab' => 'general',
-            'choices' => [
-                'casual' => esc_html__('Casual (Small sites)', 'municipio'),
-                'business' => esc_html__('Business (large sites)', 'municipio'),
-                'flexible' => esc_html__('Flexible', 'municipio'),
-            ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
         CustomizerField::addField([
             'type' => 'select',
             'settings' => 'header_sticky',
@@ -202,65 +153,6 @@ class Layout
                 ],
                 [
                     'type' => 'controller',
-                ],
-            ],
-        ]);
-    }
-
-    private function buildStandardTab($sectionID): void
-    {
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'casual_header_alignment',
-            'label' => esc_html__('Menu alignment', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'casual-right',
-            'priority' => 10,
-            'tab' => 'standard',
-            'choices' => [
-                'casual-left' => esc_html__('Left', 'municipio'),
-                'casual-center' => esc_html__('Center', 'municipio'),
-                'casual-right' => esc_html__('Right', 'municipio'),
-            ],
-            'active_callback' => [
-                [
-                    'setting' => 'header_apperance',
-                    'operator' => '==',
-                    'value' => 'casual',
-                ],
-            ],
-            'output' => [
-                [
-                    'type' => 'modifier',
-                    'context' => ['site.header.nav'],
-                ],
-            ],
-        ]);
-
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'business_header_alignment',
-            'label' => esc_html__('Menu alignment', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'business-gap',
-            'priority' => 10,
-            'tab' => 'standard',
-            'choices' => [
-                'business-gap' => esc_html__('Gap between', 'municipio'),
-                'business-left' => esc_html__('Left', 'municipio'),
-                'business-right' => esc_html__('Right', 'municipio'),
-            ],
-            'active_callback' => [
-                [
-                    'setting' => 'header_apperance',
-                    'operator' => '==',
-                    'value' => 'business',
-                ],
-            ],
-            'output' => [
-                [
-                    'type' => 'modifier',
-                    'context' => ['site.header.nav'],
                 ],
             ],
         ]);
@@ -386,5 +278,94 @@ class Layout
         }
 
         return $filteredMenuOptions;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function getDefaultDesktopUpperItems(): array
+    {
+        return ['logotype', 'language', 'drawer', 'user'];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function getDefaultDesktopLowerItems(): array
+    {
+        return ['primary'];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function getDefaultResponsiveUpperItems(): array
+    {
+        return ['logotype', 'language', 'drawer', 'user'];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function getDefaultResponsiveLowerItems(): array
+    {
+        return ['primary'];
+    }
+
+    /**
+     * @return array<string, array<string, array<string, string>>>
+     */
+    private function getDefaultHiddenStorage(): array
+    {
+        return [
+            'header_sortable_section_main_upper' => [
+                'logotype' => [
+                    'align' => 'left',
+                    'margin' => 'none',
+                ],
+                'language' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+                'drawer' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+                'user' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+            ],
+            'header_sortable_section_main_lower' => [
+                'primary' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+            ],
+            'header_sortable_section_main_upper_responsive' => [
+                'logotype' => [
+                    'align' => 'left',
+                    'margin' => 'none',
+                ],
+                'language' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+                'drawer' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+                'user' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+            ],
+            'header_sortable_section_main_lower_responsive' => [
+                'primary' => [
+                    'align' => 'right',
+                    'margin' => 'none',
+                ],
+            ],
+        ];
     }
 }

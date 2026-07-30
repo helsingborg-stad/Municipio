@@ -22,13 +22,6 @@ class Appearance
             'default' => $colorChoices['secondary'],
             'priority' => 10,
             'choices' => $colorChoices,
-            'active_callback' => [
-                [
-                    'setting' => 'header_apperance',
-                    'operator' => '==',
-                    'value' => 'flexible',
-                ],
-            ],
             'output' => [
                 [
                     'type' => 'modifier',

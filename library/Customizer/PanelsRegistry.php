@@ -192,9 +192,6 @@ class PanelsRegistry
                         'flexible' => [
                             'label' => esc_html__('Flexible', 'municipio'),
                         ],
-                        'standard' => [
-                            'label' => esc_html__('Standard', 'municipio'),
-                        ],
                     ]),
             )
             ->addSection(
