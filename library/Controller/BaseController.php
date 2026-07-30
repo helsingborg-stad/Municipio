@@ -138,11 +138,9 @@ class BaseController
         $this->data['footerAreas'] = $footerAreas;
 
         // Header controllers
-        if (isset($this->data['customizer']->headerApperance)) {
-            $headerClassName = '\Municipio\Controller\Header\\' . ucfirst($this->data['customizer']->headerApperance);
-            if (class_exists($headerClassName)) {
-                $headerController = new $headerClassName($this->data['customizer']);
-            }
+        $headerClassName = '\\Municipio\\Controller\\Header\\Flexible';
+        if (class_exists($headerClassName)) {
+            $headerController = new $headerClassName($this->data['customizer']);
         }
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
