@@ -50,6 +50,12 @@ class Customizer
      */
     public function addPreviewPageSwitches()
     {
+        wp_enqueue_style(
+            'municipio-customizer-logo-preview-control',
+            get_template_directory_uri() . '/library/Customizer/Sections/LogoPreviewControl.css',
+            ['customize-controls'],
+        );
+
         wp_add_inline_style(
             'customize-controls',
             '.wp-core-ui select{max-width:none;}',

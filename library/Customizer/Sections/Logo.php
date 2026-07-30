@@ -8,37 +8,38 @@ class Logo
 {
     public function __construct(string $sectionID)
     {
-        $primaryDescription   = esc_html__('Only accepts .svg-files (Scalable Vector Graphics).', 'municipio');
+        $siteIdentitySectionID = 'title_tagline';
+
+        $primaryDescription = esc_html__('Svg format is preferred.', 'municipio');
         $secondaryDescription = esc_html__(
-            'Upload your secondary logotype in .svg format (Scalable Vector Graphics).
-            The secondary logotype is usually 100% white and can be used on dark or colored backgrounds.',
-            'municipio'
+            'Svg format is preferred. This logo may be a maskable format (plain single color logo).',
+            'municipio',
         );
-        $emblemDescription    = esc_html__(
+        $emblemDescription = esc_html__(
             'Upload an emblem in .svg format (Scalable Vector Graphics).
-            The emblem will be used to strengthen the website brand, when a sub brand is used.',
-            'municipio'
+            The emblem will be used to communicate main publisher, when a sub brand is used.',
+            'municipio',
         );
 
         $primaryLogoField = $this->getImageField(
-            $sectionID,
+            $siteIdentitySectionID,
             'logotype',
             esc_html__('Primary logo', 'municipio'),
-            $primaryDescription
+            $primaryDescription,
         );
 
         $secondaryLogoField = $this->getImageField(
-            $sectionID,
+            $siteIdentitySectionID,
             'logotype_negative',
             esc_html__('Secondary logo', 'municipio'),
-            $secondaryDescription
+            $secondaryDescription,
         );
 
         $emblemField = $this->getImageField(
-            $sectionID,
+            $siteIdentitySectionID,
             'logotype_emblem',
             esc_html__('Emblem', 'municipio'),
-            $emblemDescription
+            $emblemDescription,
         );
 
         CustomizerField::addField($primaryLogoField);
@@ -49,18 +50,18 @@ class Logo
     private function getImageField(string $sectionID, string $setting, string $label, string $description): array
     {
         return [
-            'type'        => 'upload',
-            'mime_type'   => 'image/svg+xml',
-            'settings'    => $setting,
-            'label'       => $label,
+            'type' => 'upload',
+            'mime_type' => 'image/svg+xml',
+            'settings' => $setting,
+            'label' => $label,
             'description' => $description,
-            'section'     => $sectionID,
-            'output'      => [
+            'section' => $sectionID,
+            'output' => [
                 [
-                    'type'      => 'controller',
+                    'type' => 'controller',
                     'as_object' => false,
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

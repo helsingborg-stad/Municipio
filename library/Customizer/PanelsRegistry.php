@@ -70,6 +70,7 @@ class PanelsRegistry
         }
 
         self::$registerInvoked = true;
+        self::registerSiteIdentityFields();
         self::registerAppearancePanel();
         self::registerHeaderPanel();
         self::registerNavigationPanel();
@@ -83,6 +84,11 @@ class PanelsRegistry
         self::registerArchivePanel();
         self::registerErrorPagesPanel();
         self::registerDesignLibraryPanel();
+    }
+
+    public static function registerSiteIdentityFields(): void
+    {
+        new \Municipio\Customizer\Sections\Logo('title_tagline');
     }
 
     public static function registerDesignLibraryPanel()
@@ -144,12 +150,6 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_general')
                     ->setTitle(esc_html__('General', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\General('municipio_customizer_section_general')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_logo')
-                    ->setTitle(esc_html__('Logotypes', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Logo('municipio_customizer_section_logo')),
             )
             ->addSection(
                 CustomizerPanelSection::create()
