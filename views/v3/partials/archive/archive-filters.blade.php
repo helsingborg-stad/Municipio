@@ -102,7 +102,7 @@
                 @endforeach
             
                 {{-- Facetting --}}
-                <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
+                <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-display--flex u-align-items--end">
                     @button([
                         'text' => $facettingType ? $lang->filterBtn : $lang->searchBtn,
                         'color' => 'primary',
@@ -114,7 +114,7 @@
                 </div>
 
                 @if ($showFilterReset && $archiveResetUrl)
-                    <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
+                    <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-display--flex u-align-items--end">
                         @button([
                             'href' => $archiveResetUrl,
                             'text' => $facettingType ? $lang->resetFilterBtn : $lang->resetSearchBtn,
