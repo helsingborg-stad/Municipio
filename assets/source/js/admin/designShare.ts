@@ -12,6 +12,8 @@ type DesignShareConfig = {
     minimumSupportedDbVersion?: number;
 };
 
+const IMPORT_BUTTON_SELECTOR = "#municipio-design-import-button";
+
 function getMinimumSupportedDbVersion(): number {
     const config = (window as Window & {
         municipioDesignShareConfig?: DesignShareConfig;
@@ -62,46 +64,58 @@ export default (() => {
 
     wp.customize.bind("ready", () => {
         wp.customize("load_design_site_url", (loadDesignSiteUrlSetting: any) => {
-            let debounceTimeoutId: ReturnType<typeof setTimeout> | null = null;
-            let latestImportedUrl = "";
+            const importButton = document.querySelector(IMPORT_BUTTON_SELECTOR);
+            if (!(importButton instanceof HTMLButtonElement)) {
+                return;
+            }
 
-            loadDesignSiteUrlSetting.bind((siteUrl: unknown) => {
-                if (debounceTimeoutId !== null) {
-                    clearTimeout(debounceTimeoutId);
+            let isImportInProgress = false;
+
+            importButton.addEventListener("click", () => {
+                const siteUrl = loadDesignSiteUrlSetting.get();
+                const normalizedSiteUrl =
+                    typeof siteUrl === "string" ? siteUrl.trim() : "";
+
+                if (normalizedSiteUrl === "") {
+                    showNotification({
+                        setting: loadDesignSiteUrlSetting,
+                        code: "loadDesignError",
+                        message: "Please enter a Municipio site URL before importing.",
+                        type: "error",
+                    });
+                    return;
                 }
 
-                debounceTimeoutId = setTimeout(() => {
-                    const normalizedSiteUrl =
-                        typeof siteUrl === "string" ? siteUrl.trim() : "";
-                    if (normalizedSiteUrl === "") {
-                        return;
-                    }
+                if (isImportInProgress) {
+                    return;
+                }
 
-                    if (normalizedSiteUrl === latestImportedUrl) {
-                        return;
-                    }
+                isImportInProgress = true;
+                importButton.disabled = true;
 
-                    handleLoadSettingChange(normalizedSiteUrl)
-                        .then(() => {
-                            latestImportedUrl = normalizedSiteUrl;
-                            showNotification({
-                                setting: loadDesignSiteUrlSetting,
-                                code: "loadDesignSuccess",
-                                message:
-                                    "Design imported into preview. Review the result and click Publish when ready.",
-                                type: "notice",
-                            });
-                        })
-                        .catch((error) => {
-                            showNotification({
-                                setting: loadDesignSiteUrlSetting,
-                                code: "loadDesignError",
-                                message: error.message,
-                                type: "error",
-                            });
-                            console.error(error.message);
+                handleLoadSettingChange(normalizedSiteUrl)
+                    .then(() => {
+                        showNotification({
+                            setting: loadDesignSiteUrlSetting,
+                            code: "loadDesignSuccess",
+                            message:
+                                "Design imported into preview. Review the result and click Publish when ready.",
+                            type: "notice",
                         });
-                }, 700);
+                    })
+                    .catch((error) => {
+                        showNotification({
+                            setting: loadDesignSiteUrlSetting,
+                            code: "loadDesignError",
+                            message: error.message,
+                            type: "error",
+                        });
+                        console.error(error.message);
+                    })
+                    .finally(() => {
+                        isImportInProgress = false;
+                        importButton.disabled = false;
+                    });
             });
         });
     });
