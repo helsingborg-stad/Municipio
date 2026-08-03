@@ -93,34 +93,13 @@ class PanelsRegistry
 
     public static function registerDesignLibraryPanel()
     {
-        $panelId = 'municipio_customizer_panel_post_types';
-
-        $filteredPostTypes = self::getArchives(['attachment']);
-        $sections = array_map(function ($postType) use ($panelId) {
-            $id = "{$panelId}_{$postType->name}";
-            return CustomizerPanelSection::create()
-                ->setID($id)
-                ->setPanel($panelId)
-                ->setTitle($postType->label)
-                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\PostType($id, $postType));
-        }, $filteredPostTypes);
-
-        // CustomizerPanel::create()
-        //     ->setID('municipio_customizer_panel_designlib')
-        //     ->setTitle(esc_html__('Design Library', 'municipio'))
-        //     ->setDescription(esc_html__('Select a design made by other municipio users.', 'municipio'))
-        //     ->setPriority(1000)
-        //     ->addSection(
-        //         CustomizerPanelSection::create()
-        //             ->setID('municipio_customizer_panel_design_module')
-        //             ->setTitle(esc_html__('Load a design', 'municipio'))
-        //             ->setDescription(esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'))
-        //             ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module')),
-        //     )
-        //     ->addSubPanel(
-        //         CustomizerPanel::create()->setID($panelId)->setTitle(esc_html__('Load design for individual post types', 'municipio'))->setDescription(esc_html__('Manage post types settings', 'municipio'))->addSections($sections),
-        //     )
-        //     ->register();
+        CustomizerPanelSection::create()
+            ->setID('municipio_customizer_section_import_design')
+            ->setTitle(esc_html__('Import Design', 'municipio'))
+            ->setDescription(esc_html__('Paste a Municipio site URL to fetch and preview design settings before publishing.', 'municipio'))
+            ->setPriority(1000)
+            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_section_import_design'))
+            ->register();
     }
 
     /**

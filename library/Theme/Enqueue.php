@@ -2,6 +2,7 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Customizer\DesignLibrarySettingPolicy;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -119,7 +120,14 @@ class Enqueue implements Hookable
      */
     public function enqueueCustomizerScriptsAndStyles()
     {
-        $this->enqueue->add('js/design-share.js', ['jquery', 'customize-controls']);
+        $this->enqueue
+            ->add('js/design-share.js', ['jquery', 'customize-controls'])
+            ->with()
+            ->translation('municipioDesignShareConfig', [
+                'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
+                'allowedSettingKeys' => DesignLibrarySettingPolicy::getAllowedExactKeys(),
+                'allowedSettingKeyPrefixes' => DesignLibrarySettingPolicy::getAllowedPrefixes(),
+            ]);
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
