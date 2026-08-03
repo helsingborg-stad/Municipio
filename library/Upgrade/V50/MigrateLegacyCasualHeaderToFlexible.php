@@ -77,6 +77,26 @@ class MigrateLegacyCasualHeaderToFlexible
         }
 
         $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
+
+        $this->applyDefaultHeaderMargin();
+    }
+
+    /**
+     * Remove header container spacing by default for the casual layout.
+     *
+     * The casual header places the logotype and primary navigation in the
+     * same row. Removing the container margin gives a full-bleed appearance
+     * that matches the original casual header design intent.
+     */
+    private function applyDefaultHeaderMargin(): void
+    {
+        $currentMargin = $this->wpService->getThemeMod('header_margin', null);
+
+        if ($currentMargin !== null && $currentMargin !== '') {
+            return;
+        }
+
+        $this->wpService->setThemeMod('header_margin', 'remove-spacing');
     }
 
     /**

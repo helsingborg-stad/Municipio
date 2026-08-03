@@ -19,6 +19,8 @@ class MigrateLegacyBusinessHeaderToFlexible
     private const UPPER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_upper_responsive';
     private const LOWER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_lower_responsive';
 
+    private const TOKENS_SETTING              = 'tokens';
+    private const LOWER_AREA_SCOPE             = 'scope:s-header-flexible-lower';
     private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
     private const LOWER_ITEMS = ['primary'];
     private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'language', 'drawer'];
@@ -75,6 +77,49 @@ class MigrateLegacyBusinessHeaderToFlexible
         }
 
         $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
+
+        $this->applyDefaultLowerAreaPadding();
+    }
+
+    /**
+     * Disable vertical padding on the flexible lower area by default.
+     *
+     * The lower area holds the primary navigation bar; removing its top/bottom
+     * padding gives the nav bar a full-bleed appearance matching the original
+     * business header design.
+     */
+    private function applyDefaultLowerAreaPadding(): void
+    {
+        $raw    = $this->wpService->getThemeMod(self::TOKENS_SETTING, null);
+        $tokens = $this->parseTokens($raw);
+
+        if (isset($tokens['component'][self::LOWER_AREA_SCOPE]['header']['--padding-y-enabled'])) {
+            return;
+        }
+
+        $tokens['component'][self::LOWER_AREA_SCOPE]['header']['--padding-y-enabled'] = '0';
+
+        $this->wpService->setThemeMod(self::TOKENS_SETTING, json_encode($tokens) ?: '');
+    }
+
+    /**
+     * Parse stored design tokens or return a safe default structure.
+     *
+     * @param mixed $raw Raw theme mod value.
+     *
+     * @return array<string, mixed>
+     */
+    private function parseTokens(mixed $raw): array
+    {
+        $default = ['token' => [], 'component' => []];
+
+        if (!is_string($raw) || trim($raw) === '') {
+            return $default;
+        }
+
+        $decoded = json_decode($raw, true);
+
+        return is_array($decoded) ? $decoded : $default;
     }
 
     /**
