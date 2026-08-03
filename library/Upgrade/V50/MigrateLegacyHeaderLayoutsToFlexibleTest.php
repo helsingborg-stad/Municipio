@@ -45,6 +45,10 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
+        static::assertNull(
+            $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'tokens'),
+        );
+
         $hiddenStorageWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage');
         $hiddenStorageWrite = is_string($hiddenStorageWrite) ? json_decode($hiddenStorageWrite, true) : $hiddenStorageWrite;
         static::assertIsArray($hiddenStorageWrite);
@@ -94,6 +98,18 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['language']['align']);
         static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['drawer']['align']);
         static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_lower_responsive']);
+
+        $tokensWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'tokens');
+        $tokensWrite = is_string($tokensWrite) ? json_decode($tokensWrite, true) : $tokensWrite;
+        static::assertIsArray($tokensWrite);
+        static::assertSame(
+            '0',
+            $tokensWrite['component']['scope:s-header-flexible-lower']['header']['--c-header--padding-x-enabled'] ?? null,
+        );
+        static::assertSame(
+            '0',
+            $tokensWrite['component']['scope:s-header-flexible-lower']['header']['--c-header--padding-y-enabled'] ?? null,
+        );
     }
 
     #[TestDox('migrate overwrites existing flexible sortable settings when legacy appearance is present')]

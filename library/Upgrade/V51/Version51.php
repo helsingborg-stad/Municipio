@@ -11,7 +11,7 @@ use WpService\Contracts\SetThemeMod;
 /**
  * Runs the v51 migrations:
  * - Renames the legacy logotype height multiplier token key.
- * - Sets the flexible lower area vertical padding off for business-layout sites.
+ * - Ensures flexible lower area padding defaults are present for all sites.
  * - Sets the header margin to remove-spacing for casual-layout sites.
  */
 class Version51 implements VersionInterface

@@ -21,6 +21,8 @@ class MigrateLegacyBusinessHeaderToFlexible
 
     private const TOKENS_SETTING              = 'tokens';
     private const LOWER_AREA_SCOPE             = 'scope:s-header-flexible-lower';
+    private const PADDING_X_TOKEN             = '--c-header--padding-x-enabled';
+    private const PADDING_Y_TOKEN             = '--c-header--padding-y-enabled';
     private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
     private const LOWER_ITEMS = ['primary'];
     private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'language', 'drawer'];
@@ -86,18 +88,28 @@ class MigrateLegacyBusinessHeaderToFlexible
      *
      * The lower area holds the primary navigation bar; removing its top/bottom
      * padding gives the nav bar a full-bleed appearance matching the original
-     * business header design.
+        * business header design. V51 includes a catch-up migration that applies
+        * the same namespaced defaults for already-flexible sites.
      */
     private function applyDefaultLowerAreaPadding(): void
     {
         $raw    = $this->wpService->getThemeMod(self::TOKENS_SETTING, null);
         $tokens = $this->parseTokens($raw);
+        $changed = false;
 
-        if (isset($tokens['component'][self::LOWER_AREA_SCOPE]['header']['--padding-y-enabled'])) {
-            return;
+        if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_X_TOKEN])) {
+            $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_X_TOKEN] = '0';
+            $changed = true;
         }
 
-        $tokens['component'][self::LOWER_AREA_SCOPE]['header']['--padding-y-enabled'] = '0';
+        if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_Y_TOKEN])) {
+            $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_Y_TOKEN] = '0';
+            $changed = true;
+        }
+
+        if (!$changed) {
+            return;
+        }
 
         $this->wpService->setThemeMod(self::TOKENS_SETTING, json_encode($tokens) ?: '');
     }
