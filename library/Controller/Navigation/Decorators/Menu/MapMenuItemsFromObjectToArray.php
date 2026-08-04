@@ -39,7 +39,7 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
                 'post_parent' => $menuItem->menu_item_parent,
                 'post_type'   => $menuItem->object,
                 'page_id'     => $menuItem->object_id,
-                'active'      => ($menuItem->object_id == CurrentPostId::get()) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($menuItem->url),
+                'active'      => $this->isActive($menuItem),
                 'label'       => $menuItem->title,
                 'href'        => $menuItem->url,
                 'children'    => false,
@@ -56,6 +56,17 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
         }
 
         return $menu;
+    }
+
+    /**
+     * Determines if a menu item is active.
+     *
+     * @param mixed $menuItem The menu item to check.
+     * @return bool True if the menu item is active, false otherwise.
+     */
+    private function isActive(mixed $menuItem)
+    {
+        return (!empty($menuItem->object_id) && $menuItem->object_id == CurrentPostId::get()) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($menuItem->url);
     }
 
     /**
