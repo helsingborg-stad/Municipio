@@ -12,7 +12,6 @@ use WpService\Contracts\SetThemeMod;
  * Runs the v51 migrations:
  * - Renames the legacy logotype height multiplier token key.
  * - Ensures flexible lower area padding defaults are present for all sites.
- * - Repairs malformed flexible-header sortable data from legacy migrations.
  * - Sets the header margin to remove-spacing for casual-layout sites.
  */
 class Version51 implements VersionInterface
@@ -33,7 +32,6 @@ class Version51 implements VersionInterface
     {
         (new MigrateLogotypeHeightMultiplierTokenKey($this->wpService))->migrate();
         (new MigrateBusinessFlexibleLowerPadding($this->wpService))->migrate();
-        (new MigrateFlexibleHeaderSortableDataIntegrity($this->wpService))->migrate();
         (new MigrateCasualHeaderMargin($this->wpService))->migrate();
     }
 }
