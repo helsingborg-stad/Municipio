@@ -19,8 +19,7 @@
             ])
                 <div class="c-header__main-upper-area-container">
                     @element([
-                        'baseClass' => 'o-container',
-                        'classList' => ['c-header__main-upper-area', 'o-container'],
+                        'classList' => ['c-header__main-upper-area'],
                         'context' => ['site.header.flexible-container-upper', 'site.header.flexible-container', 'site.header.container']
                     ])
                         @foreach (['left', 'center', 'right'] as $alignment)
@@ -56,8 +55,7 @@
             ])
                 <div class="c-header__main-lower-area-container">
                     @element([
-                        'baseClass' => 'o-container',
-                        'classList' => ['c-header__main-lower-area', 'o-container'],
+                        'classList' => ['c-header__main-lower-area'],
                         'context' => ['site.header.flexible-container-lower', 'site.header.flexible-container', 'site.header.container']
                     ])
                         @foreach (['left', 'center', 'right'] as $alignment) 
