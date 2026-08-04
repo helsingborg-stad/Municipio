@@ -53,29 +53,6 @@ class Appearance
 
         CustomizerField::addField([
             'type' => 'select',
-            'settings' => 'header_modifier',
-            'label' => esc_html__('Style', 'municipio'),
-            'description' => esc_html__('Select a alternative style of this header.', 'municipio'),
-            'section' => $sectionID,
-            'default' => '',
-            'priority' => 10,
-            'choices' => [
-                '' => esc_html__('None', 'municipio'),
-                'accented' => esc_html__('Accented', 'municipio'),
-            ],
-            'output' => [
-                [
-                    'type' => 'modifier',
-                    'context' => [
-                        'site.header',
-                        'site.header.flexible.lower',
-                    ],
-                ],
-            ],
-        ]);
-
-        CustomizerField::addField([
-            'type' => 'select',
             'settings' => 'header_width',
             'label' => esc_html__('Style', 'municipio'),
             'description' => esc_html__('Select a max width for the header', 'municipio'),
