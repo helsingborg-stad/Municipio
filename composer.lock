@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a1a944376dd6f1b8cd816bd461adb0e",
+    "content-hash": "2960dd1f57d999b023d94b378fcb3987",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1081,16 +1081,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.24.6",
+            "version": "5.24.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "42cfa8084b815eff8e10cb4c3c44dc8c75a93356"
+                "reference": "8840d05635ab09a1b52c977a8afe394b1e67a063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/42cfa8084b815eff8e10cb4c3c44dc8c75a93356",
-                "reference": "42cfa8084b815eff8e10cb4c3c44dc8c75a93356",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/8840d05635ab09a1b52c977a8afe394b1e67a063",
+                "reference": "8840d05635ab09a1b52c977a8afe394b1e67a063",
                 "shasum": ""
             },
             "require": {
@@ -1122,9 +1122,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.24.6"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.24.9"
             },
-            "time": "2026-07-22T11:05:25+00:00"
+            "time": "2026-08-03T12:39:18+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
@@ -1165,21 +1165,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.4.1",
+            "version": "3.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "fa4808333291ef95e11b017ba093f73d516c9994"
+                "reference": "7bc3d48ecae18c4a6935ce9b86553956e82b389f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/fa4808333291ef95e11b017ba093f73d516c9994",
-                "reference": "fa4808333291ef95e11b017ba093f73d516c9994",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/7bc3d48ecae18c4a6935ce9b86553956e82b389f",
+                "reference": "7bc3d48ecae18c4a6935ce9b86553956e82b389f",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.24.6",
+                "helsingborg-stad/component-library": "5.24.9",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.3"
             },
@@ -1218,9 +1218,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.4.1"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.9.3"
             },
-            "time": "2026-07-31T10:59:59+00:00"
+            "time": "2026-08-04T13:55:06+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -2012,16 +2012,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.8.3",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "1902f60f984235023acbe03db6ad614a37b3c3e7"
+                "reference": "5703d83ba3da3b2e356a5fedc848ed6d8ffb6529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/1902f60f984235023acbe03db6ad614a37b3c3e7",
-                "reference": "1902f60f984235023acbe03db6ad614a37b3c3e7",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/5703d83ba3da3b2e356a5fedc848ed6d8ffb6529",
+                "reference": "5703d83ba3da3b2e356a5fedc848ed6d8ffb6529",
                 "shasum": ""
             },
             "require": {
@@ -2058,7 +2058,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.9-dev"
+                    "dev-main": "2.10-dev"
                 }
             },
             "autoload": {
@@ -2115,7 +2115,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-12T15:29:16+00:00"
+            "time": "2026-08-03T13:42:31+00:00"
         },
         {
             "name": "league/config",

@@ -5,6 +5,7 @@
                 'src'=> $logotype,
                 'alt' => $lang->goToHomepage
             ],
+            'classList' => ['c-nav__logo', 'c-header__logotype'],
             'text' => $brandText,
         ])
         @endbrand
