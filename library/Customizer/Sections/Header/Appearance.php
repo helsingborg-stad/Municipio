@@ -73,27 +73,5 @@ class Appearance
                 ],
             ],
         ]);
-
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'header_margin',
-            'label' => esc_html__('Margin', 'municipio'),
-            'description' => esc_html__('Select if the header should have margins or not.', 'municipio'),
-            'section' => $sectionID,
-            'default' => '',
-            'priority' => 15,
-            'choices' => [
-                '' => esc_html__('Margin enabled', 'municipio'),
-                'remove-spacing' => esc_html__('Margin disabled', 'municipio'),
-            ],
-            'output' => [
-                [
-                    'type' => 'modifier',
-                    'context' => [
-                        'site.header.container',
-                    ],
-                ],
-            ],
-        ]);
     }
 }
