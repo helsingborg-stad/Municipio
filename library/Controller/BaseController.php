@@ -494,12 +494,23 @@ class BaseController
             return null;
         }
 
+        $firstName   = trim((string) $user->first_name);
+        $lastName    = trim((string) $user->last_name);
+        $displayName = trim((string) $user->display_name);
+        $username    = trim((string) $user->user_login);
+
+        $fullName = trim($firstName . ' ' . $lastName);
+
+        $resolvedDisplayName = $fullName !== '' ? $fullName : ($displayName !== '' ? $displayName : $username);
+        $resolvedFirstName   = $firstName !== '' ? $firstName : ($displayName !== '' ? $displayName : $username);
+        $resolvedLastName    = $lastName !== '' ? $lastName : $username;
+
         return (object) [
             'id' => $user->ID,
-            'email' => $user->user_email,
-            'displayname' => $user->display_name,
-            'firstname' => $user->first_name,
-            'lastname' => $user->last_name,
+            'email' => strtolower($user->user_email),
+            'displayname' => ucwords($resolvedDisplayName),
+            'firstname' => ucwords($resolvedFirstName),
+            'lastname' => ucwords($resolvedLastName),
         ];
     }
 

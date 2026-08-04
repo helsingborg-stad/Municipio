@@ -14,7 +14,7 @@
 ])
 
     @avatar([
-        'name' => $user->display_name ?? '',
+        'name' => $userDetails->displayname ?? '',
         'size' => 'sm',
         'classList' => ['user__avatar']
     ])
@@ -33,7 +33,7 @@
                     'user__name'
                 ]
             ])
-                {{ trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')) ?: $user->user_login }}
+                {{ $userDetails->displayname ?? '' }}
         @endtypography
 
         @link([
