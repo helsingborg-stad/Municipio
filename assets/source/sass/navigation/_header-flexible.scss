@@ -18,7 +18,7 @@
     .c-header__main-upper-area,
     .c-header__main-lower-area {
         gap: calc(var(--base) * 2);
-        min-height: calc(var(--base) * 10);
+        min-height: calc(var(--base) * 7.5);
     }
 
     // Better responsive behavior if no centered content.
