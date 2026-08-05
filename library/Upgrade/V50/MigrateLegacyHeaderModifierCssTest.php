@@ -45,7 +45,7 @@ class MigrateLegacyHeaderModifierCssTest extends TestCase
         (new MigrateLegacyHeaderModifierCss($wpService))->migrate();
 
         static::assertSame(
-            '#site-header-flexible-lower .c-nav--depth-0>.c-nav__item>.c-nav__link{color:red}#site-header-flexible-lower .c-header__main-lower-area-container{background:#000}',
+            '#site-header-flexible-lower .c-nav--depth-0>.c-nav__item>.c-nav__link{color:red}#site-header-flexible-lower{background:#000}',
             $wpService->methodCalls['wpUpdateCustomCssPost'][0][0] ?? null,
         );
     }

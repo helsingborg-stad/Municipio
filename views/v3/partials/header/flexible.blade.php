@@ -13,25 +13,19 @@
                     $classes ?? []
                 ),
                 'id' => 'site-header-flexible-upper',
-                'backgroundColor' => $headerData['upperHeader']['backgroundColor'],
                 'sticky' => $headerData['upperHeader']['sticky'],
                 'context' => 'site.header.flexible.upper'
             ])
-                <div class="c-header__main-upper-area-container">
-                    @element([
-                        'classList' => ['c-header__main-upper-area'],
-                        'context' => ['site.header.flexible-container-upper', 'site.header.flexible-container', 'site.header.container']
-                    ])
-                        @foreach (['left', 'center', 'right'] as $alignment)
-                            @include('partials.header.components.headerLoop', 
-                                [
-                                    'area' => 'upper', 
-                                    'key' => 'upperItems', 
-                                    'align' => $alignment
-                                ]
-                            )
-                        @endforeach
-                    @endelement
+                <div class="c-header__main-upper-area">
+                    @foreach (['left', 'center', 'right'] as $alignment)
+                        @include('partials.header.components.headerLoop', 
+                            [
+                                'area' => 'upper', 
+                                'key' => 'upperItems', 
+                                'align' => $alignment
+                            ]
+                        )
+                    @endforeach
                 </div>
                     @if ($headerData['upperHeader']['innerMegaMenu'])
                         @include('partials.navigation.megamenu')
@@ -49,25 +43,19 @@
                     $classes ?? []
                 ),
                 'id' => 'site-header-flexible-lower',
-                'backgroundColor' => $headerData['lowerHeader']['backgroundColor'],
                 'sticky' => $headerData['lowerHeader']['sticky'],
                 'context' => 'site.header.flexible.lower',
             ])
-                <div class="c-header__main-lower-area-container">
-                    @element([
-                        'classList' => ['c-header__main-lower-area'],
-                        'context' => ['site.header.flexible-container-lower', 'site.header.flexible-container', 'site.header.container']
-                    ])
-                        @foreach (['left', 'center', 'right'] as $alignment) 
-                            @include('partials.header.components.headerLoop',
-                                [
-                                    'area' => 'lower', 
-                                    'key' => 'lowerItems', 
-                                    'align' => $alignment
-                                ]
-                            )
-                        @endforeach
-                    @endelement
+                <div class="c-header__main-lower-area">
+                    @foreach (['left', 'center', 'right'] as $alignment) 
+                        @include('partials.header.components.headerLoop',
+                            [
+                                'area' => 'lower', 
+                                'key' => 'lowerItems', 
+                                'align' => $alignment
+                            ]
+                        )
+                    @endforeach
                 </div>
                 @if ($headerData['lowerHeader']['innerMegaMenu'])
                     @include('partials.navigation.megamenu')

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Upgrade\V50;
+namespace Municipio\Upgrade\V55;
 
 use WpService\Contracts\GetOption;
 use WpService\Contracts\UpdateOption;
@@ -10,21 +10,21 @@ use WpService\Contracts\WpGetCustomCss;
 use WpService\Contracts\WpUpdateCustomCssPost;
 
 /**
- * Rewrites legacy header modifier selectors in persisted custom CSS.
+ * Rewrites stale flexible-header selectors that targeted removed
+ * lower/upper container wrapper elements.
+ *
+ * This keeps migrated legacy background and menu styling intact while
+ * allowing the flexible header to use native component structure.
  */
-class MigrateLegacyHeaderModifierCss
+class MigrateFlexibleHeaderContainerSelectors
 {
     private const INLINE_STYLES_OPTION = 'municipio_customizer_inline_styles';
 
     private const REPLACEMENT_MAP = [
-        '.c-header.c-header--business .c-header__menu.c-header__menu--secondary .c-nav--depth-0>.c-nav__item>.c-nav__link' => '#site-header-flexible-lower .c-nav--depth-0>.c-nav__item>.c-nav__link',
-        '.c-header.c-header--business .c-header__menu.c-header__menu--secondary' => '#site-header-flexible-lower',
-        '.c-header.c-header--business .c-header__menu.c-header__menu--primary' => '#site-header-flexible-upper',
-        '.c-header.c-header--casual .c-header__menu' => '#site-header-flexible-upper',
-        '.c-header--business' => '.c-header--flexible',
-        '.c-header--casual' => '.c-header--flexible',
-        '--business' => '--flexible',
-        '--casual' => '--flexible',
+        '#site-header-flexible-lower .c-header__main-lower-area-container .c-nav--depth-0>.c-nav__item>.c-nav__link' => '#site-header-flexible-lower .c-nav--depth-0>.c-nav__item>.c-nav__link',
+        '#site-header-flexible-lower .c-header__main-lower-area-container .c-nav--depth-0&gt;.c-nav__item&gt;.c-nav__link' => '#site-header-flexible-lower .c-nav--depth-0>.c-nav__item>.c-nav__link',
+        '#site-header-flexible-lower .c-header__main-lower-area-container' => '#site-header-flexible-lower',
+        '#site-header-flexible-upper .c-header__main-upper-area-container' => '#site-header-flexible-upper',
     ];
 
     /**
@@ -46,7 +46,7 @@ class MigrateLegacyHeaderModifierCss
     }
 
     /**
-     * Rewrite legacy header modifiers in native Customizer Additional CSS.
+     * Rewrite selectors in native Customizer Additional CSS.
      */
     private function migrateCustomizerAdditionalCss(): void
     {
@@ -66,7 +66,7 @@ class MigrateLegacyHeaderModifierCss
     }
 
     /**
-     * Rewrite legacy header modifiers in cached inline styles option.
+     * Rewrite selectors in cached inline styles option.
      */
     private function migrateInlineStylesOption(): void
     {
@@ -94,7 +94,7 @@ class MigrateLegacyHeaderModifierCss
     }
 
     /**
-     * Rewrite legacy selectors/tokens to flexible header variants.
+     * Rewrite stale selectors to native flexible header selectors.
      */
     private function rewriteCss(string $css): string
     {

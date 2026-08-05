@@ -92,11 +92,6 @@ class Flexible implements HeaderInterface
 
         $this->nonStickyMegaMenu = ($upperHeaderHasMegaMenu || $lowerHeaderHasMegaMenu) && empty($lowerHeader['innerMegaMenu']) && empty($upperHeader['innerMegaMenu']);
 
-        if (!empty($this->customizer->headerBackground)) {
-            $upperHeader['backgroundColor'] = empty($lowerItems['modified']) ? $this->customizer->headerBackground : 'default';
-            $lowerHeader['backgroundColor'] = $this->customizer->headerBackground;
-        }
-
         $upperHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
         $lowerHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
         $upperHeader['classList'][] = !empty($upperItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
@@ -113,7 +108,6 @@ class Flexible implements HeaderInterface
     {
         return [
             'sticky' => false,
-            'backgroundColor' => 'default',
             'classList' => [],
         ];
     }
