@@ -175,12 +175,6 @@ class PanelsRegistry
             )
             ->addSection(
                 CustomizerPanelSection::create()
-                    ->setID('municipio_customizer_section_header_panel_appearance')
-                    ->setTitle(esc_html__('Appearance', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Appearance('municipio_customizer_section_header_panel_appearance')),
-            )
-            ->addSection(
-                CustomizerPanelSection::create()
                     ->setID('municipio_customizer_section_header_panel_logotype')
                     ->setTitle(esc_html__('Logotype', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Logotype('municipio_customizer_section_header_panel_logotype')),
