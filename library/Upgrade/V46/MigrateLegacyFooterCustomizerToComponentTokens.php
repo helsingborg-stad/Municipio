@@ -353,7 +353,12 @@ class MigrateLegacyFooterCustomizerToComponentTokens
     {
         $alignment = $this->wpService->getThemeMod('footer_subfooter_alignment', null);
         if (!is_string($alignment) || $alignment === '') {
+            $footerTokens['--c-footer--subfooter-alignment'] = 'center';
             return;
+        }
+
+        if ($alignment === 'flex-start') {
+            $alignment = 'center';
         }
 
         $footerTokens['--c-footer--subfooter-alignment'] = $alignment;

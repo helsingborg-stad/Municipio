@@ -18,6 +18,7 @@ use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
 use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Styleguide\Customize\CustomizeInterface;
 use Municipio\Styleguide\Customize\ResolvePostTypeScope;
+use Municipio\Theme\FooterColumnsResolver;
 use WpService\WpService;
 
 /**
@@ -494,16 +495,16 @@ class BaseController
             return null;
         }
 
-        $firstName   = trim((string) $user->first_name);
-        $lastName    = trim((string) $user->last_name);
+        $firstName = trim((string) $user->first_name);
+        $lastName = trim((string) $user->last_name);
         $displayName = trim((string) $user->display_name);
-        $username    = trim((string) $user->user_login);
+        $username = trim((string) $user->user_login);
 
         $fullName = trim($firstName . ' ' . $lastName);
 
         $resolvedDisplayName = $fullName !== '' ? $fullName : ($displayName !== '' ? $displayName : $username);
-        $resolvedFirstName   = $firstName !== '' ? $firstName : ($displayName !== '' ? $displayName : $username);
-        $resolvedLastName    = $lastName !== '' ? $lastName : $username;
+        $resolvedFirstName = $firstName !== '' ? $firstName : ($displayName !== '' ? $displayName : $username);
+        $resolvedLastName = $lastName !== '' ? $lastName : $username;
 
         return (object) [
             'id' => $user->ID,
@@ -835,16 +836,13 @@ class BaseController
      */
     private function getFooterColumns(): int
     {
-        $storedTokens = $this->wpService->getThemeMod('tokens', '');
+        $resolver = new FooterColumnsResolver();
 
-        if (!is_string($storedTokens) || trim($storedTokens) === '') {
-            return 1;
-        }
-
-        $decodedTokens = json_decode($storedTokens, true);
-        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
-
-        return max(1, (int) $columnCount);
+        return $resolver->resolveFromThemeMods(
+            $this->wpService->getThemeMod('tokens', ''),
+            $this->wpService->getThemeMod('footer_columns', null),
+            $this->wpService->getThemeMod('footer_style', null),
+        );
     }
 
     /**

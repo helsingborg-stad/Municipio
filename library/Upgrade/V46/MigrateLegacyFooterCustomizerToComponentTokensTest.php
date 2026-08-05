@@ -174,7 +174,7 @@ class MigrateLegacyFooterCustomizerToComponentTokensTest extends TestCase
         $storedTokens = json_decode((string) $wpService->methodCalls['setThemeMod'][0][1], true);
 
         static::assertSame(1, $storedTokens['component']['__general__']['footer']['--c-footer--columns-count']);
+        static::assertSame('center', $storedTokens['component']['__general__']['footer']['--c-footer--subfooter-alignment']);
         static::assertCount(15, $wpService->methodCalls['removeThemeMod'] ?? []);
     }
 }
-
