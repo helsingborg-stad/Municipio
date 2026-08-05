@@ -128,6 +128,7 @@ class Hero
             'palette_pairs' => ColorSwatches::getColorPairs(),
             'swatch_pair_role' => 'background',
             'paired_setting' => 'hero_contrast_color',
+            'include_reset' => true,
             'output' => [
                 [
                     'type' => 'component_data',

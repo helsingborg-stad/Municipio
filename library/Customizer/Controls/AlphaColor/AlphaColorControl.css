@@ -28,6 +28,18 @@
 	line-height: 1;
 }
 
+.municipio-alpha-color-swatch__sample--reset {
+	background-color: #fff;
+	background-image:
+		linear-gradient(45deg, #dcdcde 25%, transparent 25%),
+		linear-gradient(-45deg, #dcdcde 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, #dcdcde 75%),
+		linear-gradient(-45deg, transparent 75%, #dcdcde 75%);
+	background-size: 10px 10px;
+	background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+	color: #1d2327;
+}
+
 .municipio-alpha-color-swatch__sample svg {
 	width: 1rem;
 	height: 1rem;
