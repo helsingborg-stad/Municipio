@@ -18,8 +18,8 @@ class MigrateHeaderAppearanceToDesignTokens
     private const TOKENS_SETTING = 'tokens';
 
     private const LEGACY_UPPER_BACKGROUND_SETTING = 'header_background_upper';
-    private const LEGACY_MAIN_BACKGROUND_SETTING  = 'header_background';
-    private const LEGACY_WIDTH_SETTING            = 'header_width';
+    private const LEGACY_MAIN_BACKGROUND_SETTING = 'header_background';
+    private const LEGACY_WIDTH_SETTING = 'header_width';
 
     /** @var array<string, string> */
     private const LEGACY_COLOR_TO_TOKEN_VALUE = [
@@ -30,11 +30,12 @@ class MigrateHeaderAppearanceToDesignTokens
     /** @var array<string, string> */
     private const LEGACY_WIDTH_TO_TOKEN_VALUE = [
         'wide' => 'var(--container-width-wide)',
+        'widde' => 'var(--container-width-wide)',
         'fullwidth' => '100%',
     ];
 
     private const UPPER_SCOPE = 'scope:s-header-flexible-upper';
-    private const MAIN_SCOPE  = 'scope:s-header';
+    private const MAIN_SCOPE = 'scope:s-header';
     private const LOWER_SCOPE = 'scope:s-header-flexible-lower';
 
     private const COLOR_TOKEN_KEY = '--c-header--color--surface';
@@ -72,33 +73,37 @@ class MigrateHeaderAppearanceToDesignTokens
         $hasChanges = false;
 
         if ($upperColorValue !== null) {
-            $hasChanges = $this->setNestedValueIfMissing(
-                $tokens,
-                ['component', self::UPPER_SCOPE, 'header', self::COLOR_TOKEN_KEY],
-                $upperColorValue,
-            ) || $hasChanges;
+            $hasChanges =
+                $this->setNestedValueIfMissing(
+                    $tokens,
+                    ['component', self::UPPER_SCOPE, 'header', self::COLOR_TOKEN_KEY],
+                    $upperColorValue,
+                ) || $hasChanges;
         }
 
         if ($mainColorValue !== null) {
-            $hasChanges = $this->setNestedValueIfMissing(
-                $tokens,
-                ['component', self::MAIN_SCOPE, 'header', self::COLOR_TOKEN_KEY],
-                $mainColorValue,
-            ) || $hasChanges;
+            $hasChanges =
+                $this->setNestedValueIfMissing(
+                    $tokens,
+                    ['component', self::MAIN_SCOPE, 'header', self::COLOR_TOKEN_KEY],
+                    $mainColorValue,
+                ) || $hasChanges;
 
-            $hasChanges = $this->setNestedValueIfMissing(
-                $tokens,
-                ['component', self::LOWER_SCOPE, 'header', self::COLOR_TOKEN_KEY],
-                $mainColorValue,
-            ) || $hasChanges;
+            $hasChanges =
+                $this->setNestedValueIfMissing(
+                    $tokens,
+                    ['component', self::LOWER_SCOPE, 'header', self::COLOR_TOKEN_KEY],
+                    $mainColorValue,
+                ) || $hasChanges;
         }
 
         if ($widthValue !== null) {
-            $hasChanges = $this->setNestedValueIfMissing(
-                $tokens,
-                ['component', '__general__', 'header', self::WIDTH_TOKEN_KEY],
-                $widthValue,
-            ) || $hasChanges;
+            $hasChanges =
+                $this->setNestedValueIfDifferent(
+                    $tokens,
+                    ['component', '__general__', 'header', self::WIDTH_TOKEN_KEY],
+                    $widthValue,
+                ) || $hasChanges;
         }
 
         if (!$hasChanges) {
@@ -159,6 +164,11 @@ class MigrateHeaderAppearanceToDesignTokens
      */
     private function setNestedValueIfMissing(array &$array, array $path, string $value): bool
     {
+        $leaf = array_pop($path);
+        if (!is_string($leaf) || $leaf === '') {
+            return false;
+        }
+
         $current = &$array;
 
         foreach ($path as $segment) {
@@ -169,15 +179,47 @@ class MigrateHeaderAppearanceToDesignTokens
             $current = &$current[$segment];
         }
 
-        if (is_string($current) && trim($current) !== '') {
+        if (is_string($current[$leaf] ?? null) && trim((string) $current[$leaf]) !== '') {
             return false;
         }
 
-        if (!is_string($current) && $current !== null) {
+        if (array_key_exists($leaf, $current) && !is_string($current[$leaf]) && $current[$leaf] !== null) {
             return false;
         }
 
-        $current = $value;
+        $current[$leaf] = $value;
+
+        return true;
+    }
+
+    /**
+     * Set a nested value when the target differs.
+     *
+     * @param array<string, mixed> $array
+     * @param array<int, string> $path
+     */
+    private function setNestedValueIfDifferent(array &$array, array $path, string $value): bool
+    {
+        $leaf = array_pop($path);
+        if (!is_string($leaf) || $leaf === '') {
+            return false;
+        }
+
+        $current = &$array;
+
+        foreach ($path as $segment) {
+            if (!isset($current[$segment]) || !is_array($current[$segment])) {
+                $current[$segment] = [];
+            }
+
+            $current = &$current[$segment];
+        }
+
+        if (is_string($current[$leaf] ?? null) && trim((string) $current[$leaf]) === $value) {
+            return false;
+        }
+
+        $current[$leaf] = $value;
 
         return true;
     }

@@ -50,8 +50,8 @@ class MigrateHeaderAppearanceToDesignTokensTest extends TestCase
         );
     }
 
-    #[TestDox('migrate does not overwrite existing header token values')]
-    public function testMigrateDoesNotOverwriteExistingHeaderTokenValues(): void
+    #[TestDox('migrate keeps existing header color token values but updates width from legacy setting')]
+    public function testMigrateKeepsExistingHeaderColorTokenValuesButUpdatesWidthFromLegacySetting(): void
     {
         $themeMods = [
             'tokens' => json_encode([
@@ -91,7 +91,26 @@ class MigrateHeaderAppearanceToDesignTokensTest extends TestCase
 
         (new MigrateHeaderAppearanceToDesignTokens($wpService))->migrate();
 
-        static::assertCount(0, $wpService->methodCalls['setThemeMod'] ?? []);
+        static::assertCount(1, $wpService->methodCalls['setThemeMod'] ?? []);
+
+        $tokensWrite = json_decode((string) ($wpService->methodCalls['setThemeMod'][0][1] ?? ''), true);
+
+        static::assertSame(
+            'var(--color--primary)',
+            $tokensWrite['component']['scope:s-header-flexible-upper']['header']['--c-header--color--surface'] ?? null,
+        );
+        static::assertSame(
+            'var(--color--secondary)',
+            $tokensWrite['component']['scope:s-header']['header']['--c-header--color--surface'] ?? null,
+        );
+        static::assertSame(
+            'var(--color--secondary)',
+            $tokensWrite['component']['scope:s-header-flexible-lower']['header']['--c-header--color--surface'] ?? null,
+        );
+        static::assertSame(
+            'var(--container-width-wide)',
+            $tokensWrite['component']['__general__']['header']['--c-header--container-max-width'] ?? null,
+        );
     }
 
     #[TestDox('migrate writes full width container value for legacy fullwidth setting')]
@@ -117,6 +136,33 @@ class MigrateHeaderAppearanceToDesignTokensTest extends TestCase
 
         static::assertSame(
             '100%',
+            $tokensWrite['component']['__general__']['header']['--c-header--container-max-width'] ?? null,
+        );
+    }
+
+    #[TestDox('migrate treats legacy widde width value as wide')]
+    public function testMigrateTreatsLegacyWiddeWidthValueAsWide(): void
+    {
+        $themeMods = [
+            'tokens' => '{}',
+            'header_background_upper' => '',
+            'header_background' => '',
+            'header_width' => 'widde',
+        ];
+
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $name, mixed $default = null): mixed => $themeMods[$name] ?? $default,
+            'setThemeMod' => true,
+        ]);
+
+        (new MigrateHeaderAppearanceToDesignTokens($wpService))->migrate();
+
+        static::assertCount(1, $wpService->methodCalls['setThemeMod'] ?? []);
+
+        $tokensWrite = json_decode((string) ($wpService->methodCalls['setThemeMod'][0][1] ?? ''), true);
+
+        static::assertSame(
+            'var(--container-width-wide)',
             $tokensWrite['component']['__general__']['header']['--c-header--container-max-width'] ?? null,
         );
     }
