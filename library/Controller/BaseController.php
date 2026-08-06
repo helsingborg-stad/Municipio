@@ -16,7 +16,6 @@ use Municipio\ImagePreload\Header\HeroImageModuleProvider;
 use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
 use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
 use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
-use Municipio\Styleguide\Customize\CustomizeInterface;
 use Municipio\Styleguide\Customize\ResolvePostTypeScope;
 use WpService\WpService;
 

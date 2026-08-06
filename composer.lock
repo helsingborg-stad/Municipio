@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e799d5bd8d80f5087a73584362902c81",
+    "content-hash": "c85e5802b1281571c9295ce9f43ef582",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1165,16 +1165,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.10.7",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "4556524bac1bb05174d481ebcd489e3406061215"
+                "reference": "d5c6affde56f43c86522c90da3e612ca738ca035"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/4556524bac1bb05174d481ebcd489e3406061215",
-                "reference": "4556524bac1bb05174d481ebcd489e3406061215",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/d5c6affde56f43c86522c90da3e612ca738ca035",
+                "reference": "d5c6affde56f43c86522c90da3e612ca738ca035",
                 "shasum": ""
             },
             "require": {
@@ -1218,9 +1218,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.10.7"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.11.0"
             },
-            "time": "2026-08-05T09:43:44+00:00"
+            "time": "2026-08-06T09:42:58+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -6197,16 +6197,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.5",
+            "version": "3.13.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4"
+                "reference": "4c378e1a528ea066890fc2397cbdd2f94eb2fc91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
-                "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/4c378e1a528ea066890fc2397cbdd2f94eb2fc91",
+                "reference": "4c378e1a528ea066890fc2397cbdd2f94eb2fc91",
                 "shasum": ""
             },
             "require": {
@@ -6272,7 +6272,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-11-04T16:30:35+00:00"
+            "time": "2026-08-06T00:17:32+00:00"
         },
         {
             "name": "staabm/side-effects-detector",

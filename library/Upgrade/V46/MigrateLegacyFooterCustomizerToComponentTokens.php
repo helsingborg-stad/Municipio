@@ -136,7 +136,7 @@ class MigrateLegacyFooterCustomizerToComponentTokens
         }
 
         // Legacy slider default 3 maps to design-builder default 1.
-        $footerTokens['--c-footer--outer-padding-inset-multiplier-scale'] = round(((float) $padding) / 3, 3);
+        $footerTokens['--c-footer--outer-padding-inset-multiplier-scale'] = round((float) $padding / 3, 3);
     }
 
     /**
