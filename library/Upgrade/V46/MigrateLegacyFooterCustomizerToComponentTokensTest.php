@@ -63,7 +63,7 @@ class MigrateLegacyFooterCustomizerToComponentTokensTest extends TestCase
 
         $footerTokens = $storedTokens['component']['__general__']['footer'];
 
-        static::assertSame(1, $footerTokens['--c-footer--columns-count']);
+        static::assertSame(4, $footerTokens['--c-footer--columns-count']);
         static::assertEquals(2.0, $footerTokens['--c-footer--outer-padding-inset-multiplier-scale']);
         static::assertSame('center', $footerTokens['--c-footer--logotype-justify-content']);
         static::assertSame('right', $footerTokens['--c-footer--text-align']);

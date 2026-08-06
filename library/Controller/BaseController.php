@@ -18,7 +18,6 @@ use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
 use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Styleguide\Customize\CustomizeInterface;
 use Municipio\Styleguide\Customize\ResolvePostTypeScope;
-use Municipio\Theme\FooterColumnsResolver;
 use WpService\WpService;
 
 /**
@@ -836,13 +835,16 @@ class BaseController
      */
     private function getFooterColumns(): int
     {
-        $resolver = new FooterColumnsResolver();
+        $storedTokens = $this->wpService->getThemeMod('tokens', '');
 
-        return $resolver->resolveFromThemeMods(
-            $this->wpService->getThemeMod('tokens', ''),
-            $this->wpService->getThemeMod('footer_columns', null),
-            $this->wpService->getThemeMod('footer_style', null),
-        );
+        if (!is_string($storedTokens) || trim($storedTokens) === '') {
+            return 1;
+        }
+
+        $decodedTokens = json_decode($storedTokens, true);
+        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
+
+        return max(1, (int) $columnCount);
     }
 
     /**

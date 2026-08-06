@@ -87,13 +87,7 @@ class MigrateLegacyFooterCustomizerToComponentTokens
             return;
         }
 
-        $legacyStyle = $this->wpService->getThemeMod('footer_style', null);
         $legacyColumns = $this->wpService->getThemeMod('footer_columns', null);
-
-        if ($legacyStyle === 'basic') {
-            $footerTokens['--c-footer--columns-count'] = 1;
-            return;
-        }
 
         if (is_numeric($legacyColumns)) {
             $footerTokens['--c-footer--columns-count'] = max(1, (int) $legacyColumns);

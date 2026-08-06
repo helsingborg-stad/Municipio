@@ -52,13 +52,16 @@ class Sidebars
      */
     private function getFooterColumns(): int
     {
-        $resolver = new FooterColumnsResolver();
+        $storedTokens = get_theme_mod('tokens', '');
 
-        return $resolver->resolveFromThemeMods(
-            get_theme_mod('tokens', ''),
-            get_theme_mod('footer_columns', null),
-            get_theme_mod('footer_style', null),
-        );
+        if (!is_string($storedTokens) || trim($storedTokens) === '') {
+            return 1;
+        }
+
+        $decodedTokens = json_decode($storedTokens, true);
+        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
+
+        return max(1, (int) $columnCount);
     }
 
     public function replaceGridClasses($beforeMarkup)
