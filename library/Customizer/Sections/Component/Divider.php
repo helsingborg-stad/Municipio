@@ -36,34 +36,6 @@ class Divider
         ]);
 
         CustomizerField::addField([
-            'type' => 'color',
-            'settings' => 'divider_color_text',
-            'label' => esc_html__('Text color', 'municipio'),
-            'section' => $sectionID,
-            'priority' => 10,
-            'transport' => 'auto',
-            'alpha' => true,
-            'default' => 'rgba(255, 255, 255, 0)',
-            'palettes' => ColorSwatches::getColors(),
-            'palette_pairs' => ColorSwatches::getColorPairs(),
-            'swatch_pair_role' => 'contrast',
-            'active_callback' => [
-                [
-                    'setting' => 'divider_custom_font',
-                    'operator' => '==',
-                    'value' => true,
-                ],
-            ],
-            'output' => [
-                [
-                    'choice' => 'text',
-                    'element' => ':root',
-                    'property' => '--c-divider-color-text',
-                ],
-            ],
-        ]);
-
-        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'divider_title_alignment',
             'label' => esc_html__('Text alignment', 'municipio'),
