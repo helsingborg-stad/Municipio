@@ -6,12 +6,24 @@ use Municipio\Customizer\CustomizerField;
 
 class Layout
 {
+    /**
+     * Create the header layout section fields.
+     *
+     * @param string $sectionID Customizer section identifier.
+     */
     public function __construct(string $sectionID)
     {
         $this->buildGeneralTab($sectionID);
         $this->buildFlexibleTab($sectionID);
     }
 
+    /**
+     * Register flexible header layout controls.
+     *
+     * @param string $sectionID Customizer section identifier.
+     *
+     * @return void
+     */
     private function buildFlexibleTab($sectionID): void
     {
         CustomizerField::addField(
@@ -131,6 +143,13 @@ class Layout
         );
     }
 
+    /**
+     * Register general header layout controls.
+     *
+     * @param string $sectionID Customizer section identifier.
+     *
+     * @return void
+     */
     private function buildGeneralTab($sectionID): void
     {
         CustomizerField::addField([
@@ -156,6 +175,38 @@ class Layout
                 ],
             ],
         ]);
+
+        CustomizerField::addField([
+            'type' => 'checkbox_switch',
+            'settings' => 'header_logo_scroll_shrink',
+            'label' => esc_html__('Scroll animate logotype', 'municipio'),
+            'description' => esc_html__('Shrinks the header logotype while scrolling when the logotype is placed on the lower left area of the flexible header.', 'municipio'),
+            'section' => $sectionID,
+            'default' => false,
+            'priority' => 11,
+            'tab' => 'general',
+            'active_callback' => $this->getHeaderLogoScrollShrinkActiveCallback(),
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => false,
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Build the active callback for the logotype scroll animation control.
+     *
+     * @return callable(): bool
+     */
+    private function getHeaderLogoScrollShrinkActiveCallback(): callable
+    {
+        return function (): bool {
+            $lowerItems = get_theme_mod('header_sortable_section_main_lower', $this->getDefaultDesktopLowerItems());
+
+            return $this->containsLogotype($lowerItems) && $this->isLogotypeAlignedLeft($this->getHiddenStorageThemeMod());
+        };
     }
 
     private function buildFlexibleMainLowerSection(): array
@@ -278,6 +329,56 @@ class Layout
         }
 
         return $filteredMenuOptions;
+    }
+
+    /**
+     * Determine if a sortable value contains the logotype item.
+     *
+     * @param mixed $items Sortable setting value.
+     *
+     * @return bool
+     */
+    private function containsLogotype(mixed $items): bool
+    {
+        if (is_string($items)) {
+            $decodedValue = json_decode($items, true);
+            $items = is_array($decodedValue) ? $decodedValue : [];
+        }
+
+        if (!is_array($items)) {
+            return false;
+        }
+
+        return in_array('logotype', $items, true);
+    }
+
+    /**
+     * Read the stored hidden header sortable configuration.
+     *
+     * @return array<string, mixed>
+     */
+    private function getHiddenStorageThemeMod(): array
+    {
+        $hiddenStorage = get_theme_mod('header_sortable_hidden_storage', $this->getDefaultHiddenStorage());
+
+        if (is_string($hiddenStorage)) {
+            $decodedValue = json_decode($hiddenStorage, true);
+            $hiddenStorage = is_array($decodedValue) ? $decodedValue : [];
+        }
+
+        return is_array($hiddenStorage) ? $hiddenStorage : [];
+    }
+
+    /**
+     * Determine if the lower-row logotype is aligned left.
+     *
+     * @param array<string, mixed> $hiddenStorage Hidden storage configuration.
+     *
+     * @return bool
+     */
+    private function isLogotypeAlignedLeft(array $hiddenStorage): bool
+    {
+        return ($hiddenStorage['header_sortable_section_main_lower']['logotype']['align'] ?? null) === 'left';
     }
 
     /**

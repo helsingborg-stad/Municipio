@@ -1,13 +1,14 @@
-import Fab from './fab';
-import './hide';
-import { initializeComments } from './comments';
-import { initializeLanguageMenu } from './languageMenu';
-import { initializeCollapsibleSearch } from './collapsibleSearch';
-import { initializeSessionManager } from './sessionManager';
-import { initializeHashHighlightManager } from './hashHighlightManager';
-import { initializeHashUpdateManager } from './hashUpdateManager';
-import { initPostsListAsync } from './postsList';
-import { initializeWpApiSettingsNonceRefresh } from './restApi/wpApiSettings';
+import Fab from "./fab";
+import "./hide";
+import { initializeCollapsibleSearch } from "./collapsibleSearch";
+import { initializeComments } from "./comments";
+import { initializeHashHighlightManager } from "./hashHighlightManager";
+import { initializeHashUpdateManager } from "./hashUpdateManager";
+import { initializeHeaderLogoScrollShrink } from "./headerLogoScrollShrink";
+import { initializeLanguageMenu } from "./languageMenu";
+import { initPostsListAsync } from "./postsList";
+import { initializeWpApiSettingsNonceRefresh } from "./restApi/wpApiSettings";
+import { initializeSessionManager } from "./sessionManager";
 
 const fab = new Fab();
 
@@ -20,4 +21,5 @@ initializeComments();
 initializeCollapsibleSearch();
 initializeHashHighlightManager();
 initializeHashUpdateManager(8 * 10);
+initializeHeaderLogoScrollShrink();
 initPostsListAsync();

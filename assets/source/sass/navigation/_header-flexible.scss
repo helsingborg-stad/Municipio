@@ -62,4 +62,33 @@
     .c-header__upper-right {
         justify-content: flex-end;
     }
+
+    &.c-header--logotype-scroll-shrink {
+        --municipio-header-logo-scroll-expanded-size: var(--c-header--logotype-height-max, var(--c-header--logotype-height));
+        --municipio-header-logo-scroll-collapsed-size: var(--c-header--logotype-height-min, var(--c-header--logotype-height));
+        --municipio-header-logo-scroll-scale: calc(var(--municipio-header-logo-scroll-collapsed-size) / var(--municipio-header-logo-scroll-expanded-size));
+        --municipio-header-logo-scroll-shift: calc(var(--municipio-header-logo-scroll-expanded-size) - var(--municipio-header-logo-scroll-collapsed-size));
+
+        &#site-header-flexible-lower {
+            overflow: visible;
+        }
+    }
+
+    @media (min-width: 1247px) {
+        &.c-header--logotype-scroll-shrink {
+            .c-header__lower-left .c-header__item--logotype .c-header__logotype {
+                transform: translateY(calc(-0.5 * var(--municipio-header-logo-scroll-shift))) scale(1);
+                transform-origin: top left;
+                transition: transform 0.3s ease;
+                margin-top: -50%;
+                margin-bottom: -50%;
+            }
+
+            .c-header__lower-left .c-header__item--logotype.is-logotype-scrolled .c-header__logotype {
+                transform: translateY(0) scale(var(--municipio-header-logo-scroll-scale));
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+    }
 }

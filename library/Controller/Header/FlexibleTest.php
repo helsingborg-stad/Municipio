@@ -75,6 +75,48 @@ class FlexibleTest extends TestCase
         $this->assertArrayNotHasKey('right', $headerData['upperItems']);
     }
 
+    public function testGetHeaderDataEnablesLogoScrollShrinkWhenLogotypeIsInLowerLeftAndSettingIsEnabled(): void
+    {
+        $controller = new Flexible((object) [
+            'headerLogoScrollShrink' => true,
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_lower' => [
+                    'logotype' => [
+                        'align' => 'left',
+                        'margin' => 'none',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['primary'],
+            'headerSortableSectionMainLower' => ['logotype'],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertTrue($headerData['logoScrollShrinkEnabled']);
+    }
+
+    public function testGetHeaderDataDisablesLogoScrollShrinkWhenLogotypeIsNotInLowerLeft(): void
+    {
+        $controller = new Flexible((object) [
+            'headerLogoScrollShrink' => true,
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_upper' => [
+                    'logotype' => [
+                        'align' => 'left',
+                        'margin' => 'none',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['logotype'],
+            'headerSortableSectionMainLower' => ['primary'],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertFalse($headerData['logoScrollShrinkEnabled']);
+    }
+
     private function getHiddenStorage(): string
     {
         return json_encode([

@@ -27,6 +27,7 @@ class Flexible implements HeaderInterface
     private string $headerSettingKey = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
     private bool $hasSeparateBrandText = false;
+    private string $logoScrollShrinkSetting = 'headerLogoScrollShrink';
 
     /**
      * Constructor
@@ -53,6 +54,7 @@ class Flexible implements HeaderInterface
         $lowerItems = $this->getItems('main_lower');
 
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
+        $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
 
         return [
             'upperHeader' => $upperHeader,
@@ -61,16 +63,27 @@ class Flexible implements HeaderInterface
             'lowerItems' => $lowerItems['modified'],
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
+            'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
             'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
     }
 
     // Handles the hidden menu data in the customizer.
-    private function getHiddenMenuItemsData()
+    private function getHiddenMenuItemsData(): object
     {
         $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ? $this->customizer->headerSortableHiddenStorage : '{}';
 
-        return json_decode($hiddenData);
+        if (is_array($hiddenData)) {
+            $hiddenData = wp_json_encode($hiddenData);
+        }
+
+        if (is_object($hiddenData)) {
+            return $hiddenData;
+        }
+
+        $decodedValue = json_decode((string) $hiddenData);
+
+        return is_object($decodedValue) ? $decodedValue : (object) [];
     }
 
     // Gets the header settings.
@@ -213,5 +226,43 @@ class Flexible implements HeaderInterface
             $setting,
             \Municipio\Helper\FormatObject::camelCaseString($setting),
         ];
+    }
+
+    /**
+     * Determine if the header logotype scroll shrink behavior should be enabled.
+     *
+     * @return bool
+     */
+    private function isLogoScrollShrinkEnabled(): bool
+    {
+        if (empty($this->customizer->{$this->logoScrollShrinkSetting})) {
+            return false;
+        }
+
+        return $this->hasLowerRowLogotype() && $this->isLowerRowLogotypeAlignedLeft();
+    }
+
+    /**
+     * Determine if the desktop lower header row contains the logotype.
+     *
+     * @return bool
+     */
+    private function hasLowerRowLogotype(): bool
+    {
+        $lowerItems = $this->normalizeOrderedItems($this->customizer->headerSortableSectionMainLower ?? []);
+
+        return in_array('logotype', $lowerItems, true);
+    }
+
+    /**
+     * Determine if the desktop lower-row logotype is aligned left.
+     *
+     * @return bool
+     */
+    private function isLowerRowLogotypeAlignedLeft(): bool
+    {
+        $hiddenStorage = $this->getHiddenMenuItemsData();
+
+        return ($hiddenStorage->header_sortable_section_main_lower->logotype->align ?? null) === 'left';
     }
 }
