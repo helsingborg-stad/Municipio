@@ -227,8 +227,11 @@ class Layout
     {
         return function (): bool {
             $lowerItems = get_theme_mod('header_sortable_section_main_lower', $this->getDefaultDesktopLowerItems());
+            $isStickyHeader = get_theme_mod('header_sticky', '') === 'sticky';
 
-            return $this->containsLogotype($lowerItems) && $this->isLogotypeAlignedLeft($this->getHiddenStorageThemeMod());
+            return $isStickyHeader
+                && $this->containsLogotype($lowerItems)
+                && $this->isLogotypeAlignedLeft($this->getHiddenStorageThemeMod());
         };
     }
 

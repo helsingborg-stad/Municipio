@@ -30,6 +30,7 @@ if (!function_exists(__NAMESPACE__ . '\\get_theme_mod')) {
     function get_theme_mod(string $setting, mixed $default = null): mixed
     {
         return match ($setting) {
+            'header_sticky' => 'sticky',
             'header_sortable_section_main_lower' => ['logotype', 'primary'],
             'header_logo_scroll_shrink' => true,
             'header_sortable_hidden_storage' => [
@@ -83,7 +84,7 @@ class LayoutTest extends TestCase
         $this->assertNotNull($field);
         $this->assertSame('slider', $field['type']);
         $this->assertSame(0.25, $field['default']);
-        $this->assertSame(['min' => 0.25, 'max' => 0.85, 'step' => 0.15], $field['choices']);
+        $this->assertSame(['min' => 0.25, 'max' => 0.85, 'step' => 0.05], $field['choices']);
         $this->assertSame('controller', $field['output'][0]['type']);
         $this->assertArrayNotHasKey('sanitize_callback', $field);
         $this->assertIsCallable($field['active_callback']);
