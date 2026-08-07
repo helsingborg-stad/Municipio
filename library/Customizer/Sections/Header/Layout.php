@@ -206,7 +206,7 @@ class Layout
             'choices' => [
                 'min' => 0.25,
                 'max' => 0.85,
-                'step' => 0.1,
+                'step' => 0.05,
             ],
             'active_callback' => $this->getHeaderLogoOverlapMultiplierActiveCallback(),
             'output' => [
