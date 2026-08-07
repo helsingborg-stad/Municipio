@@ -3,6 +3,8 @@ type HeaderLogoScrollShrinkElements = {
 };
 
 const desktopHeaderMediaQuery = "(min-width: 1247px)";
+const logoAspectRatioCssVariable =
+	"--municipio-header-logo-scroll-aspect-ratio";
 
 function getCurrentScrollPosition(): number {
 	return (
@@ -42,6 +44,63 @@ function toggleScrollShrinkState(
 	elements.logotypeItem.classList.toggle("is-logotype-scrolled", isScrolled);
 }
 
+function getLogoAspectRatio(logotypeItem: HTMLElement): number | null {
+	const logotypeImage = logotypeItem.querySelector<HTMLImageElement>(
+		".c-header__logotype img",
+	);
+
+	if (logotypeImage?.naturalWidth && logotypeImage.naturalHeight) {
+		return logotypeImage.naturalWidth / logotypeImage.naturalHeight;
+	}
+
+	const logotypeFigure = logotypeItem.querySelector<HTMLElement>(
+		".c-header__logotype",
+	);
+
+	if (!logotypeFigure) {
+		return null;
+	}
+
+	const { width, height } = logotypeFigure.getBoundingClientRect();
+
+	if (!width || !height) {
+		return null;
+	}
+
+	return width / height;
+}
+
+function applyLogoAspectRatioVariable(logotypeItem: HTMLElement): void {
+	const aspectRatio = getLogoAspectRatio(logotypeItem);
+
+	if (!aspectRatio) {
+		return;
+	}
+
+	logotypeItem.style.setProperty(
+		logoAspectRatioCssVariable,
+		aspectRatio.toString(),
+	);
+}
+
+function setupLogoAspectRatioVariable(logotypeItem: HTMLElement): void {
+	applyLogoAspectRatioVariable(logotypeItem);
+
+	const logotypeImage = logotypeItem.querySelector<HTMLImageElement>(
+		".c-header__logotype img",
+	);
+
+	if (!logotypeImage || logotypeImage.complete) {
+		return;
+	}
+
+	logotypeImage.addEventListener(
+		"load",
+		() => applyLogoAspectRatioVariable(logotypeItem),
+		{ once: true },
+	);
+}
+
 export function initializeHeaderLogoScrollShrink(): void {
 	const initializeWhenReady = (): void => {
 		setupHeaderLogoScrollShrink();
@@ -63,6 +122,8 @@ function setupHeaderLogoScrollShrink(): void {
 	if (!elements) {
 		return;
 	}
+
+	setupLogoAspectRatioVariable(elements.logotypeItem);
 
 	const mediaQuery = window.matchMedia(desktopHeaderMediaQuery);
 	let isTicking = false;

@@ -56,9 +56,11 @@
     }
 
     &.c-header--logotype-scroll-shrink {
-        --municipio-header-logo-scroll-expanded-size: var(--c-header--logotype-height-max, var(--c-header--logotype-height));
-        --municipio-header-logo-scroll-collapsed-size: var(--c-header--logotype-height-min, var(--c-header--logotype-height));
-        --municipio-header-logo-scroll-shift: calc(var(--municipio-header-logo-scroll-expanded-size) - var(--municipio-header-logo-scroll-collapsed-size));
+        --municipio-header-logo-scroll-aspect-ratio: 1;
+        --municipio-header-logo-overlap-multiplier: 0.25;
+        --municipio-header-logo-scroll-expanded-height: var(--c-header--logotype-height-max, var(--c-header--logotype-height));
+        --municipio-header-logo-scroll-collapsed-height: var(--c-header--logotype-height-min, var(--c-header--logotype-height));
+        --municipio-header-logo-scroll-height-shift: calc(-1 * var(--municipio-header-logo-scroll-expanded-height) * var(--municipio-header-logo-overlap-multiplier));
 
         &#site-header-flexible-lower {
             overflow: visible;
@@ -68,19 +70,18 @@
     @media (min-width: 1247px) {
         &.c-header--logotype-scroll-shrink {
             .c-header__lower-left .c-header__item--logotype .c-header__logotype {
-                transform: translateY(calc(-0.5 * var(--municipio-header-logo-scroll-shift))) scale(1);
+                aspect-ratio: var(--municipio-header-logo-scroll-aspect-ratio);
+                height: var(--municipio-header-logo-scroll-expanded-height);
+                transform: translateY(var(--municipio-header-logo-scroll-height-shift));
                 transform-origin: top left;
-                transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
-                margin-top: -50%;
-                margin-bottom: -50%;
+                transition: transform 0.3s ease, height 0.3s ease, margin-bottom 0.3s ease;
+                margin-bottom: calc(var(--municipio-header-logo-scroll-height-shift) + calc(var(--base) * 1.5));
             }
 
             .c-header__lower-left .c-header__item--logotype.is-logotype-scrolled .c-header__logotype {
                 transform: translateY(0);
-                margin-top: 0;
+                height: var(--municipio-header-logo-scroll-collapsed-height);
                 margin-bottom: 0;
-                width: var(--municipio-header-logo-scroll-collapsed-size);
-                height: var(--municipio-header-logo-scroll-collapsed-size);
             }
         }
     }
