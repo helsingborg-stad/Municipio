@@ -6,6 +6,19 @@
         grid-template-rows: 1fr 1fr;
     }
 
+    // Stacking order
+    .c-header__main-upper-area {
+        z-index: 10;
+    }
+
+    .c-header__main-lower-area {
+        z-index: 9;
+        .c-header__logotype {
+            z-index: 12;
+        }
+    }
+    
+
     // Content Areas
     .c-header__main-upper-area,
     .c-header__main-lower-area {
@@ -71,17 +84,25 @@
         &.c-header--logotype-scroll-shrink {
             .c-header__lower-left .c-header__item--logotype .c-header__logotype {
                 aspect-ratio: var(--municipio-header-logo-scroll-aspect-ratio);
-                height: var(--municipio-header-logo-scroll-expanded-height);
                 transform: translateY(var(--municipio-header-logo-scroll-height-shift));
                 transform-origin: top left;
                 transition: transform 0.3s ease, height 0.3s ease, margin-bottom 0.3s ease;
                 margin-bottom: calc(var(--municipio-header-logo-scroll-height-shift) + calc(var(--base) * 1.5));
+                --c-brand--height: var(--municipio-header-logo-scroll-expanded-height);
+                --c-logotype--height: var(--municipio-header-logo-scroll-expanded-height);
+                height: var(--municipio-header-logo-scroll-expanded-height);
+
+                * {
+                    transition: inherit;
+                }
             }
 
             .c-header__lower-left .c-header__item--logotype.is-logotype-scrolled .c-header__logotype {
                 transform: translateY(0);
-                height: var(--municipio-header-logo-scroll-collapsed-height);
                 margin-bottom: 0;
+                height: var(--municipio-header-logo-scroll-collapsed-height);
+                --c-brand--height: var(--municipio-header-logo-scroll-collapsed-height);
+                --c-logotype--height: var(--municipio-header-logo-scroll-collapsed-height);
             }
         }
     }

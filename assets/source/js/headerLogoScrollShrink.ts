@@ -45,6 +45,30 @@ function toggleScrollShrinkState(
 }
 
 function getLogoAspectRatio(logotypeItem: HTMLElement): number | null {
+	const brandElement = logotypeItem.querySelector<HTMLElement>(
+		".c-header__logotype.c-brand",
+	);
+
+	if (brandElement) {
+		const brandContainer = logotypeItem.querySelector<HTMLElement>(
+			".c-brand__container",
+		);
+
+		if (!brandContainer) {
+			return null;
+		}
+
+		const { width, height } = brandContainer.getBoundingClientRect();
+
+		if (width && height) {
+			return width / height;
+		}
+
+		// Brand markup exists but layout has not produced measurable dimensions yet.
+		// Avoid falling back to the symbol image ratio, which differs from full brand width.
+		return null;
+	}
+
 	const logotypeImage = logotypeItem.querySelector<HTMLImageElement>(
 		".c-header__logotype img",
 	);
@@ -70,21 +94,37 @@ function getLogoAspectRatio(logotypeItem: HTMLElement): number | null {
 	return width / height;
 }
 
-function applyLogoAspectRatioVariable(logotypeItem: HTMLElement): void {
+function applyLogoAspectRatioVariable(logotypeItem: HTMLElement): boolean {
 	const aspectRatio = getLogoAspectRatio(logotypeItem);
 
 	if (!aspectRatio) {
-		return;
+		return false;
 	}
 
 	logotypeItem.style.setProperty(
 		logoAspectRatioCssVariable,
 		aspectRatio.toString(),
 	);
+
+	return true;
 }
 
 function setupLogoAspectRatioVariable(logotypeItem: HTMLElement): void {
-	applyLogoAspectRatioVariable(logotypeItem);
+	const applyWithRetry = (attemptsLeft = 6): void => {
+		if (applyLogoAspectRatioVariable(logotypeItem) || attemptsLeft <= 0) {
+			return;
+		}
+
+		window.requestAnimationFrame(() => applyWithRetry(attemptsLeft - 1));
+	};
+
+	applyWithRetry();
+
+	window.addEventListener("load", () => applyWithRetry(), { once: true });
+
+	if ("fonts" in document) {
+		document.fonts.ready.then(() => applyWithRetry());
+	}
 
 	const logotypeImage = logotypeItem.querySelector<HTMLImageElement>(
 		".c-header__logotype img",
@@ -96,7 +136,7 @@ function setupLogoAspectRatioVariable(logotypeItem: HTMLElement): void {
 
 	logotypeImage.addEventListener(
 		"load",
-		() => applyLogoAspectRatioVariable(logotypeItem),
+		() => applyWithRetry(),
 		{ once: true },
 	);
 }
