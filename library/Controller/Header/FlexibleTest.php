@@ -79,6 +79,7 @@ class FlexibleTest extends TestCase
     {
         $controller = new Flexible((object) [
             'headerLogoScrollShrink' => true,
+            'headerLogoOverlapMultiplier' => 0.5,
             'headerSortableHiddenStorage' => json_encode([
                 'header_sortable_section_main_lower' => [
                     'logotype' => [
@@ -94,6 +95,7 @@ class FlexibleTest extends TestCase
         $headerData = $controller->getHeaderData();
 
         $this->assertTrue($headerData['logoScrollShrinkEnabled']);
+        $this->assertSame(0.5, $headerData['logoScrollShrinkOverlapMultiplier']);
     }
 
     public function testGetHeaderDataDisablesLogoScrollShrinkWhenLogotypeIsNotInLowerLeft(): void
@@ -115,6 +117,28 @@ class FlexibleTest extends TestCase
         $headerData = $controller->getHeaderData();
 
         $this->assertFalse($headerData['logoScrollShrinkEnabled']);
+    }
+
+    public function testGetHeaderDataFallsBackToDefaultLogoOverlapMultiplierWhenValueIsUnsupported(): void
+    {
+        $controller = new Flexible((object) [
+            'headerLogoScrollShrink' => true,
+            'headerLogoOverlapMultiplier' => 0.3,
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_lower' => [
+                    'logotype' => [
+                        'align' => 'left',
+                        'margin' => 'none',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['primary'],
+            'headerSortableSectionMainLower' => ['logotype'],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertSame(0.25, $headerData['logoScrollShrinkOverlapMultiplier']);
     }
 
     private function getHiddenStorage(): string

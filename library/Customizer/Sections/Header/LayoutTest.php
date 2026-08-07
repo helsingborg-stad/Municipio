@@ -31,6 +31,7 @@ if (!function_exists(__NAMESPACE__ . '\\get_theme_mod')) {
     {
         return match ($setting) {
             'header_sortable_section_main_lower' => ['logotype', 'primary'],
+            'header_logo_scroll_shrink' => true,
             'header_sortable_hidden_storage' => [
                 'header_sortable_section_main_lower' => [
                     'logotype' => [
@@ -65,6 +66,28 @@ class LayoutTest extends TestCase
         $this->assertSame('checkbox_switch', $field['type']);
         $this->assertFalse($field['default']);
         $this->assertSame('controller', $field['output'][0]['type']);
+        $this->assertIsCallable($field['active_callback']);
+        $this->assertTrue($field['active_callback']());
+    }
+
+    #[TestDox('Layout registers the logotype overlap slider with float steps and a conditional active callback')]
+    public function testLayoutRegistersTheLogotypeOverlapSliderField(): void
+    {
+        new Layout('municipio_customizer_section_header_panel_layout');
+
+        $field = $this->findFieldBySettings(
+            PanelsRegistry::getInstance()->getRegisteredFields(),
+            'header_logo_overlap_multiplier',
+        );
+
+        $this->assertNotNull($field);
+        $this->assertSame('slider', $field['type']);
+        $this->assertSame(0.25, $field['default']);
+        $this->assertSame(['min' => 0.25, 'max' => 0.75, 'step' => 0.25], $field['choices']);
+        $this->assertSame('controller', $field['output'][0]['type']);
+        $this->assertIsCallable($field['sanitize_callback']);
+        $this->assertSame(0.5, $field['sanitize_callback']('0.5'));
+        $this->assertSame(0.25, $field['sanitize_callback']('0.3'));
         $this->assertIsCallable($field['active_callback']);
         $this->assertTrue($field['active_callback']());
     }

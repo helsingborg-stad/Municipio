@@ -193,6 +193,29 @@ class Layout
                 ],
             ],
         ]);
+
+        CustomizerField::addField([
+            'type' => 'slider',
+            'settings' => 'header_logo_overlap_multiplier',
+            'label' => esc_html__('Logotype overlap', 'municipio'),
+            'description' => esc_html__('Adjust how much the expanded logotype overlaps the upper header row.', 'municipio'),
+            'section' => $sectionID,
+            'default' => 0.25,
+            'priority' => 12,
+            'tab' => 'general',
+            'choices' => [
+                'min' => 0.25,
+                'max' => 0.85,
+                'step' => 0.15,
+            ],
+            'active_callback' => $this->getHeaderLogoOverlapMultiplierActiveCallback(),
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => false,
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -206,6 +229,20 @@ class Layout
             $lowerItems = get_theme_mod('header_sortable_section_main_lower', $this->getDefaultDesktopLowerItems());
 
             return $this->containsLogotype($lowerItems) && $this->isLogotypeAlignedLeft($this->getHiddenStorageThemeMod());
+        };
+    }
+
+    /**
+     * Build the active callback for the logotype overlap slider.
+     *
+     * @return callable(): bool
+     */
+    private function getHeaderLogoOverlapMultiplierActiveCallback(): callable
+    {
+        return function (): bool {
+            $isScrollShrinkAvailable = $this->getHeaderLogoScrollShrinkActiveCallback()();
+
+            return $isScrollShrinkAvailable && (bool) get_theme_mod('header_logo_scroll_shrink', false);
         };
     }
 

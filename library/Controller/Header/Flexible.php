@@ -28,6 +28,7 @@ class Flexible implements HeaderInterface
     private string $headerSettingKeyResponsive = 'Responsive';
     private bool $hasSeparateBrandText = false;
     private string $logoScrollShrinkSetting = 'headerLogoScrollShrink';
+    private string $logoOverlapMultiplierSetting = 'headerLogoOverlapMultiplier';
 
     /**
      * Constructor
@@ -55,6 +56,7 @@ class Flexible implements HeaderInterface
 
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
         $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
+        $logoScrollShrinkOverlapMultiplier = $this->getLogoScrollShrinkOverlapMultiplier();
 
         return [
             'upperHeader' => $upperHeader,
@@ -64,6 +66,7 @@ class Flexible implements HeaderInterface
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
+            'logoScrollShrinkOverlapMultiplier' => $logoScrollShrinkOverlapMultiplier,
             'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
     }
@@ -264,5 +267,18 @@ class Flexible implements HeaderInterface
         $hiddenStorage = $this->getHiddenMenuItemsData();
 
         return ($hiddenStorage->header_sortable_section_main_lower->logotype->align ?? null) === 'left';
+    }
+
+    /**
+     * Resolve the validated overlap multiplier for the logotype scroll effect.
+     *
+     * @return float
+     */
+    private function getLogoScrollShrinkOverlapMultiplier(): float
+    {
+        $overlapMultiplier = (float) ($this->customizer->{$this->logoOverlapMultiplierSetting} ?? 0.25);
+        $allowedValues = [0.25, 0.5, 0.75];
+
+        return in_array($overlapMultiplier, $allowedValues, true) ? $overlapMultiplier : 0.25;
     }
 }
