@@ -43,13 +43,33 @@ class NativeFieldTest extends TestCase
             'type' => 'slider',
             'default' => 7,
             'transport' => 'postMessage',
+            'choices' => [
+                'min' => 1,
+                'max' => 12,
+                'step' => 1,
+            ],
         ]);
 
         $this->assertSame('theme_mod', $arguments['type']);
         $this->assertSame('edit_theme_options', $arguments['capability']);
         $this->assertSame(7, $arguments['default']);
         $this->assertSame('postMessage', $arguments['transport']);
-        $this->assertSame('absint', $arguments['sanitize_callback']);
+        $this->assertIsCallable($arguments['sanitize_callback']);
+        $this->assertSame(7, $arguments['sanitize_callback']('7.4'));
+
+        $decimalSliderArguments = NativeField::getSettingArguments([
+            'type' => 'slider',
+            'default' => 0.25,
+            'choices' => [
+                'min' => 0.25,
+                'max' => 0.85,
+                'step' => 0.15,
+            ],
+        ]);
+
+        $this->assertIsCallable($decimalSliderArguments['sanitize_callback']);
+        $this->assertSame(0.4, $decimalSliderArguments['sanitize_callback']('0.41'));
+        $this->assertSame(0.85, $decimalSliderArguments['sanitize_callback']('2'));
 
         $hiddenArguments = NativeField::getSettingArguments([
             'type' => 'hidden',

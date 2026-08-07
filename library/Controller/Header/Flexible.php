@@ -277,8 +277,7 @@ class Flexible implements HeaderInterface
     private function getLogoScrollShrinkOverlapMultiplier(): float
     {
         $overlapMultiplier = (float) ($this->customizer->{$this->logoOverlapMultiplierSetting} ?? 0.25);
-        $allowedValues = [0.25, 0.5, 0.75];
 
-        return in_array($overlapMultiplier, $allowedValues, true) ? $overlapMultiplier : 0.25;
+        return $overlapMultiplier > 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
     }
 }
