@@ -63,10 +63,13 @@ class NativeFieldControlFactory
     private static function getSpecializedControlClass(string $fieldType): ?string
     {
         $controlClasses = [
+            'checkbox_switch' => '\\Municipio\\Customizer\\Controls\\CheckboxSwitch\\CheckboxSwitchControl',
             'code' => '\\WP_Customize_Code_Editor_Control',
             'color' => '\\WP_Customize_Color_Control',
             'image' => '\\WP_Customize_Image_Control',
             'slider' => '\\Municipio\\Customizer\\Controls\\Slider\\SliderControl',
+            'switch' => '\\Municipio\\Customizer\\Controls\\CheckboxSwitch\\CheckboxSwitchControl',
+            'toggle' => '\\Municipio\\Customizer\\Controls\\CheckboxSwitch\\CheckboxSwitchControl',
             'upload' => '\\WP_Customize_Upload_Control',
         ];
 
