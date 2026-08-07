@@ -1,6 +1,4 @@
 type HeaderLogoScrollShrinkElements = {
-	lowerHeader: HTMLElement;
-	upperHeader: HTMLElement | null;
 	logotypeItem: HTMLElement;
 };
 
@@ -33,10 +31,6 @@ function getHeaderLogoScrollShrinkElements(): HeaderLogoScrollShrinkElements | n
 	}
 
 	return {
-		lowerHeader,
-		upperHeader: document.querySelector<HTMLElement>(
-			"#site-header-flexible-upper.c-header--logotype-scroll-shrink",
-		),
 		logotypeItem,
 	};
 }
@@ -46,8 +40,6 @@ function toggleScrollShrinkState(
 	isScrolled: boolean,
 ): void {
 	elements.logotypeItem.classList.toggle("is-logotype-scrolled", isScrolled);
-	elements.lowerHeader.classList.toggle("is-logotype-scrolled", isScrolled);
-	elements.upperHeader?.classList.toggle("is-logotype-scrolled", isScrolled);
 }
 
 export function initializeHeaderLogoScrollShrink(): void {
@@ -66,7 +58,9 @@ export function initializeHeaderLogoScrollShrink(): void {
 }
 
 function setupHeaderLogoScrollShrink(): void {
-	if (!getHeaderLogoScrollShrinkElements()) {
+	const elements = getHeaderLogoScrollShrinkElements();
+
+	if (!elements) {
 		return;
 	}
 
@@ -75,12 +69,6 @@ function setupHeaderLogoScrollShrink(): void {
 
 	const updateState = (): void => {
 		isTicking = false;
-		const elements = getHeaderLogoScrollShrinkElements();
-
-		if (!elements) {
-			return;
-		}
-
 		toggleScrollShrinkState(
 			elements,
 			mediaQuery.matches && getCurrentScrollPosition() > 0,
@@ -98,7 +86,6 @@ function setupHeaderLogoScrollShrink(): void {
 
 	requestUpdate();
 	window.addEventListener("scroll", requestUpdate, { passive: true });
-	window.addEventListener("resize", requestUpdate);
 
 	if (typeof mediaQuery.addEventListener === "function") {
 		mediaQuery.addEventListener("change", requestUpdate);

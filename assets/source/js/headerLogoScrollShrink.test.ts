@@ -43,19 +43,14 @@ describe("initializeHeaderLogoScrollShrink", () => {
 		const logotypeItem = document.querySelector<HTMLElement>(
 			".c-header__item--logotype",
 		);
-		const lowerHeader = document.querySelector<HTMLElement>(
-			"#site-header-flexible-lower",
-		);
 
 		expect(logotypeItem?.classList.contains("is-logotype-scrolled")).toBe(
 			false,
 		);
-		expect(lowerHeader?.classList.contains("is-logotype-scrolled")).toBe(false);
 
 		window.scrollY = 48;
 		window.dispatchEvent(new Event("scroll"));
 
 		expect(logotypeItem?.classList.contains("is-logotype-scrolled")).toBe(true);
-		expect(lowerHeader?.classList.contains("is-logotype-scrolled")).toBe(true);
 	});
 });
