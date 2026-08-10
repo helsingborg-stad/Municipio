@@ -49,7 +49,7 @@ class SingleAdminPage implements \Modularity\Options\AdminPageInterface
                 continue;
             }
 
-            $postTypeUrlParam = '?post_type=' . $postType;
+            $postTypeUrlParam = $postType === 'post' ? '' : '?post_type=' . $postType;
             $transcribedPostType = \Modularity\Editor::pageForPostTypeTranscribe('single-' . $postType);
             $menuSlug = self::MENU_SLUG_PREFIX . $postType;
 
