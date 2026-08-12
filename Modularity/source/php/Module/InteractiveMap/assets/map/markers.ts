@@ -13,13 +13,12 @@ class Markers {
 	) {}
 
 	public createMarkers(): MarkersData {
-		let markers: MarkersData = {};
+		let markers: MarkersData = [];
 		this.savedMarkers.forEach((markerData) => {
 			const hasParent = this.hasParent(markerData.layerGroup);
 			const markerColor = this.getMarkerColor(hasParent, markerData.layerGroup);
 			const markerIcon = this.getMarkerIcon(hasParent, markerData.layerGroup);
 			const html = this.getHtml(markerIcon, markerColor);
-			let highlighted = false;
 
 			const marker = new CreateMarker().create(
 				{
@@ -55,7 +54,6 @@ class Markers {
 			});
 
 			marker.addListener("popupopen", () => {
-				highlighted = true;
 				marker.setIcon({
 					html: this.getHighlightedHtml(markerIcon, markerColor),
 					iconSize: [32, 32],
@@ -64,12 +62,16 @@ class Markers {
 			});
 
 			marker.addListener("popupclose", () => {
-				highlighted = true;
 				marker.setIcon({
 					html: this.getHtml(markerIcon, markerColor),
 					iconSize: [32, 32],
 					iconAnchor: [16, 2],
 				});
+			});
+
+			markers.push({
+				data: markerData,
+				marker,
 			});
 		});
 
