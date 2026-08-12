@@ -77,6 +77,7 @@ class LayerGroupWithButtonFilter implements LayerGroupFilterInterface {
 
 	private removeActive(): void {
 		this.active = false;
+		this.mapInstance.getAddable().closePopup();
 		this.getLayerGroup().removeLayerGroupFrom(this.addable);
 		this.icon!.setAttribute(this.iconTarget, this.unCheckedIcon);
 		this.filterButton!.classList.remove(this.activeClass);
