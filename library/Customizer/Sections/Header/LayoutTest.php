@@ -91,6 +91,22 @@ class LayoutTest extends TestCase
         $this->assertTrue($field['active_callback']());
     }
 
+    #[TestDox('Layout registers a hidden field for the stored logotype scroll aspect ratio')]
+    public function testLayoutRegistersTheLogotypeScrollAspectRatioHiddenField(): void
+    {
+        new Layout('municipio_customizer_section_header_panel_layout');
+
+        $field = $this->findFieldBySettings(
+            PanelsRegistry::getInstance()->getRegisteredFields(),
+            'header_logo_scroll_aspect_ratio',
+        );
+
+        $this->assertNotNull($field);
+        $this->assertSame('hidden', $field['type']);
+        $this->assertSame('', $field['default']);
+        $this->assertSame('controller', $field['output'][0]['type']);
+    }
+
     /**
      * Get a registered Customizer field by its setting identifier.
      *

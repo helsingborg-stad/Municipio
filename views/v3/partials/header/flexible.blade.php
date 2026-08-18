@@ -1,5 +1,6 @@
 @if (!empty($headerData))
-    @php($logoScrollShrinkStyle = !empty($headerData['logoScrollShrinkEnabled']) ? '--municipio-header-logo-overlap-multiplier: ' . ($headerData['logoScrollShrinkOverlapMultiplier'] ?? 0.25) . ';' : null)
+    @php($logoScrollShrinkStyle = !empty($headerData['logoScrollShrinkEnabled']) ? '--municipio-header-logo-overlap-multiplier: ' . ($headerData['logoScrollShrinkOverlapMultiplier'] ?? 0.25) . '; --municipio-header-logo-scroll-aspect-ratio: ' . ($headerData['logoScrollShrinkAspectRatio'] ?? 1) . ';' : null)
+    @php($logoScrollShrinkAttributes = !empty($headerData['logoScrollShrinkEnabled']) ? ['style' => $logoScrollShrinkStyle, 'data-municipio-logo-scroll-aspect-ratio' => (string) ($headerData['logoScrollShrinkAspectRatio'] ?? 1), 'data-municipio-logo-scroll-aspect-ratio-source' => (string) ($headerData['logoScrollShrinkAspectRatioSource'] ?? 'fallback')] : [])
     @include('partials.header.skip-to-main-content')
     @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
     @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
@@ -15,7 +16,7 @@
                 ),
                 'id' => 'site-header-flexible-upper',
                 'sticky' => $headerData['upperHeader']['sticky'],
-                'attributeList' => !empty($logoScrollShrinkStyle) ? ['style' => $logoScrollShrinkStyle] : [],
+                'attributeList' => $logoScrollShrinkAttributes,
                 'context' => 'site.header.flexible.upper'
             ])
                 <div class="c-header__main-upper-area">
@@ -46,7 +47,7 @@
                 ),
                 'id' => 'site-header-flexible-lower',
                 'sticky' => $headerData['lowerHeader']['sticky'],
-                'attributeList' => !empty($logoScrollShrinkStyle) ? ['style' => $logoScrollShrinkStyle] : [],
+                'attributeList' => $logoScrollShrinkAttributes,
                 'context' => 'site.header.flexible.lower',
             ])
                 <div class="c-header__main-lower-area">

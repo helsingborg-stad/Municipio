@@ -29,6 +29,7 @@ class Flexible implements HeaderInterface
     private bool $hasSeparateBrandText = false;
     private string $logoScrollShrinkSetting = 'headerLogoScrollShrink';
     private string $logoOverlapMultiplierSetting = 'headerLogoOverlapMultiplier';
+    private string $logoScrollShrinkAspectRatioSetting = 'headerLogoScrollAspectRatio';
 
     /**
      * Constructor
@@ -57,6 +58,8 @@ class Flexible implements HeaderInterface
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
         $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
         $logoScrollShrinkOverlapMultiplier = $this->getLogoScrollShrinkOverlapMultiplier();
+        $logoScrollShrinkAspectRatio = $this->getLogoScrollShrinkAspectRatio();
+        $logoScrollShrinkAspectRatioSource = $this->getLogoScrollShrinkAspectRatioSource();
 
         return [
             'upperHeader' => $upperHeader,
@@ -67,6 +70,8 @@ class Flexible implements HeaderInterface
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
             'logoScrollShrinkOverlapMultiplier' => $logoScrollShrinkOverlapMultiplier,
+            'logoScrollShrinkAspectRatio' => $logoScrollShrinkAspectRatio,
+            'logoScrollShrinkAspectRatioSource' => $logoScrollShrinkAspectRatioSource,
             'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
     }
@@ -279,5 +284,29 @@ class Flexible implements HeaderInterface
         $overlapMultiplier = (float) ($this->customizer->{$this->logoOverlapMultiplierSetting} ?? 0.25);
 
         return $overlapMultiplier > 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
+    }
+
+    /**
+     * Resolve the validated aspect ratio for the logotype scroll effect.
+     *
+     * @return float
+     */
+    private function getLogoScrollShrinkAspectRatio(): float
+    {
+        $aspectRatio = (float) ($this->customizer->{$this->logoScrollShrinkAspectRatioSetting} ?? 1);
+
+        return $aspectRatio > 0 ? $aspectRatio : 1;
+    }
+
+    /**
+     * Resolve where the aspect ratio value came from.
+     *
+     * @return string
+     */
+    private function getLogoScrollShrinkAspectRatioSource(): string
+    {
+        $aspectRatio = (float) ($this->customizer->{$this->logoScrollShrinkAspectRatioSetting} ?? 0);
+
+        return $aspectRatio > 0 ? 'stored' : 'fallback';
     }
 }

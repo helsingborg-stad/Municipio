@@ -38,6 +38,11 @@ class Enqueue implements Hookable
             [$this, 'enqueueCustomizerScriptsAndStyles'],
             999,
         );
+        $this->wpService->addAction(
+            'customize_preview_init',
+            [$this, 'enqueueCustomizerPreviewScripts'],
+            999,
+        );
         $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
         $this->wpService->addFilter('style_loader_src', [$this, 'removeScriptVersion'], 15, 1);
         $this->wpService->addFilter('the_generator', [$this, 'removeGeneratorTag'], 9, 2);
@@ -131,6 +136,15 @@ class Enqueue implements Hookable
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
+        $this->enqueue->add('js/customizer-header-logo-scroll-aspect-ratio-controls.js', ['customize-controls']);
+    }
+
+    /**
+     * Enqueue customizer preview scripts.
+     */
+    public function enqueueCustomizerPreviewScripts(): void
+    {
+        $this->enqueue->add('js/customizer-header-logo-scroll-aspect-ratio-preview.js', ['customize-preview']);
     }
 
     /**

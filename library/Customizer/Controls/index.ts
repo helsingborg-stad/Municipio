@@ -1,6 +1,7 @@
 import { BackgroundControlElement } from "./Background/BackgroundControl";
 import { ColorChoiceControlElement } from "./ColorChoice/ColorChoiceControl";
 import { ControlOrchestrator } from "./ControlOrchestrator";
+import "./HeaderLogoScrollAspectRatioSync";
 import { MultiCheckControlElement } from "./MultiCheck/MultiCheckControl";
 import { MultiColorControlElement } from "./MultiColor/MultiColorControl";
 import { MultiSelectControlElement } from "./MultiSelect/MultiSelectControl";

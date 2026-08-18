@@ -216,6 +216,23 @@ class Layout
                 ],
             ],
         ]);
+
+        CustomizerField::addField([
+            'type' => 'hidden',
+            'settings' => 'header_logo_scroll_aspect_ratio',
+            'label' => '',
+            'section' => $sectionID,
+            'default' => '',
+            'transport' => 'postMessage',
+            'priority' => 13,
+            'tab' => 'general',
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => false,
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -229,9 +246,7 @@ class Layout
             $lowerItems = get_theme_mod('header_sortable_section_main_lower', $this->getDefaultDesktopLowerItems());
             $isStickyHeader = get_theme_mod('header_sticky', '') === 'sticky';
 
-            return $isStickyHeader
-                && $this->containsLogotype($lowerItems)
-                && $this->isLogotypeAlignedLeft($this->getHiddenStorageThemeMod());
+            return $isStickyHeader && $this->containsLogotype($lowerItems) && $this->isLogotypeAlignedLeft($this->getHiddenStorageThemeMod());
         };
     }
 

@@ -99,6 +99,10 @@ const entries = {
 	"js/customizer-preview": "./assets/source/js/admin/customizerPreview.js",
 	"js/customizer-uploaded-font-labels":
 		"./assets/source/js/admin/customizerUploadedFontLabels.ts",
+	"js/customizer-header-logo-scroll-aspect-ratio-controls":
+		"./library/Customizer/Controls/HeaderLogoScrollAspectRatioSync.ts",
+	"js/customizer-header-logo-scroll-aspect-ratio-preview":
+		"./assets/source/js/admin/customizerHeaderLogoScrollAspectRatioPreview.ts",
 	"js/customizer-controls": "./library/Customizer/Controls/index.ts",
 	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
 	"js/event-source-progress":
