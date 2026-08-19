@@ -4,6 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Kirki\Util\Helper as KirkiHelper;
+use Municipio\Customizer\KirkiField;
 use WP_Customize_Manager;
 
 abstract class AbstractApplicator
@@ -30,6 +31,7 @@ abstract class AbstractApplicator
             $fields = array_merge(
                 KirkiCompatibility::$fields ?? [],
                 KirkiCompatibility::$all_fields ?? [],
+                KirkiField::getNativeFields(),
                 $fields
             );
         }
@@ -53,6 +55,15 @@ abstract class AbstractApplicator
             $value,
             $operator
         );
+    }
+
+    protected function getFieldValue(string $settingKey, array $field): mixed
+    {
+        if (KirkiField::isNativeField($field) && function_exists('get_theme_mod')) {
+            return get_theme_mod($settingKey, $field['default'] ?? null);
+        }
+
+        return \Kirki::get_option($settingKey);
     }
 
     /**

@@ -110,7 +110,7 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
 
                         $modifiers[] = [
                         'contexts' => $output['context'],
-                        'value'    => \Kirki::get_option($key),
+                        'value'    => $this->getFieldValue($key, $field),
                         ];
                     }
                 }
