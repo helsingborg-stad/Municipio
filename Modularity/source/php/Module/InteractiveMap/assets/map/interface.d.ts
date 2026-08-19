@@ -6,12 +6,10 @@ import {
 import { SavedImageOverlay, SavedLayerGroup, SavedMarker } from "../mapData";
 import { LayerGroupFilterInterface } from "./filtering/layerGroupFilterInterface";
 
-type MarkersData = {
-	[key: string]: {
-		data: SavedMarker;
-		marker: MarkerInterface;
-	};
-};
+type MarkersData = Array<{
+	data: SavedMarker;
+	marker: MarkerInterface;
+}>;
 
 type LayerGroupData = {
 	data: SavedLayerGroup;
