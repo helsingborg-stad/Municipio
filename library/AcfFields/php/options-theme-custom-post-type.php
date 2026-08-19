@@ -54,7 +54,7 @@
                     'name' => 'slug',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('Public /url/ to show archive on.', 'municipio'),
+                    'instructions' => __('Public URL slug for the archive, without leading or trailing slashes.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
