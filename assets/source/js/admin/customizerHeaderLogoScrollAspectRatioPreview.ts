@@ -5,16 +5,6 @@ type HeaderLogoScrollShrinkElements = {
 
 type AspectRatioMeasurement = {
 	aspectRatio: number | null;
-	reason:
-		| "brand-container"
-		| "brand-container-missing"
-		| "brand-container-unmeasurable"
-		| "image-natural-size"
-		| "figure-missing"
-		| "figure-unmeasurable"
-		| "figure-size";
-	width?: number;
-	height?: number;
 };
 
 type CustomizeSetting = {
@@ -23,26 +13,18 @@ type CustomizeSetting = {
 	bind?: (callback: () => void) => void;
 };
 
-type CustomizeApiFunction = (
-	id: string,
-	callback: (setting: CustomizeSetting) => void,
-) => void;
-
-type CustomizeApiObject = {
+type CustomizeApi = {
 	preview?: {
 		bind: (eventName: string, callback: () => void) => void;
 		send: (eventName: string, value: string) => void;
 	};
 };
 
-type CustomizeApi = CustomizeApiFunction & CustomizeApiObject;
-
 declare global {
 	interface Window {
 		wp?: {
-			customize?: unknown;
+			customize?: CustomizeApi;
 		};
-		__municipioHeaderLogoScrollAspectRatioDebug?: Record<string, unknown>;
 	}
 
 	interface Document {
@@ -54,31 +36,6 @@ declare global {
 
 const aspectRatioSettingId = "header_logo_scroll_aspect_ratio";
 const aspectRatioUpdateEvent = "municipio:headerLogoScrollAspectRatio:update";
-
-function setDebugState(key: string, value: Record<string, unknown>): void {
-	window.__municipioHeaderLogoScrollAspectRatioDebug = {
-		...(window.__municipioHeaderLogoScrollAspectRatioDebug ?? {}),
-		[key]: value,
-	};
-
-	console.debug("[Municipio] header logo scroll aspect ratio", key, value);
-}
-
-function getCustomizeApiFunction(): CustomizeApiFunction | null {
-	const customizeApi = window.wp?.customize;
-
-	return typeof customizeApi === "function"
-		? (customizeApi as CustomizeApiFunction)
-		: null;
-}
-
-function getCustomizeApiObject(): CustomizeApiObject | null {
-	const customizeApi = window.wp?.customize;
-
-	return customizeApi && typeof customizeApi === "object"
-		? (customizeApi as CustomizeApiObject)
-		: null;
-}
 
 function getHeaderLogoScrollShrinkElements(): HeaderLogoScrollShrinkElements | null {
 	const lowerHeader = document.querySelector<HTMLElement>(
@@ -116,29 +73,16 @@ function measureLogoAspectRatio(
 		);
 
 		if (!brandContainer) {
-			return {
-				aspectRatio: null,
-				reason: "brand-container-missing",
-			};
+			return { aspectRatio: null };
 		}
 
 		const { width, height } = brandContainer.getBoundingClientRect();
 
 		if (width && height) {
-			return {
-				aspectRatio: width / height,
-				reason: "brand-container",
-				width,
-				height,
-			};
+			return { aspectRatio: width / height };
 		}
 
-		return {
-			aspectRatio: null,
-			reason: "brand-container-unmeasurable",
-			width,
-			height,
-		};
+		return { aspectRatio: null };
 	}
 
 	const logotypeImage = logotypeItem.querySelector<HTMLImageElement>(
@@ -148,9 +92,6 @@ function measureLogoAspectRatio(
 	if (logotypeImage?.naturalWidth && logotypeImage.naturalHeight) {
 		return {
 			aspectRatio: logotypeImage.naturalWidth / logotypeImage.naturalHeight,
-			reason: "image-natural-size",
-			width: logotypeImage.naturalWidth,
-			height: logotypeImage.naturalHeight,
 		};
 	}
 
@@ -159,29 +100,16 @@ function measureLogoAspectRatio(
 	);
 
 	if (!logotypeFigure) {
-		return {
-			aspectRatio: null,
-			reason: "figure-missing",
-		};
+		return { aspectRatio: null };
 	}
 
 	const { width, height } = logotypeFigure.getBoundingClientRect();
 
 	if (!width || !height) {
-		return {
-			aspectRatio: null,
-			reason: "figure-unmeasurable",
-			width,
-			height,
-		};
+		return { aspectRatio: null };
 	}
 
-	return {
-		aspectRatio: width / height,
-		reason: "figure-size",
-		width,
-		height,
-	};
+	return { aspectRatio: width / height };
 }
 
 export function getLogoAspectRatio(logotypeItem: HTMLElement): number | null {
@@ -193,81 +121,25 @@ function formatAspectRatio(aspectRatio: number): string {
 }
 
 function sendAspectRatioUpdate(value: string): void {
-	const customizeApiObject = getCustomizeApiObject();
-
-	setDebugState("preview-send", {
-		event: aspectRatioUpdateEvent,
-		value,
-		hasPreviewApi: typeof customizeApiObject?.preview?.send === "function",
-	});
-
-	customizeApiObject?.preview?.send(aspectRatioUpdateEvent, value);
-}
-
-function applyAspectRatioSettingDirectly(value: string): void {
-	const customizeApiFunction = getCustomizeApiFunction();
-
-	if (!customizeApiFunction) {
-		setDebugState("preview-direct-apply", {
-			status: "missing-customize-function",
-			settingId: aspectRatioSettingId,
-			value,
-		});
-		return;
-	}
-
-	customizeApiFunction(aspectRatioSettingId, (setting: CustomizeSetting) => {
-		const previousValue = setting.get();
-
-		setDebugState("preview-direct-apply", {
-			status: previousValue === value ? "unchanged" : "updated",
-			settingId: aspectRatioSettingId,
-			previousValue,
-			value,
-		});
-
-		if (previousValue === value) {
-			return;
-		}
-
-		setting.set(value);
-	});
+	window.wp?.customize?.preview?.send(aspectRatioUpdateEvent, value);
 }
 
 export function syncHeaderLogoScrollAspectRatio(): boolean {
 	const elements = getHeaderLogoScrollShrinkElements();
 
 	if (!elements) {
-		setDebugState("preview-measurement", {
-			settingId: aspectRatioSettingId,
-			status: "missing-elements",
-		});
-		applyAspectRatioSettingDirectly("");
 		sendAspectRatioUpdate("");
 		return false;
 	}
 
-	const measurement = measureLogoAspectRatio(elements.logotypeItem);
+	const { aspectRatio } = measureLogoAspectRatio(elements.logotypeItem);
 
-	setDebugState("preview-measurement", {
-		settingId: aspectRatioSettingId,
-		status: measurement.aspectRatio ? "measured" : "failed",
-		reason: measurement.reason,
-		aspectRatio: measurement.aspectRatio,
-		width: measurement.width,
-		height: measurement.height,
-	});
-
-	if (!measurement.aspectRatio) {
-		applyAspectRatioSettingDirectly("");
+	if (!aspectRatio) {
 		sendAspectRatioUpdate("");
 		return false;
 	}
 
-	const formattedAspectRatio = formatAspectRatio(measurement.aspectRatio);
-
-	applyAspectRatioSettingDirectly(formattedAspectRatio);
-	sendAspectRatioUpdate(formattedAspectRatio);
+	sendAspectRatioUpdate(formatAspectRatio(aspectRatio));
 
 	return true;
 }

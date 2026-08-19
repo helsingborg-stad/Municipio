@@ -98,7 +98,6 @@ class FlexibleTest extends TestCase
         $this->assertTrue($headerData['logoScrollShrinkEnabled']);
         $this->assertSame(0.5, $headerData['logoScrollShrinkOverlapMultiplier']);
         $this->assertSame(3.7, $headerData['logoScrollShrinkAspectRatio']);
-        $this->assertSame('stored', $headerData['logoScrollShrinkAspectRatioSource']);
     }
 
     public function testGetHeaderDataDisablesLogoScrollShrinkWhenLogotypeIsNotInLowerLeft(): void
@@ -144,7 +143,6 @@ class FlexibleTest extends TestCase
 
         $this->assertSame(0.25, $headerData['logoScrollShrinkOverlapMultiplier']);
         $this->assertSame(1.0, $headerData['logoScrollShrinkAspectRatio']);
-        $this->assertSame('fallback', $headerData['logoScrollShrinkAspectRatioSource']);
     }
 
     public function testGetHeaderDataKeepsAdjustableLogoOverlapMultiplierWhenValueIsValid(): void

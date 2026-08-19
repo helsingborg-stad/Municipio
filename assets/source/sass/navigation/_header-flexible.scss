@@ -73,7 +73,6 @@
     }
 
     &.c-header--logotype-scroll-shrink {
-        --municipio-header-logo-scroll-aspect-ratio: 1;
         --municipio-header-logo-overlap-multiplier: 0.25;
         --municipio-header-logo-scroll-expanded-height: var(--c-header--logotype-height-max, var(--c-header--logotype-height));
         --municipio-header-logo-scroll-collapsed-height: var(--c-header--logotype-height-min, var(--c-header--logotype-height));
@@ -87,7 +86,6 @@
     @media (min-width: 1247px) {
         &.c-header--logotype-scroll-shrink {
             .c-header__lower-left .c-header__item--logotype .c-header__logotype {
-                aspect-ratio: var(--municipio-header-logo-scroll-aspect-ratio);
                 transform: translateY(var(--municipio-header-logo-scroll-height-shift));
                 transform-origin: top left;
                 transition: transform 0.3s ease, height 0.3s ease, margin-bottom 0.3s ease;
