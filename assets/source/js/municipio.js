@@ -1,6 +1,5 @@
 import Fab from "./fab";
 import "./hide";
-import { initializeCollapsibleSearch } from "./collapsibleSearch";
 import { initializeComments } from "./comments";
 import { initializeHashHighlightManager } from "./hashHighlightManager";
 import { initializeHashUpdateManager } from "./hashUpdateManager";
@@ -18,7 +17,6 @@ initializeWpApiSettingsNonceRefresh();
 initializeLanguageMenu();
 initializeSessionManager();
 initializeComments();
-initializeCollapsibleSearch();
 initializeHashHighlightManager();
 initializeHashUpdateManager(8 * 10);
 initializeHeaderLogoScrollShrink();
