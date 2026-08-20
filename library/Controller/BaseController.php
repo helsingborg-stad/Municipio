@@ -139,7 +139,10 @@ class BaseController
         // Header controllers
         $headerClassName = '\\Municipio\\Controller\\Header\\Flexible';
         if (class_exists($headerClassName)) {
-            $headerController = new $headerClassName($this->data['customizer']);
+            $headerController = new $headerClassName(
+                $this->data['customizer'],
+                $this->wpService->isCustomizePreview()
+            );
         }
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];

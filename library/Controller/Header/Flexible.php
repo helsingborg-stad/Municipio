@@ -36,6 +36,7 @@ class Flexible implements HeaderInterface
      */
     public function __construct(
         private object $customizer,
+        private bool $isCustomizePreview = false,
     ) {
         $this->isResponsive = $this->hasResponsiveOrderItems();
         $this->hasSearch = false;
@@ -287,10 +288,18 @@ class Flexible implements HeaderInterface
     /**
      * Resolve the validated aspect ratio for the logotype scroll effect.
      *
+     * The aspect ratio is always omitted in the customizer preview so that the
+     * brand renders unconstrained and can be measured to (re)calculate the
+     * stored ratio. The viewBox is never recalculated on the frontend.
+     *
      * @return float|null
      */
     private function getLogoScrollShrinkAspectRatio(): ?float
     {
+        if ($this->isCustomizePreview) {
+            return null;
+        }
+
         $aspectRatio = (float) ($this->customizer->{$this->logoScrollShrinkAspectRatioSetting} ?? 1);
 
         return $aspectRatio > 0 ? $aspectRatio : null;
