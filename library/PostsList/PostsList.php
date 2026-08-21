@@ -77,7 +77,7 @@ class PostsList implements PostsListInterface
             'getDateFormat' => (new ViewCallableProviders\GetDateFormat($this->appearanceConfig->getDateFormat()))->getCallable(),
             'shouldDisplayPlaceholderImage' => (new ViewCallableProviders\ShouldDisplayPlaceholderImage(...$this->getPosts()))->getCallable(),
             // Table view utilities
-            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->appearanceConfig, $this->wpService, $this->acfService))->getCallable(),
+            'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->appearanceConfig, $this->wpService, $this->getPostsConfig->getPostTypes()))->getCallable(),
             // Schema Project view utilities
             'getSchemaProjectProgressLabel' => (new ViewCallableProviders\Schema\Project\GetProgressLabel())->getCallable(),
             'getSchemaProjectProgressPercentage' => (new ViewCallableProviders\Schema\Project\GetProgressPercentage())->getCallable(),
