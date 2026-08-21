@@ -37,8 +37,14 @@ class Enqueue implements Hookable
             [$this, 'enqueueCustomizerScriptsAndStyles'],
             999,
         );
-        $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
-        $this->wpService->addFilter('style_loader_src', [$this, 'removeScriptVersion'], 15, 1);
+        $removeScriptVersions = defined('MUNICIPIO_REMOVE_SCRIPT_VERSIONS')
+            ? (bool) constant('MUNICIPIO_REMOVE_SCRIPT_VERSIONS')
+            : true;
+
+        if ($this->wpService->applyFilters('municipio/remove_script_versions', $removeScriptVersions)) {
+            $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
+            $this->wpService->addFilter('style_loader_src', [$this, 'removeScriptVersion'], 15, 1);
+        }
         $this->wpService->addFilter('the_generator', [$this, 'removeGeneratorTag'], 9, 2);
         $this->wpService->addAction('wp_default_scripts', [$this, 'removeJqueryMigrate']);
         $this->wpService->addFilter('gform_init_scripts_footer', [$this, 'forceGravityFormsScriptsNotInFooter']);
