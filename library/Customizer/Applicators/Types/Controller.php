@@ -8,20 +8,20 @@ use WpService\WpService;
 
 class Controller extends AbstractApplicator implements ApplicatorInterface
 {
-    public function __construct(private WpService $wpService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+    ) {}
 
     public function getKey(): string
     {
         return 'controller';
     }
 
-  /**
-   * Apply data to controllers with the controller filer
-   *
-   * @param array|object $data
-   */
+    /**
+     * Apply data to controllers with the controller filer
+     *
+     * @param array|object $data
+     */
     public function applyData(array|object $data)
     {
         $this->wpService->addFilter('Municipio/Controller/Customizer', function ($filterInput) use ($data) {
@@ -34,11 +34,11 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
 
     public function getData(): object
     {
-      //Get field definition
+        //Get field definition
         $fields = $this->getFields();
-        $stack  = [];
+        $stack = [];
 
-      //Determine what's a controller var, fetch it
+        //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
                 // Check if field is a controller
@@ -49,16 +49,16 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
                 if (!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
                     $stack = $this->appendStack(
                         $stack,
-                        \Kirki::get_option($key),
+                        $this->getFieldValue($key, $field),
                         $key,
-                        $field
+                        $field,
                     );
                 } else {
                     $stack = $this->appendStack(
                         $stack,
                         null,
                         $key,
-                        $field
+                        $field,
                     );
                 }
             }
@@ -67,12 +67,12 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
         return \Municipio\Helper\FormatObject::camelCase((object) $stack);
     }
 
-  /**
-   * Determine output type
-   *
-   * @param array $field
-   * @return boolean
-   */
+    /**
+     * Determine output type
+     *
+     * @param array $field
+     * @return boolean
+     */
     private function shouldStackInObject($field, $lookForType = 'controller')
     {
         if (isset($field['output']) && is_array($field['output']) && !empty($field['output'])) {
@@ -87,15 +87,15 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
         return false;
     }
 
-  /**
-   * Append to stack
-   *
-   * @param array $stack  Prevois stack object
-   * @param string $value Value to append
-   * @param string $key   Field key to store
-   * @param array $field  Field definition
-   * @return void
-   */
+    /**
+     * Append to stack
+     *
+     * @param array $stack  Prevois stack object
+     * @param string $value Value to append
+     * @param string $key   Field key to store
+     * @param array $field  Field definition
+     * @return void
+     */
     private function appendStack($stack, $value, $key, $field)
     {
         if ($this->shouldStackInObject($field)) {
@@ -106,9 +106,7 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
             }
 
             //Store in sanitized item name
-            $stack[$section][
-              $this->sanitizeStackItemName($key, $section)
-            ] = $value;
+            $stack[$section][$this->sanitizeStackItemName($key, $section)] = $value;
         } else {
             $stack[$key] = $value;
         }
@@ -116,24 +114,24 @@ class Controller extends AbstractApplicator implements ApplicatorInterface
         return $stack;
     }
 
-  /**
-   * Sanitize stack object name. Removes customizer panel prefix.
-   *
-   * @param string $name
-   * @return string
-   */
+    /**
+     * Sanitize stack object name. Removes customizer panel prefix.
+     *
+     * @param string $name
+     * @return string
+     */
     private function sanitizeStackObjectName($name)
     {
         return str_replace('municipio_customizer_panel_', '', $name);
     }
 
-  /**
-   * Remove object name from item keys
-   *
-   * @param string $name
-   * @param string $santizationString
-   * @return string
-   */
+    /**
+     * Remove object name from item keys
+     *
+     * @param string $name
+     * @param string $santizationString
+     * @return string
+     */
     private function sanitizeStackItemName($name, $santizationString)
     {
         return str_replace($santizationString, '', $name);

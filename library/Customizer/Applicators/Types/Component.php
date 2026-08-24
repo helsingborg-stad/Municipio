@@ -48,19 +48,15 @@ class Component extends AbstractApplicator implements ApplicatorInterface
             foreach ($filter['contexts'] as $filterContext) {
                 // Operator and context must be set
                 if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
-                    throw new Error("Operator must be !=, !== or ==, === to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
+                    throw new Error('Operator must be !=, !== or ==, === to be used in ComponentData applicator. Context must be set. Provided values: ' . print_r($filterContext, true));
                 }
 
                 // Operator must be != or ==
-                if (!in_array($filterContext['operator'], ["!=", "==", "!==", "==="])) {
-                    throw new Error("Operator must be !=, !== or ==, === to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
+                if (!in_array($filterContext['operator'], ['!=', '==', '!==', '==='])) {
+                    throw new Error('Operator must be !=, !== or ==, === to be used in ComponentData applicator. Provided value: ' . $filterContext['operator']);
                 }
 
-                if (
-                    (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
-                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) &&
-                    $this->checkAndOperators($andOperators, $contexts)
-                ) {
+                if (($filterContext['operator'] == '==' && in_array($filterContext['context'], $contexts) || $filterContext['operator'] == '!=' && !in_array($filterContext['context'], $contexts)) && $this->checkAndOperators($andOperators, $contexts)) {
                     $passFilterRules = true;
                 }
             }
@@ -132,7 +128,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface
 
                         $filterData = $this->buildFilterData(
                             $output['dataKey'],
-                            \Kirki::get_option($key),
+                            $this->getFieldValue($key, $field),
                         );
 
                         $componentData[] = [

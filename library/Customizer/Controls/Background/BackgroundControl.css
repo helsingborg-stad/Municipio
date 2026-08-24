@@ -1,0 +1,18 @@
+.municipio-control--background {
+	display: block;
+}
+
+.municipio-background-field {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.municipio-background-field > span {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.municipio-background-field input,
+.municipio-background-field select {
+	width: 100%;
+}

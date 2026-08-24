@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Behaviour
 {
@@ -10,71 +10,27 @@ class Behaviour
 
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
-            'type' => 'switch',
-            'settings' => 'primary_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for primary menu', 'municipio'),
+        CustomizerField::addField([
+            'type' => 'multicheck',
+            'settings' => 'menu_pagetree_fallback_menus',
+            'label' => esc_html__('Use page tree as fallback for menus', 'municipio'),
+            'description' => esc_html__('Choose which menus should use the page tree when no assigned menu exists.', 'municipio'),
             'section' => $sectionID,
-            'default' => true,
+            'default' => ['primary', 'secondary', 'mobile'],
             'priority' => 10,
             'choices' => [
-                true => esc_html__('Enabled', 'kirki'),
-                false => esc_html__('Disabled', 'kirki'),
+                'primary' => esc_html__('Primary menu', 'municipio'),
+                'secondary' => esc_html__('Secondary menu', 'municipio'),
+                'mobile' => esc_html__('Mobile menu', 'municipio'),
+                'mega' => esc_html__('Mega menu', 'municipio'),
             ],
+            'layout' => 'horizontal',
             'output' => [
                 ['type' => 'controller'],
             ],
         ]);
 
-        KirkiField::addField([
-            'type' => 'switch',
-            'settings' => 'secondary_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for secondary menu', 'municipio'),
-            'section' => $sectionID,
-            'default' => true,
-            'priority' => 10,
-            'choices' => [
-                true => esc_html__('Enabled', 'kirki'),
-                false => esc_html__('Disabled', 'kirki'),
-            ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
-        KirkiField::addField([
-            'type' => 'switch',
-            'settings' => 'mobile_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for mobile menu', 'municipio'),
-            'section' => $sectionID,
-            'default' => true,
-            'priority' => 10,
-            'choices' => [
-                true => esc_html__('Enabled', 'kirki'),
-                false => esc_html__('Disabled', 'kirki'),
-            ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
-        KirkiField::addField([
-            'type' => 'switch',
-            'settings' => 'mega_menu_pagetree_fallback',
-            'label' => esc_html__('Use page tree as fallback for mega menu', 'municipio'),
-            'section' => $sectionID,
-            'default' => false,
-            'priority' => 10,
-            'choices' => [
-                true => esc_html__('Enabled', 'kirki'),
-                false => esc_html__('Disabled', 'kirki'),
-            ],
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ]);
-
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'primary_menu_dropdown',
             'label' => esc_html__('Show subitems as dropdown in main menu', 'municipio'),
@@ -90,7 +46,7 @@ class Behaviour
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'primary_menu_dropdown_extended',
             'label' => esc_html__('Extends the dropdown behavior making it more complete', 'municipio'),
@@ -113,7 +69,7 @@ class Behaviour
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'radio',
             'settings' => 'secondary_navigation_position',
             'label' => esc_html__('Secondary navigation position', 'municipio'),
@@ -121,16 +77,16 @@ class Behaviour
             'default' => 'left',
             'priority' => 10,
             'choices' => [
-                'left' => esc_html__('Left', 'kirki'),
-                'right' => esc_html__('Right', 'kirki'),
-                'hidden' => esc_html__('Hidden', 'kirki'),
+                'left' => esc_html__('Left', 'municipio'),
+                'right' => esc_html__('Right', 'municipio'),
+                'hidden' => esc_html__('Hidden', 'municipio'),
             ],
             'output' => [
                 ['type' => 'controller'],
             ],
         ]);
 
-        KirkiField::addField($this->getDrawerScreenSizesFieldArguments($sectionID));
+        CustomizerField::addField($this->getDrawerScreenSizesFieldArguments($sectionID));
     }
 
     public function getDrawerScreenSizesFieldArguments(string $sectionID)
@@ -144,6 +100,7 @@ class Behaviour
             'default' => $this->getDefaultDrawerScreenSizes(),
             'priority' => 10,
             'choices' => $this->getDrawerScreenSizeOptions(),
+            'layout' => 'horizontal',
             'output' => [
                 ['type' => 'controller'],
             ],

@@ -9,6 +9,19 @@ use Municipio\Helper\AcfService;
 use Municipio\Helper\WpService;
 use Municipio\SchemaData\Config\SchemaDataConfigService;
 use Municipio\Upgrade\V43\Version43 as UpgradeVersion43;
+use Municipio\Upgrade\V44\Version44 as UpgradeVersion44;
+use Municipio\Upgrade\V45\Version45 as UpgradeVersion45;
+use Municipio\Upgrade\V46\Version46 as UpgradeVersion46;
+use Municipio\Upgrade\V47\Version47 as UpgradeVersion47;
+use Municipio\Upgrade\V48\Version48 as UpgradeVersion48;
+use Municipio\Upgrade\V49\Version49 as UpgradeVersion49;
+use Municipio\Upgrade\V50\Version50 as UpgradeVersion50;
+use Municipio\Upgrade\V51\Version51 as UpgradeVersion51;
+use Municipio\Upgrade\V52\Version52 as UpgradeVersion52;
+use Municipio\Upgrade\V54\Version54 as UpgradeVersion54;
+use Municipio\Upgrade\V55\Version55 as UpgradeVersion55;
+use Municipio\Upgrade\V56\Version56 as UpgradeVersion56;
+use Municipio\Upgrade\V57\Version57 as UpgradeVersion57;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetPostTypes;
@@ -22,7 +35,7 @@ use WpService\Contracts\SetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion = 43; //The db version we want to achive
+    private $dbVersion = 57; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -95,7 +108,7 @@ class Upgrade
         return true; //Return false to keep running this each time!
     }
 
-    // Migrate width from acf to kirki
+    // Migrate width from ACF to Customizer
     private function v_5($db): bool
     {
         //Move
@@ -718,6 +731,10 @@ class Upgrade
      */
     public function v_37($db)
     {
+        if (!class_exists(\Municipio\Customizer\Applicators\ApplicatorCache::class)) {
+            return true;
+        }
+
         $applicators = [
             new NullApplicator($this->wpService),
         ];
@@ -827,6 +844,236 @@ class Upgrade
     public function v_43(): bool
     {
         $version = new UpgradeVersion43(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 44
+     */
+    public function v_44(): bool
+    {
+        $version = new UpgradeVersion44(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 45
+     */
+    public function v_45(): bool
+    {
+        $version = new UpgradeVersion45(WpService::get(), AcfService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 46
+     */
+    public function v_46(): bool
+    {
+        $version = new UpgradeVersion46(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 47
+     */
+    public function v_47(): bool
+    {
+        $version = new UpgradeVersion47();
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 48
+     */
+    public function v_48(): bool
+    {
+        $version = new UpgradeVersion48(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 49
+     */
+    public function v_49(): bool
+    {
+        $version = new UpgradeVersion49(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 50
+     */
+    public function v_50(): bool
+    {
+        $version = new UpgradeVersion50(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 51
+     */
+    public function v_51($db = null): bool
+    {
+        // Intentionally empty: version step kept only to progress db version.
+        return true;
+    }
+
+    /**
+     * Version 52
+     */
+    public function v_52($db = null): bool
+    {
+        $version = new UpgradeVersion51(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 53
+     */
+    public function v_53($db = null): bool
+    {
+        $version = new UpgradeVersion52(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 54
+     */
+    public function v_54($db = null): bool
+    {
+        $version = new UpgradeVersion54(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 55
+     */
+    public function v_55($db = null): bool
+    {
+        $version = new UpgradeVersion55(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 56
+     */
+    public function v_56($db = null): bool
+    {
+        $version = new UpgradeVersion56(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 57
+     */
+    public function v_57($db = null): bool
+    {
+        $version = new UpgradeVersion57(WpService::get());
 
         try {
             $version->upgradeToVersion();

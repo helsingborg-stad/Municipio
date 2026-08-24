@@ -4,15 +4,15 @@ namespace Municipio\Controller\Header;
 
 class MenuOrderTransformer
 {
-    public function __construct(private string $modifier)
-    {
-    }
+    public function __construct(
+        private string $modifier,
+    ) {}
 
     public function transform(array $items): array
     {
-        $modifier          = $this->modifier;
-        $desktopItems      = $items['desktop'];
-        $mobileItems       = $items['mobile'];
+        $modifier = $this->modifier;
+        $desktopItems = $items['desktop'];
+        $mobileItems = $items['mobile'];
         $items['modified'] = [];
 
         if (empty($desktopItems) && empty($mobileItems)) {

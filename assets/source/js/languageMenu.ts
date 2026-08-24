@@ -10,7 +10,7 @@ interface LanguageJson {
 }
 
 function getUserLanguage(): string|null {
-    let languageCode = navigator.language || (navigator as NavigatorLanguage).userLanguage;
+    const languageCode = navigator.language || (navigator as NavigatorLanguage).userLanguage;
 
     return languageCode ? languageCode.split('-')[0] : null;
 }
@@ -29,6 +29,52 @@ function changeLanguageMenuButtonLabel(translation: string, languageCode: string
     }
 }
 
+function initializeLanguageMenuPopover(): void {
+    const menu = document.querySelector<HTMLElement>('.site-language-menu');
+    const trigger = document.querySelector<HTMLElement>('#site-language-menu-button');
+    const popover = document.querySelector<HTMLElement>('#site-language-menu-popover');
+
+    if (!menu || !trigger || !popover) {
+        return;
+    }
+
+    if (typeof (popover as HTMLElement & { showPopover?: () => void }).showPopover !== 'function') {
+        return;
+    }
+
+    const positionPopover = (): void => {
+        const triggerRect = trigger.getBoundingClientRect();
+        const top = Math.round(triggerRect.bottom);
+        const right = Math.max(0, Math.round(window.innerWidth - triggerRect.right));
+
+        popover.style.top = `${top}px`;
+        popover.style.right = `${right}px`;
+        popover.style.left = 'auto';
+    };
+
+    const syncPositionWhenOpen = (): void => {
+        if (popover.matches(':popover-open')) {
+            positionPopover();
+        }
+    };
+
+    trigger.addEventListener('click', () => {
+        window.requestAnimationFrame(syncPositionWhenOpen);
+    });
+
+    window.addEventListener('resize', syncPositionWhenOpen);
+    window.addEventListener('scroll', syncPositionWhenOpen, { passive: true });
+
+    popover.addEventListener('toggle', () => {
+        if (popover.matches(':popover-open')) {
+            menu.classList.add('is-expanded');
+            positionPopover();
+        } else {
+            menu.classList.remove('is-expanded');
+        }
+    });
+}
+
 export function initializeLanguageMenu() {
     const languageCode = getUserLanguage();
     if (!languageCode) { return; };
@@ -38,5 +84,6 @@ export function initializeLanguageMenu() {
 
     document.addEventListener('DOMContentLoaded', () => {
         changeLanguageMenuButtonLabel(translation, languageCode);
+        initializeLanguageMenuPopover();
     });
 }

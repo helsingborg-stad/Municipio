@@ -9,7 +9,7 @@ use Municipio\Upgrade\V42\InteractsWithNativeFontLibrary;
 use WpService\WpService;
 
 /**
- * Migrates legacy Kirki uploaded fonts into the native WordPress font library.
+ * Migrates legacy uploaded fonts into the native WordPress font library.
  */
 class MigrateLegacyUploadedFontsToNativeFontLibrary
 {

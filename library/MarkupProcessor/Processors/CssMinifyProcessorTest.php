@@ -25,4 +25,15 @@ class CssMinifyProcessorTest extends TestCase
 
         $this->assertEquals($expectedOutput, $processor->process($input));
     }
+
+    #[TestDox('preserves attributes on minified style tags')]
+    public function testProcessPreservesStyleAttributes(): void
+    {
+        $processor = new CssMinifyProcessor();
+
+        $input = '<style id="wp-custom-css" data-test="custom-css">body { background: red; }</style>';
+        $expectedOutput = '<style id="wp-custom-css" data-test="custom-css">body { background: red; }</style>';
+
+        $this->assertEquals($expectedOutput, $processor->process($input));
+    }
 }

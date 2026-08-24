@@ -250,6 +250,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\PostsList\PostsListRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\PlaceSearch\PlaceSearchEndpoint($this->wpService));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Nonce\Refresh());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Customizer\DesignLibrary());
 
         $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);

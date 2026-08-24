@@ -6,7 +6,7 @@
             'style' => $customizer->headerTriggerButtonType,
             'size' => $customizer->headerTriggerButtonSize,
             'icon' => 'toggleAriaPressedHamburgerClose',
-            'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
+            'context' => ['site.header.menutrigger'],
             'classList' => ['mobile-menu-trigger', 'u-order--10', 's-header-button'],
             'text' => $lang->menu,
             'reversePositions' => true,

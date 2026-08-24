@@ -1,53 +1,122 @@
-import { themeIdIsValid, getRemoteSiteDesignData, getSettingsWithDefaultSetting, resetSettingsToDefault, showNotification, getExcludedSettingIds, getFormattedMods, importSettings } from "./designShareUtils";
+import {
+    getRemoteSiteDesignData,
+    getSettingsWithDefaultSetting,
+    resetSettingsToDefault,
+    showNotification,
+    getFormattedMods,
+    importSettings,
+} from "./designShareUtils";
 import { replaceRemoteFilesWithLocalInString } from "../utils/replaceRemoteFilesWithLocalInString";
 
-async function handleLoadSettingChange(id:any) {
-    
-    const apiResponse = await getRemoteSiteDesignData(id);
-    
-    if( Object.keys(apiResponse.mods).length < 1 ) {
-        throw new Error("The selected theme seems to be empty, please select another one.")
-    }
-    
-    const settingsWithDefaultSetting = getSettingsWithDefaultSetting()
-    const excludedSettings = getExcludedSettingIds();
-    const formattedMods = await getFormattedMods(apiResponse.mods, excludedSettings)
-    resetSettingsToDefault(settingsWithDefaultSetting)
-    importSettings(formattedMods, excludedSettings)
+type DesignShareConfig = {
+    minimumSupportedDbVersion?: number;
+};
 
-    if( !excludedSettings.includes('custom_css') ) {
-        try {
-            const dataUrl = new URL(apiResponse.website)
-            const sanitizedCss = await replaceRemoteFilesWithLocalInString(apiResponse.css ?? '', dataUrl.origin)
-            wp.customize.control('custom_css').setting.set(sanitizedCss);
-        } catch (error) {
-            throw new Error("Failed migrating css from source.")
+const IMPORT_BUTTON_SELECTOR = "#municipio-design-import-button";
+
+function getMinimumSupportedDbVersion(): number {
+    const config = (window as Window & {
+        municipioDesignShareConfig?: DesignShareConfig;
+    }).municipioDesignShareConfig;
+
+    return Number(config?.minimumSupportedDbVersion ?? 0);
+}
+
+async function handleLoadSettingChange(siteUrl: unknown) {
+    const apiResponse = await getRemoteSiteDesignData(
+        siteUrl,
+        getMinimumSupportedDbVersion(),
+    );
+
+    if (Object.keys(apiResponse.mods).length < 1) {
+        throw new Error(
+            "The source site does not contain importable design settings.",
+        );
+    }
+
+    const settingsWithDefaultSetting = getSettingsWithDefaultSetting();
+    const formattedMods = await getFormattedMods(apiResponse.mods);
+    resetSettingsToDefault(settingsWithDefaultSetting);
+    await importSettings(formattedMods);
+
+    try {
+        const dataUrl = new URL(apiResponse.website ?? String(siteUrl));
+        const sanitizedCss = await replaceRemoteFilesWithLocalInString(
+            apiResponse.css ?? "",
+            dataUrl.origin,
+        );
+
+        const customCssControl = wp.customize.control("custom_css");
+        if (customCssControl?.setting) {
+            customCssControl.setting.set(sanitizedCss);
         }
+    } catch (error) {
+        throw new Error("Failed to migrate CSS from the source site.");
+    }
+
+    if (wp.customize.previewer) {
+        wp.customize.previewer.refresh();
     }
 }
 
 export default (() => {
-    if(!wp.customize) return
-    
-    wp.customize.bind('ready', () => {
-        wp.customize('load_design', (loadDesignSetting:any) => {
-            loadDesignSetting.bind((id:any) => {
-                
-                if( !themeIdIsValid(id) ) {
-                    return
+    if (!wp.customize) return;
+
+    wp.customize.bind("ready", () => {
+        wp.customize("load_design_site_url", (loadDesignSiteUrlSetting: any) => {
+            const importButton = document.querySelector(IMPORT_BUTTON_SELECTOR);
+            if (!(importButton instanceof HTMLButtonElement)) {
+                return;
+            }
+
+            let isImportInProgress = false;
+
+            importButton.addEventListener("click", () => {
+                const siteUrl = loadDesignSiteUrlSetting.get();
+                const normalizedSiteUrl =
+                    typeof siteUrl === "string" ? siteUrl.trim() : "";
+
+                if (normalizedSiteUrl === "") {
+                    showNotification({
+                        setting: loadDesignSiteUrlSetting,
+                        code: "loadDesignError",
+                        message: "Please enter a Municipio site URL before importing.",
+                        type: "error",
+                    });
+                    return;
                 }
 
-                handleLoadSettingChange(id)
-                .catch(error => {
-                    showNotification({
-                        setting: loadDesignSetting,
-                        code: "loadDesignError",
-                        message: error.message,
-                        type: 'error'
+                if (isImportInProgress) {
+                    return;
+                }
+
+                isImportInProgress = true;
+                importButton.disabled = true;
+
+                handleLoadSettingChange(normalizedSiteUrl)
+                    .then(() => {
+                        showNotification({
+                            setting: loadDesignSiteUrlSetting,
+                            code: "loadDesignSuccess",
+                            message:
+                                "Design imported into preview. Review the result and click Publish when ready.",
+                            type: "notice",
+                        });
                     })
-                    console.error(error.message)
-                })
-            })
+                    .catch((error) => {
+                        showNotification({
+                            setting: loadDesignSiteUrlSetting,
+                            code: "loadDesignError",
+                            message: error.message,
+                            type: "error",
+                        });
+                        console.error(error.message);
+                    })
+                    .finally(() => {
+                        isImportInProgress = false;
+                        importButton.disabled = false;
+                    });
+            });
         });
     });
 })();
