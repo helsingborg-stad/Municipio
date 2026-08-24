@@ -1,10 +1,17 @@
 @collapsiblesearch([
     'button' => [
-        'text'  => 'Search',
-        'icon'  => ['name' => 'search'],
-        'style' => 'filled',
+        'text' => $lang->search,
+        'icon' => 'search',
+        'style' => 'basic',
         'color' => 'default',
-        'size'  => 'md',
+        'size' => 'md',
+        'ariaLabel' => $lang->search,
+        'reversePositions' => true,
     ],
+    'placeholder' => $lang->searchQuestion,
+    'inputLabel' => $lang->searchQuestion,
+    'action' => $homeUrl,
+    'method' => 'get',
+    'closeLabel' => $lang->searchClose,
 ])
 @endcollapsiblesearch
