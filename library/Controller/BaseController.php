@@ -428,6 +428,7 @@ class BaseController
                     'call' => __('Call', 'municipio'),
                     'address' => __('Address', 'municipio'),
                     'visitingAddress' => __('Visiting address', 'municipio'),
+                    'goToHomepage' => __('Go to homepage', 'municipio'),
                 ];
 
                 return (object) array_merge((array) $obj, $lang);

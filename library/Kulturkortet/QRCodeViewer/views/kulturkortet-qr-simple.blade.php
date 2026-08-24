@@ -6,6 +6,11 @@
         {{ $lang['heading'] }}
     @endtypography
 
+    @if(!empty($notice))
+        @notice($notice)
+        @endnotice
+    @endif
+
     @typography([
         'element' => 'p',
     ])

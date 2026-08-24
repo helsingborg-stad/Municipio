@@ -42,7 +42,7 @@
             </div>
         @endforeach
     
-        <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
+        <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-display--flex u-align-items--end">
             @button([
                 ...$getFilterFormSubmitButtonArguments(),
                 'color' => 'primary',
@@ -52,7 +52,7 @@
         </div>
 
         @if ($filterConfig->getResetUrl())
-            <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
+            <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-display--flex u-align-items--end">
                 @button([
                     ...$getFilterFormResetButtonArguments(),
                     'classList' => ['u-display--block@xs', 'u-width--100@xs'],

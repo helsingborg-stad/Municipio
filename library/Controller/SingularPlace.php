@@ -2,8 +2,8 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
-use Municipio\Helper\Listing;
+use Municipio\Controller\SingularPlace\GetPlaceActions;
+use Municipio\Controller\SingularPlace\GetPlaceInfoList;
 
 /**
  * Class SingularPlace
@@ -22,70 +22,18 @@ class SingularPlace extends \Municipio\Controller\Singular
 
         $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
         $this->data['placeInfoList'] = $this->createPlaceInfoList();
-        $this->data['placeActions'] = $this->createActions($pageID);
+        $this->data['placeActions'] = $this->createActions();
     }
 
     private function createActions(): array
     {
-        $tourBookingPage = $this->createTourBookingPageAction();
-
-        return $this->wpService->applyFilters('Municipio/Controller/SingularPlace/actions', $tourBookingPage, $this->post);
+        $placeActions = GetPlaceActions::getPlaceActions($this->post);
+        return $this->wpService->applyFilters('Municipio/Controller/SingularPlace/actions', $placeActions, $this->post);
     }
 
     private function createPlaceInfoList(): array
     {
-        $telephone = $this->createTelephoneListingItems();
-        $website = $this->createWebsiteListingItems();
-        $listing = array_merge($telephone, $website);
-
-        return $this->wpService->applyFilters('Municipio/Controller/SingularPlace/placeInfoList', $listing, $this->post);
-    }
-
-    private function createTourBookingPageAction(): array
-    {
-        $tourBookingPage = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('tourBookingPage'), 'string');
-
-        $formattedTourBookingPages = [];
-        foreach ($tourBookingPage as $index => $bookingLink) {
-            $formattedTourBookingPages[] = [
-                'text' => $this->wpService->__('Book here', 'municipio'),
-                'href' => $bookingLink,
-                'color' => 'primary',
-                'style' => 'filled',
-                'classList' => ['u-width--100'],
-            ];
-        }
-
-        return $formattedTourBookingPages;
-    }
-
-    private function createTelephoneListingItems(): array
-    {
-        $telephoneData = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('telephone'), 'string');
-
-        if (empty($telephoneData)) {
-            return [];
-        }
-
-        return array_map(fn($phone) => Listing::createListingItem(
-            $phone,
-            '',
-            ['src' => 'call'],
-        ), $telephoneData);
-    }
-
-    private function createWebsiteListingItems(): array
-    {
-        $websiteData = EnsureArrayOf::ensureArrayOf($this->post->getSchemaProperty('url'), 'string');
-
-        if (empty($websiteData)) {
-            return [];
-        }
-
-        return array_map(fn($url) => Listing::createListingItem(
-            $url,
-            $url,
-            ['src' => 'language'],
-        ), $websiteData);
+        $placeInfoList = GetPlaceInfoList::getPlaceInfoList($this->post);
+        return $this->wpService->applyFilters('Municipio/Controller/SingularPlace/placeInfoList', $placeInfoList, $this->post);
     }
 }

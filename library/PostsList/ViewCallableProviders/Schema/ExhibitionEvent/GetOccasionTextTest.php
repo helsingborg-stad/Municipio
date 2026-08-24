@@ -56,7 +56,7 @@ class GetOccasionTextTest extends TestCase
         $provider = new GetOccasionText($this->getWpService());
         $callable = $provider->getCallable();
 
-        static::assertSame('15 Jan - 15 Feb 2024', $callable($post));
+        static::assertSame('15 Jan 2024 - 15 Feb 2024', $callable($post));
     }
 
     #[TestDox('It returns correct occasion text when only startDate is provided')]
@@ -75,7 +75,7 @@ class GetOccasionTextTest extends TestCase
         };
         $provider = new GetOccasionText($this->getWpService());
         $callable = $provider->getCallable();
-        static::assertSame('10 Mar - until further notice', $callable($post));
+        static::assertSame('10 Mar 2024 - until further notice', $callable($post));
     }
 
     #[TestDox('It handles schema data being DateTime objects')]
@@ -98,7 +98,7 @@ class GetOccasionTextTest extends TestCase
         $provider = new GetOccasionText($this->getWpService());
         $callable = $provider->getCallable();
 
-        static::assertSame('5 Apr - 5 May 2024', $callable($post));
+        static::assertSame('5 Apr 2024 - 5 May 2024', $callable($post));
     }
 
     private function getWpService(): DateI18n&_x

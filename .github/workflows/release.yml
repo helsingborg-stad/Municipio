@@ -23,7 +23,7 @@ jobs:
         uses: helsingborg-stad/release-wp-plugin-action@main
         with:
           php-version: 8.2
-          node-version: 24.3.0
+          node-version: 24.18.0
           skip-release: true  # custom flag you added
 
       - name: Pull latest branch with bumped version
@@ -46,6 +46,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+
+      - name: Update npm
+        run: npm install --global npm@11.16.0
 
       - name: Configure npm for GitHub Packages in root
         run: |

@@ -36,12 +36,22 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         if (!$ticket) {
             return $this->renderWithModel('kulturkortet-qr-simple', [
                 'lang' => [
-                    'heading' => $this->wpService->__('You do not seem to have a valid kulturkort', 'municipio'),
+                    'heading' => $this->wpService->__('Your Kulturkort', 'municipio'),
                     'content' => '',
                     'actionLabel' => $this->wpService->__('Log out', 'municipio'),
                 ],
                 'url' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
                 'name' => $user->getName(),
+                'notice' => [
+                    'type' => 'info',
+                    'message' =>[
+                        'text' => $this->wpService->__('You do not have a valid Kulturkort.', 'municipio')
+                    ],
+                    'icon' => [
+                        'name' => 'info',
+                        'size' => 'md'
+                    ]
+                ]
             ]);
         }
 
@@ -50,7 +60,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 'days' => $this->wpService->__('Days', 'municipio'),
                 'yourCultureCard' => $this->wpService->__('Your Kulturkort', 'municipio'),
             ],
-            'actions' => $this->getActions($navigation),
+            'actions' => $this->getActions($navigation, true),
             'profile' => [
                 'firstname' => $ticket['firstname'] ?? '',
                 'lastname' => $ticket['lastname'] ?? '',
@@ -121,7 +131,7 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
         return $time ? date(DateFormat::getDateFormat('date'), $time) : null;
     }
 
-    private function getActions(MunicipioAuthNavigationInterface $navigation): array
+    private function getActions(MunicipioAuthNavigationInterface $navigation, bool $hasValidKulturkort = false): array
     {
         $actions = [];
         if (!empty($this->attributes['profileLink'] ?? '')) {
@@ -129,6 +139,14 @@ class KulturkortetQRCodeViewerAuthViewFactory implements MunicipioAuthViewFactor
                 $this->wpService->__('Profile', 'municipio'),
                 $this->attributes['profileLink'],
                 'person'
+            );
+        }
+
+        if (!empty($this->attributes['renewLink'] ?? '')) {
+            $actions[] = ActionCreator::create(
+                $hasValidKulturkort ? $this->wpService->__('Renew', 'municipio') : $this->wpService->__('Buy', 'municipio'),
+                $this->attributes['renewLink'],
+                'shopping_cart'
             );
         }
 

@@ -15,6 +15,11 @@ class CustomPostType
             return $value;
         }, 10, 3);
 
+        // Keep stored and runtime rewrite slugs consistent with WordPress rewrite paths.
+        add_filter('acf/update_value/key=field_56b36c01e0619', static function ($value, $post_id, $field) {
+            return sanitize_title($value);
+        }, 10, 3);
+
         //Use page or single template
         add_filter('single_template', array($this, 'setPageTemplate'), 20);
 
@@ -73,13 +78,16 @@ class CustomPostType
             }
 
             $rewrite = ['with_front' => isset($typeDefinition['with_front']) ? $typeDefinition['with_front'] : true];
+            $slug = !empty($typeDefinition['slug'])
+                ? sanitize_title($typeDefinition['slug'])
+                : '';
 
-            if (!empty($typeDefinition['slug'])) {
-                $rewrite['slug'] = $typeDefinition['slug'];
+            if (!empty($slug)) {
+                $rewrite['slug'] = $slug;
             }
 
-            $restBase = !empty($typeDefinition['slug'])
-                ? sanitize_title($typeDefinition['slug'])
+            $restBase = !empty($slug)
+                ? $slug
                 : sanitize_title($typeDefinition['post_type_name']);
 
             $args = array(

@@ -38,8 +38,10 @@ class AcfModuleMigrationHandler
 
         if (is_string($newField)) {
             $migrator = new AcfModuleFieldMigrator($newField, $oldFieldValue, $this->moduleId);
-            return $migrator->migrate();
+            return (bool) $migrator->migrate();
         }
+
+        return false;
     }
 
     private function migrateFieldByType(string $oldFieldName, $oldFieldValue, array $newField): bool
@@ -55,7 +57,7 @@ class AcfModuleMigrationHandler
             $migrator = new $class($newField, $oldFieldValue, $this->moduleId);
         }
 
-        return isset($migrator) ? $migrator->migrate() : false;
+        return isset($migrator) ? (bool) $migrator->migrate() : false;
     }
 
     private function isRemoveFieldMigration($newField)

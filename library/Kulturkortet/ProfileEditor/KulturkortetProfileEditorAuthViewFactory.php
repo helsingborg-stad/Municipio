@@ -74,7 +74,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 'email' => $ticket['email'] ?? '',
             ],
             'saveUrl' => $navigation->getModifiedHomeUrl(removeQueryArgs: ['action']),
-            'actions' => $this->getActions($navigation),
+            'actions' => $this->getActions($navigation, true),
             'logoutUrl' => $navigation->getModifiedHomeUrl(addQueryArgs: ['action' => 'logout']),
             'ticket' => [
                 'validUntil' => $this->formatDate($ticket['validUntil'] ?? null),
@@ -82,7 +82,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
         ]);
     }
 
-    private function getActions(MunicipioAuthNavigationInterface $navigation): array
+    private function getActions(MunicipioAuthNavigationInterface $navigation, bool $hasValidKulturkort = false): array
     {
         $actions = [];
 
@@ -91,6 +91,14 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
                 $this->wpService->__('My ticket', 'municipio'),
                 $this->attributes['ticketLink'],
                 'confirmation_number'
+            );
+        }
+
+        if (!empty($this->attributes['renewLink'] ?? '')) {
+            $actions[] = ActionCreator::create(
+                $hasValidKulturkort ? $this->wpService->__('Renew', 'municipio') : $this->wpService->__('Buy', 'municipio'),
+                $this->attributes['renewLink'],
+                'shopping_cart'
             );
         }
 
