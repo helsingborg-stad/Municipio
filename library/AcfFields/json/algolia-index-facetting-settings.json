@@ -1,0 +1,113 @@
+[
+	{
+		"key": "group_690dfe46d9b6e",
+		"title": "Facetting",
+		"fields": [
+			{
+				"key": "field_690dfe47bba6b",
+				"label": "Facetting",
+				"name": "algolia_index_facetting",
+				"aria-label": "",
+				"type": "repeater",
+				"instructions": "Provide the facetting configuration here. If it is left blank, no facetting will be displayed. Facettable options must be configured and enabled in the search provider. \r\n<ul>\r\n <li>The \"attribute\" should match a enabled facet in the search provider. <\/li>\r\n <li>The \"label\" is the value that will show up in the facetting panel for the user.<\/li>\r\n<\/ul>\r\nNote: Facetting feature requires the algolia JS search extension to work.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"layout": "table",
+				"pagination": 0,
+				"min": 0,
+				"max": 0,
+				"collapsed": "field_690dfe6dbba6d",
+				"button_label": "Add facetting property",
+				"rows_per_page": 20,
+				"sub_fields": [
+					{
+						"key": "field_690dfe56bba6c",
+						"label": "Attribute",
+						"name": "attribute",
+						"aria-label": "",
+						"type": "text",
+						"instructions": "",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": "",
+						"parent_repeater": "field_690dfe47bba6b"
+					},
+					{
+						"key": "field_690dfe6dbba6d",
+						"label": "Label",
+						"name": "label",
+						"aria-label": "",
+						"type": "text",
+						"instructions": "",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"default_value": "",
+						"maxlength": "",
+						"placeholder": "",
+						"prepend": "",
+						"append": "",
+						"parent_repeater": "field_690dfe47bba6b"
+					},
+					{
+						"key": "field_690e0517ced81",
+						"label": "Enabled",
+						"name": "enabled",
+						"aria-label": "",
+						"type": "true_false",
+						"instructions": "",
+						"required": 0,
+						"conditional_logic": 0,
+						"wrapper": {
+							"width": "",
+							"class": "",
+							"id": ""
+						},
+						"message": "",
+						"default_value": 0,
+						"ui_on_text": "",
+						"ui_off_text": "",
+						"ui": 1,
+						"parent_repeater": "field_690dfe47bba6b"
+					}
+				]
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "options_page",
+					"operator": "==",
+					"value": "algolia-index-settings"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0
+	}
+]

@@ -95,6 +95,9 @@ add_action('init', function () use ($wpService) {
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');
     $autoExportIds = $wpService->applyFilters('Municipio/AcfExportManager/autoExport', [
+        'algolia-index-general-settings'        => 'group_68bfb24b7a4a2',
+        'algolia-index-algolia-provider'        => 'group_68bfad0b6fc7b',
+        'algolia-index-facetting-settings'      => 'group_690dfe46d9b6e',
         // Blocks
         'block-classic-editpr' => 'group_61556c32b3697',
         'block-button' => 'group_60acdac5158f2',

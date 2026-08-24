@@ -37,9 +37,9 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     public function testReturnsTaxonomiesForKnownSchemaTypes(string $schemaType): void
     {
         // Assert array contains only instances of TaxonomyInterface
-        $this->assertEachInArrayIsInstanceOf(
-            $this->instance->create($schemaType),
-            TaxonomyInterface::class,
+        $this->assertTrue(
+            $this->assertEachInArrayIsInstanceOf($this->instance->create($schemaType), TaxonomyInterface::class),
+            sprintf('Taxonomies returned for schema type %s', $schemaType)
         );
     }
 
@@ -52,11 +52,15 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         ];
     }
 
-    private function assertEachInArrayIsInstanceOf(array $array, string $class): void
+    private function assertEachInArrayIsInstanceOf(array $array, string $class): bool
     {
         foreach ($array as $item) {
-            $this->assertInstanceOf($class, $item);
+            if(!($item instanceof $class)) {
+                return false;
+            }
         }
+
+        return true;
     }
 
     private function getTaxonomyFactory(): TaxonomyFactoryInterface|MockObject

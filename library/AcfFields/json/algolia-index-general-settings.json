@@ -1,0 +1,52 @@
+[
+	{
+		"key": "group_68bfb24b7a4a2",
+		"title": "General Settings",
+		"fields": [
+			{
+				"key": "field_68bfb24b6982b",
+				"label": "Search Provider",
+				"name": "algolia_index_search_provider",
+				"aria-label": "",
+				"type": "select",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"choices": {
+					"algolia": "Algolia"
+				},
+				"default_value": "algolia",
+				"return_format": "value",
+				"multiple": 0,
+				"allow_null": 0,
+				"allow_in_bindings": 0,
+				"ui": 0,
+				"ajax": 0,
+				"placeholder": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "options_page",
+					"operator": "==",
+					"value": "algolia-index-settings"
+				}
+			]
+		],
+		"menu_order": -1,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0
+	}
+]

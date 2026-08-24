@@ -50,7 +50,9 @@
     "helsingborg-stad/kirki": "^5.2",
     "helsingborg-stad/wputilservice": "^0.2.44",
     "helsingborg-stad/styleguide": "3.14.13",
-    "firebase/php-jwt": "v7.1.0"
+    "firebase/php-jwt": "v7.1.0",
+    "algolia/algoliasearch-client-php": "3.3",
+    "wp-cli/wp-cli": "2.12.0"
   },
   "scripts": {
     "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",

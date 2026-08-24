@@ -1,0 +1,110 @@
+[
+	{
+		"key": "group_68bfad0b6fc7b",
+		"title": "Algolia Provider Settings",
+		"fields": [
+			{
+				"key": "field_68bfad0beb53a",
+				"label": "Algolia Application ID",
+				"name": "algolia_index_application_id",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "May be overridden by ALGOLIAINDEX_APPLICATION_ID constant",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"allow_in_bindings": 0,
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_68bfad56eb53b",
+				"label": "Algolia API Key",
+				"name": "algolia_index_api_key",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "May be overridden by ALGOLIAINDEX_API_KEY constant",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"allow_in_bindings": 0,
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_68bfad60eb53c",
+				"label": "Algolia Public API Key",
+				"name": "algolia_index_public_api_key",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "May be overridden by ALGOLIAINDEX_PUBLIC_API_KEY constant",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"allow_in_bindings": 0,
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			},
+			{
+				"key": "field_68bfad79eb53d",
+				"label": "Algolia Index Name",
+				"name": "algolia_index_index_name",
+				"aria-label": "",
+				"type": "text",
+				"instructions": "May be overridden by ALGOLIAINDEX_INDEX_NAME constant. Leave blank to create one for you.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"maxlength": "",
+				"allow_in_bindings": 0,
+				"placeholder": "",
+				"prepend": "",
+				"append": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "options_page",
+					"operator": "==",
+					"value": "algolia-index-settings"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": "",
+		"show_in_rest": 0
+	}
+]
