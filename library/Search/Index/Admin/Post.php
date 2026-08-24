@@ -1,21 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index\Admin;
 
 use \Municipio\Search\Index\Helper\Indexable as Indexable;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\Checked;
+use WpService\Contracts\DeletePostMeta;
+use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\UpdatePostMeta;
 
 class Post
 {
-    private $algolia_index_options;
-
-    public function __construct()
+    public function __construct(private AddAction&Checked&GetPostMeta&DeletePostMeta&UpdatePostMeta $wpService)
     {
         //Add excludeFromSearchCheckbox
-        add_action('post_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
-        add_action('attachment_submitbox_misc_actions', array($this, 'excludeFromSearchCheckbox'), 100);
+        $this->wpService->addAction('post_submitbox_misc_actions', [$this, 'excludeFromSearchCheckbox'], 100);
+        $this->wpService->addAction('attachment_submitbox_misc_actions', [$this, 'excludeFromSearchCheckbox'], 100);
 
         //Save actions
-        add_action('save_post', array($this, 'saveExcludeFromSearch'), 10);
+        $this->wpService->addAction('save_post', [$this, 'saveExcludeFromSearch'], 10);
     }
 
     /**
@@ -28,12 +34,12 @@ class Post
         global $post;
 
         //Only show if not set to not index
-        if (!in_array($post->post_type, Indexable::postTypes())) {
+        if (!in_array($post->post_type, Indexable::postTypes(), strict: true)) {
             return false;
         }
 
         if (is_object($post) && isset($post->ID)) {
-            $checked = checked(true, get_post_meta($post->ID, 'exclude_from_search', true), false);
+            $checked = $this->wpService->checked(true, $this->wpService->getPostMeta($post->ID, 'exclude_from_search', true), false);
             echo
                 '
           <style scoped="scoped">
@@ -78,10 +84,10 @@ class Post
     public function saveExcludeFromSearch($postId)
     {
         if (isset($_POST['exclude-from-search']) && $_POST['exclude-from-search'] === 'false') {
-            delete_post_meta($postId, 'exclude_from_search');
+            $this->wpService->deletePostMeta($postId, 'exclude_from_search');
             return true;
         } elseif (isset($_POST['exclude-from-search']) && $_POST['exclude-from-search'] === 'true') {
-            update_post_meta($postId, 'exclude_from_search', true);
+            $this->wpService->updatePostMeta($postId, 'exclude_from_search', true);
             return false;
         }
     }

@@ -1,10 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Search\Index\Admin;
 
+use AcfService\Contracts\AddOptionsSubPage;
 use \Municipio\Search\Index\Helper\Index as Instance;
 use \Municipio\Search\Index\Helper\Options as Options;
 use Municipio\Search\Index\Provider\ProviderFactory;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\DoAction;
+use WpService\Contracts\GetOption;
+use WpService\Contracts\UpdateOption;
 
 class Settings
 {
@@ -16,18 +24,20 @@ class Settings
         'algolia_index_index_name' => 'index_name',
     ];
 
-    public function __construct()
+    public function __construct(
+        private AddAction&AddFilter&GetOption&UpdateOption&DoAction $wpService, 
+        private AddOptionsSubPage $acfService)
     {
-        add_action('acf/init', [$this, 'registerOptionsPage']);
-        add_action('acf/save_post', [$this, 'pushSettingsOnSave'], 20);
-        add_filter('acf/load_field', [$this, 'addProvidersAsOptions'], 10, 1);
+        $this->wpService->addAction('acf/init', [$this, 'registerOptionsPage']);
+        $this->wpService->addAction('acf/save_post', [$this, 'pushSettingsOnSave'], 20);
+        $this->wpService->addFilter('acf/load_field', [$this, 'addProvidersAsOptions'], 10, 1);
 
         // Migrate legacy options to ACF fields
-        add_filter('acf/load_value', [$this, 'loadLegacyOptionValues'], 10, 3);
-        add_filter('acf/update_value', [$this, 'clearLegacyOptionsOnSave'], 10, 4);
+        $this->wpService->addFilter('acf/load_value', [$this, 'loadLegacyOptionValues'], 10, 3);
+        $this->wpService->addFilter('acf/update_value', [$this, 'clearLegacyOptionsOnSave'], 10, 4);
 
         // Trigger settings send for algolia provider
-        add_action('AlgoliaIndex/SendSettings', array($this, 'sendAlgoliaSettings'));
+        $this->wpService->addAction('AlgoliaIndex/SendSettings', [$this, 'sendAlgoliaSettings']);
     }
 
     public function addProvidersAsOptions($field)
@@ -44,7 +54,7 @@ class Settings
     public function registerOptionsPage()
     {
         if (function_exists('acf_add_options_sub_page')) {
-            acf_add_options_sub_page([
+            $this->acfService->addOptionsSubPage([
                 'page_title' => __('Algolia Index', 'municipio'),
                 'menu_title' => __('Algolia Index', 'municipio'),
                 'menu_slug' => Settings::OPTIONS_PAGE_SLUG,
@@ -60,7 +70,7 @@ class Settings
         if (array_key_exists($field['name'], Settings::ACF_TO_LEGACY_OPTIONS_MAP)) {
             return !empty($value)
                 ? $value
-                : get_option('algolia_index')[Settings::ACF_TO_LEGACY_OPTIONS_MAP[$field['name']]] ?? '';
+                : $this->wpService->getOption('algolia_index')[Settings::ACF_TO_LEGACY_OPTIONS_MAP[$field['name']]] ?? '';
         }
         return $value;
     }
@@ -68,11 +78,11 @@ class Settings
     public function clearLegacyOptionsOnSave($value, $post_id, $field, $original)
     {
         if (array_key_exists($field['name'], Settings::ACF_TO_LEGACY_OPTIONS_MAP)) {
-            $legacyOptions = get_option('algolia_index', []);
+            $legacyOptions = $this->wpService->getOption('algolia_index', []);
             $legacyKey = Settings::ACF_TO_LEGACY_OPTIONS_MAP[$field['name']];
             if (isset($legacyOptions[$legacyKey])) {
                 unset($legacyOptions[$legacyKey]);
-                update_option('algolia_index', $legacyOptions);
+                $this->wpService->updateOption('algolia_index', $legacyOptions);
             }
         }
 
@@ -85,7 +95,7 @@ class Settings
             return;
         }
 
-        do_action('AlgoliaIndex/SendSettings');
+        $this->wpService->doAction('AlgoliaIndex/SendSettings');
     }
 
     /**

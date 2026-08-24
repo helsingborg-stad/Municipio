@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_68bfad0b6fc7b',
         'title' => __('Algolia Provider Settings', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_68bfad0beb53a',
                 'label' => __('Algolia Application ID', 'municipio'),
                 'name' => 'algolia_index_application_id',
@@ -14,19 +17,19 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('May be overridden by ALGOLIAINDEX_APPLICATION_ID constant', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            1 => array(
+            ],
+            1 => [
                 'key' => 'field_68bfad56eb53b',
                 'label' => __('Algolia API Key', 'municipio'),
                 'name' => 'algolia_index_api_key',
@@ -35,19 +38,19 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('May be overridden by ALGOLIAINDEX_API_KEY constant', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            2 => array(
+            ],
+            2 => [
                 'key' => 'field_68bfad60eb53c',
                 'label' => __('Algolia Public API Key', 'municipio'),
                 'name' => 'algolia_index_public_api_key',
@@ -56,19 +59,19 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => __('May be overridden by ALGOLIAINDEX_PUBLIC_API_KEY constant', 'municipio'),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'key' => 'field_68bfad79eb53d',
                 'label' => __('Algolia Index Name', 'municipio'),
                 'name' => 'algolia_index_index_name',
@@ -80,28 +83,28 @@ if (function_exists('acf_add_local_field_group')) {
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'default_value' => '',
                 'maxlength' => '',
                 'allow_in_bindings' => 0,
                 'placeholder' => '',
                 'prepend' => '',
                 'append' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'options_page',
                     'operator' => '==',
                     'value' => 'algolia-index-settings',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -111,5 +114,5 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
         'description' => '',
         'show_in_rest' => 0,
-    ));
+    ]);
 }

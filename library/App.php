@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio;
 
 use AcfService\AcfService;
@@ -151,7 +154,7 @@ class App
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
-        (new \Municipio\Search\Index\App())->enable();
+        (new \Municipio\Search\Index\App($this->wpService, $this->acfService))->enable();
 
         /**
          * Content

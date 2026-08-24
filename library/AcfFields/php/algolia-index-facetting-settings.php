@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_690dfe46d9b6e',
         'title' => __('Facetting', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_690dfe47bba6b',
                 'label' => __('Facetting', 'municipio'),
                 'name' => 'algolia_index_facetting',
@@ -22,11 +25,11 @@ Note: Facetting feature requires the algolia JS search extension to work.',
                 ),
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
+                ],
                 'layout' => 'table',
                 'pagination' => 0,
                 'min' => 0,
@@ -34,8 +37,8 @@ Note: Facetting feature requires the algolia JS search extension to work.',
                 'collapsed' => 'field_690dfe6dbba6d',
                 'button_label' => __('Add facetting property', 'municipio'),
                 'rows_per_page' => 20,
-                'sub_fields' => array(
-                    0 => array(
+                'sub_fields' => [
+                    0 => [
                         'key' => 'field_690dfe56bba6c',
                         'label' => __('Attribute', 'municipio'),
                         'name' => 'attribute',
@@ -44,19 +47,19 @@ Note: Facetting feature requires the algolia JS search extension to work.',
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'default_value' => '',
                         'maxlength' => '',
                         'placeholder' => '',
                         'prepend' => '',
                         'append' => '',
                         'parent_repeater' => 'field_690dfe47bba6b',
-                    ),
-                    1 => array(
+                    ],
+                    1 => [
                         'key' => 'field_690dfe6dbba6d',
                         'label' => __('Label', 'municipio'),
                         'name' => 'label',
@@ -65,19 +68,19 @@ Note: Facetting feature requires the algolia JS search extension to work.',
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'default_value' => '',
                         'maxlength' => '',
                         'placeholder' => '',
                         'prepend' => '',
                         'append' => '',
                         'parent_repeater' => 'field_690dfe47bba6b',
-                    ),
-                    2 => array(
+                    ],
+                    2 => [
                         'key' => 'field_690e0517ced81',
                         'label' => __('Enabled', 'municipio'),
                         'name' => 'enabled',
@@ -86,30 +89,30 @@ Note: Facetting feature requires the algolia JS search extension to work.',
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'message' => '',
                         'default_value' => 0,
                         'ui_on_text' => '',
                         'ui_off_text' => '',
                         'ui' => 1,
                         'parent_repeater' => 'field_690dfe47bba6b',
-                    ),
-                ),
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'options_page',
                     'operator' => '==',
                     'value' => 'algolia-index-settings',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => 0,
         'position' => 'normal',
         'style' => 'default',
@@ -119,5 +122,5 @@ Note: Facetting feature requires the algolia JS search extension to work.',
         'active' => true,
         'description' => '',
         'show_in_rest' => 0,
-    ));
+    ]);
 }

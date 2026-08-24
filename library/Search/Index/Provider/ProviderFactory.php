@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index\Provider;
 
 class ProviderFactory
@@ -9,7 +12,7 @@ class ProviderFactory
     public static function getProviders()
     {
         return apply_filters('AlgoliaIndex/Provider/Factory', [
-            'algolia' => fn() => \Municipio\Search\Index\Provider\Algolia\AlgoliaFactory::createFromEnv(),
+            'algolia' => \Municipio\Search\Index\Provider\Algolia\AlgoliaFactory::createFromEnv(...),
         ]);
     }
 

@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index\Helper;
 
 class Options
@@ -126,9 +129,7 @@ class Options
         $facetting = isset($fieldData) && is_array($fieldData) ? $fieldData : [];
 
         if ($includeDisabled === false) {
-            $facetting = array_filter($facetting, function ($facet) {
-                return !isset($facet['enabled']) || $facet['enabled'] === true;
-            });
+            $facetting = array_filter($facetting, static fn ($facet) => !isset($facet['enabled']) || $facet['enabled'] === true);
         }
 
         return apply_filters('AlgoliaIndex/Options/Facetting', $facetting);

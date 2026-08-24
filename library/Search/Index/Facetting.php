@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index;
 
 class Facetting
 {
     public function __construct()
     {
-        add_filter('AlgoliaIndex/Facets', array($this, 'addFacettingOptions'));
-        add_filter('AlgoliaIndex/FacetingEnabled', array($this, 'isFacettingEnabled'));
+        add_filter('AlgoliaIndex/Facets', [$this, 'addFacettingOptions']);
+        add_filter('AlgoliaIndex/FacetingEnabled', [$this, 'isFacettingEnabled']);
     }
 
     /**
@@ -20,8 +23,7 @@ class Facetting
     public function addFacettingOptions($existingFacets): null|array
     {
         $facets = \AlgoliaIndex\Helper\Options::facetting(true) ?? [];
-        $facets = array_merge($facets, $existingFacets);
-        return $facets;
+        return array_merge($facets, $existingFacets);
     }
 
     /**

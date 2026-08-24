@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
@@ -28,8 +31,8 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     public function testReturnsEmptyArrayForUnknownSchemaType(): void
     {
         $taxonomies = $this->instance->create('UnknownSchemaType');
-        $this->assertIsArray($taxonomies);
-        $this->assertEmpty($taxonomies);
+        static::assertIsArray($taxonomies);
+        static::assertEmpty($taxonomies);
     }
 
     #[TestDox('Returns array containing taxonomies for known schema types')]
@@ -37,7 +40,7 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     public function testReturnsTaxonomiesForKnownSchemaTypes(string $schemaType): void
     {
         // Assert array contains only instances of TaxonomyInterface
-        $this->assertTrue(
+        static::assertTrue(
             $this->assertEachInArrayIsInstanceOf($this->instance->create($schemaType), TaxonomyInterface::class),
             sprintf('Taxonomies returned for schema type %s', $schemaType)
         );

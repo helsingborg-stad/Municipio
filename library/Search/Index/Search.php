@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index;
 
 use \Municipio\Search\Index\Helper\Index as Instance;
@@ -8,7 +11,7 @@ class Search
 {
     public function __construct()
     {
-        add_action('pre_get_posts', array($this, 'doAlgoliaQuery'));
+        add_action('pre_get_posts', [$this, 'doAlgoliaQuery']);
     }
 
     /**
@@ -49,7 +52,7 @@ class Search
      */
     private static function getPostIdArray($response)
     {
-        $result = array();
+        $result = [];
         foreach ($response as $item) {
             $result[] = $item['ID'];
         }

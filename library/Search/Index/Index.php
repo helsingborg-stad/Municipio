@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index;
 
 use \Municipio\Search\Index\Helper\Id as Id;
@@ -39,14 +42,14 @@ class Index
         }
 
         //Add & update
-        add_action('save_post', array($this, 'index'), self::$_priority);
+        add_action('save_post', [$this, 'index'], self::$_priority);
 
         //Remove
-        add_action('delete_post', array($this, 'delete'), self::$_priority);
-        add_action('wp_trash_post', array($this, 'delete'), self::$_priority);
+        add_action('delete_post', [$this, 'delete'], self::$_priority);
+        add_action('wp_trash_post', [$this, 'delete'], self::$_priority);
 
         //Bulk action
-        add_action('AlgoliaIndex/IndexPostId', array($this, 'index'), self::$_priority, 1);
+        add_action('AlgoliaIndex/IndexPostId', [$this, 'index'], self::$_priority, 1);
     }
 
     /**
@@ -94,7 +97,7 @@ class Index
             get_post_status($post) !== 'publish',
         ];
 
-        if (in_array(true, $shouldPostBeRemoved)) {
+        if (in_array(true, $shouldPostBeRemoved, strict: true)) {
             if ($isSplitRecord = $this->isSplitRecord($postId)) {
                 self::delete($postId, $isSplitRecord);
             } else {
@@ -125,7 +128,7 @@ class Index
 
         //Esape html entities
         array_walk_recursive($post, function (&$value, $key) {
-            if (in_array($key, $this->wpPostObjectKeys)) {
+            if (in_array($key, $this->wpPostObjectKeys, strict: true)) {
                 // Converts Int to string (ID)
                 if (!is_string($value)) {
                     $value = strval($value);
@@ -181,12 +184,12 @@ class Index
         }
 
         //Check if published post (or any other allowed value)
-        if (!in_array(get_post_status($post), Indexable::postStatuses())) {
+        if (!in_array(get_post_status($post), Indexable::postStatuses(), strict: true)) {
             return false;
         }
 
         //Get post type details
-        if (!in_array(get_post_type($post), Indexable::postTypes())) {
+        if (!in_array(get_post_type($post), Indexable::postTypes(), strict: true)) {
             return false;
         }
 
@@ -284,27 +287,23 @@ class Index
 
             if (is_array($taxonomies) && !empty($taxonomies)) {
                 foreach ($taxonomies as $taxonomy) {
-                    if ($taxonomy !== 'category') {
-                        $tags = array_merge($tags, array_map(
-                            function (\WP_Term $term) {
-                                return $term->name;
-                            },
+                    if ($taxonomy === 'category') { continue; }
+
+$tags = array_merge($tags, array_map(
+                            static fn (\WP_Term $term) => $term->name,
                             wp_get_post_terms($postId, $taxonomy),
                         ));
-                    }
                 }
             }
 
             //Categories
             $categories = array_map(
-                function (\WP_Term $term) {
-                    return $term->name;
-                },
+                static fn (\WP_Term $term) => $term->name,
                 wp_get_post_terms($postId, 'category'),
             );
 
             //Post details
-            $result = array(
+            $result = [
                 'uuid' => Id::getId($postId),
                 'ID' => $post->ID,
                 'post_title' => apply_filters('the_title', $post->post_title),
@@ -322,7 +321,7 @@ class Index
                 'post_type' => get_post_type($postId),
                 'post_type_name' => get_post_type_labels(get_post_type_object(get_post_type($postId)))->name,
                 'top_most_parent' => self::getTopMostParentTitle($postId),
-            );
+            ];
 
             //Site
             $result['origin_site'] = get_bloginfo('name');
@@ -335,9 +334,9 @@ class Index
 
             //Remove multiple spaces
             foreach ($result as $key => $field) {
-                if (in_array($key, array('post_title', 'post_excerpt', 'content'))) {
-                    $result[$key] = preg_replace('/\s+/', ' ', $field);
-                }
+                if (!(in_array($key, ['post_title', 'post_excerpt', 'content'], strict: true))) { continue; }
+
+$result[$key] = preg_replace('/\s+/', ' ', $field);
             }
 
             return apply_filters('AlgoliaIndex/Record', $result, $postId);
@@ -399,7 +398,7 @@ class Index
             return apply_filters('AlgoliaIndex/RecordToLarge', true);
         }
         return apply_filters('AlgoliaIndex/RecordToLarge', false);
-        ;
+        
     }
 
     /**
@@ -411,7 +410,7 @@ class Index
     private static function splitRecord($record)
     {
         //Response storage
-        $result = array();
+        $result = [];
 
         //Calculation of parts
         $contentSize = mb_strlen($record['content'], '8bit');

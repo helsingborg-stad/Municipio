@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index;
 
 use \Municipio\Search\Index\Helper\Indexable as Indexable;
@@ -7,12 +10,12 @@ use \Municipio\Search\Index\Helper\Options as Options;
 
 class Bulk
 {
-    private $prefix = 'algolia-index' . ' ';
+    private $prefix = 'algolia-index ';
 
     public function __construct()
     {
         //Build command
-        \WP_CLI::add_command($this->prefix . 'build', array($this, 'build'));
+        \WP_CLI::add_command($this->prefix . 'build', [$this, 'build']);
     }
 
     /**

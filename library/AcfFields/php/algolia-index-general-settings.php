@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+
 if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+    acf_add_local_field_group([
         'key' => 'group_68bfb24b7a4a2',
         'title' => __('General Settings', 'municipio'),
-        'fields' => array(
-            0 => array(
+        'fields' => [
+            0 => [
                 'key' => 'field_68bfb24b6982b',
                 'label' => __('Search Provider', 'municipio'),
                 'name' => 'algolia_index_search_provider',
@@ -14,14 +17,14 @@ if (function_exists('acf_add_local_field_group')) {
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
-                'wrapper' => array(
+                'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
-                ),
-                'choices' => array(
+                ],
+                'choices' => [
                     'algolia' => __('Algolia', 'municipio'),
-                ),
+                ],
                 'default_value' => __('algolia', 'municipio'),
                 'return_format' => 'value',
                 'multiple' => 0,
@@ -30,17 +33,17 @@ if (function_exists('acf_add_local_field_group')) {
                 'ui' => 0,
                 'ajax' => 0,
                 'placeholder' => '',
-            ),
-        ),
-        'location' => array(
-            0 => array(
-                0 => array(
+            ],
+        ],
+        'location' => [
+            0 => [
+                0 => [
                     'param' => 'options_page',
                     'operator' => '==',
                     'value' => 'municipio-settings',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'menu_order' => -1,
         'position' => 'normal',
         'style' => 'default',
@@ -50,5 +53,5 @@ if (function_exists('acf_add_local_field_group')) {
         'active' => true,
         'description' => '',
         'show_in_rest' => 0,
-    ));
+    ]);
 }

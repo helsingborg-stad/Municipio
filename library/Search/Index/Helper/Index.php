@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index\Helper;
 
-use \Municipio\Search\Index\Helper\Options as Options;
+
 use \Municipio\Search\Index\Provider\AbstractProvider;
 use Municipio\Search\Index\Provider\ProviderFactory;
 

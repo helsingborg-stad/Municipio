@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Search\Index\Provider\Algolia;
 
 class AlgoliaProvider implements \Municipio\Search\Index\Provider\AbstractProvider
@@ -10,7 +13,7 @@ class AlgoliaProvider implements \Municipio\Search\Index\Provider\AbstractProvid
 
     protected \Algolia\AlgoliaSearch\SearchIndex $index;
 
-    public function __construct(string $applicationId, string $apiKey, string $indexName)
+    public function __construct(string $applicationId, #[\SensitiveParameter] string $apiKey, string $indexName)
     {
         //Setup config details with auth
         $config = \Algolia\AlgoliaSearch\Config\SearchConfig::create($applicationId, $apiKey);
