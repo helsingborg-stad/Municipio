@@ -46,4 +46,27 @@ class SearchIndexConfigTest extends TestCase
         static::assertSame($apiKey, $config->algoliaApiKey());
         static::assertSame('municipio-content', $config->indexName());
     }
+
+    /**
+     * Verify that Typesense requires its API URL and server-side API key.
+     */
+    public function testIsConfiguredWithTypesenseCredentials(): void
+    {
+        $values = [
+            'search_index_provider' => 'typesense',
+            'search_index_typesense_api_url' => 'https://typesense.example.test/',
+            'search_index_typesense_api_key' => implode('-', ['typesense', 'server', 'key']),
+            'search_index_typesense_public_api_key' => implode('-', ['typesense', 'public', 'key']),
+            'search_index_typesense_collection_name' => 'municipio-content',
+        ];
+        $config = new SearchIndexConfig(new FakeAcfService([
+            'getField' => static fn(string $selector): string => $values[$selector] ?? '',
+        ]));
+
+        static::assertTrue($config->isConfigured());
+        static::assertTrue($config->isProviderConfigured('typesense'));
+        static::assertFalse($config->isProviderConfigured('algolia'));
+        static::assertSame('https://typesense.example.test', $config->typesenseApiUrl());
+        static::assertSame('municipio-content', $config->typesenseCollectionName());
+    }
 }

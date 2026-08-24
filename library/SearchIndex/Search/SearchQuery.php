@@ -34,6 +34,12 @@ class SearchQuery
             return;
         }
 
+        if (!(bool) $this->wpService->applyFilters('Municipio/SearchIndex/BackendSearchActive', true, $query)) {
+            $query->set('post__in', [PHP_INT_MAX]);
+            $query->set('posts_per_page', 1);
+            return;
+        }
+
         $searchTerm = (string) $query->get('s');
         $response = $this->provider->search($searchTerm);
         $hits = is_array($response) ? ($response['hits'] ?? []) : [];

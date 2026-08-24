@@ -28,8 +28,15 @@ class SearchIndexFeature
         $config = new SearchIndexConfig($this->acfService);
         $providerFactory = new SearchProviderFactory($this->wpService, $config);
 
+        (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $config))->addHooks();
+        (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $config))->addHooks();
         (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $config, $providerFactory))->addHooks();
         (new Admin\ExcludeFromSearch($this->wpService))->addHooks();
+        (new Facets\FacetsFeature($this->wpService, new Config\FacetsConfig($this->acfService)))->addHooks();
+
+        if (defined('WP_CLI') && constant('WP_CLI') === true) {
+            (new Cli\BuildSearchIndexCommand($this->wpService, $config, $providerFactory))->register();
+        }
 
         if (!$config->isConfigured()) {
             return;

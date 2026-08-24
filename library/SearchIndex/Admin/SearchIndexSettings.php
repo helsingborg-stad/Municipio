@@ -68,6 +68,8 @@ class SearchIndexSettings
     {
         $autoExportIds['search-index-settings'] = 'group_municipio_search_index_settings';
         $autoExportIds['search-index-algolia-settings'] = 'group_municipio_search_index_algolia_settings';
+        $autoExportIds['search-index-typesense-settings'] = 'group_municipio_search_index_typesense_settings';
+        $autoExportIds['search-index-facet-settings'] = 'group_municipio_search_index_facet_settings';
 
         return $autoExportIds;
     }

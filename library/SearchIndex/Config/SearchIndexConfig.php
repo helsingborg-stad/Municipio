@@ -29,6 +29,33 @@ class SearchIndexConfig
         return $this->getStringSetting('SEARCH_INDEX_ALGOLIA_API_KEY', 'search_index_algolia_api_key');
     }
 
+    public function algoliaPublicApiKey(): string
+    {
+        return $this->getStringSetting('SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY', 'search_index_algolia_public_api_key');
+    }
+
+    public function typesenseApiUrl(): string
+    {
+        return rtrim($this->getStringSetting('SEARCH_INDEX_TYPESENSE_API_URL', 'search_index_typesense_api_url'), '/');
+    }
+
+    public function typesenseApiKey(): string
+    {
+        return $this->getStringSetting('SEARCH_INDEX_TYPESENSE_API_KEY', 'search_index_typesense_api_key');
+    }
+
+    public function typesensePublicApiKey(): string
+    {
+        return $this->getStringSetting('SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY', 'search_index_typesense_public_api_key');
+    }
+
+    public function typesenseCollectionName(): string
+    {
+        $collectionName = $this->getStringSetting('SEARCH_INDEX_TYPESENSE_COLLECTION_NAME', 'search_index_typesense_collection_name');
+
+        return $collectionName !== '' ? $collectionName : $this->indexName();
+    }
+
     public function indexName(): string
     {
         $configuredName = $this->getStringSetting('SEARCH_INDEX_NAME', 'search_index_name');
@@ -43,7 +70,16 @@ class SearchIndexConfig
 
     public function isConfigured(): bool
     {
-        return $this->provider() !== 'algolia' || ($this->algoliaApplicationId() !== '' && $this->algoliaApiKey() !== '');
+        return $this->isProviderConfigured($this->provider());
+    }
+
+    public function isProviderConfigured(string $provider): bool
+    {
+        return match ($provider) {
+            'algolia' => $this->algoliaApplicationId() !== '' && $this->algoliaApiKey() !== '',
+            'typesense' => $this->typesenseApiUrl() !== '' && $this->typesenseApiKey() !== '',
+            default => false,
+        };
     }
 
     private function getStringSetting(string $constant, string $field): string

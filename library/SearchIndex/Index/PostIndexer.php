@@ -89,7 +89,9 @@ class PostIndexer
             return false;
         }
 
-        if ($this->wpService->getPostStatus($post) !== 'publish') {
+        $indexableStatuses = $this->wpService->applyFilters('Municipio/SearchIndex/IndexablePostStatuses', ['publish']);
+
+        if (!in_array($this->wpService->getPostStatus($post), $indexableStatuses, true)) {
             return false;
         }
 
@@ -98,10 +100,7 @@ class PostIndexer
         }
 
         $postType = $this->wpService->getPostType($post);
-        $indexablePostTypes = array_diff($this->wpService->getPostTypes([
-            'public' => true,
-            'exclude_from_search' => false,
-        ]), ['attachment']);
+        $indexablePostTypes = $this->getIndexablePostTypes();
 
         return in_array($postType, $indexablePostTypes, true)
             && (bool) $this->wpService->applyFilters('Municipio/SearchIndex/ShouldIndex', true, $post->ID);
@@ -174,7 +173,10 @@ class PostIndexer
      */
     private function splitRecord(array $record): array
     {
-        if (!$this->provider->shouldSplitRecord() || strlen(serialize($record)) < self::MAX_RECORD_SIZE) {
+        $recordTooLarge = $this->provider->shouldSplitRecord() && strlen(serialize($record)) >= self::MAX_RECORD_SIZE;
+        $recordTooLarge = (bool) $this->wpService->applyFilters('Municipio/SearchIndex/RecordTooLarge', $recordTooLarge, $record);
+
+        if (!$recordTooLarge) {
             return [$record];
         }
 
@@ -200,6 +202,21 @@ class PostIndexer
         $site = is_multisite() ? (string) get_current_blog_id() : '0';
 
         return sprintf('%s-%s-%d', str_replace('.', '-', (string) $host), $site, $postId);
+    }
+
+    /**
+     * Get public WordPress post types selected for indexing.
+     *
+     * @return array<int, string>
+     */
+    private function getIndexablePostTypes(): array
+    {
+        $postTypes = array_diff($this->wpService->getPostTypes([
+            'public' => true,
+            'exclude_from_search' => false,
+        ]), ['attachment']);
+
+        return $this->wpService->applyFilters('Municipio/SearchIndex/IndexablePostTypes', $postTypes);
     }
 
     /**
