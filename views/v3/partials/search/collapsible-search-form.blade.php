@@ -13,5 +13,6 @@
     'action' => $homeUrl,
     'method' => 'get',
     'closeLabel' => $lang->searchClose,
+    'classList' => $classList ?? [],
 ])
 @endcollapsiblesearch

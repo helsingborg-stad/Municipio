@@ -1,8 +1,5 @@
 .site-header {
-    .collapsible-search-placeholder {
-        display: inline-flex;
-        align-items: center;
-        min-height: calc(var(--base, 8px) * 5);
-        white-space: nowrap;
+    [data-component="collapsiblesearch"] {
+        z-index: 100;
     }
 }
