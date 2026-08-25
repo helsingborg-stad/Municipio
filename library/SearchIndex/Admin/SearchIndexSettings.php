@@ -30,6 +30,7 @@ class SearchIndexSettings
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerOptionsPage']);
+        $this->wpService->addAction('acf/input/admin_head', [$this, 'registerDescriptionMetaBox']);
         $this->wpService->addAction('acf/save_post', [$this, 'sendProviderSettings'], 20);
         $this->wpService->addFilter('acf/load_field/name=search_index_provider', [$this, 'addProviderChoices']);
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
@@ -47,6 +48,33 @@ class SearchIndexSettings
             'capability' => 'manage_options',
             'parent_slug' => 'options-general.php',
         ]);
+    }
+
+    /**
+     * Register a high-level description above the Search Index ACF fields.
+     */
+    public function registerDescriptionMetaBox(): void
+    {
+        if (($_GET['page'] ?? '') !== self::OPTIONS_PAGE_SLUG) {
+            return;
+        }
+
+        $this->wpService->addMetaBox(
+            'municipio-search-index-description',
+            $this->wpService->__('About Search Index', 'municipio'),
+            [$this, 'renderDescription'],
+            'acf_options_page',
+            'normal',
+            'high',
+        );
+    }
+
+    /**
+     * Render the high-level Search Index feature description.
+     */
+    public function renderDescription(): void
+    {
+        echo '<p>' . esc_html($this->wpService->__('Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run', 'municipio')) . ' <code>wp municipio search-index build</code>.</p>';
     }
 
     /**

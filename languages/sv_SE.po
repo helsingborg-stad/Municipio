@@ -1929,7 +1929,7 @@ msgstr "Kortet med extra info är inaktiverat som standard"
 #: library/AcfFields/php/options-login-logout.php:26
 #: library/AcfFields/php/options-login-redirect.php:26
 #: library/AcfFields/php/options-theme-features.php:26
-#: library/AcfFields/php/search-index-settings.php:135
+#: library/AcfFields/php/search-index-settings.php:140
 #: library/Customizer/Sections/Component/Divider.php:72
 #: library/Customizer/Sections/Menu/Behaviour.php:41
 #: library/Customizer/Sections/Menu/Behaviour.php:57
@@ -4705,17 +4705,17 @@ msgstr "Posttyp moduler"
 msgid "The database may need to be updated to accomodate new datatastructures. Run wp-cli \"modularity upgrade\" to upgrade."
 msgstr "Databasen kan behöva uppdateras för att anpassas till nya datastrukturer. Kör wp-cli ”modularity upgrade” för att uppgradera."
 
-#: library/Upgrade.php:1326
+#: library/Upgrade.php:1341
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:1330
+#: library/Upgrade.php:1345
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:1335
+#: library/Upgrade.php:1350
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr "Databasversionen som ska uppnås, kan inte vara lägre än den version som är sparad (kan inte nedgradera databasen)."
@@ -4895,7 +4895,7 @@ msgstr "Lägg till ny brist"
 #: library/AcfFields/php/a11y-statement.php:193
 #: library/AcfFields/php/block-button.php:24
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:33
-#: library/AcfFields/php/search-index-settings.php:130
+#: library/AcfFields/php/search-index-settings.php:135
 msgid "Label"
 msgstr "Etikett"
 
@@ -12912,86 +12912,74 @@ msgid "Algolia"
 msgstr ""
 
 #: library/AcfFields/php/search-index-settings.php:20
-msgid "Index Name"
-msgstr "Indexnamn"
-
-#: library/AcfFields/php/search-index-settings.php:23
-msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_NAME."
-msgstr "Använder webbplatsens värdnamn när det är tomt. Kan åsidosättas av SEARCH_INDEX_NAME."
-
-#: library/AcfFields/php/search-index-settings.php:26
 msgid "Algolia Application ID"
 msgstr "Algolia Application ID"
 
-#: library/AcfFields/php/search-index-settings.php:29
+#: library/AcfFields/php/search-index-settings.php:23
 msgid "May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
 msgstr "Kan åsidosättas av SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
 
-#: library/AcfFields/php/search-index-settings.php:37
+#: library/AcfFields/php/search-index-settings.php:42
 msgid "Algolia API Key"
 msgstr "Algolia API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:40
+#: library/AcfFields/php/search-index-settings.php:45
 msgid "May be overridden by SEARCH_INDEX_ALGOLIA_API_KEY."
 msgstr "Kan åsidosättas av SEARCH_INDEX_ALGOLIA_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:48
+#: library/AcfFields/php/search-index-settings.php:53
 msgid "Algolia Public API Key"
 msgstr "Publik Algolia API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:51
+#: library/AcfFields/php/search-index-settings.php:56
 msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY."
 msgstr "Valfri nyckel för webbläsarsökning. Kan åsidosättas av SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:59
+#: library/AcfFields/php/search-index-settings.php:64
 msgid "Typesense API URL"
 msgstr "Typesense API URL"
 
-#: library/AcfFields/php/search-index-settings.php:62
+#: library/AcfFields/php/search-index-settings.php:67
 msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_URL."
 msgstr "Kan åsidosättas av SEARCH_INDEX_TYPESENSE_API_URL."
 
-#: library/AcfFields/php/search-index-settings.php:70
+#: library/AcfFields/php/search-index-settings.php:75
 msgid "Typesense API Key"
 msgstr "Typesense API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:73
+#: library/AcfFields/php/search-index-settings.php:78
 msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_KEY."
 msgstr "Kan åsidosättas av SEARCH_INDEX_TYPESENSE_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:81
+#: library/AcfFields/php/search-index-settings.php:86
 msgid "Typesense Public API Key"
 msgstr "Publik Typesense API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:84
+#: library/AcfFields/php/search-index-settings.php:89
 msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY."
 msgstr "Valfri nyckel för webbläsarsökning. Kan åsidosättas av SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:92
+#: library/AcfFields/php/search-index-settings.php:97
 msgid "Typesense Collection Name"
 msgstr "Typesense Collection-namn"
 
-#: library/AcfFields/php/search-index-settings.php:95
-msgid "Uses the configured index name when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
-msgstr "Använder det konfigurerade indexnamnet när det är tomt. Kan åsidosättas av SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
-
-#: library/AcfFields/php/search-index-settings.php:114
+#: library/AcfFields/php/search-index-settings.php:119
 msgid "Search Facets"
 msgstr "Sökfilter"
 
-#: library/AcfFields/php/search-index-settings.php:117
+#: library/AcfFields/php/search-index-settings.php:122
 msgid "Facets"
 msgstr "Filter"
 
-#: library/AcfFields/php/search-index-settings.php:120
+#: library/AcfFields/php/search-index-settings.php:125
 msgid "Configure the provider facet attributes available to search UI integrations."
 msgstr "Konfigurera de facet-attribut som är tillgängliga för sökgränssnittets integrationer."
 
-#: library/AcfFields/php/search-index-settings.php:122
+#: library/AcfFields/php/search-index-settings.php:127
 msgid "Add Facet"
 msgstr "Lägg till filter"
 
-#: library/AcfFields/php/search-index-settings.php:125
+#: library/AcfFields/php/search-index-settings.php:130
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -13223,8 +13211,8 @@ msgstr ""
 msgid "Employment Types"
 msgstr ""
 
-#: library/SearchIndex/Admin/SearchIndexSettings.php:44
 #: library/SearchIndex/Admin/SearchIndexSettings.php:45
+#: library/SearchIndex/Admin/SearchIndexSettings.php:46
 msgid "Search Index"
 msgstr "Sökindex"
 
@@ -13259,3 +13247,23 @@ msgstr ""
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Remove Image"
 msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:31
+msgid "Algolia Index Name"
+msgstr "Algolia Index-namn"
+
+#: library/AcfFields/php/search-index-settings.php:34
+msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_ALGOLIA_INDEX_NAME."
+msgstr "Använder webbplatsens hostnamn när det är tomt. Kan åsidosättas av SEARCH_INDEX_ALGOLIA_INDEX_NAME."
+
+#: library/AcfFields/php/search-index-settings.php:100
+msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
+msgstr "Använder webbplatsens hostnamn när det är tomt. Kan åsidosättas av SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:64
+msgid "About Search Index"
+msgstr "Om Sökindex"
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:77
+msgid "Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run"
+msgstr "Sökindex håller din webbplatssökning uppdaterad genom den valda sökleverantören när du publicerar, uppdaterar eller tar bort innehåll. För att uppdatera alla sökresultat på en gång, kör"
