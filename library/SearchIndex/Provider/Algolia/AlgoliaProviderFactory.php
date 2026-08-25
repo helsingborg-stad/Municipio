@@ -27,7 +27,7 @@ class AlgoliaProviderFactory
             $this->wpService,
             $this->config->algoliaApplicationId(),
             $this->config->algoliaApiKey(),
-            $this->config->indexName(),
+            $this->config->algoliaIndexName(),
         );
     }
 }

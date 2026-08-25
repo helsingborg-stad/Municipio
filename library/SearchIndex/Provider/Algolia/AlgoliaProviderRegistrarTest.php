@@ -23,7 +23,7 @@ class AlgoliaProviderRegistrarTest extends TestCase
             'search_index_provider' => 'algolia',
             'search_index_algolia_application_id' => 'application-id',
             'search_index_algolia_public_api_key' => implode('-', ['public', 'key']),
-            'search_index_name' => 'municipio-content',
+            'search_index_algolia_index_name' => 'municipio-content',
         ];
         $config = new SearchIndexConfig(new FakeAcfService([
             'getField' => static fn(string $selector): string => $values[$selector] ?? '',

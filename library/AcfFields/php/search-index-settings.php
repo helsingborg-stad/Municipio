@@ -16,17 +16,22 @@ if (function_exists('acf_add_local_field_group')) {
             'return_format' => 'value',
             'allow_null' => 0,
         ], [
-            'key' => 'field_municipio_search_index_name',
-            'label' => __('Index Name', 'municipio'),
-            'name' => 'search_index_name',
-            'type' => 'text',
-            'instructions' => __('Uses the site hostname when empty. May be overridden by SEARCH_INDEX_NAME.', 'municipio'),
-        ], [
             'key' => 'field_municipio_search_index_algolia_application_id',
             'label' => __('Algolia Application ID', 'municipio'),
             'name' => 'search_index_algolia_application_id',
             'type' => 'text',
             'instructions' => __('May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'algolia',
+            ]]],
+        ], [
+            'key' => 'field_municipio_search_index_algolia_index_name',
+            'label' => __('Algolia Index Name', 'municipio'),
+            'name' => 'search_index_algolia_index_name',
+            'type' => 'text',
+            'instructions' => __('Uses the site hostname when empty. May be overridden by SEARCH_INDEX_ALGOLIA_INDEX_NAME.', 'municipio'),
             'conditional_logic' => [[[
                 'field' => 'field_municipio_search_index_provider',
                 'operator' => '==',
@@ -92,7 +97,7 @@ if (function_exists('acf_add_local_field_group')) {
             'label' => __('Typesense Collection Name', 'municipio'),
             'name' => 'search_index_typesense_collection_name',
             'type' => 'text',
-            'instructions' => __('Uses the configured index name when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME.', 'municipio'),
+            'instructions' => __('Uses the site hostname when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME.', 'municipio'),
             'conditional_logic' => [[[
                 'field' => 'field_municipio_search_index_provider',
                 'operator' => '==',

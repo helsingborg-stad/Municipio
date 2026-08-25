@@ -34,6 +34,11 @@ class SearchIndexConfig
         return $this->getStringSetting('SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY', 'search_index_algolia_public_api_key');
     }
 
+    public function algoliaIndexName(): string
+    {
+        return $this->getConfiguredOrGeneratedName('SEARCH_INDEX_ALGOLIA_INDEX_NAME', 'search_index_algolia_index_name');
+    }
+
     public function typesenseApiUrl(): string
     {
         return rtrim($this->getStringSetting('SEARCH_INDEX_TYPESENSE_API_URL', 'search_index_typesense_api_url'), '/');
@@ -51,21 +56,7 @@ class SearchIndexConfig
 
     public function typesenseCollectionName(): string
     {
-        $collectionName = $this->getStringSetting('SEARCH_INDEX_TYPESENSE_COLLECTION_NAME', 'search_index_typesense_collection_name');
-
-        return $collectionName !== '' ? $collectionName : $this->indexName();
-    }
-
-    public function indexName(): string
-    {
-        $configuredName = $this->getStringSetting('SEARCH_INDEX_NAME', 'search_index_name');
-
-        if ($configuredName !== '') {
-            return $configuredName;
-        }
-
-        $host = parse_url(home_url(), PHP_URL_HOST);
-        return is_string($host) ? str_replace('.', '-', $host) : '';
+        return $this->getConfiguredOrGeneratedName('SEARCH_INDEX_TYPESENSE_COLLECTION_NAME', 'search_index_typesense_collection_name');
     }
 
     public function isConfigured(): bool
@@ -90,6 +81,21 @@ class SearchIndexConfig
 
         $value = $this->getOption($field);
         return is_string($value) ? $value : '';
+    }
+
+    /**
+     * Return a configured provider name or derive one from the site hostname.
+     */
+    private function getConfiguredOrGeneratedName(string $constant, string $field): string
+    {
+        $configuredName = $this->getStringSetting($constant, $field);
+
+        if ($configuredName !== '') {
+            return $configuredName;
+        }
+
+        $host = parse_url(home_url(), PHP_URL_HOST);
+        return is_string($host) ? str_replace('.', '-', $host) : '';
     }
 
     private function getOption(string $field): mixed

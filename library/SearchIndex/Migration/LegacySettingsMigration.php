@@ -49,7 +49,7 @@ class LegacySettingsMigration
         $apiKey = implode('_', ['api', 'key']);
         $publicApiKey = implode('_', ['public', 'api', 'key']);
         $fieldMigrator->migrateFields('algolia_index_', 'search_index_algolia_', ['application_id', $apiKey, $publicApiKey], $legacyOptions);
-        $fieldMigrator->migrateField('algolia_index_index_name', 'search_index_name', $legacyOptions, 'index_name');
+        $fieldMigrator->migrateField('algolia_index_index_name', 'search_index_algolia_index_name', $legacyOptions, 'index_name');
     }
 
     /**

@@ -37,7 +37,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 58; //The db version we want to achive
+    private $dbVersion = 59; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1094,6 +1094,21 @@ class Upgrade
     {
         try {
             (new \Municipio\SearchIndex\Migration\LegacySettingsMigration($this->wpService, $this->acfService))->migrate();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 59: Move the former shared index name to the Algolia-only setting.
+     */
+    public function v_59(): bool
+    {
+        try {
+            (new \Municipio\SearchIndex\Migration\MigrateSharedIndexNameToAlgoliaIndexName($this->acfService))->migrate();
         } catch (\Exception $exception) {
             error_log($exception->getMessage());
             return false;

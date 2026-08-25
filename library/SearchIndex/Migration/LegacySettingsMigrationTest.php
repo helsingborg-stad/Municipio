@@ -28,7 +28,7 @@ class LegacySettingsMigrationTest extends TestCase
                 'label' => 'Categories',
                 'enabled' => true,
             ]],
-            'search_index_name' => 'existing-index-name',
+            'search_index_algolia_index_name' => 'existing-index-name',
         ];
         $acfService = new FakeAcfService([
             'getField' => static function (string $field) use (&$values): mixed {
@@ -49,7 +49,7 @@ class LegacySettingsMigrationTest extends TestCase
         static::assertSame('typesense', $values['search_index_provider']);
         static::assertSame('https://typesense.example.test', $values['search_index_typesense_api_url']);
         static::assertSame('legacy-content', $values['search_index_typesense_collection_name']);
-        static::assertSame('existing-index-name', $values['search_index_name']);
+        static::assertSame('existing-index-name', $values['search_index_algolia_index_name']);
         static::assertSame($values['algolia_index_facetting'], $values['search_index_facets']);
         static::assertSame('municipio_search_index_legacy_settings_migrated', $wpService->methodCalls['updateOption'][0][0]);
     }
@@ -85,6 +85,6 @@ class LegacySettingsMigrationTest extends TestCase
 
         static::assertSame('legacy-application-id', $values['search_index_algolia_application_id']);
         static::assertSame('algolia', $values['search_index_provider']);
-        static::assertSame('legacy-content', $values['search_index_name']);
+        static::assertSame('legacy-content', $values['search_index_algolia_index_name']);
     }
 }

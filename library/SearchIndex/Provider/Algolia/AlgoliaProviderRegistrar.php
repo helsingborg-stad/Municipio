@@ -39,7 +39,7 @@ class AlgoliaProviderRegistrar
             'type' => 'algolia',
             'applicationId' => $this->config->algoliaApplicationId(),
             'apiKey' => $this->config->algoliaPublicApiKey(),
-            'indexName' => $this->config->indexName(),
+            'indexName' => $this->config->algoliaIndexName(),
         ];
     }
 }

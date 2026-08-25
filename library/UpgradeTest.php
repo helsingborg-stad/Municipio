@@ -52,4 +52,30 @@ class UpgradeTest extends TestCase
         static::assertSame('algolia', $values['search_index_provider']);
         static::assertSame('municipio_search_index_legacy_settings_migrated', $wpService->methodCalls['updateOption'][0][0]);
     }
+
+    #[TestDox('v_59 migrates the shared index name to Algolia')]
+    public function testV59(): void
+    {
+        $values = [
+            'search_index_name' => 'existing-index-name',
+        ];
+        $acfService = new FakeAcfService([
+            'getField' => static function (string $field) use (&$values): mixed {
+                return $values[$field] ?? false;
+            },
+            'updateField' => static function (string $field, mixed $value) use (&$values): bool {
+                $values[$field] = $value;
+                return true;
+            },
+        ]);
+        $wpService = new FakeWpService([
+            'addAction' => true,
+            'getOption' => static fn(string $option, mixed $default): mixed => $default,
+            'updateOption' => true,
+        ]);
+        $upgrade = new Upgrade($wpService, $acfService);
+
+        static::assertTrue($upgrade->v_59());
+        static::assertSame('existing-index-name', $values['search_index_algolia_index_name']);
+    }
 }

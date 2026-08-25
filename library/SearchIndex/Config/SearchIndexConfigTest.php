@@ -35,7 +35,7 @@ class SearchIndexConfigTest extends TestCase
             'search_index_provider' => 'algolia',
             'search_index_algolia_application_id' => 'application-id',
             'search_index_algolia_api_key' => $apiKey,
-            'search_index_name' => 'municipio-content',
+            'search_index_algolia_index_name' => 'municipio-content',
         ];
         $config = new SearchIndexConfig(new FakeAcfService([
             'getField' => static fn(string $selector): string => $values[$selector] ?? '',
@@ -44,7 +44,7 @@ class SearchIndexConfigTest extends TestCase
         static::assertTrue($config->isConfigured());
         static::assertSame('application-id', $config->algoliaApplicationId());
         static::assertSame($apiKey, $config->algoliaApiKey());
-        static::assertSame('municipio-content', $config->indexName());
+        static::assertSame('municipio-content', $config->algoliaIndexName());
     }
 
     /**
