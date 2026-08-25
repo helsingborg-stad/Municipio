@@ -25,6 +25,20 @@ class SearchIndexFeature
      */
     public function enable(): void
     {
+        $legacyPluginConflictGuard = new Migration\LegacyPluginConflictGuard($this->wpService);
+
+        if ($legacyPluginConflictGuard->deactivateConflictingPlugins()) {
+            return;
+        }
+
+        $this->wpService->addAction('acf/init', [$this, 'initialize'], 20);
+    }
+
+    /**
+     * Initialize the feature after ACF is ready.
+     */
+    public function initialize(): void
+    {
         $config = new SearchIndexConfig($this->acfService);
         $providerFactory = new SearchProviderFactory($this->wpService, $config);
 
