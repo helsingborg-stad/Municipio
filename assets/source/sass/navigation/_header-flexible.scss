@@ -72,6 +72,17 @@
         justify-content: flex-end;
     }
 
+    .c-header__main-upper-area:has(.c-nav--extended-dropdown),
+    .c-header__main-lower-area:has(.c-nav--extended-dropdown),
+    .c-header__upper-left:has(.c-nav--extended-dropdown),
+    .c-header__upper-center:has(.c-nav--extended-dropdown),
+    .c-header__upper-right:has(.c-nav--extended-dropdown),
+    .c-header__lower-left:has(.c-nav--extended-dropdown),
+    .c-header__lower-center:has(.c-nav--extended-dropdown),
+    .c-header__lower-right:has(.c-nav--extended-dropdown) {
+        position: static;
+    }
+
     &.c-header--logotype-scroll-shrink {
         --municipio-header-logo-overlap-multiplier: 0.25;
         --municipio-header-logo-scroll-expanded-height: var(--c-header--logotype-height-max, var(--c-header--logotype-height));
