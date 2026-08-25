@@ -32,10 +32,13 @@ class MapTaxonomyFilterConfigs implements MapperInterface
      */
     public function map(array $data): mixed
     {
+        $data['archiveProps'] = is_object($data['archiveProps'] ?? null) ? $data['archiveProps'] : (object) [];
+        $data['archiveProps']->enabledFilters = $this->normalizeEnabledFilters($data['archiveProps']->enabledFilters ?? []);
+
         $taxonomies = $this->wpService->applyFilters(
             'Municipio/Archive/getTaxonomyFilters/taxonomies',
             array_diff(
-                $data['archiveProps']->enabledFilters ?? [],
+                $data['archiveProps']->enabledFilters,
                 [$this->currentTaxonomy()],
             ),
             $this->currentTaxonomy(),
@@ -57,6 +60,28 @@ class MapTaxonomyFilterConfigs implements MapperInterface
             $filterType = isset($data['archiveProps']->{$camelCasedName . 'FilterFieldType'}) && $data['archiveProps']->{$camelCasedName . 'FilterFieldType'} === 'multi' ? TaxonomyFilterType::MULTISELECT : TaxonomyFilterType::SINGLESELECT;
             return new TaxonomyFilterConfig($taxonomy, $filterType);
         }, $filteredWpTaxonomies);
+    }
+
+    /**
+     * Normalize enabled filters to an array.
+     *
+     * @param mixed $enabledFilters Enabled filters value.
+     * @return array<int, string>
+     */
+    private function normalizeEnabledFilters(mixed $enabledFilters): array
+    {
+        if (is_array($enabledFilters)) {
+            return array_values(array_filter(
+                array_map(static fn($filter): string => (string) $filter, $enabledFilters),
+                static fn(string $filter): bool => $filter !== '',
+            ));
+        }
+
+        if (is_string($enabledFilters) && $enabledFilters !== '') {
+            return [$enabledFilters];
+        }
+
+        return [];
     }
 
     /**

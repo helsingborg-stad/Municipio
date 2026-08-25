@@ -24,8 +24,8 @@ class UpgradeTest extends TestCase
         $this->assertEquals([['post_type' => 'test_post_type', 'schema_type' => 'Thing']], $acfService->methodCalls['updateField'][0][1]);
     }
 
-    #[TestDox('v_44 migrates legacy SearchIndex settings')]
-    public function testV44(): void
+    #[TestDox('v_58 migrates legacy SearchIndex settings')]
+    public function testV58(): void
     {
         $values = [
             'algolia_index_application_id' => 'legacy-application-id',
@@ -47,7 +47,7 @@ class UpgradeTest extends TestCase
         ]);
         $upgrade = new Upgrade($wpService, $acfService);
 
-        static::assertTrue($upgrade->v_44());
+        static::assertTrue($upgrade->v_58());
         static::assertSame('legacy-application-id', $values['search_index_algolia_application_id']);
         static::assertSame('algolia', $values['search_index_provider']);
         static::assertSame('municipio_search_index_legacy_settings_migrated', $wpService->methodCalls['updateOption'][0][0]);

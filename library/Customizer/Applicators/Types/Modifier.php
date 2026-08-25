@@ -10,9 +10,9 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
 {
     private array $cachedData = [];
 
-    public function __construct(private WpService $wpService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+    ) {}
 
     public function getKey(): string
     {
@@ -25,17 +25,17 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
         $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
     }
 
-  /**
-   * Apply data to filter
-   *
-   * @param array $modifiers
-   * @param array $contexts
-   *
-   * @return array
-   */
+    /**
+     * Apply data to filter
+     *
+     * @param array $modifiers
+     * @param array $contexts
+     *
+     * @return array
+     */
     public function applyDataFilterFunction(array|string $modifiers, array|string $contexts): array|string
     {
-        $contexts  = is_array($contexts) ? $contexts : [$contexts];
+        $contexts = is_array($contexts) ? $contexts : [$contexts];
         $modifiers = is_array($this->cachedData) ? $this->cachedData : [$this->cachedData];
 
         $returnModifiers = [];
@@ -50,18 +50,15 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
             foreach ($filter['contexts'] as $filterContext) {
                 // Operator and context must be set
                 if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
-                    throw new \Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
+                    throw new \Error('Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: ' . print_r($filterContext, true));
                 }
 
                 // Operator must be != or ==
-                if (!in_array($filterContext['operator'], ["!=", "=="])) {
-                    throw new \Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
+                if (!in_array($filterContext['operator'], ['!=', '=='])) {
+                    throw new \Error('Operator must be != or == to be used in ComponentData applicator. Provided value: ' . $filterContext['operator']);
                 }
 
-                if (
-                    ($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
-                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))
-                ) {
+                if ($filterContext['operator'] == '==' && in_array($filterContext['context'], $contexts) || $filterContext['operator'] == '!=' && !in_array($filterContext['context'], $contexts)) {
                     $passFilterRules = true;
                 }
             }
@@ -74,14 +71,15 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
         return $returnModifiers;
     }
 
-  /**
-   * Get data
-   *
-   * @return array
-   */
+    /**
+     * Get data
+     *
+     * @return array
+     */
     public function getData(): array
     {
         $fields = $this->getFields();
+        $modifiers = [];
 
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
@@ -102,15 +100,15 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
                         foreach ($output['context'] as $contextKey => $context) {
                             if (!is_array($context)) {
                                 $output['context'][$contextKey] = [
-                                'operator' => '==',
-                                'context'  => $context
+                                    'operator' => '==',
+                                    'context' => $context,
                                 ];
                             }
                         }
 
                         $modifiers[] = [
-                        'contexts' => $output['context'],
-                        'value'    => \Kirki::get_option($key),
+                            'contexts' => $output['context'],
+                            'value' => $this->getFieldValue($key, $field),
                         ];
                     }
                 }

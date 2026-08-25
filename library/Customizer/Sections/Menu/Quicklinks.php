@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Quicklinks
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'quicklinks_color_scheme',
             'label' => esc_html__('Color scheme', 'municipio'),
@@ -30,7 +30,7 @@ class Quicklinks
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'quicklinks_sticky',
             'label' => esc_html__('Sticky', 'municipio'),
@@ -50,7 +50,7 @@ class Quicklinks
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'quicklinks_location',
             'label' => esc_html__('Location', 'municipio'),
@@ -67,7 +67,7 @@ class Quicklinks
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'quicklinks_direction',
             'label' => esc_html__('Quicklinks item direction', 'municipio'),
@@ -85,7 +85,7 @@ class Quicklinks
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'quicklinks_overflow',
             'label' => esc_html__('Overflow top', 'municipio'),

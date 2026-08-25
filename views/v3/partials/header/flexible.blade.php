@@ -1,34 +1,33 @@
 @if (!empty($headerData))
+    @php($logoScrollShrinkStyle = !empty($headerData['logoScrollShrinkEnabled']) ? '--municipio-header-logo-overlap-multiplier: ' . ($headerData['logoScrollShrinkOverlapMultiplier'] ?? 0.25) . ';' : null)
+    @include('partials.header.skip-to-main-content')
+    @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
+    @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
+
     @if(!empty($headerData['upperItems']))
         @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
             @header([
                 'classList' => array_merge(
-                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
+                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : '', !empty($headerData['logoScrollShrinkEnabled']) ? 'c-header--logotype-scroll-shrink' : ''],
                     $headerData['upperHeader']['classList'],
                     isset($classList) ? (array) $classList : [],
                     $classes ?? []
                 ),
                 'id' => 'site-header-flexible-upper',
-                'backgroundColor' => $headerData['upperHeader']['backgroundColor'],
                 'sticky' => $headerData['upperHeader']['sticky'],
+                'attributeList' => !empty($logoScrollShrinkStyle) ? ['style' => $logoScrollShrinkStyle] : [],
                 'context' => 'site.header.flexible.upper'
             ])
-                <div class="c-header__main-upper-area-container">
-                    @element([
-                        'baseClass' => 'o-container',
-                        'classList' => ['c-header__main-upper-area', 'o-container'],
-                        'context' => ['site.header.flexible-container-upper', 'site.header.flexible-container', 'site.header.container']
-                    ])
-                        @foreach (['left', 'center', 'right'] as $alignment)
-                            @include('partials.header.components.headerLoop', 
-                                [
-                                    'area' => 'upper', 
-                                    'key' => 'upperItems', 
-                                    'align' => $alignment
-                                ]
-                            )
-                        @endforeach
-                    @endelement
+                <div class="c-header__main-upper-area">
+                    @foreach (['left', 'center', 'right'] as $alignment)
+                        @include('partials.header.components.headerLoop', 
+                            [
+                                'area' => 'upper', 
+                                'key' => 'upperItems', 
+                                'align' => $alignment
+                            ]
+                        )
+                    @endforeach
                 </div>
                     @if ($headerData['upperHeader']['innerMegaMenu'])
                         @include('partials.navigation.megamenu')
@@ -40,32 +39,26 @@
         @scope(['name' => ['header-flexible-lower', 'header-flexible', 'header']])
             @header([
                 'classList' => array_merge(
-                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
+                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : '', !empty($headerData['logoScrollShrinkEnabled']) ? 'c-header--logotype-scroll-shrink' : ''],
                     $headerData['lowerHeader']['classList'],
                     isset($classList) ? (array) $classList : [],
                     $classes ?? []
                 ),
                 'id' => 'site-header-flexible-lower',
-                'backgroundColor' => $headerData['lowerHeader']['backgroundColor'],
                 'sticky' => $headerData['lowerHeader']['sticky'],
+                'attributeList' => !empty($logoScrollShrinkStyle) ? ['style' => $logoScrollShrinkStyle] : [],
                 'context' => 'site.header.flexible.lower',
             ])
-                <div class="c-header__main-lower-area-container">
-                    @element([
-                        'baseClass' => 'o-container',
-                        'classList' => ['c-header__main-lower-area', 'o-container'],
-                        'context' => ['site.header.flexible-container-lower', 'site.header.flexible-container', 'site.header.container']
-                    ])
-                        @foreach (['left', 'center', 'right'] as $alignment) 
-                            @include('partials.header.components.headerLoop',
-                                [
-                                    'area' => 'lower', 
-                                    'key' => 'lowerItems', 
-                                    'align' => $alignment
-                                ]
-                            )
-                        @endforeach
-                    @endelement
+                <div class="c-header__main-lower-area">
+                    @foreach (['left', 'center', 'right'] as $alignment) 
+                        @include('partials.header.components.headerLoop',
+                            [
+                                'area' => 'lower', 
+                                'key' => 'lowerItems', 
+                                'align' => $alignment
+                            ]
+                        )
+                    @endforeach
                 </div>
                 @if ($headerData['lowerHeader']['innerMegaMenu'])
                     @include('partials.navigation.megamenu')

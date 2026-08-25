@@ -2,16 +2,16 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Search
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField($this->getSearchDisplayFieldAttributes($sectionID));
-        KirkiField::addField($this->getHeroSearchPositionFieldAttributes($sectionID));
-        KirkiField::addField($this->getSearchFormShapeFieldAttributes($sectionID));
-        KirkiField::addField($this->heroSearchButtonColor($sectionID));
+        CustomizerField::addField($this->getSearchDisplayFieldAttributes($sectionID));
+        CustomizerField::addField($this->getHeroSearchPositionFieldAttributes($sectionID));
+        CustomizerField::addField($this->getSearchFormShapeFieldAttributes($sectionID));
+        CustomizerField::addField($this->heroSearchButtonColor($sectionID));
     }
 
     public function getHeroSearchPositionFieldAttributes(string $sectionID)

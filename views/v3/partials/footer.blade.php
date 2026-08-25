@@ -5,6 +5,7 @@
     'logotypeHref' => $homeUrl,
     'subfooterLogotype' => $subfooterLogotype,
     'context' => 'component.footer',
+    'attributeList' => !empty($footerBackgroundImageStyle) ? ['style' => $footerBackgroundImageStyle] : [],
     'classList' => [
         'site-footer',
         's-footer'
@@ -30,7 +31,7 @@
     @slot('footerareas')
         @foreach ($footerAreas as $footerAreaId)
             @if (is_active_sidebar($footerAreaId))
-                <div class="o-grid-{{ $footerGridSize }}@md {{ $footerTextAlignment }}">
+                <div class="o-grid-{{ $footerGridSize }}@md">
                     @include('partials.sidebar', [
                         'id' => $footerAreaId,
                         'classes' => ['o-grid', 'c-footer__widget-area'],

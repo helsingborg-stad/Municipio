@@ -1,0 +1,48 @@
+.municipio-control--multicolor {
+	display: block;
+}
+
+.municipio-multicolor-field {
+	display: block;
+	margin-bottom: 12px;
+}
+
+.municipio-multicolor-field > span {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.municipio-multicolor-swatches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.municipio-multicolor-swatch {
+	background: transparent;
+	border: 1px solid #dcdcde;
+	border-radius: 999px;
+	padding: 2px;
+	cursor: pointer;
+}
+
+.municipio-multicolor-swatch.is-active {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.municipio-multicolor-swatch__sample {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 999px;
+	line-height: 1;
+}
+
+.municipio-multicolor-swatch__sample svg {
+	width: 1rem;
+	height: 1rem;
+	display: block;
+}

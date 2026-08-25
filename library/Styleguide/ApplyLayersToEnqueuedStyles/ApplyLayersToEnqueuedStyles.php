@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\Styleguide\ApplyLayersToEnqueuedStyles;
 
 use Municipio\HooksRegistrar\Hookable;
@@ -23,7 +22,7 @@ class ApplyLayersToEnqueuedStyles implements Hookable
 
     public const patterns = [
         'wp-includes' => 'wordpress',
-        'wp-admin' => 'wordpress'
+        'wp-admin' => 'wordpress',
     ];
 
     public function __construct(
@@ -38,28 +37,44 @@ class ApplyLayersToEnqueuedStyles implements Hookable
     public function apply(string $tag, string $handle, string $href): string
     {
         // Load only in frontend and in gutenberg editor, not in wp-admin to avoid breaking admin styles.
-        if( $this->shouldApplyLayer() === false ) {
+        if ($this->shouldApplyLayer() === false) {
             return $tag;
         }
 
         if ($layer = $this->getLayerByHandle($handle)) {
-            return "<style>@import url(\"{$href}\") layer({$layer});</style>";
+            return $this->buildLayeredStyleTag($tag, $href, $layer);
         }
 
-        if($layer = $this->getLayerByPattern($href)) {
-            return "<style>@import url(\"{$href}\") layer({$layer});</style>";
+        if ($layer = $this->getLayerByPattern($href)) {
+            return $this->buildLayeredStyleTag($tag, $href, $layer);
         }
 
         return $tag;
     }
 
+    private function buildLayeredStyleTag(string $tag, string $href, string $layer): string
+    {
+        $idAttribute = $this->getIdAttribute($tag);
+
+        return "<style{$idAttribute}>@import url(\"{$href}\") layer({$layer});</style>";
+    }
+
+    private function getIdAttribute(string $tag): string
+    {
+        if (!preg_match('/\sid=["\']([^"\']+)["\']/i', $tag, $matches)) {
+            return '';
+        }
+
+        return ' id="' . htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8') . '"';
+    }
+
     private function shouldApplyLayer(): bool
     {
-        if(!$this->wpService->isAdmin()) {
+        if (!$this->wpService->isAdmin()) {
             return true;
         }
-        
-        if( $this->wpService->getCurrentScreen()?->is_block_editor() ) {
+
+        if ($this->wpService->getCurrentScreen()?->is_block_editor()) {
             return true;
         }
 

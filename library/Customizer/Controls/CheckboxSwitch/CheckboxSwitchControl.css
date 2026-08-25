@@ -1,0 +1,14 @@
+.municipio-control--checkbox-switch {
+    display: block;
+}
+
+.municipio-control__checkbox-switch-input {
+    display: inline-flex;
+    align-items: center;
+}
+
+.municipio-control--checkbox-switch input[type="checkbox"] {
+    position: static;
+    inset: auto;
+    margin: 0;
+}

@@ -2,12 +2,12 @@
 
 namespace Municipio\Controller\Header;
 
-use Municipio\Controller\Header\MenuOrderTransformer;
-use Municipio\Controller\Header\MenuVisibilityTransformer;
 use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderVisibilityClasses;
 use Municipio\Controller\Header\MarginTransformer;
+use Municipio\Controller\Header\MenuOrderTransformer;
+use Municipio\Controller\Header\MenuVisibilityTransformer;
 
 /**
  * Class Flexible
@@ -24,25 +24,30 @@ class Flexible implements HeaderInterface
     private HeaderVisibilityClasses $headerVisibilityClassesInstance;
     private MarginTransformer $marginTransformerInstance;
     private IsResponsiveMenuTransformer $isResponsiveMenu;
-    private string $headerSettingKey           = 'header_sortable_section_';
+    private string $headerSettingKey = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
-    private bool $hasSeparateBrandText         = false;
+    private bool $hasSeparateBrandText = false;
+    private string $logoScrollShrinkSetting = 'headerLogoScrollShrink';
+    private string $logoOverlapMultiplierSetting = 'headerLogoOverlapMultiplier';
+    private string $logoScrollShrinkAspectRatioSetting = 'headerLogoScrollAspectRatio';
 
     /**
      * Constructor
      */
-    public function __construct(private object $customizer)
-    {
-        $this->isResponsive = !empty($this->customizer->headerEnableResponsiveOrder);
-        $this->hasSearch    = false;
+    public function __construct(
+        private object $customizer,
+        private bool $isCustomizePreview = false,
+    ) {
+        $this->isResponsive = $this->hasResponsiveOrderItems();
+        $this->hasSearch = false;
 
-        $this->headerVisibilityClassesInstance   = new HeaderVisibilityClasses();
-        $this->flipKeyValueTransformer           = new FlipKeyValueTransformer();
-        $this->isResponsiveMenu                  = new IsResponsiveMenuTransformer();
+        $this->headerVisibilityClassesInstance = new HeaderVisibilityClasses();
+        $this->flipKeyValueTransformer = new FlipKeyValueTransformer();
+        $this->isResponsiveMenu = new IsResponsiveMenuTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
-        $this->menuOrderTransformerInstance      = new MenuOrderTransformer('@md');
-        $this->marginTransformerInstance         = new MarginTransformer($this->getHiddenMenuItemsData());
-        $this->alignmentTransformerInstance      = new AlignmentTransformer($this->getHiddenMenuItemsData());
+        $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
+        $this->marginTransformerInstance = new MarginTransformer($this->getHiddenMenuItemsData());
+        $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenMenuItemsData());
     }
 
     // Gets the header data accessible in the view.
@@ -52,26 +57,40 @@ class Flexible implements HeaderInterface
         $lowerItems = $this->getItems('main_lower');
 
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
+        $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
+        $logoScrollShrinkOverlapMultiplier = $this->getLogoScrollShrinkOverlapMultiplier();
+        $logoScrollShrinkAspectRatio = $this->getLogoScrollShrinkAspectRatio();
 
         return [
-            'upperHeader'          => $upperHeader,
-            'lowerHeader'          => $lowerHeader,
-            'upperItems'           => $upperItems['modified'],
-            'lowerItems'           => $lowerItems['modified'],
-            'hasSearch'            => $this->hasSearch,
+            'upperHeader' => $upperHeader,
+            'lowerHeader' => $lowerHeader,
+            'upperItems' => $upperItems['modified'],
+            'lowerItems' => $lowerItems['modified'],
+            'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
-            'nonStickyMegaMenu'    => $this->nonStickyMegaMenu,
+            'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
+            'logoScrollShrinkOverlapMultiplier' => $logoScrollShrinkOverlapMultiplier,
+            'logoScrollShrinkAspectRatio' => $logoScrollShrinkAspectRatio,
+            'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
     }
 
     // Handles the hidden menu data in the customizer.
-    private function getHiddenMenuItemsData()
+    private function getHiddenMenuItemsData(): object
     {
-        $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ?
-            $this->customizer->headerSortableHiddenStorage :
-            "{}";
+        $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ? $this->customizer->headerSortableHiddenStorage : '{}';
 
-        return json_decode($hiddenData);
+        if (is_array($hiddenData)) {
+            $hiddenData = wp_json_encode($hiddenData);
+        }
+
+        if (is_object($hiddenData)) {
+            return $hiddenData;
+        }
+
+        $decodedValue = json_decode((string) $hiddenData);
+
+        return is_object($decodedValue) ? $decodedValue : (object) [];
     }
 
     // Gets the header settings.
@@ -93,19 +112,14 @@ class Flexible implements HeaderInterface
 
         $this->nonStickyMegaMenu = ($upperHeaderHasMegaMenu || $lowerHeaderHasMegaMenu) && empty($lowerHeader['innerMegaMenu']) && empty($upperHeader['innerMegaMenu']);
 
-        if (!empty($this->customizer->headerBackground)) {
-            $upperHeader['backgroundColor'] = empty($lowerItems['modified']) ? $this->customizer->headerBackground : 'default';
-            $lowerHeader['backgroundColor'] = $this->customizer->headerBackground;
-        }
-
-        $upperHeader['classList']   = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
-        $lowerHeader['classList']   = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
+        $upperHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
+        $lowerHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
         $upperHeader['classList'][] = !empty($upperItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
         $lowerHeader['classList'][] = !empty($lowerItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
 
         return [
             array_merge($this->defaultHeaderSettings(), $upperHeader),
-            array_merge($this->defaultHeaderSettings(), $lowerHeader)
+            array_merge($this->defaultHeaderSettings(), $lowerHeader),
         ];
     }
 
@@ -113,9 +127,8 @@ class Flexible implements HeaderInterface
     private function defaultHeaderSettings(): array
     {
         return [
-            'sticky'          => false,
-            'backgroundColor' => 'default',
-            'classList'       => []
+            'sticky' => false,
+            'classList' => [],
         ];
     }
 
@@ -123,10 +136,10 @@ class Flexible implements HeaderInterface
     private function getItems(string $section): array
     {
         // Getting the items
-        [$setting, $settingCamelCased]              = $this->getSettingName($section);
+        [$setting, $settingCamelCased] = $this->getSettingName($section);
         [$desktopOrderedItems, $mobileOrderedItems] = $this->getOrderedMenuItems($settingCamelCased);
 
-        $this->hasSearch            = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasSearch = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
         $this->hasSeparateBrandText = $this->hasSeparateBrandText($desktopOrderedItems, $mobileOrderedItems ?: []);
 
         // Building the items
@@ -155,23 +168,61 @@ class Flexible implements HeaderInterface
     // Checks if the brand text is separated from logotype.
     private function hasSeparateBrandText(array $desktopOrderedItems, array $mobileOrderedItems)
     {
-        return
-            $this->hasSeparateBrandText ||
-            in_array('brand-text', $desktopOrderedItems) ||
-            in_array('brand-text', $mobileOrderedItems);
+        return $this->hasSeparateBrandText || in_array('brand-text', $desktopOrderedItems) || in_array('brand-text', $mobileOrderedItems);
     }
 
     // Gets the ordered menu items from the customizer.
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
-        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive});
+        $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
+        $responsiveSettingExists = property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null;
+        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && $responsiveSettingExists;
 
-        $desktopOrderedItems = $this->customizer->{$settingCamelCased};
-        $mobileOrderedItems  = $shouldGetMobileOrderedItems()
-            ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
-            : [];
+        $desktopOrderedItems = $this->normalizeOrderedItems($this->customizer->{$settingCamelCased} ?? []);
+        $mobileOrderedItems = $shouldGetMobileOrderedItems() ? $this->normalizeOrderedItems($this->customizer->{$responsiveSetting}) : [];
 
-        return [ $desktopOrderedItems ?: [], $mobileOrderedItems ?: [] ];
+        return [$desktopOrderedItems, $mobileOrderedItems];
+    }
+
+    /**
+     * Check if any responsive sortable section has selected values.
+     *
+     * @return bool
+     */
+    private function hasResponsiveOrderItems(): bool
+    {
+        foreach (['main_upper', 'main_lower'] as $section) {
+            [, $settingCamelCased] = $this->getSettingName($section);
+            $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
+
+            if (property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function normalizeOrderedItems(mixed $items): array
+    {
+        if (is_array($items)) {
+            return array_values(array_filter($items, static fn(mixed $item): bool => is_string($item) && $item !== ''));
+        }
+
+        if (!is_string($items) || trim($items) === '') {
+            return [];
+        }
+
+        $decoded = json_decode($items, true);
+
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        return array_values(array_filter($decoded, static fn(mixed $item): bool => is_string($item) && $item !== ''));
     }
 
     // Gets the camelCased setting name.
@@ -182,5 +233,75 @@ class Flexible implements HeaderInterface
             $setting,
             \Municipio\Helper\FormatObject::camelCaseString($setting),
         ];
+    }
+
+    /**
+     * Determine if the header logotype scroll shrink behavior should be enabled.
+     *
+     * @return bool
+     */
+    private function isLogoScrollShrinkEnabled(): bool
+    {
+        if (empty($this->customizer->{$this->logoScrollShrinkSetting})) {
+            return false;
+        }
+
+        return $this->hasLowerRowLogotype() && $this->isLowerRowLogotypeAlignedLeft();
+    }
+
+    /**
+     * Determine if the desktop lower header row contains the logotype.
+     *
+     * @return bool
+     */
+    private function hasLowerRowLogotype(): bool
+    {
+        $lowerItems = $this->normalizeOrderedItems($this->customizer->headerSortableSectionMainLower ?? []);
+
+        return in_array('logotype', $lowerItems, true);
+    }
+
+    /**
+     * Determine if the desktop lower-row logotype is aligned left.
+     *
+     * @return bool
+     */
+    private function isLowerRowLogotypeAlignedLeft(): bool
+    {
+        $hiddenStorage = $this->getHiddenMenuItemsData();
+
+        return ($hiddenStorage->header_sortable_section_main_lower->logotype->align ?? null) === 'left';
+    }
+
+    /**
+     * Resolve the validated overlap multiplier for the logotype scroll effect.
+     *
+     * @return float
+     */
+    private function getLogoScrollShrinkOverlapMultiplier(): float
+    {
+        $overlapMultiplier = (float) ($this->customizer->{$this->logoOverlapMultiplierSetting} ?? 0.25);
+
+        return $overlapMultiplier > 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
+    }
+
+    /**
+     * Resolve the validated aspect ratio for the logotype scroll effect.
+     *
+     * The aspect ratio is always omitted in the customizer preview so that the
+     * brand renders unconstrained and can be measured to (re)calculate the
+     * stored ratio. The viewBox is never recalculated on the frontend.
+     *
+     * @return float|null
+     */
+    private function getLogoScrollShrinkAspectRatio(): ?float
+    {
+        if ($this->isCustomizePreview) {
+            return null;
+        }
+
+        $aspectRatio = (float) ($this->customizer->{$this->logoScrollShrinkAspectRatioSetting} ?? 1);
+
+        return $aspectRatio > 0 ? $aspectRatio : null;
     }
 }

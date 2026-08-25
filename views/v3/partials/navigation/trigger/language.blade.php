@@ -14,7 +14,9 @@
     'attributeList' => [
         'data-js-toggle-trigger' => 'language-menu-toggle',
         'data-toggle-icon' => 'close',
-        'data-js-click-away-remove-pressed' => ''
+        'data-js-click-away-remove-pressed' => '',
+        'popovertarget' => 'site-language-menu-popover',
+        'popovertargetaction' => 'toggle'
     ]
 ])
 @endbutton

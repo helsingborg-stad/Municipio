@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Vertical
 {
@@ -11,7 +11,7 @@ class Vertical
     public function __construct(string $sectionID)
     {
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'vertical_menu_sublevel_trigger_icon',
             'label'       => esc_html__('Submenu expand icon', 'municipio'),
@@ -37,7 +37,7 @@ class Vertical
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'switch',
             'settings'    => 'vetical_menu_indent_sublevels',
             'label'       => esc_html__('Indent each level', 'municipio'),

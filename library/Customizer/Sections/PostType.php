@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class PostType
 {
@@ -11,7 +11,7 @@ class PostType
 
     public function __construct(private string $sectionID, private object $postType)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'      => 'select',
             'settings'  => $this->postType->name . '_load_design',
             'label'     => esc_html__('Select a design', 'municipio'),
@@ -22,7 +22,7 @@ class PostType
             'transport' => 'postMessage'
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => $this->postType->name . '_copy_styles',
             'label'       => esc_html__('Styles to copy.', 'municipio'),
@@ -36,7 +36,7 @@ class PostType
             ]
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'checkbox',
             'settings'    => $this->postType->name . '_post_type_update_design',
             'label'       => esc_html__('Follow the design', 'municipio'),
@@ -45,7 +45,7 @@ class PostType
             'default'     => false,
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'checkbox',
             'settings'    => $this->postType->name . '_style_globally',
             'label'       => esc_html__('Style globally', 'municipio'),

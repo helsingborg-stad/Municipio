@@ -14,7 +14,4 @@
     )
 ])
     @yield('body-content')
-
-    @include('templates.sections.styleguide-customize')
-    
 @endelement
