@@ -46,4 +46,27 @@ class TypesenseProviderTest extends TestCase
             $requestedUrl,
         );
     }
+
+    /**
+     * Verify that deleting a document that has not been indexed is a no-op.
+     */
+    public function testDeleteObjectIgnoresMissingDocument(): void
+    {
+        $wpService = new FakeWpService([
+            'wpRemoteRequest' => [],
+            'isWpError' => false,
+            'wpRemoteRetrieveBody' => json_encode([
+                'message' => 'Could not find a document with id: missing-document',
+            ], JSON_THROW_ON_ERROR),
+            'wpRemoteRetrieveResponseCode' => 404,
+        ]);
+        $provider = new TypesenseProvider(
+            $wpService,
+            implode('-', ['typesense', 'server', 'key']),
+            'https://typesense.example.test',
+            'municipio-content',
+        );
+
+        static::assertNull($provider->deleteObject('missing-document'));
+    }
 }

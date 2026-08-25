@@ -65,7 +65,13 @@ class TypesenseProvider implements SearchProviderInterface
 
     public function deleteObject(string $objectId): mixed
     {
-        return $this->throwOnError($this->sendRequest('DELETE', sprintf('/collections/%s/documents/%s', rawurlencode($this->collectionName), rawurlencode($objectId))));
+        $response = $this->sendRequest('DELETE', sprintf('/collections/%s/documents/%s', rawurlencode($this->collectionName), rawurlencode($objectId)));
+
+        if ($response['statusCode'] === 404) {
+            return null;
+        }
+
+        return $this->throwOnError($response);
     }
 
     public function deleteObjects(array $objectIds): mixed

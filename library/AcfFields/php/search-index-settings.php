@@ -21,76 +21,83 @@ if (function_exists('acf_add_local_field_group')) {
             'name' => 'search_index_name',
             'type' => 'text',
             'instructions' => __('Uses the site hostname when empty. May be overridden by SEARCH_INDEX_NAME.', 'municipio'),
-        ]],
-        'location' => [[[
-            'param' => 'options_page',
-            'operator' => '==',
-            'value' => 'municipio-search-index-settings',
-        ]]],
-        'position' => 'normal',
-        'style' => 'default',
-        'active' => true,
-    ]);
-
-    acf_add_local_field_group([
-        'key' => 'group_municipio_search_index_algolia_settings',
-        'title' => __('Algolia Provider Settings', 'municipio'),
-        'fields' => [[
+        ], [
             'key' => 'field_municipio_search_index_algolia_application_id',
-            'label' => __('Application ID', 'municipio'),
+            'label' => __('Algolia Application ID', 'municipio'),
             'name' => 'search_index_algolia_application_id',
             'type' => 'text',
             'instructions' => __('May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'algolia',
+            ]]],
         ], [
             'key' => 'field_municipio_search_index_algolia_api_key',
-            'label' => __('API Key', 'municipio'),
+            'label' => __('Algolia API Key', 'municipio'),
             'name' => 'search_index_algolia_api_key',
             'type' => 'password',
             'instructions' => __('May be overridden by SEARCH_INDEX_ALGOLIA_API_KEY.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'algolia',
+            ]]],
         ], [
             'key' => 'field_municipio_search_index_algolia_public_api_key',
-            'label' => __('Public API Key', 'municipio'),
+            'label' => __('Algolia Public API Key', 'municipio'),
             'name' => 'search_index_algolia_public_api_key',
             'type' => 'password',
             'instructions' => __('Optional browser-search key. May be overridden by SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY.', 'municipio'),
-        ]],
-        'location' => [[[
-            'param' => 'options_page',
-            'operator' => '==',
-            'value' => 'municipio-search-index-settings',
-        ]]],
-        'position' => 'normal',
-        'style' => 'default',
-        'active' => true,
-    ]);
-
-    acf_add_local_field_group([
-        'key' => 'group_municipio_search_index_typesense_settings',
-        'title' => __('Typesense Provider Settings', 'municipio'),
-        'fields' => [[
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'algolia',
+            ]]],
+        ], [
             'key' => 'field_municipio_search_index_typesense_api_url',
-            'label' => __('API URL', 'municipio'),
+            'label' => __('Typesense API URL', 'municipio'),
             'name' => 'search_index_typesense_api_url',
             'type' => 'url',
             'instructions' => __('May be overridden by SEARCH_INDEX_TYPESENSE_API_URL.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'typesense',
+            ]]],
         ], [
             'key' => 'field_municipio_search_index_typesense_api_key',
-            'label' => __('API Key', 'municipio'),
+            'label' => __('Typesense API Key', 'municipio'),
             'name' => 'search_index_typesense_api_key',
             'type' => 'password',
             'instructions' => __('May be overridden by SEARCH_INDEX_TYPESENSE_API_KEY.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'typesense',
+            ]]],
         ], [
             'key' => 'field_municipio_search_index_typesense_public_api_key',
-            'label' => __('Public API Key', 'municipio'),
+            'label' => __('Typesense Public API Key', 'municipio'),
             'name' => 'search_index_typesense_public_api_key',
             'type' => 'password',
             'instructions' => __('Optional browser-search key. May be overridden by SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'typesense',
+            ]]],
         ], [
             'key' => 'field_municipio_search_index_typesense_collection_name',
-            'label' => __('Collection Name', 'municipio'),
+            'label' => __('Typesense Collection Name', 'municipio'),
             'name' => 'search_index_typesense_collection_name',
             'type' => 'text',
             'instructions' => __('Uses the configured index name when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME.', 'municipio'),
+            'conditional_logic' => [[[
+                'field' => 'field_municipio_search_index_provider',
+                'operator' => '==',
+                'value' => 'typesense',
+            ]]],
         ]],
         'location' => [[[
             'param' => 'options_page',
