@@ -39,7 +39,16 @@ class MigrateLegacyAcfCustomCssToCustomizer
         $customizerCss = $this->normalizeCss($this->wpService->wpGetCustomCss());
         $mergedCss = $this->mergeCss($customizerCss, $legacyCss);
 
-        $this->wpService->wpUpdateCustomCssPost($mergedCss);
+        try {
+            $this->wpService->wpUpdateCustomCssPost($mergedCss);
+        } catch (\Throwable $throwable) {
+            $persistedCss = $this->normalizeCss($this->wpService->wpGetCustomCss());
+
+            if (!str_contains($persistedCss, $legacyCss)) {
+                throw $throwable;
+            }
+        }
+
         $this->acfService->updateField(self::LEGACY_FIELD_NAME, '', self::LEGACY_FIELD_POST_ID);
     }
 
