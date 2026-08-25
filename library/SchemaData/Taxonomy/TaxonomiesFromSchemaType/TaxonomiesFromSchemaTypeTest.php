@@ -37,10 +37,16 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     public function testReturnsTaxonomiesForKnownSchemaTypes(string $schemaType): void
     {
         // Assert array contains only instances of TaxonomyInterface
-        $this->assertEachInArrayIsInstanceOf(
-            $this->instance->create($schemaType),
-            TaxonomyInterface::class,
-        );
+        $array = $this->instance->create($schemaType);
+        $class = TaxonomyInterface::class;
+        
+        foreach ($array as $item) {
+            if (!($item instanceof $class)) {
+                $this->fail(sprintf('Expected instance of %s, got %s', $class, get_class($item)));
+            }
+        }
+
+        $this->assertTrue(true, sprintf('All items in the array are instances of %s', $class));
     }
 
     public static function knownSchemaTypesProvider(): array
@@ -50,13 +56,6 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
             'Event' => ['Event'],
             'Project' => ['Project'],
         ];
-    }
-
-    private function assertEachInArrayIsInstanceOf(array $array, string $class): void
-    {
-        foreach ($array as $item) {
-            $this->assertInstanceOf($class, $item);
-        }
     }
 
     private function getTaxonomyFactory(): TaxonomyFactoryInterface|MockObject
