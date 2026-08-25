@@ -31,6 +31,11 @@ class SearchIndexFeature
             return;
         }
 
+        if ($this->wpService->didAction('acf/init') > 0) {
+            $this->initialize();
+            return;
+        }
+
         $this->wpService->addAction('acf/init', [$this, 'initialize'], 20);
     }
 
