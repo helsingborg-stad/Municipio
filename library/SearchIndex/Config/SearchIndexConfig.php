@@ -21,42 +21,42 @@ class SearchIndexConfig
 
     public function algoliaApplicationId(): string
     {
-        return $this->getStringSetting('SEARCH_INDEX_ALGOLIA_APPLICATION_ID', 'search_index_algolia_application_id');
+        return $this->getStringSetting('search_index_algolia_application_id', 'SEARCH_INDEX_ALGOLIA_APPLICATION_ID', 'ALGOLIAINDEX_APPLICATION_ID');
     }
 
     public function algoliaApiKey(): string
     {
-        return $this->getStringSetting('SEARCH_INDEX_ALGOLIA_API_KEY', 'search_index_algolia_api_key');
+        return $this->getStringSetting('search_index_algolia_api_key', 'SEARCH_INDEX_ALGOLIA_API_KEY', 'ALGOLIAINDEX_API_KEY');
     }
 
     public function algoliaPublicApiKey(): string
     {
-        return $this->getStringSetting('SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY', 'search_index_algolia_public_api_key');
+        return $this->getStringSetting('search_index_algolia_public_api_key', 'SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY', 'ALGOLIAINDEX_PUBLIC_API_KEY');
     }
 
     public function algoliaIndexName(): string
     {
-        return $this->getConfiguredOrGeneratedName('SEARCH_INDEX_ALGOLIA_INDEX_NAME', 'search_index_algolia_index_name');
+        return $this->getConfiguredOrGeneratedName('search_index_algolia_index_name', 'SEARCH_INDEX_ALGOLIA_INDEX_NAME', 'ALGOLIAINDEX_INDEX_NAME');
     }
 
     public function typesenseApiUrl(): string
     {
-        return rtrim($this->getStringSetting('SEARCH_INDEX_TYPESENSE_API_URL', 'search_index_typesense_api_url'), '/');
+        return rtrim($this->getStringSetting('search_index_typesense_api_url', 'SEARCH_INDEX_TYPESENSE_API_URL', 'TYPESENSEINDEX_API_URL'), '/');
     }
 
     public function typesenseApiKey(): string
     {
-        return $this->getStringSetting('SEARCH_INDEX_TYPESENSE_API_KEY', 'search_index_typesense_api_key');
+        return $this->getStringSetting('search_index_typesense_api_key', 'SEARCH_INDEX_TYPESENSE_API_KEY', 'TYPESENSEINDEX_API_KEY');
     }
 
     public function typesensePublicApiKey(): string
     {
-        return $this->getStringSetting('SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY', 'search_index_typesense_public_api_key');
+        return $this->getStringSetting('search_index_typesense_public_api_key', 'SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY', 'TYPESENSEINDEX_PUBLIC_API_KEY');
     }
 
     public function typesenseCollectionName(): string
     {
-        return $this->getConfiguredOrGeneratedName('SEARCH_INDEX_TYPESENSE_COLLECTION_NAME', 'search_index_typesense_collection_name');
+        return $this->getConfiguredOrGeneratedName('search_index_typesense_collection_name', 'SEARCH_INDEX_TYPESENSE_COLLECTION_NAME', 'TYPESENSEINDEX_COLLECTION_NAME');
     }
 
     public function isConfigured(): bool
@@ -73,10 +73,14 @@ class SearchIndexConfig
         };
     }
 
-    private function getStringSetting(string $constant, string $field): string
+    private function getStringSetting(string $field, string ...$constants): string
     {
-        if (defined($constant) && is_string(constant($constant))) {
-            return constant($constant);
+        foreach ($constants as $constant) {
+            $value = defined($constant) ? constant($constant) : null;
+
+            if (is_string($value) && $value !== '') {
+                return $value;
+            }
         }
 
         $value = $this->getOption($field);
@@ -86,9 +90,9 @@ class SearchIndexConfig
     /**
      * Return a configured provider name or derive one from the site hostname.
      */
-    private function getConfiguredOrGeneratedName(string $constant, string $field): string
+    private function getConfiguredOrGeneratedName(string $field, string ...$constants): string
     {
-        $configuredName = $this->getStringSetting($constant, $field);
+        $configuredName = $this->getStringSetting($field, ...$constants);
 
         if ($configuredName !== '') {
             return $configuredName;
