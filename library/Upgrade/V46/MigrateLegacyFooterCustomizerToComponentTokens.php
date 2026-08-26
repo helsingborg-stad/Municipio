@@ -83,10 +83,6 @@ class MigrateLegacyFooterCustomizerToComponentTokens
      */
     private function mapFooterColumns(array &$footerTokens): void
     {
-        if (isset($footerTokens['--c-footer--columns-count'])) {
-            return;
-        }
-
         $legacyColumns = $this->wpService->getThemeMod('footer_columns', null);
 
         if (is_numeric($legacyColumns)) {
@@ -94,7 +90,9 @@ class MigrateLegacyFooterCustomizerToComponentTokens
             return;
         }
 
-        $footerTokens['--c-footer--columns-count'] = 1;
+        if (!isset($footerTokens['--c-footer--columns-count'])) {
+            $footerTokens['--c-footer--columns-count'] = 1;
+        }
     }
 
     /**

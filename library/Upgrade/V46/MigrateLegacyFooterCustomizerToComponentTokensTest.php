@@ -135,9 +135,9 @@ class MigrateLegacyFooterCustomizerToComponentTokensTest extends TestCase
     public function testMigrateMapsLegacyColumnCountWhenFooterUsedTheColumnLayout(): void
     {
         $legacyThemeMods = [
-            'tokens' => '',
+            'tokens' => '{"component":{"__general__":{"footer":{"--c-footer--columns-count":1}}}}',
             'footer_style' => 'columns',
-            'footer_columns' => 4,
+            'footer_columns' => '3',
         ];
 
         $wpService = new FakeWpService([
@@ -154,7 +154,7 @@ class MigrateLegacyFooterCustomizerToComponentTokensTest extends TestCase
 
         $storedTokens = json_decode((string) $setCalls[0][1], true);
 
-        static::assertSame(4, $storedTokens['component']['__general__']['footer']['--c-footer--columns-count']);
+        static::assertSame(3, $storedTokens['component']['__general__']['footer']['--c-footer--columns-count']);
     }
 
     #[TestDox('migrate seeds a one-column footer token when legacy footer settings are absent and still removes deprecated theme mods')]

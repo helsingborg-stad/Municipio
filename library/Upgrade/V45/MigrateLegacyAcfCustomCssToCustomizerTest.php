@@ -60,15 +60,55 @@ class MigrateLegacyAcfCustomCssToCustomizerTest extends TestCase
         $this->assertSame("body { color: red; }\n\n.site-header { color: blue; }", $wpService->updatedCss);
         $this->assertSame('', $acfService->updatedValue);
     }
+
+    #[TestDox('continues when a post-save hook fails after the custom CSS was persisted')]
+    public function testMigrateContinuesWhenPostSaveHookFailsAfterCssWasPersisted(): void
+    {
+        $wpService = new MigrateLegacyAcfCustomCssToCustomizerWpServiceFake(
+            'body { color: red; }',
+            new \RuntimeException('Post-save hook failed'),
+            true,
+        );
+        $acfService = new MigrateLegacyAcfCustomCssToCustomizerAcfServiceFake('.site-footer { color: green; }');
+
+        (new MigrateLegacyAcfCustomCssToCustomizer($wpService, $acfService))->migrate();
+
+        $this->assertSame('', $acfService->updatedValue);
+    }
+
+    #[TestDox('rethrows when custom CSS persistence fails')]
+    public function testMigrateRethrowsWhenCssWasNotPersisted(): void
+    {
+        $wpService = new MigrateLegacyAcfCustomCssToCustomizerWpServiceFake(
+            'body { color: red; }',
+            new \RuntimeException('Persistence failed'),
+            false,
+        );
+        $acfService = new MigrateLegacyAcfCustomCssToCustomizerAcfServiceFake('.site-footer { color: green; }');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Persistence failed');
+
+        try {
+            (new MigrateLegacyAcfCustomCssToCustomizer($wpService, $acfService))->migrate();
+        } finally {
+            $this->assertNull($acfService->updatedValue);
+        }
+    }
 }
 
 class MigrateLegacyAcfCustomCssToCustomizerWpServiceFake implements WpGetCustomCss, WpUpdateCustomCssPost
 {
     public ?string $updatedCss = null;
+    private string $customCss;
 
     public function __construct(
-        private readonly string $customCss,
-    ) {}
+        string $customCss,
+        private readonly ?\Throwable $throwable = null,
+        private readonly bool $persistBeforeThrow = false,
+    ) {
+        $this->customCss = $customCss;
+    }
 
     public function wpGetCustomCss(string $stylesheet = ''): string
     {
@@ -78,6 +118,14 @@ class MigrateLegacyAcfCustomCssToCustomizerWpServiceFake implements WpGetCustomC
     public function wpUpdateCustomCssPost(string $css, array $args = []): \WP_Post|\WP_Error
     {
         $this->updatedCss = $css;
+
+        if ($this->persistBeforeThrow) {
+            $this->customCss = $css;
+        }
+
+        if ($this->throwable !== null) {
+            throw $this->throwable;
+        }
 
         return new \WP_Error();
     }

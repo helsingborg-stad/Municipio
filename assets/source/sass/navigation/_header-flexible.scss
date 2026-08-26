@@ -72,6 +72,12 @@
         justify-content: flex-end;
     }
 
+    [class*="c-header__main-"]:has(.c-nav--extended-dropdown),
+    [class*="c-header__upper-"]:has(.c-nav--extended-dropdown),
+    [class*="c-header__lower-"]:has(.c-nav--extended-dropdown) {
+        position: static;
+    }
+
     &.c-header--logotype-scroll-shrink {
         --municipio-header-logo-overlap-multiplier: 0.25;
         --municipio-header-logo-scroll-expanded-height: var(--c-header--logotype-height-max, var(--c-header--logotype-height));
