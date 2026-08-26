@@ -13,12 +13,18 @@ use WpService\WpService;
 class LegacyPluginConflictGuard
 {
     private const LEGACY_SEARCH_PAGE_PLUGIN = 'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php';
+    private const LEGACY_ATTACHMENT_PLUGINS = [
+        'algolia-index-attachments/algolia-add-attachment-to-index.php',
+        'algolia-add-attachment-to-index/algolia-add-attachment-to-index.php',
+        'algolia-add-attachment-to-index.php',
+    ];
 
     private const LEGACY_PLUGINS = [
         'algolia-index/algolia-index.php',
         'algolia-index-typesense-provider/algolia-index-typesense-provider.php',
         self::LEGACY_SEARCH_PAGE_PLUGIN,
         'algolia-index-modularity-addon/algolia-index-modularity-addon.php',
+        ...self::LEGACY_ATTACHMENT_PLUGINS,
     ];
 
     public function __construct(private WpService $wpService) {}
@@ -39,6 +45,10 @@ class LegacyPluginConflictGuard
 
         if (in_array(self::LEGACY_SEARCH_PAGE_PLUGIN, $activePlugins, true)) {
             $this->wpService->updateOption(LegacySearchPageActivationMigration::LEGACY_ACTIVATION_OPTION, true, false);
+        }
+
+        if (array_intersect(self::LEGACY_ATTACHMENT_PLUGINS, $activePlugins) !== []) {
+            $this->wpService->updateOption(LegacySettingsMigration::LEGACY_ATTACHMENT_ACTIVATION_OPTION, true, false);
         }
 
         $this->wpService->deactivatePlugins($activePlugins, false, null);

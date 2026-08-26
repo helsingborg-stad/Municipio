@@ -94,4 +94,19 @@ class UpgradeTest extends TestCase
         static::assertSame('search_index_search_page_enabled', $acfService->methodCalls['updateField'][0][0]);
         static::assertTrue($acfService->methodCalls['updateField'][0][1]);
     }
+
+    #[TestDox('v_61 enables legacy PDF attachment indexing')]
+    public function testV61(): void
+    {
+        $acfService = new FakeAcfService(['getField' => false, 'updateField' => true]);
+        $wpService = new FakeWpService([
+            'addAction' => true,
+            'getOption' => true,
+            'updateOption' => true,
+        ]);
+        $upgrade = new Upgrade($wpService, $acfService);
+
+        static::assertTrue($upgrade->v_61());
+        static::assertSame(['application/pdf'], $acfService->methodCalls['updateField'][0][1]);
+    }
 }

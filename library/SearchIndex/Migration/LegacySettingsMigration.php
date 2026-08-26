@@ -15,6 +15,7 @@ use WpService\Contracts\UpdateOption;
 class LegacySettingsMigration
 {
     private const MIGRATION_OPTION = 'municipio_search_index_legacy_settings_migrated';
+    public const LEGACY_ATTACHMENT_ACTIVATION_OPTION = 'municipio_search_index_legacy_attachments_was_active';
 
     public function __construct(
         private GetOption&UpdateOption $wpService,
@@ -37,6 +38,23 @@ class LegacySettingsMigration
         $this->migrateProvider($fieldMigrator);
 
         $this->wpService->updateOption(self::MIGRATION_OPTION, true, false);
+    }
+
+    /**
+     * Preserve the legacy attachment add-on's PDF whitelist.
+     */
+    public function migrateAttachmentActivation(): void
+    {
+        if (!$this->wpService->getOption(self::LEGACY_ATTACHMENT_ACTIVATION_OPTION, false)) {
+            return;
+        }
+
+        $currentMimeTypes = $this->acfService->getField('search_index_attachment_mime_types', 'option');
+        if (is_array($currentMimeTypes) && $currentMimeTypes !== []) {
+            return;
+        }
+
+        $this->acfService->updateField('search_index_attachment_mime_types', ['application/pdf'], 'option');
     }
 
     /**

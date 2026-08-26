@@ -30,6 +30,7 @@ class PostIndexer
         $this->wpService->addAction('delete_post', [$this, 'delete'], 999);
         $this->wpService->addAction('wp_trash_post', [$this, 'delete'], 999);
         $this->wpService->addAction('Municipio/SearchIndex/IndexPostId', [$this, 'index'], 999);
+        $this->wpService->addAction('Municipio/SearchIndex/DeletePostId', [$this, 'delete'], 999);
     }
 
     /**

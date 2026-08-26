@@ -87,4 +87,27 @@ class LegacySettingsMigrationTest extends TestCase
         static::assertSame('algolia', $values['search_index_provider']);
         static::assertSame('legacy-content', $values['search_index_algolia_index_name']);
     }
+
+    public function testMigratesLegacyAttachmentActivationToPdf(): void
+    {
+        $acfService = new FakeAcfService(['getField' => false, 'updateField' => true]);
+        $wpService = new FakeWpService([
+            'getOption' => static fn(string $option, mixed $default): mixed => $option === LegacySettingsMigration::LEGACY_ATTACHMENT_ACTIVATION_OPTION ? true : $default,
+            'updateOption' => true,
+        ]);
+
+        (new LegacySettingsMigration($wpService, $acfService))->migrateAttachmentActivation();
+
+        static::assertSame(['application/pdf'], $acfService->methodCalls['updateField'][0][1]);
+    }
+
+    public function testPreservesCurrentAttachmentMimeTypes(): void
+    {
+        $acfService = new FakeAcfService(['getField' => ['text/plain'], 'updateField' => true]);
+        $wpService = new FakeWpService(['getOption' => true, 'updateOption' => true]);
+
+        (new LegacySettingsMigration($wpService, $acfService))->migrateAttachmentActivation();
+
+        static::assertArrayNotHasKey('updateField', $acfService->methodCalls);
+    }
 }

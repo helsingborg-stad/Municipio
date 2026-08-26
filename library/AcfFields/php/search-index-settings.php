@@ -24,6 +24,17 @@ if (function_exists('acf_add_local_field_group')) {
             'default_value' => 0,
             'ui' => 1,
         ], [
+            'key' => 'field_municipio_search_index_attachment_mime_types',
+            'label' => __('Indexed File Types', 'municipio'),
+            'name' => 'search_index_attachment_mime_types',
+            'type' => 'select',
+            'instructions' => __('Select the media-library file types that should appear in search results. Leave empty to exclude attachments.', 'municipio'),
+            'choices' => [],
+            'multiple' => 1,
+            'ui' => 1,
+            'allow_null' => 1,
+            'return_format' => 'value',
+        ], [
             'key' => 'field_municipio_search_index_algolia_application_id',
             'label' => __('Algolia Application ID', 'municipio'),
             'name' => 'search_index_algolia_application_id',

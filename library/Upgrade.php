@@ -37,7 +37,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 60; //The db version we want to achive
+    private $dbVersion = 61; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1127,6 +1127,25 @@ class Upgrade
                 $this->wpService,
                 $this->acfService,
             ))->migrate();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 61: Preserve legacy PDF attachment indexing.
+     */
+    public function v_61(): bool
+    {
+        try {
+            $migration = new \Municipio\SearchIndex\Migration\LegacySettingsMigration(
+                $this->wpService,
+                $this->acfService,
+            );
+            call_user_func([$migration, 'migrateAttachmentActivation']);
         } catch (\Exception $exception) {
             error_log($exception->getMessage());
             return false;

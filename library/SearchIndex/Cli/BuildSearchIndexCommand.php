@@ -69,6 +69,7 @@ class BuildSearchIndexCommand
         foreach ($this->getIndexablePostTypes() as $postType) {
             foreach ($this->wpService->getPosts([
                 'post_type' => $postType,
+                'post_status' => $this->wpService->applyFilters('Municipio/SearchIndex/IndexablePostStatuses', ['publish']),
                 'numberposts' => -1,
                 'suppress_filters' => false,
             ]) as $post) {

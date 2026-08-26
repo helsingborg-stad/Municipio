@@ -65,6 +65,10 @@ class SearchIndexFeature
 
         $provider = $providerFactory->create();
         (new Index\PostIndexer($this->wpService, $provider))->addHooks();
+
+        $attachmentConfig = new Attachment\AttachmentConfig($this->acfService);
+        (new Attachment\AttachmentFeature($this->wpService, $attachmentConfig))->addHooks();
+
         (new Search\SearchQuery($this->wpService, $provider))->addHooks();
 
         if ((new SearchPage\SearchPageConfig($this->acfService))->isEnabled()) {

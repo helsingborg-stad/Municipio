@@ -33,6 +33,7 @@ class SearchIndexSettings
         $this->wpService->addAction('acf/input/admin_head', [$this, 'registerDescriptionMetaBox']);
         $this->wpService->addAction('acf/save_post', [$this, 'sendProviderSettings'], 20);
         $this->wpService->addFilter('acf/load_field/name=search_index_provider', [$this, 'addProviderChoices']);
+        $this->wpService->addFilter('acf/load_field/name=search_index_attachment_mime_types', [$this, 'addAttachmentMimeTypeChoices']);
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
     }
 
@@ -86,6 +87,27 @@ class SearchIndexSettings
             $field['choices'][$provider] = ucfirst($provider);
         }
 
+        return $field;
+    }
+
+    /**
+     * Add allowed media-library file types to the attachment indexing setting.
+     */
+    public function addAttachmentMimeTypeChoices(array $field): array
+    {
+        $choices = [];
+
+        foreach ($this->wpService->getAllowedMimeTypes() as $extensions => $mimeType) {
+            if (!is_string($extensions) || !is_string($mimeType) || array_key_exists($mimeType, $choices)) {
+                continue;
+            }
+
+            $extensionLabel = strtoupper(str_replace('|', ', ', $extensions));
+            $choices[$mimeType] = sprintf('%s (%s)', $extensionLabel, $mimeType);
+        }
+
+        asort($choices);
+        $field['choices'] = $choices;
         return $field;
     }
 

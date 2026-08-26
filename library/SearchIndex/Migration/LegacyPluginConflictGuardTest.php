@@ -22,6 +22,7 @@ class LegacyPluginConflictGuardTest extends TestCase
                 'algolia-index/algolia-index.php',
                 'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php',
                 'algolia-index-modularity-addon/algolia-index-modularity-addon.php',
+                'algolia-index-attachments/algolia-add-attachment-to-index.php',
             ], true),
             'isPluginActiveForNetwork' => false,
             'deactivatePlugins' => null,
@@ -36,8 +37,10 @@ class LegacyPluginConflictGuardTest extends TestCase
             'algolia-index/algolia-index.php',
             'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php',
             'algolia-index-modularity-addon/algolia-index-modularity-addon.php',
+            'algolia-index-attachments/algolia-add-attachment-to-index.php',
         ], $wpService->methodCalls['deactivatePlugins'][0][0]);
         static::assertSame('municipio_search_index_legacy_search_page_was_active', $wpService->methodCalls['updateOption'][0][0]);
+        static::assertSame('municipio_search_index_legacy_attachments_was_active', $wpService->methodCalls['updateOption'][1][0]);
         static::assertSame('admin_notices', $wpService->methodCalls['addAction'][0][0]);
     }
 
