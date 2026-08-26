@@ -9,6 +9,7 @@ use AcfService\Contracts\GetField;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use Municipio\SearchIndex\Provider\SearchProviderFactory;
 use WpService\WpService;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /**
  * Enables indexing and querying content through the configured search provider.
@@ -18,6 +19,7 @@ class SearchIndexFeature
     public function __construct(
         private WpService $wpService,
         private GetField&AddOptionsPage $acfService,
+        private EnqueueManagerInterface $enqueue,
     ) {}
 
     /**
@@ -64,5 +66,9 @@ class SearchIndexFeature
         $provider = $providerFactory->create();
         (new Index\PostIndexer($this->wpService, $provider))->addHooks();
         (new Search\SearchQuery($this->wpService, $provider))->addHooks();
+
+        if ((new SearchPage\SearchPageConfig($this->acfService))->isEnabled()) {
+            (new SearchPage\SearchPageFeature($this->wpService, $this->enqueue, $config))->addHooks();
+        }
     }
 }

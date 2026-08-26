@@ -1929,7 +1929,7 @@ msgstr "Kortet med extra info är inaktiverat som standard"
 #: library/AcfFields/php/options-login-logout.php:26
 #: library/AcfFields/php/options-login-redirect.php:26
 #: library/AcfFields/php/options-theme-features.php:26
-#: library/AcfFields/php/search-index-settings.php:140
+#: library/AcfFields/php/search-index-settings.php:148
 #: library/Customizer/Sections/Component/Divider.php:72
 #: library/Customizer/Sections/Menu/Behaviour.php:41
 #: library/Customizer/Sections/Menu/Behaviour.php:57
@@ -4705,17 +4705,17 @@ msgstr "Posttyp moduler"
 msgid "The database may need to be updated to accomodate new datatastructures. Run wp-cli \"modularity upgrade\" to upgrade."
 msgstr "Databasen kan behöva uppdateras för att anpassas till nya datastrukturer. Kör wp-cli ”modularity upgrade” för att uppgradera."
 
-#: library/Upgrade.php:1341
+#: library/Upgrade.php:1359
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:1345
+#: library/Upgrade.php:1363
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:1350
+#: library/Upgrade.php:1368
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr "Databasversionen som ska uppnås, kan inte vara lägre än den version som är sparad (kan inte nedgradera databasen)."
@@ -4895,7 +4895,7 @@ msgstr "Lägg till ny brist"
 #: library/AcfFields/php/a11y-statement.php:193
 #: library/AcfFields/php/block-button.php:24
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:33
-#: library/AcfFields/php/search-index-settings.php:135
+#: library/AcfFields/php/search-index-settings.php:143
 msgid "Label"
 msgstr "Etikett"
 
@@ -8077,6 +8077,7 @@ msgid "Display a link to Google Maps on each marker on the map?"
 msgstr "Visa en länk till Google Maps på varje markör på kartan?"
 
 #: library/Customizer/Sections/Archive.php:222
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:38
 msgid "Filters"
 msgstr "Filtrering"
 
@@ -12911,75 +12912,75 @@ msgstr "Sökleverantör"
 msgid "Algolia"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:20
+#: library/AcfFields/php/search-index-settings.php:28
 msgid "Algolia Application ID"
 msgstr "Algolia Application ID"
 
-#: library/AcfFields/php/search-index-settings.php:23
+#: library/AcfFields/php/search-index-settings.php:31
 msgid "May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
 msgstr "Kan åsidosättas av SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
 
-#: library/AcfFields/php/search-index-settings.php:42
+#: library/AcfFields/php/search-index-settings.php:50
 msgid "Algolia API Key"
 msgstr "Algolia API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:45
+#: library/AcfFields/php/search-index-settings.php:53
 msgid "May be overridden by SEARCH_INDEX_ALGOLIA_API_KEY."
 msgstr "Kan åsidosättas av SEARCH_INDEX_ALGOLIA_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:53
+#: library/AcfFields/php/search-index-settings.php:61
 msgid "Algolia Public API Key"
 msgstr "Publik Algolia API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:56
+#: library/AcfFields/php/search-index-settings.php:64
 msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY."
 msgstr "Valfri nyckel för webbläsarsökning. Kan åsidosättas av SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:64
+#: library/AcfFields/php/search-index-settings.php:72
 msgid "Typesense API URL"
 msgstr "Typesense API URL"
 
-#: library/AcfFields/php/search-index-settings.php:67
+#: library/AcfFields/php/search-index-settings.php:75
 msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_URL."
 msgstr "Kan åsidosättas av SEARCH_INDEX_TYPESENSE_API_URL."
 
-#: library/AcfFields/php/search-index-settings.php:75
+#: library/AcfFields/php/search-index-settings.php:83
 msgid "Typesense API Key"
 msgstr "Typesense API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:78
+#: library/AcfFields/php/search-index-settings.php:86
 msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_KEY."
 msgstr "Kan åsidosättas av SEARCH_INDEX_TYPESENSE_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:86
+#: library/AcfFields/php/search-index-settings.php:94
 msgid "Typesense Public API Key"
 msgstr "Publik Typesense API-nyckel"
 
-#: library/AcfFields/php/search-index-settings.php:89
+#: library/AcfFields/php/search-index-settings.php:97
 msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY."
 msgstr "Valfri nyckel för webbläsarsökning. Kan åsidosättas av SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY."
 
-#: library/AcfFields/php/search-index-settings.php:97
+#: library/AcfFields/php/search-index-settings.php:105
 msgid "Typesense Collection Name"
 msgstr "Typesense Collection-namn"
 
-#: library/AcfFields/php/search-index-settings.php:119
+#: library/AcfFields/php/search-index-settings.php:127
 msgid "Search Facets"
 msgstr "Sökfilter"
 
-#: library/AcfFields/php/search-index-settings.php:122
+#: library/AcfFields/php/search-index-settings.php:130
 msgid "Facets"
 msgstr "Filter"
 
-#: library/AcfFields/php/search-index-settings.php:125
+#: library/AcfFields/php/search-index-settings.php:133
 msgid "Configure the provider facet attributes available to search UI integrations."
 msgstr "Konfigurera de facet-attribut som är tillgängliga för sökgränssnittets integrationer."
 
-#: library/AcfFields/php/search-index-settings.php:127
+#: library/AcfFields/php/search-index-settings.php:135
 msgid "Add Facet"
 msgstr "Lägg till filter"
 
-#: library/AcfFields/php/search-index-settings.php:130
+#: library/AcfFields/php/search-index-settings.php:138
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -13216,10 +13217,6 @@ msgstr ""
 msgid "Search Index"
 msgstr "Sökindex"
 
-#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:46
-msgid "The legacy Algolia Index and Typesense Provider plugins were deactivated because Municipio Search Index now provides this functionality."
-msgstr "De äldre Algolia Index och Typesense Provider plugins har inaktiverats eftersom Municipio Search Index nu tillhandahåller denna funktionalitet."
-
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Newsitem"
 msgstr ""
@@ -13248,15 +13245,15 @@ msgstr ""
 msgid "Remove Image"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:31
+#: library/AcfFields/php/search-index-settings.php:39
 msgid "Algolia Index Name"
 msgstr "Algolia Index-namn"
 
-#: library/AcfFields/php/search-index-settings.php:34
+#: library/AcfFields/php/search-index-settings.php:42
 msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_ALGOLIA_INDEX_NAME."
 msgstr "Använder webbplatsens hostnamn när det är tomt. Kan åsidosättas av SEARCH_INDEX_ALGOLIA_INDEX_NAME."
 
-#: library/AcfFields/php/search-index-settings.php:100
+#: library/AcfFields/php/search-index-settings.php:108
 msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
 msgstr "Använder webbplatsens hostnamn när det är tomt. Kan åsidosättas av SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
 
@@ -13267,3 +13264,32 @@ msgstr "Om Sökindex"
 #: library/SearchIndex/Admin/SearchIndexSettings.php:77
 msgid "Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run"
 msgstr "Sökindex håller din webbplatssökning uppdaterad genom den valda sökleverantören när du publicerar, uppdaterar eller tar bort innehåll. För att uppdatera alla sökresultat på en gång, kör"
+
+#: library/AcfFields/php/search-index-settings.php:20
+msgid "Interactive Search Page"
+msgstr "Interaktiv söksida"
+
+#: library/AcfFields/php/search-index-settings.php:23
+msgid "Replace the standard search results with an interactive page that updates results as visitors search and filter."
+msgstr "Ersätt standardresultatsidan med en interaktiv sida som uppdaterar resultaten när besökare söker och filtrerar."
+
+#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:54
+msgid "Legacy search index plugins were deactivated because Municipio Search Index now provides this functionality."
+msgstr "Äldre sökindex-plugins inaktiverades eftersom Municipio Search Index nu tillhandahåller denna funktionalitet."
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:34
+msgid "What are you looking for?"
+msgstr "Vad letar du efter?"
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:35
+msgid "No search results found."
+msgstr "Inga sökresultat hittades."
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:36
+#, php-format
+msgid "%s search results found."
+msgstr "%s sökresultat hittades."
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:37
+msgid "No filters are available for this search."
+msgstr "Inget filter är tillgängligt för denna sökning."

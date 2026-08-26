@@ -7,6 +7,7 @@ namespace Municipio\SearchIndex;
 use AcfService\Implementations\FakeAcfService;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 /**
  * Tests SearchIndex initialization relative to the ACF lifecycle.
@@ -19,7 +20,11 @@ class SearchIndexFeatureTest extends TestCase
     public function testDefersInitializationUntilAcfInit(): void
     {
         $wpService = $this->createWpService(0);
-        $feature = new SearchIndexFeature($wpService, new FakeAcfService(['getField' => false]));
+        $feature = new SearchIndexFeature(
+            $wpService,
+            new FakeAcfService(['getField' => false]),
+            new EnqueueManager($wpService),
+        );
 
         $feature->enable();
 
@@ -33,7 +38,11 @@ class SearchIndexFeatureTest extends TestCase
     public function testInitializesImmediatelyAfterAcfInit(): void
     {
         $wpService = $this->createWpService(1);
-        $feature = new SearchIndexFeature($wpService, new FakeAcfService(['getField' => false]));
+        $feature = new SearchIndexFeature(
+            $wpService,
+            new FakeAcfService(['getField' => false]),
+            new EnqueueManager($wpService),
+        );
 
         $feature->enable();
 

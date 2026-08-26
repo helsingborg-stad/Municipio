@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-25T10:11:27+00:00\n"
+"POT-Creation-Date: 2026-08-26T07:09:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -207,7 +207,7 @@ msgstr ""
 #: library/AcfFields/php/a11y-statement.php:193
 #: library/AcfFields/php/block-button.php:24
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:33
-#: library/AcfFields/php/search-index-settings.php:135
+#: library/AcfFields/php/search-index-settings.php:143
 msgid "Label"
 msgstr ""
 
@@ -1082,7 +1082,7 @@ msgstr ""
 #: library/AcfFields/php/options-login-logout.php:26
 #: library/AcfFields/php/options-login-redirect.php:26
 #: library/AcfFields/php/options-theme-features.php:26
-#: library/AcfFields/php/search-index-settings.php:140
+#: library/AcfFields/php/search-index-settings.php:148
 #: library/Customizer/Sections/Component/Divider.php:72
 #: library/Customizer/Sections/Menu/Behaviour.php:41
 #: library/Customizer/Sections/Menu/Behaviour.php:57
@@ -2575,86 +2575,94 @@ msgid "Algolia"
 msgstr ""
 
 #: library/AcfFields/php/search-index-settings.php:20
-msgid "Algolia Application ID"
+msgid "Interactive Search Page"
 msgstr ""
 
 #: library/AcfFields/php/search-index-settings.php:23
-msgid "May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
+msgid "Replace the standard search results with an interactive page that updates results as visitors search and filter."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:28
+msgid "Algolia Application ID"
 msgstr ""
 
 #: library/AcfFields/php/search-index-settings.php:31
+msgid "May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:39
 msgid "Algolia Index Name"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:34
+#: library/AcfFields/php/search-index-settings.php:42
 msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_ALGOLIA_INDEX_NAME."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:42
+#: library/AcfFields/php/search-index-settings.php:50
 msgid "Algolia API Key"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:45
+#: library/AcfFields/php/search-index-settings.php:53
 msgid "May be overridden by SEARCH_INDEX_ALGOLIA_API_KEY."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:53
+#: library/AcfFields/php/search-index-settings.php:61
 msgid "Algolia Public API Key"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:56
+#: library/AcfFields/php/search-index-settings.php:64
 msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:64
+#: library/AcfFields/php/search-index-settings.php:72
 msgid "Typesense API URL"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:67
+#: library/AcfFields/php/search-index-settings.php:75
 msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_URL."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:75
+#: library/AcfFields/php/search-index-settings.php:83
 msgid "Typesense API Key"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:78
+#: library/AcfFields/php/search-index-settings.php:86
 msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_KEY."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:86
+#: library/AcfFields/php/search-index-settings.php:94
 msgid "Typesense Public API Key"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:89
+#: library/AcfFields/php/search-index-settings.php:97
 msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:97
+#: library/AcfFields/php/search-index-settings.php:105
 msgid "Typesense Collection Name"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:100
+#: library/AcfFields/php/search-index-settings.php:108
 msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:119
+#: library/AcfFields/php/search-index-settings.php:127
 msgid "Search Facets"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:122
+#: library/AcfFields/php/search-index-settings.php:130
 msgid "Facets"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:125
+#: library/AcfFields/php/search-index-settings.php:133
 msgid "Configure the provider facet attributes available to search UI integrations."
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:127
+#: library/AcfFields/php/search-index-settings.php:135
 msgid "Add Facet"
 msgstr ""
 
-#: library/AcfFields/php/search-index-settings.php:130
+#: library/AcfFields/php/search-index-settings.php:138
 msgid "Attribute"
 msgstr ""
 
@@ -4380,6 +4388,7 @@ msgid "Display a link to Google Maps on each marker on the map?"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:222
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:38
 msgid "Filters"
 msgstr ""
 
@@ -6433,8 +6442,25 @@ msgstr ""
 msgid "Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run"
 msgstr ""
 
-#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:46
-msgid "The legacy Algolia Index and Typesense Provider plugins were deactivated because Municipio Search Index now provides this functionality."
+#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:54
+msgid "Legacy search index plugins were deactivated because Municipio Search Index now provides this functionality."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:34
+msgid "What are you looking for?"
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:35
+msgid "No search results found."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:36
+#, php-format
+msgid "%s search results found."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:37
+msgid "No filters are available for this search."
 msgstr ""
 
 #: library/StickyPost/AddStickyCheckboxForPost.php:136
@@ -9314,17 +9340,17 @@ msgstr ""
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: library/Upgrade.php:1341
+#: library/Upgrade.php:1359
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1345
+#: library/Upgrade.php:1363
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1350
+#: library/Upgrade.php:1368
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""

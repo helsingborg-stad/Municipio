@@ -86,6 +86,11 @@ const entries = {
 	"js/chat": "./library/Chat/js/index.ts",
 	"css/chat": "./library/Chat/css/chat.scss",
 
+	/* Search Index */
+	"js/search-index-search-page": "./library/SearchIndex/SearchPage/js/index.ts",
+	"css/search-index-search-page":
+		"./library/SearchIndex/SearchPage/css/search-page.scss",
+
 	/* Admin js */
 	"js/color-picker": "./assets/source/js/admin/colorPicker.js",
 	"js/design-share": "./assets/source/js/admin/designShare.ts",

@@ -78,4 +78,20 @@ class UpgradeTest extends TestCase
         static::assertTrue($upgrade->v_59());
         static::assertSame('existing-index-name', $values['search_index_algolia_index_name']);
     }
+
+    #[TestDox('v_60 enables SearchPage when the legacy add-on was active')]
+    public function testV60(): void
+    {
+        $acfService = new FakeAcfService(['updateField' => true]);
+        $wpService = new FakeWpService([
+            'addAction' => true,
+            'getOption' => true,
+            'updateOption' => true,
+        ]);
+        $upgrade = new Upgrade($wpService, $acfService);
+
+        static::assertTrue($upgrade->v_60());
+        static::assertSame('search_index_search_page_enabled', $acfService->methodCalls['updateField'][0][0]);
+        static::assertTrue($acfService->methodCalls['updateField'][0][1]);
+    }
 }

@@ -22,8 +22,9 @@ class BlockAttributesToGetPostsConfigMapper
             'include' => $term['terms'] ?? [],
         ]), $attributes['terms'] ?? []);
 
-        // flatten terms array
-        $terms = array_reduce($terms, \array_merge(...), []);
+        // Ignore failed term queries before flattening the results.
+        $terms = array_filter($terms, static fn($result): bool => is_array($result));
+        $terms = array_reduce($terms, static fn(array $carry, array $result): array => array_merge($carry, $result), []);
         $terms = array_filter($terms, static fn($item) => is_a($item, \WP_Term::class));
         $order = $attributes['order'] === 'desc' ? OrderDirection::DESC : OrderDirection::ASC;
         $postsPerPage = (int) ($attributes['postsPerPage'] ?? 12);

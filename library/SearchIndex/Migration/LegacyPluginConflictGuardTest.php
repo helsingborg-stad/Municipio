@@ -18,16 +18,24 @@ class LegacyPluginConflictGuardTest extends TestCase
     public function testDeactivatesActiveLegacyPlugins(): void
     {
         $wpService = new FakeWpService([
-            'isPluginActive' => static fn(string $plugin): bool => $plugin === 'algolia-index/algolia-index.php',
+            'isPluginActive' => static fn(string $plugin): bool => in_array($plugin, [
+                'algolia-index/algolia-index.php',
+                'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php',
+            ], true),
             'isPluginActiveForNetwork' => false,
             'deactivatePlugins' => null,
             'addAction' => true,
+            'updateOption' => true,
         ]);
 
         $wasDeactivated = (new LegacyPluginConflictGuard($wpService))->deactivateConflictingPlugins();
 
         static::assertTrue($wasDeactivated);
-        static::assertSame(['algolia-index/algolia-index.php'], $wpService->methodCalls['deactivatePlugins'][0][0]);
+        static::assertSame([
+            'algolia-index/algolia-index.php',
+            'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php',
+        ], $wpService->methodCalls['deactivatePlugins'][0][0]);
+        static::assertSame('municipio_search_index_legacy_search_page_was_active', $wpService->methodCalls['updateOption'][0][0]);
         static::assertSame('admin_notices', $wpService->methodCalls['addAction'][0][0]);
     }
 

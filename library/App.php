@@ -151,7 +151,11 @@ class App
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
-        (new \Municipio\SearchIndex\SearchIndexFeature($this->wpService, $this->acfService))->enable();
+        (new \Municipio\SearchIndex\SearchIndexFeature(
+            $this->wpService,
+            $this->acfService,
+            $this->wpUtilService->enqueue(),
+        ))->enable();
 
         /**
          * Content

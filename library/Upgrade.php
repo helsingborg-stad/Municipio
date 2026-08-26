@@ -37,7 +37,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 59; //The db version we want to achive
+    private $dbVersion = 60; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1109,6 +1109,24 @@ class Upgrade
     {
         try {
             (new \Municipio\SearchIndex\Migration\MigrateSharedIndexNameToAlgoliaIndexName($this->acfService))->migrate();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 60: Enable SearchPage when the replaced add-on was active.
+     */
+    public function v_60(): bool
+    {
+        try {
+            (new \Municipio\SearchIndex\SearchPage\Migration\LegacySearchPageActivationMigration(
+                $this->wpService,
+                $this->acfService,
+            ))->migrate();
         } catch (\Exception $exception) {
             error_log($exception->getMessage());
             return false;

@@ -16,6 +16,14 @@ if (function_exists('acf_add_local_field_group')) {
             'return_format' => 'value',
             'allow_null' => 0,
         ], [
+            'key' => 'field_municipio_search_index_search_page_enabled',
+            'label' => __('Interactive Search Page', 'municipio'),
+            'name' => 'search_index_search_page_enabled',
+            'type' => 'true_false',
+            'instructions' => __('Replace the standard search results with an interactive page that updates results as visitors search and filter.', 'municipio'),
+            'default_value' => 0,
+            'ui' => 1,
+        ], [
             'key' => 'field_municipio_search_index_algolia_application_id',
             'label' => __('Algolia Application ID', 'municipio'),
             'name' => 'search_index_algolia_application_id',
