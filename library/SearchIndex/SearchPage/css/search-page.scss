@@ -13,16 +13,16 @@
 	flex: 1;
 	min-width: 0;
 	padding: calc(var(--base, 8px) * 1.5);
-	border: 1px solid var(--color-border, #d5d8dc);
-	border-radius: var(--radius-xs, 2px);
+	border: 1px solid var(--color--surface-border, #d5d8dc);
+	border-radius: var(--border-radius-md, 4px);
 	font: inherit;
 }
 
 .search-index-page__filter-toggle,
 .search-index-page__pagination button {
 	padding: calc(var(--base, 8px) * 1) calc(var(--base, 8px) * 1.5);
-	border: 1px solid var(--color-border, #d5d8dc);
-	background: var(--color-background-card, #fff);
+	border: 1px solid var(--color--surface-border, #d5d8dc);
+	background: var(--color--surface, #fff);
 	color: inherit;
 	cursor: pointer;
 }
@@ -35,8 +35,8 @@
 
 .search-index-page__facets {
 	align-self: start;
-	border: 1px solid var(--color-border, #d5d8dc);
-	background: var(--color-background-card, #fff);
+	border: 1px solid var(--color--surface-border, #d5d8dc);
+	background: var(--color--surface, #fff);
 }
 
 .search-index-page__facet {
@@ -45,7 +45,7 @@
 	margin: 0;
 	padding: var(--search-index-gap);
 	border: 0;
-	border-bottom: 1px solid var(--color-border, #d5d8dc);
+	border-bottom: 1px solid var(--color--surface-border, #d5d8dc);
 }
 
 .search-index-page__facet legend {
@@ -63,8 +63,8 @@
 	grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
 	gap: var(--search-index-gap);
 	padding: var(--search-index-gap);
-	border: 1px solid var(--color-border, #d5d8dc);
-	background: var(--color-background-card, #fff);
+	border: 1px solid var(--color--surface-border, #d5d8dc);
+	background: var(--color--surface, #fff);
 }
 
 .search-index-page__image {
@@ -80,7 +80,7 @@
 
 .search-index-page__meta,
 .search-index-page__stats {
-	color: var(--color-text-muted, #666);
+	color: var(--color--surface-contrast-muted, #666);
 }
 
 .search-index-page__pagination {
@@ -91,8 +91,8 @@
 }
 
 .search-index-page__pagination button[aria-current="true"] {
-	background: var(--color-primary, #005a87);
-	color: var(--color-primary-contrasting, #fff);
+	background: var(--color--primary, #005a87);
+	color: var(--color--primary-contrast, #fff);
 }
 
 @media (min-width: 56em) {
