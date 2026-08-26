@@ -68,6 +68,7 @@ class App
         new CachePurge();
 
         new Search();
+        new \Modularity\SearchIndex();
 
         new Language();
 

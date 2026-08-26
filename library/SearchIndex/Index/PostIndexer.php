@@ -136,13 +136,15 @@ class PostIndexer
         $thumbnailId = $this->wpService->getPostThumbnailId($post);
         $thumbnail = $thumbnailId ? get_the_post_thumbnail_url($post, [480, 270]) : '';
         $permalink = $this->wpService->getPostPermalink($post);
+        $content = $this->sanitizeText($this->wpService->applyFilters('the_content', $post->post_content));
+        $content = $this->wpService->applyFilters('Municipio/SearchIndex/Record/Content', $content, $post->ID);
 
         $record = [
             'uuid' => $this->createRecordId($post->ID),
             'ID' => (string) $post->ID,
             'post_title' => $this->sanitizeText($this->wpService->applyFilters('the_title', $post->post_title)),
             'post_excerpt' => $this->createExcerpt($post),
-            'content' => $this->sanitizeText($this->wpService->applyFilters('the_content', $post->post_content)),
+            'content' => is_string($content) ? $content : '',
             'permalink' => is_string($permalink) ? $permalink : '',
             'post_date' => strtotime($post->post_date),
             'post_date_formatted' => date((string) $this->wpService->getOption('date_format'), strtotime($post->post_date)),

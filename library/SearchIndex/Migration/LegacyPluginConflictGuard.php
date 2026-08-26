@@ -18,6 +18,7 @@ class LegacyPluginConflictGuard
         'algolia-index/algolia-index.php',
         'algolia-index-typesense-provider/algolia-index-typesense-provider.php',
         self::LEGACY_SEARCH_PAGE_PLUGIN,
+        'algolia-index-modularity-addon/algolia-index-modularity-addon.php',
     ];
 
     public function __construct(private WpService $wpService) {}

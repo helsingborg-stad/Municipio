@@ -21,6 +21,7 @@ class LegacyPluginConflictGuardTest extends TestCase
             'isPluginActive' => static fn(string $plugin): bool => in_array($plugin, [
                 'algolia-index/algolia-index.php',
                 'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php',
+                'algolia-index-modularity-addon/algolia-index-modularity-addon.php',
             ], true),
             'isPluginActiveForNetwork' => false,
             'deactivatePlugins' => null,
@@ -34,6 +35,7 @@ class LegacyPluginConflictGuardTest extends TestCase
         static::assertSame([
             'algolia-index/algolia-index.php',
             'algolia-index-js-searchpage-addon/algolia-index-js-searchpage.php',
+            'algolia-index-modularity-addon/algolia-index-modularity-addon.php',
         ], $wpService->methodCalls['deactivatePlugins'][0][0]);
         static::assertSame('municipio_search_index_legacy_search_page_was_active', $wpService->methodCalls['updateOption'][0][0]);
         static::assertSame('admin_notices', $wpService->methodCalls['addAction'][0][0]);
