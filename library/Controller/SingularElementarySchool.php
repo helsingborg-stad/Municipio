@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Controller;
 
 /**
@@ -38,7 +41,7 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             $this->data[$key] = $generator->generate();
         }
 
-        $this->data['embedVideo'] = function ($url) {
+        $this->data['embedVideo'] = static function ($url) {
             global $wp_embed;
             return $wp_embed->run_shortcode('[embed]' . esc_url($url) . '[/embed]');
         };
