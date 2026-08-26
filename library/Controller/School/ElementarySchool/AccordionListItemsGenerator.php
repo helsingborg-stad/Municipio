@@ -3,6 +3,7 @@
 namespace Municipio\Controller\School\ElementarySchool;
 
 use Municipio\Controller\School\ViewDataGeneratorInterface;
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\TextObject;
 use WpService\Contracts\ApplyFilters;
@@ -20,28 +21,31 @@ class AccordionListItemsGenerator implements ViewDataGeneratorInterface
         return $this->getAccordionListItems($this->elementarySchool->getProperty('description'));
     }
 
+    private static function isTextObjectValidForUseAsAccordionItem(TextObject $textObject): bool
+    {
+        $name = $textObject->getProperty('name');
+        $headline = $textObject->getProperty('headline');
+        $text = $textObject->getProperty('text');
+
+        return !in_array($name, ['role:preamble', 'role:alert'], true) && !empty($headline) && !empty($text);
+    }
+
     private function getAccordionListItems(array|string|TextObject|null $description): ?array
     {
         if (!is_array($description) || count($description) <= 1) {
             return null;
         }
 
-        $result = [];
+        $description = array_filter(EnsureArrayOf::ensureArrayOf($description, TextObject::class), [static::class, 'isTextObjectValidForUseAsAccordionItem']);
 
-        foreach (array_slice($description, 1) as $item) {
-            if (!$item instanceof TextObject) {
-                continue;
-            }
-
+        return array_map(function (TextObject $item): array {
             $formattedText = !empty($item->getProperty('text')) ? $this->wpService->wpautop($item->getProperty('text')) : null;
             $formattedText = $this->wpService->applyFilters('Municipio\Filters\More', $this->wpService->wpautop($item->getProperty('text')));
 
-            $result[] = [
+            return [
                 'heading' => $item->getProperty('headline'),
                 'content' => $formattedText,
             ];
-        }
-
-        return $result ?: null;
+        }, $description) ?: null;
     }
 }

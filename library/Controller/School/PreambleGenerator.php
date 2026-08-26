@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\School;
 
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\ElementarySchool;
 use Municipio\Schema\Preschool;
 use Municipio\Schema\TextObject;
@@ -20,15 +21,18 @@ class PreambleGenerator
     private function getPreambleFromDescription(array|string|TextObject|null $description): ?string
     {
         if (is_array($description)) {
-            return $this->getPreambleFromDescription($description[0]);
+            return $this->getPreambleFromDescriptionArray(...EnsureArrayOf::ensureArrayOf($description, TextObject::class));
         }
 
-        if (is_string($description)) {
-            return $description;
-        }
+        return null;
+    }
 
-        if ($description instanceof TextObject && is_string($description->getProperty('text'))) {
-            return $description->getProperty('text');
+    private function getPreambleFromDescriptionArray(TextObject ...$description): ?string
+    {
+        foreach ($description as $textObject) {
+            if ($textObject->getProperty('name') === 'role:preamble') {
+                return $textObject->getProperty('text');
+            }
         }
 
         return null;
