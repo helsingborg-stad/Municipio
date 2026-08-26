@@ -42,7 +42,7 @@ class TypesenseProviderTest extends TestCase
             ['ID' => '42', 'post_title' => 'Search result'],
         ], $result['hits']);
         static::assertSame(
-            'https://typesense.example.test/collections/municipio-content/documents/search?q=municipio+search&query_by=post_title%2Cpost_excerpt%2Ccontent&per_page=10',
+            'https://typesense.example.test/collections/municipio-content/documents/search?q=municipio+search&query_by=post_title%2Cpost_excerpt%2Ccontent&page=1&per_page=20',
             $requestedUrl,
         );
     }

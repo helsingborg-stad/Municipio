@@ -9841,7 +9841,7 @@ msgid "closed"
 msgstr "stängt"
 
 #: library/Search/Algolia.php:56
-#: library/SearchIndex/Admin/ExcludeFromSearch.php:40
+#: library/SearchIndex/Admin/ExcludeFromSearch.php:42
 msgid "Exclude from search"
 msgstr "Exkludera från sökresultat"
 
@@ -13273,7 +13273,7 @@ msgstr "Interaktiv söksida"
 msgid "Replace the standard search results with an interactive page that updates results as visitors search and filter."
 msgstr "Ersätt standardresultatsidan med en interaktiv sida som uppdaterar resultaten när besökare söker och filtrerar."
 
-#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:65
+#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:72
 msgid "Legacy search index plugins were deactivated because Municipio Search Index now provides this functionality."
 msgstr "Äldre sökindex-plugins inaktiverades eftersom Municipio Search Index nu tillhandahåller denna funktionalitet."
 
@@ -13301,3 +13301,7 @@ msgstr "Indexerade filtyper"
 #: library/AcfFields/php/search-index-settings.php:31
 msgid "Select the media-library file types that should appear in search results. Leave empty to exclude attachments."
 msgstr "Välj de filtyper i mediebiblioteket som ska visas i sökresultaten. Lämna tomt för att utesluta bilagor."
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:39
+msgid "Pagination"
+msgstr "Paginering"

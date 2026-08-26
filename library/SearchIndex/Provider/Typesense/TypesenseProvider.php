@@ -31,6 +31,9 @@ class TypesenseProvider implements SearchProviderInterface
                 ['name' => 'permalink', 'type' => 'string'],
                 ['name' => 'tags', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
                 ['name' => 'categories', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'post_type_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'author_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'top_most_parent', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
                 ['name' => 'origin_site', 'type' => 'string', 'facet' => true],
                 ['name' => '.*', 'type' => 'auto', 'locale' => $locale],
             ]),
@@ -39,18 +42,34 @@ class TypesenseProvider implements SearchProviderInterface
         $response = $this->sendRequest('POST', '/collections', $schema);
 
         if ($response['statusCode'] === 409) {
+            $current = $this->throwOnError($this->sendRequest('GET', sprintf('/collections/%s', rawurlencode($this->collectionName))));
+            $currentFields = array_column($current['fields'] ?? [], null, 'name');
+            $missingFields = array_values(array_filter(
+                $schema['fields'],
+                static fn(array $field): bool => !isset($currentFields[$field['name']]),
+            ));
+
+            if ($missingFields !== []) {
+                return $this->throwOnError($this->sendRequest(
+                    'PATCH',
+                    sprintf('/collections/%s', rawurlencode($this->collectionName)),
+                    ['fields' => $missingFields],
+                ));
+            }
+
             return $response['result'];
         }
 
         return $this->throwOnError($response);
     }
 
-    public function search(string $query): mixed
+    public function search(string $query, int $page = 1, int $pageSize = 20): mixed
     {
         $response = $this->sendRequest('GET', sprintf('/collections/%s/documents/search', rawurlencode($this->collectionName)), [
             'q' => $query,
             'query_by' => 'post_title,post_excerpt,content',
-            'per_page' => 10,
+            'page' => $page,
+            'per_page' => $pageSize,
         ]);
         $result = $this->throwOnError($response);
         $result['hits'] = array_map(static fn(array $hit): array => $hit['document'], $result['hits'] ?? []);

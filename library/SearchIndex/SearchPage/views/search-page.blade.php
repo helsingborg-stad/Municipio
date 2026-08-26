@@ -12,7 +12,7 @@
         <div class="search-index-page__results">
             <p class="search-index-page__stats" data-search-index-stats aria-live="polite"></p>
             <div class="search-index-page__hits" data-search-index-hits aria-live="polite"></div>
-            <nav class="search-index-page__pagination" data-search-index-pagination aria-label="{{ $lang['openFilters'] }}"></nav>
+            <nav class="search-index-page__pagination" data-search-index-pagination aria-label="{{ $lang['pagination'] }}"></nav>
         </div>
     </div>
 

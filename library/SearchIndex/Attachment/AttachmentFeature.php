@@ -60,7 +60,7 @@ class AttachmentFeature
         }
 
         $mimeType = $this->wpService->getPostMimeType($postId);
-        return is_string($mimeType) && in_array($mimeType, $this->config->getMimeTypes(), true);
+        return $shouldIndex && is_string($mimeType) && in_array($mimeType, $this->config->getMimeTypes(), true);
     }
 
     /**

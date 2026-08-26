@@ -239,8 +239,8 @@ const renderHit = (
 	const title = fragment.querySelector<HTMLElement>("[data-hit-title]");
 	const summary = fragment.querySelector<HTMLElement>("[data-hit-summary]");
 	const meta = fragment.querySelector<HTMLElement>("[data-hit-meta]");
-	if (title) title.innerHTML = hit.title;
-	if (summary) summary.innerHTML = hit.summary;
+	if (title) title.textContent = hit.title;
+	if (summary) summary.textContent = hit.summary;
 	if (meta) meta.textContent = hit.subtitle;
 	if (link) {
 		link.href = hit.url;
@@ -290,13 +290,16 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 	const search = createSearch(config.provider);
 	let params = { ...config.params };
 	let debounceTimer: number | undefined;
+	let requestId = 0;
 	input.value = params.query ?? "";
 
 	const execute = async (nextParams: SearchParams): Promise<void> => {
+		const currentRequestId = ++requestId;
 		params = nextParams;
 		root.setAttribute("aria-busy", "true");
 		try {
 			const result = await search(params);
+			if (currentRequestId !== requestId) return;
 			hits.replaceChildren();
 			stats.textContent = lang.stats.replace("%s", String(result.totalHits));
 			if (result.hits.length === 0) {
@@ -307,7 +310,11 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 				});
 			}
 
+			const noFacets = root.querySelector<HTMLElement>(
+				"[data-search-index-no-facets]",
+			);
 			facets.replaceChildren();
+			if (noFacets) facets.append(noFacets);
 			result.facets.forEach((facet) => {
 				const fieldset = document.createElement("fieldset");
 				fieldset.className = "search-index-page__facet";
@@ -332,9 +339,7 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 				});
 				facets.append(fieldset);
 			});
-			root
-				.querySelector<HTMLElement>("[data-search-index-no-facets]")
-				?.toggleAttribute("hidden", result.facets.length > 0);
+			noFacets?.toggleAttribute("hidden", result.facets.length > 0);
 
 			pagination.replaceChildren();
 			for (let page = 1; page <= result.totalPages; page += 1) {
@@ -344,7 +349,9 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 				button.type = "button";
 				button.textContent = String(page);
 				button.dataset.page = String(page);
-				button.toggleAttribute("aria-current", page === result.currentPage);
+				if (page === result.currentPage) {
+					button.setAttribute("aria-current", "true");
+				}
 				pagination.append(button);
 			}
 
@@ -352,10 +359,11 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 			url.searchParams.set("s", result.query);
 			history.replaceState({}, "", url);
 		} catch {
+			if (currentRequestId !== requestId) return;
 			hits.replaceChildren(noResults.content.cloneNode(true));
 			stats.textContent = lang.noresults;
 		} finally {
-			root.removeAttribute("aria-busy");
+			if (currentRequestId === requestId) root.removeAttribute("aria-busy");
 		}
 	};
 

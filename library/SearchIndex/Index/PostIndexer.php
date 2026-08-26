@@ -49,18 +49,21 @@ class PostIndexer
             return;
         }
 
-        $this->delete($post->ID);
+        $previousChunkCount = (int) $this->wpService->getPostMeta($post->ID, self::CHUNK_COUNT_META_KEY, true);
         $record = $this->createRecord($post);
         $records = $this->splitRecord($record);
 
-        if (count($records) === 1) {
-            $this->provider->saveObject($records[0], ['objectIDKey' => 'uuid']);
+        try {
+            if (count($records) === 1) {
+                $this->provider->saveObject($records[0], ['objectIDKey' => 'uuid']);
+            } else {
+                $this->provider->saveObjects($records, ['objectIDKey' => 'uuid']);
+            }
+        } catch (\Throwable) {
+            return;
         }
 
-        if (count($records) > 1) {
-            $this->provider->saveObjects($records, ['objectIDKey' => 'uuid']);
-        }
-
+        $this->deleteStaleChunks($post->ID, $previousChunkCount, count($records));
         $this->wpService->updatePostMeta($post->ID, self::CHUNK_COUNT_META_KEY, count($records));
     }
 
@@ -77,7 +80,11 @@ class PostIndexer
             $objectIds[] = $this->createChunkId($recordId, $chunk);
         }
 
-        $this->provider->deleteObjects($objectIds);
+        try {
+            $this->provider->deleteObjects($objectIds);
+        } catch (\Throwable) {
+            return;
+        }
         $this->wpService->deletePostMeta($postId, self::CHUNK_COUNT_META_KEY);
     }
 
@@ -124,15 +131,19 @@ class PostIndexer
                 continue;
             }
 
-            $tags = [...$tags, ...array_map(
-                static fn(\WP_Term $term): string => $term->name,
-                wp_get_post_terms($post->ID, $taxonomy),
-            )];
+            $terms = $this->wpService->wpGetPostTerms($post->ID, $taxonomy);
+            if (!$terms instanceof \WP_Error) {
+                $tags = [...$tags, ...array_map(
+                    static fn(\WP_Term $term): string => $term->name,
+                    $terms,
+                )];
+            }
         }
 
-        $categories = array_map(
+        $categoryTerms = $this->wpService->wpGetPostTerms($post->ID, 'category');
+        $categories = $categoryTerms instanceof \WP_Error ? [] : array_map(
             static fn(\WP_Term $term): string => $term->name,
-            wp_get_post_terms($post->ID, 'category'),
+            $categoryTerms,
         );
         $thumbnailId = $this->wpService->getPostThumbnailId($post);
         $thumbnail = $thumbnailId ? get_the_post_thumbnail_url($post, [480, 270]) : '';
@@ -185,7 +196,17 @@ class PostIndexer
 
         $nonContentSize = strlen(serialize(array_diff_key($record, ['content' => true])));
         $chunkSize = max(1, self::MAX_RECORD_SIZE - $nonContentSize);
-        $chunks = str_split((string) $record['content'], $chunkSize);
+        $chunks = [];
+        $content = (string) $record['content'];
+        for ($offset = 0, $contentLength = strlen($content); $offset < $contentLength;) {
+            $chunk = mb_strcut($content, $offset, $chunkSize, 'UTF-8');
+            if ($chunk === '') {
+                $chunk = mb_substr($content, 0, 1, 'UTF-8');
+            }
+            $chunks[] = $chunk;
+            $offset += strlen($chunk);
+        }
+        $chunks = $chunks === [] ? [''] : $chunks;
 
         return array_map(fn(string $content, int $index): array => [
             ...$record,
@@ -228,6 +249,27 @@ class PostIndexer
     private function createChunkId(string $recordId, int $chunk): string
     {
         return $chunk === 0 ? $recordId : sprintf('%s-part-%d', $recordId, $chunk);
+    }
+
+    /**
+     * Remove chunks left behind when a record becomes smaller.
+     */
+    private function deleteStaleChunks(int $postId, int $previousChunkCount, int $currentChunkCount): void
+    {
+        if ($previousChunkCount <= $currentChunkCount) {
+            return;
+        }
+
+        $recordId = $this->createRecordId($postId);
+        $objectIds = [];
+        for ($chunk = $currentChunkCount; $chunk < $previousChunkCount; $chunk++) {
+            $objectIds[] = $this->createChunkId($recordId, $chunk);
+        }
+
+        try {
+            $this->provider->deleteObjects($objectIds);
+        } catch (\Throwable) {
+        }
     }
 
     /**

@@ -51,7 +51,14 @@ class LegacyPluginConflictGuard
             $this->wpService->updateOption(LegacySettingsMigration::LEGACY_ATTACHMENT_ACTIVATION_OPTION, true, false);
         }
 
-        $this->wpService->deactivatePlugins($activePlugins, false, null);
+        $networkActivePlugins = array_values(array_filter($activePlugins, fn(string $plugin): bool => $this->wpService->isPluginActiveForNetwork($plugin)));
+        $siteActivePlugins = array_values(array_diff($activePlugins, $networkActivePlugins));
+        if ($siteActivePlugins !== []) {
+            $this->wpService->deactivatePlugins($siteActivePlugins, false, null);
+        }
+        if ($networkActivePlugins !== []) {
+            $this->wpService->deactivatePlugins($networkActivePlugins, true, null);
+        }
         $this->wpService->addAction('admin_notices', [$this, 'renderAdminNotice']);
 
         return true;

@@ -11,7 +11,7 @@ interface SearchProviderInterface
 {
     public function setSettings(array $settings = []): mixed;
 
-    public function search(string $query): mixed;
+    public function search(string $query, int $page = 1, int $pageSize = 20): mixed;
 
     public function clearObjects(): mixed;
 

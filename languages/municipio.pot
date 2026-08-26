@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-26T10:15:40+00:00\n"
+"POT-Creation-Date: 2026-08-26T10:44:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -6433,7 +6433,7 @@ msgid "closed"
 msgstr ""
 
 #: library/Search/Algolia.php:56
-#: library/SearchIndex/Admin/ExcludeFromSearch.php:40
+#: library/SearchIndex/Admin/ExcludeFromSearch.php:42
 msgid "Exclude from search"
 msgstr ""
 
@@ -6450,7 +6450,7 @@ msgstr ""
 msgid "Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run"
 msgstr ""
 
-#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:65
+#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:72
 msgid "Legacy search index plugins were deactivated because Municipio Search Index now provides this functionality."
 msgstr ""
 
@@ -6469,6 +6469,10 @@ msgstr ""
 
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:37
 msgid "No filters are available for this search."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:39
+msgid "Pagination"
 msgstr ""
 
 #: library/StickyPost/AddStickyCheckboxForPost.php:136

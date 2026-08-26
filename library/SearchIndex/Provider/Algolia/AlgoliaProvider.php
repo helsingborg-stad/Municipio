@@ -27,7 +27,7 @@ class AlgoliaProvider implements SearchProviderInterface
         $config->setDefaultHeaders([
             'X-Client-Cli' => defined('WP_CLI_VERSION') ? (string) constant('WP_CLI_VERSION') : 'false',
             'X-Client-Cron' => defined('DOING_CRON') ? 'true' : 'false',
-            'X-Client-User' => (string) get_current_user_id(),
+            'X-Client-User' => (string) $this->wpService->getCurrentUserId(),
         ]);
 
         $config = $this->wpService->applyFilters('Municipio/SearchIndex/AlgoliaConfig', $config);
@@ -65,9 +65,9 @@ class AlgoliaProvider implements SearchProviderInterface
         return $this->index->saveObjects($objects, $options);
     }
 
-    public function search(string $query): mixed
+    public function search(string $query, int $page = 1, int $pageSize = 20): mixed
     {
-        return $this->index->search($query);
+        return $this->index->search($query, ['page' => $page - 1, 'hitsPerPage' => $pageSize]);
     }
 
     public function setSettings(array $settings = []): mixed

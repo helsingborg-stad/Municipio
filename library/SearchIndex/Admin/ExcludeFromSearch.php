@@ -12,6 +12,8 @@ use WpService\WpService;
 class ExcludeFromSearch
 {
     private const EXCLUDED_META_KEY = 'exclude_from_search';
+    private const NONCE_NAME = 'municipio_search_index_nonce';
+    private const NONCE_ACTION = 'municipio_search_index_exclude';
 
     public function __construct(private WpService $wpService) {}
 
@@ -37,7 +39,7 @@ class ExcludeFromSearch
         }
 
         $checked = $this->wpService->getPostMeta($post->ID, self::EXCLUDED_META_KEY, true) ? ' checked' : '';
-        echo '<div class="misc-pub-section misc-pub-index"><label><input type="hidden" value="false" name="exclude-from-search"><input type="checkbox" name="exclude-from-search" value="true"' . $checked . '> ' . esc_html($this->wpService->__('Exclude from search', 'municipio')) . '</label></div>';
+        echo '<div class="misc-pub-section misc-pub-index"><label>' . wp_nonce_field(self::NONCE_ACTION, self::NONCE_NAME, true, false) . '<input type="hidden" value="false" name="exclude-from-search"><input type="checkbox" name="exclude-from-search" value="true"' . $checked . '> ' . esc_html($this->wpService->__('Exclude from search', 'municipio')) . '</label></div>';
     }
 
     /**
@@ -45,6 +47,13 @@ class ExcludeFromSearch
      */
     public function save(int $postId): void
     {
+        if (!$this->wpService->currentUserCan('edit_post', $postId)
+            || empty($_POST[self::NONCE_NAME])
+            || !$this->wpService->wpVerifyNonce($_POST[self::NONCE_NAME], self::NONCE_ACTION)
+        ) {
+            return;
+        }
+
         $value = $_POST['exclude-from-search'] ?? null;
 
         if ($value === 'true') {

@@ -67,14 +67,21 @@ class BuildSearchIndexCommand
         $indexer = new PostIndexer($this->wpService, $provider);
 
         foreach ($this->getIndexablePostTypes() as $postType) {
-            foreach ($this->wpService->getPosts([
-                'post_type' => $postType,
-                'post_status' => $this->wpService->applyFilters('Municipio/SearchIndex/IndexablePostStatuses', ['publish']),
-                'numberposts' => -1,
-                'suppress_filters' => false,
-            ]) as $post) {
-                $this->callWpCli('log', sprintf("Indexing '%s' of post type '%s'", $post->post_title, $postType));
-                $indexer->index($post);
+            for ($page = 1; ; $page++) {
+                $posts = $this->wpService->getPosts([
+                    'post_type' => $postType,
+                    'post_status' => $this->wpService->applyFilters('Municipio/SearchIndex/IndexablePostStatuses', ['publish']),
+                    'numberposts' => 100,
+                    'paged' => $page,
+                    'suppress_filters' => false,
+                ]);
+                if ($posts === []) {
+                    break;
+                }
+                foreach ($posts as $post) {
+                    $this->callWpCli('log', sprintf("Indexing '%s' of post type '%s'", $post->post_title, $postType));
+                    $indexer->index($post);
+                }
             }
         }
 

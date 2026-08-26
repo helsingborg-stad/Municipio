@@ -79,9 +79,9 @@ class SearchPageFeature
             'facets' => $facets,
         ]);
         $searchParams = $this->wpService->applyFilters('Municipio/SearchIndex/SearchPage/Params', [
-            'query' => get_search_query(),
+            'query' => $this->wpService->getQueryVar('s'),
             'query_by' => 'post_title,post_excerpt,content',
-            'page' => max(1, (int) get_query_var('paged')),
+            'page' => max(1, (int) $this->wpService->getQueryVar('paged')),
             'page_size' => 20,
             'highlight_full_fields' => 'post_title,post_excerpt',
         ]);
@@ -116,6 +116,16 @@ class SearchPageFeature
      */
     private function isActiveSearchPage(): bool
     {
-        return !$this->wpService->isAdmin() && $this->wpService->isSearch() && $this->config->isConfigured();
+        return !$this->wpService->isAdmin()
+            && $this->wpService->isSearch()
+            && $this->config->isConfigured()
+            && $this->publicKeyIsConfigured();
+    }
+
+    private function publicKeyIsConfigured(): bool
+    {
+        return $this->config->provider() === 'typesense'
+            ? $this->config->typesensePublicApiKey() !== ''
+            : $this->config->algoliaPublicApiKey() !== '';
     }
 }

@@ -150,7 +150,6 @@ class App
         new \Municipio\Theme\Forms();
 
         new \Municipio\Search\General();
-        new \Municipio\Search\Algolia();
         (new \Municipio\SearchIndex\SearchIndexFeature(
             $this->wpService,
             $this->acfService,

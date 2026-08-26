@@ -36,6 +36,7 @@ class SearchPageRenderer
                 'stats' => $this->wpService->__('%s search results found.', 'municipio'),
                 'nofacets' => $this->wpService->__('No filters are available for this search.', 'municipio'),
                 'openFilters' => $this->wpService->__('Filters', 'municipio'),
+                'pagination' => $this->wpService->__('Pagination', 'municipio'),
             ],
         ]);
     }

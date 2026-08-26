@@ -61,7 +61,7 @@ class TypesenseProviderRegistrar
             ...$browserConfig,
             'type' => 'typesense',
             'host' => $host,
-            'port' => $urlParts['port'] ?? 443,
+            'port' => $urlParts['port'] ?? (($urlParts['scheme'] ?? 'https') === 'http' ? 80 : 443),
             'protocol' => $urlParts['scheme'] ?? 'https',
             'apiKey' => $this->config->typesensePublicApiKey(),
             'collectionName' => $this->config->typesenseCollectionName(),

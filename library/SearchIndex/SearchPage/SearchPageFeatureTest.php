@@ -73,6 +73,7 @@ class SearchPageFeatureTest extends TestCase
                 'search_index_provider' => 'algolia',
                 'search_index_algolia_application_id' => 'application-id',
                 'search_index_algolia_api_key' => $apiKey,
+                'search_index_algolia_public_api_key' => 'public-key',
                 default => '',
             },
         ]));
