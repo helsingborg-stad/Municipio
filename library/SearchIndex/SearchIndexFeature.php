@@ -6,6 +6,7 @@ namespace Municipio\SearchIndex;
 
 use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
+use AcfService\Contracts\UpdateField;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use Municipio\SearchIndex\Provider\SearchProviderFactory;
 use WpService\WpService;
@@ -18,7 +19,7 @@ class SearchIndexFeature
 {
     public function __construct(
         private WpService $wpService,
-        private GetField&AddOptionsPage $acfService,
+        private GetField&UpdateField&AddOptionsPage $acfService,
         private EnqueueManagerInterface $enqueue,
     ) {}
 
@@ -30,6 +31,10 @@ class SearchIndexFeature
         $legacyPluginConflictGuard = new Migration\LegacyPluginConflictGuard($this->wpService);
 
         if ($legacyPluginConflictGuard->deactivateConflictingPlugins()) {
+            (new Migration\LegacySettingsMigration(
+                $this->wpService,
+                $this->acfService,
+            ))->migrateAttachmentActivation();
             return;
         }
 

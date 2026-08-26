@@ -51,10 +51,12 @@ class LegacySettingsMigration
 
         $currentMimeTypes = $this->acfService->getField('search_index_attachment_mime_types', 'option');
         if (is_array($currentMimeTypes) && $currentMimeTypes !== []) {
+            $this->wpService->updateOption(self::LEGACY_ATTACHMENT_ACTIVATION_OPTION, false, false);
             return;
         }
 
         $this->acfService->updateField('search_index_attachment_mime_types', ['application/pdf'], 'option');
+        $this->wpService->updateOption(self::LEGACY_ATTACHMENT_ACTIVATION_OPTION, false, false);
     }
 
     /**

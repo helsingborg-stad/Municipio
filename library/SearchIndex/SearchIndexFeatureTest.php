@@ -52,6 +52,38 @@ class SearchIndexFeatureTest extends TestCase
     }
 
     /**
+     * Verify the legacy attachment add-on immediately enables PDF indexing.
+     */
+    public function testEnablesPdfIndexingWhenLegacyAttachmentPluginIsActive(): void
+    {
+        $options = [];
+        $wpService = new FakeWpService([
+            'isPluginActive' => static fn(string $plugin): bool => $plugin === 'algolia-index-attachments/algolia-add-attachment-to-index.php',
+            'isPluginActiveForNetwork' => false,
+            'updateOption' => static function (string $option, mixed $value) use (&$options): bool {
+                $options[$option] = $value;
+                return true;
+            },
+            'getOption' => static function (string $option, mixed $default) use (&$options): mixed {
+                return $options[$option] ?? $default;
+            },
+            'deactivatePlugins' => null,
+            'addAction' => true,
+        ]);
+        $acfService = new FakeAcfService(['getField' => false, 'updateField' => true]);
+        $feature = new SearchIndexFeature(
+            $wpService,
+            $acfService,
+            new EnqueueManager($wpService),
+        );
+
+        $feature->enable();
+
+        static::assertSame(['application/pdf'], $acfService->methodCalls['updateField'][0][1]);
+        static::assertFalse($options['municipio_search_index_legacy_attachments_was_active']);
+    }
+
+    /**
      * Create a WordPress service fake for SearchIndex lifecycle setup.
      */
     private function createWpService(int $acfInitCount): FakeWpService
