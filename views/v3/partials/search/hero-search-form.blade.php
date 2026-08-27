@@ -1,3 +1,11 @@
+@php
+    $searchPlaceholder = apply_filters(
+        'Municipio/Search/Hero_search_placeholder',
+        $lang->searchOn . " " . $siteName,
+        $customizer
+    );
+@endphp
+
 @form([
     'id'        => 'hero-search-form',
     'method'    => 'get',
@@ -15,8 +23,8 @@
             'type' => 'search',
             'name' => 's',
             'required' => false,
-            'label' => $lang->searchOn . " " . $siteName,
-            'placeholder' => $lang->searchOn . " " . $siteName,
+            'label' => $searchPlaceholder,
+            'placeholder' => $searchPlaceholder,
             'size' => 'lg',
             'icon' => [
                 'icon' => 'search', 
