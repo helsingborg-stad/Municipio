@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Controller\School;
 
+use Municipio\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 class PreambleGeneratorTest extends TestCase
@@ -15,26 +16,16 @@ class PreambleGeneratorTest extends TestCase
         $this->assertInstanceOf(PreambleGenerator::class, $generator);
     }
 
-    public function testGenerateReturnsStringDescription(): void
-    {
-        $elementarySchool = \Municipio\Schema\Schema::elementarySchool()->description('Test description');
-        $generator        = new PreambleGenerator($elementarySchool);
-        $this->assertSame('Test description', $generator->generate());
-    }
-
     public function testGenerateReturnsFirstArrayDescription(): void
     {
-        $elementarySchool = \Municipio\Schema\Schema::elementarySchool()->description(['First', 'Second']);
-        $generator        = new PreambleGenerator($elementarySchool);
-        $this->assertSame('First', $generator->generate());
-    }
+        $elementarySchool = \Municipio\Schema\Schema::elementarySchool()->description([
+            Schema::textObject()->text('First description'),
+            Schema::textObject()->text('Preamble')->name('role:preamble')
+        ]);
 
-    public function testGenerateReturnsTextObjectDescription(): void
-    {
-        $textObject       = \Municipio\Schema\Schema::textObject()->text('Text from object');
-        $elementarySchool = \Municipio\Schema\Schema::elementarySchool()->description($textObject);
-        $generator        = new PreambleGenerator($elementarySchool);
-        $this->assertSame('Text from object', $generator->generate());
+        $generator = new PreambleGenerator($elementarySchool);
+
+        $this->assertSame('Preamble', $generator->generate());
     }
 
     public function testGenerateReturnsNullForNullDescription(): void

@@ -7668,33 +7668,33 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] "Detta innehåll är äldre än %s dag."
 msgstr[1] "Detta innehåll är äldre än %s dagar."
 
-#: library/Controller/SingularElementarySchool.php:48
+#: library/Controller/SingularElementarySchool.php:52
 msgctxt "ElementarySchool"
 msgid "Quick facts"
 msgstr "Snabba fakta"
 
-#: library/Controller/SingularElementarySchool.php:49
+#: library/Controller/SingularElementarySchool.php:53
 msgctxt "ElementarySchool"
 msgid "Contact us"
 msgstr "Kontakta oss"
 
-#: library/Controller/SingularElementarySchool.php:50
+#: library/Controller/SingularElementarySchool.php:54
 msgctxt "ElementarySchool"
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/SingularElementarySchool.php:51
+#: library/Controller/SingularElementarySchool.php:55
 #, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr "Vill du välja %s?"
 
-#: library/Controller/SingularElementarySchool.php:52
+#: library/Controller/SingularElementarySchool.php:56
 msgctxt "ElementarySchool"
 msgid "Follow us on social media"
 msgstr "Följ oss på sociala medier"
 
-#: library/Controller/SingularElementarySchool.php:53
+#: library/Controller/SingularElementarySchool.php:57
 #, fuzzy
 msgctxt "ElementarySchool"
 msgid "Events"
@@ -7875,33 +7875,33 @@ msgstr "stängd"
 msgid "Book here"
 msgstr "Boka här"
 
-#: library/Controller/SingularPreschool.php:44
+#: library/Controller/SingularPreschool.php:48
 msgctxt "Preschool"
 msgid "Quick facts"
 msgstr "Snabba fakta"
 
-#: library/Controller/SingularPreschool.php:45
+#: library/Controller/SingularPreschool.php:49
 msgctxt "Preschool"
 msgid "Contact us"
 msgstr "Kontakta oss"
 
-#: library/Controller/SingularPreschool.php:46
+#: library/Controller/SingularPreschool.php:50
 msgctxt "Preschool"
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/SingularPreschool.php:47
+#: library/Controller/SingularPreschool.php:51
 #, php-format
 msgctxt "Preschool"
 msgid "Do you wish to apply to %s?"
 msgstr "Vill du söka plats på %s?"
 
-#: library/Controller/SingularPreschool.php:48
+#: library/Controller/SingularPreschool.php:52
 msgctxt "Preschool"
 msgid "Follow us on social media"
 msgstr "Följ oss på sociala medier"
 
-#: library/Controller/SingularPreschool.php:49
+#: library/Controller/SingularPreschool.php:53
 msgctxt "Preschool"
 msgid "Events"
 msgstr "Evenemang"
@@ -10344,654 +10344,624 @@ msgctxt "design-builder-component-data"
 msgid "Component-local branding adjustments."
 msgstr "Lokala varumärkesjusteringar för komponenter."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:147
-msgctxt "design-builder-component-data"
-msgid "Scales the header logotype height locally without changing the global base size."
-msgstr "Skalar lokalt höjden på header-logotypen utan att ändra den globala basstorleken."
-
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:148
-msgctxt "design-builder-component-data"
-msgid "Font Size Multiplier"
-msgstr "Multiplikator för teckenstorlek"
-
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:149
 msgctxt "design-builder-component-data"
 msgid "Branding"
 msgstr "Varumärke"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:150
-msgctxt "design-builder-component-data"
-msgid "Home Link Height Multiplier"
-msgstr "Multiplikator för höjd på hem-länk"
-
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:151
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:149
 msgctxt "design-builder-component-data"
 msgid "Logotype Height Multiplier"
 msgstr "Multiplikator för höjd på logotyp"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:152
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:150
 msgctxt "design-builder-component-data"
 msgid "Scales the brand text size locally without changing the global typography scale."
 msgstr "Skalar lokalt storleken på varumärkestexten utan att ändra den globala typografiska skalan."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:153
-msgctxt "design-builder-component-data"
-msgid "Scales the footer home link height locally without changing global sizing."
-msgstr "Skalar lokalt höjden på hem-länken i sidfoten utan att ändra den globala storleken."
-
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:154
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:151
 msgctxt "design-builder-component-data"
 msgid "The Scope component groups inner content styles and limits the scope of styles to prevent them from affecting other parts of the interface."
 msgstr "Kontext-komponenten grupperar inre innehållsstilar och begränsar omfattningen av stilar för att förhindra att de påverkar andra delar av gränssnittet."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:155
-msgctxt "design-builder-component-data"
-msgid "Button Color"
-msgstr "Knappfärg"
-
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:156
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:153
 msgctxt "design-builder-component-data"
 msgid "Controls the background, text, border, hover, and active colors for primary buttons."
 msgstr "Kontrollerar bakgrund, text, kantlinje, hover och aktiva färger för primära knappar."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:157
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:154
 msgctxt "design-builder-component-data"
 msgid "Controls the background, text, border, hover, and active colors for secondary buttons."
 msgstr "Kontrollerar bakgrund, text, kantlinje, hover och aktiva färger för sekundära knappar."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:158
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:155
 msgctxt "design-builder-component-data"
 msgid "Controls the background, text, border, hover, and active colors for default buttons."
 msgstr "Kontrollerar bakgrund, text, kantlinje, hover och aktiva färger för standardknappar."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:159
-msgctxt "design-builder-component-data"
-msgid "Card Color"
-msgstr "Kortfärg"
-
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:160
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:157
 msgctxt "design-builder-component-data"
 msgid "Controls the card background, text, border, and hover colors."
 msgstr "Kontrollerar kortets bakgrund, text, kantlinje och hoverfärger."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:161
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:158
 msgctxt "design-builder-component-data"
 msgid "Component-local adjustments for card appearance and spacing."
 msgstr "Komponentlokala justeringar för kortutseende och avstånd."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:162
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:159
 msgctxt "design-builder-component-data"
 msgid "Controls the card surface, text contrast, border, and alternate layout colors."
 msgstr "Kontrollerar kortets yta, textkontrast, kantlinje och alternativa layoutfärger."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:163
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:160
 msgctxt "design-builder-component-data"
 msgid "Accent Color"
 msgstr "Accentfärg"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:164
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:161
 msgctxt "design-builder-component-data"
 msgid "Controls highlighted card details, including accent borders and accented header backgrounds."
 msgstr "Kontrollerar markerade kortdetaljer, inklusive accentkanter och markerade headerbakgrunder."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:165
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:162
 msgctxt "design-builder-component-data"
 msgid "Image Background Color"
 msgstr "Bildbakgrundsfärg"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:166
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:163
 msgctxt "design-builder-component-data"
 msgid "Controls the background shown behind transparent images and SVG illustrations."
 msgstr "Kontrollerar bakgrunden som visas bakom transparenta bilder och SVG-illustrationer."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:167
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:164
 msgctxt "design-builder-component-data"
 msgid "Spacing & Padding"
 msgstr "Utrymme och padding"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:168
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:165
 msgctxt "design-builder-component-data"
 msgid "Controls padding inside the card and spacing between card elements."
 msgstr "Kontrollerar padding inuti kortet och avståndet mellan kortelement."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:169
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:166
 msgctxt "design-builder-component-data"
 msgid "Border & Divider Width"
 msgstr "Kantlinje- och avdelarbredd"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:170
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:167
 msgctxt "design-builder-component-data"
 msgid "Controls the width of card borders and internal dividers."
 msgstr "Kontrollerar bredden på kortkanter och interna avdelare."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:171
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:168
 msgctxt "design-builder-component-data"
 msgid "Component-local color choices for drawer panels and navigation areas."
 msgstr "Komponentlokala färgval för drawer-paneler och navigationsområden."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:172
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:169
 msgctxt "design-builder-component-data"
 msgid "Main Panel Color"
 msgstr "Huvudpanelfärg"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:173
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:170
 msgctxt "design-builder-component-data"
 msgid "Controls the default drawer background, text contrast, field colors, and surface borders."
 msgstr "Kontrollerar standard drawer-bakgrund, textkontrast, fältfärger och ytkantlinjer."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:174
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:171
 msgctxt "design-builder-component-data"
 msgid "Controls the main drawer background when the drawer is duotone."
 msgstr "Kontrollerar den huvudsakliga drawer-bakgrunden när drawer är duotone."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:175
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:172
 msgctxt "design-builder-component-data"
 msgid "Secondary Navigation Color"
 msgstr "Sekundär navigationsfärg"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:176
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:173
 msgctxt "design-builder-component-data"
 msgid "Controls the secondary navigation area when the drawer is duotone."
 msgstr "Kontrollerar det sekundära navigationsområdet när drawer är duotone."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:177
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:174
 msgctxt "design-builder-component-data"
 msgid "Overlay Color"
 msgstr "Overlayfärg"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:178
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:175
 msgctxt "design-builder-component-data"
 msgid "Controls the dimmed backdrop shown behind an open drawer, including its opacity."
 msgstr "Kontrollerar den nedtonade bakgrunden som visas bakom en öppen drawer, inklusive dess opacitet."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:179
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:176
 msgctxt "design-builder-component-data"
 msgid "Layout"
 msgstr "Layout"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:180
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:177
 msgctxt "design-builder-component-data"
 msgid "Component-local sizing and spacing for the drawer panel and its navigation items."
 msgstr "Komponentlokala storleks- och avståndsinställningar för drawer-panelen och dess navigationsobjekt."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:181
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:178
 msgctxt "design-builder-component-data"
 msgid "Controls drawer header, footer, and navigation item padding."
 msgstr "Kontrollerar padding för drawer header, footer och navigationsobjekt."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:182
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:179
 msgctxt "design-builder-component-data"
 msgid "Width Multiplier"
 msgstr "Breddmultiplikator"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:183
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:180
 msgctxt "design-builder-component-data"
 msgid "Multiplies the default drawer width without changing the global base unit."
 msgstr "Multiplicerar standardbredden på drawer utan att ändra den globala basenheten."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:184
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:181
 msgctxt "design-builder-component-data"
 msgid "Elevation"
 msgstr "Upphöjning"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:185
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:182
 msgctxt "design-builder-component-data"
 msgid "Component-local shadow controls for the open drawer state."
 msgstr "Komponentlokala skugglägen för det öppna drawer-läget."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:186
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:183
 msgctxt "design-builder-component-data"
 msgid "Shadow Color"
 msgstr "Kontrollerar färgen som används av drawer-skuggan."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:187
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:184
 msgctxt "design-builder-component-data"
 msgid "Controls the color used by the drawer shadow."
 msgstr "Kontrollerar färgen som används av drawer-skuggan."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:188
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:185
 msgctxt "design-builder-component-data"
 msgid "Shadow Intensity"
 msgstr "Kontrollerar hur stark skuggan på drawer ser ut när den är öppen."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:189
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:186
 msgctxt "design-builder-component-data"
 msgid "Controls how strong the drawer shadow appears when open."
 msgstr "Kontrollerar hur stark skuggan på drawer ser ut när den är öppen."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:190
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:187
 msgctxt "design-builder-component-data"
 msgid "Link Color Mix Amount"
 msgstr "Länkfärgsblandningsmängd"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:191
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:188
 #, fuzzy
 msgctxt "design-builder-component-data"
 msgid "Link Color Mix Amount [State]"
 msgstr "Länkfärgsblandningsmängd"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:192
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:189
 msgctxt "design-builder-component-data"
 msgid "Adjusts the mix amount of the link color in hover, active, and visited states."
 msgstr "Justerar blandningsmängden av länkfärgen i hover-, aktiv- och besökta tillstånd."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:193
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:190
 msgctxt "design-builder-component-data"
 msgid "Button Color (Primary)"
 msgstr "Knappfärg (Primär)"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:194
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:191
 msgctxt "design-builder-component-data"
 msgid "Button Color (Secondary)"
 msgstr "Knappfärg (Sekundär)"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:195
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:192
 msgctxt "design-builder-component-data"
 msgid "Button Color (Default)"
 msgstr "Knappfärg (Standard)"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:196
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:193
 msgctxt "design-builder-component-data"
 msgid "The Button component is used to trigger actions, submit forms, or navigate users through primary, secondary, and default button variants."
 msgstr "Knapp används för att utlösa åtgärder, skicka formulär eller navigera användare genom primära, sekundära och standardknappar."
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:197
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:194
 msgctxt "design-builder-component-data"
 msgid "Type Foundations"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:198
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:195
 msgctxt "design-builder-component-data"
 msgid "Shared typography controls for families, weights, rhythm, and spacing."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:199
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:196
 msgctxt "design-builder-component-data"
 msgid "Body Font Family"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:200
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:197
 msgctxt "design-builder-component-data"
 msgid "Controls the base typeface used by body, paragraph, lead, small text, and non-heading variants that inherit the base family."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:201
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:198
 msgctxt "design-builder-component-data"
 msgid "Heading Font Family"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:202
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:199
 msgctxt "design-builder-component-data"
 msgid "Controls the typeface used by variants that explicitly switch to the heading family."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:203
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:200
 msgctxt "design-builder-component-data"
 msgid "Body Font Weight"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:204
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:201
 msgctxt "design-builder-component-data"
 msgid "Controls the default font weight for variants that keep the base weight."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:205
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:202
 msgctxt "design-builder-component-data"
 msgid "Medium Font Weight"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:206
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:203
 msgctxt "design-builder-component-data"
 msgid "Controls the shared medium emphasis used by title and lead variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:207
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:204
 msgctxt "design-builder-component-data"
 msgid "Bold Font Weight"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:208
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:205
 msgctxt "design-builder-component-data"
 msgid "Controls the heavier emphasis used by bold and marketing variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:209
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:206
 msgctxt "design-builder-component-data"
 msgid "Heading Font Weight"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:210
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:207
 msgctxt "design-builder-component-data"
 msgid "Controls the default weight used by heading level variants h1 through h6."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:211
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:208
 msgctxt "design-builder-component-data"
 msgid "Body Line Height"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:212
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:209
 msgctxt "design-builder-component-data"
 msgid "Controls the reading line height for variants that keep the base line height."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:213
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:210
 msgctxt "design-builder-component-data"
 msgid "Heading Line Height"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:214
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:211
 msgctxt "design-builder-component-data"
 msgid "Controls the shared line height for heading-style variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:215
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:212
 msgctxt "design-builder-component-data"
 msgid "Controls the default tracking for variants that inherit the base letter spacing."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:216
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:213
 msgctxt "design-builder-component-data"
 msgid "Controls the tracking for heading-style variants that use the heading spacing scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:217
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:214
 msgctxt "design-builder-component-data"
 msgid "Heading Spacing"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:218
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:215
 msgctxt "design-builder-component-data"
 msgid "Controls the vertical spacing inserted between adjacent heading-style variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:219
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:216
 msgctxt "design-builder-component-data"
 msgid "Type Scale"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:220
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:217
 msgctxt "design-builder-component-data"
 msgid "Shared token-based font sizes used by typography variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:221
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:218
 msgctxt "design-builder-component-data"
 msgid "Small Text Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:222
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:219
 msgctxt "design-builder-component-data"
 msgid "Controls caption, byline, and meta text sizes."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:223
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:220
 msgctxt "design-builder-component-data"
 msgid "Lead and Small Heading Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:224
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:221
 msgctxt "design-builder-component-data"
 msgid "Controls the shared size used by lead text and the smaller heading level h6."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:225
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:222
 msgctxt "design-builder-component-data"
 msgid "H5 Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:226
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:223
 msgctxt "design-builder-component-data"
 msgid "Controls the default size used by h5 headings."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:227
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:224
 msgctxt "design-builder-component-data"
 msgid "Subtitle and H4 Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:228
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:225
 msgctxt "design-builder-component-data"
 msgid "Controls the shared size used by subtitle and h4 variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:229
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:226
 msgctxt "design-builder-component-data"
 msgid "Title and H3 Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:230
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:227
 msgctxt "design-builder-component-data"
 msgid "Controls the shared size used by title and h3 variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:231
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:228
 msgctxt "design-builder-component-data"
 msgid "Headline and H2 Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:232
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:229
 msgctxt "design-builder-component-data"
 msgid "Controls the shared size used by headline and h2 variants."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:233
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:230
 msgctxt "design-builder-component-data"
 msgid "H1 Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:234
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:231
 msgctxt "design-builder-component-data"
 msgid "Controls the default size used by h1 headings."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:235
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:232
 msgctxt "design-builder-component-data"
 msgid "Marketing Size"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:236
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:233
 msgctxt "design-builder-component-data"
 msgid "Controls the default size used by the marketing variant."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:237
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:234
 msgctxt "design-builder-component-data"
 msgid "Modifier Overrides"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:238
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:235
 msgctxt "design-builder-component-data"
 msgid "Local multiplier controls that let specific typography modifiers scale independently in a single placement."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:239
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:236
 msgctxt "design-builder-component-data"
 msgid "Body Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:240
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:237
 msgctxt "design-builder-component-data"
 msgid "Scales regular body and paragraph text locally without changing the shared type scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:241
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:238
 msgctxt "design-builder-component-data"
 msgid "Bold Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:242
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:239
 msgctxt "design-builder-component-data"
 msgid "Scales the bold variant locally without changing other text styles."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:243
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:240
 msgctxt "design-builder-component-data"
 msgid "Lead Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:244
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:241
 msgctxt "design-builder-component-data"
 msgid "Scales lead text locally without changing the shared lead token."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:245
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:242
 msgctxt "design-builder-component-data"
 msgid "Caption Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:246
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:243
 msgctxt "design-builder-component-data"
 msgid "Scales caption text locally without changing the shared small-text token."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:247
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:244
 msgctxt "design-builder-component-data"
 msgid "Byline Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:248
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:245
 msgctxt "design-builder-component-data"
 msgid "Scales byline text locally without changing the shared small-text token."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:249
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:246
 msgctxt "design-builder-component-data"
 msgid "Meta Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:250
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:247
 msgctxt "design-builder-component-data"
 msgid "Scales meta text locally without changing the shared small-text token."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:251
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:248
 msgctxt "design-builder-component-data"
 msgid "Email Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:252
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:249
 msgctxt "design-builder-component-data"
 msgid "Scales email text locally without changing the shared body size."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:253
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:250
 msgctxt "design-builder-component-data"
 msgid "H1 Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:254
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:251
 msgctxt "design-builder-component-data"
 msgid "Scales h1 locally for one placement without changing the global h1 scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:255
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:252
 msgctxt "design-builder-component-data"
 msgid "H2 Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:256
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:253
 msgctxt "design-builder-component-data"
 msgid "Scales h2 locally for one placement without changing the global h2 scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:257
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:254
 msgctxt "design-builder-component-data"
 msgid "H3 Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:258
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:255
 msgctxt "design-builder-component-data"
 msgid "Scales h3 locally for one placement without changing the global h3 scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:259
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:256
 msgctxt "design-builder-component-data"
 msgid "H4 Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:260
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:257
 msgctxt "design-builder-component-data"
 msgid "Scales h4 locally for one placement without changing the global h4 scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:261
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:258
 msgctxt "design-builder-component-data"
 msgid "H5 Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:262
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:259
 msgctxt "design-builder-component-data"
 msgid "Scales h5 locally for one placement without changing the global h5 scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:263
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:260
 msgctxt "design-builder-component-data"
 msgid "H6 Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:264
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:261
 msgctxt "design-builder-component-data"
 msgid "Scales h6 locally for one placement without changing the global h6 scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:265
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:262
 msgctxt "design-builder-component-data"
 msgid "Headline Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:266
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:263
 msgctxt "design-builder-component-data"
 msgid "Scales the headline variant locally without changing the shared display scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:267
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:264
 msgctxt "design-builder-component-data"
 msgid "Title Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:268
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:265
 msgctxt "design-builder-component-data"
 msgid "Scales the title variant locally without changing the shared display scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:269
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:266
 msgctxt "design-builder-component-data"
 msgid "Subtitle Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:270
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:267
 msgctxt "design-builder-component-data"
 msgid "Scales the subtitle variant locally without changing the shared display scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:271
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:268
 msgctxt "design-builder-component-data"
 msgid "Marketing Size Multiplier"
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:272
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:269
 msgctxt "design-builder-component-data"
 msgid "Scales the marketing variant locally without changing the shared display scale."
 msgstr ""
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:273
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:270
 msgctxt "design-builder-component-data"
 msgid "Body Letter Spacing"
 msgstr "Teckens avstånd i brödtext"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:274
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:271
 msgctxt "design-builder-component-data"
 msgid "Heading Letter Spacing"
 msgstr "Teckens avstånd i rubriker"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:275
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:272
 #, fuzzy
 msgctxt "design-builder-component-data"
 msgid "Padding Multiplier"
 msgstr "Breddmultiplikator"
 
-#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:276
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:273
 msgctxt "design-builder-component-data"
 msgid "Scales drawer padding locally while keeping vertical nav padding slightly tighter on the y-axis."
 msgstr ""
@@ -13219,31 +13189,33 @@ msgstr "Sökindex"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Newsitem"
-msgstr ""
+msgstr "Nyhetsartikel"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Checkboxes"
-msgstr ""
+msgstr "Kryssrutor"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Radio buttons"
-msgstr ""
+msgstr "Radioknappar"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Filter settings"
-msgstr ""
+msgstr "Filterinställningar"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Date From"
-msgstr ""
+msgstr "Datum från"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Select Image"
-msgstr ""
+msgstr "Välj bild"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Remove Image"
 msgstr ""
+"Ta bort bild\n"
+"main"
 
 #: library/AcfFields/php/search-index-settings.php:50
 msgid "Algolia Index Name"
@@ -13302,6 +13274,661 @@ msgstr "Indexerade filtyper"
 msgid "Select the media-library file types that should appear in search results. Leave empty to exclude attachments."
 msgstr "Välj de filtyper i mediebiblioteket som ska visas i sökresultaten. Lämna tomt för att utesluta bilagor."
 
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:274
+msgctxt "design-builder-component-data"
+msgid "Line Height"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:275
+msgctxt "design-builder-component-data"
+msgid "Adjusts the line height of the brand text locally."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:276
+msgctxt "design-builder-component-data"
+msgid "Collapsible Search"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:277
+msgctxt "design-builder-component-data"
+msgid "A button that expands into a pill-shaped search form. Accepts all standard button parameters to configure the trigger appearance."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:278
+msgctxt "design-builder-component-data"
+msgid "Component-local colors for the search field, panel, and border."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:279
+msgctxt "design-builder-component-data"
+msgid "Field Color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:280
+msgctxt "design-builder-component-data"
+msgid "Controls the search field background and its readable text contrast."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:281
+msgctxt "design-builder-component-data"
+msgid "Panel Color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:282
+msgctxt "design-builder-component-data"
+msgid "Controls the surrounding panel and close-button color scheme."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:283
+msgctxt "design-builder-component-data"
+msgid "Border Color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:284
+msgctxt "design-builder-component-data"
+msgid "Controls the field outline that separates it from the panel."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:285
+msgctxt "design-builder-component-data"
+msgid "Component-local sizing and spacing. On small screens the expanded field still fills its container."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:286
+msgctxt "design-builder-component-data"
+msgid "Minimum Field Width"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:287
+msgctxt "design-builder-component-data"
+msgid "Minimum desktop field width, measured in base units."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:288
+msgctxt "design-builder-component-data"
+msgid "Maximum Field Width"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:289
+msgctxt "design-builder-component-data"
+msgid "Maximum desktop field width, measured in base units."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:290
+msgctxt "design-builder-component-data"
+msgid "Control Size"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:291
+msgctxt "design-builder-component-data"
+msgid "Scales the field and its action buttons together, measured in base units."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:292
+msgctxt "design-builder-component-data"
+msgid "Field Insets"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:293
+msgctxt "design-builder-component-data"
+msgid "Adjusts the field's horizontal inset, measured in space units."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:294
+msgctxt "design-builder-component-data"
+msgid "Border Width"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:295
+msgctxt "design-builder-component-data"
+msgid "Scales the field border thickness locally while keeping the search action aligned to its edge."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:296
+msgctxt "design-builder-component-data"
+msgid "Motion"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:297
+msgctxt "design-builder-component-data"
+msgid "Controls the duration of the expand and collapse sequence together."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:298
+msgctxt "design-builder-component-data"
+msgid "Motion Duration"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:299
+msgctxt "design-builder-component-data"
+msgid "A lower value makes the sequence faster; a higher value makes it more deliberate."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:300
+msgctxt "design-builder-component-data"
+msgid "Footer color scheme."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:301
+msgctxt "design-builder-component-data"
+msgid "Color Scheme"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:302
+msgctxt "design-builder-component-data"
+msgid "Controls the footer background, text contrast, border color, and alternate subfooter background."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:303
+msgctxt "design-builder-component-data"
+msgid "Branding adjustments."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:304
+msgctxt "design-builder-component-data"
+msgid "Scales the main footer logotype height locally without changing the global base size."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:305
+msgctxt "design-builder-component-data"
+msgid "Subfooter Logotype Height Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:306
+msgctxt "design-builder-component-data"
+msgid "Scales the subfooter logotype height locally without changing the global base size."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:307
+msgctxt "design-builder-component-data"
+msgid "Footer spacing, columns, and alignment."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:308
+msgctxt "design-builder-component-data"
+msgid "Scales footer outer padding."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:309
+msgctxt "design-builder-component-data"
+msgid "Gap Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:310
+msgctxt "design-builder-component-data"
+msgid "Scales footer gaps."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:311
+msgctxt "design-builder-component-data"
+msgid "Subfooter Top Border"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:312
+msgctxt "design-builder-component-data"
+msgid "Toggles the subfooter top border between no border and the component border width token."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:313
+msgctxt "design-builder-component-data"
+msgid "Off"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:314
+msgctxt "design-builder-component-data"
+msgid "On"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:315
+msgctxt "design-builder-component-data"
+msgid "Subfooter Backdrop Blur"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:316
+msgctxt "design-builder-component-data"
+msgid "Toggles backdrop blur behind the subfooter."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:317
+msgctxt "design-builder-component-data"
+msgid "Number of Columns"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:318
+msgctxt "design-builder-component-data"
+msgid "How many columns to display in the footer."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:319
+msgctxt "design-builder-component-data"
+msgid "1"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:320
+msgctxt "design-builder-component-data"
+msgid "2"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:321
+msgctxt "design-builder-component-data"
+msgid "3"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:322
+msgctxt "design-builder-component-data"
+msgid "4"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:323
+msgctxt "design-builder-component-data"
+msgid "Logotype Alignment"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:324
+msgctxt "design-builder-component-data"
+msgid "How to align the footer logotype."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:325
+msgctxt "design-builder-component-data"
+msgid "Left"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:326
+msgctxt "design-builder-component-data"
+msgid "Center"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:327
+msgctxt "design-builder-component-data"
+msgid "Right"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:328
+msgctxt "design-builder-component-data"
+msgid "Text Alignment"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:329
+msgctxt "design-builder-component-data"
+msgid "How to align text in the footer columns."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:330
+msgctxt "design-builder-component-data"
+msgid "Text Alignment [Prefooter/Below Logotype]"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:331
+msgctxt "design-builder-component-data"
+msgid "How to align text in the prefooter."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:332
+msgctxt "design-builder-component-data"
+msgid "Subfooter Alignment"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:333
+msgctxt "design-builder-component-data"
+msgid "How to distribute the subfooter logo and links group."
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:334
+msgctxt "design-builder-component-data"
+msgid "Space Between"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:335
+msgctxt "design-builder-component-data"
+msgid "Space Around"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:336
+msgctxt "design-builder-component-data"
+msgid "Space Evenly"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:337
+msgctxt "design-builder-component-data"
+msgid "Subfooter Direction"
+msgstr "Subfooter riktning"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:338
+msgctxt "design-builder-component-data"
+msgid "Controls whether the subfooter wrapper displays the logo before or after the links."
+msgstr "Kontrollerar om subfooter-omslaget visar logotypen före eller efter länkarna."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:339
+msgctxt "design-builder-component-data"
+msgid "Default"
+msgstr "Standard"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:340
+msgctxt "design-builder-component-data"
+msgid "Reversed"
+msgstr "Omvänd"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:341
+msgctxt "design-builder-component-data"
+msgid "Background Image"
+msgstr "Bakgrundsbild"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:342
+msgctxt "design-builder-component-data"
+msgid "Background image controls."
+msgstr "Bakgrundsbildkontroller."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:343
+msgctxt "design-builder-component-data"
+msgid "Background Opacity"
+msgstr "Bakgrundsopacitet"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:344
+msgctxt "design-builder-component-data"
+msgid "Controls the opacity of the footer background image layer."
+msgstr "Kontrollerar opaciteten för bakgrundsbildslagret i sidfoten."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:345
+msgctxt "design-builder-component-data"
+msgid "Subfooter Background Opacity"
+msgstr "Subfooter bakgrundsopacitet"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:346
+msgctxt "design-builder-component-data"
+msgid "Controls the opacity of the subfooter background layer."
+msgstr "Kontrollerar opaciteten för subfooter bakgrundslagret."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:347
+msgctxt "design-builder-component-data"
+msgid "Background Rotation"
+msgstr "Bakgrundsrotation"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:348
+msgctxt "design-builder-component-data"
+msgid "Rotates the footer background image."
+msgstr "Roterar bakgrundsbilden i sidfoten."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:349
+msgctxt "design-builder-component-data"
+msgid "Background Position"
+msgstr "Bakgrundsposition"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:350
+msgctxt "design-builder-component-data"
+msgid "Controls the CSS background-position value."
+msgstr "Kontrollerar CSS background-position värde."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:351
+msgctxt "design-builder-component-data"
+msgid "Left Top"
+msgstr "Vänster överst"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:352
+msgctxt "design-builder-component-data"
+msgid "Center Top"
+msgstr "Mitten överst"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:353
+msgctxt "design-builder-component-data"
+msgid "Right Top"
+msgstr "Höger överst"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:354
+msgctxt "design-builder-component-data"
+msgid "Right Bottom"
+msgstr "Höger nederst"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:355
+msgctxt "design-builder-component-data"
+msgid "Center Bottom"
+msgstr "Mitten nederst"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:356
+msgctxt "design-builder-component-data"
+msgid "Left Bottom"
+msgstr "Vänster nederst"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:357
+msgctxt "design-builder-component-data"
+msgid "Background Repeat"
+msgstr "Upprepa bakgrund"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:358
+msgctxt "design-builder-component-data"
+msgid "Controls the CSS background-repeat value."
+msgstr "Kontrollerar CSS background-repeat värde."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:359
+msgctxt "design-builder-component-data"
+msgid "No Repeat"
+msgstr "Ingen upprepning"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:360
+msgctxt "design-builder-component-data"
+msgid "Repeat"
+msgstr "Upprepa"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:361
+msgctxt "design-builder-component-data"
+msgid "Repeat X"
+msgstr "Repetera X"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:362
+msgctxt "design-builder-component-data"
+msgid "Repeat Y"
+msgstr "Repetera Y"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:363
+msgctxt "design-builder-component-data"
+msgid "Background Size"
+msgstr "Bakgrundsstorlek"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:364
+msgctxt "design-builder-component-data"
+msgid "Controls the CSS background-size value."
+msgstr "Kontrollerar CSS background-size värde."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:365
+msgctxt "design-builder-component-data"
+msgid "Cover"
+msgstr "Cover"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:366
+msgctxt "design-builder-component-data"
+msgid "Contain"
+msgstr "Contain"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:367
+msgctxt "design-builder-component-data"
+msgid "Auto"
+msgstr "Auto"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:368
+msgctxt "design-builder-component-data"
+msgid "Background Blend Mode"
+msgstr "Bakgrundsblandningsläge"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:369
+msgctxt "design-builder-component-data"
+msgid "Controls the CSS background-blend-mode."
+msgstr "Kontrollerar CSS background-blend-mode."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:370
+msgctxt "design-builder-component-data"
+msgid "Normal"
+msgstr "Normal"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:371
+msgctxt "design-builder-component-data"
+msgid "Overlay (mixes background image with background color)"
+msgstr "Overlay (blandar bakgrundsbild med bakgrundsfärg)"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:372
+msgctxt "design-builder-component-data"
+msgid "Header color scheme."
+msgstr "Sidhuvudets färgschema."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:373
+msgctxt "design-builder-component-data"
+msgid "Controls the header background, text contrast, and border color."
+msgstr "Kontrollerar sidhuvudets bakgrund, textkontrast och kantfärg."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:374
+msgctxt "design-builder-component-data"
+msgid "Min Height"
+msgstr "Minimal höjd"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:375
+msgctxt "design-builder-component-data"
+msgid "Minimum height multiplier (times base 8px) used for both logotype and brand."
+msgstr "Minimal höjd-multiplikator (gånger bas 8px) som används för både logotyp och varumärke."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:376
+msgctxt "design-builder-component-data"
+msgid "Max Height"
+msgstr "Maximal höjd"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:377
+msgctxt "design-builder-component-data"
+msgid "Maximum height multiplier (times base 8px) used for both logotype and brand."
+msgstr "Maximal höjd-multiplikator (gånger bas 8px) som används för både logotyp och varumärke."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:378
+msgctxt "design-builder-component-data"
+msgid "Auto Scale Curve"
+msgstr "Automatisk skalningskurva"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:379
+msgctxt "design-builder-component-data"
+msgid "Selects how quickly the logotype and brand scale with viewport width when auto scale is enabled."
+msgstr "Väljer hur snabbt logotypen och varumärket skalas med visningsfönstrets bredd när automatisk skalning är aktiverad."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:380
+msgctxt "design-builder-component-data"
+msgid "Gentle"
+msgstr "Mild"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:381
+msgctxt "design-builder-component-data"
+msgid "Balanced"
+msgstr "Balanserad"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:382
+msgctxt "design-builder-component-data"
+msgid "Strong"
+msgstr "Fetstil"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:383
+msgctxt "design-builder-component-data"
+msgid "Logotype Auto Scale"
+msgstr "Logotypens automatiska skalning"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:384
+msgctxt "design-builder-component-data"
+msgid "Enables fluid scaling of the logotype or brand component based on available space or screen size. Uses a min/max/scale clamp calculation for smooth mobile adaptation."
+msgstr "Aktiverar flytande skalning av logotypen eller varumärkeskomponenten baserat på tillgängligt utrymme eller skärmstorlek. Använder en min/max/scale clamp-beräkning för smidig mobilanpassning."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:385
+msgctxt "design-builder-component-data"
+msgid "Controls header spacing and margin presence."
+msgstr "Kontrollerar sidhuvudets avstånd och marginal."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:386
+msgctxt "design-builder-component-data"
+msgid "Container Width"
+msgstr "Containerbredd"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:387
+msgctxt "design-builder-component-data"
+msgid "Controls the rendered width of header containers."
+msgstr "Kontrollerar den renderade bredden på sidhuvudets behållare."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:388
+msgctxt "design-builder-component-data"
+msgid "Wide"
+msgstr "Bred"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:389
+msgctxt "design-builder-component-data"
+msgid "Full Width"
+msgstr "Fullbredd"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:390
+msgctxt "design-builder-component-data"
+msgid "Inset Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:391
+msgctxt "design-builder-component-data"
+msgid "Scales the inner padding and gap of the header proportionally."
+msgstr "Skalar inre paddingen och gap i sidhuvudet proportionellt."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:392
+msgctxt "design-builder-component-data"
+msgid "Horizontal Margin"
+msgstr "Horisontell marginal"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:393
+msgctxt "design-builder-component-data"
+msgid "Enables or disables horizontal (left and right) margin on the header."
+msgstr "Aktiverar eller inaktiverar horisontell (vänster och höger) marginal på sidhuvudet."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:394
+msgctxt "design-builder-component-data"
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:395
+msgctxt "design-builder-component-data"
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:396
+msgctxt "design-builder-component-data"
+msgid "Vertical Margin"
+msgstr "Vertikal marginal"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:397
+msgctxt "design-builder-component-data"
+msgid "Enables or disables vertical (top and bottom) margin on the header."
+msgstr "Aktiverar eller inaktiverar vertikal (över och under) marginal på sidhuvudet."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:398
+msgctxt "design-builder-component-data"
+msgid "Appearance"
+msgstr "Utseende"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:399
+msgctxt "design-builder-component-data"
+msgid "Visual rendering options for logotype masking."
+msgstr "Visuella renderingsalternativ för logotypmaskering."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:400
+msgctxt "design-builder-component-data"
+msgid "Masking"
+msgstr "Maskering"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:401
+msgctxt "design-builder-component-data"
+msgid "Enables or disables logotype masking."
+msgstr "Aktiverar eller inaktiverar logotypmaskering."
+
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:39
 msgid "Pagination"
 msgstr "Paginering"
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:147
+msgctxt "design-builder-component-data"
+msgid "Font Size Multiplier"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:152
+msgctxt "design-builder-component-data"
+msgid "Button Color"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:156
+msgctxt "design-builder-component-data"
+msgid "Card Color"
+msgstr ""

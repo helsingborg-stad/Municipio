@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Controller;
 
 /**
@@ -33,6 +36,7 @@ class SingularPreschool extends \Municipio\Controller\Singular
             'actions'            => new School\ActionsGenerator($schema),
             'contactPoints'      => new School\ContactpointsGenerator($schema),
             'events'             => new School\EventsGenerator($schema),
+            'alert'              => new School\AlertGenerator($schema),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();

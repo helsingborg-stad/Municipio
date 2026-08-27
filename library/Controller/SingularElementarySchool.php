@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\Controller;
 
 /**
@@ -31,13 +34,14 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             'usps'               => new School\ElementarySchool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
             'actions'            => new School\ActionsGenerator($schema),
             'contactPoints'      => new School\ContactpointsGenerator($schema),
-            'events'             => new School\EventsGenerator($schema)
+            'events'             => new School\EventsGenerator($schema),
+            'alert'              => new School\AlertGenerator($schema)
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();
         }
 
-        $this->data['embedVideo'] = function ($url) {
+        $this->data['embedVideo'] = static function ($url) {
             global $wp_embed;
             return $wp_embed->run_shortcode('[embed]' . esc_url($url) . '[/embed]');
         };
