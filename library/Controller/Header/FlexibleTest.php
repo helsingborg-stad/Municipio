@@ -22,7 +22,7 @@ class FlexibleTest extends TestCase
         $this->assertSame(['u-order--1', 'u-order--0@md', 'u-display--flex'], $headerData['upperItems']['right']['menu']);
     }
 
-    public function testGetHeaderDataRespectsExplicitlyEmptyResponsiveSections(): void
+    public function testGetHeaderDataFallsBackToDesktopOrderWhenResponsiveSectionsAreEmpty(): void
     {
         $controller = new Flexible((object) [
             'headerSortableHiddenStorage' => $this->getHiddenStorage(),
@@ -34,8 +34,8 @@ class FlexibleTest extends TestCase
 
         $headerData = $controller->getHeaderData();
 
-        $this->assertContains('u-display--none', $headerData['upperItems']['right']['menu']);
-        $this->assertContains('u-display--none', $headerData['upperItems']['right']['search-modal']);
+        $this->assertSame(['u-order--0', 'u-order--0@md', 'u-display--flex'], $headerData['upperItems']['right']['menu']);
+        $this->assertSame(['u-order--1', 'u-order--1@md', 'u-display--flex'], $headerData['upperItems']['right']['search-modal']);
     }
 
     public function testGetHeaderDataFallsBackToDesktopOrderWhenResponsiveSectionsAreMissing(): void

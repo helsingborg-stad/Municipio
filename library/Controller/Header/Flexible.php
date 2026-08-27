@@ -176,10 +176,15 @@ class Flexible implements HeaderInterface
     {
         $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
         $responsiveSettingExists = property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null;
-        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && $responsiveSettingExists;
 
         $desktopOrderedItems = $this->normalizeOrderedItems($this->customizer->{$settingCamelCased} ?? []);
-        $mobileOrderedItems = $shouldGetMobileOrderedItems() ? $this->normalizeOrderedItems($this->customizer->{$responsiveSetting}) : [];
+        $mobileOrderedItems = $this->isResponsive && $responsiveSettingExists
+            ? $this->normalizeOrderedItems($this->customizer->{$responsiveSetting})
+            : [];
+
+        if ($this->isResponsive && empty($mobileOrderedItems)) {
+            $mobileOrderedItems = $desktopOrderedItems;
+        }
 
         return [$desktopOrderedItems, $mobileOrderedItems];
     }
