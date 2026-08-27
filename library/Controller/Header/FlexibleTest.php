@@ -190,6 +190,28 @@ class FlexibleTest extends TestCase
         $this->assertSame(0.4, $headerData['logoScrollShrinkOverlapMultiplier']);
     }
 
+    public function testGetHeaderDataKeepsZeroLogoOverlapMultiplierWhenValueIsValid(): void
+    {
+        $controller = new Flexible((object) [
+            'headerLogoScrollShrink' => true,
+            'headerLogoOverlapMultiplier' => 0,
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_lower' => [
+                    'logotype' => [
+                        'align' => 'left',
+                        'margin' => 'none',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['primary'],
+            'headerSortableSectionMainLower' => ['logotype'],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertSame(0.0, $headerData['logoScrollShrinkOverlapMultiplier']);
+    }
+
     private function getHiddenStorage(): string
     {
         return json_encode([

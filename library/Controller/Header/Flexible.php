@@ -287,7 +287,7 @@ class Flexible implements HeaderInterface
     {
         $overlapMultiplier = (float) ($this->customizer->{$this->logoOverlapMultiplierSetting} ?? 0.25);
 
-        return $overlapMultiplier > 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
+        return $overlapMultiplier >= 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
     }
 
     /**
