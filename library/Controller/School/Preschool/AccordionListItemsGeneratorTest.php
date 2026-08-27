@@ -39,9 +39,10 @@ class AccordionListItemsGeneratorTest extends TestCase
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
         $result = $generator->generate();
 
-        $this->assertCount(2, $result);
+        $this->assertCount(3, $result);
         $this->assertEquals(
             [
+                ['heading' => 'Headline 1', 'content' => 'Text 1'],
                 ['heading' => 'Headline 2', 'content' => 'Text 2'],
                 ['heading' => 'Headline 3', 'content' => 'Text 3'],
             ],
@@ -53,8 +54,10 @@ class AccordionListItemsGeneratorTest extends TestCase
     {
         $school = Schema::preschool()->description([
             Schema::textObject()->headline('Headline 1')->text('Text 1'),
-            Schema::textObject()->headline('Headline 2')->text('Text 2'),
-            Schema::textObject()->headline('Headline 3')->text('Text 3'),
+            Schema::textObject()->headline('Headline 2')->text('Text 2')->name('role:preamble'),
+            Schema::textObject()->headline('Headline 3')->text('Text 3')->name('role:alert'),
+            Schema::textObject()->headline('Headline 4')->text('Text 4')->name('visit_us'),
+            Schema::textObject()->headline('Headline 5')->text('Text 5'),
         ]);
 
         $generator = new AccordionListItemsGenerator($school, $this->getWpService());
@@ -63,8 +66,8 @@ class AccordionListItemsGeneratorTest extends TestCase
         $this->assertCount(2, $result);
         $this->assertEquals(
             [
-                ['heading' => 'Headline 2', 'content' => 'Text 2'],
-                ['heading' => 'Headline 3', 'content' => 'Text 3'],
+                ['heading' => 'Headline 1', 'content' => 'Text 1'],
+                ['heading' => 'Headline 5', 'content' => 'Text 5'],
             ],
             array_values($result),
         );

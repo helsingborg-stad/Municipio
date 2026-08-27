@@ -1,9 +1,9 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.11.15",
+    "version": "7.11.31",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
-        "test": "jest --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
+        "test": "jest ",
         "test:watch": "jest --watch",
         "dev": "vite",
         "build": "npm run build:municipio && (npm run build:modularity)",

@@ -42,7 +42,7 @@ class ChatFeature
         $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
         $render = new ChatRender($bladeRenderer);
 
-        RestApiEndpointsRegistry::add(new ChatEndpoint($config, (new PIIRedactorFactory($this->wpService))->create($config), $this->wpService));
+        RestApiEndpointsRegistry::add(new ChatEndpoint($config, new PIIRedactorFactory($this->wpService), $this->wpService));
         RestApiEndpointsRegistry::add(new ChatStatsEndpoint($this->wpService));
 
         // Acf repeater crashes when below are reigstered

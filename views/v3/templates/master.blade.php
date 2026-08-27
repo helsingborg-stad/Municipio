@@ -37,10 +37,11 @@
 
         {{-- After page layout --}}
         @yield('after-layout')
+        
+        {{-- Bottom sidebar --}}
+        @include('templates.sections.bottom-sidebar')
     </div>
 
-    {{-- Bottom sidebar --}}
-    @include('templates.sections.bottom-sidebar')
 
     @section('footer')
         @includeIf('partials.footer')
