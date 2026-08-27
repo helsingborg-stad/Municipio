@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\Chat\Api;
 
 use Municipio\Api\RestApiEndpoint;
 use Municipio\Chat\Config\ChatConfigInterface;
-use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
+use Municipio\Chat\PIIRedactor\PIIRedactorFactoryInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
 use WpService\Contracts\RegisterRestRoute;
 
@@ -18,7 +17,7 @@ class ChatEndpoint extends RestApiEndpoint
 
     public function __construct(
         private ChatConfigInterface $config,
-        private PIIRedactorInterface $piiRedactor,
+        private PIIRedactorFactoryInterface $piiRedactorFactory,
         private RegisterRestRoute $wpService,
     ) {}
 
@@ -37,12 +36,12 @@ class ChatEndpoint extends RestApiEndpoint
         $messageError = $this->validateMessage($params);
         if ($messageError instanceof \WP_Error) {
             return $messageError;
-            }
-            
-            $assistant = $this->resolveAssistant($params);
-            if ($assistant instanceof \WP_Error) {
-                return $assistant;
-                }
+        }
+
+        $assistant = $this->resolveAssistant($params);
+        if ($assistant instanceof \WP_Error) {
+            return $assistant;
+        }
 
         $configError = $this->validateAssistantConfig($assistant);
         if ($configError instanceof \WP_Error) {
@@ -82,7 +81,7 @@ class ChatEndpoint extends RestApiEndpoint
     private function resolveAssistant(array $params): array|\WP_Error
     {
         $assistantUniqueId = $params['assistant_name'] ?? null;
-        
+
         if (empty($assistantUniqueId) || $assistantUniqueId === 'Default') {
             return $this->config->getDefaultAssistant() ?? [];
         }
@@ -118,7 +117,7 @@ class ChatEndpoint extends RestApiEndpoint
     private function redactMessage(string $message): RedactionResult|\WP_Error
     {
         try {
-            return $this->piiRedactor->extractAndRedactPII($message);
+            return $this->piiRedactorFactory->create($this->config)->extractAndRedactPII($message);
         } catch (\Throwable $e) {
             $this->logRedactionError($e);
             return new \WP_Error(
@@ -149,7 +148,8 @@ class ChatEndpoint extends RestApiEndpoint
     private function registerSseStream(
         \WP_REST_Request $request,
         string $chatUrl,
-        #[\SensitiveParameter] string $apiKey,
+        #[\SensitiveParameter]
+        string $apiKey,
         array $body,
     ): void {
         add_filter(
