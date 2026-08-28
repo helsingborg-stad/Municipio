@@ -1,4 +1,6 @@
 h1#page-title {
     color: var(--color--primary);
     margin-bottom: 0;
+    hyphens: auto;
+    overflow-wrap: anywhere;
 }
