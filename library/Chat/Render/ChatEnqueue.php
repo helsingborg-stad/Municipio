@@ -25,7 +25,13 @@ class ChatEnqueue implements Hookable
     {
         $this->enqueue
             ->add('js/chat.js')
-            ->with();
+            ->with()
+            ->translation('municipioChatLocale', [
+                'errorMessage' => $this->wpService->__(
+                    'Something went wrong, please try again later',
+                    'municipio',
+                ),
+            ]);
 
         $this->enqueue->add('css/chat.css');
     }
