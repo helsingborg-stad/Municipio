@@ -30,8 +30,8 @@ class File
                 "SELECT post_id FROM `$wpdb->postmeta`
                 WHERE `meta_key` LIKE '_wp_attached_file'
                 AND `meta_value` LIKE '%$filename%'
-                LIMIT 1"
-            )
+                LIMIT 1",
+            ),
         );
         if (!empty($meta)) {
             return \wp_get_attachment_url($meta[0]);
@@ -56,7 +56,7 @@ class File
         }
 
         // Build cache key + group
-        $key   = md5($filePath);
+        $key = hash('sha512', $filePath);
         $group = 'municipio_file_exists_cache';
 
         $wpService = WpService::get();
@@ -73,6 +73,7 @@ class File
                 self::$runtimeFileExistsCache[$filePath] = false;
                 return false;
             }
+
             // If unexpected value, fall through and re-check filesystem
         }
 
@@ -110,7 +111,7 @@ class File
     public static function getImageSize($filePath, $expireFound = 0, $expireNotFound = 86400)
     {
         //Unique cache value
-        $uid = "municipio_get_image_size_cache_" . md5($filePath);
+        $uid = 'municipio_get_image_size_cache_' . hash('sha512', $filePath);
 
         //If in cahce, found
         if ($cachedValue = wp_cache_get($uid)) {
@@ -126,6 +127,52 @@ class File
         //Opsie, file not found
         wp_cache_set($uid, false, '', $expireNotFound);
         return false;
+    }
+
+    /**
+     * Determine whether a file is a complete image with the expected properties.
+     *
+     * Image editors may leave an empty or partially written file behind when a
+     * conversion fails. Existence alone must therefore never be used as proof
+     * that an image can be served.
+     */
+    public static function isValidImage(
+        string $filePath,
+        ?string $expectedMimeType = null,
+        ?int $expectedWidth = null,
+        ?int $expectedHeight = null,
+    ): bool {
+        clearstatcache(true, $filePath);
+
+        $imageSize = is_file($filePath) && filesize($filePath) > 0 ? self::getImageSizeWithoutWarnings($filePath) : false;
+
+        return $imageSize !== false && ($expectedMimeType === null || ($imageSize['mime'] ?? null) === $expectedMimeType) && ($expectedWidth === null || $imageSize[0] === $expectedWidth) && ($expectedHeight === null || $imageSize[1] === $expectedHeight);
+    }
+
+    /**
+     * Read image metadata without leaking warnings for malformed files.
+     */
+    public static function getImageSizeWithoutWarnings(string $filePath): array|false
+    {
+        set_error_handler(static fn(): bool => true);
+
+        try {
+            return getimagesize($filePath);
+        } finally {
+            restore_error_handler();
+        }
+    }
+
+    public static function getImageMimeTypeForPath(string $filePath): ?string
+    {
+        return match (strtolower(pathinfo($filePath, PATHINFO_EXTENSION))) {
+            'gif' => 'image/gif',
+            'jpg', 'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'tif', 'tiff' => 'image/tiff',
+            'webp' => 'image/webp',
+            default => null,
+        };
     }
 
     /**
@@ -145,7 +192,7 @@ class File
     public static function getMimeType($filePath)
     {
         //Unique cache value
-        $uid = "municipio_get_mime_cache_" . md5($filePath);
+        $uid = 'municipio_get_mime_cache_' . hash('sha512', $filePath);
 
         //If in cahce, found
         if ($cachedValue = wp_cache_get($uid)) {
