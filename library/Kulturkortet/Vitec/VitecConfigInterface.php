@@ -9,4 +9,6 @@ interface VitecConfigInterface
     public function getBaseUrl(): string;
 
     public function getApiKey(): string;
+
+    public function mapSSN(string $ssn): string;
 }

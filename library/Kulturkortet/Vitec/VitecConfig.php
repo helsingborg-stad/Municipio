@@ -8,7 +8,9 @@ use AcfService\Contracts\GetField;
 
 class VitecConfig implements VitecConfigInterface
 {
-    public function __construct(private GetField $acfService) {}
+    public function __construct(
+        private GetField $acfService,
+    ) {}
 
     public function getBaseUrl(): string
     {
@@ -38,5 +40,13 @@ class VitecConfig implements VitecConfigInterface
         }
 
         return '';
+    }
+
+    public function mapSSN(string $ssn): string
+    {
+        if (defined('VITEC_IMPERSONATE_SSN') && !empty(VITEC_IMPERSONATE_SSN)) {
+            return VitecSSN::formatSSN(VITEC_IMPERSONATE_SSN);
+        }
+        return VitecSSN::formatSSN($ssn);
     }
 }
