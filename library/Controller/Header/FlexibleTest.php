@@ -52,6 +52,22 @@ class FlexibleTest extends TestCase
         $this->assertSame(['u-order--1', 'u-order--1@md', 'u-display--flex'], $headerData['upperItems']['right']['search-modal']);
     }
 
+    public function testGetHeaderDataHidesEmptyResponsiveLowerSectionWhenUpperSectionHasItems(): void
+    {
+        $controller = new Flexible((object) [
+            'headerSortableHiddenStorage' => $this->getHiddenStorage(),
+            'headerSortableSectionMainUpper' => ['menu'],
+            'headerSortableSectionMainLower' => ['primary'],
+            'headerSortableSectionMainUpperResponsive' => ['menu'],
+            'headerSortableSectionMainLowerResponsive' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertContains('u-display--none', $headerData['lowerHeader']['classList']);
+        $this->assertContains('u-display--block@lg', $headerData['lowerHeader']['classList']);
+    }
+
     public function testGetHeaderDataDoesNotDuplicateItemsWhenAlignmentAndMarginUseDifferentSides(): void
     {
         $controller = new Flexible((object) [
