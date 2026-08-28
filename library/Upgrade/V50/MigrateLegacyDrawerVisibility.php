@@ -13,8 +13,6 @@ use WpService\Contracts\SetThemeMod;
 class MigrateLegacyDrawerVisibility
 {
     private const DRAWER_SCREEN_SIZES_SETTING = 'drawer_screen_sizes';
-    private const UPPER_SECTION_SETTING = 'header_sortable_section_main_upper';
-    private const UPPER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_upper_responsive';
     private const DEFAULT_DRAWER_SCREEN_SIZES = ['xs', 'sm', 'md'];
     private const MOBILE_SCREEN_SIZES = ['xs', 'sm', 'md'];
     private const DESKTOP_SCREEN_SIZES = ['lg', 'xl'];
@@ -27,12 +25,17 @@ class MigrateLegacyDrawerVisibility
     ) {}
 
     /**
-     * Remove the drawer from migrated header areas where it was not visible.
+     * Place the drawer only in migrated header areas where it was visible.
      *
      * @param array<int, string> $desktopItems Migrated desktop header items.
      * @param array<int, string> $mobileItems Migrated mobile header items.
      */
-    public function migrate(array $desktopItems, array $mobileItems): void
+    public function migrate(
+        array $desktopItems,
+        array $mobileItems,
+        string $desktopSetting,
+        string $mobileSetting,
+    ): void
     {
         $screenSizes = $this->normalizeScreenSizes(
             $this->wpService->getThemeMod(self::DRAWER_SCREEN_SIZES_SETTING, self::DEFAULT_DRAWER_SCREEN_SIZES),
@@ -46,8 +49,8 @@ class MigrateLegacyDrawerVisibility
             $mobileItems = $this->removeDrawer($mobileItems);
         }
 
-        $this->wpService->setThemeMod(self::UPPER_SECTION_SETTING, $desktopItems);
-        $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, $mobileItems);
+        $this->wpService->setThemeMod($desktopSetting, $desktopItems);
+        $this->wpService->setThemeMod($mobileSetting, $mobileItems);
     }
 
     /**

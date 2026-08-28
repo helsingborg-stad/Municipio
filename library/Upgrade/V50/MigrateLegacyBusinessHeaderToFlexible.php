@@ -25,9 +25,10 @@ class MigrateLegacyBusinessHeaderToFlexible
     private const PADDING_X_TOKEN             = '--c-header--padding-x-enabled';
     private const PADDING_Y_TOKEN             = '--c-header--padding-y-enabled';
     private const PRIMARY_COLOR                = 'var(--color--primary)';
-    private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
-    private const LOWER_ITEMS = ['primary'];
-    private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'language', 'drawer'];
+    private const UPPER_ITEMS = ['logotype', 'search-modal', 'language', 'drawer'];
+    private const LOWER_ITEMS = [];
+    private const UPPER_RESPONSIVE_ITEMS = ['search-modal', 'language'];
+    private const LOWER_RESPONSIVE_ITEMS = ['logotype', 'drawer'];
 
     /**
      * Constructor.
@@ -59,31 +60,25 @@ class MigrateLegacyBusinessHeaderToFlexible
         $this->wpService->setThemeMod(self::UPPER_SECTION_SETTING, self::UPPER_ITEMS);
         $this->wpService->setThemeMod(self::LOWER_SECTION_SETTING, self::LOWER_ITEMS);
         $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, self::UPPER_RESPONSIVE_ITEMS);
-        $this->wpService->setThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, []);
+        $this->wpService->setThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, self::LOWER_RESPONSIVE_ITEMS);
 
-        $storage = $this->getNormalizedHiddenStorage();
+        $storage = [];
         $storage[self::UPPER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_ITEMS, 'right');
         $storage[self::UPPER_SECTION_SETTING]['logotype']['align'] = 'left';
-        $storage[self::LOWER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::LOWER_ITEMS, 'right');
+        $storage[self::LOWER_SECTION_SETTING] = [];
         $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_RESPONSIVE_ITEMS, 'right');
-        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
-        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = [];
-
-        $legacyAlignment = (string) $this->wpService->getThemeMod('business_header_alignment', 'business-gap');
-        $menuAlignments = [
-            'business-left' => 'left',
-            'business-right' => 'right',
-            'business-gap' => 'right',
-        ];
-
-        if (isset($menuAlignments[$legacyAlignment])) {
-            $storage[self::LOWER_SECTION_SETTING]['primary']['align'] = $menuAlignments[$legacyAlignment];
-        }
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions(self::LOWER_RESPONSIVE_ITEMS, 'right');
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
 
         $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
 
         $this->applyDefaultLowerAreaPadding();
-        (new MigrateLegacyDrawerVisibility($this->wpService))->migrate(self::UPPER_ITEMS, self::UPPER_RESPONSIVE_ITEMS);
+        (new MigrateLegacyDrawerVisibility($this->wpService))->migrate(
+            self::UPPER_ITEMS,
+            self::LOWER_RESPONSIVE_ITEMS,
+            self::UPPER_SECTION_SETTING,
+            self::LOWER_RESPONSIVE_SECTION_SETTING,
+        );
     }
 
     /**
@@ -140,28 +135,6 @@ class MigrateLegacyBusinessHeaderToFlexible
         $decoded = json_decode($raw, true);
 
         return is_array($decoded) ? $decoded : $default;
-    }
-
-    /**
-     * Resolve hidden storage as an associative array.
-     *
-     * @return array<string, mixed>
-     */
-    private function getNormalizedHiddenStorage(): array
-    {
-        $storage = $this->wpService->getThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, []);
-
-        if (is_array($storage)) {
-            return $storage;
-        }
-
-        if (!is_string($storage) || trim($storage) === '') {
-            return [];
-        }
-
-        $decoded = json_decode($storage, true);
-
-        return is_array($decoded) ? $decoded : [];
     }
 
     /**

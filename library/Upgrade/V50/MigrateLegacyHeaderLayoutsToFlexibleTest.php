@@ -59,12 +59,11 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         static::assertArrayHasKey('header_sortable_section_main_lower_responsive', $hiddenStorageWrite);
     }
 
-    #[TestDox('migrate maps business alignment to flexible lower primary alignment')]
-    public function testMigrateMapsBusinessAlignmentToFlexibleLowerPrimaryAlignment(): void
+    #[TestDox('migrate maps business header items to matching flexible desktop and mobile areas')]
+    public function testMigrateMapsBusinessHeaderItemsToMatchingFlexibleDesktopAndMobileAreas(): void
     {
         $themeMods = [
             'header_apperance' => 'business',
-            'business_header_alignment' => 'business-left',
         ];
 
         $wpService = new FakeWpService([
@@ -75,34 +74,34 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         (new MigrateLegacyHeaderLayoutsToFlexible($wpService))->migrate();
 
         static::assertContains(
-            ['header_sortable_section_main_lower', ['primary']],
+            ['header_sortable_section_main_upper', ['logotype', 'search-modal', 'language']],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
         static::assertContains(
-            ['header_sortable_section_main_upper_responsive', ['logotype', 'language', 'drawer']],
+            ['header_sortable_section_main_lower', []],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
         static::assertContains(
-            ['header_sortable_section_main_lower_responsive', []],
+            ['header_sortable_section_main_upper_responsive', ['search-modal', 'language']],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
         static::assertContains(
-            ['header_sortable_section_main_upper', ['logotype', 'language', 'user']],
+            ['header_sortable_section_main_lower_responsive', ['logotype', 'drawer']],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
         $hiddenStorageWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage');
         $hiddenStorageWrite = is_string($hiddenStorageWrite) ? json_decode($hiddenStorageWrite, true) : $hiddenStorageWrite;
-        static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_lower']['primary']['align']);
+        static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_lower']);
         static::assertArrayHasKey('header_sortable_section_main_upper_responsive', $hiddenStorageWrite);
         static::assertArrayHasKey('header_sortable_section_main_lower_responsive', $hiddenStorageWrite);
-        static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['logotype']['align']);
+        static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['search-modal']['align']);
         static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['language']['align']);
-        static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_upper_responsive']['drawer']['align']);
-        static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_lower_responsive']);
+        static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_lower_responsive']['logotype']['align']);
+        static::assertSame('right', $hiddenStorageWrite['header_sortable_section_main_lower_responsive']['drawer']['align']);
 
         $tokensWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'tokens');
         $tokensWrite = is_string($tokensWrite) ? json_decode($tokensWrite, true) : $tokensWrite;
@@ -137,11 +136,11 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         (new MigrateLegacyHeaderLayoutsToFlexible($wpService))->migrate();
 
         static::assertContains(
-            ['header_sortable_section_main_upper', ['logotype', 'language', 'drawer', 'user']],
+            ['header_sortable_section_main_upper', ['logotype', 'search-modal', 'language', 'drawer']],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
         static::assertContains(
-            ['header_sortable_section_main_upper_responsive', ['logotype', 'language']],
+            ['header_sortable_section_main_lower_responsive', ['logotype']],
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
     }
@@ -152,6 +151,14 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         $themeMods = [
             'header_apperance' => 'casual',
             'header_sortable_section_main_upper' => ['primary'],
+            'header_sortable_hidden_storage' => json_encode([
+                'header_sortable_section_main_lower' => [
+                    'mega-menu' => [
+                        'align' => 'center',
+                        'margin' => 'both',
+                    ],
+                ],
+            ]),
         ];
 
         $wpService = new FakeWpService([
@@ -171,9 +178,11 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
-        static::assertNotNull(
-            $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage'),
-        );
+        $hiddenStorageWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage');
+        $hiddenStorageWrite = is_string($hiddenStorageWrite) ? json_decode($hiddenStorageWrite, true) : $hiddenStorageWrite;
+
+        static::assertIsArray($hiddenStorageWrite);
+        static::assertSame([], $hiddenStorageWrite['header_sortable_section_main_lower'] ?? null);
     }
 
     #[TestDox('migrate detects markerless casual imports from hidden storage primary signature and applies casual template')]
