@@ -83,6 +83,7 @@ class MigrateLegacyBusinessHeaderToFlexible
         $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
 
         $this->applyDefaultLowerAreaPadding();
+        (new MigrateLegacyDrawerVisibility($this->wpService))->migrate(self::UPPER_ITEMS, self::UPPER_RESPONSIVE_ITEMS);
     }
 
     /**

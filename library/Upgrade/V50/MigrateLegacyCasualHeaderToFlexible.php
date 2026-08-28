@@ -79,6 +79,7 @@ class MigrateLegacyCasualHeaderToFlexible
         $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
 
         $this->applyDefaultHeaderMargin();
+        (new MigrateLegacyDrawerVisibility($this->wpService))->migrate(self::DESKTOP_UPPER_ITEMS, self::RESPONSIVE_UPPER_ITEMS);
     }
 
     /**

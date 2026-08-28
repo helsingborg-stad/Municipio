@@ -89,6 +89,11 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
             $wpService->methodCalls['setThemeMod'] ?? [],
         );
 
+        static::assertContains(
+            ['header_sortable_section_main_upper', ['logotype', 'language', 'user']],
+            $wpService->methodCalls['setThemeMod'] ?? [],
+        );
+
         $hiddenStorageWrite = $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_hidden_storage');
         $hiddenStorageWrite = is_string($hiddenStorageWrite) ? json_decode($hiddenStorageWrite, true) : $hiddenStorageWrite;
         static::assertSame('left', $hiddenStorageWrite['header_sortable_section_main_lower']['primary']['align']);
@@ -113,6 +118,31 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         static::assertSame(
             '0',
             $tokensWrite['component']['scope:s-header-flexible-lower']['header']['--c-header--padding-y-enabled'] ?? null,
+        );
+    }
+
+    #[TestDox('migrate removes drawer from mobile header areas when legacy drawer sizes exclude mobile')]
+    public function testMigrateRemovesDrawerFromMobileHeaderAreasWhenLegacyDrawerSizesExcludeMobile(): void
+    {
+        $themeMods = [
+            'header_apperance' => 'business',
+            'drawer_screen_sizes' => ['lg', 'xl'],
+        ];
+
+        $wpService = new FakeWpService([
+            'getThemeMod' => static fn(string $name, mixed $default = null): mixed => $themeMods[$name] ?? $default,
+            'setThemeMod' => true,
+        ]);
+
+        (new MigrateLegacyHeaderLayoutsToFlexible($wpService))->migrate();
+
+        static::assertContains(
+            ['header_sortable_section_main_upper', ['logotype', 'language', 'drawer', 'user']],
+            $wpService->methodCalls['setThemeMod'] ?? [],
+        );
+        static::assertContains(
+            ['header_sortable_section_main_upper_responsive', ['logotype', 'language']],
+            $wpService->methodCalls['setThemeMod'] ?? [],
         );
     }
 
