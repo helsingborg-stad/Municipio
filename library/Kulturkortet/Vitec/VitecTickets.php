@@ -18,13 +18,12 @@ class VitecTickets
     public static function tryGetActiveTicket(array $tickets): ?array
     {
         $now = new \DateTime();
-        return (
+        return 
             array_values(
                 array_filter(
                     $tickets ?? [],
                     fn($t) => str_contains($t['ticketTemplateName'], 'Import_Kulturkort') && !empty($t['validFrom'] ?? '') && !empty($t['validUntil'] ?? '') && new \DateTime($t['validFrom'] ?? '') <= $now && new \DateTime($t['validUntil'] ?? '') >= $now,
                 ),
-            )[0] ?? null
-        );
+            )[0] ?? null;
     }
 }
