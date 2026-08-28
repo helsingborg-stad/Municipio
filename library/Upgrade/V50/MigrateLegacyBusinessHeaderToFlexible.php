@@ -21,8 +21,10 @@ class MigrateLegacyBusinessHeaderToFlexible
 
     private const TOKENS_SETTING              = 'tokens';
     private const LOWER_AREA_SCOPE             = 'scope:s-header-flexible-lower';
+    private const COLOR_SURFACE_TOKEN          = '--c-header--color--surface';
     private const PADDING_X_TOKEN             = '--c-header--padding-x-enabled';
     private const PADDING_Y_TOKEN             = '--c-header--padding-y-enabled';
+    private const PRIMARY_COLOR                = 'var(--color--primary)';
     private const UPPER_ITEMS = ['logotype', 'language', 'drawer', 'user'];
     private const LOWER_ITEMS = ['primary'];
     private const UPPER_RESPONSIVE_ITEMS = ['logotype', 'language', 'drawer'];
@@ -96,6 +98,11 @@ class MigrateLegacyBusinessHeaderToFlexible
         $raw    = $this->wpService->getThemeMod(self::TOKENS_SETTING, null);
         $tokens = $this->parseTokens($raw);
         $changed = false;
+
+        if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::COLOR_SURFACE_TOKEN])) {
+            $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::COLOR_SURFACE_TOKEN] = self::PRIMARY_COLOR;
+            $changed = true;
+        }
 
         if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_X_TOKEN])) {
             $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_X_TOKEN] = '0';

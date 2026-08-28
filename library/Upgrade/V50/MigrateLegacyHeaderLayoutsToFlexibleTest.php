@@ -103,6 +103,10 @@ class MigrateLegacyHeaderLayoutsToFlexibleTest extends TestCase
         $tokensWrite = is_string($tokensWrite) ? json_decode($tokensWrite, true) : $tokensWrite;
         static::assertIsArray($tokensWrite);
         static::assertSame(
+            'var(--color--primary)',
+            $tokensWrite['component']['scope:s-header-flexible-lower']['header']['--c-header--color--surface'] ?? null,
+        );
+        static::assertSame(
             '0',
             $tokensWrite['component']['scope:s-header-flexible-lower']['header']['--c-header--padding-x-enabled'] ?? null,
         );
