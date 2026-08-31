@@ -72,6 +72,7 @@ class SchemaDataFeature
         $this->setupTaxonomies();
         $this->setupCronJobs();
         $this->setupExternalContent();
+        $this->setupSearchIndexIntegration();
     }
 
     /**
@@ -216,6 +217,11 @@ class SchemaDataFeature
             $this->acfFieldContentModifierRegistrar,
             $this->schemaDataConfig
         ))->enable();
+    }
+
+    private function setupSearchIndexIntegration(): void
+    {
+        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord($this->wpService))->addHooks();
     }
 
     /**
