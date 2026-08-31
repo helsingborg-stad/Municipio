@@ -35,11 +35,11 @@ class MigrateHeaderSortableDataIntegrityTest extends TestCase
         );
 
         static::assertSame(
-            json_encode(['logotype', 'language', 'drawer', 'user']),
+            json_encode(['logotype', 'search-modal', 'language', 'drawer']),
             $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_section_main_upper'),
         );
         static::assertSame(
-            json_encode(['primary']),
+            json_encode([]),
             $this->findSetThemeModCall($wpService->methodCalls['setThemeMod'] ?? [], 'header_sortable_section_main_lower'),
         );
     }

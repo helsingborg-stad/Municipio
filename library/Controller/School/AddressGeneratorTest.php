@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Municipio\Controller\School;
 
-use Municipio\Schema\Place;
+
 use Municipio\Schema\Schema;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\_x;
 use WpService\Implementations\FakeWpService;
@@ -16,7 +17,7 @@ class AddressGeneratorTest extends TestCase
     {
         $preschool = \Municipio\Schema\Schema::preschool();
         $generator = new AddressGenerator($preschool, $this->getWpService());
-        $this->assertInstanceOf(AddressGenerator::class, $generator);
+        static::assertInstanceOf(AddressGenerator::class, $generator);
     }
 
     public function testGenerateReturnsNullAddressAndDirectionsIfAddressIsEmpty(): void
@@ -27,8 +28,8 @@ class AddressGeneratorTest extends TestCase
         ]);
         $generator = new AddressGenerator($preschool, $this->getWpService());
         $result    = $generator->generate();
-        $this->assertNull($result);
-        $this->assertNull($result);
+        static::assertNull($result);
+        static::assertNull($result);
     }
 
     public function testGenerateReturnsValidAddressAndDirections(): void
@@ -39,17 +40,42 @@ class AddressGeneratorTest extends TestCase
         ]);
         $generator = new AddressGenerator($preschool, $this->getWpService());
         $result    = $generator->generate();
-        $this->assertSame($address, $result[0]['address']);
-        $this->assertEquals([
+        static::assertSame($address, $result[0]['address']);
+        static::assertEquals([
             'label' => 'Get directions',
             'href'  => 'https://www.google.com/maps/dir//' . urlencode($address)
         ], $result[0]['directionsLink']);
     }
 
+    #[TestDox('description is null if not available')]
+    public function testDescriptionIsNullIfNotAvailable(): void
+    {
+        $address   = 'Testgatan 1, 12345 Teststad';
+        $place = Schema::place()->address($address);
+        $preschool = \Municipio\Schema\Schema::preschool()->location([ $place ]);
+        
+        $generator = new AddressGenerator($preschool, $this->getWpService());
+        $result    = $generator->generate();
+
+        static::assertNull($result[0]['description']);
+    }
+
+    #[TestDox('description is as string if available')]
+    public function testDescriptionIsAsStringIfAvailable(): void
+    {
+        $address   = 'Testgatan 1, 12345 Teststad';
+        $description = 'This is a test description for the place.';
+        $place = Schema::place()->address($address)->description($description);
+        $preschool = \Municipio\Schema\Schema::preschool()->location([ $place ]);
+        
+        $generator = new AddressGenerator($preschool, $this->getWpService());
+        $result    = $generator->generate();
+
+        static::assertSame($description, $result[0]['description']);
+    }
+
     private function getWpService(): _x
     {
-        return new FakeWpService(['_x' => function ($text, $context, $domain) {
-            return $text;
-        }]);
+        return new FakeWpService(['_x' => static fn ($text, $context, $domain) => $text]);
     }
 }

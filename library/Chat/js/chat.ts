@@ -1,5 +1,5 @@
-import MarkdownIt from "markdown-it";
-import FeedbackApi from "./feedbackApi";
+import type MarkdownIt from "markdown-it";
+import type FeedbackApi from "./feedbackApi";
 
 class Chat implements ChatInterface {
 	private session: ChatSession | null = null;
@@ -20,7 +20,7 @@ class Chat implements ChatInterface {
 	}
 
 	private postMessageStat(): void {
-		this.feedbackApi.postStat('message');
+		this.feedbackApi.postStat("message");
 	}
 
 	public createNewChatSession(): void {
@@ -28,7 +28,7 @@ class Chat implements ChatInterface {
 	}
 
 	private listenForUserMessages(): void {
-		this.chat.getElement().addEventListener('chat:message-added', (e: any) => {
+		this.chat.getElement().addEventListener("chat:message-added", (e: any) => {
 			const message = e.detail;
 
 			if (message.getIsReply()) {
@@ -43,7 +43,10 @@ class Chat implements ChatInterface {
 		try {
 			return this.markdownParser.render(content);
 		} catch (error) {
-			console.error("[Chat] Failed to render markdown, falling back to escaped text.", error);
+			console.error(
+				"[Chat] Failed to render markdown, falling back to escaped text.",
+				error,
+			);
 			return `<p>${this.markdownParser.utils.escapeHtml(content)}</p>`;
 		}
 	}
@@ -56,29 +59,41 @@ class Chat implements ChatInterface {
 		this.streamedContent = "";
 		let contentAdded = false;
 
-		for await (const event of this.session.ask(message)) {
-			switch (event.type) {
-				case "text":
-					this.streamedContent = event.content;
-					this.chat.editMessage(this.renderMarkdown(this.streamedContent), pendingMessage);
-					contentAdded = true;
-					break;
-				case "tool_call":
-					contentAdded = true;
-					break;
-				case "done":
-					if (this.streamedContent) {
-						this.chat.editMessage(this.renderMarkdown(this.streamedContent), pendingMessage);
-					}
-					this.chat.enableSend();
-					if (!contentAdded) {
-						this.chat.deleteMessage(pendingMessage);
-					} else {
-						this.feedbackFactory.create(pendingMessage);
-						this.postMessageStat();
-					}
-					break;
+		try {
+			for await (const event of this.session.ask(message)) {
+				switch (event.type) {
+					case "text":
+						this.streamedContent = event.content;
+						this.chat.editMessage(
+							this.renderMarkdown(this.streamedContent),
+							pendingMessage,
+						);
+						contentAdded = true;
+						break;
+					case "tool_call":
+						contentAdded = true;
+						break;
+					case "done":
+						if (this.streamedContent) {
+							this.chat.editMessage(
+								this.renderMarkdown(this.streamedContent),
+								pendingMessage,
+							);
+						}
+						this.chat.enableSend();
+						if (!contentAdded) {
+							this.chat.deleteMessage(pendingMessage);
+						} else {
+							this.feedbackFactory.create(pendingMessage);
+							this.postMessageStat();
+						}
+						break;
+				}
 			}
+		} catch (error) {
+			console.error("[Chat] Error during message processing:", error);
+			this.chat.enableSend();
+			this.chat.editMessage(municipioChatLocale.errorMessage, pendingMessage);
 		}
 	}
 }

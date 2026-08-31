@@ -2,17 +2,18 @@
 
 namespace Municipio\ImageConvert;
 
-use Municipio\ImageConvert\Contract\ImageContract;
-use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
-use WpService\Contracts\WpGetImageEditor;
-use WpService\Contracts\IsWpError;
-use WpService\Contracts\WpGetAttachmentMetadata;
-use WpService\Contracts\WpAttachmentIs;
+use Municipio\ImageConvert\Cache\ConversionCache;
+use Municipio\ImageConvert\Config\ImageConvertConfig;
+use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\Logging\Log;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
-use Municipio\ImageConvert\Cache\ConversionCache;
-use Municipio\ImageConvert\Logging\Log;
+use WpService\Contracts\IsWpError;
+use WpService\Contracts\WpAttachmentIs;
+use WpService\Contracts\WpDeleteFile;
+use WpService\Contracts\WpGetAttachmentMetadata;
+use WpService\Contracts\WpGetImageEditor;
 
 /**
  * ImageProcessor
@@ -23,12 +24,11 @@ use Municipio\ImageConvert\Logging\Log;
 class ImageProcessor
 {
     public function __construct(
-        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&ApplyFilters $wpService,
+        private WpGetImageEditor&IsWpError&WpGetAttachmentMetadata&WpAttachmentIs&AddFilter&ApplyFilters&WpDeleteFile $wpService,
         private ImageConvertConfig $config,
         private ConversionCache $conversionCache,
-        private Log $log
-    ) {
-    }
+        private Log $log,
+    ) {}
 
     /**
      * Process an image resize request
@@ -48,14 +48,7 @@ class ImageProcessor
             // Check if the image can be resized
             $canConvert = $this->canConvertImage($image);
             if ($canConvert instanceof \WP_Error) {
-                $this->log->log(
-                    $this,
-                    'Cannot convert image: ' . $canConvert->get_error_message(),
-                    'warning',
-                    ['image' => $image, 'format' => $format, 'reason' => $canConvert->get_error_code()]
-                );
-
-                $this->conversionCache->markConversionFailed($image);
+                $this->logConversionFailure($image, $format, $canConvert);
                 return false;
             }
 
@@ -64,7 +57,7 @@ class ImageProcessor
                 $this,
                 'Starting image conversion.',
                 'info',
-                ['image' => $image, 'format' => $format]
+                ['image' => $image, 'format' => $format],
             );
 
             // Set processing limits for better resource management
@@ -74,73 +67,114 @@ class ImageProcessor
             // Switch to the preferred image editor based on file type
             $this->setPreferredImageEditorByFiletype($image);
 
-            $intermediateLocation = $image->getIntermidiateLocation($format);
-
-            $imageEditor = $this->wpService->wpGetImageEditor($image->getPath());
-
-            if (!$this->wpService->isWpError($imageEditor)) {
-                // Get the original image dimensions
-                $originalSize = $imageEditor->get_size();
-
-                // Determine target dimensions using min() to avoid upscaling
-                $targetWidth  = min($image->getWidth(), $originalSize['width']);
-                $targetHeight = min($image->getHeight(), $originalSize['height']);
-
-                // Resize the image
-                $imageEditor->resize($targetWidth, $targetHeight, true);
-
-                // Attempt to save the resized image
-                $savedImage = $imageEditor->save($intermediateLocation['path']);
-
-                if (!$this->wpService->isWpError($savedImage)) {
-
-                    // Fire filter to allow modification of the final path
-                    $intermediateLocation['path'] = $this->wpService->applyFilters(
-                        'wp_create_file_in_uploads', 
-                        $intermediateLocation['path'],
-                        $image->getId() 
-                    );
-
-                    $image->setUrl($intermediateLocation['url']);
-                    $image->setPath($intermediateLocation['path']);
-
-                    // Mark conversion as successful
-                    $this->conversionCache->markConversionSuccess($image);
-
-                    $this->log->log(
-                        $this,
-                        'Successfully converted image.',
-                        'info',
-                        ['image' => $image, 'format' => $format]
-                    );
-
-                    return $image;
-                } else {
-                    $this->log->log(
-                        $this,
-                        'Cannot convert image: ' . $savedImage->get_error_message(),
-                        'warning',
-                        ['image' => $image, 'format' => $format, 'reason' => $savedImage->get_error_code()]
-                    );
-
-                    $this->conversionCache->markConversionFailed($image);
-                }
-            } else {
-                $this->log->log(
-                    $this,
-                    'Cannot convert image: ' . $imageEditor->get_error_message(),
-                    'warning',
-                    ['image' => $image, 'format' => $format, 'reason' => $imageEditor->get_error_code()]
-                );
-
-                $this->conversionCache->markConversionFailed($image);
-            }
-
-            return false;
+            return $this->convertImage($image, $format);
         } finally {
             // Always release the lock, even if resizing failed
             $this->conversionCache->releaseConversionLock($image);
         }
+    }
+
+    private function convertImage(ImageContract $image, string $format): ImageContract|false
+    {
+        $imageEditor = $this->wpService->wpGetImageEditor($image->getPath());
+        if ($this->wpService->isWpError($imageEditor)) {
+            $this->logConversionFailure($image, $format, $imageEditor);
+            return false;
+        }
+
+        $originalSize = $imageEditor->get_size();
+        $targetWidth = min($image->getWidth(), $originalSize['width']);
+        $targetHeight = min($image->getHeight(), $originalSize['height']);
+        $resizeResult = $imageEditor->resize($targetWidth, $targetHeight, true);
+
+        if ($this->wpService->isWpError($resizeResult)) {
+            $this->logConversionFailure($image, $format, $resizeResult);
+            return false;
+        }
+
+        $intermediateLocation = $image->getIntermidiateLocation($format);
+        $temporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
+
+        try {
+            $savedImage = $imageEditor->save($temporaryPath);
+            if ($this->wpService->isWpError($savedImage)) {
+                $this->logConversionFailure($image, $format, $savedImage);
+                return false;
+            }
+
+            $savedPath = $savedImage['path'] ?? $temporaryPath;
+            $temporaryPath = $savedPath;
+
+            if (!File::isValidImage(
+                $savedPath,
+                File::getImageMimeTypeForPath($intermediateLocation['path']),
+                $targetWidth,
+                $targetHeight,
+            )) {
+                $this->logConversionFailure(
+                    $image,
+                    $format,
+                    new \WP_Error('invalid_output', 'The converted image is empty, malformed, or has unexpected properties.'),
+                );
+                return false;
+            }
+
+            if (!rename($savedPath, $intermediateLocation['path'])) {
+                $this->logConversionFailure(
+                    $image,
+                    $format,
+                    new \WP_Error('publish_failed', 'The converted image could not be moved to its public path.'),
+                );
+                return false;
+            }
+
+            $temporaryPath = null;
+
+            $intermediateLocation['path'] = $this->wpService->applyFilters(
+                'wp_create_file_in_uploads',
+                $intermediateLocation['path'],
+                $image->getId(),
+            );
+
+            $image->setUrl($intermediateLocation['url']);
+            $image->setPath($intermediateLocation['path']);
+            $this->conversionCache->markConversionSuccess($image);
+            $this->log->log(
+                $this,
+                'Successfully converted image.',
+                'info',
+                ['image' => $image, 'format' => $format],
+            );
+
+            return $image;
+        } finally {
+            if ($temporaryPath !== null && file_exists($temporaryPath)) {
+                $this->wpService->wpDeleteFile($temporaryPath);
+            }
+        }
+    }
+
+    /**
+     * Build a unique path beside the final image while preserving its extension.
+     */
+    private function getTemporaryPath(string $finalPath): string
+    {
+        $extension = pathinfo($finalPath, PATHINFO_EXTENSION);
+        $basePath = substr($finalPath, 0, -(strlen($extension) + 1));
+
+        return sprintf('%s.tmp-%s.%s', $basePath, bin2hex(random_bytes(8)), $extension);
+    }
+
+    private function logConversionFailure(ImageContract $image, string $format, \WP_Error $error): void
+    {
+        $this->log->log(
+            $this,
+            'Cannot convert image: ' . $error->get_error_message(),
+            'warning',
+            ['image' => $image, 'format' => $format, 'reason' => $error->get_error_code()],
+        );
+
+        $this->conversionCache->markConversionFailed($image);
     }
 
     /**
@@ -149,7 +183,7 @@ class ImageProcessor
     private function canConvertImage(ImageContract $image): true|\WP_Error
     {
         $sourceFilePath = $image->getPath();
-        $sourceFileId   = $image->getId();
+        $sourceFileId = $image->getId();
 
         // The id cannot be empty or negative
         if (empty($sourceFileId) || $sourceFileId < 0) {
@@ -196,18 +230,14 @@ class ImageProcessor
      */
     private function setPreferredImageEditorByFiletype(ImageContract $image): void
     {
-        $filePath       = $image->getPath();
+        $filePath = $image->getPath();
         $fileNameSuffix = pathinfo($filePath, PATHINFO_EXTENSION);
-        $fileTypeMime   = match (strtolower($fileNameSuffix)) {
+        $fileTypeMime = match (strtolower($fileNameSuffix)) {
             'png' => 'image/png',
-            default => false
+            default => false,
         };
 
-        $availableEditors = (
-            ($fileTypeMime === 'image/png') ?
-            ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] :
-            ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD']
-        );
+        $availableEditors = $fileTypeMime === 'image/png' ? ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] : ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD'];
 
         $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
     }

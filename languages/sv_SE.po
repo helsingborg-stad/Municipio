@@ -4305,9 +4305,6 @@ msgstr "Visar ett galleri med logotyper"
 #: library/Helper/TranslatedLabels.php:84
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
 #: library/PostsList/ViewCallableProviders/Filter/GetTextSearchFieldArguments.php:74
-#: library/Search/General.php:49
-#: library/Search/General.php:56
-#: library/Search/General.php:61
 #: library/Widget/Navigation/Navigation.php:66
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:53
 msgid "Search"
@@ -4705,17 +4702,14 @@ msgstr "Posttyp moduler"
 msgid "The database may need to be updated to accomodate new datatastructures. Run wp-cli \"modularity upgrade\" to upgrade."
 msgstr "Databasen kan behöva uppdateras för att anpassas till nya datastrukturer. Kör wp-cli ”modularity upgrade” för att uppgradera."
 
-#: library/Upgrade.php:1378
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:1382
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:1387
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr "Databasversionen som ska uppnås, kan inte vara lägre än den version som är sparad (kan inte nedgradera databasen)."
@@ -7350,19 +7344,19 @@ msgstr "Ogillad"
 msgid "Neutral"
 msgstr "Neutral"
 
-#: library/Chat/Api/ChatEndpoint.php:74
+#: library/Chat/Api/ChatEndpoint.php:73
 msgid "No message provided."
 msgstr "Inget meddelande angivet."
 
-#: library/Chat/Api/ChatEndpoint.php:100
+#: library/Chat/Api/ChatEndpoint.php:99
 msgid "Assistant not found."
 msgstr "Assistenten hittades inte."
 
-#: library/Chat/Api/ChatEndpoint.php:110
+#: library/Chat/Api/ChatEndpoint.php:109
 msgid "Assistant configuration is incomplete."
 msgstr "Assistentkonfigurationen är ofullständig."
 
-#: library/Chat/Api/ChatEndpoint.php:126
+#: library/Chat/Api/ChatEndpoint.php:125
 #, fuzzy
 msgid "Unable to process message safely. Please try again later."
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
@@ -7604,7 +7598,7 @@ msgstr "Namnlös sida"
 msgid "Home"
 msgstr "Hem"
 
-#: library/Controller/School/AddressGenerator.php:87
+#: library/Controller/School/AddressGenerator.php:99
 msgctxt "ElementarySchool"
 msgid "Get directions"
 msgstr "Hitta hit"
@@ -9591,7 +9585,7 @@ msgid "Special Opening Hours"
 msgstr "Öppettider: %s"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:91
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Physical Accessibility Features"
 msgstr "Tillgänglighet"
 
@@ -9624,7 +9618,7 @@ msgid "Employer Overview"
 msgstr "Arbetsgivaröversikt"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:45
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 msgid "Employment Type"
 msgstr "Typ av anställning"
 
@@ -9732,105 +9726,105 @@ msgctxt "Event schema status"
 msgid "Ongoing"
 msgstr "Aktuell"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:61
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:62
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Job Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Job Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:77
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Latest Application Dates"
 msgstr "Ansök senast"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:77
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Latest Application Date"
 msgstr "Ansök senast"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Event Tags"
 msgstr "Eventtaggar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Event Tag"
 msgstr "Eventtagg"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:91
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Physical Accessibility Feature"
 msgstr "Tillgänglighet"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
 msgid "Project Departments"
 msgstr "Organisationer"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
 msgid "Project Department"
 msgstr "Organisation"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
 msgid "Project Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
 msgid "Project Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
 msgid "Project Technologies"
 msgstr "Omställningar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
 msgid "Project Technology"
 msgstr "Omställning"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:106
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Project Statuses"
 msgstr "Statusar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:106
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Project Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
 msgid "Unique selling points"
 msgstr "Särskilda erbjudanden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
 msgid "Unique selling point"
 msgstr "Särskilt erbjudande"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
 msgid "Areas served"
 msgstr "Områden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
 msgid "Area served"
 msgstr "Område"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Grades"
 msgstr "Årskurser"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Grade"
 msgstr "Årskurs"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:134
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:146
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr "Antal avdelningar"
@@ -12196,6 +12190,7 @@ msgstr "Infoga sidbrytning för utskrift"
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
+#: library/Chat/Render/ChatEnqueue.php:30
 #: library/Theme/Enqueue.php:66
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
@@ -12714,10 +12709,6 @@ msgstr "Översätt"
 msgid "New title"
 msgstr "Ny titel"
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Change Image"
-msgstr ""
-
 #: library/Customizer/Controls/Background/BackgroundControl.php:122
 #, fuzzy
 msgid "Contain"
@@ -12756,26 +12747,6 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Enable Pagination"
-#~ msgstr "Aktivera paginering"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Image focal point"
-#~ msgstr "Bildens fokuspunkt"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Remove row"
-#~ msgstr "Ta bort rad"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Backdrop banner settings"
-#~ msgstr "Inställningar för backdrop banner"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Maximum number of rows reached."
-#~ msgstr "Maximalt antal rader uppnått."
-
 #: library/BackdropBanner/block.json
 #~ msgctxt "block title"
 #~ msgid "Backdrop Banner"
@@ -12805,66 +12776,6 @@ msgstr ""
 #~ msgctxt "block description"
 #~ msgid "A block to display a list of posts."
 #~ msgstr "Block som visar en lista av poster"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Date Published"
-#~ msgstr "Publiceringsdatum"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "DateModified"
-#~ msgstr "Datum ändrad"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Order by"
-#~ msgstr "Sortera efter"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Posts settings"
-#~ msgstr "Inläggsinställningar"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Posts per page"
-#~ msgstr "Inlägg per sida"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Time"
-#~ msgstr "Tid"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Date, time"
-#~ msgstr "Datum, tid"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Date Modified"
-#~ msgstr "Datum ändrad"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Date source"
-#~ msgstr "Datumkälla"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Appearance settings"
-#~ msgstr "UI"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Number of columns"
-#~ msgstr "Antal kolumner"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Enable text search"
-#~ msgstr "Aktivera textsökning"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Enable date filter"
-#~ msgstr "Aktivera datumfilter"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Date To"
-#~ msgstr "Datum till"
-
-#: assets/dist/blocks/js/blocks.js:1
-#~ msgid "Subtitle"
-#~ msgstr "Underrubrik"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:59
 msgid "Public URL slug for the archive, without leading or trailing slashes."
@@ -13178,7 +13089,7 @@ msgstr ""
 msgid "Close search"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 msgid "Employment Types"
 msgstr ""
 
@@ -13912,7 +13823,9 @@ msgstr "Maskering"
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:401
 msgctxt "design-builder-component-data"
 msgid "Enables or disables logotype masking."
-msgstr "Aktiverar eller inaktiverar logotypmaskering."
+msgstr ""
+"Aktiverar eller inaktiverar logotypmaskering.\n"
+"HEAD"
 
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:39
 msgid "Pagination"
@@ -13931,4 +13844,91 @@ msgstr ""
 #: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:156
 msgctxt "design-builder-component-data"
 msgid "Card Color"
+msgstr ""
+"\n"
+"\n"
+"main"
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date, time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Published"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Modified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date source"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Appearance settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Number of columns"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable text search"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable date filter"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "DateModified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Order by"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts per page"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable Pagination"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date To"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Image focal point"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Change Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Subtitle"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove row"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Backdrop banner settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Maximum number of rows reached."
 msgstr ""

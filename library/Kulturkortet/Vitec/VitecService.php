@@ -20,7 +20,7 @@ class VitecService implements VitecServiceInterface
     public function tryGetTicket(string $ssn): ?array
     {
         // For testing purposes, allow overriding the SSN with a known cardholder
-        $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . VitecSSN::formatSSN($ssn) . '/tickets';
+        $url = $this->config->getBaseUrl() . '/kulturkortet/customer/' . $this->config->mapSSN($ssn) . '/tickets';
 
         $response = $this->wpService->wpRemoteGet($url, [
             'headers' => [
@@ -34,13 +34,7 @@ class VitecService implements VitecServiceInterface
 
         $decodedBody = json_decode($body, true, flags: JSON_OBJECT_AS_ARRAY);
 
-        $ticket = array_values(
-            array_filter(
-                $decodedBody['tickets'] ?? [],
-                fn($t) => $t['ticketTemplateName'] === 'Import_Kulturkort')
-            )[0] ?? null;
-
-        return $ticket ?? null;
+        return VitecTickets::tryGetActiveTicket($decodedBody['tickets'] ?? []) ?? null;
     }
 
     public function updateUserData(string $ssn, string $email): ?array

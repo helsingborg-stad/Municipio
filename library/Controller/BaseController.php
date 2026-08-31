@@ -177,7 +177,7 @@ class BaseController
             'secondary-menu',
             false,
             false,
-            $this->isMenuPagetreeFallbackEnabled('mobile', !empty($this->data['customizer']->mobileMenuPagetreeFallback)),
+            $this->isMenuPagetreeFallbackEnabled('mobile', $this->data['customizer']->mobileMenuPagetreeFallback ?? true),
         );
 
         $this->menuBuilder->setConfig($mobileMenuConfig);

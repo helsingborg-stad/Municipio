@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Controller\School;
 
 use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
@@ -31,13 +33,13 @@ class AddressGenerator implements ViewDataGeneratorInterface
     public function generate(): mixed
     {
         $places = EnsureArrayOf::ensureArrayOf($this->school->getProperty('location'), Place::class);
-        $places = array_filter($places, fn($place) => !empty($place->getProperty('address')));
+        $places = array_filter($places, static fn($place) => !is_null($place->getProperty('address')));
 
-        if (empty($places)) {
+        if (count($places) === 0) {
             return null;
         }
 
-        return array_map(fn($place) => $this->mapPlaceToAddress($place), $places);
+        return array_map($this->mapPlaceToAddress(...), $places);
     }
 
     /**
@@ -51,7 +53,17 @@ class AddressGenerator implements ViewDataGeneratorInterface
         return [
             'address'        => $this->getAddress($place),
             'directionsLink' => $this->getDirectionsLinkAttributes($place),
+            'description' => $this->getDescription($place),
         ];
+    }
+
+    private function getDescription(Place $place): ?string
+    {
+        $description = $place->getProperty('description');
+
+        return is_string($description) && strlen(trim($description)) > 0
+            ? $description
+            : null;
     }
 
     /**
@@ -64,7 +76,7 @@ class AddressGenerator implements ViewDataGeneratorInterface
     {
         $address = $place->getProperty('address');
 
-        return is_string($address) && !empty($address)
+        return is_string($address) && strlen(trim($address)) > 0
             ? $address
             : null;
     }
@@ -79,7 +91,7 @@ class AddressGenerator implements ViewDataGeneratorInterface
     {
         $address = $place->getProperty('address');
 
-        if (!is_string($address) || empty($address)) {
+        if (!is_string($address) || strlen(trim($address)) === 0) {
             return null;
         }
 

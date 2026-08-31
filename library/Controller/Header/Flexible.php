@@ -176,10 +176,11 @@ class Flexible implements HeaderInterface
     {
         $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
         $responsiveSettingExists = property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null;
-        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && $responsiveSettingExists;
 
         $desktopOrderedItems = $this->normalizeOrderedItems($this->customizer->{$settingCamelCased} ?? []);
-        $mobileOrderedItems = $shouldGetMobileOrderedItems() ? $this->normalizeOrderedItems($this->customizer->{$responsiveSetting}) : [];
+        $mobileOrderedItems = $this->isResponsive && $responsiveSettingExists
+            ? $this->normalizeOrderedItems($this->customizer->{$responsiveSetting})
+            : [];
 
         return [$desktopOrderedItems, $mobileOrderedItems];
     }
@@ -195,7 +196,7 @@ class Flexible implements HeaderInterface
             [, $settingCamelCased] = $this->getSettingName($section);
             $responsiveSetting = $settingCamelCased . $this->headerSettingKeyResponsive;
 
-            if (property_exists($this->customizer, $responsiveSetting) && $this->customizer->{$responsiveSetting} !== null) {
+            if (!empty($this->normalizeOrderedItems($this->customizer->{$responsiveSetting} ?? null))) {
                 return true;
             }
         }
@@ -282,7 +283,7 @@ class Flexible implements HeaderInterface
     {
         $overlapMultiplier = (float) ($this->customizer->{$this->logoOverlapMultiplierSetting} ?? 0.25);
 
-        return $overlapMultiplier > 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
+        return $overlapMultiplier >= 0 && $overlapMultiplier <= 1 ? $overlapMultiplier : 0.25;
     }
 
     /**

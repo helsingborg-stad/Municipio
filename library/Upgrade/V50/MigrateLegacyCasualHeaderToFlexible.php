@@ -54,7 +54,7 @@ class MigrateLegacyCasualHeaderToFlexible
         $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, self::RESPONSIVE_UPPER_ITEMS);
         $this->wpService->setThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, []);
 
-        $storage = $this->getNormalizedHiddenStorage();
+        $storage = [];
         $storage[self::UPPER_SECTION_SETTING] = $this->buildDefaultItemOptions(
             array_values(array_unique(array_merge(self::DESKTOP_UPPER_ITEMS, self::RESPONSIVE_UPPER_ITEMS))),
             'right',
@@ -79,6 +79,12 @@ class MigrateLegacyCasualHeaderToFlexible
         $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
 
         $this->applyDefaultHeaderMargin();
+        (new MigrateLegacyDrawerVisibility($this->wpService))->migrate(
+            self::DESKTOP_UPPER_ITEMS,
+            self::RESPONSIVE_UPPER_ITEMS,
+            self::UPPER_SECTION_SETTING,
+            self::UPPER_RESPONSIVE_SECTION_SETTING,
+        );
     }
 
     /**
@@ -97,28 +103,6 @@ class MigrateLegacyCasualHeaderToFlexible
         }
 
         $this->wpService->setThemeMod('header_margin', 'remove-spacing');
-    }
-
-    /**
-     * Resolve hidden storage as an associative array.
-     *
-     * @return array<string, mixed>
-     */
-    private function getNormalizedHiddenStorage(): array
-    {
-        $storage = $this->wpService->getThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, []);
-
-        if (is_array($storage)) {
-            return $storage;
-        }
-
-        if (!is_string($storage) || trim($storage) === '') {
-            return [];
-        }
-
-        $decoded = json_decode($storage, true);
-
-        return is_array($decoded) ? $decoded : [];
     }
 
     /**

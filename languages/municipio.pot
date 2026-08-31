@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-27T08:15:25+00:00\n"
+"POT-Creation-Date: 2026-08-31T11:18:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -3182,9 +3182,6 @@ msgstr ""
 #: library/Helper/TranslatedLabels.php:84
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
 #: library/PostsList/ViewCallableProviders/Filter/GetTextSearchFieldArguments.php:74
-#: library/Search/General.php:49
-#: library/Search/General.php:56
-#: library/Search/General.php:61
 #: library/Widget/Navigation/Navigation.php:66
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:53
 msgid "Search"
@@ -3463,19 +3460,19 @@ msgstr ""
 msgid "Neutral"
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:74
+#: library/Chat/Api/ChatEndpoint.php:73
 msgid "No message provided."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:100
+#: library/Chat/Api/ChatEndpoint.php:99
 msgid "Assistant not found."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:110
+#: library/Chat/Api/ChatEndpoint.php:109
 msgid "Assistant configuration is incomplete."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:126
+#: library/Chat/Api/ChatEndpoint.php:125
 msgid "Unable to process message safely. Please try again later."
 msgstr ""
 
@@ -3498,6 +3495,11 @@ msgstr ""
 
 #: library/Chat/ChatBlock.php:43
 msgid "Assistant"
+msgstr ""
+
+#: library/Chat/Render/ChatEnqueue.php:30
+#: library/Theme/Enqueue.php:66
+msgid "Something went wrong, please try again later"
 msgstr ""
 
 #: library/Chat/Render/ChatRenderConfig.php:79
@@ -3766,7 +3768,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: library/Controller/School/AddressGenerator.php:87
+#: library/Controller/School/AddressGenerator.php:99
 msgctxt "ElementarySchool"
 msgid "Get directions"
 msgstr ""
@@ -6174,7 +6176,7 @@ msgid "Special Opening Hours"
 msgstr ""
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:91
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Physical Accessibility Features"
 msgstr ""
 
@@ -6207,7 +6209,7 @@ msgid "Employer Overview"
 msgstr ""
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:45
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 msgid "Employment Type"
 msgstr ""
 
@@ -6320,109 +6322,109 @@ msgctxt "Event schema status"
 msgid "Ongoing"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:61
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:62
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Job Categories"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Job Category"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:77
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Latest Application Dates"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:77
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Latest Application Date"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 msgid "Employment Types"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Event Tags"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Event Tag"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:91
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Physical Accessibility Feature"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
 msgid "Project Departments"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
 msgid "Project Department"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
 msgid "Project Categories"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
 msgid "Project Category"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
 msgid "Project Technologies"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
 msgid "Project Technology"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:106
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Project Statuses"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:106
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Project Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
 msgid "Unique selling points"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
 msgid "Unique selling point"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
 msgid "Areas served"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
 msgid "Area served"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Grades"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Grade"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:134
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:146
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr ""
@@ -9479,10 +9481,6 @@ msgstr ""
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/Theme/Enqueue.php:66
-msgid "Something went wrong, please try again later"
-msgstr ""
-
 #: library/Theme/Enqueue.php:75
 msgid "January"
 msgstr ""
@@ -9975,21 +9973,6 @@ msgstr ""
 
 #: library/Theme/Sidebars.php:270
 msgid "Sidebar that sits just before the columns grid."
-msgstr ""
-
-#: library/Upgrade.php:1378
-#: Modularity/source/php/Upgrade.php:78
-msgid "To be installed database version must be a number."
-msgstr ""
-
-#: library/Upgrade.php:1382
-#: Modularity/source/php/Upgrade.php:83
-msgid "Current database version must be a number."
-msgstr ""
-
-#: library/Upgrade.php:1387
-#: Modularity/source/php/Upgrade.php:88
-msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 
 #: library/Upgrade/V43/MigrateLegacyUploadedFontsToNativeFontLibrary.php:509
@@ -13684,6 +13667,18 @@ msgstr ""
 
 #: Modularity/source/php/Upgrade.php:34
 msgid "The database may need to be updated to accomodate new datatastructures. Run wp-cli \"modularity upgrade\" to upgrade."
+msgstr ""
+
+#: Modularity/source/php/Upgrade.php:78
+msgid "To be installed database version must be a number."
+msgstr ""
+
+#: Modularity/source/php/Upgrade.php:83
+msgid "Current database version must be a number."
+msgstr ""
+
+#: Modularity/source/php/Upgrade.php:88
+msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 
 #: Modularity/source/php/Upgrade.php:104

@@ -32,10 +32,10 @@ class MigrateHeaderSortableDataIntegrity
     /** @var array<string, array<string, array<int, string>>> */
     private const LEGACY_TEMPLATE_SECTIONS = [
         'business' => [
-            'header_sortable_section_main_upper' => ['logotype', 'language', 'drawer', 'user'],
-            'header_sortable_section_main_lower' => ['primary'],
-            'header_sortable_section_main_upper_responsive' => ['logotype', 'language', 'drawer'],
-            'header_sortable_section_main_lower_responsive' => [],
+            'header_sortable_section_main_upper' => ['logotype', 'search-modal', 'language', 'drawer'],
+            'header_sortable_section_main_lower' => [],
+            'header_sortable_section_main_upper_responsive' => ['search-modal', 'language'],
+            'header_sortable_section_main_lower_responsive' => ['logotype', 'drawer'],
         ],
         'casual' => [
             'header_sortable_section_main_upper' => ['logotype', 'primary'],

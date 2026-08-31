@@ -22,6 +22,8 @@ use Municipio\Upgrade\V54\Version54 as UpgradeVersion54;
 use Municipio\Upgrade\V55\Version55 as UpgradeVersion55;
 use Municipio\Upgrade\V56\Version56 as UpgradeVersion56;
 use Municipio\Upgrade\V57\Version57 as UpgradeVersion57;
+use Municipio\Upgrade\V58\Version58 as UpgradeVersion58;
+use Municipio\Upgrade\V59\Version59 as UpgradeVersion59;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -37,7 +39,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 61; //The db version we want to achive
+    private $dbVersion = 60; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1088,64 +1090,45 @@ class Upgrade
     }
 
     /**
-     * Version 58: Migrate settings from the legacy Algolia Index plugins to SearchIndex.
+     * Version 58
      */
-    public function v_58(): bool
+    public function v_58($db = null): bool
     {
+        $version = new UpgradeVersion58(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 59
+     */
+    public function v_59($db = null): bool
+    {
+        $version = new UpgradeVersion59(WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public function v_60(): bool {
         try {
             (new \Municipio\SearchIndex\Migration\LegacySettingsMigration($this->wpService, $this->acfService))->migrate();
-        } catch (\Exception $exception) {
-            error_log($exception->getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Version 59: Move the former shared index name to the Algolia-only setting.
-     */
-    public function v_59(): bool
-    {
-        try {
             (new \Municipio\SearchIndex\Migration\MigrateSharedIndexNameToAlgoliaIndexName($this->acfService))->migrate();
-        } catch (\Exception $exception) {
-            error_log($exception->getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Version 60: Enable SearchPage when the replaced add-on was active.
-     */
-    public function v_60(): bool
-    {
-        try {
-            (new \Municipio\SearchIndex\SearchPage\Migration\LegacySearchPageActivationMigration(
-                $this->wpService,
-                $this->acfService,
-            ))->migrate();
-        } catch (\Exception $exception) {
-            error_log($exception->getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Version 61: Preserve legacy PDF attachment indexing.
-     */
-    public function v_61(): bool
-    {
-        try {
-            $migration = new \Municipio\SearchIndex\Migration\LegacySettingsMigration(
-                $this->wpService,
-                $this->acfService,
-            );
-            call_user_func([$migration, 'migrateAttachmentActivation']);
+            (new \Municipio\SearchIndex\SearchPage\Migration\LegacySearchPageActivationMigration( $this->wpService, $this->acfService, ))->migrate();
+            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration( $this->wpService, $this->acfService, ))->migrateAttachmentActivation();
         } catch (\Exception $exception) {
             error_log($exception->getMessage());
             return false;
