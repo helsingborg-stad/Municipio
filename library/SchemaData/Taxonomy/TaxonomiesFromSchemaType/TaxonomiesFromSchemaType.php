@@ -35,7 +35,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      */
     public function create(string $schemaType): array
     {
-        $map = [
+        $taxonomies = [
             'JobPosting' => $this->getJobPostingTaxonomies(),
             'Event' => $this->getEventTaxonomies(),
             'Project' => $this->getProjectTaxonomies(),
@@ -44,7 +44,9 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             'Preschool' => $this->getPreschoolTaxonomies(),
         ][$schemaType] ?? [];
 
-        return $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $map[$schemaType] ?? [], $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
+        $taxonomies = $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $taxonomies, $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
+
+        return is_array($taxonomies) ? $taxonomies : [];
     }
 
     /**
