@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.14.9",
+    "version": "7.15.0",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest ",
