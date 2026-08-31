@@ -39,6 +39,10 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         // Assert array contains only instances of TaxonomyInterface
         $array = $this->instance->create($schemaType);
         $class = TaxonomyInterface::class;
+
+        if(count($array) === 0) {
+            $this->fail(sprintf('Expected non-empty array for schema type %s', $schemaType));
+        }
         
         foreach ($array as $item) {
             if (!($item instanceof $class)) {
@@ -49,12 +53,45 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         $this->assertTrue(true, sprintf('All items in the array are instances of %s', $class));
     }
 
+    #[TestDox('applies filter "Municipio/Schema/Taxonomy/{schemaType}" to the taxonomies array')]
+    public function testAppliesFilterToTaxonomiesArray(): void
+    {
+        $wpService = new class implements __, _x, ApplyFilters {
+            public array $appliedFilters = [];
+            public function __($text, ...$args): string
+            {
+                return $text;
+            }
+
+            // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+            public function _x($text, $context, ...$args): string
+            {
+                return $text;
+            }
+
+            public function applyFilters(string $tag, $value, ...$args): mixed
+            {
+                $this->appliedFilters[] = ['tag' => $tag, 'value' => $value, 'args' => $args];
+                return $value;
+            }
+        };
+
+        $instance = new TaxonomiesFromSchemaType( $this->getTaxonomyFactory(), $this->getSchemaToPostTypeResolver(), $wpService );
+        $instance->create('Event');
+        
+        static::assertNotEmpty($wpService->appliedFilters, 'Expected applyFilters to be called at least once');
+        static::assertEquals('Municipio/Schema/Taxonomy/Event', $wpService->appliedFilters[0]['tag'], 'Expected filter tag to match schema type');
+    }
+
     public static function knownSchemaTypesProvider(): array
     {
         return [
             'JobPosting' => ['JobPosting'],
             'Event' => ['Event'],
             'Project' => ['Project'],
+            'ExhibitionEvent' => ['ExhibitionEvent'],
+            'ElementarySchool' => ['ElementarySchool'],
+            'Preschool' => ['Preschool'],
         ];
     }
 
