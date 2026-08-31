@@ -20,6 +20,10 @@ Municipio requires [ACF PRO](https://www.advancedcustomfields.com/pro/).
 ## Coding standards
 For PHP, use PSR-2 and PSR-4 where applicable.
 
+## Contributing
+Read the [contribution guide](CONTRIBUTING.md) before submitting changes. It
+links to the project's view and controller guidelines.
+
 ## Build System (Vite)
 Municipio uses Vite for modern, fast asset building. Vite provides better performance, simpler configuration, and excellent ES module support.
 
