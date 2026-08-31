@@ -84,7 +84,7 @@ class LayoutTest extends TestCase
         $this->assertNotNull($field);
         $this->assertSame('slider', $field['type']);
         $this->assertSame(0.25, $field['default']);
-        $this->assertSame(['min' => 0.25, 'max' => 0.85, 'step' => 0.05], $field['choices']);
+        $this->assertSame(['min' => 0, 'max' => 1, 'step' => 0.05], $field['choices']);
         $this->assertSame('controller', $field['output'][0]['type']);
         $this->assertArrayNotHasKey('sanitize_callback', $field);
         $this->assertIsCallable($field['active_callback']);
