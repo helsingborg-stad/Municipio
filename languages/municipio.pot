@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-27T05:48:06+00:00\n"
+"POT-Creation-Date: 2026-08-28T14:38:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -97,7 +97,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr ""
 
@@ -591,7 +590,6 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr ""
 
@@ -731,7 +729,6 @@ msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr ""
 
@@ -2270,7 +2267,6 @@ msgstr ""
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr ""
 
@@ -2534,7 +2530,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
 #: Modularity/source/php/Module/Posts/Posts.php:246
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr ""
 
@@ -2676,7 +2671,6 @@ msgstr ""
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr ""
 
@@ -2881,7 +2875,6 @@ msgstr ""
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr ""
 
@@ -3068,9 +3061,6 @@ msgstr ""
 #: library/Helper/TranslatedLabels.php:84
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
 #: library/PostsList/ViewCallableProviders/Filter/GetTextSearchFieldArguments.php:74
-#: library/Search/General.php:49
-#: library/Search/General.php:56
-#: library/Search/General.php:61
 #: library/Widget/Navigation/Navigation.php:66
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:53
 msgid "Search"
@@ -3349,19 +3339,19 @@ msgstr ""
 msgid "Neutral"
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:74
+#: library/Chat/Api/ChatEndpoint.php:73
 msgid "No message provided."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:100
+#: library/Chat/Api/ChatEndpoint.php:99
 msgid "Assistant not found."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:110
+#: library/Chat/Api/ChatEndpoint.php:109
 msgid "Assistant configuration is incomplete."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:126
+#: library/Chat/Api/ChatEndpoint.php:125
 msgid "Unable to process message safely. Please try again later."
 msgstr ""
 
@@ -3384,6 +3374,11 @@ msgstr ""
 
 #: library/Chat/ChatBlock.php:43
 msgid "Assistant"
+msgstr ""
+
+#: library/Chat/Render/ChatEnqueue.php:30
+#: library/Theme/Enqueue.php:66
+msgid "Something went wrong, please try again later"
 msgstr ""
 
 #: library/Chat/Render/ChatRenderConfig.php:79
@@ -3593,7 +3588,6 @@ msgid "Go to homepage"
 msgstr ""
 
 #: library/Controller/BaseController.php:671
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr ""
 
@@ -4052,7 +4046,6 @@ msgid "Tailor"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr ""
 
@@ -4368,7 +4361,6 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr ""
 
@@ -4380,7 +4372,6 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr ""
 
@@ -4393,7 +4384,6 @@ msgid "Hide date"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:402
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr ""
 
@@ -4406,7 +4396,6 @@ msgid "Date, Time"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:409
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr ""
 
@@ -4419,7 +4408,6 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:454
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr ""
 
@@ -4437,7 +4425,6 @@ msgid "Blocks"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:465
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr ""
 
@@ -4445,7 +4432,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr ""
 
@@ -5147,7 +5133,6 @@ msgid "Quicklinks item direction"
 msgstr ""
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr ""
 
@@ -9325,10 +9310,6 @@ msgstr ""
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/Theme/Enqueue.php:66
-msgid "Something went wrong, please try again later"
-msgstr ""
-
 #: library/Theme/Enqueue.php:75
 msgid "January"
 msgstr ""
@@ -9823,17 +9804,17 @@ msgstr ""
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: library/Upgrade.php:1309
+#: library/Upgrade.php:1345
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1313
+#: library/Upgrade.php:1349
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1318
+#: library/Upgrade.php:1354
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
@@ -10597,7 +10578,6 @@ msgid "Curator Social Media"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr ""
 
@@ -10607,7 +10587,6 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr ""
 
@@ -11525,13 +11504,11 @@ msgid "Menu order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr ""
 
@@ -13554,118 +13531,6 @@ msgstr ""
 
 #: Modularity/source/php/Upgrade.php:129
 msgid "Database is already up to date."
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Time"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date, time"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Published"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Modified"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date source"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Newsitem"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Appearance settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Number of columns"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Checkboxes"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Radio buttons"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Filter settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable text search"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable date filter"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "DateModified"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Order by"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts per page"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable Pagination"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date From"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date To"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Image focal point"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Change Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Select Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Subtitle"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove row"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Backdrop banner settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Maximum number of rows reached."
 msgstr ""
 
 #: library/BackdropBanner/block.json
