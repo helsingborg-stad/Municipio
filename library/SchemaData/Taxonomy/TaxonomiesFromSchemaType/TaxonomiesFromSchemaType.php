@@ -44,9 +44,19 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
             'Preschool' => $this->getPreschoolTaxonomies(),
         ][$schemaType] ?? [];
 
-        $taxonomies = $this->wpService->applyFilters('Municipio/Schema/Taxonomy/' . $schemaType, $taxonomies, $schemaType, $this->taxonomyFactory, $this->schemaToPostTypeResolver);
+        $taxonomies = $this->wpService->applyFilters(
+            'Municipio/Schema/Taxonomy/' . $schemaType,
+            $taxonomies,
+            $schemaType,
+            $this->taxonomyFactory,
+            $this->schemaToPostTypeResolver,
+        );
 
-        return is_array($taxonomies) ? $taxonomies : [];
+        if (!is_array($taxonomies)) {
+            return [];
+        }
+
+        return $taxonomies;
     }
 
     /**
