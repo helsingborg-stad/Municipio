@@ -14,14 +14,26 @@ class AlignmentTransformer
         $alignedItems = [];
         if (!empty($items['modified'])) {
             foreach ($items['modified'] as $menu => $classes) {
-                if (!empty($this->data->{$setting}->{$menu}->align)) {
-                    $alignedItems[$this->data->{$setting}->{$menu}->align][$menu] = $classes;
-                }
+                $alignedItems[$this->getAlignment($items, $setting, $menu)][$menu] = $classes;
             }
         }
 
         $items['modified'] = $alignedItems;
 
         return $items;
+    }
+
+    private function getAlignment(array $items, string $setting, string $menu): string
+    {
+        $responsiveSetting = $setting . '_responsive';
+        if (!isset($items['desktop'][$menu]) && isset($items['mobile'][$menu]) && !empty($this->data->{$responsiveSetting}->{$menu}->align)) {
+            return $this->data->{$responsiveSetting}->{$menu}->align;
+        }
+
+        if (!empty($this->data->{$setting}->{$menu}->align)) {
+            return $this->data->{$setting}->{$menu}->align;
+        }
+
+        return 'right';
     }
 }
