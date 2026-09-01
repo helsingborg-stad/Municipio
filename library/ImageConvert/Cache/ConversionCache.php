@@ -28,6 +28,7 @@ class ConversionCache
     private const CACHE_GROUP   = 'municipio_image_convert';
     private const STATUS_PREFIX = 'status_';
     private const LOCK_PREFIX   = 'lock_';
+    private const KEY_INDEX_PREFIX = 'keys_';
 
 
     private static array $runtimeCache = [];
@@ -84,6 +85,7 @@ class ConversionCache
         $acquired = $this->wpService->wpCacheSet($cacheKey, time(), self::CACHE_GROUP, $this->config->lockExpiry());
         if ($acquired) {
             self::$runtimeCache[$cacheKey] = true;
+            $this->registerPersistentKey($image->getId(), $cacheKey);
         }
         return $acquired;
     }
@@ -141,7 +143,11 @@ class ConversionCache
             default                         => $this->config->defaultCacheExpiry(),
         };
         self::$runtimeCache[$cacheKey] = $status;
-        return $this->wpService->wpCacheSet($cacheKey, $status->value, self::CACHE_GROUP, $expiry);
+        $stored = $this->wpService->wpCacheSet($cacheKey, $status->value, self::CACHE_GROUP, $expiry);
+        if ($stored) {
+            $this->registerPersistentKey($image->getId(), $cacheKey);
+        }
+        return $stored;
     }
 
     /**
@@ -154,6 +160,14 @@ class ConversionCache
     {
         $status = $this->getConversionStatus($image);
         return $status === ConversionStatus::Failed;
+    }
+
+    /**
+     * Check whether this intermediate image was successfully published.
+     */
+    public function hasRecentSuccess(ImageContract $image): bool
+    {
+        return $this->getConversionStatus($image) === ConversionStatus::Success;
     }
 
     /**
@@ -183,11 +197,65 @@ class ConversionCache
      */
     public function clearImageCache(int $imageId): bool
     {
-        foreach (self::$runtimeCache as $key => $value) {
-            if (strpos($key, (string)$imageId . '_') !== false) {
+        $indexKey = self::KEY_INDEX_PREFIX . $imageId;
+        $persistentKeys = $this->wpService->wpCacheGet($indexKey, self::CACHE_GROUP);
+        $runtimeKeys = self::$runtimeCache[$indexKey] ?? [];
+        $registeredKeys = array_unique(array_merge(
+            is_array($persistentKeys) ? $persistentKeys : [],
+            is_array($runtimeKeys) ? $runtimeKeys : [],
+        ));
+
+        if ($registeredKeys !== []) {
+            foreach (array_unique($registeredKeys) as $cacheKey) {
+                if (is_string($cacheKey)) {
+                    $this->wpService->wpCacheDelete($cacheKey, self::CACHE_GROUP);
+                    unset(self::$runtimeCache[$cacheKey]);
+                }
+            }
+        }
+
+        $this->wpService->wpCacheDelete($indexKey, self::CACHE_GROUP);
+
+        $statusPrefix = self::STATUS_PREFIX . $imageId . '_';
+        $lockPrefix = self::LOCK_PREFIX . $imageId . '_';
+        foreach (array_keys(self::$runtimeCache) as $key) {
+            if (str_starts_with($key, $statusPrefix) || str_starts_with($key, $lockPrefix) || $key === $indexKey) {
                 unset(self::$runtimeCache[$key]);
             }
         }
+
         return true;
+    }
+
+    /**
+     * Keep a persistent list of cache keys so all dimensions and formats for an
+     * attachment can be invalidated without scanning the object cache.
+     */
+    private function registerPersistentKey(int $imageId, string $cacheKey): void
+    {
+        $indexKey = self::KEY_INDEX_PREFIX . $imageId;
+        $persistentKeys = $this->wpService->wpCacheGet($indexKey, self::CACHE_GROUP);
+        $runtimeKeys = self::$runtimeCache[$indexKey] ?? [];
+        $registeredKeys = array_unique(array_merge(
+            is_array($persistentKeys) ? $persistentKeys : [],
+            is_array($runtimeKeys) ? $runtimeKeys : [],
+        ));
+
+        if (!in_array($cacheKey, $registeredKeys, true)) {
+            $registeredKeys[] = $cacheKey;
+        }
+
+        self::$runtimeCache[$indexKey] = $registeredKeys;
+
+        $this->wpService->wpCacheSet(
+            $indexKey,
+            $registeredKeys,
+            self::CACHE_GROUP,
+            max(
+                $this->config->successCacheExpiry(),
+                $this->config->failedCacheExpiry(),
+                $this->config->lockExpiry(),
+            ),
+        );
     }
 }
