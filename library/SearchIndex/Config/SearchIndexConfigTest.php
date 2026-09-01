@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Municipio\SearchIndex\Config;
 
 use AcfService\Implementations\FakeAcfService;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use Municipio\Helper\Constant\FakeConstant;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -74,23 +74,22 @@ class SearchIndexConfigTest extends TestCase
     /**
      * Verify legacy plugin constants remain supported during migration.
      */
-    #[RunInSeparateProcess]
     public function testSupportsLegacyPluginConstants(): void
     {
-        $algoliaPrefix = 'ALGOLIAINDEX_';
-        $typesensePrefix = 'TYPESENSEINDEX_';
-        define($algoliaPrefix . 'APPLICATION_ID', 'legacy-application-id');
-        define($algoliaPrefix . 'API_KEY', implode('-', ['legacy', 'algolia', 'key']));
-        define($algoliaPrefix . 'PUBLIC_API_KEY', implode('-', ['legacy', 'algolia', 'public', 'key']));
-        define($algoliaPrefix . 'INDEX_NAME', 'legacy-algolia-index');
-        define($typesensePrefix . 'API_URL', 'https://typesense.example.test/');
-        define($typesensePrefix . 'API_KEY', implode('-', ['legacy', 'typesense', 'key']));
-        define($typesensePrefix . 'PUBLIC_API_KEY', implode('-', ['legacy', 'typesense', 'public', 'key']));
-        define($typesensePrefix . 'COLLECTION_NAME', 'legacy-typesense-collection');
+        $constantService = new FakeConstant([
+            'ALGOLIAINDEX_APPLICATION_ID' => 'legacy-application-id',
+            'ALGOLIAINDEX_API_KEY' => implode('-', ['legacy', 'algolia', 'key']),
+            'ALGOLIAINDEX_PUBLIC_API_KEY' => implode('-', ['legacy', 'algolia', 'public', 'key']),
+            'ALGOLIAINDEX_INDEX_NAME' => 'legacy-algolia-index',
+            'TYPESENSEINDEX_API_URL' => 'https://typesense.example.test/',
+            'TYPESENSEINDEX_API_KEY' => implode('-', ['legacy', 'typesense', 'key']),
+            'TYPESENSEINDEX_PUBLIC_API_KEY' => implode('-', ['legacy', 'typesense', 'public', 'key']),
+            'TYPESENSEINDEX_COLLECTION_NAME' => 'legacy-typesense-collection',
+        ]);
 
         $config = new SearchIndexConfig(new FakeAcfService([
             'getField' => static fn(string $selector): string => $selector === 'search_index_provider' ? 'typesense' : '',
-        ]));
+        ]), $constantService);
 
         static::assertSame('legacy-application-id', $config->algoliaApplicationId());
         static::assertSame('legacy-algolia-index', $config->algoliaIndexName());
@@ -102,18 +101,18 @@ class SearchIndexConfigTest extends TestCase
     /**
      * Verify new environment constants take precedence over legacy names.
      */
-    #[RunInSeparateProcess]
     public function testPrefersNewEnvironmentConstants(): void
     {
-        define('SEARCH_INDEX_ALGOLIA_APPLICATION_ID', 'new-application-id');
-        $algoliaPrefix = 'ALGOLIAINDEX_';
-        define($algoliaPrefix . 'APPLICATION_ID', 'legacy-application-id');
-        define('SEARCH_INDEX_ALGOLIA_API_KEY', implode('-', ['new', 'algolia', 'key']));
-        define($algoliaPrefix . 'API_KEY', implode('-', ['legacy', 'algolia', 'key']));
+        $constantService = new FakeConstant([
+            'SEARCH_INDEX_ALGOLIA_APPLICATION_ID' => 'new-application-id',
+            'ALGOLIAINDEX_APPLICATION_ID' => 'legacy-application-id',
+            'SEARCH_INDEX_ALGOLIA_API_KEY' => implode('-', ['new', 'algolia', 'key']),
+            'ALGOLIAINDEX_API_KEY' => implode('-', ['legacy', 'algolia', 'key']),
+        ]);
 
         $config = new SearchIndexConfig(new FakeAcfService([
             'getField' => static fn(): string => '',
-        ]));
+        ]), $constantService);
 
         static::assertSame('new-application-id', $config->algoliaApplicationId());
         static::assertTrue($config->isConfigured());

@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Municipio\SearchIndex\Config;
 
 use AcfService\Contracts\GetField;
+use Municipio\Helper\Constant\Constant;
+use Municipio\Helper\Constant\ConstantInterface;
 
 /**
  * Reads search index settings from constants or ACF options.
  */
 class SearchIndexConfig
 {
-    public function __construct(private GetField $acfService) {}
+    public function __construct(private GetField $acfService, private ConstantInterface $constantService = new Constant()) {}
 
     public function provider(): ?string
     {
@@ -76,7 +78,7 @@ class SearchIndexConfig
     private function getStringSetting(string $field, string ...$constants): string
     {
         foreach ($constants as $constant) {
-            $value = defined($constant) ? constant($constant) : null;
+            $value = $this->constantService->defined($constant) ? $this->constantService->constant($constant) : null;
 
             if (is_string($value) && $value !== '') {
                 return $value;
