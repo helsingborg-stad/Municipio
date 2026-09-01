@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\Chat\Api;
 
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Chat\Api\ChatEndpointHelpers;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactoryInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
@@ -168,29 +169,6 @@ private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'erro
         );
     }
 
-    private static function trimEventPayload(string $sseEvent): ?string
-    {
-        $parts = explode("\n", $sseEvent);
-        $eventType = str_replace('event: ', '', $parts[0]);
-        $data = substr($parts[1], 6);
-
-        if (!in_array($eventType, self::VALID_SSE_EVENT_NAMES, true)) {
-            return null;
-        }
-
-        $parsed = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
-        $filtered = array_filter(
-            $parsed,
-            static fn($key) => in_array($key, self::VALID_SSE_RESPONSE_KEYS, true),
-            ARRAY_FILTER_USE_KEY,
-        );
-        $encoded = json_encode($filtered, JSON_THROW_ON_ERROR);
-
-        $newEvent = $parts[0] . "\n" . 'data: ' . $encoded;
-
-        return $newEvent;
-    }
-
     private function streamResponse(string $chatUrl, #[\SensitiveParameter] string $apiKey, array $body): void
     {
         header('Content-Type: text/event-stream');
@@ -222,7 +200,11 @@ private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'erro
                         $event = substr($accum, 0, $eventEnd);
                         $accum = substr($accum, $eventEnd + 2);
 
-                        $trimmed = self::trimEventPayload($event);
+                        $trimmed = ChatEndpointHelpers::trimEventPayload(
+                            $event,
+                            self::VALID_SSE_EVENT_NAMES,
+                            self::VALID_SSE_RESPONSE_KEYS,
+                        );
 
                         if ($trimmed !== null) {
                             echo $trimmed . "\n\n";
