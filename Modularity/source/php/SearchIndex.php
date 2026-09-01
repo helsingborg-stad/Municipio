@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Municipio\HooksRegistrar\Hookable;
+use WpService\Contracts\AddFilter;
+
 /**
  * Extends Municipio SearchIndex records with bundled Modularity content.
  */
-class SearchIndex
+class SearchIndex implements Hookable
 {
-    public function __construct()
+    public function __construct(private AddFilter $wpService)
     {
-        add_filter('Municipio/SearchIndex/Record/Content', [$this, 'addModuleContent'], 10, 2);
-        add_filter('Municipio/SearchIndex/IndexablePostTypes', [$this, 'removeModulePostTypes']);
+    }
+
+    public function addHooks(): void
+    {
+        $this->wpService->addFilter('Municipio/SearchIndex/Record/Content', [$this, 'addModuleContent'], 10, 2);
+        $this->wpService->addFilter('Municipio/SearchIndex/IndexablePostTypes', [$this, 'removeModulePostTypes']);
     }
 
     public function addModuleContent(string $content, int $postId): string

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Modularity;
 
+use Override;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\AddFilter;
 
 class SearchIndexTest extends TestCase
 {
     public function testAddsRenderedModuleContent(): void
     {
-        $searchIndex = new class () extends \Modularity\SearchIndex {
+        $searchIndex = new class (static::createWpService()) extends \Modularity\SearchIndex {
             public function getRenderedPostModules(int $postId): string
             {
                 return $postId === 42 ? 'Module heading Module content' : '';
@@ -25,7 +27,7 @@ class SearchIndexTest extends TestCase
 
     public function testLeavesContentUnchangedWithoutModules(): void
     {
-        $searchIndex = new class () extends \Modularity\SearchIndex {
+        $searchIndex = new class (static::createWpService()) extends \Modularity\SearchIndex {
             public function getRenderedPostModules(int $postId): string
             {
                 return '';
@@ -39,7 +41,16 @@ class SearchIndexTest extends TestCase
     {
         static::assertSame(
             ['post', 'page'],
-            (new \Modularity\SearchIndex())->removeModulePostTypes(['post', 'mod-text', 'page', 'mod-wpwidget']),
+            (new \Modularity\SearchIndex(static::createWpService()))->removeModulePostTypes(['post', 'mod-text', 'page', 'mod-wpwidget']),
         );
+    }
+
+    private static function createWpService():AddFilter {
+        return new class () implements AddFilter {
+            public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
+            {
+                return true;
+            }
+        };
     }
 }
