@@ -24,8 +24,6 @@ class ChatEndpointHelpers
         );
         $encoded = json_encode($filtered, JSON_THROW_ON_ERROR);
 
-        $newEvent = $parts[0] . "\n" . 'data: ' . $encoded;
-
-        return $newEvent;
+        return $parts[0] . "\n" . 'data: ' . $encoded;
     }
 }
