@@ -32,12 +32,27 @@ class MarginTransformer
         }
 
         foreach ($items['modified'] as $menu => &$classes) {
-            if (!empty($this->data->{$settings}->{$menu}->margin)) {
-                $classes = $this->getMarginClass($classes, $this->data->{$settings}->{$menu}->margin);
+            $margin = $this->getMargin($items, $settings, $menu);
+            if ($margin !== null) {
+                $classes = $this->getMarginClass($classes, $margin);
             }
         }
 
         return $items;
+    }
+
+    private function getMargin(array $items, string $setting, string $menu): ?string
+    {
+        $responsiveSetting = $setting . '_responsive';
+        if (!isset($items['desktop'][$menu]) && isset($items['mobile'][$menu]) && !empty($this->data->{$responsiveSetting}->{$menu}->margin)) {
+            return $this->data->{$responsiveSetting}->{$menu}->margin;
+        }
+
+        if (!empty($this->data->{$setting}->{$menu}->margin)) {
+            return $this->data->{$setting}->{$menu}->margin;
+        }
+
+        return null;
     }
 
     /**

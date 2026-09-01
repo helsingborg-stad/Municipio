@@ -15,7 +15,7 @@ class DesignLibrarySettingPolicyTest extends TestCase
 
     public function testAllowsExplicitPrefixedKey(): void
     {
-        $this->assertTrue(DesignLibrarySettingPolicy::isAllowedSettingKey('header_layout'));
+        $this->assertTrue(DesignLibrarySettingPolicy::isAllowedSettingKey('icon_style'));
     }
 
     public function testDeniesUndeclaredKey(): void

@@ -68,6 +68,43 @@ class FlexibleTest extends TestCase
         $this->assertContains('u-display--block@lg', $headerData['lowerHeader']['classList']);
     }
 
+    public function testGetHeaderDataKeepsMobileOnlyLowerItemsFromResponsiveHiddenStorage(): void
+    {
+        $controller = new Flexible((object) [
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_lower' => [
+                    'logotype' => [
+                        'align' => 'right',
+                        'margin' => 'none',
+                    ],
+                ],
+                'header_sortable_section_main_lower_responsive' => [
+                    'logotype' => [
+                        'align' => 'left',
+                        'margin' => 'both',
+                    ],
+                    'drawer' => [
+                        'align' => 'right',
+                        'margin' => 'none',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['search-modal'],
+            'headerSortableSectionMainLower' => [],
+            'headerSortableSectionMainUpperResponsive' => ['search-modal'],
+            'headerSortableSectionMainLowerResponsive' => ['logotype', 'drawer'],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertArrayHasKey('logotype', $headerData['lowerItems']['left']);
+        $this->assertArrayHasKey('drawer', $headerData['lowerItems']['right']);
+        $this->assertContains('u-margin__left--2', $headerData['lowerItems']['left']['logotype']);
+        $this->assertContains('u-margin__right--2', $headerData['lowerItems']['left']['logotype']);
+        $this->assertContains('u-display--none@lg', $headerData['lowerHeader']['classList']);
+        $this->assertContains('u-display--none@xl', $headerData['lowerHeader']['classList']);
+    }
+
     public function testGetHeaderDataDoesNotDuplicateItemsWhenAlignmentAndMarginUseDifferentSides(): void
     {
         $controller = new Flexible((object) [

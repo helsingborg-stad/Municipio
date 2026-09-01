@@ -18,7 +18,7 @@
 
             @if ($languageMenuOptions->displayCurrentLanguage)
                 @button([
-                    'variant' => 'filled',
+                    'style' => 'filled',
                     'size' => 'md',
                     'text' => $languageMenuOptions->currentLanguage,
                     'classList' => [

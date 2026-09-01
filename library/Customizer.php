@@ -6,6 +6,7 @@ use Municipio\Customizer\Applicators\ApplicatorInterface;
 use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
 use Municipio\Customizer\Applicators\Types\Modifier;
+use Municipio\Customizer\CustomCssCapabilities;
 use Municipio\Customizer\PanelsRegistry;
 use wpdb;
 use WpService\WpService;
@@ -83,6 +84,8 @@ class Customizer
      */
     public function init()
     {
+        (new CustomCssCapabilities($this->wpService))->addHooks();
+
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();
 

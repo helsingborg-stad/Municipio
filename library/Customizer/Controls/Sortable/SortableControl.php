@@ -133,6 +133,6 @@ class SortableControl extends WP_Customize_Control
      */
     private function getBaseSettingId(): string
     {
-        return str_ends_with($this->id, '_responsive') ? substr($this->id, 0, -11) : $this->id;
+        return $this->id;
     }
 }
