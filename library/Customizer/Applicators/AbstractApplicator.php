@@ -31,6 +31,10 @@ abstract class AbstractApplicator
      */
     private function getRegisteredFields(): array
     {
+        if (isset($this->runtimeCache['registeredFields'])) {
+            return $this->runtimeCache['registeredFields'];
+        }
+
         $fields = [];
 
         foreach (PanelsRegistry::getInstance()->getRegisteredFields() as $field) {
@@ -41,7 +45,7 @@ abstract class AbstractApplicator
             $fields[$field['settings']] = $field;
         }
 
-        return $fields;
+        return $this->runtimeCache['registeredFields'] = $fields;
     }
 
     /**

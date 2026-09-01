@@ -422,16 +422,21 @@ class BaseController
         add_filter(
             'ComponentLibrary/Component/Lang',
             function ($obj) {
-                $lang = [
-                    'visit' => __('Visit', 'municipio'),
-                    'email' => __('Email', 'municipio'),
-                    'call' => __('Call', 'municipio'),
-                    'address' => __('Address', 'municipio'),
-                    'visitingAddress' => __('Visiting address', 'municipio'),
-                    'goToHomepage' => __('Go to homepage', 'municipio'),
-                ];
+                static $langByLocale = [];
+                $locale = get_locale();
 
-                return (object) array_merge((array) $obj, $lang);
+                if (!isset($langByLocale[$locale])) {
+                    $langByLocale[$locale] = [
+                        'visit' => __('Visit', 'municipio'),
+                        'email' => __('Email', 'municipio'),
+                        'call' => __('Call', 'municipio'),
+                        'address' => __('Address', 'municipio'),
+                        'visitingAddress' => __('Visiting address', 'municipio'),
+                        'goToHomepage' => __('Go to homepage', 'municipio'),
+                    ];
+                }
+
+                return (object) array_merge((array) $obj, $langByLocale[$locale]);
             },
             10,
             1,
