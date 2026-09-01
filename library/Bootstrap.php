@@ -21,23 +21,6 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
 }
 
 /**
- * Load kirki source
- */
-$kirkiFilePaths = [
-    rtrim(ABSPATH, '/') . '/../vendor/kirki/kirki.php',
-    rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php',
-];
-
-foreach ($kirkiFilePaths as $kirkiFilePath) {
-    if (!file_exists($kirkiFilePath)) {
-        continue;
-    }
-
-    include_once $kirkiFilePath;
-    break;
-}
-
-/**
  * Public include
  */
 require_once MUNICIPIO_PATH . 'library/Public.php';
@@ -112,7 +95,6 @@ add_action('init', function () use ($wpService) {
         'options-theme-404' => 'group_56d41dbd7e501',
         'options-theme-author' => 'group_56caee123c53f',
         'options-theme-color-scheme' => 'group_56a0a7dcb5c09',
-        'options-theme-custom-css' => 'group_57148a9b42fd5',
         'options-theme-custom-js' => 'group_573184999aa2c',
         'options-theme-custom-post-type' => 'group_56b34353ef1eb',
         'options-theme-custom-taxonomy' => 'group_56c5e23aa271c',

@@ -2,6 +2,8 @@
     {!! $post->getTitle() !!}
 @endtypography
 
+@includeWhen(!empty($alert), 'partials.schema.elementary-school.alert', ['alert' => $alert])
+
 @typography(['variant' => 'lead'])
     {!! $preamble !!}
 @endtypography

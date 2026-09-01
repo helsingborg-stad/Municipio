@@ -19,7 +19,7 @@
             ['s-nav-primary']
         ),
         'depth' => $depth ?? 1,
-        'context' => ['site.header.nav', 'site.header.casual.nav'],
+        'context' => ['site.header.nav'],
         'height' => 'lg',
         'expandLabel' => $lang->expand,
         'includeToggle' => $customizer->primaryMenuDropdown ?? false,

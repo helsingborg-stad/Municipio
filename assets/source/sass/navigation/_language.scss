@@ -1,7 +1,7 @@
 .site-language-menu {
     display: flex;
     position: relative;
-    z-index: 6;
+    z-index: 30;
 
     .site-language-menu__card {
         position: absolute;
@@ -9,14 +9,7 @@
         width: calc(var(--base) * 34);
         top: 100%;
         right: 0;
-
-        @media screen and (max-width: 600px) {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            right: 0;
-            top: unset;
-        }
+        margin: 0;
     }
 
     .site-language-menu__default_lang {
@@ -36,12 +29,32 @@
     }
 
     &.is-expanded {
+        z-index: 40;
+
         .site-language-menu__card {
             outline: 4000px solid var(--color--alpha);
             display: block;
+            z-index: 41;
             animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
     }
+}
+
+.site-language-menu__card:popover-open {
+    position: fixed;
+    display: block;
+    z-index: 41;
+    border: none;
+    background: transparent;
+    padding: 0;
+    border-radius: var(--c-card--border-radius, var(--border-radius-md, 4px));
+    corner-shape: var(--c-card--corner-shape, round);
+    outline: 4000px solid var(--color--alpha);
+    animation: site-language-menu-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.site-language-menu__card::backdrop {
+    background: transparent;
 }
 
 @keyframes site-language-menu-popout {

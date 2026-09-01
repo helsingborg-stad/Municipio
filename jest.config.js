@@ -23,4 +23,5 @@ module.exports = {
 		"^!!raw-loader!(.*)$": "<rootDir>/jest-raw-loader.js",
 	},
 	transformIgnorePatterns: ["node_modules/(?!(@helsingborg-stad|parsel-js)/)"],
+	testPathIgnorePatterns: ["/node_modules/", "/assets/dist/", "/vendor/"],
 };

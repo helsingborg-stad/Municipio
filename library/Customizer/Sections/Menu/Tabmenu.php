@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Tabmenu
 {
     public function __construct(string $sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'tabmenu_button_color',
             'label'    => esc_html__('Tabmenu - Color', 'municipio'),
@@ -25,7 +25,7 @@ class Tabmenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'tabmenu_button_type',
             'label'    => esc_html__('Tabmenu - Type', 'municipio'),
@@ -42,7 +42,7 @@ class Tabmenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'header_trigger_button_color',
             'label'    => esc_html__('Trigger button color', 'municipio'),
@@ -59,7 +59,7 @@ class Tabmenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'header_trigger_button_type',
             'label'    => esc_html__('Trigger button type', 'municipio'),
@@ -76,7 +76,7 @@ class Tabmenu
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'     => 'select',
             'settings' => 'header_trigger_button_size',
             'label'    => esc_html__('Trigger button size', 'municipio'),

@@ -2,28 +2,28 @@
 
 namespace Municipio\ImageConvert;
 
-use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\Helper\File;
+use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Cache\ConversionCache;
 use Municipio\ImageConvert\Cache\PageLoadCache;
-use Municipio\ImageConvert\Strategy\StrategyFactory;
-use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
-use Municipio\ImageConvert\Logging\Log;
-use WpService\Contracts\AddFilter;
-use WpService\Contracts\IsWpError;
-use WpService\Contracts\IsAdmin;
-use WpService\Contracts\DoAction;
-use WpService\Contracts\ApplyFilters;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
-use Municipio\Helper\File;
-use WpService\Contracts\WpGetImageEditor;
-use WpService\Contracts\WpUploadDir;
-use WpService\Contracts\WpGetAttachmentMetadata;
+use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\Logging\Log;
+use Municipio\ImageConvert\Strategy\ConversionStrategyInterface;
+use Municipio\ImageConvert\Strategy\StrategyFactory;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\DoAction;
+use WpService\Contracts\IsAdmin;
+use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpAttachmentIs;
+use WpService\Contracts\WpCacheDelete;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
-use WpService\Contracts\WpCacheDelete;
-use WP_Error;
+use WpService\Contracts\WpDeleteFile;
+use WpService\Contracts\WpGetAttachmentMetadata;
+use WpService\Contracts\WpGetImageEditor;
+use WpService\Contracts\WpUploadDir;
 
 class IntermidiateImageHandler implements Hookable
 {
@@ -32,18 +32,18 @@ class IntermidiateImageHandler implements Hookable
     private ConversionStrategyInterface $conversionStrategy;
 
     public function __construct(
-        private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters $wpService,
+        private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs&WpCacheGet&WpCacheSet&WpCacheDelete&DoAction&ApplyFilters&WpDeleteFile $wpService,
         private ImageConvertConfig $config,
-        private Log $log
+        private Log $log,
     ) {
         $this->conversionCache = new ConversionCache($wpService, $config);
-        $this->pageLoadCache   = new PageLoadCache($wpService, $config);
+        $this->pageLoadCache = new PageLoadCache($wpService, $config);
 
-        $strategyFactory          = new StrategyFactory(
+        $strategyFactory = new StrategyFactory(
             $wpService,
             $config,
             $this->conversionCache,
-            $this->log
+            $this->log,
         );
         $this->conversionStrategy = $strategyFactory->createStrategy();
     }
@@ -61,7 +61,7 @@ class IntermidiateImageHandler implements Hookable
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'createIntermidiateImage'],
             $this->config->internalFilterPriority()->intermidiateImageConvert,
-            1
+            1,
         );
 
         // Clear conversion cache when attachments are deleted or updated
@@ -89,7 +89,7 @@ class IntermidiateImageHandler implements Hookable
                 $this,
                 'Recent conversion failure detected, skipping conversion.',
                 'warning',
-                ['image' => $image, 'format' => $format, 'reason' => 'recent_failure']
+                ['image' => $image, 'format' => $format, 'reason' => 'recent_failure'],
             );
 
             return $image;
@@ -102,21 +102,14 @@ class IntermidiateImageHandler implements Hookable
                 $this,
                 'Could not determine intermediate image location, skipping conversion.',
                 'warning',
-                ['image' => $image, 'format' => $format, 'reason' => 'no_intermediate_location']
+                ['image' => $image, 'format' => $format, 'reason' => 'no_intermediate_location'],
             );
 
             return $image;
         }
 
-        //If already processed in this request, return the intermediate image, it will exist anyway
-        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image)) {
-            $image->setUrl($intermediateLocation['url']);
-            $image->setPath($intermediateLocation['path']);
-            return $image;
-        }
-
-        // Check if the intermediate image already exists, if so return it
-        if (file_exists($intermediateLocation['path'])) {
+        // Only reuse complete images with the expected type and dimensions.
+        if ($this->isValidIntermediateImage($image, $intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
 
@@ -129,11 +122,50 @@ class IntermidiateImageHandler implements Hookable
             return $image;
         }
 
+        // A failed editor can leave an empty or malformed file behind. Remove it
+        // before retrying so it can never be mistaken for a successful result.
+        if (file_exists($intermediateLocation['path'])) {
+            $this->wpService->wpDeleteFile($intermediateLocation['path']);
+
+            if (file_exists($intermediateLocation['path'])) {
+                $this->log->log(
+                    $this,
+                    'Could not remove an invalid intermediate image, skipping conversion.',
+                    'warning',
+                    ['image' => $image, 'format' => $format, 'reason' => 'invalid_intermediate_cleanup_failed'],
+                );
+                $this->conversionCache->markConversionFailed($image);
+
+                return $image;
+            }
+        }
+
+        // A failed conversion in this request must fall back to the source image
+        // instead of exposing the missing or invalid intermediate URL.
+        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image)) {
+            return $image;
+        }
+
         // Mark as processed in current request to prevent duplicate processing
         $this->pageLoadCache->markProcessedInCurrentRequest($image);
 
         // Use the selected conversion strategy
         return $this->conversionStrategy->process($image);
+    }
+
+    private function isValidIntermediateImage(ImageContract $image, string $path): bool
+    {
+        $sourceSize = File::getImageSizeWithoutWarnings($image->getPath());
+        if ($sourceSize === false) {
+            return false;
+        }
+
+        return File::isValidImage(
+            $path,
+            File::getImageMimeTypeForPath($path),
+            min($image->getWidth(), $sourceSize[0]),
+            min($image->getHeight(), $sourceSize[1]),
+        );
     }
 
     /**

@@ -1,10 +1,7 @@
 @scope(['name' => ['language-menu']])
-    @card([
-        'classList' => [
-            'site-language-menu__card'
-        ],
-    ])
-        <div class="c-card__header site-language-menu__header">
+    <div id="site-language-menu-popover" class="site-language-menu__card" popover="auto">
+        @card([])
+            <div class="c-card__header site-language-menu__header">
             @typography([
                 'element' => 'p',
                 'variant' => 'h6',
@@ -15,13 +12,13 @@
             ])
                 {{ $languageMenuOptions->headline }}
             @endtypography
-        </div>
+            </div>
 
-        <div class="c-card__body site-language-menu__body u-padding__top--0">
+            <div class="c-card__body site-language-menu__body u-padding__top--0">
 
             @if ($languageMenuOptions->displayCurrentLanguage)
                 @button([
-                    'variant' => 'filled',
+                    'style' => 'filled',
                     'size' => 'md',
                     'text' => $languageMenuOptions->currentLanguage,
                     'classList' => [
@@ -74,7 +71,7 @@
                 @endtypography
             @endif
 
-        </div>
-        
-    @endcard
+            </div>
+        @endcard
+    </div>
 @endscope

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ef2123e14ae9e807a8694c685bd7384",
+    "content-hash": "5fa276c0c5ba30e9b19ad2761949c2af",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -1081,16 +1081,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.24.18",
+            "version": "5.27.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "38c7263d37aeb43baf74b38d246fe47053696062"
+                "reference": "d58c0e66c26089f9b26aaa341f5dd8e891bf49ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/38c7263d37aeb43baf74b38d246fe47053696062",
-                "reference": "38c7263d37aeb43baf74b38d246fe47053696062",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/d58c0e66c26089f9b26aaa341f5dd8e891bf49ce",
+                "reference": "d58c0e66c26089f9b26aaa341f5dd8e891bf49ce",
                 "shasum": ""
             },
             "require": {
@@ -1122,128 +1122,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.24.18"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.27.3"
             },
-            "time": "2026-08-19T09:28:06+00:00"
-        },
-        {
-            "name": "helsingborg-stad/kirki",
-            "version": "5.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/helsingborg-stad/kirki.git",
-                "reference": "4f1da9fbfc92d5b96298bb6d754981265cacfd7b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/kirki/zipball/4f1da9fbfc92d5b96298bb6d754981265cacfd7b",
-                "reference": "4f1da9fbfc92d5b96298bb6d754981265cacfd7b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "composer/installers": "*",
-                "dealerdirect/phpcodesniffer-composer-installer": "*",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "wp-coding-standards/wpcs": "*",
-                "wptrt/wpthemereview": "dev-develop"
-            },
-            "type": "wordpress-muplugin",
-            "autoload": {
-                "psr-4": {
-                    "Kirki\\": [
-                        "kirki-packages/control-base/src",
-                        "kirki-packages/control-checkbox/src",
-                        "kirki-packages/control-code/src",
-                        "kirki-packages/control-color/src",
-                        "kirki-packages/control-color-palette/src",
-                        "kirki-packages/control-cropped-image/src",
-                        "kirki-packages/control-custom/src",
-                        "kirki-packages/control-dashicons/src",
-                        "kirki-packages/control-date/src",
-                        "kirki-packages/control-dimension/src",
-                        "kirki-packages/control-editor/src",
-                        "kirki-packages/control-generic/src",
-                        "kirki-packages/control-image/src",
-                        "kirki-packages/control-multicheck/src",
-                        "kirki-packages/control-palette/src",
-                        "kirki-packages/control-radio/src",
-                        "kirki-packages/control-react-colorful/src",
-                        "kirki-packages/control-react-select/src",
-                        "kirki-packages/control-repeater/src",
-                        "kirki-packages/control-select/src",
-                        "kirki-packages/control-slider/src",
-                        "kirki-packages/control-sortable/src",
-                        "kirki-packages/control-upload/src",
-                        "kirki-packages/field/src",
-                        "kirki-packages/googlefonts/src",
-                        "kirki-packages/l10n/src",
-                        "kirki-packages/module-panels/src",
-                        "kirki-packages/module-sections/src",
-                        "kirki-packages/url-getter/src"
-                    ],
-                    "Kirki\\Pro\\": "pro-src/",
-                    "Kirki\\Data\\": [
-                        "kirki-packages/data-option/src"
-                    ],
-                    "Kirki\\Util\\": [
-                        "kirki-packages/util/src"
-                    ],
-                    "Kirki\\Field\\": [
-                        "kirki-packages/field/src/Field",
-                        "kirki-packages/field-background/src",
-                        "kirki-packages/field-dimensions/src",
-                        "kirki-packages/field-fontawesome/src",
-                        "kirki-packages/field-multicolor/src/Field",
-                        "kirki-packages/field-multicolor/src",
-                        "kirki-packages/field-typography/src/Field",
-                        "kirki-packages/field-typography/src"
-                    ],
-                    "Kirki\\Module\\": [
-                        "kirki-packages/module-css/src",
-                        "kirki-packages/module-editor-styles/src",
-                        "kirki-packages/module-field-dependencies/src",
-                        "kirki-packages/module-postmessage/src",
-                        "kirki-packages/module-preset/src",
-                        "kirki-packages/module-section-icons/src",
-                        "kirki-packages/module-selective-refresh/src",
-                        "kirki-packages/module-tooltips/src",
-                        "kirki-packages/module-webfonts/src"
-                    ],
-                    "Kirki\\Settings\\": [
-                        "kirki-packages/settings/src"
-                    ],
-                    "Kirki\\Compatibility\\": [
-                        "kirki-packages/compatibility/src"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ".",
-                "core"
-            ],
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kirki Framework",
-                    "email": "support@themeum.com"
-                }
-            ],
-            "description": "Extending the WordPress customizer",
-            "homepage": "https://www.themeum.com",
-            "keywords": [
-                "customizer",
-                "wordpress"
-            ],
-            "support": {
-                "source": "https://github.com/helsingborg-stad/kirki/tree/5.2.0"
-            },
-            "time": "2024-08-02T07:01:26+00:00"
+            "time": "2026-08-25T07:50:22+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
@@ -1284,21 +1165,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.14.13",
+            "version": "3.17.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "c1a0b89195f52d7745f1d92548328a1acff4dd51"
+                "reference": "a2bfbc85ea72e7636eca9f367815c7ea510662a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/c1a0b89195f52d7745f1d92548328a1acff4dd51",
-                "reference": "c1a0b89195f52d7745f1d92548328a1acff4dd51",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/a2bfbc85ea72e7636eca9f367815c7ea510662a5",
+                "reference": "a2bfbc85ea72e7636eca9f367815c7ea510662a5",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.24.18",
+                "helsingborg-stad/component-library": "5.27.3",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.3"
             },
@@ -1337,9 +1218,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.14.13"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.17.22"
             },
-            "time": "2026-08-19T11:51:25+00:00"
+            "time": "2026-08-31T13:09:06+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3493,16 +3374,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.4.13",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "f5804be144caceb570f6747519999636b664f24c"
+                "reference": "058d17fc284cce14efb2385783b55014a461b176"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/f5804be144caceb570f6747519999636b664f24c",
-                "reference": "f5804be144caceb570f6747519999636b664f24c",
+                "url": "https://api.github.com/repos/symfony/process/zipball/058d17fc284cce14efb2385783b55014a461b176",
+                "reference": "058d17fc284cce14efb2385783b55014a461b176",
                 "shasum": ""
             },
             "require": {
@@ -3534,7 +3415,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.4.13"
+                "source": "https://github.com/symfony/process/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -3554,20 +3435,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-23T16:05:06+00:00"
+            "time": "2026-08-21T17:40:08+00:00"
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.42",
+            "version": "v6.4.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "fef99cef37890b350976f5f492854faefadd4e15"
+                "reference": "fa2235501e2cf6b1d38ab42954b248a5e93c8e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/fef99cef37890b350976f5f492854faefadd4e15",
-                "reference": "fef99cef37890b350976f5f492854faefadd4e15",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/fa2235501e2cf6b1d38ab42954b248a5e93c8e89",
+                "reference": "fa2235501e2cf6b1d38ab42954b248a5e93c8e89",
                 "shasum": ""
             },
             "require": {
@@ -3633,7 +3514,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.42"
+                "source": "https://github.com/symfony/translation/tree/v6.4.44"
             },
             "funding": [
                 {
@@ -3653,7 +3534,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-05T16:46:18+00:00"
+            "time": "2026-08-20T19:22:13+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -3739,16 +3620,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v7.4.15",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "04ba4add636a95ff437af3a5a9499bb1d6c6d4bd"
+                "reference": "e088da50b813f32473a76871616cbb8fa54653a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/04ba4add636a95ff437af3a5a9499bb1d6c6d4bd",
-                "reference": "04ba4add636a95ff437af3a5a9499bb1d6c6d4bd",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e088da50b813f32473a76871616cbb8fa54653a8",
+                "reference": "e088da50b813f32473a76871616cbb8fa54653a8",
                 "shasum": ""
             },
             "require": {
@@ -3802,7 +3683,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v7.4.15"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -3822,7 +3703,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-21T15:13:06+00:00"
+            "time": "2026-08-30T20:10:52+00:00"
         },
         {
             "name": "thecodingmachine/safe",
@@ -6612,16 +6493,16 @@
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.38.0",
+            "version": "v1.42.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-                "reference": "2d446c214bdbe5b71bde5011b060a05fece3ae6b"
+                "reference": "aa20edea75bd9c48cfecc8360922e5a6e5c44502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/2d446c214bdbe5b71bde5011b060a05fece3ae6b",
-                "reference": "2d446c214bdbe5b71bde5011b060a05fece3ae6b",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/aa20edea75bd9c48cfecc8360922e5a6e5c44502",
+                "reference": "aa20edea75bd9c48cfecc8360922e5a6e5c44502",
                 "shasum": ""
             },
             "require": {
@@ -6673,7 +6554,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.38.0"
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.42.0"
             },
             "funding": [
                 {
@@ -6693,7 +6574,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T13:48:31+00:00"
+            "time": "2026-08-07T06:33:24+00:00"
         },
         {
             "name": "symfony/polyfill-php84",
@@ -6858,16 +6739,16 @@
         },
         {
             "name": "symfony/property-info",
-            "version": "v7.4.16",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "c79afdb2e720db8ee4f7050a07b3116b92cb896b"
+                "reference": "52420d499b03ec20c0d38f0dc2f940bc9c43dc8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/c79afdb2e720db8ee4f7050a07b3116b92cb896b",
-                "reference": "c79afdb2e720db8ee4f7050a07b3116b92cb896b",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/52420d499b03ec20c0d38f0dc2f940bc9c43dc8e",
+                "reference": "52420d499b03ec20c0d38f0dc2f940bc9c43dc8e",
                 "shasum": ""
             },
             "require": {
@@ -6924,7 +6805,7 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-info/tree/v7.4.16"
+                "source": "https://github.com/symfony/property-info/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -6944,20 +6825,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-07T14:56:57+00:00"
+            "time": "2026-08-25T14:18:37+00:00"
         },
         {
             "name": "symfony/serializer",
-            "version": "v7.4.16",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "5ef7afacc15dfa503e9dcab7c3eda0b4460a15d9"
+                "reference": "1f31d4e902c85b820af5dce27dbe17435524bed0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/5ef7afacc15dfa503e9dcab7c3eda0b4460a15d9",
-                "reference": "5ef7afacc15dfa503e9dcab7c3eda0b4460a15d9",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/1f31d4e902c85b820af5dce27dbe17435524bed0",
+                "reference": "1f31d4e902c85b820af5dce27dbe17435524bed0",
                 "shasum": ""
             },
             "require": {
@@ -7028,7 +6909,7 @@
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/serializer/tree/v7.4.16"
+                "source": "https://github.com/symfony/serializer/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -7048,7 +6929,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-06T10:16:07+00:00"
+            "time": "2026-08-30T00:47:26+00:00"
         },
         {
             "name": "symfony/string",
@@ -7143,16 +7024,16 @@
         },
         {
             "name": "symfony/type-info",
-            "version": "v7.4.9",
+            "version": "v7.4.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/type-info.git",
-                "reference": "cafeedbf157b890e94ac5b83eaed85595106d5d6"
+                "reference": "62d0ad6995630a4f7ea8fd270aadb3e2545c8e31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/type-info/zipball/cafeedbf157b890e94ac5b83eaed85595106d5d6",
-                "reference": "cafeedbf157b890e94ac5b83eaed85595106d5d6",
+                "url": "https://api.github.com/repos/symfony/type-info/zipball/62d0ad6995630a4f7ea8fd270aadb3e2545c8e31",
+                "reference": "62d0ad6995630a4f7ea8fd270aadb3e2545c8e31",
                 "shasum": ""
             },
             "require": {
@@ -7202,7 +7083,7 @@
                 "type"
             ],
             "support": {
-                "source": "https://github.com/symfony/type-info/tree/v7.4.9"
+                "source": "https://github.com/symfony/type-info/tree/v7.4.17"
             },
             "funding": [
                 {
@@ -7222,20 +7103,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-22T15:21:55+00:00"
+            "time": "2026-08-21T15:52:48+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.4.15",
+            "version": "v7.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e101850ded5d2c0d44bf32abb8996404afec2dec"
+                "reference": "4cef939e55b8a21c5780418de0d98ab00d0736e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e101850ded5d2c0d44bf32abb8996404afec2dec",
-                "reference": "e101850ded5d2c0d44bf32abb8996404afec2dec",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/4cef939e55b8a21c5780418de0d98ab00d0736e1",
+                "reference": "4cef939e55b8a21c5780418de0d98ab00d0736e1",
                 "shasum": ""
             },
             "require": {
@@ -7278,7 +7159,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.15"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.18"
             },
             "funding": [
                 {
@@ -7298,7 +7179,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-21T15:13:06+00:00"
+            "time": "2026-08-30T00:47:26+00:00"
         },
         {
             "name": "theseer/tokenizer",

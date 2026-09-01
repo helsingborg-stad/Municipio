@@ -2,13 +2,14 @@
 
 namespace Municipio\Customizer\Sections\Component;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
+use Municipio\Helper\ColorSwatches;
 
 class Divider
 {
     public function __construct($sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'divider_border_style',
             'label' => esc_html__('Border style', 'municipio'),
@@ -34,32 +35,7 @@ class Divider
             ],
         ]);
 
-        KirkiField::addField([
-            'type' => 'color',
-            'settings' => 'divider_color_text',
-            'label' => esc_html__('Text color', 'municipio'),
-            'section' => $sectionID,
-            'priority' => 10,
-            'transport' => 'auto',
-            'alpha' => true,
-            'default' => 'rgba(255, 255, 255, 0)',
-            'active_callback' => [
-                [
-                    'setting' => 'divider_custom_font',
-                    'operator' => '==',
-                    'value' => true,
-                ],
-            ],
-            'output' => [
-                [
-                    'choice' => 'text',
-                    'element' => ':root',
-                    'property' => '--c-divider-color-text',
-                ],
-            ],
-        ]);
-
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'select',
             'settings' => 'divider_title_alignment',
             'label' => esc_html__('Text alignment', 'municipio'),
@@ -85,7 +61,7 @@ class Divider
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'divider_title_frame',
             'label' => esc_html__('Wrap title in frame', 'municipio'),

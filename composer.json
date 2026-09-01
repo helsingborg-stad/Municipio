@@ -47,9 +47,8 @@
     "league/config": "v1.2.0",
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "0.5.0",
-    "helsingborg-stad/kirki": "^5.2",
     "helsingborg-stad/wputilservice": "^0.2.44",
-    "helsingborg-stad/styleguide": "3.14.13",
+    "helsingborg-stad/styleguide": "3.17.22",
     "firebase/php-jwt": "v7.1.0"
   },
   "scripts": {
@@ -61,6 +60,7 @@
     "fix:changed": "git diff --name-only origin/main | xargs vendor/bin/mago lint --fix --",
     "fix:changed:unsafe": "git diff --name-only origin/main | xargs vendor/bin/mago lint --fix --unsafe --",
     "format": "vendor/bin/mago fmt",
+    "clear:blade-cache": "@php utils/clear-blade-cache.php",
     "post-update-cmd": [],
     "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php",
     "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
@@ -110,7 +110,6 @@
     }
   },
   "suggest": {
-    "helsingborg-stad/component-library": "Required for theme to work properly.",
-    "helsingborg-stad/kirki": "Required for theme to work properly."
+    "helsingborg-stad/component-library": "Required for theme to work properly."
   }
 }

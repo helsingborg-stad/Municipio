@@ -2,6 +2,7 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Customizer\DesignLibrarySettingPolicy;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -35,6 +36,11 @@ class Enqueue implements Hookable
         $this->wpService->addAction(
             'customize_controls_enqueue_scripts',
             [$this, 'enqueueCustomizerScriptsAndStyles'],
+            999,
+        );
+        $this->wpService->addAction(
+            'customize_preview_init',
+            [$this, 'enqueueCustomizerPreviewScripts'],
             999,
         );
         $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
@@ -119,27 +125,25 @@ class Enqueue implements Hookable
      */
     public function enqueueCustomizerScriptsAndStyles()
     {
-        $this->enqueue->add('js/design-share.js', ['jquery', 'customize-controls']);
-
         $this->enqueue
-            ->add('js/customizer-flexible-header.js', ['jquery', 'customize-controls'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls'])
             ->with()
-            ->translation('FlexibleHeaderSettings', [
-                'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
-                'lang' => [
-                    'alignment' => __('Alignment', 'municipio'),
-                    'margin' => __('Margin', 'municipio'),
-                    'left' => __('Left', 'municipio'),
-                    'right' => __('Right', 'municipio'),
-                    'both' => __('Both', 'municipio'),
-                    'none' => __('None', 'municipio'),
-                ],
+            ->translation('municipioDesignShareConfig', [
+                'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
+                'allowedSettingKeys' => DesignLibrarySettingPolicy::getAllowedExactKeys(),
+                'allowedSettingKeyPrefixes' => DesignLibrarySettingPolicy::getAllowedPrefixes(),
             ]);
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
+    }
 
-        $this->enqueue->add('css/header-flexible.css');
+    /**
+     * Enqueue customizer preview scripts.
+     */
+    public function enqueueCustomizerPreviewScripts(): void
+    {
+        $this->enqueue->add('js/customizer-header-logo-scroll-aspect-ratio-preview.js', ['customize-preview']);
     }
 
     /**

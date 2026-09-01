@@ -2,17 +2,17 @@
 
 namespace Municipio\Customizer\Applicators;
 
-use Kirki\Compatibility\Kirki as KirkiCompatibility;
-use Kirki\Util\Helper as KirkiHelper;
-use WP_Customize_Manager;
+use Municipio\Customizer\ActiveCallbackComparator;
+use Municipio\Customizer\NativeField;
+use Municipio\Customizer\PanelsRegistry;
 
 abstract class AbstractApplicator
 {
-    public $optionKeyBasename = "theme_mod_applicator_cache";
-    public $optionKey         = null;
-    public $lastSignatureKey  = 'theme_mod_last_signature';
-    protected $signature      = null;
-    protected $runtimeCache   = [];
+    public $optionKeyBasename = 'theme_mod_applicator_cache';
+    public $optionKey = null;
+    public $lastSignatureKey = 'theme_mod_last_signature';
+    protected $signature = null;
+    protected $runtimeCache = [];
 
     /**
      * Get fields.
@@ -21,23 +21,48 @@ abstract class AbstractApplicator
      */
     protected function getFields(): array
     {
-        static $fields;
-        if ($fields) {
-            return $fields;
-        }
+        return $this->getRegisteredFields();
+    }
+
+    /**
+     * Get field definitions registered outside the native field registry.
+     *
+     * @return array
+     */
+    private function getRegisteredFields(): array
+    {
         $fields = [];
-        if (class_exists('\Kirki\Compatibility\Kirki')) {
-            $fields = array_merge(
-                KirkiCompatibility::$fields ?? [],
-                KirkiCompatibility::$all_fields ?? [],
-                $fields
-            );
+
+        foreach (PanelsRegistry::getInstance()->getRegisteredFields() as $field) {
+            if (!is_array($field) || !isset($field['settings']) || !is_string($field['settings'])) {
+                continue;
+            }
+
+            $fields[$field['settings']] = $field;
         }
+
         return $fields;
     }
 
     /**
-     * Compare values using KirkiHelper.
+     * Get the stored value for a field.
+     *
+     * @param string $settingKey The setting key to retrieve.
+     * @param array  $field      The field definition.
+     *
+     * @return mixed
+     */
+    protected function getFieldValue(string $settingKey, array $field): mixed
+    {
+        if (($field[NativeField::FIELD_DRIVER_KEY] ?? null) === NativeField::FIELD_DRIVER) {
+            return get_theme_mod($settingKey, $field['default'] ?? false);
+        }
+
+        return get_theme_mod($settingKey, $field['default'] ?? false);
+    }
+
+    /**
+     * Compare values using Customizer active-callback operators.
      *
      * @param string $settingKey The setting key to compare.
      * @param mixed $value The value to compare.
@@ -47,12 +72,10 @@ abstract class AbstractApplicator
      */
     protected function compareValues($settingKey, $value, $operator): bool
     {
-        $settingKeyStoredValue = \Kirki::get_option($settingKey);
-        return KirkiHelper::compare_values(
-            $settingKeyStoredValue,
-            $value,
-            $operator
-        );
+        $fields = $this->getFields();
+        $settingKeyStoredValue = $this->getFieldValue($settingKey, $fields[$settingKey] ?? []);
+
+        return ActiveCallbackComparator::compare($settingKeyStoredValue, $value, $operator);
     }
 
     /**

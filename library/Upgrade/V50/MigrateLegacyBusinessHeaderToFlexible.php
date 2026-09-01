@@ -1,0 +1,161 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\Upgrade\V50;
+
+use WpService\Contracts\GetThemeMod;
+use WpService\Contracts\SetThemeMod;
+
+/**
+ * Migrates legacy business header layout to flexible template configuration.
+ */
+class MigrateLegacyBusinessHeaderToFlexible
+{
+    private const HEADER_APPEARANCE_SETTING = 'header_apperance';
+    private const HEADER_HIDDEN_STORAGE_SETTING = 'header_sortable_hidden_storage';
+    private const UPPER_SECTION_SETTING = 'header_sortable_section_main_upper';
+    private const LOWER_SECTION_SETTING = 'header_sortable_section_main_lower';
+    private const UPPER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_upper_responsive';
+    private const LOWER_RESPONSIVE_SECTION_SETTING = 'header_sortable_section_main_lower_responsive';
+
+    private const TOKENS_SETTING              = 'tokens';
+    private const LOWER_AREA_SCOPE             = 'scope:s-header-flexible-lower';
+    private const COLOR_SURFACE_TOKEN          = '--c-header--color--surface';
+    private const PADDING_X_TOKEN             = '--c-header--padding-x-enabled';
+    private const PADDING_Y_TOKEN             = '--c-header--padding-y-enabled';
+    private const PRIMARY_COLOR                = 'var(--color--primary)';
+    private const UPPER_ITEMS = ['logotype', 'search-modal', 'language', 'drawer'];
+    private const LOWER_ITEMS = [];
+    private const UPPER_RESPONSIVE_ITEMS = ['search-modal', 'language'];
+    private const LOWER_RESPONSIVE_ITEMS = ['logotype', 'drawer'];
+
+    /**
+     * Constructor.
+     *
+     * @param GetThemeMod&SetThemeMod $wpService WordPress service.
+     */
+    public function __construct(
+        private readonly GetThemeMod&SetThemeMod $wpService,
+    ) {}
+
+    /**
+     * Run migration.
+     */
+    public function migrate(): void
+    {
+        if ((string) $this->wpService->getThemeMod(self::HEADER_APPEARANCE_SETTING, '') !== 'business') {
+            return;
+        }
+
+        $this->applyTemplate();
+    }
+
+    /**
+     * Apply the business flexible template configuration.
+     */
+    public function applyTemplate(): void
+    {
+        $this->wpService->setThemeMod(self::HEADER_APPEARANCE_SETTING, 'flexible');
+        $this->wpService->setThemeMod(self::UPPER_SECTION_SETTING, self::UPPER_ITEMS);
+        $this->wpService->setThemeMod(self::LOWER_SECTION_SETTING, self::LOWER_ITEMS);
+        $this->wpService->setThemeMod(self::UPPER_RESPONSIVE_SECTION_SETTING, self::UPPER_RESPONSIVE_ITEMS);
+        $this->wpService->setThemeMod(self::LOWER_RESPONSIVE_SECTION_SETTING, self::LOWER_RESPONSIVE_ITEMS);
+
+        $storage = [];
+        $storage[self::UPPER_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_ITEMS, 'right');
+        $storage[self::UPPER_SECTION_SETTING]['logotype']['align'] = 'left';
+        $storage[self::LOWER_SECTION_SETTING] = [];
+        $storage[self::UPPER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions(self::UPPER_RESPONSIVE_ITEMS, 'right');
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING] = $this->buildDefaultItemOptions(self::LOWER_RESPONSIVE_ITEMS, 'right');
+        $storage[self::LOWER_RESPONSIVE_SECTION_SETTING]['logotype']['align'] = 'left';
+
+        $this->wpService->setThemeMod(self::HEADER_HIDDEN_STORAGE_SETTING, json_encode($storage) ?: '{}');
+
+        $this->applyDefaultLowerAreaPadding();
+        (new MigrateLegacyDrawerVisibility($this->wpService))->migrate(
+            self::UPPER_ITEMS,
+            self::LOWER_RESPONSIVE_ITEMS,
+            self::UPPER_SECTION_SETTING,
+            self::LOWER_RESPONSIVE_SECTION_SETTING,
+        );
+    }
+
+    /**
+     * Disable vertical padding on the flexible lower area by default.
+     *
+     * The lower area holds the primary navigation bar; removing its top/bottom
+     * padding gives the nav bar a full-bleed appearance matching the original
+        * business header design. V51 includes a catch-up migration that applies
+        * the same namespaced defaults for already-flexible sites.
+     */
+    private function applyDefaultLowerAreaPadding(): void
+    {
+        $raw    = $this->wpService->getThemeMod(self::TOKENS_SETTING, null);
+        $tokens = $this->parseTokens($raw);
+        $changed = false;
+
+        if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::COLOR_SURFACE_TOKEN])) {
+            $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::COLOR_SURFACE_TOKEN] = self::PRIMARY_COLOR;
+            $changed = true;
+        }
+
+        if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_X_TOKEN])) {
+            $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_X_TOKEN] = '0';
+            $changed = true;
+        }
+
+        if (!isset($tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_Y_TOKEN])) {
+            $tokens['component'][self::LOWER_AREA_SCOPE]['header'][self::PADDING_Y_TOKEN] = '0';
+            $changed = true;
+        }
+
+        if (!$changed) {
+            return;
+        }
+
+        $this->wpService->setThemeMod(self::TOKENS_SETTING, json_encode($tokens) ?: '');
+    }
+
+    /**
+     * Parse stored design tokens or return a safe default structure.
+     *
+     * @param mixed $raw Raw theme mod value.
+     *
+     * @return array<string, mixed>
+     */
+    private function parseTokens(mixed $raw): array
+    {
+        $default = ['token' => [], 'component' => []];
+
+        if (!is_string($raw) || trim($raw) === '') {
+            return $default;
+        }
+
+        $decoded = json_decode($raw, true);
+
+        return is_array($decoded) ? $decoded : $default;
+    }
+
+    /**
+     * Build default item options for hidden storage.
+     *
+     * @param array<int, string> $items Items to include.
+     * @param string $align Default alignment.
+     *
+     * @return array<string, array<string, string>>
+     */
+    private function buildDefaultItemOptions(array $items, string $align): array
+    {
+        $options = [];
+
+        foreach ($items as $item) {
+            $options[$item] = [
+                'align' => $align,
+                'margin' => 'none',
+            ];
+        }
+
+        return $options;
+    }
+}

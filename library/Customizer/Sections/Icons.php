@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Municipio\Customizer\KirkiField;
+use Municipio\Customizer\CustomizerField;
 
 class Icons
 {
     public function __construct($sectionID)
     {
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'icon_style',
             'label'       => esc_html__('Style', 'municipio'),
@@ -20,10 +20,10 @@ class Icons
                 'rounded'  => esc_html__('Rounded', 'municipio'),
                 'sharp'    => esc_html__('Sharp', 'municipio'),
             ],
-            'description' => esc_html__('Set the default aperance of the icons to match you websites style.', 'kirki'),
+            'description' => esc_html__('Set the default aperance of the icons to match you websites style.', 'municipio'),
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'select',
             'settings'    => 'icon_weight',
             'label'       => esc_html__('Weight', 'municipio'),
@@ -35,7 +35,7 @@ class Icons
                 '400' => esc_html__('Medium', 'municipio'),
                 '600' => esc_html__('Bold', 'municipio'),
             ],
-            'description' => esc_html__('Set the boldness of the icons.', 'kirki'),
+            'description' => esc_html__('Set the boldness of the icons.', 'municipio'),
             'output'      => [
                 [
                     'element'  => ':root',
@@ -44,7 +44,7 @@ class Icons
             ],
         ]);
 
-        KirkiField::addField([
+        CustomizerField::addField([
             'type'        => 'switch',
             'settings'    => 'icon_filled',
             'label'       => esc_html__('Filled icons', 'municipio'),
@@ -52,10 +52,10 @@ class Icons
             'default'     => false,
             'priority'    => 30,
             'choices'     => [
-                true  => esc_html__('Filled', 'kirki'),
-                false => esc_html__('Outlined', 'kirki'),
+                true  => esc_html__('Filled', 'municipio'),
+                false => esc_html__('Outlined', 'municipio'),
             ],
-            'description' => esc_html__('Determines if icons should be filled as a default, or not. If the icon component has any value set, that will be used instead. This settly do not apply to all icons, only those with support.', 'kirki'),
+            'description' => esc_html__('Determines if icons should be filled as a default, or not. If the icon component has any value set, that will be used instead. This settly do not apply to all icons, only those with support.', 'municipio'),
             'output'      => [
                 [
                     'type'    => 'component_data',

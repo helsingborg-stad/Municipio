@@ -2,36 +2,45 @@
 
 namespace Municipio\Admin\Acf;
 
-use WpService\Contracts\ApplyFilters;
+use Municipio\Helper\ColorSwatches;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\ApplyFilters;
 
 /**
  * Class PrefillColor
  *
- * This class adds a filter to specified fields in the ACF (Advanced Custom Fields) settings.
- * It retrieves main colors from the theme colors settings and injects them into the color picker.
+ * This class injects the shared palette into ACF color pickers.
+ *
+ * By default the palette is applied to all ACF color fields.
+ * A filtered list of field names can be provided to scope it.
  */
 class PrefillColor
 {
     /**
      * Add filter to specified fields
      */
-    public function __construct(private ApplyFilters&AddAction $wpService)
-    {
+    public function __construct(
+        private ApplyFilters&AddAction $wpService,
+    ) {
         $fieldNames = $this->wpService->applyFilters('Municipio/Admin/Acf/PrefillColor', [
-            'custom_background_color',
+            // Empty by default: apply palette to all ACF color fields.
         ]);
 
         // Enqueue inline JavaScript with palette data
-        $this->wpService->addAction('admin_footer', function() use ($fieldNames) {
-            $this->enqueueColorPickerScript($fieldNames);
-        }, 20, 0);
+        $this->wpService->addAction(
+            'admin_footer',
+            function () use ($fieldNames) {
+                $this->enqueueColorPickerScript($fieldNames);
+            },
+            20,
+            0,
+        );
     }
 
     /**
      * Enqueue inline JavaScript for ACF color picker customization
      *
-     * @param array $fieldNames Array of field names to apply the palette to
+     * @param array $fieldNames Optional field names to apply the palette to
      */
     private function enqueueColorPickerScript(array $fieldNames): void
     {
@@ -42,17 +51,22 @@ class PrefillColor
         $script = "
             <script>
             acf.add_filter('color_picker_args', function(args, field) {
-                // Only apply to our target fields
-                const targetFields = " . json_encode($fieldNames) . ";
+                const targetFields = " . json_encode($fieldNames) . ';
+                if (!Array.isArray(targetFields) || targetFields.length === 0) {
+                    args.palettes = ' . json_encode($palettes) . ';
+                    return args;
+                }
+
+                // Apply only to configured target fields
                 const fieldName = field[0].dataset.name;
                 if (targetFields.includes(fieldName)) {
-                    args.palettes = " . json_encode($palettes) . ";
+                    args.palettes = ' . json_encode($palettes) . ';
                 }
                 
                 return args;
             });
             </script>
-        ";
+        ';
 
         echo $script;
     }
@@ -64,25 +78,6 @@ class PrefillColor
      */
     private function getColorPalettesAsArray(): array
     {
-        $hexesToIgnore = [
-            '#ffffff',
-        ];
-
-        $colors = [];
-        $rawColors = \Municipio\Helper\Color::getPalettes(['color_palette_additional']);
-
-        foreach ($rawColors as $palette) {
-            if (!is_array($palette)) {
-                continue;
-            }
-
-            foreach ($palette as $hex) {
-                if (!in_array(strtolower($hex), $hexesToIgnore)) {
-                    $colors[] = $hex;
-                }
-            }
-        }
-
-        return array_unique($colors);
+        return ColorSwatches::getColors();
     }
 }

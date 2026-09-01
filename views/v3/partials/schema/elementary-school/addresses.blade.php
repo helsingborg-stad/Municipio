@@ -14,7 +14,13 @@
                     {!! $address['directionsLink']['label'] !!}
                 @endlink
             @endif
+            @if(!empty($address['description']))
+                @typography([])
+                    {!! $address['description'] !!}
+                @endtypography
+            @endif
         @endforeach
+
         @map([
             ...$mapAttributes,
             'height' => '400px',
