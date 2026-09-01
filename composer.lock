@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fa276c0c5ba30e9b19ad2761949c2af",
+    "content-hash": "4e30aa9dc16c74a5817423c4db055c7e",
     "packages": [
         {
             "name": "astrotomic/php-deepface",
@@ -714,12 +714,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "c1ad90f6a3819ec40fb98fff0193f14fdeab35c8"
+                "reference": "6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/c1ad90f6a3819ec40fb98fff0193f14fdeab35c8",
-                "reference": "c1ad90f6a3819ec40fb98fff0193f14fdeab35c8",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4",
+                "reference": "6e2ed57aac2b8852e18e1e0aea0f42315b12c7b4",
                 "shasum": ""
             },
             "require": {
@@ -752,7 +752,7 @@
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
                 "source": "https://github.com/darylldoyle/svg-sanitizer/tree/master"
             },
-            "time": "2025-08-12T15:43:45+00:00"
+            "time": "2026-09-01T11:02:16+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1165,16 +1165,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.17.22",
+            "version": "3.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "a2bfbc85ea72e7636eca9f367815c7ea510662a5"
+                "reference": "23181fd9caee2d8c37b88f5138fa39dc40c47a4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/a2bfbc85ea72e7636eca9f367815c7ea510662a5",
-                "reference": "a2bfbc85ea72e7636eca9f367815c7ea510662a5",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/23181fd9caee2d8c37b88f5138fa39dc40c47a4d",
+                "reference": "23181fd9caee2d8c37b88f5138fa39dc40c47a4d",
                 "shasum": ""
             },
             "require": {
@@ -1218,9 +1218,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.17.22"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.18.0"
             },
-            "time": "2026-08-31T13:09:06+00:00"
+            "time": "2026-09-01T12:40:25+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",

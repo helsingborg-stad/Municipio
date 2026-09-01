@@ -1,6 +1,11 @@
 .c-header.c-header--flexible {
     contain: none;
 
+    // The Styleguide supplies the width and padding tokens. The flexible
+    // Municipio header has dedicated content rows, so apply them there rather
+    // than to the full-width header background.
+    padding-inline: 0;
+
     &#site-header-flexible-upper {
         position: relative;
         z-index: 10;
@@ -42,6 +47,9 @@
     .c-header__main-lower-area {
         display: grid;
         grid-template-columns: auto auto auto;
+        inline-size: var(--c-header--content-max-width);
+        margin-inline: auto;
+        padding-inline: var(--c-header--padding-x);
         align-items: center;
         position: relative;
         z-index: 1;
