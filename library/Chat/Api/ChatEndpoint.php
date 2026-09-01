@@ -14,6 +14,8 @@ class ChatEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = '/chat';
+private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'error'];
+    private const VALID_SSE_RESPONSE_KEYS = ['session_id', 'answer', 'error'];
 
     public function __construct(
         private ChatConfigInterface $config,
@@ -166,6 +168,29 @@ class ChatEndpoint extends RestApiEndpoint
         );
     }
 
+    private static function trimEventPayload(string $sseEvent): ?string
+    {
+        $parts = explode("\n", $sseEvent);
+        $eventType = str_replace('event: ', '', $parts[0]);
+        $data = substr($parts[1], 6);
+
+        if (!in_array($eventType, self::VALID_SSE_EVENT_NAMES, true)) {
+            return null;
+        }
+
+        $parsed = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+        $filtered = array_filter(
+            $parsed,
+            static fn($key) => in_array($key, self::VALID_SSE_RESPONSE_KEYS, true),
+            ARRAY_FILTER_USE_KEY,
+        );
+        $encoded = json_encode($filtered, JSON_THROW_ON_ERROR);
+
+        $newEvent = $parts[0] . "\n" . 'data: ' . $encoded;
+
+        return $newEvent;
+    }
+
     private function streamResponse(string $chatUrl, #[\SensitiveParameter] string $apiKey, array $body): void
     {
         header('Content-Type: text/event-stream');
@@ -197,9 +222,13 @@ class ChatEndpoint extends RestApiEndpoint
                         $event = substr($accum, 0, $eventEnd);
                         $accum = substr($accum, $eventEnd + 2);
 
-                        echo $event . "\n\n";
+                        $trimmed = self::trimEventPayload($event);
+
+                        if ($trimmed !== null) {
+                            echo $trimmed . "\n\n";
                         ob_flush();
                         flush();
+}
                     }
 
                     return strlen($data);
