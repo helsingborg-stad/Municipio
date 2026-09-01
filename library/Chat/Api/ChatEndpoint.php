@@ -15,7 +15,7 @@ class ChatEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = '/chat';
-private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'error'];
+    private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'error'];
     private const VALID_SSE_RESPONSE_KEYS = ['session_id', 'answer', 'error'];
 
     public function __construct(
@@ -192,7 +192,7 @@ private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'erro
                 ],
                 CURLOPT_POSTFIELDS => json_encode($body),
                 CURLOPT_RETURNTRANSFER => false,
-                CURLOPT_WRITEFUNCTION => static function ($ch, $data) use (&$accum) {
+                CURLOPT_WRITEFUNCTION => static function (\CurlHandle $_ch, string $data) use (&$accum): int {
                     $accum .= $data;
                     $accum = str_replace(["\r\n", "\r"], "\n", $accum);
 
@@ -208,9 +208,9 @@ private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'erro
 
                         if ($trimmed !== null) {
                             echo $trimmed . "\n\n";
-                        ob_flush();
-                        flush();
-}
+                            ob_flush();
+                            flush();
+                        }
                     }
 
                     return strlen($data);
