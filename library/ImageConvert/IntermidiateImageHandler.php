@@ -2,9 +2,9 @@
 
 namespace Municipio\ImageConvert;
 
-use Municipio\Helper\File;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Cache\ConversionCache;
+use Municipio\ImageConvert\Cache\ConversionStatus;
 use Municipio\ImageConvert\Cache\PageLoadCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\Contract\ImageContract;
@@ -37,7 +37,7 @@ class IntermidiateImageHandler implements Hookable
         private Log $log,
     ) {
         $this->conversionCache = new ConversionCache($wpService, $config);
-        $this->pageLoadCache = new PageLoadCache($wpService, $config);
+        $this->pageLoadCache = new PageLoadCache($config);
 
         $strategyFactory = new StrategyFactory(
             $wpService,
@@ -66,6 +66,9 @@ class IntermidiateImageHandler implements Hookable
 
         // Clear conversion cache when attachments are deleted or updated
         $this->wpService->addFilter('delete_attachment', [$this, 'clearAttachmentCache'], 10, 1);
+        $this->wpService->addFilter('edit_attachment', [$this, 'clearAttachmentCache'], 10, 1);
+        $this->wpService->addFilter('update_attached_file', [$this, 'clearAttachmentCacheWhenFileChanges'], 10, 2);
+        $this->wpService->addFilter('wp_update_attachment_metadata', [$this, 'clearAttachmentCacheWhenMetadataChanges'], 10, 2);
     }
 
     /**
@@ -83,19 +86,6 @@ class IntermidiateImageHandler implements Hookable
         // Collect data
         $format = $this->config->intermidiateImageFormat()['suffix'];
 
-        // If conversion has recently failed, return original image
-        if ($this->conversionCache->hasRecentFailure($image)) {
-            $this->log->log(
-                $this,
-                'Recent conversion failure detected, skipping conversion.',
-                'warning',
-                ['image' => $image, 'format' => $format, 'reason' => 'recent_failure'],
-            );
-
-            return $image;
-        }
-
-        // Fallback if no intermediate location could be determined
         $intermediateLocation = $image->getIntermidiateLocation($format);
         if (empty($intermediateLocation['path']) || empty($intermediateLocation['url'])) {
             $this->log->log(
@@ -108,64 +98,57 @@ class IntermidiateImageHandler implements Hookable
             return $image;
         }
 
-        // Only reuse complete images with the expected type and dimensions.
-        if ($this->isValidIntermediateImage($image, $intermediateLocation['path'])) {
+        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image)) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
+            return $image;
+        }
 
-            // Mark as successful for future reference
-            $this->conversionCache->markConversionSuccess($image);
+        $conversionStatus = $this->conversionCache->getConversionStatus($image);
 
-            // Mark as processed in current request
+        // If conversion has recently failed, return original image
+        if ($conversionStatus === ConversionStatus::Failed) {
+            $this->log->log(
+                $this,
+                'Recent conversion failure detected, skipping conversion.',
+                'warning',
+                ['image' => $image, 'format' => $format, 'reason' => 'recent_failure'],
+            );
+
+            return $image;
+        }
+
+        // A published conversion was verified before it was made available.
+        // Reuse it directly; checking an S3-backed path would add a HEAD call
+        // for every image on every request.
+        if ($conversionStatus === ConversionStatus::Success) {
+            $image->setUrl($intermediateLocation['url']);
+            $image->setPath($intermediateLocation['path']);
             $this->pageLoadCache->markProcessedInCurrentRequest($image);
-
             return $image;
         }
 
-        // A failed editor can leave an empty or malformed file behind. Remove it
-        // before retrying so it can never be mistaken for a successful result.
+        // Preserve the previous hot path: one existence check for an already
+        // published intermediate. Integrity is verified before publication in
+        // ImageProcessor, so rendering existing images must not download them
+        // again merely to inspect their metadata.
         if (file_exists($intermediateLocation['path'])) {
-            $this->wpService->wpDeleteFile($intermediateLocation['path']);
-
-            if (file_exists($intermediateLocation['path'])) {
-                $this->log->log(
-                    $this,
-                    'Could not remove an invalid intermediate image, skipping conversion.',
-                    'warning',
-                    ['image' => $image, 'format' => $format, 'reason' => 'invalid_intermediate_cleanup_failed'],
-                );
-                $this->conversionCache->markConversionFailed($image);
-
-                return $image;
-            }
-        }
-
-        // A failed conversion in this request must fall back to the source image
-        // instead of exposing the missing or invalid intermediate URL.
-        if ($this->pageLoadCache->hasBeenProcessedInCurrentRequest($image)) {
+            $image->setUrl($intermediateLocation['url']);
+            $image->setPath($intermediateLocation['path']);
+            $this->conversionCache->markConversionSuccess($image);
+            $this->pageLoadCache->markProcessedInCurrentRequest($image);
             return $image;
         }
 
-        // Mark as processed in current request to prevent duplicate processing
-        $this->pageLoadCache->markProcessedInCurrentRequest($image);
-
-        // Use the selected conversion strategy
-        return $this->conversionStrategy->process($image);
-    }
-
-    private function isValidIntermediateImage(ImageContract $image, string $path): bool
-    {
-        $sourceSize = File::getImageSizeWithoutWarnings($image->getPath());
-        if ($sourceSize === false) {
-            return false;
+        // Only cache a completed conversion. Marking it before processing made
+        // a later use of the same image point to a failed intermediate path.
+        $convertedImage = $this->conversionStrategy->process($image);
+        if ($convertedImage instanceof ImageContract && $this->conversionCache->hasRecentSuccess($image)) {
+            $this->pageLoadCache->markProcessedInCurrentRequest($image);
+            return $convertedImage;
         }
 
-        return File::isValidImage(
-            $path,
-            File::getImageMimeTypeForPath($path),
-            min($image->getWidth(), $sourceSize[0]),
-            min($image->getHeight(), $sourceSize[1]),
-        );
+        return $image;
     }
 
     /**
@@ -177,5 +160,17 @@ class IntermidiateImageHandler implements Hookable
     {
         $this->conversionCache->clearImageCache($attachmentId);
         $this->pageLoadCache->clearImageCache($attachmentId);
+    }
+
+    public function clearAttachmentCacheWhenFileChanges(string $file, int $attachmentId): string
+    {
+        $this->clearAttachmentCache($attachmentId);
+        return $file;
+    }
+
+    public function clearAttachmentCacheWhenMetadataChanges(mixed $metadata, int $attachmentId): mixed
+    {
+        $this->clearAttachmentCache($attachmentId);
+        return $metadata;
     }
 }
