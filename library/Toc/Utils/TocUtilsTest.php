@@ -33,11 +33,15 @@ class TocUtilsTest extends TestCase
     #[TestDox('shouldEnableToc returns false when content is empty')]
     public function testShouldEnableTocReturnsFalseWhenContentIsEmpty(): void
     {
-        $wpService  = new FakeWpService(['isSingular' => true]);
+        $postId     = 101;
+        $wpService  = new FakeWpService(['isSingular' => true, 'getQueriedObjectId' => $postId]);
         $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getId')->willReturn($postId);
         $postObject->method('getContent')->willReturn('');
 
-        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
+            ['getField' => true]
+        ));
         $result   = $tocUtils->shouldEnableToc($postObject);
 
         $this->assertFalse($result);
@@ -46,14 +50,34 @@ class TocUtilsTest extends TestCase
     #[TestDox('shouldEnableToc returns false when content has no headings')]
     public function testShouldEnableTocReturnsFalseWhenContentHasNoHeadings(): void
     {
-        $wpService  = new FakeWpService(['isSingular' => true]);
+        $postId     = 102;
+        $wpService  = new FakeWpService(['isSingular' => true, 'getQueriedObjectId' => $postId]);
         $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getId')->willReturn($postId);
         $postObject->method('getContent')->willReturn('<p>Just some paragraph text with no headings.</p>');
 
-        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
+            ['getField' => true]
+        ));
         $result   = $tocUtils->shouldEnableToc($postObject);
 
         $this->assertFalse($result);
+    }
+
+    #[TestDox('shouldEnableToc does not render content when disabled on the post')]
+    public function testShouldEnableTocDoesNotRenderContentWhenDisabledOnPost(): void
+    {
+        $postId     = 103;
+        $wpService  = new FakeWpService(['isSingular' => true, 'getQueriedObjectId' => $postId]);
+        $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getId')->willReturn($postId);
+        $postObject->expects($this->never())->method('getContent');
+
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
+            ['getField' => false]
+        ));
+
+        $this->assertFalse($tocUtils->shouldEnableToc($postObject));
     }
 
     #[TestDox('shouldEnableToc returns true when content has minimum reqired headings')]

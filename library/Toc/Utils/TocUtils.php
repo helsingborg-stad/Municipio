@@ -48,15 +48,15 @@ class TocUtils implements TocUtilsInterface
             return $runtimeCache[$postId] = false;
         }
 
-        // Check if post has content
-        $content = $postObject->getContent();
-        if (empty($content)) {
-            return $runtimeCache[$postId] = false;
-        }
-
         //Check if get field 'toc' is set to true
         $isEnabledOnPost = $this->acfService->getField('post_table_of_contents', $postObject->getId(), false) ?? false;
         if (empty($isEnabledOnPost)) {
+            return $runtimeCache[$postId] = false;
+        }
+
+        // Check if post has content
+        $content = $postObject->getContent();
+        if (empty($content)) {
             return $runtimeCache[$postId] = false;
         }
 
