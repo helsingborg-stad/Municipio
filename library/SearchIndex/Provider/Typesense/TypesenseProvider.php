@@ -98,9 +98,8 @@ class TypesenseProvider implements SearchProviderInterface
         return array_map($this->deleteObject(...), $objectIds);
     }
 
-    public function saveObject(array $object, array $options = []): mixed
-    {
-        $document = $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Document', [
+    private function prepareDocument(array $object): array {
+        return $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Document', [
             ...$object,
             'id' => (string) $object['uuid'],
             'post_title' => html_entity_decode((string) ($object['post_title'] ?? '')),
@@ -108,13 +107,17 @@ class TypesenseProvider implements SearchProviderInterface
             'tags' => array_map(static fn(string $tag): string => html_entity_decode($tag), $object['tags'] ?? []),
             'categories' => array_map(static fn(string $category): string => html_entity_decode($category), $object['categories'] ?? []),
         ]);
+    }
 
-        return $this->throwOnError($this->sendRequest('POST', sprintf('/collections/%s/documents', rawurlencode($this->collectionName)), $document));
+    public function saveObject(array $object, array $options = []): mixed
+    {
+        return $this->saveObjects([$object]);
     }
 
     public function saveObjects(array $objects, array $options = []): mixed
     {
-        return array_map(fn(array $object): mixed => $this->saveObject($object, $options), $objects);
+        $objects = array_map([$this, 'prepareDocument'], $objects);
+        return $this->throwOnError($this->sendImportRequest($objects));
     }
 
     public function getObjects(array $objectIds): array
@@ -166,6 +169,51 @@ class TypesenseProvider implements SearchProviderInterface
         return [
             'result' => is_array($decodedBody) ? $decodedBody : [],
             'statusCode' => (int) $this->wpService->wpRemoteRetrieveResponseCode($response),
+        ];
+    }
+
+    /**
+     * Import documents into the collection using Typesense's newline-delimited JSON format.
+     *
+     * @param array<int, array<string, mixed>> $documents
+     * @return array{result: array<string, mixed>, statusCode: int}
+     */
+    private function sendImportRequest(array $documents): array
+    {
+        $url = $this->apiUrl . sprintf('/collections/%s/documents/import?action=upsert', rawurlencode($this->collectionName));
+        $body = implode("\n", array_map(
+            static fn(array $document): string => json_encode($document, JSON_THROW_ON_ERROR),
+            $documents,
+        ));
+
+        $response = $this->wpService->wpRemoteRequest($url, [
+            'method' => 'POST',
+            'headers' => [
+                'Content-Type' => 'text/plain',
+                'X-TYPESENSE-API-KEY' => $this->apiKey,
+            ],
+            'body' => $body,
+        ]);
+
+        if ($this->wpService->isWpError($response)) {
+            throw new \RuntimeException($response->get_error_message());
+        }
+
+        $statusCode = (int) $this->wpService->wpRemoteRetrieveResponseCode($response);
+        $lines = array_values(array_filter(explode("\n", trim((string) $this->wpService->wpRemoteRetrieveBody($response)))));
+        $results = array_map(static fn(string $line): array => json_decode($line, true) ?? [], $lines);
+        $failure = current(array_filter($results, static fn(array $result): bool => ($result['success'] ?? false) !== true));
+
+        if ($statusCode < 400 && $failure !== false) {
+            $statusCode = 400;
+            $results = ['message' => $failure['error'] ?? 'Typesense document import failed.'];
+        } elseif ($statusCode < 400) {
+            $results = ['success' => true];
+        }
+
+        return [
+            'result' => $results,
+            'statusCode' => $statusCode,
         ];
     }
 

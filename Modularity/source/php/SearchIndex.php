@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modularity;
 
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\SearchIndex\Index\Record\PropertyMappers\SanitizesText;
 use WpService\Contracts\AddFilter;
 
 /**
@@ -12,6 +13,8 @@ use WpService\Contracts\AddFilter;
  */
 class SearchIndex implements Hookable
 {
+    use SanitizesText;
+
     public function __construct(private AddFilter $wpService)
     {
     }
@@ -63,6 +66,6 @@ class SearchIndex implements Hookable
 
     private function normalizeText(string $markup): string
     {
-        return trim(preg_replace('/\s+/', ' ', strip_tags($markup)) ?? '');
+        return $this->sanitizeText($markup);
     }
 }

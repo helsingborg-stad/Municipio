@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Index;
 
+use Municipio\SearchIndex\Index\Record\CreateRecordFromPost;
 use Municipio\SearchIndex\Provider\SearchProviderInterface;
 use WpService\WpService;
 
@@ -59,7 +60,7 @@ class PostIndexer
             } else {
                 $this->provider->saveObjects($records, ['objectIDKey' => 'uuid']);
             }
-        } catch (\Throwable) {
+        } catch (\Throwable $e) {
             return;
         }
 
@@ -121,63 +122,7 @@ class PostIndexer
      */
     private function createRecord(\WP_Post $post): array
     {
-        $postType = $this->wpService->getPostType($post);
-        $postTypeObject = $postType ? $this->wpService->getPostTypeObject($postType) : null;
-        $taxonomies = $this->wpService->getPostTaxonomies($post);
-        $tags = [];
-
-        foreach ($taxonomies as $taxonomy) {
-            if ($taxonomy === 'category') {
-                continue;
-            }
-
-            $terms = $this->wpService->wpGetPostTerms($post->ID, $taxonomy);
-            if (!$terms instanceof \WP_Error) {
-                $tags = [...$tags, ...array_map(
-                    static fn(\WP_Term $term): string => $term->name,
-                    $terms,
-                )];
-            }
-        }
-
-        $categoryTerms = $this->wpService->wpGetPostTerms($post->ID, 'category');
-        $categories = $categoryTerms instanceof \WP_Error ? [] : array_map(
-            static fn(\WP_Term $term): string => $term->name,
-            $categoryTerms,
-        );
-        $thumbnailId = $this->wpService->getPostThumbnailId($post);
-        $thumbnail = $thumbnailId ? get_the_post_thumbnail_url($post, [480, 270]) : '';
-        $permalink = $this->wpService->getPostPermalink($post);
-        $content = $this->sanitizeText($this->wpService->applyFilters('the_content', $post->post_content));
-        $content = $this->wpService->applyFilters('Municipio/SearchIndex/Record/Content', $content, $post->ID);
-
-        $record = [
-            'uuid' => $this->createRecordId($post->ID),
-            'ID' => (string) $post->ID,
-            'post_title' => $this->sanitizeText($this->wpService->applyFilters('the_title', $post->post_title)),
-            'post_excerpt' => $this->createExcerpt($post),
-            'content' => is_string($content) ? $content : '',
-            'permalink' => is_string($permalink) ? $permalink : '',
-            'post_date' => strtotime($post->post_date),
-            'post_date_formatted' => date((string) $this->wpService->getOption('date_format'), strtotime($post->post_date)),
-            'post_modified' => strtotime($post->post_modified),
-            'thumbnail' => is_string($thumbnail) ? $thumbnail : '',
-            'thumbnail_alt' => $thumbnailId ? (string) $this->wpService->getPostMeta($thumbnailId, '_wp_attachment_image_alt', true) : '',
-            'tags' => $tags,
-            'categories' => $categories,
-            'search_index_timestamp' => current_time('Y-m-d H:i:s'),
-            'post_type' => $postType,
-            'post_type_name' => $postTypeObject?->labels->name ?? '',
-            'top_most_parent' => $this->getTopMostParentTitle($post),
-            'origin_site' => get_bloginfo('name'),
-            'origin_site_url' => get_bloginfo('url'),
-        ];
-
-        if (is_multisite()) {
-            $record['blog_id'] = get_current_blog_id();
-        }
-
-        return $this->wpService->applyFilters('Municipio/SearchIndex/Record', $record, $post->ID);
+        return (new CreateRecordFromPost($this->wpService))->createRecordFromPost($post);
     }
 
     /**
@@ -270,38 +215,5 @@ class PostIndexer
             $this->provider->deleteObjects($objectIds);
         } catch (\Throwable) {
         }
-    }
-
-    /**
-     * Build a searchable excerpt from a post.
-     */
-    private function createExcerpt(\WP_Post $post): string
-    {
-        $excerpt = get_the_excerpt($post);
-        $excerpt = is_string($excerpt) && $excerpt !== '' ? $excerpt : $post->post_content;
-        $excerpt = preg_replace('/\[(.*?)\]/', '', $excerpt) ?? '';
-
-        return wp_trim_words($this->sanitizeText($excerpt), 55, '...');
-    }
-
-    /**
-     * Remove markup and normalize whitespace in searchable text.
-     */
-    private function sanitizeText(string $content): string
-    {
-        $content = preg_replace('/<(script|style|noscript)\b[^>]*>.*?<\/\1>/is', '', $content) ?? '';
-        return preg_replace('/\s+/', ' ', strip_tags($content)) ?? '';
-    }
-
-    /**
-     * Resolve the highest parent title for a hierarchical post.
-     */
-    private function getTopMostParentTitle(\WP_Post $post): string
-    {
-        $ancestors = $this->wpService->getPostAncestors($post);
-        $topMostParentId = $ancestors !== [] ? end($ancestors) : $post->ID;
-        $topMostParent = $this->wpService->getPost((int) $topMostParentId);
-
-        return $topMostParent instanceof \WP_Post ? $topMostParent->post_title : '';
     }
 }

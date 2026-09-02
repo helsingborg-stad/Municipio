@@ -37,6 +37,19 @@ class SearchIndexTest extends TestCase
         static::assertSame('Page content', $searchIndex->addModuleContent('Page content', 42));
     }
 
+    public function testNormalizesModuleMarkupWithoutExecutableContent(): void
+    {
+        $searchIndex = new \Modularity\SearchIndex(static::createWpService());
+        $normalizeText = new \ReflectionMethod($searchIndex, 'normalizeText');
+
+        $result = $normalizeText->invoke(
+            $searchIndex,
+            '<style>.example { display: none; }</style><p>Module content</p><script>alert("ignored");</script>',
+        );
+
+        static::assertSame('Module content', $result);
+    }
+
     public function testRemovesModulePostTypes(): void
     {
         static::assertSame(
