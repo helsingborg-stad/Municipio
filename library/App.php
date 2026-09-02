@@ -372,6 +372,11 @@ class App
         ))->addHooks();
 
         /**
+         * OpenStreetMap feature
+         */
+        (new \Municipio\Integrations\OpenStreetMap\OpenStreetMapFeature($this->wpService))->addHooks();
+
+        /**
          * Setup Table of Contents
          */
         (new \Municipio\Toc\TocFeature($this->wpService, $this->acfService))->enable();
