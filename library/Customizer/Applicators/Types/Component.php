@@ -10,6 +10,7 @@ use WpService\WpService;
 class Component extends AbstractApplicator implements ApplicatorInterface
 {
     private array $cachedData = [];
+    private array $matchingFiltersCache = [];
 
     public function __construct(
         private WpService $wpService,
@@ -23,6 +24,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface
     public function applyData(array|object $data)
     {
         $this->cachedData = $data;
+        $this->matchingFiltersCache = [];
         $this->wpService->addFilter('ComponentLibrary/Component/Data', [$this, 'applyDataFilterFunction'], 10, 1);
     }
 
@@ -35,10 +37,38 @@ class Component extends AbstractApplicator implements ApplicatorInterface
      */
     public function applyDataFilterFunction($data)
     {
-        $storedComponentData = $this->cachedData;
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
 
-        foreach ($storedComponentData as $filter) {
+        foreach ($this->getMatchingFilters($contexts) as $filter) {
+            if (isset($filter['data']['classList']) && is_string($filter['data']['classList'])) {
+                // Ensure classList is an array and handle before merging it with existing classList in data.
+                $data['classList'] = array_merge($data['classList'] ?? [], [$filter['data']['classList']]);
+                unset($filter['data']['classList']);
+            }
+
+            $data = array_replace_recursive($data, $filter['data']);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get the customizer filters matching a component context combination.
+     *
+     * @param array $contexts Component contexts.
+     * @return array Matching filters.
+     */
+    private function getMatchingFilters(array $contexts): array
+    {
+        $cacheKey = serialize($contexts);
+
+        if (isset($this->matchingFiltersCache[$cacheKey])) {
+            return $this->matchingFiltersCache[$cacheKey];
+        }
+
+        $matchingFilters = [];
+
+        foreach ($this->cachedData as $filter) {
             $passFilterRules = false;
 
             $andOperators = array_filter($filter['contexts'], function ($context) {
@@ -62,17 +92,11 @@ class Component extends AbstractApplicator implements ApplicatorInterface
             }
 
             if ($passFilterRules) {
-                if (isset($filter['data']['classList']) && is_string($filter['data']['classList'])) {
-                    // Ensure classList is an array and handle before merging it with existing classList in data.
-                    $data['classList'] = array_merge($data['classList'] ?? [], [$filter['data']['classList']]);
-                    unset($filter['data']['classList']);
-                }
-
-                $data = array_replace_recursive($data, $filter['data']);
+                $matchingFilters[] = $filter;
             }
         }
 
-        return $data;
+        return $this->matchingFiltersCache[$cacheKey] = $matchingFilters;
     }
 
     /**

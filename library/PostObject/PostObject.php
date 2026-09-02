@@ -190,7 +190,10 @@ class PostObject implements PostObjectInterface
             (int) $imageId,
             [$width, $height],
             new ImageResolver(),
-            new ImageFocusResolver(['id' => $imageId])
+            new ImageFocusResolver([
+                'id' => $imageId,
+                'ratio' => [$width, $height]
+            ])
         ) : null;
     }
 }

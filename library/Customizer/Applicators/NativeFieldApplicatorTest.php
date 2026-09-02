@@ -91,6 +91,24 @@ namespace Municipio\Customizer\Applicators {
             $this->assertSame(NativeField::FIELD_DRIVER, $fields['native_applicator_field'][NativeField::FIELD_DRIVER_KEY]);
         }
 
+        #[TestDox('registered fields are indexed once per applicator instance')]
+        public function testRegisteredFieldsAreIndexedOncePerApplicatorInstance(): void
+        {
+            PanelsRegistry::getInstance()->addRegisteredField([
+                'settings' => 'first_field',
+            ]);
+
+            $applicator = new ExposedFieldsApplicator();
+            $this->assertArrayHasKey('first_field', $applicator->exposedFields());
+
+            PanelsRegistry::getInstance()->addRegisteredField([
+                'settings' => 'second_field',
+            ]);
+
+            $this->assertArrayNotHasKey('second_field', $applicator->exposedFields());
+            $this->assertArrayHasKey('second_field', (new ExposedFieldsApplicator())->exposedFields());
+        }
+
         #[TestDox('getFieldValue reads native field values from theme mods with defaults')]
         public function testGetFieldValueReadsNativeFieldValuesFromThemeModsWithDefaults(): void
         {

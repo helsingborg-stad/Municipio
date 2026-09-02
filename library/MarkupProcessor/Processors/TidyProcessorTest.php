@@ -24,6 +24,22 @@ class TidyProcessorTest extends TestCase
         $this->assertNotSame($input, $processor->process($input));
     }
 
+    #[TestDox('repairs markup without template elements')]
+    public function testProcessWithoutTemplateTags(): void
+    {
+        if (!extension_loaded('tidy')) {
+            $this->assertTrue(true, 'Tidy extension is not available, skipping test.');
+            return;
+        }
+
+        $processor = new TidyProcessor();
+        $input = '<!DOCTYPE html><html><body><main><p>Test</main></body></html>';
+        $processed = $processor->process($input);
+
+        $this->assertStringContainsString('</p>', $processed);
+        $this->assertStringContainsString('</main>', $processed);
+    }
+
     #[TestDox('returns original markup if tidy extension is not available')]
     public function testProcessWithoutTidy(): void
     {

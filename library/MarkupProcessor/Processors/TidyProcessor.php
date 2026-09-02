@@ -18,7 +18,11 @@ class TidyProcessor implements MarkupProcessorInterface
             return $markup;
         }
 
-        [$markup, $templates] = $this->extractOuterTemplates($markup) ?? ['', []];
+        $templates = [];
+        if (stripos($markup, '<template') !== false) {
+            [$markup, $templates] = $this->extractOuterTemplates($markup);
+        }
+
         $tidy = new \tidy();
         $tidy->parseString(
             $markup,
@@ -38,7 +42,11 @@ class TidyProcessor implements MarkupProcessorInterface
         // Clean and repair the document
         $tidy->cleanRepair();
         $markup = (string) $tidy;
-        $markup = str_replace(array_keys($templates), array_values($templates), $markup);
+
+        if ($templates !== []) {
+            $markup = str_replace(array_keys($templates), array_values($templates), $markup);
+        }
+
         return $markup;
     }
 

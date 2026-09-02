@@ -275,7 +275,10 @@ class Post
                 (int) $thumbnailId,
                 [1920, false],
                 new ImageResolver(),
-                new ImageFocusResolver(['id' => $thumbnailId])
+                new ImageFocusResolver([
+                    'id' => $thumbnailId,
+                    'ratio' => [1920, false]
+                ])
             );
         }
 

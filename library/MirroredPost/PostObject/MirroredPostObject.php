@@ -89,7 +89,10 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
                 new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver(), $this->wpService),
                 new BlogSwitchedImageFocusResolver(
                     $this->getBlogId(),
-                    new ImageFocusResolver(['id' => $imageId]),
+                    new ImageFocusResolver([
+                        'id' => $imageId,
+                        'ratio' => [$width, $height],
+                    ]),
                     $this->wpService,
                 ),
             )
