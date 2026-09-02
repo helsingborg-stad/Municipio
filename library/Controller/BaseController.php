@@ -17,6 +17,7 @@ use Municipio\ImagePreload\Header\HeroImagePreloadResolver;
 use Municipio\ImagePreload\Header\HeroSidebarModuleProvider;
 use Municipio\ImagePreload\Header\HeroWidgetModuleProvider;
 use Municipio\Styleguide\Customize\ResolvePostTypeScope;
+use Municipio\Theme\Footer\FooterAreas;
 use WpService\WpService;
 
 /**
@@ -824,35 +825,15 @@ class BaseController
     /**
      * Retrieves the footer settings.
      *
+     * All footer areas are always returned; the column count only decides the layout.
+     *
      * @return array An array containing the number of footer columns and footer areas.
      */
     protected function getFooterSettings()
     {
-        $footerAreas = ['footer-area'];
-        $footerColumns = $this->getFooterColumns();
+        $footerAreas = new FooterAreas($this->wpService);
 
-        for ($i = 1; $i < $footerColumns; $i++) {
-            $footerAreas[] = 'footer-area-column-' . $i;
-        }
-
-        return [$footerColumns, $footerAreas];
-    }
-
-    /**
-     * Get the configured footer column count from stored design tokens.
-     */
-    private function getFooterColumns(): int
-    {
-        $storedTokens = $this->wpService->getThemeMod('tokens', '');
-
-        if (!is_string($storedTokens) || trim($storedTokens) === '') {
-            return 1;
-        }
-
-        $decodedTokens = json_decode($storedTokens, true);
-        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
-
-        return max(1, (int) $columnCount);
+        return [$footerAreas->getColumnCount(), $footerAreas->getAreaIds()];
     }
 
     /**

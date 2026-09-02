@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use Municipio\Content\FilteredContentRuntimeCache;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\WpService;
 
@@ -92,7 +93,12 @@ class PostObjectWithFilteredContent extends AbstractPostObjectDecorator implemen
 
         // Apply WordPress filters
         $excerpt = $this->wpService->applyFilters('the_excerpt', $excerpt);
-        $content = $this->wpService->applyFilters('the_content', $content);
+        $content = FilteredContentRuntimeCache::remember(
+            $this->wpService->getCurrentBlogId(),
+            $this->postObject->getId(),
+            $content,
+            fn(string $content): string => $this->wpService->applyFilters('the_content', $content)
+        );
 
         // Build filtered content
         $return = $excerpt . $content;

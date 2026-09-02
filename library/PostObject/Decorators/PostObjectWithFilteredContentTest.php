@@ -2,12 +2,18 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use Municipio\Content\FilteredContentRuntimeCache;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
 class PostObjectWithFilteredContentTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        FilteredContentRuntimeCache::clear();
+    }
+
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
@@ -27,8 +33,10 @@ class PostObjectWithFilteredContentTest extends TestCase
 
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn($rawContent);
+        $postObject->method('getId')->willReturn(123);
 
         $wpService = new FakeWpService([
+            'getCurrentBlogId' => 1,
             'applyFilters' => function ($hook, $content) use ($filteredContent) {
                 if ($hook === 'the_content') {
                     return $filteredContent;
@@ -75,8 +83,10 @@ class PostObjectWithFilteredContentTest extends TestCase
 
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn($rawContent);
+        $postObject->method('getId')->willReturn(123);
 
         $wpService = new FakeWpService([
+            'getCurrentBlogId' => 1,
             'applyFilters' => function ($hook, $content) {
                 // Mock the_excerpt and the_content filters
                 if ($hook === 'the_excerpt') {

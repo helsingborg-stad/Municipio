@@ -2,6 +2,7 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Content\FilteredContentRuntimeCache;
 
 use Municipio\Helper\Image;
 use WP_Post;
@@ -360,8 +361,14 @@ class Post
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
         }
 
-        // Apply the_content (will render blocks)
-        $content = apply_filters('the_content', $content);
+        // Apply the_content (will render blocks). The PostObject API may request
+        // the same content later in this request, so share this expensive result.
+        $content = FilteredContentRuntimeCache::remember(
+            function_exists('get_current_blog_id') ? (int) get_current_blog_id() : 0,
+            isset($postObject->ID) ? (int) $postObject->ID : 0,
+            $content,
+            static fn(string $content): string => apply_filters('the_content', $content)
+        );
 
         // Build post_content_filtered
         $return = $excerpt . $content;
