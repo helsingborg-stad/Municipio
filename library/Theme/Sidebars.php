@@ -2,6 +2,8 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Theme\Footer\FooterAreas;
+
 class Sidebars
 {
     public function __construct()
@@ -38,30 +40,24 @@ class Sidebars
             'widgets-area-hide-js',
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/widgets-area-hider.js'),
         );
+        $footerAreas = $this->getFooterAreas();
+
         wp_localize_script(
             'widgets-area-hide-js',
             'municipioSidebars',
             [
-                'footerColumns' => $this->getFooterColumns(),
+                'footerColumns' => $footerAreas->getColumnCount(),
+                'activeFooterAreas' => array_values(array_filter($footerAreas->getAreaIds(), 'is_active_sidebar')),
             ],
         );
     }
 
     /**
-     * Get the configured footer column count from stored design tokens.
+     * Get the footer areas resolver.
      */
-    private function getFooterColumns(): int
+    private function getFooterAreas(): FooterAreas
     {
-        $storedTokens = get_theme_mod('tokens', '');
-
-        if (!is_string($storedTokens) || trim($storedTokens) === '') {
-            return 1;
-        }
-
-        $decodedTokens = json_decode($storedTokens, true);
-        $columnCount = $decodedTokens['component']['__general__']['footer']['--c-footer--columns-count'] ?? 1;
-
-        return max(1, (int) $columnCount);
+        return new FooterAreas(\Municipio\Helper\WpService::get());
     }
 
     public function replaceGridClasses($beforeMarkup)
@@ -110,14 +106,15 @@ class Sidebars
         ));
 
         /**
-         * Create a total of 6 footer areas for use with the column-based footer layout.
+         * Create all footer areas for use with the column-based footer layout.
          */
-        for ($i = 0; $i < 6; $i++) {
-            $suffix = $i !== 0 ? '-column-' . $i : '';
+        $footerAreas = $this->getFooterAreas();
+
+        for ($i = 0; $i < FooterAreas::AREA_COUNT; $i++) {
             register_sidebar(array(
-                'id' => 'footer-area' . $suffix,
+                'id' => $footerAreas->getAreaId($i),
                 'name' => __('Footer area', 'municipio') . ' (' . ($i + 1) . ')',
-                'description' => __('The footer area ' . $suffix, 'municipio'),
+                'description' => __('The footer area', 'municipio') . ' ' . ($i + 1),
                 'before_title' => '<h2 class="footer-title c-typography c-typography__variant--h3">',
                 'after_title' => '</h2>',
                 'before_widget' => '<div class="o-grid-12">' . $beforeWidget,

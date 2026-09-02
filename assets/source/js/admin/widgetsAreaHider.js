@@ -21,11 +21,14 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!footerAreaColumn) {
                 continue;
             }
-            const matches = footerAreaColumn.getAttribute('data-widget-area-id').match(/footer-area-column-(\d)/i);
+            const areaId = footerAreaColumn.getAttribute('data-widget-area-id');
+            const matches = areaId.match(/footer-area-column-(\d)/i);
             if (matches.length !== 2) {
                 continue;
             }
-            if (matches[1] >= municipioSidebars.footerColumns) {
+            const activeAreas = municipioSidebars.activeFooterAreas || [];
+            // Areas holding widgets must stay editable even when outside the configured column count.
+            if (matches[1] >= municipioSidebars.footerColumns && !activeAreas.includes(areaId)) {
                 node.style.display = "none";
             }
         }
