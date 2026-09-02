@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\Chat\Api;
 
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Chat\Api\ChatEndpointHelpers;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactoryInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
@@ -14,6 +15,8 @@ class ChatEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = '/chat';
+    private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'error'];
+    private const VALID_SSE_RESPONSE_KEYS = ['session_id', 'answer', 'error'];
 
     public function __construct(
         private ChatConfigInterface $config,
@@ -178,6 +181,7 @@ class ChatEndpoint extends RestApiEndpoint
         }
 
         $ch = curl_init($chatUrl);
+        $accum = '';
 
         try {
             curl_setopt_array($ch, [
@@ -188,11 +192,28 @@ class ChatEndpoint extends RestApiEndpoint
                 ],
                 CURLOPT_POSTFIELDS => json_encode($body),
                 CURLOPT_RETURNTRANSFER => false,
-                CURLOPT_WRITEFUNCTION => static function ($ch, $data) {
-                    echo $data . "\n\n";
-                    ob_flush();
-                    flush();
-                    return \strlen($data);
+                CURLOPT_WRITEFUNCTION => static function (\CurlHandle $_ch, string $data) use (&$accum): int {
+                    $accum .= $data;
+                    $accum = str_replace(["\r\n", "\r"], "\n", $accum);
+
+                    while (($eventEnd = strpos($accum, "\n\n")) !== false) {
+                        $event = substr($accum, 0, $eventEnd);
+                        $accum = substr($accum, $eventEnd + 2);
+
+                        $trimmed = ChatEndpointHelpers::trimEventPayload(
+                            $event,
+                            self::VALID_SSE_EVENT_NAMES,
+                            self::VALID_SSE_RESPONSE_KEYS,
+                        );
+
+                        if ($trimmed !== null) {
+                            echo $trimmed . "\n\n";
+                            ob_flush();
+                            flush();
+                        }
+                    }
+
+                    return strlen($data);
                 },
             ]);
 

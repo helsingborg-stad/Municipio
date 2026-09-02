@@ -48,7 +48,7 @@
 		"freshleafmedia/autofocus": "^1.0",
 		"astrotomic/php-deepface": "0.5.0",
 		"helsingborg-stad/wputilservice": "^0.2.44",
-		"helsingborg-stad/styleguide": "3.17.22",
+		"helsingborg-stad/styleguide": "3.18.0",
 		"firebase/php-jwt": "v7.1.0",
 		"algolia/algoliasearch-client-php": "3.3"
 	},
