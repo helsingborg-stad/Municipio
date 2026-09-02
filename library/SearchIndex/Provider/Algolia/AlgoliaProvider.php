@@ -7,6 +7,7 @@ namespace Municipio\SearchIndex\Provider\Algolia;
 use Algolia\AlgoliaSearch\Config\SearchConfig;
 use Algolia\AlgoliaSearch\SearchClient;
 use Algolia\AlgoliaSearch\SearchIndex;
+use Municipio\SearchIndex\Provider\SearchIndexProviderUnreachableException;
 use Municipio\SearchIndex\Provider\SearchProviderInterface;
 use WpService\WpService;
 
@@ -100,7 +101,13 @@ class AlgoliaProvider implements SearchProviderInterface
             'removeWordsIfNoResults' => 'allOptional',
         ], $settings);
 
-        return $this->index->setSettings($settings);
+        try {
+            $indexingResponse = $this->index->setSettings($settings);
+        } catch (\Algolia\AlgoliaSearch\Exceptions\UnreachableException $exception) {
+            throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+        }
+        
+        return $indexingResponse;
     }
 
     /**

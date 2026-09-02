@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Municipio\SearchIndex;
 
 use AcfService\Implementations\FakeAcfService;
+use Municipio\Helper\AdminNotices\AdminNoticesInterface;
+use Municipio\Helper\AdminNotices\AdminNoticeType;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 use WpUtilService\Features\Enqueue\EnqueueManager;
@@ -24,6 +26,7 @@ class SearchIndexFeatureTest extends TestCase
             $wpService,
             new FakeAcfService(['getField' => false]),
             new EnqueueManager($wpService),
+            static::createNullAdminNoticesService()
         );
 
         $feature->enable();
@@ -42,6 +45,7 @@ class SearchIndexFeatureTest extends TestCase
             $wpService,
             new FakeAcfService(['getField' => false]),
             new EnqueueManager($wpService),
+            static::createNullAdminNoticesService()
         );
 
         $feature->enable();
@@ -75,6 +79,7 @@ class SearchIndexFeatureTest extends TestCase
             $wpService,
             $acfService,
             new EnqueueManager($wpService),
+            static::createNullAdminNoticesService()
         );
 
         $feature->enable();
@@ -95,5 +100,13 @@ class SearchIndexFeatureTest extends TestCase
             'addAction' => true,
             'addFilter' => true,
         ]);
+    }
+
+    private static function createNullAdminNoticesService(): AdminNoticesInterface {
+        return new class implements AdminNoticesInterface {
+            public function addNotice(string $message, AdminNoticeType $type = AdminNoticeType::INFO, bool $dismissible = true): void
+            {
+            }
+        };
     }
 }

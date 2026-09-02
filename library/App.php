@@ -14,6 +14,7 @@ use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Helper\AdminNotices\AdminNotices;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -154,6 +155,7 @@ class App
             $this->wpService,
             $this->acfService,
             $this->wpUtilService->enqueue(),
+            new AdminNotices($this->wpService)
         ))->enable();
 
         /**

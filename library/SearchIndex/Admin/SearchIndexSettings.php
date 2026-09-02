@@ -6,7 +6,10 @@ namespace Municipio\SearchIndex\Admin;
 
 use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
+use Municipio\Helper\AdminNotices\AdminNoticesInterface;
+use Municipio\Helper\AdminNotices\AdminNoticeType;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
+use Municipio\SearchIndex\Provider\SearchIndexProviderUnreachableException;
 use Municipio\SearchIndex\Provider\SearchProviderFactory;
 use WpService\WpService;
 
@@ -22,6 +25,7 @@ class SearchIndexSettings
         private GetField&AddOptionsPage $acfService,
         private SearchIndexConfig $config,
         private SearchProviderFactory $providerFactory,
+        private AdminNoticesInterface $adminNoticesService
     ) {}
 
     /**
@@ -131,6 +135,14 @@ class SearchIndexSettings
             return;
         }
 
-        $this->providerFactory->create()->setSettings();
+        try {
+            $this->providerFactory->create()->setSettings();
+        } catch (SearchIndexProviderUnreachableException $exception) {
+            $this->adminNoticesService->addNotice(
+                esc_html($this->wpService->__('The search index provider is unreachable. Please check your settings and try again.', 'municipio')),
+                AdminNoticeType::ERROR,
+                true
+            );
+        }
     }
 }

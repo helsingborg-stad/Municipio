@@ -7,6 +7,7 @@ namespace Municipio\SearchIndex;
 use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
+use Municipio\Helper\AdminNotices\AdminNoticesInterface;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use Municipio\SearchIndex\Provider\SearchProviderFactory;
 use WpService\WpService;
@@ -21,6 +22,7 @@ class SearchIndexFeature
         private WpService $wpService,
         private GetField&UpdateField&AddOptionsPage $acfService,
         private EnqueueManagerInterface $enqueue,
+        private AdminNoticesInterface $adminNoticesService,
     ) {}
 
     /**
@@ -56,7 +58,7 @@ class SearchIndexFeature
 
         (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $config))->addHooks();
         (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $config))->addHooks();
-        (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $config, $providerFactory))->addHooks();
+        (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $config, $providerFactory, $this->adminNoticesService))->addHooks();
         (new Admin\ExcludeFromSearch($this->wpService))->addHooks();
         (new Facets\FacetsFeature($this->wpService, new Config\FacetsConfig($this->acfService)))->addHooks();
 

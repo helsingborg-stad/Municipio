@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Provider\Typesense;
 
+use Municipio\SearchIndex\Provider\SearchIndexProviderUnreachableException;
 use Municipio\SearchIndex\Provider\SearchProviderInterface;
 use WpService\WpService;
 
@@ -39,10 +40,20 @@ class TypesenseProvider implements SearchProviderInterface
             ]),
         ]);
 
-        $response = $this->sendRequest('POST', '/collections', $schema);
+        try {
+            $response = $this->sendRequest('POST', '/collections', $schema);
+        } catch (\RuntimeException $exception) {
+            throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+        }
 
         if ($response['statusCode'] === 409) {
-            $current = $this->throwOnError($this->sendRequest('GET', sprintf('/collections/%s', rawurlencode($this->collectionName))));
+            
+        try {
+                $current = $this->throwOnError($this->sendRequest('GET', sprintf('/collections/%s', rawurlencode($this->collectionName))));
+            } catch (\RuntimeException $exception) {
+                throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+            }
+
             $currentFields = array_column($current['fields'] ?? [], null, 'name');
             $missingFields = array_values(array_filter(
                 $schema['fields'],
@@ -50,17 +61,25 @@ class TypesenseProvider implements SearchProviderInterface
             ));
 
             if ($missingFields !== []) {
-                return $this->throwOnError($this->sendRequest(
-                    'PATCH',
-                    sprintf('/collections/%s', rawurlencode($this->collectionName)),
-                    ['fields' => $missingFields],
-                ));
+                try {
+                    return $this->throwOnError($this->sendRequest(
+                        'PATCH',
+                        sprintf('/collections/%s', rawurlencode($this->collectionName)),
+                        ['fields' => $missingFields],
+                    ));
+                } catch (\RuntimeException $exception) {
+                    throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+                }
             }
 
             return $response['result'];
         }
 
-        return $this->throwOnError($response);
+        try {
+            return $this->throwOnError($response);
+        } catch (\RuntimeException $exception) {
+            throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+        }
     }
 
     public function search(string $query, int $page = 1, int $pageSize = 20): mixed
