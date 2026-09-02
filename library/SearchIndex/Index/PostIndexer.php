@@ -13,9 +13,8 @@ use WpService\WpService;
  */
 class PostIndexer
 {
-    private const CHUNK_COUNT_META_KEY = '_municipio_search_index_chunk_count';
+    private const RECORD_IDS_META_KEY = '_municipio_search_index_record_ids';
     private const EXCLUDED_META_KEY = 'exclude_from_search';
-    private const MAX_RECORD_SIZE = 9999;
 
     public function __construct(
         private WpService $wpService,
@@ -50,22 +49,17 @@ class PostIndexer
             return;
         }
 
-        $previousChunkCount = (int) $this->wpService->getPostMeta($post->ID, self::CHUNK_COUNT_META_KEY, true);
+        $previousIds = $this->getIndexedRecordIds($post->ID);
         $record = $this->createRecord($post);
-        $records = $this->splitRecord($record);
 
         try {
-            if (count($records) === 1) {
-                $this->provider->saveObject($records[0], ['objectIDKey' => 'uuid']);
-            } else {
-                $this->provider->saveObjects($records, ['objectIDKey' => 'uuid']);
-            }
+            $currentIds = $this->provider->saveObject($record);
         } catch (\Throwable $e) {
             return;
         }
 
-        $this->deleteStaleChunks($post->ID, $previousChunkCount, count($records));
-        $this->wpService->updatePostMeta($post->ID, self::CHUNK_COUNT_META_KEY, count($records));
+        $this->deleteStaleRecords($previousIds, $currentIds);
+        $this->wpService->updatePostMeta($post->ID, self::RECORD_IDS_META_KEY, wp_json_encode($currentIds));
     }
 
     /**
@@ -73,20 +67,14 @@ class PostIndexer
      */
     public function delete(int $postId): void
     {
-        $recordId = $this->createRecordId($postId);
-        $chunkCount = (int) $this->wpService->getPostMeta($postId, self::CHUNK_COUNT_META_KEY, true);
-        $objectIds = [$recordId];
-
-        for ($chunk = 1; $chunk < $chunkCount; $chunk++) {
-            $objectIds[] = $this->createChunkId($recordId, $chunk);
-        }
+        $objectIds = $this->getIndexedRecordIds($postId) ?: [$this->createRecordId($postId)];
 
         try {
             $this->provider->deleteObjects($objectIds);
         } catch (\Throwable) {
             return;
         }
-        $this->wpService->deletePostMeta($postId, self::CHUNK_COUNT_META_KEY);
+        $this->wpService->deletePostMeta($postId, self::RECORD_IDS_META_KEY);
     }
 
     /**
@@ -126,40 +114,15 @@ class PostIndexer
     }
 
     /**
-     * Split a record only when the selected provider requires it.
+     * Get the record IDs stored for a post from a previous indexing run.
      *
-     * @return array<int, array<string, mixed>>
+     * @return array<int, string>
      */
-    private function splitRecord(array $record): array
+    private function getIndexedRecordIds(int $postId): array
     {
-        $recordTooLarge = $this->provider->shouldSplitRecord() && strlen(serialize($record)) >= self::MAX_RECORD_SIZE;
-        $recordTooLarge = (bool) $this->wpService->applyFilters('Municipio/SearchIndex/RecordTooLarge', $recordTooLarge, $record);
+        $storedIds = json_decode((string) $this->wpService->getPostMeta($postId, self::RECORD_IDS_META_KEY, true), true);
 
-        if (!$recordTooLarge) {
-            return [$record];
-        }
-
-        $nonContentSize = strlen(serialize(array_diff_key($record, ['content' => true])));
-        $chunkSize = max(1, self::MAX_RECORD_SIZE - $nonContentSize);
-        $chunks = [];
-        $content = (string) $record['content'];
-        for ($offset = 0, $contentLength = strlen($content); $offset < $contentLength;) {
-            $chunk = mb_strcut($content, $offset, $chunkSize, 'UTF-8');
-            if ($chunk === '') {
-                $chunk = mb_substr($content, 0, 1, 'UTF-8');
-            }
-            $chunks[] = $chunk;
-            $offset += strlen($chunk);
-        }
-        $chunks = $chunks === [] ? [''] : $chunks;
-
-        return array_map(fn(string $content, int $index): array => [
-            ...$record,
-            'uuid' => $this->createChunkId((string) $record['uuid'], $index),
-            'content' => $content,
-            'partial_object_distinct_key' => $record['uuid'],
-            'partial_object_total_amount' => count($chunks),
-        ], $chunks, array_keys($chunks));
+        return is_array($storedIds) ? $storedIds : [];
     }
 
     /**
@@ -189,30 +152,21 @@ class PostIndexer
     }
 
     /**
-     * Create the identifier for a split record chunk.
+     * Remove records left behind by a previous indexing run that are no longer produced.
+     *
+     * @param array<int, string> $previousIds
+     * @param array<int, string> $currentIds
      */
-    private function createChunkId(string $recordId, int $chunk): string
+    private function deleteStaleRecords(array $previousIds, array $currentIds): void
     {
-        return $chunk === 0 ? $recordId : sprintf('%s-part-%d', $recordId, $chunk);
-    }
+        $staleIds = array_values(array_diff($previousIds, $currentIds));
 
-    /**
-     * Remove chunks left behind when a record becomes smaller.
-     */
-    private function deleteStaleChunks(int $postId, int $previousChunkCount, int $currentChunkCount): void
-    {
-        if ($previousChunkCount <= $currentChunkCount) {
+        if ($staleIds === []) {
             return;
         }
 
-        $recordId = $this->createRecordId($postId);
-        $objectIds = [];
-        for ($chunk = $currentChunkCount; $chunk < $previousChunkCount; $chunk++) {
-            $objectIds[] = $this->createChunkId($recordId, $chunk);
-        }
-
         try {
-            $this->provider->deleteObjects($objectIds);
+            $this->provider->deleteObjects($staleIds);
         } catch (\Throwable) {
         }
     }

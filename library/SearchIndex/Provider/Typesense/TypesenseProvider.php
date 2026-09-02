@@ -109,15 +109,12 @@ class TypesenseProvider implements SearchProviderInterface
         ]);
     }
 
-    public function saveObject(array $object, array $options = []): mixed
+    public function saveObject(array $record): array
     {
-        return $this->saveObjects([$object]);
-    }
+        $document = $this->prepareDocument($record);
+        $this->throwOnError($this->sendImportRequest([$document]));
 
-    public function saveObjects(array $objects, array $options = []): mixed
-    {
-        $objects = array_map([$this, 'prepareDocument'], $objects);
-        return $this->throwOnError($this->sendImportRequest($objects));
+        return [(string) $document['id']];
     }
 
     public function getObjects(array $objectIds): array
@@ -126,11 +123,6 @@ class TypesenseProvider implements SearchProviderInterface
             $response = $this->sendRequest('GET', sprintf('/collections/%s/documents/%s', rawurlencode($this->collectionName), rawurlencode($objectId)));
             return $response['statusCode'] === 404 ? null : $this->throwOnError($response);
         }, $objectIds)));
-    }
-
-    public function shouldSplitRecord(): bool
-    {
-        return false;
     }
 
     /**

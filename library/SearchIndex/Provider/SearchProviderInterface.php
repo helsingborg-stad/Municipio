@@ -19,11 +19,13 @@ interface SearchProviderInterface
 
     public function deleteObjects(array $objectIds): mixed;
 
-    public function saveObject(array $object, array $options = []): mixed;
-
-    public function saveObjects(array $objects, array $options = []): mixed;
+    /**
+     * Save a provider-neutral record, applying any provider-specific transformation
+     * (e.g. splitting an oversized record into multiple documents) internally.
+     *
+     * @return array<int, string> The ids of the documents actually stored for this record.
+     */
+    public function saveObject(array $record): array;
 
     public function getObjects(array $objectIds): array;
-
-    public function shouldSplitRecord(): bool;
 }

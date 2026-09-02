@@ -40,7 +40,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 60; //The db version we want to achive
+    private $dbVersion = 61; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1124,20 +1124,6 @@ class Upgrade
         return true;
     }
 
-    public function v_60(): bool {
-        try {
-            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration($this->wpService, $this->acfService))->migrate();
-            (new \Municipio\SearchIndex\Migration\MigrateSharedIndexNameToAlgoliaIndexName($this->acfService))->migrate();
-            (new \Municipio\SearchIndex\SearchPage\Migration\LegacySearchPageActivationMigration( $this->wpService, $this->acfService, ))->migrate();
-            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration( $this->wpService, $this->acfService, ))->migrateAttachmentActivation();
-        } catch (\Exception $exception) {
-            error_log($exception->getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
     /**
      * Version 60
      */
@@ -1149,6 +1135,20 @@ class Upgrade
             $version->upgradeToVersion();
         } catch (\Exception $e) {
             error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public function v_61(): bool {
+        try {
+            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration($this->wpService, $this->acfService))->migrate();
+            (new \Municipio\SearchIndex\Migration\MigrateSharedIndexNameToAlgoliaIndexName($this->acfService))->migrate();
+            (new \Municipio\SearchIndex\SearchPage\Migration\LegacySearchPageActivationMigration( $this->wpService, $this->acfService, ))->migrate();
+            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration( $this->wpService, $this->acfService, ))->migrateAttachmentActivation();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
             return false;
         }
 
