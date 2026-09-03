@@ -317,7 +317,7 @@ class BlockManager
         foreach ($data as $key => $value) {
             $key = ltrim($key, '_');
 
-            if (str_contains($value, 'field_')) {
+            if (is_string($value) && str_contains($value, 'field_')) {
                 $newData[$key] = get_field($value);
             } else {
                 if ($fieldObject = get_field_object($key)) {
@@ -366,7 +366,7 @@ class BlockManager
 
         foreach ($fields as $key => $value) {
             //Must validate as a field_key
-            if (!str_contains($value, 'field_')) {
+            if (!is_string($value) || !str_contains($value, 'field_')) {
                 continue;
             }
 
@@ -376,7 +376,7 @@ class BlockManager
             }
 
             //Skip validation of decendants
-            if (isset($fieldObject['parent']) && str_contains($fieldObject['parent'], 'field_')) {
+            if (isset($fieldObject['parent']) && is_string($fieldObject['parent']) && str_contains($fieldObject['parent'], 'field_')) {
                 continue;
             }
 
