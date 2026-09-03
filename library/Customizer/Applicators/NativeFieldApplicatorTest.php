@@ -142,6 +142,23 @@ namespace Municipio\Customizer\Applicators {
             $this->assertSame('Migrated heading', $nativeOutput->archivePost['heading']);
         }
 
+        #[TestDox('controller applicator provides field defaults when no theme mod has been saved')]
+        public function testControllerApplicatorProvidesFieldDefaultsWhenNoThemeModHasBeenSaved(): void
+        {
+            $data = $this->getControllerApplicatorData([
+                'type' => 'multicheck',
+                'settings' => 'menu_pagetree_fallback_menus',
+                'default' => ['primary', 'secondary', 'mobile'],
+                'output' => [
+                    [
+                        'type' => 'controller',
+                    ],
+                ],
+            ]);
+
+            $this->assertSame(['primary', 'secondary', 'mobile'], $data->menuPagetreeFallbackMenus);
+        }
+
         /**
          * Get controller applicator data for a single registered field.
          *

@@ -3,11 +3,10 @@
 namespace Municipio\Customizer\Sections\Menu;
 
 use Municipio\Customizer\CustomizerField;
+use Municipio\Customizer\Sections\Header\Layout;
 
 class Behaviour
 {
-    private $defaultDrawerScreenSizes = ['xs', 'sm', 'md'];
-
     public function __construct(string $sectionID)
     {
         CustomizerField::addField([
@@ -33,7 +32,8 @@ class Behaviour
         CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'primary_menu_dropdown',
-            'label' => esc_html__('Show subitems as dropdown in main menu', 'municipio'),
+            'label' => esc_html__('Show subitems in the primary menu', 'municipio'),
+            'description' => esc_html__('Adds an expand control and dropdown for primary-menu items with subitems.', 'municipio'),
             'section' => $sectionID,
             'default' => false,
             'priority' => 10,
@@ -41,6 +41,7 @@ class Behaviour
                 true => esc_html__('Enabled', 'municipio'),
                 false => esc_html__('Disabled', 'municipio'),
             ],
+            'active_callback' => $this->getPrimaryMenuActiveCallback(),
             'output' => [
                 ['type' => 'controller'],
             ],
@@ -49,7 +50,8 @@ class Behaviour
         CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'primary_menu_dropdown_extended',
-            'label' => esc_html__('Extends the dropdown behavior making it more complete', 'municipio'),
+            'label' => esc_html__('Use expanded primary-menu dropdown', 'municipio'),
+            'description' => esc_html__('Shows subitems in a wide dropdown with the parent-page heading.', 'municipio'),
             'section' => $sectionID,
             'default' => false,
             'priority' => 10,
@@ -57,13 +59,7 @@ class Behaviour
                 true => esc_html__('Enabled', 'municipio'),
                 false => esc_html__('Disabled', 'municipio'),
             ],
-            'active_callback' => [
-                [
-                    'setting' => 'primary_menu_dropdown',
-                    'operator' => '==',
-                    'value' => true,
-                ],
-            ],
+            'active_callback' => $this->getExtendedPrimaryMenuDropdownActiveCallback(),
             'output' => [
                 ['type' => 'controller'],
             ],
@@ -86,40 +82,38 @@ class Behaviour
             ],
         ]);
 
-        CustomizerField::addField($this->getDrawerScreenSizesFieldArguments($sectionID));
     }
 
-    public function getDrawerScreenSizesFieldArguments(string $sectionID)
+    /**
+     * Only show desktop primary-menu settings when the primary menu is present
+     * in a desktop header row.
+     */
+    private function getPrimaryMenuActiveCallback(): callable
     {
-        return [
-            'type' => 'multicheck',
-            'settings' => 'drawer_screen_sizes',
-            'label' => esc_html__('Drawer screen sizes', 'municipio'),
-            'description' => esc_html__('Select which screen sizes the drawer menu should be visible on.', 'municipio'),
-            'section' => $sectionID,
-            'default' => $this->getDefaultDrawerScreenSizes(),
-            'priority' => 10,
-            'choices' => $this->getDrawerScreenSizeOptions(),
-            'layout' => 'horizontal',
-            'output' => [
-                ['type' => 'controller'],
-            ],
-        ];
+        return static fn(): bool => self::hasPrimaryMenuInDesktopHeader();
     }
 
-    public function getDrawerScreenSizeOptions()
+    private function getExtendedPrimaryMenuDropdownActiveCallback(): callable
     {
-        return [
-            'xs' => esc_html__('Extra small', 'municipio'),
-            'sm' => esc_html__('Small', 'municipio'),
-            'md' => esc_html__('Medium', 'municipio'),
-            'lg' => esc_html__('Large', 'municipio'),
-            'xl' => esc_html__('Extra large', 'municipio'),
-        ];
+        return static fn(): bool => self::hasPrimaryMenuInDesktopHeader()
+            && (bool) get_theme_mod('primary_menu_dropdown', false);
     }
 
-    public function getDefaultDrawerScreenSizes()
+    private static function hasPrimaryMenuInDesktopHeader(): bool
     {
-        return $this->defaultDrawerScreenSizes;
+        return self::containsPrimaryMenu(
+            get_theme_mod('header_sortable_section_main_upper', Layout::getDefaultDesktopUpperItems()),
+        ) || self::containsPrimaryMenu(
+            get_theme_mod('header_sortable_section_main_lower', Layout::getDefaultDesktopLowerItems()),
+        );
+    }
+
+    private static function containsPrimaryMenu(mixed $items): bool
+    {
+        if (is_string($items)) {
+            $items = json_decode($items, true);
+        }
+
+        return is_array($items) && in_array('primary', $items, true);
     }
 }

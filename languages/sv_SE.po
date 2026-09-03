@@ -8608,15 +8608,23 @@ msgstr "Primär logotyp"
 msgid "Secondary logo"
 msgstr "Sekundär logotyp"
 
+#: library/Customizer/Sections/Menu/Behaviour.php:35
+msgid "Show subitems in the primary menu"
+msgstr "Visa undermenyalternativ i huvudmenyn"
+
 #: library/Customizer/Sections/Menu/Behaviour.php:36
-msgid "Show subitems as dropdown in main menu"
-msgstr "Visa undermenyalternativ i en dropdown"
+msgid "Adds an expand control and dropdown for primary-menu items with subitems."
+msgstr "Lägger till en expandera-knapp och en dropdown för huvudmenyalternativ med underalternativ."
 
-#: library/Customizer/Sections/Menu/Behaviour.php:52
-msgid "Extends the dropdown behavior making it more complete"
-msgstr ""
+#: library/Customizer/Sections/Menu/Behaviour.php:53
+msgid "Use expanded primary-menu dropdown"
+msgstr "Använd utökad dropdown i huvudmenyn"
 
-#: library/Customizer/Sections/Menu/Behaviour.php:75
+#: library/Customizer/Sections/Menu/Behaviour.php:54
+msgid "Shows subitems in a wide dropdown with the parent-page heading."
+msgstr "Visar underalternativ i en bred dropdown med huvudsidans rubrik."
+
+#: library/Customizer/Sections/Menu/Behaviour.php:71
 msgid "Secondary navigation position"
 msgstr "Positionering av sekundärmeny"
 
