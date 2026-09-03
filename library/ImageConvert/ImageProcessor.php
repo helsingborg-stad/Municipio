@@ -45,8 +45,11 @@ class ImageProcessor
         }
 
         try {
+            $attachmentMetadata = $this->wpService->wpGetAttachmentMetadata($image->getId());
+            $this->preferScaledSource($image, $attachmentMetadata);
+
             // Check if the image can be resized
-            $canConvert = $this->canConvertImage($image);
+            $canConvert = $this->canConvertImage($image, $attachmentMetadata);
             if ($canConvert instanceof \WP_Error) {
                 $this->logConversionFailure($image, $format, $canConvert);
                 return false;
@@ -241,7 +244,7 @@ class ImageProcessor
     /**
      * Check if the image can be converted based on its existence, type, and size.
      */
-    private function canConvertImage(ImageContract $image): true|\WP_Error
+    private function canConvertImage(ImageContract $image, array|false $attachmentMetadata): true|\WP_Error
     {
         $sourceFilePath = $image->getPath();
         $sourceFileId = $image->getId();
@@ -262,7 +265,7 @@ class ImageProcessor
         }
 
         // Get attachment filesize, if exceeds max size, return error
-        $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
+        $sourceFileSize = $this->getSourceFileSize($attachmentMetadata, $sourceFilePath);
         if (!$sourceFileSize) {
             return new \WP_Error('filesize_unavailable', 'Unable to determine the file size of the source image.');
         }
@@ -277,13 +280,49 @@ class ImageProcessor
     /**
      * Get the size of an attachment from its metadata, with a fallback to the filesystem.
      */
-    private function getSourceFileSize(int $attachmentId, string $sourceFilePath): int|false
+    private function getSourceFileSize(array|false $attachmentMetadata, string $sourceFilePath): int|false
     {
-        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, 'filesize');
-        if ($size) {
-            return intval($size);
+        $size = $attachmentMetadata['filesize'] ?? null;
+        if (is_numeric($size) && (int) $size > 0) {
+            return (int) $size;
         }
+
         return filesize($sourceFilePath);
+    }
+
+    /**
+     * Prefer WordPress' generated scaled image when metadata tells us that the
+     * attachment currently points to its unscaled original. This avoids loading
+     * a large original image without probing the filesystem or S3 first.
+     */
+    private function preferScaledSource(ImageContract $image, array|false $attachmentMetadata): void
+    {
+        if (!is_array($attachmentMetadata)) {
+            return;
+        }
+
+        $scaledFile = $attachmentMetadata['file'] ?? null;
+        $originalFile = $attachmentMetadata['original_image'] ?? null;
+        if (!is_string($scaledFile) || !is_string($originalFile)) {
+            return;
+        }
+
+        $scaledFilename = basename($scaledFile);
+        if ($scaledFilename === '' || basename($image->getPath()) !== basename($originalFile)) {
+            return;
+        }
+
+        $image->setPath($this->replaceFilename($image->getPath(), $scaledFilename));
+        $image->setUrl($this->replaceFilename($image->getUrl(), $scaledFilename));
+    }
+
+    private function replaceFilename(string $path, string $filename): string
+    {
+        $separatorPosition = strrpos($path, '/');
+
+        return $separatorPosition === false
+            ? $filename
+            : substr($path, 0, $separatorPosition + 1) . $filename;
     }
 
     /**
