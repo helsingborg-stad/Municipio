@@ -68,6 +68,7 @@ class SearchIndexFeature
         if (defined('WP_CLI') && constant('WP_CLI') === true) {
             (new Cli\BuildSearchIndexCommand($this->wpService, $this->config, $this->providerFactory))->register();
             (new Cli\PrepareSearchIndexCommand($this->config, $this->providerFactory))->register();
+            (new Cli\CheckSearchIndexCommand($this->config, $this->providerFactory))->register();
         }
 
         if ($this->wpService->didAction('init') > 0) {
