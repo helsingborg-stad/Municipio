@@ -3,6 +3,7 @@
 namespace Municipio\Customizer\Sections\Menu;
 
 use Municipio\Customizer\CustomizerField;
+use Municipio\Customizer\Sections\Header\Layout;
 
 class Behaviour
 {
@@ -31,7 +32,8 @@ class Behaviour
         CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'primary_menu_dropdown',
-            'label' => esc_html__('Show subitems as dropdown in main menu', 'municipio'),
+            'label' => esc_html__('Show subitems in the primary menu', 'municipio'),
+            'description' => esc_html__('Adds an expand control and dropdown for primary-menu items with subitems.', 'municipio'),
             'section' => $sectionID,
             'default' => false,
             'priority' => 10,
@@ -39,6 +41,7 @@ class Behaviour
                 true => esc_html__('Enabled', 'municipio'),
                 false => esc_html__('Disabled', 'municipio'),
             ],
+            'active_callback' => $this->getPrimaryMenuActiveCallback(),
             'output' => [
                 ['type' => 'controller'],
             ],
@@ -47,7 +50,8 @@ class Behaviour
         CustomizerField::addField([
             'type' => 'switch',
             'settings' => 'primary_menu_dropdown_extended',
-            'label' => esc_html__('Extends the dropdown behavior making it more complete', 'municipio'),
+            'label' => esc_html__('Use expanded primary-menu dropdown', 'municipio'),
+            'description' => esc_html__('Shows subitems in a wide dropdown with the parent-page heading.', 'municipio'),
             'section' => $sectionID,
             'default' => false,
             'priority' => 10,
@@ -55,13 +59,7 @@ class Behaviour
                 true => esc_html__('Enabled', 'municipio'),
                 false => esc_html__('Disabled', 'municipio'),
             ],
-            'active_callback' => [
-                [
-                    'setting' => 'primary_menu_dropdown',
-                    'operator' => '==',
-                    'value' => true,
-                ],
-            ],
+            'active_callback' => $this->getExtendedPrimaryMenuDropdownActiveCallback(),
             'output' => [
                 ['type' => 'controller'],
             ],
@@ -84,5 +82,38 @@ class Behaviour
             ],
         ]);
 
+    }
+
+    /**
+     * Only show desktop primary-menu settings when the primary menu is present
+     * in a desktop header row.
+     */
+    private function getPrimaryMenuActiveCallback(): callable
+    {
+        return static fn(): bool => self::hasPrimaryMenuInDesktopHeader();
+    }
+
+    private function getExtendedPrimaryMenuDropdownActiveCallback(): callable
+    {
+        return static fn(): bool => self::hasPrimaryMenuInDesktopHeader()
+            && (bool) get_theme_mod('primary_menu_dropdown', false);
+    }
+
+    private static function hasPrimaryMenuInDesktopHeader(): bool
+    {
+        return self::containsPrimaryMenu(
+            get_theme_mod('header_sortable_section_main_upper', Layout::getDefaultDesktopUpperItems()),
+        ) || self::containsPrimaryMenu(
+            get_theme_mod('header_sortable_section_main_lower', Layout::getDefaultDesktopLowerItems()),
+        );
+    }
+
+    private static function containsPrimaryMenu(mixed $items): bool
+    {
+        if (is_string($items)) {
+            $items = json_decode($items, true);
+        }
+
+        return is_array($items) && in_array('primary', $items, true);
     }
 }

@@ -439,7 +439,7 @@ class Layout
     /**
      * @return array<int, string>
      */
-    private function getDefaultDesktopUpperItems(): array
+    public static function getDefaultDesktopUpperItems(): array
     {
         return ['logotype', 'language', 'drawer', 'user'];
     }
@@ -447,7 +447,7 @@ class Layout
     /**
      * @return array<int, string>
      */
-    private function getDefaultDesktopLowerItems(): array
+    public static function getDefaultDesktopLowerItems(): array
     {
         return ['primary'];
     }
