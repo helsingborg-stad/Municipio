@@ -48,17 +48,17 @@ namespace Municipio\SearchIndex\Cli {
         public function testReportsConfiguredProviderAsReachable(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->expects($this->once())->method('isProviderConfigured')->with('typesense')->willReturn(true);
+            $config->expects($this->once())->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
             $provider->expects($this->once())->method('search')->with('', 1, 1)->willReturn(['hits' => []]);
             $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->expects($this->once())->method('create')->with('typesense')->willReturn($provider);
+            $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
             $command = new CheckSearchIndexCommand($config, $providerFactory);
 
             $command->check([], ['provider' => 'typesense']);
 
             static::assertSame([
-                ['success', ['Search provider "typesense" is configured and reachable.']],
+                ['success', ['The search provider is configured and reachable.']],
             ], \WP_CLI::$calls);
         }
 
@@ -68,8 +68,7 @@ namespace Municipio\SearchIndex\Cli {
         public function testRejectsUnconfiguredProvider(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->method('provider')->willReturn('algolia');
-            $config->expects($this->once())->method('isProviderConfigured')->with('algolia')->willReturn(false);
+            $config->expects($this->once())->method('isConfigured')->willReturn(false);
             $providerFactory = $this->createMock(SearchProviderFactory::class);
             $providerFactory->expects($this->never())->method('create');
             $command = new CheckSearchIndexCommand($config, $providerFactory);
@@ -77,7 +76,7 @@ namespace Municipio\SearchIndex\Cli {
             $command->check([], []);
 
             static::assertSame([
-                ['error', ['The selected search provider must be configured before checking.']],
+                ['error', ['The search provider must be configured before checking.']],
             ], \WP_CLI::$calls);
         }
 
@@ -87,18 +86,17 @@ namespace Municipio\SearchIndex\Cli {
         public function testReportsProviderFailure(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->method('provider')->willReturn('algolia');
-            $config->method('isProviderConfigured')->with('algolia')->willReturn(true);
+            $config->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
             $provider->method('search')->willThrowException(new \RuntimeException('Connection timed out.'));
             $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->method('create')->with('algolia')->willReturn($provider);
+            $providerFactory->method('create')->with()->willReturn($provider);
             $command = new CheckSearchIndexCommand($config, $providerFactory);
 
             $command->check([], []);
 
             static::assertSame([
-                ['error', ['Search provider "algolia" is not reachable: Connection timed out.']],
+                ['error', ['The search provider is not reachable: Connection timed out.']],
             ], \WP_CLI::$calls);
         }
     }

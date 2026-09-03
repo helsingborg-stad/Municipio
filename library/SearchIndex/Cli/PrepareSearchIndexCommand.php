@@ -26,24 +26,17 @@ class PrepareSearchIndexCommand
     }
 
     /**
-     * Send settings to the selected search provider.
-     *
-     * ## OPTIONS
-     *
-     * [--provider=<provider>]
-     * : Search provider to prepare. Defaults to the configured provider.
+     * Send settings to the configured search provider.
      */
     public function prepare(array $arguments, array $associativeArguments): void
     {
-        $providerName = $associativeArguments['provider'] ?? $this->config->provider();
-
-        if (!is_string($providerName) || !$this->config->isProviderConfigured($providerName)) {
-            $this->callWpCli('error', 'The selected search provider must be configured before preparing.');
+        if (!$this->config->isConfigured()) {
+            $this->callWpCli('error', 'The search provider must be configured before preparing.');
             return;
         }
 
         $this->callWpCli('log', 'Sending provider settings...');
-        $this->providerFactory->create($providerName)->setSettings();
+        $this->providerFactory->create()->setSettings();
         $this->callWpCli('success', 'Search index preparation complete.');
     }
 

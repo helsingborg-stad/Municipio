@@ -48,15 +48,14 @@ namespace Municipio\SearchIndex\Cli {
         public function testPreparesConfiguredProvider(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->method('provider')->willReturn('algolia');
-            $config->method('isProviderConfigured')->with('algolia')->willReturn(true);
+            $config->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
             $provider->expects($this->once())->method('setSettings');
             $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->expects($this->once())->method('create')->with('algolia')->willReturn($provider);
+            $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
             $command = new PrepareSearchIndexCommand($config, $providerFactory);
 
-            $command->prepare([], []);
+            $command->prepare([], ['provider' => 'typesense']);
 
             static::assertSame([
                 ['log', ['Sending provider settings...']],
@@ -70,7 +69,7 @@ namespace Municipio\SearchIndex\Cli {
         public function testRejectsUnconfiguredProvider(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->expects($this->once())->method('isProviderConfigured')->with('typesense')->willReturn(false);
+            $config->expects($this->once())->method('isConfigured')->willReturn(false);
             $providerFactory = $this->createMock(SearchProviderFactory::class);
             $providerFactory->expects($this->never())->method('create');
             $command = new PrepareSearchIndexCommand($config, $providerFactory);
@@ -78,7 +77,7 @@ namespace Municipio\SearchIndex\Cli {
             $command->prepare([], ['provider' => 'typesense']);
 
             static::assertSame([
-                ['error', ['The selected search provider must be configured before preparing.']],
+                ['error', ['The search provider must be configured before preparing.']],
             ], \WP_CLI::$calls);
         }
     }

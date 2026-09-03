@@ -26,37 +26,26 @@ class CheckSearchIndexCommand
     }
 
     /**
-     * Check whether the selected search provider is configured and reachable.
-     *
-     * ## OPTIONS
-     *
-     * [--provider=<provider>]
-     * : Search provider to check. Defaults to the configured provider.
+     * Check whether the configured search provider is reachable.
      */
     public function check(array $arguments, array $associativeArguments): void
     {
-        $providerName = $associativeArguments['provider'] ?? $this->config->provider();
-
-        if (!is_string($providerName) || !$this->config->isProviderConfigured($providerName)) {
-            $this->callWpCli('error', 'The selected search provider must be configured before checking.');
+        if (!$this->config->isConfigured()) {
+            $this->callWpCli('error', 'The search provider must be configured before checking.');
             return;
         }
 
         try {
-            $this->providerFactory->create($providerName)->search('', 1, 1);
+            $this->providerFactory->create()->search('', 1, 1);
         } catch (\Throwable $exception) {
             $this->callWpCli('error', sprintf(
-                'Search provider "%s" is not reachable: %s',
-                $providerName,
+                'The search provider is not reachable: %s',
                 $exception->getMessage(),
             ));
             return;
         }
 
-        $this->callWpCli('success', sprintf(
-            'Search provider "%s" is configured and reachable.',
-            $providerName,
-        ));
+        $this->callWpCli('success', 'The search provider is configured and reachable.');
     }
 
     /**
