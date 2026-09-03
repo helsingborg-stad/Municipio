@@ -29,7 +29,7 @@ class BuildSearchIndexCommand
     }
 
     /**
-        * Rebuild the configured provider's search index.
+     * Rebuild the configured provider's search index.
      *
      * ## OPTIONS
      *

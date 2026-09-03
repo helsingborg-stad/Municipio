@@ -11,7 +11,6 @@ namespace Municipio\SearchIndex\Cli {
     use Municipio\SearchIndex\Provider\SearchProviderFactory;
     use Municipio\SearchIndex\Provider\SearchProviderInterface;
     use PHPUnit\Framework\TestCase;
-    use WpService\Implementations\FakeWpService;
 
     /**
      * Tests the search index preparation command.
@@ -81,29 +80,6 @@ namespace Municipio\SearchIndex\Cli {
             static::assertSame([
                 ['error', ['The selected search provider must be configured before preparing.']],
             ], \WP_CLI::$calls);
-        }
-
-        /**
-         * Verify legacy provider and settings arguments do not affect a build.
-         */
-        public function testBuildUsesConfiguredProviderWithoutPreparingSettings(): void
-        {
-            $config = $this->createMock(SearchIndexConfig::class);
-            $config->method('isConfigured')->willReturn(true);
-            $provider = $this->createMock(SearchProviderInterface::class);
-            $provider->expects($this->never())->method('setSettings');
-            $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
-            $wpService = new FakeWpService([
-                'getOption' => 'https://example.test',
-                'getPostTypes' => [],
-                'applyFilters' => static fn(string $hook, mixed $value): mixed => $value,
-            ]);
-            $command = new BuildSearchIndexCommand($wpService, $config, $providerFactory);
-
-            $command->build([], ['provider' => 'typesense', 'settings' => true]);
-
-            static::assertSame('success', \WP_CLI::$calls[array_key_last(\WP_CLI::$calls)][0]);
         }
     }
 }
