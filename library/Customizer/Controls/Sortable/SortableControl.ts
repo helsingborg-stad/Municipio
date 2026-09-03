@@ -10,43 +10,13 @@ type SortableItemOptions = {
 	margin: string;
 };
 
-const optionDashicons: Record<
-	keyof SortableItemOptions,
-	Record<string, string>
-> = {
-	align: {
-		left: "dashicons-editor-alignleft",
-		center: "dashicons-editor-aligncenter",
-		right: "dashicons-editor-alignright",
-	},
-	margin: {
-		none: "dashicons-align-none",
-		left: "dashicons-align-left",
-		right: "dashicons-align-right",
-		both: "dashicons-align-center",
-	},
-};
-
 const defaultOptions: SortableItemOptions = {
 	align: "right",
 	margin: "none",
 };
 
-const optionLabels: Record<
-	keyof SortableItemOptions,
-	Record<string, string>
-> = {
-	align: {
-		left: translate("Align left"),
-		center: translate("Align center"),
-		right: translate("Align right"),
-	},
-	margin: {
-		none: translate("No margin"),
-		left: translate("Left margin"),
-		right: translate("Right margin"),
-		both: translate("Both margins"),
-	},
+const itemDefaultOptions: Record<string, Partial<SortableItemOptions>> = {
+	logotype: { align: "left" },
 };
 
 export class SortableControlElement extends HTMLElement {
@@ -65,24 +35,30 @@ export class SortableControlElement extends HTMLElement {
 			return;
 		}
 
-		const optionButton = event.target.closest<HTMLElement>(
-			".municipio-sortable-option",
+		const settingsButton = event.target.closest<HTMLButtonElement>(
+			".municipio-sortable-settings-toggle",
 		);
 
-		if (optionButton) {
-			this.rotateOption(optionButton);
+		if (settingsButton) {
+			this.toggleSettings(settingsButton);
 		}
 	};
 
 	private readonly handleChange = (event: Event): void => {
 		if (
-			!(event.target instanceof HTMLSelectElement) ||
-			!event.target.classList.contains("municipio-sortable-picker__select")
+			event.target instanceof HTMLInputElement &&
+			event.target.classList.contains("municipio-sortable-setting-input")
 		) {
+			this.updateItemSetting(event.target);
 			return;
 		}
 
-		this.addSelectedItem();
+		if (
+			event.target instanceof HTMLSelectElement &&
+			event.target.classList.contains("municipio-sortable-picker__select")
+		) {
+			this.addSelectedItem();
+		}
 	};
 
 	public connectedCallback(): void {
@@ -108,7 +84,7 @@ export class SortableControlElement extends HTMLElement {
 		jquery(list).sortable?.({
 			axis: "y",
 			cancel:
-				".municipio-sortable-option, .municipio-sortable-remove, .municipio-sortable-picker__select",
+				".municipio-sortable-settings-toggle, .municipio-sortable-item__settings, .municipio-sortable-remove, .municipio-sortable-picker__select",
 			distance: 3,
 			forcePlaceholderSize: true,
 			handle: ".municipio-sortable-item__handle",
@@ -146,6 +122,7 @@ export class SortableControlElement extends HTMLElement {
 		const handle = document.createElement("span");
 		const itemLabel = document.createElement("span");
 		const actions = document.createElement("div");
+		const settings = document.createElement("div");
 
 		item.className = "municipio-sortable-item";
 		item.dataset.sortableValue = value;
@@ -159,37 +136,72 @@ export class SortableControlElement extends HTMLElement {
 		itemLabel.textContent = label;
 
 		actions.className = "municipio-sortable-item__actions";
-		actions.appendChild(this.createOptionButton("align", "left,center,right"));
-		actions.appendChild(
-			this.createOptionButton("margin", "none,left,right,both"),
-		);
+		actions.appendChild(this.createSettingsButton());
 		actions.appendChild(this.createRemoveButton());
+		settings.className = "municipio-sortable-item__settings";
+		settings.hidden = true;
+		settings.appendChild(this.createSettingsGroup(value, "align"));
+		settings.appendChild(this.createSettingsGroup(value, "margin"));
 
 		item.appendChild(handle);
 		item.appendChild(itemLabel);
 		item.appendChild(actions);
+		item.appendChild(settings);
 		this.updateItemOptionButtons(item);
 
 		return item;
 	}
 
-	private createOptionButton(
-		optionName: keyof SortableItemOptions,
-		values: string,
-	): HTMLButtonElement {
+	private createSettingsButton(): HTMLButtonElement {
 		const button = document.createElement("button");
 		button.type = "button";
-		button.className = `button button-small municipio-sortable-option municipio-sortable-option--${optionName}`;
-		button.dataset.sortableOption = optionName;
-		button.dataset.sortableValues = values;
-
-		if (optionDashicons[optionName]) {
-			button.appendChild(
-				this.createDashicon("municipio-sortable-option__icon"),
-			);
-		}
+		button.className = "button button-small municipio-sortable-settings-toggle";
+		button.dataset.tooltip = translate("Settings");
+		button.setAttribute("aria-label", translate("Settings"));
+		button.setAttribute("aria-expanded", "false");
+		const icon = this.createDashicon("dashicons-admin-generic");
+		button.appendChild(icon);
 
 		return button;
+	}
+
+	private createSettingsGroup(
+		itemValue: string,
+		optionName: keyof SortableItemOptions,
+	): HTMLFieldSetElement {
+		const fieldset = document.createElement("fieldset");
+		const legend = document.createElement("legend");
+		const options = document.createElement("div");
+		const optionValues =
+			optionName === "align"
+				? ["left", "center", "right"]
+				: ["none", "left", "right", "both"];
+
+		fieldset.className = "municipio-sortable-item__settings-group";
+		legend.textContent =
+			optionName === "align" ? translate("Alignment") : translate("Margin");
+		options.className = "municipio-sortable-item__settings-options";
+
+		optionValues.forEach((optionValue) => {
+			const label = document.createElement("label");
+			const input = document.createElement("input");
+
+			input.type = "radio";
+			input.name = `sortable-${itemValue}-${optionName}`;
+			input.value = optionValue;
+			input.className = "municipio-sortable-setting-input";
+			input.dataset.sortableOption = optionName;
+			label.appendChild(input);
+			label.append(
+				` ${translate(this.getOptionLabel(optionName, optionValue))}`,
+			);
+			options.appendChild(label);
+		});
+
+		fieldset.appendChild(legend);
+		fieldset.appendChild(options);
+
+		return fieldset;
 	}
 
 	private createDashicon(className: string): HTMLSpanElement {
@@ -211,25 +223,29 @@ export class SortableControlElement extends HTMLElement {
 		return button;
 	}
 
-	private rotateOption(button: HTMLElement): void {
+	private toggleSettings(button: HTMLButtonElement): void {
 		const item = button.closest<HTMLElement>(".municipio-sortable-item");
-		const optionName = this.getOptionName(button);
+		const settings = item?.querySelector<HTMLElement>(
+			".municipio-sortable-item__settings",
+		);
 
-		if (!item || !optionName) {
+		if (!settings) {
 			return;
 		}
 
-		this.setItemOption(item, optionName, this.getNextOptionValue(button));
+		settings.hidden = !settings.hidden;
+		button.setAttribute("aria-expanded", String(!settings.hidden));
 	}
 
-	private getNextOptionValue(button: HTMLElement): string {
-		const values = (button.dataset.sortableValues ?? "")
-			.split(",")
-			.filter(Boolean);
-		const currentValue = button.dataset.sortableCurrentValue ?? values[0] ?? "";
-		const currentIndex = values.indexOf(currentValue);
+	private updateItemSetting(input: HTMLInputElement): void {
+		const item = input.closest<HTMLElement>(".municipio-sortable-item");
+		const optionName = this.getOptionName(input);
 
-		return values[(currentIndex + 1) % values.length] ?? currentValue;
+		if (!item || !optionName || !input.checked) {
+			return;
+		}
+
+		this.setItemOption(item, optionName, input.value);
 	}
 
 	private setItemOption(
@@ -243,15 +259,13 @@ export class SortableControlElement extends HTMLElement {
 		const itemValue = item.dataset.sortableValue ?? "";
 
 		settingStorage[itemValue] = {
-			...defaultOptions,
-			...(settingStorage[itemValue] ?? {}),
+			...this.sanitizeItemOptions(itemValue, settingStorage[itemValue]),
 			[optionName]: optionValue,
 		};
 
 		storage[baseSettingName] = settingStorage;
 		this.setHiddenStorage(storage);
-		this.updateItemOptionButtons(item);
-		this.notifySortableSettingChange();
+		this.updateItemOptionButtons(item, settingStorage[itemValue]);
 	}
 
 	private initializeItemOptions(): void {
@@ -262,58 +276,40 @@ export class SortableControlElement extends HTMLElement {
 		);
 	}
 
-	private updateItemOptionButtons(item: HTMLElement): void {
-		const itemOptions = this.getItemOptions(item.dataset.sortableValue ?? "");
-
+	private updateItemOptionButtons(
+		item: HTMLElement,
+		itemOptions = this.getItemOptions(item.dataset.sortableValue ?? ""),
+	): void {
 		item
-			.querySelectorAll<HTMLElement>(".municipio-sortable-option")
-			.forEach((button) => {
-				const optionName = this.getOptionName(button);
+			.querySelectorAll<HTMLInputElement>(".municipio-sortable-setting-input")
+			.forEach((input) => {
+				const optionName = this.getOptionName(input);
 
 				if (optionName) {
-					this.updateOptionButton(
-						button,
-						itemOptions[optionName] ?? defaultOptions[optionName],
-					);
+					input.checked = input.value === itemOptions[optionName];
 				}
 			});
 	}
 
-	private updateOptionButton(button: HTMLElement, value: string): void {
-		const optionName = this.getOptionName(button);
-
-		if (!optionName) {
-			return;
-		}
-
-		const label = optionLabels[optionName][value] ?? value;
-		button.dataset.sortableCurrentValue = value;
-		button.dataset.tooltip = label;
-		button.setAttribute("aria-label", label);
-
-		this.updateOptionIcon(button, optionName, value);
-	}
-
-	private updateOptionIcon(
-		button: HTMLElement,
+	private getOptionLabel(
 		optionName: keyof SortableItemOptions,
-		value: string,
-	): void {
-		const icon = button.querySelector<HTMLElement>(
-			".municipio-sortable-option__icon",
-		);
-		const dashicons = optionDashicons[optionName];
+		optionValue: string,
+	): string {
+		const labels: Record<keyof SortableItemOptions, Record<string, string>> = {
+			align: {
+				left: "Align left",
+				center: "Align center",
+				right: "Align right",
+			},
+			margin: {
+				none: "No margin",
+				left: "Left margin",
+				right: "Right margin",
+				both: "Both margins",
+			},
+		};
 
-		if (!icon || !dashicons) {
-			return;
-		}
-
-		Object.values(dashicons).forEach((className) => {
-			icon.classList.remove(className);
-		});
-		icon.classList.add(
-			dashicons[value] ?? dashicons[defaultOptions[optionName]],
-		);
+		return labels[optionName][optionValue] ?? optionValue;
 	}
 
 	private updateValue(): void {
@@ -380,10 +376,7 @@ export class SortableControlElement extends HTMLElement {
 		const baseSettingName = this.getBaseSettingName();
 		const settingStorage = this.getSettingStorage(storage, baseSettingName);
 
-		return {
-			...defaultOptions,
-			...(settingStorage[itemValue] ?? {}),
-		};
+		return this.sanitizeItemOptions(itemValue, settingStorage[itemValue]);
 	}
 
 	private getHiddenStorage(): Record<
@@ -393,21 +386,99 @@ export class SortableControlElement extends HTMLElement {
 		const hiddenSetting = window.wp?.customize?.(this.getHiddenSettingName());
 		const value = hiddenSetting?.get();
 
-		return readJsonObject(typeof value === "string" ? value : "{}") as Record<
-			string,
-			Record<string, SortableItemOptions>
-		>;
+		return this.sanitizeStorage(this.parseHiddenStorage(value));
+	}
+
+	private parseHiddenStorage(
+		value: unknown,
+	): Record<string, Record<string, SortableItemOptions>> {
+		const parsedValue =
+			typeof value === "string" ? readJsonObject(value) : value;
+
+		if (
+			parsedValue === null ||
+			typeof parsedValue !== "object" ||
+			Array.isArray(parsedValue)
+		) {
+			return {};
+		}
+
+		return Object.fromEntries(
+			Object.entries(parsedValue).filter(
+				([, section]): section is Record<string, SortableItemOptions> =>
+					section !== null &&
+					typeof section === "object" &&
+					!Array.isArray(section),
+			),
+		);
 	}
 
 	private setHiddenStorage(
 		storage: Record<string, Record<string, SortableItemOptions>>,
 	): void {
 		const settingName = this.getHiddenSettingName();
-		const nextValue = JSON.stringify(storage);
+		const nextValue = JSON.stringify(this.sanitizeStorage(storage));
+		this.updateLinkedHiddenInput(settingName, nextValue, true);
+	}
 
-		window.wp?.customize?.(settingName)?.set(nextValue);
+	private sanitizeStorage(
+		storage: Record<string, Record<string, SortableItemOptions>>,
+	): Record<string, Record<string, SortableItemOptions>> {
+		const baseSettingName = this.getBaseSettingName();
+		const selectedItems = this.getOrderedItemValues();
+		const sanitizedStorage = { ...storage };
+		const currentSection = this.getSettingStorage(storage, baseSettingName);
 
-		this.updateLinkedHiddenInput(settingName, nextValue);
+		sanitizedStorage[baseSettingName] = Object.fromEntries(
+			selectedItems.map((itemValue) => [
+				itemValue,
+				this.sanitizeItemOptions(itemValue, currentSection[itemValue]),
+			]),
+		);
+
+		return sanitizedStorage;
+	}
+
+	private getOrderedItemValues(): string[] {
+		const valueInput = this.querySelector<HTMLInputElement>(
+			".municipio-sortable-value",
+		);
+
+		if (!valueInput) {
+			return [];
+		}
+
+		try {
+			const values = JSON.parse(valueInput.value);
+
+			return Array.isArray(values)
+				? values.filter(
+						(value): value is string =>
+							typeof value === "string" && value !== "",
+					)
+				: [];
+		} catch {
+			return [];
+		}
+	}
+
+	private sanitizeItemOptions(
+		itemValue: string,
+		options: Partial<SortableItemOptions> | undefined,
+	): SortableItemOptions {
+		const defaults = {
+			...defaultOptions,
+			...(itemDefaultOptions[itemValue] ?? {}),
+		};
+
+		return {
+			align: ["left", "center", "right"].includes(options?.align ?? "")
+				? (options?.align ?? defaults.align)
+				: defaults.align,
+			margin: ["none", "left", "right", "both"].includes(options?.margin ?? "")
+				? (options?.margin ?? defaults.margin)
+				: defaults.margin,
+		};
 	}
 
 	private updateLinkedHiddenInput(settingName: string, value: string): void {
@@ -419,18 +490,6 @@ export class SortableControlElement extends HTMLElement {
 
 		input.value = value;
 		dispatchCustomizerChange(input);
-	}
-
-	private notifySortableSettingChange(): void {
-		const valueInput = this.querySelector<HTMLInputElement>(
-			".municipio-sortable-value",
-		);
-
-		if (!valueInput) {
-			return;
-		}
-
-		dispatchCustomizerChange(valueInput);
 	}
 
 	private getSettingStorage(
@@ -452,8 +511,10 @@ export class SortableControlElement extends HTMLElement {
 		);
 	}
 
-	private getOptionName(button: HTMLElement): keyof SortableItemOptions | null {
-		const optionName = button.dataset.sortableOption;
+	private getOptionName(
+		element: HTMLElement,
+	): keyof SortableItemOptions | null {
+		const optionName = element.dataset.sortableOption;
 
 		return optionName === "align" || optionName === "margin"
 			? optionName
