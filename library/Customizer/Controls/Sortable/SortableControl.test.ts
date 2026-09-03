@@ -264,4 +264,37 @@ describe("SortableControlElement", () => {
 		expect(lowerCenter.name).not.toBe(upperLeft.name);
 		otherControl.remove();
 	});
+
+	it("recovers a completely empty order from valid stored item options", () => {
+		control.remove();
+		control = document.createElement(testElementName);
+		control.dataset.sortableBaseSetting = "header_sortable_section_main_lower";
+		control.dataset.sortableHiddenSetting = "header_sortable_hidden_storage";
+		control.innerHTML = `
+			<input class="municipio-sortable-value" type="hidden" value="[]" />
+			<select class="municipio-sortable-picker__select">
+				<option value="">Select value</option>
+				<option value="primary">Primary menu</option>
+				<option value="collapsible-search">Collapsible search</option>
+			</select>
+			<ul class="municipio-sortable-items"></ul>
+		`;
+
+		const valueInput = control.querySelector<HTMLInputElement>(
+			".municipio-sortable-value",
+		);
+		let changeCount = 0;
+		valueInput?.addEventListener("change", () => {
+			changeCount += 1;
+		});
+		document.body.appendChild(control);
+
+		expect(valueInput?.value).toBe('["primary","collapsible-search"]');
+		expect(
+			Array.from(
+				control.querySelectorAll<HTMLElement>(".municipio-sortable-item"),
+			).map((item) => item.dataset.sortableValue),
+		).toEqual(["primary", "collapsible-search"]);
+		expect(changeCount).toBe(1);
+	});
 });

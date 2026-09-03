@@ -56,6 +56,10 @@ class SortableStorage {
 		);
 	}
 
+	public getSectionItemValues(sectionName: string): string[] {
+		return Object.keys(this.read()[sectionName] ?? {});
+	}
+
 	public updateItemOption(
 		sectionName: string,
 		itemValue: string,
@@ -88,10 +92,6 @@ class SortableStorage {
 			]),
 		);
 		this.write(storage);
-	}
-
-	public updateDebugFields(): void {
-		this.writeDebugFields(JSON.stringify(this.read()));
 	}
 
 	private read(): SortableStorageValue {
@@ -129,19 +129,6 @@ class SortableStorage {
 		} else {
 			window.wp?.customize?.(this.settingName)?.set(value);
 		}
-
-		this.writeDebugFields(value);
-	}
-
-	private writeDebugFields(value: string): void {
-		document
-			.querySelectorAll<HTMLTextAreaElement>(
-				".municipio-sortable-hidden-storage-debug",
-			)
-			.forEach((field) => {
-				if (field.dataset.sortableHiddenSetting !== this.settingName) return;
-				field.value = value;
-			});
 	}
 }
 
@@ -184,9 +171,9 @@ export class SortableControlElement extends HTMLElement {
 	public connectedCallback(): void {
 		this.addEventListener("click", this.handleClick);
 		this.addEventListener("change", this.handleChange);
+		this.recoverEmptySection();
 		this.initializeSortable();
 		this.initializeItemOptions();
-		this.getStorage().updateDebugFields();
 	}
 
 	public disconnectedCallback(): void {
@@ -211,6 +198,49 @@ export class SortableControlElement extends HTMLElement {
 			tolerance: "pointer",
 			update: () => this.updateValue(),
 		});
+	}
+
+	private recoverEmptySection(): void {
+		const list = this.querySelector(".municipio-sortable-items");
+		const valueInput = this.querySelector<HTMLInputElement>(
+			".municipio-sortable-value",
+		);
+		const select = this.querySelector<HTMLSelectElement>(
+			".municipio-sortable-picker__select",
+		);
+
+		if (
+			!list ||
+			!valueInput ||
+			!select ||
+			this.querySelector(".municipio-sortable-item")
+		) {
+			return;
+		}
+
+		const recoveredValues = this.getStorage()
+			.getSectionItemValues(this.getBaseSettingName())
+			.filter((itemValue) => {
+				const option = Array.from(select.options).find(
+					(candidate) => candidate.value === itemValue,
+				);
+
+				if (!option) return false;
+				list.appendChild(
+					this.createSortableItem(
+						itemValue,
+						option.textContent?.trim() ?? itemValue,
+					),
+				);
+
+				return true;
+			});
+
+		if (recoveredValues.length === 0) return;
+
+		valueInput.value = JSON.stringify(recoveredValues);
+		dispatchCustomizerChange(valueInput);
+		this.updatePickerOptions(recoveredValues);
 	}
 
 	private addSelectedItem(): void {

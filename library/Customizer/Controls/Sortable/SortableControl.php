@@ -78,10 +78,6 @@ class SortableControl extends WP_Customize_Control
                     </li>
                 <?php endforeach; ?>
             </ul>
-            <label>
-                <?php esc_html_e('Stored settings data (debug)', 'municipio'); ?>
-                <textarea class="municipio-sortable-hidden-storage-debug" data-sortable-hidden-setting="header_sortable_hidden_storage" rows="6" readonly spellcheck="false"></textarea>
-            </label>
         </municipio-sortable-control>
         <?php
     }
