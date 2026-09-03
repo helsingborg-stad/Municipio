@@ -93,17 +93,30 @@ class ImageProcessor
         }
 
         $intermediateLocation = $image->getIntermidiateLocation($format);
-        $temporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
+        $localTemporaryPath = $this->getLocalTemporaryPath($format);
+        if ($localTemporaryPath === false) {
+            $this->logConversionFailure(
+                $image,
+                $format,
+                new \WP_Error('temporary_file_failed', 'Could not create a local temporary file for image conversion.'),
+            );
+            return false;
+        }
+
+        $publishTemporaryPath = null;
 
         try {
-            $savedImage = $imageEditor->save($temporaryPath);
+            // S3-backed stream wrappers cannot always inspect a newly written
+            // object immediately. Generate and validate locally, then stage a
+            // temporary object beside the final image before publication.
+            $savedImage = $imageEditor->save($localTemporaryPath);
             if ($this->wpService->isWpError($savedImage)) {
                 $this->logConversionFailure($image, $format, $savedImage);
                 return false;
             }
 
-            $savedPath = $savedImage['path'] ?? $temporaryPath;
-            $temporaryPath = $savedPath;
+            $savedPath = $savedImage['path'] ?? $localTemporaryPath;
+            $localTemporaryPath = $savedPath;
 
             if (!File::isValidImage(
                 $savedPath,
@@ -119,16 +132,17 @@ class ImageProcessor
                 return false;
             }
 
-            if (!rename($savedPath, $intermediateLocation['path'])) {
+            $publishTemporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
+            if (!copy($savedPath, $publishTemporaryPath) || !rename($publishTemporaryPath, $intermediateLocation['path'])) {
                 $this->logConversionFailure(
                     $image,
                     $format,
-                    new \WP_Error('publish_failed', 'The converted image could not be moved to its public path.'),
+                    new \WP_Error('publish_failed', 'The converted image could not be published to its public path.'),
                 );
                 return false;
             }
 
-            $temporaryPath = null;
+            $publishTemporaryPath = null;
 
             $intermediateLocation['path'] = $this->wpService->applyFilters(
                 'wp_create_file_in_uploads',
@@ -148,10 +162,30 @@ class ImageProcessor
 
             return $image;
         } finally {
-            if ($temporaryPath !== null && file_exists($temporaryPath)) {
-                $this->wpService->wpDeleteFile($temporaryPath);
+            foreach ([$localTemporaryPath, $publishTemporaryPath] as $temporaryPath) {
+                if ($temporaryPath !== null && file_exists($temporaryPath)) {
+                    $this->wpService->wpDeleteFile($temporaryPath);
+                }
             }
         }
+    }
+
+    /**
+     * Create a local temporary path with the target image extension.
+     */
+    private function getLocalTemporaryPath(string $format): string|false
+    {
+        $temporaryPath = tempnam(sys_get_temp_dir(), 'municipio-image-');
+        if ($temporaryPath === false) {
+            return false;
+        }
+
+        $pathWithExtension = $temporaryPath . '.' . $format;
+        if (!rename($temporaryPath, $pathWithExtension)) {
+            return false;
+        }
+
+        return $pathWithExtension;
     }
 
     /**

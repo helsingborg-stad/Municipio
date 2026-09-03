@@ -20,11 +20,11 @@ class ConversionCacheTest extends TestCase
         $this->assertTrue($cache->markConversionSuccess($this->createImage(42, 100, 50)));
 
         $this->assertSame(
-            ['status_42_100x50_webp', 'success', 'municipio_image_convert', 86400],
+            ['status_v2_42_100x50_webp', 'success', 'municipio_image_convert', 86400],
             $wpService->methodCalls['wpCacheSet'][0],
         );
         $this->assertSame(
-            ['keys_42', ['status_42_100x50_webp'], 'municipio_image_convert', 86400],
+            ['keys_42', ['status_v2_42_100x50_webp'], 'municipio_image_convert', 86400],
             $wpService->methodCalls['wpCacheSet'][1],
         );
     }

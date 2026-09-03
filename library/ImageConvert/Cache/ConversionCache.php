@@ -25,6 +25,9 @@ enum ConversionStatus: string
  */
 class ConversionCache
 {
+    // Version bump invalidates statuses produced before converted files were
+    // validated locally rather than through a newly written S3 object.
+    private const CACHE_VERSION = 'v2_';
     private const CACHE_GROUP   = 'municipio_image_convert';
     private const STATUS_PREFIX = 'status_';
     private const SOURCE_FAILURE_PREFIX = 'source_failure_';
@@ -52,7 +55,7 @@ class ConversionCache
         $width   = $image->getWidth();
         $height  = $image->getHeight();
         $format  = $this->config->intermidiateImageFormat()['suffix'];
-        return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
+        return sprintf('%s%d_%dx%d_%s', self::CACHE_VERSION, $imageId, $width, $height, $format);
     }
 
     /**
@@ -256,9 +259,9 @@ class ConversionCache
 
         $this->wpService->wpCacheDelete($indexKey, self::CACHE_GROUP);
 
-        $statusPrefix = self::STATUS_PREFIX . $imageId . '_';
+        $statusPrefix = self::STATUS_PREFIX . self::CACHE_VERSION . $imageId . '_';
         $sourceFailureKey = self::SOURCE_FAILURE_PREFIX . $imageId;
-        $lockPrefix = self::LOCK_PREFIX . $imageId . '_';
+        $lockPrefix = self::LOCK_PREFIX . self::CACHE_VERSION . $imageId . '_';
         foreach (array_keys(self::$runtimeCache) as $key) {
             if (str_starts_with($key, $statusPrefix) || $key === $sourceFailureKey || str_starts_with($key, $lockPrefix) || $key === $indexKey) {
                 unset(self::$runtimeCache[$key]);
