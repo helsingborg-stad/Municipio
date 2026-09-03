@@ -19,11 +19,16 @@ class GetPostsConfigWithPassedSchemaEventsFilteredOut extends AbstractDecoratedG
             return $this->innerConfig->getDateFrom();
         }
 
-        if ($this->innerConfig->getDateFrom() !== null && trim($this->innerConfig->getDateFrom()) !== '') {
-            return $this->innerConfig->getDateFrom();
+        $dateFrom = $this->innerConfig->getDateFrom();
+        $today    = date('Y-m-d');
+
+        if ($dateFrom === null || trim($dateFrom) === '') {
+            return $today;
         }
 
-        return date('Y-m-d');
+        // A user-selected past date must not reintroduce expired events. A
+        // future date remains a valid way to narrow the event archive.
+        return max($today, $dateFrom);
     }
 
     private function currentPostTypesUseSchemaEvents(): bool

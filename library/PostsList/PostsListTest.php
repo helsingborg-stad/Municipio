@@ -41,14 +41,17 @@ class PostsListTest extends TestCase
         return new class implements \Municipio\PostsList\GetPosts\WpQueryFactoryInterface {
             public static function create($query = ''): \WP_Query
             {
-                return new class extends \WP_Query {
+                $wpQuery = new class extends \WP_Query {
                     public function get_posts() // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
                     {
-                        $this->posts = [];
-                        $this->max_num_pages = 0;
-                        return [];
+                        throw new \LogicException('WP_Query has already been executed by its constructor.');
                     }
                 };
+
+                $wpQuery->posts = [];
+                $wpQuery->max_num_pages = 0;
+
+                return $wpQuery;
             }
         };
     }
