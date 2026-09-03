@@ -64,12 +64,16 @@ class SortableControl extends WP_Customize_Control
                         continue;
                     } ?>
                     <li class="municipio-sortable-item" data-sortable-value="<?php echo esc_attr((string) $choiceValue); ?>" data-sortable-label="<?php echo esc_attr((string) $choiceLabel); ?>">
-                        <span class="municipio-sortable-item__handle" data-tooltip="<?php esc_attr_e('Drag to reorder', 'municipio'); ?>" aria-hidden="true"></span>
-                        <span class="municipio-sortable-item__label"><?php echo esc_html((string) $choiceLabel); ?></span>
-                        <div class="municipio-sortable-item__actions">
-                            <button type="button" class="button button-small municipio-sortable-option municipio-sortable-option--align" data-sortable-option="align" data-sortable-values="left,center,right"><span class="dashicons municipio-sortable-action__icon municipio-sortable-option__icon" aria-hidden="true"></span></button>
-                            <button type="button" class="button button-small municipio-sortable-option municipio-sortable-option--margin" data-sortable-option="margin" data-sortable-values="none,left,right,both"><span class="dashicons municipio-sortable-action__icon municipio-sortable-option__icon" aria-hidden="true"></span></button>
-                            <button type="button" class="button button-small municipio-sortable-remove" data-tooltip="<?php esc_attr_e('Remove', 'municipio'); ?>" aria-label="<?php esc_attr_e('Remove', 'municipio'); ?>"><span class="dashicons dashicons-trash municipio-sortable-action__icon" aria-hidden="true"></span></button>
+                        <div class="municipio-sortable-item__content">
+                            <span class="municipio-sortable-item__handle" data-tooltip="<?php esc_attr_e('Drag to reorder', 'municipio'); ?>" aria-hidden="true"></span>
+                            <span class="municipio-sortable-item__label"><?php echo esc_html((string) $choiceLabel); ?></span>
+                            <div class="municipio-sortable-item__actions">
+                                <button type="button" class="button button-small municipio-sortable-settings-toggle" data-tooltip="<?php esc_attr_e('Settings', 'municipio'); ?>" aria-label="<?php esc_attr_e('Settings', 'municipio'); ?>" aria-expanded="false"><span class="dashicons dashicons-admin-generic municipio-sortable-action__icon" aria-hidden="true"></span></button>
+                                <button type="button" class="button button-small municipio-sortable-remove" data-tooltip="<?php esc_attr_e('Remove', 'municipio'); ?>" aria-label="<?php esc_attr_e('Remove', 'municipio'); ?>"><span class="dashicons dashicons-trash municipio-sortable-action__icon" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                        <div class="municipio-sortable-item__settings" hidden>
+                            <?php $this->renderItemSettings((string) $choiceValue); ?>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -134,5 +138,52 @@ class SortableControl extends WP_Customize_Control
     private function getBaseSettingId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * Render the alignment and margin inputs for one sortable item.
+     *
+     * @param string $choiceValue Item identifier.
+     *
+     * @return void
+     */
+    private function renderItemSettings(string $choiceValue): void
+    {
+        $itemId = sanitize_html_class($this->id . '-' . $choiceValue);
+        $settings = [
+            'align' => [
+                'label' => __('Alignment', 'municipio'),
+                'options' => [
+                    'left' => __('Align left', 'municipio'),
+                    'center' => __('Align center', 'municipio'),
+                    'right' => __('Align right', 'municipio'),
+                ],
+            ],
+            'margin' => [
+                'label' => __('Margin', 'municipio'),
+                'options' => [
+                    'none' => __('No margin', 'municipio'),
+                    'left' => __('Left margin', 'municipio'),
+                    'right' => __('Right margin', 'municipio'),
+                    'both' => __('Both margins', 'municipio'),
+                ],
+            ],
+        ];
+        ?>
+        <?php foreach ($settings as $settingName => $setting): ?>
+            <fieldset class="municipio-sortable-item__settings-group">
+                <legend><?php echo esc_html($setting['label']); ?></legend>
+                <div class="municipio-sortable-item__settings-options">
+                    <?php foreach ($setting['options'] as $optionValue => $optionLabel): ?>
+                        <?php $inputId = $itemId . '-' . $settingName . '-' . $optionValue; ?>
+                        <label for="<?php echo esc_attr($inputId); ?>">
+                            <input id="<?php echo esc_attr($inputId); ?>" class="municipio-sortable-setting-input" type="radio" name="<?php echo esc_attr($itemId . '-' . $settingName); ?>" value="<?php echo esc_attr($optionValue); ?>" data-sortable-option="<?php echo esc_attr($settingName); ?>" />
+                            <?php echo esc_html($optionLabel); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </fieldset>
+        <?php endforeach; ?>
+        <?php
     }
 }

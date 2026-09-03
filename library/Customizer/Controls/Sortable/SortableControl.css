@@ -25,15 +25,21 @@ li.customize-control-municipio_sortable {
 }
 
 .municipio-sortable-item {
-	align-items: center;
 	background: #fff;
 	border: 1px solid #dcdcde;
+	margin: 0 0 8px;
+	border-radius: 16px;
+	corner-shape: squircle;
+}
+
+.municipio-sortable-item__content {
+	align-items: center;
 	display: grid;
 	gap: 8px;
 	grid-template-columns: 24px minmax(0, 1fr) auto;
-	margin: 0 0 8px;
-	min-height: 44px;
-	padding: 6px 8px;
+	grid-template-areas: "handle label actions";
+	grid-template-rows: auto;
+	padding: 8px;
 }
 
 .municipio-sortable-item__handle {
@@ -45,13 +51,15 @@ li.customize-control-municipio_sortable {
 	border-radius: 4px;
 	cursor: grab;
 	display: inline-flex;
-	height: 20px;
+	height: 16px;
 	justify-content: center;
 	padding: 0;
 	position: relative;
 	touch-action: none;
 	user-select: none;
-	width: 20px;
+	width: 16px;
+	grid-area: handle;
+	aspect-ratio: 1 / 1;
 }
 
 .municipio-sortable-item__handle:hover {
@@ -69,15 +77,17 @@ li.customize-control-municipio_sortable {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	grid-area: label;
 }
 
 .municipio-sortable-item__actions {
 	align-items: center;
 	display: flex;
 	gap: 4px;
+	grid-area: actions;
 }
 
-.municipio-sortable-item__actions .button.municipio-sortable-option,
+.municipio-sortable-item__actions .button.municipio-sortable-settings-toggle,
 .municipio-sortable-item__actions .button.municipio-sortable-remove {
 	align-items: center;
 	box-sizing: border-box;
@@ -118,7 +128,7 @@ li.customize-control-municipio_sortable {
 }
 
 .municipio-sortable-item__handle[data-tooltip]::before,
-.municipio-sortable-option[data-tooltip]::before,
+.municipio-sortable-settings-toggle[data-tooltip]::before,
 .municipio-sortable-remove[data-tooltip]::before {
 	background: #1d2327;
 	border-radius: 3px;
@@ -146,7 +156,7 @@ li.customize-control-municipio_sortable {
 }
 
 .municipio-sortable-item__handle[data-tooltip]::after,
-.municipio-sortable-option[data-tooltip]::after,
+.municipio-sortable-settings-toggle[data-tooltip]::after,
 .municipio-sortable-remove[data-tooltip]::after {
 	border: 5px solid transparent;
 	border-top-color: #1d2327;
@@ -166,10 +176,10 @@ li.customize-control-municipio_sortable {
 
 .municipio-sortable-item__handle[data-tooltip]:hover::before,
 .municipio-sortable-item__handle[data-tooltip]:hover::after,
-.municipio-sortable-option[data-tooltip]:hover::before,
-.municipio-sortable-option[data-tooltip]:focus-visible::before,
-.municipio-sortable-option[data-tooltip]:hover::after,
-.municipio-sortable-option[data-tooltip]:focus-visible::after,
+.municipio-sortable-settings-toggle[data-tooltip]:hover::before,
+.municipio-sortable-settings-toggle[data-tooltip]:focus-visible::before,
+.municipio-sortable-settings-toggle[data-tooltip]:hover::after,
+.municipio-sortable-settings-toggle[data-tooltip]:focus-visible::after,
 .municipio-sortable-remove[data-tooltip]:hover::before,
 .municipio-sortable-remove[data-tooltip]:focus-visible::before,
 .municipio-sortable-remove[data-tooltip]:hover::after,
@@ -193,4 +203,57 @@ li.customize-control-municipio_sortable {
 
 .municipio-sortable-items .ui-sortable-placeholder > * {
 	visibility: hidden;
+}
+
+.municipio-sortable-item__settings {
+	background: #f0f0f1;
+	border-top: 1px solid #c3c4c7;
+	box-sizing: border-box;
+	display: block;
+	grid-area: settings;
+	inline-size: 100%;
+	padding: 8px;
+	position: relative;
+	z-index: 1;
+	border-radius: 0 0 16px 16px;
+	corner-shape: squircle;
+}
+
+.municipio-sortable-item__settings[hidden] {
+	display: none;
+}
+
+.municipio-sortable-item__settings-group {
+	border: 0;
+	margin: 0 0 12px;
+	padding: 0;
+}
+
+.municipio-sortable-item__settings-group:last-child {
+	margin-bottom: 0;
+}
+
+.municipio-sortable-item__settings-group legend {
+	font-weight: 600;
+	margin-bottom: 6px;
+	padding: 0;
+}
+
+.municipio-sortable-item__settings-options {
+	display: grid;
+	gap: 6px 12px;
+	grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+.municipio-sortable-item__settings-options label {
+	align-items: center;
+	cursor: pointer;
+	display: inline-flex;
+	gap: 4px;
+	min-inline-size: 0;
+}
+
+.municipio-sortable-item__settings-options input {
+	flex: 0 0 auto;
+	margin: 0;
 }
