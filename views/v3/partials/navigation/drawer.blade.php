@@ -27,7 +27,7 @@
             's-drawer-menu'
         ],
         'label' => $lang->close,
-        'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes,
+        'screenSizes' => $screenSizes ?? null,
         'context' => ['site.header.drawer'],
     ])
 
