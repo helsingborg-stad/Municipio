@@ -45,8 +45,11 @@ class ImageProcessor
         }
 
         try {
+            $attachmentMetadata = $this->wpService->wpGetAttachmentMetadata($image->getId());
+            $this->preferScaledSource($image, $attachmentMetadata);
+
             // Check if the image can be resized
-            $canConvert = $this->canConvertImage($image);
+            $canConvert = $this->canConvertImage($image, $attachmentMetadata);
             if ($canConvert instanceof \WP_Error) {
                 $this->logConversionFailure($image, $format, $canConvert);
                 return false;
@@ -93,17 +96,34 @@ class ImageProcessor
         }
 
         $intermediateLocation = $image->getIntermidiateLocation($format);
-        $temporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
+        $usesExternalStream = $this->usesExternalStream($intermediateLocation['path']);
+        $localTemporaryPath = $usesExternalStream
+            ? $this->getLocalTemporaryPath($format)
+            : $this->getTemporaryPath($intermediateLocation['path']);
+
+        if ($localTemporaryPath === false) {
+            $this->logConversionFailure(
+                $image,
+                $format,
+                new \WP_Error('temporary_file_failed', 'Could not create a local temporary file for image conversion.'),
+            );
+            return false;
+        }
+
+        $publishTemporaryPath = null;
 
         try {
-            $savedImage = $imageEditor->save($temporaryPath);
+            // S3-backed stream wrappers cannot always inspect a newly written
+            // object immediately. Generate and validate locally, then stage a
+            // temporary object beside the final image before publication.
+            $savedImage = $imageEditor->save($localTemporaryPath);
             if ($this->wpService->isWpError($savedImage)) {
                 $this->logConversionFailure($image, $format, $savedImage);
                 return false;
             }
 
-            $savedPath = $savedImage['path'] ?? $temporaryPath;
-            $temporaryPath = $savedPath;
+            $savedPath = $savedImage['path'] ?? $localTemporaryPath;
+            $localTemporaryPath = $savedPath;
 
             if (!File::isValidImage(
                 $savedPath,
@@ -119,16 +139,29 @@ class ImageProcessor
                 return false;
             }
 
-            if (!rename($savedPath, $intermediateLocation['path'])) {
+            $publishTemporaryPath = $savedPath;
+            if ($usesExternalStream) {
+                $publishTemporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
+                if (!copy($savedPath, $publishTemporaryPath)) {
+                    $this->logConversionFailure(
+                        $image,
+                        $format,
+                        new \WP_Error('publish_failed', 'The converted image could not be published to its public path.'),
+                    );
+                    return false;
+                }
+            }
+
+            if (!rename($publishTemporaryPath, $intermediateLocation['path'])) {
                 $this->logConversionFailure(
                     $image,
                     $format,
-                    new \WP_Error('publish_failed', 'The converted image could not be moved to its public path.'),
+                    new \WP_Error('publish_failed', 'The converted image could not be published to its public path.'),
                 );
                 return false;
             }
 
-            $temporaryPath = null;
+            $publishTemporaryPath = null;
 
             $intermediateLocation['path'] = $this->wpService->applyFilters(
                 'wp_create_file_in_uploads',
@@ -148,10 +181,41 @@ class ImageProcessor
 
             return $image;
         } finally {
-            if ($temporaryPath !== null && file_exists($temporaryPath)) {
-                $this->wpService->wpDeleteFile($temporaryPath);
+            foreach ([$localTemporaryPath, $publishTemporaryPath] as $temporaryPath) {
+                if ($temporaryPath !== null && file_exists($temporaryPath)) {
+                    $this->wpService->wpDeleteFile($temporaryPath);
+                }
             }
         }
+    }
+
+    /**
+     * Create a local temporary path with the target image extension.
+     */
+    private function getLocalTemporaryPath(string $format): string|false
+    {
+        $temporaryPath = tempnam(sys_get_temp_dir(), 'municipio-image-');
+        if ($temporaryPath === false) {
+            return false;
+        }
+
+        $pathWithExtension = $temporaryPath . '.' . $format;
+        if (!rename($temporaryPath, $pathWithExtension)) {
+            return false;
+        }
+
+        return $pathWithExtension;
+    }
+
+    /**
+     * Determine whether a path is handled by an external stream wrapper such
+     * as S3. The file:// wrapper still refers to the local filesystem.
+     */
+    private function usesExternalStream(string $path): bool
+    {
+        $scheme = parse_url($path, PHP_URL_SCHEME);
+
+        return is_string($scheme) && $scheme !== 'file';
     }
 
     /**
@@ -180,7 +244,7 @@ class ImageProcessor
     /**
      * Check if the image can be converted based on its existence, type, and size.
      */
-    private function canConvertImage(ImageContract $image): true|\WP_Error
+    private function canConvertImage(ImageContract $image, array|false $attachmentMetadata): true|\WP_Error
     {
         $sourceFilePath = $image->getPath();
         $sourceFileId = $image->getId();
@@ -201,7 +265,7 @@ class ImageProcessor
         }
 
         // Get attachment filesize, if exceeds max size, return error
-        $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
+        $sourceFileSize = $this->getSourceFileSize($attachmentMetadata, $sourceFilePath);
         if (!$sourceFileSize) {
             return new \WP_Error('filesize_unavailable', 'Unable to determine the file size of the source image.');
         }
@@ -216,13 +280,49 @@ class ImageProcessor
     /**
      * Get the size of an attachment from its metadata, with a fallback to the filesystem.
      */
-    private function getSourceFileSize(int $attachmentId, string $sourceFilePath): int|false
+    private function getSourceFileSize(array|false $attachmentMetadata, string $sourceFilePath): int|false
     {
-        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, 'filesize');
-        if ($size) {
-            return intval($size);
+        $size = $attachmentMetadata['filesize'] ?? null;
+        if (is_numeric($size) && (int) $size > 0) {
+            return (int) $size;
         }
+
         return filesize($sourceFilePath);
+    }
+
+    /**
+     * Prefer WordPress' generated scaled image when metadata tells us that the
+     * attachment currently points to its unscaled original. This avoids loading
+     * a large original image without probing the filesystem or S3 first.
+     */
+    private function preferScaledSource(ImageContract $image, array|false $attachmentMetadata): void
+    {
+        if (!is_array($attachmentMetadata)) {
+            return;
+        }
+
+        $scaledFile = $attachmentMetadata['file'] ?? null;
+        $originalFile = $attachmentMetadata['original_image'] ?? null;
+        if (!is_string($scaledFile) || !is_string($originalFile)) {
+            return;
+        }
+
+        $scaledFilename = basename($scaledFile);
+        if ($scaledFilename === '' || basename($image->getPath()) !== basename($originalFile)) {
+            return;
+        }
+
+        $image->setPath($this->replaceFilename($image->getPath(), $scaledFilename));
+        $image->setUrl($this->replaceFilename($image->getUrl(), $scaledFilename));
+    }
+
+    private function replaceFilename(string $path, string $filename): string
+    {
+        $separatorPosition = strrpos($path, '/');
+
+        return $separatorPosition === false
+            ? $filename
+            : substr($path, 0, $separatorPosition + 1) . $filename;
     }
 
     /**
