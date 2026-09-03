@@ -19,6 +19,9 @@ interface SearchProviderInterface
 
     public function search(string $query, int $page = 1, int $pageSize = 20): mixed;
 
+    /**
+     * Delete all records originating from the current WordPress site.
+     */
     public function clearObjects(): mixed;
 
     public function deleteObject(string $objectId): mixed;

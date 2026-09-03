@@ -36,6 +36,7 @@ class TypesenseProvider implements SearchProviderInterface
                 ['name' => 'author_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
                 ['name' => 'top_most_parent', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
                 ['name' => 'origin_site', 'type' => 'string', 'facet' => true],
+                ['name' => 'origin_site_url', 'type' => 'string', 'facet' => true, 'optional' => true],
                 ['name' => '.*', 'type' => 'auto', 'locale' => $locale],
             ]),
         ]);
@@ -98,7 +99,11 @@ class TypesenseProvider implements SearchProviderInterface
 
     public function clearObjects(): mixed
     {
-        return $this->throwOnError($this->sendRequest('DELETE', sprintf('/collections/%s/documents', rawurlencode($this->collectionName)), ['truncate' => 'true']));
+        return $this->throwOnError($this->sendRequest(
+            'DELETE',
+            sprintf('/collections/%s/documents', rawurlencode($this->collectionName)),
+            ['filter_by' => sprintf('origin_site_url:=`%s`', $this->wpService->getBloginfo('url'))],
+        ));
     }
 
     public function deleteObject(string $objectId): mixed

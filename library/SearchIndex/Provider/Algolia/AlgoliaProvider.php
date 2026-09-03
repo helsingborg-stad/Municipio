@@ -39,7 +39,12 @@ class AlgoliaProvider implements SearchProviderInterface
 
     public function clearObjects(): mixed
     {
-        return $this->index->clearObjects();
+        $siteUrl = json_encode(
+            $this->wpService->getBloginfo('url'),
+            JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR,
+        );
+
+        return $this->index->deleteBy(['filters' => sprintf('origin_site_url:%s', $siteUrl)]);
     }
 
     public function deleteObject(string $objectId): mixed
@@ -95,7 +100,7 @@ class AlgoliaProvider implements SearchProviderInterface
             'attributesToSnippet' => $this->wpService->applyFilters('Municipio/SearchIndex/Algolia/AttributesToSnippet', ['content:40', 'permalink:15', 'post_title:7']),
             'snippetEllipsisText' => $this->wpService->applyFilters('Municipio/SearchIndex/Algolia/SnippetEllipsisText', '...'),
             'attributesForFaceting' => array_values($this->wpService->applyFilters('Municipio/SearchIndex/Algolia/AttributesForFaceting', [
-                'origin_site' => 'searchable(origin_site)', 'categories' => 'searchable(categories)', 'post_type_name' => 'searchable(post_type_name)', 'tags' => 'searchable(tags)', 'author_name' => 'searchable(author_name)', 'top_most_parent' => 'searchable(top_most_parent)',
+                'origin_site' => 'searchable(origin_site)', 'origin_site_url' => 'filterOnly(origin_site_url)', 'categories' => 'searchable(categories)', 'post_type_name' => 'searchable(post_type_name)', 'tags' => 'searchable(tags)', 'author_name' => 'searchable(author_name)', 'top_most_parent' => 'searchable(top_most_parent)',
             ])),
             'indexLanguages' => ($language = get_bloginfo('language')) !== '' ? [substr($language, 0, 2)] : [],
             'removeWordsIfNoResults' => 'allOptional',

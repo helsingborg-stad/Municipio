@@ -13,6 +13,38 @@ use WpService\Implementations\FakeWpService;
 class TypesenseProviderTest extends TestCase
 {
     /**
+     * Verify that clearing only deletes documents originating from the current site.
+     */
+    public function testClearObjectsFiltersByCurrentSiteUrl(): void
+    {
+        $requestedUrl = '';
+        $wpService = new FakeWpService([
+            'getBloginfo' => 'https://current.example.test',
+            'wpRemoteRequest' => static function (string $url) use (&$requestedUrl): array {
+                $requestedUrl = $url;
+                return [];
+            },
+            'isWpError' => false,
+            'wpRemoteRetrieveBody' => json_encode(['num_deleted' => 2], JSON_THROW_ON_ERROR),
+            'wpRemoteRetrieveResponseCode' => 200,
+        ]);
+        $provider = new TypesenseProvider(
+            $wpService,
+            implode('-', ['typesense', 'server', 'key']),
+            'https://typesense.example.test',
+            'municipio-content',
+        );
+
+        $result = $provider->clearObjects();
+
+        static::assertSame(['num_deleted' => 2], $result);
+        static::assertSame(
+            'https://typesense.example.test/collections/municipio-content/documents?filter_by=origin_site_url%3A%3D%60https%3A%2F%2Fcurrent.example.test%60',
+            $requestedUrl,
+        );
+    }
+
+    /**
      * Verify that search requests are normalized to the shared provider response format.
      */
     public function testSearchReturnsDocumentHits(): void
