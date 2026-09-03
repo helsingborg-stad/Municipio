@@ -88,8 +88,8 @@ class GetPostsConfigWithPassedSchemaEventsFilteredOutTest extends TestCase
         static::assertSame(date('Y-m-d'), $config->getDateFrom());
     }
 
-    #[TestDox('Returns inner dateFrom when Event post types are present and dateFrom is set')]
-    public function testReturnsInnerDateFromWhenEventPostTypesArePresentAndDateFromIsSet(): void
+    #[TestDox('Returns current date when Event post types are present and a past dateFrom is set')]
+    public function testReturnsCurrentDateWhenEventPostTypesArePresentAndPastDateFromIsSet(): void
     {
         $innerConfig = new class extends DefaultGetPostsConfig {
             public function getPostTypes(): array
@@ -111,6 +111,32 @@ class GetPostsConfigWithPassedSchemaEventsFilteredOutTest extends TestCase
 
         $config = new GetPostsConfigWithPassedSchemaEventsFilteredOut($innerConfig, $schemaResolverMock);
 
-        static::assertSame('2023-01-01', $config->getDateFrom());
+        static::assertSame(date('Y-m-d'), $config->getDateFrom());
+    }
+
+    #[TestDox('Returns future dateFrom when Event post types are present')]
+    public function testReturnsFutureDateFromWhenEventPostTypesArePresent(): void
+    {
+        $innerConfig = new class extends DefaultGetPostsConfig {
+            public function getPostTypes(): array
+            {
+                return ['event'];
+            }
+
+            public function getDateFrom(): null|string
+            {
+                return '2099-01-01';
+            }
+        };
+        $schemaResolverMock = new class implements SchemaToPostTypeResolverInterface {
+            public function resolve(string $schemaType): array
+            {
+                return $schemaType === 'Event' ? ['event'] : [];
+            }
+        };
+
+        $config = new GetPostsConfigWithPassedSchemaEventsFilteredOut($innerConfig, $schemaResolverMock);
+
+        static::assertSame('2099-01-01', $config->getDateFrom());
     }
 }

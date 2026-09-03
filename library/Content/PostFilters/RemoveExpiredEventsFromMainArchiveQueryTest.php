@@ -109,9 +109,9 @@ class RemoveExpiredEventsFromMainArchiveQueryTest extends TestCase
         $sut->removeExpiredEventsFromMainArchiveQuery($query);
 
         $this->assertArrayHasKey('meta_query', $querySetCalls);
-        $this->assertEquals('startDate', $querySetCalls['meta_query'][0]['key']);
-        $this->assertEquals('>=', $querySetCalls['meta_query'][0]['compare']);
-        $this->assertEquals('DATETIME', $querySetCalls['meta_query'][0]['type']);
+        $this->assertEquals('startDate', $querySetCalls['meta_query']['municipio_event_not_expired']['key']);
+        $this->assertEquals('>=', $querySetCalls['meta_query']['municipio_event_not_expired']['compare']);
+        $this->assertEquals('DATETIME', $querySetCalls['meta_query']['municipio_event_not_expired']['type']);
     }
 
     private function getWpQueryMock(): WP_Query|MockObject

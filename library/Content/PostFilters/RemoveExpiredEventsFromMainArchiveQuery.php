@@ -56,15 +56,10 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
             return;
         }
         
-        $currentDate = new \DateTime();
+        $currentDate = (new \DateTime())->format('Y-m-d H:i:s');
         $metaQuery = $query->get('meta_query') ?: [];
 
-        $metaQuery[] = [
-            'key' => 'startDate',
-            'value' => $currentDate->format('Y-m-d H:i:s'),
-            'compare' => '>=',
-            'type' => 'DATETIME',
-        ];
+        $metaQuery = (new EventStartDateMetaQueryConstraint())->apply($metaQuery, $currentDate);
 
         $query->set('meta_query', $metaQuery);
     }
