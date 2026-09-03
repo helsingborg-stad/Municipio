@@ -84,17 +84,16 @@ namespace Municipio\SearchIndex\Cli {
         }
 
         /**
-         * Verify the legacy settings argument no longer prepares during a build.
+         * Verify legacy provider and settings arguments do not affect a build.
          */
-        public function testBuildDoesNotPrepareProviderSettings(): void
+        public function testBuildUsesConfiguredProviderWithoutPreparingSettings(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->method('provider')->willReturn('algolia');
-            $config->method('isProviderConfigured')->with('algolia')->willReturn(true);
+            $config->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
             $provider->expects($this->never())->method('setSettings');
             $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->method('create')->with('algolia')->willReturn($provider);
+            $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
             $wpService = new FakeWpService([
                 'getOption' => 'https://example.test',
                 'getPostTypes' => [],
@@ -102,7 +101,7 @@ namespace Municipio\SearchIndex\Cli {
             ]);
             $command = new BuildSearchIndexCommand($wpService, $config, $providerFactory);
 
-            $command->build([], ['settings' => true]);
+            $command->build([], ['provider' => 'typesense', 'settings' => true]);
 
             static::assertSame('success', \WP_CLI::$calls[array_key_last(\WP_CLI::$calls)][0]);
         }

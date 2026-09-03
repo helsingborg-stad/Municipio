@@ -29,26 +29,21 @@ class BuildSearchIndexCommand
     }
 
     /**
-     * Rebuild the selected provider's search index.
+        * Rebuild the configured provider's search index.
      *
      * ## OPTIONS
-     *
-     * [--provider=<provider>]
-     * : Search provider to build. Defaults to the configured provider.
      *
      * [--clearindex]
      * : Clear provider records before indexing posts.
      */
     public function build(array $arguments, array $associativeArguments): void
     {
-        $providerName = $associativeArguments['provider'] ?? $this->config->provider();
-
-        if (!is_string($providerName) || !$this->config->isProviderConfigured($providerName)) {
-            $this->callWpCli('error', 'The selected search provider must be configured before indexing.');
+        if (!$this->config->isConfigured()) {
+            $this->callWpCli('error', 'The search provider must be configured before indexing.');
             return;
         }
 
-        $provider = $this->providerFactory->create($providerName);
+        $provider = $this->providerFactory->create();
 
         if ($this->hasFlag($associativeArguments, 'clearindex')) {
             $this->callWpCli('log', 'Clearing existing search index records...');
