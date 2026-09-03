@@ -36,9 +36,6 @@ class BuildSearchIndexCommand
      * [--provider=<provider>]
      * : Search provider to build. Defaults to the configured provider.
      *
-     * [--settings]
-     * : Send provider settings before indexing posts.
-     *
      * [--clearindex]
      * : Clear provider records before indexing posts.
      */
@@ -52,11 +49,6 @@ class BuildSearchIndexCommand
         }
 
         $provider = $this->providerFactory->create($providerName);
-
-        if ($this->hasFlag($associativeArguments, 'settings')) {
-            $this->callWpCli('log', 'Sending provider settings...');
-            $provider->setSettings();
-        }
 
         if ($this->hasFlag($associativeArguments, 'clearindex')) {
             $this->callWpCli('log', 'Clearing existing search index records...');
