@@ -11,6 +11,7 @@ if (function_exists('acf_add_local_field_group')) {
             'label' => __('Search Provider', 'municipio'),
             'name' => 'search_index_provider',
             'type' => 'select',
+            'instructions' => __('May be overridden by SEARCH_INDEX_PROVIDER.', 'municipio'),
             'choices' => ['algolia' => __('Algolia', 'municipio')],
             'default_value' => 'algolia',
             'return_format' => 'value',

@@ -72,6 +72,34 @@ class SearchIndexConfigTest extends TestCase
     }
 
     /**
+     * Verify the environment constant takes precedence over the ACF provider.
+     */
+    public function testProviderConstantTakesPrecedenceOverAcfOption(): void
+    {
+        $config = new SearchIndexConfig(new FakeAcfService([
+            'getField' => static fn(string $selector): string => $selector === 'search_index_provider' ? 'algolia' : '',
+        ]), new FakeConstant([
+            'SEARCH_INDEX_PROVIDER' => 'typesense',
+        ]));
+
+        static::assertSame('typesense', $config->provider());
+    }
+
+    /**
+     * Verify an empty environment constant falls back to the ACF provider.
+     */
+    public function testEmptyProviderConstantFallsBackToAcfOption(): void
+    {
+        $config = new SearchIndexConfig(new FakeAcfService([
+            'getField' => static fn(string $selector): string => $selector === 'search_index_provider' ? 'typesense' : '',
+        ]), new FakeConstant([
+            'SEARCH_INDEX_PROVIDER' => '',
+        ]));
+
+        static::assertSame('typesense', $config->provider());
+    }
+
+    /**
      * Verify legacy plugin constants remain supported during migration.
      */
     public function testSupportsLegacyPluginConstants(): void

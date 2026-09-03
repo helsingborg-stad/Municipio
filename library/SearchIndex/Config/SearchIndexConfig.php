@@ -17,8 +17,7 @@ class SearchIndexConfig
 
     public function provider(): ?string
     {
-        $provider = $this->getOption('search_index_provider');
-        return is_string($provider) && $provider !== '' ? $provider : 'algolia';
+        return $this->getStringSetting('search_index_provider', 'SEARCH_INDEX_PROVIDER') ?: 'algolia';
     }
 
     public function algoliaApplicationId(): string
