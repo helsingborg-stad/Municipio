@@ -93,7 +93,11 @@ class ImageProcessor
         }
 
         $intermediateLocation = $image->getIntermidiateLocation($format);
-        $localTemporaryPath = $this->getLocalTemporaryPath($format);
+        $usesExternalStream = $this->usesExternalStream($intermediateLocation['path']);
+        $localTemporaryPath = $usesExternalStream
+            ? $this->getLocalTemporaryPath($format)
+            : $this->getTemporaryPath($intermediateLocation['path']);
+
         if ($localTemporaryPath === false) {
             $this->logConversionFailure(
                 $image,
@@ -132,8 +136,20 @@ class ImageProcessor
                 return false;
             }
 
-            $publishTemporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
-            if (!copy($savedPath, $publishTemporaryPath) || !rename($publishTemporaryPath, $intermediateLocation['path'])) {
+            $publishTemporaryPath = $savedPath;
+            if ($usesExternalStream) {
+                $publishTemporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
+                if (!copy($savedPath, $publishTemporaryPath)) {
+                    $this->logConversionFailure(
+                        $image,
+                        $format,
+                        new \WP_Error('publish_failed', 'The converted image could not be published to its public path.'),
+                    );
+                    return false;
+                }
+            }
+
+            if (!rename($publishTemporaryPath, $intermediateLocation['path'])) {
                 $this->logConversionFailure(
                     $image,
                     $format,
@@ -186,6 +202,17 @@ class ImageProcessor
         }
 
         return $pathWithExtension;
+    }
+
+    /**
+     * Determine whether a path is handled by an external stream wrapper such
+     * as S3. The file:// wrapper still refers to the local filesystem.
+     */
+    private function usesExternalStream(string $path): bool
+    {
+        $scheme = parse_url($path, PHP_URL_SCHEME);
+
+        return is_string($scheme) && $scheme !== 'file';
     }
 
     /**
