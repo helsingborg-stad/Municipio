@@ -55,6 +55,35 @@ class ConversionCacheTest extends TestCase
         );
     }
 
+    public function testFailedStatusSuppressesOtherSizesOfTheSameImage(): void
+    {
+        $wpService = new FakeWpService([
+            'wpCacheGet' => static fn(string $key): string|false => $key === 'source_failure_44' ? 'failed' : false,
+        ]);
+        $cache = new ConversionCache($wpService, $this->createConfig());
+
+        $this->assertSame(
+            ConversionStatus::Failed,
+            $cache->getConversionStatus($this->createImage(44, 200, 100)),
+        );
+    }
+
+    public function testFailedStatusCreatesSourceLevelRetryMarker(): void
+    {
+        $wpService = new FakeWpService([
+            'wpCacheGet' => false,
+            'wpCacheSet' => true,
+        ]);
+        $cache = new ConversionCache($wpService, $this->createConfig());
+
+        $this->assertTrue($cache->markConversionFailed($this->createImage(45, 100, 50)));
+
+        $this->assertSame(
+            ['source_failure_45', 'failed', 'municipio_image_convert', 86400],
+            $wpService->methodCalls['wpCacheSet'][2],
+        );
+    }
+
     private function createConfig(): ImageConvertConfigInterface
     {
         $config = $this->createStub(ImageConvertConfigInterface::class);

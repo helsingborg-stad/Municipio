@@ -27,6 +27,7 @@ class ConversionCache
 {
     private const CACHE_GROUP   = 'municipio_image_convert';
     private const STATUS_PREFIX = 'status_';
+    private const SOURCE_FAILURE_PREFIX = 'source_failure_';
     private const LOCK_PREFIX   = 'lock_';
     private const KEY_INDEX_PREFIX = 'keys_';
 
@@ -52,6 +53,19 @@ class ConversionCache
         $height  = $image->getHeight();
         $format  = $this->config->intermidiateImageFormat()['suffix'];
         return sprintf('%d_%dx%d_%s', $imageId, $width, $height, $format);
+    }
+
+    /**
+     * Get a failure key shared by every requested size of an attachment.
+     *
+     * A publishing or validation failure is normally independent of the
+     * requested dimensions. Keeping a short-lived marker at this level avoids
+     * repeatedly doing the same expensive Imagick work for every responsive
+     * size during the retry window.
+     */
+    private function getSourceFailureCacheKey(ImageContract $image): string
+    {
+        return self::SOURCE_FAILURE_PREFIX . $image->getId();
     }
 
     /**
@@ -122,6 +136,17 @@ class ConversionCache
             self::$runtimeCache[$cacheKey] = $enumStatus;
             return $enumStatus;
         }
+
+        $sourceFailureKey = $this->getSourceFailureCacheKey($image);
+        if (isset(self::$runtimeCache[$sourceFailureKey])) {
+            return ConversionStatus::Failed;
+        }
+
+        if ($this->wpService->wpCacheGet($sourceFailureKey, self::CACHE_GROUP) === ConversionStatus::Failed->value) {
+            self::$runtimeCache[$sourceFailureKey] = true;
+            return ConversionStatus::Failed;
+        }
+
         return null;
     }
 
@@ -189,7 +214,22 @@ class ConversionCache
      */
     public function markConversionFailed(ImageContract $image): bool
     {
-        return $this->setConversionStatus($image, ConversionStatus::Failed);
+        $statusStored = $this->setConversionStatus($image, ConversionStatus::Failed);
+
+        $sourceFailureKey = $this->getSourceFailureCacheKey($image);
+        self::$runtimeCache[$sourceFailureKey] = true;
+        $sourceFailureStored = $this->wpService->wpCacheSet(
+            $sourceFailureKey,
+            ConversionStatus::Failed->value,
+            self::CACHE_GROUP,
+            $this->config->failedCacheExpiry(),
+        );
+
+        if ($sourceFailureStored) {
+            $this->registerPersistentKey($image->getId(), $sourceFailureKey);
+        }
+
+        return $statusStored && $sourceFailureStored;
     }
 
     /**
@@ -217,9 +257,10 @@ class ConversionCache
         $this->wpService->wpCacheDelete($indexKey, self::CACHE_GROUP);
 
         $statusPrefix = self::STATUS_PREFIX . $imageId . '_';
+        $sourceFailureKey = self::SOURCE_FAILURE_PREFIX . $imageId;
         $lockPrefix = self::LOCK_PREFIX . $imageId . '_';
         foreach (array_keys(self::$runtimeCache) as $key) {
-            if (str_starts_with($key, $statusPrefix) || str_starts_with($key, $lockPrefix) || $key === $indexKey) {
+            if (str_starts_with($key, $statusPrefix) || $key === $sourceFailureKey || str_starts_with($key, $lockPrefix) || $key === $indexKey) {
                 unset(self::$runtimeCache[$key]);
             }
         }
