@@ -18,6 +18,9 @@ use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
  */
 class SearchIndexFeature
 {
+    private ?SearchIndexConfig $config = null;
+    private ?SearchProviderFactory $providerFactory = null;
+
     public function __construct(
         private WpService $wpService,
         private GetField&UpdateField&AddOptionsPage $acfService,
@@ -53,24 +56,37 @@ class SearchIndexFeature
      */
     public function initialize(): void
     {
-        $config = new SearchIndexConfig($this->acfService);
-        $providerFactory = new SearchProviderFactory($this->wpService, $config);
+        $this->config = new SearchIndexConfig($this->acfService);
+        $this->providerFactory = new SearchProviderFactory($this->wpService, $this->config);
 
-        (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $config))->addHooks();
-        (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $config))->addHooks();
-        (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $config, $providerFactory, $this->adminNoticesService))->addHooks();
+        (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $this->config))->addHooks();
+        (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $this->config))->addHooks();
+        (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $this->config, $this->providerFactory, $this->adminNoticesService))->addHooks();
         (new Admin\ExcludeFromSearch($this->wpService))->addHooks();
         (new Facets\FacetsFeature($this->wpService, new Config\FacetsConfig($this->acfService)))->addHooks();
 
         if (defined('WP_CLI') && constant('WP_CLI') === true) {
-            (new Cli\BuildSearchIndexCommand($this->wpService, $config, $providerFactory))->register();
+            (new Cli\BuildSearchIndexCommand($this->wpService, $this->config, $this->providerFactory))->register();
         }
 
-        if (!$config->isConfigured()) {
+        if ($this->wpService->didAction('init') > 0) {
+            $this->initializeConfiguredFeatures();
             return;
         }
 
-        $provider = $providerFactory->create();
+        $this->wpService->addAction('init', [$this, 'initializeConfiguredFeatures'], 20);
+    }
+
+    /**
+     * Initialize features that require effective provider settings.
+     */
+    public function initializeConfiguredFeatures(): void
+    {
+        if ($this->config === null || $this->providerFactory === null || !$this->config->isConfigured()) {
+            return;
+        }
+
+        $provider = $this->providerFactory->create();
         (new Index\PostIndexer($this->wpService, $provider))->addHooks();
 
         $attachmentConfig = new Attachment\AttachmentConfig($this->acfService);
@@ -79,7 +95,7 @@ class SearchIndexFeature
         (new Search\SearchQuery($this->wpService, $provider))->addHooks();
 
         if ((new SearchPage\SearchPageConfig($this->acfService))->isEnabled()) {
-            (new SearchPage\SearchPageFeature($this->wpService, $this->enqueue, $config))->addHooks();
+            (new SearchPage\SearchPageFeature($this->wpService, $this->enqueue, $this->config))->addHooks();
         }
     }
 }

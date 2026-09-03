@@ -38,7 +38,7 @@ class SearchIndexFeatureTest extends TestCase
     /**
      * Verify initialization runs immediately when ACF has already fired.
      */
-    public function testInitializesImmediatelyAfterAcfInit(): void
+    public function testDefersConfiguredFeaturesUntilWordPressInitAfterAcfInit(): void
     {
         $wpService = $this->createWpService(1);
         $feature = new SearchIndexFeature(
@@ -51,7 +51,13 @@ class SearchIndexFeatureTest extends TestCase
         $feature->enable();
 
         $registeredHooks = array_map(static fn(array $arguments): string => $arguments[0], $wpService->methodCalls['addAction'] ?? []);
+        $configuredFeatureHooks = array_values(array_filter(
+            $wpService->methodCalls['addAction'] ?? [],
+            static fn(array $arguments): bool => $arguments[1] === [$feature, 'initializeConfiguredFeatures']
+        ));
         static::assertNotContains('acf/init', $registeredHooks);
+        static::assertContains('init', $registeredHooks);
+        static::assertSame(20, $configuredFeatureHooks[0][2]);
         static::assertNotEmpty($wpService->methodCalls['addFilter']);
     }
 
@@ -94,7 +100,7 @@ class SearchIndexFeatureTest extends TestCase
     private function createWpService(int $acfInitCount): FakeWpService
     {
         return new FakeWpService([
-            'didAction' => $acfInitCount,
+            'didAction' => static fn(string $hook): int => $hook === 'acf/init' ? $acfInitCount : 0,
             'isPluginActive' => false,
             'isPluginActiveForNetwork' => false,
             'addAction' => true,
