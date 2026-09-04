@@ -19,7 +19,7 @@
         "vite": "^7.1.2",
         "vite-config-factory": "^1.0.1",
         "sass-embedded": "^1.93.3",
-        "@helsingborg-stad/openstreetmap": "^0.45.0"
+        "@helsingborg-stad/openstreetmap": "^0.53.6"
     },
     "jest": {
         "testEnvironment": "jsdom",
