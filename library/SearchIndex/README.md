@@ -61,6 +61,12 @@ wp municipio search-index clear
 
 For a clean rebuild, run `clear`, then `prepare`, then `build`. On multisite, target the intended site with WP-CLI's `--url=<site-url>` global option.
 
+To index all sites in a multisite installation, run this one-liner:
+
+```bash
+wp site list --field=url | xargs -I {} wp --url={} municipio search-index build
+```
+
 ## When content is synchronized
 
 - A post is indexed or updated after `save_post` when it has an indexable status (published by default), belongs to a public post type included in WordPress search, and is not marked **Exclude from search**.
