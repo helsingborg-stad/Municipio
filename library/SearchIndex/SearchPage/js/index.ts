@@ -71,10 +71,41 @@ interface IndexedPost {
 
 declare const searchIndexSearchPageConfig: SearchPageConfig;
 
-const decodeHtml = (value: string): string => {
-	const textarea = document.createElement("textarea");
-	textarea.innerHTML = value;
-	return textarea.value;
+/**
+ * Render provider highlighting while treating all markup except mark as text.
+ *
+ * @param element Element that receives the highlighted text.
+ * @param value Provider value containing encoded text and optional mark elements.
+ * @returns void
+ */
+export const renderHighlightedText = (
+	element: HTMLElement,
+	value: string,
+): void => {
+	const template = document.createElement("template");
+	template.innerHTML = value;
+	const output = document.createDocumentFragment();
+
+	const appendNodes = (source: ParentNode, target: Node): void => {
+		source.childNodes.forEach((node) => {
+			if (node.nodeType === Node.TEXT_NODE) {
+				target.appendChild(document.createTextNode(node.textContent ?? ""));
+				return;
+			}
+
+			if (node instanceof HTMLElement && node.tagName === "MARK") {
+				const mark = document.createElement("mark");
+				appendNodes(node, mark);
+				target.appendChild(mark);
+				return;
+			}
+
+			target.appendChild(document.createTextNode(node.textContent ?? ""));
+		});
+	};
+
+	appendNodes(template.content, output);
+	element.replaceChildren(output);
 };
 
 const getEnabledFacets = (config: SearchProviderConfig): FacetConfig[] =>
@@ -87,8 +118,8 @@ const transformPost = (
 	title = post.post_title ?? "",
 	summary = post.post_excerpt ?? "",
 ): SearchHit => ({
-	title: decodeHtml(title),
-	summary: decodeHtml(summary),
+	title,
+	summary,
 	subtitle: post.origin_site ?? "",
 	ariaLabel: post.post_excerpt ?? "",
 	image: post.thumbnail?.replaceAll("/wp/", "/"),
@@ -239,8 +270,8 @@ const renderHit = (
 	const title = fragment.querySelector<HTMLElement>("[data-hit-title]");
 	const summary = fragment.querySelector<HTMLElement>("[data-hit-summary]");
 	const meta = fragment.querySelector<HTMLElement>("[data-hit-meta]");
-	if (title) title.textContent = hit.title;
-	if (summary) summary.textContent = hit.summary;
+	if (title) renderHighlightedText(title, hit.title);
+	if (summary) renderHighlightedText(summary, hit.summary);
 	if (meta) meta.textContent = hit.subtitle;
 	if (link) {
 		link.href = hit.url;
