@@ -43,37 +43,16 @@ namespace Municipio\SearchIndex\Cli {
         }
 
         /**
-         * Verify preparation sends settings to an explicitly selected provider.
+         * Verify preparation uses the provider selected in Search Index settings.
          */
-        public function testPreparesExplicitlySelectedProvider(): void
-        {
-            $config = $this->createMock(SearchIndexConfig::class);
-            $config->expects($this->once())->method('isProviderConfigured')->with('typesense')->willReturn(true);
-            $provider = $this->createMock(SearchProviderInterface::class);
-            $provider->expects($this->once())->method('setSettings');
-            $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->expects($this->once())->method('create')->with('typesense')->willReturn($provider);
-            $command = new PrepareSearchIndexCommand($config, $providerFactory);
-
-            $command->prepare([], ['provider' => 'typesense']);
-
-            static::assertSame([
-                ['log', ['Sending provider settings...']],
-                ['success', ['Search index preparation complete.']],
-            ], \WP_CLI::$calls);
-        }
-
-        /**
-         * Verify preparation defaults to the provider selected in Search Index settings.
-         */
-        public function testPreparesConfiguredDefaultProvider(): void
+        public function testPreparesConfiguredProvider(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
             $config->expects($this->once())->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
             $provider->expects($this->once())->method('setSettings');
             $providerFactory = $this->createMock(SearchProviderFactory::class);
-            $providerFactory->expects($this->once())->method('create')->with(null)->willReturn($provider);
+            $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
             $command = new PrepareSearchIndexCommand($config, $providerFactory);
 
             $command->prepare([], []);
@@ -85,17 +64,17 @@ namespace Municipio\SearchIndex\Cli {
         }
 
         /**
-         * Verify an unconfigured provider is rejected without creating it.
+         * Verify an unconfigured search index is rejected without creating a provider.
          */
-        public function testRejectsUnconfiguredProvider(): void
+        public function testRejectsUnconfiguredSearchIndex(): void
         {
             $config = $this->createMock(SearchIndexConfig::class);
-            $config->expects($this->once())->method('isProviderConfigured')->with('algolia')->willReturn(false);
+            $config->expects($this->once())->method('isConfigured')->willReturn(false);
             $providerFactory = $this->createMock(SearchProviderFactory::class);
             $providerFactory->expects($this->never())->method('create');
             $command = new PrepareSearchIndexCommand($config, $providerFactory);
 
-            $command->prepare([], ['provider' => 'algolia']);
+            $command->prepare([], []);
 
             static::assertSame([
                 ['error', ['The search provider must be configured before preparing.']],

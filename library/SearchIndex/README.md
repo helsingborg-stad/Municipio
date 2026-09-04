@@ -57,7 +57,7 @@ wp municipio search-index build
 wp municipio search-index clear
 ```
 
-`prepare` normally uses the selected provider. To prepare another configured provider during a migration, run `wp municipio search-index prepare --provider=algolia` or `--provider=typesense`.
+`prepare` uses the provider selected in Search Index settings.
 
 For a clean rebuild, run `clear`, then `prepare`, then `build`. On multisite, target the intended site with WP-CLI's `--url=<site-url>` global option.
 
