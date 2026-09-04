@@ -78,14 +78,21 @@ class TypesenseProviderRegistrar
         }
 
         $urlParts = parse_url($this->config->typesenseApiUrl());
-        $host = is_array($urlParts) ? $urlParts['host'] ?? null : null;
-
-        if (!is_string($host) || $host === '') {
+        if (
+            !is_array($urlParts)
+            || !isset($urlParts['scheme'], $urlParts['host'])
+            || !in_array(strtolower($urlParts['scheme']), ['http', 'https'], true)
+        ) {
             return $directives;
         }
 
+        $origin = sprintf('%s://%s', strtolower($urlParts['scheme']), $urlParts['host']);
+        if (isset($urlParts['port'])) {
+            $origin .= ':' . $urlParts['port'];
+        }
+
         $directives['connect-src'] ??= [];
-        $directives['connect-src'][] = sprintf('%s://%s', $urlParts['scheme'] ?? 'https', $host);
+        $directives['connect-src'][] = $origin;
 
         return $directives;
     }
