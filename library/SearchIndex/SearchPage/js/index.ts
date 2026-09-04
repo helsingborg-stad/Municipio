@@ -30,7 +30,7 @@ interface SearchParams {
 	facetFilters?: string[][];
 }
 
-interface SearchHit {
+export interface SearchHit {
 	title: string;
 	summary: string;
 	subtitle: string;
@@ -71,10 +71,41 @@ interface IndexedPost {
 
 declare const searchIndexSearchPageConfig: SearchPageConfig;
 
-const decodeHtml = (value: string): string => {
-	const textarea = document.createElement("textarea");
-	textarea.innerHTML = value;
-	return textarea.value;
+/**
+ * Render provider highlighting while treating all markup except mark as text.
+ *
+ * @param element Element that receives the highlighted text.
+ * @param value Provider value containing encoded text and optional mark elements.
+ * @returns void
+ */
+export const renderHighlightedText = (
+	element: HTMLElement,
+	value: string,
+): void => {
+	const template = document.createElement("template");
+	template.innerHTML = value;
+	const output = document.createDocumentFragment();
+
+	const appendNodes = (source: ParentNode, target: Node): void => {
+		source.childNodes.forEach((node) => {
+			if (node.nodeType === Node.TEXT_NODE) {
+				target.appendChild(document.createTextNode(node.textContent ?? ""));
+				return;
+			}
+
+			if (node instanceof HTMLElement && node.tagName === "MARK") {
+				const mark = document.createElement("mark");
+				appendNodes(node, mark);
+				target.appendChild(mark);
+				return;
+			}
+
+			target.appendChild(document.createTextNode(node.textContent ?? ""));
+		});
+	};
+
+	appendNodes(template.content, output);
+	element.replaceChildren(output);
 };
 
 const getEnabledFacets = (config: SearchProviderConfig): FacetConfig[] =>
@@ -87,8 +118,8 @@ const transformPost = (
 	title = post.post_title ?? "",
 	summary = post.post_excerpt ?? "",
 ): SearchHit => ({
-	title: decodeHtml(title),
-	summary: decodeHtml(summary),
+	title,
+	summary,
 	subtitle: post.origin_site ?? "",
 	ariaLabel: post.post_excerpt ?? "",
 	image: post.thumbnail?.replaceAll("/wp/", "/"),
@@ -229,18 +260,39 @@ const selectedFacetFilters = (container: HTMLElement): string[][] => {
 	return [...filters.values()];
 };
 
-const renderHit = (
+/**
+ * Synchronize the visual and accessible state of the mobile filter panel.
+ *
+ * @param root SearchPage root element.
+ * @param facets Filter panel element.
+ * @param filterToggle Button that opens the filter panel.
+ * @param isOpen Whether the filter panel should be open.
+ * @returns void
+ */
+const setFiltersOpen = (
+	root: HTMLElement,
+	facets: HTMLElement,
+	filterToggle: HTMLButtonElement,
+	isOpen: boolean,
+): void => {
+	facets.classList.toggle("is-open", isOpen);
+	root.classList.toggle("search-index-page--filters-open", isOpen);
+	filterToggle.setAttribute("aria-pressed", String(isOpen));
+};
+
+export const renderHit = (
 	template: HTMLTemplateElement,
 	hit: SearchHit,
 ): DocumentFragment => {
 	const fragment = template.content.cloneNode(true) as DocumentFragment;
+	const media = fragment.querySelector<HTMLElement>("[data-hit-media]");
 	const image = fragment.querySelector<HTMLImageElement>("[data-hit-image]");
 	const link = fragment.querySelector<HTMLAnchorElement>("[data-hit-link]");
 	const title = fragment.querySelector<HTMLElement>("[data-hit-title]");
 	const summary = fragment.querySelector<HTMLElement>("[data-hit-summary]");
 	const meta = fragment.querySelector<HTMLElement>("[data-hit-meta]");
-	if (title) title.textContent = hit.title;
-	if (summary) summary.textContent = hit.summary;
+	if (title) renderHighlightedText(title, hit.title);
+	if (summary) renderHighlightedText(summary, hit.summary);
 	if (meta) meta.textContent = hit.subtitle;
 	if (link) {
 		link.href = hit.url;
@@ -249,8 +301,9 @@ const renderHit = (
 	if (image && hit.image) {
 		image.src = hit.image;
 		image.alt = hit.altText;
+		link?.classList.add("search-index-page__hit--with-image");
 	} else {
-		image?.remove();
+		media?.remove();
 	}
 	return fragment;
 };
@@ -262,6 +315,15 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 	const hits = root.querySelector<HTMLElement>("[data-search-index-hits]");
 	const stats = root.querySelector<HTMLElement>("[data-search-index-stats]");
 	const facets = root.querySelector<HTMLElement>("[data-search-index-facets]");
+	const facetOptions = root.querySelector<HTMLElement>(
+		"[data-search-index-facet-options]",
+	);
+	const filterToggle = root.querySelector<HTMLButtonElement>(
+		"[data-search-index-filter-toggle]",
+	);
+	const filterClose = root.querySelector<HTMLButtonElement>(
+		"[data-search-index-filter-close]",
+	);
 	const pagination = root.querySelector<HTMLElement>(
 		"[data-search-index-pagination]",
 	);
@@ -279,6 +341,9 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 		!hits ||
 		!stats ||
 		!facets ||
+		!facetOptions ||
+		!filterToggle ||
+		!filterClose ||
 		!pagination ||
 		!hitTemplate ||
 		!noResults ||
@@ -286,6 +351,8 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 	) {
 		return;
 	}
+	const filterToggleElement = filterToggle as HTMLButtonElement;
+	const filterCloseElement = filterClose as HTMLButtonElement;
 	const lang = JSON.parse(langElement.textContent ?? "{}");
 	const search = createSearch(config.provider);
 	let params = { ...config.params };
@@ -313,8 +380,8 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 			const noFacets = root.querySelector<HTMLElement>(
 				"[data-search-index-no-facets]",
 			);
-			facets.replaceChildren();
-			if (noFacets) facets.append(noFacets);
+			facetOptions.replaceChildren();
+			if (noFacets) facetOptions.append(noFacets);
 			result.facets.forEach((facet) => {
 				const fieldset = document.createElement("fieldset");
 				fieldset.className = "search-index-page__facet";
@@ -337,7 +404,7 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 					);
 					fieldset.append(label);
 				});
-				facets.append(fieldset);
+				facetOptions.append(fieldset);
 			});
 			noFacets?.toggleAttribute("hidden", result.facets.length > 0);
 
@@ -392,9 +459,17 @@ const startSearchPage = (root: HTMLElement, config: SearchPageConfig): void => {
 		);
 		if (button) void execute({ ...params, page: Number(button.dataset.page) });
 	});
-	root
-		.querySelector("[data-search-index-filter-toggle]")
-		?.addEventListener("click", () => facets.classList.toggle("is-open"));
+	filterToggleElement.addEventListener("click", () => {
+		setFiltersOpen(
+			root,
+			facets,
+			filterToggleElement,
+			!facets.classList.contains("is-open"),
+		);
+	});
+	filterCloseElement.addEventListener("click", () =>
+		setFiltersOpen(root, facets, filterToggleElement, false),
+	);
 	void execute(params);
 };
 

@@ -13090,8 +13090,8 @@ msgstr ""
 msgid "Employment Types"
 msgstr ""
 
-#: library/SearchIndex/Admin/SearchIndexSettings.php:50
 #: library/SearchIndex/Admin/SearchIndexSettings.php:51
+#: library/SearchIndex/Admin/SearchIndexSettings.php:52
 msgid "Search Index"
 msgstr "Sökindex"
 
@@ -13137,11 +13137,11 @@ msgstr "Använder webbplatsens hostnamn när det är tomt. Kan åsidosättas av 
 msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
 msgstr "Använder webbplatsens hostnamn när det är tomt. Kan åsidosättas av SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
 
-#: library/SearchIndex/Admin/SearchIndexSettings.php:69
+#: library/SearchIndex/Admin/SearchIndexSettings.php:70
 msgid "About Search Index"
 msgstr "Om Sökindex"
 
-#: library/SearchIndex/Admin/SearchIndexSettings.php:82
+#: library/SearchIndex/Admin/SearchIndexSettings.php:83
 msgid "Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run"
 msgstr "Sökindex håller din webbplatssökning uppdaterad genom den valda sökleverantören när du publicerar, uppdaterar eller tar bort innehåll. För att uppdatera alla sökresultat på en gång, kör"
 
@@ -13962,10 +13962,15 @@ msgstr ""
 msgid "Both margins"
 msgstr ""
 
-#: library/SearchIndex/Admin/SearchIndexSettings.php:142
+#: library/SearchIndex/Admin/SearchIndexSettings.php:165
 msgid "The search index provider is unreachable. Please check your settings and try again."
 msgstr "Sökindextjänsten är otillgänglig. Kontrollera dina inställningar och försök igen."
 
 #: library/Theme/Sidebars.php:117
 msgid "The footer area"
 msgstr ""
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:133
+#, php-format
+msgid "This field is disabled because %s is defined."
+msgstr "Fältet är inaktiverat eftersom %s är definierat."

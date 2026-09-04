@@ -145,4 +145,30 @@ class SearchIndexConfigTest extends TestCase
         static::assertSame('new-application-id', $config->algoliaApplicationId());
         static::assertTrue($config->isConfigured());
     }
+
+    /**
+     * Verify the effective overriding constant can be identified for the admin UI.
+     */
+    public function testReturnsEffectiveOverridingConstantForField(): void
+    {
+        $config = new SearchIndexConfig(new FakeAcfService(), new FakeConstant([
+            'SEARCH_INDEX_ALGOLIA_API_KEY' => '',
+            'ALGOLIAINDEX_API_KEY' => implode('-', ['legacy', 'api', 'key']),
+        ]));
+
+        static::assertSame('ALGOLIAINDEX_API_KEY', $config->overridingConstant('search_index_algolia_api_key'));
+    }
+
+    /**
+     * Verify empty constants and fields without constant support are not treated as overrides.
+     */
+    public function testReturnsNullWhenFieldIsNotOverridden(): void
+    {
+        $config = new SearchIndexConfig(new FakeAcfService(), new FakeConstant([
+            'SEARCH_INDEX_PROVIDER' => '',
+        ]));
+
+        static::assertNull($config->overridingConstant('search_index_provider'));
+        static::assertNull($config->overridingConstant('search_index_attachment_mime_types'));
+    }
 }
