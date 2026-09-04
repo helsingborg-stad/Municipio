@@ -38,6 +38,7 @@ class SearchIndexSettings
         $this->wpService->addAction('acf/save_post', [$this, 'sendProviderSettings'], 20);
         $this->wpService->addFilter('acf/load_field/name=search_index_provider', [$this, 'addProviderChoices']);
         $this->wpService->addFilter('acf/load_field/name=search_index_attachment_mime_types', [$this, 'addAttachmentMimeTypeChoices']);
+        $this->wpService->addFilter('acf/load_field', [$this, 'disableConstantOverrideField']);
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
     }
 
@@ -112,6 +113,28 @@ class SearchIndexSettings
 
         asort($choices);
         $field['choices'] = $choices;
+        return $field;
+    }
+
+    /**
+     * Disable a field when its effective value comes from a constant.
+     */
+    public function disableConstantOverrideField(array $field): array
+    {
+        $overridingConstant = $this->config->overridingConstant($field['name'] ?? '');
+
+        if ($overridingConstant === null) {
+            return $field;
+        }
+
+        $field['disabled'] = 1;
+        $field['readonly'] = 1;
+        $overrideNotice = sprintf(
+            $this->wpService->__('This field is disabled because %s is defined.', 'municipio'),
+            $overridingConstant
+        );
+        $field['instructions'] = trim(($field['instructions'] ?? '') . ' ' . $overrideNotice);
+
         return $field;
     }
 
