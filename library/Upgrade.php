@@ -27,9 +27,11 @@ use Municipio\Upgrade\V59\Version59 as UpgradeVersion59;
 use Municipio\Upgrade\V60\Version60 as UpgradeVersion60;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
+use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\SetThemeMod;
+use WpService\Contracts\UpdateOption;
 
 /**
  * Class App
@@ -38,7 +40,7 @@ use WpService\Contracts\SetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion = 60; //The db version we want to achive
+    private $dbVersion = 61; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -46,7 +48,7 @@ class Upgrade
      * App constructor.
      */
     public function __construct(
-        private GetThemeMod&SetThemeMod&GetPostTypes&AddAction&DoAction $wpService,
+        private GetThemeMod&SetThemeMod&GetPostTypes&GetOption&UpdateOption&AddAction&DoAction $wpService,
         private UpdateField&GetField $acfService,
     ) {
         //Development tools
@@ -1133,6 +1135,20 @@ class Upgrade
             $version->upgradeToVersion();
         } catch (\Exception $e) {
             error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public function v_61(): bool {
+        try {
+            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration($this->wpService, $this->acfService))->migrate();
+            (new \Municipio\SearchIndex\Migration\MigrateSharedIndexNameToAlgoliaIndexName($this->acfService))->migrate();
+            (new \Municipio\SearchIndex\SearchPage\Migration\LegacySearchPageActivationMigration( $this->wpService, $this->acfService, ))->migrate();
+            (new \Municipio\SearchIndex\Migration\LegacySettingsMigration( $this->wpService, $this->acfService, ))->migrateAttachmentActivation();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
             return false;
         }
 

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-28T14:38:21+00:00\n"
+"POT-Creation-Date: 2026-09-04T05:57:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
@@ -97,6 +97,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr ""
 
@@ -206,6 +207,7 @@ msgstr ""
 #: library/AcfFields/php/a11y-statement.php:193
 #: library/AcfFields/php/block-button.php:24
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:33
+#: library/AcfFields/php/search-index-settings.php:155
 msgid "Label"
 msgstr ""
 
@@ -442,7 +444,6 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:132
 #: library/AcfFields/php/widget-header-links.php:361
 #: library/AcfFields/php/widget-header-menu.php:51
-#: library/Customizer/Sections/Menu/Behaviour.php:114
 #: library/Customizer/Sections/Menu/Siteselector.php:118
 #: library/Customizer/Sections/Menu/Tabmenu.php:87
 #: Modularity/source/php/AcfFields/php/mod-hero.php:350
@@ -457,7 +458,6 @@ msgstr ""
 #: library/AcfFields/php/block-button.php:159
 #: library/AcfFields/php/block-container.php:47
 #: library/Customizer/Sections/Icons.php:35
-#: library/Customizer/Sections/Menu/Behaviour.php:115
 #: library/Customizer/Sections/Menu/Siteselector.php:119
 #: library/Customizer/Sections/Menu/Tabmenu.php:88
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:26
@@ -475,7 +475,6 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:133
 #: library/AcfFields/php/widget-header-links.php:362
 #: library/AcfFields/php/widget-header-menu.php:52
-#: library/Customizer/Sections/Menu/Behaviour.php:116
 #: library/Customizer/Sections/Menu/Siteselector.php:120
 #: library/Customizer/Sections/Menu/Tabmenu.php:89
 #: library/Customizer/Sections/Width.php:30
@@ -590,6 +589,7 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr ""
 
@@ -729,6 +729,7 @@ msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr ""
 
@@ -1040,7 +1041,7 @@ msgstr ""
 #: library/AcfFields/php/user-group-url.php:47
 #: library/Customizer/Sections/Component/Divider.php:73
 #: library/Customizer/Sections/Menu/Behaviour.php:42
-#: library/Customizer/Sections/Menu/Behaviour.php:58
+#: library/Customizer/Sections/Menu/Behaviour.php:60
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:49
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:65
 #: library/Customizer/Sections/Menu/Drawer.php:69
@@ -1078,9 +1079,10 @@ msgstr ""
 #: library/AcfFields/php/options-login-logout.php:26
 #: library/AcfFields/php/options-login-redirect.php:26
 #: library/AcfFields/php/options-theme-features.php:26
+#: library/AcfFields/php/search-index-settings.php:160
 #: library/Customizer/Sections/Component/Divider.php:72
 #: library/Customizer/Sections/Menu/Behaviour.php:41
-#: library/Customizer/Sections/Menu/Behaviour.php:57
+#: library/Customizer/Sections/Menu/Behaviour.php:59
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:48
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:64
 #: library/Customizer/Sections/Menu/Drawer.php:68
@@ -1199,6 +1201,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-chat.php:293
 #: library/Api/Pdf/PdfGenerator.php:135
+#: library/Customizer/Controls/Sortable/SortableControl.php:71
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:106
 msgid "Settings"
 msgstr ""
@@ -1390,7 +1393,7 @@ msgstr ""
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
 #: library/Customizer/PanelsRegistry.php:218
-#: library/Customizer/Sections/Menu/Behaviour.php:25
+#: library/Customizer/Sections/Menu/Behaviour.php:24
 #: library/Customizer/Sections/Search.php:140
 #: library/Helper/TranslatedLabels.php:50
 #: library/Theme/Navigation.php:36
@@ -2115,7 +2118,6 @@ msgid "Check the formats you would like to enable"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
-#: library/Customizer/Sections/Menu/Behaviour.php:117
 msgid "Extra large"
 msgstr ""
 
@@ -2267,6 +2269,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr ""
 
@@ -2329,7 +2332,7 @@ msgid "Header tabs menu"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-google-translate.php:57
-#: library/Customizer/Sections/Menu/Behaviour.php:22
+#: library/Customizer/Sections/Menu/Behaviour.php:21
 #: library/Theme/Navigation.php:34
 msgid "Primary menu"
 msgstr ""
@@ -2530,6 +2533,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
 #: Modularity/source/php/Module/Posts/Posts.php:246
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr ""
 
@@ -2553,6 +2557,122 @@ msgstr ""
 
 #: library/AcfFields/php/post-type-schema-settings.php:57
 msgid "Schema type"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:8
+msgid "Search Index Settings"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:11
+msgid "Search Provider"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:14
+msgid "May be overridden by SEARCH_INDEX_PROVIDER."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:15
+msgid "Algolia"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:21
+msgid "Interactive Search Page"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:24
+msgid "Replace the standard search results with an interactive page that updates results as visitors search and filter."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:29
+msgid "Indexed File Types"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:32
+msgid "Select the media-library file types that should appear in search results. Leave empty to exclude attachments."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:40
+msgid "Algolia Application ID"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:43
+msgid "May be overridden by SEARCH_INDEX_ALGOLIA_APPLICATION_ID."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:51
+msgid "Algolia Index Name"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:54
+msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_ALGOLIA_INDEX_NAME."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:62
+msgid "Algolia API Key"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:65
+msgid "May be overridden by SEARCH_INDEX_ALGOLIA_API_KEY."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:73
+msgid "Algolia Public API Key"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:76
+msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_ALGOLIA_PUBLIC_API_KEY."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:84
+msgid "Typesense API URL"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:87
+msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_URL."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:95
+msgid "Typesense API Key"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:98
+msgid "May be overridden by SEARCH_INDEX_TYPESENSE_API_KEY."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:106
+msgid "Typesense Public API Key"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:109
+msgid "Optional browser-search key. May be overridden by SEARCH_INDEX_TYPESENSE_PUBLIC_API_KEY."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:117
+msgid "Typesense Collection Name"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:120
+msgid "Uses the site hostname when empty. May be overridden by SEARCH_INDEX_TYPESENSE_COLLECTION_NAME."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:139
+msgid "Search Facets"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:142
+msgid "Facets"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:145
+msgid "Configure the provider facet attributes available to search UI integrations."
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:147
+msgid "Add Facet"
+msgstr ""
+
+#: library/AcfFields/php/search-index-settings.php:150
+msgid "Attribute"
 msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:8
@@ -2626,7 +2746,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-author-image.php:188
 #: library/AcfFields/php/widget-contact.php:100
-#: library/Controller/BaseController.php:429
+#: library/Controller/BaseController.php:434
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
@@ -2671,6 +2791,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr ""
 
@@ -2720,7 +2841,7 @@ msgid "Phone numer"
 msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:81
-#: library/Controller/BaseController.php:427
+#: library/Controller/BaseController.php:432
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:65
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
@@ -2777,7 +2898,7 @@ msgstr ""
 #: library/Customizer/Sections/Component/Hero.php:98
 #: library/Customizer/Sections/Component/SliderDefault.php:115
 #: library/Customizer/Sections/Component/SliderHero.php:46
-#: library/Customizer/Sections/Menu/Behaviour.php:80
+#: library/Customizer/Sections/Menu/Behaviour.php:76
 #: library/Customizer/Sections/Width.php:24
 #: Modularity/source/php/AcfFields/php/mod-audio.php:104
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:285
@@ -2791,7 +2912,7 @@ msgstr ""
 #: library/Customizer/Sections/Component/Hero.php:100
 #: library/Customizer/Sections/Component/SliderDefault.php:117
 #: library/Customizer/Sections/Component/SliderHero.php:48
-#: library/Customizer/Sections/Menu/Behaviour.php:81
+#: library/Customizer/Sections/Menu/Behaviour.php:77
 #: library/Customizer/Sections/Width.php:40
 #: Modularity/source/php/AcfFields/php/mod-audio.php:106
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:286
@@ -2805,6 +2926,7 @@ msgstr ""
 
 #: library/AcfFields/php/widget-header-common.php:119
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:89
+#: library/Customizer/Controls/Sortable/SortableControl.php:163
 msgid "Margin"
 msgstr ""
 
@@ -2875,6 +2997,7 @@ msgstr ""
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr ""
 
@@ -3226,7 +3349,7 @@ msgid "General cover settings"
 msgstr ""
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:543
+#: library/Controller/BaseController.php:549
 #: library/Customizer/Sections/Header/Logotype.php:21
 #: library/Customizer/Sections/Logo.php:41
 msgid "Emblem"
@@ -3339,23 +3462,23 @@ msgstr ""
 msgid "Neutral"
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:73
+#: library/Chat/Api/ChatEndpoint.php:76
 msgid "No message provided."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:99
+#: library/Chat/Api/ChatEndpoint.php:102
 msgid "Assistant not found."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:109
+#: library/Chat/Api/ChatEndpoint.php:112
 msgid "Assistant configuration is incomplete."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:125
+#: library/Chat/Api/ChatEndpoint.php:128
 msgid "Unable to process message safely. Please try again later."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:206
+#: library/Chat/Api/ChatEndpoint.php:227
 msgid "Failed to communicate with chat API."
 msgstr ""
 
@@ -3382,9 +3505,9 @@ msgid "Something went wrong, please try again later"
 msgstr ""
 
 #: library/Chat/Render/ChatRenderConfig.php:79
-#: library/Controller/BaseController.php:416
+#: library/Controller/BaseController.php:417
 #: library/Helper/TranslatedLabels.php:55
-#: Modularity/source/php/App.php:307
+#: Modularity/source/php/App.php:309
 msgid "Close"
 msgstr ""
 
@@ -3545,15 +3668,15 @@ msgstr ""
 msgid "Last reviewed"
 msgstr ""
 
-#: library/Controller/BaseController.php:412
+#: library/Controller/BaseController.php:413
 msgid "Search for content"
 msgstr ""
 
-#: library/Controller/BaseController.php:413
+#: library/Controller/BaseController.php:414
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/BaseController.php:414
+#: library/Controller/BaseController.php:415
 #: library/Customizer/Sections/Header/LoginLogout.php:22
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:53
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:63
@@ -3562,24 +3685,24 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: library/Controller/BaseController.php:415
+#: library/Controller/BaseController.php:416
 msgid "Login"
 msgstr ""
 
-#: library/Controller/BaseController.php:426
+#: library/Controller/BaseController.php:431
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/BaseController.php:428
+#: library/Controller/BaseController.php:433
 msgid "Call"
 msgstr ""
 
-#: library/Controller/BaseController.php:430
+#: library/Controller/BaseController.php:435
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr ""
 
-#: library/Controller/BaseController.php:431
+#: library/Controller/BaseController.php:436
 #: library/Controller/Error/Buttons.php:21
 #: library/Helper/TranslatedLabels.php:21
 #: library/Widget/Brand/Brand.php:47
@@ -3587,15 +3710,16 @@ msgstr ""
 msgid "Go to homepage"
 msgstr ""
 
-#: library/Controller/BaseController.php:671
+#: library/Controller/BaseController.php:677
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr ""
 
-#: library/Controller/BaseController.php:705
+#: library/Controller/BaseController.php:711
 msgid "Choose language"
 msgstr ""
 
-#: library/Controller/BaseController.php:706
+#: library/Controller/BaseController.php:712
 msgid "More languages"
 msgstr ""
 
@@ -3646,7 +3770,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: library/Controller/School/AddressGenerator.php:87
+#: library/Controller/School/AddressGenerator.php:99
 msgctxt "ElementarySchool"
 msgid "Get directions"
 msgstr ""
@@ -4029,7 +4153,7 @@ msgstr ""
 #: library/Customizer/Controls/MultiSelect/MultiSelectControl.php:67
 #: library/Customizer/Controls/Repeater/RepeaterControl.php:77
 #: library/Customizer/Controls/Sortable/SortableControl.php:72
-#: Modularity/source/php/App.php:303
+#: Modularity/source/php/App.php:305
 msgid "Remove"
 msgstr ""
 
@@ -4037,8 +4161,42 @@ msgstr ""
 msgid "Add row"
 msgstr ""
 
-#: library/Customizer/Controls/Sortable/SortableControl.php:67
+#: library/Customizer/Controls/Sortable/SortableControl.php:68
 msgid "Drag to reorder"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:155
+#: Modularity/source/php/AcfFields/php/mod-audio.php:91
+#: Modularity/source/php/AcfFields/php/mod-search.php:82
+msgid "Alignment"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:157
+msgid "Align left"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:158
+msgid "Align center"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:159
+msgid "Align right"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:165
+msgid "No margin"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:166
+msgid "Left margin"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:167
+msgid "Right margin"
+msgstr ""
+
+#: library/Customizer/Controls/Sortable/SortableControl.php:168
+msgid "Both margins"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:38
@@ -4046,6 +4204,7 @@ msgid "Tailor"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr ""
 
@@ -4129,7 +4288,7 @@ msgid "Vertical menu"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:253
-#: library/Theme/Sidebars.php:146
+#: library/Theme/Sidebars.php:143
 #: Modularity/source/php/AcfFields/php/mod-hero.php:8
 #: Modularity/source/php/Module/Hero/Hero.php:21
 msgid "Hero"
@@ -4275,6 +4434,7 @@ msgid "Display a link to Google Maps on each marker on the map?"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:222
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:38
 msgid "Filters"
 msgstr ""
 
@@ -4361,6 +4521,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr ""
 
@@ -4372,6 +4533,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr ""
 
@@ -4384,6 +4546,7 @@ msgid "Hide date"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:402
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr ""
 
@@ -4396,6 +4559,7 @@ msgid "Date, Time"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:409
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr ""
 
@@ -4408,6 +4572,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:454
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr ""
 
@@ -4425,6 +4590,7 @@ msgid "Blocks"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:465
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr ""
 
@@ -4432,6 +4598,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr ""
 
@@ -4933,19 +5100,19 @@ msgstr ""
 msgid "Secondary logo"
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:16
+#: library/Customizer/Sections/Menu/Behaviour.php:15
 msgid "Use page tree as fallback for menus"
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:17
+#: library/Customizer/Sections/Menu/Behaviour.php:16
 msgid "Choose which menus should use the page tree when no assigned menu exists."
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:23
+#: library/Customizer/Sections/Menu/Behaviour.php:22
 msgid "Secondary menu"
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:24
+#: library/Customizer/Sections/Menu/Behaviour.php:23
 msgid "Mobile menu"
 msgstr ""
 
@@ -4969,21 +5136,8 @@ msgstr ""
 msgid "Secondary navigation position"
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:82
+#: library/Customizer/Sections/Menu/Behaviour.php:78
 msgid "Hidden"
-msgstr ""
-
-#: library/Customizer/Sections/Menu/Behaviour.php:97
-msgid "Drawer screen sizes"
-msgstr ""
-
-#: library/Customizer/Sections/Menu/Behaviour.php:98
-msgid "Select which screen sizes the drawer menu should be visible on."
-msgstr ""
-
-#: library/Customizer/Sections/Menu/Behaviour.php:113
-#: library/Customizer/Sections/Menu/Siteselector.php:117
-msgid "Extra small"
 msgstr ""
 
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:17
@@ -5141,6 +5295,7 @@ msgid "Quicklinks item direction"
 msgstr ""
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr ""
 
@@ -5183,6 +5338,10 @@ msgstr ""
 
 #: library/Customizer/Sections/Menu/Siteselector.php:112
 msgid "Select amount of border radius"
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Siteselector.php:117
+msgid "Extra small"
 msgstr ""
 
 #: library/Customizer/Sections/Menu/Siteselector.php:140
@@ -5344,11 +5503,11 @@ msgstr ""
 msgid "Global notices has been saved."
 msgstr ""
 
-#: library/Helper/Post.php:47
+#: library/Helper/Post.php:48
 msgid "This method is deprecated. Use Municipio\\PostObject instead."
 msgstr ""
 
-#: library/Helper/Post.php:221
+#: library/Helper/Post.php:222
 msgid "Item is missing content"
 msgstr ""
 
@@ -6052,7 +6211,7 @@ msgid "Special Opening Hours"
 msgstr ""
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:91
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Physical Accessibility Features"
 msgstr ""
 
@@ -6085,7 +6244,7 @@ msgid "Employer Overview"
 msgstr ""
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:45
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 msgid "Employment Type"
 msgstr ""
 
@@ -6198,109 +6357,109 @@ msgctxt "Event schema status"
 msgid "Ongoing"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:61
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:62
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Job Categories"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:76
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
 msgid "Job Category"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:77
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Latest Application Dates"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:77
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
 msgid "Latest Application Date"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:78
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
 msgid "Employment Types"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Event Tags"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
 msgid "Event Tag"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:91
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
 msgid "Physical Accessibility Feature"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
 msgid "Project Departments"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
 msgid "Project Department"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
 msgid "Project Categories"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:104
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
 msgid "Project Category"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
 msgid "Project Technologies"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:105
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
 msgid "Project Technology"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:106
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Project Statuses"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:106
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
 msgid "Project Status"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
 msgid "Unique selling points"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
 msgid "Unique selling point"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
 msgid "Areas served"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:119
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:133
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
 msgid "Area served"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Grades"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
 msgid "Grade"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:134
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:146
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr ""
@@ -6311,7 +6470,50 @@ msgid "closed"
 msgstr ""
 
 #: library/Search/Algolia.php:56
+#: library/SearchIndex/Admin/ExcludeFromSearch.php:42
 msgid "Exclude from search"
+msgstr ""
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:50
+#: library/SearchIndex/Admin/SearchIndexSettings.php:51
+msgid "Search Index"
+msgstr ""
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:69
+msgid "About Search Index"
+msgstr ""
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:82
+msgid "Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run"
+msgstr ""
+
+#: library/SearchIndex/Admin/SearchIndexSettings.php:142
+msgid "The search index provider is unreachable. Please check your settings and try again."
+msgstr ""
+
+#: library/SearchIndex/Migration/LegacyPluginConflictGuard.php:72
+msgid "Legacy search index plugins were deactivated because Municipio Search Index now provides this functionality."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:34
+msgid "What are you looking for?"
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:35
+msgid "No search results found."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:36
+#, php-format
+msgid "%s search results found."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:37
+msgid "No filters are available for this search."
+msgstr ""
+
+#: library/SearchIndex/SearchPage/SearchPageRenderer.php:39
+msgid "Pagination"
 msgstr ""
 
 #: library/StickyPost/AddStickyCheckboxForPost.php:136
@@ -9704,125 +9906,125 @@ msgstr ""
 msgid "Schema type - %s (above archive posts)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:91
+#: library/Theme/Sidebars.php:87
 msgid "Site Banner"
 msgstr ""
 
-#: library/Theme/Sidebars.php:92
+#: library/Theme/Sidebars.php:88
 msgid "A area above the site header"
 msgstr ""
 
-#: library/Theme/Sidebars.php:104
+#: library/Theme/Sidebars.php:100
 msgid "Footer top"
 msgstr ""
 
-#: library/Theme/Sidebars.php:105
+#: library/Theme/Sidebars.php:101
 msgid "The top of footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:119
+#: library/Theme/Sidebars.php:116
 msgid "Footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:120
-msgid "The footer area "
+#: library/Theme/Sidebars.php:117
+msgid "The footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:133
+#: library/Theme/Sidebars.php:130
 msgid "Footer bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:134
+#: library/Theme/Sidebars.php:131
 msgid "The bottom of footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:147
+#: library/Theme/Sidebars.php:144
 msgid "The hero area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:159
+#: library/Theme/Sidebars.php:156
 msgid "Content area (above article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:160
+#: library/Theme/Sidebars.php:157
 msgid "The area above the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:172
+#: library/Theme/Sidebars.php:169
 msgid "Content area (below article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:173
+#: library/Theme/Sidebars.php:170
 msgid "The area below the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:185
+#: library/Theme/Sidebars.php:182
 msgid "Main container bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:186
+#: library/Theme/Sidebars.php:183
 msgid "The area below the main container"
 msgstr ""
 
-#: library/Theme/Sidebars.php:198
+#: library/Theme/Sidebars.php:195
 msgid "Right sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:199
+#: library/Theme/Sidebars.php:196
 msgid "The right sidebar area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:213
+#: library/Theme/Sidebars.php:210
 msgid "Left sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:214
+#: library/Theme/Sidebars.php:211
 msgid "The left sidebar area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:228
+#: library/Theme/Sidebars.php:225
 msgid "Left sidebar bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:229
+#: library/Theme/Sidebars.php:226
 msgid "The area below the left sidebar content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:243
+#: library/Theme/Sidebars.php:240
 msgid "Top sidebar (full-width)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:244
+#: library/Theme/Sidebars.php:241
 msgid "Sidebar that sits below the hero."
 msgstr ""
 
-#: library/Theme/Sidebars.php:256
+#: library/Theme/Sidebars.php:253
 msgid "Bottom sidebar (full-width)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:257
+#: library/Theme/Sidebars.php:254
 msgid "Sidebar that sits just before the footer."
 msgstr ""
 
-#: library/Theme/Sidebars.php:269
+#: library/Theme/Sidebars.php:266
 msgid "Above columns sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:270
+#: library/Theme/Sidebars.php:267
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: library/Upgrade.php:1345
+#: library/Upgrade.php:1379
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1349
+#: library/Upgrade.php:1383
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1354
+#: library/Upgrade.php:1388
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
@@ -10401,11 +10603,6 @@ msgstr ""
 msgid "External audio url"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-audio.php:91
-#: Modularity/source/php/AcfFields/php/mod-search.php:82
-msgid "Alignment"
-msgstr ""
-
 #: Modularity/source/php/AcfFields/php/mod-audio.php:108
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:443
 msgid "left"
@@ -10586,6 +10783,7 @@ msgid "Curator Social Media"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr ""
 
@@ -10595,6 +10793,7 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr ""
 
@@ -11512,11 +11711,13 @@ msgid "Menu order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr ""
 
@@ -11692,7 +11893,7 @@ msgid "Placeholder"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-search.php:52
-#: Modularity/source/php/App.php:308
+#: Modularity/source/php/App.php:310
 msgid "Width"
 msgstr ""
 
@@ -13008,45 +13209,45 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: Modularity/source/php/App.php:173
+#: Modularity/source/php/App.php:175
 #: Modularity/source/php/BlockManager.php:207
 #: Modularity/source/php/Editor.php:137
 msgid "Modules"
 msgstr ""
 
-#: Modularity/source/php/App.php:226
+#: Modularity/source/php/App.php:228
 msgid "Edit Modules"
 msgstr ""
 
-#: Modularity/source/php/App.php:300
+#: Modularity/source/php/App.php:302
 msgid "Toggle visibility"
 msgstr ""
 
-#: Modularity/source/php/App.php:301
+#: Modularity/source/php/App.php:303
 msgid "Edit"
 msgstr ""
 
-#: Modularity/source/php/App.php:302
+#: Modularity/source/php/App.php:304
 msgid "Import"
 msgstr ""
 
-#: Modularity/source/php/App.php:304
+#: Modularity/source/php/App.php:306
 msgid "Hide module"
 msgstr ""
 
-#: Modularity/source/php/App.php:305
+#: Modularity/source/php/App.php:307
 msgid "Are you sure you want to remove this module?"
 msgstr ""
 
-#: Modularity/source/php/App.php:306
+#: Modularity/source/php/App.php:308
 msgid "Saving…"
 msgstr ""
 
-#: Modularity/source/php/App.php:310
+#: Modularity/source/php/App.php:312
 msgid "Deprecated"
 msgstr ""
 
-#: Modularity/source/php/Display.php:740
+#: Modularity/source/php/Display.php:744
 msgid "Edit module"
 msgstr ""
 
@@ -13539,6 +13740,118 @@ msgstr ""
 
 #: Modularity/source/php/Upgrade.php:129
 msgid "Database is already up to date."
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date, time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Published"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Modified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date source"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Newsitem"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Appearance settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Number of columns"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Checkboxes"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Radio buttons"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Filter settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable text search"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable date filter"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "DateModified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Order by"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts per page"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable Pagination"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date From"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date To"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Image focal point"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Change Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Select Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Subtitle"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove row"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Backdrop banner settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Maximum number of rows reached."
 msgstr ""
 
 #: library/BackdropBanner/block.json

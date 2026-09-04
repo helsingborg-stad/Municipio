@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modularity;
 
 use Modularity\Private\PrivateAcfFields;
+use Municipio\Helper\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 use WpUtilService\WpUtilServiceInterface;
 
@@ -68,6 +69,7 @@ class App
         new CachePurge();
 
         new Search();
+        (new \Modularity\SearchIndex(WpService::get()))->addHooks();
 
         new Language();
 

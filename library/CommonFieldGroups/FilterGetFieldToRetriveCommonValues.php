@@ -48,7 +48,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         if ($this->wpService->isMainSite()) {
             return;
         }
-        $this->wpService->addAction('init', [$this, 'initializeFieldsToFilter']);
+        $this->wpService->addAction('init', [$this, 'initializeFieldsToFilter'], 15);
     }
 
     /**

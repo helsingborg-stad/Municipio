@@ -1,0 +1,148 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\SearchIndex\Admin;
+
+use AcfService\Contracts\AddOptionsPage;
+use AcfService\Contracts\GetField;
+use Municipio\Helper\AdminNotices\AdminNoticesInterface;
+use Municipio\Helper\AdminNotices\AdminNoticeType;
+use Municipio\SearchIndex\Config\SearchIndexConfig;
+use Municipio\SearchIndex\Provider\SearchIndexProviderUnreachableException;
+use Municipio\SearchIndex\Provider\SearchProviderFactory;
+use WpService\WpService;
+
+/**
+ * Registers and maintains the Search Index settings page.
+ */
+class SearchIndexSettings
+{
+    private const OPTIONS_PAGE_SLUG = 'municipio-search-index-settings';
+
+    public function __construct(
+        private WpService $wpService,
+        private GetField&AddOptionsPage $acfService,
+        private SearchIndexConfig $config,
+        private SearchProviderFactory $providerFactory,
+        private AdminNoticesInterface $adminNoticesService
+    ) {}
+
+    /**
+     * Register settings page, fields, and settings synchronization hooks.
+     */
+    public function addHooks(): void
+    {
+        $this->wpService->addAction('init', [$this, 'registerOptionsPage']);
+        $this->wpService->addAction('acf/input/admin_head', [$this, 'registerDescriptionMetaBox']);
+        $this->wpService->addAction('acf/save_post', [$this, 'sendProviderSettings'], 20);
+        $this->wpService->addFilter('acf/load_field/name=search_index_provider', [$this, 'addProviderChoices']);
+        $this->wpService->addFilter('acf/load_field/name=search_index_attachment_mime_types', [$this, 'addAttachmentMimeTypeChoices']);
+        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
+    }
+
+    /**
+     * Register the ACF options page.
+     */
+    public function registerOptionsPage(): void
+    {
+        $this->acfService->addOptionsPage([
+            'page_title' => $this->wpService->__('Search Index', 'municipio'),
+            'menu_title' => $this->wpService->__('Search Index', 'municipio'),
+            'menu_slug' => self::OPTIONS_PAGE_SLUG,
+            'capability' => 'manage_options',
+            'parent_slug' => 'options-general.php',
+        ]);
+    }
+
+    /**
+     * Register a high-level description above the Search Index ACF fields.
+     */
+    public function registerDescriptionMetaBox(): void
+    {
+        if (($_GET['page'] ?? '') !== self::OPTIONS_PAGE_SLUG) {
+            return;
+        }
+
+        $this->wpService->addMetaBox(
+            'municipio-search-index-description',
+            $this->wpService->__('About Search Index', 'municipio'),
+            [$this, 'renderDescription'],
+            'acf_options_page',
+            'normal',
+            'high',
+        );
+    }
+
+    /**
+     * Render the high-level Search Index feature description.
+     */
+    public function renderDescription(): void
+    {
+        echo '<p>' . esc_html($this->wpService->__('Search Index keeps your site search up to date through the selected search provider when you publish, update, or remove content. To refresh all search results at once, run', 'municipio')) . ' <code>wp municipio search-index build</code>.</p>';
+    }
+
+    /**
+     * Add factories registered by search providers to the select field.
+     */
+    public function addProviderChoices(array $field): array
+    {
+        foreach (array_keys($this->providerFactory->getProviders()) as $provider) {
+            $field['choices'][$provider] = ucfirst($provider);
+        }
+
+        return $field;
+    }
+
+    /**
+     * Add allowed media-library file types to the attachment indexing setting.
+     */
+    public function addAttachmentMimeTypeChoices(array $field): array
+    {
+        $choices = [];
+
+        foreach ($this->wpService->getAllowedMimeTypes() as $extensions => $mimeType) {
+            if (!is_string($extensions) || !is_string($mimeType) || array_key_exists($mimeType, $choices)) {
+                continue;
+            }
+
+            $extensionLabel = strtoupper(str_replace('|', ', ', $extensions));
+            $choices[$mimeType] = sprintf('%s (%s)', $extensionLabel, $mimeType);
+        }
+
+        asort($choices);
+        $field['choices'] = $choices;
+        return $field;
+    }
+
+    /**
+     * Register ACF exports for automatic import by Municipio.
+     */
+    public function registerAcfExports(array $autoExportIds): array
+    {
+        $autoExportIds['search-index-settings'] = 'group_municipio_search_index_settings';
+        $autoExportIds['search-index-facet-settings'] = 'group_municipio_search_index_facet_settings';
+
+        return $autoExportIds;
+    }
+
+    /**
+     * Send provider settings after saving the Search Index options page.
+     */
+    public function sendProviderSettings(string|int $postId): void
+    {
+        if ($postId !== 'options' || ($_GET['page'] ?? '') !== self::OPTIONS_PAGE_SLUG || !$this->config->isConfigured()) {
+            return;
+        }
+
+        try {
+            $this->providerFactory->create()->setSettings();
+        } catch (SearchIndexProviderUnreachableException $exception) {
+            $this->adminNoticesService->addNotice(
+                esc_html($this->wpService->__('The search index provider is unreachable. Please check your settings and try again.', 'municipio')),
+                AdminNoticeType::ERROR,
+                true
+            );
+        }
+    }
+}

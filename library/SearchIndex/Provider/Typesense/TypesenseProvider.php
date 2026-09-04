@@ -1,0 +1,251 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\SearchIndex\Provider\Typesense;
+
+use Municipio\SearchIndex\Provider\SearchIndexProviderUnreachableException;
+use Municipio\SearchIndex\Provider\SearchProviderInterface;
+use WpService\WpService;
+
+/**
+ * Provides search index operations through the Typesense HTTP API.
+ */
+class TypesenseProvider implements SearchProviderInterface
+{
+    public function __construct(
+        private WpService $wpService,
+        #[\SensitiveParameter] private string $apiKey,
+        private string $apiUrl,
+        private string $collectionName,
+    ) {}
+
+    public function setSettings(array $settings = []): mixed
+    {
+        $locale = substr($this->wpService->getLocale(), 0, 2);
+        $schema = $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/CollectionSchema', [
+            'name' => $this->collectionName,
+            'fields' => $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Fields', [
+                ['name' => 'post_title', 'type' => 'string', 'locale' => $locale],
+                ['name' => 'post_excerpt', 'type' => 'string', 'locale' => $locale],
+                ['name' => 'content', 'type' => 'string', 'locale' => $locale],
+                ['name' => 'permalink', 'type' => 'string'],
+                ['name' => 'tags', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'categories', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'post_type_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'author_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'top_most_parent', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'origin_site', 'type' => 'string', 'facet' => true],
+                ['name' => 'origin_site_url', 'type' => 'string', 'facet' => true, 'optional' => true],
+                ['name' => '.*', 'type' => 'auto', 'locale' => $locale],
+            ]),
+        ]);
+
+        try {
+            $response = $this->sendRequest('POST', '/collections', $schema);
+        } catch (\RuntimeException $exception) {
+            throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+        }
+
+        if ($response['statusCode'] === 409) {
+            
+        try {
+                $current = $this->throwOnError($this->sendRequest('GET', sprintf('/collections/%s', rawurlencode($this->collectionName))));
+            } catch (\RuntimeException $exception) {
+                throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+            }
+
+            $currentFields = array_column($current['fields'] ?? [], null, 'name');
+            $missingFields = array_values(array_filter(
+                $schema['fields'],
+                static fn(array $field): bool => !isset($currentFields[$field['name']]),
+            ));
+
+            if ($missingFields !== []) {
+                try {
+                    return $this->throwOnError($this->sendRequest(
+                        'PATCH',
+                        sprintf('/collections/%s', rawurlencode($this->collectionName)),
+                        ['fields' => $missingFields],
+                    ));
+                } catch (\RuntimeException $exception) {
+                    throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+                }
+            }
+
+            return $response['result'];
+        }
+
+        try {
+            return $this->throwOnError($response);
+        } catch (\RuntimeException $exception) {
+            throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+        }
+    }
+
+    public function search(string $query, int $page = 1, int $pageSize = 20): mixed
+    {
+        $response = $this->sendRequest('GET', sprintf('/collections/%s/documents/search', rawurlencode($this->collectionName)), [
+            'q' => $query,
+            'query_by' => 'post_title,post_excerpt,content',
+            'page' => $page,
+            'per_page' => $pageSize,
+        ]);
+        $result = $this->throwOnError($response);
+        $result['hits'] = array_map(static fn(array $hit): array => $hit['document'], $result['hits'] ?? []);
+
+        return $result;
+    }
+
+    public function clearObjects(): mixed
+    {
+        return $this->throwOnError($this->sendRequest(
+            'DELETE',
+            sprintf('/collections/%s/documents', rawurlencode($this->collectionName)),
+            ['filter_by' => sprintf('origin_site_url:=`%s`', $this->wpService->getBloginfo('url'))],
+        ));
+    }
+
+    public function deleteObject(string $objectId): mixed
+    {
+        $response = $this->sendRequest('DELETE', sprintf('/collections/%s/documents/%s', rawurlencode($this->collectionName), rawurlencode($objectId)));
+
+        if ($response['statusCode'] === 404) {
+            return null;
+        }
+
+        return $this->throwOnError($response);
+    }
+
+    public function deleteObjects(array $objectIds): mixed
+    {
+        return array_map($this->deleteObject(...), $objectIds);
+    }
+
+    private function prepareDocument(array $object): array {
+        return $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Document', [
+            ...$object,
+            'id' => (string) $object['uuid'],
+            'post_title' => html_entity_decode((string) ($object['post_title'] ?? '')),
+            'post_excerpt' => html_entity_decode((string) ($object['post_excerpt'] ?? '')),
+            'tags' => array_map(static fn(string $tag): string => html_entity_decode($tag), $object['tags'] ?? []),
+            'categories' => array_map(static fn(string $category): string => html_entity_decode($category), $object['categories'] ?? []),
+        ]);
+    }
+
+    public function saveObject(array $record): array
+    {
+        $document = $this->prepareDocument($record);
+        $this->throwOnError($this->sendImportRequest([$document]));
+
+        return [(string) $document['id']];
+    }
+
+    public function getObjects(array $objectIds): array
+    {
+        return array_values(array_filter(array_map(function (string $objectId): ?array {
+            $response = $this->sendRequest('GET', sprintf('/collections/%s/documents/%s', rawurlencode($this->collectionName), rawurlencode($objectId)));
+            return $response['statusCode'] === 404 ? null : $this->throwOnError($response);
+        }, $objectIds)));
+    }
+
+    /**
+     * Send an authenticated request to the Typesense API.
+     *
+     * @return array{result: array<string, mixed>, statusCode: int}
+     */
+    private function sendRequest(string $method, string $endpoint, array $data = []): array
+    {
+        $url = $this->apiUrl . $endpoint;
+        $args = [
+            'method' => $method,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'X-TYPESENSE-API-KEY' => $this->apiKey,
+            ],
+        ];
+
+        if ($method === 'GET' || $method === 'DELETE') {
+            $url .= $data !== [] ? '?' . http_build_query($data) : '';
+        }
+
+        if ($method !== 'GET' && $method !== 'DELETE' && $data !== []) {
+            $args['body'] = json_encode($data, JSON_THROW_ON_ERROR);
+        }
+
+        $response = $this->wpService->wpRemoteRequest($url, $args);
+
+        if ($this->wpService->isWpError($response)) {
+            throw new \RuntimeException($response->get_error_message());
+        }
+
+        $body = $this->wpService->wpRemoteRetrieveBody($response);
+        $decodedBody = json_decode($body, true);
+
+        return [
+            'result' => is_array($decodedBody) ? $decodedBody : [],
+            'statusCode' => (int) $this->wpService->wpRemoteRetrieveResponseCode($response),
+        ];
+    }
+
+    /**
+     * Import documents into the collection using Typesense's newline-delimited JSON format.
+     *
+     * @param array<int, array<string, mixed>> $documents
+     * @return array{result: array<string, mixed>, statusCode: int}
+     */
+    private function sendImportRequest(array $documents): array
+    {
+        $url = $this->apiUrl . sprintf('/collections/%s/documents/import?action=upsert', rawurlencode($this->collectionName));
+        $body = implode("\n", array_map(
+            static fn(array $document): string => json_encode($document, JSON_THROW_ON_ERROR),
+            $documents,
+        ));
+
+        $response = $this->wpService->wpRemoteRequest($url, [
+            'method' => 'POST',
+            'headers' => [
+                'Content-Type' => 'text/plain',
+                'X-TYPESENSE-API-KEY' => $this->apiKey,
+            ],
+            'body' => $body,
+        ]);
+
+        if ($this->wpService->isWpError($response)) {
+            throw new \RuntimeException($response->get_error_message());
+        }
+
+        $statusCode = (int) $this->wpService->wpRemoteRetrieveResponseCode($response);
+        $lines = array_values(array_filter(explode("\n", trim((string) $this->wpService->wpRemoteRetrieveBody($response)))));
+        $results = array_map(static fn(string $line): array => json_decode($line, true) ?? [], $lines);
+        $failure = current(array_filter($results, static fn(array $result): bool => ($result['success'] ?? false) !== true));
+
+        if ($statusCode < 400 && $failure !== false) {
+            $statusCode = 400;
+            $results = ['message' => $failure['error'] ?? 'Typesense document import failed.'];
+        } elseif ($statusCode < 400) {
+            $results = ['success' => true];
+        }
+
+        return [
+            'result' => $results,
+            'statusCode' => $statusCode,
+        ];
+    }
+
+    /**
+     * Return a successful Typesense response or throw a descriptive exception.
+     *
+     * @param array{result: array<string, mixed>, statusCode: int} $response
+     * @return array<string, mixed>
+     */
+    private function throwOnError(array $response): array
+    {
+        if ($response['statusCode'] < 400) {
+            return $response['result'];
+        }
+
+        $message = $response['result']['message'] ?? 'Typesense request failed.';
+        throw new \RuntimeException((string) $message, $response['statusCode']);
+    }
+}
