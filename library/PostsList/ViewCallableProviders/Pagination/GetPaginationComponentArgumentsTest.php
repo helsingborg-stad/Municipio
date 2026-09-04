@@ -36,4 +36,24 @@ class GetPaginationComponentArgumentsTest extends TestCase
 
         $this->assertEquals([], $callableProvider->getCallable()());
     }
+
+    #[TestDox('It preserves existing query parameters when building pagination URLs')]
+    public function testGetPaginationComponentArgumentsPreservesExistingQueryParameters(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/event?archive_page=2&archive_category=innovation';
+
+        $callableProvider = new GetPaginationComponentArguments(2, 2, 'archive_page', 'archive-id');
+
+        $this->assertEquals(
+            [
+                'list' => [
+                    ['href' => '/event?archive_page=1&archive_category=innovation#archive-id', 'label' => '1'],
+                    ['href' => '/event?archive_page=2&archive_category=innovation#archive-id', 'label' => '2'],
+                ],
+                'current' => 2,
+                'linkPrefix' => 'archive_page',
+            ],
+            $callableProvider->getCallable()(),
+        );
+    }
 }
