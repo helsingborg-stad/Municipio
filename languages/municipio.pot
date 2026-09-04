@@ -5080,15 +5080,23 @@ msgstr ""
 msgid "Mobile menu"
 msgstr ""
 
+#: library/Customizer/Sections/Menu/Behaviour.php:35
+msgid "Show subitems in the primary menu"
+msgstr ""
+
 #: library/Customizer/Sections/Menu/Behaviour.php:36
-msgid "Show subitems as dropdown in main menu"
+msgid "Adds an expand control and dropdown for primary-menu items with subitems."
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:52
-msgid "Extends the dropdown behavior making it more complete"
+#: library/Customizer/Sections/Menu/Behaviour.php:53
+msgid "Use expanded primary-menu dropdown"
 msgstr ""
 
-#: library/Customizer/Sections/Menu/Behaviour.php:75
+#: library/Customizer/Sections/Menu/Behaviour.php:54
+msgid "Shows subitems in a wide dropdown with the parent-page heading."
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Behaviour.php:71
 msgid "Secondary navigation position"
 msgstr ""
 

@@ -20,11 +20,11 @@ class ConversionCacheTest extends TestCase
         $this->assertTrue($cache->markConversionSuccess($this->createImage(42, 100, 50)));
 
         $this->assertSame(
-            ['status_42_100x50_webp', 'success', 'municipio_image_convert', 86400],
+            ['status_v2_42_100x50_webp', 'success', 'municipio_image_convert', 86400],
             $wpService->methodCalls['wpCacheSet'][0],
         );
         $this->assertSame(
-            ['keys_42', ['status_42_100x50_webp'], 'municipio_image_convert', 86400],
+            ['keys_42', ['status_v2_42_100x50_webp'], 'municipio_image_convert', 86400],
             $wpService->methodCalls['wpCacheSet'][1],
         );
     }
@@ -52,6 +52,35 @@ class ConversionCacheTest extends TestCase
                 ['keys_43', 'municipio_image_convert'],
             ],
             $wpService->methodCalls['wpCacheDelete'],
+        );
+    }
+
+    public function testFailedStatusSuppressesOtherSizesOfTheSameImage(): void
+    {
+        $wpService = new FakeWpService([
+            'wpCacheGet' => static fn(string $key): string|false => $key === 'source_failure_44' ? 'failed' : false,
+        ]);
+        $cache = new ConversionCache($wpService, $this->createConfig());
+
+        $this->assertSame(
+            ConversionStatus::Failed,
+            $cache->getConversionStatus($this->createImage(44, 200, 100)),
+        );
+    }
+
+    public function testFailedStatusCreatesSourceLevelRetryMarker(): void
+    {
+        $wpService = new FakeWpService([
+            'wpCacheGet' => false,
+            'wpCacheSet' => true,
+        ]);
+        $cache = new ConversionCache($wpService, $this->createConfig());
+
+        $this->assertTrue($cache->markConversionFailed($this->createImage(45, 100, 50)));
+
+        $this->assertSame(
+            ['source_failure_45', 'failed', 'municipio_image_convert', 86400],
+            $wpService->methodCalls['wpCacheSet'][2],
         );
     }
 

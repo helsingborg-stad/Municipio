@@ -464,6 +464,9 @@ class Display
             $args['id'] = 'no-id';
         }
 
+        // Keep repeated placements distinct even when their rendered markup is fragment-cached.
+        $args['modularity_instance_id'] = wp_unique_id($module->post_type . '-' . $module->ID . '-');
+
         //Do not cache private modules
         if (get_post_status($module) === 'private') {
             $moduleSettings['cache_ttl'] = 0;
@@ -474,6 +477,7 @@ class Display
             [
                 $module,
                 $args['id'],
+                $args['modularity_instance_id'],
             ],
             $moduleSettings['cache_ttl'] ?? 0,
             $this->getAllAllowedAndRegisteredQueryVars() ?: null,
@@ -613,7 +617,7 @@ class Display
         // Set id (%1$s) and classes (%2$s)
         $beforeModule = sprintf(
             $beforeModule,
-            $module->post_type . '-' . $module->ID . '-' . uniqid(),
+            $args['modularity_instance_id'] ?? wp_unique_id($module->post_type . '-' . $module->ID . '-'),
             implode(' ', $classes),
         );
 
