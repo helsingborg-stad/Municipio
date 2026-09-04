@@ -90,9 +90,9 @@ namespace Municipio\SearchIndex\Cli {
         }
 
         /**
-         * Verify clearing, post type filtering, status filtering, and pagination.
+         * Verify post type filtering, status filtering, and pagination.
          */
-        public function testClearsAndBuildsAllFilteredPostPages(): void
+        public function testBuildsAllFilteredPostPagesWithoutClearing(): void
         {
             $queries = [];
             $filterCalls = [];
@@ -115,12 +115,12 @@ namespace Municipio\SearchIndex\Cli {
             $config = $this->createMock(SearchIndexConfig::class);
             $config->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
-            $provider->expects($this->once())->method('clearObjects');
+            $provider->expects($this->never())->method('clearObjects');
             $providerFactory = $this->createMock(SearchProviderFactory::class);
             $providerFactory->method('create')->willReturn($provider);
             $command = new BuildSearchIndexCommand($wpService, $config, $providerFactory);
 
-            $command->build([], ['clearindex' => 'true']);
+            $command->build([], []);
 
             static::assertSame([1, 2], array_column($queries, 'paged'));
             static::assertSame(['post'], array_unique(array_column($queries, 'post_type')));
@@ -130,7 +130,6 @@ namespace Municipio\SearchIndex\Cli {
                 $filterCalls,
             );
             static::assertSame([
-                ['log', ['Clearing existing search index records...']],
                 ['log', ['Starting search index build for site https://example.test']],
                 ['log', ["Indexing 'Indexed post' of post type 'post'"]],
                 ['success', ['Search index build complete.']],

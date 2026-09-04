@@ -30,11 +30,6 @@ class BuildSearchIndexCommand
 
     /**
      * Rebuild the configured provider's search index.
-     *
-     * ## OPTIONS
-     *
-     * [--clearindex]
-     * : Clear provider records before indexing posts.
      */
     public function build(array $arguments, array $associativeArguments): void
     {
@@ -44,11 +39,6 @@ class BuildSearchIndexCommand
         }
 
         $provider = $this->providerFactory->create();
-
-        if ($this->hasFlag($associativeArguments, 'clearindex')) {
-            $this->callWpCli('log', 'Clearing existing search index records...');
-            $provider->clearObjects();
-        }
 
         $this->callWpCli('log', 'Starting search index build for site ' . $this->wpService->getOption('home'));
         $indexer = new PostIndexer($this->wpService, $provider);
@@ -88,15 +78,6 @@ class BuildSearchIndexCommand
         ]), ['attachment']));
 
         return $this->wpService->applyFilters('Municipio/SearchIndex/IndexablePostTypes', $postTypes);
-    }
-
-    /**
-     * Check whether a boolean WP-CLI flag has been enabled.
-     */
-    private function hasFlag(array $associativeArguments, string $flag): bool
-    {
-        return ($associativeArguments[$flag] ?? false) === true
-            || ($associativeArguments[$flag] ?? '') === 'true';
     }
 
     /**
