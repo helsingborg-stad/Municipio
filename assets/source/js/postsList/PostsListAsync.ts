@@ -65,10 +65,14 @@ export const postsListAsync = (
 		) => {
 			updateUrlParams(params, clearUrlParams);
 			const currentRequest = ++requestCount;
+			const requestParams = {
+				...params,
+				requestUri: `${window.location.pathname}${window.location.search}`,
+			};
 
 			try {
 				setIsLoading(true);
-				const html = await fetchHTML(params);
+				const html = await fetchHTML(requestParams);
 				const staleResponse = currentRequest !== requestCount;
 				if (staleResponse) return;
 				renderHTML(html);
