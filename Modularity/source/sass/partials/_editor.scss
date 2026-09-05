@@ -299,6 +299,8 @@
         @media screen and (min-width: 851px) {
             position: fixed;
             top: 40px;
+            width: 280px;
+            z-index: 100;
 
             .modularity-modules {
                 height: 100%;
