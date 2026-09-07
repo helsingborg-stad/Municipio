@@ -186,6 +186,8 @@ export async function getRemoteSiteDesignData(
 		response = await fetch(endpointUrl, {
 			headers: {
 				Accept: "application/json",
+				// Required for the cookie-authenticated permission check on the proxy route
+				"X-WP-Nonce": wpApiSettings?.nonce ?? "",
 			},
 		});
 	} catch (error) {
