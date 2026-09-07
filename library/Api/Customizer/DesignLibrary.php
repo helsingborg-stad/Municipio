@@ -4,7 +4,6 @@ namespace Municipio\Api\Customizer;
 
 use Municipio\Api\RestApiEndpoint;
 use Municipio\Customizer\DesignLibrarySettingPolicy;
-use Municipio\Helper\WpService as WpServiceHelper;
 use WP_Error;
 use WP_Http;
 use WP_REST_Response;
@@ -220,60 +219,91 @@ class DesignLibrary extends RestApiEndpoint
 			}
 
 			$sharedMods[$key] = $mod;
+		}
 
-			if (!empty($mod['font-family']) && is_string($mod['font-family'])) {
-				$fontFileUrl = $this->getUploadedFontUrl($mod['font-family']);
-				if ($fontFileUrl !== null) {
-					$sharedMods['custom_fonts'][$mod['font-family']] = $fontFileUrl;
-				}
-			}
+		$activeFontFileUrls = $this->getActiveFontFileUrls();
+
+		if ($activeFontFileUrls !== []) {
+			$sharedMods['custom_fonts'] = $activeFontFileUrls;
 		}
 
 		return $sharedMods;
 	}
 
-	private function getUploadedFontUrl(string $fontFamily = ''): ?string
+	/**
+	 * Get file URLs for the font families currently activated in the Font Library.
+	 * Fonts present in the Font Library but not activated are intentionally excluded.
+	 *
+	 * @return array<string, string>
+	 */
+	private function getActiveFontFileUrls(): array
 	{
-		if ($fontFamily === '') {
-			return null;
-		}
+		$fontFileUrls = [];
 
-		$wpService = WpServiceHelper::get();
+		foreach ($this->getActivatedFontFamilies() as $fontFamily) {
+			$name = $fontFamily['name'] ?? null;
+			$fontFaces = $fontFamily['fontFace'] ?? null;
 
-		if (!$wpService->postTypeExists('wp_font_family') || !$wpService->postTypeExists('wp_font_face')) {
-			return null;
-		}
-
-		$fontFamilyPost = $wpService->getPageByPath($wpService->sanitizeTitle($fontFamily), 'OBJECT', 'wp_font_family');
-
-		if (!is_object($fontFamilyPost) || !property_exists($fontFamilyPost, 'ID')) {
-			return null;
-		}
-
-		$fontFaces = $wpService->getPosts([
-			'post_type' => 'wp_font_face',
-			'post_status' => 'publish',
-			'post_parent' => (int) $fontFamilyPost->ID,
-			'posts_per_page' => -1,
-			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false,
-		]);
-
-		foreach ($fontFaces as $fontFace) {
-			$fontFaceSettings = is_object($fontFace) && property_exists($fontFace, 'post_content')
-				? json_decode((string) $fontFace->post_content, true)
-				: null;
-			$sources = is_array($fontFaceSettings) && isset($fontFaceSettings['src'])
-				? (array) $fontFaceSettings['src']
-				: [];
-
-			if ($sources === [] || !is_string($sources[0]) || $sources[0] === '') {
+			if (!is_string($name) || $name === '' || !is_array($fontFaces)) {
 				continue;
 			}
 
-			return $sources[0];
+			$fontFileUrl = $this->getFirstFontFaceSourceUrl($fontFaces);
+
+			if ($fontFileUrl !== null) {
+				$fontFileUrls[$name] = $fontFileUrl;
+			}
+		}
+
+		return $fontFileUrls;
+	}
+
+	/**
+	 * Get the font families currently activated via the Font Library (stored in Global Styles).
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	private function getActivatedFontFamilies(): array
+	{
+		if (
+			!class_exists(\WP_Theme_JSON_Resolver::class)
+			|| !method_exists(\WP_Theme_JSON_Resolver::class, 'get_user_global_styles_post_id')
+		) {
+			return [];
+		}
+
+		$globalStylesPostId = \WP_Theme_JSON_Resolver::get_user_global_styles_post_id();
+
+		if (!is_numeric($globalStylesPostId) || (int) $globalStylesPostId <= 0) {
+			return [];
+		}
+
+		$globalStylesPost = get_post((int) $globalStylesPostId);
+		$postContent = is_object($globalStylesPost) && property_exists($globalStylesPost, 'post_content')
+			? (string) $globalStylesPost->post_content
+			: '';
+
+		$globalStylesData = json_decode($postContent, true);
+		$customFontFamilies = $globalStylesData['settings']['typography']['fontFamilies']['custom'] ?? null;
+
+		return is_array($customFontFamilies) ? array_values(array_filter($customFontFamilies, 'is_array')) : [];
+	}
+
+	/**
+	 * @param array<int, array<string, mixed>> $fontFaces
+	 */
+	private function getFirstFontFaceSourceUrl(array $fontFaces): ?string
+	{
+		foreach ($fontFaces as $fontFace) {
+			$src = $fontFace['src'] ?? null;
+			$sources = is_array($src) ? $src : (is_string($src) ? [$src] : []);
+
+			if ($sources !== [] && is_string($sources[0]) && $sources[0] !== '') {
+				return $sources[0];
+			}
 		}
 
 		return null;
 	}
 }
+
