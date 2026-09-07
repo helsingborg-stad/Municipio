@@ -48,6 +48,10 @@ class SearchIndexSettings
      */
     public function registerOptionsPage(): void
     {
+        if (!$this->wpService->currentUserCan('manage_options')) {
+            return;
+        }
+
         $this->acfService->addOptionsPage([
             'page_title' => $this->wpService->__('Search Index', 'municipio'),
             'menu_title' => $this->wpService->__('Search Index', 'municipio'),
