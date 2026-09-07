@@ -56,7 +56,6 @@ class PostsListRender extends RestApiEndpoint
     {
         $attributesJson = $request->get_param('attributes');
         $attributes = json_decode($attributesJson, true);
-        $requestUri = $request->get_param('requestUri');
 
         if (empty($attributes) || !is_array($attributes)) {
             $error = new WP_Error();
@@ -64,7 +63,13 @@ class PostsListRender extends RestApiEndpoint
             return rest_ensure_response($error);
         }
 
-        $this->hydrateRequestGlobals($request->get_params(), $requestUri);
+        // Merge GET parameters into $_GET for filter/search/pagination support
+        $params = $request->get_params();
+        foreach ($params as $key => $value) {
+            if ($key !== 'attributes' && !isset($_GET[$key])) {
+                $_GET[$key] = $value;
+            }
+        }
 
         try {
             $wpService  = WpService::get();
@@ -97,21 +102,5 @@ class PostsListRender extends RestApiEndpoint
     public function permissionCallback(): bool
     {
         return true;
-    }
-
-    /**
-     * Hydrates request globals used by downstream rendering.
-     */
-    protected function hydrateRequestGlobals(array $params, null|string $requestUri): void
-    {
-        if (is_string($requestUri) && str_starts_with($requestUri, '/')) {
-            $_SERVER['REQUEST_URI'] = $requestUri;
-        }
-
-        foreach ($params as $key => $value) {
-            if (!in_array($key, ['attributes', 'requestUri'], true) && !isset($_GET[$key])) {
-                $_GET[$key] = $value;
-            }
-        }
     }
 }
