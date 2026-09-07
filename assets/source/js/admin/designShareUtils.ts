@@ -1,3 +1,4 @@
+import { activateFont } from "../restApi/endpoints/activateFont";
 import type { MediaSideloadArgs } from "../restApi/endpoints/mediaSideload";
 import { mediaSideload } from "../restApi/endpoints/mediaSideload";
 import { isRemoteMediaFile } from "../utils/isRemoteMediaFile";
@@ -91,6 +92,22 @@ function isAllowedImportSettingKey(key: string): boolean {
 
 function hasOwn(object: object, property: string): boolean {
 	return Object.hasOwn(object, property);
+}
+
+type FontFaceVariant = {
+	fontWeight: string;
+	fontStyle: string;
+	src: string;
+};
+
+function isFontFaceVariant(value: unknown): value is FontFaceVariant {
+	return (
+		value !== null &&
+		typeof value === "object" &&
+		typeof (value as FontFaceVariant).fontWeight === "string" &&
+		typeof (value as FontFaceVariant).fontStyle === "string" &&
+		typeof (value as FontFaceVariant).src === "string"
+	);
 }
 
 export async function handleMediaSideload(args: MediaSideloadArgs) {
@@ -303,14 +320,24 @@ export async function importSettings(formattedMods: CustomizerMods) {
 			continue;
 		}
 
-		if (key.startsWith("custom_fonts") && typeof value === "string") {
+		if (key.startsWith("custom_fonts") && Array.isArray(value)) {
 			const fontName = key.match(/\[(.+)\]$/);
 			if (fontName === null) continue;
-			await handleMediaSideload({
-				url: value,
-				description: fontName[1],
-				return: "id",
-			});
+
+			for (const variant of value) {
+				if (!isFontFaceVariant(variant)) continue;
+				await activateFont
+					.call({
+						fontFamily: fontName[1],
+						fontWeight: variant.fontWeight,
+						fontStyle: variant.fontStyle,
+						url: variant.src,
+					})
+					.catch((error) => {
+						console.error(error);
+						return null;
+					});
+			}
 		} else if (typeof control !== "undefined") {
 			if (typeof value === "string" && isRemoteMediaFile(value)) {
 				await migrateRemoteMediaFile(value, control);
