@@ -39,6 +39,7 @@ class SearchIndexSettings
         $this->wpService->addFilter('acf/load_field/name=search_index_provider', [$this, 'addProviderChoices']);
         $this->wpService->addFilter('acf/load_field/name=search_index_attachment_mime_types', [$this, 'addAttachmentMimeTypeChoices']);
         $this->wpService->addFilter('acf/load_field', [$this, 'disableConstantOverrideField']);
+        $this->wpService->addFilter('acf/load_value', [$this, 'loadConstantOverrideValue'], 20, 3);
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
     }
 
@@ -136,6 +137,20 @@ class SearchIndexSettings
         $field['instructions'] = trim(($field['instructions'] ?? '') . ' ' . $overrideNotice);
 
         return $field;
+    }
+
+    /**
+     * Load effective values for fields overridden by constants.
+     */
+    public function loadConstantOverrideValue(mixed $value, mixed $postId, array $field): mixed
+    {
+        $fieldName = $field['name'] ?? '';
+
+        if (!is_string($fieldName) || $this->config->overridingConstant($fieldName) === null) {
+            return $value;
+        }
+
+        return $this->config->effectiveValue($fieldName) ?? $value;
     }
 
     /**

@@ -100,6 +100,58 @@ class SearchIndexSettingsTest extends TestCase
         static::assertSame($field, $settings->disableConstantOverrideField($field));
     }
 
+    /**
+     * Verify the provider field shows the effective constant-backed selection.
+     */
+    public function testLoadsEffectiveProviderValueWhenOverriddenByConstant(): void
+    {
+        $wpService = new FakeWpService();
+        $acfService = new FakeAcfService([
+            'getField' => static fn(string $selector): string => $selector === 'search_index_provider' ? 'algolia' : '',
+        ]);
+        $config = new SearchIndexConfig($acfService, new FakeConstant([
+            'SEARCH_INDEX_PROVIDER' => 'typesense',
+        ]));
+        $settings = new SearchIndexSettings(
+            $wpService,
+            $acfService,
+            $config,
+            new SearchProviderFactory($wpService, $config),
+            static::createAdminNoticesService()
+        );
+
+        $value = call_user_func([$settings, 'loadConstantOverrideValue'], 'algolia', 'option', [
+            'name' => 'search_index_provider',
+        ]);
+
+        static::assertSame('typesense', $value);
+    }
+
+    /**
+     * Verify other constant-backed fields also show their effective value.
+     */
+    public function testLoadsEffectiveConstantBackedFieldValue(): void
+    {
+        $wpService = new FakeWpService();
+        $acfService = new FakeAcfService();
+        $config = new SearchIndexConfig($acfService, new FakeConstant([
+            'SEARCH_INDEX_TYPESENSE_API_KEY' => implode('-', ['server', 'api', 'key']),
+        ]));
+        $settings = new SearchIndexSettings(
+            $wpService,
+            $acfService,
+            $config,
+            new SearchProviderFactory($wpService, $config),
+            static::createAdminNoticesService()
+        );
+
+        $value = call_user_func([$settings, 'loadConstantOverrideValue'], '', 'option', [
+            'name' => 'search_index_typesense_api_key',
+        ]);
+
+        static::assertSame(implode('-', ['server', 'api', 'key']), $value);
+    }
+
     private static function createAdminNoticesService(): AdminNoticesInterface {
         return new class implements AdminNoticesInterface {
             public function addNotice(string $message, AdminNoticeType $type = AdminNoticeType::INFO, bool $dismissible = true): void
