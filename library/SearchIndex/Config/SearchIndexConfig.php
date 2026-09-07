@@ -34,6 +34,25 @@ class SearchIndexConfig
         return $this->getStringSetting('search_index_provider') ?: 'algolia';
     }
 
+    /**
+     * Return the effective value for a constant-backed field.
+     */
+    public function effectiveValue(string $field): ?string
+    {
+        return match ($field) {
+            'search_index_provider' => $this->provider(),
+            'search_index_algolia_application_id' => $this->algoliaApplicationId(),
+            'search_index_algolia_api_key' => $this->algoliaApiKey(),
+            'search_index_algolia_public_api_key' => $this->algoliaPublicApiKey(),
+            'search_index_algolia_index_name' => $this->algoliaIndexName(),
+            'search_index_typesense_api_url' => $this->typesenseApiUrl(),
+            'search_index_typesense_api_key' => $this->typesenseApiKey(),
+            'search_index_typesense_public_api_key' => $this->typesensePublicApiKey(),
+            'search_index_typesense_collection_name' => $this->typesenseCollectionName(),
+            default => null,
+        };
+    }
+
     public function algoliaApplicationId(): string
     {
         return $this->getStringSetting('search_index_algolia_application_id');
