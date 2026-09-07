@@ -22,6 +22,19 @@ class CreateRecordFromPostTest extends TestCase
         static::assertIsArray($record);
     }
 
+    #[TestDox('createRecordFromPost() indexes the permalink resolved by the configured permalink structure')]
+    public function testCreateRecordFromPostIndexesResolvedPermalink(): void
+    {
+        $factory = new CreateRecordFromPost(static::createWpService());
+
+        $record = $factory->createRecordFromPost(
+            static::createPost(['ID' => 159, 'post_title' => 'Example title', 'post_type' => 'page'])
+        );
+
+        static::assertSame('https://www.example.test/example-title/', $record['permalink']);
+        static::assertStringNotContainsString('post_type=', $record['permalink']);
+    }
+
     private static function createWpService(): WpService {
         return new FakeWpService([
             'homeUrl' => 'https://www.example.test/path',
@@ -30,7 +43,7 @@ class CreateRecordFromPostTest extends TestCase
             'applyFilters' => static fn(string $hookName, mixed $value) => $value,
             'getTheExcerpt' => '[shortcode]<p>Useful excerpt</p>',
             'wpTrimWords' => static fn(string $text): string => $text,
-            'getPostPermalink' => 'https://www.example.test/example-title',
+            'getPermalink' => 'https://www.example.test/example-title/',
             'getOption' => 'Y-m-d',
             'getPostThumbnailId' => 99,
             'getThePostThumbnailUrl' => 'https://www.example.test/thumbnail.jpg',
