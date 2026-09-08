@@ -17,7 +17,6 @@
     ])
         @typography([
             'element' => 'h2',
-            'variant' => 'h1',
             'classList' => ['backdrop-banner__navigation-item-title'],
         ])
             {!! !empty($row['title']) ? $row['title'] : 'Row' . ($index + 1) !!}
