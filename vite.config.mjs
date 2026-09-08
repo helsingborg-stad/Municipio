@@ -88,8 +88,6 @@ const entries = {
 
 	/* Search Index */
 	"js/search-index-search-page": "./library/SearchIndex/SearchPage/js/index.ts",
-	"js/search-index-admin-indexing":
-		"./library/SearchIndex/Admin/Indexing/js/index.ts",
 	"css/search-index-search-page":
 		"./library/SearchIndex/SearchPage/css/search-page.scss",
 
@@ -110,8 +108,8 @@ const entries = {
 		"./assets/source/js/admin/customizerHeaderLogoScrollAspectRatioPreview.ts",
 	"js/customizer-controls": "./library/Customizer/Controls/index.ts",
 	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
-	"js/event-source-progress":
-		"./assets/source/js/admin/eventSourceProgress/index.ts",
+	"js/admin-progress-action":
+		"./library/ProgressReporter/AdminProgressAction/js/index.ts",
 };
 
 export default defineConfig(({ mode }) => {

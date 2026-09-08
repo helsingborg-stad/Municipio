@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Admin\Indexing;
 
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
-use WpUtilService\Features\Enqueue\EnqueueManager;
 
 /**
  * Tests Search Index admin indexing controls.
@@ -31,21 +31,21 @@ class SearchIndexingAdminTest extends TestCase
     }
 
     /**
-     * Verify the module registers its UI and asset hooks.
+    * Verify the module registers its UI hook.
      */
     public function testRegistersAdminHooks(): void
     {
         $wpService = new FakeWpService(['addAction' => true]);
         $admin = new SearchIndexingAdmin(
             $wpService,
-            new EnqueueManager($wpService),
             $this->createStub(SearchIndexConfig::class),
+            new AdminProgressActionButton($wpService),
         );
 
         $admin->addHooks();
 
         $actions = array_column($wpService->methodCalls['addAction'], 0);
-        static::assertSame(['acf/input/admin_head', 'admin_enqueue_scripts'], $actions);
+        static::assertSame(['acf/input/admin_head'], $actions);
     }
 
     /**
@@ -56,8 +56,8 @@ class SearchIndexingAdminTest extends TestCase
         $wpService = new FakeWpService(['currentUserCan' => false]);
         $admin = new SearchIndexingAdmin(
             $wpService,
-            new EnqueueManager($wpService),
             $this->createStub(SearchIndexConfig::class),
+            new AdminProgressActionButton($wpService),
         );
 
         $admin->registerMetaBox();
@@ -77,8 +77,8 @@ class SearchIndexingAdminTest extends TestCase
         ]);
         $admin = new SearchIndexingAdmin(
             $wpService,
-            new EnqueueManager($wpService),
             $this->createStub(SearchIndexConfig::class),
+            new AdminProgressActionButton($wpService),
         );
 
         $admin->registerMetaBox();
@@ -102,13 +102,18 @@ class SearchIndexingAdminTest extends TestCase
             'escHtml' => static fn(string $value): string => $value,
             '__' => static fn(string $text): string => $text,
         ]);
-        $admin = new SearchIndexingAdmin($wpService, new EnqueueManager($wpService), $config);
+        $admin = new SearchIndexingAdmin($wpService, $config, new AdminProgressActionButton($wpService));
 
         ob_start();
         $admin->render();
         $output = (string) ob_get_clean();
 
-        static::assertStringContainsString('data-search-index-build', $output);
+        static::assertStringContainsString(
+            'data-js-progress-url="https://example.test/wp-admin/admin-ajax.php?action=municipio_search_index_build"',
+            $output,
+        );
+        static::assertStringContainsString('data-js-progress-method="post"', $output);
+        static::assertStringContainsString('data-js-progress-nonce="nonce-value"', $output);
         static::assertStringContainsString(' disabled', $output);
         static::assertStringContainsString('Configure and save a search provider before indexing.', $output);
     }

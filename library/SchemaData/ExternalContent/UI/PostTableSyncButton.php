@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SchemaData\ExternalContent\UI;
 
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
+use Municipio\ProgressReporter\UI\AdminProgressActionButtonConfig;
 use Municipio\SchemaData\ExternalContent\Rest\AjaxSync;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\AdminUrl;
 use WpService\Contracts\CurrentUserCan;
-use WpService\Contracts\EscHtml;
 use WpService\Contracts\GetCurrentScreen;
-use WpService\Contracts\SubmitButton;
-use WpService\Contracts\WpNonceUrl;
+use WpService\Contracts\__;
 
 /**
  * Class PostTableSyncButton
@@ -24,7 +25,8 @@ class PostTableSyncButton implements Hookable
      */
     public function __construct(
         private array $sourceConfigs,
-        private AddAction&GetCurrentScreen&SubmitButton&WpNonceUrl&EscHtml&CurrentUserCan&AdminUrl $wpService
+        private AddAction&CurrentUserCan&GetCurrentScreen&__ $wpService,
+        private AdminProgressActionButton $progressActionButton,
     ) {
     }
 
@@ -37,7 +39,7 @@ class PostTableSyncButton implements Hookable
             return;
         }
 
-        $this->wpService->addAction('manage_posts_extra_tablenav', array($this, 'addSyncButton'));
+        $this->wpService->addAction('manage_posts_extra_tablenav', [$this, 'addSyncButton']);
     }
 
     /**
@@ -52,15 +54,14 @@ class PostTableSyncButton implements Hookable
             fn($config) => $config->getPostType() === $this->wpService->getCurrentScreen()->post_type
         );
 
-        if (empty($postTypeHasExternalContentSource)) {
+        if ($postTypeHasExternalContentSource === []) {
             return;
         }
 
-        $classes  = 'button button-primary';
-        $label    = __('Sync all posts from remote source', 'municipio');
-        $ajaxUrl  = $this->wpService->adminUrl('admin-ajax.php');
-        $ajaxUrl .= '?action=' . AjaxSync::$action . '&post_type=' . $this->wpService->getCurrentScreen()->post_type;
-
-        echo '<a data-js-progress-url="' . esc_url($ajaxUrl) . '" class="' . $classes . '" href="#">' . $label . '</a>';
+        echo $this->progressActionButton->renderGet(new AdminProgressActionButtonConfig(
+            action: AjaxSync::$action,
+            label: $this->wpService->__('Sync all posts from remote source', 'municipio'),
+            parameters: ['post_type' => $this->wpService->getCurrentScreen()->post_type],
+        ));
     }
 }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Admin\Indexing;
 
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
+use Municipio\ProgressReporter\UI\AdminProgressActionButtonConfig;
+use Municipio\ProgressReporter\UI\AdminProgressActionButtonState;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use WpService\WpService;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /**
  * Adds Search Index indexing controls to the settings page.
@@ -20,8 +22,8 @@ class SearchIndexingAdmin
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueManagerInterface $enqueue,
         private SearchIndexConfig $config,
+        private AdminProgressActionButton $progressActionButton,
     ) {}
 
     /**
@@ -30,7 +32,6 @@ class SearchIndexingAdmin
     public function addHooks(): void
     {
         $this->wpService->addAction('acf/input/admin_head', [$this, 'registerMetaBox']);
-        $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
 
     /**
@@ -57,33 +58,22 @@ class SearchIndexingAdmin
      */
     public function render(): void
     {
-        $disabled = $this->config->isConfigured() ? '' : ' disabled';
-        $endpoint = $this->wpService->escUrl($this->wpService->adminUrl('admin-ajax.php'));
-        $nonce = $this->wpService->escAttr($this->wpService->wpCreateNonce(SearchIndexingRequest::NONCE_ACTION));
-        $label = $this->wpService->escHtml($this->wpService->__('Start indexing', 'municipio'));
-        $errorMessage = $this->wpService->escAttr($this->wpService->__('An error occurred', 'municipio'));
+        $state = $this->config->isConfigured()
+            ? AdminProgressActionButtonState::Enabled
+            : AdminProgressActionButtonState::Disabled;
 
-        echo '<button type="button" class="button button-primary" data-search-index-build data-endpoint="'
-            . $endpoint . '" data-nonce="' . $nonce . '" data-error-message="' . $errorMessage . '"'
-            . $disabled . '>' . $label . '</button>';
+        echo $this->progressActionButton->renderPost(new AdminProgressActionButtonConfig(
+            action: SearchIndexingRequest::ACTION,
+            label: $this->wpService->__('Start indexing', 'municipio'),
+            state: $state,
+            errorMessage: $this->wpService->__('An error occurred', 'municipio'),
+        ));
 
-        if ($disabled !== '') {
+        if ($state === AdminProgressActionButtonState::Disabled) {
             echo '<p>' . $this->wpService->escHtml(
                 $this->wpService->__('Configure and save a search provider before indexing.', 'municipio')
             ) . '</p>';
         }
-    }
-
-    /**
-     * Enqueue indexing assets only on the Search Index settings page.
-     */
-    public function enqueueAssets(): void
-    {
-        if (!$this->isIndexSettingsPage() || !$this->wpService->currentUserCan('manage_options')) {
-            return;
-        }
-
-        $this->enqueue->add('js/search-index-admin-indexing.js');
     }
 
     /**

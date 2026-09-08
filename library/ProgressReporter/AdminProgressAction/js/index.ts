@@ -1,4 +1,4 @@
-import EventSourceTrigger from "./EventSourceTrigger";
+import ProgressActionTrigger from "./ProgressActionTrigger";
 import ProgressBarWithLabel from "./UIComponents/ProgressBarWithLabel";
 
 export default (() => {
@@ -12,13 +12,7 @@ export default (() => {
 		);
 	}
 
-	/**
-	 * Setup the progress bar for each element with the data-js-progress-url attribute
-	 */
 	document.querySelectorAll("[data-js-progress-url]").forEach((element) => {
-		new EventSourceTrigger(
-			element as HTMLElement,
-			element.getAttribute("data-js-progress-url") as string,
-		);
+		new ProgressActionTrigger(element as HTMLElement);
 	});
 })();

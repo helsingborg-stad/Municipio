@@ -7,6 +7,7 @@ use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
 use Municipio\ProgressReporter\HttpHeader\HttpHeader;
 use Municipio\ProgressReporter\OutputBuffer\OutputBuffer;
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\SchemaData\ExternalContent\Cron\AllowCronToEditPosts;
@@ -211,7 +212,11 @@ class ExternalContentFeature
      */
     private function setupUIButtons(array $sourceConfigs): void
     {
-        (new \Municipio\SchemaData\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService))->addHooks();
+        (new \Municipio\SchemaData\ExternalContent\UI\PostTableSyncButton(
+            $sourceConfigs,
+            $this->wpService,
+            new AdminProgressActionButton($this->wpService),
+        ))->addHooks();
         (new \Municipio\SchemaData\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService))->addHooks();
     }
 

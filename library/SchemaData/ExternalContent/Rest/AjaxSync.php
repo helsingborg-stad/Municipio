@@ -5,17 +5,22 @@ declare(strict_types=1);
 
 namespace Municipio\SchemaData\ExternalContent\Rest;
 
+use Municipio\ProgressReporter\AjaxAction\AbstractProgressAjaxAction;
+use Municipio\ProgressReporter\AjaxAction\ProgressAjaxActionConfig;
+use Municipio\ProgressReporter\AjaxAction\ProgressAjaxActionMessages;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgressInterface;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\ProgressReporterInterface;
 use Municipio\SchemaData\ExternalContent\SyncHandler\SyncHandlerInterface;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\CheckAjaxReferer;
+use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\__;
 
 /**
  * Class AjaxSync
  */
-class AjaxSync implements Hookable
+class AjaxSync extends AbstractProgressAjaxAction
 {
     public static string $action = 'municipio_external_content_sync';
 
@@ -27,18 +32,34 @@ class AjaxSync implements Hookable
     public function __construct(
         private array $sourceConfigs,
         private PostTypeSyncInProgressInterface $inProgress,
-        private ProgressReporterInterface $progressReporter,
+        ProgressReporterInterface $progressReporter,
         private SyncHandlerInterface $syncHandler,
-        private __ $wpService,
+        private AddAction&CheckAjaxReferer&CurrentUserCan&__ $translationService,
     ) {
+        parent::__construct($translationService, $progressReporter);
     }
 
     /**
-     * @inheritDoc
+     * Get the external content AJAX action name.
      */
-    public function addHooks(): void
+    protected function actionName(): string
     {
-        add_action('wp_ajax_' . self::$action, [$this, 'handleRequest']);
+        return self::$action;
+    }
+
+    /**
+     * Get external content request configuration.
+     */
+    protected function config(): ProgressAjaxActionConfig
+    {
+        return new ProgressAjaxActionConfig(
+            requiredCapability: 'administrator',
+            messages: new ProgressAjaxActionMessages(
+                unauthorized: $this->translationService->__('You are not allowed to sync external content.', 'municipio'),
+                invalidNonce: $this->translationService->__('The sync request could not be verified. Reload the page and try again.', 'municipio'),
+            ),
+            nonceAction: self::$action,
+        );
     }
 
     /**
@@ -47,39 +68,32 @@ class AjaxSync implements Hookable
      * @return void
      * @throws \InvalidArgumentException if the post_type parameter is missing.
      */
-    public function handleRequest(): void
+    protected function execute(): string
     {
-        $postType = $_REQUEST['post_type'] ?? null;
-        $postId   = $_REQUEST['post_id'] ?? null;
+        $postType = $_GET['post_type'] ?? null;
+        $postId   = $_GET['post_id'] ?? null;
 
-        if (empty($postType)) {
+        if (!is_string($postType) || $postType === '') {
             // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
-            throw new \InvalidArgumentException($this->wpService->__('Missing post_type parameter', 'municipio'));
+            throw new \InvalidArgumentException($this->translationService->__('Missing post_type parameter', 'municipio'));
         }
 
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-        $this->progressReporter->start();
-
         if ($this->inProgress->isInProgress($postType)) {
-            $this->progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
-            return;
+            return $this->translationService->__('Sync already in progress', 'municipio');
         }
 
         $this->inProgress->setInProgress($postType, true);
 
         try {
-            $this->syncHandler->sync($postType, $postId);
-        } catch (\RuntimeException $e) {
-            $this->progressReporter->finish($e->getMessage());
-            $this->inProgress->setInProgress($postType, false);
-            return;
+            $this->syncHandler->sync($postType, is_numeric($postId) ? (int) $postId : null);
         } finally {
             $this->inProgress->setInProgress($postType, false);
         }
 
-        $this->progressReporter->finish($this->wpService->__('Sync completed. Reload page to see changes.', 'municipio'));
+        return $this->translationService->__('Sync completed. Reload page to see changes.', 'municipio');
     }
 }
