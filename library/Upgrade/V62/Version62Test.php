@@ -19,7 +19,7 @@ class Version62Test extends TestCase {
             public array $updatedPostMeta = [];
             public ?array $postQueryArgs = null;
 
-            public function getPostTypes(?array $args = null): array
+            public function getPostTypes(array|string $args = [], string $output = 'names', string $operator = 'and'): array
             {
                 return ['post', 'page', 'attachment'];
             }
