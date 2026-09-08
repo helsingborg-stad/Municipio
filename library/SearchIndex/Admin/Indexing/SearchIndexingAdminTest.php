@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Admin\Indexing;
 
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -38,6 +39,7 @@ class SearchIndexingAdminTest extends TestCase
         $admin = new SearchIndexingAdmin(
             $wpService,
             $this->createStub(SearchIndexConfig::class),
+            new AdminProgressActionButton($wpService),
         );
 
         $admin->addHooks();
@@ -55,6 +57,7 @@ class SearchIndexingAdminTest extends TestCase
         $admin = new SearchIndexingAdmin(
             $wpService,
             $this->createStub(SearchIndexConfig::class),
+            new AdminProgressActionButton($wpService),
         );
 
         $admin->registerMetaBox();
@@ -75,6 +78,7 @@ class SearchIndexingAdminTest extends TestCase
         $admin = new SearchIndexingAdmin(
             $wpService,
             $this->createStub(SearchIndexConfig::class),
+            new AdminProgressActionButton($wpService),
         );
 
         $admin->registerMetaBox();
@@ -98,7 +102,7 @@ class SearchIndexingAdminTest extends TestCase
             'escHtml' => static fn(string $value): string => $value,
             '__' => static fn(string $text): string => $text,
         ]);
-        $admin = new SearchIndexingAdmin($wpService, $config);
+        $admin = new SearchIndexingAdmin($wpService, $config, new AdminProgressActionButton($wpService));
 
         ob_start();
         $admin->render();

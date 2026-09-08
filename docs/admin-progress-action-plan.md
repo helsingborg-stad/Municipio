@@ -29,46 +29,36 @@ The global admin bundle is owned by the ProgressReporter feature and built from:
 
 `index.ts` initializes every element with `data-js-progress-url`. The trigger selects a transport from its data attributes, while the controller handles progress UI and button state independently of the transport.
 
-The package is built as `js/admin-progress-action.js` and enqueued globally for WordPress admin pages by `library/Theme/Enqueue.php`. New consumers therefore require markup and a PHP endpoint, but no feature-specific JavaScript or enqueue hook.
+The package is built as `js/admin-progress-action.js` and enqueued globally for WordPress admin pages by `library/Theme/Enqueue.php`. New consumers therefore require a PHP action and shared button configuration, but no feature-specific markup, JavaScript, or enqueue hook.
 
-### Markup contract
+### Button renderer
 
-Required attribute:
-
-- `data-js-progress-url`: AJAX endpoint URL, including the WordPress action query parameter.
-
-Optional attributes:
-
-- `data-js-progress-method="post"`: Use streamed `fetch`. If omitted, use GET through `EventSource`.
-- `data-js-progress-nonce`: Send this value as `_ajax_nonce` for POST requests.
-- `data-js-progress-error-message`: Localized message displayed when transport or server streaming fails.
+`library/ProgressReporter/UI/AdminProgressActionButton.php` owns endpoint construction, nonce generation, escaping, CSS classes, and all `data-js-progress-*` attributes. Features pass an `AdminProgressActionButtonConfig` to either `renderGet()` or `renderPost()`.
 
 GET example:
 
-```html
-<a
-    class="button button-primary"
-    href="#"
-    data-js-progress-url="/wp-admin/admin-ajax.php?action=example_sync&_wpnonce=..."
->
-    Sync
-</a>
+```php
+echo $progressActionButton->renderGet(new AdminProgressActionButtonConfig(
+    action: ExampleSync::ACTION,
+    label: $wpService->__('Sync', 'municipio'),
+    parameters: ['post_type' => $postType],
+));
 ```
 
 POST example:
 
-```html
-<button
-    type="button"
-    class="button button-primary"
-    data-js-progress-url="/wp-admin/admin-ajax.php?action=example_build"
-    data-js-progress-method="post"
-    data-js-progress-nonce="..."
-    data-js-progress-error-message="An error occurred"
->
-    Build
-</button>
+```php
+echo $progressActionButton->renderPost(new AdminProgressActionButtonConfig(
+    action: ExampleBuild::ACTION,
+    label: $wpService->__('Build', 'municipio'),
+    state: $isConfigured
+        ? AdminProgressActionButtonState::Enabled
+        : AdminProgressActionButtonState::Disabled,
+    errorMessage: $wpService->__('An error occurred', 'municipio'),
+));
 ```
+
+The renderer emits a standard `<button type="button">`. GET actions receive a nonce-protected URL and use `EventSource`; POST actions receive the method, nonce, and error-message attributes required by `FetchStreamSource`.
 
 ### SSE event contract
 
@@ -160,3 +150,5 @@ Implementation commits:
 - `refactor(search-index): use shared progress action`
 - `fix(progress): defer request message creation`
 - `fix(admin): block disabled progress triggers`
+- `refactor(progress): colocate admin action javascript`
+- `refactor(progress): centralize admin action buttons`

@@ -7,6 +7,7 @@ namespace Municipio\SearchIndex\Admin\Indexing;
 use Municipio\ProgressReporter\HttpHeader\HttpHeader;
 use Municipio\ProgressReporter\OutputBuffer\OutputBuffer;
 use Municipio\ProgressReporter\SseProgressReporterService;
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use Municipio\SearchIndex\Provider\SearchProviderFactory;
 use WpService\WpService;
@@ -41,6 +42,10 @@ class SearchIndexingFeature
         );
 
         (new SearchIndexingRequest($this->wpService, $runner, $lock, $progressReporter))->addHooks();
-        (new SearchIndexingAdmin($this->wpService, $this->config))->addHooks();
+        (new SearchIndexingAdmin(
+            $this->wpService,
+            $this->config,
+            new AdminProgressActionButton($this->wpService),
+        ))->addHooks();
     }
 }

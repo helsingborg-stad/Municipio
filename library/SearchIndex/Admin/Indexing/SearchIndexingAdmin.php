@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Admin\Indexing;
 
+use Municipio\ProgressReporter\UI\AdminProgressActionButton;
+use Municipio\ProgressReporter\UI\AdminProgressActionButtonConfig;
+use Municipio\ProgressReporter\UI\AdminProgressActionButtonState;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use WpService\WpService;
 
@@ -20,6 +23,7 @@ class SearchIndexingAdmin
     public function __construct(
         private WpService $wpService,
         private SearchIndexConfig $config,
+        private AdminProgressActionButton $progressActionButton,
     ) {}
 
     /**
@@ -54,20 +58,18 @@ class SearchIndexingAdmin
      */
     public function render(): void
     {
-        $disabled = $this->config->isConfigured() ? '' : ' disabled';
-        $endpoint = $this->wpService->escUrl(
-            $this->wpService->adminUrl('admin-ajax.php') . '?action=' . SearchIndexingRequest::ACTION,
-        );
-        $nonce = $this->wpService->escAttr($this->wpService->wpCreateNonce(SearchIndexingRequest::NONCE_ACTION));
-        $label = $this->wpService->escHtml($this->wpService->__('Start indexing', 'municipio'));
-        $errorMessage = $this->wpService->escAttr($this->wpService->__('An error occurred', 'municipio'));
+        $state = $this->config->isConfigured()
+            ? AdminProgressActionButtonState::Enabled
+            : AdminProgressActionButtonState::Disabled;
 
-        echo '<button type="button" class="button button-primary" data-js-progress-url="'
-            . $endpoint . '" data-js-progress-method="post" data-js-progress-nonce="' . $nonce
-            . '" data-js-progress-error-message="' . $errorMessage . '"'
-            . $disabled . '>' . $label . '</button>';
+        echo $this->progressActionButton->renderPost(new AdminProgressActionButtonConfig(
+            action: SearchIndexingRequest::ACTION,
+            label: $this->wpService->__('Start indexing', 'municipio'),
+            state: $state,
+            errorMessage: $this->wpService->__('An error occurred', 'municipio'),
+        ));
 
-        if ($disabled !== '') {
+        if ($state === AdminProgressActionButtonState::Disabled) {
             echo '<p>' . $this->wpService->escHtml(
                 $this->wpService->__('Configure and save a search provider before indexing.', 'municipio')
             ) . '</p>';
