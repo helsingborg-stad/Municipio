@@ -340,13 +340,23 @@ class Curator extends \Modularity\Module
     }
 
     /**
-     * Check if the request is an AJAX request.
+     * Check if the request targets a Curator AJAX action.
      *
-     * @return bool True if the request is an AJAX request, false otherwise.
+     * @return bool True if the request is a Curator AJAX request, false otherwise.
      */
-    private function isAjaxRequest()
+    private function isAjaxRequest(): bool
     {
-        return (bool) (defined('DOING_AJAX') && DOING_AJAX);
+        return defined('DOING_AJAX')
+            && DOING_AJAX
+            && $this->isCuratorAjaxAction($_POST['action'] ?? '');
+    }
+
+    /**
+     * Determine whether an action belongs to this module.
+     */
+    private function isCuratorAjaxAction(string $action): bool
+    {
+        return in_array($action, ['mod_curator_get_feed', 'mod_curator_load_more'], true);
     }
 
     public function style()
