@@ -840,7 +840,6 @@ msgstr "Instagram"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr "URL"
 
@@ -886,7 +885,6 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -903,13 +901,11 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1427,7 +1423,6 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
 #: Modularity/source/php/Module/Posts/Posts.php:246
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1584,7 +1579,6 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1774,7 +1768,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -2422,20 +2415,17 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -3010,7 +3000,6 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -3132,7 +3121,6 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -5117,7 +5105,6 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -6817,7 +6804,6 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -7542,7 +7528,6 @@ msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
 #: library/Controller/BaseController.php:677
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr "Design"
 
@@ -8171,7 +8156,6 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:402
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -8184,7 +8168,6 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:409
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr "Datumetikett"
 
@@ -8197,7 +8180,6 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:454
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -8210,7 +8192,6 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:465
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -8268,7 +8249,6 @@ msgid "Wrap title in frame"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
@@ -8780,7 +8760,6 @@ msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr "Rad"
 
@@ -13096,36 +13075,6 @@ msgstr ""
 msgid "Search Index"
 msgstr "Sökindex"
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Newsitem"
-msgstr "Nyhetsartikel"
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Checkboxes"
-msgstr "Kryssrutor"
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Radio buttons"
-msgstr "Radioknappar"
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Filter settings"
-msgstr "Filterinställningar"
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date From"
-msgstr "Datum från"
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Select Image"
-msgstr "Välj bild"
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove Image"
-msgstr ""
-"Ta bort bild\n"
-"main"
-
 #: library/AcfFields/php/search-index-settings.php:51
 msgid "Algolia Index Name"
 msgstr "Algolia Index-namn"
@@ -13847,90 +13796,6 @@ msgstr ""
 "\n"
 "main"
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Time"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date, time"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Published"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Modified"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date source"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Appearance settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Number of columns"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable text search"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable date filter"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "DateModified"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Order by"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts per page"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable Pagination"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date To"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Image focal point"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Change Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Subtitle"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove row"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Backdrop banner settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Maximum number of rows reached."
-msgstr ""
-
 #: library/AcfFields/php/search-index-settings.php:14
 msgid "May be overridden by SEARCH_INDEX_PROVIDER."
 msgstr ""
@@ -14000,18 +13865,18 @@ msgstr "Sökindexering måste startas med en POST-förfrågan."
 msgid "The indexing request could not be verified. Reload the page and try again."
 msgstr "Indexförfrågan kunde inte verifieras. Ladda om sidan och försök igen."
 
-#: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:68
+#: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:69
 msgid "Search indexing is already in progress."
 msgstr "Sökindexering pågår redan."
 
-#: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:76
+#: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:77
 #, php-format
 msgid "Search indexing complete. Indexed %d item."
 msgid_plural "Search indexing complete. Indexed %d items."
 msgstr[0] "Sökindexering slutförd. Indexerade %d objekt."
 msgstr[1] "Sökindexering slutförd. Indexerade %d objekt."
 
-#: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:85
+#: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:86
 msgid "Search indexing failed. Check the provider configuration and try again."
 msgstr "Sökindexering misslyckades. Kontrollera leverantörskonfigurationen och försök igen."
 

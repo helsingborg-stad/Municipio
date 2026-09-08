@@ -6,7 +6,9 @@ export default (() => {
     /**
      * Register the custom element for the progress bar
      */
-    customElements.define(ProgressBarWithLabel.customElementName, ProgressBarWithLabel);
+    if (!customElements.get(ProgressBarWithLabel.customElementName)) {
+        customElements.define(ProgressBarWithLabel.customElementName, ProgressBarWithLabel);
+    }
 
     /**
      * Setup the progress bar for each element with the data-js-progress-url attribute

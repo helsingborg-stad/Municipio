@@ -1,35 +1,38 @@
+import ProgressBar from "../../../../../assets/source/js/admin/eventSourceProgress/ProgressBar";
+import ProgressBarWithLabel from "../../../../../assets/source/js/admin/eventSourceProgress/UIComponents/ProgressBarWithLabel";
+
 interface SseEvent {
 	type: string;
 	data: string;
 }
 
+if (!customElements.get(ProgressBarWithLabel.customElementName)) {
+	customElements.define(
+		ProgressBarWithLabel.customElementName,
+		ProgressBarWithLabel,
+	);
+}
+
 export class SearchIndexingClient {
-	private progressContainer: HTMLDivElement;
-	private progressElement: HTMLProgressElement;
-	private statusElement: HTMLElement;
+	private progressBar: ProgressBar;
+	private progressElement: ProgressBarWithLabel;
 
 	public constructor(private button: HTMLButtonElement) {
-		this.progressContainer = document.createElement("div");
-		this.progressElement = document.createElement("progress");
-		this.statusElement = document.createElement("p");
-		this.createProgressUi();
+		this.progressElement = document.createElement(
+			ProgressBarWithLabel.customElementName,
+		) as ProgressBarWithLabel;
+		this.progressElement.setAttribute("role", "status");
+		this.progressElement.setAttribute("aria-live", "polite");
+		this.progressElement.style.display = "block";
+		this.progressElement.style.marginTop = "8px";
+		this.progressBar = new ProgressBar(this.progressElement, this.button);
 		this.button.addEventListener("click", () => void this.start());
-	}
-
-	private createProgressUi(): void {
-		this.progressElement.max = 100;
-		this.progressElement.value = 0;
-		this.statusElement.setAttribute("role", "status");
-		this.statusElement.setAttribute("aria-live", "polite");
-		this.progressContainer.hidden = true;
-		this.progressContainer.append(this.progressElement, this.statusElement);
-		this.button.insertAdjacentElement("afterend", this.progressContainer);
 	}
 
 	public async start(): Promise<void> {
 		this.button.disabled = true;
-		this.progressContainer.hidden = false;
-		this.statusElement.textContent = "";
+		this.progressBar.show();
+		this.progressBar.update({ label: "", value: 0 });
 
 		const requestBody = new URLSearchParams({
 			action: "municipio_search_index_build",
@@ -50,7 +53,10 @@ export class SearchIndexingClient {
 
 			await this.consumeStream(response.body);
 		} catch {
-			this.statusElement.textContent = this.button.dataset.errorMessage ?? "";
+			this.progressBar.update({
+				label: this.button.dataset.errorMessage ?? "",
+				value: 100,
+			});
 		} finally {
 			this.button.disabled = false;
 		}
@@ -101,15 +107,15 @@ export class SearchIndexingClient {
 
 	private handleEvent(event: SseEvent): boolean {
 		if (event.type === "message" || event.type === "finish") {
-			this.statusElement.textContent = event.data;
+			this.progressBar.update({ label: event.data, value: null });
 		}
 
 		if (event.type === "progress") {
-			this.progressElement.value = Number(event.data);
+			this.progressBar.update({ label: null, value: Number(event.data) });
 		}
 
 		if (event.type === "finish") {
-			this.progressElement.value = 100;
+			this.progressBar.update({ label: null, value: 100 });
 			return true;
 		}
 

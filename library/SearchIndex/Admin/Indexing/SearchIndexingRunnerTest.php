@@ -51,6 +51,8 @@ class SearchIndexingRunnerTest extends TestCase
         static::assertSame(['Indexing 1/2', 'Indexing 2/2'], $messages);
         static::assertSame([50.0, 100], $percentages);
         static::assertSame('ids', $wpService->methodCalls['getPosts'][0][0]['fields']);
+        static::assertSame(-1, $wpService->methodCalls['getPosts'][0][0]['numberposts']);
+        static::assertArrayNotHasKey('paged', $wpService->methodCalls['getPosts'][0][0]);
     }
 
     /**

@@ -61,6 +61,7 @@ class SearchIndexingRequest
             return;
         }
 
+        set_time_limit(0);
         $lockOwner = bin2hex(random_bytes(16));
 
         if (!$this->lock->acquire($lockOwner)) {

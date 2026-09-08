@@ -54,11 +54,15 @@ describe("SearchIndexingClient", () => {
 			"action=municipio_search_index_build",
 		);
 		expect(request[1]?.body?.toString()).toContain("_ajax_nonce=nonce-value");
-		expect(button.nextElementSibling?.querySelector("progress")).not.toBeNull();
-		expect(document.querySelector('[role="status"]')?.textContent).toBe(
+		const progressBar = getProgressBar();
+		expect(button.nextElementSibling).toBe(progressBar);
+		expect(progressBar.style.display).toBe("block");
+		expect(progressBar.style.marginTop).toBe("8px");
+		expect(progressBar.getAttribute("label")).toBe(
 			"Search indexing complete.",
 		);
-		expect(document.querySelector("progress")?.value).toBe(100);
+		expect(progressBar.getAttribute("progress")).toBe("100");
+		expect(progressBar.shadowRoot?.querySelector("progress")).not.toBeNull();
 		expect(button.disabled).toBe(false);
 		expect(cancel).toHaveBeenCalledTimes(1);
 	});
@@ -72,12 +76,20 @@ describe("SearchIndexingClient", () => {
 
 		await client.start();
 
-		expect(document.querySelector('[role="status"]')?.textContent).toBe(
-			"Localized error",
-		);
+		const progressBar = getProgressBar();
+		expect(progressBar.getAttribute("label")).toBe("Localized error");
+		expect(progressBar.getAttribute("progress")).toBe("100");
 		expect(button.disabled).toBe(false);
 	});
 });
+
+function getProgressBar(): HTMLElement {
+	const progressBar = document.querySelector<HTMLElement>(
+		'progress-bar-with-label[role="status"]',
+	);
+	staticAssert(progressBar !== null);
+	return progressBar;
+}
 
 function createButton(): HTMLButtonElement {
 	const button = document.createElement("button");

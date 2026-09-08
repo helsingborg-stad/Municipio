@@ -124,10 +124,19 @@ class SearchIndexingRequestTest extends TestCase
         $lock->method('acquire')->willReturn(true);
         $lock->expects($this->once())->method('release');
         $runner = $this->createMock(SearchIndexingRunnerInterface::class);
-        $runner->method('run')->willReturn(2);
+        $runner->method('run')->willReturnCallback(static function (): int {
+            static::assertSame('0', ini_get('max_execution_time'));
+            return 2;
+        });
         $request = new SearchIndexingRequest($this->authorizedWpService(), $runner, $lock, $reporter);
 
-        $request->handleRequest();
+        $previousExecutionTime = ini_set('max_execution_time', '30');
+
+        try {
+            $request->handleRequest();
+        } finally {
+            ini_set('max_execution_time', (string) $previousExecutionTime);
+        }
 
         static::assertSame(['Search indexing complete. Indexed 2 items.'], $messages);
     }
