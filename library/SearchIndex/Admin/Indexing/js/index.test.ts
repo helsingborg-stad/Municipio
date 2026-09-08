@@ -58,9 +58,7 @@ describe("SearchIndexingClient", () => {
 		expect(button.nextElementSibling).toBe(progressBar);
 		expect(progressBar.style.display).toBe("block");
 		expect(progressBar.style.marginTop).toBe("8px");
-		expect(progressBar.getAttribute("label")).toBe(
-			"Search indexing complete.",
-		);
+		expect(progressBar.getAttribute("label")).toBe("Search indexing complete.");
 		expect(progressBar.getAttribute("progress")).toBe("100");
 		expect(progressBar.shadowRoot?.querySelector("progress")).not.toBeNull();
 		expect(button.disabled).toBe(false);
