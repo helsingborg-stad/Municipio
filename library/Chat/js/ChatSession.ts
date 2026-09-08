@@ -2,11 +2,25 @@ const SSE_CONTENT_TYPE = "text/event-stream";
 const CHAT_API_ENDPOINT = "municipio/v1/chat";
 
 export class ChatSession {
+	private static readonly SESSION_ID_KEY =
+		"municipio:chat:global-chat:session-id";
+
 	private readonly fetchFn: typeof fetch;
 	private sessionId: string | null = null;
 
 	constructor(private readonly config: ChatSessionConfig) {
 		this.fetchFn = config.fetchImpl ?? fetch.bind(globalThis);
+
+		if (window.localStorage) {
+			this.sessionId = window.localStorage.getItem(ChatSession.SESSION_ID_KEY);
+		}
+	}
+
+	public clearSession(): void {
+		this.sessionId = null;
+		if (window.localStorage) {
+			window.localStorage.removeItem(ChatSession.SESSION_ID_KEY);
+		}
 	}
 
 	public async *ask(message: string): AsyncGenerator<ChatEvent> {
@@ -39,7 +53,9 @@ export class ChatSession {
 		throw new Error(this.parseErrorMessage(body));
 	}
 
-	private async *consumeSseStream(response: Response): AsyncGenerator<ChatEvent> {
+	private async *consumeSseStream(
+		response: Response,
+	): AsyncGenerator<ChatEvent> {
 		if (!response.body) throw new Error("Response has no body");
 
 		const reader = response.body.getReader();
@@ -104,10 +120,20 @@ export class ChatSession {
 		switch (eventType) {
 			case "first_chunk":
 				this.sessionId = data.session_id;
+				if (window.localStorage) {
+					window.localStorage.setItem(
+						ChatSession.SESSION_ID_KEY,
+						this.sessionId ?? "",
+					);
+				}
 				return { eventType, accumulatedText, event: null };
 			case "text":
 				accumulatedText += data.answer;
-				return { eventType, accumulatedText, event: { type: "text", content: accumulatedText } };
+				return {
+					eventType,
+					accumulatedText,
+					event: { type: "text", content: accumulatedText },
+				};
 			case "tool_call":
 				return { eventType, accumulatedText, event: { type: "tool_call" } };
 			case "error":

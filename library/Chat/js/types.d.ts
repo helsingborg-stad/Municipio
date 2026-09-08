@@ -20,6 +20,7 @@ declare global {
 
 	interface ChatSession {
 		ask(message: string): AsyncGenerator<ChatEvent>;
+		clearSession(): void;
 	}
 
 	interface ChatUtilsApi {
