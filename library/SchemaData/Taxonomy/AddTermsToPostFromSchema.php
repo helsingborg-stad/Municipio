@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\Taxonomy;
 
 use Municipio\HooksRegistrar\Hookable;
@@ -64,9 +67,14 @@ class AddTermsToPostFromSchema implements Hookable
 
         $termsByTaxonomy = $this->groupTermsByTaxonomy($terms);
 
-        foreach ($termsByTaxonomy as $taxonomy => $termsInTaxonomy) {
-            $this->ensureTermsExist($termsInTaxonomy, $taxonomy);
-            $this->assignTermsToPost($objectId, $termsInTaxonomy, $taxonomy);
+        // Assign for every matching taxonomy, even when no terms were produced,
+        // so terms no longer present in the source are cleared from the post.
+        foreach ($taxonomies as $taxonomy) {
+            $taxonomyName    = $taxonomy->getName();
+            $termsInTaxonomy = $termsByTaxonomy[$taxonomyName] ?? [];
+
+            $this->ensureTermsExist($termsInTaxonomy, $taxonomyName);
+            $this->assignTermsToPost($objectId, $termsInTaxonomy, $taxonomyName);
         }
     }
 
@@ -96,7 +104,7 @@ class AddTermsToPostFromSchema implements Hookable
         $taxonomies = $this->taxonomiesFactory->create();
         return array_filter(
             $taxonomies,
-            fn($taxonomy) => $taxonomy->getSchemaType() === $schemaType
+            static fn($taxonomy) => $taxonomy->getSchemaType() === $schemaType
         );
     }
 
@@ -138,9 +146,9 @@ class AddTermsToPostFromSchema implements Hookable
     private function ensureTermsExist(array $terms, string $taxonomy): void
     {
         foreach ($terms as $term) {
-            if (!$this->wpService->termExists($term->name, $taxonomy)) {
-                $this->wpService->wpInsertTerm($term->name, $taxonomy);
-            }
+            if ($this->wpService->termExists($term->name, $taxonomy)) { continue; }
+
+$this->wpService->wpInsertTerm($term->name, $taxonomy);
         }
     }
 

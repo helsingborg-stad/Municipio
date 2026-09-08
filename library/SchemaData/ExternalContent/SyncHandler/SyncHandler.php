@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ExternalContent\SyncHandler;
 
 use Municipio\HooksRegistrar\Hookable;
@@ -69,7 +72,14 @@ class SyncHandler implements Hookable, SyncHandlerInterface
 
         $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->filter($schemaObjects);
         $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->convert($schemaObjects);
-        $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
+
+        // When syncing a single, explicitly requested post, always force the sync regardless of
+        // whether the source data checksum has changed, so locally made changes are overwritten.
+        if ($postId === null) {
+            $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
+        } else {
+            $newOrChangedSchemaObjects = $schemaObjects;
+        }
 
         $schemaObjects = array_values(array_filter($schemaObjects));
         $newOrChangedSchemaObjects = array_values(array_filter($newOrChangedSchemaObjects));
@@ -120,7 +130,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
     private function setMetaDataFromSchema(BaseType $schema, int $postInserted): void
     {
         $metaDataItems = $this->metaDataItemsFromSchema->getMetaDataItems($schema);
-        $metaDataItemsKeys = array_map(fn($item) => $item->getKey(), $metaDataItems);
+        $metaDataItemsKeys = array_map(static fn($item) => $item->getKey(), $metaDataItems);
         $metaDataItemsKeys = array_unique($metaDataItemsKeys);
 
         foreach ($metaDataItemsKeys as $key) {
@@ -181,7 +191,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
      */
     private function getSourceConfigByPostType(string $postType): SourceConfigInterface
     {
-        $filtered = array_filter($this->sourceConfigs, fn($config) => $config->getPostType() === $postType);
+        $filtered = array_filter($this->sourceConfigs, static fn($config) => $config->getPostType() === $postType);
         return reset($filtered);
     }
 }
