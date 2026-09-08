@@ -109,7 +109,7 @@ const entries = {
 	"js/customizer-controls": "./library/Customizer/Controls/index.ts",
 	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
 	"js/admin-progress-action":
-		"./assets/source/js/admin/adminProgressAction/index.ts",
+		"./library/ProgressReporter/AdminProgressAction/js/index.ts",
 };
 
 export default defineConfig(({ mode }) => {

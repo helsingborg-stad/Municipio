@@ -16,16 +16,16 @@ The package supports:
 
 ### Frontend package
 
-The global admin bundle is built from:
+The global admin bundle is owned by the ProgressReporter feature and built from:
 
-- `assets/source/js/admin/adminProgressAction/index.ts`
-- `assets/source/js/admin/adminProgressAction/ProgressActionTrigger.ts`
-- `assets/source/js/admin/adminProgressAction/ProgressStreamController.ts`
-- `assets/source/js/admin/adminProgressAction/ProgressStreamSource.ts`
-- `assets/source/js/admin/adminProgressAction/EventSourceStreamSource.ts`
-- `assets/source/js/admin/adminProgressAction/FetchStreamSource.ts`
-- `assets/source/js/admin/adminProgressAction/ProgressBar.ts`
-- `assets/source/js/admin/adminProgressAction/UIComponents/ProgressBarWithLabel.ts`
+- `library/ProgressReporter/AdminProgressAction/js/index.ts`
+- `library/ProgressReporter/AdminProgressAction/js/ProgressActionTrigger.ts`
+- `library/ProgressReporter/AdminProgressAction/js/ProgressStreamController.ts`
+- `library/ProgressReporter/AdminProgressAction/js/ProgressStreamSource.ts`
+- `library/ProgressReporter/AdminProgressAction/js/EventSourceStreamSource.ts`
+- `library/ProgressReporter/AdminProgressAction/js/FetchStreamSource.ts`
+- `library/ProgressReporter/AdminProgressAction/js/ProgressBar.ts`
+- `library/ProgressReporter/AdminProgressAction/js/UIComponents/ProgressBarWithLabel.ts`
 
 `index.ts` initializes every element with `data-js-progress-url`. The trigger selects a transport from its data attributes, while the controller handles progress UI and button state independently of the transport.
 
@@ -125,7 +125,7 @@ Locking remains feature-owned. ExternalContent uses a post-type transient lock, 
 
 ## Implementation phases
 
-1. Rename the frontend package from `eventSourceProgress` to `adminProgressAction` and add transport abstractions.
+1. Move the frontend package into `library/ProgressReporter/AdminProgressAction`, rename it from `eventSourceProgress` to `adminProgressAction`, and add transport abstractions.
 2. Add and test the shared PHP AJAX action base and immutable configuration objects.
 3. Migrate ExternalContent and enforce its existing nonce intent.
 4. Migrate SearchIndex and remove its feature-specific JavaScript and enqueue hook.
