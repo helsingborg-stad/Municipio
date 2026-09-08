@@ -22,6 +22,19 @@ use Municipio\ProgressReporter\AjaxAction\ProgressAjaxActionMessages;
 use Municipio\ProgressReporter\ProgressReporterInterface;
 use WpService\WpService;
 
+class ExampleBuilder
+{
+    public function __construct(private ProgressReporterInterface $progressReporter) {}
+
+    public function build(): void
+    {
+        $this->progressReporter->setMessage('Building example');
+        $this->progressReporter->setPercentage(50);
+
+        // Perform the long-running work.
+    }
+}
+
 class BuildExampleAction extends AbstractProgressAjaxAction
 {
     public const ACTION = 'municipio_build_example';
@@ -29,8 +42,7 @@ class BuildExampleAction extends AbstractProgressAjaxAction
     public function __construct(
         private WpService $translationService,
         ProgressReporterInterface $progressReporter,
-        private array $items,
-        private \Closure $process,
+        private ExampleBuilder $builder,
     ) {
         parent::__construct($translationService, $progressReporter);
     }
@@ -56,14 +68,7 @@ class BuildExampleAction extends AbstractProgressAjaxAction
 
     protected function execute(): string
     {
-        $total = count($this->items);
-
-        foreach ($this->items as $index => $item) {
-            $current = $index + 1;
-            $this->progressReporter->setMessage(sprintf('Processing %d of %d', $current, $total));
-            $this->progressReporter->setPercentage(($current / $total) * 100);
-            ($this->process)($item);
-        }
+        $this->builder->build();
 
         return $this->translationService->__('Build complete.', 'municipio');
     }
@@ -90,12 +95,12 @@ $progressReporter = new SseProgressReporterService(
     new HttpHeader(),
     new OutputBuffer(),
 );
+$builder = new ExampleBuilder($progressReporter);
 
 (new BuildExampleAction(
     $wpService,
     $progressReporter,
-    $items,
-    $process,
+    $builder,
 ))->addHooks();
 ```
 
