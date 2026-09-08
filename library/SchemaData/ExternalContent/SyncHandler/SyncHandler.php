@@ -69,7 +69,14 @@ class SyncHandler implements Hookable, SyncHandlerInterface
 
         $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->filter($schemaObjects);
         $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->convert($schemaObjects);
-        $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
+
+        // When syncing a single, explicitly requested post, always force the sync regardless of
+        // whether the source data checksum has changed, so locally made changes are overwritten.
+        if ($postId === null) {
+            $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
+        } else {
+            $newOrChangedSchemaObjects = $schemaObjects;
+        }
 
         $schemaObjects = array_values(array_filter($schemaObjects));
         $newOrChangedSchemaObjects = array_values(array_filter($newOrChangedSchemaObjects));
