@@ -84,7 +84,7 @@ class SearchIndexFeature
         (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $this->config))->addHooks();
         (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $this->config))->addHooks();
         (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $this->config, $this->providerFactory, $this->adminNoticesService))->addHooks();
-        (new Admin\Indexing\SearchIndexingFeature($this->wpService, $this->enqueue, $this->config, $this->providerFactory))->addHooks();
+        (new Admin\Indexing\SearchIndexingFeature($this->wpService, $this->config, $this->providerFactory))->addHooks();
         (new Admin\ExcludeFromSearch($this->wpService))->addHooks();
         (new Facets\FacetsFeature($this->wpService, new Config\FacetsConfig($this->acfService)))->addHooks();
     }

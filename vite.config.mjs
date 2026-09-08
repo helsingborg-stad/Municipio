@@ -88,8 +88,6 @@ const entries = {
 
 	/* Search Index */
 	"js/search-index-search-page": "./library/SearchIndex/SearchPage/js/index.ts",
-	"js/search-index-admin-indexing":
-		"./library/SearchIndex/Admin/Indexing/js/index.ts",
 	"css/search-index-search-page":
 		"./library/SearchIndex/SearchPage/css/search-page.scss",
 

@@ -6,7 +6,6 @@ namespace Municipio\SearchIndex\Admin\Indexing;
 
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use WpService\WpService;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /**
  * Adds Search Index indexing controls to the settings page.
@@ -20,7 +19,6 @@ class SearchIndexingAdmin
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueManagerInterface $enqueue,
         private SearchIndexConfig $config,
     ) {}
 
@@ -30,7 +28,6 @@ class SearchIndexingAdmin
     public function addHooks(): void
     {
         $this->wpService->addAction('acf/input/admin_head', [$this, 'registerMetaBox']);
-        $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
 
     /**
@@ -58,13 +55,16 @@ class SearchIndexingAdmin
     public function render(): void
     {
         $disabled = $this->config->isConfigured() ? '' : ' disabled';
-        $endpoint = $this->wpService->escUrl($this->wpService->adminUrl('admin-ajax.php'));
+        $endpoint = $this->wpService->escUrl(
+            $this->wpService->adminUrl('admin-ajax.php') . '?action=' . SearchIndexingRequest::ACTION,
+        );
         $nonce = $this->wpService->escAttr($this->wpService->wpCreateNonce(SearchIndexingRequest::NONCE_ACTION));
         $label = $this->wpService->escHtml($this->wpService->__('Start indexing', 'municipio'));
         $errorMessage = $this->wpService->escAttr($this->wpService->__('An error occurred', 'municipio'));
 
-        echo '<button type="button" class="button button-primary" data-search-index-build data-endpoint="'
-            . $endpoint . '" data-nonce="' . $nonce . '" data-error-message="' . $errorMessage . '"'
+        echo '<button type="button" class="button button-primary" data-js-progress-url="'
+            . $endpoint . '" data-js-progress-method="post" data-js-progress-nonce="' . $nonce
+            . '" data-js-progress-error-message="' . $errorMessage . '"'
             . $disabled . '>' . $label . '</button>';
 
         if ($disabled !== '') {
@@ -72,18 +72,6 @@ class SearchIndexingAdmin
                 $this->wpService->__('Configure and save a search provider before indexing.', 'municipio')
             ) . '</p>';
         }
-    }
-
-    /**
-     * Enqueue indexing assets only on the Search Index settings page.
-     */
-    public function enqueueAssets(): void
-    {
-        if (!$this->isIndexSettingsPage() || !$this->wpService->currentUserCan('manage_options')) {
-            return;
-        }
-
-        $this->enqueue->add('js/search-index-admin-indexing.js');
     }
 
     /**

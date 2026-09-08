@@ -10,7 +10,6 @@ use Municipio\ProgressReporter\SseProgressReporterService;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use Municipio\SearchIndex\Provider\SearchProviderFactory;
 use WpService\WpService;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /**
  * Composes the Search Index admin indexing module.
@@ -22,7 +21,6 @@ class SearchIndexingFeature
      */
     public function __construct(
         private WpService $wpService,
-        private EnqueueManagerInterface $enqueue,
         private SearchIndexConfig $config,
         private SearchProviderFactory $providerFactory,
     ) {}
@@ -43,6 +41,6 @@ class SearchIndexingFeature
         );
 
         (new SearchIndexingRequest($this->wpService, $runner, $lock, $progressReporter))->addHooks();
-        (new SearchIndexingAdmin($this->wpService, $this->enqueue, $this->config))->addHooks();
+        (new SearchIndexingAdmin($this->wpService, $this->config))->addHooks();
     }
 }
