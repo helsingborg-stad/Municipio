@@ -64,9 +64,14 @@ class AddTermsToPostFromSchema implements Hookable
 
         $termsByTaxonomy = $this->groupTermsByTaxonomy($terms);
 
-        foreach ($termsByTaxonomy as $taxonomy => $termsInTaxonomy) {
-            $this->ensureTermsExist($termsInTaxonomy, $taxonomy);
-            $this->assignTermsToPost($objectId, $termsInTaxonomy, $taxonomy);
+        // Assign for every matching taxonomy, even when no terms were produced,
+        // so terms no longer present in the source are cleared from the post.
+        foreach ($taxonomies as $taxonomy) {
+            $taxonomyName    = $taxonomy->getName();
+            $termsInTaxonomy = $termsByTaxonomy[$taxonomyName] ?? [];
+
+            $this->ensureTermsExist($termsInTaxonomy, $taxonomyName);
+            $this->assignTermsToPost($objectId, $termsInTaxonomy, $taxonomyName);
         }
     }
 
