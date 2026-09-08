@@ -44,9 +44,13 @@ type DesignShareConfig = {
 };
 
 function getAllowedSettingConfig(): DesignShareConfig {
-	return (window as Window & {
-		municipioDesignShareConfig?: DesignShareConfig;
-	}).municipioDesignShareConfig ?? {};
+	return (
+		(
+			window as Window & {
+				municipioDesignShareConfig?: DesignShareConfig;
+			}
+		).municipioDesignShareConfig ?? {}
+	);
 }
 
 function getAllowedExactKeys(): string[] {
@@ -137,7 +141,9 @@ function buildImportProxyEndpointUrl(rawSiteUrl: unknown): string {
 	return endpointUrl.toString();
 }
 
-function isValidRemoteDesignConfig(payload: unknown): payload is RemoteDesignConfig {
+function isValidRemoteDesignConfig(
+	payload: unknown,
+): payload is RemoteDesignConfig {
 	if (payload === null || typeof payload !== "object") {
 		return false;
 	}
@@ -186,6 +192,7 @@ export async function getRemoteSiteDesignData(
 		response = await fetch(endpointUrl, {
 			headers: {
 				Accept: "application/json",
+				"X-WP-Nonce": wpApiSettings?.nonce ?? "",
 			},
 		});
 	} catch (error) {
@@ -253,9 +260,7 @@ export function showNotification(args: CustomizerNotificationProps) {
 	args.setting.notifications.add(args.code, notification);
 }
 
-export async function getFormattedMods(
-	mods: CustomizerMods,
-) {
+export async function getFormattedMods(mods: CustomizerMods) {
 	const formattedMods: CustomizerMods = {};
 
 	for (const [key, value] of Object.entries(mods)) {
@@ -279,9 +284,7 @@ export async function getFormattedMods(
 	return formattedMods;
 }
 
-export async function importSettings(
-	formattedMods: CustomizerMods,
-) {
+export async function importSettings(formattedMods: CustomizerMods) {
 	for (const [key, rawValue] of Object.entries(formattedMods)) {
 		if (!isAllowedImportSettingKey(key)) {
 			continue;

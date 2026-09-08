@@ -126,7 +126,7 @@ class Enqueue implements Hookable
     public function enqueueCustomizerScriptsAndStyles()
     {
         $this->enqueue
-            ->add('js/design-share.js', ['jquery', 'customize-controls'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-request'])
             ->with()
             ->translation('municipioDesignShareConfig', [
                 'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),

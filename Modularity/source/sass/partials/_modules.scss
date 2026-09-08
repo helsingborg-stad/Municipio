@@ -48,14 +48,6 @@ $module-line-height: 48px;
     }
 }
 
-li.modularity-module {
-    line-height: auto;
-
-    >span {
-        line-height: auto;
-    }
-}
-
 .modularity-modules .modularity-module-name,
 .ui-draggable-dragging .modularity-module-name {
     display: block;
