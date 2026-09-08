@@ -1,5 +1,5 @@
-import ProgressBar from "../../../../../assets/source/js/admin/eventSourceProgress/ProgressBar";
-import ProgressBarWithLabel from "../../../../../assets/source/js/admin/eventSourceProgress/UIComponents/ProgressBarWithLabel";
+import ProgressBar from "../../../../../assets/source/js/admin/adminProgressAction/ProgressBar";
+import ProgressBarWithLabel from "../../../../../assets/source/js/admin/adminProgressAction/UIComponents/ProgressBarWithLabel";
 
 interface SseEvent {
 	type: string;

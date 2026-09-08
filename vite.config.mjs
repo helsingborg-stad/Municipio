@@ -110,8 +110,8 @@ const entries = {
 		"./assets/source/js/admin/customizerHeaderLogoScrollAspectRatioPreview.ts",
 	"js/customizer-controls": "./library/Customizer/Controls/index.ts",
 	"js/blocks/columns": "./assets/source/js/admin/blocks/columns.jsx",
-	"js/event-source-progress":
-		"./assets/source/js/admin/eventSourceProgress/index.ts",
+	"js/admin-progress-action":
+		"./assets/source/js/admin/adminProgressAction/index.ts",
 };
 
 export default defineConfig(({ mode }) => {
