@@ -50,6 +50,18 @@ describe("ProgressActionTrigger", () => {
 		expect(preventDefault).toHaveBeenCalled();
 		expect(controller.start).toHaveBeenCalled();
 	});
+
+	it("does not start a disabled anchor trigger", () => {
+		const anchor = document.createElement("a");
+		anchor.dataset.jsProgressUrl = "https://example.test/admin-ajax.php?action=build";
+		anchor.setAttribute("disabled", "disabled");
+		new ProgressActionTrigger(anchor);
+		const controller = jest.mocked(ProgressStreamController).mock.instances[0];
+
+		anchor.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+		expect(controller.start).not.toHaveBeenCalled();
+	});
 });
 
 function createButton(): HTMLButtonElement {

@@ -159,3 +159,4 @@ Implementation commits:
 - `refactor(external-content): use shared progress action`
 - `refactor(search-index): use shared progress action`
 - `fix(progress): defer request message creation`
+- `fix(admin): block disabled progress triggers`

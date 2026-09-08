@@ -1,9 +1,9 @@
 import EventSourceStreamSource from "./EventSourceStreamSource";
 import FetchStreamSource from "./FetchStreamSource";
-import { IProgressBar } from "./IProgressBar";
+import type { IProgressBar } from "./IProgressBar";
 import ProgressBar from "./ProgressBar";
 import ProgressStreamController from "./ProgressStreamController";
-import { ProgressStreamSource } from "./ProgressStreamSource";
+import type { ProgressStreamSource } from "./ProgressStreamSource";
 import ProgressBarWithLabel from "./UIComponents/ProgressBarWithLabel";
 
 export default class ProgressActionTrigger {
@@ -23,6 +23,11 @@ export default class ProgressActionTrigger {
 
 	private handleClick(event: Event): void {
 		event.preventDefault();
+
+		if (this.triggerElement.hasAttribute("disabled")) {
+			return;
+		}
+
 		this.controller.start();
 	}
 
