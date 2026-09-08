@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_56b34353ef1eb',
     'title' => __('Manage post types', 'municipio'),
     'fields' => array(
@@ -413,4 +415,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}
