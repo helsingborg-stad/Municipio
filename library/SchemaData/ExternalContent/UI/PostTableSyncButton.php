@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\SchemaData\ExternalContent\UI;
 
 use Municipio\SchemaData\ExternalContent\Rest\AjaxSync;
@@ -37,7 +39,7 @@ class PostTableSyncButton implements Hookable
             return;
         }
 
-        $this->wpService->addAction('manage_posts_extra_tablenav', array($this, 'addSyncButton'));
+        $this->wpService->addAction('manage_posts_extra_tablenav', [$this, 'addSyncButton']);
     }
 
     /**
@@ -52,7 +54,7 @@ class PostTableSyncButton implements Hookable
             fn($config) => $config->getPostType() === $this->wpService->getCurrentScreen()->post_type
         );
 
-        if (empty($postTypeHasExternalContentSource)) {
+        if ($postTypeHasExternalContentSource === []) {
             return;
         }
 
@@ -60,6 +62,7 @@ class PostTableSyncButton implements Hookable
         $label    = __('Sync all posts from remote source', 'municipio');
         $ajaxUrl  = $this->wpService->adminUrl('admin-ajax.php');
         $ajaxUrl .= '?action=' . AjaxSync::$action . '&post_type=' . $this->wpService->getCurrentScreen()->post_type;
+        $ajaxUrl  = $this->wpService->wpNonceUrl($ajaxUrl, AjaxSync::$action);
 
         echo '<a data-js-progress-url="' . esc_url($ajaxUrl) . '" class="' . $classes . '" href="#">' . $label . '</a>';
     }
