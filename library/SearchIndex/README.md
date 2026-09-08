@@ -11,9 +11,11 @@ Search Index connects Municipio to Algolia or Typesense. It keeps eligible WordP
    - Typesense requires an API URL and API key. The collection name defaults to the site hostname when left empty.
 4. To use **Interactive Search Page**, enter a public API key and enable the setting. The public key is required for this browser-based search and must only have browser-safe search permissions.
 5. Optionally select attachment file types to index and configure facets for the interactive search page.
-6. Save the settings, then build the initial index with WP-CLI.
+6. Save the settings, then select **Start indexing** in the **Update Search Index** panel. Keep the page open while progress is displayed.
 
 Saving this page sends the configured facets and other index settings to the provider. In each post editor, **Exclude from search** can be selected to remove that post from the index.
+
+Only administrators can start indexing. A site can run one indexing operation at a time; an interrupted operation releases automatically after its lock expires.
 
 ## Configure with constants
 

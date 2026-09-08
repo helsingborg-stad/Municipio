@@ -59,11 +59,7 @@ class SearchIndexFeature
         $this->config = new SearchIndexConfig($this->acfService);
         $this->providerFactory = new SearchProviderFactory($this->wpService, $this->config);
 
-        (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $this->config))->addHooks();
-        (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $this->config))->addHooks();
-        (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $this->config, $this->providerFactory, $this->adminNoticesService))->addHooks();
-        (new Admin\ExcludeFromSearch($this->wpService))->addHooks();
-        (new Facets\FacetsFeature($this->wpService, new Config\FacetsConfig($this->acfService)))->addHooks();
+        $this->registerCoreFeatures();
 
         if (defined('WP_CLI') && constant('WP_CLI') === true) {
             (new Cli\BuildSearchIndexCommand($this->wpService, $this->config, $this->providerFactory))->register();
@@ -78,6 +74,19 @@ class SearchIndexFeature
         }
 
         $this->wpService->addAction('init', [$this, 'initializeConfiguredFeatures'], 20);
+    }
+
+    /**
+     * Register Search Index features that do not require a configured provider.
+     */
+    private function registerCoreFeatures(): void
+    {
+        (new Provider\Algolia\AlgoliaProviderRegistrar($this->wpService, $this->config))->addHooks();
+        (new Provider\Typesense\TypesenseProviderRegistrar($this->wpService, $this->config))->addHooks();
+        (new Admin\SearchIndexSettings($this->wpService, $this->acfService, $this->config, $this->providerFactory, $this->adminNoticesService))->addHooks();
+        (new Admin\Indexing\SearchIndexingFeature($this->wpService, $this->enqueue, $this->config, $this->providerFactory))->addHooks();
+        (new Admin\ExcludeFromSearch($this->wpService))->addHooks();
+        (new Facets\FacetsFeature($this->wpService, new Config\FacetsConfig($this->acfService)))->addHooks();
     }
 
     /**
