@@ -36,18 +36,29 @@ class AjaxSync extends AbstractProgressAjaxAction
         private SyncHandlerInterface $syncHandler,
         private AddAction&CheckAjaxReferer&CurrentUserCan&__ $translationService,
     ) {
-        parent::__construct(
-            $translationService,
-            $progressReporter,
-            new ProgressAjaxActionConfig(
-                action: self::$action,
-                requiredCapability: 'administrator',
-                messages: new ProgressAjaxActionMessages(
-                    unauthorized: $translationService->__('You are not allowed to sync external content.', 'municipio'),
-                    invalidNonce: $translationService->__('The sync request could not be verified. Reload the page and try again.', 'municipio'),
-                ),
-                nonceAction: self::$action,
+        parent::__construct($translationService, $progressReporter);
+    }
+
+    /**
+     * Get the external content AJAX action name.
+     */
+    protected function actionName(): string
+    {
+        return self::$action;
+    }
+
+    /**
+     * Get external content request configuration.
+     */
+    protected function config(): ProgressAjaxActionConfig
+    {
+        return new ProgressAjaxActionConfig(
+            requiredCapability: 'administrator',
+            messages: new ProgressAjaxActionMessages(
+                unauthorized: $this->translationService->__('You are not allowed to sync external content.', 'municipio'),
+                invalidNonce: $this->translationService->__('The sync request could not be verified. Reload the page and try again.', 'municipio'),
             ),
+            nonceAction: self::$action,
         );
     }
 

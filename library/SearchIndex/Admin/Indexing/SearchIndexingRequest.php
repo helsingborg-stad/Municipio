@@ -27,20 +27,31 @@ class SearchIndexingRequest extends AbstractProgressAjaxAction
         private SearchIndexingLockInterface $lock,
         ProgressReporterInterface $progressReporter,
     ) {
-        parent::__construct(
-            $searchWpService,
-            $progressReporter,
-            new ProgressAjaxActionConfig(
-                action: self::ACTION,
-                requiredCapability: 'manage_options',
-                messages: new ProgressAjaxActionMessages(
-                    unauthorized: $searchWpService->__('You are not allowed to start search indexing.', 'municipio'),
-                    invalidMethod: $searchWpService->__('Search indexing must be started with a POST request.', 'municipio'),
-                    invalidNonce: $searchWpService->__('The indexing request could not be verified. Reload the page and try again.', 'municipio'),
-                ),
-                requiredMethod: 'POST',
-                nonceAction: self::NONCE_ACTION,
+        parent::__construct($searchWpService, $progressReporter);
+    }
+
+    /**
+     * Get the Search Index AJAX action name.
+     */
+    protected function actionName(): string
+    {
+        return self::ACTION;
+    }
+
+    /**
+     * Get Search Index request configuration.
+     */
+    protected function config(): ProgressAjaxActionConfig
+    {
+        return new ProgressAjaxActionConfig(
+            requiredCapability: 'manage_options',
+            messages: new ProgressAjaxActionMessages(
+                unauthorized: $this->searchWpService->__('You are not allowed to start search indexing.', 'municipio'),
+                invalidMethod: $this->searchWpService->__('Search indexing must be started with a POST request.', 'municipio'),
+                invalidNonce: $this->searchWpService->__('The indexing request could not be verified. Reload the page and try again.', 'municipio'),
             ),
+            requiredMethod: 'POST',
+            nonceAction: self::NONCE_ACTION,
         );
     }
 

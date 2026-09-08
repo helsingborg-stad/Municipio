@@ -21,7 +21,6 @@ abstract class AbstractProgressAjaxAction implements Hookable
     public function __construct(
         protected AddAction&CheckAjaxReferer&CurrentUserCan $wpService,
         protected ProgressReporterInterface $progressReporter,
-        private ProgressAjaxActionConfig $config,
     ) {}
 
     /**
@@ -29,7 +28,7 @@ abstract class AbstractProgressAjaxAction implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('wp_ajax_' . $this->config->action, [$this, 'handleRequest']);
+        $this->wpService->addAction('wp_ajax_' . $this->actionName(), [$this, 'handleRequest']);
     }
 
     /**
@@ -38,21 +37,22 @@ abstract class AbstractProgressAjaxAction implements Hookable
     public function handleRequest(): void
     {
         $this->progressReporter->start();
+        $config = $this->config();
 
-        if (!$this->wpService->currentUserCan($this->config->requiredCapability)) {
-            $this->progressReporter->finish($this->config->messages->unauthorized);
+        if (!$this->wpService->currentUserCan($config->requiredCapability)) {
+            $this->progressReporter->finish($config->messages->unauthorized);
             return;
         }
 
-        $requiredMethod = $this->config->requiredMethod;
+        $requiredMethod = $config->requiredMethod;
         if ($requiredMethod !== null && ($_SERVER['REQUEST_METHOD'] ?? '') !== $requiredMethod) {
-            $this->progressReporter->finish($this->config->messages->invalidMethod);
+            $this->progressReporter->finish($config->messages->invalidMethod);
             return;
         }
 
-        $nonceAction = $this->config->nonceAction;
+        $nonceAction = $config->nonceAction;
         if ($nonceAction !== null && $this->wpService->checkAjaxReferer($nonceAction, false, false) === false) {
-            $this->progressReporter->finish($this->config->messages->invalidNonce);
+            $this->progressReporter->finish($config->messages->invalidNonce);
             return;
         }
 
@@ -71,6 +71,16 @@ abstract class AbstractProgressAjaxAction implements Hookable
      * Execute the feature operation and return its completion message.
      */
     abstract protected function execute(): string;
+
+    /**
+     * Get the WordPress AJAX action name.
+     */
+    abstract protected function actionName(): string;
+
+    /**
+     * Get validation and response configuration for the action.
+     */
+    abstract protected function config(): ProgressAjaxActionConfig;
 
     /**
      * Convert an operation failure to a safe completion message.

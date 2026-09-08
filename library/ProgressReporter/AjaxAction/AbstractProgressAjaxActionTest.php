@@ -145,13 +145,6 @@ class AbstractProgressAjaxActionTest extends TestCase
         return new TestProgressAjaxAction(
             $wpService,
             $progressReporter ?? new RecordingProgressReporter(),
-            new ProgressAjaxActionConfig(
-                action: 'test_progress_action',
-                requiredCapability: 'manage_options',
-                messages: new ProgressAjaxActionMessages('Unauthorized', 'Invalid method', 'Invalid nonce'),
-                requiredMethod: 'POST',
-                nonceAction: 'test_progress_action',
-            ),
         );
     }
 }

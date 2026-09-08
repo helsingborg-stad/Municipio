@@ -13,7 +13,6 @@ class ProgressAjaxActionConfig
      * Create progress AJAX action configuration.
      */
     public function __construct(
-        public readonly string $action,
         public readonly string $requiredCapability,
         public readonly ProgressAjaxActionMessages $messages,
         public readonly ?string $requiredMethod = null,
