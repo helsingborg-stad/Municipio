@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ExternalContent\SyncHandler;
 
 use Municipio\HooksRegistrar\Hookable;
@@ -127,7 +130,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
     private function setMetaDataFromSchema(BaseType $schema, int $postInserted): void
     {
         $metaDataItems = $this->metaDataItemsFromSchema->getMetaDataItems($schema);
-        $metaDataItemsKeys = array_map(fn($item) => $item->getKey(), $metaDataItems);
+        $metaDataItemsKeys = array_map(static fn($item) => $item->getKey(), $metaDataItems);
         $metaDataItemsKeys = array_unique($metaDataItemsKeys);
 
         foreach ($metaDataItemsKeys as $key) {
@@ -188,7 +191,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
      */
     private function getSourceConfigByPostType(string $postType): SourceConfigInterface
     {
-        $filtered = array_filter($this->sourceConfigs, fn($config) => $config->getPostType() === $postType);
+        $filtered = array_filter($this->sourceConfigs, static fn($config) => $config->getPostType() === $postType);
         return reset($filtered);
     }
 }

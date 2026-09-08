@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\Taxonomy;
 
 use Municipio\HooksRegistrar\Hookable;
@@ -101,7 +104,7 @@ class AddTermsToPostFromSchema implements Hookable
         $taxonomies = $this->taxonomiesFactory->create();
         return array_filter(
             $taxonomies,
-            fn($taxonomy) => $taxonomy->getSchemaType() === $schemaType
+            static fn($taxonomy) => $taxonomy->getSchemaType() === $schemaType
         );
     }
 
@@ -143,9 +146,9 @@ class AddTermsToPostFromSchema implements Hookable
     private function ensureTermsExist(array $terms, string $taxonomy): void
     {
         foreach ($terms as $term) {
-            if (!$this->wpService->termExists($term->name, $taxonomy)) {
-                $this->wpService->wpInsertTerm($term->name, $taxonomy);
-            }
+            if ($this->wpService->termExists($term->name, $taxonomy)) { continue; }
+
+$this->wpService->wpInsertTerm($term->name, $taxonomy);
         }
     }
 
