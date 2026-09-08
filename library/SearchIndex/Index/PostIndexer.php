@@ -14,7 +14,7 @@ use WpService\WpService;
 class PostIndexer
 {
     private const RECORD_IDS_META_KEY = '_municipio_search_index_record_ids';
-    private const EXCLUDED_META_KEY = 'exclude_from_search';
+    private const EXCLUDED_META_KEY = 'exclude_local_search';
 
     public function __construct(
         private WpService $wpService,

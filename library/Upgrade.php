@@ -1158,7 +1158,7 @@ class Upgrade
 
     /**
      * Version 62
-     * Migrate ACF options for "exclude_from_search" to equivalient SEO framework setting
+     * Migrate per-post "exclude_from_search" metadata to the SEO Framework's "exclude_local_search" metadata
      */
     public function v_62(): bool
     {
