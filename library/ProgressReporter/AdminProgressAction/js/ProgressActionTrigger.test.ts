@@ -21,9 +21,7 @@ describe("ProgressActionTrigger", () => {
 
 		new ProgressActionTrigger(button);
 
-		expect(EventSourceStreamSource).toHaveBeenCalledWith(
-			button.dataset.jsProgressUrl,
-		);
+		expect(EventSourceStreamSource).toHaveBeenCalledWith(button.dataset.jsProgressUrl);
 		expect(FetchStreamSource).not.toHaveBeenCalled();
 	});
 
@@ -55,15 +53,12 @@ describe("ProgressActionTrigger", () => {
 
 	it("does not start a disabled anchor trigger", () => {
 		const anchor = document.createElement("a");
-		anchor.dataset.jsProgressUrl =
-			"https://example.test/admin-ajax.php?action=build";
+		anchor.dataset.jsProgressUrl = "https://example.test/admin-ajax.php?action=build";
 		anchor.setAttribute("disabled", "disabled");
 		new ProgressActionTrigger(anchor);
 		const controller = jest.mocked(ProgressStreamController).mock.instances[0];
 
-		anchor.dispatchEvent(
-			new MouseEvent("click", { bubbles: true, cancelable: true }),
-		);
+		anchor.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
 
 		expect(controller.start).not.toHaveBeenCalled();
 	});
@@ -71,7 +66,6 @@ describe("ProgressActionTrigger", () => {
 
 function createButton(): HTMLButtonElement {
 	const button = document.createElement("button");
-	button.dataset.jsProgressUrl =
-		"https://example.test/admin-ajax.php?action=build";
+	button.dataset.jsProgressUrl = "https://example.test/admin-ajax.php?action=build";
 	return button;
 }
