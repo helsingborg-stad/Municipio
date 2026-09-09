@@ -49,7 +49,7 @@ class AlgoliaProvider implements SearchProviderInterface
     public function resetIndex(): mixed
     {
         try {
-            return $this->index->delete();
+            return $this->client->deleteIndex($this->indexName);
         } catch (\Algolia\AlgoliaSearch\Exceptions\UnreachableException $exception) {
             throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
         }

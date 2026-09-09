@@ -43,8 +43,8 @@ class AlgoliaProviderTest extends TestCase
      */
     public function testResetIndexDeletesTheIndex(): void
     {
-        $index = $this->createMock(SearchIndex::class);
-        $index->expects($this->once())->method('delete');
+        $index = $this->createMock(SearchClient::class);
+        $index->expects($this->once())->method('deleteIndex')->with('municipio-content');
         $provider = new AlgoliaProvider(
             new FakeWpService([
                 'getCurrentUserId' => 0,
@@ -54,7 +54,7 @@ class AlgoliaProviderTest extends TestCase
             implode('-', ['algolia', 'admin', 'key']),
             'municipio-content',
         );
-        $indexProperty = new \ReflectionProperty($provider, 'index');
+        $indexProperty = new \ReflectionProperty($provider, 'client');
         $indexProperty->setValue($provider, $index);
 
         $provider->resetIndex();
