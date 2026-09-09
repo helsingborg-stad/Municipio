@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Provider\Algolia;
 
-use Algolia\AlgoliaSearch\SearchIndex;
+use Algolia\AlgoliaSearch\Api\SearchClient;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -18,11 +18,10 @@ class AlgoliaProviderTest extends TestCase
      */
     public function testClearObjectsFiltersByCurrentSiteUrl(): void
     {
-        $index = $this->createMock(SearchIndex::class);
-        $index->expects($this->never())->method('clearObjects');
-        $index->expects($this->once())
+        $client = $this->createMock(SearchClient::class);
+        $client->expects($this->once())
             ->method('deleteBy')
-            ->with(['filters' => 'origin_site_url:"https://current.example.test"']);
+            ->with('municipio-content', ['filters' => 'origin_site_url:"https://current.example.test"']);
         $provider = new AlgoliaProvider(
             new FakeWpService([
                 'getBloginfo' => 'https://current.example.test',
@@ -33,8 +32,8 @@ class AlgoliaProviderTest extends TestCase
             implode('-', ['algolia', 'admin', 'key']),
             'municipio-content',
         );
-        $indexProperty = new \ReflectionProperty($provider, 'index');
-        $indexProperty->setValue($provider, $index);
+        $clientProperty = new \ReflectionProperty($provider, 'client');
+        $clientProperty->setValue($provider, $client);
 
         $provider->clearObjects();
     }
