@@ -52,7 +52,7 @@ class SyncHandler implements Hookable, SyncHandlerInterface
     /**
      * @inheritDoc
      */
-    public function sync(string $postType, null|int $postId = null): void
+    public function sync(string $postType, null|int $postId = null, bool $force = false): void
     {
         // allow sync to take longer than current max_execution_time
         set_time_limit(0);
@@ -73,9 +73,9 @@ class SyncHandler implements Hookable, SyncHandlerInterface
         $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->filter($schemaObjects);
         $schemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\ConvertImagePropsToImageObjects($this->wpService))->convert($schemaObjects);
 
-        // When syncing a single, explicitly requested post, always force the sync regardless of
+        // When syncing a single, explicitly requested post, or when forced, always sync regardless of
         // whether the source data checksum has changed, so locally made changes are overwritten.
-        if ($postId === null) {
+        if ($postId === null && !$force) {
             $newOrChangedSchemaObjects = (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutObjectsThatHaveNotChanged($GLOBALS['wpdb'], $postType))->filter($schemaObjects);
         } else {
             $newOrChangedSchemaObjects = $schemaObjects;
