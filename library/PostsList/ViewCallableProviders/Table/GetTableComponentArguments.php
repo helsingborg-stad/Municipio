@@ -15,16 +15,20 @@ use WpService\WpService;
  */
 class GetTableComponentArguments implements ViewCallableProviderInterface
 {
+    public const FILTER_HOOK = 'Municipio/PostsList/Table/Arguments';
+
     /**
      * Constructor
      *
      * @param PostObjectInterface[] $posts
      * @param AppearanceConfigInterface $appearanceConfig
+     * @param string[] $postTypes
      */
     public function __construct(
         private array $posts,
         private AppearanceConfigInterface $appearanceConfig,
         private WpService $wpService,
+        private array $postTypes = [],
     ) {}
 
     /**
@@ -53,11 +57,18 @@ class GetTableComponentArguments implements ViewCallableProviderInterface
             new TableArguments\LabelFormatter($this->wpService),
         );
 
-        $items = (new TableItemsWithEmpasizedFirstItem($itemsGenerator->generate()))->emphasize();
+        $tableArguments = $this->wpService->applyFilters(
+            self::FILTER_HOOK,
+            [
+                'headings' => $headingsGenerator->generate(),
+                'list'     => $itemsGenerator->generate(),
+            ],
+            $this->posts,
+            $this->postTypes,
+        );
 
-        return [
-            'headings' => $headingsGenerator->generate(),
-            'list' => $items,
-        ];
+        $tableArguments['list'] = (new TableItemsWithEmpasizedFirstItem($tableArguments['list']))->emphasize();
+
+        return $tableArguments;
     }
 }
