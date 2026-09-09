@@ -43,7 +43,9 @@ export default class ProgressActionTrigger {
 	}
 
 	private createSource(url: string): ProgressStreamSource {
-		if (this.triggerElement.dataset.jsProgressMethod?.toLowerCase() === "post") {
+		if (
+			this.triggerElement.dataset.jsProgressMethod?.toLowerCase() === "post"
+		) {
 			return new FetchStreamSource(
 				url,
 				this.triggerElement.dataset.jsProgressNonce ?? "",

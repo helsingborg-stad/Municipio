@@ -64,6 +64,7 @@ class ExternalContentFeature
         $this->setupPostTypeDisabling($sourceConfigs);
         $this->setupSyncHandler($sourceConfigs);
         $this->setupAjaxSync($sourceConfigs, $postTypeSyncInProgress);
+        $this->setupCli($sourceConfigs, $postTypeSyncInProgress);
     }
 
     /**
@@ -154,6 +155,23 @@ class ExternalContentFeature
             new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\NoOpSchemaObjectProcessor(),
             new \Municipio\SchemaData\ExternalContent\SyncHandler\SchemaObjectProcessor\ImageSideloadSchemaObjectProcessor($this->wpService, $GLOBALS['wpdb']),
         ];
+    }
+
+    /**
+     * Setup WP-CLI commands for listing and syncing external content sources.
+     */
+    private function setupCli(array $sourceConfigs, $postTypeSyncInProgress): void
+    {
+        if (!defined('WP_CLI') || constant('WP_CLI') !== true) {
+            return;
+        }
+
+        (new \Municipio\SchemaData\ExternalContent\Cli\ListExternalContentSourcesCommand($sourceConfigs))->register();
+        (new \Municipio\SchemaData\ExternalContent\Cli\SyncExternalContentCommand(
+            $sourceConfigs,
+            new SyncHandler($sourceConfigs, $this->wpService, new \Municipio\ProgressReporter\NullProgressReporterService(), $this->getSchemaObjectProcessors()),
+            $postTypeSyncInProgress,
+        ))->register();
     }
 
     /**
