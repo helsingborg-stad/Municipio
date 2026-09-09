@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace {
-    require_once __DIR__ . '/WP_CLI.php';
+    require_once __DIR__ . '/../../../SearchIndex/Cli/WP_CLI.php';
 }
 
 namespace Municipio\SchemaData\ExternalContent\Cli {
