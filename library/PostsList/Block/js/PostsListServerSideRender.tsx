@@ -1,7 +1,7 @@
 import { useBlockProps } from "@wordpress/block-editor";
+import { Disabled } from "@wordpress/components";
 import ServerSideRender from "@wordpress/server-side-render";
 import type { PostsListEditProps } from "./Edit";
-import { PreventClickOnChildren } from "./UI/PreventClickOnChildren";
 import { Shrink } from "./UI/Shrink";
 
 const LoadingPlaceholder: () => JSX.Element = () => {
@@ -15,7 +15,7 @@ export const PostsListServerSideRender: React.FC<PostsListEditProps> = (
 
 	return (
 		<div {...useBlockProps()}>
-			<PreventClickOnChildren>
+			<Disabled>
 				<Shrink active={isSelected}>
 					<ServerSideRender
 						block={props.name}
@@ -23,7 +23,7 @@ export const PostsListServerSideRender: React.FC<PostsListEditProps> = (
 						LoadingResponsePlaceholder={LoadingPlaceholder}
 					/>
 				</Shrink>
-			</PreventClickOnChildren>
+			</Disabled>
 		</div>
 	);
 };
