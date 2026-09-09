@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Provider\Algolia;
 
-use Algolia\AlgoliaSearch\Config\SearchConfig;
-use Algolia\AlgoliaSearch\SearchClient;
-use Algolia\AlgoliaSearch\SearchIndex;
+use Algolia\AlgoliaSearch\Api\SearchClient;
+use Algolia\AlgoliaSearch\Configuration\SearchConfig;
 use Municipio\SearchIndex\Provider\SearchIndexProviderUnreachableException;
 use Municipio\SearchIndex\Provider\SearchProviderInterface;
 use WpService\WpService;
@@ -18,13 +17,13 @@ class AlgoliaProvider implements SearchProviderInterface
 {
     private const MAX_RECORD_SIZE = 9999;
 
-    private SearchIndex $index;
+    private SearchClient $client;
 
     public function __construct(
         private WpService $wpService,
         string $applicationId,
         #[\SensitiveParameter] string $apiKey,
-        string $indexName,
+        private string $indexName,
     ) {
         $config = SearchConfig::create($applicationId, $apiKey);
         $config->setDefaultHeaders([
@@ -34,7 +33,7 @@ class AlgoliaProvider implements SearchProviderInterface
         ]);
 
         $config = $this->wpService->applyFilters('Municipio/SearchIndex/AlgoliaConfig', $config);
-        $this->index = SearchClient::createWithConfig($config)->initIndex($indexName);
+        $this->client = SearchClient::createWithConfig($config);
     }
 
     public function clearObjects(): mixed
@@ -44,7 +43,7 @@ class AlgoliaProvider implements SearchProviderInterface
             JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR,
         );
 
-        return $this->index->deleteBy(['filters' => sprintf('origin_site_url:%s', $siteUrl)]);
+        return $this->client->deleteBy($this->indexName, ['filters' => sprintf('origin_site_url:%s', $siteUrl)]);
     }
 
     public function resetIndex(): mixed
@@ -58,17 +57,22 @@ class AlgoliaProvider implements SearchProviderInterface
 
     public function deleteObject(string $objectId): mixed
     {
-        return $this->index->deleteObject($objectId);
+        return $this->client->deleteObject($this->indexName, $objectId);
     }
 
     public function deleteObjects(array $objectIds): mixed
     {
-        return $this->index->deleteObjects($objectIds);
+        return $this->client->deleteObjects($this->indexName, $objectIds);
     }
 
     public function getObjects(array $objectIds): array
     {
-        $response = (object) $this->index->getObjects($objectIds);
+        $response = (object) $this->client->getObjects([
+            'requests' => array_map(
+                fn(string $objectId): array => ['indexName' => $this->indexName, 'objectID' => $objectId],
+                $objectIds,
+            ),
+        ]);
         return $response->results ?? [];
     }
 
@@ -83,9 +87,9 @@ class AlgoliaProvider implements SearchProviderInterface
         $documents = $this->splitOversizedRecord($record);
 
         if (count($documents) === 1) {
-            $this->index->saveObject($documents[0], ['objectIDKey' => 'uuid']);
+            $this->client->saveObject($this->indexName, $this->prepareDocumentForAlgolia($documents[0]));
         } else {
-            $this->index->saveObjects($documents, ['objectIDKey' => 'uuid']);
+            $this->client->saveObjects($this->indexName, array_map($this->prepareDocumentForAlgolia(...), $documents));
         }
 
         return array_map(static fn(array $document): string => (string) $document['uuid'], $documents);
@@ -93,7 +97,7 @@ class AlgoliaProvider implements SearchProviderInterface
 
     public function search(string $query, int $page = 1, int $pageSize = 20): mixed
     {
-        return $this->index->search($query, ['page' => $page - 1, 'hitsPerPage' => $pageSize]);
+        return $this->client->searchSingleIndex($this->indexName, ['query' => $query, 'page' => $page - 1, 'hitsPerPage' => $pageSize]);
     }
 
     public function setSettings(array $settings = []): mixed
@@ -116,12 +120,25 @@ class AlgoliaProvider implements SearchProviderInterface
         ], $settings);
 
         try {
-            $indexingResponse = $this->index->setSettings($settings);
+            $indexingResponse = $this->client->setSettings($this->indexName, $settings);
         } catch (\Algolia\AlgoliaSearch\Exceptions\UnreachableException $exception) {
             throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
         }
         
         return $indexingResponse;
+    }
+
+    /**
+     * Map Municipio's UUID field to Algolia's objectID field.
+     *
+     * @return array<string, mixed>
+     */
+    private function prepareDocumentForAlgolia(array $document): array
+    {
+        return [
+            ...$document,
+            'objectID' => (string) $document['uuid'],
+        ];
     }
 
     /**
