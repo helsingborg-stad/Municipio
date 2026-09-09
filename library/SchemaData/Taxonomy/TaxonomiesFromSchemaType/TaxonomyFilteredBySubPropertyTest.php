@@ -32,13 +32,43 @@ class TaxonomyFilteredBySubPropertyTest extends TestCase
 
         $decorator = new TaxonomyFilteredBySubProperty($inner, 'keywords', 'inDefinedTermSet.name', 'event_status');
 
-        $this->assertSame('exhibition_event_keywords_name', $decorator->getName());
         $this->assertSame('ExhibitionEvent', $decorator->getSchemaType());
         $this->assertSame('keywords.name', $decorator->getSchemaProperty());
         $this->assertSame(['exhibition_event'], $decorator->getObjectTypes());
         $this->assertSame(['public' => true], $decorator->getArguments());
         $this->assertSame('Event Statuses', $decorator->getLabel());
         $this->assertSame('Event Status', $decorator->getSingularLabel());
+    }
+
+    public function testDerivesNameUniquePerExpectedValueWhenNoNameGiven(): void
+    {
+        $inner = new FakeTaxonomy(name: 'exhibition_event');
+
+        $statusDecorator = new TaxonomyFilteredBySubProperty($inner, 'keywords', 'inDefinedTermSet.name', 'event_status');
+        $otherDecorator = new TaxonomyFilteredBySubProperty($inner, 'keywords', 'inDefinedTermSet.name', 'event_category');
+
+        $this->assertNotSame($statusDecorator->getName(), $otherDecorator->getName());
+        $this->assertSame('exhibition_event_event_status', $statusDecorator->getName());
+        $this->assertSame('exhibition_event_event_category', $otherDecorator->getName());
+    }
+
+    public function testDerivedNameIsTruncatedToWordpressTaxonomyNameLimit(): void
+    {
+        $inner = new FakeTaxonomy(name: str_repeat('a', 32));
+
+        $decorator = new TaxonomyFilteredBySubProperty($inner, 'keywords', 'inDefinedTermSet.name', 'event_status');
+
+        $this->assertLessThanOrEqual(32, strlen($decorator->getName()));
+        $this->assertStringEndsWith('_event_status', $decorator->getName());
+    }
+
+    public function testUsesExplicitNameWhenGiven(): void
+    {
+        $inner = new FakeTaxonomy(name: 'exhibition_event_keywords_name');
+
+        $decorator = new TaxonomyFilteredBySubProperty($inner, 'keywords', 'inDefinedTermSet.name', 'event_status', 'exhibition_event_status');
+
+        $this->assertSame('exhibition_event_status', $decorator->getName());
     }
 
     public function testKeepsValueWhenSubPropertyMatchesExpectedValue(): void

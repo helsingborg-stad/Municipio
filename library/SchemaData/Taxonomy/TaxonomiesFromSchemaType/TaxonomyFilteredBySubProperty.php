@@ -8,20 +8,29 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
  *
  * Example: create terms from `keywords` only when the keyword's `inDefinedTermSet.name`
  * equals `event_status`, where `keywords` is an array of `DefinedTerm` schema objects.
+ *
+ * Since the taxonomy name is normally derived from the schema type and property alone, decorating
+ * the same inner taxonomy more than once (e.g. to split `keywords` into several taxonomies by
+ * different `inDefinedTermSet.name` values) would otherwise produce colliding taxonomy names.
+ * The name is therefore made unique per expected value unless an explicit name is provided.
  */
 class TaxonomyFilteredBySubProperty implements TaxonomyInterface
 {
+    private const MAX_TAXONOMY_NAME_LENGTH = 32;
+
     /**
      * @param TaxonomyInterface $inner The decorated taxonomy.
      * @param string $itemsPropertyPath Dot-notated path to the array of raw schema items to inspect, e.g. 'keywords'.
      * @param string $subPropertyPath Dot-notated path, relative to each item, to the sub-property to match, e.g. 'inDefinedTermSet.name'.
      * @param string|string[] $expectedValue Value(s) the sub-property must match for the item to be kept.
+     * @param string|null $name Explicit taxonomy name. When omitted, a name unique to $expectedValue is derived from the inner taxonomy's name.
      */
     public function __construct(
         private TaxonomyInterface $inner,
         private string $itemsPropertyPath,
         private string $subPropertyPath,
         private string|array $expectedValue,
+        private ?string $name = null,
     ) {
     }
 
@@ -30,7 +39,32 @@ class TaxonomyFilteredBySubProperty implements TaxonomyInterface
      */
     public function getName(): string
     {
-        return $this->inner->getName();
+        return $this->name ?? $this->getDerivedName();
+    }
+
+    /**
+     * Derive a taxonomy name that is unique per expected value, so multiple decorators wrapping the
+     * same inner taxonomy (same schema type/property) don't collide on name.
+     *
+     * @return string The derived, WordPress-safe taxonomy name.
+     */
+    private function getDerivedName(): string
+    {
+        $suffix = '_' . $this->getNameSafeExpectedValue();
+
+        return substr($this->inner->getName(), 0, max(0, self::MAX_TAXONOMY_NAME_LENGTH - strlen($suffix))) . $suffix;
+    }
+
+    /**
+     * Turn the expected value(s) into a string that is safe to use in a taxonomy name.
+     *
+     * @return string
+     */
+    private function getNameSafeExpectedValue(): string
+    {
+        $value = is_array($this->expectedValue) ? implode('_', $this->expectedValue) : $this->expectedValue;
+
+        return strtolower(preg_replace('/[^a-zA-Z0-9_]+/', '_', $value));
     }
 
     /**
