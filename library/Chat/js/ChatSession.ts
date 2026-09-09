@@ -1,25 +1,34 @@
 const SSE_CONTENT_TYPE = "text/event-stream";
 const CHAT_API_ENDPOINT = "municipio/v1/chat";
 
+interface AssistantSession {
+	sessionId: string;
+}
+
 export class ChatSession {
 	private static readonly SESSION_ID_KEY =
-		"municipio:chat:global-chat:session-id";
+		"municipio:chat:global-chat:sessions";
 
 	private readonly fetchFn: typeof fetch;
-	private sessionId: string | null = null;
+	private sessions: Record<string, AssistantSession> = {};
 
 	constructor(private readonly config: ChatSessionConfig) {
 		this.fetchFn = config.fetchImpl ?? fetch.bind(globalThis);
 
 		if (window.localStorage) {
-			this.sessionId = window.localStorage.getItem(ChatSession.SESSION_ID_KEY);
+			this.sessions = JSON.parse(
+				window.localStorage.getItem(ChatSession.SESSION_ID_KEY) ?? "{}",
+			);
 		}
 	}
 
-	public clearSession(): void {
-		this.sessionId = null;
+	public clearSessionForAssistant(assistantId: string): void {
+		delete this.sessions[assistantId];
 		if (window.localStorage) {
-			window.localStorage.removeItem(ChatSession.SESSION_ID_KEY);
+			window.localStorage.setItem(
+				ChatSession.SESSION_ID_KEY,
+				JSON.stringify(this.sessions),
+			);
 		}
 	}
 
@@ -40,7 +49,7 @@ export class ChatSession {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				message,
-				session_id: this.sessionId,
+				session_id: this.sessions[assistantName ?? ""]?.sessionId ?? null,
 				assistant_name: assistantName,
 			}),
 		});
@@ -119,11 +128,14 @@ export class ChatSession {
 
 		switch (eventType) {
 			case "first_chunk":
-				this.sessionId = data.session_id;
+				this.sessions[this.config.assistantName ?? ""] = {
+					sessionId: data.session_id,
+					messages: [],
+				};
 				if (window.localStorage) {
 					window.localStorage.setItem(
 						ChatSession.SESSION_ID_KEY,
-						this.sessionId ?? "",
+						JSON.stringify(this.sessions),
 					);
 				}
 				return { eventType, accumulatedText, event: null };

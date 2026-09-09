@@ -14,7 +14,7 @@
     ]
 ])
     @chat([
-        'id' => 'global-chat',
+        'id' => $chatId,
         'persistent' => true,
         'size' => 'sm',
         'attributeList' => $attributeList,

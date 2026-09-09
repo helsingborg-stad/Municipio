@@ -25,7 +25,7 @@ class Chat implements ChatInterface {
 
 	public createNewChatSession(): void {
 		this.session = this.sessionFactory.create(this.assistantName);
-		this.session.clearSession();
+		this.session.clearSessionForAssistant(this.assistantName ?? "");
 	}
 
 	private listenForUserMessages(): void {

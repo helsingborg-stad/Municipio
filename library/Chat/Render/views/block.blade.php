@@ -1,4 +1,5 @@
 @chat([
+    'id' => $chatId,
     'classList' => ['municipio-ai-chat', 'c-chat--flat'],
     'attributeList' => $attributeList,
     'chatInputData' => [

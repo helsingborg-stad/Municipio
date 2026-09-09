@@ -6,7 +6,8 @@ use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Helper\Image;
 use WpService\Contracts\__;
 
-class ChatRenderConfig implements ChatRenderConfigInterface {
+class ChatRenderConfig implements ChatRenderConfigInterface
+{
     private ?array $assistant = null;
     private ?array $avatar = null;
 
@@ -16,8 +17,7 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
         private string $view,
         private string $assistantName,
         private ?string $wrapperAttributes = '',
-    ) {
-    }
+    ) {}
 
     public function getView(): string
     {
@@ -33,6 +33,26 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
         }
 
         return $assistant['name'];
+    }
+
+    public function getChatId(): string
+    {
+        $assistantName = $this->getAssistantName();
+
+        if (empty($assistantName)) {
+            return 'global-chat-default';
+        }
+
+        $assistantHash = substr(md5($assistantName), 0, 8);
+
+        $slug = preg_replace('/[^a-z0-9]+/i', '-', strtolower($assistantName)) ?? '';
+        $slug = trim($slug, '-');
+
+        if ($slug === '') {
+            return sprintf('global-chat-%s', $assistantHash);
+        }
+
+        return sprintf('global-chat-%s-%s', $slug, $assistantHash);
     }
 
     public function getAssistant(): ?array
@@ -73,7 +93,8 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
         return $attributeList;
     }
 
-    public function getLang(): array {
+    public function getLang(): array
+    {
         return [
             'chat' => $this->wpService->__('Chat', 'municipio'),
             'close' => $this->wpService->__('Close', 'municipio'),
