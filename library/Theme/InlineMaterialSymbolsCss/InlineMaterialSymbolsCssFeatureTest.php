@@ -23,11 +23,12 @@ class InlineMaterialSymbolsCssFeatureTest extends TestCase
         $this->temporaryDirectories = [];
     }
 
-    #[TestDox('adds hooks for frontend and admin material symbols output')]
+    #[TestDox('adds hooks for frontend, admin, and editor material symbols output')]
     public function testAddHooks(): void
     {
         $wpService = new FakeWpService([
             'addAction' => true,
+            'addFilter' => true,
         ]);
         $wpUtilService = $this->createMock(WpUtilService::class);
         $wpUtilService
@@ -40,9 +41,11 @@ class InlineMaterialSymbolsCssFeatureTest extends TestCase
 
         $feature->addHooks();
 
-        static::assertCount(2, $wpService->methodCalls['addAction'] ?? []);
+        static::assertCount(3, $wpService->methodCalls['addAction'] ?? []);
         static::assertSame('wp_enqueue_scripts', $wpService->methodCalls['addAction'][0][0]);
         static::assertSame('admin_enqueue_scripts', $wpService->methodCalls['addAction'][1][0]);
+        static::assertSame('enqueue_block_editor_assets', $wpService->methodCalls['addAction'][2][0]);
+        static::assertSame('block_editor_settings_all', $wpService->methodCalls['addFilter'][0][0]);
     }
 
     #[TestDox('inlines the material symbols stylesheet from the built asset manifest')]
@@ -120,6 +123,75 @@ class InlineMaterialSymbolsCssFeatureTest extends TestCase
         static::assertArrayNotHasKey('wpRegisterStyle', $wpService->methodCalls);
         static::assertArrayNotHasKey('wpEnqueueStyle', $wpService->methodCalls);
         static::assertArrayNotHasKey('wpAddInlineStyle', $wpService->methodCalls);
+    }
+
+    #[TestDox('appends material symbols stylesheet to block editor iframe styles')]
+    public function testApplyEditorIframeStylesAppendsBuiltStylesheet(): void
+    {
+        $themeRoot = $this->createThemeBuild([
+            'fonts/material/medium/rounded.css' => 'fonts/material/medium/rounded.hash.css',
+        ], [
+            'fonts/material/medium/rounded.hash.css' => '@font-face{src:url(./material-symbols-rounded.woff2) format("woff2")}',
+        ]);
+
+        $wpUtilService = $this->createMock(WpUtilService::class);
+        $wpUtilService
+            ->method('enqueue')
+            ->willReturn(
+                $this->getMockBuilder(EnqueueManager::class)->disableOriginalConstructor()->getMock(),
+            );
+
+        $wpService = new FakeWpService([
+            'getThemeMod' => fn(string $name): string => match ($name) {
+                'icon_weight' => '400',
+                'icon_style' => 'rounded',
+                default => '',
+            },
+            'getThemeFilePath' => fn(string $file = ''): string => rtrim($themeRoot, '/') . '/' . ltrim($file, '/'),
+            'getStylesheetDirectoryUri' => 'http://example.com/wp-content/themes/municipio',
+        ]);
+
+        $feature = new InlineMaterialSymbolsCssFeature($wpService, $wpUtilService);
+
+        $settings = call_user_func([$feature, 'applyEditorIframeStyles'], [
+            'styles' => [
+                ['css' => '.existing { color: red; }'],
+            ],
+        ]);
+
+        static::assertCount(2, $settings['styles']);
+        static::assertSame('.existing { color: red; }', $settings['styles'][0]['css']);
+        static::assertSame(
+            '@font-face{src:url("http://example.com/wp-content/themes/municipio/assets/dist/fonts/material/medium/material-symbols-rounded.woff2") format("woff2")}',
+            $settings['styles'][1]['css'],
+        );
+    }
+
+    #[TestDox('keeps block editor iframe styles unchanged when the built stylesheet is unavailable')]
+    public function testApplyEditorIframeStylesKeepsSettingsWhenStylesheetIsUnavailable(): void
+    {
+        $themeRoot = $this->createTemporaryDirectory();
+
+        $wpUtilService = $this->createMock(WpUtilService::class);
+        $wpUtilService
+            ->method('enqueue')
+            ->willReturn(
+                $this->getMockBuilder(EnqueueManager::class)->disableOriginalConstructor()->getMock(),
+            );
+
+        $wpService = new FakeWpService([
+            'getThemeMod' => fn(string $name): string => match ($name) {
+                'icon_weight' => '400',
+                'icon_style' => 'rounded',
+                default => '',
+            },
+            'getThemeFilePath' => fn(string $file = ''): string => rtrim($themeRoot, '/') . '/' . ltrim($file, '/'),
+        ]);
+
+        $feature = new InlineMaterialSymbolsCssFeature($wpService, $wpUtilService);
+        $settings = ['styles' => [['css' => '.existing { color: red; }']]];
+
+        static::assertSame($settings, call_user_func([$feature, 'applyEditorIframeStyles'], $settings));
     }
 
     private function createThemeBuild(array $manifest, array $assets): string
