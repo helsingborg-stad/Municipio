@@ -15,3 +15,9 @@ The `ExternalContent` feature in the Municipio theme allows for syncing external
 - **Sync all on demand**: Sync all schema objects from the source to the post type on demand from the post table view.
 - **Sync single object**: Sync a single schema object from the source to the post type on demand from the post table view.
 - **Sync with WP-Cron**: Schedule syncs with WP-Cron to keep the content up to date.
+- **Sync with WP-CLI**: List configured sources and trigger syncs from the command line.
+
+### WP-CLI Commands
+- `wp municipio external-content list`: List post types that have a configured external content source.
+- `wp municipio external-content sync <post_type>`: Sync a post type from its configured external content source.
+- `wp municipio external-content sync <post_type> --force`: Re-sync every object from the source, even ones whose source data checksum is unchanged since the last sync.
