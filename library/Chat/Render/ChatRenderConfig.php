@@ -67,7 +67,7 @@ class ChatRenderConfig implements ChatRenderConfigInterface {
         ];
 
         if (!empty($this->getGreetingsPhrase())) {
-            $attributeList['data-js-chat-greetings-phrase'] = $this->getGreetingsPhrase();
+            $attributeList['data-js-chat-greetings-phrase'] = nl2br($this->getGreetingsPhrase());
         }
 
         return $attributeList;

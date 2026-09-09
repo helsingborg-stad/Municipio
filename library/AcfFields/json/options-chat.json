@@ -462,7 +462,7 @@
                     "label": "Greetings phrase",
                     "name": "greetings_phrase",
                     "aria-label": "",
-                    "type": "text",
+                    "type": "textarea",
                     "instructions": "A phrase that will greet the user",
                     "required": 0,
                     "conditional_logic": 0,
@@ -474,9 +474,9 @@
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
+                    "rows": "",
                     "placeholder": "",
-                    "prepend": "",
-                    "append": "",
+                    "new_lines": "",
                     "parent_repeater": "field_69ddefc99aa7a"
                 }
             ]
@@ -500,6 +500,8 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "display_title": ""
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
 }]
 

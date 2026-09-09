@@ -466,7 +466,7 @@
                     'label' => __('Greetings phrase', 'municipio'),
                     'name' => 'greetings_phrase',
                     'aria-label' => '',
-                    'type' => 'text',
+                    'type' => 'textarea',
                     'instructions' => __('A phrase that will greet the user', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
@@ -478,9 +478,9 @@
                     'default_value' => '',
                     'maxlength' => '',
                     'allow_in_bindings' => 0,
+                    'rows' => '',
                     'placeholder' => '',
-                    'prepend' => '',
-                    'append' => '',
+                    'new_lines' => '',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
             ),
@@ -505,5 +505,7 @@
     'description' => '',
     'show_in_rest' => 0,
     'display_title' => '',
+    'allow_ai_access' => false,
+    'ai_description' => '',
 ));
 }
