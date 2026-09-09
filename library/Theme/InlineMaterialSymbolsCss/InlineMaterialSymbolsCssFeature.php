@@ -37,6 +37,8 @@ class InlineMaterialSymbolsCssFeature implements Hookable
     {
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueMaterialSymbols']);
         $this->wpService->addAction('admin_enqueue_scripts', [$this, 'enqueueMaterialSymbols'], 999);
+        $this->wpService->addAction('enqueue_block_editor_assets', [$this, 'enqueueMaterialSymbols']);
+        $this->wpService->addFilter('block_editor_settings_all', [$this, 'applyEditorIframeStyles'], 10, 2);
     }
 
     /**
@@ -44,23 +46,42 @@ class InlineMaterialSymbolsCssFeature implements Hookable
      */
     public function enqueueMaterialSymbols(): void
     {
-        $weight = $this->wpService->getThemeMod('icon_weight') ?: '400';
-        $style = $this->wpService->getThemeMod('icon_style') ?: 'rounded';
+        $variant = $this->getMaterialSymbolsVariant();
 
-        $weightTranslationTable = [
-            '200' => 'light',
-            '400' => 'medium',
-            '600' => 'bold',
-        ];
-        $translatedWeight = $weightTranslationTable[$weight] ?? 'medium';
-
-        $src = "fonts/material/{$translatedWeight}/{$style}.css";
-
-        if ($this->enqueueMaterialSymbolsInline($src, $translatedWeight, $style)) {
+        if ($this->enqueueMaterialSymbolsInline($variant['src'], $variant['translatedWeight'], $variant['style'])) {
             return;
         }
 
-        $this->enqueue->add($src);
+        $this->enqueue->add($variant['src']);
+    }
+
+    /**
+     * Adds Material Symbols CSS to the Gutenberg content iframe styles.
+     *
+     * @param array<string, mixed> $settings Block editor settings.
+     * @param mixed $context Block editor context.
+     *
+     * @return array<string, mixed> Modified block editor settings.
+     */
+    public function applyEditorIframeStyles(array $settings, mixed $context = null): array
+    {
+        $variant = $this->getMaterialSymbolsVariant();
+        $cssContent = $this->getMaterialSymbolsInlineCss($variant['src']);
+
+        if ($cssContent === null) {
+            return $settings;
+        }
+
+        $editorStyles = $settings['styles'] ?? [];
+
+        if (!is_array($editorStyles)) {
+            $editorStyles = [];
+        }
+
+        $editorStyles[] = ['css' => $cssContent];
+        $settings['styles'] = $editorStyles;
+
+        return $settings;
     }
 
     /**
@@ -74,32 +95,73 @@ class InlineMaterialSymbolsCssFeature implements Hookable
      */
     private function enqueueMaterialSymbolsInline(string $src, string $translatedWeight, string $style): bool
     {
+        $cssContent = $this->getMaterialSymbolsInlineCss($src);
+
+        if ($cssContent === null) {
+            return false;
+        }
+
+        $handle = sprintf('material-symbols-%s-%s', $translatedWeight, $style);
+
+        $this->wpService->wpRegisterStyle($handle, false);
+        $this->wpService->wpEnqueueStyle($handle);
+        $this->wpService->wpAddInlineStyle($handle, $cssContent);
+
+        return true;
+    }
+
+    /**
+     * Resolve the selected Material Symbols asset variant.
+     *
+     * @return array{translatedWeight: string, style: string, src: string} Material Symbols asset data.
+     */
+    private function getMaterialSymbolsVariant(): array
+    {
+        $weight = $this->wpService->getThemeMod('icon_weight') ?: '400';
+        $style = $this->wpService->getThemeMod('icon_style') ?: 'rounded';
+
+        $weightTranslationTable = [
+            '200' => 'light',
+            '400' => 'medium',
+            '600' => 'bold',
+        ];
+        $translatedWeight = $weightTranslationTable[$weight] ?? 'medium';
+
+        return [
+            'translatedWeight' => $translatedWeight,
+            'style' => is_string($style) ? $style : 'rounded',
+            'src' => "fonts/material/{$translatedWeight}/" . (is_string($style) ? $style : 'rounded') . '.css',
+        ];
+    }
+
+    /**
+     * Get inline-ready Material Symbols CSS with absolute asset URLs.
+     *
+     * @param string $src The manifest asset key.
+     *
+     * @return string|null Rewritten CSS, or null if unavailable.
+     */
+    private function getMaterialSymbolsInlineCss(string $src): ?string
+    {
         $assetFile = $this->resolveBuiltAssetFile($src);
 
         if ($assetFile === null) {
-            return false;
+            return null;
         }
 
         $assetPath = $this->wpService->getThemeFilePath(self::THEME_DIST_DIRECTORY . ltrim($assetFile, '/'));
 
         if (!is_readable($assetPath)) {
-            return false;
+            return null;
         }
 
         $cssContent = file_get_contents($assetPath);
 
         if ($cssContent === false || $cssContent === '') {
-            return false;
+            return null;
         }
 
-        $handle = sprintf('material-symbols-%s-%s', $translatedWeight, $style);
-        $assetBaseUrl = $this->resolveBuiltAssetBaseUrl($assetFile);
-
-        $this->wpService->wpRegisterStyle($handle, false);
-        $this->wpService->wpEnqueueStyle($handle);
-        $this->wpService->wpAddInlineStyle($handle, $this->rewriteRelativeAssetUrls($cssContent, $assetBaseUrl));
-
-        return true;
+        return $this->rewriteRelativeAssetUrls($cssContent, $this->resolveBuiltAssetBaseUrl($assetFile));
     }
 
     /**
