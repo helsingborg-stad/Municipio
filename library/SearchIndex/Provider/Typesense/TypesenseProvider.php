@@ -25,6 +25,7 @@ class TypesenseProvider implements SearchProviderInterface
         $locale = substr($this->wpService->getLocale(), 0, 2);
         $schema = $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/CollectionSchema', [
             'name' => $this->collectionName,
+            'enable_nested_fields' => false,
             'fields' => $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Fields', [
                 ['name' => 'post_title', 'type' => 'string', 'locale' => $locale],
                 ['name' => 'post_excerpt', 'type' => 'string', 'locale' => $locale],
@@ -104,6 +105,17 @@ class TypesenseProvider implements SearchProviderInterface
             sprintf('/collections/%s/documents', rawurlencode($this->collectionName)),
             ['filter_by' => sprintf('origin_site_url:=`%s`', $this->wpService->getBloginfo('url'))],
         ));
+    }
+
+    public function resetIndex(): mixed
+    {
+        $response = $this->sendRequest('DELETE', sprintf('/collections/%s', rawurlencode($this->collectionName)));
+
+        if ($response['statusCode'] === 404) {
+            return null;
+        }
+
+        return $this->throwOnError($response);
     }
 
     public function deleteObject(string $objectId): mixed

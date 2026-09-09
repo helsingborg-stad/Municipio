@@ -101,4 +101,58 @@ class TypesenseProviderTest extends TestCase
 
         static::assertNull($provider->deleteObject('missing-document'));
     }
+
+    /**
+     * Verify that resetting the index deletes the entire collection.
+     */
+    public function testResetIndexDeletesCollection(): void
+    {
+        $requestedUrl = '';
+        $requestedMethod = '';
+        $wpService = new FakeWpService([
+            'wpRemoteRequest' => static function (string $url, array $args) use (&$requestedUrl, &$requestedMethod): array {
+                $requestedUrl    = $url;
+                $requestedMethod = $args['method'];
+                return [];
+            },
+            'isWpError' => false,
+            'wpRemoteRetrieveBody' => json_encode(['name' => 'municipio-content'], JSON_THROW_ON_ERROR),
+            'wpRemoteRetrieveResponseCode' => 200,
+        ]);
+        $provider = new TypesenseProvider(
+            $wpService,
+            implode('-', ['typesense', 'server', 'key']),
+            'https://typesense.example.test',
+            'municipio-content',
+        );
+
+        $result = $provider->resetIndex();
+
+        static::assertSame(['name' => 'municipio-content'], $result);
+        static::assertSame('DELETE', $requestedMethod);
+        static::assertSame('https://typesense.example.test/collections/municipio-content', $requestedUrl);
+    }
+
+    /**
+     * Verify that resetting an already-absent collection is a no-op.
+     */
+    public function testResetIndexIgnoresMissingCollection(): void
+    {
+        $wpService = new FakeWpService([
+            'wpRemoteRequest' => [],
+            'isWpError' => false,
+            'wpRemoteRetrieveBody' => json_encode([
+                'message' => 'Not found.',
+            ], JSON_THROW_ON_ERROR),
+            'wpRemoteRetrieveResponseCode' => 404,
+        ]);
+        $provider = new TypesenseProvider(
+            $wpService,
+            implode('-', ['typesense', 'server', 'key']),
+            'https://typesense.example.test',
+            'municipio-content',
+        );
+
+        static::assertNull($provider->resetIndex());
+    }
 }
