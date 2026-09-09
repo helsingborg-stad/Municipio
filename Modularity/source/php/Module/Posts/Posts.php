@@ -228,14 +228,13 @@ class Posts extends \Modularity\Module
             'next' => __('Next slide', 'municipio'),
         ];
 
-        if ($this->getID()) {
+        if ($this->getID() && $this->mode !== 'block') {
             $data['sliderId'] = $this->getID();
             $data['ID'] = $this->getID();
         } else {
             $data['sliderId'] = uniqid();
             $data['ID'] = uniqid();
         }
-
         $data['classList'] = [];
 
         $data['lang'] = [
