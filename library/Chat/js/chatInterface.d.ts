@@ -1,4 +1,4 @@
 interface ChatInterface {
-    init(): void;
-    createNewChatSession(): void;
+	init(): void;
+	createNewChatSession(): void;
 }

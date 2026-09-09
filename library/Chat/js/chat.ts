@@ -12,10 +12,14 @@ class Chat implements ChatInterface {
 		private readonly feedbackFactory: FeedbackFactoryInterface,
 		private readonly feedbackApi: FeedbackApi,
 		private readonly assistantName: string | null = null,
+		private readonly persistSession: boolean = true,
 	) {}
 
 	public init(): void {
-		this.session = this.sessionFactory.create(this.assistantName);
+		this.session = this.sessionFactory.create(
+			this.assistantName,
+			this.persistSession,
+		);
 		this.listenForUserMessages();
 	}
 
@@ -24,7 +28,10 @@ class Chat implements ChatInterface {
 	}
 
 	public createNewChatSession(): void {
-		this.session = this.sessionFactory.create(this.assistantName);
+		this.session = this.sessionFactory.create(
+			this.assistantName,
+			this.persistSession,
+		);
 		this.session.clearSessionForAssistant(this.assistantName ?? "");
 	}
 

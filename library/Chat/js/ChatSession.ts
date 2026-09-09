@@ -15,7 +15,7 @@ export class ChatSession {
 	constructor(private readonly config: ChatSessionConfig) {
 		this.fetchFn = config.fetchImpl ?? fetch.bind(globalThis);
 
-		if (window.localStorage) {
+		if (this.shouldPersistSessions() && window.localStorage) {
 			this.sessions = JSON.parse(
 				window.localStorage.getItem(ChatSession.SESSION_ID_KEY) ?? "{}",
 			);
@@ -24,7 +24,7 @@ export class ChatSession {
 
 	public clearSessionForAssistant(assistantId: string): void {
 		delete this.sessions[assistantId];
-		if (window.localStorage) {
+		if (this.shouldPersistSessions() && window.localStorage) {
 			window.localStorage.setItem(
 				ChatSession.SESSION_ID_KEY,
 				JSON.stringify(this.sessions),
@@ -130,9 +130,8 @@ export class ChatSession {
 			case "first_chunk":
 				this.sessions[this.config.assistantName ?? ""] = {
 					sessionId: data.session_id,
-					messages: [],
 				};
-				if (window.localStorage) {
+				if (this.shouldPersistSessions() && window.localStorage) {
 					window.localStorage.setItem(
 						ChatSession.SESSION_ID_KEY,
 						JSON.stringify(this.sessions),
@@ -171,5 +170,9 @@ export class ChatSession {
 			// Fall through to raw body
 		}
 		return rawBody;
+	}
+
+	private shouldPersistSessions(): boolean {
+		return this.config.persistSession ?? true;
 	}
 }
