@@ -110,12 +110,9 @@ class ImageProcessor
             return false;
         }
 
-        $publishTemporaryPath = null;
-
         try {
             // S3-backed stream wrappers cannot always inspect a newly written
-            // object immediately. Generate and validate locally, then stage a
-            // temporary object beside the final image before publication.
+            // object immediately. Generate and validate locally before publication.
             $savedImage = $imageEditor->save($localTemporaryPath);
             if ($this->wpService->isWpError($savedImage)) {
                 $this->logConversionFailure($image, $format, $savedImage);
@@ -139,20 +136,11 @@ class ImageProcessor
                 return false;
             }
 
-            $publishTemporaryPath = $savedPath;
-            if ($usesExternalStream) {
-                $publishTemporaryPath = $this->getTemporaryPath($intermediateLocation['path']);
-                if (!copy($savedPath, $publishTemporaryPath)) {
-                    $this->logConversionFailure(
-                        $image,
-                        $format,
-                        new \WP_Error('publish_failed', 'The converted image could not be published to its public path.'),
-                    );
-                    return false;
-                }
-            }
+            $publishedImage = $usesExternalStream
+                ? copy($savedPath, $intermediateLocation['path'])
+                : rename($savedPath, $intermediateLocation['path']);
 
-            if (!rename($publishTemporaryPath, $intermediateLocation['path'])) {
+            if (!$publishedImage) {
                 $this->logConversionFailure(
                     $image,
                     $format,
@@ -160,8 +148,6 @@ class ImageProcessor
                 );
                 return false;
             }
-
-            $publishTemporaryPath = null;
 
             $intermediateLocation['path'] = $this->wpService->applyFilters(
                 'wp_create_file_in_uploads',
@@ -181,10 +167,8 @@ class ImageProcessor
 
             return $image;
         } finally {
-            foreach ([$localTemporaryPath, $publishTemporaryPath] as $temporaryPath) {
-                if ($temporaryPath !== null && file_exists($temporaryPath)) {
-                    $this->wpService->wpDeleteFile($temporaryPath);
-                }
+            if (file_exists($localTemporaryPath)) {
+                $this->wpService->wpDeleteFile($localTemporaryPath);
             }
         }
     }
@@ -226,7 +210,7 @@ class ImageProcessor
         $extension = pathinfo($finalPath, PATHINFO_EXTENSION);
         $basePath = substr($finalPath, 0, -(strlen($extension) + 1));
 
-        return sprintf('%s.tmp-%s.%s', $basePath, bin2hex(random_bytes(8)), $extension);
+        return sprintf('%s.tmp-%s.%s', $basePath, bin2hex(\random_bytes(8)), $extension);
     }
 
     private function logConversionFailure(ImageContract $image, string $format, \WP_Error $error): void
