@@ -25,6 +25,7 @@ class ChatRender implements ChatRenderInterface
                 'lang' => $renderConfig->getLang(),
                 'avatar' => $renderConfig->getAvatar(),
                 'name' => $assistant['name'],
+                'chatId' => $renderConfig->getChatId(),
                 'attributeList' => $renderConfig->getAttributeList()
             ]),
         );
