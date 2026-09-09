@@ -18,7 +18,7 @@ if (!function_exists(__NAMESPACE__ . '\\rest_ensure_response')) {
      */
     function rest_ensure_response($response)
     {
-        return new class ($response) extends WP_REST_Response {
+        return new class($response) extends WP_REST_Response {
             /**
              * @param mixed $data The response payload.
              */
@@ -74,10 +74,10 @@ class DesignLibraryTest extends TestCase
             'css' => '.site-header { color: #000; }',
         ];
 
-        $endpoint = new class ($expectedPayload) extends DesignLibrary {
-            public function __construct(private array $payload)
-            {
-            }
+        $endpoint = new class($expectedPayload) extends DesignLibrary {
+            public function __construct(
+                private array $payload,
+            ) {}
 
             protected function getSiteConfig(): array
             {
