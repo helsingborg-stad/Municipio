@@ -66,15 +66,7 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
      */
     private function getExhibitionEventTaxonomies(): array
     {
-        return [
-            new EventStatusFromDatesTaxonomy($this->wpService, $this->createTaxonomy(
-                'ExhibitionEvent',
-                'startDate',
-                $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name (plural)', 'municipio'),
-                $this->wpService->_x('Status', 'ExhibitionEvent taxonomy name', 'municipio'),
-                ['show_admin_column' => true],
-            )),
-        ];
+        return [];
     }
 
     /**
