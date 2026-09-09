@@ -18,6 +18,11 @@ html :where(.wp-block) {
     font-size: calc(var(--base-font-size) * 2);
 }
 
+.editor-styles-wrapper [class*="block-modularity-mod-"] a[href],
+.block-editor__container [class*="block-modularity-mod-"] a[href] {
+    pointer-events: none;
+}
+
 .components-popover {
   padding-left: 12px;
 }

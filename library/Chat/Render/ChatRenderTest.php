@@ -11,7 +11,7 @@ class ChatRenderTest extends TestCase
     #[TestDox('class can be instantiated')]
     public function testClassCanBeInstantiated(): void
     {
-        $bladeRenderer = new class () implements RendererInterface {
+        $bladeRenderer = new class() implements RendererInterface {
             public function render(string $view, array $data = []): string
             {
                 return '<div>chat</div>';
@@ -23,14 +23,24 @@ class ChatRenderTest extends TestCase
     #[TestDox('render() can be called')]
     public function testRenderCanBeCalled(): void
     {
-        $bladeRenderer = new class () implements RendererInterface {
+        $renderData = null;
+
+        $bladeRenderer = new class($renderData) implements RendererInterface {
+            private mixed $renderData;
+
+            public function __construct(&$renderData)
+            {
+                $this->renderData = &$renderData;
+            }
+
             public function render(string $view, array $data = []): string
             {
+                $this->renderData = $data;
                 return '<section>rendered chat</section>';
             }
         };
         $render = new ChatRender($bladeRenderer);
-        $config = new class () implements ChatRenderConfigInterface {
+        $config = new class() implements ChatRenderConfigInterface {
             public function getView(): string
             {
                 return 'block';
@@ -49,6 +59,11 @@ class ChatRenderTest extends TestCase
             public function getAssistantName(): ?string
             {
                 return 'Ava';
+            }
+
+            public function getChatId(): string
+            {
+                return 'global-chat-ava';
             }
 
             public function getAvatar(): ?array
@@ -71,6 +86,9 @@ class ChatRenderTest extends TestCase
                 return [];
             }
         };
+
         $this->assertIsString($render->render($config));
+        $this->assertIsArray($renderData);
+        $this->assertSame('global-chat-ava', $renderData['chatId']);
     }
 }

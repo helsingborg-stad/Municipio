@@ -1,12 +1,35 @@
 const SSE_CONTENT_TYPE = "text/event-stream";
 const CHAT_API_ENDPOINT = "municipio/v1/chat";
 
+interface AssistantSession {
+	sessionId: string;
+}
+
 export class ChatSession {
+	private static readonly SESSION_ID_KEY =
+		"municipio:chat:global-chat:sessions";
+
 	private readonly fetchFn: typeof fetch;
-	private sessionId: string | null = null;
+	private sessions: Record<string, AssistantSession> = {};
 
 	constructor(private readonly config: ChatSessionConfig) {
 		this.fetchFn = config.fetchImpl ?? fetch.bind(globalThis);
+
+		if (this.shouldPersistSessions() && window.localStorage) {
+			this.sessions = JSON.parse(
+				window.localStorage.getItem(ChatSession.SESSION_ID_KEY) ?? "{}",
+			);
+		}
+	}
+
+	public clearSessionForAssistant(assistantId: string): void {
+		delete this.sessions[assistantId];
+		if (this.shouldPersistSessions() && window.localStorage) {
+			window.localStorage.setItem(
+				ChatSession.SESSION_ID_KEY,
+				JSON.stringify(this.sessions),
+			);
+		}
 	}
 
 	public async *ask(message: string): AsyncGenerator<ChatEvent> {
@@ -26,7 +49,7 @@ export class ChatSession {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				message,
-				session_id: this.sessionId,
+				session_id: this.sessions[assistantName ?? ""]?.sessionId ?? null,
 				assistant_name: assistantName,
 			}),
 		});
@@ -39,7 +62,9 @@ export class ChatSession {
 		throw new Error(this.parseErrorMessage(body));
 	}
 
-	private async *consumeSseStream(response: Response): AsyncGenerator<ChatEvent> {
+	private async *consumeSseStream(
+		response: Response,
+	): AsyncGenerator<ChatEvent> {
 		if (!response.body) throw new Error("Response has no body");
 
 		const reader = response.body.getReader();
@@ -103,11 +128,23 @@ export class ChatSession {
 
 		switch (eventType) {
 			case "first_chunk":
-				this.sessionId = data.session_id;
+				this.sessions[this.config.assistantName ?? ""] = {
+					sessionId: data.session_id,
+				};
+				if (this.shouldPersistSessions() && window.localStorage) {
+					window.localStorage.setItem(
+						ChatSession.SESSION_ID_KEY,
+						JSON.stringify(this.sessions),
+					);
+				}
 				return { eventType, accumulatedText, event: null };
 			case "text":
 				accumulatedText += data.answer;
-				return { eventType, accumulatedText, event: { type: "text", content: accumulatedText } };
+				return {
+					eventType,
+					accumulatedText,
+					event: { type: "text", content: accumulatedText },
+				};
 			case "tool_call":
 				return { eventType, accumulatedText, event: { type: "tool_call" } };
 			case "error":
@@ -133,5 +170,9 @@ export class ChatSession {
 			// Fall through to raw body
 		}
 		return rawBody;
+	}
+
+	private shouldPersistSessions(): boolean {
+		return this.config.persistSession ?? true;
 	}
 }
