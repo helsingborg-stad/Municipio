@@ -50,9 +50,11 @@ class TaxonomyFilteredBySubProperty implements TaxonomyInterface
      */
     private function getDerivedName(): string
     {
-        $suffix = '_' . $this->getNameSafeExpectedValue();
+        $safeExpected = $this->getNameSafeExpectedValue();
+        $suffix = '_' . substr($safeExpected, 0, self::MAX_TAXONOMY_NAME_LENGTH - 1);
+        $prefixLength = max(0, self::MAX_TAXONOMY_NAME_LENGTH - strlen($suffix));
 
-        return substr($this->inner->getName(), 0, max(0, self::MAX_TAXONOMY_NAME_LENGTH - strlen($suffix))) . $suffix;
+        return substr($this->inner->getName(), 0, $prefixLength) . $suffix;
     }
 
     /**
