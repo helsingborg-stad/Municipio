@@ -47,6 +47,15 @@ class AlgoliaProvider implements SearchProviderInterface
         return $this->index->deleteBy(['filters' => sprintf('origin_site_url:%s', $siteUrl)]);
     }
 
+    public function resetIndex(): mixed
+    {
+        try {
+            return $this->index->delete();
+        } catch (\Algolia\AlgoliaSearch\Exceptions\UnreachableException $exception) {
+            throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
+        }
+    }
+
     public function deleteObject(string $objectId): mixed
     {
         return $this->index->deleteObject($objectId);

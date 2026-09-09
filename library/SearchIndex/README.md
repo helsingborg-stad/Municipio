@@ -52,6 +52,12 @@ wp municipio search-index check
 # Create or update the provider schema and settings.
 wp municipio search-index prepare
 
+# Delete the existing collection/index first, then recreate it with current settings.
+# Use this when a schema change (e.g. a Typesense field type change) requires a new
+# collection instead of an update to the existing one. Prompts for confirmation
+# unless --yes is also passed, and requires a full `build` afterward.
+wp municipio search-index prepare --reset
+
 # Index all eligible content in batches.
 wp municipio search-index build
 
@@ -61,7 +67,7 @@ wp municipio search-index clear
 
 `prepare` uses the provider selected in Search Index settings.
 
-For a clean rebuild, run `clear`, then `prepare`, then `build`. On multisite, target the intended site with WP-CLI's `--url=<site-url>` global option.
+For a clean rebuild, run `clear`, then `prepare`, then `build`. For a schema change that requires a new collection, run `prepare --reset`, then `build`. On multisite, target the intended site with WP-CLI's `--url=<site-url>` global option.
 
 To index all sites in a multisite installation, run this one-liner:
 

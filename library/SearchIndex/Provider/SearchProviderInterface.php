@@ -24,6 +24,11 @@ interface SearchProviderInterface
      */
     public function clearObjects(): mixed;
 
+    /**
+     * Delete the underlying collection/index entirely so a new one can be created with setSettings().
+     */
+    public function resetIndex(): mixed;
+
     public function deleteObject(string $objectId): mixed;
 
     public function deleteObjects(array $objectIds): mixed;

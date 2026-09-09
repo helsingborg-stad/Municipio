@@ -27,6 +27,17 @@ class PrepareSearchIndexCommand
 
     /**
      * Send settings to the configured search provider.
+     *
+     * ## OPTIONS
+     *
+     * [--reset]
+     * : Delete the existing collection/index before sending settings, so a schema change requiring a new
+     * collection can be applied. Prompts for confirmation unless --yes is also passed.
+     *
+     * ## EXAMPLES
+     *
+     *     wp municipio search-index prepare
+     *     wp municipio search-index prepare --reset
      */
     public function prepare(array $arguments, array $associativeArguments): void
     {
@@ -35,10 +46,27 @@ class PrepareSearchIndexCommand
             return;
         }
 
+        $provider = $this->providerFactory->create();
+
+        if (isset($associativeArguments['reset'])) {
+            $this->callWpCli(
+                'confirm',
+                'This will permanently delete the existing search index collection/index and cannot be undone. Continue?',
+                $associativeArguments,
+            );
+            $this->callWpCli('log', 'Resetting existing collection/index...');
+            $provider->resetIndex();
+        }
+
         $this->callWpCli('log', 'Sending provider settings...');
-        $this->providerFactory->create()->setSettings();
+        $provider->setSettings();
         $this->callWpCli('success', 'Search index preparation complete.');
+
+        if (isset($associativeArguments['reset'])) {
+            $this->callWpCli('log', 'Run `wp municipio search-index build` to re-index all content.');
+        }
     }
+
 
     /**
      * Invoke the WP-CLI runtime without requiring its classes in web requests.

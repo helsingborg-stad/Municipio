@@ -38,4 +38,26 @@ class AlgoliaProviderTest extends TestCase
 
         $provider->clearObjects();
     }
+
+    /**
+     * Verify that resetting the index deletes it entirely.
+     */
+    public function testResetIndexDeletesTheIndex(): void
+    {
+        $index = $this->createMock(SearchIndex::class);
+        $index->expects($this->once())->method('delete');
+        $provider = new AlgoliaProvider(
+            new FakeWpService([
+                'getCurrentUserId' => 0,
+                'applyFilters' => static fn(string $hookName, mixed $value): mixed => $value,
+            ]),
+            'application-id',
+            implode('-', ['algolia', 'admin', 'key']),
+            'municipio-content',
+        );
+        $indexProperty = new \ReflectionProperty($provider, 'index');
+        $indexProperty->setValue($provider, $index);
+
+        $provider->resetIndex();
+    }
 }

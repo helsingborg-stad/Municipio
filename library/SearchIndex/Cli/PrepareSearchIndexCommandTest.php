@@ -51,6 +51,7 @@ namespace Municipio\SearchIndex\Cli {
             $config->expects($this->once())->method('isConfigured')->willReturn(true);
             $provider = $this->createMock(SearchProviderInterface::class);
             $provider->expects($this->once())->method('setSettings');
+            $provider->expects($this->never())->method('resetIndex');
             $providerFactory = $this->createMock(SearchProviderFactory::class);
             $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
             $command = new PrepareSearchIndexCommand($config, $providerFactory);
@@ -60,6 +61,34 @@ namespace Municipio\SearchIndex\Cli {
             static::assertSame([
                 ['log', ['Sending provider settings...']],
                 ['success', ['Search index preparation complete.']],
+            ], \WP_CLI::$calls);
+        }
+
+        /**
+         * Verify the --reset flag confirms, resets the provider, then prepares it, and reminds to rebuild.
+         */
+        public function testResetsProviderBeforePreparingWhenResetFlagPassed(): void
+        {
+            $config = $this->createMock(SearchIndexConfig::class);
+            $config->expects($this->once())->method('isConfigured')->willReturn(true);
+            $provider = $this->createMock(SearchProviderInterface::class);
+            $provider->expects($this->once())->method('resetIndex');
+            $provider->expects($this->once())->method('setSettings');
+            $providerFactory = $this->createMock(SearchProviderFactory::class);
+            $providerFactory->expects($this->once())->method('create')->with()->willReturn($provider);
+            $command = new PrepareSearchIndexCommand($config, $providerFactory);
+
+            $command->prepare([], ['reset' => true]);
+
+            static::assertSame([
+                ['confirm', [
+                    'This will permanently delete the existing search index collection/index and cannot be undone. Continue?',
+                    ['reset' => true],
+                ]],
+                ['log', ['Resetting existing collection/index...']],
+                ['log', ['Sending provider settings...']],
+                ['success', ['Search index preparation complete.']],
+                ['log', ['Run `wp municipio search-index build` to re-index all content.']],
             ], \WP_CLI::$calls);
         }
 
