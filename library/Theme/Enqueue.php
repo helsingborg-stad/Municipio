@@ -43,9 +43,6 @@ class Enqueue implements Hookable
             [$this, 'enqueueCustomizerPreviewScripts'],
             999,
         );
-        $this->wpService->addFilter('script_loader_src', [$this, 'removeScriptVersion'], 15, 1);
-        $this->wpService->addFilter('style_loader_src', [$this, 'removeScriptVersion'], 15, 1);
-        $this->wpService->addFilter('the_generator', [$this, 'removeGeneratorTag'], 9, 2);
         $this->wpService->addAction('wp_default_scripts', [$this, 'removeJqueryMigrate']);
         $this->wpService->addFilter('gform_init_scripts_footer', [$this, 'forceGravityFormsScriptsNotInFooter']);
     }
@@ -144,22 +141,6 @@ class Enqueue implements Hookable
     public function enqueueCustomizerPreviewScripts(): void
     {
         $this->enqueue->add('js/customizer-header-logo-scroll-aspect-ratio-preview.js', ['customize-preview']);
-    }
-
-    /**
-     * Removes querystring from any scripts/styles internally
-     *
-     * @param string $src The soruce path
-     *
-     * @return string      The source path without any querystring
-     */
-    public function removeScriptVersion($src): string
-    {
-        $urlComponents = parse_url($src);
-        if (!empty($urlComponents['query'])) {
-            $src = str_replace('?' . $urlComponents['query'], '', $src);
-        }
-        return $src;
     }
 
     /**
