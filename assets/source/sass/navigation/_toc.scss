@@ -4,7 +4,9 @@
 
 .s-nav-toc {
   --c-nav-v-background-expanded: transparent;
-  max-height: 80vh;
+  // Bound to the viewport space left below the sticky header/spacing, not a
+  // flat 80vh, so a tall header on a short viewport can't clip the last items.
+  max-height: calc(100vh - var(--municipio-top-offset));
   overflow-y: auto;
   overflow-x: hidden;
   &.c-nav .c-nav__item:not(.is-open) > .c-nav {

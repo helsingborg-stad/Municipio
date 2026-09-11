@@ -31,19 +31,17 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.spyOn(desktopHeader, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 144,
-			bottom: 144,
 		});
 		jest.spyOn(mobileHeader, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 0,
-			bottom: 0,
 		});
 
 		headerScrollOffset.initializeHeaderScrollOffset();
 
 		expect(
 			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
-		).toBe("calc(144px + var(--base, 8px) * var(--space, 1) * 8)");
+		).toBe("calc(144px + var(--base, 8px) * var(--space, 1) * 4)");
 	});
 
 	it("falls back to just the spacing offset when no sticky header exists", () => {
@@ -51,7 +49,7 @@ describe("initializeHeaderScrollOffset", () => {
 
 		expect(
 			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
-		).toBe("calc(0px + var(--base, 8px) * var(--space, 1) * 8)");
+		).toBe("calc(0px + var(--base, 8px) * var(--space, 1) * 4)");
 	});
 
 	it("exposes the resolved pixel value through getTopOffsetPx", () => {
@@ -65,7 +63,6 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 144,
-			bottom: 144,
 		});
 		jest
 			.spyOn(HTMLElement.prototype, "getBoundingClientRect")
@@ -85,19 +82,44 @@ describe("initializeHeaderScrollOffset", () => {
 		}
 
 		// The admin bar pushes the sticky header down via `top: 32px` (wp.scss),
-		// so the header's own bottom edge (not just its height) reflects that.
+		// so the header's CSS sticky inset (not just its height) reflects that.
+		header.style.top = "32px";
 		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
-			top: 32,
 			height: 144,
-			bottom: 176,
 		});
 
 		headerScrollOffset.initializeHeaderScrollOffset();
 
 		expect(
 			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
-		).toBe("calc(176px + var(--base, 8px) * var(--space, 1) * 8)");
+		).toBe("calc(176px + var(--base, 8px) * var(--space, 1) * 4)");
+	});
+
+	it("ignores document position for a sticky header that hasn't stuck yet", () => {
+		document.body.innerHTML = `<header class="c-header--sticky" id="header"></header>`;
+		const header = document.getElementById("header");
+
+		if (!header) {
+			throw new Error("Expected sticky header fixture to exist.");
+		}
+
+		// A quicklinks-style sticky header rendered far down the page: its
+		// current position (top/bottom) is huge until it actually sticks, but
+		// its intrinsic height + sticky inset stay small.
+		header.style.top = "0px";
+		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
+			...new DOMRect(),
+			top: 3000,
+			height: 60,
+			bottom: 3060,
+		});
+
+		headerScrollOffset.initializeHeaderScrollOffset();
+
+		expect(
+			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
+		).toBe("calc(60px + var(--base, 8px) * var(--space, 1) * 4)");
 	});
 
 	it("aligns a requested hash target using the resolved offset once", () => {
@@ -116,7 +138,6 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 144,
-			bottom: 144,
 		});
 		jest.spyOn(target, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
@@ -195,7 +216,7 @@ describe("initializeHeaderScrollOffset", () => {
 
 		location.hash = "#target-heading";
 		const headerRect = jest.spyOn(header, "getBoundingClientRect");
-		headerRect.mockReturnValue({ ...new DOMRect(), height: 144, bottom: 144 });
+		headerRect.mockReturnValue({ ...new DOMRect(), height: 144 });
 		jest.spyOn(target, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			top: 500,
@@ -225,7 +246,7 @@ describe("initializeHeaderScrollOffset", () => {
 		addEventListenerSpy.mockRestore();
 
 		// A late-loading logo grows the header, so a resize should re-align.
-		headerRect.mockReturnValue({ ...new DOMRect(), height: 200, bottom: 200 });
+		headerRect.mockReturnValue({ ...new DOMRect(), height: 200 });
 		resizeHandler(new Event("resize"));
 		expect(scrollTo).toHaveBeenCalledTimes(2);
 
@@ -235,5 +256,29 @@ describe("initializeHeaderScrollOffset", () => {
 
 		resizeHandler(new Event("resize"));
 		expect(scrollTo).toHaveBeenCalledTimes(3);
+	});
+
+	it("dispatches a change event whenever the offset is (re)computed", () => {
+		document.body.innerHTML = `<header class="c-header--sticky" id="header"></header>`;
+		const header = document.getElementById("header");
+
+		if (!header) {
+			throw new Error("Expected sticky header fixture to exist.");
+		}
+
+		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
+			...new DOMRect(),
+			height: 144,
+		});
+
+		const changeListener = jest.fn();
+		window.addEventListener(
+			headerScrollOffset.topOffsetChangeEvent,
+			changeListener,
+		);
+
+		headerScrollOffset.initializeHeaderScrollOffset();
+
+		expect(changeListener).toHaveBeenCalledTimes(1);
 	});
 });

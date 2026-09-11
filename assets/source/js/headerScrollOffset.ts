@@ -1,5 +1,6 @@
 const topOffsetProperty = "--municipio-top-offset";
 const topOffsetSpacing = "var(--base, 8px) * var(--space, 1) * 4";
+export const topOffsetChangeEvent = "municipio:top-offset-change";
 
 let currentTopOffsetPx = 0;
 let isInitialAlignmentWindowOpen = true;
@@ -24,6 +25,18 @@ function measureTopOffsetPx(): number {
 	const heightPx = probe.getBoundingClientRect().height;
 	probe.remove();
 	return heightPx;
+}
+
+/**
+ * How much space a sticky element reserves at the top once stuck: its own
+ * intrinsic height plus its CSS sticky inset (e.g. pushed down by the WP
+ * admin bar). Deliberately not getBoundingClientRect().bottom/top, which
+ * reflect the element's current document position and can be huge for a
+ * sticky element (e.g. quicklinks) that hasn't stuck yet.
+ */
+function getStickyContributionPx(header: HTMLElement): number {
+	const stickyInset = parseFloat(getComputedStyle(header).top) || 0;
+	return header.getBoundingClientRect().height + stickyInset;
 }
 
 function markUserScrolled(): void {
@@ -79,23 +92,20 @@ export function initializeHeaderScrollOffset(): void {
 		window.addEventListener("keydown", markUserScrolled, { once: true });
 
 		const updateOffset = (): void => {
-			// Use bottom (not height) so a WP admin-bar induced "top" offset on
-			// the sticky header (see wp.scss .admin-bar rule) is accounted for.
-			const stickyHeaderBottom = stickyHeaders.length
-				? Math.max(
-						...stickyHeaders.map(
-							(header) => header.getBoundingClientRect().bottom,
-						),
-					)
+			// See getStickyContributionPx: intrinsic height + sticky inset, not
+			// viewport-relative position.
+			const stickyHeaderContribution = stickyHeaders.length
+				? Math.max(...stickyHeaders.map(getStickyContributionPx))
 				: 0;
 
 			document.documentElement.style.setProperty(
 				topOffsetProperty,
-				`calc(${stickyHeaderBottom}px + ${topOffsetSpacing})`,
+				`calc(${stickyHeaderContribution}px + ${topOffsetSpacing})`,
 			);
 
 			currentTopOffsetPx = measureTopOffsetPx();
 			alignInitialHashTarget(currentTopOffsetPx);
+			window.dispatchEvent(new Event(topOffsetChangeEvent));
 		};
 
 		updateOffset();
