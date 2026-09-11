@@ -67,7 +67,9 @@ function scrollActiveItemIntoView(item: HTMLElement): void {
 	const stickyHeaderHeight = stickyHeader?.getBoundingClientRect().height ?? 0;
 
 	const navList = container.querySelector<HTMLElement>(".s-nav-toc");
-	const navListMarginTop = navList ? parseFloat(getComputedStyle(navList).marginTop) : 0;
+	const navListMarginTop = navList
+		? parseFloat(getComputedStyle(navList).marginTop)
+		: 0;
 
 	const itemRect = item.getBoundingClientRect();
 	const containerRect = container.getBoundingClientRect();

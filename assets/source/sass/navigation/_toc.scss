@@ -39,6 +39,10 @@
         z-index: -1;
       }
   }
+
+  .has-toc-left {
+    padding-block: calc(var(--base, 8px) * var(--space, 1) * 6);
+  }
 }
 
 #table-of-contents {

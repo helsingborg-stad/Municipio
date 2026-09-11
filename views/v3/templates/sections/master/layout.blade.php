@@ -29,7 +29,7 @@
 
                 @hasSection('sidebar-left')
                     <div
-                        class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-grid-{{ $leftColumnSize }}@xl o-order-2 o-order-1@lg o-order-1@xl u-print-display--none">
+                        class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-grid-{{ $leftColumnSize }}@xl o-order-2 o-order-1@lg o-order-1@xl u-print-display--none @if($hasToc) has-toc-left @endif">
                         @yield('sidebar-left')
                     </div>
                 @endif
