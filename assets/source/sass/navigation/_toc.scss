@@ -69,11 +69,11 @@
     }
   }
 
-  .c-nav__link {
-    color: var(--color--surface-contrast-muted, var(--color--secondary-contrast, inherit));
+  .c-nav__text {
+    text-wrap: balance;
   }
 
-  .is-current > .c-nav__link {
-    color: var(--color--surface-contrast, inherit);
+  .c-nav__link {
+    color: var(--color--surface-contrast-muted, var(--color--secondary-contrast, inherit));
   }
 }
