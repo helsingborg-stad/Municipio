@@ -2,6 +2,11 @@
 // https://en.wikipedia.org/wiki/Line_length
 // Longest - 95 CPL
 //--------
+:root {
+    --municipio-top-offset: calc(var(--base, 8px) * var(--space, 1) * 4);
+    scroll-padding-top: var(--municipio-top-offset);
+}
+
 p {
     max-width: 95ch;
 }

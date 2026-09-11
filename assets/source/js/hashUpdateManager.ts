@@ -1,55 +1,74 @@
+import { getTopOffsetPx, topOffsetChangeEvent } from "./headerScrollOffset";
+
+// Absorbs sub-pixel rounding from scroll corrections so the boundary heading isn't skipped.
+const OFFSET_TOLERANCE_PX = 2;
+
 export class HashUpdateManager {
-  private static currentHash: string | null = null;
-  private static offset: number = 0;
+	private static currentHash: string | null = null;
 
-  /**
-   * Initialize with optional offset
-   */
-  public static init(offset = 0): void {
-    this.offset = offset;
+	/**
+	 * Initialize the hash update tracking.
+	 */
+	public static init(): void {
+		document.addEventListener("DOMContentLoaded", () => {
+			const elements = document.querySelectorAll<HTMLElement>(
+				"[data-update-hash-when-focused]",
+			);
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const elements = document.querySelectorAll<HTMLElement>('[data-update-hash-when-focused]');
-      
-      if (!elements.length) {
-        return;
-      }
-      
-      window.addEventListener('scroll', () => this.handleIntersect());
-      window.addEventListener('resize', () => this.handleIntersect());
-    });
-  }
+			if (!elements.length) {
+				return;
+			}
 
-  private static handleIntersect(): void {
-    const elements = document.querySelectorAll<HTMLElement>('[data-update-hash-when-focused]');
-    if (elements.length === 0) return;
+			// Seed with the requested hash so a deep link isn't immediately rewritten.
+			HashUpdateManager.currentHash =
+				decodeURIComponent(location.hash.replace(/^#/, "")) || null;
 
-    let candidate: HTMLElement | null = null;
-    let candidateDistance = -Infinity;
+			window.addEventListener("scroll", () =>
+				HashUpdateManager.handleIntersect(),
+			);
+			window.addEventListener("resize", () =>
+				HashUpdateManager.handleIntersect(),
+			);
+			// A header resize changes the offset without a scroll/resize of its own.
+			window.addEventListener(topOffsetChangeEvent, () =>
+				HashUpdateManager.handleIntersect(),
+			);
+		});
+	}
 
-    elements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      const top = rect.top;
+	private static handleIntersect(): void {
+		const elements = document.querySelectorAll<HTMLElement>(
+			"[data-update-hash-when-focused]",
+		);
+		if (elements.length === 0) return;
 
-      // Use the configurable offset here
-      if (top <= this.offset && top > candidateDistance) {
-        candidate = el;
-        candidateDistance = top;
-      }
-    });
+		let candidate: HTMLElement | null = null;
+		let candidateDistance = -Infinity;
 
-    if (!candidate) candidate = elements[0];
+		const offset = getTopOffsetPx();
 
-    const newHash = candidate.dataset.updateHashValue ?? candidate.id;
+		elements.forEach((el) => {
+			const top = el.getBoundingClientRect().top;
 
-    if (!newHash || this.currentHash === newHash) return;
+			// Respect the shared top offset so the highlight matches what's visible below the header.
+			if (top <= offset + OFFSET_TOLERANCE_PX && top > candidateDistance) {
+				candidate = el;
+				candidateDistance = top;
+			}
+		});
 
-    this.currentHash = newHash;
-    history.replaceState(null, '', `#${newHash}`);
-    window.dispatchEvent(new HashChangeEvent('hashchange'));
-  }
+		if (!candidate) candidate = elements[0];
+
+		const newHash = candidate.dataset.updateHashValue ?? candidate.id;
+
+		if (!newHash || HashUpdateManager.currentHash === newHash) return;
+
+		HashUpdateManager.currentHash = newHash;
+		history.replaceState(null, "", `#${newHash}`);
+		window.dispatchEvent(new HashChangeEvent("hashchange"));
+	}
 }
 
-export function initializeHashUpdateManager(offset = 0): void {
-  HashUpdateManager.init(offset);
+export function initializeHashUpdateManager(): void {
+	HashUpdateManager.init();
 }

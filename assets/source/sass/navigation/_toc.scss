@@ -1,7 +1,28 @@
+#table-of-contents {
+  top: var(--municipio-top-offset);
+  // Make the whole card (header + nav) the bounded scroll container.
+  // Redistributing space via nested flex fought the card/nav component's
+  // own internal layout and made the list disappear, so scroll the card
+  // itself instead of trying to carve out just the nav's share of it.
+  max-height: calc(
+    100vh - var(--municipio-top-offset) - var(--base, 8px) * var(--space, 1) * 4
+  );
+  margin-bottom: calc(var(--base, 8px) * var(--space, 1) * 4);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // Keep the "Find on page" title visible while the card's own content
+  // scrolls underneath it.
+  .c-card__header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--c-card--surface-color);
+  }
+}
+
 .s-nav-toc {
   --c-nav-v-background-expanded: transparent;
-  max-height: 80vh;
-  overflow-y: auto;
   overflow-x: hidden;
   &.c-nav .c-nav__item:not(.is-open) > .c-nav {
     display: block !important;
