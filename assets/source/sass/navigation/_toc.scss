@@ -1,4 +1,6 @@
-.has-toc-main {
+@media (min-width: 78em) {
+  .has-toc-main {
+    color: var(--color--surface-contrast);
     background-color: var(--color--surface);
     padding-block: calc(var(--base, 8px) * var(--space, 1) * 6);
 
@@ -13,28 +15,30 @@
       background-color: inherit;
       z-index: -1;
     }
-}
+  }
 
-.has-toc-sidebar {
-  background-color: var(--color--background-alt);
+  .has-toc-sidebar {
+    background-color: var(--color--background-alt);
+    color: var(--color--background-contrast);
 
-  padding:
-    calc(var(--base, 8px) * var(--space, 1) * 6)
-    0
-    calc(var(--base, 8px) * var(--space, 1) * 6)
-    calc(var(--base, 8px) * var(--space, 1) * 6);
+    padding:
+      calc(var(--base, 8px) * var(--space, 1) * 6)
+      0
+      calc(var(--base, 8px) * var(--space, 1) * 6)
+      calc(var(--base, 8px) * var(--space, 1) * 6);
 
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      width: 100vw;
-      height: 100%;
-      left: 0;
-      background-color: inherit;
-      z-index: -1;
-    }
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 100%;
+        left: 0;
+        background-color: inherit;
+        z-index: -1;
+      }
+  }
 }
 
 #table-of-contents {
