@@ -11,7 +11,7 @@
         'u-level--7',
       ]
     ])
-      @element(['componentElement' => 'div', 'classList' => ['c-card__header']])
+      @card__header()
         @typography([
           'id' => 'table-of-contents-heading', 
           'element' => 'h4', 
@@ -20,7 +20,7 @@
         ])
             {{ $lang->findOnPage }}
         @endtypography
-      @endelement
+      @endcard__header
 
       <nav aria-labelledby="table-of-contents-heading">
           @nav([
@@ -30,17 +30,16 @@
               'height' => 'sm',
               'classList' => [
                   'c-nav--sidebar',            
-                  'c-nav--bordered',
                   'u-print-display--none',
-                  's-nav-toc',
-                  'u-padding__bottom--1',
+                  's-nav-toc'
               ],
               'direction' => 'vertical',
               'context' => ['sidebar', 'municipio.sidebar', 'municipio.menu.toc'],
               'expandLabel' => $lang->expand,
-              'indentSubLevels' => true
+              'indentSubLevels' => false,
+              'style' => 'padding: inherit'
           ])
           @endnav
       </nav>
-    @endpaper
+    @endcard
 @endif

@@ -22,12 +22,69 @@ export class HashHighlightManager {
           const activeClass = item.dataset.highlightOnHashMatchClass ?? 'is-current';
           const shouldBeActive = targetHash === currentHash;
           item.classList.toggle(activeClass, shouldBeActive);
+
+          if (shouldBeActive) {
+            scrollActiveItemIntoView(item);
+          }
         });
       };
-      window.addEventListener('hashchange', updateHighlights);
-      updateHighlights(); // initial check
+
+      // Debounce so fast scrolling (which can change the active heading many
+      // times a second) doesn't repeatedly toggle classes and restart the
+      // scroll-into-view animation; only the settled hash gets applied.
+      let debounceTimeoutId: ReturnType<typeof setTimeout> | undefined;
+      const scheduleHighlightUpdate = (): void => {
+        clearTimeout(debounceTimeoutId);
+        debounceTimeoutId = setTimeout(updateHighlights, HIGHLIGHT_UPDATE_DEBOUNCE_MS);
+      };
+
+      window.addEventListener('hashchange', scheduleHighlightUpdate);
+      updateHighlights(); // initial check, applied immediately
     });
   }
+}
+
+const HIGHLIGHT_UPDATE_DEBOUNCE_MS = 150;
+
+/**
+ * Nudge the item's own scrollable ancestor (not the page) so a newly active
+ * item is never hidden behind a sticky header or below the visible area.
+ */
+function scrollActiveItemIntoView(item: HTMLElement): void {
+  const container = findScrollableAncestor(item);
+
+  if (!container) {
+    return;
+  }
+
+  const stickyHeader = container.querySelector<HTMLElement>('.c-card__header');
+  const stickyHeaderHeight = stickyHeader?.getBoundingClientRect().height ?? 0;
+
+  const itemRect = item.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const visibleTop = containerRect.top + stickyHeaderHeight;
+
+  if (itemRect.top < visibleTop) {
+    container.scrollBy({ top: itemRect.top - visibleTop, behavior: 'smooth' });
+  } else if (itemRect.bottom > containerRect.bottom) {
+    container.scrollBy({ top: itemRect.bottom - containerRect.bottom, behavior: 'smooth' });
+  }
+}
+
+function findScrollableAncestor(element: HTMLElement): HTMLElement | null {
+  let node = element.parentElement;
+
+  while (node) {
+    const isScrollable = /(auto|scroll)/.test(getComputedStyle(node).overflowY);
+
+    if (isScrollable && node.scrollHeight > node.clientHeight) {
+      return node;
+    }
+
+    node = node.parentElement;
+  }
+
+  return null;
 }
 
 export function initializeHashHighlightManager(): void {
