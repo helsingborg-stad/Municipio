@@ -59,6 +59,7 @@
 
 .s-nav-toc {
   margin-top: calc(var(--base, 8px) * var(--space, 1) * 2);
+  padding-top: calc(var(--base, 8px) * var(--space, 1) * 1);
   .c-nav__item {
     border-left: calc(var(--base, 8px) * .5) solid var(--color--surface-border);
     padding-left: 0;
