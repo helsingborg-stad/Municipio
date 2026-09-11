@@ -1,20 +1,25 @@
+import { getTopOffsetPx } from './headerScrollOffset';
+
+// Absorbs sub-pixel rounding from scroll corrections so the boundary heading isn't skipped.
+const OFFSET_TOLERANCE_PX = 2;
+
 export class HashUpdateManager {
   private static currentHash: string | null = null;
-  private static offset: number = 0;
 
   /**
-   * Initialize with optional offset
+   * Initialize the hash update tracking.
    */
-  public static init(offset = 0): void {
-    this.offset = offset;
-
+  public static init(): void {
     document.addEventListener('DOMContentLoaded', () => {
       const elements = document.querySelectorAll<HTMLElement>('[data-update-hash-when-focused]');
       
       if (!elements.length) {
         return;
       }
-      
+
+      // Seed with the requested hash so a deep link isn't immediately rewritten.
+      this.currentHash = decodeURIComponent(location.hash.replace(/^#/, '')) || null;
+
       window.addEventListener('scroll', () => this.handleIntersect());
       window.addEventListener('resize', () => this.handleIntersect());
     });
@@ -27,12 +32,13 @@ export class HashUpdateManager {
     let candidate: HTMLElement | null = null;
     let candidateDistance = -Infinity;
 
-    elements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      const top = rect.top;
+    const offset = getTopOffsetPx();
 
-      // Use the configurable offset here
-      if (top <= this.offset && top > candidateDistance) {
+    elements.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+
+      // Respect the shared top offset so the highlight matches what's visible below the header.
+      if (top <= offset + OFFSET_TOLERANCE_PX && top > candidateDistance) {
         candidate = el;
         candidateDistance = top;
       }
@@ -50,6 +56,6 @@ export class HashUpdateManager {
   }
 }
 
-export function initializeHashUpdateManager(offset = 0): void {
-  HashUpdateManager.init(offset);
+export function initializeHashUpdateManager(): void {
+  HashUpdateManager.init();
 }

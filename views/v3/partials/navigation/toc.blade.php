@@ -8,7 +8,6 @@
         'u-display--block@lg',
         'u-display--block@xl',
         'u-position--sticky',
-        'u-top--4',
         'u-level--7',
       ]
     ])
