@@ -1,6 +1,52 @@
 (function () {
     if (typeof tinymce !== 'undefined') {
         let inlineStyles = document.querySelector('#municipio_customizer_inline_styles');
+        const localizedConfig = typeof mce_hbg_buttons === 'object' ? mce_hbg_buttons : {};
+        const themeUrl = localizedConfig.themeUrl ?? '';
+        const styleSheet = localizedConfig.styleSheet ?? '';
+        let currentButtonState = {
+            buttonClass: 'c-button c-button__filled c-button__filled--default c-button--md ripple ripple--before',
+            buttonText: 'Button text',
+            buttonLink: '#',
+            openInNewWindow: false,
+        };
+
+        const buildTemplateUrl = function () {
+            const fallbackTemplatePath =
+                '/wp-content/themes/municipio/library/Admin/TinyMce/MceButtons/mce-buttons-template.php';
+
+            if (!themeUrl) {
+                return fallbackTemplatePath;
+            }
+
+            try {
+                const parsedThemeUrl = new URL(themeUrl, window.location.href);
+                const themePath = parsedThemeUrl.pathname.replace(/\/$/, '');
+
+                return `${themePath}/library/Admin/TinyMce/MceButtons/mce-buttons-template.php`;
+            } catch (error) {
+                return fallbackTemplatePath;
+            }
+        };
+
+        const templateUrl = buildTemplateUrl();
+
+        window.addEventListener('message', function (event) {
+            if (!event || !event.data || event.data.type !== 'municipio:mceButtonState') {
+                return;
+            }
+
+            const payload = event.data.payload ?? {};
+
+            currentButtonState = {
+                buttonClass:
+                    payload.buttonClass ||
+                    'c-button c-button__filled c-button__filled--default c-button--md ripple ripple--before',
+                buttonText: payload.buttonText || 'Button text',
+                buttonLink: payload.buttonLink || '#',
+                openInNewWindow: Boolean(payload.openInNewWindow),
+            };
+        });
 
         if (inlineStyles) {
             inlineStyles = inlineStyles.innerHTML;
@@ -16,25 +62,32 @@
             });
 
             editor.addCommand('mce_hbg_buttons', function () {
+                currentButtonState = {
+                    buttonClass: 'c-button c-button__filled c-button__filled--default c-button--md ripple ripple--before',
+                    buttonText: 'Button text',
+                    buttonLink: '#',
+                    openInNewWindow: false,
+                };
+
+                const templateParams = new URLSearchParams({
+                    styleguideUrl: styleSheet,
+                    inlineStyles: inlineStyles ?? '',
+                });
+
                 editor.windowManager.open(
                     {
                         title: 'Add button',
-                        url:
-                            mce_hbg_buttons.themeUrl +
-                            '/library/Admin/TinyMce/MceButtons/mce-buttons-template.php',
+                        url: `${templateUrl}?${templateParams.toString()}`,
                         width: 500,
                         height: 420,
                         buttons: [
                             {
                                 text: 'Insert',
                                 onclick: function (e) {
-                                    var $iframe = jQuery(
-                                        '.mce-container-body.mce-window-body.mce-abs-layout iframe'
-                                    ).contents();
-                                    var btnClass = $iframe.find('#preview a').attr('class');
-                                    var btnText = $iframe.find('#btnText').val();
-                                    var btnLink = $iframe.find('#btnLink').val();
-                                    const openInNewWindow = $iframe.find('#button-target-checkbox').is(':checked');
+                                    const btnClass = currentButtonState.buttonClass;
+                                    const btnText = currentButtonState.buttonText;
+                                    const btnLink = currentButtonState.buttonLink;
+                                    const openInNewWindow = currentButtonState.openInNewWindow;
 
                                     const button = `
                                         <a href="${btnLink}"${openInNewWindow ? ' target="_blank" rel="noopener"' : ''} class="${btnClass} u-no-decoration">
@@ -46,7 +99,6 @@
                                         </a>
                                     `;
 
-
                                     editor.insertContent(button);
                                     editor.windowManager.close();
                                     return true;
@@ -55,7 +107,7 @@
                         ],
                     },
                     {
-                        stylesSheet: {styleguideUrl: mce_hbg_buttons.styleSheet ?? "", inlineStyles: inlineStyles ?? ""},
+                        stylesSheet: {styleguideUrl: styleSheet, inlineStyles: inlineStyles ?? ''},
                     },
                 );
             });

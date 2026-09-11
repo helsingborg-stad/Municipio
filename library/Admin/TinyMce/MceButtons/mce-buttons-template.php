@@ -50,6 +50,10 @@
                             <input id="button-type-outlined" type="radio" name="gender" value="c-button c-button__outlined c-button__outlined">
                             <label for="button-type-outlined">Outline button</label>
                         </div>
+                        <div>
+                            <input id="button-type-basic" type="radio" name="gender" value="c-button c-button__basic c-button__basic">
+                            <label for="button-type-basic">Basic button</label>
+                        </div>
                     </form>
                 </div>
                 <div class="grid-xs-6">
@@ -111,25 +115,50 @@
             </style>
             <script>
                 $(document).ready(function () {
-                    if ( typeof top.tinymce !== 'undefined') {
-                        //Standard WP editor
-                        $('head')
-                            .append('<link rel="stylesheet" type="text/css" href="' + top.tinymce.activeEditor.windowManager.getParams().stylesSheet.styleguideUrl + '">');
+                    function getButtonState() {
+                        return {
+                            buttonClass: $('#preview a').attr('class') || 'c-button c-button__filled c-button__filled--default c-button--md ripple ripple--before',
+                            buttonText: $('#btnText').val() || 'Button text',
+                            buttonLink: $('#btnLink').val() || '#',
+                            openInNewWindow: $('#button-target-checkbox').is(':checked')
+                        };
+                    }
 
-                        $('head')
-                            .append('<style type="text/css">' + top.tinymce.activeEditor.windowManager.getParams().stylesSheet.inlineStyles + '"</style>');
-                    } else {
-                        //Modularity iFrame editor
-                        $('head')
-                            .append('<link rel="stylesheet" type="text/css" href="' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet.styleguideUrl + '">');
+                    function postButtonState() {
+                        try {
+                            window.parent.postMessage(
+                                {
+                                    type: 'municipio:mceButtonState',
+                                    payload: getButtonState()
+                                },
+                                '*'
+                            );
+                        } catch (error) {
+                            // Ignore postMessage errors silently to avoid breaking the modal UI.
+                        }
+                    }
 
-                        $('head')
-                            .append('<style type="text/css">' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet.inlineStyles + '"</style>');
+                    var templateParams = new URLSearchParams(window.location.search);
+                    var styleguideUrl = templateParams.get('styleguideUrl');
+                    var inlineStyles = templateParams.get('inlineStyles');
+
+                    if (styleguideUrl) {
+                        $('head').append('<link rel="stylesheet" type="text/css" href="' + styleguideUrl + '">');
+                    }
+
+                    if (inlineStyles) {
+                        $('head').append('<style type="text/css">' + inlineStyles + '</style>');
                     }
 
                     $('#btnText').keyup(function() {
                         $("#preview a span span").html($('#btnText').val());
+                        postButtonState();
                     });
+
+                    $('#btnLink').keyup(function () {
+                        postButtonState();
+                    });
+
                     $('input[type="radio"], input[type="checkbox"]').click(function () {
                         var buttonClass = "";
                         
@@ -144,10 +173,14 @@
                         $('input:checked[id^=button-size]').each(function(index, element) {
                             buttonClass += ' ' + $(element).val();
                         });
-                        console.log(buttonClass);
+
                         $('#preview a').removeClass();
                         $('#preview a').addClass(buttonClass);
+
+                        postButtonState();
                     });
+
+                    postButtonState();
                 });
             </script>
 <?php require_once '../View/footer.php';
