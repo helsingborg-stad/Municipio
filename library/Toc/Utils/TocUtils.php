@@ -67,6 +67,33 @@ class TocUtils implements TocUtilsInterface
     /**
      * @inheritDoc
      */
+    public function shouldEnableTocForCurrentQueriedPost(): bool
+    {
+        if (!$this->wpService->isSingular()) {
+            return false;
+        }
+
+        $postId = $this->wpService->getQueriedObjectId();
+        if (empty($postId)) {
+            return false;
+        }
+
+        $isEnabledOnPost = $this->acfService->getField('post_table_of_contents', $postId, false) ?? false;
+        if (empty($isEnabledOnPost)) {
+            return false;
+        }
+
+        $content = $this->wpService->getPostField('post_content', $postId);
+        if (empty($content)) {
+            return false;
+        }
+
+        return $this->hasHeadings($content, self::MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getTableOfContents(string $content): array
     {
         if (empty($content)) {

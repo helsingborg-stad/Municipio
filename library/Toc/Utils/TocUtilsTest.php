@@ -97,6 +97,41 @@ class TocUtilsTest extends TestCase
         $this->assertTrue($result);
     }
 
+    #[TestDox('shouldEnableTocForCurrentQueriedPost returns false when not on singular page')]
+    public function testShouldEnableTocForCurrentQueriedPostReturnsFalseWhenNotOnSingularPage(): void
+    {
+        $wpService = new FakeWpService(['isSingular' => false]);
+        $tocUtils  = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
+
+        $this->assertFalse($tocUtils->shouldEnableTocForCurrentQueriedPost());
+    }
+
+    #[TestDox('shouldEnableTocForCurrentQueriedPost returns false when disabled on the post')]
+    public function testShouldEnableTocForCurrentQueriedPostReturnsFalseWhenDisabledOnPost(): void
+    {
+        $wpService = new FakeWpService(['isSingular' => true, 'getQueriedObjectId' => 104]);
+        $tocUtils  = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
+            ['getField' => false]
+        ));
+
+        $this->assertFalse($tocUtils->shouldEnableTocForCurrentQueriedPost());
+    }
+
+    #[TestDox('shouldEnableTocForCurrentQueriedPost returns true when content has minimum required headings')]
+    public function testShouldEnableTocForCurrentQueriedPostReturnsTrueWhenContentHasHeadings(): void
+    {
+        $wpService = new FakeWpService([
+            'isSingular'        => true,
+            'getQueriedObjectId' => 105,
+            'getPostField'      => '<h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><p>Some content</p>',
+        ]);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
+            ['getField' => true]
+        ));
+
+        $this->assertTrue($tocUtils->shouldEnableTocForCurrentQueriedPost());
+    }
+
     #[TestDox('getTableOfContents returns empty array for empty content')]
     public function testGetTableOfContentsReturnsEmptyArrayForEmptyContent(): void
     {

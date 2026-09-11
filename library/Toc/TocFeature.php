@@ -36,6 +36,21 @@ class TocFeature
     public function enable(): void
     {
         $this->decoratePostObject();
+        $this->appendBodyClass();
+    }
+
+    /**
+     * Append a `has-toc` body class when TOC is enabled for the current page.
+     */
+    private function appendBodyClass(): void
+    {
+        $this->wpService->addFilter('Municipio/bodyClass', function ($class) {
+            if ($this->tocUtils->shouldEnableTocForCurrentQueriedPost()) {
+                $class .= ' has-toc';
+            }
+
+            return $class;
+        });
     }
 
     /**
