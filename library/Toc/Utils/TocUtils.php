@@ -2,10 +2,10 @@
 
 namespace Municipio\Toc\Utils;
 
+use AcfService\AcfService;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Toc\Utils\TableOfContents;
 use WpService\WpService;
-use AcfService\AcfService;
 
 /**
  * Class TocUtils
@@ -21,9 +21,10 @@ class TocUtils implements TocUtilsInterface
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService, private AcfService $acfService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+        private AcfService $acfService,
+    ) {}
 
     /**
      * @inheritDoc

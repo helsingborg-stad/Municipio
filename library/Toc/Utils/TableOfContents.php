@@ -3,8 +3,8 @@
 namespace Municipio\Toc\Utils;
 
 use DOMDocument;
-use DOMXPath;
 use DOMElement;
+use DOMXPath;
 use WpService\WpService;
 
 /**
@@ -18,6 +18,7 @@ class TableOfContents
 {
     private const ANCHOR_PREFIX = 'toc-';
     private const HEADING_SELECTOR = '/html/body/h2 | /html/body/h3 | /html/body/h4';
+
     private DOMDocument $domObject;
     private array $headings = [];
 
@@ -26,10 +27,12 @@ class TableOfContents
      *
      * @param string $html The HTML content to parse for headings.
      */
-    public function __construct(private string $html, private WpService $wpService)
-    {
+    public function __construct(
+        private string $html,
+        private WpService $wpService,
+    ) {
         $this->domObject = self::createDomFromHtml($html);
-        $this->headings  = self::extractHeadingsFromHtml($this->domObject, $wpService);
+        $this->headings = self::extractHeadingsFromHtml($this->domObject, $wpService);
     }
 
     /**
@@ -58,7 +61,7 @@ class TableOfContents
         return self::injectSlugsIntoHtml(
             $this->html,
             $this->headings,
-            $this->domObject
+            $this->domObject,
         );
     }
 
@@ -85,17 +88,16 @@ class TableOfContents
      */
     private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService): array
     {
-        $xpath    = new DOMXPath($dom);
+        $xpath = new DOMXPath($dom);
         $elements = $xpath->query(self::HEADING_SELECTOR);
 
         $headings = [];
         foreach ($elements as $el) {
-
-            $text  = trim($el->textContent);
+            $text = trim($el->textContent);
             $level = (int) substr($el->nodeName, 1);
-            $slug  = self::generateSlug($text, $wpService);
+            $slug = self::generateSlug($text, $wpService);
 
-            if(empty($text) || empty($slug)) {
+            if (empty($text) || empty($slug)) {
                 continue;
             }
 
@@ -119,7 +121,7 @@ class TableOfContents
             return $html;
         }
 
-        $xpath    = new DOMXPath($dom);
+        $xpath = new DOMXPath($dom);
         $elements = $xpath->query(self::HEADING_SELECTOR);
 
         foreach ($elements as $i => $el) {
@@ -143,25 +145,19 @@ class TableOfContents
      */
     private static function buildNestedToc(array $headings, int $startLevel = 2, int $maxDepth = 3): array
     {
-        $items = array_filter($headings, fn($h) => $h['level'] >= $startLevel && $h['level'] < $startLevel + $maxDepth);
+        $items = array_filter($headings, fn($h) => $h['level'] >= $startLevel && $h['level'] < ($startLevel + $maxDepth));
 
         $toc = $stack = [];
         foreach ($items as $item) {
             $tocItem = [
-                'icon'          => [
-                    'icon'   => 'arrow_forward',
-                    'size'   => 'sm',
-                    'filled' => true,
-                    'color'  => 'primary'
-                ],
-                'label'         => $item['text'],
-                'level'         => $item['level'],
-                'href'          => '#' . $item['slug'],
-                'children'      => [],
+                'label' => $item['text'],
+                'level' => $item['level'],
+                'href' => '#' . $item['slug'],
+                'children' => [],
                 'attributeList' => [
-                    'data-highlight-on-hash-match'       => $item['slug'],
+                    'data-highlight-on-hash-match' => $item['slug'],
                     'data-highlight-on-hash-match-class' => 'is-current',
-                ]
+                ],
             ];
 
             while (!empty($stack) && $tocItem['level'] <= end($stack)['level']) {
@@ -169,12 +165,12 @@ class TableOfContents
             }
 
             if (empty($stack)) {
-                $toc[]   = $tocItem;
+                $toc[] = $tocItem;
                 $stack[] = &$toc[array_key_last($toc)];
             } else {
-                $parent               = &$stack[array_key_last($stack)];
+                $parent = &$stack[array_key_last($stack)];
                 $parent['children'][] = $tocItem;
-                $stack[]              = &$parent['children'][array_key_last($parent['children'])];
+                $stack[] = &$parent['children'][array_key_last($parent['children'])];
             }
         }
 

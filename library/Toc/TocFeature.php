@@ -22,8 +22,10 @@ class TocFeature
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService, private AcfService $acfService)
-    {
+    public function __construct(
+        private WpService $wpService,
+        private AcfService $acfService,
+    ) {
         $this->tocUtils = $this->createTocUtils();
     }
 
@@ -62,7 +64,7 @@ class TocFeature
     {
         $this->wpService->addFilter(
             CreatePostObjectFromWpPost::DECORATE_FILTER_NAME,
-            fn(PostObjectInterface $postObject): PostObjectInterface => $this->maybeDecorateTocPost($postObject)
+            fn(PostObjectInterface $postObject): PostObjectInterface => $this->maybeDecorateTocPost($postObject),
         );
     }
 
@@ -90,7 +92,7 @@ class TocFeature
     {
         return new TocUtils(
             $this->wpService,
-            $this->acfService
+            $this->acfService,
         );
     }
 }

@@ -1,70 +1,63 @@
-// The columns are marked server-side (has-toc-main / has-toc-sidebar in
-// layout.blade.php) rather than detected here via :has(), which got complex
-// fast and, when nested, is invalid CSS that silently drops the rule.
-.has-toc-sidebar {
-  background-color: var(--color--background-alt);
-  padding: calc(var(--base, 8px) * var(--space, 1) * 3);
-  // The column itself stops at the grid gutter; a spread box-shadow paints
-  // the same tint beyond it out to the viewport's right edge without
-  // affecting layout width or causing horizontal scroll.
-  box-shadow: 100vw 0 0 var(--color--background-alt);
+.has-toc-main {
+    background-color: var(--color--surface);
+    padding-block: calc(var(--base, 8px) * var(--space, 1) * 6);
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      right: calc(var(--grid-gap, 0px) * -1);
+      background-color: inherit;
+      z-index: -1;
+    }
 }
 
-.has-toc-main {
-  background-color: var(--color--surface);
-  box-shadow: -100vw 0 0 var(--color--surface);
+.has-toc-sidebar {
+  background-color: var(--color--background-alt);
+
+  padding:
+    calc(var(--base, 8px) * var(--space, 1) * 6)
+    0
+    calc(var(--base, 8px) * var(--space, 1) * 6)
+    calc(var(--base, 8px) * var(--space, 1) * 6);
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      left: 0;
+      background-color: inherit;
+      z-index: -1;
+    }
 }
 
 #table-of-contents {
   top: var(--municipio-top-offset);
-  // Make the whole card (header + nav) the bounded scroll container.
-  // Redistributing space via nested flex fought the card/nav component's
-  // own internal layout and made the list disappear, so scroll the card
-  // itself instead of trying to carve out just the nav's share of it.
   max-height: calc(
-    100vh - var(--municipio-top-offset) - var(--base, 8px) * var(--space, 1) * 4
+    100vh - var(--municipio-top-offset) - var(--base, 8px) * var(--space, 1) * 6
   );
-  margin-bottom: calc(var(--base, 8px) * var(--space, 1) * 4);
   overflow-y: auto;
   overflow-x: hidden;
-  // Flat, borderless look instead of a boxed card, so the list reads as
-  // part of the tinted column rather than a separate widget. Halving the
-  // card's own inset token (instead of hand-rolled padding) also trims the
-  // now-redundant internal spacing the column padding above already gives.
-  --c-card--border: none;
-  --c-card--shadow: none;
-  --c-card--surface-color: transparent;
-  --c-card--inset-multiplier: .5;
 
-  // Keep the "Find on page" title visible while the card's own content
-  // scrolls underneath it.
-  .c-card__header {
+  .s-toc__header {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: var(--c-card--surface-color);
+    background-color: var(--color--background-alt);
   }
 }
 
 .s-nav-toc {
-  --c-nav-v-background-expanded: transparent;
-  overflow-x: hidden;
-  &.c-nav .c-nav__item:not(.is-open) > .c-nav {
-    display: block !important;
-    padding-left: calc(var(--base, 8px) * 2);
-  }
-
-  // Plain text links, no bullets/icons/background pill.
-  .c-icon {
-    display: none;
-  }
-
+  margin-top: calc(var(--base, 8px) * var(--space, 1) * 2);
   .c-nav__item {
-    padding-block: calc(var(--base, 8px) * 1.5);
-    // Reserve the border space on every item so the active one doesn't
-    // shift the text when it gains its indicator.
-    border-left: calc(var(--base, 8px) * .25) solid transparent;
-    padding-left: calc(var(--base, 8px) * 2);
+    border-left: calc(var(--base, 8px) * .5) solid var(--color--surface-border);
+    padding-left: 0;
     transition: border-color .2s ease;
 
     &.is-current {
