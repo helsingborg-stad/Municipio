@@ -1,31 +1,79 @@
+@media (min-width: 78em) {
+  .has-toc-main {
+    color: var(--color--surface-contrast);
+    background-color: var(--color--surface);
+    padding-block: calc(var(--base, 8px) * var(--space, 1) * 6);
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      right: calc(var(--grid-gap, 0px) * -1);
+      background-color: inherit;
+      z-index: -1;
+    }
+  }
+
+  .has-toc-sidebar {
+    background-color: var(--color--background-alt);
+    color: var(--color--background-contrast);
+
+    padding:
+      calc(var(--base, 8px) * var(--space, 1) * 6)
+      0
+      calc(var(--base, 8px) * var(--space, 1) * 6)
+      calc(var(--base, 8px) * var(--space, 1) * 6);
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 100%;
+        left: 0;
+        background-color: inherit;
+        z-index: -1;
+      }
+  }
+}
+
 #table-of-contents {
   top: var(--municipio-top-offset);
-  // Make the whole card (header + nav) the bounded scroll container.
-  // Redistributing space via nested flex fought the card/nav component's
-  // own internal layout and made the list disappear, so scroll the card
-  // itself instead of trying to carve out just the nav's share of it.
   max-height: calc(
-    100vh - var(--municipio-top-offset) - var(--base, 8px) * var(--space, 1) * 4
+    100vh - var(--municipio-top-offset) - var(--base, 8px) * var(--space, 1) * 6
   );
-  margin-bottom: calc(var(--base, 8px) * var(--space, 1) * 4);
   overflow-y: auto;
   overflow-x: hidden;
 
-  // Keep the "Find on page" title visible while the card's own content
-  // scrolls underneath it.
-  .c-card__header {
+  .s-toc__header {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: var(--c-card--surface-color);
+    background-color: var(--color--background-alt);
   }
 }
 
 .s-nav-toc {
-  --c-nav-v-background-expanded: transparent;
-  overflow-x: hidden;
-  &.c-nav .c-nav__item:not(.is-open) > .c-nav {
-    display: block !important;
-    padding-left: calc(var(--base, 8px) * 2);
+  margin-top: calc(var(--base, 8px) * var(--space, 1) * 2);
+  .c-nav__item {
+    border-left: calc(var(--base, 8px) * .5) solid var(--color--surface-border);
+    padding-left: 0;
+    transition: border-color .2s ease;
+
+    &.is-current {
+      border-left-color: var(--color--primary, currentColor);
+    }
+  }
+
+  .c-nav__text {
+    text-wrap: balance;
+  }
+
+  .c-nav__link {
+    color: var(--color--surface-contrast-muted, var(--color--secondary-contrast, inherit));
   }
 }

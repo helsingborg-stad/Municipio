@@ -22,8 +22,10 @@ class TocFeature
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService, private AcfService $acfService)
-    {
+    public function __construct(
+        private WpService $wpService,
+        private AcfService $acfService,
+    ) {
         $this->tocUtils = $this->createTocUtils();
     }
 
@@ -36,6 +38,21 @@ class TocFeature
     public function enable(): void
     {
         $this->decoratePostObject();
+        $this->appendBodyClass();
+    }
+
+    /**
+     * Append a `has-toc` body class when TOC is enabled for the current page.
+     */
+    private function appendBodyClass(): void
+    {
+        $this->wpService->addFilter('Municipio/bodyClass', function ($class) {
+            if ($this->tocUtils->shouldEnableTocForCurrentQueriedPost()) {
+                $class .= ' has-toc';
+            }
+
+            return $class;
+        });
     }
 
     /**
@@ -47,7 +64,7 @@ class TocFeature
     {
         $this->wpService->addFilter(
             CreatePostObjectFromWpPost::DECORATE_FILTER_NAME,
-            fn(PostObjectInterface $postObject): PostObjectInterface => $this->maybeDecorateTocPost($postObject)
+            fn(PostObjectInterface $postObject): PostObjectInterface => $this->maybeDecorateTocPost($postObject),
         );
     }
 
@@ -75,7 +92,7 @@ class TocFeature
     {
         return new TocUtils(
             $this->wpService,
-            $this->acfService
+            $this->acfService,
         );
     }
 }

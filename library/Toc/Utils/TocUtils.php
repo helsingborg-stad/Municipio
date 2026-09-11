@@ -2,10 +2,10 @@
 
 namespace Municipio\Toc\Utils;
 
+use AcfService\AcfService;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Toc\Utils\TableOfContents;
 use WpService\WpService;
-use AcfService\AcfService;
 
 /**
  * Class TocUtils
@@ -21,9 +21,10 @@ class TocUtils implements TocUtilsInterface
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService, private AcfService $acfService)
-    {
-    }
+    public function __construct(
+        private WpService $wpService,
+        private AcfService $acfService,
+    ) {}
 
     /**
      * @inheritDoc
@@ -62,6 +63,33 @@ class TocUtils implements TocUtilsInterface
 
         // Check if content has headings
         return $runtimeCache[$postId] = $this->hasHeadings($content, self::MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function shouldEnableTocForCurrentQueriedPost(): bool
+    {
+        if (!$this->wpService->isSingular()) {
+            return false;
+        }
+
+        $postId = $this->wpService->getQueriedObjectId();
+        if (empty($postId)) {
+            return false;
+        }
+
+        $isEnabledOnPost = $this->acfService->getField('post_table_of_contents', $postId, false) ?? false;
+        if (empty($isEnabledOnPost)) {
+            return false;
+        }
+
+        $content = $this->wpService->getPostField('post_content', $postId);
+        if (empty($content)) {
+            return false;
+        }
+
+        return $this->hasHeadings($content, self::MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE);
     }
 
     /**

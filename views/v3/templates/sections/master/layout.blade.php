@@ -19,6 +19,10 @@
             </div>
         @endif
 
+        @php
+            $hasToc = !empty($post) && method_exists($post, 'hasTableOfContents') && $post->hasTableOfContents();
+        @endphp
+
         <!--  Main content padder -->
         <div class="u-margin__bottom--12">
             <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
@@ -31,14 +35,14 @@
                 @endif
 
                 <div
-                    class="o-grid-12 o-grid-auto@lg o-grid-auto@xl o-order-1 o-order-2@lg o-order-2@xl u-display--flex u-flex--gridgap  u-flex-direction--column">
+                    class="o-grid-12 o-grid-auto@lg o-grid-auto@xl o-order-1 o-order-2@lg o-order-2@xl u-display--flex u-flex--gridgap  u-flex-direction--column @if($hasToc) has-toc-main @endif">
                     @yield('content')
                     @yield('content.below')
                 </div>
 
                 @hasSection('sidebar-right')
                     <div
-                        class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-grid-{{ $rightColumnSize }}@xl o-order-3 o-order-3@lg o-order-3@xl u-print-display--none">
+                        class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-grid-{{ $rightColumnSize }}@xl o-order-3 o-order-3@lg o-order-3@xl u-print-display--none @if($hasToc) has-toc-sidebar @endif">
                         @yield('sidebar-right')
                     </div>
                 @endif

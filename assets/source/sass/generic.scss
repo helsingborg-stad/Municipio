@@ -7,6 +7,10 @@
     scroll-padding-top: var(--municipio-top-offset);
 }
 
+main {
+    overflow-x: clip;
+}
+
 p {
     max-width: 95ch;
 }

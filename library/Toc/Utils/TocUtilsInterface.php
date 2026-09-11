@@ -15,6 +15,14 @@ interface TocUtilsInterface
     public function shouldEnableToc(PostObjectInterface $postObject): bool;
 
     /**
+     * Check if TOC should be enabled for the currently queried post, without
+     * needing a PostObjectInterface instance (e.g. for body class output).
+     *
+     * @return bool True if TOC should be enabled, false otherwise.
+     */
+    public function shouldEnableTocForCurrentQueriedPost(): bool;
+
+    /**
      * Get the table of contents data for the given post content.
      *
      * @param string $content The post content to analyze.
