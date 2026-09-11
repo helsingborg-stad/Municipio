@@ -7,9 +7,7 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.resetModules();
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		headerScrollOffset = require("./headerScrollOffset");
-		document.documentElement.style.removeProperty(
-			"--municipio-top-offset",
-		);
+		document.documentElement.style.removeProperty("--municipio-top-offset");
 		document.body.innerHTML = "";
 		location.hash = "";
 	});
@@ -33,18 +31,18 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.spyOn(desktopHeader, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 144,
+			bottom: 144,
 		});
 		jest.spyOn(mobileHeader, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 0,
+			bottom: 0,
 		});
 
 		headerScrollOffset.initializeHeaderScrollOffset();
 
 		expect(
-			document.documentElement.style.getPropertyValue(
-				"--municipio-top-offset",
-			),
+			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
 		).toBe("calc(144px + var(--base, 8px) * var(--space, 1) * 8)");
 	});
 
@@ -52,9 +50,7 @@ describe("initializeHeaderScrollOffset", () => {
 		headerScrollOffset.initializeHeaderScrollOffset();
 
 		expect(
-			document.documentElement.style.getPropertyValue(
-				"--municipio-top-offset",
-			),
+			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
 		).toBe("calc(0px + var(--base, 8px) * var(--space, 1) * 8)");
 	});
 
@@ -69,6 +65,7 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 144,
+			bottom: 144,
 		});
 		jest
 			.spyOn(HTMLElement.prototype, "getBoundingClientRect")
@@ -77,6 +74,30 @@ describe("initializeHeaderScrollOffset", () => {
 		headerScrollOffset.initializeHeaderScrollOffset();
 
 		expect(headerScrollOffset.getTopOffsetPx()).toBe(200);
+	});
+
+	it("accounts for a WP admin-bar top offset on the sticky header", () => {
+		document.body.innerHTML = `<header class="c-header--sticky" id="header"></header>`;
+		const header = document.getElementById("header");
+
+		if (!header) {
+			throw new Error("Expected sticky header fixture to exist.");
+		}
+
+		// The admin bar pushes the sticky header down via `top: 32px` (wp.scss),
+		// so the header's own bottom edge (not just its height) reflects that.
+		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
+			...new DOMRect(),
+			top: 32,
+			height: 144,
+			bottom: 176,
+		});
+
+		headerScrollOffset.initializeHeaderScrollOffset();
+
+		expect(
+			document.documentElement.style.getPropertyValue("--municipio-top-offset"),
+		).toBe("calc(176px + var(--base, 8px) * var(--space, 1) * 8)");
 	});
 
 	it("aligns a requested hash target using the resolved offset once", () => {
@@ -95,6 +116,7 @@ describe("initializeHeaderScrollOffset", () => {
 		jest.spyOn(header, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			height: 144,
+			bottom: 144,
 		});
 		jest.spyOn(target, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
@@ -173,7 +195,7 @@ describe("initializeHeaderScrollOffset", () => {
 
 		location.hash = "#target-heading";
 		const headerRect = jest.spyOn(header, "getBoundingClientRect");
-		headerRect.mockReturnValue({ ...new DOMRect(), height: 144 });
+		headerRect.mockReturnValue({ ...new DOMRect(), height: 144, bottom: 144 });
 		jest.spyOn(target, "getBoundingClientRect").mockReturnValue({
 			...new DOMRect(),
 			top: 500,
@@ -203,7 +225,7 @@ describe("initializeHeaderScrollOffset", () => {
 		addEventListenerSpy.mockRestore();
 
 		// A late-loading logo grows the header, so a resize should re-align.
-		headerRect.mockReturnValue({ ...new DOMRect(), height: 200 });
+		headerRect.mockReturnValue({ ...new DOMRect(), height: 200, bottom: 200 });
 		resizeHandler(new Event("resize"));
 		expect(scrollTo).toHaveBeenCalledTimes(2);
 

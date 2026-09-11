@@ -1,5 +1,5 @@
 const topOffsetProperty = "--municipio-top-offset";
-const topOffsetSpacing = "var(--base, 8px) * var(--space, 1) * 8";
+const topOffsetSpacing = "var(--base, 8px) * var(--space, 1) * 4";
 
 let currentTopOffsetPx = 0;
 let isInitialAlignmentWindowOpen = true;
@@ -79,16 +79,19 @@ export function initializeHeaderScrollOffset(): void {
 		window.addEventListener("keydown", markUserScrolled, { once: true });
 
 		const updateOffset = (): void => {
-			// A non-sticky header doesn't overlap content, so it contributes 0.
-			const stickyHeaderHeight = stickyHeaders.length
+			// Use bottom (not height) so a WP admin-bar induced "top" offset on
+			// the sticky header (see wp.scss .admin-bar rule) is accounted for.
+			const stickyHeaderBottom = stickyHeaders.length
 				? Math.max(
-						...stickyHeaders.map((header) => header.getBoundingClientRect().height),
+						...stickyHeaders.map(
+							(header) => header.getBoundingClientRect().bottom,
+						),
 					)
 				: 0;
 
 			document.documentElement.style.setProperty(
 				topOffsetProperty,
-				`calc(${stickyHeaderHeight}px + ${topOffsetSpacing})`,
+				`calc(${stickyHeaderBottom}px + ${topOffsetSpacing})`,
 			);
 
 			currentTopOffsetPx = measureTopOffsetPx();
