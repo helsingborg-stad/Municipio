@@ -47,7 +47,10 @@
     .c-header__main-lower-area {
         display: grid;
         grid-template-columns: auto auto auto;
-        inline-size: var(--c-header--content-max-width);
+        inline-size: min(
+            var(--c-header--content-max-width),
+            calc(var(--container-width) - (var(--base, 8px) * 6))
+        );
         margin-inline: auto;
         padding-inline: var(--c-header--padding-x);
         align-items: center;
