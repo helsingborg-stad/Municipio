@@ -14,6 +14,10 @@ describe("initializeHeaderScrollOffset", () => {
 		location.hash = "";
 	});
 
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
+
 	it("sets the offset to the tallest visible sticky header", () => {
 		document.body.innerHTML = `
 			<header class="c-header--sticky" id="desktop-header"></header>
@@ -44,14 +48,14 @@ describe("initializeHeaderScrollOffset", () => {
 		).toBe("calc(144px + var(--base, 8px) * var(--space, 1) * 8)");
 	});
 
-	it("leaves the offset unset when no sticky header exists", () => {
+	it("falls back to just the spacing offset when no sticky header exists", () => {
 		headerScrollOffset.initializeHeaderScrollOffset();
 
 		expect(
 			document.documentElement.style.getPropertyValue(
 				"--municipio-top-offset",
 			),
-		).toBe("");
+		).toBe("calc(0px + var(--base, 8px) * var(--space, 1) * 8)");
 	});
 
 	it("exposes the resolved pixel value through getTopOffsetPx", () => {
@@ -112,6 +116,45 @@ describe("initializeHeaderScrollOffset", () => {
 		expect(scrollTo).toHaveBeenCalledTimes(1);
 		expect(scrollTo).toHaveBeenCalledWith({
 			top: 500 + 100 - offsetPx,
+			behavior: "instant",
+		});
+	});
+
+	it("aligns a requested hash target using only the spacing offset when the sticky header is disabled", () => {
+		document.body.innerHTML = `<h2 id="target-heading">Heading</h2>`;
+		const target = document.getElementById("target-heading");
+
+		if (!target) {
+			throw new Error("Expected target fixture to exist.");
+		}
+
+		location.hash = "#target-heading";
+		// jest.spyOn reuses an existing prototype mock instead of creating a
+		// separate per-instance one, so branch on `this` to give the probe and
+		// the target different rects from a single prototype-level mock.
+		jest
+			.spyOn(HTMLElement.prototype, "getBoundingClientRect")
+			.mockImplementation(function (this: HTMLElement) {
+				if (this === target) {
+					return { ...new DOMRect(), top: 500 };
+				}
+				return { ...new DOMRect(), height: 64 };
+			});
+		Object.defineProperty(window, "scrollY", {
+			configurable: true,
+			value: 100,
+		});
+		const scrollTo = jest.fn();
+		Object.defineProperty(window, "scrollTo", {
+			configurable: true,
+			value: scrollTo,
+		});
+
+		headerScrollOffset.initializeHeaderScrollOffset();
+
+		expect(headerScrollOffset.getTopOffsetPx()).toBe(64);
+		expect(scrollTo).toHaveBeenCalledWith({
+			top: 500 + 100 - 64,
 			behavior: "instant",
 		});
 	});

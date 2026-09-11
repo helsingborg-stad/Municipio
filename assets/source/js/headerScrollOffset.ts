@@ -68,10 +68,6 @@ export function initializeHeaderScrollOffset(): void {
 			document.querySelectorAll<HTMLElement>(".c-header--sticky"),
 		);
 
-		if (stickyHeaders.length === 0) {
-			return;
-		}
-
 		window.addEventListener("wheel", markUserScrolled, {
 			passive: true,
 			once: true,
@@ -83,9 +79,12 @@ export function initializeHeaderScrollOffset(): void {
 		window.addEventListener("keydown", markUserScrolled, { once: true });
 
 		const updateOffset = (): void => {
-			const stickyHeaderHeight = Math.max(
-				...stickyHeaders.map((header) => header.getBoundingClientRect().height),
-			);
+			// A non-sticky header doesn't overlap content, so it contributes 0.
+			const stickyHeaderHeight = stickyHeaders.length
+				? Math.max(
+						...stickyHeaders.map((header) => header.getBoundingClientRect().height),
+					)
+				: 0;
 
 			document.documentElement.style.setProperty(
 				topOffsetProperty,
@@ -106,6 +105,10 @@ export function initializeHeaderScrollOffset(): void {
 			},
 			{ once: true },
 		);
+
+		if (stickyHeaders.length === 0) {
+			return;
+		}
 
 		if (typeof ResizeObserver === "function") {
 			const resizeObserver = new ResizeObserver(updateOffset);
