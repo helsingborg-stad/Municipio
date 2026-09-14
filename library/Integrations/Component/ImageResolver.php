@@ -92,20 +92,21 @@ class ImageResolver implements ImageResolverInterface
     {
         static $transparencyCache = [];
 
-        if (array_key_exists($id, $transparencyCache)) {
-            return $transparencyCache[$id];
-        }
-
         if (!is_string($mimeType) || !in_array($mimeType, self::TRANSPARENCY_CAPABLE_MIME_TYPES, true)) {
-            return $transparencyCache[$id] = false;
+            return false;
         }
 
         $filePath = get_attached_file($id);
         if (!is_string($filePath) || $filePath === '') {
-            return $transparencyCache[$id] = false;
+            return false;
         }
 
-        return $transparencyCache[$id] = match ($mimeType) {
+        $cacheKey = md5($id . '|' . $mimeType . '|' . $filePath);
+        if (array_key_exists($cacheKey, $transparencyCache)) {
+            return $transparencyCache[$cacheKey];
+        }
+
+        return $transparencyCache[$cacheKey] = match ($mimeType) {
             'image/gif' => $this->gifHasTransparency($filePath),
             'image/png' => $this->pngHasTransparency($filePath),
             'image/webp' => $this->webpHasTransparency($filePath),
