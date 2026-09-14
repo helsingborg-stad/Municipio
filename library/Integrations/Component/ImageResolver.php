@@ -322,10 +322,8 @@ class ImageResolver implements ImageResolverInterface
      */
     private function isLqipRequest(array $size): bool
     {
-        $normalizedSize = $this->normalizeSize($size);
-
-        return ($normalizedSize[0] ?? null) === self::LQIP_WIDTH
-            && ($normalizedSize[1] ?? null) === self::LQIP_HEIGHT;
+        return ($size[0] ?? null) === self::LQIP_WIDTH
+            && ($size[1] ?? null) === self::LQIP_HEIGHT;
     }
 
     /**
@@ -337,17 +335,7 @@ class ImageResolver implements ImageResolverInterface
     private function normalizeSize(array $size): array
     {
         return array_map(
-            static function (mixed $value): mixed {
-                if ($value === false || $value === 0 || $value === '0') {
-                    return false;
-                }
-
-                if (is_int($value)) {
-                    return $value;
-                }
-
-                return is_string($value) && preg_match('/^-?\d+$/', $value) === 1 ? (int) $value : $value;
-            },
+            static fn(mixed $value): mixed => $value === 0 ? false : $value,
             $size,
         );
     }
