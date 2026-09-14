@@ -1,6 +1,15 @@
 @scope(['name' => ['language-menu']])
-    <div id="site-language-menu-popover" class="site-language-menu__card" popover="auto">
-        @card([])
+    @popover([
+        'id' => 'site-language-menu-popover',
+        'horizontalPlacement' => 'right',
+        'backdrop' => true,
+        'relativeToTrigger' => true
+    ])
+        @card([
+            'classList' => [
+                'site-language-menu__card'
+            ]
+        ])
             <div class="c-card__header site-language-menu__header">
             @typography([
                 'element' => 'p',
@@ -70,8 +79,6 @@
                     {{ $languageMenuOptions->disclaimer }}
                 @endtypography
             @endif
-
-            </div>
         @endcard
-    </div>
+    @endpopover
 @endscope
