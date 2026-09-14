@@ -8,6 +8,7 @@ class ImageResolver implements ImageResolverInterface
 {
     private const LQIP_WIDTH = 100;
     private const LQIP_HEIGHT = false;
+    private const WEBP_SCAN_BYTE_LIMIT = 65536;
     private const TRANSPARENCY_CAPABLE_MIME_TYPES = [
         'image/gif',
         'image/png',
@@ -214,12 +215,18 @@ class ImageResolver implements ImageResolverInterface
             $riffSize = $riffHeader['size'];
             $remainingBytes = max(0, $riffSize - 4);
             $sawLossyAlphaChunk = false;
+            $scannedBytes = 0;
 
             while ($remainingBytes >= 8) {
+                if ($scannedBytes + 8 > self::WEBP_SCAN_BYTE_LIMIT) {
+                    return false;
+                }
+
                 $chunkHeader = stream_get_contents($handle, 8);
                 if (!is_string($chunkHeader) || strlen($chunkHeader) < 8) {
                     return false;
                 }
+                $scannedBytes += 8;
 
                 $chunkType = substr($chunkHeader, 0, 4);
                 $chunkSizeData = unpack('Vsize', substr($chunkHeader, 4, 4));
@@ -241,12 +248,20 @@ class ImageResolver implements ImageResolverInterface
                 }
 
                 $previewBytesToRead = min($chunkSize, $previewLength);
+                $unreadPayloadBytes = $chunkSize - $previewBytesToRead;
+                $paddingBytes = $chunkSize % 2;
+
+                if ($scannedBytes + $previewBytesToRead + $unreadPayloadBytes + $paddingBytes > self::WEBP_SCAN_BYTE_LIMIT) {
+                    return false;
+                }
+
                 $preview = $previewBytesToRead > 0 ? stream_get_contents($handle, $previewBytesToRead) : '';
                 if ($preview === false || strlen($preview) !== $previewBytesToRead) {
                     return false;
                 }
 
                 $remainingBytes -= $previewBytesToRead;
+                $scannedBytes += $previewBytesToRead;
 
                 if ($chunkType === 'VP8X' && isset($preview[0]) && (ord($preview[0]) & 0x10) === 0x10) {
                     return true;
@@ -272,19 +287,19 @@ class ImageResolver implements ImageResolverInterface
                     }
                 }
 
-                $unreadPayloadBytes = $chunkSize - $previewBytesToRead;
                 if ($unreadPayloadBytes > 0 && !$this->skipStreamBytes($handle, $unreadPayloadBytes)) {
                     return false;
                 }
 
                 $remainingBytes -= $unreadPayloadBytes;
+                $scannedBytes += $unreadPayloadBytes;
 
-                $paddingBytes = $chunkSize % 2;
                 if ($paddingBytes > 0 && !$this->skipStreamBytes($handle, $paddingBytes)) {
                     return false;
                 }
 
                 $remainingBytes -= $paddingBytes;
+                $scannedBytes += $paddingBytes;
             }
         } finally {
             fclose($handle);
