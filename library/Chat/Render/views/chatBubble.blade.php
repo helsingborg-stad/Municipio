@@ -87,7 +87,8 @@
                         ],
                         'attributeList' => [
                             'data-js-chat-clear' => true,
-                            'data-js-toggle-trigger' => 'chat-global-root',
+                            'popovertarget' => 'chat-global-root',
+                            'popovertargetaction' => 'hide',
                             'aria-label' => $lang['close'],
                             'data-tooltip' => $lang['close']
                         ],

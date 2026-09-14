@@ -35,7 +35,7 @@ class ChatBubble implements Hookable
         $config = new ChatRenderConfig(
             $this->wpService,
             $this->config,
-            'fab',
+            'chatBubble',
             $assistant['name'] ?? 'Default',
         );
 
