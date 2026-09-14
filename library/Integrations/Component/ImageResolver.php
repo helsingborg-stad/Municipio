@@ -49,18 +49,25 @@ class ImageResolver implements ImageResolverInterface
     private function resolveLqipUrl(int $id, array $size): ?string
     {
         static $runtimeCache = [];
+        static $attachedFileCache = [];
 
         $mimeType = get_post_mime_type($id);
+        $attachedFileCacheKey = md5($id . '|' . (string) $mimeType);
+        if (!array_key_exists($attachedFileCacheKey, $attachedFileCache)) {
+            $attachedFileCache[$attachedFileCacheKey] = is_string($mimeType) && in_array($mimeType, self::TRANSPARENCY_CAPABLE_MIME_TYPES, true)
+                ? get_attached_file($id)
+                : null;
+        }
+
+        $filePath = $attachedFileCache[$attachedFileCacheKey];
         $cacheKey = md5(implode('|', [
             (string) $id,
             serialize($size),
             (string) $mimeType,
+            is_string($filePath) ? $filePath : '',
         ]));
 
         if (!array_key_exists($cacheKey, $runtimeCache)) {
-            $filePath = is_string($mimeType) && in_array($mimeType, self::TRANSPARENCY_CAPABLE_MIME_TYPES, true)
-                ? get_attached_file($id)
-                : null;
             $hasTransparency = $this->sourceImageHasTransparency($id, $mimeType, $filePath);
             $runtimeCache[$cacheKey] = [
                 'url' => $hasTransparency ? null : $this->resolveAttachmentImageUrl($id, $size),
