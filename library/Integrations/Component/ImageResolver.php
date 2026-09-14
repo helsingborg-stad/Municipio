@@ -314,7 +314,10 @@ class ImageResolver implements ImageResolverInterface
      */
     private function isLqipRequest(array $size): bool
     {
-        return ($size[0] ?? null) === self::LQIP_WIDTH && ($size[1] ?? null) === self::LQIP_HEIGHT;
+        $normalizedSize = $this->normalizeSize($size);
+
+        return ($normalizedSize[0] ?? null) === self::LQIP_WIDTH
+            && ($normalizedSize[1] ?? null) === self::LQIP_HEIGHT;
     }
 
     /**
