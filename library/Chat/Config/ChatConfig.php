@@ -59,7 +59,7 @@ class ChatConfig implements ChatConfigInterface
             }
         }
 
-        return $this->getDefaultAssistant();
+        return null;
     }
 
     public function getAssistants(): array

@@ -104,15 +104,15 @@ class ChatConfigTest extends TestCase
         static::assertNull($config->getAssistantForActiveQuery());
     }
 
-    #[TestDox('getAssistantForActiveQuery() returns default when no explicit assistant matches the active query')]
-    public function testGetAssistantForActiveQueryReturnsDefaultWhenNoAssistantMatches(): void
+    #[TestDox('getAssistantForActiveQuery() returns null when no explicit assistant matches the active query')]
+    public function testGetAssistantForActiveQueryReturnsNullWhenNoAssistantMatches(): void
     {
         $assistant = ['name' => 'Noah', 'greetings_phrase' => 'Hi'];
         $acfService = $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_assistants' => [$assistant]]);
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
-        static::assertSame($assistant, $config->getAssistantForActiveQuery());
+        static::assertNull($config->getAssistantForActiveQuery());
     }
 
     #[TestDox('getAssistantForActiveQuery() returns the assistant matching the active query')]
