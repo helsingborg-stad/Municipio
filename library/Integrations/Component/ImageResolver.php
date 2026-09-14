@@ -193,7 +193,8 @@ class ImageResolver implements ImageResolverInterface
                 return false;
             }
 
-            $riffSize = unpack('V', substr($header, 4, 4))[1];
+            $riffHeader = unpack('Vsize', substr($header, 4, 4));
+            $riffSize = $riffHeader['size'];
             $remainingBytes = max(0, $riffSize - 4);
 
             while ($remainingBytes >= 8) {
@@ -203,7 +204,8 @@ class ImageResolver implements ImageResolverInterface
                 }
 
                 $chunkType = substr($chunkHeader, 0, 4);
-                $chunkSize = unpack('V', substr($chunkHeader, 4, 4))[1];
+                $chunkSizeData = unpack('Vsize', substr($chunkHeader, 4, 4));
+                $chunkSize = $chunkSizeData['size'];
                 $remainingBytes -= 8;
 
                 if ($chunkType === 'ALPH') {
