@@ -315,7 +315,13 @@ class ImageResolver implements ImageResolverInterface
     private function normalizeSize(array $size): array
     {
         return array_map(
-            static fn(mixed $value): mixed => $value === 0 ? false : $value,
+            static function (mixed $value): mixed {
+                if ($value === false || $value === 0 || $value === '0') {
+                    return false;
+                }
+
+                return is_numeric($value) ? (int) round((float) $value) : $value;
+            },
             $size,
         );
     }

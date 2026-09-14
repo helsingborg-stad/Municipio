@@ -232,6 +232,23 @@ class ImageResolverTest extends TestCase
         $this->assertSame([], $GLOBALS['municipioImageResolverAttachedFileCalls']);
     }
 
+    public function testZeroLikeLqipHeightStillUsesTransparentImageHandling(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][112] = 'image/png';
+        $GLOBALS['municipioImageResolverAttachedFiles'][112] = $this->createTemporaryFile(
+            '.png',
+            "\x89PNG\r\n\x1a\n" .
+            "\x00\x00\x00\x0dIHDR" .
+            "\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00" .
+            "\x00\x00\x00\x00",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(112, [100, '0']);
+
+        $this->assertNull($url);
+        $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
+    }
+
     public function testSvgBehaviorIsPreserved(): void
     {
         $GLOBALS['municipioImageResolverMimeTypes'][107] = 'image/svg+xml';
