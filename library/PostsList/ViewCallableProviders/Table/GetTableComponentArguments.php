@@ -57,16 +57,24 @@ class GetTableComponentArguments implements ViewCallableProviderInterface
             new TableArguments\LabelFormatter($this->wpService),
         );
 
+        $defaultTableArguments = [
+            'headings' => $headingsGenerator->generate(),
+            'list'     => $itemsGenerator->generate(),
+        ];
+
         $tableArguments = $this->wpService->applyFilters(
             self::FILTER_HOOK,
-            [
-                'headings' => $headingsGenerator->generate(),
-                'list'     => $itemsGenerator->generate(),
-            ],
+            $defaultTableArguments,
             $this->posts,
             $this->postTypes,
         );
 
+        if (!is_array($tableArguments)) {
+            $tableArguments = $defaultTableArguments;
+        }
+
+        $tableArguments['headings'] ??= $defaultTableArguments['headings'];
+        $tableArguments['list'] ??= $defaultTableArguments['list'];
         $tableArguments['list'] = (new TableItemsWithEmpasizedFirstItem($tableArguments['list']))->emphasize();
 
         return $tableArguments;

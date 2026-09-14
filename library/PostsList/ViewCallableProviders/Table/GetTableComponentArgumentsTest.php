@@ -23,6 +23,55 @@ class GetTableComponentArgumentsTest extends TestCase
         $this->isArray($result['list']);
     }
 
+    #[TestDox('returns the generated table arguments when filter returns a non-array value')]
+    public function testReturnsGeneratedArgumentsWhenFilterReturnsNonArray(): void
+    {
+        $post = new class extends NullPostObject {
+            public function getId(): int
+            {
+                return 123;
+            }
+
+            public function getPermalink(): string
+            {
+                return 'https://example.test/post';
+            }
+
+            public function getPostType(): string
+            {
+                return 'example';
+            }
+
+            public function __get(string $key): mixed
+            {
+                return [
+                    'first_field'  => 'First value',
+                    'second_field' => 'Second value',
+                ][$key] ?? null;
+            }
+        };
+        $appearanceConfig = new class extends DefaultAppearanceConfig {
+            public function getPostPropertiesToDisplay(): array
+            {
+                return ['first_field', 'second_field'];
+            }
+        };
+        $wpService = new FakeWpService([
+            'applyFilters' => static fn(string $hookName, array $arguments, array $posts, array $postTypes): string => 'invalid',
+        ]);
+
+        $result = (new GetTableComponentArguments([$post], $appearanceConfig, $wpService, ['example']))->getCallable()();
+
+        static::assertSame(['First field', 'Second field'], $result['headings']);
+        static::assertSame(123, $result['list'][0]['id']);
+        static::assertSame('https://example.test/post', $result['list'][0]['href']);
+        static::assertSame('First value', $result['list'][0]['columns'][0]);
+        static::assertSame(
+            '<span class="c-typography c-typography__variant--meta">Second value</span>',
+            $result['list'][0]['columns'][1],
+        );
+    }
+
     #[TestDox('filters generated table arguments before cell formatting')]
     public function testFiltersGeneratedTableArgumentsBeforeCellFormatting(): void
     {
