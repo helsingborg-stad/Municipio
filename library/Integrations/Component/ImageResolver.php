@@ -214,10 +214,6 @@ class ImageResolver implements ImageResolverInterface
                 $chunkSize = $chunkSizeData['size'];
                 $remainingBytes -= 8;
 
-                if ($chunkType === 'ALPH') {
-                    return true;
-                }
-
                 $previewLength = match ($chunkType) {
                     'VP8L' => 5,
                     'VP8X' => 1,
