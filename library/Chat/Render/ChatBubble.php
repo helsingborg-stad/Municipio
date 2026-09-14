@@ -24,11 +24,7 @@ class ChatBubble implements Hookable
     {
         $assistant = $this->config->getAssistantForActiveQuery();
 
-        if (
-            (!$this->config->isGlobalChatEnabled() || 
-            empty($this->config->getDefaultAssistant())) &&
-            empty($assistant)
-        ) {
+        if ((!$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) && empty($assistant)) {
             return;
         }
 
