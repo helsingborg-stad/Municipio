@@ -221,6 +221,9 @@ class ImageResolver implements ImageResolverInterface
                 };
 
                 $preview = $previewLength > 0 ? stream_get_contents($handle, min($chunkSize, $previewLength)) : '';
+                if ($preview === false) {
+                    return false;
+                }
                 $remainingBytes -= min($chunkSize, $previewLength);
 
                 if ($chunkType === 'VP8X' && is_string($preview) && isset($preview[0])) {
