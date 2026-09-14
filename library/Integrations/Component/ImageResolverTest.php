@@ -143,6 +143,28 @@ class ImageResolverTest extends TestCase
         $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
     }
 
+    public function testTransparentWebpSourcesDoNotRequireTransparencyChunksAtTheStartOfTheFile(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][109] = 'image/webp';
+        $GLOBALS['municipioImageResolverAttachedFiles'][109] = $this->createTemporaryFile(
+            '.webp',
+            'RIFF' .
+            pack('V', 326) .
+            'WEBP' .
+            'JUNK' .
+            pack('V', 300) .
+            str_repeat("\x00", 300) .
+            'VP8X' .
+            pack('V', 10) .
+            "\x10\x00\x00\x00\x00\x00\x00\x00\x00\x00",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(109, [100, false]);
+
+        $this->assertNull($url);
+        $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
+    }
+
     public function testTransparentGifSourcesDoNotReceiveGeneratedLqipUrls(): void
     {
         $GLOBALS['municipioImageResolverMimeTypes'][105] = 'image/gif';

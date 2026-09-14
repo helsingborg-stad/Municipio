@@ -177,40 +177,65 @@ class ImageResolver implements ImageResolverInterface
      */
     private function webpHasTransparency(string $filePath): bool
     {
-        $header = $this->readFileChunk($filePath, 256);
-        if (
-            !is_string($header)
-            || strlen($header) < 16
-            || substr($header, 0, 4) !== 'RIFF'
-            || substr($header, 8, 4) !== 'WEBP'
-        ) {
+        $handle = @fopen($filePath, 'rb');
+        if ($handle === false) {
             return false;
         }
 
-        $offset = 12;
-        while ($offset + 8 <= strlen($header)) {
-            $chunkType = substr($header, $offset, 4);
-            $chunkSizeBytes = substr($header, $offset + 4, 4);
-            if (strlen($chunkSizeBytes) < 4) {
+        try {
+            $header = stream_get_contents($handle, 12);
+            if (
+                !is_string($header)
+                || strlen($header) < 12
+                || substr($header, 0, 4) !== 'RIFF'
+                || substr($header, 8, 4) !== 'WEBP'
+            ) {
                 return false;
             }
 
-            $chunkSize = unpack('V', $chunkSizeBytes)[1];
-            $chunkDataOffset = $offset + 8;
+            $riffSize = unpack('V', substr($header, 4, 4))[1];
+            $remainingBytes = max(0, $riffSize - 4);
 
-            if ($chunkType === 'ALPH') {
-                return true;
+            while ($remainingBytes >= 8) {
+                $chunkHeader = stream_get_contents($handle, 8);
+                if (!is_string($chunkHeader) || strlen($chunkHeader) < 8) {
+                    return false;
+                }
+
+                $chunkType = substr($chunkHeader, 0, 4);
+                $chunkSize = unpack('V', substr($chunkHeader, 4, 4))[1];
+                $remainingBytes -= 8;
+
+                if ($chunkType === 'ALPH') {
+                    return true;
+                }
+
+                $previewLength = match ($chunkType) {
+                    'VP8L' => 5,
+                    'VP8X' => 1,
+                    default => 0,
+                };
+
+                $preview = $previewLength > 0 ? stream_get_contents($handle, min($chunkSize, $previewLength)) : '';
+                $remainingBytes -= min($chunkSize, $previewLength);
+
+                if ($chunkType === 'VP8X' && is_string($preview) && isset($preview[0])) {
+                    return (ord($preview[0]) & 0x10) === 0x10;
+                }
+
+                if ($chunkType === 'VP8L' && is_string($preview) && isset($preview[4])) {
+                    return (ord($preview[4]) & 0x10) === 0x10;
+                }
+
+                $bytesToSkip = ($chunkSize - strlen($preview)) + ($chunkSize % 2);
+                if ($bytesToSkip > 0 && !$this->skipStreamBytes($handle, $bytesToSkip)) {
+                    return false;
+                }
+
+                $remainingBytes -= $bytesToSkip;
             }
-
-            if ($chunkType === 'VP8X' && isset($header[$chunkDataOffset])) {
-                return (ord($header[$chunkDataOffset]) & 0x10) === 0x10;
-            }
-
-            if ($chunkType === 'VP8L' && isset($header[$chunkDataOffset + 4])) {
-                return (ord($header[$chunkDataOffset + 4]) & 0x10) === 0x10;
-            }
-
-            $offset = $chunkDataOffset + $chunkSize + ($chunkSize % 2);
+        } finally {
+            fclose($handle);
         }
 
         return false;
@@ -235,6 +260,27 @@ class ImageResolver implements ImageResolverInterface
         } finally {
             fclose($handle);
         }
+    }
+
+    /**
+     * Consume bytes from a stream without loading the entire file into memory.
+     *
+     * @param resource $handle
+     * @param int $bytesToSkip
+     * @return bool
+     */
+    private function skipStreamBytes($handle, int $bytesToSkip): bool
+    {
+        while ($bytesToSkip > 0) {
+            $chunk = stream_get_contents($handle, min($bytesToSkip, 8192));
+            if (!is_string($chunk) || $chunk === '') {
+                return false;
+            }
+
+            $bytesToSkip -= strlen($chunk);
+        }
+
+        return true;
     }
 
     /**
