@@ -1,0 +1,102 @@
+@button([
+    'icon' => 'chat',
+    'size' => 'md',
+    'color' => 'primary',
+    'reversePositions' => true,
+    'classList' => [
+        'u-position--fixed',
+        'u-right--2',
+        'u-bottom--2'
+    ],
+    'attributeList' => [
+        'popovertarget' => 'chat-global-root',
+        'style' => 'bottom: 1rem; right: 1rem;'
+    ]
+])
+@endbutton
+@popover([
+    'id' => 'chat-global-root',
+    'horizontalPlacement' => 'right',
+    'verticalPlacement' => 'top',
+    'relativeToTrigger' => true
+])
+@paper([
+    'attributeList' => [
+        'style' => 'contain:paint;min-width:min(calc(var(--base) * 30 * 1.5), calc(100vw - var(--base) * 10));max-width: min(calc(var(--base) * 45 * 1.5), calc(100vw - var(--base) * 10));'
+    ]
+])
+    @chat([
+            'id' => $chatId,
+            'persistent' => true,
+            'size' => 'xs',
+            'attributeList' => $attributeList,
+            'classList' => ['municipio-ai-chat'],
+            'chatInputData' => [
+                'sendButtonText' => $lang['send'],
+                'placeholderText' => $lang['placeholder']
+            ]
+        ])
+            @slot('titleArea')
+                @element([
+                    'classList' => ['u-display--flex', 'o-layout-grid--gap-2'],
+                ])
+                    @avatar([
+                        'image' => $avatar['src'] ?? null,
+                        'classList' => ['o-layout-grid--align-center'],
+                        'size' => 'sm',
+                        'icon' => [
+                            'name' => 'person',
+                            'size' => 'md'
+                        ]
+                    ])
+                    @endavatar
+                    @if (!empty($name))
+                        @typography([
+                            'element' => 'h2',
+                            'variant' => 'h6',
+                            'classList' => ['o-layout-grid--align-center'],
+                        ])
+                            {{ $name }}
+                        @endtypography
+                    @endif
+                @endelement
+                @element([
+                    'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center']
+                ])
+                    @button([
+                        'icon' => 'edit_square',
+                        'size' => 'md',
+                        'style' => 'basic',
+                        'color' => 'default',
+                        'reversePositions' => true,
+                        'attributeList' => [
+                            'data-js-chat-new' => true,
+                            'aria-label' => $lang['newConversation'],
+                            'data-tooltip' => $lang['newConversation']
+                        ],
+                    ])
+                    @endbutton
+                    @button([
+                        'icon' => 'close',
+                        'size' => 'md',
+                        'style' => 'basic',
+                        'color' => 'default',
+                        'reversePositions' => true,
+                        'classList' => [
+                            'u-margin__left--0'
+                        ],
+                        'attributeList' => [
+                            'data-js-chat-clear' => true,
+                            'popovertarget' => 'chat-global-root',
+                            'popovertargetaction' => 'hide',
+                            'aria-label' => $lang['close'],
+                            'data-tooltip' => $lang['close']
+                        ],
+                    ])
+                    @endbutton
+                @endelement
+            @endslot
+            @include('partials.feedback')
+        @endchat
+        @endpaper
+@endpopover
