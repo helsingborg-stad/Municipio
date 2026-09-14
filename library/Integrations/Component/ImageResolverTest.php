@@ -202,6 +202,28 @@ class ImageResolverTest extends TestCase
         $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
     }
 
+    public function testTransparentLossyWebpSourcesWithAlphaChunkDoNotReceiveGeneratedLqipUrls(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][115] = 'image/webp';
+        $GLOBALS['municipioImageResolverAttachedFiles'][115] = $this->createTemporaryFile(
+            '.webp',
+            'RIFF' .
+            pack('V', 28) .
+            'WEBP' .
+            'ALPH' .
+            pack('V', 2) .
+            "\x00\x00" .
+            'VP8 ' .
+            pack('V', 6) .
+            "\x00\x00\x00\x9d\x01\x2a",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(115, [100, false]);
+
+        $this->assertNull($url);
+        $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
+    }
+
     public function testTransparentGifSourcesDoNotReceiveGeneratedLqipUrls(): void
     {
         $GLOBALS['municipioImageResolverMimeTypes'][105] = 'image/gif';

@@ -199,6 +199,7 @@ class ImageResolver implements ImageResolverInterface
             }
             $riffSize = $riffHeader['size'];
             $remainingBytes = max(0, $riffSize - 4);
+            $sawLossyAlphaChunk = false;
 
             while ($remainingBytes >= 8) {
                 $chunkHeader = stream_get_contents($handle, 8);
@@ -216,9 +217,14 @@ class ImageResolver implements ImageResolverInterface
 
                 $previewLength = match ($chunkType) {
                     'VP8L' => 5,
+                    'VP8 ' => 6,
                     'VP8X' => 1,
                     default => 0,
                 };
+
+                if ($chunkType === 'ALPH') {
+                    $sawLossyAlphaChunk = true;
+                }
 
                 $previewBytesToRead = min($chunkSize, $previewLength);
                 $preview = $previewBytesToRead > 0 ? stream_get_contents($handle, $previewBytesToRead) : '';
@@ -229,6 +235,15 @@ class ImageResolver implements ImageResolverInterface
                 $remainingBytes -= $previewBytesToRead;
 
                 if ($chunkType === 'VP8X' && isset($preview[0]) && (ord($preview[0]) & 0x10) === 0x10) {
+                    return true;
+                }
+
+                if (
+                    $chunkType === 'VP8 '
+                    && $sawLossyAlphaChunk
+                    && strlen($preview) === 6
+                    && substr($preview, 3, 3) === "\x9d\x01\x2a"
+                ) {
                     return true;
                 }
 
