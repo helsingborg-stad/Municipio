@@ -25,14 +25,14 @@ class ImageResolver implements ImageResolverInterface
     {
         static $runtimeCache = [];
         $size = $this->normalizeSize($size);
-        $cacheKey = md5($id . serialize($size));
-
-        if (array_key_exists($cacheKey, $runtimeCache)) {
-            return $runtimeCache[$cacheKey];
-        }
 
         if ($this->isLqipRequest($size)) {
-            return $runtimeCache[$cacheKey] = $this->resolveLqipUrl($id, $size);
+            return $this->resolveLqipUrl($id, $size);
+        }
+
+        $cacheKey = md5($id . serialize($size));
+        if (array_key_exists($cacheKey, $runtimeCache)) {
+            return $runtimeCache[$cacheKey];
         }
 
         return $runtimeCache[$cacheKey] = $this->resolveAttachmentImageUrl($id, $size);
