@@ -344,6 +344,14 @@ class ImageResolver implements ImageResolverInterface
      */
     private function skipStreamBytes($handle, int $bytesToSkip): bool
     {
+        if ($bytesToSkip <= 0) {
+            return true;
+        }
+
+        if (@fseek($handle, $bytesToSkip, SEEK_CUR) === 0) {
+            return true;
+        }
+
         while ($bytesToSkip > 0) {
             $chunk = stream_get_contents($handle, min($bytesToSkip, 8192));
             if (!is_string($chunk) || $chunk === '') {
