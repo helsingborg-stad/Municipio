@@ -230,8 +230,13 @@ class ImageResolver implements ImageResolverInterface
                     return (ord($preview[0]) & 0x10) === 0x10;
                 }
 
-                if ($chunkType === 'VP8L' && is_string($preview) && isset($preview[4])) {
-                    return (ord($preview[4]) & 0x10) === 0x10;
+                if ($chunkType === 'VP8L' && is_string($preview) && strlen($preview) === 5 && ord($preview[0]) === 0x2f) {
+                    $vp8lHeader = unpack('Vheader', substr($preview, 1, 4));
+                    if ($vp8lHeader === false || !isset($vp8lHeader['header'])) {
+                        return false;
+                    }
+
+                    return (($vp8lHeader['header'] >> 28) & 0x01) === 1;
                 }
 
                 $bytesToSkip = ($chunkSize - strlen($preview)) + ($chunkSize % 2);

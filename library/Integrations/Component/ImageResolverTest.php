@@ -108,6 +108,24 @@ class ImageResolverTest extends TestCase
         $this->assertSame('https://example.com/102-100xauto.jpg', $url);
     }
 
+    public function testOpaqueLosslessWebpSourcesContinueToReceiveLqipUrls(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][110] = 'image/webp';
+        $GLOBALS['municipioImageResolverAttachedFiles'][110] = $this->createTemporaryFile(
+            '.webp',
+            'RIFF' .
+            pack('V', 18) .
+            'WEBPVP8L' .
+            pack('V', 5) .
+            "\x2f\x00\x00\x00\x00" .
+            "\x00",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(110, [100, false]);
+
+        $this->assertSame('https://example.com/110-100xauto.jpg', $url);
+    }
+
     public function testTransparentPngSourcesDoNotReceiveGeneratedLqipUrls(): void
     {
         $GLOBALS['municipioImageResolverMimeTypes'][103] = 'image/png';
@@ -138,6 +156,25 @@ class ImageResolverTest extends TestCase
         );
 
         $url = (new ImageResolver())->getImageUrl(104, [100, false]);
+
+        $this->assertNull($url);
+        $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
+    }
+
+    public function testTransparentLosslessWebpSourcesDoNotReceiveGeneratedLqipUrls(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][111] = 'image/webp';
+        $GLOBALS['municipioImageResolverAttachedFiles'][111] = $this->createTemporaryFile(
+            '.webp',
+            'RIFF' .
+            pack('V', 18) .
+            'WEBPVP8L' .
+            pack('V', 5) .
+            "\x2f\x00\x00\x00\x10" .
+            "\x00",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(111, [100, false]);
 
         $this->assertNull($url);
         $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
