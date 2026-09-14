@@ -315,6 +315,27 @@ class ImageResolverTest extends TestCase
         $this->assertSame('https://example.com/second.png', $secondUrl);
     }
 
+    public function testLqipTransparencyDecisionIsReusedWithinTheSameRequest(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][117] = 'image/webp';
+        $GLOBALS['municipioImageResolverAttachedFiles'][117] = $this->createTemporaryFile(
+            '.webp',
+            'RIFF' .
+            pack('V', 18) .
+            'WEBPVP8L' .
+            pack('V', 5) .
+            "\x2f\x00\x00\x00\x10" .
+            "\x00",
+        );
+
+        $resolver = new ImageResolver();
+
+        $resolver->getImageUrl(117, [100, false]);
+        $resolver->getImageUrl(117, [100, false]);
+
+        $this->assertSame([117], $GLOBALS['municipioImageResolverAttachedFileCalls']);
+    }
+
     private function createTemporaryFile(string $suffix, string $contents): string
     {
         $temporaryFile = tempnam(sys_get_temp_dir(), 'municipio-image-resolver-');
