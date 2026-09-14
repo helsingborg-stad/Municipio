@@ -90,8 +90,6 @@ class ImageResolver implements ImageResolverInterface
      */
     private function sourceImageHasTransparency(int $id, mixed $mimeType): bool
     {
-        static $transparencyCache = [];
-
         if (!is_string($mimeType) || !in_array($mimeType, self::TRANSPARENCY_CAPABLE_MIME_TYPES, true)) {
             return false;
         }
@@ -101,12 +99,7 @@ class ImageResolver implements ImageResolverInterface
             return false;
         }
 
-        $cacheKey = md5($id . '|' . $mimeType . '|' . $filePath);
-        if (array_key_exists($cacheKey, $transparencyCache)) {
-            return $transparencyCache[$cacheKey];
-        }
-
-        return $transparencyCache[$cacheKey] = match ($mimeType) {
+        return match ($mimeType) {
             'image/gif' => $this->gifHasTransparency($filePath),
             'image/png' => $this->pngHasTransparency($filePath),
             'image/webp' => $this->webpHasTransparency($filePath),
