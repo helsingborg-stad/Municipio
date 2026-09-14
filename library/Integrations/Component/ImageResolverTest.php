@@ -249,6 +249,37 @@ class ImageResolverTest extends TestCase
         $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
     }
 
+    public function testIntegerStringLqipWidthStillUsesTransparentImageHandling(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][113] = 'image/png';
+        $GLOBALS['municipioImageResolverAttachedFiles'][113] = $this->createTemporaryFile(
+            '.png',
+            "\x89PNG\r\n\x1a\n" .
+            "\x00\x00\x00\x0dIHDR" .
+            "\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00" .
+            "\x00\x00\x00\x00",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(113, ['100', '0']);
+
+        $this->assertNull($url);
+        $this->assertSame([], $GLOBALS['municipioImageResolverImageSrcCalls']);
+    }
+
+    public function testFloatLikeWidthsDoNotTriggerSpecialLqipHandling(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][114] = 'image/png';
+        $GLOBALS['municipioImageResolverAttachedFiles'][114] = $this->createTemporaryFile(
+            '.png',
+            "\x89PNG\r\n\x1a\n",
+        );
+
+        $url = (new ImageResolver())->getImageUrl(114, ['99.5', '0']);
+
+        $this->assertSame('https://example.com/114-99.5xauto.jpg', $url);
+        $this->assertSame([], $GLOBALS['municipioImageResolverAttachedFileCalls']);
+    }
+
     public function testSvgBehaviorIsPreserved(): void
     {
         $GLOBALS['municipioImageResolverMimeTypes'][107] = 'image/svg+xml';

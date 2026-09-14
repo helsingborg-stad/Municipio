@@ -331,7 +331,11 @@ class ImageResolver implements ImageResolverInterface
                     return false;
                 }
 
-                return is_numeric($value) ? (int) round((float) $value) : $value;
+                if (is_int($value)) {
+                    return $value;
+                }
+
+                return is_string($value) && preg_match('/^-?\d+$/', $value) === 1 ? (int) $value : $value;
             },
             $size,
         );
