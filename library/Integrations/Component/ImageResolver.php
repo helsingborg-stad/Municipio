@@ -58,17 +58,21 @@ class ImageResolver implements ImageResolverInterface
             serialize($size),
             (string) $mimeType,
             is_string($filePath) ? $filePath : '',
-            $this->getLqipFilterCacheKey(),
         ]));
 
-        if (array_key_exists($cacheKey, $runtimeCache)) {
-            return $runtimeCache[$cacheKey];
+        if (!array_key_exists($cacheKey, $runtimeCache)) {
+            $hasTransparency = $this->sourceImageHasTransparency($id, $mimeType, $filePath);
+            $runtimeCache[$cacheKey] = [
+                'url' => $hasTransparency ? null : $this->resolveAttachmentImageUrl($id, $size),
+                'hasTransparency' => $hasTransparency,
+            ];
         }
 
-        $hasTransparency = $this->sourceImageHasTransparency($id, $mimeType, $filePath);
-        $lqipUrl = $hasTransparency ? null : $this->resolveAttachmentImageUrl($id, $size);
+        $resolution = $runtimeCache[$cacheKey];
+        $lqipUrl = $resolution['url'];
+        $hasTransparency = $resolution['hasTransparency'];
 
-        return $runtimeCache[$cacheKey] = apply_filters(
+        return apply_filters(
             'Municipio/Component/Image/LqipUrl',
             $lqipUrl,
             $id,
@@ -78,49 +82,6 @@ class ImageResolver implements ImageResolverInterface
                 'hasTransparency' => $hasTransparency,
             ],
         );
-    }
-
-    /**
-     * Create a cache key fragment from the current LQIP filter registration state.
-     *
-     * @return string
-     */
-    private function getLqipFilterCacheKey(): string
-    {
-        $hook = $GLOBALS['wp_filter']['Municipio/Component/Image/LqipUrl'] ?? $GLOBALS['municipioImageResolverFilters']['Municipio/Component/Image/LqipUrl'] ?? null;
-
-        if (is_object($hook) && property_exists($hook, 'callbacks')) {
-            $hook = $hook->callbacks;
-        }
-
-        return md5(serialize($this->normalizeFilterCacheValue($hook)));
-    }
-
-    /**
-     * Normalize filter data into a serializable cache representation.
-     *
-     * @param mixed $value
-     * @return mixed
-     */
-    private function normalizeFilterCacheValue(mixed $value): mixed
-    {
-        if ($value instanceof \Closure) {
-            return 'closure:' . spl_object_id($value);
-        }
-
-        if (is_object($value)) {
-            return 'object:' . get_class($value) . ':' . spl_object_id($value);
-        }
-
-        if (is_array($value)) {
-            return array_map(fn(mixed $item): mixed => $this->normalizeFilterCacheValue($item), $value);
-        }
-
-        if (is_resource($value)) {
-            return 'resource:' . get_resource_type($value);
-        }
-
-        return $value;
     }
 
     /**

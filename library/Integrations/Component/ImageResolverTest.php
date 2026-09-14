@@ -293,6 +293,28 @@ class ImageResolverTest extends TestCase
         $this->assertSame('https://example.com/custom-placeholder-108-100-transparent.png', $url);
     }
 
+    public function testLqipFiltersAreAppliedOnEachCallEvenWhenTransparencyDecisionIsCached(): void
+    {
+        $GLOBALS['municipioImageResolverMimeTypes'][116] = 'image/png';
+        $GLOBALS['municipioImageResolverAttachedFiles'][116] = $this->createTemporaryFile(
+            '.png',
+            "\x89PNG\r\n\x1a\n" .
+            "\x00\x00\x00\x0dIHDR" .
+            "\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00" .
+            "\x00\x00\x00\x00",
+        );
+        $GLOBALS['municipioImageResolverFilters']['Municipio/Component/Image/LqipUrl'] = static fn(mixed ...$args): string => 'https://example.com/first.png';
+
+        $resolver = new ImageResolver();
+
+        $firstUrl = $resolver->getImageUrl(116, [100, false]);
+        $GLOBALS['municipioImageResolverFilters']['Municipio/Component/Image/LqipUrl'] = static fn(mixed ...$args): string => 'https://example.com/second.png';
+        $secondUrl = $resolver->getImageUrl(116, [100, false]);
+
+        $this->assertSame('https://example.com/first.png', $firstUrl);
+        $this->assertSame('https://example.com/second.png', $secondUrl);
+    }
+
     private function createTemporaryFile(string $suffix, string $contents): string
     {
         $temporaryFile = tempnam(sys_get_temp_dir(), 'municipio-image-resolver-');
