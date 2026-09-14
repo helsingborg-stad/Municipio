@@ -214,32 +214,41 @@ class ImageResolver implements ImageResolverInterface
                 $chunkSize = $chunkSizeData['size'];
                 $remainingBytes -= 8;
 
-                if ($chunkType === 'VP8X' || $chunkType === 'VP8L') {
-                    $chunkData = stream_get_contents($handle, $chunkSize);
-                    if ($chunkData === false || strlen($chunkData) !== $chunkSize) {
-                        return false;
-                    }
-                    $remainingBytes -= $chunkSize;
+                $previewLength = match ($chunkType) {
+                    'VP8L' => 5,
+                    'VP8X' => 1,
+                    default => 0,
+                };
 
-                    if ($chunkType === 'VP8X' && isset($chunkData[0])) {
-                        return (ord($chunkData[0]) & 0x10) === 0x10;
-                    }
-
-                    if ($chunkType === 'VP8L' && strlen($chunkData) === 5 && ord($chunkData[0]) === 0x2f) {
-                        $vp8lHeader = unpack('Vheader', substr($chunkData, 1, 4));
-                        if ($vp8lHeader === false || !isset($vp8lHeader['header'])) {
-                            return false;
-                        }
-
-                        return (($vp8lHeader['header'] >> 28) & 0x01) === 1;
-                    }
-                } else {
-                    if ($chunkSize > 0 && !$this->skipStreamBytes($handle, $chunkSize)) {
-                        return false;
-                    }
-
-                    $remainingBytes -= $chunkSize;
+                $previewBytesToRead = min($chunkSize, $previewLength);
+                $preview = $previewBytesToRead > 0 ? stream_get_contents($handle, $previewBytesToRead) : '';
+                if ($preview === false || strlen($preview) !== $previewBytesToRead) {
+                    return false;
                 }
+
+                $remainingBytes -= $previewBytesToRead;
+
+                if ($chunkType === 'VP8X' && isset($preview[0]) && (ord($preview[0]) & 0x10) === 0x10) {
+                    return true;
+                }
+
+                if ($chunkType === 'VP8L' && strlen($preview) === 5 && ord($preview[0]) === 0x2f) {
+                    $vp8lHeader = unpack('Vheader', substr($preview, 1, 4));
+                    if ($vp8lHeader === false || !isset($vp8lHeader['header'])) {
+                        return false;
+                    }
+
+                    if ((($vp8lHeader['header'] >> 28) & 0x01) === 1) {
+                        return true;
+                    }
+                }
+
+                $unreadPayloadBytes = $chunkSize - $previewBytesToRead;
+                if ($unreadPayloadBytes > 0 && !$this->skipStreamBytes($handle, $unreadPayloadBytes)) {
+                    return false;
+                }
+
+                $remainingBytes -= $unreadPayloadBytes;
 
                 $paddingBytes = $chunkSize % 2;
                 if ($paddingBytes > 0 && !$this->skipStreamBytes($handle, $paddingBytes)) {
