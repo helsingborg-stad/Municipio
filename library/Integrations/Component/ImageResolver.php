@@ -47,11 +47,28 @@ class ImageResolver implements ImageResolverInterface
      */
     private function resolveLqipUrl(int $id, array $size): ?string
     {
+        static $runtimeCache = [];
+
         $mimeType = get_post_mime_type($id);
-        $hasTransparency = $this->sourceImageHasTransparency($id, $mimeType);
+        $filePath = is_string($mimeType) && in_array($mimeType, self::TRANSPARENCY_CAPABLE_MIME_TYPES, true)
+            ? get_attached_file($id)
+            : null;
+        $cacheKey = md5(implode('|', [
+            (string) $id,
+            serialize($size),
+            (string) $mimeType,
+            is_string($filePath) ? $filePath : '',
+            $this->getLqipFilterCacheKey(),
+        ]));
+
+        if (array_key_exists($cacheKey, $runtimeCache)) {
+            return $runtimeCache[$cacheKey];
+        }
+
+        $hasTransparency = $this->sourceImageHasTransparency($id, $mimeType, $filePath);
         $lqipUrl = $hasTransparency ? null : $this->resolveAttachmentImageUrl($id, $size);
 
-        return apply_filters(
+        return $runtimeCache[$cacheKey] = apply_filters(
             'Municipio/Component/Image/LqipUrl',
             $lqipUrl,
             $id,
@@ -61,6 +78,49 @@ class ImageResolver implements ImageResolverInterface
                 'hasTransparency' => $hasTransparency,
             ],
         );
+    }
+
+    /**
+     * Create a cache key fragment from the current LQIP filter registration state.
+     *
+     * @return string
+     */
+    private function getLqipFilterCacheKey(): string
+    {
+        $hook = $GLOBALS['wp_filter']['Municipio/Component/Image/LqipUrl'] ?? $GLOBALS['municipioImageResolverFilters']['Municipio/Component/Image/LqipUrl'] ?? null;
+
+        if (is_object($hook) && property_exists($hook, 'callbacks')) {
+            $hook = $hook->callbacks;
+        }
+
+        return md5(serialize($this->normalizeFilterCacheValue($hook)));
+    }
+
+    /**
+     * Normalize filter data into a serializable cache representation.
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    private function normalizeFilterCacheValue(mixed $value): mixed
+    {
+        if ($value instanceof \Closure) {
+            return 'closure:' . spl_object_id($value);
+        }
+
+        if (is_object($value)) {
+            return 'object:' . get_class($value) . ':' . spl_object_id($value);
+        }
+
+        if (is_array($value)) {
+            return array_map(fn(mixed $item): mixed => $this->normalizeFilterCacheValue($item), $value);
+        }
+
+        if (is_resource($value)) {
+            return 'resource:' . get_resource_type($value);
+        }
+
+        return $value;
     }
 
     /**
@@ -88,13 +148,13 @@ class ImageResolver implements ImageResolverInterface
      * @param mixed $mimeType
      * @return bool
      */
-    private function sourceImageHasTransparency(int $id, mixed $mimeType): bool
+    private function sourceImageHasTransparency(int $id, mixed $mimeType, mixed $filePath = null): bool
     {
         if (!is_string($mimeType) || !in_array($mimeType, self::TRANSPARENCY_CAPABLE_MIME_TYPES, true)) {
             return false;
         }
 
-        $filePath = get_attached_file($id);
+        $filePath = $filePath ?? get_attached_file($id);
         if (!is_string($filePath) || $filePath === '') {
             return false;
         }
