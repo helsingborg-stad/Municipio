@@ -194,6 +194,9 @@ class ImageResolver implements ImageResolverInterface
             }
 
             $riffHeader = unpack('Vsize', substr($header, 4, 4));
+            if ($riffHeader === false || !isset($riffHeader['size'])) {
+                return false;
+            }
             $riffSize = $riffHeader['size'];
             $remainingBytes = max(0, $riffSize - 4);
 
@@ -205,6 +208,9 @@ class ImageResolver implements ImageResolverInterface
 
                 $chunkType = substr($chunkHeader, 0, 4);
                 $chunkSizeData = unpack('Vsize', substr($chunkHeader, 4, 4));
+                if ($chunkSizeData === false || !isset($chunkSizeData['size'])) {
+                    return false;
+                }
                 $chunkSize = $chunkSizeData['size'];
                 $remainingBytes -= 8;
 
