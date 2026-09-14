@@ -79,8 +79,7 @@ class ImageResolver implements ImageResolverInterface
         $lqipUrl = $resolution['url'];
         $hasTransparency = $resolution['hasTransparency'];
 
-        return apply_filters(
-            'Municipio/Component/Image/LqipUrl',
+        return $this->filterLqipUrl(
             $lqipUrl,
             $id,
             $size,
@@ -89,6 +88,20 @@ class ImageResolver implements ImageResolverInterface
                 'hasTransparency' => $hasTransparency,
             ],
         );
+    }
+
+    /**
+     * Apply filterable LQIP overrides.
+     *
+     * @param string|null $lqipUrl
+     * @param int $id
+     * @param array $size
+     * @param array $context
+     * @return string|null
+     */
+    protected function filterLqipUrl(?string $lqipUrl, int $id, array $size, array $context): ?string
+    {
+        return apply_filters('Municipio/Component/Image/LqipUrl', $lqipUrl, $id, $size, $context);
     }
 
     /**
