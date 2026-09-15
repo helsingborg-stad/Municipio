@@ -48,9 +48,9 @@
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "0.5.0",
     "helsingborg-stad/wputilservice": "^0.3",
-    "helsingborg-stad/styleguide": "3.19.10",
-    "firebase/php-jwt": "v7.1.0",
-    "algolia/algoliasearch-client-php": "4.47.0"
+    "helsingborg-stad/styleguide": "3.23.8",
+    "firebase/php-jwt": "v7.1.1",
+    "algolia/algoliasearch-client-php": "4.49.0"
   },
   "scripts": {
     "test": "php -d memory_limit=512M vendor/bin/phpunit --no-coverage",
