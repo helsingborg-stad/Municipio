@@ -27,7 +27,7 @@ class ImageContract implements ImageContractInterface
 
     private function createAttachmentUrl(int $id): string
     {
-        if (array_key_exists($id, self::$attachmentRuntimeCache)) {
+        if (array_key_exists($id, self::$attachmentRuntimeCache['url'])) {
             return self::$attachmentRuntimeCache['url'][$id];
         }
         return self::$attachmentRuntimeCache['url'][$id] = $this->wpService->wpGetAttachmentUrl($id);
@@ -35,7 +35,7 @@ class ImageContract implements ImageContractInterface
 
     private function createAttachmentPath(int $id): string
     {
-        if (array_key_exists($id, self::$attachmentRuntimeCache)) {
+        if (array_key_exists($id, self::$attachmentRuntimeCache['path'])) {
             return self::$attachmentRuntimeCache['path'][$id];
         }
         return self::$attachmentRuntimeCache['path'][$id] = $this->wpService->getAttachedFile($id);
