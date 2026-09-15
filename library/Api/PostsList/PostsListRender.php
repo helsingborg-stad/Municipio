@@ -3,9 +3,9 @@
 namespace Municipio\Api\PostsList;
 
 use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
-use ComponentLibrary\Renderer\Renderer;
 use Municipio\Api\RestApiEndpoint;
 use Municipio\Helper\AcfService;
+use Municipio\Helper\Renderer\ClosureSafeRenderer;
 use Municipio\Helper\WpService;
 use Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer;
 use Municipio\PostsList\PostsListFactory;
@@ -78,7 +78,7 @@ class PostsListRender extends RestApiEndpoint
 
             $renderer = new PostsListBlockRenderer(
                 new PostsListFactory($wpService, $wpdb, new SchemaToPostTypeResolver($acfService, $wpService)),
-                new Renderer((new BladeServiceFactory($wpService))->create([PostsListFeature::getTemplateDir()])),
+                new ClosureSafeRenderer((new BladeServiceFactory($wpService))->create([PostsListFeature::getTemplateDir()])),
                 $wpService,
             );
 

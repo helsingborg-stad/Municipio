@@ -1,6 +1,7 @@
 <?php
 
 use Municipio\Helper\AcfService;
+use Municipio\Helper\Renderer\ClosureSafeRenderer;
 use Municipio\Helper\WpService;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 
@@ -10,7 +11,7 @@ $wpdb = $GLOBALS['wpdb'];
 
 $renderer = new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
     new \Municipio\PostsList\PostsListFactory($wpService, $wpdb, new SchemaToPostTypeResolver($acfService, $wpService)),
-    new \ComponentLibrary\Renderer\Renderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
+    new ClosureSafeRenderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
     $wpService,
 );
 
