@@ -844,6 +844,15 @@ class App
             $imageConvertConfig,
         );
         $resolveToWpImageContract->addHooks();
+
+        $transparencyMetadataHooks = new \Municipio\ImageConvert\Hooks\TransparencyMetadataHooks(
+            $this->wpService,
+            new \Municipio\ImageConvert\TransparencyMetadata(
+                $this->wpService,
+                new \Municipio\ImageConvert\TransparencyDetector(),
+            ),
+        );
+        $transparencyMetadataHooks->addHooks();
     }
 
     /**
