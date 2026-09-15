@@ -3,7 +3,7 @@
         'id' => 'site-language-menu-popover',
         'horizontalPlacement' => 'right',
         'backdrop' => true,
-        'relativeToTrigger' => true
+        'relative' => true
     ])
         @card([
             'classList' => [
