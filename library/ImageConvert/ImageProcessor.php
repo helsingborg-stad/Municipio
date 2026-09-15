@@ -332,7 +332,8 @@ class ImageProcessor
     private function increaseAllowedProcessingTime(): void
     {
         $maxExecutionTime = (int) ini_get('max_execution_time');
-        if ($maxExecutionTime < 300) {
+        // 0 means unlimited execution time, so it must not be reduced.
+        if ($maxExecutionTime !== 0 && $maxExecutionTime < 300) {
             ini_set('max_execution_time', '300');
         }
     }
@@ -342,9 +343,36 @@ class ImageProcessor
      */
     private function increaseAllowedMemoryLimit(): void
     {
-        $memoryLimit = ini_get('memory_limit');
-        if ($memoryLimit < '2048M') {
+        $memoryLimit = $this->convertToBytes(ini_get('memory_limit'));
+        // -1 means unlimited memory, so it must not be reduced.
+        if ($memoryLimit !== -1 && $memoryLimit < $this->convertToBytes('2048M')) {
             ini_set('memory_limit', '2048M');
         }
+    }
+
+    /**
+     * Convert a php.ini shorthand byte value (e.g. "256M", "2G") to bytes.
+     *
+     * PHP ini values must not be compared as plain strings (e.g. '256M' < '2048M'
+     * is true lexicographically but false numerically), so this converts them
+     * to a comparable integer of bytes first.
+     */
+    private function convertToBytes(string $shorthand): int
+    {
+        $shorthand = trim($shorthand);
+
+        if ($shorthand === '' || $shorthand === '-1') {
+            return -1;
+        }
+
+        $unit  = strtolower(substr($shorthand, -1));
+        $value = (int) $shorthand;
+
+        return match ($unit) {
+            'g' => $value * 1024 * 1024 * 1024,
+            'm' => $value * 1024 * 1024,
+            'k' => $value * 1024,
+            default => $value,
+        };
     }
 }

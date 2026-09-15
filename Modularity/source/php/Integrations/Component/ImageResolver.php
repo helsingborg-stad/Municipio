@@ -4,43 +4,21 @@ declare(strict_types=1);
 
 namespace Modularity\Integrations\Component;
 
-use ComponentLibrary\Integrations\Image\ImageResolverInterface;
-
-class ImageResolver implements ImageResolverInterface
+class ImageResolver extends \Municipio\Integrations\Component\ImageResolver
 {
     /**
-     * Get image url
+     * Apply backward-compatible Modularity and Municipio LQIP filters.
      *
+     * @param string|null $lqipUrl
      * @param int $id
      * @param array $size
+     * @param array $context
      * @return string|null
      */
-    public function getImageUrl(int $id, array $size): null|string
+    protected function filterLqipUrl(?string $lqipUrl, int $id, array $size, array $context): ?string
     {
-        //Make 0 values in array false
-        $size = array_map(static function ($value) {
-            return $value === 0 ? false : $value;
-        }, $size);
+        $lqipUrl = parent::filterLqipUrl($lqipUrl, $id, $size, $context);
 
-        $image = wp_get_attachment_image_src($id, $size);
-        if ($image !== false && isset($image[0]) && filter_var($image[0], FILTER_VALIDATE_URL)) {
-            return $image[0];
-        }
-        return null;
-    }
-
-    /**
-     * Get image alt
-     *
-     * @param int $id
-     * @return string|null
-     */
-    public function getImageAltText(int $id): null|string
-    {
-        $alt = get_post_meta($id, '_wp_attachment_image_alt', true);
-        if ($alt) {
-            return $alt;
-        }
-        return null;
+        return apply_filters('Modularity/Component/Image/LqipUrl', $lqipUrl, $id, $size, $context);
     }
 }

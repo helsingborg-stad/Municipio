@@ -18,7 +18,7 @@
     'id' => 'chat-global-root',
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top',
-    'relativeToTrigger' => true
+    'relative' => true
 ])
 @paper([
     'attributeList' => [
