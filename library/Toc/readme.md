@@ -56,3 +56,7 @@ The feature is automatically enabled for:
 - Content containing HTML headings (h1-h6)
 
 No additional configuration is required - the feature works out of the box.
+
+### Filters
+
+- `Municipio/Toc/NumberOfLevels` - Controls how many heading levels are included in the TOC, starting from h2 (default: `3`, i.e. h2-h4). For example, returning `1` limits the TOC to h2 only.

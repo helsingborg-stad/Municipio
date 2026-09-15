@@ -17,35 +17,59 @@ use WpService\WpService;
 class TableOfContents
 {
     private const ANCHOR_PREFIX = 'toc-';
-    private const HEADING_SELECTOR = '/html/body/h2 | /html/body/h3 | /html/body/h4';
+    private const START_LEVEL = 2;
+    private const DEFAULT_NUMBER_OF_LEVELS = 3;
 
     private DOMDocument $domObject;
     private array $headings = [];
+    private string $headingSelector;
 
     /**
      * TableOfContents constructor.
      *
      * @param string $html The HTML content to parse for headings.
+     * @param WpService $wpService The WordPress service instance.
+     * @param int $numberOfLevels How many heading levels to include, starting from h2 (e.g. 3 = h2, h3, h4).
      */
     public function __construct(
         private string $html,
         private WpService $wpService,
+        private int $numberOfLevels = self::DEFAULT_NUMBER_OF_LEVELS,
     ) {
+        $this->headingSelector = self::buildHeadingSelector($this->numberOfLevels);
         $this->domObject = self::createDomFromHtml($html);
-        $this->headings = self::extractHeadingsFromHtml($this->domObject, $wpService);
+        $this->headings = self::extractHeadingsFromHtml($this->domObject, $wpService, $this->headingSelector);
     }
 
     /**
      * Returns a table of contents array based on the headings in the provided HTML.
      *
-     * This method extracts headings (h1–h6) from the HTML and builds a nested
+     * This method extracts headings from the HTML and builds a nested
      * table of contents structure, allowing for easy navigation within the document.
      *
      * @return array The structured table of contents.
      */
     public function getTableOfContents(): array
     {
-        return self::buildNestedToc($this->headings) ?? [];
+        return self::buildNestedToc($this->headings, self::START_LEVEL, $this->numberOfLevels) ?? [];
+    }
+
+    /**
+     * Builds an XPath selector matching direct body-level headings for the configured levels.
+     *
+     * @param int $numberOfLevels How many heading levels to include, starting from h2.
+     * @return string
+     */
+    private static function buildHeadingSelector(int $numberOfLevels): string
+    {
+        $numberOfLevels = max(1, min($numberOfLevels, 6 - self::START_LEVEL + 1));
+
+        $selectors = [];
+        for ($level = self::START_LEVEL; $level < (self::START_LEVEL + $numberOfLevels); $level++) {
+            $selectors[] = "/html/body/h{$level}";
+        }
+
+        return implode(' | ', $selectors);
     }
 
     /**
@@ -81,15 +105,17 @@ class TableOfContents
     }
 
     /**
-     * Extracts headings (h1–h6) from the HTML and returns them as an array.
+     * Extracts headings from the HTML and returns them as an array.
      *
      * @param DOMDocument $dom
+     * @param WpService $wpService
+     * @param string $headingSelector
      * @return array
      */
-    private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService): array
+    private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService, string $headingSelector): array
     {
         $xpath = new DOMXPath($dom);
-        $elements = $xpath->query(self::HEADING_SELECTOR);
+        $elements = $xpath->query($headingSelector);
 
         $headings = [];
         foreach ($elements as $el) {
@@ -101,7 +127,9 @@ class TableOfContents
                 continue;
             }
 
-            $headings[] = compact('text', 'level', 'slug');
+            // Keep a reference to the matched element so injection targets this exact
+            // heading instead of re-querying and matching by array index.
+            $headings[] = compact('text', 'level', 'slug', 'el');
         }
 
         return $headings;
@@ -121,14 +149,13 @@ class TableOfContents
             return $html;
         }
 
-        $xpath = new DOMXPath($dom);
-        $elements = $xpath->query(self::HEADING_SELECTOR);
+        foreach ($headings as $heading) {
+            $el = $heading['el'];
 
-        foreach ($elements as $i => $el) {
-            if (isset($headings[$i]) && $el instanceof DOMElement) {
-                $el->setAttribute('id', $headings[$i]['slug']);
+            if ($el instanceof DOMElement) {
+                $el->setAttribute('id', $heading['slug']);
                 $el->setAttribute('data-update-hash-when-focused', '1');
-                $el->setAttribute('data-update-hash-value', $headings[$i]['slug']);
+                $el->setAttribute('data-update-hash-value', $heading['slug']);
             }
         }
 

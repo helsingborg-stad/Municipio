@@ -15,6 +15,7 @@ use WpService\WpService;
 class TocUtils implements TocUtilsInterface
 {
     private const MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE = 3;
+    private const DEFAULT_NUMBER_OF_LEVELS = 1;
 
     /**
      * Constructor.
@@ -101,7 +102,7 @@ class TocUtils implements TocUtilsInterface
             return [];
         }
 
-        $tableOfContents = new TableOfContents($content, $this->wpService);
+        $tableOfContents = new TableOfContents($content, $this->wpService, $this->getNumberOfLevels());
         return $tableOfContents->getTableOfContents();
     }
 
@@ -114,8 +115,24 @@ class TocUtils implements TocUtilsInterface
             return $content;
         }
 
-        $tableOfContents = new TableOfContents($content, $this->wpService);
+        $tableOfContents = new TableOfContents($content, $this->wpService, $this->getNumberOfLevels());
         return $tableOfContents->getDocumentWithAnchors();
+    }
+
+    /**
+     * Get the number of heading levels to include in the TOC, starting from h2.
+     *
+     * Allows themes/plugins to customize the depth via the
+     * `Municipio/Toc/NumberOfLevels` filter (e.g. 1 = h2 only, 3 = h2-h4).
+     *
+     * @return int
+     */
+    private function getNumberOfLevels(): int
+    {
+        return (int) $this->wpService->applyFilters(
+            'Municipio/Toc/NumberOfLevels',
+            self::DEFAULT_NUMBER_OF_LEVELS,
+        );
     }
 
     /**
