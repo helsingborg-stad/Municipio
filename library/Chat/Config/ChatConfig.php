@@ -4,24 +4,25 @@ namespace Municipio\Chat\Config;
 
 use AcfService\Contracts\GetField;
 use WpService\Contracts\DetermineLocale;
+use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostAncestors;
 use WpService\Contracts\GetQueriedObjectId;
 
 class ChatConfig implements ChatConfigInterface
 {
     public function __construct(
-        private DetermineLocale&GetQueriedObjectId&GetPostAncestors $wpService,
+        private DetermineLocale&GetQueriedObjectId&GetPostAncestors&GetOption $wpService,
         private GetField $acfService,
     ) {}
 
     public function isEnabled(): bool
     {
-        return (bool) $this->acfService->getField('chat_enabled', 'option');
+        return (bool) filter_var($this->wpService->GetOption('chat_enabled', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     public function isGlobalChatEnabled(): bool
     {
-        return (bool) $this->acfService->getField('chat_global_enabled', 'option');
+        return (bool) filter_var($this->wpService->GetOption('chat_global_enabled', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     public function getDefaultAssistant(): ?array
