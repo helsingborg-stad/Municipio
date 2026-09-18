@@ -1,10 +1,10 @@
 import MarkdownIt from "markdown-it";
-import { ChatSessionFactory } from "./ChatSessionFactory";
-import Chat from "./chat";
-import FeedbackApi from "./feedbackApi";
-import FeedbackFactory from "./feedbackFactory";
-import GreetingPhrase from "./greetingPhrase";
-import NewChatSessionButton from "./newChatSessionButton";
+import { ChatSessionFactory } from "./chat/ChatSessionFactory";
+import Chat from "./chat/chat";
+import FeedbackApi from "./chat/feedbackApi";
+import FeedbackFactory from "./chat/feedbackFactory";
+import GreetingPhrase from "./chat/greetingPhrase";
+import NewChatSessionButton from "./chat/newChatSessionButton";
 
 document.addEventListener("chat:initialized", (e: any) => {
 	const chat = e.detail;
