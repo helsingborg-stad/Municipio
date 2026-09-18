@@ -1,6 +1,6 @@
 import FeedbackApi from "./feedbackApi";
 
-class Feedback implements FeedbackInterface {
+class Feedback {
     private liked: boolean | null = null;
     private materialSymbolsFilledClass = 'material-symbols--filled';
 
