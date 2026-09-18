@@ -17,12 +17,12 @@ class ChatConfig implements ChatConfigInterface
 
     public function isEnabled(): bool
     {
-        return (bool) filter_var($this->wpService->GetOption('chat_enabled', false), FILTER_VALIDATE_BOOLEAN);
+        return (bool) filter_var($this->wpService->GetOption('options_chat_enabled', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     public function isGlobalChatEnabled(): bool
     {
-        return (bool) filter_var($this->wpService->GetOption('chat_global_enabled', false), FILTER_VALIDATE_BOOLEAN);
+        return (bool) filter_var($this->wpService->GetOption('options_chat_global_enabled', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     public function getDefaultAssistant(): ?array
