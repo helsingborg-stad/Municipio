@@ -1,15 +1,16 @@
-@nav([
-    'items' => $menuItem['children'],
-    'compressed' => true,
-    'classList' => [
-        'mod-menu__children'
-    ],
-    'attributeList' => $mobileCollapse 
-        ? [
-            'data-js-sizeobserver' => 'mod-menu-children',
-            'data-js-sizeobserver-axis' => 'y',
-            'data-js-sizeobserver-element-full-size' => ''
+@if(!empty($menuItem['children']))
+    @element([
+        'componentElement' => 'div',
+        'classList' => [
+            'mod-menu__children',
+            'u-margin__top--2',
+            'o-layout-grid',
+            'o-layout-grid--cols-1',
+            'o-layout-grid--gap-2'
         ]
-        : []
-])
-@endnav
+    ])
+        @foreach($menuItem['children'] as $child)
+            @include('menus.listing.partials.child')
+        @endforeach
+    @endelement
+@endif

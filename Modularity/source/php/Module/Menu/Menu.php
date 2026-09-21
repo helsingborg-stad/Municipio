@@ -23,7 +23,6 @@ class Menu extends \Modularity\Module
         $this->namePlural = __('Menus', 'municipio');
         $this->description = __('Outputs a menu.', 'municipio');
 
-        add_filter('Municipio/Navigation/Item', [$this, 'setMenuItemData'], 999, 3);
         new Select();
     }
 
@@ -34,7 +33,8 @@ class Menu extends \Modularity\Module
 
         $acfService = \Modularity\Helper\AcfService::get();
         $wpService = \Modularity\Helper\WpService::get();
-
+        
+        $data['fields'] = $fields;
         $data['displayAs'] = $fields['mod_menu_display_as'] ?? 'listing';
         $data['wrapped'] = $fields['mod_menu_wrapped'] ?? false;
         $data['mobileCollapse'] = $fields['mod_menu_mobile_collapse'] ?? true;
@@ -53,16 +53,6 @@ class Menu extends \Modularity\Module
         $dataDecorator = new DataDecorator($fields);
 
         return $dataDecorator->decorate($data);
-    }
-
-    public function setMenuItemData($item, $identifier, $bool)
-    {
-        if ($identifier === 'mod-menu-listing' && !$item['top_level']) {
-            $item['icon'] = ['icon' => 'chevron_right', 'size' => 'md'];
-            $item['classList'][] = 'mod-menu__child';
-        }
-
-        return $item;
     }
 
     public function style()
