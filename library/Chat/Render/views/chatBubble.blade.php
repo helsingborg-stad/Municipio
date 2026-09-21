@@ -20,17 +20,17 @@
     'verticalPlacement' => 'top',
     'relative' => true
 ])
-@paper([
-    'attributeList' => [
-        'style' => 'contain:paint;min-width:min(calc(var(--base) * 30 * 1.5), calc(100vw - var(--base) * 10));max-width: min(calc(var(--base) * 45 * 1.5), calc(100vw - var(--base) * 10));'
-    ]
-])
-    @chat([
+    @element([
+        'classList' => [
+            'municipio-ai-chat'
+        ]
+    ])
+        @chat([
             'id' => $chatId,
             'persistent' => true,
             'size' => 'xs',
             'attributeList' => $attributeList,
-            'classList' => ['municipio-ai-chat'],
+            'classList' => ['municipio-ai-chat__chat'],
             'chatInputData' => [
                 'sendButtonText' => $lang['send'],
                 'placeholderText' => $lang['placeholder']
@@ -98,5 +98,5 @@
             @endslot
             @include('partials.feedback')
         @endchat
-        @endpaper
+    @endelement
 @endpopover

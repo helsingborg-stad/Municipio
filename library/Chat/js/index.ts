@@ -5,12 +5,24 @@ import FeedbackApi from "./chat/feedbackApi";
 import FeedbackFactory from "./chat/feedbackFactory";
 import GreetingPhrase from "./chat/greetingPhrase";
 import NewChatSessionButton from "./chat/newChatSessionButton";
+import Popover from "./popover/popover";
+
+document.addEventListener("popover:initialized", (e: any) => {
+	const popover = e.detail;
+
+	if (popover.id !== "chat-global-root") return;
+
+	const chatContainer = popover.element?.querySelector(".municipio-ai-chat");
+
+	if (!chatContainer) return;
+
+	new Popover(popover, chatContainer as HTMLElement);
+});
 
 document.addEventListener("chat:initialized", (e: any) => {
 	const chat = e.detail;
 
-	if (!chat.getElement().classList.contains("municipio-ai-chat")) return;
-
+	if (!chat.getElement().classList.contains("municipio-ai-chat__chat")) return;
 	const newChatButtonElement = chat
 		.getElement()
 		.querySelector("[data-js-chat-new]") as HTMLElement;
