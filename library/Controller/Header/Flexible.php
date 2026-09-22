@@ -66,6 +66,10 @@ class Flexible implements HeaderInterface
             'lowerHeader' => $lowerHeader,
             'upperItems' => $upperItems['modified'],
             'lowerItems' => $lowerItems['modified'],
+            'buttonAppearance' => [
+                'upperItems' => $upperItems['buttonAppearance'],
+                'lowerItems' => $lowerItems['buttonAppearance'],
+            ],
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
@@ -149,8 +153,40 @@ class Flexible implements HeaderInterface
         $items = $this->menuVisibilityTransformerInstance->transform($items);
         $items = $this->marginTransformerInstance->transform($items, $setting);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
+        $items['buttonAppearance'] = $this->getButtonAppearance($items, $setting);
 
         return $items;
+    }
+
+    /**
+     * Get per-item button appearance settings from sortable item storage.
+     *
+     * @param array<string, mixed> $items Header items.
+     * @param string $setting Header sortable setting name.
+     *
+     * @return array<string, array<string, string>>
+     */
+    private function getButtonAppearance(array $items, string $setting): array
+    {
+        $appearance = [];
+        $responsiveSetting = $setting . '_responsive';
+        $desktopItems = $items['desktop'] ?? [];
+        $mobileItems = $items['mobile'] ?? [];
+
+        foreach (array_unique(array_merge(array_keys($desktopItems), array_keys($mobileItems))) as $menu) {
+            $sourceSetting = !isset($desktopItems[$menu]) && isset($mobileItems[$menu])
+                ? $responsiveSetting
+                : $setting;
+            $itemSettings = $this->getHiddenMenuItemsData()->{$sourceSetting}->{$menu} ?? (object) [];
+
+            $appearance[$menu] = [
+                'style' => $itemSettings->buttonStyle ?? 'basic',
+                'size' => $itemSettings->buttonSize ?? 'md',
+                'color' => $itemSettings->buttonColor ?? 'inherit',
+            ];
+        }
+
+        return $appearance;
     }
 
     // Checks if the search is present in the menu.

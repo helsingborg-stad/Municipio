@@ -4,5 +4,6 @@
             'search-form',
             'u-display--flex',
             'u-print-display--none'
-        ] 
+        ],
+        'buttonAppearance' => $buttonAppearance ?? null,
     ])

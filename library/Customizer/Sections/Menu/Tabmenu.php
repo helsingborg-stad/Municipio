@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\Customizer\Sections\Menu;
 
-use Municipio\Customizer\ButtonSettings;
 use Municipio\Customizer\CustomizerField;
 
 class Tabmenu
@@ -12,57 +11,36 @@ class Tabmenu
     public function __construct(string $sectionID)
     {
         CustomizerField::addField([
-            'type'     => 'select',
+            'type' => 'select',
             'settings' => 'tabmenu_button_color',
-            'label'    => esc_html__('Tabmenu - Color', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => 'default',
+            'label' => esc_html__('Tabmenu - Color', 'municipio'),
+            'section' => $sectionID,
+            'default' => 'default',
             'priority' => 10,
-            'choices'  => [
-                'default'   => esc_html__('Default', 'municipio'),
-                'primary'   => esc_html__('Primary', 'municipio'),
+            'choices' => [
+                'default' => esc_html__('Default', 'municipio'),
+                'primary' => esc_html__('Primary', 'municipio'),
                 'secondary' => esc_html__('Secondary', 'municipio'),
             ],
-            'output'   => [
-                ['type' => 'controller']
+            'output' => [
+                ['type' => 'controller'],
             ],
         ]);
 
         CustomizerField::addField([
-            'type'     => 'select',
+            'type' => 'select',
             'settings' => 'tabmenu_button_type',
-            'label'    => esc_html__('Tabmenu - Type', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => 'filled',
+            'label' => esc_html__('Tabmenu - Type', 'municipio'),
+            'section' => $sectionID,
+            'default' => 'filled',
             'priority' => 10,
-            'choices'  => [
-                'basic'    => esc_html__('Basic', 'municipio'),
+            'choices' => [
+                'basic' => esc_html__('Basic', 'municipio'),
                 'outlined' => esc_html__('Outlined', 'municipio'),
-                'filled'   => esc_html__('Filled', 'municipio'),
+                'filled' => esc_html__('Filled', 'municipio'),
             ],
-            'output'   => [
-                ['type' => 'controller']
-            ],
-        ]);
-
-        new ButtonSettings([
-            'sectionID' => $sectionID,
-            'settingPrefix' => 'header_trigger_button',
-            'settingSuffixes' => [
-                'style' => 'type',
-                'size' => 'size',
-                'color' => 'color',
-            ],
-            'labels' => [
-                'style' => esc_html__('Trigger button style', 'municipio'),
-                'size' => esc_html__('Trigger button size', 'municipio'),
-                'color' => esc_html__('Trigger button color', 'municipio'),
-            ],
-            'outputs' => [],
-            'defaults' => [
-                'style' => 'basic',
-                'size' => 'md',
-                'color' => 'inherit',
+            'output' => [
+                ['type' => 'controller'],
             ],
         ]);
     }

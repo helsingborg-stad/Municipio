@@ -1,8 +1,8 @@
 @if (!empty($megaMenu['items']))
     @button([
-        'color' => $customizer->headerTriggerButtonColor,
-        'style' => $customizer->headerTriggerButtonType,
-        'size' => $customizer->headerTriggerButtonSize,
+        'color' => $buttonAppearance['color'] ?? 'inherit',
+        'style' => $buttonAppearance['style'] ?? 'basic',
+        'size' => $buttonAppearance['size'] ?? 'md',
         'reversePositions' => empty($megaMenuLabels->iconAfterLabel),
         'toggle' => true,
         'icon' => !empty($megaMenuLabels->buttonIcon) ? $megaMenuLabels->buttonIcon : 'menu',

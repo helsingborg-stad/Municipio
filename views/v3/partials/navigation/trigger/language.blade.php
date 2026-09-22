@@ -1,9 +1,9 @@
 @button([
     'id' => 'site-language-menu-button',
     'text' => $lang->changeLanguage,
-    'color' => $customizer->headerTriggerButtonColor,
-    'style' => $customizer->headerTriggerButtonType,
-    'size' => $customizer->headerTriggerButtonSize,
+    'color' => $buttonAppearance['color'] ?? 'inherit',
+    'style' => $buttonAppearance['style'] ?? 'basic',
+    'size' => $buttonAppearance['size'] ?? 'md',
     'icon' => 'language',
     'reversePositions' => true,
     'toggle' => true,

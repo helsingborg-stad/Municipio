@@ -2,9 +2,9 @@
     @drawer([
         'toggleButtonData' => [
             'id' => 'mobile-menu-trigger-open',
-            'color' => $customizer->headerTriggerButtonColor,
-            'style' => $customizer->headerTriggerButtonType,
-            'size' => $customizer->headerTriggerButtonSize,
+            'color' => $buttonAppearance['color'] ?? 'inherit',
+            'style' => $buttonAppearance['style'] ?? 'basic',
+            'size' => $buttonAppearance['size'] ?? 'md',
             'icon' => 'toggleAriaPressedHamburgerClose',
             'context' => ['site.header.menutrigger'],
             'classList' => ['mobile-menu-trigger', 'u-order--10', 's-header-button'],

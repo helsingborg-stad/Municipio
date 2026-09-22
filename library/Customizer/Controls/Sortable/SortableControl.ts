@@ -5,17 +5,32 @@ import {
 	translate,
 } from "../controlTypes";
 
-type SortableOptionName = "align" | "margin";
-type SortableItemOptions = { align: string; margin: string };
+type SortableOptionName = "align" | "margin" | "buttonStyle" | "buttonSize" | "buttonColor";
+type SortableItemOptions = {
+	align: string;
+	margin: string;
+	buttonStyle: string;
+	buttonSize: string;
+	buttonColor: string;
+};
 type SortableSection = Record<string, Partial<SortableItemOptions>>;
 type SortableStorageValue = Record<string, SortableSection>;
 
 const optionValues: Record<SortableOptionName, string[]> = {
 	align: ["left", "center", "right"],
 	margin: ["none", "left", "right", "both"],
+	buttonStyle: ["filled", "basic", "outlined"],
+	buttonSize: ["sm", "md", "lg"],
+	buttonColor: ["inherit", "primary", "secondary"],
 };
 
-const defaultOptions: SortableItemOptions = { align: "right", margin: "none" };
+const defaultOptions: SortableItemOptions = {
+	align: "right",
+	margin: "none",
+	buttonStyle: "basic",
+	buttonSize: "md",
+	buttonColor: "inherit",
+};
 const itemDefaultOptions: Record<string, Partial<SortableItemOptions>> = {
 	logotype: { align: "left" },
 };
@@ -36,7 +51,29 @@ function sanitizeItemOptions(
 		margin: optionValues.margin.includes(options?.margin ?? "")
 			? (options?.margin ?? defaults.margin)
 			: defaults.margin,
+		buttonStyle: optionValues.buttonStyle.includes(options?.buttonStyle ?? "")
+			? (options?.buttonStyle ?? defaults.buttonStyle)
+			: defaults.buttonStyle,
+		buttonSize: optionValues.buttonSize.includes(options?.buttonSize ?? "")
+			? (options?.buttonSize ?? defaults.buttonSize)
+			: defaults.buttonSize,
+		buttonColor: optionValues.buttonColor.includes(options?.buttonColor ?? "")
+			? (options?.buttonColor ?? defaults.buttonColor)
+			: defaults.buttonColor,
 	};
+}
+
+function hasButtonAppearance(itemValue: string): boolean {
+	return [
+		"primary",
+		"drawer",
+		"language",
+		"mega-menu",
+		"search-modal",
+		"siteselector",
+		"user",
+		"userGroupUrl",
+	].includes(itemValue);
 }
 
 /**
@@ -73,7 +110,12 @@ class SortableStorage {
 			[optionName]: optionValue,
 		});
 
-		storage[sectionName] = { ...section, [itemValue]: itemOptions };
+		storage[sectionName] = {
+			...section,
+			[itemValue]: hasButtonAppearance(itemValue)
+				? itemOptions
+				: { align: itemOptions.align, margin: itemOptions.margin },
+		};
 		this.write(storage);
 
 		return itemOptions;
@@ -289,6 +331,7 @@ export class SortableControlElement extends HTMLElement {
 		settings.hidden = true;
 		settings.appendChild(this.createSettingsGroup(value, "align"));
 		settings.appendChild(this.createSettingsGroup(value, "margin"));
+		this.appendButtonSettings(settings, value);
 		content.appendChild(handle);
 		content.appendChild(itemLabel);
 		content.appendChild(actions);
@@ -297,6 +340,14 @@ export class SortableControlElement extends HTMLElement {
 		this.updateItemOptionButtons(item);
 
 		return item;
+	}
+
+	private appendButtonSettings(settings: HTMLElement, itemValue: string): void {
+		if (!this.hasButtonAppearance(itemValue)) return;
+
+		settings.appendChild(this.createSettingsGroup(itemValue, "buttonStyle"));
+		settings.appendChild(this.createSettingsGroup(itemValue, "buttonSize"));
+		settings.appendChild(this.createSettingsGroup(itemValue, "buttonColor"));
 	}
 
 	private createSettingsButton(): HTMLButtonElement {
@@ -318,8 +369,7 @@ export class SortableControlElement extends HTMLElement {
 		const legend = document.createElement("legend");
 		const options = document.createElement("div");
 		fieldset.className = "municipio-sortable-item__settings-group";
-		legend.textContent =
-			optionName === "align" ? translate("Alignment") : translate("Margin");
+		legend.textContent = this.getOptionLabelName(optionName);
 		options.className = "municipio-sortable-item__settings-options";
 
 		optionValues[optionName].forEach((optionValue) => {
@@ -436,8 +486,21 @@ export class SortableControlElement extends HTMLElement {
 				right: "Right margin",
 				both: "Both margins",
 			},
+			buttonStyle: { filled: "Filled", basic: "Basic", outlined: "Outlined" },
+			buttonSize: { sm: "Small", md: "Medium", lg: "Large" },
+			buttonColor: { inherit: "Inherit", primary: "Primary", secondary: "Secondary" },
 		};
 		return labels[optionName][optionValue] ?? optionValue;
+	}
+
+	private getOptionLabelName(optionName: SortableOptionName): string {
+		return {
+			align: "Alignment",
+			margin: "Margin",
+			buttonStyle: "Button style",
+			buttonSize: "Button size",
+			buttonColor: "Button color",
+		}[optionName];
 	}
 
 	private updateValue(): void {
@@ -518,8 +581,12 @@ export class SortableControlElement extends HTMLElement {
 
 	private getOptionName(element: HTMLElement): SortableOptionName | null {
 		const optionName = element.dataset.sortableOption;
-		return optionName === "align" || optionName === "margin"
-			? optionName
+		return optionName && optionName in optionValues
+			? (optionName as SortableOptionName)
 			: null;
+	}
+
+	private hasButtonAppearance(itemValue: string): boolean {
+		return hasButtonAppearance(itemValue);
 	}
 }

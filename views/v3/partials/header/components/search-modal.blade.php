@@ -1,8 +1,9 @@
 @button([
     'text' => $lang->search,
-    'color' => 'basic',
+    'color' => $buttonAppearance['color'] ?? 'inherit',
     'icon' => 'search',
-    'style' => 'basic',
+    'style' => $buttonAppearance['style'] ?? 'basic',
+    'size' => $buttonAppearance['size'] ?? 'md',
     'reversePositions' => true,
     'classList' => [
         's-header-button'

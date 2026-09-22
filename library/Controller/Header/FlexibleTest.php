@@ -221,6 +221,40 @@ class FlexibleTest extends TestCase
         $this->assertNull($headerData['logoScrollShrinkAspectRatio']);
     }
 
+    public function testGetHeaderDataUsesPerItemButtonAppearanceWithHeaderDefaults(): void
+    {
+        $controller = new Flexible((object) [
+            'headerSortableHiddenStorage' => json_encode([
+                'header_sortable_section_main_upper' => [
+                    'language' => [
+                        'align' => 'right',
+                        'margin' => 'none',
+                        'buttonStyle' => 'outlined',
+                        'buttonSize' => 'lg',
+                        'buttonColor' => 'primary',
+                    ],
+                    'drawer' => [
+                        'align' => 'right',
+                        'margin' => 'none',
+                    ],
+                ],
+            ]),
+            'headerSortableSectionMainUpper' => ['language', 'drawer'],
+            'headerSortableSectionMainLower' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertSame(
+            ['style' => 'outlined', 'size' => 'lg', 'color' => 'primary'],
+            $headerData['buttonAppearance']['upperItems']['language'],
+        );
+        $this->assertSame(
+            ['style' => 'basic', 'size' => 'md', 'color' => 'inherit'],
+            $headerData['buttonAppearance']['upperItems']['drawer'],
+        );
+    }
+
     public function testGetHeaderDataKeepsAdjustableLogoOverlapMultiplierWhenValueIsValid(): void
     {
         $controller = new Flexible((object) [

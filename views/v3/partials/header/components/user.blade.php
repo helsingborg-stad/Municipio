@@ -2,12 +2,12 @@
     @includeWhen(
         $isAuthenticated, 
         'partials.header.user.user', 
-        ['classList' => $classList ?? []]
+        ['classList' => $classList ?? [], 'buttonAppearance' => $buttonAppearance ?? null]
     )
     
     @includeWhen(
         !$isAuthenticated && $customizer->headerLoginLogoutDisplay ===  'both', 
         'partials.header.user.login', 
-        ['classList' => $classList ?? []]
+        ['classList' => $classList ?? [], 'buttonAppearance' => $buttonAppearance ?? null]
     )
 @endif
