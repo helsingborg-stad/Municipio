@@ -36,7 +36,6 @@ class Menu extends \Modularity\Module
         
         $data['fields'] = $fields;
         $data['displayAs'] = $fields['mod_menu_display_as'] ?? 'listing';
-        $data['wrapped'] = $fields['mod_menu_wrapped'] ?? false;
         $data['mobileCollapse'] = $fields['mod_menu_mobile_collapse'] ?? true;
         $data['ID'] = $this->ID ?? uniqid();
 

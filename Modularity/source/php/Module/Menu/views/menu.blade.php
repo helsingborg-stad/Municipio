@@ -1,5 +1,5 @@
 @if (!empty($menu['items']))
-<div class="mod-menu {{'mod-menu--' . $displayAs}} {{$wrapped ? 'mod-menu--wrapped' : ''}}">
+<div class="mod-menu {{'mod-menu--' . $displayAs}}">
     @includeIf('menus.' . $displayAs . '.' . $displayAs)
 </div>
 @endif
