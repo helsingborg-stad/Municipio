@@ -80,11 +80,6 @@
             row-gap: calc(var(--outer-space) * var(--base) * 4);
             column-gap: calc(var(--outer-space) * var(--base) * 4);
         }
-
-        @container (min-width: 48em) {
-            row-gap: calc(var(--outer-space) * var(--base) * 5);
-            column-gap: calc(var(--outer-space) * var(--base) * 5);
-        }
     }
 
     /* Modifiers */
