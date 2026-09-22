@@ -73,8 +73,18 @@
         border-radius: calc(var(--border-radius, 1) * var(--base));
         corner-shape: var(--corner-shape);
         background-color: var(--o-body--color--background,var(--color--background));
-        row-gap: calc(var(--outer-space) * var(--base) * 5);
-        column-gap: calc(var(--outer-space) * var(--base) * 5);
+        row-gap: calc(var(--outer-space) * var(--base) * 3);
+        column-gap: calc(var(--outer-space) * var(--base) * 3);
+
+        @container (min-width: 36em) {
+            row-gap: calc(var(--outer-space) * var(--base) * 4);
+            column-gap: calc(var(--outer-space) * var(--base) * 4);
+        }
+
+        @container (min-width: 48em) {
+            row-gap: calc(var(--outer-space) * var(--base) * 5);
+            column-gap: calc(var(--outer-space) * var(--base) * 5);
+        }
     }
 
     /* Modifiers */
