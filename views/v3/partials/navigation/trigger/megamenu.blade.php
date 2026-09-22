@@ -1,8 +1,8 @@
 @if (!empty($megaMenu['items']))
     @button([
-        'color' => $buttonAppearance['color'] ?? 'inherit',
-        'style' => $buttonAppearance['style'] ?? 'basic',
-        'size' => $buttonAppearance['size'] ?? 'md',
+        'color' => $buttonAppearance['color'],
+        'style' => $buttonAppearance['style'],
+        'size' => $buttonAppearance['size'],
         'reversePositions' => empty($megaMenuLabels->iconAfterLabel),
         'toggle' => true,
         'icon' => !empty($megaMenuLabels->buttonIcon) ? $megaMenuLabels->buttonIcon : 'menu',

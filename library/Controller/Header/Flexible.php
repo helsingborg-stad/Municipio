@@ -60,6 +60,7 @@ class Flexible implements HeaderInterface
         $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
         $logoScrollShrinkOverlapMultiplier = $this->getLogoScrollShrinkOverlapMultiplier();
         $logoScrollShrinkAspectRatio = $this->getLogoScrollShrinkAspectRatio();
+        $defaultButtonAppearance = $this->getDefaultButtonAppearance();
 
         return [
             'upperHeader' => $upperHeader,
@@ -70,11 +71,15 @@ class Flexible implements HeaderInterface
                 'upperItems' => $upperItems['buttonAppearance'],
                 'lowerItems' => $lowerItems['buttonAppearance'],
             ],
+            'defaultButtonAppearance' => $defaultButtonAppearance,
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
             'logoScrollShrinkOverlapMultiplier' => $logoScrollShrinkOverlapMultiplier,
             'logoScrollShrinkAspectRatio' => $logoScrollShrinkAspectRatio,
+            'logoScrollShrinkStyle' => $logoScrollShrinkEnabled
+                ? '--municipio-header-logo-overlap-multiplier: ' . $logoScrollShrinkOverlapMultiplier . ';'
+                : null,
             'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
         ];
     }
@@ -153,7 +158,11 @@ class Flexible implements HeaderInterface
         $items = $this->menuVisibilityTransformerInstance->transform($items);
         $items = $this->marginTransformerInstance->transform($items, $setting);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
-        $items['buttonAppearance'] = $this->getButtonAppearance($items, $setting);
+        $items['buttonAppearance'] = $this->getButtonAppearance(
+            $items,
+            $setting,
+            $this->getDefaultButtonAppearance(),
+        );
 
         return $items;
     }
@@ -164,9 +173,11 @@ class Flexible implements HeaderInterface
      * @param array<string, mixed> $items Header items.
      * @param string $setting Header sortable setting name.
      *
-     * @return array<string, array<string, string>>
+    * @param array<string, string> $defaultAppearance Default button appearance.
+    *
+    * @return array<string, array<string, string>>
      */
-    private function getButtonAppearance(array $items, string $setting): array
+    private function getButtonAppearance(array $items, string $setting, array $defaultAppearance): array
     {
         $appearance = [];
         $responsiveSetting = $setting . '_responsive';
@@ -180,13 +191,27 @@ class Flexible implements HeaderInterface
             $itemSettings = $this->getHiddenMenuItemsData()->{$sourceSetting}->{$menu} ?? (object) [];
 
             $appearance[$menu] = [
-                'style' => $itemSettings->buttonStyle ?? 'basic',
-                'size' => $itemSettings->buttonSize ?? 'md',
-                'color' => $itemSettings->buttonColor ?? 'inherit',
+                'style' => $itemSettings->buttonStyle ?? $defaultAppearance['style'],
+                'size' => $itemSettings->buttonSize ?? $defaultAppearance['size'],
+                'color' => $itemSettings->buttonColor ?? $defaultAppearance['color'],
             ];
         }
 
         return $appearance;
+    }
+
+    /**
+     * Get the default header button appearance from the customizer.
+     *
+     * @return array<string, string>
+     */
+    private function getDefaultButtonAppearance(): array
+    {
+        return [
+            'style' => $this->customizer->headerTriggerButtonType ?? 'basic',
+            'size' => $this->customizer->headerTriggerButtonSize ?? 'md',
+            'color' => $this->customizer->headerTriggerButtonColor ?? 'inherit',
+        ];
     }
 
     // Checks if the search is present in the menu.

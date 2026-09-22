@@ -1,6 +1,6 @@
 @includeWhen(!empty($megaMenu['items']), 'partials.navigation.trigger.megamenu', [
     'context' => $context ?? [],
-    'buttonAppearance' => $buttonAppearance ?? null,
+    'buttonAppearance' => $buttonAppearance,
     'classList' => [
         'mega-menu-trigger'
     ]

@@ -1,9 +1,9 @@
 @button([
     'id' => 'site-language-menu-button',
     'text' => $lang->changeLanguage,
-    'color' => $buttonAppearance['color'] ?? 'inherit',
-    'style' => $buttonAppearance['style'] ?? 'basic',
-    'size' => $buttonAppearance['size'] ?? 'md',
+    'color' => $buttonAppearance['color'],
+    'style' => $buttonAppearance['style'],
+    'size' => $buttonAppearance['size'],
     'icon' => 'language',
     'reversePositions' => true,
     'toggle' => true,

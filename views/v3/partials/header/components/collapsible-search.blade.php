@@ -5,5 +5,5 @@
             'u-display--flex',
             'u-print-display--none'
         ],
-        'buttonAppearance' => $buttonAppearance ?? null,
+        'buttonAppearance' => $buttonAppearance,
     ])

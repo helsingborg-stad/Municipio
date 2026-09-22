@@ -6,5 +6,5 @@
         'lg',
         'xl'
     ],
-    'buttonAppearance' => $buttonAppearance ?? null
+    'buttonAppearance' => $buttonAppearance
 ])
