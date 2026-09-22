@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Modularity\Module\Menu\Decorator;
 
+use WpService\Implementations\NativeWpService;
+
 /**
  * Decorates menu listing data with responsive grid classes.
  */
 class Listing implements DataDecoratorInterface
 {
+    private static $index = 0;
+
     public function __construct(
         private array $fields,
+        private NativeWpService|null $wpService
     ) {
+        self::$index++;
     }
 
     /**
@@ -27,6 +33,11 @@ class Listing implements DataDecoratorInterface
 
         $data['columnClasses'] = $this->getColumnsClasses($amountOfItems);
         $data['classList'] = $data['classList'] ?? [];
+        $data['lang'] = [
+            'showAll' => $this->wpService?->__('Show all', 'municipio'),
+            'hide' => $this->wpService?->__('Hide', 'municipio'),
+        ];
+        $data['menuIndex'] = self::$index;
 
         return $data;
     }

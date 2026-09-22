@@ -50,7 +50,7 @@ class Menu extends \Modularity\Module
         $data['menu'] = $menuBuilder->getMenu()->getMenu();
 
         // Used to decorate the data based on view.
-        $dataDecorator = new DataDecorator($fields);
+        $dataDecorator = new DataDecorator($fields, $wpService);
 
         return $dataDecorator->decorate($data);
     }

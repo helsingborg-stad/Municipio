@@ -9,9 +9,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: calc(var(--base) * 2.5) calc(var(--base) * 3);
-        background-color: var(--u-color--color-surface-alt);
         cursor: pointer;
+        padding-top: calc(var(--base) * 2.5);
+        border-top: 1px solid var(--u-color--color-surface-border);
     }
 
     .mod-menu__child-item,
@@ -23,27 +23,37 @@
         }
     }
 
+    .mod-menu__item-content {
+        padding-bottom: calc(var(--base) * 2.5);
+    }
+
+    .mod-menu__expandable-wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.25s ease-in-out;
+    }
+
+    .mod-menu__children.mod-menu__children--hidden {
+        overflow: hidden;
+    }
+
+    .mod-menu__expand-text-hidden {
+        display: none;
+    }
+
     .mod-menu__item.is-expanded {
         .mod-menu__expand .mod-menu__expand-icon {
             transform: rotate(180deg);
         }
-
-        .mod-menu__children {
-            > .mod-menu__child-item:nth-child(n + 4) {
-                display: block;
-                height: auto;
-                opacity: 1;
-
-                @starting-style {
-                    height: 0;
-                    opacity: 0;
-                }
-            }
+        .mod-menu__expandable-wrapper {
+            grid-template-rows: 1fr;
         }
-    }
 
-    .mod-menu__children {
-        > .mod-menu__child-item:nth-child(n + 4) {
+        .mod-menu__expand-text-hidden {
+            display: block;
+        }
+
+        .mod-menu__expand-text:not(.mod-menu__expand-text-hidden) {
             display: none;
         }
     }
@@ -64,6 +74,12 @@
 
     /* Paper wrapped specific */
     &.mod-menu--wrapped {
+        .mod-menu__expand {
+            padding: calc(var(--base) * 2.5) calc(var(--base) * 3);
+            background-color: var(--u-color--color-surface-alt);
+            border-top: unset;
+        }
+
         .mod-menu__wrapper {
             border: 1px solid var(--u-color--color-surface-border);
             row-gap: 1px;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modularity\Module\Menu\Decorator;
 
 use Modularity\Module\Menu\Decorator\Listing;
+use WpService\Implementations\NativeWpService;
 
 class DataDecorator implements DataDecoratorInterface
 {
@@ -12,6 +13,7 @@ class DataDecorator implements DataDecoratorInterface
 
     public function __construct(
         private array $fields,
+        private NativeWpService|null $wpService
     ) {
         $this->dataDecoratorInstance = $this->getDecoratorInstance();
     }
@@ -22,9 +24,8 @@ class DataDecorator implements DataDecoratorInterface
 
         switch ($displayAs) {
             case 'listing':
-                return new Listing($this->fields);
             default:
-                return new Listing($this->fields);
+                return new Listing($this->fields, $this->wpService);
         }
     }
 
