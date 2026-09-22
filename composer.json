@@ -43,13 +43,13 @@
     "enshrined/svg-sanitize": "dev-master",
     "helsingborg-stad/acf-select-image-field": "1.6.1",
     "landrok/language-detector": "dev-master",
-    "league/commonmark": "2.10.1",
+    "league/commonmark": "2.10.3",
     "league/config": "v1.2.0",
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "0.5.0",
     "helsingborg-stad/wputilservice": "0.3.5",
-    "helsingborg-stad/styleguide": "3.24.18",
-    "firebase/php-jwt": "v7.1.1",
+    "helsingborg-stad/styleguide": "3.31.4",
+    "firebase/php-jwt": "v7.2.0",
     "algolia/algoliasearch-client-php": "4.49.0"
   },
   "scripts": {
