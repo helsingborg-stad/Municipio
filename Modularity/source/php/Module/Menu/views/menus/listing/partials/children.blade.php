@@ -13,7 +13,7 @@
             @include('menus.listing.partials.child')
         @endforeach
     @endelement
-    @if(count($menuItem['children']) > 3)
+    {{-- @if(count($menuItem['children']) > 3)
         @element([
             'classList' => [
                 'mod-menu__expandable-wrapper'
@@ -34,5 +34,5 @@
                 @endforeach
             @endelement
         @endelement
-    @endif
+    @endif --}}
 @endif

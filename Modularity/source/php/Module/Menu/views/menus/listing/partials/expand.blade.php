@@ -1,4 +1,4 @@
-@if(count($menuItem['children']) > 3)
+@if(!empty($menuItem['children']) && count($menuItem['children']) > 3)
     @element([
         'classList' => [
             'mod-menu__expand',
