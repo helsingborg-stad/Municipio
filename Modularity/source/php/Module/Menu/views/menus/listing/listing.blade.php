@@ -1,5 +1,12 @@
-@if (empty($wrapped))
-    @include('menus.listing.components.content')
-@else
-    @include('menus.listing.components.paper')
-@endif
+@element([
+    'classList' => array_merge([
+        'mod-menu__wrapper',
+        $wrapped ? 'u-shadow--1' : '',
+        'o-layout-grid',
+        'o-layout-grid--cq'
+    ], $columnClasses)
+])
+    @foreach ($menu['items'] as $index => $menuItem)
+        @include('menus.listing.components.menuItem')
+    @endforeach
+@endelement

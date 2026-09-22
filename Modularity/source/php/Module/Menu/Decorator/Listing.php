@@ -9,6 +9,11 @@ namespace Modularity\Module\Menu\Decorator;
  */
 class Listing implements DataDecoratorInterface
 {
+    public function __construct(
+        private array $fields,
+    ) {
+    }
+
     /**
      * Add responsive column classes based on the number of menu items.
      *
@@ -21,6 +26,7 @@ class Listing implements DataDecoratorInterface
         $amountOfItems = !empty($data['menu']['items']) ? count($data['menu']['items']) : 0;
 
         $data['columnClasses'] = $this->getColumnsClasses($amountOfItems);
+        $data['classList'] = $data['classList'] ?? [];
 
         return $data;
     }

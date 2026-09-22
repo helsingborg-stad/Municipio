@@ -22,9 +22,9 @@ class DataDecorator implements DataDecoratorInterface
 
         switch ($displayAs) {
             case 'listing':
-                return new Listing();
+                return new Listing($this->fields);
             default:
-                return new Listing();
+                return new Listing($this->fields);
         }
     }
 

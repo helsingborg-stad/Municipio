@@ -1,19 +1,24 @@
-@button([
-    'style' => 'basic',
-    'pressed' => false,
+@element([
     'classList' => [
-        'mod-menu__children-toggle',
+        'mod-menu__expand',
     ],
     'attributeList' => [
-        'data-js-toggle-trigger' => 'mod-menu-item-' . $ID . '-' . $index,
+        'role' => 'button',
+        'data-js-toggle-trigger' => 'mod-menu-item-' . $menuItem['id'] . '-' . $index
     ]
 ])
+    @element([
+        'classList' => [
+            'mod-menu__expand-content',
+        ]
+    ])
+        Visa alla ({{ count($menuItem['children']) }})
+    @endelement
     @icon([
         'icon' => 'keyboard_arrow_down',
-        'size' => 'md',
         'classList' => [
-            'mod-menu__children-toggle-icon',
+            'mod-menu__expand-icon',
         ]
     ])
     @endicon
-@endbutton
+@endelement

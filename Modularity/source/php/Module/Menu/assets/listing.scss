@@ -1,0 +1,82 @@
+.mod-menu.mod-menu--listing {
+    .mod-menu__item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .mod-menu__expand {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: calc(var(--base) * 2.5) calc(var(--base) * 3);
+        background-color: var(--u-color--color-surface-alt);
+        cursor: pointer;
+    }
+
+    .mod-menu__child-item,
+    .mod-menu__heading-item {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .mod-menu__item.is-expanded {
+        .mod-menu__expand .mod-menu__expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .mod-menu__children {
+            > .mod-menu__child-item:nth-child(n + 4) {
+                display: block;
+                height: auto;
+                opacity: 1;
+
+                @starting-style {
+                    height: 0;
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    .mod-menu__children {
+        > .mod-menu__child-item:nth-child(n + 4) {
+            display: none;
+        }
+    }
+
+    // No better alternative!?
+    .mod-menu__child-label {
+        font-size: 1.125rem;
+    }
+
+    .mod-menu__wrapper {
+        contain: paint;
+        border-radius: calc(var(--border-radius, 1) * var(--base));
+        corner-shape: var(--corner-shape);
+        background-color: var(--o-body--color--background,var(--color--background));
+        row-gap: calc(var(--base) * 6);
+        column-gap: calc(var(--base) * 4);
+    }
+
+    /* Paper wrapped specific */
+    &.mod-menu--wrapped {
+        .mod-menu__wrapper {
+            border: 1px solid var(--u-color--color-surface-border);
+            row-gap: 1px;
+            column-gap: 1px;
+            background-color: var(--u-color--color-surface-border);
+        }
+
+        .mod-menu__item {
+            background-color: var(--u-color--color-surface);
+        }
+        
+        .mod-menu__item-content {
+            padding: calc(var(--base) * 4) calc(var(--base) * 3);
+        }
+    }
+}

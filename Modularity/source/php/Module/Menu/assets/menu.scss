@@ -1,36 +1,13 @@
 @use "../../../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
 
+@use "./listing.scss";
+
 // $base: var(--base, 8px) !default;
 // $color-black: var(--color-black, #000000) !default;
 // $color-primary: var(--color--primary) !default;
 // $paper-color: var(--c-paper--background-color) !default;
 // $color-lighter: var(--c-paper--border-color) !default;
 // $mod-menu-children-height: var(--mod-menu-children-height, calc($base * 200)) !default;
-
-.mod-menu {
-    .mod-menu__item {
-        padding: calc(var(--base) * 4) calc(var(--base) * 3);
-    }
-
-    .mod-menu__child-item {
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .mod-menu__children {
-        > .mod-menu__child-item:nth-child(n + 4) {
-            display: none;
-        }
-    }
-
-    // No better alternative!?
-    .mod-menu__child-label {
-        font-size: 1.125rem;
-    }
-}
 
 // .mod-menu .c-paper {
 //     contain:paint layout;

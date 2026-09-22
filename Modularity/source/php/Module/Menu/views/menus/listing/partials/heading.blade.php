@@ -5,26 +5,24 @@
             'mod-menu__heading-item',
         ]
     ])
-        @if(!empty($menuItem['icon']['icon']))
-            @icon([
-                'icon' => $menuItem['icon']['icon'] ?? '',
-                'size' => 'lg',
-                'classList' => [
-                    'mod-menu__heading-icon',
-                    'u-color__text--primary'
-                ],
-            ])
-            @endicon
-        @endif
         @typography([
             'element' => 'h2',
-            'variant' => 'h4',
+            'variant' => 'h5',
             'classList' => [
                 'mod-menu__heading-label',
-                'u-margin__y--0'
+                'u-margin__y--0',
+                'u-color__text--primary'
             ]
         ])
-            {{$menuItem['label'] ?? ""}}
+            {{ $menuItem['label'] }}
+            @icon([
+                'icon' => 'arrow_forward',
+                'size' => 'md',
+                'attributeList' => [
+                    'style' => 'vertical-align: middle;'
+                ]
+            ])
+            @endicon
         @endtypography
     @endlink
 @endif
