@@ -11,8 +11,8 @@
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
-        padding-top: calc(var(--base) * 2.5);
-        border-top: 1px solid var(--u-color--color-surface-border);
+        padding-top: calc(var(--space) * var(--base) * 2.5);
+        border-top: calc(var(--base) * var(--border-width)) solid var(--u-color--color-surface-border);
 
         &:hover .mod-menu__expand-content {
             text-decoration: underline;
@@ -29,7 +29,7 @@
     }
 
     .mod-menu__item-content {
-        padding-bottom: calc(var(--base) * 2.5);
+        padding-bottom: calc(var(--space) * var(--base) * 2.5);
     }
 
     .mod-menu__expandable-wrapper {
@@ -73,51 +73,46 @@
         border-radius: calc(var(--border-radius, 1) * var(--base));
         corner-shape: var(--corner-shape);
         background-color: var(--o-body--color--background,var(--color--background));
-        row-gap: calc(var(--base) * 5);
-        column-gap: calc(var(--base) * 5);
+        row-gap: calc(var(--outer-space) * var(--base) * 5);
+        column-gap: calc(var(--outer-space) * var(--base) * 5);
     }
 
     /* Modifiers */
     &.mod-menu__listing--spaced,
     &.mod-menu__listing--wrapped {
         .mod-menu__expand {
-            padding: calc(var(--base) * 2.5) calc(var(--base) * 3);
+            padding: calc(var(--space) * var(--base) * 2.5) calc(var(--base) * 3);
             background-color: var(--u-color--color-surface-alt);
         }
 
         .mod-menu__item {
             background-color: var(--u-color--color-surface);
-            border: 1px solid var(--u-color--color-surface-border);
+            border: calc(var(--base) * var(--border-width)) solid var(--u-color--color-surface-border);
         }
 
         .mod-menu__item-content {
-            padding: calc(var(--base) * 4) calc(var(--base) * 3);
+            padding: calc(var(--space) * var(--base) * 4) calc(var(--space) * var(--base) * 3);
 
             &.mod-menu__item-content--expandable {
-                padding-bottom: calc(var(--base) * 1.5);
+                padding-bottom: calc(var(--space) * var(--base) * 1.5);
             }
         }
     }
 
     &.mod-menu__listing--wrapped {
         .mod-menu__wrapper {
-            border: 1px solid var(--u-color--color-surface-border);
+            border: calc(var(--base) * var(--border-width)) solid var(--u-color--color-surface-border);
             row-gap: 0;
             column-gap: 0;
             background-color: var(--u-color--color-surface);
         }
 
         .mod-menu__item {
-            margin: -1px;
+            margin: calc(var(--space) * var(--base) * var(--border-width) * -1);
         }
     }
 
     &.mod-menu__listing--spaced {
-        .mod-menu__wrapper {
-            row-gap: calc(var(--base) * 3);
-            column-gap: calc(var(--base) * 5);
-        }
-
         .mod-menu__item {
             border-radius: calc(var(--border-radius, 1) * var(--base));
             corner-shape: var(--corner-shape);
