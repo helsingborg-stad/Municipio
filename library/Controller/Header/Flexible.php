@@ -99,7 +99,6 @@ class Flexible implements HeaderInterface
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrink['enabled'],
-            'logoScrollShrinkOverlapMultiplier' => $logoScrollShrink['overlapMultiplier'],
             'logoScrollShrinkAspectRatio' => $logoScrollShrink['aspectRatio'],
             'logoScrollShrinkStyle' => $logoScrollShrink['style'],
         ];
