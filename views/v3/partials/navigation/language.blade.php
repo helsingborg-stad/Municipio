@@ -2,8 +2,12 @@
     @popover([
         'id' => 'site-language-menu-popover',
         'horizontalPlacement' => 'right',
+        'verticalPlacement' => 'bottom',
         'backdrop' => true,
-        'relative' => true
+        'relative' => true,
+        'classList' => [
+            'u-margin__top--1'
+        ]
     ])
         @card([
             'classList' => [
