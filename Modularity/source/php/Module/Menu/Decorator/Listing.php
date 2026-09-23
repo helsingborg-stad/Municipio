@@ -77,12 +77,36 @@ class Listing implements DataDecoratorInterface
     {
         $classes = [];
         $columnsAtMediumBreakpoint = max(1, min(2, $amountOfItems));
-        $columnsAtLargeBreakpoint = max(1, min($maxColumns, $amountOfItems));
+        $columnsAtLargeBreakpoint = $this->getLargeBreakpointColumns($amountOfItems, $maxColumns);
 
         $classes[] = 'o-layout-grid--cols-' . 1;
         $classes[] = 'o-layout-grid--cols-' . $columnsAtMediumBreakpoint . '@md';
         $classes[] = 'o-layout-grid--cols-' . $columnsAtLargeBreakpoint . '@lg';
 
         return $classes;
+    }
+
+    /**
+     * Get the most suitable number of columns for the large breakpoint.
+     *
+     * Prefer a 3-column layout for item counts that divide evenly by 3,
+     * then fall back to the configured maximum number of columns.
+     *
+     * @param int $amountOfItems Number of menu items in the listing.
+     * @param int $maxColumns Maximum number of columns allowed at the large breakpoint.
+     *
+     * @return int
+     */
+    private function getLargeBreakpointColumns(int $amountOfItems, int $maxColumns = 4): int
+    {
+        if ($amountOfItems <= $maxColumns) {
+            return max(1, $amountOfItems);
+        }
+
+        if ($maxColumns >= 3 && $amountOfItems % 3 === 0 && $amountOfItems % 4 !== 0) {
+            return 3;
+        }
+
+        return $maxColumns;
     }
 }
