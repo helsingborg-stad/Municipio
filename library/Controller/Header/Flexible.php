@@ -16,7 +16,6 @@ class Flexible implements HeaderInterface
 {
     private bool $isResponsive;
     private bool $hasSearch;
-    private bool $nonStickyMegaMenu;
     private MenuOrderTransformer $menuOrderTransformerInstance;
     private AlignmentTransformer $alignmentTransformerInstance;
     private FlipKeyValueTransformer $flipKeyValueTransformer;
@@ -56,31 +55,24 @@ class Flexible implements HeaderInterface
         $upperItems = $this->getItems('main_upper');
         $lowerItems = $this->getItems('main_lower');
 
-        [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
         $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
         $logoScrollShrinkOverlapMultiplier = $this->getLogoScrollShrinkOverlapMultiplier();
+
         $logoScrollShrinkAspectRatio = $this->getLogoScrollShrinkAspectRatio();
-        $defaultButtonAppearance = $this->getDefaultButtonAppearance();
+        $headerAttributeList = $this->getHeaderAttributeList($logoScrollShrinkEnabled, $logoScrollShrinkOverlapMultiplier);
+
+        [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems, $headerAttributeList);
 
         return [
             'upperHeader' => $upperHeader,
             'lowerHeader' => $lowerHeader,
             'upperItems' => $upperItems['modified'],
             'lowerItems' => $lowerItems['modified'],
-            'buttonAppearance' => [
-                'upperItems' => $upperItems['buttonAppearance'],
-                'lowerItems' => $lowerItems['buttonAppearance'],
-            ],
-            'defaultButtonAppearance' => $defaultButtonAppearance,
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
             'logoScrollShrinkOverlapMultiplier' => $logoScrollShrinkOverlapMultiplier,
-            'logoScrollShrinkAspectRatio' => $logoScrollShrinkAspectRatio,
-            'logoScrollShrinkStyle' => $logoScrollShrinkEnabled
-                ? '--municipio-header-logo-overlap-multiplier: ' . $logoScrollShrinkOverlapMultiplier . ';'
-                : null,
-            'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
+            'logoScrollShrinkAspectRatio' => $logoScrollShrinkAspectRatio
         ];
     }
 
@@ -90,7 +82,7 @@ class Flexible implements HeaderInterface
         $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ? $this->customizer->headerSortableHiddenStorage : '{}';
 
         if (is_array($hiddenData)) {
-            $hiddenData = wp_json_encode($hiddenData);
+            $hiddenData = function_exists('wp_json_encode') ? \wp_json_encode($hiddenData) : json_encode($hiddenData);
         }
 
         if (is_object($hiddenData)) {
@@ -103,7 +95,7 @@ class Flexible implements HeaderInterface
     }
 
     // Gets the header settings.
-    private function getHeaderSettings($upperItems, $lowerItems): array
+    private function getHeaderSettings(array $upperItems, array $lowerItems, array $headerAttributeList): array
     {
         $upperHeader = [];
         $lowerHeader = [];
@@ -116,15 +108,12 @@ class Flexible implements HeaderInterface
         $lowerHeaderHasMegaMenu = $this->hasMegaMenu($lowerItems);
         $upperHeaderHasMegaMenu = $this->hasMegaMenu($upperItems);
 
-        $lowerHeader['innerMegaMenu'] = $lowerHeaderHasMegaMenu && !empty($lowerHeader['sticky']);
-        $upperHeader['innerMegaMenu'] = $upperHeaderHasMegaMenu && !empty($upperHeader['sticky']);
-
-        $this->nonStickyMegaMenu = ($upperHeaderHasMegaMenu || $lowerHeaderHasMegaMenu) && empty($lowerHeader['innerMegaMenu']) && empty($upperHeader['innerMegaMenu']);
-
         $upperHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
         $lowerHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
         $upperHeader['classList'][] = !empty($upperItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
         $lowerHeader['classList'][] = !empty($lowerItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
+        $upperHeader['attributeList'] = $headerAttributeList;
+        $lowerHeader['attributeList'] = $headerAttributeList;
 
         return [
             array_merge($this->defaultHeaderSettings(), $upperHeader),
@@ -138,7 +127,36 @@ class Flexible implements HeaderInterface
         return [
             'sticky' => false,
             'classList' => [],
+            'attributeList' => [],
         ];
+    }
+
+    /**
+     * Build the HTML attributes for flexible headers.
+     *
+     * @param bool  $logoScrollShrinkEnabled Whether the logotype scroll shrink behavior is enabled.
+     * @param float $logoScrollShrinkOverlapMultiplier The validated overlap multiplier.
+     *
+     * @return array<string, string>
+     */
+    private function getHeaderAttributeList(bool $logoScrollShrinkEnabled, float $logoScrollShrinkOverlapMultiplier): array
+    {
+        $style = '';
+
+        $style .= $this->buildLogoOverlapStyle($logoScrollShrinkEnabled, $logoScrollShrinkOverlapMultiplier);
+
+        return [
+            'style' => $style,
+        ];
+    }
+
+    private function buildLogoOverlapStyle(bool $logoScrollShrinkEnabled, float $logoScrollShrinkOverlapMultiplier): string
+    {
+        if (!$logoScrollShrinkEnabled) {
+            return '';
+        }
+
+        return '--municipio-header-logo-overlap-multiplier: ' . $logoScrollShrinkOverlapMultiplier . ';';
     }
 
     // Handles and returns the modified menu items.
@@ -158,60 +176,8 @@ class Flexible implements HeaderInterface
         $items = $this->menuVisibilityTransformerInstance->transform($items);
         $items = $this->marginTransformerInstance->transform($items, $setting);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
-        $items['buttonAppearance'] = $this->getButtonAppearance(
-            $items,
-            $setting,
-            $this->getDefaultButtonAppearance(),
-        );
 
         return $items;
-    }
-
-    /**
-     * Get per-item button appearance settings from sortable item storage.
-     *
-     * @param array<string, mixed> $items Header items.
-     * @param string $setting Header sortable setting name.
-     *
-    * @param array<string, string> $defaultAppearance Default button appearance.
-    *
-    * @return array<string, array<string, string>>
-     */
-    private function getButtonAppearance(array $items, string $setting, array $defaultAppearance): array
-    {
-        $appearance = [];
-        $responsiveSetting = $setting . '_responsive';
-        $desktopItems = $items['desktop'] ?? [];
-        $mobileItems = $items['mobile'] ?? [];
-
-        foreach (array_unique(array_merge(array_keys($desktopItems), array_keys($mobileItems))) as $menu) {
-            $sourceSetting = !isset($desktopItems[$menu]) && isset($mobileItems[$menu])
-                ? $responsiveSetting
-                : $setting;
-            $itemSettings = $this->getHiddenMenuItemsData()->{$sourceSetting}->{$menu} ?? (object) [];
-
-            $appearance[$menu] = [
-                'style' => $itemSettings->buttonStyle ?? $defaultAppearance['style'],
-                'size' => $itemSettings->buttonSize ?? $defaultAppearance['size'],
-                'color' => $itemSettings->buttonColor ?? $defaultAppearance['color'],
-            ];
-        }
-
-        return $appearance;
-    }
-
-    /**
-     * Get the default header button appearance from the customizer.
-     *
-     * @return array<string, string>
-     */
-    private function getDefaultButtonAppearance(): array
-    {
-        return [
-            'style' => $this->customizer->headerTriggerButtonType ?? 'basic',
-            'size' => $this->customizer->headerTriggerButtonSize ?? 'md',
-            'color' => $this->customizer->headerTriggerButtonColor ?? 'inherit',
-        ];
     }
 
     // Checks if the search is present in the menu.
