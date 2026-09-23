@@ -589,6 +589,10 @@ class Display
             property_exists($module, 'columnWidth') ? $module->columnWidth : 'o-grid-12',
         ];
 
+        if (is_callable([$module, 'wrapperClasses'])) {
+            $classes = array_merge($classes, (array) $module->wrapperClasses());
+        }
+
         //Hide module if preview
         if (is_preview() && isset($module->hidden) && $module->hidden) {
             $classes[] = 'modularity-preview-hidden';

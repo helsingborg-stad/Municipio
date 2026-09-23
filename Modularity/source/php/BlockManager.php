@@ -497,6 +497,10 @@ class BlockManager
                     "block-modularity-mod-{$block['moduleName']}",
                 ];
 
+                if (is_callable([$module, 'wrapperClasses'])) {
+                    $classes = array_merge($classes, (array) $module->wrapperClasses());
+                }
+
                 // Add WordPress' extra classes
                 if (isset($block['className']) && !empty($block['className'])) {
                     $classes = array_merge($classes, explode(' ', $block['className']));

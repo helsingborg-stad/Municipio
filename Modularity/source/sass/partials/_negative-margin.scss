@@ -1,0 +1,35 @@
+.modularity-mod-negative-margin {
+  height: 0;
+  min-height: 0;
+  padding: 0;
+}
+
+@for $amount from 0 through 24 {
+  body:not(.wp-admin) .modularity-negative-margin--#{$amount} + * {
+    margin-block-start: calc(-1 * var(--base, 8px) * #{$amount}) !important;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.wp-admin .modularity-mod-negative-margin {
+  align-items: center;
+  border: 3px dashed #999;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  margin-block-start: 0 !important;
+  min-height: 48px;
+
+  &::before {
+    color: #777;
+    content: "\2191";
+    font-size: 24px;
+    line-height: 1;
+  }
+}
+
+.modularity-negative-margin__marker {
+  height: 0;
+  width: 100%;
+}

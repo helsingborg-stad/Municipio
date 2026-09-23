@@ -174,6 +174,7 @@
                         "mod-rss": "mod-rss",
                         "mod-sites": "mod-sites",
                         "mod-spacer": "mod-spacer",
+                        "mod-negative-margin": "mod-negative-margin",
                         "mod-subscribe": "mod-subscribe",
                         "mod-contact-banner": "mod-contact-banner",
                         "mod-form": "mod-form",
@@ -277,4 +278,3 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
