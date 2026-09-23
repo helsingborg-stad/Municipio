@@ -15,10 +15,10 @@ class Tabmenu
             'settings' => 'tabmenu_button_color',
             'label' => esc_html__('Tabmenu - Color', 'municipio'),
             'section' => $sectionID,
-            'default' => 'default',
+            'default' => 'inherit',
             'priority' => 10,
             'choices' => [
-                'default' => esc_html__('Default', 'municipio'),
+                'inherit' => esc_html__('Inherit', 'municipio'),
                 'primary' => esc_html__('Primary', 'municipio'),
                 'secondary' => esc_html__('Secondary', 'municipio'),
             ],
@@ -32,7 +32,7 @@ class Tabmenu
             'settings' => 'tabmenu_button_type',
             'label' => esc_html__('Tabmenu - Type', 'municipio'),
             'section' => $sectionID,
-            'default' => 'filled',
+            'default' => 'basic',
             'priority' => 10,
             'choices' => [
                 'basic' => esc_html__('Basic', 'municipio'),

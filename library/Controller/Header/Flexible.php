@@ -189,11 +189,14 @@ class Flexible implements HeaderInterface
                 ? $responsiveSetting
                 : $setting;
             $itemSettings = $this->getHiddenMenuItemsData()->{$sourceSetting}->{$menu} ?? (object) [];
+            $itemDefaultAppearance = $menu === 'tab'
+                ? $this->getTabMenuDefaultButtonAppearance($defaultAppearance)
+                : $defaultAppearance;
 
             $appearance[$menu] = [
-                'style' => $itemSettings->buttonStyle ?? $defaultAppearance['style'],
-                'size' => $itemSettings->buttonSize ?? $defaultAppearance['size'],
-                'color' => $itemSettings->buttonColor ?? $defaultAppearance['color'],
+                'style' => $itemSettings->buttonStyle ?? $itemDefaultAppearance['style'],
+                'size' => $itemSettings->buttonSize ?? $itemDefaultAppearance['size'],
+                'color' => $itemSettings->buttonColor ?? $itemDefaultAppearance['color'],
             ];
         }
 
@@ -211,6 +214,22 @@ class Flexible implements HeaderInterface
             'style' => $this->customizer->headerTriggerButtonType ?? 'basic',
             'size' => $this->customizer->headerTriggerButtonSize ?? 'md',
             'color' => $this->customizer->headerTriggerButtonColor ?? 'inherit',
+        ];
+    }
+
+    /**
+     * Preserve legacy Tab menu settings while providing defaults for new sites.
+     *
+     * @param array<string, string> $defaultAppearance Default button appearance.
+     *
+     * @return array<string, string>
+     */
+    private function getTabMenuDefaultButtonAppearance(array $defaultAppearance): array
+    {
+        return [
+            'style' => $this->customizer->tabmenuButtonType ?? $defaultAppearance['style'],
+            'size' => $defaultAppearance['size'],
+            'color' => $this->customizer->tabmenuButtonColor ?? $defaultAppearance['color'],
         ];
     }
 

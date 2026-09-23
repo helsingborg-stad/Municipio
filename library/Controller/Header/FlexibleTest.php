@@ -255,6 +255,22 @@ class FlexibleTest extends TestCase
         );
     }
 
+    public function testGetHeaderDataAppliesSharedAppearanceDefaultsToTabMenu(): void
+    {
+        $controller = new Flexible((object) [
+            'headerSortableHiddenStorage' => '{}',
+            'headerSortableSectionMainUpper' => ['tab'],
+            'headerSortableSectionMainLower' => [],
+        ]);
+
+        $headerData = $controller->getHeaderData();
+
+        $this->assertSame(
+            ['style' => 'basic', 'size' => 'md', 'color' => 'inherit'],
+            $headerData['buttonAppearance']['upperItems']['tab'],
+        );
+    }
+
     public function testGetHeaderDataKeepsAdjustableLogoOverlapMultiplierWhenValueIsValid(): void
     {
         $controller = new Flexible((object) [

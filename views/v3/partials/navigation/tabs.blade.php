@@ -5,8 +5,9 @@
         'direction' => 'horizontal',
         'includeToggle' => false,
         'allowStyle' => true,
-        'buttonColor' => $customizer->tabmenuButtonColor,
-        'buttonStyle' => $customizer->tabmenuButtonType,
+        'buttonColor' => $buttonAppearance['color'],
+        'buttonStyle' => $buttonAppearance['style'],
+        'buttonSize' => $buttonAppearance['size'],
         'height' => 'sm',
         'classList' => [
             'u-width--auto',
