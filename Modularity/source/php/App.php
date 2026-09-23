@@ -214,6 +214,8 @@ class App
 
     public function enqueueBlockEditor()
     {
+        $this->wpEnqueue->add('css/modularity-admin.css');
+
         if ($modulesEditorId = \Modularity\Helper\Wp::isGutenbergEditor()) {
             $this->wpEnqueue
                 ->add(
@@ -243,6 +245,7 @@ class App
 
         $this->wpEnqueue
             ->add('css/modularity.css')
+            ->add('css/modularity-admin.css')
             ->add('js/modularity.js', ['wp-api'], null, true)
             ->with()
             ->translation($this->modularityLangKey, $this->getModularityTranslations())
