@@ -31,8 +31,9 @@
     @endlink
     @button([
         'text' => $lang->login,
-        'color' => 'basic',
-        'style' => 'basic',
+        'color' => $buttonAppearance['color'],
+        'style' => $buttonAppearance['style'],
+        'size' => $buttonAppearance['size'],
         'href' => $loginUrl,
         'classList' => [
             'user__button',

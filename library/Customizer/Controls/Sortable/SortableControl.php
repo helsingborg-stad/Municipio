@@ -184,6 +184,62 @@ class SortableControl extends WP_Customize_Control
                 </div>
             </fieldset>
         <?php endforeach; ?>
+        <?php if ($this->hasButtonAppearance($choiceValue)): ?>
+            <?php $buttonSettings = [
+                'buttonStyle' => [
+                    'label' => __('Button style', 'municipio'),
+                    'options' => [
+                        'filled' => __('Filled', 'municipio'),
+                        'basic' => __('Basic', 'municipio'),
+                        'outlined' => __('Outlined', 'municipio'),
+                    ],
+                ],
+                'buttonSize' => [
+                    'label' => __('Button size', 'municipio'),
+                    'options' => [
+                        'sm' => __('Small', 'municipio'),
+                        'md' => __('Medium', 'municipio'),
+                        'lg' => __('Large', 'municipio'),
+                    ],
+                ],
+                'buttonColor' => [
+                    'label' => __('Button color', 'municipio'),
+                    'options' => [
+                        'inherit' => __('Inherit', 'municipio'),
+                        'primary' => __('Primary', 'municipio'),
+                        'secondary' => __('Secondary', 'municipio'),
+                    ],
+                ],
+            ]; ?>
+            <?php foreach ($buttonSettings as $settingName => $setting): ?>
+                <fieldset class="municipio-sortable-item__settings-group">
+                    <legend><?php echo esc_html($setting['label']); ?></legend>
+                    <div class="municipio-sortable-item__settings-options">
+                        <?php foreach ($setting['options'] as $optionValue => $optionLabel): ?>
+                            <?php $inputId = $itemId . '-' . $settingName . '-' . $optionValue; ?>
+                            <label for="<?php echo esc_attr($inputId); ?>">
+                                <input id="<?php echo esc_attr($inputId); ?>" class="municipio-sortable-setting-input" type="radio" name="<?php echo esc_attr($itemId . '-' . $settingName); ?>" value="<?php echo esc_attr($optionValue); ?>" data-sortable-option="<?php echo esc_attr($settingName); ?>" />
+                                <?php echo esc_html($optionLabel); ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                </fieldset>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <?php
+    }
+
+    private function hasButtonAppearance(string $choiceValue): bool
+    {
+        return in_array($choiceValue, [
+            'primary',
+            'drawer',
+            'language',
+            'mega-menu',
+            'search-modal',
+            'siteselector',
+            'user',
+            'userGroupUrl',
+        ], true);
     }
 }

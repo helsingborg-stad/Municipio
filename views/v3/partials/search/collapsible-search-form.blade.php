@@ -2,9 +2,9 @@
     'button' => [
         'text' => $lang->search,
         'icon' => 'search',
-        'style' => 'basic',
-        'color' => 'default',
-        'size' => 'md',
+        'style' => $buttonAppearance['style'],
+        'color' => $buttonAppearance['color'],
+        'size' => $buttonAppearance['size'],
         'ariaLabel' => $lang->search,
         'reversePositions' => true,
     ],

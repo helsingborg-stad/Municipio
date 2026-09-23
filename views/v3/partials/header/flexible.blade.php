@@ -1,5 +1,4 @@
 @if (!empty($headerData))
-    @php($logoScrollShrinkStyle = !empty($headerData['logoScrollShrinkEnabled']) ? '--municipio-header-logo-overlap-multiplier: ' . ($headerData['logoScrollShrinkOverlapMultiplier'] ?? 0.25) . ';' : null)
     @include('partials.header.skip-to-main-content')
     @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
     @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
@@ -15,7 +14,7 @@
                 ),
                 'id' => 'site-header-flexible-upper',
                 'sticky' => $headerData['upperHeader']['sticky'],
-                'attributeList' => !empty($logoScrollShrinkStyle) ? ['style' => $logoScrollShrinkStyle] : [],
+                'attributeList' => !empty($headerData['logoScrollShrinkStyle']) ? ['style' => $headerData['logoScrollShrinkStyle']] : [],
                 'context' => 'site.header.flexible.upper'
             ])
                 <div class="c-header__main-upper-area">
@@ -46,7 +45,7 @@
                 ),
                 'id' => 'site-header-flexible-lower',
                 'sticky' => $headerData['lowerHeader']['sticky'],
-                'attributeList' => !empty($logoScrollShrinkStyle) ? ['style' => $logoScrollShrinkStyle] : [],
+                'attributeList' => !empty($headerData['logoScrollShrinkStyle']) ? ['style' => $headerData['logoScrollShrinkStyle']] : [],
                 'context' => 'site.header.flexible.lower',
             ])
                 <div class="c-header__main-lower-area">
@@ -74,6 +73,8 @@
         @include('partials.navigation.megamenu')
     @endif
     @if ($headerData['hasSearch'])
-        @include('partials.search.search-modal')
+        @include('partials.search.search-modal', [
+            'buttonAppearance' => $headerData['defaultButtonAppearance'],
+        ])
     @endif
 @endif

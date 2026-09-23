@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Customizer\Sections\Menu;
 
+use Municipio\Customizer\ButtonSettings;
 use Municipio\Customizer\CustomizerField;
 use Municipio\Helper\ColorSwatches as ColorSwatches;
 
@@ -126,78 +129,38 @@ class MegaMenu
             ],
         ]);
 
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'mega_menu_item_button_style',
-            'label' => esc_html__('Sets the style of the main items', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'filled',
-            'choices' => [
-                'filled' => esc_html__('Filled button', 'municipio'),
-                'basic' => esc_html__('Default button', 'municipio'),
-                'outlined' => esc_html__('Outlined button', 'municipio'),
+        $mainItemButtonActiveCallback = [
+            [
+                'setting' => 'mega_menu_appearance_type',
+                'operator' => '===',
+                'value' => 'custom',
             ],
-            'output' => [
-                [
-                    'type' => 'component_data',
-                    'dataKey' => 'parentStyle',
-                    'context' => [
-                        [
-                            'context' => 'component.megamenu',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
+            [
+                'setting' => 'mega_menu_item_style',
+                'operator' => '===',
+                'value' => 'button',
             ],
-            'active_callback' => [
-                [
-                    'setting' => 'mega_menu_appearance_type',
-                    'operator' => '===',
-                    'value' => 'custom',
-                ],
-                [
-                    'setting' => 'mega_menu_item_style',
-                    'operator' => '===',
-                    'value' => 'button',
-                ],
-            ],
-        ]);
+        ];
 
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'mega_menu_item_button_color',
-            'label' => esc_html__('Color of the button', 'municipio'),
-            'description' => esc_html__('Sets the color of the button. The custom color will be ignored.', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'primary',
-            'choices' => [
-                'primary' => esc_html__('Primary', 'municipio'),
-                'secondary' => esc_html__('Secondary', 'municipio'),
-                'default' => esc_html__('Default', 'municipio'),
+        new ButtonSettings([
+            'sectionID' => $sectionID,
+            'settingPrefix' => 'mega_menu_item_button',
+            'settingSuffixes' => [
+                'style' => 'style',
+                'size' => 'size',
+                'color' => 'color',
             ],
-            'output' => [
-                [
-                    'type' => 'component_data',
-                    'dataKey' => 'parentStyleColor',
-                    'context' => [
-                        [
-                            'context' => 'component.megamenu',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
+            'labels' => [
+                'style' => esc_html__('Main item button style', 'municipio'),
+                'size' => esc_html__('Main item button size', 'municipio'),
+                'color' => esc_html__('Main item button color', 'municipio'),
             ],
-            'active_callback' => [
-                [
-                    'setting' => 'mega_menu_appearance_type',
-                    'operator' => '===',
-                    'value' => 'custom',
-                ],
-                [
-                    'setting' => 'mega_menu_item_style',
-                    'operator' => '===',
-                    'value' => 'button',
-                ],
+            'outputs' => $this->getButtonOutputs('parent'),
+            'activeCallback' => $mainItemButtonActiveCallback,
+            'defaults' => [
+                'style' => 'filled',
+                'size' => 'md',
+                'color' => 'primary',
             ],
         ]);
 
@@ -233,78 +196,38 @@ class MegaMenu
             ],
         ]);
 
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'mega_menu_child_item_button_style',
-            'label' => esc_html__('Sets the style of the child buttons', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'filled',
-            'choices' => [
-                'filled' => esc_html__('Filled button', 'municipio'),
-                'basic' => esc_html__('Default button', 'municipio'),
-                'outlined' => esc_html__('Outlined button', 'municipio'),
+        $childItemButtonActiveCallback = [
+            [
+                'setting' => 'mega_menu_appearance_type',
+                'operator' => '===',
+                'value' => 'custom',
             ],
-            'output' => [
-                [
-                    'type' => 'component_data',
-                    'dataKey' => 'childStyle',
-                    'context' => [
-                        [
-                            'context' => 'component.megamenu',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
+            [
+                'setting' => 'mega_menu_child_item_style',
+                'operator' => '===',
+                'value' => 'button',
             ],
-            'active_callback' => [
-                [
-                    'setting' => 'mega_menu_appearance_type',
-                    'operator' => '===',
-                    'value' => 'custom',
-                ],
-                [
-                    'setting' => 'mega_menu_child_item_style',
-                    'operator' => '===',
-                    'value' => 'button',
-                ],
-            ],
-        ]);
+        ];
 
-        CustomizerField::addField([
-            'type' => 'select',
-            'settings' => 'mega_menu_child_item_button_color',
-            'label' => esc_html__('Color of the child buttons', 'municipio'),
-            'description' => esc_html__('Sets the color of the child buttons. The custom color will be ignored.', 'municipio'),
-            'section' => $sectionID,
-            'default' => 'primary',
-            'choices' => [
-                'primary' => esc_html__('Primary', 'municipio'),
-                'secondary' => esc_html__('Secondary', 'municipio'),
-                'default' => esc_html__('Default', 'municipio'),
+        new ButtonSettings([
+            'sectionID' => $sectionID,
+            'settingPrefix' => 'mega_menu_child_item_button',
+            'settingSuffixes' => [
+                'style' => 'style',
+                'size' => 'size',
+                'color' => 'color',
             ],
-            'output' => [
-                [
-                    'type' => 'component_data',
-                    'dataKey' => 'childStyleColor',
-                    'context' => [
-                        [
-                            'context' => 'component.megamenu',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
+            'labels' => [
+                'style' => esc_html__('Child item button style', 'municipio'),
+                'size' => esc_html__('Child item button size', 'municipio'),
+                'color' => esc_html__('Child item button color', 'municipio'),
             ],
-            'active_callback' => [
-                [
-                    'setting' => 'mega_menu_appearance_type',
-                    'operator' => '===',
-                    'value' => 'custom',
-                ],
-                [
-                    'setting' => 'mega_menu_child_item_style',
-                    'operator' => '===',
-                    'value' => 'button',
-                ],
+            'outputs' => $this->getButtonOutputs('child'),
+            'activeCallback' => $childItemButtonActiveCallback,
+            'defaults' => [
+                'style' => 'filled',
+                'size' => 'sm',
+                'color' => 'primary',
             ],
         ]);
 
@@ -368,5 +291,32 @@ class MegaMenu
                 ['type' => 'controller'],
             ],
         ]);
+    }
+
+    /** @return array<string, array<int, array<string, mixed>>> */
+    private function getButtonOutputs(string $itemType): array
+    {
+        $dataKeyPrefix = $itemType === 'parent' ? 'parent' : 'child';
+
+        return [
+            'style' => [$this->getButtonOutput($dataKeyPrefix . 'Style')],
+            'size' => [$this->getButtonOutput($dataKeyPrefix . 'Size')],
+            'color' => [$this->getButtonOutput($dataKeyPrefix . 'StyleColor')],
+        ];
+    }
+
+    /** @return array<string, mixed> */
+    private function getButtonOutput(string $dataKey): array
+    {
+        return [
+            'type' => 'component_data',
+            'dataKey' => $dataKey,
+            'context' => [
+                [
+                    'context' => 'component.megamenu',
+                    'operator' => '==',
+                ],
+            ],
+        ];
     }
 }

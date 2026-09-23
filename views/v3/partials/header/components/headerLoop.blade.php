@@ -7,7 +7,9 @@
             @element([
                 'classList' => [...$classes, 'u-align-items--center', 'c-header__item', 'c-header__item--' . $name]
             ])
-                @includeIf('partials.header.components.' . $name)
+                @includeIf('partials.header.components.' . $name, [
+                    'buttonAppearance' => $headerData['buttonAppearance'][$key][$name],
+                ])
             @endelement
         @endforeach
     @endif
