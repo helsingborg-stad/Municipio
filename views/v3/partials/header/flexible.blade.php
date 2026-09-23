@@ -66,10 +66,7 @@
         @endscope
     @endif
 
-    @if(
-        !empty($megaMenu['items']) &&
-        $headerData['nonStickyMegaMenu']
-    )
+    @if(!empty($megaMenu['items']))
         @include('partials.navigation.megamenu')
     @endif
     @if ($headerData['hasSearch'])

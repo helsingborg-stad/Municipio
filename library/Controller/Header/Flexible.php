@@ -5,6 +5,7 @@ namespace Municipio\Controller\Header;
 use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderVisibilityClasses;
+use Municipio\Controller\Header\Helper\GetHiddenData;
 use Municipio\Controller\Header\MarginTransformer;
 use Municipio\Controller\Header\MenuOrderTransformer;
 use Municipio\Controller\Header\MenuVisibilityTransformer;
@@ -16,7 +17,7 @@ class Flexible implements HeaderInterface
 {
     private bool $isResponsive;
     private bool $hasSearch;
-    private bool $nonStickyMegaMenu;
+    private GetHiddenData $getHiddenDataInstance;
     private MenuOrderTransformer $menuOrderTransformerInstance;
     private AlignmentTransformer $alignmentTransformerInstance;
     private FlipKeyValueTransformer $flipKeyValueTransformer;
@@ -40,14 +41,14 @@ class Flexible implements HeaderInterface
     ) {
         $this->isResponsive = $this->hasResponsiveOrderItems();
         $this->hasSearch = false;
-
+        $this->getHiddenDataInstance = new GetHiddenData($this->customizer);
         $this->headerVisibilityClassesInstance = new HeaderVisibilityClasses();
         $this->flipKeyValueTransformer = new FlipKeyValueTransformer();
         $this->isResponsiveMenu = new IsResponsiveMenuTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
         $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
-        $this->marginTransformerInstance = new MarginTransformer($this->getHiddenMenuItemsData());
-        $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenMenuItemsData());
+        $this->marginTransformerInstance = new MarginTransformer($this->getHiddenDataInstance->get());
+        $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenDataInstance->get());
     }
 
     // Gets the header data accessible in the view.
@@ -58,7 +59,6 @@ class Flexible implements HeaderInterface
 
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
         $logoScrollShrinkEnabled = $this->isLogoScrollShrinkEnabled();
-        $logoScrollShrinkOverlapMultiplier = $this->getLogoScrollShrinkOverlapMultiplier();
         $logoScrollShrinkAspectRatio = $this->getLogoScrollShrinkAspectRatio();
         $defaultButtonAppearance = $this->getDefaultButtonAppearance();
 
@@ -75,31 +75,11 @@ class Flexible implements HeaderInterface
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrinkEnabled,
-            'logoScrollShrinkOverlapMultiplier' => $logoScrollShrinkOverlapMultiplier,
             'logoScrollShrinkAspectRatio' => $logoScrollShrinkAspectRatio,
             'logoScrollShrinkStyle' => $logoScrollShrinkEnabled
-                ? '--municipio-header-logo-overlap-multiplier: ' . $logoScrollShrinkOverlapMultiplier . ';'
-                : null,
-            'nonStickyMegaMenu' => $this->nonStickyMegaMenu,
+                ? '--municipio-header-logo-overlap-multiplier: ' . $this->getLogoScrollShrinkOverlapMultiplier() . ';'
+                : null
         ];
-    }
-
-    // Handles the hidden menu data in the customizer.
-    private function getHiddenMenuItemsData(): object
-    {
-        $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ? $this->customizer->headerSortableHiddenStorage : '{}';
-
-        if (is_array($hiddenData)) {
-            $hiddenData = wp_json_encode($hiddenData);
-        }
-
-        if (is_object($hiddenData)) {
-            return $hiddenData;
-        }
-
-        $decodedValue = json_decode((string) $hiddenData);
-
-        return is_object($decodedValue) ? $decodedValue : (object) [];
     }
 
     // Gets the header settings.
@@ -118,8 +98,6 @@ class Flexible implements HeaderInterface
 
         $lowerHeader['innerMegaMenu'] = $lowerHeaderHasMegaMenu && !empty($lowerHeader['sticky']);
         $upperHeader['innerMegaMenu'] = $upperHeaderHasMegaMenu && !empty($upperHeader['sticky']);
-
-        $this->nonStickyMegaMenu = ($upperHeaderHasMegaMenu || $lowerHeaderHasMegaMenu) && empty($lowerHeader['innerMegaMenu']) && empty($upperHeader['innerMegaMenu']);
 
         $upperHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
         $lowerHeader['classList'] = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
@@ -188,7 +166,7 @@ class Flexible implements HeaderInterface
             $sourceSetting = !isset($desktopItems[$menu]) && isset($mobileItems[$menu])
                 ? $responsiveSetting
                 : $setting;
-            $itemSettings = $this->getHiddenMenuItemsData()->{$sourceSetting}->{$menu} ?? (object) [];
+            $itemSettings = $this->getHiddenDataInstance->get()->{$sourceSetting}->{$menu} ?? (object) [];
 
             $appearance[$menu] = [
                 'style' => $itemSettings->buttonStyle ?? $defaultAppearance['style'],
@@ -330,7 +308,7 @@ class Flexible implements HeaderInterface
      */
     private function isLowerRowLogotypeAlignedLeft(): bool
     {
-        $hiddenStorage = $this->getHiddenMenuItemsData();
+        $hiddenStorage = $this->getHiddenDataInstance->get();
 
         return ($hiddenStorage->header_sortable_section_main_lower->logotype->align ?? null) === 'left';
     }
