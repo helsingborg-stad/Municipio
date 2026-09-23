@@ -66,6 +66,7 @@ function sanitizeItemOptions(
 function hasButtonAppearance(itemValue: string): boolean {
 	return [
 		"primary",
+		"tab",
 		"drawer",
 		"language",
 		"mega-menu",

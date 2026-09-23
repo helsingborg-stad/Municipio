@@ -233,6 +233,7 @@ class SortableControl extends WP_Customize_Control
     {
         return in_array($choiceValue, [
             'primary',
+            'tab',
             'drawer',
             'language',
             'mega-menu',
