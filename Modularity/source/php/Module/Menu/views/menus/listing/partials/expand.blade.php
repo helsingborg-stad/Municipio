@@ -19,7 +19,7 @@
                     'mod-menu__expand-text',
                 ]
             ])
-                {{ $lang['showAll'] }} ({{ (count($menuItem['children']) - 3) }})
+                {{ $lang['showAll'] }} ({{ count($menuItem['children']) }})
             @endelement
             @element([
                 'componentElement' => 'span',
