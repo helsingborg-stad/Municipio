@@ -14,7 +14,7 @@
                 ),
                 'id' => 'site-header-flexible-upper',
                 'sticky' => $headerData['upperHeader']['sticky'],
-                'attributeList' => !empty($headerData['logoScrollShrinkStyle']) ? ['style' => $headerData['logoScrollShrinkStyle']] : [],
+                'attributeList' => $headerData['upperHeader']['attributeList'],
                 'context' => 'site.header.flexible.upper'
             ])
                 <div class="c-header__main-upper-area">
@@ -45,7 +45,7 @@
                 ),
                 'id' => 'site-header-flexible-lower',
                 'sticky' => $headerData['lowerHeader']['sticky'],
-                'attributeList' => !empty($headerData['logoScrollShrinkStyle']) ? ['style' => $headerData['logoScrollShrinkStyle']] : [],
+                'attributeList' => $headerData['lowerHeader']['attributeList'],
                 'context' => 'site.header.flexible.lower',
             ])
                 <div class="c-header__main-lower-area">
