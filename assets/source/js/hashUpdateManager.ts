@@ -1,4 +1,4 @@
-import { getTopOffsetPx, topOffsetChangeEvent } from "./headerScrollOffset";
+import { getTopOffsetPx } from "./headerScrollOffset";
 
 // Absorbs sub-pixel rounding from scroll corrections so the boundary heading isn't skipped.
 const OFFSET_TOLERANCE_PX = 2;
@@ -24,13 +24,6 @@ export class HashUpdateManager {
 				decodeURIComponent(location.hash.replace(/^#/, "")) || null;
 
 			window.addEventListener("scroll", () =>
-				HashUpdateManager.handleIntersect(),
-			);
-			window.addEventListener("resize", () =>
-				HashUpdateManager.handleIntersect(),
-			);
-			// A header resize changes the offset without a scroll/resize of its own.
-			window.addEventListener(topOffsetChangeEvent, () =>
 				HashUpdateManager.handleIntersect(),
 			);
 		});
