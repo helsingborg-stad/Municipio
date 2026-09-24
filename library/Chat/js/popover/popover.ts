@@ -29,12 +29,14 @@ class Popover {
 			this.popoveDetail.popover.setCover(false);
 			this.chatContainer.style.width = "";
 			this.chatContainer.style.height = "";
-		} else {
+		} else if (currentState) {
 			this.coverRanOnce = true;
 			this.popoveDetail.popover.setCover(true);
 			this.chatContainer.style.width = "100%";
 			this.chatContainer.style.height = "100%";
 		}
+
+		this.coverRanOnce = true;
 	};
 }
 
