@@ -458,7 +458,7 @@
                     'max_size' => '',
                     'mime_types' => '',
                     'allow_in_bindings' => 0,
-                    'preview_size' => 'medium',
+                    'preview_size' => 'thumbnail',
                     'parent_repeater' => 'field_69ddefc99aa7a',
                 ),
                 8 => array(
