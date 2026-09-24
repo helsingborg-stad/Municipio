@@ -78,6 +78,7 @@ jobs:
           /*
           !screenshot.png
           !style.css
+          !theme.json
           !.gitignore
           !/dist
           !/dist/**
