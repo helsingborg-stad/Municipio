@@ -7,7 +7,7 @@ use Municipio\Controller\Header\ButtonAppearanceResolver;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderContentFlagsResolver;
 use Municipio\Controller\Header\HeaderSettingsBuilder;
-use Municipio\Controller\Header\HeaderVisibilityClasses;
+use Municipio\Controller\Header\HeaderClasses;
 use Municipio\Controller\Header\Helper\GetHiddenData;
 use Municipio\Controller\Header\Helper\NormalizeOrderedItems;
 use Municipio\Controller\Header\MarginTransformer;
@@ -49,15 +49,17 @@ class Flexible implements HeaderInterface
         $this->isResponsive = $this->orderedMenuItemsResolver->hasResponsiveOrderItems();
         $this->getHiddenDataInstance = new GetHiddenData($this->customizer);
 
-        $headerVisibilityClasses = new HeaderVisibilityClasses();
-
         $this->flipKeyValueTransformer = new FlipKeyValueTransformer();
         $this->isResponsiveMenu = new IsResponsiveMenuTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
         $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
         $this->marginTransformerInstance = new MarginTransformer($this->getHiddenDataInstance->get());
         $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenDataInstance->get());
-        $this->headerSettingsBuilder = new HeaderSettingsBuilder($this->customizer, $headerVisibilityClasses);
+        $this->headerSettingsBuilder = new HeaderSettingsBuilder(
+            $this->customizer,
+            new HeaderClasses($this->customizer),
+            new HeaderAttributes()
+        );
         $this->headerContentFlagsResolver = new HeaderContentFlagsResolver();
         $this->buttonAppearanceResolver = new ButtonAppearanceResolver($this->customizer, $this->getHiddenDataInstance);
         $this->logoScrollShrinkResolver = new LogoScrollShrinkResolver(
@@ -83,7 +85,7 @@ class Flexible implements HeaderInterface
         [$upperHeader, $lowerHeader] = $this->headerSettingsBuilder->build(
             $upperItems,
             $lowerItems,
-            $logoScrollShrink['attributeList']
+            $logoScrollShrink
         );
 
         return [
@@ -99,8 +101,7 @@ class Flexible implements HeaderInterface
             'hasSearch' => $this->hasSearch,
             'hasSeparateBrandText' => $this->hasSeparateBrandText,
             'logoScrollShrinkEnabled' => $logoScrollShrink['enabled'],
-            'logoScrollShrinkAspectRatio' => $logoScrollShrink['aspectRatio'],
-            'logoScrollShrinkStyle' => $logoScrollShrink['style'],
+            'logoScrollShrinkAspectRatio' => $logoScrollShrink['aspectRatio']
         ];
     }
 

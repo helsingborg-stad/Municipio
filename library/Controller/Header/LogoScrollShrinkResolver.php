@@ -43,8 +43,7 @@ class LogoScrollShrinkResolver
             'enabled' => $enabled,
             'overlapMultiplier' => $overlapMultiplier,
             'aspectRatio' => $aspectRatio,
-            'style' => $style,
-            'attributeList' => $style !== null ? ['style' => $style] : [],
+            'style' => $style
         ];
     }
 

@@ -12,7 +12,8 @@ class HeaderSettingsBuilder
      */
     public function __construct(
         private object $customizer,
-        private HeaderVisibilityClasses $headerVisibilityClasses,
+        private HeaderClasses $headerClasses,
+        private HeaderAttributes $headerAttributes,
     ) {
     }
 
@@ -21,11 +22,11 @@ class HeaderSettingsBuilder
      *
      * @param array<string, mixed> $upperItems Upper header items.
      * @param array<string, mixed> $lowerItems Lower header items.
-     * @param array<string, string> $attributeList Prepared HTML attributes for the header elements.
+     * @param array<string, mixed> $logoScrollShrink
      *
      * @return array{0: array<string, mixed>, 1: array<string, mixed>}
      */
-    public function build(array $upperItems, array $lowerItems, array $attributeList = []): array
+    public function build(array $upperItems, array $lowerItems, array $logoScrollShrink = []): array
     {
         $upperHeader = [];
         $lowerHeader = [];
@@ -41,12 +42,12 @@ class HeaderSettingsBuilder
         $lowerHeader['innerMegaMenu'] = $lowerHeaderHasMegaMenu && !empty($lowerHeader['sticky']);
         $upperHeader['innerMegaMenu'] = $upperHeaderHasMegaMenu && !empty($upperHeader['sticky']);
 
-        $upperHeader['classList'] = $this->headerVisibilityClasses->getHeaderClasses($upperItems);
-        $lowerHeader['classList'] = $this->headerVisibilityClasses->getHeaderClasses($lowerItems);
+        $upperHeader['classList'] = $this->headerClasses->getHeaderClasses($upperItems, $logoScrollShrink);
+        $lowerHeader['classList'] = $this->headerClasses->getHeaderClasses($lowerItems, $logoScrollShrink);
         $upperHeader['classList'][] = !empty($upperItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
         $lowerHeader['classList'][] = !empty($lowerItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
-        $upperHeader['attributeList'] = $attributeList;
-        $lowerHeader['attributeList'] = $attributeList;
+        $upperHeader['attributeList'] = $this->headerAttributes->getHeaderAttributes('upper', $logoScrollShrink);
+        $lowerHeader['attributeList'] = $this->headerAttributes->getHeaderAttributes('lower', $logoScrollShrink);
 
         return [
             array_merge($this->defaultHeaderSettings(), $upperHeader),

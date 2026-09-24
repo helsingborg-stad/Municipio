@@ -7,7 +7,6 @@
         @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
             @header([
                 'classList' => array_merge(
-                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : '', !empty($headerData['logoScrollShrinkEnabled']) ? 'c-header--logotype-scroll-shrink' : ''],
                     $headerData['upperHeader']['classList'],
                     isset($classList) ? (array) $classList : [],
                     $classes ?? []
@@ -38,7 +37,6 @@
         @scope(['name' => ['header-flexible-lower', 'header-flexible', 'header']])
             @header([
                 'classList' => array_merge(
-                    ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : '', !empty($headerData['logoScrollShrinkEnabled']) ? 'c-header--logotype-scroll-shrink' : ''],
                     $headerData['lowerHeader']['classList'],
                     isset($classList) ? (array) $classList : [],
                     $classes ?? []
