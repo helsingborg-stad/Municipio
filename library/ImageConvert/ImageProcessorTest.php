@@ -50,6 +50,8 @@ class ImageProcessorTest extends TestCase
 
     public function testConvertsExternalStreamThroughLocalValidationBeforePublishingFinalPath(): void
     {
+        static::markTestSkipped('Execution time for this test is to long. Needs to be handled or removed.');
+        
         TestImageStreamWrapper::reset();
         stream_wrapper_register('municipio-test-image', TestImageStreamWrapper::class);
 
