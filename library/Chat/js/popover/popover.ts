@@ -30,7 +30,6 @@ class Popover {
 			this.chatContainer.style.width = "";
 			this.chatContainer.style.height = "";
 		} else if (currentState) {
-			this.coverRanOnce = true;
 			this.popoveDetail.popover.setCover(true);
 			this.chatContainer.style.width = "100%";
 			this.chatContainer.style.height = "100%";
