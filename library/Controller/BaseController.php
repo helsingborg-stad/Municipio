@@ -137,16 +137,12 @@ class BaseController
         $this->data['footerGridSize'] = floor(12 / $footerColumns);
         $this->data['footerAreas'] = $footerAreas;
 
-        // Header controllers
-        $headerClassName = '\\Municipio\\Controller\\Header\\Flexible';
-        if (class_exists($headerClassName)) {
-            $headerController = new $headerClassName(
-                $this->data['customizer'],
-                $this->wpService->isCustomizePreview()
-            );
-        }
-
-        $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
+        // Header
+        $this->data['headerData'] = (new \Municipio\Controller\Header\Flexible(
+            
+            $this->data['customizer'],
+            $this->wpService->isCustomizePreview()
+        ))->getHeaderData();
 
         $this->menuDirector->setBuilder($this->menuBuilder);
 

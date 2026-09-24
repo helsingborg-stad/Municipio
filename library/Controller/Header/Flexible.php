@@ -77,6 +77,11 @@ class Flexible implements HeaderInterface
      */
     public function getHeaderData(): array
     {
+        $upperHeader = Header::create('upper');
+        $lowerHeader = Header::create('lower');
+
+        // foreach ($)
+
         $upperItems = $this->getItems('main_upper');
         $lowerItems = $this->getItems('main_lower');
         $logoScrollShrink = $this->logoScrollShrinkResolver->resolve();
