@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee914516f9e92d8b094fb4c703e77e98",
+    "content-hash": "ae6371e2aab21456f28c3ab31de955a1",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1366,16 +1366,16 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.32.5",
+            "version": "3.33.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "1ac391e86c6f59eafca68b27bfcf15ba16199f19"
+                "reference": "7d1468a7c00db6e094cefa15d1df1d0c1876e473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/1ac391e86c6f59eafca68b27bfcf15ba16199f19",
-                "reference": "1ac391e86c6f59eafca68b27bfcf15ba16199f19",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/7d1468a7c00db6e094cefa15d1df1d0c1876e473",
+                "reference": "7d1468a7c00db6e094cefa15d1df1d0c1876e473",
                 "shasum": ""
             },
             "require": {
@@ -1419,9 +1419,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.32.5"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.33.2"
             },
-            "time": "2026-09-24T08:52:59+00:00"
+            "time": "2026-09-24T15:09:11+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
