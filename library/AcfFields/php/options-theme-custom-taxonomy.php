@@ -177,6 +177,7 @@
                         'mod-rss' => __('mod-rss', 'municipio'),
                         'mod-sites' => __('mod-sites', 'municipio'),
                         'mod-spacer' => __('mod-spacer', 'municipio'),
+                        'mod-negative-margin' => __('mod-negative-margin', 'municipio'),
                         'mod-subscribe' => __('mod-subscribe', 'municipio'),
                         'mod-contact-banner' => __('mod-contact-banner', 'municipio'),
                         'mod-form' => __('mod-form', 'municipio'),

@@ -1993,6 +1993,10 @@ msgstr ""
 msgid "mod-spacer"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:180
+msgid "mod-negative-margin"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:182
 msgid "mod-subscribe"
 msgstr ""
@@ -12172,6 +12176,19 @@ msgstr ""
 msgid "All space will be multiplied by 8."
 msgstr ""
 
+#: Modularity/source/php/AcfFields/php/mod-negative-margin.php:8
+#: Modularity/source/php/Module/NegativeMargin/NegativeMargin.php:14
+msgid "Negative margin"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-negative-margin.php:12
+msgid "Amount of negative margin"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-negative-margin.php:15
+msgid "The value uses the same 8-pixel scale as the Spacer module."
+msgstr ""
+
 #: Modularity/source/php/AcfFields/php/mod-subscribe.php:8
 #: Modularity/source/php/Module/Subscribe/Subscribe.php:17
 msgid "Email Subscribe"
@@ -13623,6 +13640,14 @@ msgstr ""
 
 #: Modularity/source/php/Module/Spacer/Spacer.php:15
 msgid "Spacers"
+msgstr ""
+
+#: Modularity/source/php/Module/NegativeMargin/NegativeMargin.php:15
+msgid "Negative margins"
+msgstr ""
+
+#: Modularity/source/php/Module/NegativeMargin/NegativeMargin.php:16
+msgid "Pulls the following content upward to create an overlap."
 msgstr ""
 
 #: Modularity/source/php/Module/Subscribe/Subscribe.php:18

@@ -468,7 +468,7 @@ class BlockManager
 
             if ($this->validateFields($viewData)) {
                 $display = new Display($this->wpUtilService);
-                $renderedView = $display->renderView($view, $viewData);
+                $renderedView = (string) $display->renderView($view, $viewData);
 
                 //If result is empty, display error for admins
                 $viewContainsData = (bool) !empty(preg_replace('/\s+/', '', strip_tags($renderedView, ['img'])));
@@ -496,6 +496,10 @@ class BlockManager
                     "modularity-mod-{$block['moduleName']}",
                     "block-modularity-mod-{$block['moduleName']}",
                 ];
+
+                if (is_callable([$module, 'wrapperClasses'])) {
+                    $classes = array_merge($classes, (array) $module->wrapperClasses());
+                }
 
                 // Add WordPress' extra classes
                 if (isset($block['className']) && !empty($block['className'])) {

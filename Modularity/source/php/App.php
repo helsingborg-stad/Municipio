@@ -23,6 +23,7 @@ class App
         $this->wpEnqueue = $this->wpUtilService->enqueue(__DIR__, 'Modularity/assets/dist');
 
         add_action('admin_enqueue_scripts', [$this, 'enqueueAdmin'], 950);
+        add_action('enqueue_block_assets', [$this, 'enqueueBlockEditorStyles']);
         add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
@@ -232,6 +233,18 @@ class App
     }
 
     /**
+     * Enqueues module styles within the Gutenberg editor canvas.
+     *
+     * @return void
+     */
+    public function enqueueBlockEditorStyles(): void
+    {
+        if (is_admin()) {
+            $this->wpEnqueue->add('css/modularity-admin.css');
+        }
+    }
+
+    /**
      * Enqueues scripts and styles
      * @return void
      */
@@ -243,6 +256,7 @@ class App
 
         $this->wpEnqueue
             ->add('css/modularity.css')
+            ->add('css/modularity-admin.css')
             ->add('js/modularity.js', ['wp-api'], null, true)
             ->with()
             ->translation($this->modularityLangKey, $this->getModularityTranslations())
