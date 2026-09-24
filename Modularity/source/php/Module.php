@@ -222,12 +222,15 @@ class Module
             $this->collectViewData();
         }
 
-        WpService::get()->addAction('admin_enqueue_scripts', [$this, 'adminEnqueue']);
+        $wpService = WpService::get();
+
+        $wpService->addAction('admin_enqueue_scripts', [$this, 'adminEnqueue']);
+        $wpService->addAction('enqueue_block_assets', [$this, 'enqueueBlockEditorStyle']);
 
         $this->data['postTitle'] = $post->post_title ?? false;
 
         if (!is_admin()) {
-            WpService::get()->addAction('wp_enqueue_scripts', function () {
+            $wpService->addAction('wp_enqueue_scripts', function () {
                 if ($this->hasModule()) {
                     if (method_exists($this, 'style')) {
                         $this->style();
@@ -240,7 +243,7 @@ class Module
             });
         }
 
-        WpService::get()->addAction(
+        $wpService->addAction(
             'save_post',
             static function ($postID, $post, $update) {
                 WpService::get()->wpCacheDelete('modularity_has_modules_' . $postID);
@@ -275,6 +278,18 @@ class Module
     public function style()
     {
         // Put styles here
+    }
+
+    /**
+     * Enqueue this module's styles in the block editor canvas.
+     */
+    public function enqueueBlockEditorStyle(): void
+    {
+        if (is_admin()) {
+            // Styles must be present before a block is inserted, so this must
+            // not depend on detecting modules in the saved post content.
+            $this->style();
+        }
     }
 
     /**

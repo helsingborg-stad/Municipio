@@ -56,9 +56,7 @@ class Menu extends \Modularity\Module
 
     public function style()
     {
-        if ($this->hasModule()) {
-            $this->wpEnqueue?->add('css/menu.css');
-        }
+        $this->wpEnqueue?->add('css/menu.css');
     }
 
     /**

@@ -11,9 +11,15 @@ use PHPUnit\Framework\TestCase;
 
 class ModuleTest extends TestCase
 {
+    private \WpService\Implementations\FakeWpService $wpService;
+
     protected function setUp(): void
     {
-        WpService::set(new \WpService\Implementations\FakeWpService(['addAction' => true]));
+        $this->wpService = new \WpService\Implementations\FakeWpService([
+            'addAction' => true,
+        ]);
+
+        WpService::set($this->wpService);
         AcfService::set(new \AcfService\Implementations\FakeAcfService());
     }
 
@@ -21,6 +27,30 @@ class ModuleTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $module = new Module();
-        $this->assertInstanceOf(Module::class, $module);
+        static::assertInstanceOf(Module::class, $module);
+    }
+
+    #[TestDox('module assets are registered for the frontend outside admin')]
+    public function testRegistersFrontendAssetsOutsideAdmin(): void
+    {
+        new Module();
+
+        $hooks = array_column($this->wpService->methodCalls['addAction'], 0);
+
+        static::assertContains('wp_enqueue_scripts', $hooks);
+        static::assertContains('enqueue_block_assets', $hooks);
+    }
+
+    #[TestDox('module styles use the shared block editor callback')]
+    public function testRegistersSharedBlockEditorStyleCallback(): void
+    {
+        $module = new Module();
+        $blockAssetsCall = array_values(array_filter(
+            $this->wpService->methodCalls['addAction'],
+            static fn(array $call): bool => $call[0] === 'enqueue_block_assets',
+        ));
+
+        static::assertCount(1, $blockAssetsCall);
+        static::assertSame([$module, 'enqueueBlockEditorStyle'], $blockAssetsCall[0][1]);
     }
 }
