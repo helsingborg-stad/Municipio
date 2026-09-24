@@ -10,7 +10,11 @@ use PHPUnit\Framework\TestCase;
 class ListingTest extends TestCase
 {
     #[DataProvider('provideWrapperClasses')]
-    public function testDecorateBuildsSmarterLargeBreakpointColumnClasses(int $amountOfItems, string $expectedLargeBreakpointClass): void
+    public function testDecorateBuildsSmarterLargeBreakpointColumnClasses(
+        int $amountOfItems,
+        string $expectedMediumBreakpointClass,
+        string $expectedLargeBreakpointClass
+    ): void
     {
         $listing = new Listing([], null);
 
@@ -22,7 +26,7 @@ class ListingTest extends TestCase
 
         $this->assertSame([
             'o-layout-grid--cols-1',
-            'o-layout-grid--cols-2@md',
+            $expectedMediumBreakpointClass,
             $expectedLargeBreakpointClass,
         ], $result['wrapperClasses']);
     }
@@ -30,12 +34,12 @@ class ListingTest extends TestCase
     public static function provideWrapperClasses(): array
     {
         return [
-            'single item' => [1, 'o-layout-grid--cols-1@lg'],
-            'two items' => [2, 'o-layout-grid--cols-2@lg'],
-            'three items' => [3, 'o-layout-grid--cols-3@lg'],
-            'four items' => [4, 'o-layout-grid--cols-4@lg'],
-            'six items prefers three columns' => [6, 'o-layout-grid--cols-3@lg'],
-            'eight items keeps four columns' => [8, 'o-layout-grid--cols-4@lg'],
+            'single item' => [1, 'o-layout-grid--cols-1@md', 'o-layout-grid--cols-1@lg'],
+            'two items' => [2, 'o-layout-grid--cols-2@md', 'o-layout-grid--cols-2@lg'],
+            'three items' => [3, 'o-layout-grid--cols-2@md', 'o-layout-grid--cols-3@lg'],
+            'four items' => [4, 'o-layout-grid--cols-2@md', 'o-layout-grid--cols-4@lg'],
+            'six items prefers three columns' => [6, 'o-layout-grid--cols-2@md', 'o-layout-grid--cols-3@lg'],
+            'eight items keeps four columns' => [8, 'o-layout-grid--cols-2@md', 'o-layout-grid--cols-4@lg'],
         ];
     }
 }
