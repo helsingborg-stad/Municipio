@@ -82,13 +82,25 @@ class Display
         }
 
         $directories = FileHelper::glob(MODULARITY_PATH . 'source/php/Module/*');
+        return $this->findModuleDirectory($postType, is_array($directories) ? $directories : []);
+    }
 
-        if (!empty($directories) && is_array($directories)) {
-            foreach ($directories as $dir) {
-                $pathinfo = pathinfo($dir);
-                if (strtolower(str_replace('mod-', '', $postType)) === strtolower($pathinfo['filename'])) {
-                    return $pathinfo['filename'];
-                }
+    /**
+     * Finds the module directory matching a post type slug.
+     *
+     * @param string $postType
+     * @param array<int, string> $directories
+     * @return string|null
+     */
+    private function findModuleDirectory(string $postType, array $directories): ?string
+    {
+        $moduleName = strtolower(str_replace(['-', '_'], '', preg_replace('/^mod-/', '', $postType)));
+
+        foreach ($directories as $directory) {
+            $pathinfo = pathinfo($directory);
+            $directoryName = strtolower(str_replace(['-', '_'], '', $pathinfo['filename']));
+            if ($moduleName === $directoryName) {
+                return $pathinfo['filename'];
             }
         }
 

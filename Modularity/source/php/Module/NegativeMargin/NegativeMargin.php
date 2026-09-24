@@ -39,4 +39,9 @@ class NegativeMargin extends \Modularity\Module
     {
         return max(0, min(24, (int) $amount));
     }
+
+    public function template(): string
+    {
+        return 'negative-margin.blade.php';
+    }
 }
