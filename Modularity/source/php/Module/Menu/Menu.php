@@ -33,7 +33,7 @@ class Menu extends \Modularity\Module
 
         $acfService = \Modularity\Helper\AcfService::get();
         $wpService = \Modularity\Helper\WpService::get();
-        
+
         $data['fields'] = $fields;
         $data['displayAs'] = $fields['mod_menu_display_as'] ?? 'listing';
         $data['mobileCollapse'] = $fields['mod_menu_mobile_collapse'] ?? true;
@@ -56,7 +56,9 @@ class Menu extends \Modularity\Module
 
     public function style()
     {
-        $this->wpEnqueue?->add('css/menu.css');
+        if ($this->hasModule()) {
+            $this->wpEnqueue?->add('css/menu.css');
+        }
     }
 
     /**
