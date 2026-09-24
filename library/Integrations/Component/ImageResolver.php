@@ -4,11 +4,20 @@ namespace Municipio\Integrations\Component;
 
 use ComponentLibrary\Integrations\Image\ImageResolverInterface;
 use Municipio\ImageConvert\TransparencyMetadata;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetPostMimeType;
+use WpService\Contracts\WpGetAttachmentImageSrc;
+use WpService\Contracts\WpGetAttachmentMetadata;
 
 class ImageResolver implements ImageResolverInterface
 {
     private const LQIP_WIDTH = 100;
     private const LQIP_HEIGHT = false;
+
+    public function __construct(private WpGetAttachmentImageSrc&GetPostMeta&GetPostMimeType&WpGetAttachmentMetadata&ApplyFilters $wpService)
+    {
+    }
 
     /**
      * Get image url
@@ -43,7 +52,7 @@ class ImageResolver implements ImageResolverInterface
      */
     private function resolveLqipUrl(int $id, array $size): ?string
     {
-        $attachmentMetadata = wp_get_attachment_metadata($id);
+        $attachmentMetadata = $this->wpService->wpGetAttachmentMetadata($id);
         $hasTransparency = $this->getStoredTransparencyState($attachmentMetadata);
         $lqipUrl = $hasTransparency === true ? null : $this->resolveAttachmentImageUrl($id, $size);
 
@@ -52,7 +61,7 @@ class ImageResolver implements ImageResolverInterface
             $id,
             $size,
             [
-                'mimeType' => get_post_mime_type($id),
+                'mimeType' => $this->wpService->getPostMimeType($id),
                 'hasTransparency' => $hasTransparency,
             ],
         );
@@ -69,7 +78,7 @@ class ImageResolver implements ImageResolverInterface
      */
     protected function filterLqipUrl(?string $lqipUrl, int $id, array $size, array $context): ?string
     {
-        return apply_filters('Municipio/Component/Image/LqipUrl', $lqipUrl, $id, $size, $context);
+        return $this->wpService->applyFilters('Municipio/Component/Image/LqipUrl', $lqipUrl, $id, $size, $context);
     }
 
     /**
@@ -81,7 +90,7 @@ class ImageResolver implements ImageResolverInterface
      */
     private function resolveAttachmentImageUrl(int $id, array $size): ?string
     {
-        $image = wp_get_attachment_image_src($id, $size);
+        $image = $this->wpService->wpGetAttachmentImageSrc($id, $size);
 
         if ($image !== false && isset($image[0]) && filter_var($image[0], FILTER_VALIDATE_URL)) {
             return $image[0];
@@ -142,7 +151,7 @@ class ImageResolver implements ImageResolverInterface
      */
     public function getImageAltText(int $id): ?string
     {
-        $alt = get_post_meta($id, '_wp_attachment_image_alt', true);
+        $alt = $this->wpService->getPostMeta($id, '_wp_attachment_image_alt', true);
         if ($alt) {
             return $alt;
         }
