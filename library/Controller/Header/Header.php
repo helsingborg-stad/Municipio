@@ -2,14 +2,24 @@
 
 namespace Municipio\Controller\Header;
 
+use AcfService\AcfService;
+use Municipio\Controller\Header\Helper\ExtractMenuItems;
+use WpService\WpService;
+
 class Header
 {
-    private function __construct(string $id)
-    {
+    public function __construct(
+        private string $id,
+        private WpService $wpService,
+        private AcfService $acfService,
+        private ExtractMenuItems $extractMenuItems
+    ) {
     }
 
-    public static function create(string $id): Header
+    public function getMenuItems(): array
     {
-        return new Header($id);
+        $menuItems = $this->extractMenuItems->get();
+        echo '<pre>' . print_r( $menuItems, true ) . '</pre>';die;
+        return [];
     }
 }

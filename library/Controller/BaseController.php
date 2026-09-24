@@ -3,6 +3,7 @@
 namespace Municipio\Controller;
 
 use AcfService\AcfService;
+use Municipio\Controller\Header\HeaderFactory;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
@@ -139,9 +140,11 @@ class BaseController
 
         // Header
         $this->data['headerData'] = (new \Municipio\Controller\Header\Flexible(
-            
-            $this->data['customizer'],
-            $this->wpService->isCustomizePreview()
+            new HeaderFactory(
+                $this->wpService,
+                $this->acfService,
+                $this->data['customizer']
+            )
         ))->getHeaderData();
 
         $this->menuDirector->setBuilder($this->menuBuilder);
