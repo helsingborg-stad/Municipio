@@ -6,12 +6,22 @@ namespace Modularity\Module\Map;
 
 class Map extends \Modularity\Module
 {
+    private const DEFAULT_HEIGHT = 400;
+    private const DEFAULT_LATITUDE = 59.329_32;
+    private const DEFAULT_LONGITUDE = 18.068_58;
+    private const DEFAULT_ZOOM = 10;
+    private const TEMPLATE_DEFAULT = 'default';
+    private const TEMPLATE_OPEN_STREET_MAP = 'openStreetMap';
+
     public $slug = 'map';
     public $supports = [];
 
-    protected $template = 'default';
+    protected string $template = self::TEMPLATE_DEFAULT;
 
-    public function init()
+    /**
+     * Configures module labels and ACF field filters.
+     */
+    public function init(): void
     {
         $this->nameSingular = __('Map', 'municipio');
         $this->namePlural = __('Maps', 'municipio');
@@ -23,116 +33,57 @@ class Map extends \Modularity\Module
     }
 
     /**
-     * This PHP function retrieves data based on certain conditions and returns either OpenStreetMap
-     * template data or default template data.
+     * Builds normalized view data for the selected map type.
      *
-     * @return array The `data()` function is returning either the result of the
-     * `openStreetMapTemplateData()` function or the `defaultTemplateData()` function based on the
-     * value of the `map_type` field in the `` array.
+     * @return array<string, mixed>
      */
     public function data(): array
     {
         $fields = $this->getFields();
-        $data = [];
+        $this->template = $this->normalizeMapType($fields['map_type'] ?? null);
+        $sharedData = [
+            'height' => $this->normalizeHeight($fields['height'] ?? null),
+        ];
 
-        //Shared template data
-        $data['height'] = !empty($fields['height']) ? $fields['height'] : '400';
-
-        //Set map type
-        if (empty($fields['map_type'])) {
-            $fields['map_type'] = 'default';
-        }
-        $this->template = $fields['map_type'];
-
-        //Handle as OpenStreetMap
-        if ($fields['map_type'] == 'openStreetMap') {
-            return $this->openStreetMapTemplateData($data, $fields);
-        }
-
-        //Handle as default
-        return $this->defaultTemplateData($data, $fields);
+        return $this->template === self::TEMPLATE_OPEN_STREET_MAP ? $this->openStreetMapTemplateData($sharedData, $fields) : $this->defaultTemplateData($sharedData, $fields);
     }
 
     /**
-     * The function `openStreetMapTemplateData` processes marker data and start position data for an
-     * OpenStreetMap template.
+     * Builds OpenStreetMap view data from normalized positions and valid markers.
      *
-     * @param data The `openStreetMapTemplateData` function takes two parameters: `` and
-     * ``.
-     * @param fields The `openStreetMapTemplateData` function takes two parameters: `` and
-     * ``.
-     *
-     * @return The function `openStreetMapTemplateData` is returning the modified `` array after
-     * processing the input data and fields. The function adds pins with latitude, longitude, and
-     * tooltip information to the `['pins']` array based on the provided markers. It also sets the
-     * start position with latitude, longitude, and zoom level if the `osm_start_position` field is not
-     * empty. Finally
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $fields
+     * @return array<string, mixed>
      */
-    private function openStreetMapTemplateData($data, $fields): array
+    private function openStreetMapTemplateData(array $data, array $fields): array
     {
-        $data['markers'] = [];
-        $start = $fields['osm_start_position'];
-
-        if (!empty($fields['osm_markers']) && is_array($fields['osm_markers'])) {
-            foreach ($fields['osm_markers'] as $markerData) {
-                if (!$this->hasCorrectPlaceData($markerData['position'])) {
-                    continue;
-                }
-
-                $marker = [];
-                $marker['lat'] = $markerData['position']['lat'];
-                $marker['lng'] = $markerData['position']['lng'];
-                $marker['icon'] = 'location_on';
-                $marker['content'] = $this->createMarkerTooltip($markerData);
-
-                $data['markers'][] = $marker;
-            }
-        }
-
-        if (!empty($start)) {
-            $data['lat'] = $start['lat'];
-            $data['lng'] = $start['lng'];
-            $data['zoom'] = $start['zoom'];
-        }
+        $startPosition = $this->normalizePosition($fields['osm_start_position'] ?? null);
+        $data['markers'] = $this->buildMarkers($fields['osm_markers'] ?? null);
+        $data['lat'] = $startPosition['lat'] ?? self::DEFAULT_LATITUDE;
+        $data['lng'] = $startPosition['lng'] ?? self::DEFAULT_LONGITUDE;
+        $data['zoom'] = $startPosition['zoom'] ?? self::DEFAULT_ZOOM;
 
         return $data;
     }
 
     /**
-     * Generates default template data for the Map module.
+     * Builds embedded-map view data from normalized ACF fields.
      *
-     * @param array $data The existing data array.
-     * @param array $fields The fields array containing module settings.
-     * @return array The updated data array with default template data.
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $fields
+     * @return array<string, mixed>
      */
-    private function defaultTemplateData($data, $fields): array
+    private function defaultTemplateData(array $data, array $fields): array
     {
-        //Get and sanitize url
-        $map_url = $fields['map_url'] ?? '';
-        $map_url = str_replace('http://', 'https://', $map_url, $replaced); // Enforce ssl
+        $data['map_url'] = $this->normalizeMapUrl($fields['map_url'] ?? null);
+        $data['map_description'] = $this->normalizeText($fields['map_description'] ?? null);
 
-        /**
-         * If the scheme is not altered with str_replace, the url may only contain // without https:
-         */
-        if (0 === $replaced) {
-            $parsedUrl = parse_url($map_url);
-            if (!isset($parsedUrl['scheme'])) {
-                $map_url = str_replace('//', 'https://', $map_url); // Ensure url scheme is literal
-            }
-        }
-
-        $map_url = str_replace('disable_scroll=false', 'disable_scroll=true', $map_url); //Remove scroll arcgis
-
-        //Create data array
-        $data['map_url'] = $map_url;
-        $data['map_description'] = !empty($fields['map_description']) ? $fields['map_description'] : '';
-
-        $data['show_button'] = !empty($fields['show_button']) ? $fields['show_button'] : false;
-        $data['button_label'] = !empty($fields['button_label']) ? $fields['button_label'] : false;
-        $data['button_url'] = !empty($fields['button_url']) ? $fields['button_url'] : false;
-        $data['more_info_button'] = !empty($fields['more_info_button']) ? $fields['more_info_button'] : false;
-        $data['more_info'] = !empty($fields['more_info']) ? $fields['more_info'] : false;
-        $data['more_info_title'] = !empty($fields['more_info_title']) ? $fields['more_info_title'] : false;
+        $data['show_button'] = $this->normalizeBoolean($fields['show_button'] ?? false);
+        $data['button_label'] = $this->normalizeText($fields['button_label'] ?? null);
+        $data['button_url'] = $this->normalizeText($fields['button_url'] ?? null);
+        $data['more_info_button'] = $this->normalizeBoolean($fields['more_info_button'] ?? false);
+        $data['more_info'] = $this->normalizeText($fields['more_info'] ?? null);
+        $data['more_info_title'] = $this->normalizeText($fields['more_info_title'] ?? null);
 
         $data['cardMapCss'] = $data['more_info_button'] ? 'o-grid-12@xs o-grid-8@md' : 'o-grid-12@md';
         $data['cardMoreInfoCss'] = $data['more_info_button'] ? 'o-grid-12@xs o-grid-4@md' : '';
@@ -140,7 +91,19 @@ class Map extends \Modularity\Module
         $data['uid'] = uniqid();
         $data['id'] = $this->ID;
 
-        $data['lang'] = [
+        $data['lang'] = $this->getConsentLabels();
+
+        return $data;
+    }
+
+    /**
+     * Returns translated consent labels for embedded maps.
+     *
+     * @return array<string, array<string, string>>
+     */
+    protected function getConsentLabels(): array
+    {
+        return [
             'knownLabels' => [
                 'title' => __('We need your consent to continue', 'municipio'),
                 'info' => sprintf(
@@ -165,34 +128,48 @@ class Map extends \Modularity\Module
                 'button' => __('I understand, continue.', 'municipio'),
             ],
         ];
-
-        return $data;
     }
 
     /**
-     * The function checks if the position data contains non-empty latitude and longitude values.
+     * Builds markers that contain valid coordinate data.
      *
-     * @param position The `hasCorrectPlaceData` function is checking if the `position` parameter is
-     * not empty and if it contains both `lat` and `lng` keys with non-empty values. This function
-     * returns a boolean value indicating whether the `position` data is in the correct format.
-     *
-     * @return bool a boolean value, either true or false.
+     * @param mixed $markers
+     * @return array<int, array{lat: float, lng: float, icon: string, content: string}>
      */
-    private function hasCorrectPlaceData($position): bool
+    private function buildMarkers(mixed $markers): array
     {
-        return !empty($position) && !empty($position['lat'] && !empty($position['lng']));
+        if (!is_array($markers)) {
+            return [];
+        }
+
+        $normalizedMarkers = [];
+        foreach ($markers as $markerData) {
+            if (!is_array($markerData)) {
+                continue;
+            }
+
+            $position = $this->normalizePosition($markerData['position'] ?? null);
+            if ($position === null) {
+                continue;
+            }
+
+            $normalizedMarkers[] = [
+                'lat' => $position['lat'],
+                'lng' => $position['lng'],
+                'icon' => 'location_on',
+                'content' => $this->createMarkerTooltip($markerData),
+            ];
+        }
+
+        return $normalizedMarkers;
     }
 
     /**
-     * The function createMarkerTooltip in PHP creates a tooltip array based on marker data.
+     * Renders tooltip markup for an OpenStreetMap marker.
      *
-     * @param marker The `createMarkerTooltip` function takes a `` parameter, which is expected
-     * to be an associative array containing the following keys:
-     *
-     * @return An array containing the title, excerpt, directions label, and directions URL of the
-     * marker.
+     * @param array<string, mixed> $marker
      */
-    private function createMarkerTooltip(array $marker = []): string
+    protected function createMarkerTooltip(array $marker = []): string
     {
         return render_blade_view(
             'partials.tooltip',
@@ -206,19 +183,87 @@ class Map extends \Modularity\Module
     }
 
     /**
-     * The function `sslNotice` adds a notice to a field if SSL is enabled or if a SSL proxy is being
-     * used.
-     *
-     * @param field The `sslNotice` function takes a parameter named ``, which seems to be an
-     * array containing instructions for a map link. The function checks if SSL is enabled or if an SSL
-     * proxy is being used, and if so, it modifies the instructions to include a notice about using
-     * `https://`
-     *
-     * @return The function `sslNotice` is returning the `` array with updated instructions if
-     * the current connection is using SSL or an SSL proxy. The instructions will inform the user that
-     * map links must start with `https://` for proper display.
+     * Normalizes a supported map type.
      */
-    public function sslNotice($field)
+    private function normalizeMapType(mixed $mapType): string
+    {
+        return $mapType === self::TEMPLATE_OPEN_STREET_MAP ? self::TEMPLATE_OPEN_STREET_MAP : self::TEMPLATE_DEFAULT;
+    }
+
+    /**
+     * Normalizes the map height to a positive pixel value.
+     */
+    private function normalizeHeight(mixed $height): int
+    {
+        return is_numeric($height) && (int) $height > 0 ? (int) $height : self::DEFAULT_HEIGHT;
+    }
+
+    /**
+     * Normalizes coordinates and an optional zoom level.
+     *
+     * @return array{lat: float, lng: float, zoom?: int}|null
+     */
+    private function normalizePosition(mixed $position): ?array
+    {
+        if (!is_array($position) || !array_key_exists('lat', $position) || !array_key_exists('lng', $position) || !is_numeric($position['lat']) || !is_numeric($position['lng'])) {
+            return null;
+        }
+
+        $normalizedPosition = [
+            'lat' => (float) $position['lat'],
+            'lng' => (float) $position['lng'],
+        ];
+
+        $zoom = $position['zoom'] ?? null;
+        if (is_numeric($zoom)) {
+            $normalizedPosition['zoom'] = (int) $zoom;
+        }
+
+        return $normalizedPosition;
+    }
+
+    /**
+     * Normalizes an embedded map URL and enforces HTTPS.
+     */
+    private function normalizeMapUrl(mixed $mapUrl): string
+    {
+        if (!is_string($mapUrl)) {
+            return '';
+        }
+
+        $mapUrl = trim($mapUrl);
+        if (str_starts_with($mapUrl, '//')) {
+            $mapUrl = 'https:' . $mapUrl;
+        } else {
+            $mapUrl = preg_replace('#^http://#i', 'https://', $mapUrl) ?? '';
+        }
+
+        return str_replace('disable_scroll=false', 'disable_scroll=true', $mapUrl);
+    }
+
+    /**
+     * Normalizes text fields to strings.
+     */
+    private function normalizeText(mixed $value): string
+    {
+        return is_scalar($value) ? (string) $value : '';
+    }
+
+    /**
+     * Normalizes ACF true/false values without treating arbitrary strings as true.
+     */
+    private function normalizeBoolean(mixed $value): bool
+    {
+        return in_array($value, [true, 1, '1'], true);
+    }
+
+    /**
+     * Adds HTTPS instructions to the map URL field when SSL is active.
+     *
+     * @param array<string, mixed> $field
+     * @return array<string, mixed>
+     */
+    public function sslNotice(array $field): array
     {
         if (is_ssl() || $this->isUsingSSLProxy()) {
             $field['instructions'] =
@@ -234,15 +279,11 @@ class Map extends \Modularity\Module
     }
 
     /**
-     * The function `isUsingSSLProxy` checks if SSL proxy is being used based on the defined constant
-     * `SSL_PROXY`.
-     *
-     * @return The function `isUsingSSLProxy()` will return `true` if the constant `SSL_PROXY` is
-     * defined and its value is `true`. Otherwise, it will return `false`.
+     * Checks whether SSL is provided by a configured proxy.
      */
-    private function isUsingSSLProxy()
+    private function isUsingSSLProxy(): bool
     {
-        if (defined('SSL_PROXY') && SSL_PROXY === true) {
+        if (defined('SSL_PROXY') && constant('SSL_PROXY') === true) {
             return true;
         }
 
@@ -252,23 +293,19 @@ class Map extends \Modularity\Module
     /**
      * Filter the map URL value.
      *
-     * @param string $value The map URL value to be filtered.
-     * @param int $post_id The ID of the post.
-     * @param string $field The field name.
-     * @return string The filtered map URL value.
+     * @param mixed $value
+     * @param mixed $postId
+     * @param array<string, mixed> $field
      */
-    public function filterMapUrl($value, $post_id, $field)
+    public function filterMapUrl(mixed $value, mixed $postId, array $field): string
     {
-        $value = htmlspecialchars_decode($value);
-        return $value;
+        return is_string($value) ? htmlspecialchars_decode($value) : '';
     }
 
     /**
-     * Returns the template file path for the Map module.
-     *
-     * @return string The template file path.
+     * Returns the selected template with a default fallback.
      */
-    public function template()
+    public function template(): string
     {
         $path = __DIR__ . '/views/' . $this->template . '.blade.php';
 
@@ -278,14 +315,4 @@ class Map extends \Modularity\Module
 
         return 'default.blade.php';
     }
-
-    /**
-     * Available "magic" methods for modules:
-     * init()            What to do on initialization
-     * data()            Use to send data to view (return array)
-     * style()           Enqueue style only when module is used on page
-     * script            Enqueue script only when module is used on page
-     * adminEnqueue()    Enqueue scripts for the module edit/add page in admin
-     * template()        Return the view template (blade) the module should use when displayed
-     */
 }
