@@ -108,7 +108,7 @@ class Map extends \Modularity\Module
     private function defaultTemplateData($data, $fields): array
     {
         //Get and sanitize url
-        $map_url = $fields['map_url'];
+        $map_url = $fields['map_url'] ?? '';
         $map_url = str_replace('http://', 'https://', $map_url, $replaced); // Enforce ssl
 
         /**
