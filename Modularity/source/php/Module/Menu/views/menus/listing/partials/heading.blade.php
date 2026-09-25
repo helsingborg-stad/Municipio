@@ -1,4 +1,4 @@
-@if(!empty($menuItem['label']))
+@if(!empty($menuItem['label']) || !empty($menuItem['lastWord']))
     @link([
         'href' => $menuItem['href'] ?? '#',
         'classList' => [
@@ -14,15 +14,27 @@
                 'u-color__text--primary'
             ]
         ])
+            @if (!empty($menuItem['label']))
             {{ $menuItem['label'] }}
-            @icon([
-                'icon' => 'arrow_forward',
-                'size' => 'md',
-                'attributeList' => [
-                    'style' => 'vertical-align: middle;'
+            @endif
+            @element([
+                'componentElement' => 'span',
+                'classList' => [
+                    'mod-menu__heading-icon'
                 ]
             ])
-            @endicon
+                @if (!empty($menuItem['lastWord']))
+                {{ $menuItem['lastWord'] }}
+                @endif
+                @icon([
+                    'icon' => 'arrow_forward',
+                    'size' => 'md',
+                    'attributeList' => [
+                        'style' => 'vertical-align: middle;'
+                    ]
+                ])
+                @endicon
+            @endelement
         @endtypography
     @endlink
 @endif
