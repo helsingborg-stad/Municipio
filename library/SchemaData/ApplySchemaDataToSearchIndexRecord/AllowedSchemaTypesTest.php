@@ -20,7 +20,7 @@ class AllowedSchemaTypesTest extends TestCase
         foreach ($sut->getAllowedSchemaTypes() as $element) {
             if (is_string($element)) { continue; }
 
-static::fail('element was not a string');
+            static::fail('element was not a string');
         }
 
         static::assertTrue(true);
