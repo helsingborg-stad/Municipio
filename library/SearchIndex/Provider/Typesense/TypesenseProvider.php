@@ -13,9 +13,12 @@ use WpService\WpService;
  */
 class TypesenseProvider implements SearchProviderInterface
 {
+    public const SCHEMA_FIELDS_FILTER = 'Municipio/SearchIndex/Typesense/Fields';
+
     public function __construct(
         private WpService $wpService,
-        #[\SensitiveParameter] private string $apiKey,
+        #[\SensitiveParameter]
+        private string $apiKey,
         private string $apiUrl,
         private string $collectionName,
     ) {}
@@ -31,8 +34,7 @@ class TypesenseProvider implements SearchProviderInterface
         }
 
         if ($response['statusCode'] === 409) {
-            
-        try {
+            try {
                 $current = $this->throwOnError($this->sendRequest('GET', sprintf('/collections/%s', rawurlencode($this->collectionName))));
             } catch (\RuntimeException $exception) {
                 throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
@@ -66,13 +68,14 @@ class TypesenseProvider implements SearchProviderInterface
         }
     }
 
-    public function getSchema():array {
+    public function getSchema(): array
+    {
         $locale = substr($this->wpService->getLocale(), 0, 2);
-        
+
         return $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/CollectionSchema', [
             'name' => $this->collectionName,
             'enable_nested_fields' => true,
-            'fields' => $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Fields', [
+            'fields' => $this->wpService->applyFilters(static::SCHEMA_FIELDS_FILTER, [
                 ['name' => 'post_title', 'type' => 'string', 'locale' => $locale],
                 ['name' => 'post_excerpt', 'type' => 'string', 'locale' => $locale],
                 ['name' => 'content', 'type' => 'string', 'locale' => $locale],
@@ -139,7 +142,8 @@ class TypesenseProvider implements SearchProviderInterface
         return array_map($this->deleteObject(...), $objectIds);
     }
 
-    private function prepareDocument(array $object): array {
+    private function prepareDocument(array $object): array
+    {
         return $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Document', [
             ...$object,
             'id' => (string) $object['uuid'],
