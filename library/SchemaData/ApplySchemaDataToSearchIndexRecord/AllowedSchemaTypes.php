@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
 use Municipio\Schema\Schema;
@@ -22,6 +25,6 @@ class AllowedSchemaTypes
 
     public function isAllowed(string $schemaType): bool
     {
-        return in_array($schemaType, $this->getAllowedSchemaTypes());
+        return in_array($schemaType, $this->getAllowedSchemaTypes(), strict: true);
     }
 }

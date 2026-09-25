@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
-use Municipio\Schema\Schema;
+
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -15,9 +18,9 @@ class AllowedSchemaTypesTest extends TestCase
 
         static::assertIsArray($sut->getAllowedSchemaTypes());
         foreach ($sut->getAllowedSchemaTypes() as $element) {
-            if (!is_string($element)) {
-                static::fail('element was not a string');
-            }
+            if (is_string($element)) { continue; }
+
+static::fail('element was not a string');
         }
 
         static::assertTrue(true);

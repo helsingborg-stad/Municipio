@@ -161,7 +161,7 @@ class TypesenseProviderTest extends TestCase
     public function testSchemaAllowsNestedFields(): void {
         $wpService = new FakeWpService([
             'getLocale' => '',
-            'applyFilters' => fn($tag, $value) => $value,
+            'applyFilters' => static fn($tag, $value) => $value,
         ]);
 
         $provider = new TypesenseProvider( $wpService, '', '', '', );        

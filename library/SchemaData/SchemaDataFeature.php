@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData;
 
 use AcfService\AcfService;
@@ -80,7 +83,7 @@ class SchemaDataFeature
      */
     private function setupAcfExport(): void
     {
-        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
+        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', static function (array $autoExportIds) {
             $autoExportIds['post-type-schema-settings'] = 'group_66d94a4867cec';
             return $autoExportIds;
         });

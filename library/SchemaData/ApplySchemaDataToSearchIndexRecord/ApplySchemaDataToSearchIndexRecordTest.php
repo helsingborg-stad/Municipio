@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
@@ -20,7 +23,7 @@ class ApplySchemaDataToSearchIndexRecordTest extends TestCase
     public function testCanBeInstantiated(): void
     {
         $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord(static::getWpService(), static::createPostObjectFactory());
-        $this->assertInstanceOf(ApplySchemaDataToSearchIndexRecord::class, $applySchemaDataToSearchIndexRecord);
+        static::assertInstanceOf(ApplySchemaDataToSearchIndexRecord::class, $applySchemaDataToSearchIndexRecord);
     }
 
     #[TestDox('attaches to the search index filter')]

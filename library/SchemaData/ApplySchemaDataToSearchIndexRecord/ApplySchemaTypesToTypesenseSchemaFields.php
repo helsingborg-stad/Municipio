@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Schema\BaseType;
+
 use Municipio\Schema\Schema;
 use Municipio\SearchIndex\Provider\Typesense\TypesenseProvider;
 use WpService\Contracts\AddFilter;
