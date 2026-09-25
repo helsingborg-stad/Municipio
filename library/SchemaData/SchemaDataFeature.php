@@ -1,14 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio\SchemaData;
 
 use AcfService\AcfService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
-use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\SchemaData\Config\SchemaDataConfigInterface;
+use Municipio\SchemaData\ExternalContent\ExternalContentFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\DisableStandardFieldsOnPostsWithSchemaType\DisableStandardFieldsOnPostsWithSchemaType;
@@ -23,10 +27,9 @@ use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomyFactory;
 use Municipio\SchemaData\Taxonomy\TermFactory;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
-use wpdb;
 use WpCronService\WpCronJob\WpCronJob;
 use WpCronService\WpCronJobManager;
-use Municipio\SchemaData\ExternalContent\ExternalContentFeature;
+use wpdb;
 use WpService\WpService;
 
 /**
@@ -50,9 +53,9 @@ class SchemaDataFeature
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
         private SchemaDataConfigInterface $schemaDataConfig,
-        private wpdb $wpdb
-    ) {
-    }
+        private wpdb $wpdb,
+        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
+    ) {}
 
     /**
      * Enable the Schema Data feature.
@@ -80,7 +83,7 @@ class SchemaDataFeature
      */
     private function setupAcfExport(): void
     {
-        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
+        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', static function (array $autoExportIds) {
             $autoExportIds['post-type-schema-settings'] = 'group_66d94a4867cec';
             return $autoExportIds;
         });
@@ -93,10 +96,10 @@ class SchemaDataFeature
     {
         $this->wpService->addAction('init', function () {
             $this->acfService->addOptionsSubPage([
-                'page_title'  => 'Post type schema settings',
-                'menu_title'  => 'Post type schema settings',
-                'menu_slug'   => 'mun-post-type-schema-settings',
-                'capability'  => 'manage_options',
+                'page_title' => 'Post type schema settings',
+                'menu_title' => 'Post type schema settings',
+                'menu_slug' => 'mun-post-type-schema-settings',
+                'capability' => 'manage_options',
                 'parent_slug' => 'options-general.php',
             ]);
         });
@@ -108,10 +111,10 @@ class SchemaDataFeature
     private function setupSchemaTypeModifiers(): void
     {
         $getAllSchemaTypes = new \Municipio\SchemaData\Utils\SchemaTypes();
-        $allSchemaTypes    = array_combine($getAllSchemaTypes->getSchemaTypes(), $getAllSchemaTypes->getSchemaTypes());
+        $allSchemaTypes = array_combine($getAllSchemaTypes->getSchemaTypes(), $getAllSchemaTypes->getSchemaTypes());
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9e4dffa66',
-            new ModifyFieldChoices($allSchemaTypes)
+            new ModifyFieldChoices($allSchemaTypes),
         );
     }
 
@@ -122,7 +125,7 @@ class SchemaDataFeature
     {
         $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead(
             $this->getSchemaObjectFromPostFactory(),
-            $this->wpService
+            $this->wpService,
         ));
     }
 
@@ -149,7 +152,7 @@ class SchemaDataFeature
             ['ExhibitionEvent'],
             ['title', 'editor'],
             $this->schemaDataConfig,
-            $this->wpService
+            $this->wpService,
         ))->addHooks();
     }
 
@@ -172,7 +175,7 @@ class SchemaDataFeature
             new UpdatePostNonceValidatorService($this->wpService),
             new FieldMapper($this->acfService),
             (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create(),
-            $this->getPostObjectFromWpPostFactory()
+            $this->getPostObjectFromWpPostFactory(),
         ))->addHooks();
     }
 
@@ -183,7 +186,7 @@ class SchemaDataFeature
     {
         $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(
             new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService), $this->wpService),
-            new SchemaTypesInUse($this->wpdb)
+            new SchemaTypesInUse($this->wpdb),
         );
 
         (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomies($taxonomiesFactory, $this->wpService))->addHooks();
@@ -197,12 +200,12 @@ class SchemaDataFeature
     {
         $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(
             new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService), $this->wpService),
-            new SchemaTypesInUse($this->wpdb)
+            new SchemaTypesInUse($this->wpdb),
         );
 
         $cleanupUnusedTerms = new \Municipio\SchemaData\Taxonomy\CleanupUnusedTerms($taxonomiesFactory, $this->wpService);
         (new WpCronJobManager('municipio_schemadata_', $this->wpService))->register(
-            new WpCronJob('cleanup_unused_terms', time(), 'hourly', [$cleanupUnusedTerms, 'cleanupUnusedTerms'], [])
+            new WpCronJob('cleanup_unused_terms', time(), 'hourly', [$cleanupUnusedTerms, 'cleanupUnusedTerms'], []),
         );
     }
 
@@ -215,13 +218,14 @@ class SchemaDataFeature
             $this->wpService,
             $this->acfService,
             $this->acfFieldContentModifierRegistrar,
-            $this->schemaDataConfig
+            $this->schemaDataConfig,
         ))->enable();
     }
 
     private function setupSearchIndexIntegration(): void
     {
-        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord($this->wpService))->addHooks();
+        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaTypesToTypesenseSchemaFields($this->wpService))->addHooks();
+        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord($this->wpService, $this->postObjectFactory))->addHooks();
     }
 
     /**
@@ -237,7 +241,7 @@ class SchemaDataFeature
             $this->schemaDataConfig,
             $this->wpService,
             $getSchemaPropertiesWithParamTypes,
-            new SchemaPropertyValueSanitizer()
+            new SchemaPropertyValueSanitizer(),
         ))->create();
     }
 
@@ -251,7 +255,7 @@ class SchemaDataFeature
         return new CreatePostObjectFromWpPost(
             $this->wpService,
             $this->acfService,
-            $this->getSchemaObjectFromPostFactory()
+            $this->getSchemaObjectFromPostFactory(),
         );
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Municipio;
 
 use AcfService\AcfService;
@@ -57,6 +60,17 @@ class App
         private WpUtilService $wpUtilService,
         private User $userHelper,
     ) {
+        $postObjectFromWpPostFactory = new CreatePostObjectFromWpPost(
+            $this->wpService,
+            $this->acfService,
+            (new SchemaObjectFromPostFactory(
+                $this->schemaDataConfig,
+                $this->wpService,
+                new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes(),
+                new SchemaPropertyValueSanitizer(),
+            ))->create(),
+        );
+
         /**
          * Auto update
          */
@@ -113,16 +127,7 @@ class App
             $this->wpService,
             $mainQueryUserGroupRestriction,
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
-            new CreatePostObjectFromWpPost(
-                $this->wpService,
-                $this->acfService,
-                (new SchemaObjectFromPostFactory(
-                    $this->schemaDataConfig,
-                    $this->wpService,
-                    new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes(),
-                    new SchemaPropertyValueSanitizer(),
-                ))->create(),
-            ),
+            $postObjectFromWpPostFactory,
             $this->userHelper,
             $this->schemaDataConfig,
             new MarkupProcessor\MarkupProcessor($this->wpService),
@@ -294,6 +299,7 @@ class App
             $this->acfFieldContentModifierRegistrar,
             $this->schemaDataConfig,
             $this->wpdb,
+            $postObjectFromWpPostFactory,
         ))->enable();
 
         /**

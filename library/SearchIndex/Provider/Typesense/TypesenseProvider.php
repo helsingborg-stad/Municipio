@@ -13,34 +13,19 @@ use WpService\WpService;
  */
 class TypesenseProvider implements SearchProviderInterface
 {
+    public const SCHEMA_FIELDS_FILTER = 'Municipio/SearchIndex/Typesense/Fields';
+
     public function __construct(
         private WpService $wpService,
-        #[\SensitiveParameter] private string $apiKey,
+        #[\SensitiveParameter]
+        private string $apiKey,
         private string $apiUrl,
         private string $collectionName,
     ) {}
 
     public function setSettings(array $settings = []): mixed
     {
-        $locale = substr($this->wpService->getLocale(), 0, 2);
-        $schema = $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/CollectionSchema', [
-            'name' => $this->collectionName,
-            'enable_nested_fields' => false,
-            'fields' => $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Fields', [
-                ['name' => 'post_title', 'type' => 'string', 'locale' => $locale],
-                ['name' => 'post_excerpt', 'type' => 'string', 'locale' => $locale],
-                ['name' => 'content', 'type' => 'string', 'locale' => $locale],
-                ['name' => 'permalink', 'type' => 'string'],
-                ['name' => 'tags', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'categories', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'post_type_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'author_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'top_most_parent', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
-                ['name' => 'origin_site', 'type' => 'string', 'facet' => true],
-                ['name' => 'origin_site_url', 'type' => 'string', 'facet' => true, 'optional' => true],
-                ['name' => '.*', 'type' => 'auto', 'locale' => $locale],
-            ]),
-        ]);
+        $schema = $this->getSchema();
 
         try {
             $response = $this->sendRequest('POST', '/collections', $schema);
@@ -49,8 +34,7 @@ class TypesenseProvider implements SearchProviderInterface
         }
 
         if ($response['statusCode'] === 409) {
-            
-        try {
+            try {
                 $current = $this->throwOnError($this->sendRequest('GET', sprintf('/collections/%s', rawurlencode($this->collectionName))));
             } catch (\RuntimeException $exception) {
                 throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
@@ -82,6 +66,30 @@ class TypesenseProvider implements SearchProviderInterface
         } catch (\RuntimeException $exception) {
             throw new SearchIndexProviderUnreachableException($exception->getMessage(), (int) $exception->getCode(), $exception);
         }
+    }
+
+    public function getSchema(): array
+    {
+        $locale = substr($this->wpService->getLocale(), 0, 2);
+
+        return $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/CollectionSchema', [
+            'name' => $this->collectionName,
+            'enable_nested_fields' => true,
+            'fields' => $this->wpService->applyFilters(static::SCHEMA_FIELDS_FILTER, [
+                ['name' => 'post_title', 'type' => 'string', 'locale' => $locale],
+                ['name' => 'post_excerpt', 'type' => 'string', 'locale' => $locale],
+                ['name' => 'content', 'type' => 'string', 'locale' => $locale],
+                ['name' => 'permalink', 'type' => 'string'],
+                ['name' => 'tags', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'categories', 'type' => 'string[]', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'post_type_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'author_name', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'top_most_parent', 'type' => 'string', 'facet' => true, 'optional' => true, 'locale' => $locale],
+                ['name' => 'origin_site', 'type' => 'string', 'facet' => true],
+                ['name' => 'origin_site_url', 'type' => 'string', 'facet' => true, 'optional' => true],
+                ['name' => '.*', 'type' => 'auto', 'locale' => $locale],
+            ]),
+        ]);
     }
 
     public function search(string $query, int $page = 1, int $pageSize = 20): mixed
@@ -134,7 +142,8 @@ class TypesenseProvider implements SearchProviderInterface
         return array_map($this->deleteObject(...), $objectIds);
     }
 
-    private function prepareDocument(array $object): array {
+    private function prepareDocument(array $object): array
+    {
         return $this->wpService->applyFilters('Municipio/SearchIndex/Typesense/Document', [
             ...$object,
             'id' => (string) $object['uuid'],

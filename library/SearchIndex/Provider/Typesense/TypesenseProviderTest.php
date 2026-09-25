@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\Provider\Typesense;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -154,5 +155,17 @@ class TypesenseProviderTest extends TestCase
         );
 
         static::assertNull($provider->resetIndex());
+    }
+
+    #[TestDox('the schema allows nested fields')]
+    public function testSchemaAllowsNestedFields(): void {
+        $wpService = new FakeWpService([
+            'getLocale' => '',
+            'applyFilters' => static fn($tag, $value) => $value,
+        ]);
+
+        $provider = new TypesenseProvider( $wpService, '', '', '', );        
+
+        static::assertTrue($provider->getSchema()['enable_nested_fields']);
     }
 }
