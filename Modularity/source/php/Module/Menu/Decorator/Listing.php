@@ -36,6 +36,8 @@ class Listing implements DataDecoratorInterface
         $data['classList'] = $data['classList'] ?? [];
         $data['classList'][] = 'mod-menu__listing';
 
+        $data['menu'] = $this->structureMenu($data['menu'] ?? []);
+
         if ($data['wrapped'] && !$data['spaced']) {
             $data['classList'][] = 'mod-menu__listing--wrapped';
         }
@@ -64,6 +66,34 @@ class Listing implements DataDecoratorInterface
         }
 
         return $classes;
+    }
+
+    private function structureMenu(array $menu): array
+    {
+        foreach ($menu['items'] as &$item) {
+            if (!empty($item['label'])) {
+                [$item['label'], $item['lastWord']] = $this->splitLabel($item);
+            }
+
+            if (!empty($item['children'])) {
+                foreach($item['children'] as &$child) {
+                    if (!empty($child['label'])) {
+                        [$child['label'], $child['lastWord']] = $this->splitLabel($child);
+                    }
+                }
+            }
+        }
+
+        return $menu;
+    }
+
+    private function splitLabel(array $item): array
+    {
+        $words = explode(' ', $item['label']);
+        $lastWord = array_pop($words);
+        $firstPart = implode(' ', $words);
+
+        return [$firstPart, $lastWord];
     }
 
     /**
