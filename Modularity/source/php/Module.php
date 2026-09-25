@@ -230,17 +230,7 @@ class Module
         $this->data['postTitle'] = $post->post_title ?? false;
 
         if (!is_admin()) {
-            $wpService->addAction('wp_enqueue_scripts', function () {
-                if ($this->hasModule()) {
-                    if (method_exists($this, 'style')) {
-                        $this->style();
-                    }
-
-                    if (method_exists($this, 'script')) {
-                        $this->script();
-                    }
-                }
-            });
+            $wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueFrontendAssets']);
         }
 
         $wpService->addAction(
@@ -281,6 +271,27 @@ class Module
     }
 
     /**
+     * Enqueue styles that are only needed in the block editor canvas.
+     */
+    public function blockStyle(): void
+    {
+        // Put block editor styles here
+    }
+
+    /**
+     * Enqueue module assets only when this module is present in the frontend context.
+     */
+    public function enqueueFrontendAssets(): void
+    {
+        if (!$this->hasModule()) {
+            return;
+        }
+
+        $this->style();
+        $this->script();
+    }
+
+    /**
      * Enqueue this module's styles in the block editor canvas.
      */
     public function enqueueBlockEditorStyle(): void
@@ -289,6 +300,7 @@ class Module
             // Styles must be present before a block is inserted, so this must
             // not depend on detecting modules in the saved post content.
             $this->style();
+            $this->blockStyle();
         }
     }
 
@@ -440,7 +452,7 @@ class Module
         } elseif (isset($post->ID)) {
             $postId = $post->ID;
         } else {
-            return WpService::get()->applyFilters('Modularity/hasModule', true, null);
+            return WpService::get()->applyFilters('Modularity/hasModule', false, null);
         }
 
         //Get modules
@@ -471,7 +483,7 @@ class Module
 
         //Get each module link type
         $modulesByLinkType = [
-            'meta' => $this->getValueFromKeyRecursive(\Modularity\Editor::getPostModules($postId), 'post_type'),
+            'meta' => $this->getVisibleModulePostTypes(\Modularity\Editor::getPostModules($postId)),
             'shortcodes' => $this->getShortcodeModules($postId),
             'blocks' => $this->getBlockNamesFromPage(),
             'widgets' => $this->getWidgets(),
@@ -480,7 +492,9 @@ class Module
         //Template modules
         if (is_singular() || is_archive()) {
             $templateSlug = is_singular() ? \Modularity\Helper\Wp::getSingleSlug() : \Modularity\Helper\Wp::getArchiveSlug();
-            $modulesByLinkType['template'] = $this->getValueFromKeyRecursive(\Modularity\Editor::getPostModules($templateSlug), 'post_type');
+            $modulesByLinkType['template'] = $this->getVisibleModulePostTypes(
+                \Modularity\Editor::getPostModules($templateSlug),
+            );
         }
 
         //Filter and merge all modules
@@ -497,27 +511,25 @@ class Module
         return $modules;
     }
 
-    /**
-     * Get values from array recursively
-     *
-     * @param array $haystack
-     * @param string $needle
-     * @return array
-     */
-    private function getValueFromKeyRecursive(array $haystack, $needle): array
+    private function getVisibleModulePostTypes(array $sidebars): array
     {
-        $stack = [];
-        $iterator = new \RecursiveArrayIterator($haystack);
-        $recursive = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST);
-        foreach ($recursive as $key => $value) {
-            if ($key !== $needle) {
-                continue;
-            }
+        $postTypes = [];
 
-            $stack[] = $value;
+        foreach ($sidebars as $sidebar) {
+            foreach ($sidebar['modules'] ?? [] as $module) {
+                if (!is_object($module) || empty($module->post_type)) {
+                    continue;
+                }
+
+                if (!is_preview() && !empty($module->hidden)) {
+                    continue;
+                }
+
+                $postTypes[] = $module->post_type;
+            }
         }
 
-        return array_unique(array_filter($stack));
+        return array_values(array_unique($postTypes));
     }
 
     /**

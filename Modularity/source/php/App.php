@@ -240,7 +240,7 @@ class App
     public function enqueueBlockEditorStyles(): void
     {
         if (is_admin()) {
-            $this->wpEnqueue->add('css/modularity-admin.css');
+            $this->wpEnqueue->add('css/modularity-block-editor.css');
         }
     }
 
