@@ -67,7 +67,7 @@
                     @endif
                 @endelement
                 @element([
-                    'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center']
+                    'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center', 'u-display--flex']
                 ])
                     @button([
                         'icon' => 'edit_square',
