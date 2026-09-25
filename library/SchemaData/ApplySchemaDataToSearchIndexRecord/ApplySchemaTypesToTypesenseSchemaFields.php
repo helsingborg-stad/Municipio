@@ -53,5 +53,6 @@ class ApplySchemaTypesToTypesenseSchemaFields implements Hookable
         yield Schema::place();
         yield Schema::preschool();
         yield Schema::project();
+        yield Schema::thing();
     }
 }

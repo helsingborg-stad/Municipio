@@ -31,6 +31,7 @@ class ApplySchemaTypesToTypesenseSchemaFieldsTest extends TestCase
         static::assertSame('auto', $alteredFields['schemaPlace']['type']);
         static::assertSame('auto', $alteredFields['schemaPreschool']['type']);
         static::assertSame('auto', $alteredFields['schemaProject']['type']);
+        static::assertSame('auto', $alteredFields['schemaThing']['type']);
     }
 
     private static function createWpService(): AddFilter
