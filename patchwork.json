@@ -1,8 +1,0 @@
-{
-    "redefinable-internals": [
-        "extension_loaded",
-        "file_exists",
-        "file_get_contents",
-        "class_exists"
-    ]
-}
