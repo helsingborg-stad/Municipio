@@ -254,6 +254,11 @@ class Table extends \Modularity\Module
         $this->wpEnqueue?->add('css/table.css');
     }
 
+    public function style(): void
+    {
+        $this->modAssets();
+    }
+
     public function tableList($arr)
     {
         $data = [];

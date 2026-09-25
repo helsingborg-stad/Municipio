@@ -6,6 +6,7 @@ const entries = {
 		'js/modularity': './source/js/modularity.js',
 		'css/modularity': './source/sass/modularity.scss',
 		'css/modularity-admin': './source/sass/modularity-admin.scss',
+		'css/modularity-block-editor': './source/sass/modularity-block-editor.scss',
 		'css/modularity-thickbox-edit': './source/sass/modularity-thickbox-edit.scss',
 		'js/user-editable-list': './source/js/private/userEditableList.ts',
 
