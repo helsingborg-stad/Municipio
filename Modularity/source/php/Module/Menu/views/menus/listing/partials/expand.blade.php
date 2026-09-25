@@ -5,6 +5,8 @@
         ],
         'attributeList' => [
             'role' => 'button',
+            'data-js-mod-menu-expand-button' => '1',
+            'tabindex' => '0',
             'data-js-toggle-trigger' => 'mod-menu-item-' . $menuItem['id'] . '-' . $index . '-' . $menuIndex
         ]
     ])

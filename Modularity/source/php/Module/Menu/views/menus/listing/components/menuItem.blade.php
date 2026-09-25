@@ -5,7 +5,8 @@
     ],
     'attributeList' => [
         'data-js-toggle-item' => 'mod-menu-item-' . $menuItem['id'] . '-' . $index . '-' . $menuIndex,
-        'data-js-toggle-class' => "is-expanded"
+        'data-js-toggle-class' => "is-expanded",
+        'data-js-mod-menu-item' => '1'
     ]
 ])
         @element([
