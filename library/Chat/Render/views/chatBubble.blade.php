@@ -18,7 +18,10 @@
     'id' => 'chat-global-root',
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top',
-    'relative' => true
+    'relative' => true,
+    'classList' => [
+        'u-margin__bottom--1'
+    ]
 ])
     @element([
         'attributeList' => [
