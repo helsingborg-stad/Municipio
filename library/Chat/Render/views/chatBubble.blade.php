@@ -21,6 +21,9 @@
     'relative' => true
 ])
     @element([
+        'attributeList' => [
+            'data-js-municipio-ai-chat-wrapper' => 'true',
+        ],
         'classList' => [
             'municipio-ai-chat'
         ]
