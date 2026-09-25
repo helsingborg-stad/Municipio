@@ -11,7 +11,7 @@
             'url' => $link['url'],
             'position' => $link_position,
          ] 
-        : null,
+        : false,
     'dismissable' => isset($dismissible) && $dismissible ? $dismissal_time : false,
     'icon' => $icon,
     'context' => ['notice', 'module.notice']
