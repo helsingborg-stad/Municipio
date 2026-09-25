@@ -14,6 +14,7 @@ class ApplySchemaTypesToTypesenseSchemaFields implements Hookable
 
     public function __construct(
         private AddFilter $wpService,
+        private AllowedSchemaTypes $allowedSchemaTypesService = new AllowedSchemaTypes(),
     ) {}
 
     public function addHooks(): void
@@ -23,17 +24,19 @@ class ApplySchemaTypesToTypesenseSchemaFields implements Hookable
 
     public function apply(array $fields): array
     {
-        foreach ($this->getSupportedSchemaTypes() as $fieldSchema) {
-            $fields = $this->addFieldForSchemaType($fields, $fieldSchema);
+        foreach ($this->allowedSchemaTypesService->getAllowedSchemaTypes() as $fieldSchemaType) {
+            $fields = $this->addFieldForSchemaType($fields, $fieldSchemaType);
         }
 
         return $fields;
     }
 
-    private function addFieldForSchemaType(array $fields, BaseType $fieldSchema): array
+    private function addFieldForSchemaType(array $fields, string $fieldSchemaType): array
     {
-        $fields[$this->getFieldNameFromSchemaName($fieldSchema->getType())] = [
-            'type' => 'auto',
+        $fields[] = [
+            'name' => $this->getFieldNameFromSchemaName($fieldSchemaType),
+            'type' => 'object',
+            'optional' => true
         ];
 
         return $fields;

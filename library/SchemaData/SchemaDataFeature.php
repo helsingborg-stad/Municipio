@@ -51,6 +51,7 @@ class SchemaDataFeature
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
         private SchemaDataConfigInterface $schemaDataConfig,
         private wpdb $wpdb,
+        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
     ) {}
 
     /**
@@ -221,7 +222,7 @@ class SchemaDataFeature
     private function setupSearchIndexIntegration(): void
     {
         (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaTypesToTypesenseSchemaFields($this->wpService))->addHooks();
-        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord($this->wpService))->addHooks();
+        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord($this->wpService, $this->postObjectFactory))->addHooks();
     }
 
     /**

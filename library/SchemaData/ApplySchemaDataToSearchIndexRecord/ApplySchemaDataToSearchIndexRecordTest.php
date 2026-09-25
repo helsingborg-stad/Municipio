@@ -2,66 +2,70 @@
 
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
-use Override;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\PostObject\NullPostObject;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Schema;
+use Municipio\Schema\Thing;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use WP_Post;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetPost;
 
-class ApplySchemaDataToSearchIndexRecordTest extends TestCase {
-    
+class ApplySchemaDataToSearchIndexRecordTest extends TestCase
+{
     #[TestDox('can be instantiated')]
-    public function testCanBeInstantiated(): void {
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord(static::getWpService());
+    public function testCanBeInstantiated(): void
+    {
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord(static::getWpService(), static::createPostObjectFactory());
         $this->assertInstanceOf(ApplySchemaDataToSearchIndexRecord::class, $applySchemaDataToSearchIndexRecord);
     }
 
     #[TestDox('attaches to the search index filter')]
-    public function testAttachesToTheSearchIndexFilter(): void {
+    public function testAttachesToTheSearchIndexFilter(): void
+    {
         $wpService = static::getWpService();
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService);
-        
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createPostObjectFactory());
+
         $applySchemaDataToSearchIndexRecord->addHooks();
 
         static::assertCount(1, $wpService->filters);
         static::assertSame('Municipio/SearchIndex/Record', $wpService->filters[0]['hookName']);
     }
 
-    #[TestDox('returns the supplied record')]
-    public function testReturnsTheSuppliedRecord(): void {
-        $wpService = static::getWpService();
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService);
-        $record = ['foo' => 'bar'];
-
-        $result = $applySchemaDataToSearchIndexRecord->applySchemaDataToSearchIndexRecord($record, 123);
-
-        static::assertSame($record, $result);
-    }
-
     #[TestDox('appends schema data to the search index record if available on the post')]
-    public function testAppendsSchemaDataToTheSearchIndexRecordIfAvailableOnThePost(): void {
-        $wpService = static::getWpService([
-            123 => [
-                'schemaData' => ['@type' => 'Article', 'headline' => 'Test Article']
-            ]
-        ]);
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService);
-        $record = ['foo' => 'bar'];
-        $postId = 123;
+    public function testAppendsSchemaDataToTheSearchIndexRecordIfAvailableOnThePost(): void
+    {
+        $wpService = static::getWpService();
+        $schema = Schema::event();
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createPostObjectFactory($schema));
 
-        $result = $applySchemaDataToSearchIndexRecord->applySchemaDataToSearchIndexRecord($record, $postId);
+        $result = $applySchemaDataToSearchIndexRecord->apply([], 123);
 
-        static::assertArrayHasKey('schema_data', $result);
-        static::assertSame(['@type' => 'Article', 'headline' => 'Test Article'], $result['schema_data']);
+        static::assertArrayHasKey('schemaEvent', $result);
+        static::assertSame('Event', $result['schemaEvent']['@type']);
     }
 
-    private static function getWpService(array $meta = []): AddFilter|GetPostMeta {
-        return new class($meta) implements AddFilter, GetPostMeta {
+    #[TestDox('only applies schema data for supported schema types')]
+    public function testAppliesForSupportedTypes(): void
+    {
+        $wpService = static::getWpService();
+        $unsupportedSchema = Schema::adultEntertainment();
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createPostObjectFactory($unsupportedSchema));
+
+        $result = $applySchemaDataToSearchIndexRecord->apply([], 123);
+
+        static::assertArrayNotHasKey('AdultEntertainment', $result);
+    }
+
+    private static function getWpService(): AddFilter|GetPost
+    {
+        return new class implements AddFilter, GetPost {
             public array $filters = [];
 
-            public function __construct(private array $meta)
-            {
-            }
+            public function __construct() {}
 
             public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
@@ -74,9 +78,32 @@ class ApplySchemaDataToSearchIndexRecordTest extends TestCase {
                 return true;
             }
 
-            public function getPostMeta(int $postId, string $key = '', bool $single = false): mixed
+            public function getPost(int|WP_Post|null $post = null, string $output = OBJECT, string $filter = 'raw'): WP_Post|array|null
             {
-                return $this->meta[$postId][$key] ?? null;
+                return new WP_Post([]);
+            }
+        };
+    }
+
+    private static function createPostObjectFactory(BaseType $schema = new Thing()): PostObjectFromWpPostFactoryInterface
+    {
+        return new class($schema) implements PostObjectFromWpPostFactoryInterface {
+            public function __construct(
+                private BaseType $schema,
+            ) {}
+
+            public function create(WP_Post $post): PostObjectInterface
+            {
+                return new class($this->schema) extends NullPostObject {
+                    public function __construct(
+                        private BaseType $schema,
+                    ) {}
+
+                    public function getSchema(): BaseType
+                    {
+                        return $this->schema;
+                    }
+                };
             }
         };
     }

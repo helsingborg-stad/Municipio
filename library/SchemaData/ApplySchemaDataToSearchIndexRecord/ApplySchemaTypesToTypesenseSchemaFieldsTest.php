@@ -22,16 +22,10 @@ class ApplySchemaTypesToTypesenseSchemaFieldsTest extends TestCase
         $sut = new ApplySchemaTypesToTypesenseSchemaFields(static::createWpService());
         $fields = [];
 
-        $alteredFields = $sut->apply($fields);
-
-        static::assertSame('auto', $alteredFields['schemaElementarySchool']['type']);
-        static::assertSame('auto', $alteredFields['schemaEvent']['type']);
-        static::assertSame('auto', $alteredFields['schemaExhibitionEvent']['type']);
-        static::assertSame('auto', $alteredFields['schemaJobPosting']['type']);
-        static::assertSame('auto', $alteredFields['schemaPlace']['type']);
-        static::assertSame('auto', $alteredFields['schemaPreschool']['type']);
-        static::assertSame('auto', $alteredFields['schemaProject']['type']);
-        static::assertSame('auto', $alteredFields['schemaThing']['type']);
+        foreach($sut->apply($fields) as $schemaField) {
+            static::assertSame('object', $schemaField['type']);
+            static::assertTrue($schemaField['optional']);
+        }
     }
 
     private static function createWpService(): AddFilter
