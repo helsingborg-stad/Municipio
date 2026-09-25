@@ -1,8 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
 namespace Municipio\Helper;
 
 class Notice
@@ -14,7 +11,7 @@ class Notice
      */
     public static function add($text, $class = 'warning', $icon = null, $action = null, $dismissable = false, $location = 'toast')
     {
-        add_filter('Municipio/viewData', static function ($data) use ($text, $class, $icon, $action, $dismissable, $location) {
+        add_filter('Municipio/viewData', function ($data) use ($text, $class, $icon, $action, $dismissable, $location) {
             $data['notice'][$location][] = [
                 'type'        => $class,
                 'message'     => [
