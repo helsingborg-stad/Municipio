@@ -1,10 +1,18 @@
 import path from "path";
+import fs from "node:fs";
 import copy from "rollup-plugin-copy";
 import { defineConfig } from "vite";
 
 const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 	(m) => m.default || m,
 );
+
+const copyStyleguideAssets = () =>
+	fs.cpSync(
+		"vendor/helsingborg-stad/styleguide/assets/dist",
+		"assets/dist/styleguide",
+		{ recursive: true },
+	);
 
 const wrapStandaloneEntryScripts = () => ({
 	name: "wrap-standalone-entry-scripts",
@@ -27,9 +35,9 @@ const wrapStandaloneEntryScripts = () => ({
 
 const entries = {
 	"js/styleguide":
-		"./vendor/helsingborg-stad/styleguide/assets/dist/js/styleguide-js.js",
+		"./vendor/helsingborg-stad/styleguide/source/js/main.js",
 	"css/styleguide":
-		"./vendor/helsingborg-stad/styleguide/assets/dist/css/styleguide-css.css",
+		"./vendor/helsingborg-stad/styleguide/source/sass/main.scss",
 	"css/designbuilder":
 		"./vendor/helsingborg-stad/styleguide/source/design-builder/design-builder-external.css",
 	"js/designbuilder":
@@ -178,6 +186,9 @@ export default defineConfig(({ mode }) => {
 				treeshake: {
 					moduleSideEffects: (id) =>
 						id.includes(
+							"/vendor/helsingborg-stad/styleguide/source/js/",
+						) ||
+						id.includes(
 							"/vendor/helsingborg-stad/styleguide/source/design-builder/",
 						),
 				},
@@ -225,6 +236,15 @@ export default defineConfig(({ mode }) => {
 		plugins: [
 			wrapStandaloneEntryScripts(),
 			manifestPlugin("manifest.json"),
+			{
+				name: "copy-styleguide-component-assets",
+				configureServer() {
+					copyStyleguideAssets();
+				},
+				writeBundle() {
+					copyStyleguideAssets();
+				},
+			},
 			copy({
 				targets: [
 					{

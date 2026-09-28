@@ -3,7 +3,6 @@
 namespace Municipio;
 
 use AcfService\AcfService;
-use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Admin\Private\MainQueryUserGroupRestriction;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
@@ -615,8 +614,7 @@ class Template
         }
 
         $this->viewPaths = $this->registerViewPaths();
-        $componentLibrary = new Init($this->viewPaths);
-        $this->bladeEngine = $componentLibrary->getEngine();
+        $this->bladeEngine = \Municipio\Helper\ComponentBladeService::create($this->viewPaths);
     }
 
     /**
