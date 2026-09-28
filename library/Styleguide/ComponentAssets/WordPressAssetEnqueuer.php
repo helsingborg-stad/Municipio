@@ -8,23 +8,23 @@ use ComponentLibrary\Assets\AssetEnqueuerInterface;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
-/** Collects rendered component assets for the layout's Blade stacks. */
 class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 {
     private static ?self $instance = null;
-
     private array $components = [];
     private array $utilities = [];
     private array $styles = [];
     private array $scripts = [];
-    private BuiltStyleguideAssets $builtAssets;
+    private array $manifest;
+    private array $utilityMap;
 
     public function __construct(
         private EnqueueManagerInterface $enqueue,
         private WpService $wpService,
         string $distDirectory,
     ) {
-        $this->builtAssets = new BuiltStyleguideAssets($distDirectory);
+        $this->manifest = $this->readJson($distDirectory . '/manifest.json');
+        $this->utilityMap = $this->readJson($distDirectory . '/utility-class-map.json');
     }
 
     public static function setInstance(?self $instance): void
@@ -39,11 +39,17 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 
     public function enqueueComponent(string $slug, array $dependencies = []): void
     {
-        $componentDependencies = array_filter($dependencies['sass']['components'] ?? [], 'is_string');
-        $this->components += array_fill_keys($componentDependencies, true);
+        foreach ($dependencies['sass']['components'] ?? [] as $component) {
+            if (is_string($component)) {
+                $this->components[$component] = true;
+            }
+        }
         $this->components[$slug] = true;
-        $utilityDependencies = array_filter($dependencies['utilities'] ?? [], 'is_string');
-        $this->utilities += array_fill_keys($utilityDependencies, true);
+        foreach ($dependencies['utilities'] ?? [] as $utility) {
+            if (is_string($utility)) {
+                $this->enqueueUtility($utility);
+            }
+        }
     }
 
     public function enqueueUtility(string $name): void
@@ -51,65 +57,84 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
         $this->utilities[$name] = true;
     }
 
-    /** URLs are asset paths relative to the built styleguide directory. */
     public function enqueueStyle(string $handle, string $url): void
     {
         $this->styles[$handle] = ltrim($url, '/');
     }
 
-    /** URLs are asset paths relative to the built styleguide directory. */
     public function enqueueScript(string $handle, string $url): void
     {
         $this->scripts[$handle] = ltrim($url, '/');
     }
 
-    /** Build the styles pushed into the head after the body section has rendered. */
     public function renderStyles(string $bodyMarkup): string
     {
-        $this->utilities += array_fill_keys($this->builtAssets->utilitiesInMarkup($bodyMarkup), true);
-        $stylePaths = array_merge($this->styles, $this->builtAssets->pathsForComponents($this->components, 'css'));
+        preg_match_all('/\\bclass=["\']([^"\']+)["\']/', $bodyMarkup, $matches);
+        foreach ($matches[1] as $classList) {
+            foreach (preg_split('/\\s+/', $classList) as $className) {
+                foreach ($this->utilityMap['classes'][$className] ?? [] as $utility) {
+                    $this->enqueueUtility($utility);
+                }
+            }
+        }
 
-        $order = $this->builtAssets->utilityOrder();
+        $paths = $this->styles + $this->componentPaths('css');
+        $order = array_flip($this->utilityMap['order'] ?? []);
         uksort($this->utilities, static fn(string $a, string $b): int =>
             ($order[$a] ?? PHP_INT_MAX) <=> ($order[$b] ?? PHP_INT_MAX));
-        foreach (array_keys($this->utilities) as $name) {
-            $stylePaths['utility-' . $name] = 'css/utilities/' . $name . '.css';
+        foreach (array_keys($this->utilities) as $utility) {
+            $paths['utility-' . $utility] = 'css/utilities/' . $utility . '.css';
         }
-
-        $styleHandles = $this->addAssets($stylePaths, 'css');
-        if ($styleHandles === []) {
+        $handles = $this->addAssets($paths);
+        if ($handles === []) {
             return '';
         }
         ob_start();
-        $this->wpService->wpPrintStyles($styleHandles);
+        $this->wpService->wpPrintStyles($handles);
         return (string) ob_get_clean();
     }
 
-    /** Build the scripts pushed after the body content. */
     public function renderScripts(): string
     {
-        $scriptPaths = array_merge($this->scripts, $this->builtAssets->pathsForComponents($this->components, 'js'));
-        $scriptHandles = $this->addAssets($scriptPaths, 'js');
-        if ($scriptHandles === []) {
+        $handles = $this->addAssets($this->scripts + $this->componentPaths('js'));
+        if ($handles === []) {
             return '';
         }
         ob_start();
-        $this->wpService->wpPrintScripts($scriptHandles);
+        $this->wpService->wpPrintScripts($handles);
         return (string) ob_get_clean();
     }
 
-    private function addAssets(array $paths, string $type): array
+    private function componentPaths(string $type): array
+    {
+        $paths = [];
+        foreach (array_keys($this->components) as $slug) {
+            $name = strtolower(explode('__', $slug, 2)[0]);
+            $paths['component-' . $name] = $type . '/components/' . $name . '.' . $type;
+        }
+        return $paths;
+    }
+
+    private function addAssets(array $paths): array
     {
         $handles = [];
         foreach (array_unique($paths) as $path) {
-            if (!$this->builtAssets->has($path)) {
+            if (!isset($this->manifest[$path])) {
                 continue;
             }
-            $this->enqueue->add($path, [], null, $type === 'js');
-            $normalizedPath = strtolower(str_replace(['\\', '/', '_'], '-', $path));
-            $handles[] = pathinfo($normalizedPath, PATHINFO_FILENAME) . pathinfo($normalizedPath, PATHINFO_EXTENSION);
+            $this->enqueue->add($path, [], null, str_ends_with($path, '.js'));
+            $normalized = strtolower(str_replace(['\\', '/', '_'], '-', $path));
+            $handles[] = pathinfo($normalized, PATHINFO_FILENAME) . pathinfo($normalized, PATHINFO_EXTENSION);
         }
         return $handles;
     }
 
+    private function readJson(string $path): array
+    {
+        if (!is_file($path)) {
+            return [];
+        }
+        $data = json_decode((string) file_get_contents($path), true);
+        return is_array($data) ? $data : [];
+    }
 }
