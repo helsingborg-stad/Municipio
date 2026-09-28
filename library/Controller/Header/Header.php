@@ -18,8 +18,9 @@ class Header
 
     public function getMenuItems(): array
     {
-        $menuItems = $this->extractMenuItems->get();
+        $menuItems = $this->extractMenuItems->getHeaderItems($this->id);
         echo '<pre>' . print_r( $menuItems, true ) . '</pre>';die;
+        // echo '<pre>' . print_r( $menuItems, true ) . '</pre>';die;
         return [];
     }
 }
