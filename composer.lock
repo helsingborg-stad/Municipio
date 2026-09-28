@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3506b3a1d4144e7d2042c0c3fa4e6be6",
+    "content-hash": "98a251a6b5b8fdcc8e334779a32beed2",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1282,16 +1282,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "dev-codex/component-assets-on-demand",
+            "version": "5.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "1e2afb9ecfea5207c723ad0e1e3185a80f13c1a9"
+                "reference": "31ecacfdc4fbb2c014b6a36af4af31c36ff43af8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/1e2afb9ecfea5207c723ad0e1e3185a80f13c1a9",
-                "reference": "1e2afb9ecfea5207c723ad0e1e3185a80f13c1a9",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/31ecacfdc4fbb2c014b6a36af4af31c36ff43af8",
+                "reference": "31ecacfdc4fbb2c014b6a36af4af31c36ff43af8",
                 "shasum": ""
             },
             "require": {
@@ -1323,9 +1323,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/codex/component-assets-on-demand"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.43.0"
             },
-            "time": "2026-09-27T18:39:05+00:00"
+            "time": "2026-09-28T10:35:12+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
@@ -1366,21 +1366,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "dev-codex/component-assets-on-demand",
+            "version": "3.34.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "e761527b49d528dcdfb8efd6bfeab1439d5ab013"
+                "reference": "0afa6c09227f78f35a3197c8a261f13b882be5c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/e761527b49d528dcdfb8efd6bfeab1439d5ab013",
-                "reference": "e761527b49d528dcdfb8efd6bfeab1439d5ab013",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/0afa6c09227f78f35a3197c8a261f13b882be5c9",
+                "reference": "0afa6c09227f78f35a3197c8a261f13b882be5c9",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "dev-codex/component-assets-on-demand",
+                "helsingborg-stad/component-library": "5.43.0",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1419,9 +1419,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/codex/component-assets-on-demand"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.34.2"
             },
-            "time": "2026-09-28T07:56:31+00:00"
+            "time": "2026-09-28T11:10:26+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7601,8 +7601,6 @@
         "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
-        "helsingborg-stad/styleguide": 20,
-        "helsingborg-stad/component-library": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
     "prefer-stable": false,

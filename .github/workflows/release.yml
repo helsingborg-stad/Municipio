@@ -74,6 +74,13 @@ jobs:
       - name: Run PHP build script
         run: php build.php --cleanup --release
 
+      - name: Verify built asset manifests
+        run: |
+          test -s assets/dist/manifest.json
+          test -s assets/dist/styleguide/manifest.json
+          jq -e 'has("js/styleguide.js") and has("js/kulturkortetQR.js")' assets/dist/manifest.json
+          jq -e 'has("css/utilities/preloader.css")' assets/dist/styleguide/manifest.json
+
       - name: Remove cached git files
         run: |
           git rm -r --cached .
@@ -123,6 +130,8 @@ jobs:
           git config user.email "ci@helsingborg.se"
           git add .
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
+          git cat-file -e HEAD:assets/dist/manifest.json
+          git cat-file -e HEAD:assets/dist/styleguide/manifest.json
           git push origin release --force
 
       # --- Tag and create GitHub Release on release branch ---
