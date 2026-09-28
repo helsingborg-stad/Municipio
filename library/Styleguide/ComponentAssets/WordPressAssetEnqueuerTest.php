@@ -17,6 +17,8 @@ class WordPressAssetEnqueuerTest extends TestCase
         file_put_contents($directory . '/manifest.json', json_encode(array_fill_keys([
             'css/components/button.css',
             'css/components/icon.css',
+            'css/components/table.css',
+            'css/components/card.css',
             'js/components/button.js',
             'css/utilities/display.css',
             'css/utilities/preloader.css',
@@ -40,7 +42,19 @@ class WordPressAssetEnqueuerTest extends TestCase
                 'wpPrintScripts' => static function (): array { echo '<script></script>'; return []; },
             ]);
 
-            $assets = new WordPressAssetEnqueuer($enqueue, $wpService, $directory);
+            $customDetector = new class implements MarkupDetectorInterface {
+                public function matches(string $markup): bool
+                {
+                    return str_contains($markup, 'data-custom');
+                }
+
+                public function styles(): array
+                {
+                    return ['custom-card' => 'css/components/card.css'];
+                }
+            };
+
+            $assets = new WordPressAssetEnqueuer($enqueue, $wpService, $directory, [$customDetector]);
             static::assertSame('<link>', $assets->renderStyles(''));
             static::assertSame(['css/utilities/preloader.css'], $paths);
             $paths = [];
@@ -48,9 +62,11 @@ class WordPressAssetEnqueuerTest extends TestCase
             $assets->enqueueComponent('button', ['sass' => ['components' => ['icon']]]);
             $assets->enqueueComponent('button');
 
-            static::assertSame('<link>', $assets->renderStyles('<div class="u-hidden"></div>'));
+            static::assertSame('<link>', $assets->renderStyles('<div class="u-hidden" data-custom><table border="1"><tr><td>Value</td></tr></table></div>'));
             static::assertSame('<script></script>', $assets->renderScripts());
             static::assertSame([
+                'css/components/table.css',
+                'css/components/card.css',
                 'css/components/icon.css',
                 'css/components/button.css',
                 'css/utilities/display.css',
