@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\SchemaFromPostId\SchemaFromPostIdInterface;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\GetPost;
 
 class ApplySchemaDataToSearchIndexRecord implements Hookable
 {
     public function __construct(
-        private AddFilter&GetPost $wpService,
-        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
+        private AddFilter $wpService,
+        private SchemaFromPostIdInterface $schemaFromPostId,
         private AllowedSchemaTypes $allowedSchemaTypesService = new AllowedSchemaTypes(),
     ) {}
 
@@ -25,9 +23,7 @@ class ApplySchemaDataToSearchIndexRecord implements Hookable
 
     public function apply(array $record, int $postId): array
     {
-        $wpPost = $this->wpService->getPost($postId);
-        $post = $this->postObjectFactory->create($wpPost);
-        $schema = $post->getSchema();
+        $schema = $this->schemaFromPostId->getSchema($postId);
 
         if (!$this->allowedSchemaTypesService->isAllowed($schema->getType())) {
             return $record;

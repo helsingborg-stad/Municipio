@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\SchemaData;
 
 use AcfService\AcfService;
@@ -225,7 +224,15 @@ class SchemaDataFeature
     private function setupSearchIndexIntegration(): void
     {
         (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaTypesToTypesenseSchemaFields($this->wpService))->addHooks();
-        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord($this->wpService, $this->postObjectFactory))->addHooks();
+        (new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\ApplySchemaDataToSearchIndexRecord(
+            $this->wpService,
+            new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\SchemaFromPostId\SchemaFromPostIdWithDatesAsTimestamps(
+                new \Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\SchemaFromPostId\SchemaFromPostId(
+                    $this->wpService,
+                    $this->postObjectFactory,
+                ),
+            ),
+        ))->addHooks();
     }
 
     /**
