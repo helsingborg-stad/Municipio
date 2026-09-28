@@ -18,14 +18,19 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
     private array $scripts = [];
     private array $manifest;
     private array $utilityMap;
+    /** @var list<MarkupDetectorInterface> */
+    private array $markupDetectors;
 
+    /** @param list<MarkupDetectorInterface> $markupDetectors */
     public function __construct(
         private EnqueueManagerInterface $enqueue,
         private WpService $wpService,
         string $distDirectory,
+        array $markupDetectors = [],
     ) {
         $this->manifest = $this->readJson($distDirectory . '/manifest.json');
         $this->utilityMap = $this->readJson($distDirectory . '/utility-class-map.json');
+        $this->markupDetectors = [new TableMarkupDetector(), ...$markupDetectors];
     }
 
     public static function setInstance(?self $instance): void
@@ -70,10 +75,13 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 
     public function renderStyles(string $bodyMarkup): string
     {
-        // Editor tables have no component directive, but Styleguide's table CSS
-        // also styles plain table markup.
-        if (preg_match('/<table(?=[\s>])/i', $bodyMarkup) === 1) {
-            $this->enqueueStyle('editor-table', 'css/components/table.css');
+        foreach ($this->markupDetectors as $detector) {
+            if (!$detector->matches($bodyMarkup)) {
+                continue;
+            }
+            foreach ($detector->styles() as $handle => $path) {
+                $this->enqueueStyle($handle, $path);
+            }
         }
 
         preg_match_all('/\\bclass=["\']([^"\']+)["\']/', $bodyMarkup, $matches);
