@@ -12,9 +12,6 @@ class SchemaFromPostIdWithDatesAsTimestamps implements SchemaFromPostIdInterface
         private SchemaFromPostIdInterface $inner,
     ) {}
 
-    /**
-     * @inheritDoc
-     */
     public function getSchema(int $postId): BaseType
     {
         return $this->convert(clone $this->inner->getSchema($postId));

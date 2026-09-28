@@ -8,12 +8,5 @@ use Municipio\Schema\BaseType;
 
 interface SchemaFromPostIdInterface
 {
-    /**
-     * Get the schema for a post.
-     *
-     * @param int $postId
-     *
-     * @return BaseType
-     */
     public function getSchema(int $postId): BaseType;
 }

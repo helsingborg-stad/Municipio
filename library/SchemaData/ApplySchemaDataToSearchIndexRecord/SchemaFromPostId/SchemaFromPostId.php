@@ -10,18 +10,11 @@ use WpService\Contracts\GetPost;
 
 class SchemaFromPostId implements SchemaFromPostIdInterface
 {
-    /**
-     * @param GetPost $wpService
-     * @param PostObjectFromWpPostFactoryInterface $postObjectFactory
-     */
     public function __construct(
         private GetPost $wpService,
         private PostObjectFromWpPostFactoryInterface $postObjectFactory,
     ) {}
 
-    /**
-     * @inheritDoc
-     */
     public function getSchema(int $postId): BaseType
     {
         $wpPost = $this->wpService->getPost($postId);
