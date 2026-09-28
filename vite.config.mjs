@@ -186,6 +186,9 @@ export default defineConfig(({ mode }) => {
 				treeshake: {
 					moduleSideEffects: (id) =>
 						id.includes(
+							"/vendor/helsingborg-stad/styleguide/source/js/",
+						) ||
+						id.includes(
 							"/vendor/helsingborg-stad/styleguide/source/design-builder/",
 						),
 				},
