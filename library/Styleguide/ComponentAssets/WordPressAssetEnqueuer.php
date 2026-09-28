@@ -70,6 +70,12 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 
     public function renderStyles(string $bodyMarkup): string
     {
+        // Editor tables have no component directive, but Styleguide's table CSS
+        // also styles plain table markup.
+        if (preg_match('/<table(?=[\s>])/i', $bodyMarkup) === 1) {
+            $this->enqueueStyle('editor-table', 'css/components/table.css');
+        }
+
         preg_match_all('/\\bclass=["\']([^"\']+)["\']/', $bodyMarkup, $matches);
         foreach ($matches[1] as $classList) {
             foreach (preg_split('/\\s+/', $classList) as $className) {
