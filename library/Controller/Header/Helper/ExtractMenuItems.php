@@ -9,10 +9,10 @@ class ExtractMenuItems
     public function __construct(private object $customizer)
     {}
 
-    public function extract(): array
+    private function extract(): array
     {
-
         $jsonString = $this->customizer?->headerSortableHiddenStorage ?? '{}';
+
         $decodedJsonString = json_decode($jsonString, true);
 
         $this->extractedItems = $decodedJsonString;
@@ -22,12 +22,20 @@ class ExtractMenuItems
 
     public function getHeaderItems(string $id): array
     {
+        if (isset($this->extractedItems[$id])) {
+            return $this->extractedItems[$id];
+        }
+
         $data = $this->extract();
         $key = $this->getKey($id);
         $responsiveKey = $this->getKey($id, true);
-        
-        echo '<pre>' . print_r( $data, true ) . '</pre>';die;
-        return $this->extractedItems;
+
+        $items = [
+            'desktop' => $data[$key] ?? [],
+            'mobile' => $data[$responsiveKey] ?? [],
+        ];
+
+        return $items;
     }
 
     private function getKey(string $id, bool $responsive = false): string

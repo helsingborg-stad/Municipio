@@ -81,7 +81,10 @@ class Flexible
         $lowerHeader = $this->headerFactory->create('lower');
 
         $upperHeaderItems = $upperHeader->getMenuItems();
-        $lowerHeaderItems = $lowerHeader->getMenuItems();
+        // echo '<pre>' . print_r( $upperHeaderItems, true ) . '</pre>';die;
+        // $upperHeaderClasses = $upperHeader->getCssClasses();
+        // $lowerHeaderClasses = $lowerHeader->getCssClasses();
+        // $lowerHeaderItems = $lowerHeader->getMenuItems();
 
         return [];
         // $upperHeader = Header::create('upper');

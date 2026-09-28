@@ -3,13 +3,16 @@
 namespace Municipio\Controller\Header;
 
 use AcfService\AcfService;
-use Municipio\Controller\Header\Header;
 use Municipio\Controller\Header\Helper\ExtractMenuItems;
+use Municipio\Controller\Header\Helper\HeaderVisibilityClasses;
+use Municipio\Controller\Header\MenuItemFactory;
 use WpService\WpService;
 
 class HeaderFactory
 {
     private ExtractMenuItems $extractMenuItems;
+    private HeaderVisibilityClasses $HeaderVisibilityClasses;
+    private MenuItemFactory $menuItemFactory;
 
     public function __construct(
         private WpService $wpService,
@@ -17,6 +20,8 @@ class HeaderFactory
         private object $customizer
     ) {
         $this->extractMenuItems = new ExtractMenuItems($this->customizer);
+        $this->HeaderVisibilityClasses = new HeaderVisibilityClasses();
+        $this->menuItemFactory = new MenuItemFactory();
     }
 
     public function create(string $id): Header
@@ -25,7 +30,9 @@ class HeaderFactory
             $id,
             $this->wpService,
             $this->acfService,
-            $this->extractMenuItems
+            $this->menuItemFactory,
+            $this->extractMenuItems,
+            $this->HeaderVisibilityClasses
         );
     }
 }
