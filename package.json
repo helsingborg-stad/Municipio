@@ -8,7 +8,7 @@
         "dev": "vite",
         "build": "npm run build:municipio && (npm run build:modularity)",
         "build:municipio": "npm run build:styleguide && vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
-        "build:styleguide": "npm ci --prefix vendor/helsingborg-stad/styleguide --no-audit --no-fund && npm run build --prefix vendor/helsingborg-stad/styleguide",
+        "build:styleguide": "node scripts/build-styleguide.mjs",
         "watch:municipio": "vite build --watch --mode development",
         "build:blocks": "vite --config vite.blocks.config.mjs build",
         "watch:blocks": "vite --config vite.blocks.config.mjs build --watch",
