@@ -19,9 +19,10 @@ class WordPressAssetEnqueuerTest extends TestCase
             'css/components/icon.css',
             'js/components/button.js',
             'css/utilities/display.css',
+            'css/utilities/preloader.css',
         ], 'built')));
         file_put_contents($directory . '/utility-class-map.json', json_encode([
-            'order' => ['display'],
+            'order' => ['display', 'preloader'],
             'classes' => ['u-hidden' => ['display']],
         ]));
 
@@ -40,6 +41,10 @@ class WordPressAssetEnqueuerTest extends TestCase
             ]);
 
             $assets = new WordPressAssetEnqueuer($enqueue, $wpService, $directory);
+            static::assertSame('<link>', $assets->renderStyles(''));
+            static::assertSame(['css/utilities/preloader.css'], $paths);
+            $paths = [];
+
             $assets->enqueueComponent('button', ['sass' => ['components' => ['icon']]]);
             $assets->enqueueComponent('button');
 
@@ -49,6 +54,7 @@ class WordPressAssetEnqueuerTest extends TestCase
                 'css/components/icon.css',
                 'css/components/button.css',
                 'css/utilities/display.css',
+                'css/utilities/preloader.css',
                 'js/components/button.js',
             ], $paths);
         } finally {

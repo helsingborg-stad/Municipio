@@ -12,7 +12,8 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 {
     private static ?self $instance = null;
     private array $components = [];
-    private array $utilities = [];
+    // Async navigation fetches its preloader markup after the initial page scan.
+    private array $utilities = ['preloader' => true];
     private array $styles = [];
     private array $scripts = [];
     private array $manifest;
