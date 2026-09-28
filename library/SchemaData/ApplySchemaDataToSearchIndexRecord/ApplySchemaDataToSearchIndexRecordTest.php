@@ -2,27 +2,22 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord;
 
-use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
-use Municipio\PostObject\NullPostObject;
-use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\Schema\Thing;
+use Municipio\SchemaData\ApplySchemaDataToSearchIndexRecord\SchemaFromPostId\SchemaFromPostIdInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
-use WP_Post;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\GetPost;
 
 class ApplySchemaDataToSearchIndexRecordTest extends TestCase
 {
     #[TestDox('can be instantiated')]
     public function testCanBeInstantiated(): void
     {
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord(static::getWpService(), static::createPostObjectFactory());
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord(static::getWpService(), static::createSchemaFromPostId());
         static::assertInstanceOf(ApplySchemaDataToSearchIndexRecord::class, $applySchemaDataToSearchIndexRecord);
     }
 
@@ -30,7 +25,7 @@ class ApplySchemaDataToSearchIndexRecordTest extends TestCase
     public function testAttachesToTheSearchIndexFilter(): void
     {
         $wpService = static::getWpService();
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createPostObjectFactory());
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createSchemaFromPostId());
 
         $applySchemaDataToSearchIndexRecord->addHooks();
 
@@ -43,7 +38,7 @@ class ApplySchemaDataToSearchIndexRecordTest extends TestCase
     {
         $wpService = static::getWpService();
         $schema = Schema::event();
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createPostObjectFactory($schema));
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createSchemaFromPostId($schema));
 
         $result = $applySchemaDataToSearchIndexRecord->apply([], 123);
 
@@ -56,16 +51,16 @@ class ApplySchemaDataToSearchIndexRecordTest extends TestCase
     {
         $wpService = static::getWpService();
         $unsupportedSchema = Schema::adultEntertainment();
-        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createPostObjectFactory($unsupportedSchema));
+        $applySchemaDataToSearchIndexRecord = new ApplySchemaDataToSearchIndexRecord($wpService, static::createSchemaFromPostId($unsupportedSchema));
 
         $result = $applySchemaDataToSearchIndexRecord->apply([], 123);
 
         static::assertArrayNotHasKey('AdultEntertainment', $result);
     }
 
-    private static function getWpService(): AddFilter|GetPost
+    private static function getWpService(): AddFilter
     {
-        return new class implements AddFilter, GetPost {
+        return new class implements AddFilter {
             public array $filters = [];
 
             public function __construct() {}
@@ -80,33 +75,19 @@ class ApplySchemaDataToSearchIndexRecordTest extends TestCase
                 ];
                 return true;
             }
-
-            public function getPost(int|WP_Post|null $post = null, string $output = OBJECT, string $filter = 'raw'): WP_Post|array|null
-            {
-                return new WP_Post([]);
-            }
         };
     }
 
-    private static function createPostObjectFactory(BaseType $schema = new Thing()): PostObjectFromWpPostFactoryInterface
+    private static function createSchemaFromPostId(BaseType $schema = new Thing()): SchemaFromPostIdInterface
     {
-        return new class($schema) implements PostObjectFromWpPostFactoryInterface {
+        return new class($schema) implements SchemaFromPostIdInterface {
             public function __construct(
                 private BaseType $schema,
             ) {}
 
-            public function create(WP_Post $post): PostObjectInterface
+            public function getSchema(int $postId): BaseType
             {
-                return new class($this->schema) extends NullPostObject {
-                    public function __construct(
-                        private BaseType $schema,
-                    ) {}
-
-                    public function getSchema(): BaseType
-                    {
-                        return $this->schema;
-                    }
-                };
+                return $this->schema;
             }
         };
     }
