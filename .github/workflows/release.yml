@@ -55,6 +55,12 @@ jobs:
       - name: Update npm
         run: npm install --global npm@11.16.0
 
+      # User-level auth so nested installs (e.g. npm ci --prefix vendor/helsingborg-stad/styleguide) are authenticated
+      - name: Configure npm auth for GitHub Packages (user level)
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> ~/.npmrc
+
       - name: Configure npm for GitHub Packages in root
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
