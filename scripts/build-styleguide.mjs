@@ -12,11 +12,16 @@ if (existsSync(packageFile)) {
         throw new Error(`Cannot build Styleguide source without ${lockFile}`);
     }
 
+    const npmCli = process.env.npm_execpath;
+    if (!npmCli) {
+        throw new Error('Build Styleguide through npm run so the npm CLI path is available');
+    }
+
     for (const args of [
         ['ci', '--prefix', directory, '--no-audit', '--no-fund'],
         ['run', 'build', '--prefix', directory],
     ]) {
-        const result = spawnSync('npm', args, { stdio: 'inherit' });
+        const result = spawnSync(process.execPath, [npmCli, ...args], { stdio: 'inherit' });
         if (result.error) throw result.error;
         if (result.status !== 0) process.exit(result.status ?? 1);
     }
