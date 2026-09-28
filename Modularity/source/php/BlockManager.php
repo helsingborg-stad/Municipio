@@ -424,6 +424,8 @@ class BlockManager
                 $module->ID,
             ],
             $module->cacheTtl ?? 0,
+            null,
+            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
         );
 
         if ($cache->start()) { //Start cache

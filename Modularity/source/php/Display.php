@@ -491,6 +491,7 @@ class Display
             ],
             $moduleSettings['cache_ttl'] ?? 0,
             $this->getAllAllowedAndRegisteredQueryVars() ?: null,
+            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
         );
 
         if ($echo == false) {

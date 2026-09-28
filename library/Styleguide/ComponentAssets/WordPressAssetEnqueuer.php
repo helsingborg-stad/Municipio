@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Municipio\Styleguide\ComponentAssets;
 
 use ComponentLibrary\Assets\AssetEnqueuerInterface;
+use Modularity\Helper\FragmentAssetContextInterface;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
-class WordPressAssetEnqueuer implements AssetEnqueuerInterface
+class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetContextInterface
 {
     private static ?self $instance = null;
     private array $components = [];
@@ -16,6 +17,7 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
     private array $utilities = ['preloader' => true];
     private array $styles = [];
     private array $scripts = [];
+    private array $fragmentContexts = [];
     private array $manifest;
     private array $utilityMap;
     /** @var list<MarkupDetectorInterface> */
@@ -45,6 +47,7 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 
     public function enqueueComponent(string $slug, array $dependencies = []): void
     {
+        $this->captureFragmentAsset('components', ['slug' => $slug, 'dependencies' => $dependencies]);
         foreach ($dependencies['sass']['components'] ?? [] as $component) {
             if (is_string($component)) {
                 $this->components[$component] = true;
@@ -60,17 +63,66 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 
     public function enqueueUtility(string $name): void
     {
+        $this->captureFragmentAsset('utilities', $name);
         $this->utilities[$name] = true;
     }
 
     public function enqueueStyle(string $handle, string $url): void
     {
+        $this->captureFragmentAsset('styles', ['handle' => $handle, 'url' => $url]);
         $this->styles[$handle] = ltrim($url, '/');
     }
 
     public function enqueueScript(string $handle, string $url): void
     {
+        $this->captureFragmentAsset('scripts', ['handle' => $handle, 'url' => $url]);
         $this->scripts[$handle] = ltrim($url, '/');
+    }
+
+    public function beginFragment(): void
+    {
+        $this->fragmentContexts[] = [
+            'components' => [],
+            'utilities' => [],
+            'styles' => [],
+            'scripts' => [],
+        ];
+    }
+
+    public function endFragment(): array
+    {
+        return array_pop($this->fragmentContexts) ?? [];
+    }
+
+    public function restoreFragment(array $context): void
+    {
+        foreach ($context['components'] ?? [] as $component) {
+            if (is_array($component) && is_string($component['slug'] ?? null)) {
+                $this->enqueueComponent($component['slug'], is_array($component['dependencies'] ?? null) ? $component['dependencies'] : []);
+            }
+        }
+        foreach ($context['utilities'] ?? [] as $utility) {
+            if (is_string($utility)) {
+                $this->enqueueUtility($utility);
+            }
+        }
+        foreach ($context['styles'] ?? [] as $style) {
+            if (is_array($style) && is_string($style['handle'] ?? null) && is_string($style['url'] ?? null)) {
+                $this->enqueueStyle($style['handle'], $style['url']);
+            }
+        }
+        foreach ($context['scripts'] ?? [] as $script) {
+            if (is_array($script) && is_string($script['handle'] ?? null) && is_string($script['url'] ?? null)) {
+                $this->enqueueScript($script['handle'], $script['url']);
+            }
+        }
+    }
+
+    private function captureFragmentAsset(string $type, mixed $asset): void
+    {
+        foreach ($this->fragmentContexts as &$context) {
+            $context[$type][] = $asset;
+        }
     }
 
     public function renderStyles(string $bodyMarkup): string

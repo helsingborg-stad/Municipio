@@ -10,6 +10,28 @@ use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 class WordPressAssetEnqueuerTest extends TestCase
 {
+    public function testFragmentContextCapturesAndRestoresComponentRegistrations(): void
+    {
+        $enqueue = $this->createMock(EnqueueManagerInterface::class);
+        $wpService = new FakeWpService();
+        $source = new WordPressAssetEnqueuer($enqueue, $wpService, sys_get_temp_dir());
+        $target = new WordPressAssetEnqueuer($enqueue, $wpService, sys_get_temp_dir());
+
+        $source->beginFragment();
+        $source->beginFragment();
+        $source->enqueueComponent('collection', ['sass' => ['components' => ['icon']]]);
+        $source->enqueueUtility('display');
+        $source->enqueueStyle('custom', 'css/custom.css');
+        $source->enqueueScript('custom', 'js/custom.js');
+        $context = $source->endFragment();
+        static::assertSame($context, $source->endFragment());
+
+        $target->beginFragment();
+        $target->restoreFragment($context);
+        static::assertSame($context, $target->endFragment());
+        static::assertSame([], $source->endFragment());
+    }
+
     public function testRenderedComponentAssetsUseWpUtilEnqueue(): void
     {
         $directory = sys_get_temp_dir() . '/municipio-component-assets-' . uniqid();
