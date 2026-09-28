@@ -25,13 +25,19 @@ class SchemaFromPostIdWithDatesAsTimestamps implements SchemaFromPostIdInterface
         foreach ($schema->getProperties() as $key => $value) {
             if ($value instanceof \DateTime) {
                 $schema->setProperty($key, $value->getTimestamp());
-            } else if ($value instanceof BaseType) {
+            }
+
+            if ($value instanceof BaseType) {
                 $schema->setProperty($key, $this->convert($value));
-            } else if (is_array($value)) {
+            }
+
+            if (is_array($value)) {
                 foreach ($value as $index => $event) {
-                    if ($event instanceof BaseType) {
-                        $value[$index] = $this->convert($event);
+                    if (!$event instanceof BaseType) {
+                        continue;
                     }
+
+                    $value[$index] = $this->convert($event);
                 }
                 $schema->setProperty($key, $value);
             }

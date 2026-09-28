@@ -26,8 +26,8 @@ class SchemaFromPostIdWithDatesAsTimestampsTest extends \PHPUnit\Framework\TestC
 
         $result = $sut->getSchema(1);
 
-        $this->assertIsInt($result->getProperty('startDate'));
-        $this->assertIsInt($result->getProperty('endDate'));
+        static::assertIsInt($result->getProperty('startDate'));
+        static::assertIsInt($result->getProperty('endDate'));
     }
 
     #[TestDox('converts nested DateTime instances to timestamps')]
@@ -47,9 +47,9 @@ class SchemaFromPostIdWithDatesAsTimestampsTest extends \PHPUnit\Framework\TestC
 
         $result = $sut->getSchema(1);
 
-        $this->assertIsInt($result->getProperty('startDate'));
-        $this->assertIsInt($result->getProperty('endDate'));
-        $this->assertIsInt($result->getProperty('actor')['birthDate']);
+        static::assertIsInt($result->getProperty('startDate'));
+        static::assertIsInt($result->getProperty('endDate'));
+        static::assertIsInt($result->getProperty('actor')['birthDate']);
     }
 
     #[TestDox('converts nested DateTime instances to timestamps in arrays')]
@@ -70,7 +70,7 @@ class SchemaFromPostIdWithDatesAsTimestampsTest extends \PHPUnit\Framework\TestC
 
         $result = $sut->getSchema(1);
 
-        $this->assertIsInt($result->getProperty('eventSchedule')[0]['startDate']);
-        $this->assertIsInt($result->getProperty('eventSchedule')[0]['endDate']);
+        static::assertIsInt($result->getProperty('eventSchedule')[0]['startDate']);
+        static::assertIsInt($result->getProperty('eventSchedule')[0]['endDate']);
     }
 }
