@@ -1,6 +1,5 @@
 <?php
 
-use ComponentLibrary\Init as ComponentLibraryInit;
 
 if (!function_exists('render_blade_view')) {
 
@@ -29,8 +28,7 @@ if (!function_exists('render_blade_view')) {
 
         $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
         $viewPaths         = array_merge($viewPaths, $externalViewPaths);
-        $init              = new ComponentLibraryInit($viewPaths);
-        $bladeEngine       = $init->getEngine();
+        $bladeEngine       = \Municipio\Helper\ComponentBladeService::create($viewPaths);
 
         try {
             $markup = $bladeEngine->makeView(

@@ -3,7 +3,6 @@
 namespace Municipio;
 
 use AcfService\AcfService;
-use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Admin\Private\MainQueryUserGroupRestriction;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
@@ -478,6 +477,8 @@ class Template
 
             // Process the markup through the MarkupProcessor
             $markup = $this->markupProcessor->process($markup);
+            $markup = \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance()
+                ?->injectIntoMarkup($markup) ?? $markup;
 
             echo $markup;
         } catch (\Throwable $e) {
@@ -615,8 +616,7 @@ class Template
         }
 
         $this->viewPaths = $this->registerViewPaths();
-        $componentLibrary = new Init($this->viewPaths);
-        $this->bladeEngine = $componentLibrary->getEngine();
+        $this->bladeEngine = \Municipio\Helper\ComponentBladeService::create($this->viewPaths);
     }
 
     /**

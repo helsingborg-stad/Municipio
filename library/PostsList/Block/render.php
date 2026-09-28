@@ -11,7 +11,7 @@ $wpdb = $GLOBALS['wpdb'];
 
 $renderer = new \Municipio\PostsList\Block\PostsListBlockRenderer\PostsListBlockRenderer(
     new \Municipio\PostsList\PostsListFactory($wpService, $wpdb, new SchemaToPostTypeResolver($acfService, $wpService)),
-    new ClosureSafeRenderer((new \ComponentLibrary\Renderer\BladeService\BladeServiceFactory($wpService))->create([\Municipio\PostsList\PostsListFeature::getTemplateDir()])),
+    new ClosureSafeRenderer(\Municipio\Helper\ComponentBladeService::create([\Municipio\PostsList\PostsListFeature::getTemplateDir()], $wpService)),
     $wpService,
 );
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\SearchIndex\SearchPage;
 
-use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
+use Municipio\Helper\ComponentBladeService;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
 use Municipio\SearchIndex\Config\SearchIndexConfig;
 use WpService\WpService;
@@ -22,9 +22,9 @@ class SearchPageFeature
         private EnqueueManagerInterface $enqueue,
         private SearchIndexConfig $config,
     ) {
-        $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create([
+        $bladeRenderer = new BladeRenderer(ComponentBladeService::create([
             SearchPageRenderer::getViewPath(),
-        ]));
+        ], $this->wpService));
         $this->renderer = new SearchPageRenderer($bladeRenderer, $this->wpService);
     }
 

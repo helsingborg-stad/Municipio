@@ -120,6 +120,18 @@ class App
         /**
          * Template
          */
+        \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::setInstance(
+            new \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer(
+                (new WpUtilService($this->wpService))->enqueue(
+                    dirname(__DIR__),
+                    '/assets/dist/styleguide/',
+                    'manifest.json',
+                ),
+                $this->wpService,
+                dirname(__DIR__) . '/assets/dist/styleguide',
+            ),
+        );
+
         new \Municipio\Template(
             $menuBuilder,
             $menuDirector,

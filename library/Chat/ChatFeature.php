@@ -6,7 +6,7 @@ namespace Municipio\Chat;
 
 use AcfService\Contracts\AddOptionsPage;
 use AcfService\Contracts\GetField;
-use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
+use Municipio\Helper\ComponentBladeService;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Chat\Admin\ChatAdminPage;
@@ -39,7 +39,7 @@ class ChatFeature
             return;
         }
 
-        $bladeRenderer = new BladeRenderer((new BladeServiceFactory($this->wpService))->create(ChatRender::getViewPathsDir()));
+        $bladeRenderer = new BladeRenderer(ComponentBladeService::create(ChatRender::getViewPathsDir(), $this->wpService));
         $render = new ChatRender($bladeRenderer);
 
         RestApiEndpointsRegistry::add(new ChatEndpoint($config, new PIIRedactorFactory($this->wpService), $this->wpService));

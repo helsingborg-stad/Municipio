@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modularity;
 
-use ComponentLibrary\Init as ComponentLibraryInit;
 use Modularity\Helper\File as FileHelper;
 use Modularity\Helper\Wp;
 use Throwable;
@@ -131,8 +130,7 @@ class Display
             $moduleView = $externalViewPaths[$data['post_type']];
         }
 
-        $init = new ComponentLibraryInit([]);
-        $blade = $init->getEngine();
+        $blade = \Municipio\Helper\ComponentBladeService::create([]);
 
         $filters = [
             static fn($d) => apply_filters('Modularity/Display/viewData', $d),
