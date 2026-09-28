@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Styleguide\ComponentAssets;
 
+use HelsingborgStad\BladeService\BladeService;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
@@ -23,7 +24,7 @@ class WordPressAssetEnqueuerTest extends TestCase
         );
     }
 
-    public function testRenderedComponentsAndUtilitiesAreEnqueuedOnceAndPrintedInTheDocument(): void
+    public function testRenderedComponentsAndUtilitiesAreEnqueuedOnceForBladeStacks(): void
     {
         $directory = sys_get_temp_dir() . '/municipio-component-assets-' . uniqid();
         mkdir($directory);
@@ -66,7 +67,8 @@ class WordPressAssetEnqueuerTest extends TestCase
             ]);
             $assets->enqueueComponent('button');
 
-            $markup = $assets->injectIntoMarkup('<html><head></head><body class="u-hidden"></body></html>');
+            $styleTags = $assets->renderStyles('<body class="u-hidden"></body>');
+            $scriptTags = $assets->renderScripts();
 
             static::assertSame([
                 'css/components/button.css',
@@ -77,11 +79,57 @@ class WordPressAssetEnqueuerTest extends TestCase
             ], $paths);
             static::assertSame([[['css-components-buttoncss', 'css-components-iconcss', 'css-utilities-overflowcss', 'css-utilities-displaycss']]], $wpService->methodCalls['wpPrintStyles']);
             static::assertSame([[['js-components-buttonjs']]], $wpService->methodCalls['wpPrintScripts']);
-            static::assertStringContainsString('<link id="component-assets"></head>', $markup);
-            static::assertStringContainsString('<script id="component-assets"></script></body>', $markup);
+            static::assertSame('<link id="component-assets">', $styleTags);
+            static::assertSame('<script id="component-assets"></script>', $scriptTags);
         } finally {
             unlink($directory . '/manifest.json');
             unlink($directory . '/utility-class-map.json');
+            rmdir($directory);
+        }
+    }
+
+    public function testBladePushesAssetsIntoHeadAndBodyStacks(): void
+    {
+        $directory = sys_get_temp_dir() . '/municipio-blade-assets-' . uniqid();
+        mkdir($directory);
+        file_put_contents($directory . '/manifest.json', json_encode([
+            'css/components/button.css' => 'css/components/button.css',
+            'js/components/button.js' => 'js/components/button.js',
+        ]));
+        file_put_contents($directory . '/layout.blade.php', <<<'BLADE'
+@section('body-content')
+    @php(\Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance()->enqueueComponent('button'))
+    <div>Body</div>
+@stop
+@include('templates.sections.component-assets')
+<head>@stack('styles')</head>
+<body>@yield('body-content')@stack('scripts')</body>
+BLADE);
+
+        try {
+            $enqueue = $this->createMock(EnqueueManagerInterface::class);
+            $enqueue->method('add')->willReturnSelf();
+            $wpService = new FakeWpService([
+                'wpPrintStyles' => static function (): array {
+                    echo '<link id="component-style">';
+                    return [];
+                },
+                'wpPrintScripts' => static function (): array {
+                    echo '<script id="component-script"></script>';
+                    return [];
+                },
+            ]);
+            WordPressAssetEnqueuer::setInstance(new WordPressAssetEnqueuer($enqueue, $wpService, $directory));
+            $blade = new BladeService([$directory, dirname(__DIR__, 3) . '/views/v3']);
+
+            $markup = $blade->makeView('layout')->render();
+
+            static::assertMatchesRegularExpression('/<head>.*<link id="component-style">.*<\/head>/s', $markup);
+            static::assertMatchesRegularExpression('/<body>.*<script id="component-script"><\/script>.*<\/body>/s', $markup);
+        } finally {
+            WordPressAssetEnqueuer::setInstance(null);
+            unlink($directory . '/manifest.json');
+            unlink($directory . '/layout.blade.php');
             rmdir($directory);
         }
     }

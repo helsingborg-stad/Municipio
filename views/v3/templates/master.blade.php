@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html {!! $languageAttributes !!}>
 
-@include('templates.sections.head')
-
 {{-- Content --}}
 @section('body-content')
     <div class="site-wrapper">
@@ -53,15 +51,17 @@
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
     @include('templates.sections.toast-notices')
+
+    @include('templates.sections.styleguide-customize')
             
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
 @stop
 
+@include('templates.sections.component-assets')
+@include('templates.sections.head')
+
 {{-- Including body --}}
 @include('templates.sections.body')
-
-{{-- Including styleguide customize --}}
-@include('templates.sections.styleguide-customize')
 
 </html>

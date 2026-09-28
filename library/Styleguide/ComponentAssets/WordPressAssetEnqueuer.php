@@ -8,7 +8,7 @@ use ComponentLibrary\Assets\AssetEnqueuerInterface;
 use WpService\WpService;
 use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
-/** Collects rendered component assets and prints them into the completed document. */
+/** Collects rendered component assets for the layout's Blade stacks. */
 class WordPressAssetEnqueuer implements AssetEnqueuerInterface
 {
     private static ?self $instance = null;
@@ -27,7 +27,7 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
         $this->builtAssets = new BuiltStyleguideAssets($distDirectory);
     }
 
-    public static function setInstance(self $instance): void
+    public static function setInstance(?self $instance): void
     {
         self::$instance = $instance;
     }
@@ -63,16 +63,11 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
         $this->scripts[$handle] = ltrim($url, '/');
     }
 
-    /** WordPress has already run wp_head() when Municipio renders its Blade view. */
-    public function injectIntoMarkup(string $markup): string
+    /** Build the styles pushed into the head after the body section has rendered. */
+    public function renderStyles(string $bodyMarkup): string
     {
-        if (!str_contains($markup, '</head>') || !str_contains($markup, '</body>')) {
-            return $markup;
-        }
-
-        $this->utilities += array_fill_keys($this->builtAssets->utilitiesInMarkup($markup), true);
+        $this->utilities += array_fill_keys($this->builtAssets->utilitiesInMarkup($bodyMarkup), true);
         $stylePaths = array_merge($this->styles, $this->builtAssets->pathsForComponents($this->components, 'css'));
-        $scriptPaths = array_merge($this->scripts, $this->builtAssets->pathsForComponents($this->components, 'js'));
 
         $order = $this->builtAssets->utilityOrder();
         uksort($this->utilities, static fn(string $a, string $b): int =>
@@ -82,24 +77,25 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface
         }
 
         $styleHandles = $this->addAssets($stylePaths, 'css');
+        if ($styleHandles === []) {
+            return '';
+        }
+        ob_start();
+        $this->wpService->wpPrintStyles($styleHandles);
+        return (string) ob_get_clean();
+    }
+
+    /** Build the scripts pushed after the body content. */
+    public function renderScripts(): string
+    {
+        $scriptPaths = array_merge($this->scripts, $this->builtAssets->pathsForComponents($this->components, 'js'));
         $scriptHandles = $this->addAssets($scriptPaths, 'js');
-
-        $styleTags = '';
-        if ($styleHandles !== []) {
-            ob_start();
-            $this->wpService->wpPrintStyles($styleHandles);
-            $styleTags = (string) ob_get_clean();
+        if ($scriptHandles === []) {
+            return '';
         }
-
-        $scriptTags = '';
-        if ($scriptHandles !== []) {
-            ob_start();
-            $this->wpService->wpPrintScripts($scriptHandles);
-            $scriptTags = (string) ob_get_clean();
-        }
-
-        $markup = str_replace('</head>', $styleTags . '</head>', $markup);
-        return str_replace('</body>', $scriptTags . '</body>', $markup);
+        ob_start();
+        $this->wpService->wpPrintScripts($scriptHandles);
+        return (string) ob_get_clean();
     }
 
     private function addAssets(array $paths, string $type): array

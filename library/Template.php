@@ -477,8 +477,6 @@ class Template
 
             // Process the markup through the MarkupProcessor
             $markup = $this->markupProcessor->process($markup);
-            $markup = \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance()
-                ?->injectIntoMarkup($markup) ?? $markup;
 
             echo $markup;
         } catch (\Throwable $e) {
