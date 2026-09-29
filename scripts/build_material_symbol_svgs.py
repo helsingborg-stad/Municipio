@@ -29,16 +29,17 @@ except ImportError as exc:
 
 
 ROOT = Path(__file__).resolve().parent.parent
-FONT_ROOT = ROOT / "node_modules" / "@material-symbols"
+FONT_ROOT = ROOT / "node_modules" / "material-symbols"
 DEFAULT_OUTPUT = ROOT / "assets" / "dist" / "icons" / "material-symbols"
 WEIGHTS = (200, 400, 600)
 STYLES = ("outlined", "rounded", "sharp")
+OPTICAL_SIZE = 24
 NAME_PATTERN = re.compile(r"[a-z0-9_]+\Z")
 SVG_NS = "http://www.w3.org/2000/svg"
 
 
-def font_path(weight: int, style: str) -> Path:
-    return FONT_ROOT / f"font-{weight}" / f"material-symbols-{style}.woff2"
+def font_path(style: str) -> Path:
+    return FONT_ROOT / f"material-symbols-{style}.woff2"
 
 
 def icon_names(font: TTFont) -> dict[str, str]:
@@ -108,23 +109,22 @@ def svg_for_glyph(font: TTFont, glyph_name: str) -> str:
 
 
 def export(output: Path, requested_names: set[str] | None) -> int:
-    fonts: dict[tuple[int, str], tuple[TTFont, dict[str, str], str]] = {}
-    for weight in WEIGHTS:
-        for style in STYLES:
-            path = font_path(weight, style)
-            if not path.is_file():
-                raise FileNotFoundError(f"Font missing: {path}. Run npm install first.")
-            font = TTFont(path)
-            names = icon_names(font)
-            digest = hashlib.sha256(path.read_bytes()).hexdigest()
-            fonts[(weight, style)] = (font, names, digest)
+    fonts: dict[str, tuple[TTFont, dict[str, str], str]] = {}
+    for style in STYLES:
+        path = font_path(style)
+        if not path.is_file():
+            raise FileNotFoundError(f"Font missing: {path}. Run npm install first.")
+        font = TTFont(path)
+        names = icon_names(font)
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        fonts[style] = (font, names, digest)
 
     all_names = set(next(iter(fonts.values()))[1])
-    for (weight, style), (_, names, _) in fonts.items():
+    for style, (_, names, _) in fonts.items():
         if set(names) != all_names:
             missing = sorted(all_names - set(names))
             extra = sorted(set(names) - all_names)
-            raise ValueError(f"Catalogue mismatch in {style}/{weight}: missing={missing[:10]}, extra={extra[:10]}")
+            raise ValueError(f"Catalogue mismatch in {style}: missing={missing[:10]}, extra={extra[:10]}")
 
     missing_picker_names = picker_names() - all_names
     if missing_picker_names:
@@ -140,25 +140,35 @@ def export(output: Path, requested_names: set[str] | None) -> int:
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix="material-symbols-", dir=output.parent))
     try:
-        for (weight, style), (font, names, _) in fonts.items():
-            if "fvar" not in font or {axis.axisTag for axis in font["fvar"].axes} != {"FILL"}:
-                raise ValueError(f"Unexpected axes in {style}/{weight}; review the generator")
-            for filled in (0, 1):
-                instance = font if filled == 0 else instantiateVariableFont(font, {"FILL": 1}, inplace=False)
-                directory = staging / style / str(weight) / str(filled)
-                directory.mkdir(parents=True)
-                for name in names_to_export:
-                    (directory / f"{name}.svg").write_text(
-                        svg_for_glyph(instance, names[name]), encoding="utf-8"
+        for style, (font, names, _) in fonts.items():
+            axes = {axis.axisTag for axis in font["fvar"].axes} if "fvar" in font else set()
+            if axes != {"FILL", "GRAD", "opsz", "wght"}:
+                raise ValueError(f"Unexpected axes in {style}: {axes}; review the generator")
+            for weight in WEIGHTS:
+                # The separate @material-symbols/font-* packages are fixed at
+                # 48 px optical size. Standard UI icons are mostly 16-24 px,
+                # so use the variable source at its 24 px optical size.
+                base_instance = instantiateVariableFont(
+                    font, {"GRAD": 0, "opsz": OPTICAL_SIZE, "wght": weight}, inplace=False
+                )
+                for filled in (0, 1):
+                    instance = base_instance if filled == 0 else instantiateVariableFont(
+                        base_instance, {"FILL": 1}, inplace=False
                     )
+                    directory = staging / style / str(weight) / str(filled)
+                    directory.mkdir(parents=True)
+                    for name in names_to_export:
+                        (directory / f"{name}.svg").write_text(
+                            svg_for_glyph(instance, names[name]), encoding="utf-8"
+                        )
 
         manifest = {
-            "format": 1,
+            "format": 2,
             "iconCount": len(names_to_export),
-            "variants": {"styles": list(STYLES), "weights": list(WEIGHTS), "filled": [0, 1]},
+            "variants": {"styles": list(STYLES), "weights": list(WEIGHTS), "filled": [0, 1], "opticalSize": OPTICAL_SIZE},
             "fonts": {
-                f"{style}/{weight}": digest
-                for (weight, style), (_, _, digest) in fonts.items()
+                style: digest
+                for style, (_, _, digest) in fonts.items()
             },
             "icons": names_to_export,
         }
