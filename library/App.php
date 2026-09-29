@@ -205,11 +205,6 @@ class App
         new \Municipio\Language();
 
         /**
-         * Widget
-         */
-        new \Municipio\Widget\Widgets();
-
-        /**
          * Comments
          */
         new \Municipio\Comment\HoneyPot();
