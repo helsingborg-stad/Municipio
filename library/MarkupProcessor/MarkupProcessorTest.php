@@ -16,4 +16,19 @@ class MarkupProcessorTest extends TestCase
         $output = $processor->process($input);
         $this->assertIsString($output);
     }
+
+    #[TestDox('process() displays double-escaped labels as ampersands')]
+    public function testProcessNormalizesAmpersandsInLabels(): void
+    {
+        $processor = new MarkupProcessor(new FakeWpService(['applyFilters' => fn($hookName, $value) => $value]));
+        $input = '<!DOCTYPE html><html><head><title>R&amp;amp;D</title></head>'
+            . '<body><a href="/?q=R&amp;amp;D" aria-label="R&amp;amp;D">R&amp;amp;D & team</a></body></html>';
+
+        $output = $processor->process($input);
+
+        $this->assertMatchesRegularExpression('/<title>\s*R&amp;D\s*<\/title>/', $output);
+        $this->assertStringContainsString('href="/?q=R&amp;amp;D"', $output);
+        $this->assertStringContainsString('aria-label="R&amp;D"', $output);
+        $this->assertStringContainsString('R&amp;D &amp; team', $output);
+    }
 }
