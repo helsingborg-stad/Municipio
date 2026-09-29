@@ -41,6 +41,7 @@ class MarkupProcessor implements MarkupProcessorInterface
             new Processors\FilterProcessor($this->wpService),
             new Processors\DecodeDoubleEscapedAmpersandsProcessor(),
             new Processors\EscapeRawAmpersandsProcessor(),
+            new Processors\RemoveInvalidForAttributesProcessor(),
         ];
     }
 }
