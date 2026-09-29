@@ -1,0 +1,2 @@
+# Required only for `npm run build:icons`.
+fonttools[woff]>=4.50,<5

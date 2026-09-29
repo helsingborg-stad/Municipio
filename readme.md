@@ -49,12 +49,26 @@ To build optimized assets for production:
 $ npm run build
 ```
 
+### Material Symbols SVG export
+
+The theme can export every named icon directly from its installed Material Symbols WOFF2 fonts. Install the build-only Python dependency, then run the exporter **after** the Vite build (Vite clears `assets/dist`):
+
+```
+$ python3 -m pip install -r requirements-icons.txt
+$ npm run build:icons
+```
+
+The output is `assets/dist/icons/material-symbols/<style>/<weight>/<filled>/<name>.svg`; for example, `rounded/400/0/home.svg`. Style is `outlined`, `rounded`, or `sharp`; weight is `200`, `400`, or `600`; filled is `0` or `1`. All SVGs use `currentColor` and have a `viewBox` sized to the font's em square. `manifest.json` records the exported names and source font hashes. The script checks that all nine fonts contain the same names and that the installed `material-symbols` picker catalogue is covered.
+
+For a small development export, run `python3 scripts/build_material_symbol_svgs.py --names home search`. This command generates assets only; the current icon component and ACF picker still render with the font.
+
 ## NPM scripts
 
 * **dev**: Start Vite development server
 * **watch**: Build assets in watch mode for development
 * **build:dev**: Build assets for development
 * **build**: Build assets for production with optimization and cache-busting
+* **build:icons**: Export all named Material Symbols as SVGs from the installed fonts
 * **test**: Run Jest tests with coverage
 * **i18n:update**: Updates languages/municipio.pot and languages/sv_SE.po from source files. Run this when translatable strings have been added/updated. **Requires wp-cli**.
 * **i18n:build**: Updates languages/municipio.mo .po file. Run this when changes have been made to the corresponding .po file. **Requires wp-cli**.

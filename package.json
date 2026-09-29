@@ -10,6 +10,7 @@
         "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
         "watch:municipio": "vite build --watch --mode development",
         "build:blocks": "vite --config vite.blocks.config.mjs build",
+        "build:icons": "python3 scripts/build_material_symbol_svgs.py",
         "watch:blocks": "vite --config vite.blocks.config.mjs build --watch",
         "build:modularity": "cd Modularity && npm install && npm run build",
         "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/",
