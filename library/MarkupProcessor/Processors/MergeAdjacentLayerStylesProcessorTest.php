@@ -9,16 +9,17 @@ class MergeAdjacentLayerStylesProcessorTest extends TestCase
     public function testMergesImageRulesWithoutDroppingDistinctSelectors(): void
     {
         $first = '<style>@layer components {@container (min-width: 425px) {'
-            . '.c-image--item-first {display: block;}}}</style>';
+            . '.c-image.c-image--container-query .c-image--item-first {display: block;}}}</style>';
         $second = '<style>@layer components {@container (min-width: 425px) {'
-            . '.c-image--item-second {display: block;}}}</style>';
+            . '.c-image.c-image--container-query .c-image--item-second {display: block;}}}</style>';
 
         $output = (new MergeAdjacentLayerStylesProcessor())->process($first . "\n" . $second);
 
         $this->assertSame(1, substr_count($output, '<style>'));
         $this->assertStringContainsString('.c-image--item-first', $output);
         $this->assertStringContainsString('.c-image--item-second', $output);
-        $this->assertSame(2, substr_count($output, '@container (min-width: 425px)'));
+        $this->assertSame(1, substr_count($output, '@container (min-width: 425px)'));
+        $this->assertStringContainsString('.c-image--item-first, .c-image.c-image--container-query .c-image--item-second', $output);
     }
 
     public function testPreservesDifferentLayersAttributesAndInterveningMarkup(): void

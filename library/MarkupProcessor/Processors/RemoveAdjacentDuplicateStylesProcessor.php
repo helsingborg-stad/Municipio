@@ -20,10 +20,9 @@ class RemoveAdjacentDuplicateStylesProcessor implements MarkupProcessorInterface
 
         foreach ($matches[0] as [$style, $start]) {
             $between = substr($markup, $cursor, $start - $cursor);
-            $result .= $between;
 
             if ($previousStyle !== $style || $previousEnd === null || trim(substr($markup, $previousEnd, $start - $previousEnd)) !== '') {
-                $result .= $style;
+                $result .= $between . $style;
             }
 
             $previousStyle = $style;

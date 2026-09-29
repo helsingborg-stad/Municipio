@@ -12,7 +12,7 @@ class RemoveAdjacentDuplicateStylesProcessorTest extends TestCase
         $other = '<style>@layer wordpress {.icon {opacity: 0}}</style>';
         $input = $style . "\n  " . $style . $other . $style . '<div></div>' . $style;
 
-        $expected = $style . "\n  " . $other . $style . '<div></div>' . $style;
+        $expected = $style . $other . $style . '<div></div>' . $style;
 
         $this->assertSame($expected, (new RemoveAdjacentDuplicateStylesProcessor())->process($input));
     }
@@ -23,5 +23,14 @@ class RemoveAdjacentDuplicateStylesProcessorTest extends TestCase
             . '<style media="print">.x {color: red}</style>';
 
         $this->assertSame($input, (new RemoveAdjacentDuplicateStylesProcessor())->process($input));
+    }
+
+    public function testDoesNotLeaveBlankLinesForRemovedStyles(): void
+    {
+        $style = '<style>.icon {opacity: 1}</style>';
+        $next = '<style>.image {display: block}</style>';
+        $input = "  $style\n  $style\n  $style\n  $next";
+
+        $this->assertSame("  $style\n  $next", (new RemoveAdjacentDuplicateStylesProcessor())->process($input));
     }
 }

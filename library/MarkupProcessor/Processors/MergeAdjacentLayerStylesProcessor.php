@@ -27,7 +27,7 @@ class MergeAdjacentLayerStylesProcessor implements MarkupProcessorInterface
                 $pendingLayer[1] .= "\n" . $layer[1];
                 $pendingStyle = '<style>@layer ' . $layer[0] . ' {' . $pendingLayer[1] . '}</style>';
             } else {
-                $result .= ($pendingStyle ?? '') . $between;
+                $result .= ($pendingStyle === null ? '' : $this->reduceImageContainerRules($pendingStyle)) . $between;
                 $pendingStyle = $style;
                 $pendingLayer = $layer;
             }
@@ -35,7 +35,49 @@ class MergeAdjacentLayerStylesProcessor implements MarkupProcessorInterface
             $cursor = $start + strlen($style);
         }
 
-        return $result . ($pendingStyle ?? '') . substr($markup, $cursor);
+        return $result . ($pendingStyle === null ? '' : $this->reduceImageContainerRules($pendingStyle)) . substr($markup, $cursor);
+    }
+
+    /**
+     * Identical image declarations can share a container rule. Their generated
+     * item classes are distinct, so grouping selectors does not change which
+     * image is displayed at each breakpoint.
+     */
+    private function reduceImageContainerRules(string $style): string
+    {
+        $layer = $this->singleLayer($style);
+        if ($layer === null || $layer[0] !== 'components') {
+            return $style;
+        }
+
+        $body = $layer[1];
+        $offset = 0;
+        $groups = [];
+        $ruleCount = 0;
+        $pattern = '/\G\s*@container\s+([^{}]+?)\s*\{\s*(\.c-image\.c-image--container-query\s+\.c-image--item-[a-z0-9_-]+)\s*\{\s*display\s*:\s*block\s*;\s*\}\s*\}\s*/i';
+
+        while ($offset < strlen($body)) {
+            if (!preg_match($pattern, $body, $match, 0, $offset)) {
+                return $style;
+            }
+
+            $condition = trim($match[1]);
+            $groups[$condition][$match[2]] = true;
+            $ruleCount++;
+            $offset += strlen($match[0]);
+        }
+
+        if ($ruleCount === count($groups)) {
+            return $style;
+        }
+
+        $rules = [];
+        foreach ($groups as $condition => $selectors) {
+            $rules[] = '@container ' . $condition . ' { '
+                . implode(', ', array_keys($selectors)) . ' {display: block;} }';
+        }
+
+        return '<style>@layer components {' . implode(' ', $rules) . '}</style>';
     }
 
     private function singleLayer(string $style): ?array
