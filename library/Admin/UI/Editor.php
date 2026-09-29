@@ -10,6 +10,7 @@ class Editor
         add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
         add_action('enqueue_block_editor_assets', array($this, 'blockEditorScript'));
         add_action('after_setup_theme', array($this, 'editorStyle'));
+        add_action('after_setup_theme', array($this, 'componentEditorStyles'));
         add_filter('mce_buttons_2', array($this, 'editorButtons2'));
         add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
 
@@ -69,10 +70,9 @@ class Editor
      */
     public function blockEditorStyle()
     {
+        // If in customizer, do not enqueue styles which might affect editor appearance.
         global $wp_customize;
-
         if (isset($wp_customize)) {
-            // If in customizer, do not enqueue styles which might affect editor appearance.
             return;
         }
 
@@ -112,6 +112,42 @@ class Editor
                 get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/mce.css'),
             ),
         );
+    }
+
+    /**
+     * Load all on-demand component and utility styles in the editor canvas.
+     */
+    public function componentEditorStyles(): void
+    {
+        // The frontend selects component and utility CSS from the rendered markup.
+        // Editor content can change after page load, so make every built style available there.
+        $distDirectory = get_template_directory() . '/assets/dist/styleguide/';
+        $cacheBust = new \Municipio\Helper\StyleguideCacheBust();
+        $manifest = $cacheBust->getManifest();
+        if ($manifest === null) {
+            return;
+        }
+
+        $editorStyles = [];
+        foreach ($manifest as $source => $built) {
+            if (!is_string($source) || !is_string($built) ||
+                (!str_starts_with($source, 'css/components/') && !str_starts_with($source, 'css/utilities/')) ||
+                !str_ends_with($built, '.css')) {
+                continue;
+            }
+
+            $file = $cacheBust->name($source);
+            $builtPath = $distDirectory . $file;
+            if (!is_file($builtPath)) {
+                continue;
+            }
+
+            $editorStyles[] = get_template_directory_uri() . '/assets/dist/styleguide/' . $file . '?ver=' . filemtime($builtPath);
+        }
+
+        if ($editorStyles !== []) {
+            add_editor_style($editorStyles);
+        }
     }
 
     /**
