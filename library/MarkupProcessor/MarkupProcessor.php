@@ -32,6 +32,8 @@ class MarkupProcessor implements MarkupProcessorInterface
             new Processors\ReleaseWpautopProtectedContent(new WpAutopContentGuard()),
             new Processors\TidyProcessor(),
             new Processors\CssMinifyProcessor(),
+            new Processors\RemoveAdjacentDuplicateStylesProcessor(),
+            new Processors\MergeAdjacentLayerStylesProcessor(),
             new Processors\ScriptMinifyProcessor(),
             new Processors\HtmlCommentRemoveProcessor(),
             new Processors\EmptyIdRemoveProcessor(),
