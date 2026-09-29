@@ -39,6 +39,7 @@ class MarkupProcessor implements MarkupProcessorInterface
             new Processors\EmptyIdRemoveProcessor(),
             new Processors\DeprecatedAttributesRemoveProcessor(),
             new Processors\FilterProcessor($this->wpService),
+            new Processors\RemoveInvalidForAttributesProcessor(),
         ];
     }
 }
