@@ -33,7 +33,7 @@ FONT_ROOT = ROOT / "node_modules" / "material-symbols"
 DEFAULT_OUTPUT = ROOT / "assets" / "dist" / "icons" / "material-symbols"
 WEIGHTS = (200, 400, 600)
 STYLES = ("outlined", "rounded", "sharp")
-OPTICAL_SIZE = 24
+OPTICAL_SIZE = 32
 NAME_PATTERN = re.compile(r"[a-z0-9_]+\Z")
 SVG_NS = "http://www.w3.org/2000/svg"
 
@@ -146,8 +146,8 @@ def export(output: Path, requested_names: set[str] | None) -> int:
                 raise ValueError(f"Unexpected axes in {style}: {axes}; review the generator")
             for weight in WEIGHTS:
                 # The separate @material-symbols/font-* packages are fixed at
-                # 48 px optical size. Standard UI icons are mostly 16-24 px,
-                # so use the variable source at its 24 px optical size.
+                # 48 px optical size. A 32 px optical size more closely matches
+                # the font's apparent stroke weight across 16-32 px UI icons.
                 base_instance = instantiateVariableFont(
                     font, {"GRAD": 0, "opsz": OPTICAL_SIZE, "wght": weight}, inplace=False
                 )
