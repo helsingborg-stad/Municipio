@@ -7,7 +7,7 @@
         "test:watch": "jest --watch",
         "dev": "vite",
         "build": "npm run build:municipio && (npm run build:modularity)",
-        "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
+        "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks && npm run build:icons",
         "watch:municipio": "vite build --watch --mode development",
         "build:blocks": "vite --config vite.blocks.config.mjs build",
         "build:icons": "python3 scripts/build_material_symbol_svgs.py",

@@ -51,7 +51,7 @@ $ npm run build
 
 ### Material Symbols SVG export
 
-The theme can export every named icon directly from its installed Material Symbols WOFF2 fonts. Install the build-only Python dependency, then run the exporter **after** the Vite build (Vite clears `assets/dist`):
+The production build exports every named icon directly from its installed Material Symbols WOFF2 fonts. `php build.php` installs the build-only Python dependency and runs the exporter after Vite clears `assets/dist`. To run the exporter by itself:
 
 ```
 $ python3 -m pip install -r requirements-icons.txt
@@ -60,7 +60,9 @@ $ npm run build:icons
 
 The output is `assets/dist/icons/material-symbols/<style>/<weight>/<filled>/<name>.svg`; for example, `rounded/400/0/home.svg`. Style is `outlined`, `rounded`, or `sharp`; weight is `200`, `400`, or `600`; filled is `0` or `1`. All SVGs use `currentColor` and have a `viewBox` sized to the font's em square. `manifest.json` records the exported names and source font hashes. The script checks that all nine fonts contain the same names and that the installed `material-symbols` picker catalogue is covered.
 
-For a small development export, run `python3 scripts/build_material_symbol_svgs.py --names home search`. This command generates assets only; the current icon component and ACF picker still render with the font.
+For a small development export, run `python3 scripts/build_material_symbol_svgs.py --names home search`. The ACF picker continues to store icon names. On public pages, the Icon component resolves those names to generated SVG files using the selected style, weight, and fill. In WordPress admin and the block editor, icons continue to use the font. The component-library SVG renderer is required; see [component-library PR #764](https://github.com/helsingborg-stad/component-library/pull/764). Until it is released and the Composer dependency is updated, Municipio continues to use its existing font rendering.
+
+The font stylesheet remains available on public pages during the transition for Interactive Map markers and chat feedback icons, whose fill state changes in JavaScript. Pages that use only the standard Icon component render SVGs without requesting the WOFF2 font.
 
 ## NPM scripts
 

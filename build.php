@@ -26,10 +26,16 @@ if (file_exists('composer.json')) {
 //Run npm if package.json is found
 if (file_exists('package.json') && file_exists('package-lock.json')) {
 	$buildCommands[] = 'npm ci --no-progress --no-audit';
-    $buildCommands[] = 'npm run build';
+    $buildCommands[] = 'python3 -m pip install --disable-pip-version-check --target .icon-build-deps -r requirements-icons.txt';
+    $buildCommands[] = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'
+        ? 'set PYTHONPATH=.icon-build-deps&& npm run build'
+        : 'PYTHONPATH=.icon-build-deps npm run build';
 } elseif (file_exists('package.json') && !file_exists('package-lock.json')) {
 	$buildCommands[] = 'npm install --no-progress --no-audit';
-    $buildCommands[] = 'npm run build';
+    $buildCommands[] = 'python3 -m pip install --disable-pip-version-check --target .icon-build-deps -r requirements-icons.txt';
+    $buildCommands[] = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'
+        ? 'set PYTHONPATH=.icon-build-deps&& npm run build'
+        : 'PYTHONPATH=.icon-build-deps npm run build';
 }
 
 
@@ -51,6 +57,9 @@ $removables = [
     'phpunit.xml.dist',
     'README.md',
     './node_modules/',
+    './.icon-build-deps/',
+    'requirements-icons.txt',
+    './scripts/build_material_symbol_svgs.py',
     './source/sass/',
     './source/js/',
     'LICENSE',

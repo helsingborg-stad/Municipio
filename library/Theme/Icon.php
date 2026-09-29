@@ -14,6 +14,9 @@ class Icon
 
     public function __construct()
     {
+        add_filter('ComponentLibrary/Component/Icon/Data', [$this, 'enableFrontendSvg'], 20);
+        add_filter('ComponentLibrary/Component/Icon/SvgPath', [$this, 'resolveMaterialSvg'], 10, 3);
+
         add_filter(
             'ComponentLibrary/Component/Icon/AltTextPrefix',
             array($this, 'altTextPrefix'),
@@ -34,6 +37,39 @@ class Icon
             10,
             1
         );
+    }
+
+    /** Use the generated catalogue for public pages while retaining font icons in wp-admin. */
+    public function enableFrontendSvg(array $data): array
+    {
+        $isChatFeedback = count(array_intersect(
+            (array) ($data['classList'] ?? []),
+            ['municipio-ai-chat__feedback-like-button', 'municipio-ai-chat__feedback-dislike-button']
+        )) > 0;
+
+        if (!is_admin() && !$isChatFeedback && is_string($data['icon'] ?? null) && $data['icon'] !== '' && !str_ends_with($data['icon'], '.svg')) {
+            $data['svgMode'] = true;
+        }
+
+        return $data;
+    }
+
+    /** Resolve only names and variants from our generated Material Symbols catalogue. */
+    public function resolveMaterialSvg($path, string $icon, bool $filled): ?string
+    {
+        if (is_admin() || preg_match('/^[a-z0-9_]+$/', $icon) !== 1) {
+            return $path;
+        }
+
+        $style = get_theme_mod('icon_style') ?: 'rounded';
+        $weight = (string) (get_theme_mod('icon_weight') ?: '400');
+        $style = in_array($style, ['outlined', 'rounded', 'sharp'], true) ? $style : 'rounded';
+        $weight = in_array($weight, ['200', '400', '600'], true) ? $weight : '400';
+
+        $candidate = get_template_directory() . '/assets/dist/icons/material-symbols/'
+            . $style . '/' . $weight . '/' . (int) $filled . '/' . $icon . '.svg';
+
+        return is_file($candidate) ? $candidate : $path;
     }
 
     public function altTextPrefix($altTextPrefix)
