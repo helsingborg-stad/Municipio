@@ -52,6 +52,10 @@
     }
 
     .mod-menu__item.is-expanded {
+        .mod-menu__children.mod-menu__children--hidden {
+            overflow: unset;
+        }
+
         .mod-menu__expand .mod-menu__expand-icon {
             transform: rotate(180deg);
         }

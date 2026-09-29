@@ -59,6 +59,11 @@ class Menu extends \Modularity\Module
         $this->wpEnqueue?->add('css/menu.css');
     }
 
+    public function script()
+    {
+        $this->wpEnqueue?->add('js/menu.js');
+    }
+
     /**
      * Available "magic" methods for modules:
      * init()            What to do on initialization
