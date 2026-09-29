@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "911f38cd5544c4bb6aa25aad7628fbbd",
+    "content-hash": "aa99c66241242692b60820d020ae4050",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -886,16 +886,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v7.2.0",
+            "version": "v7.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/php-jwt.git",
-                "reference": "f502cdbf279cd7532060b041f7c22a05208c0b93"
+                "reference": "0501f5729b9e2448516674aff07c7d1727869b8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/f502cdbf279cd7532060b041f7c22a05208c0b93",
-                "reference": "f502cdbf279cd7532060b041f7c22a05208c0b93",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/0501f5729b9e2448516674aff07c7d1727869b8e",
+                "reference": "0501f5729b9e2448516674aff07c7d1727869b8e",
                 "shasum": ""
             },
             "require": {
@@ -954,9 +954,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/php-jwt/issues",
-                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.0"
+                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.1"
             },
-            "time": "2026-09-21T19:29:58+00:00"
+            "time": "2026-09-28T17:51:46+00:00"
         },
         {
             "name": "freshleafmedia/autofocus",
@@ -1282,16 +1282,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.43.1",
+            "version": "5.43.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "79ea43d960fd768dd097f3d8e5cdd9dfd17e0f04"
+                "reference": "96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/79ea43d960fd768dd097f3d8e5cdd9dfd17e0f04",
-                "reference": "79ea43d960fd768dd097f3d8e5cdd9dfd17e0f04",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa",
+                "reference": "96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa",
                 "shasum": ""
             },
             "require": {
@@ -1323,9 +1323,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.43.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.43.2"
             },
-            "time": "2026-09-28T13:35:27+00:00"
+            "time": "2026-09-29T11:06:56+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
@@ -1366,21 +1366,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.34.4",
+            "version": "3.34.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "73019f44ab3edf42737ab4677ba2fbacfdf3bda2"
+                "reference": "c830fd5700932f8a919d00e4664869b3a26cb6b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/73019f44ab3edf42737ab4677ba2fbacfdf3bda2",
-                "reference": "73019f44ab3edf42737ab4677ba2fbacfdf3bda2",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/c830fd5700932f8a919d00e4664869b3a26cb6b1",
+                "reference": "c830fd5700932f8a919d00e4664869b3a26cb6b1",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.43.1",
+                "helsingborg-stad/component-library": "5.43.2",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1419,9 +1419,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.34.4"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.34.6"
             },
-            "time": "2026-09-28T13:43:15+00:00"
+            "time": "2026-09-29T11:31:37+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
