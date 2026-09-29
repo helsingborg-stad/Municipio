@@ -3,7 +3,23 @@
     @includeWhen($hasMainMenu, 'partials.header.skip-to-main-menu')
     @includeWhen($hasSideMenu, 'partials.header.skip-to-side-menu')
 
-    @if(!empty($headerData['upperItems']))
+    @foreach($headerData as $key => $header)
+        @if($header->isEmpty())
+            @continue
+        @endif
+
+        @scope(['name' => ['header-flexible-'.$key, 'header-flexible', 'header']])
+            @header([
+                'classList' => $header->getCssClasses(),
+                'id' => 'site-header-flexible-' . $key,
+                'sticky' => $header->isSticky(),
+                'context' => 'site.header.flexible.' . $key,
+            ])
+            @endheader
+        @endscope
+    @endforeach
+
+    {{-- @if(!empty($headerData['upperItems']))
         @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
             @header([
                 'classList' => array_merge(
@@ -71,5 +87,5 @@
         @include('partials.search.search-modal', [
             'buttonAppearance' => $headerData['defaultButtonAppearance'],
         ])
-    @endif
+    @endif --}}
 @endif

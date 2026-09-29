@@ -4,7 +4,7 @@ namespace Municipio\Controller\Header\Helper;
 
 class HeaderVisibilityClasses
 {
-    public function getVisibilityClasses(array $menuItems, array $modifiers = [""]): array
+    public function buildVisibilityClasses(array $menuItems, array $modifiers = [""]): array
     {
         $classes = [];
         $visible = !empty($menuItems);

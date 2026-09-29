@@ -5,18 +5,23 @@ namespace Municipio\Controller\Header;
 use AcfService\AcfService;
 use Municipio\Controller\Header\Helper\HeaderVisibilityClasses;
 use Municipio\Controller\Header\Helper\ExtractMenuItems;
+use Municipio\Controller\Header\Helper\HeaderBreakpoint;
 use Municipio\Controller\Header\MenuItemFactory;
+use Municipio\Controller\Header\Helper\StickyResolver;
 use WpService\WpService;
 
 class Header
 {
+    private ?array $createdMenuItems = null;
+
     public function __construct(
         private string $id,
         private WpService $wpService,
         private AcfService $acfService,
         private MenuItemFactory $menuItemFactory,
         private ExtractMenuItems $extractMenuItems,
-        private HeaderVisibilityClasses $HeaderVisibilityClasses
+        private HeaderVisibilityClasses $headerVisibilityClasses,
+        private StickyResolver $stickyResolver
     ) {
     }
 
@@ -27,38 +32,51 @@ class Header
 
     public function getCssClasses(): array
     {
-        $desktopVisibilityClasses = $this->HeaderVisibilityClasses->getVisibilityClasses($this->getDesktopMenuItems(), ['@lg', '@xl']);
-        $mobileVisibilityClasses = $this->HeaderVisibilityClasses->getVisibilityClasses($this->getMobileMenuItems());
+        //TODO: Fix
+        // $desktopVisibilityClasses = $this->headerVisibilityClasses->buildVisibilityClasses($this->getMenuItems(), $this->desktopModifiers);
+        // $mobileVisibilityClasses = $this->headerVisibilityClasses->buildVisibilityClasses($this->getMenuItems());
 
-        return array_merge($desktopVisibilityClasses, $mobileVisibilityClasses);
+        // return array_merge($desktopVisibilityClasses, $mobileVisibilityClasses);
+        return [];
+    }
+
+    public function isEmpty(): bool
+    {
+        $rawMenuItems = $this->extractMenuItems->getHeaderItems($this->id);
+        return 
+            empty($rawMenuItems[HeaderBreakpoint::DESKTOP->value]) && 
+            empty($rawMenuItems[HeaderBreakpoint::MOBILE->value]);
+    }
+
+    public function isSticky(): bool
+    {
+        return $this->stickyResolver->isSticky($this->id);
     }
 
     public function getMenuItems(): array
     {
-        return [
-            'desktop' => $this->getDesktopMenuItems(),
-            'mobile' => $this->getMobileMenuItems(),
-        ];
+        return $this->createdMenuItems ??= $this->createMenuItems();
     }
 
-    private function getDesktopMenuItems(): array
+    private function createMenuItems(): array
     {
-        $rawMenuItems = $this->extractMenuItems->getHeaderItems($this->id)['desktop'];
-        // echo '<pre>' . print_r( $rawMenuItems, true ) . '</pre>';die;
-        $menuItems = [];
+        $rawMenuItems = $this->extractMenuItems->getHeaderItems($this->id);
+        $structuredRawMenuItems = [];
 
-        $i = 0;
-        foreach ($rawMenuItems as $id => $rawMenuItem) {
-            $menuItems[] = $this->menuItemFactory->create($id, $i, $rawMenuItem);
-            $i++;
+        foreach ($rawMenuItems as $breakpoint => $items) {
+            $i = 0;
+            foreach ($items as $id => $config) {
+                $config['order'] = $i;
+                $structuredRawMenuItems[$id][$breakpoint] = $config;
+                $i++;
+            }
+        }
+
+        $menuItems = [];
+        foreach ($structuredRawMenuItems as $id => $item) {
+            $menuItems[$id] = $this->menuItemFactory->create($id, $item);
         }
 
         return $menuItems;
-    }
-
-    private function getMobileMenuItems(): array
-    {
-        $menuItems = $this->extractMenuItems->getHeaderItems($this->id);
-        return $menuItems['mobile'];
     }
 }

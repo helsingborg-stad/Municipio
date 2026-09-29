@@ -2,20 +2,40 @@
 
 namespace Municipio\Controller\Header\Helper;
 
+use Municipio\Controller\Header\Header;
+use Municipio\Controller\Header\Helper\HeaderKey;
+use Municipio\Controller\Header\Helper\HeaderBreakpoint;
+
 class ExtractMenuItems
 {
     private array $extractedItems = [];
+    private array $extractedRawData = [];
 
     public function __construct(private object $customizer)
     {}
 
-    private function extract(): array
+    public function extract(): array
     {
+        if (!empty($this->extractedRawData)) {
+            return $this->extractedRawData;
+        }
+
         $jsonString = $this->customizer?->headerSortableHiddenStorage ?? '{}';
 
         $decodedJsonString = json_decode($jsonString, true);
 
-        $this->extractedItems = $decodedJsonString;
+        $this->extractedRawData = $decodedJsonString;
+
+        return $this->extractedRawData;
+    }
+
+    public function getAllHeaders(): array
+    {
+        $this->extract();
+
+        foreach (HeaderKey::cases() as $value) {
+            $this->extractedItems[$value->value] = $this->getHeaderItems($value->value);
+        }
 
         return $this->extractedItems;
     }
@@ -27,19 +47,19 @@ class ExtractMenuItems
         }
 
         $data = $this->extract();
-        $key = $this->getKey($id);
-        $responsiveKey = $this->getKey($id, true);
+        $key = $this->getKey(HeaderKey::from($id));
+        $responsiveKey = $this->getKey(HeaderKey::from($id), true);
 
         $items = [
-            'desktop' => $data[$key] ?? [],
-            'mobile' => $data[$responsiveKey] ?? [],
+            HeaderBreakpoint::DESKTOP->value => $data[$key] ?? [],
+            HeaderBreakpoint::MOBILE->value => $data[$responsiveKey] ?? [],
         ];
 
         return $items;
     }
 
-    private function getKey(string $id, bool $responsive = false): string
+    private function getKey(HeaderKey $id, bool $responsive = false): string
     {
-        return 'header_sortable_section_main_' . $id . ($responsive ? '_responsive' : '');
+        return 'header_sortable_section_main_' . $id->value . ($responsive ? '_responsive' : '');
     }
 }

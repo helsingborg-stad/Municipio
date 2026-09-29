@@ -17,6 +17,7 @@ use Municipio\Controller\Header\HeaderFactory;
 // use Municipio\Controller\Header\MenuVisibilityTransformer;
 // use Municipio\Controller\Header\OrderedMenuItemsResolver;
 // use Municipio\Controller\HeaderFactory\HeaderFactory;
+use Municipio\Controller\Header\Helper\HeaderKey;
 
 /**
  * Class Flexible
@@ -77,16 +78,18 @@ class Flexible
      */
     public function getHeaderData(): array
     {
-        $upperHeader = $this->headerFactory->create('upper');
-        $lowerHeader = $this->headerFactory->create('lower');
+        $upperHeader = $this->headerFactory->create(HeaderKey::UPPER->value);
+        $lowerHeader = $this->headerFactory->create(HeaderKey::LOWER->value);
 
         $upperHeaderItems = $upperHeader->getMenuItems();
-        // echo '<pre>' . print_r( $upperHeaderItems, true ) . '</pre>';die;
         // $upperHeaderClasses = $upperHeader->getCssClasses();
         // $lowerHeaderClasses = $lowerHeader->getCssClasses();
         // $lowerHeaderItems = $lowerHeader->getMenuItems();
 
-        return [];
+        return [
+            'upperHeader' => $upperHeader,
+            'lowerHeader' => $lowerHeader
+        ];
         // $upperHeader = Header::create('upper');
         // $lowerHeader = Header::create('lower');
 
