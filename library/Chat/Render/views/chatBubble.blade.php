@@ -37,7 +37,7 @@
             'persistent' => true,
             'size' => 'xs',
             'attributeList' => array_merge(['municipio-ai-chat-bubble' => '1'], $attributeList),
-            'classList' => ['municipio-ai-chat__chat'],
+            'classList' => ['municipio-ai-chat__chat', 'u-visibility--hidden'],
             'chatInputData' => [
                 'sendButtonText' => $lang['send'],
                 'placeholderText' => $lang['placeholder']
