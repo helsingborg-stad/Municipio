@@ -1,10 +1,9 @@
-import InitChat from "./initChat";
 import Popover from "./popover/popover";
 
 /**
  * Checks whether chat markup exists on the page before event listeners are registered.
  */
-const chatInitializer = new InitChat();
+let chatInitializer: any = null;
 
 document.addEventListener("popover:initialized", (e: any) => {
 	const popover = e.detail;
@@ -49,7 +48,11 @@ function initChatBubble(chat: any) {
 }
 
 async function initializeChat(chat: any) {
-	await chatInitializer.init(chat, wpApiSettings.root);
+	if (!chatInitializer) {
+		chatInitializer = new (await import("./chatFactory")).default();
+	}
+
+	await chatInitializer.init(chat);
 }
 
 function getPopover(): HTMLElement | null {
