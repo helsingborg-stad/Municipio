@@ -1,3 +1,4 @@
+import type MarkdownIt from "markdown-it";
 import { ChatSessionFactory } from "./chat/ChatSessionFactory";
 import Chat from "./chat/chat";
 import FeedbackApi from "./chat/feedbackApi";
@@ -9,16 +10,19 @@ import NewChatSessionButton from "./chat/newChatSessionButton";
  * Orchestrates chat setup from the initialized chat element.
  */
 class InitChat {
+	private markdownParserPromise: Promise<MarkdownIt> | null = null;
+
 	/**
 	 * Initializes the chat services and UI bindings for a chat instance.
 	 */
-	public init(chat: any, markdownParser: MarkdownIt, apiRoot: string): void {
+	public async init(chat: any, apiRoot: string): Promise<void> {
 		const configuration = this.getChatConfiguration(chat);
 		const services = this.createChatServices(
 			chat,
 			configuration.feedbackTemplate,
 			apiRoot,
 		);
+		const markdownParser = await this.getMarkdownParser();
 
 		this.restoreFeedbackButtons(
 			chat,
@@ -150,6 +154,30 @@ class InitChat {
 		if (newChatButtonElement) {
 			new NewChatSessionButton(newChatButtonElement, chatInstance, chat);
 		}
+	}
+
+	/**
+	 * Lazily creates and caches the markdown parser used by the chat UI.
+	 */
+	private async getMarkdownParser(): Promise<MarkdownIt> {
+		if (!this.markdownParserPromise) {
+			this.markdownParserPromise = (async () => {
+				const MarkdownItConstructor = (await import("markdown-it")).default;
+				const parser = new MarkdownItConstructor({
+					html: false,
+					linkify: false,
+					typographer: false,
+				});
+
+				parser.validateLink = (url: string): boolean => {
+					return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
+				};
+
+				return parser;
+			})();
+		}
+
+		return this.markdownParserPromise;
 	}
 }
 
