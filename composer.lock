@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40a621292626f354b5a39230409c3282",
+    "content-hash": "19c5db009489f8ad5500a1cbaa2f1116",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1282,20 +1282,21 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.43.2",
+            "version": "5.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa"
+                "reference": "721fe11029048f07c86129bc536554356f52860e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa",
-                "reference": "96e98a3f15b85e0c3a9c7c2a47fcc047bdfc67aa",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/721fe11029048f07c86129bc536554356f52860e",
+                "reference": "721fe11029048f07c86129bc536554356f52860e",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/blade": "^3.5.0",
+                "helsingborg-stad/material-design-icons-json-svg-font": "^1.0.0",
                 "helsingborg-stad/wpservice": "^2.0",
                 "php": "^8.0"
             },
@@ -1323,9 +1324,44 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.43.2"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.44.1"
             },
-            "time": "2026-09-29T11:06:56+00:00"
+            "time": "2026-09-30T11:55:50+00:00"
+        },
+        {
+            "name": "helsingborg-stad/material-design-icons-json-svg-font",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font.git",
+                "reference": "57da41fe1e0c7ceb7754171a6556b8ab631b57fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/material-design-icons-json-svg-font/zipball/57da41fe1e0c7ceb7754171a6556b8ab631b57fd",
+                "reference": "57da41fe1e0c7ceb7754171a6556b8ab631b57fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HelsingborgStad\\MaterialSymbols\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Material Symbols extracted from Google's variable fonts as SVG, JSON, and fonts",
+            "homepage": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font/issues",
+                "source": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font"
+            },
+            "time": "2026-09-30T10:53:47+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
@@ -1366,21 +1402,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.34.7",
+            "version": "dev-main-1.x",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "411b716bb4a225afbcda919930b6c0284f0f361b"
+                "reference": "adde87aa5b5c2e9ceb733918bd1ccfab242cb722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/411b716bb4a225afbcda919930b6c0284f0f361b",
-                "reference": "411b716bb4a225afbcda919930b6c0284f0f361b",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/adde87aa5b5c2e9ceb733918bd1ccfab242cb722",
+                "reference": "adde87aa5b5c2e9ceb733918bd1ccfab242cb722",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.43.2",
+                "helsingborg-stad/component-library": "5.44.1",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1388,7 +1424,28 @@
                 "carthage-software/mago": "1.26.0",
                 "phpunit/phpunit": "^9.6"
             },
+            "default-branch": true,
             "type": "library",
+            "extra": {
+                "helsingborg-stad/material-design-icons-json-svg-font": {
+                    "formats": [
+                        "svg",
+                        "woff2"
+                    ],
+                    "weights": [
+                        200,
+                        400,
+                        600
+                    ],
+                    "variants": [
+                        "outlined",
+                        "rounded",
+                        "sharp"
+                    ],
+                    "staticFonts": false,
+                    "variableFonts": true
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "MunicipioStyleGuide\\": "source/php/",
@@ -1419,9 +1476,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.34.7"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/main-1.x"
             },
-            "time": "2026-09-29T11:38:22+00:00"
+            "time": "2026-09-30T13:40:14+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7601,6 +7658,7 @@
         "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
+        "helsingborg-stad/styleguide": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
     "prefer-stable": false,

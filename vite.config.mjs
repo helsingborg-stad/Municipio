@@ -7,12 +7,13 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 	(m) => m.default || m,
 );
 
-const copyStyleguideAssets = () =>
-	fs.cpSync(
-		"vendor/helsingborg-stad/styleguide/assets/dist",
-		"assets/dist/styleguide",
-		{ recursive: true },
-	);
+const copyStyleguideAssets = () => {
+	const source = "vendor/helsingborg-stad/styleguide/assets/dist";
+
+	if (fs.existsSync(source)) {
+		fs.cpSync(source, "assets/dist/styleguide", { recursive: true });
+	}
+};
 
 const wrapStandaloneEntryScripts = () => ({
 	name: "wrap-standalone-entry-scripts",
@@ -54,21 +55,6 @@ const entries = {
 	"css/a11y": "./assets/source/sass/admin/a11y.scss",
 	"css/login": "./assets/source/sass/admin/login.scss",
 	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
-
-	"fonts/material/light/sharp": "./assets/source/sass/icons/light/sharp.scss",
-	"fonts/material/light/outlined":
-		"./assets/source/sass/icons/light/outlined.scss",
-	"fonts/material/light/rounded":
-		"./assets/source/sass/icons/light/rounded.scss",
-	"fonts/material/medium/sharp": "./assets/source/sass/icons/medium/sharp.scss",
-	"fonts/material/medium/outlined":
-		"./assets/source/sass/icons/medium/outlined.scss",
-	"fonts/material/medium/rounded":
-		"./assets/source/sass/icons/medium/rounded.scss",
-	"fonts/material/bold/sharp": "./assets/source/sass/icons/bold/sharp.scss",
-	"fonts/material/bold/outlined":
-		"./assets/source/sass/icons/bold/outlined.scss",
-	"fonts/material/bold/rounded": "./assets/source/sass/icons/bold/rounded.scss",
 
 	"js/municipio": "./assets/source/js/municipio.js",
 	"js/instantpage": "./node_modules/instant.page/instantpage.js",
@@ -145,41 +131,6 @@ export default defineConfig(({ mode }) => {
 						if (assetInfo.name?.endsWith(".css")) {
 							return isProduction ? "[name].[hash].css" : "[name].css";
 						}
-						// Handle font files with custom naming for material symbols
-						if (assetInfo.name?.match(/\.(woff2?|ttf|eot|svg|otf)$/)) {
-							const name = assetInfo.name;
-							if (name.includes("material-symbols")) {
-								// Extract weight and style from filename
-								let weight = "medium"; // default
-								let style = "sharp"; // default
-
-								if (
-									name.includes("-200") ||
-									this.facadeModuleId?.includes("font-200")
-								) {
-									weight = "light";
-								} else if (
-									name.includes("-400") ||
-									this.facadeModuleId?.includes("font-400")
-								) {
-									weight = "medium";
-								} else if (
-									name.includes("-600") ||
-									this.facadeModuleId?.includes("font-600")
-								) {
-									weight = "bold";
-								}
-
-								if (name.includes("outlined")) {
-									style = "outlined";
-								} else if (name.includes("rounded")) {
-									style = "rounded";
-								}
-
-								const ext = name.split(".").pop();
-								return `fonts/material/${weight}/${style}.[hash].${ext}`;
-							}
-						}
 						return "assets/[name].[hash].[ext]";
 					},
 				},
@@ -207,7 +158,6 @@ export default defineConfig(({ mode }) => {
 		css: {
 			preprocessorOptions: {
 				scss: {
-					quietDeps: true, // Remove when issue is resolved: https://github.com/marella/material-symbols/issues/44
 					api: "modern-compiler",
 					includePaths: ["node_modules", "assets/source"],
 					importers: [
@@ -245,23 +195,6 @@ export default defineConfig(({ mode }) => {
 					copyStyleguideAssets();
 				},
 			},
-			copy({
-				targets: [
-					{
-						src: "node_modules/@material-symbols/font-200/*.woff2",
-						dest: "assets/dist/fonts/material/light/",
-					},
-					{
-						src: "node_modules/@material-symbols/font-400/*.woff2",
-						dest: "assets/dist/fonts/material/medium/",
-					},
-					{
-						src: "node_modules/@material-symbols/font-600/*.woff2",
-						dest: "assets/dist/fonts/material/bold/",
-					},
-				],
-				hook: "writeBundle",
-			}),
 		],
 	};
 });

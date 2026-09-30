@@ -36,38 +36,7 @@ class Icons
                 '600' => esc_html__('Bold', 'municipio'),
             ],
             'description' => esc_html__('Set the boldness of the icons.', 'municipio'),
-            'output'      => [
-                [
-                    'element'  => ':root',
-                    'property' => '--current-material-symbols-weight',
-                ],
-            ],
         ]);
 
-        CustomizerField::addField([
-            'type'        => 'switch',
-            'settings'    => 'icon_filled',
-            'label'       => esc_html__('Filled icons', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => false,
-            'priority'    => 30,
-            'choices'     => [
-                true  => esc_html__('Filled', 'municipio'),
-                false => esc_html__('Outlined', 'municipio'),
-            ],
-            'description' => esc_html__('Determines if icons should be filled as a default, or not. If the icon component has any value set, that will be used instead. This settly do not apply to all icons, only those with support.', 'municipio'),
-            'output'      => [
-                [
-                    'type'    => 'component_data',
-                    'dataKey' => 'defaultFilled',
-                    'context' => [
-                        [
-                            'context'  => 'component.icon',
-                            'operator' => '=='
-                        ],
-                    ],
-                ],
-            ],
-        ]);
     }
 }
