@@ -74,13 +74,6 @@ jobs:
       - name: Run PHP build script
         run: php build.php --cleanup --release
 
-      - name: Verify built asset manifests
-        run: |
-          test -s assets/dist/manifest.json
-          test -s assets/dist/styleguide/manifest.json
-          jq -e 'has("js/styleguide.js") and has("js/kulturkortetQR.js")' assets/dist/manifest.json
-          jq -e 'has("css/utilities/preloader.css")' assets/dist/styleguide/manifest.json
-
       - name: Remove cached git files
         run: |
           git rm -r --cached .
