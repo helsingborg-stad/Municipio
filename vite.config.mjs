@@ -7,12 +7,13 @@ const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 	(m) => m.default || m,
 );
 
-const copyStyleguideAssets = () =>
-	fs.cpSync(
-		"vendor/helsingborg-stad/styleguide/assets/dist",
-		"assets/dist/styleguide",
-		{ recursive: true },
-	);
+const copyStyleguideAssets = () => {
+	const source = "vendor/helsingborg-stad/styleguide/assets/dist";
+
+	if (fs.existsSync(source)) {
+		fs.cpSync(source, "assets/dist/styleguide", { recursive: true });
+	}
+};
 
 const wrapStandaloneEntryScripts = () => ({
 	name: "wrap-standalone-entry-scripts",
