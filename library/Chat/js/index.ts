@@ -35,16 +35,24 @@ function initChatBubble(chat: any) {
 	const popover = getPopover();
 	const isOpen = popover?.matches(':popover-open');
 
+
 	if (!popover || isOpen) {
+		scrollToBottom(chat);
 		return initializeChat(chat);
 	}
 
 	const listener = () => {
 		popover.removeEventListener('toggle', listener);
+		scrollToBottom(chat);
 		initializeChat(chat);
 	};
 
 	popover.addEventListener('toggle', listener);
+}
+
+function scrollToBottom(chat: any) {
+	chat.getScrollContainer().scrollTop = chat.getScrollContainer().scrollHeight;
+	chat.getElement().classList.remove("u-visibility--hidden");
 }
 
 async function initializeChat(chat: any) {

@@ -4,6 +4,12 @@ $_: "municipio-ai-chat";
     width: min(calc(var(--base) * 40 * 1.5), calc(100vw - var(--base) * 10));
 }
 
+[municipio-ai-chat-bubble] {
+    .c-chat__message--reply {
+        margin-bottom: calc(var(--space) * var(--base) * 3);
+    }
+}
+
 .#{$_}__chat {
     contain:paint;
     width: 100%;
@@ -17,10 +23,11 @@ $_: "municipio-ai-chat";
 }
 
 .#{$_}__feedback {
+    position: absolute;
+    bottom: calc(var(--base) * var(--space) * -3);
     display: flex;
     gap: calc(var(--base) * 0.5);
-    margin-top: calc(var(--base) * 0.5);
-    margin-left: var(--base);
+    left: calc(var(--base) * var(--space));
 
     .#{$_}__feedback-like-button,
     .#{$_}__feedback-dislike-button {
