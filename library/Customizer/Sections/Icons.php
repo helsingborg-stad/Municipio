@@ -36,12 +36,6 @@ class Icons
                 '600' => esc_html__('Bold', 'municipio'),
             ],
             'description' => esc_html__('Set the boldness of the icons.', 'municipio'),
-            'output'      => [
-                [
-                    'element'  => ':root',
-                    'property' => '--current-material-symbols-weight',
-                ],
-            ],
         ]);
 
         CustomizerField::addField([

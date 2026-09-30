@@ -35,7 +35,6 @@ use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
-use Municipio\Theme\InlineMaterialSymbolsCss\InlineMaterialSymbolsCssFeature;
 use wpdb;
 use WpService\WpService;
 use WpUtilService\WpUtilService;
@@ -149,10 +148,6 @@ class App
          */
         $enqueue = new \Municipio\Theme\Enqueue($this->wpService, $this->wpUtilService);
         $enqueue->addHooks();
-        (new InlineMaterialSymbolsCssFeature(
-            $this->wpService,
-            $this->wpUtilService,
-        ))->addHooks();
 
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
@@ -800,6 +795,8 @@ class App
             $currentSidebar,
         );
         $compressedCollections->addHooks();
+
+        (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
     }
 
     /**

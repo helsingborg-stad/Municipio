@@ -1,5 +1,0 @@
-@use "sass:meta";
-
-@layer components {
-    @include meta.load-css("@material-symbols/font-200/rounded.scss");
-}
