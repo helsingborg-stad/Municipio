@@ -1,18 +1,45 @@
-import MarkdownIt from "markdown-it";
-import { ChatSessionFactory } from "./chat/ChatSessionFactory";
-import Chat from "./chat/chat";
-import FeedbackApi from "./chat/feedbackApi";
-import FeedbackFactory from "./chat/feedbackFactory";
-import GreetingPhrase from "./chat/greetingPhrase";
-import NewChatSessionButton from "./chat/newChatSessionButton";
+import type MarkdownIt from "markdown-it";
+import InitChat from "./initChat";
 import Popover from "./popover/popover";
+
+/**
+ * Checks whether chat markup exists on the page before event listeners are registered.
+ */
+const chatInitializer = new InitChat();
+let markdownParserPromise: Promise<MarkdownIt> | null = null;
+
+/**
+ * Lazily creates and caches the markdown parser used by the chat UI.
+ */
+async function getMarkdownParser(): Promise<MarkdownIt> {
+	if (!markdownParserPromise) {
+		markdownParserPromise = (async () => {
+			const MarkdownItConstructor = (await import("markdown-it")).default;
+			const parser = new MarkdownItConstructor({
+				html: false,
+				linkify: false,
+				typographer: false,
+			});
+
+			parser.validateLink = (url: string): boolean => {
+				return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
+			};
+
+			return parser;
+		})();
+	}
+
+	return markdownParserPromise;
+}
 
 document.addEventListener("popover:initialized", (e: any) => {
 	const popover = e.detail;
 
 	if (popover.id !== "chat-global-root") return;
 
-	const chatContainer = popover.element?.querySelector("[data-js-municipio-ai-chat-wrapper]");
+	const chatContainer = popover.element?.querySelector(
+		"[data-js-municipio-ai-chat-wrapper]",
+	);
 	const messageArea = popover.element?.querySelector("[data-js-message-area]");
 
 	if (!chatContainer || !messageArea) return;
@@ -20,72 +47,43 @@ document.addEventListener("popover:initialized", (e: any) => {
 	new Popover(popover, chatContainer as HTMLElement, messageArea as HTMLElement);
 });
 
-document.addEventListener("chat:initialized", (e: any) => {
+document.addEventListener("chat:initialized", async (e: any) => {
 	const chat = e.detail;
 
-	if (!chat.getElement().hasAttribute('data-js-municipio-ai-chat')) return;
-	const newChatButtonElement = chat
-		.getElement()
-		.querySelector("[data-js-chat-new]") as HTMLElement;
-	const greetingsPhrase =
-		chat.getElement().dataset.jsChatGreetingsPhrase || null;
-	const feedbackTemplate =
-		chat.getElement().querySelector("[data-js-chat-feedback]") || null;
-	const chatAssistant = chat.getElement().dataset.jsChatAssistant || null;
-	const persistentAttribute = chat
-		.getElement()
-		.getAttribute("data-js-chat-persistent");
-	const isPersistentChat =
-		persistentAttribute !== null && persistentAttribute !== "false";
+	if (!chat.getElement().hasAttribute("data-js-municipio-ai-chat")) return;
+	if (chat.getElement().hasAttribute("municipio-ai-chat-bubble")) {
+		return initChatBubble(chat);
+	}
 
-	const markdownParser = new MarkdownIt({
-		html: false,
-		linkify: false,
-		typographer: false,
-	});
+	initChat(chat);
+});
 
-	const chatSessionFactory = new ChatSessionFactory(wpApiSettings.root);
+function initChatBubble(chat: any) {
+	const popover = getPopover();
+	const isOpen = popover?.matches(':popover-open');
 
-	markdownParser.validateLink = (url: string): boolean => {
-		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
+	if (!popover) {
+		return initChat(chat);
+	}
+
+	if (isOpen) {
+		return initChat(chat);
+	}
+
+	const listener = () => {
+		popover.removeEventListener('toggle', listener);
+		initChat(chat);
 	};
 
-	const feedbackApi = new FeedbackApi(wpApiSettings.root);
-	const feedbackFactory = new FeedbackFactory(
-		chat,
-		feedbackTemplate as HTMLTemplateElement,
-		feedbackApi,
-	);
+	popover.addEventListener('toggle', listener);
+}
 
-	chat.getMessages().forEach((message: any, index: number) => {
-		if (!message.getIsReply()) {
-			return;
-		}
+async function initChat(chat: any) {
+	const markdownParser = await getMarkdownParser();
+	chatInitializer.init(chat, markdownParser, wpApiSettings.root);
+}
 
-		if (index === 0 && greetingsPhrase === message.getContent()) {
-			return;
-		}
-
-		feedbackFactory.create(message);
-	});
-
-	if (greetingsPhrase) {
-		new GreetingPhrase(chat, greetingsPhrase);
-	}
-
-	const chatInstance = new Chat(
-		chatSessionFactory,
-		chat,
-		markdownParser,
-		feedbackFactory,
-		feedbackApi,
-		chatAssistant ?? null,
-		isPersistentChat,
-	);
-
-	if (newChatButtonElement) {
-		new NewChatSessionButton(newChatButtonElement, chatInstance, chat);
-	}
-
-	chatInstance.init();
-});
+function getPopover(): HTMLElement | null {
+	const popover = document.querySelector(`#chat-global-root`);
+	return popover ? (popover as HTMLElement) : null;
+}

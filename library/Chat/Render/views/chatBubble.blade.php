@@ -10,7 +10,8 @@
     ],
     'attributeList' => [
         'popovertarget' => 'chat-global-root',
-        'style' => 'bottom: 1rem; right: 1rem;'
+        'style' => 'bottom: 1rem; right: 1rem;',
+        'municipio-ai-chat-bubble-trigger' => '1'
     ]
 ])
 @endbutton
@@ -35,7 +36,7 @@
             'id' => $chatId,
             'persistent' => true,
             'size' => 'xs',
-            'attributeList' => $attributeList,
+            'attributeList' => array_merge(['municipio-ai-chat-bubble' => '1'], $attributeList),
             'classList' => ['municipio-ai-chat__chat'],
             'chatInputData' => [
                 'sendButtonText' => $lang['send'],
