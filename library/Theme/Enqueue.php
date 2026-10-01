@@ -52,9 +52,14 @@ class Enqueue implements Hookable
      */
     public function enqueueFrontendScriptsAndStyles()
     {
+        $wpApiSettings = [
+            'root' => $this->wpService->getRestUrl(),
+            'nonce' => $this->wpService->wpCreateNonce('wp_rest'),
+        ];
+
         //Add municipio.js with translations
         $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-request'])
+            ->add('js/municipio.js')
             ->with()
             ->translation('MunicipioLocale', [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
@@ -62,7 +67,9 @@ class Enqueue implements Hookable
                     'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
                     'onError' => __('Something went wrong, please try again later', 'municipio'),
                 ],
-            ]);
+            ])
+            ->and()
+            ->translation('wpApiSettings', $wpApiSettings);
 
         //Add styleguide.js with translations
         $this->enqueue
@@ -95,8 +102,14 @@ class Enqueue implements Hookable
 
         //Other scripts
         $this->enqueue->add('js/instantpage.js');
-        $this->enqueue->add('js/pdf.js');
-        $this->enqueue->add('js/nav.js');
+        $this->enqueue
+            ->add('js/pdf.js')
+            ->with()
+            ->translation('wpApiSettings', $wpApiSettings);
+        $this->enqueue
+            ->add('js/nav.js')
+            ->with()
+            ->translation('wpApiSettings', $wpApiSettings);
 
         //Other styles
         $this->enqueue->add('css/municipio.css');

@@ -193,12 +193,22 @@ class App
 
     public function enqueueFront()
     {
+        $wpService = WpService::get();
+        $wpApiSettings = [
+            'root' => $wpService->getRestUrl(),
+            'nonce' => $wpService->wpCreateNonce('wp_rest'),
+        ];
+
         $this->wpEnqueue
             ->add('css/modularity.css')
             ->add('js/modularity.js', [], null, true)
+            ->with()
+            ->translation('wpApiSettings', $wpApiSettings)
+            ->and()
+            ->translation($this->modularityLangKey, $this->getModularityTranslations())
             ->add('js/user-editable-list.js')
             ->with()
-            ->translation($this->modularityLangKey, $this->getModularityTranslations());
+            ->translation('wpApiSettings', $wpApiSettings);
 
         if (!current_user_can('edit_posts')) {
             return;
