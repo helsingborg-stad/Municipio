@@ -1,13 +1,20 @@
 describe("initializeWpApiSettingsNonceRefresh", () => {
-	const originalFetch = global.fetch;
+	const originalFetch = globalThis.fetch;
+	const testWindow = window as Window & {
+		wpApiSettings?: {
+			root: string;
+			nonce: string;
+			refreshNonce?: () => Promise<string | null>;
+		};
+	};
 
 	afterEach(() => {
-		delete (window as any).wpApiSettings;
+		delete testWindow.wpApiSettings;
 
 		if (originalFetch) {
-			global.fetch = originalFetch;
+			globalThis.fetch = originalFetch;
 		} else {
-			delete (global as any).fetch;
+			delete (globalThis as { fetch?: typeof fetch }).fetch;
 		}
 	});
 
@@ -16,7 +23,7 @@ describe("initializeWpApiSettingsNonceRefresh", () => {
 			configurable: true,
 			value: "complete",
 		});
-		(window as any).wpApiSettings = {
+		testWindow.wpApiSettings = {
 			root: "https://example.test/wp-json/",
 			nonce: "initial-nonce",
 		};
@@ -25,12 +32,12 @@ describe("initializeWpApiSettingsNonceRefresh", () => {
 				get: jest.fn().mockReturnValue("refreshed-nonce"),
 			},
 		});
-		global.fetch = fetchMock;
+		globalThis.fetch = fetchMock as unknown as typeof fetch;
 
 		const { initializeWpApiSettingsNonceRefresh } = require("./wpApiSettings");
 		initializeWpApiSettingsNonceRefresh();
 
-		await (window as any).wpApiSettings.refreshNonce();
+		await testWindow.wpApiSettings.refreshNonce?.();
 
 		expect(fetchMock).toHaveBeenCalledWith(
 			expect.stringContaining(
@@ -44,6 +51,6 @@ describe("initializeWpApiSettingsNonceRefresh", () => {
 				},
 			}),
 		);
-		expect((window as any).wpApiSettings.nonce).toBe("refreshed-nonce");
+		expect(testWindow.wpApiSettings.nonce).toBe("refreshed-nonce");
 	});
 });
