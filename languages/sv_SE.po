@@ -2885,6 +2885,19 @@ msgstr "Mängd vityta"
 msgid "All space will be multiplied by 8."
 msgstr "Alla värden kommer multipliceras med 8."
 
+#: Modularity/source/php/AcfFields/php/mod-negative-margin.php:8
+#: Modularity/source/php/Module/NegativeMargin/NegativeMargin.php:14
+msgid "Negative margin"
+msgstr "Negativ marginal"
+
+#: Modularity/source/php/AcfFields/php/mod-negative-margin.php:12
+msgid "Amount of negative margin"
+msgstr "Mängd negativ marginal"
+
+#: Modularity/source/php/AcfFields/php/mod-negative-margin.php:15
+msgid "The value uses the same 8-pixel scale as the Spacer module."
+msgstr "Värdet använder samma 8-pixelsskala som modulen Mellanrum."
+
 #: Modularity/source/php/AcfFields/php/mod-subscribe.php:8
 #: Modularity/source/php/Module/Subscribe/Subscribe.php:17
 msgid "Email Subscribe"
@@ -4488,6 +4501,14 @@ msgstr "Mellanrum"
 #: Modularity/source/php/Module/Spacer/Spacer.php:15
 msgid "Spacers"
 msgstr "Mellanrum"
+
+#: Modularity/source/php/Module/NegativeMargin/NegativeMargin.php:15
+msgid "Negative margins"
+msgstr "Negativa marginaler"
+
+#: Modularity/source/php/Module/NegativeMargin/NegativeMargin.php:16
+msgid "Pulls the following content upward to create an overlap."
+msgstr "Drar efterföljande innehåll uppåt för att skapa en överlappning."
 
 #: Modularity/source/php/Module/Subscribe/Subscribe.php:18
 msgid "Email Subscribtions"
@@ -6197,6 +6218,10 @@ msgstr "mod-sites"
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:181
 msgid "mod-spacer"
 msgstr "mod-spacer"
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:180
+msgid "mod-negative-margin"
+msgstr "mod-negative-margin"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:182
 msgid "mod-subscribe"
@@ -13813,9 +13838,6 @@ msgstr ""
 msgctxt "design-builder-component-data"
 msgid "Card Color"
 msgstr ""
-"\n"
-"\n"
-"main"
 
 #: library/AcfFields/php/search-index-settings.php:14
 msgid "May be overridden by SEARCH_INDEX_PROVIDER."
@@ -14028,4 +14050,4 @@ msgstr ""
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Maximum number of rows reached."
-msgstr "
+msgstr ""

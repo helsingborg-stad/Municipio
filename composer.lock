@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d78c9160ec1aff8f0fb33c2984a1f53",
+    "content-hash": "19c5db009489f8ad5500a1cbaa2f1116",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -886,16 +886,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v7.2.0",
+            "version": "v7.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/php-jwt.git",
-                "reference": "f502cdbf279cd7532060b041f7c22a05208c0b93"
+                "reference": "0501f5729b9e2448516674aff07c7d1727869b8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/f502cdbf279cd7532060b041f7c22a05208c0b93",
-                "reference": "f502cdbf279cd7532060b041f7c22a05208c0b93",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/0501f5729b9e2448516674aff07c7d1727869b8e",
+                "reference": "0501f5729b9e2448516674aff07c7d1727869b8e",
                 "shasum": ""
             },
             "require": {
@@ -954,9 +954,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/php-jwt/issues",
-                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.0"
+                "source": "https://github.com/googleapis/php-jwt/tree/v7.2.1"
             },
-            "time": "2026-09-21T19:29:58+00:00"
+            "time": "2026-09-28T17:51:46+00:00"
         },
         {
             "name": "freshleafmedia/autofocus",
@@ -1282,20 +1282,21 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.40.1",
+            "version": "5.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "f4a34ec60de33cb3c8de1db78540d5348530f518"
+                "reference": "721fe11029048f07c86129bc536554356f52860e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/f4a34ec60de33cb3c8de1db78540d5348530f518",
-                "reference": "f4a34ec60de33cb3c8de1db78540d5348530f518",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/721fe11029048f07c86129bc536554356f52860e",
+                "reference": "721fe11029048f07c86129bc536554356f52860e",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/blade": "^3.5.0",
+                "helsingborg-stad/material-design-icons-json-svg-font": "^1.0.0",
                 "helsingborg-stad/wpservice": "^2.0",
                 "php": "^8.0"
             },
@@ -1323,22 +1324,57 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.40.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.44.1"
             },
-            "time": "2026-09-21T20:38:38+00:00"
+            "time": "2026-09-30T11:55:50+00:00"
         },
         {
-            "name": "helsingborg-stad/schema-library",
-            "version": "0.5.7",
+            "name": "helsingborg-stad/material-design-icons-json-svg-font",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/helsingborg-stad/schema-library.git",
-                "reference": "ab1e2a77c07df57e3cd5cb321996c959952ccb21"
+                "url": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font.git",
+                "reference": "57da41fe1e0c7ceb7754171a6556b8ab631b57fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/ab1e2a77c07df57e3cd5cb321996c959952ccb21",
-                "reference": "ab1e2a77c07df57e3cd5cb321996c959952ccb21",
+                "url": "https://api.github.com/repos/helsingborg-stad/material-design-icons-json-svg-font/zipball/57da41fe1e0c7ceb7754171a6556b8ab631b57fd",
+                "reference": "57da41fe1e0c7ceb7754171a6556b8ab631b57fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HelsingborgStad\\MaterialSymbols\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Material Symbols extracted from Google's variable fonts as SVG, JSON, and fonts",
+            "homepage": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font/issues",
+                "source": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font"
+            },
+            "time": "2026-09-30T10:53:47+00:00"
+        },
+        {
+            "name": "helsingborg-stad/schema-library",
+            "version": "0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/schema-library.git",
+                "reference": "a1342a4c031a0e2fba113bc9ff771a9ecc04cb79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/schema-library/zipball/a1342a4c031a0e2fba113bc9ff771a9ecc04cb79",
+                "reference": "a1342a4c031a0e2fba113bc9ff771a9ecc04cb79",
                 "shasum": ""
             },
             "require-dev": {
@@ -1360,27 +1396,27 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/schema-library/issues",
-                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.7"
+                "source": "https://github.com/helsingborg-stad/schema-library/tree/0.5.8"
             },
-            "time": "2026-01-21T12:33:03+00:00"
+            "time": "2026-09-25T07:39:35+00:00"
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.31.4",
+            "version": "dev-main-1.x",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "0edf1c75b4b3f390ff6001c2114cf625bd2f9984"
+                "reference": "adde87aa5b5c2e9ceb733918bd1ccfab242cb722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/0edf1c75b4b3f390ff6001c2114cf625bd2f9984",
-                "reference": "0edf1c75b4b3f390ff6001c2114cf625bd2f9984",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/adde87aa5b5c2e9ceb733918bd1ccfab242cb722",
+                "reference": "adde87aa5b5c2e9ceb733918bd1ccfab242cb722",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.40.1",
+                "helsingborg-stad/component-library": "5.44.1",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1388,7 +1424,28 @@
                 "carthage-software/mago": "1.26.0",
                 "phpunit/phpunit": "^9.6"
             },
+            "default-branch": true,
             "type": "library",
+            "extra": {
+                "helsingborg-stad/material-design-icons-json-svg-font": {
+                    "formats": [
+                        "svg",
+                        "woff2"
+                    ],
+                    "weights": [
+                        200,
+                        400,
+                        600
+                    ],
+                    "variants": [
+                        "outlined",
+                        "rounded",
+                        "sharp"
+                    ],
+                    "staticFonts": false,
+                    "variableFonts": true
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "MunicipioStyleGuide\\": "source/php/",
@@ -1419,9 +1476,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.31.4"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/main-1.x"
             },
-            "time": "2026-09-22T06:22:49+00:00"
+            "time": "2026-09-30T13:40:14+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -7601,6 +7658,7 @@
         "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
         "landrok/language-detector": 20,
+        "helsingborg-stad/styleguide": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
     "prefer-stable": false,

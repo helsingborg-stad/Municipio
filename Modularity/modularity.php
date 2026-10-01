@@ -56,6 +56,7 @@ add_action('after_setup_theme', function () {
         'mod-map' => 'group_602400d904b59',
         'mod-curator' => 'group_609b788ad04bb',
         'mod-spacer' => 'group_611cffa40276a',
+        'mod-negative-margin' => 'group_mod_negative_margin',
         'mod-table-block' => 'group_60b8bf5bbc4d7',
         'mod-text-block' => 'group_60ab6d6ba3621',
         'mod-hero' => 'group_614b3f1a751bf',

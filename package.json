@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.43.1",
+    "version": "7.52.9",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest ",
@@ -46,9 +46,6 @@
         "@babel/preset-typescript": "^7.27.1",
         "@biomejs/biome": "2.3.5",
         "@jest/globals": "^29.7.0",
-        "@material-symbols/font-200": "^0.34.1",
-        "@material-symbols/font-400": "^0.34.1",
-        "@material-symbols/font-600": "^0.34.1",
         "@types/jest": "^29.5.14",
         "@types/qrcode": "^1.5.6",
         "@types/wordpress__block-editor": "^14.21.2",
@@ -74,7 +71,6 @@
         "jquery": "^3.6.0",
         "leaflet": "^1.9.4",
         "lit-html": "^3.3.2",
-        "material-symbols": "^0.34.1",
         "mousetrap-global-bind": "^1.1.0",
         "object-fit-images": "^3.2.4",
         "postcss": "^8.5.1",
@@ -97,7 +93,7 @@
         "@types/markdown-it": "^14.1.2",
         "algoliasearch": "^5.43.0",
         "core-js": "^3.45.0",
-        "markdown-it": "^14.1.1",
+        "markdown-it": "^14.3.1",
         "qrcode": "^1.5.4",
         "react": "^18.3.1",
         "typesense": "^2.0.3"

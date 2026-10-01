@@ -20,11 +20,13 @@ class Cache
     private $postId = null;
     private $ttl = null;
     private $hash = null;
+    private ?FragmentAssetContextInterface $fragmentAssets;
 
     public $keyGroup = 'modules';
 
-    public function __construct($postId, $module = '', $ttl = 3600 * 24, $cacheGroup = null)
+    public function __construct($postId, $module = '', $ttl = 3600 * 24, $cacheGroup = null, ?FragmentAssetContextInterface $fragmentAssets = null)
     {
+        $this->fragmentAssets = $fragmentAssets;
         // Create cache group hash
         if (!is_null($cacheGroup)) {
             $cacheGroup = $this->createShortHash($cacheGroup);
@@ -94,6 +96,7 @@ class Cache
         }
 
         if (!$this->hasCache()) {
+            $this->fragmentAssets?->beginFragment();
             ob_start();
             return true;
         }
@@ -114,11 +117,13 @@ class Cache
 
         // Get output buffer and save to cache
         $return_data = ob_get_clean();
+        $assets = $this->fragmentAssets?->endFragment() ?? [];
 
         if (!empty($return_data)) {
             $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
 
             $cacheArray[$this->hash] = $return_data . $this->fragmentTag();
+            $cacheArray[$this->hash . ':assets'] = $assets;
 
             wp_cache_delete($this->postId, $this->keyGroup);
 
@@ -154,7 +159,15 @@ class Cache
             return false;
         }
 
+        // An older HTML-only fragment cannot restore assets; render it again once.
+        if ($this->fragmentAssets !== null && !is_array($cacheArray[$this->hash . ':assets'] ?? null)) {
+            return false;
+        }
+
         if ($print === true) {
+            if (is_array($cacheArray[$this->hash . ':assets'] ?? null)) {
+                $this->fragmentAssets?->restoreFragment($cacheArray[$this->hash . ':assets']);
+            }
             echo $cacheArray[$this->hash];
         }
 

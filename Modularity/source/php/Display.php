@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modularity;
 
-use ComponentLibrary\Init as ComponentLibraryInit;
 use Modularity\Helper\File as FileHelper;
 use Modularity\Helper\Wp;
 use Throwable;
@@ -82,13 +81,25 @@ class Display
         }
 
         $directories = FileHelper::glob(MODULARITY_PATH . 'source/php/Module/*');
+        return $this->findModuleDirectory($postType, is_array($directories) ? $directories : []);
+    }
 
-        if (!empty($directories) && is_array($directories)) {
-            foreach ($directories as $dir) {
-                $pathinfo = pathinfo($dir);
-                if (strtolower(str_replace('mod-', '', $postType)) === strtolower($pathinfo['filename'])) {
-                    return $pathinfo['filename'];
-                }
+    /**
+     * Finds the module directory matching a post type slug.
+     *
+     * @param string $postType
+     * @param array<int, string> $directories
+     * @return string|null
+     */
+    private function findModuleDirectory(string $postType, array $directories): ?string
+    {
+        $moduleName = strtolower(str_replace(['-', '_'], '', preg_replace('/^mod-/', '', $postType)));
+
+        foreach ($directories as $directory) {
+            $pathinfo = pathinfo($directory);
+            $directoryName = strtolower(str_replace(['-', '_'], '', $pathinfo['filename']));
+            if ($moduleName === $directoryName) {
+                return $pathinfo['filename'];
             }
         }
 
@@ -119,8 +130,7 @@ class Display
             $moduleView = $externalViewPaths[$data['post_type']];
         }
 
-        $init = new ComponentLibraryInit([]);
-        $blade = $init->getEngine();
+        $blade = \Municipio\Helper\ComponentBladeService::create([]);
 
         $filters = [
             static fn($d) => apply_filters('Modularity/Display/viewData', $d),
@@ -481,6 +491,7 @@ class Display
             ],
             $moduleSettings['cache_ttl'] ?? 0,
             $this->getAllAllowedAndRegisteredQueryVars() ?: null,
+            \Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer::instance(),
         );
 
         if ($echo == false) {
@@ -588,6 +599,10 @@ class Display
             'modularity-' . $module->post_type . '-' . $module->ID,
             property_exists($module, 'columnWidth') ? $module->columnWidth : 'o-grid-12',
         ];
+
+        if (is_callable([$module, 'wrapperClasses'])) {
+            $classes = array_merge($classes, (array) $module->wrapperClasses());
+        }
 
         //Hide module if preview
         if (is_preview() && isset($module->hidden) && $module->hidden) {

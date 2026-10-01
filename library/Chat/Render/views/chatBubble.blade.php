@@ -18,9 +18,15 @@
     'id' => 'chat-global-root',
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top',
-    'relative' => true
+    'relative' => true,
+    'classList' => [
+        'u-margin__bottom--1'
+    ]
 ])
     @element([
+        'attributeList' => [
+            'data-js-municipio-ai-chat-wrapper' => 'true',
+        ],
         'classList' => [
             'municipio-ai-chat'
         ]
@@ -61,7 +67,7 @@
                     @endif
                 @endelement
                 @element([
-                    'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center']
+                    'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center', 'u-display--flex']
                 ])
                     @button([
                         'icon' => 'edit_square',

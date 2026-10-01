@@ -3,7 +3,11 @@ class Popover {
 	private previousState: boolean | null = null;
     private coverRanOnce: boolean = false;
 
-	public constructor(private readonly popoveDetail: any, private readonly chatContainer: HTMLElement) {
+	public constructor(
+		private readonly popoveDetail: any,
+		private readonly chatContainer: HTMLElement,
+		private readonly messageArea: HTMLElement
+	) {
 		this.breakpointQuery = window.matchMedia("(max-width: 768px)");
 
 		this.breakpointQuery.addEventListener(
@@ -29,12 +33,15 @@ class Popover {
 			this.popoveDetail.popover.setCover(false);
 			this.chatContainer.style.width = "";
 			this.chatContainer.style.height = "";
-		} else {
-			this.coverRanOnce = true;
+			this.messageArea.style.height = "";
+		} else if (currentState) {
 			this.popoveDetail.popover.setCover(true);
 			this.chatContainer.style.width = "100%";
 			this.chatContainer.style.height = "100%";
+			this.messageArea.style.height = "100%";
 		}
+
+		this.coverRanOnce = true;
 	};
 }
 

@@ -12,17 +12,18 @@ document.addEventListener("popover:initialized", (e: any) => {
 
 	if (popover.id !== "chat-global-root") return;
 
-	const chatContainer = popover.element?.querySelector(".municipio-ai-chat");
+	const chatContainer = popover.element?.querySelector("[data-js-municipio-ai-chat-wrapper]");
+	const messageArea = popover.element?.querySelector("[data-js-message-area]");
 
-	if (!chatContainer) return;
+	if (!chatContainer || !messageArea) return;
 
-	new Popover(popover, chatContainer as HTMLElement);
+	new Popover(popover, chatContainer as HTMLElement, messageArea as HTMLElement);
 });
 
 document.addEventListener("chat:initialized", (e: any) => {
 	const chat = e.detail;
 
-	if (!chat.getElement().classList.contains("municipio-ai-chat__chat")) return;
+	if (!chat.getElement().hasAttribute('data-js-municipio-ai-chat')) return;
 	const newChatButtonElement = chat
 		.getElement()
 		.querySelector("[data-js-chat-new]") as HTMLElement;

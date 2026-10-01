@@ -23,7 +23,7 @@ class Notice
                     'size'  => 'md',
                     'color' => 'white'
                 ],
-                'action'      => $action ?? null,
+                'action'      => is_array($action) ? $action : false,
                 'dismissable' => $dismissable ?? false,
                 'classList'   => [
                     't-toast__notice'

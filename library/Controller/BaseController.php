@@ -802,9 +802,18 @@ class BaseController
      */
     protected function hasMainMenu()
     {
-        if (!empty($this->data['primaryMenu']['items'])) {
-            return true;
+        if (empty($this->data['primaryMenu']['items'])) {
+            return false;
         }
+
+        foreach (['upperItems', 'lowerItems'] as $section) {
+            foreach (['left', 'center', 'right'] as $alignment) {
+                if (isset($this->data['headerData'][$section][$alignment]['primary'])) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 

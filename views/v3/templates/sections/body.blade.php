@@ -10,4 +10,5 @@
     )
 ])
     @yield('body-content')
+    @stack('scripts')
 @endelement

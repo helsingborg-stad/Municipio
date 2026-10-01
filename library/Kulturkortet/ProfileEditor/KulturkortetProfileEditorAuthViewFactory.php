@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Kulturkortet\ProfileEditor;
 
-use ComponentLibrary\Renderer\BladeService\BladeServiceFactory;
+use Municipio\Helper\ComponentBladeService;
 use ComponentLibrary\Renderer\Renderer as BladeRenderer;
 use Municipio\Helper\DateFormat;
 use Municipio\Kulturkortet\Helper\ActionCreator;
@@ -149,8 +149,7 @@ class KulturkortetProfileEditorAuthViewFactory implements MunicipioAuthViewFacto
 
     private function renderWithModel(string $template, array $model): string
     {
-        $bsf = new BladeServiceFactory($this->wpService);
-        $bladeRenderer = new BladeRenderer($bsf->create([self::getTemplateDir()]));
+        $bladeRenderer = new BladeRenderer(ComponentBladeService::create([self::getTemplateDir()], $this->wpService));
 
         return $bladeRenderer->render($template, [
             'attributes' => $this->attributes,

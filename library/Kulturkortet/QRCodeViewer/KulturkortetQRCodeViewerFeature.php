@@ -39,8 +39,16 @@ class KulturkortetQRCodeViewerFeature implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueAssets']);
         $this->wpService->addAction('litespeed_control_set_nocache', static fn() => 'cache disabled due to cookie usage');
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
+    }
+
+    public function enqueueAssets(): void
+    {
+        if (!$this->wpService->hasBlock('kulturkortet/qr-code-viewer')) {
+            return;
+        }
 
         $this->enqueue->add('js/kulturkortetQR.js');
         $this->enqueue->add('css/kulturkortetQR.css');

@@ -1,0 +1,52 @@
+[
+	{
+		"key": "group_mod_negative_margin",
+		"title": "Negative margin",
+		"fields": [
+			{
+				"key": "field_mod_negative_margin_amount",
+				"label": "Amount of negative margin",
+				"name": "negative_margin_amount",
+				"type": "range",
+				"instructions": "The value uses the same 8-pixel scale as the Spacer module.",
+				"required": 1,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": 4,
+				"min": 0,
+				"max": 24,
+				"step": 2,
+				"prepend": "",
+				"append": ""
+			}
+		],
+		"location": [
+			[
+				{
+					"param": "post_type",
+					"operator": "==",
+					"value": "mod-negative-margin"
+				}
+			],
+			[
+				{
+					"param": "block",
+					"operator": "==",
+					"value": "acf\/negative-margin"
+				}
+			]
+		],
+		"menu_order": 0,
+		"position": "normal",
+		"style": "default",
+		"label_placement": "top",
+		"instruction_placement": "label",
+		"hide_on_screen": "",
+		"active": true,
+		"description": ""
+	}
+]

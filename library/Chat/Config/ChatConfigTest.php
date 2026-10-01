@@ -27,11 +27,7 @@ class ChatConfigTest extends TestCase
     #[TestDox('isEnabled() returns true when chat_enabled field is truthy')]
     public function testIsEnabledReturnsTrueWhenChatEnabledFieldIsTruthy(): void
     {
-        $acfService = new FakeAcfService([
-            'getField' => fn(string $field, string $scope) => $field === 'chat_enabled' && $scope === 'option' ? 1 : null,
-        ]);
-
-        $config = new ChatConfig($this->getWpService(), $acfService);
+        $config = new ChatConfig($this->getWpService(isEnabled: true), $this->getAcfService());
 
         static::assertTrue($config->isEnabled());
     }
@@ -39,11 +35,7 @@ class ChatConfigTest extends TestCase
     #[TestDox('isGlobalChatEnabled() returns false when chat_global_enabled field is falsy')]
     public function testIsGlobalChatEnabledReturnsFalseWhenFieldIsFalsy(): void
     {
-        $acfService = new FakeAcfService([
-            'getField' => fn(string $field, string $scope) => $field === 'chat_global_enabled' && $scope === 'option' ? 0 : null,
-        ]);
-
-        $config = new ChatConfig($this->getWpService(), $acfService);
+        $config = new ChatConfig($this->getWpService(isEnabled: false), $this->getAcfService());
 
         static::assertFalse($config->isGlobalChatEnabled());
     }
@@ -496,8 +488,13 @@ class ChatConfigTest extends TestCase
         ]);
     }
 
-    private function getWpService(string $locale = 'en_US', int $queriedObjectId = 0, array $postAncestors = []): FakeWpService
+    private function getWpService(string $locale = 'en_US', int $queriedObjectId = 0, array $postAncestors = [], bool $isEnabled = true): FakeWpService
     {
-        return new FakeWpService(['determineLocale' => $locale, 'getQueriedObjectId' => $queriedObjectId, 'getPostAncestors' => $postAncestors]);
+        return new FakeWpService([
+            'determineLocale' => $locale,
+            'getQueriedObjectId' => $queriedObjectId,
+            'getPostAncestors' => $postAncestors,
+            'getOption' => $isEnabled
+        ]);
     }
 }

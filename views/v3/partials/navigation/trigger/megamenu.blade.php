@@ -12,9 +12,6 @@
             ['mega-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] : 
             ['mega-menu-trigger']), ['s-header-button'])
         ,
-        'classListText' => [
-            'u-display--none@xs',
-        ],
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
             'aria-controls' => 'mega-menu',

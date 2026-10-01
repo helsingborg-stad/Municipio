@@ -36,7 +36,15 @@ class KulturkortetProfileEditorFeature implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerBlock']);
+        $this->wpService->addAction('wp_enqueue_scripts', [$this, 'enqueueAssets']);
         $this->wpService->applyFilters('query_vars', ['ts_session_id', 'action']);
+    }
+
+    public function enqueueAssets(): void
+    {
+        if (!$this->wpService->hasBlock('kulturkortet/profile-editor')) {
+            return;
+        }
 
         $this->enqueue->add('css/kulturkortetProfileEditor.css');
     }

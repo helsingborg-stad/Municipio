@@ -5,6 +5,8 @@ const entries = {
 		'js/modularity-text-module': './source/js/modularity-text-module.ts',
 		'js/modularity': './source/js/modularity.js',
 		'css/modularity': './source/sass/modularity.scss',
+		'css/modularity-admin': './source/sass/modularity-admin.scss',
+		'css/modularity-block-editor': './source/sass/modularity-block-editor.scss',
 		'css/modularity-thickbox-edit': './source/sass/modularity-thickbox-edit.scss',
 		'js/user-editable-list': './source/js/private/userEditableList.ts',
 
@@ -22,6 +24,7 @@ const entries = {
 		'js/ungapd': './source/php/Module/Subscribe/assets/ungapd.ts',
 		'js/mod-posts-taxonomy-filtering': './source/php/Module/Posts/assets/taxonomyFiltering.js',
 		'css/menu': './source/php/Module/Menu/assets/menu.scss',
+		'js/menu': './source/php/Module/Menu/assets/menu.js',
 		'css/curator': './source/php/Module/Curator/assets/curator.scss',
 		'css/interactive-map': './source/php/Module/InteractiveMap/assets/interactive-map.scss',
 		'js/mod-interactive-map': './source/php/Module/InteractiveMap/assets/interactiveMap.ts',

@@ -5,6 +5,8 @@
         ],
         'attributeList' => [
             'role' => 'button',
+            'data-js-mod-menu-expand-button' => '1',
+            'tabindex' => '0',
             'data-js-toggle-trigger' => 'mod-menu-item-' . $menuItem['id'] . '-' . $index . '-' . $menuIndex
         ]
     ])
@@ -19,7 +21,7 @@
                     'mod-menu__expand-text',
                 ]
             ])
-                {{ $lang['showAll'] }} ({{ (count($menuItem['children']) - 3) }})
+                {{ $lang['showAll'] }} ({{ count($menuItem['children']) }})
             @endelement
             @element([
                 'componentElement' => 'span',

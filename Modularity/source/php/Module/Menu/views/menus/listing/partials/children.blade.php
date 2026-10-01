@@ -21,6 +21,10 @@
         ])
             @element([
                 'componentElement' => 'div',
+                'attributeList' => [
+                    'inert' => '',
+                    'data-js-mod-menu-expandable-wrapper' => '1',
+                ],
                 'classList' => [
                     'mod-menu__children',
                     'mod-menu__children--hidden',
