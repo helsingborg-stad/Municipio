@@ -27,6 +27,18 @@ class Enqueue implements Hookable
     }
 
     /**
+     * Gets the REST API settings used by frontend scripts.
+     */
+    private function getRestApiSettings(): array
+    {
+        return [
+            'root'          => esc_url_raw(rest_url()),
+            'nonce'         => wp_create_nonce('wp_rest'),
+            'versionString' => 'wp/v2/',
+        ];
+    }
+
+    /**
      * Add hooks
      */
     public function addHooks(): void
@@ -54,7 +66,7 @@ class Enqueue implements Hookable
     {
         //Add municipio.js with translations
         $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-fetch'])
+            ->add('js/municipio.js', ['jquery'])
             ->with()
             ->translation('MunicipioLocale', [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
@@ -62,7 +74,9 @@ class Enqueue implements Hookable
                     'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
                     'onError' => __('Something went wrong, please try again later', 'municipio'),
                 ],
-            ]);
+            ])
+            ->and()
+            ->translation('wpApiSettings', $this->getRestApiSettings());
 
         //Add styleguide.js with translations
         $this->enqueue
@@ -123,13 +137,15 @@ class Enqueue implements Hookable
     public function enqueueCustomizerScriptsAndStyles()
     {
         $this->enqueue
-            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-fetch'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls'])
             ->with()
             ->translation('municipioDesignShareConfig', [
                 'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
                 'allowedSettingKeys' => DesignLibrarySettingPolicy::getAllowedExactKeys(),
                 'allowedSettingKeyPrefixes' => DesignLibrarySettingPolicy::getAllowedPrefixes(),
-            ]);
+            ])
+            ->and()
+            ->translation('wpApiSettings', $this->getRestApiSettings());
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
