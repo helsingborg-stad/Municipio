@@ -249,7 +249,10 @@ class App
         /**
          * Styleguide integration
          */
-        (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
+        (new \Municipio\Styleguide\StyleguideFeature(
+            $this->wpService,
+            $this->wpUtilService,
+        ))->addHooks();
 
         /**
          * Api

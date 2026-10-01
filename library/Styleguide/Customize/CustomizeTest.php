@@ -7,6 +7,8 @@ namespace Municipio\Styleguide\Customize;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
+use WpUtilService\Features\Enqueue\EnqueueManager;
+use WpUtilService\WpUtilService;
 
 class CustomizeTest extends TestCase
 {
@@ -18,7 +20,7 @@ class CustomizeTest extends TestCase
             'getTemplateDirectoryUri' => 'https://example.com/theme',
         ]);
 
-        $customize = new Customize($wpService);
+        $customize = new Customize($wpService, new EnqueueManager($wpService));
         $customize->enqueueControlsAssets();
 
         static::assertSame(
@@ -41,19 +43,28 @@ class CustomizeTest extends TestCase
             'isCustomizePreview' => true,
             'currentUserCan' => true,
             'getTemplateDirectoryUri' => 'https://example.com/theme',
-            'wpRegisterScript' => true,
             '_x' => fn($text) => $text,
+            'getSiteUrl' => 'https://example.com',
+            'addFilter' => true,
+            'wpCacheGet' => false,
+            'wpCacheSet' => true,
+            'wpRegisterStyle' => true,
+            'wpEnqueueStyle' => true,
+            'wpRegisterScript' => true,
+            'wpEnqueueScript' => true,
             'wpLocalizeScript' => true,
         ]);
 
-        $customize = new Customize($wpService);
+        $customize = new Customize(
+            $wpService,
+            (new WpUtilService($wpService))->enqueue(dirname(__DIR__, 3)),
+        );
         $customize->enqueuePreviewAssets();
 
         static::assertSame(
             [
                 [
-                    'styleguide-designbuilder',
-                    'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
+                    'css-designbuildercss',
                 ],
             ],
             $wpService->methodCalls['wpEnqueueStyle'],
@@ -62,22 +73,23 @@ class CustomizeTest extends TestCase
         static::assertSame(
             [
                 [
-                    'styleguide-designbuilder',
-                    'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder.js'),
+                    'js-designbuilderjs',
                 ],
-            ],
-            $wpService->methodCalls['wpRegisterScript'],
-        );
-
-        static::assertSame(
-            [
                 [
-                    'styleguide-designbuilder-preview',
-                    'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder-preview.js'),
-                    ['customize-preview', 'styleguide-designbuilder'],
+                    'js-designbuilder-previewjs',
                 ],
             ],
             $wpService->methodCalls['wpEnqueueScript'],
         );
+
+        $registeredScripts = $wpService->methodCalls['wpRegisterScript'];
+        static::assertSame('js-designbuilderjs', $registeredScripts[0][0]);
+        static::assertMatchesRegularExpression('#/assets/dist/js/designbuilder\.[\w-]+\.js$#', $registeredScripts[0][1]);
+        static::assertSame([], $registeredScripts[0][2]);
+        static::assertSame('js-designbuilder-previewjs', $registeredScripts[1][0]);
+        static::assertMatchesRegularExpression('#/assets/dist/js/designbuilder-preview\.[\w-]+\.js$#', $registeredScripts[1][1]);
+        static::assertSame(['customize-preview', 'js-designbuilderjs'], $registeredScripts[1][2]);
+
+        static::assertCount(2, $wpService->methodCalls['addFilter']);
     }
 }
