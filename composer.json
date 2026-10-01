@@ -63,6 +63,7 @@
     "format": "vendor/bin/mago fmt",
     "clear:blade-cache": "@php utils/clear-blade-cache.php",
     "post-update-cmd": [],
+    "pre-autoload-dump": "HelsingborgStad\\MaterialSymbols\\Script\\Composer\\Prune::run",
     "make-pot": "wp i18n make-pot . languages/municipio.pot --domain=municipio --allow-root --include=library,assets/dist/blocks,Modularity/source/php",
     "update-po": "wp i18n update-po languages/municipio.pot languages/sv_SE.po --allow-root",
     "make-mo": "wp i18n make-mo languages/sv_SE.po languages/sv_SE.mo --allow-root",
@@ -88,6 +89,24 @@
         "type:wordpress-plugin",
         "type:acf-plugin"
       ]
+    },
+    "helsingborg-stad/material-design-icons-json-svg-font": {
+      "variants": [
+        "outlined",
+        "rounded",
+        "sharp"
+      ],
+      "weights": [
+        200,
+        400,
+        600
+      ],
+      "formats": [
+        "svg",
+        "woff2"
+      ],
+      "staticFonts": false,
+      "variableFonts": true
     }
   },
   "require-dev": {
