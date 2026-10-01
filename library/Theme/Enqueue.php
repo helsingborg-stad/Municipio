@@ -54,7 +54,7 @@ class Enqueue implements Hookable
     {
         //Add municipio.js with translations
         $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-request'])
+            ->add('js/municipio.js', ['jquery', 'wp-api-fetch'])
             ->with()
             ->translation('MunicipioLocale', [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
@@ -123,7 +123,7 @@ class Enqueue implements Hookable
     public function enqueueCustomizerScriptsAndStyles()
     {
         $this->enqueue
-            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-request'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-fetch'])
             ->with()
             ->translation('municipioDesignShareConfig', [
                 'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
