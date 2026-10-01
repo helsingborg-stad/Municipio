@@ -27,10 +27,10 @@
   "require": {
     "php": "^8.2",
     "composer/installers": "^2.3",
-    "symfony/polyfill-mbstring": "v1.38.2",
+    "symfony/polyfill-mbstring": "v1.43.0",
     "helsingborg-stad/acf-export-manager": ">=1.0.0",
     "pragmarx/ia-arr": "^7.3",
-    "symfony/polyfill-php80": "v1.37.0",
+    "symfony/polyfill-php80": "v1.43.0",
     "dompdf/dompdf": "v3.1.6",
     "helsingborg-stad/wpservice": "^2.0",
     "helsingborg-stad/acfservice": "^1.0.0",
@@ -48,8 +48,7 @@
     "freshleafmedia/autofocus": "^1.0",
     "astrotomic/php-deepface": "0.5.0",
     "helsingborg-stad/wputilservice": "0.3.5",
-    "helsingborg-stad/styleguide": "dev-main-1.x",
-    "helsingborg-stad/component-library": "5.44.1",
+    "helsingborg-stad/styleguide": "3.36.3",
     "firebase/php-jwt": "v7.2.1",
     "algolia/algoliasearch-client-php": "4.49.0"
   },
