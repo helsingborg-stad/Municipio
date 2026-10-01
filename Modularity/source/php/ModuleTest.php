@@ -115,6 +115,29 @@ class ModuleTest extends TestCase
 
         static::assertSame(['mod-menu'], $method->invoke($module, $sidebars));
     }
+
+    #[TestDox('frontend widget modules are detected only in active sidebars')]
+    public function testOnlyCollectsModulesFromActiveWidgets(): void
+    {
+        $this->wpService = new \WpService\Implementations\FakeWpService([
+            'addAction' => true,
+            'getOption' => static fn(string $option) => match ($option) {
+                'widget_block' => [
+                    7 => ['content' => '<!-- wp:acf/active-module -->'],
+                    8 => ['content' => '<!-- wp:acf/inactive-module -->'],
+                ],
+                'sidebars_widgets' => [
+                    'sidebar-1' => ['block-7'],
+                    'wp_inactive_widgets' => ['block-8'],
+                ],
+                default => null,
+            },
+        ]);
+        WpService::set($this->wpService);
+        $method = new \ReflectionMethod(Module::class, 'getWidgets');
+
+        static::assertSame(['mod-active-module'], $method->invoke(new Module()));
+    }
 }
 
 class ModuleAssetLoadingTestProxy extends Module
