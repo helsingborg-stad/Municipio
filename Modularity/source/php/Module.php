@@ -283,6 +283,10 @@ class Module
      */
     public function enqueueFrontendAssets(): void
     {
+        if (is_preview() && !empty($this->hidden)) {
+            return;
+        }
+
         if (!$this->hasModule()) {
             return;
         }
