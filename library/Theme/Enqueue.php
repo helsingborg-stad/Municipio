@@ -15,6 +15,7 @@ use WpUtilService\WpUtilService;
 class Enqueue implements Hookable
 {
     private EnqueueManagerInterface $enqueue;
+    private bool $hasLocalizedRestApiSettings = false;
 
     /**
      * Enqueue constructor.
@@ -24,6 +25,31 @@ class Enqueue implements Hookable
         private WpUtilService $wpUtilService,
     ) {
         $this->enqueue = $this->wpUtilService->enqueue(__DIR__);
+    }
+
+    /**
+     * Gets the REST API settings used by frontend scripts.
+     */
+    private function getRestApiSettings(): array
+    {
+        return [
+            'root'          => esc_url_raw(rest_url()),
+            'nonce'         => wp_create_nonce('wp_rest'),
+            'versionString' => 'wp/v2/',
+        ];
+    }
+
+    /**
+     * Localizes REST API settings on the dependency shared by request scripts.
+     */
+    private function ensureRestApiSettings(): void
+    {
+        if ($this->hasLocalizedRestApiSettings) {
+            return;
+        }
+
+        wp_localize_script('wp-api-fetch', 'wpApiSettings', $this->getRestApiSettings());
+        $this->hasLocalizedRestApiSettings = true;
     }
 
     /**
@@ -54,7 +80,7 @@ class Enqueue implements Hookable
     {
         //Add municipio.js with translations
         $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-request'])
+            ->add('js/municipio.js', ['jquery', 'wp-api-fetch'])
             ->with()
             ->translation('MunicipioLocale', [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
@@ -63,6 +89,7 @@ class Enqueue implements Hookable
                     'onError' => __('Something went wrong, please try again later', 'municipio'),
                 ],
             ]);
+        $this->ensureRestApiSettings();
 
         //Add styleguide.js with translations
         $this->enqueue
@@ -123,13 +150,14 @@ class Enqueue implements Hookable
     public function enqueueCustomizerScriptsAndStyles()
     {
         $this->enqueue
-            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-request'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-fetch'])
             ->with()
             ->translation('municipioDesignShareConfig', [
                 'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
                 'allowedSettingKeys' => DesignLibrarySettingPolicy::getAllowedExactKeys(),
                 'allowedSettingKeyPrefixes' => DesignLibrarySettingPolicy::getAllowedPrefixes(),
             ]);
+        $this->ensureRestApiSettings();
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
