@@ -1,3 +1,11 @@
+#site-header-flexible-upper,
+#site-header-flexible-lower {
+    .site-header-flexible-content {
+        display: grid;
+        grid-template-columns: repeat(var(--amount-of-items-desktop), auto);
+    }
+}
+
 .c-header.c-header--flexible {
     contain: none;
 

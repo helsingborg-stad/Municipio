@@ -1,4 +1,11 @@
-@link(['id' => 'header-logotype', 'href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
+@link([
+    'id' => 'header-logotype', 'href' => $homeUrl,
+    'classList' => array_merge([
+        'u-margin__right--auto',
+        'u-display--flex',
+        'u-no-decoration'
+        ], $menuItem->getCssClasses() ?? [])
+    ])
     @if($headerBrandEnabled && !$headerData['hasSeparateBrandText'])
         @brand([
             'logotype' => [

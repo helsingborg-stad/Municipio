@@ -1,9 +1,9 @@
 @button([
     'text' => $lang->search,
-    'color' => $buttonAppearance['color'],
     'icon' => 'search',
-    'style' => $buttonAppearance['style'],
-    'size' => $buttonAppearance['size'],
+    'color' => $menuItem->getButtonColor(),
+    'style' => $menuItem->getButtonStyle(),
+    'size' => $menuItem->getButtonSize(),
     'reversePositions' => true,
     'classList' => [
         's-header-button'

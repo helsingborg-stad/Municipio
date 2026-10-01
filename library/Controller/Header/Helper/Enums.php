@@ -33,4 +33,5 @@ class Enums
     public const MENU_ITEM_ALIGNMENT = MenuItemAlignment::class;
     public const HEADER_BREAKPOINT = HeaderBreakpoint::class;
     public const HEADER_KEY = HeaderKey::class;
+    public const MENU_ALIGNMENT_ORDER = MenuAlignmentOrder::class;
 }

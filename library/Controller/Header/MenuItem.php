@@ -5,6 +5,7 @@ namespace Municipio\Controller\Header;
 use Municipio\Controller\Header\Helper\MenuItemClasses;
 use Municipio\Controller\Header\Helper\Enums;
 
+
 class MenuItem
 {
     public function __construct(
@@ -14,7 +15,7 @@ class MenuItem
     ) {
     }
 
-    public function getId(): string
+    public function getType(): string
     {
         return $this->id;
     }
@@ -40,17 +41,28 @@ class MenuItem
             'inherit';
     }
 
+    public function getAlignment(string $breakpoint): string
+    {
+        return $this->rawMenuItem[$breakpoint]['alignment']
+            ?? $this->rawMenuItem[$breakpoint]['align']
+            ?? 'left';
+    }
+
+    public function isEmpty(string $breakpoint): bool
+    {
+        return empty($this->rawMenuItem[$breakpoint]);
+    }
+
     public function getCssClasses(): array
     {
         $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($this->rawMenuItem);
         $orderClasses = $this->menuItemClasses->buildOrderClasses($this->rawMenuItem);
+        $alignmentClasses = $this->menuItemClasses->buildAlignmentClasses($this->rawMenuItem);
 
-        die;
-
-        return array_merge($visibilityClasses, $orderClasses);
+        return array_merge($visibilityClasses, $orderClasses, $alignmentClasses);
     }
 
-    private function getPreferedValue(string $key) 
+    private function getPreferedValue(string $key): ?string
     {
         return 
             $this->rawMenuItem[Enums::HEADER_BREAKPOINT::DESKTOP->value][$key] ?? 

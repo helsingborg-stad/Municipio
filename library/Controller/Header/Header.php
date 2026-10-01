@@ -2,13 +2,12 @@
 
 namespace Municipio\Controller\Header;
 
-use AcfService\AcfService;
-use Municipio\Controller\Header\Helper\HeaderVisibilityClasses;
+use Municipio\Controller\Header\Helper\HeaderClasses;
 use Municipio\Controller\Header\Helper\Enums;
 use Municipio\Controller\Header\Helper\ExtractMenuItems;
 use Municipio\Controller\Header\MenuItemFactory;
 use Municipio\Controller\Header\Helper\StickyResolver;
-use WpService\WpService;
+use Municipio\Controller\Header\Helper\HeaderAttributes;
 
 class Header
 {
@@ -16,11 +15,10 @@ class Header
 
     public function __construct(
         private string $id,
-        private WpService $wpService,
-        private AcfService $acfService,
         private MenuItemFactory $menuItemFactory,
         private ExtractMenuItems $extractMenuItems,
-        private HeaderVisibilityClasses $headerVisibilityClasses,
+        private HeaderClasses $headerClasses,
+        private HeaderAttributes $headerAttributes,
         private StickyResolver $stickyResolver
     ) {
     }
@@ -32,12 +30,16 @@ class Header
 
     public function getCssClasses(): array
     {
-        //TODO: Fix
-        // $desktopVisibilityClasses = $this->headerVisibilityClasses->buildVisibilityClasses($this->getMenuItems(), $this->desktopModifiers);
-        // $mobileVisibilityClasses = $this->headerVisibilityClasses->buildVisibilityClasses($this->getMenuItems());
+        $visibilityClasses = $this->headerClasses->buildVisibilityClasses($this->extractMenuItems->getHeaderItems($this->id));
 
-        // return array_merge($desktopVisibilityClasses, $mobileVisibilityClasses);
-        return [];
+        return array_merge($visibilityClasses);
+    }
+
+    public function getAttributes(): array
+    {
+        $styleAttributes = $this->headerAttributes->buildStyleAttributes($this->getMenuItems());
+
+        return array_merge($styleAttributes);
     }
 
     public function isEmpty(): bool

@@ -8,15 +8,23 @@
             @continue
         @endif
 
-        @scope(['name' => ['header-flexible-'.$key, 'header-flexible', 'header']])
+        @scope(['name' => ['header-flexible-'. $key, 'header-flexible', 'header']])
             @header([
-                'classList' => $header->getCssClasses(),
+                'classList' => array_merge($header->getCssClasses(), ['header']),
                 'id' => 'site-header-flexible-' . $key,
                 'sticky' => $header->isSticky(),
                 'context' => 'site.header.flexible.' . $key,
+                'attributeList' => $header->getAttributes(),
             ])
-                @foreach($header->getMenuItems() as $menuItem)
-                @endforeach
+                @element([
+                    'classList' => [
+                        'site-header-flexible-content'
+                    ]
+                ])
+                    @foreach($header->getMenuItems() as $index => $menuItem)
+                            @includeIf('partials.header.components.' . $menuItem->getType())
+                    @endforeach
+                @endelement
             @endheader
         @endscope
     @endforeach

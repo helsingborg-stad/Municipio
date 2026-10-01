@@ -89,8 +89,8 @@ class Flexible
         }
 
         return [
-            'upperHeader' => $upperHeader,
-            'lowerHeader' => $lowerHeader
+            'upper' => $upperHeader,
+            'lower' => $lowerHeader
         ];
         // $upperHeader = Header::create('upper');
         // $lowerHeader = Header::create('lower');
@@ -123,43 +123,5 @@ class Flexible
         //     'logoScrollShrinkEnabled' => $logoScrollShrink['enabled'],
         //     'logoScrollShrinkAspectRatio' => $logoScrollShrink['aspectRatio']
         // ];
-    }
-
-    /**
-     * Handles and returns the modified menu items.
-     *
-     * @return array<string, mixed>
-     */
-    private function getItems(string $section): array
-    {
-        return [];
-        // [$setting] = $this->orderedMenuItemsResolver->getSettingName($section);
-        // [$desktopOrderedItems, $mobileOrderedItems] = $this->orderedMenuItemsResolver->getOrderedMenuItems(
-        //     $section,
-        //     $this->isResponsive
-        // );
-
-        // $contentFlags = $this->headerContentFlagsResolver->resolve(
-        //     $desktopOrderedItems,
-        //     $mobileOrderedItems,
-        //     $this->hasSearch,
-        //     $this->hasSeparateBrandText,
-        // );
-        // $this->hasSearch = $contentFlags['hasSearch'];
-        // $this->hasSeparateBrandText = $contentFlags['hasSeparateBrandText'];
-
-        // $items = $this->flipKeyValueTransformer->transform($desktopOrderedItems, $mobileOrderedItems);
-        // $items = $this->isResponsiveMenu->transform($items, $this->isResponsive);
-        // $items = $this->menuOrderTransformerInstance->transform($items);
-        // $items = $this->menuVisibilityTransformerInstance->transform($items);
-        // $items = $this->marginTransformerInstance->transform($items, $setting);
-        // $items = $this->alignmentTransformerInstance->transform($items, $setting);
-        // $items['buttonAppearance'] = $this->buttonAppearanceResolver->resolve(
-        //     $items,
-        //     $setting,
-        //     $this->buttonAppearanceResolver->getDefaultAppearance(),
-        // );
-
-        // return $items;
     }
 }
