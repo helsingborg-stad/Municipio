@@ -1,18 +1,18 @@
-import MarkdownIt from "markdown-it";
-import { ChatSessionFactory } from "./chat/ChatSessionFactory";
-import Chat from "./chat/chat";
-import FeedbackApi from "./chat/feedbackApi";
-import FeedbackFactory from "./chat/feedbackFactory";
-import GreetingPhrase from "./chat/greetingPhrase";
-import NewChatSessionButton from "./chat/newChatSessionButton";
 import Popover from "./popover/popover";
+
+/**
+ * Checks whether chat markup exists on the page before event listeners are registered.
+ */
+let chatInitializer: any = null;
 
 document.addEventListener("popover:initialized", (e: any) => {
 	const popover = e.detail;
 
 	if (popover.id !== "chat-global-root") return;
 
-	const chatContainer = popover.element?.querySelector("[data-js-municipio-ai-chat-wrapper]");
+	const chatContainer = popover.element?.querySelector(
+		"[data-js-municipio-ai-chat-wrapper]",
+	);
 	const messageArea = popover.element?.querySelector("[data-js-message-area]");
 
 	if (!chatContainer || !messageArea) return;
@@ -20,72 +20,50 @@ document.addEventListener("popover:initialized", (e: any) => {
 	new Popover(popover, chatContainer as HTMLElement, messageArea as HTMLElement);
 });
 
-document.addEventListener("chat:initialized", (e: any) => {
+document.addEventListener("chat:initialized", async (e: any) => {
 	const chat = e.detail;
 
-	if (!chat.getElement().hasAttribute('data-js-municipio-ai-chat')) return;
-	const newChatButtonElement = chat
-		.getElement()
-		.querySelector("[data-js-chat-new]") as HTMLElement;
-	const greetingsPhrase =
-		chat.getElement().dataset.jsChatGreetingsPhrase || null;
-	const feedbackTemplate =
-		chat.getElement().querySelector("[data-js-chat-feedback]") || null;
-	const chatAssistant = chat.getElement().dataset.jsChatAssistant || null;
-	const persistentAttribute = chat
-		.getElement()
-		.getAttribute("data-js-chat-persistent");
-	const isPersistentChat =
-		persistentAttribute !== null && persistentAttribute !== "false";
+	if (!chat.getElement().hasAttribute("data-js-municipio-ai-chat")) return;
+	if (chat.getElement().hasAttribute("municipio-ai-chat-bubble")) {
+		return initChatBubble(chat);
+	}
 
-	const markdownParser = new MarkdownIt({
-		html: false,
-		linkify: false,
-		typographer: false,
-	});
+	initializeChat(chat);
+});
 
-	const chatSessionFactory = new ChatSessionFactory(wpApiSettings.root);
+function initChatBubble(chat: any) {
+	const popover = getPopover();
+	const isOpen = popover?.matches(':popover-open');
 
-	markdownParser.validateLink = (url: string): boolean => {
-		return /^(https?:|mailto:|tel:|\/|#)/i.test(url);
+
+	if (!popover || isOpen) {
+		scrollToBottom(chat);
+		return initializeChat(chat);
+	}
+
+	const listener = () => {
+		popover.removeEventListener('toggle', listener);
+		scrollToBottom(chat);
+		initializeChat(chat);
 	};
 
-	const feedbackApi = new FeedbackApi(wpApiSettings.root);
-	const feedbackFactory = new FeedbackFactory(
-		chat,
-		feedbackTemplate as HTMLTemplateElement,
-		feedbackApi,
-	);
+	popover.addEventListener('toggle', listener);
+}
 
-	chat.getMessages().forEach((message: any, index: number) => {
-		if (!message.getIsReply()) {
-			return;
-		}
+function scrollToBottom(chat: any) {
+	chat.getScrollContainer().scrollTop = chat.getScrollContainer().scrollHeight;
+	chat.getElement().classList.remove("u-visibility--hidden");
+}
 
-		if (index === 0 && greetingsPhrase === message.getContent()) {
-			return;
-		}
-
-		feedbackFactory.create(message);
-	});
-
-	if (greetingsPhrase) {
-		new GreetingPhrase(chat, greetingsPhrase);
+async function initializeChat(chat: any) {
+	if (!chatInitializer) {
+		chatInitializer = new (await import("./chatFactory")).default();
 	}
 
-	const chatInstance = new Chat(
-		chatSessionFactory,
-		chat,
-		markdownParser,
-		feedbackFactory,
-		feedbackApi,
-		chatAssistant ?? null,
-		isPersistentChat,
-	);
+	await chatInitializer.init(chat);
+}
 
-	if (newChatButtonElement) {
-		new NewChatSessionButton(newChatButtonElement, chatInstance, chat);
-	}
-
-	chatInstance.init();
-});
+function getPopover(): HTMLElement | null {
+	const popover = document.querySelector(`#chat-global-root`);
+	return popover ? (popover as HTMLElement) : null;
+}
