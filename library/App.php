@@ -161,7 +161,6 @@ class App
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
-        new \Municipio\Search\General();
         (new \Municipio\SearchIndex\SearchIndexFeature(
             $this->wpService,
             $this->acfService,
