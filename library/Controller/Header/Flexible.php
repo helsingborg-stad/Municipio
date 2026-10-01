@@ -3,7 +3,7 @@
 namespace Municipio\Controller\Header;
 
 use Municipio\Controller\Header\HeaderFactory;
-
+use Municipio\Controller\Header\Helper\Enums;
 // use Municipio\Controller\Header\AlignmentTransformer;
 // use Municipio\Controller\Header\ButtonAppearanceResolver;
 // use Municipio\Controller\Header\FlipKeyValueTransformer;
@@ -17,7 +17,6 @@ use Municipio\Controller\Header\HeaderFactory;
 // use Municipio\Controller\Header\MenuVisibilityTransformer;
 // use Municipio\Controller\Header\OrderedMenuItemsResolver;
 // use Municipio\Controller\HeaderFactory\HeaderFactory;
-use Municipio\Controller\Header\Helper\HeaderKey;
 
 /**
  * Class Flexible
@@ -78,13 +77,16 @@ class Flexible
      */
     public function getHeaderData(): array
     {
-        $upperHeader = $this->headerFactory->create(HeaderKey::UPPER->value);
-        $lowerHeader = $this->headerFactory->create(HeaderKey::LOWER->value);
+        $upperHeader = $this->headerFactory->create(Enums::HEADER_KEY::UPPER->value);
+        $lowerHeader = $this->headerFactory->create(Enums::HEADER_KEY::LOWER->value);
 
         $upperHeaderItems = $upperHeader->getMenuItems();
         // $upperHeaderClasses = $upperHeader->getCssClasses();
         // $lowerHeaderClasses = $lowerHeader->getCssClasses();
-        // $lowerHeaderItems = $lowerHeader->getMenuItems();
+        $lowerHeaderItems = $lowerHeader->getMenuItems();
+        foreach($upperHeaderItems as $item) {
+            $item->getCssClasses();
+        }
 
         return [
             'upperHeader' => $upperHeader,

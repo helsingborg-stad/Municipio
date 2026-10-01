@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Header\Helper;
 
-use Municipio\Controller\Header\Helper\HeaderKey;
+use Municipio\Controller\Header\Helper\Enums;
 
 class StickyResolver
 {
@@ -19,15 +19,12 @@ class StickyResolver
             return false;
         }
 
-        $lowerHeaderRawMenuItems = $this->extractMenuItems->getHeaderItems(HeaderKey::LOWER->value);
+        $lowerHeaderRawMenuItems = $this->extractMenuItems->getHeaderItems(Enums::HEADER_KEY::LOWER->value);
 
-        if (
-            !empty($lowerHeaderRawMenuItems[HeaderBreakpoint::DESKTOP->value]) ||
-            !empty($lowerHeaderRawMenuItems[HeaderBreakpoint::MOBILE->value])
-        ) {
-            return $headerId === HeaderKey::LOWER->value ? true : false;
+        if (!empty($lowerHeaderRawMenuItems[Enums::HEADER_BREAKPOINT::MOBILE->value])) {
+            return $headerId === Enums::HEADER_KEY::LOWER->value ? true : false;
         }
 
-        return $headerId === HeaderKey::UPPER->value ? true : false;
+        return $headerId === Enums::HEADER_KEY::UPPER->value ? true : false;
     }
 }

@@ -2,8 +2,7 @@
 
 namespace Municipio\Controller\Header;
 use Municipio\Controller\Header\Helper\MenuItemClasses;
-use Municipio\Controller\Header\Helper\HeaderBreakpoint;
-use Municipio\Controller\Header\Helper\HeaderKey;
+use Municipio\Controller\Header\Helper\Enums;
 
 class MenuItemFactory
 {
@@ -18,8 +17,8 @@ class MenuItemFactory
         array $rawMenuItem,
     ): MenuItem
     {
-        $rawMenuItem[HeaderBreakpoint::DESKTOP->value] = $rawMenuItem[HeaderBreakpoint::DESKTOP->value] ?? [];
-        $rawMenuItem[HeaderBreakpoint::MOBILE->value] = $rawMenuItem[HeaderBreakpoint::MOBILE->value] ?? [];
+        $rawMenuItem[Enums::HEADER_BREAKPOINT::DESKTOP->value] = $rawMenuItem[Enums::HEADER_BREAKPOINT::DESKTOP->value] ?? [];
+        $rawMenuItem[Enums::HEADER_BREAKPOINT::MOBILE->value] = $rawMenuItem[Enums::HEADER_BREAKPOINT::MOBILE->value] ?? [];
         return new MenuItem($id, $rawMenuItem, $this->menuItemClasses);
     } 
 }

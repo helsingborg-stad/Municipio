@@ -15,6 +15,8 @@
                 'sticky' => $header->isSticky(),
                 'context' => 'site.header.flexible.' . $key,
             ])
+                @foreach($header->getMenuItems() as $menuItem)
+                @endforeach
             @endheader
         @endscope
     @endforeach

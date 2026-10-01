@@ -2,10 +2,6 @@
 
 namespace Municipio\Controller\Header\Helper;
 
-use Municipio\Controller\Header\Header;
-use Municipio\Controller\Header\Helper\HeaderKey;
-use Municipio\Controller\Header\Helper\HeaderBreakpoint;
-
 class ExtractMenuItems
 {
     private array $extractedItems = [];
@@ -33,7 +29,7 @@ class ExtractMenuItems
     {
         $this->extract();
 
-        foreach (HeaderKey::cases() as $value) {
+        foreach (Enums::HEADER_KEY::cases() as $value) {
             $this->extractedItems[$value->value] = $this->getHeaderItems($value->value);
         }
 
@@ -47,12 +43,12 @@ class ExtractMenuItems
         }
 
         $data = $this->extract();
-        $key = $this->getKey(HeaderKey::from($id));
-        $responsiveKey = $this->getKey(HeaderKey::from($id), true);
+        $key = $this->getKey(Enums::HEADER_KEY::from($id));
+        $responsiveKey = $this->getKey(Enums::HEADER_KEY::from($id), true);
 
         $items = [
-            HeaderBreakpoint::DESKTOP->value => $data[$key] ?? [],
-            HeaderBreakpoint::MOBILE->value => $data[$responsiveKey] ?? [],
+            Enums::HEADER_BREAKPOINT::DESKTOP->value => $data[$key] ?? [],
+            Enums::HEADER_BREAKPOINT::MOBILE->value => $data[$responsiveKey] ?? [],
         ];
 
         return $items;

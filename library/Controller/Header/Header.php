@@ -4,8 +4,8 @@ namespace Municipio\Controller\Header;
 
 use AcfService\AcfService;
 use Municipio\Controller\Header\Helper\HeaderVisibilityClasses;
+use Municipio\Controller\Header\Helper\Enums;
 use Municipio\Controller\Header\Helper\ExtractMenuItems;
-use Municipio\Controller\Header\Helper\HeaderBreakpoint;
 use Municipio\Controller\Header\MenuItemFactory;
 use Municipio\Controller\Header\Helper\StickyResolver;
 use WpService\WpService;
@@ -44,8 +44,8 @@ class Header
     {
         $rawMenuItems = $this->extractMenuItems->getHeaderItems($this->id);
         return 
-            empty($rawMenuItems[HeaderBreakpoint::DESKTOP->value]) && 
-            empty($rawMenuItems[HeaderBreakpoint::MOBILE->value]);
+            empty($rawMenuItems[Enums::HEADER_BREAKPOINT::DESKTOP->value]) && 
+            empty($rawMenuItems[Enums::HEADER_BREAKPOINT::MOBILE->value]);
     }
 
     public function isSticky(): bool

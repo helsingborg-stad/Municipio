@@ -2,8 +2,8 @@
 
 namespace Municipio\Controller\Header;
 
-use Municipio\Controller\Header\Helper\HeaderBreakpoint;
 use Municipio\Controller\Header\Helper\MenuItemClasses;
+use Municipio\Controller\Header\Helper\Enums;
 
 class MenuItem
 {
@@ -43,15 +43,18 @@ class MenuItem
     public function getCssClasses(): array
     {
         $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($this->rawMenuItem);
+        $orderClasses = $this->menuItemClasses->buildOrderClasses($this->rawMenuItem);
 
-        return $visibilityClasses;
+        die;
+
+        return array_merge($visibilityClasses, $orderClasses);
     }
 
     private function getPreferedValue(string $key) 
     {
         return 
-            $this->rawMenuItem[HeaderBreakpoint::DESKTOP->value][$key] ?? 
-            $this->rawMenuItem[HeaderBreakpoint::MOBILE->value][$key] ?? 
+            $this->rawMenuItem[Enums::HEADER_BREAKPOINT::DESKTOP->value][$key] ?? 
+            $this->rawMenuItem[Enums::HEADER_BREAKPOINT::MOBILE->value][$key] ?? 
             null;
     }
 }
