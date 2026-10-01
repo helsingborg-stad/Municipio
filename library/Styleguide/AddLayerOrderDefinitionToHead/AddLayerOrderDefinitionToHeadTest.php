@@ -73,7 +73,7 @@ static::assertSame([$sut, 'process'], $filter['callback']);
 
         $html = $sut->process('<head><title>Test</title></head>');
 
-        $expectedStyleTag = '<style>@layer wordpress, generic, elements, objects, components, icons, utilities, theme;</style>';
+        $expectedStyleTag = '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;</style>';
         $expectedHtml = '<head>' . $expectedStyleTag . '<title>Test</title></head>';
         static::assertStringContainsString($expectedHtml, $html);
     }
@@ -89,7 +89,7 @@ static::assertSame([$sut, 'process'], $filter['callback']);
         $output = ob_get_clean();
 
         static::assertSame(
-            '<style>@layer wordpress, generic, elements, objects, components, icons, utilities, theme;</style>',
+            '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;</style>',
             $output,
         );
     }

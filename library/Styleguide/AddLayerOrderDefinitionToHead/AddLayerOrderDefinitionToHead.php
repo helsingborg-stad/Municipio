@@ -14,7 +14,7 @@ use WpService\Contracts\AddFilter;
  */
 class AddLayerOrderDefinitionToHead implements Hookable
 {
-    private const STYLE_TAG = '<style>@layer wordpress, generic, elements, objects, components, icons, utilities, theme;</style>';
+    private const STYLE_TAG = '<style>@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;</style>';
 
     /**
      * @param AddAction&AddFilter $wpService WordPress service wrapper.
