@@ -15,6 +15,7 @@ use WpUtilService\WpUtilService;
 class Enqueue implements Hookable
 {
     private EnqueueManagerInterface $enqueue;
+    private bool $hasLocalizedRestApiSettings = false;
 
     /**
      * Enqueue constructor.
@@ -35,7 +36,7 @@ class Enqueue implements Hookable
             'root'                 => esc_url_raw(rest_url()),
             'nonce'                => wp_create_nonce('wp_rest'),
             'nonceRefreshCacheKey' => $this->getNonceRefreshCacheKey(),
-            'versionString'        => 'wp/v2/',
+            'versionString'        => 'wp/v2/'
         ];
     }
 
@@ -108,7 +109,7 @@ class Enqueue implements Hookable
     {
         //Add municipio.js with translations
         $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-request'])
+            ->add('js/municipio.js', ['jquery', 'wp-api-fetch'])
             ->with()
             ->translation('MunicipioLocale', [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
@@ -117,6 +118,7 @@ class Enqueue implements Hookable
                     'onError' => __('Something went wrong, please try again later', 'municipio'),
                 ],
             ]);
+        $this->ensureRestApiSettings();
 
         //Add styleguide.js with translations
         $this->enqueue
@@ -177,13 +179,14 @@ class Enqueue implements Hookable
     public function enqueueCustomizerScriptsAndStyles()
     {
         $this->enqueue
-            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-request'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-fetch'])
             ->with()
             ->translation('municipioDesignShareConfig', [
                 'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
                 'allowedSettingKeys' => DesignLibrarySettingPolicy::getAllowedExactKeys(),
                 'allowedSettingKeyPrefixes' => DesignLibrarySettingPolicy::getAllowedPrefixes(),
             ]);
+        $this->ensureRestApiSettings();
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
@@ -220,7 +223,7 @@ class Enqueue implements Hookable
     /**
      * Remove jquery migrate from default scripts
      */
-    public function removeJqueryMigrate($scripts): void
+    public function removeJqueryMigrate(mixed $scripts): void
     {
         if ($this->wpService->isAdmin()) {
             return;
