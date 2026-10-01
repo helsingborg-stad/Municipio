@@ -1,5 +1,6 @@
 declare const wpApiSettings: {
   nonce?: string
+  nonceRefreshCacheKey?: string
   root?: string
   refreshNonce?: (nonce?: string) => Promise<string | null>
 }

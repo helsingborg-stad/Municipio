@@ -27,6 +27,60 @@ class Enqueue implements Hookable
     }
 
     /**
+     * Gets the REST API settings used by frontend scripts.
+     */
+    private function getRestApiSettings(): array
+    {
+        return [
+            'root'                 => esc_url_raw(rest_url()),
+            'nonce'                => wp_create_nonce('wp_rest'),
+            'nonceRefreshCacheKey' => $this->getNonceRefreshCacheKey(),
+            'versionString'        => 'wp/v2/',
+        ];
+    }
+
+    /**
+     * Gets a cache key namespace for the current authentication state.
+     *
+     * A nonce refresh URL must not be shared between logged-out visitors and
+     * authenticated users. Roles provide a stable, non-sensitive namespace
+     * without exposing a user ID or session value to the URL.
+     */
+    private function getNonceRefreshCacheKey(): string
+    {
+        if (!is_user_logged_in()) {
+            return 'logged-out';
+        }
+
+        $roles = wp_get_current_user()->roles;
+
+        if (!is_array($roles) || $roles === []) {
+            return 'logged-in';
+        }
+
+        $roles = array_filter(
+            array_map('sanitize_key', $roles),
+            static fn ($role): bool => $role !== ''
+        );
+        sort($roles, SORT_STRING);
+
+        return $roles === [] ? 'logged-in' : 'role-' . implode('-', $roles);
+    }
+
+    /**
+     * Localizes REST API settings on the dependency shared by request scripts.
+     */
+    private function ensureRestApiSettings(): void
+    {
+        if ($this->hasLocalizedRestApiSettings) {
+            return;
+        }
+
+        wp_localize_script('wp-api-fetch', 'wpApiSettings', $this->getRestApiSettings());
+        $this->hasLocalizedRestApiSettings = true;
+    }
+
+    /**
      * Add hooks
      */
     public function addHooks(): void

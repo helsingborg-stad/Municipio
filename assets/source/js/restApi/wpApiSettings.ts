@@ -16,8 +16,13 @@ const getHourlyCacheBustKey = ():string => {
     return String(Math.floor(Date.now() / (60 * 60 * 1000)))
 }
 
+const getNonceRefreshCacheKey = ():string => {
+    const authState = wpApiSettings?.nonceRefreshCacheKey ?? 'logged-out'
+    return `${authState}-${getHourlyCacheBustKey()}`
+}
+
 const getNonceRefreshUrl = (root:string):string => {
-    const cacheBustKey = getHourlyCacheBustKey()
+    const cacheBustKey = getNonceRefreshCacheKey()
 
     try {
         const apiRootUrl = new URL(root, window.location.origin)
