@@ -15,6 +15,7 @@ use WpUtilService\WpUtilService;
 class Enqueue implements Hookable
 {
     private EnqueueManagerInterface $enqueue;
+    private AssetRequirements $assetRequirements;
     private bool $hasLocalizedRestApiSettings = false;
 
     /**
@@ -25,6 +26,8 @@ class Enqueue implements Hookable
         private WpUtilService $wpUtilService,
     ) {
         $this->enqueue = $this->wpUtilService->enqueue(__DIR__);
+        $this->assetRequirements = new AssetRequirements($this->enqueue);
+        AssetRequirements::setInstance($this->assetRequirements);
     }
 
     /**
@@ -107,18 +110,17 @@ class Enqueue implements Hookable
      */
     public function enqueueFrontendScriptsAndStyles()
     {
-        //Add municipio.js with translations
-        $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-fetch'])
-            ->with()
-            ->translation('MunicipioLocale', [
-                'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
-                'messages' => [
-                    'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                    'onError' => __('Something went wrong, please try again later', 'municipio'),
-                ],
-            ]);
+        // The shell is required by every frontend request. Template controllers
+        // add their narrower requirements before the document head is captured.
+        $this->assetRequirements->add('shell');
         $this->ensureRestApiSettings();
+
+        // Register comment assets early so legacy comment-like localization can
+        // attach to the script handle during this hook. The Singular controller
+        // repeats this declaration as the canonical template requirement.
+        if ($this->wpService->isSingular()) {
+            $this->assetRequirements->add('comments');
+        }
 
         //Add styleguide.js with translations
         $this->enqueue
@@ -154,8 +156,6 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/pdf.js');
         $this->enqueue->add('js/nav.js');
 
-        //Other styles
-        $this->enqueue->add('css/municipio.css');
     }
 
     /**

@@ -48,6 +48,7 @@ const entries = {
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 
 	"css/municipio": "./assets/source/sass/main.scss",
+	"css/municipio-comments": "./assets/source/sass/municipio-comments.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
 	"css/acf": "./assets/source/sass/admin/acf.scss",
@@ -56,7 +57,9 @@ const entries = {
 	"css/login": "./assets/source/sass/admin/login.scss",
 	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
 
-	"js/municipio": "./assets/source/js/municipio.js",
+	"js/municipio-shell": "./assets/source/js/frontend/shell.ts",
+	"js/municipio-comments": "./assets/source/js/frontend/comments.ts",
+	"js/municipio-posts-list": "./assets/source/js/frontend/postsList.ts",
 	"js/instantpage": "./node_modules/instant.page/instantpage.js",
 	"js/mce-buttons": "./assets/source/mce-js/mce-buttons.js",
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",
