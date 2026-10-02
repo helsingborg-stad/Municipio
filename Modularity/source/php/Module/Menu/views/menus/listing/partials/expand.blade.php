@@ -35,6 +35,7 @@
         @endelement
         @icon([
             'icon' => 'keyboard_arrow_down',
+            'size' => 'md',
             'classList' => [
                 'mod-menu__expand-icon',
             ]
