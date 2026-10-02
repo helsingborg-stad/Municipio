@@ -540,16 +540,32 @@ class Module
     private function getWidgets(): array
     {
         $widgets = WpService::get()->getOption('widget_block');
+        $sidebarsWidgets = WpService::get()->getOption('sidebars_widgets');
 
         $modules = [];
-        if (!empty($widgets) && is_array($widgets)) {
-            foreach ($widgets as $widget) {
+        if (!is_array($widgets) || !is_array($sidebarsWidgets)) {
+            return $modules;
+        }
+
+        foreach ($sidebarsWidgets as $sidebar => $widgetIds) {
+            if ($sidebar === 'wp_inactive_widgets' || !is_array($widgetIds)) {
+                continue;
+            }
+
+            foreach ($widgetIds as $widgetId) {
+                if (!is_string($widgetId) || !preg_match('/^block-(\d+)$/', $widgetId, $matches)) {
+                    continue;
+                }
+
+                $widget = $widgets[(int) $matches[1]] ?? null;
                 $moduleNames = $this->getWidgetNames($widget);
 
-                if (!empty($moduleNames) && is_array($moduleNames)) {
-                    foreach ($moduleNames as $moduleName) {
-                        $modules[] = $moduleName;
-                    }
+                if (!is_array($moduleNames)) {
+                    continue;
+                }
+
+                foreach ($moduleNames as $moduleName) {
+                    $modules[] = $moduleName;
                 }
             }
         }
