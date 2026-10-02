@@ -52,7 +52,7 @@
             @endgroup
         @endif
 
-        @if ($hasBlocks && $post)
+        @if ($shouldRenderPostContent)
             {!! $post->postContentFiltered !!}
         @endif
 
