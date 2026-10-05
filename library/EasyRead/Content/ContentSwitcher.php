@@ -100,6 +100,13 @@ final class ContentSwitcher
 
         $alternative = $this->contentRepository->getAlternative($this->getTargetPostId());
 
+        // The global post remains the queried page while Modularity renders
+        // sidebars and other modules. Only transform the page's own
+        // alternative; leave every independently rendered module untouched.
+        if ($content !== $alternative) {
+            return $content;
+        }
+
         // Gutenberg owns the rendering of its More block. Converting the raw
         // marker here would break the block comments before do_blocks runs.
         if ($this->wpService->hasBlocks($alternative)) {

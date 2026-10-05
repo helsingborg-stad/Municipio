@@ -5,7 +5,7 @@
     "fields": [
       {
         "key": "field_58eb4fe58de9d",
-        "label": "Easy to read content",
+        "label": "",
         "name": "easy_reading_select",
         "type": "true_false",
         "instructions": "",
@@ -14,9 +14,9 @@
         "wrapper": {"width": "", "class": "", "id": ""},
         "message": "Check this box to add easy to read content version.",
         "default_value": 0,
-        "ui": 0,
-        "ui_on_text": "",
-        "ui_off_text": ""
+        "ui": 1,
+        "ui_on_text": "Enabled",
+        "ui_off_text": "Disabled"
       },
       {
         "key": "field_58eb4fed8de9e",

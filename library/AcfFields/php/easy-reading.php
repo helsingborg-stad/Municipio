@@ -9,7 +9,7 @@ if (function_exists('acf_add_local_field_group')) {
         'fields' => [
             [
                 'key' => 'field_58eb4fe58de9d',
-                'label' => __('Easy to read content', 'municipio'),
+                'label' => '',
                 'name' => 'easy_reading_select',
                 'type' => 'true_false',
                 'instructions' => '',
@@ -18,9 +18,9 @@ if (function_exists('acf_add_local_field_group')) {
                 'wrapper' => ['width' => '', 'class' => '', 'id' => ''],
                 'message' => __('Check this box to add easy to read content version.', 'municipio'),
                 'default_value' => 0,
-                'ui' => 0,
-                'ui_on_text' => '',
-                'ui_off_text' => '',
+                'ui' => 1,
+                'ui_on_text' => __('Enabled', 'municipio'),
+                'ui_off_text' => __('Disabled', 'municipio'),
             ],
             [
                 'key' => 'field_58eb4fed8de9e',

@@ -36,15 +36,24 @@ class ContentSwitcherTest extends TestCase
 
         $switcher = $this->createSwitcher($alternative, ['hasBlocks' => true]);
 
-        static::assertSame($alternative, $switcher->replaceContent('<p>Original</p>'));
+        static::assertSame($alternative, $switcher->replaceContent($alternative));
     }
 
     #[TestDox('keeps the legacy More-tag lead behavior for classic-editor alternative content')]
     public function testReplaceContentFormatsClassicEditorLead(): void
     {
-        $switcher = $this->createSwitcher('A simple lead<!--more--><p>More content</p>', ['hasBlocks' => false]);
+        $alternative = 'A simple lead<!--more--><p>More content</p>';
+        $switcher = $this->createSwitcher($alternative, ['hasBlocks' => false]);
 
-        static::assertSame('<p class="lead">A simple lead</p><p>More content</p>', $switcher->replaceContent('<p>Original</p>'));
+        static::assertSame('<p class="lead">A simple lead</p><p>More content</p>', $switcher->replaceContent($alternative));
+    }
+
+    #[TestDox('leaves independently rendered module content unchanged')]
+    public function testReplaceContentDoesNotOverwriteModuleContent(): void
+    {
+        $switcher = $this->createSwitcher('Test test', ['hasBlocks' => false]);
+
+        static::assertSame('<p>Snabbfakta</p>', $switcher->replaceContent('<p>Snabbfakta</p>'));
     }
 
     private function createSwitcher(string $alternative, array $wpSettings): ContentSwitcher
