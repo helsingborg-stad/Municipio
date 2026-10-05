@@ -62,6 +62,5 @@ class RemoveExpiredEventsFromMainArchiveQuery implements Hookable
         $metaQuery = (new EventStartDateMetaQueryConstraint())->apply($metaQuery, $currentDate);
 
         $query->set('meta_query', $metaQuery);
-        echo '<pre>' . print_r( $query, true ) . '</pre>';die;
     }
 }
