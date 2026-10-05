@@ -161,6 +161,14 @@ class App
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
+        /**
+         * Easy read content alternatives
+         */
+        (new \Municipio\EasyRead\EasyReadFeature(
+            $this->wpService,
+            $this->acfService,
+        ))->enable();
+
         (new \Municipio\SearchIndex\SearchIndexFeature(
             $this->wpService,
             $this->acfService,
