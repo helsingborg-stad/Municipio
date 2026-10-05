@@ -17,7 +17,8 @@ final class OptionsPage
 
     public function addHooks(): void
     {
-        $this->wpService->addAction('init', [$this, 'register']);
+        // Register before Municipio imports its ACF field files on init (priority 10).
+        $this->wpService->addAction('init', [$this, 'register'], 5);
     }
 
     public function register(): void

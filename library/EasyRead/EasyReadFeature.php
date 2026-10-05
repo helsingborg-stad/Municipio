@@ -6,7 +6,6 @@ namespace Municipio\EasyRead;
 
 use AcfService\AcfService;
 use Municipio\EasyRead\Admin\AcfLocationRules;
-use Municipio\EasyRead\Admin\FieldGroups;
 use Municipio\EasyRead\Admin\OptionsPage;
 use Municipio\EasyRead\Config\EasyReadConfig;
 use Municipio\EasyRead\Content\AcfAlternativeContentRepository;
@@ -34,8 +33,8 @@ final class EasyReadFeature
 
         $config = new EasyReadConfig($this->acfService);
 
+        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
         (new OptionsPage($this->wpService, $this->acfService))->addHooks();
-        (new FieldGroups($this->wpService, $this->acfService))->addHooks();
         (new AcfLocationRules($this->wpService, $config))->addHooks();
         (new ContentSwitcher(
             $this->wpService,
@@ -44,5 +43,19 @@ final class EasyReadFeature
             new NativeReadableRequest($config),
             new CurrentUrl($this->wpService),
         ))->addHooks();
+    }
+
+    /**
+     * Keeps Easy Read field groups in Municipio's shared ACF import/export flow.
+     *
+     * @param array<string, string> $autoExportIds
+     * @return array<string, string>
+     */
+    public function registerAcfExports(array $autoExportIds): array
+    {
+        $autoExportIds['easy-reading'] = 'group_58eb4fce51bb7';
+        $autoExportIds['easy-reading-options'] = 'group_58eb9450b0a9f';
+
+        return $autoExportIds;
     }
 }
