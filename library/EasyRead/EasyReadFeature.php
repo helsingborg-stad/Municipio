@@ -7,6 +7,7 @@ namespace Municipio\EasyRead;
 use AcfService\AcfService;
 use Municipio\EasyRead\Admin\AcfLocationRules;
 use Municipio\EasyRead\Admin\OptionsPage;
+use Municipio\EasyRead\Admin\PostTypeFieldChoices;
 use Municipio\EasyRead\Config\EasyReadConfig;
 use Municipio\EasyRead\Content\AcfAlternativeContentRepository;
 use Municipio\EasyRead\Content\ContentSwitcher;
@@ -36,6 +37,7 @@ final class EasyReadFeature
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', [$this, 'registerAcfExports']);
         (new OptionsPage($this->wpService, $this->acfService))->addHooks();
         (new AcfLocationRules($this->wpService, $config))->addHooks();
+        (new PostTypeFieldChoices($this->wpService))->addHooks();
         (new ContentSwitcher(
             $this->wpService,
             new AcfAlternativeContentRepository($this->acfService, $config),
