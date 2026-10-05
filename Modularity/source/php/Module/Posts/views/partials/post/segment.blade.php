@@ -1,3 +1,4 @@
+@dump($test($post))
 @segment([
     'layout' => 'card',
     'title' => $post->getTitle(),
@@ -5,7 +6,7 @@
     'tags' => $post->termsUnlinked,
     'image' => $post->getImage(),
     'date'  => $showDate ? [
-        'timestamp' => $post->getArchiveDateTimestamp(),
+        'timestamp' => $test($post),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'content' => $post->excerptShort,

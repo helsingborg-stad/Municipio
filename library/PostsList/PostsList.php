@@ -120,6 +120,7 @@ class PostsList implements PostsListInterface
         if (!isset($this->wpQuery)) {
             $args = $this->getPostsArgs();
             $this->wpQuery = $this->wpQueryFactory::create($args);
+
         }
 
         return $this->wpQuery;

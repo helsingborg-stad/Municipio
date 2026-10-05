@@ -11,9 +11,11 @@ use Municipio\Helper\Memoize\MemoizedFunction;
 use Municipio\Helper\Post;
 use Municipio\MirroredPost\PostObject\MirroredPostObject;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostsList\ViewCallableProviders\GetDateTimestamp;
 use WP_Post;
 use WpService\WpService;
-
+use Municipio\PostsList\ViewCallableProviders\Schema\Event\GetDateBadgeDate;
+use Municipio\PostsList\ViewCallableProviders\Schema\Event\GetDate;
 /**
  * Class AbstractController
  *
@@ -44,8 +46,31 @@ class AbstractController
         $this->domainChecker = $module->domainChecker;
         $this->data = $this->addDataViewData($module->data, $module->fields);
         $this->data['posts'] = $this->preparePosts($module);
+        $this->data['getPostDateTimestamp'] = [$this, 'getPostDateTimestamp'];
+        $this->data['test'] = [$this, 'timestamp'];
 
         $this->data['classList'] = [];
+    }
+
+    public function timestamp(PostObjectInterface $post)
+    {
+
+        global $wpdb;
+        $test = (new GetDateTimestamp('startDate', $this->data['posts'], $wpdb))->getCallable();
+        return $test($post);
+    }
+
+    public function getPostDateTimestamp(PostObjectInterface $post)
+    {
+        if ($this->fields['posts_data_schema_type'] === 'Event') {
+            $callable = (new GetDate($this->getWpService()))->getCallable();
+            $nonTimestampDate = $callable($post);
+            echo '<pre>' . print_r( $nonTimestampDate, true ) . '</pre>';
+            // $timestamp = strtotime($callable($post));
+            // return $timestamp;
+        }
+
+        return $post->getArchiveDateTimestamp();
     }
 
     /**
