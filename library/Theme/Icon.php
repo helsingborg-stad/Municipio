@@ -43,11 +43,21 @@ class Icon
 
     public function altText($altText)
     {
+        return self::getAltTexts();
+    }
+
+    /**
+     * Get the translated labels used to describe Material icons.
+     *
+     * @return array<string, string>
+     */
+    public static function getAltTexts(): array
+    {
         if (!is_null(self::$runtimeCache['altText'])) {
             return self::$runtimeCache['altText'];
         }
 
-        $altText = [
+        $altText = array_replace(IconLabels::get(), [
           'language'                    => __("Globe", 'municipio'),
           'menu'                        => __("Menu", 'municipio'),
           'date_range'                  => __("Calendar", 'municipio'),
@@ -150,7 +160,7 @@ class Icon
           'content_copy'                => __('Copy', 'municipio'),
           'support_agent'               => __('Support', 'municipio'),
           'home'                        => __('House', 'municipio'),
-        ];
+        ]);
 
         return self::$runtimeCache['altText'] = $altText;
     }

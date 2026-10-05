@@ -2,36 +2,30 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Theme\Icon;
+
 /**
  * Class Icons
  */
 class Icons
 {
     /**
-     * Get path to icons description file
+     * Get icons with explicit, translated labels.
      *
-     * @return string
+     * @return array<int, array{name: string, label: string}> Icons with translated labels.
      */
-    private static function getIconPath(): string
+    public static function getIcons(): array
     {
-        return MUNICIPIO_PATH . "assets/generated/icon.json";
-    }
+        $labels = Icon::getAltTexts();
+        $icons  = [];
 
-    /**
-     * Read icons list
-     *
-     * @return array Array of icon strings
-     */
-    public static function getIcons()
-    {
-        if (file_exists(self::getIconPath())) {
-            if ($contents = file_get_contents(self::getIconPath())) {
-                $icons = json_decode($contents);
-
-                return $icons;
-            }
+        foreach ($labels as $icon => $label) {
+            $icons[] = [
+                'name'  => $icon,
+                'label' => $label,
+            ];
         }
 
-        return false;
+        return $icons;
     }
 }
