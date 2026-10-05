@@ -1,10 +1,23 @@
+@use "sass:map";
+@use "../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
+@use "../../../../vendor/helsingborg-stad/styleguide/source/sass/setting/var_default";
+
 #site-header-flexible-upper,
 #site-header-flexible-lower {
+
+
     .site-header-flexible-content {
         display: grid;
-        grid-template-columns: repeat(var(--amount-of-items-desktop), auto);
+        grid-template-columns: repeat(var(--amount-of-items-mobile), auto);
+    }
+
+    @media (min-width: #{map.get(var_default.$breakpoints-map, "md")}) {
+        .site-header-flexible-content {
+            grid-template-columns: repeat(var(--amount-of-items-desktop), auto);
+        }
     }
 }
+
 
 .c-header.c-header--flexible {
     contain: none;

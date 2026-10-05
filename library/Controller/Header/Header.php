@@ -63,6 +63,7 @@ class Header
     private function createMenuItems(): array
     {
         $rawMenuItems = $this->extractMenuItems->getHeaderItems($this->id);
+
         $structuredRawMenuItems = [];
 
         foreach ($rawMenuItems as $breakpoint => $items) {

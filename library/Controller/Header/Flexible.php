@@ -80,10 +80,10 @@ class Flexible
         $upperHeader = $this->headerFactory->create(Enums::HEADER_KEY::UPPER->value);
         $lowerHeader = $this->headerFactory->create(Enums::HEADER_KEY::LOWER->value);
 
+        $lowerHeaderItems = $lowerHeader->getMenuItems();
         $upperHeaderItems = $upperHeader->getMenuItems();
         // $upperHeaderClasses = $upperHeader->getCssClasses();
         // $lowerHeaderClasses = $lowerHeader->getCssClasses();
-        $lowerHeaderItems = $lowerHeader->getMenuItems();
         foreach($upperHeaderItems as $item) {
             $item->getCssClasses();
         }
