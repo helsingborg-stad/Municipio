@@ -7,8 +7,8 @@ namespace Municipio\Styleguide\Customize;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
+use WpUtilService\Features\Enqueue\EnqueueAssetContext;
 use WpUtilService\Features\Enqueue\EnqueueManager;
-use WpUtilService\WpUtilService;
 
 class CustomizeTest extends TestCase
 {
@@ -41,55 +41,54 @@ class CustomizeTest extends TestCase
     {
         $wpService = new FakeWpService([
             'isCustomizePreview' => true,
-            'currentUserCan' => true,
-            'getTemplateDirectoryUri' => 'https://example.com/theme',
             '_x' => fn($text) => $text,
-            'getSiteUrl' => 'https://example.com',
-            'addFilter' => true,
-            'wpCacheGet' => false,
-            'wpCacheSet' => true,
-            'wpRegisterStyle' => true,
-            'wpEnqueueStyle' => true,
-            'wpRegisterScript' => true,
-            'wpEnqueueScript' => true,
-            'wpLocalizeScript' => true,
         ]);
+        $enqueue = $this->createMock(EnqueueManager::class);
+        $assetContext = $this->createMock(EnqueueAssetContext::class);
 
-        $customize = new Customize(
-            $wpService,
-            (new WpUtilService($wpService))->enqueue(dirname(__DIR__, 3)),
-        );
+        $enqueue->expects(static::exactly(3))
+            ->method('add')
+            ->willReturnCallback(
+                static function (string $src, array $dependencies = []) use ($enqueue): EnqueueManager {
+                    static $expectedCalls = [
+                        ['css/designbuilder.css', []],
+                        ['js/designbuilder.js', []],
+                        ['js/designbuilder-preview.js', ['customize-preview', 'js-designbuilderjs']],
+                    ];
+
+                    static::assertSame(array_shift($expectedCalls), [$src, $dependencies]);
+
+                    return $enqueue;
+                },
+            );
+        $enqueue->expects(static::once())
+            ->method('with')
+            ->willReturn($assetContext);
+        $assetContext->expects(static::once())
+            ->method('translation')
+            ->with(
+                'styleguide',
+                static::callback(static function (array $data): bool {
+                    static::assertSame('Show uneditable', $data['translations']['showUneditable']);
+                    static::assertSame('Reset all', $data['translations']['resetAll']);
+
+                    return true;
+                }),
+            )
+            ->willReturn($enqueue);
+
+        $customize = new Customize($wpService, $enqueue);
         $customize->enqueuePreviewAssets();
+    }
 
-        static::assertSame(
-            [
-                [
-                    'css-designbuildercss',
-                ],
-            ],
-            $wpService->methodCalls['wpEnqueueStyle'],
-        );
+    #[TestDox('does not enqueue design builder assets outside the preview frame')]
+    public function testEnqueuePreviewAssetsDoesNothingOutsidePreviewFrame(): void
+    {
+        $wpService = new FakeWpService(['isCustomizePreview' => false]);
+        $enqueue = $this->createMock(EnqueueManager::class);
 
-        static::assertSame(
-            [
-                [
-                    'js-designbuilderjs',
-                ],
-                [
-                    'js-designbuilder-previewjs',
-                ],
-            ],
-            $wpService->methodCalls['wpEnqueueScript'],
-        );
+        $enqueue->expects(static::never())->method('add');
 
-        $registeredScripts = $wpService->methodCalls['wpRegisterScript'];
-        static::assertSame('js-designbuilderjs', $registeredScripts[0][0]);
-        static::assertMatchesRegularExpression('#/assets/dist/js/designbuilder\.[\w-]+\.js$#', $registeredScripts[0][1]);
-        static::assertSame([], $registeredScripts[0][2]);
-        static::assertSame('js-designbuilder-previewjs', $registeredScripts[1][0]);
-        static::assertMatchesRegularExpression('#/assets/dist/js/designbuilder-preview\.[\w-]+\.js$#', $registeredScripts[1][1]);
-        static::assertSame(['customize-preview', 'js-designbuilderjs'], $registeredScripts[1][2]);
-
-        static::assertCount(2, $wpService->methodCalls['addFilter']);
+        (new Customize($wpService, $enqueue))->enqueuePreviewAssets();
     }
 }
