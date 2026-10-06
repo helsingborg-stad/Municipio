@@ -5,7 +5,7 @@
     'tags' => $post->termsUnlinked,
     'image' => $post->getImage(),
     'date'  => $showDate ? [
-        'timestamp' => $post->getArchiveDateTimestamp(),
+        'timestamp' => $getPostDateTimestamp($post),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'content' => $post->excerptShort,
