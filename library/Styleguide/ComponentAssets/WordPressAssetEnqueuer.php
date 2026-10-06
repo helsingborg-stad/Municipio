@@ -32,7 +32,7 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
     ) {
         $this->manifest = $this->readJson($distDirectory . '/manifest.json');
         $this->utilityMap = $this->readJson($distDirectory . '/utility-class-map.json');
-        $this->markupDetectors = [new TableMarkupDetector(), ...$markupDetectors];
+        $this->markupDetectors = [new TableMarkupDetector(), new FabMarkupDetector(), ...$markupDetectors];
     }
 
     public static function setInstance(?self $instance): void
@@ -133,6 +133,9 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
             }
             foreach ($detector->styles() as $handle => $path) {
                 $this->enqueueStyle($handle, $path);
+            }
+            foreach ($detector->components() as $component) {
+                $this->enqueueComponent($component);
             }
         }
 
