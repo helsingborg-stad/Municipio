@@ -33,7 +33,7 @@
                     'u-margin__right--2', 
                     'u-margin__bottom--2', 
                     'u-margin__right--2', 
-                    'u-display--block@xs'
+                    'u-display--flex@xs'
                 ],
                 'size' => 'lg',
                 'icon' => $button['icon'],

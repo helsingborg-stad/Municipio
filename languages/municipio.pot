@@ -4677,7 +4677,7 @@ msgid "Oops! The page you requested cannot be found."
 msgstr ""
 
 #: library/Customizer/Sections/ErrorPages.php:103
-msgid "The %s you are looking for is either moved or removed."
+msgid "We could not find the %s you requested. It may have been moved, renamed, or removed. Check the address, try using the search function, or return to the start page to find the information you need."
 msgstr ""
 
 #: library/Customizer/Sections/ErrorPages.php:112

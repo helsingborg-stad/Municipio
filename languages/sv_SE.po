@@ -8211,8 +8211,8 @@ msgstr "Oj! Sidan som du begärde finns inte."
 
 #: library/Customizer/Sections/ErrorPages.php:103
 #, php-format
-msgid "The %s you are looking for is either moved or removed."
-msgstr "Sidan %s som du letade efter har antagligen flyttats eller blivit borttagen."
+msgid "We could not find the %s you requested. It may have been moved, renamed, or removed. Check the address, try using the search function, or return to the start page to find the information you need."
+msgstr "Vi kunde inte hitta sidan %s som du begärde. Den kan ha flyttats, fått en ny adress eller tagits bort. Kontrollera adressen, använd sökfunktionen eller gå till startsidan för att hitta rätt information."
 
 #: library/Customizer/Sections/ErrorPages.php:112
 msgid "Previous page"
