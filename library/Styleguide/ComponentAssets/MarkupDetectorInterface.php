@@ -10,4 +10,7 @@ interface MarkupDetectorInterface
 
     /** @return array<string, string> Style handles mapped to CSS paths. */
     public function styles(): array;
+
+    /** @return list<string> Component slugs to enqueue. */
+    public function components(): array;
 }

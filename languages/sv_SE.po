@@ -582,7 +582,6 @@ msgstr "Extern ljudlänk"
 msgid "Alignment"
 msgstr "Justering"
 
-#: library/AcfFields/php/widget-header-common.php:104
 #: library/Customizer/Sections/Component/Divider.php:46
 #: library/Customizer/Sections/Component/Hero.php:46
 #: library/Customizer/Sections/Component/Hero.php:98
@@ -607,7 +606,6 @@ msgstr "Vänster"
 msgid "Center"
 msgstr "Centrerad"
 
-#: library/AcfFields/php/widget-header-common.php:105
 #: library/Customizer/Sections/Component/Divider.php:48
 #: library/Customizer/Sections/Component/Hero.php:48
 #: library/Customizer/Sections/Component/Hero.php:100
@@ -803,7 +801,6 @@ msgstr "Sociala Medier"
 #: library/AcfFields/php/common-field-groups.php:50
 #: library/AcfFields/php/global-notices.php:30
 #: library/AcfFields/php/options-chat.php:152
-#: library/AcfFields/php/widget-contact.php:118
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:335
 #: Modularity/source/php/AcfFields/php/mod-index.php:26
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:48
@@ -835,19 +832,15 @@ msgstr "Twitter"
 msgid "Instagram"
 msgstr "Instagram"
 
-#: library/AcfFields/php/widget-header-links.php:86
-#: library/AcfFields/php/widget-header-links.php:173
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr "URL"
 
 #: library/AcfFields/php/user-author-image.php:188
-#: library/AcfFields/php/widget-contact.php:100
 #: library/Controller/BaseController.php:434
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:54
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:58
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
 msgstr "Adress"
@@ -886,7 +879,6 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -903,13 +895,11 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1015,7 +1005,6 @@ msgid "Fil"
 msgstr "Fil"
 
 #: library/Helper/TranslatedLabels.php:71
-#: library/Helper/TranslatedLabels.php:85
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:49
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:38
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:58
@@ -1084,11 +1073,8 @@ msgstr "Visa som"
 
 #: library/AcfFields/php/block-button.php:96
 #: library/AcfFields/php/block-container.php:152
-#: library/AcfFields/php/navigation-widget.php:352
 #: library/AcfFields/php/options-menu-style.php:24
 #: library/AcfFields/php/options-page-quicklinks-placement.php:25
-#: library/AcfFields/php/widget-header-links.php:360
-#: library/AcfFields/php/widget-header-menu.php:50
 #: library/Api/Pdf/PdfGenerator.php:374
 #: library/Api/Pdf/PdfGenerator.php:472
 #: library/Chat/ChatBlock.php:34
@@ -1096,15 +1082,11 @@ msgstr "Visa som"
 #: library/Customizer/Sections/Component/Tags.php:20
 #: library/Customizer/Sections/Component/Tags.php:46
 #: library/Customizer/Sections/Header/Layout.php:165
-#: library/Customizer/Sections/Menu/MegaMenu.php:105
-#: library/Customizer/Sections/Menu/MegaMenu.php:176
-#: library/Customizer/Sections/Menu/MegaMenu.php:212
-#: library/Customizer/Sections/Menu/MegaMenu.php:283
+#: library/Customizer/Sections/Menu/MegaMenu.php:108
+#: library/Customizer/Sections/Menu/MegaMenu.php:175
 #: library/Customizer/Sections/Menu/Quicklinks.php:19
 #: library/Customizer/Sections/Menu/Quicklinks.php:42
 #: library/Customizer/Sections/Menu/Quicklinks.php:95
-#: library/Customizer/Sections/Menu/Tabmenu.php:19
-#: library/Customizer/Sections/Menu/Tabmenu.php:53
 #: library/Customizer/Sections/Search.php:148
 #: library/Customizer/Sections/Search.php:157
 #: Modularity/source/php/AcfFields/php/mod-hero.php:25
@@ -1174,7 +1156,7 @@ msgstr "En tydlig byline, om du vill berätta något mer."
 msgid "Meta"
 msgstr "Meta"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:80
+#: library/Customizer/Sections/Menu/MegaMenu.php:83
 #: Modularity/source/php/AcfFields/php/mod-hero.php:159
 msgid "Body"
 msgstr "Brödtext"
@@ -1212,7 +1194,6 @@ msgid "Display media above content"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:139
-#: library/AcfFields/php/navigation-widget.php:340
 #: Modularity/source/php/AcfFields/php/mod-hero.php:337
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:12
 #: Modularity/source/php/AcfFields/php/mod-modal.php:164
@@ -1221,13 +1202,10 @@ msgstr "Storlek"
 
 #: library/AcfFields/php/block-button.php:158
 #: library/AcfFields/php/block-container.php:46
-#: library/AcfFields/php/navigation-widget.php:353
 #: library/AcfFields/php/options-theme-editor-formats.php:25
-#: library/AcfFields/php/widget-header-common.php:132
-#: library/AcfFields/php/widget-header-links.php:361
-#: library/AcfFields/php/widget-header-menu.php:51
+#: library/Customizer/ButtonSettings.php:94
+#: library/Customizer/Controls/Sortable/SortableControl.php:200
 #: library/Customizer/Sections/Menu/Siteselector.php:118
-#: library/Customizer/Sections/Menu/Tabmenu.php:87
 #: Modularity/source/php/AcfFields/php/mod-hero.php:350
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:25
 #: Modularity/source/php/AcfFields/php/mod-modal.php:177
@@ -1245,13 +1223,10 @@ msgstr "Normal"
 
 #: library/AcfFields/php/block-button.php:160
 #: library/AcfFields/php/block-container.php:48
-#: library/AcfFields/php/navigation-widget.php:354
 #: library/AcfFields/php/options-theme-editor-formats.php:26
-#: library/AcfFields/php/widget-header-common.php:133
-#: library/AcfFields/php/widget-header-links.php:362
-#: library/AcfFields/php/widget-header-menu.php:52
+#: library/Customizer/ButtonSettings.php:96
+#: library/Customizer/Controls/Sortable/SortableControl.php:202
 #: library/Customizer/Sections/Menu/Siteselector.php:120
-#: library/Customizer/Sections/Menu/Tabmenu.php:89
 #: library/Customizer/Sections/Width.php:30
 #: library/Customizer/Sections/Width.php:46
 #: Modularity/source/php/AcfFields/php/mod-hero.php:352
@@ -1292,31 +1267,32 @@ msgstr "Länk"
 
 #: library/AcfFields/php/block-button.php:126
 #: library/AcfFields/php/block-container.php:211
+#: library/Customizer/ButtonSettings.php:90
+#: library/Customizer/Controls/Sortable/SortableControl.php:193
 #: library/Customizer/Sections/Component/SliderDefault.php:143
 #: library/Customizer/Sections/Menu/Drawer.php:23
 #: library/Customizer/Sections/Menu/Drawer.php:46
-#: library/Customizer/Sections/Menu/Tabmenu.php:36
-#: library/Customizer/Sections/Menu/Tabmenu.php:70
+#: library/Customizer/Sections/Menu/Tabmenu.php:38
 #: Modularity/source/php/AcfFields/php/mod-hero.php:427
 #: Modularity/source/php/AcfFields/php/mod-modal.php:115
 msgid "Basic"
 msgstr "Standard"
 
 #: library/AcfFields/php/block-button.php:128
+#: library/Customizer/ButtonSettings.php:89
+#: library/Customizer/Controls/Sortable/SortableControl.php:192
 #: library/Customizer/Sections/Component/SliderDefault.php:142
-#: library/Customizer/Sections/Icons.php:55
-#: library/Customizer/Sections/Menu/Tabmenu.php:38
-#: library/Customizer/Sections/Menu/Tabmenu.php:72
+#: library/Customizer/Sections/Menu/Tabmenu.php:40
 #: Modularity/source/php/AcfFields/php/mod-hero.php:428
 #: Modularity/source/php/AcfFields/php/mod-modal.php:116
 msgid "Filled"
 msgstr "Ifylld"
 
 #: library/AcfFields/php/block-button.php:127
+#: library/Customizer/ButtonSettings.php:91
+#: library/Customizer/Controls/Sortable/SortableControl.php:194
 #: library/Customizer/Sections/Icons.php:19
-#: library/Customizer/Sections/Icons.php:56
-#: library/Customizer/Sections/Menu/Tabmenu.php:37
-#: library/Customizer/Sections/Menu/Tabmenu.php:71
+#: library/Customizer/Sections/Menu/Tabmenu.php:39
 #: Modularity/source/php/AcfFields/php/mod-hero.php:429
 #: Modularity/source/php/AcfFields/php/mod-modal.php:117
 msgid "Outlined"
@@ -1337,6 +1313,8 @@ msgid "Color"
 msgstr "Färg"
 
 #: library/AcfFields/php/block-button.php:94
+#: library/Customizer/ButtonSettings.php:100
+#: library/Customizer/Controls/Sortable/SortableControl.php:209
 #: library/Customizer/Sections/Component/Datebadge.php:22
 #: library/Customizer/Sections/Component/FooterMain.php:20
 #: library/Customizer/Sections/Component/FooterSub.php:20
@@ -1344,13 +1322,10 @@ msgstr "Färg"
 #: library/Customizer/Sections/Header/Logotype.php:19
 #: library/Customizer/Sections/Menu/Drawer.php:24
 #: library/Customizer/Sections/Menu/Drawer.php:47
-#: library/Customizer/Sections/Menu/MegaMenu.php:174
-#: library/Customizer/Sections/Menu/MegaMenu.php:281
-#: library/Customizer/Sections/Menu/MegaMenu.php:319
+#: library/Customizer/Sections/Menu/MegaMenu.php:242
 #: library/Customizer/Sections/Menu/Quicklinks.php:20
 #: library/Customizer/Sections/Menu/Siteselector.php:84
-#: library/Customizer/Sections/Menu/Tabmenu.php:20
-#: library/Customizer/Sections/Menu/Tabmenu.php:54
+#: library/Customizer/Sections/Menu/Tabmenu.php:22
 #: library/Customizer/Sections/Search.php:149
 #: Modularity/source/php/AcfFields/php/mod-hero.php:458
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:889
@@ -1361,6 +1336,8 @@ msgid "Primary"
 msgstr "Primär"
 
 #: library/AcfFields/php/block-button.php:95
+#: library/Customizer/ButtonSettings.php:101
+#: library/Customizer/Controls/Sortable/SortableControl.php:210
 #: library/Customizer/Sections/Component/Datebadge.php:23
 #: library/Customizer/Sections/Component/FooterMain.php:21
 #: library/Customizer/Sections/Component/FooterSub.php:21
@@ -1368,13 +1345,10 @@ msgstr "Primär"
 #: library/Customizer/Sections/Header/Logotype.php:20
 #: library/Customizer/Sections/Menu/Drawer.php:25
 #: library/Customizer/Sections/Menu/Drawer.php:48
-#: library/Customizer/Sections/Menu/MegaMenu.php:175
-#: library/Customizer/Sections/Menu/MegaMenu.php:282
-#: library/Customizer/Sections/Menu/MegaMenu.php:320
+#: library/Customizer/Sections/Menu/MegaMenu.php:243
 #: library/Customizer/Sections/Menu/Quicklinks.php:21
 #: library/Customizer/Sections/Menu/Siteselector.php:85
-#: library/Customizer/Sections/Menu/Tabmenu.php:21
-#: library/Customizer/Sections/Menu/Tabmenu.php:55
+#: library/Customizer/Sections/Menu/Tabmenu.php:23
 #: library/Customizer/Sections/Search.php:150
 #: Modularity/source/php/AcfFields/php/mod-hero.php:459
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:890
@@ -1417,7 +1391,7 @@ msgstr "pixlar"
 #: library/Controller/SingularEvent.php:183
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:43
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:42
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:39
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:34
 #: Modularity/source/php/AcfFields/php/mod-iframe.php:54
@@ -1426,8 +1400,7 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:429
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
-#: Modularity/source/php/Module/Posts/Posts.php:246
-#: assets/dist/blocks/js/blocks.js:1
+#: Modularity/source/php/Module/Posts/Posts.php:245
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1444,7 +1417,6 @@ msgstr "Tillåtna filtyper: jpg, png, gif"
 msgid "Image caption"
 msgstr "Bildtext"
 
-#: library/AcfFields/php/widget-header-common.php:134
 #: library/Api/Pdf/PdfGenerator.php:473
 #: library/Customizer/Sections/Component/Card.php:20
 #: library/Customizer/Sections/Component/FooterMain.php:19
@@ -1508,7 +1480,6 @@ msgstr "Dölj bild"
 msgid "featured"
 msgstr "utvald"
 
-#: library/AcfFields/php/widget-media.php:12
 #: Modularity/source/php/AcfFields/php/mod-index.php:141
 msgid "Upload image"
 msgstr "Ladda upp bild"
@@ -1558,16 +1529,10 @@ msgstr ""
 msgid "Lista"
 msgstr "Lista"
 
-#: library/AcfFields/php/navigation-widget.php:141
-#: library/AcfFields/php/widget-media.php:36
-#: library/AcfFields/php/widget-media.php:101
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:68
 msgid "Internal link"
 msgstr "Interna länkar"
 
-#: library/AcfFields/php/navigation-widget.php:62
-#: library/AcfFields/php/widget-media.php:65
-#: library/AcfFields/php/widget-media.php:102
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:69
 msgid "External link"
 msgstr "Externa länkar"
@@ -1584,7 +1549,6 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1603,9 +1567,10 @@ msgstr ""
 
 #: library/AcfFields/php/block-button.php:159
 #: library/AcfFields/php/block-container.php:47
+#: library/Customizer/ButtonSettings.php:95
+#: library/Customizer/Controls/Sortable/SortableControl.php:201
 #: library/Customizer/Sections/Icons.php:35
 #: library/Customizer/Sections/Menu/Siteselector.php:119
-#: library/Customizer/Sections/Menu/Tabmenu.php:88
 #: Modularity/source/php/AcfFields/php/mod-interactive-map.php:26
 #: Modularity/source/php/AcfFields/php/mod-modal.php:178
 #: Modularity/source/php/AcfFields/php/mod-modal.php:334
@@ -1643,15 +1608,15 @@ msgstr "Bild/Logotyp"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:57
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:82
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:101
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:51
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:73
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:55
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:82
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:38
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:46
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:62
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:247
+#: Modularity/source/php/Module/Posts/Posts.php:246
 msgid "Name"
 msgstr "Namn"
 
@@ -1774,7 +1739,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -1823,6 +1787,7 @@ msgstr ""
 msgid "Display the link as a button in the card footer instead of making the entire card clickable."
 msgstr ""
 
+#: library/Customizer/Controls/Sortable/SortableControl.php:206
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:868
 msgid "Button color"
 msgstr ""
@@ -1837,8 +1802,6 @@ msgstr ""
 #: library/AcfFields/php/term-icon-and-colour.php:30
 #: library/AcfFields/php/term-icon-and-colour.php:64
 #: library/AcfFields/php/term-icon-and-colour.php:79
-#: library/AcfFields/php/widget-header-links.php:33
-#: library/AcfFields/php/widget-header-links.php:120
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:948
 #: Modularity/source/php/AcfFields/php/mod-modal.php:53
 msgid "Icon"
@@ -1855,7 +1818,7 @@ msgstr ""
 
 #: library/Theme/Icon.php:148
 #: Modularity/source/php/AcfFields/php/mod-map.php:8
-#: Modularity/source/php/Module/Map/Map.php:16
+#: Modularity/source/php/Module/Map/Map.php:26
 msgid "Map"
 msgstr "Karta"
 
@@ -1892,7 +1855,6 @@ msgstr "Minsta höjd"
 msgid "Set a minumum height"
 msgstr "Välj en minsta höjd"
 
-#: library/AcfFields/php/brand-widget.php:52
 #: Modularity/source/php/AcfFields/php/mod-map.php:107
 msgid "px"
 msgstr "px"
@@ -1937,7 +1899,7 @@ msgstr "Kortet med extra info är inaktiverat som standard"
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:64
 #: library/Customizer/Sections/Menu/Drawer.php:68
 #: library/Customizer/Sections/Menu/Drawer.php:84
-#: library/Customizer/Sections/Menu/MegaMenu.php:364
+#: library/Customizer/Sections/Menu/MegaMenu.php:287
 #: library/Customizer/Sections/Menu/Vertical.php:48
 #: Modularity/source/php/AcfFields/php/mod-map.php:224
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:647
@@ -1960,7 +1922,7 @@ msgstr "Aktiverad"
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:65
 #: library/Customizer/Sections/Menu/Drawer.php:69
 #: library/Customizer/Sections/Menu/Drawer.php:85
-#: library/Customizer/Sections/Menu/MegaMenu.php:365
+#: library/Customizer/Sections/Menu/MegaMenu.php:288
 #: library/Customizer/Sections/Menu/Vertical.php:49
 #: Modularity/source/php/AcfFields/php/mod-map.php:225
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:648
@@ -2042,8 +2004,9 @@ msgstr "Välj en leverantör"
 msgid "ABC"
 msgstr ""
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:38
+#: library/Customizer/Sections/Menu/MegaMenu.php:41
 #: library/Customizer/Sections/Menu/Siteselector.php:46
+#: Modularity/source/php/AcfFields/php/mod-menu.php:103
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -2055,8 +2018,8 @@ msgstr "Dialogruta"
 #: library/AcfFields/php/options-menu-style.php:25
 #: library/AcfFields/php/options-theme-editor-formats.php:39
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:39
-#: library/Customizer/Sections/Menu/MegaMenu.php:106
-#: library/Customizer/Sections/Menu/MegaMenu.php:213
+#: library/Customizer/Sections/Menu/MegaMenu.php:109
+#: library/Customizer/Sections/Menu/MegaMenu.php:176
 #: Modularity/source/php/AcfFields/php/mod-modal.php:12
 #: Modularity/source/php/AcfFields/php/mod-slider.php:337
 #: Modularity/source/php/AcfFields/php/mod-slider.php:737
@@ -2065,8 +2028,6 @@ msgstr "Knapp"
 
 #: library/AcfFields/php/block-button.php:12
 #: library/AcfFields/php/options-theme-google-translate.php:96
-#: library/AcfFields/php/widget-header-links.php:48
-#: library/AcfFields/php/widget-header-links.php:135
 #: Modularity/source/php/AcfFields/php/mod-modal.php:33
 #: Modularity/source/php/Module/Text/Text.php:16
 msgid "Text"
@@ -2088,7 +2049,6 @@ msgid "Right of text"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:107
-#: library/AcfFields/php/navigation-widget.php:316
 #: library/AcfFields/php/options-menu-style.php:12
 #: library/Customizer/Sections/Archive.php:47
 #: library/Customizer/Sections/Icons.php:14
@@ -2097,7 +2057,7 @@ msgstr ""
 msgid "Style"
 msgstr "Stil"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:314
+#: library/Customizer/Sections/Menu/MegaMenu.php:237
 #: library/Customizer/Sections/Menu/Quicklinks.php:14
 #: library/Customizer/Sections/Menu/Siteselector.php:78
 #: Modularity/source/php/AcfFields/php/mod-modal.php:133
@@ -2422,20 +2382,17 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -2643,7 +2600,7 @@ msgid "Placeholder"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-search.php:52
-#: Modularity/source/php/App.php:310
+#: Modularity/source/php/App.php:320
 msgid "Width"
 msgstr "Bredd"
 
@@ -2862,10 +2819,9 @@ msgstr "Extern"
 
 #: library/Controller/SingularEvent.php:197
 #: library/Helper/TranslatedLabels.php:63
-#: library/Helper/TranslatedLabels.php:80
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:164
-#: Modularity/source/php/Module/Posts/Posts.php:243
+#: Modularity/source/php/Module/Posts/Posts.php:242
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -3023,7 +2979,6 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -3145,7 +3100,6 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -4036,65 +3990,65 @@ msgstr "Ämne"
 msgid "Taxonomy"
 msgstr "Kategori"
 
-#: Modularity/source/php/App.php:303
+#: Modularity/source/php/App.php:313
 msgid "Edit"
 msgstr "Redigera"
 
-#: Modularity/source/php/App.php:175
+#: Modularity/source/php/App.php:172
 #: Modularity/source/php/BlockManager.php:207
 #: Modularity/source/php/Editor.php:137
 msgid "Modules"
 msgstr "Moduler"
 
-#: Modularity/source/php/App.php:228
+#: Modularity/source/php/App.php:225
 msgid "Edit Modules"
 msgstr "Redigera moduler"
 
-#: Modularity/source/php/App.php:302
+#: Modularity/source/php/App.php:312
 msgid "Toggle visibility"
 msgstr "Synlighet"
 
-#: Modularity/source/php/App.php:304
+#: Modularity/source/php/App.php:314
 msgid "Import"
 msgstr "Importera"
 
 #: library/Customizer/Controls/MultiSelect/MultiSelectControl.php:67
 #: library/Customizer/Controls/Repeater/RepeaterControl.php:77
 #: library/Customizer/Controls/Sortable/SortableControl.php:72
-#: Modularity/source/php/App.php:305
+#: Modularity/source/php/App.php:315
 msgid "Remove"
 msgstr "Ta bort"
 
-#: Modularity/source/php/App.php:306
+#: Modularity/source/php/App.php:316
 msgid "Hide module"
 msgstr "Dölj modulen"
 
-#: Modularity/source/php/App.php:307
+#: Modularity/source/php/App.php:317
 msgid "Are you sure you want to remove this module?"
 msgstr "Är du säker på att du vill ta bort modulen?"
 
-#: Modularity/source/php/App.php:308
+#: Modularity/source/php/App.php:318
 msgid "Saving…"
 msgstr "Sparar…"
 
-#: library/Chat/Render/ChatRenderConfig.php:79
+#: library/Chat/Render/ChatRenderConfig.php:102
 #: library/Controller/BaseController.php:417
 #: library/Helper/TranslatedLabels.php:55
-#: Modularity/source/php/App.php:309
+#: Modularity/source/php/App.php:319
 msgid "Close"
 msgstr "Stäng"
 
-#: Modularity/source/php/App.php:312
+#: Modularity/source/php/App.php:322
 msgid "Deprecated"
 msgstr "Utgående"
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:138
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:228
-#: Modularity/source/php/BlockManager.php:484
+#: Modularity/source/php/BlockManager.php:486
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: Modularity/source/php/Display.php:744
+#: Modularity/source/php/Display.php:759
 msgid "Edit module"
 msgstr "Redigera modul"
 
@@ -4127,6 +4081,9 @@ msgstr "Placera bild"
 msgid "Modules saved"
 msgstr "Moduler sparades"
 
+#: library/Customizer/ButtonSettings.php:99
+#: library/Customizer/Controls/Sortable/SortableControl.php:208
+#: library/Customizer/Sections/Menu/Tabmenu.php:21
 #: Modularity/source/php/Editor.php:720
 msgid "Inherit"
 msgstr "Ärv"
@@ -4149,15 +4106,15 @@ msgstr "Välj ett specialutseende för den här modulen som passar ditt syfte me
 #: Modularity/source/php/Helper/AcceptanceLabels.php:25
 #: Modularity/source/php/Module/Iframe/Iframe.php:29
 #: Modularity/source/php/Module/Iframe/Iframe.php:41
-#: Modularity/source/php/Module/Map/Map.php:145
-#: Modularity/source/php/Module/Map/Map.php:157
+#: Modularity/source/php/Module/Map/Map.php:108
+#: Modularity/source/php/Module/Map/Map.php:120
 msgid "We need your consent to continue"
 msgstr "Vi behöver ditt godkännande för att ta dig vidare"
 
 #: library/Oembed/OembedFilters.php:42
 #: Modularity/source/php/Helper/AcceptanceLabels.php:15
 #: Modularity/source/php/Module/Iframe/Iframe.php:31
-#: Modularity/source/php/Module/Map/Map.php:147
+#: Modularity/source/php/Module/Map/Map.php:110
 #, php-format
 msgid "This part of the website shows content from %s. By continuing, <a href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
@@ -4168,8 +4125,8 @@ msgstr "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätt
 #: Modularity/source/php/Helper/AcceptanceLabels.php:30
 #: Modularity/source/php/Module/Iframe/Iframe.php:38
 #: Modularity/source/php/Module/Iframe/Iframe.php:49
-#: Modularity/source/php/Module/Map/Map.php:154
-#: Modularity/source/php/Module/Map/Map.php:165
+#: Modularity/source/php/Module/Map/Map.php:117
+#: Modularity/source/php/Module/Map/Map.php:128
 msgid "I understand, continue."
 msgstr "Jag förstår, fortsätt."
 
@@ -4257,7 +4214,7 @@ msgstr "Iframe"
 
 #: library/Oembed/OembedFilters.php:48
 #: Modularity/source/php/Module/Iframe/Iframe.php:43
-#: Modularity/source/php/Module/Map/Map.php:159
+#: Modularity/source/php/Module/Map/Map.php:122
 #, fuzzy,php-format
 msgid "This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy."
 msgstr "Den här delen av hemsidan visar innehåll från en annan webbplats (%s). Genom att fortsätta godkänner du GDPR och Sekretesspolicyn."
@@ -4315,10 +4272,9 @@ msgstr "Visar ett galleri med logotyper"
 #: library/Admin/Options/Theme.php:33
 #: library/Customizer/PanelsRegistry.php:148
 #: library/Helper/TranslatedLabels.php:44
-#: library/Helper/TranslatedLabels.php:84
+#: library/Helper/TranslatedLabels.php:82
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:50
 #: library/PostsList/ViewCallableProviders/Filter/GetTextSearchFieldArguments.php:74
-#: library/Widget/Navigation/Navigation.php:66
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:53
 msgid "Search"
 msgstr "Sök"
@@ -4329,17 +4285,17 @@ msgstr "Sök"
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:64
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
-#: Modularity/source/php/Module/Posts/Posts.php:244
+#: Modularity/source/php/Module/Posts/Posts.php:243
 msgid "Save"
 msgstr "Spara"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:51
-#: Modularity/source/php/Module/Posts/Posts.php:245
+#: Modularity/source/php/Module/Posts/Posts.php:244
 msgid "Cancel"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:54
-#: Modularity/source/php/Module/Posts/Posts.php:248
+#: Modularity/source/php/Module/Posts/Posts.php:247
 msgid "Saving"
 msgstr "Sparar"
 
@@ -4348,18 +4304,18 @@ msgid "This item is obligatory"
 msgstr "Detta är obligatoriskt"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:56
-#: Modularity/source/php/Module/Posts/Posts.php:249
+#: Modularity/source/php/Module/Posts/Posts.php:248
 #, fuzzy
 msgid "An error occurred and the data could not be saved. Please try again later"
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
-#: Modularity/source/php/Module/Posts/Posts.php:250
+#: Modularity/source/php/Module/Posts/Posts.php:249
 msgid "Change the lists content"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:342
-#: Modularity/source/php/Module/Map/Map.php:17
+#: Modularity/source/php/Module/Map/Map.php:27
 msgid "Maps"
 msgstr "Kartor"
 
@@ -4401,8 +4357,6 @@ msgstr ""
 
 #: library/Helper/TranslatedLabels.php:53
 #: library/Theme/Icon.php:52
-#: library/Widget/Header/Links.php:68
-#: library/Widget/Navigation/Navigation.php:77
 #: Modularity/source/php/Module/Menu/Menu.php:22
 msgid "Menu"
 msgstr "Meny"
@@ -4470,7 +4424,7 @@ msgstr "Inlägg"
 msgid "Outputs selected posts in specified layout"
 msgstr "Visar valda inlägg i en vald layout"
 
-#: Modularity/source/php/Module/Posts/Posts.php:242
+#: Modularity/source/php/Module/Posts/Posts.php:241
 msgid "Show more"
 msgstr "Visa mer"
 
@@ -4723,17 +4677,17 @@ msgstr "Posttyp moduler"
 msgid "The database may need to be updated to accomodate new datatastructures. Run wp-cli \"modularity upgrade\" to upgrade."
 msgstr "Databasen kan behöva uppdateras för att anpassas till nya datastrukturer. Kör wp-cli ”modularity upgrade” för att uppgradera."
 
-#: library/Upgrade.php:1379
+#: library/Upgrade.php:1397
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:1383
+#: library/Upgrade.php:1401
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:1388
+#: library/Upgrade.php:1406
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr "Databasversionen som ska uppnås, kan inte vara lägre än den version som är sparad (kan inte nedgradera databasen)."
@@ -5041,22 +4995,6 @@ msgstr "Marginalstorlek"
 msgid "Amount of margin"
 msgstr "Storlek på marginal"
 
-#: library/AcfFields/php/brand-widget.php:8
-msgid "Brand / Logo Widget"
-msgstr "Varumärke / logotyp widget"
-
-#: library/AcfFields/php/brand-widget.php:12
-msgid "Upload logotype"
-msgstr "Ladda upp logotyp"
-
-#: library/AcfFields/php/brand-widget.php:36
-msgid "Max width"
-msgstr "Maxbredd"
-
-#: library/AcfFields/php/brand-widget.php:39
-msgid "Choose the max width of the logo."
-msgstr "Välj maxbredden på logotypen."
-
 #: library/AcfFields/php/common-field-groups.php:12
 msgid "Common Field Groups Feature Description"
 msgstr "Beskrivning av funktionen för gemensamma fältgrupper"
@@ -5088,7 +5026,7 @@ msgid "Report settings"
 msgstr "Rapportinställningar"
 
 #: library/AcfFields/php/external-content-settings.php:8
-#: library/SchemaData/ExternalContent/ExternalContentFeature.php:178
+#: library/SchemaData/ExternalContent/ExternalContentFeature.php:196
 msgid "External Content"
 msgstr "Externt innehåll"
 
@@ -5138,7 +5076,6 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -5339,42 +5276,6 @@ msgstr "Dold validering"
 msgid "Image Attachment Byline"
 msgstr "Bild Byline"
 
-#: library/AcfFields/php/navigation-widget.php:8
-msgid "Navigation widget"
-msgstr "Navigationswidget"
-
-#: library/AcfFields/php/navigation-widget.php:12
-msgid "Navigation items"
-msgstr "Navigationsobjekt"
-
-#: library/AcfFields/php/navigation-widget.php:27
-msgid "Wordpress menu"
-msgstr "Wordpress-menyn"
-
-#: library/AcfFields/php/navigation-widget.php:225
-msgid "Search trigger"
-msgstr "Sök utlösare"
-
-#: library/AcfFields/php/navigation-widget.php:254
-msgid "Menu trigger"
-msgstr "Meny utlösare"
-
-#: library/AcfFields/php/navigation-widget.php:283
-msgid "Translate trigger"
-msgstr "Översättning utlösare"
-
-#: library/AcfFields/php/navigation-widget.php:310
-msgid "Add navigation item"
-msgstr "Lägg till navigeringsobjekt"
-
-#: library/AcfFields/php/navigation-widget.php:328
-msgid "Flat"
-msgstr "Platt"
-
-#: library/AcfFields/php/navigation-widget.php:329
-msgid "Fill"
-msgstr "Fyll"
-
 #: library/AcfFields/php/options-activate-gutenberg.php:8
 msgid "Activate Gutenberg"
 msgstr "Aktivera Gutenberg"
@@ -5522,7 +5423,7 @@ msgstr "Assistent-ID"
 
 #: library/AcfFields/php/options-chat.php:422
 #: library/Customizer/PanelsRegistry.php:124
-#: library/Customizer/Sections/Menu/MegaMenu.php:17
+#: library/Customizer/Sections/Menu/MegaMenu.php:20
 msgid "Appearance"
 msgstr "Utseende"
 
@@ -5725,6 +5626,7 @@ msgstr "Dölj i meny"
 #: library/Customizer/Sections/Archive.php:203
 #: library/Customizer/Sections/Archive.php:440
 #: library/Customizer/Sections/ErrorPages.php:75
+#: Modularity/source/php/Module/Menu/Decorator/Listing.php:51
 msgid "Hide"
 msgstr "Dölj"
 
@@ -6219,119 +6121,119 @@ msgstr "mod-sites"
 msgid "mod-spacer"
 msgstr "mod-spacer"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:180
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:182
 msgid "mod-negative-margin"
 msgstr "mod-negative-margin"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:182
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:183
 msgid "mod-subscribe"
 msgstr "mod-subscribe"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:183
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:184
 msgid "mod-contact-banner"
 msgstr "mod-contact-banner"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:184
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:185
 msgid "mod-form"
 msgstr "mod-form"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:185
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:186
 msgid "mod-open-street-map"
 msgstr "mod-open-street-map"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:186
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:187
 msgid "mod-products"
 msgstr "mod-products"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:187
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:188
 msgid "mod-recommend"
 msgstr "mod-recommend"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:188
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:189
 msgid "mod-section-split"
 msgstr "mod-section-split"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:189
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:190
 msgid "mod-section-full"
 msgstr "mod-section-full"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:190
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:191
 msgid "mod-section-featured"
 msgstr "mod-section-featured"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:191
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:192
 msgid "mod-section-card"
 msgstr "mod-section-card"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:192
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:193
 msgid "mod-testimonial-card"
 msgstr "mod-testimonial-card"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:193
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:194
 msgid "mod-timeline"
 msgstr "mod-timeline"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:194
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:195
 msgid "news"
 msgstr "news"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:195
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:196
 msgid "pre-school"
 msgstr "pre-school"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:196
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:197
 msgid "person"
 msgstr "person"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:197
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:198
 msgid "elementary-school"
 msgstr "elementary-school"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:198
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:199
 msgid "school-media"
 msgstr "school-media"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:199
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:200
 msgid "acfe-dbt"
 msgstr "acfe-dbt"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:200
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:201
 msgid "acfe-form"
 msgstr "acfe-form"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:201
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:202
 msgid "acfe-dop"
 msgstr "acfe-dop"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:202
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:203
 msgid "acfe-dpt"
 msgstr "acfe-dpt"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:203
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:204
 msgid "acfe-dt"
 msgstr "acfe-dt"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:204
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:205
 msgid "form-submissions"
 msgstr "formulär-inskick"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:205
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:206
 msgid "modal-content"
 msgstr "modal-content"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:219
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:220
 msgid "Offentlig"
 msgstr "Offentlig"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:232
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:233
 msgid "Enable visitors to browse this taxonomy"
 msgstr "Gör det möjligt för besökare att bläddra i denna taxonomi"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:240
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:241
 msgid "Admin user interface"
 msgstr "Användargränssnitt för administratörer"
 
-#: library/AcfFields/php/options-theme-custom-taxonomy.php:253
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:254
 msgid "Enable administration UI"
 msgstr "Aktivera administrationsgränssnittet"
 
@@ -6842,7 +6744,6 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -6874,178 +6775,25 @@ msgstr ""
 msgid "Allow user to prefer group url"
 msgstr ""
 
-#: library/AcfFields/php/widget-contact.php:19
-msgid "Contact person"
-msgstr "Kontaktperson"
-
-#: library/AcfFields/php/widget-contact.php:40
-msgid "Company"
-msgstr "Företag"
-
-#: library/AcfFields/php/widget-contact.php:61
-msgid "Phone numer"
-msgstr "Telefonnummer"
-
-#: library/AcfFields/php/widget-contact.php:81
 #: library/Controller/BaseController.php:432
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:65
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:74
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:83
 msgid "Email"
 msgstr "Epost"
 
-#: library/AcfFields/php/widget-contact.php:121
-msgid "Kontakter"
-msgstr "Kontakter"
-
-#: library/AcfFields/php/widget-header-common.php:8
-msgid "Widget - Common Utility fields"
-msgstr "Widget - Vanliga verktygsfält"
-
-#: library/AcfFields/php/widget-header-common.php:12
-msgid "Display options"
-msgstr "Visningsinställningar"
-
-#: library/AcfFields/php/widget-header-common.php:29
-msgid "Visibility"
-msgstr "Synbarhet"
-
-#: library/AcfFields/php/widget-header-common.php:41
-msgid "Hide on extra small devices (XS)"
-msgstr "Göm på extra små enheter"
-
-#: library/AcfFields/php/widget-header-common.php:42
-msgid "Hide on small devices (SM)"
-msgstr "Göm på små enheter"
-
-#: library/AcfFields/php/widget-header-common.php:43
-msgid "Hide on medium devices (MD)"
-msgstr "Göm på medelstora enheter"
-
-#: library/AcfFields/php/widget-header-common.php:44
-msgid "Hide on large devices (LG)"
-msgstr "Göm på stora enheter"
-
-#: library/AcfFields/php/widget-header-common.php:56
-msgid "Margin options"
-msgstr "Marginalinställningar"
-
-#: library/AcfFields/php/widget-header-common.php:73
-msgid "Margins"
-msgstr "Marginaler"
-
-#: library/AcfFields/php/widget-header-common.php:92
-msgid "Direction"
-msgstr "Riktning"
-
-#: library/AcfFields/php/widget-header-common.php:106
-msgid "Left & Right"
-msgstr "Vänster & höger"
-
-#: library/AcfFields/php/widget-header-common.php:119
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:89
 #: library/Customizer/Controls/Sortable/SortableControl.php:163
 msgid "Margin"
 msgstr "Marginal"
 
-#: library/AcfFields/php/widget-header-common.php:131
 #: library/Customizer/Controls/Background/BackgroundControl.php:120
 msgid "Auto"
 msgstr "Automatisk"
 
-#: library/AcfFields/php/widget-header-common.php:147
-msgid "Breakpoint"
-msgstr "Brytpunkt"
-
-#: library/AcfFields/php/widget-header-common.php:159
-msgid "SM and up"
-msgstr "SM och uppåt"
-
-#: library/AcfFields/php/widget-header-common.php:160
-msgid "MD and up"
-msgstr "MD och uppåt"
-
-#: library/AcfFields/php/widget-header-common.php:161
-msgid "LG and up"
-msgstr "LG och uppåt"
-
-#: library/AcfFields/php/widget-header-common.php:176
-msgid "CSS"
-msgstr "CSS"
-
-#: library/AcfFields/php/widget-header-common.php:193
-msgid "Custom CSS classes"
-msgstr "Egen CSSklass"
-
-#: library/AcfFields/php/widget-header-links.php:8
-msgid "Widget header - Links"
-msgstr "Widgetrubrik - Länkar"
-
-#: library/AcfFields/php/widget-header-links.php:12
 #: library/Controller/SingularEvent.php:198
 msgid "Links"
 msgstr "Länkar"
-
-#: library/AcfFields/php/widget-header-links.php:28
-msgid "External links"
-msgstr "Externa länkar"
-
-#: library/AcfFields/php/widget-header-links.php:67
-#: library/AcfFields/php/widget-header-links.php:154
-#: library/AcfFields/php/widget-header-links.php:212
-#: library/AcfFields/php/widget-header-links.php:249
-#: library/AcfFields/php/widget-header-links.php:286
-msgid "Hide text"
-msgstr "Dölj text"
-
-#: library/AcfFields/php/widget-header-links.php:115
-msgid "Internal links"
-msgstr "Interna länkar"
-
-#: library/AcfFields/php/widget-header-links.php:207
-msgid "Sök utlösare"
-msgstr "Sök utlösare"
-
-#: library/AcfFields/php/widget-header-links.php:244
-msgid "Meny utlösare"
-msgstr "Meny utlösare"
-
-#: library/AcfFields/php/widget-header-links.php:281
-msgid "Översättning utlösare"
-msgstr "Översättning utlösare"
-
-#: library/AcfFields/php/widget-header-links.php:316
-msgid "Lägg till länk"
-msgstr "Lägg till länk"
-
-#: library/AcfFields/php/widget-header-links.php:348
-#: library/AcfFields/php/widget-header-menu.php:38
-msgid "Link size"
-msgstr "Länkstorlek"
-
-#: library/AcfFields/php/widget-header-menu.php:8
-msgid "Widget header - Menu"
-msgstr "Widgetrubrik - Meny"
-
-#: library/AcfFields/php/widget-header-menu.php:12
-msgid "Select WP menu"
-msgstr "Välj WordPress meny"
-
-#: library/AcfFields/php/widget-header-menu.php:24
-msgid "Menu (Menu ID: 2)"
-msgstr "Meny (Meny-ID: 2)"
-
-#: library/AcfFields/php/widget-header-menu.php:25
-msgid "topmeny (Menu ID: 6)"
-msgstr "toppmeny (meny-ID: 6)"
-
-#: library/AcfFields/php/widget-media.php:8
-msgid "Media widget"
-msgstr "Mediawidget"
-
-#: library/AcfFields/php/widget-media.php:89
-msgid "Media link"
-msgstr "Medialänk"
 
 #: library/Admin/Acf/ImageAltTextValidation.php:197
 msgid "Please add an alt text to the featured image."
@@ -7175,6 +6923,7 @@ msgid "PDF Generator Settings"
 msgstr "Inställningar för PDF-generator"
 
 #: library/Admin/UI/BackEnd.php:49
+#: Modularity/source/php/AcfFields/php/mod-menu.php:85
 msgid "Test"
 msgstr "Test"
 
@@ -7274,8 +7023,8 @@ msgid "Specific cover settings"
 msgstr "Specifika inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:398
-#: library/Customizer/Sections/Menu/MegaMenu.php:36
-#: library/Customizer/Sections/Menu/MegaMenu.php:81
+#: library/Customizer/Sections/Menu/MegaMenu.php:39
+#: library/Customizer/Sections/Menu/MegaMenu.php:84
 msgid "Heading"
 msgstr "Rubrik"
 
@@ -7285,7 +7034,7 @@ msgstr "Inledning"
 
 #: library/Api/Pdf/PdfGenerator.php:433
 #: library/Customizer/Controls/Background/BackgroundControl.php:121
-#: library/Customizer/Sections/Menu/MegaMenu.php:346
+#: library/Customizer/Sections/Menu/MegaMenu.php:269
 msgid "Cover"
 msgstr "Omslag"
 
@@ -7398,7 +7147,7 @@ msgid "Invalid stat type."
 msgstr ""
 
 #: library/Chat/ChatBlock.php:39
-#: library/Chat/Render/ChatRenderConfig.php:78
+#: library/Chat/Render/ChatRenderConfig.php:101
 msgid "Chat"
 msgstr "Chatt"
 
@@ -7410,23 +7159,23 @@ msgstr "Ett simpelt chattblock"
 msgid "Assistant"
 msgstr "Assistent"
 
-#: library/Chat/Render/ChatRenderConfig.php:80
+#: library/Chat/Render/ChatRenderConfig.php:103
 msgid "Send"
 msgstr "Skicka"
 
-#: library/Chat/Render/ChatRenderConfig.php:81
+#: library/Chat/Render/ChatRenderConfig.php:104
 msgid "Write your question here"
 msgstr "Ställ din fråga här"
 
-#: library/Chat/Render/ChatRenderConfig.php:82
+#: library/Chat/Render/ChatRenderConfig.php:105
 msgid "New conversation"
 msgstr "Ny konversation"
 
-#: library/Chat/Render/ChatRenderConfig.php:83
+#: library/Chat/Render/ChatRenderConfig.php:106
 msgid "Like"
 msgstr "Gilla"
 
-#: library/Chat/Render/ChatRenderConfig.php:84
+#: library/Chat/Render/ChatRenderConfig.php:107
 msgid "Dislike"
 msgstr "Ogilla"
 
@@ -7542,7 +7291,7 @@ msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:53
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:63
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:106
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:154
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:153
 msgid "Logout"
 msgstr "Logga ut"
 
@@ -7561,13 +7310,10 @@ msgstr "Ring"
 #: library/Controller/BaseController.php:436
 #: library/Controller/Error/Buttons.php:21
 #: library/Helper/TranslatedLabels.php:21
-#: library/Widget/Brand/Brand.php:47
-#: library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
 #: library/Controller/BaseController.php:677
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr "Design"
 
@@ -7581,6 +7327,7 @@ msgstr ""
 
 #: library/Controller/E404.php:38
 #: library/Helper/TranslatedLabels.php:62
+#: Modularity/source/php/Module/Menu/Decorator/Listing.php:50
 msgid "Show all"
 msgstr "Visa alla"
 
@@ -7743,7 +7490,6 @@ msgid "Date and time"
 msgstr "Datum & tid"
 
 #: library/Controller/SingularEvent.php:189
-#, fuzzy
 msgid "More occasions"
 msgstr "Alla tillfällen"
 
@@ -7876,7 +7622,7 @@ msgid "Information"
 msgstr "Information"
 
 #: library/Controller/SingularJobPosting.php:64
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:42
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
 msgid "Reference"
 msgstr "Referens"
 
@@ -8196,7 +7942,6 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:402
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -8209,7 +7954,6 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:409
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr "Datumetikett"
 
@@ -8222,7 +7966,6 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:454
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -8235,7 +7978,6 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:465
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -8293,7 +8035,6 @@ msgid "Wrap title in frame"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
@@ -8565,7 +8306,7 @@ msgid "Select when the login/logout button should be visible"
 msgstr "Välj när logga in/ut knapp ska vara synlig"
 
 #: library/Customizer/Sections/Header/LoginLogout.php:21
-#: library/SchemaData/ExternalContent/ExternalContentFeature.php:203
+#: library/SchemaData/ExternalContent/ExternalContentFeature.php:221
 msgid "Never"
 msgstr "Aldrig"
 
@@ -8577,15 +8318,15 @@ msgstr "Logga in och logga ut"
 msgid "Show in mobile menu"
 msgstr "Visa i mobilmeny"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:18
+#: library/Customizer/Sections/Menu/MegaMenu.php:21
 msgid "Select if you want to use one of the predefined appearance, or customize freely."
 msgstr "Välj mellan fördefinierat utseende eller anpassa fritt."
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:23
+#: library/Customizer/Sections/Menu/MegaMenu.php:26
 msgid "Predefined appearance"
 msgstr "Fördefinierade utseende"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:24
+#: library/Customizer/Sections/Menu/MegaMenu.php:27
 msgid "Custom appearance"
 msgstr "Anpassat utseende"
 
@@ -8629,14 +8370,6 @@ msgstr "Fetstil"
 #, fuzzy
 msgid "Set the boldness of the icons."
 msgstr "Ställer in stilen för huvudobjekten"
-
-#: library/Customizer/Sections/Icons.php:50
-msgid "Filled icons"
-msgstr "Fyllda ikoner"
-
-#: library/Customizer/Sections/Icons.php:58
-msgid "Determines if icons should be filled as a default, or not. If the icon component has any value set, that will be used instead. This settly do not apply to all icons, only those with support."
-msgstr ""
 
 #: library/Customizer/Sections/PostType.php:17
 #: library/Customizer/Sections/PostType.php:73
@@ -8719,72 +8452,36 @@ msgstr "Avdelare i utdragbar panel"
 msgid "Drawer divider (top level only)"
 msgstr "Avdelare i utdragbar panel (endast toppnivå)"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:31
+#: library/Customizer/Sections/Menu/MegaMenu.php:34
 #: library/Customizer/Sections/Menu/Siteselector.php:41
 msgid "Custom colors"
 msgstr "Anpassade färger"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:37
+#: library/Customizer/Sections/Menu/MegaMenu.php:40
 msgid "Subitem"
 msgstr "Underobjekt"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:75
+#: library/Customizer/Sections/Menu/MegaMenu.php:78
 msgid "Select font"
 msgstr "Välj typsnitt"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:101
-#: library/Customizer/Sections/Menu/MegaMenu.php:132
+#: library/Customizer/Sections/Menu/MegaMenu.php:104
 msgid "Sets the style of the main items"
 msgstr "Ställer in stilen för huvudobjekten"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:136
-#: library/Customizer/Sections/Menu/MegaMenu.php:243
-msgid "Filled button"
-msgstr "Ifylld knapp"
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:137
-#: library/Customizer/Sections/Menu/MegaMenu.php:244
-msgid "Default button"
-msgstr "Default button"
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:138
-#: library/Customizer/Sections/Menu/MegaMenu.php:245
-msgid "Outlined button"
-msgstr "Inramad knapp"
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:169
-msgid "Color of the button"
-msgstr "Färg på knappen"
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:170
-msgid "Sets the color of the button. The custom color will be ignored."
-msgstr "Ställer in färgen på knappen. Den anpassade färgen ignoreras."
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:208
+#: library/Customizer/Sections/Menu/MegaMenu.php:171
 msgid "Sets the style of the child items"
 msgstr "Ställer in stilen för barn"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:239
-msgid "Sets the style of the child buttons"
-msgstr "Ställer in stilen för knappar i barn-nivå"
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:276
-msgid "Color of the child buttons"
-msgstr "Färg på knappen i barn-nivå"
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:277
-msgid "Sets the color of the child buttons. The custom color will be ignored."
-msgstr "Ställer in färgen på knappen. Den anpassade färgen ignoreras."
-
-#: library/Customizer/Sections/Menu/MegaMenu.php:340
+#: library/Customizer/Sections/Menu/MegaMenu.php:263
 msgid "Cover full page"
 msgstr "Omslag hela sidan"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:345
+#: library/Customizer/Sections/Menu/MegaMenu.php:268
 msgid "No cover"
 msgstr "Utan omslag"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:359
+#: library/Customizer/Sections/Menu/MegaMenu.php:282
 msgid "Show on mobile"
 msgstr "Visa på mobil"
 
@@ -8805,7 +8502,6 @@ msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr "Rad"
 
@@ -8854,25 +8550,13 @@ msgstr "Välj storlek på kantradie"
 msgid "The maximum number of items to display, before folding to a dropdown."
 msgstr "Det maximala antalet objekt som ska visas innan det viks till en rullgardinsmeny."
 
-#: library/Customizer/Sections/Menu/Tabmenu.php:14
+#: library/Customizer/Sections/Menu/Tabmenu.php:16
 msgid "Tabmenu - Color"
 msgstr "Tabbmeny - Färg"
 
-#: library/Customizer/Sections/Menu/Tabmenu.php:31
+#: library/Customizer/Sections/Menu/Tabmenu.php:33
 msgid "Tabmenu - Type"
 msgstr "Tabbmeny - Typ"
-
-#: library/Customizer/Sections/Menu/Tabmenu.php:48
-msgid "Trigger button color"
-msgstr "Färg på knapp"
-
-#: library/Customizer/Sections/Menu/Tabmenu.php:65
-msgid "Trigger button type"
-msgstr "Typ av knapp"
-
-#: library/Customizer/Sections/Menu/Tabmenu.php:82
-msgid "Trigger button size"
-msgstr "Storlek på knapp"
 
 #: library/Customizer/Sections/Menu/Vertical.php:17
 msgid "Submenu expand icon"
@@ -9128,7 +8812,6 @@ msgid "Related"
 msgstr "Relaterade"
 
 #: library/Helper/TranslatedLabels.php:65
-#: library/Helper/TranslatedLabels.php:79
 msgid "Updated"
 msgstr "Uppdaterad"
 
@@ -9149,7 +8832,6 @@ msgid "with"
 msgstr "Med"
 
 #: library/Helper/TranslatedLabels.php:72
-#: library/Helper/TranslatedLabels.php:87
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterResetButtonArguments.php:51
 msgid "Reset filter"
 msgstr "Återställ filter"
@@ -9166,50 +8848,50 @@ msgstr "Namn (A-Ö)"
 msgid "Publish Date"
 msgstr "Publiceringsdatum"
 
-#: library/Helper/TranslatedLabels.php:81
+#: library/Helper/TranslatedLabels.php:79
 #: library/PostsList/ViewCallableProviders/Filter/GetDateFilterFieldArguments.php:39
 #: library/PostsList/ViewCallableProviders/Filter/GetDateFilterFieldArguments.php:46
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Helper/TranslatedLabels.php:82
+#: library/Helper/TranslatedLabels.php:80
 #: library/PostsList/ViewCallableProviders/Filter/GetDateFilterFieldArguments.php:61
 #: library/PostsList/ViewCallableProviders/Filter/GetDateFilterFieldArguments.php:68
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: library/Helper/TranslatedLabels.php:83
+#: library/Helper/TranslatedLabels.php:81
 #: library/PostsList/ViewCallableProviders/Filter/GetDateFilterFieldArguments.php:41
 #: library/PostsList/ViewCallableProviders/Filter/GetDateFilterFieldArguments.php:63
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Helper/TranslatedLabels.php:86
+#: library/Helper/TranslatedLabels.php:83
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterResetButtonArguments.php:52
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: library/Helper/TranslatedLabels.php:88
+#: library/Helper/TranslatedLabels.php:84
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
-#: library/Helper/TranslatedLabels.php:89
+#: library/Helper/TranslatedLabels.php:85
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Helper/TranslatedLabels.php:90
+#: library/Helper/TranslatedLabels.php:86
 msgid "Password"
 msgstr "Lösenord"
 
-#: library/Helper/TranslatedLabels.php:91
+#: library/Helper/TranslatedLabels.php:87
 msgid "Username or Email Address"
 msgstr "Användarnamn eller Epostadress"
 
-#: library/Helper/TranslatedLabels.php:92
+#: library/Helper/TranslatedLabels.php:88
 msgid "Find on page"
 msgstr "Hitta på sidan"
 
-#: library/Helper/TranslatedLabels.php:93
+#: library/Helper/TranslatedLabels.php:89
 msgid "Unknown"
 msgstr ""
 
@@ -9248,12 +8930,12 @@ msgid "My ticket"
 msgstr "Min biljett"
 
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:99
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:147
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:146
 msgid "Renew"
 msgstr ""
 
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:99
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:147
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:146
 msgid "Buy"
 msgstr ""
 
@@ -9288,16 +8970,16 @@ msgstr "Något gick fel"
 msgid "Try again"
 msgstr "Försök igen"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:51
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:59
 msgid "Kulturkortet Profile Editor"
 msgstr "Kulturkortet Profilredigerare"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:58
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:66
 msgid "Link to the ticket"
 msgstr "Länk till kulturkortet (biljett)"
 
-#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:63
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:68
+#: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorFeature.php:71
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:76
 #, fuzzy
 msgid "Link to renew/buy page"
 msgstr "Länk till användarens profil"
@@ -9336,15 +9018,15 @@ msgstr "Logga in igen"
 msgid "An error occurred"
 msgstr "Ett fel uppstod"
 
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:139
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerAuthViewFactory.php:138
 msgid "Profile"
 msgstr "Profil"
 
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:56
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:64
 msgid "Kulturkortet QR Code Viewer"
 msgstr "Kulturkortet QR-Kod"
 
-#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:63
+#: library/Kulturkortet/QRCodeViewer/KulturkortetQRCodeViewerFeature.php:71
 msgid "Link profile page"
 msgstr "Länk till användarens profil"
 
@@ -9382,7 +9064,7 @@ msgctxt "label for more occasions available on event"
 msgid "More occasions available"
 msgstr "Fler tillfällen finns"
 
-#: library/SchemaData/ExternalContent/ExternalContentFeature.php:177
+#: library/SchemaData/ExternalContent/ExternalContentFeature.php:195
 msgid "External Content Settings"
 msgstr "Inställningar för Externt innehåll"
 
@@ -9402,16 +9084,16 @@ msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
 msgid "We could not verify the external content at this time. Please try again later."
 msgstr "Vi kunde inte verifiera det externa innehållet just nu. Vänligen försök igen senare."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:63
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:66
 msgid "Fetching source data..."
 msgstr "Hämtar data från källa..."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:86
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:96
 #, php-format
 msgid "Processing %s of %s..."
 msgstr "Behandlar %s av %s..."
 
-#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:106
+#: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:116
 msgid "Cleaning up..."
 msgstr "Städar upp..."
 
@@ -9501,7 +9183,7 @@ msgid "Organizer"
 msgstr "Organisatörer"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:72
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:75
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:34
 #, fuzzy
 msgid "Telephone"
@@ -9601,7 +9283,7 @@ msgid "Valid From"
 msgstr "Gäller från"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:77
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:40
 #, fuzzy
 msgid "Valid Through"
 msgstr "Sista ansökningsdag"
@@ -9612,7 +9294,7 @@ msgid "Special Opening Hours"
 msgstr "Öppettider: %s"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:88
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:108
 msgid "Physical Accessibility Features"
 msgstr "Tillgänglighet"
 
@@ -9632,48 +9314,48 @@ msgstr ""
 msgid "Braille Signage"
 msgstr ""
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:39
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:38
 msgid "Application URL"
 msgstr "URL till ansökan"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:40
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:39
 msgid "Date Posted"
 msgstr "Publicerad"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:44
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:45
 msgid "Employer Overview"
 msgstr "Arbetsgivaröversikt"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:45
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:48
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:95
 msgid "Employment Type"
 msgstr "Typ av anställning"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:48
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:51
 msgid "Employment Unit"
 msgstr "Sysselsättningsenheten"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:57
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:61
 msgid "Address Region"
 msgstr "Adressregion"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:58
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:62
 msgid "Address Locality"
 msgstr "Adressort"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:63
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:69
 msgid "Hiring Organization"
 msgstr "Anställningsorganisation"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:65
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:73
 msgid "Ethics Policy"
 msgstr "Etikpolicy"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:69
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:78
 msgid "Application Contact"
 msgstr "Ansökningskontakt"
 
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:76
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:85
 msgid "Contact Type"
 msgstr "Kontakt"
 
@@ -9738,120 +9420,105 @@ msgctxt "SingleDigitalGateway"
 msgid "The location where the service is provided."
 msgstr "Plats där tjänsten tillhandahålls. Ska endast fyllas i om informationen på webbsidan endast gäller regionalt eller lokalt. Ex. 'SE224'"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:38
-msgctxt "Event schema status"
-msgid "Closed"
-msgstr "Avslutad"
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:40
-msgctxt "Event schema status"
-msgid "Planned"
-msgstr "Kommande"
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/EventStatusFromDatesTaxonomy.php:42
-msgctxt "Event schema status"
-msgid "Ongoing"
-msgstr "Aktuell"
-
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:73
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
 msgctxt "ExhibitionEvent taxonomy name (plural)"
 msgid "Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:74
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:75
 msgctxt "ExhibitionEvent taxonomy name"
 msgid "Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:93
 msgid "Job Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:88
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:93
 msgid "Job Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:94
 msgid "Latest Application Dates"
 msgstr "Ansök senast"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:89
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:94
 msgid "Latest Application Date"
 msgstr "Ansök senast"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:107
 msgid "Event Tags"
 msgstr "Eventtaggar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:102
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:107
 msgid "Event Tag"
 msgstr "Eventtagg"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:103
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:108
 msgid "Physical Accessibility Feature"
 msgstr "Tillgänglighet"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
 msgid "Project Departments"
 msgstr "Organisationer"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:115
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:120
 msgid "Project Department"
 msgstr "Organisation"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:121
 msgid "Project Categories"
 msgstr "Kategorier"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:116
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:121
 msgid "Project Category"
 msgstr "Kategori"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:122
 msgid "Project Technologies"
 msgstr "Omställningar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:117
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:122
 msgid "Project Technology"
 msgstr "Omställning"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:123
 msgid "Project Statuses"
 msgstr "Statusar"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:118
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:123
 msgid "Project Status"
 msgstr "Status"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:135
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:149
 msgid "Unique selling points"
 msgstr "Särskilda erbjudanden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:130
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:144
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:135
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:149
 msgid "Unique selling point"
 msgstr "Särskilt erbjudande"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:136
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:150
 msgid "Areas served"
 msgstr "Områden"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:131
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:145
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:136
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:150
 msgid "Area served"
 msgstr "Område"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:137
 msgid "Grades"
 msgstr "Årskurser"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:132
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:137
 msgid "Grade"
 msgstr "Årskurs"
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:146
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:151
 msgctxt "Preschool"
 msgid "Number of groups"
 msgstr "Antal avdelningar"
@@ -9860,11 +9527,6 @@ msgstr "Antal avdelningar"
 msgctxt "Schema OpeningHoursSpecification"
 msgid "closed"
 msgstr "stängt"
-
-#: library/Search/Algolia.php:56
-#: library/SearchIndex/Admin/ExcludeFromSearch.php:42
-msgid "Exclude from search"
-msgstr "Exkludera från sökresultat"
 
 #: library/StickyPost/AddStickyCheckboxForPost.php:136
 msgid "Make this post sticky"
@@ -10987,107 +10649,107 @@ msgctxt "design-builder-component-data"
 msgid "Scales drawer padding locally while keeping vertical nav padding slightly tighter on the y-axis."
 msgstr ""
 
-#: library/Styleguide/Customize/Customize.php:94
+#: library/Styleguide/Customize/Customize.php:84
 msgctxt "design-builder"
 msgid "Show uneditable"
 msgstr "Visa icke redigerbara"
 
-#: library/Styleguide/Customize/Customize.php:95
+#: library/Styleguide/Customize/Customize.php:85
 msgctxt "design-builder"
 msgid "Hide uneditable"
 msgstr "Göm icke redigerbara"
 
-#: library/Styleguide/Customize/Customize.php:96
+#: library/Styleguide/Customize/Customize.php:86
 msgctxt "design-builder"
 msgid "General"
 msgstr "Allmänt"
 
-#: library/Styleguide/Customize/Customize.php:97
+#: library/Styleguide/Customize/Customize.php:87
 msgctxt "design-builder"
 msgid "Components"
 msgstr "Komponenter"
 
-#: library/Styleguide/Customize/Customize.php:98
+#: library/Styleguide/Customize/Customize.php:88
 msgctxt "design-builder"
 msgid "Choose a preset"
 msgstr "Välj en förinställning"
 
-#: library/Styleguide/Customize/Customize.php:99
+#: library/Styleguide/Customize/Customize.php:89
 msgctxt "design-builder"
 msgid "Pick on page"
 msgstr "Välj på sidan"
 
-#: library/Styleguide/Customize/Customize.php:100
+#: library/Styleguide/Customize/Customize.php:90
 msgctxt "design-builder"
 msgid "Stop picking"
 msgstr "Sluta välja"
 
-#: library/Styleguide/Customize/Customize.php:101
+#: library/Styleguide/Customize/Customize.php:91
 msgctxt "design-builder"
 msgid "Preset"
 msgstr "Förinställning"
 
-#: library/Styleguide/Customize/Customize.php:102
+#: library/Styleguide/Customize/Customize.php:92
 msgctxt "design-builder"
 msgid "Import/Export JSON"
 msgstr "Importera/Exportera JSON"
 
-#: library/Styleguide/Customize/Customize.php:103
+#: library/Styleguide/Customize/Customize.php:93
 msgctxt "design-builder"
 msgid "Import JSON"
 msgstr "Importera JSON"
 
-#: library/Styleguide/Customize/Customize.php:104
+#: library/Styleguide/Customize/Customize.php:94
 msgctxt "design-builder"
 msgid "Export JSON"
 msgstr "Exportera JSON"
 
-#: library/Styleguide/Customize/Customize.php:105
+#: library/Styleguide/Customize/Customize.php:95
 msgctxt "design-builder"
 msgid "Reset actions"
 msgstr "Återställ åtgärder"
 
-#: library/Styleguide/Customize/Customize.php:106
+#: library/Styleguide/Customize/Customize.php:96
 msgctxt "design-builder"
 msgid "Reset all"
 msgstr "Återställ allt"
 
-#: library/Styleguide/Customize/Customize.php:107
+#: library/Styleguide/Customize/Customize.php:97
 msgctxt "design-builder"
 msgid "Preset actions"
 msgstr "Förinställningsåtgärder"
 
-#: library/Styleguide/Customize/Customize.php:108
+#: library/Styleguide/Customize/Customize.php:98
 msgctxt "design-builder"
 msgid "Save preset"
 msgstr "Spara förinställning"
 
-#: library/Styleguide/Customize/Customize.php:109
+#: library/Styleguide/Customize/Customize.php:99
 msgctxt "design-builder"
 msgid "Delete preset"
 msgstr "Radera förinställning"
 
-#: library/Styleguide/Customize/Customize.php:110
+#: library/Styleguide/Customize/Customize.php:100
 msgctxt "design-builder"
 msgid "Component"
 msgstr "Komponent"
 
-#: library/Styleguide/Customize/Customize.php:111
+#: library/Styleguide/Customize/Customize.php:101
 msgctxt "design-builder"
 msgid "Scope"
 msgstr "Område"
 
-#: library/Styleguide/Customize/Customize.php:112
+#: library/Styleguide/Customize/Customize.php:102
 msgctxt "design-builder"
 msgid "Reset selected"
 msgstr "Återställ vald"
 
-#: library/Styleguide/Customize/Customize.php:113
+#: library/Styleguide/Customize/Customize.php:103
 msgctxt "design-builder"
 msgid "Saved presets"
 msgstr "Sparade förinställningar"
 
-#: library/Styleguide/Customize/Customize.php:114
+#: library/Styleguide/Customize/Customize.php:104
 msgctxt "design-builder"
 msgid "General (all scopes)"
 msgstr "Allmänt (alla områden)"
@@ -12209,96 +11871,96 @@ msgstr "One Page"
 msgid "Page (centered)"
 msgstr "Centrerad sida"
 
-#: library/Theme/Enqueue.php:63
+#: library/Theme/Enqueue.php:115
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:65
+#: library/Theme/Enqueue.php:117
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
 #: library/Chat/Render/ChatEnqueue.php:30
-#: library/Theme/Enqueue.php:66
+#: library/Theme/Enqueue.php:118
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:75
+#: library/Theme/Enqueue.php:128
 #, fuzzy
 msgid "January"
 msgstr "manual"
 
-#: library/Theme/Enqueue.php:76
+#: library/Theme/Enqueue.php:129
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:77
+#: library/Theme/Enqueue.php:130
 #, fuzzy
 msgid "March"
 msgstr "Sök"
 
-#: library/Theme/Enqueue.php:78
+#: library/Theme/Enqueue.php:131
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:79
+#: library/Theme/Enqueue.php:132
 #, fuzzy
 msgid "May"
 msgstr "dag"
 
-#: library/Theme/Enqueue.php:80
+#: library/Theme/Enqueue.php:133
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:81
+#: library/Theme/Enqueue.php:134
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:82
+#: library/Theme/Enqueue.php:135
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:83
+#: library/Theme/Enqueue.php:136
 msgid "September"
 msgstr ""
 
-#: library/Theme/Enqueue.php:84
+#: library/Theme/Enqueue.php:137
 msgid "October"
 msgstr ""
 
-#: library/Theme/Enqueue.php:85
+#: library/Theme/Enqueue.php:138
 #, fuzzy
 msgid "November"
 msgstr "Nummer"
 
-#: library/Theme/Enqueue.php:86
+#: library/Theme/Enqueue.php:139
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:90
+#: library/Theme/Enqueue.php:143
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:91
+#: library/Theme/Enqueue.php:144
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:92
+#: library/Theme/Enqueue.php:145
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:93
+#: library/Theme/Enqueue.php:146
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:94
+#: library/Theme/Enqueue.php:147
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:95
+#: library/Theme/Enqueue.php:148
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:96
+#: library/Theme/Enqueue.php:149
 msgid "Sa"
 msgstr "Lö"
 
@@ -12723,15 +12385,6 @@ msgstr "Användargrupp"
 msgid "No Group Assigned"
 msgstr "Ingen grupp tilldelad"
 
-#: library/Widget/Navigation/Navigation.php:82
-msgid "Översätt"
-msgstr "Översätt"
-
-#: library/Widget/Source/BaseWidget.php:117
-#: library/Widget/Source/WidgetTemplate.php:253
-msgid "New title"
-msgstr "Ny titel"
-
 #: library/Customizer/Controls/Background/BackgroundControl.php:122
 #, fuzzy
 msgid "Contain"
@@ -12896,27 +12549,27 @@ msgstr ""
 msgid "Custom JavaScript"
 msgstr ""
 
-#: library/Api/Customizer/DesignLibrary.php:42
+#: library/Api/Customizer/DesignLibrary.php:41
 msgid "Source Municipio site URL."
 msgstr ""
 
-#: library/Api/Customizer/DesignLibrary.php:82
+#: library/Api/Customizer/DesignLibrary.php:81
 msgid "Missing source URL."
 msgstr ""
 
-#: library/Api/Customizer/DesignLibrary.php:92
+#: library/Api/Customizer/DesignLibrary.php:91
 msgid "Invalid source URL."
 msgstr ""
 
-#: library/Api/Customizer/DesignLibrary.php:111
+#: library/Api/Customizer/DesignLibrary.php:110
 msgid "Unable to fetch design data from the source site."
 msgstr ""
 
-#: library/Api/Customizer/DesignLibrary.php:122
+#: library/Api/Customizer/DesignLibrary.php:121
 msgid "The source site returned an invalid response."
 msgstr ""
 
-#: library/Api/Customizer/DesignLibrary.php:132
+#: library/Api/Customizer/DesignLibrary.php:131
 msgid "The source site returned invalid design data."
 msgstr ""
 
@@ -13112,7 +12765,7 @@ msgstr ""
 msgid "Close search"
 msgstr ""
 
-#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:90
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:95
 msgid "Employment Types"
 msgstr ""
 
@@ -13940,114 +13593,310 @@ msgstr "Du har inte behörighet att synkronisera externt innehåll."
 msgid "The sync request could not be verified. Reload the page and try again."
 msgstr "Synkroniseringsförfrågan kunde inte verifieras. Ladda om sidan och försök igen."
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Time"
+#: library/AcfFields/php/easy-reading-options.php:8
+msgid "Easy reading settings"
+msgstr "Inställningar för lättläst"
+
+#: library/AcfFields/php/easy-reading-options.php:12
+#: library/EasyRead/Admin/AcfLocationRules.php:28
+msgid "Post types"
+msgstr "Innehållstyper"
+
+#: library/AcfFields/php/easy-reading-options.php:15
+msgid "Show easy reading field on selected post types."
+msgstr "Visa fältet för lättläst på valda innehållstyper."
+
+#: library/AcfFields/php/easy-reading.php:8
+msgid "Easy reading"
+msgstr "Lättläst"
+
+#: library/AcfFields/php/easy-reading.php:12
+msgid "Easy to read content"
+msgstr "Lättläst innehåll"
+
+#: library/AcfFields/php/easy-reading.php:19
+msgid "Check this box to add easy to read content version."
+msgstr "Markera rutan för att lägga till en lättläst innehållsversion."
+
+#: library/AcfFields/php/easy-reading.php:27
+msgid "Alternate content"
+msgstr "Alternativt innehåll"
+
+#: library/Api/Customizer/DesignLibraryFontActivation.php:33
+msgid "Font family name to activate."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date, time"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:38
+msgid "Font weight of the face to activate."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Published"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:44
+msgid "Font style of the face to activate."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Modified"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:50
+msgid "Remote URL of the font file to download and activate."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date source"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:80
+msgid "Missing font family or file URL."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Newsitem"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:88
+msgid "The native font library is not available on this site."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Appearance settings"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:98
+msgid "Unable to create or find the font family."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Number of columns"
+#: library/Api/Customizer/DesignLibraryFontActivation.php:108
+msgid "Unable to download the font file."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Checkboxes"
+#: library/Customizer/ButtonSettings.php:60
+msgid "Button "
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Radio buttons"
+#: library/Customizer/Controls/Sortable/SortableControl.php:190
+msgid "Button style"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Filter settings"
+#: library/Customizer/Controls/Sortable/SortableControl.php:198
+msgid "Button size"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable text search"
+#: library/Customizer/Sections/Menu/MegaMenu.php:154
+msgid "Main item button style"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable date filter"
+#: library/Customizer/Sections/Menu/MegaMenu.php:155
+msgid "Main item button size"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "DateModified"
+#: library/Customizer/Sections/Menu/MegaMenu.php:156
+msgid "Main item button color"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Order by"
+#: library/Customizer/Sections/Menu/MegaMenu.php:221
+msgid "Child item button style"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts settings"
+#: library/Customizer/Sections/Menu/MegaMenu.php:222
+msgid "Child item button size"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts per page"
+#: library/Customizer/Sections/Menu/MegaMenu.php:223
+msgid "Child item button color"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable Pagination"
+#: library/EasyRead/Admin/AcfLocationRules.php:34
+msgid "Selected"
+msgstr "Valda"
+
+#: library/EasyRead/Admin/OptionsPage.php:27
+msgctxt "ACF"
+msgid "Easy reading settings"
+msgstr "Inställningar för lättläst"
+
+#: library/EasyRead/Admin/OptionsPage.php:28
+msgctxt "Easy reading settings"
+msgid "Easy reading"
+msgstr "Lättläst"
+
+#: library/EasyRead/Content/ContentSwitcher.php:54
+msgid "Default version"
+msgstr "Standardversion"
+
+#: library/EasyRead/Content/ContentSwitcher.php:58
+msgid "Easy to read"
+msgstr "Lättläst"
+
+#: library/EasyRead/Migration/LegacyPluginConflictGuard.php:33
+msgid "The Easy Reading plugin was deactivated because its functionality is now built into Municipio."
+msgstr "Tillägget Easy Reading inaktiverades eftersom funktionen nu är inbyggd i Municipio."
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:402
+msgctxt "design-builder-component-data"
+msgid "Popover"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date From"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:403
+msgctxt "design-builder-component-data"
+msgid "Color settings for dropdown and extended navigation panels."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date To"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:404
+msgctxt "design-builder-component-data"
+msgid "Popover Color Scheme"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Image focal point"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:405
+msgctxt "design-builder-component-data"
+msgid "Sets the dropdown panel background, contrast, hover, and border colors together."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Change Image"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:406
+msgctxt "design-builder-component-data"
+msgid "The Popover component provides a simple way to add popovers."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Select Image"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:407
+msgctxt "design-builder-component-data"
+msgid "Site selector"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove Image"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:408
+msgctxt "design-builder-component-data"
+msgid "Size"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Subtitle"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:409
+msgctxt "design-builder-component-data"
+msgid "Controls the height using the same small, medium, and large steps as filled buttons."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove row"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:410
+msgctxt "design-builder-component-data"
+msgid "Small"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Backdrop banner settings"
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:411
+msgctxt "design-builder-component-data"
+msgid "Medium"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Maximum number of rows reached."
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:412
+msgctxt "design-builder-component-data"
+msgid "Large"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:413
+msgctxt "design-builder-component-data"
+msgid "Border radius"
+msgstr ""
+
+#: library/Styleguide/Customize/ComponentData/Decorators/ApplyI18n.php:414
+msgctxt "design-builder-component-data"
+msgid "The Site selector component provides a compact way to switch between sites or audiences."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:8
+msgid "Menu Module"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:12
+msgid "Display Menu As"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:33
+msgid "Display as conditional target"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:53
+msgid "Select a Menu"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:66
+msgid "Arbete - Lediga jobb"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:67
+msgid "Drömljus - meny"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:68
+msgid "E-Tjänster"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:69
+msgid "Företagare"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:70
+msgid "Företagare_landningssida"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:71
+msgid "Förskolor"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:72
+msgid "Grundskolor"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:73
+msgid "Huvudmeny"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:74
+msgid "Kommun och politik test"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:75
+msgid "Kundtyp"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:76
+msgid "Meny i modul på startsida"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:77
+msgid "Menymodul"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:78
+msgid "Mina Sidor Meny"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:79
+msgid "Mobilmeny"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:80
+msgid "Mobilmenyy nedre"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:81
+msgid "Samhällsservice"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:82
+msgid "Sidfotsmeny"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:83
+msgid "Språkväljare"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:84
+msgid "Starta-driva-företag"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:86
+msgid "visionsfonden"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:87
+msgid "Våra webbplatser"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:107
+msgid "Decides if the menu is wrapped in a container."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:123
+msgid "Spacing"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:127
+msgid "This adds spacing between the items. Making them all appear as separate cards instead of one big card."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:152
+msgid "Collapse menu on mobile"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-menu.php:156
+msgid "Will collapse menu groups on mobile to save vertical space. User has ability to expand individual menu groups with a button click."
 msgstr ""

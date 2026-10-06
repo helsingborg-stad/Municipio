@@ -33,10 +33,39 @@ class Enqueue implements Hookable
     private function getRestApiSettings(): array
     {
         return [
-            'root'          => esc_url_raw(rest_url()),
-            'nonce'         => wp_create_nonce('wp_rest'),
-            'versionString' => 'wp/v2/',
+            'root'                 => esc_url_raw(rest_url()),
+            'nonce'                => wp_create_nonce('wp_rest'),
+            'nonceRefreshCacheKey' => $this->getNonceRefreshCacheKey(),
+            'versionString'        => 'wp/v2/'
         ];
+    }
+
+    /**
+     * Gets a cache key namespace for the current authentication state.
+     *
+     * A nonce refresh URL must not be shared between logged-out visitors and
+     * authenticated users. Roles provide a stable, non-sensitive namespace
+     * without exposing a user ID or session value to the URL.
+     */
+    private function getNonceRefreshCacheKey(): string
+    {
+        if (!is_user_logged_in()) {
+            return 'logged-out';
+        }
+
+        $roles = wp_get_current_user()->roles;
+
+        if (!is_array($roles) || $roles === []) {
+            return 'logged-in';
+        }
+
+        $roles = array_filter(
+            array_map('sanitize_key', $roles),
+            static fn ($role): bool => $role !== ''
+        );
+        sort($roles, SORT_STRING);
+
+        return $roles === [] ? 'logged-in' : 'role-' . implode('-', $roles);
     }
 
     /**
@@ -194,7 +223,7 @@ class Enqueue implements Hookable
     /**
      * Remove jquery migrate from default scripts
      */
-    public function removeJqueryMigrate($scripts): void
+    public function removeJqueryMigrate(mixed $scripts): void
     {
         if ($this->wpService->isAdmin()) {
             return;
