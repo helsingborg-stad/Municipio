@@ -53,7 +53,7 @@
         @endif
 
         @if ($hasBlocks && $post)
-            {!! $post->postContentFiltered !!}
+            {!! $post->getContent() !!}
         @endif
 
         {!! $hook->innerLoopEnd !!}
