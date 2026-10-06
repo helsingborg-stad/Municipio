@@ -52,7 +52,7 @@
             @endgroup
         @endif
 
-        @if ($hasBlocks && $post)
+        @if ($post)
             {!! $post->getContent() !!}
         @endif
 
