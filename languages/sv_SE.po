@@ -7490,7 +7490,6 @@ msgid "Date and time"
 msgstr "Datum & tid"
 
 #: library/Controller/SingularEvent.php:189
-#, fuzzy
 msgid "More occasions"
 msgstr "Alla tillfällen"
 
