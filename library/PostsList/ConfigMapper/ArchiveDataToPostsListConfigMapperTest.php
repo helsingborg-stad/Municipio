@@ -5,23 +5,30 @@ declare(strict_types=1);
 namespace Municipio\PostsList\ConfigMapper;
 
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class ArchiveDataToPostsListConfigMapperTest extends TestCase
 {
     public function testMapReturnsConfigDTO(): void
     {
         $mapper = new ArchiveDataToPostsListConfigMapper();
-        $fakeWpService = new class(['addFilter' => true]) extends \WpService\Implementations\FakeWpService {
-            public function getPostTypeArchiveLink($postType): string|false
-            {
+        $wpService = new FakeWpService([
+            'homeUrl' => 'https://example.com',
+            'getPostTypeArchiveLink' => function ($postType) {
                 return '/archive/' . $postType;
-            }
-        };
+            },
+            '__' => function ($msg, $domain = null) {
+                return $msg;
+            },
+            'wpAdminNotice' => function ($msg, $opts = []) {
+                return null;
+            },
+        ]);
         $fakeWpdb = new class('', '', '', '') extends \wpdb {};
         $data = [
             'queryVarsPrefix' => 'archive_',
             'wpTaxonomies' => [],
-            'wpService' => $fakeWpService,
+            'wpService' => $wpService,
             'wpdb' => $fakeWpdb,
             // Minimal valid keys for factories
             'postType' => 'post',
