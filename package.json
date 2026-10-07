@@ -68,7 +68,6 @@
         "instant.page": "^5.2.0",
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",
-        "jquery": "^3.6.0",
         "leaflet": "^1.9.4",
         "lit-html": "^3.3.2",
         "mousetrap-global-bind": "^1.1.0",

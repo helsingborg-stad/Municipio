@@ -109,7 +109,7 @@ class Enqueue implements Hookable
     {
         //Add municipio.js with translations
         $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-fetch'])
+            ->add('js/municipio.js', ['wp-api-fetch'])
             ->with()
             ->translation('MunicipioLocale', [
                 'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
