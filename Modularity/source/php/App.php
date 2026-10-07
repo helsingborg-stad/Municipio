@@ -16,6 +16,8 @@ class App
     public $editor = null;
     private $modularityLangKey = 'modularityLang';
     private EnqueueManagerInterface $wpEnqueue;
+    private bool $hasModuleRefresher = false;
+    private bool $hasUserEditableList = false;
 
     public function __construct(
         private WpUtilServiceInterface $wpUtilService,
@@ -26,6 +28,9 @@ class App
         add_action('enqueue_block_assets', [$this, 'enqueueBlockEditorStyles']);
         add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
+        add_action('wp_footer', [$this, 'enqueueDetectedFrontendAssets'], 1);
+        add_filter('Modularity/Display/Markup', [$this, 'detectFrontendAssets'], 10, 2);
+        add_action('Modularity/Cache/Markup', [$this, 'detectFrontendAssets']);
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
         add_action('admin_init', [$this, 'addCaps']);
         add_filter('acf/fields/post_object/query', [$this, 'removeFromAcfPostQuery'], 99, 3);
@@ -193,19 +198,47 @@ class App
 
     public function enqueueFront()
     {
-        $this->wpEnqueue
-            ->add('css/modularity.css')
-            ->add('js/modularity.js', [], null, true)
-            ->add('js/user-editable-list.js')
-            ->with()
-            ->translation($this->modularityLangKey, $this->getModularityTranslations());
+        $this->wpEnqueue->add('css/modularity.css');
 
         if (!current_user_can('edit_posts')) {
             return;
         }
+
+        $this->wpEnqueue
+            ->add('js/modularity-editor.js', [], null, true)
+            ->with()
+            ->translation($this->modularityLangKey, $this->getModularityTranslations());
+
         //Register admin specific scripts/styling here
         if (wp_script_is('jquery', 'registered') && !wp_script_is('jquery', 'enqueued')) {
             wp_enqueue_script('jquery');
+        }
+    }
+
+    /**
+     * Detect optional frontend behaviour from the final module markup.
+     */
+    public function detectFrontendAssets(string $markup, mixed $module = null): string
+    {
+        $this->hasModuleRefresher = $this->hasModuleRefresher
+            || str_contains($markup, 'data-module-refresh-interval');
+        $this->hasUserEditableList = $this->hasUserEditableList
+            || str_contains($markup, 'data-js-user-editable');
+
+        return $markup;
+    }
+
+    /**
+     * Enqueue optional frontend assets after module markup has been rendered.
+     */
+    public function enqueueDetectedFrontendAssets(): void
+    {
+        if ($this->hasModuleRefresher) {
+            $this->wpEnqueue->add('js/modularity-module-refresher.js', ['wp-api'], null, true);
+        }
+
+        if ($this->hasUserEditableList) {
+            $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
         }
     }
 
@@ -253,7 +286,7 @@ class App
         $this->wpEnqueue
             ->add('css/modularity.css')
             ->add('css/modularity-admin.css')
-            ->add('js/modularity.js', ['wp-api'], null, true)
+            ->add('js/modularity-editor.js', ['wp-api'], null, true)
             ->with()
             ->translation($this->modularityLangKey, $this->getModularityTranslations())
             ->add('js/dynamic-map-acf.js', ['jquery'])
