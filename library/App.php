@@ -149,6 +149,8 @@ class App
         $enqueue = new \Municipio\Theme\Enqueue($this->wpService, $this->wpUtilService);
         $enqueue->addHooks();
 
+        (new \Municipio\Performance\FontDisplay\FontDisplay($this->wpService))->addHooks();
+
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
