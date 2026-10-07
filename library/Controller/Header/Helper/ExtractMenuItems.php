@@ -47,8 +47,8 @@ class ExtractMenuItems
         $responsiveKey = $this->getKey(Enums::HEADER_KEY::from($id), true);
 
         $items = [
-            Enums::HEADER_BREAKPOINT::DESKTOP->value => $this->customizer->$key ?? [],
-            Enums::HEADER_BREAKPOINT::MOBILE->value => $this->customizer->$responsiveKey ?? [],
+            Enums::HEADER_BREAKPOINT::DESKTOP->value => $this->customizer->$key ? json_decode($this->customizer->$key, true) : [],
+            Enums::HEADER_BREAKPOINT::MOBILE->value => $this->customizer->$responsiveKey ? json_decode($this->customizer->$responsiveKey, true) : [],
         ];
 
         $items = $this->addMenuItemDataToItems($items, $id);
@@ -59,12 +59,18 @@ class ExtractMenuItems
     private function addMenuItemDataToItems(array $items, string $id): array
     {
         $data = $this->extract();
+        $mappedItems = [];
         foreach ($items as $breakpoint => $breakpointItems) {
             $key = $this->getMenuItemDataKey(Enums::HEADER_KEY::from($id), $breakpoint === Enums::HEADER_BREAKPOINT::MOBILE->value);
 
+            foreach ($breakpointItems as $item) {
+                if (isset($data[$key][$item])) {
+                    $mappedItems[$breakpoint][$item] = $data[$key][$item];
+                }
+            }
         }
 
-        return $items;
+        return $mappedItems;
     }
 
     private function getMenuItemDataKey(HeaderKey $id, bool $responsive = false): string
