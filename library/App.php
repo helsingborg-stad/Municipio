@@ -194,6 +194,11 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
+         * Public discovery files.
+         */
+        new \Municipio\Standards\DiscoveryFiles();
+
+        /**
          * General filters
          */
         (new \Municipio\Filters\More($this->wpService))->addHooks();

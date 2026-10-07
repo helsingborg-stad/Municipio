@@ -37,6 +37,14 @@ class Theme
             ));
 
             acf_add_options_sub_page(array(
+                'page_title' => __('Site files', 'municipio'),
+                'menu_title' => __('Site files', 'municipio'),
+                'parent_slug' => 'options-general.php',
+                'capability' => $themeOptionsCapability,
+                'menu_slug' => 'acf-options-site-files',
+            ));
+
+            acf_add_options_sub_page(array(
                 'page_title' => 'Google Translate',
                 'menu_title' => 'Google Translate',
                 'parent_slug' => $themeOptionsParent,
