@@ -5,22 +5,21 @@ declare(strict_types=1);
 namespace Municipio\Chat\Api;
 
 use Municipio\Api\RestApiEndpoint;
-use Municipio\Chat\Api\ChatEndpointHelpers;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactoryInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
+use Municipio\Chat\Provider\ChatProviderResolverInterface;
 use WpService\Contracts\RegisterRestRoute;
 
 class ChatEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE = '/chat';
-    private const VALID_SSE_EVENT_NAMES = ['first_chunk', 'text', 'tool_call', 'error'];
-    private const VALID_SSE_RESPONSE_KEYS = ['session_id', 'answer', 'error'];
 
     public function __construct(
         private ChatConfigInterface $config,
         private PIIRedactorFactoryInterface $piiRedactorFactory,
+        private ChatProviderResolverInterface $providerResolver,
         private RegisterRestRoute $wpService,
     ) {}
 
@@ -46,26 +45,29 @@ class ChatEndpoint extends RestApiEndpoint
             return $assistant;
         }
 
-        $configError = $this->validateAssistantConfig($assistant);
+        $provider = $this->providerResolver->resolve($assistant);
+        if ($provider instanceof \WP_Error) {
+            return $provider;
+        }
+
+        $configError = $provider->validateAssistantConfig($assistant);
         if ($configError instanceof \WP_Error) {
             return $configError;
         }
 
-        $redaction = $this->redactMessage(sanitize_text_field($params['message']));
+        $redaction = $this->redactMessage((string) sanitize_text_field((string) $params['message']));
         if ($redaction instanceof \WP_Error) {
             return $redaction;
         }
 
-        $body = $this->buildRequestBody($params, $assistant, $redaction);
-
-        $this->registerSseStream(
+        $provider->registerSseStream(
             $request,
-            $assistant['server_url'],
-            $assistant['api_key'],
-            $body,
+            $assistant,
+            $params,
+            $redaction,
         );
 
-        return rest_ensure_response(null);
+        return new \WP_REST_Response(null);
     }
 
     private function validateMessage(array $params): ?\WP_Error
@@ -104,19 +106,6 @@ class ChatEndpoint extends RestApiEndpoint
         );
     }
 
-    private function validateAssistantConfig(array $assistant): ?\WP_Error
-    {
-        if (empty($assistant['server_url']) || empty($assistant['api_key']) || empty($assistant['assistant_id'])) {
-            return new \WP_Error(
-                'chat_assistant_incomplete',
-                __('Assistant configuration is incomplete.', 'municipio'),
-                ['status' => 500],
-            );
-        }
-
-        return null;
-    }
-
     private function redactMessage(string $message): RedactionResult|\WP_Error
     {
         try {
@@ -129,122 +118,6 @@ class ChatEndpoint extends RestApiEndpoint
                 ['status' => 503],
             );
         }
-    }
-
-    private function buildRequestBody(array $params, array $assistant, RedactionResult $redaction): array
-    {
-        $body = [
-            'question' => $redaction->redactedText,
-            'stream' => true,
-        ];
-
-        $sessionId = $params['session_id'] ?? null;
-        if ($sessionId) {
-            $body['session_id'] = $sessionId;
-        } else {
-            $body['assistant_id'] = $assistant['assistant_id'];
-        }
-
-        return $body;
-    }
-
-    private function registerSseStream(
-        \WP_REST_Request $request,
-        string $chatUrl,
-        #[\SensitiveParameter]
-        string $apiKey,
-        array $body,
-    ): void {
-        add_filter(
-            'rest_pre_serve_request',
-            function ($served, $result, $filterRequest) use ($chatUrl, $apiKey, $body, $request) {
-                if ($filterRequest !== $request) {
-                    return $served;
-                }
-                $this->streamResponse($chatUrl, $apiKey, $body);
-                return true;
-            },
-            10,
-            3,
-        );
-    }
-
-    private function streamResponse(string $chatUrl, #[\SensitiveParameter] string $apiKey, array $body): void
-    {
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
-        header('Connection: keep-alive');
-        header('X-Accel-Buffering: no'); // Disables nginx buffering
-
-        while (ob_get_level()) {
-            ob_end_clean();
-        }
-
-        $ch = curl_init($chatUrl);
-        $accum = '';
-
-        try {
-            curl_setopt_array($ch, [
-                CURLOPT_POST => true,
-                CURLOPT_HTTPHEADER => [
-                    'Content-Type: application/json',
-                    'X-Api-Key: ' . $apiKey,
-                ],
-                CURLOPT_POSTFIELDS => json_encode($body),
-                CURLOPT_RETURNTRANSFER => false,
-                CURLOPT_WRITEFUNCTION => static function (\CurlHandle $_ch, string $data) use (&$accum): int {
-                    $accum .= $data;
-                    $accum = str_replace(["\r\n", "\r"], "\n", $accum);
-
-                    while (($eventEnd = strpos($accum, "\n\n")) !== false) {
-                        $event = substr($accum, 0, $eventEnd);
-                        $accum = substr($accum, $eventEnd + 2);
-
-                        $trimmed = ChatEndpointHelpers::trimEventPayload(
-                            $event,
-                            self::VALID_SSE_EVENT_NAMES,
-                            self::VALID_SSE_RESPONSE_KEYS,
-                        );
-
-                        if ($trimmed !== null) {
-                            echo $trimmed . "\n\n";
-                            ob_flush();
-                            flush();
-                        }
-                    }
-
-                    return strlen($data);
-                },
-            ]);
-
-            $success = curl_exec($ch);
-
-            if ($success === false || curl_errno($ch) !== 0) {
-                $this->logCurlError(curl_error($ch));
-                echo
-                    "event: error\ndata: "
-                        . json_encode([
-                            'error' => __('Failed to communicate with chat API.', 'municipio'),
-                            'code' => 'chat_api_communication_failed',
-                        ])
-                        . "\n\n"
-                ;
-                ob_flush();
-                flush();
-            }
-        } finally {
-            curl_close($ch);
-        }
-    }
-
-    private function logCurlError(string $curlErrorMessage): void
-    {
-        error_log(
-            sprintf(
-                '[ChatEndpoint] Chat API communication failed: %s',
-                $curlErrorMessage,
-            ),
-        );
     }
 
     private function logRedactionError(\Throwable $error): void
