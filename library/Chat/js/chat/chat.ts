@@ -2,11 +2,11 @@ import type MarkdownIt from "markdown-it";
 import type FeedbackApi from "./feedbackApi";
 
 class Chat implements ChatInterface {
-	private session: ChatSession | null = null;
+	private session: ConversationSession | null = null;
 	private streamedContent: string = "";
 
 	constructor(
-		private readonly sessionFactory: ChatSessionFactory,
+		private readonly sessionFactory: ConversationProviderFactory,
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,

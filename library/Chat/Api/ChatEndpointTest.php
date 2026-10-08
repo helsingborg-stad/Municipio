@@ -13,6 +13,7 @@ use Municipio\Chat\PIIRedactor\PIIRedactorFactoryInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
 use Municipio\Chat\Provider\AiChatProvider;
+use Municipio\Chat\Provider\ChatProviderInterface;
 use Municipio\Chat\Provider\ChatProviderResolver;
 use Municipio\Chat\Provider\ChatProviderResolverInterface;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -233,6 +234,65 @@ class ChatEndpointTest extends TestCase
         ]);
 
         $endpoint = new ChatEndpoint($config, $this->getPIIRedactorFactory(), $this->getProviderResolver(), static::createWpService());
+        $request = $this->createRequest(['message' => 'Hello']);
+
+        $response = $endpoint->handleRequest($request);
+
+        static::assertInstanceOf(\WP_REST_Response::class, $response);
+    }
+
+    #[TestDox('handleRequest() delegates validation and streaming to the resolved provider')]
+    public function testHandleRequestDelegatesToResolvedProvider(): void
+    {
+        $assistant = [
+            'name' => 'Default assistant',
+            'server_url' => 'https://example.com/chat',
+            'api_key' => 'secret',
+            'assistant_id' => 'assistant-1',
+        ];
+
+        $config = $this->getConfig([
+            'chat_default_assistant' => 'Default assistant',
+            'chat_assistants' => [$assistant],
+        ]);
+
+        $redactor = new class implements PIIRedactorInterface {
+            public function extractAndRedactPII(string $input): RedactionResult
+            {
+                $result = new RedactionResult();
+                $result->redactedText = 'redacted';
+                return $result;
+            }
+        };
+
+        $provider = $this->createMock(ChatProviderInterface::class);
+        $provider->expects($this->once())
+            ->method('validateAssistantConfig')
+            ->with($assistant)
+            ->willReturn(null);
+
+        $provider->expects($this->once())
+            ->method('registerSseStream')
+            ->with(
+                $this->isInstanceOf(\WP_REST_Request::class),
+                $assistant,
+                ['message' => 'Hello'],
+                $this->isInstanceOf(RedactionResult::class),
+            );
+
+        $resolver = $this->createMock(ChatProviderResolverInterface::class);
+        $resolver->expects($this->once())
+            ->method('resolve')
+            ->with($assistant)
+            ->willReturn($provider);
+
+        $endpoint = new ChatEndpoint(
+            $config,
+            new MockPIIRedactorFactory($redactor),
+            $resolver,
+            static::createWpService(),
+        );
+
         $request = $this->createRequest(['message' => 'Hello']);
 
         $response = $endpoint->handleRequest($request);

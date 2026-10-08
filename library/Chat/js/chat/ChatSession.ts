@@ -5,19 +5,19 @@ interface AssistantSession {
 	sessionId: string;
 }
 
-export class ChatSession {
+export class AiConversationSession implements ConversationSession {
 	private static readonly SESSION_ID_KEY =
 		"municipio:chat:global-chat:sessions";
 
 	private readonly fetchFn: typeof fetch;
 	private sessions: Record<string, AssistantSession> = {};
 
-	constructor(private readonly config: ChatSessionConfig) {
+	constructor(private readonly config: ConversationSessionConfig) {
 		this.fetchFn = config.fetchImpl ?? fetch.bind(globalThis);
 
 		if (this.shouldPersistSessions() && window.localStorage) {
 			this.sessions = JSON.parse(
-				window.localStorage.getItem(ChatSession.SESSION_ID_KEY) ?? "{}",
+				window.localStorage.getItem(AiConversationSession.SESSION_ID_KEY) ?? "{}",
 			);
 		}
 	}
@@ -26,13 +26,13 @@ export class ChatSession {
 		delete this.sessions[assistantId];
 		if (this.shouldPersistSessions() && window.localStorage) {
 			window.localStorage.setItem(
-				ChatSession.SESSION_ID_KEY,
+				AiConversationSession.SESSION_ID_KEY,
 				JSON.stringify(this.sessions),
 			);
 		}
 	}
 
-	public async *ask(message: string): AsyncGenerator<ChatEvent> {
+	public async *ask(message: string): AsyncGenerator<ConversationEvent> {
 		const trimmedMessage = message.trim();
 		if (trimmedMessage.length === 0) return;
 
@@ -64,7 +64,7 @@ export class ChatSession {
 
 	private async *consumeSseStream(
 		response: Response,
-	): AsyncGenerator<ChatEvent> {
+	): AsyncGenerator<ConversationEvent> {
 		if (!response.body) throw new Error("Response has no body");
 
 		const reader = response.body.getReader();
@@ -98,7 +98,11 @@ export class ChatSession {
 		line: string,
 		eventType: string,
 		accumulatedText: string,
-	): { eventType: string; accumulatedText: string; event: ChatEvent | null } {
+	): {
+		eventType: string;
+		accumulatedText: string;
+		event: ConversationEvent | null;
+	} {
 		if (line === "") return { eventType: "", accumulatedText, event: null };
 
 		if (line.startsWith("event: ")) {
@@ -123,7 +127,11 @@ export class ChatSession {
 		eventType: string,
 		payload: string,
 		accumulatedText: string,
-	): { eventType: string; accumulatedText: string; event: ChatEvent | null } {
+	): {
+		eventType: string;
+		accumulatedText: string;
+		event: ConversationEvent | null;
+	} {
 		const data = JSON.parse(payload);
 
 		switch (eventType) {
@@ -133,7 +141,7 @@ export class ChatSession {
 				};
 				if (this.shouldPersistSessions() && window.localStorage) {
 					window.localStorage.setItem(
-						ChatSession.SESSION_ID_KEY,
+						AiConversationSession.SESSION_ID_KEY,
 						JSON.stringify(this.sessions),
 					);
 				}
@@ -176,3 +184,5 @@ export class ChatSession {
 		return this.config.persistSession ?? true;
 	}
 }
+
+export { AiConversationSession as ChatSession };

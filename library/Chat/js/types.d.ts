@@ -13,14 +13,43 @@ declare global {
 
 	type ChatRole = "user" | "assistant";
 
-	type ChatEvent =
+	type ConversationEvent =
 		| { type: "text"; content: string }
 		| { type: "tool_call" }
 		| { type: "done" };
 
-	interface ChatSession {
-		ask(message: string): AsyncGenerator<ChatEvent>;
+	interface ConversationSession {
+		ask(message: string): AsyncGenerator<ConversationEvent>;
 		clearSessionForAssistant(assistantId: string): void;
+	}
+
+	interface ConversationSessionConfig {
+		assistantName: string | null;
+		apiRoot: string;
+		persistSession?: boolean;
+		fetchImpl?: typeof fetch;
+	}
+
+	interface ConversationProviderFactory {
+		create(
+			assistantName: string | null,
+			persistSession?: boolean,
+		): ConversationSession;
+	}
+
+	type ChatEvent =
+		ConversationEvent;
+
+	interface ChatSession extends ConversationSession {}
+
+	interface ChatSessionConfig extends ConversationSessionConfig {}
+
+	interface ChatSessionFactory extends ConversationProviderFactory {}
+
+	interface ChatProviderFactory extends ConversationProviderFactory {}
+
+	interface ChatProviderSession extends ConversationSession {
+		ask(message: string): AsyncGenerator<ChatEvent>;
 	}
 
 	interface ChatUtilsApi {
@@ -37,17 +66,6 @@ declare global {
 			assistantTemplate: HTMLTemplateElement,
 		): Element;
 		renderMarkdown(text: string): string;
-	}
-
-	interface ChatSessionConfig {
-		assistantName: string | null;
-		apiRoot: string;
-		persistSession?: boolean;
-		fetchImpl?: typeof fetch;
-	}
-
-	interface ChatSessionFactory {
-		create(assistantName: string | null, persistSession?: boolean): ChatSession;
 	}
 
 	interface ChatUIDependencies {
