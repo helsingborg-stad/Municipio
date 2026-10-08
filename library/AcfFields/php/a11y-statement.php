@@ -242,6 +242,25 @@
                 ),
             ),
         ),
+        8 => array(
+            'key' => 'field_mun_a11ystatement_report_recipient_email',
+            'label' => __('Accessibility issue report recipient', 'municipio'),
+            'name' => 'mun_a11ystatement_report_recipient_email',
+            'aria-label' => '',
+            'type' => 'email',
+            'instructions' => __('Reports submitted through the accessibility statement form are sent only to this address.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+        ),
     ),
     'location' => array(
         0 => array(

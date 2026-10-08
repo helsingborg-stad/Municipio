@@ -835,23 +835,24 @@ msgstr "Instagram"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr "URL"
 
 #: library/AcfFields/php/user-author-image.php:188
-#: library/Controller/BaseController.php:434
+#: library/Controller/BaseController.php:437
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:58
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:391
 msgid "Address"
 msgstr "Adress"
 
-#: library/Controller/BaseController.php:435
+#: library/Controller/BaseController.php:438
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:412
 msgid "Visiting address"
 msgstr "Adress"
 
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:441
-#: Modularity/source/php/Module/Contacts/Contacts.php:191
+#: Modularity/source/php/Module/Contacts/Contacts.php:226
 msgid "Opening hours"
 msgstr "Öppettider"
 
@@ -879,6 +880,7 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -895,11 +897,13 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1400,7 +1404,8 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:429
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
-#: Modularity/source/php/Module/Posts/Posts.php:245
+#: Modularity/source/php/Module/Posts/Posts.php:253
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1549,6 +1554,7 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1616,7 +1622,7 @@ msgstr "Bild/Logotyp"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
 #: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:246
+#: Modularity/source/php/Module/Posts/Posts.php:254
 msgid "Name"
 msgstr "Namn"
 
@@ -1739,6 +1745,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -1751,8 +1758,8 @@ msgid "Column value"
 msgstr "Kolumnvärden"
 
 #: library/AcfFields/php/a11y-statement.php:52
-#: library/Admin/Options/Theme.php:24
-#: library/Admin/Options/Theme.php:25
+#: library/Admin/Options/Theme.php:28
+#: library/Admin/Options/Theme.php:29
 #: Modularity/source/php/AcfFields/php/mod-manual-input.php:657
 #: Modularity/source/php/AcfFields/php/mod-slider.php:261
 #: Modularity/source/php/AcfFields/php/mod-slider.php:553
@@ -1885,6 +1892,7 @@ msgstr "Extra info"
 msgid "The extra info card is disabled by default"
 msgstr "Kortet med extra info är inaktiverat som standard"
 
+#: library/AcfFields/php/easy-reading.php:22
 #: library/AcfFields/php/options-chat.php:27
 #: library/AcfFields/php/options-chat.php:48
 #: library/AcfFields/php/options-chat.php:69
@@ -1906,6 +1914,7 @@ msgstr "Kortet med extra info är inaktiverat som standard"
 msgid "Enabled"
 msgstr "Aktiverad"
 
+#: library/AcfFields/php/easy-reading.php:23
 #: library/AcfFields/php/options-activate-gutenberg.php:24
 #: library/AcfFields/php/options-chat.php:28
 #: library/AcfFields/php/options-chat.php:49
@@ -2382,17 +2391,20 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -2600,7 +2612,7 @@ msgid "Placeholder"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-search.php:52
-#: Modularity/source/php/App.php:320
+#: Modularity/source/php/App.php:353
 msgid "Width"
 msgstr "Bredd"
 
@@ -2821,7 +2833,7 @@ msgstr "Extern"
 #: library/Helper/TranslatedLabels.php:63
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:164
-#: Modularity/source/php/Module/Posts/Posts.php:242
+#: Modularity/source/php/Module/Posts/Posts.php:250
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -2979,6 +2991,7 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -3100,6 +3113,7 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -3990,55 +4004,55 @@ msgstr "Ämne"
 msgid "Taxonomy"
 msgstr "Kategori"
 
-#: Modularity/source/php/App.php:313
+#: Modularity/source/php/App.php:346
 msgid "Edit"
 msgstr "Redigera"
 
-#: Modularity/source/php/App.php:172
+#: Modularity/source/php/App.php:177
 #: Modularity/source/php/BlockManager.php:207
 #: Modularity/source/php/Editor.php:137
 msgid "Modules"
 msgstr "Moduler"
 
-#: Modularity/source/php/App.php:225
+#: Modularity/source/php/App.php:258
 msgid "Edit Modules"
 msgstr "Redigera moduler"
 
-#: Modularity/source/php/App.php:312
+#: Modularity/source/php/App.php:345
 msgid "Toggle visibility"
 msgstr "Synlighet"
 
-#: Modularity/source/php/App.php:314
+#: Modularity/source/php/App.php:347
 msgid "Import"
 msgstr "Importera"
 
 #: library/Customizer/Controls/MultiSelect/MultiSelectControl.php:67
 #: library/Customizer/Controls/Repeater/RepeaterControl.php:77
 #: library/Customizer/Controls/Sortable/SortableControl.php:72
-#: Modularity/source/php/App.php:315
+#: Modularity/source/php/App.php:348
 msgid "Remove"
 msgstr "Ta bort"
 
-#: Modularity/source/php/App.php:316
+#: Modularity/source/php/App.php:349
 msgid "Hide module"
 msgstr "Dölj modulen"
 
-#: Modularity/source/php/App.php:317
+#: Modularity/source/php/App.php:350
 msgid "Are you sure you want to remove this module?"
 msgstr "Är du säker på att du vill ta bort modulen?"
 
-#: Modularity/source/php/App.php:318
+#: Modularity/source/php/App.php:351
 msgid "Saving…"
 msgstr "Sparar…"
 
 #: library/Chat/Render/ChatRenderConfig.php:102
-#: library/Controller/BaseController.php:417
+#: library/Controller/BaseController.php:420
 #: library/Helper/TranslatedLabels.php:55
-#: Modularity/source/php/App.php:319
+#: Modularity/source/php/App.php:352
 msgid "Close"
 msgstr "Stäng"
 
-#: Modularity/source/php/App.php:322
+#: Modularity/source/php/App.php:355
 msgid "Deprecated"
 msgstr "Utgående"
 
@@ -4186,12 +4200,12 @@ msgid "Outputs a gallery with images"
 msgstr "Visar ett galleri med bilder"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:32
-#: Modularity/source/php/Module/Posts/Posts.php:227
+#: Modularity/source/php/Module/Posts/Posts.php:235
 msgid "Previous slide"
 msgstr "Gå till föregående bild"
 
 #: Modularity/source/php/Module/Gallery/Gallery.php:33
-#: Modularity/source/php/Module/Posts/Posts.php:228
+#: Modularity/source/php/Module/Posts/Posts.php:236
 msgid "Next slide"
 msgstr "Gå till nästa bild"
 
@@ -4268,8 +4282,8 @@ msgstr "Galleri med logotyper"
 msgid "Outputs a grid of logotypes"
 msgstr "Visar ett galleri med logotyper"
 
-#: library/Admin/Options/Theme.php:32
-#: library/Admin/Options/Theme.php:33
+#: library/Admin/Options/Theme.php:36
+#: library/Admin/Options/Theme.php:37
 #: library/Customizer/PanelsRegistry.php:148
 #: library/Helper/TranslatedLabels.php:44
 #: library/Helper/TranslatedLabels.php:82
@@ -4285,17 +4299,17 @@ msgstr "Sök"
 #: library/GlobalNotices/RegisterGlobalNoticesFieldGroupsAdminPage.php:28
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:64
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:50
-#: Modularity/source/php/Module/Posts/Posts.php:243
+#: Modularity/source/php/Module/Posts/Posts.php:251
 msgid "Save"
 msgstr "Spara"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:51
-#: Modularity/source/php/Module/Posts/Posts.php:244
+#: Modularity/source/php/Module/Posts/Posts.php:252
 msgid "Cancel"
 msgstr ""
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:54
-#: Modularity/source/php/Module/Posts/Posts.php:247
+#: Modularity/source/php/Module/Posts/Posts.php:255
 msgid "Saving"
 msgstr "Sparar"
 
@@ -4304,13 +4318,13 @@ msgid "This item is obligatory"
 msgstr "Detta är obligatoriskt"
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:56
-#: Modularity/source/php/Module/Posts/Posts.php:248
+#: Modularity/source/php/Module/Posts/Posts.php:256
 #, fuzzy
 msgid "An error occurred and the data could not be saved. Please try again later"
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
 
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:57
-#: Modularity/source/php/Module/Posts/Posts.php:249
+#: Modularity/source/php/Module/Posts/Posts.php:257
 msgid "Change the lists content"
 msgstr ""
 
@@ -4411,20 +4425,20 @@ msgid "Modularity expandable list column values"
 msgstr "Expanderbar lista - kolumninnehåll"
 
 #: Modularity/source/php/Module/Posts/Helper/PostSourceBuilder.php:45
-#: Modularity/source/php/Module/Posts/TemplateController/AbstractController.php:103
+#: Modularity/source/php/Module/Posts/TemplateController/AbstractController.php:116
 msgid "Unknown Blog"
 msgstr ""
 
-#: Modularity/source/php/Module/Posts/Posts.php:44
 #: Modularity/source/php/Module/Posts/Posts.php:45
+#: Modularity/source/php/Module/Posts/Posts.php:46
 msgid "Posts"
 msgstr "Inlägg"
 
-#: Modularity/source/php/Module/Posts/Posts.php:46
+#: Modularity/source/php/Module/Posts/Posts.php:47
 msgid "Outputs selected posts in specified layout"
 msgstr "Visar valda inlägg i en vald layout"
 
-#: Modularity/source/php/Module/Posts/Posts.php:241
+#: Modularity/source/php/Module/Posts/Posts.php:249
 msgid "Show more"
 msgstr "Visa mer"
 
@@ -4722,27 +4736,27 @@ msgstr ""
 msgid "Post type"
 msgstr "Posttyp"
 
-#: library/A11yStatement/A11yStatement.php:42
-#: library/A11yStatement/A11yStatement.php:56
-#: library/A11yStatement/A11yStatement.php:57
+#: library/A11yStatement/A11yStatement.php:45
+#: library/A11yStatement/A11yStatement.php:59
+#: library/A11yStatement/A11yStatement.php:60
 #: library/AcfFields/php/a11y-statement.php:8
-#: library/Controller/A11y.php:280
+#: library/Controller/A11y.php:281
 msgid "Accessibility Statement"
 msgstr "Tillgänglighetsredogörelse"
 
-#: library/A11yStatement/A11yStatement.php:43
+#: library/A11yStatement/A11yStatement.php:46
 msgid "This is the accessibility statement for our website."
 msgstr "Det här är tillgänlighetsredogörelsen för webbplatsen."
 
-#: library/A11yStatement/A11yStatement.php:61
+#: library/A11yStatement/A11yStatement.php:64
 msgid "Update"
 msgstr "Uppdatera"
 
-#: library/A11yStatement/A11yStatement.php:62
+#: library/A11yStatement/A11yStatement.php:65
 msgid "The accessibility statement has been updated."
 msgstr "Tillgänglighetsredogörelsen har uppdaterats. "
 
-#: library/A11yStatement/A11yStatement.php:91
+#: library/A11yStatement/A11yStatement.php:94
 msgid "accessibility-statement"
 msgstr "tillganglighetsredogorelse"
 
@@ -5076,6 +5090,7 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -5842,8 +5857,8 @@ msgid "Post type functions"
 msgstr "Funktioner för posttypen"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:319
-#: library/Admin/Options/Theme.php:48
-#: library/Admin/Options/Theme.php:49
+#: library/Admin/Options/Theme.php:62
+#: library/Admin/Options/Theme.php:63
 msgid "Content editor"
 msgstr "Innehållsförfattare"
 
@@ -6744,6 +6759,7 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -6775,7 +6791,7 @@ msgstr ""
 msgid "Allow user to prefer group url"
 msgstr ""
 
-#: library/Controller/BaseController.php:432
+#: library/Controller/BaseController.php:435
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:65
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:71
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:83
@@ -6896,29 +6912,29 @@ msgstr "Samtyckes ID"
 msgid "Consent comment"
 msgstr "Samtyckes kommentar"
 
-#: library/Admin/Options/Theme.php:14
-#: library/Admin/Options/Theme.php:15
+#: library/Admin/Options/Theme.php:18
+#: library/Admin/Options/Theme.php:19
 msgid "Theme Options"
 msgstr "Temainställningar"
 
-#: library/Admin/Options/Theme.php:56
+#: library/Admin/Options/Theme.php:70
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:57
+#: library/Admin/Options/Theme.php:71
 msgid "Post Types"
 msgstr "Posttyper"
 
-#: library/Admin/Options/Theme.php:64
+#: library/Admin/Options/Theme.php:78
 msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
-#: library/Admin/Options/Theme.php:65
+#: library/Admin/Options/Theme.php:79
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/Admin/Options/Theme.php:80
-#: library/Admin/Options/Theme.php:81
+#: library/Admin/Options/Theme.php:94
+#: library/Admin/Options/Theme.php:95
 msgid "PDF Generator Settings"
 msgstr "Inställningar för PDF-generator"
 
@@ -7012,7 +7028,7 @@ msgid "General cover settings"
 msgstr "Allmänna inställningar för omslag"
 
 #: library/Api/Pdf/PdfGenerator.php:256
-#: library/Controller/BaseController.php:549
+#: library/Controller/BaseController.php:552
 #: library/Customizer/Sections/Header/Logotype.php:21
 #: library/Customizer/Sections/Logo.php:41
 msgid "Emblem"
@@ -7278,15 +7294,15 @@ msgstr "Tillgänglighetsredogörelse saknas. "
 msgid "Last reviewed"
 msgstr "Senaste bedömningen gjord"
 
-#: library/Controller/BaseController.php:413
+#: library/Controller/BaseController.php:416
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: library/Controller/BaseController.php:414
+#: library/Controller/BaseController.php:417
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:415
+#: library/Controller/BaseController.php:418
 #: library/Customizer/Sections/Header/LoginLogout.php:22
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:53
 #: library/Kulturkortet/ProfileEditor/KulturkortetProfileEditorAuthViewFactory.php:63
@@ -7295,33 +7311,34 @@ msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 msgid "Logout"
 msgstr "Logga ut"
 
-#: library/Controller/BaseController.php:416
+#: library/Controller/BaseController.php:419
 msgid "Login"
 msgstr "Logga in"
 
-#: library/Controller/BaseController.php:431
+#: library/Controller/BaseController.php:434
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/BaseController.php:433
+#: library/Controller/BaseController.php:436
 msgid "Call"
 msgstr "Ring"
 
-#: library/Controller/BaseController.php:436
+#: library/Controller/BaseController.php:439
 #: library/Controller/Error/Buttons.php:21
 #: library/Helper/TranslatedLabels.php:21
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:677
+#: library/Controller/BaseController.php:680
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr "Design"
 
-#: library/Controller/BaseController.php:711
+#: library/Controller/BaseController.php:714
 msgid "Choose language"
 msgstr ""
 
-#: library/Controller/BaseController.php:712
+#: library/Controller/BaseController.php:715
 msgid "More languages"
 msgstr ""
 
@@ -7942,6 +7959,7 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:402
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -7954,6 +7972,7 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:409
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr "Datumetikett"
 
@@ -7966,6 +7985,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:454
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -7978,6 +7998,7 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:465
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -8035,6 +8056,7 @@ msgid "Wrap title in frame"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
@@ -8502,6 +8524,7 @@ msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr "Rad"
 
@@ -12423,36 +12446,6 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
-#: library/BackdropBanner/block.json
-#~ msgctxt "block title"
-#~ msgid "Backdrop Banner"
-#~ msgstr "Backdrop Banner"
-
-#: library/BackdropBanner/block.json
-#~ msgctxt "block description"
-#~ msgid "A backdrop banner block."
-#~ msgstr "Block för backdrop banner."
-
-#: library/BackdropBanner/Row/block.json
-#~ msgctxt "block title"
-#~ msgid "Backdrop Banner Row"
-#~ msgstr "Backdrop Banner Rad"
-
-#: library/BackdropBanner/Row/block.json
-#~ msgctxt "block description"
-#~ msgid "A single row within a backdrop banner."
-#~ msgstr "Enskild rad i en backdrop banner."
-
-#: library/PostsList/Block/block.json
-#~ msgctxt "block title"
-#~ msgid "Posts List Block"
-#~ msgstr "Inläggslista"
-
-#: library/PostsList/Block/block.json
-#~ msgctxt "block description"
-#~ msgid "A block to display a list of posts."
-#~ msgstr "Block som visar en lista av poster"
-
 #: library/AcfFields/php/options-theme-custom-post-type.php:59
 msgid "Public URL slug for the archive, without leading or trailing slashes."
 msgstr ""
@@ -12541,11 +12534,11 @@ msgstr "Lägg till filter"
 msgid "Attribute"
 msgstr "Attribut"
 
-#: library/Admin/Options/Theme.php:72
+#: library/Admin/Options/Theme.php:86
 msgid "Custom JavaScript Editor"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:73
+#: library/Admin/Options/Theme.php:87
 msgid "Custom JavaScript"
 msgstr ""
 
@@ -13602,17 +13595,13 @@ msgstr "Inställningar för lättläst"
 msgid "Post types"
 msgstr "Innehållstyper"
 
-#: library/AcfFields/php/easy-reading-options.php:15
+#: library/AcfFields/php/easy-reading-options.php:16
 msgid "Show easy reading field on selected post types."
 msgstr "Visa fältet för lättläst på valda innehållstyper."
 
 #: library/AcfFields/php/easy-reading.php:8
 msgid "Easy reading"
 msgstr "Lättläst"
-
-#: library/AcfFields/php/easy-reading.php:12
-msgid "Easy to read content"
-msgstr "Lättläst innehåll"
 
 #: library/AcfFields/php/easy-reading.php:19
 msgid "Check this box to add easy to read content version."
@@ -13901,8 +13890,9 @@ msgstr ""
 msgid "Will collapse menu groups on mobile to save vertical space. User has ability to expand individual menu groups with a button click."
 msgstr ""
 
-#: library/Admin/Options/Theme.php:40
-#: library/Admin/Options/Theme.php:41
+#: library/AcfFields/php/options-site-files.php:6
+#: library/Admin/Options/Theme.php:45
+#: library/Admin/Options/Theme.php:46
 msgid "Site files"
 msgstr "Webbplatsfiler"
 
@@ -13929,3 +13919,188 @@ msgstr "URL till säkerhetspolicy"
 #: library/AcfFields/php/options-site-files.php:30
 msgid "Optional HTTPS URL that explains how security vulnerabilities should be reported."
 msgstr "Valfri HTTPS-adress som beskriver hur säkerhetsbrister ska rapporteras."
+
+#: library/A11yStatement/A11yStatement.php:170
+#: library/A11yStatement/A11yStatement.php:184
+msgid "Report an accessibility issue"
+msgstr "Rapportera en tillgänglighetsbrist"
+
+#: library/A11yStatement/A11yStatement.php
+msgid "Report accessibility issue"
+msgstr "Rapportera tillgänglighetsbrist"
+
+#: library/A11yStatement/A11yStatement.php
+msgid "Describe accessibility issue"
+msgstr "Beskriv tillgänglighetsbrist"
+
+#: library/A11yStatement/A11yStatement.php
+msgid "Accessibility issue reports"
+msgstr "Rapporter om tillgänglighetsbrister"
+
+#: library/A11yStatement/A11yStatement.php
+msgid "The accessibility issue report form requires the Modularity Frontend Form plugin to be active."
+msgstr "Formuläret för att rapportera tillgänglighetsbrister kräver att tillägget Modularity Frontend Form är aktivt."
+
+#: library/A11yStatement/A11yStatement.php
+msgid "The accessibility issue report form is hidden until a valid recipient email address has been entered below."
+msgstr "Formuläret för att rapportera tillgänglighetsbrister visas först när en giltig mottagaradress har angetts nedan."
+
+#: views/v3/a11y.blade.php
+msgid "Tell us if something does not work or is difficult to use. We will address the issue as soon as possible."
+msgstr "Berätta för oss om något inte fungerar eller är svårt att använda. Vi försöker åtgärda bristen så snart som möjligt."
+
+#: library/A11yStatement/A11yStatement.php
+msgid "Please provide your contact details if you would like us to contact you with questions about the reported issue."
+msgstr "Ange dina kontaktuppgifter om du vill att vi ska kontakta dig om vi har frågor om den rapporterade bristen."
+
+#: library/AcfFields/php/a11y-statement-report-form.php:6
+msgid "Accessibility issue report fields"
+msgstr "Fält för rapportering av tillgänglighetsbrist"
+
+#: library/AcfFields/php/a11y-statement-report-contact.php
+msgid "Accessibility issue report contact fields"
+msgstr "Kontaktfält för rapportering av tillgänglighetsbrist"
+
+#: library/AcfFields/php/a11y-statement-report-form.php
+msgid "Email address"
+msgstr "E-postadress"
+
+#: library/AcfFields/php/a11y-statement-report-form.php:10
+msgid "Contact details"
+msgstr "Kontaktuppgifter"
+
+#: library/AcfFields/php/a11y-statement-report-form.php:13
+msgid "For example, your name, email address or telephone number."
+msgstr "Till exempel ditt namn, din e-postadress eller ditt telefonnummer."
+
+#: library/AcfFields/php/a11y-statement-report-form.php:19
+msgid "Affected web address"
+msgstr "Påverkad webbadress"
+
+#: library/AcfFields/php/a11y-statement-report-form.php:22
+msgid "Paste the address of the page where you found the issue."
+msgstr "Klistra in adressen till sidan där du hittade bristen."
+
+#: library/AcfFields/php/a11y-statement-report-form.php:28
+msgid "Describe the accessibility issue"
+msgstr "Beskriv tillgänglighetsbristen"
+
+#: library/AcfFields/php/a11y-statement.php:249
+msgid "Accessibility issue report recipient"
+msgstr "Mottagare för rapport om tillgänglighetsbrist"
+
+#: library/AcfFields/php/a11y-statement.php:253
+msgid "Reports submitted through the accessibility statement form are sent only to this address."
+msgstr "Rapporter från formuläret i tillgänglighetsredogörelsen skickas endast till denna adress."
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date, time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Published"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Modified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date source"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Newsitem"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Appearance settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Number of columns"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Checkboxes"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Radio buttons"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Filter settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable text search"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable date filter"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "DateModified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Order by"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts per page"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable Pagination"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date From"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date To"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Image focal point"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Change Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Select Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Subtitle"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove row"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Backdrop banner settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Maximum number of rows reached."
+msgstr ""

@@ -165,6 +165,7 @@ class A11y extends \Municipio\Controller\Singular
 
         // Build categories and issues
         $this->data['categorizedIssues'] = $this->getKnownIssues();
+        $this->data['reportForm'] = $this->getReportForm();
 
     }
 
@@ -296,6 +297,26 @@ class A11y extends \Municipio\Controller\Singular
         $content = $this->wpService->applyFilters('Municipio/A11y/Content', $content);
 
         return $content;
+    }
+
+    /**
+     * Render the mail-only accessibility issue report form when Frontend Form is active
+     * and an administrator has configured a recipient address.
+     */
+    private function getReportForm(): string
+    {
+        if (!class_exists('ModularityFrontendForm\\Module\\FrontendForm')) {
+            return '';
+        }
+
+        $email = (string) $this->acfService->getField('mun_a11ystatement_report_recipient_email', 'options');
+        $moduleId = (int) get_option('mun_a11ystatement_report_form_id', 0);
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || get_post_type($moduleId) !== 'mod-frontend-form') {
+            return '';
+        }
+
+        return (string) do_shortcode(sprintf('[modularity id="%d"]', $moduleId));
     }
 
     
