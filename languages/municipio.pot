@@ -304,6 +304,10 @@ msgstr ""
 msgid "Cognitive or Learning Impairment"
 msgstr ""
 
+#: library/AcfFields/php/a11y-statement.php:233
+msgid "Other issues"
+msgstr ""
+
 #: library/AcfFields/php/a11y-statement.php:249
 msgid "Accessibility issue report recipient"
 msgstr ""

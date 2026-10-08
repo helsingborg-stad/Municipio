@@ -224,7 +224,8 @@
                         "mobility": "Mobility Impairment",
                         "motor": "Fine Motor or Strength Impairment",
                         "hearing": "Hearing Loss or Deafness",
-                        "cognitive": "Cognitive or Learning Impairment"
+                        "cognitive": "Cognitive or Learning Impairment",
+                        "other": "Other issues"
                     },
                     "default_value": false,
                     "return_format": "array",
@@ -285,4 +286,3 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-

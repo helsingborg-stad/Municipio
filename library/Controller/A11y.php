@@ -166,6 +166,8 @@ class A11y extends \Municipio\Controller\Singular
         // Build categories and issues
         $this->data['categorizedIssues'] = $this->getKnownIssues();
         $this->data['reportForm'] = $this->getReportForm();
+        $this->ensureBreadcrumbMenu();
+        $this->ensurePrintMenuItem();
 
     }
 
@@ -257,10 +259,10 @@ class A11y extends \Municipio\Controller\Singular
         $status = $this->getReviewStatus();
 
         $reviewStatusClassList = match ($status) {
-            ReviewStatus::OK => ['u-color__bg--success', 'u-color__text--darkest'],
-            ReviewStatus::NearDeadline => ['u-color__bg--warning', 'u-color__text--darkest'],
-            ReviewStatus::Overdue => ['u-color__bg--danger', 'u-color__text--darkest'],
-            default => ['u-color__bg--dark', 'u-color__text--lightest'],
+            ReviewStatus::OK => ['u-color--success'],
+            ReviewStatus::NearDeadline => ['u-color--warning'],
+            ReviewStatus::Overdue => ['u-color--danger'],
+            default => ['u-color--surface'],
         };
 
         return array_merge(
@@ -319,7 +321,54 @@ class A11y extends \Municipio\Controller\Singular
         return (string) do_shortcode(sprintf('[modularity id="%d"]', $moduleId));
     }
 
-    
+    /**
+     * The virtual accessibility statement request is treated as a 404 by WordPress
+     * while its custom template is resolved. Replace the missing breadcrumb menu
+     * from BaseController with the standard data for this virtual page.
+     */
+    private function ensureBreadcrumbMenu(): void
+    {
+        if (!empty($this->data['breadcrumbMenu']['items'])) {
+            return;
+        }
+
+        $this->data['breadcrumbMenu'] = [
+            'name' => 'breadcrumb',
+            'identifier' => 'breadcrumb',
+            'items' => [
+                'home' => [
+                    'label' => __('Home', 'municipio'),
+                    'href' => $this->data['homeUrl'],
+                    'current' => false,
+                    'icon' => 'home',
+                ],
+                'a11y-statement' => [
+                    'label' => wp_strip_all_tags($this->data['heading']),
+                    'href' => '',
+                    'current' => true,
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Add the regular print action, which BaseController cannot add when the
+     * virtual route is evaluated as a 404 instead of a WordPress page.
+     */
+    private function ensurePrintMenuItem(): void
+    {
+        if (!empty($this->data['accessibilityMenu']['items']['print'])) {
+            return;
+        }
+
+        $this->data['accessibilityMenu']['items']['print'] = [
+            'icon' => 'print',
+            'href' => '#',
+            'script' => 'window.print();return false;',
+            'text' => __('Print', 'municipio'),
+            'label' => __('Print this page', 'municipio'),
+        ];
+    }
 
     /**
      * Returns the compliance level
@@ -372,14 +421,14 @@ class A11y extends \Municipio\Controller\Singular
         $complianceLevel = $this->getComplianceLevel();
 
         $complianceLevelClassList = match ($complianceLevel) {
-            ComplianceLevel::Compliant => ['u-color__bg--success'],
-            ComplianceLevel::PartiallyCompliant => ['u-color__bg--warning'],
-            ComplianceLevel::NotCompliant => ['u-color__bg--danger'],
-            default => ['u-color__bg--dark'],
+            ComplianceLevel::Compliant => ['u-color--success'],
+            ComplianceLevel::PartiallyCompliant => ['u-color--warning'],
+            ComplianceLevel::NotCompliant => ['u-color--danger'],
+            default => ['u-color--surface'],
         };
 
         return array_merge(
-            ['u-color__text--darkest', 't-a11y-pill'],
+            ['t-a11y-pill'],
             $complianceLevelClassList,
             [$complianceLevel->name]
         );
@@ -484,6 +533,7 @@ class A11y extends \Municipio\Controller\Singular
             'mobility' => 'pan_tool_alt',
             'hearing' => 'hearing',
             'cognitive' => 'psychology',
+            'other' => 'indeterminate_question_box',
         ];
 
         return $icons[$categoryKey] ?? 'accessibility_new';

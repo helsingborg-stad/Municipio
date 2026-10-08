@@ -16,6 +16,16 @@ use WpService\Contracts\RegisterPostType;
 
 class A11yStatement implements Hookable
 {
+    private const KNOWN_ISSUE_CATEGORY_ORDER = [
+        'vision',
+        'color',
+        'mobility',
+        'motor',
+        'hearing',
+        'cognitive',
+        'other',
+    ];
+
     public function __construct(
         private AddAction&GetQueryVar&AddFilter&AddRewriteRule&FlushRewriteRules&GetOption&HomeUrl&RegisterPostType&__ $wpService,
         private AcfService $acfService
@@ -28,6 +38,7 @@ class A11yStatement implements Hookable
         $this->wpService->addAction('init', [$this, 'registerFrontendPage']);
         $this->wpService->addAction('init', [$this, 'registerReportPostType'], 5);
         $this->wpService->addAction('init', [$this, 'ensureReportFormModule'], 20);
+        $this->wpService->addAction('acf/save_post', [$this, 'sortKnownIssues'], 5);
         $this->wpService->addAction('acf/save_post', [$this, 'syncReportFormModule'], 20);
         $this->wpService->addAction('pre_get_posts', [$this, 'hideReportFormModuleFromAdmin']);
         $this->wpService->addAction('admin_notices', [$this, 'displayReportFormAdminNotice']);
@@ -271,6 +282,79 @@ class A11yStatement implements Hookable
         if ($postId === 'options') {
             $this->ensureReportFormModule();
         }
+    }
+
+    /**
+     * Sort known accessibility issues by category and then by label before ACF
+     * persists the repeater rows.
+     *
+     * @param mixed $postId
+     */
+    public function sortKnownIssues(mixed $postId): void
+    {
+        if ($postId !== 'options') {
+            return;
+        }
+
+        $repeaterFieldKey = 'field_68763f7edab51';
+        $labelFieldKey    = 'field_68763ffc75441';
+        $categoryFieldKey = 'field_6876400775442';
+        $issues           = $_POST['acf'][$repeaterFieldKey] ?? null;
+
+        if (!is_array($issues) || count($issues) < 2) {
+            return;
+        }
+
+        usort($issues, function (mixed $first, mixed $second) use ($labelFieldKey, $categoryFieldKey): int {
+            $first = is_array($first) ? $first : [];
+            $second = is_array($second) ? $second : [];
+
+            $categoryComparison = $this->compareKnownIssueCategories(
+                $first[$categoryFieldKey] ?? '',
+                $second[$categoryFieldKey] ?? '',
+            );
+
+            if ($categoryComparison !== 0) {
+                return $categoryComparison;
+            }
+
+            return $this->compareKnownIssueLabels(
+                (string) ($first[$labelFieldKey] ?? ''),
+                (string) ($second[$labelFieldKey] ?? ''),
+            );
+        });
+
+        $_POST['acf'][$repeaterFieldKey] = array_values($issues);
+    }
+
+    /**
+     * Compare category values by the order in which they are offered in ACF.
+     */
+    private function compareKnownIssueCategories(mixed $first, mixed $second): int
+    {
+        $first = is_array($first) ? ($first['value'] ?? '') : (string) $first;
+        $second = is_array($second) ? ($second['value'] ?? '') : (string) $second;
+
+        $firstOrder = array_search($first, self::KNOWN_ISSUE_CATEGORY_ORDER, true);
+        $secondOrder = array_search($second, self::KNOWN_ISSUE_CATEGORY_ORDER, true);
+        $firstOrder = $firstOrder === false ? PHP_INT_MAX : $firstOrder;
+        $secondOrder = $secondOrder === false ? PHP_INT_MAX : $secondOrder;
+
+        return $firstOrder === $secondOrder
+            ? strcasecmp($first, $second)
+            : $firstOrder <=> $secondOrder;
+    }
+
+    /**
+     * Compare labels according to the site's current locale when possible.
+     */
+    private function compareKnownIssueLabels(string $first, string $second): int
+    {
+        if (class_exists(\Collator::class)) {
+            return (new \Collator(get_locale()))->compare($first, $second);
+        }
+
+        return strcasecmp($first, $second);
     }
 
     /**

@@ -25,19 +25,9 @@ body.user-can-upload_files {
     padding: calc(var(--base, 8px) / 4) calc(var(--base, 8px));
     border-radius: var(--border-radius-md, 4px);
     margin-right: 0.5em;
-    color: #fff;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(#fff, 0.5);
-      z-index: 1;
-    }
 
     span {
       position: relative;
-      z-index: 2;
       display: flex;
       align-items: center;
       gap: calc(var(--base, 8px) / 2);

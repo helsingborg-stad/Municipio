@@ -228,6 +228,7 @@
                         'motor' => __('Fine Motor or Strength Impairment', 'municipio'),
                         'hearing' => __('Hearing Loss or Deafness', 'municipio'),
                         'cognitive' => __('Cognitive or Learning Impairment', 'municipio'),
+                        'other' => __('Other issues', 'municipio'),
                     ),
                     'default_value' => false,
                     'return_format' => 'array',

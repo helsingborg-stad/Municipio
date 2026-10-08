@@ -4913,6 +4913,10 @@ msgstr "Hörselnedsättning eller dövhet"
 msgid "Cognitive or Learning Impairment"
 msgstr "Kognitiv eller inlärningsnedsättning"
 
+#: library/AcfFields/php/a11y-statement.php:233
+msgid "Other issues"
+msgstr "Övrigt"
+
 #: library/AcfFields/php/block-button.php:8
 msgid "Button Block"
 msgstr "Knappar"
