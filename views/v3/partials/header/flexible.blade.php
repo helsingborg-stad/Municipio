@@ -16,15 +16,9 @@
                 'context' => 'site.header.flexible.' . $key,
                 'attributeList' => $header->getAttributes(),
             ])
-                @element([
-                    'classList' => [
-                        'site-header-flexible-content'
-                    ]
-                ])
-                    @foreach($header->getMenuItems() as $index => $menuItem)
-                            @includeIf('partials.header.components.' . $menuItem->getType())
-                    @endforeach
-                @endelement
+                @foreach($header->getMenuItems() as $index => $menuItem)
+                        @includeIf('partials.header.components.' . $menuItem->getType())
+                @endforeach
             @endheader
         @endscope
     @endforeach

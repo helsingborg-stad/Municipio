@@ -7,7 +7,7 @@
             'size' => $menuItem->getButtonSize(),
             'icon' => 'toggleAriaPressedHamburgerClose',
             'context' => ['site.header.menutrigger'],
-            'classList' => ['mobile-menu-trigger', 'u-order--10', 's-header-button'],
+            'classList' => array_merge(['mobile-menu-trigger', 'u-order--10', 's-header-button'], $menuItem->getCssClasses()),
             'text' => $lang->menu,
             'reversePositions' => true,
             'toggle' => true,

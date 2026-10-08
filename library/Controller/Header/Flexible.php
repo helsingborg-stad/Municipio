@@ -84,7 +84,7 @@ class Flexible
         $upperHeaderItems = $upperHeader->getMenuItems();
 
         // $upperHeaderClasses = $upperHeader->getCssClasses();
-        // $lowerHeaderClasses = $lowerHeader->getCssClasses();
+        $lowerHeaderClasses = $lowerHeader->getCssClasses();
         foreach($upperHeaderItems as $item) {
             $item->getCssClasses();
         }

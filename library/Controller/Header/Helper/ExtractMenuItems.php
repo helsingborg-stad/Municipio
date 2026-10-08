@@ -46,9 +46,16 @@ class ExtractMenuItems
         $key = $this->getKey(Enums::HEADER_KEY::from($id));
         $responsiveKey = $this->getKey(Enums::HEADER_KEY::from($id), true);
 
+        $desktopValue = $this->customizer->$key ?? [];
+        $mobileValue = $this->customizer->$responsiveKey ?? [];
+
         $items = [
-            Enums::HEADER_BREAKPOINT::DESKTOP->value => $this->customizer->$key ? json_decode($this->customizer->$key, true) : [],
-            Enums::HEADER_BREAKPOINT::MOBILE->value => $this->customizer->$responsiveKey ? json_decode($this->customizer->$responsiveKey, true) : [],
+            Enums::HEADER_BREAKPOINT::DESKTOP->value => is_string($desktopValue)
+                ? (json_decode($desktopValue, true) ?: [])
+                : (is_array($desktopValue) ? $desktopValue : []),
+            Enums::HEADER_BREAKPOINT::MOBILE->value => is_string($mobileValue)
+                ? (json_decode($mobileValue, true) ?: [])
+                : (is_array($mobileValue) ? $mobileValue : []),
         ];
 
         $items = $this->addMenuItemDataToItems($items, $id);
@@ -65,7 +72,7 @@ class ExtractMenuItems
 
             foreach ($breakpointItems as $item) {
                 if (isset($data[$key][$item])) {
-                    $mappedItems[$breakpoint][$item] = $data[$key][$item];
+                    $mappedItems[$breakpoint][$item] = array_merge($this->getDefaultValues(), $data[$key][$item]);
                 }
             }
         }
@@ -76,6 +83,17 @@ class ExtractMenuItems
     private function getMenuItemDataKey(HeaderKey $id, bool $responsive = false): string
     {
         return 'header_sortable_section_main_' . $id->value . ($responsive ? '_responsive' : '');
+    }
+
+    private function getDefaultValues(): array
+    {
+        return [
+            'align' => 'right',
+            'margin' => 'none',
+            'buttonStyle' => 'basic',
+            'buttonSize' => 'md',
+            'buttonColor' => 'inherit',
+        ];
     }
 
 
