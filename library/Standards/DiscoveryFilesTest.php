@@ -48,7 +48,11 @@ class DiscoveryFilesTest extends TestCase
         $output = $this->createDiscoveryFiles()->getSecurityTxtContent();
 
         static::assertStringContainsString("Contact: mailto:security@example.test\n", $output);
-        static::assertMatchesRegularExpression('/Expires: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/', $output);
+        preg_match('/Expires: (.+)/', $output, $matches);
+        $expiresAt = new \DateTimeImmutable($matches[1]);
+
+        static::assertSame(1, (int) $expiresAt->format('N'));
+        static::assertSame('00:00:00', $expiresAt->format('H:i:s'));
         static::assertStringContainsString("Canonical: https://example.test/.well-known/security.txt\n", $output);
         static::assertStringContainsString("Policy: https://example.test/security-policy\n", $output);
     }

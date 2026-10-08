@@ -142,6 +142,8 @@ class DiscoveryFiles
     {
         return (new DateTimeImmutable('now', new DateTimeZone('UTC')))
             ->modify('+364 days')
+            ->modify('monday this week')
+            ->setTime(0, 0)
             ->format('Y-m-d\\TH:i:s\\Z');
     }
 
