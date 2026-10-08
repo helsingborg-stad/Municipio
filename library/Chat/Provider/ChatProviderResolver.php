@@ -10,18 +10,8 @@ class ChatProviderResolver implements ChatProviderResolverInterface
         private ChatProviderInterface $aiChatProvider,
     ) {}
 
-    public function resolve(array $assistant): ChatProviderInterface|\WP_Error
+    public function resolve(array $assistant): ChatProviderInterface
     {
-        $providerType = strtolower((string) ($assistant['provider_type'] ?? 'ai'));
-
-        if ($providerType === '' || $providerType === 'ai') {
-            return $this->aiChatProvider;
-        }
-
-        return new \WP_Error(
-            'chat_provider_not_supported',
-            __('Chat provider is not supported.', 'municipio'),
-            ['status' => 400],
-        );
+        return $this->aiChatProvider;
     }
 }

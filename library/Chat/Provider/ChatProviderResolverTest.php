@@ -48,8 +48,8 @@ class ChatProviderResolverTest extends TestCase
         static::assertSame($aiProvider, $resolver->resolve(['provider_type' => 'AI']));
     }
 
-    #[TestDox('resolve() returns WP_Error for unsupported provider type')]
-    public function testResolveReturnsErrorForUnsupportedProviderType(): void
+    #[TestDox('resolve() falls back to AI provider when provider is unknown')]
+    public function testResolveFallsBackToAiProviderWhenProviderTypeIsUnknown(): void
     {
         $aiProvider = new class implements ChatProviderInterface {
             public function validateAssistantConfig(array $assistant): ?\WP_Error
@@ -65,6 +65,6 @@ class ChatProviderResolverTest extends TestCase
         $resolver = new ChatProviderResolver($aiProvider);
         $resolved = $resolver->resolve(['provider_type' => 'puzzel']);
 
-        static::assertInstanceOf(\WP_Error::class, $resolved);
+        static::assertSame($aiProvider, $resolved);
     }
 }

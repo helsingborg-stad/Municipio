@@ -6,5 +6,5 @@ namespace Municipio\Chat\Provider;
 
 interface ChatProviderResolverInterface
 {
-    public function resolve(array $assistant): ChatProviderInterface|\WP_Error;
+    public function resolve(array $assistant): ChatProviderInterface;
 }

@@ -46,9 +46,6 @@ class ChatEndpoint extends RestApiEndpoint
         }
 
         $provider = $this->providerResolver->resolve($assistant);
-        if ($provider instanceof \WP_Error) {
-            return $provider;
-        }
 
         $configError = $provider->validateAssistantConfig($assistant);
         if ($configError instanceof \WP_Error) {

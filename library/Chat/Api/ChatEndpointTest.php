@@ -216,8 +216,8 @@ class ChatEndpointTest extends TestCase
         static::assertInstanceOf(\WP_REST_Response::class, $response);
     }
 
-    #[TestDox('handleRequest() returns a WP_Error when assistant provider is unsupported')]
-    public function testHandleRequestReturnsErrorWhenAssistantProviderIsUnsupported(): void
+    #[TestDox('handleRequest() falls back to AI endpoint when provider_type is unknown')]
+    public function testHandleRequestFallsBackToAiWhenAssistantProviderTypeIsUnknown(): void
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'Support assistant',
@@ -237,7 +237,7 @@ class ChatEndpointTest extends TestCase
 
         $response = $endpoint->handleRequest($request);
 
-        static::assertInstanceOf(\WP_Error::class, $response);
+        static::assertInstanceOf(\WP_REST_Response::class, $response);
     }
 
     private function createRequest(array $params): \WP_REST_Request
