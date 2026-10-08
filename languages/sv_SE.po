@@ -13900,3 +13900,32 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-menu.php:156
 msgid "Will collapse menu groups on mobile to save vertical space. User has ability to expand individual menu groups with a button click."
 msgstr ""
+
+#: library/Admin/Options/Theme.php:40
+#: library/Admin/Options/Theme.php:41
+msgid "Site files"
+msgstr "Webbplatsfiler"
+
+#: library/AcfFields/php/options-site-files.php:10
+msgid "Additional robots.txt directives"
+msgstr "Ytterligare robots.txt-direktiv"
+
+#: library/AcfFields/php/options-site-files.php:13
+msgid "Only add rules that differ from the standard WordPress robots.txt output. Enter one directive per line, for example \"Disallow: /internal/\"."
+msgstr "Lägg endast till regler som skiljer sig från WordPress standardutdata för robots.txt. Ange ett direktiv per rad, till exempel \"Disallow: /internal/\"."
+
+#: library/AcfFields/php/options-site-files.php:19
+msgid "Security contact email"
+msgstr "E-postadress för säkerhetskontakt"
+
+#: library/AcfFields/php/options-site-files.php:22
+msgid "Email address for reports of security vulnerabilities. Leave empty to use the WordPress administration email address."
+msgstr "E-postadress för rapportering av säkerhetsbrister. Lämna tomt för att använda WordPress administrationsadress."
+
+#: library/AcfFields/php/options-site-files.php:27
+msgid "Security policy URL"
+msgstr "URL till säkerhetspolicy"
+
+#: library/AcfFields/php/options-site-files.php:30
+msgid "Optional HTTPS URL that explains how security vulnerabilities should be reported."
+msgstr "Valfri HTTPS-adress som beskriver hur säkerhetsbrister ska rapporteras."

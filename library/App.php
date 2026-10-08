@@ -194,6 +194,11 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
+         * Public discovery files.
+         */
+        new \Municipio\Standards\DiscoveryFiles($this->wpService, $this->acfService);
+
+        /**
          * General filters
          */
         (new \Municipio\Filters\More($this->wpService))->addHooks();
@@ -226,7 +231,7 @@ class App
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\Options\Theme();
+        new \Municipio\Admin\Options\Theme($this->wpService);
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
