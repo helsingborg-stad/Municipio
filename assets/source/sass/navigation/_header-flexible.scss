@@ -4,16 +4,13 @@
 
 #site-header-flexible-upper,
 #site-header-flexible-lower {
+    display: grid;
+    grid-template-columns: repeat(var(--amount-of-items-mobile), max-content);
+    justify-content: space-between;
 
-
-    .site-header-flexible-content {
-        display: grid;
-        grid-template-columns: repeat(var(--amount-of-items-mobile), auto);
-    }
-
-    @media (min-width: #{map.get(var_default.$breakpoints-map, "md")}) {
-        .site-header-flexible-content {
-            grid-template-columns: repeat(var(--amount-of-items-desktop), auto);
+    @media (min-width: #{map.get(var_default.$breakpoints-map, "lg")}) {
+        & {
+            grid-template-columns: repeat(var(--amount-of-items-desktop), max-content);
         }
     }
 }
