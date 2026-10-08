@@ -196,7 +196,7 @@ class App
         /**
          * Public discovery files.
          */
-        new \Municipio\Standards\DiscoveryFiles();
+        new \Municipio\Standards\DiscoveryFiles($this->wpService, $this->acfService);
 
         /**
          * General filters

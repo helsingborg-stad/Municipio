@@ -4,8 +4,19 @@ declare(strict_types=1);
 
 namespace Municipio\Standards;
 
+use AcfService\Contracts\GetField;
 use DateTimeImmutable;
 use DateTimeZone;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\GetOption;
+use WpService\Contracts\GetUsers;
+use WpService\Contracts\HomeUrl;
+use WpService\Contracts\NocacheHeaders;
+use WpService\Contracts\SanitizeEmail;
+use WpService\Contracts\SetUrlScheme;
+use WpService\Contracts\StatusHeader;
+use WpService\Contracts\WpStripAllTags;
 
 /**
  * Serves and configures the site's machine-readable discovery files.
@@ -14,10 +25,13 @@ use DateTimeZone;
  */
 class DiscoveryFiles
 {
-    public function __construct()
+    public function __construct(
+        private AddAction&AddFilter&GetOption&GetUsers&HomeUrl&NocacheHeaders&SanitizeEmail&SetUrlScheme&StatusHeader&WpStripAllTags $wpService,
+        private GetField $acfService,
+    )
     {
-        add_filter('robots_txt', [$this, 'renderRobotsTxt'], 10, 2);
-        add_action('parse_request', [$this, 'maybeServeSecurityTxt'], 0);
+        $this->wpService->addFilter('robots_txt', [$this, 'renderRobotsTxt'], 10, 2);
+        $this->wpService->addAction('parse_request', [$this, 'maybeServeSecurityTxt'], 0);
     }
 
     /**
@@ -58,8 +72,8 @@ class DiscoveryFiles
             return;
         }
 
-        status_header(200);
-        nocache_headers();
+        $this->wpService->statusHeader(200);
+        $this->wpService->nocacheHeaders();
         header('Content-Type: text/plain; charset=utf-8');
         header('X-Content-Type-Options: nosniff');
 
@@ -89,7 +103,10 @@ class DiscoveryFiles
 
         $lines[] = 'Expires: ' . $this->getExpiresAt();
 
-        $lines[] = 'Canonical: ' . set_url_scheme(home_url('/.well-known/security.txt'), 'https');
+        $lines[] = 'Canonical: ' . $this->wpService->setUrlScheme(
+            $this->wpService->homeUrl('/.well-known/security.txt'),
+            'https',
+        );
 
         $policyUrl = $this->getHttpsUrlOption('security_txt_policy');
         if ($policyUrl !== '') {
@@ -101,19 +118,21 @@ class DiscoveryFiles
 
     private function getContact(): string
     {
-        $email = sanitize_email($this->sanitizeSingleLineValue((string) $this->getOption('security_txt_contact_email')));
+        $email = $this->wpService->sanitizeEmail(
+            $this->sanitizeSingleLineValue((string) $this->getOption('security_txt_contact_email')),
+        );
         if ($email !== '') {
             return 'mailto:' . $email;
         }
 
-        $adminEmail = sanitize_email((string) get_option('admin_email'));
+        $adminEmail = $this->wpService->sanitizeEmail((string) $this->wpService->getOption('admin_email'));
 
         if ($adminEmail === '') {
-            $administrators = get_users([
+            $administrators = $this->wpService->getUsers([
                 'role' => 'administrator',
                 'number' => 1,
             ]);
-            $adminEmail = sanitize_email((string) ($administrators[0]->user_email ?? ''));
+            $adminEmail = $this->wpService->sanitizeEmail((string) ($administrators[0]->user_email ?? ''));
         }
 
         return $adminEmail !== '' ? 'mailto:' . $adminEmail : '';
@@ -135,7 +154,7 @@ class DiscoveryFiles
 
     private function getOption(string $field): mixed
     {
-        return function_exists('get_field') ? get_field($field, 'option') : null;
+        return $this->acfService->getField($field, 'option');
     }
 
     private function isHttpsUri(string $value): bool
@@ -153,6 +172,6 @@ class DiscoveryFiles
 
     private function sanitizeSingleLineValue(string $value): string
     {
-        return trim(wp_strip_all_tags(str_replace(["\r", "\n"], '', $value)));
+        return trim($this->wpService->wpStripAllTags(str_replace(["\r", "\n"], '', $value)));
     }
 }
