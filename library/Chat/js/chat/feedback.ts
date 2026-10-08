@@ -1,4 +1,6 @@
-import FeedbackApi from "./feedbackApi";
+interface FeedbackStatApi {
+    postStat(type: 'like' | 'dislike' | 'message' | 'unlike' | 'undislike'): void;
+}
 
 class Feedback {
     private liked: boolean | null = null;
@@ -9,7 +11,7 @@ class Feedback {
         private messageInstance: any,
         private likeButton: HTMLElement,
         private dislikeButton: HTMLElement,
-        private feedbackApi: FeedbackApi
+        private feedbackApi: FeedbackStatApi
     ) {
         this.liked = this.getLikeStatus();
         this.updateFeedbackClasses();

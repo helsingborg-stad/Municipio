@@ -1,4 +1,4 @@
-import { ChatSession } from "./ChatSession";
+import { AiChatSession } from "../integrations/ai/AiChatSession";
 
 const SESSION_ID_KEY = "municipio:chat:global-chat:sessions";
 
@@ -8,7 +8,7 @@ type ChatSessionPrivateApi = {
 		eventType: string,
 		payload: string,
 		accumulatedText: string,
-	): { eventType: string; accumulatedText: string; event: ChatEvent | null };
+	): { eventType: string; accumulatedText: string; event: unknown | null };
 };
 
 describe("ChatSession", () => {
@@ -23,7 +23,7 @@ describe("ChatSession", () => {
 			JSON.stringify({ Ava: { sessionId: "persisted-session" } }),
 		);
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new AiChatSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
@@ -44,7 +44,7 @@ describe("ChatSession", () => {
 			JSON.stringify({ Ava: { sessionId: "persisted-session" } }),
 		);
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new AiChatSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
@@ -61,7 +61,7 @@ describe("ChatSession", () => {
 
 	it("does not persist session id to localStorage when session persistence is disabled", () => {
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new AiChatSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
@@ -80,7 +80,7 @@ describe("ChatSession", () => {
 
 	it("persists session id to localStorage when session persistence is enabled", () => {
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new AiChatSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,

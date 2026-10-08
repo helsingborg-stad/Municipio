@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Chat\Api;
+namespace Municipio\Chat\Integrations\Ai\Api;
 
 use Municipio\Api\RestApiEndpoint;
 use WpService\Contracts\__;

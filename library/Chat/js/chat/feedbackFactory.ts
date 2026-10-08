@@ -1,11 +1,14 @@
 import Feedback from "./feedback";
-import FeedbackApi from "./feedbackApi";
+
+interface FeedbackStatApi {
+    postStat(type: 'like' | 'dislike' | 'message' | 'unlike' | 'undislike'): void;
+}
 
 class FeedbackFactory implements FeedbackFactoryInterface {
     constructor(
         private chatInstance: any,
         private feedbackTemplate: HTMLTemplateElement|null,
-        private feedbackApi: FeedbackApi
+        private feedbackApi: FeedbackStatApi
     ) {}
 
     public create(messageInstance: any): FeedbackInterface {
