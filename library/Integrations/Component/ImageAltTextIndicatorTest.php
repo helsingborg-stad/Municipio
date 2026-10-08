@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Integrations\Component;
 
+use ComponentLibrary\Integrations\Image\ImageInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -57,5 +58,22 @@ class ImageAltTextIndicatorTest extends TestCase
             'data-a11y-error',
             (new ImageAltTextIndicator($editor))->addIndicator(['alt' => 'A town hall']),
         );
+    }
+
+    public function testDoesNotAddIndicatorWhenImageContractSuppliesAltText(): void
+    {
+        $wpService = new FakeWpService([
+            'isUserLoggedIn' => true,
+            'currentUserCan' => true,
+        ]);
+        $image = $this->createStub(ImageInterface::class);
+        $image->method('getAltText')->willReturn('Two people sit on a sofa.');
+
+        $data = (new ImageAltTextIndicator($wpService))->addIndicator([
+            'alt' => '',
+            'src' => $image,
+        ]);
+
+        static::assertArrayNotHasKey('data-a11y-error', $data);
     }
 }
