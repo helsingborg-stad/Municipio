@@ -139,6 +139,8 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
             }
         }
 
+        $this->enqueueComponentsFromMarkup($bodyMarkup);
+
         preg_match_all('/\\bclass=["\']([^"\']+)["\']/', $bodyMarkup, $matches);
         foreach ($matches[1] as $classList) {
             foreach (preg_split('/\\s+/', $classList) as $className) {
@@ -183,6 +185,15 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
             $paths['component-' . $name] = $type . '/components/' . $name . '.' . $type;
         }
         return $paths;
+    }
+
+    /** Enqueue assets for components that arrive as already-rendered markup. */
+    private function enqueueComponentsFromMarkup(string $markup): void
+    {
+        preg_match_all('/\bdata-component=["\']([^"\']+)["\']/i', $markup, $matches);
+        foreach (array_unique($matches[1] ?? []) as $component) {
+            $this->enqueueComponent($component);
+        }
     }
 
     private function addAssets(array $paths): array
