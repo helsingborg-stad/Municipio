@@ -814,6 +814,7 @@ class App
         $compressedCollections->addHooks();
 
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
     }
 
     /**
