@@ -250,6 +250,11 @@ class App
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
+        /**
+         * Site Health
+         */
+        (new \Municipio\SiteHealth\TidyExtensionRequirement($this->wpService))->addHooks();
+
         /* Integration: MiniOrange */
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
         $this->hooksRegistrar->register($moveAdminPageToSettings);
