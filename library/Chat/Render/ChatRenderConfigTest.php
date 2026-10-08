@@ -45,6 +45,32 @@ class ChatRenderConfigTest extends TestCase
         static::assertSame('global-chat-default', $renderConfig->getChatId());
     }
 
+    #[TestDox('getAttributeList() includes provider-neutral bootstrap attributes')]
+    public function testGetAttributeListIncludesProviderNeutralBootstrapAttributes(): void
+    {
+        $renderConfig = $this->createRenderConfig([
+            ['name' => 'Ava'],
+        ], 'Ava');
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('true', $attributeList['data-js-chat-enabled']);
+        static::assertSame('ai', $attributeList['data-js-chat-provider']);
+        static::assertSame('Ava', $attributeList['data-js-chat-assistant']);
+    }
+
+    #[TestDox('getAttributeList() keeps legacy AI bootstrap attribute for compatibility')]
+    public function testGetAttributeListKeepsLegacyBootstrapAttribute(): void
+    {
+        $renderConfig = $this->createRenderConfig([
+            ['name' => 'Ava'],
+        ], 'Ava');
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('true', $attributeList['data-js-municipio-ai-chat']);
+    }
+
     private function createRenderConfig(array $assistants, string $assistantName): ChatRenderConfig
     {
         $wpService = new FakeWpService([

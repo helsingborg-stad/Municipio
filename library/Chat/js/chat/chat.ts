@@ -1,12 +1,18 @@
 import type MarkdownIt from "markdown-it";
 import type FeedbackApi from "./feedbackApi";
+import type {
+	ConversationProvider,
+	ConversationProviderCapabilities,
+} from "./conversationProvider";
+import type ConversationProviderFactory from "./conversationProviderFactory";
 
 class Chat implements ChatInterface {
-	private session: ChatSession | null = null;
+	private provider: ConversationProvider | null = null;
+	private providerCapabilities: ConversationProviderCapabilities | null = null;
 	private streamedContent: string = "";
 
 	constructor(
-		private readonly sessionFactory: ChatSessionFactory,
+		private readonly providerFactory: ConversationProviderFactory,
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
@@ -16,10 +22,11 @@ class Chat implements ChatInterface {
 	) {}
 
 	public init(): void {
-		this.session = this.sessionFactory.create(
+		this.provider = this.providerFactory.create(
 			this.assistantName,
 			this.persistSession,
 		);
+		this.providerCapabilities = this.provider.getCapabilities();
 		this.listenForUserMessages();
 	}
 
@@ -28,11 +35,15 @@ class Chat implements ChatInterface {
 	}
 
 	public createNewChatSession(): void {
-		this.session = this.sessionFactory.create(
+		this.provider = this.providerFactory.create(
 			this.assistantName,
 			this.persistSession,
 		);
-		this.session.clearSessionForAssistant(this.assistantName ?? "");
+		this.providerCapabilities = this.provider.getCapabilities();
+
+		if (this.providerCapabilities.supportsSessionReset) {
+			this.provider.resetConversation();
+		}
 	}
 
 	private listenForUserMessages(): void {
@@ -60,7 +71,7 @@ class Chat implements ChatInterface {
 	}
 
 	private async sendMessage(message: string): Promise<void> {
-		if (!this.session) return;
+		if (!this.provider) return;
 
 		const pendingMessage = this.chat.addPendingMessage();
 		this.chat.disableSend();
@@ -68,7 +79,7 @@ class Chat implements ChatInterface {
 		let contentAdded = false;
 
 		try {
-			for await (const event of this.session.ask(message)) {
+			for await (const event of this.provider.sendMessage(message)) {
 				switch (event.type) {
 					case "text":
 						this.streamedContent = event.content;
@@ -78,7 +89,7 @@ class Chat implements ChatInterface {
 						);
 						contentAdded = true;
 						break;
-					case "tool_call":
+					case "activity":
 						contentAdded = true;
 						break;
 					case "done":
@@ -92,7 +103,9 @@ class Chat implements ChatInterface {
 						if (!contentAdded) {
 							this.chat.deleteMessage(pendingMessage);
 						} else {
-							this.feedbackFactory.create(pendingMessage);
+							if (this.providerCapabilities?.supportsFeedback === true) {
+								this.feedbackFactory.create(pendingMessage);
+							}
 							this.postMessageStat();
 						}
 						break;

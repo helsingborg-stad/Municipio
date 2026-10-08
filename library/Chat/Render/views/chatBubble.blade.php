@@ -26,6 +26,7 @@
 ])
     @element([
         'attributeList' => [
+            'data-js-chat-wrapper' => 'true',
             'data-js-municipio-ai-chat-wrapper' => 'true',
         ],
         'classList' => [
@@ -36,7 +37,7 @@
             'id' => $chatId,
             'persistent' => true,
             'size' => 'xs',
-            'attributeList' => array_merge(['municipio-ai-chat-bubble' => '1'], $attributeList),
+            'attributeList' => array_merge(['data-js-chat-bubble' => '1', 'municipio-ai-chat-bubble' => '1'], $attributeList),
             'classList' => ['municipio-ai-chat__chat', 'u-visibility--hidden'],
             'chatInputData' => [
                 'sendButtonText' => $lang['send'],

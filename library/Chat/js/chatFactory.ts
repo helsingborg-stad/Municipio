@@ -1,4 +1,5 @@
 import MarkdownIt from "markdown-it";
+import AiConversationProviderFactory from "./chat/aiConversationProviderFactory";
 import { ChatSessionFactory } from "./chat/ChatSessionFactory";
 import Chat from "./chat/chat";
 import FeedbackApi from "./chat/feedbackApi";
@@ -24,6 +25,7 @@ class ChatFactory {
 		const newChatButtonElement = chatElement.querySelector("[data-js-chat-new]") as HTMLElement | null;
 		const markdownParser = createMarkdownParser();
 		const chatSessionFactory = new ChatSessionFactory(wpApiSettings.root);
+		const conversationProviderFactory = new AiConversationProviderFactory(chatSessionFactory);
 		const feedbackApi = new FeedbackApi(wpApiSettings.root);
 		const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
 
@@ -44,7 +46,7 @@ class ChatFactory {
 		}
 
 		const chatInstance = new Chat(
-			chatSessionFactory,
+			conversationProviderFactory,
 			chat,
 			markdownParser,
 			feedbackFactory,

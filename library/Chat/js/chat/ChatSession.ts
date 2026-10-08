@@ -1,5 +1,8 @@
-const SSE_CONTENT_TYPE = "text/event-stream";
-const CHAT_API_ENDPOINT = "municipio/v1/chat";
+import {
+	AI_CHAT_API_ENDPOINT,
+	AI_SSE_CONTENT_TYPE,
+	AI_SSE_EVENT,
+} from "./aiProtocol";
 
 interface AssistantSession {
 	sessionId: string;
@@ -44,7 +47,7 @@ export class ChatSession {
 	private async postMessage(message: string): Promise<Response> {
 		const { apiRoot, assistantName } = this.config;
 
-		return this.fetchFn(`${apiRoot}${CHAT_API_ENDPOINT}`, {
+		return this.fetchFn(`${apiRoot}${AI_CHAT_API_ENDPOINT}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -57,7 +60,7 @@ export class ChatSession {
 
 	private async assertSseResponse(response: Response): Promise<void> {
 		const contentType = response.headers.get("Content-Type") ?? "";
-		if (response.ok && contentType.includes(SSE_CONTENT_TYPE)) return;
+		if (response.ok && contentType.includes(AI_SSE_CONTENT_TYPE)) return;
 		const body = await response.text();
 		throw new Error(this.parseErrorMessage(body));
 	}
@@ -127,7 +130,7 @@ export class ChatSession {
 		const data = JSON.parse(payload);
 
 		switch (eventType) {
-			case "first_chunk":
+			case AI_SSE_EVENT.FIRST_CHUNK:
 				this.sessions[this.config.assistantName ?? ""] = {
 					sessionId: data.session_id,
 				};
@@ -138,16 +141,16 @@ export class ChatSession {
 					);
 				}
 				return { eventType, accumulatedText, event: null };
-			case "text":
+			case AI_SSE_EVENT.TEXT:
 				accumulatedText += data.answer;
 				return {
 					eventType,
 					accumulatedText,
 					event: { type: "text", content: accumulatedText },
 				};
-			case "tool_call":
+			case AI_SSE_EVENT.TOOL_CALL:
 				return { eventType, accumulatedText, event: { type: "tool_call" } };
-			case "error":
+			case AI_SSE_EVENT.ERROR:
 				throw new Error(`Chat error: ${payload}`);
 			default:
 				return { eventType, accumulatedText, event: null };

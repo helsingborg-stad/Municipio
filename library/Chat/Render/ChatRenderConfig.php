@@ -84,6 +84,8 @@ class ChatRenderConfig implements ChatRenderConfigInterface
     {
         $attributeList = [
             'data-js-chat-assistant' => $this->getAssistantName(),
+            'data-js-chat-enabled' => 'true',
+            'data-js-chat-provider' => 'ai',
         ];
 
         $attributeList['data-js-municipio-ai-chat'] = 'true';

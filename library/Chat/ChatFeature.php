@@ -13,6 +13,8 @@ use Municipio\Chat\Admin\ChatAdminPage;
 use Municipio\Chat\Admin\ChatStatsMetaBox;
 use Municipio\Chat\Api\ChatEndpoint;
 use Municipio\Chat\Api\ChatStatsEndpoint;
+use Municipio\Chat\Api\Providers\AiConversationApiProvider;
+use Municipio\Chat\Api\Providers\RequestParamConversationApiProviderFactory;
 use Municipio\Chat\Config\ChatConfig;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
 use Municipio\Chat\Render\ChatBubble;
@@ -41,8 +43,16 @@ class ChatFeature
 
         $bladeRenderer = new BladeRenderer(ComponentBladeService::create(ChatRender::getViewPathsDir(), $this->wpService));
         $render = new ChatRender($bladeRenderer);
+        $conversationProvider = new AiConversationApiProvider($config, $this->wpService);
+        $conversationProviderFactory = new RequestParamConversationApiProviderFactory(
+            defaultProvider: $conversationProvider,
+            providerMap: [
+                'ai' => $conversationProvider,
+            ],
+            providerParamName: 'provider',
+        );
 
-        RestApiEndpointsRegistry::add(new ChatEndpoint($config, new PIIRedactorFactory($this->wpService), $this->wpService));
+        RestApiEndpointsRegistry::add(new ChatEndpoint($config, new PIIRedactorFactory($this->wpService), $conversationProviderFactory, $this->wpService));
         RestApiEndpointsRegistry::add(new ChatStatsEndpoint($this->wpService));
 
         // Acf repeater crashes when below are reigstered
