@@ -231,7 +231,7 @@ class App
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\Options\Theme();
+        new \Municipio\Admin\Options\Theme($this->wpService);
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
