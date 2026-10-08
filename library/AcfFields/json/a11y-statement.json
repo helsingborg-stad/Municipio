@@ -224,7 +224,8 @@
                         "mobility": "Mobility Impairment",
                         "motor": "Fine Motor or Strength Impairment",
                         "hearing": "Hearing Loss or Deafness",
-                        "cognitive": "Cognitive or Learning Impairment"
+                        "cognitive": "Cognitive or Learning Impairment",
+                        "other": "Other issues"
                     },
                     "default_value": false,
                     "return_format": "array",
@@ -238,6 +239,25 @@
                     "parent_repeater": "field_68763f7edab51"
                 }
             ]
+        },
+        {
+            "key": "field_mun_a11ystatement_report_recipient_email",
+            "label": "Accessibility issue report recipient",
+            "name": "mun_a11ystatement_report_recipient_email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Reports submitted through the accessibility statement form are sent only to this address.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -266,4 +286,3 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
