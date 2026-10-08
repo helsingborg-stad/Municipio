@@ -1,10 +1,10 @@
-$_: "municipio-ai-chat";
+$_: "municipio-chat";
 
 .#{$_} {
     width: min(calc(var(--base) * 40 * 1.5), calc(100vw - var(--base) * 10));
 }
 
-[municipio-ai-chat-bubble] {
+[municipio-chat-bubble] {
     .c-chat__message--reply {
         margin-bottom: calc(var(--space) * var(--base) * 3);
     }

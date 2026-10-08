@@ -11,7 +11,7 @@
     'attributeList' => [
         'popovertarget' => 'chat-global-root',
         'style' => 'bottom: 1rem; right: 1rem;',
-        'municipio-ai-chat-bubble-trigger' => '1'
+        'municipio-chat-bubble-trigger' => '1'
     ]
 ])
 @endbutton
@@ -26,18 +26,18 @@
 ])
     @element([
         'attributeList' => [
-            'data-js-municipio-ai-chat-wrapper' => 'true',
+            'data-js-municipio-chat-wrapper' => 'true',
         ],
         'classList' => [
-            'municipio-ai-chat'
+            'municipio-chat'
         ]
     ])
         @chat([
             'id' => $chatId,
             'persistent' => true,
             'size' => 'xs',
-            'attributeList' => array_merge(['municipio-ai-chat-bubble' => '1'], $attributeList),
-            'classList' => ['municipio-ai-chat__chat', 'u-visibility--hidden'],
+            'attributeList' => array_merge(['municipio-chat-bubble' => '1'], $attributeList),
+            'classList' => ['municipio-chat__chat', 'u-visibility--hidden'],
             'chatInputData' => [
                 'sendButtonText' => $lang['send'],
                 'placeholderText' => $lang['placeholder']

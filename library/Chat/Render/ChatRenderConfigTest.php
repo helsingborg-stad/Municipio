@@ -45,6 +45,34 @@ class ChatRenderConfigTest extends TestCase
         static::assertSame('global-chat-default', $renderConfig->getChatId());
     }
 
+    #[TestDox('getAttributeList() contains generic chat hook and default provider')]
+    public function testGetAttributeListContainsGenericChatHookAndDefaultProvider(): void
+    {
+        $assistantName = 'City Guide Assistant';
+        $renderConfig = $this->createRenderConfig([
+            ['name' => $assistantName],
+        ], $assistantName);
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('true', $attributeList['data-js-municipio-chat'] ?? null);
+        static::assertArrayNotHasKey('data-js-municipio-ai-chat', $attributeList);
+        static::assertSame('ai', $attributeList['data-js-chat-provider'] ?? null);
+    }
+
+    #[TestDox('getAttributeList() includes configured provider type')]
+    public function testGetAttributeListIncludesConfiguredProviderType(): void
+    {
+        $assistantName = 'City Guide Assistant';
+        $renderConfig = $this->createRenderConfig([
+            ['name' => $assistantName, 'provider_type' => 'Puzzel'],
+        ], $assistantName);
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('puzzel', $attributeList['data-js-chat-provider'] ?? null);
+    }
+
     private function createRenderConfig(array $assistants, string $assistantName): ChatRenderConfig
     {
         $wpService = new FakeWpService([
