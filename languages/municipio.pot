@@ -13989,3 +13989,35 @@ msgstr ""
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Maximum number of rows reached."
 msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Button text is not descriptive enough"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Link text is not descriptive enough"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Click here"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Here"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Continue reading"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "More"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Invalid heading level (level is skipped)"
+msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Page is missing an H1 heading"
+msgstr ""

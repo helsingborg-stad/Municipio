@@ -2,21 +2,71 @@
 body.user-can-upload_files {
   [data-a11y-error] {
     position: relative;
+    outline: .25rem solid #b42318;
+    outline-offset: .25rem;
   }
 
   [data-a11y-error]:after {
     content: "[ ! ] " attr(data-a11y-error);
-    padding: 4px 8px;
-    background: rgba(#f00, 0.8);
+    padding: .25rem .5rem;
+    background: #b42318;
     color: #fff;
     position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: .8em;
-    border-radius: 3px;
-    border: 1px solid #fff;
-    line-height: 1.6em;
+    top: auto;
+    right: 0;
+    bottom: calc(100% + .5rem);
+    inline-size: max-content;
+    max-inline-size: 20rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    border: .125rem solid #fff;
+    box-shadow: 0 .125rem .25rem rgba(#000, .35);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    pointer-events: none;
+    text-align: left;
+    white-space: normal;
     z-index: 1;
+
+    @media (max-width: 20.99rem) {
+      max-inline-size: calc(100vw - 16px);
+    }
+  }
+
+  [data-a11y-error][data-tooltip-initialized]:after {
+    content: "[ ! ]";
+    top: -.5rem;
+    right: -.5rem;
+    bottom: auto;
+    inline-size: auto;
+    max-inline-size: none;
+    white-space: nowrap;
+  }
+
+  .a11y-floating-warning {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 100000;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    max-inline-size: 20rem;
+    padding: .5rem 1rem;
+    border: .125rem solid #fff;
+    border-radius: .25rem;
+    background: #b42318;
+    box-shadow: 0 .125rem .25rem rgba(#000, .35);
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+
+    @media (max-width: 20.99rem) {
+      right: 1rem;
+      left: 1rem;
+      max-inline-size: none;
+    }
   }
 }
 
