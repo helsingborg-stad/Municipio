@@ -1,17 +1,15 @@
 const EDITOR_BODY_CLASS = "user-can-upload_files";
 const CONTROL_SELECTOR = "a[href], button";
 const DYNAMIC_ERROR_ATTRIBUTE = "data-a11y-dynamic-error";
+const DYNAMIC_TOOLTIP_ATTRIBUTE = "data-a11y-dynamic-tooltip";
 
-const vagueLabels = new Set([
-	"click here",
-	"här",
-	"klicka här",
-	"läs mer",
-	"läs vidare",
-	"more",
-	"mer",
-	"read more",
-]);
+const vagueLabels = [
+	"Click here",
+	"Here",
+	"Read more",
+	"Continue reading",
+	"More",
+];
 
 const messages = {
 	button:
@@ -28,6 +26,21 @@ const fallbackMessages = {
 	button: "Button text is not descriptive enough",
 	link: "Link text is not descriptive enough",
 };
+
+const normalizeLabel = (label: string): string =>
+	label
+		.replace(/\s+/gu, " ")
+		.replace(/^[\s.,;:!?…]+|[\s.,;:!?…]+$/gu, "")
+		.trim()
+		.toLocaleLowerCase();
+
+const localizedVagueLabels = new Set(
+	(
+		typeof MunicipioLocale !== "undefined"
+			? (MunicipioLocale.a11yWarnings?.vagueLabels ?? vagueLabels)
+			: vagueLabels
+	).map(normalizeLabel),
+);
 
 /**
  * Finds vague labels in rendered controls, including controls inserted after
@@ -91,8 +104,9 @@ export class VagueControlTextIndicator {
 		}
 
 		const label = this.normalizeLabel(control.textContent ?? "");
-		const isVague = vagueLabels.has(label);
+		const isVague = localizedVagueLabels.has(label);
 		const isLink = control.matches("a[href]");
+		this.prepareTooltip(control);
 
 		if (isVague) {
 			if (!control.hasAttribute("data-a11y-error")) {
@@ -101,6 +115,7 @@ export class VagueControlTextIndicator {
 					: (messages.button ?? fallbackMessages.button);
 				control.setAttribute("data-a11y-error", message);
 				control.setAttribute(DYNAMIC_ERROR_ATTRIBUTE, "");
+				this.prepareTooltip(control, true);
 			}
 			return;
 		}
@@ -115,6 +130,23 @@ export class VagueControlTextIndicator {
 			control.removeAttribute("data-a11y-error");
 			control.removeAttribute(DYNAMIC_ERROR_ATTRIBUTE);
 		}
+
+		if (control.hasAttribute(DYNAMIC_TOOLTIP_ATTRIBUTE)) {
+			control.removeAttribute("data-tooltip");
+			control.removeAttribute(DYNAMIC_TOOLTIP_ATTRIBUTE);
+		}
+	}
+
+	private prepareTooltip(control: HTMLElement, isDynamic = false): void {
+		if (!control.dataset.a11yError || control.dataset.tooltip) {
+			return;
+		}
+
+		control.dataset.tooltip = control.dataset.a11yError;
+
+		if (isDynamic) {
+			control.setAttribute(DYNAMIC_TOOLTIP_ATTRIBUTE, "");
+		}
 	}
 
 	private getClosestControl(node: Node): HTMLElement | null {
@@ -123,7 +155,7 @@ export class VagueControlTextIndicator {
 	}
 
 	private normalizeLabel(label: string): string {
-		return label.replace(/\s+/gu, " ").trim().toLocaleLowerCase();
+		return normalizeLabel(label);
 	}
 }
 

@@ -120,6 +120,13 @@ class Enqueue implements Hookable
                 'a11yWarnings' => [
                     'button' => __('Button text is not descriptive enough', 'municipio'),
                     'link' => __('Link text is not descriptive enough', 'municipio'),
+                    'vagueLabels' => [
+                        __('Click here', 'municipio'),
+                        __('Here', 'municipio'),
+                        __('Read more', 'municipio'),
+                        __('Continue reading', 'municipio'),
+                        __('More', 'municipio'),
+                    ],
                 ],
             ]);
         $this->ensureRestApiSettings();

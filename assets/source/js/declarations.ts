@@ -9,6 +9,7 @@ declare const MunicipioLocale: {
   a11yWarnings?: {
     button?: string
     link?: string
+    vagueLabels?: string[]
   }
 }
 

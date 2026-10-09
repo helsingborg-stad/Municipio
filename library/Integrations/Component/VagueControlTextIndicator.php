@@ -13,16 +13,16 @@ use WpService\WpService;
  */
 class VagueControlTextIndicator implements Hookable
 {
+    /** @var string[]|null */
+    private ?array $localizedVagueLabels = null;
+
     /** @var string[] */
     private const VAGUE_LABELS = [
-        'click here',
-        'här',
-        'klicka här',
-        'läs mer',
-        'läs vidare',
-        'more',
-        'mer',
-        'read more',
+        'Click here',
+        'Here',
+        'Read more',
+        'Continue reading',
+        'More',
     ];
 
     public function __construct(private WpService $wpService)
@@ -77,7 +77,9 @@ class VagueControlTextIndicator implements Hookable
 
         $attributes = $data['attributeList'] ?? [];
         $data['attributeList'] = is_array($attributes) ? $attributes : [];
-        $data['attributeList']['data-a11y-error'] = $this->wpService->__($message, 'municipio');
+        $message = $this->wpService->__($message, 'municipio');
+        $data['attributeList']['data-a11y-error'] = $message;
+        $data['attributeList']['data-tooltip'] ??= $message;
 
         return $data;
     }
@@ -95,8 +97,22 @@ class VagueControlTextIndicator implements Hookable
         }
 
         $label = html_entity_decode(strip_tags((string) $label), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $label = preg_replace('/^[\s.,;:!?…]+|[\s.,;:!?…]+$/u', '', $label);
         $label = preg_replace('/\s+/u', ' ', trim($label));
 
-        return is_string($label) && in_array(mb_strtolower($label, 'UTF-8'), self::VAGUE_LABELS, true);
+        return is_string($label) && in_array(
+            mb_strtolower($label, 'UTF-8'),
+            $this->getLocalizedVagueLabels(),
+            true,
+        );
+    }
+
+    /** @return string[] */
+    private function getLocalizedVagueLabels(): array
+    {
+        return $this->localizedVagueLabels ??= array_map(
+            fn(string $label): string => mb_strtolower($this->wpService->__($label, 'municipio'), 'UTF-8'),
+            self::VAGUE_LABELS,
+        );
     }
 }

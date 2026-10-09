@@ -9,6 +9,18 @@ use WpService\Implementations\FakeWpService;
 
 class VagueControlTextIndicatorTest extends TestCase
 {
+    private static function translateVagueLabels(string $text): string
+    {
+        return match ($text) {
+            'Click here' => 'Klicka här',
+            'Here' => 'Här',
+            'Read more' => 'Läs mer',
+            'Continue reading' => 'Läs vidare',
+            'More' => 'Mer',
+            default => $text,
+        };
+    }
+
     public function testRegistersButtonAndLinkDataFilters(): void
     {
         $wpService = new FakeWpService(['addFilter' => true]);
@@ -26,7 +38,7 @@ class VagueControlTextIndicatorTest extends TestCase
         $wpService = new FakeWpService([
             'isUserLoggedIn' => true,
             'currentUserCan' => true,
-            '__' => static fn(string $text): string => $text,
+            '__' => self::translateVagueLabels(...),
         ]);
         $indicator = new VagueControlTextIndicator($wpService);
 
@@ -46,16 +58,16 @@ class VagueControlTextIndicatorTest extends TestCase
         static::assertSame('link', $link['attributeList']['data-component']);
     }
 
-    public function testDetectsOtherCommonVagueSwedishAndEnglishLabels(): void
+    public function testDetectsTranslatedVagueLabels(): void
     {
         $wpService = new FakeWpService([
             'isUserLoggedIn' => true,
             'currentUserCan' => true,
-            '__' => static fn(string $text): string => $text,
+            '__' => self::translateVagueLabels(...),
         ]);
         $indicator = new VagueControlTextIndicator($wpService);
 
-        foreach (['Här', 'Läs vidare', 'Mer', 'Click here', 'Read more', 'More'] as $label) {
+        foreach (['Här', 'Läs vidare', 'Mer', ' Läs mer. ', 'Klicka här!'] as $label) {
             $data = $indicator->addLinkIndicator(['slot' => $label, 'href' => '/example']);
             static::assertArrayHasKey('data-a11y-error', $data['attributeList'], $label);
         }
@@ -70,6 +82,7 @@ class VagueControlTextIndicatorTest extends TestCase
         $editor = new FakeWpService([
             'isUserLoggedIn' => true,
             'currentUserCan' => true,
+            '__' => self::translateVagueLabels(...),
         ]);
 
         static::assertArrayNotHasKey(

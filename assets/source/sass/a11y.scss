@@ -32,6 +32,16 @@ body.user-can-upload_files {
       max-inline-size: calc(100vw - 16px);
     }
   }
+
+  [data-a11y-error][data-tooltip-initialized]:after {
+    content: "[ ! ]";
+    top: -8px;
+    right: -8px;
+    bottom: auto;
+    inline-size: auto;
+    max-inline-size: none;
+    white-space: nowrap;
+  }
 }
 
 /* Accessibility page styles */
