@@ -2,26 +2,26 @@
 body.user-can-upload_files {
   [data-a11y-error] {
     position: relative;
-    outline: 3px solid #b42318;
-    outline-offset: 2px;
+    outline: .25rem solid #b42318;
+    outline-offset: .25rem;
   }
 
   [data-a11y-error]:after {
     content: "[ ! ] " attr(data-a11y-error);
-    padding: 4px 8px;
+    padding: .25rem .5rem;
     background: #b42318;
     color: #fff;
     position: absolute;
     top: auto;
     right: 0;
-    bottom: calc(100% + 6px);
+    bottom: calc(100% + .5rem);
     inline-size: max-content;
     max-inline-size: 20rem;
-    font-size: .8em;
-    border-radius: 3px;
-    border: 2px solid #fff;
-    box-shadow: 0 1px 3px rgba(#000, .35);
-    line-height: 1.6em;
+    font-size: 1rem;
+    border-radius: .25rem;
+    border: .125rem solid #fff;
+    box-shadow: 0 .125rem .25rem rgba(#000, .35);
+    line-height: 1.5;
     overflow-wrap: anywhere;
     pointer-events: none;
     text-align: left;
@@ -35,8 +35,8 @@ body.user-can-upload_files {
 
   [data-a11y-error][data-tooltip-initialized]:after {
     content: "[ ! ]";
-    top: -8px;
-    right: -8px;
+    top: -.5rem;
+    right: -.5rem;
     bottom: auto;
     inline-size: auto;
     max-inline-size: none;

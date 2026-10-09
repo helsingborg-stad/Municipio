@@ -8,6 +8,7 @@ declare const wp: { customize?: any }
 declare const MunicipioLocale: {
   a11yWarnings?: {
     button?: string
+    headingHierarchy?: string
     link?: string
     vagueLabels?: string[]
   }

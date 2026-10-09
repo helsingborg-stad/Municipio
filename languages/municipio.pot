@@ -14013,3 +14013,7 @@ msgstr ""
 #: library/Theme/Enqueue.php
 msgid "More"
 msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Invalid heading level (level is skipped)"
+msgstr ""

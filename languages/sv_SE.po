@@ -14132,3 +14132,7 @@ msgstr "Läs vidare"
 #: library/Theme/Enqueue.php
 msgid "More"
 msgstr "Mer"
+
+#: library/Theme/Enqueue.php
+msgid "Invalid heading level (level is skipped)"
+msgstr "Felaktig rubriknivå (nivå hoppas över)"
