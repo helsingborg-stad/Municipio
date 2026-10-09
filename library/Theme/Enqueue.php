@@ -112,20 +112,20 @@ class Enqueue implements Hookable
             ->add('js/municipio.js', ['wp-api-fetch'])
             ->with()
             ->translation('MunicipioLocale', [
-                'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
+                'printbreak' => ['tooltip' => $this->wpService->__('Insert Print Page Break tag', 'municipio')],
                 'messages' => [
-                    'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                    'onError' => __('Something went wrong, please try again later', 'municipio'),
+                    'deleteComment' => $this->wpService->__('Are you sure you want to delete the comment?', 'municipio'),
+                    'onError' => $this->wpService->__('Something went wrong, please try again later', 'municipio'),
                 ],
                 'a11yWarnings' => [
-                    'button' => __('Button text is not descriptive enough', 'municipio'),
-                    'link' => __('Link text is not descriptive enough', 'municipio'),
+                    'button' => $this->wpService->__('Button text is not descriptive enough', 'municipio'),
+                    'link' => $this->wpService->__('Link text is not descriptive enough', 'municipio'),
                     'vagueLabels' => [
-                        __('Click here', 'municipio'),
-                        __('Here', 'municipio'),
-                        __('Read more', 'municipio'),
-                        __('Continue reading', 'municipio'),
-                        __('More', 'municipio'),
+                        $this->wpService->__('Click here', 'municipio'),
+                        $this->wpService->__('Here', 'municipio'),
+                        $this->wpService->__('Read more', 'municipio'),
+                        $this->wpService->__('Continue reading', 'municipio'),
+                        $this->wpService->__('More', 'municipio'),
                     ],
                 ],
             ]);
@@ -136,28 +136,28 @@ class Enqueue implements Hookable
             ->add('js/styleguide.js')
             ->with()
             ->translation('localizedMonths', [
-                ucFirst(__('January', 'municipio')),
-                ucFirst(__('February', 'municipio')),
-                ucFirst(__('March', 'municipio')),
-                ucFirst(__('April', 'municipio')),
-                ucFirst(__('May', 'municipio')),
-                ucFirst(__('June', 'municipio')),
-                ucFirst(__('July', 'municipio')),
-                ucFirst(__('August', 'municipio')),
-                ucFirst(__('September', 'municipio')),
-                ucFirst(__('October', 'municipio')),
-                ucFirst(__('November', 'municipio')),
-                ucFirst(__('December', 'municipio')),
+                ucFirst($this->wpService->__('January', 'municipio')),
+                ucFirst($this->wpService->__('February', 'municipio')),
+                ucFirst($this->wpService->__('March', 'municipio')),
+                ucFirst($this->wpService->__('April', 'municipio')),
+                ucFirst($this->wpService->__('May', 'municipio')),
+                ucFirst($this->wpService->__('June', 'municipio')),
+                ucFirst($this->wpService->__('July', 'municipio')),
+                ucFirst($this->wpService->__('August', 'municipio')),
+                ucFirst($this->wpService->__('September', 'municipio')),
+                ucFirst($this->wpService->__('October', 'municipio')),
+                ucFirst($this->wpService->__('November', 'municipio')),
+                ucFirst($this->wpService->__('December', 'municipio')),
             ])
             ->and()
             ->translation('localizedDays', [
-                ucFirst(__('Su', 'municipio')),
-                ucFirst(__('Mo', 'municipio')),
-                ucFirst(__('Tu', 'municipio')),
-                ucFirst(__('We', 'municipio')),
-                ucFirst(__('Th', 'municipio')),
-                ucFirst(__('Fr', 'municipio')),
-                ucFirst(__('Sa', 'municipio')),
+                ucFirst($this->wpService->__('Su', 'municipio')),
+                ucFirst($this->wpService->__('Mo', 'municipio')),
+                ucFirst($this->wpService->__('Tu', 'municipio')),
+                ucFirst($this->wpService->__('We', 'municipio')),
+                ucFirst($this->wpService->__('Th', 'municipio')),
+                ucFirst($this->wpService->__('Fr', 'municipio')),
+                ucFirst($this->wpService->__('Sa', 'municipio')),
             ]);
 
         //Other scripts
