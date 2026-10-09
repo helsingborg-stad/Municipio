@@ -12,15 +12,25 @@ body.user-can-upload_files {
     background: #b42318;
     color: #fff;
     position: absolute;
-    top: -4px;
-    right: -4px;
+    top: auto;
+    right: 0;
+    bottom: calc(100% + 6px);
+    inline-size: max-content;
+    max-inline-size: 20rem;
     font-size: .8em;
     border-radius: 3px;
     border: 2px solid #fff;
     box-shadow: 0 1px 3px rgba(#000, .35);
     line-height: 1.6em;
+    overflow-wrap: anywhere;
     pointer-events: none;
+    text-align: left;
+    white-space: normal;
     z-index: 1;
+
+    @media (max-width: 20.99rem) {
+      max-inline-size: calc(100vw - 16px);
+    }
   }
 }
 

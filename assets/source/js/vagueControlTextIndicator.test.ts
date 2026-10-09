@@ -1,4 +1,7 @@
-import { VagueControlTextIndicator } from "./vagueControlTextIndicator";
+import {
+	initializeVagueControlTextIndicator,
+	VagueControlTextIndicator,
+} from "./vagueControlTextIndicator";
 
 describe("VagueControlTextIndicator", () => {
 	let indicator: VagueControlTextIndicator;
@@ -43,5 +46,13 @@ describe("VagueControlTextIndicator", () => {
 		link.textContent = "Läs mer om bygglov";
 		await Promise.resolve();
 		expect(link.dataset.a11yError).toBeUndefined();
+	});
+
+	it("does not activate the rendered HTML check for visitors", () => {
+		document.body.innerHTML = `<a href="/bygglov">Läs mer</a>`;
+
+		initializeVagueControlTextIndicator();
+
+		expect(document.querySelector("a")?.dataset.a11yError).toBeUndefined();
 	});
 });
