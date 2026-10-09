@@ -1,10 +1,11 @@
 import MarkdownIt from "markdown-it";
 import { ChatSessionFactory } from "./chat/ChatSessionFactory";
 import Chat from "./chat/chat";
-import FeedbackApi from "./chat/feedbackApi";
-import FeedbackFactory from "./chat/feedbackFactory";
-import GreetingPhrase from "./chat/greetingPhrase";
-import NewChatSessionButton from "./chat/newChatSessionButton";
+import FeedbackApi from "./chat/feature/feedback/feedbackApi";
+import FeedbackFactory from "./chat/feature/feedback/feedbackFactory";
+import GreetingPhrase from "./chat/feature/greetingsPhrase/greetingPhrase";
+import NewChatSessionButton from "./chat/feature/newChat/newChatSessionButton";
+import Ai from "./chat/integration/ai/ai";
 
 function createMarkdownParser(): MarkdownIt {
 	const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });

@@ -1,5 +1,4 @@
 import type MarkdownIt from "markdown-it";
-import type FeedbackApi from "./feedbackApi";
 
 class Chat implements ChatInterface {
 	private session: ChatSession | null = null;
@@ -10,7 +9,7 @@ class Chat implements ChatInterface {
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
-		private readonly feedbackApi: FeedbackApi,
+		private readonly feedbackApi: FeedbackApiInterface,
 		private readonly assistantName: string | null = null,
 		private readonly persistSession: boolean = true,
 	) {}
