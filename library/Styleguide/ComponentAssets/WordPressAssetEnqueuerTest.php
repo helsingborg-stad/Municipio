@@ -93,17 +93,18 @@ class WordPressAssetEnqueuerTest extends TestCase
 
             $assets->enqueueComponent('button', ['sass' => ['components' => ['icon']]]);
             $assets->enqueueComponent('button');
+            $assets->enqueueMarkupComponents('<div data-component="acceptance"><dialog data-component="modal"></dialog></div>');
 
-            static::assertSame('<link>', $assets->renderStyles('<div class="u-hidden c-fab" data-component="acceptance" data-custom><table border="1"><tr><td data-component="modal">Value</td></tr></table></div>'));
+            static::assertSame('<link>', $assets->renderStyles('<div class="u-hidden c-fab" data-custom><table border="1"><tr><td>Value</td></tr></table></div>'));
             static::assertSame('<script></script>', $assets->renderScripts());
             static::assertSame([
                 'css/components/table.css',
                 'css/components/card.css',
                 'css/components/icon.css',
                 'css/components/button.css',
-                'css/components/fab.css',
                 'css/components/acceptance.css',
                 'css/components/modal.css',
+                'css/components/fab.css',
                 'css/utilities/display.css',
                 'css/utilities/preloader.css',
                 'js/components/button.js',
