@@ -14017,3 +14017,7 @@ msgstr ""
 #: library/Theme/Enqueue.php
 msgid "Invalid heading level (level is skipped)"
 msgstr ""
+
+#: library/Theme/Enqueue.php
+msgid "Page is missing an H1 heading"
+msgstr ""

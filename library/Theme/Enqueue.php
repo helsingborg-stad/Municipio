@@ -121,6 +121,7 @@ class Enqueue implements Hookable
                     'button' => $this->wpService->__('Button text is not descriptive enough', 'municipio'),
                     'headingHierarchy' => $this->wpService->__('Invalid heading level (level is skipped)', 'municipio'),
                     'link' => $this->wpService->__('Link text is not descriptive enough', 'municipio'),
+                    'missingH1' => $this->wpService->__('Page is missing an H1 heading', 'municipio'),
                     'vagueLabels' => [
                         $this->wpService->__('Click here', 'municipio'),
                         $this->wpService->__('Here', 'municipio'),

@@ -10,6 +10,7 @@ declare const MunicipioLocale: {
     button?: string
     headingHierarchy?: string
     link?: string
+    missingH1?: string
     vagueLabels?: string[]
   }
 }

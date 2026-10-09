@@ -14136,3 +14136,7 @@ msgstr "Mer"
 #: library/Theme/Enqueue.php
 msgid "Invalid heading level (level is skipped)"
 msgstr "Felaktig rubriknivå (nivå hoppas över)"
+
+#: library/Theme/Enqueue.php
+msgid "Page is missing an H1 heading"
+msgstr "Sidan saknar en H1-rubrik"
