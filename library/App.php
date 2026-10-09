@@ -820,6 +820,7 @@ class App
 
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
         (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\VagueControlTextIndicator($this->wpService))->addHooks();
     }
 
     /**

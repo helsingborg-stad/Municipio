@@ -117,6 +117,10 @@ class Enqueue implements Hookable
                     'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
                     'onError' => __('Something went wrong, please try again later', 'municipio'),
                 ],
+                'a11yWarnings' => [
+                    'button' => __('Button text is not descriptive enough', 'municipio'),
+                    'link' => __('Link text is not descriptive enough', 'municipio'),
+                ],
             ]);
         $this->ensureRestApiSettings();
 

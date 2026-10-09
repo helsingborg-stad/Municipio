@@ -5,6 +5,12 @@ declare const wpApiSettings: {
   refreshNonce?: (nonce?: string) => Promise<string | null>
 }
 declare const wp: { customize?: any }
+declare const MunicipioLocale: {
+  a11yWarnings?: {
+    button?: string
+    link?: string
+  }
+}
 
 // allow raw-loader to work
 declare module '*.css?raw' {

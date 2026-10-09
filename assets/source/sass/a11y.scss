@@ -2,20 +2,24 @@
 body.user-can-upload_files {
   [data-a11y-error] {
     position: relative;
+    outline: 3px solid #b42318;
+    outline-offset: 2px;
   }
 
   [data-a11y-error]:after {
     content: "[ ! ] " attr(data-a11y-error);
     padding: 4px 8px;
-    background: rgba(#f00, 0.8);
+    background: #b42318;
     color: #fff;
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: -4px;
+    right: -4px;
     font-size: .8em;
     border-radius: 3px;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(#000, .35);
     line-height: 1.6em;
+    pointer-events: none;
     z-index: 1;
   }
 }

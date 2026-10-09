@@ -9,6 +9,7 @@ import { initializeLanguageMenu } from "./languageMenu";
 import { initPostsListAsync } from "./postsList";
 import { initializeWpApiSettingsNonceRefresh } from "./restApi/wpApiSettings";
 import { initializeSessionManager } from "./sessionManager";
+import { initializeVagueControlTextIndicator } from "./vagueControlTextIndicator";
 
 const fab = new Fab();
 
@@ -23,3 +24,4 @@ initializeHeaderScrollOffset();
 initializeHashUpdateManager();
 initializeHeaderLogoScrollShrink();
 initPostsListAsync();
+initializeVagueControlTextIndicator();
