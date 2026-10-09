@@ -6,6 +6,10 @@ import FeedbackFactory from "./chat/feature/feedback/feedbackFactory";
 import GreetingPhrase from "./chat/feature/greetingsPhrase/greetingPhrase";
 import NewChatSessionButton from "./chat/feature/newChat/newChatSessionButton";
 import Ai from "./chat/integration/ai/ai";
+import Puzzel from "./chat/integration/puzzel/puzzel";
+import PuzzelConfig from "./chat/integration/puzzel/puzzelConfig";
+import PuzzelAuthenticator from "./chat/integration/puzzel/puzzelAuthenticator";
+import PuzzelConversationManager from "./chat/integration/puzzel/puzzelConversationManager";
 
 function createMarkdownParser(): MarkdownIt {
 	const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });
@@ -17,11 +21,20 @@ function createMarkdownParser(): MarkdownIt {
 
 class ChatFactory {
 	public init(chat: any): void {
+		const puzzelConfig = new PuzzelConfig();
+		const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig);
+		new Puzzel(
+			puzzelConfig,
+			puzzelAuthenticator,
+			new PuzzelConversationManager(puzzelConfig, puzzelAuthenticator),
+			chat,
+			this.isPersistent(chat)
+		).init();
+		return;
 		const chatElement = chat.getElement() as HTMLElement;
 		const greetingsPhrase = chatElement.dataset.jsChatGreetingsPhrase || null;
 		const feedbackTemplate = chatElement.querySelector("[data-js-chat-feedback]") as HTMLTemplateElement | null;
 		const chatAssistant = chatElement.dataset.jsChatAssistant || null;
-		const persistentAttribute = chatElement.getAttribute("data-js-chat-persistent");
 		const newChatButtonElement = chatElement.querySelector("[data-js-chat-new]") as HTMLElement | null;
 		const markdownParser = createMarkdownParser();
 		const chatSessionFactory = new ChatSessionFactory(wpApiSettings.root);
@@ -40,7 +53,7 @@ class ChatFactory {
 			feedbackFactory.create(message);
 		});
 
-		if (greetingsPhrase) {
+		if (greetingsPhrase !== null) {
 			new GreetingPhrase(chat, greetingsPhrase);
 		}
 
@@ -51,14 +64,21 @@ class ChatFactory {
 			feedbackFactory,
 			feedbackApi,
 			chatAssistant,
-			persistentAttribute !== null && persistentAttribute !== "false",
+			this.isPersistent(chat),
 		);
 		
-		if (newChatButtonElement) {
+		if (newChatButtonElement !== null) {
 			new NewChatSessionButton(newChatButtonElement, chatInstance, chat);
 		}
 
 		chatInstance.init();
+	}
+
+	private isPersistent(chat: any): boolean {
+		const persistentAttribute = chat.getElement().getAttribute("data-js-chat-persistent");
+
+		return persistentAttribute !== null
+			&& persistentAttribute.toLowerCase() !== "false";
 	}
 }
 
