@@ -7,6 +7,7 @@
     ])
         @element([
             'classList' => [
+                'municipio-chat__feedback',
                 'municipio-ai-chat__feedback'
             ]
         ])
@@ -14,6 +15,7 @@
                 'icon' => 'thumb_up',
                 'size' => 'sm',
                 'classList' => [
+                    'municipio-chat__feedback-like-button',
                     'municipio-ai-chat__feedback-like-button'
                 ],
                 'attributeList' => [
@@ -27,6 +29,7 @@
                 'icon' => 'thumb_down',
                 'size' => 'sm',
                 'classList' => [
+                    'municipio-chat__feedback-dislike-button',
                     'municipio-ai-chat__feedback-dislike-button'
                 ],
                 'attributeList' => [

@@ -1,13 +1,13 @@
-import { ChatSession } from "./ChatSession";
+import { AiChatSession } from "./AiChatSession";
 
-export class ChatSessionFactory {
+export class AiChatSessionFactory {
 	constructor(private readonly apiRoot: string) {}
 
 	public create(
 		assistantName: string | null,
 		persistSession: boolean = true,
-	): ChatSession {
-		return new ChatSession({
+	): AiChatSession {
+		return new AiChatSession({
 			apiRoot: this.apiRoot,
 			assistantName,
 			persistSession,
