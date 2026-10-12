@@ -23,6 +23,7 @@ class SingularPreschool extends \Municipio\Controller\Singular
         parent::init();
         $schema = $this->post->getSchema();
         global $wp_embed;
+        $schemaToPostTypeResolver = new SchemaToPostTypeResolver($this->acfService, $this->wpService);
 
         // Setup view data
         foreach ([
@@ -38,7 +39,7 @@ class SingularPreschool extends \Municipio\Controller\Singular
             'contactPoints' => new School\ContactpointsGenerator($schema),
             'events' => new School\EventsGenerator($schema),
             'alert' => new School\AlertGenerator($schema),
-            'eventsBlock' => new School\EventBlockGenerator($schema, new PostsListEventsBlockRender($this->wpService, new SchemaToPostTypeResolver($this->acfService, $this->wpService)), $this->wpService),
+            'eventsBlock' => new School\EventBlockGenerator($schema, new PostsListEventsBlockRender($this->wpService, $schemaToPostTypeResolver), $this->wpService, $schemaToPostTypeResolver),
         ] as $key => $generator) {
             $this->data[$key] = $generator->generate();
         }
