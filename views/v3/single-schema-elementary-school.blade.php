@@ -16,6 +16,7 @@
             @includeWhen(!empty($sliderItems), 'partials.schema.elementary-school.slider')
         @stop
         @section('content')
+            
             @includeWhen(!empty($usps), 'partials.schema.elementary-school.usps')
             @includeWhen(!empty($events), 'partials.schema.elementary-school.events')
             @includeWhen(!empty($actions), 'partials.schema.elementary-school.actions')

@@ -34,6 +34,28 @@ class BlockAttributesToGetPostsConfigMapperTest extends TestCase
         static::assertNotEmpty($config->getTerms());
         static::assertNull($config->getDateFrom());
         static::assertNull($config->getDateTo());
+        static::assertSame([], $config->getIncludedPostIds());
+    }
+
+    #[TestDox('maps included post IDs to the get posts config')]
+    public function testMapWithIncludedPostIds(): void
+    {
+        // Arrange
+        $wpService = new class implements GetTerms {
+            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|\WP_Error
+            {
+                return [];
+            }
+        };
+        $mapper = new BlockAttributesToGetPostsConfigMapper($wpService);
+        $attributes = static::getDefaultAttributes();
+        $attributes['includedPostIds'] = [12, 34];
+
+        // Act
+        $config = $mapper->map($attributes);
+
+        // Assert
+        static::assertSame([12, 34], $config->getIncludedPostIds());
     }
 
     #[TestDox('maps dateFrom and dateTo attributes to getPostsConfig')]
