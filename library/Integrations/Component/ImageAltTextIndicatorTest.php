@@ -36,6 +36,7 @@ class ImageAltTextIndicatorTest extends TestCase
         ]);
 
         static::assertSame('Alt text is missing', $data['attributeList']['data-a11y-error']);
+        static::assertSame('Alt text is missing', $data['attributeList']['data-tooltip']);
         static::assertSame('image', $data['attributeList']['data-component']);
     }
 
