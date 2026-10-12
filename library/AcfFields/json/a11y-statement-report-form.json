@@ -1,0 +1,84 @@
+[
+    {
+        "key": "group_mun_a11ystatement_report_form",
+        "title": "Accessibility issue report fields",
+        "fields": [
+            {
+                "key": "field_mun_a11ystatement_report_name",
+                "label": "Name",
+                "name": "mun_a11ystatement_report_name",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {"width": "", "class": "", "id": ""},
+                "default_value": "",
+                "is_privately_hidden": 1
+            },
+            {
+                "key": "field_mun_a11ystatement_report_email",
+                "label": "Email address",
+                "name": "mun_a11ystatement_report_email",
+                "aria-label": "",
+                "type": "email",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {"width": "", "class": "", "id": ""},
+                "default_value": "",
+                "is_privately_hidden": 1
+            },
+            {
+                "key": "field_mun_a11ystatement_report_phone",
+                "label": "Phone number",
+                "name": "mun_a11ystatement_report_phone",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {"width": "", "class": "", "id": ""},
+                "default_value": "",
+                "is_privately_hidden": 1
+            },
+            {
+                "key": "field_mun_a11ystatement_report_affected_url",
+                "label": "Affected web address",
+                "name": "mun_a11ystatement_report_affected_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Paste the address of the page where you found the issue.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {"width": "", "class": "", "id": ""},
+                "default_value": "",
+                "placeholder": "",
+                "is_privately_hidden": 1
+            },
+            {
+                "key": "field_mun_a11ystatement_report_message",
+                "label": "Describe the accessibility issue",
+                "name": "mun_a11ystatement_report_message",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {"width": "", "class": "", "id": ""},
+                "default_value": "",
+                "rows": 6,
+                "new_lines": "br",
+                "is_privately_hidden": 1
+            }
+        ],
+        "location": [[{"param": "post_type", "operator": "==", "value": "mun_a11y_report"}]],
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "active": true,
+        "show_in_rest": 0,
+        "acfe_autosync": ["json"]
+    }
+]

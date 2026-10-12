@@ -62,28 +62,32 @@
 
             {{-- Issues section start --}}
             @if (!empty($categorizedIssues) && is_array($categorizedIssues) && count($categorizedIssues) > 0)
-                @foreach($categorizedIssues as $key => $category)
-                    @card(['classList' => ['u-margin__top--2']])
-                        @element(['classList' => ['c-card__body']])
-                            @element(['classList' => ['c-card__heading']])
-                                @typography(['element' => 'h4', 'variant' => 'h4'])
-                                    @icon(['icon' => $category['icon'] ?? ''])@endicon
-                                    {{ $category['label'] }}
-                                @endtypography
-                            @endelement
-                        
-                            @element(['classList' => ['u-margin__top--2', 'c-card__content']])
+                @iconSection(['gap' => 4])
+                    @foreach($categorizedIssues as $category)
+                        @iconSection__item([
+                            'icon' => ['icon' => $category['icon'] ?? 'accessible'],
+                        ])
+                            @typography(['element' => 'h2', 'variant' => 'h4'])
+                                {{ $category['label'] }}
+                            @endtypography
+                            @element(['classList' => ['u-margin__top--2']])
                                 <ul>
                                     @foreach ($category['issues'] as $issue)
                                         <li>{{ $issue['label'] }}</li>
                                     @endforeach
                                 </ul>
                             @endelement
-                        @endelement
-                    @endcard
-                @endforeach
+                        @endiconSection__item
+                    @endforeach
+                @endiconSection
             @endif
             {{-- Issues section end --}}
+
+            @if (!empty($reportForm))
+                <div class="u-margin__top--4">
+                    {!! $reportForm !!}
+                </div>
+            @endif
 
         @endelement
     @endscope

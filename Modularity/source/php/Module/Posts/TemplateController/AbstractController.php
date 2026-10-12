@@ -7,13 +7,13 @@ namespace Modularity\Module\Posts\TemplateController;
 use Modularity\Helper\WpService as WpServiceHelper;
 use Modularity\Module\Posts\Helper\Column as ColumnHelper;
 use Modularity\Module\Posts\Helper\DomainChecker;
+use Modularity\Module\Posts\Helper\EventStartTimestampResolver;
 use Municipio\Helper\Memoize\MemoizedFunction;
 use Municipio\Helper\Post;
 use Municipio\MirroredPost\PostObject\MirroredPostObject;
 use Municipio\PostObject\PostObjectInterface;
 use WP_Post;
 use WpService\WpService;
-
 /**
  * Class AbstractController
  *
@@ -44,8 +44,21 @@ class AbstractController
         $this->domainChecker = $module->domainChecker;
         $this->data = $this->addDataViewData($module->data, $module->fields);
         $this->data['posts'] = $this->preparePosts($module);
+        $this->data['getPostDateTimestamp'] = [$this, 'getPostDateTimestamp'];
 
         $this->data['classList'] = [];
+    }
+
+    public function getPostDateTimestamp(PostObjectInterface $post)
+    {
+        if (($this->fields['posts_data_schema_type'] ?? null) === 'Event') {
+            $eventStartTimestamp = (new EventStartTimestampResolver())->getTimestamp($post);
+            if ($eventStartTimestamp !== null) {
+                return $eventStartTimestamp;
+            }
+        }
+
+        return $post->getArchiveDateTimestamp();
     }
 
     /**

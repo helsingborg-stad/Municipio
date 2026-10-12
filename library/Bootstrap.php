@@ -143,6 +143,7 @@ add_action('init', function () use ($wpService) {
         'a11y-statement' => 'group_6874ffb12b42d',
         'a11y-statement-url' => 'group_689c4def19f8e',
         'options-chat' => 'group_69b814ff11562',
+        'options-site-files' => 'group_670fa96c5f001',
     ]);
 
     $acfExportManager->autoExport($autoExportIds);

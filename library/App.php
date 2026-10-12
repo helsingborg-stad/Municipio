@@ -149,6 +149,8 @@ class App
         $enqueue = new \Municipio\Theme\Enqueue($this->wpService, $this->wpUtilService);
         $enqueue->addHooks();
 
+        (new \Municipio\Performance\FontDisplay\FontDisplay($this->wpService))->addHooks();
+
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
@@ -192,6 +194,11 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
+         * Public discovery files.
+         */
+        new \Municipio\Standards\DiscoveryFiles($this->wpService, $this->acfService);
+
+        /**
          * General filters
          */
         (new \Municipio\Filters\More($this->wpService))->addHooks();
@@ -224,7 +231,7 @@ class App
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\Options\Theme();
+        new \Municipio\Admin\Options\Theme($this->wpService);
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
@@ -242,6 +249,11 @@ class App
         new \Municipio\Admin\UI\Editor();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
+
+        /**
+         * Site Health
+         */
+        (new \Municipio\SiteHealth\TidyExtensionRequirement($this->wpService))->addHooks();
 
         /* Integration: MiniOrange */
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
@@ -807,6 +819,7 @@ class App
         $compressedCollections->addHooks();
 
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
     }
 
     /**

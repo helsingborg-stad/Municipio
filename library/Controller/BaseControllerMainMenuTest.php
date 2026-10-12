@@ -28,13 +28,32 @@ final class BaseControllerMainMenuTest extends TestCase
         static::assertFalse($this->hasMainMenu(['items' => []], [
             'upperItems' => ['left' => ['primary' => []]],
         ]));
+
+        static::assertTrue($this->hasMainMenu(
+            ['items' => []],
+            ['upperItems' => ['right' => ['drawer' => []]]],
+            ['items' => ['item']],
+        ));
+
+        static::assertFalse($this->hasMainMenu(
+            ['items' => []],
+            ['upperItems' => ['right' => ['drawer' => []]]],
+            ['items' => []],
+        ));
+
+        static::assertFalse($this->hasMainMenu(
+            ['items' => []],
+            ['upperItems' => ['right' => ['primary' => []]]],
+            ['items' => ['item']],
+        ));
     }
 
-    private function hasMainMenu(array $primaryMenu, array $headerData): bool
+    private function hasMainMenu(array $primaryMenu, array $headerData, array $mobileMenu = ['items' => []]): bool
     {
         $controller = (new \ReflectionClass(BaseController::class))->newInstanceWithoutConstructor();
         $controller->data['primaryMenu'] = $primaryMenu;
         $controller->data['headerData'] = $headerData;
+        $controller->data['mobileMenu'] = $mobileMenu;
 
         return (new \ReflectionMethod(BaseController::class, 'hasMainMenu'))->invoke($controller);
     }

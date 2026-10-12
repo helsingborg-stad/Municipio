@@ -79,6 +79,15 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
         $this->scripts[$handle] = ltrim($url, '/');
     }
 
+    /** Restore component registrations from cached markup. */
+    public function enqueueMarkupComponents(string $markup): void
+    {
+        preg_match_all('/\bdata-component=["\']([^"\']+)["\']/i', $markup, $matches);
+        foreach (array_unique($matches[1] ?? []) as $component) {
+            $this->enqueueComponent($component);
+        }
+    }
+
     public function beginFragment(): void
     {
         $this->fragmentContexts[] = [

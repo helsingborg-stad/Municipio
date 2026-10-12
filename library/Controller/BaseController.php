@@ -397,6 +397,9 @@ class BaseController
         $this->data['skipToMainContentLink'] = $this->setSkipLinkValue();
         $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $this->hasMainMenu();
+        $this->data['skipToMainMenuLink'] = $this->hasPrimaryMenu()
+            ? '#main-menu'
+            : '#mobile-menu-trigger-open';
 
         $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
 
@@ -803,13 +806,38 @@ class BaseController
      */
     protected function hasMainMenu()
     {
+        return $this->hasPrimaryMenu() || $this->hasDrawerMenu();
+    }
+
+    /**
+     * Check if the primary menu is rendered in the header.
+     */
+    protected function hasPrimaryMenu(): bool
+    {
         if (empty($this->data['primaryMenu']['items'])) {
             return false;
         }
 
+        return $this->headerContainsComponent('primary');
+    }
+
+    /**
+     * Check if the drawer menu is rendered in the header.
+     */
+    protected function hasDrawerMenu(): bool
+    {
+        return !empty($this->data['mobileMenu']['items'])
+            && $this->headerContainsComponent('drawer');
+    }
+
+    /**
+     * Check if a component is rendered in the header.
+     */
+    protected function headerContainsComponent(string $component): bool
+    {
         foreach (['upperItems', 'lowerItems'] as $section) {
             foreach (['left', 'center', 'right'] as $alignment) {
-                if (isset($this->data['headerData'][$section][$alignment]['primary'])) {
+                if (isset($this->data['headerData'][$section][$alignment][$component])) {
                     return true;
                 }
             }

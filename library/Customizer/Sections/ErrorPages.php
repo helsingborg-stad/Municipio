@@ -100,7 +100,7 @@ class ErrorPages
     {
         switch ($type) {
             case '404':
-                return ucfirst(esc_html__("The %s you are looking for is either moved or removed.", 'municipio'));
+                return ucfirst(esc_html__("We could not find the %s you requested. It may have been moved, renamed, or removed. Check the address, try using the search function, or return to the start page to find the information you need.", 'municipio'));
             default:
                 return '';
         }
