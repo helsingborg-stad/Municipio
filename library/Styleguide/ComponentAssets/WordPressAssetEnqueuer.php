@@ -83,7 +83,18 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
     public function enqueueMarkupComponents(string $markup): void
     {
         preg_match_all('/\bdata-component=["\']([^"\']+)["\']/i', $markup, $matches);
-        foreach (array_unique($matches[1] ?? []) as $component) {
+        preg_match_all('/\bclass=["\']([^"\']+)["\']/i', $markup, $classMatches);
+
+        $components = $matches[1] ?? [];
+        foreach ($classMatches[1] ?? [] as $classList) {
+            foreach (preg_split('/\s+/', $classList) as $className) {
+                if (preg_match('/^c-([a-z0-9-]+)$/i', $className, $componentMatch)) {
+                    $components[] = $componentMatch[1];
+                }
+            }
+        }
+
+        foreach (array_unique($components) as $component) {
             $this->enqueueComponent($component);
         }
     }
