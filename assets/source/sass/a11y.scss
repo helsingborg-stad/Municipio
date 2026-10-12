@@ -1,71 +1,82 @@
 /* Accessibility warnings */
 body.user-can-upload_files {
+  --a11y-warning-z-index: 100000;
+
   [data-a11y-error] {
     position: relative;
-    outline: .25rem solid #b42318;
-    outline-offset: .25rem;
+    outline: calc(var(--border-width) * var(--base) * 2) solid var(--color--warning);
+    outline-offset: var(--base);
   }
 
   [data-a11y-error]:after {
-    content: "[ ! ] " attr(data-a11y-error);
-    padding: .25rem .5rem;
-    background: #b42318;
-    color: #fff;
+    padding: calc(var(--base) / 2) var(--base);
+    background: var(--color--warning);
+    color: var(--color--warning-contrast);
     position: absolute;
-    top: auto;
+    top: calc(var(--base) * -6);
     right: 0;
-    bottom: calc(100% + .5rem);
     inline-size: max-content;
-    max-inline-size: 20rem;
-    font-size: 1rem;
-    border-radius: .25rem;
-    border: .125rem solid #fff;
-    box-shadow: 0 .125rem .25rem rgba(#000, .35);
-    line-height: 1.5;
+    max-inline-size: calc(var(--base) * 24);
+    font-size: var(--font-size-90);
+    border-radius: calc(var(--border-radius) * var(--base));
+    border: calc(var(--border-width) * var(--base)) solid var(--color--warning-border);
+    corner-shape: var(--corner-shape);
+    box-shadow: 0 calc(var(--base) * .5 * var(--shadow-amount)) calc(var(--base) * var(--shadow-amount)) var(--shadow-color);
+    line-height: var(--line-height-base);
     overflow-wrap: anywhere;
     pointer-events: none;
     text-align: left;
     white-space: normal;
-    z-index: 1;
-
-    @media (max-width: 20.99rem) {
-      max-inline-size: calc(100vw - 16px);
-    }
+    z-index: var(--a11y-warning-z-index);
   }
 
   [data-a11y-error][data-tooltip-initialized]:after {
-    content: "[ ! ]";
-    top: -.5rem;
-    right: -.5rem;
-    bottom: auto;
+    content: "[!]";
+    font-family: var(--font-family-code);
+    top: calc(var(--base) * -1);
+    right: calc(var(--base) * -1);
     inline-size: auto;
     max-inline-size: none;
     white-space: nowrap;
   }
 
+  figure.c-image[data-a11y-error][data-tooltip-initialized]:after {
+    inset: 0;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: calc(var(--base) * 4);
+    block-size: calc(var(--base) * 4);
+    margin: auto;
+    padding: 0;
+  }
+
   .a11y-floating-warning {
     position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    z-index: 100000;
+    inset-inline: 0;
+    bottom: calc(var(--base) * 2);
+    z-index: var(--a11y-warning-z-index);
     display: flex;
-    gap: .5rem;
+    gap: var(--base);
     align-items: center;
-    max-inline-size: 20rem;
-    padding: .5rem 1rem;
-    border: .125rem solid #fff;
-    border-radius: .25rem;
-    background: #b42318;
-    box-shadow: 0 .125rem .25rem rgba(#000, .35);
-    color: #fff;
-    font-size: 1rem;
-    line-height: 1.5;
+    inline-size: fit-content;
+    max-inline-size: calc(var(--base) * 24);
+    margin-inline: auto;
+    padding: var(--base) calc(var(--base) * 2);
+    border: calc(var(--border-width) * var(--base)) solid var(--color--warning-border);
+    border-radius: calc(var(--border-radius) * var(--base));
+    corner-shape: var(--corner-shape);
+    background: var(--color--warning);
+    box-shadow: 0 calc(var(--base) * .5 * var(--shadow-amount)) calc(var(--base) * var(--shadow-amount)) var(--shadow-color);
+    color: var(--color--warning-contrast);
+    font-size: var(--font-size-90);
+    line-height: var(--line-height-base);
     overflow-wrap: anywhere;
 
-    @media (max-width: 20.99rem) {
-      right: 1rem;
-      left: 1rem;
-      max-inline-size: none;
+    .a11y-warning-icon {
+      flex: none;
+      font-family: var(--font-family-code);
+      white-space: nowrap;
     }
   }
 }
@@ -77,15 +88,15 @@ body.user-can-upload_files {
     contain: layout;
     position: relative;
     display: inline-block;
-    padding: calc(var(--base, 8px) / 4) calc(var(--base, 8px));
-    border-radius: var(--border-radius-md, 4px);
-    margin-right: 0.5em;
+    padding: calc(var(--base) / 2) var(--base);
+    border-radius: calc(var(--border-radius) * var(--base));
+    margin-right: var(--base);
 
     span {
       position: relative;
       display: flex;
       align-items: center;
-      gap: calc(var(--base, 8px) / 2);
+      gap: calc(var(--base) / 2);
     }
   }
 }

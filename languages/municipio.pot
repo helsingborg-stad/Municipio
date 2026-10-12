@@ -14021,3 +14021,7 @@ msgstr ""
 #: library/Theme/Enqueue.php
 msgid "Page is missing an H1 heading"
 msgstr ""
+
+#: library/Integrations/Component/ImageAltTextIndicator.php
+msgid "Alt text is missing"
+msgstr ""

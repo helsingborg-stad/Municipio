@@ -52,8 +52,9 @@ export class MissingH1Indicator {
 		warning.dataset.tooltip = message;
 
 		const icon = document.createElement("span");
+		icon.className = "a11y-warning-icon";
 		icon.setAttribute("aria-hidden", "true");
-		icon.textContent = "[ ! ]";
+		icon.textContent = "[!]";
 
 		const text = document.createElement("span");
 		text.textContent = message;

@@ -14140,3 +14140,7 @@ msgstr "Felaktig rubriknivå (nivå hoppas över)"
 #: library/Theme/Enqueue.php
 msgid "Page is missing an H1 heading"
 msgstr "Sidan saknar en H1-rubrik"
+
+#: library/Integrations/Component/ImageAltTextIndicator.php
+msgid "Alt text is missing"
+msgstr "Alternativtext saknas"

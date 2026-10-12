@@ -19,6 +19,7 @@ describe("MissingH1Indicator", () => {
 		const warning = document.getElementById("a11y-missing-h1-warning");
 		expect(warning?.classList.contains("a11y-floating-warning")).toBe(true);
 		expect(warning?.textContent).toContain("Page is missing an H1 heading");
+		expect(warning?.querySelector(".a11y-warning-icon")?.textContent).toBe("[!]");
 		expect(warning?.parentElement?.id).toBe("main-content");
 		expect(warning?.parentElement?.firstElementChild).toBe(warning);
 	});
