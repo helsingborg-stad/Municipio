@@ -55,7 +55,7 @@ class EventBlockGenerator
         }
 
         // Find post ids by event ids. These are stored on posts in meta table under key "originId"
-        $eventPostIds = $this->wpService->getPosts([
+        return $this->wpService->getPosts([
             'post_type' => 'event',
             'meta_query' => [
                 [
@@ -67,7 +67,5 @@ class EventBlockGenerator
             'fields' => 'ids',
             'posts_per_page' => -1,
         ]);
-
-        return $eventPostIds;
     }
 }
