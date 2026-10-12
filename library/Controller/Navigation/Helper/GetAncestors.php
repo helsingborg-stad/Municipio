@@ -22,6 +22,7 @@ class GetAncestors
     public static function getAncestors($includeTopLevel = true): array
     {
         $postId = CurrentPostId::get();
+        $cachePostId = $postId;
         $db     = GetGlobal::getGlobal('wpdb');
 
         $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
@@ -87,10 +88,10 @@ class GetAncestors
 
         //Return and cache result
         $ancestors                        = NavigationRuntimeCache::getCache('ancestors');
-        $ancestors[$cacheSubKey][$postId] = $ancestorStack;
+        $ancestors[$cacheSubKey][$cachePostId] = $ancestorStack;
         NavigationRuntimeCache::setCache('ancestors', $ancestors);
 
-        return $ancestors[$cacheSubKey][$postId];
+        return $ancestors[$cacheSubKey][$cachePostId];
     }
 
     private static function isUserLoggedIn(): bool
