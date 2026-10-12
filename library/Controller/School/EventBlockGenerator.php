@@ -54,7 +54,7 @@ class EventBlockGenerator
         }
 
         $eventIds = array_map(
-            fn($event) => $event['@id'],
+            static fn($event) => $event['@id'],
             $this->school->getProperty('event') ?? [],
         );
 
