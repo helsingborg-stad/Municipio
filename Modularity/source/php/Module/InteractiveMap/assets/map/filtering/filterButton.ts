@@ -2,13 +2,13 @@ import {
 	ContainerEventHelperInterface,
 	OpenStateDetail,
 } from "../helper/containerEventHelperInterface";
+import { setIcon } from "../icon";
 
 class FilterButton {
 	private filterButton: HTMLElement | null;
 	private filterItemsContainer: HTMLElement | null;
 	private innerCloseButton: HTMLElement | null;
 	private isOpen: boolean = false;
-	private iconAttribute: string = "data-material-symbol";
 	private openClass: string = "is-open";
 
 	constructor(
@@ -66,13 +66,13 @@ class FilterButton {
 
 	private close() {
 		this.filterItemsContainer!.classList.remove(this.openClass);
-		this.filterButton?.setAttribute(this.iconAttribute, "tune");
+		setIcon(this.filterButton, "tune");
 		this.isOpen = false;
 	}
 
 	private open() {
 		this.filterItemsContainer!.classList.add(this.openClass);
-		this.filterButton?.setAttribute(this.iconAttribute, "close");
+		setIcon(this.filterButton, "close");
 		this.isOpen = true;
 	}
 
