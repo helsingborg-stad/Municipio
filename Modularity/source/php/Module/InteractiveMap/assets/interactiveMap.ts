@@ -51,6 +51,7 @@ class InteractiveMap {
 		const filterButton = new FilterButton(container, containerEventHelper);
 		const filterHelperInstance = new FilterHelper(map, storageInstance);
 		const layerGroupFilterFactory = new LayerGroupFilterFactory(
+			container,
 			map,
 			storageInstance,
 			filterHelperInstance,

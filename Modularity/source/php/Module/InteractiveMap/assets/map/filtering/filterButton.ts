@@ -66,13 +66,13 @@ class FilterButton {
 
 	private close() {
 		this.filterItemsContainer!.classList.remove(this.openClass);
-		setIcon(this.filterButton, "tune");
+		setIcon(this.container, this.filterButton, "tune");
 		this.isOpen = false;
 	}
 
 	private open() {
 		this.filterItemsContainer!.classList.add(this.openClass);
-		setIcon(this.filterButton, "close");
+		setIcon(this.container, this.filterButton, "close");
 		this.isOpen = true;
 	}
 

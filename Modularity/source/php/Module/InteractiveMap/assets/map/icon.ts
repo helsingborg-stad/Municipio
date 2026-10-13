@@ -1,23 +1,30 @@
-const paths: Record<string, string> = {
-	check_box:
-		'<path d="M424 648 706 366 650 310 424 536 310 422 254 478ZM200 840Q167 840 143.5 816.5Q120 793 120 760V200Q120 167 143.5 143.5Q167 120 200 120H760Q793 120 816.5 143.5Q840 167 840 200V760Q840 793 816.5 816.5Q793 840 760 840ZM200 760H760V200H200Z"/>',
-	check_box_outline_blank:
-		'<path d="M200 840Q167 840 143.5 816.5Q120 793 120 760V200Q120 167 143.5 143.5Q167 120 200 120H760Q793 120 816.5 143.5Q840 167 840 200V760Q840 793 816.5 816.5Q793 840 760 840ZM200 760H760V200H200Z"/>',
-	close: '<path d="M256 760 200 704 424 480 200 256 256 200 480 424 704 200 760 256 536 480 760 704 704 760 480 536Z"/>',
-	tune: '<path d="M440 840V600H520V680H840V760H520V840ZM120 760V680H360V760ZM280 600V520H120V440H280V360H360V600ZM440 520V440H840V520ZM600 360V120H680V200H840V280H680V360ZM120 280V200H520V280Z"/>',
-	location_on:
-		'<path d="M480 774Q602 662 661 570.5Q720 479 720 408Q720 299 650.5 229.5Q581 160 480 160Q379 160 309.5 229.5Q240 299 240 408Q240 479 299 570.5Q358 662 480 774ZM480 880Q319 743 239.5 625.5Q160 508 160 408Q160 258 256.5 169Q353 80 480 80Q607 80 703.5 169Q800 258 800 408Q800 508 720.5 625.5Q641 743 480 880ZM480 480Q513 480 536.5 456.5Q560 433 560 400Q560 367 536.5 343.5Q513 320 480 320Q447 320 423.5 343.5Q400 367 400 400Q400 433 423.5 456.5Q447 480 480 480Z"/>',
-};
+function getTemplateIcon(container: HTMLElement, icon: string): SVGElement | null {
+	const templates = container.querySelectorAll<HTMLTemplateElement>(
+		'[data-js-interactive-map-icon-template]',
+	);
 
-export function setIcon(element: HTMLElement | null, icon: string): void {
-	const svg = element?.querySelector('svg');
-	const path = paths[icon];
+	for (const template of templates) {
+		if (template.dataset.jsInteractiveMapIconTemplate === icon) {
+			return template.content.querySelector('svg');
+		}
+	}
 
-	if (svg && path) {
-		svg.innerHTML = path;
+	return null;
+}
+
+function getIcon(container: HTMLElement, icon: string): SVGElement | null {
+	return getTemplateIcon(container, icon) ?? getTemplateIcon(container, 'location_on');
+}
+
+export function setIcon(container: HTMLElement, element: HTMLElement | null, icon: string): void {
+	const currentIcon = element?.querySelector('svg');
+	const templateIcon = getIcon(container, icon);
+
+	if (currentIcon && templateIcon) {
+		currentIcon.replaceWith(templateIcon.cloneNode(true));
 	}
 }
 
-export function createIcon(icon: string): string {
-	return `<svg aria-hidden="true" focusable="false" viewBox="0 0 960 960" fill="currentColor" width="20" height="20">${paths[icon] ?? paths.location_on}</svg>`;
+export function createIcon(container: HTMLElement, icon: string): string {
+	return getIcon(container, icon)?.outerHTML ?? '';
 }

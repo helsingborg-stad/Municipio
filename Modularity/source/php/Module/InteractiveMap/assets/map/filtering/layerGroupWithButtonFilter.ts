@@ -55,7 +55,7 @@ class LayerGroupWithButtonFilter implements LayerGroupFilterInterface {
 		if (this.savedLayerGroup.preselected) {
 			this.active = true;
 			this.filterButton.setAttribute("aria-pressed", "true");
-			setIcon(this.filterButton, this.checkedIcon);
+			setIcon(this.container, this.filterButton, this.checkedIcon);
 			this.getLayerGroup().addTo(this.addable);
 			this.filterButton.classList.add(this.activeClass);
 		}
@@ -78,7 +78,7 @@ class LayerGroupWithButtonFilter implements LayerGroupFilterInterface {
 		this.mapInstance.getAddable().closePopup();
 		this.getLayerGroup().removeLayerGroupFrom(this.addable);
 		this.filterButton!.setAttribute("aria-pressed", "false");
-		setIcon(this.filterButton, this.unCheckedIcon);
+		setIcon(this.container, this.filterButton, this.unCheckedIcon);
 		this.filterButton!.classList.remove(this.activeClass);
 	}
 
@@ -86,7 +86,7 @@ class LayerGroupWithButtonFilter implements LayerGroupFilterInterface {
 		this.active = true;
 		this.getLayerGroup().addTo(this.addable);
 		this.filterButton!.setAttribute("aria-pressed", "true");
-		setIcon(this.filterButton, this.checkedIcon);
+		setIcon(this.container, this.filterButton, this.checkedIcon);
 		this.filterButton!.classList.add(this.activeClass);
 	}
 

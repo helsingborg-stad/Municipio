@@ -7,6 +7,7 @@ import { createIcon } from "./icon";
 
 class Markers {
 	constructor(
+		private container: HTMLElement,
 		private map: MapInterface,
 		private savedMarkers: SavedMarker[],
 		private storageInstance: StorageInterface,
@@ -91,7 +92,7 @@ class Markers {
 		const backgroundColor = highlighted ? "white" : color;
 		const markerClass = highlighted ? " interactive-map__highlighted-marker" : "";
 
-		return `<span class="interactive-map__marker-icon${markerClass}" style="align-items: center; background-color: ${backgroundColor}; border: solid 2px ${color}; border-radius: 50%; box-sizing: border-box; color: ${highlighted ? color : "white"}; display: flex; flex: 0 0 32px; height: 32px; justify-content: center; line-height: 0; overflow: hidden; width: 32px;">${createIcon(icon)}</span>`;
+		return `<span class="interactive-map__marker-icon${markerClass}" style="align-items: center; background-color: ${backgroundColor}; border: solid 2px ${color}; border-radius: 50%; box-sizing: border-box; color: ${highlighted ? color : "white"}; display: flex; flex: 0 0 32px; height: 32px; justify-content: center; line-height: 0; overflow: hidden; width: 32px;">${createIcon(this.container, icon)}</span>`;
 	}
 
 	private getMarkerIcon(hasParent: boolean, layerGroup: string): string {
