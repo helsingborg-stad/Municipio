@@ -3,6 +3,7 @@
 namespace Municipio\Api\Navigation;
 
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Controller\Navigation\Helper\ApplyCustomMenuTitles;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use WP_REST_Request;
@@ -111,16 +112,7 @@ class Children extends RestApiEndpoint
             $menuItems
         )));
 
-        // Direct branches bypass the custom-title decorator used by the initial menu.
-        update_meta_cache('post', array_column($menuItems, 'id'));
-        foreach ($menuItems as &$menuItem) {
-            foreach (get_post_meta($menuItem['id'], 'custom_menu_title', false) as $customTitle) {
-                if (!empty($customTitle)) {
-                    $menuItem['label'] = $customTitle;
-                }
-            }
-        }
-        unset($menuItem);
+        $menuItems = ApplyCustomMenuTitles::apply($menuItems);
 
         $menuItems = apply_filters('Municipio/Navigation/Items', $menuItems, $identifier);
 
