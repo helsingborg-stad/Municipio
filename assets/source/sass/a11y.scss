@@ -3,20 +3,25 @@ body.user-can-upload_files {
   --a11y-warning-z-index: 100000;
 
   [data-a11y-error] {
-    position: relative;
     outline: calc(var(--border-width) * var(--base) * 2) solid var(--color--warning);
     outline-offset: var(--base);
   }
 
-  [data-a11y-error]:after {
+  [data-a11y-error][data-tooltip-initialized]:not(figure.c-image) {
+    position: relative;
+  }
+
+  [data-a11y-error][data-tooltip-initialized]:not(figure.c-image):after {
+    content: "[!]";
+    font-family: var(--font-family-code);
     padding: calc(var(--base) / 2) var(--base);
     background: var(--color--warning);
     color: var(--color--warning-contrast);
     position: absolute;
-    top: calc(var(--base) * -6);
-    right: 0;
-    inline-size: max-content;
-    max-inline-size: calc(var(--base) * 24);
+    top: calc(var(--base) * -1);
+    right: calc(var(--base) * -1);
+    inline-size: auto;
+    max-inline-size: none;
     font-size: var(--font-size-90);
     border-radius: calc(var(--border-radius) * var(--base));
     border: calc(var(--border-width) * var(--base)) solid var(--color--warning-border);
@@ -26,29 +31,8 @@ body.user-can-upload_files {
     overflow-wrap: anywhere;
     pointer-events: none;
     text-align: left;
-    white-space: normal;
-    z-index: var(--a11y-warning-z-index);
-  }
-
-  [data-a11y-error][data-tooltip-initialized]:after {
-    content: "[!]";
-    font-family: var(--font-family-code);
-    top: calc(var(--base) * -1);
-    right: calc(var(--base) * -1);
-    inline-size: auto;
-    max-inline-size: none;
     white-space: nowrap;
-  }
-
-  figure.c-image[data-a11y-error][data-tooltip-initialized]:after {
-    inset: 0;
-    display: grid;
-    place-items: center;
-    box-sizing: border-box;
-    inline-size: calc(var(--base) * 4);
-    block-size: calc(var(--base) * 4);
-    margin: auto;
-    padding: 0;
+    z-index: var(--a11y-warning-z-index);
   }
 
   .a11y-floating-warning {
