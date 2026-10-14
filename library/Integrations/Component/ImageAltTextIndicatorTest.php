@@ -33,11 +33,14 @@ class ImageAltTextIndicatorTest extends TestCase
         $data = (new ImageAltTextIndicator($wpService))->addIndicator([
             'alt' => '',
             'attributeList' => ['data-component' => 'image'],
+            'wrapperAttributes' => ['data-wrapper' => 'image'],
         ]);
 
         static::assertSame('Alt text is missing', $data['attributeList']['data-a11y-error']);
-        static::assertSame('Alt text is missing', $data['attributeList']['data-tooltip']);
+        static::assertSame('Alt text is missing', $data['wrapperAttributes']['data-tooltip']);
+        static::assertSame('true', $data['wrapperAttributes']['data-a11y-marker']);
         static::assertSame('image', $data['attributeList']['data-component']);
+        static::assertSame('image', $data['wrapperAttributes']['data-wrapper']);
     }
 
     public function testDoesNotAddIndicatorForVisitorsOrImagesWithAltText(): void
