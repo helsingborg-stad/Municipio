@@ -1,7 +1,5 @@
-@foreach ($post->getSchemaProperty('hiringOrganization') ?? [] as $organization)
-    @if ($organization['ethicsPolicy'] ?? null)
-        @paper(['padding' => 4])
-            {{$organization['ethicsPolicy']}}
-        @endpaper
-    @endif
+@foreach ($ethicsPolicies as $ethicsPolicy)
+    @paper(['padding' => 4])
+        {{$ethicsPolicy}}
+    @endpaper
 @endforeach

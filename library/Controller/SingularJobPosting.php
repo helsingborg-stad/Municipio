@@ -20,6 +20,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->data['displayFeaturedImage'] = false;
         $this->populateLanguageObject();
         $this->populateInformationList();
+        $this->populateEthicsPolicies();
         $this->setExpired();
     }
 
@@ -176,6 +177,29 @@ class SingularJobPosting extends \Municipio\Controller\Singular
                 'label' => $this->data['lang']->reference,
                 'value' => $this->post->getSchemaProperty('@id')
             ];
+        }
+    }
+
+    /**
+     * Populate the ethics policies for the view.
+     */
+    private function populateEthicsPolicies(): void
+    {
+        $hiringOrganizations = $this->post->getSchemaProperty('hiringOrganization');
+        $this->data['ethicsPolicies'] = [];
+
+        if (!is_array($hiringOrganizations)) {
+            return;
+        }
+
+        if (isset($hiringOrganizations['ethicsPolicy'])) {
+            $hiringOrganizations = [$hiringOrganizations];
+        }
+
+        foreach ($hiringOrganizations as $organization) {
+            if (is_array($organization) && !empty($organization['ethicsPolicy'])) {
+                $this->data['ethicsPolicies'][] = $organization['ethicsPolicy'];
+            }
         }
     }
 }

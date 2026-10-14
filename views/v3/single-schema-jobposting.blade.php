@@ -14,7 +14,7 @@
         @stop
         @section('content')
             @include('partials.schema.jobposting.description')
-            @includeWhen(!empty($post->getSchemaProperty('hiringOrganization')), 'partials.schema.jobposting.ethics-policy')
+            @includeWhen(!empty($ethicsPolicies), 'partials.schema.jobposting.ethics-policy')
         @stop
 
         @section('sidebar-right-content')
