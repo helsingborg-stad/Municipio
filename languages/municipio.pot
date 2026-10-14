@@ -9,13 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T08:41:32+00:00\n"
+"POT-Creation-Date: 2026-10-14T09:25:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
 
 #. Theme Name of the theme
 #: style.css
+#: library/SiteHealth/TidyExtensionRequirement.php:62
+#: library/SiteHealth/TidyExtensionRequirement.php:75
 msgid "Municipio"
 msgstr ""
 
@@ -39,92 +41,110 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:45
-#: library/A11yStatement/A11yStatement.php:59
-#: library/A11yStatement/A11yStatement.php:60
+#: library/A11yStatement/A11yStatement.php:88
+#: library/A11yStatement/A11yStatement.php:102
+#: library/A11yStatement/A11yStatement.php:103
 #: library/AcfFields/php/a11y-statement.php:8
-#: library/Controller/A11y.php:281
+#: library/Controller/A11y.php:283
 msgid "Accessibility Statement"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:46
+#: library/A11yStatement/A11yStatement.php:89
 msgid "This is the accessibility statement for our website."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:64
+#: library/A11yStatement/A11yStatement.php:107
 msgid "Update"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:65
+#: library/A11yStatement/A11yStatement.php:108
 msgid "The accessibility statement has been updated."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:94
+#: library/A11yStatement/A11yStatement.php:137
 msgid "accessibility-statement"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:170
-#: library/A11yStatement/A11yStatement.php:184
-msgid "Report an accessibility issue"
-msgstr ""
-
-#: library/A11yStatement/A11yStatement.php
+#: library/A11yStatement/A11yStatement.php:213
+#: library/A11yStatement/A11yStatement.php:225
 msgid "Report accessibility issue"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php
+#: library/A11yStatement/A11yStatement.php:236
 msgid "Describe accessibility issue"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php
-msgid "Accessibility issue reports"
-msgstr ""
-
-#: library/A11yStatement/A11yStatement.php
-msgid "The accessibility issue report form requires the Modularity Frontend Form plugin to be active."
-msgstr ""
-
-#: library/A11yStatement/A11yStatement.php
-msgid "The accessibility issue report form is hidden until a valid recipient email address has been entered below."
-msgstr ""
-
-#: views/v3/a11y.blade.php
+#: library/A11yStatement/A11yStatement.php:237
 msgid "Tell us if something does not work or is difficult to use. We will address the issue as soon as possible."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php
+#: library/A11yStatement/A11yStatement.php:241
+msgid "Contact details"
+msgstr ""
+
+#: library/A11yStatement/A11yStatement.php:242
 msgid "Please provide your contact details if you would like us to contact you with questions about the reported issue."
+msgstr ""
+
+#: library/A11yStatement/A11yStatement.php:262
+msgid "Accessibility issue reports"
+msgstr ""
+
+#: library/A11yStatement/A11yStatement.php:387
+msgid "The accessibility issue report form requires the Modularity Frontend Form plugin to be active."
+msgstr ""
+
+#: library/A11yStatement/A11yStatement.php:389
+msgid "The accessibility issue report form is hidden until a valid recipient email address has been entered below."
+msgstr ""
+
+#: library/AcfFields/php/a11y-statement-report-contact.php:6
+msgid "Accessibility issue report contact fields"
+msgstr ""
+
+#: library/AcfFields/php/a11y-statement-report-contact.php:10
+#: library/AcfFields/php/options-chat.php:312
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:43
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:70
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:83
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:46
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:57
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:82
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:101
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:55
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:82
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:38
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:46
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:62
+#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
+#: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
+#: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
+#: Modularity/source/php/Module/Posts/Posts.php:254
+msgid "Name"
+msgstr ""
+
+#: library/AcfFields/php/a11y-statement-report-contact.php:18
+msgid "Email address"
+msgstr ""
+
+#: library/AcfFields/php/a11y-statement-report-contact.php:26
+#: Modularity/source/php/AcfFields/php/mod-contacts.php:287
+msgid "Phone number"
 msgstr ""
 
 #: library/AcfFields/php/a11y-statement-report-form.php:6
 msgid "Accessibility issue report fields"
 msgstr ""
 
-#: library/AcfFields/php/a11y-statement-report-contact.php
-msgid "Accessibility issue report contact fields"
-msgstr ""
-
-#: library/AcfFields/php/a11y-statement-report-form.php
-msgid "Email address"
-msgstr ""
-
 #: library/AcfFields/php/a11y-statement-report-form.php:10
-msgid "Contact details"
-msgstr ""
-
-#: library/AcfFields/php/a11y-statement-report-form.php:13
-msgid "For example, your name, email address or telephone number."
-msgstr ""
-
-#: library/AcfFields/php/a11y-statement-report-form.php:19
 msgid "Affected web address"
 msgstr ""
 
-#: library/AcfFields/php/a11y-statement-report-form.php:22
+#: library/AcfFields/php/a11y-statement-report-form.php:13
 msgid "Paste the address of the page where you found the issue."
 msgstr ""
 
-#: library/AcfFields/php/a11y-statement-report-form.php:28
+#: library/AcfFields/php/a11y-statement-report-form.php:19
 msgid "Describe the accessibility issue"
 msgstr ""
 
@@ -162,7 +182,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr ""
 
@@ -308,11 +327,11 @@ msgstr ""
 msgid "Other issues"
 msgstr ""
 
-#: library/AcfFields/php/a11y-statement.php:249
+#: library/AcfFields/php/a11y-statement.php:250
 msgid "Accessibility issue report recipient"
 msgstr ""
 
-#: library/AcfFields/php/a11y-statement.php:253
+#: library/AcfFields/php/a11y-statement.php:254
 msgid "Reports submitted through the accessibility statement form are sent only to this address."
 msgstr ""
 
@@ -345,6 +364,7 @@ msgid "Open in new window"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:69
+#: library/AcfFields/php/common-field-groups.php:99
 #: library/AcfFields/php/options-menu-language.php:80
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:98
 #: Modularity/source/php/AcfFields/php/mod-notice.php:75
@@ -359,6 +379,7 @@ msgid "Yes"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:70
+#: library/AcfFields/php/common-field-groups.php:100
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:430
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:87
 #: Modularity/source/php/AcfFields/php/mod-wpwidget.php:119
@@ -649,7 +670,6 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr ""
 
@@ -679,7 +699,7 @@ msgstr ""
 msgid ""
 "This feature allows you to select fields that should be manage from the main site id (that is this site). Field groups will not be rendered on the subsites; Instead a link will be rendered to take the user to the main site for editing of the option. \r\n"
 "\r\n"
-"Please select the field groups that you want to manage centrally below."
+"Please select the field groups that you want to manage centrally below. Each field group can optionally use Network 1 as its source."
 msgstr ""
 
 #: library/AcfFields/php/common-field-groups.php:32
@@ -709,6 +729,14 @@ msgstr ""
 
 #: library/AcfFields/php/common-field-groups.php:69
 msgid "Report settings"
+msgstr ""
+
+#: library/AcfFields/php/common-field-groups.php:84
+msgid "Network 1"
+msgstr ""
+
+#: library/AcfFields/php/common-field-groups.php:96
+msgid "Use Network 1"
 msgstr ""
 
 #: library/AcfFields/php/easy-reading-options.php:8
@@ -838,7 +866,6 @@ msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr ""
 
@@ -1217,26 +1244,6 @@ msgstr ""
 #: library/Customizer/Controls/Sortable/SortableControl.php:71
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:106
 msgid "Settings"
-msgstr ""
-
-#: library/AcfFields/php/options-chat.php:312
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:43
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:70
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:83
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:46
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:57
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:82
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:101
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:55
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:82
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:38
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:46
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ProjectFormFactory.php:62
-#: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/SpecialAnnouncementFormFactory.php:33
-#: Modularity/source/php/AcfFields/php/mod-logogrid.php:55
-#: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:53
-#: Modularity/source/php/Module/Posts/Posts.php:254
-msgid "Name"
 msgstr ""
 
 #: library/AcfFields/php/options-chat.php:316
@@ -2317,7 +2324,6 @@ msgstr ""
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr ""
 
@@ -2568,7 +2574,7 @@ msgstr ""
 
 #: library/AcfFields/php/post-icon.php:142
 #: library/AcfFields/php/term-icon-and-colour.php:139
-#: library/Controller/SingularEvent.php:183
+#: library/Controller/SingularEvent.php:122
 #: library/Customizer/Sections/ErrorPages.php:27
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:44
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:42
@@ -2581,7 +2587,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
 #: Modularity/source/php/Module/Posts/Posts.php:253
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr ""
 
@@ -2838,7 +2843,6 @@ msgstr ""
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr ""
 
@@ -3058,7 +3062,7 @@ msgstr ""
 #: library/Admin/UI/BackEnd.php:63
 #: library/Admin/UI/BackEnd.php:68
 #: library/Admin/UI/BackEnd.php:75
-#: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:113
+#: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:117
 #: Modularity/source/php/AcfFields/php/mod-notice.php:42
 msgid "Notice"
 msgstr ""
@@ -3160,12 +3164,14 @@ msgid "The PDF generator is missing some suggested dependencies. Please install 
 msgstr ""
 
 #: library/Api/Pdf/PdfGenerator.php:78
+#: library/Controller/A11y.php:368
 #: library/Controller/Navigation/Decorators/Accessibility/AppendPrintMenuItem.php:36
 #: library/Helper/Navigation.php:794
 msgid "Print"
 msgstr ""
 
 #: library/Api/Pdf/PdfGenerator.php:79
+#: library/Controller/A11y.php:369
 #: library/Controller/Navigation/Decorators/Accessibility/AppendPrintMenuItem.php:37
 #: library/Helper/Navigation.php:795
 msgid "Print this page"
@@ -3373,7 +3379,7 @@ msgstr ""
 #: library/Chat/Render/ChatRenderConfig.php:102
 #: library/Controller/BaseController.php:420
 #: library/Helper/TranslatedLabels.php:55
-#: Modularity/source/php/App.php:352
+#: Modularity/source/php/App.php:345
 msgid "Close"
 msgstr ""
 
@@ -3440,11 +3446,11 @@ msgstr ""
 msgid "Like "
 msgstr ""
 
-#: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:114
+#: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:118
 msgid "Some settings for this group are only available on the main blog."
 msgstr ""
 
-#: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:118
+#: library/CommonFieldGroups/DisableFieldsThatAreCommonlyManagedOnSubsites.php:122
 msgid "Edit settings on main blog"
 msgstr ""
 
@@ -3525,6 +3531,12 @@ msgstr ""
 msgid "Last reviewed"
 msgstr ""
 
+#: library/Controller/A11y.php:340
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:36
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:43
+msgid "Home"
+msgstr ""
+
 #: library/Controller/BaseController.php:416
 msgid "Search for content"
 msgstr ""
@@ -3573,7 +3585,6 @@ msgid "Go to homepage"
 msgstr ""
 
 #: library/Controller/BaseController.php:680
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr ""
 
@@ -3626,11 +3637,6 @@ msgstr ""
 #: library/Helper/Navigation.php:838
 #: library/Helper/Navigation.php:863
 msgid "Untitled page"
-msgstr ""
-
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:36
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:43
-msgid "Home"
 msgstr ""
 
 #: library/Controller/School/AddressGenerator.php:99
@@ -3691,100 +3697,101 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: library/Controller/SingularElementarySchool.php:52
+#: library/Controller/SingularElementarySchool.php:57
 msgctxt "ElementarySchool"
 msgid "Quick facts"
 msgstr ""
 
-#: library/Controller/SingularElementarySchool.php:53
+#: library/Controller/SingularElementarySchool.php:58
 msgctxt "ElementarySchool"
 msgid "Contact us"
 msgstr ""
 
-#: library/Controller/SingularElementarySchool.php:54
+#: library/Controller/SingularElementarySchool.php:59
 msgctxt "ElementarySchool"
 msgid "Address"
 msgstr ""
 
-#: library/Controller/SingularElementarySchool.php:55
+#: library/Controller/SingularElementarySchool.php:60
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
 
-#: library/Controller/SingularElementarySchool.php:56
+#: library/Controller/SingularElementarySchool.php:61
 msgctxt "ElementarySchool"
 msgid "Follow us on social media"
 msgstr ""
 
-#: library/Controller/SingularElementarySchool.php:57
+#: library/Controller/SingularElementarySchool.php:62
 msgctxt "ElementarySchool"
 msgid "Events"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:184
+#: library/Controller/SingularEvent.php:123
 msgid "Add to calendar"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:185
+#: library/Controller/SingularEvent.php:124
 msgid "Tickets & registration"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:186
+#: library/Controller/SingularEvent.php:125
 msgid "Go to booking page"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:187
+#: library/Controller/SingularEvent.php:126
 msgid "Tickets are sold according to the reseller."
 msgstr ""
 
-#: library/Controller/SingularEvent.php:188
+#: library/Controller/SingularEvent.php:127
 msgid "Date and time"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:189
+#: library/Controller/SingularEvent.php:128
 msgid "More occasions"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:190
+#: library/Controller/SingularEvent.php:129
 #: Modularity/source/php/AcfFields/php/mod-posts-source.php:64
 msgid "Place"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:191
+#: library/Controller/SingularEvent.php:130
 msgid "Get directions"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:192
+#: library/Controller/SingularEvent.php:131
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:84
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:102
 msgid "Price"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:193
+#: library/Controller/SingularEvent.php:132
 msgid "Organizers"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:194
+#: library/Controller/SingularEvent.php:133
 msgid "Accessibility"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:195
+#: library/Controller/SingularEvent.php:134
 msgid "This event has already taken place."
 msgstr ""
 
-#: library/Controller/SingularEvent.php:196
+#: library/Controller/SingularEvent.php:135
 msgid "Related events"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:197
+#: library/Controller/SingularEvent.php:136
 #: library/Helper/TranslatedLabels.php:63
+#: library/Theme/Enqueue.php:128
 #: Modularity/source/php/AcfFields/php/mod-slider.php:768
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:164
 #: Modularity/source/php/Module/Posts/Posts.php:250
 msgid "Read more"
 msgstr ""
 
-#: library/Controller/SingularEvent.php:198
+#: library/Controller/SingularEvent.php:137
 msgid "Links"
 msgstr ""
 
@@ -3910,32 +3917,32 @@ msgstr ""
 msgid "Book here"
 msgstr ""
 
-#: library/Controller/SingularPreschool.php:48
+#: library/Controller/SingularPreschool.php:49
 msgctxt "Preschool"
 msgid "Quick facts"
 msgstr ""
 
-#: library/Controller/SingularPreschool.php:49
+#: library/Controller/SingularPreschool.php:50
 msgctxt "Preschool"
 msgid "Contact us"
 msgstr ""
 
-#: library/Controller/SingularPreschool.php:50
+#: library/Controller/SingularPreschool.php:51
 msgctxt "Preschool"
 msgid "Address"
 msgstr ""
 
-#: library/Controller/SingularPreschool.php:51
+#: library/Controller/SingularPreschool.php:52
 msgctxt "Preschool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
 
-#: library/Controller/SingularPreschool.php:52
+#: library/Controller/SingularPreschool.php:53
 msgctxt "Preschool"
 msgid "Follow us on social media"
 msgstr ""
 
-#: library/Controller/SingularPreschool.php:53
+#: library/Controller/SingularPreschool.php:54
 msgctxt "Preschool"
 msgid "Events"
 msgstr ""
@@ -4026,7 +4033,7 @@ msgstr ""
 #: library/Customizer/Controls/MultiSelect/MultiSelectControl.php:67
 #: library/Customizer/Controls/Repeater/RepeaterControl.php:77
 #: library/Customizer/Controls/Sortable/SortableControl.php:72
-#: Modularity/source/php/App.php:348
+#: Modularity/source/php/App.php:341
 msgid "Remove"
 msgstr ""
 
@@ -4090,7 +4097,6 @@ msgid "Tailor"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr ""
 
@@ -4405,7 +4411,6 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr ""
 
@@ -4417,7 +4422,6 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr ""
 
@@ -4430,7 +4434,6 @@ msgid "Hide date"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:402
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr ""
 
@@ -4443,7 +4446,6 @@ msgid "Date, Time"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:409
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr ""
 
@@ -4456,7 +4458,6 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:454
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr ""
 
@@ -4474,7 +4475,6 @@ msgid "Blocks"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:465
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr ""
 
@@ -4482,7 +4482,6 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr ""
 
@@ -5185,7 +5184,6 @@ msgid "Quicklinks item direction"
 msgstr ""
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr ""
 
@@ -5593,7 +5591,7 @@ msgstr ""
 #: library/PostsList/ViewCallableProviders/Filter/GetFilterSubmitButtonArguments.php:49
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:38
 #: Modularity/source/php/AcfFields/php/mod-fileslist.php:58
-#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:170
+#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:193
 msgid "Filter"
 msgstr ""
 
@@ -5674,6 +5672,10 @@ msgstr ""
 
 #: library/ImageConvert/ImageConvertFilter.php:137
 msgid "Image files must be smaller than %s"
+msgstr ""
+
+#: library/Integrations/Component/ImageAltTextIndicator.php:40
+msgid "Alt text is missing"
 msgstr ""
 
 #: library/Kulturkortet/MunicipioAuth/Visma/VismaOptionsPage.php:25
@@ -5841,8 +5843,8 @@ msgstr ""
 msgid "Drop files here"
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:41
-#: library/Oembed/OembedFilters.php:47
+#: library/Oembed/OembedFilters.php:56
+#: library/Oembed/OembedFilters.php:62
 #: Modularity/source/php/Helper/AcceptanceLabels.php:13
 #: Modularity/source/php/Helper/AcceptanceLabels.php:25
 #: Modularity/source/php/Module/Iframe/Iframe.php:29
@@ -5852,15 +5854,15 @@ msgstr ""
 msgid "We need your consent to continue"
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:42
+#: library/Oembed/OembedFilters.php:57
 #: Modularity/source/php/Helper/AcceptanceLabels.php:15
 #: Modularity/source/php/Module/Iframe/Iframe.php:31
 #: Modularity/source/php/Module/Map/Map.php:110
 msgid "This part of the website shows content from %s. By continuing, <a href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:43
-#: library/Oembed/OembedFilters.php:49
+#: library/Oembed/OembedFilters.php:58
+#: library/Oembed/OembedFilters.php:64
 #: Modularity/source/php/Helper/AcceptanceLabels.php:22
 #: Modularity/source/php/Helper/AcceptanceLabels.php:30
 #: Modularity/source/php/Module/Iframe/Iframe.php:38
@@ -5870,13 +5872,13 @@ msgstr ""
 msgid "I understand, continue."
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:48
+#: library/Oembed/OembedFilters.php:63
 #: Modularity/source/php/Module/Iframe/Iframe.php:43
 #: Modularity/source/php/Module/Map/Map.php:122
 msgid "This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy."
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:52
+#: library/Oembed/OembedFilters.php:67
 msgid "Handling of personal data"
 msgstr ""
 
@@ -6015,7 +6017,6 @@ msgstr ""
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr ""
 
@@ -6455,6 +6456,27 @@ msgstr ""
 
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:39
 msgid "Pagination"
+msgstr ""
+
+#: library/SiteHealth/TidyExtensionRequirement.php:45
+#: library/SiteHealth/TidyExtensionRequirementTest.php:19
+msgid "Check the PHP Tidy extension"
+msgstr ""
+
+#: library/SiteHealth/TidyExtensionRequirement.php:59
+msgid "The PHP Tidy extension is available."
+msgstr ""
+
+#: library/SiteHealth/TidyExtensionRequirement.php:65
+msgid "The PHP Tidy extension is installed and enabled."
+msgstr ""
+
+#: library/SiteHealth/TidyExtensionRequirement.php:72
+msgid "The PHP Tidy extension is required."
+msgstr ""
+
+#: library/SiteHealth/TidyExtensionRequirement.php:78
+msgid "Install and enable the PHP Tidy extension on the server."
 msgstr ""
 
 #: library/StickyPost/AddStickyCheckboxForPost.php:136
@@ -9526,79 +9548,111 @@ msgstr ""
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/Theme/Enqueue.php:128
-msgid "January"
+#: library/Theme/Enqueue.php:121
+msgid "Button text is not descriptive enough"
+msgstr ""
+
+#: library/Theme/Enqueue.php:122
+msgid "Invalid heading level (level is skipped)"
+msgstr ""
+
+#: library/Theme/Enqueue.php:123
+msgid "Link text is not descriptive enough"
+msgstr ""
+
+#: library/Theme/Enqueue.php:124
+msgid "Page is missing an H1 heading"
+msgstr ""
+
+#: library/Theme/Enqueue.php:126
+msgid "Click here"
+msgstr ""
+
+#: library/Theme/Enqueue.php:127
+msgid "Here"
 msgstr ""
 
 #: library/Theme/Enqueue.php:129
-msgid "February"
+msgid "Continue reading"
 msgstr ""
 
 #: library/Theme/Enqueue.php:130
-msgid "March"
+msgid "More"
 msgstr ""
 
-#: library/Theme/Enqueue.php:131
-msgid "April"
+#: library/Theme/Enqueue.php:141
+msgid "January"
 msgstr ""
 
-#: library/Theme/Enqueue.php:132
-msgid "May"
-msgstr ""
-
-#: library/Theme/Enqueue.php:133
-msgid "June"
-msgstr ""
-
-#: library/Theme/Enqueue.php:134
-msgid "July"
-msgstr ""
-
-#: library/Theme/Enqueue.php:135
-msgid "August"
-msgstr ""
-
-#: library/Theme/Enqueue.php:136
-msgid "September"
-msgstr ""
-
-#: library/Theme/Enqueue.php:137
-msgid "October"
-msgstr ""
-
-#: library/Theme/Enqueue.php:138
-msgid "November"
-msgstr ""
-
-#: library/Theme/Enqueue.php:139
-msgid "December"
+#: library/Theme/Enqueue.php:142
+msgid "February"
 msgstr ""
 
 #: library/Theme/Enqueue.php:143
-msgid "Su"
+msgid "March"
 msgstr ""
 
 #: library/Theme/Enqueue.php:144
-msgid "Mo"
+msgid "April"
 msgstr ""
 
 #: library/Theme/Enqueue.php:145
-msgid "Tu"
+msgid "May"
 msgstr ""
 
 #: library/Theme/Enqueue.php:146
-msgid "We"
+msgid "June"
 msgstr ""
 
 #: library/Theme/Enqueue.php:147
-msgid "Th"
+msgid "July"
 msgstr ""
 
 #: library/Theme/Enqueue.php:148
-msgid "Fr"
+msgid "August"
 msgstr ""
 
 #: library/Theme/Enqueue.php:149
+msgid "September"
+msgstr ""
+
+#: library/Theme/Enqueue.php:150
+msgid "October"
+msgstr ""
+
+#: library/Theme/Enqueue.php:151
+msgid "November"
+msgstr ""
+
+#: library/Theme/Enqueue.php:152
+msgid "December"
+msgstr ""
+
+#: library/Theme/Enqueue.php:156
+msgid "Su"
+msgstr ""
+
+#: library/Theme/Enqueue.php:157
+msgid "Mo"
+msgstr ""
+
+#: library/Theme/Enqueue.php:158
+msgid "Tu"
+msgstr ""
+
+#: library/Theme/Enqueue.php:159
+msgid "We"
+msgstr ""
+
+#: library/Theme/Enqueue.php:160
+msgid "Th"
+msgstr ""
+
+#: library/Theme/Enqueue.php:161
+msgid "Fr"
+msgstr ""
+
+#: library/Theme/Enqueue.php:162
 msgid "Sa"
 msgstr ""
 
@@ -10019,17 +10073,17 @@ msgstr ""
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: library/Upgrade.php:1397
+#: library/Upgrade.php:1408
 #: Modularity/source/php/Upgrade.php:78
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1401
+#: library/Upgrade.php:1412
 #: Modularity/source/php/Upgrade.php:83
 msgid "Current database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:1406
+#: library/Upgrade.php:1417
 #: Modularity/source/php/Upgrade.php:88
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
@@ -10727,10 +10781,6 @@ msgstr ""
 msgid "Add phone number"
 msgstr ""
 
-#: Modularity/source/php/AcfFields/php/mod-contacts.php:287
-msgid "Phone number"
-msgstr ""
-
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:310
 msgid "Social Media"
 msgstr ""
@@ -10779,7 +10829,6 @@ msgid "Curator Social Media"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr ""
 
@@ -10789,7 +10838,6 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr ""
 
@@ -11852,13 +11900,11 @@ msgid "Menu order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
-#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr ""
 
@@ -12034,7 +12080,7 @@ msgid "Placeholder"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-search.php:52
-#: Modularity/source/php/App.php:353
+#: Modularity/source/php/App.php:346
 msgid "Width"
 msgstr ""
 
@@ -13350,41 +13396,41 @@ msgstr ""
 msgid "Taxonomy"
 msgstr ""
 
-#: Modularity/source/php/App.php:177
+#: Modularity/source/php/App.php:176
 #: Modularity/source/php/BlockManager.php:207
 #: Modularity/source/php/Editor.php:137
 msgid "Modules"
 msgstr ""
 
-#: Modularity/source/php/App.php:258
+#: Modularity/source/php/App.php:251
 msgid "Edit Modules"
 msgstr ""
 
-#: Modularity/source/php/App.php:345
+#: Modularity/source/php/App.php:338
 msgid "Toggle visibility"
 msgstr ""
 
-#: Modularity/source/php/App.php:346
+#: Modularity/source/php/App.php:339
 msgid "Edit"
 msgstr ""
 
-#: Modularity/source/php/App.php:347
+#: Modularity/source/php/App.php:340
 msgid "Import"
 msgstr ""
 
-#: Modularity/source/php/App.php:349
+#: Modularity/source/php/App.php:342
 msgid "Hide module"
 msgstr ""
 
-#: Modularity/source/php/App.php:350
+#: Modularity/source/php/App.php:343
 msgid "Are you sure you want to remove this module?"
 msgstr ""
 
-#: Modularity/source/php/App.php:351
+#: Modularity/source/php/App.php:344
 msgid "Saving…"
 msgstr ""
 
-#: Modularity/source/php/App.php:355
+#: Modularity/source/php/App.php:348
 msgid "Deprecated"
 msgstr ""
 
@@ -13528,15 +13574,15 @@ msgstr ""
 msgid "Outputs an interactive map"
 msgstr ""
 
-#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:169
+#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:192
 msgid "No taxonomy filter"
 msgstr ""
 
-#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:171
+#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:194
 msgid "Close filtering panel"
 msgstr ""
 
-#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:172
+#: Modularity/source/php/Module/InteractiveMap/InteractiveMap.php:195
 msgid "Close marker info"
 msgstr ""
 
@@ -13878,150 +13924,32 @@ msgstr ""
 msgid "Database is already up to date."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Time"
+#: library/BackdropBanner/block.json
+msgctxt "block title"
+msgid "Backdrop Banner"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date, time"
+#: library/BackdropBanner/block.json
+msgctxt "block description"
+msgid "A backdrop banner block."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Published"
+#: library/BackdropBanner/Row/block.json
+msgctxt "block title"
+msgid "Backdrop Banner Row"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date Modified"
+#: library/BackdropBanner/Row/block.json
+msgctxt "block description"
+msgid "A single row within a backdrop banner."
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date source"
+#: library/PostsList/Block/block.json
+msgctxt "block title"
+msgid "Posts List Block"
 msgstr ""
 
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Newsitem"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Appearance settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Number of columns"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Checkboxes"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Radio buttons"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Filter settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable text search"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable date filter"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "DateModified"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Order by"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Posts per page"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Enable Pagination"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date From"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Date To"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Image focal point"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Change Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Select Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove Image"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Subtitle"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Remove row"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Backdrop banner settings"
-msgstr ""
-
-#: assets/dist/blocks/js/blocks.js:1
-msgid "Maximum number of rows reached."
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Button text is not descriptive enough"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Link text is not descriptive enough"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Click here"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Here"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Continue reading"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "More"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Invalid heading level (level is skipped)"
-msgstr ""
-
-#: library/Theme/Enqueue.php
-msgid "Page is missing an H1 heading"
-msgstr ""
-
-#: library/Integrations/Component/ImageAltTextIndicator.php
-msgid "Alt text is missing"
+#: library/PostsList/Block/block.json
+msgctxt "block description"
+msgid "A block to display a list of posts."
 msgstr ""
