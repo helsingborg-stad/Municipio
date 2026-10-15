@@ -21,6 +21,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->populateLanguageObject();
         $this->populateInformationList();
         $this->setExpired();
+        $this->setEthicsPolicy();
     }
 
     /**
@@ -48,23 +49,39 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         return null;
     }
 
+    private function setEthicsPolicy(): void
+    {
+        $schemaObject = $this->post->getSchema();
+        $hiringOrganization = $schemaObject['hiringOrganization'] ?? null;
+
+        // Ensure that hiring organization is an array before accessing ethicsPolicy.
+        if (!is_array($hiringOrganization)) {
+            $hiringOrganization = [$hiringOrganization];
+        }
+
+        $ethicsPolicies = array_map(fn($org) => $org['ethicsPolicy'] ?? null, $hiringOrganization);
+        $ethicsPolicies = array_filter($ethicsPolicies, fn($policy) => !empty($policy));
+
+        $this->data['ethicsPolicy'] = !empty($ethicsPolicies) ? ($post['post_content'] ?? '') . implode("\n\n", $ethicsPolicies) : null;
+    }
+
     /**
      * Populate the language object.
      */
     private function populateLanguageObject(): void
     {
-        $this->data['lang']->contact                     = __('Contact', 'municipio');
-        $this->data['lang']->administration              = __('Administration', 'municipio');
+        $this->data['lang']->contact = __('Contact', 'municipio');
+        $this->data['lang']->administration = __('Administration', 'municipio');
         $this->data['lang']->organizationAddressLocality = __('City', 'municipio');
-        $this->data['lang']->datePosted                  = __('Date posted', 'municipio');
-        $this->data['lang']->employmentType              = __('Employment type', 'municipio');
-        $this->data['lang']->validThrough                = __('Valid through', 'municipio');
-        $this->data['lang']->apply                       = __('Apply', 'municipio');
-        $this->data['lang']->information                 = __('Information', 'municipio');
-        $this->data['lang']->reference                   = __('Reference', 'municipio');
-        $this->data['lang']->today                       = __('today', 'municipio');
-        $this->data['lang']->tomorrow                    = __('tomorrow', 'municipio');
-        $this->data['lang']->expired                     = __('expired', 'municipio');
+        $this->data['lang']->datePosted = __('Date posted', 'municipio');
+        $this->data['lang']->employmentType = __('Employment type', 'municipio');
+        $this->data['lang']->validThrough = __('Valid through', 'municipio');
+        $this->data['lang']->apply = __('Apply', 'municipio');
+        $this->data['lang']->information = __('Information', 'municipio');
+        $this->data['lang']->reference = __('Reference', 'municipio');
+        $this->data['lang']->today = __('today', 'municipio');
+        $this->data['lang']->tomorrow = __('tomorrow', 'municipio');
+        $this->data['lang']->expired = __('expired', 'municipio');
     }
 
     /**
@@ -92,7 +109,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $daysUntilValidThrough = $validThrough->getTimestamp() - strtotime(date('Y-m-d', $currentTimestamp));
         $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
-        $value                 = $validThrough->format('Y-m-d') . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
+        $value = $validThrough->format('Y-m-d') . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
 
         if ($daysUntilValidThrough === 0) {
             $value = $validThrough->format('Y-m-d') . ' (' . $this->data['lang']->today . ')';
@@ -136,45 +153,45 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         if ($this->post->getSchemaProperty('validThrough')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->validThrough,
-                'value' => $this->getValidThroughListItemValue()
+                'value' => $this->getValidThroughListItemValue(),
             ];
         }
 
         if ($this->post->getSchemaProperty('employmentType')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->employmentType,
-                'value' => $this->post->getSchemaProperty('employmentType')
+                'value' => $this->post->getSchemaProperty('employmentType'),
             ];
         }
 
         if ($this->post->getSchemaProperty('datePosted')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->datePosted,
-                'value' => $this->post->getSchemaProperty('datePosted')?->format('Y-m-d')
+                'value' => $this->post->getSchemaProperty('datePosted')?->format('Y-m-d'),
             ];
         }
 
-        $addressRegion   = $this->post->getSchemaProperty('employmentUnit')['address']['addressRegion'] ?? null;
+        $addressRegion = $this->post->getSchemaProperty('employmentUnit')['address']['addressRegion'] ?? null;
         $addressLocality = $this->post->getSchemaProperty('employmentUnit')['address']['addressLocality'] ?? null;
 
         if ($addressRegion || $addressLocality) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->organizationAddressLocality,
-                'value' => join(', ', array_filter([$addressLocality, $addressRegion]))
+                'value' => join(', ', array_filter([$addressLocality, $addressRegion])),
             ];
         }
 
         if ($this->post->getSchemaProperty('employmentUnit')['name'] ?? null) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->administration,
-                'value' => $this->post->getSchemaProperty('employmentUnit')['name'] ?? null
+                'value' => $this->post->getSchemaProperty('employmentUnit')['name'] ?? null,
             ];
         }
 
         if ($this->post->getSchemaProperty('@id')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->reference,
-                'value' => $this->post->getSchemaProperty('@id')
+                'value' => $this->post->getSchemaProperty('@id'),
             ];
         }
     }
