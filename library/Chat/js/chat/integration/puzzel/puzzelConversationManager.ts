@@ -4,6 +4,11 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
+        private startConversationApi: StartConversationInterface,
+        private sendUserJoinedConversationApi: SendUserJoinedConversationInterface,
+        private listenForMetaDataApi: ListenForMetaDataInterface,
+        private listenForConversationApi: ListenForConversationInterface,
+        private sendUserMessageApi: SendUserMessageInterface,
     ) {
     }
 
@@ -12,28 +17,24 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         return this.conversationId;
     }
 
-    public async startConversation(): Promise<void> {
-        const accessToken = await this.puzzelAuthenticator.getAccessToken();
-        console.log(accessToken);
-        const response = await fetch(`
-            ${this.puzzelConfig.getCommunicationUrl()}/api/conversation/${this.getConversationId()}/route/${this.puzzelConfig.getChatQueueKey()}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify([]),
-            },
-        );
-        console.log(response);
-        if (!response.ok) {
-            throw new Error(
-                `Failed to start conversation: ${response.status} ${response.statusText}`,
-            );
-        }
+    public async sendUserJoinEventToConversation(): Promise<void> {
+        await this.sendUserJoinedConversationApi.execute(this.getConversationId());
+    }
 
-        const conversationData = await response.json();
-        return conversationData;
+    public async startConversation(): Promise<RouteConversationResponse> {
+        return this.startConversationApi.execute(this.getConversationId());
+    }
+
+    public async sendUserMessage(message: string): Promise<void> {
+        await this.sendUserMessageApi.execute(this.getConversationId(), message);
+    }
+
+    public async listenForMetaData(callback: (data: any) => void): Promise<void> {
+        await this.listenForMetaDataApi.listen(this.getConversationId(), callback);
+    }
+
+    public async listenForConversation(callback: (data: any) => void): Promise<void> {
+        await this.listenForConversationApi.listen(this.getConversationId(), callback);
     }
 }
 

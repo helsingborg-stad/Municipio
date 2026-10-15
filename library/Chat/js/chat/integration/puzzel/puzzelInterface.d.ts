@@ -8,8 +8,12 @@ interface PuzzelConfigInterface {
 }
 
 interface PuzzelConversationManagerInterface {
-    startConversation(): Promise<void>;
-    getConversationId(): string | undefined;
+    startConversation(): Promise<RouteConversationResponse>;
+    getConversationId(): string;
+    sendUserJoinEventToConversation(): Promise<void>;
+    listenForMetaData(callback: (data: any) => void): Promise<void>;
+    listenForConversation(callback: (data: any) => void): Promise<void>;
+    sendUserMessage(content: string): Promise<void>;
 }
 
 interface PuzzelAuthenticatorInterface {
@@ -24,4 +28,11 @@ type AuthenticationResponse = {
     scope: string;
     token_type: string;
     visitor_id: string;
+};
+
+type RouteConversationResponse = {
+    conversationId: string;
+    iqSessionId: string;
+    requestId: number;
+    result: string | number;
 };

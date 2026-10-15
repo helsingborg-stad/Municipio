@@ -1,7 +1,8 @@
 class Puzzel {
-    private conversationId?: string;
-    private iqSessionToken?: string;
     private authenticated: AuthenticationResponse | undefined;
+    private isTyping = false;
+    private pendingMessage: any = null;
+    private typingTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -20,6 +21,86 @@ class Puzzel {
         }
 
         const data = await this.puzzelConversationManager.startConversation();
+        await this.puzzelConversationManager.sendUserJoinEventToConversation();
+
+        this.chat.getElement().addEventListener("chat:message-added", (e: any) => {
+			const message = e.detail;
+
+			if (message.getIsReply()) {
+				return;
+			}
+            
+            console.log(message.getContent());
+            if (message.getContent() && message.getContent().trim() !== "") {
+                this.puzzelConversationManager.sendUserMessage(message.getContent());
+            }
+		});
+
+        await this.puzzelConversationManager.listenForMetaData((data) => {
+            if (data && 
+                data.senderRole === "agent" &&
+                data.type === "typingEvent"
+            ) {
+                this.isTyping = true;
+                if (!this.pendingMessage) {
+                    this.pendingMessage = this.chat.addPendingMessage();
+                }
+
+                this.resetTypingTimeout();
+            }
+
+            console.log("MetaData received:", data);
+        });
+
+        await this.puzzelConversationManager.listenForConversation((data) => {
+            console.log("Conversation received:", data);
+            if (
+                data && 
+                data.type === "chat" && 
+                data.senderRole === "agent" && 
+                data.message && 
+                data.message.trim() !== ""
+            ) {
+                if (this.pendingMessage) {
+                    this.chat.editMessage(this.pendingMessage, data.message);
+                    this.pendingMessage = null;
+                    this.clearTypingState();
+                } else {
+                    this.clearTypingState();
+                    this.chat.addMessage(data.message, true);
+                }
+            }
+        });
+    }
+
+    private resetTypingTimeout(): void {
+        if (this.typingTimeoutId) {
+            clearTimeout(this.typingTimeoutId);
+        }
+
+        this.typingTimeoutId = setTimeout(() => {
+            if (this.pendingMessage) {
+                this.chat.deleteMessage(this.pendingMessage);
+            }
+
+            this.pendingMessage = null;
+            this.typingTimeoutId = null;
+            this.isTyping = false;
+        }, 7000);
+    }
+
+    private clearTypingState(): void {
+        if (this.typingTimeoutId) {
+            clearTimeout(this.typingTimeoutId);
+            this.typingTimeoutId = null;
+        }
+
+        if (this.pendingMessage) {
+            this.chat.deleteMessage(this.pendingMessage);
+            this.pendingMessage = null;
+        }
+
+        this.isTyping = false;
     }
 }
 

@@ -36,6 +36,7 @@ function initChatBubble(chat: any) {
 	const isOpen = popover?.matches(':popover-open');
 
 	// TODO: REMOVE TEST CODE BELOW
+	scrollToBottom(chat);
 	return initializeChat(chat);
 
 	if (!popover || isOpen) {

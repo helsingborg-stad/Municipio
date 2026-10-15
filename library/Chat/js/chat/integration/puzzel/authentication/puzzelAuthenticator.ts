@@ -36,7 +36,7 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
                 body: new URLSearchParams({
                     client_id: this.puzzelConfig.getClientId(),
                     grant_type: "visitor",
-                    tenant_id: this.puzzelConfig.getChatQueueKey(),
+                    tenant_id: this.puzzelConfig.getCustomerId(),
                 }),
             },
         );
@@ -63,11 +63,11 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
 
         this.accessToken = authenticated.access_token;
         this.authenticated = authenticated;
-        this.expiresAt = Date.now() + authenticated.expires_in;
+        this.expiresAt = Date.now() + (authenticated.expires_in * 1000);
 
         return authenticated;
     }
 
-    }
+}
 
-    export default PuzzelAuthenticator;
+export default PuzzelAuthenticator;
