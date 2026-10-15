@@ -1,13 +1,17 @@
+import PuzzelIncomingMessageHandler from "./handler/puzzelIncomingMessageHandler";
+import PuzzelOutgoingChatHandler from "./handler/puzzelOutgoingChatHandler";
+import PuzzelTypingIndicatorHandler from "./handler/puzzelTypingIndicatorHandler";
+
 class Puzzel {
     private authenticated: AuthenticationResponse | undefined;
-    private isTyping = false;
-    private pendingMessage: any = null;
-    private typingTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
         private puzzelConversationManager: PuzzelConversationManagerInterface,
+        private typingIndicatorHandler: PuzzelTypingIndicatorHandlerInterface,
+        private incomingMessageHandler: PuzzelIncomingMessageHandlerInterface,
+        private outgoingChatHandler: PuzzelOutgoingChatHandlerInterface,
         private chat: any,
         private isPersistent: boolean,
     ) {
@@ -20,84 +24,21 @@ class Puzzel {
             return;
         }
 
-        const data = await this.puzzelConversationManager.startConversation();
+        await this.puzzelConversationManager.startConversation();
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
 
-        this.chat.getElement().addEventListener("chat:message-added", (e: any) => {
-			const message = e.detail;
-
-			if (message.getIsReply()) {
-				return;
-			}
-
-            if (message.getContent() && message.getContent().trim() !== "") {
-                this.puzzelConversationManager.sendUserMessage(message.getContent());
-            }
-		});
-
-        this.chat.getElement().addEventListener("chat:typing", (e: any) => {
-            this.puzzelConversationManager.sendUserTypingEvent();
-        });
+        this.outgoingChatHandler.register();
 
         await this.puzzelConversationManager.listenForMetaData((data) => {
-            if (data && 
-                data.senderRole === "agent" &&
-                data.type === "typingEvent"
-            ) {
-                this.isTyping = true;
-                if (!this.pendingMessage) {
-                    this.pendingMessage = this.chat.addPendingMessage();
-                }
-
-                this.resetTypingTimeout();
-            }
+            this.typingIndicatorHandler.handleMetaDataEvent(data);
 
             console.log("MetaData received:", data);
         });
 
         await this.puzzelConversationManager.listenForConversation((data) => {
             console.log("Conversation received:", data);
-            if (
-                data && 
-                data.type === "chat" && 
-                data.senderRole === "agent" && 
-                data.message && 
-                data.message.trim() !== ""
-            ) {
-                this.clearTypingState();
-                this.chat.addMessage(data.message, true);
-            }
+            this.incomingMessageHandler.handleConversationEvent(data);
         });
-    }
-
-    private resetTypingTimeout(): void {
-        if (this.typingTimeoutId) {
-            clearTimeout(this.typingTimeoutId);
-        }
-
-        this.typingTimeoutId = setTimeout(() => {
-            if (this.pendingMessage) {
-                this.chat.deleteMessage(this.pendingMessage);
-            }
-
-            this.pendingMessage = null;
-            this.typingTimeoutId = null;
-            this.isTyping = false;
-        }, 7000);
-    }
-
-    private clearTypingState(): void {
-        if (this.typingTimeoutId) {
-            clearTimeout(this.typingTimeoutId);
-            this.typingTimeoutId = null;
-        }
-
-        if (this.pendingMessage) {
-            this.chat.deleteMessage(this.pendingMessage);
-            this.pendingMessage = null;
-        }
-
-        this.isTyping = false;
     }
 }
 

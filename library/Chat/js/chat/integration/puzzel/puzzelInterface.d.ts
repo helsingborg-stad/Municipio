@@ -11,8 +11,8 @@ interface PuzzelConversationManagerInterface {
     startConversation(): Promise<RouteConversationResponse>;
     getConversationId(): string;
     sendUserJoinEventToConversation(): Promise<void>;
-    listenForMetaData(callback: (data: any) => void): Promise<void>;
-    listenForConversation(callback: (data: any) => void): Promise<void>;
+    listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
+    listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;
     sendUserMessage(content: string): Promise<void>;
     sendUserTypingEvent(): Promise<void>;
 }
@@ -36,4 +36,25 @@ type RouteConversationResponse = {
     iqSessionId: string;
     requestId: number;
     result: string | number;
+};
+
+type PuzzelMetaDataEvent = {
+    eventId?: number;
+    createdAt?: string;
+    senderId?: string;
+    senderRole?: string;
+    senderName?: string;
+    type?: string;
+    [key: string]: unknown;
+};
+
+type PuzzelConversationEvent = {
+    eventId?: number;
+    createdAt?: string;
+    senderId?: string;
+    senderRole?: string;
+    senderName?: string;
+    type?: string;
+    message?: string;
+    [key: string]: unknown;
 };

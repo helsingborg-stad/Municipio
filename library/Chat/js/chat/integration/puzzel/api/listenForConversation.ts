@@ -1,7 +1,7 @@
 import { throwErrorIfResponseNotOk } from "./helper/throwError";
 
 class ListenForConversation implements ListenForConversationInterface {
-    private callbacks: { [conversationId: string]: Array<(data: any) => void> } = {};
+    private callbacks: { [conversationId: string]: Array<(data: PuzzelConversationEvent) => void> } = {};
     private currentEventLength: { [conversationId: string]: number } = {};
     private activeIntervals = new Map<string, ReturnType<typeof setInterval>>();
 
@@ -11,7 +11,7 @@ class ListenForConversation implements ListenForConversationInterface {
     ) {
     }
 
-    public async execute(conversationId: string): Promise<any> {
+    public async execute(conversationId: string): Promise<PuzzelConversationEvent[]> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
         const conversationUrl = `${this.puzzelConfig.getCommunicationUrl()}/api/conversation/${encodeURIComponent(conversationId)}`;
 
@@ -28,7 +28,7 @@ class ListenForConversation implements ListenForConversationInterface {
         return response.json();
     }
 
-    public async listen(conversationId: string, callback: (data: any) => void): Promise<void> {
+    public async listen(conversationId: string, callback: (data: PuzzelConversationEvent) => void): Promise<void> {
         if (!this.callbacks[conversationId]) {
             this.callbacks[conversationId] = [];
         }
@@ -55,7 +55,7 @@ class ListenForConversation implements ListenForConversationInterface {
         this.activeIntervals.set(conversationId, intervalId);
     }
 
-    private notifyOnNewEvents(conversationId: string, data: any): void {
+    private notifyOnNewEvents(conversationId: string, data: PuzzelConversationEvent[]): void {
         if (!Array.isArray(data)) {
             return;
         }
@@ -75,7 +75,7 @@ class ListenForConversation implements ListenForConversationInterface {
         const newEvents = data.slice(previousLength);
         this.currentEventLength[conversationId] = data.length;
 
-        newEvents.forEach((newEvent: any) => {
+        newEvents.forEach((newEvent: PuzzelConversationEvent) => {
             this.callbacks[conversationId].forEach((cb) => cb(newEvent));
         });
     }

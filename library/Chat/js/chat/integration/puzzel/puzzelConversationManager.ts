@@ -33,11 +33,11 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         await this.sendUserMessageApi.execute(this.getConversationId(), message);
     }
 
-    public async listenForMetaData(callback: (data: any) => void): Promise<void> {
+    public async listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void> {
         await this.listenForMetaDataApi.listen(this.getConversationId(), callback);
     }
 
-    public async listenForConversation(callback: (data: any) => void): Promise<void> {
+    public async listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void> {
         await this.listenForConversationApi.listen(this.getConversationId(), callback);
     }
 }

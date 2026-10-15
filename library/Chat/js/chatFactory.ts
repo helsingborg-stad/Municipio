@@ -15,6 +15,9 @@ import SendMetadata from "./chat/integration/puzzel/api/sendMetadata";
 import ListenForMetaData from "./chat/integration/puzzel/api/listenForMetaData";
 import ListenForConversation from "./chat/integration/puzzel/api/listenForConversation";
 import SendUserMessage from "./chat/integration/puzzel/api/sendUserMessage";
+import PuzzelOutgoingChatHandler from "./chat/integration/puzzel/handler/puzzelOutgoingChatHandler";
+import PuzzelIncomingMessageHandler from "./chat/integration/puzzel/handler/puzzelIncomingMessageHandler";
+import PuzzelTypingIndicatorHandler from "./chat/integration/puzzel/handler/puzzelTypingIndicatorHandler";
 
 function createMarkdownParser(): MarkdownIt {
 	const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });
@@ -38,10 +41,15 @@ class ChatFactory {
 			new SendUserMessage(puzzelConfig, puzzelAuthenticator),
 		);
 
+		const puzzelTypingIndicatorHandler = new PuzzelTypingIndicatorHandler(chat);
+
 		new Puzzel(
 			puzzelConfig,
 			puzzelAuthenticator,
 			puzzelConversationManager,
+			puzzelTypingIndicatorHandler,
+			new PuzzelIncomingMessageHandler(chat, puzzelTypingIndicatorHandler),
+			new PuzzelOutgoingChatHandler(puzzelConversationManager, chat),
 			chat,
 			this.isPersistent(chat)
 		).init();

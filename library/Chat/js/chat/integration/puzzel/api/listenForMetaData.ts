@@ -1,7 +1,7 @@
 import { throwErrorIfResponseNotOk } from "./helper/throwError";
 
 class ListenForMetaData implements ListenForMetaDataInterface {
-    private callbacks: { [conversationId: string]: Array<(data: any) => void> } = {};
+    private callbacks: { [conversationId: string]: Array<(data: PuzzelMetaDataEvent) => void> } = {};
     private currentEventLength: { [conversationId: string]: number } = {};
     private activeIntervals = new Map<string, ReturnType<typeof setInterval>>();
 
@@ -11,7 +11,7 @@ class ListenForMetaData implements ListenForMetaDataInterface {
     ) {
     }
 
-    public async execute(conversationId: string): Promise<any> {
+    public async execute(conversationId: string): Promise<PuzzelMetaDataEvent[]> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
         const metadataUrl = `${this.puzzelConfig.getCommunicationUrl()}/api/metadata/${encodeURIComponent(conversationId)}`;
 
@@ -28,7 +28,7 @@ class ListenForMetaData implements ListenForMetaDataInterface {
         return response.json();
     }
 
-    public async listen(conversationId: string, callback: (data: any) => void): Promise<void> {
+    public async listen(conversationId: string, callback: (data: PuzzelMetaDataEvent) => void): Promise<void> {
         if (!this.callbacks[conversationId]) {
             this.callbacks[conversationId] = [];
         }
@@ -55,7 +55,7 @@ class ListenForMetaData implements ListenForMetaDataInterface {
         this.activeIntervals.set(conversationId, intervalId);
     }
 
-    private notifyOnNewEvents(conversationId: string, data: any): void {
+    private notifyOnNewEvents(conversationId: string, data: PuzzelMetaDataEvent[]): void {
         if (!Array.isArray(data)) {
             return;
         }
@@ -75,7 +75,7 @@ class ListenForMetaData implements ListenForMetaDataInterface {
         const newEvents = data.slice(previousLength);
         this.currentEventLength[conversationId] = data.length;
 
-        newEvents.forEach((newEvent: any) => {
+        newEvents.forEach((newEvent: PuzzelMetaDataEvent) => {
             this.callbacks[conversationId].forEach((cb) => cb(newEvent));
         });
     }
