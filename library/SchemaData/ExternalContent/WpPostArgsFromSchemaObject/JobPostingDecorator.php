@@ -30,6 +30,7 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
         if ($schemaObject instanceof JobPosting) {
             $post = $this->applyPropertiesFromJobPosting($post, $schemaObject);
             $post = $this->applyEmployerOverviewToPostContent($post, $schemaObject);
+            $post = $this->applyEthicsPolicyToPostContent($post, $schemaObject);
         }
 
         return $post;
@@ -71,6 +72,25 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
 
         if (!empty($employerOverview)) {
             $post['post_content'] = "\n\n" . implode("\n\n", $employerOverview) . ($post['post_content'] ?? '');
+        }
+
+        return $post;
+    }
+
+    private function applyEthicsPolicyToPostContent(array $post, JobPosting $schemaObject): array
+    {
+        $hiringOrganization = $schemaObject['hiringOrganization'] ?? null;
+
+        // Ensure that hiring organization is an array before accessing ethicsPolicy.
+        if (!is_array($hiringOrganization)) {
+            $hiringOrganization = [$hiringOrganization];
+        }
+
+        $ethicsPolicies = array_map(fn($org) => $org['ethicsPolicy'] ?? null, $hiringOrganization);
+        $ethicsPolicies = array_filter($ethicsPolicies, fn($policy) => !empty($policy));
+
+        if (!empty($ethicsPolicies)) {
+            $post['post_content'] = ($post['post_content'] ?? '') . implode("\n\n", $ethicsPolicies);
         }
 
         return $post;

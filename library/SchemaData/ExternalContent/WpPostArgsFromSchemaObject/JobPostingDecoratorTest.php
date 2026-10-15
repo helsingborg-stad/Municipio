@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\Schema\JobPosting;
-use Municipio\SchemaData\ExternalContent\Sources\Source;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -55,5 +54,19 @@ class JobPostingDecoratorTest extends TestCase
         $post = $factory->transform($schemaObject);
 
         $this->assertStringContainsString('Employer overview content', $post['post_content']);
+    }
+
+    #[TestDox('Appends ethicsPolicy to post content if it exists in the schema object')]
+    public function testAppendsEthicsPolicyToPostContent()
+    {
+        $factory = new JobPostingDecorator(new WpPostArgsFromSchemaObject());
+        $schemaObject = new JobPosting();
+
+        $schemaObject->hiringOrganization([
+            ['ethicsPolicy' => 'Ethics policy content'],
+        ]);
+        $post = $factory->transform($schemaObject);
+
+        $this->assertStringContainsString('Ethics policy content', $post['post_content']);
     }
 }
