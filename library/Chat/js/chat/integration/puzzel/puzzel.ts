@@ -64,14 +64,8 @@ class Puzzel {
                 data.message && 
                 data.message.trim() !== ""
             ) {
-                if (this.pendingMessage) {
-                    this.chat.editMessage(this.pendingMessage, data.message);
-                    this.pendingMessage = null;
-                    this.clearTypingState();
-                } else {
-                    this.clearTypingState();
-                    this.chat.addMessage(data.message, true);
-                }
+                this.clearTypingState();
+                this.chat.addMessage(data.message, true);
             }
         });
     }
