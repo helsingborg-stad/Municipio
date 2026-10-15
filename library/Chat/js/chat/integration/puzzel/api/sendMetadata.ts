@@ -1,13 +1,13 @@
 import { throwErrorIfResponseNotOk } from "./helper/throwError";
 
-class SendUserJoinedConversation implements SendUserJoinedConversationInterface {
+class SendMetadata implements SendMetadataInterface {
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
     ) {
     }
 
-    public async execute(conversationId: string): Promise<void> {
+    public async execute(conversationId: string, event: string): Promise<void> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
 
         const response = await fetch(`
@@ -20,7 +20,7 @@ class SendUserJoinedConversation implements SendUserJoinedConversationInterface 
                 },
                 body: JSON.stringify({
                     "senderName": "Visitor",
-                    "type": "participantJoinEvent"
+                    "type": event
                 }),
             },
         );
@@ -29,4 +29,4 @@ class SendUserJoinedConversation implements SendUserJoinedConversationInterface 
     }
 }
 
-export default SendUserJoinedConversation;
+export default SendMetadata;

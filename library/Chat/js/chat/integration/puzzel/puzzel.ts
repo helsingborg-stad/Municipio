@@ -29,12 +29,15 @@ class Puzzel {
 			if (message.getIsReply()) {
 				return;
 			}
-            
-            console.log(message.getContent());
+
             if (message.getContent() && message.getContent().trim() !== "") {
                 this.puzzelConversationManager.sendUserMessage(message.getContent());
             }
 		});
+
+        this.chat.getElement().addEventListener("chat:typing", (e: any) => {
+            this.puzzelConversationManager.sendUserTypingEvent();
+        });
 
         await this.puzzelConversationManager.listenForMetaData((data) => {
             if (data && 

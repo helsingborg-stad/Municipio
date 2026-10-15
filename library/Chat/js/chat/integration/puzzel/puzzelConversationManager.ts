@@ -5,7 +5,7 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
         private startConversationApi: StartConversationInterface,
-        private sendUserJoinedConversationApi: SendUserJoinedConversationInterface,
+        private sendMetaDataApi: SendMetadataInterface,
         private listenForMetaDataApi: ListenForMetaDataInterface,
         private listenForConversationApi: ListenForConversationInterface,
         private sendUserMessageApi: SendUserMessageInterface,
@@ -18,7 +18,11 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     }
 
     public async sendUserJoinEventToConversation(): Promise<void> {
-        await this.sendUserJoinedConversationApi.execute(this.getConversationId());
+        await this.sendMetaDataApi.execute(this.getConversationId(), "participantJoinEvent");
+    }
+
+    public async sendUserTypingEvent(): Promise<void> {
+        await this.sendMetaDataApi.execute(this.getConversationId(), "typingEvent");
     }
 
     public async startConversation(): Promise<RouteConversationResponse> {

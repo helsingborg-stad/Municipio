@@ -11,7 +11,7 @@ import PuzzelConfig from "./chat/integration/puzzel/puzzelConfig";
 import PuzzelAuthenticator from "./chat/integration/puzzel/authentication/puzzelAuthenticator";
 import PuzzelConversationManager from "./chat/integration/puzzel/puzzelConversationManager";
 import StartConversation from "./chat/integration/puzzel/api/startConversation";
-import SendUserJoinedConversation from "./chat/integration/puzzel/api/sendUserJoinedConversation";
+import SendMetadata from "./chat/integration/puzzel/api/sendMetadata";
 import ListenForMetaData from "./chat/integration/puzzel/api/listenForMetaData";
 import ListenForConversation from "./chat/integration/puzzel/api/listenForConversation";
 import SendUserMessage from "./chat/integration/puzzel/api/sendUserMessage";
@@ -32,10 +32,10 @@ class ChatFactory {
 			puzzelConfig,
 			puzzelAuthenticator,
 			new StartConversation(puzzelConfig, puzzelAuthenticator),
-			new SendUserJoinedConversation(puzzelConfig, puzzelAuthenticator),
+			new SendMetadata(puzzelConfig, puzzelAuthenticator),
 			new ListenForMetaData(puzzelConfig, puzzelAuthenticator),
 			new ListenForConversation(puzzelConfig, puzzelAuthenticator),
-			new SendUserMessage(puzzelConfig, puzzelAuthenticator)
+			new SendUserMessage(puzzelConfig, puzzelAuthenticator),
 		);
 
 		new Puzzel(

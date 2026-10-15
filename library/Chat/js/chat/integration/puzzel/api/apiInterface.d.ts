@@ -2,8 +2,8 @@ interface StartConversationInterface {
     execute(conversationId: string): Promise<RouteConversationResponse>;
 }
 
-interface SendUserJoinedConversationInterface {
-    execute(conversationId: string): Promise<void>;
+interface SendMetadataInterface {
+    execute(conversationId: string, event: string): Promise<void>;
 }
 
 interface ListenForMetaDataInterface {
@@ -18,4 +18,8 @@ interface ListenForConversationInterface {
 
 interface SendUserMessageInterface {
     execute(conversationId: string, message: string): Promise<void>;
+}
+
+interface SendUserTypingInterface {
+    execute(conversationId: string): Promise<void>;
 }

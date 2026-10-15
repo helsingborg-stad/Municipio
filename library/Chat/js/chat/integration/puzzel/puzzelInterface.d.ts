@@ -14,6 +14,7 @@ interface PuzzelConversationManagerInterface {
     listenForMetaData(callback: (data: any) => void): Promise<void>;
     listenForConversation(callback: (data: any) => void): Promise<void>;
     sendUserMessage(content: string): Promise<void>;
+    sendUserTypingEvent(): Promise<void>;
 }
 
 interface PuzzelAuthenticatorInterface {
