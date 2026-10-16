@@ -1,7 +1,6 @@
 class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterface {
     private static readonly typingTimeoutMs = 7000;
 
-    private isTyping = false;
     private pendingMessage: any = null;
     private typingTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -15,7 +14,6 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
             return;
         }
 
-        this.isTyping = true;
         if (!this.pendingMessage) {
             this.pendingMessage = this.chat.addPendingMessage();
         }
@@ -33,8 +31,6 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
             this.chat.deleteMessage(this.pendingMessage);
             this.pendingMessage = null;
         }
-
-        this.isTyping = false;
     }
 
     private resetTypingTimeout(): void {
@@ -49,7 +45,6 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
 
             this.pendingMessage = null;
             this.typingTimeoutId = null;
-            this.isTyping = false;
         }, PuzzelTypingIndicatorHandler.typingTimeoutMs);
     }
 }

@@ -18,6 +18,8 @@ import SendUserMessage from "./chat/integration/puzzel/api/sendUserMessage";
 import PuzzelOutgoingChatHandler from "./chat/integration/puzzel/handler/puzzelOutgoingChatHandler";
 import PuzzelIncomingMessageHandler from "./chat/integration/puzzel/handler/puzzelIncomingMessageHandler";
 import PuzzelTypingIndicatorHandler from "./chat/integration/puzzel/handler/puzzelTypingIndicatorHandler";
+import PuzzelAgentLeftHandler from "./chat/integration/puzzel/handler/puzzelAgentLeftHandler";
+import PuzzelAgentJoinedHandler from "./chat/integration/puzzel/handler/puzzelAgentJoined";
 
 function createMarkdownParser(): MarkdownIt {
 	const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });
@@ -50,8 +52,8 @@ class ChatFactory {
 			puzzelTypingIndicatorHandler,
 			new PuzzelIncomingMessageHandler(chat, puzzelTypingIndicatorHandler),
 			new PuzzelOutgoingChatHandler(puzzelConversationManager, chat),
-			chat,
-			this.isPersistent(chat)
+			new PuzzelAgentLeftHandler(chat),
+			new PuzzelAgentJoinedHandler(chat)
 		).init();
 
 		return;

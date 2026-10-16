@@ -1,7 +1,3 @@
-import PuzzelIncomingMessageHandler from "./handler/puzzelIncomingMessageHandler";
-import PuzzelOutgoingChatHandler from "./handler/puzzelOutgoingChatHandler";
-import PuzzelTypingIndicatorHandler from "./handler/puzzelTypingIndicatorHandler";
-
 class Puzzel {
     private authenticated: AuthenticationResponse | undefined;
 
@@ -9,11 +5,11 @@ class Puzzel {
         private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
         private puzzelConversationManager: PuzzelConversationManagerInterface,
-        private typingIndicatorHandler: PuzzelTypingIndicatorHandlerInterface,
+        private typingIndicatorHandler: MetaDataHandler,
         private incomingMessageHandler: PuzzelIncomingMessageHandlerInterface,
         private outgoingChatHandler: PuzzelOutgoingChatHandlerInterface,
-        private chat: any,
-        private isPersistent: boolean,
+        private agentLeftHandler: MetaDataHandler,
+        private agentJoinedHandler: MetaDataHandler,
     ) {
     }
 
@@ -30,9 +26,10 @@ class Puzzel {
         this.outgoingChatHandler.register();
 
         await this.puzzelConversationManager.listenForMetaData((data) => {
-            this.typingIndicatorHandler.handleMetaDataEvent(data);
-
             console.log("MetaData received:", data);
+            this.typingIndicatorHandler.handleMetaDataEvent(data);
+            this.agentLeftHandler.handleMetaDataEvent(data);
+            this.agentJoinedHandler.handleMetaDataEvent(data);
         });
 
         await this.puzzelConversationManager.listenForConversation((data) => {
