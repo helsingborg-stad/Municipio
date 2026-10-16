@@ -836,6 +836,7 @@ msgstr "Instagram"
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr "URL"
 
@@ -880,6 +881,7 @@ msgid "Curator Social Media"
 msgstr "Social Media (Curator.io)"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr "Antal inlägg"
 
@@ -896,11 +898,13 @@ msgstr "Layout"
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr "Kort"
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr "Block"
 
@@ -1403,6 +1407,7 @@ msgstr "pixlar"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
 #: Modularity/source/php/Module/Posts/Posts.php:253
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -1551,6 +1556,7 @@ msgstr "För interna länkar kan fältet lämnas tomt för att använda det vald
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr "Datum"
 
@@ -1742,6 +1748,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr "Rubrik"
 
@@ -2387,17 +2394,20 @@ msgid "Menu order"
 msgstr "Menyordning"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr "Ordna efter"
 
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr "Stigande"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr "Fallande"
 
@@ -2986,6 +2996,7 @@ msgstr ";"
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr "Tabell"
 
@@ -3107,6 +3118,7 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -4729,27 +4741,27 @@ msgstr ""
 msgid "Post type"
 msgstr "Posttyp"
 
-#: library/A11yStatement/A11yStatement.php:88
-#: library/A11yStatement/A11yStatement.php:102
-#: library/A11yStatement/A11yStatement.php:103
+#: library/A11yStatement/A11yStatement.php:91
+#: library/A11yStatement/A11yStatement.php:105
+#: library/A11yStatement/A11yStatement.php:106
 #: library/AcfFields/php/a11y-statement.php:8
 #: library/Controller/A11y.php:283
 msgid "Accessibility Statement"
 msgstr "Tillgänglighetsredogörelse"
 
-#: library/A11yStatement/A11yStatement.php:89
+#: library/A11yStatement/A11yStatement.php:92
 msgid "This is the accessibility statement for our website."
 msgstr "Det här är tillgänlighetsredogörelsen för webbplatsen."
 
-#: library/A11yStatement/A11yStatement.php:107
+#: library/A11yStatement/A11yStatement.php:110
 msgid "Update"
 msgstr "Uppdatera"
 
-#: library/A11yStatement/A11yStatement.php:108
+#: library/A11yStatement/A11yStatement.php:111
 msgid "The accessibility statement has been updated."
 msgstr "Tillgänglighetsredogörelsen har uppdaterats. "
 
-#: library/A11yStatement/A11yStatement.php:137
+#: library/A11yStatement/A11yStatement.php:140
 msgid "accessibility-statement"
 msgstr "tillganglighetsredogorelse"
 
@@ -5076,6 +5088,7 @@ msgstr "Port"
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -6744,6 +6757,7 @@ msgstr "Godtycklig URL"
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr "Posttyp"
 
@@ -6955,7 +6969,7 @@ msgstr "Beskrivning."
 msgid "Return type from sideloaded image."
 msgstr "Returtyp från nedladdad bild."
 
-#: library/Api/Navigation/ChildrenRender.php:104
+#: library/Api/Navigation/ChildrenRender.php:101
 msgid "An error occurred while rendering the menu."
 msgstr ""
 
@@ -7123,24 +7137,24 @@ msgstr "Ogillad"
 msgid "Neutral"
 msgstr "Neutral"
 
-#: library/Chat/Api/ChatEndpoint.php:76
+#: library/Chat/Api/ChatEndpoint.php:84
 msgid "No message provided."
 msgstr "Inget meddelande angivet."
 
-#: library/Chat/Api/ChatEndpoint.php:102
+#: library/Chat/Api/ChatEndpoint.php:110
 msgid "Assistant not found."
 msgstr "Assistenten hittades inte."
 
-#: library/Chat/Api/ChatEndpoint.php:112
+#: library/Chat/Api/ChatEndpoint.php:120
 msgid "Assistant configuration is incomplete."
 msgstr "Assistentkonfigurationen är ofullständig."
 
-#: library/Chat/Api/ChatEndpoint.php:128
+#: library/Chat/Api/ChatEndpoint.php:136
 #, fuzzy
 msgid "Unable to process message safely. Please try again later."
 msgstr "Ett fel har uppstått, vilket antagligen betyder att flödet är nere. Försök igen senare."
 
-#: library/Chat/Api/ChatEndpoint.php:227
+#: library/Chat/Api/ChatEndpoint.php:235
 msgid "Failed to communicate with chat API."
 msgstr "Det gick inte att kommunicera med chatt-API:et."
 
@@ -7316,6 +7330,7 @@ msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
 #: library/Controller/BaseController.php:680
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr "Design"
 
@@ -7590,54 +7605,54 @@ msgstr "Fri entré"
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
-#: library/Controller/SingularJobPosting.php:56
+#: library/Controller/SingularJobPosting.php:75
 #: library/Controller/SingularProject.php:78
 msgid "Contact"
 msgstr "Kontakt"
 
-#: library/Controller/SingularJobPosting.php:57
+#: library/Controller/SingularJobPosting.php:76
 msgid "Administration"
 msgstr "Förvaltning"
 
-#: library/Controller/SingularJobPosting.php:58
+#: library/Controller/SingularJobPosting.php:77
 msgid "City"
 msgstr "Ort"
 
-#: library/Controller/SingularJobPosting.php:59
+#: library/Controller/SingularJobPosting.php:78
 msgid "Date posted"
 msgstr "Publicerad"
 
-#: library/Controller/SingularJobPosting.php:60
+#: library/Controller/SingularJobPosting.php:79
 msgid "Employment type"
 msgstr "Omfattning"
 
-#: library/Controller/SingularJobPosting.php:61
+#: library/Controller/SingularJobPosting.php:80
 msgid "Valid through"
 msgstr "Sista ansökningsdag"
 
-#: library/Controller/SingularJobPosting.php:62
+#: library/Controller/SingularJobPosting.php:81
 msgid "Apply"
 msgstr "Ansök"
 
-#: library/Controller/SingularJobPosting.php:63
+#: library/Controller/SingularJobPosting.php:82
 #: library/Theme/Icon.php:72
 msgid "Information"
 msgstr "Information"
 
-#: library/Controller/SingularJobPosting.php:64
+#: library/Controller/SingularJobPosting.php:83
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
 msgid "Reference"
 msgstr "Referens"
 
-#: library/Controller/SingularJobPosting.php:65
+#: library/Controller/SingularJobPosting.php:84
 msgid "today"
 msgstr "idag"
 
-#: library/Controller/SingularJobPosting.php:66
+#: library/Controller/SingularJobPosting.php:85
 msgid "tomorrow"
 msgstr "imorgon"
 
-#: library/Controller/SingularJobPosting.php:67
+#: library/Controller/SingularJobPosting.php:86
 msgid "expired"
 msgstr "stängd"
 
@@ -7945,6 +7960,7 @@ msgid "Hide date"
 msgstr "Dölj datum"
 
 #: library/Customizer/Sections/Archive.php:402
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr "Datumformat"
 
@@ -7957,6 +7973,7 @@ msgid "Date, Time"
 msgstr "Datum, Tid"
 
 #: library/Customizer/Sections/Archive.php:409
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr "Datumetikett"
 
@@ -7969,6 +7986,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
 #: library/Customizer/Sections/Archive.php:454
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -7981,6 +7999,7 @@ msgid "Blocks"
 msgstr "Block"
 
 #: library/Customizer/Sections/Archive.php:465
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -8038,6 +8057,7 @@ msgid "Wrap title in frame"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr "Inaktivera"
 
@@ -8505,6 +8525,7 @@ msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr "Rad"
 
@@ -13902,32 +13923,32 @@ msgstr "URL till säkerhetspolicy"
 msgid "Optional HTTPS URL that explains how security vulnerabilities should be reported."
 msgstr "Valfri HTTPS-adress som beskriver hur säkerhetsbrister ska rapporteras."
 
-#: library/A11yStatement/A11yStatement.php:213
-#: library/A11yStatement/A11yStatement.php:225
+#: library/A11yStatement/A11yStatement.php:216
+#: library/A11yStatement/A11yStatement.php:228
 msgid "Report accessibility issue"
 msgstr "Rapportera tillgänglighetsbrist"
 
-#: library/A11yStatement/A11yStatement.php:236
+#: library/A11yStatement/A11yStatement.php:239
 msgid "Describe accessibility issue"
 msgstr "Beskriv tillgänglighetsbrist"
 
-#: library/A11yStatement/A11yStatement.php:262
+#: library/A11yStatement/A11yStatement.php:265
 msgid "Accessibility issue reports"
 msgstr "Rapporter om tillgänglighetsbrister"
 
-#: library/A11yStatement/A11yStatement.php:387
+#: library/A11yStatement/A11yStatement.php:390
 msgid "The accessibility issue report form requires the Modularity Frontend Form plugin to be active."
 msgstr "Formuläret för att rapportera tillgänglighetsbrister kräver att tillägget Modularity Frontend Form är aktivt."
 
-#: library/A11yStatement/A11yStatement.php:389
+#: library/A11yStatement/A11yStatement.php:392
 msgid "The accessibility issue report form is hidden until a valid recipient email address has been entered below."
 msgstr "Formuläret för att rapportera tillgänglighetsbrister visas först när en giltig mottagaradress har angetts nedan."
 
-#: library/A11yStatement/A11yStatement.php:237
+#: library/A11yStatement/A11yStatement.php:240
 msgid "Tell us if something does not work or is difficult to use. We will address the issue as soon as possible."
 msgstr "Berätta för oss om något inte fungerar eller är svårt att använda. Vi försöker åtgärda bristen så snart som möjligt."
 
-#: library/A11yStatement/A11yStatement.php:242
+#: library/A11yStatement/A11yStatement.php:245
 msgid "Please provide your contact details if you would like us to contact you with questions about the reported issue."
 msgstr "Ange dina kontaktuppgifter om du vill att vi ska kontakta dig om vi har frågor om den rapporterade bristen."
 
@@ -13943,7 +13964,7 @@ msgstr "Kontaktfält för rapportering av tillgänglighetsbrist"
 msgid "Email address"
 msgstr "E-postadress"
 
-#: library/A11yStatement/A11yStatement.php:241
+#: library/A11yStatement/A11yStatement.php:244
 msgid "Contact details"
 msgstr "Kontaktuppgifter"
 
@@ -13999,7 +14020,7 @@ msgstr "Felaktig rubriknivå (nivå hoppas över)"
 msgid "Page is missing an H1 heading"
 msgstr "Sidan saknar en H1-rubrik"
 
-#: library/Integrations/Component/ImageAltTextIndicator.php:40
+#: library/Integrations/Component/ImageAltTextIndicator.php:38
 msgid "Alt text is missing"
 msgstr "Alternativtext saknas"
 
@@ -14059,7 +14080,8 @@ msgid ""
 "This feature allows you to select fields that should be manage from the main site id (that is this site). Field groups will not be rendered on the subsites; Instead a link will be rendered to take the user to the main site for editing of the option. \r\n"
 "\r\n"
 "Please select the field groups that you want to manage centrally below. Each field group can optionally use Network 1 as its source."
-msgstr "Denna funktion låter dig välja fält som ska hanteras från huvudwebbplatsen (denna webbplats). Fältgrupper visas inte på underwebbplatserna; i stället visas en länk som tar användaren till huvudwebbplatsen för att redigera alternativet. \r\n"
+msgstr ""
+"Denna funktion låter dig välja fält som ska hanteras från huvudwebbplatsen (denna webbplats). Fältgrupper visas inte på underwebbplatserna; i stället visas en länk som tar användaren till huvudwebbplatsen för att redigera alternativet. \r\n"
 "\r\n"
 "Välj de fältgrupper som du vill hantera centralt nedan. Varje fältgrupp kan valfritt använda nätverk 1 som källa."
 
@@ -14070,3 +14092,127 @@ msgstr "Nätverk 1"
 #: library/AcfFields/php/common-field-groups.php:96
 msgid "Use Network 1"
 msgstr "Använd nätverk 1"
+
+#: library/AcfFields/php/options-chat.php:490
+msgid "Logged in only"
+msgstr "Endast för inloggade"
+
+#: library/AcfFields/php/options-chat.php:502
+msgid "Only enable this assistant for logged-in users."
+msgstr "Tillåt endast denna assistentent för inloggade användare."
+
+#: library/Chat/Api/ChatEndpoint.php:52
+msgid "You are not allowed to use this assistant."
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date, time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Published"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Modified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date source"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Newsitem"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Appearance settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Number of columns"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Checkboxes"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Radio buttons"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Filter settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable text search"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable date filter"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "DateModified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Order by"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts per page"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable Pagination"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date From"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date To"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Image focal point"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Change Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Select Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Subtitle"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove row"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Backdrop banner settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Maximum number of rows reached."
+msgstr ""

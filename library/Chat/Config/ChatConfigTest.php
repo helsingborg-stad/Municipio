@@ -155,6 +155,48 @@ class ChatConfigTest extends TestCase
         static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
     }
 
+    #[TestDox('restricted assistants are skipped for guests without hiding public page matches')]
+    public function testGuestOnlyGetsPublicPageAssistant(): void
+    {
+        $assistants = [
+            ['name' => 'Private', 'logged_in_only' => 1, 'chat_assistant_pages' => [123]],
+            ['name' => 'Public', 'chat_assistant_pages' => [123]],
+        ];
+        $config = new ChatConfig(
+            $this->getWpService(queriedObjectId: 123, isUserLoggedIn: false),
+            $this->getAcfService(['chat_assistants' => $assistants]),
+        );
+
+        static::assertSame($assistants[1], $config->getAssistantForActiveQuery());
+        static::assertFalse($config->isAssistantAllowed($assistants[0]));
+        static::assertTrue($config->isAssistantAllowed($assistants[1]));
+    }
+
+    #[TestDox('restricted assistants are available to logged-in users')]
+    public function testLoggedInUserGetsRestrictedPageAssistant(): void
+    {
+        $assistant = ['name' => 'Private', 'logged_in_only' => 1, 'chat_assistant_pages' => [123]];
+        $config = new ChatConfig(
+            $this->getWpService(queriedObjectId: 123, isUserLoggedIn: true),
+            $this->getAcfService(['chat_assistants' => [$assistant]]),
+        );
+
+        static::assertSame($assistant, $config->getAssistantForActiveQuery());
+        static::assertTrue($config->isAssistantAllowed($assistant));
+    }
+
+    #[TestDox('guest has no page assistant when only a restricted assistant matches')]
+    public function testGuestHasNoRestrictedPageAssistant(): void
+    {
+        $assistant = ['name' => 'Private', 'logged_in_only' => 1, 'chat_assistant_pages' => [123]];
+        $config = new ChatConfig(
+            $this->getWpService(queriedObjectId: 123, isUserLoggedIn: false),
+            $this->getAcfService(['chat_assistants' => [$assistant]]),
+        );
+
+        static::assertNull($config->getAssistantForActiveQuery());
+    }
+
     #[TestDox('isPresidioEnabled() returns true when the chat_presidio_enabled option is true')]
     public function testIsPresidioEnabledReturnsTrueWhenAcfFieldIsTrue(): void
     {
@@ -488,13 +530,14 @@ class ChatConfigTest extends TestCase
         ]);
     }
 
-    private function getWpService(string $locale = 'en_US', int $queriedObjectId = 0, array $postAncestors = [], bool $isEnabled = true): FakeWpService
+    private function getWpService(string $locale = 'en_US', int $queriedObjectId = 0, array $postAncestors = [], bool $isEnabled = true, bool $isUserLoggedIn = false): FakeWpService
     {
         return new FakeWpService([
             'determineLocale' => $locale,
             'getQueriedObjectId' => $queriedObjectId,
             'getPostAncestors' => $postAncestors,
-            'getOption' => $isEnabled
+            'getOption' => $isEnabled,
+            'isUserLoggedIn' => $isUserLoggedIn,
         ]);
     }
 }

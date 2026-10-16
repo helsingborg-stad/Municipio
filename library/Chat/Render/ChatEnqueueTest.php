@@ -48,6 +48,11 @@ class ChatEnqueueTest extends TestCase
                 return [['name' => 'Default']];
             }
 
+            public function isAssistantAllowed(array $assistant): bool
+            {
+                return true;
+            }
+
             public function isPresidioEnabled(): bool
             {
                 return true;
@@ -114,6 +119,11 @@ class ChatEnqueueTest extends TestCase
             public function getAssistants(): array
             {
                 return [];
+            }
+
+            public function isAssistantAllowed(array $assistant): bool
+            {
+                return true;
             }
             
             public function isPresidioEnabled(): bool
