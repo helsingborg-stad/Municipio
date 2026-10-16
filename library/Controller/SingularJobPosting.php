@@ -63,6 +63,8 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $ethicsPolicies = array_filter($ethicsPolicies, fn($policy) => !empty($policy));
 
         $this->data['ethicsPolicy'] = !empty($ethicsPolicies) ? ($post['post_content'] ?? '') . implode("\n\n", $ethicsPolicies) : null;
+
+        $this->data['ethicsPolicy'] = $this->wpService->wpAutop($this->data['ethicsPolicy']);
     }
 
     /**
