@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-14T09:25:37+00:00\n"
+"POT-Creation-Date: 2026-10-16T15:19:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: municipio\n"
 
 #. Theme Name of the theme
@@ -41,60 +41,60 @@ msgstr ""
 msgid "http://www.helsingborg.se"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:88
-#: library/A11yStatement/A11yStatement.php:102
-#: library/A11yStatement/A11yStatement.php:103
+#: library/A11yStatement/A11yStatement.php:91
+#: library/A11yStatement/A11yStatement.php:105
+#: library/A11yStatement/A11yStatement.php:106
 #: library/AcfFields/php/a11y-statement.php:8
 #: library/Controller/A11y.php:283
 msgid "Accessibility Statement"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:89
+#: library/A11yStatement/A11yStatement.php:92
 msgid "This is the accessibility statement for our website."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:107
+#: library/A11yStatement/A11yStatement.php:110
 msgid "Update"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:108
+#: library/A11yStatement/A11yStatement.php:111
 msgid "The accessibility statement has been updated."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:137
+#: library/A11yStatement/A11yStatement.php:140
 msgid "accessibility-statement"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:213
-#: library/A11yStatement/A11yStatement.php:225
+#: library/A11yStatement/A11yStatement.php:216
+#: library/A11yStatement/A11yStatement.php:228
 msgid "Report accessibility issue"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:236
+#: library/A11yStatement/A11yStatement.php:239
 msgid "Describe accessibility issue"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:237
+#: library/A11yStatement/A11yStatement.php:240
 msgid "Tell us if something does not work or is difficult to use. We will address the issue as soon as possible."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:241
+#: library/A11yStatement/A11yStatement.php:244
 msgid "Contact details"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:242
+#: library/A11yStatement/A11yStatement.php:245
 msgid "Please provide your contact details if you would like us to contact you with questions about the reported issue."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:262
+#: library/A11yStatement/A11yStatement.php:265
 msgid "Accessibility issue reports"
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:387
+#: library/A11yStatement/A11yStatement.php:390
 msgid "The accessibility issue report form requires the Modularity Frontend Form plugin to be active."
 msgstr ""
 
-#: library/A11yStatement/A11yStatement.php:389
+#: library/A11yStatement/A11yStatement.php:392
 msgid "The accessibility issue report form is hidden until a valid recipient email address has been entered below."
 msgstr ""
 
@@ -182,6 +182,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:219
 #: Modularity/source/php/AcfFields/php/mod-slider.php:533
 #: Modularity/source/php/Module/ManualInput/ManualInput.php:321
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Title"
 msgstr ""
 
@@ -670,6 +671,7 @@ msgstr ""
 #: library/AcfFields/php/post-type-schema-settings.php:30
 #: library/AcfFields/php/user-author-image.php:131
 #: Modularity/source/php/AcfFields/php/mod-video.php:147
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Add Row"
 msgstr ""
 
@@ -866,6 +868,7 @@ msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:256
 #: library/Customizer/Sections/Archive.php:459
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Collection"
 msgstr ""
 
@@ -1291,6 +1294,14 @@ msgstr ""
 
 #: library/AcfFields/php/options-chat.php:472
 msgid "A phrase that will greet the user"
+msgstr ""
+
+#: library/AcfFields/php/options-chat.php:490
+msgid "Logged in only"
+msgstr ""
+
+#: library/AcfFields/php/options-chat.php:502
+msgid "Only enable this assistant for logged-in users."
 msgstr ""
 
 #: library/AcfFields/php/options-comment-settings.php:8
@@ -2324,6 +2335,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-editor-formats.php:148
 #: Modularity/source/php/AcfFields/php/mod-table-block.php:93
 #: Modularity/source/php/AcfFields/php/mod-table.php:95
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Table"
 msgstr ""
 
@@ -2587,6 +2599,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-slider.php:830
 #: Modularity/source/php/Module/ManualInput/Private/PrivateController.php:52
 #: Modularity/source/php/Module/Posts/Posts.php:253
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Description"
 msgstr ""
 
@@ -2843,6 +2856,7 @@ msgstr ""
 
 #: library/AcfFields/php/user-group-url.php:49
 #: library/AcfFields/php/user-group-url.php:89
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Post Type"
 msgstr ""
 
@@ -2949,6 +2963,7 @@ msgstr ""
 
 #: library/Admin/Login/AddLoginAndLogoutNotices.php:145
 #: library/Admin/Login/AddLoginAndLogoutNotices.php:218
+#, php-format
 msgid "Go to %s"
 msgstr ""
 
@@ -3147,7 +3162,7 @@ msgstr ""
 msgid "Return type from sideloaded image."
 msgstr ""
 
-#: library/Api/Navigation/ChildrenRender.php:104
+#: library/Api/Navigation/ChildrenRender.php:101
 msgid "An error occurred while rendering the menu."
 msgstr ""
 
@@ -3307,6 +3322,7 @@ msgid "View data."
 msgstr ""
 
 #: library/BrandedEmails/HtmlTemplate/DefaultHtmlTemplate.php:54
+#, php-format
 msgid "This email was sent from %s."
 msgstr ""
 
@@ -3334,23 +3350,27 @@ msgstr ""
 msgid "Neutral"
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:76
+#: library/Chat/Api/ChatEndpoint.php:52
+msgid "You are not allowed to use this assistant."
+msgstr ""
+
+#: library/Chat/Api/ChatEndpoint.php:84
 msgid "No message provided."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:102
+#: library/Chat/Api/ChatEndpoint.php:110
 msgid "Assistant not found."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:112
+#: library/Chat/Api/ChatEndpoint.php:120
 msgid "Assistant configuration is incomplete."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:128
+#: library/Chat/Api/ChatEndpoint.php:136
 msgid "Unable to process message safely. Please try again later."
 msgstr ""
 
-#: library/Chat/Api/ChatEndpoint.php:227
+#: library/Chat/Api/ChatEndpoint.php:235
 msgid "Failed to communicate with chat API."
 msgstr ""
 
@@ -3464,45 +3484,54 @@ msgstr ""
 
 #: library/Content/CustomPostType.php:61
 #: Modularity/source/php/ModuleManager.php:198
+#, php-format
 msgid "Add new %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:62
 #: Modularity/source/php/ModuleManager.php:199
+#, php-format
 msgid "New %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:63
 #: Modularity/source/php/ModuleManager.php:200
 #: Modularity/source/php/ModuleManager.php:202
+#, php-format
 msgid "Edit %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:64
 #: Modularity/source/php/ModuleManager.php:201
+#, php-format
 msgid "View %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:65
+#, php-format
 msgid "All %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:66
 #: library/PostsList/ViewCallableProviders/Filter/GetTextSearchFieldArguments.php:97
 #: Modularity/source/php/ModuleManager.php:203
+#, php-format
 msgid "Search %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:67
 #: Modularity/source/php/ModuleManager.php:204
+#, php-format
 msgid "Parent %s"
 msgstr ""
 
 #: library/Content/CustomPostType.php:68
+#, php-format
 msgid "No %s found"
 msgstr ""
 
 #: library/Content/CustomPostType.php:69
+#, php-format
 msgid "No %s found in trash"
 msgstr ""
 
@@ -3585,6 +3614,7 @@ msgid "Go to homepage"
 msgstr ""
 
 #: library/Controller/BaseController.php:680
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Design"
 msgstr ""
 
@@ -3645,26 +3675,31 @@ msgid "Get directions"
 msgstr ""
 
 #: library/Controller/School/ElementarySchool/UspsGenerator.php:56
+#, php-format
 msgctxt "ElementarySchool"
 msgid "After school care opening hours: %s"
 msgstr ""
 
 #: library/Controller/School/ElementarySchool/UspsGenerator.php:67
+#, php-format
 msgctxt "ElementarySchool"
 msgid "Ca. %s students"
 msgstr ""
 
 #: library/Controller/School/Preschool/UspsGenerator.php:56
+#, php-format
 msgctxt "Preschool"
 msgid "Opening hours: %s"
 msgstr ""
 
 #: library/Controller/School/Preschool/UspsGenerator.php:67
+#, php-format
 msgctxt "Preschool"
 msgid "Ca. %s children"
 msgstr ""
 
 #: library/Controller/School/Preschool/UspsGenerator.php:77
+#, php-format
 msgctxt "Preschool"
 msgid "%s group"
 msgid_plural "%s groups"
@@ -3692,6 +3727,7 @@ msgid "View page"
 msgstr ""
 
 #: library/Controller/Singular.php:320
+#, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
@@ -3713,6 +3749,7 @@ msgid "Address"
 msgstr ""
 
 #: library/Controller/SingularElementarySchool.php:60
+#, php-format
 msgctxt "ElementarySchool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
@@ -3861,54 +3898,54 @@ msgstr ""
 msgid "Price not available"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:56
+#: library/Controller/SingularJobPosting.php:75
 #: library/Controller/SingularProject.php:78
 msgid "Contact"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:57
+#: library/Controller/SingularJobPosting.php:76
 msgid "Administration"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:58
+#: library/Controller/SingularJobPosting.php:77
 msgid "City"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:59
+#: library/Controller/SingularJobPosting.php:78
 msgid "Date posted"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:60
+#: library/Controller/SingularJobPosting.php:79
 msgid "Employment type"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:61
+#: library/Controller/SingularJobPosting.php:80
 msgid "Valid through"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:62
+#: library/Controller/SingularJobPosting.php:81
 msgid "Apply"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:63
+#: library/Controller/SingularJobPosting.php:82
 #: library/Theme/Icon.php:72
 msgid "Information"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:64
+#: library/Controller/SingularJobPosting.php:83
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:41
 msgid "Reference"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:65
+#: library/Controller/SingularJobPosting.php:84
 msgid "today"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:66
+#: library/Controller/SingularJobPosting.php:85
 msgid "tomorrow"
 msgstr ""
 
-#: library/Controller/SingularJobPosting.php:67
+#: library/Controller/SingularJobPosting.php:86
 msgid "expired"
 msgstr ""
 
@@ -3933,6 +3970,7 @@ msgid "Address"
 msgstr ""
 
 #: library/Controller/SingularPreschool.php:52
+#, php-format
 msgctxt "Preschool"
 msgid "Do you wish to apply to %s?"
 msgstr ""
@@ -4097,6 +4135,7 @@ msgid "Tailor"
 msgstr ""
 
 #: library/Customizer/CustomizerField.php:44
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Disable"
 msgstr ""
 
@@ -4342,6 +4381,7 @@ msgid "Date range"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:247
+#, php-format
 msgid "What field type to use for the %s filter."
 msgstr ""
 
@@ -4411,6 +4451,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:360
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:60
 #: Modularity/source/php/AcfFields/php/mod-rss.php:62
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Ascending"
 msgstr ""
 
@@ -4422,6 +4463,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:407
 #: Modularity/source/php/AcfFields/php/mod-inlaylist.php:175
 #: Modularity/source/php/AcfFields/php/mod-rss.php:87
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date"
 msgstr ""
 
@@ -4434,6 +4476,7 @@ msgid "Hide date"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:402
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date format"
 msgstr ""
 
@@ -4446,6 +4489,7 @@ msgid "Date, Time"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:409
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Date badge"
 msgstr ""
 
@@ -4458,6 +4502,7 @@ msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:454
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Compressed"
 msgstr ""
 
@@ -4475,6 +4520,7 @@ msgid "Blocks"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:465
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Schema"
 msgstr ""
 
@@ -4482,6 +4528,7 @@ msgstr ""
 #: Modularity/source/php/AcfFields/php/mod-curator.php:47
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:372
 #: Modularity/source/php/AcfFields/php/mod-script.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Card"
 msgstr ""
 
@@ -4796,6 +4843,7 @@ msgid "Oops! The page you requested cannot be found."
 msgstr ""
 
 #: library/Customizer/Sections/ErrorPages.php:103
+#, php-format
 msgid "We could not find the %s you requested. It may have been moved, renamed, or removed. Check the address, try using the search function, or return to the start page to find the information you need."
 msgstr ""
 
@@ -5184,6 +5232,7 @@ msgid "Quicklinks item direction"
 msgstr ""
 
 #: library/Customizer/Sections/Menu/Quicklinks.php:77
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Row"
 msgstr ""
 
@@ -5671,10 +5720,11 @@ msgid "Unknown"
 msgstr ""
 
 #: library/ImageConvert/ImageConvertFilter.php:137
+#, php-format
 msgid "Image files must be smaller than %s"
 msgstr ""
 
-#: library/Integrations/Component/ImageAltTextIndicator.php:40
+#: library/Integrations/Component/ImageAltTextIndicator.php:38
 msgid "Alt text is missing"
 msgstr ""
 
@@ -5858,6 +5908,7 @@ msgstr ""
 #: Modularity/source/php/Helper/AcceptanceLabels.php:15
 #: Modularity/source/php/Module/Iframe/Iframe.php:31
 #: Modularity/source/php/Module/Map/Map.php:110
+#, php-format
 msgid "This part of the website shows content from %s. By continuing, <a href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 
@@ -5875,6 +5926,7 @@ msgstr ""
 #: library/Oembed/OembedFilters.php:63
 #: Modularity/source/php/Module/Iframe/Iframe.php:43
 #: Modularity/source/php/Module/Map/Map.php:122
+#, php-format
 msgid "This part of the website shows content from another website (%s). By continuing, you are accepting GDPR and privacy policy."
 msgstr ""
 
@@ -5920,6 +5972,7 @@ msgid "Fetching source data..."
 msgstr ""
 
 #: library/SchemaData/ExternalContent/SyncHandler/SyncHandler.php:96
+#, php-format
 msgid "Processing %s of %s..."
 msgstr ""
 
@@ -6017,6 +6070,7 @@ msgstr ""
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:73
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/PlaceFormFactory.php:35
 #: Modularity/source/php/AcfFields/php/mod-contacts.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "URL"
 msgstr ""
 
@@ -6396,6 +6450,7 @@ msgid "Search indexing is already in progress."
 msgstr ""
 
 #: library/SearchIndex/Admin/Indexing/SearchIndexingRequest.php:72
+#, php-format
 msgid "Search indexing complete. Indexed %d item."
 msgid_plural "Search indexing complete. Indexed %d items."
 msgstr[0] ""
@@ -6410,6 +6465,7 @@ msgid "The search provider must be configured before indexing."
 msgstr ""
 
 #: library/SearchIndex/Admin/Indexing/SearchIndexingRunner.php:51
+#, php-format
 msgid "Indexing %1$d/%2$d"
 msgstr ""
 
@@ -6427,6 +6483,7 @@ msgid "Search Index keeps your site search up to date through the selected searc
 msgstr ""
 
 #: library/SearchIndex/Admin/SearchIndexSettings.php:138
+#, php-format
 msgid "This field is disabled because %s is defined."
 msgstr ""
 
@@ -6447,6 +6504,7 @@ msgid "No search results found."
 msgstr ""
 
 #: library/SearchIndex/SearchPage/SearchPageRenderer.php:36
+#, php-format
 msgid "%s search results found."
 msgstr ""
 
@@ -9962,6 +10020,7 @@ msgid "(sidebar)"
 msgstr ""
 
 #: library/Theme/Navigation.php:152
+#, php-format
 msgid "Schema type - %s (above archive posts)"
 msgstr ""
 
@@ -10829,6 +10888,7 @@ msgid "Curator Social Media"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:12
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Number of posts"
 msgstr ""
 
@@ -10838,6 +10898,7 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-curator.php:48
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:371
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Block"
 msgstr ""
 
@@ -11900,11 +11961,13 @@ msgid "Menu order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:46
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Order"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-sorting.php:61
 #: Modularity/source/php/AcfFields/php/mod-rss.php:61
+#: assets/dist/blocks/js/blocks.js:1
 msgid "Descending"
 msgstr ""
 
@@ -13551,6 +13614,7 @@ msgid "Outputs an image"
 msgstr ""
 
 #: Modularity/source/php/Module/Image/Image.php:125
+#, php-format
 msgid "Allowed file types: %s"
 msgstr ""
 
@@ -13810,10 +13874,12 @@ msgid "Outputs text"
 msgstr ""
 
 #: Modularity/source/php/Module/Video/Video.php:166
+#, php-format
 msgid "Automatically downloaded cover image for a video embedded in a post (post id: %s)."
 msgstr ""
 
 #: Modularity/source/php/Module/Video/Video.php:429
+#, php-format
 msgid "This video could not be embedded. <a href=\"%s\" target=\"_blank\">View the video by visiting embedded page.</a>"
 msgstr ""
 
@@ -13823,10 +13889,12 @@ msgid "Wordpress Widgets"
 msgstr ""
 
 #: Modularity/source/php/ModuleManager.php:205
+#, php-format
 msgid "No %s"
 msgstr ""
 
 #: Modularity/source/php/ModuleManager.php:206
+#, php-format
 msgid "No %s in trash"
 msgstr ""
 
@@ -13905,23 +13973,139 @@ msgid "The database may need to be updated to accomodate new datatastructures. R
 msgstr ""
 
 #: Modularity/source/php/Upgrade.php:104
+#, php-format
 msgid "Initializing database migration to %s."
 msgstr ""
 
 #: Modularity/source/php/Upgrade.php:107
+#, php-format
 msgid "Upgrade will start in %s seconds."
 msgstr ""
 
 #: Modularity/source/php/Upgrade.php:115
+#, php-format
 msgid "Locking database to version %s."
 msgstr ""
 
 #: Modularity/source/php/Upgrade.php:125
+#, php-format
 msgid "Database migration complete; upgraded to version %s."
 msgstr ""
 
 #: Modularity/source/php/Upgrade.php:129
 msgid "Database is already up to date."
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date, time"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Published"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date Modified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date source"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Newsitem"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Appearance settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Number of columns"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Checkboxes"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Radio buttons"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Filter settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable text search"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable date filter"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "DateModified"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Order by"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Posts per page"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Enable Pagination"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date From"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Date To"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Image focal point"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Change Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Select Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove Image"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Subtitle"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Remove row"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Backdrop banner settings"
+msgstr ""
+
+#: assets/dist/blocks/js/blocks.js:1
+msgid "Maximum number of rows reached."
 msgstr ""
 
 #: library/BackdropBanner/block.json
