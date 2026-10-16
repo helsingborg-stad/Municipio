@@ -9,7 +9,7 @@
     ] : null,
     'dateBadge' => \Municipio\Helper\DateFormat::getUnresolvedDateFormat($post) == 'date-badge',
     'ratio' => $ratio,
-    'image' => $post->image,
+    'image' => $post->getImage(),
     'attributeList' => $post->attributeList ?? []
 ])
     @slot('metaArea')
