@@ -11,7 +11,7 @@ document.addEventListener("popover:initialized", (e: any) => {
 	if (popover.id !== "chat-global-root") return;
 
 	const chatContainer = popover.element?.querySelector(
-		"[data-js-municipio-ai-chat-wrapper]",
+		"[data-js-municipio-chat-wrapper], [data-js-municipio-ai-chat-wrapper]",
 	);
 	const messageArea = popover.element?.querySelector("[data-js-message-area]");
 
@@ -23,8 +23,17 @@ document.addEventListener("popover:initialized", (e: any) => {
 document.addEventListener("chat:initialized", async (e: any) => {
 	const chat = e.detail;
 
-	if (!chat.getElement().hasAttribute("data-js-municipio-ai-chat")) return;
-	if (chat.getElement().hasAttribute("municipio-ai-chat-bubble")) {
+	const element = chat.getElement();
+	const isMunicipioChat =
+		element.hasAttribute("data-js-municipio-chat") ||
+		element.hasAttribute("data-js-municipio-ai-chat");
+
+	if (!isMunicipioChat) return;
+
+	if (
+		element.hasAttribute("municipio-chat-bubble") ||
+		element.hasAttribute("municipio-ai-chat-bubble")
+	) {
 		return initChatBubble(chat);
 	}
 

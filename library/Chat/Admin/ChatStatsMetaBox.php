@@ -2,7 +2,7 @@
 
 namespace Municipio\Chat\Admin;
 
-use Municipio\Chat\Api\ChatStatsEndpoint;
+use Municipio\Chat\Integrations\Ai\Api\ChatStatsEndpoint;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;

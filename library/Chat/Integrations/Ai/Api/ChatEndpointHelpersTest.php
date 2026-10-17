@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Chat\Api;
+namespace Municipio\Chat\Integrations\Ai\Api;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Municipio\Chat\Api;
+namespace Municipio\Chat\Integrations\Ai\Api;
 
 use Municipio\Api\RestApiEndpoint;
-use Municipio\Chat\Api\ChatEndpointHelpers;
 use Municipio\Chat\Config\ChatConfigInterface;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactoryInterface;
 use Municipio\Chat\PIIRedactor\RedactionResult;
@@ -51,7 +50,7 @@ class ChatEndpoint extends RestApiEndpoint
             return $configError;
         }
 
-        $redaction = $this->redactMessage(sanitize_text_field($params['message']));
+        $redaction = $this->redactMessage(\sanitize_text_field($params['message']));
         if ($redaction instanceof \WP_Error) {
             return $redaction;
         }
@@ -65,7 +64,7 @@ class ChatEndpoint extends RestApiEndpoint
             $body,
         );
 
-        return rest_ensure_response(null);
+        return \rest_ensure_response(null);
     }
 
     private function validateMessage(array $params): ?\WP_Error
@@ -155,7 +154,7 @@ class ChatEndpoint extends RestApiEndpoint
         string $apiKey,
         array $body,
     ): void {
-        add_filter(
+        \add_filter(
             'rest_pre_serve_request',
             function ($served, $result, $filterRequest) use ($chatUrl, $apiKey, $body, $request) {
                 if ($filterRequest !== $request) {

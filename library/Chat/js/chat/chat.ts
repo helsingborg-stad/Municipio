@@ -1,108 +1,43 @@
-import type MarkdownIt from "markdown-it";
-import type FeedbackApi from "./feedbackApi";
+import { ChatUiApi, UserMessageHandler } from "./chatUiApi";
 
-class Chat implements ChatInterface {
-	private session: ChatSession | null = null;
-	private streamedContent: string = "";
-
+class Chat {
 	constructor(
-		private readonly sessionFactory: ChatSessionFactory,
 		private readonly chat: any,
-		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
-		private readonly feedbackApi: FeedbackApi,
-		private readonly assistantName: string | null = null,
-		private readonly persistSession: boolean = true,
 	) {}
 
-	public init(): void {
-		this.session = this.sessionFactory.create(
-			this.assistantName,
-			this.persistSession,
-		);
-		this.listenForUserMessages();
-	}
+	public onUserMessage(handler: UserMessageHandler): () => void {
+		const listener = (event: Event): void => {
+			const customEvent = event as CustomEvent<any>;
+			const message = customEvent.detail;
 
-	private postMessageStat(): void {
-		this.feedbackApi.postStat("message");
-	}
-
-	public createNewChatSession(): void {
-		this.session = this.sessionFactory.create(
-			this.assistantName,
-			this.persistSession,
-		);
-		this.session.clearSessionForAssistant(this.assistantName ?? "");
-	}
-
-	private listenForUserMessages(): void {
-		this.chat.getElement().addEventListener("chat:message-added", (e: any) => {
-			const message = e.detail;
-
-			if (message.getIsReply()) {
+			if (!message || message.getIsReply()) {
 				return;
 			}
 
-			this.sendMessage(message.getContent());
-		});
+			void handler(message.getContent());
+		};
+
+		this.chat.getElement().addEventListener("chat:message-added", listener);
+
+		return () => this.chat.getElement().removeEventListener("chat:message-added", listener);
 	}
 
-	private renderMarkdown(content: string): string {
-		try {
-			return this.markdownParser.render(content);
-		} catch (error) {
-			console.error(
-				"[Chat] Failed to render markdown, falling back to escaped text.",
-				error,
-			);
-			return `<p>${this.markdownParser.utils.escapeHtml(content)}</p>`;
-		}
-	}
-
-	private async sendMessage(message: string): Promise<void> {
-		if (!this.session) return;
-
-		const pendingMessage = this.chat.addPendingMessage();
-		this.chat.disableSend();
-		this.streamedContent = "";
-		let contentAdded = false;
-
-		try {
-			for await (const event of this.session.ask(message)) {
-				switch (event.type) {
-					case "text":
-						this.streamedContent = event.content;
-						this.chat.editMessage(
-							this.renderMarkdown(this.streamedContent),
-							pendingMessage,
-						);
-						contentAdded = true;
-						break;
-					case "tool_call":
-						contentAdded = true;
-						break;
-					case "done":
-						if (this.streamedContent) {
-							this.chat.editMessage(
-								this.renderMarkdown(this.streamedContent),
-								pendingMessage,
-							);
-						}
-						this.chat.enableSend();
-						if (!contentAdded) {
-							this.chat.deleteMessage(pendingMessage);
-						} else {
-							this.feedbackFactory.create(pendingMessage);
-							this.postMessageStat();
-						}
-						break;
-				}
-			}
-		} catch (error) {
-			console.error("[Chat] Error during message processing:", error);
-			this.chat.enableSend();
-			this.chat.editMessage(municipioChatLocale.errorMessage, pendingMessage);
-		}
+	public getUiApi(): ChatUiApi {
+		return {
+			addMessage: (content: string, isReply: boolean) =>
+				this.chat.addMessage(content, isReply),
+			addPendingMessage: () => this.chat.addPendingMessage(),
+			updateMessage: (content: string, messageInstance: any) =>
+				this.chat.editMessage(content, messageInstance),
+			removeMessage: (messageInstance: any) =>
+				this.chat.deleteMessage(messageInstance),
+			enableInput: () => this.chat.enableSend(),
+			disableInput: () => this.chat.disableSend(),
+			clearMessages: () => this.chat.clearMessages(),
+			getMessages: () => this.chat.getMessages(),
+			attachFeedback: (messageInstance: any) => this.feedbackFactory.create(messageInstance),
+		};
 	}
 }
 
