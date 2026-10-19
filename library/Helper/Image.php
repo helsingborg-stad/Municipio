@@ -197,7 +197,7 @@ class Image
      *
      * @param int $id ID of the image attachment
      * @param array|string $size Size should be an array containing two int values (height and width). Can also be a string matching predefined sizes (ex. medium).
-     * @return array
+     * @return array|false
      */
     public static function getImageAttachmentData($id, $size = 'full')
     {
