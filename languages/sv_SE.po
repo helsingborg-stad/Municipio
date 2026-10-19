@@ -14099,7 +14099,7 @@ msgstr "Endast för inloggade"
 
 #: library/AcfFields/php/options-chat.php:502
 msgid "Only enable this assistant for logged-in users."
-msgstr "Tillåt endast denna assistentent för inloggade användare."
+msgstr "Tillåt endast denna assistent för inloggade användare."
 
 #: library/Chat/Api/ChatEndpoint.php:52
 msgid "You are not allowed to use this assistant."
