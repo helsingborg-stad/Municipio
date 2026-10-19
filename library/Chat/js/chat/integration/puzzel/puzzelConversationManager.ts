@@ -9,16 +9,9 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         private listenForMetaDataApi: ListenForMetaDataInterface,
         private listenForConversationApi: ListenForConversationInterface,
         private sendUserMessageApi: SendUserMessageInterface,
-        private conversationIdStorageManager: ConversationIdStorageManagerInterface,
+        private conversationIdStorageManager: ConversationStorageManagerInterface,
     ) {
         this.conversationId = this.conversationIdStorageManager.getConversationId() ?? undefined;
-
-        if (this.conversationId) {
-            console.log("Rejoining conversation with ID:", this.conversationId);
-            this.listenForConversationApi.execute(this.conversationId);
-        }
-
-        console.log(this.getConversationId());
     }
 
     public getConversationId(): string {
@@ -36,12 +29,13 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     }
 
     public async startConversation(): Promise<RouteConversationResponse> {
-        if (this.conversationIdStorageManager.getConversation()) {
-            return this.conversationIdStorageManager.getConversation()!;
+        if (this.conversationIdStorageManager.getLocalStorage()) {
+            return this.conversationIdStorageManager.getLocalStorage()!;
         }
 
         const conversationResponse = await this.startConversationApi.execute(this.getConversationId());
-        this.conversationIdStorageManager.setConversationId(conversationResponse);
+
+        this.conversationIdStorageManager.setLocalStorage(conversationResponse, "");
 
         return conversationResponse;
     }

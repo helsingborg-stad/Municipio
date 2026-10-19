@@ -1,14 +1,16 @@
 class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
 
-    private accessToken?: string;
-    private authenticated?: AuthenticationResponse;
+    private accessToken?: string | null;
     private expiresAt?: number;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
+        private conversationStorageManager: ConversationStorageManagerInterface,
     ) {}
 
     public async getAccessToken(): Promise<string> {
+        this.accessToken = await this.conversationStorageManager.getAccessToken();
+
         const isTokenValid =
             this.accessToken !== undefined &&
             this.expiresAt !== undefined &&
@@ -62,7 +64,6 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
         }
 
         this.accessToken = authenticated.access_token;
-        this.authenticated = authenticated;
         this.expiresAt = Date.now() + (authenticated.expires_in * 1000);
 
         return authenticated;

@@ -20,8 +20,7 @@ import PuzzelIncomingMessageHandler from "./chat/integration/puzzel/handler/puzz
 import PuzzelTypingIndicatorHandler from "./chat/integration/puzzel/handler/puzzelTypingIndicatorHandler";
 import PuzzelAgentLeftHandler from "./chat/integration/puzzel/handler/puzzelAgentLeftHandler";
 import PuzzelAgentJoinedHandler from "./chat/integration/puzzel/handler/puzzelAgentJoined";
-import ConversationIdStorageManager from "./chat/integration/puzzel/authentication/conversationIdStorageManager";
-import RejoinConversationApi from "./chat/integration/puzzel/api/rejoin";
+import ConversationStorageManager from "./chat/integration/puzzel/authentication/conversationStorageManager";
 
 function createMarkdownParser(): MarkdownIt {
 	const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });
@@ -34,7 +33,8 @@ function createMarkdownParser(): MarkdownIt {
 class ChatFactory {
 	public init(chat: any): void {
 		const puzzelConfig = new PuzzelConfig();
-		const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig);
+		const conversationStorageManager = new ConversationStorageManager();
+		const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
 		const puzzelConversationManager = new PuzzelConversationManager(
 			puzzelConfig,
 			puzzelAuthenticator,
@@ -43,7 +43,7 @@ class ChatFactory {
 			new ListenForMetaData(puzzelConfig, puzzelAuthenticator),
 			new ListenForConversation(puzzelConfig, puzzelAuthenticator),
 			new SendUserMessage(puzzelConfig, puzzelAuthenticator),
-			new ConversationIdStorageManager(),
+			conversationStorageManager,
 		);
 
 		const puzzelTypingIndicatorHandler = new PuzzelTypingIndicatorHandler(chat);

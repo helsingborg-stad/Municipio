@@ -38,6 +38,10 @@ type RouteConversationResponse = {
     result: string | number;
 };
 
+type PuzzelLocalStorageData = RouteConversationResponse & {
+    accessToken: string;
+};
+
 type PuzzelMetaDataEvent = {
     eventId?: number;
     createdAt?: string;
