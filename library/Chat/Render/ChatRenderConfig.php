@@ -120,7 +120,7 @@ class ChatRenderConfig implements ChatRenderConfigInterface
             return null;
         }
 
-        return $this->avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]);
+        return $this->avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]) ?: null;
     }
 
     private function getAssistantFromString(): ?array
