@@ -1,5 +1,6 @@
 
 import { throwErrorIfResponseNotOk } from "./helper/throwError";
+import { SESSION_ID_KEY } from "../../../enums";
 
 class StartConversation implements StartConversationInterface {
     public constructor(

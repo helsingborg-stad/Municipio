@@ -9,16 +9,26 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         private listenForMetaDataApi: ListenForMetaDataInterface,
         private listenForConversationApi: ListenForConversationInterface,
         private sendUserMessageApi: SendUserMessageInterface,
+        private conversationIdStorageManager: ConversationIdStorageManagerInterface,
     ) {
+        this.conversationId = this.conversationIdStorageManager.getConversationId() ?? undefined;
+
+        if (this.conversationId) {
+            console.log("Rejoining conversation with ID:", this.conversationId);
+            this.listenForConversationApi.execute(this.conversationId);
+        }
+
+        console.log(this.getConversationId());
     }
 
     public getConversationId(): string {
         this.conversationId ??= crypto.randomUUID();
+
         return this.conversationId;
     }
 
     public async sendUserJoinEventToConversation(): Promise<void> {
-        await this.sendMetaDataApi.execute(this.getConversationId(), "participantJoinEvent");
+        // await this.sendMetaDataApi.execute(this.getConversationId(), "participantJoinEvent");
     }
 
     public async sendUserTypingEvent(): Promise<void> {
@@ -26,7 +36,14 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     }
 
     public async startConversation(): Promise<RouteConversationResponse> {
-        return this.startConversationApi.execute(this.getConversationId());
+        if (this.conversationIdStorageManager.getConversation()) {
+            return this.conversationIdStorageManager.getConversation()!;
+        }
+
+        const conversationResponse = await this.startConversationApi.execute(this.getConversationId());
+        this.conversationIdStorageManager.setConversationId(conversationResponse);
+
+        return conversationResponse;
     }
 
     public async sendUserMessage(message: string): Promise<void> {
