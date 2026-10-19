@@ -478,6 +478,28 @@
                     "placeholder": "",
                     "new_lines": "",
                     "parent_repeater": "field_69ddefc99aa7a"
+                },
+                {
+                    "key": "field_6ad233dc447c2",
+                    "label": "Logged in only",
+                    "name": "logged_in_only",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Only enable this assistant for logged-in users.",
+                    "default_value": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_69ddefc99aa7a"
                 }
             ]
         }

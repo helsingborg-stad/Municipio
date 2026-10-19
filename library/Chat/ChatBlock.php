@@ -8,14 +8,15 @@ use Municipio\Chat\Render\ChatRenderInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\RegisterBlockType;
 use WpService\Contracts\GetBlockWrapperAttributes;
+use WpService\Contracts\RegisterBlockType;
 
-class ChatBlock implements Hookable {
+class ChatBlock implements Hookable
+{
     public function __construct(
         private RegisterBlockType&AddAction&__&GetBlockWrapperAttributes $wpService,
         private ChatConfigInterface $config,
-        private ChatRenderInterface $renderer
+        private ChatRenderInterface $renderer,
     ) {}
 
     public function addHooks(): void
@@ -25,11 +26,10 @@ class ChatBlock implements Hookable {
 
     public function registerBlock()
     {
-            
         if (empty($this->config->getAssistants())) {
             return;
         }
-        
+
         $result = array_column($this->config->getAssistants(), 'name', 'name');
         $result = array_merge(['Default' => __('Default', 'municipio')], $result);
 
@@ -43,8 +43,8 @@ class ChatBlock implements Hookable {
                         'label' => __('Assistant', 'municipio'),
                         'type' => 'string',
                         'enum' => array_keys($result),
-                        'default' => 'Default'
-                    ]
+                        'default' => 'Default',
+                    ],
                 ],
                 'render_callback' => function ($attributes) {
                     $config = new ChatRenderConfig(
@@ -52,16 +52,19 @@ class ChatBlock implements Hookable {
                         $this->config,
                         'block',
                         $attributes['assistant'] ?? 'Default',
-                        $this->wpService->getBlockWrapperAttributes()
+                        $this->wpService->getBlockWrapperAttributes(),
                     );
+
+                    if ($config->getAssistant() === null) {
+                        return '';
+                    }
 
                     return $this->renderer->render($config);
                 },
                 'supports' => array(
                     'autoRegister' => true,
                 ),
-            ]
+            ],
         );
     }
 }
-
