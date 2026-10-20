@@ -31,6 +31,8 @@
                             'element' => 'h1', 
                             'variant' => 'h1', 
                             'id' => 'page-title',
+                            'classList' => ['c-view-transition__title', 'c-view-transition__destination'],
+                            'attributeList' => $viewTransitionAttributes,
                         ])
                             {!! (method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) !!}
                         @endtypography
@@ -63,7 +65,8 @@
                 'src' => $post->getImage(),
                 'caption' => $featuredImage['caption'],
                 'removeCaption' => !$displayFeaturedImageCaption,
-                'classList' => ['c-article__feature-image', 'u-box-shadow--1', 'u-margin__top--2'],
+                'classList' => ['c-article__feature-image', 'c-view-transition__image', 'c-view-transition__destination', 'u-box-shadow--1', 'u-margin__top--2'],
+                'attributeList' => $viewTransitionAttributes,
             ])
             @endimage
             @yield('article.featuredimage.after')

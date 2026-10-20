@@ -136,11 +136,13 @@ class TableItemsGeneratorTest extends TestCase
         $item = $items[0];
         $this->assertSame(1, $item['id']);
         $this->assertSame('/link', $item['href']);
+        $this->assertStringContainsString('c-view-transition__title', $item['columns'][0]);
+        $this->assertStringContainsString('municipio-post-1-title', $item['columns'][0]);
+        $this->assertStringContainsString('>Title</span>', $item['columns'][0]);
         $this->assertSame([
-            'Title',
             'value',
             date('Y-m-d', strtotime('2023-01-01 12:00:00'))
-        ], array_slice($item['columns'], 0, 3));
+        ], array_slice($item['columns'], 1, 3));
     }
 
     public function testGenerateIncludesTaxonomyColumns()

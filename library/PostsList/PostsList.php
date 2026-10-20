@@ -76,6 +76,7 @@ class PostsList implements PostsListInterface
             'getDateTimestamp' => (new ViewCallableProviders\GetDateTimestamp($this->appearanceConfig->getDateSource(), $this->getPosts(), $this->wpdb))->getCallable(),
             'getDateFormat' => (new ViewCallableProviders\GetDateFormat($this->appearanceConfig->getDateFormat()))->getCallable(),
             'shouldDisplayPlaceholderImage' => (new ViewCallableProviders\ShouldDisplayPlaceholderImage(...$this->getPosts()))->getCallable(),
+            'getViewTransitionAttributes' => (new ViewCallableProviders\GetViewTransitionAttributes())->getCallable(),
             // Table view utilities
             'getTableComponentArguments' => (new ViewCallableProviders\Table\GetTableComponentArguments($this->getPosts(), $this->appearanceConfig, $this->wpService, $this->acfService))->getCallable(),
             // Schema Project view utilities

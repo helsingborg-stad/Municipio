@@ -1,14 +1,19 @@
-@collection__item([ 'link' => $post->getPermalink(), 'containerAware' => true, 'bordered' => true, 'attributeList' => ['data-js-posts-list-item' => true] ])
+@collection__item([
+    'link' => $post->getPermalink(),
+    'containerAware' => true,
+    'bordered' => true,
+    'attributeList' => array_merge(['data-js-posts-list-item' => true], $getViewTransitionAttributes($post->getId()))
+])
     @if ($appearanceConfig->shouldDisplayFeaturedImage() && !empty($post->getImage()))
         @slot('before')
             @if($post->getImage()) 
-                @image(['src' => $post->getImage()])@endimage
+                @image(['src' => $post->getImage(), 'classList' => ['c-view-transition__image']])@endimage
             @endif
         @endslot
     @endif
     @group([ 'direction' => 'vertical' ])
         @group([ 'justifyContent' => 'space-between' ])
-            @typography([ 'element' => 'h2', 'variant' => 'h3' ])
+            @typography([ 'element' => 'h2', 'variant' => 'h3', 'classList' => ['c-view-transition__title'] ])
                 {!! $post->getTitle() !!}
             @endtypography
         @endgroup

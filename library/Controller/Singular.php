@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\WP;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\ViewTransition\PostTargets;
 use WP_Post;
 
 /**
@@ -33,6 +34,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->post = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['post'] = $this->post;
+        $this->data['viewTransitionAttributes'] = PostTargets::attributes($this->post->getId());
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         $this->data['displayFeaturedImage'] = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageOnSinglePost($this->post->getId()));

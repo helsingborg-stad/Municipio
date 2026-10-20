@@ -12,6 +12,7 @@ import { initPostsListAsync } from "./postsList";
 import { initializeWpApiSettingsNonceRefresh } from "./restApi/wpApiSettings";
 import { initializeSessionManager } from "./sessionManager";
 import { initializeVagueControlTextIndicator } from "./vagueControlTextIndicator";
+import { initializeViewTransitions } from "./viewTransitions";
 
 const fab = new Fab();
 
@@ -29,3 +30,4 @@ initPostsListAsync();
 initializeVagueControlTextIndicator();
 initializeHeadingHierarchyIndicator();
 initializeMissingH1Indicator();
+initializeViewTransitions();

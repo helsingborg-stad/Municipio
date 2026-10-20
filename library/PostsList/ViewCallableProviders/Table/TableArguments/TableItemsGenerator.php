@@ -4,6 +4,7 @@ namespace Municipio\PostsList\ViewCallableProviders\Table\TableArguments;
 
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostsList\Config\AppearanceConfig\AppearanceConfigInterface;
+use Municipio\ViewTransition\PostTargets;
 use WpService\Contracts\WpDate;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetTerms;
@@ -68,7 +69,11 @@ class TableItemsGenerator
     private function getColumnValue(PostObjectInterface $post, string $item): string
     {
         return match ($item) {
-            'post_title' => $post->getTitle(),
+            'post_title' => sprintf(
+                '<span class="c-view-transition__title" %s>%s</span>',
+                \ComponentLibrary\Component\BaseController::buildAttributes(PostTargets::attributes($post->getId())),
+                $post->getTitle(),
+            ),
             'post_date'  => $this->wpService->wpDate(
                 $this->wpService->getOption('date_format'),
                 $post->getPublishedTime()

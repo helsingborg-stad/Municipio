@@ -9,7 +9,7 @@
     'content' => $getSchemaProjectCategoryTerms($post),
     'hasPlaceholder' => $shouldDisplayPlaceholderImage($post),
     'classList' => ['u-height--100'],
-    'attributeList' => ['data-js-posts-list-item' => true],
+    'attributeList' => array_merge(['data-js-posts-list-item' => true], $getViewTransitionAttributes($post->getId())),
 ])
     @slot('afterContent')
         @group([

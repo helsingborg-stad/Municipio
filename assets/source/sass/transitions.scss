@@ -2,3 +2,51 @@
 @view-transition {
   navigation: auto;
 }
+
+/*
+ * A post keeps its visual identity when moving between a list and its detail
+ * page. The source target is enabled only for the link the visitor selected;
+ * this avoids animating every item out of a list at once.
+ */
+.is-view-transition-target {
+  &.c-view-transition__title {
+    view-transition-name: var(--municipio-view-transition-title);
+  }
+
+  .c-card__heading,
+  .c-news-item__heading,
+  .c-block__heading,
+  .c-view-transition__title {
+    view-transition-name: var(--municipio-view-transition-title);
+  }
+
+  .c-card__image,
+  .c-news-item__image,
+  .c-block__image,
+  .c-view-transition__image {
+    view-transition-name: var(--municipio-view-transition-image);
+  }
+}
+
+/* Detail pages are the destination for a post selected from a list. */
+.c-view-transition__destination {
+  &.c-view-transition__title {
+    view-transition-name: var(--municipio-view-transition-title);
+  }
+
+  &.c-view-transition__image {
+    view-transition-name: var(--municipio-view-transition-image);
+  }
+}
+
+/* Keep the continuity cue quick and calm rather than turning navigation into a flourish. */
+::view-transition-group(*) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation-duration: 1ms;
+  }
+}

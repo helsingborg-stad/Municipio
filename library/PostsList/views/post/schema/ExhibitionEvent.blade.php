@@ -8,6 +8,6 @@
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
     'hasPlaceholder' => $shouldDisplayPlaceholderImage($post),
-    'attributeList' => ['data-js-posts-list-item' => true],
+    'attributeList' => array_merge(['data-js-posts-list-item' => true], $getViewTransitionAttributes($post->getId())),
 ])
 @endcard

@@ -1,8 +1,8 @@
-<div class="archive-compressed__article u-margin__bottom--12" data-js-posts-list-item>
+<div class="archive-compressed__article u-margin__bottom--12" data-js-posts-list-item {!! \ComponentLibrary\Component\BaseController::buildAttributes($getViewTransitionAttributes($post->getId())) !!}>
 
     <article id="article" class="c-article">
         
-        @typography(["element" => "h1"])
+        @typography(["element" => "h1", 'classList' => ['c-view-transition__title']])
             @link(['href' =>  $post->getPermalink(), 'classList' => ['archive-compressed__title-link']])
                 {{ $post->getTitle() }}
             @endlink

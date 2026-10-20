@@ -12,6 +12,6 @@
     'dateBadge' => $showDateBadge(),
     'classList' => ['t-archive-block', 'u-height--100'],
     'context' => ['archive', 'archive.list', 'archive.list.block'],
-    'attributeList' => ['data-js-posts-list-item' => true],
+    'attributeList' => array_merge(['data-js-posts-list-item' => true], $getViewTransitionAttributes($post->getId())),
 ])
 @endblock
