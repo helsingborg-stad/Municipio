@@ -14141,3 +14141,80 @@ msgstr ""
 msgctxt "block description"
 msgid "A block to display a list of posts."
 msgstr ""
+
+#: library/Controller/SingularSponsorOffer.php:15
+msgid "Offering sponsorship"
+msgstr ""
+
+#: library/Controller/SingularSponsorOffer.php:16
+msgid "About the offer"
+msgstr ""
+
+#: library/Controller/SingularSponsorOffer.php:17
+msgid "Sponsorship conditions"
+msgstr ""
+
+#: library/Controller/SingularSponsorOffer.php:18
+msgid "About the company"
+msgstr ""
+
+#: library/Controller/SingularSponsorOffer.php:19
+msgid "Company"
+msgstr ""
+
+#: library/Controller/SingularSponsorDemandEvent.php:15
+msgid "Seeking sponsorship"
+msgstr ""
+
+#: library/Controller/SingularSponsorDemandEvent.php:16
+msgid "About the sponsorship request"
+msgstr ""
+
+#: library/Controller/SingularSponsorDemandEvent.php:17
+msgid "What we need"
+msgstr ""
+
+#: library/Controller/SingularSponsorDemandEvent.php:18
+msgid "About the association"
+msgstr ""
+
+#: library/Controller/SingularSponsorDemandEvent.php:19
+msgid "Association"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:2
+msgid "Practical information"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:4
+msgid "Start date"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:5
+msgid "End date"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:15
+msgid "What is offered"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:61
+msgid "Organization number"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:66
+msgid "Visit website"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:8
+msgid "Activities"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/details.blade.php:9
+#: views/v3/partials/schema/sponsor/details.blade.php:41
+msgid "Deadline"
+msgstr ""
+
+#: views/v3/partials/schema/sponsor/requirements.blade.php:7
+msgid "Counter-performance"
+msgstr ""
