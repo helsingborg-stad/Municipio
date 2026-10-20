@@ -12,6 +12,7 @@ export const initializeViewTransitions = (): void => {
 	document.addEventListener("click", (event) => {
 		if (
 			event.defaultPrevented ||
+			event.detail === 0 ||
 			event.button !== 0 ||
 			event.metaKey ||
 			event.ctrlKey ||

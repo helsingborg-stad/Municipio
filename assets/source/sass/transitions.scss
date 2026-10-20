@@ -41,12 +41,34 @@
 
 /* Keep the continuity cue quick and calm rather than turning navigation into a flourish. */
 ::view-transition-group(*) {
-  animation-duration: 220ms;
-  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*) {
-    animation-duration: 1ms;
+    animation-duration: 160ms;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .is-view-transition-target {
+    &.c-view-transition__title,
+    .c-card__heading,
+    .c-news-item__heading,
+    .c-block__heading,
+    .c-view-transition__title,
+    .c-card__image,
+    .c-news-item__image,
+    .c-block__image,
+    .c-view-transition__image {
+      view-transition-name: none !important;
+    }
+  }
+
+  .c-view-transition__destination {
+    &.c-view-transition__title,
+    &.c-view-transition__image {
+      view-transition-name: none !important;
+    }
   }
 }
