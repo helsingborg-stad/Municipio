@@ -1,6 +1,8 @@
 import { SESSION_ID_KEY } from "../../../enums";
 
 class ConversationStorageManager implements ConversationStorageManagerInterface {
+    private localStorageData: PuzzelLocalStorageData | null = null;
+
     public getConversationId(): string | null {
         return this.getConversationData()?.conversationId ?? null;
     }
@@ -13,11 +15,15 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         return this.getLocalStorage()?.conversationData ?? null;
     }
 
-    public getAuthenticationData(): AuthenticationResponse | null {
+    public getAuthenticationData(): AuthenticationData | null {
         return this.getLocalStorage()?.authenticationData ?? null;
     }
 
     public getLocalStorage(): PuzzelLocalStorageData | null {
+        if (this.localStorageData) {
+            return this.localStorageData;
+        }
+
         const storedData = window.localStorage.getItem(
             SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
         );
@@ -27,11 +33,13 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         }
 
         const data = JSON.parse(storedData);
-
-        return data.puzzel ?? null;
+        this.localStorageData = data.puzzel ?? null;
+        return this.localStorageData;
     }
 
-    public setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationResponse): void {
+    public setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationData): void {
+        this.localStorageData = null;
+
         const storedData = window.localStorage.getItem(
             SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
         );

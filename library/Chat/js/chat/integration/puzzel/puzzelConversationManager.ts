@@ -17,6 +17,10 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         return this.conversationId;
     }
 
+    public async getCurrentConversation(): Promise<PuzzelConversationEvent[]> {
+        return await this.listenForConversationApi.execute(this.getConversationId());
+    }
+
     public async sendUserJoinEventToConversation(): Promise<void> {
         await this.sendMetaDataApi.execute(this.getConversationId(), "participantJoinEvent");
     }

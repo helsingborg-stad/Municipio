@@ -1,6 +1,7 @@
 class Puzzel {
-    private authenticated: AuthenticationResponse | undefined;
+    private authenticated: AuthenticationData | undefined;
     private conversation: RouteConversationResponse | undefined;
+    private hadStoredAuthentication: boolean = false;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -16,18 +17,17 @@ class Puzzel {
     }
 
     public async init(): Promise<void> {
-        this.authenticated = this.conversationStorageManager.getAuthenticationData() ?? await this.puzzelAuthenticator.authenticate();
+        const localStorageData = this.conversationStorageManager.getLocalStorage();
+        this.hadStoredAuthentication = !!localStorageData?.authenticationData;
+        this.authenticated = localStorageData?.authenticationData ?? await this.puzzelAuthenticator.authenticate();
 
         if (!this.authenticated) {
             return;
         }
 
-        this.conversation = this.conversationStorageManager.getConversationData() ?? await this.puzzelConversationManager.startConversation();
-
-        this.conversationStorageManager.setLocalStorage(this.conversation, this.authenticated);
-
-        console.log("Conversation:", this.conversation, "Authenticated:", this.authenticated);
-        // await this.puzzelConversationManager.sendUserJoinEventToConversation();
+        this.hadStoredAuthentication ? 
+            await this.handleStoredAuthenticationFlow() : 
+            await this.handleNewAuthenticationFlow();
 
         this.outgoingChatHandler.register();
 
@@ -42,6 +42,20 @@ class Puzzel {
             console.log("Conversation received:", data);
             this.incomingMessageHandler.handleConversationEvent(data);
         });
+    }
+
+    private async handleStoredAuthenticationFlow(): Promise<void> {
+        console.log("Handling stored authentication flow.");
+        const currentConversation = await this.puzzelConversationManager.getCurrentConversation();
+
+        console.log("Current conversation:", currentConversation);
+    }
+
+    private async handleNewAuthenticationFlow(): Promise<void> {
+        console.log("Handling new authentication flow.");
+        this.conversation = await this.puzzelConversationManager.startConversation();
+        this.conversationStorageManager.setLocalStorage(this.conversation, this.authenticated!);
+        await this.puzzelConversationManager.sendUserJoinEventToConversation();
     }
 }
 

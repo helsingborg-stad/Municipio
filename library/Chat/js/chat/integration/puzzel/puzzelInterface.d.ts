@@ -15,11 +15,12 @@ interface PuzzelConversationManagerInterface {
     listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;
     sendUserMessage(content: string): Promise<void>;
     sendUserTypingEvent(): Promise<void>;
+    getCurrentConversation(): Promise<PuzzelConversationEvent[]>;
 }
 
 interface PuzzelAuthenticatorInterface {
     getAccessToken(): Promise<string>;
-    authenticate(): Promise<AuthenticationResponse>;
+    authenticate(): Promise<AuthenticationData>;
 }
 
 type AuthenticationResponse = {
@@ -31,6 +32,10 @@ type AuthenticationResponse = {
     visitor_id: string;
 };
 
+type AuthenticationData = AuthenticationResponse & {
+    expires: number;
+};
+
 type RouteConversationResponse = {
     conversationId: string;
     iqSessionId: string;
@@ -40,7 +45,7 @@ type RouteConversationResponse = {
 
 type PuzzelLocalStorageData = RouteConversationResponse & {
     conversationData: RouteConversationResponse;
-    authenticationData: AuthenticationResponse;
+    authenticationData: AuthenticationData;
 };
 
 type PuzzelMetaDataEvent = {

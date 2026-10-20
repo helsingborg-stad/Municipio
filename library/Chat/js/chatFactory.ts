@@ -5,7 +5,6 @@ import FeedbackApi from "./chat/feature/feedback/feedbackApi";
 import FeedbackFactory from "./chat/feature/feedback/feedbackFactory";
 import GreetingPhrase from "./chat/feature/greetingsPhrase/greetingPhrase";
 import NewChatSessionButton from "./chat/feature/newChat/newChatSessionButton";
-import Ai from "./chat/integration/ai/ai";
 import Puzzel from "./chat/integration/puzzel/puzzel";
 import PuzzelConfig from "./chat/integration/puzzel/puzzelConfig";
 import PuzzelAuthenticator from "./chat/integration/puzzel/authentication/puzzelAuthenticator";

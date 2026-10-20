@@ -1,7 +1,5 @@
 class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
-
-    private expiresAt?: number;
-    private authenticationData: AuthenticationResponse | null = null;
+    private authenticationData: AuthenticationData | null = null;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -11,8 +9,8 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
     public async getAccessToken(): Promise<string> {
         const isTokenValid =
             this.authenticationData?.access_token !== null &&
-            this.expiresAt !== undefined &&
-            Date.now() < this.expiresAt;
+            this.authenticationData?.expires !== undefined &&
+            Date.now() < this.authenticationData.expires;
 
         if (!isTokenValid) {
             await this.authenticate();
@@ -25,7 +23,7 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
         return this.authenticationData.access_token;
     }
 
-    public async authenticate(): Promise<AuthenticationResponse> {
+    public async authenticate(): Promise<AuthenticationData> {
         this.authenticationData = this.conversationStorageManager.getAuthenticationData() ?? null;
 
         if (this.isValidToken()) {
@@ -60,25 +58,22 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
             throw new Error("Authentication failed: missing access token");
         }
 
-        if (
-            typeof authenticated.expires_in !== "number" ||
-            authenticated.expires_in <= 0
-        ) {
-            throw new Error("Authentication failed: invalid token expiration");
-        }
+        const authenticationData: AuthenticationData = {
+            ...authenticated,
+            expires: Date.now() + (authenticated.expires_in * 1000),
+        };
 
-        this.authenticationData = authenticated;
-        this.expiresAt = Date.now() + (authenticated.expires_in * 1000);
+        this.authenticationData = authenticationData;
 
-        return authenticated;
+        return authenticationData;
     }
 
     private isValidToken(): boolean {
         return (
             this.authenticationData !== null &&
             this.authenticationData.access_token !== undefined &&
-            this.expiresAt !== undefined &&
-            Date.now() < this.expiresAt
+            this.authenticationData.expires !== undefined &&
+            Date.now() < this.authenticationData.expires
         );
     }
 }
