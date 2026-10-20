@@ -36,8 +36,6 @@ class ChatFactory {
 		const conversationStorageManager = new ConversationStorageManager();
 		const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
 		const puzzelConversationManager = new PuzzelConversationManager(
-			puzzelConfig,
-			puzzelAuthenticator,
 			new StartConversation(puzzelConfig, puzzelAuthenticator),
 			new SendMetadata(puzzelConfig, puzzelAuthenticator),
 			new ListenForMetaData(puzzelConfig, puzzelAuthenticator),
@@ -52,6 +50,7 @@ class ChatFactory {
 			puzzelConfig,
 			puzzelAuthenticator,
 			puzzelConversationManager,
+			conversationStorageManager,
 			puzzelTypingIndicatorHandler,
 			new PuzzelIncomingMessageHandler(chat, puzzelTypingIndicatorHandler),
 			new PuzzelOutgoingChatHandler(puzzelConversationManager, chat),

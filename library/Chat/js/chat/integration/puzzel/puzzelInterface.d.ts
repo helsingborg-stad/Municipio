@@ -39,7 +39,8 @@ type RouteConversationResponse = {
 };
 
 type PuzzelLocalStorageData = RouteConversationResponse & {
-    accessToken: string;
+    conversationData: RouteConversationResponse;
+    authenticationData: AuthenticationResponse;
 };
 
 type PuzzelMetaDataEvent = {

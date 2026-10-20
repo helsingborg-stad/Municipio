@@ -50,7 +50,7 @@ class ListenForMetaData implements ListenForMetaDataInterface {
             void poll().catch((error: unknown) => {
                 console.error("Failed to poll metadata", error);
             });
-        }, 1000);
+        }, 3000);
 
         this.activeIntervals.set(conversationId, intervalId);
     }

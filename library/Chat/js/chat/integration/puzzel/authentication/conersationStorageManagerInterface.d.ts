@@ -2,5 +2,7 @@ interface ConversationStorageManagerInterface {
     getConversationId(): string | null;
     getAccessToken(): string | null;
     getLocalStorage(): PuzzelLocalStorageData | null;
-    setLocalStorage(conversationResponseS: RouteConversationResponse, accessToken: string): void;
+    setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationResponse): void;
+    getConversationData(): RouteConversationResponse | null;
+    getAuthenticationData(): AuthenticationResponse | null;
 }

@@ -1,7 +1,7 @@
 class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
 
-    private accessToken?: string | null;
     private expiresAt?: number;
+    private authenticationData: AuthenticationResponse | null = null;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -9,10 +9,8 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
     ) {}
 
     public async getAccessToken(): Promise<string> {
-        this.accessToken = await this.conversationStorageManager.getAccessToken();
-
         const isTokenValid =
-            this.accessToken !== undefined &&
+            this.authenticationData?.access_token !== null &&
             this.expiresAt !== undefined &&
             Date.now() < this.expiresAt;
 
@@ -20,14 +18,20 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
             await this.authenticate();
         }
 
-        if (!this.accessToken) {
+        if (!this.authenticationData?.access_token) {
             throw new Error("Authentication failed: missing access token");
         }
 
-        return this.accessToken;
+        return this.authenticationData.access_token;
     }
 
     public async authenticate(): Promise<AuthenticationResponse> {
+        this.authenticationData = this.conversationStorageManager.getAuthenticationData() ?? null;
+
+        if (this.isValidToken()) {
+            return this.authenticationData!;
+        }
+
         const response = await fetch(
             `${this.puzzelConfig.getAuthenticationUrl()}/connect/token`,
             {
@@ -63,12 +67,20 @@ class PuzzelAuthenticator implements PuzzelAuthenticatorInterface {
             throw new Error("Authentication failed: invalid token expiration");
         }
 
-        this.accessToken = authenticated.access_token;
+        this.authenticationData = authenticated;
         this.expiresAt = Date.now() + (authenticated.expires_in * 1000);
 
         return authenticated;
     }
 
+    private isValidToken(): boolean {
+        return (
+            this.authenticationData !== null &&
+            this.authenticationData.access_token !== undefined &&
+            this.expiresAt !== undefined &&
+            Date.now() < this.expiresAt
+        );
+    }
 }
 
 export default PuzzelAuthenticator;

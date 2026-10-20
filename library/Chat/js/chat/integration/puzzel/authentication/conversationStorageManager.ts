@@ -2,11 +2,19 @@ import { SESSION_ID_KEY } from "../../../enums";
 
 class ConversationStorageManager implements ConversationStorageManagerInterface {
     public getConversationId(): string | null {
-        return this.getLocalStorage()?.conversationId ?? null;
+        return this.getConversationData()?.conversationId ?? null;
     }
 
     public getAccessToken(): string | null {
-        return this.getLocalStorage()?.accessToken ?? null;
+        return this.getAuthenticationData()?.access_token ?? null;
+    }
+
+    public getConversationData(): RouteConversationResponse | null {
+        return this.getLocalStorage()?.conversationData ?? null;
+    }
+
+    public getAuthenticationData(): AuthenticationResponse | null {
+        return this.getLocalStorage()?.authenticationData ?? null;
     }
 
     public getLocalStorage(): PuzzelLocalStorageData | null {
@@ -23,7 +31,7 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         return data.puzzel ?? null;
     }
 
-    public setLocalStorage(conversationResponse: RouteConversationResponse, accessToken: string): void {
+    public setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationResponse): void {
         const storedData = window.localStorage.getItem(
             SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
         );
@@ -34,11 +42,8 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
 
         data.puzzel = {
             ...data.puzzel,
-            conversationId: conversationResponse.conversationId,
-            iqSessionId: conversationResponse.iqSessionId,
-            requestId: conversationResponse.requestId,
-            result: conversationResponse.result,
-            accessToken: accessToken
+            conversationData: conversationResponse,
+            authenticationData: authentication
         };
 
         window.localStorage.setItem(

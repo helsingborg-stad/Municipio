@@ -2,26 +2,23 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     private conversationId: string | undefined = undefined;
 
     public constructor(
-        private puzzelConfig: PuzzelConfigInterface,
-        private puzzelAuthenticator: PuzzelAuthenticatorInterface,
         private startConversationApi: StartConversationInterface,
         private sendMetaDataApi: SendMetadataInterface,
         private listenForMetaDataApi: ListenForMetaDataInterface,
         private listenForConversationApi: ListenForConversationInterface,
         private sendUserMessageApi: SendUserMessageInterface,
-        private conversationIdStorageManager: ConversationStorageManagerInterface,
+        private conversationStorage: ConversationStorageManagerInterface,
     ) {
-        this.conversationId = this.conversationIdStorageManager.getConversationId() ?? undefined;
     }
 
     public getConversationId(): string {
-        this.conversationId ??= crypto.randomUUID();
+        this.conversationId ??= this.conversationStorage.getConversationId() ?? crypto.randomUUID();
 
         return this.conversationId;
     }
 
     public async sendUserJoinEventToConversation(): Promise<void> {
-        // await this.sendMetaDataApi.execute(this.getConversationId(), "participantJoinEvent");
+        await this.sendMetaDataApi.execute(this.getConversationId(), "participantJoinEvent");
     }
 
     public async sendUserTypingEvent(): Promise<void> {
@@ -29,13 +26,7 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     }
 
     public async startConversation(): Promise<RouteConversationResponse> {
-        if (this.conversationIdStorageManager.getLocalStorage()) {
-            return this.conversationIdStorageManager.getLocalStorage()!;
-        }
-
         const conversationResponse = await this.startConversationApi.execute(this.getConversationId());
-
-        this.conversationIdStorageManager.setLocalStorage(conversationResponse, "");
 
         return conversationResponse;
     }
