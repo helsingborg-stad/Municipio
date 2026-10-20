@@ -5592,6 +5592,10 @@ msgid "Menu"
 msgstr ""
 
 #: library/Helper/TranslatedLabels.php:54
+msgid "Close menu"
+msgstr ""
+
+#: library/Helper/TranslatedLabels.php:55
 msgid "Site emblem"
 msgstr ""
 

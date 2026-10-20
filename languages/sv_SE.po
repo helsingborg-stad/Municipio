@@ -4380,6 +4380,10 @@ msgstr ""
 msgid "Menu"
 msgstr "Meny"
 
+#: library/Helper/TranslatedLabels.php:54
+msgid "Close menu"
+msgstr "Stäng meny"
+
 #: Modularity/source/php/Module/Menu/Menu.php:23
 msgid "Menus"
 msgstr ""
