@@ -14220,3 +14220,80 @@ msgstr ""
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Maximum number of rows reached."
 msgstr ""
+
+#: library/Controller/SingularSponsorOffer.php:15
+msgid "Offering sponsorship"
+msgstr "Erbjuder sponsring"
+
+#: library/Controller/SingularSponsorOffer.php:16
+msgid "About the offer"
+msgstr "Om erbjudandet"
+
+#: library/Controller/SingularSponsorOffer.php:17
+msgid "Sponsorship conditions"
+msgstr "Villkor för sponsringen"
+
+#: library/Controller/SingularSponsorOffer.php:18
+msgid "About the company"
+msgstr "Om företaget"
+
+#: library/Controller/SingularSponsorOffer.php:19
+msgid "Company"
+msgstr "Företag"
+
+#: library/Controller/SingularSponsorDemandEvent.php:15
+msgid "Seeking sponsorship"
+msgstr "Söker sponsring"
+
+#: library/Controller/SingularSponsorDemandEvent.php:16
+msgid "About the sponsorship request"
+msgstr "Om sponsoruppdraget"
+
+#: library/Controller/SingularSponsorDemandEvent.php:17
+msgid "What we need"
+msgstr "Det här behöver vi"
+
+#: library/Controller/SingularSponsorDemandEvent.php:18
+msgid "About the association"
+msgstr "Om föreningen"
+
+#: library/Controller/SingularSponsorDemandEvent.php:19
+msgid "Association"
+msgstr "Förening"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:2
+msgid "Practical information"
+msgstr "Praktisk information"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:4
+msgid "Start date"
+msgstr "Startdatum"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:5
+msgid "End date"
+msgstr "Slutdatum"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:15
+msgid "What is offered"
+msgstr "Det här erbjuds"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:61
+msgid "Organization number"
+msgstr "Organisationsnummer"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:66
+msgid "Visit website"
+msgstr "Besök webbplatsen"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:8
+msgid "Activities"
+msgstr "Aktiviteter"
+
+#: views/v3/partials/schema/sponsor/details.blade.php:9
+#: views/v3/partials/schema/sponsor/details.blade.php:41
+msgid "Deadline"
+msgstr "Sista svarsdag"
+
+#: views/v3/partials/schema/sponsor/requirements.blade.php:7
+msgid "Counter-performance"
+msgstr "Motprestation"
