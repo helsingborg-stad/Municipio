@@ -18,7 +18,7 @@ interface PuzzelChatHistoryHandlerInterface {
 }
 
 interface PuzzelChatStatusHandlerInterface {
-    getStatus(statuses: PuzzelConversationStatusResponse[]): string;
+    getStatus(statuses: PuzzelConversationStatusResponse[]): string|null;
 }
 
 interface ChatHandlerInterface {

@@ -19,6 +19,24 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         return this.getLocalStorage()?.authenticationData ?? null;
     }
 
+    public clearLocalStorage(): void {
+        this.localStorageData = null;
+        const storedData = window.localStorage.getItem(
+            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
+        );
+
+        if (!storedData) {
+            return;
+        }
+
+        const data = JSON.parse(storedData);
+        delete data.puzzel;
+        window.localStorage.setItem(
+            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
+            JSON.stringify(data)
+        );
+    }
+
     public getLocalStorage(): PuzzelLocalStorageData | null {
         if (this.localStorageData) {
             return this.localStorageData;

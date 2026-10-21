@@ -2,6 +2,7 @@ class Puzzel {
     private authenticated: AuthenticationData | undefined;
     private conversation: RouteConversationResponse | undefined;
     private hadStoredAuthentication: boolean = false;
+    private triedRerun: boolean = false;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -29,8 +30,14 @@ class Puzzel {
             return;
         }
 
-        const chatStatus = this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
-        console.log("Conversation status:", chatStatus);
+        if (this.hadStoredAuthentication) {
+            const chatStatus = this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
+            console.log("Conversation status:", chatStatus);
+            if (!chatStatus) {
+                this.handleFailedChatStatus();
+                return;
+            }
+        }
 
         this.hadStoredAuthentication ? 
             await this.handleStoredAuthenticationFlow() : 
@@ -64,6 +71,16 @@ class Puzzel {
         this.conversation = await this.puzzelConversationManager.startConversation();
         this.conversationStorageManager.setLocalStorage(this.conversation, this.authenticated!);
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
+    }
+
+    private handleFailedChatStatus(): void {
+        this.conversationStorageManager.clearLocalStorage();
+        if (!this.triedRerun) {
+            this.triedRerun = true;
+            this.init();
+        } else {
+            console.error("Failed to get chat status after retry.");
+        }
     }
 }
 
