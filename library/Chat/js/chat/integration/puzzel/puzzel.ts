@@ -14,6 +14,7 @@ class Puzzel {
         private agentLeftHandler: MetaDataHandler,
         private agentJoinedHandler: MetaDataHandler,
         private chatHistoryHandler: PuzzelChatHistoryHandlerInterface,
+        private chatStatusHandler: PuzzelChatStatusHandlerInterface,
         private chatHandler: ChatHandlerInterface
     ) {
     }
@@ -27,6 +28,9 @@ class Puzzel {
         if (!this.authenticated) {
             return;
         }
+
+        const chatStatus = this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
+        console.log("Conversation status:", chatStatus);
 
         this.hadStoredAuthentication ? 
             await this.handleStoredAuthenticationFlow() : 

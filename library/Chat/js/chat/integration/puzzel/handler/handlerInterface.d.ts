@@ -17,6 +17,10 @@ interface PuzzelChatHistoryHandlerInterface {
 	load(conversationEvents: PuzzelConversationEvent[], metaDataEvents: PuzzelMetaDataEvent[]): void;
 }
 
+interface PuzzelChatStatusHandlerInterface {
+    getStatus(statuses: PuzzelConversationStatusResponse[]): string;
+}
+
 interface ChatHandlerInterface {
 	setDefaultPersistedState(state: boolean): void;
 	addMessage(message: string, isAgent: boolean): void;

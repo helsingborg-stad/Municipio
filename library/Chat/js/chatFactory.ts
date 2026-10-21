@@ -22,6 +22,8 @@ import PuzzelAgentJoinedHandler from "./chat/integration/puzzel/handler/puzzelAg
 import ConversationStorageManager from "./chat/integration/puzzel/authentication/conversationStorageManager";
 import PuzzelChatHistoryHandler from "./chat/integration/puzzel/handler/puzzelChatHistoryHandler";
 import ChatHandler from "./chat/integration/puzzel/handler/chatHandler";
+import GetConversationStatus from "./chat/integration/puzzel/api/getConversationStatus";
+import PuzzelChatStatusHandler from "./chat/integration/puzzel/handler/puzzelChatStatusHandler";
 
 
 function createMarkdownParser(): MarkdownIt {
@@ -43,6 +45,7 @@ class ChatFactory {
 			new ListenForMetaData(puzzelConfig, puzzelAuthenticator),
 			new ListenForConversation(puzzelConfig, puzzelAuthenticator),
 			new SendUserMessage(puzzelConfig, puzzelAuthenticator),
+			new GetConversationStatus(puzzelConfig, puzzelAuthenticator),
 			conversationStorageManager,
 		);
 
@@ -60,17 +63,11 @@ class ChatFactory {
 			new PuzzelAgentLeftHandler(chatHandler),
 			new PuzzelAgentJoinedHandler(chatHandler),
 			new PuzzelChatHistoryHandler(chatHandler),
+			new PuzzelChatStatusHandler(),
 			chatHandler
 		).init();
 
 		return;
-	}
-
-	private isPersistent(chat: any): boolean {
-		const persistentAttribute = chat.getElement().getAttribute("data-js-chat-persistent");
-
-		return persistentAttribute !== null
-			&& persistentAttribute.toLowerCase() !== "false";
 	}
 }
 

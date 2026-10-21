@@ -17,6 +17,7 @@ interface PuzzelConversationManagerInterface {
     sendUserTypingEvent(): Promise<void>;
     getCurrentConversation(): Promise<PuzzelConversationEvent[]>;
     getCurrentMetaData(): Promise<PuzzelMetaDataEvent[]>;
+    getConversationStatus(): Promise<PuzzelConversationStatusResponse[]>;
 }
 
 interface PuzzelAuthenticatorInterface {

@@ -1,3 +1,5 @@
+import { throwErrorIfResponseNotOk } from "./helper/throwError";
+
 class GetConversationStatus implements GetConversationStatusInterface {
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -16,9 +18,7 @@ class GetConversationStatus implements GetConversationStatusInterface {
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`Failed to get conversation status: ${response.statusText}`);
-        }
+        throwErrorIfResponseNotOk(response, `Failed to get conversation status for conversation ID: ${conversationId}`);
 
         return await response.json();
     }

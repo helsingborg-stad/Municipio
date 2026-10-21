@@ -10,7 +10,6 @@ class ChatHandler {
 	}
 
 	public addInfo(content: string): void {
-		// TODO: Add translation support for this message
 		this.chat.addInfo(content);
 	}
 

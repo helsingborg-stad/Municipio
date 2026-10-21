@@ -7,6 +7,7 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         private listenForMetaDataApi: ListenForMetaDataInterface,
         private listenForConversationApi: ListenForConversationInterface,
         private sendUserMessageApi: SendUserMessageInterface,
+        private getConversationStatusApi: GetConversationStatusInterface,
         private conversationStorage: ConversationStorageManagerInterface,
     ) {
     }
@@ -15,6 +16,10 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         this.conversationId ??= this.conversationStorage.getConversationId() ?? crypto.randomUUID();
 
         return this.conversationId;
+    }
+
+    public async getConversationStatus(): Promise<PuzzelConversationStatusResponse[]> {
+        return await this.getConversationStatusApi.execute(this.getConversationId());
     }
 
     public async getCurrentConversation(): Promise<PuzzelConversationEvent[]> {
