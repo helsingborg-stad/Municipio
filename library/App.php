@@ -411,6 +411,14 @@ class App
         (new \Municipio\Integrations\OpenStreetMap\OpenStreetMapFeature($this->wpService))->addHooks();
 
         /**
+         * Sentry browser performance monitoring.
+         */
+        (new \Municipio\Integrations\Sentry\SentryFeature(
+            $this->wpService,
+            $this->wpUtilService->enqueue(),
+        ))->addHooks();
+
+        /**
          * Setup Table of Contents
          */
         (new \Municipio\Toc\TocFeature($this->wpService, $this->acfService))->enable();
