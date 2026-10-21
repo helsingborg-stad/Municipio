@@ -3,14 +3,13 @@ class Puzzel {
     private conversation: RouteConversationResponse | undefined;
     private hadStoredAuthentication: boolean = false;
     private triedRerun: boolean = false;
-    private agentIsUnavailable: boolean = false;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
         private puzzelConversationManager: PuzzelConversationManagerInterface,
         private conversationStorageManager: ConversationStorageManagerInterface,
-        private typingIndicatorHandler: MetaDataHandler,
+        private typingIndicatorHandler: PuzzelTypingIndicatorHandlerInterface,
         private incomingMessageHandler: PuzzelIncomingMessageHandlerInterface,
         private outgoingChatHandler: PuzzelOutgoingChatHandlerInterface,
         private agentLeftHandler: MetaDataHandler,
@@ -22,6 +21,9 @@ class Puzzel {
     }
 
     public async init(): Promise<void> {
+        this.puzzelConversationManager.stopListening();
+        this.typingIndicatorHandler.clearTypingState();
+
         this.chatHandler.setDefaultPersistedState(false);
         const localStorageData = this.conversationStorageManager.getLocalStorage();
         this.hadStoredAuthentication = !!localStorageData?.authenticationData;
@@ -46,20 +48,8 @@ class Puzzel {
 
         this.outgoingChatHandler.register();
 
-        await this.puzzelConversationManager.listenForMetaData((data) => {
-            this.agentIsUnavailable = this.agentLeftHandler.handleMetaDataEvent(data);
-
-            if (this.agentIsUnavailable) {
-                this.handleAgentUnavailable();
-            }
-
-            this.typingIndicatorHandler.handleMetaDataEvent(data);
-            this.agentJoinedHandler.handleMetaDataEvent(data);
-        });
-
-        await this.puzzelConversationManager.listenForConversation((data) => {
-            this.incomingMessageHandler.handleConversationEvent(data);
-        });
+        await this.startMetaDataListener();
+        await this.startConversationListener();
     }
 
     private async handleStoredAuthenticationFlow(): Promise<void> {
@@ -76,8 +66,19 @@ class Puzzel {
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
     }
 
-    private handleAgentUnavailable(): void {
-        this.puzzelConversationManager.stopListening();
+    private async startMetaDataListener(): Promise<void> {
+        await this.puzzelConversationManager.listenForMetaData((data) => {
+            this.typingIndicatorHandler.handleMetaDataEvent(data);
+            this.agentLeftHandler.handleMetaDataEvent(data);
+            this.agentJoinedHandler.handleMetaDataEvent(data);
+        });
+    }
+
+
+    private async startConversationListener(): Promise<void> {
+        await this.puzzelConversationManager.listenForConversation((data) => {
+            this.incomingMessageHandler.handleConversationEvent(data);
+        });
     }
 
     private handleFailedChatStatus(): void {
