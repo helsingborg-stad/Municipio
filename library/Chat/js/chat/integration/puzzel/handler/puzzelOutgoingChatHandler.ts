@@ -2,8 +2,8 @@ class PuzzelOutgoingChatHandler implements PuzzelOutgoingChatHandlerInterface {
 	private isRegistered = false;
 
 	public constructor(
+		private chatHandler: ChatHandlerInterface,
 		private puzzelConversationManager: PuzzelConversationManagerInterface,
-		private chat: any,
 	) {
 	}
 
@@ -12,8 +12,7 @@ class PuzzelOutgoingChatHandler implements PuzzelOutgoingChatHandlerInterface {
 			return;
 		}
 
-		this.chat.getElement().addEventListener("chat:message-added", (event: any) => {
-			const message = event.detail;
+		this.chatHandler.onMessageAdded((message: any) => {
 
 			if (message.getIsReply()) {
 				return;
@@ -24,7 +23,7 @@ class PuzzelOutgoingChatHandler implements PuzzelOutgoingChatHandlerInterface {
 			}
 		});
 
-		this.chat.getElement().addEventListener("chat:typing", () => {
+		this.chatHandler.onTyping(() => {
 			void this.puzzelConversationManager.sendUserTypingEvent();
 		});
 

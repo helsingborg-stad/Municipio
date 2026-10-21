@@ -5,7 +5,7 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
     private typingTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     public constructor(
-        private chat: any,
+        private chatHandler: ChatHandlerInterface,
     ) {
     }
 
@@ -15,7 +15,7 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
         }
 
         if (!this.pendingMessage) {
-            this.pendingMessage = this.chat.addPendingMessage();
+            this.pendingMessage = this.chatHandler.addPendingMessage();
         }
 
         this.resetTypingTimeout();
@@ -28,7 +28,7 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
         }
 
         if (this.pendingMessage) {
-            this.chat.deleteMessage(this.pendingMessage);
+            this.chatHandler.deleteMessage(this.pendingMessage);
             this.pendingMessage = null;
         }
     }
@@ -40,7 +40,7 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
 
         this.typingTimeoutId = setTimeout(() => {
             if (this.pendingMessage) {
-                this.chat.deleteMessage(this.pendingMessage);
+                this.chatHandler.deleteMessage(this.pendingMessage);
             }
 
             this.pendingMessage = null;

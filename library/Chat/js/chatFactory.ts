@@ -18,8 +18,11 @@ import PuzzelOutgoingChatHandler from "./chat/integration/puzzel/handler/puzzelO
 import PuzzelIncomingMessageHandler from "./chat/integration/puzzel/handler/puzzelIncomingMessageHandler";
 import PuzzelTypingIndicatorHandler from "./chat/integration/puzzel/handler/puzzelTypingIndicatorHandler";
 import PuzzelAgentLeftHandler from "./chat/integration/puzzel/handler/puzzelAgentLeftHandler";
-import PuzzelAgentJoinedHandler from "./chat/integration/puzzel/handler/puzzelAgentJoined";
+import PuzzelAgentJoinedHandler from "./chat/integration/puzzel/handler/puzzelAgentJoinedHandler";
 import ConversationStorageManager from "./chat/integration/puzzel/authentication/conversationStorageManager";
+import PuzzelChatHistoryHandler from "./chat/integration/puzzel/handler/puzzelChatHistoryHandler";
+import ChatHandler from "./chat/integration/puzzel/handler/chatHandler";
+
 
 function createMarkdownParser(): MarkdownIt {
 	const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });
@@ -43,7 +46,8 @@ class ChatFactory {
 			conversationStorageManager,
 		);
 
-		const puzzelTypingIndicatorHandler = new PuzzelTypingIndicatorHandler(chat);
+		const chatHandler = new ChatHandler(chat);
+		const puzzelTypingIndicatorHandler = new PuzzelTypingIndicatorHandler(chatHandler);
 
 		new Puzzel(
 			puzzelConfig,
@@ -51,54 +55,15 @@ class ChatFactory {
 			puzzelConversationManager,
 			conversationStorageManager,
 			puzzelTypingIndicatorHandler,
-			new PuzzelIncomingMessageHandler(chat, puzzelTypingIndicatorHandler),
-			new PuzzelOutgoingChatHandler(puzzelConversationManager, chat),
-			new PuzzelAgentLeftHandler(chat),
-			new PuzzelAgentJoinedHandler(chat)
+			new PuzzelIncomingMessageHandler(chatHandler, puzzelTypingIndicatorHandler),
+			new PuzzelOutgoingChatHandler(chatHandler, puzzelConversationManager),
+			new PuzzelAgentLeftHandler(chatHandler),
+			new PuzzelAgentJoinedHandler(chatHandler),
+			new PuzzelChatHistoryHandler(chatHandler),
+			chatHandler
 		).init();
 
 		return;
-		const chatElement = chat.getElement() as HTMLElement;
-		const greetingsPhrase = chatElement.dataset.jsChatGreetingsPhrase || null;
-		const feedbackTemplate = chatElement.querySelector("[data-js-chat-feedback]") as HTMLTemplateElement | null;
-		const chatAssistant = chatElement.dataset.jsChatAssistant || null;
-		const newChatButtonElement = chatElement.querySelector("[data-js-chat-new]") as HTMLElement | null;
-		const markdownParser = createMarkdownParser();
-		const chatSessionFactory = new ChatSessionFactory(wpApiSettings.root);
-		const feedbackApi = new FeedbackApi(wpApiSettings.root);
-		const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
-
-		chat.getMessages().forEach((message: any, index: number) => {
-			if (!message.getIsReply()) {
-				return;
-			}
-
-			if (index === 0 && greetingsPhrase === message.getContent()) {
-				return;
-			}
-
-			feedbackFactory.create(message);
-		});
-
-		if (greetingsPhrase !== null) {
-			new GreetingPhrase(chat, greetingsPhrase);
-		}
-
-		const chatInstance = new Chat(
-			chatSessionFactory,
-			chat,
-			markdownParser,
-			feedbackFactory,
-			feedbackApi,
-			chatAssistant,
-			this.isPersistent(chat),
-		);
-		
-		if (newChatButtonElement !== null) {
-			new NewChatSessionButton(newChatButtonElement, chatInstance, chat);
-		}
-
-		chatInstance.init();
 	}
 
 	private isPersistent(chat: any): boolean {

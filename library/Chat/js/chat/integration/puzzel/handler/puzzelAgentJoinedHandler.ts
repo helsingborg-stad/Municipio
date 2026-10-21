@@ -1,6 +1,6 @@
 class PuzzelAgentJoinedHandler implements MetaDataHandler {
 	public constructor(
-		private chat: any,
+		private chatHandler: ChatHandlerInterface
 	) {
 	}
 
@@ -9,8 +9,7 @@ class PuzzelAgentJoinedHandler implements MetaDataHandler {
             return;
         }
 
-		// TODO: Translation
-		this.chat.addInfo("Agent has joined the chat.");
+		this.chatHandler.addAgentJoinedInfo();
 	}
 }
 

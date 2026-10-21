@@ -13,10 +13,13 @@ class Puzzel {
         private outgoingChatHandler: PuzzelOutgoingChatHandlerInterface,
         private agentLeftHandler: MetaDataHandler,
         private agentJoinedHandler: MetaDataHandler,
+        private chatHistoryHandler: PuzzelChatHistoryHandlerInterface,
+        private chatHandler: ChatHandlerInterface
     ) {
     }
 
     public async init(): Promise<void> {
+        this.chatHandler.setDefaultPersistedState(false);
         const localStorageData = this.conversationStorageManager.getLocalStorage();
         this.hadStoredAuthentication = !!localStorageData?.authenticationData;
         this.authenticated = localStorageData?.authenticationData ?? await this.puzzelAuthenticator.authenticate();
@@ -47,8 +50,9 @@ class Puzzel {
     private async handleStoredAuthenticationFlow(): Promise<void> {
         console.log("Handling stored authentication flow.");
         const currentConversation = await this.puzzelConversationManager.getCurrentConversation();
-
-        console.log("Current conversation:", currentConversation);
+        const currentMetaData = await this.puzzelConversationManager.getCurrentMetaData();
+        // TODO: add some form of validation handling if conversation has ended or so. 
+        this.chatHistoryHandler.load(currentConversation, currentMetaData);
     }
 
     private async handleNewAuthenticationFlow(): Promise<void> {

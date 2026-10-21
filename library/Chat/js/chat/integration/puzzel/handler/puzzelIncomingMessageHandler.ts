@@ -1,6 +1,6 @@
 class PuzzelIncomingMessageHandler implements PuzzelIncomingMessageHandlerInterface {
     public constructor(
-        private chat: any,
+        private chatHandler: ChatHandlerInterface,
         private typingIndicatorHandler: PuzzelTypingIndicatorHandlerInterface,
     ) {
     }
@@ -17,7 +17,7 @@ class PuzzelIncomingMessageHandler implements PuzzelIncomingMessageHandlerInterf
         }
 
         this.typingIndicatorHandler.clearTypingState();
-        this.chat.addMessage(data.message, true);
+        this.chatHandler.addMessage(data.message, true);
     }
 }
 

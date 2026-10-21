@@ -16,6 +16,7 @@ interface PuzzelConversationManagerInterface {
     sendUserMessage(content: string): Promise<void>;
     sendUserTypingEvent(): Promise<void>;
     getCurrentConversation(): Promise<PuzzelConversationEvent[]>;
+    getCurrentMetaData(): Promise<PuzzelMetaDataEvent[]>;
 }
 
 interface PuzzelAuthenticatorInterface {
@@ -49,22 +50,37 @@ type PuzzelLocalStorageData = RouteConversationResponse & {
 };
 
 type PuzzelMetaDataEvent = {
-    eventId?: number;
-    createdAt?: string;
-    senderId?: string;
-    senderRole?: string;
-    senderName?: string;
-    type?: string;
+    eventId: number;
+    createdAt: string;
+    senderId: string;
+    senderRole: string;
+    senderName: string;
+    type: string;
     [key: string]: unknown;
 };
 
 type PuzzelConversationEvent = {
-    eventId?: number;
-    createdAt?: string;
-    senderId?: string;
-    senderRole?: string;
-    senderName?: string;
-    type?: string;
-    message?: string;
+    eventId: number;
+    createdAt: string;
+    senderId: string;
+    senderRole: string;
+    senderName: string;
+    type: string;
+    message: string;
     [key: string]: unknown;
+};
+
+type PuzzelConversationStatusResponse = {
+    createdAt: string;
+    destination: string;
+    eventId: number;
+    requestId: number;
+    iqSessionId: string;
+    source: string;
+    requestStart: string;
+    mediaType: string;
+    queueKey: string;
+    queueEntryTime: string;
+    queuePosition: number;
+    status: string;
 };

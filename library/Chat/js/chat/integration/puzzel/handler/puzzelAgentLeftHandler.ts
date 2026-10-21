@@ -1,6 +1,6 @@
 class PuzzelAgentLeftHandler implements MetaDataHandler {
 	public constructor(
-		private chat: any,
+		private chatHandler: ChatHandlerInterface,
 	) {
 	}
 
@@ -9,9 +9,8 @@ class PuzzelAgentLeftHandler implements MetaDataHandler {
             return;
         }
 
-		// TODO: Translation
-		this.chat.addInfo("Agent has left the chat.");
-		this.chat.disable();
+		this.chatHandler.addAgentLeftInfo();
+		this.chatHandler.disable();
 	}
 }
 

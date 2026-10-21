@@ -23,3 +23,7 @@ interface SendUserMessageInterface {
 interface SendUserTypingInterface {
     execute(conversationId: string): Promise<void>;
 }
+
+interface GetConversationStatusInterface {
+    execute(conversationId: string): Promise<PuzzelConversationStatusResponse[]>;
+}
