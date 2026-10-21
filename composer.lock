@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f6da3bab929851e2d2cb16112cd9af8",
+    "content-hash": "476b2ab3c6ec4fad24237ac110b9b0e2",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -789,12 +789,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "9ba9001493f5da737759303f13bd965ebdaa778c"
+                "reference": "1976ff93c8d8a234cdd3ff99626bd43ecf11bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/9ba9001493f5da737759303f13bd965ebdaa778c",
-                "reference": "9ba9001493f5da737759303f13bd965ebdaa778c",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/1976ff93c8d8a234cdd3ff99626bd43ecf11bf49",
+                "reference": "1976ff93c8d8a234cdd3ff99626bd43ecf11bf49",
                 "shasum": ""
             },
             "require": {
@@ -827,7 +827,7 @@
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
                 "source": "https://github.com/darylldoyle/svg-sanitizer/tree/master"
             },
-            "time": "2026-10-19T12:01:32+00:00"
+            "time": "2026-10-20T09:45:10+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1283,16 +1283,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.44.5",
+            "version": "5.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500"
+                "reference": "13fb0566196086b84602925cb14480c452b1a9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500",
-                "reference": "1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/13fb0566196086b84602925cb14480c452b1a9cd",
+                "reference": "13fb0566196086b84602925cb14480c452b1a9cd",
                 "shasum": ""
             },
             "require": {
@@ -1325,9 +1325,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.44.5"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.45.1"
             },
-            "time": "2026-10-02T12:14:09+00:00"
+            "time": "2026-10-20T09:34:22+00:00"
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font-reduced",
@@ -1400,21 +1400,21 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.39.2",
+            "version": "3.41.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "1e34eede263dccc8c906ced542e233df619c5a40"
+                "reference": "e85756c4ba47ce2eac12655b859cd936d8cdaea4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/1e34eede263dccc8c906ced542e233df619c5a40",
-                "reference": "1e34eede263dccc8c906ced542e233df619c5a40",
+                "url": "https://api.github.com/repos/helsingborg-stad/styleguide/zipball/e85756c4ba47ce2eac12655b859cd936d8cdaea4",
+                "reference": "e85756c4ba47ce2eac12655b859cd936d8cdaea4",
                 "shasum": ""
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.44.5",
+                "helsingborg-stad/component-library": "5.45.1",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1473,9 +1473,9 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.39.2"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.41.17"
             },
-            "time": "2026-10-16T11:48:47+00:00"
+            "time": "2026-10-21T08:46:08+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -2630,21 +2630,21 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.3.6",
+            "version": "v1.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "c54350438cd6914616f790a49cb424605f421562"
+                "reference": "c1162897273bf9499ca57924c4688a19d82c9310"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/schema/zipball/c54350438cd6914616f790a49cb424605f421562",
-                "reference": "c54350438cd6914616f790a49cb424605f421562",
+                "url": "https://api.github.com/repos/nette/schema/zipball/c1162897273bf9499ca57924c4688a19d82c9310",
+                "reference": "c1162897273bf9499ca57924c4688a19d82c9310",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^4.0",
-                "php": "8.1 - 8.5"
+                "php": "8.1 - 8.6"
             },
             "require-dev": {
                 "nette/phpstan-rules": "^1.0",
@@ -2691,26 +2691,26 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.3.6"
+                "source": "https://github.com/nette/schema/tree/v1.3.7"
             },
-            "time": "2026-08-16T21:58:41+00:00"
+            "time": "2026-10-20T15:46:50+00:00"
         },
         {
             "name": "nette/utils",
-            "version": "v4.1.5",
+            "version": "v4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "b043439dbdf954e6c28b5ea7e34b0100f83165e0"
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/b043439dbdf954e6c28b5ea7e34b0100f83165e0",
-                "reference": "b043439dbdf954e6c28b5ea7e34b0100f83165e0",
+                "url": "https://api.github.com/repos/nette/utils/zipball/6bf24518accf32cf845bca305e0b92078700fd01",
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01",
                 "shasum": ""
             },
             "require": {
-                "php": "8.2 - 8.5"
+                "php": "8.2 - 8.6"
             },
             "conflict": {
                 "nette/finder": "<3",
@@ -2782,9 +2782,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.1.5"
+                "source": "https://github.com/nette/utils/tree/v4.1.6"
             },
-            "time": "2026-07-17T23:02:45+00:00"
+            "time": "2026-10-20T17:07:56+00:00"
         },
         {
             "name": "ooksanen/acf-focuspoint",
