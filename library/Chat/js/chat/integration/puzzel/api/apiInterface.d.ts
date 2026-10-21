@@ -9,11 +9,13 @@ interface SendMetadataInterface {
 interface ListenForMetaDataInterface {
     execute(conversationId: string): Promise<PuzzelMetaDataEvent[]>;
     listen(conversationId: string, callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
+    stopListening(conversationId: string): void;
 }
 
 interface ListenForConversationInterface {
     execute(conversationId: string): Promise<PuzzelConversationEvent[]>;
     listen(conversationId: string, callback: (data: PuzzelConversationEvent) => void): Promise<void>;
+    stopListening(conversationId: string): void;
 }
 
 interface SendUserMessageInterface {

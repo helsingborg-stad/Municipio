@@ -3,7 +3,7 @@ interface PuzzelOutgoingChatHandlerInterface {
 }
 
 interface MetaDataHandler {
-    handleMetaDataEvent(data: PuzzelMetaDataEvent): void;
+    handleMetaDataEvent(data: PuzzelMetaDataEvent): boolean;
 }
 interface PuzzelTypingIndicatorHandlerInterface extends MetaDataHandler {
 	clearTypingState(): void;

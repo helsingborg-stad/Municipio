@@ -4,13 +4,14 @@ class PuzzelAgentLeftHandler implements MetaDataHandler {
 	) {
 	}
 
-	public handleMetaDataEvent(data: PuzzelMetaDataEvent): void {
+	public handleMetaDataEvent(data: PuzzelMetaDataEvent): boolean {
 		if (!data || data.senderRole !== "agent" || data.type !== "participantLeaveEvent") {
-            return;
+            return false;
         }
 
 		this.chatHandler.addAgentLeftInfo();
 		this.chatHandler.disable();
+        return true;
 	}
 }
 

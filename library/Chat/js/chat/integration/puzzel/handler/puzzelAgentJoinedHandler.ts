@@ -4,12 +4,13 @@ class PuzzelAgentJoinedHandler implements MetaDataHandler {
 	) {
 	}
 
-	public handleMetaDataEvent(data: PuzzelMetaDataEvent): void {
+	public handleMetaDataEvent(data: PuzzelMetaDataEvent): boolean {
 		if (!data || data.senderRole !== "agent" || data.type !== "participantJoinEvent") {
-            return;
+            return false;
         }
 
 		this.chatHandler.addAgentJoinedInfo();
+        return true;
 	}
 }
 

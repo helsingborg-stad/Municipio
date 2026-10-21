@@ -3,6 +3,7 @@ class Puzzel {
     private conversation: RouteConversationResponse | undefined;
     private hadStoredAuthentication: boolean = false;
     private triedRerun: boolean = false;
+    private agentIsUnavailable: boolean = false;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -46,14 +47,17 @@ class Puzzel {
         this.outgoingChatHandler.register();
 
         await this.puzzelConversationManager.listenForMetaData((data) => {
-            console.log("MetaData received:", data);
+            this.agentIsUnavailable = this.agentLeftHandler.handleMetaDataEvent(data);
+
+            if (this.agentIsUnavailable) {
+                this.handleAgentUnavailable();
+            }
+
             this.typingIndicatorHandler.handleMetaDataEvent(data);
-            this.agentLeftHandler.handleMetaDataEvent(data);
             this.agentJoinedHandler.handleMetaDataEvent(data);
         });
 
         await this.puzzelConversationManager.listenForConversation((data) => {
-            console.log("Conversation received:", data);
             this.incomingMessageHandler.handleConversationEvent(data);
         });
     }
@@ -62,7 +66,6 @@ class Puzzel {
         console.log("Handling stored authentication flow.");
         const currentConversation = await this.puzzelConversationManager.getCurrentConversation();
         const currentMetaData = await this.puzzelConversationManager.getCurrentMetaData();
-        // TODO: add some form of validation handling if conversation has ended or so. 
         this.chatHistoryHandler.load(currentConversation, currentMetaData);
     }
 
@@ -71,6 +74,10 @@ class Puzzel {
         this.conversation = await this.puzzelConversationManager.startConversation();
         this.conversationStorageManager.setLocalStorage(this.conversation, this.authenticated!);
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
+    }
+
+    private handleAgentUnavailable(): void {
+        this.puzzelConversationManager.stopListening();
     }
 
     private handleFailedChatStatus(): void {

@@ -10,6 +10,9 @@ interface PuzzelConfigInterface {
 interface PuzzelConversationManagerInterface {
     startConversation(): Promise<RouteConversationResponse>;
     getConversationId(): string;
+    stopListening(): void;
+    stopListeningForMetaData(): void;
+    stopListeningForConversation(): void;
     sendUserJoinEventToConversation(): Promise<void>;
     listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
     listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;

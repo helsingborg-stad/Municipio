@@ -11,8 +11,8 @@ import PuzzelAuthenticator from "./chat/integration/puzzel/authentication/puzzel
 import PuzzelConversationManager from "./chat/integration/puzzel/puzzelConversationManager";
 import StartConversation from "./chat/integration/puzzel/api/startConversation";
 import SendMetadata from "./chat/integration/puzzel/api/sendMetadata";
-import ListenForMetaData from "./chat/integration/puzzel/api/listenForMetaData";
-import ListenForConversation from "./chat/integration/puzzel/api/listenForConversation";
+import GetMetaData from "./chat/integration/puzzel/api/getMetaData";
+import GetConversation from "./chat/integration/puzzel/api/getConversation";
 import SendUserMessage from "./chat/integration/puzzel/api/sendUserMessage";
 import PuzzelOutgoingChatHandler from "./chat/integration/puzzel/handler/puzzelOutgoingChatHandler";
 import PuzzelIncomingMessageHandler from "./chat/integration/puzzel/handler/puzzelIncomingMessageHandler";
@@ -42,8 +42,8 @@ class ChatFactory {
 		const puzzelConversationManager = new PuzzelConversationManager(
 			new StartConversation(puzzelConfig, puzzelAuthenticator),
 			new SendMetadata(puzzelConfig, puzzelAuthenticator),
-			new ListenForMetaData(puzzelConfig, puzzelAuthenticator),
-			new ListenForConversation(puzzelConfig, puzzelAuthenticator),
+			new GetMetaData(puzzelConfig, puzzelAuthenticator),
+			new GetConversation(puzzelConfig, puzzelAuthenticator),
 			new SendUserMessage(puzzelConfig, puzzelAuthenticator),
 			new GetConversationStatus(puzzelConfig, puzzelAuthenticator),
 			conversationStorageManager,

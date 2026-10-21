@@ -18,6 +18,19 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         return this.conversationId;
     }
 
+    public stopListening(): void {
+        this.stopListeningForMetaData();
+        this.stopListeningForConversation();
+    }
+
+    public stopListeningForMetaData(): void {
+        this.listenForMetaDataApi.stopListening(this.getConversationId());
+    }
+
+    public stopListeningForConversation(): void {
+        this.listenForConversationApi.stopListening(this.getConversationId());
+    }
+
     public async getConversationStatus(): Promise<PuzzelConversationStatusResponse[]> {
         return await this.getConversationStatusApi.execute(this.getConversationId());
     }

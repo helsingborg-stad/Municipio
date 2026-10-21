@@ -9,9 +9,9 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
     ) {
     }
 
-    public handleMetaDataEvent(data: PuzzelMetaDataEvent): void {
+    public handleMetaDataEvent(data: PuzzelMetaDataEvent): boolean {
         if (!data || data.senderRole !== "agent" || data.type !== "typingEvent") {
-            return;
+            return false;
         }
 
         if (!this.pendingMessage) {
@@ -19,6 +19,7 @@ class PuzzelTypingIndicatorHandler implements PuzzelTypingIndicatorHandlerInterf
         }
 
         this.resetTypingTimeout();
+        return true;
     }
 
     public clearTypingState(): void {
