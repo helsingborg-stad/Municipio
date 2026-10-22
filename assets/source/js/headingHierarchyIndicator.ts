@@ -5,8 +5,8 @@ const ERROR_ATTRIBUTE = "data-a11y-heading-hierarchy-error";
 const TOOLTIP_ATTRIBUTE = "data-a11y-heading-hierarchy-tooltip";
 
 const message =
-	typeof MunicipioLocale !== "undefined"
-		? (MunicipioLocale.a11yWarnings?.headingHierarchy ?? "Invalid heading level (level is skipped)")
+	typeof MunicipioA11yLocale !== "undefined"
+		? (MunicipioA11yLocale.a11yWarnings?.headingHierarchy ?? "Invalid heading level (level is skipped)")
 		: "Invalid heading level (level is skipped)";
 
 /**
