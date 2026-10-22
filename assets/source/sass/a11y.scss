@@ -10,6 +10,7 @@ body.user-can-upload_files {
   [data-a11y-error][data-tooltip-initialized]:not(figure.c-image),
   .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized] {
     anchor-name: --a11y-warning-anchor;
+    anchor-scope: --a11y-warning-anchor;
   }
 
   [data-a11y-error][data-tooltip-initialized]:not(figure.c-image):after,
