@@ -1,3 +1,5 @@
+import { PUZZEL_CHAT_STATUS } from "./enums";
+
 class Puzzel {
     private authenticated: AuthenticationData | undefined;
     private conversation: RouteConversationResponse | undefined;
@@ -50,6 +52,7 @@ class Puzzel {
         }
 
         this.chatStatusHandler.handleStatusEvent(localChatStatus);
+        await this.startConversationStatusListener();
 
         this.outgoingChatHandler.register();
 
@@ -84,6 +87,16 @@ class Puzzel {
     private async startConversationListener(): Promise<void> {
         await this.puzzelConversationManager.listenForConversation((data) => {
             this.incomingMessageHandler.handleConversationEvent(data);
+        });
+    }
+
+    private async startConversationStatusListener(): Promise<void> {
+         await this.puzzelConversationManager.listenForConversationStatus((updatedStatus) => {
+            if (updatedStatus.status !== PUZZEL_CHAT_STATUS.IN_QUEUE) {
+                this.puzzelConversationManager.stopListeningForConversationStatus();
+            }
+
+            this.chatStatusHandler.handleStatusEvent(updatedStatus);
         });
     }
 

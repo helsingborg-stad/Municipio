@@ -28,4 +28,6 @@ interface SendUserTypingInterface {
 
 interface GetConversationStatusInterface {
     execute(conversationId: string): Promise<PuzzelConversationStatusResponse[]>;
+    listen(conversationId: string, callback: (data: PuzzelConversationStatusResponse) => void): Promise<void>;
+    stopListening(conversationId: string): void;
 }

@@ -25,6 +25,7 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
     public stopListening(): void {
         this.stopListeningForMetaData();
         this.stopListeningForConversation();
+        this.stopListeningForConversationStatus();
     }
 
     public stopListeningForMetaData(): void {
@@ -33,6 +34,10 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
 
     public stopListeningForConversation(): void {
         this.listenForConversationApi.stopListening(this.getConversationId());
+    }
+
+    public stopListeningForConversationStatus(): void {
+        this.getConversationStatusApi.stopListening(this.getConversationId());
     }
 
     public async getConversationStatus(): Promise<PuzzelConversationStatusResponse[]> {
@@ -71,6 +76,10 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
 
     public async listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void> {
         await this.listenForConversationApi.listen(this.getConversationId(), callback);
+    }
+
+    public async listenForConversationStatus(callback: (data: PuzzelConversationStatusResponse) => void): Promise<void> {
+        await this.getConversationStatusApi.listen(this.getConversationId(), callback);
     }
 }
 

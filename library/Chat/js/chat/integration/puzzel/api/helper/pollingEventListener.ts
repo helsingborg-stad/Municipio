@@ -9,6 +9,7 @@ class PollingEventListener<TEvent> {
         execute: (conversationId: string) => Promise<TEvent[]>,
         pollIntervalMs: number,
         pollErrorMessage: string,
+        alwaysNotify: boolean = false
     ): Promise<void> {
         if (!this.callbacks[conversationId]) {
             this.callbacks[conversationId] = [];
@@ -18,7 +19,7 @@ class PollingEventListener<TEvent> {
 
         const poll = async (): Promise<void> => {
             const data = await execute(conversationId);
-            this.notifyOnNewEvents(conversationId, data);
+            this.notifyOnEvents(conversationId, data, alwaysNotify);
         };
 
         if (this.activeIntervals.has(conversationId)) {
@@ -48,7 +49,7 @@ class PollingEventListener<TEvent> {
         delete this.currentEventLength[conversationId];
     }
 
-    private notifyOnNewEvents(conversationId: string, data: TEvent[]): void {
+    private notifyOnEvents(conversationId: string, data: TEvent[], alwaysNotify: boolean): void {
         if (!Array.isArray(data)) {
             return;
         }
@@ -56,6 +57,19 @@ class PollingEventListener<TEvent> {
         const callbacks = this.callbacks[conversationId];
 
         if (!callbacks || callbacks.length === 0) {
+            return;
+        }
+
+        if (alwaysNotify) {
+            const latestEvent = data[data.length - 1];
+
+            if (!latestEvent) {
+                this.currentEventLength[conversationId] = data.length;
+                return;
+            }
+
+            this.currentEventLength[conversationId] = data.length;
+            callbacks.forEach((cb) => cb(latestEvent));
             return;
         }
 

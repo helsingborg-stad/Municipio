@@ -14,9 +14,11 @@ interface PuzzelConversationManagerInterface {
     stopListening(): void;
     stopListeningForMetaData(): void;
     stopListeningForConversation(): void;
+    stopListeningForConversationStatus(): void;
     sendUserJoinEventToConversation(): Promise<void>;
     listenForMetaData(callback: (data: PuzzelMetaDataEvent) => void): Promise<void>;
     listenForConversation(callback: (data: PuzzelConversationEvent) => void): Promise<void>;
+    listenForConversationStatus(callback: (data: PuzzelConversationStatusResponse) => void): Promise<void>;
     sendUserMessage(content: string): Promise<void>;
     sendUserTypingEvent(): Promise<void>;
     getCurrentConversation(): Promise<PuzzelConversationEvent[]>;
