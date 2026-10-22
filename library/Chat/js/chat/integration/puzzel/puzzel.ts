@@ -3,6 +3,7 @@ class Puzzel {
     private conversation: RouteConversationResponse | undefined;
     private hadStoredAuthentication: boolean = false;
     private triedRerun: boolean = false;
+    private chatStatus: PuzzelConversationStatusResponse | null = null;
 
     public constructor(
         private puzzelConfig: PuzzelConfigInterface,
@@ -33,7 +34,7 @@ class Puzzel {
             return;
         }
 
-        if (this.hadStoredAuthentication && !await this.validateConversation()) {
+        if (this.hadStoredAuthentication && !await this.validateChatStatus()) {
             return;
         }
 
@@ -41,10 +42,20 @@ class Puzzel {
             await this.handleStoredAuthenticationFlow() : 
             await this.handleNewAuthenticationFlow();
 
+
+        const localChatStatus = await this.getChatStatus();
+        if (!localChatStatus) {
+            await this.handleFailedChatStatus();
+            return;
+        }
+
+        this.chatStatusHandler.handleStatusEvent(localChatStatus);
+
         this.outgoingChatHandler.register();
 
         await this.startMetaDataListener();
         await this.startConversationListener();
+        this.triedRerun = false;
     }
 
     private async handleStoredAuthenticationFlow(): Promise<void> {
@@ -76,25 +87,37 @@ class Puzzel {
         });
     }
 
-    private handleFailedChatStatus(): void {
+    private async handleFailedChatStatus(): Promise<void> {
         this.conversationStorageManager.clearLocalStorage();
+        this.puzzelConversationManager.resetConversationId();
+
         if (!this.triedRerun) {
             this.triedRerun = true;
-            this.init();
+            await this.init();
         } else {
             console.error("Failed to get chat status after retry with fresh setup.");
         }
     }
 
-    private async validateConversation(): Promise<boolean> {
-        const chatStatus = this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
-
-        if (!chatStatus) {
-            this.handleFailedChatStatus();
+    private async validateChatStatus(): Promise<boolean> {
+        try {
+            if (!await this.getChatStatus()) {
+                await this.handleFailedChatStatus();
+                return false;
+            }
+        } catch (error) {
+            console.error("Failed to validate conversation status.", error);
+            await this.handleFailedChatStatus();
             return false;
         }
 
         return true;
+    }
+
+    private async getChatStatus(): Promise<PuzzelConversationStatusResponse|null> {
+        this.chatStatus = this.chatStatus ?? this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
+
+        return this.chatStatus;
     }
 }
 

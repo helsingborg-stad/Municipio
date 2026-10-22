@@ -63,7 +63,7 @@ class ChatFactory {
 			new PuzzelAgentLeftHandler(chatHandler),
 			new PuzzelAgentJoinedHandler(chatHandler),
 			new PuzzelChatHistoryHandler(chatHandler),
-			new PuzzelChatStatusHandler(),
+			new PuzzelChatStatusHandler(chatHandler, puzzelConversationManager),
 			chatHandler
 		).init();
 

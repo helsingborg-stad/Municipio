@@ -1,4 +1,10 @@
 class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
+    public constructor(
+        private chatHandler: ChatHandlerInterface,
+        private puzzelConversationManager: PuzzelConversationManagerInterface
+    ) {
+    }
+
     public getCurrentStatus(statuses: PuzzelConversationStatusResponse[]): string|null {
         return this.getStatus(statuses)?.status ?? null;
     }
@@ -13,6 +19,22 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
         }
         const lastStatus = statuses[statuses.length - 1];
         return lastStatus;
+    }
+
+    private handleDisconnected(): void {
+        this.chatHandler.disable();
+    }
+
+    public handleStatusEvent(status: PuzzelConversationStatusResponse): void {
+        if (!status) {
+            return;
+        }
+
+        switch (status.status) {
+            case "Disconnected":
+                this.handleDisconnected();
+                break;
+        }
     }
 }
 

@@ -18,6 +18,10 @@ class PuzzelConversationManager implements PuzzelConversationManagerInterface {
         return this.conversationId;
     }
 
+    public resetConversationId(): void {
+        this.conversationId = undefined;
+    }
+
     public stopListening(): void {
         this.stopListeningForMetaData();
         this.stopListeningForConversation();
