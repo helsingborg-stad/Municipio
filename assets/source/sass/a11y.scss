@@ -9,7 +9,7 @@ body.user-can-upload_files {
 
   [data-a11y-error][data-tooltip-initialized]:not(figure.c-image),
   .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized] {
-    position: relative;
+    anchor-name: --a11y-warning-anchor;
   }
 
   [data-a11y-error][data-tooltip-initialized]:not(figure.c-image):after,
@@ -20,8 +20,9 @@ body.user-can-upload_files {
     background: var(--color--warning);
     color: var(--color--warning-contrast);
     position: absolute;
-    top: calc(var(--base) * -1);
-    right: calc(var(--base) * -1);
+    position-anchor: --a11y-warning-anchor;
+    top: calc(anchor(top) - var(--base));
+    right: calc(anchor(right) - var(--base));
     inline-size: auto;
     max-inline-size: none;
     font-size: var(--font-size-90);
@@ -38,7 +39,10 @@ body.user-can-upload_files {
   }
 
   .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized]:after {
-    inset: 0;
+    top: anchor(top);
+    right: anchor(right);
+    bottom: anchor(bottom);
+    left: anchor(left);
     display: grid;
     place-items: center;
     box-sizing: border-box;
