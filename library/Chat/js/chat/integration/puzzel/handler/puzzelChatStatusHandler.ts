@@ -1,10 +1,18 @@
 class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
-    public getStatus(statuses: PuzzelConversationStatusResponse[]): string|null {
+    public getCurrentStatus(statuses: PuzzelConversationStatusResponse[]): string|null {
+        return this.getStatus(statuses)?.status ?? null;
+    }
+
+    public getQueuePosition(statuses: PuzzelConversationStatusResponse[]): number|null {
+        return this.getStatus(statuses)?.queuePosition ?? null;
+    }
+
+    public getStatus(statuses: PuzzelConversationStatusResponse[]): PuzzelConversationStatusResponse|null {
         if (!statuses || statuses.length === 0) {
             return null;
         }
-        const currentStatus = statuses[statuses.length - 1];
-        return currentStatus.status;
+        const lastStatus = statuses[statuses.length - 1];
+        return lastStatus;
     }
 }
 
