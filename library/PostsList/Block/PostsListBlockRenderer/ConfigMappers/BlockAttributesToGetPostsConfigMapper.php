@@ -53,6 +53,11 @@ class BlockAttributesToGetPostsConfigMapper
                 return $this->attributes['paginationEnabled'] ?? true;
             }
 
+            public function isFacettingTaxonomyQueryEnabled(): bool
+            {
+                return ($this->attributes['taxonomyQueryRelation'] ?? 'OR') === 'AND';
+            }
+
             public function getPostsPerPage(): int
             {
                 return $this->postsPerPage;
