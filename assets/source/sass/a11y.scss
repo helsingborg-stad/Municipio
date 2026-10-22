@@ -7,21 +7,21 @@ body.user-can-upload_files {
     outline-offset: var(--base);
   }
 
-  [data-a11y-error][data-tooltip-initialized]:not(figure.c-image),
-  .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized] {
-    anchor-name: --a11y-warning-anchor;
-    anchor-scope: --a11y-warning-anchor;
+  [data-a11y-warning-anchor] {
+    anchor-name: var(--a11y-warning-anchor);
   }
 
-  [data-a11y-error][data-tooltip-initialized]:not(figure.c-image):after,
-  .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized]:after {
-    content: "[!]";
+  .a11y-warning-markers {
+    pointer-events: none;
+  }
+
+  .a11y-warning-marker {
     font-family: var(--font-family-code);
     padding: calc(var(--base) / 2) var(--base);
     background: var(--color--warning);
     color: var(--color--warning-contrast);
-    position: absolute;
-    position-anchor: --a11y-warning-anchor;
+    position: fixed;
+    position-anchor: var(--a11y-warning-anchor);
     top: calc(anchor(top) - var(--base));
     right: calc(anchor(right) - var(--base));
     inline-size: auto;
@@ -39,7 +39,7 @@ body.user-can-upload_files {
     z-index: var(--a11y-warning-z-index);
   }
 
-  .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized]:after {
+  .a11y-warning-marker--image {
     top: anchor(top);
     right: anchor(right);
     bottom: anchor(bottom);

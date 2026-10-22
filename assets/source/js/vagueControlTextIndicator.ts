@@ -13,12 +13,12 @@ const vagueLabels = [
 
 const messages = {
 	button:
-		typeof MunicipioLocale !== "undefined"
-			? MunicipioLocale.a11yWarnings?.button
+		typeof MunicipioA11yLocale !== "undefined"
+			? MunicipioA11yLocale.a11yWarnings?.button
 			: undefined,
 	link:
-		typeof MunicipioLocale !== "undefined"
-			? MunicipioLocale.a11yWarnings?.link
+		typeof MunicipioA11yLocale !== "undefined"
+			? MunicipioA11yLocale.a11yWarnings?.link
 			: undefined,
 };
 
@@ -36,8 +36,8 @@ const normalizeLabel = (label: string): string =>
 
 const localizedVagueLabels = new Set(
 	(
-		typeof MunicipioLocale !== "undefined"
-			? (MunicipioLocale.a11yWarnings?.vagueLabels ?? vagueLabels)
+		typeof MunicipioA11yLocale !== "undefined"
+			? (MunicipioA11yLocale.a11yWarnings?.vagueLabels ?? vagueLabels)
 			: vagueLabels
 	).map(normalizeLabel),
 );

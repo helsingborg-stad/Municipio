@@ -5,7 +5,7 @@ declare const wpApiSettings: {
   refreshNonce?: (nonce?: string) => Promise<string | null>
 }
 declare const wp: { customize?: any }
-declare const MunicipioLocale: {
+declare const MunicipioA11yLocale: {
   a11yWarnings?: {
     button?: string
     headingHierarchy?: string

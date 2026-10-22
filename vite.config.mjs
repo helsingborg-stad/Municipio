@@ -57,6 +57,7 @@ const entries = {
 	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
 
 	"js/municipio": "./assets/source/js/municipio.js",
+	"js/a11y-warnings": "./assets/source/js/a11yWarnings.ts",
 	"js/instantpage": "./node_modules/instant.page/instantpage.js",
 	"js/mce-buttons": "./assets/source/mce-js/mce-buttons.js",
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",

@@ -117,21 +117,29 @@ class Enqueue implements Hookable
                     'deleteComment' => $this->wpService->__('Are you sure you want to delete the comment?', 'municipio'),
                     'onError' => $this->wpService->__('Something went wrong, please try again later', 'municipio'),
                 ],
-                'a11yWarnings' => [
-                    'button' => $this->wpService->__('Button text is not descriptive enough', 'municipio'),
-                    'headingHierarchy' => $this->wpService->__('Invalid heading level (level is skipped)', 'municipio'),
-                    'link' => $this->wpService->__('Link text is not descriptive enough', 'municipio'),
-                    'missingH1' => $this->wpService->__('Page is missing an H1 heading', 'municipio'),
-                    'vagueLabels' => [
-                        $this->wpService->__('Click here', 'municipio'),
-                        $this->wpService->__('Here', 'municipio'),
-                        $this->wpService->__('Read more', 'municipio'),
-                        $this->wpService->__('Continue reading', 'municipio'),
-                        $this->wpService->__('More', 'municipio'),
-                    ],
-                ],
             ]);
         $this->ensureRestApiSettings();
+
+        if ($this->wpService->currentUserCan('upload_files')) {
+            $this->enqueue
+                ->add('js/a11y-warnings.js')
+                ->with()
+                ->translation('MunicipioA11yLocale', [
+                    'a11yWarnings' => [
+                        'button' => $this->wpService->__('Button text is not descriptive enough', 'municipio'),
+                        'headingHierarchy' => $this->wpService->__('Invalid heading level (level is skipped)', 'municipio'),
+                        'link' => $this->wpService->__('Link text is not descriptive enough', 'municipio'),
+                        'missingH1' => $this->wpService->__('Page is missing an H1 heading', 'municipio'),
+                        'vagueLabels' => [
+                            $this->wpService->__('Click here', 'municipio'),
+                            $this->wpService->__('Here', 'municipio'),
+                            $this->wpService->__('Read more', 'municipio'),
+                            $this->wpService->__('Continue reading', 'municipio'),
+                            $this->wpService->__('More', 'municipio'),
+                        ],
+                    ],
+                ]);
+        }
 
         //Add styleguide.js with translations
         $this->enqueue
