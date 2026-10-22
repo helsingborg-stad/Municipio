@@ -84,4 +84,8 @@ export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
 		messageIncludes: 'text-wrap',
 		type: 'error',
 	},
+	{
+		messageIncludes: 'anchor(',
+		type: 'error',
+	},
 ];
