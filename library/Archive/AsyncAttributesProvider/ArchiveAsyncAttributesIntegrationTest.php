@@ -178,6 +178,7 @@ class ArchiveAsyncAttributesIntegrationTest extends TestCase
             'displayReadingTime',
             'textSearchEnabled',
             'dateFilterEnabled',
+            'facettingEnabled',
             'postsPerPage',
             'orderBy',
             'order',

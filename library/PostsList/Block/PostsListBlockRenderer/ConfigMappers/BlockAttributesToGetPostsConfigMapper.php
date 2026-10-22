@@ -87,6 +87,11 @@ class BlockAttributesToGetPostsConfigMapper
             {
                 return isset($this->attributes['dateTo']) && $this->attributes['dateTo'] !== '' ? $this->attributes['dateTo'] : null;
             }
+
+            public function isFacettingTaxonomyQueryEnabled(): bool
+            {
+                return (bool) ($this->attributes['facettingEnabled'] ?? false);
+            }
         };
     }
 }
