@@ -33,13 +33,8 @@ class Puzzel {
             return;
         }
 
-        if (this.hadStoredAuthentication) {
-            const chatStatus = this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
-            console.log("Conversation status:", chatStatus);
-            if (!chatStatus) {
-                this.handleFailedChatStatus();
-                return;
-            }
+        if (this.hadStoredAuthentication && !await this.validateConversation()) {
+            return;
         }
 
         this.hadStoredAuthentication ? 
@@ -87,8 +82,19 @@ class Puzzel {
             this.triedRerun = true;
             this.init();
         } else {
-            console.error("Failed to get chat status after retry.");
+            console.error("Failed to get chat status after retry with fresh setup.");
         }
+    }
+
+    private async validateConversation(): Promise<boolean> {
+        const chatStatus = this.chatStatusHandler.getStatus(await this.puzzelConversationManager.getConversationStatus());
+
+        if (!chatStatus) {
+            this.handleFailedChatStatus();
+            return false;
+        }
+
+        return true;
     }
 }
 
