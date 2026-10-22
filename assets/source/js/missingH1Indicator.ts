@@ -3,8 +3,8 @@ const MAIN_CONTENT_SELECTOR = "main#main-content";
 const WARNING_ID = "a11y-missing-h1-warning";
 
 const message =
-	typeof MunicipioLocale !== "undefined"
-		? (MunicipioLocale.a11yWarnings?.missingH1 ?? "Page is missing an H1 heading")
+	typeof MunicipioA11yLocale !== "undefined"
+		? (MunicipioA11yLocale.a11yWarnings?.missingH1 ?? "Page is missing an H1 heading")
 		: "Page is missing an H1 heading";
 
 /**

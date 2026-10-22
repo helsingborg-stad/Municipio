@@ -7,21 +7,23 @@ body.user-can-upload_files {
     outline-offset: var(--base);
   }
 
-  [data-a11y-error][data-tooltip-initialized]:not(figure.c-image),
-  .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized] {
-    position: relative;
+  [data-a11y-warning-anchor] {
+    anchor-name: var(--a11y-warning-anchor);
   }
 
-  [data-a11y-error][data-tooltip-initialized]:not(figure.c-image):after,
-  .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized]:after {
-    content: "[!]";
+  .a11y-warning-markers {
+    pointer-events: none;
+  }
+
+  .a11y-warning-marker {
     font-family: var(--font-family-code);
     padding: calc(var(--base) / 2) var(--base);
     background: var(--color--warning);
     color: var(--color--warning-contrast);
-    position: absolute;
-    top: calc(var(--base) * -1);
-    right: calc(var(--base) * -1);
+    position: fixed;
+    position-anchor: var(--a11y-warning-anchor);
+    top: calc(anchor(top) - var(--base));
+    right: calc(anchor(right) - var(--base));
     inline-size: auto;
     max-inline-size: none;
     font-size: var(--font-size-90);
@@ -37,8 +39,11 @@ body.user-can-upload_files {
     z-index: var(--a11y-warning-z-index);
   }
 
-  .c-image__image-wrapper[data-a11y-marker][data-tooltip-initialized]:after {
-    inset: 0;
+  .a11y-warning-marker--image {
+    top: anchor(top);
+    right: anchor(right);
+    bottom: anchor(bottom);
+    left: anchor(left);
     display: grid;
     place-items: center;
     box-sizing: border-box;
