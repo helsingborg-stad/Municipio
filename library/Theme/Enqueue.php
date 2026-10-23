@@ -149,7 +149,6 @@ class Enqueue implements Hookable
                     ],
                 ]);
         }
-
         //Add styleguide.js with translations
         $this->enqueue
             ->add('js/styleguide.js')
