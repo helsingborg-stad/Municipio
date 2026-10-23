@@ -46,6 +46,7 @@ class Puzzel {
 
 
         const localChatStatus = await this.getChatStatus();
+
         if (!localChatStatus) {
             await this.handleFailedChatStatus();
             return;
@@ -92,7 +93,11 @@ class Puzzel {
 
     private async startConversationStatusListener(): Promise<void> {
          await this.puzzelConversationManager.listenForConversationStatus((updatedStatus) => {
-            if (updatedStatus.status !== PUZZEL_CHAT_STATUS.IN_QUEUE) {
+             console.log("Updated chat status:", updatedStatus);
+             if (
+                 updatedStatus.status !== PUZZEL_CHAT_STATUS.IN_QUEUE &&
+                 updatedStatus.status !== PUZZEL_CHAT_STATUS.ALLOCATED
+                ) {
                 this.puzzelConversationManager.stopListeningForConversationStatus();
             }
 

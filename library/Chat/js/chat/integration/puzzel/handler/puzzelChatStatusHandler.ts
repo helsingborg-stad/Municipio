@@ -27,10 +27,27 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
     }
 
     private handleDisconnected(): void {
+        this.chatHandler.setChatInactiveData();
+        this.chatHandler.displayBanner(true);
         this.chatHandler.disable();
     }
 
-    private handleInQueue(): void {
+    private handleInQueue(status: PuzzelConversationStatusResponse): void {
+        this.enableQueueBanner(status.queuePosition);
+    }
+
+    private handleAllocated(): void {
+        this.enableQueueBanner(1);
+    }
+
+    private enableQueueBanner(position: number): void {
+        this.chatHandler.setQueueBannerData(position);
+        this.chatHandler.displayBanner(true);
+        this.chatHandler.enable();
+    }
+
+    private handleConnected(): void {
+        this.chatHandler.displayBanner(false);
         this.chatHandler.enable();
     }
 
@@ -40,11 +57,18 @@ class PuzzelChatStatusHandler implements PuzzelChatStatusHandlerInterface {
         }
 
         switch (status.status) {
+            case PUZZEL_CHAT_STATUS.FAILURE:
             case PUZZEL_CHAT_STATUS.DISCONNECTED:
                 this.handleDisconnected();
                 break;
+            case PUZZEL_CHAT_STATUS.ALLOCATED:
+                this.handleAllocated();
+                break;
             case PUZZEL_CHAT_STATUS.IN_QUEUE:
-                this.handleInQueue();
+                this.handleInQueue(status);
+                break;
+            case PUZZEL_CHAT_STATUS.CONNECTED:
+                this.handleConnected();
                 break;
         }
     }

@@ -36,4 +36,7 @@ interface ChatHandlerInterface {
 	deleteMessage(message: any): void;
 	onMessageAdded(listener: (message: any) => void): void;
 	onTyping(listener: () => void): void;
+	displayBanner(show: boolean): void;
+	setQueueBannerData(position: number): void;
+	setChatInactiveData(): void;
 }

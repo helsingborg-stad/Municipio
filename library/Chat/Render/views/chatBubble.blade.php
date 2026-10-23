@@ -25,6 +25,13 @@
     ]
 ])
     @element([
+        'componentElement' => 'template',
+        'attributeList' => [
+            'data-js-municipio-chat-actions' => 'true'
+        ]
+    ])
+    @endelement
+    @element([
         'attributeList' => [
             'data-js-municipio-chat-wrapper' => 'true',
         ],
@@ -68,6 +75,9 @@
                     @endif
                 @endelement
                 @element([
+                    'attributeList' => [
+                        'data-js-chat-actions' => true,
+                    ],
                     'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center', 'u-display--flex']
                 ])
                     @button([

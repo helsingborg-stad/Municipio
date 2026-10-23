@@ -10,6 +10,7 @@ class PuzzelAgentJoinedHandler implements MetaDataHandler {
         }
 
 		this.chatHandler.addAgentJoinedInfo();
+		this.chatHandler.displayBanner(false);
 		this.chatHandler.enable();
         return true;
 	}

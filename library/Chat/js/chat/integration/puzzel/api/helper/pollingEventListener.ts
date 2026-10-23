@@ -3,6 +3,12 @@ class PollingEventListener<TEvent> {
     private currentEventLength: { [conversationId: string]: number } = {};
     private activeIntervals = new Map<string, ReturnType<typeof setInterval>>();
 
+    private hasActiveCallbacks(conversationId: string): boolean {
+        const callbacks = this.callbacks[conversationId];
+
+        return Array.isArray(callbacks) && callbacks.length > 0;
+    }
+
     public async listen(
         conversationId: string,
         callback: (data: TEvent) => void,
@@ -27,6 +33,10 @@ class PollingEventListener<TEvent> {
         }
 
         await poll();
+
+        if (!this.hasActiveCallbacks(conversationId)) {
+            return;
+        }
 
         const intervalId = setInterval(() => {
             void poll().catch((error: unknown) => {

@@ -13,6 +13,20 @@ class ChatHandler {
 		this.chat.addInfo(content);
 	}
 
+	public displayBanner(show: boolean): void {
+		show ? this.chat.showBanner() : this.chat.hideBanner();
+	}
+
+	public setQueueBannerData(position: number): void {
+		// TODO: Translation
+		this.chat.setBannerContent(`Queue position: ${position}`);
+	}
+
+	public setChatInactiveData(): void {
+		// TODO: Translation
+		this.chat.setBannerContent("The agent has left and the chat is now inactive.");
+	}
+
 	public addInfoFromType(type: string, senderRole: string = 'agent'): void {
 		switch (type) {
 			case "participantJoinEvent":
