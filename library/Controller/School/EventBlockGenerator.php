@@ -62,14 +62,24 @@ class EventBlockGenerator
             return [];
         }
 
-        // Find post ids by event ids. These are stored on posts in meta table under key "originId"
+        // Find post ids by event ids. These are stored on posts in meta table under key "originId".
+        // Only include events with an upcoming occasion, matching the date filter applied by the
+        // posts list (GetPostsConfigWithPassedSchemaEventsFilteredOut). Otherwise the section would
+        // render with an empty "no posts found" notice.
         return $this->wpService->getPosts([
             'post_type' => $eventPostTypes,
             'meta_query' => [
+                'relation' => 'AND',
                 [
                     'key' => 'originId',
                     'value' => $eventIds,
                     'compare' => 'IN',
+                ],
+                [
+                    'key' => 'startDate',
+                    'value' => date('Y-m-d 00:00:00'),
+                    'compare' => '>=',
+                    'type' => 'DATETIME',
                 ],
             ],
             'fields' => 'ids',
