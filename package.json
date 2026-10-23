@@ -90,12 +90,14 @@
         "child_process": false
     },
     "dependencies": {
+        "@sentry/browser": "^11.8.0",
         "@types/markdown-it": "^14.1.2",
         "algoliasearch": "^5.43.0",
         "core-js": "^3.45.0",
         "markdown-it": "^14.3.1",
         "qrcode": "^1.5.4",
         "react": "^18.3.1",
-        "typesense": "^2.0.3"
+        "typesense": "^2.0.3",
+        "web-vitals": "^6.2.3"
     }
 }
