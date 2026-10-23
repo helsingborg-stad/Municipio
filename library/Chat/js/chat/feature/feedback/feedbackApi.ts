@@ -1,7 +1,7 @@
-class FeedbackApi {
+class FeedbackApi implements FeedbackApiInterface {
     constructor(private apiRoot: string) {}
 
-    public postStat(type: 'like' | 'dislike' | 'message' | 'unlike' | 'undislike'): void {
+    public postStat(type: FeedbackStatType): void {
         fetch(this.apiRoot + 'municipio/v1/chat/stats', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

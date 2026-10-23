@@ -11,7 +11,7 @@
     'attributeList' => [
         'popovertarget' => 'chat-global-root',
         'style' => 'bottom: 1rem; right: 1rem;',
-        'municipio-ai-chat-bubble-trigger' => '1'
+        'data-js-municipio-chat-bubble-trigger' => '1'
     ]
 ])
 @endbutton
@@ -25,19 +25,26 @@
     ]
 ])
     @element([
+        'componentElement' => 'template',
         'attributeList' => [
-            'data-js-municipio-ai-chat-wrapper' => 'true',
+            'data-js-municipio-chat-actions' => 'true'
+        ]
+    ])
+    @endelement
+    @element([
+        'attributeList' => [
+            'data-js-municipio-chat-wrapper' => 'true',
         ],
         'classList' => [
-            'municipio-ai-chat'
+            'municipio-chat'
         ]
     ])
         @chat([
             'id' => $chatId,
             'persistent' => true,
             'size' => 'xs',
-            'attributeList' => array_merge(['municipio-ai-chat-bubble' => '1'], $attributeList),
-            'classList' => ['municipio-ai-chat__chat', 'u-visibility--hidden'],
+            'attributeList' => array_merge(['data-js-municipio-chat-bubble' => '1', 'data-js-municipio-chat-mode' => 'ai'], $attributeList),
+            'classList' => ['municipio-chat__chat', 'u-visibility--hidden'],
             'chatInputData' => [
                 'sendButtonText' => $lang['send'],
                 'placeholderText' => $lang['placeholder']
@@ -68,6 +75,9 @@
                     @endif
                 @endelement
                 @element([
+                    'attributeList' => [
+                        'data-js-chat-actions' => true,
+                    ],
                     'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center', 'u-display--flex']
                 ])
                     @button([

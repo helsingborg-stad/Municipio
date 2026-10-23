@@ -1,11 +1,12 @@
-class GreetingPhrase {
+class GreetingPhrase implements GreetingPhraseInterface {
     constructor(private chat: any, private greetingPhrase: string) {
-        if (this.chat.getMessages().length === 0) {
-            this.addGreetingPhrase();
-        }
     }
 
-    private addGreetingPhrase() {
+    public getGreetingPhrase() {
+        return this.greetingPhrase;
+    }
+
+    public addGreetingPhrase() {
         this.chat.addMessage(this.greetingPhrase, true);
     }
 }
