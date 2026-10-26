@@ -25,13 +25,6 @@
     ]
 ])
     @element([
-        'componentElement' => 'template',
-        'attributeList' => [
-            'data-js-municipio-chat-actions' => 'true'
-        ]
-    ])
-    @endelement
-    @element([
         'attributeList' => [
             'data-js-municipio-chat-wrapper' => 'true',
         ],
@@ -51,6 +44,44 @@
             ]
         ])
             @slot('titleArea')
+            @element([
+                'componentElement' => 'template',
+                'attributeList' => [
+                    'data-js-municipio-chat-actions' => 'true'
+                ]
+            ])
+                @button([
+                    'icon' => 'edit_square',
+                    'size' => 'md',
+                    'style' => 'basic',
+                    'color' => 'default',
+                    'reversePositions' => true,
+                    'attributeList' => [
+                        'data-js-chat-new-session' => true,
+                        'aria-label' => $lang['newConversation'],
+                        'data-tooltip' => $lang['newConversation']
+                    ],
+                ])
+                @endbutton
+                @button([
+                    'icon' => 'minimize',
+                    'size' => 'md',
+                    'style' => 'basic',
+                    'color' => 'default',
+                    'reversePositions' => true,
+                    'classList' => [
+                        'u-margin__left--0'
+                    ],
+                    'attributeList' => [
+                        'data-js-chat-minimize' => true,
+                        'popovertarget' => 'chat-global-root',
+                        'popovertargetaction' => 'hide',
+                        'aria-label' => $lang['close'],
+                        'data-tooltip' => $lang['close']
+                    ],
+                ])
+                @endbutton
+            @endelement
                 @element([
                     'classList' => ['u-display--flex', 'o-layout-grid--gap-2'],
                 ])
@@ -80,37 +111,7 @@
                     ],
                     'classList' => ['u-margin__left--auto', 'o-layout-grid--align-center', 'u-display--flex']
                 ])
-                    @button([
-                        'icon' => 'edit_square',
-                        'size' => 'md',
-                        'style' => 'basic',
-                        'color' => 'default',
-                        'reversePositions' => true,
-                        'attributeList' => [
-                            'data-js-chat-new' => true,
-                            'aria-label' => $lang['newConversation'],
-                            'data-tooltip' => $lang['newConversation']
-                        ],
-                    ])
-                    @endbutton
-                    @button([
-                        'icon' => 'close',
-                        'size' => 'md',
-                        'style' => 'basic',
-                        'color' => 'default',
-                        'reversePositions' => true,
-                        'classList' => [
-                            'u-margin__left--0'
-                        ],
-                        'attributeList' => [
-                            'data-js-chat-clear' => true,
-                            'popovertarget' => 'chat-global-root',
-                            'popovertargetaction' => 'hide',
-                            'aria-label' => $lang['close'],
-                            'data-tooltip' => $lang['close']
-                        ],
-                    ])
-                    @endbutton
+                <!-- Chat actions -->
                 @endelement
             @endslot
             @include('partials.feedback')

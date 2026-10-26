@@ -4,7 +4,7 @@ import Chat from "./chat/chat";
 import FeedbackApi from "./chat/feature/feedback/feedbackApi";
 import FeedbackFactory from "./chat/feature/feedback/feedbackFactory";
 import GreetingPhrase from "./chat/feature/greetingsPhrase/greetingPhrase";
-import NewChatSessionButton from "./chat/feature/newChat/newChatSessionButton";
+import NewChatSessionButton from "./chat/feature/actions/newSession/newSession";
 import Puzzel from "./chat/integration/puzzel/puzzel";
 import PuzzelConfig from "./chat/integration/puzzel/puzzelConfig";
 import PuzzelAuthenticator from "./chat/integration/puzzel/authentication/puzzelAuthenticator";
@@ -24,6 +24,7 @@ import PuzzelChatHistoryHandler from "./chat/integration/puzzel/handler/puzzelCh
 import ChatHandler from "./chat/integration/puzzel/handler/chatHandler";
 import GetConversationStatus from "./chat/integration/puzzel/api/getConversationStatus";
 import PuzzelChatStatusHandler from "./chat/integration/puzzel/handler/puzzelChatStatusHandler";
+import ActionFactory from "./chat/feature/actions/actionFactory";
 
 
 function createMarkdownParser(): MarkdownIt {
@@ -36,6 +37,10 @@ function createMarkdownParser(): MarkdownIt {
 
 class ChatFactory {
 	public init(chat: any): void {
+		const actionsTemplate = chat.getElement().querySelector('[data-js-municipio-chat-actions]');
+		const actionsContainer = chat.getElement().querySelector('[data-js-chat-actions]');
+
+		const actionFactory = new ActionFactory(actionsContainer, actionsTemplate, chat);
 		const puzzelConfig = new PuzzelConfig();
 		const conversationStorageManager = new ConversationStorageManager();
 		const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
@@ -64,7 +69,8 @@ class ChatFactory {
 			new PuzzelAgentJoinedHandler(chatHandler),
 			new PuzzelChatHistoryHandler(chatHandler),
 			new PuzzelChatStatusHandler(chatHandler, puzzelConversationManager),
-			chatHandler
+			chatHandler,
+			actionFactory
 		).init();
 
 		return;

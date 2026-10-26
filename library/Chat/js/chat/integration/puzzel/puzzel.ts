@@ -19,11 +19,13 @@ class Puzzel {
         private agentJoinedHandler: MetaDataHandler,
         private chatHistoryHandler: PuzzelChatHistoryHandlerInterface,
         private chatStatusHandler: PuzzelChatStatusHandlerInterface,
-        private chatHandler: ChatHandlerInterface
+        private chatHandler: ChatHandlerInterface,
+        private actionFactory: ChatActionFactoryInterface
     ) {
     }
 
     public async init(): Promise<void> {
+        this.actionFactory.addMinimize();
         this.puzzelConversationManager.stopListening();
         this.typingIndicatorHandler.clearTypingState();
 
