@@ -1,10 +1,4 @@
 import MarkdownIt from "markdown-it";
-import { ChatSessionFactory } from "./chat/ChatSessionFactory";
-import Chat from "./chat/chat";
-import FeedbackApi from "./chat/feature/feedback/feedbackApi";
-import FeedbackFactory from "./chat/feature/feedback/feedbackFactory";
-import GreetingPhrase from "./chat/feature/greetingsPhrase/greetingPhrase";
-import NewChatSessionButton from "./chat/feature/actions/newSession/newSession";
 import Puzzel from "./chat/integration/puzzel/puzzel";
 import PuzzelConfig from "./chat/integration/puzzel/puzzelConfig";
 import PuzzelAuthenticator from "./chat/integration/puzzel/authentication/puzzelAuthenticator";

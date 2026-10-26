@@ -1,4 +1,4 @@
-import { SESSION_ID_KEY } from "./enums";
+import { SESSION_ID_KEY } from "../../enums";
 
 const SSE_CONTENT_TYPE = "text/event-stream";
 const CHAT_API_ENDPOINT = "municipio/v1/chat";

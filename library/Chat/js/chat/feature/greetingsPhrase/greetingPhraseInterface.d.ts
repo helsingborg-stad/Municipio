@@ -1,4 +1,4 @@
 interface GreetingPhraseInterface {
-    getGreetingPhrase(): string;
-    addGreetingPhrase(): void;
+	getGreetingPhrase(): string;
+	addGreetingPhrase(): void;
 }
