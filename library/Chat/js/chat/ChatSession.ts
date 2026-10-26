@@ -1,3 +1,5 @@
+import { SESSION_ID_KEY } from "./enums";
+
 const SSE_CONTENT_TYPE = "text/event-stream";
 const CHAT_API_ENDPOINT = "municipio/v1/chat";
 
@@ -6,8 +8,7 @@ interface AssistantSession {
 }
 
 export class ChatSession {
-	private static readonly SESSION_ID_KEY =
-		"municipio:chat:global-chat:sessions";
+	private static readonly SESSION_ID_KEY = SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS;
 
 	private readonly fetchFn: typeof fetch;
 	private sessions: Record<string, AssistantSession> = {};
