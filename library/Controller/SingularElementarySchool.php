@@ -5,6 +5,9 @@ declare(strict_types=1);
 
 namespace Municipio\Controller;
 
+use Municipio\PostsList\Block\PostsListEventsBlockRender\PostsListEventsBlockRender;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
+
 /**
  * Class SingularElementarySchool
  */
@@ -21,6 +24,7 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
         parent::init();
         $schema = $this->post->getSchema();
         global $wp_embed;
+        $schemaToPostTypeResolver = new SchemaToPostTypeResolver($this->acfService, $this->wpService);
 
         // Setup view data
         foreach (
@@ -35,7 +39,8 @@ class SingularElementarySchool extends \Municipio\Controller\Singular
             'actions'            => new School\ActionsGenerator($schema),
             'contactPoints'      => new School\ContactpointsGenerator($schema),
             'events'             => new School\EventsGenerator($schema),
-            'alert'              => new School\AlertGenerator($schema)
+            'alert'              => new School\AlertGenerator($schema),
+            'eventsBlock' => new School\EventBlockGenerator($schema, new PostsListEventsBlockRender($this->wpService, $schemaToPostTypeResolver), $this->wpService, $schemaToPostTypeResolver),
             ] as $key => $generator
         ) {
             $this->data[$key] = $generator->generate();

@@ -23,8 +23,9 @@ class ChatBubble implements Hookable
     public function render(): void
     {
         $assistant = $this->config->getAssistantForActiveQuery();
+        $defaultAssistant = $this->config->getDefaultAssistant();
 
-        if ((!$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) && empty($assistant)) {
+        if (empty($assistant) && (!$this->config->isGlobalChatEnabled() || empty($defaultAssistant) || !$this->config->isAssistantAllowed($defaultAssistant))) {
             return;
         }
 

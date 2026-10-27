@@ -45,15 +45,26 @@ class ChatRenderConfigTest extends TestCase
         static::assertSame('global-chat-default', $renderConfig->getChatId());
     }
 
-    private function createRenderConfig(array $assistants, string $assistantName): ChatRenderConfig
+    #[TestDox('guest cannot render a restricted named or default assistant')]
+    public function testGuestCannotRenderRestrictedAssistant(): void
+    {
+        $assistants = [['name' => 'Private', 'logged_in_only' => 1]];
+
+        static::assertNull($this->createRenderConfig($assistants, 'Private')->getAssistant());
+        static::assertNull($this->createRenderConfig($assistants, 'Default')->getAssistant());
+        static::assertSame($assistants[0], $this->createRenderConfig($assistants, 'Private', true)->getAssistant());
+    }
+
+    private function createRenderConfig(array $assistants, string $assistantName, bool $isUserLoggedIn = false): ChatRenderConfig
     {
         $wpService = new FakeWpService([
             '__' => static fn(string $string): string => $string,
         ]);
 
-        $chatConfig = new class($assistants) implements ChatConfigInterface {
+        $chatConfig = new class($assistants, $isUserLoggedIn) implements ChatConfigInterface {
             public function __construct(
                 private array $assistants,
+            private bool $isUserLoggedIn,
             ) {}
 
             public function isEnabled(): bool
@@ -79,6 +90,11 @@ class ChatRenderConfigTest extends TestCase
             public function getAssistants(): array
             {
                 return $this->assistants;
+            }
+
+            public function isAssistantAllowed(array $assistant): bool
+            {
+                return empty($assistant['logged_in_only']) || $this->isUserLoggedIn;
             }
 
             public function isPresidioEnabled(): bool

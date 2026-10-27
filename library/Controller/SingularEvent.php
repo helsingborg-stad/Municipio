@@ -3,6 +3,7 @@
 namespace Municipio\Controller;
 
 use DateTime;
+use Municipio\PostsList\Block\PostsListEventsBlockRender\PostsListEventsBlockRender;
 use Municipio\PostsList\Config\AppearanceConfig\DefaultAppearanceConfig;
 use Municipio\PostsList\Config\AppearanceConfig\PostDesign;
 use Municipio\PostsList\Config\FilterConfig\DefaultFilterConfig;
@@ -46,7 +47,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['currentOccasion'] = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['icsUrl'] = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
         $this->data['bookingLink'] = (new SingularEvent\Mappers\MapBookingLink($this->tryGetCurrentDateFromGetParam()))->map($event);
-        $this->data['postsListData'] = $this->getPostsListData();
+        $this->data['relatedEventsBlock'] = $this->getPostsListData();
 
         // Ensure we are visiting a singular occasion if occasions exist
         (new SingularEvent\EnsureVisitingSingularOccasion\EnsureVisitingSingularOccasion(
@@ -58,7 +59,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->trySetHttpStatusHeader($this->data['eventIsInThePast']);
     }
 
-    private function getPostsListData(): ?array
+    private function getPostsListData(): ?string
     {
         $relatedEventIds = $this->getRelatedEventsIds();
 
@@ -66,73 +67,11 @@ class SingularEvent extends \Municipio\Controller\Singular
             return null;
         }
 
-        $postTypes = [$this->post->getPostType()];
-        $getPostsConfig = new class($postTypes, $relatedEventIds) extends DefaultGetPostsConfig {
-            public function __construct(
-                private array $postTypes,
-                private array $relatedEventIds,
-            ) {}
+        $eventsBlockRenderer = new PostsListEventsBlockRender($this->wpService, new SchemaToPostTypeResolver($this->acfService, $this->wpService));
 
-            public function getPostTypes(): array
-            {
-                return $this->postTypes;
-            }
-
-            public function getPostsPerPage(): int
-            {
-                return count($this->relatedEventIds);
-            }
-
-            public function getOrder(): OrderDirection
-            {
-                return OrderDirection::ASC;
-            }
-
-            public function getOrderBy(): string
-            {
-                return 'startDate';
-            }
-
-            public function getDateSource(): string
-            {
-                return 'startDate';
-            }
-
-            public function getIncludedPostIds(): array
-            {
-                return $this->relatedEventIds;
-            }
-        };
-        $appearanceConfig = new class extends DefaultAppearanceConfig {
-            public function getDateSource(): string
-            {
-                return 'startDate';
-            }
-
-            public function getNumberOfColumns(): int
-            {
-                return 3;
-            }
-
-            public function getDesign(): PostDesign
-            {
-                return PostDesign::SCHEMA;
-            }
-        };
-        $postsListConfigDto = new \Municipio\PostsList\ConfigMapper\PostsListConfigDTO(
-            $getPostsConfig,
-            $appearanceConfig,
-            new DefaultFilterConfig(),
-            '',
-        );
-
-        return (new PostsListFactory(
-            $this->wpService,
-            $this->getWpDb(),
-            new SchemaToPostTypeResolver($this->acfService, $this->wpService),
-        ))
-            ->create($postsListConfigDto)
-            ->getData();
+        return $eventsBlockRenderer->render([
+            'includedPostIds' => $relatedEventIds,
+        ]);
     }
 
     /**

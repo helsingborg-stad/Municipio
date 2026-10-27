@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\Controller;
+
+use Municipio\PostsList\Block\PostsListEventsBlockRender\PostsListEventsBlockRender;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 
 /**
  * Class SingularPreschool
@@ -21,38 +23,36 @@ class SingularPreschool extends \Municipio\Controller\Singular
         parent::init();
         $schema = $this->post->getSchema();
         global $wp_embed;
+        $schemaToPostTypeResolver = new SchemaToPostTypeResolver($this->acfService, $this->wpService);
 
         // Setup view data
-        foreach (
-            [
-            'preamble'           => new School\PreambleGenerator($schema),
-            'visitUs'            => new School\Preschool\VisitUsGenerator($schema, $this->wpService),
+        foreach ([
+            'preamble' => new School\PreambleGenerator($schema),
+            'visitUs' => new School\Preschool\VisitUsGenerator($schema, $this->wpService),
             'accordionListItems' => new School\Preschool\AccordionListItemsGenerator($schema, $this->wpService),
-            'sliderItems'        => new School\SliderItemsGenerator($schema, $wp_embed),
-            'personsAttributes'  => new School\PersonComponentsAttributesGenerator($schema),
-            'addresses'          => new School\AddressGenerator($schema, $this->wpService),
-            'mapAttributes'      => new School\MapComponentAttributesGenerator($schema),
-            'usps'               => new School\Preschool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
-            'actions'            => new School\ActionsGenerator($schema),
-            'contactPoints'      => new School\ContactpointsGenerator($schema),
-            'events'             => new School\EventsGenerator($schema),
-            'alert'              => new School\AlertGenerator($schema),
-            ] as $key => $generator
-        ) {
+            'sliderItems' => new School\SliderItemsGenerator($schema, $wp_embed),
+            'personsAttributes' => new School\PersonComponentsAttributesGenerator($schema),
+            'addresses' => new School\AddressGenerator($schema, $this->wpService),
+            'mapAttributes' => new School\MapComponentAttributesGenerator($schema),
+            'usps' => new School\Preschool\UspsGenerator($schema, $this->post->getId(), $this->wpService),
+            'actions' => new School\ActionsGenerator($schema),
+            'contactPoints' => new School\ContactpointsGenerator($schema),
+            'events' => new School\EventsGenerator($schema),
+            'alert' => new School\AlertGenerator($schema),
+            'eventsBlock' => new School\EventBlockGenerator($schema, new PostsListEventsBlockRender($this->wpService, $schemaToPostTypeResolver), $this->wpService, $schemaToPostTypeResolver),
+        ] as $key => $generator) {
             $this->data[$key] = $generator->generate();
         }
 
         // Setup view labels
-        foreach (
-            [
-            'uspsLabel'          => $this->wpService->_x('Quick facts', 'Preschool', 'municipio'),
-            'contactLabel'       => $this->wpService->_x('Contact us', 'Preschool', 'municipio'),
-            'addressLabel'       => $this->wpService->_x('Address', 'Preschool', 'municipio'),
-            'actionsLabel'       => sprintf($this->wpService->_x('Do you wish to apply to %s?', 'Preschool', 'municipio'), $this->post->getTitle()),
+        foreach ([
+            'uspsLabel' => $this->wpService->_x('Quick facts', 'Preschool', 'municipio'),
+            'contactLabel' => $this->wpService->_x('Contact us', 'Preschool', 'municipio'),
+            'addressLabel' => $this->wpService->_x('Address', 'Preschool', 'municipio'),
+            'actionsLabel' => sprintf($this->wpService->_x('Do you wish to apply to %s?', 'Preschool', 'municipio'), $this->post->getTitle()),
             'contactPointsLabel' => $this->wpService->_x('Follow us on social media', 'Preschool', 'municipio'),
-            'eventsLabel'        => $this->wpService->_x('Events', 'Preschool', 'municipio'),
-            ] as $labelKey => $labelText
-        ) {
+            'eventsLabel' => $this->wpService->_x('Events', 'Preschool', 'municipio'),
+        ] as $labelKey => $labelText) {
             $this->data['lang']->{$labelKey} = $labelText;
         }
     }

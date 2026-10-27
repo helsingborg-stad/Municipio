@@ -29,6 +29,7 @@ use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 use Municipio\Integrations\Litespeed\Cache\PressidiumConsentVary;
 use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
+use Municipio\Integrations\Litespeed\RemoveDummyStyleWhenCssOptimizationDisabled;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
@@ -109,6 +110,9 @@ class App
 
         $pressidiumConsentVaryHeader = new PressidiumConsentVary($this->wpService);
         $pressidiumConsentVaryHeader->addHooks();
+
+        $removeLitespeedDummyStyle = new RemoveDummyStyleWhenCssOptimizationDisabled($this->wpService);
+        $removeLitespeedDummyStyle->addHooks();
 
         /**
          * Allow posts in private visibility to have further conditions to be shown.
@@ -820,6 +824,7 @@ class App
 
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
         (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\VagueControlTextIndicator($this->wpService))->addHooks();
     }
 
     /**

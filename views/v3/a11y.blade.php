@@ -14,6 +14,7 @@
                 'element' => 'h1', 
                 'variant' => 'h1', 
                 'id' => 'page-title',
+                'useHeadingsContext' => false,
             ])
                 {!! $heading !!}
             @endtypography

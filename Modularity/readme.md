@@ -440,6 +440,15 @@ Creates an interval on which the module is refreshed via XHR by calling the REST
 
 The value of the attribute should be the number of seconds on which to run the refresh interval.
 
+Modules using this attribute must enqueue the refresher in their `script()` method:
+
+```php
+public function script(): void
+{
+    $this->enqueueModuleRefresher();
+}
+```
+
 Example:
 ```html
 <div data-module-id="123" data-module-refresh-interval="60">
