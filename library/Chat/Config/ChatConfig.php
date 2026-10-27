@@ -7,11 +7,12 @@ use WpService\Contracts\DetermineLocale;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostAncestors;
 use WpService\Contracts\GetQueriedObjectId;
+use WpService\Contracts\IsUserLoggedIn;
 
 class ChatConfig implements ChatConfigInterface
 {
     public function __construct(
-        private DetermineLocale&GetQueriedObjectId&GetPostAncestors&GetOption $wpService,
+        private DetermineLocale&GetQueriedObjectId&GetPostAncestors&GetOption&IsUserLoggedIn $wpService,
         private GetField $acfService,
     ) {}
 
@@ -50,6 +51,10 @@ class ChatConfig implements ChatConfigInterface
 
         foreach ($postChain as $queriedPostId) {
             foreach ($assistants as $assistant) {
+                if (!$this->isAssistantAllowed($assistant)) {
+                    continue;
+                }
+
                 if (empty($assistant['chat_assistant_pages']) || !is_array($assistant['chat_assistant_pages'])) {
                     continue;
                 }
@@ -67,6 +72,12 @@ class ChatConfig implements ChatConfigInterface
     {
         $allAssistants = $this->acfService->getField('chat_assistants', 'option');
         return !empty($allAssistants) && is_array($allAssistants) ? $allAssistants : [];
+    }
+
+    /** Check whether the current user may use this assistant. */
+    public function isAssistantAllowed(array $assistant): bool
+    {
+        return empty($assistant['logged_in_only']) || $this->wpService->isUserLoggedIn();
     }
 
     public function isPresidioEnabled(): bool

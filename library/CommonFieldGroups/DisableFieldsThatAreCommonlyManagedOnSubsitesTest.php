@@ -61,6 +61,21 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
                 return 'sitewide_common_acf_fieldgroup_value';
             }
 
+            public function getUseNetworkOneBaseSiteKey(): string
+            {
+                return 'sitewide_common_acf_fieldgroups_use_network_one_base_site';
+            }
+
+            public function getSourceSiteId(array $fieldGroup): int
+            {
+                return 1;
+            }
+
+            public function shouldDisableFieldGroup(array $fieldGroup): bool
+            {
+                return true;
+            }
+
             public function getAcfFieldGroupsToFilter(): array
             {
                 return [

@@ -1,10 +1,11 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.58.2",
+    "version": "7.72.6",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest ",
         "test:watch": "jest --watch",
+        "test:css-validator": "RUN_W3C_CSS_VALIDATION=true jest --watchman=false --runInBand source/validators/CssBuiltOutputValidation.test.ts",
         "dev": "vite",
         "build": "npm run build:municipio && (npm run build:modularity)",
         "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",

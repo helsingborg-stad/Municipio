@@ -40,6 +40,6 @@
 
         @include('templates.sections.grid.content')
 
-        @includeWhen($postsListData['posts'], 'partials.schema.event.related-posts')
+        @includeWhen($relatedEventsBlock, 'partials.schema.event.related-posts')
     @endscope
 @stop

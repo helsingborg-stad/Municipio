@@ -51,6 +51,7 @@ class TranslatedLabels
             'quicklinksNavigation' => __('Useful links', 'municipio'),
             'relatedLinks' => __('Related links', 'municipio'),
             'menu' => __('Menu', 'municipio'),
+            'closeMenu' => __('Close menu', 'municipio'),
             'emblem' => __('Site emblem', 'municipio'),
             'close' => __('Close', 'municipio'),
             'moreLanguages' => __('More Languages', 'municipio'),

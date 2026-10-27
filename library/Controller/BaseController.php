@@ -78,9 +78,6 @@ class BaseController
         //Send globals to view
         $this->data['wpQuery'] = $this->wpQuery;
 
-        //Header & Footer
-        $this->data['wpHeader'] = $this->getWpHeader();
-        $this->data['wpFooter'] = $this->getWpFooter();
         $this->data['heroImagePreload'] = (new HeroImagePreloadResolver(
             new HeroImageModuleProvider(
                 new HeroSidebarModuleProvider(),
@@ -491,6 +488,11 @@ class BaseController
         $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
         $this->init();
+
+        // Template-specific asset requirements are declared from init(). Capture
+        // WordPress output only afterwards so their styles reach the document head.
+        $this->data['wpHeader'] = $this->getWpHeader();
+        $this->data['wpFooter'] = $this->getWpFooter();
     }
 
     /**
@@ -1288,6 +1290,10 @@ class BaseController
      */
     public function init()
     {
+        if ($this->wpService->isSingular()) {
+            \Municipio\Theme\AssetRequirements::requireAsset('comments');
+        }
+
         do_action('Municipio/Controller/Init');
     }
 

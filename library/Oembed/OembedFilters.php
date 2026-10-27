@@ -3,6 +3,7 @@
 namespace Municipio\Oembed;
 
 use Municipio\Content\WpAutopContentGuard\WpAutopContentGuard;
+use Municipio\Styleguide\ComponentAssets\WordPressAssetEnqueuer;
 
 /**
  * Class OembedFilters
@@ -19,6 +20,20 @@ class OembedFilters
     public function __construct(private WpAutopContentGuard $wpAutopContentGuard)
     {
         add_filter('oembed_dataparse', [$this,'oembedDataparse'], 1, 3);
+        add_filter('embed_oembed_html', [$this, 'restoreCachedComponentAssets'], 10, 4);
+    }
+
+    /**
+     * Restores component assets when WordPress returns a cached oEmbed response.
+     *
+     * Cached responses bypass oembed_dataparse, where the Blade renderer normally
+     * registers the assets used by the generated component markup.
+     */
+    public function restoreCachedComponentAssets(string $html): string
+    {
+        WordPressAssetEnqueuer::instance()?->enqueueMarkupComponents($html);
+
+        return $html;
     }
 
     /**
@@ -57,6 +72,7 @@ class OembedFilters
 
             $markup = render_blade_view( 'partials.iframe', [ 'settings' => $data, 'src' => $url, 'poster' => $poster ]);
             $markup = $this->wpAutopContentGuard->lock($markup);
+            WordPressAssetEnqueuer::instance()?->enqueueMarkupComponents($markup);
 
             return $markup;
         }

@@ -6,6 +6,25 @@ export const postsListAsync = (
 	postsContainer: HTMLElement,
 	form: HTMLFormElement | null,
 ) => {
+    const addFilterCacheKey = (params: Record<string, unknown>) => {
+        const filterEntries = Object.entries(params)
+            .filter(([key, value]) => key.startsWith("archive_") && value !== "")
+            .flatMap(([key, value]) => {
+                const values = Array.isArray(value) ? [...value].sort() : [value];
+                return values.map((item) => `${key}=${String(item)}`);
+            })
+            .sort();
+
+        if (filterEntries.length === 0) return params;
+
+        const cacheKey = filterEntries.join("&").split("").reduce(
+            (hash, value) => ((hash << 5) - hash + value.charCodeAt(0)) | 0,
+            0,
+        ).toString(36);
+
+        return { ...params, posts_list_cache_key: cacheKey };
+    };
+
 	const fetchHTML = (
 		(attributes: Record<string, unknown>) =>
 		(params: Record<string, unknown>) => {
@@ -63,12 +82,13 @@ export const postsListAsync = (
 			params: Record<string, unknown>,
 			clearUrlParams: boolean = false,
 		) => {
-			updateUrlParams(params, clearUrlParams);
+			const paramsWithCacheKey = addFilterCacheKey(params);
+			updateUrlParams(paramsWithCacheKey, clearUrlParams);
 			const currentRequest = ++requestCount;
 
 			try {
 				setIsLoading(true);
-				const html = await fetchHTML(params);
+				const html = await fetchHTML(paramsWithCacheKey);
 				const staleResponse = currentRequest !== requestCount;
 				if (staleResponse) return;
 				renderHTML(html);

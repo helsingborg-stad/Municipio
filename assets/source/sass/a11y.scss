@@ -1,17 +1,87 @@
 /* Accessibility warnings */
 body.user-can-upload_files {
-  [data-a11y-error]:after {
-    content: "[ ! ] " attr(data-a11y-error);
-    padding: 4px 8px;
-    background: rgba(#f00, 0.8);
-    color: #fff;
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: .8em;
-    border-radius: 3px;
-    border: 1px solid #fff;
-    line-height: 1.6em;
+  --a11y-warning-z-index: 100000;
+
+  [data-a11y-error] {
+    outline: calc(var(--border-width) * var(--base) * 2) solid var(--color--warning);
+    outline-offset: var(--base);
+  }
+
+  [data-a11y-warning-anchor] {
+    anchor-name: var(--a11y-warning-anchor);
+  }
+
+  .a11y-warning-markers {
+    pointer-events: none;
+  }
+
+  .a11y-warning-marker {
+    font-family: var(--font-family-code);
+    padding: calc(var(--base) / 2) var(--base);
+    background: var(--color--warning);
+    color: var(--color--warning-contrast);
+    position: fixed;
+    position-anchor: var(--a11y-warning-anchor);
+    top: calc(anchor(top) - var(--base));
+    right: calc(anchor(right) - var(--base));
+    inline-size: auto;
+    max-inline-size: none;
+    font-size: var(--font-size-90);
+    border-radius: calc(var(--border-radius) * var(--base));
+    border: calc(var(--border-width) * var(--base)) solid var(--color--warning-border);
+    corner-shape: var(--corner-shape);
+    box-shadow: 0 calc(var(--base) * .5 * var(--shadow-amount)) calc(var(--base) * var(--shadow-amount)) var(--shadow-color);
+    line-height: var(--line-height-base);
+    overflow-wrap: anywhere;
+    pointer-events: none;
+    text-align: left;
+    white-space: nowrap;
+    z-index: var(--a11y-warning-z-index);
+  }
+
+  .a11y-warning-marker--image {
+    top: anchor(top);
+    right: anchor(right);
+    bottom: anchor(bottom);
+    left: anchor(left);
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: calc(var(--base) * 4);
+    min-inline-size: calc(var(--base) * 4);
+    max-inline-size: calc(var(--base) * 4);
+    block-size: calc(var(--base) * 4);
+    margin: auto;
+    padding: 0;
+  }
+
+  .a11y-floating-warning {
+    position: fixed;
+    inset-inline: 0;
+    bottom: calc(var(--base) * 2);
+    z-index: var(--a11y-warning-z-index);
+    display: flex;
+    gap: var(--base);
+    align-items: center;
+    inline-size: fit-content;
+    max-inline-size: calc(var(--base) * 24);
+    margin-inline: auto;
+    padding: var(--base) calc(var(--base) * 2);
+    border: calc(var(--border-width) * var(--base)) solid var(--color--warning-border);
+    border-radius: calc(var(--border-radius) * var(--base));
+    corner-shape: var(--corner-shape);
+    background: var(--color--warning);
+    box-shadow: 0 calc(var(--base) * .5 * var(--shadow-amount)) calc(var(--base) * var(--shadow-amount)) var(--shadow-color);
+    color: var(--color--warning-contrast);
+    font-size: var(--font-size-90);
+    line-height: var(--line-height-base);
+    overflow-wrap: anywhere;
+
+    .a11y-warning-icon {
+      flex: none;
+      font-family: var(--font-family-code);
+      white-space: nowrap;
+    }
   }
 }
 
@@ -22,25 +92,15 @@ body.user-can-upload_files {
     contain: layout;
     position: relative;
     display: inline-block;
-    padding: calc(var(--base, 8px) / 4) calc(var(--base, 8px));
-    border-radius: var(--border-radius-md, 4px);
-    margin-right: 0.5em;
-    color: #fff;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(#fff, 0.5);
-      z-index: 1;
-    }
+    padding: calc(var(--base) / 2) var(--base);
+    border-radius: calc(var(--border-radius) * var(--base));
+    margin-right: var(--base);
 
     span {
       position: relative;
-      z-index: 2;
       display: flex;
       align-items: center;
-      gap: calc(var(--base, 8px) / 2);
+      gap: calc(var(--base) / 2);
     }
   }
 }

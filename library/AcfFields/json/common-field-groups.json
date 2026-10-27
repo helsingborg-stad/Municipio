@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "This feature allows you to select fields that should be manage from the main site id (that is this site). Field groups will not be rendered on the subsites; Instead a link will be rendered to take the user to the main site for editing of the option. \r\n\r\nPlease select the field groups that you want to manage centrally below.",
+            "message": "This feature allows you to select fields that should be manage from the main site id (that is this site). Field groups will not be rendered on the subsites; Instead a link will be rendered to take the user to the main site for editing of the option. \r\n\r\nPlease select the field groups that you want to manage centrally below. Each field group can optionally use Network 1 as its source.",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -71,6 +71,27 @@
                     "allow_custom": 0,
                     "search_placeholder": "",
                     "parent_repeater": "field_678e65abcf203"
+                },
+                {
+                    "key": "field_68f3c7e6caa9f",
+                    "label": "Network 1",
+                    "name": "sitewide_common_acf_fieldgroups_use_network_one_base_site",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Use Network 1",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Yes",
+                    "ui_off_text": "No",
+                    "parent_repeater": "field_678e65abcf203"
                 }
             ]
         }
@@ -101,4 +122,3 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-

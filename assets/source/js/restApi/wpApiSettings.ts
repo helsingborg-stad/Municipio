@@ -67,6 +67,9 @@ const ensureRefreshNonceMethod = ():void => {
                 wpApiSettings.nonce = refreshedNonce
             }
 
+            // Drain the body so the request can finish even though only its headers are used.
+            await response.text()
+
             return wpApiSettings.nonce ?? null
         } catch {
             return wpApiSettings.nonce ?? null

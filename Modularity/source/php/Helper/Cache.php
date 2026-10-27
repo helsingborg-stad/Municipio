@@ -119,6 +119,8 @@ class Cache
         $return_data = ob_get_clean();
         $assets = $this->fragmentAssets?->endFragment() ?? [];
 
+        do_action('Modularity/Cache/Markup', $return_data);
+
         if (!empty($return_data)) {
             $cacheArray = (array) wp_cache_get($this->postId, $this->keyGroup);
 
@@ -158,6 +160,8 @@ class Cache
         if (!is_array($cacheArray) || !array_key_exists($this->hash, $cacheArray)) {
             return false;
         }
+
+        do_action('Modularity/Cache/Markup', $cacheArray[$this->hash]);
 
         // An older HTML-only fragment cannot restore assets; render it again once.
         if ($this->fragmentAssets !== null && !is_array($cacheArray[$this->hash . ':assets'] ?? null)) {

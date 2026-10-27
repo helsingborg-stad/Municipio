@@ -3,7 +3,8 @@ import { createViteConfig } from "vite-config-factory";
 const entries = {
 		'js/modularity-editor-modal': './source/js/modularity-editor-modal.js',
 		'js/modularity-text-module': './source/js/modularity-text-module.ts',
-		'js/modularity': './source/js/modularity.js',
+		'js/modularity-editor': './source/js/modularity-editor.js',
+		'js/modularity-module-refresher': './source/js/modularity-module-refresher.js',
 		'css/modularity': './source/sass/modularity.scss',
 		'css/modularity-admin': './source/sass/modularity-admin.scss',
 		'css/modularity-block-editor': './source/sass/modularity-block-editor.scss',

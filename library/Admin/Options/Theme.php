@@ -2,9 +2,13 @@
 
 namespace Municipio\Admin\Options;
 
+use WpService\Contracts\IsMainSite;
+use WpService\Contracts\IsMultisite;
+use WpService\Contracts\IsSubdomainInstall;
+
 class Theme
 {
-    public function __construct()
+    public function __construct(private IsMainSite&IsMultisite&IsSubdomainInstall $wpService)
     {
         if (function_exists('acf_add_options_page')) {
             $themeOptionsCapability = 'administrator';
@@ -35,6 +39,16 @@ class Theme
                 'capability' => $themeOptionsCapability,
                 'menu_slug' => 'acf-options-search',
             ));
+
+            if (!$this->wpService->isMultisite() || $this->wpService->isSubdomainInstall() || $this->wpService->isMainSite()) {
+                acf_add_options_sub_page(array(
+                    'page_title' => __('Site files', 'municipio'),
+                    'menu_title' => __('Site files', 'municipio'),
+                    'parent_slug' => 'options-general.php',
+                    'capability' => $themeOptionsCapability,
+                    'menu_slug' => 'acf-options-site-files',
+                ));
+            }
 
             acf_add_options_sub_page(array(
                 'page_title' => 'Google Translate',
