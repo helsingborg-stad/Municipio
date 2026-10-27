@@ -9,3 +9,15 @@
         {!! $municipioComponentAssets->renderScripts() !!}
     @endpush
 @endif
+
+@php($municipioAssetRequirements = \Municipio\Theme\AssetRequirements::instance())
+
+@if ($municipioAssetRequirements)
+    @push('styles')
+        {!! $municipioAssetRequirements->renderLateStyles() !!}
+    @endpush
+
+    @push('scripts')
+        {!! $municipioAssetRequirements->renderLateScripts() !!}
+    @endpush
+@endif

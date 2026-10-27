@@ -72,6 +72,7 @@ class OembedFilters
 
             $markup = render_blade_view( 'partials.iframe', [ 'settings' => $data, 'src' => $url, 'poster' => $poster ]);
             $markup = $this->wpAutopContentGuard->lock($markup);
+            WordPressAssetEnqueuer::instance()?->enqueueMarkupComponents($markup);
 
             return $markup;
         }

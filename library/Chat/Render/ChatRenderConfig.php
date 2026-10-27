@@ -120,7 +120,7 @@ class ChatRenderConfig implements ChatRenderConfigInterface
             return null;
         }
 
-        return $this->avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]);
+        return $this->avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]) ?: null;
     }
 
     private function getAssistantFromString(): ?array
@@ -132,10 +132,12 @@ class ChatRenderConfig implements ChatRenderConfigInterface
         }
 
         if ($this->assistantName === 'Default') {
-            return $this->config->getDefaultAssistant();
+            $assistant = $this->config->getDefaultAssistant();
+            return $assistant && $this->config->isAssistantAllowed($assistant) ? $assistant : null;
         }
 
         $filteredAssistant = array_filter($allAssistants, fn($a) => $a['name'] === ($this->assistantName ?? null));
-        return reset($filteredAssistant) ?: null;
+        $assistant = reset($filteredAssistant);
+        return $assistant && $this->config->isAssistantAllowed($assistant) ? $assistant : null;
     }
 }

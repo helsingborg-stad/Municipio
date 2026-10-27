@@ -11,6 +11,7 @@ use Modularity\Module\Posts\Helper\EventStartTimestampResolver;
 use Municipio\Helper\Memoize\MemoizedFunction;
 use Municipio\Helper\Post;
 use Municipio\MirroredPost\PostObject\MirroredPostObject;
+use Municipio\PostObject\Decorators\PostObjectWithImageVisibility;
 use Municipio\PostObject\PostObjectInterface;
 use WP_Post;
 use WpService\WpService;
@@ -249,10 +250,16 @@ class AbstractController
      */
     private function setPostViewData(object $post, $index = false)
     {
+        $shouldDisplayImage = in_array('image', $this->data['posts_fields'] ?? []);
+
+        $post = new PostObjectWithImageVisibility(
+            $post,
+            $shouldDisplayImage,
+        );
+
         $post->excerptShort = in_array('excerpt', $this->data['posts_fields'] ?? []) ? $this->sanitizeExcerpt($this->data['posts_display_as'] === 'news' ? $post->excerpt : $post->excerptShort) : false;
         $post->postTitle = in_array('title', $this->data['posts_fields'] ?? []) ? $post->getTitle() : false;
-        $post->image = in_array('image', $this->data['posts_fields'] ?? []) ? $post->getImage() : [];
-        $post->hasPlaceholderImage = in_array('image', $this->data['posts_fields'] ?? []) && is_null($post->getImage()) ? true : false;
+        $post->hasPlaceholderImage = $shouldDisplayImage && is_null($post->getImage());
         $post->commentCount = in_array('comment_count', $this->data['posts_fields'] ?? []) ? (string) $post->getCommentCount() : false;
         $post->readingTime = in_array('reading_time', $this->data['posts_fields'] ?? []) ? $post->readingTime : false;
 
@@ -261,11 +268,6 @@ class AbstractController
 
         if (!empty($this->fields['posts_open_links_in_new_tab']) && !$this->domainChecker->isSameDomain($post->getPermalink())) {
             $post->attributeList['target'] = '_blank';
-        }
-
-        if (!empty($post->image) && is_array($post->image)) {
-            $post->image['removeCaption'] = true;
-            $post->image['backgroundColor'] = 'secondary';
         }
 
         return $post;

@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\Schema\JobPosting;
-use Municipio\SchemaData\ExternalContent\Sources\Source;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 

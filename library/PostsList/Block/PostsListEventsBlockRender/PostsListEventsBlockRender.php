@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Municipio\PostsList\Block\PostsListEventsBlockRender;
 
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
@@ -27,6 +26,7 @@ class PostsListEventsBlockRender
             'postType' => reset($postType),
             'dateSource' => 'startDate',
             'order' => 'asc',
+            'orderBy' => 'startDate',
             'design' => 'schema',
         ], $attributes);
 

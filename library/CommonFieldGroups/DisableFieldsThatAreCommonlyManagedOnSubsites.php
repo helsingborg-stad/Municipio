@@ -35,9 +35,13 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
         }
 
         $acfGroupKeysToFilter = $this->config->getAcfFieldGroupsToFilter();
-        foreach ($acfGroupKeysToFilter as $acfGroupKey) {
-            $acfGroupKey = array_pop($acfGroupKey);
-            $this->registerFieldFilter($acfGroupKey);
+        foreach ($acfGroupKeysToFilter as $fieldGroup) {
+            $acfGroupKey = $fieldGroup[$this->config->getOptionsSelectFieldKey()] ?? null;
+            if (!is_string($acfGroupKey) || !$this->config->shouldDisableFieldGroup($fieldGroup)) {
+                continue;
+            }
+
+            $this->registerFieldFilter($acfGroupKey, $this->config->getSourceSiteId($fieldGroup));
         }
     }
 
@@ -47,13 +51,13 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
      * @param string $acfGroupKey
      * @return void
      */
-    private function registerFieldFilter(string $acfGroupKey): void
+    private function registerFieldFilter(string $acfGroupKey, int $sourceSiteId): void
     {
-        $this->wpService->addFilter('acf/prepare_field', function ($field) use ($acfGroupKey) {
+        $this->wpService->addFilter('acf/prepare_field', function ($field) use ($acfGroupKey, $sourceSiteId) {
             if (!is_array($field)) {
                 return $field;
             }
-            return $this->processField($field, $acfGroupKey);
+            return $this->processField($field, $acfGroupKey, $sourceSiteId);
         }, 10, 1);
     }
 
@@ -64,13 +68,13 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
      * @param string $acfGroupKey
      * @return array|false
      */
-    public function processField(array $field, string $acfGroupKey)
+    public function processField(array $field, string $acfGroupKey, ?int $sourceSiteId = null)
     {
         if (!$this->isFieldInGroup($field, $acfGroupKey)) {
             return $field;
         }
 
-        return $this->createNoticeField($field, $acfGroupKey);
+        return $this->createNoticeField($field, $acfGroupKey, $sourceSiteId ?? $this->wpService->getMainSiteId());
     }
 
     /**
@@ -92,7 +96,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
      * @param string $acfGroupKey
      * @return array
      */
-    private function createNoticeField(array $field, string $acfGroupKey): array|false
+    private function createNoticeField(array $field, string $acfGroupKey, int $sourceSiteId): array|false
     {
         //Prevent multiple notices for the same group
         static $processedGroupKeys = [];
@@ -103,7 +107,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 
         //Get main blog url
         $mainBlogEditUrl = $this->wpService->getAdminUrl(
-            $this->wpService->getMainSiteId(),
+            $sourceSiteId,
             $this->getCurrentAdminPageSlug()
         );
 
