@@ -1,6 +1,6 @@
 import { PUZZEL_CHAT_STATUS } from "./enums";
 
-class Puzzel {
+class Puzzel implements ChatIntegrationInterface {
     private authenticated: AuthenticationData | undefined;
     private conversation: RouteConversationResponse | undefined;
     private hadStoredAuthentication: boolean = false;
@@ -8,7 +8,6 @@ class Puzzel {
     private chatStatus: PuzzelConversationStatusResponse | null = null;
 
     public constructor(
-        private puzzelConfig: PuzzelConfigInterface,
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
         private puzzelConversationManager: PuzzelConversationManagerInterface,
         private conversationStorageManager: ConversationStorageManagerInterface,
@@ -24,7 +23,7 @@ class Puzzel {
     ) {
     }
 
-    public async init(): Promise<void> {
+    public async init(): Promise<this|false> {
         this.actionFactory.addMinimize();
         this.puzzelConversationManager.stopListening();
         this.typingIndicatorHandler.clearTypingState();
@@ -35,11 +34,11 @@ class Puzzel {
         this.authenticated = localStorageData?.authenticationData ?? await this.puzzelAuthenticator.authenticate();
 
         if (!this.authenticated) {
-            return;
+            return false;
         }
 
         if (this.hadStoredAuthentication && !await this.validateChatStatus()) {
-            return;
+            return false;
         }
 
         this.hadStoredAuthentication ? 
@@ -50,8 +49,8 @@ class Puzzel {
         const localChatStatus = await this.getChatStatus();
 
         if (!localChatStatus) {
-            await this.handleFailedChatStatus();
-            return;
+            const result = await this.handleFailedChatStatus();
+            return result;
         }
 
         this.chatStatusHandler.handleStatusEvent(localChatStatus);
@@ -62,6 +61,7 @@ class Puzzel {
         await this.startMetaDataListener();
         await this.startConversationListener();
         this.triedRerun = false;
+        return this;
     }
 
     private async handleStoredAuthenticationFlow(): Promise<void> {
@@ -107,15 +107,16 @@ class Puzzel {
         });
     }
 
-    private async handleFailedChatStatus(): Promise<void> {
+    private async handleFailedChatStatus(): Promise<this|false> {
         this.conversationStorageManager.clearLocalStorage();
         this.puzzelConversationManager.resetConversationId();
 
         if (!this.triedRerun) {
             this.triedRerun = true;
-            await this.init();
+            return await this.init();
         } else {
             console.error("Failed to get chat status after retry with fresh setup.");
+            return false;
         }
     }
 

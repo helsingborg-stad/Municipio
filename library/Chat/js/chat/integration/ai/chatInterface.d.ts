@@ -1,8 +1,8 @@
-interface ChatInterface {
-	init(): void;
+interface ChatInterface implements ChatIntegrationInterface {
 	createNewChatSession(): void;
 }
 
-interface ChatIntegration {
-	setup(): void;
-}
+type CreateAiFunction = (
+    chat: unknown,
+    actionFactory: ChatActionFactoryInterface,
+) => ChatIntegrationInterface;

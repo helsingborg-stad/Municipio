@@ -1,5 +1,6 @@
 interface ChatActionFactoryInterface {
     addMinimize(): ChatAction;
+    addClear(): ChatAction;
 }
 
 interface ChatAction {

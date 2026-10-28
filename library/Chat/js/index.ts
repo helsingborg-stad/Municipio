@@ -1,9 +1,10 @@
+import ChatInitializer from "./chatInitializer";
 import Popover from "./popover/popover";
 
 /**
  * Checks whether chat markup exists on the page before event listeners are registered.
  */
-let chatInitializer: any = null;
+let chatInitializer: ChatInitializerInterface | null = null;
 
 document.addEventListener("popover:initialized", (e: any) => {
 	const popover = e.detail;
@@ -60,10 +61,10 @@ function scrollToBottom(chat: any) {
 
 async function initializeChat(chat: any) {
 	if (!chatInitializer) {
-		chatInitializer = new (await import("./chatFactory")).default();
+		chatInitializer = new ChatInitializer();
 	}
 
-	await chatInitializer.init(chat);
+	chatInitializer.init(chat);
 }
 
 function getPopover(): HTMLElement | null {

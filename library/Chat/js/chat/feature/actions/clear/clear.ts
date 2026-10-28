@@ -1,4 +1,4 @@
-class NewSession implements ChatAction {
+class Clear implements ChatAction {
 	private newSessionButtonElement: HTMLElement | null = null;
 	private buttonTargetString = "[data-js-chat-new-session]";
 	private listeners: ((event: Event) => void)[] = [];
@@ -66,4 +66,4 @@ class NewSession implements ChatAction {
 	}
 }
 
-export default NewSession;
+export default Clear;

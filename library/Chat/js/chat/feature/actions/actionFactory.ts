@@ -1,5 +1,5 @@
 import MinimizeChat from "./minimize/minimizeChat";
-import NewSession from "./newSession/newSession";
+import Clear from "./clear/clear";
 
 class ActionFactory implements ChatActionFactoryInterface {
     public constructor(
@@ -12,8 +12,8 @@ class ActionFactory implements ChatActionFactoryInterface {
         return new MinimizeChat(this.actionsContainer, this.actionTemplates).add();
     }
 
-    public addNewSession(): ChatAction {
-        return new NewSession(this.actionsContainer, this.actionTemplates, this.chat).add();
+    public addClear(): ChatAction {
+        return new Clear(this.actionsContainer, this.actionTemplates, this.chat).add();
     }
 }
 

@@ -1,4 +1,5 @@
 import type MarkdownIt from "markdown-it";
+import actionFactory from "../../feature/actions/actionFactory";
 
 class Chat implements ChatInterface {
 	private session: ChatSession | null = null;
@@ -12,14 +13,25 @@ class Chat implements ChatInterface {
 		private readonly feedbackApi: FeedbackApiInterface,
 		private readonly assistantName: string | null = null,
 		private readonly persistSession: boolean = true,
+		private readonly actionFactory: ChatActionFactoryInterface,
 	) {}
 
-	public init(): void {
+	public init(): Promise<this|false> {
+		this.actionFactory.addMinimize();
+    	const clear = this.actionFactory.addClear();
+
+		clear.addListener(() => {
+			this.createNewChatSession();
+		});
+
 		this.session = this.sessionFactory.create(
 			this.assistantName,
 			this.persistSession,
 		);
+
 		this.listenForUserMessages();
+
+		return Promise.resolve(this);
 	}
 
 	private postMessageStat(): void {

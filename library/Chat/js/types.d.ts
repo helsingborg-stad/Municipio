@@ -54,4 +54,21 @@ declare global {
 		utils: ChatUtilsApi;
 		sessionFactory: ChatSessionFactory;
 	}
+
+	interface ChatIntegrationFactory {
+		async create(chat: any, actionFactory: any): Promise<ChatIntegrationInterface|false>;
+	}
+
+	interface ChatInitializerInterface {
+		init(chat: any): Promise<boolean>;
+	}
+
+	interface ChatIntegrationInterface {
+		init(): Promise<this|false>;
+	}
+
+	type CreateIntegrationFunction = (
+		chat: unknown,
+		actionFactory: ChatActionFactoryInterface,
+	) => ChatIntegrationInterface;
 }
