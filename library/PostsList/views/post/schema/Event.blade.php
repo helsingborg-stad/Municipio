@@ -22,6 +22,12 @@
                     {!! $getSchemaEventPlaceName($post) !!}
                 @endtypography
             @endif
+            @if(!empty($getSchemaEventOnlineAttendanceLabel($post)))
+                @typography(['variant' => 'meta', 'classList' => ['u-margin__top--0', 'u-margin__bottom--0', 'u-display--flex', 'u-align-items--center', 'o-layout-grid--gap-1']])
+                    @icon(['icon' => 'language', 'size' => 'sm'])@endicon
+                    {{ $getSchemaEventOnlineAttendanceLabel($post) }}
+                @endtypography
+            @endif
             @if(!empty($getSchemaEventDate($post)))
                 @typography(['variant' => 'meta', 'classList' => ['u-margin__top--0', 'u-margin__bottom--0', 'u-display--flex', 'u-align-items--center', 'o-layout-grid--gap-1']])
                     @icon(['icon' => 'event', 'size' => 'sm'])@endicon
