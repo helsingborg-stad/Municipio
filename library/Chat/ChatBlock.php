@@ -64,4 +64,3 @@ class ChatBlock implements Hookable {
         );
     }
 }
-

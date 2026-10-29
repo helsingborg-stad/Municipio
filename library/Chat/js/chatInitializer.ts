@@ -50,10 +50,16 @@ class ChatInitializer implements ChatInitializerInterface {
 	}
 
 	private getModes(chat: any, mode: string|null = null): string[] {
-		return mode ? [mode] : (chat.getElement().dataset.jsChatModes ?? "")
+		const modes = mode ? [mode] : (chat.getElement().dataset.jsChatModes ?? "")
 			.split(",")
 			.map((mode: string) => mode.trim())
 			.filter((mode: string) => mode.length > 0);
+
+		if (!modes.includes("null")) {
+			modes.push("null");
+		}
+
+		return modes;
 	}
 }
 
