@@ -7607,6 +7607,18 @@ msgstr "Detta evenemang har redan ägt rum."
 msgid "Related events"
 msgstr "Relaterade evenemang"
 
+#: library/Controller/SingularEvent/Mappers/MapOnlineAttendance.php:41
+msgid "The event has no physical location and takes place online."
+msgstr "Evenemanget har ingen fysisk plats utan sker digitalt."
+
+#: library/Controller/SingularEvent/Mappers/MapOnlineAttendance.php:72
+msgid "The link opens in a new window"
+msgstr "Länken öppnas i nytt fönster"
+
+#: library/Controller/SingularEvent/Mappers/MapOnlineAttendance.php:100
+msgid "Join the online event"
+msgstr "Delta i onlineeventet"
+
 #: library/Controller/SingularExhibitionEvent.php:107
 msgctxt "ExhibitionEvent"
 msgid "Place"

@@ -3842,6 +3842,18 @@ msgstr ""
 msgid "Related events"
 msgstr ""
 
+#: library/Controller/SingularEvent/Mappers/MapOnlineAttendance.php:41
+msgid "The event has no physical location and takes place online."
+msgstr ""
+
+#: library/Controller/SingularEvent/Mappers/MapOnlineAttendance.php:72
+msgid "The link opens in a new window"
+msgstr ""
+
+#: library/Controller/SingularEvent/Mappers/MapOnlineAttendance.php:100
+msgid "Join the online event"
+msgstr ""
+
 #: library/Controller/SingularEvent.php:136
 #: library/Helper/TranslatedLabels.php:64
 #: library/Theme/Enqueue.php:145

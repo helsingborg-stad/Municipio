@@ -43,6 +43,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['eventIsInThePast'] = (new SingularEvent\Mappers\MapEventIsInthePast($this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['accessibilityFeatures'] = (new SingularEvent\Mappers\MapPhysicalAccessibilityFeatures())->map($event);
         $this->data['place'] = (new SingularEvent\Mappers\MapPlace())->map($event);
+        $this->data['onlineAttendance'] = (new SingularEvent\Mappers\MapOnlineAttendance($this->wpService))->map($event);
         $this->data['occasions'] = (new SingularEvent\Mappers\MapOccasions($this->post->getPermalink(), $this->tryGetCurrentDateFromGetParam()))->map($event);
         $this->data['currentOccasion'] = (new SingularEvent\Mappers\MapCurrentOccasion(...$this->data['occasions']))->map($event);
         $this->data['icsUrl'] = (new SingularEvent\Mappers\MapIcsUrlFromOccasion($this->data['currentOccasion']))->map($event);
