@@ -3854,6 +3854,10 @@ msgstr ""
 msgid "Join the online event"
 msgstr ""
 
+#: library/PostsList/ViewCallableProviders/Schema/Event/GetOnlineAttendanceLabel.php:44
+msgid "Takes place online"
+msgstr ""
+
 #: library/Controller/SingularEvent.php:136
 #: library/Helper/TranslatedLabels.php:64
 #: library/Theme/Enqueue.php:145
