@@ -87,6 +87,7 @@ class PostsList implements PostsListInterface
             'getSchemaEventHasMoreOccasions' => (new ViewCallableProviders\Schema\Event\EventHasMoreOccasions())->getCallable(),
             'getEventMoreOccasionsLabel' => fn() => $this->wpService->_x('More occasions available', 'label for more occasions available on event', 'municipio'),
             'getSchemaEventPlaceName' => (new ViewCallableProviders\Schema\Event\GetPlaceName())->getCallable(),
+            'getSchemaEventOnlineAttendanceLabel' => (new ViewCallableProviders\Schema\Event\GetOnlineAttendanceLabel($this->wpService))->getCallable(),
             'getSchemaEventDate' => (new ViewCallableProviders\Schema\Event\GetDate($this->wpService, $this->getPostsConfig->getDateFrom()))->getCallable(),
             'getSchemaEventDateBadgeDate' => (new ViewCallableProviders\Schema\Event\GetDateBadgeDate($this->getPostsConfig->getDateFrom()))->getCallable(),
             'getSchemaEventPermalink' => (new ViewCallableProviders\Schema\Event\GetPermalink($this->getPostsConfig->getDateFrom()))->getCallable(),
