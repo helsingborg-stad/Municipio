@@ -7619,6 +7619,10 @@ msgstr "Länken öppnas i nytt fönster"
 msgid "Join the online event"
 msgstr "Delta i onlineeventet"
 
+#: library/PostsList/ViewCallableProviders/Schema/Event/GetOnlineAttendanceLabel.php:44
+msgid "Takes place online"
+msgstr "Sker digitalt"
+
 #: library/Controller/SingularExhibitionEvent.php:107
 msgctxt "ExhibitionEvent"
 msgid "Place"
