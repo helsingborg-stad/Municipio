@@ -65,7 +65,7 @@ class ChatConfig implements ChatConfigInterface
 
     public function getAssistants(): array
     {
-        $allAssistants = $this->acfService->getField('chat_assistants', 'option');
+        $allAssistants = $this->acfService->getField('chat_integrations', 'option');
         return !empty($allAssistants) && is_array($allAssistants) ? $allAssistants : [];
     }
 

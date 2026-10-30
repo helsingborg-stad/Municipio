@@ -51,8 +51,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
@@ -117,8 +117,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'unknown-id',
-            'chat_assistants' => [
-                ['id' => 'other-id', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'other-id', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
@@ -135,8 +135,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['name' => 'a1', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
@@ -153,8 +153,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['name' => 'a1', 'server_url' => 'https://x', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'assistant_id' => 'a'],
             ],
         ]);
 
@@ -171,8 +171,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k'],
             ],
         ]);
 
@@ -189,8 +189,8 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'a1',
-            'chat_assistants' => [
-                ['name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
 
@@ -216,9 +216,9 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'default-name',
-            'chat_assistants' => [
-                ['name' => 'default-name', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
-                ['name' => 'explicit-name'],
+            'chat_integrations' => [
+                ['acf_fc_layout' => 'eneo', 'name' => 'default-name', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+                ['acf_fc_layout' => 'eneo', 'name' => 'explicit-name'],
             ],
         ]);
 
