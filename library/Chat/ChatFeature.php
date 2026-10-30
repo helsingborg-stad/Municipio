@@ -13,6 +13,7 @@ use Municipio\Chat\Admin\ChatAdminPage;
 use Municipio\Chat\Admin\ChatStatsMetaBox;
 use Municipio\Chat\Api\ChatEndpoint;
 use Municipio\Chat\Api\ChatStatsEndpoint;
+use Municipio\Chat\Api\Integration\EneoAssistantIntegration;
 use Municipio\Chat\Config\ChatConfig;
 use Municipio\Chat\PIIRedactor\PIIRedactorFactory;
 use Municipio\Chat\Render\ChatBubble;
@@ -42,7 +43,7 @@ class ChatFeature
         $bladeRenderer = new BladeRenderer(ComponentBladeService::create(ChatRender::getViewPathsDir(), $this->wpService));
         $render = new ChatRender($bladeRenderer);
 
-        RestApiEndpointsRegistry::add(new ChatEndpoint($config, new PIIRedactorFactory($this->wpService), $this->wpService));
+        RestApiEndpointsRegistry::add(new ChatEndpoint($config, new PIIRedactorFactory($this->wpService), new EneoAssistantIntegration(), $this->wpService));
         RestApiEndpointsRegistry::add(new ChatStatsEndpoint($this->wpService));
 
         // Acf repeater crashes when below are reigstered
