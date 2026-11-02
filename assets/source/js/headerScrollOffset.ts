@@ -21,8 +21,17 @@ function measureTopOffsetPx(): number {
 	probe.style.position = "absolute";
 	probe.style.visibility = "hidden";
 	probe.style.height = "var(--municipio-top-offset)";
+	// Resolve calc/rem lengths without forcing a layout. Percentage lengths
+	// still need the height probe because outline-offset does not accept them.
+	probe.style.outlineOffset = "var(--municipio-top-offset)";
 	document.documentElement.appendChild(probe);
-	const heightPx = probe.getBoundingClientRect().height;
+	const style = getComputedStyle(probe);
+	const resolvedOffset = style.getPropertyValue(topOffsetProperty).includes("%")
+		? NaN
+		: Number.parseFloat(style.outlineOffset);
+	const heightPx = Number.isFinite(resolvedOffset)
+		? Math.max(0, resolvedOffset)
+		: probe.getBoundingClientRect().height;
 	probe.remove();
 	return heightPx;
 }

@@ -73,6 +73,43 @@ describe("initializeHeaderScrollOffset", () => {
 		expect(headerScrollOffset.getTopOffsetPx()).toBe(200);
 	});
 
+	it("resolves pixel lengths without an extra geometry read", () => {
+		document.body.innerHTML = '<header class="c-header--sticky"></header>';
+		const rect = jest.spyOn(HTMLElement.prototype, "getBoundingClientRect")
+			.mockReturnValue({ ...new DOMRect(), height: 144 });
+		const getStyle = window.getComputedStyle;
+		jest.spyOn(window, "getComputedStyle").mockImplementation(element => {
+			const style = getStyle(element);
+			if ((element as HTMLElement).style.outlineOffset === "var(--municipio-top-offset)") {
+				Object.defineProperty(style, "outlineOffset", { value: "176.5px" });
+			}
+			return style;
+		});
+
+		headerScrollOffset.initializeHeaderScrollOffset();
+
+		expect(headerScrollOffset.getTopOffsetPx()).toBe(176.5);
+		expect(rect).toHaveBeenCalledTimes(1); // Header only; no measuring-layout read.
+		expect(document.documentElement.children).toHaveLength(2);
+	});
+
+	it("preserves geometry measurement for percentage-based lengths", () => {
+		document.body.innerHTML = '<header class="c-header--sticky"></header>';
+		jest.spyOn(HTMLElement.prototype, "getBoundingClientRect")
+			.mockReturnValue({ ...new DOMRect(), height: 200 });
+		const getStyle = window.getComputedStyle;
+		jest.spyOn(window, "getComputedStyle").mockImplementation(element => {
+			const style = getStyle(element);
+			if ((element as HTMLElement).style.outlineOffset === "var(--municipio-top-offset)") {
+				Object.defineProperty(style, "outlineOffset", { value: "0px" });
+				jest.spyOn(style, "getPropertyValue").mockReturnValue("calc(50% + 32px)");
+			}
+			return style;
+		});
+		headerScrollOffset.initializeHeaderScrollOffset();
+		expect(headerScrollOffset.getTopOffsetPx()).toBe(200);
+	});
+
 	it("accounts for a WP admin-bar top offset on the sticky header", () => {
 		document.body.innerHTML = `<header class="c-header--sticky" id="header"></header>`;
 		const header = document.getElementById("header");
