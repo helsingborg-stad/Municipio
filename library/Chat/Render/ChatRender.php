@@ -17,17 +17,21 @@ class ChatRender implements ChatRenderInterface
         if (empty($assistant)) {
             return '';
         }
+
+        $data = [
+            'lang' => $renderConfig->getLang(),
+            'avatar' => $renderConfig->getAvatar(),
+            'name' => $assistant['name'],
+            'chatId' => $renderConfig->getChatId(),
+            'attributeList' => $renderConfig->getAttributeList()
+        ];
+
         echo '<pre>' . print_r( $assistant, true ) . '</pre>';die;
+
         return sprintf(
             '<div %s>%s</div>',
             $renderConfig->getWrapperAttributes(),
-            $this->bladeRenderer->render($renderConfig->getView(), [
-                'lang' => $renderConfig->getLang(),
-                'avatar' => $renderConfig->getAvatar(),
-                'name' => $assistant['name'],
-                'chatId' => $renderConfig->getChatId(),
-                'attributeList' => $renderConfig->getAttributeList()
-            ]),
+            $this->bladeRenderer->render($renderConfig->getView(), $data),
         );
     }
 

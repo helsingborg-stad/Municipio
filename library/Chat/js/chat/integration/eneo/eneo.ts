@@ -1,12 +1,11 @@
 import type MarkdownIt from "markdown-it";
-import actionFactory from "../../feature/actions/actionFactory";
 
-class Chat implements ChatInterface {
-	private session: ChatSession | null = null;
+class Eneo implements EneoInterface {
+	private session: EneoSession | null = null;
 	private streamedContent: string = "";
 
 	constructor(
-		private readonly sessionFactory: ChatSessionFactory,
+		private readonly sessionFactory: EneoSessionFactory,
 		private readonly chat: any,
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
@@ -18,10 +17,10 @@ class Chat implements ChatInterface {
 
 	public init(): Promise<this|false> {
 		this.actionFactory.addMinimize();
-    	const clear = this.actionFactory.addClear();
+		const clear = this.actionFactory.addClear();
 
 		clear.addListener(() => {
-			this.createNewChatSession();
+			this.createNewEneoSession();
 		});
 
 		this.session = this.sessionFactory.create(
@@ -38,7 +37,7 @@ class Chat implements ChatInterface {
 		this.feedbackApi.postStat("message");
 	}
 
-	public createNewChatSession(): void {
+	public createNewEneoSession(): void {
 		this.session = this.sessionFactory.create(
 			this.assistantName,
 			this.persistSession,
@@ -117,4 +116,4 @@ class Chat implements ChatInterface {
 	}
 }
 
-export default Chat;
+export default Eneo;

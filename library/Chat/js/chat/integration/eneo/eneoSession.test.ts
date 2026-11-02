@@ -1,8 +1,8 @@
-import { ChatSession } from "./ChatSession";
+import { EneoSession } from "./eneoSession";
 
 const SESSION_ID_KEY = "municipio:chat:global-chat:sessions";
 
-type ChatSessionPrivateApi = {
+type EneoSessionPrivateApi = {
 	postMessage(message: string): Promise<Response>;
 	handleSseEvent(
 		eventType: string,
@@ -11,7 +11,7 @@ type ChatSessionPrivateApi = {
 	): { eventType: string; accumulatedText: string; event: ChatEvent | null };
 };
 
-describe("ChatSession", () => {
+describe("EneoSession", () => {
 	beforeEach(() => {
 		window.localStorage.clear();
 		jest.restoreAllMocks();
@@ -23,13 +23,13 @@ describe("ChatSession", () => {
 			JSON.stringify({ Ava: { sessionId: "persisted-session" } }),
 		);
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new EneoSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
 			persistSession: true,
 		});
-		const privateSession = session as unknown as ChatSessionPrivateApi;
+		const privateSession = session as unknown as EneoSessionPrivateApi;
 
 		await privateSession.postMessage("Hello");
 
@@ -44,13 +44,13 @@ describe("ChatSession", () => {
 			JSON.stringify({ Ava: { sessionId: "persisted-session" } }),
 		);
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new EneoSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
 			persistSession: false,
 		});
-		const privateSession = session as unknown as ChatSessionPrivateApi;
+		const privateSession = session as unknown as EneoSessionPrivateApi;
 
 		await privateSession.postMessage("Hello");
 
@@ -61,13 +61,13 @@ describe("ChatSession", () => {
 
 	it("does not persist session id to localStorage when session persistence is disabled", () => {
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new EneoSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
 			persistSession: false,
 		});
-		const privateSession = session as unknown as ChatSessionPrivateApi;
+		const privateSession = session as unknown as EneoSessionPrivateApi;
 
 		privateSession.handleSseEvent(
 			"first_chunk",
@@ -80,13 +80,13 @@ describe("ChatSession", () => {
 
 	it("persists session id to localStorage when session persistence is enabled", () => {
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new EneoSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
 			persistSession: true,
 		});
-		const privateSession = session as unknown as ChatSessionPrivateApi;
+		const privateSession = session as unknown as EneoSessionPrivateApi;
 
 		privateSession.handleSseEvent(
 			"first_chunk",

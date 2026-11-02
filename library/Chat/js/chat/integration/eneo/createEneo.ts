@@ -1,9 +1,9 @@
 import MarkdownIt from "markdown-it";
-import { ChatSessionFactory } from "./ChatSessionFactory";
+import { EneoSessionFactory } from "./eneoSessionFactory";
 import FeedbackApi from "../../feature/feedback/feedbackApi";
 import FeedbackFactory from "../../feature/feedback/feedbackFactory";
 import GreetingPhrase from "../../feature/greetingsPhrase/greetingPhrase";
-import Chat from "./chat";
+import Eneo from "./eneo";
 
 function createMarkdownParser(): MarkdownIt {
     const parser = new MarkdownIt({ html: false, linkify: false, typographer: false });
@@ -13,7 +13,7 @@ function createMarkdownParser(): MarkdownIt {
     return parser;
 }
 
-export function createAi(
+export function createEneo(
     chat: any,
     actionFactory: ChatActionFactoryInterface
 ): ChatIntegrationInterface {
@@ -25,7 +25,7 @@ export function createAi(
     const chatAssistant = chatElement.dataset.jsChatAssistant || null;
     const persistentAttribute = chatElement.getAttribute("data-js-chat-persistent");
     const markdownParser = createMarkdownParser();
-    const chatSessionFactory = new ChatSessionFactory(wpApiSettings.root);
+    const eneoSessionFactory = new EneoSessionFactory(wpApiSettings.root);
     const feedbackApi = new FeedbackApi(wpApiSettings.root);
     const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
 
@@ -45,8 +45,8 @@ export function createAi(
         new GreetingPhrase(chat, greetingsPhrase);
     }
 
-    const chatInstance = new Chat(
-        chatSessionFactory,
+    return new Eneo(
+        eneoSessionFactory,
         chat,
         markdownParser,
         feedbackFactory,
@@ -55,6 +55,4 @@ export function createAi(
         persistentAttribute !== null && persistentAttribute !== "false",
         actionFactory
     );
-
-    return chatInstance;
 }

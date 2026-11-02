@@ -7,7 +7,7 @@ interface AssistantSession {
 	sessionId: string;
 }
 
-export class ChatSession {
+export class EneoSession {
 	private static readonly SESSION_ID_KEY = SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS;
 
 	private readonly fetchFn: typeof fetch;
@@ -18,7 +18,7 @@ export class ChatSession {
 
 		if (this.shouldPersistSessions() && window.localStorage) {
 			this.sessions = JSON.parse(
-				window.localStorage.getItem(ChatSession.SESSION_ID_KEY) ?? "{}",
+				window.localStorage.getItem(EneoSession.SESSION_ID_KEY) ?? "{}",
 			);
 		}
 	}
@@ -27,7 +27,7 @@ export class ChatSession {
 		delete this.sessions[assistantId];
 		if (this.shouldPersistSessions() && window.localStorage) {
 			window.localStorage.setItem(
-				ChatSession.SESSION_ID_KEY,
+				EneoSession.SESSION_ID_KEY,
 				JSON.stringify(this.sessions),
 			);
 		}
@@ -134,7 +134,7 @@ export class ChatSession {
 				};
 				if (this.shouldPersistSessions() && window.localStorage) {
 					window.localStorage.setItem(
-						ChatSession.SESSION_ID_KEY,
+						EneoSession.SESSION_ID_KEY,
 						JSON.stringify(this.sessions),
 					);
 				}

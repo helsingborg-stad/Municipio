@@ -1,13 +1,13 @@
-import { ChatSession } from "./ChatSession";
+import { EneoSession } from "./eneoSession";
 
-export class ChatSessionFactory {
+export class EneoSessionFactory {
 	constructor(private readonly apiRoot: string) {}
 
 	public create(
 		assistantName: string | null,
 		persistSession: boolean = true,
-	): ChatSession {
-		return new ChatSession({
+	): EneoSession {
+		return new EneoSession({
 			apiRoot: this.apiRoot,
 			assistantName,
 			persistSession,
