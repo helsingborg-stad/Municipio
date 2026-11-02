@@ -11,6 +11,34 @@ use WpService\Implementations\FakeWpService;
 
 class ChatRenderConfigTest extends TestCase
 {
+    #[TestDox('getAttributeList() keeps field order and appends default integration mapping at the end')]
+    public function testGetAttributeListKeepsFieldOrderAndAppendsDefaultIntegrationMappingAtTheEnd(): void
+    {
+        $renderConfig = $this->createRenderConfig([
+            ['name' => 'Noah', 'acf_fc_layout' => 'puzzel'],
+            ['name' => 'Ava', 'acf_fc_layout' => 'eneo'],
+        ], 'Ava');
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('{"Noah":"puzzel","Ava":"eneo","Default":"puzzel"}', $attributeList['data-js-chat-assistants']);
+    }
+
+    #[TestDox('getAttributeList() excludes invalid assistants and still appends default integration mapping')]
+    public function testGetAttributeListExcludesInvalidAssistantsAndStillAppendsDefaultIntegrationMapping(): void
+    {
+        $renderConfig = $this->createRenderConfig([
+            ['name' => 'Valid Assistant', 'acf_fc_layout' => 'eneo'],
+            ['name' => '', 'acf_fc_layout' => 'puzzel'],
+            ['name' => 'Missing Type'],
+            ['acf_fc_layout' => 'puzzel'],
+        ], 'Valid Assistant');
+
+        $attributeList = $renderConfig->getAttributeList();
+
+        static::assertSame('{"Valid Assistant":"eneo","Default":"eneo"}', $attributeList['data-js-chat-assistants']);
+    }
+
     #[TestDox('getChatId() returns an assistant specific slug id')]
     public function testGetChatIdReturnsAssistantSpecificSlugId(): void
     {

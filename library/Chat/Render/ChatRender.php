@@ -17,7 +17,7 @@ class ChatRender implements ChatRenderInterface
         if (empty($assistant)) {
             return '';
         }
-
+        echo '<pre>' . print_r( $assistant, true ) . '</pre>';die;
         return sprintf(
             '<div %s>%s</div>',
             $renderConfig->getWrapperAttributes(),

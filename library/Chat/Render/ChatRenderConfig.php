@@ -84,6 +84,7 @@ class ChatRenderConfig implements ChatRenderConfigInterface
     {
         $attributeList = [
             'data-js-chat-assistant' => $this->getAssistantName(),
+            'data-js-chat-assistants' => $this->getAssistantsIntegrationTypesAsJson(),
         ];
 
         $attributeList['data-js-municipio-chat'] = '1';
@@ -93,6 +94,34 @@ class ChatRenderConfig implements ChatRenderConfigInterface
         }
 
         return $attributeList;
+    }
+
+    private function getAssistantsIntegrationTypesAsJson(): string
+    {
+        $integrationTypes = [];
+
+        foreach ($this->config->getAssistants() as $assistant) {
+            if (!$this->isValidAssistantRow($assistant)) {
+                continue;
+            }
+
+            $integrationTypes[$assistant['name']] = $assistant['acf_fc_layout'];
+        }
+
+        $defaultAssistant = $this->config->getDefaultAssistant();
+
+        if ($this->isValidAssistantRow($defaultAssistant)) {
+            if (!isset($integrationTypes[$defaultAssistant['name']])) {
+                $integrationTypes[$defaultAssistant['name']] = $defaultAssistant['acf_fc_layout'];
+            }
+        }
+
+        return json_encode($integrationTypes) ?: '{}';
+    }
+
+    private function isValidAssistantRow(mixed $assistant): bool
+    {
+        return is_array($assistant) && !empty($assistant['name']) && !empty($assistant['acf_fc_layout']);
     }
 
     public function getLang(): array

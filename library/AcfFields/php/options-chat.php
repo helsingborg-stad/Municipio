@@ -286,6 +286,24 @@
                     'display' => 'row',
                     'sub_fields' => array(
                         0 => array(
+                            'key' => 'field_6ae8445da97c3',
+                            'label' => 'Settings',
+                            'name' => '',
+                            'aria-label' => '',
+                            'type' => 'tab',
+                            'instructions' => '',
+                            'required' => 0,
+                            'conditional_logic' => 0,
+                            'wrapper' => array(
+                                'width' => '',
+                                'class' => '',
+                                'id' => '',
+                            ),
+                            'placement' => 'top',
+                            'endpoint' => 0,
+                            'selected' => 0,
+                        ),
+                        1 => array(
                             'key' => 'field_6ae359d945f0d',
                             'label' => 'Name',
                             'name' => 'name',
@@ -306,7 +324,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        1 => array(
+                        2 => array(
                             'key' => 'field_6ae359fd45f0f',
                             'label' => 'Pages',
                             'name' => 'chat_assistant_pages',
@@ -332,7 +350,7 @@
                             'bidirectional_target' => array(
                             ),
                         ),
-                        2 => array(
+                        3 => array(
                             'key' => 'field_6ae35213ecc7d',
                             'label' => 'Customer ID',
                             'name' => 'customer_id',
@@ -353,7 +371,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        3 => array(
+                        4 => array(
                             'key' => 'field_6ae3529060728',
                             'label' => 'Queue Key',
                             'name' => 'queue_key',
@@ -374,7 +392,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        4 => array(
+                        5 => array(
                             'key' => 'field_6ae352c060729',
                             'label' => 'Client ID',
                             'name' => 'client_id',
@@ -395,7 +413,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        5 => array(
+                        6 => array(
                             'key' => 'field_6ae352fc6072a',
                             'label' => 'Visual Queue ID',
                             'name' => 'visual_queue_id',
@@ -418,7 +436,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        6 => array(
+                        7 => array(
                             'key' => 'field_6ae353256072b',
                             'label' => 'Time ID',
                             'name' => 'time_id',
@@ -438,6 +456,50 @@
                             'placeholder' => '',
                             'prepend' => '',
                             'append' => '',
+                        ),
+                        8 => array(
+                            'key' => 'field_6ae84468a97c4',
+                            'label' => 'Appearance',
+                            'name' => '',
+                            'aria-label' => '',
+                            'type' => 'tab',
+                            'instructions' => '',
+                            'required' => 0,
+                            'conditional_logic' => 0,
+                            'wrapper' => array(
+                                'width' => '',
+                                'class' => '',
+                                'id' => '',
+                            ),
+                            'placement' => 'top',
+                            'endpoint' => 0,
+                            'selected' => 0,
+                        ),
+                        9 => array(
+                            'key' => 'field_6ae84471a97c5',
+                            'label' => 'Avatar',
+                            'name' => 'avatar',
+                            'aria-label' => '',
+                            'type' => 'image',
+                            'instructions' => 'For best experience, choose an image with a 1:1 ratio.',
+                            'required' => 0,
+                            'conditional_logic' => 0,
+                            'wrapper' => array(
+                                'width' => '',
+                                'class' => '',
+                                'id' => '',
+                            ),
+                            'return_format' => 'id',
+                            'library' => 'all',
+                            'min_width' => '',
+                            'min_height' => '',
+                            'min_size' => '',
+                            'max_width' => '',
+                            'max_height' => '',
+                            'max_size' => '',
+                            'mime_types' => '',
+                            'allow_in_bindings' => 0,
+                            'preview_size' => 'thumbnail',
                         ),
                     ),
                     'min' => '0',
