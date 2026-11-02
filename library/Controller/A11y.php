@@ -101,6 +101,10 @@ class A11y extends \Municipio\Controller\Singular
     public function addHooks()
     {
         $this->wpService->addFilter('wp_title', array($this, 'setupA11yTitle'));
+        $this->wpService->addFilter('the_seo_framework_query_supports_seo', [$this, 'supportsSeo']);
+        $this->wpService->addFilter('the_seo_framework_title_from_generation', [$this, 'getSeoTitle'], 10, 2);
+        $this->wpService->addFilter('the_seo_framework_custom_field_description', [$this, 'getSeoDescription'], 10, 2);
+        $this->wpService->addFilter('the_seo_framework_generated_description', [$this, 'getSeoDescription'], 10, 3);
         $this->wpService->addFilter('Municipio/A11y/Content', array($this, 'filterA11yContentTemplateTags'));
     }
 
@@ -282,6 +286,36 @@ class A11y extends \Municipio\Controller\Singular
             'Municipio/401/Heading',
             $this->acfService->getField('mun_a11ystatement_title', 'options') ?: $this->wpService->__('Accessibility Statement', 'municipio')
         );
+    }
+
+    /**
+     * Makes the virtual accessibility statement available to The SEO Framework.
+     */
+    public function supportsSeo(bool $supported): bool
+    {
+        return true;
+    }
+
+    /**
+     * Returns the same title that is displayed in the accessibility statement.
+     */
+    public function getSeoTitle(string $title, ?array $args = null): string
+    {
+        return $this->getHeading();
+    }
+
+    /**
+     * Returns the configured SEO description, with a translated default.
+     */
+    public function getSeoDescription(string $description, ?array $args = null, string $type = 'search'): string
+    {
+        $description = $this->acfService->getField('mun_a11ystatement_seo_description', 'options');
+
+        if (!is_string($description) || trim($description) === '') {
+            $description = $this->wpService->__('This accessibility statement describes the website\'s accessibility and how to report problems.', 'municipio');
+        }
+
+        return $this->wpService->applyFilters('Municipio/A11y/MetaDescription', $description);
     }
 
     /**
