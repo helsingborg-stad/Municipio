@@ -32,11 +32,11 @@ class AssetRequirementsTest extends TestCase
         $requirements->add('comments');
 
         self::assertSame([
-            ['js/municipio-shell.js', ['jquery', 'wp-api-fetch']],
+            ['js/municipio-shell.js', []],
             ['css/municipio.css', []],
             ['js/municipio-comments.js', []],
             ['css/municipio-comments.css', []],
-            ['js/municipio-posts-list.js', ['wp-api-fetch']],
+            ['js/municipio-posts-list.js', []],
         ], $assets);
     }
 

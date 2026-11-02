@@ -74,13 +74,13 @@ class Enqueue implements Hookable
     /**
      * Localizes REST API settings on the dependency shared by request scripts.
      */
-    private function ensureRestApiSettings(): void
+    private function ensureRestApiSettings(string $handle = 'wp-api-fetch'): void
     {
         if ($this->hasLocalizedRestApiSettings) {
             return;
         }
 
-        wp_localize_script('wp-api-fetch', 'wpApiSettings', $this->getRestApiSettings());
+        wp_localize_script($handle, 'wpApiSettings', $this->getRestApiSettings());
         $this->hasLocalizedRestApiSettings = true;
     }
 
@@ -120,7 +120,7 @@ class Enqueue implements Hookable
                 'onError' => $this->wpService->__('Something went wrong, please try again later', 'municipio'),
             ],
         ]);
-        $this->ensureRestApiSettings();
+        $this->ensureRestApiSettings('js-municipio-shelljs');
 
         // Register comment assets early so legacy comment-like localization can
         // attach to the script handle during this hook. The Singular controller

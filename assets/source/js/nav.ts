@@ -3,6 +3,7 @@ import { viewRender } from "./restApi/endpoints/viewRender";
 const SELECTOR_TOGGLE_BUTTON = ".js-async-children";
 const ATTRIBUTE_FETCH_URL = "data-fetch-url";
 let placeholderMarkup: HTMLElement | null = null;
+let placeholderMarkupRequest: Promise<HTMLElement | null> | null = null;
 
 declare const wpApiSettings: {
 	nonce: any;
@@ -50,21 +51,34 @@ function stringToHTML(str: string): HTMLElement {
 	return htmlDoc.body.firstChild as HTMLElement;
 }
 
-const getPlaceholderMarkup = async (): Promise<HTMLElement | null> => {
-	return viewRender
-		.call({ routeParams: "partials/preloader" })
-		.then((htmlString) => {
-			return stringToHTML(htmlString);
-		})
-		.catch((error) => {
-			console.error(error.message);
-			return null;
-		});
+const getPlaceholderMarkup = (): Promise<HTMLElement | null> => {
+	if (placeholderMarkup !== null) {
+		return Promise.resolve(placeholderMarkup);
+	}
+
+	if (placeholderMarkupRequest === null) {
+		placeholderMarkupRequest = viewRender
+			.call({ routeParams: "partials/preloader" })
+			.then((htmlString) => {
+				placeholderMarkup = stringToHTML(htmlString);
+				return placeholderMarkup;
+			})
+			.catch((error) => {
+				console.error(error.message);
+				return null;
+			});
+	}
+
+	return placeholderMarkupRequest;
 };
 
-const appendPlaceholder = async (placementElement: Element) => {
-	if (placeholderMarkup === null) return;
-	const clone = placeholderMarkup.cloneNode(true) as HTMLElement;
+const appendPlaceholder = async (
+	placementElement: Element,
+	isStillLoading: () => boolean,
+) => {
+	const markup = await getPlaceholderMarkup();
+	if (markup === null || !isStillLoading()) return;
+	const clone = markup.cloneNode(true) as HTMLElement;
 	placementElement.insertAdjacentElement("beforeend", clone);
 };
 
@@ -119,9 +133,11 @@ const subscribeOnClick = (element: Element) => {
 				: parentElement;
 
 		// Set states before fetching
-		appendPlaceholder(placement);
 		parentElement.classList.add("is-fetching");
 		parentElement.classList.add("is-loading");
+		void appendPlaceholder(placement, () =>
+			parentElement.classList.contains("is-fetching"),
+		);
 
 		fetchMarkup(fetchUrl)
 			.then((markup) => {
@@ -176,7 +192,7 @@ function isCurrentlyBeingTranslated() {
 	return "translate.goog" === hostTop;
 }
 
-const init = async () => {
+const init = () => {
 	/*
 	 * Hide language menu if the site is loaded with translate.goog as top level domain
 	 * to prevent google translate from opening multiple sites within.
@@ -192,7 +208,6 @@ const init = async () => {
 	}
 
 	const toggleButtons = document.querySelectorAll(SELECTOR_TOGGLE_BUTTON);
-	placeholderMarkup = await getPlaceholderMarkup();
 
 	if (toggleButtons && toggleButtons.length > 0) {
 		toggleButtons.forEach(subscribeOnClick);

@@ -96,7 +96,7 @@ class AssetRequirements
 
     private function enqueueShell(): void
     {
-        $this->enqueue->add('js/municipio-shell.js', ['jquery', 'wp-api-fetch']);
+        $this->enqueue->add('js/municipio-shell.js');
         $this->enqueue->add('css/municipio.css');
         $this->scriptHandles[] = 'js-municipio-shelljs';
         $this->styleHandles[] = 'css-municipiocss';
@@ -112,7 +112,7 @@ class AssetRequirements
 
     private function enqueuePostsList(): void
     {
-        $this->enqueue->add('js/municipio-posts-list.js', ['wp-api-fetch']);
+        $this->enqueue->add('js/municipio-posts-list.js');
         $this->scriptHandles[] = 'js-municipio-posts-listjs';
     }
 }
