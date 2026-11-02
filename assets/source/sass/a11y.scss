@@ -114,7 +114,7 @@ body.user-can-upload_files {
     padding: 0;
     position: absolute;
     width: 1px;
-    word-wrap: normal!important
+    overflow-wrap: normal !important;
 }
 
 .screen-reader-text:focus {
