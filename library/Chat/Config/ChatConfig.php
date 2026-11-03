@@ -40,7 +40,7 @@ class ChatConfig implements ChatConfigInterface
         return !empty($defaultAssistantArray) ? array_shift($defaultAssistantArray) : null;
     }
 
-    public function getAssistantForActiveQuery(): ?array
+    public function getAssistantForActiveQuery(): array
     {
         $assistants = $this->getAssistants();
 
@@ -48,19 +48,38 @@ class ChatConfig implements ChatConfigInterface
         $ancestors = $this->wpService->getPostAncestors($currentPageId);
         $postChain = array_merge([$currentPageId], $ancestors);
 
+        $availableAssistantsForQuery = [];
+
         foreach ($postChain as $queriedPostId) {
             foreach ($assistants as $assistant) {
                 if (empty($assistant['chat_assistant_pages']) || !is_array($assistant['chat_assistant_pages'])) {
                     continue;
                 }
 
-                if (in_array($queriedPostId, $assistant['chat_assistant_pages'], true)) {
-                    return $assistant;
+                $assistantPages = array_map('intval', $assistant['chat_assistant_pages']);
+
+                if (in_array((int) $queriedPostId, $assistantPages, true)) {
+                    if ($this->checkIfAssistantIsAlreadyAdded($availableAssistantsForQuery, $assistant['name'])) {
+                        continue;
+                    }
+
+                    $availableAssistantsForQuery[] = $assistant;
                 }
             }
         }
 
-        return null;
+        $defaultAssistant = $this->getDefaultAssistant();
+
+        if (!empty($defaultAssistant) && !$this->checkIfAssistantIsAlreadyAdded($availableAssistantsForQuery, $defaultAssistant['name'])) {
+                $availableAssistantsForQuery[] = $defaultAssistant;
+        }
+
+        return $availableAssistantsForQuery;
+    }
+
+    private function checkIfAssistantIsAlreadyAdded(array $availableAssistants, string $assistantName): bool
+    {
+        return in_array($assistantName, array_column($availableAssistants, 'name'), true);
     }
 
     public function getAssistants(): array

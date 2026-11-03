@@ -99,9 +99,10 @@ class ChatRenderConfigTest extends TestCase
                 return $this->assistants[0] ?? null;
             }
 
-            public function getAssistantForActiveQuery(): ?array
+            public function getAssistantForActiveQuery(): array
             {
-                return $this->getDefaultAssistant();
+                $defaultAssistant = $this->getDefaultAssistant();
+                return $defaultAssistant !== null ? [$defaultAssistant] : [];
             }
 
             public function getAssistants(): array

@@ -49,7 +49,6 @@ class ChatBlock implements Hookable {
                 'render_callback' => function ($attributes) {
                     $config = new ChatRenderConfig(
                         $this->wpService,
-                        $this->config,
                         'block',
                         $attributes['assistant'] ?? 'Default',
                         $this->wpService->getBlockWrapperAttributes()

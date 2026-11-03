@@ -22,17 +22,16 @@ class ChatBubble implements Hookable
 
     public function render(): void
     {
-        $assistant = $this->config->getAssistantForActiveQuery();
+        $assistantsForActiveQuery = $this->config->getAssistantForActiveQuery();
 
-        if ((!$this->config->isGlobalChatEnabled() || empty($this->config->getDefaultAssistant())) && empty($assistant)) {
+        if ((!$this->config->isGlobalChatEnabled() || empty($assistantsForActiveQuery))) {
             return;
         }
 
         $config = new ChatRenderConfig(
             $this->wpService,
-            $this->config,
             'chatBubble',
-            $assistant['name'] ?? 'Default',
+            $assistantsForActiveQuery
         );
 
         echo $this->renderer->render($config);

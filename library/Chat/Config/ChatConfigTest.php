@@ -86,26 +86,26 @@ class ChatConfigTest extends TestCase
         static::assertSame($integrations[2], $config->getDefaultAssistant());
     }
 
-    #[TestDox('getAssistantForActiveQuery() return null when no assistant is configured')]
-    public function testGetAssistantForActiveQueryReturnsNullWhenNoAssistantsConfigured(): void
+    #[TestDox('getAssistantForActiveQuery() returns empty array when no assistant is configured')]
+    public function testGetAssistantForActiveQueryReturnsEmptyArrayWhenNoAssistantsConfigured(): void
     {
         $config = new ChatConfig($this->getWpService(), $this->getAcfService());
 
-        static::assertNull($config->getAssistantForActiveQuery());
+        static::assertSame([], $config->getAssistantForActiveQuery());
     }
 
-    #[TestDox('getAssistantForActiveQuery() returns null when no explicit assistant matches the active query')]
-    public function testGetAssistantForActiveQueryReturnsNullWhenNoAssistantMatches(): void
+    #[TestDox('getAssistantForActiveQuery() returns default assistant when no explicit assistant matches the active query')]
+    public function testGetAssistantForActiveQueryReturnsDefaultAssistantWhenNoAssistantMatches(): void
     {
         $assistant = ['acf_fc_layout' => 'eneo', 'name' => 'Noah', 'greetings_phrase' => 'Hi'];
         $acfService = $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_integrations' => [$assistant]]);
 
         $config = new ChatConfig($this->getWpService(), $acfService);
 
-        static::assertNull($config->getAssistantForActiveQuery());
+        static::assertSame([$assistant], $config->getAssistantForActiveQuery());
     }
 
-    #[TestDox('getAssistantForActiveQuery() returns the assistant matching the active query')]
+    #[TestDox('getAssistantForActiveQuery() returns assistants matching the active query and includes default assistant')]
     public function testGetAssistantForActiveQueryReturnsMatchingAssistant(): void
     {
         $assistants = [
@@ -118,10 +118,26 @@ class ChatConfigTest extends TestCase
             $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_integrations' => $assistants]),
         );
 
-        static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
+        static::assertSame([$assistants[0], $assistants[1]], $config->getAssistantForActiveQuery());
     }
 
-    #[TestDox('getAssistantForActiveQuery() returns inherited assistant from parent page when no direct match')]
+    #[TestDox('getAssistantForActiveQuery() matches assistants when page ids are configured as strings and includes default assistant')]
+    public function testGetAssistantForActiveQueryReturnsMatchingAssistantWhenPageIdsAreStrings(): void
+    {
+        $assistants = [
+            ['acf_fc_layout' => 'eneo', 'name' => 'Ava', 'chat_assistant_pages' => ['123']],
+            ['acf_fc_layout' => 'eneo', 'name' => 'Noah', 'chat_assistant_pages' => ['456']],
+        ];
+
+        $config = new ChatConfig(
+            $this->getWpService('en_US', 123),
+            $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_integrations' => $assistants]),
+        );
+
+        static::assertSame([$assistants[0], $assistants[1]], $config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() returns inherited assistants from parent pages and includes default assistant when no direct match')]
     public function testGetAssistantForActiveQueryReturnsInheritedAssistant(): void
     {
         $assistants = [
@@ -134,10 +150,10 @@ class ChatConfigTest extends TestCase
             $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_integrations' => $assistants]),
         );
 
-        static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
+        static::assertSame([$assistants[0], $assistants[1]], $config->getAssistantForActiveQuery());
     }
 
-    #[TestDox('getAssistantForActiveQuery() returns most specific match when multiple assistants match the active query')]
+    #[TestDox('getAssistantForActiveQuery() returns matching assistants ordered by specificity when multiple assistants match the active query')]
     public function testGetAssistantForActiveQueryReturnsMostSpecificMatch(): void
     {
         $assistants = [
@@ -150,7 +166,23 @@ class ChatConfigTest extends TestCase
             $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_integrations' => $assistants]),
         );
 
-        static::assertSame($assistants[0], $config->getAssistantForActiveQuery());
+        static::assertSame([$assistants[0], $assistants[1]], $config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() does not add the default assistant twice when it already matches the active query')]
+    public function testGetAssistantForActiveQueryDoesNotDuplicateDefaultAssistantWhenAlreadyMatched(): void
+    {
+        $assistants = [
+            ['acf_fc_layout' => 'eneo', 'name' => 'Ava', 'chat_assistant_pages' => [123]],
+            ['acf_fc_layout' => 'eneo', 'name' => 'Noah', 'chat_assistant_pages' => [123]],
+        ];
+
+        $config = new ChatConfig(
+            $this->getWpService('en_US', 123),
+            $this->getAcfService(['chat_default_assistant' => 'Noah', 'chat_integrations' => $assistants]),
+        );
+
+        static::assertSame([$assistants[0], $assistants[1]], $config->getAssistantForActiveQuery());
     }
 
     #[TestDox('isPresidioEnabled() returns true when the chat_presidio_enabled option is true')]

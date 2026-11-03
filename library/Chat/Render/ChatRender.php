@@ -11,22 +11,20 @@ class ChatRender implements ChatRenderInterface
     ) {}
 
     public function render(ChatRenderConfigInterface $renderConfig): string
-    {;
-        $assistant = $renderConfig->getAssistant();
-        
-        if (empty($assistant)) {
+    {  
+        if (empty($renderConfig->getAssistants())) {
             return '';
         }
 
         $data = [
             'lang' => $renderConfig->getLang(),
-            'avatar' => $renderConfig->getAvatar(),
-            'name' => $assistant['name'],
             'chatId' => $renderConfig->getChatId(),
             'attributeList' => $renderConfig->getAttributeList()
         ];
 
-        $data = $this->addIntegrationData($assistant, $data);
+        foreach ($renderConfig->getAssistants() as $assistant) {
+            $data = $this->addIntegrationData($assistant, $data);
+        }
 
         return sprintf(
             '<div %s>%s</div>',
@@ -35,10 +33,14 @@ class ChatRender implements ChatRenderInterface
         );
     }
 
+    private function getIntegrationClass(array $assistant): string
+    {
+        return "Municipio\Chat\Render\Integration\\" . ucfirst($assistant['acf_fc_layout'] ?? "");
+    }
+
     private function addIntegrationData(array $assistant, array $data): array
     {
-        $class = "Municipio\Chat\Render\Integration\\" . ucfirst($assistant['acf_fc_layout'] ?? "");
-
+        $class = $this->getIntegrationClass($assistant);
         if (class_exists($class)) {
             $data = (new $class())->transform($data, $assistant);
         }

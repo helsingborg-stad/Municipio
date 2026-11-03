@@ -2,20 +2,15 @@
 
 namespace Municipio\Chat\Render;
 
-use Municipio\Chat\Config\ChatConfigInterface;
-use Municipio\Helper\Image;
 use WpService\Contracts\__;
 
 class ChatRenderConfig implements ChatRenderConfigInterface
 {
-    private ?array $assistant = null;
-    private ?array $avatar = null;
-
+    private ?string $id = null;
     public function __construct(
         private __ $wpService,
-        private ChatConfigInterface $config,
         private string $view,
-        private string $assistantName,
+        private array $assistants,
         private ?string $wrapperAttributes = '',
     ) {}
 
@@ -24,44 +19,9 @@ class ChatRenderConfig implements ChatRenderConfigInterface
         return $this->view;
     }
 
-    public function getAssistantName(): ?string
-    {
-        $assistant = $this->getAssistant();
-
-        if (empty($assistant) || empty($assistant['name'])) {
-            return null;
-        }
-
-        return $assistant['name'];
-    }
-
     public function getChatId(): string
     {
-        $assistantName = $this->getAssistantName();
-
-        if (empty($assistantName)) {
-            return 'global-chat-default';
-        }
-
-        $assistantHash = substr(md5($assistantName), 0, 8);
-
-        $slug = preg_replace('/[^a-z0-9]+/i', '-', strtolower($assistantName)) ?? '';
-        $slug = trim($slug, '-');
-
-        if ($slug === '') {
-            return sprintf('global-chat-%s', $assistantHash);
-        }
-
-        return sprintf('global-chat-%s-%s', $slug, $assistantHash);
-    }
-
-    public function getAssistant(): ?array
-    {
-        if ($this->assistant !== null) {
-            return $this->assistant;
-        }
-
-        return $this->assistant = $this->getAssistantFromString();
+        return $this->id ??= uniqid('chat-', true);
     }
 
     public function getWrapperAttributes(): ?string
@@ -69,54 +29,34 @@ class ChatRenderConfig implements ChatRenderConfigInterface
         return $this->wrapperAttributes;
     }
 
-    public function getGreetingsPhrase(): ?string
-    {
-        $assistant = $this->getAssistant();
-
-        if (empty($assistant) || empty($assistant['greetings_phrase'])) {
-            return null;
-        }
-
-        return $assistant['greetings_phrase'];
-    }
-
     public function getAttributeList(): array
     {
         $attributeList = [
-            'data-js-chat-assistant' => $this->getAssistantName(),
             'data-js-chat-assistants' => $this->getAssistantsIntegrationTypesAsJson(),
         ];
 
         $attributeList['data-js-municipio-chat'] = '1';
 
-        if (!empty($this->getGreetingsPhrase())) {
-            $attributeList['data-js-chat-greetings-phrase'] = nl2br($this->getGreetingsPhrase());
-        }
-
         return $attributeList;
+    }
+
+    public function getAssistants(): array {
+        return $this->assistants;
     }
 
     private function getAssistantsIntegrationTypesAsJson(): string
     {
-        $integrationTypes = [];
+        $assistantIntegrationTypes = [];
 
-        foreach ($this->config->getAssistants() as $assistant) {
+        foreach ($this->getAssistants() as $assistant) {
             if (!$this->isValidAssistantRow($assistant)) {
                 continue;
             }
 
-            $integrationTypes[$assistant['name']] = $assistant['acf_fc_layout'];
+            $assistantIntegrationTypes[strtolower($assistant['name'])] = $assistant['acf_fc_layout'];
         }
 
-        $defaultAssistant = $this->config->getDefaultAssistant();
-
-        if ($this->isValidAssistantRow($defaultAssistant)) {
-            if (!isset($integrationTypes[$defaultAssistant['name']])) {
-                $integrationTypes[$defaultAssistant['name']] = $defaultAssistant['acf_fc_layout'];
-            }
-        }
-
-        return json_encode($integrationTypes) ?: '{}';
+        return json_encode($assistantIntegrationTypes) ?: '{}';
     }
 
     private function isValidAssistantRow(mixed $assistant): bool
@@ -135,36 +75,5 @@ class ChatRenderConfig implements ChatRenderConfigInterface
             'like' => $this->wpService->__('Like', 'municipio'),
             'dislike' => $this->wpService->__('Dislike', 'municipio'),
         ];
-    }
-
-    public function getAvatar(): ?array
-    {
-        $assistant = $this->getAssistant();
-
-        if ($this->avatar !== null) {
-            return $this->avatar;
-        }
-
-        if (empty($assistant) || empty($assistant['avatar'])) {
-            return null;
-        }
-
-        return $this->avatar = Image::getImageAttachmentData($assistant['avatar'], [150, 150]);
-    }
-
-    private function getAssistantFromString(): ?array
-    {
-        $allAssistants = $this->config->getAssistants();
-
-        if (empty($allAssistants)) {
-            return null;
-        }
-
-        if ($this->assistantName === 'Default') {
-            return $this->config->getDefaultAssistant();
-        }
-
-        $filteredAssistant = array_filter($allAssistants, fn($a) => $a['name'] === ($this->assistantName ?? null));
-        return reset($filteredAssistant) ?: null;
     }
 }

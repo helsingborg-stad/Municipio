@@ -38,9 +38,9 @@ class ChatEnqueueTest extends TestCase
                 return ['name' => 'Default'];
             }
 
-            public function getAssistantForActiveQuery(): ?array
+            public function getAssistantForActiveQuery(): array
             {
-                return null;
+                return [];
             }
 
             public function getAssistants(): array
@@ -106,9 +106,9 @@ class ChatEnqueueTest extends TestCase
                 return null;
             }
 
-            public function getAssistantForActiveQuery(): ?array
+            public function getAssistantForActiveQuery(): array
             {
-                return null;
+                return [];
             }
 
             public function getAssistants(): array
@@ -149,6 +149,7 @@ class ChatEnqueueTest extends TestCase
         };
         $enqueueObj = new ChatEnqueue($wpService, $enqueue, $config);
 
-        static::assertNull($enqueueObj->addHooks());
+        $enqueueObj->addHooks();
+        static::assertTrue(true);
     }
 }
