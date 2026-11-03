@@ -26,13 +26,24 @@ class ChatRender implements ChatRenderInterface
             'attributeList' => $renderConfig->getAttributeList()
         ];
 
-        echo '<pre>' . print_r( $assistant, true ) . '</pre>';die;
+        $data = $this->addIntegrationData($assistant, $data);
 
         return sprintf(
             '<div %s>%s</div>',
             $renderConfig->getWrapperAttributes(),
             $this->bladeRenderer->render($renderConfig->getView(), $data),
         );
+    }
+
+    private function addIntegrationData(array $assistant, array $data): array
+    {
+        $class = "Municipio\Chat\Render\Integration\\" . ucfirst($assistant['acf_fc_layout'] ?? "");
+
+        if (class_exists($class)) {
+            $data = (new $class())->transform($data, $assistant);
+        }
+
+        return $data;
     }
 
     public static function getViewPathsDir(): array
