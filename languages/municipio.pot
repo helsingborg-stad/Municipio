@@ -53,6 +53,19 @@ msgstr ""
 msgid "This is the accessibility statement for our website."
 msgstr ""
 
+#: library/AcfFields/php/a11y-statement.php:50
+msgid "SEO Description"
+msgstr ""
+
+#: library/AcfFields/php/a11y-statement.php:54
+msgid "A short description used by search engines for the accessibility statement."
+msgstr ""
+
+#: library/AcfFields/php/a11y-statement.php:62
+#: library/Controller/A11y.php:315
+msgid "This accessibility statement describes the website's accessibility and how to report problems."
+msgstr ""
+
 #: library/A11yStatement/A11yStatement.php:110
 #: library/Theme/Icon.php:4088
 msgid "Update"

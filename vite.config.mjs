@@ -13,6 +13,25 @@ const copyStyleguideAssets = () => {
 	if (fs.existsSync(source)) {
 		fs.cpSync(source, "assets/dist/styleguide", { recursive: true });
 	}
+
+	// Test a local styleguide runtime build without replacing the installed CSS.
+	const runtimeSource = process.env.MUNICIPIO_STYLEGUIDE_RUNTIME_DIST;
+	if (runtimeSource) {
+		const runtimeManifest = JSON.parse(
+			fs.readFileSync(path.join(runtimeSource, "manifest.json"), "utf8"),
+		);
+		const destination = "assets/dist/styleguide";
+		const manifestPath = path.join(destination, "manifest.json");
+		const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+		fs.cpSync(runtimeSource, destination, {
+			recursive: true,
+			filter: (file) => fs.statSync(file).isDirectory() || /\.js(?:\.map)?$/.test(file),
+		});
+		for (const [entry, file] of Object.entries(runtimeManifest)) {
+			if (entry.startsWith("js/")) manifest[entry] = file;
+		}
+		fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+	}
 };
 
 const wrapStandaloneEntryScripts = () => ({
