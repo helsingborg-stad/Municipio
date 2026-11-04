@@ -18,8 +18,6 @@ export function createEneo(
     actionFactory: ChatActionFactoryInterface,
     _name: string,
 ): ChatIntegrationInterface {
-    actionFactory.addMinimize();
-    const clear = actionFactory.addClear();
     const chatElement = chat.getElement() as HTMLElement;
     const greetingsPhrase = chatElement.dataset.jsChatGreetingsPhrase || null;
     const feedbackTemplate = chatElement.querySelector("[data-js-chat-feedback]") as HTMLTemplateElement | null;

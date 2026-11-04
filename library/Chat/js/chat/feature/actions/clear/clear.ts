@@ -8,15 +8,15 @@ class Clear implements ChatAction {
 		private actionTemplates: HTMLTemplateElement,
 		private chat: any
 	) {
-		this.newSessionButtonElement = this.createButton();
 	}
 
 	public add(): this {
 		if (!this.newSessionButtonElement) {
 			this.newSessionButtonElement = this.createButton();
 			this.actionsContainer.appendChild(this.newSessionButtonElement);
-			this.setListeners();
 		}
+
+		this.setListeners();
 
 		return this;
 	}
