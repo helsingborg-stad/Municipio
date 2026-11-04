@@ -46,10 +46,10 @@ class OnePageTemplateOnlyTest extends TestCase
     #[TestDox('resolveTemplateMeta() resolves page template as one-page when mode is all')]
     public function testResolveTemplateMeta(): void
     {
-        $this->assertEquals(['one-page.blade.php'], $this->createSut()->resolveTemplateMeta(null, 1, '_wp_page_template', true));
-        $this->assertNull($this->createSut()->resolveTemplateMeta(null, 1, 'other_key', true));
-        $this->assertNull($this->createSut('template')->resolveTemplateMeta(null, 1, '_wp_page_template', true));
-        $this->assertNull($this->createSut('all', 'post')->resolveTemplateMeta(null, 1, '_wp_page_template', true));
+        $this->assertEquals(['one-page.blade.php'], $this->createSut()->resolveTemplateMeta(null, 1, '_wp_page_template'));
+        $this->assertNull($this->createSut()->resolveTemplateMeta(null, 1, 'other_key'));
+        $this->assertNull($this->createSut('template')->resolveTemplateMeta(null, 1, '_wp_page_template'));
+        $this->assertNull($this->createSut('all', 'post')->resolveTemplateMeta(null, 1, '_wp_page_template'));
     }
 
     #[TestDox('removeDefaultTemplateOption() only keeps the one-page template in the block editor')]

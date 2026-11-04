@@ -36,7 +36,7 @@ class OnePageTemplateOnly implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerTemplateFilters'], 1000);
-        $this->wpService->addFilter('get_post_metadata', [$this, 'resolveTemplateMeta'], 10, 4);
+        $this->wpService->addFilter('get_post_metadata', [$this, 'resolveTemplateMeta'], 10, 3);
         $this->wpService->addFilter('block_editor_settings_all', [$this, 'removeDefaultTemplateOption'], 10, 2);
     }
 
@@ -74,10 +74,9 @@ class OnePageTemplateOnly implements Hookable
      * @param mixed  $value    The value to return, null to continue as usual.
      * @param int    $objectId The post id.
      * @param string $metaKey  The meta key.
-     * @param bool   $single   Whether a single value is requested.
      * @return mixed
      */
-    public function resolveTemplateMeta($value, $objectId, $metaKey, $single)
+    public function resolveTemplateMeta($value, $objectId, $metaKey)
     {
         if ($metaKey !== '_wp_page_template' || $value !== null) {
             return $value;
