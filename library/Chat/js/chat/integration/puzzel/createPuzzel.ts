@@ -1,4 +1,6 @@
 import GetConversation from "./api/getConversation";
+import GetChatOpen from "./api/getChatOpen";
+import GetQueueInfo from "./api/getQueueInfo";
 import GetConversationStatus from "./api/getConversationStatus";
 import GetMetaData from "./api/getMetaData";
 import SendMetadata from "./api/sendMetadata";
@@ -15,6 +17,7 @@ import PuzzelIncomingMessageHandler from "./handler/puzzelIncomingMessageHandler
 import PuzzelOutgoingChatHandler from "./handler/puzzelOutgoingChatHandler";
 import PuzzelTypingIndicatorHandler from "./handler/puzzelTypingIndicatorHandler";
 import Puzzel from "./puzzel";
+import PuzzelAvailabilityManager from "./puzzelAvailabilityManager";
 import PuzzelConversationManager from "./puzzelConversationManager";
 
 export function createPuzzel(
@@ -25,6 +28,12 @@ export function createPuzzel(
 ): ChatIntegrationInterface {
     const conversationStorageManager = new ConversationStorageManager();
     const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
+
+    const puzzelAvailabilityManager = new PuzzelAvailabilityManager(
+        new GetChatOpen(puzzelConfig, puzzelAuthenticator),
+        new GetQueueInfo(puzzelConfig, puzzelAuthenticator),
+    );
+
     const puzzelConversationManager = new PuzzelConversationManager(
         new StartConversation(puzzelConfig, puzzelAuthenticator),
         new SendMetadata(puzzelConfig, puzzelAuthenticator),
@@ -40,6 +49,7 @@ export function createPuzzel(
 
     return new Puzzel(
         puzzelAuthenticator,
+        puzzelAvailabilityManager,
         puzzelConversationManager,
         conversationStorageManager,
         puzzelTypingIndicatorHandler,

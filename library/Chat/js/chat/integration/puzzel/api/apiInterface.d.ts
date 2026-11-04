@@ -35,3 +35,7 @@ interface GetConversationStatusInterface {
 interface GetChatOpenInterface {
     execute(): Promise<boolean>;
 }
+
+interface GetQueueInfoInterface {
+    execute(): Promise<boolean>;
+}

@@ -21,9 +21,9 @@ class GetChatOpen implements GetChatOpenInterface {
 
         await throwErrorIfResponseNotOk(response, "Failed to get chat open status");
 
-        const data = await response.json();
+        const data: PuzzelChatOpenResponse = await response.json();
 
-        return data.status === 'open';
+        return data.status === "open";
     }
 }
 

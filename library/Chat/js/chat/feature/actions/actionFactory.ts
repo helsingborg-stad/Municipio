@@ -8,6 +8,11 @@ class ActionFactory implements ChatActionFactoryInterface {
         private chat: any
     ) {
     }
+
+    public clearActions(): void {
+        this.actionsContainer.innerHTML = "";
+    }
+
     public addMinimize(): ChatAction {
         return new MinimizeChat(this.actionsContainer, this.actionTemplates).add();
     }

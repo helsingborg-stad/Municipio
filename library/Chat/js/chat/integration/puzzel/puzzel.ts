@@ -9,6 +9,7 @@ class Puzzel implements ChatIntegrationInterface {
 
     public constructor(
         private puzzelAuthenticator: PuzzelAuthenticatorInterface,
+        private puzzelAvailabilityManager: PuzzelAvailabilityManagerInterface,
         private puzzelConversationManager: PuzzelConversationManagerInterface,
         private conversationStorageManager: ConversationStorageManagerInterface,
         private typingIndicatorHandler: PuzzelTypingIndicatorHandlerInterface,
@@ -24,7 +25,6 @@ class Puzzel implements ChatIntegrationInterface {
     }
 
     public async init(): Promise<this|false> {
-        this.actionFactory.addMinimize();
         this.puzzelConversationManager.stopListening();
         this.typingIndicatorHandler.clearTypingState();
         this.chatHandler.setDefaultPersistedState(false);
@@ -34,6 +34,10 @@ class Puzzel implements ChatIntegrationInterface {
         this.authenticated = localStorageData?.authenticationData ?? await this.puzzelAuthenticator.authenticate();
 
         if (!this.authenticated) {
+            return false;
+        }
+
+        if (!await this.isAvailable()) {
             return false;
         }
 
@@ -60,6 +64,7 @@ class Puzzel implements ChatIntegrationInterface {
 
         await this.startMetaDataListener();
         await this.startConversationListener();
+        this.actionFactory.addMinimize();
         this.triedRerun = false;
         return this;
     }
@@ -133,6 +138,15 @@ class Puzzel implements ChatIntegrationInterface {
         }
 
         return true;
+    }
+
+    private async isAvailable(): Promise<boolean> {
+        try {
+            return await this.puzzelAvailabilityManager.isAvailable();
+        } catch (error) {
+            console.error("Failed to verify chat availability.", error);
+            return false;
+        }
     }
 
     private async getChatStatus(): Promise<PuzzelConversationStatusResponse|null> {

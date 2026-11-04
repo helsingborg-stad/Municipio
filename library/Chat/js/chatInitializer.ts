@@ -48,15 +48,25 @@ class ChatInitializer implements ChatInitializerInterface {
 			return true;
 		}
 
+		actionFactory.clearActions();
+
 		const integration = this.availableAssistants[assistantName];
 		const created = await this.tryCreateIntegration(integration, this.chat, actionFactory, assistantName);
 
 		if (!created) {
+			actionFactory.clearActions();
 			return false;
 		}
 
-		const initialized = await created.init();
-		if (!initialized) {
+		try {
+			const initialized = await created.init();
+			if (!initialized) {
+				actionFactory.clearActions();
+				return false;
+			}
+		} catch (error) {
+			console.warn(`Chat integration "${integration}" failed to initialize`, error);
+			actionFactory.clearActions();
 			return false;
 		}
 

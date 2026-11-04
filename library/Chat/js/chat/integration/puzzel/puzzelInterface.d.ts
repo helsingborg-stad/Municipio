@@ -28,6 +28,10 @@ interface PuzzelConversationManagerInterface {
     getConversationStatus(): Promise<PuzzelConversationStatusResponse[]>;
 }
 
+interface PuzzelAvailabilityManagerInterface {
+    isAvailable(): Promise<boolean>;
+}
+
 interface PuzzelAuthenticatorInterface {
     getAccessToken(): Promise<string>;
     authenticate(): Promise<AuthenticationData>;
@@ -93,3 +97,14 @@ type PuzzelConversationStatusResponse = {
     queuePosition: number;
     status: string;
 };
+
+interface PuzzelChatOpenResponse {
+    status?: string;
+    isOpen?: string | boolean;
+}
+
+interface PuzzelQueueInfoResponse {
+    openForWebAccess?: boolean;
+    agentsReady?: number;
+    agentsLoggedIn?: number;
+}
