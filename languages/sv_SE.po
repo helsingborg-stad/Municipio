@@ -31338,3 +31338,20 @@ msgstr "Zooma ut kartan"
 #: Modularity/templates/widget/form.php:7
 msgid "Not selected"
 msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Audiences"
+msgstr "Målgrupper"
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Audience"
+msgstr "Målgrupp"
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:126
+msgid "Prices"
+msgstr "Priser"
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:127
+msgctxt "Event price term"
+msgid "Free"
+msgstr "Gratis"

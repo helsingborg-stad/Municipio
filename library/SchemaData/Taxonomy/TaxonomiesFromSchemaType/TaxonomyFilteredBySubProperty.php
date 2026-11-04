@@ -14,7 +14,7 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
  * different `inDefinedTermSet.name` values) would otherwise produce colliding taxonomy names.
  * The name is therefore made unique per expected value unless an explicit name is provided.
  */
-class TaxonomyFilteredBySubProperty implements TaxonomyInterface
+class TaxonomyFilteredBySubProperty extends TaxonomyDecorator
 {
     private const MAX_TAXONOMY_NAME_LENGTH = 32;
 
@@ -26,12 +26,13 @@ class TaxonomyFilteredBySubProperty implements TaxonomyInterface
      * @param string|null $name Explicit taxonomy name. When omitted, a name unique to $expectedValue is derived from the inner taxonomy's name.
      */
     public function __construct(
-        private TaxonomyInterface $inner,
+        TaxonomyInterface $inner,
         private string $itemsPropertyPath,
         private string $subPropertyPath,
         private string|array $expectedValue,
         private ?string $name = null,
     ) {
+        parent::__construct($inner);
     }
 
     /**
@@ -72,57 +73,9 @@ class TaxonomyFilteredBySubProperty implements TaxonomyInterface
     /**
      * @inheritDoc
      */
-    public function getSchemaType(): string
-    {
-        return $this->inner->getSchemaType();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSchemaProperty(): string
-    {
-        return $this->inner->getSchemaProperty();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getObjectTypes(): array
-    {
-        return $this->inner->getObjectTypes();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArguments(): array
-    {
-        return $this->inner->getArguments();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLabel(): string
-    {
-        return $this->inner->getLabel();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSingularLabel(): string
-    {
-        return $this->inner->getSingularLabel();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function formatTermValue(mixed $value, array $schema): string|array|null
     {
-        $formatted = $this->inner->formatTermValue($value, $schema);
+        $formatted = parent::formatTermValue($value, $schema);
 
         if ($formatted === null) {
             return null;
