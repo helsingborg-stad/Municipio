@@ -2,6 +2,13 @@
 
 namespace Municipio\Admin\Gutenberg;
 
+use AcfService\Contracts\GetField;
+use Municipio\HooksRegistrar\Hookable;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\GetPostType;
+
 /**
  * When the Gutenberg editor is activated for all pages, the one-page template
  * is the only template that is available, and it is used by default.
@@ -10,18 +17,27 @@ namespace Municipio\Admin\Gutenberg;
  * as one-page while the setting is active, so switching the setting back
  * restores the template that was previously selected.
  */
-class OnePageTemplateOnly
+class OnePageTemplateOnly implements Hookable
 {
     public const TEMPLATE = 'one-page.blade.php';
 
     /**
-     * Constructor method.
+     * Constructor.
      */
-    public function __construct()
+    public function __construct(
+        private AddAction&AddFilter&ApplyFilters&GetPostType $wpService,
+        private GetField $acfService
+    ) {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addHooks(): void
     {
-        add_action('init', [$this, 'registerTemplateFilters'], 1000);
-        add_filter('get_post_metadata', [$this, 'resolveTemplateMeta'], 10, 4);
-        add_filter('block_editor_settings_all', [$this, 'removeDefaultTemplateOption'], 10, 2);
+        $this->wpService->addAction('init', [$this, 'registerTemplateFilters'], 1000);
+        $this->wpService->addFilter('get_post_metadata', [$this, 'resolveTemplateMeta'], 10, 4);
+        $this->wpService->addFilter('block_editor_settings_all', [$this, 'removeDefaultTemplateOption'], 10, 2);
     }
 
     /**
@@ -33,7 +49,7 @@ class OnePageTemplateOnly
     public function registerTemplateFilters(): void
     {
         foreach ($this->getPostTypes() as $postType) {
-            add_filter('theme_' . $postType . '_templates', [$this, 'limitTemplates'], PHP_INT_MAX);
+            $this->wpService->addFilter('theme_' . $postType . '_templates', [$this, 'limitTemplates'], PHP_INT_MAX);
         }
     }
 
@@ -67,7 +83,7 @@ class OnePageTemplateOnly
             return $value;
         }
 
-        if (!in_array(get_post_type($objectId), $this->getPostTypes(), true) || !$this->isActive()) {
+        if (!in_array($this->wpService->getPostType((int) $objectId), $this->getPostTypes(), true) || !$this->isActive()) {
             return $value;
         }
 
@@ -108,11 +124,7 @@ class OnePageTemplateOnly
      */
     private function isActive(): bool
     {
-        if (!function_exists('get_field')) {
-            return false;
-        }
-
-        return get_field('gutenberg_editor_mode', 'option') === 'all';
+        return $this->acfService->getField('gutenberg_editor_mode', 'option') === 'all';
     }
 
     /**
@@ -122,6 +134,6 @@ class OnePageTemplateOnly
      */
     private function getPostTypes(): array
     {
-        return (array) apply_filters('Municipio/Admin/Gutenberg/OnePageTemplateOnly/PostTypes', ['page']);
+        return (array) $this->wpService->applyFilters('Municipio/Admin/Gutenberg/OnePageTemplateOnly/PostTypes', ['page']);
     }
 }
