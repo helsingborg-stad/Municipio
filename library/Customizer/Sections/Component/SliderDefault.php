@@ -42,40 +42,6 @@ class SliderDefault
         ]);
 
         /**
-         * Slider padding
-         */
-        CustomizerField::addField([
-            'type' => 'slider',
-            'settings' => 'slider_padding',
-            'label' => esc_html__('Horizontal slider padding', 'municipio'),
-            'description' => esc_html__('Adds horizontal inset to the slider. Set a value above the gap to show a preview of adjacent slides.', 'municipio'),
-            'section' => $sectionID,
-            'default' => 0,
-            'choices' => [
-                'min' => 0,
-                'max' => 24,
-                'step' => 1,
-            ],
-            'output' => [
-                [
-                    'element' => ':root',
-                    'property' => '--c-slider-padding',
-                    'unit' => '',
-                ],
-                [
-                    'type' => 'component_data',
-                    'dataKey' => 'padding',
-                    'context' => [
-                        [
-                            'context' => 'module.slider',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
-            ],
-        ]);
-
-        /**
          * Slider container colour
          */
         CustomizerField::addField([
