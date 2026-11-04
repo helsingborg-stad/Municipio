@@ -249,6 +249,7 @@ class Archive
                     'choices' => [
                         'multi' => esc_html__('Multiselect', 'municipio'),
                         'single' => esc_html__('Single select', 'municipio'),
+                        'checkbox' => esc_html__('Checkboxes', 'municipio'),
                     ],
                     'default' => 'multi',
                     'output' => [

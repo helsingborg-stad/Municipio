@@ -6,4 +6,5 @@ enum TaxonomyFilterType: string
 {
     case MULTISELECT  = 'multi';
     case SINGLESELECT = 'single';
+    case CHECKBOX     = 'checkbox';
 }
