@@ -1,7 +1,7 @@
 class PuzzelFactory implements ChatIntegrationFactory {
     private static createPuzzel: CreateIntegrationFunction | null = null;
 
-    public async create(chat: any, actionFactory: ChatActionFactoryInterface): Promise<ChatIntegrationInterface|false> {
+    public async create(chat: any, actionFactory: ChatActionFactoryInterface, name: string): Promise<ChatIntegrationInterface|false> {
         if (!this.canRun()) {
             return false;
         }
@@ -11,7 +11,7 @@ class PuzzelFactory implements ChatIntegrationFactory {
             PuzzelFactory.createPuzzel = createPuzzel;
         }
 
-        return PuzzelFactory.createPuzzel(chat, actionFactory);
+        return PuzzelFactory.createPuzzel(chat, actionFactory, name);
     }
 
     public canRun(): boolean {

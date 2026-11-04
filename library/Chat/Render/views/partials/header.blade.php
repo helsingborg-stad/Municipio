@@ -12,7 +12,7 @@
             'color' => 'default',
             'reversePositions' => true,
             'attributeList' => [
-                'data-js-chat-new-session' => true,
+                'data-js-chat-clear' => true,
                 'aria-label' => $lang['newConversation'],
                 'data-tooltip' => $lang['newConversation']
             ],

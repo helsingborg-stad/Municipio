@@ -15,7 +15,8 @@ function createMarkdownParser(): MarkdownIt {
 
 export function createEneo(
     chat: any,
-    actionFactory: ChatActionFactoryInterface
+    actionFactory: ChatActionFactoryInterface,
+    _name: string,
 ): ChatIntegrationInterface {
     actionFactory.addMinimize();
     const clear = actionFactory.addClear();

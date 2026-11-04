@@ -1,6 +1,6 @@
 class Clear implements ChatAction {
 	private newSessionButtonElement: HTMLElement | null = null;
-	private buttonTargetString = "[data-js-chat-new-session]";
+	private buttonTargetString = "[data-js-chat-clear]";
 	private listeners: ((event: Event) => void)[] = [];
 
 	constructor(

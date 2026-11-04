@@ -49,7 +49,7 @@ class ChatInitializer implements ChatInitializerInterface {
 		}
 
 		const integration = this.availableAssistants[assistantName];
-		const created = await this.tryCreateIntegration(integration, this.chat, actionFactory);
+		const created = await this.tryCreateIntegration(integration, this.chat, actionFactory, assistantName);
 
 		if (!created) {
 			return false;
@@ -70,6 +70,7 @@ class ChatInitializer implements ChatInitializerInterface {
 		integration: string,
 		chat: any,
 		actionFactory: ChatActionFactoryInterface,
+		assistantName: string,
 	): Promise<ChatIntegrationInterface|false> {
 		try {
 			const factory = (
@@ -77,7 +78,7 @@ class ChatInitializer implements ChatInitializerInterface {
 			).default;
 
 			const instance = new factory();
-			const created: ChatIntegrationInterface|false = await instance.create(chat, actionFactory);
+			const created: ChatIntegrationInterface|false = await instance.create(chat, actionFactory, assistantName);
 			console.log(`Created integration for ${integration}:`, created);
 			return created;
 		} catch (error) {

@@ -1,7 +1,7 @@
 class EneoFactory implements ChatIntegrationFactory {
     private static createEneo: CreateIntegrationFunction | null = null;
 
-    public async create(chat: any, actionFactory: ChatActionFactoryInterface): Promise<ChatIntegrationInterface|false> {
+    public async create(chat: any, actionFactory: ChatActionFactoryInterface, name: string): Promise<ChatIntegrationInterface|false> {
         if (!this.canRun()) {
             return false;
         }
@@ -11,7 +11,7 @@ class EneoFactory implements ChatIntegrationFactory {
             EneoFactory.createEneo = createEneo;
         }
 
-        return EneoFactory.createEneo(chat, actionFactory);
+        return EneoFactory.createEneo(chat, actionFactory, name);
     }
 
     public canRun(): boolean {

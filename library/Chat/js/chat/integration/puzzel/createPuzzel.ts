@@ -20,7 +20,8 @@ import PuzzelConversationManager from "./puzzelConversationManager";
 
 export function createPuzzel(
     chat: any,
-    actionFactory: ChatActionFactoryInterface
+    actionFactory: ChatActionFactoryInterface,
+    _name: string,
 ): ChatIntegrationInterface {
     const puzzelConfig = new PuzzelConfig();
     const conversationStorageManager = new ConversationStorageManager();
