@@ -3,29 +3,3 @@
         content: none;
     }
 }
-
-// The styleguide slider uses container queries for its responsive column count.
-// Post sliders can be rendered before those queries are evaluated, leaving the
-// desktop layout at one full-width card. Keep the module's requested column
-// count in sync with its established 1/2/3/4-card breakpoints.
-.c-slider--post .c-slider__inner {
-    --c-slider--columns: 1;
-}
-
-@media (min-width: 24rem) {
-    .c-slider--post .c-slider__inner {
-        --c-slider--columns: var(--c-slider--columns-2, 1);
-    }
-}
-
-@media (min-width: 36rem) {
-    .c-slider--post .c-slider__inner {
-        --c-slider--columns: var(--c-slider--columns-3, 1);
-    }
-}
-
-@media (min-width: 48rem) {
-    .c-slider--post .c-slider__inner {
-        --c-slider--columns: var(--c-slider--columns-4, 1);
-    }
-}
