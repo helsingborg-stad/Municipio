@@ -810,7 +810,8 @@ class Navigation
     {
         global $post;
 
-        if (!is_a($post, 'WP_Post')) {
+        // Post type archives are described by the queried object and do not need a current post (empty archives have none).
+        if (!is_a($post, 'WP_Post') && !is_post_type_archive()) {
             return;
         }
 
