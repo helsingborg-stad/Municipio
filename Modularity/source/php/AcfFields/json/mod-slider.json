@@ -100,20 +100,20 @@
 					"id": ""
 				},
 				"default_value": 1,
-				"min": "",
-				"max": "",
+				"min": 1,
+				"max": 4,
 				"placeholder": "",
-				"step": "",
+				"step": 1,
 				"prepend": "",
 				"append": ""
 			},
 			{
-				"key": "field_58933fb6f5ed4",
-				"label": "Wrap around",
-				"name": "additional_options",
+				"key": "field_69100001slider",
+				"label": "Show next slide preview",
+				"name": "slider_peek_slides",
 				"aria-label": "",
-				"type": "checkbox",
-				"instructions": "If using videos in slides, this will option will not work.",
+				"type": "true_false",
+				"instructions": "Shows part of the next slide in compact slider layouts.",
 				"required": 0,
 				"conditional_logic": 0,
 				"wrapper": {
@@ -121,16 +121,92 @@
 					"class": "",
 					"id": ""
 				},
-				"choices": {
-					"wrapAround": "Go to first slide when last item is reached"
+				"message": "Show a preview of the next slide",
+				"default_value": 0,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_69100002slider",
+				"label": "Move visible slides at once",
+				"name": "slider_slide_by_page",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "Moves every visible slide when using the slider controls.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "33",
+					"class": "",
+					"id": ""
 				},
-				"default_value": ["wrapAround"],
-				"return_format": "value",
-				"allow_custom": 0,
-				"layout": "horizontal",
-				"toggle": 0,
-				"save_custom": 0,
-				"custom_choice_button_text": "Add new choice"
+				"message": "Move by page",
+				"default_value": 0,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_69100003slider",
+				"label": "Show navigation on hover",
+				"name": "slider_navigation_hover",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "33",
+					"class": "",
+					"id": ""
+				},
+				"message": "Show navigation controls on hover",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_69100004slider",
+				"label": "Compact navigation",
+				"name": "slider_compact_navigation",
+				"aria-label": "",
+				"type": "true_false",
+				"instructions": "Moves controls below the slider in narrow containers.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "33",
+					"class": "",
+					"id": ""
+				},
+				"message": "Use compact navigation",
+				"default_value": 1,
+				"ui": 0,
+				"ui_on_text": "",
+				"ui_off_text": ""
+			},
+			{
+				"key": "field_69100007slider",
+				"label": "Preamble",
+				"name": "slider_preamble",
+				"aria-label": "",
+				"type": "textarea",
+				"instructions": "Optional text shown below the slider title.",
+				"required": 0,
+				"conditional_logic": 0,
+				"wrapper": {
+					"width": "",
+					"class": "",
+					"id": ""
+				},
+				"default_value": "",
+				"placeholder": "",
+				"maxlength": "",
+				"rows": 3,
+				"new_lines": "",
+				"acfe_textarea_code": 0
 			},
 			{
 				"key": "field_56a5e994398d6",
