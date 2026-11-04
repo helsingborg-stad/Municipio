@@ -18,28 +18,6 @@ class TaxonomyFilteredBySubPropertyTest extends TestCase
         $this->assertInstanceOf(TaxonomyFilteredBySubProperty::class, $decorator);
     }
 
-    public function testDelegatesSimplePropertiesToInner(): void
-    {
-        $inner = new FakeTaxonomy(
-            name: 'exhibition_event_keywords_name',
-            schemaType: 'ExhibitionEvent',
-            schemaProperty: 'keywords.name',
-            objectTypes: ['exhibition_event'],
-            arguments: ['public' => true],
-            label: 'Event Statuses',
-            singularLabel: 'Event Status',
-        );
-
-        $decorator = new TaxonomyFilteredBySubProperty($inner, 'keywords', 'inDefinedTermSet.name', 'event_status');
-
-        $this->assertSame('ExhibitionEvent', $decorator->getSchemaType());
-        $this->assertSame('keywords.name', $decorator->getSchemaProperty());
-        $this->assertSame(['exhibition_event'], $decorator->getObjectTypes());
-        $this->assertSame(['public' => true], $decorator->getArguments());
-        $this->assertSame('Event Statuses', $decorator->getLabel());
-        $this->assertSame('Event Status', $decorator->getSingularLabel());
-    }
-
     public function testDerivesNameUniquePerExpectedValueWhenNoNameGiven(): void
     {
         $inner = new FakeTaxonomy(name: 'exhibition_event');

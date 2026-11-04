@@ -9,7 +9,7 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
  * Example: turn the boolean `isAccessibleForFree` (sanitized to 'true'/'false') into a single
  * human readable term, e.g. ['true' => 'Free'], so events can be filtered on being free.
  */
-class TaxonomyWithMappedTermValues implements TaxonomyInterface
+class TaxonomyWithMappedTermValues extends TaxonomyDecorator
 {
     /**
      * @param TaxonomyInterface $inner The decorated taxonomy.
@@ -17,10 +17,11 @@ class TaxonomyWithMappedTermValues implements TaxonomyInterface
      * @param string|null $name Explicit taxonomy name. When omitted, the inner taxonomy's name is used.
      */
     public function __construct(
-        private TaxonomyInterface $inner,
+        TaxonomyInterface $inner,
         private array $valueMap,
         private ?string $name = null,
     ) {
+        parent::__construct($inner);
     }
 
     /**
@@ -28,55 +29,7 @@ class TaxonomyWithMappedTermValues implements TaxonomyInterface
      */
     public function getName(): string
     {
-        return $this->name ?? $this->inner->getName();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSchemaType(): string
-    {
-        return $this->inner->getSchemaType();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSchemaProperty(): string
-    {
-        return $this->inner->getSchemaProperty();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getObjectTypes(): array
-    {
-        return $this->inner->getObjectTypes();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArguments(): array
-    {
-        return $this->inner->getArguments();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLabel(): string
-    {
-        return $this->inner->getLabel();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSingularLabel(): string
-    {
-        return $this->inner->getSingularLabel();
+        return $this->name ?? parent::getName();
     }
 
     /**
@@ -84,7 +37,7 @@ class TaxonomyWithMappedTermValues implements TaxonomyInterface
      */
     public function formatTermValue(mixed $value, array $schema): string|array|null
     {
-        $formatted = $this->inner->formatTermValue($value, $schema);
+        $formatted = parent::formatTermValue($value, $schema);
 
         if ($formatted === null) {
             return null;

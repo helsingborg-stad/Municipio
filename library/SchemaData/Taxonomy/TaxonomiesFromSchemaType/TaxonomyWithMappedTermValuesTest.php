@@ -13,27 +13,11 @@ class TaxonomyWithMappedTermValuesTest extends TestCase
         $this->assertInstanceOf(TaxonomyWithMappedTermValues::class, $decorator);
     }
 
-    public function testDelegatesSimplePropertiesToInner(): void
+    public function testUsesInnerNameWhenNoNameGiven(): void
     {
-        $inner = new FakeTaxonomy(
-            name: 'event_is_accessible_for_free',
-            schemaType: 'Event',
-            schemaProperty: 'isAccessibleForFree',
-            objectTypes: ['event'],
-            arguments: ['public' => true],
-            label: 'Prices',
-            singularLabel: 'Price',
-        );
-
-        $decorator = new TaxonomyWithMappedTermValues($inner, ['true' => 'Free']);
+        $decorator = new TaxonomyWithMappedTermValues(new FakeTaxonomy(name: 'event_is_accessible_for_free'), ['true' => 'Free']);
 
         $this->assertSame('event_is_accessible_for_free', $decorator->getName());
-        $this->assertSame('Event', $decorator->getSchemaType());
-        $this->assertSame('isAccessibleForFree', $decorator->getSchemaProperty());
-        $this->assertSame(['event'], $decorator->getObjectTypes());
-        $this->assertSame(['public' => true], $decorator->getArguments());
-        $this->assertSame('Prices', $decorator->getLabel());
-        $this->assertSame('Price', $decorator->getSingularLabel());
     }
 
     public function testUsesExplicitNameWhenGiven(): void
