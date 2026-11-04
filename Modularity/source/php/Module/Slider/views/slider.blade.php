@@ -4,6 +4,8 @@
         'ratio'         => $ratio ?? '16:9',
         'title'         => (!$hideTitle && !empty($postTitle)) ? $postTitle : false,
         'preamble'      => $preamble,
+        'padding'       => 0,
+        'gap'           => 2,
         'peekSlides'    => $peekSlides,
         'slideByPage'   => $slideByPage,
         'navigationHover' => $navigationHover,
