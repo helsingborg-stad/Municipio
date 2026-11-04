@@ -1,6 +1,18 @@
 #filter {
     scroll-margin-top: 100px;
 }
+// Checkbox taxonomy filters are grouped in a fieldset; drop its browser default box.
+.s-archive-filter__fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-inline-size: 0;
+
+    > legend {
+        padding: 0;
+    }
+}
+
 // Checkbox taxonomy filters: center the options against the height of the select fields beside them.
 .s-archive-filter__checkboxes {
     display: flex;
