@@ -100,6 +100,30 @@ class TermFactoryTest extends TestCase
         $this->assertEquals('4', $result[0]->name);
     }
 
+    #[TestDox('converts boolean true to the string "true"')]
+    public function testCreateConvertsTrueToString(): void
+    {
+        $taxonomy = $this->getTaxonomy();
+        $taxonomy->method('getSchemaProperty')->willReturn('isAccessibleForFree');
+        $schema = Schema::event()->isAccessibleForFree(true)->toArray();
+
+        $result = $this->instance->create($taxonomy, $schema);
+
+        $this->assertEquals('true', $result[0]->name);
+    }
+
+    #[TestDox('converts boolean false to the string "false"')]
+    public function testCreateConvertsFalseToString(): void
+    {
+        $taxonomy = $this->getTaxonomy();
+        $taxonomy->method('getSchemaProperty')->willReturn('isAccessibleForFree');
+        $schema = Schema::event()->isAccessibleForFree(false)->toArray();
+
+        $result = $this->instance->create($taxonomy, $schema);
+
+        $this->assertEquals('false', $result[0]->name);
+    }
+
     #[TestDox('converts an array of int to an array of strings')]
     public function testCreateConvertsArrayOfIntToArrayOfStrings(): void
     {
