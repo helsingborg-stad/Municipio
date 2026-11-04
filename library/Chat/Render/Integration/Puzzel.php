@@ -13,6 +13,7 @@ class Puzzel implements RenderIntegrationInterface {
             $attributePrefix . 'queue-key' => $assistant['queue_key'] ?? '',
             $attributePrefix . 'visual-queue-id' => $assistant['visual_queue_id'] ?? '',
             $attributePrefix . 'time-id' => $assistant['time_id'] ?? '',
+            $attributePrefix . 'client-id' => $assistant['client_id'] ?? '',
         ]);
 
         return $data;

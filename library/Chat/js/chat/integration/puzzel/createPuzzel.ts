@@ -15,15 +15,14 @@ import PuzzelIncomingMessageHandler from "./handler/puzzelIncomingMessageHandler
 import PuzzelOutgoingChatHandler from "./handler/puzzelOutgoingChatHandler";
 import PuzzelTypingIndicatorHandler from "./handler/puzzelTypingIndicatorHandler";
 import Puzzel from "./puzzel";
-import PuzzelConfig from "./puzzelConfig";
 import PuzzelConversationManager from "./puzzelConversationManager";
 
 export function createPuzzel(
     chat: any,
     actionFactory: ChatActionFactoryInterface,
+    puzzelConfig: PuzzelConfigInterface,
     _name: string,
 ): ChatIntegrationInterface {
-    const puzzelConfig = new PuzzelConfig();
     const conversationStorageManager = new ConversationStorageManager();
     const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
     const puzzelConversationManager = new PuzzelConversationManager(

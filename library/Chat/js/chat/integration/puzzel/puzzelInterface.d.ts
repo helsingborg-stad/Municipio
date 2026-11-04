@@ -5,6 +5,8 @@ interface PuzzelConfigInterface {
     getCustomerId(): string;
     getChatQueueKey(): string;
     getClientId(): string;
+    getVisualQueueId(): string;
+    getTimeId(): string;
 }
 
 interface PuzzelConversationManagerInterface {

@@ -27,8 +27,8 @@ class Puzzel implements ChatIntegrationInterface {
         this.actionFactory.addMinimize();
         this.puzzelConversationManager.stopListening();
         this.typingIndicatorHandler.clearTypingState();
-
         this.chatHandler.setDefaultPersistedState(false);
+
         const localStorageData = this.conversationStorageManager.getLocalStorage();
         this.hadStoredAuthentication = !!localStorageData?.authenticationData;
         this.authenticated = localStorageData?.authenticationData ?? await this.puzzelAuthenticator.authenticate();

@@ -31,3 +31,7 @@ interface GetConversationStatusInterface {
     listen(conversationId: string, callback: (data: PuzzelConversationStatusResponse) => void): Promise<void>;
     stopListening(conversationId: string): void;
 }
+
+interface GetChatOpenInterface {
+    execute(): Promise<boolean>;
+}

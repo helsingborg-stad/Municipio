@@ -74,6 +74,7 @@ declare global {
 	type CreateIntegrationFunction = (
 		chat: unknown,
 		actionFactory: ChatActionFactoryInterface,
+		puzzelConfig: PuzzelConfigInterface,
 		name: string,
 	) => ChatIntegrationInterface;
 }
