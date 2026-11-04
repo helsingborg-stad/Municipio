@@ -231,6 +231,7 @@ class App
          * Admin
          */
         new \Municipio\Admin\Gutenberg\Gutenberg();
+        new \Municipio\Admin\Gutenberg\OnePageTemplateOnly();
         new \Municipio\Admin\General();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
