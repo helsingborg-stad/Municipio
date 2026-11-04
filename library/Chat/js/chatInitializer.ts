@@ -20,25 +20,50 @@ class ChatInitializer implements ChatInitializerInterface {
 
 		const actionFactory = new ActionFactory(this.actionsContainer, this.actionsTemplate, this.chat);
 
-		console.log(this.availableAssistants)
+		if (name !== null) {
+			const assistantName = name.toLowerCase();
 
-		for (const name of Object.keys(this.availableAssistants)) {
-			if (name === this.activeIntegration) return true;
+			if (!this.availableAssistants[assistantName]) {
+				return false;
+			}
 
-			const integration = this.availableAssistants[name];
-			const created = await this.tryCreateIntegration(integration, this.chat, actionFactory);
+			return this.initializeAssistant(assistantName, actionFactory);
+		}
 
-			if (created) {
-				const initialized = await created.init();
-				if (initialized) {
-					this.createdIntegrations[name] = created;
-					this.activeIntegration = name;
-					return true;
-				}
+		for (const assistantName of Object.keys(this.availableAssistants)) {
+			const initialized = await this.initializeAssistant(assistantName, actionFactory);
+			if (initialized) {
+				return true;
 			}
 		}
 
 		return false;
+	}
+
+	private async initializeAssistant(
+		assistantName: string,
+		actionFactory: ChatActionFactoryInterface,
+	): Promise<boolean> {
+		if (assistantName === this.activeIntegration) {
+			return true;
+		}
+
+		const integration = this.availableAssistants[assistantName];
+		const created = await this.tryCreateIntegration(integration, this.chat, actionFactory);
+
+		if (!created) {
+			return false;
+		}
+
+		const initialized = await created.init();
+		if (!initialized) {
+			return false;
+		}
+
+		this.createdIntegrations[assistantName] = created;
+		this.activeIntegration = assistantName;
+
+		return true;
 	}
 
 	private async tryCreateIntegration(
@@ -48,12 +73,12 @@ class ChatInitializer implements ChatInitializerInterface {
 	): Promise<ChatIntegrationInterface|false> {
 		try {
 			const factory = (
-				await import(`./chat/integration/${integration}/${integration}Factory`)
+				await import(`./chat/integration/${integration}/${integration}Factory.ts`)
 			).default;
 
 			const instance = new factory();
 			const created: ChatIntegrationInterface|false = await instance.create(chat, actionFactory);
-			
+			console.log(`Created integration for ${integration}:`, created);
 			return created;
 		} catch (error) {
 			console.warn(`Chat integration "${integration}" could not be loaded`, error);

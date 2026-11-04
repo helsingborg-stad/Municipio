@@ -1,4 +1,6 @@
 import type MarkdownIt from "markdown-it";
+import { EneoSessionFactory } from "./eneoSessionFactory";
+import { EneoSession } from "./eneoSession";
 
 class Eneo implements EneoInterface {
 	private session: EneoSession | null = null;
