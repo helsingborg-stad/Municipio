@@ -31220,3 +31220,20 @@ msgstr ""
 msgctxt "block description"
 msgid "A block to display a list of posts."
 msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Audiences"
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Audience"
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:126
+msgid "Prices"
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:127
+msgctxt "Event price term"
+msgid "Free"
+msgstr ""
