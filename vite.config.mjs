@@ -132,6 +132,7 @@ const entries = {
 export default defineConfig(({ mode }) => {
 	const isProduction = mode === "production";
 	return {
+		base: "./",
 		build: {
 			outDir: "assets/dist",
 			emptyOutDir: true,
