@@ -825,6 +825,9 @@ class App
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
         (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
         (new \Municipio\Integrations\Component\VagueControlTextIndicator($this->wpService))->addHooks();
+        $lqipPreloadConfig = new \Municipio\ImagePreload\LqipPreloadConfig($this->wpService);
+        \Municipio\ImagePreload\LqipPreloadRegistry::configure($lqipPreloadConfig);
+        (new \Municipio\ImagePreload\LqipPreloadCollector($this->wpService, $lqipPreloadConfig))->addHooks();
     }
 
     /**
@@ -874,6 +877,9 @@ class App
             new \Municipio\ImageConvert\Logging\Log(null, null, $imageConvertConfig),
         );
         $intermidiateImageHandler->addHooks();
+
+        // LQIPs are intentionally tiny and softly blurred before encoding.
+        (new \Municipio\ImageConvert\LqipBlur($this->wpService))->addHooks();
 
         //Resolve image to wp image contract (standard wordpress image array)
         $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(
