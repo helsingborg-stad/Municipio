@@ -7,7 +7,7 @@ class Puzzel implements RenderIntegrationInterface {
     {
         $attributePrefix = $this->getAttributePrefix($assistant);
 
-        $data['attributeList'] = $assistant['attributeList'] ?? [];
+        $data['attributeList'] = $data['attributeList'] ?? [];
         $data['attributeList'] = array_merge($data['attributeList'], [
             $attributePrefix . 'customer-id' => $assistant['customer_id'] ?? '',
             $attributePrefix . 'queue-key' => $assistant['queue_key'] ?? '',

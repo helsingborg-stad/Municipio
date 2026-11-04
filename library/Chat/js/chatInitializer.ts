@@ -1,26 +1,38 @@
 import ActionFactory from "./chat/feature/actions/actionFactory";
 
 class ChatInitializer implements ChatInitializerInterface {
-	private activeIntegration: {[key: string]: ChatIntegrationInterface} = {};
-	public async init(chat: any, mode: string|null = null): Promise<boolean> {
-		const actionsTemplate = chat.getElement().querySelector('[data-js-municipio-chat-actions]');
-		const actionsContainer = chat.getElement().querySelector('[data-js-chat-actions]');
-		const actionFactory = new ActionFactory(actionsContainer, actionsTemplate, chat);
+	private activeIntegration: string | null = null;
+	private availableAssistants: AvailableAssistants = {};
+	private actionsTemplate: HTMLTemplateElement | null = null;
+	private actionsContainer: HTMLElement | null = null;
+	private createdIntegrations: {[key: string]: ChatIntegrationInterface} = {};
 
-		const modes = this.getModes(chat, mode);
+	public constructor(private chat: any) {
+		this.availableAssistants = this.getAvailableAssistants(chat);
+		this.actionsTemplate = this.chat.getElement().querySelector('[data-js-municipio-chat-actions]');
+		this.actionsContainer = this.chat.getElement().querySelector('[data-js-chat-actions]');
+	}
 
-		for (const mode of modes) {
-			// TODO: Allow switch
-			if (this.activeIntegration[mode]) {
-				return true;
-			}
+	public async init(name: string|null = null): Promise<boolean> {
+		if (!this.actionsContainer || !this.actionsTemplate) {
+			return false;
+		}
 
-			const created = await this.tryCreateIntegration(mode, chat, actionFactory);
+		const actionFactory = new ActionFactory(this.actionsContainer, this.actionsTemplate, this.chat);
+
+		console.log(this.availableAssistants)
+
+		for (const name of Object.keys(this.availableAssistants)) {
+			if (name === this.activeIntegration) return true;
+
+			const integration = this.availableAssistants[name];
+			const created = await this.tryCreateIntegration(integration, this.chat, actionFactory);
 
 			if (created) {
 				const initialized = await created.init();
 				if (initialized) {
-					this.activeIntegration[mode] = created;
+					this.createdIntegrations[name] = created;
+					this.activeIntegration = name;
 					return true;
 				}
 			}
@@ -30,13 +42,13 @@ class ChatInitializer implements ChatInitializerInterface {
 	}
 
 	private async tryCreateIntegration(
-		mode: string,
+		integration: string,
 		chat: any,
 		actionFactory: ChatActionFactoryInterface,
 	): Promise<ChatIntegrationInterface|false> {
 		try {
 			const factory = (
-				await import(`./chat/integration/${mode}/${mode}Factory`)
+				await import(`./chat/integration/${integration}/${integration}Factory`)
 			).default;
 
 			const instance = new factory();
@@ -44,22 +56,18 @@ class ChatInitializer implements ChatInitializerInterface {
 			
 			return created;
 		} catch (error) {
-			console.warn(`Chat integration "${mode}" could not be loaded`, error);
+			console.warn(`Chat integration "${integration}" could not be loaded`, error);
 			return false;
 		}
 	}
 
-	private getModes(chat: any, mode: string|null = null): string[] {
-		const modes = mode ? [mode] : (chat.getElement().dataset.jsChatModes ?? "")
-			.split(",")
-			.map((mode: string) => mode.trim())
-			.filter((mode: string) => mode.length > 0);
+	private getAvailableAssistants(chat: any): AvailableAssistants {
+		const jsonAssistants = chat.getElement().dataset.jsChatAssistants ?? null;
+		const assistants = JSON.parse(jsonAssistants || "[]");
 
-		if (!modes.includes("null")) {
-			modes.push("null");
-		}
+		assistants.null = 'null';
 
-		return modes;
+		return assistants;
 	}
 }
 

@@ -60,11 +60,7 @@ function scrollToBottom(chat: any) {
 }
 
 async function initializeChat(chat: any) {
-	if (!chatInitializer) {
-		chatInitializer = new ChatInitializer();
-	}
-
-	chatInitializer.init(chat);
+	new ChatInitializer(chat).init();
 }
 
 function getPopover(): HTMLElement | null {

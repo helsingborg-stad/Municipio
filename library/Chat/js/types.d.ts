@@ -11,6 +11,10 @@ declare global {
 
 	const wpApiSettings: WpApiSettings;
 
+	type AvailableAssistants = {
+		[key: string]: string;
+	}
+
 	type ChatRole = "user" | "assistant";
 
 	type ChatEvent =

@@ -42,8 +42,6 @@
             ],
             'header' => true,
             'lang' => $lang,
-            'avatar' => $avatar,
-            'name' => $name,
         ])
     @endelement
 @endpopover
