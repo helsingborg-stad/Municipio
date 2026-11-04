@@ -829,6 +829,10 @@ class Navigation
         $archiveLink        = get_post_type_archive_link(get_post_type($queriedObj));
         $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
 
+        // A post type archive mapped to a page continues the page tree, with the archive as the current (last) item.
+        $isMappedPostTypeArchive = is_post_type_archive() && (int) $pageId > 0;
+        $archiveItem             = null;
+
         if ($archiveLink) {
             $label = get_post_type_object(get_post_type($queriedObj))->label ?? __("Untitled page", 'municipio');
 
@@ -839,15 +843,20 @@ class Navigation
                 );
             }
 
-            array_push($pageData, array(
-                    'label'   => __($label),
-                    'href'    => $archiveLink,
-                    'current' => false,
-                    'icon'    => 'chevron_right'
-            ));
+            $archiveItem = [
+                'label'   => __($label),
+                'href'    => $archiveLink,
+                'current' => false,
+                'icon'    => 'chevron_right',
+            ];
+
+            if (!$isMappedPostTypeArchive) {
+                array_push($pageData, $archiveItem);
+                $archiveItem = null;
+            }
         }
 
-        if (!is_front_page() && !is_archive()) {
+        if (!is_front_page() && (!is_archive() || $isMappedPostTypeArchive)) {
             //Get all ancestors to page
             $ancestors = $this->getAncestors($pageId);
 
@@ -855,6 +864,11 @@ class Navigation
             if (is_countable($ancestors)) {
                 $ancestors = array_reverse($ancestors);
                 array_pop($ancestors);
+
+                //The archive item represents the mapped page itself
+                if ($isMappedPostTypeArchive) {
+                    $ancestors = array_diff($ancestors, [(int) $pageId]);
+                }
 
                 //Add items
                 foreach ($ancestors as $id) {
@@ -867,6 +881,10 @@ class Navigation
                     }
                 }
             }
+        }
+
+        if ($archiveItem !== null) {
+            array_push($pageData, $archiveItem);
         }
 
         //Apply filters
