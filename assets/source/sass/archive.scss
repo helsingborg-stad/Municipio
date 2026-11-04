@@ -1,3 +1,10 @@
 #filter {
     scroll-margin-top: 100px;
 }
+// Checkbox taxonomy filters: center the options against the height of the select fields beside them.
+.s-archive-filter__checkboxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: var(--c-field--height);
+}

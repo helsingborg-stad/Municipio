@@ -38,7 +38,19 @@
         
         @foreach ($getTaxonomyFilterSelectComponentArguments() as $selectArguments)
             <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-4">
-                @select([...$selectArguments, 'size' => 'md'])@endselect
+                @if (isset($selectArguments['checkboxes']))
+                    @php($checkboxGroupLabelId = uniqid('filter-checkboxes-'))
+                    <div class="c-field" role="group" aria-labelledby="{{ $checkboxGroupLabelId }}">
+                        <span id="{{ $checkboxGroupLabelId }}" class="c-field__label">{{ $selectArguments['label'] }}</span>
+                        <div class="s-archive-filter__checkboxes">
+                            @foreach ($selectArguments['checkboxes'] as $checkboxArguments)
+                                @option($checkboxArguments)@endoption
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    @select([...$selectArguments, 'size' => 'md'])@endselect
+                @endif
             </div>
         @endforeach
     

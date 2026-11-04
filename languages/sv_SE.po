@@ -14262,8 +14262,9 @@ msgid "Number of columns"
 msgstr ""
 
 #: assets/dist/blocks/js/blocks.js:1
+#: library/Customizer/Sections/Archive.php:252
 msgid "Checkboxes"
-msgstr ""
+msgstr "Kryssrutor"
 
 #: assets/dist/blocks/js/blocks.js:1
 msgid "Radio buttons"

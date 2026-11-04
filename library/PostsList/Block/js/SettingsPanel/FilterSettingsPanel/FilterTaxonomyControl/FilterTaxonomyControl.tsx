@@ -4,12 +4,13 @@ import {
 } from "@wordpress/components";
 import type { Taxonomy } from "@wordpress/core-data";
 import { __ } from "@wordpress/i18n";
-import { Icon, notAllowed } from "@wordpress/icons";
+import { check, Icon, notAllowed } from "@wordpress/icons";
 import { MultiSelectIcon, RadioIcon } from "./Icons";
 
 enum TaxonomyFilterType {
 	multi = "multi",
 	single = "single",
+	checkbox = "checkbox",
 }
 
 type Props = {
@@ -49,15 +50,21 @@ export const FilterTaxonomyControl: React.FC<Props> = ({
 			/>
 			<__experimentalToggleGroupControlOptionIcon
 				value={TaxonomyFilterType.multi}
-				label={__("Checkboxes", "municipio")}
+				label={__("Multiselect", "municipio")}
 				icon={<Icon icon={<MultiSelectIcon />} />}
-				aria-label={__("Checkboxes", "municipio")}
+				aria-label={__("Multiselect", "municipio")}
 			/>
 			<__experimentalToggleGroupControlOptionIcon
 				value={TaxonomyFilterType.single}
-				label={__("Radio buttons", "municipio")}
+				label={__("Single select", "municipio")}
 				icon={<Icon icon={<RadioIcon />} />}
-				aria-label={__("Radio buttons", "municipio")}
+				aria-label={__("Single select", "municipio")}
+			/>
+			<__experimentalToggleGroupControlOptionIcon
+				value={TaxonomyFilterType.checkbox}
+				label={__("Checkboxes", "municipio")}
+				icon={<Icon icon={check} />}
+				aria-label={__("Checkboxes", "municipio")}
 			/>
 		</__experimentalToggleGroupControl>
 	);
