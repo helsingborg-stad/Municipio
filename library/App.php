@@ -429,6 +429,11 @@ class App
         $this->setupAccessibilityStatement();
 
         /**
+         * Setup Privacy Policy
+         */
+        (new \Municipio\PrivacyPolicy\PrivacyPolicy($this->wpService, $this->acfService))->addHooks();
+
+        /**
          * Setup Chat
          */
         (new \Municipio\Chat\ChatFeature(

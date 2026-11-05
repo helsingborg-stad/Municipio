@@ -8,6 +8,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
+use Municipio\Controller\VirtualPage\VirtualPageControllerTrait;
 
 enum ReviewStatus {
     case OK;
@@ -68,6 +69,8 @@ enum ComplianceLevel {
  */
 class A11y extends \Municipio\Controller\Singular
 {
+    use VirtualPageControllerTrait;
+
     public $query;
     public $view = 'a11y';
 
@@ -101,10 +104,7 @@ class A11y extends \Municipio\Controller\Singular
     public function addHooks()
     {
         $this->wpService->addFilter('wp_title', array($this, 'setupA11yTitle'));
-        $this->wpService->addFilter('the_seo_framework_query_supports_seo', [$this, 'supportsSeo']);
-        $this->wpService->addFilter('the_seo_framework_title_from_generation', [$this, 'getSeoTitle'], 10, 2);
-        $this->wpService->addFilter('the_seo_framework_custom_field_description', [$this, 'getSeoDescription'], 10, 2);
-        $this->wpService->addFilter('the_seo_framework_generated_description', [$this, 'getSeoDescription'], 10, 3);
+        $this->addSeoHooks();
         $this->wpService->addFilter('Municipio/A11y/Content', array($this, 'filterA11yContentTemplateTags'));
     }
 
@@ -170,7 +170,7 @@ class A11y extends \Municipio\Controller\Singular
         // Build categories and issues
         $this->data['categorizedIssues'] = $this->getKnownIssues();
         $this->data['reportForm'] = $this->getReportForm();
-        $this->ensureBreadcrumbMenu();
+        $this->ensureBreadcrumbMenu('a11y-statement');
         $this->ensurePrintMenuItem();
 
     }
@@ -289,25 +289,9 @@ class A11y extends \Municipio\Controller\Singular
     }
 
     /**
-     * Makes the virtual accessibility statement available to The SEO Framework.
-     */
-    public function supportsSeo(bool $supported): bool
-    {
-        return true;
-    }
-
-    /**
-     * Returns the same title that is displayed in the accessibility statement.
-     */
-    public function getSeoTitle(string $title, ?array $args = null): string
-    {
-        return $this->getHeading();
-    }
-
-    /**
      * Returns the configured SEO description, with a translated default.
      */
-    public function getSeoDescription(string $description, ?array $args = null, string $type = 'search'): string
+    protected function getMetaDescription(): string
     {
         $description = $this->acfService->getField('mun_a11ystatement_seo_description', 'options');
 
@@ -353,55 +337,6 @@ class A11y extends \Municipio\Controller\Singular
         }
 
         return (string) do_shortcode(sprintf('[modularity id="%d"]', $moduleId));
-    }
-
-    /**
-     * The virtual accessibility statement request is treated as a 404 by WordPress
-     * while its custom template is resolved. Replace the missing breadcrumb menu
-     * from BaseController with the standard data for this virtual page.
-     */
-    private function ensureBreadcrumbMenu(): void
-    {
-        if (!empty($this->data['breadcrumbMenu']['items'])) {
-            return;
-        }
-
-        $this->data['breadcrumbMenu'] = [
-            'name' => 'breadcrumb',
-            'identifier' => 'breadcrumb',
-            'items' => [
-                'home' => [
-                    'label' => __('Home', 'municipio'),
-                    'href' => $this->data['homeUrl'],
-                    'current' => false,
-                    'icon' => 'home',
-                ],
-                'a11y-statement' => [
-                    'label' => wp_strip_all_tags($this->data['heading']),
-                    'href' => '',
-                    'current' => true,
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Add the regular print action, which BaseController cannot add when the
-     * virtual route is evaluated as a 404 instead of a WordPress page.
-     */
-    private function ensurePrintMenuItem(): void
-    {
-        if (!empty($this->data['accessibilityMenu']['items']['print'])) {
-            return;
-        }
-
-        $this->data['accessibilityMenu']['items']['print'] = [
-            'icon' => 'print',
-            'href' => '#',
-            'script' => 'window.print();return false;',
-            'text' => __('Print', 'municipio'),
-            'label' => __('Print this page', 'municipio'),
-        ];
     }
 
     /**
@@ -469,22 +404,6 @@ class A11y extends \Municipio\Controller\Singular
     }
 
     /**
-     * Returns the template tags
-     * @return array
-     */
-    protected function getTemplateTags(): array
-    {
-        return [
-            'website_name' => $this->wpService->getBlogInfo('name'),
-            'website_domain' => function () {
-                $url    = $this->wpService->getBlogInfo('url');
-                $host   = parse_url($url, PHP_URL_HOST);
-                return $host ?: $url;
-            }
-        ];
-    }
-
-    /**
      * Filter the content to replace template tags with their values.
      * 
      * Example usage: {{website_name}} will be replaced with the site name.
@@ -494,14 +413,7 @@ class A11y extends \Municipio\Controller\Singular
      */
     public function filterA11yContentTemplateTags(string $content): string
     {
-        $templateTags = $this->getTemplateTags();
-        foreach ($templateTags as $key => $value) {
-            if (is_callable($value)) {
-                $value = $value();
-            }
-            $content = str_replace("{{{$key}}}", $value, $content);
-        }
-        return $content;
+        return $this->replaceTemplateTags($content);
     }
 
     /**

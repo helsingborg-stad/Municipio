@@ -4429,7 +4429,7 @@ msgstr "Gå till nästa bild"
 
 #: Modularity/source/php/Module/Markdown/Markdown.php:176
 msgid "Last updated"
-msgstr ""
+msgstr "Senast uppdaterad"
 
 #: Modularity/source/php/Module/Markdown/Markdown.php:177
 #: Modularity/source/php/Module/Markdown/Markdown.php:310
@@ -31429,3 +31429,34 @@ msgstr "Priser"
 msgctxt "Event price term"
 msgid "Free"
 msgstr "Gratis"
+
+msgid "Privacy Policy"
+msgstr "Personuppgiftspolicy"
+
+msgid "Privacy Policy Url"
+msgstr "Länk till personuppgiftspolicy"
+
+msgid "View Privacy Policy"
+msgstr "Visa personuppgiftspolicy"
+
+msgid "<a href=\"{{privacy_policy_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">View Privacy Policy</a>"
+msgstr "<a href=\"{{privacy_policy_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">Visa personuppgiftspolicy</a>"
+
+msgid "privacy-policy"
+msgstr "personuppgiftspolicy"
+
+msgid "The privacy policy has been updated."
+msgstr "Personuppgiftspolicyn har uppdaterats."
+
+msgid "No privacy policy available."
+msgstr "Det finns ingen personuppgiftspolicy."
+
+
+msgid "This privacy policy describes how we process your personal data."
+msgstr "Den här personuppgiftspolicyn beskriver hur vi behandlar dina personuppgifter."
+
+msgid "A short description used by search engines for the privacy policy."
+msgstr "En kort beskrivning av personuppgiftspolicyn som används av sökmotorer."
+
+msgid "Use {{website_name}} to display the current website's name. Use {{website_domain}} to display the current website's domain."
+msgstr "Använd {{website_name}} för att visa webbplatsens namn. Använd {{website_domain}} för att visa webbplatsens domän."
