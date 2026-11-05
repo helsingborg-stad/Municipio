@@ -142,6 +142,8 @@ add_action('init', function () use ($wpService) {
         'global-notices' => 'group_6798e1aebe3c6',
         'a11y-statement' => 'group_6874ffb12b42d',
         'a11y-statement-url' => 'group_689c4def19f8e',
+        'privacy-policy' => 'group_6a2f4c1e8b7d3',
+        'privacy-policy-url' => 'group_6a2f4c1e8b7d4',
         'options-chat' => 'group_69b814ff11562',
         'options-site-files' => 'group_670fa96c5f001',
     ]);
