@@ -231,6 +231,7 @@ class App
          * Admin
          */
         new \Municipio\Admin\Gutenberg\Gutenberg();
+        $this->hooksRegistrar->register(new \Municipio\Admin\Gutenberg\OnePageTemplateOnly($this->wpService, $this->acfService));
         new \Municipio\Admin\General();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();

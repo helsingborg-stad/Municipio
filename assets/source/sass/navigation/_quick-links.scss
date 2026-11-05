@@ -113,10 +113,6 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
         @container quicklinks (min-width: 300px) {
             border-radius: 0;
             position: relative;
-            left: 50%;
-            right: 50%;
-            transform: translateX(-50%);
-            width: calc(100vw - var(--scrollbar, 15px));
         }
     }
 }
