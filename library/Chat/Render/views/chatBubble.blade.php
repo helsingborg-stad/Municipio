@@ -32,10 +32,11 @@
             'municipio-chat'
         ]
     ])
+
         @include('partials.chat', [
             'actions' => true,
             'chatConfig' => [
-                'id' => $chatId,
+                'id' => 'global-chat-bubble',
                 'size' => 'xs',
                 'attributeList' => array_merge(['data-js-municipio-chat-bubble' => '1'], $attributeList),
                 'classList' => ['municipio-chat__chat', 'u-visibility--hidden'],
