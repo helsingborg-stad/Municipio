@@ -95,5 +95,21 @@ class Drawer
                 ],
             ],
         ]);
+        CustomizerField::addField([
+            'type'        => 'switch',
+            'settings'    => 'drawer_current_badge',
+            'label'       => esc_html__('Show "You are here" badge', 'municipio'),
+            'description' => esc_html__('Displays a badge next to the current page in the drawer menu.', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => false,
+            'priority'    => 10,
+            'choices'     => [
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
+            ],
+            'output'      => [
+                ['type' => 'controller']
+            ]
+        ]);
     }
 }

@@ -1,0 +1,21 @@
+// "You are here" badge for the current page in the drawer menu.
+// Enabled via the customizer setting "drawer_current_badge".
+// Ancestors may also be flagged as current, so only the deepest current item gets the badge.
+.s-drawer-menu--current-badge {
+  .c-nav__item.is-current:not(:has(.c-nav__item.is-current)) > .c-nav__item-wrapper .c-nav__text::after {
+    content: var(--drawer-current-badge-label, "");
+    content: var(--drawer-current-badge-label, "") / "";
+    display: inline-block;
+    margin-left: calc(var(--base, 8px) * var(--space, 1));
+    padding: 0 calc(var(--base, 8px) * var(--space, 1));
+    background-color: var(--drawer-current-badge-background, var(--color--danger, #d43f3f));
+    color: var(--drawer-current-badge-color, var(--color--danger-contrast, #fff));
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-normal, 400);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    border-radius: var(--radius-xs, 2px);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+}

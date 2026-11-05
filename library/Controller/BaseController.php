@@ -422,6 +422,10 @@ class BaseController
 
         $this->data['labels'] = (array) $this->data['lang'];
 
+        //Drawer "You are here" badge
+        $this->data['drawerCurrentBadgeClass'] = $this->isDrawerCurrentBadgeEnabled() ? 's-drawer-menu--current-badge' : '';
+        $this->data['drawerCurrentBadgeStyle'] = $this->getDrawerCurrentBadgeStyle();
+
         add_filter(
             'ComponentLibrary/Component/Lang',
             function ($obj) {
@@ -1249,6 +1253,28 @@ class BaseController
         }
 
         return (int) max(100, min(400, (float) $height));
+    }
+
+    /**
+     * Whether the "You are here" badge should be shown in the drawer menu.
+     */
+    private function isDrawerCurrentBadgeEnabled(): bool
+    {
+        return (bool) ($this->data['customizer']->drawerCurrentBadge ?? false);
+    }
+
+    /**
+     * Get the inline style holding the drawer badge label, or an empty string when disabled.
+     */
+    public function getDrawerCurrentBadgeStyle(): string
+    {
+        if (!$this->isDrawerCurrentBadgeEnabled()) {
+            return '';
+        }
+
+        $label = $this->data['lang']->youAreHere ?? __('You are here', 'municipio');
+
+        return "--drawer-current-badge-label: '" . addcslashes((string) $label, "'\\") . "';";
     }
 
     /**
