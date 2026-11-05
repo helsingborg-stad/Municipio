@@ -18,6 +18,7 @@ export function createEneo(
     uiManager: ChatUiManagerInterface,
     assistantName: string,
     greetingsPhrase: string | null,
+    avatarUrl: string | null,
 ): ChatIntegrationInterface {
     const chatElement = chat.getElement() as HTMLElement;
     const feedbackTemplate = chatElement.querySelector("[data-js-chat-feedback]") as HTMLTemplateElement | null;
@@ -53,6 +54,7 @@ export function createEneo(
         feedbackApi,
         uiManager,
         assistantName,
+        avatarUrl,
         persistentAttribute !== null && persistentAttribute !== "false"
     );
 }

@@ -7,7 +7,7 @@ class ChatInitializer implements ChatInitializerInterface {
 	private chatTemplate: HTMLTemplateElement | null = null;
 	private actionsContainer: HTMLElement | null = null;
 	private chatTitleElement: HTMLElement | null = null;
-	private chatAvatarElement: HTMLElement | null = null;
+	private chatHeadingAreaElement: HTMLElement | null = null;
 	private createdIntegrations: {[key: string]: ChatIntegrationInterface} = {};
 
 	public constructor(private chat: any) {
@@ -15,7 +15,7 @@ class ChatInitializer implements ChatInitializerInterface {
 		this.chatTemplate = this.chat.getElement().querySelector('[data-js-municipio-chat-template]');
 		this.actionsContainer = this.chat.getElement().querySelector('[data-js-chat-actions]');
 		this.chatTitleElement = this.chat.getElement().querySelector('[data-js-chat-title]');
-		this.chatAvatarElement = this.chat.getElement().querySelector('[data-js-chat-avatar]');
+		this.chatHeadingAreaElement = this.chat.getElement().querySelector('[data-js-chat-heading-area]');
 	}
 
 	public async init(name: string|null = null): Promise<boolean> {
@@ -24,7 +24,13 @@ class ChatInitializer implements ChatInitializerInterface {
 		}
 
 		const actionFactory = new ActionFactory(this.actionsContainer, this.chatTemplate, this.chat);
-		const chatUiManager = new ChatUiManager(actionFactory, this.actionsContainer, this.chatTitleElement, this.chatAvatarElement);
+		const chatUiManager = new ChatUiManager(
+			actionFactory,
+			this.actionsContainer,
+			this.chatTitleElement,
+			this.chatTemplate,
+			this.chatHeadingAreaElement,
+		);
 
 		if (name !== null) {
 			const assistantName = name.toLowerCase();

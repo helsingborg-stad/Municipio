@@ -31,6 +31,14 @@ class ChatEnqueue implements Hookable
                     'Something went wrong, please try again later',
                     'municipio',
                 ),
+                'queuePosition' => $this->wpService->__(
+                    'Queue position',
+                    'municipio',
+                ),
+                'agentLeftChatInactive' => $this->wpService->__(
+                    'The agent has left and the chat is now inactive',
+                    'municipio',
+                )
             ]);
 
         $this->enqueue->add('css/chat.css');

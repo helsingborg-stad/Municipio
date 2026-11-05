@@ -4,8 +4,6 @@ import Popover from "./popover/popover";
 /**
  * Checks whether chat markup exists on the page before event listeners are registered.
  */
-let chatInitializer: ChatInitializerInterface | null = null;
-
 document.addEventListener("popover:initialized", (e: any) => {
 	const popover = e.detail;
 
@@ -36,10 +34,6 @@ function initChatBubble(chat: any) {
 	const popover = getPopover();
 	const isOpen = popover?.matches(':popover-open');
 
-	// TODO: REMOVE TEST CODE BELOW
-	scrollToBottom(chat);
-	return initializeChat(chat);
-
 	if (!popover || isOpen) {
 		scrollToBottom(chat);
 		return initializeChat(chat);
@@ -60,7 +54,9 @@ function scrollToBottom(chat: any) {
 }
 
 async function initializeChat(chat: any) {
-	new ChatInitializer(chat).init();
+	chat.getElement().classList.add('u-preloader');
+	await new ChatInitializer(chat).init();
+	chat.getElement().classList.remove('u-preloader');
 }
 
 function getPopover(): HTMLElement | null {

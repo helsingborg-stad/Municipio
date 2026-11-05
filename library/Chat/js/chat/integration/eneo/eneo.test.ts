@@ -13,6 +13,7 @@ describe("Eneo", () => {
 		const chatElement = document.createElement("div");
 		const chat = {
 			getElement: jest.fn().mockReturnValue(chatElement),
+			setDefaultShouldPersist: jest.fn(),
 		};
 		const markdownParser = {
 			render: jest.fn((content: string) => content),
@@ -32,7 +33,10 @@ describe("Eneo", () => {
 		const uiManager = {
 			clearActions: jest.fn(),
 			addMinimizeAction: jest.fn(),
+			addCloseAction: jest.fn(),
 			addClearAction: jest.fn().mockReturnValue(clearAction),
+			setTitle: jest.fn(),
+			setAvatar: jest.fn(),
 		};
 
 		const eneo = new Eneo(
@@ -41,9 +45,10 @@ describe("Eneo", () => {
 			markdownParser as any,
 			feedbackFactory as any,
 			feedbackApi as any,
-			"Ava",
-			true,
 			uiManager as any,
+			"Ava",
+			"https://example.com/ava.png",
+			true,
 		);
 		const createNewEneoSessionSpy = jest.spyOn(eneo, "createNewEneoSession");
 
@@ -55,7 +60,9 @@ describe("Eneo", () => {
 		// Assert
 		expect(uiManager.clearActions).toHaveBeenCalledTimes(1);
 		expect(uiManager.addMinimizeAction).toHaveBeenCalledTimes(1);
+		expect(uiManager.addCloseAction).toHaveBeenCalledTimes(1);
 		expect(uiManager.addClearAction).toHaveBeenCalledTimes(1);
+		expect(uiManager.setAvatar).toHaveBeenCalledWith("https://example.com/ava.png");
 		expect(clearAction.addListener).toHaveBeenCalledTimes(1);
 		expect(createNewEneoSessionSpy).toHaveBeenCalledTimes(1);
 	});

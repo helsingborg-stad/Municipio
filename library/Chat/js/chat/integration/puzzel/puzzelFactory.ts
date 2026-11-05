@@ -31,13 +31,14 @@ class PuzzelFactory implements ChatIntegrationFactory {
         const timeId = chat.getElement().getAttribute(`${attributePrefix}-time-id`);
         const clientId = chat.getElement().getAttribute(`${attributePrefix}-client-id`);
         const assistantName = chat.getElement().getAttribute(`${attributePrefix}-name`);
+        const avatarUrl = chat.getElement().getAttribute(`${attributePrefix}-avatar`) ?? null;
 
         if (!customerId || !queueuKey || !clientId || !visualQueueId || !timeId || !assistantName) {
             console.error("Missing required Puzzel configuration attributes");
             return null;
         }
 
-        return new PuzzelConfig(customerId, queueuKey, clientId, visualQueueId, timeId, assistantName);
+        return new PuzzelConfig(customerId, queueuKey, clientId, visualQueueId, timeId, assistantName, avatarUrl);
     }
 }
 

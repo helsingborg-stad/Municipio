@@ -8,6 +8,7 @@ interface PuzzelConfigInterface {
     getVisualQueueId(): string;
     getTimeId(): string;
     getName(): string;
+    getAvatar(): string|null;
 }
 
 interface PuzzelConversationManagerInterface {

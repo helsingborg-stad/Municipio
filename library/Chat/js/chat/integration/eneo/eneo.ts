@@ -14,6 +14,7 @@ class Eneo implements EneoInterface {
 		private readonly feedbackApi: FeedbackApiInterface,
 		private readonly uiManager: ChatUiManagerInterface,
 		private readonly assistantName: string,
+		private readonly assistantAvatar: string | null,
 		private readonly persistSession: boolean = true,
 	) {}
 
@@ -27,8 +28,8 @@ class Eneo implements EneoInterface {
 		this.chat.setDefaultShouldPersist(this.persistSession);
 		this.uiManager.clearActions();
 		this.uiManager.addMinimizeAction();
-		this.uiManager.addCloseAction();
 		this.uiManager.setTitle(this.assistantName);
+		this.uiManager.setAvatar(this.assistantAvatar);
 		const clear = this.uiManager.addClearAction();
 
 		clear.addListener(() => {

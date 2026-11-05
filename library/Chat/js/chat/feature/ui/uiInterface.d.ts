@@ -4,5 +4,5 @@ interface ChatUiManagerInterface {
 	addClearAction(): ChatAction;
 	addCloseAction(): ChatAction;
 	setTitle(title: string): void;
-	setAvatar(avatarUrl: string): void;
+	setAvatar(avatarUrl: string|null): void;
 }

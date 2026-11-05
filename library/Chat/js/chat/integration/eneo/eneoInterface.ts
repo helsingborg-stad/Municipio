@@ -7,4 +7,5 @@ type CreateEneoFunction = (
     uiManager: ChatUiManagerInterface,
     name: string,
     greetingsPhrase: string | null,
+    avatarUrl: string | null,
 ) => ChatIntegrationInterface;

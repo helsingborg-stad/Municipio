@@ -66,8 +66,10 @@ class Puzzel implements ChatIntegrationInterface {
         await this.startMetaDataListener();
         await this.startConversationListener();
         this.uiManager.setTitle(this.puzzelConfig.getName());
+        this.uiManager.setAvatar(this.puzzelConfig.getAvatar());
         this.uiManager.clearActions();
         this.uiManager.addMinimizeAction();
+        this.uiManager.addCloseAction();
         this.triedRerun = false;
         return this;
     }

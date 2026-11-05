@@ -5,13 +5,14 @@ class EneoFactory implements ChatIntegrationFactory {
         const attributePrefix = `data-js-chat-${name}`;
         const assistantName = chat.getElement().getAttribute(`${attributePrefix}-name`);
         const greetingPhrase = chat.getElement().getAttribute(`${attributePrefix}-greeting-phrase`);
+        const avatarUrl = chat.getElement().getAttribute(`${attributePrefix}-avatar`);
 
         if (!EneoFactory.createEneo) {
             const { createEneo } = await import("./createEneo");
             EneoFactory.createEneo = createEneo;
         }
 
-        return EneoFactory.createEneo!(chat, uiManager, assistantName, greetingPhrase);
+        return EneoFactory.createEneo!(chat, uiManager, assistantName, greetingPhrase, avatarUrl);
     }
 }
 

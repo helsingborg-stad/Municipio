@@ -93,7 +93,7 @@
     @avatar([
         'classList' => ['o-layout-grid--align-center'],
         'attributeList' => [
-            'data-js-chat-avatar' => false
+            'data-js-chat-avatar' => 0
         ],
         'size' => 'sm',
         'icon' => [
@@ -105,7 +105,7 @@
     @avatar([
         'classList' => ['o-layout-grid--align-center'],
         'attributeList' => [
-            'data-js-chat-avatar' => true
+            'data-js-chat-avatar' => 1
         ],
         'size' => 'sm',
         'image' => '#'
