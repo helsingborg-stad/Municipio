@@ -38,6 +38,8 @@ class DrawerTest extends TestCase
         static::assertSame('', $colorField['default']);
         static::assertSame('drawer_current_badge_text_color', $colorField['paired_setting']);
         static::assertSame('drawer_current_badge', $colorField['active_callback'][0]['setting']);
+        static::assertMatchesRegularExpression('/^#[0-9a-f]{6}$/', $colorField['reset_preview']['background']);
+        static::assertMatchesRegularExpression('/^#[0-9a-f]{6}$/', $colorField['reset_preview']['contrast']);
 
         static::assertNotNull($textColorField);
         static::assertSame('hidden', $textColorField['type']);

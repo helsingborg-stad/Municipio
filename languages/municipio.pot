@@ -4117,6 +4117,10 @@ msgstr ""
 msgid "No color"
 msgstr ""
 
+#: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:66
+msgid "Default color"
+msgstr ""
+
 #: library/Customizer/Controls/Background/BackgroundControl.php:114
 #: library/Theme/Icon.php:3155
 msgid "Repeat"

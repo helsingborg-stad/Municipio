@@ -128,6 +128,10 @@ class Drawer
             'swatch_pair_role' => 'background',
             'paired_setting'   => 'drawer_current_badge_text_color',
             'include_reset'    => true,
+            'reset_preview'    => [
+                'background' => ColorSwatches::getTokenColor('--color--danger', '#e53935'),
+                'contrast'   => ColorSwatches::getTokenColor('--color--danger-contrast', '#ffffff'),
+            ],
             'output'           => [
                 ['type' => 'controller']
             ],
