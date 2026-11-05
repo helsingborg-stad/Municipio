@@ -166,6 +166,21 @@ class ColorSwatchesTest extends TestCase
         static::assertSame('#aabbcc', $savedTokens['token']['--color--palette-5']);
     }
 
+    #[TestDox('getTokenColor returns the stored token color, or the fallback when missing or invalid')]
+    public function testGetTokenColorReturnsStoredTokenOrFallback(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--danger' => '#ABC',
+                '--color--danger-contrast' => 'invalid',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame('#aabbcc', ColorSwatches::getTokenColor('--color--danger', '#e53935'));
+        static::assertSame('#ffffff', ColorSwatches::getTokenColor('--color--danger-contrast', '#ffffff'));
+        static::assertSame('#000000', ColorSwatches::getTokenColor('--color--missing', '#000000'));
+    }
+
     #[TestDox('returns normalized palette token values keyed by token name')]
     public function testReturnsNormalizedPaletteTokenValues(): void
     {

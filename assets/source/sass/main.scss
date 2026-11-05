@@ -36,6 +36,7 @@
     @include meta.load-css('navigation/collapsible-search');
     @include meta.load-css('navigation/user');
     @include meta.load-css('navigation/toc');
+    @include meta.load-css('navigation/drawer');
 
     @include meta.load-css("../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens");
 

@@ -8980,6 +8980,26 @@ msgid "You are here: "
 msgstr "Du är här: "
 
 #: library/Helper/TranslatedLabels.php:61
+msgid "You are here"
+msgstr "Du är här"
+
+#: library/Customizer/Sections/Menu/Drawer.php:101
+msgid "Show \"You are here\" badge"
+msgstr "Visa \"Du är här\"-bricka"
+
+#: library/Customizer/Sections/Menu/Drawer.php:102
+msgid "Displays a badge next to the current page in the drawer menu."
+msgstr "Visar en bricka bredvid den aktuella sidan i utdragsmenyn."
+
+#: library/Customizer/Sections/Menu/Drawer.php:118
+msgid "\"You are here\" badge color"
+msgstr "Färg på \"Du är här\"-brickan"
+
+#: library/Customizer/Sections/Menu/Drawer.php:119
+msgid "Defaults to red. The text color follows the selected swatch."
+msgstr "Standard är röd. Textfärgen följer den valda färgrutan."
+
+#: library/Helper/TranslatedLabels.php:61
 msgid "Reading time"
 msgstr "Lästid"
 
@@ -12747,6 +12767,10 @@ msgstr ""
 #: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:69
 msgid "No color"
 msgstr ""
+
+#: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:66
+msgid "Default color"
+msgstr "Standardfärg"
 
 #: library/Customizer/Controls/Background/BackgroundControl.php:114
 #: library/Theme/Icon.php:3155

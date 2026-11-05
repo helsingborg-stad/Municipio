@@ -422,6 +422,10 @@ class BaseController
 
         $this->data['labels'] = (array) $this->data['lang'];
 
+        //Drawer "You are here" badge
+        $this->data['drawerCurrentBadgeClass'] = $this->isDrawerCurrentBadgeEnabled() ? 's-drawer-menu--current-badge' : '';
+        $this->data['drawerCurrentBadgeStyle'] = $this->getDrawerCurrentBadgeStyle();
+
         add_filter(
             'ComponentLibrary/Component/Lang',
             function ($obj) {
@@ -1249,6 +1253,54 @@ class BaseController
         }
 
         return (int) max(100, min(400, (float) $height));
+    }
+
+    /**
+     * Whether the "You are here" badge should be shown in the drawer menu.
+     */
+    private function isDrawerCurrentBadgeEnabled(): bool
+    {
+        return (bool) ($this->data['customizer']->drawerCurrentBadge ?? false);
+    }
+
+    /**
+     * Get the inline style holding the drawer badge label, or an empty string when disabled.
+     */
+    public function getDrawerCurrentBadgeStyle(): string
+    {
+        if (!$this->isDrawerCurrentBadgeEnabled()) {
+            return '';
+        }
+
+        $label = $this->data['lang']->youAreHere ?? __('You are here', 'municipio');
+        $style = "--drawer-current-badge-label: '" . addcslashes((string) $label, "'\\") . "';";
+
+        $background = $this->sanitizeCssColor($this->data['customizer']->drawerCurrentBadgeColor ?? '');
+        if ($background !== '') {
+            $style .= ' --drawer-current-badge-background: ' . $background . ';';
+        }
+
+        $color = $this->sanitizeCssColor($this->data['customizer']->drawerCurrentBadgeTextColor ?? '');
+        if ($background !== '' && $color !== '') {
+            $style .= ' --drawer-current-badge-color: ' . $color . ';';
+        }
+
+        return $style;
+    }
+
+    /**
+     * Return the value if it is a hex, rgb(a) or CSS variable color, otherwise an empty string.
+     */
+    private function sanitizeCssColor(mixed $value): string
+    {
+        if (!is_string($value)) {
+            return '';
+        }
+
+        $value = trim($value);
+        $pattern = '/^(#[0-9a-fA-F]{3,8}|rgba?\(\s*[0-9.,%\s]+\)|var\(--[a-zA-Z0-9-]+\))$/';
+
+        return preg_match($pattern, $value) === 1 ? $value : '';
     }
 
     /**
