@@ -122,6 +122,8 @@ class BaseController
         $this->data['footerLogotype'] = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype'] = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['footerBackgroundImageStyle'] = $this->getFooterBackgroundImageStyle();
+        $this->data['preFooterImageStyle'] = $this->getPreFooterImageStyle();
+        $this->data['preFooterImageClassList'] = $this->getPreFooterImageClassList();
         $this->data['emblem'] = $this->getEmblem();
         $this->data['showEmblemInHero'] = $this->data['customizer']->showEmblemInHero ?? true;
         $brandTextOption = get_option('brand_text', '');
@@ -1189,6 +1191,64 @@ class BaseController
         }
 
         return "--c-footer--background-image: url('" . esc_url($backgroundImage) . "');";
+    }
+
+    /**
+     * Get the inline pre footer image style, or an empty string when no image is set.
+     */
+    public function getPreFooterImageStyle(): string
+    {
+        $preFooterImage = $this->data['customizer']->footerPreFooterImage ?? '';
+
+        if (!is_string($preFooterImage) || trim($preFooterImage) === '') {
+            return '';
+        }
+
+        $style = "background-image: url('" . esc_url($preFooterImage) . "');";
+
+        if ($this->isPreFooterImageTallerOnMobile()) {
+            $style .= ' --municipio-pre-footer-image-mobile-height: ' . $this->getPreFooterImageMobileHeight() . 'px;';
+        }
+
+        return $style;
+    }
+
+    /**
+     * Get the pre footer image class list.
+     *
+     * @return string[]
+     */
+    public function getPreFooterImageClassList(): array
+    {
+        $classList = ['site-pre-footer-image'];
+
+        if ($this->isPreFooterImageTallerOnMobile()) {
+            $classList[] = 'site-pre-footer-image--taller-on-mobile';
+        }
+
+        return $classList;
+    }
+
+    /**
+     * Whether the pre footer image should use the custom mobile height.
+     */
+    private function isPreFooterImageTallerOnMobile(): bool
+    {
+        return (bool) ($this->data['customizer']->footerPreFooterImageTallerOnMobile ?? false);
+    }
+
+    /**
+     * Get the pre footer image height on mobile in pixels, clamped to the allowed range.
+     */
+    private function getPreFooterImageMobileHeight(): int
+    {
+        $height = $this->data['customizer']->footerPreFooterImageMobileHeight ?? 160;
+
+        if (!is_numeric($height)) {
+            return 160;
+        }
+
+        return (int) max(100, min(400, (float) $height));
     }
 
     /**

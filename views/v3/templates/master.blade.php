@@ -41,6 +41,9 @@
     </div>
 
 
+    {{-- Pre footer image --}}
+    @include('partials.pre-footer-image')
+
     @section('footer')
         @includeIf('partials.footer')
     @show
