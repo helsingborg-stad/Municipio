@@ -5,6 +5,7 @@ namespace Municipio\Controller;
 use AcfService\AcfService;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Controller\VirtualPage\VirtualPageControllerTrait;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
 use WpService\WpService;
@@ -14,9 +15,14 @@ use WpService\WpService;
  */
 class PrivacyPolicy extends \Municipio\Controller\Singular
 {
+    use VirtualPageControllerTrait;
+
     public $query;
     public $view = 'privacy-policy';
 
+    /**
+     * Constructor
+     */
     public function __construct(
         protected MenuBuilderInterface $menuBuilder,
         protected MenuDirector $menuDirector,
@@ -44,13 +50,13 @@ class PrivacyPolicy extends \Municipio\Controller\Singular
     public function addHooks()
     {
         $this->wpService->addFilter('wp_title', [$this, 'setupPrivacyPolicyTitle']);
-        $this->wpService->addFilter('the_seo_framework_query_supports_seo', [$this, 'supportsSeo']);
-        $this->wpService->addFilter('the_seo_framework_title_from_generation', [$this, 'getSeoTitle'], 10, 2);
-        $this->wpService->addFilter('the_seo_framework_custom_field_description', [$this, 'getSeoDescription'], 10, 2);
-        $this->wpService->addFilter('the_seo_framework_generated_description', [$this, 'getSeoDescription'], 10, 3);
+        $this->addSeoHooks();
         $this->wpService->addFilter('Municipio/PrivacyPolicy/Content', [$this, 'filterContentTemplateTags']);
     }
 
+    /**
+     * Setup privacy policy title
+     */
     public function setupPrivacyPolicyTitle(): string
     {
         return $this->wpService->applyFilters('Municipio/PrivacyPolicy/Title', $this->getHeading());
@@ -77,10 +83,13 @@ class PrivacyPolicy extends \Municipio\Controller\Singular
         $this->data['content']     = $this->getContent();
         $this->data['lastUpdated'] = $this->getLastUpdated();
 
-        $this->ensureBreadcrumbMenu();
+        $this->ensureBreadcrumbMenu('privacy-policy');
         $this->ensurePrintMenuItem();
     }
 
+    /**
+     * Returns the heading
+     */
     protected function getHeading(): string
     {
         return $this->wpService->applyFilters(
@@ -90,19 +99,9 @@ class PrivacyPolicy extends \Municipio\Controller\Singular
     }
 
     /**
-     * Makes the virtual privacy policy available to The SEO Framework.
+     * Returns the configured SEO description, with a translated default.
      */
-    public function supportsSeo(bool $supported): bool
-    {
-        return true;
-    }
-
-    public function getSeoTitle(string $title, ?array $args = null): string
-    {
-        return $this->getHeading();
-    }
-
-    public function getSeoDescription(string $description, ?array $args = null, string $type = 'search'): string
+    protected function getMetaDescription(): string
     {
         $description = $this->acfService->getField('mun_privacypolicy_seo_description', 'options');
 
@@ -113,6 +112,9 @@ class PrivacyPolicy extends \Municipio\Controller\Singular
         return $this->wpService->applyFilters('Municipio/PrivacyPolicy/MetaDescription', $description);
     }
 
+    /**
+     * Returns the content
+     */
     protected function getContent(): string
     {
         $content = $this->acfService->getField('mun_privacypolicy_content', 'options');
@@ -129,87 +131,21 @@ class PrivacyPolicy extends \Municipio\Controller\Singular
      */
     private function getLastUpdated(): ?string
     {
-        $date = $this->acfService->getField('mun_privacypolicy_last_updated', 'options');
+        $date      = $this->acfService->getField('mun_privacypolicy_last_updated', 'options');
+        $timestamp = is_string($date) ? strtotime($date) : false;
 
-        if (empty($date) || !strtotime($date)) {
+        if ($timestamp === false) {
             return null;
         }
 
-        return (string) date_i18n($this->wpService->getOption('date_format'), strtotime($date));
+        return (string) date_i18n($this->wpService->getOption('date_format'), $timestamp);
     }
 
     /**
-     * The virtual page is treated as a 404 by WordPress while its custom template
-     * is resolved. Replace the missing breadcrumb menu with standard data.
-     */
-    private function ensureBreadcrumbMenu(): void
-    {
-        if (!empty($this->data['breadcrumbMenu']['items'])) {
-            return;
-        }
-
-        $this->data['breadcrumbMenu'] = [
-            'name'       => 'breadcrumb',
-            'identifier' => 'breadcrumb',
-            'items'      => [
-                'home' => [
-                    'label'   => __('Home', 'municipio'),
-                    'href'    => $this->data['homeUrl'],
-                    'current' => false,
-                    'icon'    => 'home',
-                ],
-                'privacy-policy' => [
-                    'label'   => wp_strip_all_tags($this->data['heading']),
-                    'href'    => '',
-                    'current' => true,
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Add the regular print action, which BaseController cannot add when the
-     * virtual route is evaluated as a 404 instead of a WordPress page.
-     */
-    private function ensurePrintMenuItem(): void
-    {
-        if (!empty($this->data['accessibilityMenu']['items']['print'])) {
-            return;
-        }
-
-        $this->data['accessibilityMenu']['items']['print'] = [
-            'icon'   => 'print',
-            'href'   => '#',
-            'script' => 'window.print();return false;',
-            'text'   => __('Print', 'municipio'),
-            'label'  => __('Print this page', 'municipio'),
-        ];
-    }
-
-    protected function getTemplateTags(): array
-    {
-        return [
-            'website_name'   => $this->wpService->getBlogInfo('name'),
-            'website_domain' => function () {
-                $url  = $this->wpService->getBlogInfo('url');
-                $host = parse_url($url, PHP_URL_HOST);
-                return $host ?: $url;
-            },
-        ];
-    }
-
-    /**
-     * Replace template tags, e.g. {{website_name}}, with their values.
+     * Replace template tags, e.g. {{website_name}}, in the content.
      */
     public function filterContentTemplateTags(string $content): string
     {
-        foreach ($this->getTemplateTags() as $key => $value) {
-            if (is_callable($value)) {
-                $value = $value();
-            }
-            $content = str_replace("{{{$key}}}", (string) $value, $content);
-        }
-
-        return $content;
+        return $this->replaceTemplateTags($content);
     }
 }
