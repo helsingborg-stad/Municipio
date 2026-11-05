@@ -1,16 +1,13 @@
 class Close implements ChatAction {
 	private closeButtonElement: HTMLElement | null = null;
 	private buttonTargetString = "[data-js-chat-close]";
-    private closeConfirmationTargetString = "[data-js-chat-close-confirmation]";
-    private static closeConfirmationElement: HTMLElement | null = null;
 	private listeners: ((event: Event) => void)[] = [];
 
 	constructor(
 		private actionsContainer: HTMLElement,
 		private actionTemplates: HTMLTemplateElement,
-		private chat: any
+		private confirmationController: CloseConfirmationControllerInterface,
 	) {
-        Close.closeConfirmationElement = this.actionTemplates.content.querySelector(this.closeConfirmationTargetString);
 	}
 
 	public add(): this {
@@ -18,6 +15,8 @@ class Close implements ChatAction {
 			this.closeButtonElement = this.createButton();
 			this.actionsContainer.appendChild(this.closeButtonElement);
 		}
+
+		this.confirmationController.initialize();
 
 		this.setListeners();
 
@@ -32,6 +31,8 @@ class Close implements ChatAction {
 		this.closeButtonElement.removeEventListener("click", this.onClick);
 		this.closeButtonElement.remove();
 		this.closeButtonElement = null;
+
+		this.confirmationController.remove();
 	}
 
 	private setListeners(): void {
@@ -43,7 +44,18 @@ class Close implements ChatAction {
 		this.closeButtonElement.addEventListener("click", this.onClick);
 	}
 
-	private onClick = (): void => {
+	private onClick = (event: Event): void => {
+		if (!this.closeButtonElement) {
+			return;
+		}
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		this.confirmationController.requestConfirmation(() => this.executeConfirmedClose());
+	};
+
+	private executeConfirmedClose(): void {
 		if (!this.closeButtonElement) {
 			return;
 		}
@@ -77,7 +89,10 @@ class Close implements ChatAction {
 			throw new Error("Close button template not found");
 		}
 
-		return templateButton.cloneNode(true) as HTMLElement;
+		const button = templateButton.cloneNode(true) as HTMLElement;
+		button.removeAttribute("popovertargetaction");
+
+		return button;
 	}
 }
 

@@ -9,10 +9,13 @@ class Eneo implements RenderIntegrationInterface {
     public function transform(array $data, array $assistant): array
     {
         $attributePrefix = $this->getAttributePrefix($assistant);
+        $greetingPhrase = $assistant['greetings_phrase'] ?? '';
+        $greetingPhrase = str_replace(["\r\n", "\r", "\n"], '&#10;', $greetingPhrase);
 
         $data['attributeList'] = $data['attributeList'] ?? [];
         $data['attributeList'] = array_merge($data['attributeList'], [
             $attributePrefix . 'name' => $assistant['name'] ?? '',
+            $attributePrefix . 'greeting-phrase' => $greetingPhrase,
         ]);
 
         return $data;

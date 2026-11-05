@@ -55,12 +55,41 @@
         ])
         @endbutton
         @element([
+            'classList' => [
+                'u-position--absolute',
+                'u-level--1',
+                'u-height--100',
+                'u-width--100',
+                'u-display--flex',
+                'u-align-items--center',
+                'u-justify-content--center'
+            ],
             'attributeList' => [
                 'data-js-chat-close-confirmation' => true,
-                'style' => 'position: absolute; top: 0; right: 0; background: white; height: 100%; width: 100%;'
+                'style' => 'background-color: var(--color--surface-alt, #fff)'
             ]
         ])
-            test
+            @button([
+                'icon' => 'arrow_back',
+                'text' => $lang['cancel'],
+                'color' => 'primary',
+                'style' => 'outlined',
+                'reversePositions' => true,
+                'attributeList' => [
+                    'data-js-chat-close-cancel' => true
+                ]
+            ])
+            @endbutton
+            @button([
+                'icon' => 'check',
+                'text' => $lang['closeChat'],
+                'color' => 'primary',
+                'reversePositions' => true,
+                'attributeList' => [
+                    'data-js-chat-close-confirm' => true
+                ]
+            ])
+            @endbutton
         @endelement
     @endelement
 @endif

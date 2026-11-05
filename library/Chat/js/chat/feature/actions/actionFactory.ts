@@ -1,6 +1,7 @@
 import Minimize from "./minimize/minimize";
 import Clear from "./clear/clear";
 import Close from "./close/close";
+import CloseConfirmationController from "./close/closeConfirmationController";
 
 class ActionFactory implements ChatActionFactoryInterface {
     public constructor(
@@ -19,7 +20,9 @@ class ActionFactory implements ChatActionFactoryInterface {
     }
 
     public addClose(): ChatAction {
-        return new Close(this.actionsContainer, this.actionTemplates, this.chat).add();
+        const closeConfirmationController = new CloseConfirmationController(this.actionTemplates, this.chat);
+
+        return new Close(this.actionsContainer, this.actionTemplates, closeConfirmationController).add();
     }
 }
 

@@ -16,12 +16,11 @@ function createMarkdownParser(): MarkdownIt {
 export function createEneo(
     chat: any,
     uiManager: ChatUiManagerInterface,
-    name: string,
+    assistantName: string,
+    greetingsPhrase: string | null,
 ): ChatIntegrationInterface {
     const chatElement = chat.getElement() as HTMLElement;
-    const greetingsPhrase = chatElement.dataset.jsChatGreetingsPhrase || null;
     const feedbackTemplate = chatElement.querySelector("[data-js-chat-feedback]") as HTMLTemplateElement | null;
-    const chatAssistant = chatElement.dataset.jsChatAssistant || null;
     const persistentAttribute = chatElement.getAttribute("data-js-chat-persistent");
     const markdownParser = createMarkdownParser();
     const eneoSessionFactory = new EneoSessionFactory(wpApiSettings.root);
@@ -41,7 +40,9 @@ export function createEneo(
     });
 
     if (greetingsPhrase) {
-        new GreetingPhrase(chat, greetingsPhrase);
+        if (chat.getMessages().length === 0) {
+            new GreetingPhrase(chat, greetingsPhrase).addGreetingPhrase();
+        }
     }
 
     return new Eneo(
@@ -50,9 +51,9 @@ export function createEneo(
         markdownParser,
         feedbackFactory,
         feedbackApi,
-        chatAssistant,
-        persistentAttribute !== null && persistentAttribute !== "false",
         uiManager,
-        name
+        assistantName,
+        greetingsPhrase,
+        persistentAttribute !== null && persistentAttribute !== "false"
     );
 }

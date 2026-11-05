@@ -12,10 +12,10 @@ class Eneo implements EneoInterface {
 		private readonly markdownParser: MarkdownIt,
 		private readonly feedbackFactory: FeedbackFactoryInterface,
 		private readonly feedbackApi: FeedbackApiInterface,
-		private readonly assistantName: string | null = null,
-		private readonly persistSession: boolean = true,
 		private readonly uiManager: ChatUiManagerInterface,
-		private readonly name: string,
+		private readonly assistantName: string,
+		private readonly greetingsPhrase: string | null,
+		private readonly persistSession: boolean = true,
 	) {}
 
 	public init(): Promise<this|false> {
@@ -28,7 +28,8 @@ class Eneo implements EneoInterface {
 
 		this.uiManager.clearActions();
 		this.uiManager.addMinimizeAction();
-		this.uiManager.setTitle(this.name);
+		this.uiManager.addCloseAction();
+		this.uiManager.setTitle(this.assistantName);
 		const clear = this.uiManager.addClearAction();
 
 		clear.addListener(() => {
