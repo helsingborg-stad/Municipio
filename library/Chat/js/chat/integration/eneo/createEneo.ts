@@ -53,7 +53,6 @@ export function createEneo(
         feedbackApi,
         uiManager,
         assistantName,
-        greetingsPhrase,
         persistentAttribute !== null && persistentAttribute !== "false"
     );
 }

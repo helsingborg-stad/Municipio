@@ -14,7 +14,6 @@ class Eneo implements EneoInterface {
 		private readonly feedbackApi: FeedbackApiInterface,
 		private readonly uiManager: ChatUiManagerInterface,
 		private readonly assistantName: string,
-		private readonly greetingsPhrase: string | null,
 		private readonly persistSession: boolean = true,
 	) {}
 
@@ -25,7 +24,7 @@ class Eneo implements EneoInterface {
 		);
 
 		this.listenForUserMessages();
-
+		this.chat.setDefaultShouldPersist(this.persistSession);
 		this.uiManager.clearActions();
 		this.uiManager.addMinimizeAction();
 		this.uiManager.addCloseAction();
