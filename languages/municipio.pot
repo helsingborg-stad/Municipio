@@ -28890,6 +28890,7 @@ msgid "Use term icon as icon in list"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:168
+#: Modularity/source/php/AcfFields/php/mod-slider.php:196
 msgid "Preamble"
 msgstr ""
 
@@ -29291,6 +29292,50 @@ msgid "Number of slides shown per page"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:116
+msgid "Show next slide preview"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:120
+msgid "Shows part of the next slide in compact slider layouts."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:128
+msgid "Show a preview of the next slide"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:136
+msgid "Move visible slides at once"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:140
+msgid "Moves every visible slide when using the slider controls."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:148
+msgid "Move by page"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:156
+msgid "Show navigation on hover"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:168
+msgid "Show navigation controls on hover"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:176
+msgid "Compact navigation"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:180
+msgid "Moves controls below the slider in narrow containers."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:188
+msgid "Use compact navigation"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:116
 msgid "Wrap around"
 msgstr ""
 
@@ -29304,6 +29349,10 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:132
 msgid "wrapAround"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:200
+msgid "Optional text shown below the slider title."
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:143

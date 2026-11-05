@@ -2243,6 +2243,7 @@ msgid "Use term icon as icon in list"
 msgstr "Använd termikon som ikon i lista"
 
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:168
+#: Modularity/source/php/AcfFields/php/mod-slider.php:196
 msgid "Preamble"
 msgstr "Ingress"
 
@@ -2718,6 +2719,50 @@ msgid "Number of slides shown per page"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:116
+msgid "Show next slide preview"
+msgstr "Visa förhandsvisning av nästa bild"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:120
+msgid "Shows part of the next slide in compact slider layouts."
+msgstr "Visar en del av nästa bild i kompakta bildspelslayouter."
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:128
+msgid "Show a preview of the next slide"
+msgstr "Visa en förhandsvisning av nästa bild"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:136
+msgid "Move visible slides at once"
+msgstr "Flytta synliga bilder samtidigt"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:140
+msgid "Moves every visible slide when using the slider controls."
+msgstr "Flyttar alla synliga bilder när bildspelskontrollerna används."
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:148
+msgid "Move by page"
+msgstr "Flytta per sida"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:156
+msgid "Show navigation on hover"
+msgstr "Visa navigering vid hovring"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:168
+msgid "Show navigation controls on hover"
+msgstr "Visa navigeringskontroller vid hovring"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:176
+msgid "Compact navigation"
+msgstr "Kompakt navigering"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:180
+msgid "Moves controls below the slider in narrow containers."
+msgstr "Flyttar kontrollerna under bildspelet i smala behållare."
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:188
+msgid "Use compact navigation"
+msgstr "Använd kompakt navigering"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:116
 msgid "Wrap around"
 msgstr "Återgå till början"
 
@@ -2732,6 +2777,10 @@ msgstr "Återgå till den första vyn när det inte finns fler vyer att visa"
 #: Modularity/source/php/AcfFields/php/mod-slider.php:132
 msgid "wrapAround"
 msgstr "wrapAround"
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:200
+msgid "Optional text shown below the slider title."
+msgstr "Valfri text som visas under bildspelets rubrik."
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:143
 msgid "Slides"
