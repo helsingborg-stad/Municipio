@@ -485,7 +485,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "id",
+                            "return_format": "url",
                             "library": "all",
                             "min_width": "",
                             "min_height": "",
@@ -663,7 +663,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "id",
+                            "return_format": "url",
                             "library": "all",
                             "min_width": "",
                             "min_height": "",

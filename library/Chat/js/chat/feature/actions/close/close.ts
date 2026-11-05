@@ -5,7 +5,7 @@ class Close implements ChatAction {
 
 	constructor(
 		private actionsContainer: HTMLElement,
-		private actionTemplates: HTMLTemplateElement,
+		private chatTemplates: HTMLTemplateElement,
 		private confirmationController: CloseConfirmationControllerInterface,
 	) {
 	}
@@ -81,7 +81,7 @@ class Close implements ChatAction {
 	}
 
 	private createButton(): HTMLElement {
-		const templateButton = this.actionTemplates.content.querySelector(
+		const templateButton = this.chatTemplates.content.querySelector(
 			this.buttonTargetString,
 		);
 

@@ -9,7 +9,7 @@ class CloseConfirmationController implements CloseConfirmationControllerInterfac
 	private onCancelAction: (() => void) | null = null;
 
 	constructor(
-		private actionTemplates: HTMLTemplateElement,
+		private chatTemplates: HTMLTemplateElement,
 		private chat: any,
 	) {
 	}
@@ -19,7 +19,7 @@ class CloseConfirmationController implements CloseConfirmationControllerInterfac
 			return;
 		}
 
-		const templateConfirmation = this.actionTemplates.content.querySelector(
+		const templateConfirmation = this.chatTemplates.content.querySelector(
 			this.closeConfirmationTargetString,
 		);
 

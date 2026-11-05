@@ -4,7 +4,7 @@ import ChatUiManager from "./chat/feature/ui/chatUiManager";
 class ChatInitializer implements ChatInitializerInterface {
 	private activeIntegration: string | null = null;
 	private availableAssistants: AvailableAssistants = {};
-	private actionsTemplate: HTMLTemplateElement | null = null;
+	private chatTemplate: HTMLTemplateElement | null = null;
 	private actionsContainer: HTMLElement | null = null;
 	private chatTitleElement: HTMLElement | null = null;
 	private chatAvatarElement: HTMLElement | null = null;
@@ -12,18 +12,18 @@ class ChatInitializer implements ChatInitializerInterface {
 
 	public constructor(private chat: any) {
 		this.availableAssistants = this.getAvailableAssistants(chat);
-		this.actionsTemplate = this.chat.getElement().querySelector('[data-js-municipio-chat-actions]');
+		this.chatTemplate = this.chat.getElement().querySelector('[data-js-municipio-chat-template]');
 		this.actionsContainer = this.chat.getElement().querySelector('[data-js-chat-actions]');
 		this.chatTitleElement = this.chat.getElement().querySelector('[data-js-chat-title]');
 		this.chatAvatarElement = this.chat.getElement().querySelector('[data-js-chat-avatar]');
 	}
 
 	public async init(name: string|null = null): Promise<boolean> {
-		if (!this.actionsContainer || !this.actionsTemplate) {
+		if (!this.actionsContainer || !this.chatTemplate) {
 			return false;
 		}
 
-		const actionFactory = new ActionFactory(this.actionsContainer, this.actionsTemplate, this.chat);
+		const actionFactory = new ActionFactory(this.actionsContainer, this.chatTemplate, this.chat);
 		const chatUiManager = new ChatUiManager(actionFactory, this.actionsContainer, this.chatTitleElement, this.chatAvatarElement);
 
 		if (name !== null) {
@@ -90,7 +90,7 @@ class ChatInitializer implements ChatInitializerInterface {
 
 			const instance = new factory();
 			const created: ChatIntegrationInterface|false = await instance.create(chat, chatUiManager, assistantName);
-			console.log(`Created integration for ${integration}:`, created);
+
 			return created;
 		} catch (error) {
 			console.warn(`Chat integration "${integration}" could not be loaded`, error);

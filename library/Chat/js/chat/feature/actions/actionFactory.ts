@@ -6,23 +6,23 @@ import CloseConfirmationController from "./close/closeConfirmationController";
 class ActionFactory implements ChatActionFactoryInterface {
     public constructor(
         private actionsContainer: HTMLElement,
-        private actionTemplates: HTMLTemplateElement,
+        private chatTemplates: HTMLTemplateElement,
         private chat: any
     ) {
     }
 
     public addMinimize(): ChatAction {
-        return new Minimize(this.actionsContainer, this.actionTemplates).add();
+        return new Minimize(this.actionsContainer, this.chatTemplates).add();
     }
 
     public addClear(): ChatAction {
-        return new Clear(this.actionsContainer, this.actionTemplates, this.chat).add();
+        return new Clear(this.actionsContainer, this.chatTemplates, this.chat).add();
     }
 
     public addClose(): ChatAction {
-        const closeConfirmationController = new CloseConfirmationController(this.actionTemplates, this.chat);
+        const closeConfirmationController = new CloseConfirmationController(this.chatTemplates, this.chat);
 
-        return new Close(this.actionsContainer, this.actionTemplates, closeConfirmationController).add();
+        return new Close(this.actionsContainer, this.chatTemplates, closeConfirmationController).add();
     }
 }
 

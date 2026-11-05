@@ -23,9 +23,9 @@ describe("ChatInitializer", () => {
 		const chatElement = document.createElement("div");
 		chatElement.dataset.jsChatAssistants = JSON.stringify(assistants);
 
-		const actionsTemplate = document.createElement("template");
-		actionsTemplate.setAttribute("data-js-municipio-chat-actions", "");
-		chatElement.appendChild(actionsTemplate);
+		const chatTemplate = document.createElement("template");
+		chatTemplate.setAttribute("data-js-municipio-chat-template", "");
+		chatElement.appendChild(chatTemplate);
 
 		const actionsContainer = document.createElement("div");
 		actionsContainer.setAttribute("data-js-chat-actions", "");

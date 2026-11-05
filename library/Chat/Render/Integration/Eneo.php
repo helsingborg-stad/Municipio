@@ -16,6 +16,7 @@ class Eneo implements RenderIntegrationInterface {
         $data['attributeList'] = array_merge($data['attributeList'], [
             $attributePrefix . 'name' => $assistant['name'] ?? '',
             $attributePrefix . 'greeting-phrase' => $greetingPhrase,
+            $attributePrefix . 'avatar' => $assistant['avatar'] ?? '',
         ]);
 
         return $data;
