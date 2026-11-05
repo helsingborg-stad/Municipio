@@ -5,3 +5,19 @@
         margin: 0;
     }
 }
+
+.site-pre-footer-image {
+    display: block;
+    width: 100%;
+    height: clamp(100px, 16vw, 300px);
+    background-color: var(--color--background);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @media (max-width: 767px) {
+        &--taller-on-mobile {
+            height: var(--municipio-pre-footer-image-mobile-height, 160px);
+        }
+    }
+}

@@ -12834,6 +12834,30 @@ msgstr ""
 msgid "Upload a single image used as the footer background."
 msgstr ""
 
+#: library/Customizer/Sections/Component/FooterMain.php:43
+msgid "Pre footer image"
+msgstr "Bild ovanför sidfoten"
+
+#: library/Customizer/Sections/Component/FooterMain.php:44
+msgid "Upload an image (for example an .svg skyline) displayed full width directly above the footer."
+msgstr "Ladda upp en bild (till exempel en .svg-silhuett) som visas i full bredd direkt ovanför sidfoten."
+
+#: library/Customizer/Sections/Component/FooterMain.php:55
+msgid "Taller pre footer image on mobile"
+msgstr "Högre bild ovanför sidfoten i mobil"
+
+#: library/Customizer/Sections/Component/FooterMain.php:56
+msgid "Makes the image taller on small screens. The sides of the image may be cropped."
+msgstr "Gör bilden högre på små skärmar. Bildens sidor kan beskäras."
+
+#: library/Customizer/Sections/Component/FooterMain.php:75
+msgid "Pre footer image height on mobile"
+msgstr "Höjd på bilden ovanför sidfoten i mobil"
+
+#: library/Customizer/Sections/Component/FooterMain.php:76
+msgid "Height in pixels of the pre footer image on small screens."
+msgstr "Bildens höjd i pixlar på små skärmar."
+
 #: library/Customizer/Sections/Component/FooterSub.php:14
 msgid "Subfooter logotype"
 msgstr ""
