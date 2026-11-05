@@ -7,6 +7,7 @@ interface PuzzelConfigInterface {
     getClientId(): string;
     getVisualQueueId(): string;
     getTimeId(): string;
+    getName(): string;
 }
 
 interface PuzzelConversationManagerInterface {
@@ -31,6 +32,13 @@ interface PuzzelConversationManagerInterface {
 interface PuzzelAvailabilityManagerInterface {
     isAvailable(): Promise<boolean>;
 }
+
+type CreatePuzzelFunction = (
+    chat: unknown,
+    uiManager: ChatUiManagerInterface,
+    puzzelConfig: PuzzelConfigInterface,
+    name: string,
+) => ChatIntegrationInterface;
 
 interface PuzzelAuthenticatorInterface {
     getAccessToken(): Promise<string>;

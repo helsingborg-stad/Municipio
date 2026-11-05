@@ -1,13 +1,17 @@
 class Null implements ChatIntegrationInterface {
-    public constructor(private chat: any) {}
+    public constructor(
+        private chat: any,
+        private uiManager: ChatUiManagerInterface,
+    ) {}
 
     public init(): Promise<this|false> {
+        this.uiManager.clearActions();
         this.removeChatAndPopover();
         return Promise.resolve(this);
     }
 
     private removeChatAndPopover(): void {
-        const chatElement = this.chat?.getElement?.();
+        const chatElement = this.chat?.getElement();
 
         if (!chatElement) {
             return;

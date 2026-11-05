@@ -1,5 +1,6 @@
-import MinimizeChat from "./minimize/minimizeChat";
+import Minimize from "./minimize/minimize";
 import Clear from "./clear/clear";
+import Close from "./close/close";
 
 class ActionFactory implements ChatActionFactoryInterface {
     public constructor(
@@ -9,16 +10,16 @@ class ActionFactory implements ChatActionFactoryInterface {
     ) {
     }
 
-    public clearActions(): void {
-        this.actionsContainer.innerHTML = "";
-    }
-
     public addMinimize(): ChatAction {
-        return new MinimizeChat(this.actionsContainer, this.actionTemplates).add();
+        return new Minimize(this.actionsContainer, this.actionTemplates).add();
     }
 
     public addClear(): ChatAction {
         return new Clear(this.actionsContainer, this.actionTemplates, this.chat).add();
+    }
+
+    public addClose(): ChatAction {
+        return new Close(this.actionsContainer, this.actionTemplates, this.chat).add();
     }
 }
 

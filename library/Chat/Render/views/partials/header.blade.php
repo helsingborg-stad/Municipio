@@ -31,11 +31,37 @@
                 'data-js-chat-minimize' => true,
                 'popovertarget' => 'chat-global-root',
                 'popovertargetaction' => 'hide',
+                'aria-label' => $lang['minimize'],
+                'data-tooltip' => $lang['minimize']
+            ],
+        ])
+        @endbutton
+        @button([
+            'icon' => 'close',
+            'size' => 'md',
+            'style' => 'basic',
+            'color' => 'default',
+            'reversePositions' => true,
+            'classList' => [
+                'u-margin__left--0'
+            ],
+            'attributeList' => [
+                'data-js-chat-close' => true,
+                'popovertarget' => 'chat-global-root',
+                'popovertargetaction' => 'hide',
                 'aria-label' => $lang['close'],
                 'data-tooltip' => $lang['close']
             ],
         ])
         @endbutton
+        @element([
+            'attributeList' => [
+                'data-js-chat-close-confirmation' => true,
+                'style' => 'position: absolute; top: 0; right: 0; background: white; height: 100%; width: 100%;'
+            ]
+        ])
+            test
+        @endelement
     @endelement
 @endif
     @element([
@@ -51,15 +77,16 @@
             ]
         ])
         @endavatar
-        @if (!empty($name))
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h6',
-                'classList' => ['o-layout-grid--align-center'],
-            ])
-                {{ $name }}
-            @endtypography
-        @endif
+        @typography([
+            'element' => 'h2',
+            'variant' => 'h6',
+            'attributeList' => [
+                'data-js-chat-title' => true,
+            ],
+            'classList' => ['o-layout-grid--align-center'],
+        ])
+            <!-- insert name -->
+        @endtypography
     @endelement
     @element([
         'attributeList' => [

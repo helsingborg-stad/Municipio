@@ -4,5 +4,6 @@ interface EneoInterface extends ChatIntegrationInterface {
 
 type CreateEneoFunction = (
     chat: unknown,
-    actionFactory: ChatActionFactoryInterface,
+    uiManager: ChatUiManagerInterface,
+    name: string,
 ) => ChatIntegrationInterface;

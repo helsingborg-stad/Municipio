@@ -38,7 +38,7 @@ describe("ChatInitializer", () => {
 		};
 	};
 
-	it("clears actions while falling back between integrations", async () => {
+	it("does not call action factory clear while falling back", async () => {
 		// Arrange
 		const chat = createChat({
 			broken: "does-not-exist",
@@ -51,11 +51,11 @@ describe("ChatInitializer", () => {
 
 		// Assert
 		expect(initialized).toBe(true);
-		expect(mockClearActions).toHaveBeenCalledTimes(3);
+		expect(mockClearActions).toHaveBeenCalledTimes(0);
 		expect(ActionFactory).toHaveBeenCalledTimes(1);
 	});
 
-	it("clears actions when a named integration fails to create", async () => {
+	it("does not clear actions when a named integration fails to create", async () => {
 		// Arrange
 		const chat = createChat({ broken: "does-not-exist" });
 		const initializer = new ChatInitializer(chat as any);
@@ -65,10 +65,10 @@ describe("ChatInitializer", () => {
 
 		// Assert
 		expect(initialized).toBe(false);
-		expect(mockClearActions).toHaveBeenCalledTimes(2);
+		expect(mockClearActions).toHaveBeenCalledTimes(0);
 	});
 
-	it("does not clear actions again when assistant is already active", async () => {
+	it("does not call action factory clear when assistant is already active", async () => {
 		// Arrange
 		const chat = createChat({ fallback: "null" });
 		const initializer = new ChatInitializer(chat as any);
@@ -80,6 +80,6 @@ describe("ChatInitializer", () => {
 		// Assert
 		expect(firstInitialization).toBe(true);
 		expect(secondInitialization).toBe(true);
-		expect(mockClearActions).toHaveBeenCalledTimes(1);
+		expect(mockClearActions).toHaveBeenCalledTimes(0);
 	});
 });

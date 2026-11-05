@@ -69,9 +69,10 @@ describe("Puzzel", () => {
 			setQueueBannerData: jest.fn(),
 			setChatInactiveData: jest.fn(),
 		};
-		const actionFactory = {
-			addMinimize: jest.fn(),
-			addClear: jest.fn(),
+		const uiManager = {
+			clearActions: jest.fn(),
+			addMinimizeAction: jest.fn(),
+			addClearAction: jest.fn(),
 		};
 
 		const puzzel = new Puzzel(
@@ -87,7 +88,8 @@ describe("Puzzel", () => {
 			chatHistoryHandler as any,
 			chatStatusHandler as any,
 			chatHandler as any,
-			actionFactory as any,
+			uiManager as any,
+			"puzzel",
 		);
 
 		// Act
@@ -95,7 +97,8 @@ describe("Puzzel", () => {
 
 		// Assert
 		expect(initialized).toBe(false);
-		expect(actionFactory.addMinimize).not.toHaveBeenCalled();
+		expect(uiManager.clearActions).not.toHaveBeenCalled();
+		expect(uiManager.addMinimizeAction).not.toHaveBeenCalled();
 		expect(puzzelAvailabilityManager.isAvailable).toHaveBeenCalledTimes(1);
 		expect(puzzelConversationManager.startConversation).not.toHaveBeenCalled();
 		expect(outgoingChatHandler.register).not.toHaveBeenCalled();

@@ -60,7 +60,7 @@ declare global {
 	}
 
 	interface ChatIntegrationFactory {
-		async create(chat: any, actionFactory: any, name: string): Promise<ChatIntegrationInterface|false>;
+		async create(chat: any, uiManager: ChatUiManagerInterface, name: string): Promise<ChatIntegrationInterface|false>;
 	}
 
 	interface ChatInitializerInterface {
@@ -70,11 +70,4 @@ declare global {
 	interface ChatIntegrationInterface {
 		init(): Promise<this|false>;
 	}
-
-	type CreateIntegrationFunction = (
-		chat: unknown,
-		actionFactory: ChatActionFactoryInterface,
-		puzzelConfig: PuzzelConfigInterface,
-		name: string,
-	) => ChatIntegrationInterface;
 }

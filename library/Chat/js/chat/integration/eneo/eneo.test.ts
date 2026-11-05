@@ -29,9 +29,10 @@ describe("Eneo", () => {
 		const clearAction = {
 			addListener: jest.fn(),
 		};
-		const actionFactory = {
-			addMinimize: jest.fn(),
-			addClear: jest.fn().mockReturnValue(clearAction),
+		const uiManager = {
+			clearActions: jest.fn(),
+			addMinimizeAction: jest.fn(),
+			addClearAction: jest.fn().mockReturnValue(clearAction),
 		};
 
 		const eneo = new Eneo(
@@ -42,7 +43,7 @@ describe("Eneo", () => {
 			feedbackApi as any,
 			"Ava",
 			true,
-			actionFactory as any,
+			uiManager as any,
 		);
 		const createNewEneoSessionSpy = jest.spyOn(eneo, "createNewEneoSession");
 
@@ -52,8 +53,9 @@ describe("Eneo", () => {
 		onClear();
 
 		// Assert
-		expect(actionFactory.addMinimize).toHaveBeenCalledTimes(1);
-		expect(actionFactory.addClear).toHaveBeenCalledTimes(1);
+		expect(uiManager.clearActions).toHaveBeenCalledTimes(1);
+		expect(uiManager.addMinimizeAction).toHaveBeenCalledTimes(1);
+		expect(uiManager.addClearAction).toHaveBeenCalledTimes(1);
 		expect(clearAction.addListener).toHaveBeenCalledTimes(1);
 		expect(createNewEneoSessionSpy).toHaveBeenCalledTimes(1);
 	});

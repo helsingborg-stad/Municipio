@@ -14,23 +14,26 @@ class Eneo implements EneoInterface {
 		private readonly feedbackApi: FeedbackApiInterface,
 		private readonly assistantName: string | null = null,
 		private readonly persistSession: boolean = true,
-		private readonly actionFactory: ChatActionFactoryInterface,
+		private readonly uiManager: ChatUiManagerInterface,
+		private readonly name: string,
 	) {}
 
 	public init(): Promise<this|false> {
-		this.actionFactory.addMinimize();
-		const clear = this.actionFactory.addClear();
-
-		clear.addListener(() => {
-			this.createNewEneoSession();
-		});
-
 		this.session = this.sessionFactory.create(
 			this.assistantName,
 			this.persistSession,
 		);
 
 		this.listenForUserMessages();
+
+		this.uiManager.clearActions();
+		this.uiManager.addMinimizeAction();
+		this.uiManager.setTitle(this.name);
+		const clear = this.uiManager.addClearAction();
+
+		clear.addListener(() => {
+			this.createNewEneoSession();
+		});
 
 		return Promise.resolve(this);
 	}

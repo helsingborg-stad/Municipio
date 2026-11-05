@@ -15,8 +15,8 @@ function createMarkdownParser(): MarkdownIt {
 
 export function createEneo(
     chat: any,
-    actionFactory: ChatActionFactoryInterface,
-    _name: string,
+    uiManager: ChatUiManagerInterface,
+    name: string,
 ): ChatIntegrationInterface {
     const chatElement = chat.getElement() as HTMLElement;
     const greetingsPhrase = chatElement.dataset.jsChatGreetingsPhrase || null;
@@ -52,6 +52,7 @@ export function createEneo(
         feedbackApi,
         chatAssistant,
         persistentAttribute !== null && persistentAttribute !== "false",
-        actionFactory
+        uiManager,
+        name
     );
 }

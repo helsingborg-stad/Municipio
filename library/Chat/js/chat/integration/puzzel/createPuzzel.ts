@@ -22,9 +22,9 @@ import PuzzelConversationManager from "./puzzelConversationManager";
 
 export function createPuzzel(
     chat: any,
-    actionFactory: ChatActionFactoryInterface,
+    uiManager: ChatUiManagerInterface,
     puzzelConfig: PuzzelConfigInterface,
-    _name: string,
+    name: string,
 ): ChatIntegrationInterface {
     const conversationStorageManager = new ConversationStorageManager();
     const puzzelAuthenticator = new PuzzelAuthenticator(puzzelConfig, conversationStorageManager);
@@ -60,6 +60,7 @@ export function createPuzzel(
         new PuzzelChatHistoryHandler(chatHandler),
         new PuzzelChatStatusHandler(chatHandler, puzzelConversationManager),
         chatHandler,
-        actionFactory
+        uiManager,
+        puzzelConfig
     );
 }

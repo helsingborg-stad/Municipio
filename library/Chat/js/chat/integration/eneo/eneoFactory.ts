@@ -1,21 +1,16 @@
 class EneoFactory implements ChatIntegrationFactory {
-    private static createEneo: CreateIntegrationFunction | null = null;
+    private static createEneo: CreateEneoFunction | null = null;
 
-    public async create(chat: any, actionFactory: ChatActionFactoryInterface, name: string): Promise<ChatIntegrationInterface|false> {
-        if (!this.canRun()) {
-            return false;
-        }
+    public async create(chat: any, uiManager: ChatUiManagerInterface, name: string): Promise<ChatIntegrationInterface|false> {
+        const attributePrefix = `data-js-chat-${name}`;
+        const assistantName = chat.getElement().getAttribute(`${attributePrefix}-name`);
 
         if (!EneoFactory.createEneo) {
             const { createEneo } = await import("./createEneo");
             EneoFactory.createEneo = createEneo;
         }
 
-        return EneoFactory.createEneo(chat, actionFactory, name);
-    }
-
-    public canRun(): boolean {
-        return true;
+        return EneoFactory.createEneo!(chat, uiManager, assistantName);
     }
 }
 

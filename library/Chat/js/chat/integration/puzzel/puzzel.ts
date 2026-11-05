@@ -20,7 +20,8 @@ class Puzzel implements ChatIntegrationInterface {
         private chatHistoryHandler: PuzzelChatHistoryHandlerInterface,
         private chatStatusHandler: PuzzelChatStatusHandlerInterface,
         private chatHandler: ChatHandlerInterface,
-        private actionFactory: ChatActionFactoryInterface
+        private uiManager: ChatUiManagerInterface,
+        private puzzelConfig: PuzzelConfigInterface,
     ) {
     }
 
@@ -64,7 +65,9 @@ class Puzzel implements ChatIntegrationInterface {
 
         await this.startMetaDataListener();
         await this.startConversationListener();
-        this.actionFactory.addMinimize();
+        this.uiManager.setTitle(this.puzzelConfig.getName());
+        this.uiManager.clearActions();
+        this.uiManager.addMinimizeAction();
         this.triedRerun = false;
         return this;
     }

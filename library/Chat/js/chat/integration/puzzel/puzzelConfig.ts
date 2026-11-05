@@ -5,6 +5,7 @@ class PuzzelConfig implements PuzzelConfigInterface {
         private clientId: string,
         private visualQueueId: string,
         private timeId: string,
+        private name: string,
         private authenticationUrl: string = 'https://app-consumeridp.puzzel.com',
         private communicationUrl: string = 'https://app-commsrv.puzzel.com',
         private contentUploadUrl: string = 'https://app-contentupload.puzzel.com',
@@ -40,6 +41,10 @@ class PuzzelConfig implements PuzzelConfigInterface {
 
     public getChatQueueKey(): string {
         return this.chatQueueKey;
+    }
+
+    public getName(): string {
+        return this.name;
     }
 }
 

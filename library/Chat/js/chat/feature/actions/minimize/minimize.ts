@@ -1,4 +1,4 @@
-class MinimizeChat implements ChatAction {
+class Minimize implements ChatAction {
 	private minimizeButtonElement: HTMLElement | null = null;
 	private buttonTargetString = '[data-js-chat-minimize]';
 	private listeners: ((event: Event) => void)[] = [];
@@ -76,4 +76,4 @@ class MinimizeChat implements ChatAction {
 	}
 }
 
-export default MinimizeChat;
+export default Minimize;

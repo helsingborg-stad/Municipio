@@ -1,16 +1,21 @@
 import ActionFactory from "./chat/feature/actions/actionFactory";
+import ChatUiManager from "./chat/feature/ui/chatUiManager";
 
 class ChatInitializer implements ChatInitializerInterface {
 	private activeIntegration: string | null = null;
 	private availableAssistants: AvailableAssistants = {};
 	private actionsTemplate: HTMLTemplateElement | null = null;
 	private actionsContainer: HTMLElement | null = null;
+	private chatTitleElement: HTMLElement | null = null;
+	private chatAvatarElement: HTMLElement | null = null;
 	private createdIntegrations: {[key: string]: ChatIntegrationInterface} = {};
 
 	public constructor(private chat: any) {
 		this.availableAssistants = this.getAvailableAssistants(chat);
 		this.actionsTemplate = this.chat.getElement().querySelector('[data-js-municipio-chat-actions]');
 		this.actionsContainer = this.chat.getElement().querySelector('[data-js-chat-actions]');
+		this.chatTitleElement = this.chat.getElement().querySelector('[data-js-chat-title]');
+		this.chatAvatarElement = this.chat.getElement().querySelector('[data-js-chat-avatar]');
 	}
 
 	public async init(name: string|null = null): Promise<boolean> {
@@ -19,6 +24,7 @@ class ChatInitializer implements ChatInitializerInterface {
 		}
 
 		const actionFactory = new ActionFactory(this.actionsContainer, this.actionsTemplate, this.chat);
+		const chatUiManager = new ChatUiManager(actionFactory, this.actionsContainer, this.chatTitleElement, this.chatAvatarElement);
 
 		if (name !== null) {
 			const assistantName = name.toLowerCase();
@@ -27,11 +33,11 @@ class ChatInitializer implements ChatInitializerInterface {
 				return false;
 			}
 
-			return this.initializeAssistant(assistantName, actionFactory);
+			return this.initializeAssistant(assistantName, chatUiManager);
 		}
 
 		for (const assistantName of Object.keys(this.availableAssistants)) {
-			const initialized = await this.initializeAssistant(assistantName, actionFactory);
+			const initialized = await this.initializeAssistant(assistantName, chatUiManager);
 			if (initialized) {
 				return true;
 			}
@@ -42,18 +48,15 @@ class ChatInitializer implements ChatInitializerInterface {
 
 	private async initializeAssistant(
 		assistantName: string,
-		actionFactory: ChatActionFactoryInterface,
+		chatUiManager: ChatUiManagerInterface,
 	): Promise<boolean> {
 		if (assistantName === this.activeIntegration) {
 			return true;
 		}
 
-		actionFactory.clearActions();
-		let isInitialized = false;
-
 		const integration = this.availableAssistants[assistantName];
 		try {
-			const created = await this.tryCreateIntegration(integration, this.chat, actionFactory, assistantName);
+			const created = await this.tryCreateIntegration(integration, this.chat, chatUiManager, assistantName);
 
 			if (!created) {
 				return false;
@@ -66,23 +69,18 @@ class ChatInitializer implements ChatInitializerInterface {
 
 			this.createdIntegrations[assistantName] = created;
 			this.activeIntegration = assistantName;
-			isInitialized = true;
 
 			return true;
 		} catch (error) {
 			console.warn(`Chat integration "${integration}" failed to initialize`, error);
 			return false;
-		} finally {
-			if (!isInitialized) {
-				actionFactory.clearActions();
-			}
 		}
 	}
 
 	private async tryCreateIntegration(
 		integration: string,
 		chat: any,
-		actionFactory: ChatActionFactoryInterface,
+		chatUiManager: ChatUiManagerInterface,
 		assistantName: string,
 	): Promise<ChatIntegrationInterface|false> {
 		try {
@@ -91,7 +89,7 @@ class ChatInitializer implements ChatInitializerInterface {
 			).default;
 
 			const instance = new factory();
-			const created: ChatIntegrationInterface|false = await instance.create(chat, actionFactory, assistantName);
+			const created: ChatIntegrationInterface|false = await instance.create(chat, chatUiManager, assistantName);
 			console.log(`Created integration for ${integration}:`, created);
 			return created;
 		} catch (error) {
