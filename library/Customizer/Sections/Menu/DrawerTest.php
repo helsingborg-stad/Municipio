@@ -26,6 +26,24 @@ class DrawerTest extends TestCase
         static::assertSame([['type' => 'controller']], $field['output']);
     }
 
+    #[TestDox('Drawer registers the badge color with a paired text color, only active when the badge is enabled')]
+    public function testDrawerRegistersTheCurrentBadgeColor(): void
+    {
+        $fields = $this->registerDrawerFields();
+        $colorField = $this->findFieldBySettings($fields, 'drawer_current_badge_color');
+        $textColorField = $this->findFieldBySettings($fields, 'drawer_current_badge_text_color');
+
+        static::assertNotNull($colorField);
+        static::assertSame('color', $colorField['type']);
+        static::assertSame('', $colorField['default']);
+        static::assertSame('drawer_current_badge_text_color', $colorField['paired_setting']);
+        static::assertSame('drawer_current_badge', $colorField['active_callback'][0]['setting']);
+
+        static::assertNotNull($textColorField);
+        static::assertSame('hidden', $textColorField['type']);
+        static::assertSame([['type' => 'controller']], $textColorField['output']);
+    }
+
     /**
      * Register the drawer fields and return all registered Customizer fields.
      *

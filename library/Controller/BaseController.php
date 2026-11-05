@@ -1273,8 +1273,34 @@ class BaseController
         }
 
         $label = $this->data['lang']->youAreHere ?? __('You are here', 'municipio');
+        $style = "--drawer-current-badge-label: '" . addcslashes((string) $label, "'\\") . "';";
 
-        return "--drawer-current-badge-label: '" . addcslashes((string) $label, "'\\") . "';";
+        $background = $this->sanitizeCssColor($this->data['customizer']->drawerCurrentBadgeColor ?? '');
+        if ($background !== '') {
+            $style .= ' --drawer-current-badge-background: ' . $background . ';';
+        }
+
+        $color = $this->sanitizeCssColor($this->data['customizer']->drawerCurrentBadgeTextColor ?? '');
+        if ($background !== '' && $color !== '') {
+            $style .= ' --drawer-current-badge-color: ' . $color . ';';
+        }
+
+        return $style;
+    }
+
+    /**
+     * Return the value if it is a hex, rgb(a) or CSS variable color, otherwise an empty string.
+     */
+    private function sanitizeCssColor(mixed $value): string
+    {
+        if (!is_string($value)) {
+            return '';
+        }
+
+        $value = trim($value);
+        $pattern = '/^(#[0-9a-fA-F]{3,8}|rgba?\(\s*[0-9.,%\s]+\)|var\(--[a-zA-Z0-9-]+\))$/';
+
+        return preg_match($pattern, $value) === 1 ? $value : '';
     }
 
     /**

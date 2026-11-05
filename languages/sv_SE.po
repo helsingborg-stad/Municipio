@@ -8991,6 +8991,14 @@ msgstr "Visa \"Du är här\"-bricka"
 msgid "Displays a badge next to the current page in the drawer menu."
 msgstr "Visar en bricka bredvid den aktuella sidan i utdragsmenyn."
 
+#: library/Customizer/Sections/Menu/Drawer.php:118
+msgid "\"You are here\" badge color"
+msgstr "Färg på \"Du är här\"-brickan"
+
+#: library/Customizer/Sections/Menu/Drawer.php:119
+msgid "Defaults to red. The text color follows the selected swatch."
+msgstr "Standard är röd. Textfärgen följer den valda färgrutan."
+
 #: library/Helper/TranslatedLabels.php:61
 msgid "Reading time"
 msgstr "Lästid"

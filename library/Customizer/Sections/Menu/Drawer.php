@@ -111,5 +111,43 @@ class Drawer
                 ['type' => 'controller']
             ]
         ]);
+
+        CustomizerField::addField([
+            'type'             => 'color',
+            'settings'         => 'drawer_current_badge_color',
+            'label'            => esc_html__('"You are here" badge color', 'municipio'),
+            'description'      => esc_html__('Defaults to red. The text color follows the selected swatch.', 'municipio'),
+            'section'          => $sectionID,
+            'default'          => '',
+            'priority'         => 10,
+            'choices'          => [
+                'alpha' => true,
+            ],
+            'palettes'         => ColorSwatches::getColors(),
+            'palette_pairs'    => ColorSwatches::getColorPairs(),
+            'swatch_pair_role' => 'background',
+            'paired_setting'   => 'drawer_current_badge_text_color',
+            'include_reset'    => true,
+            'output'           => [
+                ['type' => 'controller']
+            ],
+            'active_callback'  => [
+                [
+                    'setting'  => 'drawer_current_badge',
+                    'operator' => '==',
+                    'value'    => true,
+                ],
+            ],
+        ]);
+
+        CustomizerField::addField([
+            'type'     => 'hidden',
+            'settings' => 'drawer_current_badge_text_color',
+            'section'  => $sectionID,
+            'default'  => '',
+            'output'   => [
+                ['type' => 'controller']
+            ]
+        ]);
     }
 }
