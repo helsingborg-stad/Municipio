@@ -16,10 +16,10 @@
                 'id' => 'page-title',
                 'useHeadingsContext' => false,
             ])
-                {!! $heading !!}
+                {{ $heading }}
             @endtypography
 
-            {!! $content !!}
+            {!! wp_kses_post($content) !!}
 
             @if (!empty($lastUpdated))
                 @typography(['element' => 'p', 'variant' => 'meta', 'classList' => ['u-margin__top--4']])

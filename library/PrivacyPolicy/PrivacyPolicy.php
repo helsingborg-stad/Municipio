@@ -50,7 +50,7 @@ class PrivacyPolicy implements Hookable
             'page_title'      => $this->wpService->__('Privacy Policy', 'municipio'),
             'menu_title'      => $this->wpService->__('Privacy Policy', 'municipio'),
             'menu_slug'       => self::OPTIONS_PAGE_SLUG,
-            'capability'      => 'edit_posts',
+            'capability'      => 'manage_options',
             'redirect'        => true,
             'update_button'   => $this->wpService->__('Update', 'municipio'),
             'updated_message' => $this->wpService->__('The privacy policy has been updated.', 'municipio'),

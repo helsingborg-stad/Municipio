@@ -92,10 +92,12 @@ class PrivacyPolicy extends \Municipio\Controller\Singular
      */
     protected function getHeading(): string
     {
-        return $this->wpService->applyFilters(
+        $heading = $this->wpService->applyFilters(
             'Municipio/PrivacyPolicy/Heading',
             $this->acfService->getField('mun_privacypolicy_title', 'options') ?: $this->wpService->__('Privacy Policy', 'municipio')
         );
+
+        return wp_strip_all_tags((string) $heading);
     }
 
     /**
