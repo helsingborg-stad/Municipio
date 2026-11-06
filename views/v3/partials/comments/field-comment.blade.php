@@ -2,7 +2,7 @@
   @field([
       'type' => 'text',
       'name' => 'comment',
-      'multiline' => '5',
+      'multiline' => 5,
       'label' => $lang->comments,
       'autocomplete' => 'off'
   ])

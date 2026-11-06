@@ -68,7 +68,7 @@ class SliderItemsGenerator
 
         return [
             'image'          => ImageComponentContract::factory($imageObject->getProperty('@id'), [760, false], new ImageResolver()),
-            'text'           => $imageObject->getProperty('caption') ?: null,
+            'text'           => $imageObject->getProperty('caption') ?: false,
             'layout'         => 'bottom',
             'containerColor' => 'darkest'
         ];

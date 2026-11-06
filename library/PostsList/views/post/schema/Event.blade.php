@@ -1,6 +1,6 @@
 @segment([
     'layout'            => 'card',
-    'image'             => $post->getImage(),
+    'image'             => $post->getImage() ?? false,
     'link'              => $getSchemaEventPermalink($post),
     'containerAware'    => true,
     'attributeList'     => ['data-js-posts-list-item' => true],

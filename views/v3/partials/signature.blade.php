@@ -1,13 +1,13 @@
 <!-- Signature -->
 {!! $hook->signatureBefore !!}
 @signature([
-    'author' => $name,
-    'published' => isset($published) ? $published : null,
-    'updated' => $updated,
+    'author' => $name ?? '',
+    'published' => $published ?? false,
+    'updated' => $updated ?? false,
     'avatar_size' => 'sm',
-    'avatar' => $avatar,
-    'authorRole' => $role,
-    'link' => $link,
+    'avatar' => $avatar ?? '',
+    'authorRole' => $role ?? '',
+    'link' => $link ?? '',
     'updatedLabel' => $lang->updated,
     'publishedLabel' => $lang->publish,
     'classList' => $classList ?? []

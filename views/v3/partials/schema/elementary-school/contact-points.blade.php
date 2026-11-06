@@ -8,7 +8,7 @@
             'color' => 'primary',
             'href' => $item['url'],
             'icon' => $item['icon'],
-            'reversePositions' => 'true',
+            'reversePositions' => true,
             'classList' => ['u-margin__right--1'],
         ])
         @endbutton
