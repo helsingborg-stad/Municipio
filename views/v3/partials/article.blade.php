@@ -61,7 +61,7 @@
             @yield('article.featuredimage.before')
             @image([
                 'src' => $post->getImage(),
-                'caption' => $featuredImage['caption'],
+                'caption' => $featuredImage['caption'] ?? '',
                 'removeCaption' => !$displayFeaturedImageCaption,
                 'classList' => ['c-article__feature-image', 'u-box-shadow--1', 'u-margin__top--2'],
             ])
