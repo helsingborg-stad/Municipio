@@ -38,6 +38,14 @@ class ChatEnqueue implements Hookable
                 'agentLeftChatInactive' => $this->wpService->__(
                     'The agent has left and the chat is now inactive',
                     'municipio',
+                ),
+                'agentJoinedChat' => $this->wpService->__(
+                    'Agent has joined the chat',
+                    'municipio',
+                ),
+                'agentLeftChat' => $this->wpService->__(
+                    'Agent has left the chat',
+                    'municipio',
                 )
             ]);
 
