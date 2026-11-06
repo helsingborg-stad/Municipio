@@ -1,9 +1,15 @@
 export {};
 
 declare global {
-	const municipioChatLocale: {
+	interface MunicipioChatLocale {
 		errorMessage: string;
-	};
+		queuePosition: string;
+		agentLeftChatInactive: string;
+		agentJoinedChat: string;
+		agentLeftChat: string;
+	}
+
+	const municipioChatLocale: MunicipioChatLocale;
 
 	interface WpApiSettings {
 		root: string;

@@ -1,6 +1,13 @@
 class ChatHandler {
 	public constructor(private chat: any) {}
 
+	private getLocalizedString(key: keyof MunicipioChatLocale, fallback: string): string {
+		const locale = (globalThis as { municipioChatLocale?: Partial<MunicipioChatLocale> }).municipioChatLocale;
+		const translated = locale?.[key];
+
+		return typeof translated === "string" && translated.length > 0 ? translated : fallback;
+	}
+
 	public setDefaultPersistedState(state: boolean): void {
 		this.chat.setDefaultShouldPersist(state);
 	}
@@ -18,13 +25,17 @@ class ChatHandler {
 	}
 
 	public setQueueBannerData(position: number): void {
-		// TODO: Translation
-		this.chat.setBannerContent(`Queue position: ${position}`);
+		const queuePositionLabel = this.getLocalizedString("queuePosition", "Queue position");
+		this.chat.setBannerContent(`${queuePositionLabel}: ${position}`);
 	}
 
 	public setChatInactiveData(): void {
-		// TODO: Translation
-		this.chat.setBannerContent("The agent has left and the chat is now inactive.");
+		this.chat.setBannerContent(
+			this.getLocalizedString(
+				"agentLeftChatInactive",
+				"The agent has left and the chat is now inactive",
+			),
+		);
 	}
 
 	public addInfoFromType(type: string, senderRole: string = 'agent'): void {
@@ -43,13 +54,11 @@ class ChatHandler {
 	}
 
 	public addAgentJoinedInfo(): void {
-		// TODO: Add translation support for this message
-		this.chat.addInfo("Agent has joined the chat.");
+		this.chat.addInfo(this.getLocalizedString("agentJoinedChat", "Agent has joined the chat"));
 	}
 
 	public addAgentLeftInfo(): void {
-		// TODO: Add translation support for this message
-		this.chat.addInfo("Agent has left the chat.");
+		this.chat.addInfo(this.getLocalizedString("agentLeftChat", "Agent has left the chat"));
 	}
 
 	public disable(): void {
