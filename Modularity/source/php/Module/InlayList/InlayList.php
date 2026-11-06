@@ -73,6 +73,11 @@ class InlayList extends \Modularity\Module
             }
 
             if ($item->type === 'internal') {
+                // The linked post may have been deleted or unpublished.
+                if (!$item->link_internal instanceof \WP_Post) {
+                    continue;
+                }
+
                 $label = $item->title ? $item->title : $item->link_internal->post_title;
 
                 if ($item->date === true) {
