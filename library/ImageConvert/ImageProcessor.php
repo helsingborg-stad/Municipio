@@ -6,6 +6,7 @@ use Municipio\Helper\File;
 use Municipio\ImageConvert\Cache\ConversionCache;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\Editor\TrueColorGdImageEditor;
 use Municipio\ImageConvert\Logging\Log;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
@@ -321,7 +322,7 @@ class ImageProcessor
             default => false,
         };
 
-        $availableEditors = $fileTypeMime === 'image/png' ? ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] : ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD'];
+        $availableEditors = $fileTypeMime === 'image/png' ? [TrueColorGdImageEditor::class, 'WP_Image_Editor_Imagick'] : ['WP_Image_Editor_Imagick', TrueColorGdImageEditor::class];
 
         $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
     }
