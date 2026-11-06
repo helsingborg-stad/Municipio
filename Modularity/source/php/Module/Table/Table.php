@@ -62,7 +62,7 @@ class Table extends \Modularity\Module
             'fullscreen' => !empty($data['mod_table_fullscreen']) ? $data['mod_table_fullscreen'] : false,
         ];
 
-        $data['mod_table'] = self::unicodeConvert($data['mod_table']);
+        $data['mod_table'] = self::unicodeConvert($data['mod_table'] ?? '');
         $data['tableClasses'] = $this->getTableClasses($data);
         $data['classes'] = implode(' ', apply_filters(
             'Modularity/Module/Classes',
@@ -174,7 +174,7 @@ class Table extends \Modularity\Module
         } elseif (isset($post['meta']['mod_table'][0]) && !empty(json_decode($post['meta']['mod_table'][0]))) {
             $tableData = json_decode($post['meta']['mod_table'][0]);
         } else {
-            $tableData = $data['mod_table'];
+            $tableData = $data['mod_table'] ?? [];
         }
 
         return $tableData;
@@ -261,7 +261,7 @@ class Table extends \Modularity\Module
 
     public function tableList($arr)
     {
-        $data = [];
+        $data = ['headings' => [], 'list' => []];
         if (!is_array($arr)) {
             return $data;
         }
