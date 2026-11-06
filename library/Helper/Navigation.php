@@ -845,7 +845,7 @@ class Navigation
             }
 
             $archiveItem = [
-                'label'   => __($label),
+                'label'   => $label,
                 'href'    => $archiveLink,
                 'current' => false,
                 'icon'    => 'chevron_right',
