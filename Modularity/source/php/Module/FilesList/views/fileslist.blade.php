@@ -15,7 +15,7 @@
     @endif
 
     @card([
-        'heading'       => false,
+        'heading'       => '',
         'classList'     => [$classes],
         'attributeList' => [
             'js-filter-container' => $uID,

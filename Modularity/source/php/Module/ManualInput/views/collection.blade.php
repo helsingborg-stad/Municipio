@@ -8,7 +8,6 @@
                 'link' => $input['link'],
                 'classList' => array_merge($input['classList'] ?? [], [$input['columnSize']]),
                 'context' => $context,
-                'containerAware' => true,
                 'bordered' => true,
                 'attributeList' => [
                     ...($input['attributeList'] ?? []),

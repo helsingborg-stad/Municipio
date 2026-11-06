@@ -3,7 +3,6 @@
     'classList' => $post->classList ?? [],
     'context' => ['module.posts.collection__item'],
     'before' => $post->readingTime,
-    'containerAware' => true,
     'bordered' => true,
     'attributeList' => array_merge($post->attributeList ?? [
         'aria-labelledby' => 'post-' . $ID . '-' . $post->getId() . '-title'
