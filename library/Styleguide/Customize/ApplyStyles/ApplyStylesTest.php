@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -81,6 +83,65 @@ class ApplyStylesTest extends TestCase
         static::assertSame('.existing { color: red; }', $settings['styles'][0]['css']);
         static::assertStringContainsString('@layer theme {', $settings['styles'][1]['css']);
         static::assertStringContainsString('--color--primary: #667b50;', $settings['styles'][1]['css']);
+    }
+
+    #[TestDox('emits optional colour schemes after base tokens and ignores derived scheme tokens')]
+    public function testEmitsOptionalColourSchemes(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => ['--color--background' => '#ffffff'],
+            '_dark' => [
+                '--color--background' => '#111111',
+                '--color--background-border' => '#222222',
+            ],
+            '_contrast' => ['--color--background' => '#000000'],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-color-scheme: dark)', $wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-contrast: more), (forced-colors: active)', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--color--background-border: #222222;', $wpService->inlineStyles);
+        static::assertLessThan(
+            strpos($wpService->inlineStyles, '@media (prefers-contrast: more), (forced-colors: active)'),
+            strpos($wpService->inlineStyles, '@media (prefers-color-scheme: dark)'),
+        );
+    }
+
+    #[TestDox('does not emit media queries for missing or null colour schemes')]
+    public function testDoesNotEmitEmptyColourSchemeMediaQueries(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => ['--color--background' => '#ffffff'],
+            '_dark' => null,
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringNotContainsString('@media', $wpService->inlineStyles);
+    }
+
+    #[TestDox('does not emit unsafe base token values')]
+    public function testDoesNotEmitUnsafeBaseTokenValues(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [
+                '--color--primary' => '#667b50; } </style><script>alert(1)</script>',
+                '--border-radius' => '0.25',
+            ],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--border-radius: 0.25;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('<script>', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--color--primary:', $wpService->inlineStyles);
     }
 
     private function createWpService(string $storedTokens): AddAction&AddFilter&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod

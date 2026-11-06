@@ -13,14 +13,26 @@ class OverrideState implements OverrideStateInterface
 
     public function getOverrideState(): array
     {
-        $default = json_encode(['design' => ['token' => [], 'component' => []]]);
+        $default = json_encode(['token' => [], 'component' => []]);
         $stored = json_decode($this->wpService->getThemeMod('tokens', $default), true);
 
         $stored = $this->wpService->applyFilters('Municipio/Styleguide/Customize/OverrideState', $stored);
 
-        return [
-            'token' => $stored['token'],
-            'component' => $stored['component'],
+        if (!is_array($stored)) {
+            return ['token' => [], 'component' => []];
+        }
+
+        $state = [
+            'token' => is_array($stored['token'] ?? null) ? $stored['token'] : [],
+            'component' => is_array($stored['component'] ?? null) ? $stored['component'] : [],
         ];
+
+        foreach (['_dark', '_contrast'] as $scheme) {
+            if (array_key_exists($scheme, $stored) && (is_array($stored[$scheme]) || $stored[$scheme] === null)) {
+                $state[$scheme] = $stored[$scheme];
+            }
+        }
+
+        return $state;
     }
 }
