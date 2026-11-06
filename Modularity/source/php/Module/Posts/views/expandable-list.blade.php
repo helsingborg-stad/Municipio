@@ -1,6 +1,6 @@
 <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }}">
 @card([      
-    'heading' => false,
+    'heading' => '',
     'attributeList' => [
         'js-filter-container' => $ID,
         ...(!$hideTitle && !empty($postTitle) ? ['aria-labelledby' => 'mod-posts-' . $ID . '-label'] : []),

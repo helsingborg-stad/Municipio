@@ -1,5 +1,5 @@
 @card([
-    'heading' => false,
+    'heading' => '',
     'attributeList' => [
         ...(!$hideTitle && !empty($postTitle) ? ['aria-labelledby' => 'mod-posts-' . $ID . '-label'] : []),
     ],
