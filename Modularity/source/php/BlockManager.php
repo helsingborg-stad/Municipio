@@ -464,6 +464,11 @@ class BlockManager
                 $viewData[$key] = $data;
             }
 
+            //Module views use $ID for element ids, blocks have no module post ID
+            if (empty($viewData['ID'])) {
+                $viewData['ID'] = $block['id'] ?? uniqid('block_');
+            }
+
             //Filter view data
             $viewData = apply_filters('Modularity/Block/Data', $viewData, $block, $module);
             $viewData = apply_filters('Modularity/Block/' . $block['name'] . '/Data', $viewData, $block, $module);
