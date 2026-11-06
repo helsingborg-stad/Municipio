@@ -7,13 +7,22 @@ use WpService\WpService;
 
 class MoveAdminPageToSettings implements Hookable
 {
-    private array $movableConfiguration;
     private string $oldParentSlug = 'mo_saml_settings';
     private string $newParentSlug = 'options-general.php';
 
     public function __construct(private WpService $wpService)
     {
-        $this->movableConfiguration = array(
+    }
+
+    /**
+     * Submenu items to move, keyed by slug with the new label as value.
+     * Built on demand so translations are not loaded before init.
+     *
+     * @return array<string, string>
+     */
+    private function getMovableConfiguration(): array
+    {
+        return array(
             'mo_saml_settings' => __("SSO Settings", 'municipio'),
         );
     }
@@ -46,9 +55,10 @@ class MoveAdminPageToSettings implements Hookable
 
       // Move the submenu items to the new parent
         if (isset($submenu[$oldParentSlug])) {
+            $movableConfiguration = $this->getMovableConfiguration();
             foreach ($submenu[$oldParentSlug] as $key => $subMenuItem) {
-                if (array_key_exists($subMenuItem[2], $this->movableConfiguration)) {
-                    $subMenuItem[0] = $this->movableConfiguration[$subMenuItem[2]];
+                if (array_key_exists($subMenuItem[2], $movableConfiguration)) {
+                    $subMenuItem[0] = $movableConfiguration[$subMenuItem[2]];
                     $this->addToSubmenuIfNotExists($newParentSlug, $subMenuItem);
                 }
             }
