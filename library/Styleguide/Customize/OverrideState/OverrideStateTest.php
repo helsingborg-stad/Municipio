@@ -21,6 +21,33 @@ class OverrideStateTest extends TestCase
         $this->assertArrayHasKey('component', $result);
     }
 
+    #[TestDox('preserves optional colour scheme maps for Design Builder')]
+    public function testPreservesOptionalColourSchemes(): void
+    {
+        $wpService = new class implements GetThemeMod, ApplyFilters {
+            public function getThemeMod(string $name, mixed $defaultValue = false): mixed
+            {
+                return json_encode([
+                    'token' => [],
+                    '_dark' => ['--color--background' => '#111111'],
+                    '_contrast' => null,
+                    'component' => [],
+                ]);
+            }
+
+            public function applyFilters(string $hookName, mixed $value, mixed ...$args): mixed
+            {
+                return $value;
+            }
+        };
+
+        $result = (new OverrideState($wpService))->getOverrideState();
+
+        static::assertSame(['--color--background' => '#111111'], $result['_dark']);
+        static::assertArrayHasKey('_contrast', $result);
+        static::assertNull($result['_contrast']);
+    }
+
     private static function createWpService(): GetThemeMod&ApplyFilters
     {
         return new class implements GetThemeMod, ApplyFilters {

@@ -69,4 +69,16 @@ class DesignTokensToCssConverterTest extends TestCase
         static::assertSame('--c-header--space: 0.25;', trim($rows[1]));
         static::assertSame('}', trim($rows[2]));
     }
+
+    #[TestDox('adds a flat root token map to a supplied selector')]
+    public function testAddsRootTokenMapToSuppliedSelector(): void
+    {
+        $converter = new DesignTokensToCssConverter();
+
+        $css = $converter->convertRootTokens([
+            '--color--background' => '#111111',
+        ], ':root :where(.editor-styles-wrapper)');
+
+        static::assertSame(":root :where(.editor-styles-wrapper) {\n--color--background: #111111;\n}", $css);
+    }
 }
