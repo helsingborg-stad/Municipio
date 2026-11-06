@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin\Gutenberg\Blocks;
 
+use Municipio\Helper\ColorSwatches;
+
 /**
  * Class BlockManager
  *
@@ -159,11 +161,15 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
+            $backgroundColorPair = !empty($data['color']) ? ColorSwatches::getColorPair((string) $data['color']) : null;
             if (!empty($data['color']) && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
-                $data['style'][] = "background-color:{$data['color']}";
+                $data['style'][] = 'background-color:' . ($backgroundColorPair['background'] ?? $data['color']);
             }
             if (!empty($data['text_color'])) {
-                $data['style'][] = "color:{$data['text_color']}";
+                $textColorPair = ColorSwatches::getColorPair((string) $data['text_color']);
+                $data['style'][] = 'color:' . ($textColorPair['contrast'] ?? $data['text_color']);
+            } elseif ($backgroundColorPair !== null) {
+                $data['style'][] = 'color:' . $backgroundColorPair['contrast'];
             }
 
             if ($this->blockHasBackgroundGradient($data)) {
@@ -263,7 +269,8 @@ class BlockManager
         }
 
         foreach ($gradientArr as $key => $gradient) {
-            $gradientValues .= $gradient['color'] . $this->handleGradientStopValues($gradient, $type);
+            $colorPair = !empty($gradient['color']) ? ColorSwatches::getColorPair((string) $gradient['color']) : null;
+            $gradientValues .= ($colorPair['background'] ?? $gradient['color']) . $this->handleGradientStopValues($gradient, $type);
 
             if ($key !== array_key_last($gradientArr)) {
                 $gradientValues .= ', ';
