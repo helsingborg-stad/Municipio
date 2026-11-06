@@ -161,18 +161,15 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            $backgroundRole = !empty($data['color'])
-                ? ColorSwatches::normalizeColorPairRole((string) $data['color'])
-                : null;
-            if ($backgroundRole !== null && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
-                $data['classList'] .= ' ' . ColorSwatches::getColorUtilityClass($backgroundRole);
+            $backgroundColorPair = !empty($data['color']) ? ColorSwatches::getColorPair((string) $data['color']) : null;
+            if (!empty($data['color']) && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
+                $data['style'][] = 'background-color:' . ($backgroundColorPair['background'] ?? $data['color']);
             }
-
-            if ($this->blockHasBackgroundGradient($data)) {
-                $gradientRole = $this->getGradientContrastRole($data);
-                if ($gradientRole !== null) {
-                    $data['classList'] .= ' u-color__text--' . $gradientRole . '-contrast';
-                }
+            if (!empty($data['text_color'])) {
+                $textColorPair = ColorSwatches::getColorPair((string) $data['text_color']);
+                $data['style'][] = 'color:' . ($textColorPair['contrast'] ?? $data['text_color']);
+            } elseif ($backgroundColorPair !== null) {
+                $data['style'][] = 'color:' . $backgroundColorPair['contrast'];
             }
 
             if ($this->blockHasBackgroundGradient($data)) {
@@ -261,22 +258,21 @@ class BlockManager
     {
         $styles         = "";
         $gradientValues = "";
-        $gradientStops    = $data['background_gradient'];
+        $gradientArr    = $data['background_gradient'];
         $angle          = $data['background_gradient_angle'] ?? '0';
         $type           = $data['background_gradient_type'];
 
         if ($type == 'advanced') {
-            usort($gradientStops, function ($firstGradientStop, $secondGradientStop) {
-                return $firstGradientStop['stop'] <=> $secondGradientStop['stop'];
+            usort($gradientArr, function ($a, $b) {
+                return $a['stop'] - $b['stop'];
             });
         }
 
-        foreach ($gradientStops as $key => $gradient) {
-            $role = !empty($gradient['color']) ? ColorSwatches::normalizeColorPairRole((string) $gradient['color']) : null;
-            $colorPair = $role !== null ? ColorSwatches::getColorPair($role) : null;
-            $gradientValues .= ($colorPair['background'] ?? 'transparent') . $this->handleGradientStopValues($gradient, $type);
+        foreach ($gradientArr as $key => $gradient) {
+            $colorPair = !empty($gradient['color']) ? ColorSwatches::getColorPair((string) $gradient['color']) : null;
+            $gradientValues .= ($colorPair['background'] ?? $gradient['color']) . $this->handleGradientStopValues($gradient, $type);
 
-            if ($key !== array_key_last($gradientStops)) {
+            if ($key !== array_key_last($gradientArr)) {
                 $gradientValues .= ', ';
             }
         }
@@ -286,37 +282,6 @@ class BlockManager
         }
 
         return $styles;
-    }
-
-    /**
-     * Uses the first visible gradient colour's paired contrast colour.
-     *
-     * @param array<string, mixed> $data The block data.
-     * @return string|null The semantic palette role.
-     */
-    private function getGradientContrastRole(array $data): ?string
-    {
-        $gradientStops = $data['background_gradient'] ?? null;
-        if (!is_array($gradientStops)) {
-            return null;
-        }
-
-        if (($data['background_gradient_type'] ?? null) === 'advanced') {
-            usort($gradientStops, fn ($firstGradientStop, $secondGradientStop) => ($firstGradientStop['stop'] ?? 0) <=> ($secondGradientStop['stop'] ?? 0));
-        }
-
-        foreach ($gradientStops as $gradient) {
-            if (!is_array($gradient) || empty($gradient['color'])) {
-                continue;
-            }
-
-            $role = ColorSwatches::normalizeColorPairRole((string) $gradient['color']);
-            if ($role !== null) {
-                return $role;
-            }
-        }
-
-        return null;
     }
 
     /**

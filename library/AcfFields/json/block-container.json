@@ -159,8 +159,8 @@
             "label": "Background color",
             "name": "color",
             "aria-label": "",
-            "type": "color_picker",
-            "instructions": "Select a Styleguide palette colour. Its paired contrast colour is applied automatically.",
+            "type": "select",
+            "instructions": "Select a Styleguide palette colour. Its paired contrast colour is used for text unless overridden.",
             "required": 0,
             "conditional_logic": [
                 [
@@ -172,13 +172,16 @@
                 ]
             ],
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
             "return_format": "string",
-            "enable_opacity": 1,
+            "choices": [],
+            "allow_null": 1,
+            "allow_custom": 0,
+            "ui": 1,
             "municipio_palette_color": true
         },
         {
@@ -279,7 +282,7 @@
                     "label": "Color",
                     "name": "color",
                     "aria-label": "",
-                    "type": "color_picker",
+                    "type": "select",
                     "instructions": "Select a Styleguide palette colour.",
                     "required": 0,
                     "conditional_logic": 0,
@@ -290,7 +293,10 @@
                     },
                     "default_value": "",
                     "return_format": "string",
-                    "enable_opacity": 1,
+                    "choices": [],
+                    "allow_null": 1,
+                    "allow_custom": 0,
+                    "ui": 1,
                     "municipio_palette_color": true,
                     "parent_repeater": "field_648329b62db2e"
                 },
@@ -325,6 +331,29 @@
                     "parent_repeater": "field_648329b62db2e"
                 }
             ]
+        },
+        {
+            "key": "field_644b77128c900",
+            "label": "Text color",
+            "name": "text_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Select a Styleguide palette role. The role’s contrast colour is used.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "return_format": "string",
+            "choices": [],
+            "allow_null": 1,
+            "allow_custom": 0,
+            "ui": 1,
+            "municipio_palette_color": true,
+            "municipio_palette_color_role": "contrast"
         }
     ],
     "location": [

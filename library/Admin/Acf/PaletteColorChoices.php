@@ -5,31 +5,20 @@ declare(strict_types=1);
 namespace Municipio\Admin\Acf;
 
 use Municipio\Helper\ColorSwatches;
-use Municipio\HooksRegistrar\Hookable;
-use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
-use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /**
- * Renders opt-in ACF colour pickers as semantic Styleguide palette roles.
+ * Populates opt-in ACF selects with semantic Styleguide palette roles.
  *
- * Add `municipio_palette_color => true` to an ACF colour picker. The field
- * definition remains a standard colour picker; its loaded runtime definition
- * is filtered into the restricted palette selector before ACF prepares the
- * editor. The saved value is a role such as `primary` or `palette-1`, never a
- * hex value.
+ * Add `municipio_palette_color => true` to a standard ACF select field. The
+ * saved value is a role such as `primary` or `palette-1`, never a hex value.
+ * Consumers can resolve it with ColorSwatches::getColorPair().
  */
-class PaletteColorChoices implements Hookable
+class PaletteColorChoices
 {
-    public function __construct(
-        private AddFilter&AddAction $wpService,
-        private EnqueueManagerInterface $enqueue,
-    ) {}
-
-    public function addHooks(): void
+    public function __construct(private AddFilter $wpService)
     {
         $this->wpService->addFilter('acf/load_field', [$this, 'populateChoices']);
-        $this->wpService->addAction('acf/input/admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
 
     /**
@@ -42,27 +31,11 @@ class PaletteColorChoices implements Hookable
             return $field;
         }
 
-        // Keep the local JSON/PHP definition as an ACF colour picker. This
-        // conversion affects only ACF's loaded runtime field definition.
         $field['type'] = 'select';
         $field['choices'] = ColorSwatches::getColorPairChoices();
         $field['allow_custom'] = 0;
-        $field['ui'] = 0;
-        $field['wrapper']['class'] = trim(($field['wrapper']['class'] ?? '') . ' municipio-palette-color-selector');
+        $field['ui'] = 1;
 
         return $field;
-    }
-
-    /**
-     * Supplies the active Styleguide palette to the visual selector script.
-     */
-    public function enqueueAssets(): void
-    {
-        $this->enqueue
-            ->add('js/palette-color-choices.js', ['acf-input'])
-            ->with()
-            ->data('MunicipioPaletteColorChoices', [
-                'choices' => ColorSwatches::getColorPairPreviews(),
-            ]);
     }
 }
