@@ -7653,7 +7653,7 @@ msgstr "Pris"
 
 #: library/Controller/SingularEvent.php:132
 msgid "Organizers"
-msgstr "Organisatörer"
+msgstr "Arrangörer"
 
 #: library/Controller/SingularEvent.php:133
 #: library/Theme/Icon.php:124
@@ -9356,9 +9356,8 @@ msgstr "Datum"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:63
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:66
-#, fuzzy
 msgid "Organizer"
-msgstr "Organisatörer"
+msgstr "Arrangör"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:72
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/JobPostingFormFactory.php:84
