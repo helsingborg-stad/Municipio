@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "740ddb93fd23b24152d03a71922a69f5",
+    "content-hash": "819e1f7048de116884fa56d679dd4d0b",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1302,16 +1302,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.47.1",
+            "version": "5.47.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "01f614a896cd0a15b1abfeab701cb2965dd6d8d9"
+                "reference": "e14893da3f75c7fd071cd779697f1556e8d3aff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/01f614a896cd0a15b1abfeab701cb2965dd6d8d9",
-                "reference": "01f614a896cd0a15b1abfeab701cb2965dd6d8d9",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/e14893da3f75c7fd071cd779697f1556e8d3aff2",
+                "reference": "e14893da3f75c7fd071cd779697f1556e8d3aff2",
                 "shasum": ""
             },
             "require": {
@@ -1344,10 +1344,10 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.47.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.47.3"
             },
-            "time": "2026-11-04T13:30:35+00:00",
-            "published-time": "2026-11-04T13:30:43+00:00"
+            "time": "2026-11-06T09:00:25+00:00",
+            "published-time": "2026-11-06T09:00:32+00:00"
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font-reduced",
@@ -1422,20 +1422,20 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.44.14",
+            "version": "3.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "d56584daf66d4727a44c7392b20f57600a14f4e7"
+                "reference": "a018881977372bfa664b9942f22be9c4d1e0c9f5"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip",
-                "reference": "d56584daf66d4727a44c7392b20f57600a14f4e7"
+                "reference": "a018881977372bfa664b9942f22be9c4d1e0c9f5"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.47.1",
+                "helsingborg-stad/component-library": "5.47.3",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1494,10 +1494,10 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.44.14"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.45.1"
             },
-            "time": "2026-11-06T09:17:10+00:00",
-            "published-time": "2026-11-06T09:19:00+00:00"
+            "time": "2026-11-06T10:10:51+00:00",
+            "published-time": "2026-11-06T10:12:59+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
