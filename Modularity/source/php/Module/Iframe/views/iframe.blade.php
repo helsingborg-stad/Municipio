@@ -1,5 +1,5 @@
 @card([
-    'heading' => apply_filters('the_title', $post_title),
+    'heading' => apply_filters('the_title', $post_title ?? $postTitle ?? ''),
     'context' => 'module.iframe'
 ])
     @if (!$hideTitle && !empty($postTitle))
@@ -16,7 +16,7 @@
     @iframe([
         'src' => $url,
         'height' => $height,
-        'title' => $description ?? $post_title,
+        'title' => $description ?? $post_title ?? $postTitle ?? '',
         'labels' => $lang,
     ])
     @endiframe
