@@ -7,14 +7,14 @@
             ],
             'classList' => ['c-nav__logo', 'c-header__logotype'],
             'text' => $brandText,
-            'aspectRatio' => $headerData['logoScrollShrinkAspectRatio'] ?? null,
+            'aspectRatio' => $headerData['logoScrollShrinkAspectRatio'] ?? false,
         ])
         @endbrand
     @else
         @logotype([
             'src'=> $logotype,
             'alt' => $lang->goToHomepage,
-            'aspectRatio' => $headerData['logoScrollShrinkAspectRatio'] ?? null,
+            'aspectRatio' => $headerData['logoScrollShrinkAspectRatio'] ?? false,
             'classList' => ['c-nav__logo', 'c-header__logotype'],
             'context' => ['site.header.logo']
         ])

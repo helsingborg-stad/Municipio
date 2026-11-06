@@ -38,7 +38,7 @@ class PersonComponentsAttributesGenerator
             'jobTitle'  => $person->getProperty('jobTitle') ?? '',
             'telephone' => [['number' => $person->getProperty('telephone')]],
             'email'     => $person->getProperty('email') ?? '',
-            'image'     => is_a($person->getProperty('image'), ImageObject::class) ? $this->getImageFromImageObject($person->getProperty('image')) : null,
+            'image'     => is_a($person->getProperty('image'), ImageObject::class) ? ($this->getImageFromImageObject($person->getProperty('image')) ?? false) : false,
         ];
     }
 

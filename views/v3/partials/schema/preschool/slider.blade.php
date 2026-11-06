@@ -1,4 +1,4 @@
-@slider(['autoSlide' => false,'padding' => 11, 'showStepper' => false])
+@slider(['autoSlide' => false,'padding' => 11])
     @if(!empty($sliderItems['imageItems']))
         @foreach($sliderItems['imageItems'] as $item)
             @slider__item($item)
