@@ -155,7 +155,7 @@ class ApplyStyles implements Hookable
         }
 
         return [
-            'token' => $decoded['token'],
+            'token' => ColorSchemeOverrides::filterSafeRootTokens($decoded['token']),
             '_dark' => ColorSchemeOverrides::filter(is_array($decoded['_dark'] ?? null) ? $decoded['_dark'] : null),
             '_contrast' => ColorSchemeOverrides::filter(is_array($decoded['_contrast'] ?? null) ? $decoded['_contrast'] : null),
             'component' => $decoded['component'],

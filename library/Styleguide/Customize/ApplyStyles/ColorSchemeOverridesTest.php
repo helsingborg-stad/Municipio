@@ -29,4 +29,36 @@ class ColorSchemeOverridesTest extends TestCase
             '--shadow-color' => 'rgba(0, 0, 0, 0)',
         ], $tokens);
     }
+
+    #[TestDox('rejects scheme values that can escape CSS declarations or style tags')]
+    public function testRejectsUnsafeSchemeValues(): void
+    {
+        $tokens = ColorSchemeOverrides::filter([
+            '--color--primary' => '#111111;} body { color: red',
+            '--color--secondary' => '</style><script>alert(1)</script>',
+            '--color--background' => 'var(--safe-color)',
+            '--color--border-mix-amount' => '25%',
+        ]);
+
+        static::assertSame([
+            '--color--background' => 'var(--safe-color)',
+            '--color--border-mix-amount' => '25%',
+        ], $tokens);
+    }
+
+    #[TestDox('keeps only safe, well-formed root custom properties')]
+    public function testFiltersUnsafeRootTokenValues(): void
+    {
+        $tokens = ColorSchemeOverrides::filterSafeRootTokens([
+            '--color--primary' => '#111111',
+            '--border-radius' => 'calc(var(--base) / 2)',
+            '--unsafe; color' => '#222222',
+            '--color--secondary' => '#222222; } body { display: none',
+        ]);
+
+        static::assertSame([
+            '--color--primary' => '#111111',
+            '--border-radius' => 'calc(var(--base) / 2)',
+        ], $tokens);
+    }
 }

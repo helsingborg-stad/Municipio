@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -121,6 +123,25 @@ class ApplyStylesTest extends TestCase
 
         static::assertNotNull($wpService->inlineStyles);
         static::assertStringNotContainsString('@media', $wpService->inlineStyles);
+    }
+
+    #[TestDox('does not emit unsafe base token values')]
+    public function testDoesNotEmitUnsafeBaseTokenValues(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [
+                '--color--primary' => '#667b50; } </style><script>alert(1)</script>',
+                '--border-radius' => '0.25',
+            ],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--border-radius: 0.25;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('<script>', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--color--primary:', $wpService->inlineStyles);
     }
 
     private function createWpService(string $storedTokens): AddAction&AddFilter&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod
