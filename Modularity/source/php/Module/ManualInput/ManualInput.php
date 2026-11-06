@@ -8,6 +8,7 @@ use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Modularity\Integrations\Component\ImageFocusResolver;
 use Modularity\Integrations\Component\ImageResolver;
 use Modularity\Module\ManualInput\Private\PrivateController;
+use Municipio\Helper\ColorSwatches;
 use Municipio\Helper\Image as ImageHelper;
 
 class ManualInput extends \Modularity\Module
@@ -75,15 +76,21 @@ class ManualInput extends \Modularity\Module
                 });
 
                 // Custom background color
-                $customBackgroundColor = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color']) ? $this->parseCustomBackgroundColor($input['custom_background_color']) : false;
+                $colorPair = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color'])
+                    ? ColorSwatches::getColorPair((string) $input['custom_background_color'])
+                    : null;
+                $legacyBackgroundColor = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color'])
+                    ? $this->parseCustomBackgroundColor($input['custom_background_color'])
+                    : false;
+                $customBackgroundColor = $colorPair['background'] ?? $legacyBackgroundColor;
 
                 // Custom text color
-                $customTextColor = $customBackgroundColor
+                $customTextColor = $colorPair['contrast'] ?? ($customBackgroundColor
                     ? \Municipio\Helper\Color::getBestContrastColor(
                         $customBackgroundColor,
                         false,
                     )
-                    : false;
+                    : false);
 
                 // Extra classes
                 if ($customBackgroundColor) {

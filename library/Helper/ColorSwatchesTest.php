@@ -68,6 +68,13 @@ if (!function_exists(__NAMESPACE__ . '\\apply_filters')) {
     }
 }
 
+if (!function_exists(__NAMESPACE__ . '\\__')) {
+    function __(string $text, string $domain = 'default'): string
+    {
+        return $text;
+    }
+}
+
 if (!class_exists(__NAMESPACE__ . '\\ColorSwatchesTestState')) {
     class ColorSwatchesTestState
     {
@@ -184,6 +191,30 @@ class ColorSwatchesTest extends TestCase
         static::assertSame('#000000', $tokenValues['--color--palette-1-contrast']);
         static::assertSame('#112233', $tokenValues['--color--secondary']);
         static::assertArrayNotHasKey('--color--palette-2', $tokenValues);
+    }
+
+    #[TestDox('returns semantic palette choices and CSS-variable colour pairs')]
+    public function testReturnsSemanticPaletteChoicesAndPairs(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--palette-1' => '#abcdef',
+                '--color--palette-1-contrast' => '#000000',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame(
+            ['primary' => 'Primary', 'secondary' => 'Secondary', 'palette-1' => 'Palette 1'],
+            ColorSwatches::getColorPairChoices(),
+        );
+        static::assertSame(
+            [
+                'background' => 'var(--color--palette-1)',
+                'contrast' => 'var(--color--palette-1-contrast)',
+            ],
+            ColorSwatches::getColorPair('palette-1'),
+        );
+        static::assertNull(ColorSwatches::getColorPair('#abcdef'));
     }
 
     #[TestDox('migration skips legacy colors already represented by primary and secondary tokens')]

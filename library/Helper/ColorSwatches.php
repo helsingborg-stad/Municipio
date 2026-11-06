@@ -7,6 +7,30 @@ namespace Municipio\Helper;
  */
 class ColorSwatches
 {
+    /**
+     * Palette roles that can be stored in content.
+     *
+     * The role is intentionally stored instead of a resolved hex value. CSS
+     * custom properties then keep the selected colour and its companion
+     * contrast colour in sync with dark and high-contrast schemes.
+     *
+     * @var array<string, array{background:string, contrast:string}>
+     */
+    private const COLOR_PAIR_ROLES = [
+        'primary' => ['background' => '--color--primary', 'contrast' => '--color--primary-contrast'],
+        'secondary' => ['background' => '--color--secondary', 'contrast' => '--color--secondary-contrast'],
+        'palette-1' => ['background' => '--color--palette-1', 'contrast' => '--color--palette-1-contrast'],
+        'palette-2' => ['background' => '--color--palette-2', 'contrast' => '--color--palette-2-contrast'],
+        'palette-3' => ['background' => '--color--palette-3', 'contrast' => '--color--palette-3-contrast'],
+        'palette-4' => ['background' => '--color--palette-4', 'contrast' => '--color--palette-4-contrast'],
+        'palette-5' => ['background' => '--color--palette-5', 'contrast' => '--color--palette-5-contrast'],
+        'palette-6' => ['background' => '--color--palette-6', 'contrast' => '--color--palette-6-contrast'],
+        'palette-7' => ['background' => '--color--palette-7', 'contrast' => '--color--palette-7-contrast'],
+        'palette-8' => ['background' => '--color--palette-8', 'contrast' => '--color--palette-8-contrast'],
+        'palette-9' => ['background' => '--color--palette-9', 'contrast' => '--color--palette-9-contrast'],
+        'palette-10' => ['background' => '--color--palette-10', 'contrast' => '--color--palette-10-contrast'],
+    ];
+
     private const DEFAULT_COLORS = [
         '#ae0b05',
         '#ffffff',
@@ -148,6 +172,55 @@ class ColorSwatches
         }
 
         return array_values(array_unique($pairs, SORT_REGULAR));
+    }
+
+    /**
+     * Returns the styleguide palette roles available for use in content.
+     *
+     * Primary and secondary are always available because they are supplied by
+     * the base styleguide. Palette-N roles are exposed only when configured in
+     * the Design Tool.
+     *
+     * @return array<string, string>
+     */
+    public static function getColorPairChoices(): array
+    {
+        $tokenValues = self::getTokenPaletteValues();
+        $choices = [
+            'primary' => __('Primary', 'municipio'),
+            'secondary' => __('Secondary', 'municipio'),
+        ];
+
+        for ($index = 1; $index <= 10; $index++) {
+            if (!isset($tokenValues['--color--palette-' . $index])) {
+                continue;
+            }
+
+            $choices['palette-' . $index] = sprintf(__('Palette %d', 'municipio'), $index);
+        }
+
+        return $choices;
+    }
+
+    /**
+     * Resolves a stored palette role to CSS variables for its background and
+     * paired contrast. The variables, rather than resolved hex values, allow
+     * browser colour-scheme overrides to apply at render time.
+     *
+     * @return array{background:string, contrast:string}|null
+     */
+    public static function getColorPair(string $role): ?array
+    {
+        if (!isset(self::COLOR_PAIR_ROLES[$role])) {
+            return null;
+        }
+
+        $pair = self::COLOR_PAIR_ROLES[$role];
+
+        return [
+            'background' => 'var(' . $pair['background'] . ')',
+            'contrast' => 'var(' . $pair['contrast'] . ')',
+        ];
     }
 
     /**
