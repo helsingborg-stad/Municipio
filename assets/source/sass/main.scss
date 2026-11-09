@@ -1,59 +1,62 @@
-// ***************************************************************
-// *** Theme specific
-// ***************************************************************
-@use 'transitions';
-@use 'wp';
-@use 'print';
-@use 'generic';
-@use 'search';
-@use 'search-modal';
-@use 'slider';
-@use 'page';
-@use 'article';
-@use 'nav';
-@use 'comments';
-@use 'archive';
-@use 'footer';
-@use 'event';
-@use '404' as E404;
-@use '403' as E403;
-@use '401' as E401;
-@use 'embed';
-@use 'emblem';
-@use 'blocks';
-@use 'image';
-@use 'page-title';
-@use 'a11y';
-@use 'hero';
+@use 'sass:meta';
 
-@use 'navigation/header';
-@use 'navigation/header-flexible';
-@use 'navigation/quick-links';
-@use 'navigation/accessibility';
-@use 'navigation/language';
-@use 'navigation/collapsible-search';
-@use 'navigation/user';
-@use 'navigation/toc';
+@layer theme {
+    // ***************************************************************
+    // *** Theme specific
+    // ***************************************************************
+    @include meta.load-css('transitions');
+    @include meta.load-css('wp');
+    @include meta.load-css('print');
+    @include meta.load-css('generic');
+    @include meta.load-css('search');
+    @include meta.load-css('search-modal');
+    @include meta.load-css('slider');
+    @include meta.load-css('page');
+    @include meta.load-css('article');
+    @include meta.load-css('nav');
+    @include meta.load-css('archive');
+    @include meta.load-css('footer');
+    @include meta.load-css('event');
+    @include meta.load-css('404');
+    @include meta.load-css('403');
+    @include meta.load-css('401');
+    @include meta.load-css('embed');
+    @include meta.load-css('emblem');
+    @include meta.load-css('blocks');
+    @include meta.load-css('image');
+    @include meta.load-css('page-title');
+    @include meta.load-css('a11y');
+    @include meta.load-css('hero');
 
-@use "../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
+    @include meta.load-css('navigation/header');
+    @include meta.load-css('navigation/header-flexible');
+    @include meta.load-css('navigation/quick-links');
+    @include meta.load-css('navigation/accessibility');
+    @include meta.load-css('navigation/language');
+    @include meta.load-css('navigation/collapsible-search');
+    @include meta.load-css('navigation/user');
+    @include meta.load-css('navigation/toc');
 
-.u-mr-auto {
-    margin-right: auto;
-}
+    @include meta.load-css("../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens");
 
-.u-ml-auto {
-    margin-left: auto;
-}
+    .u-mr-auto {
+        margin-right: auto;
+    }
 
-//Temp Fix 
-main .c-sidebar .c-sidebar__subcontainer--top {
-    padding: 0;
-}
+    .u-ml-auto {
+        margin-left: auto;
+    }
 
-div:first-child>.module-title {
-    margin-top: 0;
-}
+    //Temp Fix
+    main .c-sidebar .c-sidebar__subcontainer--top {
+        padding: 0;
+    }
 
-.c-fab--design-tool-top-level {
-    z-index: 2147483000;
+    div:first-child>.module-title {
+        margin-top: 0;
+    }
+
+    .c-fab--design-tool-top-level {
+        z-index: 2147483000;
+    }
 }

@@ -49,6 +49,25 @@ class DesignTokensToCssConverter implements DesignTokensToCssConverterInterface
     }
 
     /**
+     * Converts a flat map of root custom properties to a CSS block.
+     *
+     * @param array<string, mixed> $tokens Root custom properties.
+     */
+    public function convertRootTokens(array $tokens, string $selector = ':root'): string
+    {
+        $rootTokens = $this->getRootTokens($tokens);
+
+        if (empty($rootTokens)) {
+            return '';
+        }
+
+        $rows = [];
+        $this->appendBlock($rows, $selector, $rootTokens);
+
+        return implode("\n", $rows);
+    }
+
+    /**
      * Returns top-level root tokens (keys starting with --).
      *
      * @param array<mixed> $designTokens Full design token array.

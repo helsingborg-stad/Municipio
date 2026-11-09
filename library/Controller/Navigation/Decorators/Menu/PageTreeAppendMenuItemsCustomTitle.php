@@ -33,12 +33,13 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
             return $menu;
         }
 
+        $postIds = array_column(array_filter($menu['items'], static fn ($item) => empty($item['isCached'])), 'id');
+        $customTitles = $this->getMenuTitle($postIds);
+
         foreach ($menu['items'] as &$menuItem) {
             if (!empty($menuItem['isCached'])) {
                 continue;
             }
-
-            $customTitles = $this->getMenuTitle();
 
             //Get custom title
             if (isset($customTitles[$menuItem['id']])) {
@@ -57,19 +58,27 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
     /**
      * Retrieves the menu titles from the database based on the provided menu configuration and meta key.
      *
-     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @param array $postIds The IDs of menu items that need titles.
      * @param string $metaKey The meta key to filter the menu titles.
      * @return array The array of menu titles with their corresponding page IDs.
      */
-    private function getMenuTitle(string $metaKey = "custom_menu_title"): array
+    private function getMenuTitle(array $postIds, string $metaKey = "custom_menu_title"): array
     {
+        if (empty($postIds)) {
+            return [];
+        }
+        $postIds = array_map('intval', $postIds);
+        sort($postIds);
+        // Separate scoped results so another menu cannot reuse an incomplete title map.
+        $cacheKey = $metaKey . ':' . implode(',', $postIds);
         //Get cached result
-        $cache = NavigationRuntimeCache::getCache($metaKey);
+        $cache = NavigationRuntimeCache::getCache($cacheKey);
         if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
 
         $localWpdb = GetGlobal::getGlobal('wpdb');
+        $placeholders = implode(', ', array_fill(0, count($postIds), '%d'));
 
         $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
             "post_status IN('publish', 'private')" :
@@ -83,10 +92,12 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
                 FROM {$localWpdb->postmeta} AS pm
                 JOIN {$localWpdb->posts} AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
+                AND post_id IN({$placeholders})
                 AND meta_value != ''
                 AND {$postStatus}
             ",
-                $metaKey
+                $metaKey,
+                ...$postIds
             )
         );
 
@@ -104,7 +115,7 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
         }
 
         //Cache the result
-        NavigationRuntimeCache::setCache($metaKey, $pageTitles);
+        NavigationRuntimeCache::setCache($cacheKey, $pageTitles);
 
         return $pageTitles;
     }

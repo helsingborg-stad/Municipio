@@ -29,6 +29,7 @@ use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 use Municipio\Integrations\Litespeed\Cache\PressidiumConsentVary;
 use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
+use Municipio\Integrations\Litespeed\RemoveDummyStyleWhenCssOptimizationDisabled;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
@@ -109,6 +110,9 @@ class App
 
         $pressidiumConsentVaryHeader = new PressidiumConsentVary($this->wpService);
         $pressidiumConsentVaryHeader->addHooks();
+
+        $removeLitespeedDummyStyle = new RemoveDummyStyleWhenCssOptimizationDisabled($this->wpService);
+        $removeLitespeedDummyStyle->addHooks();
 
         /**
          * Allow posts in private visibility to have further conditions to be shown.
@@ -227,6 +231,7 @@ class App
          * Admin
          */
         new \Municipio\Admin\Gutenberg\Gutenberg();
+        $this->hooksRegistrar->register(new \Municipio\Admin\Gutenberg\OnePageTemplateOnly($this->wpService, $this->acfService));
         new \Municipio\Admin\General();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
@@ -249,6 +254,11 @@ class App
         new \Municipio\Admin\UI\Editor();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
+
+        /**
+         * Site Health
+         */
+        (new \Municipio\SiteHealth\TidyExtensionRequirement($this->wpService))->addHooks();
 
         /* Integration: MiniOrange */
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
@@ -417,6 +427,11 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Setup Privacy Policy
+         */
+        (new \Municipio\PrivacyPolicy\PrivacyPolicy($this->wpService, $this->acfService))->addHooks();
 
         /**
          * Setup Chat
@@ -815,6 +830,10 @@ class App
 
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
         (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\VagueControlTextIndicator($this->wpService))->addHooks();
+        $lqipPreloadConfig = new \Municipio\ImagePreload\LqipPreloadConfig($this->wpService);
+        \Municipio\ImagePreload\LqipPreloadRegistry::configure($lqipPreloadConfig);
+        (new \Municipio\ImagePreload\LqipPreloadCollector($this->wpService, $lqipPreloadConfig))->addHooks();
     }
 
     /**
@@ -864,6 +883,9 @@ class App
             new \Municipio\ImageConvert\Logging\Log(null, null, $imageConvertConfig),
         );
         $intermidiateImageHandler->addHooks();
+
+        // LQIPs are intentionally tiny and softly blurred before encoding.
+        (new \Municipio\ImageConvert\LqipBlur($this->wpService))->addHooks();
 
         //Resolve image to wp image contract (standard wordpress image array)
         $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(

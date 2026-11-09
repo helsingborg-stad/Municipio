@@ -17,7 +17,7 @@
         @stop
         @section('content')
             @includeWhen(!empty($usps), 'partials.schema.preschool.usps')
-            @includeWhen(!empty($events), 'partials.schema.preschool.events')
+            @includeWhen(!empty($eventsBlock), 'partials.schema.preschool.events')
             @includeWhen(!empty($visitUs), 'partials.schema.preschool.visit-us')
             @includeWhen(!empty($actions), 'partials.schema.preschool.actions')
             @includeWhen(!empty($accordionListItems), 'partials.schema.preschool.accordion-list')

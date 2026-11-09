@@ -70,7 +70,7 @@ class NativeFieldControlFactory
             'slider' => '\\Municipio\\Customizer\\Controls\\Slider\\SliderControl',
             'switch' => '\\Municipio\\Customizer\\Controls\\CheckboxSwitch\\CheckboxSwitchControl',
             'toggle' => '\\Municipio\\Customizer\\Controls\\CheckboxSwitch\\CheckboxSwitchControl',
-            'upload' => '\\WP_Customize_Upload_Control',
+            'upload' => '\\Municipio\\Customizer\\Controls\\Upload\\UploadControl',
         ];
 
         return $controlClasses[$fieldType] ?? null;

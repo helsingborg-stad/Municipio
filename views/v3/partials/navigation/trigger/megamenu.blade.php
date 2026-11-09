@@ -15,6 +15,7 @@
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
             'aria-controls' => 'mega-menu',
+            'data-toggle-label' => $lang->closeMenu,
             'data-toggle-icon' => 'close',
             'data-js-mega-menu-trigger' => 'mega-menu'
         ],

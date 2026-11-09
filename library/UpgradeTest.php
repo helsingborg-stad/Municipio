@@ -23,4 +23,26 @@ class UpgradeTest extends TestCase
         $this->assertEquals('post_type_schema_types', $acfService->methodCalls['updateField'][0][0]);
         $this->assertEquals([['post_type' => 'test_post_type', 'schema_type' => 'Thing']], $acfService->methodCalls['updateField'][0][1]);
     }
+
+    #[TestDox('v_63 clears all cached oEmbeds')]
+    public function testV63(): void
+    {
+        $wpService  = new FakeWpService(['addAction' => true]);
+        $acfService = new FakeAcfService();
+        $upgrade    = new Upgrade($wpService, $acfService);
+        $database   = new class {
+            public string $postmeta = 'wp_postmeta';
+            public ?string $query = null;
+
+            public function query(string $query): bool
+            {
+                $this->query = $query;
+                return true;
+            }
+        };
+
+        $upgrade->v_63($database);
+
+        $this->assertSame("DELETE FROM wp_postmeta WHERE meta_key LIKE '_oembed_%';", $database->query);
+    }
 }

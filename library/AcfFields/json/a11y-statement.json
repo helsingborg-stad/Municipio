@@ -43,6 +43,26 @@
             "append": ""
         },
         {
+            "key": "field_mun_a11ystatement_seo_description",
+            "label": "SEO Description",
+            "name": "mun_a11ystatement_seo_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "A short description used by search engines for the accessibility statement.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "This accessibility statement describes the website's accessibility and how to report problems.",
+            "maxlength": 160,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
             "key": "field_6874ffb290ca3",
             "label": "Content",
             "name": "mun_a11ystatement_preamble",

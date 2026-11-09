@@ -3,9 +3,11 @@ import { SavedMarker } from "../mapData";
 import { MarkersData } from "./interface";
 import { StorageInterface } from "./filtering/storageInterface";
 import { MarkerClickInterface } from "./markerClick/markerClickInterface";
+import { createIcon } from "./icon";
 
 class Markers {
 	constructor(
+		private container: HTMLElement,
 		private map: MapInterface,
 		private savedMarkers: SavedMarker[],
 		private storageInstance: StorageInterface,
@@ -79,11 +81,18 @@ class Markers {
 	}
 
 	private getHighlightedHtml(icon: string, color: string): string {
-		return `<span style="background-color: white; border: solid 2px ${color}; color: ${color}; font-size: 20px; padding: 4px; border-radius: 50%;" data-material-symbol="${icon}" class="interactive-map__highlighted-marker material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined material-symbols--filled"></span>`;
+		return this.getMarkerHtml(icon, color, true);
 	}
 
 	private getHtml(icon: string, color: string): string {
-		return `<span style="background-color: ${color}; border: solid 2px ${color}; color: white; font-size: 20px; padding: 4px; border-radius: 50%;" data-material-symbol="${icon}" class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined material-symbols--filled"></span>`;
+		return this.getMarkerHtml(icon, color);
+	}
+
+	private getMarkerHtml(icon: string, color: string, highlighted = false): string {
+		const backgroundColor = highlighted ? "white" : color;
+		const markerClass = highlighted ? " interactive-map__highlighted-marker" : "";
+
+		return `<span class="interactive-map__marker-icon${markerClass}" style="align-items: center; background-color: ${backgroundColor}; border: solid 2px ${color}; border-radius: 50%; box-sizing: border-box; color: ${highlighted ? color : "white"}; display: flex; flex: 0 0 32px; height: 32px; justify-content: center; line-height: 0; overflow: hidden; width: 32px;">${createIcon(this.container, icon)}</span>`;
 	}
 
 	private getMarkerIcon(hasParent: boolean, layerGroup: string): string {

@@ -12,5 +12,5 @@
     @typography([ 'element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__top--0'], 'attributeList' => ['style' => 'color: var(--color-secondary-contrasting);'] ])
         {!! $lang->relatedEventsTitle !!}
     @endtypography
-    @include('posts-list', $postsListData)
+    {!! $relatedEventsBlock !!}
 @endpaper

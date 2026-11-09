@@ -79,6 +79,29 @@ class GetTaxonomyFiltersSelectComponentArgumentsTest extends TestCase
         ], $getTaxonomyFiltersSelectComponentArguments->getCallable()());
     }
 
+    #[TestDox('returns checkbox arguments for taxonomies using the checkbox filter type')]
+    public function testReturnsCheckboxArgumentsForCheckboxFilterType(): void
+    {
+        $taxonomy        = $this->createTaxonomy('category', 'Category');
+        $filterConfig    = $this->createFilterConfig([new TaxonomyFilterConfig($taxonomy, TaxonomyFilterType::CHECKBOX)]);
+        $componentArgs   = new GetTaxonomyFiltersSelectComponentArguments(
+            $filterConfig,
+            $this->createGetPostsConfig([$this->getArrayOfTerms(1)[0]]),
+            $this->createWpService($this->getArrayOfTerms(2)),
+            'queryVarNamePrefix_'
+        );
+
+        $this->assertEquals([
+            [
+                'label'      => 'Category',
+                'checkboxes' => [
+                    ['type' => 'checkbox', 'label' => 'Term 1 (1)', 'name' => 'queryVarNamePrefix_category[]', 'value' => 'term-1', 'checked' => true],
+                    ['type' => 'checkbox', 'label' => 'Term 2 (1)', 'name' => 'queryVarNamePrefix_category[]', 'value' => 'term-2', 'checked' => false],
+                ],
+            ]
+        ], $componentArgs->getCallable()());
+    }
+
     private function getArrayOfTerms(int $numberOfTerms = 1, string $taxonomy = 'category'): array
     {
         $terms = [];

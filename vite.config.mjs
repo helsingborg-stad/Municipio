@@ -13,6 +13,25 @@ const copyStyleguideAssets = () => {
 	if (fs.existsSync(source)) {
 		fs.cpSync(source, "assets/dist/styleguide", { recursive: true });
 	}
+
+	// Test a local styleguide runtime build without replacing the installed CSS.
+	const runtimeSource = process.env.MUNICIPIO_STYLEGUIDE_RUNTIME_DIST;
+	if (runtimeSource) {
+		const runtimeManifest = JSON.parse(
+			fs.readFileSync(path.join(runtimeSource, "manifest.json"), "utf8"),
+		);
+		const destination = "assets/dist/styleguide";
+		const manifestPath = path.join(destination, "manifest.json");
+		const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+		fs.cpSync(runtimeSource, destination, {
+			recursive: true,
+			filter: (file) => fs.statSync(file).isDirectory() || /\.js(?:\.map)?$/.test(file),
+		});
+		for (const [entry, file] of Object.entries(runtimeManifest)) {
+			if (entry.startsWith("js/")) manifest[entry] = file;
+		}
+		fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+	}
 };
 
 const wrapStandaloneEntryScripts = () => ({
@@ -48,6 +67,7 @@ const entries = {
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 
 	"css/municipio": "./assets/source/sass/main.scss",
+	"css/municipio-comments": "./assets/source/sass/municipio-comments.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
 	"css/acf": "./assets/source/sass/admin/acf.scss",
@@ -56,7 +76,10 @@ const entries = {
 	"css/login": "./assets/source/sass/admin/login.scss",
 	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
 
-	"js/municipio": "./assets/source/js/municipio.js",
+	"js/a11y-warnings": "./assets/source/js/a11yWarnings.ts",
+	"js/municipio-shell": "./assets/source/js/frontend/shell.ts",
+	"js/municipio-comments": "./assets/source/js/frontend/comments.ts",
+	"js/municipio-posts-list": "./assets/source/js/frontend/postsList.ts",
 	"js/instantpage": "./node_modules/instant.page/instantpage.js",
 	"js/mce-buttons": "./assets/source/mce-js/mce-buttons.js",
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",
@@ -109,6 +132,7 @@ const entries = {
 export default defineConfig(({ mode }) => {
 	const isProduction = mode === "production";
 	return {
+		base: "./",
 		build: {
 			outDir: "assets/dist",
 			emptyOutDir: true,

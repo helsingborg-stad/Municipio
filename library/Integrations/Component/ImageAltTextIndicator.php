@@ -35,9 +35,15 @@ class ImageAltTextIndicator implements Hookable
             return $data;
         }
 
+        $message = $this->wpService->__('Alt text is missing', 'municipio');
         $attributes = $data['attributeList'] ?? [];
         $data['attributeList'] = is_array($attributes) ? $attributes : [];
-        $data['attributeList']['data-a11y-error'] = $this->wpService->__('Alt text is missing', 'municipio');
+        $data['attributeList']['data-a11y-error'] = $message;
+
+        $attributes = $data['wrapperAttributes'] ?? [];
+        $data['wrapperAttributes'] = is_array($attributes) ? $attributes : [];
+        $data['wrapperAttributes']['data-a11y-marker'] = 'true';
+        $data['wrapperAttributes']['data-tooltip'] ??= $message;
 
         return $data;
     }

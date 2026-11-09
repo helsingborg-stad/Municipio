@@ -1,4 +1,4 @@
-# Municipio 3
+# Municipio
 
 ## Download theme.
 To download a complete out of the box working plugin without the need to compile or fetch dependencies.

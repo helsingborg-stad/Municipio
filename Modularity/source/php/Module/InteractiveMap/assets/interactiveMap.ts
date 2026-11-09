@@ -70,6 +70,7 @@ class InteractiveMap {
 		).createLayerGroups();
 
 		const markers = new Markers(
+			container,
 			map,
 			mapData.markers,
 			storageInstance,

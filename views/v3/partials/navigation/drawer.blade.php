@@ -12,6 +12,7 @@
             'reversePositions' => true,
             'toggle' => true,
             'attributeList' => [
+                'data-toggle-label' => $lang->closeMenu,
                 'data-toggle-icon' => 'close',
                 'data-js-toggle-group' => 'drawer'
             ]

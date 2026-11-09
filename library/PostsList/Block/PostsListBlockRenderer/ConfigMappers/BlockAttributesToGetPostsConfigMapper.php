@@ -43,9 +43,19 @@ class BlockAttributesToGetPostsConfigMapper
                 return [$this->attributes['postType'] ?? 'post'];
             }
 
+            public function getIncludedPostIds(): array
+            {
+                return $this->attributes['includedPostIds'] ?? [];
+            }
+
             public function paginationEnabled(): bool
             {
                 return $this->attributes['paginationEnabled'] ?? true;
+            }
+
+            public function isFacettingTaxonomyQueryEnabled(): bool
+            {
+                return ($this->attributes['taxonomyQueryRelation'] ?? 'OR') === 'AND';
             }
 
             public function getPostsPerPage(): int

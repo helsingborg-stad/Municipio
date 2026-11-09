@@ -45,7 +45,15 @@ class ChatEndpoint extends RestApiEndpoint
             return $assistant;
         }
 
-        $configError = $this->integration->validateAssistantConfig($assistant);
+        if (!$this->config->isAssistantAllowed($assistant)) {
+            return new \WP_Error(
+                'chat_assistant_forbidden',
+                __('You are not allowed to use this assistant.', 'municipio'),
+                ['status' => 403],
+            );
+        }
+
+        $configError = $this->validateAssistantConfig($assistant);
         if ($configError instanceof \WP_Error) {
             return $configError;
         }

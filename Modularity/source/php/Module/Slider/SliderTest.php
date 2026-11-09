@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Modularity\Module\Slider;
 
 use AcfService\Implementations\FakeAcfService;
-use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Modularity\Helper\AcfService;
 use Modularity\Helper\WpService;
-use Modularity\Integrations\Component\ImageFocusResolver;
-use Modularity\Integrations\Component\ImageResolver;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -31,7 +28,47 @@ class SliderTest extends TestCase
     public function testDataReturnsArray(): void
     {
         $slider = new Slider();
-        $this->assertIsArray($slider->data());
+        static::assertIsArray($slider->data());
+    }
+
+    #[TestDox('data() uses current slider component defaults')]
+    public function testDataUsesCurrentSliderComponentDefaults(): void
+    {
+        $data = (new Slider())->data();
+
+        static::assertSame(1, $data['slidesPerPage']);
+        static::assertFalse($data['peekSlides']);
+        static::assertFalse($data['slideByPage']);
+        static::assertTrue($data['navigationHover']);
+        static::assertTrue($data['compactNavigation']);
+    }
+
+    #[TestDox('data() maps supported slider component settings')]
+    public function testDataMapsSupportedSliderComponentSettings(): void
+    {
+        AcfService::set(new FakeAcfService([
+            'getFields' => [
+                'slides_autoslide' => 1,
+                'slides_slide_timeout' => 8,
+                'slider_format' => 'ratio-16-9',
+                'slider_preamble' => 'A supporting introduction.',
+                'slides_per_page' => 4,
+                'slider_peek_slides' => 1,
+                'slider_slide_by_page' => 1,
+                'slider_navigation_hover' => 0,
+                'slider_compact_navigation' => 0,
+            ],
+        ]));
+
+        $data = (new Slider())->data();
+
+        static::assertSame(8, $data['autoslide']);
+        static::assertSame('A supporting introduction.', $data['preamble']);
+        static::assertSame(4, $data['slidesPerPage']);
+        static::assertTrue($data['peekSlides']);
+        static::assertTrue($data['slideByPage']);
+        static::assertFalse($data['navigationHover']);
+        static::assertFalse($data['compactNavigation']);
     }
 
     #[TestDox('prepareSlide() handles image being a scalar value of type integer')]
@@ -44,6 +81,6 @@ class SliderTest extends TestCase
         ];
         $imageSize = [1528, false];
         $result = $slider->prepareSlide($slide, $imageSize);
-        $this->assertIsArray($result);
+        static::assertIsArray($result);
     }
 }

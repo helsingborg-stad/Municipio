@@ -30,6 +30,8 @@ class Archive extends \Municipio\Controller\BaseController
     {
         parent::init();
 
+        \Municipio\Theme\AssetRequirements::requireAsset('posts-list');
+
         // Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
 

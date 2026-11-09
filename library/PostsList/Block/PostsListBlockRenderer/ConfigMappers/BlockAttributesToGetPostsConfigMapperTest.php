@@ -34,6 +34,29 @@ class BlockAttributesToGetPostsConfigMapperTest extends TestCase
         static::assertNotEmpty($config->getTerms());
         static::assertNull($config->getDateFrom());
         static::assertNull($config->getDateTo());
+        static::assertSame([], $config->getIncludedPostIds());
+        static::assertFalse($config->isFacettingTaxonomyQueryEnabled());
+    }
+
+    #[TestDox('maps included post IDs to the get posts config')]
+    public function testMapWithIncludedPostIds(): void
+    {
+        // Arrange
+        $wpService = new class implements GetTerms {
+            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|\WP_Error
+            {
+                return [];
+            }
+        };
+        $mapper = new BlockAttributesToGetPostsConfigMapper($wpService);
+        $attributes = static::getDefaultAttributes();
+        $attributes['includedPostIds'] = [12, 34];
+
+        // Act
+        $config = $mapper->map($attributes);
+
+        // Assert
+        static::assertSame([12, 34], $config->getIncludedPostIds());
     }
 
     #[TestDox('maps dateFrom and dateTo attributes to getPostsConfig')]
@@ -55,6 +78,23 @@ class BlockAttributesToGetPostsConfigMapperTest extends TestCase
 
         static::assertSame('2024-01-01', $config->getDateFrom());
         static::assertSame('2024-12-31', $config->getDateTo());
+    }
+
+    #[TestDox('maps the archive taxonomy relation to the get posts config')]
+    public function testMapWithFacettingTaxonomyQueryEnabled(): void
+    {
+        $wpService = new class implements GetTerms {
+            public function getTerms(array|string $args = [], array|string $deprecated = ''): array|string|\WP_Error
+            {
+                return [];
+            }
+        };
+        $attributes = static::getDefaultAttributes();
+        $attributes['taxonomyQueryRelation'] = 'AND';
+
+        $config = (new BlockAttributesToGetPostsConfigMapper($wpService))->map($attributes);
+
+        static::assertTrue($config->isFacettingTaxonomyQueryEnabled());
     }
 
     private static function getDefaultAttributes(): array

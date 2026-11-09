@@ -35,7 +35,10 @@ class A11yStatement implements Hookable
     {
         $this->wpService->addFilter('option_modularity-options', [$this, 'enableFrontendFormModule']);
         $this->wpService->addAction('init', [$this, 'registerOptionsPage']);
-        $this->wpService->addAction('init', [$this, 'registerFrontendPage']);
+        // Common field groups load inherited values at init priority 15. The
+        // statement route must be registered afterwards on sites that inherit
+        // the accessibility statement settings.
+        $this->wpService->addAction('init', [$this, 'registerFrontendPage'], 20);
         $this->wpService->addAction('init', [$this, 'registerReportPostType'], 5);
         $this->wpService->addAction('init', [$this, 'ensureReportFormModule'], 20);
         $this->wpService->addAction('acf/save_post', [$this, 'sortKnownIssues'], 5);

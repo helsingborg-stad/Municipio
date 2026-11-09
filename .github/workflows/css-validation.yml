@@ -1,0 +1,91 @@
+name: Validate CSS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  css-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.6
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Configure npm for GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> ~/.npmrc
+
+      - name: Build Municipio and Modularity CSS bundles
+        id: build
+        continue-on-error: true
+        run: |
+          mkdir -p test-results
+          php build.php
+
+      - name: Run W3C CSS validation
+        id: w3c_css
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run test:css-validator 2>&1 | tee test-results/w3c-css-validation.log
+
+      - name: Upload CSS validation report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: w3c-css-validation-report
+          path: test-results/w3c-css-validation.log
+          if-no-files-found: warn
+
+      - name: Write CSS validation summary
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo '## W3C CSS validation'
+            echo ''
+            echo '| Step | Status |'
+            echo '| --- | --- |'
+            echo '| Build | ${{ steps.build.outcome }} |'
+            echo '| W3C CSS validator | ${{ steps.w3c_css.outcome }} |'
+            if [ -f test-results/w3c-css-validation.log ]; then
+              echo ''
+              echo '<details><summary>W3C validator output (last 120 lines)</summary>'
+              echo ''
+              echo '```text'
+              tail -n 120 test-results/w3c-css-validation.log
+              echo '```'
+              echo '</details>'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail when CSS build failed
+        if: ${{ !cancelled() && steps.build.outcome != 'success' }}
+        run: |
+          echo '::error title=CSS build failed::The CSS bundle build failed, so W3C validation was not run.'
+          exit 1
+
+      - name: Fail when W3C CSS validation failed
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.w3c_css.outcome != 'success' }}
+        run: |
+          test -f test-results/w3c-css-validation.log && cat test-results/w3c-css-validation.log
+          echo '::error title=W3C CSS validation failed::See the validator output, job summary, or artifact.'
+          exit 1

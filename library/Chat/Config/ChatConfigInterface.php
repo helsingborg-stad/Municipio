@@ -14,6 +14,9 @@ interface ChatConfigInterface
 
     public function getAssistants(): array;
 
+    /** Check whether the current user may use this assistant. */
+    public function isAssistantAllowed(array $assistant): bool;
+
     public function isPresidioEnabled(): bool;
 
     public function getPresidioAnalyzerHost(): ?string;

@@ -16,9 +16,7 @@ class FooterMainTest extends TestCase
     #[TestDox('Footer main registers the main footer logotype and footer background image fields only')]
     public function testFooterMainRegistersTheMainFooterLogotypeAndFooterBackgroundImageFieldsOnly(): void
     {
-        new FooterMain('municipio_customizer_section_component_footer');
-
-        $fields = PanelsRegistry::getInstance()->getRegisteredFields();
+        $fields = $this->registerFooterMainFields();
 
         $this->assertNull($this->findFieldBySettings($fields, 'footer_style'));
         $this->assertNull($this->findFieldBySettings($fields, 'footer_columns'));
@@ -32,6 +30,51 @@ class FooterMainTest extends TestCase
         $this->assertSame('refresh', $logotypeField['transport']);
         $this->assertSame('upload', $backgroundImageField['type']);
         $this->assertSame('refresh', $backgroundImageField['transport']);
+    }
+
+    #[TestDox('Footer main registers the pre footer image upload field')]
+    public function testFooterMainRegistersThePreFooterImageField(): void
+    {
+        $preFooterImageField = $this->findFieldBySettings($this->registerFooterMainFields(), 'footer_pre_footer_image');
+
+        $this->assertNotNull($preFooterImageField);
+        $this->assertSame('upload', $preFooterImageField['type']);
+        $this->assertSame('refresh', $preFooterImageField['transport']);
+    }
+
+    #[TestDox('Footer main registers the taller pre footer image on mobile switch, off by default')]
+    public function testFooterMainRegistersTheTallerOnMobileSwitch(): void
+    {
+        $field = $this->findFieldBySettings($this->registerFooterMainFields(), 'footer_pre_footer_image_taller_on_mobile');
+
+        $this->assertNotNull($field);
+        $this->assertSame('switch', $field['type']);
+        $this->assertFalse($field['default']);
+    }
+
+    #[TestDox('Footer main registers the mobile height slider, only active when taller on mobile is enabled')]
+    public function testFooterMainRegistersTheMobileHeightSlider(): void
+    {
+        $field = $this->findFieldBySettings($this->registerFooterMainFields(), 'footer_pre_footer_image_mobile_height');
+
+        $this->assertNotNull($field);
+        $this->assertSame('slider', $field['type']);
+        $this->assertSame(160, $field['default']);
+        $this->assertSame(['min' => 100, 'max' => 400, 'step' => 10], $field['choices']);
+        $this->assertSame('footer_pre_footer_image_taller_on_mobile', $field['active_callback'][0]['setting']);
+    }
+
+    /**
+     * Register the footer main fields and return all registered Customizer fields.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function registerFooterMainFields(): array
+    {
+        $footerMain = new FooterMain('municipio_customizer_section_component_footer');
+        $this->assertInstanceOf(FooterMain::class, $footerMain);
+
+        return PanelsRegistry::getInstance()->getRegisteredFields();
     }
 
     /**

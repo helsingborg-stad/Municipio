@@ -16,7 +16,6 @@ class App
     public $editor = null;
     private $modularityLangKey = 'modularityLang';
     private EnqueueManagerInterface $wpEnqueue;
-    private bool $hasModuleRefresher = false;
     private bool $hasUserEditableList = false;
 
     public function __construct(
@@ -220,8 +219,6 @@ class App
      */
     public function detectFrontendAssets(string $markup, mixed $module = null): string
     {
-        $this->hasModuleRefresher = $this->hasModuleRefresher
-            || str_contains($markup, 'data-module-refresh-interval');
         $this->hasUserEditableList = $this->hasUserEditableList
             || str_contains($markup, 'data-js-user-editable');
 
@@ -233,10 +230,6 @@ class App
      */
     public function enqueueDetectedFrontendAssets(): void
     {
-        if ($this->hasModuleRefresher) {
-            $this->wpEnqueue->add('js/modularity-module-refresher.js', ['wp-api'], null, true);
-        }
-
         if ($this->hasUserEditableList) {
             $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
         }

@@ -32,17 +32,20 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
         static::assertSame(15, $wpService->methodCalls['addAction'][0][2]);
     }
 
-    #[TestDox('It does not initialize common field overrides on the main site.')]
-    public function testAddHooksDoesNotRegisterActionOnMainSite(): void
+    #[TestDox('It defers the source-site check until ACF fields have been imported on the main site.')]
+    public function testAddHooksRegistersActionOnMainSite(): void
     {
         $wpService = new FakeWpService([
             'isMainSite' => true,
+            'addAction'  => true,
         ]);
         $instance  = $this->createInstance($wpService);
 
         $instance->addHooks();
 
-        static::assertArrayNotHasKey('addAction', $wpService->methodCalls);
+        static::assertSame('init', $wpService->methodCalls['addAction'][0][0]);
+        static::assertSame([$instance, 'initializeFieldsToFilter'], $wpService->methodCalls['addAction'][0][1]);
+        static::assertSame(15, $wpService->methodCalls['addAction'][0][2]);
     }
 
     /**

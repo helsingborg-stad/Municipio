@@ -31,6 +31,21 @@ interface CommonFieldGroupsConfigInterface
     public function getOptionsSelectFieldKey(): string;
 
   /**
+   * Get the repeater sub-field key that controls whether Network 1 is used as the source.
+   */
+    public function getUseNetworkOneBaseSiteKey(): string;
+
+  /**
+   * Get the source site for a configured field group.
+   */
+    public function getSourceSiteId(array $fieldGroup): int;
+
+  /**
+   * Check whether a configured field group should be disabled in the current context.
+   */
+    public function shouldDisableFieldGroup(array $fieldGroup): bool;
+
+  /**
    * Get the configuration options.
    *
    * @return array
