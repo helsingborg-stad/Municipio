@@ -7,7 +7,7 @@ class Editor
     public function __construct()
     {
         // Actions
-        add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
+        add_action('enqueue_block_assets', array($this, 'blockEditorStyle'));
         add_action('enqueue_block_editor_assets', array($this, 'blockEditorScript'));
         add_action('after_setup_theme', array($this, 'editorStyle'));
         add_action('after_setup_theme', array($this, 'componentEditorStyles'));
@@ -70,6 +70,10 @@ class Editor
      */
     public function blockEditorStyle()
     {
+        if (!is_admin()) {
+            return;
+        }
+
         // If in customizer, do not enqueue styles which might affect editor appearance.
         global $wp_customize;
         if (isset($wp_customize)) {
@@ -110,6 +114,15 @@ class Editor
             apply_filters(
                 'Municipio/Admin/EditorTinyMce',
                 get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/mce.css'),
+            ),
+        );
+
+        // The container block is rendered in Gutenberg's iframe, so its
+        // palette-pair utilities must be loaded there as well as on the site.
+        add_editor_style(
+            apply_filters(
+                'Municipio/Admin/EditorPaletteColorUtilities',
+                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/palette-color-utilities.css'),
             ),
         );
     }

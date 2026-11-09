@@ -272,7 +272,11 @@ class App
      */
     public function enqueueAdmin()
     {
-        if (!$this->isModularityPage()) {
+        // Gutenberg loads content styles in its iframe. Its block-specific
+        // stylesheet is registered on enqueue_block_assets; loading this
+        // legacy Modularity admin stylesheet here makes WordPress inject it
+        // into the iframe from the wrong context.
+        if (!$this->isModularityPage() || \Modularity\Helper\Wp::isGutenbergEditor()) {
             return;
         }
 

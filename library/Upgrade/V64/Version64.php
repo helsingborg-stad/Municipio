@@ -138,7 +138,18 @@ class Version64 implements VersionInterface
     private function migrateContainerBlockData(array &$data): bool
     {
         $didChange = $this->migrateDataValue($data, 'color', 'background');
-        $didChange = $this->migrateDataValue($data, 'text_color', 'contrast') || $didChange;
+
+        if (array_key_exists('text_color', $data)) {
+            if (empty($data['color']) && is_string($data['text_color'])) {
+                $role = ColorSwatches::normalizeColorPairRole($data['text_color'], 'contrast');
+                if ($role !== null) {
+                    $data['color'] = $role;
+                }
+            }
+
+            unset($data['text_color']);
+            $didChange = true;
+        }
 
         if (!is_array($data['background_gradient'] ?? null)) {
             return $didChange;

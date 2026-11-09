@@ -27,7 +27,6 @@ class ApplyStyles implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'applyStyles']);
-        $this->wpService->addAction('enqueue_block_editor_assets', [$this, 'applyStyles']);
         $this->wpService->addFilter('block_editor_settings_all', [$this, 'applyEditorIframeStyles'], 10, 2);
     }
 

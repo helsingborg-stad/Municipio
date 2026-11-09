@@ -67,6 +67,7 @@ const entries = {
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 
 	"css/municipio": "./assets/source/sass/main.scss",
+	"css/palette-color-utilities": "./assets/source/sass/palette-color-utilities.scss",
 	"css/municipio-comments": "./assets/source/sass/municipio-comments.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide

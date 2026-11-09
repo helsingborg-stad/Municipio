@@ -61,6 +61,12 @@ class Version64Test extends TestCase
                 'background_gradient' => [['color' => 'rgb(255, 0, 0)', 'stop' => 0]],
             ]],
             'innerBlocks' => [],
+        ], [
+            'blockName' => 'acf/container',
+            'attrs' => ['data' => [
+                'text_color' => '#ffffff',
+            ]],
+            'innerBlocks' => [],
         ]];
 
         $wpService = new class implements GetPosts, GetPostField, WpUpdatePost {
@@ -104,8 +110,10 @@ class Version64Test extends TestCase
 
         static::assertSame('primary', $acfService->updatedFields[0]['value'][0]['custom_background_color']);
         static::assertSame('primary', Version64TestState::$blocks[0]['attrs']['data']['color']);
-        static::assertSame('primary', Version64TestState::$blocks[0]['attrs']['data']['text_color']);
+        static::assertArrayNotHasKey('text_color', Version64TestState::$blocks[0]['attrs']['data']);
         static::assertSame('primary', Version64TestState::$blocks[0]['attrs']['data']['background_gradient'][0]['color']);
+        static::assertSame('primary', Version64TestState::$blocks[1]['attrs']['data']['color']);
+        static::assertArrayNotHasKey('text_color', Version64TestState::$blocks[1]['attrs']['data']);
         static::assertSame('serialized-blocks', $wpService->updatedPosts[0]['post_content']);
     }
 }

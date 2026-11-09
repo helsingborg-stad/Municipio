@@ -27,6 +27,7 @@ use Municipio\Upgrade\V59\Version59 as UpgradeVersion59;
 use Municipio\Upgrade\V60\Version60 as UpgradeVersion60;
 use Municipio\Upgrade\V62\Version62;
 use Municipio\Upgrade\V64\Version64;
+use Municipio\Upgrade\V65\Version65;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -42,7 +43,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 64; //The db version we want to achive
+    private $dbVersion = 65; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1192,6 +1193,22 @@ class Upgrade
     {
         try {
             (new Version64(WpService::get(), $this->acfService))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 65
+     * Collapses legacy container text/background colour fields into one palette role.
+     */
+    public function v_65(): bool
+    {
+        try {
+            (new Version65(WpService::get()))->upgradeToVersion();
         } catch (\Exception $e) {
             error_log($e->getMessage());
             return false;
