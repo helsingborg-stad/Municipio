@@ -75,14 +75,12 @@ class Puzzel implements ChatIntegrationInterface {
     }
 
     private async handleStoredAuthenticationFlow(): Promise<void> {
-        console.log("Handling stored authentication flow.");
         const currentConversation = await this.puzzelConversationManager.getCurrentConversation();
         const currentMetaData = await this.puzzelConversationManager.getCurrentMetaData();
         this.chatHistoryHandler.load(currentConversation, currentMetaData);
     }
 
     private async handleNewAuthenticationFlow(): Promise<void> {
-        console.log("Handling new authentication flow.");
         this.conversation = await this.puzzelConversationManager.startConversation();
         this.conversationStorageManager.setLocalStorage(this.conversation, this.authenticated!);
         await this.puzzelConversationManager.sendUserJoinEventToConversation();
@@ -105,7 +103,6 @@ class Puzzel implements ChatIntegrationInterface {
 
     private async startConversationStatusListener(): Promise<void> {
          await this.puzzelConversationManager.listenForConversationStatus((updatedStatus) => {
-             console.log("Updated chat status:", updatedStatus);
              if (
                  updatedStatus.status !== PUZZEL_CHAT_STATUS.IN_QUEUE &&
                  updatedStatus.status !== PUZZEL_CHAT_STATUS.ALLOCATED
