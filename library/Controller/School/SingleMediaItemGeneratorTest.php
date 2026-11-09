@@ -9,78 +9,33 @@ use PHPUnit\Framework\TestCase;
 
 class SingleMediaItemGeneratorTest extends TestCase
 {
-    public function testCanBeInstantiated(): void
-    {
-        // Act
-        $generator = new SingleMediaItemGenerator($this->getMediaItemsGenerator([]));
-
-        // Assert
-        static::assertInstanceOf(SingleMediaItemGenerator::class, $generator);
-    }
-
-    public function testGenerateReturnsImageItemWhenThereIsOnlyOneImage(): void
+    #[DataProvider('mediaItemsProvider')]
+    public function testGenerateReturnsItemOnlyWhenThereIsExactlyOneItem(mixed $mediaItems, ?array $expected): void
     {
         // Arrange
-        $imageItem = ['text' => 'Image caption'];
-        $generator = new SingleMediaItemGenerator($this->getMediaItemsGenerator(['imageItems' => [$imageItem]]));
+        $mediaItemsGenerator = $this->createStub(ViewDataGeneratorInterface::class);
+        $mediaItemsGenerator->method('generate')->willReturn($mediaItems);
+        $generator = new SingleMediaItemGenerator($mediaItemsGenerator);
 
         // Act
         $result = $generator->generate();
 
         // Assert
-        static::assertSame($imageItem, $result);
+        static::assertSame($expected, $result);
     }
 
-    public function testGenerateReturnsVideoItemWhenThereIsOnlyOneVideo(): void
+    public static function mediaItemsProvider(): array
     {
-        // Arrange
-        $videoItem = ['embed' => '<iframe></iframe>'];
-        $generator = new SingleMediaItemGenerator($this->getMediaItemsGenerator(['videoItems' => [$videoItem]]));
+        $image = ['text' => 'Image caption'];
+        $video = ['embed' => '<iframe></iframe>'];
 
-        // Act
-        $result = $generator->generate();
-
-        // Assert
-        static::assertSame($videoItem, $result);
-    }
-
-    #[DataProvider('noSingleMediaItemProvider')]
-    public function testGenerateReturnsNullWhenThereIsNotExactlyOneMediaItem(mixed $mediaItems): void
-    {
-        // Arrange
-        $generator = new SingleMediaItemGenerator($this->getMediaItemsGenerator($mediaItems));
-
-        // Act
-        $result = $generator->generate();
-
-        // Assert
-        static::assertNull($result);
-    }
-
-    public static function noSingleMediaItemProvider(): array
-    {
         return [
-            'no media items' => [[]],
-            'not an array' => [null],
-            'two image items' => [['imageItems' => [['text' => 'First'], ['text' => 'Second']]]],
-            'one image and one video item' => [[
-                'imageItems' => [['text' => 'Image']],
-                'videoItems' => [['embed' => '<iframe></iframe>']],
-            ]],
+            'only one image' => [['imageItems' => [$image]], $image],
+            'only one video' => [['videoItems' => [$video]], $video],
+            'no media items' => [[], null],
+            'not an array' => [null, null],
+            'two images' => [['imageItems' => [$image, $image]], null],
+            'image and video' => [['imageItems' => [$image], 'videoItems' => [$video]], null],
         ];
-    }
-
-    private function getMediaItemsGenerator(mixed $mediaItems): ViewDataGeneratorInterface
-    {
-        return new class($mediaItems) implements ViewDataGeneratorInterface {
-            public function __construct(
-                private mixed $mediaItems,
-            ) {}
-
-            public function generate(): mixed
-            {
-                return $this->mediaItems;
-            }
-        };
     }
 }
