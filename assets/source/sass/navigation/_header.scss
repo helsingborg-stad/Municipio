@@ -89,3 +89,11 @@ body.mega-menu-open {
         border-bottom-left-radius: 0;
     }
 }
+
+// Ensure the mobile drawer close button receives clicks even when users tap
+// directly on the icon SVG/path instead of the label text.
+.c-drawer__close {
+    * {
+        pointer-events: none;
+    }
+}

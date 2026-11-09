@@ -1,5 +1,11 @@
 import ChatInitializer from "./chatInitializer";
 import Popover from "./popover/popover";
+import {
+	persistChatBubbleOpenState,
+	shouldOpenChatBubbleOnInit,
+} from "./chat/chatBubbleOpenState";
+
+const bubbleStateListeners = new WeakMap<HTMLElement, EventListener>();
 
 /**
  * Checks whether chat markup exists on the page before event listeners are registered.
@@ -30,19 +36,30 @@ document.addEventListener("chat:initialized", async (e: any) => {
 	initializeChat(chat);
 });
 
-function initChatBubble(chat: any) {
+async function initChatBubble(chat: any) {
 	const popover = getPopover();
-	const isOpen = popover?.matches(':popover-open');
 
-	if (!popover || isOpen) {
+	if (popover) {
+		registerBubbleOpenStateListener(popover, chat);
+	} else {
 		scrollToBottom(chat);
 		return initializeChat(chat);
 	}
 
-	const listener = () => {
+	if (
+		shouldOpenChatBubbleOnInit(chat) &&
+		!popover.matches(":popover-open")
+	) {
+		scrollToBottom(chat);
+		await initializeChat(chat);
+		popover.showPopover();
+		return;
+	}
+
+	const listener = async () => {
 		popover.removeEventListener('toggle', listener);
 		scrollToBottom(chat);
-		initializeChat(chat);
+		await initializeChat(chat);
 	};
 
 	popover.addEventListener('toggle', listener);
@@ -62,4 +79,19 @@ async function initializeChat(chat: any) {
 function getPopover(): HTMLElement | null {
 	const popover = document.querySelector(`#chat-global-root`);
 	return popover ? (popover as HTMLElement) : null;
+}
+
+function registerBubbleOpenStateListener(popover: HTMLElement, chat: any): void {
+	const existingListener = bubbleStateListeners.get(popover);
+
+	if (existingListener) {
+		popover.removeEventListener("toggle", existingListener);
+	}
+
+	const stateListener: EventListener = () => {
+		persistChatBubbleOpenState(chat, popover.matches(":popover-open"));
+	};
+
+	popover.addEventListener("toggle", stateListener);
+	bubbleStateListeners.set(popover, stateListener);
 }
