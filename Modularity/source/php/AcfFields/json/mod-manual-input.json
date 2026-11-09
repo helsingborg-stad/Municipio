@@ -863,7 +863,7 @@
                     "label": "Button color",
                     "name": "button_color",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "color_picker",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": [
@@ -1028,10 +1028,12 @@
                     },
                     "default_value": "",
                     "return_format": "string",
-                    "choices": [],
-                    "allow_null": 1,
-                    "allow_custom": 0,
-                    "ui": 1,
+                    "enable_opacity": 0,
+                    "allow_in_bindings": 0,
+                    "show_custom_palette": 1,
+                    "palette_colors": "",
+                    "show_color_wheel": 0,
+                    "custom_palette_source": "",
                     "municipio_palette_color": true,
                     "parent_repeater": "field_64ff22b2d91b7"
                 }
