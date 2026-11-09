@@ -1,6 +1,12 @@
 import ActionFactory from "./chat/feature/actions/actionFactory";
 import ChatUiManager from "./chat/feature/ui/chatUiManager";
 
+const integrationFactoryLoaders: ChatIntegrationFactoryLoaders = {
+	eneo: () => import("./chat/integration/eneo/eneoFactory"),
+	puzzel: () => import("./chat/integration/puzzel/puzzelFactory"),
+	null: () => import("./chat/integration/null/nullFactory"),
+};
+
 class ChatInitializer implements ChatInitializerInterface {
 	private activeIntegration: string | null = null;
 	private availableAssistants: AvailableAssistants = {};
@@ -90,9 +96,14 @@ class ChatInitializer implements ChatInitializerInterface {
 		assistantName: string,
 	): Promise<ChatIntegrationInterface|false> {
 		try {
-			const factory = (
-				await import(`./chat/integration/${integration}/${integration}Factory.ts`)
-			).default;
+			const loader = integrationFactoryLoaders[integration as ChatIntegrationName];
+
+			if (!loader) {
+				console.warn(`Chat integration "${integration}" is not in the allowlist`);
+				return false;
+			}
+
+			const factory = (await loader()).default;
 
 			const instance = new factory();
 			const created: ChatIntegrationInterface|false = await instance.create(chat, chatUiManager, assistantName);
