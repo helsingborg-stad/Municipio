@@ -9,17 +9,18 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 
 /**
- * Populates opt-in ACF selects with semantic Styleguide palette roles.
+ * Renders opt-in ACF colour pickers as semantic Styleguide palette roles.
  *
- * Add `municipio_palette_color => true` to a standard ACF select field. The
- * saved value is a role such as `primary` or `palette-1`, never a hex value.
- * Consumers can resolve it with ColorSwatches::getColorPair().
+ * Add `municipio_palette_color => true` to an ACF colour picker. The field
+ * definition remains a standard colour picker; only its rendered admin control
+ * is filtered into the restricted palette selector. The saved value is a role
+ * such as `primary` or `palette-1`, never a hex value.
  */
 class PaletteColorChoices
 {
     public function __construct(private AddFilter&AddAction $wpService)
     {
-        $this->wpService->addFilter('acf/load_field', [$this, 'populateChoices']);
+        $this->wpService->addFilter('acf/prepare_field', [$this, 'populateChoices']);
         $this->wpService->addAction('admin_footer', [$this, 'printPreviewData'], 20);
     }
 
@@ -33,6 +34,8 @@ class PaletteColorChoices
             return $field;
         }
 
+        // Keep the local JSON/PHP definition as an ACF colour picker. This
+        // conversion happens only while ACF renders the field for editing.
         $field['type'] = 'select';
         $field['choices'] = ColorSwatches::getColorPairChoices();
         $field['allow_custom'] = 0;
