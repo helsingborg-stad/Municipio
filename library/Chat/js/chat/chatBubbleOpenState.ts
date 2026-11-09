@@ -23,6 +23,21 @@ function readBubbleOpenStates(storage: Storage): ChatBubbleOpenStates {
 	}
 }
 
+function readBubbleInitializeStates(storage: Storage): ChatBubbleInitializeStates {
+	const storedValue = storage.getItem(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES);
+
+	if (!storedValue) {
+		return {};
+	}
+
+	try {
+		const parsedValue = JSON.parse(storedValue);
+		return typeof parsedValue === "object" && parsedValue !== null ? parsedValue : {};
+	} catch {
+		return {};
+	}
+}
+
 function getChatBubbleName(chat: ChatBubbleOpenStateChat): string {
 	const chatElement = chat?.getElement?.();
 	const chatBubbleName = chatElement?.id;
@@ -69,6 +84,39 @@ export function shouldOpenChatBubbleOnInit(chat: ChatBubbleOpenStateChat): boole
 	const openStates = readBubbleOpenStates(storage);
 
 	return isOpenAndFresh(openStates[chatBubbleName]);
+}
+
+export function shouldInitializeChatBubbleOnInit(chat: ChatBubbleOpenStateChat): boolean {
+	const storage = getStorage();
+
+	if (!storage) {
+		return false;
+	}
+
+	const chatBubbleName = getChatBubbleName(chat);
+	const initializeStates = readBubbleInitializeStates(storage);
+
+	return initializeStates[chatBubbleName] === true;
+}
+
+export function persistChatBubbleInitializeState(
+	chat: ChatBubbleOpenStateChat,
+	shouldInitialize: boolean,
+): void {
+	const storage = getStorage();
+
+	if (!storage) {
+		return;
+	}
+
+	const chatBubbleName = getChatBubbleName(chat);
+	const initializeStates = readBubbleInitializeStates(storage);
+	initializeStates[chatBubbleName] = shouldInitialize;
+
+	storage.setItem(
+		SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES,
+		JSON.stringify(initializeStates),
+	);
 }
 
 export function persistChatBubbleOpenState(chat: ChatBubbleOpenStateChat, isOpen: boolean): void {

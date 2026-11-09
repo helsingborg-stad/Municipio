@@ -1,5 +1,7 @@
 import { SESSION_ID_KEY } from "../../../enums";
 
+const CHAT_BUBBLE_NAME = "global-chat-bubble";
+
 class ConversationStorageManager implements ConversationStorageManagerInterface {
     private localStorageData: PuzzelLocalStorageData | null = null;
 
@@ -35,6 +37,8 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
             SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
             JSON.stringify(data)
         );
+
+        this.persistBubbleInitializeState(false);
     }
 
     public getLocalStorage(): PuzzelLocalStorageData | null {
@@ -75,6 +79,25 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         window.localStorage.setItem(
             SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
             JSON.stringify(data)
+        );
+
+        this.persistBubbleInitializeState(true);
+    }
+
+    private persistBubbleInitializeState(shouldInitialize: boolean): void {
+        const storedInitializeState = window.localStorage.getItem(
+            SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES
+        );
+
+        const initializeStateData = storedInitializeState
+            ? JSON.parse(storedInitializeState)
+            : {};
+
+        initializeStateData[CHAT_BUBBLE_NAME] = shouldInitialize;
+
+        window.localStorage.setItem(
+            SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES,
+            JSON.stringify(initializeStateData)
         );
     }
 

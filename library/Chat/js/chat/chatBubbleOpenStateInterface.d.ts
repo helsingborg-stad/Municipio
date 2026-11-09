@@ -10,3 +10,7 @@ interface ChatBubbleOpenState {
 interface ChatBubbleOpenStates {
 	[chatBubbleName: string]: ChatBubbleOpenState | boolean;
 }
+
+interface ChatBubbleInitializeStates {
+	[chatBubbleName: string]: boolean;
+}

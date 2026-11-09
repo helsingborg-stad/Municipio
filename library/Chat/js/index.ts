@@ -1,7 +1,9 @@
 import ChatInitializer from "./chatInitializer";
 import Popover from "./popover/popover";
 import {
+	persistChatBubbleInitializeState,
 	persistChatBubbleOpenState,
+	shouldInitializeChatBubbleOnInit,
 	shouldOpenChatBubbleOnInit,
 } from "./chat/chatBubbleOpenState";
 
@@ -53,6 +55,13 @@ async function initChatBubble(chat: any) {
 		scrollToBottom(chat);
 		await initializeChat(chat);
 		popover.showPopover();
+		return;
+	}
+
+	if (shouldInitializeChatBubbleOnInit(chat)) {
+		scrollToBottom(chat);
+		await initializeChat(chat);
+		persistChatBubbleInitializeState(chat, false);
 		return;
 	}
 
