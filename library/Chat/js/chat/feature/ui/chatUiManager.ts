@@ -48,15 +48,19 @@ class ChatUiManager implements ChatUiManagerInterface {
 		this.prependAvatar(this.changeAvatarUrl(newAvatarElement, avatarUrl));
     }
 
-	private prependAvatar(avatarElement: HTMLElement): void {
-		this.chatHeadingAreaElement?.prepend(avatarElement);
+	private prependAvatar(avatarElement: HTMLElement | null): void {
+		if (avatarElement) {
+			this.chatHeadingAreaElement?.prepend(avatarElement);
+		}
 	}
 
-	private getAvatarElement(avatar: string|null): HTMLElement {
-		return this.chatTemplate.content.querySelector(`[${this.avatarAttributeSelector}="${avatar ? '1' : '0'}"]`) as HTMLElement;
+	private getAvatarElement(avatar: string|null): HTMLElement | null {
+		const templateAvatar = this.chatTemplate.content.querySelector(`[${this.avatarAttributeSelector}="${avatar ? '1' : '0'}"]`);
+
+		return templateAvatar ? (templateAvatar.cloneNode(true) as HTMLElement) : null;
 	}
 
-	private changeAvatarUrl(avatar: HTMLElement, avatarUrl: string): HTMLElement {
+	private changeAvatarUrl(avatar: HTMLElement, avatarUrl: string): HTMLElement | null {
 		const avatarImg = avatar.querySelector('img');
 
 		if (!avatarImg) {

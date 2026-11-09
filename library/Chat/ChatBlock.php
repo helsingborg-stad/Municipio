@@ -47,16 +47,18 @@ class ChatBlock implements Hookable
                     ],
                 ],
                 'render_callback' => function ($attributes) {
+                    $assistant = $this->resolveAssistant($attributes['assistant'] ?? 'Default');
+
+                    if ($assistant === null || !$this->config->isAssistantAllowed($assistant)) {
+                        return '';
+                    }
+
                     $config = new ChatRenderConfig(
                         $this->wpService,
                         'block',
-                        $attributes['assistant'] ?? 'Default',
+                        [$assistant],
                         $this->wpService->getBlockWrapperAttributes(),
                     );
-
-                    if ($config->getAssistant() === null) {
-                        return '';
-                    }
 
                     return $this->renderer->render($config);
                 },
@@ -65,5 +67,20 @@ class ChatBlock implements Hookable
                 ),
             ],
         );
+    }
+
+    private function resolveAssistant(string $assistantName): ?array
+    {
+        if ($assistantName === '' || $assistantName === 'Default') {
+            return $this->config->getDefaultAssistant();
+        }
+
+        foreach ($this->config->getAssistants() as $assistant) {
+            if (($assistant['name'] ?? null) === $assistantName) {
+                return $assistant;
+            }
+        }
+
+        return null;
     }
 }

@@ -75,6 +75,7 @@ describe("Puzzel", () => {
 			clearActions: jest.fn(),
 			addMinimizeAction: jest.fn(),
 			addClearAction: jest.fn(),
+			addCloseAction: jest.fn(),
 		};
 		const puzzelConfig = {
 			getName: jest.fn().mockReturnValue("Puzzel Assistant"),
@@ -107,6 +108,7 @@ describe("Puzzel", () => {
 		expect(uiManager.setAvatar).toHaveBeenCalledWith("https://example.com/puzzel.png");
 		expect(uiManager.clearActions).toHaveBeenCalledTimes(1);
 		expect(uiManager.addMinimizeAction).toHaveBeenCalledTimes(1);
+		expect(uiManager.addCloseAction).toHaveBeenCalledTimes(1);
 	});
 
 	it("returns false when chat is closed", async () => {
@@ -183,6 +185,7 @@ describe("Puzzel", () => {
 			clearActions: jest.fn(),
 			addMinimizeAction: jest.fn(),
 			addClearAction: jest.fn(),
+			addCloseAction: jest.fn(),
 		};
 		const puzzelConfig = {
 			getName: jest.fn().mockReturnValue("Puzzel Assistant"),

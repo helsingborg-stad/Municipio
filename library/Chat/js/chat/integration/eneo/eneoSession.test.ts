@@ -24,14 +24,14 @@ describe("EneoSession", () => {
 			value: { root: "https://example.com/wp-json/", nonce: "old-nonce" },
 		});
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new EneoSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
 		});
 
 		wpApiSettings.nonce = "current-nonce";
-		await (session as unknown as ChatSessionPrivateApi).postMessage("Hello");
+		await (session as unknown as EneoSessionPrivateApi).postMessage("Hello");
 
 		const [, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit];
 		expect(requestInit.credentials).toBe("same-origin");
@@ -43,13 +43,13 @@ describe("EneoSession", () => {
 
 	it("keeps guest requests without a REST nonce", async () => {
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
-		const session = new ChatSession({
+		const session = new EneoSession({
 			apiRoot: "https://example.com/wp-json/",
 			assistantName: "Ava",
 			fetchImpl: fetchMock as unknown as typeof fetch,
 		});
 
-		await (session as unknown as ChatSessionPrivateApi).postMessage("Hello");
+		await (session as unknown as EneoSessionPrivateApi).postMessage("Hello");
 
 		const [, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit];
 		expect(requestInit.headers).toEqual({ "Content-Type": "application/json" });

@@ -60,7 +60,7 @@ describe("Eneo", () => {
 		// Assert
 		expect(uiManager.clearActions).toHaveBeenCalledTimes(1);
 		expect(uiManager.addMinimizeAction).toHaveBeenCalledTimes(1);
-		expect(uiManager.addCloseAction).toHaveBeenCalledTimes(1);
+		expect(uiManager.addCloseAction).not.toHaveBeenCalled();
 		expect(uiManager.addClearAction).toHaveBeenCalledTimes(1);
 		expect(uiManager.setAvatar).toHaveBeenCalledWith("https://example.com/ava.png");
 		expect(clearAction.addListener).toHaveBeenCalledTimes(1);

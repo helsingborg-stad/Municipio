@@ -25,6 +25,12 @@ function sanitize_text_field(string $value): string
     return $value;
 }
 
+/** Provide a response object where the WordPress test stub returns null. */
+function rest_ensure_response(mixed $response): \WP_REST_Response
+{
+    return new \WP_REST_Response($response);
+}
+
 class MockPIIRedactorFactory implements PIIRedactorFactoryInterface
 {
     public int $createCount = 0;
@@ -198,12 +204,12 @@ class ChatEndpointTest extends TestCase
     {
         $config = $this->getConfig([
             'chat_default_assistant' => 'Private',
-            'chat_assistants' => [
+            'chat_integrations' => [
                 ['name' => 'Private', 'logged_in_only' => 1, 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
         $redactorFactory = new MockPIIRedactorFactory();
-        $endpoint = new ChatEndpoint($config, $redactorFactory, static::createWpService());
+        $endpoint = $this->createEndpoint($config, $redactorFactory);
 
         $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello']));
 
@@ -215,12 +221,12 @@ class ChatEndpointTest extends TestCase
     public function testGuestCannotUseRestrictedNamedAssistant(): void
     {
         $config = $this->getConfig([
-            'chat_assistants' => [
+            'chat_integrations' => [
                 ['name' => 'Private', 'logged_in_only' => 1, 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ]);
         $redactorFactory = new MockPIIRedactorFactory();
-        $endpoint = new ChatEndpoint($config, $redactorFactory, static::createWpService());
+        $endpoint = $this->createEndpoint($config, $redactorFactory);
 
         $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello', 'assistant_name' => 'Private']));
 
@@ -232,7 +238,7 @@ class ChatEndpointTest extends TestCase
     public function testLoggedInUserCanUseRestrictedAssistant(): void
     {
         $config = $this->getConfig([
-            'chat_assistants' => [
+            'chat_integrations' => [
                 ['name' => 'Private', 'logged_in_only' => 1, 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
             ],
         ], true);
@@ -243,7 +249,7 @@ class ChatEndpointTest extends TestCase
             }
         };
         $redactorFactory = new MockPIIRedactorFactory($redactor);
-        $endpoint = new ChatEndpoint($config, $redactorFactory, static::createWpService());
+        $endpoint = $this->createEndpoint($config, $redactorFactory);
 
         $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello', 'assistant_name' => 'Private']));
 
@@ -300,6 +306,40 @@ class ChatEndpointTest extends TestCase
         static::assertInstanceOf(\WP_Error::class, $response);
     }
 
+    #[TestDox('handleRequest() delegates assistant config validation to the integration and stops on error')]
+    public function testHandleRequestDelegatesValidationToIntegration(): void
+    {
+        $assistant = ['acf_fc_layout' => 'eneo', 'name' => 'a1'];
+        $config = $this->getConfig(['chat_default_assistant' => 'a1', 'chat_integrations' => [$assistant]]);
+        $validationError = new \WP_Error('chat_assistant_incomplete', 'Incomplete', ['status' => 500]);
+        $integration = new FakeChatAssistantIntegration($validationError);
+        $redactorFactory = new MockPIIRedactorFactory();
+        $endpoint = $this->createEndpoint($config, $redactorFactory, $integration);
+
+        $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello']));
+
+        static::assertSame($validationError, $response);
+        static::assertSame($assistant, $integration->validatedAssistant);
+        static::assertSame(0, $redactorFactory->createCount);
+        static::assertFalse($integration->wasRegisterResponseHandlerCalled);
+    }
+
+    #[TestDox('handleRequest() hands the resolved assistant and redaction result to the integration')]
+    public function testHandleRequestRegistersResponseHandlerOnSuccess(): void
+    {
+        $assistant = ['acf_fc_layout' => 'eneo', 'name' => 'a1', 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'];
+        $config = $this->getConfig(['chat_default_assistant' => 'a1', 'chat_integrations' => [$assistant]]);
+        $integration = new FakeChatAssistantIntegration();
+        $endpoint = $this->createEndpoint($config, null, $integration);
+
+        $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello']));
+
+        static::assertNotInstanceOf(\WP_Error::class, $response);
+        static::assertTrue($integration->wasRegisterResponseHandlerCalled);
+        static::assertSame($assistant, $integration->registeredAssistant);
+        static::assertSame('Hello', $integration->registeredRedaction?->redactedText);
+    }
+
     private function createRequest(array $params): \WP_REST_Request
     {
         $request = $this->createMock(\WP_REST_Request::class);
@@ -351,10 +391,18 @@ class ChatEndpointTest extends TestCase
 class FakeChatAssistantIntegration implements ChatAssistantIntegrationInterface
 {
     public bool $wasRegisterResponseHandlerCalled = false;
+    public ?array $validatedAssistant = null;
+    public ?array $registeredAssistant = null;
+    public ?RedactionResult $registeredRedaction = null;
+
+    public function __construct(
+        private ?\WP_Error $validationError = null,
+    ) {}
 
     public function validateAssistantConfig(array $assistant): ?\WP_Error
     {
-        return null;
+        $this->validatedAssistant = $assistant;
+        return $this->validationError;
     }
 
     public function registerResponseHandler(
@@ -364,5 +412,7 @@ class FakeChatAssistantIntegration implements ChatAssistantIntegrationInterface
         RedactionResult $redaction,
     ): void {
         $this->wasRegisterResponseHandlerCalled = true;
+        $this->registeredAssistant = $assistant;
+        $this->registeredRedaction = $redaction;
     }
 }

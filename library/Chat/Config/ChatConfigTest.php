@@ -194,10 +194,10 @@ class ChatConfigTest extends TestCase
         ];
         $config = new ChatConfig(
             $this->getWpService(queriedObjectId: 123, isUserLoggedIn: false),
-            $this->getAcfService(['chat_assistants' => $assistants]),
+            $this->getAcfService(['chat_integrations' => $assistants]),
         );
 
-        static::assertSame($assistants[1], $config->getAssistantForActiveQuery());
+        static::assertSame([$assistants[1]], $config->getAssistantForActiveQuery());
         static::assertFalse($config->isAssistantAllowed($assistants[0]));
         static::assertTrue($config->isAssistantAllowed($assistants[1]));
     }
@@ -208,10 +208,10 @@ class ChatConfigTest extends TestCase
         $assistant = ['name' => 'Private', 'logged_in_only' => 1, 'chat_assistant_pages' => [123]];
         $config = new ChatConfig(
             $this->getWpService(queriedObjectId: 123, isUserLoggedIn: true),
-            $this->getAcfService(['chat_assistants' => [$assistant]]),
+            $this->getAcfService(['chat_integrations' => [$assistant]]),
         );
 
-        static::assertSame($assistant, $config->getAssistantForActiveQuery());
+        static::assertSame([$assistant], $config->getAssistantForActiveQuery());
         static::assertTrue($config->isAssistantAllowed($assistant));
     }
 
@@ -221,10 +221,23 @@ class ChatConfigTest extends TestCase
         $assistant = ['name' => 'Private', 'logged_in_only' => 1, 'chat_assistant_pages' => [123]];
         $config = new ChatConfig(
             $this->getWpService(queriedObjectId: 123, isUserLoggedIn: false),
-            $this->getAcfService(['chat_assistants' => [$assistant]]),
+            $this->getAcfService(['chat_integrations' => [$assistant]]),
         );
 
-        static::assertNull($config->getAssistantForActiveQuery());
+        static::assertSame([], $config->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('getAssistantForActiveQuery() does not add a restricted default assistant for guests')]
+    public function testGuestDoesNotGetRestrictedDefaultAssistant(): void
+    {
+        $assistant = ['name' => 'Private', 'logged_in_only' => 1];
+        $acfService = $this->getAcfService(['chat_default_assistant' => 'Private', 'chat_integrations' => [$assistant]]);
+
+        $guestConfig = new ChatConfig($this->getWpService(queriedObjectId: 123, isUserLoggedIn: false), $acfService);
+        $loggedInConfig = new ChatConfig($this->getWpService(queriedObjectId: 123, isUserLoggedIn: true), $acfService);
+
+        static::assertSame([], $guestConfig->getAssistantForActiveQuery());
+        static::assertSame([$assistant], $loggedInConfig->getAssistantForActiveQuery());
     }
 
     #[TestDox('isPresidioEnabled() returns true when the chat_presidio_enabled option is true')]

@@ -38,6 +38,12 @@ class ChatBlockTest extends TestCase
         static::assertSame('rendered', $this->renderBlock(['name' => 'Public'], false, 'Public'));
     }
 
+    #[TestDox('block renders nothing when the selected assistant does not exist')]
+    public function testUnknownAssistantRendersNothing(): void
+    {
+        static::assertSame('', $this->renderBlock(['name' => 'Public'], true, 'Removed assistant'));
+    }
+
     private function renderBlock(array $assistant, bool $isUserLoggedIn, string $assistantName): string
     {
         $blockArgs = [];
@@ -51,7 +57,7 @@ class ChatBlockTest extends TestCase
         ]);
         $acfService = new FakeAcfService([
             'getField' => static fn(string $name) => match ($name) {
-                'chat_assistants' => [$assistant],
+                'chat_integrations' => [$assistant],
                 'chat_default_assistant' => $assistant['name'],
                 default => null,
             },

@@ -53,7 +53,7 @@ class ChatEndpoint extends RestApiEndpoint
             );
         }
 
-        $configError = $this->validateAssistantConfig($assistant);
+        $configError = $this->integration->validateAssistantConfig($assistant);
         if ($configError instanceof \WP_Error) {
             return $configError;
         }

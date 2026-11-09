@@ -75,8 +75,12 @@ class ChatConfig implements ChatConfigInterface
 
         $defaultAssistant = $this->getDefaultAssistant();
 
-        if (!empty($defaultAssistant) && !$this->checkIfAssistantIsAlreadyAdded($availableAssistantsForQuery, $defaultAssistant['name'])) {
-                $availableAssistantsForQuery[] = $defaultAssistant;
+        if (
+            !empty($defaultAssistant)
+            && $this->isAssistantAllowed($defaultAssistant)
+            && !$this->checkIfAssistantIsAlreadyAdded($availableAssistantsForQuery, $defaultAssistant['name'])
+        ) {
+            $availableAssistantsForQuery[] = $defaultAssistant;
         }
 
         return $availableAssistantsForQuery;
