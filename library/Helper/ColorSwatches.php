@@ -203,9 +203,9 @@ class ColorSwatches
     }
 
     /**
-     * Resolves a stored palette role to CSS variables for its background and
-     * paired contrast. The variables, rather than resolved hex values, allow
-     * browser colour-scheme overrides to apply at render time.
+     * Resolves a stored palette role to CSS variables for exceptional inline
+     * declarations, such as gradient stops. Ordinary colour pairs should use
+     * getColorUtilityClass() so their CSS remains in the Styleguide layer.
      *
      * @return array{background:string, contrast:string}|null
      */
@@ -221,6 +221,139 @@ class ColorSwatches
             'background' => 'var(' . $pair['background'] . ')',
             'contrast' => 'var(' . $pair['contrast'] . ')',
         ];
+    }
+
+    /**
+     * Returns a Styleguide utility class for a complete colour pair.
+     */
+    public static function getColorUtilityClass(string $role): ?string
+    {
+        return isset(self::COLOR_PAIR_ROLES[$role]) ? 'u-color--' . $role : null;
+    }
+
+    /**
+     * Maps a legacy colour value to the nearest available palette role.
+     *
+     * @param string $variant Whether the legacy value represents a background
+     *                        or contrast/text colour.
+     */
+    public static function getClosestColorPairRole(string $color, string $variant = 'background'): ?string
+    {
+        $color = self::normalizeColorForMatching($color);
+        if ($color === null || !in_array($variant, ['background', 'contrast'], true)) {
+            return null;
+        }
+
+        $target = self::hexToRgb($color);
+        $closestRole = null;
+        $shortestDistance = PHP_INT_MAX;
+
+        foreach (self::getColorPairPreviews() as $preview) {
+            $candidate = self::hexToRgb($preview[$variant]);
+            $distance = (($target[0] - $candidate[0]) ** 2)
+                + (($target[1] - $candidate[1]) ** 2)
+                + (($target[2] - $candidate[2]) ** 2);
+
+            if ($distance < $shortestDistance) {
+                $closestRole = $preview['value'];
+                $shortestDistance = $distance;
+            }
+        }
+
+        return $closestRole;
+    }
+
+    /**
+     * Returns a known role unchanged, otherwise maps a legacy colour to its
+     * closest available palette role.
+     */
+    public static function normalizeColorPairRole(string $value, string $variant = 'background'): ?string
+    {
+        if (isset(self::COLOR_PAIR_ROLES[$value])) {
+            return $value;
+        }
+
+        return self::getClosestColorPairRole($value, $variant);
+    }
+
+    /**
+     * Returns labels and resolved colours for visual admin controls.
+     *
+     * Content still stores the semantic role. These resolved values are only a
+     * preview of the active base scheme in the WordPress editor.
+     *
+     * @return array<int, array{value:string, label:string, background:string, contrast:string}>
+     */
+    public static function getColorPairPreviews(): array
+    {
+        $tokenValues = self::getTokenPaletteValues();
+        $previews = [];
+
+        foreach (self::getColorPairChoices() as $role => $label) {
+            $tokens = self::COLOR_PAIR_ROLES[$role];
+            $background = $tokenValues[$tokens['background']] ?? self::getDefaultColor($role, 'background');
+            $contrast = $tokenValues[$tokens['contrast']] ?? self::getDefaultColor($role, 'contrast');
+
+            if ($contrast === null) {
+                $contrast = self::getOneTimeContrastForMigration($background);
+            }
+
+            $previews[] = [
+                'value' => $role,
+                'label' => $label,
+                'background' => $background,
+                'contrast' => $contrast,
+            ];
+        }
+
+        return $previews;
+    }
+
+    private static function getDefaultColor(string $role, string $type): ?string
+    {
+        return match ($role . ':' . $type) {
+            'primary:background' => '#2d2d2d',
+            'primary:contrast', 'secondary:contrast' => '#ffffff',
+            'secondary:background' => '#6e6e6e',
+            default => null,
+        };
+    }
+
+    /**
+     * @return array{0:int, 1:int, 2:int}
+     */
+    private static function hexToRgb(string $color): array
+    {
+        $color = ltrim($color, '#');
+
+        return [
+            hexdec(substr($color, 0, 2)),
+            hexdec(substr($color, 2, 2)),
+            hexdec(substr($color, 4, 2)),
+        ];
+    }
+
+    private static function normalizeColorForMatching(string $color): ?string
+    {
+        $normalized = self::normalizeHexColor($color);
+        if ($normalized !== null) {
+            return $normalized;
+        }
+
+        if (preg_match('/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\\b/', $color, $match) === 1) {
+            return self::normalizeHexColor('#' . $match[1]);
+        }
+
+        if (preg_match('/rgba?\\(\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})/i', $color, $match) !== 1) {
+            return null;
+        }
+
+        $rgb = array_map('intval', array_slice($match, 1, 3));
+        if (max($rgb) > 255) {
+            return null;
+        }
+
+        return sprintf('#%02x%02x%02x', $rgb[0], $rgb[1], $rgb[2]);
     }
 
     /**

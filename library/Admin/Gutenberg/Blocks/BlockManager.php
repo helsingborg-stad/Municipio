@@ -161,15 +161,19 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            $backgroundColorPair = !empty($data['color']) ? ColorSwatches::getColorPair((string) $data['color']) : null;
-            if (!empty($data['color']) && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
-                $data['style'][] = 'background-color:' . ($backgroundColorPair['background'] ?? $data['color']);
+            $backgroundRole = !empty($data['color'])
+                ? ColorSwatches::normalizeColorPairRole((string) $data['color'])
+                : null;
+            $textRole = !empty($data['text_color'])
+                ? ColorSwatches::normalizeColorPairRole((string) $data['text_color'], 'contrast')
+                : null;
+            if ($backgroundRole !== null && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
+                $data['classList'] .= $textRole === null
+                    ? ' ' . ColorSwatches::getColorUtilityClass($backgroundRole)
+                    : ' u-color__bg--' . $backgroundRole;
             }
-            if (!empty($data['text_color'])) {
-                $textColorPair = ColorSwatches::getColorPair((string) $data['text_color']);
-                $data['style'][] = 'color:' . ($textColorPair['contrast'] ?? $data['text_color']);
-            } elseif ($backgroundColorPair !== null) {
-                $data['style'][] = 'color:' . $backgroundColorPair['contrast'];
+            if ($textRole !== null) {
+                $data['classList'] .= ' u-color__text--' . $textRole . '-contrast';
             }
 
             if ($this->blockHasBackgroundGradient($data)) {
@@ -269,8 +273,9 @@ class BlockManager
         }
 
         foreach ($gradientArr as $key => $gradient) {
-            $colorPair = !empty($gradient['color']) ? ColorSwatches::getColorPair((string) $gradient['color']) : null;
-            $gradientValues .= ($colorPair['background'] ?? $gradient['color']) . $this->handleGradientStopValues($gradient, $type);
+            $role = !empty($gradient['color']) ? ColorSwatches::normalizeColorPairRole((string) $gradient['color']) : null;
+            $colorPair = $role !== null ? ColorSwatches::getColorPair($role) : null;
+            $gradientValues .= ($colorPair['background'] ?? 'transparent') . $this->handleGradientStopValues($gradient, $type);
 
             if ($key !== array_key_last($gradientArr)) {
                 $gradientValues .= ', ';

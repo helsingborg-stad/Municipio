@@ -75,26 +75,17 @@ class ManualInput extends \Modularity\Module
                     return !empty($value) || $value === false;
                 });
 
-                // Custom background color
-                $colorPair = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color'])
-                    ? ColorSwatches::getColorPair((string) $input['custom_background_color'])
+                // Store and render Styleguide roles, never literal colours.
+                $colorRole = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color'])
+                    ? ColorSwatches::normalizeColorPairRole((string) $input['custom_background_color'])
                     : null;
-                $legacyBackgroundColor = ($fields['use_custom_card_color'] ?? false) && !empty($input['custom_background_color'])
-                    ? $this->parseCustomBackgroundColor($input['custom_background_color'])
-                    : false;
-                $customBackgroundColor = $colorPair['background'] ?? $legacyBackgroundColor;
-
-                // Custom text color
-                $customTextColor = $colorPair['contrast'] ?? ($customBackgroundColor
-                    ? \Municipio\Helper\Color::getBestContrastColor(
-                        $customBackgroundColor,
-                        false,
-                    )
-                    : false);
 
                 // Extra classes
-                if ($customBackgroundColor) {
-                    $input['classList'] = ['c-card--has-custom-background'];
+                if ($colorRole !== null) {
+                    $input['classList'] = [
+                        'c-card--has-custom-background',
+                        ColorSwatches::getColorUtilityClass($colorRole),
+                    ];
                 }
 
                 $arr = array_merge($this->getManualInputDefaultValues(), $input);
@@ -113,8 +104,7 @@ class ManualInput extends \Modularity\Module
                 $arr['view'] = $this->getInputView($arr['isHighlighted']);
                 $arr['columnSize'] = $this->getInputColumnSize($fields, $arr['isHighlighted']);
                 $arr['attributeList'] = ['id' => $arr['id']];
-                $arr['custom_background_color'] = $customBackgroundColor;
-                $arr['custom_text_color'] = $customTextColor;
+                $arr['custom_background_color'] = $colorRole;
                 $arr['show_link_as_button'] = !empty($input['show_link_as_button']);
                 $arr = \Municipio\Helper\FormatObject::camelCase($arr);
 
@@ -336,27 +326,6 @@ class ManualInput extends \Modularity\Module
         }
 
         return $titles;
-    }
-
-    /**
-     * Parses the custom background color and returns a valid hex color code.
-     *
-     * This function takes a color string as input and checks if it contains a valid hex color code using a regular expression.
-     * If a valid hex color code is found, it is returned. Otherwise, the original input value is returned as a fallback.
-     *
-     * @param string $color The input color string to be parsed.
-     * @return string The parsed hex color code or the original input value if no valid hex code is found.
-     */
-    private function parseCustomBackgroundColor($color)
-    {
-        if (preg_match('/#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b/', $color, $matches)) {
-            $customBackgroundColor = $matches[0];
-        } else {
-            // Fallback to provided value if no hex found
-            $customBackgroundColor = $color;
-        }
-
-        return $customBackgroundColor;
     }
 
     /**
