@@ -217,6 +217,46 @@ class ColorSwatchesTest extends TestCase
         static::assertNull(ColorSwatches::getColorPair('#abcdef'));
     }
 
+    #[TestDox('returns resolved background and contrast previews for visual palette selectors')]
+    public function testReturnsColorPairPreviews(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--primary' => '#123456',
+                '--color--primary-contrast' => '#ffffff',
+                '--color--palette-1' => '#abcdef',
+                '--color--palette-1-contrast' => '#000000',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame(
+            [
+                ['value' => 'primary', 'label' => 'Primary', 'background' => '#123456', 'contrast' => '#ffffff'],
+                ['value' => 'secondary', 'label' => 'Secondary', 'background' => '#6e6e6e', 'contrast' => '#ffffff'],
+                ['value' => 'palette-1', 'label' => 'Palette 1', 'background' => '#abcdef', 'contrast' => '#000000'],
+            ],
+            ColorSwatches::getColorPairPreviews(),
+        );
+    }
+
+    #[TestDox('maps legacy colour literals to the nearest palette pair')]
+    public function testMapsLegacyColorsToClosestPalettePairs(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--primary' => '#ff0000',
+                '--color--primary-contrast' => '#ffffff',
+                '--color--secondary' => '#0000ff',
+                '--color--secondary-contrast' => '#000000',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame('primary', ColorSwatches::getClosestColorPairRole('rgb(250, 5, 5)'));
+        static::assertSame('secondary', ColorSwatches::getClosestColorPairRole('#0202f8'));
+        static::assertSame('primary', ColorSwatches::getClosestColorPairRole('#fafafa', 'contrast'));
+        static::assertSame('secondary', ColorSwatches::normalizeColorPairRole('secondary'));
+    }
+
     #[TestDox('migration skips legacy colors already represented by primary and secondary tokens')]
     public function testMigrationSkipsLegacyColorsAlreadyRepresentedByPrimaryAndSecondaryTokens(): void
     {

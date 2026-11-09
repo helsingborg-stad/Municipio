@@ -26,6 +26,7 @@ use Municipio\Upgrade\V58\Version58 as UpgradeVersion58;
 use Municipio\Upgrade\V59\Version59 as UpgradeVersion59;
 use Municipio\Upgrade\V60\Version60 as UpgradeVersion60;
 use Municipio\Upgrade\V62\Version62;
+use Municipio\Upgrade\V64\Version64;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -41,7 +42,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 63; //The db version we want to achive
+    private $dbVersion = 64; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1179,6 +1180,22 @@ class Upgrade
     public function v_63($db): bool
     {
         $db->query("DELETE FROM {$db->postmeta} WHERE meta_key LIKE '_oembed_%';");
+
+        return true;
+    }
+
+    /**
+     * Version 64
+     * Migrates saved literal ACF colours to Styleguide palette roles.
+     */
+    public function v_64(): bool
+    {
+        try {
+            (new Version64(WpService::get(), $this->acfService))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
 
         return true;
     }

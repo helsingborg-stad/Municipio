@@ -113,6 +113,8 @@ const entries = {
 	"js/design-share": "./assets/source/js/admin/designShare.ts",
 	"js/hidden-post-status-conditional":
 		"./assets/source/js/admin/acf/hiddenPostStatusConditional.ts",
+	"js/palette-color-choices":
+		"./assets/source/js/admin/acf/paletteColorChoices.ts",
 	"js/user-group-visibility":
 		"./assets/source/js/admin/private/userGroupVisibility.ts",
 	"js/widgets-area-hider": "./assets/source/js/admin/widgetsAreaHider.js",
