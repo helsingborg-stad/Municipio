@@ -13,6 +13,7 @@
     @scope(['name' => ['single-schema-preschool', $postType . '-single-schema-preschool']])
         @section('before-content')
             @include('partials.schema.preschool.title-area')
+            @includeWhen(!empty($singleMediaItem), 'partials.schema.preschool.single-media')
             @includeWhen(!empty($sliderItems), 'partials.schema.preschool.slider')
         @stop
         @section('content')

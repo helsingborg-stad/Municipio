@@ -23,6 +23,7 @@ class SingularPreschool extends \Municipio\Controller\Singular
         parent::init();
         $schema = $this->post->getSchema();
         global $wp_embed;
+        $mediaItemsGenerator = new School\MediaItemsGenerator($schema, $wp_embed);
         $schemaToPostTypeResolver = new SchemaToPostTypeResolver($this->acfService, $this->wpService);
 
         // Setup view data
@@ -30,7 +31,8 @@ class SingularPreschool extends \Municipio\Controller\Singular
             'preamble' => new School\PreambleGenerator($schema),
             'visitUs' => new School\Preschool\VisitUsGenerator($schema, $this->wpService),
             'accordionListItems' => new School\Preschool\AccordionListItemsGenerator($schema, $this->wpService),
-            'sliderItems' => new School\SliderItemsGenerator($schema, $wp_embed),
+            'sliderItems' => new School\SliderItemsGenerator($mediaItemsGenerator),
+            'singleMediaItem' => new School\SingleMediaItemGenerator($mediaItemsGenerator),
             'personsAttributes' => new School\PersonComponentsAttributesGenerator($schema),
             'addresses' => new School\AddressGenerator($schema, $this->wpService),
             'mapAttributes' => new School\MapComponentAttributesGenerator($schema),
