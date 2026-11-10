@@ -1,6 +1,8 @@
 <?php
 namespace Municipio\Chat\Render\Integration;
 
+use Municipio\Chat\Render\AssistantKey;
+
 class Eneo implements RenderIntegrationInterface {
     public function __construct()
     {
@@ -24,6 +26,6 @@ class Eneo implements RenderIntegrationInterface {
 
     private function getAttributePrefix(array $assistant): string
     {
-        return 'data-js-chat-' . strtolower($assistant['name']) . '-';
+        return AssistantKey::attributePrefix((string) ($assistant['name'] ?? ''));
     }
 }

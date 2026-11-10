@@ -53,7 +53,7 @@ class ChatRenderConfig implements ChatRenderConfigInterface
                 continue;
             }
 
-            $assistantIntegrationTypes[strtolower($assistant['name'])] = $assistant['acf_fc_layout'];
+            $assistantIntegrationTypes[AssistantKey::fromName((string) $assistant['name'])] = $assistant['acf_fc_layout'];
         }
 
         return json_encode($assistantIntegrationTypes) ?: '{}';

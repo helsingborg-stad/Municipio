@@ -37,7 +37,7 @@ class ChatRenderConfigTest extends TestCase
 
         $attributeList = $renderConfig->getAttributeList();
 
-        static::assertSame('{"valid assistant":"eneo"}', $attributeList['data-js-chat-assistants']);
+        static::assertSame('{"valid-assistant":"eneo"}', $attributeList['data-js-chat-assistants']);
     }
 
     #[TestDox('getAttributeList() returns an empty JSON list when there are no assistants')]

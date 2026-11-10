@@ -45,7 +45,7 @@ describe("SendMetadata", () => {
 		const result = api.execute("conv-1", "participantJoinEvent");
 
 		// Assert
-		await expect(result).rejects.toThrow("Failed to send user join event: 400 Bad Request - invalid");
+		await expect(result).rejects.toThrow("Failed to send metadata event: 400 Bad Request - invalid");
 	});
 
 	it("does not call fetch when the access token cannot be obtained", async () => {

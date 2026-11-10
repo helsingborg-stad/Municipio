@@ -2,6 +2,8 @@
 
 namespace Municipio\Chat\Render\Integration;
 
+use Municipio\Chat\Render\AssistantKey;
+
 class Puzzel implements RenderIntegrationInterface {
     public function transform(array $data, array $assistant): array
     {
@@ -23,6 +25,6 @@ class Puzzel implements RenderIntegrationInterface {
 
     private function getAttributePrefix(array $assistant): string
     {
-        return 'data-js-chat-' . strtolower($assistant['name']) . '-';
+        return AssistantKey::attributePrefix((string) ($assistant['name'] ?? ''));
     }
 }
