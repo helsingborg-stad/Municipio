@@ -68,6 +68,51 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString('--c-card--color--surface-default: var(--color--surface);', $editorStyles);
     }
 
+    #[TestDox('pairs a selected header surface with its semantic contrast at render time')]
+    public function testPairsHeaderSurfaceWithSemanticContrastAtRenderTime(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [
+                'scope:s-header-flexible-upper' => [
+                    'header' => [
+                        '--c-header--color--surface' => 'var(--color--palette-4)',
+                    ],
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--c-header--color--surface: var(--color--palette-4);', $wpService->inlineStyles);
+        static::assertStringContainsString('--c-header--color--surface-contrast: var(--color--palette-4-contrast);', $wpService->inlineStyles);
+    }
+
+    #[TestDox('does not emit legacy literal header colour overrides')]
+    public function testDoesNotEmitLegacyLiteralHeaderColorOverrides(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [
+                '__general__' => [
+                    'header' => [
+                        '--c-header--background-color' => '#d9a0a0',
+                        '--c-header--color' => '#000000',
+                        '--c-header--border-color' => '#000000',
+                    ],
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-header--background-color: #d9a0a0;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-header--color: #000000;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-header--border-color: #000000;', $wpService->inlineStyles);
+    }
+
     #[TestDox('appends stored tokens to block editor iframe settings styles')]
     public function testAppendsStoredTokensToBlockEditorIframeSettingsStyles(): void
     {

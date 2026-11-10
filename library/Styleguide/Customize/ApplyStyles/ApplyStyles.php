@@ -129,8 +129,54 @@ class ApplyStyles implements Hookable
             'token' => ColorSchemeOverrides::filterSafeRootTokens($decoded['token']),
             '_dark' => ColorSchemeOverrides::filter(is_array($decoded['_dark'] ?? null) ? $decoded['_dark'] : null),
             '_contrast' => ColorSchemeOverrides::filter(is_array($decoded['_contrast'] ?? null) ? $decoded['_contrast'] : null),
-            'component' => $decoded['component'],
+            'component' => $this->completeHeaderColorPairs($decoded['component']),
         ];
+    }
+
+    /**
+     * Supplies the paired contrast token for header surfaces selected by older
+     * configurations and by Design Center controls that only persist a surface
+     * role. This is deliberately applied to the emitted CSS rather than
+     * storing a literal colour: palette and colour-scheme changes therefore
+     * remain live through the Styleguide variables.
+     *
+     * @param array<string, mixed> $components
+     * @return array<string, mixed>
+     */
+    private function completeHeaderColorPairs(array $components): array
+    {
+        foreach ($components as &$componentGroup) {
+            if (!is_array($componentGroup) || !is_array($componentGroup['header'] ?? null)) {
+                continue;
+            }
+
+            $header = &$componentGroup['header'];
+            // These were legacy computed colour overrides. Components must
+            // consume semantic surface/contrast tokens instead, so a saved
+            // literal cannot override the selected colour pair.
+            unset(
+                $header['--c-header--background-color'],
+                $header['--c-header--color'],
+                $header['--c-header--border-color'],
+            );
+
+            $surface = $header['--c-header--color--surface'] ?? null;
+            $contrast = $header['--c-header--color--surface-contrast'] ?? null;
+
+            if ((is_string($contrast) && trim($contrast) !== '') || !is_string($surface)) {
+                unset($header);
+                continue;
+            }
+
+            if (preg_match('/^var\\(--color--(primary|secondary|background|surface|palette-(?:[1-9]|10))\\)$/', trim($surface), $matches) === 1) {
+                $header['--c-header--color--surface-contrast'] = 'var(--color--' . $matches[1] . '-contrast)';
+            }
+
+            unset($header);
+        }
+        unset($componentGroup);
+
+        return $components;
     }
 
     private function applyInlineStyles(string $styles): void
