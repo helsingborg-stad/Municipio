@@ -72,4 +72,22 @@ describe("FeedbackFactory", () => {
 		expect(first.container.classList.contains("is-disliked")).toBe(false);
 		expect(second.container.classList.contains("is-disliked")).toBe(true);
 	});
+
+	it("adds nothing and returns null when the chat has no feedback template", () => {
+		const factory = new FeedbackFactory({ updateMessage: jest.fn() } as any, null, { postStat: jest.fn() } as any);
+		const message = createMessage();
+
+		expect(factory.create(message)).toBeNull();
+		expect(message.container.children).toHaveLength(0);
+	});
+
+	it("adds nothing and returns null when the template is missing its buttons", () => {
+		const template = document.createElement("template");
+		template.innerHTML = `<div class="municipio-chat__feedback"></div>`;
+		const factory = new FeedbackFactory({ updateMessage: jest.fn() } as any, template, { postStat: jest.fn() } as any);
+		const message = createMessage();
+
+		expect(factory.create(message)).toBeNull();
+		expect(message.container.children).toHaveLength(0);
+	});
 });

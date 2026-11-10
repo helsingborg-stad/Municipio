@@ -26,7 +26,7 @@ export function createEneo(
     const markdownParser = createMarkdownParser();
     const eneoSessionFactory = new EneoSessionFactory(wpApiSettings.root);
     const feedbackApi = new FeedbackApi(wpApiSettings.root);
-    const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate as HTMLTemplateElement, feedbackApi);
+    const feedbackFactory = new FeedbackFactory(chat, feedbackTemplate, feedbackApi);
 
     chat.getMessages().forEach((message: any, index: number) => {
         if (!message.getIsReply()) {

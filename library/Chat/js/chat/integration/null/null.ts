@@ -18,19 +18,22 @@ class Null implements ChatIntegrationInterface {
         }
 
         const popoverElement = chatElement.closest("#chat-global-root, [popover]");
-        const popoverTargetId = popoverElement?.id ?? "chat-global-root";
-        const bubbleTrigger = document.querySelector(
-            `[data-js-municipio-chat-bubble-trigger][popovertarget=\"${popoverTargetId}\"]`,
-        );
-        const chatWrapper = chatElement.closest("[data-js-municipio-chat-wrapper]");
 
-        bubbleTrigger?.remove();
+        // Only a chat inside a popover has a bubble trigger. A chat outside one (e.g. the
+        // chat block) must never remove the global bubble button.
         if (popoverElement) {
+            document
+                .querySelectorAll("[data-js-municipio-chat-bubble-trigger]")
+                .forEach((trigger) => {
+                    if (trigger.getAttribute("popovertarget") === popoverElement.id) {
+                        trigger.remove();
+                    }
+                });
             popoverElement.remove();
             return;
         }
 
-        chatWrapper?.remove();
+        chatElement.closest("[data-js-municipio-chat-wrapper]")?.remove();
         chatElement.remove();
     }
 }

@@ -1,5 +1,5 @@
 interface FeedbackFactoryInterface {
-    create(messageInstance: any): FeedbackInterface;
+    create(messageInstance: any): FeedbackInterface | null;
 }
 
 interface FeedbackInterface {

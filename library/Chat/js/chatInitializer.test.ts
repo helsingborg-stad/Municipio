@@ -1,5 +1,6 @@
 import ChatInitializer from "./chatInitializer";
 import ActionFactory from "./chat/feature/actions/actionFactory";
+import NullChatUiManager from "./chat/feature/ui/nullChatUiManager";
 
 const mockClearActions = jest.fn();
 const mockAddMinimize = jest.fn();
@@ -81,5 +82,43 @@ describe("ChatInitializer", () => {
 		expect(firstInitialization).toBe(true);
 		expect(secondInitialization).toBe(true);
 		expect(mockClearActions).toHaveBeenCalledTimes(0);
+	});
+
+	describe("chat without header (e.g. the chat block)", () => {
+		const createHeadlessChat = (assistants: Record<string, string>) => {
+			const chatElement = document.createElement("div");
+			chatElement.dataset.jsChatAssistants = JSON.stringify(assistants);
+			document.body.appendChild(chatElement);
+
+			return { getElement: jest.fn().mockReturnValue(chatElement) };
+		};
+
+		it("still initializes an integration instead of giving up", async () => {
+			// Arrange
+			const initializer = new ChatInitializer(createHeadlessChat({ fallback: "null" }) as any);
+
+			// Act
+			const initialized = await initializer.init();
+
+			// Assert
+			expect(initialized).toBe(true);
+			expect(ActionFactory).not.toHaveBeenCalled();
+		});
+
+		it("gives the integration a no-op UI manager", async () => {
+			// Arrange
+			const chat = createHeadlessChat({ myassistant: "null" });
+			const initializer = new ChatInitializer(chat as any);
+			const createSpy = jest.spyOn(
+				(await import("./chat/integration/null/nullFactory")).default.prototype,
+				"create",
+			);
+
+			// Act
+			await initializer.init();
+
+			// Assert
+			expect(createSpy).toHaveBeenCalledWith(chat, expect.any(NullChatUiManager), "myassistant");
+		});
 	});
 });

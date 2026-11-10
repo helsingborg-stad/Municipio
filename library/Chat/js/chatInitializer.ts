@@ -1,5 +1,6 @@
 import ActionFactory from "./chat/feature/actions/actionFactory";
 import ChatUiManager from "./chat/feature/ui/chatUiManager";
+import NullChatUiManager from "./chat/feature/ui/nullChatUiManager";
 
 const integrationFactoryLoaders: ChatIntegrationFactoryLoaders = {
 	eneo: () => import("./chat/integration/eneo/eneoFactory"),
@@ -25,18 +26,7 @@ class ChatInitializer implements ChatInitializerInterface {
 	}
 
 	public async init(name: string|null = null): Promise<boolean> {
-		if (!this.actionsContainer || !this.chatTemplate) {
-			return false;
-		}
-
-		const actionFactory = new ActionFactory(this.actionsContainer, this.chatTemplate, this.chat);
-		const chatUiManager = new ChatUiManager(
-			actionFactory,
-			this.actionsContainer,
-			this.chatTitleElement,
-			this.chatTemplate,
-			this.chatHeadingAreaElement,
-		);
+		const chatUiManager = this.createUiManager();
 
 		if (name !== null) {
 			const assistantName = name.toLowerCase();
@@ -56,6 +46,26 @@ class ChatInitializer implements ChatInitializerInterface {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Chats without a header (e.g. the chat block) have no actions area or templates,
+	 * so they get a UI manager that ignores title, avatar and action calls.
+	 */
+	private createUiManager(): ChatUiManagerInterface {
+		if (!this.actionsContainer || !this.chatTemplate) {
+			return new NullChatUiManager();
+		}
+
+		const actionFactory = new ActionFactory(this.actionsContainer, this.chatTemplate, this.chat);
+
+		return new ChatUiManager(
+			actionFactory,
+			this.actionsContainer,
+			this.chatTitleElement,
+			this.chatTemplate,
+			this.chatHeadingAreaElement,
+		);
 	}
 
 	private async initializeAssistant(

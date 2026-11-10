@@ -75,6 +75,29 @@ describe("Null", () => {
 		expect(document.getElementById("page")).not.toBeNull();
 	});
 
+	it("does not remove the global bubble button when the chat is not inside a popover", async () => {
+		// Arrange
+		document.body.innerHTML = `
+			<button data-js-municipio-chat-bubble-trigger popovertarget="chat-global-root" id="global-trigger"></button>
+			<div id="chat-global-root" popover></div>
+			<section id="page">
+				<div data-js-municipio-chat-wrapper id="wrapper">
+					<div id="chat"></div>
+				</div>
+			</section>
+		`;
+		const chatElement = document.getElementById("chat");
+		const nullIntegration = new Null({ getElement: () => chatElement } as any, createUiManager() as any);
+
+		// Act
+		await nullIntegration.init();
+
+		// Assert
+		expect(document.getElementById("chat")).toBeNull();
+		expect(document.getElementById("global-trigger")).not.toBeNull();
+		expect(document.getElementById("chat-global-root")).not.toBeNull();
+	});
+
 	it("removes only the chat element when there is no wrapper or popover", async () => {
 		// Arrange
 		document.body.innerHTML = `<div id="container"><div id="chat"></div></div>`;
