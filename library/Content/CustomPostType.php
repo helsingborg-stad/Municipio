@@ -25,9 +25,9 @@ class CustomPostType
         }, 5, 3);
 
         // Prefill empty display names with the post type name so editors see what is shown.
-        add_filter('acf/load_value/key=' . self::FIELD_POST_TYPES, static function ($value, $post_id, $field) {
+        add_filter('acf/load_value/key=' . self::FIELD_POST_TYPES, static function ($value) {
             return is_array($value) ? self::fillMissingDisplayNames($value) : $value;
-        }, 20, 3);
+        }, 20, 1);
 
         //Flush rewrite-rules on data update & sanitize post type name
         add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
@@ -41,9 +41,9 @@ class CustomPostType
         }, 10, 3);
 
         // Display name is a label, not a slug: strip tags and whitespace but keep casing and characters.
-        add_filter('acf/update_value/key=' . self::FIELD_DISPLAY_NAME, static function ($value, $post_id, $field) {
+        add_filter('acf/update_value/key=' . self::FIELD_DISPLAY_NAME, static function ($value) {
             return sanitize_text_field((string) $value);
-        }, 10, 3);
+        }, 10, 1);
 
         //Use page or single template
         add_filter('single_template', array($this, 'setPageTemplate'), 20);
@@ -237,19 +237,23 @@ class CustomPostType
      */
     private static function resolveRowFields(mixed $row): ?array
     {
-        if (!is_array($row)) {
-            return null;
+        $candidates = [
+            [self::FIELD_POST_TYPE_NAME, self::FIELD_DISPLAY_NAME],
+            ['post_type_name', 'display_name'],
+        ];
+
+        $fields = null;
+
+        if (is_array($row)) {
+            foreach ($candidates as $candidate) {
+                if (array_key_exists($candidate[0], $row)) {
+                    $fields = $candidate;
+                    break;
+                }
+            }
         }
 
-        if (array_key_exists(self::FIELD_POST_TYPE_NAME, $row)) {
-            return [self::FIELD_POST_TYPE_NAME, self::FIELD_DISPLAY_NAME];
-        }
-
-        if (array_key_exists('post_type_name', $row)) {
-            return ['post_type_name', 'display_name'];
-        }
-
-        return null;
+        return $fields;
     }
 
     /**
