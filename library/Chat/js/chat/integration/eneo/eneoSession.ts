@@ -1,4 +1,5 @@
 import { SESSION_ID_KEY } from "../../enums";
+import { readJsonObject, writeJsonObject } from "../../helper/jsonStorage";
 
 const SSE_CONTENT_TYPE = "text/event-stream";
 const CHAT_API_ENDPOINT = "municipio/v1/chat";
@@ -16,20 +17,15 @@ export class EneoSession {
 	constructor(private readonly config: ChatSessionConfig) {
 		this.fetchFn = config.fetchImpl ?? fetch.bind(globalThis);
 
-		if (this.shouldPersistSessions() && window.localStorage) {
-			this.sessions = JSON.parse(
-				window.localStorage.getItem(EneoSession.SESSION_ID_KEY) ?? "{}",
-			);
+		if (this.shouldPersistSessions()) {
+			this.sessions = readJsonObject<Record<string, AssistantSession>>(EneoSession.SESSION_ID_KEY);
 		}
 	}
 
 	public clearSessionForAssistant(assistantId: string): void {
 		delete this.sessions[assistantId];
-		if (this.shouldPersistSessions() && window.localStorage) {
-			window.localStorage.setItem(
-				EneoSession.SESSION_ID_KEY,
-				JSON.stringify(this.sessions),
-			);
+		if (this.shouldPersistSessions()) {
+			writeJsonObject(EneoSession.SESSION_ID_KEY, this.sessions);
 		}
 	}
 
@@ -137,11 +133,8 @@ export class EneoSession {
 				this.sessions[this.config.assistantName ?? ""] = {
 					sessionId: data.session_id,
 				};
-				if (this.shouldPersistSessions() && window.localStorage) {
-					window.localStorage.setItem(
-						EneoSession.SESSION_ID_KEY,
-						JSON.stringify(this.sessions),
-					);
+				if (this.shouldPersistSessions()) {
+					writeJsonObject(EneoSession.SESSION_ID_KEY, this.sessions);
 				}
 				return { eventType, accumulatedText, event: null };
 			case "text":

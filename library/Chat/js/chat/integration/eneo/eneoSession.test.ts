@@ -116,6 +116,28 @@ describe("EneoSession", () => {
 		expect(window.localStorage.getItem(SESSION_ID_KEY)).toBeNull();
 	});
 
+	it("starts with no sessions instead of throwing when stored sessions are corrupted", () => {
+		window.localStorage.setItem(SESSION_ID_KEY, "{not json");
+
+		const session = new EneoSession({
+			apiRoot: "https://example.com/wp-json/",
+			assistantName: "Ava",
+			fetchImpl: jest.fn() as unknown as typeof fetch,
+			persistSession: true,
+		});
+		const privateSession = session as unknown as EneoSessionPrivateApi;
+
+		privateSession.handleSseEvent(
+			"first_chunk",
+			JSON.stringify({ session_id: "new-session" }),
+			"",
+		);
+
+		expect(JSON.parse(window.localStorage.getItem(SESSION_ID_KEY) as string)).toEqual({
+			Ava: { sessionId: "new-session" },
+		});
+	});
+
 	it("persists session id to localStorage when session persistence is enabled", () => {
 		const fetchMock = jest.fn().mockResolvedValue({} as Response);
 		const session = new EneoSession({

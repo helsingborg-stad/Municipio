@@ -32,6 +32,26 @@ describe("ConversationStorageManager", () => {
 		expect(manager.getAccessToken()).toBeNull();
 	});
 
+	it("returns null instead of throwing when stored sessions are corrupted", () => {
+		window.localStorage.setItem(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, "{not json");
+		const manager = new ConversationStorageManager();
+
+		expect(manager.getLocalStorage()).toBeNull();
+		expect(manager.getConversationId()).toBeNull();
+		expect(manager.getAccessToken()).toBeNull();
+	});
+
+	it("overwrites corrupted stored sessions when storing new data", () => {
+		window.localStorage.setItem(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, "{not json");
+		window.localStorage.setItem(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES, "{not json");
+		const manager = new ConversationStorageManager();
+
+		manager.setLocalStorage(conversationData, authenticationData);
+
+		expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS).puzzel.conversationData).toEqual(conversationData);
+		expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES)).toEqual({ "global-chat-bubble": true });
+	});
+
 	it("returns null when sessions exist but contain no puzzel entry", () => {
 		// Arrange
 		window.localStorage.setItem(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, JSON.stringify({ other: { id: 1 } }));

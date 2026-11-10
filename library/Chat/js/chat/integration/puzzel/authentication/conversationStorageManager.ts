@@ -1,4 +1,5 @@
 import { SESSION_ID_KEY } from "../../../enums";
+import { readJsonObject, writeJsonObject } from "../../../helper/jsonStorage";
 
 const CHAT_BUBBLE_NAME = "global-chat-bubble";
 
@@ -23,20 +24,14 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
 
     public clearLocalStorage(): void {
         this.localStorageData = null;
-        const storedData = window.localStorage.getItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
-        );
+        const data = readJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS);
 
-        if (!storedData) {
+        if (Object.keys(data).length === 0) {
             return;
         }
 
-        const data = JSON.parse(storedData);
         delete data.puzzel;
-        window.localStorage.setItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
-            JSON.stringify(data)
-        );
+        writeJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, data);
 
         this.persistBubbleInitializeState(false);
     }
@@ -46,15 +41,7 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
             return this.localStorageData;
         }
 
-        const storedData = window.localStorage.getItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
-        );
-
-        if (!storedData) {
-            return null;
-        }
-
-        const data = JSON.parse(storedData);
+        const data = readJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS);
         this.localStorageData = data.puzzel ?? null;
         return this.localStorageData;
     }
@@ -62,13 +49,7 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
     public setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationData): void {
         this.localStorageData = null;
 
-        const storedData = window.localStorage.getItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS
-        );
-
-        const data = storedData
-            ? JSON.parse(storedData)
-            : {};
+        const data = readJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS);
 
         data.puzzel = {
             ...data.puzzel,
@@ -76,29 +57,15 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
             authenticationData: authentication
         };
 
-        window.localStorage.setItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
-            JSON.stringify(data)
-        );
+        writeJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, data);
 
         this.persistBubbleInitializeState(true);
     }
 
     private persistBubbleInitializeState(shouldInitialize: boolean): void {
-        const storedInitializeState = window.localStorage.getItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES
-        );
-
-        const initializeStateData = storedInitializeState
-            ? JSON.parse(storedInitializeState)
-            : {};
-
+        const initializeStateData = readJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES);
         initializeStateData[CHAT_BUBBLE_NAME] = shouldInitialize;
-
-        window.localStorage.setItem(
-            SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES,
-            JSON.stringify(initializeStateData)
-        );
+        writeJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES, initializeStateData);
     }
 
 }
