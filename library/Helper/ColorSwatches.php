@@ -2,35 +2,13 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Styleguide\Customize\TokenData\ColorTokenDefinitions;
+
 /**
  * Class ColorSwatches
  */
 class ColorSwatches
 {
-    /**
-     * Palette roles that can be stored in content.
-     *
-     * The role is intentionally stored instead of a resolved hex value. CSS
-     * custom properties then keep the selected colour and its companion
-     * contrast colour in sync with dark and high-contrast schemes.
-     *
-     * @var array<string, array{background:string, contrast:string}>
-     */
-    private const COLOR_PAIR_ROLES = [
-        'primary' => ['background' => '--color--primary', 'contrast' => '--color--primary-contrast'],
-        'secondary' => ['background' => '--color--secondary', 'contrast' => '--color--secondary-contrast'],
-        'palette-1' => ['background' => '--color--palette-1', 'contrast' => '--color--palette-1-contrast'],
-        'palette-2' => ['background' => '--color--palette-2', 'contrast' => '--color--palette-2-contrast'],
-        'palette-3' => ['background' => '--color--palette-3', 'contrast' => '--color--palette-3-contrast'],
-        'palette-4' => ['background' => '--color--palette-4', 'contrast' => '--color--palette-4-contrast'],
-        'palette-5' => ['background' => '--color--palette-5', 'contrast' => '--color--palette-5-contrast'],
-        'palette-6' => ['background' => '--color--palette-6', 'contrast' => '--color--palette-6-contrast'],
-        'palette-7' => ['background' => '--color--palette-7', 'contrast' => '--color--palette-7-contrast'],
-        'palette-8' => ['background' => '--color--palette-8', 'contrast' => '--color--palette-8-contrast'],
-        'palette-9' => ['background' => '--color--palette-9', 'contrast' => '--color--palette-9-contrast'],
-        'palette-10' => ['background' => '--color--palette-10', 'contrast' => '--color--palette-10-contrast'],
-    ];
-
     private const DEFAULT_COLORS = [
         '#ae0b05',
         '#ffffff',
@@ -39,39 +17,19 @@ class ColorSwatches
         '#f5f5f5',
     ];
 
-    /**
-     * Ordered color token keys that should be exposed as swatches.
-     *
-     * @var array<int, string>
-     */
-    private const ORDERED_TOKEN_KEYS = [
-        '--color--primary',
-        '--color--primary-contrast',
-        '--color--secondary',
-        '--color--secondary-contrast',
-        '--color--palette-1',
-        '--color--palette-1-contrast',
-        '--color--palette-2',
-        '--color--palette-2-contrast',
-        '--color--palette-3',
-        '--color--palette-3-contrast',
-        '--color--palette-4',
-        '--color--palette-4-contrast',
-        '--color--palette-5',
-        '--color--palette-5-contrast',
-        '--color--palette-6',
-        '--color--palette-6-contrast',
-        '--color--palette-7',
-        '--color--palette-7-contrast',
-        '--color--palette-8',
-        '--color--palette-8-contrast',
-        '--color--palette-9',
-        '--color--palette-9-contrast',
-        '--color--palette-10',
-        '--color--palette-10-contrast',
-        '--color--background',
-        '--color--background-contrast',
-    ];
+    private static function getOrderedTokenKeys(): array
+    {
+        $keys = [];
+        $brandPairs = ColorTokenDefinitions::getBrandPairs();
+        foreach (ColorTokenDefinitions::getPairs() as $role => $pair) {
+            if (!in_array($role, ['background', 'surface'], true) && !isset($brandPairs[$role])) {
+                continue;
+            }
+            $keys[] = $pair['background'];
+            $keys[] = $pair['contrast'];
+        }
+        return $keys;
+    }
 
     /**
      * Cached color swatches.
@@ -129,7 +87,7 @@ class ColorSwatches
         $storedValues = self::getStoredTokenValues();
         $paletteValues = [];
 
-        foreach (self::ORDERED_TOKEN_KEYS as $tokenKey) {
+        foreach (self::getOrderedTokenKeys() as $tokenKey) {
             $hexColor = self::normalizeHexColor($storedValues[$tokenKey] ?? null);
             if ($hexColor !== null) {
                 $paletteValues[$tokenKey] = $hexColor;
@@ -149,22 +107,9 @@ class ColorSwatches
         $tokenValues = self::getTokenPaletteValues();
         $pairs = [];
 
-        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--primary', '--color--primary-contrast'));
-        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--secondary', '--color--secondary-contrast'));
-
-        for ($index = 1; $index <= 10; $index++) {
-            $pairs = array_merge(
-                $pairs,
-                self::buildPair(
-                    $tokenValues,
-                    '--color--palette-' . $index,
-                    '--color--palette-' . $index . '-contrast',
-                ),
-            );
+        foreach (ColorTokenDefinitions::getPairs() as $pair) {
+            $pairs = array_merge($pairs, self::buildPair($tokenValues, $pair['background'], $pair['contrast']));
         }
-
-        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--background', '--color--background-contrast'));
-        $pairs = array_merge($pairs, self::buildPair($tokenValues, '--color--surface', '--color--surface-contrast'));
 
         if (empty($pairs)) {
             $pairs[] = ['background' => '#2d2d2d', 'contrast' => '#ffffff'];
@@ -186,17 +131,12 @@ class ColorSwatches
     public static function getColorPairChoices(): array
     {
         $tokenValues = self::getTokenPaletteValues();
-        $choices = [
-            'primary' => __('Primary', 'municipio'),
-            'secondary' => __('Secondary', 'municipio'),
-        ];
-
-        for ($index = 1; $index <= 10; $index++) {
-            if (!isset($tokenValues['--color--palette-' . $index])) {
+        $choices = [];
+        foreach (ColorTokenDefinitions::getBrandPairs() as $role => $pair) {
+            if ($pair['optional'] && !isset($tokenValues[$pair['background']])) {
                 continue;
             }
-
-            $choices['palette-' . $index] = sprintf(__('Palette %d', 'municipio'), $index);
+            $choices[$role] = __($pair['label'], 'municipio');
         }
 
         return $choices;
@@ -211,11 +151,11 @@ class ColorSwatches
      */
     public static function getColorPair(string $role): ?array
     {
-        if (!isset(self::COLOR_PAIR_ROLES[$role])) {
+        if (!isset(ColorTokenDefinitions::getBrandPairs()[$role])) {
             return null;
         }
 
-        $pair = self::COLOR_PAIR_ROLES[$role];
+        $pair = ColorTokenDefinitions::getBrandPairs()[$role];
 
         return [
             'background' => 'var(' . $pair['background'] . ')',
@@ -228,7 +168,7 @@ class ColorSwatches
      */
     public static function getColorUtilityClass(string $role): ?string
     {
-        return isset(self::COLOR_PAIR_ROLES[$role]) ? 'u-color--' . $role : null;
+        return isset(ColorTokenDefinitions::getBrandPairs()[$role]) ? 'u-color--' . $role : null;
     }
 
     /**
@@ -269,7 +209,7 @@ class ColorSwatches
      */
     public static function normalizeColorPairRole(string $value, string $variant = 'background'): ?string
     {
-        if (isset(self::COLOR_PAIR_ROLES[$value])) {
+        if (isset(ColorTokenDefinitions::getBrandPairs()[$value])) {
             return $value;
         }
 
@@ -290,7 +230,7 @@ class ColorSwatches
         $previews = [];
 
         foreach (self::getColorPairChoices() as $role => $label) {
-            $tokens = self::COLOR_PAIR_ROLES[$role];
+            $tokens = ColorTokenDefinitions::getBrandPairs()[$role];
             $background = $tokenValues[$tokens['background']] ?? self::getDefaultColor($role, 'background');
             $contrast = $tokenValues[$tokens['contrast']] ?? self::getDefaultColor($role, 'contrast');
 
@@ -311,12 +251,11 @@ class ColorSwatches
 
     private static function getDefaultColor(string $role, string $type): ?string
     {
-        return match ($role . ':' . $type) {
-            'primary:background' => '#2d2d2d',
-            'primary:contrast', 'secondary:contrast' => '#ffffff',
-            'secondary:background' => '#6e6e6e',
-            default => null,
-        };
+        $pair = ColorTokenDefinitions::getBrandPairs()[$role] ?? null;
+        if ($pair === null || !isset($pair[$type])) {
+            return null;
+        }
+        return self::normalizeHexColor(ColorTokenDefinitions::getDefault($pair[$type]));
     }
 
     /**
@@ -418,9 +357,12 @@ class ColorSwatches
         $existingColors = self::getExistingColorSetForPaletteMigration($tokenValues);
         $didChange = false;
         $legacyColorIndex = 0;
-        for ($index = 1; $index <= 10; $index++) {
-            $tokenColorKey = '--color--palette-' . $index;
-            $tokenContrastKey = '--color--palette-' . $index . '-contrast';
+        foreach (ColorTokenDefinitions::getBrandPairs() as $pair) {
+            if (!$pair['optional']) {
+                continue;
+            }
+            $tokenColorKey = $pair['background'];
+            $tokenContrastKey = $pair['contrast'];
 
             if (!empty($tokenValues[$tokenColorKey])) {
                 continue;
@@ -497,14 +439,7 @@ class ColorSwatches
     {
         $existingColors = [];
 
-        $existingColorKeys = [
-            '--color--primary',
-            '--color--secondary',
-        ];
-
-        for ($index = 1; $index <= 10; $index++) {
-            $existingColorKeys[] = '--color--palette-' . $index;
-        }
+        $existingColorKeys = array_column(ColorTokenDefinitions::getBrandPairs(), 'background');
 
         foreach ($existingColorKeys as $tokenKey) {
             $normalizedColor = self::normalizeHexColor($tokenValues[$tokenKey] ?? null);

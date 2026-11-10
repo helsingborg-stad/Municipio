@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Municipio\Admin\Acf;
 
 use Municipio\Helper\ColorSwatches;
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
 
 /**
  * Renders opt-in ACF colour pickers as semantic Styleguide palette roles.
@@ -17,12 +19,17 @@ use WpService\Contracts\AddFilter;
  * editor. The saved value is a role such as `primary` or `palette-1`, never a
  * hex value.
  */
-class PaletteColorChoices
+class PaletteColorChoices implements Hookable
 {
-    public function __construct(private AddFilter&AddAction $wpService)
+    public function __construct(
+        private AddFilter&AddAction $wpService,
+        private EnqueueManagerInterface $enqueue,
+    ) {}
+
+    public function addHooks(): void
     {
         $this->wpService->addFilter('acf/load_field', [$this, 'populateChoices']);
-        $this->wpService->addAction('admin_footer', [$this, 'printPreviewData'], 20);
+        $this->wpService->addAction('acf/input/admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
 
     /**
@@ -49,13 +56,13 @@ class PaletteColorChoices
     /**
      * Supplies the active Styleguide palette to the visual selector script.
      */
-    public function printPreviewData(): void
+    public function enqueueAssets(): void
     {
-        $previews = wp_json_encode(ColorSwatches::getColorPairPreviews());
-        if (!is_string($previews)) {
-            return;
-        }
-
-        echo '<script>window.MunicipioPaletteColorChoices=' . $previews . ';document.dispatchEvent(new Event("municipioPaletteColorChoicesReady"));</script>';
+        $this->enqueue
+            ->add('js/palette-color-choices.js', ['acf-input'])
+            ->with()
+            ->data('MunicipioPaletteColorChoices', [
+                'choices' => ColorSwatches::getColorPairPreviews(),
+            ]);
     }
 }

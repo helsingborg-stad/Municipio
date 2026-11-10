@@ -193,7 +193,6 @@ class Enqueue implements Hookable
     {
         $this->enqueue->add('js/user-group-visibility.js');
         $this->enqueue->add('js/hidden-post-status-conditional.js', ['acf-input', 'jquery']);
-        $this->enqueue->add('js/palette-color-choices.js', ['acf-input']);
         $this->enqueue->add('js/admin-progress-action.js');
 
         $this->enqueue->add('css/acf.css');

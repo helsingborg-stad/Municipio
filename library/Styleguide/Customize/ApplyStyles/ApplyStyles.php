@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
-use Municipio\Helper\ColorSwatches;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
@@ -130,116 +129,8 @@ class ApplyStyles implements Hookable
             'token' => ColorSchemeOverrides::filterSafeRootTokens($decoded['token']),
             '_dark' => ColorSchemeOverrides::filter(is_array($decoded['_dark'] ?? null) ? $decoded['_dark'] : null),
             '_contrast' => ColorSchemeOverrides::filter(is_array($decoded['_contrast'] ?? null) ? $decoded['_contrast'] : null),
-            'component' => $this->completeFooterColorPairs(
-                $this->completeHeaderColorPairs($decoded['component']),
-            ),
+            'component' => $decoded['component'],
         ];
-    }
-
-    /**
-     * Supplies the paired contrast token for header surfaces selected by older
-     * configurations and by Design Center controls that only persist a surface
-     * role. This is deliberately applied to the emitted CSS rather than
-     * storing a literal colour: palette and colour-scheme changes therefore
-     * remain live through the Styleguide variables.
-     *
-     * @param array<string, mixed> $components
-     * @return array<string, mixed>
-     */
-    private function completeHeaderColorPairs(array $components): array
-    {
-        foreach ($components as &$componentGroup) {
-            if (!is_array($componentGroup) || !is_array($componentGroup['header'] ?? null)) {
-                continue;
-            }
-
-            $header = &$componentGroup['header'];
-            // These were legacy computed colour overrides. Components must
-            // consume semantic surface/contrast tokens instead, so a saved
-            // literal cannot override the selected colour pair.
-            unset(
-                $header['--c-header--background-color'],
-                $header['--c-header--color'],
-                $header['--c-header--border-color'],
-            );
-
-            $surface = $header['--c-header--color--surface'] ?? null;
-            $contrast = $header['--c-header--color--surface-contrast'] ?? null;
-
-            if ((is_string($contrast) && trim($contrast) !== '') || !is_string($surface)) {
-                unset($header);
-                continue;
-            }
-
-            if (preg_match('/^var\\(--color--(primary|secondary|background|surface|palette-(?:[1-9]|10))\\)$/', trim($surface), $matches) === 1) {
-                $header['--c-header--color--surface-contrast'] = 'var(--color--' . $matches[1] . '-contrast)';
-            }
-
-            unset($header);
-        }
-        unset($componentGroup);
-
-        return $components;
-    }
-
-    /**
-     * Removes legacy computed footer colours and completes the semantic
-     * surface/contrast pair used by the Styleguide footer.
-     *
-     * @param array<string, mixed> $components
-     * @return array<string, mixed>
-     */
-    private function completeFooterColorPairs(array $components): array
-    {
-        foreach ($components as &$componentGroup) {
-            if (!is_array($componentGroup) || !is_array($componentGroup['footer'] ?? null)) {
-                continue;
-            }
-
-            $footer = &$componentGroup['footer'];
-            unset(
-                $footer['--c-footer--background-color'],
-                $footer['--c-footer--color'],
-                $footer['--c-footer--border-color'],
-                $footer['--c-footer--subfooter-background-color'],
-                $footer['--c-footer--subfooter-color'],
-                $footer['--c-footer--subfooter-separator-color'],
-            );
-
-            $surface = $footer['--c-footer--color--surface'] ?? null;
-            $pairedContrast = $this->getPairedColorContrast($surface);
-
-            if ($pairedContrast === null && is_string($surface)) {
-                $legacyRole = ColorSwatches::getClosestColorPairRole($surface);
-
-                if ($legacyRole !== null) {
-                    $surface = 'var(--color--' . $legacyRole . ')';
-                    $footer['--c-footer--color--surface'] = $surface;
-                    $pairedContrast = 'var(--color--' . $legacyRole . '-contrast)';
-                }
-            }
-
-            if ($pairedContrast !== null) {
-                // A colour scheme is a single surface/contrast selection. Do
-                // not let a legacy explicit text colour override that pair.
-                $footer['--c-footer--color--surface-contrast'] = $pairedContrast;
-            }
-
-            unset($footer);
-        }
-        unset($componentGroup);
-
-        return $components;
-    }
-
-    private function getPairedColorContrast(mixed $surface): ?string
-    {
-        if (!is_string($surface)
-            || preg_match('/^var\\(--color--(primary|secondary|background|surface|palette-(?:[1-9]|10))\\)$/', trim($surface), $matches) !== 1) {
-            return null;
-        }
-
-        return 'var(--color--' . $matches[1] . '-contrast)';
     }
 
     private function applyInlineStyles(string $styles): void

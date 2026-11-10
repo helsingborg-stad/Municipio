@@ -261,22 +261,22 @@ class BlockManager
     {
         $styles         = "";
         $gradientValues = "";
-        $gradientArr    = $data['background_gradient'];
+        $gradientStops    = $data['background_gradient'];
         $angle          = $data['background_gradient_angle'] ?? '0';
         $type           = $data['background_gradient_type'];
 
         if ($type == 'advanced') {
-            usort($gradientArr, function ($a, $b) {
-                return $a['stop'] - $b['stop'];
+            usort($gradientStops, function ($firstGradientStop, $secondGradientStop) {
+                return $firstGradientStop['stop'] <=> $secondGradientStop['stop'];
             });
         }
 
-        foreach ($gradientArr as $key => $gradient) {
+        foreach ($gradientStops as $key => $gradient) {
             $role = !empty($gradient['color']) ? ColorSwatches::normalizeColorPairRole((string) $gradient['color']) : null;
             $colorPair = $role !== null ? ColorSwatches::getColorPair($role) : null;
             $gradientValues .= ($colorPair['background'] ?? 'transparent') . $this->handleGradientStopValues($gradient, $type);
 
-            if ($key !== array_key_last($gradientArr)) {
+            if ($key !== array_key_last($gradientStops)) {
                 $gradientValues .= ', ';
             }
         }
@@ -296,16 +296,16 @@ class BlockManager
      */
     private function getGradientContrastRole(array $data): ?string
     {
-        $gradientArr = $data['background_gradient'] ?? null;
-        if (!is_array($gradientArr)) {
+        $gradientStops = $data['background_gradient'] ?? null;
+        if (!is_array($gradientStops)) {
             return null;
         }
 
         if (($data['background_gradient_type'] ?? null) === 'advanced') {
-            usort($gradientArr, fn ($a, $b) => ($a['stop'] ?? 0) <=> ($b['stop'] ?? 0));
+            usort($gradientStops, fn ($firstGradientStop, $secondGradientStop) => ($firstGradientStop['stop'] ?? 0) <=> ($secondGradientStop['stop'] ?? 0));
         }
 
-        foreach ($gradientArr as $gradient) {
+        foreach ($gradientStops as $gradient) {
             if (!is_array($gradient) || empty($gradient['color'])) {
                 continue;
             }
