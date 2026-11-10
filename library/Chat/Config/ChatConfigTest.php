@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Municipio\Chat\Config;
 
 use AcfService\Implementations\FakeAcfService;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -238,6 +239,29 @@ class ChatConfigTest extends TestCase
 
         static::assertSame([], $guestConfig->getAssistantForActiveQuery());
         static::assertSame([$assistant], $loggedInConfig->getAssistantForActiveQuery());
+    }
+
+    #[TestDox('logged_in_only from the $layout layout hides the assistant from guests only')]
+    #[DataProvider('integrationLayoutProvider')]
+    public function testLoggedInOnlyWorksForEachIntegrationLayout(string $layout): void
+    {
+        $restricted = ['acf_fc_layout' => $layout, 'name' => 'Private', 'logged_in_only' => true, 'chat_assistant_pages' => [123]];
+        $public = ['acf_fc_layout' => $layout, 'name' => 'Public', 'logged_in_only' => false, 'chat_assistant_pages' => [123]];
+        $acfService = $this->getAcfService(['chat_integrations' => [$restricted, $public]]);
+
+        $guestConfig = new ChatConfig($this->getWpService(queriedObjectId: 123, isUserLoggedIn: false), $acfService);
+        $loggedInConfig = new ChatConfig($this->getWpService(queriedObjectId: 123, isUserLoggedIn: true), $acfService);
+
+        static::assertSame([$public], $guestConfig->getAssistantForActiveQuery());
+        static::assertSame([$restricted, $public], $loggedInConfig->getAssistantForActiveQuery());
+    }
+
+    public static function integrationLayoutProvider(): array
+    {
+        return [
+            'eneo' => ['eneo'],
+            'puzzel' => ['puzzel'],
+        ];
     }
 
     #[TestDox('isPresidioEnabled() returns true when the chat_presidio_enabled option is true')]
