@@ -28,6 +28,8 @@ use Municipio\Upgrade\V60\Version60 as UpgradeVersion60;
 use Municipio\Upgrade\V62\Version62;
 use Municipio\Upgrade\V64\Version64;
 use Municipio\Upgrade\V65\Version65;
+use Municipio\Upgrade\V66\Version66;
+use Municipio\Upgrade\V67\Version67;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -43,7 +45,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 65; //The db version we want to achive
+    private $dbVersion = 67; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1209,6 +1211,38 @@ class Upgrade
     {
         try {
             (new Version65(WpService::get()))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 66
+     * Completes legacy header colour selections with their paired contrast token.
+     */
+    public function v_66(): bool
+    {
+        try {
+            (new Version66(WpService::get()))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 67
+     * Removes legacy literal header colours in favour of semantic colour pairs.
+     */
+    public function v_67(): bool
+    {
+        try {
+            (new Version67(WpService::get()))->upgradeToVersion();
         } catch (\Exception $e) {
             error_log($e->getMessage());
             return false;
