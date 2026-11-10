@@ -4,8 +4,6 @@ namespace Municipio\Content;
 
 class CustomPostType
 {
-    private const FIELD_POST_TYPES = 'field_56b347f3ffb6c';
-    private const FIELD_POST_TYPE_NAME = 'field_56b3619c5defc';
     private const FIELD_DISPLAY_NAME = 'field_6912b0c4a7e51';
     private const POST_TYPE_KEY_MAX_LENGTH = 19;
 
@@ -13,21 +11,6 @@ class CustomPostType
     {
         //Registration of Custom Post Types
         add_action('init', array($this, 'registerCustomPostTypes'));
-
-        // Store the post type key in the post type name field before ACF saves the rows.
-        // Priority 5 runs before ACF's own repeater handling (priority 10).
-        add_filter('acf/update_value', static function ($value, $post_id, $field) {
-            if (($field['key'] ?? null) !== self::FIELD_POST_TYPES || !is_array($value)) {
-                return $value;
-            }
-
-            return self::normalizeTypeDefinitionRows($value);
-        }, 5, 3);
-
-        // Prefill empty display names with the post type name so editors see what is shown.
-        add_filter('acf/load_value/key=' . self::FIELD_POST_TYPES, static function ($value) {
-            return is_array($value) ? self::fillMissingDisplayNames($value) : $value;
-        }, 20, 1);
 
         //Flush rewrite-rules on data update & sanitize post type name
         add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
@@ -181,107 +164,6 @@ class CustomPostType
         $sanitizeTitle ??= 'sanitize_title';
 
         return (string) $sanitizeTitle(substr($postTypeName, 0, self::POST_TYPE_KEY_MAX_LENGTH));
-    }
-
-    /**
-     * Normalize post type rows before they are saved.
-     *
-     * Stores the post type key in the post type name field so the locked field
-     * shows the real key. If no display name is set, the previous name is kept
-     * as display name so labels stay the same.
-     *
-     * Rows may be keyed by field key (admin form) or field name (update_field()).
-     *
-     * @param array         $rows          Repeater rows.
-     * @param callable|null $sanitizeTitle Sanitizer, defaults to sanitize_title().
-     * @return array
-     */
-    public static function normalizeTypeDefinitionRows(array $rows, ?callable $sanitizeTitle = null): array
-    {
-        foreach ($rows as $index => $row) {
-            $fields = self::resolveRowFields($row);
-
-            if ($fields === null) {
-                continue;
-            }
-
-            [$nameField, $displayField] = $fields;
-
-            // Derive the key from the untouched value, exactly as registerCustomPostTypes() does.
-            $name = (string) $row[$nameField];
-            $key  = self::getPostTypeKey($name, $sanitizeTitle);
-
-            if (trim($name) === '' || $key === '' || $key === $name) {
-                continue;
-            }
-
-            if (trim((string) ($row[$displayField] ?? '')) === '') {
-                $row[$displayField] = trim($name);
-            }
-
-            $row[$nameField] = $key;
-            $rows[$index]    = $row;
-        }
-
-        return $rows;
-    }
-
-    /**
-     * Resolve which keys hold the post type name and display name in a row.
-     *
-     * Rows are keyed by field key when saved from the admin form or loaded
-     * raw, and by field name when passed through update_field() by name.
-     *
-     * @param mixed $row Repeater row.
-     * @return array{0: string, 1: string}|null [name field, display name field], or null if not a post type row.
-     */
-    private static function resolveRowFields(mixed $row): ?array
-    {
-        $candidates = [
-            [self::FIELD_POST_TYPE_NAME, self::FIELD_DISPLAY_NAME],
-            ['post_type_name', 'display_name'],
-        ];
-
-        $fields = null;
-
-        if (is_array($row)) {
-            foreach ($candidates as $candidate) {
-                if (array_key_exists($candidate[0], $row)) {
-                    $fields = $candidate;
-                    break;
-                }
-            }
-        }
-
-        return $fields;
-    }
-
-    /**
-     * Fill empty display names with the post type name.
-     *
-     * Used when the rows are loaded, so the options page shows the name that
-     * is actually displayed even before the settings have been saved.
-     *
-     * @param array $rows Repeater rows keyed by field key or field name.
-     * @return array
-     */
-    public static function fillMissingDisplayNames(array $rows): array
-    {
-        foreach ($rows as $index => $row) {
-            $fields = self::resolveRowFields($row);
-
-            if ($fields === null) {
-                continue;
-            }
-
-            [$nameField, $displayField] = $fields;
-
-            if (trim((string) ($row[$displayField] ?? '')) === '' && trim((string) $row[$nameField]) !== '') {
-                $rows[$index][$displayField] = trim((string) $row[$nameField]);
-            }
-        }
-
-        return $rows;
     }
 
     public static function getTypeDefinitions(): array
