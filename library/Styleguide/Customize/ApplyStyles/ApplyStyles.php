@@ -342,7 +342,9 @@ class ApplyStyles implements Hookable
             'token' => ColorSchemeOverrides::filterSafeRootTokens($decoded['token']),
             '_dark' => ColorSchemeOverrides::filter(is_array($decoded['_dark'] ?? null) ? $decoded['_dark'] : null),
             '_contrast' => ColorSchemeOverrides::filter(is_array($decoded['_contrast'] ?? null) ? $decoded['_contrast'] : null),
-            'component' => $this->completeHeaderColorPairs($decoded['component']),
+            'component' => $this->completeFooterColorPairs(
+                $this->completeHeaderColorPairs($decoded['component']),
+            ),
         ];
     }
 
@@ -386,6 +388,45 @@ class ApplyStyles implements Hookable
             }
 
             unset($header);
+        }
+        unset($componentGroup);
+
+        return $components;
+    }
+
+    /**
+     * Removes legacy computed footer colours and completes the semantic
+     * surface/contrast pair used by the Styleguide footer.
+     *
+     * @param array<string, mixed> $components
+     * @return array<string, mixed>
+     */
+    private function completeFooterColorPairs(array $components): array
+    {
+        foreach ($components as &$componentGroup) {
+            if (!is_array($componentGroup) || !is_array($componentGroup['footer'] ?? null)) {
+                continue;
+            }
+
+            $footer = &$componentGroup['footer'];
+            unset(
+                $footer['--c-footer--background-color'],
+                $footer['--c-footer--color'],
+                $footer['--c-footer--border-color'],
+                $footer['--c-footer--subfooter-background-color'],
+                $footer['--c-footer--subfooter-color'],
+                $footer['--c-footer--subfooter-separator-color'],
+            );
+
+            $surface = $footer['--c-footer--color--surface'] ?? null;
+            $contrast = $footer['--c-footer--color--surface-contrast'] ?? null;
+
+            if ((!is_string($contrast) || trim($contrast) === '') && is_string($surface)
+                && preg_match('/^var\\(--color--(primary|secondary|background|surface|palette-(?:[1-9]|10))\\)$/', trim($surface), $matches) === 1) {
+                $footer['--c-footer--color--surface-contrast'] = 'var(--color--' . $matches[1] . '-contrast)';
+            }
+
+            unset($footer);
         }
         unset($componentGroup);
 
