@@ -23,7 +23,7 @@ class ApplyStylesTest extends TestCase
             'component' => [],
         ], JSON_THROW_ON_ERROR));
 
-        $subject = new ApplyStyles($wpService);
+        $subject = new ApplyStyles($wpService, new EditorColorTokens(__DIR__ . '/fixtures/editor-color-tokens.json'));
 
         $subject->addHooks();
 
@@ -47,7 +47,7 @@ class ApplyStylesTest extends TestCase
             ],
         ], JSON_THROW_ON_ERROR));
 
-        $subject = new ApplyStyles($wpService);
+        $subject = new ApplyStyles($wpService, new EditorColorTokens(__DIR__ . '/fixtures/editor-color-tokens.json'));
 
         $subject->applyStyles();
 
@@ -56,86 +56,16 @@ class ApplyStylesTest extends TestCase
         static::assertNotNull($wpService->inlineStyles);
         static::assertStringContainsString('@layer theme {', $wpService->inlineStyles);
         static::assertStringContainsString(':root {', $wpService->inlineStyles);
-        static::assertStringContainsString(':root :where(.editor-styles-wrapper) {', $wpService->inlineStyles);
-        static::assertSame(2, substr_count($wpService->inlineStyles, '--border-radius: 0.25;'));
-        static::assertStringContainsString('--u-color--color-primary: var(--color--primary);', $wpService->inlineStyles);
-        static::assertStringContainsString('--u-color--color-surface: var(--color--surface);', $wpService->inlineStyles);
-        static::assertStringContainsString('--color--surface-alt: color-mix(', $wpService->inlineStyles);
-        static::assertStringContainsString('--c-card--color--surface-default: var(--color--surface);', $wpService->inlineStyles);
+        static::assertStringNotContainsString('.editor-styles-wrapper', $wpService->inlineStyles);
         static::assertStringContainsString('.c-card {', $wpService->inlineStyles);
-    }
 
-    #[TestDox('pairs a selected header surface with its semantic contrast at render time')]
-    public function testPairsHeaderSurfaceWithSemanticContrastAtRenderTime(): void
-    {
-        $wpService = $this->createWpService(json_encode([
-            'token' => [],
-            'component' => [
-                'scope:s-header-flexible-upper' => [
-                    'header' => [
-                        '--c-header--color--surface' => 'var(--color--palette-4)',
-                    ],
-                ],
-            ],
-        ], JSON_THROW_ON_ERROR));
-
-        (new ApplyStyles($wpService))->applyStyles();
-
-        static::assertNotNull($wpService->inlineStyles);
-        static::assertStringContainsString('--c-header--color--surface: var(--color--palette-4);', $wpService->inlineStyles);
-        static::assertStringContainsString('--c-header--color--surface-contrast: var(--color--palette-4-contrast);', $wpService->inlineStyles);
-    }
-
-    #[TestDox('does not emit legacy literal header colour overrides')]
-    public function testDoesNotEmitLegacyLiteralHeaderColorOverrides(): void
-    {
-        $wpService = $this->createWpService(json_encode([
-            'token' => [],
-            'component' => [
-                '__general__' => [
-                    'header' => [
-                        '--c-header--background-color' => '#d9a0a0',
-                        '--c-header--color' => '#000000',
-                        '--c-header--border-color' => '#000000',
-                    ],
-                ],
-            ],
-        ], JSON_THROW_ON_ERROR));
-
-        (new ApplyStyles($wpService))->applyStyles();
-
-        static::assertNotNull($wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-header--background-color: #d9a0a0;', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-header--color: #000000;', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-header--border-color: #000000;', $wpService->inlineStyles);
-    }
-
-    #[TestDox('pairs a footer surface and removes legacy literal footer colours')]
-    public function testPairsFooterSurfaceAndRemovesLegacyLiteralFooterColors(): void
-    {
-        $wpService = $this->createWpService(json_encode([
-            'token' => [],
-            'component' => [
-                '__general__' => [
-                    'footer' => [
-                        '--c-footer--color--surface' => 'var(--color--palette-2)',
-                        '--c-footer--color--surface-contrast' => '#000000',
-                        '--c-footer--background-color' => '#d9a0a0',
-                        '--c-footer--color' => '#000000',
-                        '--c-footer--subfooter-color' => '#000000',
-                    ],
-                ],
-            ],
-        ], JSON_THROW_ON_ERROR));
-
-        (new ApplyStyles($wpService))->applyStyles();
-
-        static::assertNotNull($wpService->inlineStyles);
-        static::assertStringContainsString('--c-footer--color--surface-contrast: var(--color--palette-2-contrast);', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-footer--color--surface-contrast: #000000;', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-footer--background-color: #d9a0a0;', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-footer--color: #000000;', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--c-footer--subfooter-color: #000000;', $wpService->inlineStyles);
+        $editorStyles = $subject->applyEditorIframeStyles([])['styles'][0]['css'];
+        static::assertStringContainsString(':root :where(.editor-styles-wrapper) {', $editorStyles);
+        static::assertSame(2, substr_count($editorStyles, '--border-radius: 0.25;'));
+        static::assertStringContainsString('--u-color--color-primary: var(--color--primary);', $editorStyles);
+        static::assertStringContainsString('--u-color--color-surface: var(--color--surface);', $editorStyles);
+        static::assertStringContainsString('--color--surface-alt: color-mix(', $editorStyles);
+        static::assertStringContainsString('--c-card--color--surface-default: var(--color--surface);', $editorStyles);
     }
 
     #[TestDox('appends stored tokens to block editor iframe settings styles')]
@@ -181,7 +111,6 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString('@media (prefers-color-scheme: dark)', $wpService->inlineStyles);
         static::assertStringContainsString('@media (prefers-contrast: more), (forced-colors: active)', $wpService->inlineStyles);
         static::assertStringNotContainsString('--color--background-border: #222222;', $wpService->inlineStyles);
-        static::assertStringContainsString('--u-color--color-background: var(--color--background);', $wpService->inlineStyles);
         static::assertLessThan(
             strpos($wpService->inlineStyles, '@media (prefers-contrast: more), (forced-colors: active)'),
             strpos($wpService->inlineStyles, '@media (prefers-color-scheme: dark)'),

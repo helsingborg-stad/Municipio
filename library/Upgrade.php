@@ -31,6 +31,7 @@ use Municipio\Upgrade\V65\Version65;
 use Municipio\Upgrade\V66\Version66;
 use Municipio\Upgrade\V67\Version67;
 use Municipio\Upgrade\V68\Version68;
+use Municipio\Upgrade\V69\Version69;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -46,7 +47,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 68; //The db version we want to achive
+    private $dbVersion = 69; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1268,6 +1269,19 @@ class Upgrade
         return true;
     }
 
+
+    /** Completes persisted header/footer colour pairs. */
+    public function v_69(): bool
+    {
+        try {
+            (new Version69($this->wpService))->upgradeToVersion();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Get all post types

@@ -81,4 +81,22 @@ class DesignTokensToCssConverterTest extends TestCase
 
         static::assertSame(":root :where(.editor-styles-wrapper) {\n--color--background: #111111;\n}", $css);
     }
+
+    public function testRejectsUnsafeComponentValuesAndScopeSelectors(): void
+    {
+        $styles = (new DesignTokensToCssConverter())->convert([
+            '__general__' => [
+                'footer' => [
+                    '--c-footer--color--surface' => 'var(--color--primary)',
+                    '--c-footer--color' => '#000; } </style><script>alert(1)</script>',
+                ],
+                'footer} body {' => ['--color--primary' => '#ffffff'],
+            ],
+            'scope:unsafe\"] {}' => ['header' => ['--c-header--space' => '1']],
+        ]);
+        static::assertStringContainsString('--c-footer--color--surface: var(--color--primary);', $styles);
+        static::assertStringNotContainsString('<script>', $styles);
+        static::assertStringNotContainsString('body', $styles);
+        static::assertStringNotContainsString('data-scope', $styles);
+    }
 }

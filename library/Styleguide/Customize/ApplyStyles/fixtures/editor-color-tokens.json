@@ -1,0 +1,4 @@
+{
+    "--c-card--color--surface-default": "var(--color--surface)",
+    "--c-footer--color--surface-contrast": "var(--color--surface-contrast)"
+}
