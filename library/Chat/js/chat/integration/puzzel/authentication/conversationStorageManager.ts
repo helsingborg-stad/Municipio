@@ -1,5 +1,6 @@
 import { SESSION_ID_KEY } from "../../../enums";
 import { readJsonObject, writeJsonObject } from "../../../helper/jsonStorage";
+import { PUZZEL_CONVERSATION_MAX_IDLE_MS } from "../enums";
 
 const CHAT_BUBBLE_NAME = "global-chat-bubble";
 
@@ -42,8 +43,46 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         }
 
         const data = readJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS);
-        this.localStorageData = data.puzzel ?? null;
+        const puzzelData: PuzzelLocalStorageData | null = data.puzzel ?? null;
+
+        if (puzzelData && this.isExpired(puzzelData)) {
+            this.clearLocalStorage();
+            return null;
+        }
+
+        this.localStorageData = puzzelData;
         return this.localStorageData;
+    }
+
+    /**
+     * Marks the stored conversation as active now, so it does not expire.
+     */
+    public updateLastActivity(): void {
+        const data = readJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS);
+
+        if (!data.puzzel) {
+            return;
+        }
+
+        data.puzzel.lastActivityAt = Date.now();
+        writeJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, data);
+
+        if (this.localStorageData) {
+            this.localStorageData.lastActivityAt = data.puzzel.lastActivityAt;
+        }
+    }
+
+    /**
+     * A conversation without a timestamp predates this check and is treated as expired.
+     */
+    private isExpired(puzzelData: PuzzelLocalStorageData): boolean {
+        const lastActivityAt = puzzelData.lastActivityAt;
+
+        if (typeof lastActivityAt !== "number") {
+            return true;
+        }
+
+        return Date.now() - lastActivityAt > PUZZEL_CONVERSATION_MAX_IDLE_MS;
     }
 
     public setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationData): void {
@@ -54,7 +93,8 @@ class ConversationStorageManager implements ConversationStorageManagerInterface 
         data.puzzel = {
             ...data.puzzel,
             conversationData: conversationResponse,
-            authenticationData: authentication
+            authenticationData: authentication,
+            lastActivityAt: Date.now(),
         };
 
         writeJsonObject(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, data);

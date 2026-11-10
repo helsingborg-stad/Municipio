@@ -4,6 +4,7 @@ interface ConversationStorageManagerInterface {
     getLocalStorage(): PuzzelLocalStorageData | null;
     setLocalStorage(conversationResponse: RouteConversationResponse, authentication: AuthenticationData): void;
     clearLocalStorage(): void;
+    updateLastActivity(): void;
     getConversationData(): RouteConversationResponse | null;
     getAuthenticationData(): AuthenticationData | null;
 }

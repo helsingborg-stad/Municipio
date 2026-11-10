@@ -1,5 +1,6 @@
 import ConversationStorageManager from "./conversationStorageManager";
 import { SESSION_ID_KEY } from "../../../enums";
+import { PUZZEL_CONVERSATION_MAX_IDLE_MS } from "../enums";
 
 describe("ConversationStorageManager", () => {
 	const conversationData = { conversationId: "conv-1", iqSessionId: "iq", requestId: 1, result: "ok" };
@@ -52,6 +53,55 @@ describe("ConversationStorageManager", () => {
 		expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES)).toEqual({ "global-chat-bubble": true });
 	});
 
+	describe("idle expiry", () => {
+		const storePuzzel = (puzzel: Record<string, unknown>) =>
+			window.localStorage.setItem(
+				SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
+				JSON.stringify({ other: { id: 1 }, puzzel }),
+			);
+
+		it("returns a conversation that was active within the idle limit", () => {
+			storePuzzel({ conversationData, authenticationData, lastActivityAt: Date.now() - (PUZZEL_CONVERSATION_MAX_IDLE_MS - 1000) });
+
+			expect(new ConversationStorageManager().getConversationId()).toBe("conv-1");
+		});
+
+		it("discards a conversation that has been idle longer than the limit, keeping other sessions", () => {
+			storePuzzel({ conversationData, authenticationData, lastActivityAt: Date.now() - (PUZZEL_CONVERSATION_MAX_IDLE_MS + 1000) });
+			const manager = new ConversationStorageManager();
+
+			expect(manager.getLocalStorage()).toBeNull();
+			expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS)).toEqual({ other: { id: 1 } });
+			expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_BUBBLE_INITIALIZE_STATES)).toEqual({ "global-chat-bubble": false });
+		});
+
+		it("treats a stored conversation without a timestamp as expired", () => {
+			storePuzzel({ conversationData, authenticationData });
+
+			expect(new ConversationStorageManager().getLocalStorage()).toBeNull();
+			expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS)).toEqual({ other: { id: 1 } });
+		});
+
+		it("updateLastActivity() refreshes the timestamp so the conversation stays alive", () => {
+			const start = 1_000_000;
+			jest.spyOn(Date, "now").mockReturnValue(start);
+			const manager = new ConversationStorageManager();
+			manager.setLocalStorage(conversationData as any, authenticationData as any);
+
+			jest.spyOn(Date, "now").mockReturnValue(start + PUZZEL_CONVERSATION_MAX_IDLE_MS - 1000);
+			manager.updateLastActivity();
+
+			jest.spyOn(Date, "now").mockReturnValue(start + PUZZEL_CONVERSATION_MAX_IDLE_MS + 1000);
+			expect(new ConversationStorageManager().getConversationId()).toBe("conv-1");
+		});
+
+		it("updateLastActivity() does nothing when no conversation is stored", () => {
+			new ConversationStorageManager().updateLastActivity();
+
+			expect(window.localStorage.getItem(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS)).toBeNull();
+		});
+	});
+
 	it("returns null when sessions exist but contain no puzzel entry", () => {
 		// Arrange
 		window.localStorage.setItem(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS, JSON.stringify({ other: { id: 1 } }));
@@ -78,7 +128,7 @@ describe("ConversationStorageManager", () => {
 		// Assert
 		expect(readJson(SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS)).toEqual({
 			other: { id: 1 },
-			puzzel: { extra: "kept", conversationData, authenticationData },
+			puzzel: { extra: "kept", conversationData, authenticationData, lastActivityAt: expect.any(Number) },
 		});
 		expect(manager.getConversationId()).toBe("conv-1");
 		expect(manager.getAccessToken()).toBe("token-123");
@@ -106,7 +156,7 @@ describe("ConversationStorageManager", () => {
 		// Arrange
 		window.localStorage.setItem(
 			SESSION_ID_KEY.GLOBAL_CHAT_SESSIONS,
-			JSON.stringify({ puzzel: { conversationData, authenticationData } }),
+			JSON.stringify({ puzzel: { conversationData, authenticationData, lastActivityAt: Date.now() } }),
 		);
 		const manager = new ConversationStorageManager();
 		manager.getLocalStorage();

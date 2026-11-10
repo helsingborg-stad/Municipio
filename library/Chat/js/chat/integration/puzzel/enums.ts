@@ -5,3 +5,6 @@ export enum PUZZEL_CHAT_STATUS {
     CONNECTED = "Connected",
     FAILURE = "Failure"
 }
+
+/** Stored Puzzel conversations are discarded after this long without any messages. */
+export const PUZZEL_CONVERSATION_MAX_IDLE_MS = 60 * 60 * 1000;

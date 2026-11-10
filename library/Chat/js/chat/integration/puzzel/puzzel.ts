@@ -97,6 +97,10 @@ class Puzzel implements ChatIntegrationInterface {
 
     private async startConversationListener(): Promise<void> {
         await this.puzzelConversationManager.listenForConversation((data) => {
+            if (data?.type === "chat") {
+                this.conversationStorageManager.updateLastActivity();
+            }
+
             this.incomingMessageHandler.handleConversationEvent(data);
         });
     }

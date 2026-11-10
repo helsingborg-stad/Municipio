@@ -68,6 +68,8 @@ type RouteConversationResponse = {
 type PuzzelLocalStorageData = RouteConversationResponse & {
     conversationData: RouteConversationResponse;
     authenticationData: AuthenticationData;
+    /** Timestamp (ms) of the last sent/received message, used to expire idle conversations. */
+    lastActivityAt?: number;
 };
 
 type PuzzelMetaDataEvent = {
