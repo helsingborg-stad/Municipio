@@ -198,6 +198,7 @@ class Enqueue implements Hookable
         $this->enqueue->add('css/general.css');
         $this->enqueue->add('css/a11y.css');
         $this->enqueue->add('css/trash-page.css');
+        $this->enqueue->add('css/material-symbols.css');
     }
 
     /**
