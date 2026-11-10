@@ -4,10 +4,30 @@ namespace Municipio\Content;
 
 class CustomPostType
 {
+    private const FIELD_POST_TYPES = 'field_56b347f3ffb6c';
+    private const FIELD_POST_TYPE_NAME = 'field_56b3619c5defc';
+    private const FIELD_DISPLAY_NAME = 'field_6912b0c4a7e51';
+    private const POST_TYPE_KEY_MAX_LENGTH = 19;
+
     public function __construct()
     {
         //Registration of Custom Post Types
         add_action('init', array($this, 'registerCustomPostTypes'));
+
+        // Store the post type key in the post type name field before ACF saves the rows.
+        // Priority 5 runs before ACF's own repeater handling (priority 10).
+        add_filter('acf/update_value', static function ($value, $post_id, $field) {
+            if (($field['key'] ?? null) !== self::FIELD_POST_TYPES || !is_array($value)) {
+                return $value;
+            }
+
+            return self::normalizeTypeDefinitionRows($value);
+        }, 5, 3);
+
+        // Prefill empty display names with the post type name so editors see what is shown.
+        add_filter('acf/load_value/key=' . self::FIELD_POST_TYPES, static function ($value, $post_id, $field) {
+            return is_array($value) ? self::fillMissingDisplayNames($value) : $value;
+        }, 20, 3);
 
         //Flush rewrite-rules on data update & sanitize post type name
         add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
@@ -18,6 +38,11 @@ class CustomPostType
         // Keep stored and runtime rewrite slugs consistent with WordPress rewrite paths.
         add_filter('acf/update_value/key=field_56b36c01e0619', static function ($value, $post_id, $field) {
             return sanitize_title($value);
+        }, 10, 3);
+
+        // Display name is a label, not a slug: strip tags and whitespace but keep casing and characters.
+        add_filter('acf/update_value/key=' . self::FIELD_DISPLAY_NAME, static function ($value, $post_id, $field) {
+            return sanitize_text_field((string) $value);
         }, 10, 3);
 
         //Use page or single template
@@ -52,21 +77,23 @@ class CustomPostType
         }
 
         foreach ($typeDefinitions as $typeDefinition) {
+            $displayName = self::getDisplayName($typeDefinition);
+
             $labels = array(
-                'name'               => $typeDefinition['post_type_name'],
-                'singular_name'      => $typeDefinition['post_type_name'],
-                'menu_name'          => $typeDefinition['post_type_name'],
-                'name_admin_bar'     => $typeDefinition['post_type_name'],
+                'name'               => $displayName,
+                'singular_name'      => $displayName,
+                'menu_name'          => $displayName,
+                'name_admin_bar'     => $displayName,
                 'add_new'            => __('Add new', 'municipio'),
-                'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $typeDefinition['post_type_name']),
-                'new_item'           => sprintf(__('New %s', 'municipio'), $typeDefinition['post_type_name']),
-                'edit_item'          => sprintf(__('Edit %s', 'municipio'), $typeDefinition['post_type_name']),
-                'view_item'          => sprintf(__('View %s', 'municipio'), $typeDefinition['post_type_name']),
-                'all_items'          => sprintf(__('All %s', 'municipio'), $typeDefinition['post_type_name']),
-                'search_items'       => sprintf(__('Search %s', 'municipio'), $typeDefinition['post_type_name']),
-                'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $typeDefinition['post_type_name']),
-                'not_found'          => sprintf(__('No %s found', 'municipio'), $typeDefinition['post_type_name']),
-                'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $typeDefinition['post_type_name'])
+                'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $displayName),
+                'new_item'           => sprintf(__('New %s', 'municipio'), $displayName),
+                'edit_item'          => sprintf(__('Edit %s', 'municipio'), $displayName),
+                'view_item'          => sprintf(__('View %s', 'municipio'), $displayName),
+                'all_items'          => sprintf(__('All %s', 'municipio'), $displayName),
+                'search_items'       => sprintf(__('Search %s', 'municipio'), $displayName),
+                'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $displayName),
+                'not_found'          => sprintf(__('No %s found', 'municipio'), $displayName),
+                'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $displayName)
             );
 
             $labels = apply_filters('Municipio/CustomPostType/labels', $labels, $typeDefinition);
@@ -115,10 +142,142 @@ class CustomPostType
                 }
             }
 
-            $postType = sanitize_title(substr($typeDefinition['post_type_name'], 0, 19));
+            $postType = self::getPostTypeKey((string) $typeDefinition['post_type_name']);
 
             register_post_type($postType, $args);
         }
+    }
+
+    /**
+     * Get the name shown in labels for a post type definition.
+     *
+     * Uses the optional display name when set, otherwise the post type name.
+     * The post type key is always derived from the post type name, so the
+     * display name can be changed without affecting existing posts.
+     *
+     * @param array $typeDefinition Post type definition from the options page.
+     * @return string
+     */
+    public static function getDisplayName(array $typeDefinition): string
+    {
+        $displayName = trim((string) ($typeDefinition['display_name'] ?? ''));
+
+        return $displayName !== '' ? $displayName : (string) ($typeDefinition['post_type_name'] ?? '');
+    }
+
+    /**
+     * Get the post type key for a post type name.
+     *
+     * Must stay identical to how keys have always been derived, otherwise
+     * existing posts end up under an unregistered post type. Applying it to
+     * an existing key returns the same key.
+     *
+     * @param string        $postTypeName  Post type name or key.
+     * @param callable|null $sanitizeTitle Sanitizer, defaults to sanitize_title().
+     * @return string
+     */
+    public static function getPostTypeKey(string $postTypeName, ?callable $sanitizeTitle = null): string
+    {
+        $sanitizeTitle ??= 'sanitize_title';
+
+        return (string) $sanitizeTitle(substr($postTypeName, 0, self::POST_TYPE_KEY_MAX_LENGTH));
+    }
+
+    /**
+     * Normalize post type rows before they are saved.
+     *
+     * Stores the post type key in the post type name field so the locked field
+     * shows the real key. If no display name is set, the previous name is kept
+     * as display name so labels stay the same.
+     *
+     * Rows may be keyed by field key (admin form) or field name (update_field()).
+     *
+     * @param array         $rows          Repeater rows.
+     * @param callable|null $sanitizeTitle Sanitizer, defaults to sanitize_title().
+     * @return array
+     */
+    public static function normalizeTypeDefinitionRows(array $rows, ?callable $sanitizeTitle = null): array
+    {
+        foreach ($rows as $index => $row) {
+            $fields = self::resolveRowFields($row);
+
+            if ($fields === null) {
+                continue;
+            }
+
+            [$nameField, $displayField] = $fields;
+
+            // Derive the key from the untouched value, exactly as registerCustomPostTypes() does.
+            $name = (string) $row[$nameField];
+            $key  = self::getPostTypeKey($name, $sanitizeTitle);
+
+            if (trim($name) === '' || $key === '' || $key === $name) {
+                continue;
+            }
+
+            if (trim((string) ($row[$displayField] ?? '')) === '') {
+                $row[$displayField] = trim($name);
+            }
+
+            $row[$nameField] = $key;
+            $rows[$index]    = $row;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Resolve which keys hold the post type name and display name in a row.
+     *
+     * Rows are keyed by field key when saved from the admin form or loaded
+     * raw, and by field name when passed through update_field() by name.
+     *
+     * @param mixed $row Repeater row.
+     * @return array{0: string, 1: string}|null [name field, display name field], or null if not a post type row.
+     */
+    private static function resolveRowFields(mixed $row): ?array
+    {
+        if (!is_array($row)) {
+            return null;
+        }
+
+        if (array_key_exists(self::FIELD_POST_TYPE_NAME, $row)) {
+            return [self::FIELD_POST_TYPE_NAME, self::FIELD_DISPLAY_NAME];
+        }
+
+        if (array_key_exists('post_type_name', $row)) {
+            return ['post_type_name', 'display_name'];
+        }
+
+        return null;
+    }
+
+    /**
+     * Fill empty display names with the post type name.
+     *
+     * Used when the rows are loaded, so the options page shows the name that
+     * is actually displayed even before the settings have been saved.
+     *
+     * @param array $rows Repeater rows keyed by field key or field name.
+     * @return array
+     */
+    public static function fillMissingDisplayNames(array $rows): array
+    {
+        foreach ($rows as $index => $row) {
+            $fields = self::resolveRowFields($row);
+
+            if ($fields === null) {
+                continue;
+            }
+
+            [$nameField, $displayField] = $fields;
+
+            if (trim((string) ($row[$displayField] ?? '')) === '' && trim((string) $row[$nameField]) !== '') {
+                $rows[$index][$displayField] = trim((string) $row[$nameField]);
+            }
+        }
+
+        return $rows;
     }
 
     public static function getTypeDefinitions(): array
