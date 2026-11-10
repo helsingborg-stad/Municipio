@@ -9,7 +9,6 @@ class PuzzelConfig implements PuzzelConfigInterface {
         private avatar: string,
         private authenticationUrl: string = 'https://app-consumeridp.puzzel.com',
         private communicationUrl: string = 'https://app-commsrv.puzzel.com',
-        private contentUploadUrl: string = 'https://app-contentupload.puzzel.com',
     ) {}
 
     public getVisualQueueId(): string {
@@ -30,10 +29,6 @@ class PuzzelConfig implements PuzzelConfigInterface {
 
     public getCommunicationUrl(): string {
         return this.communicationUrl;
-    }
-
-    public getContentUploadUrl(): string {
-        return this.contentUploadUrl;
     }
 
     public getCustomerId(): string {

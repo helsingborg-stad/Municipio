@@ -1,7 +1,6 @@
 interface PuzzelConfigInterface {
     getAuthenticationUrl(): string;
     getCommunicationUrl(): string;
-    getContentUploadUrl(): string;
     getCustomerId(): string;
     getChatQueueKey(): string;
     getClientId(): string;

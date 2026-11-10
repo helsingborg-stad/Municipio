@@ -21,7 +21,7 @@ class GetConversationStatus implements GetConversationStatusInterface {
             }
         });
 
-        throwErrorIfResponseNotOk(response, `Failed to get conversation status for conversation ID: ${conversationId}`);
+        await throwErrorIfResponseNotOk(response, `Failed to get conversation status for conversation ID: ${conversationId}`);
 
         return await response.json();
     }

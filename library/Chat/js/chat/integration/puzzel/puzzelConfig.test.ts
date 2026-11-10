@@ -15,16 +15,14 @@ describe("PuzzelConfig", () => {
 		expect(config.getAvatar()).toBe("avatar.png");
 		expect(config.getAuthenticationUrl()).toBe("https://app-consumeridp.puzzel.com");
 		expect(config.getCommunicationUrl()).toBe("https://app-commsrv.puzzel.com");
-		expect(config.getContentUploadUrl()).toBe("https://app-contentupload.puzzel.com");
 	});
 
 	it("allows overriding the service urls", () => {
 		// Arrange
-		const config = new PuzzelConfig("c", "q", "cl", "v", "t", "n", "a", "https://auth", "https://comm", "https://upload");
+		const config = new PuzzelConfig("c", "q", "cl", "v", "t", "n", "a", "https://auth", "https://comm");
 
 		// Act / Assert
 		expect(config.getAuthenticationUrl()).toBe("https://auth");
 		expect(config.getCommunicationUrl()).toBe("https://comm");
-		expect(config.getContentUploadUrl()).toBe("https://upload");
 	});
 });
