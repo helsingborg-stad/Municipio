@@ -1,4 +1,32 @@
 
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-weight: 100 700;
+    src: url('../../../vendor/helsingborg-stad/material-design-icons-json-svg-font-reduced/fonts/outlined/material-symbols-variable.woff2') format('woff2');
+    font-display: block;
+}
+
+.material-symbols {
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    font-size: var(--font-size-100, 24px);
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-family: 'Material Symbols Outlined' !important;
+    
+    &.material-symbols--filled {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+}
+
 #sticky-span,
 .inline-edit-status + .alignleft [name="sticky"],
 .inline-edit-status + .alignleft [name="sticky"] + .checkbox-title {
