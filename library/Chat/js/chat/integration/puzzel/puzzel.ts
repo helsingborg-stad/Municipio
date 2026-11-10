@@ -3,8 +3,6 @@ import { PUZZEL_CHAT_STATUS } from "./enums";
 class Puzzel implements ChatIntegrationInterface {
     private authenticated: AuthenticationData | undefined;
     private conversation: RouteConversationResponse | undefined;
-    private hadStoredAuthentication: boolean = false;
-    private triedRerun: boolean = false;
     private chatStatus: PuzzelConversationStatusResponse | null = null;
 
     public constructor(
@@ -25,65 +23,118 @@ class Puzzel implements ChatIntegrationInterface {
     ) {
     }
 
+    /**
+     * Without an ongoing conversation, a failure returns false so the chat can be removed.
+     * With one, the visitor expects their chat to still be there, so it stays and shows an
+     * error instead. Storage is cleared either way, so the next page load starts clean.
+     */
     public async init(): Promise<this|false> {
+        const hadOngoingConversation = this.conversationStorageManager.getLocalStorage() !== null;
+
+        let result = await this.connect();
+
+        if (result === "failed") {
+            // Stale stored conversation (or a new one without a status): start over once.
+            this.resetStoredConversation();
+            result = await this.connect();
+        }
+
+        if (result === "connected") {
+            await this.startSession();
+            return this;
+        }
+
+        this.resetStoredConversation();
+
+        if (!hadOngoingConversation) {
+            return false;
+        }
+
+        console.error("Failed to resume or restart the Puzzel conversation.");
+        this.showConnectionError();
+        return this;
+    }
+
+    private async connect(): Promise<PuzzelConnectResult> {
         this.puzzelConversationManager.stopListening();
         this.typingIndicatorHandler.clearTypingState();
         this.chatHandler.setDefaultPersistedState(false);
+        this.chatStatus = null;
 
-        const localStorageData = this.conversationStorageManager.getLocalStorage();
-        this.hadStoredAuthentication = !!localStorageData?.authenticationData;
-        this.authenticated = localStorageData?.authenticationData ?? await this.puzzelAuthenticator.authenticate();
+        const storedAuthentication = this.conversationStorageManager.getLocalStorage()?.authenticationData;
 
-        if (!this.authenticated) {
-            return false;
+        try {
+            return storedAuthentication
+                ? await this.resumeConversation(storedAuthentication)
+                : await this.startNewConversation();
+        } catch (error) {
+            console.error("Failed to connect to the Puzzel conversation.", error);
+            return "failed";
+        }
+    }
+
+    /**
+     * An ongoing conversation is resumed even outside opening hours: the agent may still be
+     * in it, and the conversation status tells us whether it is still alive.
+     */
+    private async resumeConversation(authentication: AuthenticationData): Promise<PuzzelConnectResult> {
+        this.authenticated = authentication;
+
+        if (!await this.getChatStatus()) {
+            return "failed";
         }
 
-        if (!await this.isAvailable()) {
-            return false;
+        const currentConversation = await this.puzzelConversationManager.getCurrentConversation();
+        const currentMetaData = await this.puzzelConversationManager.getCurrentMetaData();
+        this.chatHistoryHandler.load(currentConversation, currentMetaData);
+
+        return "connected";
+    }
+
+    private async startNewConversation(): Promise<PuzzelConnectResult> {
+        const authenticated = await this.authenticate();
+
+        if (!authenticated || !await this.isAvailable()) {
+            return "unavailable";
         }
 
-        if (this.hadStoredAuthentication && !await this.validateChatStatus()) {
-            return false;
-        }
+        this.authenticated = authenticated;
+        this.conversation = await this.puzzelConversationManager.startConversation();
+        this.conversationStorageManager.setLocalStorage(this.conversation, authenticated);
+        await this.puzzelConversationManager.sendUserJoinEventToConversation();
 
-        this.hadStoredAuthentication ? 
-            await this.handleStoredAuthenticationFlow() : 
-            await this.handleNewAuthenticationFlow();
+        return await this.getChatStatus() ? "connected" : "failed";
+    }
 
-
-        const localChatStatus = await this.getChatStatus();
-
-        if (!localChatStatus) {
-            const result = await this.handleFailedChatStatus();
-            return result;
-        }
-
-        this.chatStatusHandler.handleStatusEvent(localChatStatus);
+    private async startSession(): Promise<void> {
+        this.chatStatusHandler.handleStatusEvent(this.chatStatus!);
         await this.startConversationStatusListener();
 
         this.outgoingChatHandler.register();
 
         await this.startMetaDataListener();
         await this.startConversationListener();
+        this.setupUi();
+    }
+
+    private showConnectionError(): void {
+        this.setupUi();
+        this.chatHandler.setErrorData();
+        this.chatHandler.displayBanner(true);
+        this.chatHandler.disable();
+    }
+
+    private setupUi(): void {
         this.uiManager.setTitle(this.puzzelConfig.getName());
         this.uiManager.setAvatar(this.puzzelConfig.getAvatar());
         this.uiManager.clearActions();
         this.uiManager.addMinimizeAction();
         this.uiManager.addCloseAction();
-        this.triedRerun = false;
-        return this;
     }
 
-    private async handleStoredAuthenticationFlow(): Promise<void> {
-        const currentConversation = await this.puzzelConversationManager.getCurrentConversation();
-        const currentMetaData = await this.puzzelConversationManager.getCurrentMetaData();
-        this.chatHistoryHandler.load(currentConversation, currentMetaData);
-    }
-
-    private async handleNewAuthenticationFlow(): Promise<void> {
-        this.conversation = await this.puzzelConversationManager.startConversation();
-        this.conversationStorageManager.setLocalStorage(this.conversation, this.authenticated!);
-        await this.puzzelConversationManager.sendUserJoinEventToConversation();
+    private resetStoredConversation(): void {
+        this.conversationStorageManager.clearLocalStorage();
+        this.puzzelConversationManager.resetConversationId();
     }
 
     private async startMetaDataListener(): Promise<void> {
@@ -93,7 +144,6 @@ class Puzzel implements ChatIntegrationInterface {
             this.agentJoinedHandler.handleMetaDataEvent(data);
         });
     }
-
 
     private async startConversationListener(): Promise<void> {
         await this.puzzelConversationManager.listenForConversation((data) => {
@@ -118,32 +168,13 @@ class Puzzel implements ChatIntegrationInterface {
         });
     }
 
-    private async handleFailedChatStatus(): Promise<this|false> {
-        this.conversationStorageManager.clearLocalStorage();
-        this.puzzelConversationManager.resetConversationId();
-
-        if (!this.triedRerun) {
-            this.triedRerun = true;
-            return await this.init();
-        } else {
-            console.error("Failed to get chat status after retry with fresh setup.");
-            return false;
-        }
-    }
-
-    private async validateChatStatus(): Promise<boolean> {
+    private async authenticate(): Promise<AuthenticationData | null> {
         try {
-            if (!await this.getChatStatus()) {
-                await this.handleFailedChatStatus();
-                return false;
-            }
+            return await this.puzzelAuthenticator.authenticate() ?? null;
         } catch (error) {
-            console.error("Failed to validate conversation status.", error);
-            await this.handleFailedChatStatus();
-            return false;
+            console.error("Failed to authenticate with Puzzel.", error);
+            return null;
         }
-
-        return true;
     }
 
     private async isAvailable(): Promise<boolean> {
