@@ -863,7 +863,7 @@
                     "label": "Button color",
                     "name": "button_color",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "color_picker",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": [
@@ -1001,11 +1001,11 @@
                 },
                 {
                     "key": "field_689b2cf733d44",
-                    "label": "Custom background color",
+                    "label": "Background color",
                     "name": "custom_background_color",
                     "aria-label": "",
-                    "type": "color_picker",
-                    "instructions": "Colors can be defined in site customizer under General appearance > Colors > Additional colors.",
+                    "type": "select",
+                    "instructions": "Select a Styleguide palette colour. Its paired contrast colour is applied automatically.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -1027,13 +1027,14 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "enable_opacity": 0,
                     "return_format": "string",
+                    "enable_opacity": 0,
                     "allow_in_bindings": 0,
                     "show_custom_palette": 1,
                     "palette_colors": "",
                     "show_color_wheel": 0,
                     "custom_palette_source": "",
+                    "municipio_palette_color": true,
                     "parent_repeater": "field_64ff22b2d91b7"
                 }
             ]

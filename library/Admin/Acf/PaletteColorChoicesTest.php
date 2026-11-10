@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Municipio\Admin\Acf;
+
+use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+
+class PaletteColorChoicesTest extends TestCase
+{
+    public function testOnlyExplicitlyOptedInFieldsBecomePaletteSelectors(): void
+    {
+        $selector = new PaletteColorChoices(new FakeWpService(), $this->createMock(EnqueueManagerInterface::class));
+        $radiusField = ['type' => 'select', 'name' => 'border_radius', 'choices' => ['sm' => 'Small']];
+        static::assertSame($radiusField, $selector->populateChoices($radiusField));
+
+        $paletteField = $selector->populateChoices([
+            'type' => 'color_picker',
+            'name' => 'color',
+            'municipio_palette_color' => true,
+            'wrapper' => ['class' => 'existing-class'],
+        ]);
+        static::assertSame('select', $paletteField['type']);
+        static::assertArrayHasKey('primary', $paletteField['choices']);
+        static::assertSame('existing-class municipio-palette-color-selector', $paletteField['wrapper']['class']);
+    }
+
+    public function testAttachesPreviewDataToTheEnqueuedScript(): void
+    {
+        $enqueue = $this->createMock(EnqueueManagerInterface::class);
+        $enqueue->expects(static::once())->method('add')->with('js/palette-color-choices.js', ['acf-input'])->willReturnSelf();
+        $context = new class {
+            public array $data = [];
+
+            public function data(string $name, array $data): void
+            {
+                $this->data = [$name, $data];
+            }
+        };
+        $enqueue->method('with')->willReturn($context);
+        $selector = new PaletteColorChoices(new FakeWpService(), $enqueue);
+        $selector->enqueueAssets();
+        static::assertSame('MunicipioPaletteColorChoices', $context->data[0]);
+        static::assertArrayHasKey('choices', $context->data[1]);
+    }
+}
