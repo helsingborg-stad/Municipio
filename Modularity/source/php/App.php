@@ -262,7 +262,12 @@ class App
     public function enqueueBlockEditorStyles(): void
     {
         if (is_admin()) {
-            $this->wpEnqueue->add('css/modularity-block-editor.css');
+            // Shared module presentation styles belong in the editor canvas.
+            // enqueue_block_assets is iframe-safe; enqueueAdmin deliberately
+            // does not load this stylesheet in Gutenberg's parent document.
+            $this->wpEnqueue
+                ->add('css/modularity.css')
+                ->add('css/modularity-block-editor.css');
         }
     }
 
