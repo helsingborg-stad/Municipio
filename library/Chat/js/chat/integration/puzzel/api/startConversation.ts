@@ -11,9 +11,7 @@ class StartConversation implements StartConversationInterface {
     public async execute(conversationId: string): Promise<RouteConversationResponse> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
 
-        const response = await fetch(`
-            ${this.puzzelConfig.getCommunicationUrl()}/api/conversation/${conversationId}/route/${this.puzzelConfig.getChatQueueKey()}
-        `, {
+        const response = await fetch(`${this.puzzelConfig.getCommunicationUrl()}/api/conversation/${encodeURIComponent(conversationId)}/route/${encodeURIComponent(this.puzzelConfig.getChatQueueKey())}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

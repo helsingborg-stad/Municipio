@@ -9,7 +9,7 @@ class GetChatOpen implements GetChatOpenInterface {
 
     public async execute(): Promise<boolean> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
-        const url = `${this.puzzelConfig.getCommunicationUrl()}/api/time/${this.puzzelConfig.getTimeId()}`;
+        const url = `${this.puzzelConfig.getCommunicationUrl()}/api/time/${encodeURIComponent(this.puzzelConfig.getTimeId())}`;
 
         const response = await fetch(url, {
             method: "GET",

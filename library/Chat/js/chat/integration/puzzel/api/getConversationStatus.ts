@@ -13,7 +13,7 @@ class GetConversationStatus implements GetConversationStatusInterface {
     public async execute(conversationId: string): Promise<PuzzelConversationStatusResponse[]> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
 
-        const response = await fetch(`${this.puzzelConfig.getCommunicationUrl()}/api/allocation/requestStatus/${conversationId}/`, {
+        const response = await fetch(`${this.puzzelConfig.getCommunicationUrl()}/api/allocation/requestStatus/${encodeURIComponent(conversationId)}/`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

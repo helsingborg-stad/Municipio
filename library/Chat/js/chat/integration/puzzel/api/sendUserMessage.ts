@@ -10,9 +10,7 @@ class SendUserMessage {
     public async execute(conversationId: string, message: string): Promise<void> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
 
-        const response = await fetch(`
-            ${this.puzzelConfig.getCommunicationUrl()}/api/conversation/${conversationId}/message
-        `, {
+        const response = await fetch(`${this.puzzelConfig.getCommunicationUrl()}/api/conversation/${encodeURIComponent(conversationId)}/message`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -25,7 +23,7 @@ class SendUserMessage {
             },
         );
 
-        await throwErrorIfResponseNotOk(response, "Failed to send user join event");
+        await throwErrorIfResponseNotOk(response, "Failed to send user message");
     }
 }
 

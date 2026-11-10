@@ -9,7 +9,7 @@ class GetQueueInfo implements GetQueueInfoInterface {
 
     public async execute(): Promise<boolean> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
-        const url = `${this.puzzelConfig.getCommunicationUrl()}/api/queue/info/${this.puzzelConfig.getVisualQueueId()}`;
+        const url = `${this.puzzelConfig.getCommunicationUrl()}/api/queue/info/${encodeURIComponent(this.puzzelConfig.getVisualQueueId())}`;
 
         const response = await fetch(url, {
             method: "GET",

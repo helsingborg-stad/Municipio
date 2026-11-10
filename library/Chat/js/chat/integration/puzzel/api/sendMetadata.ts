@@ -10,9 +10,7 @@ class SendMetadata implements SendMetadataInterface {
     public async execute(conversationId: string, event: string): Promise<void> {
         const accessToken = await this.puzzelAuthenticator.getAccessToken();
 
-        const response = await fetch(`
-            ${this.puzzelConfig.getCommunicationUrl()}/api/metadata/${conversationId}
-        `, {
+        const response = await fetch(`${this.puzzelConfig.getCommunicationUrl()}/api/metadata/${encodeURIComponent(conversationId)}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -25,7 +23,7 @@ class SendMetadata implements SendMetadataInterface {
             },
         );
 
-        await throwErrorIfResponseNotOk(response, "Failed to send user join event");
+        await throwErrorIfResponseNotOk(response, "Failed to send metadata event");
     }
 }
 
