@@ -113,6 +113,32 @@ class ApplyStylesTest extends TestCase
         static::assertStringNotContainsString('--c-header--border-color: #000000;', $wpService->inlineStyles);
     }
 
+    #[TestDox('pairs a footer surface and removes legacy literal footer colours')]
+    public function testPairsFooterSurfaceAndRemovesLegacyLiteralFooterColors(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [
+                '__general__' => [
+                    'footer' => [
+                        '--c-footer--color--surface' => 'var(--color--palette-2)',
+                        '--c-footer--background-color' => '#d9a0a0',
+                        '--c-footer--color' => '#000000',
+                        '--c-footer--subfooter-color' => '#000000',
+                    ],
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--c-footer--color--surface-contrast: var(--color--palette-2-contrast);', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--background-color: #d9a0a0;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--color: #000000;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--subfooter-color: #000000;', $wpService->inlineStyles);
+    }
+
     #[TestDox('appends stored tokens to block editor iframe settings styles')]
     public function testAppendsStoredTokensToBlockEditorIframeSettingsStyles(): void
     {
