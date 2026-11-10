@@ -16,7 +16,6 @@ class ApplyLayersToEnqueuedStyles implements Hookable
 {
     public const HANDLES = [
         'municipio' => 'wordpress',
-        'css-municipiocss' => 'theme',
         'admin-bar' => 'theme',
     ];
 

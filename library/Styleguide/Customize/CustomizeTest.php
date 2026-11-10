@@ -7,6 +7,8 @@ namespace Municipio\Styleguide\Customize;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
+use WpUtilService\Features\Enqueue\EnqueueAssetContext;
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class CustomizeTest extends TestCase
 {
@@ -18,7 +20,7 @@ class CustomizeTest extends TestCase
             'getTemplateDirectoryUri' => 'https://example.com/theme',
         ]);
 
-        $customize = new Customize($wpService);
+        $customize = new Customize($wpService, new EnqueueManager($wpService));
         $customize->enqueueControlsAssets();
 
         static::assertSame(
@@ -39,45 +41,54 @@ class CustomizeTest extends TestCase
     {
         $wpService = new FakeWpService([
             'isCustomizePreview' => true,
-            'currentUserCan' => true,
-            'getTemplateDirectoryUri' => 'https://example.com/theme',
-            'wpRegisterScript' => true,
             '_x' => fn($text) => $text,
-            'wpLocalizeScript' => true,
         ]);
+        $enqueue = $this->createMock(EnqueueManager::class);
+        $assetContext = $this->createMock(EnqueueAssetContext::class);
 
-        $customize = new Customize($wpService);
+        $enqueue->expects(static::exactly(3))
+            ->method('add')
+            ->willReturnCallback(
+                static function (string $src, array $dependencies = []) use ($enqueue): EnqueueManager {
+                    static $expectedCalls = [
+                        ['css/designbuilder.css', []],
+                        ['js/designbuilder.js', []],
+                        ['js/designbuilder-preview.js', ['customize-preview', 'js-designbuilderjs']],
+                    ];
+
+                    static::assertSame(array_shift($expectedCalls), [$src, $dependencies]);
+
+                    return $enqueue;
+                },
+            );
+        $enqueue->expects(static::once())
+            ->method('with')
+            ->willReturn($assetContext);
+        $assetContext->expects(static::once())
+            ->method('translation')
+            ->with(
+                'styleguide',
+                static::callback(static function (array $data): bool {
+                    static::assertSame('Show uneditable', $data['translations']['showUneditable']);
+                    static::assertSame('Reset all', $data['translations']['resetAll']);
+
+                    return true;
+                }),
+            )
+            ->willReturn($enqueue);
+
+        $customize = new Customize($wpService, $enqueue);
         $customize->enqueuePreviewAssets();
+    }
 
-        static::assertSame(
-            [
-                [
-                    'styleguide-designbuilder',
-                    'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('css/designbuilder.css'),
-                ],
-            ],
-            $wpService->methodCalls['wpEnqueueStyle'],
-        );
+    #[TestDox('does not enqueue design builder assets outside the preview frame')]
+    public function testEnqueuePreviewAssetsDoesNothingOutsidePreviewFrame(): void
+    {
+        $wpService = new FakeWpService(['isCustomizePreview' => false]);
+        $enqueue = $this->createMock(EnqueueManager::class);
 
-        static::assertSame(
-            [
-                [
-                    'styleguide-designbuilder',
-                    'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder.js'),
-                ],
-            ],
-            $wpService->methodCalls['wpRegisterScript'],
-        );
+        $enqueue->expects(static::never())->method('add');
 
-        static::assertSame(
-            [
-                [
-                    'styleguide-designbuilder-preview',
-                    'https://example.com/theme/assets/dist/' . \Municipio\Helper\CacheBust::name('js/designbuilder-preview.js'),
-                    ['customize-preview', 'styleguide-designbuilder'],
-                ],
-            ],
-            $wpService->methodCalls['wpEnqueueScript'],
-        );
+        (new Customize($wpService, $enqueue))->enqueuePreviewAssets();
     }
 }

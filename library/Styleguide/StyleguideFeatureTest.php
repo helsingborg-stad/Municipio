@@ -8,19 +8,21 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetThemeMods;
 use WpService\Implementations\NativeWpService;
+use WpUtilService\WpUtilService;
 
 class StyleguideFeatureTest extends TestCase
 {
     #[TestDox('can be instantiated')]
     public function testCanBeInstantiated(): void
     {
-        $feature = new StyleguideFeature(self::createWpService());
+        $wpService = self::createWpService();
+        $feature = new StyleguideFeature($wpService, new WpUtilService($wpService));
         $this->assertInstanceOf(StyleguideFeature::class, $feature);
     }
 
     private static function getFeatureOutput(AddAction&GetThemeMods $wpService): string
     {
-        $feature = new StyleguideFeature($wpService);
+        $feature = new StyleguideFeature($wpService, new WpUtilService($wpService));
         $feature->addHooks();
 
         $addActionCalls = $wpService->addActionCalls;

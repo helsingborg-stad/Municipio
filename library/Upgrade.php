@@ -26,6 +26,12 @@ use Municipio\Upgrade\V58\Version58 as UpgradeVersion58;
 use Municipio\Upgrade\V59\Version59 as UpgradeVersion59;
 use Municipio\Upgrade\V60\Version60 as UpgradeVersion60;
 use Municipio\Upgrade\V62\Version62;
+use Municipio\Upgrade\V64\Version64;
+use Municipio\Upgrade\V65\Version65;
+use Municipio\Upgrade\V66\Version66;
+use Municipio\Upgrade\V67\Version67;
+use Municipio\Upgrade\V68\Version68;
+use Municipio\Upgrade\V69\Version69;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -41,7 +47,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 62; //The db version we want to achive
+    private $dbVersion = 69; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1172,6 +1178,110 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 63
+     * Clears cached oEmbed markup and timestamps so they are regenerated.
+     */
+    public function v_63($db): bool
+    {
+        $db->query("DELETE FROM {$db->postmeta} WHERE meta_key LIKE '_oembed_%';");
+
+        return true;
+    }
+
+    /**
+     * Version 64
+     * Migrates saved literal ACF colours to Styleguide palette roles.
+     */
+    public function v_64(): bool
+    {
+        try {
+            (new Version64(WpService::get(), $this->acfService))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 65
+     * Collapses legacy container text/background colour fields into one palette role.
+     */
+    public function v_65(): bool
+    {
+        try {
+            (new Version65(WpService::get()))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 66
+     * Completes legacy header colour selections with their paired contrast token.
+     */
+    public function v_66(): bool
+    {
+        try {
+            (new Version66(WpService::get()))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 67
+     * Removes legacy literal header colours in favour of semantic colour pairs.
+     */
+    public function v_67(): bool
+    {
+        try {
+            (new Version67(WpService::get()))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Version 68
+     * Removes legacy literal footer colours in favour of semantic colour pairs.
+     */
+    public function v_68(): bool
+    {
+        try {
+            (new Version68(WpService::get()))->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /** Completes persisted header/footer colour pairs. */
+    public function v_69(): bool
+    {
+        try {
+            (new Version69($this->wpService))->upgradeToVersion();
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Get all post types

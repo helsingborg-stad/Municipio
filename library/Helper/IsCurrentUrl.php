@@ -38,19 +38,34 @@ class IsCurrentUrl
 
     public static function isCurrentOrAncestorUrl(string $url): bool
     {
-        $currentUrl = self::sanitizePath(self::getRequestUri());
-        $url        = self::sanitizePath(self::parseUrlSafe($url, PHP_URL_PATH));
+        $requestUri   = self::getRequestUri();
+        $currentPath  = self::sanitizePath((string) parse_url($requestUri, PHP_URL_PATH));
+        $itemPath     = self::sanitizePath(self::parseUrlSafe($url, PHP_URL_PATH));
+        $itemQuery    = self::parseUrlSafe($url, PHP_URL_QUERY);
 
-        if (empty($url) || !is_string($currentUrl)) {
+        if (empty($itemPath)) {
             return false;
         }
 
-        if (str_contains($currentUrl, $url) &&  strpos($currentUrl, $url) === 0) {
-            $remainingPath = substr($currentUrl, strlen($url));
+        // Om menylänken har query-parametrar måste de finnas i aktuell URL
+        if (!empty($itemQuery)) {
+            parse_str($itemQuery, $itemParams);
+            parse_str((string) parse_url($requestUri, PHP_URL_QUERY), $currentParams);
 
-            if ($remainingPath === '' || $remainingPath[0] === '/') {
-                return true;
+            if ($currentPath !== $itemPath) {
+                return false;
             }
+            foreach ($itemParams as $key => $value) {
+                if (!isset($currentParams[$key]) || $currentParams[$key] != $value) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        if (strpos($currentPath, $itemPath) === 0) {
+            $remaining = substr($currentPath, strlen($itemPath));
+            return $remaining === '' || $remaining[0] === '/';
         }
 
         return false;

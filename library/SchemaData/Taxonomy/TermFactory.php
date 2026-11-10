@@ -146,6 +146,10 @@ class TermFactory implements TermFactoryInterface
             return $value;
         }
 
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
         if ($this->isSchemaWithName($value)) {
             return $value['name'];
         }

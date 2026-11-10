@@ -27,8 +27,7 @@ class JobPostingFormFactory implements FormFactoryInterface
      */
     public function __construct(
         private __ $wpService,
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
@@ -41,29 +40,39 @@ class JobPostingFormFactory implements FormFactoryInterface
             new DateField('validThrough', $this->wpService->__('Valid Through', 'municipio'), $schema->getProperty('validThrough')),
             new StringField('@id', $this->wpService->__('Reference', 'municipio'), $schema->getProperty('@id')),
             new WysiwygField('description', $this->wpService->__('Description', 'municipio'), $schema->getProperty('description')),
-            new StringField('employerOverview', $this->wpService->__('Employer Overview', 'municipio'), $schema->getProperty('employerOverview')),
+            new RepeaterField(
+                'employerOverview',
+                $this->wpService->__('Employer Overview', 'municipio'),
+                $schema->getProperty('employerOverview') ?? [],
+            ),
             new StringField('employmentType', $this->wpService->__('Employment Type', 'municipio'), $schema->getProperty('employmentType')),
-            new GroupField(
+            new RepeaterField(
                 'employmentUnit',
                 $this->wpService->__('Employment Unit', 'municipio'),
+                $schema->getProperty('employmentUnit') ?? [],
                 [
                     new TypeField('Organization'),
-                    new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('employmentUnit')?->getProperty('name') ?? null),
+                    new StringField('name', $this->wpService->__('Name', 'municipio')),
                     new GroupField(
                         'address',
                         $this->wpService->__('Address', 'municipio'),
                         [
                             new TypeField('PostalAddress'),
-                            new StringField('addressRegion', $this->wpService->__('Address Region', 'municipio'), $schema->getProperty('employmentUnit')?->getProperty('address')?->getProperty('addressRegion') ?? null),
-                            new StringField('addressLocality', $this->wpService->__('Address Locality', 'municipio'), $schema->getProperty('employmentUnit')?->getProperty('address')?->getProperty('addressLocality') ?? null)
-                        ]
+                            new StringField('addressRegion', $this->wpService->__('Address Region', 'municipio')),
+                            new StringField('addressLocality', $this->wpService->__('Address Locality', 'municipio')),
+                        ],
                     ),
-                ]
+                ],
             ),
-            new GroupField('hiringOrganization', $this->wpService->__('Hiring Organization', 'municipio'), [
-                new TypeField('Organization'),
-                new UrlField('ethicsPolicy', $this->wpService->__('Ethics Policy', 'municipio'), $schema->getProperty('hiringOrganization')?->getProperty('ethicsPolicy') ?? null),
-            ]),
+            new RepeaterField(
+                'hiringOrganization',
+                $this->wpService->__('Hiring Organization', 'municipio'),
+                $schema->getProperty('hiringOrganization') ?? [],
+                [
+                    new TypeField('Organization'),
+                    new UrlField('ethicsPolicy', $this->wpService->__('Ethics Policy', 'municipio')),
+                ],
+            ),
             new RepeaterField(
                 'applicationContact',
                 $this->wpService->__('Application Contact', 'municipio'),
@@ -74,7 +83,7 @@ class JobPostingFormFactory implements FormFactoryInterface
                     new EmailField('email', $this->wpService->__('Email', 'municipio')),
                     new StringField('telephone', $this->wpService->__('Telephone', 'municipio')),
                     new StringField('contactType', $this->wpService->__('Contact Type', 'municipio')),
-                ]
+                ],
             ),
         ];
     }

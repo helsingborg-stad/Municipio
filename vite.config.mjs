@@ -2,6 +2,7 @@ import path from "path";
 import fs from "node:fs";
 import copy from "rollup-plugin-copy";
 import { defineConfig } from "vite";
+import { collectEditorColorTokens } from "./build/styleguideEditorTokens.mjs";
 
 const { manifestPlugin } = await import("vite-plugin-simple-manifest").then(
 	(m) => m.default || m,
@@ -12,6 +13,33 @@ const copyStyleguideAssets = () => {
 
 	if (fs.existsSync(source)) {
 		fs.cpSync(source, "assets/dist/styleguide", { recursive: true });
+		const manifest = JSON.parse(
+			fs.readFileSync(path.join(source, "manifest.json"), "utf8"),
+		);
+		fs.writeFileSync(
+			"assets/dist/styleguide/editor-color-tokens.json",
+			JSON.stringify(collectEditorColorTokens(source, manifest)),
+		);
+	}
+
+	// Test a local styleguide runtime build without replacing the installed CSS.
+	const runtimeSource = process.env.MUNICIPIO_STYLEGUIDE_RUNTIME_DIST;
+	if (runtimeSource) {
+		const runtimeManifest = JSON.parse(
+			fs.readFileSync(path.join(runtimeSource, "manifest.json"), "utf8"),
+		);
+		const destination = "assets/dist/styleguide";
+		const manifestPath = path.join(destination, "manifest.json");
+		const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+		fs.cpSync(runtimeSource, destination, {
+			recursive: true,
+			filter: (file) =>
+				fs.statSync(file).isDirectory() || /\.js(?:\.map)?$/.test(file),
+		});
+		for (const [entry, file] of Object.entries(runtimeManifest)) {
+			if (entry.startsWith("js/")) manifest[entry] = file;
+		}
+		fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
 	}
 };
 
@@ -35,8 +63,7 @@ const wrapStandaloneEntryScripts = () => ({
 });
 
 const entries = {
-	"js/styleguide":
-		"./vendor/helsingborg-stad/styleguide/source/js/main.js",
+	"js/styleguide": "./vendor/helsingborg-stad/styleguide/source/js/main.js",
 	"css/styleguide":
 		"./vendor/helsingborg-stad/styleguide/source/sass/main.scss",
 	"css/designbuilder":
@@ -48,6 +75,9 @@ const entries = {
 	"js/customize": "./library/Styleguide/Customize/js/customize.ts", // This is a PHP file, but we will extract the inline script from it
 
 	"css/municipio": "./assets/source/sass/main.scss",
+	"css/palette-color-utilities":
+		"./assets/source/sass/palette-color-utilities.scss",
+	"css/municipio-comments": "./assets/source/sass/municipio-comments.scss",
 	"css/mce": "./assets/source/sass/mce.scss",
 	"css/blockeditor": "./assets/source/sass/blockeditor.scss", // depends on styleguide
 	"css/acf": "./assets/source/sass/admin/acf.scss",
@@ -55,8 +85,12 @@ const entries = {
 	"css/a11y": "./assets/source/sass/admin/a11y.scss",
 	"css/login": "./assets/source/sass/admin/login.scss",
 	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
+	"css/material-symbols": "./assets/source/sass/admin/material-symbols.scss",
 
-	"js/municipio": "./assets/source/js/municipio.js",
+	"js/a11y-warnings": "./assets/source/js/a11yWarnings.ts",
+	"js/municipio-shell": "./assets/source/js/frontend/shell.ts",
+	"js/municipio-comments": "./assets/source/js/frontend/comments.ts",
+	"js/municipio-posts-list": "./assets/source/js/frontend/postsList.ts",
 	"js/instantpage": "./node_modules/instant.page/instantpage.js",
 	"js/mce-buttons": "./assets/source/mce-js/mce-buttons.js",
 	"js/mce-table": "./assets/source/mce-js/mce-table.js",
@@ -90,6 +124,8 @@ const entries = {
 	"js/design-share": "./assets/source/js/admin/designShare.ts",
 	"js/hidden-post-status-conditional":
 		"./assets/source/js/admin/acf/hiddenPostStatusConditional.ts",
+	"js/palette-color-choices":
+		"./assets/source/js/admin/acf/paletteColorChoices.ts",
 	"js/user-group-visibility":
 		"./assets/source/js/admin/private/userGroupVisibility.ts",
 	"js/widgets-area-hider": "./assets/source/js/admin/widgetsAreaHider.js",
@@ -109,6 +145,7 @@ const entries = {
 export default defineConfig(({ mode }) => {
 	const isProduction = mode === "production";
 	return {
+		base: "./",
 		build: {
 			outDir: "assets/dist",
 			emptyOutDir: true,
@@ -136,9 +173,7 @@ export default defineConfig(({ mode }) => {
 				},
 				treeshake: {
 					moduleSideEffects: (id) =>
-						id.includes(
-							"/vendor/helsingborg-stad/styleguide/source/js/",
-						) ||
+						id.includes("/vendor/helsingborg-stad/styleguide/source/js/") ||
 						id.includes(
 							"/vendor/helsingborg-stad/styleguide/source/design-builder/",
 						),

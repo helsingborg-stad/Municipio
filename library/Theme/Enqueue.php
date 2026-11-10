@@ -15,6 +15,8 @@ use WpUtilService\WpUtilService;
 class Enqueue implements Hookable
 {
     private EnqueueManagerInterface $enqueue;
+    private AssetRequirements $assetRequirements;
+    private bool $hasLocalizedRestApiSettings = false;
 
     /**
      * Enqueue constructor.
@@ -24,6 +26,62 @@ class Enqueue implements Hookable
         private WpUtilService $wpUtilService,
     ) {
         $this->enqueue = $this->wpUtilService->enqueue(__DIR__);
+        $this->assetRequirements = new AssetRequirements($this->enqueue);
+        AssetRequirements::setInstance($this->assetRequirements);
+    }
+
+    /**
+     * Gets the REST API settings used by frontend scripts.
+     */
+    private function getRestApiSettings(): array
+    {
+        return [
+            'root'                 => esc_url_raw(rest_url()),
+            'nonce'                => wp_create_nonce('wp_rest'),
+            'nonceRefreshCacheKey' => $this->getNonceRefreshCacheKey(),
+            'versionString'        => 'wp/v2/'
+        ];
+    }
+
+    /**
+     * Gets a cache key namespace for the current authentication state.
+     *
+     * A nonce refresh URL must not be shared between logged-out visitors and
+     * authenticated users. Roles provide a stable, non-sensitive namespace
+     * without exposing a user ID or session value to the URL.
+     */
+    private function getNonceRefreshCacheKey(): string
+    {
+        if (!is_user_logged_in()) {
+            return 'logged-out';
+        }
+
+        $roles = wp_get_current_user()->roles;
+
+        if (!is_array($roles) || $roles === []) {
+            return 'logged-in';
+        }
+
+        $roles = array_filter(
+            array_map('sanitize_key', $roles),
+            static fn ($role): bool => $role !== ''
+        );
+        sort($roles, SORT_STRING);
+
+        return $roles === [] ? 'logged-in' : 'role-' . implode('-', $roles);
+    }
+
+    /**
+     * Localizes REST API settings on the dependency shared by request scripts.
+     */
+    private function ensureRestApiSettings(string $handle = 'wp-api-fetch'): void
+    {
+        if ($this->hasLocalizedRestApiSettings) {
+            return;
+        }
+
+        wp_localize_script($handle, 'wpApiSettings', $this->getRestApiSettings());
+        $this->hasLocalizedRestApiSettings = true;
     }
 
     /**
@@ -52,45 +110,73 @@ class Enqueue implements Hookable
      */
     public function enqueueFrontendScriptsAndStyles()
     {
-        //Add municipio.js with translations
-        $this->enqueue
-            ->add('js/municipio.js', ['jquery', 'wp-api-request'])
-            ->with()
-            ->translation('MunicipioLocale', [
-                'printbreak' => ['tooltip' => __('Insert Print Page Break tag', 'municipio')],
-                'messages' => [
-                    'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                    'onError' => __('Something went wrong, please try again later', 'municipio'),
-                ],
-            ]);
+        // The shell is required by every frontend request. Template controllers
+        // add their narrower requirements before the document head is captured.
+        $this->assetRequirements->add('shell');
+        $this->enqueue->add('css/palette-color-utilities.css');
+        wp_localize_script('js-municipio-shelljs', 'MunicipioLocale', [
+            'printbreak' => ['tooltip' => $this->wpService->__('Insert Print Page Break tag', 'municipio')],
+            'messages' => [
+                'deleteComment' => $this->wpService->__('Are you sure you want to delete the comment?', 'municipio'),
+                'onError' => $this->wpService->__('Something went wrong, please try again later', 'municipio'),
+            ],
+        ]);
+        $this->ensureRestApiSettings('js-municipio-shelljs');
 
+        // Register comment assets early so legacy comment-like localization can
+        // attach to the script handle during this hook. The Singular controller
+        // repeats this declaration as the canonical template requirement.
+        if ($this->wpService->isSingular()) {
+            $this->assetRequirements->add('comments');
+        }
+
+        if ($this->wpService->currentUserCan('upload_files')) {
+            $this->enqueue
+                ->add('js/a11y-warnings.js')
+                ->with()
+                ->translation('MunicipioA11yLocale', [
+                    'a11yWarnings' => [
+                        'button' => $this->wpService->__('Button text is not descriptive enough', 'municipio'),
+                        'headingHierarchy' => $this->wpService->__('Invalid heading level (level is skipped)', 'municipio'),
+                        'link' => $this->wpService->__('Link text is not descriptive enough', 'municipio'),
+                        'missingH1' => $this->wpService->__('Page is missing an H1 heading', 'municipio'),
+                        'vagueLabels' => [
+                            $this->wpService->__('Click here', 'municipio'),
+                            $this->wpService->__('Here', 'municipio'),
+                            $this->wpService->__('Read more', 'municipio'),
+                            $this->wpService->__('Continue reading', 'municipio'),
+                            $this->wpService->__('More', 'municipio'),
+                        ],
+                    ],
+                ]);
+        }
         //Add styleguide.js with translations
         $this->enqueue
             ->add('js/styleguide.js')
             ->with()
             ->translation('localizedMonths', [
-                ucFirst(__('January', 'municipio')),
-                ucFirst(__('February', 'municipio')),
-                ucFirst(__('March', 'municipio')),
-                ucFirst(__('April', 'municipio')),
-                ucFirst(__('May', 'municipio')),
-                ucFirst(__('June', 'municipio')),
-                ucFirst(__('July', 'municipio')),
-                ucFirst(__('August', 'municipio')),
-                ucFirst(__('September', 'municipio')),
-                ucFirst(__('October', 'municipio')),
-                ucFirst(__('November', 'municipio')),
-                ucFirst(__('December', 'municipio')),
+                ucFirst($this->wpService->__('January', 'municipio')),
+                ucFirst($this->wpService->__('February', 'municipio')),
+                ucFirst($this->wpService->__('March', 'municipio')),
+                ucFirst($this->wpService->__('April', 'municipio')),
+                ucFirst($this->wpService->__('May', 'municipio')),
+                ucFirst($this->wpService->__('June', 'municipio')),
+                ucFirst($this->wpService->__('July', 'municipio')),
+                ucFirst($this->wpService->__('August', 'municipio')),
+                ucFirst($this->wpService->__('September', 'municipio')),
+                ucFirst($this->wpService->__('October', 'municipio')),
+                ucFirst($this->wpService->__('November', 'municipio')),
+                ucFirst($this->wpService->__('December', 'municipio')),
             ])
             ->and()
             ->translation('localizedDays', [
-                ucFirst(__('Su', 'municipio')),
-                ucFirst(__('Mo', 'municipio')),
-                ucFirst(__('Tu', 'municipio')),
-                ucFirst(__('We', 'municipio')),
-                ucFirst(__('Th', 'municipio')),
-                ucFirst(__('Fr', 'municipio')),
-                ucFirst(__('Sa', 'municipio')),
+                ucFirst($this->wpService->__('Su', 'municipio')),
+                ucFirst($this->wpService->__('Mo', 'municipio')),
+                ucFirst($this->wpService->__('Tu', 'municipio')),
+                ucFirst($this->wpService->__('We', 'municipio')),
+                ucFirst($this->wpService->__('Th', 'municipio')),
+                ucFirst($this->wpService->__('Fr', 'municipio')),
+                ucFirst($this->wpService->__('Sa', 'municipio')),
             ]);
 
         //Other scripts
@@ -98,8 +184,6 @@ class Enqueue implements Hookable
         $this->enqueue->add('js/pdf.js');
         $this->enqueue->add('js/nav.js');
 
-        //Other styles
-        $this->enqueue->add('css/municipio.css');
     }
 
     /**
@@ -115,6 +199,7 @@ class Enqueue implements Hookable
         $this->enqueue->add('css/general.css');
         $this->enqueue->add('css/a11y.css');
         $this->enqueue->add('css/trash-page.css');
+        $this->enqueue->add('css/material-symbols.css');
     }
 
     /**
@@ -123,13 +208,14 @@ class Enqueue implements Hookable
     public function enqueueCustomizerScriptsAndStyles()
     {
         $this->enqueue
-            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-request'])
+            ->add('js/design-share.js', ['jquery', 'customize-controls', 'wp-api-fetch'])
             ->with()
             ->translation('municipioDesignShareConfig', [
                 'minimumSupportedDbVersion' => (int) get_option('municipio_db_version', 0),
                 'allowedSettingKeys' => DesignLibrarySettingPolicy::getAllowedExactKeys(),
                 'allowedSettingKeyPrefixes' => DesignLibrarySettingPolicy::getAllowedPrefixes(),
             ]);
+        $this->ensureRestApiSettings();
 
         $this->enqueue->add('js/customizer-error-handling.js', ['jquery', 'customize-controls']);
         $this->enqueue->add('js/customizer-uploaded-font-labels.js', ['jquery', 'customize-controls']);
@@ -166,7 +252,7 @@ class Enqueue implements Hookable
     /**
      * Remove jquery migrate from default scripts
      */
-    public function removeJqueryMigrate($scripts): void
+    public function removeJqueryMigrate(mixed $scripts): void
     {
         if ($this->wpService->isAdmin()) {
             return;

@@ -29,6 +29,7 @@ use Municipio\ImageFocus\Resolvers\MostBusyAreaFocusPointResolver;
 use Municipio\ImageFocus\Storage\FocusPointStorage;
 use Municipio\Integrations\Litespeed\Cache\PressidiumConsentVary;
 use Municipio\Integrations\Litespeed\Cache\UserGroupVary;
+use Municipio\Integrations\Litespeed\RemoveDummyStyleWhenCssOptimizationDisabled;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\SchemaDataFeature;
@@ -110,6 +111,9 @@ class App
         $pressidiumConsentVaryHeader = new PressidiumConsentVary($this->wpService);
         $pressidiumConsentVaryHeader->addHooks();
 
+        $removeLitespeedDummyStyle = new RemoveDummyStyleWhenCssOptimizationDisabled($this->wpService);
+        $removeLitespeedDummyStyle->addHooks();
+
         /**
          * Allow posts in private visibility to have further conditions to be shown.
          */
@@ -149,6 +153,8 @@ class App
         $enqueue = new \Municipio\Theme\Enqueue($this->wpService, $this->wpUtilService);
         $enqueue->addHooks();
 
+        (new \Municipio\Performance\FontDisplay\FontDisplay($this->wpService))->addHooks();
+
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
@@ -161,7 +167,14 @@ class App
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
-        new \Municipio\Search\General();
+        /**
+         * Easy read content alternatives
+         */
+        (new \Municipio\EasyRead\EasyReadFeature(
+            $this->wpService,
+            $this->acfService,
+        ))->enable();
+
         (new \Municipio\SearchIndex\SearchIndexFeature(
             $this->wpService,
             $this->acfService,
@@ -183,6 +196,11 @@ class App
         $imageNormalizer = \Municipio\Content\Images\Images::GetImageNormalizer();
         new \Municipio\Content\Cache();
         new \Municipio\Content\IframePosterImage();
+
+        /**
+         * Public discovery files.
+         */
+        new \Municipio\Standards\DiscoveryFiles($this->wpService, $this->acfService);
 
         /**
          * General filters
@@ -213,17 +231,19 @@ class App
          * Admin
          */
         new \Municipio\Admin\Gutenberg\Gutenberg();
+        $this->hooksRegistrar->register(new \Municipio\Admin\Gutenberg\OnePageTemplateOnly($this->wpService, $this->acfService));
         new \Municipio\Admin\General();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\Options\Theme();
+        new \Municipio\Admin\Options\Theme($this->wpService);
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillColor($this->wpService);
+        (new \Municipio\Admin\Acf\PaletteColorChoices($this->wpService, $this->wpUtilService->enqueue(__DIR__)))->addHooks();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
@@ -232,9 +252,19 @@ class App
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
-        new \Municipio\Admin\UI\Editor();
+        new \Municipio\Admin\UI\Editor($this->wpService, $this->wpUtilService->enqueue(__DIR__));
+        (new \Municipio\Admin\UI\ComponentEditorStyles(
+            $this->wpService,
+            $this->wpUtilService->enqueue(__DIR__, cacheBust: false)->setDistDirectory('/assets/dist/styleguide/'),
+            new \Municipio\Styleguide\ComponentAssets\StylesheetManifest($this->wpService->getTemplateDirectory() . '/assets/dist/styleguide'),
+        ))->addHooks();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
+
+        /**
+         * Site Health
+         */
+        (new \Municipio\SiteHealth\TidyExtensionRequirement($this->wpService))->addHooks();
 
         /* Integration: MiniOrange */
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
@@ -250,7 +280,10 @@ class App
         /**
          * Styleguide integration
          */
-        (new \Municipio\Styleguide\StyleguideFeature($this->wpService))->addHooks();
+        (new \Municipio\Styleguide\StyleguideFeature(
+            $this->wpService,
+            $this->wpUtilService,
+        ))->addHooks();
 
         /**
          * Api
@@ -400,6 +433,11 @@ class App
          * Setup Accessibility Statement
          */
         $this->setupAccessibilityStatement();
+
+        /**
+         * Setup Privacy Policy
+         */
+        (new \Municipio\PrivacyPolicy\PrivacyPolicy($this->wpService, $this->acfService))->addHooks();
 
         /**
          * Setup Chat
@@ -797,6 +835,11 @@ class App
         $compressedCollections->addHooks();
 
         (new \Municipio\Integrations\Component\IconCustomizer($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\ImageAltTextIndicator($this->wpService))->addHooks();
+        (new \Municipio\Integrations\Component\VagueControlTextIndicator($this->wpService))->addHooks();
+        $lqipPreloadConfig = new \Municipio\ImagePreload\LqipPreloadConfig($this->wpService);
+        \Municipio\ImagePreload\LqipPreloadRegistry::configure($lqipPreloadConfig);
+        (new \Municipio\ImagePreload\LqipPreloadCollector($this->wpService, $lqipPreloadConfig))->addHooks();
     }
 
     /**
@@ -846,6 +889,9 @@ class App
             new \Municipio\ImageConvert\Logging\Log(null, null, $imageConvertConfig),
         );
         $intermidiateImageHandler->addHooks();
+
+        // LQIPs are intentionally tiny and softly blurred before encoding.
+        (new \Municipio\ImageConvert\LqipBlur($this->wpService))->addHooks();
 
         //Resolve image to wp image contract (standard wordpress image array)
         $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(

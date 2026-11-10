@@ -52,8 +52,8 @@
             @endgroup
         @endif
 
-        @if ($hasBlocks && $post)
-            {!! $post->postContentFiltered !!}
+        @if ($post)
+            {!! $post->getContent() !!}
         @endif
 
         {!! $hook->innerLoopEnd !!}

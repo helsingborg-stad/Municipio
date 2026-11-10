@@ -43,10 +43,15 @@ export class ChatSession {
 
 	private async postMessage(message: string): Promise<Response> {
 		const { apiRoot, assistantName } = this.config;
+		const headers: Record<string, string> = { "Content-Type": "application/json" };
+		if (typeof wpApiSettings !== "undefined" && wpApiSettings.nonce) {
+			headers["X-WP-Nonce"] = wpApiSettings.nonce;
+		}
 
 		return this.fetchFn(`${apiRoot}${CHAT_API_ENDPOINT}`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			credentials: "same-origin",
+			headers,
 			body: JSON.stringify({
 				message,
 				session_id: this.sessions[assistantName ?? ""]?.sessionId ?? null,

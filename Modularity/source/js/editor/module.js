@@ -1,7 +1,6 @@
 let lModularity = null;
 $ = jQuery;
 var initCompleted = false;
-let hasChangedContent = [];
 
 /**
  * Object to create Thickbox querystring from
@@ -232,7 +231,7 @@ Module.prototype.addModule = function (
 		'\'>\
             <span class="modularity-line-wrapper">\
                 <span class="modularity-sortable-handle">\
-                    <i style="top:4px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">drag_handle</i>\
+					<i style="top:4px;" class="modularity-module-actions-symbol dashicons dashicons-move"></i>\
                 </span>\
                 <span class="modularity-module-name">\
                     <strong>' +
@@ -247,7 +246,7 @@ Module.prototype.addModule = function (
                 </span>\
                 <span class="modularity-module-actions">\
                     <label class="modularity-module-columns">\
-                        <i style="top:4px;" class="modularity-cmd-visibility-on modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">width</i>\
+						<i style="top:4px;" class="modularity-cmd-visibility-on modularity-module-actions-symbol dashicons dashicons-editor-expand"></i>\
                         <select name="modularity_modules[' +
 		sidebarId +
 		"][" +
@@ -271,8 +270,8 @@ Module.prototype.addModule = function (
 		' aria-label="' +
 		modularityLang.langhide +
 		'"/>\
-                        <i style="top:4px;" class="modularity-cmd-visibility-on modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">visibility</i>\
-                        <i style="top:4px;" class="modularity-cmd-visibility-off modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">visibility_off</i>\
+                        <i style="top:4px;" class="modularity-cmd-visibility-on modularity-module-actions-symbol dashicons dashicons-visibility"></i>\
+                        <i style="top:4px;" class="modularity-cmd-visibility-off modularity-module-actions-symbol dashicons dashicons-hidden"></i>\
                         <span class="label">' +
 		modularityLang.langvisibility +
 		'</span>\
@@ -280,7 +279,7 @@ Module.prototype.addModule = function (
                     <a href="' +
 		thickboxUrl +
 		'" data-modularity-modal class="modularity-js-thickbox-open modularity-err-resolver">' +
-		'<i style="top:3px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">edit</i>' +
+		'<i style="top:3px;" class="modularity-module-actions-symbol dashicons dashicons-edit"></i>' +
 		'<span class="label">' +
 		modularityLang.langedit +
 		"</span>" +
@@ -288,13 +287,13 @@ Module.prototype.addModule = function (
                     <a href="' +
 		importUrl +
 		'" class="modularity-js-thickbox-import modularity-err-resolver">' +
-		'<i style="top:4px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">dataset_linked</i>' +
+		'<i style="top:4px;" class="modularity-module-actions-symbol dashicons dashicons-download"></i>' +
 		'<span class="label">' +
 		modularityLang.langimport +
 		"</span>" +
 		'</a>\
                     <a href="#remove" class="modularity-module-remove modularity-err-resolver">' +
-		'<i style="top:4px;" class="modularity-module-actions-symbol material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined">delete</i>' +
+		'<i style="top:4px;" class="modularity-module-actions-symbol dashicons dashicons-trash"></i>' +
 		'<span class="label">' +
 		modularityLang.langremove +
 		"</span>" +
@@ -320,8 +319,6 @@ Module.prototype.addModule = function (
 	//Store
 	$(target).append(html);
 
-	this.getAllCurrentModules();
-
 	//Update width selector
 	$(".modularity-sidebar-area > li").each((index, item) => {
 		$(".modularity-module-columns select", $(item)).val(
@@ -331,19 +328,6 @@ Module.prototype.addModule = function (
 
 	//Refresh
 	$(".modularity-js-sortable").sortable("refresh");
-};
-
-Module.prototype.getAllCurrentModules = () => {
-	const sliderAreas = document.querySelectorAll(".modularity-sidebar-area");
-	const sliderAreasItemsArray = [];
-	sliderAreas.forEach((area) => {
-		area.querySelectorAll("li").forEach((item) => {
-			if (item.hasAttribute("id")) {
-				sliderAreasItemsArray.push(item.getAttribute("id"));
-			}
-		});
-	});
-	hasChangedContent = sliderAreasItemsArray;
 };
 
 /**
@@ -380,50 +364,10 @@ Module.prototype.removeModule = (module) => {
 };
 
 /**
- * Compare two arrays
- * @return array
- */
-Module.prototype.arraysAreEqual = (a = [], b = []) => {
-	if (a.length !== b.length) {
-		return false;
-	}
-
-	for (let i = 0; i < a.length; i++) {
-		if (a[i] !== b[i]) {
-			return false;
-		}
-	}
-	return true;
-};
-
-/**
  * Handle events
  * @return {void}
  */
 Module.prototype.handleEvents = function () {
-	let saveButtonClicked = false;
-	const saveButton = document.getElementById("publish");
-
-	if (saveButton) {
-		saveButton.addEventListener("click", () => {
-			saveButtonClicked = true;
-		});
-	}
-
-	window.addEventListener("beforeunload", (e) => {
-		const modules = document.querySelectorAll(".modularity-sidebar-area > li");
-		const arr = [];
-		modules.forEach((element) => {
-			if (element.hasAttribute("id")) {
-				arr.push(element.getAttribute("id"));
-			}
-		});
-
-		if (!saveButtonClicked && !this.arraysAreEqual(arr, hasChangedContent)) {
-			e.returnValue = "";
-		}
-	});
-
 	// Trash icon
 	$(document).on(
 		"click",

@@ -45,7 +45,7 @@ html :where(.wp-block) {
 .t-block-container {
   &.t-block-button {
     display: flex; 
-    align-items: left; 
+    align-items: flex-start;
 
     .block-list-appender {
       display: inline-block;

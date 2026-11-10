@@ -20,6 +20,8 @@ class PostsListBlockRenderer implements BlockRendererInterface
 
     public function render(array $attributes, string $content, \WP_Block $block): string
     {
+        \Municipio\Theme\AssetRequirements::requireAsset('posts-list');
+
         $prefix = $attributes['anchor'] ?? $attributes['queryVarsPrefix'] ?? 'posts_list_block_' . md5(json_encode($attributes));
         $prefix = rtrim($prefix, '_') . '_';
         $queryVars = new QueryVars($prefix);

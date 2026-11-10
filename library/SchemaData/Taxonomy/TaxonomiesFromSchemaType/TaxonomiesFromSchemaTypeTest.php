@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
+use Municipio\SchemaData\Taxonomy\TermFactory;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -81,6 +82,60 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
         
         static::assertNotEmpty($wpService->appliedFilters, 'Expected applyFilters to be called at least once');
         static::assertEquals('Municipio/Schema/Taxonomy/Event', $wpService->appliedFilters[0]['tag'], 'Expected filter tag to match schema type');
+    }
+
+    #[TestDox('splits Event keywords into audience and category taxonomies and maps isAccessibleForFree to a price taxonomy')]
+    #[DataProvider('eventCategoryTermSetNamesProvider')]
+    public function testEventTaxonomiesCreateExpectedTerms(string $categorySet): void
+    {
+        $instance = new TaxonomiesFromSchemaType(new TaxonomyFactory(), $this->getSchemaToPostTypeResolver(), $this->getWpService());
+        $schema = [
+            '@type' => 'Event',
+            'isAccessibleForFree' => true,
+            'keywords' => [
+                $this->definedTerm('Barn', 'audience'),
+                $this->definedTerm('Konst', $categorySet),
+                $this->definedTerm('sommarlov', 'keyword'),
+                // Legacy event API organizer groups must not be treated as audiences.
+                $this->definedTerm('Helsingborgs Konserthus', 'user_groups'),
+            ],
+        ];
+
+        $termNamesByTaxonomy = [];
+        foreach ($instance->create('Event') as $taxonomy) {
+            $terms = (new TermFactory())->create($taxonomy, $schema);
+            $termNamesByTaxonomy[$taxonomy->getName()] = array_map(fn($term) => $term->name, $terms);
+        }
+
+        static::assertSame(['Barn'], $termNamesByTaxonomy['event_audience']);
+        static::assertSame(['Konst'], $termNamesByTaxonomy['event_category']);
+        static::assertSame(['Free'], $termNamesByTaxonomy['event_price']);
+    }
+
+    #[TestDox('does not add a price term to Event when it is not free')]
+    public function testEventPriceTaxonomyIsEmptyWhenNotFree(): void
+    {
+        $instance = new TaxonomiesFromSchemaType(new TaxonomyFactory(), $this->getSchemaToPostTypeResolver(), $this->getWpService());
+        $priceTaxonomy = array_values(array_filter($instance->create('Event'), fn($taxonomy) => $taxonomy->getName() === 'event_price'))[0];
+
+        static::assertSame([], (new TermFactory())->create($priceTaxonomy, ['@type' => 'Event', 'isAccessibleForFree' => false]));
+    }
+
+    public static function eventCategoryTermSetNamesProvider(): array
+    {
+        return [
+            'headless event API' => ['category'],
+            'legacy event API' => ['event_categories'],
+        ];
+    }
+
+    private function definedTerm(string $name, string $termSetName): array
+    {
+        return [
+            '@type' => 'DefinedTerm',
+            'name' => $name,
+            'inDefinedTermSet' => ['@type' => 'DefinedTermSet', 'name' => $termSetName],
+        ];
     }
 
     public static function knownSchemaTypesProvider(): array

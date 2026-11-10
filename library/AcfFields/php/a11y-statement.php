@@ -46,6 +46,26 @@
             'append' => '',
         ),
         2 => array(
+            'key' => 'field_mun_a11ystatement_seo_description',
+            'label' => __('SEO Description', 'municipio'),
+            'name' => 'mun_a11ystatement_seo_description',
+            'aria-label' => '',
+            'type' => 'textarea',
+            'instructions' => __('A short description used by search engines for the accessibility statement.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => __('This accessibility statement describes the website\'s accessibility and how to report problems.', 'municipio'),
+            'maxlength' => 160,
+            'rows' => 3,
+            'placeholder' => '',
+            'new_lines' => '',
+        ),
+        3 => array(
             'key' => 'field_6874ffb290ca3',
             'label' => __('Content', 'municipio'),
             'name' => 'mun_a11ystatement_preamble',
@@ -65,7 +85,7 @@
             'media_upload' => 1,
             'delay' => 0,
         ),
-        3 => array(
+        4 => array(
             'key' => 'field_68750436b56e0',
             'label' => __('Accessibility Compliance', 'municipio'),
             'name' => 'mun_a11ystatement_compliance_level',
@@ -91,7 +111,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        4 => array(
+        5 => array(
             'key' => 'field_68762ea6a1c68',
             'label' => __('Accessibility Reference', 'municipio'),
             'name' => 'mun_a11ystatement_compliance_reference',
@@ -117,7 +137,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        5 => array(
+        6 => array(
             'key' => 'field_68762f33be425',
             'label' => __('Accessibility Reference Version', 'municipio'),
             'name' => 'mun_a11ystatement_compliance_reference_version',
@@ -145,7 +165,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        6 => array(
+        7 => array(
             'key' => 'field_68761a4d09bb9',
             'label' => __('Review Date', 'municipio'),
             'name' => 'mun_a11ystatement_review_date',
@@ -163,7 +183,7 @@
             'return_format' => 'Y-m-d',
             'first_day' => 1,
         ),
-        7 => array(
+        8 => array(
             'key' => 'field_68763f7edab51',
             'label' => __('Known Issues', 'municipio'),
             'name' => 'mun_a11ystatement_known_issues',
@@ -228,6 +248,7 @@
                         'motor' => __('Fine Motor or Strength Impairment', 'municipio'),
                         'hearing' => __('Hearing Loss or Deafness', 'municipio'),
                         'cognitive' => __('Cognitive or Learning Impairment', 'municipio'),
+                        'other' => __('Other issues', 'municipio'),
                     ),
                     'default_value' => false,
                     'return_format' => 'array',
@@ -241,6 +262,25 @@
                     'parent_repeater' => 'field_68763f7edab51',
                 ),
             ),
+        ),
+        9 => array(
+            'key' => 'field_mun_a11ystatement_report_recipient_email',
+            'label' => __('Accessibility issue report recipient', 'municipio'),
+            'name' => 'mun_a11ystatement_report_recipient_email',
+            'aria-label' => '',
+            'type' => 'email',
+            'instructions' => __('Reports submitted through the accessibility statement form are sent only to this address.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
         ),
     ),
     'location' => array(

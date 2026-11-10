@@ -64,6 +64,7 @@ class InteractiveMap extends \Modularity\Module
         $data['buttonFilters'] = $buttonFilters;
         $data['selectFilters'] = $selectFilters;
         $data['preselectedSelectFilter'] = $preselectedSelectFilter;
+        $data['mapIconTemplates'] = $this->getMapIconTemplates($parsedMapData);
 
         return $data;
     }
@@ -133,6 +134,28 @@ class InteractiveMap extends \Modularity\Module
 
         ksort($tree);
         return $tree;
+    }
+
+    /**
+     * The client creates Leaflet markers after Blade has rendered. Render all
+     * needed icons here so it can clone the active Icon component markup.
+     */
+    private function getMapIconTemplates($mapData): array
+    {
+        $icons = ['check_box', 'check_box_outline_blank', 'close', 'location_on', 'tune'];
+
+        if (!is_array($mapData)) {
+            return $icons;
+        }
+
+        foreach ($mapData['layerGroups'] ?? [] as $layerGroup) {
+            $icon = is_array($layerGroup) ? ($layerGroup['icon'] ?? null) : null;
+            if (is_string($icon) && preg_match('/^[a-z0-9_]+$/', $icon)) {
+                $icons[] = $icon;
+            }
+        }
+
+        return array_values(array_unique($icons));
     }
 
     public function BlockData($viewData, $block, $module): array

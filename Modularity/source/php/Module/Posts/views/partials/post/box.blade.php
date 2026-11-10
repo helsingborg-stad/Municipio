@@ -4,12 +4,12 @@
     'link' => $post->getPermalink(),
     'meta' => $post->termsUnlinked,
     'date' => $showDate ? [
-        'timestamp' => $post->getArchiveDateTimestamp(),
+        'timestamp' => $getPostDateTimestamp($post),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'dateBadge' => \Municipio\Helper\DateFormat::getUnresolvedDateFormat($post) == 'date-badge',
     'ratio' => $ratio,
-    'image' => $post->image,
+    'image' => $post->getImage(),
     'attributeList' => $post->attributeList ?? []
 ])
     @slot('metaArea')

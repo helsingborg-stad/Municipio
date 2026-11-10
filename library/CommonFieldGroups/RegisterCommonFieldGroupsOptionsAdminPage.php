@@ -19,7 +19,7 @@ class RegisterCommonFieldGroupsOptionsAdminPage implements Hookable
 
     public function addAdminPage(): void
     {
-        if (!$this->wpService->isMainSite()) {
+        if (!$this->wpService->isMainSite() || !$this->wpService->isMainNetwork()) {
             return;
         }
 

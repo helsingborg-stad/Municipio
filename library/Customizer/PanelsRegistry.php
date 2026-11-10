@@ -503,6 +503,11 @@ class PanelsRegistry
             'post_title' => 'Title',
         );
 
+        // Choices are only needed while editing; stored values remain available to frontend applicators.
+        if (!is_admin() && !is_customize_preview()) {
+            return $metaKeys;
+        }
+
         $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($postType);
 
         if (isset($metaKeysRaw) && is_array($metaKeysRaw) && !empty($metaKeysRaw)) {
@@ -526,6 +531,11 @@ class PanelsRegistry
             'post_date' => 'Date published',
             'post_modified' => 'Date modified',
         );
+
+        // Choices are only needed while editing; stored values remain available to frontend applicators.
+        if (!is_admin() && !is_customize_preview()) {
+            return $metaKeys;
+        }
 
         $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($postType);
 

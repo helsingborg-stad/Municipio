@@ -13,11 +13,12 @@
     @scope(['name' => ['single-schema-preschool', $postType . '-single-schema-preschool']])
         @section('before-content')
             @include('partials.schema.preschool.title-area')
+            @includeWhen(!empty($singleMediaItem), 'partials.schema.preschool.single-media')
             @includeWhen(!empty($sliderItems), 'partials.schema.preschool.slider')
         @stop
         @section('content')
             @includeWhen(!empty($usps), 'partials.schema.preschool.usps')
-            @includeWhen(!empty($events), 'partials.schema.preschool.events')
+            @includeWhen(!empty($eventsBlock), 'partials.schema.preschool.events')
             @includeWhen(!empty($visitUs), 'partials.schema.preschool.visit-us')
             @includeWhen(!empty($actions), 'partials.schema.preschool.actions')
             @includeWhen(!empty($accordionListItems), 'partials.schema.preschool.accordion-list')

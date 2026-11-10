@@ -15,6 +15,44 @@ describe("ChatSession", () => {
 	beforeEach(() => {
 		window.localStorage.clear();
 		jest.restoreAllMocks();
+		Reflect.deleteProperty(globalThis, "wpApiSettings");
+	});
+
+	it("sends the current REST nonce and login cookies with chat requests", async () => {
+		Object.defineProperty(globalThis, "wpApiSettings", {
+			configurable: true,
+			value: { root: "https://example.com/wp-json/", nonce: "old-nonce" },
+		});
+		const fetchMock = jest.fn().mockResolvedValue({} as Response);
+		const session = new ChatSession({
+			apiRoot: "https://example.com/wp-json/",
+			assistantName: "Ava",
+			fetchImpl: fetchMock as unknown as typeof fetch,
+		});
+
+		wpApiSettings.nonce = "current-nonce";
+		await (session as unknown as ChatSessionPrivateApi).postMessage("Hello");
+
+		const [, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit];
+		expect(requestInit.credentials).toBe("same-origin");
+		expect(requestInit.headers).toEqual({
+			"Content-Type": "application/json",
+			"X-WP-Nonce": "current-nonce",
+		});
+	});
+
+	it("keeps guest requests without a REST nonce", async () => {
+		const fetchMock = jest.fn().mockResolvedValue({} as Response);
+		const session = new ChatSession({
+			apiRoot: "https://example.com/wp-json/",
+			assistantName: "Ava",
+			fetchImpl: fetchMock as unknown as typeof fetch,
+		});
+
+		await (session as unknown as ChatSessionPrivateApi).postMessage("Hello");
+
+		const [, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit];
+		expect(requestInit.headers).toEqual({ "Content-Type": "application/json" });
 	});
 
 	it("uses persisted session id when session persistence is enabled", async () => {

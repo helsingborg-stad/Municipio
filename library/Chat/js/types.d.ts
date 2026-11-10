@@ -7,6 +7,7 @@ declare global {
 
 	interface WpApiSettings {
 		root: string;
+		nonce?: string;
 	}
 
 	const wpApiSettings: WpApiSettings;

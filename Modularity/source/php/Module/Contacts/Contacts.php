@@ -30,19 +30,54 @@ class Contacts extends \Modularity\Module
         $this->view = $data['view'] ?? 'extended';
         $data['view'] = $this->view;
 
+        $data['columnsSpan'] = $this->buildColumns($data);
+
         if (!empty($data['contacts'])) {
             $data['contacts'] = $this->prepareContacts($data['contacts']);
         }
 
-        if (!isset($data['columns'])) {
-            $data['columns'] = 'o-grid-12@md';
-        }
-
-        if ($data['view'] === 'simple') {
-            $data['columns'] .= ' o-grid-6@sm';
-        }
-
         return $data;
+    }
+
+    /**
+     * Build the column classes for the layout based on the provided data.
+     *
+     * @param array $data The data containing column information.
+     * @return array The array of column CSS classes.
+     */
+    private function buildColumns(array $data): array
+    {
+        $columns = [];
+        if (!empty($data['columns'])) {
+            $split = explode('-', $data['columns']);
+            $number = (int) end($split);
+            $columns[] = $this->buildColumnClass($number);
+
+            if ($number <= 6) {
+                $columns[] = $this->buildColumnClass(6, false) . '@cq-sm';
+            }
+        } else {
+            $columns[] = $this->buildColumnClass(12);
+        }
+
+        $columns[] = $this->buildColumnClass(12, false);
+
+        return $columns;
+    }
+
+    /**
+     * Build the CSS class for a column based on its span and responsiveness.
+     *
+     * @param int $span The number of columns the element should span.
+     * @param bool $responsive Whether the column should be responsive.
+     * @return string The CSS class for the column.
+     */
+    private function buildColumnClass(int $span, bool $responsive = true)
+    {
+        $class = 'o-layout-grid--col-span-';
+        $mqSuffix = '@cq-md';
+
+        return $class . $span . ($responsive ? $mqSuffix : '');
     }
 
     /**

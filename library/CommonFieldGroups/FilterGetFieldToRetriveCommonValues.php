@@ -45,9 +45,6 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     public function addHooks(): void
     {
-        if ($this->wpService->isMainSite()) {
-            return;
-        }
         $this->wpService->addAction('init', [$this, 'initializeFieldsToFilter'], 15);
     }
 
@@ -74,9 +71,14 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $acfGroupKeys = $this->config->getAcfFieldGroupsToFilter();
 
         foreach ($acfGroupKeys as $groupData) {
-            foreach ($groupData as $groupId) {
-                $fields               = $this->getFieldsForGroup($groupId);
-                $this->fieldsToFilter = array_merge($this->fieldsToFilter, $fields);
+            $groupId = $groupData[$this->config->getOptionsSelectFieldKey()] ?? null;
+            if (!is_string($groupId) || !$this->shouldFilterFieldGroup($groupData)) {
+                continue;
+            }
+
+            foreach ($this->getFieldsForGroup($groupId) as $field) {
+                $field['_common_field_group_source_site_id'] = $this->config->getSourceSiteId($groupData);
+                $this->fieldsToFilter[]                      = $field;
             }
         }
     }
@@ -88,14 +90,23 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     private function populateFieldValues(): void
     {
-        $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () {
-                foreach ($this->fieldsToFilter as $field) {
-                    $this->fetchFieldValue($field);
-                }
-            }
-        );
+        foreach ($this->fieldsToFilter as $field) {
+            $sourceSiteId = $field['_common_field_group_source_site_id'];
+            unset($field['_common_field_group_source_site_id']);
+
+            $this->siteSwitcher->runInSite($sourceSiteId, function () use ($field) {
+                $this->fetchFieldValue($field);
+            });
+        }
+    }
+
+    /**
+     * Skip a field group when the current network's main site is its source.
+     */
+    private function shouldFilterFieldGroup(array $fieldGroup): bool
+    {
+        return !$this->wpService->isMainSite()
+            || $this->config->getSourceSiteId($fieldGroup) !== $this->wpService->getMainSiteId();
     }
 
     /**

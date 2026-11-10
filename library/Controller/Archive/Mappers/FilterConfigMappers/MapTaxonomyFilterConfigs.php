@@ -57,7 +57,7 @@ class MapTaxonomyFilterConfigs implements MapperInterface
         // $taxonomies    = array_values(array_intersect($allTaxonomies, $taxonomies));
         return array_map(function (\WP_Taxonomy $taxonomy) use ($data) {
             $camelCasedName = lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $taxonomy->name))));
-            $filterType = isset($data['archiveProps']->{$camelCasedName . 'FilterFieldType'}) && $data['archiveProps']->{$camelCasedName . 'FilterFieldType'} === 'multi' ? TaxonomyFilterType::MULTISELECT : TaxonomyFilterType::SINGLESELECT;
+            $filterType = TaxonomyFilterType::tryFrom((string) ($data['archiveProps']->{$camelCasedName . 'FilterFieldType'} ?? '')) ?? TaxonomyFilterType::SINGLESELECT;
             return new TaxonomyFilterConfig($taxonomy, $filterType);
         }, $filteredWpTaxonomies);
     }

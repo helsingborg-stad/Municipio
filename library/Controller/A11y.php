@@ -8,6 +8,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
+use Municipio\Controller\VirtualPage\VirtualPageControllerTrait;
 
 enum ReviewStatus {
     case OK;
@@ -68,6 +69,8 @@ enum ComplianceLevel {
  */
 class A11y extends \Municipio\Controller\Singular
 {
+    use VirtualPageControllerTrait;
+
     public $query;
     public $view = 'a11y';
 
@@ -101,6 +104,7 @@ class A11y extends \Municipio\Controller\Singular
     public function addHooks()
     {
         $this->wpService->addFilter('wp_title', array($this, 'setupA11yTitle'));
+        $this->addSeoHooks();
         $this->wpService->addFilter('Municipio/A11y/Content', array($this, 'filterA11yContentTemplateTags'));
     }
 
@@ -165,6 +169,9 @@ class A11y extends \Municipio\Controller\Singular
 
         // Build categories and issues
         $this->data['categorizedIssues'] = $this->getKnownIssues();
+        $this->data['reportForm'] = $this->getReportForm();
+        $this->ensureBreadcrumbMenu('a11y-statement');
+        $this->ensurePrintMenuItem();
 
     }
 
@@ -256,10 +263,10 @@ class A11y extends \Municipio\Controller\Singular
         $status = $this->getReviewStatus();
 
         $reviewStatusClassList = match ($status) {
-            ReviewStatus::OK => ['u-color__bg--success', 'u-color__text--darkest'],
-            ReviewStatus::NearDeadline => ['u-color__bg--warning', 'u-color__text--darkest'],
-            ReviewStatus::Overdue => ['u-color__bg--danger', 'u-color__text--darkest'],
-            default => ['u-color__bg--dark', 'u-color__text--lightest'],
+            ReviewStatus::OK => ['u-color--success'],
+            ReviewStatus::NearDeadline => ['u-color--warning'],
+            ReviewStatus::Overdue => ['u-color--danger'],
+            default => ['u-color--surface'],
         };
 
         return array_merge(
@@ -282,6 +289,20 @@ class A11y extends \Municipio\Controller\Singular
     }
 
     /**
+     * Returns the configured SEO description, with a translated default.
+     */
+    protected function getMetaDescription(): string
+    {
+        $description = $this->acfService->getField('mun_a11ystatement_seo_description', 'options');
+
+        if (!is_string($description) || trim($description) === '') {
+            $description = $this->wpService->__('This accessibility statement describes the website\'s accessibility and how to report problems.', 'municipio');
+        }
+
+        return $this->wpService->applyFilters('Municipio/A11y/MetaDescription', $description);
+    }
+
+    /**
      * Returns the content
      * @return  string
      */
@@ -298,7 +319,25 @@ class A11y extends \Municipio\Controller\Singular
         return $content;
     }
 
-    
+    /**
+     * Render the mail-only accessibility issue report form when Frontend Form is active
+     * and an administrator has configured a recipient address.
+     */
+    private function getReportForm(): string
+    {
+        if (!class_exists('ModularityFrontendForm\\Module\\FrontendForm')) {
+            return '';
+        }
+
+        $email = (string) $this->acfService->getField('mun_a11ystatement_report_recipient_email', 'options');
+        $moduleId = (int) get_option('mun_a11ystatement_report_form_id', 0);
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || get_post_type($moduleId) !== 'mod-frontend-form') {
+            return '';
+        }
+
+        return (string) do_shortcode(sprintf('[modularity id="%d"]', $moduleId));
+    }
 
     /**
      * Returns the compliance level
@@ -351,33 +390,17 @@ class A11y extends \Municipio\Controller\Singular
         $complianceLevel = $this->getComplianceLevel();
 
         $complianceLevelClassList = match ($complianceLevel) {
-            ComplianceLevel::Compliant => ['u-color__bg--success'],
-            ComplianceLevel::PartiallyCompliant => ['u-color__bg--warning'],
-            ComplianceLevel::NotCompliant => ['u-color__bg--danger'],
-            default => ['u-color__bg--dark'],
+            ComplianceLevel::Compliant => ['u-color--success'],
+            ComplianceLevel::PartiallyCompliant => ['u-color--warning'],
+            ComplianceLevel::NotCompliant => ['u-color--danger'],
+            default => ['u-color--surface'],
         };
 
         return array_merge(
-            ['u-color__text--darkest', 't-a11y-pill'],
+            ['t-a11y-pill'],
             $complianceLevelClassList,
             [$complianceLevel->name]
         );
-    }
-
-    /**
-     * Returns the template tags
-     * @return array
-     */
-    protected function getTemplateTags(): array
-    {
-        return [
-            'website_name' => $this->wpService->getBlogInfo('name'),
-            'website_domain' => function () {
-                $url    = $this->wpService->getBlogInfo('url');
-                $host   = parse_url($url, PHP_URL_HOST);
-                return $host ?: $url;
-            }
-        ];
     }
 
     /**
@@ -390,14 +413,7 @@ class A11y extends \Municipio\Controller\Singular
      */
     public function filterA11yContentTemplateTags(string $content): string
     {
-        $templateTags = $this->getTemplateTags();
-        foreach ($templateTags as $key => $value) {
-            if (is_callable($value)) {
-                $value = $value();
-            }
-            $content = str_replace("{{{$key}}}", $value, $content);
-        }
-        return $content;
+        return $this->replaceTemplateTags($content);
     }
 
     /**
@@ -463,6 +479,7 @@ class A11y extends \Municipio\Controller\Singular
             'mobility' => 'pan_tool_alt',
             'hearing' => 'hearing',
             'cognitive' => 'psychology',
+            'other' => 'indeterminate_question_box',
         ];
 
         return $icons[$categoryKey] ?? 'accessibility_new';

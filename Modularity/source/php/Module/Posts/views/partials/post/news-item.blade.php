@@ -3,7 +3,7 @@
     'content'             => $post->excerptShort,
     'image'               => $post->getImage(),
     'date'                => $showDate ? [
-        'timestamp' => $post->getArchiveDateTimestamp(),
+        'timestamp' => $getPostDateTimestamp($post),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'readTime'            => $post->readingTime,

@@ -65,18 +65,19 @@ class Slider extends \Modularity\Module
         $data = [];
 
         //Assign settings to objects
-        $data['autoslide'] = $fields['slides_autoslide'] ? intval($fields['slides_slide_timeout']) : false;
+        $data['autoslide'] = !empty($fields['slides_autoslide'])
+            ? max(1, min(20, (int) ($fields['slides_slide_timeout'] ?? 5)))
+            : false;
         $data['ratio'] = preg_replace('/ratio-/', '', $fields['slider_format'] ?? 'ratio-16-9');
-        $data['wrapAround'] = in_array('wrapAround', $fields['additional_options'] ?? []);
         $data['title'] = isset($fields['post_title']) ? $fields['post_title'] : '';
-        $data['slidesPerPage'] = isset($fields['slides_per_page']) ? $fields['slides_per_page'] : '1';
-        $data['ariaLabels'] = (object) [
-            'prev' => __('Previous slide', 'modularity'),
-            'next' => __('Next slide', 'modularity'),
-            'first' => __('Go to first slide', 'modularity'),
-            'last' => __('Go to last slide', 'modularity'),
-            'slideX' => __('Go to slide %s', 'modularity'),
-        ];
+        $data['preamble'] = $fields['slider_preamble'] ?? '';
+        $data['slidesPerPage'] = max(1, min(4, (int) ($fields['slides_per_page'] ?? 1)));
+        $data['peekSlides'] = !empty($fields['slider_peek_slides']);
+        $data['slideByPage'] = !empty($fields['slider_slide_by_page']);
+        $data['navigationHover'] = !array_key_exists('slider_navigation_hover', $fields)
+            || !empty($fields['slider_navigation_hover']);
+        $data['compactNavigation'] = !array_key_exists('slider_compact_navigation', $fields)
+            || !empty($fields['slider_compact_navigation']);
 
         $imageSize = isset($this->imageSizes[$fields['slider_format']])
             ? $this->imageSizes[$fields['slider_format']]

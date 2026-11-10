@@ -1,10 +1,11 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.52.9",
+    "version": "7.82.0",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest ",
         "test:watch": "jest --watch",
+        "test:css-validator": "RUN_W3C_CSS_VALIDATION=true jest --watchman=false --runInBand source/validators/CssBuiltOutputValidation.test.ts",
         "dev": "vite",
         "build": "npm run build:municipio && (npm run build:modularity)",
         "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
@@ -12,7 +13,7 @@
         "build:blocks": "vite --config vite.blocks.config.mjs build",
         "watch:blocks": "vite --config vite.blocks.config.mjs build --watch",
         "build:modularity": "cd Modularity && npm install && npm run build",
-        "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/",
+        "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/ && npm run build:blocks",
         "watch": "(vite build --watch --mode development &) && (cd Modularity && npm run watch &) && wait",
         "i18n:update": "wp i18n make-pot . languages/municipio.pot --domain=municipio --location=false && wp i18n update-po languages/municipio.pot languages/sv_SE.po",
         "i18n:build": "wp i18n make-mo languages/sv_SE.po"
@@ -68,7 +69,6 @@
         "instant.page": "^5.2.0",
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",
-        "jquery": "^3.6.0",
         "leaflet": "^1.9.4",
         "lit-html": "^3.3.2",
         "mousetrap-global-bind": "^1.1.0",

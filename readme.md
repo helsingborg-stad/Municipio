@@ -1,4 +1,4 @@
-# Municipio 3
+# Municipio
 
 ## Download theme.
 To download a complete out of the box working plugin without the need to compile or fetch dependencies.
@@ -306,29 +306,6 @@ Applied to the list of Blade template types.
 
 ```php
 apply_filters('Municipio/blade/template_types', $types);
-```
-
-### Municipio/search_result/…
-Multiple filters applied to the contents of a search result
-
-- ```@param string $var``` - The content of the variable
-- ```@param object $post``` - Post object
-
-```php
-apply_filters('Municipio/search_result/date', $date, $post);
-apply_filters('Municipio/search_result/title', $title, $post);
-apply_filters('Municipio/search_result/excerpt', $excerpt, $post);
-apply_filters('Municipio/search_result/permalink_url', $permalink_url, $post);
-apply_filters('Municipio/search_result/permalink_text', $permalink_text, $post);
-```
-
-### Municipio/search_form/…
-Filters applied to the search form
-
-- ```@param string $var``` - The content of the variable
-
-```php
-apply_filters('Municipio/search_form/action', $url);
 ```
 
 ### Municipio/archive/sort_keys

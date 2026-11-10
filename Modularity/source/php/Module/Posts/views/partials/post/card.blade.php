@@ -5,7 +5,7 @@
     'content' => $post->excerptShort,
     'tags' => $post->termsUnlinked,
     'date' => $showDate ? [
-        'timestamp' => $post->getArchiveDateTimestamp(),
+        'timestamp' => $getPostDateTimestamp($post),
         'format'    => $post->getArchiveDateFormat(),
     ] : null,
     'dateBadge' => \Municipio\Helper\DateFormat::getUnresolvedDateFormat($post) == 'date-badge',

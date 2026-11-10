@@ -218,7 +218,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         //Get avatar url
-        $avatar = get_avatar_url($id, ['default' => 'blank']);
+        $avatar = get_avatar_url($this->data['post']->postAuthor, ['default' => 'blank']);
         if (!preg_match('/d=blank/i', $avatar)) {
             $author['avatar'] = $avatar;
         }

@@ -16,6 +16,7 @@ class App
     public $editor = null;
     private $modularityLangKey = 'modularityLang';
     private EnqueueManagerInterface $wpEnqueue;
+    private bool $hasUserEditableList = false;
 
     public function __construct(
         private WpUtilServiceInterface $wpUtilService,
@@ -26,6 +27,9 @@ class App
         add_action('enqueue_block_assets', [$this, 'enqueueBlockEditorStyles']);
         add_action('enqueue_block_editor_assets', [$this, 'enqueueBlockEditor']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueFront'], 950);
+        add_action('wp_footer', [$this, 'enqueueDetectedFrontendAssets'], 1);
+        add_filter('Modularity/Display/Markup', [$this, 'detectFrontendAssets'], 10, 2);
+        add_action('Modularity/Cache/Markup', [$this, 'detectFrontendAssets']);
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
         add_action('admin_init', [$this, 'addCaps']);
         add_filter('acf/fields/post_object/query', [$this, 'removeFromAcfPostQuery'], 99, 3);
@@ -193,19 +197,41 @@ class App
 
     public function enqueueFront()
     {
-        $this->wpEnqueue
-            ->add('css/modularity.css')
-            ->add('js/modularity.js', [], null, true)
-            ->add('js/user-editable-list.js')
-            ->with()
-            ->translation($this->modularityLangKey, $this->getModularityTranslations());
+        $this->wpEnqueue->add('css/modularity.css');
 
         if (!current_user_can('edit_posts')) {
             return;
         }
+
+        $this->wpEnqueue
+            ->add('js/modularity-editor.js', [], null, true)
+            ->with()
+            ->translation($this->modularityLangKey, $this->getModularityTranslations());
+
         //Register admin specific scripts/styling here
         if (wp_script_is('jquery', 'registered') && !wp_script_is('jquery', 'enqueued')) {
             wp_enqueue_script('jquery');
+        }
+    }
+
+    /**
+     * Detect optional frontend behaviour from the final module markup.
+     */
+    public function detectFrontendAssets(string $markup, mixed $module = null): string
+    {
+        $this->hasUserEditableList = $this->hasUserEditableList
+            || str_contains($markup, 'data-js-user-editable');
+
+        return $markup;
+    }
+
+    /**
+     * Enqueue optional frontend assets after module markup has been rendered.
+     */
+    public function enqueueDetectedFrontendAssets(): void
+    {
+        if ($this->hasUserEditableList) {
+            $this->wpEnqueue->add('js/user-editable-list.js', ['wp-api'], null, true);
         }
     }
 
@@ -236,7 +262,12 @@ class App
     public function enqueueBlockEditorStyles(): void
     {
         if (is_admin()) {
-            $this->wpEnqueue->add('css/modularity-block-editor.css');
+            // Shared module presentation styles belong in the editor canvas.
+            // enqueue_block_assets is iframe-safe; enqueueAdmin deliberately
+            // does not load this stylesheet in Gutenberg's parent document.
+            $this->wpEnqueue
+                ->add('css/modularity.css')
+                ->add('css/modularity-block-editor.css');
         }
     }
 
@@ -246,14 +277,18 @@ class App
      */
     public function enqueueAdmin()
     {
-        if (!$this->isModularityPage()) {
+        // Gutenberg loads content styles in its iframe. Its block-specific
+        // stylesheet is registered on enqueue_block_assets; loading this
+        // legacy Modularity admin stylesheet here makes WordPress inject it
+        // into the iframe from the wrong context.
+        if (!$this->isModularityPage() || \Modularity\Helper\Wp::isGutenbergEditor()) {
             return;
         }
 
         $this->wpEnqueue
             ->add('css/modularity.css')
             ->add('css/modularity-admin.css')
-            ->add('js/modularity.js', ['wp-api'], null, true)
+            ->add('js/modularity-editor.js', ['wp-api'], null, true)
             ->with()
             ->translation($this->modularityLangKey, $this->getModularityTranslations())
             ->add('js/dynamic-map-acf.js', ['jquery'])

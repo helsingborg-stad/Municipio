@@ -461,7 +461,7 @@ class ModuleManager
         global $post;
         $module = $this;
 
-        if (is_null($post)) {
+        if (is_null($post) || !str_starts_with((string) $post->post_type, self::MODULE_PREFIX)) {
             return;
         }
 
@@ -703,13 +703,13 @@ class ModuleManager
             $screen = get_current_screen();
             $postId = is_numeric(get_the_ID()) ? intval(get_the_ID()) : null;
 
-            if(is_null($postId)) {
+            if (is_null($postId) || !$screen || !str_starts_with((string) $screen->post_type, self::MODULE_PREFIX)) {
                 return;
             }
 
             $usage = sizeof(ModuleManager::getModuleUsage($postId));
 
-            if (str_starts_with($screen->post_type, 'mod-') && $usage > 1) {
+            if ($usage > 1) {
                 echo '<div class="notice notice-warning">';
                 echo
                     '<p>' . __('<strong>Heads up:</strong> This module is used in several places', 'municipio') . '</p>'

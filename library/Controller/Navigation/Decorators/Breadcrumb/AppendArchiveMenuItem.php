@@ -61,7 +61,7 @@ class AppendArchiveMenuItem implements MenuInterface
             }
 
             $menu['items'][] = [
-                'label' => $this->wpService->__($label, 'municipio'),
+                'label' => $label,
                 'href' => $archiveLink,
                 'current' => false,
                 'icon' => 'chevron_right',

@@ -20,6 +20,31 @@
             @endmap
         @endslot
     @endif
+    @if(!empty($onlineAttendance))
+        @slot('aboveContent')
+            @typography(['variant' => 'p', 'classList' => ['u-margin__top--0']])
+                {{ $onlineAttendance['notice'] }}
+            @endtypography
+            @if(!empty($onlineAttendance['button']))
+                @button([
+                    'href' => $onlineAttendance['button']['href'],
+                    'color' => 'primary',
+                    'style' => 'filled',
+                    'size' => 'md',
+                    'icon' => 'open_in_new',
+                    'fullWidth' => false,
+                    'text' => $onlineAttendance['button']['text'],
+                    'ariaLabel' => $onlineAttendance['button']['ariaLabel'],
+                    'attributeList' => [
+                        'style' => 'justify-self: start;',
+                        'rel' => 'noopener',
+                    ],
+                    'target' => '_blank'
+                ])
+                @endbutton
+            @endif
+        @endslot
+    @endif
     @if(!empty($place['url']))
         @slot('belowContent')
             @link(['href' => $place['url']])

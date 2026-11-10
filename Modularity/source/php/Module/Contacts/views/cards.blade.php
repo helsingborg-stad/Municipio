@@ -9,9 +9,21 @@
     @endtypography
 @endif
 
-<div class="o-grid o-grid--half-gutter" @if (!$hideTitle && !empty($postTitle)) aria-labelledby="{{ 'mod-text-' . $ID . '-label' }}" @endif>
+@element([
+    'classList' => [
+        'o-layout-grid',
+        'o-layout-grid--cq',
+        'o-layout-grid--cols-12',
+        'o-layout-grid--gap-4'
+    ],
+    'attributeList' => !$hideTitle && !empty($postTitle) ? [
+        'aria-labelledby' => 'mod-text-' . $ID . '-label'
+    ] : []
+])
     @foreach ($contacts as $contact)
-        <div class="o-grid-12 {{ apply_filters('Municipio/Controller/Archive/GridColumnClass', $columns) }}">
+        @element([
+            'classList' => $columnsSpan
+        ])
             @person([
                 'givenName' => $contact['first_name'] ?? '',
                 'familyName' => $contact['last_name'] ?? false,
@@ -26,9 +38,12 @@
                 'description' => $contact['other'] ?? false,
                 'customSections' => $contact['custom_sections'] ?? [],
                 'useAvatarFallback' => isset($placeholder_avatar) ? $placeholder_avatar : true,
-                'view' => $view ?? 'extended'
+                'view' => $view ?? 'extended',
+                'classList' => $view === 'simple' ? [
+                    'u-padding--1'
+                ] : []
             ])
             @endperson
-        </div>
+        @endelement
     @endforeach
-</div>
+@endelement

@@ -58,7 +58,31 @@ class Template
         add_filter('template_include', array($this, 'switchPageTemplate'), 5);
         add_filter('template_include', array($this, 'sanitizeViewName'), 10);
 
+        // Municipio renders the template at priority 15 and returns false, so core's
+        // wp_before_include_template hook never starts this buffer for classic themes.
+        if (function_exists('wp_start_template_enhancement_output_buffer')) {
+            add_filter('template_include', array($this, 'startTemplateEnhancementOutputBuffer'), 14);
+        }
+
         add_filter('template_include', array($this, 'loadViewData'), 15);
+    }
+
+    /**
+     * Start WordPress' native template-enhancement buffer before Municipio renders.
+     *
+     * This allows WordPress 6.9+ to hoist styles enqueued while rendering blocks
+     * from the footer to the document head.
+     *
+     * @param mixed $template The template path supplied by WordPress.
+     * @return mixed The unmodified template path.
+     */
+    public function startTemplateEnhancementOutputBuffer(mixed $template): mixed
+    {
+        if (!wp_is_block_theme()) {
+            wp_start_template_enhancement_output_buffer();
+        }
+
+        return $template;
     }
 
     /**

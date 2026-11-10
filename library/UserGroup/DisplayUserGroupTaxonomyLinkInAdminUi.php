@@ -31,6 +31,11 @@ class DisplayUserGroupTaxonomyLinkInAdminUi implements Hookable
      */
     public function addTaxonomyMenuLink(): void
     {
+        // Only show the link on the main network. The taxonomy is still registered on all networks.
+        if (!$this->wpService->isMainNetwork()) {
+            return;
+        }
+
         //Check if taxonomy is enabled
         if ($this->wpService->getTaxonomy($this->config->getUserGroupTaxonomy()) == false) {
             return;

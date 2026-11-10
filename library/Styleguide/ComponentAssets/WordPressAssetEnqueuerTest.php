@@ -41,7 +41,12 @@ class WordPressAssetEnqueuerTest extends TestCase
             'css/components/icon.css',
             'css/components/table.css',
             'css/components/card.css',
+            'css/components/fab.css',
+            'css/components/acceptance.css',
+            'css/components/modal.css',
             'js/components/button.js',
+            'js/components/acceptance.js',
+            'js/components/modal.js',
             'css/utilities/display.css',
             'css/utilities/preloader.css',
         ], 'built')));
@@ -74,6 +79,11 @@ class WordPressAssetEnqueuerTest extends TestCase
                 {
                     return ['custom-card' => 'css/components/card.css'];
                 }
+
+                public function components(): array
+                {
+                    return [];
+                }
             };
 
             $assets = new WordPressAssetEnqueuer($enqueue, $wpService, $directory, [$customDetector]);
@@ -83,17 +93,23 @@ class WordPressAssetEnqueuerTest extends TestCase
 
             $assets->enqueueComponent('button', ['sass' => ['components' => ['icon']]]);
             $assets->enqueueComponent('button');
+            $assets->enqueueMarkupComponents('<div class="c-acceptance c-acceptance--video"><dialog class="c-modal c-modal--is-modal"></dialog></div>');
 
-            static::assertSame('<link>', $assets->renderStyles('<div class="u-hidden" data-custom><table border="1"><tr><td>Value</td></tr></table></div>'));
+            static::assertSame('<link>', $assets->renderStyles('<div class="u-hidden c-fab" data-custom><table border="1"><tr><td>Value</td></tr></table></div>'));
             static::assertSame('<script></script>', $assets->renderScripts());
             static::assertSame([
                 'css/components/table.css',
                 'css/components/card.css',
                 'css/components/icon.css',
                 'css/components/button.css',
+                'css/components/acceptance.css',
+                'css/components/modal.css',
+                'css/components/fab.css',
                 'css/utilities/display.css',
                 'css/utilities/preloader.css',
                 'js/components/button.js',
+                'js/components/acceptance.js',
+                'js/components/modal.js',
             ], $paths);
         } finally {
             unlink($directory . '/manifest.json');

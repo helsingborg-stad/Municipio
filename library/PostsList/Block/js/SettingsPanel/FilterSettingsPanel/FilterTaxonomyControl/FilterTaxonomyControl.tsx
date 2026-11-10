@@ -1,15 +1,16 @@
 import {
-	__experimentalToggleGroupControl,
-	__experimentalToggleGroupControlOptionIcon,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from "@wordpress/components";
 import type { Taxonomy } from "@wordpress/core-data";
 import { __ } from "@wordpress/i18n";
-import { Icon, notAllowed } from "@wordpress/icons";
+import { check, Icon, notAllowed } from "@wordpress/icons";
 import { MultiSelectIcon, RadioIcon } from "./Icons";
 
 enum TaxonomyFilterType {
 	multi = "multi",
 	single = "single",
+	checkbox = "checkbox",
 }
 
 type Props = {
@@ -24,7 +25,7 @@ export const FilterTaxonomyControl: React.FC<Props> = ({
 	onChange,
 }): React.ReactElement => {
 	return (
-		<__experimentalToggleGroupControl
+		<ToggleGroupControl
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			isBlock
@@ -41,24 +42,30 @@ export const FilterTaxonomyControl: React.FC<Props> = ({
 				);
 			}}
 		>
-			<__experimentalToggleGroupControlOptionIcon
+			<ToggleGroupControlOptionIcon
 				value="disabled"
 				label={__("Disable", "municipio")}
 				icon={<Icon icon={notAllowed} />}
 				aria-label={__("Disable", "municipio")}
 			/>
-			<__experimentalToggleGroupControlOptionIcon
+			<ToggleGroupControlOptionIcon
 				value={TaxonomyFilterType.multi}
-				label={__("Checkboxes", "municipio")}
+				label={__("Multiselect", "municipio")}
 				icon={<Icon icon={<MultiSelectIcon />} />}
+				aria-label={__("Multiselect", "municipio")}
+			/>
+			<ToggleGroupControlOptionIcon
+				value={TaxonomyFilterType.single}
+				label={__("Single select", "municipio")}
+				icon={<Icon icon={<RadioIcon />} />}
+				aria-label={__("Single select", "municipio")}
+			/>
+			<ToggleGroupControlOptionIcon
+				value={TaxonomyFilterType.checkbox}
+				label={__("Checkboxes", "municipio")}
+				icon={<Icon icon={check} />}
 				aria-label={__("Checkboxes", "municipio")}
 			/>
-			<__experimentalToggleGroupControlOptionIcon
-				value={TaxonomyFilterType.single}
-				label={__("Radio buttons", "municipio")}
-				icon={<Icon icon={<RadioIcon />} />}
-				aria-label={__("Radio buttons", "municipio")}
-			/>
-		</__experimentalToggleGroupControl>
+		</ToggleGroupControl>
 	);
 };

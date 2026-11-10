@@ -32,7 +32,7 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
     ) {
         $this->manifest = $this->readJson($distDirectory . '/manifest.json');
         $this->utilityMap = $this->readJson($distDirectory . '/utility-class-map.json');
-        $this->markupDetectors = [new TableMarkupDetector(), ...$markupDetectors];
+        $this->markupDetectors = [new TableMarkupDetector(), new FabMarkupDetector(), ...$markupDetectors];
     }
 
     public static function setInstance(?self $instance): void
@@ -77,6 +77,26 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
     {
         $this->captureFragmentAsset('scripts', ['handle' => $handle, 'url' => $url]);
         $this->scripts[$handle] = ltrim($url, '/');
+    }
+
+    /** Restore component registrations from cached markup. */
+    public function enqueueMarkupComponents(string $markup): void
+    {
+        preg_match_all('/\bdata-component=["\']([^"\']+)["\']/i', $markup, $matches);
+        preg_match_all('/\bclass=["\']([^"\']+)["\']/i', $markup, $classMatches);
+
+        $components = $matches[1] ?? [];
+        foreach ($classMatches[1] ?? [] as $classList) {
+            foreach (preg_split('/\s+/', $classList) as $className) {
+                if (preg_match('/^c-([a-z0-9-]+)$/i', $className, $componentMatch)) {
+                    $components[] = $componentMatch[1];
+                }
+            }
+        }
+
+        foreach (array_unique($components) as $component) {
+            $this->enqueueComponent($component);
+        }
     }
 
     public function beginFragment(): void
@@ -133,6 +153,9 @@ class WordPressAssetEnqueuer implements AssetEnqueuerInterface, FragmentAssetCon
             }
             foreach ($detector->styles() as $handle => $path) {
                 $this->enqueueStyle($handle, $path);
+            }
+            foreach ($detector->components() as $component) {
+                $this->enqueueComponent($component);
             }
         }
 

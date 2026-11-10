@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin\Gutenberg\Blocks;
 
+use Municipio\Helper\ColorSwatches;
+
 /**
  * Class BlockManager
  *
@@ -159,11 +161,18 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            if (!empty($data['color']) && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
-                $data['style'][] = "background-color:{$data['color']}";
+            $backgroundRole = !empty($data['color'])
+                ? ColorSwatches::normalizeColorPairRole((string) $data['color'])
+                : null;
+            if ($backgroundRole !== null && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
+                $data['classList'] .= ' ' . ColorSwatches::getColorUtilityClass($backgroundRole);
             }
-            if (!empty($data['text_color'])) {
-                $data['style'][] = "color:{$data['text_color']}";
+
+            if ($this->blockHasBackgroundGradient($data)) {
+                $gradientRole = $this->getGradientContrastRole($data);
+                if ($gradientRole !== null) {
+                    $data['classList'] .= ' u-color__text--' . $gradientRole . '-contrast';
+                }
             }
 
             if ($this->blockHasBackgroundGradient($data)) {
@@ -252,20 +261,22 @@ class BlockManager
     {
         $styles         = "";
         $gradientValues = "";
-        $gradientArr    = $data['background_gradient'];
+        $gradientStops    = $data['background_gradient'];
         $angle          = $data['background_gradient_angle'] ?? '0';
         $type           = $data['background_gradient_type'];
 
         if ($type == 'advanced') {
-            usort($gradientArr, function ($a, $b) {
-                return $a['stop'] - $b['stop'];
+            usort($gradientStops, function ($firstGradientStop, $secondGradientStop) {
+                return $firstGradientStop['stop'] <=> $secondGradientStop['stop'];
             });
         }
 
-        foreach ($gradientArr as $key => $gradient) {
-            $gradientValues .= $gradient['color'] . $this->handleGradientStopValues($gradient, $type);
+        foreach ($gradientStops as $key => $gradient) {
+            $role = !empty($gradient['color']) ? ColorSwatches::normalizeColorPairRole((string) $gradient['color']) : null;
+            $colorPair = $role !== null ? ColorSwatches::getColorPair($role) : null;
+            $gradientValues .= ($colorPair['background'] ?? 'transparent') . $this->handleGradientStopValues($gradient, $type);
 
-            if ($key !== array_key_last($gradientArr)) {
+            if ($key !== array_key_last($gradientStops)) {
                 $gradientValues .= ', ';
             }
         }
@@ -275,6 +286,37 @@ class BlockManager
         }
 
         return $styles;
+    }
+
+    /**
+     * Uses the first visible gradient colour's paired contrast colour.
+     *
+     * @param array<string, mixed> $data The block data.
+     * @return string|null The semantic palette role.
+     */
+    private function getGradientContrastRole(array $data): ?string
+    {
+        $gradientStops = $data['background_gradient'] ?? null;
+        if (!is_array($gradientStops)) {
+            return null;
+        }
+
+        if (($data['background_gradient_type'] ?? null) === 'advanced') {
+            usort($gradientStops, fn ($firstGradientStop, $secondGradientStop) => ($firstGradientStop['stop'] ?? 0) <=> ($secondGradientStop['stop'] ?? 0));
+        }
+
+        foreach ($gradientStops as $gradient) {
+            if (!is_array($gradient) || empty($gradient['color'])) {
+                continue;
+            }
+
+            $role = ColorSwatches::normalizeColorPairRole((string) $gradient['color']);
+            if ($role !== null) {
+                return $role;
+            }
+        }
+
+        return null;
     }
 
     /**

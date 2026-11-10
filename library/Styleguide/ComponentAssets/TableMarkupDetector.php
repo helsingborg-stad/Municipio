@@ -15,4 +15,9 @@ class TableMarkupDetector implements MarkupDetectorInterface
     {
         return ['editor-table' => 'css/components/table.css'];
     }
+
+    public function components(): array
+    {
+        return [];
+    }
 }

@@ -79,9 +79,6 @@ class BaseController
         //Send globals to view
         $this->data['wpQuery'] = $this->wpQuery;
 
-        //Header & Footer
-        $this->data['wpHeader'] = $this->getWpHeader();
-        $this->data['wpFooter'] = $this->getWpFooter();
         $this->data['heroImagePreload'] = (new HeroImagePreloadResolver(
             new HeroImageModuleProvider(
                 new HeroSidebarModuleProvider(),
@@ -126,6 +123,8 @@ class BaseController
         $this->data['footerLogotype'] = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype'] = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['footerBackgroundImageStyle'] = $this->getFooterBackgroundImageStyle();
+        $this->data['preFooterImageStyle'] = $this->getPreFooterImageStyle();
+        $this->data['preFooterImageClassList'] = $this->getPreFooterImageClassList();
         $this->data['emblem'] = $this->getEmblem();
         $this->data['showEmblemInHero'] = $this->data['customizer']->showEmblemInHero ?? true;
         $brandTextOption = get_option('brand_text', '');
@@ -396,6 +395,9 @@ class BaseController
         $this->data['skipToMainContentLink'] = $this->setSkipLinkValue();
         $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $this->hasMainMenu();
+        $this->data['skipToMainMenuLink'] = $this->hasPrimaryMenu()
+            ? '#main-menu'
+            : '#mobile-menu-trigger-open';
 
         $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
 
@@ -487,6 +489,11 @@ class BaseController
         $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
         $this->init();
+
+        // Template-specific asset requirements are declared from init(). Capture
+        // WordPress output only afterwards so their styles reach the document head.
+        $this->data['wpHeader'] = $this->getWpHeader();
+        $this->data['wpFooter'] = $this->getWpFooter();
     }
 
     /**
@@ -802,13 +809,38 @@ class BaseController
      */
     protected function hasMainMenu()
     {
+        return $this->hasPrimaryMenu() || $this->hasDrawerMenu();
+    }
+
+    /**
+     * Check if the primary menu is rendered in the header.
+     */
+    protected function hasPrimaryMenu(): bool
+    {
         if (empty($this->data['primaryMenu']['items'])) {
             return false;
         }
 
+        return $this->headerContainsComponent('primary');
+    }
+
+    /**
+     * Check if the drawer menu is rendered in the header.
+     */
+    protected function hasDrawerMenu(): bool
+    {
+        return !empty($this->data['mobileMenu']['items'])
+            && $this->headerContainsComponent('drawer');
+    }
+
+    /**
+     * Check if a component is rendered in the header.
+     */
+    protected function headerContainsComponent(string $component): bool
+    {
         foreach (['upperItems', 'lowerItems'] as $section) {
             foreach (['left', 'center', 'right'] as $alignment) {
-                if (isset($this->data['headerData'][$section][$alignment]['primary'])) {
+                if (isset($this->data['headerData'][$section][$alignment][$component])) {
                     return true;
                 }
             }
@@ -1161,6 +1193,64 @@ class BaseController
     }
 
     /**
+     * Get the inline pre footer image style, or an empty string when no image is set.
+     */
+    public function getPreFooterImageStyle(): string
+    {
+        $preFooterImage = $this->data['customizer']->footerPreFooterImage ?? '';
+
+        if (!is_string($preFooterImage) || trim($preFooterImage) === '') {
+            return '';
+        }
+
+        $style = "background-image: url('" . esc_url($preFooterImage) . "');";
+
+        if ($this->isPreFooterImageTallerOnMobile()) {
+            $style .= ' --municipio-pre-footer-image-mobile-height: ' . $this->getPreFooterImageMobileHeight() . 'px;';
+        }
+
+        return $style;
+    }
+
+    /**
+     * Get the pre footer image class list.
+     *
+     * @return string[]
+     */
+    public function getPreFooterImageClassList(): array
+    {
+        $classList = ['site-pre-footer-image'];
+
+        if ($this->isPreFooterImageTallerOnMobile()) {
+            $classList[] = 'site-pre-footer-image--taller-on-mobile';
+        }
+
+        return $classList;
+    }
+
+    /**
+     * Whether the pre footer image should use the custom mobile height.
+     */
+    private function isPreFooterImageTallerOnMobile(): bool
+    {
+        return (bool) ($this->data['customizer']->footerPreFooterImageTallerOnMobile ?? false);
+    }
+
+    /**
+     * Get the pre footer image height on mobile in pixels, clamped to the allowed range.
+     */
+    private function getPreFooterImageMobileHeight(): int
+    {
+        $height = $this->data['customizer']->footerPreFooterImageMobileHeight ?? 160;
+
+        if (!is_numeric($height)) {
+            return 160;
+        }
+
+        return (int) max(100, min(400, (float) $height));
+    }
+
+    /**
      * Get all public post type rss feeds
      *
      * @param array $feedTypes
@@ -1259,6 +1349,10 @@ class BaseController
      */
     public function init()
     {
+        if ($this->wpService->isSingular()) {
+            \Municipio\Theme\AssetRequirements::requireAsset('comments');
+        }
+
         do_action('Municipio/Controller/Init');
     }
 

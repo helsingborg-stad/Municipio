@@ -314,6 +314,17 @@ class Module
     }
 
     /**
+     * Enqueue the shared module refresher for modules that render
+     * data-module-refresh-interval.
+     */
+    protected function enqueueModuleRefresher(): void
+    {
+        $this->wpUtilService
+            ?->enqueue(__DIR__, 'Modularity/assets/dist')
+            ->add('js/modularity-module-refresher.js', ['wp-api'], null, true);
+    }
+
+    /**
      * Enqueue for admin
      * @return void
      */

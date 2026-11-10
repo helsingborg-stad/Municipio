@@ -1,0 +1,57 @@
+describe("ACF palette selector", () => {
+	it("keeps the native field in sync and enhances cloned repeater fields", async () => {
+		window.MunicipioPaletteColorChoices = {
+			choices: [
+				{
+					value: "primary",
+					label: "Primary",
+					background: "#123456",
+					contrast: "#ffffff",
+				},
+				{
+					value: "secondary",
+					label: "Secondary",
+					background: "#654321",
+					contrast: "#ffffff",
+				},
+				{
+					value: "palette-1",
+					label: "Palette 1",
+					background: "#eeeeee",
+					contrast: "#000000",
+				},
+			],
+		};
+		document.body.innerHTML = `<div class="municipio-palette-color-selector"><label>Colours</label><select>
+            <option value="primary">Primary</option><option value="secondary">Secondary</option>
+        </select></div>`;
+		jest.isolateModules(() => require("./paletteColorChoices"));
+		document.dispatchEvent(new Event("DOMContentLoaded"));
+		const field = document.querySelector<HTMLElement>(
+			".municipio-palette-color-selector",
+		)!;
+		const select = field.querySelector("select")!;
+		const radios = field.querySelectorAll<HTMLButtonElement>('[role="radio"]');
+		expect(radios).toHaveLength(2);
+		const changed = jest.fn();
+		select.addEventListener("change", changed);
+		radios[0].focus();
+		radios[0].dispatchEvent(
+			new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }),
+		);
+		expect(select.value).toBe("secondary");
+		expect(changed).toHaveBeenCalledTimes(1);
+		expect(radios[1].getAttribute("aria-checked")).toBe("true");
+
+		const clone = field.cloneNode(true) as HTMLElement;
+		document.body.append(clone);
+		await Promise.resolve();
+		expect(
+			clone.querySelectorAll(".municipio-palette-color-grid"),
+		).toHaveLength(1);
+		clone.querySelector<HTMLButtonElement>('[data-value="primary"]')!.click();
+		expect(clone.querySelector("select")!.value).toBe("primary");
+		expect(select.value).toBe("secondary");
+		document.body.replaceChildren();
+	});
+});

@@ -42,40 +42,6 @@ class SliderDefault
         ]);
 
         /**
-         * Slider padding
-         */
-        CustomizerField::addField([
-            'type' => 'slider',
-            'settings' => 'slider_padding',
-            'label' => esc_html__('Amount of preview', 'municipio'),
-            'description' => esc_html__('If set to 0, no preview will be show. If preview of previous and next slide is wanted. Choose a value higher than the gap.', 'municipio'),
-            'section' => $sectionID,
-            'default' => 6,
-            'choices' => [
-                'min' => 0,
-                'max' => 24,
-                'step' => 1,
-            ],
-            'output' => [
-                [
-                    'element' => ':root',
-                    'property' => '--c-slider-padding',
-                    'unit' => '',
-                ],
-                [
-                    'type' => 'component_data',
-                    'dataKey' => 'padding',
-                    'context' => [
-                        [
-                            'context' => 'module.slider',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
-            ],
-        ]);
-
-        /**
          * Slider container colour
          */
         CustomizerField::addField([

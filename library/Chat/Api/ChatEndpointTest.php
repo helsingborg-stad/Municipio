@@ -17,14 +17,23 @@ use PHPUnit\Framework\TestCase;
 use WpService\Contracts\RegisterRestRoute;
 use WpService\Implementations\FakeWpService;
 
+/** Provide a string result where the WordPress test stub returns null. */
+function sanitize_text_field(string $value): string
+{
+    return $value;
+}
+
 class MockPIIRedactorFactory implements PIIRedactorFactoryInterface
 {
+    public int $createCount = 0;
+
     public function __construct(
         private $mockRedactor = null,
     ) {}
 
     public function create(ChatConfigInterface $config): PIIRedactorInterface
     {
+        $this->createCount++;
         return $this->mockRedactor ?? new PassthroughPIIRedactor();
     }
 }
@@ -141,6 +150,64 @@ class ChatEndpointTest extends TestCase
         static::assertInstanceOf(\WP_Error::class, $response);
     }
 
+    #[TestDox('handleRequest() denies a restricted default assistant for guests')]
+    public function testGuestCannotUseRestrictedDefaultAssistant(): void
+    {
+        $config = $this->getConfig([
+            'chat_default_assistant' => 'Private',
+            'chat_assistants' => [
+                ['name' => 'Private', 'logged_in_only' => 1, 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            ],
+        ]);
+        $redactorFactory = new MockPIIRedactorFactory();
+        $endpoint = new ChatEndpoint($config, $redactorFactory, static::createWpService());
+
+        $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello']));
+
+        static::assertInstanceOf(\WP_Error::class, $response);
+        static::assertSame(0, $redactorFactory->createCount);
+    }
+
+    #[TestDox('handleRequest() denies an explicitly requested restricted assistant for guests')]
+    public function testGuestCannotUseRestrictedNamedAssistant(): void
+    {
+        $config = $this->getConfig([
+            'chat_assistants' => [
+                ['name' => 'Private', 'logged_in_only' => 1, 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            ],
+        ]);
+        $redactorFactory = new MockPIIRedactorFactory();
+        $endpoint = new ChatEndpoint($config, $redactorFactory, static::createWpService());
+
+        $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello', 'assistant_name' => 'Private']));
+
+        static::assertInstanceOf(\WP_Error::class, $response);
+        static::assertSame(0, $redactorFactory->createCount);
+    }
+
+    #[TestDox('handleRequest() lets a logged-in user reach redaction for a restricted assistant')]
+    public function testLoggedInUserCanUseRestrictedAssistant(): void
+    {
+        $config = $this->getConfig([
+            'chat_assistants' => [
+                ['name' => 'Private', 'logged_in_only' => 1, 'server_url' => 'https://x', 'api_key' => 'k', 'assistant_id' => 'a'],
+            ],
+        ], true);
+        $redactor = new class implements PIIRedactorInterface {
+            public function extractAndRedactPII(string $input): RedactionResult
+            {
+                throw new PIIRedactionException('Redaction reached');
+            }
+        };
+        $redactorFactory = new MockPIIRedactorFactory($redactor);
+        $endpoint = new ChatEndpoint($config, $redactorFactory, static::createWpService());
+
+        $response = $endpoint->handleRequest($this->createRequest(['message' => 'Hello', 'assistant_name' => 'Private']));
+
+        static::assertInstanceOf(\WP_Error::class, $response);
+        static::assertSame(1, $redactorFactory->createCount);
+    }
+
     #[TestDox('handleRequest() returns a WP_Error when the PII redactor throws')]
     public function testHandleRequestReturnsErrorWhenRedactorThrows(): void
     {
@@ -198,13 +265,13 @@ class ChatEndpointTest extends TestCase
         return $request;
     }
 
-    private function getConfig(array $fields = []): ChatConfigInterface
+    private function getConfig(array $fields = [], bool $isUserLoggedIn = false): ChatConfigInterface
     {
         $acfService = new FakeAcfService([
             'getField' => static fn(string $selector) => $fields[$selector] ?? null,
         ]);
 
-        $wpService = new FakeWpService(['determineLocale' => 'en_US']);
+        $wpService = new FakeWpService(['determineLocale' => 'en_US', 'isUserLoggedIn' => $isUserLoggedIn]);
 
         return new ChatConfig($wpService, $acfService);
     }

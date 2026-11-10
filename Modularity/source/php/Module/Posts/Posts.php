@@ -17,6 +17,7 @@ use Modularity\Module\Posts\Helper\GetPosts\UserGroupResolver\UserGroupResolver;
 use Modularity\Module\Posts\Helper\PostSourceBuilder;
 use Modularity\Module\Posts\Private\PrivateController;
 use Municipio\Helper\User\User;
+use Modularity\Module\Posts\Helper\GetPosts\Schema\SchemaDataHandler;
 
 /**
  * Class Posts
@@ -147,6 +148,12 @@ class Posts extends \Modularity\Module
         $wpService = WpService::get();
         $this->fields = $this->getFields();
 
+        if ($this->fields['posts_data_source'] === 'schematype') {
+            new SchemaDataHandler(
+                $wpService,
+                $this->fields
+            );
+        }
         $this->domainChecker = new DomainChecker($this->fields);
         $this->postSourceBuilder = new PostSourceBuilder(WpService::get(), User::get(), $this->fields);
 
@@ -163,6 +170,7 @@ class Posts extends \Modularity\Module
 
         $postsAndPaginationData = $this->getPostsResult($data['postsSources']);
         $data['posts'] = $postsAndPaginationData->getPosts();
+
         $data['stickyPosts'] = $postsAndPaginationData->getStickyPosts();
 
         if (!empty($this->fields['posts_pagination']) && $this->fields['posts_pagination'] === 'page_numbers') {

@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject;
 
+use Municipio\Helper\EnsureArrayOf\EnsureArrayOf;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\JobPosting;
 
@@ -15,9 +16,9 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
      *
      * @param WpPostArgsFromSchemaObjectInterface $inner The inner WpPostArgsFromSchemaObjectInterface instance.
      */
-    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
-    {
-    }
+    public function __construct(
+        private WpPostArgsFromSchemaObjectInterface $inner,
+    ) {}
 
     /**
      * @inheritDoc
@@ -28,6 +29,7 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
 
         if ($schemaObject instanceof JobPosting) {
             $post = $this->applyPropertiesFromJobPosting($post, $schemaObject);
+            $post = $this->applyEmployerOverviewToPostContent($post, $schemaObject);
         }
 
         return $post;
@@ -52,6 +54,23 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
                 $datePosted = $datePosted->format('Y-m-d H:i:s');
             }
             $post['post_date'] = $datePosted;
+        }
+
+        return $post;
+    }
+
+    private function applyEmployerOverviewToPostContent(array $post, JobPosting $schemaObject): array
+    {
+        $employerOverview = $schemaObject['employerOverview'] ?? null;
+
+        if (is_string($employerOverview)) {
+            $employerOverview = [$employerOverview];
+        }
+
+        $employerOverview = EnsureArrayOf::ensureArrayOf($employerOverview, 'string');
+
+        if (!empty($employerOverview)) {
+            $post['post_content'] = "\n\n" . implode("\n\n", $employerOverview) . ($post['post_content'] ?? '');
         }
 
         return $post;

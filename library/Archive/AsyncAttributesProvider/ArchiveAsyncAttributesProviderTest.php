@@ -55,6 +55,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         // Filter settings
         $this->assertFalse($attributes['textSearchEnabled']);
         $this->assertFalse($attributes['dateFilterEnabled']);
+        $this->assertSame('OR', $attributes['taxonomyQueryRelation']);
         // Pagination and ordering
         $this->assertSame(10, $attributes['postsPerPage']);
         $this->assertSame('post_date', $attributes['orderBy']);
@@ -74,6 +75,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
             'featured_image' => true,
             'reading_time' => true,
             'enabledFilters' => ['text_search', 'date_range'],
+            'filterType' => true,
             'orderBy' => 'title',
             'orderDirection' => 'ASC',
         ];
@@ -93,6 +95,7 @@ class ArchiveAsyncAttributesProviderTest extends TestCase
         // Filter settings
         $this->assertTrue($attributes['textSearchEnabled']);
         $this->assertTrue($attributes['dateFilterEnabled']);
+        $this->assertSame('AND', $attributes['taxonomyQueryRelation']);
         // Pagination and ordering
         $this->assertSame(20, $attributes['postsPerPage']);
         $this->assertSame('title', $attributes['orderBy']);

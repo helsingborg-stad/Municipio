@@ -17,6 +17,8 @@
         'classList' => ['c-slider--post'],
         'showStepper' => false,
         'autoSlide' => false,
+        'peekSlides' => true,
+        'slideByPage' => true,
         'isPost' => true,
         'repeatSlide' => $postsDisplayAs != 'segment' ? true : false,
         'customButtons' => $postsDisplayAs != 'segment' ? 'slider_' . $sliderId : false,
