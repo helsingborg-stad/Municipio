@@ -75,6 +75,7 @@ const entries = {
 	"css/a11y": "./assets/source/sass/admin/a11y.scss",
 	"css/login": "./assets/source/sass/admin/login.scss",
 	"css/trash-page": "./assets/source/sass/admin/trash-page.scss",
+	"css/material-symbols": "./assets/source/sass/admin/material-symbols.scss",
 
 	"js/a11y-warnings": "./assets/source/js/a11yWarnings.ts",
 	"js/municipio-shell": "./assets/source/js/frontend/shell.ts",
