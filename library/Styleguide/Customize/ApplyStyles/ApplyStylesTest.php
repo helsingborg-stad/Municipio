@@ -58,6 +58,10 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString(':root {', $wpService->inlineStyles);
         static::assertStringContainsString(':root :where(.editor-styles-wrapper) {', $wpService->inlineStyles);
         static::assertSame(2, substr_count($wpService->inlineStyles, '--border-radius: 0.25;'));
+        static::assertStringContainsString('--u-color--color-primary: var(--color--primary);', $wpService->inlineStyles);
+        static::assertStringContainsString('--u-color--color-surface: var(--color--surface);', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--surface-alt: color-mix(', $wpService->inlineStyles);
+        static::assertStringContainsString('--c-card--color--surface-default: var(--color--surface);', $wpService->inlineStyles);
         static::assertStringContainsString('.c-card {', $wpService->inlineStyles);
     }
 
@@ -104,6 +108,7 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString('@media (prefers-color-scheme: dark)', $wpService->inlineStyles);
         static::assertStringContainsString('@media (prefers-contrast: more), (forced-colors: active)', $wpService->inlineStyles);
         static::assertStringNotContainsString('--color--background-border: #222222;', $wpService->inlineStyles);
+        static::assertStringContainsString('--u-color--color-background: var(--color--background);', $wpService->inlineStyles);
         static::assertLessThan(
             strpos($wpService->inlineStyles, '@media (prefers-contrast: more), (forced-colors: active)'),
             strpos($wpService->inlineStyles, '@media (prefers-color-scheme: dark)'),
@@ -141,7 +146,7 @@ class ApplyStylesTest extends TestCase
         static::assertNotNull($wpService->inlineStyles);
         static::assertStringContainsString('--border-radius: 0.25;', $wpService->inlineStyles);
         static::assertStringNotContainsString('<script>', $wpService->inlineStyles);
-        static::assertStringNotContainsString('--color--primary:', $wpService->inlineStyles);
+        static::assertStringNotContainsString('#667b50; }', $wpService->inlineStyles);
     }
 
     private function createWpService(string $storedTokens): AddAction&AddFilter&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod
