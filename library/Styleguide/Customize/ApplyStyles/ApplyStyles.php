@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
+use Municipio\Helper\ColorSwatches;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
@@ -206,11 +207,22 @@ class ApplyStyles implements Hookable
             );
 
             $surface = $footer['--c-footer--color--surface'] ?? null;
-            $contrast = $footer['--c-footer--color--surface-contrast'] ?? null;
+            $pairedContrast = $this->getPairedColorContrast($surface);
 
-            if ((!is_string($contrast) || trim($contrast) === '') && is_string($surface)
-                && preg_match('/^var\\(--color--(primary|secondary|background|surface|palette-(?:[1-9]|10))\\)$/', trim($surface), $matches) === 1) {
-                $footer['--c-footer--color--surface-contrast'] = 'var(--color--' . $matches[1] . '-contrast)';
+            if ($pairedContrast === null && is_string($surface)) {
+                $legacyRole = ColorSwatches::getClosestColorPairRole($surface);
+
+                if ($legacyRole !== null) {
+                    $surface = 'var(--color--' . $legacyRole . ')';
+                    $footer['--c-footer--color--surface'] = $surface;
+                    $pairedContrast = 'var(--color--' . $legacyRole . '-contrast)';
+                }
+            }
+
+            if ($pairedContrast !== null) {
+                // A colour scheme is a single surface/contrast selection. Do
+                // not let a legacy explicit text colour override that pair.
+                $footer['--c-footer--color--surface-contrast'] = $pairedContrast;
             }
 
             unset($footer);
@@ -218,6 +230,16 @@ class ApplyStyles implements Hookable
         unset($componentGroup);
 
         return $components;
+    }
+
+    private function getPairedColorContrast(mixed $surface): ?string
+    {
+        if (!is_string($surface)
+            || preg_match('/^var\\(--color--(primary|secondary|background|surface|palette-(?:[1-9]|10))\\)$/', trim($surface), $matches) !== 1) {
+            return null;
+        }
+
+        return 'var(--color--' . $matches[1] . '-contrast)';
     }
 
     private function applyInlineStyles(string $styles): void

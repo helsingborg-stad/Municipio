@@ -122,6 +122,7 @@ class ApplyStylesTest extends TestCase
                 '__general__' => [
                     'footer' => [
                         '--c-footer--color--surface' => 'var(--color--palette-2)',
+                        '--c-footer--color--surface-contrast' => '#000000',
                         '--c-footer--background-color' => '#d9a0a0',
                         '--c-footer--color' => '#000000',
                         '--c-footer--subfooter-color' => '#000000',
@@ -134,6 +135,7 @@ class ApplyStylesTest extends TestCase
 
         static::assertNotNull($wpService->inlineStyles);
         static::assertStringContainsString('--c-footer--color--surface-contrast: var(--color--palette-2-contrast);', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--color--surface-contrast: #000000;', $wpService->inlineStyles);
         static::assertStringNotContainsString('--c-footer--background-color: #d9a0a0;', $wpService->inlineStyles);
         static::assertStringNotContainsString('--c-footer--color: #000000;', $wpService->inlineStyles);
         static::assertStringNotContainsString('--c-footer--subfooter-color: #000000;', $wpService->inlineStyles);
