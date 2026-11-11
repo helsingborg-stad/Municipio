@@ -108,6 +108,7 @@
                         {{ $languageMenuOptions->disclaimer }}
                     @endtypography
                 @endif
+                </div>
             @endcard
         @endpopover
     @endscope
