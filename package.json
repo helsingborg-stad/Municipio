@@ -11,6 +11,7 @@
         "build:municipio": "vite build && mkdir -p ./assets/dist/data/ && npm run build:blocks",
         "watch:municipio": "vite build --watch --mode development",
         "build:blocks": "vite --config vite.blocks.config.mjs build",
+        "test:blocks": "npm run build:blocks && node --test build/wordpressAssetManifest.test.mjs",
         "watch:blocks": "vite --config vite.blocks.config.mjs build --watch",
         "build:modularity": "cd Modularity && npm install && npm run build",
         "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/ && npm run build:blocks",
