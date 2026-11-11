@@ -15,6 +15,54 @@ use WpService\Contracts\WpRegisterStyle;
 
 class ApplyStylesTest extends TestCase
 {
+    public function testContrastResetsDarkOnlyComponentAssignmentsWhenBothPreferencesMatch(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [], '_dark' => [], '_contrast' => [],
+            'component' => ['__general__' => ['footer' => ['--c-footer--color--surface' => 'var(--color--primary)']]],
+            'componentSchemes' => ['dark' => ['scope:footer' => ['footer' => [
+                '--c-footer--color--surface' => 'var(--color--secondary)',
+                '--c-footer--color' => 'var(--color--secondary-contrast)',
+            ]]]],
+        ], JSON_THROW_ON_ERROR));
+        (new ApplyStyles($wpService))->applyStyles();
+        $contrast = substr($wpService->inlineStyles, strpos($wpService->inlineStyles, '@media (prefers-contrast: more)'));
+        static::assertStringContainsString('--c-footer--color--surface: var(--color--primary);', $contrast);
+        static::assertStringContainsString('--c-footer--color: initial;', $contrast);
+        static::assertStringNotContainsString('var(--color--secondary)', $contrast);
+    }
+
+    public function testComponentPaletteAssignmentsAreScopedToTheirEnabledScheme(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            '_dark' => [],
+            '_contrast' => null,
+            'component' => ['__general__' => ['footer' => ['--c-footer--color--primary' => 'var(--color--primary)']]],
+            'componentSchemes' => [
+                'dark' => ['scope:footer' => ['footer' => [
+                    '--c-footer--color--primary' => 'var(--color--palette-1)',
+                    '--c-footer--color--primary-contrast' => 'var(--color--palette-1-contrast)',
+                    '--c-footer--space' => '20rem',
+                    '--c-footer--unsafe' => '#ffffff; } body { color:red',
+                ]]],
+                'contrast' => ['__general__' => ['footer' => ['--c-footer--color--primary' => 'var(--color--secondary)']]],
+            ],
+        ], JSON_THROW_ON_ERROR));
+        $subject = new ApplyStyles($wpService);
+        $subject->applyStyles();
+        $css = $wpService->inlineStyles;
+        static::assertStringContainsString('.c-footer {', $css);
+        static::assertStringContainsString('@media (prefers-color-scheme: dark)', $css);
+        static::assertStringContainsString('[data-scope*="footer;"].c-footer, [data-scope*="footer;"] .c-footer {', $css);
+        static::assertStringContainsString('--c-footer--color--primary: var(--color--palette-1);', $css);
+        static::assertStringContainsString('--c-footer--color--primary-contrast: var(--color--palette-1-contrast);', $css);
+        static::assertStringNotContainsString('var(--color--secondary)', $css);
+        static::assertStringNotContainsString('20rem', $css);
+        static::assertStringNotContainsString('body', $css);
+        static::assertStringContainsString('var(--color--palette-1)', $subject->applyEditorIframeStyles([])['styles'][0]['css']);
+    }
+
     #[TestDox('registers the block editor settings filter for iframe styles')]
     public function testRegistersBlockEditorIframeStylesFilter(): void
     {

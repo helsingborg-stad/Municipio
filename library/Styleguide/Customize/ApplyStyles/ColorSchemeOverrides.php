@@ -12,6 +12,36 @@ use Municipio\Styleguide\Customize\TokenData\ColorTokenDefinitions;
  */
 class ColorSchemeOverrides
 {
+    /** Accept palette references only; scheme-specific layout and literal colours are not supported. */
+    public static function filterComponents(mixed $scopes): array
+    {
+        if (!is_array($scopes)) {
+            return [];
+        }
+        $filtered = [];
+        foreach ($scopes as $scope => $components) {
+            if (!is_string($scope) || !is_array($components)) {
+                continue;
+            }
+            foreach ($components as $component => $variables) {
+                if (!is_string($component) || !is_array($variables)) {
+                    continue;
+                }
+                foreach (self::filterSafeRootTokens($variables) as $variable => $value) {
+                    if (!str_starts_with($variable, '--c-')) {
+                        continue;
+                    }
+                    // A paired muted contrast may be a colour mix of two roles.
+                    $withoutReferences = preg_replace('/var\(--color--(?:primary|secondary|palette-[1-9][0-9]*)(?:-contrast-muted|-contrast|-border|-alt)?\)/', '', $value, -1, $count);
+                    if ($count > 0 && ($withoutReferences === '' || preg_match('/^color-mix\(in srgb,\s+67\.5%,\s*\)$/', (string) $withoutReferences) === 1)) {
+                        $filtered[$scope][$component][$variable] = $value;
+                    }
+                }
+            }
+        }
+        return $filtered;
+    }
+
     /**
      * Removes malformed and derived tokens from a colour-scheme map.
      *

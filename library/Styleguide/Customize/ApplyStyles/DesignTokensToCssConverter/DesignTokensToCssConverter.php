@@ -58,10 +58,22 @@ class DesignTokensToCssConverter implements DesignTokensToCssConverterInterface
                 continue;
             }
             $selectorName = $scopeName ?? (string) $component;
-            if (preg_match('/^[a-zA-Z0-9_-]+$/', $selectorName) !== 1) {
+            if (preg_match('/^[a-zA-Z0-9_-]+$/', $selectorName) !== 1 || preg_match('/^[a-zA-Z0-9_-]+$/', (string) $component) !== 1) {
                 continue;
             }
-            $selector = $scopeName === null ? '.c-' . $selectorName : '[data-scope*="' . $selectorName . ';"]';
+            $selector = '.c-' . $component;
+            $targets = [$selector];
+            if ($component === 'drawer') {
+                $targets[] = $selector . ' + .drawer-overlay';
+            }
+            if ($scopeName !== null) {
+                $scope = '[data-scope*="' . $scopeName . ';"]';
+                $targets = array_merge(
+                    array_map(static fn (string $target): string => $scope . $target, $targets),
+                    array_map(static fn (string $target): string => $scope . ' ' . $target, $targets),
+                );
+            }
+            $selector = implode(', ', $targets);
             $this->appendBlock($rows, $selector, $componentTokens);
         }
     }

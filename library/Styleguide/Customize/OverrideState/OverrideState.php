@@ -33,6 +33,15 @@ class OverrideState implements OverrideStateInterface
             }
         }
 
+        if (is_array($stored['componentSchemes'] ?? null)) {
+            $state['componentSchemes'] = [];
+            foreach (['dark', 'contrast'] as $scheme) {
+                if (is_array($stored['componentSchemes'][$scheme] ?? null)) {
+                    $state['componentSchemes'][$scheme] = $stored['componentSchemes'][$scheme];
+                }
+            }
+        }
+
         return $state;
     }
 }
