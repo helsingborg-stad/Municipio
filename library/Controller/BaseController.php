@@ -149,6 +149,7 @@ class BaseController
 
         $this->data['hasSeparateBrandText'] = $this->getHeaderComponents()->has('brand-text');
         $this->data['hasMegaMenu'] = $this->getHeaderComponents()->has('mega-menu');
+        $this->data['hasSearchModal'] = $this->getHeaderComponents()->has('search-modal');
 
         $this->menuDirector->setBuilder($this->menuBuilder);
 

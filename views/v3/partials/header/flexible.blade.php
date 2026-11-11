@@ -34,6 +34,11 @@
     @if($hasMegaMenu && !empty($megaMenu['items']))
         @include('partials.navigation.megamenu')
     @endif
+
+    @if($hasSearchModal)
+        @include('partials.search.search-modal')
+    @endif
+
     {{-- @if(!empty($headerData['upperItems']))
         @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
             @header([
