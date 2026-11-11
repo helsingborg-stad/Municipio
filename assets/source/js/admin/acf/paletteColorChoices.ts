@@ -78,10 +78,12 @@ function enhanceField(field: Element): void {
 		option.style.color = choice.contrast;
 		option.disabled = select.disabled;
 
-		const icon = document.createElement("span");
-		icon.className = `dashicons ${choice.value === "" ? "dashicons-no-alt" : "dashicons-editor-textcolor"}`;
-		icon.setAttribute("aria-hidden", "true");
-		option.append(icon);
+		if (choice.value !== "") {
+			const icon = document.createElement("span");
+			icon.className = "dashicons dashicons-editor-textcolor";
+			icon.setAttribute("aria-hidden", "true");
+			option.append(icon);
+		}
 		option.addEventListener("click", () => {
 			select.value = choice.value;
 			select.dispatchEvent(new Event("input", { bubbles: true }));

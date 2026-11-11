@@ -224,17 +224,43 @@ class ApplyStylesTest extends TestCase
         static::assertStringNotContainsString('#667b50; }', $wpService->inlineStyles);
     }
 
+    public function testPaletteSwatchesUseScopedBaseDarkAndContrastTokens(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => ['--color--primary' => '#76232f', '--border-radius' => '20'],
+            '_dark' => ['--color--primary' => '#fabbcb', '--color--primary-contrast' => '#76232f'],
+            '_contrast' => ['--color--primary' => '#ffffff'],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyPaletteStyles();
+
+        static::assertSame('municipio-palette-color-tokens', $wpService->enqueuedHandle);
+        static::assertStringContainsString('.municipio-palette-color-selector {', $wpService->inlineStyles);
+        static::assertStringNotContainsString(':root', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--border-radius:', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--primary: #76232f;', $wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-color-scheme: dark)', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--primary: #fabbcb;', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--primary-contrast: #76232f;', $wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-contrast: more), (forced-colors: active)', $wpService->inlineStyles);
+        static::assertLessThan(
+            strpos($wpService->inlineStyles, '@media (prefers-contrast: more)'),
+            strpos($wpService->inlineStyles, '@media (prefers-color-scheme: dark)'),
+        );
+    }
+
     private function createWpService(string $storedTokens): AddAction&AddFilter&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod
     {
-        return new class ($storedTokens) implements AddAction, AddFilter, WpRegisterStyle, WpEnqueueStyle, WpAddInlineStyle, GetThemeMod {
+        return new class($storedTokens) implements AddAction, AddFilter, WpRegisterStyle, WpEnqueueStyle, WpAddInlineStyle, GetThemeMod {
             public array $addedFilters = [];
             public ?string $registeredHandle = null;
             public ?string $enqueuedHandle = null;
             public ?string $inlineStyles = null;
 
-            public function __construct(private readonly string $storedTokens)
-            {
-            }
+            public function __construct(
+                private readonly string $storedTokens,
+            ) {}
 
             public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {

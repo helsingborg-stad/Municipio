@@ -71,5 +71,8 @@ class PaletteColorChoicesTest extends TestCase
         $selector->enqueueAssets();
         static::assertSame('MunicipioPaletteColorChoices', $context->data[0]);
         static::assertArrayHasKey('choices', $context->data[1]);
+        static::assertSame('primary', $context->data[1]['choices'][0]['value']);
+        static::assertSame('var(--color--primary)', $context->data[1]['choices'][0]['background']);
+        static::assertSame('var(--color--primary-contrast)', $context->data[1]['choices'][0]['contrast']);
     }
 }

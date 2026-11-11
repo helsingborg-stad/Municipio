@@ -56,7 +56,7 @@ class PaletteColorChoices implements Hookable
         $field['create_options'] = 0;
         $field['save_options'] = 0;
         $field['allow_null'] ??= 1;
-        $field['placeholder'] = $field['allow_null'] ? __('None', 'municipio') : ($field['placeholder'] ?? '');
+        $field['placeholder'] = $field['allow_null'] ? __('None', 'municipio') : $field['placeholder'] ?? '';
         $wrapperClasses = preg_split('/\s+/', trim($field['wrapper']['class'] ?? ''), flags: PREG_SPLIT_NO_EMPTY);
         $field['wrapper']['class'] = implode(' ', array_unique([...$wrapperClasses, 'municipio-palette-color-selector']));
 
@@ -68,11 +68,16 @@ class PaletteColorChoices implements Hookable
      */
     public function enqueueAssets(): void
     {
+        $choices = [];
+        foreach (ColorSwatches::getColorPairChoices() as $role => $label) {
+            $choices[] = ['value' => $role, 'label' => $label, ...ColorSwatches::getColorPair($role)];
+        }
+
         $this->enqueue
             ->add('js/palette-color-choices.js', ['acf-input'])
             ->with()
             ->data('MunicipioPaletteColorChoices', [
-                'choices' => ColorSwatches::getColorPairPreviews(),
+                'choices' => $choices,
             ]);
     }
 }

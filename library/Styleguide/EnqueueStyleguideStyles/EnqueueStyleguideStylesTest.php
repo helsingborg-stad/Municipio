@@ -21,7 +21,7 @@ class EnqueueStyleguideStylesTest extends TestCase
 
         static::assertContains('wp_enqueue_scripts', $wpService->addedActions);
         static::assertContains('login_enqueue_scripts', $wpService->addedActions);
-        static::assertContains('enqueue_block_assets', $wpService->addedActions);
+        static::assertNotContains('enqueue_block_assets', $wpService->addedActions);
     }
 
     #[TestDox('enqueue stylesheet')]

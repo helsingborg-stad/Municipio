@@ -27,6 +27,7 @@ class ApplyStyles implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('wp_enqueue_scripts', [$this, 'applyStyles']);
+        $this->wpService->addAction('acf/input/admin_enqueue_scripts', [$this, 'applyPaletteStyles']);
         $this->wpService->addFilter('block_editor_settings_all', [$this, 'applyEditorIframeStyles'], 10, 2);
     }
 
@@ -34,6 +35,19 @@ class ApplyStyles implements Hookable
     {
         $styles = $this->getTokensAsCss();
         $this->applyInlineStyles($styles);
+    }
+
+    /** Keep admin swatches in the same colour scheme as the content, without styling the admin itself. */
+    public function applyPaletteStyles(): void
+    {
+        $css = (new PaletteColorTokens())->getCss($this->getStoredTokens(), [
+            '_dark' => self::DARK_SCHEME_QUERY,
+            '_contrast' => self::CONTRAST_SCHEME_QUERY,
+        ]);
+        $handle = 'municipio-palette-color-tokens';
+        $this->wpService->wpRegisterStyle($handle, false);
+        $this->wpService->wpEnqueueStyle($handle);
+        $this->wpService->wpAddInlineStyle($handle, $css);
     }
 
     /**

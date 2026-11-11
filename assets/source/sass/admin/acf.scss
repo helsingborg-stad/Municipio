@@ -26,13 +26,18 @@
     display: grid;
     place-items: center;
     box-sizing: border-box;
-    flex: 0 0 44px;
-    inline-size: 44px;
-    block-size: 44px;
+    flex: 0 0 32px;
+    inline-size: 32px;
+    block-size: 32px;
     padding: 0;
     border: 1px solid #c3c4c7;
     border-radius: 50%;
     cursor: pointer;
+
+    &[data-value=""] {
+        background-image: conic-gradient(#c3c4c7 25%, #fff 0 50%, #c3c4c7 0 75%, #fff 0);
+        background-size: 8px 8px;
+    }
 
     &:hover:not(:disabled) {
         border-color: var(--wp-admin-theme-color, #2271b1);
@@ -54,8 +59,8 @@
 
     .dashicons {
         pointer-events: none;
-        font-size: 24px;
-        inline-size: 24px;
-        block-size: 24px;
+        font-size: 20px;
+        inline-size: 20px;
+        block-size: 20px;
     }
 }

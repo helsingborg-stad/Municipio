@@ -18,7 +18,6 @@ class EnqueueStyleguideStyles implements Hookable
     {
         $this->wpService->addAction('wp_enqueue_scripts', fn() => $this->outputStyleguideCss());
         $this->wpService->addAction('login_enqueue_scripts', fn() => $this->outputStyleguideCss());
-        $this->wpService->addAction('enqueue_block_assets', fn() => $this->outputStyleguideCss());
     }
 
     public function outputStyleguideCss(bool $isEditor = false): void

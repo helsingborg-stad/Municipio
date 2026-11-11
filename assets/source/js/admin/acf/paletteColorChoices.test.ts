@@ -5,8 +5,8 @@ describe("ACF palette selector", () => {
 				{
 					value: "primary",
 					label: "Primary",
-					background: "#123456",
-					contrast: "#ffffff",
+					background: "var(--color--primary)",
+					contrast: "var(--color--primary-contrast)",
 				},
 				{
 					value: "secondary",
@@ -35,8 +35,8 @@ describe("ACF palette selector", () => {
 		expect(radios).toHaveLength(2);
 		expect(radios[0].classList.contains("acf-js-tooltip")).toBe(true);
 		expect(radios[0].title).toBe("Primary");
-		expect(radios[0].style.backgroundColor).toBe("rgb(18, 52, 86)");
-		expect(radios[0].style.color).toBe("rgb(255, 255, 255)");
+		expect(radios[0].style.backgroundColor).toBe("var(--color--primary)");
+		expect(radios[0].style.color).toBe("var(--color--primary-contrast)");
 		expect(
 			radios[0].querySelector(".dashicons-editor-textcolor"),
 		).not.toBeNull();
@@ -71,7 +71,7 @@ describe("ACF palette selector", () => {
 		const none = optional.querySelector<HTMLButtonElement>('[data-value=""]')!;
 		expect(none.title).toBe("None");
 		expect(none.getAttribute("aria-label")).toBe("None");
-		expect(none.querySelector(".dashicons-no-alt")).not.toBeNull();
+		expect(none.childElementCount).toBe(0);
 		const cleared = jest.fn();
 		optional.querySelector("select")!.addEventListener("change", cleared);
 		none.click();
