@@ -2,7 +2,6 @@
     @element([
         'classList' => array_merge([
             'site-mega-menu',
-            'u-display--flex'
         ], $menuItem->getCssClasses())
     ])
         @button([

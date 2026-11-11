@@ -85,8 +85,13 @@ class Flexible
 
         // $upperHeaderClasses = $upperHeader->getCssClasses();
         $lowerHeaderClasses = $lowerHeader->getCssClasses();
+
         foreach($upperHeaderItems as $item) {
             $item->getCssClasses();
+            // if ($item->getType())
+            if ($item->getType() === 'language') {
+                echo '<pre>' . print_r( $item, true ) . '</pre>';
+            }
         }
 
         return [

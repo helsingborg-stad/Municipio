@@ -1,7 +1,6 @@
 @element([
     'classList' => array_merge([
-        'site-language-menu',
-        'u-display--flex'
+        'site-language-menu'
     ], $menuItem->getCssClasses())
 ])
     @button([

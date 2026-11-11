@@ -31,6 +31,9 @@
         @endscope
     @endforeach
 
+    @if($hasMegaMenu && !empty($megaMenu['items']))
+        @include('partials.navigation.megamenu')
+    @endif
     {{-- @if(!empty($headerData['upperItems']))
         @scope(['name' => ['header-flexible-upper', 'header-flexible', 'header']])
             @header([

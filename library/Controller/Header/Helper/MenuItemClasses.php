@@ -20,9 +20,11 @@ class MenuItemClasses
     {
         $classList = [];
 
-        foreach ($rawMenuItem as $breakpoint => $item) {
-            foreach ($this->modifiers[$breakpoint] as $modifier) {
-                $classList[] = 'u-display--' . (!empty($item) ? 'flex' : 'none') . $modifier;
+        foreach ($this->modifiers as $breakpoint => $breakpointModifiers) {
+            $isVisibleAtBreakpoint = !empty($rawMenuItem[$breakpoint] ?? []);
+
+            foreach ($breakpointModifiers as $modifier) {
+                $classList[] = 'u-display--' . ($isVisibleAtBreakpoint ? 'flex' : 'none') . $modifier;
             }
         }
 

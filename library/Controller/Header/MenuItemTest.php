@@ -10,6 +10,23 @@ use PHPUnit\Framework\TestCase;
 
 class MenuItemTest extends TestCase
 {
+    public function testMissingMobileBreakpointAddsMobileDisplayNoneClass(): void
+    {
+        $menuItem = new MenuItem(
+            'primary',
+            [
+                Enums::HEADER_BREAKPOINT::DESKTOP->value => ['align' => 'right', 'order' => 0],
+            ],
+            new MenuItemClasses(),
+        );
+
+        $cssClasses = $menuItem->getCssClasses();
+
+        static::assertContains('u-display--none', $cssClasses);
+        static::assertContains('u-display--flex@lg', $cssClasses);
+        static::assertContains('u-display--flex@xl', $cssClasses);
+    }
+
     public function testMobileAlignmentFallsBackToDesktopWhenMobileIsMissing(): void
     {
         $menuItem = new MenuItem(
@@ -24,6 +41,7 @@ class MenuItemTest extends TestCase
         static::assertSame('right', $menuItem->getAlignment(Enums::HEADER_BREAKPOINT::MOBILE->value));
 
         $cssClasses = $menuItem->getCssClasses();
+        static::assertContains('u-display--none', $cssClasses);
         static::assertContains('header-align--right', $cssClasses);
         static::assertContains('u-order--200', $cssClasses);
     }

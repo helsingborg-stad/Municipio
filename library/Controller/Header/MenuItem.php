@@ -66,7 +66,7 @@ class MenuItem
         $rawMenuItemWithAlignmentFallback[Enums::HEADER_BREAKPOINT::MOBILE->value]['align'] =
             $this->getAlignmentWithFallback(Enums::HEADER_BREAKPOINT::MOBILE->value);
 
-        $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($rawMenuItemWithAlignmentFallback);
+        $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($this->rawMenuItem);
         $orderClasses = $this->menuItemClasses->buildOrderClasses($rawMenuItemWithAlignmentFallback);
         $alignmentClasses = $this->menuItemClasses->buildAlignmentClasses($rawMenuItemWithAlignmentFallback);
 
