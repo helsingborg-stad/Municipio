@@ -2,20 +2,6 @@
 @use "../../../../vendor/helsingborg-stad/styleguide/source/sass/mixin/tokens" as tokens;
 @use "../../../../vendor/helsingborg-stad/styleguide/source/sass/setting/var_default";
 
-#site-header-flexible-upper,
-#site-header-flexible-lower {
-    display: grid;
-    grid-template-columns: repeat(var(--amount-of-items-mobile), max-content);
-    justify-content: space-between;
-
-    @media (min-width: #{map.get(var_default.$breakpoints-map, "lg")}) {
-        & {
-            grid-template-columns: repeat(var(--amount-of-items-desktop), max-content);
-        }
-    }
-}
-
-
 .c-header.c-header--flexible {
     contain: none;
     padding-inline: 0;
@@ -75,16 +61,22 @@
 
     .c-header__lower-left,
     .c-header__upper-left {
+        grid-column: 1;
+        inline-size: 100%;
         justify-content: flex-start;
     }
 
     .c-header__lower-center,
     .c-header__upper-center {
+        grid-column: 2;
+        inline-size: 100%;
         justify-content: center;
     }
 
     .c-header__lower-right,
     .c-header__upper-right {
+        grid-column: 3;
+        inline-size: 100%;
         justify-content: flex-end;
     }
 
