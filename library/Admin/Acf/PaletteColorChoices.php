@@ -31,6 +31,7 @@ class PaletteColorChoices implements Hookable
         // Convert before ACF applies type-specific defaults and serialization.
         $this->wpService->addFilter('acf/validate_field', [$this, 'populateChoices'], 5);
         $this->wpService->addFilter('acf/load_field', [$this, 'populateChoices']);
+        $this->wpService->addAction('acf/render_field_settings/type=color_picker', [$this, 'renderFieldSetting']);
         $this->wpService->addAction('acf/input/admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
 
@@ -40,7 +41,9 @@ class PaletteColorChoices implements Hookable
      */
     public function populateChoices(array $field): array
     {
-        if (($field['municipio_palette_color'] ?? false) !== true) {
+        if (!in_array($field['municipio_palette_color'] ?? false, [true, 1, '1'], true)
+            || (function_exists('acf_is_screen') && acf_is_screen('acf-field-group'))
+            || (($_POST['action'] ?? '') === 'acf/field_group/render_field_settings')) {
             return $field;
         }
 
@@ -61,6 +64,23 @@ class PaletteColorChoices implements Hookable
         $field['wrapper']['class'] = implode(' ', array_unique([...$wrapperClasses, 'municipio-palette-color-selector']));
 
         return $field;
+    }
+
+    /** Register a persistent ACF field-editor setting, not a content field. */
+    public function renderFieldSetting(array $field): void
+    {
+        if (!function_exists('acf_render_field_setting')) {
+            return;
+        }
+
+        acf_render_field_setting($field, [
+            'label' => __('Use color palette', 'municipio'),
+            'instructions' => __('Restrict this field to background and contrast pairs from the styleguide.', 'municipio'),
+            'name' => 'municipio_palette_color',
+            'type' => 'true_false',
+            'ui' => 1,
+            'default_value' => 0,
+        ]);
     }
 
     /**

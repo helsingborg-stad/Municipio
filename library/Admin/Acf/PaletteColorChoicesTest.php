@@ -46,6 +46,17 @@ class PaletteColorChoicesTest extends TestCase
         static::assertArrayNotHasKey('', $field['choices']);
     }
 
+    public function testAcceptsValuesSavedByAcfSwitch(): void
+    {
+        $selector = new PaletteColorChoices(new FakeWpService(), $this->createMock(EnqueueManagerInterface::class));
+        foreach ([1, '1', true] as $enabled) {
+            static::assertSame('select', $selector->populateChoices(['type' => 'color_picker', 'municipio_palette_color' => $enabled])['type']);
+        }
+        foreach ([0, '0', false] as $disabled) {
+            static::assertSame('color_picker', $selector->populateChoices(['type' => 'color_picker', 'municipio_palette_color' => $disabled])['type']);
+        }
+    }
+
     public function testConvertsBeforeAcfInitializesFieldTypeDefaults(): void
     {
         $wpService = new FakeWpService(['addFilter' => true, 'addAction' => true]);

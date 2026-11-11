@@ -32,6 +32,7 @@ use Municipio\Upgrade\V66\Version66;
 use Municipio\Upgrade\V67\Version67;
 use Municipio\Upgrade\V68\Version68;
 use Municipio\Upgrade\V69\Version69;
+use Municipio\Upgrade\V70\Version70;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
@@ -47,7 +48,7 @@ use WpService\Contracts\UpdateOption;
  */
 class Upgrade
 {
-    private $dbVersion = 69; //The db version we want to achive
+    private $dbVersion = 70; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -1280,6 +1281,18 @@ class Upgrade
             return false;
         }
 
+        return true;
+    }
+
+    /** Migrates section and container literal colors to palette roles. */
+    public function v_70(): bool
+    {
+        try {
+            (new Version70(WpService::get()))->upgradeToVersion();
+        } catch (\Throwable $exception) {
+            error_log($exception->getMessage());
+            return false;
+        }
         return true;
     }
 
