@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "7.81.0",
+    "version": "7.82.0",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "jest ",
@@ -13,7 +13,7 @@
         "build:blocks": "vite --config vite.blocks.config.mjs build",
         "watch:blocks": "vite --config vite.blocks.config.mjs build --watch",
         "build:modularity": "cd Modularity && npm install && npm run build",
-        "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/",
+        "build:dev": "vite build --mode development && mkdir -p ./assets/dist/data/ && npm run build:blocks",
         "watch": "(vite build --watch --mode development &) && (cd Modularity && npm run watch &) && wait",
         "i18n:update": "wp i18n make-pot . languages/municipio.pot --domain=municipio --location=false && wp i18n update-po languages/municipio.pot languages/sv_SE.po",
         "i18n:build": "wp i18n make-mo languages/sv_SE.po"

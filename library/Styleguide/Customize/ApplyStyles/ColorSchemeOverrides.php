@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
-use Municipio\Styleguide\Customize\TokenData\TokenData;
+use Municipio\Styleguide\Customize\TokenData\ColorTokenDefinitions;
 
 /**
  * Limits browser colour-scheme overrides to the variables exposed by the
@@ -81,29 +81,10 @@ class ColorSchemeOverrides
      */
     private static function getAllowedTokens(): array
     {
-        $contents = file_get_contents(TokenData::getFilePath());
-        $tokenData = $contents === false ? null : json_decode($contents, true);
-
-        if (!is_array($tokenData) || !is_array($tokenData['categories'] ?? null)) {
-            return [];
-        }
-
-        $allowed = [];
-
-        foreach ($tokenData['categories'] as $category) {
-            if (!is_array($category) || !is_array($category['settings'] ?? null)) {
-                continue;
-            }
-
-            foreach ($category['settings'] as $setting) {
-                if (!is_array($setting) || !is_string($setting['variable'] ?? null)) {
-                    continue;
-                }
-
-                $variable = $setting['variable'];
-                if (self::isThemeEditableVariable($variable)) {
-                    $allowed[$variable] = true;
-                }
+        $allowed = array_fill_keys(['--shadow-color', '--shadow-amount'], true);
+        foreach (ColorTokenDefinitions::getSettings() as $setting) {
+            if (self::isThemeEditableVariable($setting['variable'])) {
+                $allowed[$setting['variable']] = true;
             }
         }
 

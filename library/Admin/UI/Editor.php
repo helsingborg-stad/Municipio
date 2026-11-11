@@ -2,24 +2,26 @@
 
 namespace Municipio\Admin\UI;
 
+use WpService\WpService;
+use WpUtilService\Features\Enqueue\EnqueueManagerInterface;
+
 class Editor
 {
-    public function __construct()
+    public function __construct(private WpService $wpService, private EnqueueManagerInterface $enqueue)
     {
         // Actions
-        add_action('enqueue_block_editor_assets', array($this, 'blockEditorStyle'));
-        add_action('enqueue_block_editor_assets', array($this, 'blockEditorScript'));
-        add_action('after_setup_theme', array($this, 'editorStyle'));
-        add_action('after_setup_theme', array($this, 'componentEditorStyles'));
-        add_filter('mce_buttons_2', array($this, 'editorButtons2'));
-        add_filter('tiny_mce_before_init', array($this, 'styleFormat'));
+        $this->wpService->addAction('enqueue_block_assets', array($this, 'blockEditorStyle'));
+        $this->wpService->addAction('enqueue_block_editor_assets', array($this, 'blockEditorScript'));
+        $this->wpService->addAction('after_setup_theme', array($this, 'editorStyle'));
+        $this->wpService->addFilter('mce_buttons_2', array($this, 'editorButtons2'));
+        $this->wpService->addFilter('tiny_mce_before_init', array($this, 'styleFormat'));
 
-        add_action('admin_head', function () {
+        $this->wpService->addAction('admin_head', function () {
             echo '<style type="text/css">.acf-postbox table thead th { background-color: #FFF; }</style>';
         });
 
         // Filters
-        add_filter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
+        $this->wpService->addFilter('tiny_mce_before_init', array($this, 'allowedHtmlTags')); // Allow specific html tags for editors
     }
 
     /**
@@ -57,11 +59,7 @@ class Editor
      */
     public function blockEditorScript()
     {
-        wp_enqueue_script(
-            'columns-block',
-            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/blocks/columns.js'),
-            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'),
-        );
+        $this->enqueue->add('js/blocks/columns.js', ['wp-blocks', 'wp-dom-ready', 'wp-edit-post']);
     }
 
     /**
@@ -70,27 +68,30 @@ class Editor
      */
     public function blockEditorStyle()
     {
-        // If in customizer, do not enqueue styles which might affect editor appearance.
-        global $wp_customize;
-        if (isset($wp_customize)) {
+        if (!$this->wpService->isAdmin()) {
             return;
         }
 
-        wp_enqueue_style(
-            'block-editor-adjustments',
-            apply_filters(
-                'Municipio/Admin/BlockEditor',
-                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/blockeditor.css'),
-            ),
-        );
+        // If in customizer, do not enqueue styles which might affect editor appearance.
+        if ($this->wpService->isCustomizePreview()) {
+            return;
+        }
 
-        wp_enqueue_style(
-            'block-editor-municipio',
-            apply_filters(
-                'Municipio/Admin/BlockEditorMunicipio',
-                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/municipio.css'),
-            ),
-        );
+        $this->enqueueEditorStyle('css/blockeditor.css', 'Municipio/Admin/BlockEditor', 'block-editor-adjustments');
+        $this->enqueueEditorStyle('css/municipio.css', 'Municipio/Admin/BlockEditorMunicipio', 'block-editor-municipio');
+    }
+
+    private function enqueueEditorStyle(string $sourcePath, string $filterName, string $handle): void
+    {
+        $defaultUrl = $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name($sourcePath);
+        $filteredUrl = $this->wpService->applyFilters($filterName, $defaultUrl);
+        if ($filteredUrl === $defaultUrl) {
+            $this->enqueue->add($sourcePath);
+            return;
+        }
+        // WpUtilService resolves paths relative to dist; extension filters may
+        // instead supply a complete URL, which WordPress enqueues directly.
+        $this->wpService->wpEnqueueStyle($handle, $filteredUrl);
     }
 
     /**
@@ -99,55 +100,28 @@ class Editor
      */
     public function editorStyle()
     {
-        add_editor_style(
-            apply_filters(
+        $this->wpService->addEditorStyle(
+            $this->wpService->applyFilters(
                 'Municipio/Admin/EditorStyleguide',
-                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/styleguide.css'),
+                $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/styleguide.css'),
             ),
         );
 
-        add_editor_style(
-            apply_filters(
+        $this->wpService->addEditorStyle(
+            $this->wpService->applyFilters(
                 'Municipio/Admin/EditorTinyMce',
-                get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/mce.css'),
+                $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/mce.css'),
             ),
         );
-    }
 
-    /**
-     * Load all on-demand component and utility styles in the editor canvas.
-     */
-    public function componentEditorStyles(): void
-    {
-        // The frontend selects component and utility CSS from the rendered markup.
-        // Editor content can change after page load, so make every built style available there.
-        $distDirectory = get_template_directory() . '/assets/dist/styleguide/';
-        $cacheBust = new \Municipio\Helper\StyleguideCacheBust();
-        $manifest = $cacheBust->getManifest();
-        if ($manifest === null) {
-            return;
-        }
-
-        $editorStyles = [];
-        foreach ($manifest as $source => $built) {
-            if (!is_string($source) || !is_string($built) ||
-                (!str_starts_with($source, 'css/components/') && !str_starts_with($source, 'css/utilities/')) ||
-                !str_ends_with($built, '.css')) {
-                continue;
-            }
-
-            $file = $cacheBust->name($source);
-            $builtPath = $distDirectory . $file;
-            if (!is_file($builtPath)) {
-                continue;
-            }
-
-            $editorStyles[] = get_template_directory_uri() . '/assets/dist/styleguide/' . $file . '?ver=' . filemtime($builtPath);
-        }
-
-        if ($editorStyles !== []) {
-            add_editor_style($editorStyles);
-        }
+        // The container block is rendered in Gutenberg's iframe, so its
+        // palette-pair utilities must be loaded there as well as on the site.
+        $this->wpService->addEditorStyle(
+            $this->wpService->applyFilters(
+                'Municipio/Admin/EditorPaletteColorUtilities',
+                $this->wpService->getTemplateDirectoryUri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('css/palette-color-utilities.css'),
+            ),
+        );
     }
 
     /**

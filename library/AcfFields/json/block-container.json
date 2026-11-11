@@ -160,7 +160,7 @@
             "name": "color",
             "aria-label": "",
             "type": "color_picker",
-            "instructions": "",
+            "instructions": "Select a Styleguide palette colour. Its paired contrast colour is applied automatically.",
             "required": 0,
             "conditional_logic": [
                 [
@@ -172,13 +172,14 @@
                 ]
             ],
             "wrapper": {
-                "width": "50",
+                "width": "",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "return_format": "string",
             "enable_opacity": 1,
-            "return_format": "string"
+            "municipio_palette_color": true
         },
         {
             "key": "field_6492ca98d635f",
@@ -279,7 +280,7 @@
                     "name": "color",
                     "aria-label": "",
                     "type": "color_picker",
-                    "instructions": "",
+                    "instructions": "Select a Styleguide palette colour.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -288,8 +289,9 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "enable_opacity": 1,
                     "return_format": "string",
+                    "enable_opacity": 1,
+                    "municipio_palette_color": true,
                     "parent_repeater": "field_648329b62db2e"
                 },
                 {
@@ -323,24 +325,6 @@
                     "parent_repeater": "field_648329b62db2e"
                 }
             ]
-        },
-        {
-            "key": "field_644b77128c900",
-            "label": "Text color",
-            "name": "text_color",
-            "aria-label": "",
-            "type": "color_picker",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "enable_opacity": 0,
-            "return_format": "string"
         }
     ],
     "location": [
