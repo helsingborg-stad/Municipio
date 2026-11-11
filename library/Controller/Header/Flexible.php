@@ -4,70 +4,17 @@ namespace Municipio\Controller\Header;
 
 use Municipio\Controller\Header\HeaderFactory;
 use Municipio\Controller\Header\Helper\Enums;
-// use Municipio\Controller\Header\AlignmentTransformer;
-// use Municipio\Controller\Header\ButtonAppearanceResolver;
-// use Municipio\Controller\Header\FlipKeyValueTransformer;
-// use Municipio\Controller\Header\HeaderContentFlagsResolver;
-// use Municipio\Controller\Header\HeaderSettingsBuilder;
-// use Municipio\Controller\Header\HeaderClasses;
-// use Municipio\Controller\Header\Helper\GetHiddenData;
-// use Municipio\Controller\Header\Helper\NormalizeOrderedItems;
-// use Municipio\Controller\Header\MarginTransformer;
-// use Municipio\Controller\Header\MenuOrderTransformer;
-// use Municipio\Controller\Header\MenuVisibilityTransformer;
-// use Municipio\Controller\Header\OrderedMenuItemsResolver;
-// use Municipio\Controller\HeaderFactory\HeaderFactory;
 
 /**
  * Class Flexible
  */
 class Flexible
 {
-    // private bool $isResponsive;
-    // private bool $hasSearch = false;
-    // private bool $hasSeparateBrandText = false;
-    // private NormalizeOrderedItems $normalizeOrderedItems;
-    // private GetHiddenData $getHiddenDataInstance;
-    // private OrderedMenuItemsResolver $orderedMenuItemsResolver;
-    // private HeaderSettingsBuilder $headerSettingsBuilder;
-    // private HeaderContentFlagsResolver $headerContentFlagsResolver;
-    // private LogoScrollShrinkResolver $logoScrollShrinkResolver;
-    // private ButtonAppearanceResolver $buttonAppearanceResolver;
-    // private MenuOrderTransformer $menuOrderTransformerInstance;
-    // private AlignmentTransformer $alignmentTransformerInstance;
-    // private FlipKeyValueTransformer $flipKeyValueTransformer;
-    // private MenuVisibilityTransformer $menuVisibilityTransformerInstance;
-    // private MarginTransformer $marginTransformerInstance;
-    // private IsResponsiveMenuTransformer $isResponsiveMenu;
-
     /**
      * Constructor.
      */
-    public function __construct(private HeaderFactory $headerFactory) {
-        // $this->normalizeOrderedItems = new NormalizeOrderedItems();
-        // $this->orderedMenuItemsResolver = new OrderedMenuItemsResolver($this->customizer, $this->normalizeOrderedItems);
-        // $this->isResponsive = $this->orderedMenuItemsResolver->hasResponsiveOrderItems();
-        // $this->getHiddenDataInstance = new GetHiddenData($this->customizer);
-
-        // $this->flipKeyValueTransformer = new FlipKeyValueTransformer();
-        // $this->isResponsiveMenu = new IsResponsiveMenuTransformer();
-        // $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
-        // $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
-        // $this->marginTransformerInstance = new MarginTransformer($this->getHiddenDataInstance->get());
-        // $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenDataInstance->get());
-        // $this->headerSettingsBuilder = new HeaderSettingsBuilder(
-        //     $this->customizer,
-        //     new HeaderClasses($this->customizer),
-        //     new HeaderAttributes()
-        // );
-        // $this->headerContentFlagsResolver = new HeaderContentFlagsResolver();
-        // $this->buttonAppearanceResolver = new ButtonAppearanceResolver($this->customizer, $this->getHiddenDataInstance);
-        // $this->logoScrollShrinkResolver = new LogoScrollShrinkResolver(
-        //     $this->customizer,
-        //     $this->getHiddenDataInstance,
-        //     $this->normalizeOrderedItems,
-        //     $this->isCustomizePreview
-        // );
+    public function __construct(private HeaderFactory $headerFactory)
+    {
     }
 
     /**
@@ -84,36 +31,5 @@ class Flexible
             'upper' => $upperHeader,
             'lower' => $lowerHeader
         ];
-        // $upperHeader = Header::create('upper');
-        // $lowerHeader = Header::create('lower');
-
-        // // foreach ($)
-
-        // $upperItems = $this->getItems('main_upper');
-        // $lowerItems = $this->getItems('main_lower');
-        // $logoScrollShrink = $this->logoScrollShrinkResolver->resolve();
-        // $defaultButtonAppearance = $this->buttonAppearanceResolver->getDefaultAppearance();
-
-        // [$upperHeader, $lowerHeader] = $this->headerSettingsBuilder->build(
-        //     $upperItems,
-        //     $lowerItems,
-        //     $logoScrollShrink
-        // );
-
-        // return [
-        //     'upperHeader' => $upperHeader,
-        //     'lowerHeader' => $lowerHeader,
-        //     'upperItems' => $upperItems['modified'],
-        //     'lowerItems' => $lowerItems['modified'],
-        //     'buttonAppearance' => [
-        //         'upperItems' => $upperItems['buttonAppearance'],
-        //         'lowerItems' => $lowerItems['buttonAppearance'],
-        //     ],
-        //     'defaultButtonAppearance' => $defaultButtonAppearance,
-        //     'hasSearch' => $this->hasSearch,
-        //     'hasSeparateBrandText' => $this->hasSeparateBrandText,
-        //     'logoScrollShrinkEnabled' => $logoScrollShrink['enabled'],
-        //     'logoScrollShrinkAspectRatio' => $logoScrollShrink['aspectRatio']
-        // ];
     }
 }
