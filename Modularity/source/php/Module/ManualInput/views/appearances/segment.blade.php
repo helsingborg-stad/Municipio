@@ -4,7 +4,7 @@
     'context' => $context,
     'image' => $input['image'],
     'content' => $input['content'],
-    'buttons' => [['text' => $input['linkText'] ?? $input['defaultLinkText'], 'href' => $input['link'], 'color' => 'primary']],
+    'buttons' => [['text' => $input['linkText'] ?? $input['defaultLinkText'], 'href' => $input['link'], 'target' => $linkTarget ?: '_self', 'color' => 'primary']],
     'containerAware' => true,
     'reverseColumns' => $imagePosition,
     'classList' => array_merge($input['classList'] ?? [], [$input['columnSize']]),

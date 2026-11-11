@@ -6,7 +6,7 @@
     'classList' => array_merge($input['classList'] ?? [], [$input['columnSize'], 'u-height--100']),
     'context'   => $context,
     'link'      => $input['link'],
-    'attributeList' => $input['attributeList'] ?? [],
+    'attributeList' => [...($attributeList ?? []), 'target' => $linkTarget ?? null],
     'icon'      => $input['icon'] ? [
         'icon' => $input['icon'],
         'size' => 'md',

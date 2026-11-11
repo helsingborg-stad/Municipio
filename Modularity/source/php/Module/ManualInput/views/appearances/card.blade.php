@@ -3,6 +3,7 @@
     'classList'     => array_merge($input['classList'] ?? [], [$input['columnSize']])
 ])
     @card([
+        'attributeList' => $showLinkAsButton ? [] : ['target' => $linkTarget ?? null],
         'link'              => $input['showLinkAsButton'] ? '' : $input['link'],
         'linkText'          => (!$input['showLinkAsButton'] && isset($input['linkText'])) ? $input['linkText'] : '',
         'eyebrow'           => !empty($input['eyebrow']) ? $input['eyebrow'] : '',
@@ -21,6 +22,7 @@
         'buttons'           => $input['showLinkAsButton'] && !empty($input['link']) ? [[
             'text' => $input['linkText'] ?: ($input['defaultLinkText'] ?? __('Read more', 'municipio')),
             'href' => $input['link'],
+            'target' => $linkTarget ?: '_self',
             'color' => $input['buttonColor'] ?? 'primary',
             'style' => 'filled',
         ]] : [],

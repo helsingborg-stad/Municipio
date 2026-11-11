@@ -23,6 +23,7 @@ class Notice extends \Modularity\Module
     {
         $data = $this->getFields();
         $data['icon'] = $this->iconData($data['notice_type']);
+        $data['linkTarget'] = $data['link']['target'] ?? '_self';
 
         return $data;
     }
