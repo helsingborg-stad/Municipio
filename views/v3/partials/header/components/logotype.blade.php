@@ -6,7 +6,7 @@
         'u-no-decoration'
         ], $menuItem->getCssClasses() ?? [])
     ])
-    @if($headerBrandEnabled && !$headerData['hasSeparateBrandText'])
+    @if($headerBrandEnabled && !$hasSeparateBrandText)
         @brand([
             'logotype' => [
                 'src'=> $logotype,

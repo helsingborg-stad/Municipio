@@ -8,6 +8,8 @@ use Municipio\Controller\Header\Helper\Enums;
 
 class MenuItem
 {
+    private const DEFAULT_ALIGNMENT = 'left';
+
     public function __construct(
         private string $id,
         private array $rawMenuItem,
@@ -43,9 +45,12 @@ class MenuItem
 
     public function getAlignment(string $breakpoint): string
     {
-        return $this->rawMenuItem[$breakpoint]['alignment']
-            ?? $this->rawMenuItem[$breakpoint]['align']
-            ?? 'left';
+        return $this->getAlignmentWithFallback($breakpoint);
+    }
+
+    public function getPlacementAlignment(): string
+    {
+        return $this->getAlignmentWithFallback(Enums::HEADER_BREAKPOINT::DESKTOP->value);
     }
 
     public function isEmpty(string $breakpoint): bool
@@ -55,11 +60,44 @@ class MenuItem
 
     public function getCssClasses(): array
     {
-        $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($this->rawMenuItem);
-        $orderClasses = $this->menuItemClasses->buildOrderClasses($this->rawMenuItem);
-        $alignmentClasses = $this->menuItemClasses->buildAlignmentClasses($this->rawMenuItem);
+        $rawMenuItemWithAlignmentFallback = $this->rawMenuItem;
+        $rawMenuItemWithAlignmentFallback[Enums::HEADER_BREAKPOINT::DESKTOP->value]['align'] =
+            $this->getAlignmentWithFallback(Enums::HEADER_BREAKPOINT::DESKTOP->value);
+        $rawMenuItemWithAlignmentFallback[Enums::HEADER_BREAKPOINT::MOBILE->value]['align'] =
+            $this->getAlignmentWithFallback(Enums::HEADER_BREAKPOINT::MOBILE->value);
+
+        $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($rawMenuItemWithAlignmentFallback);
+        $orderClasses = $this->menuItemClasses->buildOrderClasses($rawMenuItemWithAlignmentFallback);
+        $alignmentClasses = $this->menuItemClasses->buildAlignmentClasses($rawMenuItemWithAlignmentFallback);
 
         return array_merge($visibilityClasses, $orderClasses, $alignmentClasses);
+    }
+
+    private function getAlignmentWithFallback(string $breakpoint): string
+    {
+        $desktopBreakpoint = Enums::HEADER_BREAKPOINT::DESKTOP->value;
+        $mobileBreakpoint = Enums::HEADER_BREAKPOINT::MOBILE->value;
+
+        if ($breakpoint === $mobileBreakpoint) {
+            return $this->resolveAlignment(
+                $this->rawMenuItem[$mobileBreakpoint] ?? [],
+                $this->rawMenuItem[$desktopBreakpoint] ?? []
+            );
+        }
+
+        return $this->resolveAlignment(
+            $this->rawMenuItem[$desktopBreakpoint] ?? [],
+            $this->rawMenuItem[$mobileBreakpoint] ?? []
+        );
+    }
+
+    private function resolveAlignment(array $preferred, array $fallback): string
+    {
+        return $preferred['alignment']
+            ?? $preferred['align']
+            ?? $fallback['alignment']
+            ?? $fallback['align']
+            ?? self::DEFAULT_ALIGNMENT;
     }
 
     private function getPreferedValue(string $key): ?string

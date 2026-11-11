@@ -12,6 +12,7 @@ use Municipio\Controller\Header\Helper\HeaderAttributes;
 class Header
 {
     private ?array $createdMenuItems = null;
+    private ?array $menuItemsByAlignment = null;
 
     public function __construct(
         private string $id,
@@ -31,6 +32,10 @@ class Header
     public function getCssClasses(): array
     {
         $visibilityClasses = $this->headerClasses->buildVisibilityClasses($this->extractMenuItems->getHeaderItems($this->id));
+
+        if ($this->hasMenuItemsForAlignment(Enums::MENU_ITEM_ALIGNMENT::CENTER->value)) {
+            $visibilityClasses[] = 'c-header--flexible-has-centered-content';
+        }
 
         return array_merge($visibilityClasses);
     }
@@ -58,6 +63,43 @@ class Header
     public function getMenuItems(): array
     {
         return $this->createdMenuItems ??= $this->createMenuItems();
+    }
+
+    public function hasMenuItemsForAlignment(string $alignment): bool
+    {
+        return !empty($this->getMenuItemsByAlignment()[$alignment]);
+    }
+
+    public function getMenuItemsForAlignment(string $alignment): array
+    {
+        return $this->getMenuItemsByAlignment()[$alignment] ?? [];
+    }
+
+    public function getMenuItemsByAlignment(): array
+    {
+        if ($this->menuItemsByAlignment !== null) {
+            return $this->menuItemsByAlignment;
+        }
+
+        $groupedMenuItems = [
+            Enums::MENU_ITEM_ALIGNMENT::LEFT->value => [],
+            Enums::MENU_ITEM_ALIGNMENT::CENTER->value => [],
+            Enums::MENU_ITEM_ALIGNMENT::RIGHT->value => [],
+        ];
+
+        foreach ($this->getMenuItems() as $menuItem) {
+            $placementAlignment = $menuItem->getPlacementAlignment();
+
+            if (!isset($groupedMenuItems[$placementAlignment])) {
+                $placementAlignment = Enums::MENU_ITEM_ALIGNMENT::LEFT->value;
+            }
+
+            $groupedMenuItems[$placementAlignment][$menuItem->getType()] = $menuItem;
+        }
+
+        $this->menuItemsByAlignment = $groupedMenuItems;
+
+        return $this->menuItemsByAlignment;
     }
 
     private function createMenuItems(): array

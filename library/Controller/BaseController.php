@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use AcfService\AcfService;
 use Municipio\Controller\Header\HeaderFactory;
+use Municipio\Controller\Header\Helper\HeaderComponents;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
@@ -145,6 +146,7 @@ class BaseController
                 $this->data['customizer']
             )
         ))->getHeaderData();
+        $this->data['hasSeparateBrandText'] = $this->getHeaderComponents()->has('brand-text');
 
         $this->menuDirector->setBuilder($this->menuBuilder);
 
@@ -821,7 +823,7 @@ class BaseController
             return false;
         }
 
-        return $this->headerContainsComponent('primary');
+        return $this->getHeaderComponents()->has('primary');
     }
 
     /**
@@ -830,23 +832,15 @@ class BaseController
     protected function hasDrawerMenu(): bool
     {
         return !empty($this->data['mobileMenu']['items'])
-            && $this->headerContainsComponent('drawer');
+            && $this->getHeaderComponents()->has('drawer');
     }
 
     /**
-     * Check if a component is rendered in the header.
+     * Get the components placed in the rendered headers.
      */
-    protected function headerContainsComponent(string $component): bool
+    protected function getHeaderComponents(): HeaderComponents
     {
-        foreach (['upperItems', 'lowerItems'] as $section) {
-            foreach (['left', 'center', 'right'] as $alignment) {
-                if (isset($this->data['headerData'][$section][$alignment][$component])) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return new HeaderComponents($this->data['headerData'] ?? []);
     }
 
     /**

@@ -10,15 +10,23 @@
 
         @scope(['name' => ['header-flexible-'. $key, 'header-flexible', 'header']])
             @header([
-                'classList' => array_merge($header->getCssClasses(), ['header']),
+                'classList' => array_merge($header->getCssClasses(), ['header', 'c-header--flexible']),
                 'id' => 'site-header-flexible-' . $key,
                 'sticky' => $header->isSticky(),
                 'context' => 'site.header.flexible.' . $key,
                 'attributeList' => $header->getAttributes(),
             ])
-                @foreach($header->getMenuItems() as $index => $menuItem)
-                        @includeIf('partials.header.components.' . $menuItem->getType())
-                @endforeach
+                <div class="c-header__main-{{ $key }}-area">
+                    @foreach(['left', 'center', 'right'] as $alignment)
+                        @continue(!$header->hasMenuItemsForAlignment($alignment))
+
+                        <div class="c-header__{{ $key }}-{{ $alignment }}">
+                            @foreach($header->getMenuItemsForAlignment($alignment) as $menuItem)
+                                @includeIf('partials.header.components.' . $menuItem->getType())
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
             @endheader
         @endscope
     @endforeach
