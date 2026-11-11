@@ -16,51 +16,46 @@
 }
 
 .municipio-palette-color-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
-    max-inline-size: 42rem;
+    padding: 4px;
 }
 
 .municipio-palette-color-option {
     display: grid;
-    grid-template-columns: 2.75rem minmax(0, 1fr);
-    align-items: center;
-    gap: 8px;
-    min-block-size: 3.5rem;
-    padding: 4px;
+    place-items: center;
+    box-sizing: border-box;
+    flex: 0 0 44px;
+    inline-size: 44px;
+    block-size: 44px;
+    padding: 0;
     border: 1px solid #c3c4c7;
-    border-radius: 4px;
-    background: #fff;
-    color: #1d2327;
+    border-radius: 50%;
     cursor: pointer;
-    text-align: start;
 
-    &:hover {
-        border-color: #2271b1;
+    &:hover:not(:disabled) {
+        border-color: var(--wp-admin-theme-color, #2271b1);
     }
 
     &:focus-visible {
-        outline: 2px solid #2271b1;
-        outline-offset: 2px;
+        outline: 2px solid var(--wp-admin-theme-color, #2271b1);
+        outline-offset: 3px;
     }
 
     &[aria-checked="true"] {
-        border-color: #2271b1;
-        box-shadow: inset 0 0 0 1px #2271b1;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--wp-admin-theme-color, #2271b1);
     }
-}
 
-.municipio-palette-color-option__preview {
-    display: grid;
-    place-items: center;
-    min-block-size: 2.75rem;
-    border-radius: 2px;
-    font-weight: 700;
-    font-size: .875rem;
-}
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
 
-.municipio-palette-color-option__label {
-    font-weight: 600;
-    line-height: 1.25;
+    .dashicons {
+        pointer-events: none;
+        font-size: 24px;
+        inline-size: 24px;
+        block-size: 24px;
+    }
 }

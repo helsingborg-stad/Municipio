@@ -26,9 +26,24 @@ class PaletteColorChoicesTest extends TestCase
         static::assertSame('value', $paletteField['return_format']);
         static::assertSame(0, $paletteField['multiple']);
         static::assertSame(0, $paletteField['ajax']);
+        static::assertSame(1, $paletteField['allow_null']);
+        static::assertSame(__('None', 'municipio'), $paletteField['placeholder']);
         static::assertArrayHasKey('primary', $paletteField['choices']);
         static::assertSame('existing-class municipio-palette-color-selector', $paletteField['wrapper']['class']);
         static::assertSame($paletteField, $selector->populateChoices($paletteField));
+    }
+
+    public function testPreservesFieldsThatDoNotAllowEmptySelection(): void
+    {
+        $selector = new PaletteColorChoices(new FakeWpService(), $this->createMock(EnqueueManagerInterface::class));
+        $field = $selector->populateChoices([
+            'type' => 'select',
+            'municipio_palette_color' => true,
+            'allow_null' => 0,
+        ]);
+
+        static::assertSame(0, $field['allow_null']);
+        static::assertArrayNotHasKey('', $field['choices']);
     }
 
     public function testConvertsBeforeAcfInitializesFieldTypeDefaults(): void
