@@ -1,5 +1,6 @@
-import path from "path";
+import path from "node:path";
 import { defineConfig } from "vite";
+import { wordpressAssetManifest } from "./build/wordpressAssetManifest.mjs";
 
 const entries = {
 	"js/blocks": "./library/Blocks/js/index.ts",
@@ -18,10 +19,18 @@ const externalDeps = {
 	"@wordpress/block-editor": "wp.blockEditor",
 };
 
+const scriptHandles = Object.fromEntries(
+	Object.keys(externalDeps).map((id) => [
+		id,
+		id.startsWith("@wordpress/") ? id.replace("@wordpress/", "wp-") : id,
+	]),
+);
+
 export default defineConfig(({ mode }) => {
 	const isProduction = mode === "production";
 
 	return {
+		plugins: [wordpressAssetManifest(scriptHandles)],
 		build: {
 			outDir: "assets/dist/blocks",
 			emptyOutDir: true,

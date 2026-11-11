@@ -1,15 +1,31 @@
-jQuery(() => {
-	// The Design Builder can be re-rendered while switching modes. Its action
-	// events are composed and bubble, so listen once on the document instead of
-	// binding to a transient custom-element instance.
-	document.addEventListener("design-builder:action", (event: Event) => {
-		if (!(event instanceof CustomEvent) || !event.detail?.state) {
-			return;
-		}
+let previewActive = false;
+let pendingState: Record<string, unknown> | null = null;
 
-		// Send a snapshot. The runtime keeps mutating its override-state object
-		// while controls are edited, whereas Customizer needs the exact state that
-		// produced this change notification.
-		wp.customize.preview.send("tokens:update", JSON.parse(JSON.stringify(event.detail.state)));
+function sendPendingState(): void {
+	if (!previewActive || pendingState === null) {
+		return;
+	}
+	wp.customize.preview.send("tokens:update", pendingState);
+	pendingState = null;
+}
+
+// WordPress ignores preview messages until the iframe finishes loading and its
+// channel is activated. Keep early edits instead of silently losing them.
+wp.customize.bind("preview-ready", () => {
+	wp.customize.preview.bind("active", () => {
+		previewActive = true;
+		sendPendingState();
 	});
+});
+
+// Listen on the document because switching views replaces the editor controls.
+document.addEventListener("design-builder:action", (event: Event) => {
+	if (!(event instanceof CustomEvent) || !event.detail?.state) {
+		return;
+	}
+
+	// Capture a snapshot: the runtime may continue changing the same object
+	// before the preview becomes active.
+	pendingState = JSON.parse(JSON.stringify(event.detail.state));
+	sendPendingState();
 });

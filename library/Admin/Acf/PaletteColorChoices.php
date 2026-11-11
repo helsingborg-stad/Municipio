@@ -28,6 +28,8 @@ class PaletteColorChoices implements Hookable
 
     public function addHooks(): void
     {
+        // Convert before ACF applies type-specific defaults and serialization.
+        $this->wpService->addFilter('acf/validate_field', [$this, 'populateChoices'], 5);
         $this->wpService->addFilter('acf/load_field', [$this, 'populateChoices']);
         $this->wpService->addAction('acf/input/admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
@@ -46,9 +48,17 @@ class PaletteColorChoices implements Hookable
         // conversion affects only ACF's loaded runtime field definition.
         $field['type'] = 'select';
         $field['choices'] = ColorSwatches::getColorPairChoices();
+        $field['return_format'] = 'value';
+        $field['multiple'] = 0;
         $field['allow_custom'] = 0;
         $field['ui'] = 0;
-        $field['wrapper']['class'] = trim(($field['wrapper']['class'] ?? '') . ' municipio-palette-color-selector');
+        $field['ajax'] = 0;
+        $field['create_options'] = 0;
+        $field['save_options'] = 0;
+        $field['allow_null'] ??= 1;
+        $field['placeholder'] = $field['allow_null'] ? __('None', 'municipio') : $field['placeholder'] ?? '';
+        $wrapperClasses = preg_split('/\s+/', trim($field['wrapper']['class'] ?? ''), flags: PREG_SPLIT_NO_EMPTY);
+        $field['wrapper']['class'] = implode(' ', array_unique([...$wrapperClasses, 'municipio-palette-color-selector']));
 
         return $field;
     }
@@ -58,11 +68,16 @@ class PaletteColorChoices implements Hookable
      */
     public function enqueueAssets(): void
     {
+        $choices = [];
+        foreach (ColorSwatches::getColorPairChoices() as $role => $label) {
+            $choices[] = ['value' => $role, 'label' => $label, ...ColorSwatches::getColorPair($role)];
+        }
+
         $this->enqueue
             ->add('js/palette-color-choices.js', ['acf-input'])
             ->with()
             ->data('MunicipioPaletteColorChoices', [
-                'choices' => ColorSwatches::getColorPairPreviews(),
+                'choices' => $choices,
             ]);
     }
 }

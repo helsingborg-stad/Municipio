@@ -35,13 +35,15 @@ function enhanceField(field: Element): void {
 	);
 
 	const updateSelection = (): void => {
-		grid
-			.querySelectorAll<HTMLButtonElement>('[role="radio"]')
-			.forEach((button) => {
-				const isSelected = button.dataset.value === select.value;
-				button.setAttribute("aria-checked", String(isSelected));
-				button.tabIndex = isSelected ? 0 : -1;
-			});
+		const buttons = grid.querySelectorAll<HTMLButtonElement>('[role="radio"]');
+		const hasSelection = Array.from(buttons).some(
+			(button) => button.dataset.value === select.value,
+		);
+		buttons.forEach((button, index) => {
+			const isSelected = button.dataset.value === select.value;
+			button.setAttribute("aria-checked", String(isSelected));
+			button.tabIndex = isSelected || (!hasSelection && index === 0) ? 0 : -1;
+		});
 	};
 
 	const availableValues = new Set(
@@ -56,7 +58,9 @@ function enhanceField(field: Element): void {
 	if (defaultOption) {
 		visualChoices.unshift({
 			value: "",
-			label: defaultOption.textContent?.trim() || "Use default",
+			label:
+				defaultOption.textContent?.trim().replace(/^-\s*(.*?)\s*-$/, "$1") ||
+				"None",
 			background: "#f0f0f1",
 			contrast: "#1d2327",
 		});
@@ -65,22 +69,21 @@ function enhanceField(field: Element): void {
 	visualChoices.forEach((choice) => {
 		const option = document.createElement("button");
 		option.type = "button";
-		option.className = "municipio-palette-color-option";
+		option.className = "municipio-palette-color-option acf-js-tooltip";
 		option.dataset.value = choice.value;
 		option.setAttribute("role", "radio");
 		option.setAttribute("aria-label", choice.label);
+		option.title = choice.label;
+		option.style.backgroundColor = choice.background;
+		option.style.color = choice.contrast;
+		option.disabled = select.disabled;
 
-		const preview = document.createElement("span");
-		preview.className = "municipio-palette-color-option__preview";
-		preview.style.backgroundColor = choice.background;
-		preview.style.color = choice.contrast;
-		preview.textContent = "Aa";
-
-		const label = document.createElement("span");
-		label.className = "municipio-palette-color-option__label";
-		label.textContent = choice.label;
-
-		option.append(preview, label);
+		if (choice.value !== "") {
+			const icon = document.createElement("span");
+			icon.className = "dashicons dashicons-editor-textcolor";
+			icon.setAttribute("aria-hidden", "true");
+			option.append(icon);
+		}
 		option.addEventListener("click", () => {
 			select.value = choice.value;
 			select.dispatchEvent(new Event("input", { bubbles: true }));
@@ -124,6 +127,7 @@ function enhanceField(field: Element): void {
 
 	select.after(grid);
 	select.tabIndex = -1;
+	select.setAttribute("aria-hidden", "true");
 	select.addEventListener("change", updateSelection);
 	field.classList.add("is-enhanced");
 	enhancedSelects.add(select);
