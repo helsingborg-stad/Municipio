@@ -281,6 +281,12 @@ class BlockManager
             }
         }
 
+        // CSS gradients require at least two stops. Keep a newly added single
+        // colour visible while the editor is still configuring the gradient.
+        if (count($gradientStops) === 1) {
+            $gradientValues .= ', ' . $gradientValues;
+        }
+
         if (!empty($gradientValues)) {
             $styles = "background: linear-gradient({$angle}deg, $gradientValues);";
         }
@@ -357,9 +363,19 @@ class BlockManager
     {
         $newData = [];
         foreach ($data as $key => $value) {
+            // Unsaved editor data uses field keys and nested repeater arrays.
+            // Read through ACF so subfields are formatted to their field names.
+            if (str_starts_with($key, 'field_')) {
+                $fieldObject = get_field_object($key);
+                if ($fieldObject !== false) {
+                    $newData[$fieldObject['name']] = get_field($key);
+                }
+                continue;
+            }
+
             $key = ltrim($key, '_');
 
-            if (str_contains($value, 'field_')) {
+            if (is_string($value) && str_starts_with($value, 'field_')) {
                 $newData[$key] = get_field($value);
             } else {
                 if ($fieldObject = get_field_object($key)) {
@@ -408,12 +424,18 @@ class BlockManager
 
         foreach ($fields as $key => $value) {
             //Must validate as a field_key
-            if (!str_contains($value, 'field_')) {
+            $fieldKey = null;
+            if (str_starts_with($key, 'field_')) {
+                $fieldKey = $key;
+            } elseif (is_string($value) && str_starts_with($value, 'field_')) {
+                $fieldKey = $value;
+            }
+            if ($fieldKey === null) {
                 continue;
             }
 
             // Get full field specification
-            if (!$fieldObject = get_field_object($value)) {
+            if (!$fieldObject = get_field_object($fieldKey)) {
                 continue;
             }
 

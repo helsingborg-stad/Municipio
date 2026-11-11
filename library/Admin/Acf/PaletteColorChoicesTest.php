@@ -23,8 +23,20 @@ class PaletteColorChoicesTest extends TestCase
             'wrapper' => ['class' => 'existing-class'],
         ]);
         static::assertSame('select', $paletteField['type']);
+        static::assertSame('value', $paletteField['return_format']);
+        static::assertSame(0, $paletteField['multiple']);
+        static::assertSame(0, $paletteField['ajax']);
         static::assertArrayHasKey('primary', $paletteField['choices']);
         static::assertSame('existing-class municipio-palette-color-selector', $paletteField['wrapper']['class']);
+        static::assertSame($paletteField, $selector->populateChoices($paletteField));
+    }
+
+    public function testConvertsBeforeAcfInitializesFieldTypeDefaults(): void
+    {
+        $wpService = new FakeWpService(['addFilter' => true, 'addAction' => true]);
+        $selector = new PaletteColorChoices($wpService, $this->createMock(EnqueueManagerInterface::class));
+        $selector->addHooks();
+        static::assertContains(['acf/validate_field', [$selector, 'populateChoices'], 5], $wpService->methodCalls['addFilter']);
     }
 
     public function testAttachesPreviewDataToTheEnqueuedScript(): void
