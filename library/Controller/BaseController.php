@@ -146,6 +146,7 @@ class BaseController
                 $this->data['customizer']
             )
         ))->getHeaderData();
+
         $this->data['hasSeparateBrandText'] = $this->getHeaderComponents()->has('brand-text');
 
         $this->menuDirector->setBuilder($this->menuBuilder);

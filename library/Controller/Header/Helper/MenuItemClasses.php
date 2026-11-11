@@ -22,7 +22,7 @@ class MenuItemClasses
 
         foreach ($rawMenuItem as $breakpoint => $item) {
             foreach ($this->modifiers[$breakpoint] as $modifier) {
-                $classList[] = 'u-display--' . (!empty($item) ? 'block' : 'none') . $modifier;
+                $classList[] = 'u-display--' . (!empty($item) ? 'flex' : 'none') . $modifier;
             }
         }
 
