@@ -16,7 +16,7 @@
                 'classList'         => ['u-height--100', 'u-height-100'],
                 'context'           => 'module.index',
                 'image'             => isset($item['thumbnail'][0]) ? $item['thumbnail'][0] : false,
-                'heading'           => isset($item['title']) && !empty($item['title']) ? $item['title'] : false,
+                'heading'           => !empty($item['title']) ? $item['title'] : '',
                 'content'           => $item['lead'],
                 'containerAware'    => true
             ])

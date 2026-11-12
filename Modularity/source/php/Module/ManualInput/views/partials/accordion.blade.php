@@ -7,8 +7,8 @@
 @includeWhen(!empty($freeTextFiltering), 'partials.search-field')
 
 @accordion([
-    'heading' => $accordionColumnTitles,
-    'spacing' => $accordionSpacedSections,
+    'heading' => $accordionColumnTitles ?? '',
+    'spacing' => !empty($accordionSpacedSections),
     'divider' => $divider ?? false
 ])
     @foreach ($manualInputs as $input)
