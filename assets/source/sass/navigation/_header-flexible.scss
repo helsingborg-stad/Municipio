@@ -151,7 +151,7 @@ $header-item-max-mobile-index: 24;
         }
     }
 
-    @media (min-width: 1247px) {
+    @include mq.mq($from: lg) {
         &.c-header--logotype-scroll-shrink {
             .c-header__lower-left .c-header__item--logotype .c-header__logotype {
                 transform: translateY(var(--municipio-header-logo-scroll-height-shift));
