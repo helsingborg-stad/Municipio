@@ -11,6 +11,6 @@
         'icon' => $input['icon'],
         'size' => 'md',
         'color' => 'white'
-    ] : null
+    ] : false
 ])
 @endblock

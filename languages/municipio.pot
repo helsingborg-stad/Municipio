@@ -1671,6 +1671,14 @@ msgstr ""
 msgid "Post type name"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Display name"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts."
+msgstr ""
+
 #: library/AcfFields/php/options-theme-custom-post-type.php:38
 msgid "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! </span>"
 msgstr ""
@@ -3867,6 +3875,10 @@ msgstr ""
 msgid "Join the online event"
 msgstr ""
 
+#: library/PostsList/ViewCallableProviders/Schema/Event/GetOnlineAttendanceLabel.php:44
+msgid "Takes place online"
+msgstr ""
+
 #: library/Controller/SingularEvent.php:136
 #: library/Helper/TranslatedLabels.php:64
 #: library/Theme/Enqueue.php:145
@@ -4115,6 +4127,10 @@ msgstr ""
 #: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:68
 #: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:69
 msgid "No color"
+msgstr ""
+
+#: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:66
+msgid "Default color"
 msgstr ""
 
 #: library/Customizer/Controls/Background/BackgroundControl.php:114
@@ -5252,6 +5268,22 @@ msgstr ""
 msgid "Drawer divider (top level only)"
 msgstr ""
 
+#: library/Customizer/Sections/Menu/Drawer.php:101
+msgid "Show \"You are here\" badge"
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:102
+msgid "Displays a badge next to the current page in the drawer menu."
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:118
+msgid "\"You are here\" badge color"
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:119
+msgid "Defaults to red. The text color follows the selected swatch."
+msgstr ""
+
 #: library/Customizer/Sections/Menu/MegaMenu.php:21
 msgid "Select if you want to use one of the predefined appearance, or customize freely."
 msgstr ""
@@ -5737,6 +5769,10 @@ msgstr ""
 
 #: library/Helper/TranslatedLabels.php:60
 msgid "You are here: "
+msgstr ""
+
+#: library/Helper/TranslatedLabels.php:61
+msgid "You are here"
 msgstr ""
 
 #: library/Helper/TranslatedLabels.php:61

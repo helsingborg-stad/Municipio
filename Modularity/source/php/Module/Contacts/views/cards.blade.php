@@ -30,14 +30,14 @@
                 'jobTitle' => $contact['work_title'] ?? false,
                 'administrationUnit' => $contact['administration_unit'] ?? false,
                 'email' => $contact['email'] ?? false,
-                'telephone' => $contact['phone'] ?? false,
+                'telephone' => !empty($contact['phone']) ? $contact['phone'] : [],
                 'address' => $contact['address'] ?? false,
                 'visitingAddress' => $contact['visiting_address'] ?? false,
-                'socialMedia' => $contact['social_media'] ?? false,
+                'socialMedia' => !empty($contact['social_media']) ? $contact['social_media'] : [],
                 'image' => $contact['thumbnail'] ?? false,
                 'description' => $contact['other'] ?? false,
                 'customSections' => $contact['custom_sections'] ?? [],
-                'useAvatarFallback' => isset($placeholder_avatar) ? $placeholder_avatar : true,
+                'useAvatarFallback' => isset($placeholder_avatar) ? (bool) $placeholder_avatar : true,
                 'view' => $view ?? 'extended',
                 'classList' => $view === 'simple' ? [
                     'u-padding--1'

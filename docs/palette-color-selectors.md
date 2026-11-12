@@ -32,8 +32,9 @@ global tokens, so the selected role follows the active scheme.
 
 Legacy header and footer overrides are repaired by database upgrade 69. The
 migration is idempotent, preserves unrelated settings and scheme maps, removes
-obsolete computed colour overrides and persists matching semantic pairs.
-Rendering does not repeat those repairs.
+obsolete computed colour overrides and persists matching semantic pairs. The
+renderer also normalizes legacy base component values in memory, so pending
+upgrades cannot emit obsolete literal colour overrides.
 
 The normal `npm run build:municipio` build also generates
 `assets/dist/styleguide/editor-color-tokens.json` from the installed component

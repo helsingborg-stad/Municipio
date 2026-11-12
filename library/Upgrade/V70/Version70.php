@@ -9,15 +9,17 @@ use Municipio\Upgrade\VersionInterface;
 use WpService\Contracts\GetPostField;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPosts;
+use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\UpdatePostMeta;
 use WpService\Contracts\WpUpdatePost;
+use WpService\Contracts\WpSlash;
 
 /** Persist semantic palette roles for legacy section and container colors. */
 class Version70 implements VersionInterface
 {
     private const SECTION_BLOCKS = ['acf/section-full', 'acf/section-split', 'acf/section-featured'];
 
-    public function __construct(private GetPosts&GetPostField&GetPostMeta&UpdatePostMeta&WpUpdatePost $wpService) {}
+    public function __construct(private GetPosts&GetPostTypes&GetPostField&GetPostMeta&UpdatePostMeta&WpUpdatePost&WpSlash $wpService) {}
 
     public function upgradeToVersion(): void
     {
@@ -36,20 +38,33 @@ class Version70 implements VersionInterface
             }
         }
 
+        // The WordPress "any" shortcut omits exclude_from_search post types,
+        // which may still contain editable sections or reusable blocks.
+        $postTypes = array_values(array_diff($this->wpService->getPostTypes(), ['revision']));
+        if ($postTypes === []) {
+            return;
+        }
         $postIds = $this->wpService->getPosts([
-            'post_type' => 'any', 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids',
+            'post_type' => $postTypes, 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids',
         ]);
         foreach ($postIds as $postId) {
             if (!is_int($postId)) {
                 continue;
             }
             $content = $this->wpService->getPostField('post_content', $postId, 'raw');
-            if (!is_string($content) || (!str_contains($content, 'wp:acf/section-') && !str_contains($content, 'wp:acf/container'))) {
+            if (!str_contains($content, 'wp:acf/section-') && !str_contains($content, 'wp:acf/container')
+                && !str_contains($content, 'wp:acf/manualinput')) {
                 continue;
             }
             $blocks = parse_blocks($content);
-            if ($this->migrateBlocks($blocks) && !$this->wpService->wpUpdatePost(['ID' => $postId, 'post_content' => serialize_blocks($blocks)])) {
-                throw new \RuntimeException("Could not migrate block colors for post {$postId}.");
+            if ($this->migrateBlocks($blocks)) {
+                if ($this->wpService->getPostField('post_content', $postId, 'raw') !== $content) {
+                    throw new \RuntimeException("Post {$postId} changed during palette migration.");
+                }
+                $updated = $this->wpService->wpUpdatePost(['ID' => $postId, 'post_content' => $this->wpService->wpSlash(serialize_blocks($blocks))]);
+                if ($updated === 0 || $updated instanceof \WP_Error) {
+                    throw new \RuntimeException("Could not migrate block colors for post {$postId}.");
+                }
             }
         }
     }
@@ -69,8 +84,12 @@ class Version70 implements VersionInterface
             $data = &$block['attrs']['data'];
             if (in_array($name, self::SECTION_BLOCKS, true)) {
                 $changed = $this->migrateValue($data, 'background_color') || $changed;
+                foreach (['field_61543393334bf', 'field_60d1a9295551b'] as $key) {
+                    $changed = $this->migrateValue($data, $key) || $changed;
+                }
             } elseif ($name === 'acf/container') {
                 $changed = $this->migrateValue($data, 'color') || $changed;
+                $changed = $this->migrateValue($data, 'field_63cfdc219a6d3') || $changed;
                 foreach ($data as $key => &$value) {
                     if (is_string($key) && preg_match('/^background_gradient_\d+_color$/', $key)) {
                         $role = $this->roleForLegacyValue($value);
@@ -88,6 +107,32 @@ class Version70 implements VersionInterface
                         }
                     }
                     unset($stop);
+                }
+                if (is_array($data['field_648329b62db2e'] ?? null)) {
+                    foreach ($data['field_648329b62db2e'] as &$stop) {
+                        if (is_array($stop)) {
+                            $changed = $this->migrateValue($stop, 'field_64832a1b2db2f') || $changed;
+                        }
+                    }
+                    unset($stop);
+                }
+            } elseif ($name === 'acf/manualinput') {
+                foreach (array_keys($data) as $key) {
+                    if (is_string($key) && preg_match('/^manual_inputs_\d+_custom_background_color$/', $key)) {
+                        $changed = $this->migrateValue($data, $key) || $changed;
+                    }
+                }
+                foreach (['manual_inputs', 'field_64ff22b2d91b7'] as $rowsKey) {
+                    if (!is_array($data[$rowsKey] ?? null)) {
+                        continue;
+                    }
+                    foreach ($data[$rowsKey] as &$row) {
+                        if (is_array($row)) {
+                            $changed = $this->migrateValue($row, 'custom_background_color') || $changed;
+                            $changed = $this->migrateValue($row, 'field_689b2cf733d44') || $changed;
+                        }
+                    }
+                    unset($row);
                 }
             }
             unset($data);
