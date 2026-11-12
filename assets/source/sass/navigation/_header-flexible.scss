@@ -66,6 +66,7 @@ $header-item-max-mobile-index: 24;
     // Below lg the wrappers are flattened so every item becomes a flex item of the
     // row, and is placed by its mobile alignment (group) and mobile index:
     // left (100+) | spacer (199) | center (200+) | spacer (299) | right (300+)
+    // This has to be done to satisfy the mobile layout requirements and ensure proper spacing between items.
     @include mq.mq($until: lg) {
         .c-header__main-upper-area,
         .c-header__main-lower-area {
@@ -133,7 +134,6 @@ $header-item-max-mobile-index: 24;
     }
 
     // Alignment areas
-
     [class*="c-header__main-"]:has(.c-nav--extended-dropdown),
     [class*="c-header__upper-"]:has(.c-nav--extended-dropdown),
     [class*="c-header__lower-"]:has(.c-nav--extended-dropdown) {

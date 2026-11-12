@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use AcfService\AcfService;
 use Municipio\Controller\Header\HeaderFactory;
+use Municipio\Controller\Header\Helper\LogoScrollShrinkSettings;
 use Municipio\Controller\Header\Helper\HeaderComponents;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
@@ -139,11 +140,19 @@ class BaseController
         $this->data['footerAreas'] = $footerAreas;
 
         // Header
-        $this->data['headerData'] = (new \Municipio\Controller\Header\Flexible(
+        $flexibleHeader = new \Municipio\Controller\Header\Flexible(
             new HeaderFactory(
                 $this->data['customizer']
-            )
-        ))->getHeaderData();
+            ),
+            new LogoScrollShrinkSettings($this->data['customizer'])
+        );
+
+        $this->data['headerData'] = $flexibleHeader->getHeaderData();
+
+        $logoScrollShrinkSettings = $flexibleHeader->getLogoScrollShrinkSettings($this->wpService->isCustomizePreview());
+        $this->data['logoScrollShrinkEnabled'] = $logoScrollShrinkSettings['enabled'];
+        $this->data['logoScrollShrinkOverlapMultiplier'] = $logoScrollShrinkSettings['overlapMultiplier'];
+        $this->data['logoScrollShrinkAspectRatio'] = $logoScrollShrinkSettings['aspectRatio'];
 
         $this->data['hasSeparateBrandText'] = $this->getHeaderComponents()->has('brand-text');
         $this->data['hasMegaMenu'] = $this->getHeaderComponents()->has('mega-menu');

@@ -10,11 +10,24 @@
 
         @scope(['name' => ['header-flexible-'. $key, 'header-flexible', 'header']])
             @header([
-                'classList' => array_merge($header->getCssClasses(), ['header', 'c-header--flexible']),
+                'classList' => array_merge(
+                    $header->getCssClasses(),
+                    ['header', 'c-header--flexible'],
+                    ($key === 'lower' && !empty($logoScrollShrinkEnabled))
+                        ? ['c-header--logotype-scroll-shrink']
+                        : []
+                ),
                 'id' => 'site-header-flexible-' . $key,
                 'sticky' => $header->isSticky(),
                 'context' => 'site.header.flexible.' . $key,
-                'attributeList' => $header->getAttributes(),
+                'attributeList' => array_merge(
+                    $header->getAttributes(),
+                    ($key === 'lower' && !empty($logoScrollShrinkEnabled))
+                        ? [
+                            'style' => ($header->getAttributes()['style'] ?? '') . '--municipio-header-logo-overlap-multiplier: ' . ($logoScrollShrinkOverlapMultiplier ?? 0.25) . ';',
+                        ]
+                        : []
+                ),
             ])
                 @element([
                     'classList' => [
