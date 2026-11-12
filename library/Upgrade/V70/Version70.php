@@ -75,6 +75,7 @@ class Version70 implements VersionInterface
                 }
             } elseif ($name === 'acf/container') {
                 $changed = $this->migrateValue($data, 'color') || $changed;
+                $changed = $this->migrateValue($data, 'field_63cfdc219a6d3') || $changed;
                 foreach ($data as $key => &$value) {
                     if (is_string($key) && preg_match('/^background_gradient_\d+_color$/', $key)) {
                         $role = $this->roleForLegacyValue($value);
@@ -92,6 +93,32 @@ class Version70 implements VersionInterface
                         }
                     }
                     unset($stop);
+                }
+                if (is_array($data['field_648329b62db2e'] ?? null)) {
+                    foreach ($data['field_648329b62db2e'] as &$stop) {
+                        if (is_array($stop)) {
+                            $changed = $this->migrateValue($stop, 'field_64832a1b2db2f') || $changed;
+                        }
+                    }
+                    unset($stop);
+                }
+            } elseif ($name === 'acf/manualinput') {
+                foreach (array_keys($data) as $key) {
+                    if (is_string($key) && preg_match('/^manual_inputs_\d+_custom_background_color$/', $key)) {
+                        $changed = $this->migrateValue($data, $key) || $changed;
+                    }
+                }
+                foreach (['manual_inputs', 'field_64ff22b2d91b7'] as $rowsKey) {
+                    if (!is_array($data[$rowsKey] ?? null)) {
+                        continue;
+                    }
+                    foreach ($data[$rowsKey] as &$row) {
+                        if (is_array($row)) {
+                            $changed = $this->migrateValue($row, 'custom_background_color') || $changed;
+                            $changed = $this->migrateValue($row, 'field_689b2cf733d44') || $changed;
+                        }
+                    }
+                    unset($row);
                 }
             }
             unset($data);
