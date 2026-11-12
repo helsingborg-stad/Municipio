@@ -44,22 +44,43 @@ class HeaderTest extends TestCase
         static::assertTrue($header->hasMenuItemsForAlignment('center'));
     }
 
-    public function testGetCssClassesAddsCenteredContentModifierWhenCenterAreaHasItems(): void
+    public function testItemsAreRenderedOnceAndPlacedByMobileSettingsOnMobile(): void
     {
         $header = $this->createHeader((object) [
-            'headerSortableSectionMainUpper' => json_encode(['primary']),
-            'headerSortableSectionMainUpperResponsive' => json_encode([]),
+            'headerSortableSectionMainUpper' => json_encode(['logotype', 'primary', 'drawer']),
+            'headerSortableSectionMainUpperResponsive' => json_encode(['drawer', 'logotype']),
             'headerSortableHiddenStorage' => json_encode([
                 'header_sortable_section_main_upper' => [
+                    'logotype' => ['align' => 'left', 'margin' => 'none'],
                     'primary' => ['align' => 'center', 'margin' => 'none'],
+                    'drawer' => ['align' => 'right', 'margin' => 'none'],
+                ],
+                'header_sortable_section_main_upper_responsive' => [
+                    'drawer' => ['align' => 'left', 'margin' => 'none'],
+                    'logotype' => ['align' => 'center', 'margin' => 'none'],
                 ],
             ]),
             'headerSticky' => '',
         ]);
 
-        $cssClasses = $header->getCssClasses();
+        $groupedItems = $header->getMenuItemsByAlignment();
 
-        static::assertContains('c-header--flexible-has-centered-content', $cssClasses);
+        // Each item appears exactly once, in its desktop alignment wrapper.
+        static::assertSame(['logotype'], array_keys($groupedItems['left']));
+        static::assertSame(['primary'], array_keys($groupedItems['center']));
+        static::assertSame(['drawer'], array_keys($groupedItems['right']));
+
+        $drawerClasses = $groupedItems['right']['drawer']->getCssClasses();
+        static::assertContains('c-header__item--mobile-left', $drawerClasses);
+        static::assertContains('c-header__item--mobile-index-0', $drawerClasses);
+
+        $logotypeClasses = $groupedItems['left']['logotype']->getCssClasses();
+        static::assertContains('c-header__item--mobile-center', $logotypeClasses);
+        static::assertContains('c-header__item--mobile-index-1', $logotypeClasses);
+
+        $primaryClasses = $groupedItems['center']['primary']->getCssClasses();
+        static::assertContains('u-display--none', $primaryClasses);
+        static::assertNotContains('c-header__item--mobile-center', $primaryClasses);
     }
 
     private function createHeader(object $customizer): Header

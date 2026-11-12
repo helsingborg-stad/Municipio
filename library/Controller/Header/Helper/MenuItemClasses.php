@@ -6,6 +6,12 @@ use Municipio\Controller\Header\Helper\Enums;
 
 class MenuItemClasses
 {
+    /**
+     * Highest mobile index with a matching `c-header__item--mobile-index-{n}` class.
+     * Must match the loop in assets/source/sass/navigation/_header-flexible.scss.
+     */
+    public const MAX_MOBILE_INDEX = 24;
+
     private array $modifiers;
 
     public function __construct()
@@ -16,6 +22,19 @@ class MenuItemClasses
         ];
     }
 
+    /**
+     * Base classes identifying the element as a header item of a given type.
+     *
+     * @return string[]
+     */
+    public function buildItemClasses(string $type): array
+    {
+        return ['c-header__item', 'c-header__item--' . $type];
+    }
+
+    /**
+     * @return string[]
+     */
     public function buildVisibilityClasses(array $rawMenuItem): array
     {
         $classList = [];
@@ -31,46 +50,29 @@ class MenuItemClasses
         return $classList;
     }
 
-    public function buildAlignmentClasses(array $rawMenuItem): array
+    /**
+     * Classes placing the item on mobile, where the alignment wrappers are flattened
+     * (display: contents) and items are positioned with flex order.
+     *
+     * Desktop placement is handled by the alignment wrapper the item is rendered in.
+     *
+     * @param array  $rawMobileItem The item's mobile configuration (empty when hidden on mobile).
+     * @param string $alignment     The resolved mobile alignment.
+     *
+     * @return string[]
+     */
+    public function buildMobilePlacementClasses(array $rawMobileItem, string $alignment): array
     {
-        $classList = [];
-
-        foreach ($rawMenuItem as $breakpoint => $item) {
-            foreach ($this->modifiers[$breakpoint] as $modifier) {
-                $alignment = $item['align'] ?? 'left';
-                $classList[] = 'header-align--' . $alignment . $modifier;
-            }
+        if (empty($rawMobileItem)) {
+            return [];
         }
 
-        return $classList;
-    }
+        $alignment = Enums::MENU_ITEM_ALIGNMENT::tryFrom($alignment)?->value ?? Enums::MENU_ITEM_ALIGNMENT::LEFT->value;
+        $index = max(0, min(self::MAX_MOBILE_INDEX, intval($rawMobileItem['order'] ?? 0)));
 
-    public function buildOrderClasses(array $rawMenuItem)
-    {
-        $classList = [];
-        $desktopOrder = $this->getMenuAlignmentOrder(
-            $rawMenuItem['desktop']['align'] ?? 'left'
-        ) + intval($rawMenuItem[Enums::HEADER_BREAKPOINT::DESKTOP->value]['order'] ?? 0);
-
-        $mobileOrder = $this->getMenuAlignmentOrder(
-            $rawMenuItem['mobile']['align'] ?? 'left'
-        ) + intval($rawMenuItem[Enums::HEADER_BREAKPOINT::MOBILE->value]['order'] ?? 0);
-
-
-        $classList[] = 'u-order--' . $desktopOrder . '@lg';
-        $classList[] = 'u-order--' . $desktopOrder . '@xl';
-        $classList[] = 'u-order--' . $mobileOrder;
-
-        return $classList;
-    }
-
-    private function getMenuAlignmentOrder(string $alignment): int
-    {
-        return match ($alignment) {
-            'left' => Enums::MENU_ALIGNMENT_ORDER::LEFT->value,
-            'center' => Enums::MENU_ALIGNMENT_ORDER::CENTER->value,
-            'right' => Enums::MENU_ALIGNMENT_ORDER::RIGHT->value,
-            default => Enums::MENU_ALIGNMENT_ORDER::LEFT->value,
-        };
+        return [
+            'c-header__item--mobile-' . $alignment,
+            'c-header__item--mobile-index-' . $index,
+        ];
     }
 }

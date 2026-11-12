@@ -9,13 +9,6 @@ enum MenuItemAlignment: string
     case RIGHT = 'right';
 }
 
-enum MenuAlignmentOrder: int
-{
-    case LEFT = 0;
-    case CENTER = 100;
-    case RIGHT = 200;
-}
-
 enum HeaderBreakpoint: string
 {
     case DESKTOP = 'desktop';
@@ -33,5 +26,4 @@ class Enums
     public const MENU_ITEM_ALIGNMENT = MenuItemAlignment::class;
     public const HEADER_BREAKPOINT = HeaderBreakpoint::class;
     public const HEADER_KEY = HeaderKey::class;
-    public const MENU_ALIGNMENT_ORDER = MenuAlignmentOrder::class;
 }

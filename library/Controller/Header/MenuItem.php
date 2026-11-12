@@ -60,17 +60,16 @@ class MenuItem
 
     public function getCssClasses(): array
     {
-        $rawMenuItemWithAlignmentFallback = $this->rawMenuItem;
-        $rawMenuItemWithAlignmentFallback[Enums::HEADER_BREAKPOINT::DESKTOP->value]['align'] =
-            $this->getAlignmentWithFallback(Enums::HEADER_BREAKPOINT::DESKTOP->value);
-        $rawMenuItemWithAlignmentFallback[Enums::HEADER_BREAKPOINT::MOBILE->value]['align'] =
-            $this->getAlignmentWithFallback(Enums::HEADER_BREAKPOINT::MOBILE->value);
+        $mobileBreakpoint = Enums::HEADER_BREAKPOINT::MOBILE->value;
 
-        $visibilityClasses = $this->menuItemClasses->buildVisibilityClasses($this->rawMenuItem);
-        $orderClasses = $this->menuItemClasses->buildOrderClasses($rawMenuItemWithAlignmentFallback);
-        $alignmentClasses = $this->menuItemClasses->buildAlignmentClasses($rawMenuItemWithAlignmentFallback);
-
-        return array_merge($visibilityClasses, $orderClasses, $alignmentClasses);
+        return array_merge(
+            $this->menuItemClasses->buildItemClasses($this->id),
+            $this->menuItemClasses->buildVisibilityClasses($this->rawMenuItem),
+            $this->menuItemClasses->buildMobilePlacementClasses(
+                $this->rawMenuItem[$mobileBreakpoint] ?? [],
+                $this->getAlignmentWithFallback($mobileBreakpoint)
+            ),
+        );
     }
 
     private function getAlignmentWithFallback(string $breakpoint): string
