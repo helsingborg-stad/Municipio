@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a151fce05ce0a2dfc8203cedff3fc5f",
+    "content-hash": "317dfec49172a6950cb71c23b591fece",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -209,7 +209,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-12T10:28:18+00:00"
+            "time": "2026-09-12T10:28:18+00:00",
+            "published-time": "2026-09-12T12:23:30+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -283,7 +284,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-06T14:11:38+00:00"
+            "time": "2026-09-06T14:11:38+00:00",
+            "published-time": "2026-09-06T14:15:00+00:00"
         },
         {
             "name": "clark-nikdel-powell/post-type-select-for-acf",
@@ -626,7 +628,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-26T08:14:14+00:00"
+            "time": "2026-10-26T08:14:14+00:00",
+            "published-time": "2026-10-26T20:06:59+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -883,7 +886,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-16T11:41:01+00:00"
+            "time": "2026-02-16T11:41:01+00:00",
+            "published-time": "2026-02-16T12:37:29+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -1279,20 +1283,21 @@
                 "issues": "https://github.com/helsingborg-stad/blade/issues",
                 "source": "https://github.com/helsingborg-stad/Blade/tree/3.5.2"
             },
-            "time": "2026-11-06T09:01:38+00:00"
+            "time": "2026-11-06T09:01:38+00:00",
+            "published-time": "2026-11-06T09:01:43+00:00"
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.47.5",
+            "version": "5.47.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "ad05919bb26816ae57444cede6255fcb063e5998"
+                "reference": "1c4b1fd8f52fa3385d4f6e5ad94bd62525d9970a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/ad05919bb26816ae57444cede6255fcb063e5998",
-                "reference": "ad05919bb26816ae57444cede6255fcb063e5998",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/1c4b1fd8f52fa3385d4f6e5ad94bd62525d9970a",
+                "reference": "1c4b1fd8f52fa3385d4f6e5ad94bd62525d9970a",
                 "shasum": ""
             },
             "require": {
@@ -1325,9 +1330,10 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.47.5"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.47.6"
             },
-            "time": "2026-11-06T11:52:40+00:00"
+            "time": "2026-11-12T11:43:18+00:00",
+            "published-time": "2026-11-12T11:43:25+00:00"
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font-reduced",
@@ -1359,7 +1365,8 @@
                 "issues": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font-reduced/issues",
                 "source": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font-reduced"
             },
-            "time": "2026-10-02T11:54:28+00:00"
+            "time": "2026-10-02T11:54:28+00:00",
+            "published-time": "2026-10-02T11:56:38+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
@@ -1400,20 +1407,20 @@
         },
         {
             "name": "helsingborg-stad/styleguide",
-            "version": "3.47.0",
+            "version": "3.48.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/styleguide.git",
-                "reference": "6478d7a055b1e78857cf0b16c8e56b77d1b7942a"
+                "reference": "1ee46c5c10c757221f1e07448c89dd46e0ed991e"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip",
-                "reference": "6478d7a055b1e78857cf0b16c8e56b77d1b7942a"
+                "reference": "1ee46c5c10c757221f1e07448c89dd46e0ed991e"
             },
             "require": {
                 "erusev/parsedown": "^1.7",
-                "helsingborg-stad/component-library": "5.47.5",
+                "helsingborg-stad/component-library": "5.47.6",
                 "php": "^8.2",
                 "ramsey/uuid": "4.9.4"
             },
@@ -1472,9 +1479,10 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/styleguide/issues",
-                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.47.0"
+                "source": "https://github.com/helsingborg-stad/styleguide/tree/3.48.1"
             },
-            "time": "2026-11-11T13:19:24+00:00"
+            "time": "2026-11-12T11:51:16+00:00",
+            "published-time": "2026-11-12T11:55:40+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -1523,7 +1531,8 @@
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
                 "source": "https://github.com/helsingborg-stad/wpservice/tree/2.0.9"
             },
-            "time": "2025-10-07T11:25:27+00:00"
+            "time": "2025-10-07T11:25:27+00:00",
+            "published-time": "2025-10-07T11:25:31+00:00"
         },
         {
             "name": "helsingborg-stad/wputilservice",
@@ -1624,7 +1633,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-03-07T15:02:42+00:00"
+            "time": "2022-03-07T15:02:42+00:00",
+            "published-time": "2022-12-08T15:29:30+00:00"
         },
         {
             "name": "illuminate/collections",
@@ -1678,7 +1688,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-06-23T15:29:49+00:00"
+            "time": "2022-06-23T15:29:49+00:00",
+            "published-time": "2022-12-08T15:29:32+00:00"
         },
         {
             "name": "illuminate/container",
@@ -1729,7 +1740,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-02-02T21:03:35+00:00"
+            "time": "2022-02-02T21:03:35+00:00",
+            "published-time": "2022-12-08T15:29:37+00:00"
         },
         {
             "name": "illuminate/contracts",
@@ -1777,7 +1789,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-13T14:47:47+00:00"
+            "time": "2022-01-13T14:47:47+00:00",
+            "published-time": "2022-12-08T15:29:38+00:00"
         },
         {
             "name": "illuminate/events",
@@ -1832,7 +1845,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-09-15T14:32:50+00:00"
+            "time": "2021-09-15T14:32:50+00:00",
+            "published-time": "2022-12-08T15:29:45+00:00"
         },
         {
             "name": "illuminate/filesystem",
@@ -1894,7 +1908,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-15T15:00:40+00:00"
+            "time": "2022-01-15T15:00:40+00:00",
+            "published-time": "2022-12-08T15:29:48+00:00"
         },
         {
             "name": "illuminate/macroable",
@@ -1940,7 +1955,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-11-16T13:57:03+00:00"
+            "time": "2021-11-16T13:57:03+00:00",
+            "published-time": "2022-12-08T15:29:51+00:00"
         },
         {
             "name": "illuminate/pipeline",
@@ -1988,7 +2004,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-03-26T18:39:16+00:00"
+            "time": "2021-03-26T18:39:16+00:00",
+            "published-time": "2022-12-08T15:29:57+00:00"
         },
         {
             "name": "illuminate/support",
@@ -2056,7 +2073,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-09-21T21:30:03+00:00"
+            "time": "2022-09-21T21:30:03+00:00",
+            "published-time": "2022-12-08T15:30:07+00:00"
         },
         {
             "name": "illuminate/view",
@@ -2110,7 +2128,8 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-04-14T13:47:10+00:00"
+            "time": "2022-04-14T13:47:10+00:00",
+            "published-time": "2022-12-08T15:30:13+00:00"
         },
         {
             "name": "jeradin/acf-dynamic-table-field",
@@ -2626,7 +2645,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-01-08T20:10:23+00:00"
+            "time": "2025-01-08T20:10:23+00:00",
+            "published-time": "2025-02-11T16:58:02+00:00"
         },
         {
             "name": "nette/schema",
@@ -2939,7 +2959,8 @@
                 "issues": "https://github.com/php-fig/clock/issues",
                 "source": "https://github.com/php-fig/clock/tree/1.0.0"
             },
-            "time": "2022-11-25T14:36:26+00:00"
+            "time": "2022-11-25T14:36:26+00:00",
+            "published-time": "2022-11-25T14:59:22+00:00"
         },
         {
             "name": "psr/container",
@@ -2987,7 +3008,8 @@
                 "issues": "https://github.com/php-fig/container/issues",
                 "source": "https://github.com/php-fig/container/tree/1.1.2"
             },
-            "time": "2021-11-05T16:50:12+00:00"
+            "time": "2021-11-05T16:50:12+00:00",
+            "published-time": "2021-11-05T16:53:52+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -3246,7 +3268,8 @@
             "support": {
                 "source": "https://github.com/php-fig/simple-cache/tree/master"
             },
-            "time": "2017-10-23T01:57:42+00:00"
+            "time": "2017-10-23T01:57:42+00:00",
+            "published-time": "2018-03-05T09:41:11+00:00"
         },
         {
             "name": "ramsey/collection",
@@ -3322,7 +3345,8 @@
                 "issues": "https://github.com/ramsey/collection/issues",
                 "source": "https://github.com/ramsey/collection/tree/2.1.1"
             },
-            "time": "2025-03-22T05:38:12+00:00"
+            "time": "2025-03-22T05:38:12+00:00",
+            "published-time": "2025-03-22T05:39:22+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3400,7 +3424,8 @@
                 "issues": "https://github.com/ramsey/uuid/issues",
                 "source": "https://github.com/ramsey/uuid/tree/4.9.4"
             },
-            "time": "2026-09-16T11:39:30+00:00"
+            "time": "2026-09-16T11:39:30+00:00",
+            "published-time": "2026-09-16T11:41:15+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -3549,7 +3574,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-16T14:15:10+00:00"
+            "time": "2026-09-16T14:15:10+00:00",
+            "published-time": "2026-11-04T11:25:34+00:00"
         },
         {
             "name": "symfony/finder",
@@ -3612,7 +3638,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-28T13:32:08+00:00"
+            "time": "2024-09-28T13:32:08+00:00",
+            "published-time": "2024-10-27T12:57:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3697,7 +3724,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-28T09:35:49+00:00"
+            "time": "2026-10-28T09:35:49+00:00",
+            "published-time": "2026-10-28T10:07:45+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -3781,7 +3809,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-25T15:50:05+00:00"
+            "time": "2026-09-25T15:50:05+00:00",
+            "published-time": "2026-09-30T10:23:35+00:00"
         },
         {
             "name": "symfony/polyfill-php82",
@@ -4025,7 +4054,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-01T19:42:58+00:00"
+            "time": "2026-11-01T19:42:58+00:00",
+            "published-time": "2026-11-04T11:25:19+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -4107,7 +4137,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-03T08:17:19+00:00"
+            "time": "2026-10-03T08:17:19+00:00",
+            "published-time": "2026-11-04T11:25:31+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -4268,7 +4299,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-24T18:55:24+00:00"
+            "time": "2022-01-24T18:55:24+00:00",
+            "published-time": "2022-01-24T18:57:57+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -7649,11 +7681,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "johannheyne/advanced-custom-fields-table-field": 20,
         "clark-nikdel-powell/post-type-select-for-acf": 20,
-        "jeradin/acf-website-field": 20,
-        "jeradin/acf-dynamic-table-field": 20,
         "enshrined/svg-sanitize": 20,
+        "jeradin/acf-dynamic-table-field": 20,
+        "jeradin/acf-website-field": 20,
+        "johannheyne/advanced-custom-fields-table-field": 20,
         "landrok/language-detector": 20,
         "spatie/phpunit-snapshot-assertions": 20
     },
@@ -7662,6 +7694,6 @@
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.11.0"
 }
