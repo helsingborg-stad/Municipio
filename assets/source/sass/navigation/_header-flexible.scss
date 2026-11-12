@@ -104,6 +104,22 @@ $header-item-max-mobile-index: 24;
         .c-header__item--mobile-center { --c-header-item-group: 2; }
         .c-header__item--mobile-right  { --c-header-item-group: 3; }
 
+        // Align item content by declared mobile alignment class only.
+        .c-header__item--mobile-left {
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .c-header__item--mobile-center {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .c-header__item--mobile-right {
+            justify-content: flex-end;
+            text-align: right;
+        }
+
         @for $i from 0 through $header-item-max-mobile-index {
             .c-header__item--mobile-index-#{$i} { --c-header-item-index: #{$i}; }
         }
