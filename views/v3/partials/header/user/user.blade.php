@@ -4,7 +4,7 @@
         'user--active', 
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
         'u-print-display--none'
-    ], $classList ?? []),
+    ], $menuItem->getCssClasses()),
     'context' => ['header.loginlogout', 'header.loginlogout.logout'],
     'attributeList' => [
         'data-js-sizeobserver' => 'user-background', 

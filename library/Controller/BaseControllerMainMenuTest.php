@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Municipio\Controller;
 
+use Municipio\Controller\Header\Header;
 use PHPUnit\Framework\TestCase;
 
 final class BaseControllerMainMenuTest extends TestCase
@@ -11,39 +12,39 @@ final class BaseControllerMainMenuTest extends TestCase
     public function testSkipLinkRequiresRenderedPrimaryNavigation(): void
     {
         static::assertFalse($this->hasMainMenu(['items' => ['item']], [
-            'upperItems' => ['right' => ['mega-menu' => []]],
-            'lowerItems' => [],
+            'upper' => $this->createHeaderWithComponents(['mega-menu']),
+            'lower' => $this->createHeaderWithComponents([]),
         ]));
 
         static::assertTrue($this->hasMainMenu(['items' => ['item']], [
-            'upperItems' => ['left' => ['primary' => []]],
-            'lowerItems' => [],
+            'upper' => $this->createHeaderWithComponents(['primary']),
+            'lower' => $this->createHeaderWithComponents([]),
         ]));
 
         static::assertTrue($this->hasMainMenu(['items' => ['item']], [
-            'upperItems' => [],
-            'lowerItems' => ['center' => ['primary' => []]],
+            'upper' => $this->createHeaderWithComponents([]),
+            'lower' => $this->createHeaderWithComponents(['primary']),
         ]));
 
         static::assertFalse($this->hasMainMenu(['items' => []], [
-            'upperItems' => ['left' => ['primary' => []]],
+            'upper' => $this->createHeaderWithComponents(['primary']),
         ]));
 
         static::assertTrue($this->hasMainMenu(
             ['items' => []],
-            ['upperItems' => ['right' => ['drawer' => []]]],
+            ['upper' => $this->createHeaderWithComponents(['drawer'])],
             ['items' => ['item']],
         ));
 
         static::assertFalse($this->hasMainMenu(
             ['items' => []],
-            ['upperItems' => ['right' => ['drawer' => []]]],
+            ['upper' => $this->createHeaderWithComponents(['drawer'])],
             ['items' => []],
         ));
 
         static::assertFalse($this->hasMainMenu(
             ['items' => []],
-            ['upperItems' => ['right' => ['primary' => []]]],
+            ['upper' => $this->createHeaderWithComponents(['primary'])],
             ['items' => ['item']],
         ));
     }
@@ -56,5 +57,13 @@ final class BaseControllerMainMenuTest extends TestCase
         $controller->data['mobileMenu'] = $mobileMenu;
 
         return (new \ReflectionMethod(BaseController::class, 'hasMainMenu'))->invoke($controller);
+    }
+
+    private function createHeaderWithComponents(array $components): Header
+    {
+        $header = $this->createMock(Header::class);
+        $header->method('getMenuItems')->willReturn(array_fill_keys($components, new \stdClass()));
+
+        return $header;
     }
 }
