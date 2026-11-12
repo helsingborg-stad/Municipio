@@ -163,7 +163,7 @@
             'name' => 'color',
             'aria-label' => '',
             'type' => 'color_picker',
-            'instructions' => '',
+            'instructions' => __('Select a Styleguide palette colour. Its paired contrast colour is applied automatically.', 'municipio'),
             'required' => 0,
             'conditional_logic' => array(
                 0 => array(
@@ -175,13 +175,14 @@
                 ),
             ),
             'wrapper' => array(
-                'width' => '50',
+                'width' => '',
                 'class' => '',
                 'id' => '',
             ),
             'default_value' => '',
-            'enable_opacity' => 1,
             'return_format' => 'string',
+            'enable_opacity' => 1,
+            'municipio_palette_color' => true,
         ),
         7 => array(
             'key' => 'field_6492ca98d635f',
@@ -282,7 +283,7 @@
                     'name' => 'color',
                     'aria-label' => '',
                     'type' => 'color_picker',
-                    'instructions' => '',
+                    'instructions' => __('Select a Styleguide palette colour.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -291,8 +292,9 @@
                         'id' => '',
                     ),
                     'default_value' => '',
-                    'enable_opacity' => 1,
                     'return_format' => 'string',
+                    'enable_opacity' => 1,
+                    'municipio_palette_color' => true,
                     'parent_repeater' => 'field_648329b62db2e',
                 ),
                 1 => array(
@@ -326,24 +328,6 @@
                     'parent_repeater' => 'field_648329b62db2e',
                 ),
             ),
-        ),
-        10 => array(
-            'key' => 'field_644b77128c900',
-            'label' => __('Text color', 'municipio'),
-            'name' => 'text_color',
-            'aria-label' => '',
-            'type' => 'color_picker',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '50',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'enable_opacity' => 0,
-            'return_format' => 'string',
         ),
     ),
     'location' => array(

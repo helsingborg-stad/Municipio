@@ -1,17 +1,31 @@
-jQuery(() => {
-	const designBuilderElement = document.querySelector("design-builder");
+let previewActive = false;
+let pendingState: Record<string, unknown> | null = null;
 
-	if (!designBuilderElement) {
-		console.error("Design Builder element not found in the preview.");
+function sendPendingState(): void {
+	if (!previewActive || pendingState === null) {
+		return;
+	}
+	wp.customize.preview.send("tokens:update", pendingState);
+	pendingState = null;
+}
+
+// WordPress ignores preview messages until the iframe finishes loading and its
+// channel is activated. Keep early edits instead of silently losing them.
+wp.customize.bind("preview-ready", () => {
+	wp.customize.preview.bind("active", () => {
+		previewActive = true;
+		sendPendingState();
+	});
+});
+
+// Listen on the document because switching views replaces the editor controls.
+document.addEventListener("design-builder:action", (event: Event) => {
+	if (!(event instanceof CustomEvent) || !event.detail?.state) {
 		return;
 	}
 
-	wp.customize.preview.bind("active", () => {
-		designBuilderElement?.addEventListener(
-			"design-builder:action",
-			(event: Event) => {
-				wp.customize.preview.send("tokens:update", event.detail.state);
-			},
-		);
-	});
+	// Capture a snapshot: the runtime may continue changing the same object
+	// before the preview becomes active.
+	pendingState = JSON.parse(JSON.stringify(event.detail.state));
+	sendPendingState();
 });

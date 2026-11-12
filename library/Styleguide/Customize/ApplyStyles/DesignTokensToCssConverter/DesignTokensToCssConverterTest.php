@@ -65,8 +65,38 @@ class DesignTokensToCssConverterTest extends TestCase
         $css = $converter->convert($tokens);
 
         $rows = explode("\n", $css);
-        static::assertSame('[data-scope*="s-header;"] {', trim($rows[0]));
+        static::assertSame('[data-scope*="s-header;"].c-header, [data-scope*="s-header;"] .c-header {', trim($rows[0]));
         static::assertSame('--c-header--space: 0.25;', trim($rows[1]));
         static::assertSame('}', trim($rows[2]));
+    }
+
+    #[TestDox('adds a flat root token map to a supplied selector')]
+    public function testAddsRootTokenMapToSuppliedSelector(): void
+    {
+        $converter = new DesignTokensToCssConverter();
+
+        $css = $converter->convertRootTokens([
+            '--color--background' => '#111111',
+        ], ':root :where(.editor-styles-wrapper)');
+
+        static::assertSame(":root :where(.editor-styles-wrapper) {\n--color--background: #111111;\n}", $css);
+    }
+
+    public function testRejectsUnsafeComponentValuesAndScopeSelectors(): void
+    {
+        $styles = (new DesignTokensToCssConverter())->convert([
+            '__general__' => [
+                'footer' => [
+                    '--c-footer--color--surface' => 'var(--color--primary)',
+                    '--c-footer--color' => '#000; } </style><script>alert(1)</script>',
+                ],
+                'footer} body {' => ['--color--primary' => '#ffffff'],
+            ],
+            'scope:unsafe\"] {}' => ['header' => ['--c-header--space' => '1']],
+        ]);
+        static::assertStringContainsString('--c-footer--color--surface: var(--color--primary);', $styles);
+        static::assertStringNotContainsString('<script>', $styles);
+        static::assertStringNotContainsString('body', $styles);
+        static::assertStringNotContainsString('data-scope', $styles);
     }
 }

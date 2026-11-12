@@ -99,6 +99,7 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
         $mediaId = $this->getImageIdFromPreviousSideload($schemaObject, $imageObject);
 
         if (!is_null($mediaId)) {
+            $this->updateAltTextFromDescription($mediaId, $imageObject);
             return $mediaId;
         }
 
@@ -127,6 +128,27 @@ class ImageSideloadSchemaObjectProcessor implements SchemaObjectProcessorInterfa
         ]);
 
         return $mediaId;
+    }
+
+    /**
+     * Update the alt text of a previously sideloaded image.
+     *
+     * The alt text is only set when an image is sideloaded for the first time.
+     * Keep it in sync with the source when the description is added or changed later.
+     * An empty description does not clear an existing alt text.
+     *
+     * @param int $mediaId
+     * @param ImageObject $imageObject
+     */
+    private function updateAltTextFromDescription(int $mediaId, ImageObject $imageObject): void
+    {
+        $description = $imageObject->getProperty('description');
+
+        if (!is_string($description) || trim($description) === '') {
+            return;
+        }
+
+        $this->wpService->updatePostMeta($mediaId, '_wp_attachment_image_alt', $description);
     }
 
     /**

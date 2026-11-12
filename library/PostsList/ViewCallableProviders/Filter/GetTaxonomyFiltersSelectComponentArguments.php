@@ -9,9 +9,13 @@ use Municipio\PostsList\Config\GetPostsConfig\GetPostsConfigInterface;
 use Municipio\PostsList\ViewCallableProviders\ViewCallableProviderInterface;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetTerms;
+use WP_Term;
 
 /**
- * Get arguments for taxonomy filters select components
+ * Get arguments for taxonomy filters select components.
+ *
+ * Taxonomies using the checkbox filter type get a `checkboxes` key holding the arguments for one
+ * option component per term, instead of the select options.
  */
 class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProviderInterface
 {
@@ -100,17 +104,27 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
                 continue;
             }
 
+            $label       = $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy());
+            $name        = $this->queryVarNamePrefix . $taxonomyName;
+            $preselected = $this->getPreselectedTermSlugs($taxonomyName);
+
+            if ($taxonomyConfig->getFilterType() === TaxonomyFilterType::CHECKBOX) {
+                $allSelectArguments[] = [
+                    'label'      => $label,
+                    'checkboxes' => $this->buildCheckboxes($termsByTaxonomy[$taxonomyName], $name, $preselected),
+                ];
+                continue;
+            }
+
             $options         = $this->buildOptions($termsByTaxonomy[$taxonomyName]);
             $selectArguments = [
-                'label'       => $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Label', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy()),
-                'name'        => $this->queryVarNamePrefix . $taxonomyName,
+                'label'       => $label,
+                'name'        => $name,
                 'required'    => false,
                 'placeholder' => $this->wpService->applyFilters('Municipio/Archive/TaxonomyFilter/Placeholder', $taxonomyConfig->getTaxonomy()->label, $taxonomyConfig->getTaxonomy()),
                 'multiple'    => $taxonomyConfig->getFilterType() === TaxonomyFilterType::MULTISELECT ? true : false,
                 'options'     => $options,
             ];
-
-            $preselected = $this->getPreselectedTermSlugs($taxonomyName);
 
             if (!empty($preselected)) {
                 $selectArguments['preselected'] = $preselected;
@@ -128,9 +142,36 @@ class GetTaxonomyFiltersSelectComponentArguments implements ViewCallableProvider
     {
         $options = [];
         foreach ($terms as $term) {
-            $options[$term->slug] = sprintf('%s (%d)', $term->name, $term->count);
+            $options[$term->slug] = $this->formatTermLabel($term);
         }
         return $options;
+    }
+
+    /**
+     * Build option component arguments, one checkbox per term.
+     *
+     * @param WP_Term[] $terms
+     * @param string $name Query var name for the taxonomy.
+     * @param string[] $preselected Slugs of the terms currently filtered on.
+     * @return array[]
+     */
+    private function buildCheckboxes(array $terms, string $name, array $preselected): array
+    {
+        return array_map(fn($term) => [
+            'type'    => 'checkbox',
+            'label'   => $this->formatTermLabel($term),
+            'name'    => $name . '[]',
+            'value'   => $term->slug,
+            'checked' => in_array($term->slug, $preselected, true),
+        ], array_values($terms));
+    }
+
+    /**
+     * Format the label shown for a term, including its post count.
+     */
+    private function formatTermLabel(WP_Term $term): string
+    {
+        return sprintf('%s (%d)', $term->name, $term->count);
     }
 
     /**

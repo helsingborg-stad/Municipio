@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Integrations\Component;
 
 use ComponentLibrary\Integrations\Image\ImageResolverInterface;
@@ -7,7 +9,14 @@ use Municipio\ImageConvert\TransparencyMetadata;
 
 class ImageResolver implements ImageResolverInterface
 {
-    private const LQIP_WIDTH = 100;
+    /** The size requested by the component library for its LQIP background. */
+    private const LQIP_REQUEST_WIDTH = 100;
+
+    /**
+     * The generated LQIP's longest requested side. The missing height lets the
+     * image conversion pipeline retain the attachment's aspect ratio.
+     */
+    private const LQIP_WIDTH = 15;
     private const LQIP_HEIGHT = false;
 
     /**
@@ -45,7 +54,9 @@ class ImageResolver implements ImageResolverInterface
     {
         $attachmentMetadata = wp_get_attachment_metadata($id);
         $hasTransparency = $this->getStoredTransparencyState($attachmentMetadata);
-        $lqipUrl = $hasTransparency === true ? null : $this->resolveAttachmentImageUrl($id, $size);
+        $lqipUrl = $hasTransparency === true
+            ? null
+            : $this->resolveAttachmentImageUrl($id, [self::LQIP_WIDTH, self::LQIP_HEIGHT]);
 
         return $this->filterLqipUrl(
             $lqipUrl,
@@ -83,8 +94,9 @@ class ImageResolver implements ImageResolverInterface
     {
         $image = wp_get_attachment_image_src($id, $size);
 
-        if ($image !== false && isset($image[0]) && filter_var($image[0], FILTER_VALIDATE_URL)) {
-            return $image[0];
+        $imageUrl = $image[0] ?? null;
+        if ($image !== false && is_string($imageUrl) && filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+            return $imageUrl;
         }
 
         return null;
@@ -116,7 +128,7 @@ class ImageResolver implements ImageResolverInterface
      */
     private function isLqipRequest(array $size): bool
     {
-        return ($size[0] ?? null) === self::LQIP_WIDTH
+        return ($size[0] ?? null) === self::LQIP_REQUEST_WIDTH
             && ($size[1] ?? null) === self::LQIP_HEIGHT;
     }
 

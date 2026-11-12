@@ -1,0 +1,18 @@
+// Palette-N roles are user-configured Styleguide tokens. These utilities mirror
+// the Styleguide's paired colour utilities so ACF selections can be rendered
+// without literal inline colour values.
+@for $index from 1 through 10 {
+    .u-color--palette-#{$index} {
+        background-color: var(--color--palette-#{$index});
+        border-color: var(--color--palette-#{$index}-border);
+        color: var(--color--palette-#{$index}-contrast);
+    }
+
+    .u-color__bg--palette-#{$index} {
+        background-color: var(--color--palette-#{$index});
+    }
+
+    .u-color__text--palette-#{$index}-contrast {
+        color: var(--color--palette-#{$index}-contrast);
+    }
+}

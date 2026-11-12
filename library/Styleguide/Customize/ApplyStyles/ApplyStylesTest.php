@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Styleguide\Customize\ApplyStyles;
 
 use PHPUnit\Framework\Attributes\TestDox;
@@ -13,6 +15,54 @@ use WpService\Contracts\WpRegisterStyle;
 
 class ApplyStylesTest extends TestCase
 {
+    public function testContrastResetsDarkOnlyComponentAssignmentsWhenBothPreferencesMatch(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [], '_dark' => [], '_contrast' => [],
+            'component' => ['__general__' => ['footer' => ['--c-footer--color--surface' => 'var(--color--primary)']]],
+            'componentSchemes' => ['dark' => ['scope:footer' => ['footer' => [
+                '--c-footer--color--surface' => 'var(--color--secondary)',
+                '--c-footer--color' => 'var(--color--secondary-contrast)',
+            ]]]],
+        ], JSON_THROW_ON_ERROR));
+        (new ApplyStyles($wpService))->applyStyles();
+        $contrast = substr($wpService->inlineStyles, strpos($wpService->inlineStyles, '@media (prefers-contrast: more)'));
+        static::assertStringContainsString('--c-footer--color--surface: var(--color--primary);', $contrast);
+        static::assertStringContainsString('--c-footer--color: initial;', $contrast);
+        static::assertStringNotContainsString('var(--color--secondary)', $contrast);
+    }
+
+    public function testComponentPaletteAssignmentsAreScopedToTheirEnabledScheme(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            '_dark' => [],
+            '_contrast' => null,
+            'component' => ['__general__' => ['footer' => ['--c-footer--color--primary' => 'var(--color--primary)']]],
+            'componentSchemes' => [
+                'dark' => ['scope:footer' => ['footer' => [
+                    '--c-footer--color--primary' => 'var(--color--palette-1)',
+                    '--c-footer--color--primary-contrast' => 'var(--color--palette-1-contrast)',
+                    '--c-footer--space' => '20rem',
+                    '--c-footer--unsafe' => '#ffffff; } body { color:red',
+                ]]],
+                'contrast' => ['__general__' => ['footer' => ['--c-footer--color--primary' => 'var(--color--secondary)']]],
+            ],
+        ], JSON_THROW_ON_ERROR));
+        $subject = new ApplyStyles($wpService);
+        $subject->applyStyles();
+        $css = $wpService->inlineStyles;
+        static::assertStringContainsString('.c-footer {', $css);
+        static::assertStringContainsString('@media (prefers-color-scheme: dark)', $css);
+        static::assertStringContainsString('[data-scope*="footer;"].c-footer, [data-scope*="footer;"] .c-footer {', $css);
+        static::assertStringContainsString('--c-footer--color--primary: var(--color--palette-1);', $css);
+        static::assertStringContainsString('--c-footer--color--primary-contrast: var(--color--palette-1-contrast);', $css);
+        static::assertStringNotContainsString('var(--color--secondary)', $css);
+        static::assertStringNotContainsString('20rem', $css);
+        static::assertStringNotContainsString('body', $css);
+        static::assertStringContainsString('var(--color--palette-1)', $subject->applyEditorIframeStyles([])['styles'][0]['css']);
+    }
+
     #[TestDox('registers the block editor settings filter for iframe styles')]
     public function testRegistersBlockEditorIframeStylesFilter(): void
     {
@@ -21,7 +71,7 @@ class ApplyStylesTest extends TestCase
             'component' => [],
         ], JSON_THROW_ON_ERROR));
 
-        $subject = new ApplyStyles($wpService);
+        $subject = new ApplyStyles($wpService, new EditorColorTokens(__DIR__ . '/fixtures/editor-color-tokens.json'));
 
         $subject->addHooks();
 
@@ -45,7 +95,7 @@ class ApplyStylesTest extends TestCase
             ],
         ], JSON_THROW_ON_ERROR));
 
-        $subject = new ApplyStyles($wpService);
+        $subject = new ApplyStyles($wpService, new EditorColorTokens(__DIR__ . '/fixtures/editor-color-tokens.json'));
 
         $subject->applyStyles();
 
@@ -54,9 +104,89 @@ class ApplyStylesTest extends TestCase
         static::assertNotNull($wpService->inlineStyles);
         static::assertStringContainsString('@layer theme {', $wpService->inlineStyles);
         static::assertStringContainsString(':root {', $wpService->inlineStyles);
-        static::assertStringContainsString(':root :where(.editor-styles-wrapper) {', $wpService->inlineStyles);
-        static::assertSame(2, substr_count($wpService->inlineStyles, '--border-radius: 0.25;'));
+        static::assertStringNotContainsString('.editor-styles-wrapper', $wpService->inlineStyles);
         static::assertStringContainsString('.c-card {', $wpService->inlineStyles);
+
+        $editorStyles = $subject->applyEditorIframeStyles([])['styles'][0]['css'];
+        static::assertStringContainsString(':root :where(.editor-styles-wrapper) {', $editorStyles);
+        static::assertSame(2, substr_count($editorStyles, '--border-radius: 0.25;'));
+        static::assertStringContainsString('--u-color--color-primary: var(--color--primary);', $editorStyles);
+        static::assertStringContainsString('--u-color--color-surface: var(--color--surface);', $editorStyles);
+        static::assertStringContainsString('--color--surface-alt: color-mix(', $editorStyles);
+        static::assertStringContainsString('--c-card--color--surface-default: var(--color--surface);', $editorStyles);
+    }
+
+    #[TestDox('pairs a selected header surface with its semantic contrast at render time')]
+    public function testPairsHeaderSurfaceWithSemanticContrastAtRenderTime(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [
+                'scope:s-header-flexible-upper' => [
+                    'header' => [
+                        '--c-header--color--surface' => 'var(--color--palette-4)',
+                    ],
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--c-header--color--surface: var(--color--palette-4);', $wpService->inlineStyles);
+        static::assertStringContainsString('--c-header--color--surface-contrast: var(--color--palette-4-contrast);', $wpService->inlineStyles);
+    }
+
+    #[TestDox('does not emit legacy literal header colour overrides')]
+    public function testDoesNotEmitLegacyLiteralHeaderColorOverrides(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [
+                '__general__' => [
+                    'header' => [
+                        '--c-header--background-color' => '#d9a0a0',
+                        '--c-header--color' => '#000000',
+                        '--c-header--border-color' => '#000000',
+                    ],
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-header--background-color: #d9a0a0;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-header--color: #000000;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-header--border-color: #000000;', $wpService->inlineStyles);
+    }
+
+    #[TestDox('pairs a footer surface and removes legacy literal footer colours')]
+    public function testPairsFooterSurfaceAndRemovesLegacyLiteralFooterColors(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [],
+            'component' => [
+                '__general__' => [
+                    'footer' => [
+                        '--c-footer--color--surface' => 'var(--color--palette-2)',
+                        '--c-footer--color--surface-contrast' => '#000000',
+                        '--c-footer--background-color' => '#d9a0a0',
+                        '--c-footer--color' => '#000000',
+                        '--c-footer--subfooter-color' => '#000000',
+                    ],
+                ],
+            ],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--c-footer--color--surface-contrast: var(--color--palette-2-contrast);', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--color--surface-contrast: #000000;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--background-color: #d9a0a0;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--color: #000000;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--c-footer--subfooter-color: #000000;', $wpService->inlineStyles);
     }
 
     #[TestDox('appends stored tokens to block editor iframe settings styles')]
@@ -83,17 +213,102 @@ class ApplyStylesTest extends TestCase
         static::assertStringContainsString('--color--primary: #667b50;', $settings['styles'][1]['css']);
     }
 
+    #[TestDox('emits optional colour schemes after base tokens and ignores derived scheme tokens')]
+    public function testEmitsOptionalColourSchemes(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => ['--color--background' => '#ffffff'],
+            '_dark' => [
+                '--color--background' => '#111111',
+                '--color--background-border' => '#222222',
+            ],
+            '_contrast' => ['--color--background' => '#000000'],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-color-scheme: dark)', $wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-contrast: more), (forced-colors: active)', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--color--background-border: #222222;', $wpService->inlineStyles);
+        static::assertLessThan(
+            strpos($wpService->inlineStyles, '@media (prefers-contrast: more), (forced-colors: active)'),
+            strpos($wpService->inlineStyles, '@media (prefers-color-scheme: dark)'),
+        );
+    }
+
+    #[TestDox('does not emit media queries for missing or null colour schemes')]
+    public function testDoesNotEmitEmptyColourSchemeMediaQueries(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => ['--color--background' => '#ffffff'],
+            '_dark' => null,
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringNotContainsString('@media', $wpService->inlineStyles);
+    }
+
+    #[TestDox('does not emit unsafe base token values')]
+    public function testDoesNotEmitUnsafeBaseTokenValues(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => [
+                '--color--primary' => '#667b50; } </style><script>alert(1)</script>',
+                '--border-radius' => '0.25',
+            ],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyStyles();
+
+        static::assertNotNull($wpService->inlineStyles);
+        static::assertStringContainsString('--border-radius: 0.25;', $wpService->inlineStyles);
+        static::assertStringNotContainsString('<script>', $wpService->inlineStyles);
+        static::assertStringNotContainsString('#667b50; }', $wpService->inlineStyles);
+    }
+
+    public function testPaletteSwatchesUseScopedBaseDarkAndContrastTokens(): void
+    {
+        $wpService = $this->createWpService(json_encode([
+            'token' => ['--color--primary' => '#76232f', '--border-radius' => '20'],
+            '_dark' => ['--color--primary' => '#fabbcb', '--color--primary-contrast' => '#76232f'],
+            '_contrast' => ['--color--primary' => '#ffffff'],
+            'component' => [],
+        ], JSON_THROW_ON_ERROR));
+
+        (new ApplyStyles($wpService))->applyPaletteStyles();
+
+        static::assertSame('municipio-palette-color-tokens', $wpService->enqueuedHandle);
+        static::assertStringContainsString('.municipio-palette-color-selector {', $wpService->inlineStyles);
+        static::assertStringNotContainsString(':root', $wpService->inlineStyles);
+        static::assertStringNotContainsString('--border-radius:', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--primary: #76232f;', $wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-color-scheme: dark)', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--primary: #fabbcb;', $wpService->inlineStyles);
+        static::assertStringContainsString('--color--primary-contrast: #76232f;', $wpService->inlineStyles);
+        static::assertStringContainsString('@media (prefers-contrast: more), (forced-colors: active)', $wpService->inlineStyles);
+        static::assertLessThan(
+            strpos($wpService->inlineStyles, '@media (prefers-contrast: more)'),
+            strpos($wpService->inlineStyles, '@media (prefers-color-scheme: dark)'),
+        );
+    }
+
     private function createWpService(string $storedTokens): AddAction&AddFilter&WpRegisterStyle&WpEnqueueStyle&WpAddInlineStyle&GetThemeMod
     {
-        return new class ($storedTokens) implements AddAction, AddFilter, WpRegisterStyle, WpEnqueueStyle, WpAddInlineStyle, GetThemeMod {
+        return new class($storedTokens) implements AddAction, AddFilter, WpRegisterStyle, WpEnqueueStyle, WpAddInlineStyle, GetThemeMod {
             public array $addedFilters = [];
             public ?string $registeredHandle = null;
             public ?string $enqueuedHandle = null;
             public ?string $inlineStyles = null;
 
-            public function __construct(private readonly string $storedTokens)
-            {
-            }
+            public function __construct(
+                private readonly string $storedTokens,
+            ) {}
 
             public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {

@@ -58,6 +58,7 @@ class TranslatedLabels
             'changeLanguage' => __('Language', 'municipio'),
             'expand' => __('Expand', 'municipio'),
             'breadcrumbPrefix' => __('You are here: ', 'municipio'),
+            'youAreHere' => __('You are here', 'municipio'),
             'readingTime' => __('Reading time', 'municipio'),
             'related' => _x('Related', 'Related (name of posttype)', 'municipio'),
             'showAll' => __('Show all', 'municipio'),

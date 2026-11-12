@@ -46,6 +46,27 @@
                     "parent_repeater": "field_56b347f3ffb6c"
                 },
                 {
+                    "key": "field_6912b0c4a7e51",
+                    "label": "Display name",
+                    "name": "display_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
                     "key": "field_56b36c01e0619",
                     "label": "Permal\u00e4nk",
                     "name": "slug",

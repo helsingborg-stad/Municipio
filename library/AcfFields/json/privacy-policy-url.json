@@ -1,0 +1,51 @@
+[
+    {
+        "key": "group_6a2f4c1e8b7d4",
+        "title": "Privacy Policy Url",
+        "fields": [
+            {
+                "key": "field_mun_privacypolicy_url_message",
+                "label": "View Privacy Policy",
+                "name": "",
+                "aria-label": "",
+                "type": "message",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "<a href=\"{{privacy_policy_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">View Privacy Policy<\/a>",
+                "new_lines": "",
+                "esc_html": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "privacypolicy"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "acfe_display_title": "",
+        "acfe_autosync": [
+            "json"
+        ],
+        "acfe_form": 0,
+        "acfe_meta": "",
+        "acfe_note": ""
+    }
+]

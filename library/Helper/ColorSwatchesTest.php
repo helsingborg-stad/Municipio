@@ -68,6 +68,13 @@ if (!function_exists(__NAMESPACE__ . '\\apply_filters')) {
     }
 }
 
+if (!function_exists(__NAMESPACE__ . '\\__')) {
+    function __(string $text, string $domain = 'default'): string
+    {
+        return $text;
+    }
+}
+
 if (!class_exists(__NAMESPACE__ . '\\ColorSwatchesTestState')) {
     class ColorSwatchesTestState
     {
@@ -166,6 +173,21 @@ class ColorSwatchesTest extends TestCase
         static::assertSame('#aabbcc', $savedTokens['token']['--color--palette-5']);
     }
 
+    #[TestDox('getTokenColor returns the stored token color, or the fallback when missing or invalid')]
+    public function testGetTokenColorReturnsStoredTokenOrFallback(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--danger' => '#ABC',
+                '--color--danger-contrast' => 'invalid',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame('#aabbcc', ColorSwatches::getTokenColor('--color--danger', '#e53935'));
+        static::assertSame('#ffffff', ColorSwatches::getTokenColor('--color--danger-contrast', '#ffffff'));
+        static::assertSame('#000000', ColorSwatches::getTokenColor('--color--missing', '#000000'));
+    }
+
     #[TestDox('returns normalized palette token values keyed by token name')]
     public function testReturnsNormalizedPaletteTokenValues(): void
     {
@@ -184,6 +206,70 @@ class ColorSwatchesTest extends TestCase
         static::assertSame('#000000', $tokenValues['--color--palette-1-contrast']);
         static::assertSame('#112233', $tokenValues['--color--secondary']);
         static::assertArrayNotHasKey('--color--palette-2', $tokenValues);
+    }
+
+    #[TestDox('returns semantic palette choices and CSS-variable colour pairs')]
+    public function testReturnsSemanticPaletteChoicesAndPairs(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--palette-1' => '#abcdef',
+                '--color--palette-1-contrast' => '#000000',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame(
+            ['primary' => 'Primary', 'secondary' => 'Secondary', 'palette-1' => 'Palette 1'],
+            ColorSwatches::getColorPairChoices(),
+        );
+        static::assertSame(
+            [
+                'background' => 'var(--color--palette-1)',
+                'contrast' => 'var(--color--palette-1-contrast)',
+            ],
+            ColorSwatches::getColorPair('palette-1'),
+        );
+        static::assertNull(ColorSwatches::getColorPair('#abcdef'));
+    }
+
+    #[TestDox('returns resolved background and contrast previews for visual palette selectors')]
+    public function testReturnsColorPairPreviews(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--primary' => '#123456',
+                '--color--primary-contrast' => '#ffffff',
+                '--color--palette-1' => '#abcdef',
+                '--color--palette-1-contrast' => '#000000',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame(
+            [
+                ['value' => 'primary', 'label' => 'Primary', 'background' => '#123456', 'contrast' => '#ffffff'],
+                ['value' => 'secondary', 'label' => 'Secondary', 'background' => '#6e6e6e', 'contrast' => '#ffffff'],
+                ['value' => 'palette-1', 'label' => 'Palette 1', 'background' => '#abcdef', 'contrast' => '#000000'],
+            ],
+            ColorSwatches::getColorPairPreviews(),
+        );
+    }
+
+    #[TestDox('maps legacy colour literals to the nearest palette pair')]
+    public function testMapsLegacyColorsToClosestPalettePairs(): void
+    {
+        ColorSwatchesTestState::$themeMods['tokens'] = json_encode([
+            'token' => [
+                '--color--primary' => '#ff0000',
+                '--color--primary-contrast' => '#ffffff',
+                '--color--secondary' => '#0000ff',
+                '--color--secondary-contrast' => '#000000',
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        static::assertSame('primary', ColorSwatches::getClosestColorPairRole('rgb(250, 5, 5)'));
+        static::assertSame('secondary', ColorSwatches::getClosestColorPairRole('#0202f8'));
+        static::assertSame('primary', ColorSwatches::getClosestColorPairRole('#fafafa', 'contrast'));
+        static::assertSame('secondary', ColorSwatches::normalizeColorPairRole('secondary'));
     }
 
     #[TestDox('migration skips legacy colors already represented by primary and secondary tokens')]

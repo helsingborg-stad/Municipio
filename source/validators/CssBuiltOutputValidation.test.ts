@@ -89,14 +89,17 @@ async function concatenateCssBundles(bundles: CssBundle[]): Promise<{ css: strin
 			.replace(/@container[^\{]*\{/g, '@media all {')
 			.replaceAll('::view-transition-group(*)', ':root')
 			.replace(/\[([^\]]*?)([*^$|~]?=)(--[\w-]+)\]/g, '[$1$2"$3"]')
+			.replace(/anchor\([^)]*\)/g, '0px')
 			.replaceAll('}', '}\n');
 		const lines = validatorCss.split('\n');
 		const lineCount = lines.length;
 		sourceBundles.push({ ...bundle, startLine: currentLine + 1, endLine: currentLine + lineCount, lines });
-		// W3C does not parse valid View Transition or named Container Query syntax yet.
-		// Normalize only those wrappers in the validator payload, preserving their inner
-		// declarations. It also requires quotes around minified custom identifiers in
-		// attribute selectors. The stylesheet itself remains unchanged.
+		// W3C does not parse valid View Transition, named Container Query, or Anchor
+		// Positioning syntax yet.
+		// Normalize only syntax the W3C validator cannot parse in the validator payload,
+		// preserving the surrounding declarations. It also requires quotes around
+		// minified custom identifiers in attribute selectors. The stylesheet itself
+		// remains unchanged.
 		sources.push(`/* Source: ${bundle.label} (${path.relative(projectRoot, bundle.path)}) */\n${validatorCss}`);
 		currentLine += lineCount + 1;
 	}

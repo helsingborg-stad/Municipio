@@ -1671,6 +1671,14 @@ msgstr ""
 msgid "Post type name"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Display name"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:52
+msgid "Optional. Name shown to visitors and editors, for example in breadcrumbs, page titles and the admin menu. Leave empty to use the post type name. Can be changed at any time without affecting existing posts."
+msgstr ""
+
 #: library/AcfFields/php/options-theme-custom-post-type.php:38
 msgid "<span style=\"color: #ff0000;\">Will generate the post type name, select a name with care! Cannot be changed! </span>"
 msgstr ""
@@ -4121,6 +4129,10 @@ msgstr ""
 msgid "No color"
 msgstr ""
 
+#: library/Customizer/Controls/AlphaColor/AlphaColorControl.php:66
+msgid "Default color"
+msgstr ""
+
 #: library/Customizer/Controls/Background/BackgroundControl.php:114
 #: library/Theme/Icon.php:3155
 msgid "Repeat"
@@ -4735,6 +4747,30 @@ msgstr ""
 msgid "Upload a single image used as the footer background."
 msgstr ""
 
+#: library/Customizer/Sections/Component/FooterMain.php:43
+msgid "Pre footer image"
+msgstr ""
+
+#: library/Customizer/Sections/Component/FooterMain.php:44
+msgid "Upload an image (for example an .svg skyline) displayed full width directly above the footer."
+msgstr ""
+
+#: library/Customizer/Sections/Component/FooterMain.php:55
+msgid "Taller pre footer image on mobile"
+msgstr ""
+
+#: library/Customizer/Sections/Component/FooterMain.php:56
+msgid "Makes the image taller on small screens. The sides of the image may be cropped."
+msgstr ""
+
+#: library/Customizer/Sections/Component/FooterMain.php:75
+msgid "Pre footer image height on mobile"
+msgstr ""
+
+#: library/Customizer/Sections/Component/FooterMain.php:76
+msgid "Height in pixels of the pre footer image on small screens."
+msgstr ""
+
 #: library/Customizer/Sections/Component/FooterSub.php:14
 msgid "Subfooter logotype"
 msgstr ""
@@ -5232,6 +5268,22 @@ msgstr ""
 msgid "Drawer divider (top level only)"
 msgstr ""
 
+#: library/Customizer/Sections/Menu/Drawer.php:101
+msgid "Show \"You are here\" badge"
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:102
+msgid "Displays a badge next to the current page in the drawer menu."
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:118
+msgid "\"You are here\" badge color"
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:119
+msgid "Defaults to red. The text color follows the selected swatch."
+msgstr ""
+
 #: library/Customizer/Sections/Menu/MegaMenu.php:21
 msgid "Select if you want to use one of the predefined appearance, or customize freely."
 msgstr ""
@@ -5717,6 +5769,10 @@ msgstr ""
 
 #: library/Helper/TranslatedLabels.php:60
 msgid "You are here: "
+msgstr ""
+
+#: library/Helper/TranslatedLabels.php:61
+msgid "You are here"
 msgstr ""
 
 #: library/Helper/TranslatedLabels.php:61
@@ -28894,6 +28950,7 @@ msgid "Use term icon as icon in list"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-posts-displau.php:168
+#: Modularity/source/php/AcfFields/php/mod-slider.php:196
 msgid "Preamble"
 msgstr ""
 
@@ -29295,6 +29352,50 @@ msgid "Number of slides shown per page"
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:116
+msgid "Show next slide preview"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:120
+msgid "Shows part of the next slide in compact slider layouts."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:128
+msgid "Show a preview of the next slide"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:136
+msgid "Move visible slides at once"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:140
+msgid "Moves every visible slide when using the slider controls."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:148
+msgid "Move by page"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:156
+msgid "Show navigation on hover"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:168
+msgid "Show navigation controls on hover"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:176
+msgid "Compact navigation"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:180
+msgid "Moves controls below the slider in narrow containers."
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:188
+msgid "Use compact navigation"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:116
 msgid "Wrap around"
 msgstr ""
 
@@ -29308,6 +29409,10 @@ msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:132
 msgid "wrapAround"
+msgstr ""
+
+#: Modularity/source/php/AcfFields/php/mod-slider.php:200
+msgid "Optional text shown below the slider title."
 msgstr ""
 
 #: Modularity/source/php/AcfFields/php/mod-slider.php:143
@@ -31116,6 +31221,7 @@ msgid "Number of columns"
 msgstr ""
 
 #: assets/dist/blocks/js/blocks.js:1
+#: library/Customizer/Sections/Archive.php:252
 msgid "Checkboxes"
 msgstr ""
 
@@ -31223,4 +31329,21 @@ msgstr ""
 #: library/PostsList/Block/block.json
 msgctxt "block description"
 msgid "A block to display a list of posts."
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Audiences"
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:112
+msgid "Audience"
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:126
+msgid "Prices"
+msgstr ""
+
+#: library/SchemaData/Taxonomy/TaxonomiesFromSchemaType/TaxonomiesFromSchemaType.php:127
+msgctxt "Event price term"
+msgid "Free"
 msgstr ""

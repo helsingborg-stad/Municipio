@@ -122,6 +122,8 @@ class BaseController
         $this->data['footerLogotype'] = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype'] = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['footerBackgroundImageStyle'] = $this->getFooterBackgroundImageStyle();
+        $this->data['preFooterImageStyle'] = $this->getPreFooterImageStyle();
+        $this->data['preFooterImageClassList'] = $this->getPreFooterImageClassList();
         $this->data['emblem'] = $this->getEmblem();
         $this->data['showEmblemInHero'] = $this->data['customizer']->showEmblemInHero ?? true;
         $brandTextOption = get_option('brand_text', '');
@@ -419,6 +421,10 @@ class BaseController
         );
 
         $this->data['labels'] = (array) $this->data['lang'];
+
+        //Drawer "You are here" badge
+        $this->data['drawerCurrentBadgeClass'] = $this->isDrawerCurrentBadgeEnabled() ? 's-drawer-menu--current-badge' : '';
+        $this->data['drawerCurrentBadgeStyle'] = $this->getDrawerCurrentBadgeStyle();
 
         add_filter(
             'ComponentLibrary/Component/Lang',
@@ -1189,6 +1195,112 @@ class BaseController
         }
 
         return "--c-footer--background-image: url('" . esc_url($backgroundImage) . "');";
+    }
+
+    /**
+     * Get the inline pre footer image style, or an empty string when no image is set.
+     */
+    public function getPreFooterImageStyle(): string
+    {
+        $preFooterImage = $this->data['customizer']->footerPreFooterImage ?? '';
+
+        if (!is_string($preFooterImage) || trim($preFooterImage) === '') {
+            return '';
+        }
+
+        $style = "background-image: url('" . esc_url($preFooterImage) . "');";
+
+        if ($this->isPreFooterImageTallerOnMobile()) {
+            $style .= ' --municipio-pre-footer-image-mobile-height: ' . $this->getPreFooterImageMobileHeight() . 'px;';
+        }
+
+        return $style;
+    }
+
+    /**
+     * Get the pre footer image class list.
+     *
+     * @return string[]
+     */
+    public function getPreFooterImageClassList(): array
+    {
+        $classList = ['site-pre-footer-image'];
+
+        if ($this->isPreFooterImageTallerOnMobile()) {
+            $classList[] = 'site-pre-footer-image--taller-on-mobile';
+        }
+
+        return $classList;
+    }
+
+    /**
+     * Whether the pre footer image should use the custom mobile height.
+     */
+    private function isPreFooterImageTallerOnMobile(): bool
+    {
+        return (bool) ($this->data['customizer']->footerPreFooterImageTallerOnMobile ?? false);
+    }
+
+    /**
+     * Get the pre footer image height on mobile in pixels, clamped to the allowed range.
+     */
+    private function getPreFooterImageMobileHeight(): int
+    {
+        $height = $this->data['customizer']->footerPreFooterImageMobileHeight ?? 160;
+
+        if (!is_numeric($height)) {
+            return 160;
+        }
+
+        return (int) max(100, min(400, (float) $height));
+    }
+
+    /**
+     * Whether the "You are here" badge should be shown in the drawer menu.
+     */
+    private function isDrawerCurrentBadgeEnabled(): bool
+    {
+        return (bool) ($this->data['customizer']->drawerCurrentBadge ?? false);
+    }
+
+    /**
+     * Get the inline style holding the drawer badge label, or an empty string when disabled.
+     */
+    public function getDrawerCurrentBadgeStyle(): string
+    {
+        if (!$this->isDrawerCurrentBadgeEnabled()) {
+            return '';
+        }
+
+        $label = $this->data['lang']->youAreHere ?? __('You are here', 'municipio');
+        $style = "--drawer-current-badge-label: '" . addcslashes((string) $label, "'\\") . "';";
+
+        $background = $this->sanitizeCssColor($this->data['customizer']->drawerCurrentBadgeColor ?? '');
+        if ($background !== '') {
+            $style .= ' --drawer-current-badge-background: ' . $background . ';';
+        }
+
+        $color = $this->sanitizeCssColor($this->data['customizer']->drawerCurrentBadgeTextColor ?? '');
+        if ($background !== '' && $color !== '') {
+            $style .= ' --drawer-current-badge-color: ' . $color . ';';
+        }
+
+        return $style;
+    }
+
+    /**
+     * Return the value if it is a hex, rgb(a) or CSS variable color, otherwise an empty string.
+     */
+    private function sanitizeCssColor(mixed $value): string
+    {
+        if (!is_string($value)) {
+            return '';
+        }
+
+        $value = trim($value);
+        $pattern = '/^(#[0-9a-fA-F]{3,8}|rgba?\(\s*[0-9.,%\s]+\)|var\(--[a-zA-Z0-9-]+\))$/';
+
+        return preg_match($pattern, $value) === 1 ? $value : '';
     }
 
     /**

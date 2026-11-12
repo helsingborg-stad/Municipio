@@ -38,7 +38,18 @@
         
         @foreach ($getTaxonomyFilterSelectComponentArguments() as $selectArguments)
             <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-4">
-                @select([...$selectArguments, 'size' => 'md'])@endselect
+                @if (isset($selectArguments['checkboxes']))
+                    <fieldset class="c-field s-archive-filter__fieldset">
+                        <legend class="c-field__label">{{ $selectArguments['label'] }}</legend>
+                        <div class="s-archive-filter__checkboxes">
+                            @foreach ($selectArguments['checkboxes'] as $checkboxArguments)
+                                @option($checkboxArguments)@endoption
+                            @endforeach
+                        </div>
+                    </fieldset>
+                @else
+                    @select([...$selectArguments, 'size' => 'md'])@endselect
+                @endif
             </div>
         @endforeach
     

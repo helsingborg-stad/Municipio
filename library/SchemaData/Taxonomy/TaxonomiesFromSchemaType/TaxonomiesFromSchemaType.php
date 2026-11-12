@@ -106,6 +106,27 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         return [
             $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Event Tags', 'municipio'), $this->wpService->__('Event Tag', 'municipio'), ['show_admin_column' => true]),
             $this->createTaxonomy('Event', 'physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $this->wpService->__('Physical Accessibility Feature', 'municipio')),
+            // Keywords are split by term set. 'audience'/'category' come from the headless event API,
+            // 'event_categories' from the legacy event API (its 'user_groups' are organizers, not audiences).
+            new TaxonomyFilteredBySubProperty(
+                $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Audiences', 'municipio'), $this->wpService->__('Audience', 'municipio'), ['show_admin_column' => true]),
+                'keywords',
+                'inDefinedTermSet.name',
+                'audience',
+                'event_audience',
+            ),
+            new TaxonomyFilteredBySubProperty(
+                $this->createTaxonomy('Event', 'keywords.name', $this->wpService->__('Categories', 'municipio'), $this->wpService->__('Category', 'municipio'), ['show_admin_column' => true]),
+                'keywords',
+                'inDefinedTermSet.name',
+                ['category', 'event_categories'],
+                'event_category',
+            ),
+            new TaxonomyWithMappedTermValues(
+                $this->createTaxonomy('Event', 'isAccessibleForFree', $this->wpService->__('Prices', 'municipio'), $this->wpService->__('Price', 'municipio')),
+                ['true' => $this->wpService->_x('Free', 'Event price term', 'municipio')],
+                'event_price',
+            ),
         ];
     }
 

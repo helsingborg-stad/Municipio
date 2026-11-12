@@ -113,6 +113,7 @@ class Enqueue implements Hookable
         // The shell is required by every frontend request. Template controllers
         // add their narrower requirements before the document head is captured.
         $this->assetRequirements->add('shell');
+        $this->enqueue->add('css/palette-color-utilities.css');
         wp_localize_script('js-municipio-shelljs', 'MunicipioLocale', [
             'printbreak' => ['tooltip' => $this->wpService->__('Insert Print Page Break tag', 'municipio')],
             'messages' => [
@@ -198,6 +199,7 @@ class Enqueue implements Hookable
         $this->enqueue->add('css/general.css');
         $this->enqueue->add('css/a11y.css');
         $this->enqueue->add('css/trash-page.css');
+        $this->enqueue->add('css/material-symbols.css');
     }
 
     /**
